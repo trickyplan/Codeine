@@ -1,0 +1,70 @@
+<?php
+
+  function VXF_MediaTag2_Process($Data)
+  {
+      $JSIncludes = array();
+      $CSSIncludes = array();
+     
+      if (preg_match_all('@<media>(.*)</media>@SsUu', $Data, $Matches))
+           {
+            foreach($Matches[0] as $IX => $Match)
+                {         
+                    if (mb_ereg('\.css',$Matches[1][$IX]))
+                        $CSSIncludes[$Matches[1][$IX]] = filemtime(Root.$Matches[1][$IX]);
+                    elseif (mb_ereg('\.js', $Matches[1][$IX]))
+                        $JSSIncludes['JS/'.$Matches[1][$IX]] = filemtime(Root.'JS/'.$Matches[1][$IX]);
+
+                    $Data = str_replace($Match,'', $Data);
+                }
+           }
+
+      $CSI = VXPage::$CSSIncludes;
+      foreach($CSI as $CSS)
+            $CSSIncludes[$CSS] = filemtime(Root.$CSS);
+
+      $HID = md5(implode(',',$CSSIncludes).implode(',',array_keys($CSSIncludes)));
+      $HCSSFile = Data.'_CSS/'.$HID.'.css';
+
+      if (!file_exists(Root.$HCSSFile))
+      {
+          $SStr = '';
+          foreach($CSSIncludes as $Key => $Value)
+              if (file_exists(Root.$Key))
+		  $SStr.= file_get_contents(Root.$Key);
+	      else
+		  VXLogger::Error('CSS '.Root.$Key.' not found');
+          
+          file_put_contents(Root.$HCSSFile, $SStr);
+      }
+
+      $Data = str_replace('<place>CSS</place>',
+              '<link type="text/css" rel="stylesheet" href="/'.$HCSSFile.'" />'."\n".'<!-- '.implode(',',array_keys($CSSIncludes)).'-->', $Data);
+
+      $JSI = VXPage::$JSIncludes;
+      
+      foreach($JSI as $JS)
+          if (file_exists(Root.'JS/'.$JS))
+            $JSSIncludes['JS/'.$JS] = filemtime(Root.'JS/'.$JS);
+          else
+              VXLogger::Error(Root.'JS/'.$JS);
+
+      $HID = md5(implode(',',$JSSIncludes).implode(',',array_keys($JSSIncludes)));
+      $HJSFile = Data.'_JS/'.$HID.'.js';
+
+      if (!file_exists(Root.$HJSFile))
+      {
+          $SStr = '';
+          foreach($JSSIncludes as $Key => $Value)
+            if (file_exists(Root.$Key))
+	      $SStr.= file_get_contents(Root.$Key).";\n";
+	    else
+	      VXLogger::Error('CSS '.Root.$Key.' not found');
+
+          file_put_contents(Root.$HJSFile, $SStr);
+      }
+
+      $Data = str_replace('<place>JS</place>',
+              '<script type="text/javascript" src="/'.$HJSFile.'" ></script>'."\n".'<!-- '.implode(',',array_keys($JSSIncludes)).'-->', $Data);
+
+      return $Data;
+  }
