@@ -1,0 +1,35 @@
+{
+  "Options":
+    {
+    "Privacy": false,
+    "UID": "BigUID"
+    },
+  "Nodes":
+    {
+        "Handle":
+            {
+                "Type":"String",
+                "Searchable": true
+            },
+        "Priority":
+            {
+                "Type": "Integer"
+            },
+        "Signal":
+            {
+                "Type": "String"
+            },
+        "Source":
+            {
+                "Type": "String"
+            },
+        "Subject":
+            {
+                "Type": "String"
+            },
+        "Argument":
+            {
+                "Type": "String"
+            }
+    }
+}

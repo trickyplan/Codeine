@@ -1,0 +1,1135 @@
+@charset "utf-8";
+/* CSS Document */
+
+/*!
+ * Ext JS Library 3.1.0
+ * Copyright(c) 2006-2009 Ext JS, LLC
+ * licensing@extjs.com
+ * http://www.extjs.com/license
+ */
+html,body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,p,blockquote,th,td{margin:0;padding:0;}img,body,html{border:0;}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal;}ol,ul {list-style:none;}caption,th {text-align:left;}h1,h2,h3,h4,h5,h6{font-size:100%;}q:before,q:after{content:'';}
+
+.myriad {
+        font-family: Myriad Pro, Trebuchet MS, Arial, Sans-Serif;
+}
+.garamond {
+        font-family: Garamond, Times New Roman, Serif;
+}
+.palatino {
+        font-family: Palatino, Palatino Linotype, Serif;
+}
+.impact {
+        font-family: Impact, Haettenschweiler, Sans-Serif;
+}
+.tahoma {
+        font-family: Tahoma, Geneva, Sans-Serif;
+}
+.century {
+        font-family: Century Gothic, Arial, Sans-Serif;
+}
+.gill {
+        font-family: Gill Sans, Arial, Sans-Serif;
+}
+.lucida {
+        font-family: Lucida Sans Unicode, Lucida Grande, Sans-Serif;
+}
+.futura {
+        font-family: Futura, Verdana, Sans-Serif;
+}
+.baskerville {
+        font-family: Baskerville, Times New Roman, Serif;
+}
+.hoefler {
+        font-family: Hoefler Text, Georgia, Serif;
+}
+
+.cooper {
+        font-family: Cooper Black, Arial Black, Sans-Serif;
+}
+.rockwell {
+        font-family: Rockwell, Georgia, Serif;
+}
+
+
+p
+{
+    padding: 1px;
+    text-indent: 10px;
+    margin: 2px;
+}
+
+img
+{
+	vertical-align: middle;
+	border: none;
+}
+
+a {text-decoration: none; color: #900; cursor: pointer;margin-bottom:1px;}
+a img {text-decoration: none; color: #900; }
+a.img {text-decoration: none; color: #900; }
+a>img {text-decoration: none; color: #900; }
+a:hover{border-bottom:1px dotted #600;}
+.nou:hover{border-bottom: none;}
+
+.AvatarBox
+{
+	border:1px #CCC solid;
+	margin:2px;
+}
+
+.QRBox
+{
+	border:1px #CCC solid !important;
+	margin:2px;
+}
+
+.Block
+{
+	border:1px #EEE solid;
+	padding:6px;
+	margin:3px 2px 3px 2px;
+}
+
+.Data_Block
+{
+    font-size: 0.9em;
+    border-bottom:1px #EFEFEF solid;
+    padding: 4px;
+    text-indent: 4px;
+    text-align: left;
+}
+
+.Row
+{
+    font-size: 0.7em;
+    margin: 1px;
+    border-bottom:1px #EFEFEF solid;
+    padding: 3px;
+    text-indent: 4px;
+    text-align: left;
+}
+
+.Row:hover
+{
+    font-size: 0.8em;
+    background-color: #FAFAFA;
+    color: #000;
+}
+
+.Data_Block:hover
+{
+	border-bottom:1px #CCC solid;
+}
+
+.Meta_Block
+{
+    text-align: right;
+    font-size: 0.9em;
+    border-bottom:1px #DDD solid;
+    padding: 4px;
+    text-indent: 4px;
+    text-align: left;
+    font-weight: bold;
+}
+
+.Panel
+{
+	background-repeat:repeat-x;
+	background-color:#f4f4f4;
+	border:1px #EFEFEF solid;
+	padding:8px;
+	margin: 4px;
+    color: #333;
+    background-image:url(/Images/glass-bg-data.png);
+}
+
+.Panel:hover
+{
+    border: 1px #EEE solid;
+    color: #000;
+}
+
+.Panel_Selected
+{
+        background-color: #000;
+        background-image:url(/Images/black-glass-bg.png);
+	background-repeat:repeat-x;
+        
+	border:1px #DDD solid;
+	padding:8px;
+	margin:3px 2px 3px 2px;
+        color: #FFF;
+}
+
+.SPanel
+{
+	background-repeat:repeat-x;
+	background-color:#f4f4f4;
+	border:1px #EFEFEF solid;
+	padding:8px;
+	margin: 4px;
+    color: #333;
+    background-image:url(/Images/glass-bg-data.png);
+}
+
+.SPanel:hover
+{
+    background-color: #000;
+    background-image:url(/Images/black-glass-bg.png);
+	background-repeat:repeat-x;
+	border:1px #DDD solid;
+    color: #FFF;
+}
+
+.Panel_Selected a {color: #FFF; border-bottom-color: #FFF;}
+
+.Panel_Error
+{
+	background-image:url(/Images/red-glass-bg.png);
+	border:1px #D00 solid;
+	color: #600;
+}
+
+.Panel_Warning
+{
+	background-image:url(/Images/yellow-glass-bg.png);
+	border:1px #DD0 solid;
+	color: #600;
+}
+
+.Panel_Info
+{
+	background-image:url(/Images/blue-glass-bg.png);
+	border:1px #00D solid;
+	color: #600;
+}
+
+.Panel_Hint
+{
+	background-image:url(/Images/green-glass-bg.png);
+	border:1px #0D0 solid;
+	color: #600;
+}
+
+
+
+.Button:hover
+{
+    background-color: #000;
+    background-image:url(/Images/black-glass-bg.png);
+    color: #FFF;
+}
+
+.Button_Active, .Button:active
+{
+	background-image:url(/Images/black-glass-bg.png);
+	border: 1px solid #000;
+	color: #FFF;
+}
+
+.Button_Positive
+{
+	background-image:url(/Images/green-glass-bg.png);
+	background-position: top;
+}
+
+.Button_Negative
+{
+	background-image:url(/Images/red-glass-bg.png);
+	background-position: top;
+}
+
+.Sidebar_Button
+{
+	font-size: 0.9em;
+	padding: 3px 9px 3px 9px;
+	cursor: pointer;
+    background-image:url(/Images/glass-bg-data.png);
+    background-position: top;
+    border-left: 1px #EEE solid;
+    border-right: 1px #EEE solid;
+    border-bottom: thin #EEE solid;
+}
+
+.Sidebar_Disabled
+{
+	font-size: 0.9em;
+	padding: 3px 9px 3px 9px;
+	opacity: 0.5;
+    background-image:url(/Images/glass-bg-data.png);
+    border-right: 2px #EEE solid;
+    border-left: 1px #EEE solid;
+    border-bottom: thin #EEE solid;
+}
+
+.Sidebar_Group
+{
+	background-image:url(/Images/glass-bg-data.png);
+	background-position: top;
+	padding: 4px 8px 4px 8px;
+	margin-right: 1px;
+    margin-top: 2px;
+    text-align: right;
+	border: 1px solid #EEE;
+    border-bottom: none;
+    -moz-border-radius: 8px 8px 0px 0px;
+    -o-border-radius: 8px 8px 0px 0px;
+    -webkit-border-radius: 8px 8px 0px 0px;
+    border-radius: 8px 8px 0px 0px;
+}
+
+.WidgetHeader
+{
+	background-image:url(/Images/glass-bg-data.png);
+	background-position: top;
+	padding: 4px 8px 4px 8px;
+	margin-right: 1px;
+    margin-top: 2px;
+    text-align: right;
+	border: 1px solid #EEE;
+    border-bottom: none;
+    -moz-border-radius: 8px 8px 0px 0px;
+    -o-border-radius: 8px 8px 0px 0px;
+    -webkit-border-radius: 8px 8px 0px 0px;
+    border-radius: 8px 8px 0px 0px;
+}
+
+.Sidebar_Button_Active, .Sidebar_Button:hover
+{
+	background-image: url(/Images/redglass.png);
+	color: #FFF;
+	background-color: #333;
+}
+
+.Caption
+{
+	background-image:url(/Images/Theme/NewRed/OXBar.png);
+	background-repeat: no-repeat;
+	background-position: 0px -3px;
+	border: 1px solid #CCC;
+	text-indent: 10px;
+	text-align: left;
+	margin: 2px;
+	padding: 2px;
+}
+
+.Tag
+{
+	background-image:url(/Images/glass-bg.png);
+	padding: 2px 4px 2px 4px;
+    margin: 0px 2px 0px 2px;
+    font-size: 0.8em;
+	border: 1px solid #EEE;
+    -moz-border-radius: 4px;
+    -o-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+}
+
+.Tag:hover
+{
+	background-image:url(/Images/blackglass.png);
+    color: #FFF;
+}
+
+.Tab
+{
+	background-image:url(/Images/glass-bg.png);
+	background-position: top;
+	padding: 4px 8px 4px 8px;
+	margin-right: 4px;
+	border: 1px solid #EEE;
+    border-bottom: none;
+    cursor: pointer;
+    -moz-border-radius: 8px 8px 0px 0px;
+    -o-border-radius: 8px 8px 0px 0px;
+    -webkit-border-radius: 8px 8px 0px 0px;
+    border-radius: 8px 8px 0px 0px;
+}
+
+.Tab_Block
+{
+/*    background-image:url(/Images/glass-bg-data.png); */
+    background-color: #fbfbfb;
+    background-position: bottom;
+	padding: 6px;
+	border: 1px solid #EEE;
+    border-top: none;
+    margin: 4px;
+    margin-top: -4px;
+    -moz-border-radius: 0px 0px 8px 8px;
+    -o-border-radius: 0px 0px 8px 8px;
+    -webkit-border-radius: 0px 0px 8px 8px;
+    border-radius: 0px 0px 8px 8px;
+}
+
+.Tab:hover
+{
+    background-image:url(/Images/blackglass.png);
+    border: 1px solid #EEE;
+    border-bottom: none;
+	background-color: #900;
+	color: #FFF;
+}
+
+.Tab_Selected
+{
+    background-image:url(/Images/redglass.png);
+    border: 1px solid #EEE;
+    border-bottom: none;
+	background-color: #900;
+	color: #FFF;
+}
+
+.Tab_Selected a {color: #FFF; border-bottom-color: #FFF;}
+.Tab:Hover a {color: #FFF; border-bottom-color: #FFF;}
+
+
+.Icon
+{
+    vertical-align: top;
+}
+
+
+
+/* FORMS */
+
+.Button
+{
+	background-image:url(/Images/glass.png);
+	background-position: top;
+	padding: 2px;
+	border: 1px solid #CCC;
+        vertical-align:middle;
+        cursor: pointer;
+}
+.Action
+{
+      cursor: pointer;
+}
+
+.Footer_Button
+{
+	background-image:url(/Images/glass.png);
+	background-position: top;
+	padding: 6px;
+	border: 1px solid #CCC;
+        vertical-align:middle;
+        text-align: center;
+        padding-left:8px;
+}
+
+.Footer_Button:hover
+{
+    background-image:url(/Images/blackglass.png);
+}
+
+.Footer_Button a
+{
+    border: none;
+}
+
+.Footer_Button:hover a
+{
+    color: #FFF;
+}
+
+.Textfield {
+	background-image: url(/JS/Ext/resources/images/default/form/text-bg.gif);
+	background-repeat: repeat-x;
+	background-position: 0 0;
+	background-attachment: scroll;
+	line-height: 14px;
+	padding: 1px 6px 1px 6px;
+	border:1px #B5B8C8 solid;
+}
+.Textfield_MicroBlog {
+	vertical-align:middle;
+	margin:2px;
+	border:1px solid #DDD;
+	height:38px;
+	font-size: 2em;
+	text-indent: 4px;
+}
+
+.Textfield_Big {
+	vertical-align:middle;
+	margin:2px;
+	border:1px solid #DDD;
+	height:38px;
+	font-size: 2em;
+	text-indent: 4px;
+}
+
+.Search_Field
+{
+	vertical-align:middle;
+	margin:2px;
+	border:1px solid #DDD;
+	text-indent: 4px;
+}
+/* Menu */
+
+.Standart_Button
+{
+	background-image:url(/VXi_Code/JS/Ext/resources/images/default/button/btn.gif);
+	background-repeat:repeat-x;
+	background-color:#f4f4f4;
+	padding:4px;
+	margin:1px;
+	vertical-align:middle;
+	text-align: center;
+	border:1px #EEE solid;
+	cursor: pointer;
+	opacity: 0.8;
+}
+.Object_Caption
+{
+	font-size: 2em;
+	text-align: right;
+	color: #900;
+}
+
+.txtC{text-align:center;}
+.txtL{text-align:left;}
+.txtR{text-align:right;}
+.txtT{vertical-align:top;}
+.txtB{vertical-align:bottom;}
+.txtM{vertical-align:middle;}
+
+/* **************** GRIDS ***************** */
+.line, .lastUnit {
+	overflow: hidden;
+	_overflow: visible;
+	zoom:1;
+	width:auto !important;
+}
+.unit {
+	float:left;
+	zoom:1;
+}
+.size1of1 {
+	float:none;
+}
+.size1of2 {
+	width:50%;
+	_width:49.9% !important;
+}
+.size1of3 {
+	width:33.33333%;
+	_width:33.25% !important;
+}
+.size2of3 {
+	width:66.66666%;
+	_width:66.65% !important;
+}
+.size1of4 {
+	width:25%;
+	_width:24.95% !important;
+}
+.size3of4 {
+	width:75%;
+	_width:74.95% !important;
+}
+.size1of5 {
+	width:20%;
+	_width:19.95% !important;
+}
+.size2of5 {
+	width:40%;
+	_width:39.95% !important;
+}
+.size3of5 {
+	width:60%;
+	_width:59.95% !important;
+}
+.size4of5 {
+	width:80%;
+	_width:79.95% !important;
+}
+.size1of6 {
+	width:16%;
+	_width:16.67% !important;
+}
+.lastUnit {
+	float:none;
+	_float:right;
+}
+
+.w10{width: 10%;}
+.w20{width: 20%;}
+.w30{width: 30%;}
+.w40{width: 40%;}
+.w50{width: 50%;}
+.w60{width: 60%;}
+.w70{width: 70%;}
+.w80{width: 80%;}
+.w90{width: 90%;}
+.w100{width: 100%;}
+
+.w15{width: 15%;}
+.w25{width: 25%;}
+.w35{width: 35%;}
+.w45{width: 45%;}
+.w55{width: 55%;}
+.w65{width: 65%;}
+.w75{width: 75%;}
+.w85{width: 85%;}
+.w95{width: 95%;}
+
+/* **************** TEMPLATE ***************** */
+/* ====== Page Head, Body, and Foot ====== */
+#bd{overflow:hidden; _overflow:visible; zoom:1;}
+#page{margin: 0 auto; width: 950px;} /* wraps entire page */
+/* 
+"old school" and "liquid" extend #main to allow for different page widths
+(important is required so a class can overwrite an ID)
+*/
+.oldSchool{width:750px !important;}
+.liquid{width: auto !important;margin:0;}
+/* ====== Columns ====== */
+.main{overflow:hidden; _overflow:visible; zoom:1;}
+.leftCol{float:left; width:250px;}
+.rightCol{float:right; width: 300px;}
+/* extend columns to allow for common column widths */
+.gMail{width:160px;}
+.gCal{width:180px;}
+.yahoo{width:240px;}
+.myYahoo{width:300px;}
+
+.opium {opacity: 0.5;}.opium:hover {opacity: 1;}
+
+.Space {padding: 4px;}
+
+nrl {color:teal;}
+
+.Photo_Block
+{
+	border: 1px solid #999;
+	margin: 2px 2px 2px 2px;
+}
+
+.LiveEdit {
+	display: inline !important;
+	}
+	
+.LiveEdit > form {display: inline;}
+
+#SideBar_Template
+{
+	display: none;
+}
+
+h1, h2, h3, h4, h5, h6
+{
+    font-family: sans-serif;
+    color: #333;
+    text-align: right;
+    padding: 2px;
+    letter-spacing: -0.07em;
+}
+
+h1 {font-size: 2.7em;margin:14px;color: #222;}
+h2 {font-size: 2.2em;margin:10px;color: #333;}
+h3 {font-size: 1.7em;margin:4px;color: #444;margin-top: 8px;}
+h4 {font-size: 1.4em;margin:2px;color: #555;margin-top: 8px;}
+h5 {font-size: 1.1em;margin:1px;color: #666;margin-top: 8px;}
+h6 {font-size: 0.8em;margin:0px;color: #777;margin-top: 4px; font-weight: normal;}
+
+.em {font-size: 0.8em;margin:0px;color: #777; text-align: right; display: block; font-style: italic;}
+
+.Radio
+{
+    vertical-align:middle;
+}
+
+fieldset
+{
+    border: 1px dotted #CCC;
+}
+
+
+.Avatar_Online_, .Avatar_Online_False
+{
+    border: 1px #920 solid !important;
+}
+
+.Avatar_Online_True
+{
+    border: 1px #092 solid !important;
+}
+
+.Username_Online_, .Username_Online_False, .Username_Online_>a, .Username_Online_False>a
+{
+    color: #920 !important;
+}
+
+Username_Online_True, Username_Online_True>a
+{
+    color: #092 !important;
+}
+
+sup
+{
+    vertical-align: top;
+}
+
+.fL
+{
+    float: left;
+    margin: 3px;
+    margin-right: 6px;
+}
+
+
+.Textarea
+{
+    width: 90%;
+    background-image: url(/JS/Ext/resources/images/default/form/text-bg.gif);
+    background-repeat: repeat-x;
+    background-position: 0 0;
+    background-attachment: scroll;
+    line-height: 14px;
+    padding: 1px 6px 1px 6px;
+    border:1px #B5B8C8 solid;
+}
+
+small
+{
+    color: #999;
+}
+
+#tip {
+    display:none;
+    background-image:url(/Images/glass.png);
+    background-repeat:repeat-x;
+    width:100px;
+    text-align: center;
+    padding:6px;
+    border: 1px solid #CCC;
+    color:#600;
+    border-radius: 2px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+}
+
+.opium
+{
+    opacity: 0.7;
+    -moz-opacity: 0.7;
+    -webkit-opacity: 0.7;
+    -o-opacity: 0.7;
+}
+.nou
+{
+    border-bottom:none;
+}
+
+select
+{
+    	background-color: transparent;
+        background-image: url(/JS/Ext/resources/images/default/form/text-bg.gif);
+	background-repeat: repeat-x;
+	background-position: 0 0;
+	background-attachment: scroll;
+	line-height: 14px;
+	padding: 1px;
+	border:1px #B5B8C8 solid;
+        min-width: 150px;
+}
+
+strong
+{
+    font-weight: bold;
+    letter-spacing: -1px;
+}
+
+.Good {
+	background-image:url(/Images/greenglass.png)!important;
+	color:#FFF !important;
+}
+
+.Notify {
+	background-image:url(/Images/glass.png)!important;
+	color:#000 !important;
+}
+
+.Bad {
+        background-image:url(/Images/redglass.png)!important;
+	color:#FFF !important;
+}
+
+.Message {
+        background-image:url(/Images/blueglass.png)!important;
+	color:#FFF !important;
+}
+
+
+
+div.jGrowl {
+	padding: 			10px;
+	z-index: 			9999;
+	color: 				#fff;
+	font-size: 			12px;
+}
+
+/** Normal Style Positions **/
+body > div.jGrowl {
+	position:			fixed;
+}
+
+body > div.jGrowl.top-left {
+	left: 				0px;
+	top: 				0px;
+}
+
+body > div.jGrowl.top-right {
+	right: 				0px;
+	top: 				0px;
+}
+
+body > div.jGrowl.bottom-left {
+	left: 				0px;
+	bottom:				0px;
+}
+
+body > div.jGrowl.bottom-right {
+	right: 				0px;
+	bottom: 			0px;
+}
+
+body > div.jGrowl.center {
+	top: 				20%;
+	width: 				50%;
+	left: 				25%;
+}
+
+/** Cross Browser Styling **/
+div.center div.jGrowl-notification, div.center div.jGrowl-closer {
+	margin-left: 		auto;
+	margin-right: 		auto;
+}
+
+div.jGrowl div.jGrowl-notification, div.jGrowl div.jGrowl-closer {
+        opacity: 				.85;
+        -ms-filter: 			"progid:DXImageTransform.Microsoft.Alpha(Opacity=85)";
+        filter: 				progid:DXImageTransform.Microsoft.Alpha(Opacity=85);
+	zoom: 					1;
+	width: 					300px;
+	padding: 				10px;
+	margin-top: 			5px;
+	margin-bottom: 			5px;
+	font-family: 			sans-serif;
+	font-size: 				1em;
+	text-align: 			left;
+	display: 				none;
+	-moz-border-radius: 	5px;
+	-webkit-border-radius:	5px;
+        border:1px #CCC solid;
+}
+
+div.jGrowl div.jGrowl-notification {
+        color:#333;
+        background-image: url(/Images/glass.png);
+	min-height: 			40px;
+}
+
+div.jGrowl div.jGrowl-notification div.header {
+	font-weight: 			bold;
+	font-size:				.85em;
+}
+
+div.jGrowl div.jGrowl-notification div.close {
+	z-index:				99;
+	float: 					right;
+	font-weight: 			bold;
+	font-size: 				1em;
+	cursor:					pointer;
+
+}
+
+div.jGrowl div.jGrowl-closer {
+	padding-top: 			4px;
+	padding-bottom: 		4px;
+	cursor: 				pointer;
+	font-size:				.9em;
+	font-weight: 			bold;
+	text-align: 			center;
+        color: #000;
+        background-image:url(/Images/glass.png);
+}
+
+/** Hide jGrowl when printing **/
+@media print {
+	div.jGrowl {
+		display: 			none;
+	}
+}
+
+.Logger_Tag {
+	margin:1px;
+	border:1px solid #CCC;
+	background-color:#FFF;
+	padding:2px 3px;
+	opacity:0.6;
+	cursor:pointer
+}
+.Logger_Tag_Selected {
+	border:1px solid #900;
+	color:#900;
+	opacity:1
+}
+#Logger {
+	color:#333;
+	background-color:#FFF;
+	border:1px solid #666;
+	position:absolute;
+	top:1%;
+	left:1%;
+	margin:0;
+	width:98%;
+	overflow:auto;
+	display:none;
+	z-index:20;
+}
+#LoggerBack {
+	background-color:#666;
+	opacity:0.5;
+	position:absolute;
+	top:0;
+	left:0;
+	margin:0;
+	width:100%;
+	height:100%;
+	overflow:hidden;
+	display:none
+}
+.Logger {
+        font-family: monospace;
+        font-size: 1em;
+        background-color:#FFF;
+        opacity:0.7;
+        font-weight: normal;
+        padding:2px;
+        vertical-align: middle;
+        margin-bottom: 1px;
+        text-indent: 5px;
+        border-bottom: 1px solid #999;
+}
+.Logger:hover {
+	background-image:url(/Images/black-glass-bg.png);
+	color:#FFF;
+	opacity:1;
+	font-size: 1.15em;
+    border: 1px solid #666;
+}
+.Logger_Error {
+	background-image:url(/Images/red-glass-bg.png);
+	border-bottom:1px #D00 solid;
+	color:#222;
+	opacity:1;
+	font-size: 1.3em;
+}
+.Logger_Warning {
+	background-image:url(/Images/yellow-glass-bg.png);
+	border-bottom:1px #DD0 solid;
+	color:#222;
+	opacity:0.9;
+	font-size: 1.2em;
+}
+.Logger_Query {
+	font-size: 0.9em;
+    background-image:url(/Images/blue-glass-bg.png);
+	border-bottom:1px #00D solid;
+	color:#222;
+}
+.Logger_Perfomance {
+	background-image:url(/Images/glass-bg.png);
+	border-bottom:1px #999 solid;
+	color:#003366;
+}
+.Logger_Hint {
+	background-image:url(/Images/glass-bg.png);
+	border-bottom:1px #999 solid;
+	color:#F08400;
+}
+.Logger_Info {
+	background-image:url(/Images/glass-bg.png);
+	border-bottom:1px #999 solid;
+	color:#222;
+}
+.Logger_Good {
+	background-image:url(/Images/green-glass-bg.png);
+	border-bottom:1px #0D0 solid;
+	color:#222;
+}
+.Logger_Bad {
+	background-image:url(/Images/red-glass-bg.png);
+	border-bottom:1px #D00 solid;
+	color:#222;
+}
+.Logger_Dump {
+	background-image:url(/Images/glass-bg.png);
+	border-bottom:1px #CCC solid;
+	color:#222;
+	font-size: 0.9em;
+}
+.Logger_Important {
+	background-image:url(/Images/black-glass-bg.png);
+	border-bottom:1px #666 solid;
+	color:#FFF;
+	opacity:1;
+	font-size: 1.1em;
+}
+.Logger_Stage {
+	background-image:url(/Images/black-glass-bg.png);
+	border-bottom:1px #666 solid;
+	color:#FFF;
+	text-align:center;
+	font-size: 1.3em;
+	font-variant:small-caps;
+}
+
+.Perfomance
+{
+    text-indent: 5px;
+    font-family: monospace;
+}
+
+.Perfomance_Slow
+{
+    	background-image:url(/Images/red-glass-bg.png);
+	border-bottom:1px #D00 solid;
+	color:#100;
+}
+
+.Perfomance_Normal
+{
+	background-image:url(/Images/yellow-glass-bg.png);
+	border-bottom:1px #DD0 solid;
+	color:#222;
+}
+.Perfomance_Fast {
+	background-image:url(/Images/green-glass-bg.png);
+	border-bottom:1px #0D0 solid;
+	color:#222;
+}
+
+.PerfomanceTable
+{
+    border: 1px solid #999;
+    opacity:0.9;
+}
+
+.Perfomance_Caption
+{
+    padding: 4px;
+    color: #FFF;
+    background-image: url(/Images/black-glass-bg.png);
+}
+.Logger_Icon
+{
+    vertical-align: middle;
+}
+
+.hide{display:none;}
+
+.Big_Text{font-size: 2em;}
+
+.TabBar
+{
+    padding-left: 10px;
+}
+
+.gray{color:#666;}
+
+option {
+    background-repeat: no-repeat;
+    text-indent: 16px;
+}
+#Profile{width:100%;margin:0 auto;text-align:left;}
+#ProfileCol{float:left;width:215px;padding-top:5px;}
+#ProfileContent{margin:5px 0px 0px 18em;padding:3px;}
+#Profile_Tab{border-top:1px solid #EEE;margin-top:4px;padding:4px;}
+.fltrt{float:right;margin-left:8px;}
+.fltlft{float:left;margin-right:8px;}
+.clearfloat{clear:both;height:0;font-size:1px;line-height:0px;}
+body{margin:0;padding:0;font-family:sans-serif;font-size:13px;background-color:#FAFAFA;}
+#Header{background-image:url(/Images/Theme/NewRed/OXBar.png);z-index:20;height:64px;}
+#HeaderI{text-align:left;}
+#HeaderL{text-align:right;}
+#Footer{width:100%;bottom:0;margin-bottom:0px;height:38px;background-image:url(/Images/glass.png);background-repeat:repeat-x;position:fixed;padding-top:4px;padding-left:4px;border:1px solid #CCC;}
+#Main{height:100%;}
+#Content{padding:0px;width:100%;}
+#SideBar{float:right;width:18%;margin-top:4px;}
+#HeadArrow{background-repeat:no-repeat;background-position:right center;text-align:left;}
+
+#sb-title-inner,#sb-info-inner,#sb-loading-inner,div.sb-message{font-family:"HelveticaNeue-Light","Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:200;color:#fff;}
+#sb-container{position:fixed;margin:0;padding:0;top:0;left:0;z-index:999;text-align:left;visibility:hidden;display:none;}
+#sb-overlay{position:relative;height:100%;width:100%;}
+#sb-wrapper{position:absolute;visibility:hidden;width:100px;}
+#sb-wrapper-inner{position:relative;border:1px solid #303030;overflow:hidden;height:100px;}
+#sb-body{position:relative;height:100%;}
+#sb-body-inner{position:absolute;height:100%;width:100%;}
+#sb-player.html{height:100%;overflow:auto;}
+#sb-body img{border:none;}
+#sb-loading{position:relative;height:100%;}
+#sb-loading-inner{position:absolute;font-size:14px;line-height:24px;height:24px;top:50%;margin-top:-12px;width:100%;text-align:center;}
+#sb-loading-inner span{background:url(/JS/JQ/ShadowBox/loading.gif) no-repeat;padding-left:34px;display:inline-block;}
+#sb-body,#sb-loading{background-color:#060606;}
+#sb-title,#sb-info{position:relative;margin:0;padding:0;overflow:hidden;}
+#sb-title,#sb-title-inner{height:26px;line-height:26px;}
+#sb-title-inner{font-size:16px;}
+#sb-info,#sb-info-inner{height:20px;line-height:20px;}
+#sb-info-inner{font-size:12px;}
+#sb-nav{float:right;height:16px;padding:2px 0;width:45%;}
+#sb-nav a{display:block;float:right;height:16px;width:16px;margin-left:3px;cursor:pointer;background-repeat:no-repeat;}
+#sb-nav-close{background-image:url(/JS/JQ/ShadowBox/close.png);}
+#sb-nav-next{background-image:url(/JS/JQ/ShadowBox/next.png);}
+#sb-nav-previous{background-image:url(/JS/JQ/ShadowBox/previous.png);}
+#sb-nav-play{background-image:url(/JS/JQ/ShadowBox/play.png);}
+#sb-nav-pause{background-image:url(/JS/JQ/ShadowBox/pause.png);}
+#sb-counter{float:left;width:45%;}
+#sb-counter a{padding:0 4px 0 0;text-decoration:none;cursor:pointer;color:#fff;}
+#sb-counter a.sb-counter-current{text-decoration:underline;}
+div.sb-message{font-size:12px;padding:10px;text-align:center;}
+div.sb-message a:link,div.sb-message a:visited{color:#fff;text-decoration:underline;}
+
+#Language li {
+    margin: 5px 0px;
+    display: inline;
+}
+
+.column { width: 33%; float: left; padding-bottom: 100px; }
+.portlet { margin: 0 1em 1em 0; padding: 4px; width: 100%;}
+.portlet-header { margin: 0.3em; padding-bottom: 4px; padding-left: 0.2em; }
+.portlet-header .ui-icon { float: right; }
+.portlet-content { padding: 0.4em; }
+.ui-sortable-placeholder { border: 1px dotted black; visibility: visible !important; height: 50px !important; }
+.ui-sortable-placeholder * { visibility: hidden; }
+
+div.grippie {
+				background: #EEEEEE url(/Images/grippie.png) no-repeat scroll center 2px;
+				border-color:#DDDDDD;
+				border-style:solid;
+				border-width:0pt 1px 1px;
+				cursor:s-resize;
+				height:9px;
+				overflow:hidden;
+			}
+			.resizable-textarea textarea {
+				display:block;
+				margin-bottom:0pt;
+				width:95%;
+				height: 20%;
+			}
+
+#Tip {
+
+    display:none; 
+    background:url(/Images/blackglass.png);
+    border: 1px solid #CCC;
+    padding:5px;
+    color:#FFF;
+
+}

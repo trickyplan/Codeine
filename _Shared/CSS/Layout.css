@@ -1,0 +1,10 @@
+.fltrt{float:right;margin-left:8px;}
+.fltlft{float:left;margin-right:8px;}
+.clearfloat{clear:both;height:0;font-size:1px;line-height:0px;}
+.column { width: 33%; float: left; padding-bottom: 100px; }
+.portlet { margin: 0 1em 1em 0; padding: 4px; width: 100%;}
+.portlet-header { margin: 0.3em; padding-bottom: 4px; padding-left: 0.2em; }
+.portlet-header .ui-icon { float: right; }
+.portlet-content { padding: 0.4em; }
+.ui-sortable-placeholder { border: 1px dotted black; visibility: visible !important; height: 50px !important; }
+.ui-sortable-placeholder * { visibility: hidden; }

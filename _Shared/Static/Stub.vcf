@@ -1,0 +1,16 @@
+BEGIN:VCARD
+BDAY:[Date:Born]
+EMAIL:<EMail>
+FN:<Name> "<Nickname>" <Surname>
+N:<Surname>;<Name>;;;
+NICKNAME:<Nickname>
+PHOTO;ENCODING=b;TYPE=image/jpeg:[Photo]
+TEL;TYPE=WORK:<Phone:Work>
+TEL;TYPE=HOME:<Phone:Home>
+TEL;TYPE=CELL:<Phone:Cell>
+UID:<Nickname>
+URL:<URL:Homepage>
+VERSION:3.0
+X-KADDRESSBOOK-BlogFeed:<URL:Blog>
+X-KADDRESSBOOK-X-IMAddress:<IM>
+END:VCARD

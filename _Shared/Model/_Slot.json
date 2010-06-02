@@ -1,0 +1,15 @@
+{
+  "Options":
+    {
+    "Privacy": false,
+    "UID": "BigUID"
+    },
+  "Nodes":
+    {
+        "Handle":
+            {
+                "Type":"String",
+                "Searchable": true,
+            }
+    }
+}

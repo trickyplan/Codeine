@@ -1,0 +1,31 @@
+{
+  "Options":
+    {
+    "Privacy": false,
+    "UID": "Default"
+    },
+  "Nodes":
+    {
+        "Handle":
+            {
+                "Type":"String",
+                "Searchable": true,
+                "Required": true,
+                "Editor":"Textfield"
+            },
+        "Title":
+            {
+                "Type":"String",
+                "Searchable": true,
+                "Required": true,
+                "Editor":"Textfield"
+            },
+        "Body":
+            {
+                "Type":"HTML",
+                "Searchable":true,
+                "Required":true,
+                "Editor":"HTML"
+            }
+    }
+}

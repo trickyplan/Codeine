@@ -1,0 +1,165 @@
+.Logger_Tag {
+	margin:1px;
+	border:1px solid #CCC;
+	background-color:#FFF;
+	padding:2px 3px;
+	opacity:0.6;
+	cursor:pointer
+}
+.Logger_Tag_Selected {
+	border:1px solid #900;
+	color:#900;
+	opacity:1
+}
+#Logger {
+	color:#333;
+	background-color:#FFF;
+	border:1px solid #666;
+	position:absolute;
+	top:1%;
+	left:1%;
+	margin:0;
+	width:98%;
+	overflow:auto;
+	display:none;
+	z-index:20;
+}
+#LoggerBack {
+	background-color:#666;
+	opacity:0.5;
+	position:absolute;
+	top:0;
+	left:0;
+	margin:0;
+	width:100%;
+	height:100%;
+	overflow:hidden;
+	display:none
+}
+.Logger {
+        font-family: monospace;
+        font-size: 1em;
+        background-color:#FFF;
+        opacity:0.7;
+        font-weight: normal;
+        padding:2px;
+        vertical-align: middle;
+        margin-bottom: 1px;
+        text-indent: 5px;
+        border-bottom: 1px solid #999;
+}
+.Logger:hover {
+	background-image:url(/Images/black-glass-bg.png);
+	color:#FFF;
+	opacity:1;
+	font-size: 1.15em;
+    border: 1px solid #666;
+}
+.Logger_Error {
+	background-image:url(/Images/red-glass-bg.png);
+	border-bottom:1px #D00 solid;
+	color:#222;
+	opacity:1;
+	font-size: 1.3em;
+}
+.Logger_Warning {
+	background-image:url(/Images/yellow-glass-bg.png);
+	border-bottom:1px #DD0 solid;
+	color:#222;
+	opacity:0.9;
+	font-size: 1.2em;
+}
+.Logger_Query {
+	font-size: 0.9em;
+    background-image:url(/Images/blue-glass-bg.png);
+	border-bottom:1px #00D solid;
+	color:#222;
+}
+.Logger_Perfomance {
+	background-image:url(/Images/glass-bg.png);
+	border-bottom:1px #999 solid;
+	color:#003366;
+}
+.Logger_Hint {
+	background-image:url(/Images/glass-bg.png);
+	border-bottom:1px #999 solid;
+	color:#F08400;
+}
+.Logger_Info {
+	background-image:url(/Images/glass-bg.png);
+	border-bottom:1px #999 solid;
+	color:#222;
+}
+.Logger_Good {
+	background-image:url(/Images/green-glass-bg.png);
+	border-bottom:1px #0D0 solid;
+	color:#222;
+}
+.Logger_Bad {
+	background-image:url(/Images/red-glass-bg.png);
+	border-bottom:1px #D00 solid;
+	color:#222;
+}
+.Logger_Dump {
+	background-image:url(/Images/glass-bg.png);
+	border-bottom:1px #CCC solid;
+	color:#222;
+	font-size: 0.9em;
+}
+.Logger_Important {
+	background-image:url(/Images/black-glass-bg.png);
+	border-bottom:1px #666 solid;
+	color:#FFF;
+	opacity:1;
+	font-size: 1.1em;
+}
+.Logger_Stage {
+	background-image:url(/Images/black-glass-bg.png);
+	border-bottom:1px #666 solid;
+	color:#FFF;
+	text-align:center;
+	font-size: 1.3em;
+	font-variant:small-caps;
+}
+
+.Perfomance
+{
+    text-indent: 5px;
+    font-family: monospace;
+}
+
+.Perfomance_Slow
+{
+    	background-image:url(/Images/red-glass-bg.png);
+	border-bottom:1px #D00 solid;
+	color:#100;
+}
+
+.Perfomance_Normal
+{
+	background-image:url(/Images/yellow-glass-bg.png);
+	border-bottom:1px #DD0 solid;
+	color:#222;
+}
+.Perfomance_Fast {
+	background-image:url(/Images/green-glass-bg.png);
+	border-bottom:1px #0D0 solid;
+	color:#222;
+}
+
+.PerfomanceTable
+{
+    border: 1px solid #999;
+    opacity:0.9;
+}
+
+.Perfomance_Caption
+{
+    padding: 4px;
+    color: #FFF;
+    background-image: url(/Images/black-glass-bg.png);
+}
+.Logger_Icon
+{
+    vertical-align: middle;
+}

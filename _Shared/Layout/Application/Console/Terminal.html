@@ -1,0 +1,23 @@
+<div class="Panel">
+<form id="Console" action="/ajax/Console/Terminal" method="post" enctype="multipart/form-data">
+        <icon>Console/Terminal</icon> <input type="text" class="Textfield_Big" name="CMD"/>
+        <input type="submit" value="OK"/>
+</form>
+</div>
+<div id="Output" class="Block">
+    
+</div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#Console').submit(function() {
+            $(this).ajaxSubmit({
+            clearForm: true,
+            success: function (data) {
+                $('#Output').html(data)
+            }
+        });
+        return false;
+    });
+});
+</script>
