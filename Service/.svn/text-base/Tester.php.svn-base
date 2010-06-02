@@ -1,0 +1,33 @@
+<?php
+
+  // krumo(Core::$Conf);
+
+  function Failed($Test)
+  {
+      echo '<div style="padding:4px; margin: 2px; color: #900;"> Bad '.$Test.'</div>';
+  }
+
+  function Success($Test)
+  {
+      echo '<div style="padding:4px; margin: 2px; color: #090;"> OK! '.$Test.'</div>';
+  }
+
+
+  foreach (Core::$Conf['Mounts'] as $Name => $Mount)
+  {
+      //krumo($Name, Data::Mount($Name));
+      if (Data::Mount($Name) == false)
+          Failed($Name);
+      else
+          Success($Name);
+  }
+  
+  foreach (Core::$Conf['Storages'] as $Name => $Storage)
+  {
+        if (Data::Connect($Name) == false)
+            Failed($Name);
+        else
+            Success($Name);
+  }
+  
+  

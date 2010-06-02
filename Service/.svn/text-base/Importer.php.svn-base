@@ -1,0 +1,53 @@
+<?php
+
+$Sources = new Collection('_RSS');
+$Sources->Query('@All');
+$Sources->Slice(0, 5);
+$Sources->Load();
+
+Timing::Go('RSS Server');
+
+$Object = new Object('News');
+$Model = $Object->Model();
+
+$Sc = 0;
+$IC = 0;
+
+foreach ($Sources as $Source)
+{
+    $Data = array();
+    $RSS = simplexml_load_string(file_get_contents($Source->Get('URL')));
+    $Sc++;
+
+    $News = new Collection('News');
+    $News->Query('=Source='.$Source->Name);
+    
+    $GUIDs = $News->VariantsOf('GUID');
+
+        foreach ($RSS->channel->item as $Item)
+        {
+            $ID = uniqid('News', true);
+            
+            if (!in_array($ID, $GUIDs))
+            {
+                $Object->Name($ID);
+
+                $Object->Add('News:Title', (string)$Item->title);
+                $Object->Add('News:Description', (string)$Item->description);
+                $Object->Add('GUID', (string) $Item->guid);
+                
+                // $Object->Add('Indexed', preg_split('/[\s,]+/', (string) $Item->title));
+                
+                foreach ($Item->category as $Category)
+                    $Object->Add('Category', (string) $Category);
+                
+                $Object->Add('CreatedOn', time());
+                $Object->Add('Source', $Source->Name);
+                $Object->Save();
+                $IC++;
+            }
+        }
+
+}
+
+echo 'Обработано '.$Sc.' источников. Импортировано '.$IC.' новостей';

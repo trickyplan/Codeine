@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 33
+/svn/Codeine/!svn/ver/216/Service
+END
+RCE.php
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/svn/Codeine/!svn/ver/145/Service/RCE.php
+END
+CentralMail.php
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/Codeine/!svn/ver/1/Service/CentralMail.php
+END
+Stats.php
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/svn/Codeine/!svn/ver/1/Service/Stats.php
+END
+Importer.php
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/Codeine/!svn/ver/1/Service/Importer.php
+END
+Onliner.php
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/Codeine/!svn/ver/216/Service/Onliner.php
+END
+Tester.php
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/Codeine/!svn/ver/153/Service/Tester.php
+END
