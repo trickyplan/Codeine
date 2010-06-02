@@ -1,0 +1,104 @@
+{
+    "Info":
+    {
+        "Name":"Codeine Site",
+        "Version":"4.10"
+    },
+    "Options":
+        {
+            "TrustHost":    "ox.gotdns.org",
+            "WorkStyle":    "Normal",
+            "Verbose":      9,
+            "Profiling":    0,
+            "MemLeaks":     false,
+            "LRCache":      false,
+            "AppCache":     false,
+            "Authorizers":  ["Native"],
+            "Processors":
+                {
+                    "Each":     ["Slot", "Parslet"],
+                    "Post":     ["Parslet", "MediaTag2","Ico2","AjaxSlices","JSRun","CSSRun", "I18N"],
+                    "Fusion":   ["Const","Foreach","Authorized","Owner","Role","Node","Tag","Key","For"],
+                    "Pre":      ["Authorized","Role"]
+                }
+        },
+    "Drivers":
+        {
+            "Available":
+            {
+                "Data/Lookup":          ["Enum","File","Range"],
+                "Data/Type":            ["String","Integer","Text"],
+                "Output/Elements/Form": ["HTML","Textfield","Select"]
+            },
+            "Installed":
+            {
+                "Input/Filters":      "KillEmAll",
+                "Error/Loggers":      "FirePHP",
+                "Error/Handlers/404": "404",
+                "Security/CAPTCHA":   "vx7",
+                "Service/IP2Geo":     "IPInfoDB",
+                "Process/Hash":       "SHA1st"
+            }
+        },
+    "Engines":
+        {
+            "Application":    "Alpha",
+            "Access":         "Piranha",
+            "Client":         "Nebula",
+            "Code":           "M60",
+            "Collection":     "Palladium",
+            "Data":           "C4",
+            "Event":          "Eve",
+            "Form":           "Formalin",
+            "Log":            "Wolf",
+            "Page":           "D8",
+            "Object":         "Palladium",
+            "Server":         "Spark",
+            "Timing":         "Timing",
+            "Message":        "RedCoast"
+        },
+   "Paths":
+        {
+            "Core":           "Core",
+            "Classes":        "Package",
+            "Driver":         "Driver",
+            "Apps":           "Application",
+            "Scope":          "Scope",
+            "Fonts":          "Fonts",
+            "Icons":          "Icons",
+            "Images":         "Images",
+            "Static":         "Static",
+            "Styles":         "Styles",
+            "Layout":         "Layout",
+            "Data":           "Data",
+            "Flash":          "Fl",
+            "JS":             "JS"
+        },
+    "Storages":
+        {
+            "FS":       { "Method": "SubFS",     "ORM": "FS",        "DSN": "/"},
+            "Layout":   { "Method": "LayoutFS",  "ORM": "FS",        "DSN": "/"},
+            "XML":      { "Method": "SubXMLFS",  "ORM": "FS",        "DSN": "/"},
+            "JSON":     { "Method": "SubJSONFS", "ORM": "FS",        "DSN": "/"},
+            "Cookie":   { "Method": "Cookie",    "ORM": "NativeKVS"},
+            "Static":   { "Method": "Static",    "ORM": "NativeKVS"}
+        },
+    "Mounts":
+        {
+            "_System":        {"Node": "SQL3D",  "Dir": "_System",       "ReadCache": "Static"},
+            "_Application":   {"Node": "SQL3D",  "Dir": "_Application",  "ReadCache": "Static"},
+            "_Access":        {"Node": "SQL3D",  "Dir": "_Access"},
+            "_Locale":        {"Node": "SQL3D",  "Dir": "_Locale",       "ReadCache": "Static"},
+            "_User":          {"Node": "SQL3D",  "Dir": "_User",         "ReadCache": "Static"},
+            "_Ticket":        {"Node": "SQL3D",  "Dir": "_Ticket",       "ReadCache": "Static"},
+            "_IP2Geo":        {"Node": "SQL2D",  "Dir": "_IP2Geo",       "ReadCache": "Static"},
+            "_Route":         {"Node": "SQL3D",  "Dir": "_Route",        "ReadCache": "Static"},
+            "_Signal":        {"Node": "SQL3D",  "Dir": "_Signal"},
+            "_Slot":          {"Node": "SQL3D",  "Dir": "_Slot"},
+            "_Layout":        {"Node": "Layout", "Dir": "Layout",        "ReadCache": "Static"},
+            "UserFS":         {"Node": "FS",     "Dir": "Data"},
+            "Static":         {"Node": "JSON",   "Dir": "Static"},
+            "Model":          {"Node": "JSON",   "Dir": "Model"},
+            "Cookie":         {"Node": "Cookie", "Dir": "Cookie"}
+        }
+}
