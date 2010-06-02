@@ -1,0 +1,30 @@
+{
+  "Options":
+    {
+	"Privacy": false,
+	"UID": "Default"
+    },
+  "Nodes":
+    {
+        "Title":
+            {
+                "Type":"String",
+                "Searchable": true,
+                "Required": true,
+                "Filterable": true,
+                "RSS":"title",
+                "Editor":"Textfield",
+                "Set":"News"
+            },
+        "Message":
+            {
+                "Type":"Text",
+                "Searchable":"True",
+                "Required":"True",
+                "Filterable":"True",
+                "RSS":"description",
+                "Editor":"Textarea",
+                "Set":"News"
+            }
+    }
+}
