@@ -139,13 +139,25 @@ class Application
         return self::$AppID;
     }
 
-    public static function GetTune($Tune)
+
+    public static function SetTune($Tune, $Value = null)
     {
-        $Application = self::$AppObject->Get('OXTune:'.$Tune);
+        if (Client::$Level>0)
+            return Client::$Agent->Set('Tune:'.self::$Name.':'.$Tune, $Value);
+        else
+            return $Value;
+    }
+    
+    public static function GetTune($Tune, $Or = null)
+    {
+        $Application = self::$AppObject->Get('Tune:'.$Tune);
+
+        if ($Application == null)
+            $Application = $Or;
         
-        if (Client::$Authorized)
+        if (Client::$Level>0)
         {
-            $Agent   = Client::$Agent->GetOr(array('OXTune:'.self::$Name.':'.$Tune));
+            $Agent   = Client::$Agent->GetOr(array('Tune:'.self::$Name.':'.$Tune));
 
             if (null !== $Agent)
                 return $Agent;

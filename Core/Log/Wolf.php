@@ -103,6 +103,7 @@
         {
             self::Error('PHP '.$Code.': '.'['.$File.':'.$Line.'] '.$Error);
         }
+        
 
         public static function Output ()
         {

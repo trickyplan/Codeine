@@ -19,19 +19,9 @@ class Page
     private static $Body        = array();
     private static $Rendered    = array();
 
-    public static function Handler($Data)
-    {
-        if ((mb_strpos($Data,'Fatal error') !== false) and Core::$Conf['Options']['FatalCatch'] == 'True')
-            $Data = file_get_contents(EngineShared.Layout.'/Errors/Fatal.html');
-
-        //if (mb_strpos(Server::Get('HTTP_ACCEPT_ENCODING'), 'gzip') !== false)
-        //    $Data = ob_gzhandler($Data, 9);
-        
-        return $Data;
-    }
     public static function Initialize()
     {
-        ob_start('Page::Handler');
+        ob_start('Server::FatalHandler');
         self::$HTTPHeaders['Content-type'] = 'text/html;charset=utf-8';
         
         self::$Processors['Each']   = Core::$Conf['Options']['Processors']['Each'];

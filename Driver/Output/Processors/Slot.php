@@ -14,6 +14,7 @@ function F_Slot_Process ($Data)
 
     $TRs = array('<ip/>'=>_IP,
                  '<interface/>'=>Application::$Interface,
+                 '<language/>'=>Client::$Language,
                  '<app/>'=>Application::$Name,
                  '<plugin/>'=>Application::$Plugin,
                  '<id/>'=>Application::$ID,

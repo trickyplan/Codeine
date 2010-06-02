@@ -10,6 +10,7 @@
 
     $OK = array
     (
+      '<language/>',
       '<interface/>',
       '<app/>',
       '<plugin/>',
@@ -20,6 +21,7 @@
 
     $OV = array
     (
+      Client::$Language,
       Application::$Interface,
       Application::$Name,
       Application::$Plugin,
