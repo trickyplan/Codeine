@@ -35,13 +35,27 @@
     -o-border-radius: 5px;
 }
 
+.BlockSelected
+{
+    border: 1px solid #666;
+    background-color: #ADC3C9;
+    background-image: url(/Images/Theme/NewRed/Back/blackglass.png);
+    color: #FFF;
+    padding: 4px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+.BlockSelected a {color: #FFF;}
 .Block_Info
 {
     border:1px #ADC3C9 solid;
-    padding:6px;
-	margin:2px;
-    background-color: #DFECF0;
-    color: #3F555C;
+    padding:8px;
+	margin:8px;
+    background-color: #ADC3C9;
+    background-image: url(/Images/Theme/NewRed/Back/glass-bg-data.png);
+    color: #194c4e;
     border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;

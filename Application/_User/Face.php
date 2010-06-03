@@ -9,19 +9,20 @@ if (Client::$Authorized)
         
         if (in_array(self::$Mode, $FaceTypes))
                 {
-                    $Face = new Object(self::$Mode, self::$ID);
+                    $Face = new Object(self::$Mode);
+                    $Face->Query('~'.self::$ID);
 
-                    if ($Face->Get('Owner') == Client::$UID)
+                    if ($Face->Get('Owner') == (string) Client::$User)
                         Client::$User->Set('Face', (string) $Face);
                     else
-                        throw new WTF (403);
+                        throw new WTF ('',403);
 
                     Client::$User->Save();
                 }
 
                 foreach ($FaceTypes as $FaceType)
                     {
-                        $Faces = new Collection($FaceType, '=Owner='.Client::$UID);
+                        $Faces = new Collection($FaceType, '=Owner='.Client::$User);
                         $Faces->Load();
                         
                         foreach ($Faces->_Items as $Item)

@@ -3,6 +3,9 @@
     $Object = new Object(self::$Name);
 
     if ($Object->Load(self::$ID))
-        Client::$Face->Toggle('Bookmark', self::$Name.':'.self::$ID);
+    {
+        Client::$User->Add('Info:Readed', self::$ID);
+        Client::$User->Save();
+    }
 
-    Page::Add('<icon>Sidebar/Tick</icon> Готово');
+    Page::Body('');
