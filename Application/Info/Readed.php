@@ -1,11 +1,13 @@
 <?php
 
     $Object = new Object(self::$Name);
+    $Object->Load(self::$ID);
+    
+    Client::$User->Add('Info:Readed', self::$ID);
 
-    if ($Object->Load(self::$ID))
-    {
-        Client::$User->Add('Info:Readed', self::$ID);
-        Client::$User->Save();
-    }
+    if (Client::$User->Save())
+        Page::Body('OK');
+    else
+        Page::Body('Fail');
 
-    Page::Body('');
+    
