@@ -9,7 +9,7 @@ if (!self::$Object->Get('Owner') == Client::$UID or !Access::Check(self::$Object
 switch (Server::$REST)
 {
     case 'get':
-        Form::Load (self::$Name);
+        Form::Load (self::$Name, self::$Object->Name);
         Page::Add(Form::Render('Form/Default', self::$Object->Data()));
     break;
     

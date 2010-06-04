@@ -688,6 +688,14 @@ class Object
                             $Facet = Data::Read ('Model','{"I":"Facets/'.$Facet.'"}');
                             $this->_Model->Nodes = (object) array_merge((array)$this->_Model->Nodes, (array)$Facet->Nodes);
                         }
+                        
+                    if (null !== ($Facets = $this->Get('Facet', false)))
+                        foreach ($Facets as $Facet)
+                        {
+                            $Facet = Data::Read ('Model','{"I":"Facets/'.$Facet.'"}');
+                            $this->_Model->Nodes = (object) array_merge((array)$this->_Model->Nodes, (array)$Facet->Nodes);
+                        }
+
                     $this->_ModelLoaded = true;
                 }
                 else

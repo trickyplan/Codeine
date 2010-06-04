@@ -3,9 +3,9 @@
   function F_Const_Fusion($Args) 
   {
 
-    if ($Args['Object']->Get('Handle')!==null)
-        $Handle = $Args['Object']->Get('Handle');
-    else
+    //if ($Args['Object']->Get('Handle')!==null)
+    //    $Handle = $Args['Object']->Get('Handle');
+    // else
         $Handle = $Args['Object']->Name;
 
     $OK = array

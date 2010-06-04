@@ -17,5 +17,5 @@ function F_TwitterField_Render($Args)
         $Args['class'].= ' validate(required)';
     
     Page::JS('$(".Textfield_Microblog").charCounter();');
-    return '<input maxlength="160" type="text" autocomplete="off" size="20" id="'.$ID.'" name="'.$Args['name'].'" class="'.$Args['class'].'" value="'.$Args['value'].'" /> &nbsp;';
+    return '<input maxlength="160" type="text" autocomplete="off" id="'.$ID.'" name="'.$Args['name'].'" class="'.$Args['class'].'" value="'.$Args['value'].'" /> &nbsp;';
 }

@@ -8,27 +8,25 @@ if (!Access::Check(self::$Object, self::$Plugin))
 if (!self::$Object->Load())
     throw new WTF('404: Object Not Found', 4040);
 
-if (self::$Interface == 'ajax' && !empty(self::$Mode))
-    {
-        if (Client::$Authorized)
-            Client::$Agent->Set('Selected:Amplua:'.self::$Object, self::$Mode);
-    }
-elseif (!isset(self::$Mode))
-            self::$Mode = self::$Plugin;
-
-    if (self::$Interface == 'slice')
-        if (!isset(self::$Mode) or empty(self::$Mode))
-        {
-            if (Client::$Authorized)
+switch (self::$Interface)
+{
+    case 'ajax':
+        if (!empty(self::$Mode))
+            Client::$Face->Set('Selected:Amplua:'.self::$Object, self::$Mode);
+    break;
+    case 'slice':
+        if (empty(self::$Mode))
             {
-                if (null !== ($UMode = Client::$Agent->Get('Selected:Amplua:'.self::$Object)))
+                if (null !== ($UMode = Client::$Face->Get('Selected:Amplua:'.self::$Object)))
                     self::$Mode = $UMode;
                 else
                     self::$Mode = 'First';
             }
-            else
-                self::$Mode = 'First';
-        }
+    break;
+}
+
+if (empty(self::$Mode))
+            self::$Mode = self::$Plugin;
 
 Page::Add (Page::Fusion(
     'Objects/'.self::$Name.'/'.self::$Name.'_'.self::$Mode

@@ -13,10 +13,10 @@ class Form
             self::$_Model = $Model;
     }
 
-    public static function Load ($Name)
+    public static function Load ($Name, $Object = null)
     {
         self::$_Name = $Name;
-        $Object = new Object($Name);
+        $Object = new Object($Name, $Object);
         return self::$_Model = $Object->Model();
     }
 
