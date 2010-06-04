@@ -6,7 +6,7 @@
  */
 .x-list-header{
     background-color:#393d4e;
-	background-image:url(../images/access/toolbar/bg.gif);
+	background-image:url(/Images/Ext/access/toolbar/bg.gif);
 	background-position:0 top;
 }
 
@@ -34,6 +34,6 @@
 }
 
 .x-list-header-inner em.sort-asc, .x-list-header-inner em.sort-desc {
-    background-image:url(../images/access/grid/sort-hd.gif);
+    background-image:url(/Images/Ext/access/grid/sort-hd.gif);
     border-color: #3e4e6c;
 }

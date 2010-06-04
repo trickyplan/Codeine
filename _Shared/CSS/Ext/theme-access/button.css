@@ -58,7 +58,7 @@
 }
 
 .x-btn-tl, .x-btn-tr, .x-btn-tc, .x-btn-ml, .x-btn-mr, .x-btn-mc, .x-btn-bl, .x-btn-br, .x-btn-bc{
-	background-image:url(../images/access/button/btn.gif);
+	background-image:url(/Images/Ext/access/button/btn.gif);
 }
 
 .x-btn-click .x-btn-text, .x-btn-menu-active .x-btn-text, .x-btn-pressed .x-btn-text{
@@ -70,29 +70,29 @@
 }
 
 .x-btn-mc em.x-btn-arrow {
-    background-image:url(../images/access/button/arrow.gif);
+    background-image:url(/Images/Ext/access/button/arrow.gif);
     padding-right:13px;
 }
 
 .x-btn-mc em.x-btn-split {
-    background-image:url(../images/access/button/s-arrow.gif);
+    background-image:url(/Images/Ext/access/button/s-arrow.gif);
     padding-right:20px;
 }
 
 .x-btn-over .x-btn-mc em.x-btn-split, .x-btn-click .x-btn-mc em.x-btn-split, .x-btn-menu-active .x-btn-mc em.x-btn-split, .x-btn-pressed .x-btn-mc em.x-btn-split {
-    background-image:url(../images/access/button/s-arrow-o.gif);
+    background-image:url(/Images/Ext/access/button/s-arrow-o.gif);
 }
 
 .x-btn-mc em.x-btn-arrow-bottom {
-    background-image:url(../images/access/button/s-arrow-b-noline.gif);
+    background-image:url(/Images/Ext/access/button/s-arrow-b-noline.gif);
 }
 
 .x-btn-mc em.x-btn-split-bottom {
-    background-image:url(../images/access/button/s-arrow-b.gif);
+    background-image:url(/Images/Ext/access/button/s-arrow-b.gif);
 }
 
 .x-btn-over .x-btn-mc em.x-btn-split-bottom, .x-btn-click .x-btn-mc em.x-btn-split-bottom, .x-btn-menu-active .x-btn-mc em.x-btn-split-bottom, .x-btn-pressed .x-btn-mc em.x-btn-split-bottom {
-    background-image:url(../images/access/button/s-arrow-bo.gif);
+    background-image:url(/Images/Ext/access/button/s-arrow-bo.gif);
 }
 
 .x-btn-group-header {
@@ -100,37 +100,37 @@
 }
 
 .x-btn-group-tc {
-	background-image: url(../images/access/button/group-tb.gif);
+	background-image: url(/Images/Ext/access/button/group-tb.gif);
 }
 
 .x-btn-group-tl {
-	background-image: url(../images/access/button/group-cs.gif);
+	background-image: url(/Images/Ext/access/button/group-cs.gif);
 }
 
 .x-btn-group-tr {
-	background-image: url(../images/access/button/group-cs.gif);
+	background-image: url(/Images/Ext/access/button/group-cs.gif);
 }
 
 .x-btn-group-bc {
-	background-image: url(../images/access/button/group-tb.gif);
+	background-image: url(/Images/Ext/access/button/group-tb.gif);
 }
 
 .x-btn-group-bl {
-	background-image: url(../images/access/button/group-cs.gif);
+	background-image: url(/Images/Ext/access/button/group-cs.gif);
 }
 
 .x-btn-group-br {
-	background-image: url(../images/access/button/group-cs.gif);
+	background-image: url(/Images/Ext/access/button/group-cs.gif);
 }
 
 .x-btn-group-ml {
-	background-image: url(../images/access/button/group-lr.gif);
+	background-image: url(/Images/Ext/access/button/group-lr.gif);
 }
 
 .x-btn-group-mr {
-	background-image: url(../images/access/button/group-lr.gif);
+	background-image: url(/Images/Ext/access/button/group-lr.gif);
 }
 
 .x-btn-group-notitle .x-btn-group-tc {
-	background-image: url(../images/access/button/group-tb.gif);
+	background-image: url(/Images/Ext/access/button/group-tb.gif);
 }

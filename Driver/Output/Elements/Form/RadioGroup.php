@@ -16,6 +16,6 @@ function F_RadioGroup_Render($Args)
         
     }
 
-    $Output = '<fieldset class="Space w70">'.implode('', $Options).'</fieldset>';
+    $Output = '<fieldset class="Space w90">'.implode('', $Options).'</fieldset>';
     return $Output;
 }

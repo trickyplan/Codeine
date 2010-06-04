@@ -10,12 +10,12 @@
 
 .x-progress-inner {
     background-color:#E7E7E7;
-    background-image:url(../images/gray/qtip/bg.gif);
+    background-image:url(/Images/Ext/gray/qtip/bg.gif);
 }
 
 .x-progress-bar {
     background-color:#BCBCBC;
-    background-image:url(../images/gray/progress/progress-bg.gif);
+    background-image:url(/Images/Ext/gray/progress/progress-bg.gif);
     border-top-color:#E2E2E2;
     border-bottom-color:#A4A4A4;
     border-right-color:#A4A4A4;

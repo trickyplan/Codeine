@@ -16,7 +16,7 @@ body {
 .ext-el-mask-msg {
     border-color:#223;
     background-color:#3f4757;
-    background-image:url(../images/access/box/tb-blue.gif);
+    background-image:url(/Images/Ext/access/box/tb-blue.gif);
 }
 .ext-el-mask-msg div {
     background-color: #232d38;
@@ -27,7 +27,7 @@ body {
 
 .x-mask-loading div {
     background-color:#232d38;
-    background-image:url(../images/access/grid/loading.gif);
+    background-image:url(/Images/Ext/access/grid/loading.gif);
 }
 
 .x-item-disabled {
@@ -60,20 +60,20 @@ body {
 }
 
 .x-shadow .xsmc {
-    background-image: url(../images/default/shadow-c.png);
+    background-image: url(/Images/Ext/default/shadow-c.png);
 }
 
 .x-shadow .xsml, .x-shadow .xsmr {
-    background-image: url(../images/default/shadow-lr.png);
+    background-image: url(/Images/Ext/default/shadow-lr.png);
 }
 
 .x-shadow .xstl, .x-shadow .xstc,  .x-shadow .xstr, .x-shadow .xsbl, .x-shadow .xsbc, .x-shadow .xsbr{
-    background-image: url(../images/default/shadow.png);
+    background-image: url(/Images/Ext/default/shadow.png);
 }
 
 .loading-indicator {
     font-size: 14px;
-    background-image: url(../images/access/grid/loading.gif);
+    background-image: url(/Images/Ext/access/grid/loading.gif);
 }
 
 .x-spotlight {

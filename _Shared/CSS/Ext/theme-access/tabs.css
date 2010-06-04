@@ -17,13 +17,13 @@
 
 ul.x-tab-strip-top{
     background-color:#343843;
-	background-image: url(../images/access/tabs/tab-strip-bg.gif);
+	background-image: url(/Images/Ext/access/tabs/tab-strip-bg.gif);
 	border-bottom-color:#343d4e;
 }
 
 ul.x-tab-strip-bottom{
     background-color:#343843;
-	background-image: url(../images/access/tabs/tab-strip-btm-bg.gif);
+	background-image: url(/Images/Ext/access/tabs/tab-strip-btm-bg.gif);
 	border-top-color:#343843;
 }
 
@@ -52,31 +52,31 @@ ul.x-tab-strip-bottom{
 }
 
 .x-tab-strip-top .x-tab-right, .x-tab-strip-top .x-tab-left, .x-tab-strip-top .x-tab-strip-inner{
-	background-image: url(../images/access/tabs/tabs-sprite.gif);
+	background-image: url(/Images/Ext/access/tabs/tabs-sprite.gif);
 }
 
 .x-tab-strip-bottom .x-tab-right {
-	background-image: url(../images/access/tabs/tab-btm-inactive-right-bg.gif);
+	background-image: url(/Images/Ext/access/tabs/tab-btm-inactive-right-bg.gif);
 }
 
 .x-tab-strip-bottom .x-tab-left {
-	background-image: url(../images/access/tabs/tab-btm-inactive-left-bg.gif);
+	background-image: url(/Images/Ext/access/tabs/tab-btm-inactive-left-bg.gif);
 }
 
 .x-tab-strip-bottom .x-tab-strip-active .x-tab-right {
-	background-image: url(../images/access/tabs/tab-btm-right-bg.gif);
+	background-image: url(/Images/Ext/access/tabs/tab-btm-right-bg.gif);
 }
 
 .x-tab-strip-bottom .x-tab-strip-active .x-tab-left {
-	background-image: url(../images/access/tabs/tab-btm-left-bg.gif);
+	background-image: url(/Images/Ext/access/tabs/tab-btm-left-bg.gif);
 }
 
 .x-tab-strip .x-tab-strip-closable a.x-tab-strip-close {
-	background-image:url(../images/access/tabs/tab-close.gif);
+	background-image:url(/Images/Ext/access/tabs/tab-close.gif);
 }
 
 .x-tab-strip .x-tab-strip-closable a.x-tab-strip-close:hover{
-	background-image:url(../images/access/tabs/tab-close.gif);
+	background-image:url(/Images/Ext/access/tabs/tab-close.gif);
 }
 
 .x-tab-panel-body {
@@ -93,7 +93,7 @@ ul.x-tab-strip-bottom{
 }
 
 .x-tab-scroller-left {
-    background-image:url(../images/access/tabs/scroll-left.gif);
+    background-image:url(/Images/Ext/access/tabs/scroll-left.gif);
     border-bottom-color:#8db2e3;
 }
 
@@ -110,7 +110,7 @@ ul.x-tab-strip-bottom{
 }
 
 .x-tab-scroller-right {
-    background-image:url(../images/access/tabs/scroll-right.gif);
+    background-image:url(/Images/Ext/access/tabs/scroll-right.gif);
     border-bottom-color:#8db2e3;
 }
 

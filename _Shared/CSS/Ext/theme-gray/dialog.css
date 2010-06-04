@@ -14,21 +14,21 @@
 }
 
 .x-window-dlg .x-msg-box-wait {
-    background-image:url(../images/default/grid/loading.gif);
+    background-image:url(/Images/Ext/default/grid/loading.gif);
 }
 
 .x-window-dlg .ext-mb-info {
-    background-image:url(../images/gray/window/icon-info.gif);
+    background-image:url(/Images/Ext/gray/window/icon-info.gif);
 }
 
 .x-window-dlg .ext-mb-warning {
-    background-image:url(../images/gray/window/icon-warning.gif);
+    background-image:url(/Images/Ext/gray/window/icon-warning.gif);
 }
 
 .x-window-dlg .ext-mb-question {
-    background-image:url(../images/gray/window/icon-question.gif);
+    background-image:url(/Images/Ext/gray/window/icon-question.gif);
 }
 
 .x-window-dlg .ext-mb-error {
-    background-image:url(../images/gray/window/icon-error.gif);
+    background-image:url(/Images/Ext/gray/window/icon-error.gif);
 }

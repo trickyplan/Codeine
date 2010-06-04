@@ -12,29 +12,29 @@
 .x-resizable-over .x-resizable-handle-east, .x-resizable-pinned .x-resizable-handle-east,
 .x-resizable-over .x-resizable-handle-west, .x-resizable-pinned .x-resizable-handle-west
 {
-    background-image:url(../images/access/sizer/e-handle.gif);
+    background-image:url(/Images/Ext/access/sizer/e-handle.gif);
 }
 
 .x-resizable-over .x-resizable-handle-south, .x-resizable-pinned .x-resizable-handle-south,
 .x-resizable-over .x-resizable-handle-north, .x-resizable-pinned .x-resizable-handle-north
 {
-    background-image:url(../images/access/sizer/s-handle.gif);
+    background-image:url(/Images/Ext/access/sizer/s-handle.gif);
 }
 
 .x-resizable-over .x-resizable-handle-north, .x-resizable-pinned .x-resizable-handle-north{
-    background-image:url(../images/access/sizer/s-handle.gif);
+    background-image:url(/Images/Ext/access/sizer/s-handle.gif);
 }
 .x-resizable-over .x-resizable-handle-southeast, .x-resizable-pinned .x-resizable-handle-southeast{
-    background-image:url(../images/access/sizer/se-handle.gif);
+    background-image:url(/Images/Ext/access/sizer/se-handle.gif);
 }
 .x-resizable-over .x-resizable-handle-northwest, .x-resizable-pinned .x-resizable-handle-northwest{
-    background-image:url(../images/access/sizer/nw-handle.gif);
+    background-image:url(/Images/Ext/access/sizer/nw-handle.gif);
 }
 .x-resizable-over .x-resizable-handle-northeast, .x-resizable-pinned .x-resizable-handle-northeast{
-    background-image:url(../images/access/sizer/ne-handle.gif);
+    background-image:url(/Images/Ext/access/sizer/ne-handle.gif);
 }
 .x-resizable-over .x-resizable-handle-southwest, .x-resizable-pinned .x-resizable-handle-southwest{
-    background-image:url(../images/access/sizer/sw-handle.gif);
+    background-image:url(/Images/Ext/access/sizer/sw-handle.gif);
 }
 .x-resizable-proxy{
     border-color:#3b5a82;

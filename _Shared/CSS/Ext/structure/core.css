@@ -287,7 +287,7 @@
     position: absolute;
     left: 0;
     top: 0;
-    background-image:url(../images/default/s.gif);
+    background-image:url(/Images/Ext/default/s.gif);
     z-index: 20000;
 }
 

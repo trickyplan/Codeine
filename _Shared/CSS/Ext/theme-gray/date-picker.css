@@ -10,7 +10,7 @@
 }
 
 .x-date-middle,.x-date-left,.x-date-right {
-	background-image: url(../images/gray/shared/hd-sprite.gif);
+	background-image: url(/Images/Ext/gray/shared/hd-sprite.gif);
 	color:#fff;
 	font:bold 11px "sans serif", tahoma, verdana, helvetica;
 }
@@ -20,20 +20,20 @@
 }
 
 .x-date-middle .x-btn-mc em.x-btn-arrow {
-    background-image:url(../images/gray/toolbar/btn-arrow-light.gif);
+    background-image:url(/Images/Ext/gray/toolbar/btn-arrow-light.gif);
 }
 
 .x-date-right a {
-    background-image: url(../images/gray/shared/right-btn.gif);
+    background-image: url(/Images/Ext/gray/shared/right-btn.gif);
 }
 
 .x-date-left a{
-	background-image: url(../images/gray/shared/left-btn.gif);
+	background-image: url(/Images/Ext/gray/shared/left-btn.gif);
 }
 
 .x-date-inner th {
     background-color:#D8D8D8;
-    background-image: url(../images/gray/panel/white-top-bottom.gif);
+    background-image: url(/Images/Ext/gray/panel/white-top-bottom.gif);
 	border-bottom-color:#AFAFAF;
     font:normal 10px arial, helvetica,tahoma,sans-serif;
 	color:#595959;
@@ -73,7 +73,7 @@
 .x-date-bottom {
     border-top-color:#AFAFAF;
     background-color:#D8D8D8;
-    background:#D8D8D8 url(../images/gray/panel/white-top-bottom.gif) 0 -2px;
+    background:#D8D8D8 url(/Images/Ext/gray/panel/white-top-bottom.gif) 0 -2px;
 }
 
 .x-date-inner a:hover, .x-date-inner .x-date-disabled a:hover{
@@ -112,7 +112,7 @@
 
 .x-date-mp-btns {
     background-color:#D8D8D8;
-    background:#D8D8D8 url(../images/gray/panel/white-top-bottom.gif) 0 -2px;
+    background:#D8D8D8 url(/Images/Ext/gray/panel/white-top-bottom.gif) 0 -2px;
 }
 
 .x-date-mp-btns td {
@@ -130,12 +130,12 @@ td.x-date-mp-month a:hover,td.x-date-mp-year a:hover {
 
 td.x-date-mp-sel a {
     background-color:#D8D8D8;
-    background:#D8D8D8 url(../images/gray/panel/white-top-bottom.gif) 0 -2px;
+    background:#D8D8D8 url(/Images/Ext/gray/panel/white-top-bottom.gif) 0 -2px;
 	border-color:#DCDCDC;
 }
 
 .x-date-mp-ybtn a {
-    background-image:url(../images/gray/panel/tool-sprites.gif);
+    background-image:url(/Images/Ext/gray/panel/tool-sprites.gif);
 }
 
 td.x-date-mp-sep {

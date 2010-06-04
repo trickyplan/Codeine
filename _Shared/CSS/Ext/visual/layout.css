@@ -11,7 +11,7 @@
 .x-accordion-hd {
 	color:#222;
     font-weight:normal;
-    background-image: url(../images/default/panel/light-hd.gif);
+    background-image: url(/Images/Ext/default/panel/light-hd.gif);
 }
 
 .x-layout-collapsed{
@@ -24,30 +24,30 @@
 }
 
 .x-layout-split-west .x-layout-mini {
-    background-image:url(../images/default/layout/mini-left.gif);
+    background-image:url(/Images/Ext/default/layout/mini-left.gif);
 }
 .x-layout-split-east .x-layout-mini {
-    background-image:url(../images/default/layout/mini-right.gif);
+    background-image:url(/Images/Ext/default/layout/mini-right.gif);
 }
 .x-layout-split-north .x-layout-mini {
-    background-image:url(../images/default/layout/mini-top.gif);
+    background-image:url(/Images/Ext/default/layout/mini-top.gif);
 }
 .x-layout-split-south .x-layout-mini {
-    background-image:url(../images/default/layout/mini-bottom.gif);
+    background-image:url(/Images/Ext/default/layout/mini-bottom.gif);
 }
 
 .x-layout-cmini-west .x-layout-mini {
-    background-image:url(../images/default/layout/mini-right.gif);
+    background-image:url(/Images/Ext/default/layout/mini-right.gif);
 }
 
 .x-layout-cmini-east .x-layout-mini {
-    background-image:url(../images/default/layout/mini-left.gif);
+    background-image:url(/Images/Ext/default/layout/mini-left.gif);
 }
 
 .x-layout-cmini-north .x-layout-mini {
-    background-image:url(../images/default/layout/mini-bottom.gif);
+    background-image:url(/Images/Ext/default/layout/mini-bottom.gif);
 }
 
 .x-layout-cmini-south .x-layout-mini {
-    background-image:url(../images/default/layout/mini-top.gif);
+    background-image:url(/Images/Ext/default/layout/mini-top.gif);
 }

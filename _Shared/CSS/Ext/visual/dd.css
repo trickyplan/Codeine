@@ -12,15 +12,15 @@
 }
 
 .x-dd-drop-nodrop .x-dd-drop-icon{
-  background-image: url(../images/default/dd/drop-no.gif);
+  background-image: url(/Images/Ext/default/dd/drop-no.gif);
 }
 
 .x-dd-drop-ok .x-dd-drop-icon{
-  background-image: url(../images/default/dd/drop-yes.gif);
+  background-image: url(/Images/Ext/default/dd/drop-yes.gif);
 }
 
 .x-dd-drop-ok-add .x-dd-drop-icon{
-  background-image: url(../images/default/dd/drop-add.gif);
+  background-image: url(/Images/Ext/default/dd/drop-add.gif);
 }
 
 .x-view-selector {

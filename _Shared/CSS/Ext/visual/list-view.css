@@ -6,7 +6,7 @@
  */
 .x-list-header{
     background-color:#f9f9f9;
-	background-image:url(../images/default/grid/grid3-hrow.gif);
+	background-image:url(/Images/Ext/default/grid/grid3-hrow.gif);
 }
 
 .x-list-header-inner div em {
@@ -32,6 +32,6 @@
 }
 
 .x-list-header-inner em.sort-asc, .x-list-header-inner em.sort-desc {
-    background-image:url(../images/default/grid/sort-hd.gif);
+    background-image:url(/Images/Ext/default/grid/sort-hd.gif);
     border-color: #99bbe8;
 }

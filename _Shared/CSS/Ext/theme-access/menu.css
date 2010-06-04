@@ -7,7 +7,7 @@
 .x-menu {
 	border-color:#222;
     background-color:#414551;
-	background-image:url(../images/access/menu/menu.gif);
+	background-image:url(/Images/Ext/access/menu/menu.gif);
 }
 
 .x-menu-nosep {
@@ -19,7 +19,7 @@
 }
 
 .x-menu-item-arrow{
-	background-image:url(../images/access/menu/menu-parent.gif);
+	background-image:url(/Images/Ext/access/menu/menu-parent.gif);
 }
 
 .x-menu-sep {
@@ -42,15 +42,15 @@ a.x-menu-item {
 }
 
 .x-menu-check-item .x-menu-item-icon{
-	background-image:url(../images/default/menu/unchecked.gif);
+	background-image:url(/Images/Ext/default/menu/unchecked.gif);
 }
 
 .x-menu-item-checked .x-menu-item-icon{
-	background-image:url(../images/default/menu/checked.gif);
+	background-image:url(/Images/Ext/default/menu/checked.gif);
 }
 
 .x-menu-item-checked .x-menu-group-item .x-menu-item-icon{
-    background-image:url(../images/access/menu/group-checked.gif);
+    background-image:url(/Images/Ext/access/menu/group-checked.gif);
 }
 
 .x-menu-group-item .x-menu-item-icon{
@@ -71,9 +71,9 @@ a.x-menu-item {
 }
 
 .x-menu-scroller-top {
-    background-image:url(../images/default/layout/mini-top.gif);
+    background-image:url(/Images/Ext/default/layout/mini-top.gif);
 }
 
 .x-menu-scroller-bottom {
-    background-image:url(../images/default/layout/mini-bottom.gif);
+    background-image:url(/Images/Ext/default/layout/mini-bottom.gif);
 }

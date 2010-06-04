@@ -17,13 +17,13 @@
 
 ul.x-tab-strip-top{
     background-color:#dbdbdb;
-	background-image: url(../images/gray/tabs/tab-strip-bg.gif);
+	background-image: url(/Images/Ext/gray/tabs/tab-strip-bg.gif);
 	border-bottom-color:#d0d0d0;
 }
 
 ul.x-tab-strip-bottom{
     background-color:#dbdbdb;
-	background-image: url(../images/gray/tabs/tab-strip-btm-bg.gif);
+	background-image: url(/Images/Ext/gray/tabs/tab-strip-btm-bg.gif);
 	border-top-color:#d0d0d0;
 }
 
@@ -52,39 +52,39 @@ ul.x-tab-strip-bottom{
 }
 
 .x-tab-strip-top .x-tab-right, .x-tab-strip-top .x-tab-left, .x-tab-strip-top .x-tab-strip-inner{
-	background-image: url(../images/gray/tabs/tabs-sprite.gif);
+	background-image: url(/Images/Ext/gray/tabs/tabs-sprite.gif);
 }
 
 .x-tab-strip-bottom .x-tab-right {
-	background-image: url(../images/gray/tabs/tab-btm-inactive-right-bg.gif);
+	background-image: url(/Images/Ext/gray/tabs/tab-btm-inactive-right-bg.gif);
 }
 
 .x-tab-strip-bottom .x-tab-left {
-	background-image: url(../images/gray/tabs/tab-btm-inactive-left-bg.gif);
+	background-image: url(/Images/Ext/gray/tabs/tab-btm-inactive-left-bg.gif);
 }
 
 .x-tab-strip-bottom .x-tab-strip-over .x-tab-left {
-	background-image: url(../images/gray/tabs/tab-btm-over-left-bg.gif);
+	background-image: url(/Images/Ext/gray/tabs/tab-btm-over-left-bg.gif);
 }
 
 .x-tab-strip-bottom .x-tab-strip-over .x-tab-right {
-	background-image: url(../images/gray/tabs/tab-btm-over-right-bg.gif);
+	background-image: url(/Images/Ext/gray/tabs/tab-btm-over-right-bg.gif);
 }
 
 .x-tab-strip-bottom .x-tab-strip-active .x-tab-right {
-	background-image: url(../images/gray/tabs/tab-btm-right-bg.gif);
+	background-image: url(/Images/Ext/gray/tabs/tab-btm-right-bg.gif);
 }
 
 .x-tab-strip-bottom .x-tab-strip-active .x-tab-left {
-	background-image: url(../images/gray/tabs/tab-btm-left-bg.gif);
+	background-image: url(/Images/Ext/gray/tabs/tab-btm-left-bg.gif);
 }
 
 .x-tab-strip .x-tab-strip-closable a.x-tab-strip-close {
-	background-image:url(../images/gray/tabs/tab-close.gif);
+	background-image:url(/Images/Ext/gray/tabs/tab-close.gif);
 }
 
 .x-tab-strip .x-tab-strip-closable a.x-tab-strip-close:hover{
-	background-image:url(../images/gray/tabs/tab-close.gif);
+	background-image:url(/Images/Ext/gray/tabs/tab-close.gif);
 }
 
 .x-tab-panel-body {
@@ -101,7 +101,7 @@ ul.x-tab-strip-bottom{
 }
 
 .x-tab-scroller-left {
-    background-image:url(../images/gray/tabs/scroll-left.gif);
+    background-image:url(/Images/Ext/gray/tabs/scroll-left.gif);
     border-bottom-color:#d0d0d0;
 }
 
@@ -118,7 +118,7 @@ ul.x-tab-strip-bottom{
 }
 
 .x-tab-scroller-right {
-    background-image:url(../images/gray/tabs/scroll-right.gif);
+    background-image:url(/Images/Ext/gray/tabs/scroll-right.gif);
     border-bottom-color:#d0d0d0;
 }
 

@@ -5,19 +5,19 @@
  * http://www.extjs.com/license
  */
 .x-tree-node-expanded .x-tree-node-icon{
-	background-image:url(../images/default/tree/folder-open.gif);
+	background-image:url(/Images/Ext/default/tree/folder-open.gif);
 }
 
 .x-tree-node-leaf .x-tree-node-icon{
-	background-image:url(../images/default/tree/leaf.gif);
+	background-image:url(/Images/Ext/default/tree/leaf.gif);
 }
 
 .x-tree-node-collapsed .x-tree-node-icon{
-	background-image:url(../images/default/tree/folder.gif);
+	background-image:url(/Images/Ext/default/tree/folder.gif);
 }
 
 .x-tree-node-loading .x-tree-node-icon{
-	background-image:url(../images/default/tree/loading.gif) !important;
+	background-image:url(/Images/Ext/default/tree/loading.gif) !important;
 }
 
 .x-tree-node .x-tree-node-inline-icon {
@@ -35,63 +35,63 @@
 }
 
 .x-tree-lines .x-tree-elbow{
-	background-image:url(../images/default/tree/elbow.gif);
+	background-image:url(/Images/Ext/default/tree/elbow.gif);
 }
 
 .x-tree-lines .x-tree-elbow-plus{
-	background-image:url(../images/default/tree/elbow-plus.gif);
+	background-image:url(/Images/Ext/default/tree/elbow-plus.gif);
 }
 
 .x-tree-lines .x-tree-elbow-minus{
-	background-image:url(../images/default/tree/elbow-minus.gif);
+	background-image:url(/Images/Ext/default/tree/elbow-minus.gif);
 }
 
 .x-tree-lines .x-tree-elbow-end{
-	background-image:url(../images/default/tree/elbow-end.gif);
+	background-image:url(/Images/Ext/default/tree/elbow-end.gif);
 }
 
 .x-tree-lines .x-tree-elbow-end-plus{
-	background-image:url(../images/gray/tree/elbow-end-plus.gif);
+	background-image:url(/Images/Ext/gray/tree/elbow-end-plus.gif);
 }
 
 .x-tree-lines .x-tree-elbow-end-minus{
-	background-image:url(../images/gray/tree/elbow-end-minus.gif);
+	background-image:url(/Images/Ext/gray/tree/elbow-end-minus.gif);
 }
 
 .x-tree-lines .x-tree-elbow-line{
-	background-image:url(../images/default/tree/elbow-line.gif);
+	background-image:url(/Images/Ext/default/tree/elbow-line.gif);
 }
 
 .x-tree-no-lines .x-tree-elbow-plus{
-	background-image:url(../images/default/tree/elbow-plus-nl.gif);
+	background-image:url(/Images/Ext/default/tree/elbow-plus-nl.gif);
 }
 
 .x-tree-no-lines .x-tree-elbow-minus{
-	background-image:url(../images/default/tree/elbow-minus-nl.gif);
+	background-image:url(/Images/Ext/default/tree/elbow-minus-nl.gif);
 }
 
 .x-tree-no-lines .x-tree-elbow-end-plus{
-	background-image:url(../images/gray/tree/elbow-end-plus-nl.gif);
+	background-image:url(/Images/Ext/gray/tree/elbow-end-plus-nl.gif);
 }
 
 .x-tree-no-lines .x-tree-elbow-end-minus{
-	background-image:url(../images/gray/tree/elbow-end-minus-nl.gif);
+	background-image:url(/Images/Ext/gray/tree/elbow-end-minus-nl.gif);
 }
 
 .x-tree-arrows .x-tree-elbow-plus{
-    background-image:url(../images/gray/tree/arrows.gif);
+    background-image:url(/Images/Ext/gray/tree/arrows.gif);
 }
 
 .x-tree-arrows .x-tree-elbow-minus{
-    background-image:url(../images/gray/tree/arrows.gif);
+    background-image:url(/Images/Ext/gray/tree/arrows.gif);
 }
 
 .x-tree-arrows .x-tree-elbow-end-plus{
-    background-image:url(../images/gray/tree/arrows.gif);
+    background-image:url(/Images/Ext/gray/tree/arrows.gif);
 }
 
 .x-tree-arrows .x-tree-elbow-end-minus{
-    background-image:url(../images/gray/tree/arrows.gif);
+    background-image:url(/Images/Ext/gray/tree/arrows.gif);
 }
 
 .x-tree-node{
@@ -141,17 +141,17 @@
 }
 
 .x-tree-drop-ok-append .x-dd-drop-icon{
-  background-image: url(../images/default/tree/drop-add.gif);
+  background-image: url(/Images/Ext/default/tree/drop-add.gif);
 }
 
 .x-tree-drop-ok-above .x-dd-drop-icon{
-  background-image: url(../images/default/tree/drop-over.gif);
+  background-image: url(/Images/Ext/default/tree/drop-over.gif);
 }
 
 .x-tree-drop-ok-below .x-dd-drop-icon{
-  background-image: url(../images/default/tree/drop-under.gif);
+  background-image: url(/Images/Ext/default/tree/drop-under.gif);
 }
 
 .x-tree-drop-ok-between .x-dd-drop-icon{
-  background-image: url(../images/default/tree/drop-between.gif);
+  background-image: url(/Images/Ext/default/tree/drop-between.gif);
 }
