@@ -1,0 +1,36 @@
+{
+  "Options":
+    {
+    "Privacy": false,
+    "UID": "Default"
+    },
+  "Nodes":
+    {
+        "Language":
+            {
+                "Type":"String",
+                "Searchable": true,
+                "Required": true,
+                "Editor":"Select",
+                "Lookup":
+                    {
+                        "Type": "Object",
+                        "Data": "_Language::@All"
+                    }
+            },
+        "Title":
+            {
+                "Type":"String",
+                "Searchable": true,
+                "Required": true,
+                "Editor":"Textfield"
+            },
+        "Description":
+            {
+                "Type":"Text",
+                "Searchable":true,
+                "Required":true,
+                "Editor":"Textarea"
+            }
+    }
+}
