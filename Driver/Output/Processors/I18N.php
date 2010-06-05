@@ -1,7 +1,8 @@
 <?php
 
 function F_I18N_Process ($Data)
-    {       
+    {
+        return $Data;
         $Pockets = array();
         
         if (preg_match_all('@<l>(.*)<\/l>@SsUu', $Data, $Pockets))
