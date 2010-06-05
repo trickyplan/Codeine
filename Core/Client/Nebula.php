@@ -30,12 +30,13 @@ class Client
             return true;
 
         self::$Agent->Set('IP', $IP);
+
         $IPTable = new Object('_IP2Geo');
 
         if ($IPTable->Load(ip2long($IP)) == false)
             {
                 $IP2Geo = Code::E('Service/IP2Geo','Get', $IP);
-                
+
                 $IPTable->Set($IP2Geo);
                 $IPTable->Save();
             }
