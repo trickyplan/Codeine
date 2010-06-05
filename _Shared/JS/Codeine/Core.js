@@ -164,7 +164,7 @@ $(document).ready(function()
 		{
 			$.ajax({
 				type: 'POST',
-				url: '/ajax/_Locale/Submit',
+				url: '/ajax/_Language/Submit',
 				data: {Token: Token, Text: Text},
 				success: function (data)
 				{

@@ -3,7 +3,14 @@
 function F_I18N_Process ($Data)
     {
         $Pockets = array();
-        
+
+        $Language = new Object('_Language', Client::$Language);
+
+        if (Client::$UID == $Language->Get('Owner'))
+            $CanTranslate = true;
+        else
+            $CanTranslate = false;
+
         if (preg_match_all('@<l>(.*)<\/l>@SsUu', $Data, $Pockets))
         {
             $From = array();
@@ -23,11 +30,13 @@ function F_I18N_Process ($Data)
                     $I18N[$Row['K']][$Row['I']] = $Row['V'];
             }
             
+            if ($CanTranslate)
+            {
                 foreach($Pockets[1] as $IX => $Match)
                 {
                     $From[$Match] = $Pockets[0][$IX];
                     $To[$Match] = '<nrl token=\''.$Match.'\'>'.$Match.'</nrl>';
-                    
+
                     if (isset($I18N[$Match]))
                     {
                         if (isset($I18N[$Match][Client::$Language]))
@@ -38,6 +47,24 @@ function F_I18N_Process ($Data)
                             $To[$Match] = '<nrl token=\''.$Match.'\'>'.$Match.'</nrl>';
                     }
                 }
+            }
+            else
+            {
+                foreach($Pockets[1] as $IX => $Match)
+                {
+                    $From[$Match] = $Pockets[0][$IX];
+                    $To[$Match] = $Match;
+
+                    if (isset($I18N[$Match]))
+                    {
+                        if (isset($I18N[$Match][Client::$Language]))
+                            $To[$Match] = $I18N[$Match][Client::$Language];
+                        elseif (isset($I18N[$Match]['ru_RU']))
+                            $To[$Match] = $I18N[$Match]['ru_RU'];
+                    }
+                }
+            }
+                
             
             $Data = str_replace($From, $To, $Data);
         }

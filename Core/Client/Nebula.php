@@ -78,7 +78,7 @@ class Client
                 }
             }
 
-            if (null !== ($Language = self::$Agent->Get(self::$Agent->Scope.':Language')))
+            if (null !== ($Language = self::$Agent->Get('Language')))
                 self::$Language = $Language;
             else
                 self::$Language = 'ru_RU';
