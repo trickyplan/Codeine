@@ -2,9 +2,14 @@
 
     function F_Agent_Parse ($Input)
     {
-        $Input = json_decode($Input, true);
-        if (($Data = Client::$Face->Get($Input['Key'])) === null)
-            $Data = $Input['Default'];
+        if (Client::$Level == 2) 
+            {
+                $Input = json_decode($Input, true);
+                if (($Data = Client::$Face->Get($Input['Key'])) === null)
+                    $Data = $Input['Default'];
+            }
+        else
+            $Data = null;
         return $Data;
     }
     
