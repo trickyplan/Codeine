@@ -2,7 +2,6 @@
 
 function F_I18N_Process ($Data)
     {
-        return $Data;
         $Pockets = array();
         
         if (preg_match_all('@<l>(.*)<\/l>@SsUu', $Data, $Pockets))
@@ -21,8 +20,9 @@ function F_I18N_Process ($Data)
             if (is_array($RAW))
             {
                 foreach($RAW as $Row)
-                    $I18N[$Row['I']][$Row['K']] = $Row['V'];
+                    $I18N[$Row['K']][$Row['I']] = $Row['V'];
             }
+            
                 foreach($Pockets[1] as $IX => $Match)
                 {
                     $From[$Match] = $Pockets[0][$IX];
