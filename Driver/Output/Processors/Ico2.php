@@ -24,7 +24,10 @@
                       $URL = EngineShared.'/Images/Icons/'.mb_substr($Ico,1).'.png';
                   else
                       $URL = Root.'/Images/Icons/'.$Ico.'.png';
-                  
+
+                  if (!file_exists($URL))
+                      $URL = EngineShared.'/Images/Icons/Default.png';
+
                   $IM2 = imagecreatefrompng($URL);
                   imagealphablending($IM2, false);
                   imagesavealpha($IM2, true);

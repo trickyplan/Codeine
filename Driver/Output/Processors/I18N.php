@@ -14,8 +14,8 @@ function F_I18N_Process ($Data)
             else
                 $Language = '["ru_Ru","'.Client::$Language.'"]';
 
-            $RAW = Data::Read ('_Locale',
-                '{"Fields":["I","K","V"],"Where":{"k1 IN (v1) and k2 in (v2)":{"K":'.$Language.', "I":'.json_encode($Pockets[1]).'}}}');
+            $RAW = Data::Read ('_Language',
+                '{"Fields":["I","K","V"],"Where":{"k1 IN (v1) and k2 in (v2)":{"I":'.$Language.', "K":'.json_encode($Pockets[1]).'}}}');
 
             if (is_array($RAW))
             {
