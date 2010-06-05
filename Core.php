@@ -65,12 +65,12 @@ class Core
 
         try
             {
-                if (file_exists(Root.'Nodes/'._SERVER.'.json'))
+                if (file_exists(Root.'Sites/'._SERVER.'.json'))
                 {
                     if (($EngineConf = json_decode(file_get_contents(Engine.'/Codeine.json'), true))==null)
                         throw new WTF('Engine configuration malformed.', 4049);
 
-                    if (($SiteConf = json_decode(file_get_contents(Root.'Nodes/'._SERVER.'.json'), true))==null)
+                    if (($SiteConf = json_decode(file_get_contents(Root.'Sites/'._SERVER.'.json'), true))==null)
                         throw new WTF('Site configuration malformed.', 4049);
 
                     self::$Conf = ConfWalk ($EngineConf, $SiteConf);
