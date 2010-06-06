@@ -218,8 +218,11 @@ $(document).ready(function()
             }
     })
     $(document).ajaxError(function () {
-        $.jGrowl('Связь с сервером потеряна!', {header: 'Ошибка',theme: 'Panel_Error', sticky: true});
-        $.ErrorState = true;
+        if (!$.ErrorState)
+        {
+            $.jGrowl('Связь с сервером потеряна!', {header: 'Ошибка',theme: 'Panel_Error', sticky: true});
+            $.ErrorState = true;
+        }
     });
 
     setInterval('$.Latency = $.Latency + 50;', 2500);
