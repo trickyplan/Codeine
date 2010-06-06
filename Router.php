@@ -2,7 +2,7 @@
 
     include 'Core.php';
 
-    if (isset(Core::$Conf['Options']['Maintenance']) && Core::$Conf['Options']['Maintenance'])
+    if (isset(Core::$Conf['Options']['Maintenance']) && Core::$Conf['Options']['Maintenance'] == true && !Client::$TrustIP)
     {
         readfile(Root.'Layout/Site/Maintenance.html');
         die();
