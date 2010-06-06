@@ -5,7 +5,6 @@
      list($Scope, $Query) = explode(OBJSEP, $Data);
      $Collection = new Collection($Scope);
      $Collection->Query($Query);
-     $Collection->Load();
 
-     krumo('',$Collection->ValuesOf('Title'));
+     return $Collection->VariantsOf('Title');
   }

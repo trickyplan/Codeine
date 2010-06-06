@@ -6,31 +6,42 @@
     },
   "Nodes":
     {
-        "Language":
+        "Handle":
             {
                 "Type":"String",
                 "Searchable": true,
                 "Required": true,
-                "Editor":"Select",
+                "Editor":"Textfield",
+                "Set": "General"
+            },
+        "Base":
+            {
+                "Type":"String",
+                "Searchable": true,
+                "Required": true,
+                "Editor":"RadioGroup",
                 "Lookup":
                     {
                         "Type": "Object",
                         "Data": "_Language::@All"
-                    }
+                    },
+                "Set": "General"
             },
         "Title":
             {
                 "Type":"String",
                 "Searchable": true,
                 "Required": true,
-                "Editor":"Textfield"
+                "Editor":"Textfield",
+                "Set": "General"
             },
         "Description":
             {
                 "Type":"Text",
                 "Searchable":true,
                 "Required":true,
-                "Editor":"Textarea"
+                "Editor":"Textarea",
+                "Set": "General"
             }
     }
 }

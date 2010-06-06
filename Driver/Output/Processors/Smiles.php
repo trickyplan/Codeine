@@ -9,6 +9,11 @@
             '=))'    => 'Grinning',
             ':-))'   => 'Grinning',
             ':))'    => 'Grinning',
+            ':-P'    => 'Tongue_Out',
+            ':P'    => 'Tongue_Out',
+            '=P'    => 'Tongue_Out',
+            ';-P'    => 'Tongue_Out_Winking',
+            ';P'    => 'Tongue_Out_Winking',
             ':)'     => 'Smiling',
             '=)'     => 'Smiling',
             ':-)'    => 'Smiling',
@@ -34,7 +39,7 @@
        
        foreach ($Smiles as $Key => $Value)
             if (mb_strpos($Data, $Key)!== false)
-                $Data = str_replace($Key, '<img width="16" height="16" src="/Images/Icons/Mood/'.$Value.'.png" title="<l>Smile:'.$Value.'</l>" alt="<l>Smile:'.$Value.'</l>" />', $Data);
+                $Data = str_replace(' '.$Key, '<img width="16" height="16" src="/Images/Icons/Mood/'.$Value.'.png" title="<l>Smile:'.$Value.'</l>" alt="<l>Smile:'.$Value.'</l>" /> &nbsp;', $Data);
 
        return $Data;
     } 

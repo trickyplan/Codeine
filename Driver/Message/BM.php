@@ -26,7 +26,7 @@
             $Message->Add('Type',$Args['Type']);
 
             $Message->Add('Owner', $Args['To']->Get('Owner'));
-            $Message->Add('Sended','False');
+            $Message->Add('Sended','True');
 
             $Message->Save();
     }
