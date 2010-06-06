@@ -39,7 +39,7 @@
        
        foreach ($Smiles as $Key => $Value)
             if (mb_strpos($Data, $Key)!== false)
-                $Data = str_replace(' '.$Key, '<img width="16" height="16" src="/Images/Icons/Mood/'.$Value.'.png" title="<l>Smile:'.$Value.'</l>" alt="<l>Smile:'.$Value.'</l>" /> &nbsp;', $Data);
+                $Data = str_replace(' '.$Key, ' <img width="16" height="16" src="/Images/Icons/Mood/'.$Value.'.png" title="<l>Smile:'.$Value.'</l>" alt="<l>Smile:'.$Value.'</l>" /> ', $Data);
 
        return $Data;
     } 
