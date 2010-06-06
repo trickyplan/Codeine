@@ -2,8 +2,7 @@
 
 class Application
 {
-    public static $Routers   = array ('REST','Native', 'JSON', 'XML');
-    // FIXME
+    public static $Routers   = array ('Native');
     public static $Call      = null;
     public static $AppID     = null;
     public static $Interface = 'web';
@@ -19,6 +18,10 @@ class Application
     private static $AppObject;
     private static $Legacy = array ('Interface', 'Name', 'Plugin', 'ID', 'Mode', 'Aspect');
 
+    public static function Initialize()
+    {
+        self::$Routers = Core::$Conf['Options']['Routers'];
+    }
     public static function Route ($Call)
     {
         Timing::Go('Routing');

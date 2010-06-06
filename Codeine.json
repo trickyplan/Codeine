@@ -15,6 +15,7 @@
             "LRCache":      false,
             "AppCache":     false,
             "Authorizers":  ["Native"],
+            "Routers":      ["REST","Native", "JSON", "XML"],
             "Processors":
                 {
                     "Each":     ["Slot", "Parslet"],

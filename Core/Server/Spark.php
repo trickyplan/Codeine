@@ -70,6 +70,7 @@ class Server
             Code::Initialize(Core::$Conf['Drivers']['Installed']);
             Page::Initialize();
             Access::Initialize();
+            Application::Initialize();
             
             self::Sanitarize();            
             self::$REST = strtolower(self::$_R['REQUEST_METHOD']);
