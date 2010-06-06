@@ -17,7 +17,7 @@ switch (self::$Interface)
     case 'slice':
         if (empty(self::$Mode))
             {
-                if (null !== ($UMode = Client::$Face->Get('Selected:Amplua:'.self::$Object)))
+                if (Client::$Level == 2 && null !== ($UMode = Client::$Face->Get('Selected:Amplua:'.self::$Object)))
                     self::$Mode = $UMode;
                 else
                     self::$Mode = 'First';
