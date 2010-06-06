@@ -79,10 +79,11 @@ class Server
 
     public static function FatalHandler($Data)
     {
+        $Data2 = $Data;
         if ((mb_strpos($Data,'Fatal error') !== false) and Core::$Conf['Options']['FatalCatch'] == true)
             $Data2 = file_get_contents(EngineShared.Layout.'/Errors/Fatal.html');
         elseif (Client::$TrustIP)
-            $Data2 = $Data;
+            $Data2 = $Data2.$Data;
 
         //if (mb_strpos(Server::Get('HTTP_ACCEPT_ENCODING'), 'gzip') !== false)
         //    $Data = ob_gzhandler($Data, 9);
