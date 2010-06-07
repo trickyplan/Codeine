@@ -23,7 +23,6 @@ class Event
         $Args['Source'] = (string) Client::$Face;
         $Event = new Object('_Signal');
         $Event->Create($Args);
-        $Event->Save();
     }
 
     public static function Direct ($Args)

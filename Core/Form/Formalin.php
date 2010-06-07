@@ -90,13 +90,21 @@ class Form
         }
 
         $Tabs = array();
+        
         foreach($Out as $Set => $Fields)
         {
+            if (sizeof($Tabs) > 0)
+                $Hide = 'hide';
+            else
+                $Hide = '';
             $Tabs[] = '<span class="Form_Tab Tab" id="'.$Set.'"><l>'.$Set.'</l></span>';
-            $FormOutput.= Page::Replace ('Form/Default_Set', array('<set/>' => $Set, '<content/>' =>implode ('<br /> ', $Fields)));
+            $FormOutput.= Page::Replace ('Form/Default_Set', array('<hide/>' => $Hide,'<set/>' => $Set, '<content/>' =>implode ('<br /> ', $Fields)));
         }
+        if (sizeof($Tabs) > 1)
+            $Tabs = implode('',$Tabs);
+        else
+            $Tabs = '';
         
-        $Tabs = implode('',$Tabs);
         return Page::Replace($Layout, array('<tabs/>'=>$Tabs, '<url/>' => $URL, '<id/>'=>'FRM'.uniqid(), '<content/>' => $FormOutput));
     }
 }

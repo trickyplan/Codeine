@@ -116,7 +116,7 @@ function ContextHelper()
 
 function Return()
 {
-    Workspace($.LastURL);
+    Workspace($.URL);
 }
 
 function AddBookmark (Type, Name)

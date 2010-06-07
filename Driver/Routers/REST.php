@@ -28,11 +28,10 @@ function F_REST_Route($Call)
                 {
                     if ($Routed['Name'] == 'News')
                     {
-                        if ($Routed['ID']=='@All')
+                        if ($Routed['ID'] == '@All')
                             $Routed['Plugin'] = 'List';
                         else
                             $Routed['Plugin'] = 'Show';
-
                     }
                     else
                     {
@@ -42,6 +41,12 @@ function F_REST_Route($Call)
                 }
                 else
                     $Routed['Plugin'] = 'Show';
+
+                if (in_array($Routed['ID'], array('Create')))
+                    {
+                        $Routed['Plugin'] = $Routed['ID'];
+                        unset($Routed['ID']);
+                    }
             break;
 
             case 'put': $Routed['Plugin'] = 'Create'; break;

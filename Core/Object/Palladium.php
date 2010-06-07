@@ -808,6 +808,8 @@ class Object
                 }
 
                 $this->Add('Owner',Client::$UID);
+                if (isset($Data['Owner']))
+                    $this->Add('Owner',$Data['Owner']);
 
                 if (Client::$Level == 2)
                     $this->Add('Face' , (string) Client::$Face);

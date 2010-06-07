@@ -2,7 +2,6 @@
 
 function F_Mood_Render($Args)
 {      
-    // <select id="prop_current_moodid" class="select" name="prop_current_moodid" tabindex="18" onchange="mood_preview()" => "
     $Moods = array('No', 'Aggravated','Angry','Annoyed','Anxious','Bored','Confused',
             'Crappy','Cranky','Depressed','Discontent','Energetic','Enraged',
             'Enthralled','Exhausted','Happy','High','Horny','Hungry','Infuriated',
