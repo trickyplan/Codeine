@@ -27,33 +27,9 @@ function F_SQL2D_Load ($Args)
 
 function F_SQL2D_Save ($Args)
 {
-
-/* TODO: Анализ изменений данных, отсев незначимых операций.
- *
- */
-    $Data = array('I'=> $Args['Name']);
-    foreach($Args['DML'] as $DMLRow)
-    {
-        switch ($DMLRow['Method'])
-        {
-            case 'Add':
-                $Data[$DMLRow['Key']] = $DMLRow['Value'];
-            break;
-
-            case 'Set':
-                $Data[$DMLRow['Key']] = $DMLRow['Value'];
-            break;
-
-            case 'Del':
-                $Data[$DMLRow['Key']] = NULL;
-            break;
-        }
-    }
-    
-    if (!Data::Read($Args['Point'], '{"Fields":["I"],"Where":{"k1 = v1":{"I":"'.$Args['Name'].'"}}}',true))
-        return Data::Create ($Args['Point'], json_encode($Data));
-    else
-        return Data::Update ($Args['Point'], '{"Data":'.json_encode($Data).',"Where":{"k1 = v1":{"I":"'.$Args['Name'].'"}}}');
+    foreach ($Args['Data'] as $Key => $Value)
+        $InsData[] = array($Key => $Value[0]);
+    Data::Create($Args['Point'], $InsData);
 }
 
 function F_SQL2D_Query ($Args)
@@ -66,10 +42,6 @@ function F_SQL2D_Query ($Args)
     switch (mb_substr ($Q,0,1))
     {
         case '~':
-            // ID
-            $IDs = Data::Read($Args['Point'],
-                '{"Fields":["I"],"Where":{"k1 = v1":{"Handle":"'.mb_substr($Q,1).'"}}}');
-
             if (null === $IDs)
                 $IDs = Data::Read($Args['Point'],
                     '{"Fields":["I"],"Where":{"k1 = v1":{"I":"'.mb_substr($Q,1).'"}}}');

@@ -23,9 +23,9 @@ class Object
 
         private $DML = array ();
 
-        private $Data;
-        private $InheritData;
-        private $SelfData;
+        public $Data = array();
+        public $InheritData;
+        public $SelfData;
 
         private $Keys;
 
@@ -261,9 +261,6 @@ class Object
         {
             if (Access::Check($this, 'Save'))
             {
-                if (!$this->Loaded)
-                    $this->Load();
-
                 if (!empty($this->DML) and $this->Check($this->Data))
                 {
                     $Result = Code::E('Data/Mappers', 'Save', array('Scope'=> $this->Scope,
@@ -413,10 +410,7 @@ class Object
         {
             if (empty ($Key))
                 return Log::Error ('Object:Add Не указан ключ');
-
-            if (!$this->Loaded)
-                $this->Load();
-            
+           
             if (null !== $Value)
             {
                 if (is_array ($Value))
@@ -429,7 +423,12 @@ class Object
                             if (!$AllowDuplicates && in_array ($Value, $this->SelfData[$Key]))
                                 return Log::Warning ('Object:Add Дублирующаяся нода '.$Key.' не добавлена');
                         }
-                    $this->Data[$Key][] = $Value;
+                        
+                    if (isset($this->Data[$Key]))
+                        $this->Data[$Key][] = $Value;
+                    else
+                        $this->Data[$Key] = array($Value);
+
                     $this->iDML('Add', $Key, $Value);
                     return true;
                 }
@@ -492,9 +491,6 @@ class Object
             if (is_array($Key) && (null === $Value))
                 foreach ($Key as $K => $V)
                     $this->Set($K, $V);
-
-            if (!$this->Loaded)
-                $this->Load();
 
             if (!empty ($Key))
             {
@@ -768,13 +764,9 @@ class Object
         {
             if (($Check = $this->Check($Data)) !== true)
                 return $Check;
-
-            if (!$this->Loaded)
-                $this->Load();
-            
+           
             if ($this->_LoadModel())
             {
-
                 if (isset($this->_Model->Options->UID))
                     $UIDD = $this->_Model->Options->UID;
                 else
@@ -783,7 +775,7 @@ class Object
                 if (isset($Data['I']))
                     $this->Name($Data['I']);
                 else
-                    $this->Name = Code::E('Generator/UniqueID','Generate',$this->Scope, $UIDD);
+                    $this->Name = Code::E('Generator/UniqueID','Generate', $this->Scope, $UIDD);
 
                 if (isset($this->_Model->Options->Folder))
                     mkdir(Root.Data.$this->Scope.'/'.$this->Name, 0777, true);
@@ -820,11 +812,12 @@ class Object
                 if (Client::$Level == 2)
                     $this->Add('Face' , (string) Client::$Face);
 
-                if (!isset($Data['CreatedOn']))
-                    $Data['CreatedOn'] = time();
-                
-                $this->Set('CreatedOn', $Data['CreatedOn']);
+                if (isset($Data['CreatedOn']))
+                    $this->Set('CreatedOn', $Data['CreatedOn']);
+                else
+                    $this->Set('CreatedOn', time());
 
+                $this->Loaded = true;
                 $this->Save();
             }
             else

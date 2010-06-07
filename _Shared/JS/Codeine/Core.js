@@ -9,6 +9,7 @@ function Do (div, url2)
     var Dv = $('#'+div);
     $.ajax({url: url2, success: function (data)
         {
+            Dv.attr('exec', url2);
             if (Dv.html() != data)
                 Dv.html(data);
         }});
@@ -102,8 +103,10 @@ function Rate (Type, Name, Rater, Direction)
 function Workspace (url)
 {
     $.Latency = $.StLatency;
+    $.LastURL = $('#Content').attr('exec');
     $.WS = $('#Content').addClass("AjaxActive").html();
-    $('#Content').load(url).removeClass("AjaxActive");
+    Do('Content', url);
+    $('#Content').removeClass("AjaxActive");
 }
 
 function ContextHelper()
@@ -111,15 +114,9 @@ function ContextHelper()
     $.ContextHelper = !$.ContextHelper;
 }
 
-function Back()
-{
-    window.back();
-    Refresh('Content');
-}
-
 function Return()
 {
-    Refresh('Content');
+    Workspace($.LastURL);
 }
 
 function AddBookmark (Type, Name)
@@ -226,4 +223,5 @@ $(document).ready(function()
     });
 
     setInterval('$.Latency = $.Latency + 50;', 2500);
+    $.URL = $('#Content').attr('exec');
 });

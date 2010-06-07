@@ -39,7 +39,7 @@
 
           Page::CSS('.Icon'.$IcoID.' { display: inline; background-image: url("/Data/_Icons/'.$IcoID.'.png"); }');
           foreach($Icos as $IX => $Ico)
-            $Data = str_replace('<icon>'.$Ico.'</icon>', '<div class="Icon'.$IcoID.'" style="background-position: -'.($IX*16).'px top;"><img src="/Images/s.gif" width=16 height=18 /></div>', $Data);
+            $Data = str_replace('<icon>'.$Ico.'</icon>', '<div class="Icon'.$IcoID.'" style="background-position: -'.($IX*16).'px top;"><img src="/Images/s.gif" width=16 height=17 /></div>', $Data);
       }
 
       return $Data;
