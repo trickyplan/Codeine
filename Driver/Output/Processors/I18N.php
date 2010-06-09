@@ -15,7 +15,7 @@ function F_I18N_Process ($Data)
         {
             $From = array();
             $To = array();
-            
+            $Pockets[1] = array_unique($Pockets[1]);
             if (Client::$Language == 'ru_RU')
                 $Language = '["ru_Ru"]';
             else

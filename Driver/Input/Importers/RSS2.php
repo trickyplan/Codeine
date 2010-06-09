@@ -17,12 +17,12 @@
 
 # Исполнение
 
-function F_RSS2_Import($Args)
+function F_RSS2_Import($RSS)
 {
-		$XML = simplexml_load_file($Args["URL"]);
+		$RSS = simplexml_load_string($RSS);
         $Imported = array();
 		$ic = 0;
-        foreach($XML->channel->item as $Item)
+        foreach($RSS->channel->item as $Item)
         {
             $ic++;
             $Imported[$ic]->Date = $Item->pubDate;

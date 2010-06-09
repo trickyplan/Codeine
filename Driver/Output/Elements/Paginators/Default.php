@@ -3,7 +3,8 @@
   function F_Default_Paginate($Args)
   {
       $Output = '';
-      $PageSize = Application::GetTune('PageSize');
+      $PageSize = Application::GetTune('PageSize',10);
+      
       $PageCount = ceil($Args['Objects']/$PageSize);
 
       if ($PageCount <= 1)
