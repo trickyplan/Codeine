@@ -47,6 +47,8 @@ class Collection
                         if (mb_strpos($Selector, ';') !== false)
                             {
                                 $Selectors = explode(';',$Selector);
+                                $this->Query($Selectors[0], 'New');
+                                unset($Selectors[0]);
                                 foreach($Selectors as $Selector)
                                     $this->Query($Selector, 'Intersect');
                             }

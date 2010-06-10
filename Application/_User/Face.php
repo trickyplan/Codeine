@@ -1,6 +1,6 @@
 <?php
 
-if (Client::$Authorized)
+if (Client::$Level > 0)
     {
         $Applications = new Collection('_Application');
         $Applications->Query('=Faceable=True');

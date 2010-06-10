@@ -712,10 +712,14 @@ class Object
 
           $UniqueTesting = new Collection($this->Scope);
 
-          if (isset($Data['I']))
-              if ((array_intersect($Data['I'], $UniqueTesting->VariantsOf('I'))) !== array())
-                    $Errors[$Name] = 'Unique';
+          /*
+           if (isset($Data['I']))
 
+              if (($IDs = $UniqueTesting->VariantsOf('I')) != null) {
+                  if ((array_intersect($Data['I'], $UniqueTesting->VariantsOf('I'))) !== array())
+                        $Errors[$Name] = 'Unique';
+              }
+*/ //FIXME
           if (isset($this->_Model->Nodes ))
           {
             foreach($this->_Model->Nodes as $Name => $Node)
@@ -773,7 +777,7 @@ class Object
                     $UIDD = 'Default';
 
                 if (isset($Data['I']))
-                    $this->Name($Data['I']);
+                    $this->Name = $Data['I'];
                 else
                     $this->Name = Code::E('Generator/UniqueID','Generate', $this->Scope, $UIDD);
 

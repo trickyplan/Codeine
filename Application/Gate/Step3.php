@@ -11,6 +11,7 @@
 
                 if ($Result == 'Authorized')
                    {
+                        Client::$Ticket->Set('Device', Server::Get('Device'));
                         Client::Attach(Client::$Ticket->Get('MayBe'));
                         Client::Redirect('/_User/~'.Client::$Ticket->Get('MayBe'));
                    }

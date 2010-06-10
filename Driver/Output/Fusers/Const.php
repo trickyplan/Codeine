@@ -33,7 +33,7 @@
     if (Client::$Authorized)
     {
         $OK[] = '<uname/>';
-        $OV[] = Client::$UID;
+        $OV[] = Client::$User->Name;
     }
     else
     {

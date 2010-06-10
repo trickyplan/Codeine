@@ -7,8 +7,8 @@
  * @copyright BreathLess, 2010
  */
 
+set_time_limit(0);
 self::$Collection->Query('@All');
-self::$Collection->Slice(0,200);
 self::$Collection->Load();
 
 foreach (self::$Collection->_Items as $Item)

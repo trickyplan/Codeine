@@ -2,7 +2,7 @@
 
 function F_vx7_Generate($Args)
 {
-    $Length = mt_rand(4,6);
+    $Length = 4;
     $Answer = Code::E('Generator/Keyword','Generate',array('Length' => $Length),'English');
     $Fonts = Code::E('System/FS','Listing', Engine.'_Shared/Fonts/');
     $UID = sha1($Answer);
@@ -49,7 +49,7 @@ function F_vx7_Generate($Args)
 
     Client::$Ticket->Set('CAPTCHA:vx7:Answer', $Answer);
 
-    return '<img src="/Data/_CAPTCHA/'.$UID.'.png" /> <input name="CAPTCHA" type="text" />';
+    return '<img src="/Data/_CAPTCHA/'.$UID.'.png" style="vertical-align: top;"/> <input class="Text_CAPTCHA" name="CAPTCHA" type="text" />';
 }
 
 function F_vx7_Check($Args)

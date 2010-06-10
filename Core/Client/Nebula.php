@@ -44,7 +44,11 @@ class Client
             $IP2Geo = $IPTable->Data();
 
         foreach($IP2Geo as $Key => $Value)
+        {
             self::$Face->Set('Geo:'.$Key, $Value);
+            self::$Ticket->Set('Geo:'.$Key, $Value);
+            self::$User->Set('Geo:'.$Key, $Value);
+        }
 
         return true;
     }
@@ -139,6 +143,8 @@ class Client
         self::$Ticket->Add('CreatedOn', time());
         self::$Ticket->Add('ExpiresOn', time());
         self::$Ticket->Add('TSL', $TSL);
+        self::$Ticket->Add('IP', _IP);
+        self::$Ticket->Add('UA', Server::Get('HTTP_USER_AGENT'));
 
         Data::Create('Cookie', '{"I":"TID", "V":"'.$TID.'", "TTL":"159870000"}');
         Data::Create('Cookie', '{"I":"TSL", "V":"'.$TSL.'", "TTL":"159870000"}');
@@ -148,9 +154,10 @@ class Client
 
     public static function Attach ($Username)
     {
-        self::$Ticket->Set('User', $Username);
-        self::$Level = 1;
         self::$User = new Object('_User',$Username);
+        self::$Ticket->Set('User', $Username);
+        self::$Ticket->Set('Owner', (string)self::$User);
+        self::$Level = 1;
         
         return Log::Good('Ticket attached');
     }

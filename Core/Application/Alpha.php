@@ -80,13 +80,14 @@ class Application
             Page::Start(self::$AppID);
 
             if (!self::$AppObject->Load(self::$Name))
-                    throw new WTF('Unknown Application '.self::$Name.':'.self::$Plugin, 4041);
+                    throw new WTF('Unknown Application '.self::$Name.':'.self::$Plugin, 4041);              
 
             self::$Object = new Object(self::$Name);
             self::$Collection = new Collection(self::$Name);
 
             $Plugins = self::$AppObject->Get(
                     array(
+                        'Plugin:Protected',
                         'Plugin:Local:Own',
                         'Plugin:Local:Shared',
                         'Plugin:System:Own',
@@ -96,6 +97,8 @@ class Application
 
             if (!self::$Plugin)
                 self::$Plugin = self::$AppObject->Get('Plugin:Default');
+            
+            if (isset($Plugins['Plugin:Protected']) and in_array(self::$Plugin, $Plugins['Plugin:Protected']) and Client::$Level == 0)throw new Exception ('Access Denied', 4031);
             
             Page::$Slots['Title']['Application'] = '<l>Application:'.self::$Name.'</l>';
             Page::$Slots['Title']['Plugin'] ='<l>Plugin:'.self::$Plugin.'</l>';
