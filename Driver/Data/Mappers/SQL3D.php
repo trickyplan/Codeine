@@ -164,19 +164,19 @@ function F_SQL3D_Query ($Args)
         case '>':
             // Greater
             list ($Key, $Value) = explode ('>', mb_substr ($Q, 1));
-            $IDs = Data::Read($Args['Point'], '{"Fields":'.$Fields.',"Where":{"k1 = v1&&k2 > v2":{"K":"'.$Key.'","V":"'.$Value.'"}}}');
+            $IDs = Data::Read($Args['Point'], '{"Fields":'.$Fields.',"Where":{"k1 = v1 && k2 > v2":{"K":"'.$Key.'","V":"'.$Value.'"}}}');
         break;
 
         case '<':
             // Lesser
             list ($Key, $Value) = explode ('<', mb_substr ($Q, 1));
-            $IDs = Data::Read($Args['Point'], '{"Fields":'.$Fields.',"Where":{"k1 = v1&&k2 < v2":{"K":"'.$Key.'","V":"'.$Value.'"}}}');
+            $IDs = Data::Read($Args['Point'], '{"Fields":'.$Fields.',"Where":{"k1 = v1 && k2 < v2":{"K":"'.$Key.'","V":"'.$Value.'"}}}');
         break;
 
         case '!':
             // Not equal
             list ($Key, $Value) = explode ('!', mb_substr ($Q, 1));
-            $IDs = Data::Read($Args['Point'], '{"Fields":'.$Fields.',"Where":{"k1 = v1&&k2 != v2":{"K":"'.$Key.'","V":"'.$Value.'"}}}');
+            $IDs = Data::Read($Args['Point'], '{"Fields":'.$Fields.',"Where":{"k1 = v1 && k2 != v2":{"K":"'.$Key.'","V":"'.$Value.'"}}}');
         break;
 
         case '.':
@@ -194,6 +194,12 @@ function F_SQL3D_Query ($Args)
                 break;
             }
 
+        break;
+
+        case '|':
+            // Lesser
+            list ($Key, $Min, $Max) = explode ('|', mb_substr ($Q, 1));
+            $IDs = Data::Read($Args['Point'], '{"Fields":'.$Fields.',"Where":{"k1 = v1 && k2 > v2 && k2 < v3":{"K":"'.$Key.'","V":"'.$Min.'","VM":"'.$Max.'"}}}');
         break;
 
         case '-':

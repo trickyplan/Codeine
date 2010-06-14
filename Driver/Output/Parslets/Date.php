@@ -9,10 +9,15 @@
         else
             $F = 'Moon';
 
-        if (isset($Input['D']))
+        if (!is_numeric($Input['D']))
+            $Input['D'] = strtotime($Input['D']);
+
+        if (isset($Input['D']) and $Input['D'] !== false)
             $Arg = $Input['D'];
         else
             $Arg = time();
+
+
         
         if (isset($Input['Args']))
             $Arg = $Input['Args'];
