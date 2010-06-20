@@ -21,8 +21,8 @@ function F_Thumb_Parse($Pockets)
     $Size = $Args['Size'];
 
     $FullName = Root.$Image;
-    $ThumbName = Root.Data.'_Thumbs/'.$Size.'/'.basename($Image);
-    $ThumbURL = Data.'_Thumbs/'.$Size.'/'.basename($Image);
+    $ThumbName = Root.Temp.'_Thumbs/'.$Size.'/'.basename($Image);
+    $ThumbURL = Temp.'_Thumbs/'.$Size.'/'.basename($Image);
 
     if (!isset($Args['Align']))
         $Args['Align'] = '';
@@ -32,8 +32,8 @@ function F_Thumb_Parse($Pockets)
     if (!isset($Args['Class']))
         $Args['Class'] = '';
 
-    if (!is_dir(Root.Data.'_Thumbs/'.$Size))
-        mkdir(Root.Data.'_Thumbs/'.$Size, 0777);
+    if (!is_dir(Root.Temp.'_Thumbs/'.$Size))
+        mkdir(Root.Temp.'_Thumbs/'.$Size, 0777);
 
     if (!file_exists($ThumbName))
     {
