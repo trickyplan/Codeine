@@ -45,11 +45,11 @@ function F_vx7_Generate($Args)
     for ($Noise=0; $Noise<10; $Noise++)
         imageline($im, mt_rand(0,$Width),mt_rand(0,$Height),mt_rand(0,$Width),mt_rand(0,$Height), $White);
     
-    imagepng($im, Root.Data.'_CAPTCHA/'.$UID.'.png');
+    imagepng($im, Root.Temp.'_CAPTCHA/'.$UID.'.png');
 
     Client::$Ticket->Set('CAPTCHA:vx7:Answer', $Answer);
 
-    return '<img src="/Data/_CAPTCHA/'.$UID.'.png" style="vertical-align: top;"/> <input class="Text_CAPTCHA" name="CAPTCHA" type="text" />';
+    return '<img src="/Temp/_CAPTCHA/'.$UID.'.png" style="vertical-align: top;"/> <input class="Text_CAPTCHA" name="CAPTCHA" type="text" />';
 }
 
 function F_vx7_Check($Args)

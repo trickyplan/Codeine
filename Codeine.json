@@ -97,7 +97,6 @@
             "_Route":         {"Node": "SQL3D",  "Dir": "_Route",        "ReadCache": "Static"},
             "_Signal":        {"Node": "SQL3D",  "Dir": "_Signal"},
             "_Language":      {"Node": "SQL3D",  "Dir": "_Language"},
-            "_Locale":      {"Node": "SQL3D",  "Dir": "_Locale"},
             "_Slot":          {"Node": "SQL3D",  "Dir": "_Slot"},
             "Info":           {"Node": "SQL3D",  "Dir": "Info"},
             "_Layout":        {"Node": "Layout", "Dir": "Layout",        "ReadCache": "Static"},
