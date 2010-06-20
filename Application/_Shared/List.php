@@ -21,7 +21,7 @@ if (isset(self::$In['Count']))
     if (self::$In['Count'] != 0)
         self::$Collection->Slice(0, self::$In['Count']);
 }
-elseif (self::$In['Count'] != 0)
+else
 {
     Page::Add(
     Code::E('Output/Elements/Paginators', 'Paginate',
