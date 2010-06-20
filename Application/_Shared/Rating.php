@@ -1,14 +1,11 @@
 <?php
 
 if (isset(Client::$Agent))
-{
-    $BufferRate = '';
+{   
+    if (!self::$Object->Load(self::$ID))
+       throw new WTF('Not Found Object');
     
-    $Object = new Object (self::$Name);
-    if (!$Object->Load(self::$ID))
-            throw new WTF('Not Found Object');
-    
-    $Owner = new Object ('_User',$Object->Get('Owner'));
+    $Face = new Object (self::$Object->Get('Face'));
 
     $Raters = self::$AppObject->Get('Rater:Installed', false);
 
@@ -18,57 +15,59 @@ if (isset(Client::$Agent))
 
            $Rater = Server::Get('Rater');
 
-           if (!in_array($Rater,$Raters)) die();
+           //if (!in_array($Rater,$Raters)) die();
 
-           if (null !== ($Power = Client::$Agent->Get('Rating:'.$Rater)))
+           if (null !== ($Power = Client::$Face->Get('Rating:Overall')))
                 $Power = round($Power/100,2);
            else
                 $Power = 1;
                     
-           $RatedBy = $Object->Get('RatedBy:'.$Rater, false);
+           $RatedBy = self::$Object->Get('RatedBy:'.$Rater, false);
 
            if (!$RatedBy)
                $RatedBy = array();
            
-           if (!in_array(Client::$UID, $RatedBy))
+           //if (!in_array(Client::$UID, $RatedBy))
                    {
                        if (Server::Get('Direction') == 'Minus')
                            $Power = -$Power;
                        
-                       $Object->Inc('Rating:'.$Rater, $Power);
-                       $Owner->Inc('Rating:'.$Rater, ($Power/10));
+                       self::$Object->Inc('Rating:'.$Rater, $Power);
+                       $Face->Inc('Rating:Overall', $Power);
 
-                       $Object->Add('RatedBy:'.$Rater, Client::$UID);
+                       self::$Object->Add('RatedBy:'.$Rater, Client::$UID);
 
-                       $Object->Save();
+                       self::$Object->Save();
                    }
 
-           $Rate = $Object->Get('Rating:'.$Rater);
-           Page::Add($Rate);
+           $Rate = self::$Object->Get('Rating:'.$Rater);
+           Page::Body($Rate);
         break;
 
         case 'get':
              if ($Raters)
              foreach ($Raters as $Rater)
                 {
-                    $RatedBy = $Object->Get('RatedBy:'.$Rater, false);
+                    $RatedBy = self::$Object->Get('RatedBy:'.$Rater, false);
 
                     if(!is_array($RatedBy))
                         $RatedBy = array();
                     
-                    if (!in_array(Client::$UID, $RatedBy))
+                    if (in_array(Client::$UID, $RatedBy))
                         $RateL = 'Raters/Default';
                     else
                         $RateL = 'Raters/Already';
 
-                    if (!($Rate = $Object->Get('Rating:'.$Rater)))
-                            $Rate = 0;
+                    if (!($Rate = self::$Object->Get('Rating:'.$Rater)))
+                        $Rate = 0;
 
-                    $BufferRate.= Page::Replace($RateL, array(
-                        '<rate/>'=>$Rate,
-                        '<rater/>'=>$Rater));
+                    Page::AddBuffered(Page::Replace($RateL, array(
+                        '<scope/>' => self::$Object->Scope,
+                        '<name/>'  => self::$Object->Name,
+                        '<rate/>'  =>$Rate,
+                        '<rater/>' =>$Rater)));
                 }
-             Page::Add($BufferRate);
+             Page::Flush();
         break;
     }
 }

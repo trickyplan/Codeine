@@ -6,7 +6,7 @@ function F_I18N_Process ($Data)
 
         $Language = new Object('_Language', Client::$Language);
 
-        if (Client::$UID == $Language->Get('Owner'))
+        if (Client::$UID == $Language->Get('Owner') or $Language->Get('Owner') == null)
             $CanTranslate = true;
         else
             $CanTranslate = false;

@@ -2,7 +2,7 @@
 
   self::$Object = new Object(self::$Name, Client::$Language);
   
-  if (self::$Object->Get('Owner') == Client::$UID)
+  if (self::$Object->Get('Owner') == Client::$UID or self::$Object->Get('Owner') == null)
       {
         self::$Object->Add(Server::Get('Token'), Server::Get('Text'));
         self::$Object->Inc('Words', 1);
