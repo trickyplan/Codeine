@@ -73,6 +73,7 @@
             "Styles":         "Styles",
             "Layout":         "Layout",
             "Data":           "Data",
+            "Temp":           "Temp",
             "Flash":          "Fl",
             "JS":             "JS"
         },

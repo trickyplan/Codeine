@@ -39,7 +39,7 @@
                 $CSSIncludes[$CSS] = filemtime($CSS);
 
           $HID = md5(implode(',',$CSSIncludes).implode(',',array_keys($CSSIncludes)));
-          $HCSSFile = Data.'_CSS/'.$HID.'.css';
+          $HCSSFile = Temp.'_CSS/'.$HID.'.css';
 
           if (!file_exists(Root.$HCSSFile))
           {
@@ -71,7 +71,7 @@
                   Log::Error($JS);
 
           $HID = md5(implode(',',$JSSIncludes).implode(',',array_keys($JSSIncludes)));
-          $HJSFile = Data.'_JS/'.$HID.'.js';
+          $HJSFile = Temp.'_JS/'.$HID.'.js';
 
           if (true or !file_exists(Root.$HJSFile))
           {
