@@ -16,10 +16,9 @@ else
 if (!isset(self::$Mode) or empty(self::$Mode))
     self::$Mode = self::$Plugin;
 
-if (isset(self::$In['Count']))
+if (isset(self::$In['Count']) and self::$In['Count'] != 0)
 {
-    if (self::$In['Count'] != 0)
-        self::$Collection->Slice(0, self::$In['Count']);
+     self::$Collection->Slice(0, self::$In['Count']);
 }
 else
 {

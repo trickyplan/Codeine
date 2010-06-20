@@ -227,7 +227,7 @@ class Collection
   {
       if (is_array($this->Names))
       {
-          $PageSize = Application::GetTune('PageSize',10);
+          $PageSize = Application::GetTune('PageSize');
           $PageCount = ceil($this->Length / $PageSize);
           if ($PageNumber>0 and $PageNumber<=$PageCount)
               $this->Names = array_slice($this->Names, ($PageNumber-1)*$PageSize, $PageSize);
