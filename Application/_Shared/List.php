@@ -16,23 +16,31 @@ else
 if (!isset(self::$Mode) or empty(self::$Mode))
     self::$Mode = self::$Plugin;
 
-if (isset(self::$In['Count']) and self::$In['Count'] != 0)
-     self::$Collection->Slice(0, self::$In['Count']);
-else
+$Pagination = false;
+
+if (isset(self::$In['Count']))
 {
-    Page::Add(
-    Code::E('Output/Elements/Paginators', 'Paginate',
-        array(
-            'Objects' => sizeof(self::$Collection->Names),
-            'URL'=>self::$Call.'?Page='
-            )
-        )
-        ,'pagination');
-    
-    if (!isset(self::$In['Page']))
-        self::$In['Page'] = 1;
-            self::$Collection->Page(self::$In['Page']);
+    if (self::$In['Count'] != 0)
+        self::$Collection->Slice(0, self::$In['Count']);
 }
+else
+    $Pagination = true;
+
+if ($Pagination)
+    {
+        Page::Add(
+        Code::E('Output/Elements/Paginators', 'Paginate',
+            array(
+                'Objects' => sizeof(self::$Collection->Names),
+                'URL'=>self::$Call.'?Page='
+                )
+            )
+            ,'pagination');
+
+        if (!isset(self::$In['Page']))
+            self::$In['Page'] = 1;
+                self::$Collection->Page(self::$In['Page']);
+    }
 
 self::$Collection->Load();
 

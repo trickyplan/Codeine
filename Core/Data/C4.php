@@ -104,6 +104,9 @@ class Data // UMA
                 }
                 else
                     $Result = null;
+
+                if (isset(self::$_Storages[$StorageID]['Transaction']))
+                    self::Start ($Point);
             }
             else
                 $Result = true;
@@ -125,7 +128,7 @@ class Data // UMA
             $Result = Code::E('Data/Mounters','Unmount', self::$_Connected[$Name], self::$_Storages[$Name]['Method']);
         else
             $Result = true;
-        
+       
         Timing::Stop('Unmounting '.$Point);
 
         return $Result;
@@ -210,7 +213,10 @@ class Data // UMA
 
     public static function Create($Point, $DDL)  // Create
     {       
-        return self::CRUD ('Create', $Point, $DDL);
+        if (isset(self::$_Storages[self::$_MST[$Point]]['Transaction']))
+            self::$_Transactions[$Point][] = array($DDL, 'Create');
+        else
+            return self::CRUD ('Create', $Point, $DDL);
     }
 
     public static function Read ($Point, $DDL, $EnableCache = true)    // Read
@@ -233,7 +239,7 @@ class Data // UMA
 
     public static function Update ($Point, $DDL) // Update
     {
-        if (isset(self::$_Storages[self::$_MST[$Point]]['transaction']))
+        if (isset(self::$_Storages[self::$_MST[$Point]]['Transaction']))
             self::$_Transactions[$Point][] = array($DDL, 'Update');
         else
             return self::CRUD ('Update', $Point, $DDL);
@@ -241,7 +247,10 @@ class Data // UMA
 
     public static function Delete ($Point, $DDL) // Delete
     {
-        return self::CRUD ('Delete', $Point, $DDL);
+        if (isset(self::$_Storages[self::$_MST[$Point]]['Transaction']))
+            self::$_Transactions[$Point][] = array($DDL, 'Delete');
+        else
+            return self::CRUD ('Delete', $Point, $DDL);
     }
 
     public static function Exist ($Point, $DDL, $EnableCache = true) // Exist
@@ -282,12 +291,12 @@ class Data // UMA
             
             if (!empty($CLog))
                 {
-                foreach($CRUD as $cLog)
-                    {
-                        list ($DDL, $Method) = $CRUD;
-                        self::CRUD($Point, $DDL, $Method);
-                    }
-                self::$_Transactions[$Point] = array();
+                    foreach($CLog as $CRUD)
+                        {
+                            list ($DDL, $Method) = $CRUD;
+                            self::CRUD($Point, $DDL, $Method);
+                        }
+                    self::$_Transactions[$Point] = array();
                 }
         }
         return true;

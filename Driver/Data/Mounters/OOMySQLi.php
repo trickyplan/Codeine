@@ -42,11 +42,13 @@ function F_OOMySQLi_Create ($Args)
     foreach ($Args['DDL'] as $Row)
     {
         $Values = array();
+        
         foreach($Row as $Key => $Value)
         {
             $Fields[$Key] = '`'.$Args['Storage']->escape_string($Key).'`';
             $Values[$Key] = '\''.$Args['Storage']->escape_string($Value).'\'';
         }
+        
         $ValueStr[] = '('.implode (',',$Values).')';
     }
 
@@ -112,7 +114,11 @@ function F_OOMySQLi_Read ($Args)
     else
         $OrderStr = '';
 
-    $Query = 'SELECT '.$FStr.' FROM `'.$Args['Dir'].'` '.$Condition.$OrderStr;
+    if (isset ($Args['DDL']['Unique']) and $Args['DDL']['Unique'] == true)
+        $Distinct = 'DISTINCT ';
+    else
+        $Distinct = ' ';
+    $Query = 'SELECT '.$Distinct.$FStr.' FROM `'.$Args['Dir'].'` '.$Condition.$OrderStr;
 
     Timing::Go($Query);
 

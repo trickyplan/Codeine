@@ -821,7 +821,7 @@ class Object
                 if (isset($Data['CreatedOn']))
                     $this->Set('CreatedOn', $Data['CreatedOn']);
                 else
-                    $this->Set('CreatedOn', time());
+                    $this->Add('CreatedOn', time());
 
                 $this->Loaded = true;
                 $this->Save();
