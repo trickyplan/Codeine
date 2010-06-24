@@ -337,8 +337,8 @@ class Object
 
             $Data = array ();
             foreach($this->Keys as $Key)
-                if (mb_ereg($Pattern.'(.*)',$Key))
-                    $Data[$Key] = $this->Get($Key, $Ordinary, $ForceArray, $Index);
+                if (mb_ereg($Pattern.'(.*)',$Key, $Matches))
+                    $Data[$Matches[1]] = $this->Get($Key, $Ordinary, $ForceArray, $Index);
 
             return $Data;
         }
