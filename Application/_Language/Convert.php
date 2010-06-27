@@ -17,6 +17,7 @@
  foreach ($I18N->_Items as $Name => $Item)
  {
      $Data = $Item->Data();
+
      foreach ($Data as $Key => $Value)
      {
          if (!isset($Langs[$Key]))
@@ -25,7 +26,7 @@
              $Langs[$Key]->Load($Key);
          }
 
-         $Langs[$Key]->Add($Item->Name, $Value);
+         $Langs[$Key]->Add($Item->Name, $Value[0]);
      }
  }
 
