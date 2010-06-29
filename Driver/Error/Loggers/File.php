@@ -9,7 +9,7 @@
             foreach($Messages as $Message)
                 $Output.= $Message[0]."\x9".Log::$Types[$Message[1]]."\x9".$Message[2]."\n";
 
-            $LogFile = '/var/log/codeine/'.$_SERVER['SERVER_NAME'].'.log';
+            $LogFile = '/var/log/codeine/'._SERVER.'.log';
 
             if (!file_exists($LogFile))
                 touch($LogFile);
