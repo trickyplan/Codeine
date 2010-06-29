@@ -11,7 +11,7 @@ if (!self::$Object->Load())
 switch (self::$Interface)
 {
     case 'ajax':
-        if (!empty(self::$Mode))
+        if (!empty(self::$Mode) and Client::$Level == 2)
             Client::$Face->Set('Selected:Amplua:'.self::$Object, self::$Mode);
     break;
     case 'slice':
