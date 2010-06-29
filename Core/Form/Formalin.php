@@ -73,7 +73,7 @@ class Form
             else
                 $FName = $Name;
 
-            if (!isset($Field->Set))
+            if (!isset($Field->Set) or empty($Field->Set))
                 $Field->Set = 'General';
             
             $Out[$Field->Set][$Name] =
