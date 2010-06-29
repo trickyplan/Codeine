@@ -59,8 +59,18 @@ class Timing
                     self::$Ticks[$Source][1] = self::Lap('Root') && Log::Error ('Не остановлен таймер '.$Source);
                 elseif ($Result == 0)
                     $Result = 0.000001;
-                
-                $Report[++$IC] = array('T' => $Result, 'S' => $Source, 'C' => round(($Result/self::$Results['Root']) * 100, 2).' %');
+
+                $Percentage = round($Result/self::$Results['Root']* 100, 2);
+                $Report[++$IC] = array('T' => $Result, 'S' => $Source, 'C' => $Percentage.' %');
+
+                if (isset(Core::$Conf['Sensors']['Timing']))
+                    if (isset(Core::$Conf['Sensors']['Timing'][$Source]))
+                    {
+                        if (Core::$Conf['Sensors']['Timing'][$Source]['Min']>$Result or Core::$Conf['Sensors']['Timing'][$Source]['Max']<$Result)
+                            Log::Error('Timer "'.$Source. '" out of control!');
+                    }elseif (isset(Core::$Conf['Sensors']['Timing'][$Source.'%']))
+                        if (Core::$Conf['Sensors']['Timing'][$Source.'%']['Min']>$Percentage or Core::$Conf['Sensors']['Timing'][$Source.'%']['Max']<$Percentage)
+                            Log::Error('Timer "'.$Source. '" out of control!');
             }
             
         $Perfomance = 'Частота системного таймера: '.round( (1 / Timing::Autotest()) / 1000, 2).' KHz';
@@ -70,23 +80,12 @@ class Timing
 
     public static function Profiler()
     {
+        Timing::Stop('Root');
+        $Report = self::Report();
+        
         if (Core::$Conf['Options']['Profiling'] == 0)
             return false;
 
-        Timing::Stop('Root');
-        return Code::E('System/Profilers', 'Profile', self::Report());
-
-        /* $xhprof_data = xhprof_disable();
-        include_once Engine.'Class/xhprof_lib/utils/xhprof_lib.php';
-        include_once Engine.'Class/xhprof_lib/utils/xhprof_runs.php';
-        
-        $xhprof_runs = new XHProfRuns_Default();
-        $run_id = $xhprof_runs->save_run($xhprof_data, "xhprof_test");
-        # Хост, который Вы настроили ранее на GUI профайлера
-        echo "Report: http://xhprof/index.php?run=$run_id&source=xhprof_test";
-        echo "\n";
-
-        
-        */
+        return Code::E('System/Profilers', 'Profile', $Report);
     }
 }

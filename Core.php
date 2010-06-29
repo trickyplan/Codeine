@@ -82,7 +82,7 @@ class Core
 
                 Timing::Initialize ();
 
-                Log::Important ('Started');
+                Log::Info ('Started');
 
                 Timing::Go ('Core');
 

@@ -64,10 +64,10 @@ class Data // UMA
                 {
                     self::$_Connected[$Name] = $Connected;
                     $Returned = true;
-                    Log::Good('Data: Подключение к '.$Name.' успешно.', 'D');
+                    Log::Good('Data: Подключение к '.$Name.' успешно.');
                 }
                 else
-                    Log::Error('Data: Подключение к '.$Name.' не удалось.', 'D');
+                    Log::Error('Data: Подключение к '.$Name.' не удалось.');
             }
             else
                 if (self::$_Connected[$Name] !== null)
@@ -93,13 +93,17 @@ class Data // UMA
                 if (isset(self::$_Mounts[$Point]['Node']))
                     $StorageID = self::$_Mounts[$Point]['Node'];
                 else
+                {
+                    Timing::Stop('Mounting '.$Point);
                     return Log::Error('Node for Mount Point: '.$Point.'Not Defined');
+                }
                 
                 // FIXME: Not once Storage
 
                 if (self::Connect($StorageID) !== null)
                 {
                     self::$_MST[$Point] = $StorageID;
+                    Timing::Stop('Mounting '.$Point);
                     return true;
                 }
                 else

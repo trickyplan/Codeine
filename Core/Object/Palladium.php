@@ -158,8 +158,6 @@ class Object
 
         public function Load ($Name = null, $Inheritated = true)
         {
-            Timing::Go ($this->Scope.':'.$Name.':Load');
-
             $Result = null;
 
             if (Access::Check($this, 'Load'))
@@ -177,10 +175,11 @@ class Object
                         $Inheritated = true;
                     }
 
+                Timing::Go ($this->Scope.':'.$Name.':Load');
+                
                 if (null !== ($PooledData = Data::PoolGet($this->Scope.'::'.$this->Name)))
                     {
                         list($this->Data, $this->SelfData,$this->InheritData) = $PooledData;
-                        Timing::Stop ($this->ORM.':Load');
                         Timing::Stop ($this->Scope.':'.$Name.':Load');
                         return ($this->Loaded = true);
                     }
@@ -272,7 +271,7 @@ class Object
                                                 ,$this->ORM);
                 }
                 else
-                    $Result = Log::Warning('Бессмысленный вызов ORM Save '.$this->Point.' > '.$this->Name);
+                    $Result = Log::Warning('Reduntant ORM Save '.$this->Point.' > '.$this->Name, 3);
 
                 $this->DML = array();
             }

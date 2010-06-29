@@ -105,5 +105,13 @@
             "Static":         {"Node": "JSON",   "Dir": "Static"},
             "Model":          {"Node": "JSON",   "Dir": "Model"},
             "Cookie":         {"Node": "Cookie", "Dir": "Cookie"}
+        },
+    "Sensors":
+        {
+            "Timing":
+                {
+                    "Root": {"Min": 0, "Max": 100},
+                    "Code:Data/Mounters%": {"Min":10,"Max":30}
+                }
         }
 }

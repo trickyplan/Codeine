@@ -6,7 +6,6 @@ function F_REST_Route($Call)
        return null;
     
     $Routed = array();
-    Log::Important($Call);
     
     if (mb_strpos($Call,'?') !== false)
         {
