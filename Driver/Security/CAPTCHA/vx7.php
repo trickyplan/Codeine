@@ -55,7 +55,7 @@ function F_vx7_Generate($Args)
 function F_vx7_Check($Args)
 {
     $Answer = Client::$Ticket->Get('CAPTCHA:vx7:Answer');
-    unlink (Root.Data.'_CAPTCHA/'.sha1($Answer).'.png');
+    unlink (Root.Temp.'_CAPTCHA/'.sha1($Answer).'.png');
     if ($Answer == Server::Get('CAPTCHA'))
         return true;
     else
