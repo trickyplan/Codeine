@@ -1,7 +1,13 @@
 <div class="Spaced">
     <form action="/web/Gate/Step2" method="post">
-        <strong><l>Auth:Name:Input</l></strong>
-            <input class="Textfield" type="text" name="Login"/>
-        <input class="Button" type="submit" value="OK" />
+        <div class="Block">
+            <strong><l>Auth:Name:Input</l></strong> <input class="Textfield" type="text" name="Login"/>
+        </div>
+        <div class="Block">
+            <CAPTCHA/>
+        </div>
+        <div class="Block">
+            <input class="Button" type="submit" value="Вход" />
+        </div>
     </form>
 </div>

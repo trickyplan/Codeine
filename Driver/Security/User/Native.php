@@ -35,41 +35,32 @@ function F_Native_Step2 ($Args)
 
 function F_Native_Step3 ($Args)
 {
-    if (true or Code::E('Security/CAPTCHA', 'Check', array('Ticket'=>Client::$Ticket)))
-        {
-            if (Client::$Agent->Load(Client::$Ticket->Get('MayBe')))
+    if (Client::$Agent->Load(Client::$Ticket->Get('MayBe')))
+    {
+        $Authorizers = Client::$Agent->Get('Authorizer:Installed', false);
+        $Output = '';
+        $Decisions = array();
+
+        if (is_array($Authorizers))
+            foreach($Authorizers as $Authorizer)
             {
-                $Authorizers = Client::$Agent->Get('Authorizer:Installed', false);
-                $Output = '';
-                $Decisions = array();
-
-                if (is_array($Authorizers))
-                    foreach($Authorizers as $Authorizer)
-                    {
-                                if (
-                                    Code::E('Security/Authorizers','Check',
-                                        array('True'=> Client::$Agent->Get('Authorizer:'.$Authorizer,false),
-                                              'Challenge'=>Server::Get($Authorizer)),$Authorizer)
-                                    )
-                                        $Decisions[$Authorizer] = true;
-                                else
-                                        $Decisions[$Authorizer] = false;
-                    }
-                    
+                if (
+                    Code::E('Security/Authorizers','Check',
+                        array('True'=> Client::$Agent->Get('Authorizer:'.$Authorizer,false),
+                              'Challenge'=>Server::Get($Authorizer)),$Authorizer)
+                    )
+                        $Decisions[$Authorizer] = true;
                 else
-                    return 'Authorized';
+                        $Decisions[$Authorizer] = false;
+            }
 
-                if (in_array(false, $Decisions))
-                    return 'Failed';
-                else
-                    return 'Authorized';
-            } else
-                return 'No User'.Client::$Ticket->Get('MayBe');
+        else
+            return Client::$Agent->Name;
 
-    }
-    else
-        {
-            Page::Nest('Application/Gate/CAPTCHAFailed');
-            return 'CAPTCHAFailed';
-    }
+        if (in_array(false, $Decisions))
+            return false;
+        else
+            return Client::$Agent->Name;
+    } else
+        return false;
 }

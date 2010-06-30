@@ -1,6 +1,6 @@
 <?php
 
-    function F_ColonSeparatedArray_Process($Result)
+    function F_ColonSeparatedArray_Import($Result)
     {
         $Lines = explode("\n", $Result);
 

@@ -1,9 +1,9 @@
 <?php
 
-function F_OpenID_Login ($Args)
+function F_OpenID_Step2 ($Args)
 {
     $m = array();
-    $OpenIDServerPage = file_get_contents ($Args['Login']);
+    $OpenIDServerPage = file_get_contents ('http://'.$Args['Login']);
 
     $ServerURL = "";
     $DelegateID = "";
@@ -33,10 +33,10 @@ function F_OpenID_Login ($Args)
         $DelegateID = $ServerURL;
 
     $Params = array(
-    "openid.mode"       => 'checkid_setup',
-    "openid.identity"   => $Args['Login'],
-    "openid.return_to"  => Host.'web/Gate/Auth',
-    "openid.trust_root" => Host);
+        "openid.mode"       => 'checkid_setup',
+        "openid.identity"   => 'http://'.$Args['Login'],
+        "openid.return_to"  => Host.'web/Gate/Step3',
+        "openid.trust_root" => Host);
 
     $ParamsStr = array();
 
@@ -44,14 +44,14 @@ function F_OpenID_Login ($Args)
         $ParamsStr[] = urlencode($Key).'='.urlencode($Value);
 
     Client::$Ticket->Set('OpenIDServer', $ServerURL);
-    Client::$Ticket->Set('MayBe',Server::Get('Login').'@'.$ServerURL);
+    Client::$Ticket->Set('MayBe',$Args['Login']);
 
     Client::Redirect($ServerURL.'?'.implode('&',$ParamsStr));
 }
 
-function F_OpenID_Auth($Args)
+function F_OpenID_Step3($Args)
 {
-    if (null !== XServer::Get('openid_mode'))
+    if (null !== Server::Get('openid_mode'))
     {
         switch (Server::Get('openid_mode'))
         {
@@ -65,10 +65,10 @@ function F_OpenID_Auth($Args)
 
             case 'id_res':
                 $Params = array(
-                'openid.mode'           => 'check_authentication',
-                'openid.assoc_handle'   => Server::Get('openid_assoc_handle'),
-                'openid.sig'            => Server::Get('openid_sig'),
-                'openid.signed'         => Server::Get('openid_signed'),
+                    'openid.mode'           => 'check_authentication',
+                    'openid.assoc_handle'   => Server::Get('openid_assoc_handle'),
+                    'openid.sig'            => Server::Get('openid_sig'),
+                    'openid.signed'         => Server::Get('openid_signed'),
             );
             
             $Data = Server::Data();
@@ -80,20 +80,19 @@ function F_OpenID_Auth($Args)
                             if (!isset($Params[$Key]))
                                 $Params[$Key] = $Value;
                         }
-
-            Data::Mount('OpenID','HTTP', Client::$Ticket->Get('OpenIDServer'));
-            $Result = Data::Create('OpenID', json_encode($Params)); // Create == POST
+            Data::Mount('HTTP');
+            $Params['I'] = Client::$Ticket->Get('OpenIDServer');
+            $Result = Data::Create('HTTP', $Params); // Create == POST
 
             // ответ придёт в виде строк вида key:val\n
             // разбираем его...
-            $Vals = Code::E('Process/Text','Process', $Result, 'ColonSeparatedArray');
+            $Vals = Code::E('Input/Importers','Import', $Result, 'ColonSeparatedArray');
 
             // нас интересует только один параметр ответа — lifetime
             if(isset($Vals["lifetime"])&&(int)$Vals["lifetime"] > 0 or isset($Vals["is_valid"])&&$Vals["is_valid"] == "true")
-                    return true;
+                return Client::$Ticket->Get('MayBe');
             else
                 {
-                    krumo($Vals);
                     Page::Nest('Application/Gate/OpenID/Failed');
                     return false;
                 }

@@ -84,6 +84,7 @@
             "XML":      { "Method": "SubXMLFS",  "ORM": "FS",        "DSN": "/"},
             "JSON":     { "Method": "SubJSONFS", "ORM": "FS",        "DSN": "/"},
             "Cookie":   { "Method": "Cookie",    "ORM": "NativeKVS"},
+            "HTTP":     { "Method": "HTTP",      "ORM": "NativeKVS"},
             "Static":   { "Method": "Static",    "ORM": "NativeKVS"}
         },
     "Mounts":
@@ -104,7 +105,8 @@
             "JSONFS":         {"Node": "JSON",   "Dir": "Data"},
             "Static":         {"Node": "JSON",   "Dir": "Static"},
             "Model":          {"Node": "JSON",   "Dir": "Model"},
-            "Cookie":         {"Node": "Cookie", "Dir": "Cookie"}
+            "Cookie":         {"Node": "Cookie", "Dir": "Cookie"},
+            "HTTP":           {"Node": "HTTP",   "Dir": "HTTP"}
         },
     "Sensors":
         {
