@@ -1,6 +1,11 @@
 <?php
 
-function F_JSON_Readable($Args)
+function F_JSONReadable_Decode($Args)
+{
+    return json_decode($Args);
+}
+
+function F_JSONReadable_Encode($Args)
 {
     $json = $Args;
     $tabcount = 0;

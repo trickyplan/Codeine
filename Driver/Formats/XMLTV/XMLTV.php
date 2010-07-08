@@ -8,7 +8,7 @@
  * @copyright BreathLess, 2010
  */
 
-function F_XMLTV_Import($XML)
+function F_XMLTV_Decode($XML)
   {
       $XML = simplexml_load_string($XML);
       

@@ -1,6 +1,11 @@
 <?php
 
-function F_JSON_Encode($Args)
+function F_JSONManual_Decode($Args)
+{
+    return json_decode($Args);
+}
+
+function F_JSONManual_Encode($Args)
 {
   if (null === $Args) return 'null';
   if ($Args === false) return 'false';
@@ -36,7 +41,7 @@ function F_JSON_Encode($Args)
   {
     foreach($Args as $Value)
         $Result[] = F_JSON_Encode($Value);
-    
+
     return '[ ' . implode(', ', $Result) . ' ]';
   }
   else

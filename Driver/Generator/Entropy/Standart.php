@@ -1,18 +1,6 @@
 <?php
-##################################################
-# OSWA i Web Platform              			 #
-# Платформа:  0.3.000 R102						 #
-# © Macrox Labs, 2005 - 2008, http://labs.macrox.net 		 #
-# Компонент: Standart							 #
-# Версия:  0.3.000 R102						 #
-# Тип: Драйвер энтропии						 	 #
-# Описание: Стандартный алгоритм				 #
-# © Бездыханный, 2007, basileff@gmail.com		 #
-##################################################
 
-function F_Get($Args)
-	{
-		return rand($Args["Min"],$Args["Max"]);
-	};
-
-?>
+    function F_Standart_Random($Args)
+    {
+        return rand($Args['Min'],$Args['Max']);
+    }

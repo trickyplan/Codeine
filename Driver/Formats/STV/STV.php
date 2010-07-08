@@ -2,7 +2,7 @@
 /**
  * Codeine Platform
  * @package Drivers
- * @name XMLTV Importer
+ * @name XMLTV STV
  * @author BreathLess
  * @version 0.1
  * @copyright BreathLess, 2010
@@ -14,7 +14,7 @@ function _F_STV_Date($Date)
     return mktime($Matches[4], $Matches[5], $Matches[6], $Matches[2], $Matches[3], $Matches[1]);
 }
 
-function F_STV_Import($XML)
+function F_STV_Decode($XML)
   {
       $XML = simplexml_load_string($XML);
       

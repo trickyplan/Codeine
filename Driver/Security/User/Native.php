@@ -15,7 +15,7 @@ function F_Native_Step2 ($Args)
         $Authorizers = $Agent->Get('Authorizer:Installed', false);
 
         if (!is_array($Authorizers ))
-                $Output = '<l>Auth:BlindAuth</l>';
+            $Output = '<l>Auth:BlindAuth</l>';
         else
         {
             $Output = '';

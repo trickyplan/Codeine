@@ -1,6 +1,6 @@
 <?php
 
-function F_VCard_Export($Args)
+function F_VCard_Encode($Args)
 {
     $Matches = array();
     $Object = $Args['Object'];
@@ -20,13 +20,8 @@ function F_VCard_Export($Args)
 
     return $vCard;
 }
-# Терминация
 
-#####################################################
-#	Заметки:										#
-#													#
-#													#
-#													#
-#####################################################
-
-?>
+function F_VCard_Decode($Args)
+{
+    return Log::Warning('Not implemented');
+}
