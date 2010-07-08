@@ -71,7 +71,7 @@
 
         public static function EC ($NameSpace, $Function, $Operands, $Driver = 'Default')
         {
-            $CID = md5($NameSpace.$Function.print_r($Operands, true));
+            $CID = sha1($NameSpace.$Function.json_encode($Operands));
             
             if (null === ($Data = Data::CacheGet('_CodeCache', $CID)))
                 return $Data;
@@ -88,6 +88,10 @@
 
         public static function ED ($NameSpace, $Function, $Operands, $Driver = 'Default')
         {
-            // TODO Code Deferred
+            // TODO Deferred Execute
+            $Command = new Object('_Command');
+            return $Command->Create(array('NameSpace'=>$NameSpace, 'Function'=>$Function, 'Operands'=>json_encode($Operands),'Driver'=>$Driver));
         }
+
+        
     }

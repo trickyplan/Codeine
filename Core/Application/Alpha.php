@@ -22,6 +22,7 @@ class Application
     {
         self::$Routers = Core::$Conf['Options']['Routers'];
     }
+    
     public static function Route ($Call)
     {
         Timing::Go('Routing');

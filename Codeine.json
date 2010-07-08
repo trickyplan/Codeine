@@ -99,6 +99,7 @@
             "_Signal":        {"Node": "SQL3D",  "Dir": "_Signal"},
             "_Language":      {"Node": "SQL3D",  "Dir": "_Language"},
             "_Slot":          {"Node": "SQL3D",  "Dir": "_Slot"},
+            "_Command":       {"Node": "SQL3D",  "Dir": "_Command"},
             "Info":           {"Node": "SQL3D",  "Dir": "Info"},
             "_Layout":        {"Node": "Layout", "Dir": "Layout",        "ReadCache": "Static"},
             "UserFS":         {"Node": "FS",     "Dir": "Data"},

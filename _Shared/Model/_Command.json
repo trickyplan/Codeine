@@ -1,0 +1,30 @@
+{
+  "Options":
+    {
+        "Privacy": false,
+        "UID": "BigUID"
+    },
+  "Nodes":
+    {
+        "NameSpace":
+            {
+                "Type":"String",
+                "Protected": true
+            },
+        "Function":
+            {
+                "Type":"String",
+                "Protected": true
+            },
+        "Operands":
+            {
+                "Type":"String",
+                "Protected": true
+            },
+        "Driver":
+            {
+                "Type":"String",
+                "Protected": true
+            }
+    }
+}
