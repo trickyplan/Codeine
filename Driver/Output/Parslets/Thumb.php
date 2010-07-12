@@ -14,6 +14,7 @@ function F_Thumb_Parse($Pockets)
 
     if ('' == $Image or is_dir($Image) or !file_exists(Root.$Image))
     {
+        Log::Warning ('Image '.$Image.' not found');
         $Image = 'Images/NoPhoto.jpg';
         $Args['Mode'] = '';
     }

@@ -34,6 +34,7 @@ function F_Image_Input($Args)
     move_uploaded_file($Args['Value'], Root.Data.$Dir.$NewName);
 
     $EXIF = Code::E('File/Parsers','Parse', Root.Data.$Dir.$NewName, 'EXIF');
+
     if (!is_array($EXIF))
         $EXIF = array();
 

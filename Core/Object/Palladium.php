@@ -798,6 +798,7 @@ class Object
                                                   'Name'  => $this->Name,
                                                   'Scope'=> $this->Scope), $Node->Type);
 
+                                        /*
                                         if (is_array($Data[$Name][$K]['Aux']))
                                             {
                                                 foreach($Data[$Name][$K]['Aux'] as $AuxK => $AuxV)
@@ -805,6 +806,8 @@ class Object
 
                                                 $Data[$Name][$K] = $Data[$Name][$K]['Value'];
                                             }
+                                         * FIXME
+                                         */
                                     }
                             $this->Add($Name, $Data[$Name]);
                         }
