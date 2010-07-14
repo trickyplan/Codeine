@@ -24,7 +24,3 @@
         else
             throw new WTF('Unknown authentification type.', 500);
     }
-
-    /*
-     * 
-     */

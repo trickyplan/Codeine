@@ -13,7 +13,7 @@ function F_Redis_Mount ($Args)
     $Redis = new Redis();
 
     if ($Redis->connect($Server, $Port) === false)
-        return Log::Error('Подключение к Redis не удалось');
+        return Log::Error('Connect to Redis failed');
     else
         return $Redis;
 }
