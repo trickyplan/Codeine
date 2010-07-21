@@ -8,4 +8,4 @@
  */
 
   $Args = json_decode(Server::Get('Args'));
-  die (Code::E(Server::Get('N'),Server::Get('F'), $Args,Server::Get('D')));
+  echo Code::E(Server::Get('N'),Server::Get('F'), $Args, Server::Get('D'));

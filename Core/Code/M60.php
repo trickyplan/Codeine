@@ -17,6 +17,9 @@
             Timing::Go ('Code:'.$NameSpace);
 
             $Result = false;
+
+            $NameSpace = str_replace(':','/',$NameSpace);
+
             $F = false;
 
             if (($Drivers == 'Default' or empty($Drivers)) and isset (self::$_Drivers[$NameSpace]))
