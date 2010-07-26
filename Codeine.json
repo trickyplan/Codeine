@@ -2,11 +2,11 @@
     "Info":
     {
         "Name":"Codeine Site",
-        "Version":"4.10"
+        "Version":"4.15"
     },
     "Options":
         {
-            "TrustHost":    "ox.gotdns.org",
+            "TrustHost":    "127.0.0.1",
             "WorkStyle":    "Normal",
             "Verbose":      9,
             "FatalCatch":   true,
@@ -89,7 +89,6 @@
         },
     "Mounts":
         {
-            "_System":        {"Node": "SQL3D",  "Dir": "_System",       "ReadCache": "Static"},
             "_Application":   {"Node": "SQL3D",  "Dir": "_Application",  "ReadCache": "Static"},
             "_Access":        {"Node": "SQL3D",  "Dir": "_Access"},
             "_User":          {"Node": "SQL3D",  "Dir": "_User",         "ReadCache": "Static"},

@@ -12,8 +12,7 @@
         },
     "Storages":
         {
-	    "SQL2D":    { "Method": "OOMySQLi", "ORM": "SQL2D",     "DSN": "имя:пароль@localhost:3306/базаданных","Transaction":true},
-            "SQL3D":    { "Method": "OOMySQLi", "ORM": "SQL3D",     "DSN": "имя:пароль@localhost:3306/базаданных","Transaction":true}
+            "SQL3D":    { "Method": "OOMySQLi", "ORM": "SQL3D",     "DSN": "user:pass@localhost:3306/database"}
         },
     "Mounts":
         {
