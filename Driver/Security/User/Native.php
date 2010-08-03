@@ -30,7 +30,7 @@ function F_Native_Step2 ($Args)
         return true;
     }
     else
-        throw new WTF ('User not found', 4040);
+        throw new WTF ('User not found', 404);
 }
 
 function F_Native_Step3 ($Args)

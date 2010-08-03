@@ -2,9 +2,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Codeine <slot>Title</slot> </title>
+    <title>Codeine / <slot>Title</slot> </title>
+    <media>~Reset.css</media>
+    <media>~Base.css</media>
+    <media>~UI.css</media>
+    <media>~VXi.css</media>
+
+    <media>~jQuery/Core.js</media>
+    <media>~Codeine/Core.js</media>
+    
+    <place>CSS</place>
+    <place>CSSRun</place>
 </head>
 <body>
+    <h1><slot>Title</slot></h1>
     <content/>
+
+    <place>JS</place>
+    <place>JSRun</place>
 </body>
 </html>

@@ -114,7 +114,7 @@
             "Timing":
                 {
                     "Root": {"Min": 0, "Max": 100},
-                    "Code:Data/Mounters%": {"Min":10,"Max":30}
+                    "Code:Data/Mounters%": {"Min":0,"Max":100}
                 }
         }
 }

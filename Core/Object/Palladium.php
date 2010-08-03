@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Palladium ORM Object
+ * Palladium ORM Class
  */
 
 class Object
