@@ -1,6 +1,6 @@
 <?php
 
-  function F_Default_CSSMinify($Data)
+  function F_Minify_CSSMinify($Data)
   {
       $Data = str_replace(array("\n",'  ',"\t"),'',$Data);
       $Data = str_replace(': ',':',$Data);
@@ -10,7 +10,7 @@
       return $Data;
   }
 
-  function F_Default_JSMinify($Data)
+  function F_Minify_JSMinify($Data)
   {
       return $Data;
   }

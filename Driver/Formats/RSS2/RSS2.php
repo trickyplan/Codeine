@@ -38,13 +38,14 @@
             foreach($RSS->channel->item as $Item)
             {
                 $ic++;
-                $Imported[$ic]->Date = $Item->pubDate;
-                $Imported[$ic]->GUID = $Item->guid;
-                $Imported[$ic]->Link = $Item->link;
-                $Imported[$ic]->Title = $Item->title;
-                $Imported[$ic]->Description = $Item->description;
-                $Imported[$ic]->Category = $Item->category;
-                $Imported[$ic]->Author = $Item->author;
+                $Imported[$ic] = array();
+                $Imported[$ic]['Date']        = (string) $Item->pubDate;
+                $Imported[$ic]['GUID']        = (string) $Item->guid;
+                $Imported[$ic]['Link']        = (string) $Item->link;
+                $Imported[$ic]['Title']       = (string) $Item->title;
+                $Imported[$ic]['Description'] = (string) $Item->description;
+                $Imported[$ic]['Category']    = (string) $Item->category;
+                $Imported[$ic]['Author']      = (string) $Item->author;
             }
         return $Imported;
     }

@@ -1,12 +1,12 @@
 <?php
 
-define ('OBJSEP', '::');
-define ('DIRSEP', '/');
-
 if (isset($_SERVER['SERVER_NAME']))
     define ('_SERVER',$_SERVER['SERVER_NAME']);
 else
     define ('_SERVER',$_SERVER['HTTP_HOST']);
+
+define ('OBJSEP', '::');
+define ('DIRSEP', '/');
 
 define ('Engine', dirname(__FILE__).'/');
 define ('EngineShared', dirname(__FILE__).'/_Shared/');
@@ -35,7 +35,6 @@ class WTF extends Exception
 
 class Core
 {
-    public static $Engines = array();
     public static $StartTime;
     public static $Conf  = array();
     public static $Crash = false;
@@ -102,7 +101,12 @@ class Core
     public static function Load ($Core)
     {
         if (isset(self::$Conf['Engines'][$Core]))
-            return include (Engine.'Core/'.$Core.'/'.self::$Conf['Engines'][$Core].'.php');
+        {
+            if (file_exists(Engine.'Core/'.$Core.'/'.self::$Conf['Engines'][$Core].'.php'))
+                return include (Engine.'Core/'.$Core.'/'.self::$Conf['Engines'][$Core].'.php');
+            else
+                return Log::Error('Kernel module not found');
+        }
         else
             return Log::Error('Unknown kernel module');
     }

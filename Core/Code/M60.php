@@ -12,6 +12,8 @@
         }
 
         // E - сокращение от Execute
+        // TODO Atomic ACL!!!!!!!!!!!!!!!
+
         public static function E ($NameSpace, $Function, $Operands = null, $Drivers = 'Default')
         {
             Timing::Go ('Code:'.$NameSpace);
@@ -22,8 +24,16 @@
 
             $F = false;
 
-            if (($Drivers == 'Default' or empty($Drivers)) and isset (self::$_Drivers[$NameSpace]))
-                $Drivers = self::$_Drivers[$NameSpace];
+            if (($Drivers == 'Default' or empty($Drivers)))
+            {
+                if (isset (self::$_Drivers[$NameSpace]))
+                    $Drivers = self::$_Drivers[$NameSpace];
+                else
+                {
+                    $NameSpace2 = explode('/', $NameSpace);
+                    $Drivers = $NameSpace2[sizeof($NameSpace2)-1];
+                }
+            }
 
             if (!is_array($Drivers))
                 $Drivers = array($Drivers);
@@ -31,7 +41,7 @@
             foreach ($Drivers as $Driver)
             {
                 $F = 'F_'.$Driver.'_'.$Function;
-                
+
                 if (!isset(self::$_Included[$NameSpace][$Driver]))
                 {
                    $DriverFiles =
@@ -63,8 +73,8 @@
                     Log::Tap ($F);
                     break;
                 }
-                
-            }          
+
+            }
 
             Timing::Stop ('Code:'.$NameSpace);
             return $Result;
@@ -75,7 +85,7 @@
         public static function EC ($NameSpace, $Function, $Operands, $Driver = 'Default')
         {
             $CID = sha1($NameSpace.$Function.json_encode($Operands));
-            
+
             if (null === ($Data = Data::CacheGet('_CodeCache', $CID)))
                 return $Data;
             else
@@ -96,5 +106,5 @@
             return $Command->Create(array('NameSpace'=>$NameSpace, 'Function'=>$Function, 'Operands'=>json_encode($Operands),'Driver'=>$Driver));
         }
 
-        
+
     }

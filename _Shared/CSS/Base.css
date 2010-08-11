@@ -21,6 +21,8 @@ sup {vertical-align: top;}
 
 small{color: #999;}
 
+small:hover{color: #333;}
+
 strong {font-weight: bold;letter-spacing: -1px;}
 
 ol {list-style:decimal inside;}

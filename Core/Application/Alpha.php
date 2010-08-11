@@ -107,8 +107,10 @@ class Application
             Page::Nest('Application/'.self::$Name.'/'.self::$Name);
             Page::Nest(array ('Application/'.self::$Name.'/'.self::$Plugin, 'Application/_Shared/'.self::$Plugin));
 
-            if (is_array($Plugins['Plugin:Local:Own'])
-                && in_array(self::$Plugin, $Plugins['Plugin:Local:Own']))
+            if (Core::$Conf['Options']['AllowDirectCall'] and file_exists(Root.Apps.self::$Name.'/'.self::$Plugin.'.php'))
+                    $PluginPath = Root.Apps.self::$Name;
+            elseif ((is_array($Plugins['Plugin:Local:Own'])
+                && in_array(self::$Plugin, $Plugins['Plugin:Local:Own'])))
                     $PluginPath = Root.Apps.self::$Name;
 
             elseif (is_array($Plugins['Plugin:Local:Shared'])

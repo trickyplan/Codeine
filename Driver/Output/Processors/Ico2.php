@@ -10,7 +10,7 @@
           sort($Icos);
           
           $IcoID = sha1(implode('',$Icos));
-          $IcoFile = Root.Temp.'/_Icons/'.$IcoID.'.png';
+          $IcoFile = Root.Temp.'Icons/'.$IcoID.'.png';
 
           if (!file_exists($IcoFile))
           {
@@ -37,7 +37,7 @@
               imagepng($IM, $IcoFile);
           }
 
-          Page::CSS('.Icon'.$IcoID.' { display: inline; background-image: url("/'.Temp.'/_Icons/'.$IcoID.'.png"); }');
+          Page::CSS('.Icon'.$IcoID.' { display: inline; background-image: url("/'.Temp.'Icons/'.$IcoID.'.png"); }');
           foreach($Icos as $IX => $Ico)
             $Data = str_replace('<icon>'.$Ico.'</icon>', '<div class="Icon'.$IcoID.'" style="background-position: -'.($IX*16).'px top;"><img src="/Images/s.gif" width=16 height=17 /></div>', $Data);
       }

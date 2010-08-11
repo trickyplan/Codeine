@@ -1,6 +1,6 @@
 <?php
 
-function F_StandartUID_Generate($Prefix)
+function F_StandartUID_Generate($Object)
     {
-        return uniqid($Prefix);
+        return uniqid($Object->Scope);
     }

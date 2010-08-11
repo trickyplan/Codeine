@@ -778,7 +778,7 @@ class Object
                 if (isset($Data['I']))
                     $this->Name = $Data['I'];
                 else
-                    $this->Name = Code::E('Generator/UniqueID','Generate', $this->Scope, $UIDD);
+                    $this->Name = Code::E('Generator/UniqueID','Generate', $this, $UIDD);
 
                 if (isset($this->_Model->Options->Folder))
                     mkdir(Root.Data.$this->Scope.'/'.$this->Name, 0777, true);

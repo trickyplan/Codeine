@@ -16,7 +16,8 @@ function F_HTTP_Read ($Args)
     curl_setopt($Args['Storage'], CURLOPT_RETURNTRANSFER, true);
     curl_setopt($Args['Storage'], CURLOPT_FOLLOWLOCATION, true);
     curl_setopt($Args['Storage'], CURLOPT_CONNECTTIMEOUT, 15 );
-    curl_setopt($Args['Storage'], CURLOPT_URL, $Args['I']);
+    curl_setopt($Args['Storage'], CURLOPT_URL, $Args['DDL']['I']);
+    Log::Tap('HTTP');
     return curl_exec($Args['Storage']);
 
 }
@@ -33,6 +34,7 @@ function F_HTTP_Create ($Args)
     curl_setopt($Args['Storage'], CURLOPT_FOLLOWLOCATION, true);
     curl_setopt($Args['Storage'], CURLOPT_RETURNTRANSFER, true);
     curl_setopt($Args['Storage'], CURLOPT_POSTFIELDS, implode('&',$Params));
+    Log::Tap('HTTP');
     return curl_exec($Args['Storage']);
 }
 

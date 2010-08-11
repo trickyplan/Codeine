@@ -14,6 +14,7 @@
             "MemLeaks":     false,
             "LRCache":      false,
             "AppCache":     false,
+            "AllowDirectCall": true,
             "Authorizers":  ["Native"],
             "Routers":      ["REST","Native", "JSON", "XML"],
             "Processors":
@@ -22,6 +23,10 @@
                     "Post":     ["Parslet", "MediaTag2","Ico2","AjaxSlices","JSRun","CSSRun", "I18N"],
                     "Fusion":   ["Const","Foreach","Authorized","Owner","Role","Node","Tag","Key","For"],
                     "Pre":      ["Authorized","Role"]
+                },
+            "Defaults":
+                {
+                    "ReadCache:TTL": 600
                 }
         },
     "Drivers":

@@ -232,6 +232,7 @@ class Data // UMA
                 if (!($Data = self::CacheGet($Point, $DRID)) != null)
                 {
                     $Data = self::CRUD ('Read', $Point, $DDL);
+                    
                     self::CachePut($Point, $DRID, $Data);
                 }
 
@@ -268,7 +269,9 @@ class Data // UMA
                 else
                 {
                     $Data = self::CRUD ('Exist', $Point, $DDL);
+
                     self::CachePut($Point, $ERID, $Data, 'Exist');
+                    
                     Log::Tap('Data:Cache:Exist:Miss');
                 }
 
@@ -317,17 +320,20 @@ class Data // UMA
 
     // Методы кеширования
 
-    public static function CachePut ($Point, $ID, $Value, $Type = 'Read', $TTL = 600)
+    public static function CachePut ($Point, $ID, $Value, $Type = 'Read')
     {
         if (isset(self::$_Mounts[$Point][$Type.'Cache']))
         {
             Log::Tap('Data:Cache:Put');
 
+            if (!isset(self::$_Mounts[$Point][$Type.'Cache:TTL']))
+                        self::$_Mounts[$Point][$Type.'Cache:TTL'] = Core::$Conf['Options']['Defaults'][$Type.'Cache:TTL'];
+
             if (self::$_Mounts[$Point][$Type.'Cache'] == 'Static')
                 return (self::$_Cache[$ID] = $Value);
             else
                 return self::CRUD('Create', self::$_Mounts[$Point][$Type.'Cache'],
-                    array('I'=>$ID,'Expire'=>(time()+$TTL),
+                    array('I'=>$ID,'Expire'=>(time()+self::$_Mounts[$Point][$Type.'Cache:TTL']),
                                                 'V'=>$Value));
         }
         else return null;
