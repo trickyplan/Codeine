@@ -5,10 +5,13 @@
        if (preg_match('@(\s*)\:\:(\s*)@SsUu',$Input))
        {
            $Object = new Object ($Input);
-           return Page::Fusion('Objects/'.$Object->Scope.'/'.$Object->Scope.'_E', $Object);
+           if ($Object->Load())
+               return Page::Fusion('Objects/'.$Object->Scope.'/'.$Object->Scope.'_E', $Object);
+           else
+               return $Input;
        }
        else
-           return '';
+           return $Input;
     }
     
     

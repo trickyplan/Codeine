@@ -1,6 +1,6 @@
 <?php
 
-  function F_Default_Listing($Folder)
+  function F_FS_Listing($Folder)
   {
       $Handle = opendir($Folder);
       $IC = 0;

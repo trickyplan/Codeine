@@ -17,7 +17,7 @@ if (isset($_SERVER['HTTP_X_REAL_IP']))
     define ('_IP', $_SERVER['HTTP_X_REAL_IP']);
 else
     define ('_IP', $_SERVER['REMOTE_ADDR']);
-
+// FIXME Functionalize
 include Engine.'/Package/krumo/class.krumo.php';
 
 class WTF extends Exception
@@ -26,7 +26,7 @@ class WTF extends Exception
     {
         Log::Error($this->getMessage());
     }
-    
+
     function Panic()
     {
         die ('<div style="text-align: center;padding: 4px; color: #FFF; background-color: #900;">Kernel panic:  '.$this->getMessage().'</div>');
@@ -38,11 +38,11 @@ class Core
     public static $StartTime;
     public static $Conf  = array();
     public static $Crash = false;
-    
+
     public static function Initialize()
     {
         self::$StartTime = microtime(true);
-        
+
         function ConfWalk ($Engine, $Site = array())
         {
             if (is_array($Site))
@@ -50,7 +50,7 @@ class Core
                 {
                     if (!isset($Engine[$Key]))
                         $Engine[$Key] = array();
-                    
+
                     if (is_array($Value))
                         $Engine[$Key] = ConfWalk($Engine[$Key],$Value);
                     else
@@ -89,9 +89,9 @@ class Core
                     Client::Initialize();
 
                 Timing::Stop ('Core');
-                
+
             }
-            
+
         catch (WTF $e)
             {
                 $e->Panic();

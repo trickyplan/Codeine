@@ -29,6 +29,10 @@
                 "Required":true,
                 "Editor":"TextareaST",
                 "Set": "General"
+            },
+        "Age":
+            {
+                "Type": "Calculated"
             }
     }
 }

@@ -18,9 +18,11 @@ class Event
             if (($Args2 = json_decode($Args, true)) == null)
                 return null;
             else
-                $Args = &$Args2;
+                $Args = $Args2;
+
 
         $Args['Source'] = (string) Client::$Face;
+
         $Event = new Object('_Signal');
         $Event->Create($Args);
     }

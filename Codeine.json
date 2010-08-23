@@ -44,7 +44,8 @@
                 "Error/Handlers/404": "404",
                 "Security/CAPTCHA":   "vx7",
                 "Service/IP2Geo":     "IPInfoDB",
-                "Process/Hash":       "SHA1st"
+                "Process/Hash":       "SHA1st",
+                "Output/Serializers": "Codeine"
             }
         },
     "Engines":
@@ -59,7 +60,7 @@
             "Form":           "Formalin",
             "Log":            "Wolf",
             "Page":           "D8",
-            "Object":         "Palladium",
+            "Object":         "Iridium",
             "Server":         "Spark",
             "Timing":         "Timing",
             "Message":        "RedCoast"

@@ -39,13 +39,15 @@
             {
                 $ic++;
                 $Imported[$ic] = array();
-                $Imported[$ic]['Date']        = (string) $Item->pubDate;
                 $Imported[$ic]['GUID']        = (string) $Item->guid;
                 $Imported[$ic]['Link']        = (string) $Item->link;
                 $Imported[$ic]['Title']       = (string) $Item->title;
                 $Imported[$ic]['Description'] = (string) $Item->description;
                 $Imported[$ic]['Category']    = (string) $Item->category;
                 $Imported[$ic]['Author']      = (string) $Item->author;
+                $ds = date_parse_from_format('D, d M Y H:i:s', (string) $Item->pubDate);
+                $Imported[$ic]['CreatedOn']   = mktime ($ds['hour'], $ds['minute'], $ds['second'], $ds['month'], $ds['day'], $ds['year']);
             }
+            
         return $Imported;
     }
