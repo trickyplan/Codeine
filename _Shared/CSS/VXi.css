@@ -398,7 +398,7 @@ a:hover{border-bottom:1px dotted #600;}
 {
 	background-image:url(/Images/glass.png);
 	background-position: top;
-	padding: 2px;
+	padding: 3px 6px;
 	border: 1px solid #CCC;
         vertical-align:middle;
         cursor: pointer;

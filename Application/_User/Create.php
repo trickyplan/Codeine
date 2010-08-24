@@ -27,7 +27,7 @@ switch (Server::$REST)
                     $Object->Add('Type','Native');
                     $Object->Save();
                     Client::Attach($Object->Name);
-                    Page::Body('/_User/~'.$Object->Name);
+                    Client::Redirect('/_User/~'.$Object->Name);
                 }
         else
             Page::Body(json_encode($Errors));

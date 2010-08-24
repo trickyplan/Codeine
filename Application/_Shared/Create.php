@@ -22,7 +22,8 @@ switch (Server::$REST)
         if ($Errors === true)
             {
                 Event::Queue (array('Priority'=>64, 'Signal'=>self::$Name.'Created', 'Subject'=>(string)self::$Object));
-                Client::$Face->Inc('Stats:'.self::$Name.':Total',1);
+                if (Client::$Face == 2)
+                    Client::$Face->Inc('Stats:'.self::$Name.':Total',1);
                 switch (self::$Interface)
                 {
                     case 'ajax':
@@ -30,7 +31,7 @@ switch (Server::$REST)
                     break;
                 
                     default:
-                        Page::Body(Host.self::$Name.'/~'.self::$Object->Name);
+                        Client::Redirect(Host.self::$Name.'/~'.self::$Object->Name);
                     break;
                 }
             }

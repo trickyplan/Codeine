@@ -34,7 +34,7 @@ Page::Add (Page::Fusion(
 
 if (!isset(Page::$Slots['Title']['ID']))
     Page::$Slots['Title']['ID'] =
-        self::$Object->Get('Title');
+        self::$Object->GetOr(array('Title', 'Handle', 'Login'));
 
 if (self::$Interface == 'web')
     {

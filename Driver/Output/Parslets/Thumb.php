@@ -2,13 +2,13 @@
 
 function F_Thumb_Parse($Pockets)
 {
-    
+
     $Args = json_decode($Pockets, true);
     $SourceWidth = 0;
     $SourceHeight = 0;
 
     $Image = $Args['Image'];
-    
+
     if ($Image == 'Data/***')
         $Image = 'Images/Private.jpg';
 
@@ -22,8 +22,8 @@ function F_Thumb_Parse($Pockets)
     $Size = $Args['Size'];
 
     $FullName = Root.$Image;
-    $ThumbName = Root.Temp.'_Thumbs/'.$Size.'/'.basename($Image);
-    $ThumbURL = Temp.'_Thumbs/'.$Size.'/'.basename($Image);
+    $ThumbName = Root.Temp.'Thumbs/'.$Size.'/'.basename($Image);
+    $ThumbURL = Temp.'Thumbs/'.$Size.'/'.basename($Image);
 
     if (!isset($Args['Align']))
         $Args['Align'] = '';
@@ -33,8 +33,8 @@ function F_Thumb_Parse($Pockets)
     if (!isset($Args['Class']))
         $Args['Class'] = '';
 
-    if (!is_dir(Root.Temp.'_Thumbs/'.$Size))
-        mkdir(Root.Temp.'_Thumbs/'.$Size, 0777);
+    if (!is_dir(Root.Temp.'Thumbs/'.$Size))
+        mkdir(Root.Temp.'Thumbs/'.$Size, 0777);
 
     if (!file_exists($ThumbName))
     {
@@ -45,7 +45,7 @@ function F_Thumb_Parse($Pockets)
 
                 $DestHeight = floor($SourceHeight * $Ratio);
                 $DestWidth = $Size;
-           
+
             if ($Ratio < 1)
                 {
                     $DIM = imagecreatetruecolor($DestWidth, $DestHeight);
@@ -55,7 +55,7 @@ function F_Thumb_Parse($Pockets)
 
                     if ($Extension == 'jpeg')
                         $Extension = 'jpg';
-                    
+
                     switch ($Extension)
                     {
                         case 'jpg':
@@ -85,7 +85,7 @@ function F_Thumb_Parse($Pockets)
 
                     $HTML = '<img alt="" src="/'.$ThumbURL.'" class="'.$Args['Class'].'" />';
                 }
-              else 
+              else
                   $HTML = '<img alt="" src="/'.$Image.'" class="'.$Args['Class'].'" />';
     }
     else
@@ -93,7 +93,7 @@ function F_Thumb_Parse($Pockets)
 
     if (!isset($Args['Mode']))
         $Args['Mode'] = 'None';
-    
+
     switch ($Args['Mode'])
     {
         case 'LightBox':
@@ -128,6 +128,6 @@ function F_Thumb_Parse($Pockets)
             $HTML = '/'.$ThumbURL;
         break;
     }
-    
+
     return $HTML;
 }

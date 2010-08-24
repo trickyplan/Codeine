@@ -1,8 +1,7 @@
 {
   "Options":
     {
-    "Privacy": false,
-    "UID": "Default"
+        "Privacy": false
     },
   "Nodes":
     {

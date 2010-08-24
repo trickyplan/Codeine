@@ -30,12 +30,12 @@ function F_Clip_Parse($Pockets)
 
     $Size = $Args['Size'];
 
-    if (!is_dir(Root.Temp.'_Thumbs/'.$Size))
-        mkdir(Root.Temp.'_Thumbs/'.$Size, 0777);
+    if (!is_dir(Root.Temp.'Thumbs/'.$Size))
+        mkdir(Root.Temp.'Thumbs/'.$Size, 0777);
 
     $FullName = Root.$Image;
-    $ThumbName = Root.Temp.'_Thumbs/'.$Size.'/clip_'.basename($Image);
-    $ThumbURL = Temp.'_Thumbs/'.$Size.'/clip_'.basename($Image);
+    $ThumbName = Root.Temp.'Thumbs/'.$Size.'/clip_'.basename($Image);
+    $ThumbURL = Temp.'Thumbs/'.$Size.'/clip_'.basename($Image);
     
     if (!file_exists($ThumbName))
     {

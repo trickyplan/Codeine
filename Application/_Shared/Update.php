@@ -24,7 +24,7 @@ switch (Server::$REST)
                     break;
 
                     default:
-                        Page::Body(Host.self::$Name.'/~'.self::$ID);
+                        Client::Redirect(Host.self::$Name.'/~'.self::$ID);
                     break;
                 }
         }
