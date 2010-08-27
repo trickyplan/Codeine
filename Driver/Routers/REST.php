@@ -15,7 +15,7 @@ function F_REST_Route($Call)
 
     $Call = explode ('/', mb_substr($Call,1));
 
-    if (is_array($Call) and sizeof($Call) == 2)
+    if (is_array($Call) and count($Call) == 2)
     {
         list ($Routed['Name'], $Routed['ID']) = $Call;
         $Routed['Interface'] = 'web';

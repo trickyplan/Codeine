@@ -60,7 +60,7 @@ function F_Clip_Parse($Pockets)
                     $DIM = imagecreatetruecolor($Size, $Size);
 
                     $Extension = explode('.', $FullName);
-                    $Extension = $Extension[sizeof($Extension) - 1];
+                    $Extension = $Extension[count($Extension) - 1];
 
                     if ($Extension == 'jpeg')
                         $Extension = 'jpg';

@@ -16,8 +16,6 @@
             $Arg = $Input['D'];
         else
             $Arg = time();
-
-
         
         if (isset($Input['Args']))
             $Arg = $Input['Args'];

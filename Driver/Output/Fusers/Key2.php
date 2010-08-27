@@ -26,7 +26,7 @@
             foreach($Keys as $Key)
                 if (isset($Data[$Key]) and !empty($Data[$Key][0]))
                 {
-                    if (sizeof($Data[$Key])>1)
+                    if (count($Data[$Key])>1)
                         foreach($Data[$Key] as $cData)
                             $Output.= $Left.$cData.$Right;
                     else

@@ -31,7 +31,7 @@
                 else
                 {
                     $NameSpace2 = explode('/', $NameSpace);
-                    $Drivers = $NameSpace2[sizeof($NameSpace2)-1];
+                    $Drivers = $NameSpace2[count($NameSpace2)-1];
                 }
             }
 

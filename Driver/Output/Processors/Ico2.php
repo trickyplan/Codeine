@@ -14,7 +14,7 @@
 
           if (!file_exists($IcoFile))
           {
-              $IM = imagecreatetruecolor(sizeof($Icos)*16, 16);
+              $IM = imagecreatetruecolor(count($Icos)*16, 16);
               imagealphablending($IM, false);
               imagesavealpha($IM, true);
 

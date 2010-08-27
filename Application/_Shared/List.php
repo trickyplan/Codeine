@@ -31,7 +31,7 @@ if ($Pagination)
         Page::Add(
         Code::E('Output/Elements/Paginators', 'Paginate',
             array(
-                'Objects' => sizeof(self::$Collection->Names),
+                'Objects' => count(self::$Collection->Names),
                 'URL'=>self::$Call.'?Page='
                 )
             )
@@ -44,7 +44,7 @@ if ($Pagination)
 
 self::$Collection->Load();
 
-if (sizeof(self::$Collection->_Items)>0)
+if (count(self::$Collection->_Items)>0)
     Page::Add( Page::Fusion('Objects/'.self::$Name.'/'.self::$Name.'_'.self::$Mode, self::$Collection) );
 else
     Page::Nest(array('Application/'.self::$Name.'/Empty','Application/_Shared/Empty'));

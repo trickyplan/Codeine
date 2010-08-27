@@ -719,7 +719,7 @@ class FirePHP {
       
       $trace = debug_backtrace();
       if(!$trace) return false;
-      for( $i=0 ; $i<sizeof($trace) ; $i++ ) {
+      for( $i=0 ; $i<count($trace) ; $i++ ) {
 
         if(isset($trace[$i]['class'])
            && isset($trace[$i]['file'])
@@ -782,7 +782,7 @@ class FirePHP {
       if(!isset($meta['file']) || !isset($meta['line'])) {
 
         $trace = debug_backtrace();
-        for( $i=0 ; $trace && $i<sizeof($trace) ; $i++ ) {
+        for( $i=0 ; $trace && $i<count($trace) ; $i++ ) {
   
           if(isset($trace[$i]['class'])
              && isset($trace[$i]['file'])
@@ -891,7 +891,7 @@ class FirePHP {
    */
   protected function _escapeTrace($Trace) {
     if(!$Trace) return $Trace;
-    for( $i=0 ; $i<sizeof($Trace) ; $i++ ) {
+    for( $i=0 ; $i<count($Trace) ; $i++ ) {
       if(isset($Trace[$i]['file'])) {
         $Trace[$i]['file'] = $this->_escapeTraceFile($Trace[$i]['file']);
       }
@@ -1439,7 +1439,7 @@ class FirePHP {
               */
 
               // treat as a JSON object
-              if (is_array($var) && count($var) && (array_keys($var) !== range(0, sizeof($var) - 1))) {
+              if (is_array($var) && count($var) && (array_keys($var) !== range(0, count($var) - 1))) {
                   
                   $this->json_objectStack[] = $var;
 

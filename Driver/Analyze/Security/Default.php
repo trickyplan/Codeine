@@ -18,10 +18,10 @@ function F_Default_SecurityAnalyze($Args)
         foreach ($Authorizers as $Authorizer)
         {
             $Keys[$Authorizer] = $Args->Get('Authorizer:'.$Authorizer, false);
-            $Level += sizeof($Keys[$Authorizer])*$Weights[$Authorizer];
+            $Level += count($Keys[$Authorizer])*$Weights[$Authorizer];
         }
         
-        $Level *= sizeof($Authorizers);
+        $Level *= count($Authorizers);
 
         $Out = 'Critical';
         

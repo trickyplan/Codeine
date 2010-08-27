@@ -18,7 +18,7 @@ function F_vx7_Generate($Args)
 
     imagefill($im, 0,0, $White);
 
-    $SF = sizeof($Fonts)-1;
+    $SF = count($Fonts)-1;
         
     for ($Length = 0; $Length < mb_strlen($Answer); $Length++)
     {

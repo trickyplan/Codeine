@@ -49,7 +49,7 @@ class Form
 
             if (isset($Data[$Name]))
                 {
-                    if (sizeof($Data[$Name])== 1)
+                    if (count($Data[$Name])== 1)
                         $Value = $Data[$Name][0];
                     else
                         $Value = $Data[$Name];
@@ -93,14 +93,14 @@ class Form
         
         foreach($Out as $Set => $Fields)
         {
-            if (sizeof($Tabs) > 0)
+            if (count($Tabs) > 0)
                 $Hide = 'hide';
             else
                 $Hide = '';
             $Tabs[] = '<span class="Form_Tab Tab" id="'.$Set.'"><l>'.$Set.'</l></span>';
             $FormOutput.= Page::Replace ('Form/Default_Set', array('<hide/>' => $Hide,'<set/>' => $Set, '<content/>' =>implode ('<br /> ', $Fields)));
         }
-        if (sizeof($Tabs) > 1)
+        if (count($Tabs) > 1)
             $Tabs = implode('',$Tabs);
         else
             $Tabs = '';

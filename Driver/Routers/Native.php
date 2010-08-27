@@ -7,7 +7,7 @@
 
         $Call = explode ('/', mb_substr($Call,1));
 
-        switch (sizeof($Call))
+        switch (count($Call))
         {
             case 3:
                 list ($Routed['Interface'], $Routed['Name'], $Routed['Plugin']) = $Call;

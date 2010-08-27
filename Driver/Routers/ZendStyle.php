@@ -7,7 +7,7 @@
 
         $Call = explode ('/', mb_substr($Call,1));
 
-        $Pieces = sizeof($Call);
+        $Pieces = count($Call);
 
         if ($Pieces % 2 == 1)
         {

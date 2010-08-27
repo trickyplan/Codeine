@@ -11,7 +11,7 @@ function F_Image_Validate($Args)
         $AllowedExtensions = array('jpg','jpeg','gif','png');
         $Pcs = explode('.',mb_strtolower($_FILES[$Args['Key']]['name']));
         
-        if (in_array($_FILES[$Args['Key']]['type'], $AllowedTypes) && in_array($Pcs[sizeof($Pcs)-1], $AllowedExtensions))
+        if (in_array($_FILES[$Args['Key']]['type'], $AllowedTypes) && in_array($Pcs[count($Pcs)-1], $AllowedExtensions))
             return true;
         else
             return false;
@@ -24,7 +24,7 @@ function F_Image_Input($Args)
 {
     $Extension = explode('.',$_FILES[$Args['Key']]['name']);
     
-    $Extension = mb_strtolower($Extension[sizeof($Extension)-1]);
+    $Extension = mb_strtolower($Extension[count($Extension)-1]);
     $Dir = $Args['Scope'].'/'.$Args['Name'].'/';
 
     if (!is_dir($Dir))

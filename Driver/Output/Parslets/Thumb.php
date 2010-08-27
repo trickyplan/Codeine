@@ -51,7 +51,7 @@ function F_Thumb_Parse($Pockets)
                     $DIM = imagecreatetruecolor($DestWidth, $DestHeight);
 
                     $Extension = explode('.', $FullName);
-                    $Extension = $Extension[sizeof($Extension) - 1];
+                    $Extension = $Extension[count($Extension) - 1];
 
                     if ($Extension == 'jpeg')
                         $Extension = 'jpg';

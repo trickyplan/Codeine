@@ -11,7 +11,7 @@ function F_SQL2D_Load ($Args)
 
     if (is_array($RAW))
     {
-        if (sizeof($RAW)>1)
+        if (count($RAW)>1)
             foreach($RAW as $Row)
                 foreach($Row as $Key => $Value)
                     $Data[$Row['I']][$Key][] = $Value;

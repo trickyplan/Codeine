@@ -34,7 +34,7 @@ function F_MongoDB_Read ($Args)
 
     if (empty($Data))
         $Data = null;
-    elseif (sizeof($Data)==1)
+    elseif (count($Data)==1)
             $Data = $Data[0];
     
     return $Data;

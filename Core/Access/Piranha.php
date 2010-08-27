@@ -15,7 +15,7 @@
             {
                 $Sob = new Object($Target->Scope);
 
-                if (sizeof(self::$Rules->_Items)>0)
+                if (count(self::$Rules->_Items)>0)
                 {
                     $Decisions = array();
                     foreach(self::$Rules->_Items as $Rule)

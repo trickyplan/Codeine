@@ -5,7 +5,7 @@ function SQL3D($RAW, $Name = null)
     if ($RAW !== null)
         {
             $Data = array();
-            $SZ = sizeof($RAW);
+            $SZ = count($RAW);
 
             if (!is_array($Name))
                 for($IC=0; $IC<$SZ; $IC++)
@@ -31,7 +31,7 @@ function F_SQL3D_Load ($Args)
     {
         if ($Args['Name'][0] == '@All')
             $DL = array('Fields' => array('I','K','V'));
-        elseif (sizeof($Args['Name'])>1)
+        elseif (count($Args['Name'])>1)
             $DL = array('Fields' => array('I','K','V'), 'Where'=>array('k1 IN (v1)'=>array('I'=> $Args['Name'])));
         else
             $DL = array('Fields' => array('I','K','V'), 'Where'=>array('k1 = v1'=>array('I' => $Args['Name'])));

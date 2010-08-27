@@ -310,7 +310,7 @@ class Object
                             }
                             else
                             {
-                                if (!$ForceArray&&sizeof ($this->Data[$Key]) == 1)
+                                if (!$ForceArray&&count ($this->Data[$Key]) == 1)
                                     $Data = $this->Data[$Key][0];
                                 else
                                     $Data = $this->Data[$Key];
@@ -356,7 +356,7 @@ class Object
                             $Keys[] = $Key;
                     }
 
-            if ((!$ForceArray && sizeof ($Keys) == 1) or ($Ordinary))
+            if ((!$ForceArray && count ($Keys) == 1) or ($Ordinary))
                 $Keys = $Keys[0];
 
             if (empty ($Keys) and !$ForceArray)
@@ -396,9 +396,9 @@ class Object
                     return true;
                 else return false;
 
-            if (sizeof ($IDs)>1)
+            if (count ($IDs)>1)
                 Log::Warning ('Селектор в Object получил не единственный объект');
-            elseif (sizeof ($IDs) == 0 or null == $IDs)
+            elseif (count ($IDs) == 0 or null == $IDs)
                 return null;
 
             $this->Load (min ($IDs));
@@ -730,7 +730,7 @@ class Object
                     $Errors[$Name][] = 'Required';
                 else
                 {
-                   if (isset($Node->Multiple) and ($Node->Multiple != 'True') and sizeof($Data[$Name])>1)
+                   if (isset($Node->Multiple) and ($Node->Multiple != 'True') and count($Data[$Name])>1)
                          $Errors[$Name][] = 'Multiple';
 
                    if (isset($Data[$Name]) and is_array($Data[$Name]))

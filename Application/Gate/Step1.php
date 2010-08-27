@@ -2,7 +2,7 @@
 
     $AuthTypes = Core::$Conf['Options']['Authorizers'];
 
-    if (sizeof($AuthTypes)==1)
+    if (count($AuthTypes)==1)
         self::$ID = $AuthTypes[0];
 
     if (self::$ID === null)

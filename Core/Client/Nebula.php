@@ -141,7 +141,6 @@ class Client
         $TSL = self::_Seal();
         // Порядок сохранить!
         self::$Ticket->Add('CreatedOn', time());
-        self::$Ticket->Add('ExpiresOn', time());
         self::$Ticket->Add('TSL', $TSL);
         self::$Ticket->Add('IP', _IP);
         self::$Ticket->Add('UA', Server::Get('HTTP_USER_AGENT'));

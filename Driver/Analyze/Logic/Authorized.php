@@ -1,6 +1,6 @@
 <?php
 
-function F_Authorized_Check($Args)
-{
-    return Client::$Authorized;
-}
+    function F_Authorized_Check($Args)
+    {
+        return Client::$Authorized;
+    }

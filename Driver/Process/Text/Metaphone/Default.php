@@ -4,7 +4,7 @@
     {
        $Output = '';
        $Word = mb_strtoupper($Word);
-       $SizeOfWord = mb_strlen($Word);
+       $countWord = mb_strlen($Word);
        $Metaphone = strtr($Word, array('Б'=>'П',
                                        'О'=>'А',
                                        'Ы'=>'А',
@@ -12,7 +12,7 @@
                                        'Ю'=>'У',
                                        'Е'=>'И',
                                        'Ё'=>'И',
-       								   'Й'=>'И',
+                                       'Й'=>'И',
                                        'Э'=>'И',
                                        'К'=>'Г',
                                        'ТС'=>'Ц',
@@ -25,7 +25,7 @@
                                        'Ь'=>'',
                                        'Ъ'=>''                                       
        ));
-       for($i = 0; $i<$SizeOfWord; $i++)
+       for($i = 0; $i<$countWord; $i++)
            if (mb_substr($Metaphone,$i,1) != mb_substr($Metaphone,$i+1,1)) $Output.= mb_substr($Metaphone,$i,1);
       return $Output;
    }

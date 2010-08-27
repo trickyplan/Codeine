@@ -25,7 +25,7 @@ function F_LayoutFS_Read ($Args)
     $Layout = '';
     $Candidates = array();
 
-    $SZC = sizeof($IDs);
+    $SZC = count($IDs);
 
     $IC = 0;
 

@@ -5,14 +5,14 @@
         $App = new Object('_Application', $Args[2]);
         $Output = 'Not executed:'.print_r($Args, true);
 
-        if (sizeof($Args)==3)
+        if (count($Args)==3)
             {
                 $App->Set('Installed', 'True');
                 $App->Add('Inherit', 'CRUD');
                 $Output = $Args[2].' installed';
             }
 
-        if (sizeof($Args)==5)
+        if (count($Args)==5)
             {
                 switch($Args[3])
                 {
@@ -48,13 +48,13 @@
         $App = new Object('_Application', $Args[2]);
         $Output = 'Not executed:'.print_r($Args, true);
 
-        if (sizeof($Args)==3)
+        if (count($Args)==3)
             {
                 $App->Del('Installed', 'True');
                 $Output = $Args[2].' removed';
             }
 
-        if (sizeof($Args)==5)
+        if (count($Args)==5)
             {
                 switch($Args[3])
                 {

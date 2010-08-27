@@ -84,7 +84,7 @@ class Collection
                                     case 'Substract':   $this->Names(array_diff($this->Names, $IDs));break;
                                 }
                             $this->LastQuery = $Selector;
-                            $this->Length = sizeof($this->Names);
+                            $this->Length = count($this->Names);
                         }
 
                         $this->Queried = true;
@@ -260,7 +260,7 @@ class Collection
   }
 
   public function valid() {
-    return $this->__Current < sizeof($this->_Items);
+    return $this->__Current < count($this->_Items);
   }
 
   public function key() {

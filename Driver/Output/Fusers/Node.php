@@ -55,7 +55,7 @@
             foreach($Keys as $Key)
                 if (($Data = $Object->GetKeyOf($Key, false)) !== null)
                 {
-                    if(sizeof($Data)>1)
+                    if(count($Data)>1)
                         $Output = implode(',',$Data);
                     else
                         $Output = $Data[0];
