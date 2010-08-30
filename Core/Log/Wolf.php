@@ -34,7 +34,7 @@
             if ($Verbose <= self::$Verbosity)
             {
                 self::Tap('Log:'.$Type);
-                self::$_Messages[self::$_Counter++] = array(round(microtime(true)-Core::$StartTime, 4)*1000, $Type, $Message);
+                self::$_Messages[Application::$AppID][] = array(round(microtime(true)-Core::$StartTime, 4)*1000, $Type, $Message);
             }
             return null;
         }

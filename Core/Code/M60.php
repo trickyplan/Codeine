@@ -23,6 +23,7 @@
             $NameSpace = str_replace(':','/',$NameSpace);
 
             $F = false;
+            $Catched = false;
 
             if (($Drivers == 'Default' or empty($Drivers)))
             {
@@ -59,6 +60,7 @@
                                 {
                                     Timing::Go    ('Code:'.$F);
                                     $Result = $F ($Operands);
+                                    $Catched = true;
                                     Log::Tap ($F);
                                     Timing::Stop  ('Code:'.$F);
                                 }
@@ -69,6 +71,7 @@
                 {
                     Timing::Go    ('Code:'.$F);
                         $Result = $F ($Operands);
+                        $Catched = true;
                     Timing::Stop  ('Code:'.$F);
                     Log::Tap ($F);
                     break;
@@ -76,6 +79,9 @@
 
             }
 
+            if (!$Catched)
+                Log::Error($NameSpace.' '.$Function.' not found');
+                
             Timing::Stop ('Code:'.$NameSpace);
             return $Result;
         }

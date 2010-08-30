@@ -6,8 +6,9 @@
 
         if (is_array($Messages) and !empty($Messages))
         {
-            foreach($Messages as $Message)
-                $Output.= $Message[0]."\x9".Log::$Types[$Message[1]]."\x9".$Message[2]."\n";
+            foreach($Messages as $AppID => $AppMessages)
+                foreach($AppMessages as $Message)
+                    $Output.= $AppID."\x9".$Message[0]."\x9".Log::$Types[$Message[1]]."\x9".$Message[2]."\n";
 
             $LogFile = '/var/log/codeine/'._SERVER.'.log';
 

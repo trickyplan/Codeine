@@ -4,8 +4,8 @@
     {
         openlog(_SERVER, LOG_PID | LOG_PERROR, LOG_LOCAL0);
         
-        foreach($Messages as $Message)
-        {
+        foreach($Messages as $AppID => $AppMessages)
+            foreach($AppMessages as $Message)
                 switch($Message[1])
                 {
                     case 0:   syslog(LOG_INFO,    $Message[2].':'.$Message[0]); break;
@@ -19,7 +19,6 @@
                     case 8:   syslog(LOG_INFO,    $Message[2].':'.$Message[0]); break;
                     default:  syslog(LOG_INFO,    $Message[2].':'.$Message[0]); break;
                 }
-        }
         
         closelog();
        

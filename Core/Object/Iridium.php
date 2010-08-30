@@ -318,7 +318,7 @@ class Object
                             }
                             else
                             {
-                                if (!$ForceArray&&count ($this->Data[$Key]) == 1)
+                                if (!$ForceArray && count ($this->Data[$Key]) == 1)
                                     $Data = $this->Data[$Key][0];
                                 else
                                     $Data = $this->Data[$Key];

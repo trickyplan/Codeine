@@ -60,12 +60,15 @@ class Form
             if (isset($Field->Lookup))
             {
                 $Lookup = Code::E('Data/Lookup', 'Lookup', $Field->Lookup->Data, $Field->Lookup->Type);
-                if (isset($Field->I18N) and $Field->I18N == 'True')
-                    foreach($Lookup as $cLookup)
-                        $Variants[$cLookup] = '<l>'.self::$_Name.':'.$Name.':'.$cLookup.'</l>';
-                else
-                    foreach($Lookup as $cLookup)
-                        $Variants[$cLookup] = $cLookup;
+                if (is_array($Lookup))
+                {
+                    if (isset($Field->I18N) and $Field->I18N == 'True')
+                        foreach($Lookup as $cLookup)
+                            $Variants[$cLookup] = '<l>'.self::$_Name.':'.$Name.':'.$cLookup.'</l>';
+                    else
+                        foreach($Lookup as $cLookup)
+                            $Variants[$cLookup] = $cLookup;
+                }
             }
 
             if (isset($Field->Multiple) and $Field->Multiple == 'True')

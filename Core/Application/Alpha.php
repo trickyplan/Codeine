@@ -4,7 +4,7 @@ class Application
 {
     public static $Routers   = array ('Native');
     public static $Call      = null;
-    public static $AppID     = null;
+    public static $AppID     = 'Core';
     public static $Interface = 'web';
     public static $Name      = null;
     public static $Plugin    = null;

@@ -251,7 +251,8 @@ class Page
             $Data = $Object->Data();
             $Structure = self::Load($ID);
 
-            $Structure = str_replace(array_keys($Slots), $Slots, $Structure);
+            if (is_array($Slots))
+                $Structure = str_replace(array_keys($Slots), $Slots, $Structure);
 
             foreach (self::$Processors['Fusion'] as $Fuser)
                 $Structure = Code::E('Output/Fusers','Fusion', array('Data'=>$Data, 'Structure'=>$Structure, 'Object'=>$Object), $Fuser);

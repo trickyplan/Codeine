@@ -75,7 +75,7 @@ class Core
                     self::$Conf = ConfWalk ($EngineConf, $SiteConf);
                 }
                 else
-                    throw new WTF('Not found '._SERVER.'.conf', 4049);
+                    throw new WTF('Not found '.Root.'Sites/'._SERVER.'.json', 4049);
 
                 spl_autoload_register ('Core::Load');
 
