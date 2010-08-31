@@ -4,13 +4,13 @@ function F_HTML_Render($Args)
 {   
     $ID = uniqid('T');
 
-    Page::JSFile('JS/TinyMCE/jscripts/tinymce/jquery.tinymce.js');
+    Page::JSFile('JS/TinyMCE/jscripts/tiny_mce/jquery.tinymce.js');
     
     Page::JS(
         "
             $('#".$ID."').tinymce(
                 {
-                    script_url : '/JS/TinyMCE/jscripts/tinymce/tiny_mce.js',
+                    script_url : '/JS/TinyMCE/jscripts/tiny_mce/tiny_mce.js',
                     theme: 'advanced',
                     cleanup: false,
                     verify_html : false,

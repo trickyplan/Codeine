@@ -10,10 +10,15 @@
            {
                $Rateds = $Object->Get('RatedBy:'.$Rater, false);
 
-               if (in_array(Client::$UID,$Rateds))
-                return Page::Fusion('Raters/Already', $Object, array('<rater/>'=>$Rater));
+               if ($Object->Get('Rating:'.$Rater) >= 0)
+                   $State = 'Positive';
                else
-                return Page::Fusion('Raters/Default', $Object, array('<rater/>'=>$Rater));
+                   $State = 'Negative';
+
+               if (in_array(Client::$UID,$Rateds))
+                return Page::Fusion('Raters/Already', $Object, array('<rater/>'=>$Rater, '<state/>'=>$State));
+               else
+                return Page::Fusion('Raters/Default', $Object, array('<rater/>'=>$Rater, '<state/>'=>$State));
            }
        }
        else
