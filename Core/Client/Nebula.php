@@ -105,8 +105,10 @@ class Client
             self::$UID = (string) self::$Ticket;
 
         $IPs = Core::$Conf['Options']['TrustHost'];
+
         if (!is_array($IPs))
             $IPs = array($IPs);
+        
         foreach ($IPs as &$IP)
             $IP = gethostbyname($IP);
             
