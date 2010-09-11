@@ -104,7 +104,13 @@ class Client
         else
             self::$UID = (string) self::$Ticket;
 
-        if (_IP == gethostbyname(Core::$Conf['Options']['TrustHost']))
+        $IPs = Core::$Conf['Options']['TrustHost'];
+        if (!is_array($IPs))
+            $IPs = array($IPs);
+        foreach ($IPs as &$IP)
+            $IP = gethostbyname($IP);
+            
+        if (in_array(_IP, $IPs))
             Client::$TrustIP = true;
     }
 
