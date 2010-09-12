@@ -141,7 +141,7 @@ class Page
                         self::$Body[$URL] = str_replace($Match, ' No', self::$Body[$URL]);
 
             // self::$Body[$URL] = str_replace('<RSi/>', round((mb_strlen(self::$Body[$URL])/1024)/(Timing::Lap('Fusion')),2),self::$Body[$URL]);
-            self::$Body[$URL] = str_replace('<Memory/>',number_format((memory_get_usage()/1048576), 3, '.', ' '), self::$Body[$URL]);
+            self::$Body[$URL] = str_replace('<Memory/>',number_format((memory_get_usage(true)/1048576), 3, '.', ' '), self::$Body[$URL]);
             self::$Body[$URL] = str_replace('<Timer/>',(round(microtime(true)-Core::$StartTime, 3)*1000), self::$Body[$URL]);
         }
         
@@ -162,11 +162,13 @@ class Page
     public static function CSS ($Code)
     {
         self::$CSS[md5($Code)] = $Code;
+        return true;
     }
 
     public static function JS ($Code)
     {
         self::$JS[md5($Code)] = $Code;
+        return true;
     }
 
     public static function JSFile ($File)
@@ -177,6 +179,7 @@ class Page
             $File = Root.$File;
         
         self::$JSIncludes[$File] = $File;
+        return true;
     }
 
     public static function CSSFile ($File)
@@ -187,6 +190,7 @@ class Page
             $File = Root.$File;
 
         self::$CSSIncludes[$File] = $File;
+        return true;
     }
 
     public static function Load ($ID)

@@ -2,13 +2,17 @@
 
     function F_JSONDB_Mount ($Args)
     {
-        Data::$Data[$Args['DSN']] = json_decode(file_get_contents(Root.Data.$Args['DSN'].'.json'), true);
+        $JSONDB = file_get_contents(Root.Data.$Args['DSN'].'.json');
+        Data::$Data[$Args['DSN']] = json_decode($JSONDB, true);
+        Data::$Data['rw'.$Args['DSN']] = sha1($JSONDB);
         return $Args['DSN'];
     }
 
     function F_JSONDB_Unmount ($Args)
     {
-        file_put_contents(Root.Data.$Args.'.json', json_encode(Data::$Data[$Args]));
+        $JSONDB = json_encode(Data::$Data[$Args]);
+        if (sha1($JSONDB) == Data::$Data['rw'.$Args])
+            file_put_contents(Root.Data.$Args.'.json', $JSONDB);
         return true;
     }
 

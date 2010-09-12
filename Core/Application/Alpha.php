@@ -83,8 +83,11 @@ class Application
             if (!self::$AppObject->Load(self::$Name))
                     throw new WTF('Unknown Application '.self::$Name.':'.self::$Plugin, 4041);              
 
-            self::$Object = new Object(self::$Name);
-            self::$Collection = new Collection(self::$Name);
+            if (null !== self::$ID)
+                {
+                    self::$Object = new Object(self::$Name);
+                    self::$Collection = new Collection(self::$Name);
+                }
 
             $Plugins = self::$AppObject->Get(
                     array(
