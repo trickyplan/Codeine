@@ -41,7 +41,7 @@
             {
                 "Input/Filters":      "KillEmAll",
                 "Error/Loggers":      "FirePHP",
-                "System/Profilers":   "Codeine",
+                "System/Profilers":   "Log",
                 "Error/Handlers/404": "404",
                 "Security/CAPTCHA":   "vx7",
                 "Service/IP2Geo":     "IPInfoDB",
