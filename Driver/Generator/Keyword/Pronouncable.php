@@ -16,7 +16,3 @@ function F_Pronouncable_Generate($Args)
 	}
 	return strtoupper(substr($password, 0, $length));
 }
-
-
-?>
-	
