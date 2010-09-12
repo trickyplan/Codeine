@@ -19,7 +19,9 @@
 
     function F_JSONDB_Read ($Args)
     {
-        return Data::$Data[$Args['Storage']][$Args['DDL']['I']];
+        if (isset(Data::$Data[$Args['Storage']][$Args['DDL']['I']]))
+            return Data::$Data[$Args['Storage']][$Args['DDL']['I']];
+        else return null;
     }
 
     function F_JSONDB_Update ($Args)
