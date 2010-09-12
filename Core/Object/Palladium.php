@@ -160,6 +160,9 @@ class Object
         {
             $Result = null;
 
+            if ($this->Loaded)
+                return true;
+
             if (Access::Check($this, 'Load'))
             {
                 $this->Data = array();

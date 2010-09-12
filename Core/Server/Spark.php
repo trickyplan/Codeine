@@ -111,8 +111,9 @@ class Server
                 }
                 ob_flush();
             }
-        catch (Exception $e) {
-            die('Проблемы при терминировании: '.$e->getMessage());
+        catch (WTF $e)
+        {
+            $e->Panic();
         }
     }
 }

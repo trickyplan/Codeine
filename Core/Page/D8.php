@@ -44,11 +44,6 @@ class Page
             return false;
     }
 
-    public static function Growl($Data)
-    {
-        return self::JS('$.jGrowl("'.$Data.'");');
-    }
-
     public static function Add ($Data, $Place = 'content', $V = 1)
     {
         if (mb_strpos(self::$Body[Application::$AppID], $Place) !== false)
@@ -235,6 +230,7 @@ class Page
                 $IC = 1;
                 foreach($Object->_Items as $cObject)
                     $Result.= str_replace('<#/>', $IC++,self::_Fusion($ID, $cObject, $Slots));
+
             break;
         }
 

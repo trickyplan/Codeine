@@ -18,71 +18,72 @@
         {
             Timing::Go ('Code:'.$NameSpace);
 
-            $Result = false;
+                $Result = false;
 
-            $NameSpace = str_replace(':','/',$NameSpace);
+                $NameSpace = str_replace(':','/',$NameSpace);
 
-            $F = false;
-            $Catched = false;
+                $F = false;
+                $Catched = false;
 
-            if (($Drivers == 'Default' or empty($Drivers)))
-            {
-                if (isset (self::$_Drivers[$NameSpace]))
-                    $Drivers = self::$_Drivers[$NameSpace];
-                else
+                if (($Drivers == 'Default' or empty($Drivers)))
                 {
-                    $NameSpace2 = explode('/', $NameSpace);
-                    $Drivers = $NameSpace2[count($NameSpace2)-1];
+                    if (isset (self::$_Drivers[$NameSpace]))
+                        $Drivers = self::$_Drivers[$NameSpace];
+                    else
+                    {
+                        $NameSpace2 = explode('/', $NameSpace);
+                        $Drivers = $NameSpace2[count($NameSpace2)-1];
+                    }
                 }
-            }
 
-            if (!is_array($Drivers))
-                $Drivers = array($Drivers);
+                if (!is_array($Drivers))
+                    $Drivers = array($Drivers);
 
-            foreach ($Drivers as $Driver)
-            {
-                $F = 'F_'.$Driver.'_'.$Function;
-
-                if (!isset(self::$_Included[$NameSpace][$Driver]))
+                foreach ($Drivers as $Driver)
                 {
-                   $DriverFiles =
-                    array(
-                            Root.Driver.$NameSpace.'/'.$Driver.'.php',
-                            Engine.Driver.$NameSpace.'/'.$Driver.'.php'
-                         );
+                    $F = 'F_'.$Driver.'_'.$Function;
 
-                   foreach ($DriverFiles as $DriverFile)
-                       if (file_exists($DriverFile))
-                       {
-                           if ((include_once ($DriverFile)) == true)
+                    if (!isset(self::$_Included[$NameSpace][$Driver]))
+                    {
+                       $DriverFiles =
+                        array(
+                                Root.Driver.$NameSpace.'/'.$Driver.'.php',
+                                Engine.Driver.$NameSpace.'/'.$Driver.'.php'
+                             );
+
+                       foreach ($DriverFiles as $DriverFile)
+                           if (file_exists($DriverFile))
                            {
-                               if (is_callable($F))
-                                {
-                                    Timing::Go    ('Code:'.$F);
-                                    $Result = $F ($Operands);
-                                    $Catched = true;
-                                    Log::Tap ($F);
-                                    Timing::Stop  ('Code:'.$F);
-                                }
+                               if ((include_once ($DriverFile)) == true)
+                               {
+                                   if (is_callable($F))
+                                    {
+                                        Timing::Go    ('Code:'.$F);
+                                        $Result = $F ($Operands);
+                                        $Catched = true;
+                                        Log::Tap ($F);
+                                        Timing::Stop  ('Code:'.$F);
+                                    }
+                               }
                            }
-                       }
-                }
-                else
-                {
-                    Timing::Go    ('Code:'.$F);
-                        $Result = $F ($Operands);
-                        $Catched = true;
-                    Timing::Stop  ('Code:'.$F);
-                    Log::Tap ($F);
-                    break;
+                    }
+                    else
+                    {
+                        Timing::Go    ('Code:'.$F);
+                            $Result = $F ($Operands);
+                            $Catched = true;
+                        Timing::Stop  ('Code:'.$F);
+                        Log::Tap ($F);
+                        break;
+                    }
+
                 }
 
-            }
+                Timing::Stop ('Code:'.$NameSpace);
 
-            if (!$Catched)
-                Log::Error($NameSpace.' '.$Function.' not found');
-                
-            Timing::Stop ('Code:'.$NameSpace);
+                if (!$Catched)
+                    Log::Error($NameSpace.' '.$Function.' not found in driver '.$Drivers[0]);
+            
             return $Result;
         }
 

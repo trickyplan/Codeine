@@ -39,7 +39,7 @@ class Object
             return Code::E('Output/Serializers', 'ObjectSerializer', $this);
         }
 
-        public function __construct ($Point = null, $Name = null, $ORM = null)
+        public function __construct ($Point = null, $Name = null)
         {
             if (null === $Point or $Point == '_')
                 $Point = Application::$Name;
@@ -51,7 +51,7 @@ class Object
                     $this->Name($Name);
                     $this->Point = $Point;
                 }
-            elseif ($ORM == null)
+            else
             {
                 if (mb_strpos($Point, OBJSEP) !== false)
                     list($this->Point, $this->Name) = explode(OBJSEP, $Point);
@@ -61,10 +61,7 @@ class Object
 
             $this->Scope = $this->Point;
 
-            if (null === $ORM)
-                $this->ORM = Data::GetORM($this->Point);
-            else
-                $this->ORM = $ORM;
+            $this->ORM = Data::GetORM($this->Point);;
 
             if (null !== $Name)
                 $this->Load($Name);

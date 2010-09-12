@@ -9,6 +9,7 @@ class WTF extends Exception
 
     function Panic()
     {
+        Core::$Crash = true;
         die ('<div style="text-align: center;padding: 4px; color: #FFF; background-color: #900;">Kernel panic:  '.$this->getMessage().'</div>');
     }
 }
@@ -45,10 +46,42 @@ class Core
     private static function _Workstyle()
     {
         if (!($env = getenv('CodeineWorkstyle')))
-            $env = 'production';
+            $env = 'Production';
         
         return $env;
     }
+
+    public static function Load ($Core)
+    {
+        if (isset(self::$Conf['Engines'][$Core]))
+        {
+            if (file_exists(Engine.'Core/'.$Core.'/'.self::$Conf['Engines'][$Core].'.php'))
+                return include (Engine.'Core/'.$Core.'/'.self::$Conf['Engines'][$Core].'.php');
+            else
+                return Log::Error('Kernel module not found');
+        }
+        else
+            return Log::Error('Unknown kernel module');
+    }
+
+    private static function _ConfWalk ($Engine, $Site = array())
+        {
+            if (is_array($Site))
+                foreach ($Site as $Key => $Value)
+                {
+                    if (!isset($Engine[$Key]))
+                        $Engine[$Key] = array();
+
+                    if (is_array($Value))
+                        $Engine[$Key] = self::_ConfWalk($Engine[$Key],$Value);
+                    else
+                        $Engine[$Key] = $Value;
+                }
+            else
+                $Site = $Engine;
+
+            return $Engine;
+        }
 
     public static function Initialize()
     {
@@ -69,39 +102,20 @@ class Core
         
         include Engine.'/Package/krumo/class.krumo.php';
 
-        function ConfWalk ($Engine, $Site = array())
-        {
-            if (is_array($Site))
-                foreach ($Site as $Key => $Value)
-                {
-                    if (!isset($Engine[$Key]))
-                        $Engine[$Key] = array();
-
-                    if (is_array($Value))
-                        $Engine[$Key] = ConfWalk($Engine[$Key],$Value);
-                    else
-                        $Engine[$Key] = $Value;
-                }
-            else
-                $Site = $Engine;
-
-            return $Engine;
-        }
-
         try
             {
-                if (file_exists(Root.'etc/'._WS.'.json'))
+                if (file_exists(Root.'Conf/'._WS.'.json'))
                 {
-                    if (($EngineConf = json_decode(file_get_contents(Engine.'etc/'._WS.'.json'), true))==null)
+                    if (($EngineConf = json_decode(file_get_contents(Engine.'Conf/'._WS.'.json'), true))==null)
                         throw new WTF('Engine configuration malformed. <a href="http://jsonlint.com/">Check JSON syntax</a>', 4049);
 
-                    if (($SiteConf = json_decode(file_get_contents(Root.'etc/'._WS.'.json'), true))==null)
+                    if (($SiteConf = json_decode(file_get_contents(Root.'Conf/'._WS.'.json'), true))==null)
                         throw new WTF('Site configuration malformed. <a href="http://jsonlint.com/">Check JSON syntax</a>', 4049);
 
-                    self::$Conf = ConfWalk ($EngineConf, $SiteConf);
+                    self::$Conf = self::_ConfWalk ($EngineConf, $SiteConf);
                 }
                 else
-                    throw new WTF('Not found '.Root.'etc/'._WS.'.json', 4049);
+                    throw new WTF('Not found '.Root.'Conf/'._WS.'.json', 4049);
 
                 spl_autoload_register ('Core::Load');
 
@@ -122,19 +136,6 @@ class Core
             {
                 $e->Panic();
             }
-    }
-
-    public static function Load ($Core)
-    {
-        if (isset(self::$Conf['Engines'][$Core]))
-        {
-            if (file_exists(Engine.'Core/'.$Core.'/'.self::$Conf['Engines'][$Core].'.php'))
-                return include (Engine.'Core/'.$Core.'/'.self::$Conf['Engines'][$Core].'.php');
-            else
-                return Log::Error('Kernel module not found');
-        }
-        else
-            return Log::Error('Unknown kernel module');
     }
 }
 

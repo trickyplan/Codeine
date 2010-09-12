@@ -116,6 +116,9 @@ class Collection
         if (null !== $Names)
             $this->Names($Names);
 
+        if ($this->Loaded)
+            return true;
+        
         $this->_Items = array();
 
         if (!is_array($this->Names))

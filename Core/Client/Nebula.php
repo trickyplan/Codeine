@@ -126,10 +126,8 @@ class Client
                     self::$Face->Save();
                 self::$Agent->Save();
             }
-
+            self::$Ticket->Save();
         }
-        
-        self::$Ticket->Save();
 
         return !Core::$Crash;
     }

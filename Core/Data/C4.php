@@ -43,7 +43,7 @@ class Data // UMA
                 if (isset(self::$_MST[$Point]) and isset(self::$_Storages[self::$_MST[$Point]]))
                     return self::$_Storages[self::$_MST[$Point]]['ORM'];
                 else
-                    return null;
+                    return self::$_Storages['Default']['ORM'];
             }
         }
         else
