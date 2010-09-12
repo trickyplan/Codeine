@@ -1,6 +1,9 @@
 <?php
 
     include 'Core.php';
+    
+    if (!defined('Root'))
+        define('Root', __DIR__);
 
     if (isset(Core::$Conf['Options']['Maintenance']) && Core::$Conf['Options']['Maintenance'] == true)
     {
