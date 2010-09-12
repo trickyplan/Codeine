@@ -24,10 +24,7 @@ class Page
         ob_start('Server::FatalHandler');
         self::$HTTPHeaders['Content-type'] = 'text/html;charset=utf-8';
         
-        self::$Processors['Each']   = Core::$Conf['Options']['Processors']['Each'];
-        self::$Processors['Post']   = Core::$Conf['Options']['Processors']['Post'];
-        self::$Processors['Pre']    = Core::$Conf['Options']['Processors']['Pre'];
-        self::$Processors['Fusion'] = Core::$Conf['Options']['Processors']['Fusion'];
+        self::$Processors = Core::$Conf['Drivers']['Installed']['Processors'];
     }
 
     public static function Body ($Body = null)

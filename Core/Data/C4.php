@@ -327,7 +327,7 @@ class Data // UMA
             Log::Tap('Data:Cache:Put');
 
             if (!isset(self::$_Mounts[$Point][$Type.'Cache:TTL']))
-                        self::$_Mounts[$Point][$Type.'Cache:TTL'] = Core::$Conf['Options']['Defaults'][$Type.'Cache:TTL'];
+                        self::$_Mounts[$Point][$Type.'Cache:TTL'] = Core::$Conf['Mounts']['Default'][$Type.'Cache:TTL'];
 
             if (self::$_Mounts[$Point][$Type.'Cache'] == 'Static')
                 return (self::$_Cache[$ID] = $Value);

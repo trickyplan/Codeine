@@ -1,25 +1,5 @@
 <?php
 
-if (isset($_SERVER['SERVER_NAME']))
-    define ('_SERVER',$_SERVER['SERVER_NAME']);
-else
-    define ('_SERVER',$_SERVER['HTTP_HOST']);
-
-define ('OBJSEP', '::');
-define ('DIRSEP', '/');
-
-define ('Engine', dirname(__FILE__).'/');
-define ('EngineShared', dirname(__FILE__).'/_Shared/');
-define ('Host', 'http://'.$_SERVER['HTTP_HOST'].'/');
-define ('_Host', $_SERVER['HTTP_HOST'].'/');
-
-if (isset($_SERVER['HTTP_X_REAL_IP']))
-    define ('_IP', $_SERVER['HTTP_X_REAL_IP']);
-else
-    define ('_IP', $_SERVER['REMOTE_ADDR']);
-// FIXME Functionalize
-include Engine.'/Package/krumo/class.krumo.php';
-
 class WTF extends Exception
 {
     function Log()
@@ -39,9 +19,55 @@ class Core
     public static $Conf  = array();
     public static $Crash = false;
 
+    private static function _Server ()
+    {
+        if (isset($_SERVER['SERVER_NAME']))
+            return $_SERVER['SERVER_NAME'];
+        else
+        {
+            if (isset($_SERVER['HTTP_HOST']))
+                return $_SERVER['HTTP_HOST'];
+            else
+                return 'localhost';
+        }
+    }
+
+    private static function _IP ()
+    {
+        if (isset($_SERVER['HTTP_X_REAL_IP']))
+            return $_SERVER['HTTP_X_REAL_IP'];
+        elseif (isset($_SERVER['REMOTE_ADDR']))
+            return $_SERVER['REMOTE_ADDR'];
+        else
+            return '127.0.0.1';
+    }
+
+    private static function _Workstyle()
+    {
+        if (!($env = getenv('CodeineWorkstyle')))
+            $env = 'production';
+        
+        return $env;
+    }
+
     public static function Initialize()
     {
         self::$StartTime = microtime(true);
+       
+        define ('_SERVER', self::_Server());
+        define ('_IP',     self::_IP());
+        define ('_WS',     self::_Workstyle());
+        
+        define ('OBJSEP', '::');
+        define ('DS', DIRECTORY_SEPARATOR);
+
+        define ('Engine', dirname(__FILE__).'/');
+        define ('EngineShared', dirname(__FILE__).'/_Shared/');
+
+        define ('_Host', $_SERVER['HTTP_HOST']);
+        define ('Host', 'http://'._Host.'/');
+        
+        include Engine.'/Package/krumo/class.krumo.php';
 
         function ConfWalk ($Engine, $Site = array())
         {
@@ -64,18 +90,18 @@ class Core
 
         try
             {
-                if (file_exists(Root.'Sites/'._SERVER.'.json'))
+                if (file_exists(Root.'etc/'._WS.'.json'))
                 {
-                    if (($EngineConf = json_decode(file_get_contents(Engine.'/Codeine.json'), true))==null)
-                        throw new WTF('Engine configuration malformed.', 4049);
+                    if (($EngineConf = json_decode(file_get_contents(Engine.'etc/'._WS.'.json'), true))==null)
+                        throw new WTF('Engine configuration malformed. <a href="http://jsonlint.com/">Check JSON syntax</a>', 4049);
 
-                    if (($SiteConf = json_decode(file_get_contents(Root.'Sites/'._SERVER.'.json'), true))==null)
-                        throw new WTF('Site configuration malformed.', 4049);
+                    if (($SiteConf = json_decode(file_get_contents(Root.'etc/'._WS.'.json'), true))==null)
+                        throw new WTF('Site configuration malformed. <a href="http://jsonlint.com/">Check JSON syntax</a>', 4049);
 
                     self::$Conf = ConfWalk ($EngineConf, $SiteConf);
                 }
                 else
-                    throw new WTF('Not found '.Root.'Sites/'._SERVER.'.json', 4049);
+                    throw new WTF('Not found '.Root.'etc/'._WS.'.json', 4049);
 
                 spl_autoload_register ('Core::Load');
 

@@ -32,16 +32,16 @@ function F_LayoutFS_Read ($Args)
     if (Application::$Interface == 'web')
         for ($a = 0; $a<$SZC; $a++)
             {
-                $Candidates[$IC++] = Root.$Args['Dir'].DIRSEP.$IDs[$a].'.html';
-                $Candidates[$IC++] = EngineShared.$Args['Dir'].DIRSEP.$IDs[$a].'.html';
+                $Candidates[$IC++] = Root.$Args['Dir'].DS.$IDs[$a].'.html';
+                $Candidates[$IC++] = EngineShared.$Args['Dir'].DS.$IDs[$a].'.html';
             }
     else
         for ($a = 0; $a<$SZC; $a++)
             {
-                $Candidates[$IC++] = Root.$Args['Dir'].DIRSEP.$IDs[$a].'.'.Application::$Interface.'.html';
-                $Candidates[$IC++] = Root.$Args['Dir'].DIRSEP.$IDs[$a].'.html';
-                $Candidates[$IC++] = EngineShared.$Args['Dir'].DIRSEP.$IDs[$a].'.'.Application::$Interface.'.html';
-                $Candidates[$IC++] = EngineShared.$Args['Dir'].DIRSEP.$IDs[$a].'.html';
+                $Candidates[$IC++] = Root.$Args['Dir'].DS.$IDs[$a].'.'.Application::$Interface.'.html';
+                $Candidates[$IC++] = Root.$Args['Dir'].DS.$IDs[$a].'.html';
+                $Candidates[$IC++] = EngineShared.$Args['Dir'].DS.$IDs[$a].'.'.Application::$Interface.'.html';
+                $Candidates[$IC++] = EngineShared.$Args['Dir'].DS.$IDs[$a].'.html';
             }
 
     for ($a = 0; $a<$IC; $a++)

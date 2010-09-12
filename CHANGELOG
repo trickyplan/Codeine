@@ -6,3 +6,4 @@
 
     1. Новый драйвер - Data/Mounters/JSONDB
     2. Новый драйвер - System/Profilers/Log
+    3. Новый драйвер - Output/Processors/GetText

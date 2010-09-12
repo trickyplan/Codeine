@@ -20,7 +20,7 @@ class Application
 
     public static function Initialize()
     {
-        self::$Routers = Core::$Conf['Options']['Routers'];
+        self::$Routers = Core::$Conf['Drivers']['Installed']['Routers'];
     }
     
     public static function Route ($Call)
