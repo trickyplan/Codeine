@@ -9,11 +9,11 @@
                 Core::$Conf['Keys']['Twitter']['CONSUMER_SECRET'],
                 Core::$Conf['Keys']['Twitter']['OAUTH_TOKEN'],
                 Core::$Conf['Keys']['Twitter']['OAUTH_SECRET']);
-
+        
         $content = $connection->get('account/verify_credentials');
     }
     
     function F_TwitterDM_Send($Args)
     {
-        return $connection->post('direct_messages/new', array('screen_name' => $Args['To']->Get('Twitter'),'text' => $Args['Message']));
+        return $connection->post('statuses/update', array('status' => $Args['Message']));
     }

@@ -19,5 +19,5 @@ function F_EMail_Send($Args)
 
     $Msg = '<body>'.$Args['Message'].'</body>';
 
-    return mb_send_mail($Args['To']->Get('EMail'), $Args['Subject'], $Msg, $Header);
+    return mb_send_mail($Args['To'], $Args['Subject'], $Msg, $Header);
 }

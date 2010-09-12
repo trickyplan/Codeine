@@ -21,6 +21,6 @@ function F_Jabber_Unmount($Args)
 
 function F_Jabber_Send($Args)
 	{
-            return $Args['Point']->message($Args['To']->Get('JabberID'), $Args['From']->Name().' > '.$Args['Subject'].":".$Args['Message']);
+            return $Args['Point']->message($Args['To'], $Args['From']->Name().' > '.$Args['Subject'].":".$Args['Message']);
 	}
 
