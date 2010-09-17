@@ -30,7 +30,7 @@
                     "Error/Handlers/404": "404",
                     "Security/CAPTCHA":   "vx7",
                     "Service/IP2Geo":     "IPInfoDB",
-                    "Process/Hash":       "SHA1st",
+                    "Process/Hash":       "sha1",
                     "Output/Serializers": "Codeine",
                     "Security/User":      ["Native"],
                     "Routers":      ["REST","Native", "JSON", "XML"],
