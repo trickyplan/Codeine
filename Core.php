@@ -43,14 +43,6 @@
                 return '127.0.0.1';
         }
 
-        private static function _Workstyle()
-        {
-            if (!($env = getenv('CodeineWorkstyle')))
-                $env = 'Production';
-
-            return $env;
-        }
-
         public static function Load ($Core)
         {
             if (isset(self::$Conf['Engines'][$Core]))
@@ -87,9 +79,11 @@
         {
             self::$StartTime = microtime(true);
 
+            define ('_Host', $_SERVER['HTTP_HOST']);
+            define ('Host', 'http://'._Host.'/');
+            
             define ('_SERVER', self::_Server());
             define ('_IP',     self::_IP());
-            define ('_WS',     self::_Workstyle());
 
             define ('OBJSEP', '::');
             define ('DS', DIRECTORY_SEPARATOR);
@@ -97,17 +91,14 @@
             define ('Engine', dirname(__FILE__).'/');
             define ('EngineShared', dirname(__FILE__).'/_Shared/');
 
-            define ('_Host', $_SERVER['HTTP_HOST']);
-            define ('Host', 'http://'._Host.'/');
-
             try
                 {
-                    if (file_exists(Root.'Conf/'._WS.'.json'))
+                    if (file_exists(Root.'Conf/'._Host.'.json'))
                     {
-                        if (($EngineConf = json_decode(file_get_contents(Engine.'Conf/'._WS.'.json'), true))==null)
+                        if (($EngineConf = json_decode(file_get_contents(Engine.'Conf/Codeine.json'), true))==null)
                             throw new WTF('Engine configuration malformed. <a href="http://jsonlint.com/">Check JSON syntax</a>', 4049);
 
-                        if (($SiteConf = json_decode(file_get_contents(Root.'Conf/'._WS.'.json'), true))==null)
+                        if (($SiteConf = json_decode(file_get_contents(Root.'Conf/'._Host.'.json'), true))==null)
                             throw new WTF('Site configuration malformed. <a href="http://jsonlint.com/">Check JSON syntax</a>', 4049);
 
                         self::$Conf = self::_ConfWalk ($EngineConf, $SiteConf);

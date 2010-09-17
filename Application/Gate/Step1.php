@@ -1,6 +1,6 @@
 <?php
 
-    $AuthTypes = Core::$Conf['Options']['Authorizers'];
+    $AuthTypes = Core::$Conf['Drivers']['Installed']['Security/User'];
 
     if (count($AuthTypes)==1)
         self::$ID = $AuthTypes[0];
