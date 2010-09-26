@@ -1,6 +1,6 @@
 <?php
 
-include Engine.'Package/ReCAPTCHA/ReCAPTCHA.php';
+include_once Engine.'Package/ReCAPTCHA/ReCAPTCHA.php';
 
 function F_ReCAPTCHA_Generate($Args)
 {
