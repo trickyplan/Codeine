@@ -9,7 +9,7 @@ function F_Native_Step2 ($Args)
 {
     $Agent = new Object('_User');
     
-    if ($Agent->Query('=Login='.Server::Get('Login')))
+    if ($Agent->Query('=Login='.Server::Arg('Login')))
     {
         Client::$Ticket->Set('MayBe', $Agent->Name);
         $Authorizers = $Agent->Get('Authorizer:Installed', false);
@@ -47,7 +47,7 @@ function F_Native_Step3 ($Args)
                 if (
                     Code::E('Security/Authorizers','Check',
                         array('True'=> Client::$Agent->Get('Authorizer:'.$Authorizer,false),
-                              'Challenge'=>Server::Get($Authorizer)),$Authorizer)
+                              'Challenge'=>Server::Arg($Authorizer)),$Authorizer)
                     )
                         $Decisions[$Authorizer] = true;
                 else

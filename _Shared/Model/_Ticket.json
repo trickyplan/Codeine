@@ -1,0 +1,14 @@
+{
+  "Options":
+    {
+    "Privacy": false,
+    "UID": "BigUID"
+    },
+  "Nodes":
+    {
+        "TSL":
+            {
+                "Type":"String"
+            }
+    }
+}

@@ -75,25 +75,9 @@
                 return $Engine;
             }
 
-        public static function Initialize()
+        public static function LoadConf()
         {
-            self::$StartTime = microtime(true);
-
-            define ('_Host', $_SERVER['HTTP_HOST']);
-            define ('Host', 'http://'._Host.'/');
-            
-            define ('_SERVER', self::_Server());
-            define ('_IP',     self::_IP());
-
-            define ('OBJSEP', '::');
-            define ('DS', DIRECTORY_SEPARATOR);
-
-            define ('Engine', dirname(__FILE__).'/');
-            define ('EngineShared', dirname(__FILE__).'/_Shared/');
-
-            try
-                {
-                    if (file_exists(Root.'Conf/'._Host.'.json'))
+            if (file_exists(Root.'Conf/'._Host.'.json'))
                     {
                         if (($EngineConf = json_decode(file_get_contents(Engine.'Conf/Codeine.json'), true))==null)
                             throw new WTF('Engine configuration malformed. <a href="http://jsonlint.com/">Check JSON syntax</a>', 4049);
@@ -104,20 +88,47 @@
                         self::$Conf = self::_ConfWalk ($EngineConf, $SiteConf);
                     }
                     else
-                        throw new WTF('Not found '.Root.'Conf/'._WS.'.json', 4049);
+                        throw new WTF('Not found '.Root.'Conf/'._Host.'.json', 4049);
+           return true;
+        }
+
+        public static function Initialize()
+        {
+            self::$StartTime = microtime(true);
+
+            define ('_Host', $_SERVER['HTTP_HOST']);
+            define ('Host', 'http://'._Host.'/');
+
+            define ('_SERVER', self::_Server());
+            define ('_IP',     self::_IP());
+
+            define ('OBJSEP', '::');
+            define ('DS', DIRECTORY_SEPARATOR);
+
+            define ('Engine', dirname(__FILE__).'/');
+            define ('EngineShared', dirname(__FILE__).'/_Shared/');
+
+            define ('Domain', implode('.',array_reverse(explode('.',_Host.'.'))));
+            try
+                {
+                    self::LoadConf();
+
+                    if (isset(self::$Conf['Options']['Maintenance']) && self::$Conf['Options']['Maintenance'] == true)
+                    {
+                        readfile(Root.'Layout/Site/Maintenance.html');
+                        exit();
+                    }
 
                     spl_autoload_register ('Core::Load');
 
-                    Timing::Initialize ();
+                    Profiler::Initialize ();
 
-                    Log::Info ('Started');
-
-                    Timing::Go ('Core');
+                    Profiler::Go ('Core');
 
                         Server::Initialize();
                         Client::Initialize();
 
-                    Timing::Stop ('Core');
+                    Profiler::Stop ('Core');
 
                 }
 

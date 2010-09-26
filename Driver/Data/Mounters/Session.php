@@ -17,7 +17,7 @@ function F_Session_Create ($Args)
 
 function F_Session_Read ($Args)
 {
-    return Server::Get($Args['DDL']['I']);
+    return Server::Arg($Args['DDL']['I']);
 }
 
 function F_Session_Update ($Args)

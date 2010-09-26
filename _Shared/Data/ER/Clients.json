@@ -1,8 +1,0 @@
-{
-    "Standart":
-        {
-            "Passkey": "demo",
-            "Allowed":
-                {"Generator:UniqueID": ["Generate"]}
-        }
-}

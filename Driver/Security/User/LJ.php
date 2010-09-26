@@ -7,7 +7,7 @@ function F_LJ_Step1 ($Args)
 
 function F_LJ_Step2 ($Args)
 {
-    return Code::E('Security/User','Step2', array('Ticket'=>Client::$Ticket, 'Login'=>Server::Get('Login').'.livejournal.com'), 'OpenID');
+    return Code::E('Security/User','Step2', array('Ticket'=>Client::$Ticket, 'Login'=>Server::Arg('Login').'.livejournal.com'), 'OpenID');
 }
 
 function F_LJ_Step3 ($Args)

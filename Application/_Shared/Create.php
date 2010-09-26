@@ -3,27 +3,26 @@
 switch (Server::$REST)
 {
     case 'get':
-        
-        Form::Load (self::$Name);
-
-        if (self::$ID)
-            self::$Object->Load(self::$ID);
-        else
-            self::$Object->Load('Default');
-
-        Page::Add(Form::Render('Form/Default', self::$Object->Data()));
 
     break;
     
     case 'post':
-    
+        self::$Object = new Object(self::$Name);
+        
         $Errors = self::$Object->Create(Server::Data());
     
         if ($Errors === true)
             {
-                Event::Queue (array('Priority'=>64, 'Signal'=>self::$Name.'Created', 'Subject'=>(string)self::$Object));
+                Code::Hook('Application', self::$Name, self::$Plugin);
+
+                Event::Queue (
+                        array('Priority' => 64,
+                              'Signal' => self::$Name.'Created',
+                              'Subject'=> (string) self::$Object));
+
                 if (Client::$Face == 2)
                     Client::$Face->Inc('Stats:'.self::$Name.':Total',1);
+                
                 switch (self::$Interface)
                 {
                     case 'ajax':

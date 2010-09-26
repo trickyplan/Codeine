@@ -4,7 +4,7 @@
   
   if (self::$Object->Get('Owner') == Client::$UID or self::$Object->Get('Owner') == null)
       {
-        self::$Object->Add(Server::Get('Token'), Server::Get('Text'));
+        self::$Object->Add(Server::Arg('Token'), Server::Arg('Text'));
         self::$Object->Inc('Words', 1);
         if (Client::$Language != 'ru_RU')
           {
@@ -14,5 +14,5 @@
         self::$Object->Save ();
 
 
-        Page::Body(Server::Get('Text'));
+        Page::Body(Server::Arg('Text'));
       }

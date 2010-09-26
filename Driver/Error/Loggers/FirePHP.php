@@ -1,34 +1,64 @@
 <?php
 
-    function F_FirePHP_Output($Messages)
+    function F_FirePHP_Initialize ($Args)
     {
-        //if (!headers_sent())
-        {
-            include Engine.Classes.'FirePHPCore/FirePHP.class.php';
-            $FP = FirePHP::getInstance(true);
+        include Engine.Classes.'FirePHPCore/FirePHP.class.php';
+        return FirePHP::getInstance(true);
+    }
 
-            foreach($Messages as $AppID => $AppMessages)
-            {
-                $FP->group($AppID);
-                foreach($AppMessages as $Message)
-                {
-                        switch($Message[1])
-                        {
-                            case 0:   $FP->info ($Message[2], $Message[0]); break;
-                            case 1:   $FP->error($Message[2], $Message[0]); break;
-                            case 2:   $FP->warn ($Message[2], $Message[0]); break;
-                            case 3:   $FP->warn ($Message[2], $Message[0]); break;
-                            case 4:   $FP->info ($Message[2], $Message[0]); break;
-                            case 5:   $FP->info ($Message[2], $Message[0]); break;
-                            case 6:   $FP->info ($Message[2], $Message[0]); break;
-                            case 7:   $FP->info ($Message[2], $Message[0]); break;
-                            case 8:   $FP->info ($Message[2], $Message[0]); break;
-                            default:  $FP->info ($Message[2], $Message[0]); break;
-                        }
-                }
-                $FP->groupEnd();
-            }
-        }
-        
-        return null;
+    function F_FirePHP_Info($Args)
+    {
+        return $Args['Logger']->info($Args['Message']);
+    }
+
+    function F_FirePHP_Error($Args)
+    {
+        return $Args['Logger']->error($Args['Message']);
+    }
+
+    function F_FirePHP_Warning($Args)
+    {
+        return $Args['Logger']->warn($Args['Message']);
+    }
+
+    function F_FirePHP_Bad($Args)
+    {
+        return $Args['Logger']->warn($Args['Message']);
+    }
+
+    function F_FirePHP_Good ($Args)
+    {
+        return $Args['Logger']->info($Args['Message']);
+    }
+
+    function F_FirePHP_Dump($Args)
+    {
+        return $Args['Logger']->info($Args['Message']);
+    }
+
+    function F_FirePHP_Important($Args)
+    {
+        return $Args['Logger']->error($Args['Message']);
+    }
+
+    function F_FirePHP_Stage($Args)
+    {
+        $Args['Logger']->groupEnd($Args['Message']);
+        $Args['Logger']->group($Args['Message']);
+        return $Args['Logger']->info($Args['Message']);
+    }
+
+    function F_FirePHP_Hint($Args)
+    {
+        return $Args['Logger']->info($Args['Message']);
+    }
+
+    function F_FirePHP_Perfomance($Args)
+    {
+        return $Args['Logger']->info($Args['Message']);
+    }
+
+    function F_FirePHP_Shutdown($Logger)
+    {
+        return true;
     }

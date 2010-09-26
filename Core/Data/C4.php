@@ -52,7 +52,7 @@ class Data // UMA
 
     public static function Connect ($Name)
     {
-        Timing::Go ('Сonnecting to '.$Name);
+        Profiler::Go ('Сonnecting to '.$Name);
 
         $Returned = null;
         
@@ -75,14 +75,14 @@ class Data // UMA
                 else
                     $Returned = false;
         
-        Timing::Stop ('Сonnecting to '.$Name);
+        Profiler::Stop ('Сonnecting to '.$Name);
         
         return $Returned;
     }
 
     public static function Mount ($Point)
     {
-        Timing::Go ('Mounting '.$Point);
+        Profiler::Go ('Mounting '.$Point);
         
         $Result = null;
 
@@ -94,7 +94,7 @@ class Data // UMA
                     $StorageID = self::$_Mounts[$Point]['Node'];
                 else
                 {
-                    Timing::Stop('Mounting '.$Point);
+                    Profiler::Stop('Mounting '.$Point);
                     return Log::Error('Node for Mount Point: '.$Point.'Not Defined');
                 }
                 
@@ -103,7 +103,7 @@ class Data // UMA
                 if (self::Connect($StorageID) !== null)
                 {
                     self::$_MST[$Point] = $StorageID;
-                    Timing::Stop('Mounting '.$Point);
+                    Profiler::Stop('Mounting '.$Point);
                     return true;
                 }
                 else
@@ -118,14 +118,14 @@ class Data // UMA
         else
             $Result = false;
 
-        Timing::Stop('Mounting '.$Point);
+        Profiler::Stop('Mounting '.$Point);
 
         return $Result;
     }
 
     public static function Unmount($Point)
     {           
-        Timing::Go ('Unmounting '.$Point);
+        Profiler::Go ('Unmounting '.$Point);
 
         $Name = self::$_MST[$Point];
         if (isset(self::$_Storages[$Name]))
@@ -133,19 +133,19 @@ class Data // UMA
         else
             $Result = true;
        
-        Timing::Stop('Unmounting '.$Point);
+        Profiler::Stop('Unmounting '.$Point);
 
         return $Result;
     }
 
     public static function Initialize ()
     {
-        Timing::Go('Data:Initialize');
+        Profiler::Go('Data:Initialize');
 
             self::$_Storages = Core::$Conf['Storages'];
             self::$_Mounts   = Core::$Conf['Mounts'];
 
-        Timing::Stop('Data:Initialize');
+        Profiler::Stop('Data:Initialize');
         return true;
     }
 
@@ -162,8 +162,8 @@ class Data // UMA
 
     private static function CRUD ($Method, $Point, $DDL)
     {
-        Timing::Go ('Data '.$Point.':*');
-        Timing::Go ('Data '.$Point.':'.$Method);
+        Profiler::Go ('Data '.$Point.':*');
+        Profiler::Go ('Data '.$Point.':'.$Method);
         
         $Result = null;
         
@@ -209,8 +209,8 @@ class Data // UMA
 
         Log::Tap('Data:'.$Method, 'Data:'.$Point, 'Data:All');
         
-        Timing::Stop ('Data '.$Point.':*');
-        Timing::Stop ('Data '.$Point.':'.$Method);
+        Profiler::Stop ('Data '.$Point.':*');
+        Profiler::Stop ('Data '.$Point.':'.$Method);
 
         return $Result;
     }

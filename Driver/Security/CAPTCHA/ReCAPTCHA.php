@@ -12,8 +12,8 @@ function F_ReCAPTCHA_Check($Args)
 {
     $resp = recaptcha_check_answer (Core::$Conf['Keys']['ReCAPTCHA']['Private'],
                                     _IP,
-                                    Server::Get('recaptcha_challenge_field'),
-                                    Server::Get('recaptcha_response_field'));
+                                    Server::Arg('recaptcha_challenge_field'),
+                                    Server::Arg('recaptcha_response_field'));
 
     return $resp->is_valid;
 }

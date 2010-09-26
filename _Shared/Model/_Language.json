@@ -11,8 +11,7 @@
                 "Type":"String",
                 "Searchable": true,
                 "Required": true,
-                "Editor":"Textfield",
-                "Set": "General"
+                "Editor":"Textfield"
             },
         "Base":
             {
@@ -24,24 +23,32 @@
                     {
                         "Type": "Object",
                         "Data": "_Language::@All"
-                    },
-                "Set": "General"
+                    }
             },
         "Title":
             {
                 "Type":"String",
                 "Searchable": true,
-                "Required": true,
-                "Editor":"Textfield",
-                "Set": "General"
+                "Required": true
             },
         "Description":
             {
                 "Type":"Text",
                 "Searchable":true,
                 "Required":true,
-                "Editor":"Textarea",
-                "Set": "General"
+                "Editor":"Textarea"
+            },
+        "Type":
+            {
+                "Type": "String",
+                "Editor": "RadioGroup",
+                "I18N": true,
+                "Lookup":
+                    {
+                        "Type": "Enum",
+                        "Data": ["Natural", "Errative", "Obscene", "Artificial"]
+                    },
+                "Set": "Meta"
             }
     }
 }

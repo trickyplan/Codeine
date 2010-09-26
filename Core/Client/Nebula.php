@@ -20,39 +20,7 @@ class Client
 
     public  static $Language = 'ru_RU';
     public  static $Data;
-    
-    public static function GeoIP ($IP = null)
-    {
-        if (null === $IP)
-            $IP = _IP;
-
-        if (self::$Agent->Get('IP') == $IP)
-            return true;
-
-        self::$Agent->Set('IP', $IP);
-
-        $IPTable = new Object('_IP2Geo');
-
-        if ($IPTable->Load(ip2long($IP)) == false)
-            {
-                $IP2Geo = Code::E('Service/IP2Geo','Get', $IP);
-
-                $IPTable->Set($IP2Geo);
-                $IPTable->Save();
-            }
-        else
-            $IP2Geo = $IPTable->Data();
-
-        foreach($IP2Geo as $Key => $Value)
-        {
-            self::$Face->Set('Geo:'.$Key, $Value);
-            self::$Ticket->Set('Geo:'.$Key, $Value);
-            self::$User->Set('Geo:'.$Key, $Value);
-        }
-
-        return true;
-    }
-    
+       
     public static function Initialize()
     {       
         self::$Level = 0;
@@ -60,7 +28,7 @@ class Client
 
         if (!self::Audit())
             self::Register();
-       
+
         if (self::$Ticket->Get('User') !== null)
         {
             self::$User = new Object('_User');
@@ -78,42 +46,15 @@ class Client
                     self::$Level = 2;
                     self::$Agent = &self::$Face;
                     self::$UID = (string) self::$User;
-                    self::GeoIP();
                 }
             }
-
-            if (null !== ($Language = self::$Agent->Get('Language')))
-                self::$Language = $Language;
-            else
-                self::$Language = 'ru_RU';
-
-            setlocale(LC_ALL, self::$Language.'.UTF-8');
-
-            if (self::$Ticket->Get('LastHit')<(time()-60))
-                self::$Ticket->Set('LastHit', time());
-
-            if (self::$Agent->Get('LastHit')<(time()-60))
-            {
-                self::$Agent->Set('LastHit', time());
-                if ((self::$Agent->Get('Online') == 'False') or (self::$Agent->Get('Online') === null))
-                    self::$Agent->Set('Online', 'True');
-            }
-            
+          
             self::$Authorized = true;
         }
         else
             self::$UID = (string) self::$Ticket;
 
-        $IPs = Core::$Conf['Options']['TrustHost'];
-
-        if (!is_array($IPs))
-            $IPs = array($IPs);
-        
-        foreach ($IPs as &$IP)
-            $IP = gethostbyname($IP);
-            
-        if (in_array(_IP, $IPs))
-            Client::$TrustIP = true;
+        Code::Hook('Core', __CLASS__, 'Initialize');
     }
 
     public static function Shutdown()
@@ -149,7 +90,7 @@ class Client
         self::$Ticket->Add('CreatedOn', time());
         self::$Ticket->Add('TSL', $TSL);
         self::$Ticket->Add('IP', _IP);
-        self::$Ticket->Add('UA', Server::Get('HTTP_USER_AGENT'));
+        self::$Ticket->Add('UA', Server::Arg('HTTP_USER_AGENT'));
 
         Data::Create('Cookie', '{"I":"TID", "V":"'.$TID.'", "TTL":"159870000"}');
         Data::Create('Cookie', '{"I":"TSL", "V":"'.$TSL.'", "TTL":"159870000"}');
@@ -162,6 +103,7 @@ class Client
         self::$User = new Object('_User',$Username);
         self::$Ticket->Set('User', $Username);
         self::$Ticket->Set('Owner', (string)self::$User);
+        self::$Ticket->Save();
         self::$Level = 1;
         
         return Log::Good('Ticket attached');
@@ -181,18 +123,18 @@ class Client
 
     public static function Audit ()
     {
-        if (Server::Get('TID') === null)
+        if (Server::Arg('TID') === null)
             return Log::Error('Client Ticket Not Defined.');
 
-        if (Server::Get('TSL') === null)
+        if (Server::Arg('TSL') === null)
             return Log::Error('Client Seal Not Defined.');
 
         self::$Ticket = new Object('_Ticket');
 
-        if (self::$Ticket->Load(Server::Get('TID')) == false)
+        if (self::$Ticket->Load(Server::Arg('TID')) == false)
             return Log::Error('Ticket Not Exist.');
 
-        $ClientSeal = Server::Get('TSL');
+        $ClientSeal = Server::Arg('TSL');
 
         $ServerSeal = self::$Ticket->Get('TSL');
         $RealSeal   = self::_Seal();

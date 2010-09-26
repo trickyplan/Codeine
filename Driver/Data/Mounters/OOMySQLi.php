@@ -120,11 +120,11 @@ function F_OOMySQLi_Read ($Args)
         $Distinct = ' ';
     $Query = 'SELECT '.$Distinct.$FStr.' FROM `'.$Args['Dir'].'` '.$Condition.$OrderStr;
 
-    Timing::Go($Query);
+    Profiler::Go($Query);
 
     $Result = $Args['Storage']->query ($Query);
 
-    Timing::Stop($Query);
+    Profiler::Stop($Query);
 
     $Data = null;
 
@@ -137,8 +137,8 @@ function F_OOMySQLi_Read ($Args)
                 $Data[$IC++] = $Row;
             
             $Result->free();
-            Log::Info('['.Timing::Get($Query).']'.$Query);
-            Timing::Erase($Query);
+            Log::Info('['.Profiler::Get($Query).']'.$Query);
+            Profiler::Erase($Query);
         }   
 
     Log::Tap('SQL');

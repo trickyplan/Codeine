@@ -1,27 +1,66 @@
 <?php
 
-    function F_File_Output($Messages)
+    function F_File_Initialize($Args)
     {
-        $Output = '===='.date('YmdHis',Server::Get('REQUEST_TIME')).'@'.Server::Get('REQUEST_URI')."====\n";
+        $LogFile = '/var/log/codeine/'.$Args.'.log';
 
-        if (is_array($Messages) and !empty($Messages))
-        {
-            foreach($Messages as $AppID => $AppMessages)
-                foreach($AppMessages as $Message)
-                    $Output.= $AppID."\x9".$Message[0]."\x9".Log::$Types[$Message[1]]."\x9".$Message[2]."\n";
+        if (!file_exists($LogFile))
+            touch($LogFile);
 
-            $LogFile = '/var/log/codeine/'._SERVER.'.log';
+        return fopen($LogFile, 'a+');
+    }
 
-            if (!file_exists($LogFile))
-                touch($LogFile);
+    function F_File_Info($Args)
+    {
+        fwrite($Args['Logger'], $Args['Message']);
+    }
 
-            $F = fopen($LogFile, 'a+');
-                if ($F)
-                {
-                    fwrite($F, $Output);
-                    fclose($F);
-                }
-        }
+    function F_File_Error($Args)
+    {
+        fwrite($Args['Logger'], $Args['Message']);
+    }
 
-        return true;
+    function F_File_Warning($Args)
+    {
+        fwrite($Args['Logger'], $Args['Message']);
+    }
+
+    function F_File_Bad($Args)
+    {
+        fwrite($Args['Logger'], $Args['Message']);
+    }
+
+    function F_File_Good ($Args)
+    {
+        fwrite($Args['Logger'], $Args['Message']);
+    }
+
+    function F_File_Dump($Args)
+    {
+        fwrite($Args['Logger'], $Args['Message']);
+    }
+
+    function F_File_Important($Args)
+    {
+        fwrite($Args['Logger'], $Args['Message']);
+    }
+
+    function F_File_Stage($Args)
+    {
+        fwrite($Args['Logger'], $Args['Message']);
+    }
+
+    function F_File_Hint($Args)
+    {
+        fwrite($Args['Logger'], $Args['Message']);
+    }
+
+    function F_File_Perfomance($Args)
+    {
+        fwrite($Args['Logger'], $Args['Message']);
+    }
+
+    function F_File_Shutdown($Logger)
+    {
+        return fclose($Logger);
     }

@@ -4,7 +4,8 @@ function F_vx7_Generate($Args)
 {
     $Length = 4;
     $Answer = Code::E('Generator/Keyword','Generate',array('Length' => $Length),'English');
-    $Fonts = Code::E('System/FS','Listing', Engine.'_Shared/Fonts/');
+    $Fonts = Code::E('System/FS','Listing', Root.'/Font/');
+
     $UID = sha1($Answer);
 
     $Width = 30*$Length;
@@ -23,7 +24,7 @@ function F_vx7_Generate($Args)
     for ($Length = 0; $Length < mb_strlen($Answer); $Length++)
     {
         $CurFont = $Fonts[mt_rand(0,$SF)];
-        imagettftext($im, (26 + mt_rand(-2,0)),(0 + mt_rand(-10,10)), (10+$Length*26), 35, $Black, Engine.'_Shared/Fonts/'.$CurFont, $Answer[$Length]);
+        imagettftext($im, (26 + mt_rand(-2,0)),(0 + mt_rand(-10,10)), (10+$Length*26), 35, $Black, Root.'/Font/'.$CurFont, $Answer[$Length]);
     }
 
     $PoNoise = ($Width*$Height)/10;
@@ -56,7 +57,7 @@ function F_vx7_Check($Args)
 {
     $Answer = Client::$Ticket->Get('CAPTCHA:vx7:Answer');
     unlink (Root.Temp.'CAPTCHA/'.sha1($Answer).'.png');
-    if ($Answer == Server::Get('CAPTCHA'))
+    if ($Answer == Server::Arg('CAPTCHA'))
         return true;
     else
         return false;

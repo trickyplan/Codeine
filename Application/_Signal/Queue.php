@@ -6,7 +6,7 @@
     self::$Collection->Sort('Priority', 'DESC');
     self::$Collection->Load();
 
-    Timing::Go('Event Queue Server');
+    Profiler::Go('Event Queue Server');
 
     // Обрабатываем по очереди
 
@@ -17,7 +17,7 @@
         {
             foreach (self::$Collection->_Items as $Item)
                 {
-                    if (Timing::Lap('Event Queue Server') < $Timeout)
+                    if (Profiler::Lap('Event Queue Server') < $Timeout)
                     {
                         if (($NN = Event::Handle($Item))>0)
                         {

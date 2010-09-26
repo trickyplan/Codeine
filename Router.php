@@ -1,34 +1,25 @@
 <?php
 
-    include 'Core.php';
+    include 'MicroCore.php';
     
     if (!defined('Root'))
         define('Root', __DIR__);
-
-    if (isset(Core::$Conf['Options']['Maintenance']) && Core::$Conf['Options']['Maintenance'] == true)
+   
+    try
     {
-        readfile(Root.'Layout/Site/Maintenance.html');
-        die();
+        Application::Route(Server::Arg('REQUEST_URI'));
+        Page::Output(Application::Run());
     }
-    else
+    catch (Exception $e)
     {
-        try
-        {
-            if (Server::Get('REQUEST_URI') == '/' or null === Server::Get('REQUEST_URI'))
-                $URL = Core::$Conf['Options']['Start'];
-            else
-                $URL = Server::Get('REQUEST_URI');
+        Data::Rollback();
+        
+        Log::Error($e->getMessage());
+        Core::$Crash = true;
 
-            Application::Route($URL);
-
-            Page::Output(Application::Run());
-        }
-        catch (Exception $e)
-        {
-            Data::Rollback();
-            Log::Error($e->getMessage());
-            Core::$Crash = true;
-            if ($e->getCode()!= 0)
-                Code::E('Error/Handlers/'.$e->getCode(),'Catch', $e);
-        }
+        // FIXME Error.json
+        if ($e->getCode()!= 0)
+            Code::E('Error/Handlers/'.$e->getCode(),'Catch', $e);
+        else
+            echo $e->getMessage();
     }

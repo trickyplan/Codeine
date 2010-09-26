@@ -177,12 +177,12 @@ class Object
                         $Inheritated = true;
                     }
 
-                Timing::Go ($this->Scope.':'.$Name.':Load');
+                Profiler::Go ($this->Scope.':'.$Name.':Load');
                 
                 if (null !== ($PooledData = Data::PoolGet($this->Scope.'::'.$this->Name)))
                     {
                         list($this->Data, $this->SelfData,$this->InheritData) = $PooledData;
-                        Timing::Stop ($this->Scope.':'.$Name.':Load');
+                        Profiler::Stop ($this->Scope.':'.$Name.':Load');
                         return ($this->Loaded = true);
                     }
 
@@ -253,7 +253,7 @@ class Object
                 // $this->_Privacy();
             }
 
-            Timing::Stop ($this->Scope.':'.$Name.':Load');
+            Profiler::Stop ($this->Scope.':'.$Name.':Load');
 
             return $Result;
         }
@@ -311,7 +311,12 @@ class Object
                                 if (isset ($this->Data[$Key][$Index]))
                                     $Data = $this->Data[$Key][$Index];
                                 else
-                                    $Data = null;
+                                {
+                                    if ($ForceArray)
+                                        $Data = null;
+                                    else
+                                        $Data = array();
+                                }
                             }
                             else
                             {
@@ -321,6 +326,13 @@ class Object
                                     $Data = $this->Data[$Key];
                             }
                         }
+                        else
+                            {
+                                if ($ForceArray)
+                                    $Data = null;
+                                else
+                                    $Data = array();
+                            }
                 }
 
             return $Data;
@@ -677,34 +689,7 @@ class Object
             if (null === $Name)
                 $Name = $this->Scope;
             
-            if (!$this->_ModelLoaded)
-            {
-                if (Data::Exist ('Model','{"I":"'.$Name.'"}'))
-                {
-                    $this->_Model = Data::Read ('Model','{"I":"'.$Name.'"}');
-                    if (isset($this->_Model->Facets))
-                        foreach($this->_Model->Facets as $Facet)
-                        {
-                            $Facet = Data::Read ('Model','{"I":"Facets/'.$Facet.'"}');
-                            $this->_Model->Nodes = (object) array_merge((array)$this->_Model->Nodes, (array)$Facet->Nodes);
-                        }
-                        
-                    if (null !== ($Facets = $this->Get('Facet', false)))
-                        foreach ($Facets as $Facet)
-                        {
-                            $Facet = Data::Read ('Model','{"I":"Facets/'.$Facet.'"}');
-                            $this->_Model->Nodes = (object) array_merge((array)$this->_Model->Nodes, (array)$Facet->Nodes);
-                        }
-
-                    foreach ($this->_Model->Nodes as $Name => $Node)
-                        if ($Node->Type == 'Calculated')
-                            $this->_Calculated[$Name] = $Name;
-                        
-                    $this->_ModelLoaded = true;
-                }
-                else
-                    return false;
-            }
+            $this->_Model = Data::Read('Model', array('I'=>$Name));
             
         return true;
       }

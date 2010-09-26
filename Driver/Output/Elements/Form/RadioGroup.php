@@ -11,11 +11,10 @@ function F_RadioGroup_Render($Args)
             else
                 $Checked = '';
             
-            $Options[] = '<div class="unit size1of2"><input type="radio" class="Radio" name="'.$Args['name'].'" value="'.$Key.'" '.$Checked.' /> &nbsp;'.$Value.'</div>';
+            $Options[] = '<div class="unit size1of4"><input type="radio" class="Radio" name="'.$Args['name'].'" value="'.$Key.'" '.$Checked.' /> &nbsp;'.$Value.'</div>';
         }
         
     }
 
-    $Output = '<fieldset class="Space w90">'.implode('', $Options).'</fieldset>';
-    return $Output;
+    return implode('', $Options);
 }

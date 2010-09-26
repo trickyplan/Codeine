@@ -12,26 +12,26 @@ class Message {
 
     public static function Mount ($Point, $Method, $DSN)
     {
-        Timing::Go('Mount:'.$Point);
+        Profiler::Go('Mount:'.$Point);
             self::$_Points [$Point] = Code::E('Message/Transports','Mount', array('DSN' =>$DSN), $Method);
             self::$_Methods[$Point] = $Method;
-        Timing::Stop('Mount:'.$Point);
+        Profiler::Stop('Mount:'.$Point);
         return self::$_Points[$Point];
     }
 
     public static function Unmount ($Point)
     {
-        Timing::Go('Unmount:'.$Point);
+        Profiler::Go('Unmount:'.$Point);
 
             $Result = Code::E('Message/Transports','Send',
                 array('Point'       => self::$_Points[$Point]), self::$_Methods[$Point]);
 
-        Timing::Stop('Unmount:'.$Point);
+        Profiler::Stop('Unmount:'.$Point);
     }
 
     public static function Send($Point, $Subject, $Message, $To, $From, $Type = 'Message', $Additional = '')
     {
-        Timing::Go('Send:'.$Point);
+        Profiler::Go('Send:'.$Point);
             $Result = Code::E('Message/Transports','Send',
                     array('Point'       => self::$_Points[$Point],
                           'Subject'     => $Subject,
@@ -41,7 +41,7 @@ class Message {
                           'Type' => $Type,
                           'Additional'  => $Additional),
                     self::$_Methods[$Point]);
-        Timing::Stop('Send:'.$Point);
+        Profiler::Stop('Send:'.$Point);
         return $Result;
     }
 

@@ -15,7 +15,7 @@ function F_Textfield_Render($Args)
 
     if (isset($Args['node']->Required))
         $Args['class'].= ' validate(required)';
-   
+
     Page::JS('$(".Textfield").autoGrowInput({comfortZone: 50,minWidth: 100,maxWidth: 400});');
     return '<input id="'.$ID.'" name="'.$Args['name'].'" class="'.$Args['class'].'" type="text" value="'.$Args['value'].'" />';
 }

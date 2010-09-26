@@ -7,12 +7,17 @@
     "Options":
         {
             "TrustHost":    "127.0.0.1",
-            "Verbose":      9,
-            "Profiling":    9,
+            "Profiling":    0,
             "MemLeaks":     false,
             "AllowDirectCall": true,
             "FatalCatch":   true,
             "Registration": "Open"
+        },
+    "Log":
+        {
+            "Driver": "FirePHP",
+            "Verbose": 9,
+            "DSN": ""
         },
     "Drivers":
         {
@@ -32,6 +37,7 @@
                     "Service/IP2Geo":     "IPInfoDB",
                     "Process/Hash":       "sha1",
                     "Output/Serializers": "Codeine",
+                    "Output/Elements/Paginators": "Codeine",
                     "Security/User":      ["Native"],
                     "Routers":      ["REST","Native", "JSON", "XML"],
                     "Processors":
@@ -41,6 +47,25 @@
                             "Fusion":   ["Const","Foreach","Authorized","Owner","Role","Node","Tag","Key","For"],
                             "Pre":      ["Authorized","Role"]
                         }
+                }
+        },
+    "Hooks":
+        {
+            "Client":
+                {
+                    "Initialize": ["Locale","Online","TrustIP"]
+                },
+            "Server":
+                {
+                    "Initialize": ["Sanitarize","MBString"]
+                },
+            "Page":
+                {
+                    "Output": ["Perfomance"]
+                },
+            "_User":
+                {
+                    "Create": ["SelfOwner","AutoAuth"]
                 }
         },
     "Engines":
@@ -57,7 +82,7 @@
             "Page":           "D8",
             "Object":         "Iridium",
             "Server":         "Spark",
-            "Timing":         "Timing",
+            "Profiler":       "Sentinel",
             "Message":        "RedCoast"
         },
    "Paths":

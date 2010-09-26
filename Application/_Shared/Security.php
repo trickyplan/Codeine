@@ -26,14 +26,14 @@ switch (Application::$Mode)
                 elseif (Server::$REST == 'post')
                     {
                         self::$Object->Add('Authorizer:Installed', Application::$Aspect);
-                        self::$Object->Add('Authorizer:'.Application::$Aspect, Code::E('Security/Authorizers','Input',Server::Get(Application::$Aspect), Application::$Aspect));
+                        self::$Object->Add('Authorizer:'.Application::$Aspect, Code::E('Security/Authorizers','Input',Server::Arg(Application::$Aspect), Application::$Aspect));
                         self::$Object->Save();
                         Event::Queue (array('Priority'=>128, 'Signal'=>'SecurityChanged'));
                     }
         break;
 
         case 'Del':
-                self::$Object->Del('Authorizer:'.Server::Get('Key'), Server::Get('Value'));
+                self::$Object->Del('Authorizer:'.Server::Arg('Key'), Server::Arg('Value'));
                 self::$Object->Save();
                 Event::Queue (array('Priority'=>128, 'Signal'=>'SecurityChanged'));
         break;

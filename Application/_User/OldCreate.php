@@ -2,19 +2,9 @@
 
 switch (Server::$REST)
 {
-    case 'get':
-        Form::Load (self::$Name);
-        if (!self::$ID)
-            self::$ID = 'Default';
-
-        $DefaultObject = new Object(self::$Name, self::$ID);
-
-        Page::Add(Form::Render('Form/Default', $DefaultObject->Data()));
-
-    break;
 
     case 'post':
-        $Object = new Object(self::$Name, Server::Get('Login'));
+        $Object = new Object(self::$Name, Server::Arg('Login'));
         $Data = Server::Data();
         Client::$Agent = new Object('_User',$Object->Name);
 

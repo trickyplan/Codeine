@@ -1,26 +1,61 @@
 <?php
 
-    function F_Syslog_Output($Messages)
+    function F_Syslog_Initialize($Args)
     {
-        openlog(_SERVER, LOG_PID | LOG_PERROR, LOG_LOCAL0);
-        
-        foreach($Messages as $AppID => $AppMessages)
-            foreach($AppMessages as $Message)
-                switch($Message[1])
-                {
-                    case 0:   syslog(LOG_INFO,    $Message[2].':'.$Message[0]); break;
-                    case 1:   syslog(LOG_ERR,     $Message[2].':'.$Message[0]); break;
-                    case 2:   syslog(LOG_WARNING, $Message[2].':'.$Message[0]); break;
-                    case 3:   syslog(LOG_WARNING, $Message[2].':'.$Message[0]); break;
-                    case 4:   syslog(LOG_INFO,    $Message[2].':'.$Message[0]); break;
-                    case 5:   syslog(LOG_INFO,    $Message[2].':'.$Message[0]); break;
-                    case 6:   syslog(LOG_INFO,    $Message[2].':'.$Message[0]); break;
-                    case 7:   syslog(LOG_INFO,    $Message[2].':'.$Message[0]); break;
-                    case 8:   syslog(LOG_INFO,    $Message[2].':'.$Message[0]); break;
-                    default:  syslog(LOG_INFO,    $Message[2].':'.$Message[0]); break;
-                }
-        
-        closelog();
-       
-        return null;
+        return openlog(_SERVER, LOG_PID | LOG_PERROR, LOG_LOCAL0);
+    }
+
+    function F_Syslog_Info($Args)
+    {
+        return syslog(LOG_INFO, $Args['Message']);
+    }
+
+    function F_Syslog_Error($Args)
+    {
+        return syslog(LOG_ERR, $Args['Message']);
+    }
+
+    function F_Syslog_Warning($Args)
+    {
+        return syslog(LOG_WARNING, $Args['Message']);
+    }
+
+    function F_Syslog_Bad($Args)
+    {
+        return syslog(LOG_WARNING, $Args['Message']);
+    }
+
+    function F_Syslog_Good ($Args)
+    {
+        return syslog(LOG_INFO, $Args['Message']);
+    }
+
+    function F_Syslog_Dump($Args)
+    {
+        return syslog(LOG_INFO, $Args['Message']);
+    }
+
+    function F_Syslog_Important($Args)
+    {
+        return syslog(LOG_ERR, $Args['Message']);
+    }
+
+    function F_Syslog_Stage($Args)
+    {
+        return syslog(LOG_ERR, '['.$Args['Message'].']');
+    }
+
+    function F_Syslog_Hint($Args)
+    {
+        return syslog(LOG_INFO, $Args['Message']);
+    }
+
+    function F_Syslog_Perfomance($Args)
+    {
+        return syslog(LOG_INFO, $Args['Message']);
+    }
+
+    function F_Syslog_Shutdown($Logger)
+    {
+        return closelog();
     }

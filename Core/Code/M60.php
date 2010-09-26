@@ -5,10 +5,21 @@
         private static $_Included;
         private static $_Drivers;
 
-        public static function Initialize ($Drivers)
+        public static function Initialize ($Drivers = null)
         {
-           self::$_Drivers = $Drivers;
+           if (null !== $Drivers)
+               self::$_Drivers = $Drivers;
+           else
+               self::$_Drivers = Core::$Conf['Drivers']['Installed'];
+           
            return true;
+        }
+
+        public static function Hook($Type, $Class, $Method)
+        {
+            if (isset(Core::$Conf['Hooks'][$Class][$Method]) and is_array(Core::$Conf['Hooks'][$Class][$Method]))
+                foreach (Core::$Conf['Hooks'][$Class][$Method] as $Hook)
+                    self::E('Hooks/'.$Type.'/'.$Class,'Hook', array(), $Hook);
         }
 
         // E - сокращение от Execute
@@ -16,7 +27,7 @@
 
         public static function E ($NameSpace, $Function, $Operands = null, $Drivers = 'Default')
         {
-            Timing::Go ('Code:'.$NameSpace);
+            Profiler::Go ('Code:'.$NameSpace);
 
                 $Result = false;
 
@@ -58,31 +69,31 @@
                                {
                                    if (is_callable($F))
                                     {
-                                        Timing::Go    ('Code:'.$F);
+                                        Profiler::Go    ('Code:'.$F);
                                         $Result = $F ($Operands);
                                         $Catched = true;
                                         Log::Tap ($F);
-                                        Timing::Stop  ('Code:'.$F);
+                                        Profiler::Stop  ('Code:'.$F);
                                     }
                                }
                            }
                     }
                     else
                     {
-                        Timing::Go    ('Code:'.$F);
+                        Profiler::Go    ('Code:'.$F);
                             $Result = $F ($Operands);
                             $Catched = true;
-                        Timing::Stop  ('Code:'.$F);
+                        Profiler::Stop  ('Code:'.$F);
                         Log::Tap ($F);
                         break;
                     }
 
                 }
 
-                Timing::Stop ('Code:'.$NameSpace);
+                Profiler::Stop ('Code:'.$NameSpace);
 
                 if (!$Catched)
-                    Log::Error($NameSpace.' '.$Function.' not found in driver '.$Drivers[0]);
+                    throw new WTF ($NameSpace.' '.$Function.' not found in driver '.$Drivers[0], 4047);
             
             return $Result;
         }

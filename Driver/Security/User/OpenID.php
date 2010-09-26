@@ -51,9 +51,9 @@ function F_OpenID_Step2 ($Args)
 
 function F_OpenID_Step3($Args)
 {
-    if (null !== Server::Get('openid_mode'))
+    if (null !== Server::Arg('openid_mode'))
     {
-        switch (Server::Get('openid_mode'))
+        switch (Server::Arg('openid_mode'))
         {
             case 'cancel':
 
@@ -66,9 +66,9 @@ function F_OpenID_Step3($Args)
             case 'id_res':
                 $Params = array(
                     'openid.mode'           => 'check_authentication',
-                    'openid.assoc_handle'   => Server::Get('openid_assoc_handle'),
-                    'openid.sig'            => Server::Get('openid_sig'),
-                    'openid.signed'         => Server::Get('openid_signed'),
+                    'openid.assoc_handle'   => Server::Arg('openid_assoc_handle'),
+                    'openid.sig'            => Server::Arg('openid_sig'),
+                    'openid.signed'         => Server::Arg('openid_signed'),
             );
             
             $Data = Server::Data();

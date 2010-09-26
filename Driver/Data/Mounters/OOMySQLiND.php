@@ -114,11 +114,11 @@ function F_OOMySQLiND_Read ($Args)
 
     $Query = 'SELECT '.$FStr.' FROM `'.$Args['Dir'].'` '.$Condition.$OrderStr;
 
-    Timing::Go($Query);
+    Profiler::Go($Query);
 
     $Result = $Args['Storage']->query ($Query);
 
-    Timing::Stop($Query);
+    Profiler::Stop($Query);
 
     $Data = null;
 
@@ -129,8 +129,8 @@ function F_OOMySQLiND_Read ($Args)
             $Data = $Result->fetch_all(MYSQLI_ASSOC);
             
             $Result->free();
-            Log::Info('['.Timing::Get($Query).']'.$Query);
-            Timing::Erase($Query);
+            Log::Info('['.Profiler::Get($Query).']'.$Query);
+            Profiler::Erase($Query);
         }   
 
     Log::Tap('SQL');

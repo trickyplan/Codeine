@@ -1,6 +1,6 @@
 <?php
 
-  function F_Default_Paginate($Args)
+  function F_Codeine_Paginate($Args)
   {
       $Output = '';
       $PageSize = Application::GetTune('PageSize',10);

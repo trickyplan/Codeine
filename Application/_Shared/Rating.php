@@ -13,7 +13,7 @@ if (isset(Client::$Agent))
     {
         case 'post':
 
-           $Rater = Server::Get('Rater');
+           $Rater = Server::Arg('Rater');
 
            //if (!in_array($Rater,$Raters)) die();
 
@@ -29,7 +29,7 @@ if (isset(Client::$Agent))
            
            //if (!in_array(Client::$UID, $RatedBy))
                    {
-                       if (Server::Get('Direction') == 'Minus')
+                       if (Server::Arg('Direction') == 'Minus')
                            $Power = -$Power;
                        
                        self::$Object->Inc('Rating:'.$Rater, $Power);

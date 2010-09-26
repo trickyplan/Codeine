@@ -1,14 +1,14 @@
 <?php
 
-class Timing
+class Profiler
 {
     private static $Ticks = array();
     private static $Results = array();
+    private static $Memory;
     public static $Enabled;
 
     public static function Initialize()
     {
-        // xhprof_enable(XHPROF_FLAGS_CPU + XHPROF_FLAGS_MEMORY);
         return self::Go('Root');
     }
 
@@ -61,31 +61,43 @@ class Timing
                     $Result = 0.000001;
 
                 $Percentage = round($Result/self::$Results['Root']* 100, 2);
-                $Report[++$IC] = array('T' => $Result, 'S' => $Source, 'C' => $Percentage.' %');
+                $Report[++$IC] = array('T' => $Result, 'S' => $Source, 'C' => $Percentage);
 
                 if (isset(Core::$Conf['Sensors']['Timing']))
                     if (isset(Core::$Conf['Sensors']['Timing'][$Source]))
                     {
                         if (Core::$Conf['Sensors']['Timing'][$Source]['Min']>$Result or Core::$Conf['Sensors']['Timing'][$Source]['Max']<$Result)
                             Log::Error('Timer "'.$Source. '" out of control!');
-                    }elseif (isset(Core::$Conf['Sensors']['Timing'][$Source.'%']))
+                    } elseif (isset(Core::$Conf['Sensors']['Timing'][$Source.'%']))
                         if (Core::$Conf['Sensors']['Timing'][$Source.'%']['Min']>$Percentage or Core::$Conf['Sensors']['Timing'][$Source.'%']['Max']<$Percentage)
                             Log::Error('Timer "'.$Source. '" out of control!');
             }
-            
-        $Perfomance = 'Частота системного таймера: '.round( (1 / Timing::Autotest()) / 1000, 2).' KHz';
+
+        $Report[] = 'Timer frequency '.round( (1 / self::Autotest()) / 1000, 2).' KHz';
         arsort($Report);
         return $Report;
     }
 
-    public static function Profiler()
+    public static function Output()
     {
-        Timing::Stop('Root');
+        Profiler::Stop('Root');
         $Report = self::Report();
         
         if (Core::$Conf['Options']['Profiling'] == 0)
             return false;
 
-        return Code::E('System/Profilers', 'Profile', $Report);
+        return Code::E('System/Profilers', 'Output', $Report);
+    }
+
+    public static function MemFrom($Handle)
+    {
+        return self::$Memory[$Handle] = memory_get_usage();
+    }
+
+    public static function MemTo($Handle)
+    {
+        self::$Memory[$Handle] = memory_get_usage()-self::$Memory[$Handle];
+        Log::Perfomance ('Memory delta for '.$Handle.' is '.self::$Memory[$Handle].' bytes');
+        return self::$Memory[$Handle];
     }
 }

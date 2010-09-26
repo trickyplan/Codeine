@@ -8,7 +8,7 @@
 
             if ($Result !== false)
                {
-                    Client::$Ticket->Set('Device', Server::Get('Device'));
+                    Client::$Ticket->Set('Device', Server::Arg('Device'));
                     Client::Attach($Result);
                     
                     if (!Client::$User->Load($Result))

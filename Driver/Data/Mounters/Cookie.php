@@ -17,7 +17,7 @@ function F_Cookie_Create ($Args)
 
 function F_Cookie_Read ($Args)
 {
-    return Server::Get($Args['DDL']['I']);
+    return Server::Arg($Args['DDL']['I']);
 }
 
 function F_Cookie_Update ($Args)

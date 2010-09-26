@@ -936,8 +936,8 @@ class FirePHP {
    * @return string|false
    */
   protected function getUserAgent() {
-    if(is_null(Server::Get('HTTP_USER_AGENT'))) return false;
-    return Server::Get('HTTP_USER_AGENT');
+    if(is_null(Server::Arg('HTTP_USER_AGENT'))) return false;
+    return Server::Arg('HTTP_USER_AGENT');
   }
 
   /**

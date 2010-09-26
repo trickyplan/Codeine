@@ -3,16 +3,22 @@
     class Access
     {
         private static $Rules;
+        private static $Initialized = false;
 
         public static function Initialize()
             {
                 self::$Rules = new Collection('_Access');
                 self::$Rules->Query('@All');
                 self::$Rules->Load();
+
+                self::$Initialized = true;
             }
 
         public static function Check($Target, $Action)
             {
+                if( !self::$Initialized)
+                    self::Initialize();
+
                 $Sob = new Object($Target->Scope);
 
                 if (count(self::$Rules->_Items)>0)

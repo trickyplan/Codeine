@@ -25,54 +25,57 @@ class Application
     
     public static function Route ($Call)
     {
-        Timing::Go('Routing');
+        Profiler::Go('Routing');
 
-            $Routed = null;
+        if ($Call === '/' or null === $Call)
+            $Call = Core::$Conf['Options']['Start'];
 
-            self::$In = array();
+        $Routed = null;
 
-            foreach(self::$Legacy as $cLegacy)
-                self::$$cLegacy = null;
+        self::$In = array();
 
-            self::$Call = $Call;
-            
-            if (mb_strpos($Call,'?') !== false)
-                list(self::$Call, $Query) = explode ('?', $Call);
-            
-            foreach (self::$Routers as $Router)
-                if (($Routed = Code::E('Routers','Route', self::$Call, $Router)) !== null)
-                     break;
+        foreach(self::$Legacy as $cLegacy)
+            self::$$cLegacy = null;
 
-            if ($Routed == null)
-                throw new WTF("\n".'Error routed.', 4049);
+        self::$Call = $Call;
 
-            foreach ($Routed as &$Value)
-                if (is_string($Value))
-                    $Value = urldecode($Value);
+        if (mb_strpos($Call,'?') !== false)
+            list(self::$Call, $Query) = explode ('?', $Call);
 
-            self::$In = $Routed;
+        foreach (self::$Routers as $Router)
+            if (($Routed = Code::E('Routers','Route', self::$Call, $Router)) !== null)
+                 break;
 
-            if (isset($Query))
-            {
-                mb_parse_str($Query, $Result);
-                self::$In = array_merge(self::$In, $Result);
-            }
+        if ($Routed == null)
+            throw new WTF("\n".'Error routed.', 4049);
 
-            foreach(self::$Legacy as $cLegacy)
-                if (isset(self::$In[$cLegacy]))
-                    self::$$cLegacy = self::$In[$cLegacy];
-            
-            self::$AppID = Client::$UID.'@'.json_encode(self::$In);
+        foreach ($Routed as &$Value)
+            if (is_string($Value))
+                $Value = urldecode($Value);
 
-        Timing::Stop('Routing');
+        self::$In = $Routed;
+
+        if (isset($Query))
+        {
+            mb_parse_str($Query, $Result);
+            self::$In = array_merge(self::$In, $Result);
+        }
+
+        foreach(self::$Legacy as $cLegacy)
+            if (isset(self::$In[$cLegacy]))
+                self::$$cLegacy = self::$In[$cLegacy];
+
+        self::$AppID = Client::$UID.'@'.json_encode(self::$In);
+
+        Profiler::Stop('Routing');
         return true;
     }
     
     public static function Run ($Sliced = false)
     {
-        Timing::Go('Exec: '.self::$AppID);
+        Profiler::Go('Exec: '.self::$Call);
 
-        Log::Stage(self::$AppID);
+        Log::Stage(self::$Call);
 
         try
         {
@@ -110,9 +113,7 @@ class Application
             Page::Nest('Application/'.self::$Name.'/'.self::$Name);
             Page::Nest(array ('Application/'.self::$Name.'/'.self::$Plugin, 'Application/_Shared/'.self::$Plugin));
 
-            if (Core::$Conf['Options']['AllowDirectCall'] and file_exists(Root.Apps.self::$Name.'/'.self::$Plugin.'.php'))
-                    $PluginPath = Root.Apps.self::$Name;
-            elseif ((is_array($Plugins['Plugin:Local:Own'])
+            if ((is_array($Plugins['Plugin:Local:Own'])
                 && in_array(self::$Plugin, $Plugins['Plugin:Local:Own'])))
                     $PluginPath = Root.Apps.self::$Name;
 
@@ -127,8 +128,16 @@ class Application
             elseif (is_array($Plugins['Plugin:System:Shared'])
                 && in_array(self::$Plugin, $Plugins['Plugin:System:Shared']))
                     $PluginPath = Engine.Apps.'_Shared';
-            else
-                throw new WTF('Unknown Plugin'.self::$Name.':'.self::$Plugin, 4042);
+
+            if (Core::$Conf['Options']['AllowDirectCall'] and !isset($PluginPath))
+            {
+                if (file_exists(Root.Apps.self::$Name.'/'.self::$Plugin.'.php'))
+                    $PluginPath = Root.Apps.self::$Name;
+                elseif (file_exists(Engine.Apps.self::$Name.'/'.self::$Plugin.'.php'))
+                    $PluginPath = Engine.Apps.self::$Name;
+                else
+                    throw new WTF('Unknown Plugin'.self::$Name.':'.self::$Plugin, 4042);
+            }
 
             if (file_exists($PluginPath.'/'.self::$Plugin.'.'.self::$Interface.'.php'))
                 include $PluginPath.'/'.self::$Plugin.'.'.self::$Interface.'.php';
@@ -139,14 +148,15 @@ class Application
         }
         catch (Exception $E)
         {
-            Timing::Stop('Exec: '.self::$AppID);
+            Profiler::Stop('Exec: '.self::$Call);
             Page::Reset('Errors/Crash');
             Page::Add($E->getCode(), 'code');
+            Page::Add($E->getMessage(), 'message');
         }
 
         self::$Mode = '';
 
-        Timing::Stop('Exec: '.self::$AppID);
+        Profiler::Stop('Exec: '.self::$Call);
         
         return self::$AppID;
     }

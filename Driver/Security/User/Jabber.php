@@ -18,7 +18,7 @@ function F_Jabber_Auth ($Args)
 {
     if (!Code::E('Security/CAPTCHA', 'Check', array('Ticket'=>Client::$Ticket)))
         Page::Nest('A/Gate/CAPTCHAFailed');
-    if (Client::$Ticket->Get('Jabber:Token') == Server::Get('Jabber'))
+    if (Client::$Ticket->Get('Jabber:Token') == Server::Arg('Jabber'))
         return true;
     else
         return false;

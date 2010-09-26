@@ -23,7 +23,6 @@ class Page
     {
         ob_start('Server::FatalHandler');
         self::$HTTPHeaders['Content-type'] = 'text/html;charset=utf-8';
-        
         self::$Processors = Core::$Conf['Drivers']['Installed']['Processors'];
     }
 
@@ -47,7 +46,12 @@ class Page
     public static function Add ($Data, $Place = 'content', $V = 1)
     {
         if (mb_strpos(self::$Body[Application::$AppID], $Place) !== false)
-            self::$Body[Application::$AppID] = str_replace('<'.$Place.'/>' , $Data, self::$Body[Application::$AppID], $V);
+        {
+            if (mb_strpos($Place, '<') === false)
+                    $Place = '<'.$Place.'/>';
+
+            self::$Body[Application::$AppID] = str_replace($Place , $Data, self::$Body[Application::$AppID], $V);
+        }
     }
 
     public static function AddBuffered ($Data, $Place = 'content')
@@ -79,9 +83,9 @@ class Page
 
     public static function Nest ($Layout, $Place = 'content')
     {
-        Timing::Go('Nesting');
+        Profiler::Go('Nesting');
             self::Add (Page::Load($Layout), $Place);
-        Timing::Stop('Nesting');
+        Profiler::Stop('Nesting');
     }
 
     public static function Start ($AppID = null)
@@ -123,7 +127,9 @@ class Page
         if (!empty(self::$Processors['Post']))
             foreach(self::$Processors['Post'] as $Processor)
                 self::$Body[$URL] = Code::E('Output/Processors','Process', self::$Body[$URL], $Processor);
-        
+
+        Application::$AppID = $URL;
+
         return self::$Rendered[$URL] = true;
     }
 
@@ -133,20 +139,9 @@ class Page
         {
             self::Render($URL);
 
-            if (preg_match_all('@<counter name="(.*)"\/>@SsUu', self::$Body[$URL], $Matches))
-                foreach ($Matches[0] as $IX => $Match)
-                    if (isset(Log::$Counters[$Matches[1][$IX]]))
-                        self::$Body[$URL] = str_replace($Match, Log::$Counters[$Matches[1][$IX]], self::$Body[$URL]);
-                    else
-                        self::$Body[$URL] = str_replace($Match, ' No', self::$Body[$URL]);
-
-            // self::$Body[$URL] = str_replace('<RSi/>', round((mb_strlen(self::$Body[$URL])/1024)/(Timing::Lap('Fusion')),2),self::$Body[$URL]);
-            self::$Body[$URL] = str_replace('<Memory/>',number_format((memory_get_usage(true)/1048576), 3, '.', ' '), self::$Body[$URL]);
-            self::$Body[$URL] = str_replace('<Timer/>',(round(microtime(true)-Core::$StartTime, 3)*1000), self::$Body[$URL]);
+            Code::Hook('Core', __CLASS__, 'Output');
         }
         
-        // file_put_contents(Root.Data.'_Temp/'.sha1(Client::$UID.$URL).'.html', self::$Body[$URL]);
-
         if ($Echo)
         {            
             foreach (self::$HTTPHeaders as $Key => $Value)
@@ -243,7 +238,7 @@ class Page
 
     private static function _Fusion ($ID, $Object, $Slots = false)
 	{
-            Timing::Go('Fusion');
+            Profiler::Go('Fusion');
 
             $Data = $Object->Data();
             $Structure = self::Load($ID);
@@ -254,7 +249,7 @@ class Page
             foreach (self::$Processors['Fusion'] as $Fuser)
                 $Structure = Code::E('Output/Fusers','Fusion', array('Data'=>$Data, 'Structure'=>$Structure, 'Object'=>$Object), $Fuser);
 
-            Timing::Stop('Fusion');
+            Profiler::Stop('Fusion');
 
             return $Structure;
        }
