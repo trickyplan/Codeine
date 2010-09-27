@@ -97,24 +97,24 @@ function F_Thumb_Parse($Pockets)
     switch ($Args['Mode'])
     {
         case 'LightBox':
-            Page::JSFile('~jQuery/Plugins/ShadowBox.js');
-            Page::CSSFile('~CSS/ShadowBox.css');
+            Page::JSFile('jQuery/Plugins/ShadowBox.js');
+            Page::CSSFile('CSS/ShadowBox.css');
             Page::JS('Shadowbox.init({handleOversize: "resize",modal: true});');
             $HTML = '<a rel="lightbox" class="nou" href="/'.$Image.'">'.$HTML.'</a>';
         break;
 
         case 'Zoom':
-            Page::JSFile('~jQuery/Plugins/Zoom.js');
-            Page::CSSFile('~CSS/jqzoom.css');
+            Page::JSFile('jQuery/Plugins/Zoom.js');
+            Page::CSSFile('CSS/jqzoom.css');
             Page::JS('$(".zoom").jqzoom();');
             $HTML = '<a class="nou zoom" title="Зум" href="/'.$Image.'">'.$HTML.'</a>';
         break;
 
         case 'ZoomBox':
-            Page::JSFile('~jQuery/Plugins/ShadowBox.js');
-            Page::JSFile('~jQuery/Plugins/Zoom.js');
-            Page::CSSFile('~CSS/ShadowBox.css');
-            Page::CSSFile('~CSS/jqzoom.css');
+            Page::JSFile('jQuery/Plugins/ShadowBox.js');
+            Page::JSFile('jQuery/Plugins/Zoom.js');
+            Page::CSSFile('CSS/ShadowBox.css');
+            Page::CSSFile('CSS/jqzoom.css');
             Page::JS('$(".zoom").jqzoom();');
             Page::JS('
                 Shadowbox.init({

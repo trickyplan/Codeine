@@ -105,7 +105,7 @@ function F_Clip_Parse($Pockets)
     {
         case 'LightBox':
             Page::JSFile('~jQuery/Plugins/ShadowBox.js');
-            Page::CSSFile('~CSS/ShadowBox.css');
+            Page::CSSFile('CSS/ShadowBox.css');
             Page::JS('
                 Shadowbox.init({
                 handleOversize: "resize",
@@ -115,17 +115,17 @@ function F_Clip_Parse($Pockets)
         break;
 
         case 'Zoom':
-            Page::JSFile('~jQuery/Plugins/Zoom.js');
-            Page::CSSFile('~CSS/jqzoom.css');
+            Page::JSFile('jQuery/Plugins/Zoom.js');
+            Page::CSSFile('CSS/jqzoom.css');
             Page::JS('$(".zoom").jqzoom();');
             $HTML = '<a class="nou zoom" title="Зум" href="'.$Image.'">'.$HTML.'</a>';
         break;
 
         case 'ZoomBox':
-            Page::JSFile('~jQuery/Plugins/ShadowBox.js');
-            Page::JSFile('~jQuery/Plugins/Zoom.js');
-            Page::CSSFile('~CSS/ShadowBox.css');
-            Page::CSSFile('~CSS/jqzoom.css');
+            Page::JSFile('jQuery/Plugins/ShadowBox.js');
+            Page::JSFile('jQuery/Plugins/Zoom.js');
+            Page::CSSFile('CSS/ShadowBox.css');
+            Page::CSSFile('CSS/jqzoom.css');
             Page::JS('$(".zoom").jqzoom();');
             Page::JS('
                 Shadowbox.init({
