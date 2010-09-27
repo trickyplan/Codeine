@@ -93,7 +93,7 @@
                 Profiler::Stop ('Code:'.$NameSpace);
 
                 if (!$Catched)
-                    throw new WTF ($NameSpace.' '.$Function.' not found in driver '.$Drivers[0], 4047);
+                    throw new WTF ($NameSpace.' '.$Function.' not found in driver '.$Drivers[0], 0);
             
             return $Result;
         }

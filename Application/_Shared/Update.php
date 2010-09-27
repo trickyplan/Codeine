@@ -8,7 +8,6 @@ if (!self::$Object->Get('Owner') == Client::$UID or !Access::Check(self::$Object
 
 switch (Server::$REST)
 {
-   
     case 'post':
         if (self::$Object->Update(Server::Data()))
         {

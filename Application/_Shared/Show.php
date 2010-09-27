@@ -1,43 +1,53 @@
 <?php
 
-self::$Object->Query(self::$ID);
+self::$Collection->Query(self::$ID);
 
-if (!Access::Check(self::$Object, self::$Plugin))
-    throw new WTF ('Access Denied', 4030);
-
-if (!self::$Object->Load())
-    throw new WTF('404: Object Not Found', 4040);
-
-switch (self::$Interface)
+if (self::$Collection->Length > 1)
 {
-    case 'ajax':
-        if (!empty(self::$Mode) and Client::$Level == 2)
-            Client::$Face->Set('Selected:Amplua:'.self::$Object, self::$Mode);
-    break;
-    case 'slice':
-        if (empty(self::$Mode))
-            {
-                if (Client::$Level == 2 && null !== ($UMode = Client::$Face->Get('Selected:Amplua:'.self::$Object)))
-                    self::$Mode = $UMode;
-                else
-                    self::$Mode = 'First';
-            }
-    break;
+    self::$Mode = 'List';
+    include Engine.Apps.'_Shared/List.php';
 }
+else
+{
+    self::$Object->Query(self::$ID);
 
-if (empty(self::$Mode))
-            self::$Mode = self::$Plugin;
+    if (!Access::Check(self::$Object, self::$Plugin))
+        throw new WTF ('Access Denied', 4030);
 
-Page::Add (Page::Fusion(
-    'Objects/'.self::$Name.'/'.self::$Name.'_'.self::$Mode
-    , self::$Object));
+    if (!self::$Object->Load())
+        throw new WTF('404: Object Not Found', 4040);
 
-if (!isset(Page::$Slots['Title']['ID']))
-    Page::$Slots['Title']['ID'] =
-        self::$Object->GetOr(array('Title', 'Handle', 'Login'));
-
-if (self::$Interface == 'web')
+    switch (self::$Interface)
     {
-        $LiveURL = "/ajax/".self::$Name.'/Show/'.self::$ID;
-        Page::$Slots['LiveURL'] = $LiveURL;
+        case 'ajax':
+            if (!empty(self::$Mode) and Client::$Level == 2)
+                Client::$Face->Set('Selected:Amplua:'.self::$Object, self::$Mode);
+        break;
+        case 'slice':
+            if (empty(self::$Mode))
+                {
+                    if (Client::$Level == 2 && null !== ($UMode = Client::$Face->Get('Selected:Amplua:'.self::$Object)))
+                        self::$Mode = $UMode;
+                    else
+                        self::$Mode = 'First';
+                }
+        break;
     }
+
+    if (empty(self::$Mode))
+                self::$Mode = self::$Plugin;
+
+    Page::Add (Page::Fusion(
+        'Objects/'.self::$Name.'/'.self::$Name.'_'.self::$Mode
+        , self::$Object));
+
+    if (!isset(Page::$Slots['Title']['ID']))
+        Page::$Slots['Title']['ID'] =
+            self::$Object->GetOr(array('Title', 'Handle', 'Login'));
+
+    if (self::$Interface == 'web')
+        {
+            $LiveURL = "/ajax/".self::$Name.'/Show/'.self::$ID;
+            Page::$Slots['LiveURL'] = $LiveURL;
+        }
+}

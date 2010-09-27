@@ -2,7 +2,6 @@
 
 function F_Thumb_Parse($Pockets)
 {
-
     $Args = json_decode($Pockets, true);
     $SourceWidth = 0;
     $SourceHeight = 0;

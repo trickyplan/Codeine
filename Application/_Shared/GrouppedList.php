@@ -22,12 +22,12 @@ self::$Collection->Page(self::$In['Page']);
 self::$Collection->Load();
 
 if (self::$Collection->Length>0)
-    foreach (self::$Collection as $Object)
-        $Buffered[$Object->Get(self::$Aspect)][] = Page::Fusion('Objects/'.self::$Name.'/'.self::$Name.'_'.self::$Mode, $Object, false);
+    foreach (self::$Collection->_Items as $Object)
+        $Buffered[$Object->Get(self::$Mode)][] = Page::Fusion('Objects/'.self::$Name.'/'.self::$Name.'_List_'.self::$Mode, $Object, false);
 else
     Page::Nest(array('Application/'.self::$Name.'/Empty','Application/_Shared/Empty'));
 
 foreach ($Buffered as $Key => $Text)
-    $Output.= '<h4>'.$Key.'</h4>'.implode('',$Text);
+    $Output.= '<div><h5><vxe>'.$Key.'</vxe></h5>'.implode('',$Text).'</div>';
 
 Page::Add($Output);
