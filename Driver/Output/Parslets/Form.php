@@ -5,6 +5,7 @@
       $Args = json_decode($Args);
 
       $Output = '';
+      $Facets = array();
 
       if (!isset($Args->URL))
             $Args->URL = Application::$Call;
@@ -13,16 +14,18 @@
       {
           $Object = new Object($Args->Object);
           $Args->Data = $Object->Data();
+          $Facets = $Object->Get('Facet', false, false);
       }
 
       if (!is_array($Args->Model))
       {
           $FormName = $Args->Model;
-          $Args->Model = Data::Read('Model','{"I":"'.$Args->Model.'"}');
+          $Args->Model = Data::Read('Model',
+               array('I'=>$Args->Model, 'Facets'=>$Facets));
       }
       else
           $FormName = $Args->Name;
-      
+
       foreach($Args->Model->Nodes as $Name => $Field)
       {
             if (isset($Field->Protected) and $Field->Protected == 'True')
@@ -36,15 +39,17 @@
             if (!isset($Field->Set))
                 $Field->Set = 'General';
 
+            if (!isset($Field->Required))
+                $Field->Required = 'false';
+            else
+                $Field->Required = 'true';
+            
             // Generating Field ID
             $FID = str_replace(':','_', $Name);
 
             // Required fields has own layouts
             
-            if (isset($Field->Required) and $Field->Required == 'True')
-                $Element = array('Form/Elements/'.$Field->Editor.'_Required', 'Form/Elements/Default_Required');
-            else
-                $Element = array('Form/Elements/'.$Field->Editor, 'Form/Elements/Default');
+            $Element = array('Form/Elements/'.$Field->Editor, 'Form/Elements/Default');
 
             // Populating form with data
             if (isset($Args->Data[$Name]))
@@ -77,6 +82,7 @@
                     Page::Replace (
                         $Element,
                         array ('<fid/>' => $FID,
+                               '<required/>' => (string)$Field->Required,
                                '<editor/>'=> Code::E ('Output/Elements/Form','Render',
                                         array ( 'id'       => $FID,
                                                 'node'     => $Field,
@@ -86,14 +92,24 @@
                                '<label/>' => $FormName.':'.$Name));
       }
 
-      foreach ($Out as $Title => $Set)
-      {
-          $Output.= Page::Replace ('Form/Set/Default',
-                  array(
-                        '<formname/>' => $FormName,
-                        '<title/>' => $Title,
-                        '<content/>' => implode('',$Set)));
-      }
+      if (count($Out)>1)
+          foreach ($Out as $Title => $Set)
+          {
+              $Output.= Page::Replace ('Form/Set/Default',
+                      array(
+                            '<formname/>' => $FormName,
+                            '<title/>' => $Title,
+                            '<content/>' => implode('',$Set)));
+          }
+      else
+        foreach ($Out as $Title => $Set)
+          {
+              $Output = Page::Replace ('Form/Set/One',
+                      array(
+                            '<formname/>' => $FormName,
+                            '<title/>' => $Title,
+                            '<content/>' => implode('',$Set)));
+          }
       
       return Page::Replace ('Form/Body/Default',
                   array(

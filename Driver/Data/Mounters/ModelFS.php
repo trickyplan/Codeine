@@ -31,13 +31,23 @@ function F_ModelFS_Read ($Args)
 
     
     $Result = json_decode($Result);
+
+    $Facets = array();
+    
+    if (isset($Args['DDL']['Facets']))
+        $Facets = array_merge($Facets, $Args['DDL']['Facets']);
     
     if (isset($Result->Facets))
-        foreach($Result->Facets as $Facet)
+        $Facets = array_merge($Facets, $Result->Facets);
+
+    if (!empty($Facets))
+    {
+        foreach($Facets as $Facet)
         {
             $Facet = Data::Read ('Model','{"I":"Facets/'.$Facet.'"}');
             $Result->Nodes = (object) array_merge( (array) $Result->Nodes, (array) $Facet->Nodes);
         }
+    }
 
     foreach ($Result->Nodes as $Name => $Node)
         if ($Node->Type == 'Calculated')

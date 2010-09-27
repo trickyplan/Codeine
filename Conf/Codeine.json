@@ -108,6 +108,7 @@
             "FS":       { "Method": "SubFS",     "ORM": "FS",        "DSN": "/"},
             "Layout":   { "Method": "LayoutFS",  "ORM": "FS",        "DSN": "/"},
             "XML":      { "Method": "SubXMLFS",  "ORM": "FS",        "DSN": "/"},
+            "Model":    { "Method": "ModelFS",   "ORM": "FS",        "DSN": "/"},
             "JSON":     { "Method": "SubJSONFS", "ORM": "FS",        "DSN": "/"},
             "Cookie":   { "Method": "Cookie",    "ORM": "NativeKVS"},
             "HTTP":     { "Method": "HTTP",      "ORM": "NativeKVS"},
@@ -133,7 +134,7 @@
             "UserFS":         {"Node": "FS",     "Dir": "Data"},
             "JSONFS":         {"Node": "JSON",   "Dir": "Data"},
             "Static":         {"Node": "JSON",   "Dir": "Static"},
-            "Model":          {"Node": "JSON",   "Dir": "Model"},
+            "Model":          {"Node": "Model",  "Dir": "Model"},
             "Cookie":         {"Node": "Cookie", "Dir": "Cookie"},
             "HTTP":           {"Node": "HTTP",   "Dir": "HTTP"}
         },
