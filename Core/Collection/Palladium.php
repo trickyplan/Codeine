@@ -62,6 +62,7 @@ class Collection
                         {
                             $QUID = $this->Scope.':'.$Selector;
 
+                            /*
                             if (null === ($IDs = Data::PoolGet($QUID)))
                                 {
                                     $IDs = Code::E('Data/Mappers', 'Query',
@@ -70,7 +71,8 @@ class Collection
                                           'Selector'=>$Selector), $this->ORM);
                                     
                                     Data::PoolPut($QUID, $IDs);
-                                }                          
+                                }
+                            */
 
 
                             if (null === $IDs)

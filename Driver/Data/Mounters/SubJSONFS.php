@@ -24,12 +24,7 @@ function F_SubJSONFS_Read ($Args)
     $FN = $Args['Dir'].'/'.$Args['DDL']['I'].'.json';
     Log::Tap('FS');
     
-    if (file_exists(Root.$FN))
-        $Result = file_get_contents (Root.$FN);
-    elseif (file_exists(Engine.'_Shared/'.$FN))
-        $Result = file_get_contents (Engine.'_Shared/'.$FN);
-    else
-        return Log::Error('SubJSONFS: File '.$FN.' Not Found');
+    $Result = file_get_contents(Server::Locate('Data', $FN));
     
     return json_decode($Result);
 }

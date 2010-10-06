@@ -2,7 +2,7 @@
 
 function F_Geo_Render($Args)
 {
-    Page::JSFile('~jQuery/Plugins/Map.js');
+    View::JSFile('~jQuery/Plugins/Map.js');
     $Element = "<div id='Map' style='width: 80%; height: 300px;'></div>
         <jsrun>
         var Lat = $('#Geo_Latitude').val();

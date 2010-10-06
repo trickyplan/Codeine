@@ -1,208 +1,192 @@
 <?php
 
-function F_OOMySQLi_Mount ($Storage)
-{
-    $Client   = 'set_username:set_password';
-    $Server   = 'set_server';
-    $Login    = 'set_login';
-    $Password = 'set_password';
-    $Host     = 'set_host';
-    $Database = 'set_database';
-    $Port     = '3306';
-
-    if (isset($Storage['DSN']))
+    $Mount = function ($Args)
     {
-        list ($Client, $Server) = explode('@', $Storage['DSN']);
-        list ($Login, $Password) = explode(':', $Client);
-        list ($Host, $Database) = explode('/', $Server);
-        list ($Host, $Port) = explode(':',$Host);
-
-        $Link = new mysqli($Host, $Login, $Password, $Database);
+        $Link = new mysqli($Args['Host'], $Args['User'], $Args['Password'], $Args['Database']);
 
         if ($Link)
             $Link->set_charset('utf8');
-    }
-    else
-        $Link = null;
-        
-    return $Link;
-}
+        else
+            $Link = null;
 
-function F_OOMySQLi_Unmount ($Storage)
-{
-    if (is_resource($Storage))
-        return $Storage->close();
-}
+        return $Link;
+    };
 
-function F_OOMySQLi_Create ($Args)
-{
-    $Fields = array();
-    $Values = array();
-
-    foreach ($Args['DDL'] as $Row)
+    $Unmount = function ($Storage)
     {
+        if (is_resource($Storage))
+            return $Storage->close();
+    };
+
+    $Create = function ($Args)
+    {
+        $Fields = array();
         $Values = array();
-        
-        foreach($Row as $Key => $Value)
+
+        foreach ($Args['DDL'] as $Row)
         {
-            $Fields[$Key] = '`'.$Args['Storage']->escape_string($Key).'`';
-            $Values[$Key] = '\''.$Args['Storage']->escape_string($Value).'\'';
-        }
-        
-        $ValueStr[] = '('.implode (',',$Values).')';
-    }
+            $Values = array();
 
-    $Query = 'INSERT `'.$Args['Dir'].'` ('.implode (',',$Fields).') VALUES '.implode(',',$ValueStr);
-
-    if ($Args['Storage']->query($Query))
-        $Result = Log::Info($Query);
-    else
-        $Result = Log::Error($Query);
-    
-    Log::Tap('SQL');
-    Log::Tap('SQL Insert');
-    return $Result;
-}
-
-function F_OOMySQLi_Read ($Args)
-{
-    $IC = 1;
-    $Fields = array();
-
-    if (isset($Args['DDL']['Where']))
-        foreach($Args['DDL']['Where'] as $Where => $Vals)
-        {
-            $Condition = 'WHERE '.$Where;
-            foreach($Vals as $Key => $Value)
+            foreach($Row as $Key => $Value)
             {
-                if (empty($Value))
-                    return null;
-
-                $Condition = str_replace ('k'.$IC, '`'.$Args['Storage']->escape_string($Key).'`', $Condition);
-
-                    if (!is_array ($Value))
-                        $Condition = str_replace ('v'.$IC, '\''.$Args['Storage']->escape_string($Value).'\'', $Condition);
-                    else
-                        {
-                            $Ins = array ();
-                            foreach ($Value as $cValue)
-                                $Ins[] = '\''.$Args['Storage']->escape_string($cValue).'\'';
-
-                            $Condition = str_replace ('v'.$IC, implode (',',$Ins), $Condition);
-                        }
-                $IC++;
+                $Fields[$Key] = '`'.$Args['Storage']->escape_string($Key).'`';
+                $Values[$Key] = '\''.$Args['Storage']->escape_string($Value).'\'';
             }
+
+            $ValueStr[] = '('.implode (',',$Values).')';
         }
-        else $Condition = '';
 
-    if (is_array ($Args['DDL']['Fields']))
-        {
-            foreach($Args['DDL']['Fields'] as $Field)
-                $Fields[] = '`'.$Field.'`';
-            $FStr = implode(',',$Fields);
-        }
-    else
-        $FStr = '*';
+        $Query = 'INSERT `'.$Args['Dir'].'` ('.implode (',',$Fields).') VALUES '.implode(',',$ValueStr);
 
-    if (isset($Args['DDL']['Sort']))
-        {
-            if (isset($Args['DDL']['Sort']['Key']))
-                $OrderStr = ' ORDER BY `'.$Args['DDL']['Sort']['Key'].'`+0 ';
-            if (isset($Args['DDL']['Sort']['Direction']))
-                $OrderStr.= $Args['DDL']['Sort']['Direction'];
-        }
-    else
-        $OrderStr = '';
+        if ($Args['Storage']->query($Query))
+            $Result = Log::Info($Query);
+        else
+            $Result = Log::Error($Query);
 
-    if (isset ($Args['DDL']['Unique']) and $Args['DDL']['Unique'] == true)
-        $Distinct = 'DISTINCT ';
-    else
-        $Distinct = ' ';
-    $Query = 'SELECT '.$Distinct.$FStr.' FROM `'.$Args['Dir'].'` '.$Condition.$OrderStr;
+        Log::Tap('SQL');
+        Log::Tap('SQL Insert');
+        return $Result;
+    };
 
-    Profiler::Go($Query);
+    $Read = function ($Args)
+    {
+        $IC = 1;
+        $Fields = array();
 
-    $Result = $Args['Storage']->query ($Query);
-
-    Profiler::Stop($Query);
-
-    $Data = null;
-
-    if (!$Result)
-        $Data = Log::Error($Query);
-    else
-        {
-            $IC = 0;
-            while ($Row = $Result->fetch_assoc())
-                $Data[$IC++] = $Row;
-            
-            $Result->free();
-            Log::Info('['.Profiler::Get($Query).']'.$Query);
-            Profiler::Erase($Query);
-        }   
-
-    Log::Tap('SQL');
-    Log::Tap('SQL Select');
-
-    return $Data;
-}
-
-function F_OOMySQLi_Update ($Args)
-{  
-    $IC = 1;
-    $Mods = array();
-
-    if (isset($Args['DDL']['Where']))
-        foreach($Args['DDL']['Where'] as $Where => $Vals)
+        if (isset($Args['DDL']['Where']))
+            foreach($Args['DDL']['Where'] as $Where => $Vals)
             {
-                $Condition = ' WHERE '.$Where;
+                $Condition = 'WHERE '.$Where;
                 foreach($Vals as $Key => $Value)
                 {
+                    if (empty($Value))
+                        return null;
+
                     $Condition = str_replace ('k'.$IC, '`'.$Args['Storage']->escape_string($Key).'`', $Condition);
-                    $Condition = str_replace ('v'.$IC++, '\''.$Args['Storage']->escape_string($Value).'\'', $Condition);
+
+                        if (!is_array ($Value))
+                            $Condition = str_replace ('v'.$IC, '\''.$Args['Storage']->escape_string($Value).'\'', $Condition);
+                        else
+                            {
+                                $Ins = array ();
+                                foreach ($Value as $cValue)
+                                    $Ins[] = '\''.$Args['Storage']->escape_string($cValue).'\'';
+
+                                $Condition = str_replace ('v'.$IC, implode (',',$Ins), $Condition);
+                            }
+                    $IC++;
                 }
             }
+            else $Condition = '';
 
-    foreach($Args['DDL']['Data'] as $Key => $Value)
-        $Mods[] = '`'.
-            $Args['Storage']->escape_string($Key).'` = '.'\''.
-            $Args['Storage']->escape_string($Value).'\'';
+        if (is_array ($Args['DDL']['Fields']))
+            {
+                foreach($Args['DDL']['Fields'] as $Field)
+                    $Fields[] = '`'.$Field.'`';
+                $FStr = implode(',',$Fields);
+            }
+        else
+            $FStr = '*';
 
-    $Query = 'UPDATE `'.$Args['Dir'].'` SET '.implode(',',$Mods).$Condition;
-    
-    if ($Args['Storage']->query ($Query))
-        $Result = Log::Info($Query);
-    else
-        $Result = Log::Error($Query);
+        if (isset($Args['DDL']['Sort']))
+            {
+                if (isset($Args['DDL']['Sort']['Key']))
+                    $OrderStr = ' ORDER BY `'.$Args['DDL']['Sort']['Key'].'`+0 ';
+                if (isset($Args['DDL']['Sort']['Direction']))
+                    $OrderStr.= $Args['DDL']['Sort']['Direction'];
+            }
+        else
+            $OrderStr = '';
 
-    Log::Tap('SQL');
-    Log::Tap('SQL Update');
-    
-    return $Result;
-}
+        if (isset ($Args['DDL']['Unique']) and $Args['DDL']['Unique'] == true)
+            $Distinct = 'DISTINCT ';
+        else
+            $Distinct = ' ';
+        $Query = 'SELECT '.$Distinct.$FStr.' FROM `'.$Args['Dir'].'` '.$Condition.$OrderStr;
 
-function F_OOMySQLi_Delete ($Args)
-{
-    $IC = 1;
+        Profiler::Go($Query);
 
-    foreach($Args['DDL'] as $Where => $Vals)
+        $Result = $Args['Storage']->query ($Query);
+
+        Profiler::Stop($Query);
+
+        $Data = null;
+
+        if (!$Result)
+            $Data = Log::Error($Query);
+        else
+            {
+                $IC = 0;
+                while ($Row = $Result->fetch_assoc())
+                    $Data[$IC++] = $Row;
+
+                $Result->free();
+                Log::Info('['.Profiler::Get($Query).']'.$Query);
+                Profiler::Erase($Query);
+            }
+
+        Log::Tap('SQL');
+        Log::Tap('SQL Select');
+
+        return $Data;
+    };
+
+    $Update = function ($Args)
     {
-        $Condition = $Where;
-        foreach($Vals as $Key => $Value)
+        $IC = 1;
+        $Mods = array();
+
+        if (isset($Args['DDL']['Where']))
+            foreach($Args['DDL']['Where'] as $Where => $Vals)
+                {
+                    $Condition = ' WHERE '.$Where;
+                    foreach($Vals as $Key => $Value)
+                    {
+                        $Condition = str_replace ('k'.$IC, '`'.$Args['Storage']->escape_string($Key).'`', $Condition);
+                        $Condition = str_replace ('v'.$IC++, '\''.$Args['Storage']->escape_string($Value).'\'', $Condition);
+                    }
+                }
+
+        foreach($Args['DDL']['Data'] as $Key => $Value)
+            $Mods[] = '`'.
+                $Args['Storage']->escape_string($Key).'` = '.'\''.
+                $Args['Storage']->escape_string($Value).'\'';
+
+        $Query = 'UPDATE `'.$Args['Dir'].'` SET '.implode(',',$Mods).$Condition;
+
+        if ($Args['Storage']->query ($Query))
+            $Result = Log::Info($Query);
+        else
+            $Result = Log::Error($Query);
+
+        Log::Tap('SQL');
+        Log::Tap('SQL Update');
+
+        return $Result;
+    };
+
+    $Delete = function ($Args)
+    {
+        $IC = 1;
+
+        foreach($Args['DDL'] as $Where => $Vals)
         {
-           $Condition = str_replace ('k'.$IC, '`'.$Args['Storage']->escape_string($Key).'`', $Condition);
-           $Condition = str_replace ('v'.$IC++, '\''.$Args['Storage']->escape_string($Value).'\'', $Condition);
+            $Condition = $Where;
+            foreach($Vals as $Key => $Value)
+            {
+               $Condition = str_replace ('k'.$IC, '`'.$Args['Storage']->escape_string($Key).'`', $Condition);
+               $Condition = str_replace ('v'.$IC++, '\''.$Args['Storage']->escape_string($Value).'\'', $Condition);
+            }
         }
-    }
 
-    $Query = 'DELETE FROM `'.$Args['Dir'].'` WHERE ('.$Condition.')';
+        $Query = 'DELETE FROM `'.$Args['Dir'].'` WHERE ('.$Condition.')';
 
-    if ($Args['Storage']->query ($Query))
-        $Result = Log::Info($Query, 3);
-    else
-        $Result = Log::Error($Query);
+        if ($Args['Storage']->query ($Query))
+            $Result = Log::Info($Query, 3);
+        else
+            $Result = Log::Error($Query);
 
-    Log::Tap('SQL');
-    Log::Tap('SQL Delete');
-    return $Result;
-}
+        Log::Tap('SQL');
+        Log::Tap('SQL Delete');
+        return $Result;
+    };

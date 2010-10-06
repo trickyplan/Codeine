@@ -3,7 +3,7 @@
 function F_Image_Render($Args)
 {
     if (is_file(Root.Data.$Args['value']))
-        $EF = '<vxthumb>{"Image":"'.Data.$Args['value'].'","Size":"50","Mode":"LightBox"}</vxthumb>';
+        $EF = '<vximage>{"Type":"Thumb","Image":"'.$Args['value'].'","Size":"50","Layout":"LightBox"}</vximage>';
     else
         $EF = '';
 

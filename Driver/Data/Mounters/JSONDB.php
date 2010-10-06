@@ -2,7 +2,7 @@
 
     function F_JSONDB_Mount ($Args)
     {
-        $JSONDB = file_get_contents(Root.Data.$Args['DSN'].'.json');
+        $JSONDB = file_get_contents(Server::Locate('Data',$Args['DSN'].'.json'));
 
         Data::$Data[$Args['DSN']] = json_decode($JSONDB, true);
         Data::$Data['rw'.$Args['DSN']] = sha1($JSONDB);

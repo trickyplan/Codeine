@@ -9,10 +9,10 @@
           $Icos = array_unique($Matches[1]);
           sort($Icos);
           
-          $IcoID = sha1(implode('',$Icos));
-          $IcoFile = Root.Temp.'Icons/'.$IcoID.'.png';
+          $IcoID = Code::E('Process/Hash','Get',(implode('',$Icos)));
+          $IcoFile = Server::Path('Temp').'Icons/'.$IcoID.'.png';
 
-          if (!file_exists($IcoFile))
+          if (!file_exists(Root.$IcoFile))
           {
               $IM = imagecreatetruecolor(count($Icos)*16, 16);
               imagealphablending($IM, false);
@@ -20,13 +20,10 @@
 
               foreach ($Icos as $IX => $Ico)
               {
-                  if (mb_substr($Ico,0,1) == '~')
-                      $URL = EngineShared.'/Images/Icons/'.mb_substr($Ico,1).'.png';
-                  else
-                      $URL = Root.'/Images/Icons/'.$Ico.'.png';
+                  $URL = Server::Locate('Icons', $Ico.'.png');
 
-                  if (!file_exists($URL))
-                      $URL = EngineShared.'/Images/Icons/Default.png';
+                  if (!$URL)
+                      $URL = Server::Locate('Icons', 'Default.png');
 
                   $IM2 = imagecreatefrompng($URL);
                   imagealphablending($IM2, false);
@@ -34,10 +31,11 @@
 
                   imagecopy ($IM, $IM2, $IX*16, 0, 0, 0, 16, 16);
               }
-              imagepng($IM, $IcoFile);
+              imagepng($IM, Root.$IcoFile);
           }
 
-          Page::CSS('.Icon'.$IcoID.' { display: inline; background-image: url("/'.Temp.'Icons/'.$IcoID.'.png"); }');
+          View::Add('.Icon'.$IcoID.' { display: inline; background-image: url("/'.$IcoFile.'"); }', '<iconcss/>');
+          
           foreach($Icos as $IX => $Ico)
             $Data = str_replace('<icon>'.$Ico.'</icon>', '<div class="Icon'.$IcoID.'" style="background-position: -'.($IX*16).'px top;"><img src="/Images/s.gif" width=16 height=17 /></div>', $Data);
       }

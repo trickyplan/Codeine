@@ -6,4 +6,4 @@
     Data::Update('JSONDB', array('I'=>$ID,'Data'=>array('key'=>rand())));
     Data::Delete('JSONDB', array('I'=>$ID));
     
-    Page::Body('');
+    View::Body('');

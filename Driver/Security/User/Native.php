@@ -2,12 +2,12 @@
 
 function F_Native_Step1 ($Args)
 {
-    Page::Nest('Application/Gate/Input');
+    View::Nest('Application/Gate/Input');
 }
 
 function F_Native_Step2 ($Args)
 {
-    $Agent = new Object('_User');
+    $Agent = new Object('User');
     
     if ($Agent->Query('=Login='.Server::Arg('Login')))
     {
@@ -23,10 +23,10 @@ function F_Native_Step2 ($Args)
             {
                 $Elements = $Agent->Get('Authorizer:'.$Authorizer, false);
                 foreach($Elements as $Element)
-                    $Output.= Page::Get('Auth/Input/'.$Authorizer);
+                    $Output.= View::Get('Auth/Input/'.$Authorizer);
             }
         }
-        Page::Add($Output);
+        View::Add($Output);
         return true;
     }
     else

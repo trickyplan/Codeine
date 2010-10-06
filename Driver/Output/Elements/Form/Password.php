@@ -11,7 +11,7 @@ function F_Password_Render($Args)
     if (!isset($Args['value']))
         $Args['value'] = '';
 
-    Page::JSFile('~jQuery/Plugins/Textfield.js');
-    Page::JS('$(".Textfield").autoGrowInput({comfortZone: 50,minWidth: 100,maxWidth: 400});');
+    View::JSFile('~jQuery/Plugins/Textfield.js');
+    View::JS('$(".Textfield").autoGrowInput({comfortZone: 50,minWidth: 100,maxWidth: 400});');
     return '<input id="'.$ID.'" name="'.$Args['name'].'" class="'.$Args['class'].'" type="password" value="'.$Args['value'].'" />';
 }

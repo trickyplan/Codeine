@@ -2,7 +2,7 @@
 
     if (Client::$Ticket->Get('Type') !== null)
         {           
-            Client::$Agent = new Object('_User');
+            Client::$Agent = new Object('User');
             
             $Result = Code::E('Security/User','Step3', array(), Client::$Ticket->Get('Type'));
 
@@ -19,10 +19,10 @@
                         Client::$User->Save();
                     }
 
-                    Client::Redirect('/_User/~'.$Result);
+                    Client::Redirect('/User/~'.$Result);
                }
                else
-                    Page::Nest('Application/Gate/Failed');
+                    View::Nest('Application/Gate/Failed');
         }
         else
             throw new WTF ('Broken Ticket', 500);

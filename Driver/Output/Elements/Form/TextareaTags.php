@@ -7,8 +7,8 @@ function F_TextareaTags_Render($Args)
     
     $TAValue = $Args['value'];
 
-    Page::JSFile('~jQuery/Plugins/Textarea.js');
-    Page::JS("$('#".$Args['id']."').TextAreaResizer()");
+    View::JSFile('~jQuery/Plugins/Textarea.js');
+    View::JS("$('#".$Args['id']."').TextAreaResizer()");
 
     $Output = '<textarea id="'.$Args['id'].'" name="'.$Args['name'].'" class="Textarea " rows=5>'.$TAValue.'</textarea>';
 

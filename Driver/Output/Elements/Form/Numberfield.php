@@ -12,12 +12,12 @@ function F_Numberfield_Render($Args)
     if (!isset($Args['value']))
         $Args['value'] = '';
 
-    Page::JSFile('~jQuery/Plugins/Textfield.js');
-    Page::JSFile('~jQuery/Plugins/Numeric.js');
+    View::JSFile('~jQuery/Plugins/Textfield.js');
+    View::JSFile('~jQuery/Plugins/Numeric.js');
     
     if (isset($Args['node']->Required))
         $Args['class'].= ' validate(required)';
     
-    Page::JS('$(".Numberfield").autoGrowInput({comfortZone: 50,minWidth: 50,maxWidth: 200}).numeric();');
+    View::JS('$(".Numberfield").autoGrowInput({comfortZone: 50,minWidth: 50,maxWidth: 200}).numeric();');
     return '<input id="'.$ID.'" name="'.$Args['name'].'" class="'.$Args['class'].'" type="text" value="'.$Args['value'].'"  />';
 }

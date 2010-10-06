@@ -2,7 +2,7 @@
 
 function F_LJ_Step1 ($Args)
 {
-    Page::Nest('Application/Gate/Input');
+    View::Nest('Application/Gate/Input');
 }
 
 function F_LJ_Step2 ($Args)

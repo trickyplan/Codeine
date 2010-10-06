@@ -11,13 +11,13 @@ function F_Jabber_Login ($Args)
     Transport::Send    ('UserJabber', $Token, $Args['Login'], 'admin@oxbook', false);
     Transport::Unmount ('UserJabber');
 
-    Page::Add(Page::Get('Auth/Jabber'));
+    View::Add(View::Get('Auth/Jabber'));
 }
 
 function F_Jabber_Auth ($Args)
 {
     if (!Code::E('Security/CAPTCHA', 'Check', array('Ticket'=>Client::$Ticket)))
-        Page::Nest('A/Gate/CAPTCHAFailed');
+        View::Nest('A/Gate/CAPTCHAFailed');
     if (Client::$Ticket->Get('Jabber:Token') == Server::Arg('Jabber'))
         return true;
     else

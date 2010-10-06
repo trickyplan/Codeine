@@ -8,17 +8,17 @@
     if (self::$ID === null)
     {
         foreach ($AuthTypes as $AT)
-            Page::AddBuffered(Page::Replace('Application/Gate/Method', array('<AT/>'=>$AT)));
+            View::AddBuffered(View::Replace('Application/Gate/Method', array('<AT/>'=>$AT)));
 
-        Page::Add('', 'CAPTCHA');
-        Page::Flush();
+        View::Add('', 'CAPTCHA');
+        View::Flush();
     }
     else
     {
         if (in_array(self::$ID, $AuthTypes))
         {
             Code::E('Security/User','Step1', null, self::$ID);
-            Page::Add(Code::E('Security/CAPTCHA', 'Generate', array('Ticket'=>Client::$Ticket)), 'CAPTCHA');
+            View::Add(Code::E('Security/CAPTCHA', 'Generate', array('Ticket'=>Client::$Ticket)), 'CAPTCHA');
             Client::$Ticket->Set('Type', self::$ID);
         }
         else

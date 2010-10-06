@@ -5,7 +5,7 @@
         if (Client::$Level == 0 or !in_array($Input, Client::$User->Get('Info:Readed', false, false)))
         {
             $Object = new Object ('Info', $Input);
-            return Page::Fusion('Objects/Info/Info_Show', $Object);
+            return View::Fusion('Objects/Info/Info_Show', $Object);
         }
         else
             return '';

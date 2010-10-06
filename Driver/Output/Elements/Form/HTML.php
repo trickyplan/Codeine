@@ -4,9 +4,9 @@ function F_HTML_Render($Args)
 {   
     $ID = uniqid('T');
 
-    Page::JSFile('JS/TinyMCE/jscripts/tiny_mce/jquery.tinymce.js');
+    View::JSFile('JS/TinyMCE/jscripts/tiny_mce/jquery.tinymce.js');
     
-    Page::JS(
+    View::JS(
         "
             $('#".$ID."').tinymce(
                 {

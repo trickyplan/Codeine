@@ -178,14 +178,15 @@ class Object
                     }
 
                 Profiler::Go ($this->Scope.':'.$Name.':Load');
-                
+
+                /*
                 if (null !== ($PooledData = Data::PoolGet($this->Scope.'::'.$this->Name)))
                     {
                         list($this->Data, $this->SelfData,$this->InheritData) = $PooledData;
                         Profiler::Stop ($this->Scope.':'.$Name.':Load');
                         return ($this->Loaded = true);
                     }
-
+                */
                 $DSCID = 'Default:'.$this->Scope;
 
                 if (null === ($Default = Data::PoolGet($DSCID)))
@@ -373,7 +374,7 @@ class Object
                             $Keys[] = $Key;
                     }
 
-            if ((!$ForceArray && count ($Keys) == 1) or ($Ordinary))
+            if ((!$ForceArray && count ($Keys) == 1) or ($Ordinary) and isset($Keys[0]))
                 $Keys = $Keys[0];
 
             if (empty ($Keys) and !$ForceArray)

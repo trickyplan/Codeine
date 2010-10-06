@@ -9,7 +9,7 @@
 
         $Output = Code::E('Console/'.$Namespace, $Function, $Pieces);
 
-        Page::Body('<div class="Caption"> <icon>Console/In</icon> '.Server::Arg('CMD').'</div><div class="Block"> <icon>Console/Out</icon> '.$Output.'</div>');
+        View::Body('<div class="Caption"> <icon>Console/In</icon> '.Server::Arg('CMD').'</div><div class="Block"> <icon>Console/Out</icon> '.$Output.'</div>');
         /*
          * app install application shared plugin
 

@@ -11,7 +11,8 @@
             "MemLeaks":     false,
             "AllowDirectCall": true,
             "FatalCatch":   true,
-            "Registration": "Open"
+            "Registration": "Open",
+            "Start": "/web/Test/Base"
         },
     "Log":
         {
@@ -39,13 +40,12 @@
                     "Output/Serializers": "Codeine",
                     "Output/Elements/Paginators": "Codeine",
                     "Security/User":      ["Native"],
-                    "Routers":      ["REST","Native", "JSON", "XML"],
+                    "Routers":      ["Native"],
                     "Processors":
                         {
-                            "Each":     ["Slot", "Parslet"],
+                            "Each":     ["Parslet"],
                             "Post":     ["Parslet", "MediaTag2","Ico2","AjaxSlices","JSRun","CSSRun", "I18N"],
-                            "Fusion":   ["Const","Foreach","Authorized","Owner","Role","Node","Tag","Key","For"],
-                            "Pre":      ["Authorized","Role"]
+                            "Fusion":   ["Const","Foreach","Authorized","Owner","Role","Node","Tag","Key","For"]
                         }
                 }
         },
@@ -53,47 +53,52 @@
         {
             "Client":
                 {
-                    "Initialize": ["Locale","Online","TrustIP"]
+                    "afterInitialize": ["Locale","Online","TrustIP"]
                 },
             "Server":
                 {
-                    "Initialize": ["Sanitarize","MBString"]
+                    "afterInitialize": ["Sanitarize","MBString"]
                 },
-            "Page":
+            "View":
                 {
-                    "Output": ["Perfomance"]
+                    "beforeOutput": ["Perfomance"],
+                    "beforeLoad": ["Authorized","Role"]
                 },
-            "_User":
+            "User":
                 {
-                    "Create": ["SelfOwner","AutoAuth"]
+                    "beforeCreate": ["SelfOwner","AutoAuth"]
                 }
         },
     "Engines":
         {
-            "Application":    "Alpha",
+            "Application":    "Sigma",
             "Access":         "Piranha",
             "Client":         "Nebula",
             "Code":           "M60",
             "Collection":     "Palladium",
-            "Data":           "C4",
+            "Data":           "E9",
             "Event":          "Eve",
             "Form":           "Formalin",
             "Log":            "Wolf",
-            "Page":           "D8",
+            "View":           "D8",
             "Object":         "Iridium",
             "Server":         "Spark",
             "Profiler":       "Sentinel",
             "Message":        "RedCoast"
         },
+   "Shared":
+        {
+            "Engine": "/var/www/Codeine/Default"
+        },
    "Paths":
         {
             "Core":           "Core",
-            "Classes":        "Package",
+            "Package":        "Package",
             "Driver":         "Driver",
             "Apps":           "Application",
-            "Scope":          "Scope",
             "Fonts":          "Fonts",
-            "Icons":          "Icons",
+            "Model":          "Model",
+            "Icons":          "Images/Icons",
             "Images":         "Images",
             "Static":         "Static",
             "Styles":         "Styles",
@@ -101,10 +106,20 @@
             "Data":           "Data",
             "Temp":           "Temp",
             "Flash":          "Fl",
-            "JS":             "JS"
-        },
+            "JS":             "JS",
+            "CSS":            "CSS"
+        }, 
     "Storages":
         {
+            "SQL3D":    {
+                "Method": "OOMySQLi",
+                "ORM": "SQL3D",
+                "User": "codeine",
+                "Password":"codeine",
+                "Host":"localhost",
+                "Port":"3306",
+                "Database": "codeine"
+                        },
             "FS":       { "Method": "SubFS",     "ORM": "FS",        "DSN": "/"},
             "Layout":   { "Method": "LayoutFS",  "ORM": "FS",        "DSN": "/"},
             "XML":      { "Method": "SubXMLFS",  "ORM": "FS",        "DSN": "/"},
@@ -117,26 +132,26 @@
         },
     "Mounts":
         {
-            "Default":        {"ReadCache:TTL": 600},
-            "_Application":   {"Node": "SQL3D",  "Dir": "_Application",  "ReadCache": "Static"},
-            "_Access":        {"Node": "SQL3D",  "Dir": "_Access"},
-            "_User":          {"Node": "SQL3D",  "Dir": "_User",         "ReadCache": "Static"},
-            "_Ticket":        {"Node": "SQL3D",  "Dir": "_Ticket",       "ReadCache": "Static"},
-            "_IP2Geo":        {"Node": "SQL2D",  "Dir": "_IP2Geo",       "ReadCache": "Static"},
-            "_Route":         {"Node": "SQL3D",  "Dir": "_Route",        "ReadCache": "Static"},
-            "_Signal":        {"Node": "SQL3D",  "Dir": "_Signal"},
-            "_Language":      {"Node": "SQL3D",  "Dir": "_Language"},
-            "_Node":          {"Node": "SQL3D",  "Dir": "_Node"},
-            "_Slot":          {"Node": "SQL3D",  "Dir": "_Slot"},
-            "_Command":       {"Node": "SQL3D",  "Dir": "_Command"},
-            "Info":           {"Node": "SQL3D",  "Dir": "Info"},
-            "_Layout":        {"Node": "Layout", "Dir": "Layout",        "ReadCache": "Static"},
-            "UserFS":         {"Node": "FS",     "Dir": "Data"},
-            "JSONFS":         {"Node": "JSON",   "Dir": "Data"},
-            "Static":         {"Node": "JSON",   "Dir": "Static"},
-            "Model":          {"Node": "Model",  "Dir": "Model"},
-            "Cookie":         {"Node": "Cookie", "Dir": "Cookie"},
-            "HTTP":           {"Node": "HTTP",   "Dir": "HTTP"}
+            "Default":       {"ReadCache:TTL": 600},
+            "Application":   {"Node": "SQL3D",  "Dir": "_Application",  "ReadCache": "Static"},
+            "Access":        {"Node": "SQL3D",  "Dir": "_Access"},
+            "User":          {"Node": "SQL3D",  "Dir": "User",         "ReadCache": "Static"},
+            "Ticket":        {"Node": "SQL3D",  "Dir": "_Ticket",       "ReadCache": "Static"},
+            "IP2Geo":        {"Node": "SQL2D",  "Dir": "_IP2Geo",       "ReadCache": "Static"},
+            "Route":         {"Node": "SQL3D",  "Dir": "_Route",        "ReadCache": "Static"},
+            "Signal":        {"Node": "SQL3D",  "Dir": "_Signal"},
+            "Language":      {"Node": "SQL3D",  "Dir": "_Language"},
+            "Node":          {"Node": "SQL3D",  "Dir": "_Node"},
+            "Slot":          {"Node": "SQL3D",  "Dir": "_Slot"},
+            "Command":       {"Node": "SQL3D",  "Dir": "_Command"},
+            "Info":          {"Node": "SQL3D",  "Dir": "Info"},
+            "Layout":        {"Node": "Layout", "Dir": "Layout",        "ReadCache": "Static"},
+            "UserFS":        {"Node": "FS",     "Dir": "Data"},
+            "JSONFS":        {"Node": "JSON",   "Dir": "Data"},
+            "Static":        {"Node": "JSON",   "Dir": "Static"},
+            "Model":         {"Node": "Model",  "Dir": "Model"},
+            "Cookie":        {"Node": "Cookie", "Dir": "Cookie"},
+            "HTTP":          {"Node": "HTTP",   "Dir": "HTTP"}
         },
     "Sensors":
         {

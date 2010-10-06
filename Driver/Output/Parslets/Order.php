@@ -8,7 +8,7 @@
                foreach ($JSON as $Key => $Value)
                {
                    $Object = new Object ($Key);
-                   $Buffer.= str_replace('<Count/>', $Value, Page::Fusion('Objects/'.$Object->Scope.'/'.$Object->Scope.'_Order', $Object));
+                   $Buffer.= str_replace('<Count/>', $Value, View::Fusion('Objects/'.$Object->Scope.'/'.$Object->Scope.'_Order', $Object));
                }
                return $Buffer;
            }

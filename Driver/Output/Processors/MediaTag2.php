@@ -31,7 +31,7 @@
            }
 
 
-      $CSI = Page::$CSSIncludes;
+      $CSI = View::$CSSIncludes;
 
       if (is_array($CSI) and !empty($CSI) or !empty($CSSIncludes))
       {
@@ -60,7 +60,7 @@
       else
           $Data = str_replace('<place>CSS</place>','', $Data);
 
-      $JSI = Page::$JSIncludes;
+      $JSI = View::$JSIncludes;
       
       if (is_array($JSI) and !empty($JSI) or !empty($JSSIncludes))
       {

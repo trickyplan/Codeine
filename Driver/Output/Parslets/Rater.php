@@ -16,9 +16,9 @@
                    $State = 'Negative';
 
                if (in_array(Client::$UID,$Rateds))
-                return Page::Fusion('Raters/Already', $Object, array('<rater/>'=>$Rater, '<state/>'=>$State));
+                return View::Fusion('Raters/Already', $Object, array('<rater/>'=>$Rater, '<state/>'=>$State));
                else
-                return Page::Fusion('Raters/Default', $Object, array('<rater/>'=>$Rater, '<state/>'=>$State));
+                return View::Fusion('Raters/Default', $Object, array('<rater/>'=>$Rater, '<state/>'=>$State));
            }
        }
        else

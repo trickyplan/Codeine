@@ -93,7 +93,7 @@ function F_OpenID_Step3($Args)
                 return Client::$Ticket->Get('MayBe');
             else
                 {
-                    Page::Nest('Application/Gate/OpenID/Failed');
+                    View::Nest('Application/Gate/OpenID/Failed');
                     return false;
                 }
             break;

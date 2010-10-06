@@ -1,6 +1,6 @@
 <?php
 
-    function F_Sanitarize_Hook()
+    $Hook = function ()
     {
         $_REQUEST = array_merge($_ENV, $_REQUEST, $_COOKIE, $_POST, $_GET);
         $VAR = $_REQUEST;
@@ -15,4 +15,4 @@
             Server::Arg($Key, $Value);
 
         return true;
-    }
+    };

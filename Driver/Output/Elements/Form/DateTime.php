@@ -5,15 +5,15 @@ function F_DateTime_Render($Args)
     $Attr = '';
     $Args['id'] = 'DTPCK'.uniqid();
 
-    Page::JSFile('~jQueryUI/ui.js');
-    Page::JSFile('~jQueryUI/ui/jquery.ui.datetimepicker.js');
-    Page::JSFile('~jQueryUI/ui/i18n/jquery.ui.datepicker-ru.js');
+    View::JSFile('~jQueryUI/ui.js');
+    View::JSFile('~jQueryUI/ui/jquery.ui.datetimepicker.js');
+    View::JSFile('~jQueryUI/ui/i18n/jquery.ui.datepicker-ru.js');
 
-    Page::CSSFile('~CSS/jQueryUI/base/jquery.ui.base.css');
-    Page::CSSFile('~CSS/jQueryUI/base/jquery.ui.theme.css');
-    Page::CSSFile('~CSS/jQueryUI/base/jquery.ui.datetimepicker.css');
+    View::CSSFile('~CSS/jQueryUI/base/jquery.ui.base.css');
+    View::CSSFile('~CSS/jQueryUI/base/jquery.ui.theme.css');
+    View::CSSFile('~CSS/jQueryUI/base/jquery.ui.datetimepicker.css');
     
-    Page::JS('$("#'.$Args['id'].'").datetimepicker();');
+    View::JS('$("#'.$Args['id'].'").datetimepicker();');
 
     if (!is_numeric($Args['value']))
         $Args['value'] = time();

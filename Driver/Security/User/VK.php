@@ -2,8 +2,8 @@
 
 function F_VK_Step1 ($Args)
 {
-   Page::JSFile('JS/OpenAPI.js');
-   Page::JS("window.vkAsyncInit = function() {
+   View::JSFile('JS/OpenAPI.js');
+   View::JS("window.vkAsyncInit = function() {
  VK.init({
          apiId: 1898867,
          nameTransportPath: '/xd_receiver.html'
@@ -19,7 +19,7 @@ function F_VK_Step1 ($Args)
         document.getElementById('vk_api_transport').appendChild(el);
       }());
       window.vkAsyncInit();");
-   Page::Add('<div id="vk_api_transport"></div>
+   View::Add('<div id="vk_api_transport"></div>
        <div onclick="doLogin()" id="vk_login"></div>');
 }
 

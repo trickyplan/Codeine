@@ -3,5 +3,5 @@
     function F_404_Catch()
     {
         header ('HTTP/1.1 404 Not Found');
-        die (Page::Load('Errors/404'));
+        die (View::Load('Errors/404'));
     }

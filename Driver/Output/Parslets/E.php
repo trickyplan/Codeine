@@ -6,7 +6,7 @@
        {
            $Object = new Object ($Input);
            if ($Object->Load())
-               return Page::Fusion('Objects/'.$Object->Scope.'/'.$Object->Scope.'_E', $Object);
+               return View::Fusion('Objects/'.$Object->Scope.'/'.$Object->Scope.'_E', $Object);
            else
                return $Input;
        }

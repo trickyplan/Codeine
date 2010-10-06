@@ -77,19 +77,25 @@
 
         public static function LoadConf()
         {
-            if (file_exists(Root.'Conf/'._Host.'.json'))
-                    {
-                        if (($EngineConf = json_decode(file_get_contents(Engine.'Conf/Codeine.json'), true))==null)
+            if (file_exists(Engine.'Conf/Codeine.json'))
+            {
+                if (($EngineConf = json_decode(file_get_contents(Engine.'Conf/Codeine.json'), true))==null)
                             throw new WTF('Engine configuration malformed. <a href="http://jsonlint.com/">Check JSON syntax</a>', 4049);
+            }
+            else
+                throw new WTF('Not found '.Engine.'Conf/'._Host.'.json', 4049);
+            
+            if (file_exists(Root.'Conf/'._Host.'.json'))
+            {
+                if (($SiteConf = json_decode(file_get_contents(Root.'Conf/'._Host.'.json'), true))==null)
+                    throw new WTF('Site configuration malformed. <a href="http://jsonlint.com/">Check JSON syntax</a>', 4049);
+            }
+            else
+                $SiteConf = array();
 
-                        if (($SiteConf = json_decode(file_get_contents(Root.'Conf/'._Host.'.json'), true))==null)
-                            throw new WTF('Site configuration malformed. <a href="http://jsonlint.com/">Check JSON syntax</a>', 4049);
-
-                        self::$Conf = self::_ConfWalk ($EngineConf, $SiteConf);
-                    }
-                    else
-                        throw new WTF('Not found '.Root.'Conf/'._Host.'.json', 4049);
-           return true;
+            self::$Conf = self::_ConfWalk ($EngineConf, $SiteConf);
+            
+            return true;
         }
 
         public static function Initialize()
@@ -105,10 +111,13 @@
             define ('OBJSEP', '::');
             define ('DS', DIRECTORY_SEPARATOR);
 
-            define ('Engine', dirname(__FILE__).'/');
-            define ('EngineShared', dirname(__FILE__).'/_Shared/');
+            define ('Shared', 'Default');
+
+            define ('Engine', __DIR__.'/');
+            define ('EngineShared', __DIR__.'/Default/');
 
             define ('Domain', implode('.',array_reverse(explode('.',_Host.'.'))));
+            
             try
                 {
                     self::LoadConf();

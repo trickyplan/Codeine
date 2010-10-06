@@ -54,10 +54,10 @@
             $Sdbr = null;
 
             if ($Result2 !== false and $Result2 !== null and $Result2['Code'] !== null)
-                $Sdbr = Page::Get('Sidebar/Enabled');
+                $Sdbr = View::Get('Sidebar/Enabled');
 
             if ($Result2['Code'] === null)
-                $Sdbr = Page::Get('Sidebar/Disabled');
+                $Sdbr = View::Get('Sidebar/Disabled');
 
             if (is_array($Result2))
                 foreach($Result2 as $Key => $Value)

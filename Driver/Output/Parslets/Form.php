@@ -79,7 +79,7 @@
                 }
 
             $Out[$Field->Set][$Name] =
-                    Page::Replace (
+                    View::Replace (
                         $Element,
                         array ('<fid/>' => $FID,
                                '<required/>' => (string)$Field->Required,
@@ -95,7 +95,7 @@
       if (count($Out)>1)
           foreach ($Out as $Title => $Set)
           {
-              $Output.= Page::Replace ('Form/Set/Default',
+              $Output.= View::Replace ('Form/Set/Default',
                       array(
                             '<formname/>' => $FormName,
                             '<title/>' => $Title,
@@ -104,14 +104,14 @@
       else
         foreach ($Out as $Title => $Set)
           {
-              $Output = Page::Replace ('Form/Set/One',
+              $Output = View::Replace ('Form/Set/One',
                       array(
                             '<formname/>' => $FormName,
                             '<title/>' => $Title,
                             '<content/>' => implode('',$Set)));
           }
       
-      return Page::Replace ('Form/Body/Default',
+      return View::Replace ('Form/Body/Default',
                   array(
                       '<url/>' => $Args->URL,
                       '<id/>'=>'FRM'.uniqid(),

@@ -1,64 +1,64 @@
 <?php
 
-    function F_FirePHP_Initialize ($Args)
+    $Initialize = function ($Args)
     {
-        include Engine.Classes.'FirePHPCore/FirePHP.class.php';
+        include Server::Locate('Package','FirePHPCore/FirePHP.class.php');
         return FirePHP::getInstance(true);
-    }
+    };
 
-    function F_FirePHP_Info($Args)
+    $Info = function ($Args)
     {
         return $Args['Logger']->info($Args['Message']);
-    }
+    };
 
-    function F_FirePHP_Error($Args)
+    $Error = function ($Args)
     {
         return $Args['Logger']->error($Args['Message']);
-    }
+    };
 
-    function F_FirePHP_Warning($Args)
+    $Warning = function ($Args)
     {
         return $Args['Logger']->warn($Args['Message']);
-    }
+    };
 
-    function F_FirePHP_Bad($Args)
+    $Bad = function ($Args)
     {
         return $Args['Logger']->warn($Args['Message']);
-    }
+    };
 
-    function F_FirePHP_Good ($Args)
+    $Good = function ($Args)
     {
         return $Args['Logger']->info($Args['Message']);
-    }
+    };
 
-    function F_FirePHP_Dump($Args)
+    $Dump = function ($Args)
     {
         return $Args['Logger']->info($Args['Message']);
-    }
+    };
 
-    function F_FirePHP_Important($Args)
+    $Important = function ($Args)
     {
         return $Args['Logger']->error($Args['Message']);
-    }
+    };
 
-    function F_FirePHP_Stage($Args)
+    $Stage = function ($Args)
     {
         $Args['Logger']->groupEnd($Args['Message']);
         $Args['Logger']->group($Args['Message']);
         return $Args['Logger']->info($Args['Message']);
-    }
+    };
 
-    function F_FirePHP_Hint($Args)
+    $Hint = function ($Args)
     {
         return $Args['Logger']->info($Args['Message']);
-    }
+    };
 
-    function F_FirePHP_Perfomance($Args)
+    $Perfomance = function ($Args)
     {
         return $Args['Logger']->info($Args['Message']);
-    }
+    };
 
-    function F_FirePHP_Shutdown($Logger)
+    $Shutdown = function ($Logger)
     {
         return true;
-    }
+    };

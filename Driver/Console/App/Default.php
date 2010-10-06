@@ -26,7 +26,7 @@
                             $Output = 'Self plugin '.$Args[4].' not exist';
                     break;
                     case 'Shared':
-                        if (file_exists(Engine.Apps.'_Shared/'.$Args[4].'.php'))
+                        if (file_exists(Engine.Apps.'Default/'.$Args[4].'.php'))
                         {
                             $App->Add('Plugin:Shared', $Args[4]);
                             $Output = $Args[2].' shared plugin '.$Args[4].' installed';
@@ -68,7 +68,7 @@
                             $Output = 'Self plugin '.$Args[4].' not exist';
                     break;
                     case 'Shared':
-                        if (file_exists(Engine.Apps.'_Shared/'.$Args[4].'.php'))
+                        if (file_exists(Engine.Apps.'Default/'.$Args[4].'.php'))
                         {
                             $App->Del('Plugin:Shared', $Args[4]);
                             $Output = $Args[2].' shared plugin '.$Args[4].' removed';
