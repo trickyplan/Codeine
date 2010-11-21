@@ -1,3 +1,5 @@
 {
-    "Function": "Local"
+    "Routers": ["Codeine", "JSON"],
+    "Checkers": ["Required", "Type", "Condition"],
+    "Interfaces": ["HTTP","CLI"]
 }

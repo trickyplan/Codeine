@@ -1,6 +1,6 @@
 <?php
 
-    class Code
+    class Code implements ICode
     {
         private static $_Functions;
         private static $_Hooks;
@@ -29,10 +29,10 @@
                 return false;
         }
 
-        // E - сокращение от Execute
         // TODO Atomic ACL!!!!!!!!!!!!!!!
+        // TODO Contracting (if)
 
-        public static function E ($NameSpace, $FunctionName, $Operands = null, $Driver = 'Default')
+        public static function Run ($NameSpace, $FunctionName, $Operands = null, $Driver = 'Default')
         {
             Profiler::Go ('Code:'.$NameSpace);
 

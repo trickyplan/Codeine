@@ -1,6 +1,6 @@
 <?php
 
-    class Client
+    class Client implements IClient
     {
         public static $UID;     // Идентификатор клиента
         public static $Ticket;  // Уровень сессии
@@ -164,4 +164,7 @@
         {
             header('Location: '.$URL);
         }
-    }
+
+        public static function Annulate () {
+            // TODO: Implement Annulate() method.
+        }}

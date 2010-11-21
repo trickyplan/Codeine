@@ -1,26 +1,31 @@
 <?php
 
     include 'MicroCore.php';
-    
-    if (!defined('Root'))
-        define('Root', __DIR__);
-   
+
+    Core::Initialize();
+
     try
     {
-        Code::Hook('Front', __CLASS__, 'beforeProcess');
+        if (!defined('Root'))
+            define('Root', __DIR__);
 
-        Application::Route(Server::Arg('REQUEST_URI'));
-        View::Output(Application::Run());
+        $Call = Code::Run(array(
+                               'F' => 'System/Interface/Input'
+                          ));
 
-        Code::Hook('Front', __CLASS__, 'afterProcess');
+        Code::Run(
+            array('F'    => 'System/Output/Output',
+                  'D' => 'HTTP',
+                  'Output' => Code::Run(
+                                array('F'    => 'View/Render/Render',
+                                      'D' => 'Codeine',
+                                      'Body' =>
+                                            Code::Run($Call)))
+                 ));
+        
     }
     catch (Exception $e)
     {
-        Data::Rollback();
-        
-        Log::Error($e->getMessage());
-        Core::$Crash = true;
-
         // FIXME Error.json
         echo $e->getMessage();
     }

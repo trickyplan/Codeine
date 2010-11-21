@@ -1,0 +1,51 @@
+{
+    "Info":
+    {
+        "Name":"Codeine Site",
+        "Version":"5.0"
+    },
+    "Options":
+        {
+            "Core":
+            {
+                "TrustHost":    "127.0.0.1",
+                "Profiling":    0,
+                "MemLeaks":     false,
+                "AllowDirectCall": true,
+                "FatalCatch":   true,
+                "Registration": "Open",
+                "Start": {
+                    "F": "Controller/Start/Start"
+                }
+            },
+            "Log":
+            {
+                "Writers":
+                {
+                    "Default":
+                    {
+                        "Driver": "Echo",
+                        "Verbose": 10
+                    }
+                }
+            }
+        },
+    "Engines":
+        {
+            "Application":    "Sigma",
+            "Access":         "Piranha",
+            "Client":         "Dummy",
+            "Code":           "XM500",
+            "Core":           "MicroCore",
+            "Collection":     "Palladium",
+            "Data":           "E9",
+            "Event":          "Eve",
+            "Form":           "Formalin",
+            "Log":            "Dummy",
+            "View":           "D8",
+            "Object":         "Iridium",
+            "Server":         "Spark",
+            "Profiler":       "Sentinel",
+            "Message":        "RedCoast"
+        }
+}

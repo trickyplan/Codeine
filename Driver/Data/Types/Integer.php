@@ -1,16 +1,16 @@
 <?php
 
-function F_Integer_Validate($Args)
-{
-    return is_integer((int) $Args['Value']);
-}
+    $Validate = function ($Args)
+    {  
+        return is_integer($Args['Value']);
+    };
 
-function F_Integer_Input($Args)
-{
-    return $Args['Value'];
-}
+    $Input = function ($Args)
+    {
+        return $Args['Value'];
+    };
 
-function F_Integer_Output($Args)
-{
-    return $Args['Value'];
-}
+    $Output = function ($Args)
+    {
+        return $Args['Value'];
+    };

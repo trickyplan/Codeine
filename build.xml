@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="Codeine" default="build">
+
+    <!-- ============================================  -->
+    <!-- Target: prepare                               -->
+    <!-- ============================================  -->
+    <target name="prepare">
+        <echo msg="Making directory ./build" />
+        <mkdir dir="./build" />
+    </target>
+
+    <target name="validate">
+        <echo msg="Checking syntax..." />
+        <phplint haltonfailure="true" deprecatedAsError="true">
+          <fileset dir=".">
+            <include name="**/*.php"/>
+          </fileset>
+        </phplint>
+    </target>
+
+
+
+    <!-- ============================================  -->
+    <!-- Target: build                                 -->
+    <!-- ============================================  -->
+    <target name="build" depends="validate">
+        
+        <echo msg="Analyze code..." />
+        <exec command="phploc * > loc.log" escape="false" />
+
+    </target>
+</project>

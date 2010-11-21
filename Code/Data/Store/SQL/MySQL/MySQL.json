@@ -1,0 +1,66 @@
+{
+    "Connect":
+    {
+        "Remote": false,
+        "Cache": false,
+        "Deferred": false,
+        "Driver":{
+            "Default": "Procedure"
+        },
+        "Foreign": {},
+        "Hook":
+        {
+            "Before": [],
+            "After": []
+        },
+        "Arguments":
+        {
+            "Data":
+            {
+                "Required": true
+            }
+        },
+        "Return":
+        {
+            "Fallback": null
+        },
+        "Profiling":
+        {
+            "Coverage": 0,
+            "Red": 0,
+            "Yellow": 0,
+            "Green": 0
+        },
+        "Test": {}
+    },
+    "Read":
+    {
+        "Remote": false,
+        "Cache": false,
+        "Deferred": false,
+        "Driver":{
+            "Default": "Procedure"
+        },
+        "Foreign": {},
+        "Hook":
+        {
+            "Before": [],
+            "After": []
+        },
+        "Arguments":
+        {
+        },
+        "Return":
+        {
+            "Fallback": null
+        },
+        "Profiling":
+        {
+            "Coverage": 0,
+            "Red": 0,
+            "Yellow": 0,
+            "Green": 0
+        },
+        "Test": {}
+    }
+}

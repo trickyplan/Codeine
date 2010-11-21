@@ -4,7 +4,7 @@
  * Iridium ORM Class
  */
 
-class Object
+    class Object
     {
         public  $Point;
 

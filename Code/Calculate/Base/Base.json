@@ -1,0 +1,60 @@
+{
+    "SquareRoot":
+    {
+        "Remote": false,
+        "Cache": false,
+        "Deferred": false,
+        "Driver":
+        {
+            "Default":"BC",
+            "Highload": "Standart",
+            "Fallback": "Standart"
+        },
+        "Foreign":
+        {
+            
+        },
+        "Hook":
+        {
+
+        },
+        "Arguments":
+        {
+            "Value":
+            {
+                "Type":"Integer",
+                "Min": 0,
+                "Required": true,
+                "Condition": "Numeric/Positive"
+            }
+        },
+        "Return":
+        {
+            "Condition": "Numeric/Positive",
+            "Fallback": null
+        },
+        "Profiling":
+        {
+            "Coverage": 0.01,
+            "Red": 1,
+            "Yellow": 0.5,
+            "Green": 0.01
+        },
+        "Test":
+        {
+            "SuiteOne":
+            {
+                "Arguments":
+                {
+                    "Value": 9
+                },
+                "Return":
+                {
+                    "Condition": "Numeric/Positive"
+                },
+                "Success": true
+            }
+
+        }
+    }
+}

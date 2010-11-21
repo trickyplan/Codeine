@@ -1,151 +1,59 @@
 <?php
 
-    class WTF extends Exception
+    include 'Component.php';
+    include 'WTF.php';
+    
+    class Core extends Component
     {
-        function Log()
-        {
-            Log::Error($this->getMessage());
-        }
-
-        function Panic()
-        {
-            Core::$Crash = true;
-            die ('<div style="text-align: center;padding: 4px; color: #FFF; background-color: #900;">Kernel panic:  '.$this->getMessage().'</div>');
-        }
-    }
-
-    class Core
-    {
-        public static $StartTime;
-        public static $Conf  = array();
-        public static $Crash = false;
-
-        private static function _Server ()
-        {
-            if (isset($_SERVER['SERVER_NAME']))
-                return $_SERVER['SERVER_NAME'];
-            else
-            {
-                if (isset($_SERVER['HTTP_HOST']))
-                    return $_SERVER['HTTP_HOST'];
-                else
-                    return 'localhost';
-            }
-        }
-
-        private static function _IP ()
-        {
-            if (isset($_SERVER['HTTP_X_REAL_IP']))
-                return $_SERVER['HTTP_X_REAL_IP'];
-            elseif (isset($_SERVER['REMOTE_ADDR']))
-                return $_SERVER['REMOTE_ADDR'];
-            else
-                return '127.0.0.1';
-        }
-
+        protected static $_Conf;
         public static function Load ($Core)
         {
-            if (isset(self::$Conf['Engines'][$Core]))
-            {
-                if (file_exists(Engine.'Core/'.$Core.'/'.self::$Conf['Engines'][$Core].'.php'))
-                    return include (Engine.'Core/'.$Core.'/'.self::$Conf['Engines'][$Core].'.php');
-                else
-                    return Log::Error('Kernel module not found');
-            }
+            if (substr($Core, 0,1) == 'I')
+                $Class = Engine.'/Interface/'.substr($Core,1).'.php';
+            elseif (isset(self::$_Conf['Engines'][$Core]))
+                $Class = Engine.'Core/'.$Core.'/'.self::$_Conf['Engines'][$Core].'.php';
             else
-                return Log::Error('Unknown kernel module');
-        }
+                throw new WTF('Unknown class '.$Core);
 
-        private static function _ConfWalk ($Engine, $Site = array())
+            if ((include($Class)) === false)
+                throw new WTF($Core.' not found');
+
+            if (substr($Core, 0,1) !== 'I')
             {
-                if (is_array($Site))
-                    foreach ($Site as $Key => $Value)
-                    {
-                        if (!isset($Engine[$Key]))
-                            $Engine[$Key] = array();
-
-                        if (is_array($Value))
-                            $Engine[$Key] = self::_ConfWalk($Engine[$Key],$Value);
-                        else
-                            $Engine[$Key] = $Value;
-                    }
-                else
-                    $Site = $Engine;
-
-                return $Engine;
+                call_user_func(array($Core, 'Initialize'));
+                register_shutdown_function($Core.'::Shutdown');
             }
 
-        public static function LoadConf()
-        {
-            if (file_exists(Engine.'Conf/Codeine.json'))
-            {
-                if (($EngineConf = json_decode(file_get_contents(Engine.'Conf/Codeine.json'), true))==null)
-                            throw new WTF('Engine configuration malformed. <a href="http://jsonlint.com/">Check JSON syntax</a>', 4049);
-            }
-            else
-                throw new WTF('Not found '.Engine.'Conf/'._Host.'.json', 4049);
-            
-            if (file_exists(Root.'Conf/'._Host.'.json'))
-            {
-                if (($SiteConf = json_decode(file_get_contents(Root.'Conf/'._Host.'.json'), true))==null)
-                    throw new WTF('Site configuration malformed. <a href="http://jsonlint.com/">Check JSON syntax</a>', 4049);
-            }
-            else
-                $SiteConf = array();
-
-            self::$Conf = self::_ConfWalk ($EngineConf, $SiteConf);
-            
             return true;
         }
 
         public static function Initialize()
-        {
-            self::$StartTime = microtime(true);
-
-            define ('_Host', $_SERVER['HTTP_HOST']);
-            define ('Host', 'http://'._Host.'/');
-
-            define ('_SERVER', self::_Server());
-            define ('_IP',     self::_IP());
-
-            define ('OBJSEP', '::');
-            define ('DS', DIRECTORY_SEPARATOR);
-
-            define ('Shared', 'Default');
-
-            define ('Engine', __DIR__.'/');
-            define ('EngineShared', __DIR__.'/Default/');
-
-            define ('Domain', implode('.',array_reverse(explode('.',_Host.'.'))));
-            
+        {           
             try
+            {
+                define ('DS', DIRECTORY_SEPARATOR);
+                define ('Engine', __DIR__.DS);
+
+                if (isset($_SERVER['HTTP_HOST']))
                 {
-                    self::LoadConf();
-
-                    if (isset(self::$Conf['Options']['Maintenance']) && self::$Conf['Options']['Maintenance'] == true)
-                    {
-                        readfile(Root.'Layout/Site/Maintenance.html');
-                        exit();
-                    }
-
-                    spl_autoload_register ('Core::Load');
-
-                    Profiler::Initialize ();
-
-                    Profiler::Go ('Core');
-
-                        Server::Initialize();
-                        Client::Initialize();
-
-                    Profiler::Stop ('Core');
-
+                    define ('Host', $_SERVER['HTTP_HOST']);
+                    define ('_Host', 'http://'.$_SERVER['HTTP_HOST'].'/');
+                }
+                else
+                {
+                    define ('Host', null);
+                    define ('_Host', null);
                 }
 
+                self::$_Conf = self::_Configure(__CLASS__);
+
+                spl_autoload_register ('Core::Load');
+                
+                return true;
+            }
             catch (WTF $e)
-                {
-                    $e->Panic();
-                }
+            {
+                $e->Panic();
+            }
         }
     }
-
-    Core::Initialize();

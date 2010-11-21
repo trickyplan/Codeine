@@ -1,0 +1,35 @@
+{
+    "Input":
+    {
+        "Remote": false,
+        "Cache": false,
+        "Deferred": false,
+        "Driver":{
+            "Default":
+            {
+                "F": "Meta/Strategy/InterfaceSelect/Select"
+            }
+        },
+        "Foreign": {},
+        "Hook":
+        {
+            "Before": [],
+            "After": []
+        },
+        "Arguments":
+        {
+        },
+        "Return":
+        {
+            "Fallback": null
+        },
+        "Profiling":
+        {
+            "Coverage": 0,
+            "Red": 0,
+            "Yellow": 0,
+            "Green": 0
+        },
+        "Test": {}
+    }
+}

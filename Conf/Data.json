@@ -1,0 +1,57 @@
+{
+    "Stores":
+    {
+        "MySQL":
+        {
+            "Type": "SQL/MySQL",
+            "Scheme": "Fluid",
+            "Username": "root",
+            "Password":"phoenix",
+            "Server":"localhost",
+            "Port":"3306",
+            "Database": "Codeine",
+            "Charset": "UTF-8"
+        },
+        "Static":
+        {
+            "Type": "PHP/Static",
+            "Scheme": "Native"
+        },
+        "Layout":
+        {
+            "Type": "File/Layout",
+            "DSN": "Layout"
+        }
+    },
+    "Points":
+    {
+        "Default": {"Store": "Static", "Scheme": "Native", "Scope": "Default"},
+        "Test":    {"Store": "MySQL",  "Scheme": "Fluid",  "Scope": "Test"},
+        "Layout":  {"Store": "Layout", "Scheme": "File",   "Scope": "Layout"}
+    },
+    "Shared":
+    {
+        "Engine": "/var/www/Codeine/Default"
+    },
+   "Includes":
+    {
+        "Zend": "/usr/share/php/libzend-framework-php/"
+    },
+   "Paths":
+    {
+        "Package":        "Package",
+        "Apps":           "Application",
+        "Fonts":          "Fonts",
+        "Model":          "Model",
+        "Icons":          "Images/Icons",
+        "Images":         "Images",
+        "Static":         "Static",
+        "Styles":         "Styles",
+        "Layout":         "Layout",
+        "Data":           "Data",
+        "Temp":           "Temp",
+        "Flash":          "Fl",
+        "JS":             "JS",
+        "CSS":            "CSS"
+    }
+}
