@@ -40,7 +40,7 @@
                 {
                     "Condition": "Numeric/Positive",
                     "Value": 3,
-                    "RelativeDeviation": 10
+                    "RelativeDeviation": 0.1
                 },
                 "Success": true
             }
