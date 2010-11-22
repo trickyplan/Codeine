@@ -11,20 +11,25 @@
      * @time 3:48
      */
 
-    $Render = function ($Call)
+    self::Fn('Render', function ($Call)
     {
         // Определить тип данных
 
         // Контроллер отдаёт набор UI компонентов
 
-        $Output = '';
+        $Layout = Data::Read(
+            'Layout',
+                array(
+                 'ID'=>'Main'));
 
-        if (is_array($Call['Body']['Items']))
-            foreach ($Call['Body']['Items'] as $Item)
+        $Output = '';
+        
+        if (is_array($Call['Input']['Items']))
+            foreach ($Call['Input']['Items'] as $Item)
                 $Output.= Code::Run(
-                    array('F'=>'View/UI/Process',
-                          'D'=>$Item ['UI'],
-                          'Item'=>$Item)
+                    array('F'=>'View/UI/Codeine/Make',
+                          'D' => $Item ['UI'],
+                          'Item'=> $Item)
                 );
 
         // Вытащить шаблоны
@@ -35,5 +40,6 @@
         // Постпроцессинг
         // Вернуть
 
+        $Output = str_replace('<content/>',$Output, $Layout);
         return $Output;
-    };
+    });

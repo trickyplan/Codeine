@@ -11,8 +11,7 @@
      * @time 3:27
      */
 
-
-    $Generate = function ($Call)
+    self::Fn('Generate', function ($Call)
     {
         $algos = mcrypt_list_algorithms();
         $modes = mcrypt_list_modes();
@@ -29,7 +28,7 @@
 
                 $Functions['Decrypt'.$mode] = 'return mcrypt_decrypt(MCRYPT_'.$algo2.', $Call[\'Key\'], $Call[\'Input\'], MCRYPT_MODE_'.$mode.');';
             }
-            
+
             file_put_contents(Engine.Data::Path('Code').'Process/Cipher/'.$algo.'.php', Code::Run(array(
                            'F' => 'Meta/Source/Driver/Generate',
                            'Description'=> $algo2.' MCrypt Wrapper',
@@ -37,5 +36,4 @@
                            'Functions' => $Functions
                       )));
         }
-        
-    };
+    });

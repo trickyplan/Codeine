@@ -3,15 +3,15 @@
     /* OSWA Codeine
      * @author BreathLess
      * @type Codeine Driver
-     * @description: HTTP Output
+     * @description: Standart MD5
      * @package Codeine
      * @subpackage Drivers
      * @version 0.1
-     * @date 16.11.10
-     * @time 3:40
+     * @date 22.11.10
+     * @time 4:40
      */
 
-    self::Fn('Output', function ($Call)
+    self::Fn('Get', function ($Call)
     {
-        echo $Call['Input'];
+        return md5($Call['Input']);
     });

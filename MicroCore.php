@@ -48,7 +48,8 @@
                 self::$_Conf = self::_Configure(__CLASS__);
 
                 spl_autoload_register ('Core::Load');
-                
+
+                Profiler::Initialize();
                 return true;
             }
             catch (WTF $e)

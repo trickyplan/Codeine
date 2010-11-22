@@ -1,28 +1,16 @@
 {
     "SquareRoot":
     {
-        "Remote": false,
-        "Cache": false,
-        "Deferred": false,
         "Driver":
         {
             "Default":"BC",
-            "Highload": "Standart",
-            "Fallback": "Standart"
-        },
-        "Foreign":
-        {
-            
-        },
-        "Hook":
-        {
-
+            "Highload": "Base",
+            "Fallback": "Base"
         },
         "Arguments":
         {
-            "Value":
+            "Input":
             {
-                "Type":"Integer",
                 "Min": 0,
                 "Required": true,
                 "Condition": "Numeric/Positive"
@@ -46,11 +34,13 @@
             {
                 "Arguments":
                 {
-                    "Value": 9
+                    "Input": 9
                 },
                 "Return":
                 {
-                    "Condition": "Numeric/Positive"
+                    "Condition": "Numeric/Positive",
+                    "Value": 3,
+                    "RelativeDeviation": 10
                 },
                 "Success": true
             }

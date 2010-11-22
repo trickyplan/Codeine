@@ -11,13 +11,14 @@
      * @time 5:33
      */
 
-    $Check = function ($Args)
+
+    self::Fn('Check', function ($Call)
     {
-        if (!isset($Args['Contract']['Condition']))
+        if (!isset($Call['Contract']['Condition']))
             return true;
         else
             return Code::Run(
-                array('F'=>'Conditions/Check',
-                      'D'=>$Args['Contract']['Condition'],
-                      'Value'=>$Args['Data']));
-    };
+                array('F' => 'Conditions/Check',
+                      'D' => $Call['Contract']['Condition'],
+                      'Value' => $Call['Data']));
+    });

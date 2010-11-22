@@ -11,22 +11,24 @@
      * @time 23:13
      */
 
-    $Show = function ($Call)
+    self::Fn('Show', function ($Call)
     {
-        Code::Run(array(
-                       'F' => 'Meta/Source/Generate/Generate',
-                       'D' => 'MCrypt',
-                       'Version' => '0.1',
-                       'Description' => 'Driver'
-                  ));
+        Code::Test(array('F'=>'Calculate/Base/SquareRoot'));
 
         Data::Mount ($Call['Entity']);
 
-        $Object['UI']  = 'Object'; // Form?
-        $Object['Entity'] = $Call['Entity'];
-        $Object['Plugin'] = $Call['Plugin'];
-        $Object['Data'] = Data::Read($Call['Entity'], array('I'=>$Call['ID'], 'K'=>'Key'));
+        $Call['Items'][] = array(
+            'UI'        => 'Block',
+            'Entity'    => $Call['Entity'],
+            'Plugin'    => $Call['Function'],
+            'Data'      => 'Hello from block'
+        );
 
-        $Call['Items'][0] = $Object;
+        $Call['Items'][] = array(
+            'UI'        => 'Object',
+            'Entity'    => $Call['Entity'],
+            'Plugin'    => $Call['Function'],
+            'Data'      => Data::Read($Call['Entity'], array('I'=>$Call['ID'], 'K'=>'Key'))
+        );
         return $Call;
-    };
+    });

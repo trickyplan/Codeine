@@ -11,12 +11,12 @@
      * @time 16:38
      */
 
-    $Detect = function ($Call)
+    self::Fn('Detect', function ($Call)
     {
         return isset($_SERVER['argv']);
-    };
+    });
 
-    $Input = function ($Call)
+    self::Fn('Input', function ($Call)
     {
         unset($_SERVER['argv'][0]);
         $Call = array();
@@ -26,6 +26,6 @@
             list($Key, $Value) = explode('=', $Var);
             $Call[$Key] = $Value;
         }
-        
+
         return $Call;
-    };
+    });

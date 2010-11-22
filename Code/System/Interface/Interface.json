@@ -19,10 +19,6 @@
         "Arguments":
         {
         },
-        "Return":
-        {
-            "Fallback": null
-        },
         "Profiling":
         {
             "Coverage": 0,

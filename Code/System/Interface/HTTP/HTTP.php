@@ -11,15 +11,15 @@
      * @time 16:37
      */
 
-    $Detect = function ($Call)
+    self::Fn('Detect', function ($Call)
     {
         return isset($_SERVER['REQUEST_URI']);
-    };
+    });
 
-    $Input = function ($Call)
+    self::Fn('Input', function ($Call)
     {
         if (isset($_SERVER['REQUEST_URI']))
             return $_SERVER['REQUEST_URI'];
         else
             return null;
-    };
+    });

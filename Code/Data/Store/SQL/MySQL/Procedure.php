@@ -11,18 +11,22 @@
      * @time 22:26
      */
 
-    $Connect = function ($Call)
+    self::Fn('Connect', function ($Call)
     {
-        $Link = mysql_connect($Call['Point']['Server'].':'.$Call['Point']['Port'], $Call['Point']['Username'], $Call['Point']['Password']);
+        $Link = mysql_connect(
+            $Call['Point']['Server'].':'.$Call['Point']['Port'],
+            $Call['Point']['Username'],
+            $Call['Point']['Password']);
 
         mysql_select_db($Call['Point']['Database'], $Link);
+        // FIXME WTF Add
 
         mysql_set_charset($Call['Point']['Charset'], $Link);
 
         return $Link;
-    };
+    });
 
-    $Read = function ($Call)
+    self::Fn('Read', function ($Call)
     {
         $QueryString = 'SELECT * FROM '.$Call['Point']['Scope'].' WHERE ';
 
@@ -39,4 +43,4 @@
 
 
         return mysql_fetch_assoc($Result);
-    };
+    });

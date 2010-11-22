@@ -3,15 +3,15 @@
     /* OSWA Codeine
      * @author BreathLess
      * @type Codeine Driver
-     * @description: HTTP Output
+     * @description: krumo wrapper
      * @package Codeine
      * @subpackage Drivers
      * @version 0.1
-     * @date 16.11.10
-     * @time 3:40
+     * @date 22.11.10
+     * @time 5:21
      */
 
-    self::Fn('Output', function ($Call)
+    self::Fn('Variable', function ($Call)
     {
-        echo $Call['Input'];
+        krumo($Call['Input']);
     });

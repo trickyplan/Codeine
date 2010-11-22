@@ -3,7 +3,7 @@
     /* OSWA Codeine
      * @author BreathLess
      * @type Codeine Driver
-     * @description: 
+     * @description: Object Templater Codeine
      * @package Codeine
      * @subpackage Drivers
      * @version 
@@ -11,13 +11,17 @@
      * @time 5:46
      */
 
-    $Process = function ($Call)
-    {      
+    self::Fn('Make', function ($Call)
+    {
         Data::Mount('Layout');
-        $Output = Data::Read('Layout', array('ID'=>'Objects/'.$Call['Item']['Entity'].'/'.$Call['Item']['Plugin']));
+        
+        $Output = Data::Read(
+            'Layout',
+                array(
+                 'ID'=>'Objects/'.$Call['Item']['Entity'].'/'.$Call['Item']['Plugin']));
 
         $Fusers = array('Key');
-        
+
         foreach ($Fusers as $Fuser)
             $Output = Code::Run(array(
                            'F' => 'View/Fusers/Fusion',
@@ -25,6 +29,6 @@
                            'Body' => $Output,
                            'Data' => $Call['Item']
                       ));
-        
+
         return $Output;
-    };
+    });

@@ -11,13 +11,15 @@
      * @time 1:40
      */
 
-    $Select = function ($Call)
+    self::Fn('Select', function ($Call)
     {
         $Interfaces = Code::GetInterfaces();
+
         foreach ($Interfaces as $Interface)
         {
             if (Code::Run(array('F'=>'System/Interface/'.$Interface.'/Detect')))
                 break;
         }
+        
         return $Interface.'/'.$Interface;
-    };
+    });

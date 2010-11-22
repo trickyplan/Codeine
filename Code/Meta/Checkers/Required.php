@@ -11,10 +11,11 @@
      * @time 5:31
      */
 
-    $Check = function ($Args)
-    {        
-        if (isset($Args['Contract']['Required']) && $Args['Contract']['Required'] && empty($Args['Data']))
+
+    self::Fn('Check', function ($Call)
+    {
+        if (isset($Call['Contract']['Required']) && $Call['Contract']['Required'] && empty($Call['Data']))
             return false;
         else
             return true;
-    };
+    });

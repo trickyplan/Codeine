@@ -1,0 +1,16 @@
+{
+    "Get":
+    {
+        "Arguments":
+        {
+            "Input":
+            {
+                "Required": true
+            }
+        },
+        "Return":
+        {
+            "Fallback": null
+        }
+    }
+}

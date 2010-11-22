@@ -11,27 +11,28 @@
      * @time 1:43
      */
 
-    $Add = function ($Args)
+    $Add = function ($Call)
     {
-        return $Args['A']+$Args['B'];
+        return $Call['A']+$Call['B'];
     };
 
-    $Substract = function ($Args)
+    $Substract = function ($Call)
     {
-        return $Args['A']-$Args['B'];
+        return $Call['A']-$Call['B'];
     };
 
-    $Multiply = function ($Args)
+    $Multiply = function ($Call)
     {
-        return $Args['A']*$Args['B'];
+        return $Call['A']*$Call['B'];
     };
 
-    $Divide = function ($Args)
+    $Divide = function ($Call)
     {
-        return $Args['A']/$Args['B'];
+        return $Call['A']/$Call['B'];
     };
 
-    $SquareRoot = function ($Args)
-    {        
-        return sqrt($Args['Value']);
-    };
+
+    self::Fn('SquareRoot', function ($Call)
+    {
+        return sqrt($Call['Input']);
+    });

@@ -11,56 +11,56 @@
      * @time 23:16
      */
 
-     $Route = function ($Call)
+     self::Fn('Route', function ($Call)
      {
-            $Query = '';
-            $Routed = array();
+        $Query = '';
+        $Routed = array();
 
-            $Call = explode ('/', mb_substr($Call['Call'],1));
+        $Call = explode ('/', mb_substr($Call['Call'],1));
 
-            // Context/Entity/Action/ID
-            switch (count($Call))
-            {
-                case 3:
-                    list (
-                            $Routed['Context'],
-                            $Routed['Entity'],
-                            $Routed['F']) = $Call;
-                break;
+        // Context/Entity/Action/ID
+        switch (count($Call))
+        {
+            case 3:
+                list (
+                        $Routed['Context'],
+                        $Routed['Entity'],
+                        $Routed['F']) = $Call;
+            break;
 
-                case 4:
-                    list (
-                            $Routed['Context'],
-                            $Routed['Entity'],
-                            $Routed['F'],
-                            $Routed['ID']) = $Call;
-                break;
+            case 4:
+                list (
+                        $Routed['Context'],
+                        $Routed['Entity'],
+                        $Routed['F'],
+                        $Routed['ID']) = $Call;
+            break;
 
-                case 5:
-                    list (
-                            $Routed['Context'],
-                            $Routed['Entity'],
-                            $Routed['F'],
-                            $Routed['ID'],
-                            $Routed['Mode']) = $Call;
-                break;
+            case 5:
+                list (
+                        $Routed['Context'],
+                        $Routed['Entity'],
+                        $Routed['F'],
+                        $Routed['ID'],
+                        $Routed['Mode']) = $Call;
+            break;
 
-                case 6:
-                    list (
-                            $Routed['Context'],
-                            $Routed['Entity'],
-                            $Routed['F'],
-                            $Routed['ID'],
-                            $Routed['Mode'],
-                            $Routed['Aspect']) = $Call;
-                break;
+            case 6:
+                list (
+                        $Routed['Context'],
+                        $Routed['Entity'],
+                        $Routed['F'],
+                        $Routed['ID'],
+                        $Routed['Mode'],
+                        $Routed['Aspect']) = $Call;
+            break;
 
-                default:
-                    $Routed = null;
-                break;
-            }
+            default:
+                $Routed = null;
+            break;
+        }
 
-          $Routed['F'] = 'Controller/'.$Routed['F'].'/'.$Routed['F'];
+      $Routed['F'] = 'Controller/'.$Routed['F'].'/'.$Routed['F'];
 
-          return $Routed;
-      };
+      return $Routed;
+    });

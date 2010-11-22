@@ -11,28 +11,28 @@
      * @time 5:37
      */
 
-    $Connect = function ($Call)
+    self::Fn('Connect', function ($Call)
     {
         if (isset($Call['Point']['DSN']))
             return $Call['Point']['DSN'];
         else
             return 'Default';
-    };
+    });
 
-    $Read = function($Call)
+    self::Fn('Read', function ($Call)
     {
         if (!is_array ($Call['Data']['ID']))
             $IDs = array ($Call['Data']['ID']);
         else
             $IDs = $Call['Data']['ID'];
-            
+
         $Layout = '';
         $Candidates = array();
 
         $SZC = count($IDs);
 
         $IC = 0;
-    
+
         for ($a = 0; $a<$SZC; $a++)
             {
                 $Candidates[$IC++] = Root.$Call['Point']['Scope'].DS.$IDs[$a].'.html';
@@ -46,4 +46,4 @@
         }
 
         return '<content/>';
-    };
+    });

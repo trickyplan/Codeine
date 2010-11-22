@@ -9,20 +9,25 @@
         if (!defined('Root'))
             define('Root', __DIR__);
 
-        $Call = Code::Run(array(
-                               'F' => 'System/Interface/Input'
-                          ));
+        Code::Hook('Front', 'beforeStart');
 
-        Code::Run(
-            array('F'    => 'System/Output/Output',
-                  'D' => 'HTTP',
-                  'Output' => Code::Run(
-                                array('F'    => 'View/Render/Render',
-                                      'D' => 'Codeine',
-                                      'Body' =>
-                                            Code::Run($Call)))
-                 ));
-        
+        Profiler::MemFrom('Front');
+
+        Code::Chain(
+                Code::Run(array('F' => 'System/Interface/Input')),
+                    array(
+                        array('F'    => 'View/Render/Render',
+                              'D' => 'Codeine'),
+                        array('F'    => 'System/Output/Output',
+                              'D' => 'HTTP')
+                        )
+                );
+
+        Profiler::MemTo('Front');
+
+        Code::Hook('Front', 'afterStart');
+
+        var_dump(Profiler::Output());
     }
     catch (Exception $e)
     {

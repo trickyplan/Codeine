@@ -36,6 +36,7 @@
         public static function Mount($Point)
         {
             self::Connect(self::_Point2Storage($Point));
+            return self::$_Points[$Point] = $Point;
         }
 
         public static function Unmount()
@@ -73,8 +74,12 @@
                       ));
         }
 
+        // TODO $Call analogue
         public static function Read($Point, $Where)
         {
+            if (!isset(self::$_Points[$Point]))
+                self::Mount($Point);
+            
             $Store = self::_Point2Storage($Point);
             return Code::Run(array(
                            'F' => 'Data/Store/'.self::$_Conf['Stores'][$Store]['Type'].'/Read',

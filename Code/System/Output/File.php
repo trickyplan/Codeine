@@ -13,5 +13,5 @@
 
     $Output = function ($Call)
     {
-        return file_put_contents($Call['Call'], $Call['Output']);
+        return file_put_contents($Call['Call'], $Call['Input']);
     };

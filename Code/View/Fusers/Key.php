@@ -11,15 +11,15 @@
      * @time 5:51
      */
 
-    $Fusion = function ($Call)
+    self::Fn('Fusion', function ($Call)
     {
         if (preg_match_all('@<k>(.*)</k>@SsUu', $Call['Body'], $Pockets))
             foreach ($Pockets[0] as $IX => $Match)
             {
                 $Key = $Pockets[1][$IX];
                 $Value = $Call['Data']['Data'][$Key];
-                $Call['Body'] = str_replace($Match, $Value , $Call['Body']);
+                $Call['Input'] = str_replace($Match, $Value , $Call['Body']);
             }
-// FIXME Multikeys, isset?
-        return $Call['Body'];
-    };
+        // FIXME Multikeys, isset?
+        return $Call['Input'];
+    });
