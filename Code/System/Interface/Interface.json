@@ -7,7 +7,7 @@
         "Driver":{
             "Default":
             {
-                "F": "Meta/Strategy/InterfaceSelect/Select"
+                "F": "Code/Strategy/InterfaceSelect/Select"
             }
         },
         "Profiling":

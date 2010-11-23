@@ -48,7 +48,7 @@
                         "Type": "Enum",
                         "Data": ["Natural", "Errative", "Obscene", "Artificial"]
                     },
-                "Set": "Meta"
+                "Set": "Code"
             }
     }
 }

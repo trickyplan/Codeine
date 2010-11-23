@@ -13,8 +13,14 @@
 
     self::Fn('Show', function ($Call)
     {
-        var_dump(Code::Run(
-            array('F' => 'Process/Hash/Get', 'Input' => 'dd','D'=>'MD5')));
+        Data::Create(array(
+                          'Point' => 'Redis',
+                          'ID'=>'Test',
+                          'Data' => uniqid()
+                     ));
+
+        var_dump(Core::Any(
+            array('Point' => 'Redis', 'Where' => array('ID'=>'Test'))));
         ;
 
 

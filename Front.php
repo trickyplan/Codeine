@@ -1,6 +1,6 @@
 <?php
 
-    include 'MicroCore.php';
+    include 'Core.php';
 
     Core::Initialize();
 

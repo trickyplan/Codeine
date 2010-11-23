@@ -6,6 +6,7 @@
     class Core extends Component
     {
         protected static $_Conf;
+        
         public static function Load ($Core)
         {
             if (substr($Core, 0,1) == 'I')
@@ -56,5 +57,15 @@
             {
                 $e->Panic();
             }
+        }
+
+        public static function Any($Variable)
+        {
+            if (Code::isValidCall($Variable))
+                return Code::Run($Variable);
+            elseif (Data::isValidCall($Variable))
+                return Data::Read($Variable);
+            else
+                return $Variable;
         }
     }

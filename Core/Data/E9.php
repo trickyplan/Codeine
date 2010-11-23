@@ -57,6 +57,33 @@
             return self::$_Stores[$Store];
         }
 
+        protected static function _Route ($Call)
+        {
+            // Для каждого определенного роутера...
+            foreach (self::$_Conf['Routers'] as $Router)
+            {
+                // Пробуем роутер из списка...
+                $NewCall = Code::Run(
+                    array(
+                        'F'=> 'Data/Routers/'.$Router.'/Route',
+                        'Input' => $Call
+                    ), Code::Internal
+                );
+
+                // Если что-то получилось, то выходим из перебора
+                if (self::isValidCall($NewCall))
+                    break;
+            }
+
+            // Если хоть один роутер вернул результат...
+            if ($NewCall !== null)
+                $Call = $NewCall;
+            else
+                throw new WTF('404 Data Router');
+
+            return $Call;
+        }
+
         public static function Disconnect($Store)
         {
             return Code::Run(array(
@@ -67,16 +94,8 @@
 
         protected static function _CRUD($Method, $Call)
         {
-            if (!is_array($Call))
-                foreach (self::$_Conf['Routers'] as $Router)
-                    if (($Output = Code::Run(array(
-                                   'F' => 'Data/Routers/'.$Router.'/Route',
-                                   'Input' => $Call
-                              ))) !== null)
-                    {
-                        $Call = $Output;
-                        break;
-                    }
+            if (!self::isValidCall($Call))
+                $Call = self::_Route($Call);
 
             if (!isset(self::$_Points[$Call['Point']]))
                 self::Mount($Call['Point']);
@@ -155,5 +174,10 @@
                 return self::$_Conf['Paths'][$Key].'/';
             else
                 return $Key.'/';
+        }
+
+        public static function isValidCall($Call)
+        {
+            return (is_array($Call) && isset($Call['Point']));
         }
     }

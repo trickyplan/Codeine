@@ -19,8 +19,10 @@
 
         $Layout = Data::Read(
                 array(
-                     'Point'=>'Layout',
-                     'ID'=>'Main'));
+                    'Point' => 'Layout',
+                    'Where' =>
+                        array(
+                            'ID'=>'Main')));
 
         $Output = '';
         

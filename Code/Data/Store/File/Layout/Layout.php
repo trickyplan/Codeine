@@ -21,10 +21,10 @@
 
     self::Fn('Read', function ($Call)
     {
-        if (!is_array ($Call['Data']['ID']))
-            $IDs = array ($Call['Data']['ID']);
+        if (!is_array ($Call['Data']['Where']['ID']))
+            $IDs = array ($Call['Data']['Where']['ID']);
         else
-            $IDs = $Call['Data']['ID'];
+            $IDs = $Call['Data']['Where']['ID'];
 
         $Layout = '';
         $Candidates = array();

@@ -17,8 +17,10 @@
         
         $Output = Data::Read(
                 array(
-                     'Point' => 'Layout',
-                     'ID'=>'Objects/'.$Call['Item']['Entity'].'/'.$Call['Item']['Plugin']));
+                    'Point' => 'Layout',
+                    'Where' =>
+                        array(
+                            'ID'=>'Objects/'.$Call['Item']['Entity'].'/'.$Call['Item']['Plugin'])));
 
         $Fusers = array('Key');
 

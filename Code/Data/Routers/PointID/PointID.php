@@ -13,7 +13,7 @@
 
     self::Fn('Route', function ($Call)
     {
-        if (mb_strpos($Call['Input'],'::'))
+        if (is_string ($Call['Input']) && mb_strpos($Call['Input'],'::'))
         {
             $Output = array('Where' => array());
             list($Output['Point'], $Output['Where']['ID']) = explode('::',$Call['Input']);

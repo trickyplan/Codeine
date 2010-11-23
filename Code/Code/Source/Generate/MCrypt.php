@@ -30,7 +30,7 @@
             }
 
             file_put_contents(Engine.Data::Path('Code').'Process/Cipher/'.$algo.'.php', Code::Run(array(
-                           'F' => 'Meta/Source/Driver/Generate',
+                           'F' => 'Code/Source/Driver/Generate',
                            'Description'=> $algo2.' MCrypt Wrapper',
                            'Version' => '0.1',
                            'Functions' => $Functions

@@ -67,20 +67,6 @@
         }
 
         /**
-         * @description Если аргумент является вызовом, возвращает результат его исполнения. Если аргумент - переменная, то возвращает её.
-         * @static
-         * @param  $Call
-         * @return mixed
-         */
-        public static function CallOrValue($Call)
-        {
-            if (self::isValidCall($Call))
-                return self::Run($Call,Code::Internal);
-            else
-                return $Call;
-        }
-
-        /**
          * @description Проверяет, является ли аргумент корректным вызовом.
          * @static
          * @param  $Call
@@ -149,7 +135,7 @@
                 // Пробуем роутер из списка...
                 $NewCall = Code::Run(
                     array(
-                        'F'=> 'System/Route/Route',
+                        'F'=> 'Code/Routers/Route',
                         'D'=> $Router,
                         'Call' => $Call
                     ), Code::Internal
@@ -164,7 +150,7 @@
             if ($NewCall !== null)
                 $Call = $NewCall;
             else
-                throw new WTF('404 Router');
+                throw new WTF('404 Code Router');
 
             return $Call;
         }
@@ -289,7 +275,7 @@
             if ($Runner !== null)
                 return self::Run(
                     array(
-                         'F' => 'Meta/Runners/'.$Runner.'/Run',
+                         'F' => 'Code/Runners/'.$Runner.'/Run',
                          'Call' => $Call,
                          'Mode' => $Mode
                           ), $Mode);
@@ -297,7 +283,7 @@
             if ($Executor !== null)
                 return self::Run(
                     array(
-                         'F' => 'Meta/Executors/'.$Executor.'/Run',
+                         'F' => 'Code/Executors/'.$Executor.'/Run',
                          'Call' => $Call,
                          'Mode' => $Mode
                           ), $Mode);
@@ -338,9 +324,11 @@
             }
 
             // Выбираем драйвер
+
             $Call = self::_DetermineDriver($Contract, $Call);
 
             // Фильтрация аргументов
+            
             $Call = self::_FilterCall($Contract, $Call);
             
             // Проверка аргументов
@@ -382,7 +370,7 @@
 
             if ($Return instanceof WTF || self::_CheckReturn($Contract, $Return) instanceof WTF)
                 if (isset($Contract['Return']['Fallback']))
-                    $Return = self::CallOrValue($Contract['Return']['Fallback']);
+                    $Return = Core::Any($Contract['Return']['Fallback']);
 
             if ($Mode !== Code::Internal)
                 self::Hook(__CLASS__,
@@ -474,7 +462,7 @@
             {
                 $Decisions[$Checker] = Code::Run (
                     array(
-                         'F'=>'Meta/Checkers/Check',
+                         'F'=>'Code/Checkers/Check',
                          'D'=>$Checker,
                          'Data'=>$Data,
                          'Contract'=>$Contract), Code::Internal);
@@ -497,7 +485,7 @@
         {
             if (isset($Contract[$Key]))
                 {
-                    $Contract[$Key] = self::CallOrValue($Contract[$Key]);
+                    $Contract[$Key] = Core::Any($Contract[$Key]);
                     return $Contract[$Key];
                 }
             
@@ -518,13 +506,13 @@
                     else
                         $Call['D'] = $Contract['Driver']['Default'];
 
-                    $Call['D'] = self::CallOrValue($Call['D']);
+                    $Call['D'] = Core::Any($Call['D']);
                 }
                 else
                     $Call['D'] = $Call['Group'];
             }
             else
-                $Call['D'] = self::CallOrValue($Call['D']);
+                $Call['D'] = Core::Any($Call['D']);
 
             return $Call;
         }
