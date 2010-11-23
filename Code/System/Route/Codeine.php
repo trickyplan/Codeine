@@ -16,6 +16,8 @@
         $Query = '';
         $Routed = array();
 
+        if (!is_string($Call['Call']))
+            return $Call;
         $Call = explode ('/', mb_substr($Call['Call'],1));
 
         // Context/Entity/Action/ID

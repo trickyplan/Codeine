@@ -1,4 +1,5 @@
 {
+    "Routers": ["PointID"],
     "Stores":
     {
         "MySQL":
@@ -21,13 +22,34 @@
         {
             "Type": "File/Layout",
             "DSN": "Layout"
+        },
+        "FS":
+        {
+            "Type": "File/Cascade",
+            "DSN": "Default"
+        },
+        "Temp":
+        {
+            "Type": "File/Flat",
+            "DSN": "/Temp"
+        },
+        "Redis":
+        {
+            "Type": "KeyValue/Redis"
         }
     },
     "Points":
     {
         "Default": {"Store": "Static", "Scheme": "Native", "Scope": "Default"},
         "Test":    {"Store": "MySQL",  "Scheme": "Fluid",  "Scope": "Test"},
-        "Layout":  {"Store": "Layout", "Scheme": "File",   "Scope": "Layout"}
+        "Layout":  {"Store": "Layout", "Scheme": "File",   "Scope": "Layout"},
+        "FS":      {"Store": "FS",     "Scheme": "File",   "Scope": ""},
+        "JS":      {"Store": "FS",     "Scheme": "File",   "Scope": "JS"},
+        "CSS":     {"Store": "FS",     "Scheme": "File",   "Scope": "CSS"},
+        "TempCSS": {"Store": "Temp",   "Scheme": "File",   "Scope": "CSS"},
+        "TempJS":  {"Store": "Temp",   "Scheme": "File",   "Scope": "JS"},
+        "Redis":   {"Store": "Redis",  "Scheme": "KeyValue", "Scope": "Redis"},
+        "CodeCache": {"Store": "Redis", "Scheme": "KeyValue", "Scope": "Code"}
     },
     "Shared":
     {

@@ -62,5 +62,9 @@
             "Green": 0
         },
         "Test": {}
+    },
+    "Version":
+    {
+        "Alias": "Store/Prototype/Version"
     }
 }

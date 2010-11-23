@@ -18,9 +18,9 @@
         // Контроллер отдаёт набор UI компонентов
 
         $Layout = Data::Read(
-            'Layout',
                 array(
-                 'ID'=>'Main'));
+                     'Point'=>'Layout',
+                     'ID'=>'Main'));
 
         $Output = '';
         
@@ -34,12 +34,19 @@
 
         // Вытащить шаблоны
 
-
-
         // Профьюзить
         // Постпроцессинг
         // Вернуть
 
         $Output = str_replace('<content/>',$Output, $Layout);
+
+        $Processors = array('Media'); // FIXME!!
+
+        foreach ($Processors as $Processor)
+                $Output = Code::Run(
+                    array('F'=>'View/Processors/'.$Processor.'/Process',
+                          'Body'=> $Output)
+                );
+
         return $Output;
     });

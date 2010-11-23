@@ -14,6 +14,8 @@
     class Code extends Component
     {
         const Internal = true;
+        const Normal = 0;
+        
         protected static $_Conf;
         protected static $_Hooks;
         protected static $_Contracts = array();
@@ -29,10 +31,14 @@
             return self::$_Conf['Interfaces'];
         }
 
-        public static function Hook ($Class, $Event)
+        public static function Hook ($Class, $Event, $Data = array())
         {
             if (isset(self::$_Hooks[$Class][$Event]))
-                return Code::Multi(self::$_Hooks[$Class][$Event]);
+                return Code::Run(
+                    array(
+                         'Calls' => self::$_Hooks[$Class][$Event],
+                         'Data'  => $Data
+                    ), Code::Internal, 'Feed');
             else
                 return null;
         }
@@ -245,13 +251,15 @@
                 break;
 
                 default:
-                    throw new WTF('Unknow Engine '.$Contract['Engine']);
+                    throw new WTF('Unknown Engine '.$Contract['Engine']);
                 break;
             }
         }
 
         protected static function _Do($Call)
         {
+            $F = 'var_dump';
+            
             try
             {
                 $F = self::Fn($Call['Function']);
@@ -274,15 +282,33 @@
          * @return mixed $Result - результат
          */
         
-        public static function Run ($Call, $Mode = false)
+        public static function Run ($Call, $Mode = Code::Normal, $Runner = null, $Executor = null)
         {
             $Return = null;
 
+            if ($Runner !== null)
+                return self::Run(
+                    array(
+                         'F' => 'Meta/Runners/'.$Runner.'/Run',
+                         'Call' => $Call,
+                         'Mode' => $Mode
+                          ), $Mode);
+
+            if ($Executor !== null)
+                return self::Run(
+                    array(
+                         'F' => 'Meta/Executors/'.$Executor.'/Run',
+                         'Call' => $Call,
+                         'Mode' => $Mode
+                          ), $Mode);
+
             // Проверка на псевдонимы. Псевдонимы проверяются при определении.
+
             if (is_string($Call) && isset(self::$_Aliases[$Call]))
                 $Call = self::$_Aliases[$Call];
             elseif (!self::isValidCall($Call))
                 $Call = self::_Route($Call);
+
             // Если передан не готовый объект запроса, а что-то иное, вызываем роутинг.
 
             // Запоминание вызова
@@ -295,13 +321,21 @@
             // Загружаем контракт
             $Contract = self::_LoadContract($Call);
 
-            // Закешировано?
-            if (($Cached = self::_CacheBefore($Contract, $Call)) !== null)
-                return $Cached;
+            if ($Mode !== Code::Internal)
+            {
+                self::Hook(__CLASS__,
+                       'beforeRun',
+                       array(
+                            'Contract'  => $Contract,
+                            'Call'      => $Call));
 
-            // Если отложенный вызов, возвращаемся сразу.
-            if (self::_isDeferred($Call))
-                return Code::Defer($Call);
+                // Если отложенный вызов, возвращаемся сразу.
+                if (self::_is('Deferred', $Contract))
+                    return Code::Run($Call, Code::Internal, $Runner, 'Deferred');
+
+                if (self::_is('Cache', $Contract))
+                    return Code::Run($Call, Code::Internal, $Runner, 'Cache');
+            }
 
             // Выбираем драйвер
             $Call = self::_DetermineDriver($Contract, $Call);
@@ -313,8 +347,9 @@
             self::_CheckCall($Contract, $Call);
 
             // Хуки
+            
             if (isset($Contract['Hook']['Before']))
-                self::Multi($Contract['Hook']['Before'], Code::Internal);
+                self::Run($Contract['Hook']['Before'], Code::Internal, 'Multi');
 
             // Устанавливаем текущее пространство имён
             self::SetNamespace($Call['Namespace'], $Call['D']);
@@ -325,19 +360,37 @@
 
             $Return = self::_Do($Call);
 
+            // Режим экономии
+            if (isset($Contract['EconomyMode']) && $Contract['EconomyMode'])
+                self::Fn($Call['Function'], null);
+
             // Хуки
             if (isset($Contract['Hook']['After']))
-                self::Multi($Contract['Hook']['After'], Code::Internal);
+                self::Run($Contract['Hook']['After'], Code::Internal, 'Multi');
 
             // Коллбеки
             if (isset($Contract['Return']['Call']) && $Contract['Return']['Call'])
                 $Return = self::Run($Return);
 
             // Проверка результата
-            self::_CheckReturn($Contract, $Return);
 
-            // Кеширование
-            self::_CacheAfter($Contract, $Call, $Return);
+            if (isset($Contract['Return']['Filter']))
+                $Return = self::Run(
+                        array(
+                             'Calls' => array_merge($Return, $Contract['Return']['Filter'])), Code::Internal,
+                        'Chain');
+
+            if ($Return instanceof WTF || self::_CheckReturn($Contract, $Return) instanceof WTF)
+                if (isset($Contract['Return']['Fallback']))
+                    $Return = self::CallOrValue($Contract['Return']['Fallback']);
+
+            if ($Mode !== Code::Internal)
+                self::Hook(__CLASS__,
+                       'afterRun',
+                       array(
+                            'Contract'  => $Contract,
+                            'Call'      => $Call,
+                            'Return'    => $Return));
 
             return $Return;
         }
@@ -345,39 +398,23 @@
         public static function LastCall($Call = array(), $Mode = null)
         {
             if (null !== self::$_LastCall)
+            {
+                $Call['Repeated'] = true;
                 return self::Run(self::ConfWalk(self::$_LastCall, $Call), $Mode);
+            }
+            else
+                return null;
         }
 
         public static function Dump($Call, $Driver = null)
         {
-            return self::Chain($Call,
-                array(array('F' => 'System/Dump/Variable')));
-        }
-
-        public static function Revolver ($Call, $Key, $Values, $Mode)
-        {
-            $Output = array();
-
-            foreach ($Values as $Value)
-                $Output[$Value] = self::Run(self::ConfWalk($Call, array($Key => $Value)), $Mode);
-
-            return $Output;
-        }
-
-        public static function Batch ($Call, $Sets, $Mode = null)
-        {
-            $Output = array();
-            
-            foreach ($Sets as $IX => $Set)
-                $Output[$IX] = self::Run(self::ConfWalk($Call, $Set), $Mode);
-
-            return $Output;
-        }
-
-        public static function Defer ($Call)
-        {
-            // TODO: Deffered run
-            return null;
+            return self::Run(
+                array(
+                     'Calls' => array(
+                         $Call,
+                         array(
+                             'F' => 'System/Dump/Variable'
+                              ))), false, 'Chain');
         }
 
         /**
@@ -388,38 +425,12 @@
          * @param  $Alias
          * @return
          */
-        public static function Alias ($Call, $Alias)
+        public static function Alias ($Call, string $Alias)
         {
             if (self::isValidCall($Call))
                 return self::$_Aliases[$Alias] = $Call;
             else
                 throw new WTF('Invalid Call');
-        }
-
-        public static function Chain($FirstCall, $Calls, $Mode = false)
-        {
-            $Result = self::Run($FirstCall);
-
-            foreach ($Calls as $Call)
-            {
-                $Call['Input'] = $Result;
-                $Result = Code::Run($Call, $Mode);
-            }
-
-            return $Result;
-        }
-
-        public static function Multi($Calls, $Mode = false)
-        {
-            $Result = array();
-
-            if (is_array($Calls))
-                foreach ($Calls as $Index => $Call)
-                    $Result[$Index] = Code::Run($Call, false);
-                else
-                    $Result = null;
-
-            return $Result;
         }
 
         public static function Test ($Call, $Suite = null)
@@ -478,47 +489,18 @@
         protected static function _CheckReturn($Contract, $Result)
         {
             if (isset($Contract['Return']))
-            {
-                if (isset($Contract['Return']['Filter']))
-                    $Result = self::Chain($Result, $Contract['Return']['Filter'], Code::Internal);
-
                 if (!self::_Check($Result, $Contract['Return']))
+                    return new WTF('Wrong return');
+        }
+
+        protected static function _is($Key, $Contract)
+        {
+            if (isset($Contract[$Key]))
                 {
-                    if (isset($Contract['Return']['Fallback']))
-                        $Result = self::CallOrValue($Contract['Return']['Fallback']);
-                    else
-                        throw new WTF('Wrong return');
+                    $Contract[$Key] = self::CallOrValue($Contract[$Key]);
+                    return $Contract[$Key];
                 }
-            }
-        }
-
-        protected static function _CacheBefore($Contract, $Call)
-        {
-            // Кэширование
-            if (isset($Contract['Cache']))
-            {
-                $Contract['Cache'] = self::CallOrValue($Contract['Cache']);
-                if ($Contract['Cache'] and (($Cached = self::_CacheGet($Call)) != null))
-                    return $Cached;
-            }
-
-            return null;
-        }
-
-        protected static function _CacheAfter($Contract, $Call, $Result)
-        {
-            if ($Contract['Cache'])
-                self::_CacheSet($Call, $Result);
-        }
-
-        protected static function _isDeferred($Contract)
-        {
-            if (isset($Contract['Deferred']))
-                {
-                    $Contract['Deferred'] = self::CallOrValue($Contract['Deferred']);
-                    if ($Contract['Deferred'])
-                        return true;
-                }
+            
             return false;
         }
 
@@ -554,9 +536,12 @@
                 {
                     if (isset($ContractNode['Filter']))
                         if (!isset($Call[$Name]))
-                            $Call[$Name] = self::Chain($Call[$Name], $ContractNode['Filter'],
-                                Code::Internal);
+                            $Call[$Name] = self::Run(
+                                    array(
+                                         'Calls' => array_merge($Call[$Name], $ContractNode['Filter'])),
+                                Code::Internal, 'Chain');
                 }
+            
             return $Call;
         }
 
@@ -571,15 +556,5 @@
                     else
                         self::_Check($Call[$Name], $ContractNode);
                 }
-        }
-
-        protected static function _CacheGet($Call)
-        {
-
-        }
-
-        protected static function _CacheSet($Call, $Value)
-        {
-
         }
     }

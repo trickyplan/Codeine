@@ -13,11 +13,11 @@
 
     $Decode = function ($Call)
     {
-        return json_decode($Call['Value']);
+        return json_decode($Call['Input']);
     };
 
     $Encode = function ($Call)
     {
-        return json_encode($Call['Value']);
+        return json_encode($Call['Inpu']);
     };
 

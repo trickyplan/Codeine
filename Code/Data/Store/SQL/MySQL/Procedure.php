@@ -30,17 +30,14 @@
     {
         $QueryString = 'SELECT * FROM '.$Call['Point']['Scope'].' WHERE ';
 
-        foreach ($Call['Data'] as $Key => $Value)
+        foreach ($Call['Data']['Where'] as $Key => $Value)
             $Query[] = '`'.mysql_real_escape_string($Key, $Call['Store'])
                       .'` = "'.mysql_real_escape_string($Value, $Call['Store']).'"';
 
         $QueryString.= implode (' AND ', $Query);
 
-        // var_dump($QueryString);
-
         if (!($Result = mysql_query($QueryString, $Call['Store'])))
             throw new WTF($QueryString.'<br/>'.mysql_error($Call['Store']));
-
 
         return mysql_fetch_assoc($Result);
     });

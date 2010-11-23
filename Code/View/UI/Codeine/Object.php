@@ -16,9 +16,9 @@
         Data::Mount('Layout');
         
         $Output = Data::Read(
-            'Layout',
                 array(
-                 'ID'=>'Objects/'.$Call['Item']['Entity'].'/'.$Call['Item']['Plugin']));
+                     'Point' => 'Layout',
+                     'ID'=>'Objects/'.$Call['Item']['Entity'].'/'.$Call['Item']['Plugin']));
 
         $Fusers = array('Key');
 

@@ -13,15 +13,12 @@
 
         Profiler::MemFrom('Front');
 
-        Code::Chain(
-                Code::Run(array('F' => 'System/Interface/Input')),
-                    array(
-                        array('F'    => 'View/Render/Render',
-                              'D' => 'Codeine'),
-                        array('F'    => 'System/Output/Output',
-                              'D' => 'HTTP')
-                        )
-                );
+        Code::Run(
+            array(
+                array('F' => 'System/Interface/Input'),
+                array('F' => 'View/Render/Render','D' => 'Codeine'),
+                array('F' => 'System/Output/Output','D' => 'HTTP')
+                ), false, 'Chain');
 
         Profiler::MemTo('Front');
 

@@ -7,13 +7,16 @@
     class Data extends Component
     {
         protected static $_Conf;
-        public static $Data      = array();
-        private static $_Stores  = array();
-        private static $_Points  = array();
+        public static $Data        = array();
+        protected static $_Stores  = array();
+        protected static $_Points  = array();
 
         private static function _Point2Storage($Point)
         {
-            return self::$_Conf['Points'][$Point]['Store'];
+            if (isset(self::$_Conf['Points'][$Point]['Store']))
+                return self::$_Conf['Points'][$Point]['Store'];
+            else
+                var_dump($Point);
         }
 
         public static function Initialize()
@@ -25,8 +28,6 @@
         {
             
         }
-                
-
 
         public static function Structure($Scope)
         {
@@ -64,62 +65,61 @@
                       ));
         }
 
-        public static function Create($Point, $New)
+        protected static function _CRUD($Method, $Call)
         {
-            $Store = self::_Point2Storage($Point);
-            return Code::Run(array(
-                           'F' => 'Data/Store/'.self::$_Conf['Stores'][$Store]['Type'].'/Create',
-                           'Point' => self::$_Conf[$Point],
-                           'Data' => $New
-                      ));
-        }
+            if (!is_array($Call))
+                foreach (self::$_Conf['Routers'] as $Router)
+                    if (($Output = Code::Run(array(
+                                   'F' => 'Data/Routers/'.$Router.'/Route',
+                                   'Input' => $Call
+                              ))) !== null)
+                    {
+                        $Call = $Output;
+                        break;
+                    }
 
-        // TODO $Call analogue
-        public static function Read($Point, $Where)
-        {
-            if (!isset(self::$_Points[$Point]))
-                self::Mount($Point);
-            
-            $Store = self::_Point2Storage($Point);
+            if (!isset(self::$_Points[$Call['Point']]))
+                self::Mount($Call['Point']);
+
+            $Store = self::_Point2Storage($Call['Point']);
+
             return Code::Run(array(
-                           'F' => 'Data/Store/'.self::$_Conf['Stores'][$Store]['Type'].'/Read',
-                           'Point' => self::$_Conf['Points'][$Point],
+                           'F' => 'Data/Store/'.self::$_Conf['Stores'][$Store]['Type'].'/'.$Method,
+                           'Point' => self::$_Conf['Points'][$Call['Point']],
                            'Store' => self::$_Stores[$Store],
-                           'Data' => $Where
+                           'Data' => $Call
                       ));
         }
 
-        public static function Update($Point, $Old, $New)
+        public static function Create($Call)
         {
-            $Store = self::_Point2Storage($Point);
-            return Code::Run(array(
-                           'F' => 'Data/Store/'.self::$_Conf['Stores'][$Store]['Type'].'/Update',
-                           'Point' => self::$_Stores[$Store],
-                           'New' => $New,
-                           'Old' => $Old
-                      ));
+            return self::_CRUD('Create', $Call);
         }
 
-        public static function Delete($Point, $Where)
+        public static function Read($Call)
         {
-            $Store = self::_Point2Storage($Point);
-            return Code::Run(array(
-                           'F' => 'Data/Store/'.self::$_Conf['Stores'][$Store]['Type'].'/Delete',
-                           'Point' => self::$_Stores[$Store],
-                           'Data' => $Where
-                      ));
+            return self::_CRUD('Read', $Call);
         }
 
-        public static function Exist($Point, $Where)
+        public static function Update($Call)
         {
-            $Store = self::_Point2Storage($Point);
-            return Code::Run(array(
-                           'F' => 'Data/Store/'.self::$_Conf['Stores'][$Store]['Type'].'/Exist',
-                           'Point' => self::$_Stores[$Store],
-                           'Data' => $Where
-                      ));
+            return self::_CRUD('Update', $Call);
         }
 
+        public static function Delete($Call)
+        {
+            return self::_CRUD('Delete', $Call);
+        }
+
+        public static function Exist($Call)
+        {
+            return self::_CRUD('Exist', $Call);
+        }
+
+        public static function Version($Call)
+        {
+            return self::_CRUD('Version', $Call);
+        }
 
         public static function Locate ($Path, $Name)
         {

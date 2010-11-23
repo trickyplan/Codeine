@@ -13,9 +13,10 @@
 
     self::Fn('Show', function ($Call)
     {
-        Code::Test(array('F'=>'Calculate/Base/SquareRoot'));
+        var_dump(Code::Run(
+            array('F' => 'Process/Hash/Get', 'Input' => 'dd','D'=>'MD5')));
+        ;
 
-        Data::Mount ($Call['Entity']);
 
         $Call['Items'][] = array(
             'UI'        => 'Block',
@@ -28,7 +29,13 @@
             'UI'        => 'Object',
             'Entity'    => $Call['Entity'],
             'Plugin'    => $Call['Function'],
-            'Data'      => Data::Read($Call['Entity'], array('I'=>$Call['ID'], 'K'=>'Key'))
-        );
+            'Data'      => Data::Read(
+                array(
+                     'Point'=>$Call['Entity'],
+                     'Where'=>
+                        array(
+                            'I'=>$Call['ID'],
+                            'K'=>'Key')))
+                );
         return $Call;
     });

@@ -10,15 +10,6 @@
                 "F": "Meta/Strategy/InterfaceSelect/Select"
             }
         },
-        "Foreign": {},
-        "Hook":
-        {
-            "Before": [],
-            "After": []
-        },
-        "Arguments":
-        {
-        },
         "Profiling":
         {
             "Coverage": 0,
@@ -26,6 +17,9 @@
             "Yellow": 0,
             "Green": 0
         },
-        "Test": {}
+        "Return":
+        {
+            "Call": true
+        }
     }
 }
