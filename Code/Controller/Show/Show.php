@@ -13,17 +13,6 @@
 
     self::Fn('Show', function ($Call)
     {
-        Data::Create(array(
-                          'Point' => 'Redis',
-                          'ID'=>'Test',
-                          'Data' => uniqid()
-                     ));
-
-        var_dump(Core::Any(
-            array('Point' => 'Redis', 'Where' => array('ID'=>'Test'))));
-        ;
-
-
         $Call['Items'][] = array(
             'UI'        => 'Block',
             'Entity'    => $Call['Entity'],

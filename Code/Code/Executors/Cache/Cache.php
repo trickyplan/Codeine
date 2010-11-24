@@ -13,13 +13,19 @@
 
     self::Fn('Run', function ($Call)
     {
-        $CID = sha1(serialize($Call['Call']));
+        $CID = Code::Run(array(
+                              'F' => 'Data/CacheID/Do',
+                              'Input' => $Call['Call']
+                         ));
 
-        if (($Cached = Data::Read(
+        if (null !== ($Cached = Data::Read(
                 array('Point' => 'CodeCache',
                       'Where'=>
-                            array('ID' => $CID)))) !== null)
+                        array('ID' => $CID)))))
+        {
+            Code::Hook(__CLASS__, 'onCodeCacheHit', $Call);
             return $Cached;
+        }
         else
         {
             $Result = Code::Run($Call['Call'], Code::Internal);
@@ -28,6 +34,7 @@
                               'ID' => $CID,
                               'Data' => $Result
                          ));
+            Code::Hook(__CLASS__, 'onCodeCacheMiss', $Call);
             return $Result;
         }
     });

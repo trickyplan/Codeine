@@ -13,10 +13,15 @@
 
         private static function _Point2Storage($Point)
         {
-            if (isset(self::$_Conf['Points'][$Point]['Store']))
-                return self::$_Conf['Points'][$Point]['Store'];
+            if (isset(self::$_Conf['Points'][$Point]))
+            {
+                if (isset(self::$_Conf['Points'][$Point]['Store']))
+                    return self::$_Conf['Points'][$Point]['Store'];
+                else
+                    Code::Hook(__CLASS__, 'errDataStoreNotFound', $Point);
+            }
             else
-                var_dump($Point);
+                Code::Hook(__CLASS__, 'errDataPointNotFound', $Point);
         }
 
         public static function Initialize()
@@ -48,11 +53,14 @@
         public static function Connect ($Store)
         {
             if (!isset(self::$_Stores[$Store]))
-                self::$_Stores[$Store] =
+                if ((self::$_Stores[$Store] =
                     Code::Run(array(
                                'F' => 'Data/Store/'.self::$_Conf['Stores'][$Store]['Type'].'/Connect',
                                'Point' => self::$_Conf['Stores'][$Store]
-                        ));
+                        ))) !== null)
+                    Code::Hook(__CLASS__, 'errDataStoreConnectFailed', $Store);
+            else
+                Code::Hook(__CLASS__, 'errDataStoreNotFound', $Store);
 
             return self::$_Stores[$Store];
         }
@@ -79,7 +87,7 @@
             if ($NewCall !== null)
                 $Call = $NewCall;
             else
-                throw new WTF('404 Data Router');
+                Code::Hook(__CLASS__, 'errDataRoutingFailed', $Call);
 
             return $Call;
         }
@@ -165,7 +173,7 @@
            if (isset($R))
                return $R;
            else
-               return Log::Error ('Not located '.$Name);
+               Code::Hook(__CLASS__, 'errLocateNotFound', $Path.':'.$Name);
         }
 
         public static function Path ($Key)

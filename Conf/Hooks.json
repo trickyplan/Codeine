@@ -4,6 +4,7 @@
         "onInitialize": [],
         "beforeRun": [],
         "afterRun": [],
-        "onShutdown": []
+        "onShutdown": [],
+        "errCodeFunctionIsNotCallable": [{"F": "Error/Catch/Page/Catch"}]
     }
 }

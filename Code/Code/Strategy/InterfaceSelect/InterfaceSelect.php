@@ -13,7 +13,7 @@
 
     self::Fn('Select', function ($Call)
     {
-        $Interfaces = Code::GetInterfaces();
+        $Interfaces = Code::Conf('Interfaces');
 
         foreach ($Interfaces as $Interface)
         {

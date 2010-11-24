@@ -18,6 +18,7 @@
 
     self::Fn('Input', function ($Call)
     {
+        header('Content-type: text/html;charset=utf-8;');
         if (isset($_SERVER['REQUEST_URI']))
             return $_SERVER['REQUEST_URI'];
         else

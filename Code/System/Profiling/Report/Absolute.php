@@ -23,5 +23,6 @@
                 $Report[$Source] = array('T' => $Result);
             }
 
+        var_dump($Call['Memory']); // FIXME
         return $Report;
     });

@@ -6,7 +6,7 @@
      * @description: NextGen Code Module
      * @package Core
      * @subpackage Code
-     * @version 0.1
+     * @version 0.8
      * @date 28.10.10
      * @time 2:16
      */
@@ -17,22 +17,29 @@
         const Normal = 0;
         
         protected static $_Conf;
-        protected static $_Hooks;
+        protected static $_Hooks     = array();
         protected static $_Contracts = array();
         protected static $_Functions = array();
         protected static $_Aliases   = array();
 
         protected static $_LastCall = null;
-
         protected static $_Registration = array();
 
-        public static function GetInterfaces()
+        public static function Conf($Key)
         {
-            return self::$_Conf['Interfaces'];
+            if (isset(self::$_Conf[$Key]))
+                return self::$_Conf[$Key];
+            else
+            {
+                Code::Hook(__CLASS__, 'errConfKeyNotFound', $Key);
+                return null;
+            }
         }
 
         public static function Hook ($Class, $Event, $Data = array())
         {
+            $Data = array('Class' => $Class, 'Event' => $Event);
+            
             if (isset(self::$_Hooks[$Class][$Event]))
                 return Code::Run(
                     array(
@@ -55,7 +62,7 @@
 
         public static function Initialize ()
         {
-            self::$_Conf = self::_Configure(__CLASS__);
+            self::$_Conf  = self::_Configure(__CLASS__);
             self::$_Hooks = self::_Configure('Hooks');
             self::Hook(__CLASS__, 'onInitialize');
         }
@@ -63,7 +70,6 @@
         public static function Shutdown ()
         {
             self::Hook(__CLASS__, 'onShutdown');
-            // TODO: Implement Shutdown() method.
         }
 
         /**
@@ -147,10 +153,10 @@
             }
 
             // Если хоть один роутер вернул результат...
-            if ($NewCall !== null)
-                $Call = $NewCall;
+            if ($NewCall === null)
+                self::Hook(__CLASS__, 'errCodeRoutingFailed', $Call);
             else
-                throw new WTF('404 Code Router');
+                $Call = $NewCall;
 
             return $Call;
         }
@@ -165,8 +171,8 @@
         protected static function _Prepare ($Call)
         {
             if ($Call === null)
-                throw new WTF('404 Prepare '); // FIXME: Normal Exception
-            // Ничего не помогло
+                self::Hook(__CLASS__, 'errCodePreparingFailed', $Call);
+            // Ничего не помогло...
 
             $Slices = explode('/', $Call['F']);
             $Call['Namespace'] = implode('/', array_slice($Slices, 0, (count($Slices)-1)));
@@ -177,7 +183,7 @@
 
         protected static function SetNamespace($Namespace, $Driver)
         {
-            self::$_Registration = array('Namespace' => $Namespace, 'Driver'=> $Driver);
+            return self::$_Registration = array('Namespace' => $Namespace, 'Driver'=> $Driver);
         }
 
         public static function Fn($Function, $Code = null)
@@ -200,8 +206,6 @@
                 return self::$_Functions
                             [self::$_Registration['Namespace']]
                                 [self::$_Registration['Driver']][$Function];
-            
-            return null;
         }
 
         protected static function _LoadSource($Call, $Contract)
@@ -220,13 +224,15 @@
                     if ($Filename)
                         return (include $Filename);
                     else
-                        throw new WTF($Call['Namespace'].'/'.$Call['D'].'.php');
+                        self::Hook(__CLASS__, 'errCodeDriverFileNotFound', $Call);
                 break;
 
                 case 'Code':
                     if(isset($Contract['Source']))
                         eval('self::Fn(\''.$Call['Function'].'\',
                             function ($Call) {'.$Contract['Source'].'});');
+                    else
+                        Code::Hook(__CLASS__, 'errCodeSourceInContractNotSpecified', $Contract);
                 break;
 
                 case 'Data':
@@ -234,32 +240,24 @@
                         eval('self::Fn(\''.$Call['Function'].'\',
                             function ($Call) {'.Data::Read('Source', $Contract['Source']).'});');
                         // TODO Test!
+                    else
+                        Code::Hook(__CLASS__, 'errCodeSourceDataInContractNotSpecified', $Contract);
                 break;
 
                 default:
-                    throw new WTF('Unknown Engine '.$Contract['Engine']);
+                    Code::Hook(__CLASS__, 'errCodeContractUnknownEngine', $Contract['Engine']);
                 break;
             }
         }
 
         protected static function _Do($Call)
         {
-            $F = 'var_dump';
-            
-            try
-            {
-                $F = self::Fn($Call['Function']);
+            $F = self::Fn($Call['Function']);
 
-                if (null == $F)
-                    $F = 'var_dump';
-
-                if (is_callable($F) or ($F instanceof Closure))
-                    return $F($Call);
-            }
-            catch (Exception $e)
-            {
-                echo $e->getMessage(); // TODO FIXME;
-            }
+            if (null == $F)
+                self::Hook(__CLASS__,'errCodeFunctionIsNotCallable', $Call);
+            elseif (is_callable($F) or ($F instanceof Closure))
+                return $F($Call);
         }
 
         /**
@@ -270,8 +268,6 @@
         
         public static function Run ($Call, $Mode = Code::Normal, $Runner = null, $Executor = null)
         {
-            $Return = null;
-
             if ($Runner !== null)
                 return self::Run(
                     array(
@@ -288,6 +284,8 @@
                          'Mode' => $Mode
                           ), $Mode);
 
+            $Return = null;
+
             // Проверка на псевдонимы. Псевдонимы проверяются при определении.
 
             if (is_string($Call) && isset(self::$_Aliases[$Call]))
@@ -299,7 +297,7 @@
 
             // Запоминание вызова
             if ($Mode !== Code::Internal) // Защита от зацикливания.
-                self::$_LastCall = $Call;
+                self::$_LastCall = $Call; // TODO: #refs48
 
             // Готовим удобные переменные
             $Call = self::_Prepare($Call);
@@ -324,20 +322,19 @@
             }
 
             // Выбираем драйвер
-
             $Call = self::_DetermineDriver($Contract, $Call);
 
             // Фильтрация аргументов
-            
-            $Call = self::_FilterCall($Contract, $Call);
+            if (self::_is('Filter', $Contract))
+                $Call = self::_FilterCall($Contract, $Call);
             
             // Проверка аргументов
-            self::_CheckCall($Contract, $Call);
+            if (self::_is('Check', $Contract))
+                self::_CheckCall($Contract, $Call);
 
             // Хуки
-            
-            if (isset($Contract['Hook']['Before']))
-                self::Run($Contract['Hook']['Before'], Code::Internal, 'Multi');
+            if (isset($Contract['Hook']['beforeRun']))
+                self::Run($Contract['Hook']['beforeRun'], Code::Internal, 'Multi');
 
             // Устанавливаем текущее пространство имён
             self::SetNamespace($Call['Namespace'], $Call['D']);
@@ -346,29 +343,33 @@
             if (self::Fn($Call['Function']) === null)
                 self::_LoadSource($Call, $Contract);
 
+            // Выполняем!
             $Return = self::_Do($Call);
 
-            // Режим экономии
-            if (isset($Contract['EconomyMode']) && $Contract['EconomyMode'])
-                self::Fn($Call['Function'], null);
-
             // Хуки
-            if (isset($Contract['Hook']['After']))
-                self::Run($Contract['Hook']['After'], Code::Internal, 'Multi');
+            if (isset($Contract['Hook']['afterRun']))
+                self::Run($Contract['Hook']['afterRun'], Code::Internal, 'Multi');
 
-            // Коллбеки
+            // Возврат вызова как результата
             if (isset($Contract['Return']['Call']) && $Contract['Return']['Call'])
                 $Return = self::Run($Return);
 
-            // Проверка результата
+            // Режим экономии
+            if (self::_is('Economy', $Contract))
+                self::Fn($Call['Function'], null);
 
-            if (isset($Contract['Return']['Filter']))
-                $Return = self::Run(
+            // Фильтрация результата
+
+            if (self::_is('Filter', $Contract))
+                if (isset($Contract['Return']['Filter']))
+                    $Return = self::Run(
                         array(
                              'Calls' => array_merge($Return, $Contract['Return']['Filter'])), Code::Internal,
                         'Chain');
 
-            if ($Return instanceof WTF || self::_CheckReturn($Contract, $Return) instanceof WTF)
+            // Проверка результата
+
+            if (!self::_CheckReturn($Contract, $Return))
                 if (isset($Contract['Return']['Fallback']))
                     $Return = Core::Any($Contract['Return']['Fallback']);
 
@@ -383,7 +384,7 @@
             return $Return;
         }
 
-        public static function LastCall($Call = array(), $Mode = null)
+        public static function LastCall($Call = array(), $Mode = Code::Normal)
         {
             if (null !== self::$_LastCall)
             {
@@ -392,17 +393,6 @@
             }
             else
                 return null;
-        }
-
-        public static function Dump($Call, $Driver = null)
-        {
-            return self::Run(
-                array(
-                     'Calls' => array(
-                         $Call,
-                         array(
-                             'F' => 'System/Dump/Variable'
-                              ))), false, 'Chain');
         }
 
         /**
@@ -418,84 +408,52 @@
             if (self::isValidCall($Call))
                 return self::$_Aliases[$Alias] = $Call;
             else
-                throw new WTF('Invalid Call');
-        }
-
-        public static function Test ($Call, $Suite = null)
-        {
-            if (!self::isValidCall($Call))
-                $Call = self::_Route($Call);
-
-             // Готовим удобные переменные
-            $Call = self::_Prepare($Call);
-
-            // Загружаем контракт
-            $Contract = self::_LoadContract($Call);
-
-            $Call = self::_DetermineDriver($Contract, $Call);
-
-            if (!isset($Contract['Test']))
-                return null;
-
-            // TODO: Profiling analyze!!!
-            
-            if ($Suite == null)
-            {
-                $Decision = true;
-
-                foreach ($Contract['Test'] as $Name => $Suite)
-                {
-                    $Return = self::Run(array_merge($Suite['Arguments'], $Call));
-                    
-                    if (isset($Suite['Return'])
-                        && !self::_Check(array('Value' => $Return), $Suite['Return']))
-                            $Decision = false;
-                }
-            }
-            
-            return $Decision;
+                Code::Hook(__CLASS__, 'errCodeInvalidCallInAlias', $Alias);
         }
 
         protected static function _Check($Data, $Contract, $Verbose = false)
         {
-            foreach (self::$_Conf['Checkers'] as $Checker)
-            {
-                $Decisions[$Checker] = Code::Run (
-                    array(
-                         'F'=>'Code/Checkers/Check',
-                         'D'=>$Checker,
-                         'Data'=>$Data,
-                         'Contract'=>$Contract), Code::Internal);
-            }
+            $Decisions = Code::Run (
+                array(
+                     'Prototype' =>
+                        array(
+                            'F'=>'Code/Checkers/Check',
+                            'Data'=> $Data,
+                            'Contract'=>$Contract),
+                     'Key'=> 'D',
+                     'Values' => self::$_Conf['Checkers']),
+                Code::Internal, 'Revolver');
 
-            if ($Verbose)
-                return $Decisions;
+            if (in_array(false, $Decisions))
+            {
+                Code::Hook(__CLASS__, 'errCodeCheckFailed', $Decisions);
+                return false;
+            }
             else
-                return !in_array(false, $Decisions);
+                return true;
         }
 
         protected static function _CheckReturn($Contract, $Result)
         {
             if (isset($Contract['Return']))
                 if (!self::_Check($Result, $Contract['Return']))
-                    return new WTF('Wrong return');
+                    Code::Hook(__CLASS__, 'WrongReturn',
+                               array('Contract' => $Contract,
+                                     'Result'   => $Result));
+            return true;
         }
 
         protected static function _is($Key, $Contract)
         {
             if (isset($Contract[$Key]))
-                {
-                    $Contract[$Key] = Core::Any($Contract[$Key]);
-                    return $Contract[$Key];
-                }
-            
-            return false;
+                return Core::Any($Contract[$Key]);
+            else
+                return false;
         }
 
         protected static function _DetermineDriver($Contract, $Call)
         {
             // Если в контракте указана политика драйверов, и драйвер не указан напрямую.
-
             if (!isset($Call['D']))
             {
                 if (isset($Contract['Driver']))
