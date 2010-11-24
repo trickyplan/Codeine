@@ -22,10 +22,10 @@
         $Call = explode ('/', mb_substr($Call['Call'],1));
 
         list (
-                        $Routed['Entity'],
-                        $Routed['F'],
-                        $Routed['ID']
-                        ) = $Call;
+            $Routed['Entity'],
+            $Routed['F'],
+            $Routed['ID']
+            ) = $Call;
 
         $CC = count($Call);
         
