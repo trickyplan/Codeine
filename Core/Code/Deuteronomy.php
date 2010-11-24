@@ -523,13 +523,18 @@
                 }
         }
 
-        public static function Trace()
+        public static function Trace($Index = null)
         {
             $StackArray = array();
             foreach (self::$_Stack as $Stack)
                 $StackArray[] = $Stack;
 
-            return $StackArray;
+            if ($Index == null)
+                return $StackArray;
+            elseif (isset($StackArray[$Index]))
+                return $StackArray[$Index];
+            else
+                return null;
         }
 
         public static function ParentCall()
