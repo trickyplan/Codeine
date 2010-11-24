@@ -1,38 +1,24 @@
 <?php
 
-    function F_XML_Encode($Args)
-    {
-        $xml = simplexml_load_string('<?xml version="1.0"?>
-<export>
-  <header>
-    <title>'.$Args['Title'].'</title>
-    <description>'.$Args['Description'].'</description>
-    <lastBuildDate>'.date('r').'</lastBuildDate>
-    <generator>i Web Platform '._Version.'</generator>
-    <link>'._Host.'</link>
-        <total>'.count($Args['Imported']).'</total>
-   </header>
-   <data>
-   </data>
-</export>');
+    /* OSWA Codeine
+     * @author BreathLess
+     * @type Codeine Driver
+     * @description: SimpleXML Driver
+     * @package Codeine
+     * @subpackage Drivers
+     * @version 0.1
+     * @date 14.11.10
+     * @time 16:07
+     */
 
-        $channel = $xml->data;
-            if (is_numeric($Args['Start']))
-                $Args['Imported'] = array_splice($Args['Imported'], $Args['Start'], $Args['Length']);
-            
-        foreach ($Args['Imported'] as $Imported)
-        {
-            $Imported->Reload();
-            $item = $channel->addChild('item','');
-            $item->addChild('ID',$Imported->Name);
-            foreach ($Imported->Data as $Key => $Value)
-                $item->addChild($Key, quotemeta(implode(" ",$Value)));
-        }
-        
-        return $xml->asXML();
-    }
-
-    function F_XML_Decode($Args)
+    $Decode = function ($Call)
     {
-        return simplexml_load_string($Args);
-    }
+        return simplexml_load_string($Call['Value']);
+    };
+
+    $Encode = function ($Call)
+    {
+        // TODO Implement encode method
+        return $Call['Value'];
+    };
+

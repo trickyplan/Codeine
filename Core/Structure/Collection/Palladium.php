@@ -65,7 +65,7 @@ class Collection
                             /*
                             if (null === ($IDs = Data::PoolGet($QUID)))
                                 {
-                                    $IDs = Code::E('Data/Mappers', 'Query',
+                                    $IDs = Driver::E('Data/Mappers', 'Query',
                                     array('Scope'=> $this->Scope,
                                           'Point'=>$this->Point,
                                           'Selector'=>$Selector), $this->ORM);

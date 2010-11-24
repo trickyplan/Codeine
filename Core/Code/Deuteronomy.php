@@ -3,9 +3,9 @@
     /* OSWA Codeine
      * @author BreathLess
      * @type Codeine Core Module
-     * @description: NextGen Code Module
+     * @description: NextGen Driver Module
      * @package Core
-     * @subpackage Code
+     * @subpackage Driver
      * @version 0.8
      * @date 28.10.10
      * @time 2:16
