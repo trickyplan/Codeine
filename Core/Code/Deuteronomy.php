@@ -15,7 +15,8 @@
     {
         const Internal = true;
         const Normal = 0;
-        
+
+        protected static $_Stack = array();
         protected static $_Conf;
         protected static $_Hooks     = array();
         protected static $_Contracts = array();
@@ -24,6 +25,15 @@
 
         protected static $_LastCall = null;
         protected static $_Registration = array();
+
+        public static function Initialize ()
+        {
+            self::$_Stack = new SplStack();
+
+            self::$_Conf  = self::_Configure(__CLASS__);
+            self::$_Hooks = self::_Configure('Hooks');
+            self::Hook(__CLASS__, 'onInitialize');
+        }
 
         public static function Conf($Key)
         {
@@ -38,7 +48,8 @@
 
         public static function Hook ($Class, $Event, $Data = array())
         {
-            $Data = array('Class' => $Class, 'Event' => $Event);
+            $Data['Class'] = $Class;
+            $Data['Event'] = $Event;
             
             if (isset(self::$_Hooks[$Class][$Event]))
                 return Code::Run(
@@ -58,13 +69,6 @@
         public static function DelHook ($Class, $Event, $ID)
         {
             unset (self::$_Hooks[$Class][$Event][$ID]);
-        }
-
-        public static function Initialize ()
-        {
-            self::$_Conf  = self::_Configure(__CLASS__);
-            self::$_Hooks = self::_Configure('Hooks');
-            self::Hook(__CLASS__, 'onInitialize');
         }
 
         public static function Shutdown ()
@@ -266,21 +270,29 @@
         
         public static function Run ($Call, $Mode = Code::Normal, $Runner = null, $Executor = null)
         {
+            self::$_Stack->push($Call);
+            
             if ($Runner !== null)
+            {
+                self::$_Stack->pop();
                 return self::Run(
                     array(
                          'F' => 'Code/Runners/'.$Runner.'/Run',
                          'Call' => $Call,
                          'Mode' => $Mode
                           ), $Mode);
+            }
 
             if ($Executor !== null)
+            {
+                self::$_Stack->pop();
                 return self::Run(
                     array(
                          'F' => 'Code/Executors/'.$Executor.'/Run',
                          'Call' => $Call,
                          'Mode' => $Mode
                           ), $Mode);
+            }
 
             $Return = null;
 
@@ -313,10 +325,16 @@
 
                 // Если отложенный вызов, возвращаемся сразу.
                 if (self::_is('Deferred', $Contract))
+                {
+                    self::$_Stack->pop();
                     return Code::Run($Call, Code::Internal, $Runner, 'Deferred');
+                }
 
                 if (self::_is('Cache', $Contract))
+                {
+                    self::$_Stack->pop();
                     return Code::Run($Call, Code::Internal, $Runner, 'Cache');
+                }
             }
 
             // Выбираем драйвер
@@ -362,7 +380,9 @@
                 if (isset($Contract['Return']['Filter']))
                     $Return = self::Run(
                         array(
-                             'Calls' => array_merge($Return, $Contract['Return']['Filter'])), Code::Internal,
+                             'Calls' => array_merge(
+                                 $Return,
+                                 $Contract['Return']['Filter'])), Code::Internal,
                         'Chain');
 
             // Проверка результата
@@ -379,6 +399,7 @@
                             'Call'      => $Call,
                             'Return'    => $Return));
 
+            self::$_Stack->pop();
             return $Return;
         }
 
@@ -406,12 +427,12 @@
             if (self::isValidCall($Call))
                 return self::$_Aliases[$Alias] = $Call;
             else
-                Code::Hook(__CLASS__, 'errCodeInvalidCallInAlias', $Alias);
+                self::Hook(__CLASS__, 'errCodeInvalidCallInAlias', $Alias);
         }
 
         protected static function _Check($Data, $Contract, $Verbose = false)
         {
-            $Decisions = Code::Run (
+            $Decisions = self::Run (
                 array(
                      'Prototype' =>
                         array(
@@ -424,7 +445,7 @@
 
             if (in_array(false, $Decisions))
             {
-                Code::Hook(__CLASS__, 'errCodeCheckFailed', $Decisions);
+                self::Hook(__CLASS__, 'errCodeCheckFailed', $Decisions);
                 return false;
             }
             else
@@ -435,7 +456,7 @@
         {
             if (isset($Contract['Return']))
                 if (!self::_Check($Result, $Contract['Return']))
-                    Code::Hook(__CLASS__, 'WrongReturn',
+                    self::Hook(__CLASS__, 'WrongReturn',
                                array('Contract' => $Contract,
                                      'Result'   => $Result));
             return true;
@@ -458,9 +479,9 @@
                 {
                     if (isset($_ENV['WorkStyle'])
                         && isset($Contract['Driver'][$_ENV['WorkStyle']]))
-                            $Call['D'] = $Contract['Driver'][$_ENV['WorkStyle']];
+                            $Call['D'] = Core::Any($Contract['Driver'][$_ENV['WorkStyle']]);
                     else
-                        $Call['D'] = $Contract['Driver']['Default'];
+                        $Call['D'] = Core::Any($Contract['Driver']['Default']);
 
                     $Call['D'] = Core::Any($Call['D']);
                 }
@@ -500,5 +521,19 @@
                     else
                         self::_Check($Call[$Name], $ContractNode);
                 }
+        }
+
+        public static function Trace()
+        {
+            $StackArray = array();
+            foreach (self::$_Stack as $Stack)
+                $StackArray[] = $Stack;
+
+            return $StackArray;
+        }
+
+        public static function ParentCall()
+        {
+            return self::$_Stack[1];
         }
     }
