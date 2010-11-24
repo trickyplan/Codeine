@@ -2,10 +2,7 @@
 
 function F_MongoDB_Mount ($Args)
 {
-    list ($Server, $Database) = explode('/',$Args['DSN']);
-    $M  = new Mongo($Server);
-    $DB = $M->$Database;
-    return $DB;
+
 }
 
 function F_MongoDB_Unmount ($Args)

@@ -18,26 +18,29 @@
             $Call['Point']['Username'],
             $Call['Point']['Password']);
 
-        mysql_select_db($Call['Point']['Database'], $Link);
-        // FIXME WTF Add
+        if (!$Link)
+            Code::Hook('Data', 'errDataMySQLConnectFailed', $Call);
 
-        mysql_set_charset($Call['Point']['Charset'], $Link);
+        if (!mysql_select_db($Call['Point']['Database'], $Link))
+            Code::Hook('Data', 'errDataMySQLSelectDBFailed', $Call);
+
+        if (!mysql_set_charset($Call['Point']['Charset'], $Link))
+            Code::Hook('Data', 'errDataMySQLCharsetFailed', $Call);
 
         return $Link;
     });
 
     self::Fn('Read', function ($Call)
     {
-        $QueryString = 'SELECT * FROM '.$Call['Point']['Scope'].' WHERE ';
+        $Query = Code::Run(
+            array(
+                  'F' => 'Data/Syntax/SQL/Read',
+                  'D' => 'MySQL',
+                  'Data' => $Call
+                 ));
 
-        foreach ($Call['Data']['Where'] as $Key => $Value)
-            $Query[] = '`'.mysql_real_escape_string($Key, $Call['Store'])
-                      .'` = "'.mysql_real_escape_string($Value, $Call['Store']).'"';
-
-        $QueryString.= implode (' AND ', $Query);
-
-        if (!($Result = mysql_query($QueryString, $Call['Store'])))
-            throw new WTF($QueryString.'<br/>'.mysql_error($Call['Store']));
+        if (!($Result = mysql_query($Query, $Call['Store'])))
+            Code::Hook('Data', 'errDataMySQLReadFailed', $Call);
 
         return mysql_fetch_assoc($Result);
     });

@@ -11,3 +11,12 @@
      * @time 4:40
      */
 
+    self::Fn('Load', function ($Call)
+    {
+        
+    });
+
+    self::Fn('Save', function ($Call)
+    {
+        
+    });
