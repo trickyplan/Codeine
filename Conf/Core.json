@@ -4,7 +4,7 @@
             "Code":           "Deuteronomy",
             "Core":           "Core",
             "Data":           "Eternity",
-            "Profiler":       "Sentinel",
-            "Message":        "RedCoast"
+            "Message":        "xBus",
+            "Profiler":       "Sentinel"
         }
 }

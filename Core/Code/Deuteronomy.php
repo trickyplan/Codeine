@@ -111,9 +111,7 @@
                 else
                     $NSContract = array();
 
-
                 $Contract = self::ConfWalk(self::ConfWalk($Default, $NSContract), $DriverContract);
-
                 $Contract = $Contract[$Call['Function']];
 
                 self::$_Contracts[$Call['Namespace']][$Call['Function']] = $Contract;

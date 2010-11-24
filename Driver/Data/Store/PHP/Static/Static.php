@@ -11,49 +11,51 @@
      * @time 21:50
      */
 
-    $Connect = function ($Call)
+    self::Fn('Connect', function ($Call)
     {
         if (isset($Call['Point']['DSN']))
             return $Call['Point']['DSN'];
         else
             return 'Default';
-    };
+    });
 
-    $Disconnect = function ($Call)
+
+    self::Fn('Disconnect', function ($Call)
     {
         return true;
-    };
+    });
 
-    $Read = function ($Call)
+
+    self::Fn('Read', function ($Call)
     {
-        if (isset(Data::$Data[$Call['Point']][$Call['Data']['Key']]))
-            return Data::$Data[$Call['Point']][$Call['Data']['Key']];
+        if (isset(Data::$Data[$Call['Point']][$Call['Data']['Where']['Key']]))
+            return Data::$Data[$Call['Point']][$Call['Data']['Where']['Key']];
         else
             return null;
-    };
+    });
 
-    $Create = function ($Call)
+    self::Fn('Create', function ($Call)
     {
         Data::$Data[$Call['Point']][$Call['Data']['Key']] = $Call['Data']['Value'];
         return true;
-    };
+    });
 
-    $Update = function ($Call)
+    self::Fn('Update', function ($Call)
     {
         if (isset(Data::$Data[$Call['Point']][$Call['Old']['Key']]))
-        {
-            Data::$Data[$Call['Point']][$Call['Old']['Key']] = $Call['New']['Value'];
-            return true;
-        }
-        else
-            return false;
-    };
+            {
+                Data::$Data[$Call['Point']][$Call['Old']['Key']] = $Call['New']['Value'];
+                return true;
+            }
+            else
+                return false;
+    });
 
-    $Delete = function ($Call)
+    self::Fn('Delete', function ($Call)
     {
         if (isset(Data::$Data[$Call['Point']][$Call['Data']['Key']]))
             unset(Data::$Data[$Call['Point']][$Call['Data']['Key']]);
         return !isset(Data::$Data[$Call['Point']][$Call['Data']['Key']]);
-    };
+    });
 
 

@@ -1,0 +1,10 @@
+{
+    "Points":
+    {
+        "Log":
+        {
+            "Method": "Transport/Mail",
+            "DSN": "/"
+        }
+    }
+}

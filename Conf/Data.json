@@ -61,8 +61,8 @@
     },
    "Paths":
     {
+        "Code":           "Driver",
         "Package":        "Package",
-        "Apps":           "Application",
         "Fonts":          "Fonts",
         "Model":          "Model",
         "Icons":          "Images/Icons",

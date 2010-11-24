@@ -3,11 +3,15 @@
     /* OSWA Codeine
      * @author BreathLess
      * @type Codeine Driver
-     * @description: Map Based Control
+     * @description: GeoIP wrapper
      * @package Codeine
      * @subpackage Drivers
      * @version 0.1
      * @date 24.11.10
-     * @time 4:51
+     * @time 5:37
      */
 
+    self::Fn('GetLocation', function ($Call)
+    {
+        return geoip_record_by_name($Call['IP']);
+    });
