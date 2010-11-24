@@ -11,7 +11,7 @@
      * @time 3:48
      */
 
-    self::Fn('Render', function ($Call)
+    self::Fn('Do', function ($Call)
     {
         // Определить тип данных
 

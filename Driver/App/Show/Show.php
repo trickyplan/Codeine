@@ -29,6 +29,7 @@
         $Call['Items'][] = array(
             'UI'        => 'Object',
             'Entity'    => $Call['Entity'],
+            'ID'    => $Call['ID'],
             'Plugin'    => $Call['Function'],
             'Data'      => Data::Read(
                 array(
@@ -38,5 +39,6 @@
                             'I'=>$Call['ID'],
                             'K'=>'Key')))
                 );
+
         return $Call;
     });

@@ -14,17 +14,15 @@
         Profiler::MemFrom('Front');
 
         Code::Run(
-            array(
-                array('F' => 'System/Interface/Input'),
-                array('F' => 'View/Render/Render','D' => 'Codeine'),
-                array('F' => 'System/Output/Output','D' => 'HTTP')
-                ), false, 'Chain');
+                array(
+                    array('F' => 'System/Interface/Input'),// Return Autorunned Call
+                    array('F' => 'View/Render/Do'),
+                    array('F' => 'System/Output/Output','D' => 'HTTP')
+                    ), false, 'Chain');
 
         Profiler::MemTo('Front');
 
         Code::Hook('Front', 'afterStart');
-
-        var_dump(Profiler::Output());
     }
     catch (Exception $e)
     {

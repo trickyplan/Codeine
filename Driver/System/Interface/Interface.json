@@ -6,9 +6,9 @@
         "Deferred": false,
         "Driver":{
             "Default":
-            {
-                "F": "Code/Strategy/InterfaceSelect/Select"
-            }
+                {
+                    "F": "Code/Strategy/Interface/Select"
+                }
         },
         "Profiling":
         {

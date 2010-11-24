@@ -11,3 +11,17 @@
      * @time 4:04
      */
 
+    self::Fn('Do', function ($Call)
+    {
+        $Output = '';
+
+        foreach($Call['Input']['Items'] as $Item)
+        {
+            if ($Item['UI'] == 'Object')
+            {
+                $Output.= 'rss> '.$Item['Entity'].$Item['ID'];
+            }
+        }
+
+        return $Output;
+    });

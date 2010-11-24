@@ -11,7 +11,7 @@
      * @time 3:54
      */
 
-    $Render = function ($Call)
+    self::Fn('Do', function ($Call)
     {
-        return var_export($Call['Body'], true);
-    };
+        return var_export($Call['Input'], true);
+    });
