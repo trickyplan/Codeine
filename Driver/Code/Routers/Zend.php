@@ -31,7 +31,7 @@
                 if (!empty($Call[$ic+1]))
                     $Routed[$Call[$ic]] = $Call[$ic+1];
 
-            $Routed['F'] = 'Controller/'.$Plugin.'/'.$Plugin;
+            $Routed['F'] = 'App/'.$Plugin.'/'.$Plugin;
         }
         else
             $Routed = null;

@@ -18,51 +18,25 @@
 
         if (!is_string($Call['Call']))
             return $Call;
+        
         $Call = explode ('/', mb_substr($Call['Call'],1));
 
-        // Context/Entity/Action/ID
-        switch (count($Call))
-        {
-            case 3:
-                list (
-                        $Routed['Context'],
-                        $Routed['Entity'],
-                        $Routed['F']) = $Call;
-            break;
-
-            case 4:
-                list (
-                        $Routed['Context'],
+        list (
                         $Routed['Entity'],
                         $Routed['F'],
-                        $Routed['ID']) = $Call;
-            break;
+                        $Routed['ID']
+                        ) = $Call;
 
-            case 5:
-                list (
-                        $Routed['Context'],
-                        $Routed['Entity'],
-                        $Routed['F'],
-                        $Routed['ID'],
-                        $Routed['Mode']) = $Call;
-            break;
+        $CC = count($Call);
+        
+        if ($CC>3)
+            for ($ic = 3; $ic < $CC; $ic+=2)
+                if (isset($Call[$ic+1]))
+                    $Routed[$Call[$ic]] = $Call[$ic+1];
+                else
+                    $Routed[$Call[$ic]] = true;
 
-            case 6:
-                list (
-                        $Routed['Context'],
-                        $Routed['Entity'],
-                        $Routed['F'],
-                        $Routed['ID'],
-                        $Routed['Mode'],
-                        $Routed['Aspect']) = $Call;
-            break;
-
-            default:
-                $Routed = null;
-            break;
-        }
-
-      $Routed['F'] = 'Controller/'.$Routed['F'].'/'.$Routed['F'];
+        $Routed['F'] = 'App/'.$Routed['F'].'/'.$Routed['F'];
 
       return $Routed;
     });
