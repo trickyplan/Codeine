@@ -13,6 +13,12 @@
 
     self::Fn('Show', function ($Call)
     {
+        Message::Send(
+            array('Type' => 'Info',
+                  'Point' => 'Log',
+                  'Message' => 'Hello world')
+        );
+
         $Call['Items'][] = array(
             'UI'        => 'Block',
             'Entity'    => $Call['Entity'],

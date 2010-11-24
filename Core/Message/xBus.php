@@ -23,11 +23,14 @@
 
         public static function Connect ($Point)
         {
-            return self::$_Points[$Point] = 
+            self::$_Points[$Point] =
                 Code::Run(array(
                            'F' => 'Message/'.self::$_Conf['Points'][$Point]['Method'].'/Connect',
                            'Point' => self::$_Conf['Points'][$Point]
                       ));
+            
+            if (null === self::$_Points[$Point])
+                Code::Hook(__CLASS__, 'errMessageConnectFailed', $Point);
         }
 
         public static function Disconnect ($Call)
@@ -41,12 +44,12 @@
 
         public static function Send ($Call)
         {
-            if (!isset(self::$_Conf['Points'][$Call['Point']]))
+            if (!isset(self::$_Points[$Call['Point']]))
                 self::Connect($Call['Point']);
 
             return Code::Run(array(
                        'F' => 'Message/'.self::$_Conf['Points'][$Call['Point']]['Method'].'/Send',
-                       'Point' => self::$_Conf['Points'][$Call['Point']],
+                       'Point' => self::$_Points[$Call['Point']],
                        'Call' => $Call
                       ));
         }

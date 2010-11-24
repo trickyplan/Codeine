@@ -3,7 +3,7 @@
     {
         "Log":
         {
-            "Method": "Transport/Mail",
+            "Method": "Log/FirePHP",
             "DSN": "/"
         }
     }

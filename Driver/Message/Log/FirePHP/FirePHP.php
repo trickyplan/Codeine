@@ -11,3 +11,18 @@
      * @time 18:37
      */
 
+    self::Fn('Connect', function ($Call)
+    {
+        include Data::Locate('Classes','FirePHP/FirePHP.php');
+        return FirePHP::getInstance(true);
+    });
+
+    self::Fn('Send', function ($Call)
+    {
+
+    });
+
+    self::Fn('Disconnect', function ($Call)
+    {
+        
+    });

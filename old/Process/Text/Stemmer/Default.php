@@ -10,7 +10,7 @@
 
 function F_Default_Stemmer($Args)
   {
-        include Engine.'Package/Stem_Ru.php';
+      include Engine . 'Classes/Stem_Ru.php';
         $stemmer = new Stem_Ru();
         $Output = array();
         foreach ($Args as $Arg)
