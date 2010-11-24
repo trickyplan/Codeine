@@ -183,6 +183,26 @@
             return $Call;
         }
 
+        protected static function _CheckDepends($Contract)
+        {
+            if (isset($Contract['Depends']))
+            {
+                if (isset($Contract['Depends']['External']))
+                {
+                    foreach ($Contract['Depends']['External'] as $Dependency)
+                        if (!extension_loaded($Dependency))
+                            self::Hook(__CLASS__, 'errExternalDependencyFailed', $Contract);
+                }
+
+                if (isset($Contract['Depends']['Internal']))
+                {
+                    foreach ($Contract['Depends']['Internal'] as $Dependency)
+                        if (self::Run(array('F' => $Dependency), Code::Internal, 'Test'))
+                            self::Hook(__CLASS__, 'errInternalDependencyFailed', $Contract);
+                }
+            }
+        }
+
         protected static function SetNamespace($Namespace, $Driver)
         {
             return self::$_Registration = array('Namespace' => $Namespace, 'Driver'=> $Driver);
@@ -357,7 +377,10 @@
 
             // Если функции нет, подгружаем код
             if (self::Fn($Call['Function']) === null)
+            {
+                self::_CheckDepends($Contract);
                 self::_LoadSource($Call, $Contract);
+            }
 
             // Выполняем!
             $Return = self::_Do($Call);
