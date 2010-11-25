@@ -291,24 +291,14 @@
         public static function Run ($Call, $Mode = Code::Normal, $Runner = null, $Executor = null)
         {
             self::$_Stack->push($Call);
-            
-            if ($Runner !== null)
-            {
-                self::$_Stack->pop();
-                return self::Run(
-                    array(
-                         'F' => 'Code/Runners/'.$Runner.'/Run',
-                         'Call' => $Call,
-                         'Mode' => $Mode
-                          ), $Mode);
-            }
 
-            if ($Executor !== null)
+            // Proposed by enartemy
+            if ($Runner !== null || $Executor !== null)
             {
                 self::$_Stack->pop();
                 return self::Run(
                     array(
-                         'F' => 'Code/Executors/'.$Executor.'/Run',
+                         'F' => $Runner !== null ? 'Code/Runners/'.$Runner.'/Run' : 'Code/Executors/'.$Executor.'/Run',
                          'Call' => $Call,
                          'Mode' => $Mode
                           ), $Mode);
