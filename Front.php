@@ -18,7 +18,7 @@
                     array('F' => 'System/Interface/Input'),// Return Autorunned Call
                     array('F' => 'View/Render/Do'),
                     array('F' => 'System/Output/Output','D' => 'HTTP')
-                    ), false, 'Chain');
+                    ), Code::Normal, 'Chain');
 
         Profiler::MemTo('Front');
 
