@@ -48,7 +48,7 @@
     {
         if (!$Call['Store']->$Call['Point']['Scope']->insert($Call['Data']['Data']))
         {
-            Code::Hook('Data', 'errDataMongoDBInsertFailed', $Call);
+            Code::On('Data', 'errDataMongoDBInsertFailed', $Call);
             return false;
         }
         else
@@ -61,7 +61,7 @@
             if ($Call['Store']->$Call['Point']['Scope']->insert($Call['Data']['Data']))
                 return true;
 
-        Code::Hook('Data', 'errDataMongoDBUpdateFailed', $Call);
+        Code::On('Data', 'errDataMongoDBUpdateFailed', $Call);
         return false;
     });
 
@@ -69,7 +69,7 @@
     {
         if (!$Call['Store']->$Call['Point']['Scope']->remove($Call['Where']['ID']))
         {
-            Code::Hook('Data', 'errDataMongoDBDeleteFailed', $Call);
+            Code::On('Data', 'errDataMongoDBDeleteFailed', $Call);
             return false;
         }
         else

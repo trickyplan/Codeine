@@ -9,7 +9,7 @@
         if (!defined('Root'))
             define('Root', __DIR__);
 
-        Code::Hook('Front', 'beforeStart');
+        Code::On('Front', 'beforeStart');
 
         Profiler::MemFrom('Front');
 
@@ -22,7 +22,7 @@
 
         Profiler::MemTo('Front');
 
-        Code::Hook('Front', 'afterStart');
+        Code::On('Front', 'afterStart');
     }
     catch (Exception $e)
     {

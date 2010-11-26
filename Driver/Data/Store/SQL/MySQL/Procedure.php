@@ -19,13 +19,13 @@
             $Call['Point']['Password']);
 
         if (!$Link)
-            Code::Hook('Data', 'errDataMySQLConnectFailed', $Call);
+            Code::On('Data', 'errDataMySQLConnectFailed', $Call);
 
         if (!mysql_select_db($Call['Point']['Database'], $Link))
-            Code::Hook('Data', 'errDataMySQLSelectDBFailed', $Call);
+            Code::On('Data', 'errDataMySQLSelectDBFailed', $Call);
 
         if (!mysql_set_charset($Call['Point']['Charset'], $Link))
-            Code::Hook('Data', 'errDataMySQLCharsetFailed', $Call);
+            Code::On('Data', 'errDataMySQLCharsetFailed', $Call);
 
         return $Link;
     });
@@ -40,7 +40,7 @@
                  ));
 
         if (!($Result = mysql_query($Query, $Call['Store'])))
-            Code::Hook('Data', 'errDataMySQLReadFailed', $Call);
+            Code::On('Data', 'errDataMySQLReadFailed', $Call);
 
         return mysql_fetch_assoc($Result);
     });

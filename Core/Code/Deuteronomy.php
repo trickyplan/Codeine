@@ -32,7 +32,7 @@
 
             self::$_Conf  = self::_Configure(__CLASS__);
             self::$_Hooks = self::_Configure('Hooks');
-            self::Hook(__CLASS__, 'onInitialize');
+            self::On(__CLASS__, 'onInitialize');
         }
 
         public static function Conf($Key)
@@ -41,12 +41,12 @@
                 return self::$_Conf[$Key];
             else
             {
-                Code::Hook(__CLASS__, 'errConfKeyNotFound', $Key);
+                Code::On(__CLASS__, 'errConfKeyNotFound', $Key);
                 return null;
             }
         }
 
-        public static function Hook ($Class, $Event, $Data = array())
+        public static function On ($Class, $Event, $Data = array())
         {
             $Data['Class'] = $Class;
             $Data['Event'] = $Event;
@@ -73,7 +73,7 @@
 
         public static function Shutdown ()
         {
-            self::Hook(__CLASS__, 'onShutdown');
+            self::On(__CLASS__, 'onShutdown');
         }
 
         /**
@@ -156,7 +156,7 @@
 
             // Если хоть один роутер вернул результат...
             if ($NewCall === null)
-                self::Hook(__CLASS__, 'errCodeRoutingFailed', $Call);
+                self::On(__CLASS__, 'errCodeRoutingFailed', $Call);
             else
                 $Call = $NewCall;
 
@@ -173,7 +173,7 @@
         protected static function _Prepare ($Call)
         {
             if ($Call === null)
-                self::Hook(__CLASS__, 'errCodePreparingFailed', $Call);
+                self::On(__CLASS__, 'errCodePreparingFailed', $Call);
             // Ничего не помогло...
 
             $Slices = explode('/', $Call['F']);
@@ -191,14 +191,14 @@
                 {
                     foreach ($Contract['Depends']['External'] as $Dependency)
                         if (!extension_loaded($Dependency))
-                            self::Hook(__CLASS__, 'errExternalDependencyFailed', $Contract);
+                            self::On(__CLASS__, 'errExternalDependencyFailed', $Contract);
                 }
 
                 if (isset($Contract['Depends']['Internal']))
                 {
                     foreach ($Contract['Depends']['Internal'] as $Dependency)
                         if (self::Run(array('F' => $Dependency), Code::Internal, 'Test'))
-                            self::Hook(__CLASS__, 'errInternalDependencyFailed', $Contract);
+                            self::On(__CLASS__, 'errInternalDependencyFailed', $Contract);
                 }
             }
         }
@@ -246,7 +246,7 @@
                     if ($Filename)
                         return (include $Filename);
                     else
-                        self::Hook(__CLASS__, 'errCodeDriverFileNotFound', $Call);
+                        self::On(__CLASS__, 'errCodeDriverFileNotFound', $Call);
                 break;
 
                 case 'Code':
@@ -254,7 +254,7 @@
                         eval('self::Fn(\''.$Call['Function'].'\',
                             function ($Call) {'.$Contract['Source'].'});');
                     else
-                        Code::Hook(__CLASS__, 'errCodeSourceInContractNotSpecified', $Contract);
+                        Code::On(__CLASS__, 'errCodeSourceInContractNotSpecified', $Contract);
                 break;
 
                 case 'Data':
@@ -263,11 +263,11 @@
                             function ($Call) {'.Data::Read('Source', $Contract['Source']).'});');
                         // TODO Test!
                     else
-                        Code::Hook(__CLASS__, 'errCodeSourceDataInContractNotSpecified', $Contract);
+                        Code::On(__CLASS__, 'errCodeSourceDataInContractNotSpecified', $Contract);
                 break;
 
                 default:
-                    Code::Hook(__CLASS__, 'errCodeContractUnknownEngine', $Contract['Engine']);
+                    Code::On(__CLASS__, 'errCodeContractUnknownEngine', $Contract['Engine']);
                 break;
             }
         }
@@ -277,7 +277,7 @@
             $F = self::Fn($Call['Function']);
 
             if (null == $F)
-                self::Hook(__CLASS__,'errCodeFunctionIsNotCallable', $Call);
+                self::On(__CLASS__,'errCodeFunctionIsNotCallable', $Call);
             elseif (is_callable($F) or ($F instanceof Closure))
                 return $F($Call);
         }
@@ -327,7 +327,7 @@
 
             if ($Mode !== Code::Internal)
             {
-                self::Hook(__CLASS__,
+                self::On(__CLASS__,
                        'beforeRun',
                        array(
                             'Contract'  => $Contract,
@@ -405,7 +405,7 @@
                     $Return = Core::Any($Contract['Return']['Fallback']);
 
             if ($Mode !== Code::Internal)
-                self::Hook(__CLASS__,
+                self::On(__CLASS__,
                        'afterRun',
                        array(
                             'Contract'  => $Contract,
@@ -440,7 +440,7 @@
             if (self::isValidCall($Call))
                 return self::$_Aliases[$Alias] = $Call;
             else
-                self::Hook(__CLASS__, 'errCodeInvalidCallInAlias', $Alias);
+                self::On(__CLASS__, 'errCodeInvalidCallInAlias', $Alias);
         }
 
         protected static function _Check($Data, $Contract, $Verbose = false)
@@ -458,7 +458,7 @@
 
             if (in_array(false, $Decisions))
             {
-                self::Hook(__CLASS__, 'errCodeCheckFailed', $Decisions);
+                self::On(__CLASS__, 'errCodeCheckFailed', $Decisions);
                 return false;
             }
             else
@@ -469,7 +469,7 @@
         {
             if (isset($Contract['Return']))
                 if (!self::_Check($Result, $Contract['Return']))
-                    self::Hook(__CLASS__, 'WrongReturn',
+                    self::On(__CLASS__, 'WrongReturn',
                                array('Contract' => $Contract,
                                      'Result'   => $Result));
             return true;

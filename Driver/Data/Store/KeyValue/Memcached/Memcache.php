@@ -17,7 +17,7 @@
 
         if (!$Memcached->connect($Call['Host'], $Call['Port']))
         {
-            Code::Hook(__CLASS__, 'errDataMemCachedCannotConnect', $Call);
+            Code::On(__CLASS__, 'errDataMemCachedCannotConnect', $Call);
             return false;
         }
         else
@@ -29,7 +29,7 @@
         if (isset($Call['Store']))
             return $Call['Store']->close();
         else
-            Code::Hook(__CLASS__, 'errDataMemcachedStoreNotFoundAtDisconnect', $Call);
+            Code::On(__CLASS__, 'errDataMemcachedStoreNotFoundAtDisconnect', $Call);
     });
 
     self::Fn('Read', function ($Call)
@@ -37,7 +37,7 @@
         if ($Call['Store'])
             return $Call['Store']->get($Call['Point']['Scope'].$Call['Data']['Where']['ID']);
         else
-            Code::Hook(__CLASS__, 'errDataMemcachedStoreNotFoundAtRead', $Call);
+            Code::On(__CLASS__, 'errDataMemcachedStoreNotFoundAtRead', $Call);
     });
 
     self::Fn('Create', function ($Call)
@@ -45,7 +45,7 @@
         if ($Call['Store'])
             return $Call['Store']->add($Call['Point']['Scope'].$Call['Data']['Where']['ID'], $Call['Data']);
         else
-            Code::Hook(__CLASS__, 'errDataMemcachedStoreNotFoundAtCreate', $Call);
+            Code::On(__CLASS__, 'errDataMemcachedStoreNotFoundAtCreate', $Call);
     });
 
     self::Fn('Update', function ($Call)
@@ -53,7 +53,7 @@
         if ($Call['Store'])
             return $Call['Store']->set($Call['Point']['Scope'].$Call['Data']['Where']['ID'], $Call['Data']);
         else
-            Code::Hook(__CLASS__, 'errDataMemcachedStoreNotFoundAtUpdate', $Call);
+            Code::On(__CLASS__, 'errDataMemcachedStoreNotFoundAtUpdate', $Call);
     });
 
     self::Fn('Delete', function ($Call)
@@ -61,5 +61,5 @@
         if ($Call['Store'])
             return $Call['Store']->delete($Call['Point']['Scope'].$Call['Data']['Where']['ID']);
         else
-            Code::Hook(__CLASS__, 'errDataMemcachedStoreNotFoundAtDelete', $Call);
+            Code::On(__CLASS__, 'errDataMemcachedStoreNotFoundAtDelete', $Call);
     });

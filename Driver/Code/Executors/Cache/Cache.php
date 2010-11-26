@@ -23,7 +23,7 @@
                       'Where'=>
                         array('ID' => $CID)))))
         {
-            Code::Hook(__CLASS__, 'onCodeCacheHit', $Call);
+            Code::On(__CLASS__, 'onCodeCacheHit', $Call);
             return $Cached;
         }
         else
@@ -34,7 +34,7 @@
                               'ID' => $CID,
                               'Data' => $Result
                          ));
-            Code::Hook(__CLASS__, 'onCodeCacheMiss', $Call);
+            Code::On(__CLASS__, 'onCodeCacheMiss', $Call);
             return $Result;
         }
     });

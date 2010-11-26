@@ -18,10 +18,10 @@
                 if (isset(self::$_Conf['Points'][$Point]['Store']))
                     return self::$_Conf['Points'][$Point]['Store'];
                 else
-                    Code::Hook(__CLASS__, 'errDataStoreNotFound', $Point);
+                    Code::On(__CLASS__, 'errDataStoreNotFound', $Point);
             }
             else
-                Code::Hook(__CLASS__, 'errDataPointNotFound', $Point);
+                Code::On(__CLASS__, 'errDataPointNotFound', $Point);
         }
 
         public static function Initialize()
@@ -58,9 +58,9 @@
                                'F' => 'Data/Store/'.self::$_Conf['Stores'][$Store]['Type'].'/Connect',
                                'Point' => self::$_Conf['Stores'][$Store]
                         ))) !== null)
-                    Code::Hook(__CLASS__, 'errDataStoreConnectFailed', $Store);
+                    Code::On(__CLASS__, 'errDataStoreConnectFailed', $Store);
             else
-                Code::Hook(__CLASS__, 'errDataStoreNotFound', $Store);
+                Code::On(__CLASS__, 'errDataStoreNotFound', $Store);
 
             return self::$_Stores[$Store];
         }
@@ -87,7 +87,7 @@
             if ($NewCall !== null)
                 $Call = $NewCall;
             else
-                Code::Hook(__CLASS__, 'errDataRoutingFailed', $Call);
+                Code::On(__CLASS__, 'errDataRoutingFailed', $Call);
 
             return $Call;
         }
@@ -173,7 +173,7 @@
            if (isset($R))
                return $R;
            else
-               Code::Hook(__CLASS__, 'errLocateNotFound', $Path.':'.$Name);
+               Code::On(__CLASS__, 'errLocateNotFound', $Path.':'.$Name);
         }
 
         public static function Path ($Key)

@@ -16,7 +16,7 @@
         $Store = odbc_connect($Call['DSN'], $Call['User'], $Call['Password']);
         if (!$Store)
         {
-            Code::Hook('Data', 'errDataODBCCannotConnect', $Call);
+            Code::On('Data', 'errDataODBCCannotConnect', $Call);
             return false;
         }
     });
