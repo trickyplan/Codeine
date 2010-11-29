@@ -13,5 +13,6 @@
 
     self::Fn('Do', function ($Call)
     {
+
         return sha1(serialize($Call['Input']));
     });
