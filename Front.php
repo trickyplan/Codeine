@@ -5,9 +5,6 @@
     try
     {
         defined('Root') || define('Root', __DIR__);
-        
-        defined('Environment') || define('Environment',
-            (getenv('Codeine_Enviroment') ? getenv('Codeine_Enviroment') : 'Production'));
 
         Code::On('Front', 'beforeStart');
 

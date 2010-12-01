@@ -34,6 +34,9 @@
                 define ('DS', DIRECTORY_SEPARATOR);
                 define ('Engine', __DIR__.DS);
 
+                defined('Environment') || define('Environment',
+                    (getenv('Codeine_Enviroment') ? getenv('Codeine_Enviroment') : 'Production'));
+
                 if (isset($_SERVER['HTTP_HOST']))
                 {
                     define ('Host', $_SERVER['HTTP_HOST']);
