@@ -1,9 +1,14 @@
 <?php
 
-    /**
+    /* OSWA Codeine
      * @author BreathLess
-     * @date 11.11.10
-     * @time 1:02
+     * @type Codeine Core
+     * @description: Component Class
+     * @package Codeine
+     * @subpackage Core
+     * @version 0.1
+     * @date 01.12.10
+     * @time 14:39
      */
 
     abstract class Component
