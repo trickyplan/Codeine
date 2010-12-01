@@ -41,8 +41,10 @@
 
         public static function Mount($Point)
         {
-            $Mode = isset(
-                    self::$_Conf['Points'][$Point]['Mode']) ?  self::$_Conf['Points'][$Point]: Code::Normal;
+            if (isset(self::$_Conf['Points'][$Point]['Ring']))
+                $Mode = self::$_Conf['Points'][$Point]['Ring'];
+            else
+                $Mode = 2;
             
             self::Connect(self::_Point2Storage($Point), $Mode);
             return self::$_Points[$Point] = $Point;
@@ -80,7 +82,7 @@
                     array(
                         'F'=> 'Data/Routers/'.$Router.'::Route',
                         'Input' => $Call
-                    ), Code::Internal
+                    ), Code::Ring1
                 );
 
                 // Если что-то получилось, то выходим из перебора
@@ -102,10 +104,10 @@
             return Code::Run(array(
                            'F' => 'Data/Store/'.self::$_Conf['Stores'][$Store]['Type'].'::Disconnect',
                            'Point' => self::$_Stores[$Store]
-                      ), Code::Internal);
+                      ), Code::Ring1);
         }
 
-        protected static function _CRUD($Method, $Call, $Mode = Code::Normal)
+        protected static function _CRUD($Method, $Call, $Mode = Code::Ring2)
         {
             if (!self::isValidCall($Call))
                 $Call = self::_Route($Call);
@@ -135,12 +137,12 @@
                       ), $Mode);
         }
 
-        public static function Create($Call, $Mode = Code::Normal)
+        public static function Create($Call, $Mode = Code::Ring2)
         {
             return self::_CRUD('Create', $Call, $Mode);
         }
 
-        public static function Read($Call, $Mode = Code::Normal)
+        public static function Read($Call, $Mode = Code::Ring2)
         {
             $Result = self::_CRUD('Read', $Call, $Mode);
             
@@ -154,22 +156,22 @@
             return $Result;
         }
 
-        public static function Update($Call, $Mode = Code::Normal)
+        public static function Update($Call, $Mode = Code::Ring2)
         {
             return self::_CRUD('Update', $Call, $Mode);
         }
 
-        public static function Delete($Call, $Mode = Code::Normal)
+        public static function Delete($Call, $Mode = Code::Ring2)
         {
             return self::_CRUD('Delete', $Call, $Mode);
         }
 
-        public static function Exist($Call, $Mode = Code::Normal)
+        public static function Exist($Call, $Mode = Code::Ring2)
         {
             return self::_CRUD('Exist', $Call, $Mode);
         }
 
-        public static function Version($Call, $Mode = Code::Normal)
+        public static function Version($Call, $Mode = Code::Ring2)
         {
             return self::_CRUD('Version', $Call, $Mode);
         }

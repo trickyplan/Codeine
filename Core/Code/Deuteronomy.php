@@ -13,8 +13,9 @@
     
     class Code extends Component
     {
-        const Internal = true;
-        const Normal = 0;
+        const Ring0    = 0;
+        const Ring1    = 1;
+        const Ring2    = 2;
 
         protected static $_Stack = array();
         protected static $_Conf;
@@ -65,7 +66,7 @@
                         array(
                              'Calls' => self::$_Conf['Hooks'][$Class][$Event],
                             'Data'  => $Data
-                        ), Code::Internal, 'Feed');
+                        ), Code::Ring1, 'Feed');
                 else
                     return null;
             }
@@ -74,7 +75,7 @@
                     array(
                          'Calls' => self::$_Conf['Hooks']['Default'],
                          'Data'  => $Data
-                    ), Code::Internal, 'Feed');
+                    ), Code::Ring1, 'Feed');
         }
 
         /**
@@ -129,14 +130,14 @@
          * @param  $Driver
          * @return null
          */
-        protected static function _LoadContract($Call, $Mode = Code::Normal)
+        protected static function _LoadContract($Call, $Mode = Code::Ring2)
         {
             if (!isset(self::$_Contracts[$Call['Namespace']][$Call['Function']]))
             {
                 // FIXME OPTME
                 $Default = array($Call['Function'] => array());
 
-                if ($Mode == Code::Normal)
+                if ($Mode == Code::Ring2)
                 {
                     $DriverContract   = null;
                     $GroupContract = null;
@@ -149,7 +150,7 @@
                                       'Where' => array(
                                             'ID' => $Call['Namespace'].'/'.$Call['D']
                                       )
-                            ), Code::Internal);
+                            ), Code::Ring1);
                     }
                     
                     $GroupContract =
@@ -158,7 +159,7 @@
                                   'Where' => array(
                                         'ID' => $Call['Namespace'].'/'.$Call['Group']
                                   )
-                        ), Code::Internal);
+                        ), Code::Ring1);
                         
                     $Contract = self::ConfWalk($GroupContract, $DriverContract);
 
@@ -198,7 +199,7 @@
                         'F'=> 'Code/Routers::Route',
                         'D'=> $Router,
                         'Call' => $Call
-                    ), Code::Internal
+                    ), Code::Ring1
                 );
 
                 // Если что-то получилось, то выходим из перебора
@@ -228,10 +229,9 @@
             // Ничего не помогло...
 
             list ($Call['F'], $Call['Function']) = explode('::', $Call['F']);
+            $Call['Namespace'] = $Call['F'];
             
-            $Slices = explode('/', $Call['F']);
-            $Call['Namespace'] = implode('/', array_slice($Slices, 0, (count($Slices))));
-            list($Call['Group']) = array_reverse($Slices);
+            list($Call['Group']) = array_reverse(explode('/', $Call['F']));
 
             return $Call;
         }
@@ -250,7 +250,7 @@
                 if (isset($Contract['Depends']['Internal']))
                 {
                     foreach ($Contract['Depends']['Internal'] as $Dependency)
-                        if (self::Run(array('F' => $Dependency), Code::Internal, 'Test'))
+                        if (self::Run(array('F' => $Dependency), Code::Ring1, 'Test'))
                             self::On(__CLASS__, 'errInternalDependencyFailed', $Contract);
                 }
             }
@@ -345,7 +345,7 @@
          * @return mixed $Result - результат
          */
         
-        public static function Run ($Call, $Mode = Code::Normal, $Runner = null, $Executor = null)
+        public static function Run ($Call, $Mode = Code::Ring2, $Runner = null, $Executor = null)
         {
             self::$_Stack->push($Call);
 
@@ -383,7 +383,7 @@
             // Если передан не готовый объект запроса, а что-то иное, вызываем роутинг.
 
             // Запоминание вызова
-            if ($Mode !== Code::Internal) // Защита от зацикливания.
+            if ($Mode !== Code::Ring1) // Защита от зацикливания.
                 self::$_LastCall = $Call; // TODO: #refs48
 
             // Готовим удобные переменные
@@ -392,7 +392,7 @@
             // Загружаем контракт
             $Contract = self::_LoadContract($Call, $Mode);
 
-            if ($Mode == Code::Normal)
+            if ($Mode == Code::Ring2)
             {
                 self::On(__CLASS__,
                        'beforeRun',
@@ -414,7 +414,7 @@
 
             // Хуки
             if (isset($Contract['Hook']['beforeRun']))
-                self::Run($Contract['Hook']['beforeRun'], Code::Internal, 'Multi');
+                self::Run($Contract['Hook']['beforeRun'], Code::Ring1, 'Multi');
 
             // Устанавливаем текущее пространство имён
             self::SetNamespace($Call['Namespace'], $Call['D']);
@@ -431,7 +431,7 @@
 
             // Хуки
             if (isset($Contract['Hook']['afterRun']))
-                self::Run($Contract['Hook']['afterRun'], Code::Internal, 'Multi');
+                self::Run($Contract['Hook']['afterRun'], Code::Ring1, 'Multi');
 
             // Возврат вызова как результата
             if (isset($Contract['Return']['Call']) && $Contract['Return']['Call'])
@@ -449,7 +449,7 @@
                         array(
                              'Calls' => array_merge(
                                  $Return,
-                                 $Contract['Return']['Filter'])), Code::Internal,
+                                 $Contract['Return']['Filter'])), Code::Ring1,
                         'Chain');
 
             // Проверка результата
@@ -458,7 +458,7 @@
                 if (isset($Contract['Return']['Fallback']))
                     $Return = Core::Any($Contract['Return']['Fallback']);
 
-            if ($Mode !== Code::Internal)
+            if ($Mode !== Code::Ring1)
                 self::On(__CLASS__,
                        'afterRun',
                        array(
@@ -470,7 +470,7 @@
             return $Return;
         }
 
-        public static function LastCall($Call = array(), $Mode = Code::Normal)
+        public static function LastCall($Call = array(), $Mode = Code::Ring2)
         {
             if (null !== self::$_LastCall)
             {
@@ -508,7 +508,7 @@
                             'Contract'=>$Contract),
                      'Key'=> 'D',
                      'Values' => self::$_Conf['Checkers']),
-                Code::Internal, 'Revolver');
+                Code::Ring1, 'Revolver');
 
             if (in_array(false, $Decisions))
             {
@@ -568,7 +568,7 @@
                             $Call[$Name] = self::Run(
                                     array(
                                          'Calls' => array_merge($Call[$Name], $ContractNode['Filter'])),
-                                Code::Internal, 'Chain');
+                                Code::Ring1, 'Chain');
                 }
             
             return $Call;

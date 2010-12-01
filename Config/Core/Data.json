@@ -46,7 +46,7 @@
             "Format": "JSON",
             "Scope": "Config/Driver",
             "Postfix": ".json",
-            "Mode": 0},
+            "Ring": 1},
         
         "Test":    {"Store": "MySQL",  "Map": "Fluid",  "Scope": "Test"},
         "Layout":  {"Store": "Layout", "Map": "File",   "Scope": "Layout"},

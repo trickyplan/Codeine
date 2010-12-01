@@ -28,7 +28,7 @@
         }
         else
         {
-            $Result = Code::Run($Call['Call'], Code::Internal);
+            $Result = Code::Run($Call['Call'], Code::Ring1);
             Data::Create(array(
                               'Point' => 'CodeCache',
                               'ID' => $CID,
