@@ -13,23 +13,28 @@
 
     self::Fn('Create', function ($Call)
     {
+        {
+            $Model = Data::Read(
+                    array(
+                        'Point' => 'Model',
+                        'Where' =>
+                            array(
+                                'ID'=>$Call['Entity'])));
 
+            if (is_array($Model))
             {
-                $Model = Data::Read(
-                        array(
-                            'Point' => 'Model',
-                            'Where' =>
-                                array(
-                                    'ID'=>$Call['Entity'])));
+                $Call['Items'] = array();
 
-                $Items = array();        
-                $Items['Form'] = array(
+                $Call['Items']['Form'] = array(
                      'UI'        => 'Form',
                      'Purpose'   => 'Create',
                      'Entity'    => $Call['Entity'],
                      'Plugin'    => $Call['Function'],
                      'Data'      => $Model);
             }
+            else
+                Code::Hook(__CLASS__, 'errCreateAppModelNotLoaded', $Call);
+        }
 
-        return $Items;
+        return $Call;
     });

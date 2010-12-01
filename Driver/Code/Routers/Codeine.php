@@ -24,12 +24,15 @@
         if (!is_string($Call['Call']))
             return $Call;
         
-        $Call = explode ('/', mb_substr($Call['Call'],1));
-
-        list ($Routed['F'], $Routed['Entity'], $Routed['ID']) = $Call;
+        $Call = explode ('/', $Call['Call']);
 
         $CC = count($Call);
-        
+
+        if ($CC >= 3)
+            list ($Routed['F'], $Routed['Entity'], $Routed['ID']) = $Call;
+        else
+            return null;
+
         if ($CC>3)
             for ($ic = 3; $ic < $CC; $ic+=2)
                 if (isset($Call[$ic+1]))

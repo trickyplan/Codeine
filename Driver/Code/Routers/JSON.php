@@ -11,10 +11,10 @@
      * @time 23:16
      */
 
-  $Route = function ($Call)
-  {      
-      if ($Routed = json_decode($Call['Call'], true))
-        return $Routed;
-      else
-        return null;
-  };
+    self::Fn('Route', function ($Call)
+    {
+        if ($Routed = json_decode($Call['Call'], true))
+            return $Routed;
+        else
+            return null;
+    });

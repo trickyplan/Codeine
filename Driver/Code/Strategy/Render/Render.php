@@ -14,7 +14,7 @@
     self::Fn('Select', function ($Call)
     {
         $ParentCall = Code::ParentCall();
-        
+
         if (isset($ParentCall['Input']['As']))
             return $ParentCall['Input']['As'];
         else

@@ -21,7 +21,16 @@
         header('Content-type: text/html;charset=utf-8;');
         
         if (isset($_SERVER['REQUEST_URI']))
-            return $_SERVER['REQUEST_URI'].'?'.$_SERVER['QUERY_STRING'];
+        {
+            $URL = $_SERVER['REQUEST_URI'];
+
+            if (!empty($_SERVER['QUERY_STRING']))
+                $URL.= '?'.$_SERVER['QUERY_STRING'];
+
+            if (substr($URL,0,1) == '/')
+                $URL = substr($URL, 1);
+            return urldecode($URL);
+        }
         else
             return null;
     });

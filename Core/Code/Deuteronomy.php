@@ -235,6 +235,8 @@
                 self::On(__CLASS__, 'errCodePreparingFailed', $Call);
             // Ничего не помогло...
 
+            $Call['F'] = str_replace('>','/', $Call['F']);
+            
             list ($Call['F'], $Call['Function']) = explode('::', $Call['F']);
             $Call['Namespace'] = $Call['F'];
             

@@ -13,16 +13,16 @@
 
     self::Fn('Show', function ($Call)
     {
-        $Items = array();
+        $Call['Items'] = array();
         
-        $Items['Title'] = array(
+        $Call['Items']['Title'] = array(
             'UI'        => 'Block',
             'Entity'    => $Call['Entity'],
             'Plugin'    => $Call['Function'],
             'Data'      => 'Hello from block'
         );
 
-        $Items['Object'] = array(
+        $Call['Items']['Object'] = array(
             'UI'        => 'Object',
             'Entity'    => $Call['Entity'],
             'ID'    => $Call['ID'],
