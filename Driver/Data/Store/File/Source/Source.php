@@ -13,7 +13,7 @@
 
     self::Fn('Connect', function ($Call)
     {
-        return Data::Path('Drivers');
+        return Engine.Data::Path('Drivers');
     });
 
     self::Fn('Disconnect', function ($Call)
@@ -23,20 +23,20 @@
 
     self::Fn('Read', function ($Call)
     {
-
+        return file_get_contents($Call['Store']['Point']['DSN'].'/'.$Call['Data']['Where']['ID']);
     });
 
     self::Fn('Create', function ($Call)
     {
-
+        return file_put_contents($Call['Store']['Point']['DSN'].$Call['ID'], $Call['Body']);
     });
 
     self::Fn('Update', function ($Call)
     {
-        
+        return file_put_contents($Call['Store']['Point']['DSN'].$Call['ID'], $Call['Body']);
     });
 
     self::Fn('Delete', function ($Call)
     {
-        
+        return unlink($Call['Store']['Point']['DSN'].$Call['ID']);
     });
