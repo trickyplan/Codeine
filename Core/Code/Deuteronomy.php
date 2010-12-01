@@ -45,6 +45,14 @@
             }
         }
 
+        /**
+         * @description Создаёт событие, и запускает его обработчики
+         * @static
+         * @param  $Class - класс события (Code|Message|Data...)
+         * @param  $Event - имя события
+         * @param array $Data - дополнительные аргументы
+         * @return mixed|null
+         */
         public static function On ($Class, $Event, $Data = array())
         {
             $Data['Class'] = $Class;
@@ -60,14 +68,32 @@
                 return null;
         }
 
+        /**
+         * @description Добавить обработчик события во время исполнения
+         * @static
+         * @param  $Class - класс события
+         * @param  $Event - имя события
+         * @param  $ID    - имя обработчика
+         * @param  $Call  - валидный вызов
+         * @return bool
+         */
         public static function AddHook ($Class, $Event, $ID, $Call)
         {
             return self::$_Hooks[$Class][$Event][$ID] = $Call;
         }
 
+        /**
+         * @description Удалить обработчик события во время исполнения
+         * @static
+         * @param  $Class - класс события
+         * @param  $Event - имя события
+         * @param  $ID    - имя обработчика
+         * @return bool
+         */
         public static function DelHook ($Class, $Event, $ID)
         {
             unset (self::$_Hooks[$Class][$Event][$ID]);
+            return true;
         }
 
         public static function Shutdown ()
