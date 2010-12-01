@@ -1,0 +1,16 @@
+{
+    "Routers": ["Codeine", "JSON"],
+    "Checkers": ["Value","Required", "Type", "Condition"],
+    "Interfaces": ["HTTP","CLI"],
+    "Hooks":
+    {
+        "Code":
+        {
+            "onInitialize": [],
+            "beforeRun": [],
+            "afterRun": [],
+            "onShutdown": [],
+            "errCodeFunctionIsNotCallable": [{"F": "Error/Catch/Page/Catch"}]
+        }
+    }
+}

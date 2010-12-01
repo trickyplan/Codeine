@@ -13,10 +13,10 @@
             elseif (isset(self::$_Conf['Engines'][$Core]))
                 $Class = Engine.'Core/'.$Core.'/'.self::$_Conf['Engines'][$Core].'.php';
             else
-                throw new WTF('Unknown class '.$Core);
+                throw new Exception('Unknown class '.$Core);
 
             if ((include($Class)) === false)
-                throw new WTF($Core.' not found');
+                throw new Exception($Core.' not found');
 
             if (substr($Core, 0,1) !== 'I')
             {

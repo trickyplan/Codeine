@@ -31,7 +31,6 @@
             self::$_Stack = new SplStack();
 
             self::$_Conf  = self::_Configure(__CLASS__);
-            self::$_Hooks = self::_Configure('Hooks');
             self::On(__CLASS__, 'onInitialize');
         }
 
@@ -51,10 +50,10 @@
             $Data['Class'] = $Class;
             $Data['Event'] = $Event;
             
-            if (isset(self::$_Hooks[$Class][$Event]))
+            if (isset(self::$_Conf['Hooks'][$Class][$Event]))
                 return Code::Run(
                     array(
-                         'Calls' => self::$_Hooks[$Class][$Event],
+                         'Calls' => self::$_Conf['Hooks'][$Class][$Event],
                          'Data'  => $Data
                     ), Code::Internal, 'Feed');
             else

@@ -29,21 +29,21 @@
 
         protected static function _Configure($Name = 'Core')
         {
-            $EngineConf = Engine.'Conf/'.$Name.'.json';
-            $SiteConf   = Root.'Conf/'._Host.'/'.$Name.'.json';
+            $EngineConf = Engine.'Config/Core/'.$Name.'.json';
+            $SiteConf   = Root.'Config/'._Host.'/'.$Name.'.json';
 
             if (file_exists($EngineConf))
             {
                 if (($EngineConf = json_decode(file_get_contents($EngineConf), true))==null)
-                    throw new WTF(500001);
+                    throw new Exception(500001);
             }
             else
-                throw new WTF('Not found '.$EngineConf, 404001);
+                throw new Exception('Not found '.$EngineConf, 404001);
 
             if (file_exists($SiteConf))
             {
                 if (($SiteConf = json_decode(file_get_contents($SiteConf), true))==null)
-                    throw new WTF('Site configuration malformed.', 500002);
+                    throw new Exception('Site configuration malformed.', 500002);
                 $_Conf = self::ConfWalk ($EngineConf, $SiteConf);
             }
             else
