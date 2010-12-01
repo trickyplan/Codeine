@@ -4,7 +4,7 @@
  * @package Plugins
  * @name
  * @author BreathLess
- * @version 0.1
+ * @version 5.0
  * @copyright BreathLess, 2010
  */
 

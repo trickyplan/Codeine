@@ -6,7 +6,7 @@
      * @description: Random Strategy
      * @package Codeine
      * @subpackage Drivers
-     * @version 0.1
+     * @version 5.0
      * @date 18.11.10
      * @time 1:52
      */

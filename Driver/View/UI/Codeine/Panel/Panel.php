@@ -3,10 +3,10 @@
     /* OSWA Codeine
      * @author BreathLess
      * @type Codeine Driver
-     * @description: Block Element
+     * @description: Panel Element
      * @package Codeine
      * @subpackage Drivers
-     * @version 0.1
+     * @version 5.0
      * @date 22.11.10
      * @time 6:06
      */
@@ -18,5 +18,5 @@
         else
             $Call['Class'] = '';
 
-        return '<div class="Block '.$Call['Class'].'">'.$Call['Item']['Data'].'</div>';
+        return '<div class="Block '.$Call['Panel'].'">'.$Call['Item']['Data'].'</div>';
     });

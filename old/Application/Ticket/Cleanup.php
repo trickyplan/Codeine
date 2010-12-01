@@ -3,7 +3,7 @@
  * @package Plugins
  * @name Ticket/Cleanup
  * @author BreathLess
- * @version 0.1
+ * @version 5.0
  * @copyright BreathLess, 2010
  */
 

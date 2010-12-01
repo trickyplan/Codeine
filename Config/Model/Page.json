@@ -1,0 +1,27 @@
+{
+    "Title": "Page",
+    "Includes": [],
+    "Nodes":
+    {
+        "Title":
+        {
+            "Type": "String",
+            "Controls":
+            {
+                "Read": "",
+                "Create": "Textfield",
+                "Update": "Texfield"
+            }
+        },
+        "Body":
+        {
+            "Type": "String",
+            "Controls":
+            {
+                "Read": "",
+                "Create": "Textarea",
+                "Update": "Textarea"
+            }
+        }
+    }
+}

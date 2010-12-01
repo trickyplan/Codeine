@@ -6,7 +6,7 @@
      * @description: BC version of standart operations
      * @package Calculate
      * @subpackage Standart
-     * @version 0.1
+     * @version 5.0
      * @date 28.10.10
      * @time 1:46
      */

@@ -6,27 +6,23 @@
      * @description: Show Action
      * @package Codeine
      * @subpackage Drivers
-     * @version 0.1
+     * @version 5.0
      * @date 10.11.10
      * @time 23:13
      */
 
     self::Fn('Show', function ($Call)
     {
-        Message::Send(array(
-                         'Point'   => 'Log',
-                         'Type'    => 'Info',
-                         'Message' => 'Hello from Codeine!'
-                      ));
-
-        $Call['Items']['Hello'] = array(
+        $Items = array();
+        
+        $Items['Title'] = array(
             'UI'        => 'Block',
             'Entity'    => $Call['Entity'],
             'Plugin'    => $Call['Function'],
             'Data'      => 'Hello from block'
         );
 
-        $Call['Items']['Object'] = array(
+        $Items['Object'] = array(
             'UI'        => 'Object',
             'Entity'    => $Call['Entity'],
             'ID'    => $Call['ID'],

@@ -6,7 +6,7 @@
      * @description: IP Detector
      * @package Codeine
      * @subpackage Hooks
-     * @version 0.1
+     * @version 5.0
      * @date 28.10.10
      * @time 3:24
      */

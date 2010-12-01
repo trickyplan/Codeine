@@ -47,8 +47,22 @@
             "Scope": "Config/Driver",
             "Postfix": ".json",
             "Ring": 1},
-        
+
+        "Model":{
+            "Store": "FS",
+            "Format": "JSON",
+            "Scope": "Config/Model",
+            "Postfix": ".json",
+            "Ring": 1},
+
+        "Locale":{
+            "Store": "FS",
+            "Format": "JSON",
+            "Scope": "Data/Locale",
+            "Postfix": ".json"},
+
         "Test":    {"Store": "MySQL",  "Map": "Fluid",  "Scope": "Test"},
+
         "Layout":  {"Store": "Layout", "Map": "File",   "Scope": "Layout"},
         "FS":      {"Store": "FS",     "Map": "File",   "Scope": ""},
         "JS":      {"Store": "FS",     "Map": "File",   "Scope": "Default/JS"},

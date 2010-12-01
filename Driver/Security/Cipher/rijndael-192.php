@@ -6,7 +6,7 @@
      * @description: RIJNDAEL_192 MCrypt Wrapper
      * @package Codeine
      * @subpackage Drivers
-     * @version 0.1
+     * @version 5.0
      */
 
     

@@ -6,7 +6,7 @@
      * @description: HTTP Interface
      * @package Codeine
      * @subpackage Drivers
-     * @version 0.1
+     * @version 5.0
      * @date 17.11.10
      * @time 16:37
      */
@@ -19,8 +19,9 @@
     self::Fn('Input', function ($Call)
     {
         header('Content-type: text/html;charset=utf-8;');
+        
         if (isset($_SERVER['REQUEST_URI']))
-            return $_SERVER['REQUEST_URI'];
+            return $_SERVER['REQUEST_URI'].'?'.$_SERVER['QUERY_STRING'];
         else
             return null;
     });

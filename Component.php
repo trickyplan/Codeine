@@ -6,7 +6,7 @@
      * @description: Component Class
      * @package Codeine
      * @subpackage Core
-     * @version 0.1
+     * @version 5.0
      * @date 01.12.10
      * @time 14:39
      */

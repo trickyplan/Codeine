@@ -6,7 +6,7 @@
      * @description: D8 Port
      * @package Codeine
      * @subpackage Drivers
-     * @version 0.1
+     * @version 5.0
      * @date 16.11.10
      * @time 3:48
      */
@@ -24,31 +24,36 @@
                         array(
                             'ID'=>'Main')));
 
-        $Output = '';
+        $Output = array();
+
+        // Обработка контролов
         
-        if (is_array($Call['Input']['Items']))
-            foreach ($Call['Input']['Items'] as $Item)
-                $Output.= Code::Run(
-                    array('F'=>'View/UI/Codeine::Make',
+        if (is_array($Call['Input']))
+            foreach ($Call['Input'] as $ID => $Item)
+                $Output[$ID] = Code::Run(
+                    array('F'=>'View/UI/Codeine/'.$Item['UI'].'::Make',
                           'D' => $Item ['UI'],
                           'Item'=> $Item)
                 );
 
-        // Вытащить шаблоны
+        $Output = implode('',$Output);
 
         // Профьюзить
         // Постпроцессинг
-        // Вернуть
 
         $Output = str_replace('<content/>',$Output, $Layout);
 
-        $Processors = array('Media'); // FIXME!!
+        $Processors = array('HTML/Media', 'HTML/I18N'); // FIXME!!
 
         foreach ($Processors as $Processor)
-                $Output = Code::Run(
-                    array('F'=>'View/Processors/'.$Processor.'::Process',
-                          'Input'=> $Output)
-                );
+            $Output = Code::Run(
+                array('F'=>'View/Processors/'.$Processor.'::Process',
+                      'Input'=> $Output)
+            );
+
+        // Вернуть
+
+
 
         return $Output;
     });

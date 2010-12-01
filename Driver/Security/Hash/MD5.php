@@ -6,7 +6,7 @@
      * @description: Standart MD5
      * @package Codeine
      * @subpackage Drivers
-     * @version 0.1
+     * @version 5.0
      * @date 22.11.10
      * @time 4:40
      */
