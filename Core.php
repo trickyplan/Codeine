@@ -37,16 +37,8 @@
                 defined('Environment') || define('Environment',
                     (getenv('Codeine_Enviroment') ? getenv('Codeine_Enviroment') : 'Production'));
 
-                if (isset($_SERVER['HTTP_HOST']))
-                {
-                    define ('Host', $_SERVER['HTTP_HOST']);
-                    define ('_Host', 'http://'.$_SERVER['HTTP_HOST'].'/');
-                }
-                else
-                {
-                    define ('Host', null);
-                    define ('_Host', null);
-                }
+                define ('Host', $_SERVER['HTTP_HOST'] ? $_SERVER['HTTP_HOST']: 'localhost');
+                define ('_Host', 'http://'.Host);
 
                 self::$_Conf = self::_Configure(__CLASS__);
 
@@ -57,7 +49,7 @@
             }
             catch (Exception $e)
             {
-                $e->Panic();
+                die($e->getMessage());
             }
         }
 
