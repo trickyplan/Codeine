@@ -1,8 +1,7 @@
 <?php
 
     include 'Component.php';
-    include 'WTF.php';
-    
+
     class Core extends Component
     {
         protected static $_Conf;
@@ -53,7 +52,7 @@
                 Profiler::Initialize();
                 return true;
             }
-            catch (WTF $e)
+            catch (Exception $e)
             {
                 $e->Panic();
             }
