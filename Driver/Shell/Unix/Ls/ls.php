@@ -13,6 +13,5 @@
 
     $Exec = function ($Call)
     {
-        exec ('ls', $Output);
-        return implode("\n", $Output);
+        return passthru('ls');
     };

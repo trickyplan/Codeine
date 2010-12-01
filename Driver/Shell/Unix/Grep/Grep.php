@@ -13,6 +13,5 @@
 
     $Exec = function ($Call)
     {
-        exec ('grep '.$Call['Input'], $Output);
-        return implode("\n", $Output);
+        return passthru('grep '.$Call['Input']);
     };

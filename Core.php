@@ -44,7 +44,6 @@
 
                 spl_autoload_register ('Core::Load');
 
-                Profiler::Initialize();
                 return true;
             }
             catch (Exception $e)

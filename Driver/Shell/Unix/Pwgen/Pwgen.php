@@ -13,6 +13,5 @@
 
     $Exec = function ($Call)
     {
-        exec ('pwgen', $Output);
-        return implode("\n", $Output);
+        return passthru('pwgen');
     };

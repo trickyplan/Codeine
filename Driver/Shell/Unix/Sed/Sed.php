@@ -13,6 +13,5 @@
 
     $Exec = function ($Call)
     {
-        exec ($Call['Input'].' | sed -e "'.$Call['Pattern'].'"', $Output);
-        return implode("\n", $Output);
+        return passthru($Call['Input'].' | sed -e "'.$Call['Pattern'].'"');
     };

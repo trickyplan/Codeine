@@ -13,6 +13,5 @@
 
     $Exec = function ($Call)
     {
-        exec ('ruby -e "'.$Call['Input'].'"', $Output);
-        return implode("\n", $Output);
+        return passthru('ruby -e "'.$Call['Input'].'"');
     };

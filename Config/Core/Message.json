@@ -3,7 +3,7 @@
     {
         "Log":
         {
-            "Method": "Log/FirePHP",
+            "Method": "Log/KNotify",
             "DSN": "/"
         }
     }

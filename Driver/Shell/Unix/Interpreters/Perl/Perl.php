@@ -13,6 +13,5 @@
 
     $Exec = function ($Call)
     {
-        exec ('perl -e \''.$Call['Input'].'\'', $Output);
-        return implode("\n", $Output);
+        return passthru('perl -e \''.$Call['Input'].'\'');
     };

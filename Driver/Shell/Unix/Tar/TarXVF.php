@@ -13,6 +13,5 @@
 
     $Exec = function ($Call)
     {
-        exec ('tar xvf '.$Call['Input'], $Output);
-        return implode("\n", $Output);
+        return passthru('tar xvf '.$Call['Input']);
     };

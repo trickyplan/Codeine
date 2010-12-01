@@ -13,6 +13,5 @@
 
     $Exec = function ($Call)
     {
-        exec('date', $Output);
-        return implode("\n",$Output);
+        return passtrhu('date');
     };

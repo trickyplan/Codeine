@@ -13,6 +13,5 @@
 
     $Exec = function ($Call)
     {
-        exec ('top -n 1', $Output);
-        return implode("\n", $Output);
+        return passthru('top -n 1');
     };

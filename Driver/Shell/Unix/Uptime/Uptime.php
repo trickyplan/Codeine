@@ -13,6 +13,5 @@
 
     $Exec = function ($Call)
     {
-        exec ('uptime', $Output);
-        return implode("\n", $Output);
+        return passthru('uptime');
     };

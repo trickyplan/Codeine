@@ -13,6 +13,5 @@
 
     $Exec = function ($Call)
     {
-        exec ('python -c \''.$Call['Input'].'\'', $Output);
-        return implode("\n", $Output);
+        return passthru('python -c \''.$Call['Input'].'\'');
     };

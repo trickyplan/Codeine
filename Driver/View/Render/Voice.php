@@ -13,6 +13,5 @@
 
     $Render = function ($Call)
     {
-        exec ('echo "'.$Call['Output'].'" | text2wave', $contents);
-        return $contents;
+        return passthru('echo "'.$Call['Output'].'" | text2wave');
     };

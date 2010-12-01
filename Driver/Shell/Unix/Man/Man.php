@@ -16,6 +16,5 @@
         if (!isset($Call['Input']))
             $Call['Input'] = 'man';
         
-        exec ('man '.$Call['Input'], $Output);
-        return implode("\n", $Output);
+        return passthru('man '.$Call['Input']);
     };

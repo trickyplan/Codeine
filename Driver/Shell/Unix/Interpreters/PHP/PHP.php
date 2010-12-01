@@ -13,6 +13,5 @@
 
     $Exec = function ($Call)
     {
-        exec ('php -r "'.$Call['Input'].'"', $Output);
-        return implode("\n", $Output);
+        return passthru('php -r "'.$Call['Input'].'"');
     };
