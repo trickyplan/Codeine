@@ -8,12 +8,7 @@
 
         Code::On('Front', 'beforeStart');
 
-        Code::Run(
-                array(
-                    array('F' => 'System/Interface/Input'),// Return Autorunned Call
-                    array('F' => 'View/Render/Do'),
-                    array('F' => 'System/Output/Output','D' => 'HTTP')
-                    ), Code::Normal, 'Chain');
+        Code::Run(array('F' => 'Code/Patterns/Front/Run'));
 
         Code::On('Front', 'afterStart');
     }
