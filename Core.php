@@ -55,15 +55,21 @@
 
         public static function Any($Variable, $Routing = false)
         {
-            if (Code::isValidCall($Variable) && !$Routing)
+            if ($Routing || Code::isValidCall($Variable))
             {
                 if (($Result = Code::Run($Variable)) !== null)
                     return $Result;
             }
 
-            if (Data::isValidCall($Variable) && !$Routing)
+            if ($Routing || Data::isValidCall($Variable))
             {
                 if (($Result = Data::Read($Variable)) !== null)
+                    return $Result;
+            }
+
+            if ($Routing || Message::isValidCall($Variable))
+            {
+                if (($Result = Message::Send($Variable)) !== null)
                     return $Result;
             }
 

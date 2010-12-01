@@ -65,4 +65,9 @@
                        'Call' => $Call
                       ));
         }
+
+        public static function isValid ($Call)
+        {
+            return is_array($Call) && isset($Call['Message']);
+        }
     }
