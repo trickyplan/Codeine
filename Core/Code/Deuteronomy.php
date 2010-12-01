@@ -231,38 +231,14 @@
          */
         protected static function _Prepare ($Call)
         {
-            if ($Call === null)
-                self::On(__CLASS__, 'errCodePreparingFailed', $Call);
-            // Ничего не помогло...
-
             $Call['F'] = str_replace('>','/', $Call['F']);
-            
+
             list ($Call['F'], $Call['Function']) = explode('::', $Call['F']);
             $Call['Namespace'] = $Call['F'];
-            
+
             list($Call['Group']) = array_reverse(explode('/', $Call['F']));
 
             return $Call;
-        }
-
-        protected static function _CheckDepends($Contract)
-        {
-            if (isset($Contract['Depends']))
-            {
-                if (isset($Contract['Depends']['External']))
-                {
-                    foreach ($Contract['Depends']['External'] as $Dependency)
-                        if (!extension_loaded($Dependency))
-                            self::On(__CLASS__, 'errExternalDependencyFailed', $Contract);
-                }
-
-                if (isset($Contract['Depends']['Internal']))
-                {
-                    foreach ($Contract['Depends']['Internal'] as $Dependency)
-                        if (self::Run(array('F' => $Dependency), Code::Ring1, 'Test'))
-                            self::On(__CLASS__, 'errInternalDependencyFailed', $Contract);
-                }
-            }
         }
 
         protected static function SetNamespace($Namespace, $Driver)
@@ -341,9 +317,8 @@
             if (null == $F)
             {
                 self::On(__CLASS__,'errCodeFunctionIsNotCallable', $Call);
-                var_dump($Call);
+                return null;
             }
-
             elseif (is_callable($F) or ($F instanceof Closure))
                 return $F($Call);
         }
@@ -357,8 +332,6 @@
         public static function Run ($Call, $Mode = Code::Ring2, $Runner = null, $Executor = null)
         {
             self::$_Stack->push($Call);
-
-            Component::_Lock('Data');
             
             if ($Runner !== null)
             {
@@ -385,28 +358,27 @@
             $Return = null;
 
             // Проверка на псевдонимы. Псевдонимы проверяются при определении.
+            // Если передан не готовый объект запроса, а что-то иное, вызываем роутинг.
 
             if (is_string($Call) && isset(self::$_Aliases[$Call]))
                 $Call = self::$_Aliases[$Call];
             elseif (!self::isValidCall($Call))
                 $Call = self::_Route($Call);
 
-            // Если передан не готовый объект запроса, а что-то иное, вызываем роутинг.
-
-            // Запоминание вызова
-            if ($Mode !== Code::Ring1) // Защита от зацикливания.
-                self::$_LastCall = $Call; // TODO: #refs48
-
             // Готовим удобные переменные
             $Call = self::_Prepare($Call);
-            
+
             // Загружаем контракт
             $Contract = self::_LoadContract($Call, $Mode);
 
-            if ($Mode == Code::Ring2)
+            // Запоминание вызова
+            // Защита от зацикливания.
+            if ($Mode !== Code::Ring1)
             {
+                self::$_LastCall = $Call; // TODO: #refs48
+
                 self::On(__CLASS__,
-                       'beforeRun',
+                       'beforeCall',
                        array(
                             'Contract'  => $Contract,
                             'Call'      => $Call));
@@ -432,10 +404,7 @@
 
             // Если функции нет, подгружаем код
             if (self::Fn($Call['Function']) === null)
-            {
-                self::_CheckDepends($Contract);
                 self::_LoadSource($Call, $Contract);
-            }
 
             // Выполняем!
             $Return = self::_Do($Call);
@@ -471,7 +440,7 @@
 
             if ($Mode !== Code::Ring1)
                 self::On(__CLASS__,
-                       'afterRun',
+                       'afterCall',
                        array(
                             'Contract'  => $Contract,
                             'Call'      => $Call,
