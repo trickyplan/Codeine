@@ -68,3 +68,5 @@
                 return $Variable;
         }
     }
+
+    Core::Initialize();
