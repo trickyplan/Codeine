@@ -53,14 +53,21 @@
             }
         }
 
-        public static function Any($Variable)
+        public static function Any($Variable, $Routing = false)
         {
-            if (Code::isValidCall($Variable))
-                return Code::Run($Variable);
-            elseif (Data::isValidCall($Variable))
-                return Data::Read($Variable);
-            else
-                return $Variable;
+            if (Code::isValidCall($Variable) && !$Routing)
+            {
+                if (($Result = Code::Run($Variable)) !== null)
+                    return $Result;
+            }
+
+            if (Data::isValidCall($Variable) && !$Routing)
+            {
+                if (($Result = Data::Read($Variable)) !== null)
+                    return $Result;
+            }
+
+            return $Variable;
         }
     }
 
