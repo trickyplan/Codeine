@@ -17,7 +17,7 @@
 
         foreach ($Interfaces as $Interface)
         {
-            if (Code::Run(array('F'=>'System/Interface/'.$Interface.'/Detect')))
+            if (Code::Run(array('F'=>'System/Interface/'.$Interface.'::Detect')))
                 break;
         }
         

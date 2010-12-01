@@ -55,7 +55,7 @@
         public static function Report ()
         {
             return Code::Run(array(
-                                  'F' => 'System/Profiling/Report/Generate',
+                                  'F' => 'System/Profiling/Report::Generate',
                                   'Memory' => self::$Memory,
                                   'Ticks' => self::$Ticks,
                                   'Results' => self::$Results,

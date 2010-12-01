@@ -59,7 +59,7 @@
             {
                 if ((self::$_Stores[$Store] =
                     Code::Run(array(
-                               'F' => 'Data/Store/'.self::$_Conf['Stores'][$Store]['Type'].'/Connect',
+                               'F' => 'Data/Store/'.self::$_Conf['Stores'][$Store]['Type'].'::Connect',
                                'Point' => self::$_Conf['Stores'][$Store]
                         ),$Mode)) !== null)
                     Code::On(__CLASS__, 'errDataStoreConnectFailed', $Store);
@@ -78,7 +78,7 @@
                 // Пробуем роутер из списка...
                 $NewCall = Code::Run(
                     array(
-                        'F'=> 'Data/Routers/'.$Router.'/Route',
+                        'F'=> 'Data/Routers/'.$Router.'::Route',
                         'Input' => $Call
                     ), Code::Internal
                 );
@@ -100,7 +100,7 @@
         public static function Disconnect($Store)
         {
             return Code::Run(array(
-                           'F' => 'Data/Store/'.self::$_Conf['Stores'][$Store]['Type'].'/Disconnect',
+                           'F' => 'Data/Store/'.self::$_Conf['Stores'][$Store]['Type'].'::Disconnect',
                            'Point' => self::$_Stores[$Store]
                       ), Code::Internal);
         }
@@ -126,7 +126,7 @@
             $Store = self::_Point2Storage($Call['Point']);
 
             return Code::Run(array(
-                           'F' => 'Data/Store/'.self::$_Conf['Stores'][$Store]['Type'].'/'.$Method,
+                           'F' => 'Data/Store/'.self::$_Conf['Stores'][$Store]['Type'].'::'.$Method,
                            'Point' => self::$_Conf['Points'][$Call['Point']],
                            'Store' => self::$_Stores[$Store],
                            'Data' => $Call,
@@ -147,7 +147,7 @@
             if (isset(self::$_Conf['Points'][$Call['Point']]['Format']) && $Result !== null)
                 $Result = Code::Run(array(
                               'F' => 'Data/Formats/'.
-                                     self::$_Conf['Points'][$Call['Point']]['Format'].'/Decode',
+                                     self::$_Conf['Points'][$Call['Point']]['Format'].'::Decode',
                               'Input' => $Result
                                  ), $Mode);
             

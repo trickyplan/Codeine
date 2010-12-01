@@ -18,7 +18,7 @@
             return true;
         else
             return Code::Run(
-                array( 'F' => 'Data/Types/Validate',
+                array( 'F' => 'Data/Types::Validate',
                        'D' => $Call['Contract']['Type'],
                        'Value' => $Call['Data']));
     });

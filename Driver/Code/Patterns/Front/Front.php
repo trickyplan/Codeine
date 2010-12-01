@@ -15,8 +15,8 @@
     {
         return Code::Run(
                 array(
-                    array('F' => 'System/Interface/Input'),// Return Autorunned Call
-                    array('F' => 'View/Render/Do'),
-                    array('F' => 'System/Output/Output','D' => 'HTTP')
+                    array('F' => 'System/Interface::Input'),// Return Autorunned Call
+                    array('F' => 'View/Render::Do'),
+                    array('F' => 'System/Output::Output','D' => 'HTTP')
                     ), Code::Normal, 'Chain');
     });

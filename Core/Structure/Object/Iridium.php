@@ -15,7 +15,7 @@
         public function Where($Key, $Is, $Value = null)
         {
             return $this->_Name = Code::Run(array(
-                               'F'     => 'Data/Map/Where',
+                               'F'     => 'Data/Map::Where',
                                'D'    => Core::$Conf['Data']['Points'][$this->_Type]['Map'],
                                'Key'   => $Key,
                                'Is'    => $Is,
@@ -31,7 +31,7 @@
                 $this->_Name = $Name;
 
             $this->_Data = Code::Run(array(
-                               'F'    => 'Data/Map/Load',
+                               'F'    => 'Data/Map::Load',
                                'D'    => Core::$Conf['Data']['Points'][$this->_Type]['Map'],
                                'Name' => $this->_Name
                             ));

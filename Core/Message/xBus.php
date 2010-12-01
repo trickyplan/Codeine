@@ -25,7 +25,7 @@
         {
             self::$_Points[$Point] =
                 Code::Run(array(
-                           'F' => 'Message/'.self::$_Conf['Points'][$Point]['Method'].'/Connect',
+                           'F' => 'Message/'.self::$_Conf['Points'][$Point]['Method'].'::Connect',
                            'Point' => self::$_Conf['Points'][$Point]
                       ));
             
@@ -37,7 +37,7 @@
         {
             return self::$_Points[$Call['Point']] =
                 Code::Run(array(
-                           'F' => 'Message/'.self::$_Conf['Points'][$Call['Point']]['Method'].'/Disconnect',
+                           'F' => 'Message/'.self::$_Conf['Points'][$Call['Point']]['Method'].'::Disconnect',
                            'Point' => self::$_Conf['Points'][$Call['Point']]
                       ));
         }
@@ -48,7 +48,7 @@
                 self::Connect($Call['Point']);
 
             return Code::Run(array(
-                       'F' => 'Message/'.self::$_Conf['Points'][$Call['Point']]['Method'].'/Send',
+                       'F' => 'Message/'.self::$_Conf['Points'][$Call['Point']]['Method'].'::Send',
                        'Point' => self::$_Points[$Call['Point']],
                        'Call' => $Call
                       ));
@@ -60,7 +60,7 @@
                 self::Connect($Call['Point']);
             
             return Code::Run(array(
-                       'F' => 'Message/'.self::$_Conf['Points'][$Call['Point']]['Method'].'/Receive',
+                       'F' => 'Message/'.self::$_Conf['Points'][$Call['Point']]['Method'].'::Receive',
                        'Point' => self::$_Conf['Points'][$Call['Point']],
                        'Call' => $Call
                       ));

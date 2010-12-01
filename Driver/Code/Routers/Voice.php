@@ -14,6 +14,6 @@
     $Route = function ($Call)
     {
         return Code::Run(
-            array('F'=>'Recognition/Voice/Recognize', 'Value' => $Call)
+            array('F'=>'Recognition/Voice::Recognize', 'Value' => $Call)
         );
     };

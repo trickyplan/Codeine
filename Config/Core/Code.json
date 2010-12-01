@@ -11,7 +11,7 @@
             "beforeRun": null,
             "afterRun": null,
             "onShutdown": null,
-            "errCodeFunctionIsNotCallable": [{"F": "Error/Catch/Page/Catch"}]
+            "errCodeFunctionIsNotCallable": [{"F": "Error/Catch/Page::Catch"}]
         }
     }
 }

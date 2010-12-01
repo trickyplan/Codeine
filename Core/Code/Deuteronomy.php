@@ -195,7 +195,7 @@
                 // Пробуем роутер из списка...
                 $NewCall = Code::Run(
                     array(
-                        'F'=> 'Code/Routers/Route',
+                        'F'=> 'Code/Routers::Route',
                         'D'=> $Router,
                         'Call' => $Call
                     ), Code::Internal
@@ -227,9 +227,11 @@
                 self::On(__CLASS__, 'errCodePreparingFailed', $Call);
             // Ничего не помогло...
 
+            list ($Call['F'], $Call['Function']) = explode('::', $Call['F']);
+            
             $Slices = explode('/', $Call['F']);
-            $Call['Namespace'] = implode('/', array_slice($Slices, 0, (count($Slices)-1)));
-            list($Call['Function'], $Call['Group']) = array_reverse($Slices);
+            $Call['Namespace'] = implode('/', array_slice($Slices, 0, (count($Slices))));
+            list($Call['Group']) = array_reverse($Slices);
 
             return $Call;
         }
@@ -352,7 +354,7 @@
                 self::$_Stack->pop();
                 return self::Run(
                     array(
-                         'F' => 'Code/Runners/'.$Runner.'/Run',
+                         'F' => 'Code/Runners/'.$Runner.'::Run',
                          'Call' => $Call,
                          'Mode' => $Mode
                           ), $Mode);
@@ -363,7 +365,7 @@
                 self::$_Stack->pop();
                 return self::Run(
                     array(
-                         'F' => 'Code/Executors/'.$Executor.'/Run',
+                         'F' => 'Code/Executors/'.$Executor.'::Run',
                          'Call' => $Call,
                          'Mode' => $Mode
                           ), $Mode);
@@ -501,7 +503,7 @@
                 array(
                      'Prototype' =>
                         array(
-                            'F'=>'Code/Checkers/Check',
+                            'F'=>'Code/Checkers::Check',
                             'Data'=> $Data,
                             'Contract'=>$Contract),
                      'Key'=> 'D',

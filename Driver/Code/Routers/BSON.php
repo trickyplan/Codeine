@@ -14,6 +14,6 @@
     $Route = function ($Call)
     {
         return Code::Run(
-            array('F'=>'Formats/BSON/Decode', 'Value' => $Call['Call'])
+            array('F'=>'Formats/BSON::Decode', 'Value' => $Call['Call'])
         );
     };

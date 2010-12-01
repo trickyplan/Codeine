@@ -36,7 +36,7 @@
                 else
                     $Routed[$Call[$ic]] = true;
 
-        $Routed['F'] = 'App/'.$Routed['F'].'/'.$Routed['F'];
+        $Routed['F'] = 'App/'.$Routed['F'].'::'.$Routed['F'];
 
       return $Routed;
     });

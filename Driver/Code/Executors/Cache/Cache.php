@@ -14,7 +14,7 @@
     self::Fn('Run', function ($Call)
     {
         $CID = Code::Run(array(
-                              'F' => 'Data/CacheID/Do',
+                              'F' => 'Data/CacheID::Do',
                               'Input' => $Call['Call']
                          ));
 

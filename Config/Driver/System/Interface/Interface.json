@@ -7,7 +7,7 @@
         {
             "Default":
                 {
-                    "F": "Code/Strategy/Interface/Select"
+                    "F": "Code/Strategy/Interface::Select"
                 }
         },
         "Profiling":
