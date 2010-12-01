@@ -11,7 +11,7 @@
      * @time 3:38
      */
 
-    $Render = function ($Call)
+    self::Fn('Render', function ($Call)
     {
         return passthru('echo "'.$Call['Output'].'" | text2wave');
-    };
+    });

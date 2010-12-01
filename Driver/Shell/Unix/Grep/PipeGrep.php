@@ -11,8 +11,8 @@
      * @time 2:18
      */
 
-    $Exec = function ($Call)
+    self::Fn('Exec', function ($Call)
     {
         exec ($Call['Input'].' | grep', $Output);
         return implode("\n", $Output);
-    };
+    });

@@ -11,7 +11,7 @@
      * @time 6:54
      */
 
-    $Hook = function ($Call)
+    self::Fn('Hook', function ($Call)
     {
         $FH = fopen('/proc/loadavg', 'r');
         $Data = fread($FH, 6);
@@ -20,4 +20,4 @@
         $CPU =  trim($LA[0]);
         sleep(round($CPU));
         return $CPU;
-    };
+    });

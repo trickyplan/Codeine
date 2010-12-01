@@ -11,7 +11,7 @@
      * @time 2:40
      */
 
-    $Exec = function ($Call)
+    $self::Fn('Exec', function ($Call)
     {
         return passthru($Call['Input'].' | sed -e "'.$Call['Pattern'].'"');
-    };
+    });

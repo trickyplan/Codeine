@@ -11,13 +11,13 @@
      * @time 16:05
      */
 
-    $Decode = function ($Call)
+    self::Fn('Decode', function ($Call)
     {
         return bson_decode($Call['Value']);
-    };
+    });
 
-    $Encode = function ($Call)
+    self::Fn('Encode', function ($Call)
     {
         return bson_encode($Call['Value']);
-    };
+    });
 

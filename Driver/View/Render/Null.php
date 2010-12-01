@@ -11,7 +11,7 @@
      * @time 3:51
      */
 
-    $Render = function ($Call)
+    self::Fn('Render', function ($Call)
     {
         return null;
-    };
+    });

@@ -11,7 +11,7 @@
      * @time 23:16
      */
 
-  $Route = function ($Call)
+  self::Fn('Route', function ($Call)
   {
         if (!is_string($Call['Call']))
             return null;
@@ -37,4 +37,4 @@
             $Routed = null;
 
       return $Routed;
-  };
+  });

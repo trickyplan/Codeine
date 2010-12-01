@@ -11,7 +11,7 @@
      * @time 3:41
      */
 
-    $Output = function ($Call)
+    self::Fn('Output', function ($Call)
     {
         return file_put_contents($Call['Call'], $Call['Input']);
-    };
+    });

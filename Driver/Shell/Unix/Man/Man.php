@@ -11,10 +11,10 @@
      * @time 2:22
      */
 
-    $Exec = function ($Call)
+    self::Fn('Exec', function ($Call)
     {
         if (!isset($Call['Input']))
             $Call['Input'] = 'man';
         
         return passthru('man '.$Call['Input']);
-    };
+    });

@@ -11,7 +11,7 @@
      * @time 5:06
      */
 
-     $Check = function ($Args)
+     self::Fn('Check', function ($Call)
      {        
-         return ($Args['Value']%2 !== 0);
-     };
+         return ($Call['Value']%2 !== 0);
+     });

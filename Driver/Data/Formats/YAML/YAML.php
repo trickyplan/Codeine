@@ -11,13 +11,13 @@
      * @time 16:08
      */
 
-    $Decode = function ($Call)
+    self::Fn('Decode', function ($Call)
     {
         return yaml_parse($Call['Value']);
-    };
+    });
 
-    $Encode = function ($Call)
+    self::Fn('Encode', function ($Call)
     {
         return yaml_emit($Call['Value']);
-    };
+    });
 

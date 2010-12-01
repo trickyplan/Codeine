@@ -11,26 +11,25 @@
      * @time 1:43
      */
 
-    $Add = function ($Call)
+    self::Fn('Add', function ($Call)
     {
         return $Call['A']+$Call['B'];
-    };
+    });
 
-    $Substract = function ($Call)
+    self::Fn('Substract', function ($Call)
     {
         return $Call['A']-$Call['B'];
-    };
+    });
 
-    $Multiply = function ($Call)
+    self::Fn('Multiply', function ($Call)
     {
         return $Call['A']*$Call['B'];
-    };
-
-    $Divide = function ($Call)
+    });
+    
+    self::Fn('Divide', function ($Call)
     {
         return $Call['A']/$Call['B'];
-    };
-
+    });
 
     self::Fn('SquareRoot', function ($Call)
     {

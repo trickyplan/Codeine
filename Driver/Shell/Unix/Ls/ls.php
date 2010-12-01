@@ -11,7 +11,7 @@
      * @time 2:20
      */
 
-    $Exec = function ($Call)
+    self::Fn('Exec', function ($Call)
     {
         return passthru('ls');
-    };
+    });

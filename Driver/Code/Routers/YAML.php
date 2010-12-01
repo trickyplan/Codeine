@@ -11,9 +11,9 @@
      * @time 23:16
      */
 
-  $Route = function ($Call)
+  self::Fn('Route', function ($Call)
   {
       return Code::Run(
             array('F'=>'Formats/YAML::Decode', 'Value' => $Call['Call'])
         );
-  };
+  });

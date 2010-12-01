@@ -11,9 +11,9 @@
      * @time 10:55
      */
 
-    $Route = function ($Call)
+    self::Fn('Route', function ($Call)
     {
         return  Code::Run(
             array('F'=>'Recognition/Barcode::Recognize', 'Value' => $Call['Call'])
         );
-    };
+    });

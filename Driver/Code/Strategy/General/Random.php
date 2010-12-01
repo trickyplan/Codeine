@@ -11,7 +11,7 @@
      * @time 1:52
      */
 
-    $Select = function ($Call)
+    self::Fn('Select', function ($Call)
     {
         return (rand(0,100)%2 == 0);
-    };
+    });

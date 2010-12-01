@@ -11,7 +11,7 @@
      * @time 3:42
      */
 
-    $Output = function ($Call)
+    self::Fn('Output', function ($Call)
     {
         return Data::Create('Output', array('ID'=>$Call['Call'], 'Value'=>$Call['Input']));
-    };
+    });

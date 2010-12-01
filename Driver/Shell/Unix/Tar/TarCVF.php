@@ -11,7 +11,7 @@
      * @time 2:24
      */
 
-    $Exec = function ($Call)
+    self::Fn('Exec', function ($Call)
     {
         return passthru('tar cvf '.$Call['Input']);
-    };
+    });

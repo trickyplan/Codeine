@@ -11,14 +11,14 @@
      * @time 16:07
      */
 
-    $Decode = function ($Call)
+    self::Fn('Decode', function ($Call)
     {
         return simplexml_load_string($Call['Value']);
-    };
+    });
 
-    $Encode = function ($Call)
+    self::Fn('Encode', function ($Call)
     {
         // TODO Implement encode method
         return $Call['Value'];
-    };
+    });
 

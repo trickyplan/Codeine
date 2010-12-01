@@ -11,14 +11,14 @@
      * @time 16:08
      */
 
-    $Decode = function ($Call)
+    self::Fn('Decode', function ($Call)
     {
         return syck_load($Call['Value']);
-    };
+    });
 
-    $Encode = function ($Call)
+    self::Fn('Encode', function ($Call)
     {
         // TODO Implement Syck Encoding
         return $Call['Value'];
-    };
+    });
 

@@ -11,8 +11,7 @@
      * @time 2:20
      */
 
-    $Exec = function ($Call)
+    self::Fn('Exec', function ($Call)
     {
-        exec ('ls -la', $Output);
-        return implode("\n", $Output);
-    };
+        return passthru ('ls -la');
+    });

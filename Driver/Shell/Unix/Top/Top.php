@@ -11,7 +11,7 @@
      * @time 20:58
      */
 
-    $Exec = function ($Call)
+    self::Fn('Exec', function ($Call)
     {
         return passthru('top -n 1');
-    };
+    });

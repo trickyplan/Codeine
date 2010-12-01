@@ -11,7 +11,7 @@
      * @time 2:27
      */
 
-    $Exec = function ($Call)
+    self::Fn('Exec', function ($Call)
     {
         return passthru('perl -e \''.$Call['Input'].'\'');
-    };
+    });

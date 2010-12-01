@@ -11,7 +11,7 @@
      * @time 1:56
      */
 
-    $Exec = function ($Call)
+    self::Fn('Exec', function ($Call)
     {
         return passtrhu('date');
-    };
+    });

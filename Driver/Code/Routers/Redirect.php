@@ -11,8 +11,8 @@
      * @time 23:16
      */
 
-    $Route = function ($Call)
+    self::Fn('Route', function ($Call)
     {
         // TODO Backport Link Router for OX
         return null;
-    };
+    });

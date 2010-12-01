@@ -11,7 +11,7 @@
      * @time 23:16
      */
 
-    $Route = function ($Call)
+    self::Fn('Route', function ($Call)
     {
         $Routed = explode('/',$Call['Call']);
 
@@ -29,4 +29,4 @@
         
         
         return null;
-    };
+    });

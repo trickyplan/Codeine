@@ -11,7 +11,7 @@
      * @time 3:40
      */
 
-    $Output = function ($Call)
+    self::Fn('Output', function ($Call)
     {
         return null;
-    };
+    });

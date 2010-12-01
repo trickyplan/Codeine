@@ -11,7 +11,7 @@
      * @time 23:16
      */
 
-    $Route = function ($Call)
+    self::Fn('Route', function ($Call)
     {
         return Core::$Conf['Options']['Core']['Start'];
-    };
+    });

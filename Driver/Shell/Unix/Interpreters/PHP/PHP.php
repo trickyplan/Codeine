@@ -11,7 +11,7 @@
      * @time 2:30
      */
 
-    $Exec = function ($Call)
+    self::Fn('Exec', function ($Call)
     {
         return passthru('php -r "'.$Call['Input'].'"');
-    };
+    });

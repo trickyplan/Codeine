@@ -11,9 +11,9 @@
      * @time 15:45
      */
 
-    $Route = function ($Call)
+    self::Fn('Route', function ($Call)
     {
         return Code::Run(
             array('F'=>'Formats/BSON::Decode', 'Value' => $Call['Call'])
         );
-    };
+    });

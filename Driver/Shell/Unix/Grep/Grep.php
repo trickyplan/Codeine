@@ -11,7 +11,7 @@
      * @time 2:09
      */
 
-    $Exec = function ($Call)
+    self::Fn('Exec', function ($Call)
     {
         return passthru('grep '.$Call['Input']);
-    };
+    });
