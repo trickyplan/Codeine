@@ -6,86 +6,86 @@
      * @description: WAKE MCrypt Wrapper
      * @package Codeine
      * @subpackage Drivers
-     * @version 0.1
+     * @version 5.0
      */
 
     
-    self::Fn("EncryptCBC", function ($Call)
+    self::Fn('EncryptCBC', function ($Call)
     {
         return mcrypt_encrypt(MCRYPT_WAKE, $Call['Key'], $Call['Input'], MCRYPT_MODE_CBC);
-    };
+    });
 
-    self::Fn("DecryptCBC", function ($Call)
+    self::Fn('DecryptCBC', function ($Call)
     {
         return mcrypt_decrypt(MCRYPT_WAKE, $Call['Key'], $Call['Input'], MCRYPT_MODE_CBC);
-    };
+    });
 
-    self::Fn("EncryptCFB", function ($Call)
+    self::Fn('EncryptCFB', function ($Call)
     {
         return mcrypt_encrypt(MCRYPT_WAKE, $Call['Key'], $Call['Input'], MCRYPT_MODE_CFB);
-    };
+    });
 
-    self::Fn("DecryptCFB", function ($Call)
+    self::Fn('DecryptCFB', function ($Call)
     {
         return mcrypt_decrypt(MCRYPT_WAKE, $Call['Key'], $Call['Input'], MCRYPT_MODE_CFB);
-    };
+    });
 
-    self::Fn("EncryptCTR", function ($Call)
+    self::Fn('EncryptCTR', function ($Call)
     {
         return mcrypt_encrypt(MCRYPT_WAKE, $Call['Key'], $Call['Input'], MCRYPT_MODE_CTR);
-    };
+    });
 
-    self::Fn("DecryptCTR", function ($Call)
+    self::Fn('DecryptCTR', function ($Call)
     {
         return mcrypt_decrypt(MCRYPT_WAKE, $Call['Key'], $Call['Input'], MCRYPT_MODE_CTR);
-    };
+    });
 
-    self::Fn("EncryptECB", function ($Call)
+    self::Fn('EncryptECB', function ($Call)
     {
         return mcrypt_encrypt(MCRYPT_WAKE, $Call['Key'], $Call['Input'], MCRYPT_MODE_ECB);
-    };
+    });
 
-    self::Fn("DecryptECB", function ($Call)
+    self::Fn('DecryptECB', function ($Call)
     {
         return mcrypt_decrypt(MCRYPT_WAKE, $Call['Key'], $Call['Input'], MCRYPT_MODE_ECB);
-    };
+    });
 
-    self::Fn("EncryptNCFB", function ($Call)
+    self::Fn('EncryptNCFB', function ($Call)
     {
         return mcrypt_encrypt(MCRYPT_WAKE, $Call['Key'], $Call['Input'], MCRYPT_MODE_NCFB);
-    };
+    });
 
-    self::Fn("DecryptNCFB", function ($Call)
+    self::Fn('DecryptNCFB', function ($Call)
     {
         return mcrypt_decrypt(MCRYPT_WAKE, $Call['Key'], $Call['Input'], MCRYPT_MODE_NCFB);
-    };
+    });
 
-    self::Fn("EncryptNOFB", function ($Call)
+    self::Fn('EncryptNOFB', function ($Call)
     {
         return mcrypt_encrypt(MCRYPT_WAKE, $Call['Key'], $Call['Input'], MCRYPT_MODE_NOFB);
-    };
+    });
 
-    self::Fn("DecryptNOFB", function ($Call)
+    self::Fn('DecryptNOFB', function ($Call)
     {
         return mcrypt_decrypt(MCRYPT_WAKE, $Call['Key'], $Call['Input'], MCRYPT_MODE_NOFB);
-    };
+    });
 
-    self::Fn("EncryptOFB", function ($Call)
+    self::Fn('EncryptOFB', function ($Call)
     {
         return mcrypt_encrypt(MCRYPT_WAKE, $Call['Key'], $Call['Input'], MCRYPT_MODE_OFB);
-    };
+    });
 
-    self::Fn("DecryptOFB", function ($Call)
+    self::Fn('DecryptOFB', function ($Call)
     {
         return mcrypt_decrypt(MCRYPT_WAKE, $Call['Key'], $Call['Input'], MCRYPT_MODE_OFB);
-    };
+    });
 
-    self::Fn("EncryptSTREAM", function ($Call)
+    self::Fn('EncryptSTREAM', function ($Call)
     {
         return mcrypt_encrypt(MCRYPT_WAKE, $Call['Key'], $Call['Input'], MCRYPT_MODE_STREAM);
-    };
+    });
 
-    self::Fn("DecryptSTREAM", function ($Call)
+    self::Fn('DecryptSTREAM', function ($Call)
     {
         return mcrypt_decrypt(MCRYPT_WAKE, $Call['Key'], $Call['Input'], MCRYPT_MODE_STREAM);
-    };
+    });

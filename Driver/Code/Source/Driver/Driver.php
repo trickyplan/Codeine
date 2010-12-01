@@ -19,14 +19,14 @@
         foreach ($Call['Functions'] as $Name => &$Function)
         {
     $Function = '
-    self::Fn("'.$Name.'", function ($Call)
+    self::Fn(\''.$Name.'\', function ($Call)
     {
         '.$Function.'
-    };
+    });
 ';
         }
 
-        $Call['Body'] = implode("", $Call['Functions']);
+        $Call['Body'] = implode('', $Call['Functions']);
 
         if (preg_match_all('@\$\{(.*)\}@SsUu', $Source, $Pockets))
             foreach ($Pockets[0] as $IX => $Match)
