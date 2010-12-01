@@ -41,6 +41,7 @@
     "Points":
     {
         "Default": {"Store": "Static", "Scheme": "Native", "Scope": "Default"},
+        "Contract":{"Store": "FS",     "Scheme": "JSON",   "Scope": "Config/Driver"},
         "Test":    {"Store": "MySQL",  "Scheme": "Fluid",  "Scope": "Test"},
         "Layout":  {"Store": "Layout", "Scheme": "File",   "Scope": "Layout"},
         "FS":      {"Store": "FS",     "Scheme": "File",   "Scope": ""},
