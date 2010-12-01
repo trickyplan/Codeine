@@ -125,12 +125,23 @@
             if (!isset(self::$_Contracts[$Call['Namespace']][$Call['Function']]))
             {
                 $Default = array(
-                    $Call['Function'] => json_decode(
-                        file_get_contents (Data::Locate('Code', 'Default.json')), true)
+                    $Call['Function'] =>
+                        Data::Read(
+                            array('Point' => 'Contract',
+                                  'Where' => array(
+                                        'ID' => 'Default'
+                                  )
+                        ))
                 );
 
                 if (isset($Call['D']) &&
-                    $ContractFN = Data::Locate('Code', $Call['Namespace'].'/'.$Call['D'].'.json'))
+                    $ContractFN =
+                            Data::Read(
+                            array('Point' => 'Contract',
+                                  'Where' => array(
+                                        'ID' => $Call['Namespace'].'/'.$Call['D']
+                                  )
+                        )))
                         $DriverContract   = json_decode(file_get_contents ($ContractFN), true);
                 else
                     $DriverContract   = array();

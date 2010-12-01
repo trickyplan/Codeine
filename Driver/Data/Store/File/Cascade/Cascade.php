@@ -21,6 +21,16 @@
         if (!is_array($Call['Data']['Where']['ID']))
             $Call['Data']['Where']['ID'] = array($Call['Data']['Where']['ID']);
 
+        if (isset($Call['Store']['Point']['Postfix']))
+            $Postfix = $Call['Store']['Point']['Postfix'];
+        else
+            $Postfix = '';
+
+        if (isset($Call['Store']['Point']['Prefix']))
+            $Prefix = $Call['Store']['Point']['Prefix'];
+        else
+            $Prefix = '';
+
         foreach ($Call['Data']['Where']['ID'] as $cName)
         {
             $cName = $Call['Store']['Point']['DSN'].'/'.Data::Path($Call['Point']['Scope']).$cName;
