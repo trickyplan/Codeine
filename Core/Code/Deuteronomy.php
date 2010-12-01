@@ -57,15 +57,24 @@
         {
             $Data['Class'] = $Class;
             $Data['Event'] = $Event;
-            
+
             if (isset(self::$_Conf['Hooks'][$Class][$Event]))
+            {
+                if (self::$_Conf['Hooks'][$Class][$Event] !== null)
+                    return Code::Run(
+                        array(
+                             'Calls' => self::$_Conf['Hooks'][$Class][$Event],
+                            'Data'  => $Data
+                        ), Code::Internal, 'Feed');
+                else
+                    return null;
+            }
+            else
                 return Code::Run(
                     array(
-                         'Calls' => self::$_Conf['Hooks'][$Class][$Event],
+                         'Calls' => self::$_Conf['Hooks']['Default'],
                          'Data'  => $Data
                     ), Code::Internal, 'Feed');
-            else
-                return null;
         }
 
         /**
@@ -120,39 +129,46 @@
          * @param  $Driver
          * @return null
          */
-        protected static function _LoadContract($Call)
+        protected static function _LoadContract($Call, $Mode = Code::Normal)
         {
             if (!isset(self::$_Contracts[$Call['Namespace']][$Call['Function']]))
             {
-                $Default = array(
-                    $Call['Function'] =>
+                // FIXME OPTME
+                $Default = array($Call['Function'] => array());
+
+                if ($Mode == Code::Normal)
+                {
+                    $DriverContract   = null;
+                    $GroupContract = null;
+
+                    if (isset($Call['D']))
+                    {
+                        $DriverContract =
+                            Data::Read(
+                                array('Point' => 'Contract',
+                                      'Where' => array(
+                                            'ID' => $Call['Namespace'].'/'.$Call['D']
+                                      )
+                            ), Code::Internal);
+                    }
+                    
+                    $GroupContract =
                         Data::Read(
                             array('Point' => 'Contract',
                                   'Where' => array(
-                                        'ID' => 'Default'
+                                        'ID' => $Call['Namespace'].'/'.$Call['Group']
                                   )
-                        ))
-                );
+                        ), Code::Internal);
+                        
+                    $Contract = self::ConfWalk($GroupContract, $DriverContract);
 
-                if (isset($Call['D']) &&
-                    $ContractFN =
-                            Data::Read(
-                            array('Point' => 'Contract',
-                                  'Where' => array(
-                                        'ID' => $Call['Namespace'].'/'.$Call['D']
-                                  )
-                        )))
-                        $DriverContract   = json_decode(file_get_contents ($ContractFN), true);
+                    if (isset($Contract[$Call['Function']]))
+                        $Contract = $Contract[$Call['Function']];
+                    else
+                        $Contract = array();
+                }
                 else
-                    $DriverContract   = array();
-
-                if ($NSContractFN = Data::Locate('Code', $Call['Namespace'].'/'.$Call['Group'].'.json'))
-                    $NSContract = json_decode(file_get_contents ($NSContractFN),true);
-                else
-                    $NSContract = array();
-
-                $Contract = self::ConfWalk(self::ConfWalk($Default, $NSContract), $DriverContract);
-                $Contract = $Contract[$Call['Function']];
+                    $Contract = $Default;
 
                 self::$_Contracts[$Call['Namespace']][$Call['Function']] = $Contract;
             }
@@ -202,7 +218,6 @@
         /**
          * Служебный метод, подготавливает переменные.
          * @static
-         * @throws WTF
          * @param  $Call
          * @return array
          */
@@ -313,7 +328,11 @@
             $F = self::Fn($Call['Function']);
 
             if (null == $F)
+            {
                 self::On(__CLASS__,'errCodeFunctionIsNotCallable', $Call);
+                var_dump($Call);
+            }
+
             elseif (is_callable($F) or ($F instanceof Closure))
                 return $F($Call);
         }
@@ -328,18 +347,28 @@
         {
             self::$_Stack->push($Call);
 
-            // Proposed by enartemy
-            if ($Runner !== null || $Executor !== null)
+            if ($Runner !== null)
             {
                 self::$_Stack->pop();
                 return self::Run(
                     array(
-                         'F' => $Runner !== null ? 'Code/Runners/'.$Runner.'/Run' : 'Code/Executors/'.$Executor.'/Run',
+                         'F' => 'Code/Runners/'.$Runner.'/Run',
                          'Call' => $Call,
                          'Mode' => $Mode
                           ), $Mode);
             }
 
+            if ($Executor !== null)
+            {
+                self::$_Stack->pop();
+                return self::Run(
+                    array(
+                         'F' => 'Code/Executors/'.$Executor.'/Run',
+                         'Call' => $Call,
+                         'Mode' => $Mode
+                          ), $Mode);
+            }
+            
             $Return = null;
 
             // Проверка на псевдонимы. Псевдонимы проверяются при определении.
@@ -359,28 +388,15 @@
             $Call = self::_Prepare($Call);
             
             // Загружаем контракт
-            $Contract = self::_LoadContract($Call);
+            $Contract = self::_LoadContract($Call, $Mode);
 
-            if ($Mode !== Code::Internal)
+            if ($Mode == Code::Normal)
             {
                 self::On(__CLASS__,
                        'beforeRun',
                        array(
                             'Contract'  => $Contract,
                             'Call'      => $Call));
-
-                // Если отложенный вызов, возвращаемся сразу.
-                if (self::_is('Deferred', $Contract))
-                {
-                    self::$_Stack->pop();
-                    return Code::Run($Call, Code::Internal, $Runner, 'Deferred');
-                }
-
-                if (self::_is('Cache', $Contract))
-                {
-                    self::$_Stack->pop();
-                    return Code::Run($Call, Code::Internal, $Runner, 'Cache');
-                }
             }
 
             // Выбираем драйвер
@@ -522,24 +538,21 @@
         protected static function _DetermineDriver($Contract, $Call)
         {
             // Если в контракте указана политика драйверов, и драйвер не указан напрямую.
+            
             if (!isset($Call['D']))
             {
                 if (isset($Contract['Driver']))
                 {
-                    if (isset($_ENV['WorkStyle'])
-                        && isset($Contract['Driver'][$_ENV['WorkStyle']]))
-                            $Call['D'] = Core::Any($Contract['Driver'][$_ENV['WorkStyle']]);
+                    if (isset($Contract['Driver'][Environment]))
+                        $Call['D'] = $Contract['Driver'][Environment];
                     else
-                        $Call['D'] = Core::Any($Contract['Driver']['Default']);
-
-                    $Call['D'] = Core::Any($Call['D']);
+                        $Call['D'] = $Contract['Driver']['Default'];
                 }
                 else
                     $Call['D'] = $Call['Group'];
             }
-            else
-                $Call['D'] = Core::Any($Call['D']);
 
+            $Call['D'] = Core::Any($Call['D']);
             return $Call;
         }
 

@@ -3,8 +3,8 @@
     {
         "Remote": false,
         "Cache": false,
-        "Deferred": false,
-        "Driver":{
+        "Driver":
+        {
             "Default":
                 {
                     "F": "Code/Strategy/Interface/Select"

@@ -13,14 +13,14 @@
 
     self::Fn('Process', function ($Call)
     {
-        if (preg_match_all('@<media>(.*)</media>@SsUu',$Call['Body'], $Pockets))
+        if (preg_match_all('@<media>(.*)</media>@SsUu',$Call['Input'], $Pockets))
         {
             $CSSOutput = '';
             $CSSFiles = array();
 
             $JSOutput = '';
             $JSFiles = array();
-            
+
             foreach($Pockets[1] as $IX => $Match)
             {
                 if (mb_substr($Match, mb_strlen($Match)-4) == '.css')
@@ -64,7 +64,7 @@
 
             $CSSFile = Data::Path('Temp').'CSS/'.sha1(implode('', $CSSFiles)).'.css';
 
-            if (!file_exists(Root.$CSSFile))
+            if (true or !file_exists(Root.$CSSFile))
             {
                 foreach($CSSFiles as $ID => $File)
                     $CSSOutput.= Data::Read(
@@ -112,20 +112,20 @@
                 );
             }
 
-            $Call['Body'] =
+            $Call['Input'] =
                     str_replace(
                         '<mediacss/>',
                         '<link href="/'.$CSSFile.'" rel="stylesheet" />',
-                        $Call['Body']);
+                        $Call['Input']);
             
-            $Call['Body'] =
+            $Call['Input'] =
                     str_replace(
                         '<mediajs/>',
                         '<script type="text/javascript" src="/'.$JSFile.'"></script>',
-                        $Call['Body']);
+                        $Call['Input']);
 
-            $Call['Body'] = str_replace($Pockets[0], '', $Call['Body']);
+            $Call['Input'] = str_replace($Pockets[0], '', $Call['Input']);
         }
 
-        return $Call['Body'];
+        return $Call['Input'];
     });

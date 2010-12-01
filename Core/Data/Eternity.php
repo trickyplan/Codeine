@@ -41,7 +41,10 @@
 
         public static function Mount($Point)
         {
-            self::Connect(self::_Point2Storage($Point));
+            $Mode = isset(
+                    self::$_Conf['Points'][$Point]['Mode']) ?  self::$_Conf['Points'][$Point]: Code::Normal;
+            
+            self::Connect(self::_Point2Storage($Point), $Mode);
             return self::$_Points[$Point] = $Point;
         }
 
@@ -50,15 +53,17 @@
 
         }
         
-        public static function Connect ($Store)
+        public static function Connect ($Store, $Mode)
         {
             if (!isset(self::$_Stores[$Store]))
+            {
                 if ((self::$_Stores[$Store] =
                     Code::Run(array(
                                'F' => 'Data/Store/'.self::$_Conf['Stores'][$Store]['Type'].'/Connect',
                                'Point' => self::$_Conf['Stores'][$Store]
-                        ))) !== null)
+                        ),$Mode)) !== null)
                     Code::On(__CLASS__, 'errDataStoreConnectFailed', $Store);
+            }
             else
                 Code::On(__CLASS__, 'errDataStoreNotFound', $Store);
 
@@ -97,10 +102,10 @@
             return Code::Run(array(
                            'F' => 'Data/Store/'.self::$_Conf['Stores'][$Store]['Type'].'/Disconnect',
                            'Point' => self::$_Stores[$Store]
-                      ));
+                      ), Code::Internal);
         }
 
-        protected static function _CRUD($Method, $Call)
+        protected static function _CRUD($Method, $Call, $Mode = Code::Normal)
         {
             if (!self::isValidCall($Call))
                 $Call = self::_Route($Call);
@@ -108,44 +113,65 @@
             if (!isset(self::$_Points[$Call['Point']]))
                 self::Mount($Call['Point']);
 
+            if (isset(self::$_Conf['Points'][$Call['Point']]['Prefix']))
+                $Prefix = self::$_Conf['Points'][$Call['Point']]['Prefix'];
+            else
+                $Prefix = '';
+
+            if (isset(self::$_Conf['Points'][$Call['Point']]['Postfix']))
+                $Postfix = self::$_Conf['Points'][$Call['Point']]['Postfix'];
+            else
+                $Postfix = '';
+
             $Store = self::_Point2Storage($Call['Point']);
 
             return Code::Run(array(
                            'F' => 'Data/Store/'.self::$_Conf['Stores'][$Store]['Type'].'/'.$Method,
                            'Point' => self::$_Conf['Points'][$Call['Point']],
                            'Store' => self::$_Stores[$Store],
-                           'Data' => $Call
-                      ));
+                           'Data' => $Call,
+                           'Postfix' => $Postfix,
+                           'Prefix' => $Prefix
+                      ), $Mode);
         }
 
-        public static function Create($Call)
+        public static function Create($Call, $Mode = Code::Normal)
         {
-            return self::_CRUD('Create', $Call);
+            return self::_CRUD('Create', $Call, $Mode);
         }
 
-        public static function Read($Call)
+        public static function Read($Call, $Mode = Code::Normal)
         {
-            return self::_CRUD('Read', $Call);
+            $Result = self::_CRUD('Read', $Call, $Mode);
+            
+            if (isset(self::$_Conf['Points'][$Call['Point']]['Format']) && $Result !== null)
+                $Result = Code::Run(array(
+                              'F' => 'Data/Formats/'.
+                                     self::$_Conf['Points'][$Call['Point']]['Format'].'/Decode',
+                              'Input' => $Result
+                                 ), $Mode);
+            
+            return $Result;
         }
 
-        public static function Update($Call)
+        public static function Update($Call, $Mode = Code::Normal)
         {
-            return self::_CRUD('Update', $Call);
+            return self::_CRUD('Update', $Call, $Mode);
         }
 
-        public static function Delete($Call)
+        public static function Delete($Call, $Mode = Code::Normal)
         {
-            return self::_CRUD('Delete', $Call);
+            return self::_CRUD('Delete', $Call, $Mode);
         }
 
-        public static function Exist($Call)
+        public static function Exist($Call, $Mode = Code::Normal)
         {
-            return self::_CRUD('Exist', $Call);
+            return self::_CRUD('Exist', $Call, $Mode);
         }
 
-        public static function Version($Call)
+        public static function Version($Call, $Mode = Code::Normal)
         {
-            return self::_CRUD('Version', $Call);
+            return self::_CRUD('Version', $Call, $Mode);
         }
 
         public static function Locate ($Path, $Name)

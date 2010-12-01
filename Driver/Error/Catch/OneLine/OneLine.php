@@ -3,7 +3,7 @@
     /* OSWA Codeine
      * @author BreathLess
      * @type Codeine Driver
-     * @description: Simple Error Page
+     * @description: Simple Error Line
      * @package Codeine
      * @subpackage Drivers
      * @version 0
@@ -13,9 +13,5 @@
 
     self::Fn('Catch', function ($Call)
     {
-        echo '<div class="Panel Panel_Error">
-        <h3>Что-то где-то пошло не так</h4>
-        <h4>'.$Call['Data']['Event'].'</h4>';
-        var_dump($Call['Data']);
-        echo '</div>';
+        echo '<div class="Panel txtR"><small>'.$Call['Data']['Event'].'</small></div>';
     });

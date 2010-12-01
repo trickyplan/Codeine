@@ -1,17 +1,9 @@
 {
     "Connect":
     {
-        "Remote": false,
-        "Cache": false,
-        "Deferred": false,
-        "Driver":{
-            "Default": "Procedure"
-        },
-        "Foreign": {},
-        "Hook":
+        "Driver":
         {
-            "Before": [],
-            "After": []
+            "Default": "Procedure"
         },
         "Arguments":
         {
@@ -30,22 +22,12 @@
             "Red": 0,
             "Yellow": 0,
             "Green": 0
-        },
-        "Test": {}
+        }
     },
     "Read":
     {
-        "Remote": false,
-        "Cache": false,
-        "Deferred": false,
         "Driver":{
             "Default": "Procedure"
-        },
-        "Foreign": {},
-        "Hook":
-        {
-            "Before": [],
-            "After": []
         },
         "Arguments":
         {

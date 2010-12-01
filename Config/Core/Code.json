@@ -4,12 +4,13 @@
     "Interfaces": ["HTTP","CLI"],
     "Hooks":
     {
+        "Default": [],
         "Code":
         {
-            "onInitialize": [],
-            "beforeRun": [],
-            "afterRun": [],
-            "onShutdown": [],
+            "onInitialize": null,
+            "beforeRun": null,
+            "afterRun": null,
+            "onShutdown": null,
             "errCodeFunctionIsNotCallable": [{"F": "Error/Catch/Page/Catch"}]
         }
     }

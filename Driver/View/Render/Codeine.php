@@ -47,7 +47,7 @@
         foreach ($Processors as $Processor)
                 $Output = Code::Run(
                     array('F'=>'View/Processors/'.$Processor.'/Process',
-                          'Body'=> $Output)
+                          'Input'=> $Output)
                 );
 
         return $Output;

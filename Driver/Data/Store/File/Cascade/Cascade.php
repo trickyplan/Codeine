@@ -13,7 +13,7 @@
 
     self::Fn('Connect', function ($Call)
     {
-        return $Call;
+        return true;
     });
 
     self::Fn('Read', function ($Call)
@@ -21,19 +21,10 @@
         if (!is_array($Call['Data']['Where']['ID']))
             $Call['Data']['Where']['ID'] = array($Call['Data']['Where']['ID']);
 
-        if (isset($Call['Store']['Point']['Postfix']))
-            $Postfix = $Call['Store']['Point']['Postfix'];
-        else
-            $Postfix = '';
-
-        if (isset($Call['Store']['Point']['Prefix']))
-            $Prefix = $Call['Store']['Point']['Prefix'];
-        else
-            $Prefix = '';
-
         foreach ($Call['Data']['Where']['ID'] as $cName)
         {
-            $cName = $Call['Store']['Point']['DSN'].'/'.Data::Path($Call['Point']['Scope']).$cName;
+            $cName = $Call['Store']['Point']['DSN'].'/'.
+                     Data::Path($Call['Point']['Scope']).$Call['Prefix'].$cName.$Call['Postfix'];
 
             if (file_exists(Root.$cName))
                 $R = Root.$cName;
@@ -51,8 +42,8 @@
 
        if (isset($R))
            return file_get_contents($R);
-
-       return null;
+       else
+           return null;
     });
 
     self::Fn('Version', function ($Call)
@@ -62,7 +53,8 @@
 
         foreach ($Call['Data']['Where']['ID'] as $cName)
         {
-            $cName = $Call['Store']['Point']['DSN'].'/'.Data::Path($Call['Point']['Scope']).$cName;
+            $cName = $Call['Store']['Point']['DSN'].'/'.
+                     Data::Path($Call['Point']['Scope']).$Call['Prefix'].$cName.$Call['Postfix'];
 
             if (file_exists(Root.$cName))
                 $R = Root.$cName;

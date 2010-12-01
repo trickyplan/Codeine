@@ -11,13 +11,13 @@
      * @time 16:05
      */
 
-    $Decode = function ($Call)
+    self::Fn('Decode', function ($Call)
     {
-        return json_decode($Call['Input']);
-    };
+        return json_decode($Call['Input'], true);
+    });
 
-    $Encode = function ($Call)
+    self::Fn('Encode', function ($Call)
     {
         return json_encode($Call['Inpu']);
-    };
+    });
 

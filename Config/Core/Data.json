@@ -5,7 +5,6 @@
         "MySQL":
         {
             "Type": "SQL/MySQL",
-            "Scheme": "Fluid",
             "Username": "root",
             "Password":"phoenix",
             "Server":"localhost",
@@ -16,7 +15,7 @@
         "Static":
         {
             "Type": "PHP/Static",
-            "Scheme": "Native"
+            "Map": "Native"
         },
         "Layout":
         {
@@ -26,7 +25,7 @@
         "FS":
         {
             "Type": "File/Cascade",
-            "DSN": "Default"
+            "DSN": ""
         },
         "Temp":
         {
@@ -40,17 +39,24 @@
     },
     "Points":
     {
-        "Default": {"Store": "Static", "Scheme": "Native", "Scope": "Default"},
-        "Contract":{"Store": "FS",     "Scheme": "JSON",   "Scope": "Config/Driver", "Postfix": ".json"},
-        "Test":    {"Store": "MySQL",  "Scheme": "Fluid",  "Scope": "Test"},
-        "Layout":  {"Store": "Layout", "Scheme": "File",   "Scope": "Layout"},
-        "FS":      {"Store": "FS",     "Scheme": "File",   "Scope": ""},
-        "JS":      {"Store": "FS",     "Scheme": "File",   "Scope": "JS"},
-        "CSS":     {"Store": "FS",     "Scheme": "File",   "Scope": "CSS"},
-        "TempCSS": {"Store": "Temp",   "Scheme": "File",   "Scope": "CSS"},
-        "TempJS":  {"Store": "Temp",   "Scheme": "File",   "Scope": "JS"},
-        "Redis":   {"Store": "Redis",  "Scheme": "KeyValue", "Scope": "Redis"},
-        "CodeCache": {"Store": "Redis", "Scheme": "KeyValue", "Scope": "Code"}
+        "Default": {"Store": "Static", "Map": "Native", "Scope": "Default"},
+
+        "Contract":{
+            "Store": "FS",
+            "Format": "JSON",
+            "Scope": "Config/Driver",
+            "Postfix": ".json",
+            "Mode": 0},
+        
+        "Test":    {"Store": "MySQL",  "Map": "Fluid",  "Scope": "Test"},
+        "Layout":  {"Store": "Layout", "Map": "File",   "Scope": "Layout"},
+        "FS":      {"Store": "FS",     "Map": "File",   "Scope": ""},
+        "JS":      {"Store": "FS",     "Map": "File",   "Scope": "Default/JS"},
+        "CSS":     {"Store": "FS",     "Map": "File",   "Scope": "Default/CSS"},
+        "TempCSS": {"Store": "Temp",   "Map": "File",   "Scope": "CSS"},
+        "TempJS":  {"Store": "Temp",   "Map": "File",   "Scope": "JS"},
+        "Redis":   {"Store": "Redis",  "Map": "KeyValue", "Scope": "Redis"},
+        "CodeCache": {"Store": "Redis", "Map": "KeyValue", "Scope": "Code"}
     },
     "Shared":
     {
