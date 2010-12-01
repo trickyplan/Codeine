@@ -29,7 +29,7 @@
                 $Functions['Decrypt'.$mode] = 'return mcrypt_decrypt(MCRYPT_'.$algo2.', $Call[\'Key\'], $Call[\'Input\'], MCRYPT_MODE_'.$mode.');';
             }
 
-            file_put_contents(Engine.Data::Path('Code').'Process/Cipher/New/'.$algo.'.php', Code::Run(array(
+            file_put_contents(Engine.Data::Path('Code').'Security/Cipher/New/'.$algo.'.php', Code::Run(array(
                            'F' => 'Code/Source/Driver::Generate',
                            'Description'=> $algo2.' MCrypt Wrapper',
                            'Version' => '0.1',
