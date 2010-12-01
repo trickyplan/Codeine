@@ -4,12 +4,18 @@
  * Codeine5, 2010
  */
 
-    class Data extends Component
+    final class Data extends Component
     {
-        protected static $_Conf;
-        public static $Data        = array();
+        private   static $_Locked  = false;
+        protected static $_Conf    = array();
+        protected static $Data     = array();
         protected static $_Stores  = array();
         protected static $_Points  = array();
+
+        protected static function _LockData ()
+        {
+            return self::$_Locked = !self::$_Locked;
+        }
 
         private static function _Point2Storage($Point)
         {

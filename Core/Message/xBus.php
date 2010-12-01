@@ -6,10 +6,16 @@
      * @time 17:24
      */
 
-    class Message extends Component
+    final class Message extends Component
     {
+        private static $_Locked;
         protected static $_Points;
         protected static $_Conf;
+
+        protected static function _LockMessage()
+        {
+            return self::$_Locked = !self::$_Locked;
+        }
 
         public static function Initialize ()
         {

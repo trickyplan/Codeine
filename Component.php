@@ -13,6 +13,11 @@
 
     abstract class Component
     {
+        protected static function _Lock($Component)
+        {
+            call_user_func(array($Component, '_Lock'.$Component));
+        }
+
         public static function ConfWalk ($First, $Second = array())
         {
             if (is_array($Second))

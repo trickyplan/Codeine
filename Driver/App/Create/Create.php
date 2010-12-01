@@ -13,22 +13,23 @@
 
     self::Fn('Create', function ($Call)
     {
-        var_dump($Call);
-        $Model = Data::Read(
-                array(
-                    'Point' => 'Model',
-                    'Where' =>
+
+            {
+                $Model = Data::Read(
                         array(
-                            'ID'=>$Call['Entity'])));
+                            'Point' => 'Model',
+                            'Where' =>
+                                array(
+                                    'ID'=>$Call['Entity'])));
 
-        $Items = array();
-
-        $Items['Form'] = array(
-                         'UI'        => 'Form',
-                         'Purpose'   => 'Create',
-                         'Entity'    => $Call['Entity'],
-                         'Plugin'    => $Call['Function'],
-                         'Data'      => $Model);
+                $Items = array();        
+                $Items['Form'] = array(
+                     'UI'        => 'Form',
+                     'Purpose'   => 'Create',
+                     'Entity'    => $Call['Entity'],
+                     'Plugin'    => $Call['Function'],
+                     'Data'      => $Model);
+            }
 
         return $Items;
     });

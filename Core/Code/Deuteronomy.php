@@ -11,12 +11,14 @@
      * @time 2:16
      */
     
-    class Code extends Component
+    final class Code extends Component
     {
         const Ring0    = 0;
         const Ring1    = 1;
         const Ring2    = 2;
 
+        private static $_Locked = false;
+        
         protected static $_Stack = array();
         protected static $_Conf;
         protected static $_Hooks     = array();
@@ -26,6 +28,11 @@
 
         protected static $_LastCall = null;
         protected static $_Registration = array();
+
+        protected static function _LockCode()
+        {
+            return self::$_Locked = !self::$_Locked;
+        }
 
         public static function Initialize ()
         {
@@ -349,6 +356,8 @@
         {
             self::$_Stack->push($Call);
 
+            Component::_Lock('Data');
+            
             if ($Runner !== null)
             {
                 self::$_Stack->pop();

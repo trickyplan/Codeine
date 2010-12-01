@@ -14,9 +14,9 @@
     self::Fn('Run', function ($Call)
     {
         return Code::Run(
-                array(
-                    array('F' => 'System/Interface::Input'),// Return Autorunned Call
-                    array('F' => 'View/Render::Do'),
-                    array('F' => 'System/Output::Output','D' => 'HTTP')
-                    ), Code::Ring2, 'Chain');
+            array(
+                array('F' => 'System/Interface::Input'),// Return Autorunned Call
+                array('F' => 'View/Render::Do'),
+                array('F' => 'System/Output::Output','D' => 'HTTP')
+                ), Code::Ring2, 'Chain');
     });
