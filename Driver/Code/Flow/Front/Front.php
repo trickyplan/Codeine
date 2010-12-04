@@ -17,6 +17,6 @@
             array(
                 array('F' => 'System/Interface::Input'),// Return Autorunned Call
                 array('F' => 'View/Render::Do'),
-                array('F' => 'System/Output::Output','D' => 'HTTP')
+                array('F' => 'System/Output/HTTP::Output')
                 ), Code::Ring2, 'Chain');
     });

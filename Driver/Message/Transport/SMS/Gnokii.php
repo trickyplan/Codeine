@@ -15,3 +15,8 @@
     {
         return passthru('echo "'.$Call['Message'].'" | gnokii --sendsms '.$Call['To']);
     });
+
+    self::Fn('Receive', function ($Call)
+    {
+        // TODO Receive SMS
+    });

@@ -17,7 +17,7 @@
 
         include 'Core.php';
 
-        Code::Run(array('F' => 'Code/Patterns/Front::Run'));
+        Code::Run(array('F' => 'Code/Flow/Front::Run'));
 
     }
     catch (Exception $e)
