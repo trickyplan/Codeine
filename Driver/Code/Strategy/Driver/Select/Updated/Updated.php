@@ -3,7 +3,7 @@
     /* OSWA Codeine
      * @author BreathLess
      * @type Codeine Driver
-     * @description: Codebase size analyzing strategy
+     * @description: Last Updated strategy
      * @package Codeine
      * @subpackage Drivers
      * @version 0
@@ -13,13 +13,13 @@
 
     self::Fn('Select', function ($Call)
     {
-        $Sizes = array();
+        $Times = array();
 
         foreach ($Call['Drivers'] as $Driver)
-            $Sizes[$Driver] = filesize(Data::Locate('Driver', $Call['Namespace'].'/'.$Driver.'.php'));
+            $Times[$Driver] = filemtime(Data::Locate('Driver', $Call['Namespace'].'/'.$Driver.'.php'));
 
-        asort($Sizes);
-        list ($Min) = $Sizes;
+        arsort($Times);
+        list ($Last) = $Times;
         
-        return $Min;
+        return $Last;
     });
