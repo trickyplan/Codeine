@@ -13,10 +13,10 @@
 
     self::Fn('Make', function ($Call)
     {
-        if (isset($Call['Class']))
-            $Call['Class'] = implode(' ',$Call['Class']);
+        if (isset($Call['Item']['Class']))
+            $Call['Item']['Class'] = implode(' ',$Call['Item']['Class']);
         else
-            $Call['Class'] = '';
+            $Call['Item']['Class'] = '';
 
-        return '<div class="Badge \ '.$Call['Class'].'">'.$Call['Item']['Data'].'</div>';
+        return '<div class="Badge '.$Call['Item']['Class'].'">'.$Call['Item']['Data'].'</div>';
     });

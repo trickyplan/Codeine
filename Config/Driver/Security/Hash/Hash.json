@@ -1,7 +1,11 @@
 {
     "Get":
     {
-        "Description": "Get hashed value of argument",
+        "Description":
+        {
+            "en_US.UTF-8": "Get hashed value of argument",
+            "ru_RU.UTF-8": "Получение хешированного значения от аргумента"
+        },
         "Driver":
         {
             "Default": "SHA1"
@@ -11,13 +15,21 @@
             "Input":
             {
                 "Type": "Mixed",
-                "Description": "Main argument, that will be hashed",
+                "Description":
+                    {
+                        "en_US.UTF-8": "Argument for hashing",
+                        "ru_RU.UTF-8": "Аргумент для хеширования"
+                    },
                 "Required": true
             },
             "Key":
             {
                 "Type": "String",
-                "Description": "Optional key for hashing"
+                "Description":
+                    {
+                        "en_US.UTF-8": "Optional hash key",
+                        "ru_RU.UTF-8": "Ключ для хеширования"
+                    }
             }
         },
         "Return":

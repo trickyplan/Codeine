@@ -1,3 +1,11 @@
 {
-    "Title": "Заголовок"
+    "Title": "Заголовок",
+    "Driver/Role/Default": "По умолчанию",
+    "Data/Type/Mixed": "Смешанное",
+    "Required": "Обязательное",
+    "Optional": "Опциональное",
+    "Data/Type/String": "Строка",
+    "Driver Policy": "Политика драйверов",
+    "Arguments": "Аргументы",
+    "Return": "Результат"
 }
