@@ -30,11 +30,13 @@
         
         if (is_array($Call['Input']['Items']))
             foreach ($Call['Input']['Items'] as $ID => $Item)
+            {
                 $Output[$ID] = Code::Run(
                     array('F'=>'View/UI/Codeine/'.$Item['UI'].'::Make',
-                          'D' => $Item ['UI'],
-                          'Item'=> $Item)
+                         'D' => $Item ['UI'],
+                         'Item'=> Core::Any($Item))
                 );
+            }
 
         $Output = implode('',$Output);
 

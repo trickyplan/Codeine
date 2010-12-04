@@ -15,7 +15,7 @@
     {
         $ParentCall = Code::ParentCall();
 
-        if (isset($ParentCall['Input']['As']))
+        if (is_array($ParentCall['Input']) && isset($ParentCall['Input']['As']))
             return $ParentCall['Input']['As'];
         else
             return 'Codeine';

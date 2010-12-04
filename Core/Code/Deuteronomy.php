@@ -137,7 +137,7 @@
          * @param  $Driver
          * @return null
          */
-        protected static function _LoadContract($Call, $Mode = Code::Ring2)
+        public static function LoadContract($Call, $Mode = Code::Ring2)
         {
             if (!isset(self::$_Contracts[$Call['Namespace']][$Call['Function']]))
             {
@@ -369,7 +369,7 @@
             $Call = self::_Prepare($Call);
 
             // Загружаем контракт
-            $Contract = self::_LoadContract($Call, $Mode);
+            $Contract = self::LoadContract($Call, $Mode);
 
             // Запоминание вызова
             // Защита от зацикливания.

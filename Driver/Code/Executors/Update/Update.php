@@ -19,18 +19,22 @@
         $Source = file_get_contents($File);
         preg_match('/version (.*)/',$Source, $Pockets);
         $Version = $Pockets[1];
-        preg_match('/origin (.*)/',$Source, $Pockets);
-        $Origin = $Pockets[1];
-
-        $NewSource = file_get_contents($Origin);
-        preg_match('/version (.*)/',$NewSource, $Pockets);
-        $NewVersion = $Pockets[1];
-
-        if ((float)$NewVersion > (float)$Version)
+        if (preg_match('/origin (.*)/',$Source, $Pockets))
         {
-            file_put_contents($File, $NewSource);
-            Code::On('Code', 'DriverUpdated', $Call);
+            $Origin = $Pockets[1];
+
+            $NewSource = file_get_contents($Origin);
+            preg_match('/version (.*)/',$NewSource, $Pockets);
+            $NewVersion = $Pockets[1];
+
+            if ((float)$NewVersion > (float)$Version)
+            {
+                file_put_contents($File, $NewSource);
+                Code::On('Code', 'DriverUpdated', $Call);
+            }
+            else
+                Code::On('Code', 'NoNewDriverAvailable', $Call);
         }
-        else
-            Code::On('Code', 'NoNewDriverAvailable', $Call);
+
+        return $Call;
     });

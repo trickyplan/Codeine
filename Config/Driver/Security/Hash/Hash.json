@@ -1,0 +1,27 @@
+{
+    "Get":
+    {
+        "Description": "Get hashed value of argument",
+        "Driver":
+        {
+            "Default": "SHA1"
+        },
+        "Arguments":
+        {
+            "Input":
+            {
+                "Type": "Mixed",
+                "Description": "Main argument, that will be hashed",
+                "Required": true
+            },
+            "Key":
+            {
+d
+            }
+        },
+        "Return":
+        {
+            "Fallback": null
+        }
+    }
+}

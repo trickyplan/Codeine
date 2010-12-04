@@ -1,5 +1,29 @@
+html
+{
+    background-color:#f7f7f7;
+    background-image: url('/Images/Curl.jpg');
+    background-position: right bottom;
+    background-repeat: no-repeat;
+    height: 100%;
+}
+
 .Container
 {
     border: none;
     padding: 4px;
+}
+
+.Badge
+{
+    margin: 4px;
+	padding: 4px;
+    padding-right: 16px;
+    padding-left: 16px;
+    background-color: #EEE;
+	border: 1px solid #CCC;
+    -moz-border-radius: 4px;
+    -o-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    display: inline-block;
 }

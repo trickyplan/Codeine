@@ -162,24 +162,9 @@
             return $Result;
         }
 
-        public static function Update($Call, $Mode = Code::Ring2)
+        public static function __callStatic($Operation, $Arguments)
         {
-            return self::_CRUD('Update', $Call, $Mode);
-        }
-
-        public static function Delete($Call, $Mode = Code::Ring2)
-        {
-            return self::_CRUD('Delete', $Call, $Mode);
-        }
-
-        public static function Exist($Call, $Mode = Code::Ring2)
-        {
-            return self::_CRUD('Exist', $Call, $Mode);
-        }
-
-        public static function Version($Call, $Mode = Code::Ring2)
-        {
-            return self::_CRUD('Version', $Call, $Mode);
+            return self::_CRUD($Operation, $Arguments[0], isset($Arguments[1])? $Arguments[1]:Code::Ring2);
         }
 
         public static function Locate ($Path, $Name)
