@@ -13,6 +13,11 @@
 
     self::Fn('Show', function ($Call)
     {
+        Code::Run(array(
+                       'F' => 'Security/Hash::Get',
+                       'D' => 'MD5'
+                  ), Code::Ring2, null, 'Update');
+
         $Call['Items'] = array();
         
         $Call['Items']['Title'] = array(

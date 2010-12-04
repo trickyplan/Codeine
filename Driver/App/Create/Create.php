@@ -33,7 +33,7 @@
                      'Data'      => $Model);
             }
             else
-                Code::Hook(__CLASS__, 'errCreateAppModelNotLoaded', $Call);
+                Code::On(__CLASS__, 'errCreateAppModelNotLoaded', $Call);
         }
 
         return $Call;

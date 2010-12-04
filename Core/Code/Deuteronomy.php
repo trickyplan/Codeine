@@ -403,7 +403,7 @@
             self::SetNamespace($Call['Namespace'], $Call['D']);
 
             if (isset($Contract['PreferredNS']) && $Call['Namespace'] !== $Contract['PreferredNS'])
-                Code::Hook(__CLASS__, 'errPreferredNamespace', $Contract);
+                Code::On(__CLASS__, 'errPreferredNamespace', $Contract);
 
             // Если функции нет, подгружаем код
             if (self::Fn($Call['Function']) === null)
