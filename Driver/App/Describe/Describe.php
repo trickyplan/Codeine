@@ -31,12 +31,14 @@
 
         $Call['Items']['Driver'] = array('UI'=>'Heading', 'Level'=>4, 'Data' => '<l>Driver Policy</l>');
 
-        foreach ($Contract['Driver'] as $Role => $Driver)
-        $Call['Items']['Driver'.$Role] = array('UI'=>'Block', 'Level'=>5,
-                                         'Data' => '<l>Driver/Role/'.$Role.'</l>: '.$Driver);
+        if (isset($Contract['Driver']))
+            foreach ($Contract['Driver'] as $Role => $Driver)
+                $Call['Items']['Driver'.$Role] = array('UI'=>'Block', 'Level'=>5,
+                             'Data' => '<l>Driver/Role/'.$Role.'</l>: '.$Driver);
 
         $Call['Items']['Arguments'] = array('UI'=>'Heading', 'Level'=>4, 'Data' => '<l>Arguments</l>');
 
+        if (isset ($Contract['Arguments']))
         foreach ($Contract['Arguments'] as $Name => $Argument)
         {
             $Call['Items'][$Name.'_Header'] = array('UI'=>'Heading', 'Level'=>5, 'Data' => $Name);

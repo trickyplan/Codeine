@@ -16,7 +16,8 @@
             },
             "Key":
             {
-d
+                "Type": "String",
+                "Description": "Optional key for hashing"
             }
         },
         "Return":

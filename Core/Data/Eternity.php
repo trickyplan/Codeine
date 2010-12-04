@@ -17,7 +17,7 @@
             return self::$_Locked = !self::$_Locked;
         }
 
-        private static function _Point2Storage($Point)
+        private static function _getStoreOfPoint($Point)
         {
             if (isset(self::$_Conf['Points'][$Point]))
             {
@@ -40,11 +40,6 @@
             
         }
 
-        public static function Structure($Scope)
-        {
-            
-        }
-
         public static function Mount($Point)
         {
             if (isset(self::$_Conf['Points'][$Point]['Ring']))
@@ -52,7 +47,7 @@
             else
                 $Mode = 2;
             
-            self::Connect(self::_Point2Storage($Point), $Mode);
+            self::Connect(self::_getStoreOfPoint($Point), $Mode);
             return self::$_Points[$Point] = $Point;
         }
 
@@ -61,7 +56,7 @@
 
         }
         
-        public static function Connect ($Store, $Mode)
+        public static function Connect ($Store, $Ring)
         {
             if (!isset(self::$_Stores[$Store]))
             {
@@ -69,7 +64,7 @@
                     Code::Run(array(
                                'F' => 'Data/Store/'.self::$_Conf['Stores'][$Store]['Type'].'::Connect',
                                'Point' => self::$_Conf['Stores'][$Store]
-                        ),$Mode)) !== null)
+                        ),$Ring)) !== null)
                     Code::On(__CLASS__, 'errDataStoreConnectFailed', $Store);
             }
             else
@@ -113,58 +108,145 @@
                       ), Code::Ring1);
         }
 
-        protected static function _CRUD($Method, $Call, $Mode = Code::Ring2)
+        protected static function _CRUD($Method, $Call, $Ring = Code::Ring2)
         {
+            // Если некорректный вызов, попробовать роутинг
             if (!self::isValidCall($Call))
                 $Call = self::_Route($Call);
 
-            if (!isset(self::$_Points[$Call['Point']]))
-                self::Mount($Call['Point']);
+            $Point = $Call['Point'];
+            $Store = self::_getStoreOfPoint($Point);
 
-            if (isset(self::$_Conf['Points'][$Call['Point']]['Prefix']))
-                $Prefix = self::$_Conf['Points'][$Call['Point']]['Prefix'];
-            else
-                $Prefix = '';
+            // Запрещение операции на хранилище
+            if (isset(self::$_Conf['Stores'][$Store]['No'.$Method]))
+            {
+                Code::On(__CLASS__, 'errData'.$Store.'No'.$Method, $Call);
+                return null;
+            }
+            
+            // Запрещение операций на точке монтирования
+            if (isset(self::$_Conf['Point'][$Point]['No'.$Method]))
+            {
+                Code::On(__CLASS__, 'errData'.$Point.'No'.$Method, $Call);
+                return null;
+            }
 
-            if (isset(self::$_Conf['Points'][$Call['Point']]['Postfix']))
-                $Postfix = self::$_Conf['Points'][$Call['Point']]['Postfix'];
-            else
-                $Postfix = '';
+            if (isset(self::$_Conf['Stores'][$Store]['Precondition'][$Method]))
+                foreach (self::$_Conf['Stores'][$Store]['Precondition'][$Method] as $Precondition)
+                    if (!Code::Run($Precondition, $Ring))
+                    {
+                        Code::On(__CLASS__, 'errDataPreconditionFailed', $Call);
+                        Code::On(__CLASS__, 'errDataPrecondition'.$Method.'Failed', $Call);
+                        Code::On(__CLASS__, 'errDataPrecondition'.$Call['Point'].'Failed', $Call);
+                    }
 
-            $Store = self::_Point2Storage($Call['Point']);
+            if (isset(self::$_Conf['Points'][$Point]['Precondition'][$Method]))
+                foreach (self::$_Conf['Points'][$Point]['Precondition'][$Method] as $Precondition)
+                    if (!Code::Run($Precondition, $Ring))
+                    {
+                        Code::On(__CLASS__, 'errDataPreconditionFailed', $Call);
+                        Code::On(__CLASS__, 'errDataPrecondition'.$Method.'Failed', $Call);
+                        Code::On(__CLASS__, 'errDataPrecondition'.$Point.'Failed', $Call);
+                    }
 
-            return Code::Run(array(
+            Code::On(__CLASS__, 'before'.$Method, $Call);
+            Code::On(__CLASS__, 'before'.$Method.'At'.$Store, $Call);
+            Code::On(__CLASS__, 'before'.$Method.'In'.$Point, $Call);
+
+            // Если точка монтирования ещё не использовалась...
+            if (!isset(self::$_Points[$Point]))
+                self::Mount($Point);
+            
+            // Префиксы и постфиксы для ID
+            $Prefix = isset(self::$_Conf['Points'][$Point]['Prefix']) ?
+                            self::$_Conf['Points'][$Point]['Prefix']: '';
+
+            $Postfix = isset(self::$_Conf['Points'][$Point]['Postfix']) ?
+                            self::$_Conf['Points'][$Point]['Postfix']: '';
+
+
+            $Call['Result'] = Code::Run(array(
                            'F' => 'Data/Store/'.self::$_Conf['Stores'][$Store]['Type'].'::'.$Method,
-                           'Point' => self::$_Conf['Points'][$Call['Point']],
+                           'Point' => self::$_Conf['Points'][$Point],
                            'Store' => self::$_Stores[$Store],
                            'Data' => $Call,
                            'Postfix' => $Postfix,
                            'Prefix' => $Prefix
-                      ), $Mode);
-        }
+                      ), $Ring);
 
-        public static function Create($Call, $Mode = Code::Ring2)
-        {
-            return self::_CRUD('Create', $Call, $Mode);
-        }
+            Code::On(__CLASS__, 'after'.$Method, $Call);
+            Code::On(__CLASS__, 'after'.$Method.'At'.$Store, $Call);
+            Code::On(__CLASS__, 'after'.$Method.'In'.$Point, $Call);
 
-        public static function Read($Call, $Mode = Code::Ring2)
-        {
-            $Result = self::_CRUD('Read', $Call, $Mode);
-            
-            if (isset(self::$_Conf['Points'][$Call['Point']]['Format']) && $Result !== null)
-                $Result = Code::Run(array(
-                              'F' => 'Data/Formats/'.
-                                     self::$_Conf['Points'][$Call['Point']]['Format'].'::Decode',
-                              'Input' => $Result
-                                 ), $Mode);
-            
-            return $Result;
+            if (isset(self::$_Conf['Stores'][$Store]['Postcondition'][$Method]))
+                foreach (self::$_Conf['Stores'][$Store]['Postcondition'][$Method] as $Postcondition)
+                    if (!Code::Run($Postcondition, $Ring))
+                    {
+                        Code::On(__CLASS__, 'errDataPostconditionFailed', $Call);
+                        Code::On(__CLASS__, 'errDataPostcondition'.$Method.'Failed', $Call);
+                        Code::On(__CLASS__, 'errDataPostcondition'.$Point.'Failed', $Call);
+                    }
+
+            if (isset(self::$_Conf['Points'][$Point]['Postcondition'][$Method]))
+                foreach (self::$_Conf['Points'][$Point]['Postcondition'][$Method] as $Postcondition)
+                    if (!Code::Run($Postcondition, $Ring))
+                    {
+                        Code::On(__CLASS__, 'errDataPostconditionFailed', $Call);
+                        Code::On(__CLASS__, 'errDataPostcondition'.$Method.'Failed', $Call);
+                        Code::On(__CLASS__, 'errDataPostcondition'.$Point.'Failed', $Call);
+                    }
+
+            return $Call['Result'];
         }
 
         public static function __callStatic($Operation, $Arguments)
         {
             return self::_CRUD($Operation, $Arguments[0], isset($Arguments[1])? $Arguments[1]:Code::Ring2);
+        }
+
+        /**
+         * @description Создаёт данные в Хранилище
+         * @static
+         * @param  $Call - данные
+         * @param int $Ring - кольцо, необходимо для низкоуровневых вызовов
+         * @return mixed
+         */
+        public static function Create ($Call, $Mode = Code::Ring2)
+        {
+            return self::_CRUD('Create', $Call, $Mode);
+        }
+
+        /**
+         * @description Читает данные из Хранилища
+         * @static
+         * @param  $Call - выборка
+         * @param int $Ring - кольцо, необходимо для низкоуровневых вызовов
+         * @return mixed
+         */
+        public static function Read($Call, $Ring = Code::Ring2)
+        {
+            $Result = self::_CRUD('Read', $Call, $Ring);
+
+            if (isset(self::$_Conf['Points'][$Call['Point']]['Format']) && $Result !== null)
+                $Result = Code::Run(array(
+                              'F' => 'Data/Formats/'.
+                                     self::$_Conf['Points'][$Call['Point']]['Format'].'::Decode',
+                              'Input' => $Result
+                                 ), $Ring);
+            if ($Result === null)
+                Code::On(__CLASS__, 'errDataReadFormatDecodeFailed', $Call);
+
+            return $Result;
+        }
+
+        public static function Update ($Call, $Mode = Code::Ring2)
+        {
+            return self::_CRUD('Update', $Call, $Mode);
+        }
+
+        public static function Delete ($Call, $Mode = Code::Ring2)
+        {
+            return self::_CRUD('Delete', $Call, $Mode);
         }
 
         public static function Locate ($Path, $Name)
