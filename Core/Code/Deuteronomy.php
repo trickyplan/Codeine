@@ -453,17 +453,6 @@
             return $Return;
         }
 
-        public static function LastCall($Call = array(), $Mode = Code::Ring2)
-        {
-            if (null !== self::$_LastCall)
-            {
-                $Call['Repeated'] = true;
-                return self::Run(self::ConfWalk(self::$_LastCall, $Call), $Mode);
-            }
-            else
-                return null;
-        }
-
         /**
          * @description Метод определения псевдонима для вызова.
          * @static
