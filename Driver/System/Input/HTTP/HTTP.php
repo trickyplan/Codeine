@@ -3,7 +3,7 @@
     /* OSWA Codeine
      * @author BreathLess
      * @type Codeine Driver
-     * @description: HTTP Interface
+     * @description: HTTP Input
      * @package Codeine
      * @subpackage Drivers
      * @version 5.0

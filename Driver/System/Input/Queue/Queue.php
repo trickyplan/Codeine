@@ -3,7 +3,7 @@
     /* OSWA Codeine
      * @author BreathLess
      * @type Codeine Driver
-     * @description: Queue Interface
+     * @description: Queue Input
      * @package Codeine
      * @subpackage Drivers
      * @version 0

@@ -1,0 +1,32 @@
+{
+    "Input":
+    {
+        "1st":
+        {
+            "Weight": 1,
+            "Call":
+            {
+                "F": "Neurons/Example::Wind"
+            }
+        },
+        "2nd":
+        {
+            "Weight": 1,
+            "Call":
+            {
+                "F": "Neurons/Example::Wind"
+            }
+        }
+    },
+    "Output":
+    {
+        "3rd":
+        {
+            "Call":
+            {
+                "F": "Neurons/Example::Blur"
+            },
+            "From": ["1st", "2nd"]
+        }
+    }
+}

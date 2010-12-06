@@ -8,9 +8,7 @@
         
         public static function Load ($Core)
         {
-            if (substr($Core, 0,1) == 'I')
-                $Class = Engine.'/Interface/'.substr($Core,1).'.php';
-            elseif (isset(self::$_Conf['Engines'][$Core]))
+            if (isset(self::$_Conf['Engines'][$Core]))
                 $Class = Engine.'Core/'.$Core.'/'.self::$_Conf['Engines'][$Core].'.php';
             else
                 throw new Exception('Unknown class '.$Core);
@@ -18,11 +16,8 @@
             if ((include($Class)) === false)
                 throw new Exception($Core.' not found');
 
-            if (substr($Core, 0,1) !== 'I')
-            {
-                call_user_func(array($Core, 'Initialize'));
-                register_shutdown_function($Core.'::Shutdown');
-            }
+            call_user_func(array($Core, 'Initialize'));
+            register_shutdown_function($Core.'::Shutdown');
 
             return true;
         }

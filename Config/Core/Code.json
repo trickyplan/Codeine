@@ -1,7 +1,7 @@
 {
-    "Routers": ["Codeine", "JSON"],
+    "Routers": ["Direct","Codeine", "JSON"],
     "Checkers": ["Value","Required", "Type", "Condition"],
-    "Interfaces": ["HTTP","CLI"],
+    "Inputs": ["HTTP","CLI"],
     "Hooks":
     {
         "Default": [],
