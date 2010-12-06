@@ -29,7 +29,7 @@
         $CC = count($Call);
 
         if ($CC >= 3)
-            list ($Routed['F'], $Routed['Entity'], $Routed['ID']) = $Call;
+            list ($Routed['Action'], $Routed['Entity'], $Routed['ID']) = $Call;
         else
             return null;
 
@@ -40,7 +40,8 @@
                 else
                     $Routed[$Call[$ic]] = true;
 
-        $Routed['F'] = 'App/'.$Routed['F'].'::'.$Routed['F'];
+        $Routed['N'] = 'App.'.$Routed['Action'];
+        $Routed['F'] = $Routed['Action'];
 
 
 

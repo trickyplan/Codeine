@@ -14,6 +14,6 @@
   self::Fn('Route', function ($Call)
   {
       return Code::Run(
-            array('F'=>'Formats/YAML::Decode', 'Value' => $Call['Call'])
+            array('N'=>'Formats.YAML', 'F'=>'Decode', 'Value' => $Call['Call'])
         );
   });

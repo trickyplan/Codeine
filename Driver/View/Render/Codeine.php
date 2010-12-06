@@ -32,7 +32,8 @@
             foreach ($Call['Input']['Items'] as $ID => $Item)
             {
                 $Output[$ID] = Code::Run(
-                    array('F'=>'View/UI/Codeine/'.$Item['UI'].'::Make',
+                    array('N'=>'View.UI.Codeine.'.$Item['UI'],
+                         'F' => 'Make',
                          'D' => $Item ['UI'],
                          'Item'=> Core::Any($Item))
                 );
@@ -45,12 +46,14 @@
 
         $Output = str_replace('<content/>',$Output, $Layout);
 
-        $Processors = array('HTML/Media', 'HTML/I18N'); // FIXME!!
+        $Processors = array('HTML.Media', 'HTML.I18N'); // FIXME!!
 
         foreach ($Processors as $Processor)
             $Output = Code::Run(
-                array('F'=>'View/Processors/'.$Processor.'::Process',
-                      'Input'=> $Output)
+                array(
+                     'N' => 'View.Processors.'.$Processor,
+                     'F' => 'Process',
+                     'Input'=> $Output)
             );
 
         // Вернуть

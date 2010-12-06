@@ -34,7 +34,8 @@
     {
         $Query = Code::Run(
             array(
-                  'F' => 'Data/Syntax/SQL::Read',
+                  'N' => 'Data.Syntax.SQL',
+                  'F' => 'Read',
                   'D' => 'MySQL',
                   'Data' => $Call
                  ));

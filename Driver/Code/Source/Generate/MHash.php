@@ -25,10 +25,11 @@
             return mhash(MHASH_'.$AlgoName.', $Call[\'Input\'], $Call[\'Key\']);
         else
             return mhash(MHASH_'.$AlgoName.', $Call[\'Input\']);';
-
+  // TODO DATA Write
             file_put_contents(
                 Engine.Data::Path('Code').'Security/Hash/MHash/'.$AlgoName.'.php', Code::Run(array(
-                           'F' => 'Code/Source/Driver::Generate',
+                           'N' => 'Code.Source.Driver',
+                           'F' => 'Generate',
                            'Description'=> $AlgoName.' MHash Wrapper',
                            'Version' => '5.0',
                            'Functions' => $Functions

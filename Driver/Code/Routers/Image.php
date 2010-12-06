@@ -14,6 +14,6 @@
     self::Fn('Route', function ($Call)
     {
         return Code::Run(
-            array('F'=>'Recognition/Image::Recognize', 'Value' => $Call['Call'])
+            array('N'=>'Recognition.Image', 'F'=>'Recognize', 'Value' => $Call['Call'])
         );
     });

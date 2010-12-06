@@ -24,9 +24,12 @@
         else
             return hash(\''.$Algo.'\', $Call[\'Input\']);';
 
+
+            // TODO DATA Write
             file_put_contents(
                 Engine.Data::Path('Code').'Security/Hash/PHP/'.str_replace(',','.',$Algo).'.php', Code::Run(array(
-                           'F' => 'Code/Source/Driver::Generate',
+                           'N' => 'Code.Source.Driver',
+                           'F' => 'Generate',
                            'Description'=> $Algo.' Hash Extension Wrapper',
                            'Version' => '5.0',
                            'Functions' => $Functions

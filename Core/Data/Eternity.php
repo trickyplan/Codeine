@@ -62,7 +62,8 @@
             {
                 if ((self::$_Stores[$Store] =
                     Code::Run(array(
-                               'F' => 'Data/Store/'.self::$_Conf['Stores'][$Store]['Type'].'::Connect',
+                               'N' => 'Data.Store.'.self::$_Conf['Stores'][$Store]['Type'],
+                               'F' => 'Connect',
                                'Point' => self::$_Conf['Stores'][$Store]
                         ),$Ring)) !== null)
                     Code::On(__CLASS__, 'errDataStoreConnectFailed', $Store);
@@ -81,7 +82,8 @@
                 // Пробуем роутер из списка...
                 $NewCall = Code::Run(
                     array(
-                        'F'=> 'Data/Routers/'.$Router.'::Route',
+                        'N'=> 'Data.Routers.'.$Router,
+                        'F' => 'Route',
                         'Input' => $Call
                     ), Code::Ring1
                 );
@@ -103,7 +105,8 @@
         public static function Disconnect($Store)
         {
             return Code::Run(array(
-                           'F' => 'Data/Store/'.self::$_Conf['Stores'][$Store]['Type'].'::Disconnect',
+                           'N' => 'Data.Store.'.self::$_Conf['Stores'][$Store]['Type'],
+                           'F' => 'Disconnect',
                            'Point' => self::$_Stores[$Store]
                       ), Code::Ring1);
         }
@@ -166,7 +169,8 @@
 
 
             $Call['Result'] = Code::Run(array(
-                           'F' => 'Data/Store/'.self::$_Conf['Stores'][$Store]['Type'].'::'.$Method,
+                           'N' => 'Data.Store.'.self::$_Conf['Stores'][$Store]['Type'],
+                           'F' => $Method,
                            'Point' => self::$_Conf['Points'][$Point],
                            'Store' => self::$_Stores[$Store],
                            'Data' => $Call,
@@ -229,10 +233,11 @@
 
             if (isset(self::$_Conf['Points'][$Call['Point']]['Format']) && $Result !== null)
                 $Result = Code::Run(array(
-                              'F' => 'Data/Formats/'.
-                                     self::$_Conf['Points'][$Call['Point']]['Format'].'::Decode',
-                              'Input' => $Result
-                                 ), $Ring);
+                              'N' => 'Data.Formats.'.
+                                     self::$_Conf['Points'][$Call['Point']]['Format'],
+                              'F' => 'Decode',
+                              'Input' => $Result), $Ring);
+            
             if ($Result === null)
                 Code::On(__CLASS__, 'errDataReadFormatDecodeFailed', $Call);
 

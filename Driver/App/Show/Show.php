@@ -13,25 +13,20 @@
 
     self::Fn('Show', function ($Call)
     {
-        Code::Run(array(
-                       'F' => 'Security/Hash::Get',
-                       'D' => 'MD5'
-                  ), Code::Ring2, null, 'Update');
-
         $Call['Items'] = array();
         
         $Call['Items']['Title'] = array(
             'UI'        => 'Block',
             'Entity'    => $Call['Entity'],
-            'Plugin'    => $Call['Function'],
+            'Plugin'    => $Call['F'],
             'Data'      => 'Hello from block'
         );
 
         $Call['Items']['Object'] = array(
             'UI'        => 'Object',
             'Entity'    => $Call['Entity'],
-            'ID'    => $Call['ID'],
-            'Plugin'    => $Call['Function'],
+            'ID'        => $Call['ID'],
+            'Plugin'    => $Call['F'],
             'Data'      => Data::Read(
                 array(
                      'Point'=>$Call['Entity'],

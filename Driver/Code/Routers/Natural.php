@@ -14,6 +14,6 @@
     self::Fn('Route', function ($Call)
     {
         return  Code::Run(
-            array('F'=>'Recognition/Language::Recognize', 'Value' => $Call['Call'])
+            array('N'=>'Recognition.Language','F'=>'Recognize', 'Value' => $Call['Call'])
         );
     });

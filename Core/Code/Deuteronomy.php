@@ -126,7 +126,7 @@
          */
         public static function isValidCall($Call)
         {
-            return is_array($Call) && isset($Call['F']);
+            return is_array($Call) && isset($Call['N']);
         }
 
         /**
@@ -139,10 +139,10 @@
          */
         public static function LoadContract($Call, $Mode = Code::Ring2)
         {
-            if (!isset(self::$_Contracts[$Call['Namespace']][$Call['Function']]))
+            if (!isset(self::$_Contracts[$Call['N']][$Call['F']]))
             {
                 // FIXME OPTME
-                $Default = array($Call['Function'] => array());
+                $Default = array($Call['F'] => array());
 
                 if ($Mode == Code::Ring2)
                 {
@@ -155,7 +155,7 @@
                             Data::Read(
                                 array('Point' => 'Contract',
                                       'Where' => array(
-                                            'ID' => $Call['Namespace'].'/'.$Call['D']
+                                            'ID' => $Call['N'].'/'.$Call['D']
                                       )
                             ), Code::Ring1);
                     }
@@ -164,24 +164,24 @@
                         Data::Read(
                             array('Point' => 'Contract',
                                   'Where' => array(
-                                        'ID' => $Call['Namespace'].'/'.$Call['Group']
+                                        'ID' => $Call['N'].'/'.$Call['G']
                                   )
                         ), Code::Ring1);
                         
                     $Contract = self::ConfWalk($GroupContract, $DriverContract);
 
-                    if (isset($Contract[$Call['Function']]))
-                        $Contract = $Contract[$Call['Function']];
+                    if (isset($Contract[$Call['F']]))
+                        $Contract = $Contract[$Call['F']];
                     else
                         $Contract = array();
                 }
                 else
                     $Contract = $Default;
 
-                self::$_Contracts[$Call['Namespace']][$Call['Function']] = $Contract;
+                self::$_Contracts[$Call['N']][$Call['F']] = $Contract;
             }
             else
-                $Contract = self::$_Contracts[$Call['Namespace']][$Call['Function']];
+                $Contract = self::$_Contracts[$Call['N']][$Call['F']];
 
             if (isset($Call['Override']))
                 $Contract =  self::ConfWalk($Contract, $Call['Override']);
@@ -203,8 +203,9 @@
                 // Пробуем роутер из списка...
                 $NewCall = Code::Run(
                     array(
-                        'F'=> 'Code/Routers::Route',
-                        'D'=> $Router,
+                        'N' => 'Code.Routers',
+                        'F'  => 'Route',
+                        'D' => $Router,
                         'Call' => $Call
                     ), Code::Ring1
                 );
@@ -231,41 +232,42 @@
          */
         protected static function _Prepare ($Call)
         {
-            $Call['F'] = str_replace('>','/', $Call['F']);
+            $N = preg_split('@\.@', $Call['N']);
 
-            list ($Call['F'], $Call['Function']) = explode('::', $Call['F']);
-            $Call['Namespace'] = $Call['F'];
-
-            list($Call['Group']) = array_reverse(explode('/', $Call['F']));
-
+            $Call['N'] = implode('/', $N);
+            list($Call['G']) = array_reverse($N);
+                
             return $Call;
         }
 
         protected static function SetNamespace($Namespace, $Driver)
         {
-            return self::$_Registration = array('Namespace' => $Namespace, 'Driver'=> $Driver);
+            return self::$_Registration = array('N' => $Namespace, 'D'=> $Driver);
         }
 
-        public static function Fn($Function, $Code = null)
+        public static function Fn($Function, $Code = null, $Namespace = null, $Driver = null)
         {
+            if (null !== $Namespace && null !== $Driver)
+                self::SetNamespace($Namespace, $Driver);
+
             if (null !== $Code)
             {
                 if (false !== $Code)
                     self::$_Functions
-                        [self::$_Registration['Namespace']]
-                            [self::$_Registration['Driver']][$Function] = $Code;
+                        [self::$_Registration['N']]
+                            [self::$_Registration['D']][$Function] = $Code;
                 else
                     unset(self::$_Functions
-                        [self::$_Registration['Namespace']]
-                            [self::$_Registration['Driver']][$Function]);
+                        [self::$_Registration['N']]
+                            [self::$_Registration['D']][$Function]);
             }
             else
                 if (isset(self::$_Functions
-                        [self::$_Registration['Namespace']]
-                            [self::$_Registration['Driver']][$Function]))
+                        [self::$_Registration['N']]
+                            [self::$_Registration['D']][$Function]))
                 return self::$_Functions
-                            [self::$_Registration['Namespace']]
-                                [self::$_Registration['Driver']][$Function];
+                            [self::$_Registration['N']]
+                                [self::$_Registration['D']][$Function];
         }
 
         protected static function _LoadSource($Call, $Contract)
@@ -279,7 +281,7 @@
                     if (isset($Contract['Source']))
                         $Filename = Data::Locate('Code', $Contract['Source']);
                     else
-                        $Filename = Data::Locate('Code', $Call['Namespace'].'/'.$Call['D'].'.php');
+                        $Filename = Data::Locate('Code', $Call['N'].'/'.$Call['D'].'.php');
                     
                     if ($Filename)
                         return (include $Filename);
@@ -289,7 +291,7 @@
 
                 case 'Code':
                     if(isset($Contract['Source']))
-                        eval('self::Fn(\''.$Call['Function'].'\',
+                        eval('self::Fn(\''.$Call['F'].'\',
                             function ($Call) {'.$Contract['Source'].'});');
                     else
                         Code::On(__CLASS__, 'errCodeSourceInContractNotSpecified', $Contract);
@@ -297,7 +299,7 @@
 
                 case 'Data':
                     if(isset($Contract['Source']))
-                        eval('self::Fn(\''.$Call['Function'].'\',
+                        eval('self::Fn(\''.$Call['F'].'\',
                             function ($Call) {'.Data::Read('Source', $Contract['Source']).'});');
                         // TODO Test!
                     else
@@ -312,7 +314,7 @@
 
         protected static function _Do($Call)
         {
-            $F = self::Fn($Call['Function']);
+            $F = self::Fn($Call['F']);
 
             if (null == $F)
             {
@@ -338,7 +340,8 @@
                 self::$_Stack->pop();
                 return self::Run(
                     array(
-                         'F' => 'Code/Runners/'.$Runner.'::Run',
+                         'N' => 'Code.Runners.'.$Runner,
+                         'F' => 'Run',
                          'Call' => $Call,
                          'Mode' => $Mode
                           ), $Mode);
@@ -349,7 +352,8 @@
                 self::$_Stack->pop();
                 return self::Run(
                     array(
-                         'F' => 'Code/Executors/'.$Executor.'::Run',
+                         'N' => 'Code.Executors.'.$Executor,
+                         'F' => 'Run',
                          'Call' => $Call,
                          'Mode' => $Mode
                           ), $Mode);
@@ -363,9 +367,10 @@
             if (is_string($Call) && isset(self::$_Aliases[$Call]))
                 $Call = self::$_Aliases[$Call];
             elseif (!self::isValidCall($Call))
-                $Call = self::_Route($Call);
+                    $Call = self::_Route($Call);
 
             // Готовим удобные переменные
+
             $Call = self::_Prepare($Call);
 
             // Загружаем контракт
@@ -400,13 +405,13 @@
                 self::Run($Contract['Hook']['beforeRun'], Code::Ring1, 'Multi');
 
             // Устанавливаем текущее пространство имён
-            self::SetNamespace($Call['Namespace'], $Call['D']);
+            self::SetNamespace($Call['N'], $Call['D']);
 
-            if (isset($Contract['PreferredNS']) && $Call['Namespace'] !== $Contract['PreferredNS'])
+            if (isset($Contract['PreferredNS']) && $Call['N'] !== $Contract['PreferredNS'])
                 Code::On(__CLASS__, 'errPreferredNamespace', $Contract);
 
             // Если функции нет, подгружаем код
-            if (self::Fn($Call['Function']) === null)
+            if (self::Fn($Call['F']) === null)
                 self::_LoadSource($Call, $Contract);
 
             // Выполняем!
@@ -422,7 +427,7 @@
 
             // Режим экономии
             if (self::_is('Economy', $Contract))
-                self::Fn($Call['Function'], null);
+                self::Fn($Call['F'], null);
 
             // Фильтрация результата
 
@@ -475,7 +480,8 @@
                 array(
                      'Prototype' =>
                         array(
-                            'F'=>'Code/Checkers::Check',
+                            'N' => 'Code.Checkers',
+                            'F' => 'Check',
                             'Data'=> $Data,
                             'Contract'=>$Contract),
                      'Key'=> 'D',
@@ -523,7 +529,7 @@
                         $Call['D'] = $Contract['Driver']['Default'];
                 }
                 else
-                    $Call['D'] = $Call['Group'];
+                    $Call['D'] = $Call['G'];
             }
 
             $Call['D'] = Core::Any($Call['D']);

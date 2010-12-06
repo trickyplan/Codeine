@@ -30,14 +30,6 @@
                 $R = Root.$cName;
             elseif (file_exists(Engine.$cName))
                 $R = Engine.$cName;
-            // FIXME
-//            else
-//                foreach (self::$_Conf['Shared'] as $Shared)
-//                    if (file_exists($Shared.DS.$cName))
-//                    {
-//                        $R = $Shared.DS.$cName;
-//                        break;
-//                    }
        }
 
        if (isset($R))

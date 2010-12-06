@@ -29,7 +29,7 @@
                      'UI'        => 'Form',
                      'Purpose'   => 'Create',
                      'Entity'    => $Call['Entity'],
-                     'Plugin'    => $Call['Function'],
+                     'Plugin'    => $Call['F'],
                      'Data'      => $Model);
             }
             else

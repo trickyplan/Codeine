@@ -22,7 +22,8 @@
         {
             $Output[$Title] = Code::Run(
                 array(
-                   'F' => 'View/UI/Codeine/'.$Node['Controls'][$Call['Item']['Purpose']].'::Make',
+                   'N' => 'View.UI.Codeine.'.$Node['Controls'][$Call['Item']['Purpose']],
+                   'F' => 'Make',
                    'Name' => $Title,
                    'ID' => 'Form_'.$Call['Item']['Purpose'].
                            '_'.$Node['Controls'][$Call['Item']['Purpose']].'_'.$Title
@@ -31,7 +32,8 @@
 
         $Output['Submit'] = Code::Run(
                 array(
-                   'F' => 'View/UI/Codeine/Submit::Make'
+                   'N' => 'View.UI.Codeine.Submit',
+                   'F' => 'Make'
                 ));
 
         return $Header.implode('',$Output).$Footer;

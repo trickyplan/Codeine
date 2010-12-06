@@ -5,7 +5,8 @@
         {
             "Default":
             {
-                "F": "Code/Strategy/Render::Select"
+                "N": "Code.Strategy.Render",
+                "F": "Select"
             }
         },
         "Profiling":

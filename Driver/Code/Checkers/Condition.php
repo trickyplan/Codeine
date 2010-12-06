@@ -18,7 +18,8 @@
             return true;
         else
             return Code::Run(
-                array('F' => 'Conditions::Check',
+                array('N' => 'Conditions',
+                      'F' => 'Check',
                       'D' => $Call['Contract']['Condition'],
                       'Value' => $Call['Data']));
     });

@@ -6,7 +6,8 @@
             "Weight": 1,
             "Call":
             {
-                "F": "Neurons/Example::Wind"
+                "N": "Neurons.Example",
+                "F": "Wind"
             }
         },
         "2nd":
@@ -14,7 +15,8 @@
             "Weight": 1,
             "Call":
             {
-                "F": "Neurons/Example::Wind"
+                "N": "Neurons.Example",
+                "F": "Wind"
             }
         }
     },
@@ -24,7 +26,8 @@
         {
             "Call":
             {
-                "F": "Neurons/Example::Blur"
+                "N": "Neurons.Example",
+                "F": "Blur"
             },
             "From": ["1st", "2nd"]
         }

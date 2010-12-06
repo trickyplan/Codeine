@@ -14,6 +14,6 @@
   self::Fn('Route', function ($Call)
   {
       return Code::Run(
-            array('F'=>'Formats/XML::Decode', 'Value' => $Call['Call'])
+            array('N'=>'Formats.XML', 'F'=>'Decode', 'Value' => $Call['Call'])
         );
   });

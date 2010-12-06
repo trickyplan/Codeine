@@ -29,7 +29,7 @@
             if (isset($Call['Contract']['Depends']['Internal']))
             {
                 foreach ($Call['Contract']['Depends']['Internal'] as $Dependency)
-                    if (self::Run(array('F' => $Dependency), Code::Ring1, 'Test'))
+                    if (self::Run(array('N' => $Dependency), Code::Ring1, 'Test'))
                     {
                         self::On(__CLASS__, 'errInternalDependencyFailed', $Call['Contract']);
                         return false;

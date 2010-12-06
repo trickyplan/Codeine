@@ -14,6 +14,6 @@
     self::Fn('Route', function ($Call)
     {
         return Code::Run(
-            array('F'=>'Formats/SOAP::Decode', 'Value' => $Call['Call'])
+            array('N'=>'Formats.SOAP', 'F'=> 'Decode', 'Value' => $Call['Call'])
         );
     });

@@ -4,7 +4,7 @@
     {
         "MySQL":
         {
-            "Type": "SQL/MySQL",
+            "Type": "SQL.MySQL",
             "Username": "root",
             "Password":"phoenix",
             "Server":"localhost",
@@ -14,27 +14,27 @@
         },
         "Static":
         {
-            "Type": "PHP/Static",
+            "Type": "PHP.Static",
             "Map": "Native"
         },
         "Layout":
         {
-            "Type": "File/Layout",
+            "Type": "File.Layout",
             "DSN": "Layout"
         },
         "FS":
         {
-            "Type": "File/Cascade",
+            "Type": "File.Cascade",
             "DSN": ""
         },
         "Temp":
         {
-            "Type": "File/Flat",
+            "Type": "File.Flat",
             "DSN": "/Temp"
         },
         "Redis":
         {
-            "Type": "KeyValue/Redis"
+            "Type": "KeyValue.Redis"
         }
     },
     "Points":

@@ -14,6 +14,6 @@
     self::Fn('Route', function ($Call)
     {
         return  Code::Run(
-            array('F'=>'Recognition/Barcode::Recognize', 'Value' => $Call['Call'])
+            array('N'=>'Recognition.Barcode', 'F'=>'Recognize', 'Value' => $Call['Call'])
         );
     });

@@ -26,7 +26,8 @@
 
         foreach ($Fusers as $Fuser)
             $Output = Code::Run(array(
-                           'F' => 'View/Fusers::Fusion',
+                           'N' => 'View.Fusers',
+                           'F' => 'Fusion',
                            'D' => $Fuser,
                            'Body' => $Output,
                            'Data' => $Call['Item']
