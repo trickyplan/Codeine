@@ -11,3 +11,8 @@
      * @time 3:04
      */
 
+    self::Fn('Run', function ($Call)
+    {
+        // TODO Profiling
+        return Code::Run($Call['Call']);
+    });

@@ -35,6 +35,17 @@
         "Return":
         {
             "Fallback": null
+        },
+        "Mockup":
+        {
+            "One":
+            {
+                "Call":
+                {
+                    "Input": "Test"
+                },
+                "Value": "Mockup!"
+            }
         }
     }
 }

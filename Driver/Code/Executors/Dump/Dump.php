@@ -11,3 +11,7 @@
      * @time 3:05
      */
 
+    self::Fn('Run', function ($Call)
+    {
+        var_dump(Code::Run($Call['Call']));
+    });

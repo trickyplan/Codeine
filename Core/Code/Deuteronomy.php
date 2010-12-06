@@ -159,7 +159,7 @@
                                       )
                             ), Code::Ring1);
                     }
-                    
+
                     $GroupContract =
                         Data::Read(
                             array('Point' => 'Contract',
@@ -173,7 +173,10 @@
                     if (isset($Contract[$Call['F']]))
                         $Contract = $Contract[$Call['F']];
                     else
+                    {
+                        Code::On(__CLASS__, 'errContractFnNotFound', $Call);
                         $Contract = array();
+                    }
                 }
                 else
                     $Contract = $Default;
@@ -230,7 +233,7 @@
          * @param  $Call
          * @return array
          */
-        protected static function _Prepare ($Call)
+        public static function Prepare ($Call)
         {
             $N = preg_split('@\.@', $Call['N']);
 
@@ -371,7 +374,7 @@
 
             // Готовим удобные переменные
 
-            $Call = self::_Prepare($Call);
+            $Call = self::Prepare($Call);
 
             // Загружаем контракт
             $Contract = self::LoadContract($Call, $Mode);

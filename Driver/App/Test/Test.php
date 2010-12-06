@@ -13,5 +13,11 @@
 
     self::Fn('Test', function ($Call)
     {
-        
+        Code::Run(
+            array(
+                 'N' => 'Security.Hash',
+                 'F' => 'Get',
+                 'Input' => ''
+            )
+        , Code::Ring2, null, 'Mockup');
     });

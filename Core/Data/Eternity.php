@@ -40,6 +40,16 @@
             
         }
 
+        public static function AddStore ($ID, $Store)
+        {
+            return self::$_Conf['Stores'][$ID] = $Store;
+        }
+
+        public static function AddPoint ($ID, $Point)
+        {
+            return self::$_Conf['Points'][$ID] = $Point;
+        }
+
         public static function Mount($Point)
         {
             if (isset(self::$_Conf['Points'][$Point]['Ring']))
