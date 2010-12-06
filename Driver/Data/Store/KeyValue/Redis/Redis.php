@@ -40,3 +40,25 @@
             $Call['Data']['ID'],
             json_encode($Call['Data']['Data']));
     });
+
+    self::Fn('Update', function ($Call)
+    {
+        return $Call['Store']->set(
+            $Call['Point']['Scope'].
+            $Call['Data']['ID'],
+            json_encode($Call['Data']['Data']));
+    });
+
+    self::Fn('Delete', function ($Call)
+    {
+        return $Call['Store']->delete(
+            $Call['Point']['Scope'].
+            $Call['Data']['ID']);
+    });
+
+    self::Fn('Exist', function ($Call)
+    {
+        return $Call['Store']->exists(
+            $Call['Point']['Scope'].
+            $Call['Data']['ID']);
+    });
