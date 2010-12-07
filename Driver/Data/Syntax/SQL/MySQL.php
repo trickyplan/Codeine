@@ -51,22 +51,22 @@
 
     self::Fn('Update', function ($Call)
     {
-        $Set = array();
-        $Where = array();
-
-        foreach ($Call['Data']['Data']['Data'] as $Key => $Value)
+        $QueryString = array();
+        foreach ($Call['Data']['Data']['Set'] as $Set)
         {
-            $Set[] = '`'.mysql_real_escape_string($Key, $Call['Data']['Store']).'` = '
-                     .'\''.mysql_real_escape_string($Value, $Call['Data']['Store']).'\'';
+            $Modification = array();
+            $Where = array();
+
+            foreach ($Set['Data'] as $Key => $Value)
+                $Modification[] = '`'.mysql_real_escape_string($Key, $Call['Data']['Store']).'` = '
+                         .'\''.mysql_real_escape_string($Value, $Call['Data']['Store']).'\'';
+
+            foreach ($Set['Where'] as $Key => $Value)
+                $Where[] = ' `'.mysql_real_escape_string($Key, $Call['Data']['Store'])
+                          .'` = "'.mysql_real_escape_string($Value, $Call['Data']['Store']).'" ';
+
+            $QueryString[] = 'UPDATE `'.$Call['Data']['Point']['Scope'].'` SET '.implode(',',$Modification).' WHERE '.implode('AND', $Where);
         }
 
-        foreach ($Call['Data']['Data']['Where'] as $Key => $Value)
-            $Where[] = ' `'.mysql_real_escape_string($Key, $Call['Data']['Store'])
-                      .'` = "'.mysql_real_escape_string($Value, $Call['Data']['Store']).'" ';
-
-        $QueryString = 'UPDATE '.$Call['Data']['Point']['Scope'].' SET '.implode(',',$Set).' WHERE '.implode('AND', $Where);
-
-        var_dump($QueryString);
-        
         return $QueryString;
     });

@@ -16,13 +16,15 @@
         var_dump(Data::Update(
             array(
                  'Point' => 'Page',
-                 'Data' =>
-                    array('Body' => 'NewBody'),
-                 'Where' =>
-                         array(
-                             'ID' => 'Page1'
+                 'Set' =>
+                     array(
+                        array(
+                            'Data' =>
+                                array('Body' => uniqid(), 'CreatedOn' => time()),
+                            'Where' =>
+                                array('ID' => 'Page1')
                          )
+                     )
             )
         ));
-        ;
     });

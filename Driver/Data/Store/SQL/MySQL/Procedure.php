@@ -80,10 +80,14 @@
                   'Data' => $Call
                  ));
 
-        if (!($Result = mysql_query($Query, $Call['Store'])))
+        foreach ($Query as $cQuery)
         {
-            Code::On('Data', 'errDataMySQLUpdateFailed', $Call);
-            return false;
+            if (!($Result = mysql_query($cQuery, $Call['Store'])))
+            {
+                Code::On('Data', 'errDataMySQLUpdateFailed', $Call);
+                echo mysql_error();
+                return false;
+            }
         }
 
         return true;

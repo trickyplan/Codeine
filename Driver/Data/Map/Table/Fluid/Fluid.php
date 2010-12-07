@@ -31,8 +31,19 @@
 
     self::Fn('Update', function ($Call)
     {
-        foreach ($Call['Data'] as $Key => $Value)
-            
+        foreach ($Call['Call']['Set'] as $Set)
+        {
+            foreach ($Set['Data'] as $Key => $Value)
+            {
+                $LocalWhere = array_merge ($Set['Where'], array('K' => $Key));
+                $Mods[] = array('Data' =>
+                    array('V' => $Value),
+                    'Where' => $LocalWhere
+                );
+            }
+        }
+        
+        $Call['Call']['Set'] = $Mods;
 
         return $Call['Call'];
     });

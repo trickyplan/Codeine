@@ -272,6 +272,14 @@
 
         public static function Update ($Call, $Mode = Code::Ring2)
         {
+            if (isset(self::$_Conf['Points'][$Call['Point']]['Map']))
+                $Call = Code::Run(
+                    array(
+                        'N' => 'Data.Map.'.self::$_Conf['Points'][$Call['Point']]['Map'],
+                        'F' => 'Update',
+                        'Call'=> $Call
+                    ));
+            
             return self::_CRUD('Update', $Call, $Mode);
         }
 
