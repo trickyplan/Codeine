@@ -12,7 +12,7 @@
      */
 
 
-    self::Fn('GetLocation', function ($Call)
+    self::Fn('Get', function ($Call)
     {
         $Response = json_decode(
             file_get_contents('http://www.ipinfodb.com/ip_query.php?output=json&ip='.$Call['IP']), true);

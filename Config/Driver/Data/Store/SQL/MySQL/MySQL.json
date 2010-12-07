@@ -5,23 +5,9 @@
         {
             "Default": "Procedure"
         },
-        "Arguments":
-        {
-            "Data":
-            {
-                "Required": true
-            }
-        },
         "Return":
         {
             "Fallback": null
-        },
-        "Profiling":
-        {
-            "Coverage": 0,
-            "Red": 0,
-            "Yellow": 0,
-            "Green": 0
         }
     },
     "Read":
@@ -29,21 +15,30 @@
         "Driver":{
             "Default": "Procedure"
         },
-        "Arguments":
+        "Return":
         {
+            "Fallback": null
+        }
+    },
+    "Create":
+    {
+        "Driver":{
+            "Default": "Procedure"
         },
         "Return":
         {
             "Fallback": null
+        }
+    },
+    "Update":
+    {
+        "Driver":{
+            "Default": "Procedure"
         },
-        "Profiling":
+        "Return":
         {
-            "Coverage": 0,
-            "Red": 0,
-            "Yellow": 0,
-            "Green": 0
-        },
-        "Test": {}
+            "Fallback": null
+        }
     },
     "Version":
     {

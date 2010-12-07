@@ -77,12 +77,12 @@
                 else
                     return null;
             }
-            else
-                return Code::Run(
-                    array(
-                         'Calls' => self::$_Conf['Hooks']['Default'],
-                         'Data'  => $Data
-                    ), Code::Ring1, 'Feed');
+//            else
+//                return Code::Run(
+//                    array(
+//                         'Calls' => self::$_Conf['Hooks']['Default'],
+//                         'Data'  => $Data
+//                    ), Code::Ring1, 'Feed');
         }
 
         /**
@@ -239,6 +239,9 @@
 
             $Call['N'] = implode('/', $N);
             list($Call['G']) = array_reverse($N);
+
+            if (!isset($Call['F']))
+                $Call['F'] = 'Default';
                 
             return $Call;
         }
@@ -248,11 +251,8 @@
             return self::$_Registration = array('N' => $Namespace, 'D'=> $Driver);
         }
 
-        public static function Fn($Function, $Code = null, $Namespace = null, $Driver = null)
+        public static function Fn($Function, $Code = null)
         {
-            if (null !== $Namespace && null !== $Driver)
-                self::SetNamespace($Namespace, $Driver);
-
             if (null !== $Code)
             {
                 if (false !== $Code)

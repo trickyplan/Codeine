@@ -11,7 +11,7 @@
      * @time 5:37
      */
 
-    self::Fn('GetLocation', function ($Call)
+    self::Fn('Get', function ($Call)
     {
         return geoip_record_by_name($Call['IP']);
     });

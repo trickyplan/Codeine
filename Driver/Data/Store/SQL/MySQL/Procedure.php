@@ -32,6 +32,8 @@
 
     self::Fn('Read', function ($Call)
     {
+        $Rows = array();
+        
         $Query = Code::Run(
             array(
                   'N' => 'Data.Syntax.SQL',
@@ -43,5 +45,46 @@
         if (!($Result = mysql_query($Query, $Call['Store'])))
             Code::On('Data', 'errDataMySQLReadFailed', $Call);
 
-        return mysql_fetch_assoc($Result);
+        while ($Row = mysql_fetch_assoc($Result))
+            $Rows[] = $Row;
+        
+        return $Rows;
+    });
+
+    self::Fn('Create', function ($Call)
+    {
+        $Query = Code::Run(
+            array(
+                  'N' => 'Data.Syntax.SQL',
+                  'F' => 'Create',
+                  'D' => 'MySQL',
+                  'Data' => $Call
+                 ));
+        
+        if (!($Result = mysql_query($Query, $Call['Store'])))
+        {
+            Code::On('Data', 'errDataMySQLCreateFailed', $Call);
+            return false;
+        }
+
+        return true;
+    });
+
+    self::Fn('Update', function ($Call)
+    {
+        $Query = Code::Run(
+            array(
+                  'N' => 'Data.Syntax.SQL',
+                  'F' => 'Update',
+                  'D' => 'MySQL',
+                  'Data' => $Call
+                 ));
+
+        if (!($Result = mysql_query($Query, $Call['Store'])))
+        {
+            Code::On('Data', 'errDataMySQLUpdateFailed', $Call);
+            return false;
+        }
+
+        return true;
     });

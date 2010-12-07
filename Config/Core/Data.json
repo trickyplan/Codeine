@@ -61,14 +61,14 @@
             "Scope": "Data/Locale",
             "Postfix": ".json"},
 
-        "Test":    {"Store": "MySQL",  "Map": "Fluid",  "Scope": "Test"},
+        "Page":    {"Store": "MySQL",  "Map": "Table.Fluid",  "Scope": "Page"},
 
-        "Layout":  {"Store": "Layout", "Map": "File",   "Scope": "Layout"},
-        "FS":      {"Store": "FS",     "Map": "File",   "Scope": ""},
-        "JS":      {"Store": "FS",     "Map": "File",   "Scope": "Default/JS"},
-        "CSS":     {"Store": "FS",     "Map": "File",   "Scope": "Default/CSS"},
-        "TempCSS": {"Store": "Temp",   "Map": "File",   "Scope": "CSS"},
-        "TempJS":  {"Store": "Temp",   "Map": "File",   "Scope": "JS"},
+        "Layout":  {"Store": "Layout", "Scope": "Layout"},
+        "FS":      {"Store": "FS",     "Scope": ""},
+        "JS":      {"Store": "FS",     "Scope": "Default/JS"},
+        "CSS":     {"Store": "FS",     "Scope": "Default/CSS"},
+        "TempCSS": {"Store": "Temp",   "Scope": "CSS"},
+        "TempJS":  {"Store": "Temp",   "Scope": "JS"},
         "Redis":   {"Store": "Redis",  "Map": "KeyValue", "Scope": "Redis"},
         "CodeCache": {"Store": "Redis", "Map": "KeyValue", "Scope": "Code"}
     },

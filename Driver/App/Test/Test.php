@@ -13,11 +13,16 @@
 
     self::Fn('Test', function ($Call)
     {
-        Code::Run(
+        var_dump(Data::Update(
             array(
-                 'N' => 'Security.Hash',
-                 'F' => 'Get',
-                 'Input' => ''
+                 'Point' => 'Page',
+                 'Data' =>
+                    array('Body' => 'NewBody'),
+                 'Where' =>
+                         array(
+                             'ID' => 'Page1'
+                         )
             )
-        , Code::Ring2, null, 'Mockup');
+        ));
+        ;
     });

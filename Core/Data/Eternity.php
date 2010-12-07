@@ -227,6 +227,14 @@
          */
         public static function Create ($Call, $Mode = Code::Ring2)
         {
+            if (isset(self::$_Conf['Points'][$Call['Point']]['Map']))
+                $Call = Code::Run(
+                    array(
+                        'N' => 'Data.Map.'.self::$_Conf['Points'][$Call['Point']]['Map'],
+                        'F' => 'Create',
+                        'Call'=> $Call
+                    ));
+
             return self::_CRUD('Create', $Call, $Mode);
         }
 
@@ -250,6 +258,14 @@
             
             if ($Result === null)
                 Code::On(__CLASS__, 'errDataReadFormatDecodeFailed', $Call);
+
+            if (isset(self::$_Conf['Points'][$Call['Point']]['Map']))
+                $Result = Code::Run(
+                    array(
+                        'N' => 'Data.Map.'.self::$_Conf['Points'][$Call['Point']]['Map'],
+                        'F' => 'afterRead',
+                        'Result'=> $Result
+                    ));
 
             return $Result;
         }
