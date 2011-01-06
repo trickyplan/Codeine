@@ -237,6 +237,7 @@
         {
             $N = preg_split('@\.@', $Call['N']);
 
+           
             $Call['N'] = implode('/', $N);
             list($Call['G']) = array_reverse($N);
 
@@ -249,6 +250,7 @@
         protected static function SetNamespace($Namespace, $Driver)
         {
             return self::$_Registration = array('N' => $Namespace, 'D'=> $Driver);
+
         }
 
         public static function Fn($Function, $Code = null)
