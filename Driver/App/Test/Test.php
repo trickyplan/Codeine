@@ -13,18 +13,19 @@
 
     self::Fn('Test', function ($Call)
     {
-        var_dump(Data::Update(
-            array(
-                 'Point' => 'Page',
-                 'Set' =>
-                     array(
-                        array(
-                            'Data' =>
-                                array('Body' => uniqid(), 'CreatedOn' => time()),
-                            'Where' =>
-                                array('ID' => 'Page1')
-                         )
-                     )
-            )
-        ));
+        $Structure = Structure::Make(
+           array(
+               'Nodes' =>
+                   array(
+                       'ROField' =>
+                           array(
+                               'NoRead' => true
+                           )
+                   )
+           )
+        );
+
+        $Structure->ROField = 'fdgf';
+        
+        var_dump($Structure->ROField);
     });

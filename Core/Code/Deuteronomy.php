@@ -339,6 +339,8 @@
         public static function Run ($Call, $Mode = Code::Ring2, $Runner = null, $Executor = null)
         {
             self::$_Stack->push($Call);
+            if (isset(self::$_Conf['Limit']['NestedCalls']) && self::$_Stack->count() > self::$_Conf['Limit']['NestedCalls'])
+                self::On(__CLASS__, 'errCodeOverflowFault', $Call);
             
             if ($Runner !== null)
             {
