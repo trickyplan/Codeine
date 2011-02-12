@@ -13,19 +13,12 @@
 
     self::Fn('Test', function ($Call)
     {
-        $Structure = Structure::Make(
-           array(
-               'Nodes' =>
-                   array(
-                       'ROField' =>
-                           array(
-                               'NoRead' => true
-                           )
-                   )
-           )
+        $Call['Items']['Title'] = array(
+            'UI'        => 'Block',
+            'Entity'    => $Call['Entity'],
+            'Plugin'    => $Call['F'],
+            'Data'      => 'Hello, world!'
         );
 
-        $Structure->ROField = 'fdgf';
-        
-        var_dump($Structure->ROField);
+        return $Call;
     });

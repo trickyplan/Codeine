@@ -45,5 +45,7 @@
                 return file_get_contents($Candidates[$a]);
         }
 
+        Code::On(__CLASS__, 'errNoCandidatesForLayout', $Call);
+
         return '<content/>';
     });

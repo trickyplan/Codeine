@@ -1,0 +1,30 @@
+/* !XDEBUG beautifying */
+
+.xdebug-error {
+	font-size: 12px;
+    width: 100%;
+	margin: 10px;
+	border: 1px solid #EEE;
+    background: transparent;
+    color: #000;
+}
+
+.xdebug-error th, .xdebug-error td {
+	padding: 10px;
+    background: transparent;
+}
+
+.xdebug-error th {
+    border: 1px solid #EEE;
+    background: transparent;
+}
+
+.xdebug-error td {
+	padding: 4px;
+    background: transparent;
+	border: 1px solid #EEE;
+}
+
+.xdebug-error span {
+	display: none;
+}

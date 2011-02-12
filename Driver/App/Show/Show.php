@@ -14,13 +14,6 @@
     self::Fn('Show', function ($Call)
     {
         $Call['Items'] = array();
-        
-        $Call['Items']['Title'] = array(
-            'UI'        => 'Block',
-            'Entity'    => $Call['Entity'],
-            'Plugin'    => $Call['F'],
-            'Data'      => 'Hello from block'
-        );
 
         $Call['Items']['Object'] = array(
             'UI'        => 'Object',
@@ -28,12 +21,12 @@
             'ID'        => $Call['ID'],
             'Plugin'    => $Call['F'],
             'Data'      => Data::Read(
-                array(
-                     'Point'=>$Call['Entity'],
-                     'Where'=>
-                        array(
-                            'ID'=>$Call['ID'])))
-                );
+                                    array(
+                                         'Point'=>$Call['Entity'],
+                                         'Where'=>
+                                            array(
+                                                'ID'=>$Call['ID'])))
+                                    );
 
         return $Call;
     });

@@ -14,15 +14,16 @@
     self::Fn('Make', function ($Call)
     {
         Data::Mount('Layout');
-        
+
         $Output = Data::Read(
                 array(
                     'Point' => 'Layout',
                     'Where' =>
                         array(
-                            'ID'=>'Objects/'.$Call['Item']['Entity'].'/'.$Call['Item']['Plugin'])));
+                            'ID'=>'Objects/'.$Call['Item']['Entity'].'/'.$Call['Item']['Entity'].'_'.$Call['Item']['Plugin'])));
 
         $Fusers = array('Key');
+        // FIXME Configurable!
 
         foreach ($Fusers as $Fuser)
             $Output = Code::Run(array(
@@ -30,8 +31,8 @@
                            'F' => 'Fusion',
                            'D' => $Fuser,
                            'Body' => $Output,
-                           'Data' => $Call['Item']
+                           'Data' => $Call['Item']['Data'][$Call['Item']['ID']]
                       ));
-
+        
         return $Output;
     });

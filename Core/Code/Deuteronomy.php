@@ -235,15 +235,15 @@
          */
         public static function Prepare ($Call)
         {
-            $N = preg_split('@\.@', $Call['N']);
 
-           
-            $Call['N'] = implode('/', $N);
-            list($Call['G']) = array_reverse($N);
+                $N = preg_split('@\.@', $Call['N']);
 
-            if (!isset($Call['F']))
-                $Call['F'] = 'Default';
-                
+                $Call['N'] = implode('/', $N);
+                list($Call['G']) = array_reverse($N);
+
+                if (!isset($Call['F']))
+                    $Call['F'] = 'Default';
+
             return $Call;
         }
 
@@ -374,7 +374,13 @@
             if (is_string($Call) && isset(self::$_Aliases[$Call]))
                 $Call = self::$_Aliases[$Call];
             elseif (!self::isValidCall($Call))
-                    $Call = self::_Route($Call);
+                $Call = self::_Route($Call);
+
+            if (!isset($Call['N']))
+            {
+                Code::On(__CLASS__, 'errNamespaceNotDefined', $Call);
+                return null;
+            }
 
             // Готовим удобные переменные
 

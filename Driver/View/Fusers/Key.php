@@ -17,9 +17,10 @@
             foreach ($Pockets[0] as $IX => $Match)
             {
                 $Key = $Pockets[1][$IX];
-                $Value = $Call['Data']['Data'][$Key];
-                $Call['Input'] = str_replace($Match, $Value , $Call['Body']);
+                $Value = $Call['Data'][$Key];
+
+                $Call['Body'] = str_replace($Match, $Value , $Call['Body']);
             }
         // FIXME Multikeys, isset?
-        return $Call['Input'];
+        return $Call['Body'];
     });
