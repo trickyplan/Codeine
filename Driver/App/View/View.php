@@ -3,20 +3,20 @@
     /* OSWA Codeine
      * @author BreathLess
      * @type Codeine Driver
-     * @description: Show Action
+     * @description: RAW View Controller
      * @package Codeine
      * @subpackage Drivers
      * @version 5.0
-     * @date 10.11.10
-     * @time 23:13
+     * @date 12.02.11
+     * @time 13:30
      */
 
-    self::Fn('Show', function ($Call)
+    self::Fn('View', function ($Call)
     {
         $Call['Items'] = array();
-
-        $Call['Items']['Object'] = array(
-            'UI'        => 'Object',
+        
+         $Call['Items']['Object'] = array(
+            'UI'        => 'VTable',
             'Entity'    => $Call['Entity'],
             'ID'        => $Call['ID'],
             'Plugin'    => $Call['F'],
