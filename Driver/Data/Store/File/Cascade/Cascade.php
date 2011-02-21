@@ -18,8 +18,6 @@
 
     self::Fn('Read', function ($Call)
     {
-        var_dump($Call);
-        
         if (!is_array($Call['Where']['ID']))
             $Call['Where']['ID'] = array($Call['Where']['ID']);
 

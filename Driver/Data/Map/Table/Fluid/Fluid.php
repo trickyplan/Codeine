@@ -15,8 +15,6 @@
     {
         $Rows = array();
 
-        var_dump($Call);
-        
         foreach ($Call['Call']['Data'] as $Key => $Value)
         {
             if (!is_array($Value))

@@ -15,11 +15,11 @@
     {
         $Query = array();
         
-        foreach ($Call['Data']['Data']['Where'] as $Key => $Value)
+        foreach ($Call['Data']['Where'] as $Key => $Value)
             $Query[] = '`'.mysql_real_escape_string($Key, $Call['Data']['Store'])
                       .'` = "'.mysql_real_escape_string($Value, $Call['Data']['Store']).'"';
 
-        $QueryString = 'SELECT * FROM '.$Call['Data']['Point']['Scope'].' WHERE '
+        $QueryString = 'SELECT * FROM '.$Call['Point']['Scope'].' WHERE '
                        .implode (' AND ', $Query);
 
         return $QueryString;
