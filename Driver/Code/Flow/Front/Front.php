@@ -15,7 +15,7 @@
     {
         return Code::Run(
             array(
-                array('N' => 'System.Input','F' => 'Input'),// Return Autorunned Call
+                array('N' => 'System.Input','F' => 'Input'), // Return Autorunned Call
                 array('N' => 'View.Render', 'F' => 'Do'),
                 array('N' => 'System.Output.HTTP', 'F' => 'Output')
                 ), Code::Ring2, 'Chain');

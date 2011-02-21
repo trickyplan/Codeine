@@ -14,6 +14,8 @@
     self::Fn('Create', function ($Call)
     {
         $Rows = array();
+
+        var_dump($Call);
         
         foreach ($Call['Call']['Data'] as $Key => $Value)
         {

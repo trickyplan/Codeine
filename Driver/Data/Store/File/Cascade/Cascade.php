@@ -18,10 +18,12 @@
 
     self::Fn('Read', function ($Call)
     {
-        if (!is_array($Call['Data']['Where']['ID']))
-            $Call['Data']['Where']['ID'] = array($Call['Data']['Where']['ID']);
+        var_dump($Call);
+        
+        if (!is_array($Call['Where']['ID']))
+            $Call['Where']['ID'] = array($Call['Where']['ID']);
 
-        foreach ($Call['Data']['Where']['ID'] as $cName)
+        foreach ($Call['Where']['ID'] as $cName)
         {
             $cName = $Call['Store']['Point']['DSN'].'/'.
                      Data::Path($Call['Point']['Scope']).$Call['Prefix'].$cName.$Call['Postfix'];
@@ -40,10 +42,10 @@
 
     self::Fn('Version', function ($Call)
     {
-        if (!is_array($Call['Data']['Where']['ID']))
-            $Call['Data']['Where']['ID'] = array($Call['Data']['Where']['ID']);
+        if (!is_array($Call['Where']['ID']))
+            $Call['Where']['ID'] = array($Call['Where']['ID']);
 
-        foreach ($Call['Data']['Where']['ID'] as $cName)
+        foreach ($Call['Where']['ID'] as $cName)
         {
             $cName = $Call['Store']['Point']['DSN'].'/'.
                      Data::Path($Call['Point']['Scope']).$Call['Prefix'].$cName.$Call['Postfix'];

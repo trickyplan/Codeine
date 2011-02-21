@@ -11,3 +11,12 @@
      * @time 20:22
      */
 
+    self::Fn('Detect', function ($Call)
+    {
+        return false; sizeof(file_get_contents('php://input'))>0;
+    });
+
+    self::Fn('Input', function ($Call)
+    {
+        return var_dump(file_get_contents('php://stdin'));
+    });

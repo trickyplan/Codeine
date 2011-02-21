@@ -19,8 +19,9 @@
 
         private static $_Locked = false;
         
-        protected static $_Stack = array();
-        protected static $_Conf;
+        protected static $_Stack     = array();
+        protected static $_Conf      = array();
+        protected static $_Tree      = array();
         protected static $_Hooks     = array();
         protected static $_Contracts = array();
         protected static $_Functions = array();
@@ -68,6 +69,7 @@
 
             if (isset(self::$_Conf['Hooks'][$Class][$Event]))
             {
+                echo $Event.' Catched';
                 if (self::$_Conf['Hooks'][$Class][$Event] !== null)
                     return Code::Run(
                         array(
@@ -126,7 +128,7 @@
          */
         public static function isValidCall($Call)
         {
-            return is_array($Call) && isset($Call['N']);
+            return is_array($Call) && (isset($Call['N']) or isset($Call['NF']) or isset($Call['NFD']) );
         }
 
         /**
@@ -137,6 +139,7 @@
          * @param  $Driver
          * @return null
          */
+        
         public static function LoadContract($Call, $Mode = Code::Ring2)
         {
             if (!isset(self::$_Contracts[$Call['N']][$Call['F']]))
@@ -233,16 +236,32 @@
          * @param  $Call
          * @return array
          */
+        // FIXME Prepare - частный случай роутера
         public static function Prepare ($Call)
         {
+            if (isset($Call['NFD']))
+            {
+                $NFs = preg_split('@\.@', $Call['NFD']);
+                $Call['F'] = $NFs[sizeof($NFs)-2];
+                $Call['D'] = $NFs[sizeof($NFs)-1];
+                $N = array_slice($NFs, 0, sizeof($NFs)-2);
+            }
 
+            if (isset($Call['NF']))
+            {
+                $NFs = preg_split('@\.@', $Call['NF']);
+                $Call['F'] = $NFs[sizeof($NFs)-1];
+                $N = array_slice($NFs, 0, sizeof($NFs)-1);
+            }
+
+            if (isset($Call['N']))
                 $N = preg_split('@\.@', $Call['N']);
 
-                $Call['N'] = implode('/', $N);
-                list($Call['G']) = array_reverse($N);
+            $Call['N'] = implode('/', $N);
+            list($Call['G']) = array_reverse($N);
 
-                if (!isset($Call['F']))
-                    $Call['F'] = 'Default';
+            if (!isset($Call['F']))
+                $Call['F'] = 'Default';
 
             return $Call;
         }
@@ -291,7 +310,7 @@
                     if ($Filename)
                         return (include $Filename);
                     else
-                        self::On(__CLASS__, 'errCodeDriverFileNotFound', $Call);
+                        self::On(__CLASS__, 'Code.Driver.FileNotFound', $Call);
                 break;
 
                 case 'Code':
@@ -299,7 +318,7 @@
                         eval('self::Fn(\''.$Call['F'].'\',
                             function ($Call) {'.$Contract['Source'].'});');
                     else
-                        Code::On(__CLASS__, 'errCodeSourceInContractNotSpecified', $Contract);
+                        Code::On(__CLASS__, 'Code.Source.InContractNotSpecified', $Contract);
                 break;
 
                 case 'Data':
@@ -308,11 +327,11 @@
                             function ($Call) {'.Data::Read('Source', $Contract['Source']).'});');
                         // TODO Test!
                     else
-                        Code::On(__CLASS__, 'errCodeSourceDataInContractNotSpecified', $Contract);
+                        Code::On(__CLASS__, 'Code.Source.DataInContractNotSpecified', $Contract);
                 break;
 
                 default:
-                    Code::On(__CLASS__, 'errCodeContractUnknownEngine', $Contract['Engine']);
+                    Code::On(__CLASS__, 'Code.Contract.UnknownEngine', $Contract['Engine']);
                 break;
             }
         }
@@ -323,7 +342,7 @@
 
             if (null == $F)
             {
-                self::On(__CLASS__,'errCodeFunctionIsNotCallable', $Call);
+                self::On(__CLASS__,'Code.Function.IsNotCallable', $Call);
                 return null;
             }
             elseif (is_callable($F) or ($F instanceof Closure))
@@ -339,9 +358,10 @@
         public static function Run ($Call, $Mode = Code::Ring2, $Runner = null, $Executor = null)
         {
             self::$_Stack->push($Call);
-            if (isset(self::$_Conf['Limit']['NestedCalls']) && self::$_Stack->count() > self::$_Conf['Limit']['NestedCalls'])
-                self::On(__CLASS__, 'errCodeOverflowFault', $Call);
             
+            if (isset(self::$_Conf['Limit']['NestedCalls']) && self::$_Stack->count() > self::$_Conf['Limit']['NestedCalls'])
+                self::On(__CLASS__, 'CodeOverflowFault', $Call);
+            // FIXME Behaviour!
             if ($Runner !== null)
             {
                 self::$_Stack->pop();
@@ -353,7 +373,7 @@
                          'Mode' => $Mode
                           ), $Mode);
             }
-
+            // FIXME Behaviour!
             if ($Executor !== null)
             {
                 self::$_Stack->pop();
@@ -370,7 +390,7 @@
 
             // Проверка на псевдонимы. Псевдонимы проверяются при определении.
             // Если передан не готовый объект запроса, а что-то иное, вызываем роутинг.
-
+            // FIXME Behaviour!
             if (is_string($Call) && isset(self::$_Aliases[$Call]))
                 $Call = self::$_Aliases[$Call];
             elseif (!self::isValidCall($Call))
@@ -405,10 +425,12 @@
             // Выбираем драйвер
             $Call = self::_DetermineDriver($Contract, $Call);
 
+            // FIXME Behaviour!
             // Фильтрация аргументов
             if (self::_is('Filter', $Contract))
                 $Call = self::_FilterCall($Contract, $Call);
-            
+
+            // FIXME Behaviour!
             // Проверка аргументов
             if (self::_is('Check', $Contract))
                 self::_CheckCall($Contract, $Call);
@@ -420,8 +442,9 @@
             // Устанавливаем текущее пространство имён
             self::SetNamespace($Call['N'], $Call['D']);
 
+            // FIXME Behaviour!
             if (isset($Contract['PreferredNS']) && $Call['N'] !== $Contract['PreferredNS'])
-                Code::On(__CLASS__, 'errPreferredNamespace', $Contract);
+                Code::On(__CLASS__, 'PreferredNamespace', $Contract);
 
             // Если функции нет, подгружаем код
             if (self::Fn($Call['F']) === null)
@@ -430,20 +453,23 @@
             // Выполняем!
             $Return = self::_Do($Call);
 
+            self::$_Tree[] = array($Call['N'].':'.$Call['F'], self::$_Stack->count());
             // Хуки
             if (isset($Contract['Hook']['afterRun']))
                 self::Run($Contract['Hook']['afterRun'], Code::Ring1, 'Multi');
 
+            // FIXME Behaviour!
             // Возврат вызова как результата
             if (isset($Contract['Return']['Call']) && $Contract['Return']['Call'])
                 $Return = self::Run($Return);
 
+            // FIXME Behaviour!
             // Режим экономии
             if (self::_is('Economy', $Contract))
                 self::Fn($Call['F'], null);
 
             // Фильтрация результата
-
+            // FIXME Behaviour!
             if (self::_is('Filter', $Contract))
                 if (isset($Contract['Return']['Filter']))
                     $Return = self::Run(
@@ -452,7 +478,7 @@
                                  $Return,
                                  $Contract['Return']['Filter'])), Code::Ring1,
                         'Chain');
-
+            // FIXME Behaviour!
             // Проверка результата
 
             if (!self::_CheckReturn($Contract, $Return))
@@ -479,6 +505,7 @@
          * @param  $Alias
          * @return
          */
+        // FIXME Behaviour!
         public static function Alias ($Call, string $Alias)
         {
             if (self::isValidCall($Call))
@@ -487,6 +514,7 @@
                 self::On(__CLASS__, 'errCodeInvalidCallInAlias', $Alias);
         }
 
+        // FIXME Behaviour!
         protected static function _Check($Data, $Contract, $Verbose = false)
         {
             $Decisions = self::Run (
@@ -510,6 +538,7 @@
                 return true;
         }
 
+        // FIXME Behaviour!
         protected static function _CheckReturn($Contract, $Result)
         {
             if (isset($Contract['Return']))
@@ -528,6 +557,7 @@
                 return false;
         }
 
+        // FIXME Behaviour!
         protected static function _DetermineDriver($Contract, $Call)
         {
             // Если в контракте указана политика драйверов, и драйвер не указан напрямую.
@@ -592,7 +622,15 @@
                 return null;
         }
 
-        public static function ParentCall()
+        public static function Current($Call = null)
+        {
+            if (null !== $Call)
+                return array_merge(self::$_Stack[0], $Call);
+            else
+                return self::$_Stack[0];
+        }
+
+        public static function Parent($Call = null)
         {
             return self::$_Stack[1];
         }

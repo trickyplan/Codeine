@@ -15,7 +15,7 @@
     {
         $Call['Items'] = array();
         
-         $Call['Items']['Object'] = array(
+        $Call['Items']['Object'] = array(
             'UI'        => 'VTable',
             'Entity'    => $Call['Entity'],
             'ID'        => $Call['ID'],

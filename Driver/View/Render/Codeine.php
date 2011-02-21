@@ -25,7 +25,7 @@
                             'ID'=>'Main')));
 
         $Output = array();
-
+        
         // Обработка контролов
         
         if (is_array($Call['Input']['Items']))

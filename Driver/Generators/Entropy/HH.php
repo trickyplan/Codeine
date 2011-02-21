@@ -3,15 +3,15 @@
     /* OSWA Codeine
      * @author BreathLess
      * @type Codeine Driver
-     * @description: Call controller
+     * @description: HH
      * @package Codeine
      * @subpackage Drivers
      * @version 5.0
-     * @date 02.12.10
-     * @time 0:26
+     * @date 17.02.11
+     * @time 21:51
      */
 
-    self::Fn('Call', function ($Call)
+    self::Fn('Get', function ($Call)
     {
-        return Code::Run(file_get_contents("php://input"));
+        return 4; // Choosed by fair dice roll
     });

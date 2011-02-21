@@ -13,7 +13,7 @@
 
     self::Fn('Select', function ($Call)
     {
-        $ParentCall = Code::ParentCall();
+        $ParentCall = Code::Parent();
 
         if (is_array($ParentCall['Input']) && isset($ParentCall['Input']['As']))
             return $ParentCall['Input']['As'];

@@ -1,7 +1,7 @@
 {
     "Routers": ["Codeine", "JSON"],
-    "Checkers": ["Value","Required", "Type", "Condition"],
-    "Inputs": ["HTTP","CLI"],
+    "Checkers": ["Value", "Required", "Type", "Condition"],
+    "Inputs": ["STDIN","HTTP","CLI"],
     "Hooks":
     {
         "Default": [],
@@ -11,8 +11,8 @@
             "beforeRun": null,
             "afterRun": null,
             "onShutdown": null,
-            "errCodeFunctionIsNotCallable": [{"N": "Error.Catch.Page", "F": "Catch"}],
-            "errCodePreparingFailed": [{"N": "Error.Catch.Page", "F": "Catch"}]
+            "CodeFunctionIsNotCallable": [{"N": "Error.Catch.Page", "F": "Catch"}],
+            "CodePreparingFailed": [{"N": "Error.Catch.Page", "F": "Catch"}]
         }
     }
 }

@@ -30,7 +30,7 @@
         $Fields = array();
         $Values = array();
 
-        if (!isset($Call['Data']['Data']['Multiple']))
+        if (!isset($Call['Data']['Multiple']))
             $Call['Data']['Data']['Data'] = array($Call['Data']['Data']['Data']);
 
         foreach ($Call['Data']['Data']['Data'] as $IX => $Data)

@@ -13,28 +13,46 @@
 
     self::Fn('Create', function ($Call)
     {
+        if (isset($Call['Data']))
         {
-            $Model = Data::Read(
+            $Call['Data']['ID'] = uniqid();
+
+            if (Code::Run(
+                array(
+                    'N' => 'Data.Model',
+                    'F' => 'Validate',
+                    'Data' => $Call['Data'] )))
+            {
+                Code::Run(
+                    array(
+                        'N' => 'Data.Model',
+                        'F' => 'Input',
+                        'Entity'    => $Call['Entity'],
+                        'Data' => $Call['Data'] ));
+            }
+
+        }
+
+        $Model = Data::Read(
                     array(
                         'Point' => 'Model',
                         'Where' =>
                             array(
                                 'ID'=>$Call['Entity'])));
 
-            if (is_array($Model))
-            {
-                $Call['Items'] = array();
+        if (is_array($Model))
+        {
+            $Call['Items'] = array();
 
-                $Call['Items']['Form'] = array(
-                     'UI'        => 'Form',
-                     'Purpose'   => 'Create',
-                     'Entity'    => $Call['Entity'],
-                     'Plugin'    => $Call['F'],
-                     'Data'      => $Model);
-            }
-            else
-                Code::On(__CLASS__, 'errCreateAppModelNotLoaded', $Call);
+            $Call['Items']['Form'] = array(
+                 'UI'        => 'Form',
+                 'Purpose'   => 'Create',
+                 'Entity'    => $Call['Entity'],
+                 'Plugin'    => $Call['F'],
+                 'Data'      => $Model);
         }
+        else
+            Code::On(__CLASS__, 'App.Create.Model.NotLoaded', $Call);
 
         return $Call;
     });

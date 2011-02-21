@@ -27,8 +27,17 @@
             if (!empty($_SERVER['QUERY_STRING']))
                 $URL.= '?'.$_SERVER['QUERY_STRING'];
 
+            if (!empty($_POST))
+                Data::Create(
+                    array(
+                        'Key' => 'POST',
+                        'Value' => $_POST
+                    )
+                );
+
             if (substr($URL,0,1) == '/')
                 $URL = substr($URL, 1);
+
             return urldecode($URL);
         }
         else

@@ -8,9 +8,9 @@
     {
         private   static $_Locked  = false;
         protected static $_Conf    = array();
-        protected static $Data     = array();
         protected static $_Stores  = array();
         protected static $_Points  = array();
+        public static $Data     = array();
 
         protected static function _LockData ()
         {
@@ -50,7 +50,7 @@
             return self::$_Conf['Points'][$ID] = $Point;
         }
 
-        public static function Mount($Point)
+        public static function Mount($Point = 'Default')
         {
             if (isset(self::$_Conf['Points'][$Point]['Ring']))
                 $Mode = self::$_Conf['Points'][$Point]['Ring'];
@@ -127,11 +127,16 @@
             if (!self::isValidCall($Call))
                 $Call = self::_Route($Call);
 
-            $Point = $Call['Point'];
+            $Point = isset($Call['Point'])? $Call['Point']: 'Default';
             $Store = self::_getStoreOfPoint($Point);
 
+            $StoreConf = self::$_Conf['Stores'][$Store];
+            $PointConf = self::$_Conf['Points'][$Point];
+            
+            // FIXME Behaviour?
             // Запрещение операции на хранилище
-            if (isset(self::$_Conf['Stores'][$Store]['No'.$Method]))
+
+            if (isset($StoreConf['No'.$Method]))
             {
                 Code::On(__CLASS__, 'errData'.$Store.'No'.$Method, $Call);
                 return null;
@@ -144,23 +149,15 @@
                 return null;
             }
 
-            if (isset(self::$_Conf['Stores'][$Store]['Precondition'][$Method]))
-                foreach (self::$_Conf['Stores'][$Store]['Precondition'][$Method] as $Precondition)
+            if (isset($StoreConf['Precondition'][$Method]))
+                foreach ($StoreConf['Precondition'][$Method] as $Precondition)
                     if (!Code::Run($Precondition, $Ring))
-                    {
-                        Code::On(__CLASS__, 'errDataPreconditionFailed', $Call);
-                        Code::On(__CLASS__, 'errDataPrecondition'.$Method.'Failed', $Call);
-                        Code::On(__CLASS__, 'errDataPrecondition'.$Call['Point'].'Failed', $Call);
-                    }
-
-            if (isset(self::$_Conf['Points'][$Point]['Precondition'][$Method]))
-                foreach (self::$_Conf['Points'][$Point]['Precondition'][$Method] as $Precondition)
+                        Code::On(__CLASS__, 'Data.'.$Method.'.Precondition.Failed', $Call);
+            
+            if (isset($PointConf['Precondition'][$Method]))
+                foreach ($PointConf['Precondition'][$Method] as $Precondition)
                     if (!Code::Run($Precondition, $Ring))
-                    {
-                        Code::On(__CLASS__, 'errDataPreconditionFailed', $Call);
-                        Code::On(__CLASS__, 'errDataPrecondition'.$Method.'Failed', $Call);
-                        Code::On(__CLASS__, 'errDataPrecondition'.$Point.'Failed', $Call);
-                    }
+                        Code::On(__CLASS__, 'Data.'.$Method.'.Precondition.Failed', $Call);
 
             Code::On(__CLASS__, 'before'.$Method, $Call);
             Code::On(__CLASS__, 'before'.$Method.'At'.$Store, $Call);
@@ -171,29 +168,29 @@
                 self::Mount($Point);
             
             // Префиксы и постфиксы для ID
-            $Prefix = isset(self::$_Conf['Points'][$Point]['Prefix']) ?
-                            self::$_Conf['Points'][$Point]['Prefix']: '';
+            $Prefix = isset($PointConf['Prefix']) ?
+                            $PointConf['Prefix']: '';
 
-            $Postfix = isset(self::$_Conf['Points'][$Point]['Postfix']) ?
-                            self::$_Conf['Points'][$Point]['Postfix']: '';
+            $Postfix = isset($PointConf['Postfix']) ?
+                            $PointConf['Postfix']: '';
 
 
-            $Call['Result'] = Code::Run(array(
-                           'N' => 'Data.Store.'.self::$_Conf['Stores'][$Store]['Type'],
+            $Call['Result'] = Code::Run(
+                array_merge($Call, array(
+                           'N' => 'Data.Store.'. $StoreConf['Type'],
                            'F' => $Method,
-                           'Point' => self::$_Conf['Points'][$Point],
+                           'Point' => $PointConf,
                            'Store' => self::$_Stores[$Store],
-                           'Data' => $Call,
                            'Postfix' => $Postfix,
                            'Prefix' => $Prefix
-                      ), $Ring);
+                      )), $Ring);
 
             Code::On(__CLASS__, 'after'.$Method, $Call);
             Code::On(__CLASS__, 'after'.$Method.'At'.$Store, $Call);
             Code::On(__CLASS__, 'after'.$Method.'In'.$Point, $Call);
 
-            if (isset(self::$_Conf['Stores'][$Store]['Postcondition'][$Method]))
-                foreach (self::$_Conf['Stores'][$Store]['Postcondition'][$Method] as $Postcondition)
+            if (isset($StoreConf['Postcondition'][$Method]))
+                foreach ($StoreConf['Postcondition'][$Method] as $Postcondition)
                     if (!Code::Run($Postcondition, $Ring))
                     {
                         Code::On(__CLASS__, 'errDataPostconditionFailed', $Call);
@@ -201,8 +198,8 @@
                         Code::On(__CLASS__, 'errDataPostcondition'.$Point.'Failed', $Call);
                     }
 
-            if (isset(self::$_Conf['Points'][$Point]['Postcondition'][$Method]))
-                foreach (self::$_Conf['Points'][$Point]['Postcondition'][$Method] as $Postcondition)
+            if (isset($PointConf['Postcondition'][$Method]))
+                foreach ($PointConf['Postcondition'][$Method] as $Postcondition)
                     if (!Code::Run($Postcondition, $Ring))
                     {
                         Code::On(__CLASS__, 'errDataPostconditionFailed', $Call);
@@ -227,6 +224,8 @@
          */
         public static function Create ($Call, $Mode = Code::Ring2)
         {
+            if (!isset($Call['Point'])) $Call['Point'] = 'Default';
+            
             if (isset(self::$_Conf['Points'][$Call['Point']]['Map']))
                 $Call = Code::Run(
                     array(
@@ -328,4 +327,5 @@
         {
             return (is_array($Call) && isset($Call['Point']));
         }
+
     }

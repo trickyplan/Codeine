@@ -10,12 +10,11 @@
             "Server":"localhost",
             "Port":"3306",
             "Database": "Codeine",
-            "Charset": "UTF-8"
+            "Charset": "UTF8"
         },
         "Static":
         {
-            "Type": "PHP.Static",
-            "Map": "Native"
+            "Type": "PHP.Static"
         },
         "Layout":
         {
@@ -39,7 +38,7 @@
     },
     "Points":
     {
-        "Default": {"Store": "Static", "Map": "Native", "Scope": "Default"},
+        "Default": {"Store": "Static", "Scope": "Default"},
 
         "Contract":{
             "Store": "FS",

@@ -46,6 +46,7 @@
             $Routed['F'] = $Routed['Action'];
         }
 
+      $Routed['Data'] = $_POST;
 
       return $Routed;
     });

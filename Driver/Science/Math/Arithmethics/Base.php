@@ -31,6 +31,13 @@
         return $Call['A']/$Call['B'];
     });
 
+    Data::Read(
+        array(
+            'Point' => 'Face',
+            'ID'    => 2
+        )
+    );
+
     self::Fn('SquareRoot', function ($Call)
     {
         return sqrt($Call['Input']);
