@@ -23,8 +23,8 @@
 
         foreach ($Call['Where']['ID'] as $cName)
         {
-            $cName = $Call['Store']['Point']['DSN'].'/'.
-                     Data::Path($Call['Point']['Scope']).$Call['Prefix'].$cName.$Call['Postfix'];
+            $cName = $Call['Options']['DSN'].'/'.
+                     Data::Path($Call['Options']['Scope']).$Call['Prefix'].$cName.$Call['Postfix'];
 
             if (file_exists(Root.$cName))
                 $R = Root.$cName;
@@ -45,8 +45,8 @@
 
         foreach ($Call['Where']['ID'] as $cName)
         {
-            $cName = $Call['Store']['Point']['DSN'].'/'.
-                     Data::Path($Call['Point']['Scope']).$Call['Prefix'].$cName.$Call['Postfix'];
+            $cName = $Call['Options']['DSN'].'/'.
+                     Data::Path($Call['Options']['Scope']).$Call['Prefix'].$cName.$Call['Postfix'];
 
             if (file_exists(Root.$cName))
                 $R = Root.$cName;

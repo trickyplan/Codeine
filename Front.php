@@ -23,6 +23,6 @@
     catch (Exception $e)
     {
         echo $e->getMessage();
-        Code::On('Front','Exception',
+        Code::On('Front:Exception',
                  array('Message',$e->getMessage()));
     }

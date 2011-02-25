@@ -13,18 +13,18 @@
 
     self::Fn('Connect', function ($Call)
     {
-        if (isset($Call['Point']['DSN']))
-            return $Call['Point']['DSN'];
+        if (isset($Call['Options']['DSN']))
+            return $Call['Options']['DSN'];
         else
             return 'Default';
     });
 
     self::Fn('Read', function ($Call)
     {
-        if (!is_array ($Call['Data']['Where']['ID']))
-            $IDs = array ($Call['Data']['Where']['ID']);
+        if (!is_array ($Call['Where']['ID']))
+            $IDs = array ($Call['Where']['ID']);
         else
-            $IDs = $Call['Data']['Where']['ID'];
+            $IDs = $Call['Where']['ID'];
 
         $Layout = '';
         $Candidates = array();
@@ -35,8 +35,8 @@
 
         for ($a = 0; $a<$SZC; $a++)
             {
-                $Candidates[$IC++] = Root.$Call['Point']['Scope'].DS.$IDs[$a].'.html';
-                $Candidates[$IC++] = Engine.'Default/'.$Call['Point']['Scope'].DS.$IDs[$a].'.html';
+                $Candidates[$IC++] = Root.$Call['Options']['Scope'].DS.$IDs[$a].'.html';
+                $Candidates[$IC++] = Engine.'Default/'.$Call['Options']['Scope'].DS.$IDs[$a].'.html';
             }
 
         for ($a = 0; $a<$IC; $a++)
@@ -45,7 +45,7 @@
                 return file_get_contents($Candidates[$a]);
         }
 
-        Code::On(__CLASS__, 'errNoCandidatesForLayout', $Call);
-
+        Code::On('Layout.Read.Candidates.No', $Call);
+        // TODO Limit on Candidates
         return '<content/>';
     });

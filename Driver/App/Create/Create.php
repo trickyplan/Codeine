@@ -52,7 +52,7 @@
                  'Data'      => $Model);
         }
         else
-            Code::On(__CLASS__, 'App.Create.Model.NotLoaded', $Call);
+            Code::On('App.Create.Model.NotLoaded', $Call);
 
         return $Call;
     });

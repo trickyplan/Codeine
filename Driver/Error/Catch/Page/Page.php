@@ -13,9 +13,8 @@
 
     self::Fn('Catch', function ($Call)
     {
-        echo '<div class="Panel Panel_Error">
-        <h3>Что-то где-то пошло не так</h4>
-        <h4>'.$Call['Data']['Event'].'</h4>';
-        var_dump($Call['Data']);
+        echo '<div class="Panel">
+        <h3>Что-то где-то пошло не так</h3>';
+        var_dump($Call);
         echo '</div>';
     });

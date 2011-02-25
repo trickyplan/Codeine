@@ -38,7 +38,7 @@
         }
         else
         {
-            Code::On('Code', 'errNoMockupDefined', $Call);
+            Code::On('Code.errNoMockupDefined', $Call);
             return null;
         }
     });

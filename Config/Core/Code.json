@@ -1,18 +1,13 @@
 {
-    "Routers": ["Codeine", "JSON"],
+    "Routers": ["Native","Codeine", "JSON"],
     "Checkers": ["Value", "Required", "Type", "Condition"],
     "Inputs": ["STDIN","HTTP","CLI"],
     "Hooks":
     {
-        "Default": [],
-        "Code":
-        {
-            "onInitialize": null,
-            "beforeRun": null,
-            "afterRun": null,
-            "onShutdown": null,
-            "CodeFunctionIsNotCallable": [{"N": "Error.Catch.Page", "F": "Catch"}],
-            "CodePreparingFailed": [{"N": "Error.Catch.Page", "F": "Catch"}]
-        }
+        "onInitialize": null,
+        "beforeRun": null,
+        "afterRun": null,
+        "Code.onShutdown": null,
+        "Code.Driver.FileNotFound": [{"N": "Error.Catch.Page", "F": "Catch"}]
     }
 }

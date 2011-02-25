@@ -30,10 +30,10 @@
             if ((float)$NewVersion > (float)$Version)
             {
                 file_put_contents($File, $NewSource);
-                Code::On('Code', 'DriverUpdated', $Call);
+                Code::On('Code.DriverUpdated', $Call);
             }
             else
-                Code::On('Code', 'NoNewDriverAvailable', $Call);
+                Code::On('Code.NoNewDriverAvailable', $Call);
         }
 
         return $Call;

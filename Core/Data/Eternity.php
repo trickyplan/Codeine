@@ -24,10 +24,10 @@
                 if (isset(self::$_Conf['Points'][$Point]['Store']))
                     return self::$_Conf['Points'][$Point]['Store'];
                 else
-                    Code::On(__CLASS__, 'errDataStoreNotFound', $Point);
+                    Code::On('Data.errDataStoreNotFound', $Point);
             }
             else
-                Code::On(__CLASS__, 'errDataPointNotFound', $Point);
+                Code::On('Data.errDataPointNotFound', $Point);
         }
 
         public static function Initialize()
@@ -74,12 +74,12 @@
                     Code::Run(array(
                                'N' => 'Data.Store.'.self::$_Conf['Stores'][$Store]['Type'],
                                'F' => 'Connect',
-                               'Point' => self::$_Conf['Stores'][$Store]
+                               'Options' => self::$_Conf['Stores'][$Store]
                         ),$Ring)) !== null)
-                    Code::On(__CLASS__, 'errDataStoreConnectFailed', $Store);
+                    Code::On('Data.errDataStoreConnectFailed', $Store);
             }
             else
-                Code::On(__CLASS__, 'errDataStoreNotFound', $Store);
+                Code::On('Data.errDataStoreNotFound', $Store);
 
             return self::$_Stores[$Store];
         }
@@ -107,7 +107,7 @@
             if ($NewCall !== null)
                 $Call = $NewCall;
             else
-                Code::On(__CLASS__, 'errDataRoutingFailed', $Call);
+                Code::On('Data.errDataRoutingFailed', $Call);
 
             return $Call;
         }
@@ -127,87 +127,70 @@
             if (!self::isValidCall($Call))
                 $Call = self::_Route($Call);
 
-            $Point = isset($Call['Point'])? $Call['Point']: 'Default';
-            $Store = self::_getStoreOfPoint($Point);
+            $Call['Point'] = isset($Call['Point'])? $Call['Point']: 'Default';
+            $Call['Store'] = self::_getStoreOfPoint($Call['Point']);
 
-            $StoreConf = self::$_Conf['Stores'][$Store];
-            $PointConf = self::$_Conf['Points'][$Point];
+            $Call['Options'] = array_merge(self::$_Conf['Stores'][$Call['Store']],self::$_Conf['Points'][$Call['Point']]);
             
             // FIXME Behaviour?
-            // Запрещение операции на хранилище
-
-            if (isset($StoreConf['No'.$Method]))
-            {
-                Code::On(__CLASS__, 'errData'.$Store.'No'.$Method, $Call);
-                return null;
-            }
-            
             // Запрещение операций на точке монтирования
-            if (isset(self::$_Conf['Point'][$Point]['No'.$Method]))
+            if (isset(self::$_Conf['Options'][$Call['Point']]['No'.$Method]))
             {
-                Code::On(__CLASS__, 'errData'.$Point.'No'.$Method, $Call);
+                Code::On('Data.Data.'.$Method.'.Denied.Point.'.$Call['Point'], $Call);
                 return null;
             }
 
-            if (isset($StoreConf['Precondition'][$Method]))
-                foreach ($StoreConf['Precondition'][$Method] as $Precondition)
-                    if (!Code::Run($Precondition, $Ring))
-                        Code::On(__CLASS__, 'Data.'.$Method.'.Precondition.Failed', $Call);
-            
-            if (isset($PointConf['Precondition'][$Method]))
-                foreach ($PointConf['Precondition'][$Method] as $Precondition)
-                    if (!Code::Run($Precondition, $Ring))
-                        Code::On(__CLASS__, 'Data.'.$Method.'.Precondition.Failed', $Call);
+            // FIXME Behaviour?
 
-            Code::On(__CLASS__, 'before'.$Method, $Call);
-            Code::On(__CLASS__, 'before'.$Method.'At'.$Store, $Call);
-            Code::On(__CLASS__, 'before'.$Method.'In'.$Point, $Call);
+            if (isset($Call['Options']['Precondition'][$Method]))
+                foreach ($Call['Options']['Precondition'][$Method] as $Precondition)
+                    if (!Code::Run($Precondition, $Ring))
+                        Code::On('Data.Data.'.$Method.'.Precondition.Failed', $Call);
+
+            Code::On('Data.before'.$Method, $Call);
+            Code::On('Data.before'.$Method.'At'.$Call['Store'], $Call);
+            Code::On('Data.before'.$Method.'In'.$Call['Point'], $Call);
 
             // Если точка монтирования ещё не использовалась...
-            if (!isset(self::$_Points[$Point]))
-                self::Mount($Point);
-            
+            if (!isset(self::$_Points[$Call['Point']]))
+                self::Mount($Call['Point']);
+
+            $Call['Link'] = self::$_Stores[$Call['Store']];
             // Префиксы и постфиксы для ID
-            $Prefix = isset($PointConf['Prefix']) ?
-                            $PointConf['Prefix']: '';
+            $Call['Prefix'] = isset($Call['Options']['Prefix'])?
+                                        $Call['Options']['Prefix']: '';
 
-            $Postfix = isset($PointConf['Postfix']) ?
-                            $PointConf['Postfix']: '';
+            $Call['Postfix'] = isset($Call['Options']['Postfix'])?
+                                        $Call['Options']['Postfix']: '';
 
+            $Call['N'] = 'Data.Store.'. $Call['Options']['Type'];
+            $Call['F'] = $Method;
 
-            $Call['Result'] = Code::Run(
-                array_merge($Call, array(
-                           'N' => 'Data.Store.'. $StoreConf['Type'],
-                           'F' => $Method,
-                           'Point' => $PointConf,
-                           'Store' => self::$_Stores[$Store],
-                           'Postfix' => $Postfix,
-                           'Prefix' => $Prefix
-                      )), $Ring);
+            $Call['Result'] = Code::Run($Call, $Ring);
 
-            Code::On(__CLASS__, 'after'.$Method, $Call);
-            Code::On(__CLASS__, 'after'.$Method.'At'.$Store, $Call);
-            Code::On(__CLASS__, 'after'.$Method.'In'.$Point, $Call);
+            Code::On('Data.after'.$Method, $Call);
+            Code::On('Data.after'.$Method.'At'.$Call['Store'], $Call);
+            Code::On('Data.after'.$Method.'In'.$Call['Point'], $Call);
 
-            if (isset($StoreConf['Postcondition'][$Method]))
-                foreach ($StoreConf['Postcondition'][$Method] as $Postcondition)
+            if (isset($Call['Options']['Postcondition'][$Method]))
+                foreach ($Call['Options']['Postcondition'][$Method] as $Postcondition)
                     if (!Code::Run($Postcondition, $Ring))
                     {
-                        Code::On(__CLASS__, 'errDataPostconditionFailed', $Call);
-                        Code::On(__CLASS__, 'errDataPostcondition'.$Method.'Failed', $Call);
-                        Code::On(__CLASS__, 'errDataPostcondition'.$Point.'Failed', $Call);
+                        Code::On('Data.errDataPostconditionFailed', $Call);
+                        Code::On('Data.errDataPostcondition'.$Method.'Failed', $Call);
+                        Code::On('Data.errDataPostcondition'.$Call['Point'].'Failed', $Call);
                     }
 
-            if (isset($PointConf['Postcondition'][$Method]))
-                foreach ($PointConf['Postcondition'][$Method] as $Postcondition)
+            if (isset($Call['Options']['Postcondition'][$Method]))
+                foreach ($Call['Options']['Postcondition'][$Method] as $Postcondition)
                     if (!Code::Run($Postcondition, $Ring))
                     {
-                        Code::On(__CLASS__, 'errDataPostconditionFailed', $Call);
-                        Code::On(__CLASS__, 'errDataPostcondition'.$Method.'Failed', $Call);
-                        Code::On(__CLASS__, 'errDataPostcondition'.$Point.'Failed', $Call);
+                        Code::On('Data.errDataPostconditionFailed', $Call);
+                        Code::On('Data.errDataPostcondition'.$Call['Store'].'Failed', $Call);
+                        Code::On('Data.errDataPostcondition'.$Call['Point'].'Failed', $Call);
                     }
 
-            return $Call['Result'];
+            return $Call;
         }
 
         public static function __callStatic($Operation, $Arguments)
@@ -246,27 +229,27 @@
          */
         public static function Read($Call, $Ring = Code::Ring2)
         {
-            $Result = self::_CRUD('Read', $Call, $Ring);
+            $Call = self::_CRUD('Read', $Call, $Ring);
 
-            if (isset(self::$_Conf['Points'][$Call['Point']]['Format']) && $Result !== null)
-                $Result = Code::Run(array(
+            if (isset(self::$_Conf['Points'][$Call['Point']]['Format']) && $Call['Result'] !== null)
+            {
+                if (($Call['Result'] = Code::Run(array(
                               'N' => 'Data.Formats.'.
                                      self::$_Conf['Points'][$Call['Point']]['Format'],
                               'F' => 'Decode',
-                              'Input' => $Result), $Ring);
-            
-            if ($Result === null)
-                Code::On(__CLASS__, 'errDataReadFormatDecodeFailed', $Call);
+                              'Input' => $Call['Result']), $Ring)) === null)
+                    Code::On('Data.errDataReadFormatDecodeFailed', $Call);
+            }
 
-            if (isset(self::$_Conf['Points'][$Call['Point']]['Map']))
-                $Result = Code::Run(
+            if (isset($Call['Options']['Map']))
+                $Call['Result'] = Code::Run(
                     array(
-                        'N' => 'Data.Map.'.self::$_Conf['Points'][$Call['Point']]['Map'],
+                        'N' => 'Data.Map.'.$Call['Options']['Map'],
                         'F' => 'afterRead',
-                        'Result'=> $Result
+                        'Result'=> $Call['Result']
                     ));
 
-            return $Result;
+            return $Call['Result'];
         }
 
         public static function Update ($Call, $Mode = Code::Ring2)
@@ -312,7 +295,7 @@
            if (isset($R))
                return $R;
            else
-               Code::On(__CLASS__, 'errLocateNotFound', $Path.':'.$Name);
+               Code::On('Data.Data.Locate.NotFound', $Path.':'.$Name);
         }
 
         public static function Path ($Key)

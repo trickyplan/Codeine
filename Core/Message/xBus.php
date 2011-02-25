@@ -37,7 +37,7 @@
                       ));
             
             if (null === self::$_Points[$Point])
-                Code::On(__CLASS__, 'errMessageConnectFailed', $Point);
+                Code::On('Message.Connect.Failed', $Point);
         }
 
         public static function Disconnect ($Call)

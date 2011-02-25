@@ -23,5 +23,5 @@
 
     self::Fn('Create', function ($Call)
     {
-        return file_put_contents(Root.$Call['Data']['ID'], $Call['Data']['Body']);
+        return file_put_contents(Root.$Call['ID'], $Call['Body']);
     });

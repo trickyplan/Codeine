@@ -40,7 +40,7 @@
             self::$_Stack = new SplStack();
 
             self::$_Conf  = self::_Configure(__CLASS__);
-            self::On(__CLASS__, 'onInitialize');
+            self::On('Code.onInitialize');
         }
 
         public static function Conf($Key)
@@ -49,7 +49,7 @@
                 return self::$_Conf[$Key];
             else
             {
-                Code::On(__CLASS__, 'errConfKeyNotFound', $Key);
+                self::On('Code.Conf.Key.NotFound', $Key);
                 return null;
             }
         }
@@ -62,20 +62,23 @@
          * @param array $Data - дополнительные аргументы
          * @return mixed|null
          */
-        public static function On ($Class, $Event, $Data = array())
+        public static function On ($Event, $Data = array())
         {
-            $Data['Class'] = $Class;
             $Data['Event'] = $Event;
-
-            if (isset(self::$_Conf['Hooks'][$Class][$Event]))
+            
+            if (isset(self::$_Conf['Hooks'][$Event]))
             {
-                echo $Event.' Catched';
-                if (self::$_Conf['Hooks'][$Class][$Event] !== null)
+                if (self::$_Conf['Hooks'][$Event] !== null)
+                {
+                    if (!is_array(self::$_Conf['Hooks'][$Event]))
+                        self::$_Conf['Hooks'][$Event] = array(self::$_Conf['Hooks'][$Event]);
+                    
                     return Code::Run(
                         array(
-                             'Calls' => self::$_Conf['Hooks'][$Class][$Event],
+                             'Calls' => self::$_Conf['Hooks'][$Event],
                             'Data'  => $Data
                         ), Code::Ring1, 'Feed');
+                }
                 else
                     return null;
             }
@@ -117,7 +120,7 @@
 
         public static function Shutdown ()
         {
-            self::On(__CLASS__, 'onShutdown');
+            self::On('Code.onShutdown');
         }
 
         /**
@@ -128,7 +131,7 @@
          */
         public static function isValidCall($Call)
         {
-            return is_array($Call) && (isset($Call['N']) or isset($Call['NF']) or isset($Call['NFD']) );
+            return is_array($Call) && isset($Call['N']);
         }
 
         /**
@@ -170,14 +173,14 @@
                                         'ID' => $Call['N'].'/'.$Call['G']
                                   )
                         ), Code::Ring1);
-                        
+
                     $Contract = self::ConfWalk($GroupContract, $DriverContract);
 
                     if (isset($Contract[$Call['F']]))
                         $Contract = $Contract[$Call['F']];
                     else
                     {
-                        Code::On(__CLASS__, 'errContractFnNotFound', $Call);
+                        self::On('Code.errContractFnNotFound', $Call);
                         $Contract = array();
                     }
                 }
@@ -223,45 +226,9 @@
 
             // Если хоть один роутер вернул результат...
             if ($NewCall === null)
-                self::On(__CLASS__, 'errCodeRoutingFailed', $Call);
+                self::On('Code.errCodeRoutingFailed', $Call);
             else
                 $Call = $NewCall;
-
-            return $Call;
-        }
-
-        /**
-         * Служебный метод, подготавливает переменные.
-         * @static
-         * @param  $Call
-         * @return array
-         */
-        // FIXME Prepare - частный случай роутера
-        public static function Prepare ($Call)
-        {
-            if (isset($Call['NFD']))
-            {
-                $NFs = preg_split('@\.@', $Call['NFD']);
-                $Call['F'] = $NFs[sizeof($NFs)-2];
-                $Call['D'] = $NFs[sizeof($NFs)-1];
-                $N = array_slice($NFs, 0, sizeof($NFs)-2);
-            }
-
-            if (isset($Call['NF']))
-            {
-                $NFs = preg_split('@\.@', $Call['NF']);
-                $Call['F'] = $NFs[sizeof($NFs)-1];
-                $N = array_slice($NFs, 0, sizeof($NFs)-1);
-            }
-
-            if (isset($Call['N']))
-                $N = preg_split('@\.@', $Call['N']);
-
-            $Call['N'] = implode('/', $N);
-            list($Call['G']) = array_reverse($N);
-
-            if (!isset($Call['F']))
-                $Call['F'] = 'Default';
 
             return $Call;
         }
@@ -306,11 +273,11 @@
                         $Filename = Data::Locate('Code', $Contract['Source']);
                     else
                         $Filename = Data::Locate('Code', $Call['N'].'/'.$Call['D'].'.php');
-                    
+                        
                     if ($Filename)
                         return (include $Filename);
                     else
-                        self::On(__CLASS__, 'Code.Driver.FileNotFound', $Call);
+                        self::On('Code.Code.Driver.FileNotFound', $Call);
                 break;
 
                 case 'Code':
@@ -318,7 +285,7 @@
                         eval('self::Fn(\''.$Call['F'].'\',
                             function ($Call) {'.$Contract['Source'].'});');
                     else
-                        Code::On(__CLASS__, 'Code.Source.InContractNotSpecified', $Contract);
+                        self::On('Code.Code.Source.InContractNotSpecified', $Contract);
                 break;
 
                 case 'Data':
@@ -327,11 +294,11 @@
                             function ($Call) {'.Data::Read('Source', $Contract['Source']).'});');
                         // TODO Test!
                     else
-                        Code::On(__CLASS__, 'Code.Source.DataInContractNotSpecified', $Contract);
+                        self::On('Code.Code.Source.DataInContractNotSpecified', $Contract);
                 break;
 
                 default:
-                    Code::On(__CLASS__, 'Code.Contract.UnknownEngine', $Contract['Engine']);
+                    self::On('Code.Code.Contract.UnknownEngine', $Contract['Engine']);
                 break;
             }
         }
@@ -342,7 +309,7 @@
 
             if (null == $F)
             {
-                self::On(__CLASS__,'Code.Function.IsNotCallable', $Call);
+                self::On('Code.Function.IsNotCallable', $Call);
                 return null;
             }
             elseif (is_callable($F) or ($F instanceof Closure))
@@ -360,7 +327,7 @@
             self::$_Stack->push($Call);
             
             if (isset(self::$_Conf['Limit']['NestedCalls']) && self::$_Stack->count() > self::$_Conf['Limit']['NestedCalls'])
-                self::On(__CLASS__, 'CodeOverflowFault', $Call);
+                self::On('Code.CodeOverflowFault', $Call);
             // FIXME Behaviour!
             if ($Runner !== null)
             {
@@ -390,6 +357,7 @@
 
             // Проверка на псевдонимы. Псевдонимы проверяются при определении.
             // Если передан не готовый объект запроса, а что-то иное, вызываем роутинг.
+            
             // FIXME Behaviour!
             if (is_string($Call) && isset(self::$_Aliases[$Call]))
                 $Call = self::$_Aliases[$Call];
@@ -398,13 +366,19 @@
 
             if (!isset($Call['N']))
             {
-                Code::On(__CLASS__, 'errNamespaceNotDefined', $Call);
+                self::On('Code.Code.Run.Namespace.NotDefined', $Call);
                 return null;
             }
+            else
+                $N = preg_split('@\.@', $Call['N']);
 
-            // Готовим удобные переменные
+            $Call['N'] = implode('/', $N);
 
-            $Call = self::Prepare($Call);
+            if (!isset($Call['F']))
+                $Call['F'] = 'Default';
+            
+            if (!isset($Call['G']))
+                list($Call['G']) = array_reverse($N);
 
             // Загружаем контракт
             $Contract = self::LoadContract($Call, $Mode);
@@ -415,8 +389,7 @@
             {
                 self::$_LastCall = $Call; // TODO: #refs48
 
-                self::On(__CLASS__,
-                       'beforeCall',
+                self::On('Code.Run.Before',
                        array(
                             'Contract'  => $Contract,
                             'Call'      => $Call));
@@ -444,7 +417,7 @@
 
             // FIXME Behaviour!
             if (isset($Contract['PreferredNS']) && $Call['N'] !== $Contract['PreferredNS'])
-                Code::On(__CLASS__, 'PreferredNamespace', $Contract);
+                self::On('Code.PreferredNamespace', $Contract);
 
             // Если функции нет, подгружаем код
             if (self::Fn($Call['F']) === null)
@@ -486,8 +459,7 @@
                     $Return = Core::Any($Contract['Return']['Fallback']);
 
             if ($Mode !== Code::Ring1)
-                self::On(__CLASS__,
-                       'afterCall',
+                self::On('Code.Run.After',
                        array(
                             'Contract'  => $Contract,
                             'Call'      => $Call,
@@ -511,7 +483,7 @@
             if (self::isValidCall($Call))
                 return self::$_Aliases[$Alias] = $Call;
             else
-                self::On(__CLASS__, 'errCodeInvalidCallInAlias', $Alias);
+                self::On('Code.Alias.InvalidCall', $Alias);
         }
 
         // FIXME Behaviour!
@@ -531,7 +503,7 @@
 
             if (in_array(false, $Decisions))
             {
-                self::On(__CLASS__, 'errCodeCheckFailed', $Decisions);
+                self::On('Code.errCodeCheckFailed', $Decisions);
                 return false;
             }
             else
@@ -543,7 +515,7 @@
         {
             if (isset($Contract['Return']))
                 if (!self::_Check($Result, $Contract['Return']))
-                    self::On(__CLASS__, 'WrongReturn',
+                    self::On('Code.WrongReturn',
                                array('Contract' => $Contract,
                                      'Result'   => $Result));
             return true;
@@ -572,10 +544,11 @@
                         $Call['D'] = $Contract['Driver']['Default'];
                 }
                 else
-                    $Call['D'] = $Call['G'];
+                    $Call['D'] = isset($Call['G']) ? $Call['G']: 'Default';
             }
 
             $Call['D'] = Core::Any($Call['D']);
+            
             return $Call;
         }
 

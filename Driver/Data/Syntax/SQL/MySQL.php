@@ -14,12 +14,12 @@
     self::Fn('Read', function ($Call)
     {
         $Query = array();
-        
-        foreach ($Call['Data']['Where'] as $Key => $Value)
-            $Query[] = '`'.mysql_real_escape_string($Key, $Call['Data']['Store'])
-                      .'` = "'.mysql_real_escape_string($Value, $Call['Data']['Store']).'"';
 
-        $QueryString = 'SELECT * FROM '.$Call['Point']['Scope'].' WHERE '
+        foreach ($Call['Where'] as $Key => $Value)
+            $Query[] = '`'.mysql_real_escape_string($Key, $Call['Link'])
+                      .'` = "'.mysql_real_escape_string($Value, $Call['Link']).'"';
+
+        $QueryString = 'SELECT * FROM '.$Call['Options']['Scope'].' WHERE '
                        .implode (' AND ', $Query);
 
         return $QueryString;
