@@ -38,48 +38,84 @@
     },
     "Points":
     {
-        "Default": {"Store": "Static", "Scope": "Default"},
+        "Default": {
+            "Store": "Static",
+            "Scope": "Default"
+        },
 
         "Contract":{
             "Store": "FS",
             "Format": "JSON",
             "Scope": "Config/Driver",
             "Postfix": ".json",
-            "Ring": 1},
+            "Ring": 1
+        },
 
         "Model":{
             "Store": "FS",
             "Format": "JSON",
             "Scope": "Config/Model",
             "Postfix": ".json",
-            "Ring": 1},
+            "Ring": 1
+        },
 
         "Locale":{
             "Store": "FS",
             "Format": "JSON",
             "Scope": "Data/Locale",
-            "Postfix": ".json"},
+            "Postfix": ".json"
+        },
 
-        "Page":    {"Store": "MySQL",  "Map": "Table.Fluid",  "Scope": "Page"},
+        "Page":    {
+            "Store": "MySQL",
+            "Map": "Table.Fluid",
+            "Scope": "Page"
+        },
 
-        "Layout":  {"Store": "Layout", "Scope": "Layout"},
-        "FS":      {"Store": "FS",     "Scope": ""},
-        "JS":      {"Store": "FS",     "Scope": "Default/JS"},
-        "CSS":     {"Store": "FS",     "Scope": "Default/CSS"},
-        "TempCSS": {"Store": "Temp",   "Scope": "CSS"},
-        "TempJS":  {"Store": "Temp",   "Scope": "JS"},
-        "Redis":   {"Store": "Redis",  "Map": "KeyValue", "Scope": "Redis"},
-        "CodeCache": {"Store": "Redis", "Map": "KeyValue", "Scope": "Code"}
+        "Layout":  {
+            "Store": "Layout",
+            "Scope": "Layout"
+        },
+        "FS":      {
+            "Store": "FS",
+            "Scope": ""
+        },
+        "JS":      {
+            "Store": "FS",
+            "Scope": "Default/JS"
+        },
+        "CSS":     {
+            "Store": "FS",
+            "Scope": "Default/CSS"
+        },
+        "TempCSS": {
+            "Store": "Temp",
+            "Scope": "CSS"
+        },
+        "TempJS":  {
+            "Store": "Temp",
+            "Scope": "JS"
+        },
+        "Redis":   {
+            "Store": "Redis",
+            "Map": "KeyValue",
+            "Scope": "Redis"
+        },
+        "CodeCache": {
+            "Store": "Redis",
+            "Map": "KeyValue",
+            "Scope": "Code"
+        }
     },
     "Shared":
     {
         "Engine": "/var/www/Codeine/Default"
     },
-   "Includes":
+    "Includes":
     {
         "Zend": "/usr/share/php/libzend-framework-php/"
     },
-   "Paths":
+    "Paths":
     {
         "Code":           "Driver",
         "Package":        "Package",

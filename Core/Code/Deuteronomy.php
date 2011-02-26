@@ -70,24 +70,19 @@
             {
                 if (self::$_Conf['Hooks'][$Event] !== null)
                 {
-                    if (!is_array(self::$_Conf['Hooks'][$Event]))
-                        self::$_Conf['Hooks'][$Event] = array(self::$_Conf['Hooks'][$Event]);
-                    
                     return Code::Run(
                         array(
-                             'Calls' => self::$_Conf['Hooks'][$Event],
+                            'Calls' => self::$_Conf['Hooks'][$Event],
                             'Data'  => $Data
                         ), Code::Ring1, 'Feed');
                 }
                 else
                     return null;
             }
-//            else
-//                return Code::Run(
-//                    array(
-//                         'Calls' => self::$_Conf['Hooks']['Default'],
-//                         'Data'  => $Data
-//                    ), Code::Ring1, 'Feed');
+            else
+                self::On('Code.Event.NotSpecified', array('NewEvent' => $Event));
+            
+            //echo $Event.'<br/>';
         }
 
         /**
@@ -174,15 +169,20 @@
                                   )
                         ), Code::Ring1);
 
-                    $Contract = self::ConfWalk($GroupContract, $DriverContract);
-
-                    if (isset($Contract[$Call['F']]))
-                        $Contract = $Contract[$Call['F']];
-                    else
+                    if ($GroupContract !== null || $DriverContract !== null)
                     {
-                        self::On('Code.errContractFnNotFound', $Call);
-                        $Contract = array();
+                        $Contract = self::ConfWalk($GroupContract, $DriverContract);
+
+                        if (isset($Contract[$Call['F']]))
+                            $Contract = $Contract[$Call['F']];
+                        else
+                        {
+                            self::On('Code.LoadContract.Function.NotFound', $Call);
+                            $Contract = array();
+                        }
                     }
+                    else
+                        $Contract = array();
                 }
                 else
                     $Contract = $Default;
@@ -195,7 +195,9 @@
             if (isset($Call['Override']))
                 $Contract =  self::ConfWalk($Contract, $Call['Override']);
 
-            return $Contract;
+            $Call['Contract'] = $Contract;
+            
+            return $Call;
         }
 
         /**
@@ -206,6 +208,8 @@
          */
         protected static function _Route ($Call)
         {
+            $NewCall = null;
+
             // Для каждого определенного роутера...
             foreach (self::$_Conf['Routers'] as $Router)
             {
@@ -226,7 +230,7 @@
 
             // Если хоть один роутер вернул результат...
             if ($NewCall === null)
-                self::On('Code.errCodeRoutingFailed', $Call);
+                self::On('Code.Routing.Failed', $Call);
             else
                 $Call = $NewCall;
 
@@ -261,44 +265,43 @@
                                 [self::$_Registration['D']][$Function];
         }
 
-        protected static function _LoadSource($Call, $Contract)
+        protected static function _LoadSource($Call)
         {
             if (!isset($Contract['Engine']))
-                $Contract['Engine'] = 'Include';
+                $Call['Contract']['Engine'] = 'Include';
 
-            switch ($Contract['Engine'])
+            switch ($Call['Contract']['Engine'])
             {
                 case 'Include':
-                    if (isset($Contract['Source']))
-                        $Filename = Data::Locate('Code', $Contract['Source']);
+                    if (isset($Call['Contract']['Source']))
+                        $Filename = Data::Locate('Code', $Call['Contract']['Source']);
                     else
                         $Filename = Data::Locate('Code', $Call['N'].'/'.$Call['D'].'.php');
                         
                     if ($Filename)
                         return (include $Filename);
                     else
-                        self::On('Code.Code.Driver.FileNotFound', $Call);
+                        self::On('Code.LoadSource.Include.FileNotFound', $Call);
                 break;
 
                 case 'Code':
-                    if(isset($Contract['Source']))
+                    if(isset($Call['Contract']['Source']))
                         eval('self::Fn(\''.$Call['F'].'\',
-                            function ($Call) {'.$Contract['Source'].'});');
+                            function ($Call) {'.$Call['Contract']['Source'].'});');
                     else
-                        self::On('Code.Code.Source.InContractNotSpecified', $Contract);
+                        self::On('Code.Source.InContractNotSpecified', $Call);
                 break;
 
                 case 'Data':
-                    if(isset($Contract['Source']))
+                    if(isset($Call['Contract']['Source']))
                         eval('self::Fn(\''.$Call['F'].'\',
-                            function ($Call) {'.Data::Read('Source', $Contract['Source']).'});');
-                        // TODO Test!
+                            function ($Call) {'.Data::Read('Source', $Call['Contract']['Source']).'});');
                     else
-                        self::On('Code.Code.Source.DataInContractNotSpecified', $Contract);
+                        self::On('Code.Source.DataInContractNotSpecified', $Call);
                 break;
 
                 default:
-                    self::On('Code.Code.Contract.UnknownEngine', $Contract['Engine']);
+                    self::On('Code.Contract.UnknownEngine', $Call['Contract']['Engine']);
                 break;
             }
         }
@@ -326,8 +329,10 @@
         {
             self::$_Stack->push($Call);
             
-            if (isset(self::$_Conf['Limit']['NestedCalls']) && self::$_Stack->count() > self::$_Conf['Limit']['NestedCalls'])
-                self::On('Code.CodeOverflowFault', $Call);
+            if (isset(self::$_Conf['Limit']['NestedCalls'])
+                    && self::$_Stack->count() > self::$_Conf['Limit']['NestedCalls'])
+                        self::On('Code.CodeOverflowFault', $Call);
+
             // FIXME Behaviour!
             if ($Runner !== null)
             {
@@ -340,6 +345,7 @@
                          'Mode' => $Mode
                           ), $Mode);
             }
+            
             // FIXME Behaviour!
             if ($Executor !== null)
             {
@@ -361,7 +367,8 @@
             // FIXME Behaviour!
             if (is_string($Call) && isset(self::$_Aliases[$Call]))
                 $Call = self::$_Aliases[$Call];
-            elseif (!self::isValidCall($Call))
+
+            if (!self::isValidCall($Call))
                 $Call = self::_Route($Call);
 
             if (!isset($Call['N']))
@@ -381,90 +388,84 @@
                 list($Call['G']) = array_reverse($N);
 
             // Загружаем контракт
-            $Contract = self::LoadContract($Call, $Mode);
+            $Call = self::LoadContract($Call, $Mode);
 
             // Запоминание вызова
             // Защита от зацикливания.
             if ($Mode !== Code::Ring1)
-            {
                 self::$_LastCall = $Call; // TODO: #refs48
 
-                self::On('Code.Run.Before',
-                       array(
-                            'Contract'  => $Contract,
-                            'Call'      => $Call));
-            }
-
             // Выбираем драйвер
-            $Call = self::_DetermineDriver($Contract, $Call);
+            $Call = self::_DetermineDriver($Call);
 
             // FIXME Behaviour!
             // Фильтрация аргументов
-            if (self::_is('Filter', $Contract))
-                $Call = self::_FilterCall($Contract, $Call);
-
+            //if (self::_is('Filter', $Call['Contract']))
+            //    $Call = self::_FilterCall($Call);
+    
             // FIXME Behaviour!
             // Проверка аргументов
-            if (self::_is('Check', $Contract))
-                self::_CheckCall($Contract, $Call);
+            //if (self::_is('Check', $Call['Contract']))
+            //    self::_CheckCall($Call);
 
-            // Хуки
-            if (isset($Contract['Hook']['beforeRun']))
-                self::Run($Contract['Hook']['beforeRun'], Code::Ring1, 'Multi');
+
 
             // Устанавливаем текущее пространство имён
             self::SetNamespace($Call['N'], $Call['D']);
 
             // FIXME Behaviour!
-            if (isset($Contract['PreferredNS']) && $Call['N'] !== $Contract['PreferredNS'])
-                self::On('Code.PreferredNamespace', $Contract);
+            if (isset($Call['Contract']['PreferredNS']) && $Call['N'] !== $Call['Contract']['PreferredNS'])
+                self::On('Code.Run.Namespace.NotPreferred', $Call);
 
             // Если функции нет, подгружаем код
             if (self::Fn($Call['F']) === null)
-                self::_LoadSource($Call, $Contract);
+                self::_LoadSource($Call);
 
+            // Хуки
+            if (isset($Call['Contract']['Hook']['beforeRun']) && is_array($Call['Contract']['Hook']['beforeRun']))
+                self::Run($Call['Contract']['Hook']['beforeRun'], Code::Ring1, 'Multi');
+            
             // Выполняем!
             $Return = self::_Do($Call);
 
             self::$_Tree[] = array($Call['N'].':'.$Call['F'], self::$_Stack->count());
+
             // Хуки
-            if (isset($Contract['Hook']['afterRun']))
-                self::Run($Contract['Hook']['afterRun'], Code::Ring1, 'Multi');
+            if (isset($Call['Contract']['Hook']['afterRun']))
+                self::Run($Call['Contract']['Hook']['afterRun'], Code::Ring1, 'Multi');
 
             // FIXME Behaviour!
             // Возврат вызова как результата
-            if (isset($Contract['Return']['Call']) && $Contract['Return']['Call'])
+            if (isset($Call['Contract']['Return']['Call']) && $Call['Contract']['Return']['Call'])
+            {
+                Code::On('Code.Return.Call.Detected', $Call);
                 $Return = self::Run($Return);
-
+            }
+            
             // FIXME Behaviour!
             // Режим экономии
-            if (self::_is('Economy', $Contract))
+            if (self::_is('Economy', $Call['Contract']))
                 self::Fn($Call['F'], null);
 
             // Фильтрация результата
             // FIXME Behaviour!
-            if (self::_is('Filter', $Contract))
-                if (isset($Contract['Return']['Filter']))
+            /*
+            if (self::_is('Filter', $Call['Contract']))
+                if (isset($Call['Contract']['Return']['Filter']))
                     $Return = self::Run(
                         array(
                              'Calls' => array_merge(
                                  $Return,
-                                 $Contract['Return']['Filter'])), Code::Ring1,
+                                 $Call['Contract']['Return']['Filter'])), Code::Ring1,
                         'Chain');
+
             // FIXME Behaviour!
             // Проверка результата
 
-            if (!self::_CheckReturn($Contract, $Return))
-                if (isset($Contract['Return']['Fallback']))
-                    $Return = Core::Any($Contract['Return']['Fallback']);
-
-            if ($Mode !== Code::Ring1)
-                self::On('Code.Run.After',
-                       array(
-                            'Contract'  => $Contract,
-                            'Call'      => $Call,
-                            'Return'    => $Return));
-
+            if (!self::_CheckReturn($Call['Contract'], $Return))
+                if (isset($Call['Contract']['Return']['Fallback']))
+                    $Return = Core::Any($Call['Contract']['Return']['Fallback']);
+*/
             self::$_Stack->pop();
             return $Return;
         }
@@ -472,7 +473,6 @@
         /**
          * @description Метод определения псевдонима для вызова.
          * @static
-         * @throws WTF
          * @param  $Call
          * @param  $Alias
          * @return
@@ -530,18 +530,18 @@
         }
 
         // FIXME Behaviour!
-        protected static function _DetermineDriver($Contract, $Call)
+        protected static function _DetermineDriver($Call)
         {
             // Если в контракте указана политика драйверов, и драйвер не указан напрямую.
             
             if (!isset($Call['D']))
             {
-                if (isset($Contract['Driver']))
+                if (isset($Call['Contract']['Driver']))
                 {
-                    if (isset($Contract['Driver'][Environment]))
-                        $Call['D'] = $Contract['Driver'][Environment];
+                    if (isset($Call['Contract']['Driver'][Environment]))
+                        $Call['D'] = $Call['Contract']['Driver'][Environment];
                     else
-                        $Call['D'] = $Contract['Driver']['Default'];
+                        $Call['D'] = $Call['Contract']['Driver']['Default'];
                 }
                 else
                     $Call['D'] = isset($Call['G']) ? $Call['G']: 'Default';
@@ -552,32 +552,32 @@
             return $Call;
         }
 
-        protected static function _FilterCall($Contract, $Call)
+        protected static function _FilterCall($Call)
         {
-            if (isset($Contract['Arguments']))
-                foreach ($Contract['Arguments'] as $Name => $ContractNode)
+            if (isset($Call['Contract']['Arguments']))
+                foreach ($Call['Contract']['Arguments'] as $Name => $Node)
                 {
-                    if (isset($ContractNode['Filter']))
+                    if (isset($Node['Filter']))
                         if (!isset($Call[$Name]))
                             $Call[$Name] = self::Run(
                                     array(
-                                         'Calls' => array_merge($Call[$Name], $ContractNode['Filter'])),
+                                         'Calls' => array_merge($Call[$Name], $Node['Filter'])),
                                 Code::Ring1, 'Chain');
                 }
             
             return $Call;
         }
 
-        protected static function _CheckCall($Contract, $Call)
+        protected static function _CheckCall($Call)
         {
             // Валидация
-            if (isset($Contract['Arguments']))
-                foreach ($Contract['Arguments'] as $Name => $ContractNode)
+            if (isset($Call['Contract']['Arguments']))
+                foreach ($Call['Contract']['Arguments'] as $Name => $Node)
                 {
                     if (!isset($Call[$Name]))
-                        self::_Check(null, $ContractNode);
+                        self::_Check(null, $Node);
                     else
-                        self::_Check($Call[$Name], $ContractNode);
+                        self::_Check($Call[$Name], $Node);
                 }
         }
 

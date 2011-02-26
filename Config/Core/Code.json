@@ -1,13 +1,1 @@
-{
-    "Routers": ["Native","Codeine", "JSON"],
-    "Checkers": ["Value", "Required", "Type", "Condition"],
-    "Inputs": ["STDIN","HTTP","CLI"],
-    "Hooks":
-    {
-        "onInitialize": null,
-        "beforeRun": null,
-        "afterRun": null,
-        "Code.onShutdown": null,
-        "Code.Driver.FileNotFound": [{"N": "Error.Catch.Page", "F": "Catch"}]
-    }
-}
+{"Routers":["Codeine","JSON"],"Checkers":["Value","Required","Type","Condition"],"Inputs":["HTTP","STDIN","CLI"],"Hooks":{"Code.Event.NotSpecified":[{"N":"Error.Fix.CreateEvent","F":"Catch"}],"Code.Routing.Failed":[{"N":"Error.Log.phpConsole","F":"Catch"}],"Code.LoadSource.Include.FileNotFound":[{"N":"Error.Catch.Die","F":"Catch"}],"Code.Source.InContractNotSpecified":[{"N":"Error.Catch.Die","F":"Catch"}],"Data.Connect.Failed":[{"N":"Error.Dump.Wiki","F":"Catch"}],"Data.Connect.Store.NotFound":[{"N":"Error.Log.phpConsole","F":"Catch"}],"Code.onInitialize":null,"Code.Return.Call.Detected":null,"Code.onShutdown":null}}

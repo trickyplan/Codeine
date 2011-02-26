@@ -24,10 +24,10 @@
                 if (isset(self::$_Conf['Points'][$Point]['Store']))
                     return self::$_Conf['Points'][$Point]['Store'];
                 else
-                    Code::On('Data.errDataStoreNotFound', $Point);
+                    Code::On('Data.Store.NotFound', $Point);
             }
             else
-                Code::On('Data.errDataPointNotFound', $Point);
+                Code::On('Data.Point.NotFound', $Point);
         }
 
         public static function Initialize()
@@ -57,7 +57,7 @@
             else
                 $Mode = 2;
             
-            self::Connect(self::_getStoreOfPoint($Point), $Mode);
+            self::_Connect(self::_getStoreOfPoint($Point), $Mode);
             return self::$_Points[$Point] = $Point;
         }
 
@@ -65,21 +65,35 @@
         {
 
         }
-        
-        public static function Connect ($Store, $Ring)
+
+        /**
+         * Подключается к хранилищу.
+         * @static
+         * @param  $Store
+         * @param  $Ring
+         * @return
+         */
+        protected static function _Connect ($Store, $Ring)
         {
             if (!isset(self::$_Stores[$Store]))
             {
-                if ((self::$_Stores[$Store] =
-                    Code::Run(array(
-                               'N' => 'Data.Store.'.self::$_Conf['Stores'][$Store]['Type'],
-                               'F' => 'Connect',
-                               'Options' => self::$_Conf['Stores'][$Store]
-                        ),$Ring)) !== null)
-                    Code::On('Data.errDataStoreConnectFailed', $Store);
+                if (isset(self::$_Conf['Stores'][$Store]))
+                {
+                    $Options = self::$_Conf['Stores'][$Store];
+
+                    self::$_Stores[$Store] =
+                        Code::Run(array(
+                                   'N' => 'Data.Store.'. $Options['Type'],
+                                   'F' => 'Connect',
+                                   'Options' => $Options
+                            ),$Ring);
+
+                    if (self::$_Stores[$Store] == null)
+                        Code::On('Data.Connect.Failed', array('Store'=>$Store));
+                }
+                else
+                    Code::On('Data.Connect.Store.NotFound', array('Store'=>$Store));
             }
-            else
-                Code::On('Data.errDataStoreNotFound', $Store);
 
             return self::$_Stores[$Store];
         }
@@ -107,7 +121,7 @@
             if ($NewCall !== null)
                 $Call = $NewCall;
             else
-                Code::On('Data.errDataRoutingFailed', $Call);
+                Code::On('Data.Routing.Failed', $Call);
 
             return $Call;
         }
@@ -136,7 +150,7 @@
             // Запрещение операций на точке монтирования
             if (isset(self::$_Conf['Options'][$Call['Point']]['No'.$Method]))
             {
-                Code::On('Data.Data.'.$Method.'.Denied.Point.'.$Call['Point'], $Call);
+                Code::On('Data.'.$Method.'.Denied.Point.'.$Call['Point'], $Call);
                 return null;
             }
 
@@ -145,11 +159,11 @@
             if (isset($Call['Options']['Precondition'][$Method]))
                 foreach ($Call['Options']['Precondition'][$Method] as $Precondition)
                     if (!Code::Run($Precondition, $Ring))
-                        Code::On('Data.Data.'.$Method.'.Precondition.Failed', $Call);
+                        Code::On('Data.'.$Method.'.Precondition.Failed', $Call);
 
-            Code::On('Data.before'.$Method, $Call);
-            Code::On('Data.before'.$Method.'At'.$Call['Store'], $Call);
-            Code::On('Data.before'.$Method.'In'.$Call['Point'], $Call);
+            //Code::On('Data.before'.$Method, $Call);
+            //Code::On('Data.before'.$Method.'At'.$Call['Store'], $Call);
+            //Code::On('Data.before'.$Method.'In'.$Call['Point'], $Call);
 
             // Если точка монтирования ещё не использовалась...
             if (!isset(self::$_Points[$Call['Point']]))
@@ -168,9 +182,9 @@
 
             $Call['Result'] = Code::Run($Call, $Ring);
 
-            Code::On('Data.after'.$Method, $Call);
-            Code::On('Data.after'.$Method.'At'.$Call['Store'], $Call);
-            Code::On('Data.after'.$Method.'In'.$Call['Point'], $Call);
+            //Code::On('Data.after'.$Method, $Call);
+            //Code::On('Data.after'.$Method.'At'.$Call['Store'], $Call);
+            //Code::On('Data.after'.$Method.'In'.$Call['Point'], $Call);
 
             if (isset($Call['Options']['Postcondition'][$Method]))
                 foreach ($Call['Options']['Postcondition'][$Method] as $Postcondition)
@@ -295,7 +309,7 @@
            if (isset($R))
                return $R;
            else
-               Code::On('Data.Data.Locate.NotFound', $Path.':'.$Name);
+               Code::On('Data.Locate.NotFound', $Path.':'.$Name);
         }
 
         public static function Path ($Key)

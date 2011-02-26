@@ -22,15 +22,16 @@
                 $NFs = preg_split('@\.@', $Call['NFD']);
                 $Call['F'] = $NFs[sizeof($NFs)-2];
                 $Call['D'] = $NFs[sizeof($NFs)-1];
-                $N = array_slice($NFs, 0, sizeof($NFs)-2);
+                $Call['N'] = implode('/',array_slice($NFs, 0, sizeof($NFs)-2));
             }
-
-            if (isset($Call['NF']))
+            elseif (isset($Call['NF']))
             {
                 $NFs = preg_split('@\.@', $Call['NF']);
                 $Call['F'] = $NFs[sizeof($NFs)-1];
-                $N = array_slice($NFs, 0, sizeof($NFs)-1);
+                $Call['N'] = implode('/',array_slice($NFs, 0, sizeof($NFs)-1));
             }
+            else
+                return null;
 
             return $Call;
         }

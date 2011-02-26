@@ -16,10 +16,13 @@
         $Link = mysql_connect(
             $Call['Options']['Server'].':'.$Call['Options']['Port'],
             $Call['Options']['Username'],
-            $Call['Options']['Password']);
+            $Call['Options']['Password']) or die('ff');
 
         if (!$Link)
+        {
             Code::On('Data.MySQL.Connect.Failed', $Call);
+            $Link = null;
+        }
 
         if (!mysql_select_db($Call['Options']['Database'], $Link))
             Code::On('Data.MySQL.SelectDB.Failed', $Call);
