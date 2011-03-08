@@ -18,8 +18,7 @@
 
     self::Fn('Input', function ($Call)
     {
-        var_dump($Call);
-
+        $Call['Data']['ID'] = $Call['ID'];
         Data::Create(
             array(
                 'Point' => $Call['Entity'],

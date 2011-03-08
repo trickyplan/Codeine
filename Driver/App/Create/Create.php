@@ -13,9 +13,9 @@
 
     self::Fn('Create', function ($Call)
     {
-        if (isset($Call['Data']))
+        if (isset($Call['Data']) && !empty($Call['Data']))
         {
-            $Call['Data']['ID'] = uniqid();
+            $Call['ID'] = uniqid();
 
             if (Code::Run(
                 array(
@@ -27,10 +27,11 @@
                     array(
                         'N' => 'Data.Model',
                         'F' => 'Input',
+                        'ID' => $Call['ID'],
                         'Entity'    => $Call['Entity'],
                         'Data' => $Call['Data'] ));
             }
-
+            Code::On('App.Create.Object.Created', $Call);
         }
 
         $Model = Data::Read(
@@ -53,6 +54,8 @@
         }
         else
             Code::On('App.Create.Model.NotLoaded', $Call);
+
+        
 
         return $Call;
     });

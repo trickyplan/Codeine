@@ -13,9 +13,9 @@
 
     self::Fn('Catch', function ($Call)
     {
-        $Configuration = json_decode(file_get_contents(Engine.'Config/Core/Code.json'), true);
-        $Configuration['Hooks'][$Call['Data']['NewEvent']] = null;
-        file_put_contents(Engine.'Config/Core/Code.json', json_encode($Configuration));
-        
+        $Configuration = json_decode(file_get_contents(Engine.'Config/Core/Hooks.json'), true);
+        $Configuration[$Call['Data']['NewEvent']] = array();
+        file_put_contents(Engine.'Config/Core/Hooks.json', json_encode($Configuration));
+        // FIXME Data::Read
         return null;
     });

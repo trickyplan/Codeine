@@ -57,7 +57,7 @@
             else
                 $Mode = 2;
             
-            self::_Connect(self::_getStoreOfPoint($Point), $Mode);
+            self::Open(self::_getStoreOfPoint($Point), $Mode);
             return self::$_Points[$Point] = $Point;
         }
 
@@ -73,7 +73,7 @@
          * @param  $Ring
          * @return
          */
-        protected static function _Connect ($Store, $Ring)
+        public static function Open ($Store, $Ring)
         {
             if (!isset(self::$_Stores[$Store]))
             {
@@ -84,15 +84,40 @@
                     self::$_Stores[$Store] =
                         Code::Run(array(
                                    'N' => 'Data.Store.'. $Options['Type'],
-                                   'F' => 'Connect',
+                                   'F' => 'Open',
                                    'Options' => $Options
                             ),$Ring);
 
                     if (self::$_Stores[$Store] == null)
-                        Code::On('Data.Connect.Failed', array('Store'=>$Store));
+                        Code::On('Data.Open.Failed', array('Store'=>$Store));
                 }
                 else
-                    Code::On('Data.Connect.Store.NotFound', array('Store'=>$Store));
+                    Code::On('Data.Open.Store.NotFound', array('Store'=>$Store));
+            }
+
+            return self::$_Stores[$Store];
+        }
+
+        public static function Close ($Store, $Ring)
+        {
+            if (!isset(self::$_Stores[$Store]))
+            {
+                if (isset(self::$_Conf['Stores'][$Store]))
+                {
+                    $Options = self::$_Conf['Stores'][$Store];
+
+                    self::$_Stores[$Store] =
+                        Code::Run(array(
+                                   'N' => 'Data.Store.'. $Options['Type'],
+                                   'F' => 'Close',
+                                   'Options' => $Options
+                            ),$Ring);
+
+                    if (self::$_Stores[$Store] == null)
+                        Code::On('Data.Close.Failed', array('Store'=>$Store));
+                }
+                else
+                    Code::On('Data.Close.Store.NotFound', array('Store'=>$Store));
             }
 
             return self::$_Stores[$Store];

@@ -13,7 +13,7 @@
                 "Update": "Texfield"
             }
         },
-        "Body":
+        "Text":
         {
             "Type": "String",
             "Controls":

@@ -11,40 +11,45 @@
      * @time 22:12
      */
 
-    self::Fn('Read', function ($Call)
-    {
-        $Query = array();
-
-        foreach ($Call['Where'] as $Key => $Value)
-            $Query[] = '`'.mysql_real_escape_string($Key, $Call['Link'])
-                      .'` = "'.mysql_real_escape_string($Value, $Call['Link']).'"';
-
-        $QueryString = 'SELECT * FROM '.$Call['Options']['Scope'].' WHERE '
-                       .implode (' AND ', $Query);
-
-        return $QueryString;
-    });
-
     self::Fn('Create', function ($Call)
     {
         $Fields = array();
         $Values = array();
 
-        if (!isset($Call['Data']['Multiple']))
-            $Call['Data']['Data']['Data'] = array($Call['Data']['Data']['Data']);
+        if (!isset($Call['Multiple']))
+            $Call['Data'] = array($Call['Data']);
 
-        foreach ($Call['Data']['Data']['Data'] as $IX => $Data)
+        foreach ($Call['Data'] as $IX => $Data)
             foreach ($Data as $Key => $Value) // :)))
             {
-                $Fields[$Key] = '`'.mysql_real_escape_string($Key, $Call['Data']['Store']).'`';
-                $Values[$IX][] = '\''.mysql_real_escape_string($Value, $Call['Data']['Store']).'\'';
+                $Fields[$Key] = '`'.mysql_real_escape_string($Key, $Call['Link']).'`';
+                $Values[$IX][] = '\''.mysql_real_escape_string($Value, $Call['Link']).'\'';
             }
 
         foreach ($Values as $IX => $Value)
             $DValues[] = '('.implode(',', $Value).')';
 
-        $QueryString = 'INSERT INTO '.$Call['Data']['Point']['Scope'].' ('
+        $QueryString = 'INSERT INTO '.$Call['Options']['Scope'].' ('
                        .implode(',',$Fields).') VALUES '.implode(',',$DValues);
+
+        return $QueryString;
+    });
+
+    self::Fn('Read', function ($Call)
+    {
+        $Query = array();
+
+        if (isset($Call['Where']))
+        {
+            foreach ($Call['Where'] as $Key => $Value)
+                $Query[] = '`'.mysql_real_escape_string($Key, $Call['Link'])
+                    .'` = "'.mysql_real_escape_string($Value, $Call['Link']).'"';
+            $Where = ' WHERE '.implode (' AND ', $Query);
+        }
+        else
+            $Where = '';
+
+        $QueryString = 'SELECT * FROM '.$Call['Options']['Scope'];
 
         return $QueryString;
     });
@@ -67,6 +72,20 @@
 
             $QueryString[] = 'UPDATE `'.$Call['Data']['Point']['Scope'].'` SET '.implode(',',$Modification).' WHERE '.implode('AND', $Where);
         }
+
+        return $QueryString;
+    });
+
+    self::Fn('Delete', function ($Call)
+    {
+        $Query = array();
+
+        foreach ($Call['Where'] as $Key => $Value)
+            $Query[] = '`'.mysql_real_escape_string($Key, $Call['Link'])
+                      .'` = "'.mysql_real_escape_string($Value, $Call['Link']).'"';
+
+        $QueryString = 'DELETE FROM '.$Call['Options']['Scope'].' WHERE '
+                       .implode (' AND ', $Query);
 
         return $QueryString;
     });

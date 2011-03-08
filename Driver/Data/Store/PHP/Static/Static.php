@@ -28,15 +28,15 @@
 
     self::Fn('Read', function ($Call)
     {
-        if (isset(Data::$Data[$Call['Data']['Point']][$Call['Data']['Where']['Key']]))
-            return Data::$Data[$Call['Data']['Point']][$Call['Data']['Where']['Key']];
+        if (isset(Data::$Data[$Call['Point']][$Call['Where']['Key']]))
+            return Data::$Data[$Call['Point']][$Call['Where']['Key']];
         else
             return null;
     });
 
     self::Fn('Create', function ($Call)
     {
-        Data::$Data[$Call['Data']['Point']][$Call['Data']['Key']] = $Call['Data']['Value'];
+        Data::$Data[$Call['Point']][$Call['Key']] = $Call['Value'];
         return true;
     });
 
@@ -53,9 +53,9 @@
 
     self::Fn('Delete', function ($Call)
     {
-        if (isset(Data::$Data[$Call['Point']][$Call['Data']['Key']]))
-            unset(Data::$Data[$Call['Point']][$Call['Data']['Key']]);
-        return !isset(Data::$Data[$Call['Point']][$Call['Data']['Key']]);
+        if (isset(Data::$Data[$Call['Point']][$Call['Key']]))
+            unset(Data::$Data[$Call['Point']][$Call['Key']]);
+        return !isset(Data::$Data[$Call['Point']][$Call['Key']]);
     });
 
 

@@ -40,7 +40,9 @@
             self::$_Stack = new SplStack();
 
             self::$_Conf  = self::_Configure(__CLASS__);
-            self::On('Code.onInitialize');
+            self::$_Conf['Hooks'] = self::_Configure('Hooks');
+
+            self::On('Code.Initialize');
         }
 
         public static function Conf($Key)
@@ -68,7 +70,7 @@
             
             if (isset(self::$_Conf['Hooks'][$Event]))
             {
-                if (self::$_Conf['Hooks'][$Event] !== null)
+                if (self::$_Conf['Hooks'][$Event] !== null && !empty(self::$_Conf['Hooks'][$Event]))
                 {
                     return Code::Run(
                         array(
@@ -115,7 +117,7 @@
 
         public static function Shutdown ()
         {
-            self::On('Code.onShutdown');
+            self::On('Code.Shutdown');
         }
 
         /**

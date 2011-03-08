@@ -16,7 +16,7 @@
         $ID    = isset($Call['ID'])   ? $Call['ID']: uniqid();
         $Name  = isset($Call['Name']) ? $Call['Name']: uniqid();
         $Value = isset($Call['Value']) ? $Call['Value']: '';
-        $Label = $Name;
+        $Label = isset($Call['Label']) ? $Call['Label']: $Name;
 
         $Layout = Data::Read( array('Point' => 'Layout',
                     'Where' => array('ID'=>'UI/Codeine/Textarea/Textarea')));

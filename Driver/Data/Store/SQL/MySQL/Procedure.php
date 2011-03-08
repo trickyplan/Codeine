@@ -11,16 +11,16 @@
      * @time 22:26
      */
 
-    self::Fn('Connect', function ($Call)
+    self::Fn('Open', function ($Call)
     {
         $Link = mysql_connect(
             $Call['Options']['Server'].':'.$Call['Options']['Port'],
             $Call['Options']['Username'],
-            $Call['Options']['Password']) or die('ff');
+            $Call['Options']['Password']);
 
         if (!$Link)
         {
-            Code::On('Data.MySQL.Connect.Failed', $Call);
+            Code::On('Data.MySQL.Open.Failed', $Call);
             $Link = null;
         }
 
@@ -46,7 +46,7 @@
                          )));
 
         if (!($Result = mysql_query($Query, $Call['Link'])))
-            Code::On('errDataMySQLReadFailed', $Call);
+            Code::On('Data.MySQL.Read.Failed', $Call);
 
         while ($Row = mysql_fetch_assoc($Result))
             $Rows[] = $Row;
@@ -57,18 +57,14 @@
     self::Fn('Create', function ($Call)
     {
         $Query = Code::Run(
-            array(
+            Code::Current(array(
                   'N' => 'Data.Syntax.SQL',
                   'F' => 'Create',
-                  'D' => 'MySQL',
-                  'Data' => $Call
-                 ));
+                  'D' => 'MySQL'
+            )));
         
-        if (!($Result = mysql_query($Query, $Call['Store'])))
-        {
+        if (!($Result = mysql_query($Query, $Call['Link'])))
             Code::On('Data.MySQL.Create.Failed', $Call);
-            return false;
-        }
 
         return true;
     });
@@ -76,22 +72,30 @@
     self::Fn('Update', function ($Call)
     {
         $Query = Code::Run(
-            array(
+            Code::Current(array(
                   'N' => 'Data.Syntax.SQL',
                   'F' => 'Update',
-                  'D' => 'MySQL',
-                  'Data' => $Call
-                 ));
+                  'D' => 'MySQL'
+            )));
 
         foreach ($Query as $cQuery)
-        {
             if (!($Result = mysql_query($cQuery, $Call['Store'])))
-            {
-                Code::On('errDataMySQLUpdateFailed', $Call);
-                echo mysql_error();
-                return false;
-            }
-        }
+                Code::On('Data.MySQL.Update.Failed', $Call);
+
+        return true;
+    });
+
+    self::Fn('Delete', function ($Call)
+    {
+        $Query = Code::Run(
+            Code::Current(array(
+                  'N' => 'Data.Syntax.SQL',
+                  'F' => 'Delete',
+                  'D' => 'MySQL'
+            )));
+
+            if (!($Result = mysql_query($Query, $Call['Link'])))
+                Code::On('Data.MySQL.Delete.Failed', $Call);
 
         return true;
     });

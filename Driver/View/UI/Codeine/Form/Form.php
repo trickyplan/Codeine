@@ -25,6 +25,7 @@
                    'N' => 'View.UI.Codeine.'.$Node['Controls'][$Call['Item']['Purpose']],
                    'F' => 'Make',
                    'Name' => $Title,
+                   'Label' => 'Model.'.$Call['Item']['Entity'].'.'.$Title.'.Label',
                    'ID' => 'Form_'.$Call['Item']['Purpose'].
                            '_'.$Node['Controls'][$Call['Item']['Purpose']].'_'.$Title
                 ));

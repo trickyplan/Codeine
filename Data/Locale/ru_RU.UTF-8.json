@@ -1,11 +1,13 @@
 {
-    "Title": "Заголовок",
-    "Driver/Role/Default": "По умолчанию",
-    "Data/Type/Mixed": "Смешанное",
+    "Driver.Role.Default": "По умолчанию",
+    "Data.Type.Mixed": "Смешанное",
     "Required": "Обязательное",
     "Optional": "Опциональное",
-    "Data/Type/String": "Строка",
+    "Data.Type.String": "Строка",
     "Driver Policy": "Политика драйверов",
     "Arguments": "Аргументы",
-    "Return": "Результат"
+    "Return": "Результат",
+    "Model.Page.Text.Label": "Текст",
+    "Model.Page.Title.Label": "Заголовок",
+    "Submit": "Отправить"
 }
