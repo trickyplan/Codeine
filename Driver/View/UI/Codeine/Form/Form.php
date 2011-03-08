@@ -15,16 +15,18 @@
     {
         $Output = array();
 
-        $Header = '<form action="" method="post">';
-        $Footer = '</form>';
+        $FormLayout = Data::Read('Layout::UI/Codeine/Form/Form');
 
-        foreach($Call['Item']['Data']['Nodes'] as $Title => $Node)
+        foreach($Call['Item']['Model']['Nodes'] as $Title => $Node)
         {
+            $Value = isset ($Call['Item']['Data'][$Title])? $Call['Item']['Data'][$Title]: '';
+            
             $Output[$Title] = Code::Run(
                 array(
                    'N' => 'View.UI.Codeine.'.$Node['Controls'][$Call['Item']['Purpose']],
                    'F' => 'Make',
                    'Name' => $Title,
+                   'Value' => $Value,
                    'Label' => 'Model.'.$Call['Item']['Entity'].'.'.$Title.'.Label',
                    'ID' => 'Form_'.$Call['Item']['Purpose'].
                            '_'.$Node['Controls'][$Call['Item']['Purpose']].'_'.$Title
@@ -34,8 +36,9 @@
         $Output['Submit'] = Code::Run(
                 array(
                    'N' => 'View.UI.Codeine.Submit',
-                   'F' => 'Make'
+                   'F' => 'Make',
+                   'Name' => ''
                 ));
 
-        return $Header.implode('',$Output).$Footer;
+        return str_replace('<content/>',implode('',$Output),$FormLayout);
     });

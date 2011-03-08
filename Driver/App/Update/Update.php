@@ -3,7 +3,7 @@
     /* OSWA Codeine
      * @author BreathLess
      * @type Codeine Driver
-     * @description: Create Controller
+     * @description: Update Controller
      * @package Codeine
      * @subpackage Drivers
      * @version 5.0
@@ -11,12 +11,10 @@
      * @time 20:56
      */
 
-    self::Fn('Create', function ($Call)
+    self::Fn('Update', function ($Call)
     {
         if (isset($Call['Data']) && !empty($Call['Data']))
         {
-            $Call['ID'] = uniqid();
-
             if (Code::Run(
                 array(
                     'N' => 'Data.Model',
@@ -26,14 +24,17 @@
                 Code::Run(
                     array(
                         'N' => 'Data.Model',
-                        'F' => 'Create',
+                        'F' => 'Update',
                         'ID' => $Call['ID'],
                         'Entity'    => $Call['Entity'],
                         'Data' => $Call['Data'] ));
             }
-            Code::On('App.Create.Object.Created', $Call);
+            Code::On('App.Create.Object.Updated', $Call);
         }
 
+        $Data =
+            Data::Read($Call['Entity'].'::'.$Call['ID']);
+        
         $Model = Data::Read(
                     array(
                         'Point' => 'Model',
@@ -50,7 +51,8 @@
                  'Purpose'   => 'Create',
                  'Entity'    => $Call['Entity'],
                  'Plugin'    => $Call['F'],
-                 'Model'      => $Model);
+                 'Model'     => $Model,
+                 'Data'      => $Data[$Call['ID']]);
         }
         else
             Code::On('App.Create.Model.NotLoaded', $Call);

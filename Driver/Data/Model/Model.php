@@ -16,7 +16,7 @@
         return true;
     });
 
-    self::Fn('Input', function ($Call)
+    self::Fn('Create', function ($Call)
     {
         $Call['Data']['ID'] = $Call['ID'];
         Data::Create(
@@ -26,6 +26,20 @@
                 ));
 
         return true;
+    });
+
+    self::Fn('Update', function ($Call)
+    {
+        $Data = Data::Read($Call['Entity'].'::'.$Call['ID']);
+
+        Data::Update(
+            array(
+                'Point' => $Call['Entity'],
+                'Where'  => array(
+                    'ID' => $Call['ID']
+                ),
+                'Set'  => array_diff_assoc($Call['Data'], $Data[$Call['ID']])
+                ));
     });
 
     self::Fn('Form.Create', function ($Call)
