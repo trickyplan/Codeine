@@ -13,12 +13,15 @@
 
     self::Fn('Test', function ($Call)
     {
-        $Call['Items']['Title'] = array(
-            'UI'        => 'Block',
-            'Entity'    => $Call['Entity'],
-            'Plugin'    => $Call['F'],
-            'Data'      => 'Hello, world!'
+        $Call = Code::Run(
+            array(
+                'N' => 'Code.Flow.Orchestra',
+                'F' => 'Run',
+                'Steps' => json_decode(file_get_contents(Engine.'Config/Scripts/Test.json'),true)
+            )
         );
 
+        var_dump($Call);
+        die();
         return $Call;
     });

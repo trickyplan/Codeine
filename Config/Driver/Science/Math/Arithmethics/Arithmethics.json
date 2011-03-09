@@ -1,4 +1,13 @@
 {
+    "Add":
+    {
+        "Driver":
+        {
+            "Default": "Base",
+            "Highload": "Base",
+            "Fallback": "Base"
+        }
+    },
     "SquareRoot":
     {
         "Driver":

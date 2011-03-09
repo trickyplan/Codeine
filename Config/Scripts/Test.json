@@ -1,0 +1,21 @@
+{
+    "One":
+    {
+        "N": "Science.Math.Arithmethics",
+        "F": "Add",
+        "A":
+            {
+                "N": "System.Date.Time",
+                "F": "Get"
+            },
+        "B": 2
+    },
+    "Two":
+    {
+        "N": "Science.Math.Arithmethics",
+        "F": "Add",
+        "A": "$One",
+        "B": 4,
+        "Depends": "One"
+    }
+}

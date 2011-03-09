@@ -295,11 +295,9 @@
         {
             if (isset(self::$_Conf['Points'][$Call['Point']]['Map']))
                 $Call = Code::Run(
-                    array(
+                    array_merge($Call,array(
                         'N' => 'Data.Map.'.self::$_Conf['Points'][$Call['Point']]['Map'],
-                        'F' => 'Update',
-                        'Call'=> $Call
-                    ));
+                        'F' => 'Update')));
             
             return self::_CRUD('Update', $Call, $Mode);
         }
@@ -334,7 +332,7 @@
            if (isset($R))
                return $R;
            else
-               Code::On('Data.Locate.NotFound', $Path.':'.$Name);
+               Code::On('Data.Locate.NotFound', array('Path' => $Path, 'Names'=> $Name));
         }
 
         public static function Path ($Key)

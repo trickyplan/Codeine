@@ -57,7 +57,7 @@
     self::Fn('Update', function ($Call)
     {
         $QueryString = array();
-        foreach ($Call['Data']['Data']['Set'] as $Set)
+        foreach ($Call['Set'] as $Set)
         {
             $Modification = array();
             $Where = array();
