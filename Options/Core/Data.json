@@ -46,7 +46,7 @@
         "Contract":{
             "Store": "FS",
             "Format": "JSON",
-            "Scope": "Config/Driver",
+            "Scope": "Options/Driver",
             "Postfix": ".json",
             "Ring": 1
         },
@@ -54,7 +54,7 @@
         "Model":{
             "Store": "FS",
             "Format": "JSON",
-            "Scope": "Config/Model",
+            "Scope": "Options/Model",
             "Postfix": ".json",
             "Ring": 1
         },

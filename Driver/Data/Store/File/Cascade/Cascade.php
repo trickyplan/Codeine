@@ -54,7 +54,7 @@
                 $R = Engine.$cName;
             // FIXME
 //            else
-//                foreach (self::$_Conf['Shared'] as $Shared)
+//                foreach (self::$_Options['Shared'] as $Shared)
 //                    if (file_exists($Shared.DS.$cName))
 //                    {
 //                        $R = $Shared.DS.$cName;

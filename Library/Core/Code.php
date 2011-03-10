@@ -10,8 +10,8 @@
      * @date 28.10.10
      * @time 2:16
      */
-    
-    final class Code extends Component
+
+    final class Code extends Core
     {
         const Ring0    = 0;
         const Ring1    = 1;
@@ -20,9 +20,7 @@
         private static $_Locked = false;
         
         protected static $_Stack     = array();
-        protected static $_Conf      = array();
         protected static $_Tree      = array();
-        protected static $_Hooks     = array();
         protected static $_Contracts = array();
         protected static $_Functions = array();
         protected static $_Aliases   = array();
@@ -38,22 +36,7 @@
         public static function Initialize ()
         {
             self::$_Stack = new SplStack();
-
-            self::$_Conf  = self::_Configure(__CLASS__);
-            self::$_Conf['Hooks'] = self::_Configure('Hooks');
-
             self::On('Code.Initialize');
-        }
-
-        public static function Conf($Key)
-        {
-            if (isset(self::$_Conf[$Key]))
-                return self::$_Conf[$Key];
-            else
-            {
-                self::On('Code.Conf.Key.NotFound', $Key);
-                return null;
-            }
         }
 
         /**
@@ -67,24 +50,21 @@
         public static function On ($Event, $Data = array())
         {
             $Data['Event'] = $Event;
-            
-            if (isset(self::$_Conf['Hooks'][$Event]))
+
+            $Hooks = Core::getOption('Hooks::'.$Event);
+
+            if ($Hooks !== null)
             {
-                if (self::$_Conf['Hooks'][$Event] !== null && !empty(self::$_Conf['Hooks'][$Event]))
-                {
-                    return Code::Run(
-                        array(
-                            'Calls' => self::$_Conf['Hooks'][$Event],
-                            'Data'  => $Data
-                        ), Code::Ring1, 'Feed');
-                }
-                else
-                    return null;
+                return Code::Run(
+                    array(
+                        'Calls' => $Hooks,
+                        'Data'  => $Data
+                    ), Code::Ring1, 'Feed');
             }
-            else
-                self::On('Code.Event.NotSpecified', array('NewEvent' => $Event));
+            //else
+            //    self::On('Code.Event.NotSpecified', array('NewEvent' => $Event));
             
-            //echo $Event.'<br/>';
+            // echo $Event.'<br/>';
         }
 
         /**
@@ -117,6 +97,7 @@
 
         public static function Shutdown ()
         {
+            
             self::On('Code.Shutdown');
         }
 
@@ -171,9 +152,9 @@
                                   )
                         ), Code::Ring1);
 
-                    if ($GroupContract !== null || $DriverContract !== null)
+                    if ($GroupContract !== null && $DriverContract !== null)
                     {
-                        $Contract = self::ConfWalk($GroupContract, $DriverContract);
+                        $Contract = array_merge_recursive($GroupContract, $DriverContract);
 
                         if (isset($Contract[$Call['F']]))
                             $Contract = $Contract[$Call['F']];
@@ -184,7 +165,8 @@
                         }
                     }
                     else
-                        $Contract = array();
+                        $Contract = isset($DriverContract)? $DriverContract[$Call['F']]:
+                            isset($GroupContract)? $GroupContract[$Call['F']]: array();
                 }
                 else
                     $Contract = $Default;
@@ -195,9 +177,10 @@
                 $Contract = self::$_Contracts[$Call['N']][$Call['F']];
 
             if (isset($Call['Override']))
-                $Contract =  self::ConfWalk($Contract, $Call['Override']);
+                $Contract =  array_merge_recursive($Contract, $Call['Override']);
 
             $Call['Contract'] = $Contract;
+
             
             return $Call;
         }
@@ -213,7 +196,9 @@
             $NewCall = null;
 
             // Для каждого определенного роутера...
-            foreach (self::$_Conf['Routers'] as $Router)
+            $Routers = Core::getOption('Core/Code::Routers');
+            
+            foreach ($Routers as $Router)
             {
                 // Пробуем роутер из списка...
                 $NewCall = Code::Run(
@@ -331,8 +316,8 @@
         {
             self::$_Stack->push($Call);
             
-            if (isset(self::$_Conf['Limit']['NestedCalls'])
-                    && self::$_Stack->count() > self::$_Conf['Limit']['NestedCalls'])
+            if (isset(self::$_Options['Limit']['NestedCalls'])
+                    && self::$_Stack->count() > self::$_Options['Limit']['NestedCalls'])
                         self::On('Code.CodeOverflowFault', $Call);
 
             // FIXME Behaviour!
@@ -500,7 +485,7 @@
                             'Data'=> $Data,
                             'Contract'=>$Contract),
                      'Key'=> 'D',
-                     'Values' => self::$_Conf['Checkers']),
+                     'Values' => self::$_Options['Checkers']),
                 Code::Ring1, 'Revolver');
 
             if (in_array(false, $Decisions))
@@ -535,7 +520,7 @@
         protected static function _DetermineDriver($Call)
         {
             // Если в контракте указана политика драйверов, и драйвер не указан напрямую.
-            
+
             if (!isset($Call['D']))
             {
                 if (isset($Call['Contract']['Driver']))

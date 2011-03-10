@@ -13,10 +13,11 @@
 
     self::Fn('Run', function ($Call)
     {
+        
         $Output = array();
         foreach ($Call['Call']['Calls'] as $IX => $OneCall)
             $Output[$IX] = Code::Run(
-                                Code::ConfWalk($OneCall, array('Data'=>$Call['Call']['Data'])),
+                                array_merge_recursive(array('Data'=>$Call['Call']['Data']), $OneCall),
                                     $Call['Mode']);
 
         return $Output;

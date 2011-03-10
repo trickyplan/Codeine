@@ -3,11 +3,10 @@
  * Data API Implementation E9
  * Codeine5, 2010
  */
-
-    final class Data extends Component
+   
+    final class Data extends Core
     {
         private   static $_Locked  = false;
-        protected static $_Conf    = array();
         protected static $_Stores  = array();
         protected static $_Points  = array();
         public static $Data     = array();
@@ -19,10 +18,11 @@
 
         private static function _getStoreOfPoint($Point)
         {
-            if (isset(self::$_Conf['Points'][$Point]))
+            $PointOptions = Core::getOption('Core/Data::Points.'.$Point);
+            if (null !== $PointOptions)
             {
-                if (isset(self::$_Conf['Points'][$Point]['Store']))
-                    return self::$_Conf['Points'][$Point]['Store'];
+                if (isset($PointOptions['Store']))
+                    return $PointOptions['Store'];
                 else
                     Code::On('Data.Store.NotFound', $Point);
             }
@@ -32,7 +32,7 @@
 
         public static function Initialize()
         {
-            self::$_Conf = self::_Configure(__CLASS__);
+            
         }
 
         public static function Shutdown ()
@@ -40,21 +40,9 @@
             
         }
 
-        public static function AddStore ($ID, $Store)
-        {
-            return self::$_Conf['Stores'][$ID] = $Store;
-        }
-
-        public static function AddPoint ($ID, $Point)
-        {
-            return self::$_Conf['Points'][$ID] = $Point;
-        }
-
         public static function Mount($Point = 'Default')
         {
-            if (isset(self::$_Conf['Points'][$Point]['Ring']))
-                $Mode = self::$_Conf['Points'][$Point]['Ring'];
-            else
+            if (($Mode = Core::getOption('Core/Data::Points.'.$Point.'.Ring')) == null)
                 $Mode = 2;
             
             self::Open(self::_getStoreOfPoint($Point), $Mode);
@@ -77,10 +65,8 @@
         {
             if (!isset(self::$_Stores[$Store]))
             {
-                if (isset(self::$_Conf['Stores'][$Store]))
+                if ($Options = Core::getOption('Core/Data::Stores.'.$Store))
                 {
-                    $Options = self::$_Conf['Stores'][$Store];
-
                     self::$_Stores[$Store] =
                         Code::Run(array(
                                    'N' => 'Data.Store.'. $Options['Type'],
@@ -126,7 +112,9 @@
         protected static function _Route ($Call)
         {
             // Для каждого определенного роутера...
-            foreach (self::$_Conf['Routers'] as $Router)
+            $Routers = Core::getOption('Core/Data::Routers');
+            
+            foreach ($Routers as $Router)
             {
                 // Пробуем роутер из списка...
                 $NewCall = Code::Run(
@@ -169,9 +157,11 @@
             $Call['Point'] = isset($Call['Point'])? $Call['Point']: 'Default';
             $Call['Store'] = self::_getStoreOfPoint($Call['Point']);
 
-            $Call['Options'] = array_merge(self::$_Conf['Stores'][$Call['Store']],self::$_Conf['Points'][$Call['Point']]);
+            $Call['Options'] = array_merge(
+                Core::getOption('Core/Data::Stores.'.$Call['Store']),
+                Core::getOption('Core/Data::Points.'.$Call['Point']));
             
-            // FIXME Behaviour?
+/*            // FIXME Behaviour?
             // Запрещение операций на точке монтирования
             if (isset(self::$_Conf['Options'][$Call['Point']]['No'.$Method]))
             {
@@ -184,7 +174,7 @@
             if (isset($Call['Options']['Precondition'][$Method]))
                 foreach ($Call['Options']['Precondition'][$Method] as $Precondition)
                     if (!Code::Run($Precondition, $Ring))
-                        Code::On('Data.'.$Method.'.Precondition.Failed', $Call);
+                        Code::On('Data.'.$Method.'.Precondition.Failed', $Call);*/
 
             //Code::On('Data.before'.$Method, $Call);
             //Code::On('Data.before'.$Method.'At'.$Call['Store'], $Call);
@@ -246,12 +236,13 @@
          */
         public static function Create ($Call, $Mode = Code::Ring2)
         {
-            if (!isset($Call['Point'])) $Call['Point'] = 'Default';
-            
-            if (isset(self::$_Conf['Points'][$Call['Point']]['Map']))
+            if (!isset($Call['Point']))
+                $Call['Point'] = 'Default';
+
+            if ($Mapper = Core::getOption('Core/Data::Points.'.$Call['Point'].'.Map'))
                 $Call = Code::Run(
                     array(
-                        'N' => 'Data.Map.'.self::$_Conf['Points'][$Call['Point']]['Map'],
+                        'N' => 'Data.Map.'.$Mapper,
                         'F' => 'Create',
                         'Call'=> $Call
                     ));
@@ -270,11 +261,11 @@
         {
             $Call = self::_CRUD('Read', $Call, $Ring);
 
-            if (isset(self::$_Conf['Points'][$Call['Point']]['Format']) && $Call['Result'] !== null)
+            if (Core::getOption('Core/Data::Points.'.$Call['Point'].'.Format') && $Call['Result'] !== null)
             {
                 if (($Call['Result'] = Code::Run(array(
                               'N' => 'Data.Formats.'.
-                                     self::$_Conf['Points'][$Call['Point']]['Format'],
+                                     Core::getOption('Core/Data::Points.'.$Call['Point'].'.Format'),
                               'F' => 'Decode',
                               'Input' => $Call['Result']), $Ring)) === null)
                     Code::On('Data.errDataReadFormatDecodeFailed', $Call);
@@ -321,12 +312,15 @@
                 elseif (file_exists(Engine.$cName))
                     $R = Engine.$cName;
                 else
-                    foreach (self::$_Conf['Shared'] as $Shared)
+                {
+                    $Shareds = Core::getOption('Core/Data::Shared');
+                    foreach ($Shareds as $Shared)
                         if (file_exists($Shared.DS.$cName))
                         {
                             $R = $Shared.DS.$cName;
                             break;
                         }
+                }
            }
 
            if (isset($R))
@@ -337,8 +331,9 @@
 
         public static function Path ($Key)
         {
-            if (isset(self::$_Conf['Paths'][$Key]))
-                return self::$_Conf['Paths'][$Key].'/';
+            $Path = Core::getOption('Core/Data::Paths.'.$Key);
+            if ($Path)
+                return $Path.'/';
             else
                 return $Key.'/';
         }

@@ -13,7 +13,7 @@
 
     self::Fn('Catch', function ($Call)
     {
-        require_once(Engine . 'Classes/PhpConsole.php');
+        require_once(Engine.'Library/PhpConsole.php');
         PhpConsole::start(true, true, dirname(__FILE__));
         
         return debug(json_encode($Call['Data']));

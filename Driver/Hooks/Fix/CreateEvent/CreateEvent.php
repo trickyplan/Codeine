@@ -13,9 +13,14 @@
 
     self::Fn('Catch', function ($Call)
     {
-        $Configuration = json_decode(file_get_contents(Engine.'Config/Core/Hooks.json'), true);
-        $Configuration[$Call['Data']['NewEvent']] = array();
-        file_put_contents(Engine.'Config/Core/Hooks.json', json_encode($Configuration));
+        $HookPath = Engine.Core::OptionsPath.'/Hooks.json';
+        
+        $Configuration = json_decode(file_get_contents($HookPath), true);
+
+        $Configuration['Hooks'][$Call['Data']['NewEvent']] = array();
+
+        file_put_contents($HookPath, json_encode($Configuration));
+        
         // FIXME Data::Read
         return null;
     });

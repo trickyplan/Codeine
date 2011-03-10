@@ -5,8 +5,8 @@
      * @date 24.11.10
      * @time 17:24
      */
-
-    final class Message extends Component
+        
+    final class Message extends Core
     {
         private static $_Locked;
         protected static $_Points;
@@ -19,7 +19,7 @@
 
         public static function Initialize ()
         {
-            self::$_Conf = self::_Configure (__CLASS__);
+            self::$_Conf = self::_loadOptions ('Core/'.__CLASS__);
         }
 
         public static function Shutdown ()

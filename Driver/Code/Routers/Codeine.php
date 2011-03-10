@@ -15,6 +15,9 @@
      {
         $Routed = array();
 
+        if (!is_string($Call['Call']))
+            return $Call;
+         
         if (mb_strpos($Call['Call'], '?') !== false)
         {
             list($Call['Call'], $Query) = explode('?', $Call['Call']);

@@ -10,15 +10,14 @@
      * @date 01.12.10
      * @time 14:39
      */
-    
+        
     try
     {
         defined('Root') || define('Root', __DIR__);
 
-        include 'Core.php';
-
+        include 'Library/Core/Core.php';
+        
         Code::Run(array('N' => 'Code.Flow.Front', 'F'=>'Run'));
-
     }
     catch (Exception $e)
     {
