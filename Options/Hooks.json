@@ -61,10 +61,9 @@
                 ]
             }
         },
-        "Locate":{"NotFound":[{
-                        "N":"Hooks.Log.phpConsole",
-                        "F":"Catch"
-                    }]}
+        "Locate":{
+            "NotFound":[]
+        }
     },
     "Code.Return.Call.Detected":[],
     "Code.Initialize":[],
