@@ -75,24 +75,38 @@
     "Data.MySQL.Delete.Failed":[],
     "Data.MySQL.Read.Failed":[],
     "Front:Exception":[],
-    "App.Create.Object.Created":[
-        {
-            "N":"Hooks.Redirect.After.Create",
-            "F":"Redirect"
+    "App":{
+        "Create":{
+            "Object":{
+                "Created":[
+                    {
+                        "N":"Hooks.Redirect.After.Create",
+                        "F":"Redirect"
+                    }
+                ]
+            }
+        },
+        "Delete":{
+            "Object":{
+                "Deleted":[
+                    {
+                        "N":"Hooks.Redirect.After.Delete",
+                        "F":"Redirect"
+                    }
+                ]
+            }
+        },
+        "Copy":{
+            "Object":{
+                "Copied":[
+                    {
+                        "N":"Hooks.Redirect.After.Create",
+                        "F":"Redirect"
+                    }
+                ]
+            }
         }
-    ],
-    "App.Create.Object.Deleted":[
-        {
-            "N":"Hooks.Redirect.After.Delete",
-            "F":"Redirect"
-        }
-    ],
-    "App.Create.Object.Copied":[
-        {
-            "N":"Hooks.Redirect.After.Create",
-            "F":"Redirect"
-        }
-    ],
+    },
     "Data.Routing.Failed":[],
     "Data.Point.NotFound":[],
     "Data.Open.Store.NotFound":[],

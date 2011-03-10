@@ -21,6 +21,6 @@
                             'ID' => $Call['ID'])));
 
         $Call['Items'] = array();
-        Code::On('App.Create.Object.Deleted', $Call);
+        Code::On('App.Delete.Object.Deleted', $Call);
         return $Call;
     });

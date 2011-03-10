@@ -34,7 +34,7 @@
                         'Entity'    => $Call['Entity'],
                         'Data' => $Call['Data'] ));
             }
-            Code::On('App.Create.Object.Copied', $Call);
+            Code::On('App.Copy.Object.Copied', $Call);
         }
 
         return $Call;

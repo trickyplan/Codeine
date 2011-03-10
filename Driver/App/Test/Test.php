@@ -15,10 +15,10 @@
     {
         $Call = Code::Run(
             array(
-                'N' => 'Code.Flow.Orchestra',
-                'F' => 'Run',
-                'Steps' => json_decode(file_get_contents(Engine.'Config/Scripts/Test.json'),true)
-            )
+                'N' => 'System.Network.Ping',
+                'Count' => 3,
+                'F' => 'Times',
+                'Host' => 'ya.ru')
         );
 
         var_dump($Call);
