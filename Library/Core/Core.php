@@ -48,11 +48,11 @@
             else
                 throw new Exception('Not found '.$Options, 404001);
 
-           /* array_walk_recursive($_Options,
+           array_walk_recursive($Options,
                 function(&$value, $key)
                 {
                     $value = Core::Any($value);
-                });*/
+                });
 
             // TODO Site specific options, on-the-fly options
             self::$_Options[$Name] = $Options;
@@ -80,7 +80,7 @@
                 define ('Engine', realpath(__DIR__.'/../../').DS);
 
                 defined('Environment') || define('Environment',
-                    (getenv('Codeine_Enviroment') ? getenv('Codeine_Enviroment') : 'Production'));
+                    (getenv('Enviroment') ? getenv('Enviroment') : 'Production'));
 
                 define ('Host', $_SERVER['HTTP_HOST'] ? $_SERVER['HTTP_HOST']: 'localhost');
                 define ('_Host', 'http://'.Host);
@@ -95,27 +95,33 @@
             }
         }
 
-        public static function Any($Variable, $Routing = false)
+        public static function Any($Call, $Routing = false)
         {
-            if ($Routing || Code::isValidCall($Variable))
+            if ($Routing || Code::isValidCall($Call))
             {
-                if (($Result = Code::Run($Variable)) !== null)
+                if (($Result = Code::Run($Call)) !== null)
                     return $Result;
+                else
+                    return null;
             }
 
-            if ($Routing || Data::isValidCall($Variable))
+            if ($Routing || Data::isValidCall($Call))
             {
-                if (($Result = Data::Read($Variable)) !== null)
+                if (($Result = Data::Read($Call)) !== null)
                     return $Result;
+                else
+                    return null;
             }
 
-            if ($Routing || Message::isValidCall($Variable))
+            if ($Routing || Message::isValidCall($Call))
             {
-                if (($Result = Message::Send($Variable)) !== null)
+                if (($Result = Message::Send($Call)) !== null)
                     return $Result;
+                else
+                    return null;
             }
 
-            return $Variable;
+            return $Call;
         }
     }
 

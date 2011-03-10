@@ -17,7 +17,17 @@
         
         $Configuration = json_decode(file_get_contents($HookPath), true);
 
-        $Configuration['Hooks'][$Call['Data']['NewEvent']] = array();
+        list($Namespace, $Keys) = explode('::', $Call['Data']['NewEvent']);
+        $Keys = explode('.', $Keys);
+
+        $Value = $Configuration['Hooks'][$Namespace];
+        
+        foreach ($Keys as $Key)
+        {
+            if (!isset($Value[$Key]))
+                $Value[$Key] = array();
+            $Value = $Value[$Key];
+        }
 
         file_put_contents($HookPath, json_encode($Configuration));
         

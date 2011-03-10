@@ -6,7 +6,7 @@
         {
             "Type": "SQL.MySQL",
             "Username": "root",
-            "Password":"newpwd",
+            "Password": "newpwd",
             "Server":"localhost",
             "Port":"3306",
             "Database": "Codeine",
