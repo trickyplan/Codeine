@@ -1,0 +1,439 @@
+option {
+    text-indent: 16px;
+}
+
+p
+{
+    padding: 1px;
+    text-indent: 10px;
+    margin: 2px;
+}
+
+img
+{
+	vertical-align: middle;
+	border: none;
+}
+
+fieldset{
+    border: 1px solid #CCC;
+    padding: 8px;
+    margin: 4px;
+}
+
+legend
+{
+    font-size: 1.3em;
+    color: #666;
+}
+
+label
+{
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+nrl {color:teal;}
+sup {vertical-align: top;}
+
+small{color: #999;}
+
+small:hover{color: #333;}
+
+strong {font-weight: bold;letter-spacing: -1px;}
+
+ol {list-style:decimal inside;}
+/* !XDEBUG beautifying */
+
+.xdebug-error {
+	font-size: 12px;
+    width: 100%;
+	margin: 10px;
+	border: 1px solid #EEE;
+    background: transparent;
+    color: #000;
+}
+
+.xdebug-error th, .xdebug-error td {
+	padding: 10px;
+    background: transparent;
+}
+
+.xdebug-error th {
+    border: 1px solid #EEE;
+    background: transparent;
+}
+
+.xdebug-error td {
+	padding: 4px;
+    background: transparent;
+	border: 1px solid #EEE;
+}
+
+.xdebug-error span {
+	display: none;
+}
+
+/* Block */
+
+.Panel {
+    background-repeat:repeat-x;
+	background-color:#f4f4f4;
+	border:1px #EFEFEF solid;
+	padding:8px;
+	margin: 4px;
+}
+
+.Panel_Error
+{
+	background-image:url(/Images/Theme/NewRed/Back/redglass.png);
+    background-color: #900;
+	color:#FFF;
+}
+
+.Panel_Good
+{
+	background-image:url(/Images/Theme/NewRed/Back/greenglass.png);
+    background-color: #090;
+	color:#FFF;
+}
+
+.Caption {}
+
+.Block
+{
+    border: 1px solid #DDD;
+    padding: 4px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.BlockSelected
+{
+    border: 1px solid #666;
+    background-color: #ADC3C9;
+    background-image: url(/Images/Theme/NewRed/Back/blackglass.png);
+    color: #FFF;
+    padding: 4px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+.BlockSelected a {color: #FFF;}
+.Block_Info
+{
+    border:1px #ADC3C9 solid;
+    padding:8px;
+	margin:8px;
+    background-color: #ADC3C9;
+    background-image: url(/Images/Theme/NewRed/Back/glass-bg-data.png);
+    color: #194c4e;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.Spaced
+{
+    padding:4px;
+	margin:1px;
+}
+
+.Data
+{
+    font-size: 0.9em;
+    text-indent: 4px;
+}
+
+.Meta
+{
+    text-align: right;
+    font-size: 0.9em;
+    text-indent: 4px;
+    font-weight: bold;
+}
+
+.Row
+{
+    margin: 1px;
+    border-bottom:1px #EFEFEF solid;
+    padding: 3px;
+    text-indent: 4px;
+    text-align: left;
+}
+
+.Row:hover
+{
+    background-color: #FAFAFA;
+    color: #222;
+}
+
+.Photo
+{
+    border: 1px solid #CCC;
+    margin: 4px;
+}
+
+
+.Widget
+{
+    background-image:url(/Images/Theme/NewRed/Back/glass-bg-data.png);
+	background-position: top;
+    margin-top: 4px;
+	padding: 8px;
+	border: 1px solid #EEE;
+    -moz-border-radius: 8px;
+    -o-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    border-radius: 8px;
+}
+    .Widget_Header {}
+    .Widget_Body {}
+
+/* Tabs */
+
+.Tab
+{
+    background-image:url(/Images/Theme/NewRed/Back/glass-bg.png);
+	background-position: top;
+	padding: 4px 8px 4px 8px;
+    margin: 0px;
+	margin-right: 4px;
+	border: 1px solid #EEE;
+    border-bottom: none;
+    cursor: pointer;
+    -moz-border-radius: 8px 8px 0px 0px;
+    -o-border-radius: 8px 8px 0px 0px;
+    -webkit-border-radius: 8px 8px 0px 0px;
+    border-radius: 8px 8px 0px 0px;
+}
+    .Tab:hover
+    {
+        background-image:url(/Images/Theme/NewRed/Back/redglass.png);
+        color:#FFF;
+    }
+    .Tab_Active
+    {
+        background-image:url(/Images/Theme/NewRed/Back/blackglass.png);
+        color:#FFF;
+    }
+    .Tab_Disabled {}
+
+.Tab_Block
+{
+    background-color: #fbfbfb;
+    background-position: bottom;
+	padding: 6px;
+	border: 1px solid #EEE;
+    border-top: none;
+    margin: 4px;
+    margin-top: -4px;
+    -moz-border-radius: 0px 0px 8px 8px;
+    -o-border-radius: 0px 0px 8px 8px;
+    -webkit-border-radius: 0px 0px 8px 8px;
+    border-radius: 0px 0px 8px 8px;
+}
+
+/* Forms */
+
+.Form {}
+
+.Button {}
+    .Button_Positive {}
+    .Button_Negative {}
+    .Button_Neutral {}
+
+/* Fields */
+
+.Textarea, .Textfield, .Combobox, .Select, .Numberfield, .Datefield, .Menu
+{
+    color: #333;
+    background-color: #FFF;
+	background-repeat: repeat-x;
+	padding: 1px;
+	border:1px #DDD solid;
+    margin: 1px;
+}
+
+    .Textfield_Search
+    {
+        width: 60%;
+        border: 1px solid #CCC;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+        -o-border-radius: 4px;
+        border-radius: 4px;
+        color: #999;
+    }
+    .Textfield_Big
+    {
+        font-size: 1.4em;
+    }
+
+.Numberfield
+{
+    font-family: monospace;
+}
+
+.Datefield {}
+
+.Combobox {}
+.Checkbox {
+    vertical-align: middle;
+}
+.Select {}
+
+.Menu {}
+
+/* Other */
+
+.Sidebar_Button
+{
+	padding: 3px 9px 3px 9px;
+	cursor: pointer;
+    background-image:url(/Images/Theme/NewRed/Back/glass-bg-data.png);
+    background-position: top;
+    border-left: 1px #EEE solid;
+    border-right: 1px #EEE solid;
+    border-bottom: thin #EEE solid;
+}
+
+    .Sidebar_Button:hover
+        {
+            background-image:url(/Images/Theme/NewRed/Back/redglass.png);
+            color: #FFF;
+        }
+
+/* Modificators */
+
+.Good {
+	background-image:url(/Images/greenglass.png)!important;
+	color:#FFF !important;
+}
+
+.Notify {
+	background-image:url(/Images/glass.png)!important;
+	color:#222 !important;
+}
+
+.Bad {
+        background-image:url(/Images/redglass.png)!important;
+	color:#FFF !important;
+}
+
+.Info {
+        background-image:url(/Images/blueglass.png)!important;
+	color:#FFF !important;
+}
+
+.txtC{text-align:center;}
+.txtL{text-align:left;}
+.txtR{text-align:right;}
+.txtT{vertical-align:top;}
+.txtB{vertical-align:bottom;}
+.txtM{vertical-align:middle;}
+
+.Sidebar_Group
+{
+	background-image:url(/Images/Theme/NewRed/Back/glass-bg-data.png);
+	background-position: top;
+	padding: 4px 8px 4px 8px;
+	margin-right: 1px;
+    margin-top: 2px;
+    text-align: right;
+	border: 1px solid #EEE;
+    border-bottom: none;
+    -moz-border-radius: 8px 8px 0px 0px;
+    -o-border-radius: 8px 8px 0px 0px;
+    -webkit-border-radius: 8px 8px 0px 0px;
+    border-radius: 8px 8px 0px 0px;
+}
+
+.Icon
+{
+    margin-top: 1px;
+    vertical-align: top;
+}
+
+.Action
+{
+      cursor: pointer;
+}
+
+.opium {opacity: 0.5;}.opium:hover {opacity: 1;}
+
+.Space {padding: 4px;}
+
+.fL
+{
+    float: left;
+    margin: 3px;
+    margin-right: 6px;
+}
+
+.fR
+{
+    float: right;
+    margin: 3px;
+    margin-left: 6px;
+}
+
+.hide{display:none;}
+
+li.Tab
+{
+    display: inline;
+}
+
+.Text_CAPTCHA
+{
+    width: 100px;
+    font-size: 2.8em;
+}html
+{
+    background-color:#f7f7f7;
+    background-image: url('/Images/Curl.jpg');
+    background-position: right bottom;
+    background-repeat: no-repeat;
+    min-height: 100%;
+}
+
+.Container
+{
+    border: none;
+    padding: 4px;
+}
+
+.Badge
+{
+    font-size: 0.9em;
+    margin: 2px;
+	padding: 4px;
+    padding-right: 9px;
+    padding-left: 9px;
+    background-color: #EEE;
+	border: 1px solid #CCC;
+    -moz-border-radius: 4px;
+    -o-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    display: inline-block;
+    width: 100px;
+    text-align: center;
+}
+
+.Optional
+{
+    background-color:#99ff00;
+    color: #003300;
+}
+
+.Required
+{
+    background-color:#ff3333;
+    color: #330000;
+}
