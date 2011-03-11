@@ -95,16 +95,6 @@
         "TempJS":  {
             "Store": "Temp",
             "Scope": "JS"
-        },
-        "Redis":   {
-            "Store": "Redis",
-            "Map": "KeyValue",
-            "Scope": "Redis"
-        },
-        "CodeCache": {
-            "Store": "Redis",
-            "Map": "KeyValue",
-            "Scope": "Code"
         }
     },
     "Shared":
