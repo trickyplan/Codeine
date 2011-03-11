@@ -9,7 +9,7 @@
         private   static $_Locked  = false;
         protected static $_Stores  = array();
         protected static $_Points  = array();
-        public static $Data     = array();
+        public static $_Data     = array();
 
         protected static function _LockData ()
         {
@@ -341,6 +341,19 @@
         public static function isValidCall($Call)
         {
             return (is_array($Call) && isset($Call['Point']));
+        }
+
+        public static function Pull($Key)
+        {
+            if (isset(self::$_Data[$Key]))
+                return self::$_Data[$Key];
+            else
+                return null;
+        }
+
+        public static function Push($Key, $Value = null)
+        {
+            return self::$_Data[$Key] = $Value;
         }
 
     }

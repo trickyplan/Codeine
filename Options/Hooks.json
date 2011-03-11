@@ -74,7 +74,32 @@
     "Data.MySQL.Create.Failed":[],
     "Data.MySQL.Delete.Failed":[],
     "Data.MySQL.Read.Failed":[],
-    "Front:Exception":[],
+    "Front":
+    {
+        "Start": [
+            {
+                "N": "System.Profiling.Timer",
+                "F": "Start",
+                "ID": "Front"
+            },
+            {
+                "N": "System.Profiling.Timer",
+                "F": "Start",
+                "ID": "Front"
+            }],
+        "Finish": [
+            {
+                "N": "System.Profiling.Memory.Usage",
+                "F": "Stop",
+                "ID": "Front"
+            },
+            {
+                "N": "System.Profiling.Memory.Usage",
+                "F": "Start",
+                "ID": "Front"
+            }],
+        "Exception":[]
+    },
     "App":{
         "Create":{
             "Object":{

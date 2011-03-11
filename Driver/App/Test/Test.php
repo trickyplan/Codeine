@@ -15,10 +15,9 @@
     {
         $Call = Code::Run(
             array(
-                'N' => 'System.Network.Ping',
-                'Count' => 3,
-                'F' => 'Times',
-                'Host' => 'ya.ru')
+                'N' => 'System.Network.Speed',
+                'F' => 'Test',
+                'URL' => 'http://kernel.ubuntu.com/~kernel-ppa/mainline/v2.6.37.3-natty/BUILD.LOG')
         );
 
         var_dump($Call);

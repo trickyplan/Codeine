@@ -17,10 +17,15 @@
         defined('Root') || define('Root', __DIR__);
 
         include 'Library/Core/Core.php';
-        
-        Code::Run(array('N' => 'Code.Flow.Front', 'F'=>'Run'));
 
-        echo round((microtime(true)-$ST)*1000,2).'<br/>'.round(memory_get_usage(true)/1024);
+        Code::On('Front.Start');
+
+            Code::Run(array('N' => 'Code.Flow.Front', 'F'=>'Run'));
+
+        Code::On('Front.Finish');
+        
+        echo Data::Pull('Timer.Front').'<br/>';
+        echo Data::Pull('Memory.Front');
         
     }
     catch (Exception $e)
