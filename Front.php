@@ -24,8 +24,8 @@
 
         Code::On('Front.Finish');
         
-        echo Data::Pull('Timer.Front').'<br/>';
-        echo Data::Pull('Memory.Front');
+        //echo Data::Pull('Timer.Front').'<br/>';
+        //echo Data::Pull('Memory.Front');
         
     }
     catch (Exception $e)

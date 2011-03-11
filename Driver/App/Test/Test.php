@@ -13,14 +13,16 @@
 
     self::Fn('Test', function ($Call)
     {
-        $Call = Code::Run(
-            array(
-                'N' => 'System.Network.Speed',
-                'F' => 'Test',
-                'URL' => 'http://kernel.ubuntu.com/~kernel-ppa/mainline/v2.6.37.3-natty/BUILD.LOG')
-        );
+        $Call['Items'] = array();
+        
+        $Call['Items'][] = array(
+            'UI'        => 'Badge',
+            'Data'      => Code::Run(
+                array(
+                    'N' => 'System.Hello.World',
+                    'F' => 'Print'
+                )
+            ));
 
-        var_dump($Call);
-        die();
         return $Call;
     });
