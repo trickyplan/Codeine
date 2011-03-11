@@ -55,9 +55,25 @@
 		<li>Подходящий PHP 5.3 активен</li>
 		<li>И ещё раз всё проверено</li>
 	</ol>
-
+	
 Можно попробовать перейти в браузере на
 
 <code>http://codeine/Show/Page/About</code>
 
 Или как вы там vhost обозвали.
+
+Ну, и по традиции
+
+<code>http://codeine/Test/Hello/World</code>
+
+<a href="https://github.com/Breathless/Codeine/blob/master/Driver/App/Test/Test.php">И исходник Hello, world! (не для слабонервных)
+</a>
+
+Для заинтересовавшихся 
+
+<code>http://codeine/Create/Page/</code> - создаёт новую страничку.
+<code>http://codeine/List/Page/</code> - показывает список страниц.
+
+На десерт, можно поглядеть как 
+<code>/var/www/Options/Model/Page.json</code>
+влияет на поведение формы создания объекта.

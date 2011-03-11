@@ -46,7 +46,7 @@
 
         $Output = str_replace('<content/>',$Output, $Layout);
 
-        $Processors = array('HTML.Media', 'HTML.I18N'); // FIXME!!
+        $Processors = $Call['Contract']['Processors'];
 
         foreach ($Processors as $Processor)
             $Output = Code::Run(
