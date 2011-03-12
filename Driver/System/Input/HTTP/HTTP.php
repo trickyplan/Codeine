@@ -30,8 +30,8 @@
             if (!empty($_POST))
                 Data::Create(
                     array(
-                        'Key' => 'POST',
-                        'Value' => $_POST
+                        'ID' => 'POST',
+                        'Data' => $_POST
                     )
                 );
 
