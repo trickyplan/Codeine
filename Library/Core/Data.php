@@ -157,7 +157,7 @@
             $Call['Point'] = isset($Call['Point'])? $Call['Point']: 'Default';
             $Call['Store'] = self::_getStoreOfPoint($Call['Point']);
 
-            $Call['Options'] = array_merge(
+            $Call['Options'] = Core::mergeOptions(
                 Core::getOption('Core/Data::Stores.'.$Call['Store']),
                 Core::getOption('Core/Data::Points.'.$Call['Point']));
             
@@ -286,7 +286,7 @@
         {
             if (isset(self::$_Conf['Points'][$Call['Point']]['Map']))
                 $Call = Code::Run(
-                    array_merge($Call,array(
+                    Core::mergeOptions($Call,array(
                         'N' => 'Data.Map.'.self::$_Conf['Points'][$Call['Point']]['Map'],
                         'F' => 'Update')));
             

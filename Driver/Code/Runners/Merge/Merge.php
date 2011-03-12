@@ -3,7 +3,7 @@
     /* OSWA Codeine
      * @author BreathLess
      * @type Codeine Driver
-     * @description: Merge Runner
+     * @description: mergeOptions Runner
      * @package Codeine
      * @subpackage Drivers
      * @version 5.0

@@ -16,7 +16,7 @@
         $Output = array();
         foreach ($Call['Call']['Calls'] as $IX => $OneCall)
             $Output[$IX] = Code::Run(
-                                array_merge_recursive(array('Data'=>$Call['Call']['Data']), $OneCall),
+                                Core::mergeOptions(array('Data'=>$Call['Call']['Data']), $OneCall),
                                     $Call['Mode']);
 
         return $Output;

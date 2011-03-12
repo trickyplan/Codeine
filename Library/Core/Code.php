@@ -154,7 +154,7 @@
 
                     if ($GroupContract !== null && $DriverContract !== null)
                     {
-                        $Contract = array_merge_recursive($GroupContract, $DriverContract);
+                        $Contract = Core::mergeOptions($GroupContract, $DriverContract);
 
                         if (isset($Contract[$Call['F']]))
                             $Contract = $Contract[$Call['F']];
@@ -177,7 +177,7 @@
                 $Contract = self::$_Contracts[$Call['N']][$Call['F']];
 
             if (isset($Call['Override']))
-                $Contract =  array_merge_recursive($Contract, $Call['Override']);
+                $Contract =  Core::mergeOptions($Contract, $Call['Override']);
 
             $Call['Contract'] = $Contract;
 

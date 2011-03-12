@@ -12,6 +12,19 @@
             call_user_func(array($Component, '_Lock'.$Component));
         }
 
+        public static function mergeOptions($First, $Second)
+        {
+          foreach($Second as $Key => $Value)
+          {
+            if(array_key_exists($Key, $First) && is_array($Value))
+              $First[$Key] = Core::mergeOptions($First[$Key], $Second[$Key]);
+            else
+              $First[$Key] = $Value;
+          }
+          return $First;
+
+        }
+
         public static function getOption($Option)
         {
             if (isset(self::$_Options[$Option]))
@@ -39,14 +52,23 @@
         protected static function _loadOptions($Name = 'Core')
         {
             $Options = Engine.Core::OptionsPath.'/'.$Name.'.json';
+            $SiteSpecific = Root.Core::OptionsPath.'/'.$Name.'.json';
 
             if (file_exists($Options))
             {
                 if (($Options = json_decode(file_get_contents($Options), true))==null)
-                    throw new Exception('Malformed configuration');
+                    throw new Exception('Malformed engine configuration');
             }
             else
                 throw new Exception('Not found '.$Options, 404001);
+
+            if (file_exists($SiteSpecific))
+            {
+                if (($SiteOptions = json_decode(file_get_contents($SiteSpecific), true))==null)
+                    throw new Exception('Malformed site configuration');
+
+                $Options = self::mergeOptions($Options, $SiteOptions);
+            }
 
            array_walk_recursive($Options,
                 function(&$value, $key)
