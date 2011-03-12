@@ -64,7 +64,10 @@
             )));
         
         if (!($Result = mysql_query($Query, $Call['Link'])))
+        {
+            echo mysql_error($Call['Link']);
             Code::On('Data.MySQL.Create.Failed', $Call);
+        }
 
         return true;
     });

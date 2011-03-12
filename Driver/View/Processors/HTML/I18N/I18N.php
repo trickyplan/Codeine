@@ -15,19 +15,16 @@
     {
         if (preg_match_all('@<l>(.*)</l>@SsUu',$Call['Input'], $Pockets))
         {
-            $Tokens = Data::Read(
-                    array(
-                        'Point' => 'Locale',
-                        'Where' =>
-                            array(
-                                'ID'=>'ru_RU.UTF-8')));
+            $Tokens = Data::Read('Locale::ru_RU.UTF-8');
 
             foreach($Pockets[0] as $IX => $Match)
             {
                 $In[] = $Match;
 
-                if (isset($Tokens[$Pockets[1][$IX]]))
-                    $Out[] = $Tokens[$Pockets[1][$IX]];
+                $Token = $Pockets[1][$IX];
+
+                if ($I18N = Core::getOption($Token, $Tokens))
+                    $Out[] = $I18N;
                 else
                     $Out[] = '<nrl>'.$Pockets[1][$IX].'</nrl>';
             }

@@ -23,7 +23,7 @@
 
         foreach ($Call['Where']['ID'] as $cName)
         {
-            $cName = $Call['Options']['DSN'].'/'.
+            $cName = $Call['Options']['DSN'].
                      Data::Path($Call['Options']['Scope']).$Call['Prefix'].$cName.$Call['Postfix'];
 
             if (file_exists(Root.$cName))

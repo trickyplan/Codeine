@@ -14,29 +14,55 @@
 
         public static function mergeOptions($First, $Second)
         {
-          foreach($Second as $Key => $Value)
-          {
-            if(array_key_exists($Key, $First) && is_array($Value))
-              $First[$Key] = Core::mergeOptions($First[$Key], $Second[$Key]);
+            if (is_array($Second))
+            {
+                foreach ($Second as $Key => $Value)
+                {
+                    if (array_key_exists($Key, $First) && is_array($Value))
+                    {
+                        $First[$Key] = Core::mergeOptions($First[$Key], $Second[$Key]);
+                    }
+                    else
+                    {
+                        $First[$Key] = $Value;
+                    }
+                }
+            }
             else
-              $First[$Key] = $Value;
-          }
-          return $First;
+                return $Second;
 
+            return $First;
         }
 
-        public static function getOption($Option)
+        public static function getOption($Option, $Array = null)
         {
-            if (isset(self::$_Options[$Option]))
-                return self::$_Options[$Option];
-            
-            list($Namespace, $Keys) = explode('::', $Option);
-            $Keys = explode('.', $Keys);
+            if ($Array == null)
+                $Array = &self::$_Options;
 
-            if (!isset(self::$_Options[$Namespace]))
-                self::_loadOptions($Namespace);
+            if (isset($Array[$Option]))
+                return $Array[$Option];
 
-            $Value = self::$_Options[$Namespace];
+            if (strpos($Option, '::'))
+            {
+                list($Namespace, $Keys) = explode('::', $Option);
+
+                if (!isset($Array[$Namespace]))
+                    self::_loadOptions($Namespace);
+            }
+            else
+            {
+                $Namespace = 0;
+                $Keys = $Option;
+                $Array = array($Array);
+            }
+
+            if (strpos($Keys, '.'))
+                $Keys = explode('.', $Keys);
+            else
+                $Keys = array($Keys);
+
+            $Value = $Array[$Namespace];
+
 
             foreach ($Keys as $cKey)
                 if (isset($Value[$cKey]))
@@ -44,7 +70,7 @@
                 else
                     return null;
 
-            self::$_Options[$Option] = $Value;
+            $Array[$Option] = $Value;
             
             return $Value;
         }

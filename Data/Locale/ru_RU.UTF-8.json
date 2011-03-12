@@ -7,7 +7,16 @@
     "Driver Policy": "Политика драйверов",
     "Arguments": "Аргументы",
     "Return": "Результат",
-    "Model.Page.Text.Label": "Текст",
+    "Model":
+    {
+            "Page":
+            {
+                "Text":
+                {
+                    "Label": "Текст"
+                }
+            }
+    },
     "Model.Page.Title.Label": "Заголовок",
     "Submit": "Отправить"
 }

@@ -160,6 +160,12 @@
             $Call['Options'] = Core::mergeOptions(
                 Core::getOption('Core/Data::Stores.'.$Call['Store']),
                 Core::getOption('Core/Data::Points.'.$Call['Point']));
+
+            if (!isset($Call['Options']['Scope']))
+            {
+                $Call['Options']['Scope'] = $Call['Point'];
+                Code::On('Data.Options.Scope.NotDefined', $Call);
+            }
             
 /*            // FIXME Behaviour?
             // Запрещение операций на точке монтирования
