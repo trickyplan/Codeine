@@ -1,5 +1,5 @@
 {
-    "Routers":["Codeine","JSON"],
+    "Routers":["Short","Codeine","JSON"],
     "Checkers":["Value","Required","Type","Condition"],
     "Inputs":["HTTP","STDIN","CLI"]
 }
