@@ -27,19 +27,23 @@
         $Output = array();
         
         // Обработка контролов
-        
+
         if (is_array($Call['Input']['Items']))
+        {
             foreach ($Call['Input']['Items'] as $ID => $Item)
             {
                 $Output[$ID] = Code::Run(
                     array('N'=>'View.UI.Codeine.'.$Item['UI'],
-                         'F' => 'Make',
-                         'D' => $Item ['UI'],
-                         'Item'=> Core::Any($Item))
+                        'F' => 'Make',
+                        'D' => $Item ['UI'],
+                        'Item'=> Core::Any($Item))
                 );
             }
 
-        $Output = implode('',$Output);
+            $Output = implode('',$Output);
+        }
+        else
+            $Output = $Call['Input'];
 
         // Профьюзить
         // Постпроцессинг

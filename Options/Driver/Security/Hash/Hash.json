@@ -14,7 +14,7 @@
         {
             "Input":
             {
-                "Type": "Mixed",
+                "Type": "Scalar",
                 "Description":
                     {
                         "en_US.UTF-8": "Argument for hashing",
@@ -34,6 +34,7 @@
         },
         "Return":
         {
+            "Type": "String",
             "Fallback": null
         },
         "Mockup":

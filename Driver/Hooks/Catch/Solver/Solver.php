@@ -3,15 +3,16 @@
     /* OSWA Codeine
      * @author BreathLess
      * @type Codeine Driver
-     * @description: JSON Renderer
+     * @description: 
      * @package Codeine
      * @subpackage Drivers
      * @version 5.0
-     * @date 16.11.10
-     * @time 3:38
+     * @date 13.03.11
+     * @time 23:10
      */
 
-    self::Fn('Render', function ($Call)
+    self::Fn('Catch', function ($Call)
     {
-        return json_encode($Call['Body']);
+        // TODO Solver Catch
+        return ;
     });

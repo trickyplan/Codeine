@@ -12,7 +12,7 @@
     {
         "Driver":
         {
-            "Default": "BC",
+            "Default": "Base",
             "Highload": "Base",
             "Fallback": "Base"
         },

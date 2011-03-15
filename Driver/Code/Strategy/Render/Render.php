@@ -14,9 +14,13 @@
     self::Fn('Select', function ($Call)
     {
         $ParentCall = Code::Parent();
+        $ExtensionMap = $Call['Contract']['Options']['ExtensionsMap'];
 
-        if (is_array($ParentCall['Input']) && isset($ParentCall['Input']['As']))
-            return $ParentCall['Input']['As'];
+        if (is_array($ParentCall['Input']) && isset($ParentCall['Input']['Format']))
+        {
+            if (isset($ExtensionMap[$ParentCall['Input']['Format']]))
+                return $ExtensionMap[$ParentCall['Input']['Format']];
+        }
         else
             return 'Codeine';
     });

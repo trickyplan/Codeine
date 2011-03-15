@@ -1,7 +1,7 @@
 {
     "One":
     {
-        "N": "Science.Math.Arithmethics",
+        "N": "Science.Math.Arithmetics",
         "F": "Add",
         "A":
             {
@@ -12,7 +12,7 @@
     },
     "Two":
     {
-        "N": "Science.Math.Arithmethics",
+        "N": "Science.Math.Arithmetics",
         "F": "Add",
         "A": "$One",
         "B": 4,

@@ -13,7 +13,8 @@
 
     self::Fn('Catch', function ($Call)
     {
-        echo('<h1>Fatal Error</h1>');
-        var_dump($Call, true);
+        echo '<h1>Fatal Error</h1>';
+        echo '<h3>'.$Call['Data']['Event'].'</h3>';
+        var_dump($Call['Data'], true);
         die();
     });

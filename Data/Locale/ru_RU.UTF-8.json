@@ -1,9 +1,17 @@
 {
     "Driver.Role.Default": "По умолчанию",
-    "Data.Type.Mixed": "Смешанное",
     "Required": "Обязательное",
     "Optional": "Опциональное",
-    "Data.Type.String": "Строка",
+    "Data":
+    {
+        "Type":
+        {
+            "Self": "Тип",
+            "String": "Строка",
+            "Any": "Любой",
+            "Scalar": "Скаляр"
+        }
+    },
     "Driver Policy": "Политика драйверов",
     "Arguments": "Аргументы",
     "Return": "Результат",

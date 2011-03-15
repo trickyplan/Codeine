@@ -9,13 +9,6 @@
                 "F": "Select"
             }
         },
-        "Profiling":
-        {
-            "Coverage": 0.5,
-            "Red": 0,
-            "Yellow": 0,
-            "Green": 0
-        },
         "Processors": ["HTML.Media", "HTML.I18N"]
     }
 }

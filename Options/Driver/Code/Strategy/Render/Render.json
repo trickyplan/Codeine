@@ -1,0 +1,23 @@
+{
+    "Select":
+        {
+            "Description": null,
+            "Behaviour": null,
+            "Grants": null,
+            "Driver": null,
+            "Arguments": null,
+            "Return": null,
+            "Options":
+            {
+                "ExtensionsMap":
+                {
+                    "json": "JSON/JSON",
+                    "wav": "TTS/Festival"
+                }
+            },
+            "Test": null,
+            "Profiling": null,
+            "Mockups": null,
+            "Depends": null
+        }
+}

@@ -58,7 +58,7 @@
                 return Code::Run(
                     array(
                         'Calls' => $Hooks,
-                        'Data'  => $Data
+                        'Data'  => $Data,
                     ), Code::Ring1, 'Feed');
             }
             //else
@@ -67,37 +67,8 @@
             // echo $Event.'<br/>';
         }
 
-        /**
-         * @description Добавить обработчик события во время исполнения
-         * @static
-         * @param  $Class - класс события
-         * @param  $Event - имя события
-         * @param  $ID    - имя обработчика
-         * @param  $Call  - валидный вызов
-         * @return bool
-         */
-        public static function AddHook ($Class, $Event, $ID, $Call)
-        {
-            return self::$_Hooks[$Class][$Event][$ID] = $Call;
-        }
-
-        /**
-         * @description Удалить обработчик события во время исполнения
-         * @static
-         * @param  $Class - класс события
-         * @param  $Event - имя события
-         * @param  $ID    - имя обработчика
-         * @return bool
-         */
-        public static function DelHook ($Class, $Event, $ID)
-        {
-            unset (self::$_Hooks[$Class][$Event][$ID]);
-            return true;
-        }
-
         public static function Shutdown ()
         {
-            
             self::On('Code.Shutdown');
         }
 
@@ -123,6 +94,22 @@
         
         public static function LoadContract($Call, $Mode = Code::Ring2)
         {
+            if (!isset($Call['N']))
+            {
+                self::On('Code.Code.Run.Namespace.NotDefined', $Call);
+                return null;
+            }
+            else
+                $N = preg_split('@\.@', $Call['N']);
+
+            $Call['N'] = implode('/', $N);
+
+            if (!isset($Call['F']))
+                $Call['F'] = 'Default';
+
+            if (!isset($Call['G']))
+                list($Call['G']) = array_reverse($N);
+            
             if (!isset(self::$_Contracts[$Call['N']][$Call['F']]))
             {
                 // FIXME OPTME
@@ -217,7 +204,7 @@
 
             // Если хоть один роутер вернул результат...
             if ($NewCall === null)
-                self::On('Code.Routing.Failed', $Call);
+                self::On('Code.Routing.Failed', array('Call'=> $Call));
             else
                 $Call = $NewCall;
 
@@ -254,7 +241,13 @@
 
         protected static function _LoadSource($Call)
         {
-            if (!isset($Contract['Engine']))
+            if (!is_array($Call))
+                return null;
+
+            if (!isset($Call['Contract']) || !is_array($Call['Contract']))
+                $Call['Contract'] = array();
+            
+            if (!isset($Call['Contract']['Engine']))
                 $Call['Contract']['Engine'] = 'Include';
 
             switch ($Call['Contract']['Engine'])
@@ -357,22 +350,6 @@
 
             if (!self::isValidCall($Call))
                 $Call = self::_Route($Call);
-
-            if (!isset($Call['N']))
-            {
-                self::On('Code.Code.Run.Namespace.NotDefined', $Call);
-                return null;
-            }
-            else
-                $N = preg_split('@\.@', $Call['N']);
-
-            $Call['N'] = implode('/', $N);
-
-            if (!isset($Call['F']))
-                $Call['F'] = 'Default';
-            
-            if (!isset($Call['G']))
-                list($Call['G']) = array_reverse($N);
 
             // Загружаем контракт
             $Call = self::LoadContract($Call, $Mode);

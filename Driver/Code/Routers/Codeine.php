@@ -16,16 +16,16 @@
         $Routed = array();
 
         if (!is_string($Call['Call']))
-            return $Call;
+            return null;
          
         if (mb_strpos($Call['Call'], '?') !== false)
-        {
+        {   
             list($Call['Call'], $Query) = explode('?', $Call['Call']);
             parse_str($Query, $Routed);
         }
 
-        if (!is_string($Call['Call']))
-            return $Call;
+        if (mb_strpos($Call['Call'], '.') !== false)
+            list($Call['Call'], $Routed['Format']) = explode('.', $Call['Call']);
 
         if (mb_strpos($Call['Call'], '/') !== false)
         {
@@ -45,7 +45,7 @@
                     else
                         $Routed[$Call[$ic]] = true;
 
-            $Routed['N'] = 'App.'.$Routed['Action'];
+            $Routed['N'] = 'Entity.'.$Routed['Action'];
             $Routed['F'] = $Routed['Action'];
         }
 
