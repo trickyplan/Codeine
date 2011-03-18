@@ -30,8 +30,3 @@
     {
         return $Call['A']/$Call['B'];
     });
-
-     self::Fn('SquareRoot', function ($Call)
-    {
-        return sqrt($Call['Input']);
-    });
