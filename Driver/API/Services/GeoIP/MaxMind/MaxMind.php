@@ -3,7 +3,7 @@
     /* OSWA Codeine
      * @author BreathLess
      * @type Codeine Driver
-     * @description: MaxMind GeoIP Base
+     * @description: MaxMind System Base
      * @package Codeine
      * @subpackage Drivers
      * @version 5.0

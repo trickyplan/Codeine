@@ -219,24 +219,30 @@
 
         public static function Fn($Function, $Code = null)
         {
-            if (null !== $Code)
-            {
-                if (false !== $Code)
-                    self::$_Functions
-                        [self::$_Registration['N']]
-                            [self::$_Registration['D']][$Function] = $Code;
-                else
-                    unset(self::$_Functions
-                        [self::$_Registration['N']]
-                            [self::$_Registration['D']][$Function]);
-            }
+            if (is_array($Function))
+                foreach ($Function as $cFn)
+                    self::Fn($cFn, $Code);
             else
-                if (isset(self::$_Functions
-                        [self::$_Registration['N']]
-                            [self::$_Registration['D']][$Function]))
-                return self::$_Functions
+            {
+                if (null !== $Code)
+                {
+                    if (false !== $Code)
+                        self::$_Functions
                             [self::$_Registration['N']]
-                                [self::$_Registration['D']][$Function];
+                                [self::$_Registration['D']][$Function] = $Code;
+                    else
+                        unset(self::$_Functions
+                            [self::$_Registration['N']]
+                                [self::$_Registration['D']][$Function]);
+                }
+                else
+                    if (isset(self::$_Functions
+                            [self::$_Registration['N']]
+                                [self::$_Registration['D']][$Function]))
+                    return self::$_Functions
+                                [self::$_Registration['N']]
+                                    [self::$_Registration['D']][$Function];
+            }
         }
 
         protected static function _LoadSource($Call)

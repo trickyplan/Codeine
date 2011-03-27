@@ -19,15 +19,11 @@
             $Routed = array();
             list($All, $Routed['N'], $Routed['F'], $Args) = $Matches;
 
-            if (strpos($Args, ','))
+            if (!empty($Args))
             {
-                $Args = explode(',', $Args);
+                $Args = json_decode($Args, true);
 
-                foreach ($Args as $Arg)
-                {
-                    list($Key, $Value) = explode(':', $Arg);
-                    $Routed[$Key] = $Value;
-                }
+                $Routed = array_merge($Routed, $Args);
             }
 
             return $Routed;

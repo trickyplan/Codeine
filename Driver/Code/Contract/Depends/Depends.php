@@ -16,12 +16,12 @@
     {
         if (isset($Call['Contract']['Depends']))
         {
-            if (isset($Call['Contract']['Depends']['External']))
+            if (isset($Call['Contract']['Depends']['Extension']))
             {
-                foreach ($Call['Contract']['Depends']['External'] as $Dependency)
+                foreach ($Call['Contract']['Depends']['Extension'] as $Dependency)
                     if (!extension_loaded($Dependency))
                     {
-                        self::On(__CLASS__, 'errExternalDependencyFailed', $Call['Contract']);
+                        self::On('Code.Dependency.Extension.Failed', $Call['Contract']);
                         return false;
                     }
             }
