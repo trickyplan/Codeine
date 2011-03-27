@@ -91,11 +91,11 @@
         },
         "JS":      {
             "Store": "FS",
-            "Scope": "public/JS"
+            "Scope": "Public/JS"
         },
         "CSS":     {
             "Store": "FS",
-            "Scope": "public/CSS"
+            "Scope": "Public/CSS"
         },
         "TempCSS": {
             "Store": "Temp",
@@ -108,7 +108,7 @@
     },
     "Shared":
     {
-        "Public": "public"
+        "Public": "Public"
     },
     "Includes":
     {
