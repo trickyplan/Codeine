@@ -14,7 +14,7 @@
     self::Fn('Route', function ($Call)
     {
         if (is_string($Call['Call']) &&
-            preg_match('/([\S]+)::([\S]+)\((.*)\)/', $Call['Call'], $Matches))
+            preg_match('@([\S]+)::([\S]+)\((.*)\)@SsUu', $Call['Call'], $Matches))
         {
             $Routed = array();
             list($All, $Routed['N'], $Routed['F'], $Args) = $Matches;
