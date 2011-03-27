@@ -13,7 +13,7 @@
 
     self::Fn('Do', function ($Call)
     {
-        var_dump(Code::Run(
+        return Code::Run(
             array(
                 'N' => 'http://erc.local/api/soap?wsdl',
                 'F' => 'make',
@@ -21,6 +21,5 @@
                 'Method' => 'read',
                 'Component'=>'Log',
                 'Type'=>'array',
-                'Key' => '/loggers/log1'), Code::Ring2, null, 'SOAP'));
-        return ;
+                'Key' => '/loggers/log1'), Code::Ring2, null, 'SOAP');
     });
