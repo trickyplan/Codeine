@@ -36,16 +36,17 @@
 
     self::Fn('Create', function ($Call)
     {
-        curl_setopt_array($Call['Store'],
+        $Call['Link'] = curl_init();
+        curl_setopt_array($Call['Link'],
             array(
-                CURLOPT_URL => $Call['Data']['Where']['ID'],
+                CURLOPT_URL => $Call['ID'],
                 CURLOPT_POST => true,
                 CURLOPT_HEADER => false,
                 CURLOPT_FOLLOWLOCATION => true,
                 CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_POSTFIELDS => http_build_query($Call['Data']['Data'])));
+                CURLOPT_POSTFIELDS => $Call['Data']));
 
-        return curl_exec($Call['Store']);
+        return curl_exec($Call['Link']);
     });
 
     self::Fn('Update', function ($Call)

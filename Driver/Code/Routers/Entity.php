@@ -13,7 +13,7 @@
 
     self::Fn('Route', function ($Call)
     {
-        if (is_string($Call['Call']) && strpos('/', $Call['Call']) !== null)
+        if (is_string($Call['Call']) && strpos($Call['Call'],'/') !== null)
         {
             $Routed = array();
             

@@ -29,16 +29,7 @@
                     {
                         list ($Point, $ID) = explode('::', $Match);
 
-                        $CSSFiles[$ID] = $ID.Data::Version(
-                            array(
-                                 'Point' => $Point,
-                                 'Where' =>
-                                    array(
-                                        'Dir' => 'Default',
-                                        'ID' => $ID
-                                        )
-                            )
-                        );
+                        $CSSFiles[$ID] = $ID.Data::Version($Point.'::'.$ID);
                     }
                 }
 
@@ -47,17 +38,7 @@
                     if (mb_strpos($Match, '::'))
                     {
                         list ($Point, $ID) = explode('::', $Match);
-
-                        $JSFiles[$ID] = $ID.Data::Version(
-                            array(
-                                 'Point' => $Point,
-                                 'Where' =>
-                                    array(
-                                        'Dir' => 'Default',
-                                        'ID' => $ID
-                                        )
-                            )
-                        );
+                        $JSFiles[$ID] = $ID.Data::Version($Point.'::'.$ID);
                     }
                 }
             }
@@ -67,16 +48,7 @@
             if (true or !file_exists(Root.$CSSFile))
             {
                 foreach($CSSFiles as $ID => $File)
-                    $CSSOutput.= Data::Read(
-                        array(
-                             'Point' => 'CSS',
-                             'Where' =>
-                                array(
-                                    'Dir' => 'Default',
-                                    'ID' => $ID
-                                    )
-                        )
-                    );
+                    $CSSOutput.= Data::Read($Point.'::'.$ID);
 
                 Data::Create(
                     array(
@@ -92,16 +64,7 @@
             if (!file_exists(Root.$JSFile))
             {
                 foreach($JSFiles as $ID => $File)
-                    $JSOutput.= Data::Read(
-                        array(
-                             'Point' => 'JS',
-                             'Where' =>
-                                array(
-                                    'Dir' => 'Default',
-                                    'ID' => $ID
-                                    )
-                        )
-                    );
+                    $JSOutput.= Data::Read($Point.'::'.$ID);
 
                 Data::Create(
                     array(

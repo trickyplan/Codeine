@@ -34,6 +34,10 @@
         "Redis":
         {
             "Type": "KeyValue.Redis"
+        },
+        "HTTP":
+        {
+            "Type": "Network.HTTP"
         }
     },
     "Points":
@@ -41,6 +45,11 @@
         "Default": {
             "Store": "Static",
             "Scope": "Default"
+        },
+
+        "HTTP":
+        {
+            
         },
 
         "Contract":{
@@ -82,11 +91,11 @@
         },
         "JS":      {
             "Store": "FS",
-            "Scope": "Default/JS"
+            "Scope": "public/JS"
         },
         "CSS":     {
             "Store": "FS",
-            "Scope": "Default/CSS"
+            "Scope": "public/CSS"
         },
         "TempCSS": {
             "Store": "Temp",
@@ -99,7 +108,7 @@
     },
     "Shared":
     {
-        "Engine": "Default"
+        "Public": "public"
     },
     "Includes":
     {

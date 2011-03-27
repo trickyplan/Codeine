@@ -6,10 +6,6 @@
             "en_US.UTF-8": "Get hashed value of argument",
             "ru_RU.UTF-8": "Получение хешированного значения от аргумента"
         },
-        "Driver":
-        {
-            "Default": "SHA1"
-        },
         "Arguments":
         {
             "Input":
@@ -20,7 +16,8 @@
                         "en_US.UTF-8": "Argument for hashing",
                         "ru_RU.UTF-8": "Аргумент для хеширования"
                     },
-                "Required": true
+                "Required": true,
+                "Examples": ["Hello", 22, "1921.02.01"]
             },
             "Key":
             {
@@ -29,7 +26,8 @@
                     {
                         "en_US.UTF-8": "Optional hash key",
                         "ru_RU.UTF-8": "Ключ для хеширования"
-                    }
+                    },
+                "Examples": ["Gae8voo2"]
             }
         },
         "Return":

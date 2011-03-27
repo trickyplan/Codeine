@@ -18,5 +18,5 @@
         else
             $Call['Class'] = '';
 
-        return '<div class="Block '.$Call['Class'].'">'.$Call['Item']['Data'].'</div>';
+        return '<div class="Block '.$Call['Class'].'">'.$Call['Data'].'</div>';
     });

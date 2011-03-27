@@ -1,3 +1,9 @@
+body
+{
+    margin: 15px;
+    width: 80%;
+}
+
 option {
     text-indent: 16px;
 }
@@ -43,3 +49,8 @@ small:hover{color: #333;}
 strong {font-weight: bold;letter-spacing: -1px;}
 
 ol {list-style:decimal inside;}
+
+div {
+    padding: 2px;
+    margin: 2px;
+}

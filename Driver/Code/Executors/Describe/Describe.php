@@ -17,18 +17,20 @@
         $Contract = $Call['Contract'];
 
         $Call['Items']['Header'] =
-                array('UI'=>'Heading', 'Level'=>2, 'Data' => strtr($Call['N'], '/','.').'.'.$Call['F'].'()');
+                array('UI'=>'Heading', 'Level'=>2, 'Data' => strtr($Call['N'], '/','.').' '.$Call['F'].'()');
 
         if (isset($Contract['Description']))
             $Call['Items']['Description'] =
                     array('UI'=>'Block', 'Data' => $Contract['Description']['ru_RU.UTF-8']);
 
-        $Call['Items']['Driver'] = array('UI'=>'Heading', 'Level'=>3, 'Data' => '<l>Driver Policy</l>');
-
         if (isset($Contract['Driver']))
+        {
+            $Call['Items']['Driver'] = array('UI'=>'Heading', 'Level'=>3, 'Data' => '<l>Driver Policy</l>');
+            
             foreach ($Contract['Driver'] as $Role => $Driver)
                 $Call['Items']['Driver'.$Role] = array('UI'=>'Block', 'Level'=>4,
                              'Data' => '<l>Driver.Role.'.$Role.'</l>: '.$Driver);
+        }
 
         $Call['Items']['Arguments'] = array('UI'=>'Heading', 'Level'=>3, 'Data' => '<l>Arguments</l>');
 

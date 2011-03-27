@@ -24,7 +24,7 @@
                 if (isset($PointOptions['Store']))
                     return $PointOptions['Store'];
                 else
-                    Code::On('Data.Store.NotFound', $Point);
+                    return $Point;
             }
             else
                 Code::On('Data.Point.NotFound', $Point);
@@ -317,6 +317,8 @@
                     $R = Root.$cName;
                 elseif (file_exists(Engine.$cName))
                     $R = Engine.$cName;
+                elseif (file_exists(Engine.'Default/'.$cName))
+                    $R = Engine.'Default/'.$cName;
                 else
                 {
                     $Shareds = Core::getOption('Core/Data::Shared');

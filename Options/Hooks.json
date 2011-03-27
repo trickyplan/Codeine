@@ -18,8 +18,8 @@
         {
             "Failed":[
                 {
-                    "N":"Hooks.Catch.Die",
-                    "F":"Catch"
+                    "N":"Hooks.Redirect.404",
+                    "F":"Redirect"
                 }
             ]
         },

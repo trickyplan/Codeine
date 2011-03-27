@@ -33,10 +33,9 @@
             foreach ($Call['Input']['Items'] as $ID => $Item)
             {
                 $Output[$ID] = Code::Run(
-                    array('N'=>'View.UI.Codeine.'.$Item['UI'],
+                    array_merge_recursive(array('N'=>'View.UI.Codeine.'.$Item['UI'],
                         'F' => 'Make',
-                        'D' => $Item ['UI'],
-                        'Item'=> Core::Any($Item))
+                        'D' => $Item ['UI']),$Item)
                 );
             }
 
