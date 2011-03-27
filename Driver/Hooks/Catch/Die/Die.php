@@ -14,7 +14,8 @@
     self::Fn('Catch', function ($Call)
     {
         echo '<h1>Fatal Error</h1>';
-        echo '<h3>'.$Call['Data']['Event'].'</h3>';
+        echo '<h3>'.$Call['Data']['Event'].'</h3><pre>';
         print_r($Call['Data']);
+        echo '</pre>';
         die();
     });
