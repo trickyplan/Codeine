@@ -99,7 +99,7 @@
     },
     "Shared":
     {
-        "Engine": "/var/www/Codeine/Default"
+        "Engine": "Default"
     },
     "Includes":
     {
