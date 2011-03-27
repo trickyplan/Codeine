@@ -18,7 +18,6 @@
         {
             $Routed = array();
             list($All, $Routed['N'], $Routed['F'], $Args) = $Matches;
-var_dump($Matches);
 
             if (strpos($Args, ','))
             {
