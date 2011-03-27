@@ -28,17 +28,7 @@
                     if (mb_strpos($Match, '::'))
                     {
                         list ($Point, $ID) = explode('::', $Match);
-
-                        $CSSFiles[$ID] = $ID.Data::Version(
-                            array(
-                                 'Point' => $Point,
-                                 'Where' =>
-                                    array(
-                                        'Dir' => 'Default',
-                                        'ID' => $ID
-                                        )
-                            )
-                        );
+                        $CSSs[] = $Point.'/'.$ID;
                     }
                 }
 
@@ -48,82 +38,21 @@
                     {
                         list ($Point, $ID) = explode('::', $Match);
 
-                        $JSFiles[$ID] = $ID.Data::Version(
-                            array(
-                                 'Point' => $Point,
-                                 'Where' =>
-                                    array(
-                                        'Dir' => 'Default',
-                                        'ID' => $ID
-                                        )
-                            )
-                        );
+                        $JSs[] = $Point.'/'.$ID;
                     }
                 }
             }
-
-            $CSSFile = Data::Path('Temp').'CSS/'.sha1(implode('', $CSSFiles)).'.css';
-
-            if (true or !file_exists(Root.$CSSFile))
-            {
-                foreach($CSSFiles as $ID => $File)
-                    $CSSOutput.= Data::Read(
-                        array(
-                             'Point' => 'CSS',
-                             'Where' =>
-                                array(
-                                    'Dir' => 'Default',
-                                    'ID' => $ID
-                                    )
-                        )
-                    );
-
-                Data::Create(
-                    array(
-                         'Point' => 'TempCSS',
-                         'ID'    => $CSSFile,
-                         'Body'  => $CSSOutput
-                    )
-                );
-            }
-
-            $JSFile = Data::Path('Temp').'JS/'.sha1(implode('', $JSFiles)).'.js';
-
-            if (!file_exists(Root.$JSFile))
-            {
-                foreach($JSFiles as $ID => $File)
-                    $JSOutput.= Data::Read(
-                        array(
-                             'Point' => 'JS',
-                             'Where' =>
-                                array(
-                                    'Dir' => 'Default',
-                                    'ID' => $ID
-                                    )
-                        )
-                    );
-
-                Data::Create(
-                    array(
-                         'Point' => 'TempJS',
-                         'ID'    => $JSFile,
-                         'Body'  => $JSOutput
-                    )
-                );
-            }
+$CSSOut = '';
+            foreach ($CSSs as $cCSS)
+                $CSSOut .= '<link href="/'.$cCSS.'" rel="stylesheet" />';
 
             $Call['Input'] =
                     str_replace(
                         '<mediacss/>',
-                        '<link href="/'.$CSSFile.'" rel="stylesheet" />',
-                        $Call['Input']);
-            
-            $Call['Input'] =
-                    str_replace(
-                        '<mediajs/>',
-                        '<script type="text/javascript" src="/'.$JSFile.'"></script>',
+                        $CSSOut,
                         $Call['Input']);
 
+           
             $Call['Input'] = str_replace($Pockets[0], '', $Call['Input']);
         }
 
