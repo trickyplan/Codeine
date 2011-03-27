@@ -15,10 +15,12 @@
     {
         var_dump(Code::Run(
             array(
-                'N' => 'Configurator',
-                'F' => 'read',
+                'N' => 'http://erc.local/api/soap?wsdl',
+                'F' => 'make',
+                'Service' => 'Configurator',
+                'Method' => 'read',
                 'Component'=>'Log',
                 'Type'=>'array',
-                'Key' => '/loggers/log1'), Code::Ring2, null, 'OpenCity'));
+                'Key' => '/loggers/log1'), Code::Ring2, null, 'SOAP'));
         return ;
     });
