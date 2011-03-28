@@ -45,14 +45,14 @@
 
                 if (isset($Argument['Type']) && $Argument['Type'])
                     $Call['Items'][$Name.'_Type'] =
-                            array('UI'=>'Badge', 'Data' => '<l>Data.Type.Self</l>: <l>Data.Type.'.$Argument['Type'].'</l> ');
+                            array('UI'=>'Badge', 'Value' => '<l>Data.Type.Self</l>: <l>Data.Type.'.$Argument['Type'].'</l> ');
 
                 if (isset($Argument['Required']) && $Argument['Required'])
                     $Call['Items'][$Name.'_Required'] =
-                            array('UI'=>'Badge', 'Class' => array('Required'),'Data' => '<l>Required</l>');
+                            array('UI'=>'Badge', 'Class' => array('Required'),'Value' => '<l>Required</l>');
                 else
                     $Call['Items'][$Name.'_Optional'] =
-                            array('UI'=>'Badge', 'Class' => array('Optional'), 'Data' => '<l>Optional</l>');
+                            array('UI'=>'Badge', 'Class' => array('Optional'), 'Value' => '<l>Optional</l>');
 
             }
 
@@ -60,7 +60,7 @@
 
         if (isset($Contract['Return']) && isset($Contract['Return']['Type']))
                     $Call['Items']['Return_Type'] =
-                            array('UI'=>'Badge', 'Data' => '<l>Data.Type.Self</l>: <l>Data.Type.'.$Contract['Return']['Type'].'</l>');
+                            array('UI'=>'Badge', 'Value' => '<l>Data.Type.Self</l>: <l>Data.Type.'.$Contract['Return']['Type'].'</l>');
         
         return $Call;
     });

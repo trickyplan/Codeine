@@ -14,19 +14,18 @@
     self::Fn('Show', function ($Call)
     {
         $Call['Items'] = array();
+        $Call['Layouts'][] = 'Entity/'.$Call['Entity'];
 
-        $Call['Items']['Object'] = array(
-            'UI'        => 'Object',
-            'Entity'    => $Call['Entity'],
-            'ID'        => $Call['ID'],
-            'Plugin'    => $Call['F'],
-            'Data'      => Data::Read(
-                                    array(
-                                         'Point'=> $Call['Entity'],
-                                         'Where'=>
-                                            array(
-                                                'ID'=>$Call['ID'])))
-                                    );
+        $Data = Data::Read($Call['Entity'].'::'.$Call['ID']);
 
+        if ($Data)
+        {
+            $Call['Items']['Object'] = array(
+                'UI'        => 'Object',
+                'Entity'    => $Call['Entity'],
+                'ID'        => $Call['ID'],
+                'Style'     => 'Normal',
+                'Data'      => $Data[$Call['ID']]);
+        }
         return $Call;
     });

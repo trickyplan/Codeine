@@ -13,33 +13,23 @@
 
     self::Fn('Create', function ($Call)
     {
+        $Call['Layouts'][] = 'Entity/'.$Call['Entity'];
+        
+        $Call['Data'] = Data::Read('Default::POST');
+
         if (isset($Call['Data']) && !empty($Call['Data']))
         {
             $Call['ID'] = uniqid();
 
-            if (Code::Run(
-                array(
-                    'N' => 'Data.Model',
-                    'F' => 'Validate',
-                    'Data' => $Call['Data'] )))
-            {
-                Code::Run(
-                    array(
-                        'N' => 'Data.Model',
-                        'F' => 'Create',
-                        'ID' => $Call['ID'],
-                        'Entity'    => $Call['Entity'],
-                        'Data' => $Call['Data'] ));
-            }
-            Code::On('App.Create.Object.Created', $Call);
+            if(Code::Run(array_merge($Call,array(
+                    'N' => 'Data.Model.Engine',
+                    'F' => 'Create',
+                    'D' => 'Engine'))))
+                Code::On('Entity.Create.Object.Created', $Call);
+                
         }
 
-        $Model = Data::Read(
-                    array(
-                        'Point' => 'Model',
-                        'Where' =>
-                            array(
-                                'ID'=>$Call['Entity'])));
+        $Model = Data::Read('Model::'.$Call['Entity']);
 
         if (is_array($Model))
         {
@@ -53,7 +43,7 @@
                  'Model'      => $Model);
         }
         else
-            Code::On('App.Create.Model.NotLoaded', $Call);
+            Code::On('Entity.Create.Model.NotLoaded', $Call);
 
         
 

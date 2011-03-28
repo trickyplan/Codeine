@@ -35,8 +35,8 @@
 
         for ($a = 0; $a<$SZC; $a++)
             {
-                $Candidates[$IC++] = Root.$Call['Options']['Scope'].DS.$IDs[$a].'.html';
-                $Candidates[$IC++] = Engine.'Default/'.$Call['Options']['Scope'].DS.$IDs[$a].'.html';
+                $Candidates[$IC++] = Root.$Call['Options']['DSN'].$Call['Options']['Scope'].DS.$IDs[$a].'.html';
+                $Candidates[$IC++] = Engine.$Call['Options']['DSN'].$Call['Options']['Scope'].DS.$IDs[$a].'.html';
             }
 
         for ($a = 0; $a<$IC; $a++)

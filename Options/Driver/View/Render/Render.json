@@ -9,6 +9,6 @@
                 "F": "Select"
             }
         },
-        "Processors": ["HTML.Media", "HTML.I18N"]
+        "Processors": ["Exec", "HTML.Media", "HTML.I18N"]
     }
 }

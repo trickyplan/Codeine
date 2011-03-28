@@ -13,6 +13,7 @@
 
     self::Fn('Redirect', function ($Call)
     {
-        header('Location: /404.html');
+        header('HTTP/1.1 404 Not Found');
+        echo Data::Read('Layout::Error404');
         die();
     });

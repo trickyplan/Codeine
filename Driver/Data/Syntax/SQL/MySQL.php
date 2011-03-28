@@ -32,6 +32,7 @@
         $QueryString = 'INSERT INTO '.$Call['Options']['Scope'].' ('
                        .implode(',',$Fields).') VALUES '.implode(',',$DValues);
 
+        Code::On('Data.MySQL.Query', $QueryString);
         return $QueryString;
     });
 
@@ -49,8 +50,9 @@
         else
             $Where = '';
 
-        $QueryString = 'SELECT * FROM '.$Call['Options']['Scope'];
+        $QueryString = 'SELECT * FROM '.$Call['Options']['Scope'].$Where;
 
+        Code::On('Data.MySQL.Query', $QueryString);
         return $QueryString;
     });
 
@@ -73,6 +75,7 @@
             $QueryString[] = 'UPDATE `'.$Call['Data']['Point']['Scope'].'` SET '.implode(',',$Modification).' WHERE '.implode('AND', $Where);
         }
 
+        Code::On('Data.MySQL.Query', $QueryString);
         return $QueryString;
     });
 
@@ -87,5 +90,7 @@
         $QueryString = 'DELETE FROM '.$Call['Options']['Scope'].' WHERE '
                        .implode (' AND ', $Query);
 
+        Code::On('Data.MySQL.Query', $QueryString);
         return $QueryString;
     });
+

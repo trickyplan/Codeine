@@ -67,6 +67,7 @@
         {
             echo mysql_error($Call['Link']);
             Code::On('Data.MySQL.Create.Failed', $Call);
+            return false;
         }
 
         return true;
@@ -101,4 +102,18 @@
                 Code::On('Data.MySQL.Delete.Failed', $Call);
 
         return true;
+    });
+
+
+    self::Fn('Query', function ($Call)
+    {
+        $Rows = array();
+
+        if (!($Result = mysql_query($Call['Query'], $Call['Link'])))
+            Code::On('Data.MySQL.Query.Failed', $Call);
+
+        while ($Row = mysql_fetch_assoc($Result))
+            $Rows[] = $Row;
+
+        return $Rows;
     });

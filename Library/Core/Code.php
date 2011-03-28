@@ -49,7 +49,8 @@
          */
         public static function On ($Event, $Data = array())
         {
-            $Data['Event'] = $Event;
+            if (is_array($Data))
+                $Data['Event'] = $Event;
 
             $Hooks = Core::getOption('Hooks::'.$Event);
 
@@ -267,7 +268,10 @@
                     if ($Filename)
                         return (include $Filename);
                     else
+                    {
+                        $Call['Filename'] = $Filename;
                         self::On('Code.LoadSource.Include.FileNotFound', $Call);
+                    }
                 break;
 
                 case 'Code':
@@ -314,7 +318,7 @@
         public static function Run ($Call, $Mode = Code::Ring2, $Runner = null, $Executor = null)
         {
             self::$_Stack->push($Call);
-            
+
             if (isset(self::$_Options['Limit']['NestedCalls'])
                     && self::$_Stack->count() > self::$_Options['Limit']['NestedCalls'])
                         self::On('Code.CodeOverflowFault', $Call);
@@ -357,6 +361,8 @@
             if (!self::isValidCall($Call))
                 $Call = self::_Route($Call);
 
+            self::$_Stack[0] = $Call;
+            
             // Загружаем контракт
             $Call = self::LoadContract($Call, $Mode);
 
@@ -568,7 +574,7 @@
         public static function Current($Call = null)
         {
             if (null !== $Call)
-                return array_merge(self::$_Stack[0], $Call);
+                return Core::mergeOptions(self::$_Stack[0], $Call);
             else
                 return self::$_Stack[0];
         }

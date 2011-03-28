@@ -15,26 +15,15 @@
     {
         if (isset($Call['ID']))
         {
-
             $Copy = Data::Read($Call['Entity'].'::'.$Call['ID']);
             $Call['Data'] = $Copy[$Call['ID']];
             $Call['ID'] = uniqid();
 
-            if (Code::Run(
-                array(
-                    'N' => 'Data.Model',
-                    'F' => 'Validate',
-                    'Data' => $Call['Data'] )))
-            {
-                Code::Run(
-                    array(
-                        'N' => 'Data.Model',
-                        'F' => 'Create',
-                        'ID' => $Call['ID'],
-                        'Entity'    => $Call['Entity'],
-                        'Data' => $Call['Data'] ));
-            }
-            Code::On('App.Copy.Object.Copied', $Call);
+            if(Code::Run(array_merge($Call, array(
+                    'N' => 'Data.Model.Engine',
+                    'F' => 'Create',
+                    'D' => 'Engine'))))
+                Code::On('Entity.Create.Object.Copied', $Call);
         }
 
         return $Call;

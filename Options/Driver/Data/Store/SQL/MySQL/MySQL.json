@@ -60,5 +60,15 @@
     "Version":
     {
         "Alias": "Store/Prototype/Version"
+    },
+    "Query":
+    {
+        "Driver":{
+            "Default": "Procedure"
+        },
+        "Return":
+        {
+            "Fallback": null
+        }
     }
 }

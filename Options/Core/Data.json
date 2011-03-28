@@ -6,7 +6,7 @@
         {
             "Type": "SQL.MySQL",
             "Username": "root",
-            "Password": "newpwd",
+            "Password": "phoenix",
             "Server":"localhost",
             "Port":"3306",
             "Database": "Codeine",
@@ -19,7 +19,7 @@
         "Layout":
         {
             "Type": "File.Layout",
-            "DSN": "Layout"
+            "DSN": "Data/"
         },
         "FS":
         {
@@ -77,8 +77,12 @@
 
         "Page":    {
             "Store": "MySQL",
-            "Map": "Table.Fluid",
-            "Scope": "Page"
+            "Map": "Table.Fluid"
+        },
+
+        "Blog":    {
+            "Store": "MySQL",
+            "Map": "Table.Fixed"
         },
 
         "Layout":  {

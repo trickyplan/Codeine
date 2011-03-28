@@ -70,6 +70,7 @@
 
     self::Fn('Create', function ($Call)
     {
-        return file_put_contents($Call['ID'], $Call['Body']);
+        return file_put_contents(Root.$Call['Options']['DSN'].'/'.
+                     Data::Path($Call['Options']['Scope']).$Call['Prefix'].$Call['ID'].$Call['Postfix'], $Call['Data']);
     });
 

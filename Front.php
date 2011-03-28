@@ -23,10 +23,6 @@
             Code::Run(array('N' => 'Code.Flow.Front', 'F'=>'Run'));
 
         Code::On('Front.Finish');
-        
-        //echo Data::Pull('Timer.Front').'<br/>';
-        //echo Data::Pull('Memory.Front');
-        
     }
     catch (Exception $e)
     {

@@ -15,19 +15,9 @@
     {
         $Rows = array();
 
-        $RowLayout = Data::Read(
-                array(
-                    'Point' => 'Layout',
-                    'Where' => 
-                        array(
-                            'ID'=>'UI/Codeine/VTable/VTable_Row')));
+        $RowLayout = Data::Read('Layout::UI/Codeine/VTable/VTable_Row');
 
-        $TableLayout = Data::Read(
-                array(
-                    'Point' => 'Layout',
-                    'Where' =>
-                        array(
-                            'ID'=>'UI/Codeine/VTable/VTable')));
+        $TableLayout = Data::Read('Layout::UI/Codeine/VTable/VTable');
 
         foreach ($Call['Item']['Data'][$Call['Item']['ID']] as $Key => $Value)
             $Rows[] = str_replace(array('<key/>', '<value/>'), array($Key, $Value),$RowLayout);

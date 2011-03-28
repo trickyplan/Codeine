@@ -3,26 +3,19 @@
     /* OSWA Codeine
      * @author BreathLess
      * @type Codeine Driver
-     * @description: Standart Reporter
+     * @description: 
      * @package Codeine
      * @subpackage Drivers
      * @version 5.0
-     * @date 22.11.10
-     * @time 3:50
+     * @date 28.03.11
+     * @time 2:50
      */
 
-    self::Fn('Generate', function ($Call)
+    self::Fn('Print', function ($Call)
     {
-        foreach ($Call['Results'] as $Source => $Result)
-            {
-                if (!isset ($Call['Ticks'][$Source][1]))
-                    $Call['Ticks'][$Source][1] = self::Lap('Root');
-                elseif ($Result == 0)
-                    $Result = 0.000001;
-
-                $Percentage = round($Result/$Call['Results']['Root']* 100, 2);
-                $Report[$Source] = array('T' => $Result, 'C' => $Percentage);
-            }
-
-        return $Report;
+        echo str_replace(
+            array('$Time','$Memory', '$SQL'),
+            array(round(Data::Pull('Timer.Front')*1000,2),Data::Pull('Memory.Front')/1024,Data::Pull('SQL.Overall')),
+            Data::Read('Layout::Profiler')
+        );
     });

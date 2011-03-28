@@ -15,19 +15,11 @@
         public static function mergeOptions($First, $Second)
         {
             if (is_array($Second))
-            {
                 foreach ($Second as $Key => $Value)
-                {
                     if (array_key_exists($Key, $First) && is_array($Value))
-                    {
                         $First[$Key] = Core::mergeOptions($First[$Key], $Second[$Key]);
-                    }
                     else
-                    {
                         $First[$Key] = $Value;
-                    }
-                }
-            }
             else
                 return $Second;
 
@@ -130,7 +122,7 @@
                 defined('Environment') || define('Environment',
                     (getenv('Enviroment') ? getenv('Enviroment') : 'Production'));
 
-                define ('Host', $_SERVER['HTTP_HOST'] ? $_SERVER['HTTP_HOST']: 'localhost');
+                define ('Host', isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST']: 'localhost');
                 define ('_Host', 'http://'.Host);
 
                 spl_autoload_register ('Core::Load');

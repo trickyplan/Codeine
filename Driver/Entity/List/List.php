@@ -15,15 +15,17 @@
     {
         $Call['Items'] = array();
 
-        $List = Data::Read(array('Point'=> $Call['Entity']));
+        $Call['Layouts'][] = 'Entity/'.$Call['Entity'];
+        
+        $List = Data::Read(array('Point' => $Call['Entity']));
         
         foreach ($List as $ID => $Item)
             $Call['Items'][] = array(
                 'UI'        => 'Object',
                 'Entity'    => $Call['Entity'],
                 'ID'        => $ID,
-                'Plugin'    => $Call['F'],
-                'Data'      => array($ID => $Item));
+                'Style'     => 'Short',
+                'Data'      => $Item);
 
         return $Call;
     });

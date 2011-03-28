@@ -71,9 +71,35 @@
     "Code.Function.IsNotCallable":[],
     "Data.Open.Failed":[],
     "Code.LoadContract.Function.NotFound":[],
-    "Data.MySQL.Create.Failed":[],
-    "Data.MySQL.Delete.Failed":[],
-    "Data.MySQL.Read.Failed":[],
+    "Data":
+    {
+        "MySQL":
+        {
+
+            "Create":
+            {
+                "Failed":[{
+                    "N":"Hooks.Catch.Fatal",
+                    "F":"Catch"
+                }]
+            },
+            "Read":
+            {
+                "Failed":[{
+                    "N":"Hooks.Log.phpConsole",
+                    "F":"Catch"
+                }]
+            },
+            "Query":[{
+                        "N":"Hooks.Log.phpConsole",
+                        "F":"Catch"
+                    },
+                    {
+                        "N": "System.Profiling.Queries.SQL",
+                        "F": "Tick"
+                    }]
+        }
+    },
     "Front":
     {
         "Start": [
@@ -83,24 +109,38 @@
                 "ID": "Front"
             },
             {
-                "N": "System.Profiling.Timer",
+                "N": "System.Profiling.Memory.Usage",
+                "F": "Start",
+                "ID": "Front"
+            },
+            {
+                "N": "System.Profiling.Queries.SQL",
                 "F": "Start",
                 "ID": "Front"
             }],
         "Finish": [
+            {
+                "N": "System.Profiling.Timer",
+                "F": "Stop",
+                "ID": "Front"
+            },
             {
                 "N": "System.Profiling.Memory.Usage",
                 "F": "Stop",
                 "ID": "Front"
             },
             {
-                "N": "System.Profiling.Memory.Usage",
-                "F": "Start",
+                "N": "System.Profiling.Queries.SQL",
+                "F": "Stop",
                 "ID": "Front"
+            },
+            {
+                "N": "System.Profiling.Report",
+                "F": "Print"
             }],
         "Exception":[]
     },
-    "App":{
+    "Entity":{
         "Create":{
             "Object":{
                 "Created":[

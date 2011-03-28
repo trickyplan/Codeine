@@ -17,19 +17,19 @@
 
         $FormLayout = Data::Read('Layout::UI/Codeine/Form/Form');
 
-        foreach($Call['Item']['Model']['Nodes'] as $Title => $Node)
+        foreach($Call['Model']['Nodes'] as $Title => $Node)
         {
-            $Value = isset ($Call['Item']['Data'][$Title])? $Call['Item']['Data'][$Title]: '';
+            $Value = isset ($Call['Data'][$Title])? $Call['Data'][$Title]: '';
             
             $Output[$Title] = Code::Run(
                 array(
-                   'N' => 'View.UI.Codeine.'.$Node['Controls'][$Call['Item']['Purpose']],
+                   'N' => 'View.UI.Codeine.'.$Node['Controls'][$Call['Purpose']],
                    'F' => 'Make',
                    'Name' => $Title,
                    'Value' => $Value,
-                   'Label' => 'Model.'.$Call['Item']['Entity'].'.'.$Title.'.Label',
-                   'ID' => 'Form_'.$Call['Item']['Purpose'].
-                           '_'.$Node['Controls'][$Call['Item']['Purpose']].'_'.$Title
+                   'Label' => 'Model.'.$Call['Entity'].'.'.$Title.'.Label',
+                   'ID' => 'Form_'.$Call['Purpose'].
+                           '_'.$Node['Controls'][$Call['Purpose']].'_'.$Title
                 ));
         }
 

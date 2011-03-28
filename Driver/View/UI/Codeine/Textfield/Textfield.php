@@ -19,7 +19,7 @@
         $Label = isset($Call['Label']) ? $Call['Label']: $Name;
 
         $Layout = Data::Read('Layout::UI/Codeine/Textfield/Textfield');
-        
+
         return str_replace(
             array('$ID', '$Name', '$Value', '$Label'),
             array($ID, $Name, $Value, $Label), $Layout);

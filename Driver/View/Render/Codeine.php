@@ -17,12 +17,11 @@
 
         // Контроллер отдаёт набор UI компонентов
 
-        $Layout = Data::Read(
-                array(
-                    'Point' => 'Layout',
-                    'Where' =>
-                        array(
-                            'ID'=>'Main')));
+        $Layout = Data::Read('Layout::Main');
+
+        if (isset($Call['Input']['Layouts']) && is_array($Call['Input']['Layouts']))
+            foreach ($Call['Input']['Layouts'] as $Inner)
+                $Layout = str_replace('<content/>', Data::Read('Layout::'.$Inner), $Layout);
 
         $Output = array();
         
@@ -33,9 +32,10 @@
             foreach ($Call['Input']['Items'] as $ID => $Item)
             {
                 $Output[$ID] = Code::Run(
-                    array_merge_recursive(array('N'=>'View.UI.Codeine.'.$Item['UI'],
-                        'F' => 'Make',
-                        'D' => $Item ['UI']),$Item)
+                    array_merge_recursive(
+                        array(
+                            'N'=>'View.UI.Codeine.'.$Item['UI'],
+                            'F' => 'Make'),$Item)
                 );
             }
 
@@ -44,7 +44,6 @@
         else
             $Output = $Call['Input'];
 
-        // Профьюзить
         // Постпроцессинг
 
         $Output = str_replace('<content/>',$Output, $Layout);

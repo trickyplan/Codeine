@@ -256,6 +256,15 @@
             return self::_CRUD('Create', $Call, $Mode);
         }
 
+        public static function Query ($Call, $Mode = Code::Ring2)
+        {
+            if (!isset($Call['Point']))
+                $Call['Point'] = 'Default';
+
+            $Response = self::_CRUD('Query', $Call, $Mode);
+            return $Response['Result'];
+        }
+
         /**
          * @description Читает данные из Хранилища
          * @static

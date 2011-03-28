@@ -13,15 +13,15 @@
 
     self::Fn('Make', function ($Call)
     {
-        $Output = Data::Read('Layout::Objects/'.$Call['Item']['Entity'].'/'.$Call['Item']['Entity'].'_'.$Call['Item']['Plugin']);
+        $Output = Data::Read('Layout::UI/Codeine/Object/'.$Call['Entity'].'/'.$Call['Style']);
 
         foreach ($Call['Contract']['Fusers'] as $Fuser)
             $Output = Code::Run(Code::Current(array(
-                           'N' => 'View.Fusers',
+                           'N' => 'View.UI.Codeine.Object.Fusers',
                            'F' => 'Fusion',
                            'D' => $Fuser,
                            'Body' => $Output,
-                           'Data' => $Call['Item']['Data'][$Call['Item']['ID']])
+                           'Data' => $Call['Data'])
                       ));
         
         return $Output;

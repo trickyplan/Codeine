@@ -13,10 +13,13 @@
 
     self::Fn('Make', function ($Call)
     {
-        if (isset($Call['Class']))
-            $Call['Class'] = implode(' ',$Call['Class']);
-        else
-            $Call['Class'] = '';
+        $ID    = isset($Call['ID'])   ? $Call['ID']: uniqid();
+        $Value = isset($Call['Value']) ? $Call['Value']: '';
+        $Class = isset($Call['Class']) ? $Call['Class']: array();
 
-        return '<div class="Badge '.$Call['Class'].'">'.$Call['Data'].'</div>';
+        $Layout = Data::Read('Layout::UI/Codeine/Badge/Badge');
+
+        return str_replace(
+            array('$ID', '$Value', '$Class'),
+            array($ID, $Value, implode(' ',$Class)), $Layout);
     });
