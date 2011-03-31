@@ -263,8 +263,9 @@
                     if (isset($Call['Contract']['Source']))
                         $Filename = Data::Locate('Code', $Call['Contract']['Source']);
                     else
-                        $Filename = Data::Locate('Code', $Call['N'].'/'.$Call['D'].'.php');
-                        
+                        if (!$Filename = Data::Locate('Code', $Call['N'].'/'.$Call['D'].'.php'))
+                            $Filename = Data::Locate('Code', $Call['N'].'.php');
+
                     if ($Filename)
                         return (include $Filename);
                     else
@@ -383,8 +384,6 @@
             // Проверка аргументов
             //if (self::_is('Check', $Call['Contract']))
             //    self::_CheckCall($Call);
-
-
 
             // Устанавливаем текущее пространство имён
             self::SetNamespace($Call['N'], $Call['D']);
