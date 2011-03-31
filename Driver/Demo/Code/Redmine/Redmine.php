@@ -7,11 +7,17 @@
      * @package Codeine
      * @subpackage Drivers
      * @version 5.0
-     * @date 15.03.11
-     * @time 3:10
+     * @date 31.03.11
+     * @time 1:15
      */
 
     self::Fn('Do', function ($Call)
     {
-        return Code::Run(array('N' => 'Data.Store.File.Flat', 'F' => 'Open'), Code::Ring2, null, 'Describe');
+        $Result = Code::Run(
+                array(
+                    'N' => 'Hooks.Log.Redmine',
+                    'F' => 'Catch'));
+
+        var_dump($Result);
+        return ;
     });

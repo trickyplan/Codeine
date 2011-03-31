@@ -15,7 +15,7 @@
     {
         echo '<h1>Fatal Error</h1>';
         echo '<h3>'.$Call['Data']['Event'].'</h3><pre>';
-        print_r($Call['Data']);
+        var_dump($Call['Data']);
         echo '</pre>';
         die();
     });

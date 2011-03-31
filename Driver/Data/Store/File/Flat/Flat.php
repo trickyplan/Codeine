@@ -11,17 +11,32 @@
      * @time 20:49
      */
 
-    self::Fn('Connect', function ($Call)
+    self::Fn('Open', function ($Call)
     {
-        return $Call;
+        return $Call['Options']['DSN'];
+    });
+
+    self::Fn('Close', function ($Call)
+    {
+        return true;
     });
 
     self::Fn('Read', function ($Call)
     {
-        return file_get_contents(Root.$Call['Where']['ID']);
+        return file_get_contents(Root.$Call['Link'].'/'.$Call['Scope'].'/'.$Call['Where']['ID']);
     });
 
     self::Fn('Create', function ($Call)
     {
-        return file_put_contents(Root.$Call['ID'], $Call['Body']);
+        return file_put_contents(Root.$Call['Link'].'/'.$Call['ID'], $Call['Body']);
+    });
+
+    self::Fn('Update', function ($Call)
+    {
+        return file_put_contents(Root.$Call['Link'].'/'.$Call['ID'], $Call['Body']);
+    });
+
+    self::Fn('Delete', function ($Call)
+    {
+        return unlink(Root.$Call['Link'].'/'.$Call['ID']);
     });

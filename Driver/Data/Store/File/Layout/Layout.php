@@ -11,7 +11,7 @@
      * @time 5:37
      */
 
-    self::Fn('Connect', function ($Call)
+    self::Fn('Open', function ($Call)
     {
         if (isset($Call['Options']['DSN']))
             return $Call['Options']['DSN'];

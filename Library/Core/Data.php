@@ -19,6 +19,7 @@
         private static function _getStoreOfPoint($Point)
         {
             $PointOptions = Core::getOption('Core/Data::Points.'.$Point);
+
             if (null !== $PointOptions)
             {
                 if (isset($PointOptions['Store']))
@@ -28,6 +29,8 @@
             }
             else
                 Code::On('Data.Point.NotFound', $Point);
+
+            return null;
         }
 
         public static function Initialize()
@@ -63,25 +66,30 @@
          */
         public static function Open ($Store, $Ring)
         {
-            if (!isset(self::$_Stores[$Store]))
+            if (!empty($Store))
             {
-                if ($Options = Core::getOption('Core/Data::Stores.'.$Store))
+                if (!isset(self::$_Stores[$Store]))
                 {
-                    self::$_Stores[$Store] =
-                        Code::Run(array(
-                                   'N' => 'Data.Store.'. $Options['Type'],
-                                   'F' => 'Open',
-                                   'Options' => $Options
-                            ),$Ring);
+                    if ($Options = Core::getOption('Core/Data::Stores.'.$Store))
+                    {
+                        self::$_Stores[$Store] =
+                            Code::Run(array(
+                                       'N' => 'Data.Store.'. $Options['Type'],
+                                       'F' => 'Open',
+                                       'Options' => $Options
+                                ),$Ring);
 
-                    if (self::$_Stores[$Store] == null)
-                        Code::On('Data.Open.Failed', array('Store'=>$Store));
+                        if (self::$_Stores[$Store] == null)
+                            Code::On('Data.Open.Failed', array('Store'=>$Store));
+                    }
+                    else
+                        Code::On('Data.Open.Store.NotFound', array('Store'=>$Store));
                 }
-                else
-                    Code::On('Data.Open.Store.NotFound', array('Store'=>$Store));
-            }
 
-            return self::$_Stores[$Store];
+                return self::$_Stores[$Store];
+            }
+            else
+                Code::On('Data.Open.Store.NotSpecified', array());
         }
 
         public static function Close ($Store, $Ring)
@@ -154,6 +162,8 @@
             if (!self::isValidCall($Call))
                 $Call = self::_Route($Call);
 
+
+            
             $Call['Point'] = isset($Call['Point'])? $Call['Point']: 'Default';
             $Call['Store'] = self::_getStoreOfPoint($Call['Point']);
 
@@ -189,6 +199,9 @@
             // Если точка монтирования ещё не использовалась...
             if (!isset(self::$_Points[$Call['Point']]))
                 self::Mount($Call['Point']);
+
+            if (!isset(self::$_Stores[$Call['Store']]))
+                Code::On('Data.Store.NotSpecified', $Call);
 
             $Call['Link'] = self::$_Stores[$Call['Store']];
             // Префиксы и постфиксы для ID
@@ -262,6 +275,15 @@
                 $Call['Point'] = 'Default';
 
             $Response = self::_CRUD('Query', $Call, $Mode);
+            return $Response['Result'];
+        }
+
+        public static function Version ($Call, $Mode = Code::Ring2)
+        {
+            if (!isset($Call['Point']))
+                $Call['Point'] = 'Default';
+
+            $Response = self::_CRUD('Version', $Call, $Mode);
             return $Response['Result'];
         }
 

@@ -154,7 +154,7 @@
                     }
                     else
                         $Contract = isset($DriverContract)? $DriverContract[$Call['F']]:
-                            isset($GroupContract)? $GroupContract[$Call['F']]: array();
+                            isset($GroupContract[$Call['F']])? $GroupContract[$Call['F']]: array();
                 }
                 else
                     $Contract = $Default;

@@ -44,7 +44,14 @@
             ]
         }
     },
-    "Data":{
+    "Code.Return.Call.Detected":[],
+    "Code.Initialize":[],
+    "Code.Shutdown":[],
+    "Code.Function.IsNotCallable":[],
+    "Data.Open.Failed":[],
+    "Code.LoadContract.Function.NotFound":[],
+    "Data":
+    {
         "Connect":{
             "Failed":[
                 {
@@ -63,16 +70,14 @@
         },
         "Locate":{
             "NotFound":[]
-        }
-    },
-    "Code.Return.Call.Detected":[],
-    "Code.Initialize":[],
-    "Code.Shutdown":[],
-    "Code.Function.IsNotCallable":[],
-    "Data.Open.Failed":[],
-    "Code.LoadContract.Function.NotFound":[],
-    "Data":
-    {
+        },
+        "Store":
+        {
+            "NotSpecified": [{
+                    "N":"Hooks.Catch.Die",
+                    "F":"Catch"
+                }]
+        },
         "MySQL":
         {
 

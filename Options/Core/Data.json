@@ -101,14 +101,15 @@
             "Store": "FS",
             "Scope": "Public/CSS"
         },
-        "TempCSS": {
-            "Store": "Temp",
-            "Scope": "CSS"
-        },
-        "TempJS":  {
-            "Store": "Temp",
-            "Scope": "JS"
-        }
+        "Temp":{
+            "CSS": {
+                "Store": "Temp",
+                "Scope": "CSS"
+            },
+            "JS":  {
+                "Store": "Temp",
+                "Scope": "JS"
+            }}
     },
     "Shared":
     {

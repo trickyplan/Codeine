@@ -11,7 +11,7 @@
      * @time 21:12
      */
 
-    self::Fn('Connect', function ($Call)
+    self::Fn('Open', function ($Call)
     {
         return true;
     });

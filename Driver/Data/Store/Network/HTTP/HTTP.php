@@ -11,7 +11,7 @@
      * @time 21:39
      */
 
-    self::Fn('Connect', function ($Call)
+    self::Fn('Open', function ($Call)
     {
         return curl_init();
     });
@@ -36,12 +36,19 @@
 
     self::Fn('Create', function ($Call)
     {
+
+        $Headers = isset($Call['Headers'])? $Call['Headers']: array();
+        $UPWD = isset($Call['user:pass'])? $Call['user:pass']:'';
+
         $Call['Link'] = curl_init();
         curl_setopt_array($Call['Link'],
             array(
                 CURLOPT_URL => $Call['ID'],
                 CURLOPT_POST => true,
-                CURLOPT_HEADER => false,
+                CURLOPT_HEADER => true,
+                CURLOPT_HTTPHEADER => $Headers,
+                CURLOPT_USERPWD => $UPWD,
+                CURLOPT_HTTPAUTH => CURLAUTH_BASIC,
                 CURLOPT_FOLLOWLOCATION => true,
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_POSTFIELDS => $Call['Data']));

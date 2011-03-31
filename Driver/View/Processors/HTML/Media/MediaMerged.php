@@ -43,23 +43,25 @@
                 }
             }
 
-            $CSSFile = Data::Path('Temp').'CSS/'.sha1(implode('', $CSSFiles)).'.css';
+            // FIXME
+            $CSSFile = 'Temp/CSS/'.sha1(implode('', $CSSFiles)).'.css';
 
-            if (true or !file_exists(Root.$CSSFile))
+            if (!file_exists(Root.$CSSFile))
             {
                 foreach($CSSFiles as $ID => $File)
                     $CSSOutput.= Data::Read($Point.'::'.$ID);
 
                 Data::Create(
                     array(
-                         'Point' => 'TempCSS',
+                         'Point' => 'Temp.CSS',
                          'ID'    => $CSSFile,
                          'Body'  => $CSSOutput
                     )
                 );
             }
 
-            $JSFile = Data::Path('Temp').'JS/'.sha1(implode('', $JSFiles)).'.js';
+            // FIXME
+            $JSFile = sha1(implode('', $JSFiles)).'.js';
 
             if (!file_exists(Root.$JSFile))
             {
@@ -68,7 +70,7 @@
 
                 Data::Create(
                     array(
-                         'Point' => 'TempJS',
+                         'Point' => 'Temp.JS',
                          'ID'    => $JSFile,
                          'Body'  => $JSOutput
                     )

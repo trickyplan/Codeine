@@ -15,12 +15,6 @@
     {
         if (preg_match_all('@<media>(.*)</media>@SsUu',$Call['Input'], $Pockets))
         {
-            $CSSOutput = '';
-            $CSSFiles = array();
-
-            $JSOutput = '';
-            $JSFiles = array();
-
             foreach($Pockets[1] as $IX => $Match)
             {
                 if (mb_substr($Match, mb_strlen($Match)-4) == '.css')
@@ -42,7 +36,8 @@
                     }
                 }
             }
-$CSSOut = '';
+
+            $CSSOut = '';
             foreach ($CSSs as $cCSS)
                 $CSSOut .= '<link href="/'.$cCSS.'" rel="stylesheet" />';
 
