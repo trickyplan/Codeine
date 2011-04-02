@@ -1,5 +1,9 @@
 {
     "Routers":  ["Short","Entity","JSON"],
     "Checkers": ["Value","Required","Type","Condition"],
-    "Inputs":   ["HTTP","STDIN","CLI"]
+    "Inputs":   ["HTTP","STDIN","CLI"],
+    "Limit":
+    {
+        "NestedCalls": 50
+    }
 }

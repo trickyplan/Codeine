@@ -21,6 +21,8 @@
 
     self::Fn('Read', function ($Call)
     {
+        Code::On('Data.FS.Query',$Call);
+        
         if (!is_array ($Call['Where']['ID']))
             $IDs = array ($Call['Where']['ID']);
         else

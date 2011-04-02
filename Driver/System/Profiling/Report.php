@@ -13,9 +13,17 @@
 
     self::Fn('Print', function ($Call)
     {
+        if (($SQL = Data::Pull('SQL.Overall')) == 0) $SQL = 'No';
+        if (($FS = Data::Pull('FS.Overall')) == 0) $FS = 'No';
+
         echo str_replace(
-            array('$Time','$Memory', '$SQL'),
-            array(round(Data::Pull('Timer.Front')*1000,2),Data::Pull('Memory.Front')/1024,Data::Pull('SQL.Overall')),
+            array('$Time','$Memory', '$SQL','$FS','$Calls'),
+            array(
+                round(Data::Pull('Timer.Front')*1000,2),
+                Data::Pull('Memory.Front')/1024,
+                $SQL,
+                $FS,
+                Code::$CallCounter),
             Data::Read('Layout::Profiler')
         );
     });

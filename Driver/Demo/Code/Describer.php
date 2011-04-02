@@ -13,5 +13,5 @@
 
     self::Fn('Do', function ($Call)
     {
-        return Code::Run(array('N' => 'Data.Store.File.Flat', 'F' => 'Open'), Code::Ring2, null, 'Describe');
+        return Code::Run(array('N' => 'Security.Hash', 'F' => 'Get'), Code::Ring2, null, 'Describe');
     });

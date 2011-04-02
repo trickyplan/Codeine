@@ -1,6 +1,6 @@
 html
 {
-    background-color:#f7f7f7;
+    background-color:#FFF;
     background-image: url('/Images/Curl.jpg');
     background-position: right bottom;
     background-repeat: no-repeat;
@@ -27,18 +27,18 @@ html
     -webkit-border-radius: 4px;
     border-radius: 4px;
     display: inline-block;
-    width: 125px;
+    min-width: 125px;
     text-align: center;
+    background-image:url("/Images/Theme/NewRed/Back/glass.png");
+    background-position: top;
 }
 
 .Optional
 {
-    background-color:#99ff00;
-    color: #003300;
+    color: #009900;
 }
 
 .Required
 {
-    background-color:#ff3333;
-    color: #330000;
+    color: #990000;
 }

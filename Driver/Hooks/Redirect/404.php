@@ -14,6 +14,6 @@
     self::Fn('Redirect', function ($Call)
     {
         header('HTTP/1.1 404 Not Found');
-        echo Data::Read('Layout::Error404');
+        echo Data::Read('Layout::Error/404');
         die();
     });

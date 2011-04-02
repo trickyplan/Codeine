@@ -13,9 +13,16 @@
 
     self::Fn('Run', function ($Call)
     {
+        $Interfaces = Core::getOption('Core/Code::Inputs');
+
+        foreach ($Interfaces as $Interface)
+            if (Code::Run(array('N'=>'System.Input.'.$Interface,'F' => 'Detect')))
+                break;
+
+        $Input = array('N' => 'System.Input.'.$Interface, 'F' => 'Input');
+
         return Code::Run(
-            array(
-                array('N' => 'System.Input','F' => 'Input'), // Return Autorunned Call
+                array(Code::Run($Input),
                 array('N' => 'View.Render', 'F' => 'Do'),
                 array('N' => 'System.Output.HTTP', 'F' => 'Output')
                 ), Code::Ring2, 'Chain');

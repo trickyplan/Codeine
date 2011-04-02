@@ -23,20 +23,24 @@
 
     self::Fn('Read', function ($Call)
     {
+        Code::On('Data.FS.Query',$Call);
         return file_get_contents(Root.$Call['Link'].'/'.$Call['Scope'].'/'.$Call['Where']['ID']);
     });
 
     self::Fn('Create', function ($Call)
     {
-        return file_put_contents(Root.$Call['Link'].'/'.$Call['ID'], $Call['Body']);
+        Code::On('Data.FS.Query',$Call);
+        return file_put_contents(Root.$Call['Link'].'/'.$Call['Options']['Scope'].'/'.$Call['ID'], $Call['Body']);
     });
 
     self::Fn('Update', function ($Call)
     {
+        Code::On('Data.FS.Query',$Call);
         return file_put_contents(Root.$Call['Link'].'/'.$Call['ID'], $Call['Body']);
     });
 
     self::Fn('Delete', function ($Call)
     {
+        Code::On('Data.FS.Query',$Call);
         return unlink(Root.$Call['Link'].'/'.$Call['ID']);
     });

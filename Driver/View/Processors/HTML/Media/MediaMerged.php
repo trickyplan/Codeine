@@ -44,9 +44,9 @@
             }
 
             // FIXME
-            $CSSFile = 'Temp/CSS/'.sha1(implode('', $CSSFiles)).'.css';
+            $CSSFile = sha1(implode('', $CSSFiles)).'.css';
 
-            if (!file_exists(Root.$CSSFile))
+            if (!file_exists(Root.'/Temp/CSS/'.$CSSFile))
             {
                 foreach($CSSFiles as $ID => $File)
                     $CSSOutput.= Data::Read($Point.'::'.$ID);
@@ -63,7 +63,7 @@
             // FIXME
             $JSFile = sha1(implode('', $JSFiles)).'.js';
 
-            if (!file_exists(Root.$JSFile))
+            if (!file_exists(Root.'/Temp/JS/'.$JSFile))
             {
                 foreach($JSFiles as $ID => $File)
                     $JSOutput.= Data::Read($Point.'::'.$ID);
@@ -80,13 +80,13 @@
             $Call['Input'] =
                     str_replace(
                         '<mediacss/>',
-                        '<link href="/'.$CSSFile.'" rel="stylesheet" />',
+                        '<link href="/Temp/CSS/'.$CSSFile.'" rel="stylesheet" />',
                         $Call['Input']);
             
             $Call['Input'] =
                     str_replace(
                         '<mediajs/>',
-                        '<script type="text/javascript" src="/'.$JSFile.'"></script>',
+                        '<script type="text/javascript" src="/Temp/JS/'.$JSFile.'"></script>',
                         $Call['Input']);
 
             $Call['Input'] = str_replace($Pockets[0], '', $Call['Input']);

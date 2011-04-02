@@ -103,7 +103,17 @@
                         "N": "System.Profiling.Queries.SQL",
                         "F": "Tick"
                     }]
-        }
+        },
+        "FS":
+                {
+                    "Query":
+                        [
+                    {
+                        "N": "System.Profiling.Queries.FS",
+                        "F": "Tick"
+                    }]
+                }
+
     },
     "Front":
     {
@@ -115,6 +125,11 @@
             },
             {
                 "N": "System.Profiling.Memory.Usage",
+                "F": "Start",
+                "ID": "Front"
+            },
+            {
+                "N": "System.Profiling.Queries.FS",
                 "F": "Start",
                 "ID": "Front"
             },
@@ -136,6 +151,11 @@
             },
             {
                 "N": "System.Profiling.Queries.SQL",
+                "F": "Stop",
+                "ID": "Front"
+            },
+            {
+                "N": "System.Profiling.Queries.FS",
                 "F": "Stop",
                 "ID": "Front"
             },

@@ -28,6 +28,8 @@
         protected static $_LastCall = null;
         protected static $_Registration = array();
 
+        public static $CallCounter = 0;
+
         protected static function _LockCode()
         {
             return self::$_Locked = !self::$_Locked;
@@ -42,7 +44,6 @@
         /**
          * @description Создаёт событие, и запускает его обработчики
          * @static
-         * @param  $Class - класс события (Code|Message|Data...)
          * @param  $Event - имя события
          * @param array $Data - дополнительные аргументы
          * @return mixed|null
@@ -255,29 +256,16 @@
                 $Call['Contract'] = array();
             
             if (!isset($Call['Contract']['Engine']))
-                $Call['Contract']['Engine'] = 'Include';
+            {
+                // self::On('Code.Contract.Engine.Notspecified', $Call);
+                $Call['Contract']['Engine'] = 'Default';
+            }
 
             switch ($Call['Contract']['Engine'])
             {
-                case 'Include':
-                    if (isset($Call['Contract']['Source']))
-                        $Filename = Data::Locate('Code', $Call['Contract']['Source']);
-                    else
-                        if (!$Filename = Data::Locate('Code', $Call['N'].'/'.$Call['D'].'.php'))
-                            $Filename = Data::Locate('Code', $Call['N'].'.php');
-
-                    if ($Filename)
-                        return (include $Filename);
-                    else
-                    {
-                        $Call['Filename'] = $Filename;
-                        self::On('Code.LoadSource.Include.FileNotFound', $Call);
-                    }
-                break;
-
                 case 'Code':
                     if(isset($Call['Contract']['Source']))
-                        eval('self::Fn(\''.$Call['F'].'\',
+                        return eval('self::Fn(\''.$Call['F'].'\',
                             function ($Call) {'.$Call['Contract']['Source'].'});');
                     else
                         self::On('Code.Source.InContractNotSpecified', $Call);
@@ -285,14 +273,26 @@
 
                 case 'Data':
                     if(isset($Call['Contract']['Source']))
-                        eval('self::Fn(\''.$Call['F'].'\',
+                        return eval('self::Fn(\''.$Call['F'].'\',
                             function ($Call) {'.Data::Read('Source', $Call['Contract']['Source']).'});');
                     else
                         self::On('Code.Source.DataInContractNotSpecified', $Call);
                 break;
 
                 default:
-                    self::On('Code.Contract.UnknownEngine', $Call['Contract']['Engine']);
+
+                    if (isset($Call['Contract']['Source']))
+                        $Filename = Data::Locate('Code', $Call['Contract']['Source']);
+                    else
+                        $Filename = Data::Locate('Code', array($Call['N'].'.php', $Call['N'].'/'.$Call['D'].'.php'));
+                        
+                    if (null !== $Filename)
+                        return (include_once $Filename);
+                    else
+                    {
+                        $Call['Filename'] = $Filename;
+                        self::On('Code.LoadSource.Include.FileNotFound', $Call);
+                    }
                 break;
             }
         }
@@ -318,11 +318,11 @@
         
         public static function Run ($Call, $Mode = Code::Ring2, $Runner = null, $Executor = null)
         {
+            self::$CallCounter++;
             self::$_Stack->push($Call);
 
-            if (isset(self::$_Options['Limit']['NestedCalls'])
-                    && self::$_Stack->count() > self::$_Options['Limit']['NestedCalls'])
-                        self::On('Code.CodeOverflowFault', $Call);
+            if (self::$_Stack->count() > Core::getOption('Core/Code::Limit.NestedCalls'))
+                        self::On('Code.NestedCalls.Overflow', $Call);
 
             // FIXME Behaviour!
             if ($Runner !== null)

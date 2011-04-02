@@ -10,23 +10,14 @@
      * @date 01.12.10
      * @time 14:39
      */
-        
-    try
-    {
-        $ST = microtime(true);
-        defined('Root') || define('Root', __DIR__);
 
-        include 'Library/Core/Core.php';
+     $ST = microtime(true);
+     defined('Root') || define('Root', __DIR__);
 
-        Code::On('Front.Start');
+     include 'Library/Core/Core.php';
 
-            Code::Run(array('N' => 'Code.Flow.Front', 'F'=>'Run'));
+     Code::On('Front.Start');
 
-        Code::On('Front.Finish');
-    }
-    catch (Exception $e)
-    {
-        echo $e->getMessage();
-        Code::On('Front:Exception',
-                 array('Message',$e->getMessage()));
-    }
+        Code::Run(array('N' => 'Code.Flow.Front', 'F'=>'Run'));
+
+     Code::On('Front.Finish');

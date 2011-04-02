@@ -18,6 +18,8 @@
 
     self::Fn('Read', function ($Call)
     {
+        Code::On('Data.FS.Query',$Call);
+        
         if (!is_array($Call['Where']['ID']))
             $Call['Where']['ID'] = array($Call['Where']['ID']);
 
@@ -35,7 +37,9 @@
        if (isset($R))
            return file_get_contents($R);
        else
+       {
            return null;
+       }
     });
 
     self::Fn('Version', function ($Call)
