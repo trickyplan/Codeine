@@ -3,6 +3,9 @@
     class Core
     {
         const OptionsPath = 'Options';
+        const Kernel = 0;
+        const User = 1;
+        const Guest = 2;
 
         protected static $_Options;
         protected static $_OptionsLoaded = false;

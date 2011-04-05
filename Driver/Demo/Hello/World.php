@@ -16,7 +16,7 @@
         $Call['Items'][] =
             array(
                 'UI' => 'Badge',
-                'Data'=> 'Hello, world!'
+                'Value'=> 'Hello, world!'
             );
             
         return $Call;

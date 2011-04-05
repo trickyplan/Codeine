@@ -13,7 +13,7 @@
 
     self::Fn('Run', function ($Call)
     {
-        $Call = Code::LoadContract($Call['Call']);
+        $Call = Code::LoadContract($Call['Call'], Core::User);
         $Contract = $Call['Contract'];
 
         $Call['Items']['Header'] =

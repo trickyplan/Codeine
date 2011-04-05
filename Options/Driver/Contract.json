@@ -1,0 +1,172 @@
+{
+    "Package":
+    {
+        "Author": "BreathLess",
+        "Origin": "Codeine",
+        "Version": "1.0",
+        "License": "GPLv3",
+        "Links": null
+    },
+    "Methods":
+    {
+        "Default":
+            {
+                "Namespace": null,
+                "Inherit": null,
+                "Mixins": null,
+                "Alias": null,
+                "Cost": null,
+                "Quota" : null,
+                "Seal": null,
+                "Description":
+                {
+                    "Russian": "Описание функции будет здесь",
+                    "English": "Description goes here"
+                },
+                "Driver":
+                {
+                    "Default": null,
+                    "Secure": null,
+                    "Fast": null,
+                    "Stable": null,
+                    "Testing": null,
+                    "Cheap": null,
+                    "Precise": null
+                },
+                "Interest": null,
+                "Condition":
+                {
+                    "before": null,
+                    "after": null
+                },
+                "Grant":
+                {
+                    "Core":
+                    {
+                        "Code": false,
+                        "Data": false,
+                        "Message": false
+                    },
+                    "Executor":
+                    {
+                        "Deferred": false,
+                        "Cache": false
+                    }
+                },
+                "Argument":
+                {
+                    "Input":
+                    {
+                        "Alias": null,
+                        "Type": null,
+                        "isRequired": false,
+                        "isMultiple": false,
+                        "Fallback": null,
+                        "Condition": null,
+                        "Filter": null
+                    }
+                },
+                "Return":
+                {
+                    "Type": null,
+                    "Fallback": null,
+                    "Conditions": null,
+                    "Filter": null
+                },
+                "Option": null,
+                "Limit":
+                {
+                    "Time.Abs":
+                    {
+                        "Green": 0,
+                        "Yellow": 0,
+                        "Red": 0
+                    },
+                    "Time.Rel":
+                    {
+                        "Green": 0,
+                        "Yellow": 0,
+                        "Red": 0
+                    },
+                    "Memory":
+                    {
+                        "Green": 0,
+                        "Yellow": 0,
+                        "Red": 0
+                    },
+                    "Code":
+                    {
+                        "Green": 0,
+                        "Yellow": 0,
+                        "Red": 0
+                    },
+                    "Data":
+                    {
+                        "Green": 0,
+                        "Yellow": 0,
+                        "Red": 0
+                    },
+                    "Message":
+                    {
+                        "Green": 0,
+                        "Yellow": 0,
+                        "Red": 0
+                    },
+                    "SQL":
+                    {
+                        "Green": 0,
+                        "Yellow": 0,
+                        "Red": 0
+                    },
+                    "FS":
+                    {
+                        "Green": 0,
+                        "Yellow": 0,
+                        "Red": 0
+                    },
+                    "Concurrency":
+                    {
+                        "Green": 0,
+                        "Yellow": 0,
+                        "Red": 0
+                    }
+                },
+                "Test":
+                {
+                    "Default":
+                    {
+                        "Arguments": null,
+                        "Result": null
+                    }
+                },
+                "Mockup":
+                {
+                    "Test":
+                    {
+                        "Arguments": null,
+                        "Result": null
+                    }
+                },
+                "Example":
+                {
+                    "Default":
+                    {
+                        "Arguments": null,
+                        "Result": null
+                    }
+                },
+                "Depends":
+                {
+                    "Drivers": null,
+                    "Files": null,
+                    "Extensions": null,
+                    "Points": null
+                },
+                "Hooks":
+                {
+                    "before": null,
+                    "after": null
+                }
+            }
+    }
+}

@@ -43,10 +43,9 @@
             
         }
 
-        public static function Mount($Point = 'Default')
+        public static function Mount($Point = 'Default', $Mode)
         {
-            if (($Mode = Core::getOption('Core/Data::Points.'.$Point.'.Ring')) == null)
-                $Mode = 2;
+            // if (($Mode = Core::getOption('Core/Data::Points.'.$Point.'.Ring')) == null)
             
             self::Open(self::_getStoreOfPoint($Point), $Mode);
             return self::$_Points[$Point] = $Point;
@@ -130,7 +129,7 @@
                         'N'=> 'Data.Routers.'.$Router,
                         'F' => 'Route',
                         'Input' => $Call
-                    ), Code::Ring1
+                    ), Core::Kernel
                 );
 
                 // Если что-то получилось, то выходим из перебора
@@ -153,16 +152,14 @@
                            'N' => 'Data.Store.'.self::$_Conf['Stores'][$Store]['Type'],
                            'F' => 'Disconnect',
                            'Point' => self::$_Stores[$Store]
-                      ), Code::Ring1);
+                      ), Core::Kernel);
         }
 
-        protected static function _CRUD($Method, $Call, $Ring = Code::Ring2)
+        protected static function _CRUD($Method, $Call, $Mode = Core::User)
         {
             // Если некорректный вызов, попробовать роутинг
             if (!self::isValidCall($Call))
                 $Call = self::_Route($Call);
-
-
             
             $Call['Point'] = isset($Call['Point'])? $Call['Point']: 'Default';
             $Call['Store'] = self::_getStoreOfPoint($Call['Point']);
@@ -198,7 +195,7 @@
 
             // Если точка монтирования ещё не использовалась...
             if (!isset(self::$_Points[$Call['Point']]))
-                self::Mount($Call['Point']);
+                self::Mount($Call['Point'], $Mode);
 
             if (!isset(self::$_Stores[$Call['Store']]))
                 Code::On('Data.Store.NotSpecified', $Call);
@@ -214,15 +211,15 @@
             $Call['N'] = 'Data.Store.'. $Call['Options']['Type'];
             $Call['F'] = $Method;
 
-            $Call['Result'] = Code::Run($Call, $Ring);
+            $Call['Result'] = Code::Run($Call, $Mode);
 
-            //Code::On('Data.after'.$Method, $Call);
-            //Code::On('Data.after'.$Method.'At'.$Call['Store'], $Call);
-            //Code::On('Data.after'.$Method.'In'.$Call['Point'], $Call);
+            /*Code::On('Data.after'.$Method, $Call);
+            Code::On('Data.after'.$Method.'At'.$Call['Store'], $Call);
+            Code::On('Data.after'.$Method.'In'.$Call['Point'], $Call);
 
             if (isset($Call['Options']['Postcondition'][$Method]))
                 foreach ($Call['Options']['Postcondition'][$Method] as $Postcondition)
-                    if (!Code::Run($Postcondition, $Ring))
+                    if (!Code::Run($Postcondition, $Mode))
                     {
                         Code::On('Data.errDataPostconditionFailed', $Call);
                         Code::On('Data.errDataPostcondition'.$Method.'Failed', $Call);
@@ -231,29 +228,22 @@
 
             if (isset($Call['Options']['Postcondition'][$Method]))
                 foreach ($Call['Options']['Postcondition'][$Method] as $Postcondition)
-                    if (!Code::Run($Postcondition, $Ring))
+                    if (!Code::Run($Postcondition, $Mode))
                     {
                         Code::On('Data.errDataPostconditionFailed', $Call);
                         Code::On('Data.errDataPostcondition'.$Call['Store'].'Failed', $Call);
                         Code::On('Data.errDataPostcondition'.$Call['Point'].'Failed', $Call);
-                    }
+                    }*/
 
             return $Call;
         }
 
         public static function __callStatic($Operation, $Arguments)
         {
-            return self::_CRUD($Operation, $Arguments[0], isset($Arguments[1])? $Arguments[1]:Code::Ring2);
+            return self::_CRUD($Operation, $Arguments[0], isset($Arguments[1])? $Arguments[1]: Core::Kernel);
         }
 
-        /**
-         * @description Создаёт данные в Хранилище
-         * @static
-         * @param  $Call - данные
-         * @param int $Ring - кольцо, необходимо для низкоуровневых вызовов
-         * @return mixed
-         */
-        public static function Create ($Call, $Mode = Code::Ring2)
+        public static function Create ($Call, $Mode = Core::User)
         {
             if (!isset($Call['Point']))
                 $Call['Point'] = 'Default';
@@ -269,7 +259,7 @@
             return self::_CRUD('Create', $Call, $Mode);
         }
 
-        public static function Query ($Call, $Mode = Code::Ring2)
+        public static function Query ($Call, $Mode = Core::User)
         {
             if (!isset($Call['Point']))
                 $Call['Point'] = 'Default';
@@ -278,7 +268,7 @@
             return $Response['Result'];
         }
 
-        public static function Version ($Call, $Mode = Code::Ring2)
+        public static function Version ($Call, $Mode = Core::User)
         {
             if (!isset($Call['Point']))
                 $Call['Point'] = 'Default';
@@ -291,12 +281,12 @@
          * @description Читает данные из Хранилища
          * @static
          * @param  $Call - выборка
-         * @param int $Ring - кольцо, необходимо для низкоуровневых вызовов
+         * @param int $Mode - кольцо, необходимо для низкоуровневых вызовов
          * @return mixed
          */
-        public static function Read($Call, $Ring = Code::Ring2)
+        public static function Read($Call, $Mode = Core::User)
         {
-            $Call = self::_CRUD('Read', $Call, $Ring);
+            $Call = self::_CRUD('Read', $Call, $Mode);
 
             if (Core::getOption('Core/Data::Points.'.$Call['Point'].'.Format') && $Call['Result'] !== null)
             {
@@ -304,7 +294,7 @@
                               'N' => 'Data.Formats.'.
                                      Core::getOption('Core/Data::Points.'.$Call['Point'].'.Format'),
                               'F' => 'Decode',
-                              'Input' => $Call['Result']), $Ring)) === null)
+                              'Input' => $Call['Result']), $Mode)) === null)
                     Code::On('Data.errDataReadFormatDecodeFailed', $Call);
             }
 
@@ -314,12 +304,12 @@
                         'N' => 'Data.Map.'.$Call['Options']['Map'],
                         'F' => 'afterRead',
                         'Result'=> $Call['Result']
-                    ));
+                    ),$Mode);
 
             return $Call['Result'];
         }
 
-        public static function Update ($Call, $Mode = Code::Ring2)
+        public static function Update ($Call, $Mode = Core::User)
         {
             if (isset(self::$_Conf['Points'][$Call['Point']]['Map']))
                 $Call = Code::Run(
@@ -330,7 +320,7 @@
             return self::_CRUD('Update', $Call, $Mode);
         }
 
-        public static function Delete ($Call, $Mode = Code::Ring2)
+        public static function Delete ($Call, $Mode = Core::User)
         {
             return self::_CRUD('Delete', $Call, $Mode);
         }

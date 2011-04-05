@@ -1,6 +1,8 @@
 {
     "Code":
     {
+        "Initialize": null,
+        "Shutdown": null,
         "Event":
         {
             "NotSpecified":[
@@ -42,14 +44,21 @@
                     "F":"Catch"
                 }
             ]
+        },
+        "Contract":
+        {
+            "Load":
+            {
+                "NotFound": [{
+                    "N":"Hooks.Fix.CreateContract",
+                    "F":"Catch"
+                }]
+            }
         }
     },
     "Code.Return.Call.Detected":[],
-    "Code.Initialize":[],
-    "Code.Shutdown":[],
     "Code.Function.IsNotCallable":[],
     "Data.Open.Failed":[],
-    "Code.LoadContract.Function.NotFound":[],
     "Data":
     {
         "Connect":{

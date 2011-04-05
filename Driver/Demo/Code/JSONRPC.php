@@ -17,7 +17,7 @@
                 array(
                     'N' => 'http://www.raboof.com/Projects/Jayrock/Demo.ashx',
                     'F' => 'echo',
-                    'id' => '6F9619FF'), Code::Ring2, null, 'RPC.JSON');
+                    'id' => '6F9619FF'), Core::User, null, 'RPC.JSON');
 
         $Call['Items'][] =
             array(

@@ -23,7 +23,7 @@
 
         return Code::Run(
                 array(Code::Run($Input),
-                array('N' => 'View.Render', 'F' => 'Do'),
+                array('N' => 'View.Render', 'F' => 'Do', 'D'=>'Codeine'),
                 array('N' => 'System.Output.HTTP', 'F' => 'Output')
-                ), Code::Ring2, 'Chain');
+                ), Core::User, 'Chain');
     });

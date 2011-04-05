@@ -15,15 +15,19 @@
     {
         if (($SQL = Data::Pull('SQL.Overall')) == 0) $SQL = 'No';
         if (($FS = Data::Pull('FS.Overall')) == 0) $FS = 'No';
+        if (($Network = Data::Pull('Network.Overall')) == 0) $Network = 'No';
 
         echo str_replace(
-            array('$Time','$Memory', '$SQL','$FS','$Calls'),
+            array('$Time','$Memory', '$SQL','$Network', '$FS','$Calls', '$On', '$Catched'),
             array(
                 round(Data::Pull('Timer.Front')*1000,2),
                 Data::Pull('Memory.Front')/1024,
                 $SQL,
+                $Network,
                 $FS,
-                Code::$CallCounter),
+                Code::$Counters['Call'],
+                Code::$Counters['On'],
+                Code::$Counters['On.Catched']),
             Data::Read('Layout::Profiler')
         );
     });

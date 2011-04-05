@@ -21,5 +21,5 @@
                 'Method' => 'read',
                 'Component'=>'Log',
                 'Type'=>'array',
-                'Key' => '/loggers/log1'), Code::Ring2, null, 'SOAP');
+                'Key' => '/loggers/log1'), Core::User, null, 'SOAP');
     });
