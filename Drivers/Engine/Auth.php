@@ -1,0 +1,134 @@
+<?php
+
+    /* Codeine
+     * @author BreathLess
+     * @description  
+     * @package Codeine
+     * @version 6.0
+     */
+
+    self::Fn ('Audit', function ($Call)
+        {
+            // Получить идентификатор сессии
+
+            $Call = F::Run ($Call, $Call['Source']);
+
+            // Получить сессию
+
+            $Call['Session'] = F::Run (
+                array(
+                     'Object'  => array('Load', 'Session'),
+                     'ID'      => $Call['Auth']['Session']
+                )
+            );
+            if ($Call['Session'])
+            {
+                foreach ($Call['Validators'] as $Validator)
+                    if (!F::Run ($Call, array('_N' => 'Security.Auth.Session.Validator.' . $Validator)))
+                        return F::Run ($Call, array('_N' => 'Code.Flow.Hook',
+                                                   '_F'  => 'Run',
+                                                   'On' => 'Session.Illegal'));
+            }
+            else
+                F::Run ($Call, array('_N' => 'Code.Flow.Hook',
+                                    '_F'  => 'Run',
+                                    'On'  => 'Session.Nonexist'));
+
+            // Выдать ключ
+
+            if (isset($Call['Session']['Owner']))
+            {
+                $Call['Owner'] = F::Run (
+                    array(
+                         'Object' => array('Load', 'User'),
+                         'ID'     => $Call['Session']['Owner']
+                    )
+                );
+            }
+
+            return $Call;
+        });
+
+    self::Fn ('Register', function ($Call)
+        {
+            $SID = F::Run (array('_N' => 'Security.UID.GUID',
+                                '_F'  => 'Get'));
+
+            F::Run (
+                array(
+                     '_N'       => 'Security.Auth.Session.Source.Cookie', // OPTME
+                     '_F'       => 'Set',
+                     'Session' => $SID, // OPTME,
+                     'Seal'    => F::Run (array('_N' => 'Security.Auth.Seal.UserAgent',
+                                               '_F'  => 'Generate')))
+            );
+
+            F::Run (
+                array(
+                     'Object'  => array('Create', 'Session'),
+                     'ID'    => $SID,
+                     'Value' => array(
+                         'CreatedOn' => time ()
+                     )
+                )
+            );
+
+            return $Call;
+        });
+
+    self::Fn ('Annulate', function ($Call)
+        {
+            F::Run (
+                array(
+                     '_N' => 'Security.Auth.Session.Source.Cookie', // OPTME
+                     '_F' => 'Annulate')
+            );
+
+            return $Call;
+        });
+
+    self::Fn ('Set', function ($Call)
+        {
+            $SubCall = F::Run ($Call,
+                               array(
+                                    '_N' => 'Security.Auth.Session.Source.Cookie', // OPTME
+                                    '_F' => 'Get'
+                               )
+            );
+
+            F::Run (
+                array(
+                     'Object'  => array('Node.Set', 'Session'),
+                     'Scope' => 'Session',
+                     'ID'    => $SubCall['Auth']['Session'],
+                     'Value' => array(
+                         'UpdatedOn' => time ()
+                     )
+                )
+            );
+
+            return $Call;
+        });
+
+    self::Fn ('Bind', function ($Call)
+        {
+            $SubCall = F::Run ($Call,
+                               array(
+                                    '_N' => 'Security.Auth.Session.Source.Cookie', // OPTME
+                                    '_F' => 'Get'
+                               )
+            );
+
+            F::Run (
+                array(
+                     'Object'  => array('Node.Set', 'Session'),
+                     'ID'    => $SubCall['Auth']['Session'],
+                     'Key' => 'Owner',
+                     'Value' => $Call['ID']
+                )
+            );
+
+            return $Call;
+        });
+
+    

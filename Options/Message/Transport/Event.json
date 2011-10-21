@@ -1,0 +1,13 @@
+{
+    "Events":
+    {
+        "F.Run.Source.NotFound":
+        {
+            "Result":
+            {
+                "_N": "Hooks.Fixer",
+                "_F": "Catch"
+            }
+        }
+    }
+}

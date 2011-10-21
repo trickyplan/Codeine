@@ -1,0 +1,79 @@
+{
+    "Driver":
+    {
+        "Author": "BreathLess",
+        "Origin": "Codeine",
+        "Version": "1.0",
+        "License": "BSD",
+        "Links": null
+    },
+    "Methods":
+    {
+        "Default":
+            {
+                "Namespace": null,
+                "Inherit": null,
+                "Mixins": null,
+                "Alias": null,
+                "Cost": null,
+                "Seal": null,
+                "Description":
+                {
+                    "Russian": "{}здесь",
+                    "English": "Description goes here"
+                },
+                "Driver":
+                {
+                    "Default": null,
+                    "Secure": null,
+                    "Fast": null,
+                    "Stable": null,
+                    "Testing": null,
+                    "Cheap": null,
+                    "Precise": null
+                },
+                "Condition":
+                {
+                    "before": null,
+                    "after": null
+                },
+                "Grants": null,
+                "Argument":
+                {
+                    "Value":
+                    {
+                        "Alias": null,
+                        "Type": null,
+                        "isRequired": false,
+                        "isMultiple": false,
+                        "Fallback": null,
+                        "Condition": null,
+                        "Filter": null
+                    }
+                },
+                "Return":
+                {
+                    "Type": null,
+                    "Fallback": null,
+                    "Conditions": null,
+                    "Filter": null
+                },
+                "Limit": null,
+                "Test":  null,
+                "Mockup": null,
+                "Example":null,
+                "Depends":
+                {
+                    "Drivers": null,
+                    "Files": null,
+                    "Extensions": null,
+                    "Points": null
+                },
+                "Hooks":
+                {
+                    "before": null,
+                    "after": null
+                }
+            }
+    }
+}

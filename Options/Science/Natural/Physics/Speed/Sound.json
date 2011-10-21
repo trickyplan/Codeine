@@ -1,0 +1,58 @@
+{
+    "Description":
+    {
+        "ru_RU": "Драйвер, для расчётов, связанных со скоростью звука"
+    },
+    "Function":
+    {
+        "Get":
+        {
+            "Input":
+            {
+                "Environment":
+                {
+                    "Type": "List.Enum",
+                    "Values": ["N2", "NH3", "C2H2", "H2", "H2O", "Air"],
+                    "Required": true,
+                    "Default": "Air",
+                    "AutoCorrect":
+                    {
+                        "Required": true,
+                        "Type": false
+                    }
+                }
+            },
+            "Output":
+            {
+                "Type": "Number"
+            }
+        }
+    },
+    "Variable":
+    {
+        "Speeds":
+        {
+            "N2"    :   334,
+            "NH3"   :	415,
+            "C2H2"  :	327,
+            "H2"    :	1284,
+            "Air"   :	331,
+            "He"    :	965,
+            "O"     :	316,
+            "CH4"   :	430,
+            "CO"    :	338,
+            "CO2"   :	259,
+            "Cl"    :	206,
+            "H2O"   :   1532
+        }
+    },
+    "Example":
+    [
+        {
+            "Input": {
+                "Environment": "Air"
+            },
+            "Output": 415
+        }
+    ]
+}

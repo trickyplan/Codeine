@@ -1,0 +1,10 @@
+{
+    "Hooks":
+    {
+        "F.Run.Source.NotFound":
+        [{
+            "_N": "Hooks.Fixer.ToDefaultApplication",
+            "_F": "Fix"
+        }]
+    }
+}

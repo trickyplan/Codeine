@@ -1,0 +1,17 @@
+{
+    "Points":
+    {
+        "Event":
+        {
+            "Transport": "Echo"
+        },
+        "Profiler":
+        {
+            "Transport": "Syslog"
+        },
+        "Deferred":
+        {
+            "Transport": "Queue.Rediska"
+        }
+    }
+}

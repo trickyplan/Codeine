@@ -1,0 +1,40 @@
+{
+    "Function":
+    {
+        "Process":
+        {
+            "Input":
+            {
+                "Context":
+                {
+                    "Default": ".html",
+                    "Required": true,
+                    "AutoCorrect":
+                    {
+                        "Required": true
+                    }
+                }
+            }
+        }
+    },
+    "Hooks":
+    {
+        "beforePipeline":
+        {
+            "LoadingLayout":
+            {
+                "_N": "View.Render.HTML.Layout",
+                "_F": "Load",
+                "ID": "Main"
+            }
+        },
+        "afterPipeline":
+        {
+            "CleanPlaces":
+            {
+                "_N": "View.Render.Pipeline.Places",
+                "_F": "Clean"
+            }
+        }
+    }
+}

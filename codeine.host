@@ -1,0 +1,15 @@
+<VirtualHost *:80>
+   DocumentRoot /var/www/codeine6
+   ServerName codeine
+
+   # This should be omitted in the production environment
+   SetEnv Environment development
+
+   <Directory /var/www/codeine6>
+       Options Indexes MultiViews FollowSymLinks
+       AllowOverride All
+       Order allow,deny
+       Allow from all
+   </Directory>
+
+</VirtualHost>

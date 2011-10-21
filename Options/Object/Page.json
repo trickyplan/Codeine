@@ -1,0 +1,36 @@
+{
+    "Name": "Page",
+    "Points":
+    {
+        "Default":
+        {
+            "Scope":  "Page",
+            "Storage":"MySQL",
+            "Scheme": "RDB2D"
+        },
+        "Redis":
+        {
+            "Storage": "Redis",
+            "Scope": "Page",
+            "Scheme": "KeyValue"
+        }
+    },
+    "Nodes":
+    {
+        "Title":
+        {
+            "Point": "Default",
+            "Tags":  "Content"
+        },
+        "Body":
+        {
+            "Point": "Default",
+            "Tags":  "Content"
+        },
+        "Stats.Views":
+        {
+            "Point": "Redis",
+            "Tags":  "Stats"
+        }
+    }
+}

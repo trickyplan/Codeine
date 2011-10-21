@@ -1,0 +1,62 @@
+{
+    "Hooks":
+    {
+        "beforeLoad":
+        [{
+            "_N": "Engine.Data",
+            "_F": "AutoOpen"
+        }],
+        "beforeCreate":
+        [{
+            "_N": "Engine.Data",
+            "_F": "AutoOpen"
+        }],
+        "beforeUpdate":
+        [{
+            "_N": "Engine.Data",
+            "_F": "AutoOpen"
+        }],
+        "beforeDelete":
+        [{
+            "_N": "Engine.Data",
+            "_F": "AutoOpen"
+        }],
+        "beforeFind":
+        [{
+            "_N": "Engine.Data",
+            "_F": "AutoOpen"
+        }]
+    },
+    "Storages":
+    {
+        "HTTP":
+        {
+            "Method": "Data.Store.Net.HTTP"
+        },
+        "MySQL":
+        {
+            "Method": "Data.Store.SQL.MySQLi",
+            "URL": "localhost",
+            "Database": "OX",
+            "User": "root",
+            "Password": "phoenix"
+        },
+        "Session":
+        {
+            "Method": "Data.Store.KeyValue.Redis.CRedis",
+            "URL": "localhost",
+            "Port": 6379
+        },
+        "Deferred":
+        {
+            "Method": "Data.Store.KeyValue.Redis.CRedis",
+            "URL": "localhost",
+            "Port": 6379
+        },
+        "Layout":
+        {
+            "Method": "Data.Store.FS.File",
+            "URL": "Data/Layout"
+        }
+    }
+}

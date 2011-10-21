@@ -1,0 +1,29 @@
+{
+    "Driver":
+    {
+        "Path": "Drivers",
+        "Extension": ".php"
+    },
+    "Behaviours": ["Routing", "Driver", "Contract"],
+    "Code":
+    {
+        "Behaviour":
+        {
+            "Contract":
+            {
+                "Contractors": ["Input"]
+            }
+        }
+    },
+    "Hooks":
+    {
+        "onSourceNotFound":
+        {
+            "Fallback":
+            {
+                "_N": "Hooks.Error.404FN",
+                "_F": "Show"
+            }
+        }
+    }
+}

@@ -1,0 +1,15 @@
+{
+    "Postprocessors":
+    {
+        "I18N":
+        {
+            "_N": "View.Processors.HTML.Locale",
+            "_F": "Process"
+        },
+        "Parslets":
+        {
+           "_N": "View.Processors.Parslets",
+           "_F": "Process"
+        }
+    }
+}

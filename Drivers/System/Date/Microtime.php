@@ -1,0 +1,15 @@
+<?php
+
+    /* Codeine
+     * @author BreathLess
+     * @description: microtime() wrapper
+     * @package Codeine
+     * @version 6.0
+     * @date 09.03.11
+     * @time 16:34
+     */
+
+    self::Fn('Get', function ($Call)
+    {
+        return microtime(true);
+    });
