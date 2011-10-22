@@ -5,8 +5,8 @@
     <target name="prepare">
         <echo msg="Making directory dist" />
         <mkdir dir="../dist" />
-        <exec command="git tag -l | awk 'NR = 1'" dir="../src" returnProperty="version"/>
-        
+        <exec command="git tag -l | awk 'NR = 1'" dir="../src" outputPropertY="version"/>
+
     </target>
 
     <taskdef name="phploc" classname="phing.tasks.my.PHPLocTask" />
