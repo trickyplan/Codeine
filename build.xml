@@ -8,6 +8,11 @@
     <target name="prepare">
         <echo msg="Making directory ./build" />
         <mkdir dir="./build" />
+        <copy todir="build" >
+          <fileset defaultexcludes="false" expandsymboliclinks="true" dir=".">
+            <include name="**/*.php" />
+          </fileset>
+        </copy>
     </target>
 
 
@@ -30,9 +35,6 @@
     <!-- ============================================  -->
     <target name="build" depends="prepare,phploc">
         <echo msg="Copying files to build directory..." />
-
-        <copy file="./" tofile="./build/" />
-
     </target>
 
 
