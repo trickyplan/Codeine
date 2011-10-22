@@ -3,7 +3,7 @@ Version: 6.0a
 Architecture: all
 Maintainer: Dmitry Bergstein
 Installed-Size: 472
-Depends: php5 (>= 5.3)
+Depends: php5 (>= 5.3) | php5-cgi (>= 5.3) | php5-cli (>= 5.3) | php5-cli (>= 5.3) | php5-fpm (>= 5.3) | libapache2-mod-php5 (>=5.3)
 Provides: codeine
 Section: web
 Priority: optional
