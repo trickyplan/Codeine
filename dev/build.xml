@@ -19,7 +19,7 @@
          </phploc>
     </target>
 
-    <target name="build" depends="prepare,phploc">
+    <target name="build" depends="prepare, phploc">
         <echo msg="Building..." />
     </target>
 
@@ -37,22 +37,22 @@
 
     <target name="deb" depends="build">
         <echo msg="Creating debian package..." />
-        <mkdir dir="../debsrc/usr/share/codeine" />
-        <mkdir dir="../debsrc/DEBIAN" />
+        <mkdir dir="../codeine-${version}_all/usr/share/codeine" />
+        <mkdir dir="../codeine-${version}_all/DEBIAN" />
 
-        <copy todir="../debsrc/usr/share/codeine">
+        <copy todir="../codeine-${version}_all/usr/share/codeine">
             <fileset dir="../src">
                 <include name="*" />
             </fileset>
         </copy>
 
-        <copy todir="../debsrc/DEBIAN">
+        <copy todir="../codeine-${version}_all/DEBIAN">
             <fileset dir="../DEBIAN/">
                 <include name="*" />
             </fileset>
         </copy>
 
-        <exec command="dpkg --build debsrc dist/codeine-${version}.deb" dir="../" />
+        <exec command="dpkg --build codeine-${version}_all " dir="../" />
 
     </target>
 
