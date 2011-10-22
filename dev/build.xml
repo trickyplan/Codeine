@@ -6,11 +6,11 @@
     <!-- Target: prepare                               -->
     <!-- ============================================  -->
     <target name="prepare">
-        <echo msg="Making directory ./build" />
-        <mkdir dir="./build" />
-        <mkdir dir="./packages" />
-        <copy todir="./build" >
-          <fileset defaultexcludes="false" expandsymboliclinks="true" dir="./src">
+        <echo msg="Making directory build" />
+        <mkdir dir="../build" />
+        <mkdir dir="../packages" />
+        <copy todir="../build" >
+          <fileset defaultexcludes="false" expandsymboliclinks="true" dir="../src">
             <include name="**/*" />
           </fileset>
         </copy>
@@ -22,8 +22,8 @@
          <tstamp>
            <format property="check.date.time" pattern="%Y%m%d-%H%M%S" locale="en_US"/>
          </tstamp>
-         <phploc reportType="txt" reportName="${check.date.time}-report" reportDirectory="./build">
-           <fileset dir=".">
+         <phploc reportType="txt" reportName="${check.date.time}-report" reportDirectory="../build">
+           <fileset dir="../src">
              <include name="**/*.php" />
              <include name="*.php" />
            </fileset>
@@ -44,8 +44,8 @@
     <target name="dist" depends="build">
         <echo msg="Creating archive..." />
 
-        <tar destfile="./packages/codeine.tar.gz" compression="gzip">
-            <fileset dir="./build">
+        <tar destfile="../packages/codeine.tar.gz" compression="gzip">
+            <fileset dir="../build">
                 <include name="*" />
             </fileset>
         </tar>
