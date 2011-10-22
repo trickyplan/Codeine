@@ -41,7 +41,7 @@
             self::$_Options = F::Merge(self::$_Options, self::Options('Codeine'));
         }
 
-        public static function Merge($First, $Second, $Third = false)
+        public static function Merge($First, $Second)
         {
             if (is_array($Second))
                foreach ($Second as $Key => $Value)
@@ -51,10 +51,6 @@
                        $First[$Key] = $Value;
             else
                return $Second;
-
-            // No more then three levels
-            if ($Third)
-               $First = self::Merge($First, $Third);
 
             return $First;
         }
