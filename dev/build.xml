@@ -42,13 +42,13 @@
 
         <copy todir="../codeine-${version}/usr/share/codeine">
             <fileset dir="../src">
-                <include name="*" />
+                <include name="*/**" />
             </fileset>
         </copy>
 
         <copy todir="../codeine-${version}/DEBIAN">
             <fileset dir="../DEBIAN/">
-                <include name="*" />
+                <include name="*/**" />
             </fileset>
         </copy>
 
