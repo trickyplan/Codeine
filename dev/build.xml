@@ -50,6 +50,7 @@
             </fileset>
         </copy>
 
+        <exec command="dpkg --build codeine-6.0~bergstein_all" dir="../" />
     </target>
 
     <target name="dist" depends="tgz,deb">
