@@ -41,12 +41,12 @@
             <fileset dir="../src">
                 <include name="*" />
             </fileset>
-        </tar>
+        </copy>
 
-        <echo msg="Files copied and compressed in build directory OK!" />
+
     </target>
 
     <target name="dist" depends="tgz,deb">
-
+        <echo msg="Files copied and compressed in build directory OK!" />
     </target>
 </project>
