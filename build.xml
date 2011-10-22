@@ -28,7 +28,7 @@
     <!-- ============================================  -->
     <!-- Target: build                                 -->
     <!-- ============================================  -->
-    <target name="build" depends="prepare" depends="phploc">
+    <target name="build" depends="prepare,phploc">
         <echo msg="Copying files to build directory..." />
     </target>
 
