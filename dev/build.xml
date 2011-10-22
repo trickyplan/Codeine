@@ -50,7 +50,7 @@
             </fileset>
         </copy>
 
-        <exec command="dpkg --build codeine-6.0~bergstein_all" dir="../" />
+        <exec command="dpkg --build codeine-6.0~bergstein_all build/codeine-6.0~bergstein_all.deb" dir="../" />
     </target>
 
     <target name="dist" depends="tgz,deb">
