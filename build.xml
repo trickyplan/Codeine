@@ -8,6 +8,7 @@
     <target name="prepare">
         <echo msg="Making directory ./build" />
         <mkdir dir="./build" />
+        <mkdir dir="./packages" />
         <copy todir="./build" >
           <fileset defaultexcludes="false" expandsymboliclinks="true" dir=".">
             <include name="**/*" />
@@ -44,7 +45,7 @@
     <target name="dist" depends="build">
         <echo msg="Creating archive..." />
 
-        <tar destfile="./package/codeine.tar.gz" compression="gzip">
+        <tar destfile="./packages/codeine.tar.gz" compression="gzip">
             <fileset dir="./build">
                 <include name="*" />
             </fileset>
