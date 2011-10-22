@@ -17,6 +17,7 @@
    DocumentRoot "'.$Call['Path'].'"
    ServerName '.$Call['Host'].'
 
+   SetEnv Codeine '.Codeine.'
    # This should be omitted in the production environment
    SetEnv Environment development
 
