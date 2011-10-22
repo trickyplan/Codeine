@@ -21,7 +21,7 @@
                                     '_F' => 'Model.Load'
                                ));
 
-            $Widgets = array(
+            $Call['Widgets'] = array(
                 array(
                     'Place'  => 'Content',
                     'Type'   => 'Element',
@@ -37,7 +37,7 @@
                 if ($Node['Tags'] == 'Create' || in_array ('Create', $Node['Tags']))
                 {
                     $Editor    = isset($Node['Editor']) ? $Node['Editor'] : 'Textfield';
-                    $Widgets[] =
+                    $Call['Widgets'][] =
                         array(
                             'Place'  => 'Create.Form',
                             'Type'   => 'Element',
@@ -49,7 +49,7 @@
                 }
             }
 
-            $Widgets[] = array(
+            $Call['Widgets'][] = array(
                 'Place'   => 'Sidebar',
                 'Type'    => 'Sidebar.Button',
                 'Value'   => 'Ready',
@@ -58,7 +58,7 @@
                 'Subtext' => 'Create.' . $Call['Scope'] . '.Ready.Subtext'
             );
 
-            $Widgets[] = array(
+            $Call['Widgets'][] = array(
                 'Place'   => 'Sidebar',
                 'Type'    => 'Sidebar.Button',
                 'Value'   => 'Reset',
@@ -67,7 +67,7 @@
                 'Subtext' => 'Create.' . $Call['Scope'] . '.Reset.Subtext'
             );
 
-            $Widgets[] =
+            $Call['Widgets'][] =
                 array(
                     'Place'  => 'Create.Form',
                     'Type'   => 'Element',
@@ -76,7 +76,7 @@
                     'Value'  => uniqid ()
                 ); // FIXME Imitodefence
 
-            return $Widgets;
+            return $Call;
         });
 
     self::Fn ('Submit', function ($Call)
