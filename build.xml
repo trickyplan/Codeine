@@ -17,7 +17,7 @@
            <format property="check.date.time" pattern="%Y%m%d-%H%M%S" locale="en_US"/>
          </tstamp>
          <phploc reportType="txt" reportName="${check.date.time}-report"
-                 reportDirectory="phploc-reports">
+                 reportDirectory="./build">
            <fileset dir=".">
              <include name="**/*.php" />
              <include name="*.php" />
@@ -31,7 +31,7 @@
     <target name="build" depends="prepare,phploc">
         <echo msg="Copying files to build directory..." />
 
-        <copy file="*" tofile="./build/" />
+        <copy file="./" tofile="./build/" />
 
     </target>
 
