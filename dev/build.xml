@@ -22,8 +22,7 @@
          <tstamp>
            <format property="check.date.time" pattern="%Y%m%d-%H%M%S" locale="en_US"/>
          </tstamp>
-         <phploc reportType="txt" reportName="${check.date.time}-report"
-                 reportDirectory="./build">
+         <phploc reportType="txt" reportName="${check.date.time}-report" reportDirectory="./build">
            <fileset dir=".">
              <include name="**/*.php" />
              <include name="*.php" />
