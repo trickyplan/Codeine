@@ -52,7 +52,7 @@
             </fileset>
         </copy>
 
-        <exec command="dpkg --build debsrc dist/codeine-${version}~bergstein_all.deb" dir="../" />
+        <exec command="dpkg --build debsrc dist/codeine-${version}_all.deb" dir="../" />
 
     </target>
 
