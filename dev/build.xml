@@ -5,11 +5,12 @@
     <target name="prepare">
         <echo msg="Making directory dist" />
         <mkdir dir="../dist" />
+        <loadfile property="version" file="../docs/VERSION"/>
     </target>
 
     <taskdef name="phploc" classname="phing.tasks.my.PHPLocTask" />
        <target name="phploc">
-         <phploc reportType="txt" reportName="phploc" reportDirectory="../dist">
+         <phploc reportType="txt" reportName="phploc-${version}" reportDirectory="../dist">
            <fileset dir="../src">
              <include name="**/*.php" />
              <include name="*.php" />
@@ -24,7 +25,7 @@
     <target name="tgz" depends="build">
         <echo msg="Creating archive..." />
 
-        <tar destfile="../dist/codeine.tar.gz" compression="gzip">
+        <tar destfile="../dist/codeine-${version}.tar.gz" compression="gzip">
             <fileset dir="../src">
                 <include name="*" />
             </fileset>
@@ -50,7 +51,7 @@
             </fileset>
         </copy>
 
-        <exec command="dpkg --build debsrc dist/codeine-6.0~bergstein_all.deb" dir="../" />
+        <exec command="dpkg --build debsrc dist/codeine-${version}~bergstein_all.deb" dir="../" />
 
     </target>
 
