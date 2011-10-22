@@ -13,7 +13,7 @@
         $Result = F::Run($Call['Value']);
         $Stop = microtime(true);
 
-        F::Set('Timer:'.$Call['ID'], round(($Stop - $Start)*$Call['Multiplier'], $Call['Precision']));
+        F::Set('Timer:'.$Call['Value']['_N'], round(($Stop - $Start)*$Call['Multiplier'], $Call['Precision']));
 
         return $Result;
     });
