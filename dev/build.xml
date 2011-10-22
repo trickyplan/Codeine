@@ -36,7 +36,7 @@
     <target name="deb" depends="build">
         <echo msg="Creating debian package..." />
         <mkdir dir="../codeine-6.0~bergstein_all/usr/share/codeine" />
-        <mkdir dir="../codeine-6.0~bergstein_all/debian" />
+        <mkdir dir="../codeine-6.0~bergstein_all/DEBIAN" />
 
         <copy todir="../codeine-6.0~bergstein_all/usr/share/codeine">
             <fileset dir="../src">
@@ -44,8 +44,8 @@
             </fileset>
         </copy>
 
-        <copy todir="../codeine-6.0~bergstein_all/debian">
-            <fileset dir="../debian/">
+        <copy todir="../codeine-6.0~bergstein_all/DEBIAN">
+            <fileset dir="../DEBIAN/">
                 <include name="*" />
             </fileset>
         </copy>
