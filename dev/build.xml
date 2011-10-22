@@ -37,22 +37,22 @@
 
     <target name="deb" depends="build">
         <echo msg="Creating debian package..." />
-        <mkdir dir="../codeine-${version}_all/usr/share/codeine" />
-        <mkdir dir="../codeine-${version}_all/DEBIAN" />
+        <mkdir dir="../codeine-${version}/usr/share/codeine" />
+        <mkdir dir="../codeine-${version}/DEBIAN" />
 
-        <copy todir="../codeine-${version}_all/usr/share/codeine">
+        <copy todir="../codeine-${version}/usr/share/codeine">
             <fileset dir="../src">
                 <include name="*" />
             </fileset>
         </copy>
 
-        <copy todir="../codeine-${version}_all/DEBIAN">
+        <copy todir="../codeine-${version}/DEBIAN">
             <fileset dir="../DEBIAN/">
                 <include name="*" />
             </fileset>
         </copy>
 
-        <exec command="dpkg --build codeine-${version}_all " dir="../" />
+        <exec command="dpkg --build codeine-${version} " dir="../" />
 
     </target>
 
