@@ -44,7 +44,7 @@
     <target name="dist" depends="build">
         <echo msg="Creating archive..." />
 
-        <tar destfile="./build/codeine.tar.gz" compression="gzip">
+        <tar destfile="./package/codeine.tar.gz" compression="gzip">
             <fileset dir="./build">
                 <include name="*" />
             </fileset>
