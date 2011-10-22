@@ -44,8 +44,8 @@
             </fileset>
         </copy>
 
-        <copy todir="../codeine-6.0~bergstein_all/">
-            <fileset dir="../debian">
+        <copy todir="../codeine-6.0~bergstein_all/debian">
+            <fileset dir="../debian/">
                 <include name="*" />
             </fileset>
         </copy>
