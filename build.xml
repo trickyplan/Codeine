@@ -8,9 +8,9 @@
     <target name="prepare">
         <echo msg="Making directory ./build" />
         <mkdir dir="./build" />
-        <copy todir="build" >
+        <copy todir="./build" >
           <fileset defaultexcludes="false" expandsymboliclinks="true" dir=".">
-            <include name="**/*.php" />
+            <include name="**/*" />
           </fileset>
         </copy>
     </target>
