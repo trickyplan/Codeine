@@ -1,4 +1,4 @@
-Package: php-codeine
+Package: codeine
 Version: 6.0-bergstein
 Architecture: all
 Maintainer: Dmitry Bergstein
