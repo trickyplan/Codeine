@@ -35,22 +35,23 @@
 
     <target name="deb" depends="build">
         <echo msg="Creating debian package..." />
-        <mkdir dir="../codeine-6.0~bergstein_all/usr/share/codeine" />
-        <mkdir dir="../codeine-6.0~bergstein_all/DEBIAN" />
+        <mkdir dir="../debsrc/usr/share/codeine" />
+        <mkdir dir="../debsrc/DEBIAN" />
 
-        <copy todir="../codeine-6.0~bergstein_all/usr/share/codeine">
+        <copy todir="../debsrc/usr/share/codeine">
             <fileset dir="../src">
                 <include name="*" />
             </fileset>
         </copy>
 
-        <copy todir="../codeine-6.0~bergstein_all/DEBIAN">
+        <copy todir="../debsrc/DEBIAN">
             <fileset dir="../DEBIAN/">
                 <include name="*" />
             </fileset>
         </copy>
 
-        <exec command="dpkg --build codeine-6.0~bergstein_all build/codeine-6.0~bergstein_all.deb" dir="../" />
+        <exec command="dpkg --build debsrc build/codeine-6.0~bergstein_all.deb" dir="../" />
+
     </target>
 
     <target name="dist" depends="tgz,deb">
