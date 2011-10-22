@@ -13,8 +13,21 @@
     <!-- ============================================  -->
     <!-- Target: build                                 -->
     <!-- ============================================  -->
-    <target name="build" depends="prepare">
+    <target name="build" depends="prepare phploc">
         <echo msg="Copying files to build directory..." />
+    </target>
+
+    <target name="phploc">
+          <tstamp>
+            <format property="check.date.time" pattern="%Y%m%d-%H%M%S" locale="en_US"/>
+          </tstamp>
+          <phploc reportType="csv" reportName="${check.date.time}-report"
+                  reportDirectory="phploc-reports" countTests="true">
+            <fileset dir=".">
+              <include name="**/*.php" />
+              <include name="*.php" />
+            </fileset>
+          </phploc>
     </target>
 
     <!-- ============================================  -->
@@ -23,7 +36,7 @@
     <target name="dist" depends="build">
         <echo msg="Creating archive..." />
 
-        <tar destfile="./build/build.tar.gz" compression="gzip">
+        <tar destfile="./build/codeine.tar.gz" compression="gzip">
             <fileset dir="./build">
                 <include name="*" />
             </fileset>
