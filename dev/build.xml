@@ -10,7 +10,7 @@
         <mkdir dir="./build" />
         <mkdir dir="./packages" />
         <copy todir="./build" >
-          <fileset defaultexcludes="false" expandsymboliclinks="true" dir=".">
+          <fileset defaultexcludes="false" expandsymboliclinks="true" dir="../">
             <include name="**/*" />
           </fileset>
         </copy>
