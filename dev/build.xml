@@ -52,7 +52,7 @@
             </fileset>
         </copy>
 
-        <exec command="dpkg --build 'codeine-${version}' " dir="../" />
+        <exec command="dpkg --build 'codeine-${version}' dist/ " dir="../" />
 
     </target>
 
