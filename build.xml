@@ -10,6 +10,21 @@
         <mkdir dir="./build" />
     </target>
 
+
+    <taskdef name="phploc" classname="phing.tasks.my.PHPLocTask" />
+       <target name="phploc">
+         <tstamp>
+           <format property="check.date.time" pattern="%Y%m%d-%H%M%S" locale="en_US"/>
+         </tstamp>
+         <phploc reportType="txt" reportName="${check.date.time}-report"
+                 reportDirectory="phploc-reports">
+           <fileset dir=".">
+             <include name="**/*.php" />
+             <include name="*.php" />
+           </fileset>
+         </phploc>
+    </target>
+
     <!-- ============================================  -->
     <!-- Target: build                                 -->
     <!-- ============================================  -->
@@ -17,18 +32,6 @@
         <echo msg="Copying files to build directory..." />
     </target>
 
-    <target name="phploc">
-          <tstamp>
-            <format property="check.date.time" pattern="%Y%m%d-%H%M%S" locale="en_US"/>
-          </tstamp>
-          <phploc reportType="csv" reportName="${check.date.time}-report"
-                  reportDirectory="phploc-reports" countTests="true">
-            <fileset dir=".">
-              <include name="**/*.php" />
-              <include name="*.php" />
-            </fileset>
-          </phploc>
-    </target>
 
     <!-- ============================================  -->
     <!-- (DEFAULT)  Target: dist                       -->
