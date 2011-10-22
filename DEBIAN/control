@@ -6,5 +6,6 @@ Installed-Size: 472
 Depends: php5 (>= 5.3)
 Provides: codeine
 Section: web
+Priority: optional
 Homepage: http://breathless.github.com/Codeine
 Description: Codeine is microcore functional framework on PHP
