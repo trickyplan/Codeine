@@ -11,5 +11,5 @@
      {
          $Strength = round((strlen($Call['Value'])/12)*100);
 
-         return $Strength>100? 100: $Strength;
+         return ($Strength>100? 100: $Strength).'%';
      });
