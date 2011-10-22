@@ -227,7 +227,7 @@
                 return $Default;
         }
 
-        public function ifCall($Call)
+        public static function ifCall($Call)
         {
             if (self::isCall($Call))
                 return F::Run($Call);

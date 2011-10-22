@@ -44,11 +44,7 @@
 
         // Если ни один роутер не вернул результата
         if ($NewCall === null)
-            $NewCall = array(
-                '_N' => 'Message.Beautifier.ErrorPage',
-                '_F' => 'Format',
-                'Message' => $Call
-            );
+            F::Run($Call, array('N' => 'Code.Flow.Hook','F'=>'Run','On'=>'Routing.Failed'));
 
         return $NewCall;
     });
