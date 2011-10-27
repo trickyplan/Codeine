@@ -12,10 +12,12 @@
     self::Fn('Run', function ($Call)
     {
         $Argumentors = array('Required', 'Type');
-        
-        if (isset($Call['Value']['Function'][$Call['Value']['_F']]['Input']))
+
+        if (isset($Call['Value']['Function'][($Call['Value']['_F'])]['Input']))
         {
+
             $Args = $Call['Value']['Function'][$Call['Value']['_F']]['Input'];
+
             foreach ($Args as $Name => $Argument)
             {
                 foreach ($Argumentors as $Key)

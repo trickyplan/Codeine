@@ -4,17 +4,7 @@
         "Path": "Drivers",
         "Extension": ".php"
     },
-    "Behaviours": ["Routing", "Driver", "Contract"],
-    "Code":
-    {
-        "Behaviour":
-        {
-            "Contract":
-            {
-                "Contractors": ["Input"]
-            }
-        }
-    },
+    "Behaviours": ["Contract"],
     "Hooks":
     {
         "onSourceNotFound":

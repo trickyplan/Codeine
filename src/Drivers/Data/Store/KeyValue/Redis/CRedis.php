@@ -35,12 +35,12 @@
 
     self::Fn('Create', function ($Call)
     {
-        return $Call['Link']->set($Call['Scope'].':'.$Call['ID'], json_encode($Call['Values']));
+        return $Call['Link']->set($Call['Scope'].':'.$Call['ID'], json_encode($Call['Value']));
     });
 
     self::Fn('Update', function ($Call)
     {
-        return $Call['Link']->set($Call['Scope'].':'.$Call['ID'], json_encode($Call['Values']));
+        return $Call['Link']->set($Call['Scope'].':'.$Call['ID'], json_encode($Call['Value']));
     });
 
     self::Fn('Delete', function ($Call)

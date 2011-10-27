@@ -11,7 +11,7 @@
 
     self::Fn('Open', function ($Call)
     {
-        $Point = $Call['Points'][$Call['To']];
+        $Point = F::getOption('Points.'.$Call['To']);
 
         $Call = F::Merge($Point, $Call);
 
@@ -26,7 +26,8 @@
     self::Fn('Send', function ($Call)
     {
         // FIXME Strategy
-        $Point = $Call['Points'][$Call['To']];
+
+        $Point = F::getOption('Points');
 
         if (null === $Link = F::Get('Message.'.$Point))
             $Link = F::Run($Call, array('_F' => 'Open'));

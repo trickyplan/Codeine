@@ -17,10 +17,13 @@
 
             $Call['Session'] = F::Run (
                 array(
-                     'Object'  => array('Load', 'Session'),
+                     '_N'      => 'Engine.Object',
+                     '_F'      => 'Load',
+                     'Scope'   => 'Session',
                      'ID'      => $Call['Auth']['Session']
                 )
             );
+
             if ($Call['Session'])
             {
                 foreach ($Call['Validators'] as $Validator)
@@ -40,8 +43,10 @@
             {
                 $Call['Owner'] = F::Run (
                     array(
-                         'Object' => array('Load', 'User'),
-                         'ID'     => $Call['Session']['Owner']
+                         '_N'      => 'Engine.Object',
+                         '_F'      => 'Load',
+                         'Scope'   => 'User',
+                         'ID'      => $Call['Session']['Owner']
                     )
                 );
             }
@@ -65,7 +70,9 @@
 
             F::Run (
                 array(
-                     'Object'  => array('Create', 'Session'),
+                     '_N'      => 'Engine.Object',
+                     '_F'      => 'Create',
+                     'Scope'   => 'Session',
                      'ID'    => $SID,
                      'Value' => array(
                          'CreatedOn' => time ()

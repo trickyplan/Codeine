@@ -11,27 +11,17 @@
 
     self::Fn('beforeRun', function ($Call)
     {
-        $Contractors = F::Options('Codeine',$Call['_N'].'.Contractors');
-
-        $Contract = F::Options($Call['Value']['_N']);
-
-        if (!empty($Contract))
+        foreach ($Call['Contractors'] as $Contractor)
         {
-            $Call['Value'] = F::Merge($Contract, $Call['Value']);
-
-            foreach ($Contractors as $Contractor)
-            {
-                $Call['Value'] = F::Run(
-                    array(
-                        '_N' => $Call['_N'].'.'.$Contractor,
-                        '_F' => 'Run',
-                        'Value' => $Call['Value'],
-                        'NoBehaviours' => true
-                    )
-                );
-            }
+            $Call['Value'] = F::Run(
+                array(
+                    '_N' => $Call['_N'].'.'.$Contractor,
+                    '_F' => 'Run',
+                    'Value' => $Call['Value'],
+                    'NoBehaviours' => true
+                )
+            );
         }
-
         return $Call['Value'];
     });
 

@@ -11,13 +11,17 @@
 
     self::Fn('Open', function ($Call)
     {
-        return F::Set('Storages.'.$Call['Storage'],
-                    F::Run(
-                        $Call['Storages'][$Call['Storage']],
-                        array(
-                            '_N' => $Call['Storages'][$Call['Storage']]['Method'],
-                            '_F' => 'Open',
-                            'NoBehaviours' => true)));
+        $Link = F::Run(
+                                $Call['Storages'][$Call['Storage']],
+                                array(
+                                    '_N' => $Call['Storages'][$Call['Storage']]['Method'],
+                                    '_F' => 'Open',
+                                    'NoBehaviours' => true));
+
+        if (empty($Link) && isset($Call['Storages'][$Call['Storage']]['Essential']))
+            die('Essential storage failed');
+
+        return F::Set('Storages.'.$Call['Storage'], $Link);
     });
 
     self::Fn('Close', function ($Call)
