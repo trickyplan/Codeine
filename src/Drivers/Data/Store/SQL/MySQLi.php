@@ -11,7 +11,13 @@
 
     self::Fn('Open', function ($Call)
     {
-        $Link = new mysqli($Call['URL'], $Call['User'], $Call['Password'], $Call['Database']);
+        $Link = new mysqli($Call['URL'], $Call['User'], $Call['Password']);
+
+        $Link->select_db($Call['Database']);
+
+        if ($Link->errno != 0)
+            return null;
+
         // FIXME Error handling
         $Link->set_charset('utf8');
 

@@ -14,31 +14,30 @@
     {
         protected static $_Options;
         protected static $_Functions;
-        protected static $_Namespace;
+        protected static $_Namespace = 'Codeine';
         protected static $_Storage;
         protected static $_History = array();
         /**
-         * @var SplStack;
-         */
+             * @var SplStack;
+             */
         protected static $_Stack;
 
-        public static function Bootstrap ($Options = null)
+        public static function Bootstrap ($Call = null)
         {
             self::$_Stack = new SplStack();
+            self::$_Stack->push('Core');
 
-            self::$_Options = $Options;
-
-            if (isset($Options['Path']))
+            if (isset($Call['Path']))
             {
-                if (is_array($Options['Path']))
+                if (is_array($Call['Path']))
                     self::$_Options['Path'][] = Codeine;
                 else
-                    self::$_Options['Path'] = array($Options['Path'], Codeine);
+                    self::$_Options['Path'] = array($Call['Path'], Codeine);
             }
             else
                 self::$_Options['Path'][] = Codeine;
 
-            self::$_Options = F::Merge(self::$_Options, self::Options('Codeine'));
+            self::_loadOptions();
         }
 
         public static function Merge($First, $Second)
@@ -76,7 +75,7 @@
             if (isset($Call['Filename']))
                 $Filename = $Call['Filename'];
             else
-                $Filename = self::Find(self::Options('Codeine', 'Driver.Path').'/'.$Path.self::Options('Codeine', 'Driver.Extension'));
+                $Filename = self::Find(self::$_Options['Codeine']['Driver']['Path'].'/'.$Path.self::$_Options['Codeine']['Driver']['Extension']);
 
             if (file_exists($Filename))
                 return (include $Filename);
@@ -85,10 +84,10 @@
         }
 
         /**
-         * @description Проверяет, является ли массив правильно сконструированным вызовом.
-         * @param  $Call
-         * @return bool
-         */
+             * @description Проверяет, является ли массив правильно сконструированным вызовом.
+             * @param  $Call
+             * @return bool
+             */
         public static function isCall($Call)
         {
             return (is_array($Call) && isset($Call['_N']));
@@ -103,14 +102,12 @@
         }
 
         /**
-         * @description Выполняет вызов
-         * @param  $Call
-         * @return void
-         */
+             * @description Выполняет вызов
+             * @param  $Call
+             * @return mixed
+             */
         public static function Run($Call)
         {
-            $ParentNamespace = self::$_Namespace;
-
             // Automerge Calls
             if (func_num_args() > 1)
             {
@@ -121,13 +118,21 @@
                 for ($i = 0; $i<$szCalls; $i++)
                     $Call = F::Merge($Call, $Calls[$i]);
 
-                return F::Run($Call);
+                return self::Run($Call);
             }
 
-            $Behaviours = F::Options('Codeine', 'Behaviours');
+            if (!self::isCall($Call))
+            {
+                d(__FILE__, __LINE__, $Call);
+                trigger_error('Invalid call');
+            }
+
+            $ParentNamespace = self::$_Namespace;
+            self::$_Namespace = $Call['_N'];
+            $Call = self::Merge(self::_loadOptions(), $Call);
 
             if(!(is_array($Call) && isset($Call['NoBehaviours'])))
-                foreach ($Behaviours as $Behaviour)
+                foreach (self::$_Options['Codeine']['Behaviours'] as $Behaviour)
                     if (!(is_array($Call) && isset($Call['No'.$Behaviour])))
                         $Call = self::Run(
                             array(
@@ -137,44 +142,43 @@
                                 'NoBehaviours' => true
                             ));
 
+
             if (null === $Call)
                 return null;
 
             if (!isset($Call['_F']))
                 $Call['_F'] = 'Do';
 
-                self::$_Stack->push($Call);
+            self::$_Stack->push($Call);
 
-                    if (!isset($Call['Result']))
-                    {
-                        self::$_Namespace = $Call['_N'];
+                if (!isset($Call['Result']))
+                {
+                    if (null === self::Fn($Call['_F']))
+                        if (null === self::_loadSource($Call))
+                            $Result = isset($Call['Fallback'])? $Call['Fallback']: null;
 
-                        if (null === self::Fn($Call['_F']))
-                            if (null === self::_loadSource($Call))
-                                return isset($Call['Fallback'])? $Call['Fallback']: null;
+                    $F = self::Fn($Call['_F']);
 
-                        $F = self::Fn($Call['_F']);
-
-                        if (is_callable($F))
-                            $Result = $F($Call);
-                        else
-                            return isset($Call['Fallback'])? $Call['Fallback']: null;
-
-                        if(!(is_array($Call) && isset($Call['NoBehaviours'])))
-                            foreach ($Behaviours as $Behaviour)
-                                if (!(is_array($Call) && isset($Call['No'.$Behaviour])))
-                                    $Call = self::Run(
-                                        array(
-                                            '_N' => 'Code.Behaviour.'.$Behaviour,
-                                            '_F' => 'afterRun',
-                                            'Value' => $Call,
-                                            'NoBehaviours' => true
-                                        ));
-                    }
+                    if (is_callable($F))
+                        $Result = $F($Call);
                     else
-                        return $Call['Result'];
+                        $Result = isset($Call['Fallback'])? $Call['Fallback']: null;
 
-                self::$_Stack->pop();
+                    if(!(is_array($Call) && isset($Call['NoBehaviours'])))
+                        foreach (self::$_Options['Codeine']['Behaviours'] as $Behaviour)
+                            if (!(is_array($Call) && isset($Call['No'.$Behaviour])))
+                                $Call = self::Run(
+                                    array(
+                                        '_N' => 'Code.Behaviour.'.$Behaviour,
+                                        '_F' => 'afterRun',
+                                        'Value' => $Call,
+                                        'NoBehaviours' => true
+                                    ));
+                }
+                else
+                    $Result =  $Call['Result'];
+
+            self::$_Stack->pop();
 
             self::$_Namespace = $ParentNamespace;
             return $Result;
@@ -238,60 +242,58 @@
 
         public static function Error($errno , $errstr , $errfile , $errline , $errcontext)
         {
-            $source = file($errfile);
+            echo 'PHP: '.$errstr.' in <a href="xdebug://'.$errfile.'@'.$errline.'">'.$errfile.':'.$errline.'</a> <br/>';
 
-            return F::Run(
-                array(
-                    'Send' => 'Event',
-                    'Message' => 'PHP: '.$errstr.' in <a href="ide://'.$errfile.'@'.$errline.'">'.$errfile.':'.$errline.'</a> <br/>',
-                    'Call' => self::$_Stack->top()
-                )
-            );
+            d(__FILE__, __LINE__, self::$_Stack->top());
         }
 
-        public static function Options($Scope, $Key = null)
+        /*public static function getOption($Key = null)
         {
-            if (!isset(self::$_Options[$Scope]))
+            if (!isset(self::$_Options[self::$_Namespace]))
+                return null;
+
+            if (null === $Key)
+                return isset(self::$_Options[self::$_Namespace])? self::$_Options[self::$_Namespace]: null;
+
+            if (mb_strpos($Key, '.'))
+            {
+                $Subkeys = explode ('.', $Key);
+
+                $Value = self::$_Options[self::$_Namespace];
+
+                foreach ($Subkeys as $Subkey)
+                    if (isset($Value[$Subkey]))
+                        $Value = $Value[$Subkey];
+                    else
+                        return null;
+
+                return $Value;
+            }
+            else
+                return isset(self::$_Options[self::$_Namespace][$Key])? self::$_Options[self::$_Namespace][$Key]: null;
+        }*/
+
+
+        protected static function _loadOptions()
+        {
+            if (!isset(self::$_Options[self::$_Namespace]))
             {
                 $Options = array();
 
                 foreach (self::$_Options['Path'] as $Path)
                 {
-                    $Filename = $Path.'/Options/'.strtr($Scope, '.', '/').'.json';
-                    
+                    $Filename = $Path.'/Options/'.strtr(self::$_Namespace, '.','/').'.json';
                     if (file_exists($Filename))
                         $Options = F::Merge($Options, json_decode(file_get_contents($Filename), true));
                 }
-                
-                self::$_Options[$Scope] = $Options;
+
+                if (empty($Options))
+                    $Options = null;
+
+                self::$_Options[self::$_Namespace] = $Options;
             }
 
-            if (null !== $Key)
-            {
-                if (isset(self::$_Options[$Scope][$Key]))
-                    return self::$_Options[$Scope][$Key];
-                else
-                    if (mb_strpos($Key, '.') !== false)
-                    {
-                        $Keys = explode('.', $Key);
-
-                        $Value = self::$_Options[$Scope];
-
-                        foreach ($Keys as $Key)
-                            if (isset($Value[$Key]))
-                                $Value = $Value[$Key];
-                            else
-                                return null;
-
-                        return $Value;
-                    }
-
-               return null;
-            }
-            else
-                return self::$_Options[$Scope];
-
-            return array(); // Fuck IDE Hinting
+            return self::$_Options[self::$_Namespace];
         }
 
         public static function DUMP($File, $Line, $Call)
@@ -314,4 +316,4 @@
     }
 
     register_shutdown_function('F::Shutdown');
-    set_error_handler('F::Error');
+    set_error_handler('F::Error'); // Instability

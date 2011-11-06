@@ -25,7 +25,15 @@
         [{
             "_N": "Engine.Data",
             "_F": "AutoOpen"
-        }]
+        }],
+        "Storage.Essential.Connect.Failed":
+        {
+            "Die":
+            {
+                "_N": "Hooks.Error.404",
+                "_F": "Show"
+            }
+        }
     },
     "Storages":
     {
@@ -39,7 +47,8 @@
             "URL": "localhost",
             "Database": "OX",
             "User": "root",
-            "Password": "phoenix"
+            "Password": "phoenix",
+            "Essential": true
         },
         "Session":
         {
