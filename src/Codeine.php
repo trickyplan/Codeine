@@ -54,7 +54,7 @@
             return $First;
         }
 
-        public static function Find($Names)
+        public static function findFile($Names)
         {
            if (!is_array($Names))
                 $Names = array($Names);
@@ -75,7 +75,7 @@
             if (isset($Call['Filename']))
                 $Filename = $Call['Filename'];
             else
-                $Filename = self::Find(self::$_Options['Codeine']['Driver']['Path'].'/'.$Path.self::$_Options['Codeine']['Driver']['Extension']);
+                $Filename = self::findFile(self::$_Options['Codeine']['Driver']['Path'].'/'.$Path.self::$_Options['Codeine']['Driver']['Extension']);
 
             if (file_exists($Filename))
                 return (include $Filename);
@@ -98,7 +98,7 @@
             if (self::isCall($Call))
                 return $Call['_N'].':'.$Call['_F'].'('.sha1(serialize($Call)).')';
             else
-                return sha1(serialize($Call));
+                return serialize($Call);
         }
 
         /**
@@ -119,69 +119,74 @@
                     $Call = F::Merge($Call, $Calls[$i]);
 
                 return self::Run($Call);
-            }
+            } // TODO Remove to driver
 
-            if (!self::isCall($Call))
+            if (self::isCall($Call))
+            {
+                $ParentNamespace = self::$_Namespace;
+                self::$_Namespace = $Call['_N'];
+
+                $Call = self::Merge(self::_loadOptions(), $Call);
+
+                if(!(is_array($Call) && isset($Call['NoBehaviours'])))
+                    foreach (self::$_Options['Codeine']['Behaviours'] as $Behaviour)
+                        if (!(is_array($Call) && isset($Call['No'.$Behaviour])))
+                            $Call = self::Run(
+                                array(
+                                    '_N' => 'Code.Behaviour.'.$Behaviour,
+                                    '_F' => 'beforeRun',
+                                    'Value' => $Call,
+                                    'NoBehaviours' => true
+                                ));
+
+
+                if (null === $Call)
+                    return null;
+
+                if (!isset($Call['_F']))
+                    $Call['_F'] = 'Do';
+
+                self::$_Stack->push($Call);
+
+                    if (!isset($Call['Result']))
+                    {
+                        if (null === self::Fn($Call['_F']))
+                            if (null === self::_loadSource($Call))
+                                $Result = isset($Call['Fallback'])? $Call['Fallback']: null;
+
+                        $F = self::Fn($Call['_F']);
+
+                        if (is_callable($F))
+                            $Result = $F($Call);
+                        else
+                            $Result = isset($Call['Fallback'])? $Call['Fallback']: null;
+
+                        if(!(is_array($Call) && isset($Call['NoBehaviours'])))
+                            foreach (self::$_Options['Codeine']['Behaviours'] as $Behaviour)
+                                if (!(is_array($Call) && isset($Call['No'.$Behaviour])))
+                                    $Call = self::Run(
+                                        array(
+                                            '_N' => 'Code.Behaviour.'.$Behaviour,
+                                            '_F' => 'afterRun',
+                                            'Value' => $Call,
+                                            'NoBehaviours' => true
+                                        ));
+                    }
+                    else
+                        $Result =  $Call['Result'];
+
+                self::$_Stack->pop();
+
+                self::$_Namespace = $ParentNamespace;
+
+                return $Result;
+            }
+            else
             {
                 d(__FILE__, __LINE__, $Call);
                 trigger_error('Invalid call');
-            }
-
-            $ParentNamespace = self::$_Namespace;
-            self::$_Namespace = $Call['_N'];
-            $Call = self::Merge(self::_loadOptions(), $Call);
-
-            if(!(is_array($Call) && isset($Call['NoBehaviours'])))
-                foreach (self::$_Options['Codeine']['Behaviours'] as $Behaviour)
-                    if (!(is_array($Call) && isset($Call['No'.$Behaviour])))
-                        $Call = self::Run(
-                            array(
-                                '_N' => 'Code.Behaviour.'.$Behaviour,
-                                '_F' => 'beforeRun',
-                                'Value' => $Call,
-                                'NoBehaviours' => true
-                            ));
-
-
-            if (null === $Call)
                 return null;
-
-            if (!isset($Call['_F']))
-                $Call['_F'] = 'Do';
-
-            self::$_Stack->push($Call);
-
-                if (!isset($Call['Result']))
-                {
-                    if (null === self::Fn($Call['_F']))
-                        if (null === self::_loadSource($Call))
-                            $Result = isset($Call['Fallback'])? $Call['Fallback']: null;
-
-                    $F = self::Fn($Call['_F']);
-
-                    if (is_callable($F))
-                        $Result = $F($Call);
-                    else
-                        $Result = isset($Call['Fallback'])? $Call['Fallback']: null;
-
-                    if(!(is_array($Call) && isset($Call['NoBehaviours'])))
-                        foreach (self::$_Options['Codeine']['Behaviours'] as $Behaviour)
-                            if (!(is_array($Call) && isset($Call['No'.$Behaviour])))
-                                $Call = self::Run(
-                                    array(
-                                        '_N' => 'Code.Behaviour.'.$Behaviour,
-                                        '_F' => 'afterRun',
-                                        'Value' => $Call,
-                                        'NoBehaviours' => true
-                                    ));
-                }
-                else
-                    $Result =  $Call['Result'];
-
-            self::$_Stack->pop();
-
-            self::$_Namespace = $ParentNamespace;
-            return $Result;
+            }
         }
 
         public static function Fn($Function, $Code = null)
@@ -242,37 +247,11 @@
 
         public static function Error($errno , $errstr , $errfile , $errline , $errcontext)
         {
+            // FIXME
             echo 'PHP: '.$errstr.' in <a href="xdebug://'.$errfile.'@'.$errline.'">'.$errfile.':'.$errline.'</a> <br/>';
 
             d(__FILE__, __LINE__, self::$_Stack->top());
         }
-
-        /*public static function getOption($Key = null)
-        {
-            if (!isset(self::$_Options[self::$_Namespace]))
-                return null;
-
-            if (null === $Key)
-                return isset(self::$_Options[self::$_Namespace])? self::$_Options[self::$_Namespace]: null;
-
-            if (mb_strpos($Key, '.'))
-            {
-                $Subkeys = explode ('.', $Key);
-
-                $Value = self::$_Options[self::$_Namespace];
-
-                foreach ($Subkeys as $Subkey)
-                    if (isset($Value[$Subkey]))
-                        $Value = $Value[$Subkey];
-                    else
-                        return null;
-
-                return $Value;
-            }
-            else
-                return isset(self::$_Options[self::$_Namespace][$Key])? self::$_Options[self::$_Namespace][$Key]: null;
-        }*/
-
 
         protected static function _loadOptions()
         {
@@ -296,7 +275,7 @@
             return self::$_Options[self::$_Namespace];
         }
 
-        public static function DUMP($File, $Line, $Call)
+        public static function Dump($File, $Line, $Call)
         {
             echo '<strong>File:'.$File.' line:'.$Line.'</strong>';
             if (is_array($Call))
@@ -312,7 +291,7 @@
 
     function d()
     {
-        return call_user_func_array(array('F','DUMP'), func_get_args());
+        return call_user_func_array(array('F','Dump'), func_get_args());
     }
 
     register_shutdown_function('F::Shutdown');

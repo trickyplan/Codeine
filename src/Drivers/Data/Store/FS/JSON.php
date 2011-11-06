@@ -21,11 +21,11 @@
         if (is_array($Call['ID']))
         {
             foreach ($Call['ID'] as $cID)
-                if ($Filename[++$ic] = F::Find(implode('/', array($Call['URL'], $cID))))
+                if ($Filename[++$ic] = F::findFile(implode('/', array($Call['URL'], $cID))))
                     break;
         }
         else
-            $Filename[$ic] = F::Find(implode('/', array($Call['URL'], $Call['ID'])));
+            $Filename[$ic] = F::findFile(implode('/', array($Call['URL'], $Call['ID'])));
 
         if(file_exists($Filename[$ic]))
             return file_get_contents($Filename[$ic]);

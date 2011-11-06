@@ -9,7 +9,7 @@
 
     self::Fn('Model.Load', function ($Call)
     {
-        $Model =  json_decode(file_get_contents(F::Find('Options/Object/'.$Call['Scope'].'.json')), true); //FIXME
+        $Model =  json_decode(file_get_contents(F::findFile('Options/Object/'.$Call['Scope'].'.json')), true); //FIXME
 
         foreach ($Model['Nodes'] as &$Node)
             if (!isset($Node['Point']))

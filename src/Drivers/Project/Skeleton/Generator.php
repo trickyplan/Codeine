@@ -11,7 +11,7 @@
         {
             $Call['Codeine'] = Codeine;
 
-            $Script = file_get_contents(F::Find('Options/Project/Generator/Template.json'));
+            $Script = file_get_contents(F::findFile('Options/Project/Generator/Template.json'));
 
             if (preg_match_all('@\$(\w+)@', $Script, $Pockets))
                 foreach ($Pockets[1] as $IX => $Match)
