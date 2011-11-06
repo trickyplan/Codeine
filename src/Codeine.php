@@ -123,6 +123,7 @@
 
             if (!self::isCall($Call))
             {
+                d(__FILE__, __LINE__, $Call);
                 trigger_error('Invalid call');
             }
 

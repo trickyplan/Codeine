@@ -10,8 +10,9 @@
     self::Fn('Make', function ($Call)
     {
         $Layout = F::Run(array(
-                          'Data' => array('Load', 'File'),
-                          'ID' => 'Layout/UI/HTML/Form/Panel.html'
+                          '_N' => 'Engine.View',
+                          '_F' => 'Load',
+                          'ID' => 'UI/HTML/Form/Panel'
                       ));
 
         if (preg_match_all('@<k>(.*)</k>@SsUu', $Layout, $Pockets))

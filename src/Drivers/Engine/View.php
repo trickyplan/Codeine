@@ -29,3 +29,14 @@
 
         return $Call;
     });
+
+    self::Fn ('Load', function ($Call)
+        {
+            return F::Run(array(
+                              '_N' => 'Engine.Data',
+                              '_F' => 'Load',
+                              'Storage' => 'Layout',
+                              'Scope' => 'Layout',
+                              'ID' => array($Call['ID'].$Call['Context'], $Call['ID'].'.html')
+                          ));
+    });

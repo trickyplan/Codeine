@@ -14,7 +14,9 @@
             // FIXME Codeinize
             $Locales = F::Run(
                 array(
-                    'Object' => array('Load', 'Language'),
+                    '_N' => 'Engine.Object',
+                    '_F' => 'Load',
+                    'Scope' => 'Language',
                     'ID' => 'Russian'
                 )
             );

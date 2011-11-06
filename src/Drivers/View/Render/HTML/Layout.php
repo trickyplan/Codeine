@@ -9,11 +9,9 @@
 
      self::Fn('Load', function ($Call)
      {
-         $Call['Layout'] = F::Run(array(
-                                      '_N' => 'Engine.Data',
-                                      '_F' => 'Load',
-                                      'Scope' => 'Layout',
-                                      'ID' => array($Call['ID'].$Call['Context'], $Call['ID'].'.html')
+         $Call['Layout'] = F::Run ($Call, array(
+                                    '_N'      => 'Engine.View',
+                                    '_F'      => 'Load'
                                   ));
 
          return $Call;

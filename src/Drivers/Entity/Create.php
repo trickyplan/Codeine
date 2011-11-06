@@ -81,17 +81,16 @@
 
     self::Fn ('Submit', function ($Call)
         {
-            $ID = uniqid ();
+            $Call['ID'] = uniqid ();
 
             if (isset($Call['Hooks']['after' . $Call['_F']]))
                 foreach ($Call['Hooks']['after' . $Call['_F']] as $Hook)
                     $Call = F::Run (F::Merge ($Hook, array('Value' => $Call)), F::Kernel);
 
-            if (F::Run (
+            if (F::Run ($Call,
                 array(
-                     'Object' => array('Create', $Call['Scope']),
-                     'ID'     => $ID,
-                     'Value'  => $Call['Value'])
+                     '_N' => 'Engine.Object',
+                     '_F' => 'Create')
             ))
             {
                 F::Run(
