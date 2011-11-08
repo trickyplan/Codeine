@@ -44,13 +44,40 @@
             foreach ($Call['ID'] as &$ID)
                 $ID = F::Run(array('_N' => 'Data.Syntax.MySQL', '_F' => 'Escape', 'Value' => $ID));
 
-            $Where = '`ID` IN '.implode(',', $Call['ID']);
+            $Where = '`ID` IN ('.implode(',', $Call['ID']).')';
         }
         else
             $Where = '`ID` = '.F::Run(array('_N' => 'Data.Syntax.MySQL', '_F' => 'Escape', 'Value' => $Call['ID']));
 
         return $Where;
     });
+
+    self::Fn('Values', function ($Call)
+        {
+            $WhereString = array();
+
+            if (isset($Call['Where']))
+                {
+                    foreach ($Call['Where'] as $Key => $Value)
+                    if (is_array($Value))
+                        foreach ($Value as $Op => $Value)
+                            $WhereString[] = '`'.$Key.'`'.$Op.' '.F::Run(
+                                                                    array(
+                                                                        '_N'=>'Data.Syntax.MySQL',
+                                                                        '_F' => 'Escape',
+                                                                        'Value' => $Value));
+                    else
+                        $WhereString[] = '`'.$Key.'`'.' = '.F::Run(
+                                                                    array(
+                                                                        '_N'=>'Data.Syntax.MySQL',
+                                                                        '_F' => 'Escape',
+                                                                        'Value' => $Value));
+
+                    return implode(' AND ', $WhereString);
+                }
+            else
+                return '1 = 1';
+        });
 
     self::Fn('Delete', function ($Call)
     {

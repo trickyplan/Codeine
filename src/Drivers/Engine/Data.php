@@ -12,11 +12,11 @@
     self::Fn('Open', function ($Call)
     {
         $Link = F::Run(
-                                $Call['Storages'][$Call['Storage']],
-                                array(
-                                    '_N' => $Call['Storages'][$Call['Storage']]['Method'],
-                                    '_F' => 'Open',
-                                    'NoBehaviours' => true));
+                    $Call['Storages'][$Call['Storage']],
+                    array(
+                        '_N' => $Call['Storages'][$Call['Storage']]['Method'],
+                        '_F' => 'Open',
+                        'NoBehaviours' => true));
 
         if (empty($Link) && isset($Call['Storages'][$Call['Storage']]['Essential']))
             die('Essential storage failed');
@@ -75,6 +75,11 @@
         $Data = F::Run($Call, array('_F' => 'Operation', 'Operation' => $Call['_F']));
 
         return $Data;
+    });
+
+    self::Fn ('Values', function ($Call)
+    {
+        return F::Run($Call, array('_F' => 'Operation', 'Operation' => $Call['_F']));
     });
 
     self::Fn('Find', function ($Call)

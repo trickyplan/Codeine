@@ -33,15 +33,16 @@
         if (null !== $Rows)
         {
             foreach ($Rows as $Row)
-                $Data[$Row['K']][] = $Row['V'];
+                $Data[$Call['ID']][$Row['K']][] = $Row['V'];
 
-            foreach ($Data as &$Value)
-                        if (count($Value) == 1)
-                            $Value = $Value[0];
+            foreach ($Data as &$Object)
+                foreach ($Object as $Key => &$Value)
+                    if (count($Value) == 1)
+                        $Value = $Value[0];
         }
         else
             $Data = null;
-        
+
         return $Data;
     });
 

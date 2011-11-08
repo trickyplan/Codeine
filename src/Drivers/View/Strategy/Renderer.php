@@ -9,10 +9,7 @@
 
     self::Fn('Select', function ($Call)
     {
-        // TODO Options
-        $Renderers = array('HTML', 'Debug');
-
-        foreach ($Renderers as $Renderer)
+        foreach ($Call['Renderers'] as $Renderer)
             if (F::Run(array(
                   '_N' => 'View.Render.'.$Renderer,
                   '_F' => 'Detect',

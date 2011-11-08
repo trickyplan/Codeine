@@ -29,12 +29,11 @@
         $Rows = array();
 
         $Query = 'select `ID` from '.$Call['Scope'].' where '.F::Run($Call, array('_N' => 'Data.Syntax.MySQL'));
-
         $Result = $Call['Link']->query($Query);
 
         while($Row = $Result->fetch_assoc())
             $Rows[] = $Row['ID'];
-        
+
         $Result->free();
         return $Rows;
     });
@@ -59,6 +58,21 @@
         else
             return null;
     });
+
+    self::Fn('Values', function ($Call)
+        {
+            $Rows = array();
+
+            $Query = 'select distinct `'.$Call['Key'].'` from '.$Call['Scope'].' where '.F::Run($Call, array('_N' => 'Data.Syntax.MySQL'));
+
+            $Result = $Call['Link']->query($Query);
+
+            while($Row = $Result->fetch_assoc())
+                $Rows[] = $Row[$Call['Key']];
+
+            $Result->free();
+            return $Rows;
+        });
 
     self::Fn('Create', function ($Call)
     {

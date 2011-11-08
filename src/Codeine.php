@@ -61,10 +61,17 @@
 
            foreach ($Names as $Name)
                foreach (self::$_Options['Path'] as $ic => $Path)
-                    if (file_exists($Filenames[$ic] = $Path.'/'.$Name))
+               {
+                   $Filenames[$ic] = $Path.'/'.$Name;
+                    if (file_exists($Filenames[$ic]))
+                    {
+                        //echo $Filenames[$ic].'<br/>';
                         return $Filenames[$ic];
+                    }
 
-           trigger_error($Names[0].' not found'); // FIXME
+               }
+
+           //trigger_error($Names[0].' not found'); // FIXME
            return null;
         }
 
@@ -258,12 +265,14 @@
             if (!isset(self::$_Options[self::$_Namespace]))
             {
                 $Options = array();
-
                 foreach (self::$_Options['Path'] as $Path)
                 {
-                    $Filename = $Path.'/Options/'.strtr(self::$_Namespace, '.','/').'.json';
+                    $Filename = self::findFile('Options/'.strtr(self::$_Namespace, '.','/').'.json');
                     if (file_exists($Filename))
-                        $Options = F::Merge($Options, json_decode(file_get_contents($Filename), true));
+                    {
+                        $Options = json_decode(file_get_contents($Filename), true);
+                        break;
+                    }
                 }
 
                 if (empty($Options))
