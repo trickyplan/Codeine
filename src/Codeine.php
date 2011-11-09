@@ -42,34 +42,28 @@
 
         public static function Merge($First, $Second)
         {
-            if (is_array($Second))
-               foreach ($Second as $Key => $Value)
-                   if (is_array($First) && array_key_exists($Key, $First) && is_array($Value))
-                       $First[$Key] = self::Merge($First[$Key], $Second[$Key]);
-                   else
-                       $First[$Key] = $Value;
+            if (is_array($Second) && is_array($First))
+            {
+                foreach ($Second as $Key => $Value)
+                    if (isset($First[$Key]) && is_array($Value))
+                        $First[$Key] = self::Merge($First[$Key], $Second[$Key]);
+                    else
+                        $First[$Key] = $Value;
+            }
             else
-               return $Second;
+                $First = $Second;
 
             return $First;
         }
 
         public static function findFile($Names)
         {
-           if (!is_array($Names))
-                $Names = array($Names);
+           $Names = (array) $Names;
 
            foreach ($Names as $Name)
                foreach (self::$_Options['Path'] as $ic => $Path)
-               {
-                   $Filenames[$ic] = $Path.'/'.$Name;
-                    if (file_exists($Filenames[$ic]))
-                    {
-                        //echo $Filenames[$ic].'<br/>';
+                   if (file_exists($Filenames[$ic] = $Path.'/'.$Name))
                         return $Filenames[$ic];
-                    }
-
-               }
 
            //trigger_error($Names[0].' not found'); // FIXME
            return null;
@@ -77,14 +71,14 @@
 
         protected static function _loadSource($Call)
         {
-            $Path = strtr($Call['_N'], array('.' => '/'));
+            $Path = strtr($Call['_N'], '.', '/');
 
             if (isset($Call['Filename']))
                 $Filename = $Call['Filename'];
             else
                 $Filename = self::findFile(self::$_Options['Codeine']['Driver']['Path'].'/'.$Path.self::$_Options['Codeine']['Driver']['Extension']);
 
-            if (file_exists($Filename))
+            if ($Filename)
                 return (include $Filename);
             else
                 return null;
@@ -135,7 +129,7 @@
 
                 $Call = self::Merge(self::_loadOptions(), $Call);
 
-                if(!(is_array($Call) && isset($Call['NoBehaviours'])))
+                if(!isset($Call['NoBehaviours']))
                     foreach (self::$_Options['Codeine']['Behaviours'] as $Behaviour)
                         if (!(is_array($Call) && isset($Call['No'.$Behaviour])))
                             $Call = self::Run(
@@ -145,10 +139,6 @@
                                     'Value' => $Call,
                                     'NoBehaviours' => true
                                 ));
-
-
-                if (null === $Call)
-                    return null;
 
                 if (!isset($Call['_F']))
                     $Call['_F'] = 'Do';
@@ -168,7 +158,7 @@
                         else
                             $Result = isset($Call['Fallback'])? $Call['Fallback']: null;
 
-                        if(!(is_array($Call) && isset($Call['NoBehaviours'])))
+                        if(!isset($Call['NoBehaviours']))
                             foreach (self::$_Options['Codeine']['Behaviours'] as $Behaviour)
                                 if (!(is_array($Call) && isset($Call['No'.$Behaviour])))
                                     $Call = self::Run(
@@ -198,25 +188,19 @@
 
         public static function Fn($Function, $Code = null)
         {
-            if ($Function instanceof Traversable || is_array($Function))
-                foreach ($Function as $cFn)
-                    self::Fn($cFn, $Code);
+            if (null !== $Code)
+            {
+                if (false !== $Code)
+                    self::$_Functions[self::$_Namespace][$Function] = $Code;
+                else
+                    unset(self::$_Functions[self::$_Namespace][$Function]);
+            }
             else
             {
-                if (null !== $Code)
-                {
-                    if (false !== $Code)
-                        self::$_Functions[self::$_Namespace][$Function] = $Code;
-                    else
-                        unset(self::$_Functions[self::$_Namespace][$Function]);
-                }
+                if (isset(self::$_Functions[self::$_Namespace][$Function]))
+                    return self::$_Functions[self::$_Namespace][$Function];
                 else
-                {
-                    if (isset(self::$_Functions[self::$_Namespace][$Function]))
-                        return self::$_Functions[self::$_Namespace][$Function];
-                    else
-                        return null;
-                }
+                    return null;
             }
 
             // Fuckup of IDE hinting
@@ -268,7 +252,7 @@
                 foreach (self::$_Options['Path'] as $Path)
                 {
                     $Filename = self::findFile('Options/'.strtr(self::$_Namespace, '.','/').'.json');
-                    if (file_exists($Filename))
+                    if ($Filename)
                     {
                         $Options = json_decode(file_get_contents($Filename), true);
                         break;

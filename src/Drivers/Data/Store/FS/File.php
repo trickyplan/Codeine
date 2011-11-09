@@ -27,7 +27,7 @@
         else
             $Filename[$ic] = F::findFile(implode('/', array($Call['URL'], $Call['ID'])));
 
-        if(file_exists($Filename[$ic]))
+        if($Filename[$ic])
             return file_get_contents($Filename[$ic]);
 
     });
@@ -46,6 +46,6 @@
         else
             $Filename[$ic] = F::findFile(implode('/', array($Call['URL'], $Call['ID'])));
 
-        if(file_exists($Filename[$ic]))
+        if($Filename[$ic])
             return file_put_contents($Filename[$ic], $Call['Value']);
     });

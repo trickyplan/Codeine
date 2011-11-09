@@ -11,6 +11,8 @@
 
     self::Fn('Route', function ($Call)
     {
+        if (strpos($Call['Value'], '?'))
+            list($Call['Value']) = explode('?', $Call['Value']);
         // TODO Error: Not found Links Table
         if (is_string($Call['Value']) && isset($Call['Links'][$Call['Value']]))
             return $Call['Links'][$Call['Value']];
