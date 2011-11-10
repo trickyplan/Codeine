@@ -9,7 +9,7 @@
         <loadfile property="version" file="../docs/VERSION"/>
     </target>
 
-    <taskdef name="phploc" classname="../../../../usr.share.php.phing.tasks.my.PHPLocTask" />
+    <taskdef name="phploc" classname="phing.tasks.my.PHPLocTask" />
 
     <target name="phploc" depends="prepare">
          <phploc reportType="txt" reportName="phploc-${version}" reportDirectory="reports">
