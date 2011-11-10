@@ -2,7 +2,7 @@ Welcome to the Codeine6 Release!
 
 RELEASE INFORMATION
 ---------------
-Codeine 6.0f Release.
+Codeine 6.0 Release.
 Released on Nov 8, 2011.
 
 NEW FEATURES
