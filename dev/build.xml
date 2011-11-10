@@ -10,17 +10,9 @@
         <loadfile property="version" file="../docs/VERSION"/>
     </target>
 
-    <phpunit>
-      <formatter todir="reports" type="xml"/>
-      <batchtest>
-        <fileset dir="../tests">
-          <include name="**/*Test*.php"/>
-        </fileset>
-      </batchtest>
-    </phpunit>
-
     <taskdef name="phploc" classname="phing.tasks.my.PHPLocTask" />
-       <target name="phploc">
+
+    <target name="phploc" depends="prepare">
          <phploc reportType="txt" reportName="phploc-${version}" reportDirectory="reports">
            <fileset dir="../src">
              <include name="**/*.php" />
@@ -29,7 +21,17 @@
          </phploc>
     </target>
 
-    <target name="build" depends="prepare, phploc">
+    <target name="test" depends="prepare">
+        <phpunit>
+              <formatter todir="reports" type="xml"/>
+              <batchtest>
+                <fileset dir="../tests">
+                  <include name="**/*Test*.php"/>
+                </fileset>
+              </batchtest>
+        </phpunit>
+    </target>
+    <target name="build" depends="prepare, test, phploc">
         <echo msg="Building..." />
     </target>
 
