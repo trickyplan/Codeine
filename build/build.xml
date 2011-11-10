@@ -20,7 +20,7 @@
     </target>
 
     <target name="test" depends="prepare">
-        <phpunit>
+        <phpunit bootstrap="../tests/Bootstrap.php">
               <formatter todir="reports" type="xml"/>
               <batchtest>
                 <fileset dir="../tests">
