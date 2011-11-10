@@ -78,7 +78,7 @@
     </target>
 
     <target name="debian-build" depends="debian-prepare, debian-source, debian-etc, debian-docs">
-        <exec command="dpkg --build 'codeine-${version}' dist/ " dir="..//" />
+        <exec command="dpkg --build 'codeine-${version}' dist/ " dir="." />
     </target>
 
     <target name="dist" depends="tgz, debian-build">
