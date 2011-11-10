@@ -33,7 +33,7 @@
         if (null !== $Rows)
         {
             foreach ($Rows as $Row)
-                $Data[$Call['ID']][$Row['K']][] = $Row['V'];
+                $Data[$Row['ID']][$Row['K']][] = $Row['V'];
 
             foreach ($Data as &$Object)
                 foreach ($Object as $Key => &$Value)

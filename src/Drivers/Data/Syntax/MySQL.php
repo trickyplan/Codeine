@@ -39,15 +39,20 @@
 
     self::Fn('Load', function ($Call)
     {
-        if (is_array($Call['ID']))
+        if (isset($Call['ID']))
         {
-            foreach ($Call['ID'] as &$ID)
-                $ID = F::Run(array('_N' => 'Data.Syntax.MySQL', '_F' => 'Escape', 'Value' => $ID));
+            if (is_array($Call['ID']))
+            {
+                foreach ($Call['ID'] as &$ID)
+                    $ID = F::Run(array('_N' => 'Data.Syntax.MySQL', '_F' => 'Escape', 'Value' => $ID));
 
-            $Where = '`ID` IN ('.implode(',', $Call['ID']).')';
+                $Where = '`ID` IN ('.implode(',', $Call['ID']).')';
+            }
+            else
+                $Where = '`ID` = '.F::Run(array('_N' => 'Data.Syntax.MySQL', '_F' => 'Escape', 'Value' => $Call['ID']));
         }
         else
-            $Where = '`ID` = '.F::Run(array('_N' => 'Data.Syntax.MySQL', '_F' => 'Escape', 'Value' => $Call['ID']));
+            $Where = ' 1 = 1';
 
         return $Where;
     });

@@ -1,0 +1,9 @@
+Installation
+
+This is done easily: vi /etc/php5/conf.d/zend-framework.ini and remove the ";"
+from the beginning of the include_path line. For this to work properly, you need also
+to remove the comment sign from the 'include_path' configuration variable in your php.ini.
+If you don't do this, php will segfault. (http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=497453)
+
+ -- Stephan Hermann <sh@sourcecode.de>,  Wed Feb 13 14:00:00 2008
+
