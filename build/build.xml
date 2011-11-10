@@ -2,14 +2,13 @@
 
 <project name="Codeine" default="dist">
 
+    <taskdef name="phploc" classname="phing.tasks.my.PHPLocTask" />
+
     <target name="prepare">
-        <echo msg="Making directory dist" />
         <mkdir dir="dist" />
         <mkdir dir="reports" />
         <loadfile property="version" file="../docs/VERSION"/>
     </target>
-
-    <taskdef name="phploc" classname="phing.tasks.my.PHPLocTask" />
 
     <target name="phploc" depends="prepare">
          <phploc reportType="txt" reportName="phploc-${version}" reportDirectory="reports">
@@ -30,58 +29,59 @@
               </batchtest>
         </phpunit>
     </target>
+
     <target name="build" depends="prepare, test, phploc">
-        <echo msg="Building..." />
     </target>
 
     <target name="tgz" depends="build">
-        <echo msg="Creating archive..." />
-
         <tar destFile="dist/codeine-${version}.tar.gz" compression="gzip">
             <fileset dir="../src">
                 <include name="*" />
             </fileset>
         </tar>
-
-        <echo msg="Files copied and compressed in build directory OK!" />
     </target>
 
-    <target name="deb" depends="build">
-        <echo msg="Creating debian package..." />
+    <target name="debian-source">
         <mkdir dir="codeine-${version}/usr/share/php/codeine" />
-        <mkdir dir="codeine-${version}/usr/share/doc/codeine/" />
-        <mkdir dir="codeine-${version}/etc/" />
-        <mkdir dir="codeine-${version}/DEBIAN" />
-
         <copy todir="codeine-${version}/usr/share/php/codeine">
             <fileset dir="../src">
                 <include name="*/**" />
             </fileset>
         </copy>
+    </target>
 
-        <copy todir="codeine-${version}/etc/">
-            <fileset dir="../etc">
-                <include name="*/**" />
-            </fileset>
-        </copy>
+    <target name="debian-etc" depends="debian-prepare">
+        <mkdir dir="codeine-${version}/etc/codeine" />
+                <copy todir="codeine-${version}/etc/codeine">
+                    <fileset dir="../etc">
+                        <include name="*/**" />
+                    </fileset>
+                </copy>
+        </target>
 
+    <target name="debian-docs" depends="debian-prepare">
+        <mkdir dir="codeine-${version}/usr/share/doc/codeine/" />
         <copy todir="codeine-${version}/usr/share/doc/codeine/">
             <fileset dir="../docs">
                 <include name="*/**" />
             </fileset>
         </copy>
+    </target>
 
+    <target name="debian-prepare" depends="build">
+        <mkdir dir="codeine-${version}/DEBIAN" />
         <copy todir="codeine-${version}/DEBIAN">
             <fileset dir="../DEBIAN/">
                 <include name="*/**" />
             </fileset>
         </copy>
-
-        <exec command="dpkg --build 'codeine-${version}' dist/ " dir="..//" />
-
     </target>
 
-    <target name="dist" depends="tgz,deb">
+    <target name="debian-build" depends="debian-prepare, debian-source, debian-etc, debian-docs">
+        <exec command="dpkg --build 'codeine-${version}' dist/ " dir="..//" />
+    </target>
+
+    <target name="dist" depends="tgz, debian-build">
         <echo msg="Files copied and compressed in build directory OK!" />
     </target>
 </project>
