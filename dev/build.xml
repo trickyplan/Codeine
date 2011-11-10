@@ -13,7 +13,7 @@
     <phpunit>
       <formatter todir="reports" type="xml"/>
       <batchtest>
-        <fileset dir="tests">
+        <fileset dir="../tests">
           <include name="**/*Test*.php"/>
         </fileset>
       </batchtest>
