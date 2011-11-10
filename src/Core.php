@@ -240,7 +240,6 @@
         {
             // FIXME
             echo 'PHP: '.$errstr.' in <a href="xdebug://'.$errfile.'@'.$errline.'">'.$errfile.':'.$errline.'</a> <br/>';
-
             d(__FILE__, __LINE__, self::$_Stack->top());
         }
 
