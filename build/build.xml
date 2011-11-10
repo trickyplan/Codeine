@@ -53,7 +53,7 @@
     <target name="debian-etc" depends="debian-prepare">
         <mkdir dir="codeine-${version}/etc/codeine" />
                 <copy todir="codeine-${version}/etc/codeine">
-                    <fileset dir="../etc">
+                    <fileset dir="etc">
                         <include name="*/**" />
                     </fileset>
                 </copy>
@@ -71,7 +71,7 @@
     <target name="debian-prepare" depends="build">
         <mkdir dir="codeine-${version}/DEBIAN" />
         <copy todir="codeine-${version}/DEBIAN">
-            <fileset dir="../DEBIAN/">
+            <fileset dir="DEBIAN/">
                 <include name="*/**" />
             </fileset>
         </copy>
