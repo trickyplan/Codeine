@@ -1,7 +1,12 @@
 <?php
 
-    class StackTest extends PHPUnit_Framework_TestCase
+    class CoreTest extends PHPUnit_Framework_TestCase
     {
+        public function testFLoaded()
+        {
+            $this->assertTrue(class_exists('F'));
+        }
+
         public function testSimpleRun()
         {
             $this->assertEquals(true, F::Run(
