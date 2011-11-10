@@ -9,3 +9,10 @@ codeine (6.0f) unstable; urgency=low
 * Множество изменений
 
 -- Dmitry Bergstein <dmitry.bergstein@gmail.com>
+
+codeine (6.0g2) unstable; urgency=low
+
+* Codeine.php renamed to Core.php
+* Codeine now installed to /usr/share/php/codeine
+
+-- Dmitry Bergstein <dmitry.bergstein@gmail.com>

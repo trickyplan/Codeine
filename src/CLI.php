@@ -1,7 +1,7 @@
 <?php
 
 
-    include 'Codeine.php';
+    include 'Core.php';
 
     F::Bootstrap();
 
