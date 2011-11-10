@@ -48,5 +48,11 @@
                 )
             );
 
+        F::Run(
+            array(
+                '_N' => 'System.Output.HTTP',
+                '_F' => 'Shutdown'
+            )
+          );
         return true;
     });

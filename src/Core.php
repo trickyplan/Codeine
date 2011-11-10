@@ -233,12 +233,6 @@
 
         public static function Shutdown()
         {
-            F::Run(
-                    array(
-                        '_N' => 'System.Output.HTTP',
-                        '_F' => 'Shutdown'
-                    )
-                  );
             return null; // TODO onShutdown
         }
 
