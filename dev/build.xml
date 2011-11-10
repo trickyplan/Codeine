@@ -38,10 +38,24 @@
     <target name="deb" depends="build">
         <echo msg="Creating debian package..." />
         <mkdir dir="../codeine-${version}/usr/share/codeine" />
+        <mkdir dir="../codeine-${version}/usr/share/doc/codeine/" />
+        <mkdir dir="../codeine-${version}/etc/" />
         <mkdir dir="../codeine-${version}/DEBIAN" />
 
         <copy todir="../codeine-${version}/usr/share/codeine">
             <fileset dir="../src">
+                <include name="*/**" />
+            </fileset>
+        </copy>
+
+        <copy todir="../codeine-${version}/etc/">
+            <fileset dir="../etc">
+                <include name="*/**" />
+            </fileset>
+        </copy>
+
+        <copy todir="../codeine-${version}/usr/share/doc/codeine/">
+            <fileset dir="../docs">
                 <include name="*/**" />
             </fileset>
         </copy>

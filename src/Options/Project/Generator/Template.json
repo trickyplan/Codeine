@@ -76,7 +76,7 @@
         {
             "_N": "System.FS.File",
             "_F": "Create",
-            "Filename": "/var/www/$Name/LICENSE",
+            "Filename": "/var/www/$Name/LICENSE.txt",
             "Value":
             {
                 "_N": "Project.License.$License",
