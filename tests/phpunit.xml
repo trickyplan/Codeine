@@ -1,0 +1,7 @@
+<phpunit>
+  <testsuites>
+    <testsuite name="Codeine">
+      <directory>.</directory>
+    </testsuite>
+  </testsuites>
+</phpunit>

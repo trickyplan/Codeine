@@ -11,7 +11,7 @@
     </target>
 
     <phpunit>
-      <formatter todir="reports" type="xml"/>
+      <formatter todir="../reports" type="xml"/>
       <batchtest>
         <fileset dir="../tests">
           <include name="**/*Test*.php"/>
@@ -21,7 +21,7 @@
 
     <taskdef name="phploc" classname="phing.tasks.my.PHPLocTask" />
        <target name="phploc">
-         <phploc reportType="txt" reportName="phploc-${version}" reportDirectory="../reports">
+         <phploc reportType="txt" reportName="phploc-${version}" reportDirectory="../sreports">
            <fileset dir="../src">
              <include name="**/*.php" />
              <include name="*.php" />
