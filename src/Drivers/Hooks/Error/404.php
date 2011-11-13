@@ -10,8 +10,8 @@
     self::Fn ('Show', function ($Call)
         {
             header ("HTTP/1.0 404 Not Found");
-
-            $Widgets[] = array(
+d(__FILE__, __LINE__, $Call);
+            $Call['Widgets'] = array(
                 'Place'   => 'Content',
                 'Type'    => 'Heading',
                 'Level'   => 3,
@@ -19,5 +19,5 @@
                 'Subtext' => '<l>' . $Call['_N'] . '.Subtext</l>'
             );
 
-            return $Widgets;
+            return $Call;
         });

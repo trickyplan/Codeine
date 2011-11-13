@@ -21,6 +21,8 @@
                 )
             );
 
+            $Locales = $Locales['Russian']; // Temporary
+
             foreach ($Pockets[1] as $IX => $Match)
             {
                 if (isset($Locales[$Match]))

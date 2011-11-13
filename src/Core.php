@@ -239,7 +239,7 @@
         public static function Error($errno , $errstr , $errfile , $errline , $errcontext)
         {
             // FIXME
-            echo 'PHP: '.$errstr.' in <a href="xdebug://'.$errfile.'@'.$errline.'">'.$errfile.':'.$errline.'</a> <br/>';
+            echo '<div>PHP: '.$errstr.' in <a href="xdebug://'.$errfile.'@'.$errline.'">'.$errfile.':'.$errline.'</a> </div>';
             d(__FILE__, __LINE__, self::$_Stack->top());
         }
 
@@ -251,6 +251,7 @@
                 foreach (self::$_Options['Path'] as $Path)
                 {
                     $Filename = self::findFile('Options/'.strtr(self::$_Namespace, '.','/').'.json');
+
                     if ($Filename)
                     {
                         $Options = json_decode(file_get_contents($Filename), true);

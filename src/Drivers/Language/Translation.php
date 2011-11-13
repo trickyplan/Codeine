@@ -14,7 +14,9 @@
             // FIXME Codeinize
             return F::Run(
                     array(
-                        'Object' => array('Node.Add', 'Language'),
+                        '_N' => 'Engine.Object',
+                        '_F' => 'Node.Add',
+                        'Scope' => 'Language',
                         'ID' => $Locale,
                         'Key' => $Call['Key'],
                         'Value' => $Call['Value']

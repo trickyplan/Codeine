@@ -26,7 +26,6 @@
 
         $Call = F::Run($Call, array('_N' => 'Code.Flow.Hook','_F'=>'Run','On'=>'beforeRun')); // JP beforeRun
 
-
         if (F::isCall($Call['Value']))
             $Call  = F::Run ($Call, $Call['Value']);
         else
