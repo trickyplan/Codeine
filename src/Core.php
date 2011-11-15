@@ -30,7 +30,7 @@
             if (isset($Call['Path']))
             {
                 if (is_array($Call['Path']))
-                    self::$_Options['Path'][] = Codeine;
+                    self::$_Options['Path'] = array_merge($Call['Path'], array(Codeine));
                 else
                     self::$_Options['Path'] = array($Call['Path'], Codeine);
             }
