@@ -9,6 +9,7 @@ NEW FEATURES
 ------------
 
 Many fixes.
+Additional drivers moved to Hydrocodone Project
 
 SYSTEM REQUIREMENTS
 -------------------
