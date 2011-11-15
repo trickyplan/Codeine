@@ -14,6 +14,10 @@
 
     self::Fn('Do', function ($Call)
     {
+        if (isset($Call['Headers']))
+        foreach ($Call['Headers'] as $Key => $Value)
+            header($Key.': '.$Value);
+
         echo $Call['Output'];
     });
 

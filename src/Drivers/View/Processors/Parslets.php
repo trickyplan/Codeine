@@ -9,9 +9,7 @@
 
      self::Fn('Process', function ($Call)
      {
-         $Parslets = array('Layout', 'Exec'); // FIXME Codeinize
-
-         foreach ($Parslets as $Parslet)
+         foreach ($Call['Parslets'] as $Parslet)
          {
              $Tag = strtolower($Parslet);
 

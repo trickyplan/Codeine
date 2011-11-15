@@ -28,7 +28,7 @@
                 if (isset($Locales[$Match]))
                     $Call['Output'] = str_replace($Pockets[0][$IX], $Locales[$Match], $Call['Output']);
                 else
-                    $Call['Output'] = str_replace($Pockets[0][$IX], '<nl>'.$Match.'</nl>', $Call['Output']);
+                    $Call['Output'] = str_replace($Pockets[0][$IX], '<span class="nl">'.$Match.'</span>', $Call['Output']);
             }
         }
         return $Call;

@@ -14,7 +14,7 @@
         // TODO Стратегия
         $Renderer = F::Run($Call, array(
               '_N' => 'View.Strategy.Renderer',
-              '_F' => 'Select'
+              '_F' => 'Defined'
                     ));
 
         $Call = F::Run($Call,

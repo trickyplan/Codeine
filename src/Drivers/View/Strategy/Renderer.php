@@ -7,6 +7,11 @@
      * @version 6.0
      */
 
+    self::Fn ('Defined', function ($Call)
+    {
+        return isset($Call['Renderer'])? $Call['Renderer']: 'HTML';
+    });
+
     self::Fn('Select', function ($Call)
     {
         foreach ($Call['Renderers'] as $Renderer)

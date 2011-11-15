@@ -126,6 +126,8 @@
             {
                 $ParentNamespace = self::$_Namespace;
                 self::$_Namespace = $Call['_N'];
+                //self::$_History[sha1($ParentNamespace.self::$_Namespace)] = array(strtr($ParentNamespace,'.','_'), strtr(self::$_Namespace,'.','_'));
+
 
                 $Call = self::Merge(self::_loadOptions(), $Call);
 
@@ -233,13 +235,24 @@
 
         public static function Shutdown()
         {
+            /*file_put_contents(Root.'/Data/graph.png', F::Run (
+                        array(
+                             '_N' => 'View.Generators.Graphviz',
+                             '_F' => 'Do',
+                             'Graphviz.Layout' => 'dot',
+                             'Title' => 'Calls',
+                             'Value' => self::$_History,
+                             'Format' => 'png'
+                        )
+                    ));*/
+
             return null; // TODO onShutdown
         }
 
         public static function Error($errno , $errstr , $errfile , $errline , $errcontext)
         {
             // FIXME
-            echo '<div>PHP: '.$errstr.' in <a href="xdebug://'.$errfile.'@'.$errline.'">'.$errfile.':'.$errline.'</a> </div>';
+            echo '<div class="Error"> PHP: '.$errstr.' in <a href="xdebug://'.$errfile.'@'.$errline.'">'.$errfile.':'.$errline.'</a> </div>';
             d(__FILE__, __LINE__, self::$_Stack->top());
         }
 

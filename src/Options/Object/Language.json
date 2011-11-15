@@ -1,0 +1,20 @@
+{
+    "Name": "Language",
+    "Points":
+    {
+        "Default":
+        {
+            "Scope":  "Language",
+            "Storage":"MySQL",
+            "Scheme": "RDB3D"
+        }
+    },
+    "Nodes":
+    {
+        "Title":
+        {
+            "Tags": ["Create", "Update"],
+            "Editor": "Textfield"
+        }
+    }
+}
