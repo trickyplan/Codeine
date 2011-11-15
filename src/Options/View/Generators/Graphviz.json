@@ -1,9 +1,0 @@
-{
-    "LayoutEngines": ["circo",
-    "dot",
-    "fdp",
-    "neato",
-    "osage",
-    "sfdp",
-    "twopi"]
-}
