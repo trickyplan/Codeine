@@ -16,3 +16,9 @@ codeine (6.0g2) unstable; urgency=low
 * Codeine now installed to /usr/share/php/codeine
 
 -- Dmitry Bergstein <dmitry.bergstein@gmail.com>
+
+codeine (6.1) unstable; urgency=low
+
+* Non-core drivers moved to project Hydrocodone
+
+-- Dmitry Bergstein <dmitry.bergstein@gmail.com>
