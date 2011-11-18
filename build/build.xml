@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="Codeine" default="dist">
+<project name="codeine" default="dist">
 
     <taskdef name="phploc" classname="phing.tasks.my.PHPLocTask" />
     <taskdef name="phpdeb" classname="phing.tasks.my.PHPDebTask" />
@@ -37,7 +37,7 @@
     </target>
 
     <target name="tgz" depends="build">
-        <tar destFile="dist/codeine-${version}.tar.gz" compression="gzip">
+        <tar destFile="dist/${phing.project.name}-${version}.tar.gz" compression="gzip">
             <fileset dir="../src">
                 <include name="*" />
             </fileset>
@@ -45,8 +45,8 @@
     </target>
 
     <target name="debian-source">
-        <mkdir dir="codeine-${version}/usr/share/php/codeine" />
-        <copy todir="codeine-${version}/usr/share/php/codeine">
+        <mkdir dir="${phing.project.name}-${version}/usr/share/php/${phing.project.name}" />
+        <copy todir="${phing.project.name}-${version}/usr/share/php/${phing.project.name}">
             <fileset dir="../src">
                 <include name="*/**" />
             </fileset>
@@ -54,8 +54,8 @@
     </target>
 
     <target name="debian-etc" depends="debian-prepare">
-        <mkdir dir="codeine-${version}/etc/codeine" />
-                <copy todir="codeine-${version}/etc/codeine">
+        <mkdir dir="${phing.project.name}-${version}/etc/${phing.project.name}" />
+                <copy todir="${phing.project.name}-${version}/etc/${phing.project.name}">
                     <fileset dir="etc">
                         <include name="*/**" />
                     </fileset>
@@ -63,8 +63,8 @@
         </target>
 
     <target name="debian-docs" depends="debian-prepare">
-        <mkdir dir="codeine-${version}/usr/share/doc/codeine/" />
-        <copy todir="codeine-${version}/usr/share/doc/codeine/">
+        <mkdir dir="${phing.project.name}-${version}/usr/share/doc/${phing.project.name}/" />
+        <copy todir="${phing.project.name}-${version}/usr/share/doc/${phing.project.name}/">
             <fileset dir="../docs">
                 <include name="*/**" />
             </fileset>
@@ -72,8 +72,8 @@
     </target>
 
     <target name="debian-prepare" depends="build">
-        <mkdir dir="codeine-${version}/DEBIAN" />
-        <copy todir="codeine-${version}/DEBIAN">
+        <mkdir dir="${phing.project.name}-${version}/DEBIAN" />
+        <copy todir="${phing.project.name}-${version}/DEBIAN">
             <fileset dir="DEBIAN/">
                 <include name="*/**" />
             </fileset>
@@ -85,14 +85,14 @@
             description="${description}"
             depends="php5 (>= 5.3) | php5-fpm (>= 5.3) | php5-cgi (>= 5.3) | php5-cli (>= 5.3)"
             recommends="hydrocodone (>=6.1)"
-            homepage="https://github.com/BreathLess/${phing.project.name}"
-            provides="codeine"
-            filename="codeine-${version}/DEBIAN/control"
+            homepage="https://github.com/BreathLess/Codeine"
+            provides="${phing.project.name}"
+            filename="${phing.project.name}-${version}/DEBIAN/control"
             />
     </target>
 
     <target name="debian-build" depends="debian-prepare, debian-source, debian-etc, debian-docs">
-        <exec command="dpkg --build 'codeine-${version}' dist/ " dir="." />
+        <exec command="dpkg --build '${phing.project.name}-${version}' dist/ " dir="." />
     </target>
 
     <target name="dist" depends="tgz, debian-build">
