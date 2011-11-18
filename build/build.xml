@@ -3,11 +3,14 @@
 <project name="Codeine" default="dist">
 
     <taskdef name="phploc" classname="phing.tasks.my.PHPLocTask" />
+    <taskdef name="phpdeb" classname="phing.tasks.my.PHPDebTask" />
 
     <target name="prepare">
         <mkdir dir="dist" />
         <mkdir dir="reports" />
-        <loadfile property="version" file="../docs/VERSION"/>
+        <loadfile property="release" file="../docs/VERSION"/>
+        <loadfile property="description" file="../docs/Description"/>
+        <property name="version" value="${release}.${env.build}" />
     </target>
 
     <target name="phploc" depends="prepare">
@@ -75,6 +78,17 @@
                 <include name="*/**" />
             </fileset>
         </copy>
+        <phpdeb
+            name="${phing.project.name}"
+            version="${version}"
+            maintainer="Dmitry Bergstein"
+            description="${description}"
+            depends="php5 (>= 5.3) | php5-fpm (>= 5.3) | php5-cgi (>= 5.3) | php5-cli (>= 5.3)"
+            recommends="hydrocodone (>=6.1)"
+            homepage="https://github.com/BreathLess/${phing.project.name}"
+            provides="codeine"
+            filename="codeine-${version}/DEBIAN/control"
+            />
     </target>
 
     <target name="debian-build" depends="debian-prepare, debian-source, debian-etc, debian-docs">
