@@ -10,7 +10,7 @@
         <mkdir dir="reports" />
         <loadfile property="release" file="../docs/VERSION"/>
         <loadfile property="description" file="../docs/Description"/>
-        <property name="version" value="${release}.${env.build}" />
+        <property name="version" value="${release}.r${env.build}" />
     </target>
 
     <target name="phploc" depends="prepare">

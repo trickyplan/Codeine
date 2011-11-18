@@ -11,8 +11,7 @@
         {
             foreach ($Call['Parsed'][1] as $Ix => $Match)
                 $Call['Output'] = str_replace ($Call['Parsed'][0][$Ix],
-                   F::Run ($Call, array('_N'      => 'Engine.View', '_F'      => 'Load', 'ID'      => $Match))
-                   , $Call['Output']);
+                   F::Run ($Call, array('_N' => 'Engine.View', '_F' => 'Load', 'ID' => $Match)),$Call['Output']);
 
             return $Call['Output'];
         });

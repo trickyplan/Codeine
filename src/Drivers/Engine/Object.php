@@ -49,6 +49,9 @@
             if (null !== ($Stored = F::Run($Call, $Point, array('_N' => 'Object.'.$Point['Scheme']))))
                 $Data = F::Merge($Data, $Stored);
 
+        if (isset($Call['Once']) && isset($Data[$Call['ID']]))
+            $Data = $Data[$Call['ID']];
+
         return $Data;
 
     });
