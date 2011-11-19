@@ -1,4 +1,13 @@
 {
+    "Package":
+    {
+        "Name": "Engine.Data",
+        "Version": "6.1",
+        "Developer": "Dmitry Bergstein",
+        "Description": "Storage Abstraction Layer",
+        "Status": "Unstable",
+        "Origin": "https://raw.github.com/Breathless/Codeine/master/src/"
+    },
     "Hooks":
     {
         "beforeLoad":

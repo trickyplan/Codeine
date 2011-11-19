@@ -283,10 +283,20 @@
 
         public static function Dump($File, $Line, $Call)
         {
+            // FIXME!
             echo '<strong>File:'.$File.' line:'.$Line.'</strong>';
+
             if (is_array($Call))
                 krsort($Call);
+
             var_dump($Call);
+
+            return $Call;
+        }
+
+        public static function getOption($Key)
+        {
+            return isset(self::$_Options[$Key])? self::$_Options[$Key]: null;
         }
     }
 
