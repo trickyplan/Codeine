@@ -30,6 +30,7 @@
         return $Call;
     });
 
+    // @deprecated. Use Template.Load instead
     self::Fn ('Load', function ($Call)
         {
             return F::Run(array(
