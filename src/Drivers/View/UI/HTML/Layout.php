@@ -14,6 +14,5 @@
                                            '_F'      => 'Load',
                                            'ID'      => $Call['ID']
                                       ));
-
             return $Call['Layout'];
         });

@@ -158,7 +158,7 @@
                         if (is_callable($F))
                             $Result = $F($Call);
                         else
-                            $Result = isset($Call['Fallback'])? $Call['Fallback']: null;
+                           $Result = isset($Call['Fallback'])? $Call['Fallback']: null;
 
                         if(!isset($Call['NoBehaviours']))
                             foreach (self::$_Options['Codeine']['Behaviours'] as $Behaviour)
