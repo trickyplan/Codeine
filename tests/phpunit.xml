@@ -1,4 +1,8 @@
-<phpunit>
+<phpunit bootstrap="./Bootstrap.php"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         stopOnFailure="true">
   <testsuites>
     <testsuite name="Codeine">
       <directory>.</directory>

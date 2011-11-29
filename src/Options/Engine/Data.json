@@ -50,13 +50,11 @@
         {
             "Method": "Data.Store.Net.HTTP"
         },
-        "MySQL":
+        "Primary":
         {
-            "Method": "Data.Store.SQL.MySQLi",
+            "Method": "Data.Store.Document.MongoDB",
             "URL": "localhost",
             "Database": "OX",
-            "User": "root",
-            "Password": "phoenix",
             "Essential": true
         },
         "Session":
