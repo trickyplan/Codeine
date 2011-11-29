@@ -30,3 +30,10 @@
     {
         return $Call['Link']->$Call['Scope']->remove($Call['Where']);
     });
+
+    self::Fn ('Update', function ($Call)
+    {
+        return $Call['Link']->$Call['Scope']->save(
+            F::Merge($Call['Link']->$Call['Scope']->findOne($Call['Where']),$Call['Data'])
+        );
+    });
