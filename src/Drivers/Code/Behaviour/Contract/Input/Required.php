@@ -7,7 +7,7 @@
      * @version 6.0
      */
 
-     self::Fn('Run', function ($Call)
+     self::setFn('Run', function ($Call)
      {
          if (isset($Call['Input']['Required']) && $Call['Input']['Required'])
          {
@@ -16,7 +16,7 @@
                  if (isset($Call['Input']['Default']) && $Call['Input']['AutoCorrect']['Required'])
                      $Call['Value'][$Call['Name']] = $Call['Input']['Default'];
                  else
-                     echo 'Argument not exist!'; // FIXME
+                     trigger_error('Argument '. $Call['Name'].' is required.'); // FIXME
              }
          }
 

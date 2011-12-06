@@ -9,7 +9,7 @@
      * @time 21:22
      */
 
-    self::Fn('Open', function ($Call)
+    self::setFn('Open', function ($Call)
     {
         $Link = new mysqli($Call['URL'], $Call['User'], $Call['Password']);
 
@@ -24,7 +24,7 @@
         return $Link;
     });
 
-    self::Fn('Find', function ($Call)
+    self::setFn('Find', function ($Call)
     {
         $Rows = array();
 
@@ -38,7 +38,7 @@
         return $Rows;
     });
 
-    self::Fn('Load', function ($Call)
+    self::setFn('Load', function ($Call)
     {
         $Rows = array();
 
@@ -59,7 +59,7 @@
             return null;
     });
 
-    self::Fn('Values', function ($Call)
+    self::setFn('Values', function ($Call)
         {
             $Rows = array();
 
@@ -74,7 +74,7 @@
             return $Rows;
         });
 
-    self::Fn('Create', function ($Call)
+    self::setFn('Create', function ($Call)
     {
         $Queries = array();
         
@@ -87,7 +87,7 @@
                or F::Run($Call, array('_N' => 'Code.Flow.Hook','_F'=>'Run','On'=> $Call['_N'], 'Message' => $Call['Link']->error));
     });
 
-    self::Fn('Update', function ($Call)
+    self::setFn('Update', function ($Call)
     {
         $Where = F::Run($Call, array('_N' => 'Data.Syntax.MySQL', '_F' => 'Find'));
 
@@ -99,7 +99,7 @@
                 F::Run(array('_N' => 'Code.Flow.Hook','_F'=>'Run','On'=> $Call['_N'], 'Message' => $Call['Link']->error));
     });
 
-    self::Fn('Delete', function ($Call)
+    self::setFn('Delete', function ($Call)
     {
         $Rows = array();
 

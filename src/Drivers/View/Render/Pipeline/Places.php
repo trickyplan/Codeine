@@ -7,7 +7,7 @@
      * @version 6.0
      */
 
-    self::Fn ('Clean', function ($Call)
+    self::setFn ('Clean', function ($Call)
         {
             // Cleanup unused places
             $Call['Output'] = preg_replace('@<place>(.*)</place>@SsUu', '', $Call['Output']);

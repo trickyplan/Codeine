@@ -7,7 +7,7 @@
      * @version 6.0
      */
 
-    self::Fn ('Make', function ($Call)
+    self::setFn ('Make', function ($Call)
         {
             $Call['Layout'] = F::Run (array(
                                            '_N'      => 'Engine.View',

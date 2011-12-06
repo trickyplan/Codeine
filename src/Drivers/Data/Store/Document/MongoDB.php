@@ -7,7 +7,7 @@
      * @version 6.0
      */
 
-    self::Fn ('Open', function ($Call)
+    self::setFn ('Open', function ($Call)
     {
         // TODO MongoDB Authentification
         $Link = new Mongo();
@@ -16,22 +16,22 @@
         return $Link;
     });
 
-    self::Fn ('Load', function ($Call)
+    self::setFn ('Load', function ($Call)
     {
         return $Call['Link']->$Call['Scope']->findOne($Call['Where']);
     });
 
-    self::Fn ('Create', function ($Call)
+    self::setFn ('Create', function ($Call)
     {
         return $Call['Link']->$Call['Scope']->insert($Call['Data']);
     });
 
-    self::Fn ('Delete', function ($Call)
+    self::setFn ('Delete', function ($Call)
     {
         return $Call['Link']->$Call['Scope']->remove($Call['Where']);
     });
 
-    self::Fn ('Update', function ($Call)
+    self::setFn ('Update', function ($Call)
     {
         return $Call['Link']->$Call['Scope']->save(
             F::Merge($Call['Link']->$Call['Scope']->findOne($Call['Where']),$Call['Data'])

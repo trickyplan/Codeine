@@ -8,7 +8,7 @@
      * @issue 30
      */
 
-    self::Fn('Render', function ($Call)
+    self::setFn('Render', function ($Call)
     {
 
         // TODO Стратегия
@@ -31,7 +31,7 @@
     });
 
     // @deprecated. Use Template.Load instead
-    self::Fn ('Load', function ($Call)
+    self::setFn ('Load', function ($Call)
         {
             return F::Run(array(
                               '_N' => 'Engine.Data',

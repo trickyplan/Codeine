@@ -7,7 +7,7 @@
      * @version 6.0
      */
 
-    self::Fn('Create', function ($Call)
+    self::setFn('Create', function ($Call)
     {
         return F::Run($Call, array(
                 '_N' => 'Engine.Data'
@@ -15,7 +15,7 @@
         );
     });
 
-    self::Fn('Load', function ($Call)
+    self::setFn('Load', function ($Call)
     {
         return F::Run($Call, array(
                         '_N' => 'Engine.Data'
@@ -23,7 +23,7 @@
                 );
     });
 
-    self::Fn('Erase', function ($Call)
+    self::setFn('Erase', function ($Call)
     {
         return F::Run($Call, array(
                         '_N' => 'Engine.Data'
@@ -31,7 +31,7 @@
                 );
     });
 
-    self::Fn('Node.Add', function ($Call)
+    self::setFn('Node.Add', function ($Call)
     {
         $Object = F::Run (array($Call,'_F' => 'Load'));
 
@@ -51,17 +51,17 @@
                ));
     });
 
-    self::Fn('Node.Get', function ($Call)
+    self::setFn('Node.Get', function ($Call)
     {
 
     });
 
-    self::Fn('Node.Set', function ($Call)
+    self::setFn('Node.Set', function ($Call)
     {
         return F::Run ($Call, array('_N' => 'Engine.Data', '_F' => 'Update'));
     });
 
-    self::Fn('Node.Del', function ($Call)
+    self::setFn('Node.Del', function ($Call)
     {
 
     });

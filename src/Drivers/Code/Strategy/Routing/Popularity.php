@@ -9,7 +9,7 @@
      * @time 6:21
      */
 
-    self::Fn('List', function ($Call)
+    self::setFn('List', function ($Call)
     {
         return F::Run(array(
                     'Message' => 'Event',

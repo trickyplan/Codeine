@@ -7,7 +7,7 @@
      * @version 6.0
      */
 
-    self::Fn ('Parse', function ($Call)
+    self::setFn ('Parse', function ($Call)
     {
         if (preg_match_all('@<k>(.*)</k>@SsUu', $Call['Value'], $Pockets))
         {
@@ -21,7 +21,7 @@
         return $Call['Value'];
      });
 
-    self::Fn ('Load', function ($Call)
+    self::setFn ('Load', function ($Call)
         {
             return F::Run(array(
                               '_N' => 'Engine.Data',

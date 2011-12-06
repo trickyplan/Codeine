@@ -9,7 +9,7 @@
      * @time 1:12
      */
 
-    self::Fn('Run', function ($Call)
+    self::setFn('Run', function ($Call)
     {
         F::Run(
                 array(

@@ -9,7 +9,7 @@
      * @time 21:19
      */
 
-    self::Fn('Open', function ($Call)
+    self::setFn('Open', function ($Call)
     {
         $Point = F::getOption('Points.'.$Call['To']);
 
@@ -23,7 +23,7 @@
                ));
     });
 
-    self::Fn('Send', function ($Call)
+    self::setFn('Send', function ($Call)
     {
         // FIXME Strategy
 
@@ -42,7 +42,7 @@
         );
     });
 
-    self::Fn('Receive', function ($Call)
+    self::setFn('Receive', function ($Call)
     {
         // FIXME Strategy
 

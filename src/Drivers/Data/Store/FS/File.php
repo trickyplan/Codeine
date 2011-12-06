@@ -9,12 +9,12 @@
      * @time 22:37
      */
 
-    self::Fn('Open', function ($Call)
+    self::setFn('Open', function ($Call)
     {
         return true;
     });
 
-    self::Fn('Load', function ($Call)
+    self::setFn('Load', function ($Call)
     {
         $ic = 0;
 
@@ -33,7 +33,7 @@
     });
 
 
-    self::Fn('Create', function ($Call)
+    self::setFn('Create', function ($Call)
     {
         $ic = 0;
 

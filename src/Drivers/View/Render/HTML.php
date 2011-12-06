@@ -7,12 +7,12 @@
      * @version 6.0
      */
 
-    self::Fn('Detect', function ($Call)
+    self::setFn('Detect', function ($Call)
     {
         return is_array($Call['Value']);
     });
 
-    self::Fn('Process', function ($Call)
+    self::setFn('Process', function ($Call)
     {
 
         $Call = F::Run($Call, array('_N' => 'Code.Flow.Hook','_F'=>'Run','On'=>'beforeRender'));   // JP beforeRender

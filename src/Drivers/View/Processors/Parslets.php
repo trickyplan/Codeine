@@ -7,7 +7,7 @@
      * @version 6.0
      */
 
-     self::Fn('Process', function ($Call)
+     self::setFn('Process', function ($Call)
      {
          foreach ($Call['Parslets'] as $Parslet)
          {

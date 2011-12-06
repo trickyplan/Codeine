@@ -7,7 +7,7 @@
      * @version 6.0
      */
 
-    self::Fn ('Definition', function ($Call)
+    self::setFn ('Definition', function ($Call)
     {
         $Contract = F::findFile('Options/'.strtr($Call['Value'], '.', '/').'.json');
         $Driver = F::findFile('Drivers/'.strtr($Call['Value'], '.', '/').'.php');
@@ -29,7 +29,7 @@
         return null;
     });
 
-    self::Fn ('Fetch', function ($Call)
+    self::setFn ('Fetch', function ($Call)
     {
         $Packages = json_decode(file_get_contents(Root.'/Data/Foreign.json'), true);
 
@@ -55,7 +55,7 @@
         return $Call;
     });
 
-    self::Fn ('Get', function ($Call)
+    self::setFn ('Get', function ($Call)
     {
         $Call['Renderer'] = 'File';
         $Call['Value'] = file_get_contents(F::findFile('Drivers/'.strtr($Call['ID'], '.', '/').'.php'));

@@ -7,7 +7,7 @@
      * @version 6.0
      */
 
-     self::Fn('Input', function ($Call)
+     self::setFn('Input', function ($Call)
      {
          if (!isset($Call['Value']))
              $Call['Value'] = array();

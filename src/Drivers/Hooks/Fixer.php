@@ -7,7 +7,7 @@
      * @version 6.0
      */
 
-     self::Fn('Catch', function ($Call)
+     self::setFn('Catch', function ($Call)
      {
          if (isset($Call['Hooks'][$Call['Message']]))
          {

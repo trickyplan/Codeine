@@ -7,7 +7,7 @@
      * @version 6.0
      */
 
-    self::Fn('Create', function ($Call)
+    self::setFn('Create', function ($Call)
     {
         $Call['Value'] = array($Call['Value']);
         
@@ -17,7 +17,7 @@
         );
     });
 
-    self::Fn('Load', function ($Call)
+    self::setFn('Load', function ($Call)
     {
         return F::Run($Call, array(
                         '_N' => 'Engine.Data'
@@ -25,23 +25,23 @@
                 );
     });
 
-    self::Fn('Erase', function ($Call)
+    self::setFn('Erase', function ($Call)
     {
 
     });
 
-    self::Fn('Node.Add', function ($Call)
+    self::setFn('Node.Add', function ($Call)
     {
 
     });
 
 
-    self::Fn('Node.Set', function ($Call)
+    self::setFn('Node.Set', function ($Call)
     {
 
     });
 
-    self::Fn('Node.Del', function ($Call)
+    self::setFn('Node.Del', function ($Call)
     {
 
     });

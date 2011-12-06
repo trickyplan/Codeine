@@ -7,7 +7,7 @@
      * @version 6.0
      */
 
-    self::Fn ('Add', function ($Call)
+    self::setFn ('Add', function ($Call)
         {
             $Widget = $Call['Widget'];
 

@@ -7,7 +7,7 @@
      * @version 6.0
      */
 
-    self::Fn ('Audit', function ($Call)
+    self::setFn ('Audit', function ($Call)
         {
             // Получить идентификатор сессии
 
@@ -55,7 +55,7 @@
             return $Call;
         });
 
-    self::Fn ('Register', function ($Call)
+    self::setFn ('Register', function ($Call)
         {
             $SID = F::Run (array('_N' => 'Security.UID.GUID', '_F'  => 'Get'));
 
@@ -83,7 +83,7 @@
             return $Call;
         });
 
-    self::Fn ('Annulate', function ($Call)
+    self::setFn ('Annulate', function ($Call)
         {
             F::Run (
                 array(
@@ -94,7 +94,7 @@
             return $Call;
         });
 
-    self::Fn ('Set', function ($Call)
+    self::setFn ('Set', function ($Call)
         {
             $SubCall = F::Run ($Call,
                                array(
@@ -118,7 +118,7 @@
             return $Call;
         });
 
-    self::Fn ('Bind', function ($Call)
+    self::setFn ('Bind', function ($Call)
         {
             d(__FILE__, __LINE__, $Call);
             $SubCall = F::Run ($Call,

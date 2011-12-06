@@ -7,7 +7,7 @@
      * @version 6.0
      */
 
-    self::Fn ('List.Update', function ($Call)
+    self::setFn ('List.Update', function ($Call)
     {
         $Packages = array();
 

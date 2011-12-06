@@ -7,7 +7,7 @@
      * @version 6.0
      */
 
-     self::Fn('Get', function ($Call)
+     self::setFn('Get', function ($Call)
      {
          $Data = array();
          

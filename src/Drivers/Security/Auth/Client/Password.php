@@ -7,13 +7,13 @@
      * @version 6.0
      */
 
-    self::Fn ('Widget.New', function ($Call)
+    self::setFn ('Widget.New', function ($Call)
         {
 
             return $Call;
         });
 
-    self::Fn ('Widget.Enter', function ($Call)
+    self::setFn ('Widget.Enter', function ($Call)
         {
             return array(
                            'Place'  => 'Login.Form',
@@ -25,7 +25,7 @@
                        );
         });
 
-    self::Fn ('Check', function ($Call)
+    self::setFn ('Check', function ($Call)
         {
             return $Call['User']['Auth.Password'] == sha1($Call['Password']); // FIXME
 

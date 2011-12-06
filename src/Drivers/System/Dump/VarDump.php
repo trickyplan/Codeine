@@ -9,7 +9,7 @@
      * @time 5:21
      */
 
-    self::Fn('Variable', function ($Call)
+    self::setFn('Variable', function ($Call)
     {
         var_dump($Call['Value']);
     });

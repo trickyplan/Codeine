@@ -9,10 +9,10 @@
      * @time 23:51
      */
 
-    self::Fn('Run', function ($Call)
+    self::setFn('Run', function ($Call)
     {
         $Argumentors = array('Required', 'Type');
-
+// FIXME Important One-pass!
         if (isset($Call['Value']['Function'][($Call['Value']['_F'])]['Input']))
         {
 

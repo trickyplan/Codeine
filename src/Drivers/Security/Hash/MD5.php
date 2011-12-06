@@ -9,7 +9,7 @@
      * @time 4:40
      */
 
-    self::Fn('Get', function ($Call)
+    self::setFn('Get', function ($Call)
     {
         return md5($Call['Value']);
     });

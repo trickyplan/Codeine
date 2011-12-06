@@ -1,0 +1,27 @@
+{
+    "Functions":
+    {
+        "Open":
+        {
+            "Input":
+            {
+                "Charset":
+                {
+                    "Default": "utf8",
+                    "Required": true,
+                    "AutoCorrect":
+                    {
+                        "Required": true
+                    }
+                },
+                "AutoCommit":{
+                    "Default": true,
+                    "Required":true,
+                    "AutoCorrect":{
+                        "Required":true
+                    }
+                }
+            }
+        }
+    }
+}

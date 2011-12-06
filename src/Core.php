@@ -39,6 +39,9 @@
                 self::$_Options['Path'][] = Codeine;
 
             self::_loadOptions();
+
+            register_shutdown_function ('F::Shutdown');
+            set_error_handler ('F::Error'); // Instability
         }
 
         public static function Merge($First, $Second)
@@ -110,6 +113,8 @@
              */
         public static function Run($Call)
         {
+            // TODO Infinite cycle protection
+
             // Automerge Calls
             if (func_num_args() > 1)
             {
@@ -151,16 +156,17 @@
 
                     if (!isset($Call['Result']))
                     {
-                        if (null === self::Fn($Call['_F']))
-                            if (null === self::_loadSource($Call))
-                                $Result = isset($Call['Fallback'])? $Call['Fallback']: null;
-
-                        $F = self::Fn($Call['_F']);
-
-                        if (is_callable($F))
-                            $Result = $F(&$Call);
+                        if (null === self::getFn($Call['_F']) && (null === self::_loadSource ($Call)))
+                            $Result = isset($Call['Fallback'])? $Call['Fallback']: null;
                         else
-                           $Result = isset($Call['Fallback'])? $Call['Fallback']: null;
+                            {
+                                $F = self::getFn($Call['_F']);
+
+                                if (is_callable($F))
+                                   $Result = $F(&$Call);
+                                else
+                                   $Result = isset($Call['Fallback'])? $Call['Fallback']: null;
+                            }
 
                         if(!isset($Call['NoBehaviours']))
                             foreach (self::$_Options['Codeine']['Behaviours'] as $Behaviour)
@@ -190,25 +196,21 @@
             }
         }
 
-        public static function Fn($Function, $Code = null)
+        public static function setFn($Function, $Code)
         {
-            if (null !== $Code)
-            {
-                if (false !== $Code)
-                    self::$_Functions[self::$_Namespace][$Function] = $Code;
-                else
-                    unset(self::$_Functions[self::$_Namespace][$Function]);
-            }
+            return self::$_Functions[self::$_Namespace.'.'.$Function] = $Code;
+        }
+
+        public static function getFn($Function)
+        {
+            if (isset(self::$_Functions[self::$_Namespace . '.' . $Function]))
+                return self::$_Functions[self::$_Namespace . '.' . $Function];
             else
-            {
-                if (isset(self::$_Functions[self::$_Namespace][$Function]))
-                    return self::$_Functions[self::$_Namespace][$Function];
-                else
-                    return null;
-            }
+                return null;
 
             // Fuckup of IDE hinting
-            return function () {};
+            return function ()
+            { };
         }
 
         public static function Set($Key, $Value)
@@ -312,6 +314,3 @@
     {
         return call_user_func_array(array('F','Dump'), func_get_args());
     }
-
-    register_shutdown_function('F::Shutdown');
-    set_error_handler('F::Error'); // Instability

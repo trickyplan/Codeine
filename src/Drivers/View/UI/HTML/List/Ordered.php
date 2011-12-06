@@ -7,7 +7,7 @@
      * @version 6.0
      */
 
-     self::Fn('Make', function ($Call)
+     self::setFn('Make', function ($Call)
      {
          $Output = '<ol'.(isset($Call['Class.List'])? ' class = "'.$Call['Class.List'].'"': '').'>';
 

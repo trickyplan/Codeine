@@ -7,7 +7,7 @@
      * @version 6.0
      */
 
-    self::Fn ('Scan', function ($Call)
+    self::setFn ('Scan', function ($Call)
        {
           $Drivers = F::Run (
               array(
@@ -30,7 +30,7 @@
           return $Output;
        });
 
-    self::Fn ('Construct', function ($Call)
+    self::setFn ('Construct', function ($Call)
     {
         $Packages = F::Run (array('_N' => 'Code.Manager.Own','_F' => 'Scan'));
 

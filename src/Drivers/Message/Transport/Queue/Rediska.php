@@ -7,7 +7,7 @@
      * @version 6.0
      */
 
-    self::Fn('Open', function ($Call)
+    self::setFn('Open', function ($Call)
     {
         $options = array(
            'namespace' => '_',
@@ -20,12 +20,12 @@
         return new Rediska($options);
     });
 
-    self::Fn('Send', function ($Call)
+    self::setFn('Send', function ($Call)
     {
         return $Call['Link']->publish($Call['Scope'], $Call['Message']);
     });
 
-    self::Fn('Receive', function ($Call)
+    self::setFn('Receive', function ($Call)
     {
         $Channel = $Call['Link']->subscribe($Call['Scope']);
 

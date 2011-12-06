@@ -9,7 +9,7 @@
      * @time 22:20
      */
 
-    self::Fn('Send', function ($Call)
+    self::setFn('Send', function ($Call)
     {
         // FIXME Normal Call
         return mb_send_mail($Call['To'], $Call['Subject'], $Call['Message']);

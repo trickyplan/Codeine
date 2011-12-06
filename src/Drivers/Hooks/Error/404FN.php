@@ -7,7 +7,7 @@
      * @version 6.0
      */
 
-    self::Fn ('Show', function ($Call)
+    self::setFn ('Show', function ($Call)
         {
             $Call['Value'] = array(
                 'Place'   => 'Content',

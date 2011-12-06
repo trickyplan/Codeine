@@ -9,12 +9,12 @@
      * @time 22:37
      */
 
-    self::Fn('Open', function ($Call)
+    self::setFn('Open', function ($Call)
     {
         return true;
     });
 
-    self::Fn('Read', function ($Call)
+    self::setFn('Read', function ($Call)
     {
         return file_get_contents($Call['URL'].'/'.$Call['Scope'].'/'.$Call['ID']);
     });

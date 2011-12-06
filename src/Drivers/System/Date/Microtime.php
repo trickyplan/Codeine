@@ -9,7 +9,7 @@
      * @time 16:34
      */
 
-    self::Fn('Get', function ($Call)
+    self::setFn('Get', function ($Call)
     {
         return microtime(true);
     });

@@ -7,7 +7,7 @@
      * @version 6.0
      */
 
-     self::Fn('Do', function ($Call)
+     self::setFn('Do', function ($Call)
      {
          $Storage = isset($Call['Storage'])? $Call['Storage']: 'Cache';
          $CacheID = F::hashCall($Call['Value']);

@@ -7,7 +7,7 @@
      * @version 6.0
      */
 
-    self::Fn('Escape', function ($Call)
+    self::setFn('Escape', function ($Call)
     {
         if (!is_numeric($Call['Value']))
             return '"'.$Call['Value'].'"';
@@ -15,7 +15,7 @@
             return $Call['Value'];
     });
 
-    self::Fn('Find', function ($Call)
+    self::setFn('Find', function ($Call)
     {
         $WhereString = array();
 
@@ -37,7 +37,7 @@
         return implode(' AND ', $WhereString);
     });
 
-    self::Fn('Load', function ($Call)
+    self::setFn('Load', function ($Call)
     {
         if (isset($Call['ID']))
         {
@@ -57,7 +57,7 @@
         return $Where;
     });
 
-    self::Fn('Values', function ($Call)
+    self::setFn('Values', function ($Call)
         {
             $WhereString = array();
 
@@ -84,7 +84,7 @@
                 return '1 = 1';
         });
 
-    self::Fn('Delete', function ($Call)
+    self::setFn('Delete', function ($Call)
     {
         if (is_array($Call['ID']))
         {
@@ -100,7 +100,7 @@
     });
 
 
-    self::Fn('Create', function ($Call)
+    self::setFn('Create', function ($Call)
     {
         foreach ($Call['Value'] as $Row)
         {
@@ -121,7 +121,7 @@
         return $Data;
     });
 
-    self::Fn('Update', function ($Call)
+    self::setFn('Update', function ($Call)
     {
         $Sets = array();
         

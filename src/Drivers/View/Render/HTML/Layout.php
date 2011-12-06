@@ -7,7 +7,7 @@
      * @version 6.0
      */
 
-     self::Fn('Load', function ($Call)
+     self::setFn('Load', function ($Call)
      {
          $Call['Layout'] = F::Run ($Call, array(
                                     '_N'      => 'Engine.View',

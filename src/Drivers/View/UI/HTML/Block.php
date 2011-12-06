@@ -7,7 +7,7 @@
      * @version 6.0
      */
 
-     self::Fn('Make', function ($Call)
+     self::setFn('Make', function ($Call)
      {
          if (is_array($Call['Class']))
              $Call['Class'] = implode(' ', $Call['Class']);

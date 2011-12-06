@@ -7,9 +7,9 @@
      * @version 6.0
      */
 
-     self::Fn('Run', function ($Call)
+     self::setFn('Run', function ($Call)
      {
-         if (isset($Call['Input']['Type']))
+         /*if (isset($Call['Input']['Type']))
          {
              if (isset($Call['Value'][$Call['Name']]))
              {
@@ -23,7 +23,7 @@
                      else
                          echo 'Type error'; //FIXME
              }
-         }
+         }*/
 
          return $Call['Value'];
      });

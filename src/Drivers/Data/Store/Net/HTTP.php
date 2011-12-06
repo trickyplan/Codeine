@@ -11,17 +11,17 @@
      * @time 21:39
      */
 
-    self::Fn('Open', function ($Call)
+    self::setFn('Open', function ($Call)
     {
         return curl_init();
     });
 
-    self::Fn('Disconnect', function ($Call)
+    self::setFn('Disconnect', function ($Call)
     {
         curl_close($Call['Link']);
     });
 
-    self::Fn('Load', function ($Call)
+    self::setFn('Load', function ($Call)
     {
         curl_setopt_array($Call['Link'],
           array(
@@ -35,7 +35,7 @@
         return curl_exec($Call['Link']);
     });
 
-    self::Fn('Create', function ($Call)
+    self::setFn('Create', function ($Call)
     {
 
         $Headers = isset($Call['Headers'])? $Call['Headers']: array();
@@ -57,12 +57,12 @@
         return curl_exec($Call['Link']);
     });
 
-    self::Fn('Update', function ($Call)
+    self::setFn('Update', function ($Call)
     {
         // TODO HTTP Update
     });
 
-    self::Fn('Delete', function ($Call)
+    self::setFn('Delete', function ($Call)
     {
         // TODO HTTP Delete
     });

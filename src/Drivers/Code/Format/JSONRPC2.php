@@ -9,7 +9,7 @@
      * @time 22:46
      */
 
-    self::Fn('DecodeRequest', function ($Call)
+    self::setFn('DecodeRequest', function ($Call)
     {
         $Call['Value'] = json_decode($Call['Value'], true);
 
@@ -26,13 +26,13 @@
         return $Data;
     });
 
-    self::Fn('DecodeResponse', function ($Call)
+    self::setFn('DecodeResponse', function ($Call)
     {
         $Result = json_decode($Call['Value'], true);
         return $Result['result'];
     });
 
-    self::Fn('EncodeResponse', function ($Call)
+    self::setFn('EncodeResponse', function ($Call)
     {
         return json_encode(array(
                                'jsonrpc' => '2.0',
@@ -40,7 +40,7 @@
                            ));
     });
 
-    self::Fn('EncodeRequest', function ($Call)
+    self::setFn('EncodeRequest', function ($Call)
     {
         return json_encode(
             array(

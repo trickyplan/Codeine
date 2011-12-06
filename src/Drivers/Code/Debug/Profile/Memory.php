@@ -7,7 +7,7 @@
      * @version 6.0
      */
 
-    self::Fn('Run', function ($Call)
+    self::setFn('Run', function ($Call)
     {
         $Start = memory_get_usage();
 
@@ -32,7 +32,7 @@
         return $Result;
     });
 
-    self::Fn('afterProfile', function ($Call)
+    self::setFn('afterProfile', function ($Call)
     {
         $Memory = F::Get();
         if (null !== $Memory)

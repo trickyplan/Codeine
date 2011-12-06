@@ -7,7 +7,7 @@
      * @version 6.0
      */
 
-    self::Fn('Run', function ($Call)
+    self::setFn('Run', function ($Call)
     {
         $Start = microtime(true);
         $Result = F::Run($Call['Value']);
@@ -18,7 +18,7 @@
         return $Result;
     });
 
-    self::Fn('afterProfile', function ($Call)
+    self::setFn('afterProfile', function ($Call)
     {
         $Timers = F::Get();
         if (null !== $Timers)

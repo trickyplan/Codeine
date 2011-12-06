@@ -1,6 +1,7 @@
 <?php
 
-    class MongoDBTest extends PHPUnit_Framework_TestCase
+
+    class MongoDBTest //extends PHPUnit_Framework_TestCase
     {
         protected $_User = array(
                                   'ID' => 'Tester',

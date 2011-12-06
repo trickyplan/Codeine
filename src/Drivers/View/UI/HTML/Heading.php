@@ -7,7 +7,7 @@
      * @version 6.0
      */
 
-     self::Fn('Make', function ($Call)
+     self::setFn('Make', function ($Call)
      {
          $Output = '<h'.$Call['Level'].'>'.$Call['Value'].'</h'.$Call['Level'].'>';
          if (isset($Call['Subtext']))

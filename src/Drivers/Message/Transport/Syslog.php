@@ -9,12 +9,12 @@
      * @time 21:45
      */
 
-    self::Fn('Open', function ($Call)
+    self::setFn('Open', function ($Call)
     {
         return openlog($_SERVER['HTTP_HOST'], LOG_PID | LOG_PERROR, LOG_LOCAL0);
     });
 
-    self::Fn('Send', function ($Call)
+    self::setFn('Send', function ($Call)
     {
         if (!is_array($Call['Message']))
             $Call['Message'] = array($Call['Message']);
@@ -31,7 +31,7 @@
         return true;
     });
 
-    self::Fn('Receive', function ($Call)
+    self::setFn('Receive', function ($Call)
     {
         return $Call;
     });

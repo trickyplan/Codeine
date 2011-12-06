@@ -9,12 +9,12 @@
      * @time 21:45
      */
 
-    self::Fn('Send', function ($Call)
+    self::setFn('Send', function ($Call)
     {
         return null;
     });
 
-    self::Fn('Receive', function ($Call)
+    self::setFn('Receive', function ($Call)
     {
         return null;
     });

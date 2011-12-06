@@ -1,87 +1,11 @@
 {
-    "Package":
-    {
-        "Name": "Engine.Data",
-        "Version": "6.1",
-        "Developer": "Dmitry Bergstein",
-        "Description": "Storage Abstraction Layer",
-        "Status": "Unstable",
-        "Origin": "https://raw.github.com/Breathless/Codeine/master/src/"
-    },
-    "Hooks":
-    {
-        "beforeLoad":
-        [{
-            "_N": "Engine.Data",
-            "_F": "AutoOpen"
-        }],
-        "beforeCreate":
-        [{
-            "_N": "Engine.Data",
-            "_F": "AutoOpen"
-        }],
-        "beforeUpdate":
-        [{
-            "_N": "Engine.Data",
-            "_F": "AutoOpen"
-        }],
-        "beforeDelete":
-        [{
-            "_N": "Engine.Data",
-            "_F": "AutoOpen"
-        }],
-        "beforeFind":
-        [{
-            "_N": "Engine.Data",
-            "_F": "AutoOpen"
-        }],
-        "Storage.Essential.Connect.Failed":
-        {
-            "Die":
-            {
-                "_N": "Hooks.Error.404",
-                "_F": "Show"
-            }
-        }
-    },
-    "Storages":
-    {
-        "HTTP":
-        {
-            "Method": "Data.Store.Net.HTTP"
-        },
-        "Primary":
-        {
-            "Method": "Data.Store.Document.MongoDB",
-            "URL": "localhost",
-            "Database": "OX",
-            "Essential": true
-        },
-        "Session":
-        {
-            "Method": "Data.Store.KeyValue.Redis.CRedis",
-            "URL": "localhost",
-            "Port": 6379
-        },
-        "Deferred":
-        {
-            "Method": "Data.Store.KeyValue.Redis.CRedis",
-            "URL": "localhost",
-            "Port": 6379
-        },
-        "Layout":
-        {
-            "Method": "Data.Store.FS.File",
-            "URL": "Data/Layout"
-        }
-    },
-    "Function":
+    "_Function":
     {
         "Open":
         {
             "Input":
             {
-                "ID":
+                "Storage":
                 {
                     "Type":"String",
                     "Required": true
@@ -95,6 +19,11 @@
                         "Required":true
                     },
                     "Default": "127.0.0.1"
+                },
+                "Driver":
+                {
+                    "Type":"String",
+                    "Required":true
                 },
                 "Database":
                 {
@@ -114,7 +43,7 @@
         {
             "Input":
             {
-                "Scope":
+                "Storage":
                 {
                     "Type":"String",
                     "Required": true
@@ -130,7 +59,7 @@
         {
             "Input":
             {
-                "Scope":
+                "Storage":
                 {
                     "Type":"String",
                     "Required":true
@@ -148,6 +77,4 @@
             }
         }
     }
-
-
 }

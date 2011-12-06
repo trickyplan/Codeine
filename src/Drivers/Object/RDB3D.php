@@ -7,7 +7,7 @@
      * @version 6.0
      */
 
-    self::Fn('Create', function ($Call)
+    self::setFn('Create', function ($Call)
     {
         $Values = array();
         
@@ -22,7 +22,7 @@
         );
     });
 
-    self::Fn('Load', function ($Call)
+    self::setFn('Load', function ($Call)
     {
         $Rows = F::Run($Call, array(
                                '_N' => 'Engine.Data'
@@ -46,7 +46,7 @@
         return $Data;
     });
 
-    self::Fn('Find', function ($Call)
+    self::setFn('Find', function ($Call)
     {
         $Where = array();
 
@@ -66,12 +66,12 @@
         return $Rows[0];
     });
 
-    self::Fn('Erase', function ($Call)
+    self::setFn('Erase', function ($Call)
     {
 
     });
 
-    self::Fn('Node.Add', function ($Call)
+    self::setFn('Node.Add', function ($Call)
     {
         $Call['Value'] = array(
             array('K' => $Call['Key'], 'V' => $Call['Value'])
@@ -85,7 +85,7 @@
     });
 
 
-    self::Fn('Node.Set', function ($Call)
+    self::setFn('Node.Set', function ($Call)
     {
         $Call['Set'] =
             array('K' => $Call['Key'], 'V' => $Call['Value']
@@ -103,7 +103,7 @@
                 );
     });
 
-    self::Fn('Node.Del', function ($Call)
+    self::setFn('Node.Del', function ($Call)
     {
 
     });

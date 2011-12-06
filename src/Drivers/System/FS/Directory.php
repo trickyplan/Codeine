@@ -7,12 +7,12 @@
      * @version 6.0
      */
 
-    self::Fn ('Create', function ($Call)
+    self::setFn ('Create', function ($Call)
         {
             return mkdir ($Call['Value']);
         });
 
-    self::Fn ('Change', function ($Call)
+    self::setFn ('Change', function ($Call)
         {
             return chdir($Call['Value']);
         });

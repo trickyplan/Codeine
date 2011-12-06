@@ -1,6 +1,6 @@
 <?php
 
-    class ObjectEngineTest extends PHPUnit_Framework_TestCase
+    class ObjectEngineTest // extends PHPUnit_Framework_TestCase
     {
         protected $_User = array(
                                   'ID' => 'Tester',

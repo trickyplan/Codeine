@@ -7,7 +7,7 @@
      * @version 6.0
      */
 
-    self::Fn('Model.Load', function ($Call)
+    self::setFn('Model.Load', function ($Call)
     {
         $Model =  json_decode(file_get_contents(F::findFile('Options/Object/'.$Call['Scope'].'.json')), true); //FIXME
 
@@ -18,7 +18,7 @@
         return $Model;
     });
 
-    self::Fn('Create', function ($Call)
+    self::setFn('Create', function ($Call)
     {
         $Data = array();
         $Model = F::Run($Call, array('_F' => 'Model.Load'));
@@ -40,7 +40,7 @@
         return true;
     });
 
-    self::Fn('Load', function ($Call)
+    self::setFn('Load', function ($Call)
     {
         $Model = F::Run($Call, array('_F' => 'Model.Load'));
         $Data = array();
@@ -56,7 +56,7 @@
 
     });
 
-    self::Fn('Find', function ($Call)
+    self::setFn('Find', function ($Call)
     {
         $Model = F::Run($Call, array('_F' => 'Model.Load'));
         $Data = array();
@@ -69,12 +69,12 @@
 
     });
 
-    self::Fn('Erase', function ($Call)
+    self::setFn('Erase', function ($Call)
     {
   
     });
 
-    self::Fn('Node.Add', function ($Call)
+    self::setFn('Node.Add', function ($Call)
     {
         $Model = F::Run($Call, array('_F' => 'Model.Load'));
 
@@ -85,7 +85,7 @@
                     );
     });
 
-    self::Fn('Node.Set', function ($Call)
+    self::setFn('Node.Set', function ($Call)
     {
 
 
@@ -98,7 +98,7 @@
                     );
     });
 
-    self::Fn('Node.Del', function ($Call)
+    self::setFn('Node.Del', function ($Call)
     {
         $Model = F::Run($Call, array('_F' => 'Model.Load'));
 

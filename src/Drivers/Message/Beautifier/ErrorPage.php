@@ -9,7 +9,7 @@
      * @time 6:30
      */
 
-    self::Fn('Format', function ($Call)
+    self::setFn('Format', function ($Call)
     {
         return '<div class="Error">'.$Call['Message'].'</div>';
     });

@@ -9,13 +9,13 @@
      * @time 6:28
      */
 
-    self::Fn ('Open', function ($Call)
+    self::setFn ('Open', function ($Call)
         {
 
             return $Call;
         });
 
-    self::Fn ('Send', function ($Call)
+    self::setFn ('Send', function ($Call)
         {
             echo '<div><pre>'.$Call['Message'];
             var_dump($Call['Call']);

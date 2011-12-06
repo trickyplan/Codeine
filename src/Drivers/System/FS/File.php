@@ -7,17 +7,17 @@
      * @version 6.0
      */
 
-    self::Fn ('Touch', function ($Call)
+    self::setFn ('Touch', function ($Call)
     {
         return touch($Call['Filename']);
     });
 
-    self::Fn ('Create', function ($Call)
+    self::setFn ('Create', function ($Call)
         {
             return file_put_contents($Call['Filename'], F::ifCall($Call['Value']));
         });
 
-    self::Fn ('Copy', function ($Call)
+    self::setFn ('Copy', function ($Call)
         {
             return copy ($Call['From'], $Call['To']);
         });

@@ -9,7 +9,7 @@
      * @time 22:11
      */
 
-    self::Fn('List', function ($Call)
+    self::setFn('List', function ($Call)
     {
         return 'GUID';
     });

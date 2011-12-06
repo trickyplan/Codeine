@@ -9,7 +9,7 @@
      * @time 1:09
      */
 
-    self::Fn('beforeRun', function ($Call)
+    self::setFn('beforeRun', function ($Call)
     {
         foreach ($Call['Contractors'] as $Contractor)
         {
@@ -25,7 +25,7 @@
         return $Call['Value'];
     });
 
-    self::Fn('afterRun', function ($Call)
+    self::setFn('afterRun', function ($Call)
     {
         return $Call;
     });

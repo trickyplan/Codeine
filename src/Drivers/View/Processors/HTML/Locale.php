@@ -7,7 +7,7 @@
      * @version 6.0
      */
 
-    self::Fn('Process', function ($Call)
+    self::setFn('Process', function ($Call)
     {
         if (preg_match_all('@<l>(.*)<\/l>@SsUu', $Call['Output'], $Pockets))
         {

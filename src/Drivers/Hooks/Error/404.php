@@ -7,7 +7,7 @@
      * @version 6.0
      */
 
-    self::Fn ('Show', function ($Call)
+    self::setFn ('Show', function ($Call)
         {
             header ("HTTP/1.0 404 Not Found");
 

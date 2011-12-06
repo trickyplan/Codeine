@@ -7,7 +7,7 @@
      * @version 6.0
      */
 
-     self::Fn('Route', function ($Call)
+     self::setFn('Route', function ($Call)
      {
          $NewCall = null;
 

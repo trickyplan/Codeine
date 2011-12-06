@@ -7,7 +7,7 @@
      * @version 6.0
      */
 
-    self::Fn('Open', function ($Call)
+    self::setFn('Open', function ($Call)
     {
         $Redis = new Redis();
         $Redis->connect($Call['URL'], $Call['Port']);
@@ -15,7 +15,7 @@
         return $Redis;
     });
 
-    self::Fn('Load', function ($Call)
+    self::setFn('Load', function ($Call)
     {
         if (is_array($Call['ID']))
         {
@@ -33,17 +33,17 @@
         }
     });
 
-    self::Fn('Create', function ($Call)
+    self::setFn('Create', function ($Call)
     {
         return $Call['Link']->set($Call['Scope'].':'.$Call['ID'], json_encode($Call['Value']));
     });
 
-    self::Fn('Update', function ($Call)
+    self::setFn('Update', function ($Call)
     {
         return $Call['Link']->set($Call['Scope'].':'.$Call['ID'], json_encode($Call['Value']));
     });
 
-    self::Fn('Delete', function ($Call)
+    self::setFn('Delete', function ($Call)
     {
         return $Call['Link']->delete($Call['Scope'].':'.$Call['ID']);
     });

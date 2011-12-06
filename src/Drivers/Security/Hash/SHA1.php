@@ -9,7 +9,7 @@
      * @time 4:41
      */
 
-    self::Fn('Get', function ($Call)
+    self::setFn('Get', function ($Call)
     {
         return sha1($Call['Value']);
     });

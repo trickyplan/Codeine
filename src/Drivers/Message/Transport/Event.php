@@ -9,12 +9,12 @@
      * @time 22:13
      */
 
-    self::Fn('Open', function ($Call)
+    self::setFn('Open', function ($Call)
     {
         return true;
     });
 
-    self::Fn('Send', function ($Call)
+    self::setFn('Send', function ($Call)
     {
         // FIXME Options / Strategy
         $Map = &$Call['Events'];
