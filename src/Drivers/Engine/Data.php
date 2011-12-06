@@ -1,103 +1,38 @@
 <?php
 
-    /* Codeine
+   /* Codeine
      * @author BreathLess
-     * @description: Data Engine
+     * @description  New Data Engine
      * @package Codeine
      * @version 6.0
-     * @date 30.07.11
-     * @time 18:09
      */
 
-    self::Fn('Open', function ($Call)
+    self::setFn ('Open', function ($Call)
     {
-        $Link = F::Run(
-                    $Call['Storages'][$Call['Storage']],
-                    array(
-                        '_N' => $Call['Storages'][$Call['Storage']]['Method'],
-                        '_F' => 'Open',
-                        'NoBehaviours' => true));
+        $Call['Link'] = F::Run($Call);
+        return F::Set('Storage.'.$Call['Storage'], $Call);
+     });
 
-        if (empty($Link) && isset($Call['Storages'][$Call['Storage']]['Essential']))
-            die('Essential storage failed');
-
-        return F::Set('Storages.'.$Call['Storage'], $Link);
+    self::setFn ('Read', function ($Call)
+    {
+        $Storage = F::Get ('Storage.' . $Call['Storage']);
+        return F::Run ($Call, $Storage, array('_N' => $Storage['Driver']));
     });
 
-    self::Fn('Close', function ($Call)
+    self::setFn ('Write', function ($Call)
     {
-        return F::Run(
-            $Call['Storages'][$Call['Storage']],
-                               array(
-                                   '_N' => $Call['Storages'][$Call['Storage']]['Method'],
-                                   '_F' => 'Close',
-                                   'Link' => F::Get('Storages.'.$Call['Storage']),
-                                   'NoBehaviours' => true)
-                           );
+        $Storage = F::Get ('Storage.' . $Call['Storage']);
+        return F::Run ($Call, $Storage, array('_N' => $Storage['Driver']));
     });
 
-    self::Fn('AutoOpen', function ($Call)
+    self::setFn ('Close', function ($Call)
     {
-        if (isset($Call['Storages'][$Call['Storage']]))
-        {
-            if (null === ($Call['Link'] = F::Get('Storages.'.$Call['Storage'])))
-                $Call['Link'] = F::Run(
-                                    $Call,
-                                    array('_F' => 'Open', 'NoBehaviours' => true));
-        }
-
-        return $Call;
+        $Storage = F::Get ('Storage.' . $Call['Storage']);
+        return F::Run ($Call, $Storage, array('_N' => $Storage['Driver']));
     });
 
-    self::Fn('Operation', function ($Call)
+    self::setFn ('Execute', function ($Call)
     {
-        $Operation = $Call['Operation'];
-
-        $Call = F::Merge($Call['Storages'][$Call['Storage']], $Call);
-
-        $Call = F::Run($Call, array('_N' => 'Code.Flow.Hook','_F'=>'Run','On'=>'before'.$Call['Operation']));
-
-        $Result = F::Run(
-                        $Call,
-                        array(
-                             '_N' => $Call['Method'],
-                             '_F' => $Operation,
-                            'NoBehaviours' => true
-                        ));
-
-        $Call = F::Run($Call, array('_N' => 'Code.Flow.Hook','_F'=>'Run','On'=>'after'.$Call['Operation']));
-
-        return $Result;
-    });
-
-    self::Fn('Load', function ($Call)
-    {
-        $Data = F::Run($Call, array('_F' => 'Operation', 'Operation' => $Call['_F']));
-
-        return $Data;
-    });
-
-    self::Fn ('Values', function ($Call)
-    {
-        return F::Run($Call, array('_F' => 'Operation', 'Operation' => $Call['_F']));
-    });
-
-    self::Fn('Find', function ($Call)
-    {
-        return F::Run($Call, array('_F' => 'Operation', 'Operation' => $Call['_F']));
-    });
-
-    self::Fn('Create', function ($Call)
-    {
-        return F::Run($Call, array('_F' => 'Operation', 'Operation' => $Call['_F']));
-    });
-
-    self::Fn('Update', function ($Call)
-    {
-        return F::Run($Call, array('_F' => 'Operation', 'Operation' => $Call['_F']));
-    });
-
-    self::Fn('Delete', function ($Call)
-    {
-        return F::Run($Call, array('_F' => 'Operation', 'Operation' => $Call['_F']));
+        $Storage = F::Get ('Storage.' . $Call['Storage']);
+        return F::Run ($Call, $Storage, array('_N' => $Storage['Driver']));
     });
