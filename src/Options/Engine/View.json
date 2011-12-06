@@ -1,22 +1,4 @@
 {
-    "Function":
-    {
-        "Load":
-        {
-            "Input":
-            {
-                "Context":
-                {
-                    "Default": ".html",
-                    "Required": true,
-                    "AutoCorrect":
-                    {
-                        "Required": true
-                    }
-                }
-            }
-        }
-    },
     "Postprocessors":
     {
         "Parslets":

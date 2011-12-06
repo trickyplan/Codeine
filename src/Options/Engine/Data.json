@@ -74,5 +74,80 @@
             "Method": "Data.Store.FS.File",
             "URL": "Data/Layout"
         }
+    },
+    "Function":
+    {
+        "Open":
+        {
+            "Input":
+            {
+                "ID":
+                {
+                    "Type":"String",
+                    "Required": true
+                },
+                "Server":
+                {
+                    "Type":"String",
+                    "Required":true,
+                    "AutoCorrect":
+                    {
+                        "Required":true
+                    },
+                    "Default": "127.0.0.1"
+                },
+                "Database":
+                {
+                    "Type": "String"
+                },
+                "User":
+                {
+                    "Type":"String"
+                },
+                "Password":
+                {
+                    "Type":"String"
+                }
+            }
+        },
+        "Read":
+        {
+            "Input":
+            {
+                "Scope":
+                {
+                    "Type":"String",
+                    "Required": true
+                },
+                "Handle":
+                {
+                    "Type":"String",
+                    "Required": true
+                }
+            }
+        },
+        "Write":
+        {
+            "Input":
+            {
+                "Scope":
+                {
+                    "Type":"String",
+                    "Required":true
+                },
+                "Handle":
+                {
+                    "Type":"String",
+                    "Required":true
+                },
+                "Data":
+                {
+                    "Type":"String",
+                    "Required":true
+                }
+            }
+        }
     }
+
+
 }

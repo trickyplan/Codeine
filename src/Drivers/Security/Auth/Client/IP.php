@@ -25,5 +25,5 @@
 
     self::Fn ('Check', function ($Call)
         {
-            return $Call['User']['Auth.IP'] == sha1($_SERVER['REMOTE_ADDR']); //FIXME
+            return $Call['User']['Auth']['IP'] == sha1($_SERVER['REMOTE_ADDR']); //FIXME
         });

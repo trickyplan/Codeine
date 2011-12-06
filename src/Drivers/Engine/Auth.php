@@ -46,7 +46,8 @@
                          '_N'      => 'Engine.Object',
                          '_F'      => 'Load',
                          'Scope'   => 'User',
-                         'ID'      => $Call['Session']['Owner']
+                         'Where'   =>
+                            array('ID' => $Call['Session']['Owner'])
                     )
                 );
             }
@@ -56,8 +57,7 @@
 
     self::Fn ('Register', function ($Call)
         {
-            $SID = F::Run (array('_N' => 'Security.UID.GUID',
-                                '_F'  => 'Get'));
+            $SID = F::Run (array('_N' => 'Security.UID.GUID', '_F'  => 'Get'));
 
             F::Run (
                 array(
@@ -105,9 +105,10 @@
 
             F::Run (
                 array(
-                     'Object'  => array('Node.Set', 'Session'),
+                     '_N'  =>  'Engine.Object',
+                     '_F'  => 'Node.Set',
                      'Scope' => 'Session',
-                     'ID'    => $SubCall['Auth']['Session'],
+                     'Where' => array('ID' => $SubCall['Auth']['Session']),
                      'Value' => array(
                          'UpdatedOn' => time ()
                      )
@@ -119,6 +120,7 @@
 
     self::Fn ('Bind', function ($Call)
         {
+            d(__FILE__, __LINE__, $Call);
             $SubCall = F::Run ($Call,
                                array(
                                     '_N' => 'Security.Auth.Session.Source.Cookie', // OPTME
@@ -128,10 +130,11 @@
 
             F::Run (
                 array(
-                     'Object'  => array('Node.Set', 'Session'),
+                     '_N'    => 'Engine.Object',
+                     '_F'    => 'Node.Set',
+                     'Scope' => 'Session',
                      'ID'    => $SubCall['Auth']['Session'],
-                     'Key' => 'Owner',
-                     'Value' => $Call['ID']
+                     'Value' => array('Owner' => $Call['ID'])
                 )
             );
 

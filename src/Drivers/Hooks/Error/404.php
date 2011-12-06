@@ -11,13 +11,13 @@
         {
             header ("HTTP/1.0 404 Not Found");
 
-            $Call['Widgets'] = array(
-                'Place'   => 'Content',
-                'Type'    => 'Heading',
-                'Level'   => 3,
-                'Value'   => '404',
-                'Subtext' => '<l>' . $Call['_N'] . '.Subtext</l>'
-            );
+            $Call['Widgets'] = array(array(
+                                         'Place'   => 'Content',
+                                         'Type'    => 'Heading',
+                                         'Level'   => 3,
+                                         'Value'   => '404',
+                                         'Subtext' => '<l>' . $Call['_N'] . '.Subtext</l>'
+                                     ));
 
             return $Call;
         });

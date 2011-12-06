@@ -15,6 +15,7 @@
         protected static $_Options;
         protected static $_Functions;
         protected static $_Namespace = 'Codeine';
+        protected static $_Function = 'Do';
         protected static $_Storage;
         protected static $_History = array();
         /**
@@ -126,6 +127,7 @@
             {
                 $ParentNamespace = self::$_Namespace;
                 self::$_Namespace = $Call['_N'];
+                self::$_Function  = $Call['_F'];
                 //self::$_History[sha1($ParentNamespace.self::$_Namespace)] = array(strtr($ParentNamespace,'.','_'), strtr(self::$_Namespace,'.','_'));
 
 
@@ -156,7 +158,7 @@
                         $F = self::Fn($Call['_F']);
 
                         if (is_callable($F))
-                            $Result = $F($Call);
+                            $Result = $F(&$Call);
                         else
                            $Result = isset($Call['Fallback'])? $Call['Fallback']: null;
 
@@ -263,14 +265,15 @@
                 $Options = array();
                 foreach (self::$_Options['Path'] as $Path)
                 {
-                    $Filename = self::findFile('Options/'.strtr(self::$_Namespace, '.','/').'.json');
-
-                    if ($Filename)
+                    if ($Filename = self::findFile ('Options/' . strtr (self::$_Namespace, '.', '/') . '.json'))
                     {
                         $Options = json_decode(file_get_contents($Filename), true);
                         break;
                     }
                 }
+
+                if ($Filename = self::findFile ('Options/' . strtr (self::$_Namespace, '.', '/') . '/'.self::$_Function.'.json'))
+                    $Options = F::Merge($Options, json_decode (file_get_contents ($Filename), true));
 
                 if (empty($Options))
                     $Options = null;
