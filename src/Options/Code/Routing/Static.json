@@ -1,0 +1,10 @@
+{
+    "Links":
+    {
+        "/":
+        {
+            "Service": "Test.Front",
+            "Method": "Root"
+        }
+    }
+}

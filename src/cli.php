@@ -1,3 +1,4 @@
+#!/usr/bin/php
 <?php
 
     /**
@@ -10,12 +11,11 @@
 
     F::Bootstrap();
 
+    $Opts = getopt ('s:m:', array('Service:', 'Method:'));
+
     F::Run(
-        'System.Interface.Web',
+        'System.Interface.CLI',
         'Run',
-            array(
-                 'Service' => 'Code.Flow.Front',
-                 'Method'  => 'Run'
-            )
+            $Opts
     );
 

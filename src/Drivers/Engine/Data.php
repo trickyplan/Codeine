@@ -9,30 +9,30 @@
 
     self::setFn ('Open', function ($Call)
     {
-        $Call['Link'] = F::Run($Call);
+        $Call['Link'] = F::Run($Call['Driver'], 'Open', $Call);
         return F::Set('Storage.'.$Call['Storage'], $Call);
      });
 
     self::setFn ('Read', function ($Call)
     {
         $Storage = F::Get ('Storage.' . $Call['Storage']);
-        return F::Run ($Call, $Storage, array('_N' => $Storage['Driver']));
+        return F::Run ($Storage['Driver'], 'Read', $Call, $Storage);
     });
 
     self::setFn ('Write', function ($Call)
     {
         $Storage = F::Get ('Storage.' . $Call['Storage']);
-        return F::Run ($Call, $Storage, array('_N' => $Storage['Driver']));
+        return F::Run ($Storage['Driver'], 'Write', $Call, $Storage);
     });
 
     self::setFn ('Close', function ($Call)
     {
         $Storage = F::Get ('Storage.' . $Call['Storage']);
-        return F::Run ($Call, $Storage, array('_N' => $Storage['Driver']));
+        return F::Run ($Storage['Driver'], 'Close', $Call, $Storage);
     });
 
     self::setFn ('Execute', function ($Call)
     {
         $Storage = F::Get ('Storage.' . $Call['Storage']);
-        return F::Run ($Call, $Storage, array('_N' => $Storage['Driver']));
+        return F::Run ($Storage['Driver'], 'Execute', $Call, $Storage);
     });

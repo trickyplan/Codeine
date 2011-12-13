@@ -13,11 +13,12 @@
     final class F
     {
         protected static $_Options;
-        protected static $_Functions;
-        protected static $_Namespace = 'Codeine';
-        protected static $_Function = 'Do';
+        protected static $_Code;
+        protected static $_Service = 'Codeine';
+        protected static $_Method = 'Do';
         protected static $_Storage;
         protected static $_History = array();
+
         /**
              * @var SplStack;
              */
@@ -73,9 +74,9 @@
            return null;
         }
 
-        protected static function _loadSource($Call)
+        protected static function _loadSource($Service)
         {
-            $Path = strtr($Call['_N'], '.', '/');
+            $Path = strtr($Service, '.', '/');
 
             if (isset($Call['Filename']))
                 $Filename = $Call['Filename'];
@@ -95,13 +96,13 @@
              */
         public static function isCall($Call)
         {
-            return (is_array($Call) && isset($Call['_N']));
+            return (is_array($Call) && isset($Call['Service']) && isset($Call['Method']));
         }
 
         public static function hashCall($Call)
         {
             if (self::isCall($Call))
-                return $Call['_N'].':'.$Call['_F'].'('.sha1(serialize($Call)).')';
+                return $Call['Service'].':'.$Call['Method'].'('.sha1(serialize($Call)).')';
             else
                 return serialize($Call);
         }
@@ -111,100 +112,77 @@
              * @param  $Call
              * @return mixed
              */
-        public static function Run($Call)
+        public static function Run($Service, $Method, $Call = array())
         {
             // TODO Infinite cycle protection
 
-            // Automerge Calls
-            if (func_num_args() > 1)
+            if (($sz = func_num_args())>3)
             {
-                $Calls = func_get_args();
-                $Call = array_shift($Calls);
+                for($ic = 3; $ic<$sz; $ic++)
+                    $Call = F::Merge($Call, func_get_arg($ic));
+            }
 
-                $szCalls = count($Calls);
-                for ($i = 0; $i<$szCalls; $i++)
-                    $Call = F::Merge($Call, $Calls[$i]);
+            $ParentNamespace = self::$_Service;
 
-                return self::Run($Call);
-            } // TODO Remove to driver
+            self::$_Service = $Service;
+            self::$_Method  = $Method;
+            //self::$_History[sha1($ParentNamespace.self::$_Service)] = array(strtr($ParentNamespace,'.','_'), strtr(self::$_Service,'.','_'));
 
-            if (self::isCall($Call))
+            $Call = self::Merge(self::_loadOptions(), $Call);
+
+           /* if(!isset($Call['NoBehaviours']))
+                        foreach (self::$_Options['Codeine']['Behaviours'] as $Behaviour)
+                            if (!(is_array($Call) && isset($Call['No'.$Behaviour])))
+                                $Call = self::Run('Code.Behaviour.'.$Behaviour, 'beforeRun',
+                                    array(
+                                        'Value' => $Call,
+                                        'NoBehaviours' => true
+                                    ));*/
+
+            self::$_Stack->push($Call);
+
+            if (!isset($Call['Result']))
             {
-                $ParentNamespace = self::$_Namespace;
-                self::$_Namespace = $Call['_N'];
-                self::$_Function  = $Call['_F'];
-                //self::$_History[sha1($ParentNamespace.self::$_Namespace)] = array(strtr($ParentNamespace,'.','_'), strtr(self::$_Namespace,'.','_'));
-
-
-                $Call = self::Merge(self::_loadOptions(), $Call);
-
-                if(!isset($Call['NoBehaviours']))
-                    foreach (self::$_Options['Codeine']['Behaviours'] as $Behaviour)
-                        if (!(is_array($Call) && isset($Call['No'.$Behaviour])))
-                            $Call = self::Run(
-                                array(
-                                    '_N' => 'Code.Behaviour.'.$Behaviour,
-                                    '_F' => 'beforeRun',
-                                    'Value' => $Call,
-                                    'NoBehaviours' => true
-                                ));
-
-                if (!isset($Call['_F']))
-                    $Call['_F'] = 'Do';
-
-                self::$_Stack->push($Call);
-
-                    if (!isset($Call['Result']))
+                if (null === self::getFn($Method) && (null === self::_loadSource ($Service)))
+                    $Result = isset($Call['Fallback'])? $Call['Fallback']: null;
+                else
                     {
-                        if (null === self::getFn($Call['_F']) && (null === self::_loadSource ($Call)))
-                            $Result = isset($Call['Fallback'])? $Call['Fallback']: null;
+                        $F = self::getFn($Method);
+
+                        if (is_callable($F))
+                           $Result = $F(&$Call);
                         else
-                            {
-                                $F = self::getFn($Call['_F']);
+                           $Result = isset($Call['Fallback'])? $Call['Fallback']: null;
+                    }
 
-                                if (is_callable($F))
-                                   $Result = $F(&$Call);
-                                else
-                                   $Result = isset($Call['Fallback'])? $Call['Fallback']: null;
-                            }
-
-                        if(!isset($Call['NoBehaviours']))
+            /* if(!isset($Call['NoBehaviours']))
                             foreach (self::$_Options['Codeine']['Behaviours'] as $Behaviour)
                                 if (!(is_array($Call) && isset($Call['No'.$Behaviour])))
-                                    $Call = self::Run(
+                                    $Call = self::Run('Code.Behaviour.' . $Behaviour, 'afterRun',
                                         array(
-                                            '_N' => 'Code.Behaviour.'.$Behaviour,
-                                            '_F' => 'afterRun',
                                             'Value' => $Call,
                                             'NoBehaviours' => true
-                                        ));
-                    }
-                    else
-                        $Result =  $Call['Result'];
-
-                self::$_Stack->pop();
-
-                self::$_Namespace = $ParentNamespace;
-
-                return $Result;
+                                        ));*/
             }
             else
-            {
-                d(__FILE__, __LINE__, $Call);
-                trigger_error('Invalid call');
-                return null;
-            }
+                $Result =  $Call['Result'];
+
+            self::$_Stack->pop();
+
+            self::$_Service = $ParentNamespace;
+
+            return $Result;
         }
 
         public static function setFn($Function, $Code)
         {
-            return self::$_Functions[self::$_Namespace.'.'.$Function] = $Code;
+            return self::$_Code[self::$_Service.'.'.$Function] = $Code;
         }
 
         public static function getFn($Function)
         {
-            if (isset(self::$_Functions[self::$_Namespace . '.' . $Function]))
-                return self::$_Functions[self::$_Namespace . '.' . $Function];
+            if (isset(self::$_Code[self::$_Service . '.' . $Function]))
+                return self::$_Code[self::$_Service . '.' . $Function];
             else
                 return null;
 
@@ -215,16 +193,16 @@
 
         public static function Set($Key, $Value)
         {
-            return self::$_Storage[self::$_Namespace][$Key] = $Value;
+            return self::$_Storage[self::$_Service][$Key] = $Value;
         }
 
         public static function Get($Key = null, $Default = null)
         {
-            if (null === $Key && isset(self::$_Storage[self::$_Namespace]))
-                return self::$_Storage[self::$_Namespace];
+            if (null === $Key && isset(self::$_Storage[self::$_Service]))
+                return self::$_Storage[self::$_Service];
 
-            if (isset(self::$_Storage[self::$_Namespace][$Key]))
-                return self::$_Storage[self::$_Namespace][$Key];
+            if (isset(self::$_Storage[self::$_Service][$Key]))
+                return self::$_Storage[self::$_Service][$Key];
             else
                 return $Default;
         }
@@ -241,8 +219,8 @@
         {
             /*file_put_contents(Root.'/Data/graph.png', F::Run (
                         array(
-                             '_N' => 'View.Generators.Graphviz',
-                             '_F' => 'Do',
+                             'Service' => 'View.Generators.Graphviz',
+                             'Method' => 'Do',
                              'Graphviz.Layout' => 'dot',
                              'Title' => 'Calls',
                              'Value' => self::$_History,
@@ -262,28 +240,28 @@
 
         protected static function _loadOptions()
         {
-            if (!isset(self::$_Options[self::$_Namespace]))
+            if (!isset(self::$_Options[self::$_Service]))
             {
                 $Options = array();
                 foreach (self::$_Options['Path'] as $Path)
                 {
-                    if ($Filename = self::findFile ('Options/' . strtr (self::$_Namespace, '.', '/') . '.json'))
+                    if ($Filename = self::findFile ('Options/' . strtr (self::$_Service, '.', '/') . '.json'))
                     {
                         $Options = json_decode(file_get_contents($Filename), true);
                         break;
                     }
                 }
 
-                if ($Filename = self::findFile ('Options/' . strtr (self::$_Namespace, '.', '/') . '/'.self::$_Function.'.json'))
+                if ($Filename = self::findFile ('Options/' . strtr (self::$_Service, '.', '/') . '/'.self::$_Method.'.json'))
                     $Options = F::Merge($Options, json_decode (file_get_contents ($Filename), true));
 
                 if (empty($Options))
                     $Options = null;
 
-                self::$_Options[self::$_Namespace] = $Options;
+                self::$_Options[self::$_Service] = $Options;
             }
 
-            return self::$_Options[self::$_Namespace];
+            return self::$_Options[self::$_Service];
         }
 
         public static function Dump($File, $Line, $Call)

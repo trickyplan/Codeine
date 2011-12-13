@@ -1,3 +1,12 @@
 {
-    "Sources": ["Get", "Post"]
+    "Sources": [
+        {
+            "Service": "System.Input.Get",
+            "Method": "Get"
+        },
+        {
+            "Service":"System.Input.Post",
+            "Method":"Get"
+        }
+    ]
 }

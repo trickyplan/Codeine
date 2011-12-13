@@ -14,13 +14,7 @@
          foreach ($Call['Routers'] as $Router)
              {
                  // Пробуем роутер из списка...
-                 $NewCall = F::Run($Call, 
-                     array(
-                          '_N' => $Call['_N'].'.'.$Router,
-                          '_F' => 'Route',
-                          'Value' => $Call['Value']
-                     )
-                 );
+                 $NewCall = F::Run($Router['Service'], $Router['Method'], $Call);
 
                  // Если результат - валидный вызов, то выходим из перебора
                  if (F::isCall($NewCall))

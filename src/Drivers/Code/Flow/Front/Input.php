@@ -13,7 +13,7 @@
              $Call['Value'] = array();
 
          foreach ($Call['Sources'] as $Source)
-             if (null !== ($Data = F::Run(array('_N' => $Call['_N'].'.'.$Source, '_F' => 'Get'))))
+             if (null !== ($Data = F::Run($Source['Service'], $Source['Method'],$Call)))
                  $Call['Value'] = F::Merge($Call['Value'], $Data); // Insecure
 
          return $Call;

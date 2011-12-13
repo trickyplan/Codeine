@@ -10,34 +10,12 @@
 
     self::setFn('Render', function ($Call)
     {
+        $Renderer = F::Run($Call['Strategy']['Renderer']['Service'], $Call['Strategy']['Renderer']['Method'], $Call);
 
-        // TODO Стратегия
-        $Renderer = F::Run($Call, array(
-              '_N' => 'View.Strategy.Renderer',
-              '_F' => 'Defined'
-                    ));
+        $Call = F::Run($Renderer['Service'], $Renderer['Method'], $Call);
 
-        $Call = F::Run($Call,
-            array(
-                '_N' => 'View.Render.'.$Renderer,
-                '_F' => 'Process'
-            )
-        );
-
-        foreach ($Call['Postprocessors'] as $Processor)
-           $Call = F::Run($Call, $Processor);
+/*        foreach ($Call['Postprocessors'] as $Processor)
+           $Call = F::Run($Call, $Processor);*/
 
         return $Call;
-    });
-
-    // @deprecated. Use Template.Load instead
-    self::setFn ('Load', function ($Call)
-        {
-            return F::Run(array(
-                              '_N' => 'Engine.Data',
-                              '_F' => 'Load',
-                              'Storage' => 'Layout',
-                              'Scope' => 'Layout',
-                              'ID' => array($Call['ID'].$Call['Context'], $Call['ID'].'.html')
-                          ));
     });

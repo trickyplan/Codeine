@@ -1,0 +1,12 @@
+{
+    "Routers":[
+        {
+            "Service":"Code.Routing.Static",
+            "Method":"Route"
+        },
+        {
+            "Service":"Code.Routing.REST",
+            "Method":"Route"
+        }
+    ]
+}

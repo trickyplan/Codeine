@@ -1,28 +1,13 @@
 {
     "Interfaces": ["HTTP"],
-    "Routers": ["Entity", "App", "REST", "Links", "Zend"],
-    "Inputters": ["Get", "Post"],
     "Hooks":
     {
         "beforeRun":
         {
             "Routing":
             {
-                "_N": "Code.Flow.Front.Routing",
-                "_F": "Route"
-            },
-            "Input":
-            {
-                "_N": "Code.Flow.Front.Input",
-                "_F": "Input"
-            }
-        },
-        "Routing.Failed":
-        {
-            "ShowErrorPage":
-            {
-                "_N": "Hooks.Error.404",
-                "_F": "Show"
+                "Service": "Code.Flow.Front.Routing",
+                "Method": "Route"
             }
         }
     }

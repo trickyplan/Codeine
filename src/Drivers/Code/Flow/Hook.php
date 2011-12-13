@@ -11,7 +11,7 @@
      {
          if (isset($Call['Hooks'][$Call['On']]))
              foreach ($Call['Hooks'][$Call['On']] as $Name => $Hook)
-                 $Call = F::Run($Call, $Hook);
+                 $Call = F::Run($Hook['Service'], $Hook['Method'], $Call, $Hook);
 
          return $Call;
      });

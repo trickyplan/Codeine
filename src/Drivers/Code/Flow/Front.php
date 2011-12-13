@@ -11,44 +11,16 @@
 
     self::setFn('Run', function ($Call)
     {
-        F::Run(
-                array(
-                    '_N' => 'System.Output.HTTP',
-                    '_F' => 'Initialize'
-                )
-              );
-
         foreach ($Call['Interfaces'] as $Interface)
-            if (F::Run(array('_N'=>'System.Input.'.$Interface,'_F' => 'Detect')))
-                $Call['Value']  = F::Run(array('_N' => 'System.Input.'.$Interface, '_F' => 'Get'));
+            if (F::Run('System.Input.' . $Interface, 'Detect'))
+                $Call['Value']  = F::Run('System.Input.'.$Interface, 'Get');
 
-        $Call = F::Run($Call, array('_N' => 'Code.Flow.Hook','_F'=>'Run','On'=>'beforeRun')); // JP beforeRun
+        $Call = F::Run('Code.Flow.Hook', 'Run',  $Call, array('On' => 'beforeRun')); // JP beforeRun
 
-        $Call = F::isCall($Call['Value']) ?
-            F::Run ($Call, $Call['Value']):
-            F::Run ($Call, array('_N' => 'Code.Flow.Hook','_F'  => 'Run','On'  => 'Routing.Failed'));
-
+        $Call = F::Run($Call['Value']['Service'], $Call['Value']['Method'], $Call);
         // Передаём его в рендерер
 
-        $Call  = F::Run($Call,
-                    array(
-                        '_N' => 'Engine.View',
-                        '_F' => 'Render'
-                    )
-                );
+        $Call = F::Run('Engine.View', 'Render', $Call);
 
-        F::Run($Call,
-                array(
-                    '_N' => 'System.Output.HTTP',
-                    '_F' => 'Do'
-                )
-            );
-
-        F::Run(
-            array(
-                '_N' => 'System.Output.HTTP',
-                '_F' => 'Shutdown'
-            )
-          );
-        return true;
+        return $Call;
     });

@@ -1,4 +1,12 @@
 {
+    "Strategy":
+    {
+        "Renderer":
+        {
+            "Service": "View.Strategy.Renderer",
+            "Method":  "Defined"
+        }
+    },
     "Postprocessors":
     {
         "Parslets":

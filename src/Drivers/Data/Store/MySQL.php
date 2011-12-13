@@ -9,7 +9,6 @@
 
     self::setFn ('Open', function ($Call)
     {
-
         $Link = new mysqli($Call['Server'], $Call['User'], $Call['Password']);
 
         if ($Link->errno != 0)
