@@ -1,25 +1,27 @@
 <?php
 
-  /* Codeine
+    /* Codeine
      * @author BreathLess
-     * @description Test Driver for Data Engine 
+     * @description XCache Data Driver
      * @package Codeine
-     * @version 6.0
+     * @version 7.0
      */
 
     self::setFn ('Open', function ($Call)
     {
-        return 'Pong!';
+        return extension_loaded('xcache');
     });
 
     self::setFn ('Read', function ($Call)
     {
-        return $Call['Link'];
+        return xcache_get($Call['Where']['ID']);
     });
 
     self::setFn ('Write', function ($Call)
     {
-        return $Call['Data'];
+        return (null === $Call['Data'])?
+            xcache_unset($Call['Where']['ID']):
+            xcache_set($Call['Where']['ID'], $Call['Data'], $Call['TTL']);
     });
 
     self::setFn ('Close', function ($Call)

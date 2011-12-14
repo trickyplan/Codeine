@@ -22,3 +22,9 @@ codeine (6.1) unstable; urgency=low
 * Non-core drivers moved to project Hydrocodone
 
 -- Dmitry Bergstein <dmitry.bergstein@gmail.com>
+
+codeine (7.0) unstable; urgency=low
+
+* New call style. BC is broken.
+
+-- Dmitry Bergstein <dmitry.bergstein@gmail.com>

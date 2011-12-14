@@ -1,25 +1,27 @@
 <?php
 
-  /* Codeine
+    /* Codeine
      * @author BreathLess
-     * @description Test Driver for Data Engine 
+     * @description APC Data Driver 
      * @package Codeine
-     * @version 6.0
+     * @version 7.0
      */
 
     self::setFn ('Open', function ($Call)
     {
-        return 'Pong!';
+        return extension_loaded('apc');
     });
 
     self::setFn ('Read', function ($Call)
     {
-        return $Call['Link'];
+        return apc_fetch($Call['Where']['ID']);
     });
 
     self::setFn ('Write', function ($Call)
     {
-        return $Call['Data'];
+        return null === $Call['Data']?
+            apc_delete($Call['Where']['ID']):
+            apc_store($Call['Where']['ID'], $Call['Data'], $Call['TTL']);
     });
 
     self::setFn ('Close', function ($Call)

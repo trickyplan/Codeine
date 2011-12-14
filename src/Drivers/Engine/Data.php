@@ -10,7 +10,8 @@
     self::setFn ('Open', function ($Call)
     {
         $Call['Link'] = F::Run($Call['Driver'], 'Open', $Call);
-        return F::Set('Storage.'.$Call['Storage'], $Call);
+        F::Set('Storage.'.$Call['Storage'], $Call);
+        return $Call['Link'];
      });
 
     self::setFn ('Read', function ($Call)

@@ -4,6 +4,6 @@
     {
         public function testRoot()
         {
-            $this->assertArrayHasKey('Output', F::Run('Code.Flow.Front', 'Run', array('Value' => '/test')));
+            $this->assertArrayHasKey('Output', F::Run('Code.Flow.Front', 'Run', array('Value' => '/')));
         }
     }
