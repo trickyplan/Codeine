@@ -12,7 +12,7 @@
         $Call['Value'] = array($Call['Value']);
         
         return F::Run($Call, array(
-                '_N' => 'Engine.Data'
+                '_N' => 'Engine.IO'
             )
         );
     });
@@ -20,7 +20,7 @@
     self::setFn('Load', function ($Call)
     {
         return F::Run($Call, array(
-                        '_N' => 'Engine.Data'
+                        '_N' => 'Engine.IO'
                     )
                 );
     });

@@ -9,11 +9,11 @@
 
         public function testOpen()
         {
-            $this->assertTrue(F::Run('Engine.Data', 'Open',
+            $this->assertTrue(F::Run('Engine.IO', 'Open',
                 array(
                      'Storage' => 'XCache',
                      'URL'     => 'localhost',
-                     'Driver'  => 'Data.Store.XCache'
+                     'Driver'  => 'IO.Store.XCache'
                 )));
         }
 
@@ -22,7 +22,7 @@
             $Data = 'Pong!';
 
             $this->assertTrue (
-                F::Run ('Engine.Data', 'Write',
+                F::Run ('Engine.IO', 'Write',
                      array(
                           'Storage' => 'XCache',
                           'Where'   =>
@@ -36,7 +36,7 @@
         public function testRead ()
         {
             $this->assertEquals('Pong!',
-                F::Run ('Engine.Data', 'Read',
+                F::Run ('Engine.IO', 'Read',
                     array(
                          'Storage' => 'XCache',
                          'Where' =>
@@ -49,7 +49,7 @@
         public function testClose ()
         {
             $this->assertTrue(
-                F::Run ('Engine.Data', 'Close',
+                F::Run ('Engine.IO', 'Close',
                     array(
                          'Storage' => 'XCache'
                     )));
@@ -58,7 +58,7 @@
         public function testExecute()
         {
             $this->assertTrue(
-                F::Run ('Engine.Data', 'Execute',
+                F::Run ('Engine.IO', 'Execute',
                     array(
                         'Storage' => 'XCache'
                     )));

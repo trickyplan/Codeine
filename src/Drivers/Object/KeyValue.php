@@ -10,7 +10,7 @@
     self::setFn('Create', function ($Call)
     {
         return F::Run($Call, array(
-                '_N' => 'Engine.Data'
+                '_N' => 'Engine.IO'
             )
         );
     });
@@ -18,7 +18,7 @@
     self::setFn('Load', function ($Call)
     {
         $Data = F::Run($Call, array(
-                        '_N' => 'Engine.Data'
+                        '_N' => 'Engine.IO'
                     )
                 );
         return $Data;

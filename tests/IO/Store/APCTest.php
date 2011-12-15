@@ -1,23 +1,28 @@
 <?php
 
-    class PositiveDataTest extends PHPUnit_Framework_TestCase
+    class PositiveAPCTest extends PHPUnit_Framework_TestCase
     {
+        public function setUp ()
+        {
+            !extension_loaded('apc') && $this->markTestSkipped('No APC Installed');
+        }
+
         public function testOpen()
         {
-            F::Run('Engine.Data', 'Open',
+            F::Run('Engine.IO', 'Open',
                 array(
-                     'Storage' => 'Test',
+                     'Storage' => 'APC',
                      'URL'     => 'localhost',
-                     'Driver'  => 'Data.Store.Test'
+                     'Driver'  => 'IO.Store.APC'
                 ));
         }
 
         public function testRead ()
         {
             $this->assertEquals('Pong!',
-                F::Run ('Engine.Data', 'Read',
+                F::Run ('Engine.IO', 'Read',
                     array(
-                         'Storage' => 'Test',
+                         'Storage' => 'APC',
                          'Where' =>
                              array(
                                  'ID' => 'Ping'
@@ -32,33 +37,32 @@
             );
 
             $this->assertEquals ($Data,
-                 F::Run ('Engine.Data', 'Write',
+                 F::Run ('Engine.IO', 'Write',
                      array(
-                          'Storage' => 'Test',
+                          'Storage' => 'APC',
                           'Where'   =>
                           array(
                               'ID' => 'Ping'
                           ),
-                          'Data' => $Data,
-                          'TTL' => 60
+                          'Data' => $Data
                      )));
         }
 
         public function testClose ()
         {
             $this->assertTrue(
-                F::Run ('Engine.Data', 'Close',
+                F::Run ('Engine.IO', 'Close',
                     array(
-                         'Storage' => 'Test'
+                         'Storage' => 'APC'
                     )));
         }
 
         public function testExecute()
         {
             $this->assertTrue(
-                F::Run ('Engine.Data', 'Execute',
+                F::Run ('Engine.IO', 'Execute',
                     array(
-                        'Storage' => 'Test'
+                        'Storage' => 'APC'
                     )));
         }
     }

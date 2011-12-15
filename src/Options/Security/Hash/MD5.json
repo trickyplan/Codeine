@@ -1,0 +1,30 @@
+{
+    "Test":
+    {
+        "Get":
+        {
+            "Positive":
+            {
+                "Call":
+                {
+                    "Value":"Hello, world!"
+                },
+                "Result":
+                {
+                    "Equals":"6cd3556deb0da54bca060b4c39479839"
+                }
+            },
+            "Negative":
+            {
+                "Call":
+                {
+                    "Value":"Hell yeah!"
+                },
+                "Result":
+                {
+                    "NotEquals":"6cd3556deb0da54bca060b4c39479839"
+                }
+            }
+        }
+    }
+}

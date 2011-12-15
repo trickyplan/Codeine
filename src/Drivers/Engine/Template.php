@@ -23,11 +23,10 @@
 
     self::setFn ('Load', function ($Call)
         {
-            return F::Run(array(
-                              '_N' => 'Engine.Data',
-                              '_F' => 'Load',
-                              'Storage' => 'Layout',
-                              'Scope' => 'Layout',
-                              'ID' => array($Call['ID'].$Call['Context'], $Call['ID'].'.html')
-                          ));
+            return F::Run('Engine.IO', 'Load',
+                              array(
+                                   'Storage' => 'Layout',
+                                   'Scope'   => 'Layout',
+                                   'ID'      => array($Call['ID'] . $Call['Context'], $Call['ID'] . '.html')
+                                ));
     });

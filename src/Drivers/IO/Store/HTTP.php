@@ -16,12 +16,7 @@
         return curl_init();
     });
 
-    self::setFn('Disconnect', function ($Call)
-    {
-        curl_close($Call['Link']);
-    });
-
-    self::setFn('Load', function ($Call)
+    self::setFn('Read', function ($Call)
     {
         curl_setopt_array($Call['Link'],
           array(
@@ -30,39 +25,39 @@
                CURLOPT_COOKIEJAR => 'cookie.txt',
                CURLOPT_FOLLOWLOCATION => true,
                CURLOPT_CONNECTTIMEOUT => 15,
-               CURLOPT_URL => $Call['ID']));
+               CURLOPT_URL => $Call['Where']['ID']));
         
         return curl_exec($Call['Link']);
     });
 
-    self::setFn('Create', function ($Call)
+    self::setFn('Write', function ($Call)
     {
-
         $Headers = isset($Call['Headers'])? $Call['Headers']: array();
         $UPWD = isset($Call['user:pass'])? $Call['user:pass']:'';
 
-        $Call['Link'] = curl_init();
+        // TODO HTTP DELETE
+
         curl_setopt_array($Call['Link'],
             array(
-                CURLOPT_URL => $Call['ID'],
+                CURLOPT_URL => $Call['Where']['ID'],
                 CURLOPT_POST => true,
                 CURLOPT_COOKIEJAR => 'cookie.txt',
                 CURLOPT_HTTPHEADER => $Headers,
-                CURLOPT_USERPWD => $UPWD,
+                CURLOPT_USERPWD => $UPWD, // FIXME
                 CURLOPT_HTTPAUTH => CURLAUTH_BASIC,
                 CURLOPT_FOLLOWLOCATION => true,
                 CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_POSTFIELDS => $Call['Value']));
+                CURLOPT_POSTFIELDS => $Call['Data']));
 
         return curl_exec($Call['Link']);
     });
 
-    self::setFn('Update', function ($Call)
+    self::setFn ('Close', function ($Call)
     {
-        // TODO HTTP Update
+        return curl_close ($Call['Link']);
     });
 
-    self::setFn('Delete', function ($Call)
+    self::setFn('Execute', function ($Call)
     {
-        // TODO HTTP Delete
+        return true;
     });
