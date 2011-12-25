@@ -4,15 +4,12 @@
      * @author BreathLess
      * @description  
      * @package Codeine
-     * @version 6.0
+     * @version 7.0
      */
 
      self::setFn('Load', function ($Call)
      {
-         $Call['Layout'] = F::Run ($Call, array(
-                                    '_N'      => 'Engine.View',
-                                    '_F'      => 'Load'
-                                  ));
+         $Call['Layout'] = F::Run ('Engine.Template', 'Load', $Call, array('Scope' => 'Layout'));
 
          return $Call;
      });

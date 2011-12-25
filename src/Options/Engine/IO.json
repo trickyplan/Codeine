@@ -1,0 +1,27 @@
+{
+    "Storages":
+    {
+        "Primary":
+        {
+            "Driver": "IO.Store.Mongo",
+            "URL": "127.0.0.1",
+            "Database": "Primary"
+        },
+        "Layout":
+        {
+            "Driver":"IO.Store.Directory",
+            "Directory":"Data/Template"
+        },
+        "Locale":
+        {
+            "Driver":"IO.Store.Directory",
+            "Directory":"Data/Locale",
+            "Suffix": ".json",
+            "Format": "Data.Format.JSON"
+        }
+    },
+    "Alias":
+    {
+
+    }
+}

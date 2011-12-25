@@ -1,6 +1,6 @@
 <?php
 
-    class PositiveEntityTest extends PHPUnit_Framework_TestCase
+    class EntityTest extends PHPUnit_Framework_TestCase
     {
         public function testCreate()
         {
@@ -31,7 +31,7 @@
                     array(
                          'Entity'  => 'Test',
                          'Where' =>
-                            array('ID' => 'Test')
+                            array('Key' => 'Value')
                     ));
         }
 

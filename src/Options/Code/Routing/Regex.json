@@ -1,0 +1,25 @@
+{
+    "Regex":
+    {
+        "Documentation.Method":{
+            "Match":"@/docs/(.*)/(.*)@",
+            "Service":"Code.Documentation.Generator",
+            "Method":"Method",
+            "Call":{
+                "Service":1,
+                "Method":2
+            }
+        },
+        "Documentation.Service":
+        {
+            "Match": "@/docs/(.*)@",
+            "Service":"Code.Documentation.Generator",
+            "Method":"Service",
+            "Call":
+            {
+                "Service": 1
+            }
+        }
+
+    }
+}

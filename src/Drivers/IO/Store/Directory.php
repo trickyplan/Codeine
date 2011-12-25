@@ -16,8 +16,12 @@
 
     self::setFn ('Read', function ($Call)
     {
-        if (file_exists ($Call['Link'] . $Call['Scope'] . '/' . $Call['Where']['ID']))
-            return file_get_contents ($Call['Link'] . $Call['Scope'] . '/' . $Call['Where']['ID']);
+        $Suffix = isset($Call['Suffix'])? $Call['Suffix']: '';
+        $Prefix= isset($Call['Prefix'])? $Call['Prefix'] : '';
+        $Filename = $Call['Link'] . $Call['Scope'] . '/' . $Prefix . $Call['Where']['ID'] . $Suffix;
+
+        if (file_exists ($Filename))
+            return file_get_contents ($Filename);
         else
             return null;
     });

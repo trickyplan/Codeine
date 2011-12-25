@@ -1,29 +1,98 @@
 {
-    "Test":
+    "Get":
     {
-        "Get":
+        "Property":
         {
-            "Positive":
-            {
-                "Call":
-                {
+            "isPure":true
+        },
+        "Description":{
+            "ru_RU":"Возвращает хэш аргумента"
+        },
+        "Call":{
+            "Value":{
+                "Type":"Scalar",
+                "Required":true
+            },
+            "Key":{
+                "Type":"String"
+            }
+        },
+        "Result":{
+            "Type":"Hex"
+        },
+        "Access":{
+            "Default":{
+                "Caller":{
+                    "Service":"*",
+                    "Method":"*"
+                },
+                "Decision":"Allow"
+            }
+        },
+        "Cost":{
+            "Time":{
+                "Green":0,
+                "Yellow":5,
+                "Red":10
+            },
+            "Memory":{
+                "Green":0,
+                "Yellow":5,
+                "Red":10
+            },
+            "SSD":{
+                "Green":0,
+                "Yellow":0,
+                "Red":0
+            },
+            "HDD":{
+                "Green":0,
+                "Yellow":0,
+                "Red":0
+            },
+            "NAS":{
+                "Green":0,
+                "Yellow":0,
+                "Red":0
+            },
+            "Network":{
+                "Green":0,
+                "Yellow":0,
+                "Red":0
+            }
+        },
+        "Test":{
+
+            "Positive":{
+                "Call":{
                     "Value":"Hello, world!"
                 },
-                "Result":
-                {
+                "Result":{
                     "Equals":"6cd3556deb0da54bca060b4c39479839"
                 }
             },
-            "Negative":
-            {
-                "Call":
-                {
+            "Negative":{
+                "Call":{
                     "Value":"Hell yeah!"
                 },
-                "Result":
-                {
+                "Result":{
                     "NotEquals":"6cd3556deb0da54bca060b4c39479839"
                 }
+            }
+        },
+        "Example":{
+            "Simple":{
+                "Call":{
+                    "Value":"Hello, world!"
+                },
+                "Result":"6cd3556deb0da54bca060b4c39479839"
+            },
+            "With Key":{
+                "Call":{
+                    "Value":"Hello, world!",
+                    "Key":"Salt!"
+                },
+                "Result":"25f8fde53a90f076d636e93a492be109"
             }
         }
     }

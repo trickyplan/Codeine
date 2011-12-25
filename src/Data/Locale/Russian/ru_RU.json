@@ -1,0 +1,12 @@
+{
+    "Code.Documentation.Section.Methods": "Методы",
+    "Code.Documentation.Section.Access": "Доступ",
+    "Code.Documentation.Section.Cost": "Стоимость",
+    "Code.Documentation.Section.Test": "Тесты",
+    "Code.Documentation.Section.Example":"Примеры",
+    "Code.Documentation.Section.Property": "Свойства",
+    "Code.Documentation.Section.Description": "Описание",
+    "Code.Documentation.Section.Call": "Аргументы",
+    "Code.Documentation.Section.Result": "Результат",
+    "Code.Documentation.Property.isPure": "Чистая функция (не имеет побочных эффектов)"
+}

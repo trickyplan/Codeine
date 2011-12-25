@@ -1,0 +1,15 @@
+{
+    "Nodes":
+    {
+        "Title":
+        {
+            "Storage": "Primary",
+            "Type": "String"
+        },
+        "Body":
+        {
+            "Storage":"Primary",
+            "Type": "Text"
+        }
+    }
+}

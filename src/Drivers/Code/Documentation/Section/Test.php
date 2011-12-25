@@ -7,7 +7,12 @@
      * @version 6.0
      */
 
-     self::setFn('Make', function ($Call)
-     {
-         return $Call['Value'];
-     });
+    self::setFn ('Do', function ($Call)
+    {
+        $Widgets = array(
+
+
+        );
+
+        return $Widgets;
+    });

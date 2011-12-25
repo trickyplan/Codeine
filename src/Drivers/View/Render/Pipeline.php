@@ -4,27 +4,22 @@
      * @author BreathLess
      * @description  
      * @package Codeine
-     * @version 6.0
+     * @version 7.0
      */
 
     self::setFn ('Process', function ($Call)
         {
             $Call['Places'] = array();
 
-            if (is_array($Call['Widgets']))
+            if (is_array($Call['Value']))
             {
-                foreach ($Call['Widgets'] as $Widget)
+                foreach ($Call['Value'] as $Widget)
                 {
                     if (!isset($Call['Places'][$Widget['Place']]))
                         $Call['Places'][$Widget['Place']] = '';
 
                     $Call['Places'][$Widget['Place']] .=
-                        F::Run ($Widget,
-                                array(
-                                     '_N' => 'View.UI.HTML.' . $Widget['Type'], // FIXME
-                                     '_F' => 'Make'
-                                )
-                        );
+                        F::Run ($Call['Renderer'].'.' . $Widget['Type'], 'Make', $Widget);
                 }
             }
 

@@ -5,6 +5,10 @@
             "Method":"Route"
         },
         {
+            "Service":"Code.Routing.Regex",
+            "Method":"Route"
+        },
+        {
             "Service":"Code.Routing.REST",
             "Method":"Route"
         }

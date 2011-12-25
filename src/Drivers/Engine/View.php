@@ -14,8 +14,8 @@
 
         $Call = F::Run($Renderer['Service'], $Renderer['Method'], $Call);
 
-/*        foreach ($Call['Postprocessors'] as $Processor)
-           $Call = F::Run($Call, $Processor);*/
+        foreach ($Call['Postprocessors'] as $Processor)
+           $Call = F::Run($Processor['Service'], $Processor['Method'], $Call, isset($Processor['Call'])? $Processor['Call']: null);
 
         return $Call;
     });

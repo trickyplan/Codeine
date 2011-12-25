@@ -9,15 +9,14 @@
     },
     "Postprocessors":
     {
-        "Parslets":
-        {
-           "_N": "View.Processors.Parslets",
-           "_F": "Process"
-        },
         "I18N":
         {
-            "_N": "View.Processors.HTML.Locale",
-            "_F": "Process"
+            "Service": "View.Processors.Locale",
+            "Method": "Process"
         }
+    },
+    "Parslets":{
+        "_N":"View.Processors.Parslets",
+        "_F":"Process"
     }
 }

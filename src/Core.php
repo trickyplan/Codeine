@@ -39,7 +39,7 @@
             else
                 self::$_Options['Path'][] = Codeine;
 
-            self::_loadOptions();
+            self::loadOptions();
 
             register_shutdown_function ('F::Shutdown');
             set_error_handler ('F::Error'); // Instability
@@ -119,7 +119,8 @@
             if (($sz = func_num_args())>3)
             {
                 for($ic = 3; $ic<$sz; $ic++)
-                    $Call = F::Merge($Call, func_get_arg($ic));
+                    if (is_array($Argument = func_get_arg ($ic)))
+                        $Call = F::Merge($Call, $Argument);
             }
 
             $ParentNamespace = self::$_Service;
@@ -128,7 +129,7 @@
             self::$_Method  = $Method;
             //self::$_History[sha1($ParentNamespace.self::$_Service)] = array(strtr($ParentNamespace,'.','_'), strtr(self::$_Service,'.','_'));
 
-            $Call = self::Merge(self::_loadOptions(), $Call);
+            $Call = self::Merge(self::loadOptions(), $Call);
 
            /* if(!isset($Call['NoBehaviours']))
                         foreach (self::$_Options['Codeine']['Behaviours'] as $Behaviour)
@@ -207,12 +208,12 @@
                 return $Default;
         }
 
-        public static function ifCall($Call)
+        public static function ifCall($Variable)
         {
-            if (self::isCall($Call))
-                return F::Run($Call);
+            if (self::isCall($Variable))
+                return F::Run($Variable['Service'], $Variable['Method'], $Variable['Call']);
             else
-                return $Call;
+                return $Variable;
         }
 
         public static function Shutdown()
@@ -238,30 +239,34 @@
             d(__FILE__, __LINE__, self::$_Stack->top());
         }
 
-        protected static function _loadOptions()
+        public static function loadOptions($Service = null, $Method = null)
         {
-            if (!isset(self::$_Options[self::$_Service]))
+            $Service = ($Service == null)? self::$_Service: $Service;
+            $Method = ($Method  == null) ? self::$_Method : $Method;
+
+            if (!isset(self::$_Options[$Service]))
             {
                 $Options = array();
+
                 foreach (self::$_Options['Path'] as $Path)
                 {
-                    if ($Filename = self::findFile ('Options/' . strtr (self::$_Service, '.', '/') . '.json'))
+                    if ($Filename = self::findFile ('Options/' . strtr ($Service, '.', '/') . '.json'))
                     {
                         $Options = json_decode(file_get_contents($Filename), true);
                         break;
                     }
                 }
 
-                if ($Filename = self::findFile ('Options/' . strtr (self::$_Service, '.', '/') . '/'.self::$_Method.'.json'))
+                if ($Filename = self::findFile ('Options/' . strtr ($Service, '.', '/') . '/'.$Method.'.json'))
                     $Options = F::Merge($Options, json_decode (file_get_contents ($Filename), true));
 
                 if (empty($Options))
                     $Options = null;
 
-                self::$_Options[self::$_Service] = $Options;
+                self::$_Options[$Service] = $Options;
             }
 
-            return self::$_Options[self::$_Service];
+            return self::$_Options[$Service];
         }
 
         public static function Dump($File, $Line, $Call)

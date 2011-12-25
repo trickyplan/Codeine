@@ -11,5 +11,8 @@
 
     self::setFn('Get', function ($Call)
     {
+        if(isset($Call['Key']))
+            $Call['Value'] .= $Call['Key'];
+
         return md5($Call['Value']);
     });

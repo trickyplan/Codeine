@@ -19,10 +19,11 @@
         foreach ($Call['Regex'] as $Rule)
             if (preg_match($Rule['Match'], $Call['Value'], $Matches))
             {
-                foreach ($Rule['Replace'] as $Key => $Value)
-                    $Rule['Call'][$Key] = $Matches[$Value];
+                foreach ($Rule['Call'] as $Key => $Value)
+                    if (isset($Matches[$Value]))
+                        $Rule['Call'][$Key] = $Matches[$Value];
 
-                return $Rule['Call'];
+                return $Rule;
             }
 
         return null;

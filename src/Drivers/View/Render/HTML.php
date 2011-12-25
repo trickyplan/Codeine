@@ -12,14 +12,15 @@
         return is_array($Call['Value']);
     });
 
-    self::setFn('Process', function ($Call)
+    self::setFn('Render', function ($Call)
     {
+       // $Call['Layout'] = '<place>Content</place>';
 
-     /*   $Call = F::Run($Call, array('_N' => 'Code.Flow.Hook','_F'=>'Run','On'=>'beforeRender'));   // JP beforeRender
+      // $Call = F::Run ('Code.Flow.Hook', 'Run', $Call, array('On' => 'beforeRender')); // JP beforeRender
 
-        $Call = F::Run($Call, array('_N' => 'Code.Flow.Hook','_F'=>'Run','On'=>'beforePipeline')); // JP beforePipeline*/
+       $Call = F::Run ('Code.Flow.Hook', 'Run', $Call, array('On' => 'beforePipeline')); // JP beforePipeline
 
-        $Call = F::Run($Call, array('_N' => 'View.Render.Pipeline','_F' => 'Process'));           // Pipelining
+       $Call = F::Run('View.Render.Pipeline','Process', $Call);           // Pipelining
 
      /*   $Call = F::Run($Call, array('_N' => 'Code.Flow.Hook','_F'=>'Run','On'=>'afterPipeline')); // JP afterPipeline
 

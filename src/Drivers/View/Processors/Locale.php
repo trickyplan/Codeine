@@ -12,16 +12,12 @@
         if (preg_match_all('@<l>(.*)<\/l>@SsUu', $Call['Output'], $Pockets))
         {
             // FIXME Codeinize
-            $Locales = F::Run(
+            $Locales = F::Run('Engine.IO', 'Read',
                 array(
-                    '_N' => 'Engine.Object',
-                    '_F' => 'Load',
-                    'Scope' => 'Language',
-                    'ID' => 'Russian'
-                )
-            );
-
-            $Locales = $Locales['Russian']; // Temporary
+                     'Storage' => 'Locale',
+                     'Scope' => 'Russian',
+                     'Where' => array('ID' => 'ru_RU')
+                ));
 
             foreach ($Pockets[1] as $IX => $Match)
             {

@@ -14,19 +14,16 @@
 
     self::setFn ('Read', function ($Call)
     {
-
-        return $Call;
+        return F::Run ('Engine.IO', 'Read', $Call);
     });
 
     self::setFn ('Update', function ($Call)
     {
-
-        return $Call;
+        return F::Run ('Engine.IO', 'Write', $Call);
     });
 
     self::setFn ('Delete', function ($Call)
     {
-
-        return $Call;
+        return F::Run ('Engine.IO', 'Write', $Call);
     });
 

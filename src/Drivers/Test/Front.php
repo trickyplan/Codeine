@@ -9,7 +9,7 @@
 
     self::setFn ('Root', function ($Call)
     {
-        $Call['Text'] = '<h1>Codeine 7 works!</h1>';
+        $Call['Value'] = '<h1>Codeine 7 works!</h1>';
 
         return $Call;
     });

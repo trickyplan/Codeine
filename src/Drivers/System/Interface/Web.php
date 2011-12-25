@@ -11,12 +11,17 @@
     {
         ob_start();
 
-            $Call = F::Run($Call['Service'], $Call['Method'], $Call, $_REQUEST, $_SERVER);
+        // $Call['Server'] = $_SERVER;
+        // $Call['Request'] = $_REQUEST;
 
-            foreach ($Call['Headers'] as $Key => $Value)
-                header ($Key . ': ' . $Value);
+        $Call['Value'] = $_SERVER['REQUEST_URI'];
 
-            echo $Call['Output'];
+        $Call = F::Run($Call['Service'], $Call['Method'], $Call);
+
+        //foreach ($Call['Headers'] as $Key => $Value)
+        //    header ($Key . ': ' . $Value);
+
+        echo $Call['Output'];
 
         ob_flush ();
         return $Call;

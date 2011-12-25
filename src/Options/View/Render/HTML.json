@@ -23,17 +23,20 @@
         {
             "LoadingLayout":
             {
-                "_N": "View.Render.HTML.Layout",
-                "_F": "Load",
-                "ID": "Main"
+                "Service": "View.Render.HTML.Layout",
+                "Method": "Load",
+                "Call":
+                {
+                    "ID": "Main"
+                }
             }
         },
         "afterPipeline":
         {
             "CleanPlaces":
             {
-                "_N": "View.Render.Pipeline.Places",
-                "_F": "Clean"
+                "Service": "View.Render.Pipeline.Places",
+                "Method": "Clean"
             }
         }
     }

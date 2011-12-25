@@ -9,7 +9,7 @@
 
         public function testSimpleRun()
         {
-            $this->assertEquals(true, F::Run('Test.Core', 'SimpleRun'));
+            $this->assertTrue(F::Run('Test.Core', 'SimpleRun'));
         }
 
         public function testMerge()
