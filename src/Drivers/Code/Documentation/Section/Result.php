@@ -9,9 +9,10 @@
 
     self::setFn ('Do', function ($Call)
     {
-        $Widgets = array(
+        $Widgets = array();
 
-        );
+        foreach ($Call['Result'] as $Key => $Value)
+            $Widgets = array_merge ($Widgets, F::Run ('Code.Documentation.Section.' . $Key, 'Do', $Call, array($Key => $Value)));
 
         return $Widgets;
     });

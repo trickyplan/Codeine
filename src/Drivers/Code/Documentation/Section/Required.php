@@ -13,8 +13,8 @@
             array(
                 'Place' => 'Content',
                 'Type' => 'Block',
-                'Class' => array('Documentation_Description_Block'),
-                'Value' => $Call['Description'][$Call['Locale']]
+                'Class' => array('Documentation_Required_Block', 'Documentation_Required_Block_'.($Call['Required']? 'True': 'False')),
+                'Value' => $Call['Required']? '<l>Code.Documentation.Call.Required.True</l>': '<l>Code.Documentation.Call.Required.False</l>'
             )
         );
 

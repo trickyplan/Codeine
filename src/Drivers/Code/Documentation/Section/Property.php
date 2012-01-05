@@ -17,7 +17,7 @@
                     array(
                         'Place' => 'Content',
                         'Type' => 'Block',
-                        'Class' => 'DocumentPropertyBlock',
+                        'Class' => 'Documentation_Property_Block',
                         'Value' => '<l>Code.Documentation.Property.'.$Key.'</l>'
                     );
 

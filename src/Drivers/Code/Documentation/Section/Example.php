@@ -33,8 +33,7 @@
                 '<?php
 echo F::Run(\''.$Call['Service'].'\', \''.$Call['Method'].'\',
     array(
-            '.implode("\n,", $exCall).'
-        );
+    '.implode(",\n\t", $exCall).');
 ?>',
                 'Output' => $Example['Result']
             );

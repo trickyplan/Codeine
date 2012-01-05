@@ -12,10 +12,11 @@
         $Widgets = array(
             array(
                 'Place' => 'Content',
-                'Type'  => 'Block',
-                'Class' => 'Documentation_Access_Block',
-                'Value' => '<l>Code.Documentation.Access.Free</l>'
-            ));
+                'Type' => 'Block',
+                'Class' => 'Documentation_Type_Block',
+                'Value' => '<l>Code.Documentation.Type</l>: <l>Code.Documentation.Type.'.$Call['Type'].'</l>'
+            )
+        );
 
         return $Widgets;
     });
