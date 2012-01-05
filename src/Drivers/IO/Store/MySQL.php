@@ -9,13 +9,13 @@
 
     self::setFn ('Open', function ($Call)
     {
-        $Link = new mysqli($Call['Server'], $Call['User'], $Call['Password']);
+        $Link = new mysqli($Call['Server'], $Call['User'], F::Live($Call['Password']));
 
         if ($Link->errno != 0)
             return $Link->error;
 
         $Link->select_db ($Call['Database']);
-     //   $Link->set_charset ($Call['Charset']);
+        $Link->set_charset ($Call['Charset']);
      //   $Link->autocommit ($Call['AutoCommit']);
 
         return $Link;
@@ -23,7 +23,16 @@
 
     self::setFn ('Read', function ($Call)
     {
-        return 'Pong!';
+        $Query = F::Run('IO.Syntax.MySQL', 'Read', $Call);
+
+        $Result = $Call['Link']->query($Query);
+
+        $Data = array();
+
+        while($Row = $Result->fetch_assoc())
+            $Data[] = $Row;
+
+        return $Data;
     });
 
     self::setFn ('Write', function ($Call)

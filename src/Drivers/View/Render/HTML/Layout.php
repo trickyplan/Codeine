@@ -10,6 +10,5 @@
      self::setFn('Load', function ($Call)
      {
          $Call['Layout'] = F::Run ('Engine.Template', 'Load', $Call, array('Scope' => 'Layout'));
-
          return $Call;
      });

@@ -9,5 +9,5 @@
 
     self::setFn ('Defined', function ($Call)
     {
-        return array('Service' => isset($Call['Renderer'])? $Call['Renderer']: 'View.Render.Plaintext', 'Method' => 'Render');
+        return array('Service' => isset($Call['Renderer'])? $Call['Renderer']: $Call['Default'], 'Method' => 'Render');
     });

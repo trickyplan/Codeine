@@ -15,10 +15,8 @@
 
              if (preg_match_all('@<'.$Tag.'>(.*)<\/'.$Tag.'>@SsUu', $Call['Output'], $Parsed))
              {
-                 $Call['Output'] = F::Run($Call,
+                 $Call['Output'] = F::Run('View.Processors.Parslets.'.$Parslet, 'Parse', $Call,
                     array(
-                        '_N' => $Call['_N'].'.'.$Parslet,
-                        '_F' => 'Parse',
                         'Parsed' => $Parsed
                     )
                  );

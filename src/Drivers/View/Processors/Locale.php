@@ -14,9 +14,8 @@
             // FIXME Codeinize
             $Locales = F::Run('Engine.IO', 'Read',
                 array(
-                     'Storage' => 'Locale',
-                     'Scope' => 'Russian',
-                     'Where' => array('ID' => 'ru_RU')
+                     'Storage' => 'Language',
+                     'Where' => array('ID' => 'Russian')
                 ));
 
             foreach ($Pockets[1] as $IX => $Match)

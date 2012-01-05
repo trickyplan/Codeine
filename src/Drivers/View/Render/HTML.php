@@ -20,7 +20,7 @@
 
        $Call = F::Run ('Code.Flow.Hook', 'Run', $Call, array('On' => 'beforePipeline')); // JP beforePipeline
 
-       $Call = F::Run('View.Render.Pipeline','Process', $Call);           // Pipelining
+       $Call = F::Run('View.Render.Pipeline','Process', $Call, array('Renderer' => 'View.Render.HTML'));           // Pipelining
 
      /*   $Call = F::Run($Call, array('_N' => 'Code.Flow.Hook','_F'=>'Run','On'=>'afterPipeline')); // JP afterPipeline
 

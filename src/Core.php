@@ -142,7 +142,7 @@
 
             self::$_Stack->push($Call);
 
-            if (!isset($Call['Result']))
+            if (!isset($Call[':Result']))
             {
                 if (null === self::getFn($Method) && (null === self::_loadSource ($Service)))
                     $Result = isset($Call['Fallback'])? $Call['Fallback']: null;
@@ -166,7 +166,7 @@
                                         ));*/
             }
             else
-                $Result =  $Call['Result'];
+                $Result =  $Call[':Result'];
 
             self::$_Stack->pop();
 
@@ -208,7 +208,7 @@
                 return $Default;
         }
 
-        public static function ifCall($Variable)
+        public static function Live($Variable)
         {
             if (self::isCall($Variable))
                 return F::Run($Variable['Service'], $Variable['Method'], $Variable['Call']);
@@ -272,7 +272,7 @@
         public static function Dump($File, $Line, $Call)
         {
             // FIXME!
-            echo '<strong>File:'.$File.' line:'.$Line.'</strong>';
+            echo '<div class="xdebug-header">'.substr($File, strpos($File, 'Drivers')).' <strong>@'.$Line.'</strong></div>';
 
             if (is_array($Call))
                 krsort($Call);

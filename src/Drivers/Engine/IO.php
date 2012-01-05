@@ -9,7 +9,18 @@
 
     self::setFn ('Open', function ($Call)
     {
-        $Call = F::Merge($Call, $Call['Storages'][$Call['Storage']]);
+        $StorageID = $Call['Storage'];
+
+        if (isset($Call['Storages'][$StorageID]))
+            $Call = F::Merge($Call, $Call['Storages'][$StorageID]);
+        else
+        {
+            if (isset($Call['Aliases'][$StorageID]))
+            {
+                $Alias = $Call['Aliases'][$StorageID];
+                $Call = F::Merge ($Call['Storages'][$Alias['Storage']], $Alias);
+            }
+        }
 
         $Call['Link'] = F::Run($Call['Driver'], 'Open', $Call);
         // F::Set('Storage.'.$Call['Storage'], $Call);

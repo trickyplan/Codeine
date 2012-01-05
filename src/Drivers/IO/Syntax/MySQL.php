@@ -7,127 +7,49 @@
      * @version 6.0
      */
 
-    self::setFn('Escape', function ($Call)
+    self::setFn ('Keys', function ($Call)
     {
-        if (!is_numeric($Call['Value']))
-            return '"'.$Call['Value'].'"';
+        if (isset($Call['Keys']))
+        {
+            foreach ($Call['Keys'] as &$Key)
+                $Key = $Call['Link']->real_escape_string ($Key); // ?
+
+            $Keys = implode (',', $Call['Keys']);
+        }
         else
-            return $Call['Value'];
+            $Keys = '*';
+
+        return $Keys;
     });
 
-    self::setFn('Find', function ($Call)
+    self::setFn ('Scope', function ($Call)
     {
-        $WhereString = array();
+        return ' from `'.$Call['Scope'].'`';
+    });
 
-        foreach ($Call['Where'] as $Key => $Value)
+    self::setFn ('Where', function ($Call)
+    {
+        $WhereString = ' where ';
+
+        $Conditions = array();
+
+        foreach($Call['Where'] as $Key => $Value)
+        {
+            $Relation = '=';
+
             if (is_array($Value))
-                foreach ($Value as $Op => $Value)
-                    $WhereString[] = '`'.$Key.'`'.$Op.' '.F::Run(
-                                                            array(
-                                                                '_N'=>'Data.Syntax.MySQL',
-                                                                '_F' => 'Escape',
-                                                                'Value' => $Value));
-            else
-                $WhereString[] = '`'.$Key.'`'.' = '.F::Run(
-                                                            array(
-                                                                '_N'=>'Data.Syntax.MySQL',
-                                                                '_F' => 'Escape',
-                                                                'Value' => $Value));
+                list($Relation, $Value) = $Value;
 
-        return implode(' AND ', $WhereString);
-    });
-
-    self::setFn('Load', function ($Call)
-    {
-        if (isset($Call['ID']))
-        {
-            if (is_array($Call['ID']))
-            {
-                foreach ($Call['ID'] as &$ID)
-                    $ID = F::Run(array('_N' => 'Data.Syntax.MySQL', '_F' => 'Escape', 'Value' => $ID));
-
-                $Where = '`ID` IN ('.implode(',', $Call['ID']).')';
-            }
-            else
-                $Where = '`ID` = '.F::Run(array('_N' => 'Data.Syntax.MySQL', '_F' => 'Escape', 'Value' => $Call['ID']));
-        }
-        else
-            $Where = ' 1 = 1';
-
-        return $Where;
-    });
-
-    self::setFn('Values', function ($Call)
-        {
-            $WhereString = array();
-
-            if (isset($Call['Where']))
-                {
-                    foreach ($Call['Where'] as $Key => $Value)
-                    if (is_array($Value))
-                        foreach ($Value as $Op => $Value)
-                            $WhereString[] = '`'.$Key.'`'.$Op.' '.F::Run(
-                                                                    array(
-                                                                        '_N'=>'Data.Syntax.MySQL',
-                                                                        '_F' => 'Escape',
-                                                                        'Value' => $Value));
-                    else
-                        $WhereString[] = '`'.$Key.'`'.' = '.F::Run(
-                                                                    array(
-                                                                        '_N'=>'Data.Syntax.MySQL',
-                                                                        '_F' => 'Escape',
-                                                                        'Value' => $Value));
-
-                    return implode(' AND ', $WhereString);
-                }
-            else
-                return '1 = 1';
-        });
-
-    self::setFn('Delete', function ($Call)
-    {
-        if (is_array($Call['ID']))
-        {
-            foreach ($Call['ID'] as &$ID)
-                $ID = F::Run(array('_N' => 'Data.Syntax.MySQL', '_F' => 'Escape', 'Value' => $ID));
-
-            $Where = '`ID` IN '.implode(',', $Call['ID']);
-        }
-        else
-            $Where = '`ID` = '.F::Run(array('_N' => 'Data.Syntax.MySQL', '_F' => 'Escape', 'Value' => $Call['ID']));
-
-        return $Where;
-    });
-
-
-    self::setFn('Create', function ($Call)
-    {
-        foreach ($Call['Value'] as $Row)
-        {
-            $Keys = array();
-            
-            foreach ($Row as $Key => &$Value)
-            {
-                $Row['ID'] = $Call['ID'];
-                $Keys[] = '`'.$Key.'`';
-                $Value = F::Run(array('_N' => 'Data.Syntax.MySQL', '_F' => 'Escape', 'Value' => $Value));
-            }
-
-            $Keys = implode(',', $Keys);
-
-            $Data[$Keys][] = '('.implode(',',$Row).')';
+            $Conditions[] = '`'.$Key.'` '. $Relation.' \''.$Call['Link']->real_escape_string($Value).'\'';
         }
 
-        return $Data;
+        return $WhereString.' '.implode(' AND ', $Conditions);
     });
 
-    self::setFn('Update', function ($Call)
+    self::setFn('Read', function (array $Call)
     {
-        $Sets = array();
-        
-        foreach ($Call['Set'] as $Key => &$Value)
-            $Sets[] = '`'.$Key.'` = '.F::Run(array('_N' => 'Data.Syntax.MySQL', '_F' => 'Escape', 'Value' => $Value));
-
-        $Data = implode(',',$Sets);
-        return $Data;
+        return 'select '
+               .F::Run('IO.Syntax.MySQL', 'Keys', $Call)
+               .F::Run('IO.Syntax.MySQL', 'Scope', $Call)
+               .F::Run('IO.Syntax.MySQL', 'Where', $Call);
     });
