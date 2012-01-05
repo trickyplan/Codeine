@@ -9,10 +9,15 @@
 
     self::setFn ('Process', function ($Call)
     {
-        foreach ($Call['Rules'] as $Name => $Transformation)
-        {
+        $Rules = $Call['Rules'];
 
-        }
+        array_walk_recursive($Call['Value'],
+            function (&$Value, $Key) use ($Rules)
+            {
+                if (isset($Rules[$Key]))
+                    $Value = $Rules[$Key]($Value);
+            }
+        );
 
-        return $Call;
+        return $Call['Value'];
     });
