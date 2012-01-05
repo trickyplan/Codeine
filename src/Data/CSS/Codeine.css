@@ -61,11 +61,21 @@ a:visited {
     border-color: #b0c4de;
 }
 
-.DocumentPropertyBlock, .DocumentDescriptionBlock
+.Documentation_Property_Block, .Documentation_Description_Block, .Documentation_Type_Block, .Documentation_Required_Block, .Documentation_Access_Block
 {
     color: #333333;
     border-bottom: 1px solid #EEEEEE;
     padding: 6px;
     margin: 3px;
     background-color: #fefefe;
+}
+
+.Documentation_Required_Block
+{
+    color: #8b0000;
+}
+
+.Documentation_Access_Block
+{
+    color: #006400;
 }
