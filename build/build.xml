@@ -6,7 +6,7 @@
     <taskdef name="phpdeb" classname="phing.tasks.my.PHPDebTask" />
 
     <target name="prepare">
-        <mkdir dir="dist" />
+        <mkdir dir="../dist" />
         <mkdir dir="reports" />
         <loadfile property="release" file="../docs/VERSION"/>
         <loadfile property="description" file="../docs/Description"/>
@@ -37,7 +37,7 @@
     </target>
 
     <target name="tgz" depends="build">
-        <tar destFile="dist/${phing.project.name}-${version}.tar.gz" compression="gzip">
+        <tar destFile="../dist/${phing.project.name}-${version}.tar.gz" compression="gzip">
             <fileset dir="../src">
                 <include name="*" />
             </fileset>
@@ -92,7 +92,7 @@
     </target>
 
     <target name="debian-build" depends="debian-prepare, debian-source, debian-etc, debian-docs">
-        <exec command="dpkg --build '${phing.project.name}-${version}' dist/ " dir="." />
+        <exec command="dpkg --build '${phing.project.name}-${version}' ../dist/ " dir="." />
     </target>
 
     <target name="dist" depends="tgz, debian-build">
