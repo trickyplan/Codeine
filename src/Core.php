@@ -42,7 +42,7 @@
             self::loadOptions();
 
             register_shutdown_function ('F::Shutdown');
-            set_error_handler ('F::Error'); // Instability
+            // set_error_handler ('F::Error'); // Instability
         }
 
         public static function Merge($First, $Second)
@@ -142,10 +142,12 @@
 
             self::$_Stack->push($Call);
 
-            if (!isset($Call[':Result']))
+            if (!isset($Call['Result']))
             {
-                if (null === self::getFn($Method) && (null === self::_loadSource ($Service)))
-                    $Result = isset($Call['Fallback'])? $Call['Fallback']: null;
+                if ((null === self::getFn(self::$_Method)) && (null === self::_loadSource (self::$_Service)))
+                {
+                    $Result = (is_array($Call) && isset($Call['Fallback']))? $Call['Fallback']: null;
+                }
                 else
                     {
                         $F = self::getFn($Method);
@@ -166,7 +168,12 @@
                                         ));*/
             }
             else
-                $Result =  $Call[':Result'];
+            {
+                if(is_array ($Call))
+                    $Result =  $Call['Result'];
+                else
+                    $Result = null;
+            }
 
             self::$_Stack->pop();
 
@@ -232,6 +239,22 @@
             return null; // TODO onShutdown
         }
 
+        public static function Map ($Array, $Fn, $Data = null, $FullKey = '')
+        {
+            if (is_array ($Array))
+                foreach ($Array as $Key => &$Value)
+                {
+                    $NewFullKey = is_numeric($Key)? $FullKey.'#': $FullKey.'.'.$Key;
+
+                    $Fn($Key, $Value, &$Data, $NewFullKey);
+
+                    if (is_array ($Value))
+                        self::Map (&$Value, $Fn, &$Data, $NewFullKey);
+                }
+
+            return true;
+        }
+
         public static function Error($errno , $errstr , $errfile , $errline , $errcontext)
         {
             // FIXME
@@ -273,9 +296,6 @@
         {
             // FIXME!
             echo '<div class="xdebug-header">'.substr($File, strpos($File, 'Drivers')).' <strong>@'.$Line.'</strong></div>';
-
-            if (is_array($Call))
-                krsort($Call);
 
             var_dump($Call);
 

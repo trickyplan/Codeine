@@ -9,15 +9,32 @@
 
     self::setFn ('Process', function ($Call)
     {
+        $Output = '';
+
         $Rules = $Call['Rules'];
 
-        array_walk_recursive($Call['Value'],
-            function (&$Value, $Key) use ($Rules)
+        F::Map ($Call['Value'], function ($Key, $Value, $Output, $FullKey) use ($Rules)
+        {
+            $FullKey = substr($FullKey, 1);
+            //echo $FullKey."<br/>";
+            if (isset($Rules[$FullKey]))
             {
-                if (isset($Rules[$Key]))
-                    $Value = $Rules[$Key]($Value);
-            }
-        );
+                if (is_callable($Rules[$FullKey]))
+                    $Output.= $Rules[$FullKey]($Value);
+                else
+                {
+                    $Output .= preg_replace_callback('/\{(.*)\}/',
+                        function ($Matches) use ($Value)
+                        {
+                            if (empty($Matches[1]))
+                                return $Value;
+                            else
+                                return $Value[$Matches[1]];
 
-        return $Call['Value'];
+                        }, $Rules[$FullKey]);
+                }
+            }
+        }, &$Output);
+
+        return $Output;
     });
