@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="codeine" default="dist">
+<project name="Codeine" default="dist">
 
     <taskdef name="phploc" classname="phing.tasks.my.PHPLocTask" />
     <taskdef name="phpdeb" classname="phing.tasks.my.PHPDebTask" />
