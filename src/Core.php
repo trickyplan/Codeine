@@ -153,7 +153,7 @@
                         $F = self::getFn($Method);
 
                         if (is_callable($F))
-                           $Result = $F(&$Call);
+                           $Result = $F($Call);
                         else
                            $Result = isset($Call['Fallback'])? $Call['Fallback']: null;
                     }
