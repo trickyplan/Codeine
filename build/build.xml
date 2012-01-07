@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="Codeine" default="dist">
+<project name="codeine" default="dist">
 
     <taskdef name="phploc" classname="phing.tasks.my.PHPLocTask" />
     <taskdef name="phpdeb" classname="phing.tasks.my.PHPDebTask" />
@@ -45,8 +45,8 @@
     </target>
 
     <target name="debian-source">
-        <mkdir dir="${phing.project.name}-${version}/usr/share/php/${phing.project.name}" />
-        <copy todir="${phing.project.name}-${version}/usr/share/php/${phing.project.name}">
+        <mkdir dir="${phing.project.name}-${version}/usr/share/php/Codeine" />
+        <copy todir="${phing.project.name}-${version}/usr/share/php/Codeine">
             <fileset dir="../src">
                 <include name="*/**" />
             </fileset>
