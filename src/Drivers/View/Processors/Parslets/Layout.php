@@ -11,7 +11,7 @@
         {
             foreach ($Call['Parsed'][1] as $Ix => $Match)
                 $Call['Output'] = str_replace ($Call['Parsed'][0][$Ix],
-                   F::Run ('Engine.Template', 'Load', array('ID' => $Match)),$Call['Output']);
+                   F::Run ('Engine.Template', 'Load', array('Scope' => 'Layout', 'ID' => $Match)),$Call['Output']);
 
             return $Call['Output'];
         });
