@@ -86,7 +86,9 @@
             if ($Filename)
                 return (include $Filename);
             else
+            {
                 return null;
+            }
         }
 
         /**
