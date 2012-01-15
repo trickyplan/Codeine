@@ -29,10 +29,14 @@
     self::setFn ('Write', function ($Call)
     {
         // TODO Validations
+        $Suffix   = isset($Call['Suffix']) ? $Call['Suffix'] : '';
+        $Prefix   = isset($Call['Prefix']) ? $Call['Prefix'] : '';
+        $Filename = Root.'/'.$Call['Link'] . $Call['Scope'] . '/' . $Prefix . $Call['Where']['ID'] . $Suffix;
+
         if (isset($Call['Data']))
-            return file_put_contents ($Call['Link'] . $Call['Scope'] . '/' . $Call['Where']['ID'], $Call['Data']);
+            return file_put_contents ($Filename, $Call['Data']);
         else
-            unlink ($Call['Link'] . $Call['Scope'] . '/' . $Call['Where']['ID']);
+            unlink ($Filename);
     });
 
     self::setFn ('Close', function ($Call)
@@ -40,7 +44,23 @@
         return true;
     });
 
-    self::setFn ('Execute', function ($Call)
+    self::setFn ('Version', function ($Call)
     {
-        return true;
+        $Suffix   = isset($Call['Suffix']) ? $Call['Suffix'] : '';
+        $Prefix   = isset($Call['Prefix']) ? $Call['Prefix'] : '';
+        $Filename = F::findFile ($Call['Link'] . $Call['Scope'] . $Prefix . $Call['Where']['ID'] . $Suffix);
+
+        if (file_exists ($Filename))
+            return filemtime($Filename);
+        else
+            return null;
+    });
+
+    self::setFn ('Exist', function ($Call)
+    {
+        $Suffix   = isset($Call['Suffix']) ? $Call['Suffix'] : '';
+        $Prefix   = isset($Call['Prefix']) ? $Call['Prefix'] : '';
+        $Filename = F::findFile ($Call['Link'] . $Call['Scope'] . $Prefix . $Call['Where']['ID'] . $Suffix);
+
+        return file_exists ($Filename);
     });

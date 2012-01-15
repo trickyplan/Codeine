@@ -18,6 +18,20 @@
             "Directory":"Data/Locale",
             "Suffix": ".json",
             "Format": "Data.Format.JSON"
+        },
+        "CSS":
+        {
+            "Driver":"IO.Store.Directory",
+            "Directory":"Data",
+            "Scope": "CSS",
+            "Suffix":".css"
+        },
+        "CSS Cache":
+        {
+            "Driver":"IO.Store.Directory",
+            "Directory":"Public",
+            "Scope":"css",
+            "Suffix":".css"
         }
     },
     "Alias":

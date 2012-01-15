@@ -11,20 +11,12 @@
      {
           foreach ($Call['Parsed'][1] as $Ix => $Match)
           {
-              $Output = F::Run($Call, json_decode($Match, true));
 
-              if (is_array($Output))
-              {
-                  $Output = F::Run($Output,
-                      array(
-                           '_N' => 'View.Render.Pipeline',
-                           '_F' => 'Process',
-                           'Layout' => '<place>Content</place>'
-                      )
-                  );
-              }
+              $Match = json_decode ($Match, true);
 
-              $Call['Output'] = str_replace($Call['Parsed'][0][$Ix], $Output['Output'], $Call['Output']);
+              $Output = F::Run($Match['Service'], $Match['Method'], isset($Match['Call'])? $Match['Call']: null);
+
+              $Call['Output'] = str_replace($Call['Parsed'][0][$Ix], $Output, $Call['Output']);
           }
 
           return $Call['Output'];

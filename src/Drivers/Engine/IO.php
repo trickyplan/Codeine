@@ -57,5 +57,5 @@
     self::setFn ('Execute', function ($Call)
     {
         $Storage = F::Run ('Engine.IO', 'Open', $Call);
-        return F::Run ($Storage['Driver'], 'Execute', $Call, $Storage);
+        return F::Run ($Storage['Driver'], $Call['Execute'], $Call, $Storage);
     });
