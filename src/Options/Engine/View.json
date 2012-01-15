@@ -19,6 +19,11 @@
             "Service":"View.Processors.HTML.CSS",
             "Method":"Process"
         },
+        "Minify":
+        {
+            "Service":"View.Processors.HTML.Minify",
+            "Method":"Process"
+        },
         "JS":
         {
             "Service":"View.Processors.HTML.JS",
