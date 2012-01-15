@@ -11,14 +11,14 @@
 
     self::setFn ('Open', function ($Call)
     {
-        return $Call['Directory'] . '/';
+        return $Call['Directory'];
     });
 
     self::setFn ('Read', function ($Call)
     {
         $Suffix = isset($Call['Suffix'])? $Call['Suffix']: '';
         $Prefix= isset($Call['Prefix'])? $Call['Prefix'] : '';
-        $Filename = F::findFile($Call['Link'] . $Call['Scope'] . '/' . $Prefix . $Call['Where']['ID'] . $Suffix);
+        $Filename = F::findFile($Call['Link'] . '/' . $Call['Scope'] . '/' . $Prefix . $Call['Where']['ID'] . $Suffix);
 
         if (file_exists ($Filename))
             return file_get_contents ($Filename);
@@ -31,7 +31,7 @@
         // TODO Validations
         $Suffix   = isset($Call['Suffix']) ? $Call['Suffix'] : '';
         $Prefix   = isset($Call['Prefix']) ? $Call['Prefix'] : '';
-        $Filename = Root.'/'.$Call['Link'] . $Call['Scope'] . '/' . $Prefix . $Call['Where']['ID'] . $Suffix;
+        $Filename = Root.'/'.$Call['Link'] . '/' . $Call['Scope'] . '/' . $Prefix . $Call['Where']['ID'] . $Suffix;
 
         if (isset($Call['Data']))
             return file_put_contents ($Filename, $Call['Data']);
@@ -48,7 +48,7 @@
     {
         $Suffix   = isset($Call['Suffix']) ? $Call['Suffix'] : '';
         $Prefix   = isset($Call['Prefix']) ? $Call['Prefix'] : '';
-        $Filename = F::findFile ($Call['Link'] . $Call['Scope'] . $Prefix . $Call['Where']['ID'] . $Suffix);
+        $Filename = F::findFile ($Call['Link'] .'/'. $Call['Scope'] . '/' . $Prefix . $Call['Where']['ID'] . $Suffix);
 
         if (file_exists ($Filename))
             return filemtime($Filename);
@@ -60,7 +60,7 @@
     {
         $Suffix   = isset($Call['Suffix']) ? $Call['Suffix'] : '';
         $Prefix   = isset($Call['Prefix']) ? $Call['Prefix'] : '';
-        $Filename = F::findFile ($Call['Link'] . $Call['Scope'] . $Prefix . $Call['Where']['ID'] . $Suffix);
+        $Filename = F::findFile ($Call['Link'] . '/' . $Call['Scope'] . '/' . $Prefix . $Call['Where']['ID'] . $Suffix);
 
         return file_exists ($Filename);
     });

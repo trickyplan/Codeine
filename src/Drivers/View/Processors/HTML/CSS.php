@@ -13,8 +13,8 @@
         {
             $CSSHash = F::Run('View.Processors.HTML.CSS.Hash', 'Get', array('IDs' => $Parsed[1]));
 
-            if (F::Run('Engine.IO', 'Execute', array('Storage' => 'CSS Cache', 'Execute' => 'Exist',
-                                                     'Where' => array('ID' => $CSSHash))))
+            //if (F::Run('Engine.IO', 'Execute', array('Storage' => 'CSS Cache', 'Execute' => 'Exist',
+            //                                         'Where' => array('ID' => $CSSHash))))
             {
                 $CSS = array();
                 foreach ($Parsed[1] as $CSSFile)
