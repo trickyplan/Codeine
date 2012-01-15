@@ -43,10 +43,10 @@
 
             foreach ($Parsed[0] as $cParsed)
                 $Call['Output'] = str_replace($cParsed,'', $Call['Output']);
-        }
 
-        // TODO Codeinize
-        $Call['Output'] = str_replace('<place>JS</place>', '<script type="text/javascript" src="/js/'.$JSHash.'.js"></script>', $Call['Output']);
+            // TODO Codeinize
+            $Call['Output'] = str_replace ('<place>JS</place>', '<script type="text/javascript" src="/js/' . $JSHash . '.js"></script>', $Call['Output']);
+        }
 
         return $Call;
     });
