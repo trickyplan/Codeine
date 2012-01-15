@@ -9,7 +9,7 @@
 
      self::setFn('Do', function ($Call)
      {
-         $Storage = isset($Call['Storage'])? $Call['Storage']: 'Cache';
+         /*$Storage = isset($Call['Storage'])? $Call['Storage']: 'Cache';
          $CacheID = F::hashCall($Call['Value']);
 
          $Cached = F::Run(
@@ -46,7 +46,7 @@
                       'ID' => $CacheID,
                       'Value' => $Cached
                   )
-              );
+              );*/
 
          return $Cached['Result'];
      });
