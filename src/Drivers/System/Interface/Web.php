@@ -10,6 +10,7 @@
     self::setFn ('Run', function ($Call)
     {
         ob_start();
+        header ('Content-type: text/html; charset=utf-8');
 
         // $Call['Server'] = $_SERVER;
         // $Call['Request'] = $_REQUEST;

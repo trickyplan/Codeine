@@ -10,7 +10,7 @@
      self::setFn('Make', function ($Call)
      {
 
-         $Layout =  F::Run ('Engine.Template', 'Load', array('Scope' => 'Static', 'ID' => $Call['Value']));
+         $Layout =  F::Run ('Engine.Template', 'Load', array('Scope' => $Call['Scope'], 'ID' => $Call['Value']));
 
          if (preg_match_all ('@<k>(.*)</k>@SsUu', $Layout, $Pockets))
          {
