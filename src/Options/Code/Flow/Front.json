@@ -9,6 +9,21 @@
                 "Service": "Code.Flow.Front.Routing",
                 "Method": "Route"
             }
+        },
+        "on404":
+        {
+            "ErrorPage":
+            {
+                "Service":"Error.404",
+                "Method":"Page",
+                "Call":
+                {
+                    "Title":"one2team &mdash; 404",
+                    "Description":"one2team &mdash; 404",
+                    "Keywords":["OpenProcess", "Система хореографии процессов", "система управления процессами компании"],
+                    "Content":"404"
+                }
+            }
         }
     }
 }

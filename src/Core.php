@@ -278,6 +278,13 @@
                     if ($Filename = self::findFile ('Options/' . strtr ($Service, '.', '/') . '.json'))
                     {
                         $Options = json_decode(file_get_contents($Filename), true);
+
+                        if ($Filename && !$Options)
+                        {
+                            trigger_error('JSON file corrupted');
+                            return null;
+                        }
+
                         break;
                     }
                 }

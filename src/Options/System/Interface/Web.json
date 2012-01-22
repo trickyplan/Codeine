@@ -1,6 +1,8 @@
 {
     "Headers":
     {
-        "X-Codeine": "7.0"
+        "HTTP/1.0": "200 OK",
+        "Content-type:": "text/html; charset=utf-8",
+        "X-Powered-By:": "Codeine 7.0"
     }
 }
