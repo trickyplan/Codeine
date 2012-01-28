@@ -4,9 +4,10 @@
      * @author BreathLess
      * @description  New IO Engine
      * @package Codeine
-     * @version 6.0
+     * @version 7.0
      */
 
+    // Default caching
     self::setFn ('Open', function ($Call)
     {
         $StorageID = $Call['Storage'];
@@ -20,10 +21,13 @@
                 $Alias = $Call['Aliases'][$StorageID];
                 $Call = F::Merge ($Call['Storages'][$Alias['Storage']], $Alias);
             }
+            else
+            {
+                return null;
+            }
         }
 
         $Call['Link'] = F::Run($Call['Driver'], 'Open', $Call);
-        // F::Set('Storage.'.$Call['Storage'], $Call);
         return $Call;
      });
 

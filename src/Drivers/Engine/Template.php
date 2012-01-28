@@ -4,18 +4,25 @@
      * @author BreathLess
      * @description  
      * @package Codeine
-     * @version 6.0
+     * @version 7.0
      */
 
     self::setFn ('Parse', function ($Call)
     {
-        if (preg_match_all('@<k>(.*)</k>@SsUu', $Call['Value'], $Pockets))
+        if (preg_match_all ('@<k>(.*)</k>@SsUu', $Call['Value'], $Pockets))
         {
             foreach ($Pockets[1] as $IX => $Match)
+            {
                 if (isset($Call['Data'][$Match]))
-                    $Call['Value'] = str_replace($Pockets[0][$IX], $Call['Data'][$Match], $Call['Value']);
+                {
+                    if (is_array ($Call['Data'][$Match]))
+                        $Call['Data'][$Match] = implode (' ', $Call[$Match]);
+
+                    $Call['Value'] = str_replace ($Pockets[0][$IX], $Call['Data'][$Match], $Call['Value']);
+                }
                 else
-                    $Call['Value'] = str_replace($Pockets[0][$IX], '', $Call['Value']);
+                    $Call['Value'] = str_replace ($Pockets[0][$IX], '', $Call['Value']);
+            }
         }
 
         return $Call['Value'];
@@ -28,4 +35,13 @@
                            'Storage' => 'Layout',
                            'Where'   => array('ID' => $Call['ID'].'.html')
                       ));
+    });
+
+    self::setFn ('LoadParsed', function ($Call)
+    {
+        return F::Run('Engine.Template', 'Parse',
+            array(
+                 'Data' => $Call['Data'],
+                 'Value' => F::Run ('Engine.Template', 'Load', $Call)
+            ));
     });

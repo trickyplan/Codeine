@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description: Contract Behaviour
      * @package Codeine
-     * @version 6.0
+     * @version 7.0
      * @date 10.07.11
      * @time 1:09
      */

@@ -7,13 +7,6 @@
     "Behaviours": ["Contract"],
     "Hooks":
     {
-        "onSourceNotFound":
-        {
-            "Fallback":
-            {
-                "_N": "Hooks.Error.404FN",
-                "_F": "Show"
-            }
-        }
+
     }
 }

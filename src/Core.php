@@ -5,7 +5,7 @@
      * @description: F Class
      * @package Codeine Framework
      * @subpackage Core
-     * @version 6.0
+     * @version 7.0
      */
 
     define('Codeine', __DIR__);
@@ -129,18 +129,9 @@
 
             self::$_Service = $Service;
             self::$_Method  = $Method;
-            //self::$_History[sha1($ParentNamespace.self::$_Service)] = array(strtr($ParentNamespace,'.','_'), strtr(self::$_Service,'.','_'));
 
             $Call = self::Merge(self::loadOptions(), $Call);
 
-           /* if(!isset($Call['NoBehaviours']))
-                        foreach (self::$_Options['Codeine']['Behaviours'] as $Behaviour)
-                            if (!(is_array($Call) && isset($Call['No'.$Behaviour])))
-                                $Call = self::Run('Code.Behaviour.'.$Behaviour, 'beforeRun',
-                                    array(
-                                        'Value' => $Call,
-                                        'NoBehaviours' => true
-                                    ));*/
 
             self::$_Stack->push($Call);
 
@@ -159,15 +150,6 @@
                         else
                            $Result = isset($Call['Fallback'])? $Call['Fallback']: null;
                     }
-
-            /* if(!isset($Call['NoBehaviours']))
-                            foreach (self::$_Options['Codeine']['Behaviours'] as $Behaviour)
-                                if (!(is_array($Call) && isset($Call['No'.$Behaviour])))
-                                    $Call = self::Run('Code.Behaviour.' . $Behaviour, 'afterRun',
-                                        array(
-                                            'Value' => $Call,
-                                            'NoBehaviours' => true
-                                        ));*/
             }
             else
             {
@@ -220,7 +202,7 @@
         public static function Live($Variable)
         {
             if (self::isCall($Variable))
-                return F::Run($Variable['Service'], $Variable['Method'], $Variable['Call']);
+                return F::Run($Variable['Service'], $Variable['Method'], isset($Variable['Call'])? $Variable['Call']: array());
             else
                 return $Variable;
         }
@@ -281,7 +263,7 @@
 
                         if ($Filename && !$Options)
                         {
-                            trigger_error('JSON file corrupted');
+                            trigger_error('JSON file corrupted: '.$Filename); //FIXME
                             return null;
                         }
 
@@ -324,5 +306,6 @@
 
     function d()
     {
-        return call_user_func_array(array('F','Dump'), func_get_args());
+        call_user_func_array(array('F','Dump'), func_get_args());
+        return func_get_arg(2);
     }

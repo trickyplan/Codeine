@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description: Event Driver
      * @package Codeine
-     * @version 6.0
+     * @version 7.0
      * @date 29.07.11
      * @time 22:13
      */

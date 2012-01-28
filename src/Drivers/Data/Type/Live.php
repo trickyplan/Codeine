@@ -7,7 +7,7 @@
      * @version 7.0
      */
 
-    self::setFn ('SimpleRun', function ($Call)
+    self::setFn ('Input', function ($Call)
     {
-        return true;
+        return F::Live($Call['Value']);
     });

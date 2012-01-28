@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description: Zend Style Routing
      * @package Codeine
-     * @version 6.0
+     * @version 7.0
      * @date 27.08.11
      * @time 6:38
      */

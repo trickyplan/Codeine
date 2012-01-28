@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description: Argument checker
      * @package Codeine
-     * @version 6.0
+     * @version 7.0
      * @date 29.07.11
      * @time 23:51
      */

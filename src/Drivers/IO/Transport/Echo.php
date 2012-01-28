@@ -4,15 +4,14 @@
      * @author BreathLess
      * @description: 
      * @package Codeine
-     * @version 6.0
+     * @version 7.0
      * @date 27.08.11
      * @time 6:28
      */
 
     self::setFn ('Open', function ($Call)
         {
-
-            return $Call;
+            return true;
         });
 
     self::setFn ('Send', function ($Call)

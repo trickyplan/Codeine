@@ -4,11 +4,13 @@
      * @author BreathLess
      * @description Media includes support 
      * @package Codeine
-     * @version 6.0
+     * @version 7.0
      */
 
     self::setFn ('Process', function ($Call)
     {
+        $CSSHash = '';
+
         if (preg_match_all ('@<css>(.*)<\/css>@SsUu', $Call['Output'], $Parsed))
         {
             $CSSHash = F::Run('View.Processors.HTML.CSS.Hash', 'Get', array('IDs' => $Parsed[1]));

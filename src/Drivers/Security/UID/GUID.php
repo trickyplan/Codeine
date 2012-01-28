@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description: GUID
      * @package Codeine
-     * @version 6.0
+     * @version 7.0
      * @date 04.12.10
      * @time 14:56
      */
