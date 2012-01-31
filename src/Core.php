@@ -12,6 +12,7 @@
 
     final class F
     {
+        protected static $_Environment = 'Production';
         protected static $_Options;
         protected static $_Code;
         protected static $_Service = 'Codeine';
@@ -26,6 +27,12 @@
 
         public static function Bootstrap ($Call = null)
         {
+            if (isset($_SERVER['Environment']))
+                self::$_Environment = $_SERVER['Environment'];
+
+            if (isset($Call['Environment']))
+                self::$_Environment = $Call['Environment'];
+
             self::$_Stack = new SplStack();
             self::$_Stack->push('Core');
 
@@ -257,7 +264,12 @@
 
                 foreach (self::$_Options['Path'] as $Path)
                 {
-                    if ($Filename = self::findFile ('Options/' . strtr ($Service, '.', '/') . '.json'))
+                    if ($Filename = self::findFile (
+                        array(
+                             'Options/' . strtr ($Service, '.', '/') .'.'.self::$_Environment.'.json',
+                             'Options/' . strtr ($Service, '.', '/') . '.json'
+                        )
+                    ))
                     {
                         $Options = json_decode(file_get_contents($Filename), true);
 
