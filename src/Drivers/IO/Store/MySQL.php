@@ -47,5 +47,5 @@
 
     self::setFn ('Execute', function ($Call)
     {
-        return true;
+        return $Call['Link']->query($Call['Execute']);
     });

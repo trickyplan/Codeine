@@ -1,3 +1,15 @@
 {
-    "Minify": true
+    "CSS.Postprocessors":
+    {
+        "Minify":
+        {
+            "Service":"View.Processors.CSS.Minify",
+            "Method": "Process"
+        },
+        "Variables":
+        {
+            "Service":"View.Processors.CSS.Variables",
+            "Method":"Process"
+        }
+    }
 }

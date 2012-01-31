@@ -283,7 +283,11 @@
                     }
                 }
 
-                if ($Filename = self::findFile ('Options/' . strtr ($Service, '.', '/') . '/'.$Method.'.json'))
+                if ($Filename = self::findFile (
+                    array(
+                         'Options/' . strtr ($Service, '.', '/') . '/'.$Method.'.'. self::$_Environment . '.json',
+                         'Options/' . strtr ($Service, '.', '/') . '/'. $Method . '.json')
+                    ))
                     $Options = F::Merge($Options, json_decode (file_get_contents ($Filename), true));
 
                 if (empty($Options))

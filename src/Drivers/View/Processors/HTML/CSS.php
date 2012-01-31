@@ -32,8 +32,9 @@
 
                 $CSS = implode ('', $CSS);
 
-                if (isset($Call['Minify']) && $Call['Minify'])
-                    $CSS = F::Run('View.Processors.CSS.Minify', 'Process', array('Value' => $CSS));
+                if (isset($Call['CSS.Postprocessors']) && $Call['CSS.Postprocessors'])
+                    foreach($Call['CSS.Postprocessors'] as $Processor)
+                        $CSS = F::Run($Processor['Service'], $Processor['Method'], array('Value' => $CSS));
 
                 F::Run ('Engine.IO', 'Write',
                         array(
