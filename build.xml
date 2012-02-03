@@ -23,13 +23,13 @@
     <target name="phase1" depends="properties, folders"></target>
 
     <!-- Source code checks -->
-    <target name="phase2" depends="phase1, phplint.check, phpcs.check, phpcpd.check, pmd.check"></target>
+    <target name="phase2" depends="phase1, phplint.check"></target>
 
     <!-- Tests & docs -->
     <target name="phase3" depends="phase2"></target>
 
     <!-- Metrics -->
-    <target name="phase4" depends="phase3, phploc.analyze, pdepend.analyze"></target>
+    <target name="phase4" depends="phase3, phploc.analyze"></target>
 
     <!-- Packaging -->
     <target name="phase5" depends="phase4, tarball.make, debian.make"></target>
