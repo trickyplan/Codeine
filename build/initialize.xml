@@ -1,0 +1,27 @@
+<project name="initialize" default="properties">
+
+    <target name="properties">
+        <!-- Source directories -->
+        <property name="source-code" value="src"/>
+        <property name="source-docs" value="docs"/>
+        <property name="source-etc" value="etc"/>
+
+        <loadfile property="version" file="${source-docs}/VERSION"/>
+        <loadfile property="description" file="${source-docs}/Description"/>
+
+        <property name="homepage" value=""/>
+        <property name="maintainer" value=""/>
+        <property name="release" value="${version}.r${env.build}"/>
+
+        <!-- Build directories -->
+        <property name="package" value="${phing.project.name}-${release}"/>
+        <property name="distribution" value="distribution"/>
+        <property name="reports" value="reports"/>
+
+    </target>
+
+    <target name="folders">
+        <mkdir dir="${distribution}"/>
+        <mkdir dir="${reports}"/>
+    </target>
+</project>

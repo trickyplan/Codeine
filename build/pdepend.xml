@@ -1,0 +1,12 @@
+<project name="pdepend" default="analyze">
+
+    <!-- Default values -->
+    <property name="reports" value="reports"/>
+    <property name="source-code" value="src"/>
+
+    <target name="analyze">
+        <phpdepend file="${source-code}">
+            <logger type="jdepend-xml" outfile="${reports}/metrics.xml"/>
+        </phpdepend>
+    </target>
+</project>

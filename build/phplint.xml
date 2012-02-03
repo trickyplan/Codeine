@@ -1,0 +1,15 @@
+<project name="phplint" default="check">
+
+    <!-- Default values -->
+    <property name="reports" value="reports"/>
+    <property name="source-code" value="src"/>
+
+    <target name="check">
+        <phplint haltonfailure="true" deprecatedaserror="true" tofile="${reports}/phplint.txt">
+            <fileset dir="${source-code}">
+                <include name="**/*.php"/>
+            </fileset>
+        </phplint>
+    </target>
+
+</project>

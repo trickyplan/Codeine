@@ -1,0 +1,18 @@
+<project name="phpunit" default="test">
+
+    <!-- Default values -->
+    <property name="source-code" value="src"/>
+    <property name="reports" value="reports"/>
+    <property name="tests" value="tests"/>
+
+    <target name="test">
+        <phpunit bootstrap="${source-code}/${tests}/bootstrap.php">
+            <formatter todir="${reports}" type="xml"/>
+            <batchtest>
+                <fileset dir="${source-code}/${tests}">
+                    <include name="**/*Test*.php"/>
+                </fileset>
+            </batchtest>
+        </phpunit>
+    </target>
+</project>

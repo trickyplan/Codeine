@@ -29,6 +29,11 @@
                 {
                     "ID": "Main"
                 }
+            },
+            "Meta":
+            {
+                "Service":"View.Processors.HTML.Meta",
+                "Method":"Inject"
             }
         },
         "afterPipeline":

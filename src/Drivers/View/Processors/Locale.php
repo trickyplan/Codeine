@@ -11,7 +11,6 @@
     {
         if (preg_match_all('@<l>(.*)<\/l>@SsUu', $Call['Output'], $Pockets))
         {
-            // FIXME Codeinize
             $Locales = F::Run('Engine.IO', 'Read',
                 array(
                      'Storage' => 'Language',
@@ -28,7 +27,10 @@
 
                 for($ic = $szSlices; $ic > 0; --$ic)
                     if (isset($Locales[$Match = implode('.', array_slice($Slices, 0, $ic))]))
+                    {
                         $TrueMatch = $Match;
+                        break;
+                    }
 
                 if ($TrueMatch)
                     $Call['Output'] = str_replace ($Pockets[0][$IX], $Locales[$Match], $Call['Output']);

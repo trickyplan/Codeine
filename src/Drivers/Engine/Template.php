@@ -33,7 +33,9 @@
             return $Call['Layout'] = F::Run ('Engine.IO', 'Read', $Call,
                      array(
                            'Storage' => 'Layout',
-                           'Where'   => array('ID' => $Call['ID'].'.html')
+                           'Where'   => array('ID' => array (
+                             $Call['ID'] .(isset($Call['Context'])? '.'.$Call['Context'] : '').'.html',
+                             $Call['ID'] . '.html'))
                       ));
     });
 

@@ -33,7 +33,26 @@
 
     self::setFn ('User.IP', function ($Call)
     {
-        return $_SERVER['REMOTE_ADDR'];
+        return '91.144.141.98'; //$_SERVER['REMOTE_ADDR'];
+    });
+
+    self::setFn('User.Geo', function ($Call)
+    {
+        return F::Run('System.GeoIP.PHPGeoIP', 'Country',
+            array(
+                    'Value' => F::Run('System.Interface.Web', 'User.IP', $Call
+                 )));
+    });
+
+    self::setFn('User.Time', function ($Call)
+    {
+        $IP = F::Run('System.Interface.Web', 'User.IP', $Call);
+
+        return F::Run('System.Timezone.PHPGeoIP', 'CountryAndRegion',
+            array (
+                  'Country' => d(__FILE__, __LINE__, F::Run('System.GeoIP.PHPGeoIP', 'Country', array ('Value' => $IP))),
+                  'Region' => d(__FILE__, __LINE__, F::Run('System.GeoIP.PHPGeoIP', 'Region', array ('Value' => $IP)))
+            ));
     });
 
     self::setFn ('DetectUALanguage', function ($Call)

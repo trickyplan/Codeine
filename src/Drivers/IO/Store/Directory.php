@@ -18,7 +18,13 @@
     {
         $Suffix = isset($Call['Suffix'])? $Call['Suffix']: '';
         $Prefix= isset($Call['Prefix'])? $Call['Prefix'] : '';
-        $Filename = F::findFile($Call['Link'] . '/' . $Call['Scope'] . '/' . $Prefix . $Call['Where']['ID'] . $Suffix);
+
+        $Call['Where']['ID'] = (array) $Call['Where']['ID'];
+
+        foreach ($Call['Where']['ID'] as &$ID)
+            $ID = $Call['Link'] . '/' . $Call['Scope'] . '/' . $Prefix. $ID. $Suffix;
+
+        $Filename = F::findFile($Call['Where']['ID'] );
 
         if (file_exists ($Filename))
             return file_get_contents ($Filename);

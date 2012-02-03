@@ -1,0 +1,16 @@
+<project name="phploc" default="analyze">
+    <taskdef name="phploc" classname="phing.tasks.my.PHPLocTask"/>
+
+    <!-- Default values -->
+    <property name="reports" value="reports"/>
+    <property name="source-code" value="src"/>
+
+    <target name="analyze">
+        <phploc reportType="txt" reportName="phploc.txt" reportDirectory="${reports}">
+            <fileset dir="${source-code}">
+                <include name="**/*.php"/>
+                <include name="*.php"/>
+            </fileset>
+        </phploc>
+    </target>
+</project>

@@ -1,0 +1,21 @@
+<project name="phpcs" default="check">
+
+    <!-- Default values -->
+    <property name="reports" value="reports"/>
+    <property name="source-code" value="src"/>
+    <property name="code-standart" value="Zend"/>
+
+    <target name="check">
+        <phpcodesniffer
+                standard="${code-standart}"
+                showSniffs="true"
+                showWarnings="true">
+            <fileset dir="${source-code}">
+                <include name="**/*.php"/>
+            </fileset>
+            <formatter type="default" />
+            <formatter type="checkstyle" outfile="${reports}/checkstyle.xml"/>
+        </phpcodesniffer>
+    </target>
+
+</project>
