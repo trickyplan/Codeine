@@ -19,6 +19,7 @@
     <property name="description" value="Codeine is fp-style PHP framework"/>
     <property name="homepage" value="http://one2team.ru/projects/codeine"/>
     <property name="maintainer" value="Johnny Funt"/>
+    <property name="destination-source" value="/usr/share/php/"/>
 
     <target name="phase1" depends="properties, folders"></target>
 
