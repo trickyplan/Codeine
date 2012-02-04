@@ -33,7 +33,7 @@
 
     self::setFn ('User.IP', function ($Call)
     {
-        return '91.144.141.98'; //$_SERVER['REMOTE_ADDR'];
+        return $_SERVER['REMOTE_ADDR'];
     });
 
     self::setFn('User.Geo', function ($Call)
