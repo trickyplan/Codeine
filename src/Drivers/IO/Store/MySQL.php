@@ -37,7 +37,10 @@
 
     self::setFn ('Write', function ($Call)
     {
-        return $Call['Data'];
+        $Query = F::Run('IO.Syntax.MySQL', 'Insert', $Call);
+        $Result = $Call['Link']->query($Query);
+
+        return $Result;
     });
 
     self::setFn ('Close', function ($Call)

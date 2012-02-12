@@ -13,7 +13,6 @@
     {
         $Call = F::Run('Code.Flow.Hook', 'Run',  $Call, array('On' => 'beforeRun')); // JP beforeRun
 
-
         $Call['Value']['Call'] = isset($Call['Value']['Call']) ? $Call['Value']['Call']: null;
 
         if (isset($Call['Value']['Service']) && isset($Call['Value']['Method']))
