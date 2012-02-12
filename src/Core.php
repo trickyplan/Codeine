@@ -44,7 +44,7 @@
                     self::$_Options['Path'] = array($Call['Path'], Codeine);
             }
             else
-                self::$_Options['Path'][] = Codeine;
+                self::$_Options['Path'] = array (Codeine);
 
             self::loadOptions();
 
@@ -79,6 +79,21 @@
 
            //trigger_error($Names[0].' not found'); // FIXME
            return null;
+        }
+
+        public static function findFiles ($Names)
+        {
+            $Results = array();
+
+            $Names = (array) $Names;
+
+            foreach (self::$_Options['Path'] as $ic => $Path)
+                foreach ($Names as $Name)
+                    if (file_exists($Filenames[$ic] = $Path . '/' . $Name))
+                        $Results[] = $Filenames[$ic];
+
+            $Results = array_reverse($Results);
+            return empty($Results)? null: $Results;
         }
 
         protected static function _loadSource($Service)
@@ -262,36 +277,30 @@
             {
                 $Options = array();
 
-                foreach (self::$_Options['Path'] as $Path)
-                {
-                    if ($Filename = self::findFile (
+                    if ($Filenames = self::findFiles (
                         array(
-                             'Options/' . strtr ($Service, '.', '/') .'.'.self::$_Environment.'.json',
-                             'Options/' . strtr ($Service, '.', '/') . '.json'
+                             'Options/'.strtr($Service, '.', '/').'.'.self::$_Environment.'.json',
+                             'Options/'.strtr($Service, '.', '/').'.json',
+                             'Options/'.strtr($Service, '.', '/').'/'.$Method.'.'.self::$_Environment.'.json',
+                             'Options/'.strtr($Service, '.', '/').'/'.$Method.'.json')
                         )
-                    ))
+                    )
                     {
-                        $Options = json_decode(file_get_contents($Filename), true);
+                        $Options = array();
 
-                        if ($Filename && !$Options)
+                        foreach ($Filenames as $Filename)
                         {
-                            trigger_error('JSON file corrupted: '.$Filename); //FIXME
-                            return null;
+                            $Current = json_decode(file_get_contents($Filename), true);
+
+                            if ($Filename && !$Current)
+                            {
+                                trigger_error('JSON file corrupted: ' . $Filename); //FIXME
+                                return null;
+                            }
+
+                            $Options = self::Merge($Options, $Current);
                         }
-
-                        break;
                     }
-                }
-
-                if ($Filename = self::findFile (
-                    array(
-                         'Options/' . strtr ($Service, '.', '/') . '/'.$Method.'.'. self::$_Environment . '.json',
-                         'Options/' . strtr ($Service, '.', '/') . '/'. $Method . '.json')
-                    ))
-                    $Options = F::Merge($Options, json_decode (file_get_contents ($Filename), true));
-
-                if (empty($Options))
-                    $Options = null;
 
                 self::$_Options[$Service] = $Options;
             }

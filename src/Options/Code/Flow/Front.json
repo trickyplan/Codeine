@@ -8,6 +8,14 @@
                 "Service": "Code.Flow.Front.Routing",
                 "Method": "Route"
             }
+        },
+        "on404":
+        {
+            "ErrorPage":
+            {
+                "Service": "Error.404",
+                "Method": "Page"
+            }
         }
     }
 }

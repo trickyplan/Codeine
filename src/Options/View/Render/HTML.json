@@ -23,7 +23,7 @@
         {
             "LoadingLayout":
             {
-                "Service": "View.Render.HTML.Layout",
+                "Service": "View.Processors.HTML.Layout",
                 "Method": "Load",
                 "Call":
                 {

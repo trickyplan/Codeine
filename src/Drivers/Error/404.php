@@ -12,26 +12,10 @@
         $Call['Headers']['HTTP/1.0'] = '404 Not Found';
         $Call['Value'] = array();
 
-        $Call['Value'][] =
-            array(
-                'Place' => 'Title',
-                'Type'  => 'Page.Title',
-                'Value' => $Call['Title']
-            );
+        $Call['Title'] = '404';
+        $Call['Description'] = 'TODO';
+        $Call['Keywords'] = array ('TODO');
 
-        $Call['Value'][] =
-            array(
-                'Place' => 'Meta',
-                'Type'  => 'Page.Description',
-                'Value' => $Call['Description']
-            );
-
-        $Call['Value'][] =
-            array(
-                'Place' => 'Meta',
-                'Type'  => 'Page.Keywords',
-                'Value' => $Call['Keywords']
-            );
 
         $Call['Value'][] =
             array(

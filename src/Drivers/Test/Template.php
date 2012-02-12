@@ -18,6 +18,12 @@
                     'Type' => 'Heading',
                     'Level' => 1,
                     'Value' => 'Codeine 7 works!'
+                ),
+                array (
+                    'Place' => 'Content',
+                    'Type'  => 'Heading',
+                    'Level' => 2,
+                    'Value' => $_SERVER['HTTP_HOST']
                 )
             );
 
