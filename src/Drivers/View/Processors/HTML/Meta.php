@@ -10,25 +10,22 @@
     self::setFn('Inject', function ($Call)
     {
         if(isset($Call['Title']))
-            $Call['Value'][]
+            $Call['Output']['Title'][]
                 = array (
-                'Place' => 'Title',
                 'Type'  => 'Page.Title',
                 'Value' => $Call['Title']
             );
 
         if (isset($Call['Description']))
-            $Call['Value'][]
+            $Call['Output']['Meta'][]
                 = array (
-                'Place' => 'Meta',
                 'Type'  => 'Page.Description',
                 'Value' => $Call['Description']
             );
 
         if (isset($Call['Keywords']))
-            $Call['Value'][]
+            $Call['Output']['Meta'][]
                 = array (
-                'Place' => 'Meta',
                 'Type'  => 'Page.Keywords',
                 'Value' => $Call['Keywords']
             );
