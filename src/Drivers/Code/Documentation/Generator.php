@@ -19,7 +19,6 @@
             'Service' => $Call['Service']
         );
 
-        $Call['Renderer'] = 'View.Render.HTML';
         $Call['Value']    = array(
             array(
                 'Place' => 'Content',

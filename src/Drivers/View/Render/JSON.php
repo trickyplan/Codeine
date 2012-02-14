@@ -7,9 +7,9 @@
      * @version 7.0
      */
 
-    self::setFn ('Process', function ($Call)
+    self::setFn ('Render', function ($Call)
     {
-       $Call['Output'] = json_encode($Call['JSON']);
-
+       $Call['Output'] = json_encode($Call['Output']);
+// TODO Pipeline
        return $Call;
     });

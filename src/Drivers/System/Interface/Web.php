@@ -13,7 +13,7 @@
         // $Call['Server'] = $_SERVER;
         $Call['Request'] = $_REQUEST;
 
-        $Call['Value'] = $_SERVER['REQUEST_URI'];
+        $Call['Run'] = $_SERVER['REQUEST_URI'];
 
         $Call = F::Run($Call['Service'], $Call['Method'], $Call);
 

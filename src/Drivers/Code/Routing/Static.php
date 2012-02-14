@@ -11,9 +11,14 @@
 
     self::setFn('Route', function ($Call)
     {
-        if (strpos($Call['Value'], '?'))
-            list($Call['Value']) = explode('?', $Call['Value']);
-        // TODO Error: Not found Links Table
-        if (is_string($Call['Value']) && isset($Call['Links'][$Call['Value']]))
+        if (strpos($Call['Run'], '?'))
+            list($Call['Run']) = explode('?', $Call['Run']);
+
+        if (is_string($Call['Run']) && isset($Call['Links'][$Call['Run']]))
+        {
+            if (isset($Rule['Debug']) && $Rule['Debug'] === true)
+                d(__FILE__, __LINE__, $Rule);
+
             return $Call['Links'][$Call['Value']];
+        }
     });

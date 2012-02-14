@@ -7,26 +7,25 @@
      * @version 7.0
      */
 
-    self::setFn ('Process', function ($Call)
+    self::setFn('Process', function ($Call)
+    {
+        if (preg_match_all('@<place>(.*)<\/place>@SsUu', $Call['Layout'], $Places))
         {
-            $Call['Places'] = array();
-
-            if (is_array($Call['Value']))
+            if (isset($Call['Output']))
             {
-                foreach ($Call['Value'] as $Widget)
-                {
-                    if (!isset($Call['Places'][$Widget['Place']]))
-                        $Call['Places'][$Widget['Place']] = '';
-
-                    $Call['Places'][$Widget['Place']] .=
-                        F::Run ($Call['Renderer'].'.' . $Widget['Type'], 'Make', $Widget);
-                }
+                if (is_array($Call['Output']))
+                    foreach ($Call['Output'] as &$Place)
+                        foreach ($Place as &$Widget)
+                            $Widget = F::Run($Call['Renderer'] . '.' . $Widget['Type'], 'Make', $Widget);
             }
+            else
+                $Call['Output']['Content'] = array ('No output'); // FIXME Add Hook
 
-            $Call['Output'] = $Call['Layout'];
+            foreach ($Call['Output'] as $Place => $Widgets)
+                $Call['Layout'] = str_replace('<place>' . $Place . '</place>', implode('', $Widgets), $Call['Layout']);
+        }
 
-            foreach ($Call['Places'] as $Place => $Body)
-                $Call['Output'] = str_replace ('<place>' . $Place . '</place>', $Body, $Call['Output']);
+        $Call['Output'] = $Call['Layout'];
 
-            return $Call;
-        });
+        return $Call;
+    });

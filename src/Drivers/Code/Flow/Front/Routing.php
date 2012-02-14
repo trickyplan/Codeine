@@ -21,7 +21,9 @@
                  break;
          }
 
-         $Call['Value'] = $NewCall;
+         $Call = F::Merge($Call, $NewCall);
+
+         $Call['Call'] = isset($Call['Call']) ? $Call['Call'] : null;
 
          return $Call;
      });

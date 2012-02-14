@@ -9,6 +9,14 @@
                 "Method": "Route"
             }
         },
+        "afterRun":
+        {
+            "Rendering":
+            {
+                "Service":"Engine.View",
+                "Method":"Render"
+            }
+        },
         "on404":
         {
             "ErrorPage":

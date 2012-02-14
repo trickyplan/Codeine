@@ -11,17 +11,20 @@
 
     self::setFn('Route', function ($Call)
     {
-        if (strpos($Call['Value'], '?'))
-            list($Call['Value']) = explode('?', $Call['Value']);
+        if (strpos($Call['Run'], '?'))
+            list($Call['Run']) = explode('?', $Call['Run']);
 
         // TODO Error: Not found Regex Table
 
         foreach ($Call['Regex'] as $Rule)
-            if (preg_match($Rule['Match'], $Call['Value'], $Matches))
+            if (preg_match($Rule['Match'], $Call['Run'], $Matches))
             {
                 foreach ($Rule['Call'] as $Key => $Value)
                     if (isset($Matches[$Value]))
                         $Rule['Call'][$Key] = $Matches[$Value];
+
+                if (isset($Rule['Debug']) && $Rule['Debug'] === true)
+                    d(__FILE__, __LINE__, $Rule);
 
                 return $Rule;
             }
