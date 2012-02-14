@@ -9,20 +9,17 @@
 
     self::setFn('Layouts', function ($Call)
     {
-        if (isset($Call['Front']))
-            {
-                $Slices = explode('.', $Call['Front']['Service']);
-                $Slices[] = $Call['Front']['Method'];
+        $Slices = explode('.', $Call['Service']);
+        $Slices[] = $Call['Method'];
 
-                $sz = sizeof($Slices);
+        $sz = sizeof($Slices);
 
-                for ($ic = 0; $ic<$sz; $ic++)
-                {
-                    $ID = implode('/', array_slice($Slices, 0, $ic));
+        for ($ic = 0; $ic<$sz; $ic++)
+        {
+            $ID = implode('/', array_slice($Slices, 0, $ic));
 
-                    if ($Sublayout = F::Run('Engine.Template', 'Load', array ('Scope' => 'Layout','ID'=> $ID)))
-                        $Call['Layout'] = str_replace('<place>Content</place>', $Sublayout, $Call['Layout']);
-                }
+            if ($Sublayout = F::Run('Engine.Template', 'Load', array ('Scope' => 'Layout','ID'=> $ID)))
+                $Call['Layout'] = str_replace('<place>Content</place>', $Sublayout, $Call['Layout']);
         }
 
         return $Call;
