@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description: 
      * @package Codeine
-     * @version 7.0
+     * @version 7.1
      * @date 13.08.11
      * @time 22:37
      */
@@ -42,7 +42,7 @@
         if (isset($Call['Data']))
             return file_put_contents ($Filename, $Call['Data']);
         else
-            unlink ($Filename);
+            return unlink ($Filename);
     });
 
     self::setFn ('Close', function ($Call)

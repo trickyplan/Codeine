@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description  New IO Engine
      * @package Codeine
-     * @version 7.0
+     * @version 7.1
      */
 
     // Default caching

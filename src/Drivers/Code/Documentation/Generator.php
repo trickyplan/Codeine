@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description Generate documentation page from contract 
      * @package Codeine
-     * @version 7.0
+     * @version 7.1
      */
 
     self::setFn ('Service', function ($Call)

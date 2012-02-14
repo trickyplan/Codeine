@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description: Syslog Transport
      * @package Codeine
-     * @version 7.0
+     * @version 7.1
      * @date 29.07.11
      * @time 21:45
      */

@@ -9,8 +9,8 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: lighter;
     padding: 2px;
     margin-top: 4px;
-    margin-left: 0px;
-    margin-bottom: 0px;
+    margin-left: 0;
+    margin-bottom: 0;
     letter-spacing: -0.5px;
     display: block;
     width: 100%
@@ -35,47 +35,4 @@ a:hover {
 
 a:visited {
     color: #6b0000;
-}
-
-.Example
-{
-    clear: both;
-}
-.Example code, .Example samp
-{
-    font-family: monospace;
-    display: block;
-    border-bottom: 1px solid #EEEEEE;
-    padding:  6px;
-    margin: 3px;
-    background-color: #F8F8F8;
-}
-
-.Example code
-{
-    border-color: #778899;
-}
-
-.Example samp
-{
-    border-color: #b0c4de;
-}
-
-.Documentation_Property_Block, .Documentation_Description_Block, .Documentation_Type_Block, .Documentation_Required_Block, .Documentation_Access_Block
-{
-    color: #333333;
-    border-bottom: 1px solid #EEEEEE;
-    padding: 6px;
-    margin: 3px;
-    background-color: #fefefe;
-}
-
-.Documentation_Required_Block
-{
-    color: #8b0000;
-}
-
-.Documentation_Access_Block
-{
-    color: #006400;
 }

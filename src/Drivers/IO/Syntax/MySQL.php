@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description  
      * @package Codeine
-     * @version 7.0
+     * @version 7.1
      */
 
     self::setFn ('Keys', function ($Call)
@@ -26,6 +26,7 @@
 
     self::setFn('Values', function ($Call)
     {
+        $Values = '';
         if (isset($Call['Data']))
         {
             foreach ($Call['Data'] as &$Value)

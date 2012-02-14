@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description  
      * @package Codeine
-     * @version 7.0
+     * @version 7.1
      */
 
      self::setFn('Route', function ($Call)

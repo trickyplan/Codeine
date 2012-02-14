@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description Cache Driver 
      * @package Codeine
-     * @version 7.0
+     * @version 7.1
      */
 
      self::setFn('Do', function ($Call)
@@ -48,5 +48,5 @@
                   )
               );*/
 
-         return $Cached['Result'];
+         return $Call;
      });

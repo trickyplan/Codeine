@@ -7,7 +7,7 @@
      * @time 5:17
      */
 
-    include 'codeine/Core.php';
+    include 'Codeine/Core.php';
 
     F::Bootstrap();
 

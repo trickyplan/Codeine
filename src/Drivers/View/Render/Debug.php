@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description: Dumper
      * @package Codeine
-     * @version 7.0
+     * @version 7.1
      */
 
     self::setFn('Detect', function ($Call)
