@@ -20,7 +20,8 @@
                      )
              ));
 
-             $Call['User'] = $Session[0]['User'];
+             if (!empty($Session))
+                $Call['User'] = $Session[0]['User'];
          }
 
          return $Call;
