@@ -21,7 +21,16 @@
              ));
 
              if (!empty($Session))
-                $Call['User'] = $Session[0]['User'];
+             {
+                 $Call['User'] = F::Run('Engine.Entity', 'Read',
+                     array (
+                           'Entity' => 'Session',
+                           'Where'  =>
+                           array (
+                               'ID' => $Session[0]['User']
+                           )
+                     ));
+             }
          }
 
          return $Call;

@@ -13,7 +13,7 @@
           {
               $Match = json_decode ($Match, true);
 
-              $Application = F::Run('Code.Flow.Application', 'Run', array('Value' => $Match));
+              $Application = F::Run('Code.Flow.Application', 'Run', $Call, array('Value' => $Match));
 
               $Call['Output'] = str_replace($Call['Parsed'][0][$Ix], $Application['Output'], $Call['Output']);
           }

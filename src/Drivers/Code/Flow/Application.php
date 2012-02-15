@@ -17,7 +17,7 @@
 
 
         if (isset($Call['Value']['Service']) && isset($Call['Value']['Method']))
-            $Call = F::Run($Call['Value']['Service'], $Call['Value']['Method'], (array) $Call['Value']['Call']);
+            $Call = F::Run($Call['Value']['Service'], $Call['Value']['Method'], $Call, (array) $Call['Value']['Call']);
         else
             $Call = F::Run ('Code.Flow.Application.Hook', 'Run', $Call, array('On' => 'on404'));
 
