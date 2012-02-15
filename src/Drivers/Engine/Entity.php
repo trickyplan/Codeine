@@ -12,25 +12,28 @@
         $Model = F::Run('Engine.Entity', 'Model', $Call);
 
         // TODO Heterogenic mapping
-        $Created = array('User' => 1); // FIXME
 
         foreach ($Model['Nodes'] as $Name => $Node)
         {
             if (F::isCall($Node))
                 $Created[$Name] = F::Run($Node['Service'], $Node['Method'], $Node['Call']);
             else
+            {
                 if (isset($Call['Data'][$Name]))
                     $Created[$Name] = $Call['Data'][$Name];
+            }
         }
 
-        $ID = F::Run('Engine.IO', 'Write',
+        $Call['Data'] = array();
+
+        $ID = F::Run('Engine.IO', 'Write', $Call,
             array (
                   'Storage' => $Model['Storage'],
                   'Scope' => $Call['Entity'],
                   'Data' => $Created
             ));
 
-        return $Call;
+        return $Created;
     });
 
     self::setFn('Read', function ($Call)
