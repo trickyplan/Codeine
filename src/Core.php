@@ -114,10 +114,10 @@
         }
 
         /**
-             * @description Проверяет, является ли массив правильно сконструированным вызовом.
-             * @param  $Call
-             * @return bool
-             */
+         * @description Проверяет, является ли массив правильно сконструированным вызовом.
+         * @param  $Call
+         * @return bool
+         */
         public static function isCall($Call)
         {
             return (is_array($Call) && isset($Call['Service']) && isset($Call['Method']));
@@ -132,10 +132,10 @@
         }
 
         /**
-             * @description Выполняет вызов
-             * @param  $Call
-             * @return mixed
-             */
+         * @description Выполняет вызов
+         * @param  $Call
+         * @return mixed
+         */
         public static function Run($Service, $Method, $Call = array())
         {
             // TODO Infinite cycle protection
@@ -154,15 +154,12 @@
 
             $Call = self::Merge(self::loadOptions(), $Call);
 
-
             self::$_Stack->push($Call);
 
             if (!isset($Call['Result']))
             {
                 if ((null === self::getFn(self::$_Method)) && (null === self::_loadSource (self::$_Service)))
-                {
                     $Result = (is_array($Call) && isset($Call['Fallback']))? $Call['Fallback']: null;
-                }
                 else
                     {
                         $F = self::getFn($Method);
