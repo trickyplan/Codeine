@@ -32,6 +32,18 @@
             "Directory":"Public",
             "Scope":"css",
             "Suffix":".css"
+        },
+        "JS":{
+            "Driver":"IO.Store.Directory",
+            "Directory":"Data",
+            "Scope":"JS",
+            "Suffix":".js"
+        },
+        "JS Cache":{
+            "Driver":"IO.Store.Directory",
+            "Directory":"Public",
+            "Scope":"js",
+            "Suffix":".js"
         }
     },
     "Alias":

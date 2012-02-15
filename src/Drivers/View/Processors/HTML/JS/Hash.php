@@ -11,9 +11,9 @@
     {
         $Hash = array();
 
-        foreach ($Call['IDs'] as $JSFile)
+        foreach ($Call['IDs'] as $IX => $JSFile)
         {
-            $Hash[] = $JSFile.F::Run('Engine.IO', 'Execute', array(
+            $Hash[$IX] = $JSFile.F::Run('Engine.IO', 'Execute', array(
                                                  'Storage' => 'JS',
                                                  'Execute' => 'Version',
                                                  'Where' =>

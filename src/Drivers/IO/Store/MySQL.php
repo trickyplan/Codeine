@@ -37,7 +37,11 @@
 
     self::setFn ('Write', function ($Call)
     {
-        $Query = F::Run('IO.Syntax.MySQL', 'Insert', $Call);
+        if (isset($Call['Where']))
+            $Query = F::Run('IO.Syntax.MySQL', 'Update', $Call);
+        else
+            $Query = F::Run('IO.Syntax.MySQL', 'Insert', $Call);
+
         $Result = $Call['Link']->query($Query);
 
         return $Result;

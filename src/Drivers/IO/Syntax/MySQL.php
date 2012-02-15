@@ -24,6 +24,23 @@
         return $Keys;
     });
 
+    self::setFn('Set', function ($Call)
+    {
+        if (isset($Call['Data']))
+        {
+            $Sets = array ();
+
+            foreach ($Call['Data'] as $Key => $Value)
+                $Sets[] = $Call['Link']->real_escape_string($Key).' = \''. $Call['Link']->real_escape_string($Value).'\'';
+
+            $Sets = implode(',', $Sets);
+        }
+        else
+            $Sets = '';
+
+        return $Sets;
+    });
+
     self::setFn('Values', function ($Call)
     {
         $Values = '';
@@ -38,9 +55,9 @@
         return ' values ('.$Values.')';
     });
 
-    self::setFn('Into', function ($Call)
+    self::setFn('Table', function ($Call)
     {
-        return ' into `' . $Call['Scope'] . '` ';
+        return '`' . $Call['Scope'] . '` ';
     });
 
     self::setFn ('Scope', function ($Call)
@@ -84,8 +101,16 @@
 
     self::setFn('Insert', function (array $Call)
     {
-        return 'insert '
-            .F::Run('IO.Syntax.MySQL', 'Into', $Call)
+        return 'insert into '
+            .F::Run('IO.Syntax.MySQL', 'Table', $Call)
             .F::Run('IO.Syntax.MySQL', 'Keys', $Call)
             .F::Run('IO.Syntax.MySQL', 'Values', $Call);
+    });
+
+    self::setFn('Update', function ($Call)
+    {
+        return 'update '
+            .F::Run('IO.Syntax.MySQL', 'Table', $Call).
+            'set '.F::Run('IO.Syntax.MySQL', 'Set', $Call)
+            .F::Run('IO.Syntax.MySQL', 'Where', $Call);
     });
