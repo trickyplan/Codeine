@@ -27,6 +27,9 @@
 
         $Result = $Call['Link']->query($Query);
 
+        if (isset($Call['Debug']))
+            d(__FILE__, __LINE__, $Query);
+        
         $Data = array();
 
         while($Row = $Result->fetch_assoc())
