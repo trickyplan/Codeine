@@ -218,10 +218,10 @@
                 return $Default;
         }
 
-        public static function Live($Variable)
+        public static function Live($Variable, $Call = array())
         {
             if (self::isCall($Variable))
-                return F::Run($Variable['Service'], $Variable['Method'], isset($Variable['Call'])? $Variable['Call']: array());
+                return F::Run($Variable['Service'], $Variable['Method'], $Call, isset($Variable['Call'])? $Variable['Call']: array());
             else
                 return $Variable;
         }

@@ -16,11 +16,16 @@
         foreach ($Model['Nodes'] as $Name => $Node)
         {
             if (F::isCall($Node))
-                $Created[$Name] = F::Run($Node['Service'], $Node['Method'], $Node['Call']);
+                $Created[$Name] = F::Run($Node['Service'], $Node['Method'], $Call['Data'][$Name], $Node['Call']);
             else
             {
                 if (isset($Call['Data'][$Name]))
                     $Created[$Name] = $Call['Data'][$Name];
+                else
+                {
+                    if(isset($Node['Default']))
+                        $Created[$Name] = $Node['Default'];
+                }
             }
         }
 

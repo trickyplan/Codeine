@@ -14,9 +14,9 @@
             if (isset($Call['Output']))
             {
                 if (is_array($Call['Output']))
-                    foreach ($Call['Output'] as $Place => &$Widgets)
-                        foreach ($Widgets as &$Widget)
-                            $Widget = F::Run($Call['Renderer'] . '.' . $Widget['Type'], 'Make', $Widget);
+                    foreach ($Call['Output'] as $Place => $Widgets)
+                        foreach ($Widgets as $Key => $Widget)
+                            $Call['Output'][$Place][$Key] = F::Run($Call['Renderer'] . '.' . $Widget['Type'], 'Make', $Widget);
             }
             else
                 $Call['Output']['Content'] = array ('No output'); // FIXME Add Hook

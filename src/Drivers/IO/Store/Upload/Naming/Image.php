@@ -1,0 +1,13 @@
+<?php
+
+    /* Codeine
+     * @author BreathLess
+     * @description  
+     * @package Codeine
+     * @version 7.0
+     */
+
+    self::setFn('Get', function ($Call)
+    {
+         return F::Live($Call['ID']). $Call['Map'] [$Call['type']];
+     });

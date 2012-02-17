@@ -3,11 +3,6 @@
     {
         "/":
         {
-            "Service": "Test.Front",
-            "Method": "Root"
-        },
-        "/test/template":
-        {
             "Service":"Test.Template",
             "Method":"Root"
         },
@@ -15,10 +10,9 @@
         {
             "Service":"Code.Documentation.Generator",
             "Method":"Service",
-            "Call":
-            {
-                "Service": "Security.Hash.MD5",
-                "Method": "Get"
+            "Call":{
+                "Service":"Security.Hash.MD5",
+                "Method":"Get"
             }
         }
     }

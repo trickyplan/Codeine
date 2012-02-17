@@ -1,22 +1,4 @@
 {
-    "Function":
-    {
-        "Process":
-        {
-            "Input":
-            {
-                "Context":
-                {
-                    "Default": ".html",
-                    "Required": true,
-                    "AutoCorrect":
-                    {
-                        "Required": true
-                    }
-                }
-            }
-        }
-    },
     "Hooks":
     {
         "beforePipeline":
@@ -34,6 +16,10 @@
             {
                 "Service":"View.Processors.HTML.Meta",
                 "Method":"Inject"
+            },
+            "Front":{
+                "Service":"View.Processors.HTML.Front",
+                "Method":"Layouts"
             }
         },
         "afterPipeline":

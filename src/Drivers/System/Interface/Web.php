@@ -11,7 +11,11 @@
     {
         ob_start();
         // $Call['Server'] = $_SERVER;
-        $Call['Request'] = $_REQUEST;
+
+        if (isset($_FILES))
+            $Call['Request'] = F::Merge($_REQUEST, $_FILES);
+        else
+            $Call['Request'] = $_REQUEST;
 
         $Call['Run'] = $_SERVER['REQUEST_URI'];
 
