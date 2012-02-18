@@ -9,20 +9,18 @@
 
     self::setFn ('Page', function ($Call)
     {
+
         $Call['Headers']['HTTP/1.0'] = '404 Not Found';
-        $Call['Value'] = array();
+        $Call['Output'] = array();
 
         $Call['Title'] = '404';
         $Call['Description'] = 'TODO';
         $Call['Keywords'] = array ('TODO');
 
+        $Call['Output']['Content'] = array (array (
+                                                'Type'  => 'Static',
+                                                'Value' => 'Errors/404'
+                                            ));
 
-        $Call['Value'][] =
-            array(
-                'Place' => 'Content',
-                'Type'  => 'Static',
-                'Value' => 'Error/404'
-            );
-
-         return $Call;
+        return $Call;
      });
