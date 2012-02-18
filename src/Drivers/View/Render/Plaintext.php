@@ -9,6 +9,6 @@
 
     self::setFn('Render', function ($Call)
     {
-        $Call['Output'] = $Call['Value'];
+        $Call['Output'] = $Call['Output'];
         return $Call;
     });

@@ -34,7 +34,7 @@
                      array(
                            'Storage' => 'Layout',
                            'Where'   => array('ID' => array (
-                             $Call['ID'] .(isset($Call['Context'])? '.'.$Call['Context'] : '').'.html',
+                             $Call['ID'] .(isset($Call['Context'])? '.'.$Call['Context'] : '').(isset($Call['Extension'])? $Call['Extension']: '.html'),
                              $Call['ID'] . '.html'))
                       ));
     });
