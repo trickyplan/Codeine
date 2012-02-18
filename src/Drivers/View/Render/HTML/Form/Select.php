@@ -11,8 +11,10 @@
      {
          $Options = array();
 
-         foreach ($Call['Value'] as $Option)
-             $Options[] = '<option>'.$Option.'</option>';
+         $Call['Value'] = F::Live($Call['Value']);
+
+         foreach ($Call['Value'] as $Key => $Value)
+             $Options[] = '<option value="'.$Key.'">'.$Value.'</option>';
 
          $Call['Value'] = implode('', $Options);
 
