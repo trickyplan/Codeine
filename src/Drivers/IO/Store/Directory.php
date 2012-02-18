@@ -24,6 +24,9 @@
         foreach ($Call['Where']['ID'] as &$ID)
             $ID = $Call['Link'] . '/' . $Call['Scope'] . '/' . $Prefix. $ID. $Suffix;
 
+        if (isset($Call['Debug']))
+            d(__FILE__, __LINE__, $Call['Where']['ID']);
+
         $Filename = F::findFile($Call['Where']['ID'] );
 
         if (file_exists ($Filename))

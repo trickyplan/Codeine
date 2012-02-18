@@ -41,7 +41,12 @@
     self::setFn ('Write', function ($Call)
     {
         if (isset($Call['Where']))
-            $Query = F::Run('IO.Syntax.MySQL', 'Update', $Call);
+        {
+            if (isset($Call['Data']))
+                $Query = F::Run('IO.Syntax.MySQL', 'Update', $Call);
+            else
+                $Query = F::Run('IO.Syntax.MySQL', 'Delete', $Call);
+        }
         else
             $Query = F::Run('IO.Syntax.MySQL', 'Insert', $Call);
 

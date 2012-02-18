@@ -114,3 +114,10 @@
             'set '.F::Run('IO.Syntax.MySQL', 'Set', $Call)
             .F::Run('IO.Syntax.MySQL', 'Where', $Call);
     });
+
+    self::setFn('Delete', function ($Call)
+    {
+        return 'delete from '
+            . F::Run('IO.Syntax.MySQL', 'Table', $Call)
+            . F::Run('IO.Syntax.MySQL', 'Where', $Call);
+    });
