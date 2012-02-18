@@ -16,7 +16,7 @@
         foreach ($Model['Nodes'] as $Name => $Node)
         {
             if (F::isCall($Node))
-                $Created[$Name] = F::Run($Node['Service'], $Node['Method'], $Call['Data'][$Name], $Node['Call']);
+                $Created[$Name] = F::Run($Node['Service'], $Node['Method'], $Node['Call'], array('Data' => $Call['Data'], 'Node' => $Name));
             else
             {
                 if (isset($Call['Data'][$Name]))

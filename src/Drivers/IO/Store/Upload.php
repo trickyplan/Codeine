@@ -18,8 +18,9 @@
      */
     self::setFn ('Write', function ($Call)
     {
-        $Name = F::Live($Call['Naming'], $Call);
-        move_uploaded_file($Call['tmp_name'], Root.'/'.$Call['Directory'].'/'. $Call['Scope'].'/'.$Name);
+        $Name = F::Live($Call['Naming'], $Call['Data'][$Call['Node']]);
+
+        move_uploaded_file($Call['Data'][$Call['Node']]['tmp_name'], Root.'/'.$Call['Directory'].'/'. $Call['Scope'].'/'.$Name);
 
         return $Name;
     });

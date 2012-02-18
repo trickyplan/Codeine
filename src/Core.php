@@ -27,6 +27,7 @@
 
         public static function Bootstrap ($Call = null)
         {
+            mb_internal_encoding('UTF-8');
             if (isset($_SERVER['Environment']))
                 self::$_Environment = $_SERVER['Environment'];
 
