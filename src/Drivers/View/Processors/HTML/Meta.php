@@ -15,6 +15,13 @@
                 'Type'  => 'Page.Title',
                 'Value' => $Call['Title']
             );
+        else
+            $Call['Output']['Title'][]
+                = array (
+                'Type'  => 'Block',
+                'Class' => 'warning',
+                'Value' => 'Заголовок страницы не задан.' // FIXME
+            );
 
         if (isset($Call['Description']))
             $Call['Output']['Meta'][]
@@ -22,12 +29,26 @@
                 'Type'  => 'Page.Description',
                 'Value' => $Call['Description']
             );
+        else
+            $Call['Output']['Meta'][]
+                = array (
+                'Type'  => 'Block',
+                'Class' => 'warning',
+                'Value' => 'Описание страницы не задано.' // FIXME
+            );
 
         if (isset($Call['Keywords']))
             $Call['Output']['Meta'][]
                 = array (
                 'Type'  => 'Page.Keywords',
                 'Value' => $Call['Keywords']
+            );
+        else
+            $Call['Output']['Meta'][]
+                = array (
+                'Type'  => 'Block',
+                'Class' => 'warning',
+                'Value' => 'Ключевые слова страницы не заданы.' // FIXME
             );
 
 
