@@ -1,0 +1,23 @@
+<?php
+
+    /* Codeine
+     * @author BreathLess
+     * @description Exec Parslet 
+     * @package Codeine
+     * @version 7.0
+     */
+
+     self::setFn('Parse', function ($Call)
+     {
+          foreach ($Call['Parsed'][1] as $Ix => $Match)
+          {
+              $Match = simplexml_load_string('<?xml version=\'1.0\'?><exec>'.$Match.'</exec>');
+              $Match = json_decode(json_encode($Match), true);
+
+              $Call['Output'] = str_replace($Call['Parsed'][0][$Ix],
+                  F::Run($Match['Service'], $Match['Method'], $Call, $Match['Call'])
+              , $Call['Output']);
+          }
+
+          return $Call['Output'];
+     });
