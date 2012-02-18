@@ -243,6 +243,16 @@
             return null; // TODO onShutdown
         }
 
+        public static function Extract($Array, $Keys)
+        {
+            $Data = array();
+            foreach ($Keys as $Key)
+                if (is_scalar($Key) &&  isset($Array[$Key]))
+                    $Data[$Key] = $Array[$Key];
+
+            return $Data;
+        }
+
         public static function Map ($Array, $Fn, $Data = null, $FullKey = '')
         {
             if (is_array ($Array))

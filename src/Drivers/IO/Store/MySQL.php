@@ -38,22 +38,33 @@
         return $Data;
     });
 
+    /**
+     * @var mysqli $Call["Link"]
+     */
     self::setFn ('Write', function ($Call)
     {
         if (isset($Call['Where']))
         {
+            $ReturnID = false;
+
             if (isset($Call['Data']))
                 $Query = F::Run('IO.Syntax.MySQL', 'Update', $Call);
             else
                 $Query = F::Run('IO.Syntax.MySQL', 'Delete', $Call);
         }
         else
+        {
             $Query = F::Run('IO.Syntax.MySQL', 'Insert', $Call);
+            $ReturnID = true;
+        }
 
         if (isset($Call['Debug']))
             d(__FILE__, __LINE__, $Query);
 
         $Result = $Call['Link']->query($Query);
+
+        if ($Result)
+            $Result = $Call['Link']->insert_id;
 
         return $Result;
     });

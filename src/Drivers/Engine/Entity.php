@@ -31,7 +31,7 @@
 
         $Call['Data'] = array();
 
-        $ID = F::Run('Engine.IO', 'Write', $Call,
+        $Created['ID'] = F::Run('Engine.IO', 'Write', $Call,
             array (
                   'Storage' => $Model['Storage'],
                   'Scope' => $Call['Entity'],
