@@ -13,7 +13,7 @@
         {
             $Locales = F::Run('Engine.IO', 'Read',
                 array(
-                     'Storage' => 'Language',
+                     'Storage' => 'Locale',
                      'Where' => array(
                          'ID' => F::Run('System.Interface.Web', 'DetectUALanguage'))
                 ));

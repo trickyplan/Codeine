@@ -16,6 +16,7 @@
         {
             "Driver":"IO.Store.Directory",
             "Directory":"Data/Locale",
+            "Scope": "Languages",
             "Suffix": ".json",
             "Format": "Data.Format.JSON"
         },
