@@ -1,0 +1,10 @@
+{
+    "SearchEngines":
+    {
+        "Google":"http://google.com",
+        "Yandex":"http://yandex.ru",
+        "Bing": "http://bing.com",
+        "Yahoo": "http://yahoo.com",
+        "Ask": "http://ask.com"
+    }
+}
