@@ -14,8 +14,13 @@
               $Match = simplexml_load_string('<?xml version=\'1.0\'?><exec>'.$Match.'</exec>');
               $Match = json_decode(json_encode($Match), true);
 
+              $Output = F::Run($Match['Service'], $Match['Method'], $Call, $Match['Call']);
+
+              if (is_array($Output))
+                  $Output = implode(',', $Output);
+
               $Call['Output'] = str_replace($Call['Parsed'][0][$Ix],
-                  F::Run($Match['Service'], $Match['Method'], $Call, $Match['Call'])
+                  $Output
               , $Call['Output']);
           }
 
