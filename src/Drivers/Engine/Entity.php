@@ -12,11 +12,16 @@
         $Model = F::Run('Engine.Entity', 'Model', $Call);
 
         // TODO Heterogenic mapping
+        $Created = array();
 
         foreach ($Model['Nodes'] as $Name => $Node)
         {
             if (F::isCall($Node))
-                $Created[$Name] = F::Run($Node['Service'], $Node['Method'], $Node['Call'], array('Data' => $Call['Data'], 'Node' => $Name));
+                $Created[$Name] = F::Run($Node['Service'], $Node['Method'],
+                    $Node['Call'],
+                    array(
+                         'Data' => F::Merge($Call['Data'], $Created),
+                         'Node' => $Name));
             else
             {
                 if (isset($Call['Data'][$Name]))
@@ -29,7 +34,8 @@
             }
         }
 
-        $Call['Data'] = array();
+        $Call['RAW'] = $Call['Data']; // FIXME
+        $Call['Data'] = array(); // FIXME
 
         $Created['ID'] = F::Run('Engine.IO', 'Write', $Call,
             array (
@@ -37,6 +43,8 @@
                   'Scope' => $Call['Entity'],
                   'Data' => $Created
             ));
+        // FIXME
+        F::Run('Code.Flow.Hook', 'Run', $Call, $Model, array ('Data' => $Created, 'On' => 'afterCreate'));
 
         return $Created;
     });

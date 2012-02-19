@@ -11,10 +11,14 @@
      {
          $Options = array();
 
+         $Call['Selected'] = F::Live($Call['Selected']);
          $Call['Value'] = F::Live($Call['Value']);
 
          foreach ($Call['Value'] as $Key => $Value)
-             $Options[] = '<option value="'.$Key.'">'.$Value.'</option>';
+             if(in_array($Key, $Call['Selected']))
+                 $Options[] = '<option value="'.$Key.'" selected>'.$Value.'</option>';
+             else
+                $Options[] = '<option value="' . $Key . '">' . $Value . '</option>';
 
          $Call['Value'] = implode('', $Options);
 
