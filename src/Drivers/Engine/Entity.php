@@ -81,6 +81,7 @@
                 }
         }
 
+        $Call['RAW'] = $Call['Data']; // FIXME
         $Call['Data'] = array();
 
 
@@ -91,6 +92,8 @@
                   'Data'    => $Updated,
             ));
 
+        F::Run('Code.Flow.Hook', 'Run', $Call, $Model, array ('Data' => $Updated,
+                                                             'On'    => 'afterUpdate'));
         return $Updated;
     });
 
