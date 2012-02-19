@@ -69,13 +69,16 @@
         foreach ($Model['Nodes'] as $Name => $Node)
         {
             if (F::isCall($Node))
-                $Updated[$Name] = F::Run($Node['Service'], $Node['Method'], $Node['Call'], array ('Data' => $Call['Data'],
-                                                                                                 'Node'  => $Name));
+                {
+                    if ($Response =  F::Run($Node['Service'], $Node['Method'], $Node['Call'], array ('Data' => $Call['Data'],
+                                                                                                    'Node'  => $Name)) !== null)
+                        $Updated[$Name] = $Response;
+                }
             else
-            {
-                if (isset($Call['Data'][$Name]))
-                    $Updated[$Name] = $Call['Data'][$Name];
-            }
+                {
+                    if (isset($Call['Data'][$Name]))
+                        $Updated[$Name] = $Call['Data'][$Name];
+                }
         }
 
         $Call['Data'] = array();
