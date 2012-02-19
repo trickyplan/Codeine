@@ -11,7 +11,11 @@
      {
          $Options = array();
 
-         $Call['Selected'] = F::Live($Call['Selected']);
+         if (isset($Call['Selected']))
+            $Call['Selected'] = F::Live($Call['Selected']);
+         else
+             $Call['Selected'] = array();
+
          $Call['Value'] = F::Live($Call['Value']);
 
          foreach ($Call['Value'] as $Key => $Value)

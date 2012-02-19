@@ -18,9 +18,13 @@
      */
     self::setFn ('Write', function ($Call)
     {
-        $Name = F::Live($Call['Naming'], $Call['Data'][$Call['Node']]);
+        if(!empty($Call['Data'][$Call['Node']]['name']))
+        {
+            $Name = F::Live($Call['Naming'], $Call['Data'][$Call['Node']]);
+            move_uploaded_file($Call['Data'][$Call['Node']]['tmp_name'], Root . '/' . $Call['Directory'] . '/' . $Call['Scope'] . '/' . $Name);
+            return $Name;
+        }
+        else
+            return null;
 
-        move_uploaded_file($Call['Data'][$Call['Node']]['tmp_name'], Root.'/'.$Call['Directory'].'/'. $Call['Scope'].'/'.$Name);
-
-        return $Name;
     });
