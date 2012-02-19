@@ -20,7 +20,7 @@
             if (preg_match($Rule['Match'], $Call['Run'], $Matches))
             {
                 foreach ($Rule['Call'] as $Key => $Value)
-                    if (isset($Matches[$Value]))
+                    if (is_scalar($Value) && isset($Matches[$Value]))
                         $Rule['Call'][$Key] = $Matches[$Value];
 
                 if (isset($Rule['Debug']) && $Rule['Debug'] === true)

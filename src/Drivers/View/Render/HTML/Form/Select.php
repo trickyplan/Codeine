@@ -21,7 +21,7 @@
          return F::Run ('Engine.Template', 'LoadParsed', $Call,
                         array(
                              'Scope' => 'UI',
-                             'ID'    => 'HTML/Form/Select',
+                             'ID'    => 'HTML/Form/'.(isset($Call['Template'])? $Call['Template'] : 'Select'),
                              'Data'  => $Call
                         ));
      });

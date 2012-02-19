@@ -9,7 +9,18 @@
 
     self::setFn('Generate', function ($Call)
     {
-        $Call['Value'] = $Call['Data'][$Call['Key']];
+        $Call['Value'] = '';
+
+        if (is_array($Call['Key']))
+        {
+            foreach ($Call['Key'] as $cKey)
+                $Call['Value'][]= $Call['Data'][$cKey];
+
+            $Call['Value'] = implode($Call['Delimiter'], $Call['Value']);
+        }
+
+        else
+            $Call['Value'] = $Call['Data'][$Call['Key']];
 
         $Call['Value'] = mb_strtolower($Call['Value']);
 

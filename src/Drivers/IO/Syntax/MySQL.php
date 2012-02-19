@@ -65,6 +65,25 @@
         return ' from `'.$Call['Scope'].'`';
     });
 
+    self::setFn('Sort', function ($Call)
+    {
+        if (isset($Call['Sort']))
+        {
+            $SortString = ' order by';
+
+            $Conditions = array ();
+
+            foreach ($Call['Sort'] as $Key => $Direction)
+                $Conditions[] = $Call['Link']->real_escape_string($Key). ' '.($Direction == SORT_ASC? 'ASC': 'DESC');
+
+            $SortString = $SortString . ' ' . implode(',', $Conditions);
+        }
+        else
+            $SortString = '';
+
+        return $SortString;
+    });
+
     self::setFn ('Where', function ($Call)
     {
         if (isset($Call['Where']))
@@ -96,7 +115,8 @@
         return 'select '
                .F::Run('IO.Syntax.MySQL', 'Keys', $Call)
                .F::Run('IO.Syntax.MySQL', 'Scope', $Call)
-               .F::Run('IO.Syntax.MySQL', 'Where', $Call);
+               .F::Run('IO.Syntax.MySQL', 'Where', $Call)
+               .F::Run('IO.Syntax.MySQL', 'Sort', $Call);
     });
 
     self::setFn('Insert', function (array $Call)

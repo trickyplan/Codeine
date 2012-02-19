@@ -26,9 +26,9 @@
                 $TrueMatch = false;
 
                 for($ic = $szSlices; $ic > 0; --$ic)
-                    if (isset($Locales[$Match = implode('.', array_slice($Slices, 0, $ic))]))
+                    if (isset($Locales[$cMatch = implode('.', array_slice($Slices, 0, $ic))]))
                     {
-                        $TrueMatch = $Match;
+                        $TrueMatch = $cMatch;
                         break;
                     }
 
