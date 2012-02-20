@@ -4,14 +4,14 @@
      * @author BreathLess
      * @description: 
      * @package Codeine
-     * @version 7.1
+     * @version 7.2
      */
 
     self::setFn('Process', function ($Call)
     {
         if (preg_match_all('@<l>(.*)<\/l>@SsUu', $Call['Output'], $Pockets))
         {
-            $Locales = F::Run('Engine.IO', 'Read',
+            $Locales = F::Run('IO', 'Read',
                 array(
                      'Storage' => 'Locale',
                      'Where' => array(

@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description: time() wrapper
      * @package Codeine
-     * @version 7.1
+     * @version 7.2
      * @date 09.03.11
      * @time 16:34
      */

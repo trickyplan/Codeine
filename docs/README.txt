@@ -1,15 +1,14 @@
-Welcome to the Codeine6 Release!
+Welcome to the Codeine 7.2 Release!
 
 RELEASE INFORMATION
 ---------------
-Codeine 6.1 Release.
-Released on Nov 15, 2011.
+Codeine 7.2 Release.
+Released on Feb 20, 2011.
 
 NEW FEATURES
 ------------
 
-Many fixes.
-Additional drivers moved to Hydrocodone Project
+New Codeine structure.
 
 SYSTEM REQUIREMENTS
 -------------------

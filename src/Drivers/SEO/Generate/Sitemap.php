@@ -49,7 +49,7 @@
     self::setFn('Ping', function ($Call)
     {
         foreach($Call['SearchEngines'] as $Name=> $URL)
-            $Call['Responses'][$Name] = F::Run('Engine.IO', 'Read',
+            $Call['Responses'][$Name] = F::Run('IO', 'Read',
                 array(
                      'Storage' => 'HTTP',
                      'ID' => $URL.'/ping?sitemap='.urlencode($_SERVER['HTTP_HOST'].'/sitemap.xml')

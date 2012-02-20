@@ -3,7 +3,7 @@
     {
         "/":
         {
-            "Service":"Test.Template",
+            "Service":"Test.View",
             "Method":"Root"
         },
         "/docs":

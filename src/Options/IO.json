@@ -1,0 +1,54 @@
+{
+    "Storages":
+    {
+        "Primary":
+        {
+            "Driver": "IO.Store.Mongo",
+            "URL": "127.0.0.1",
+            "Database": "Primary"
+        },
+        "Layout":
+        {
+            "Driver":"IO.Store.Directory",
+            "Directory":"Data/View"
+        },
+        "Locale":
+        {
+            "Driver":"IO.Store.Directory",
+            "Directory":"Data/Locale",
+            "Scope": "Languages",
+            "Suffix": ".json",
+            "Format": "Data.Formats.JSON"
+        },
+        "CSS":
+        {
+            "Driver":"IO.Store.Directory",
+            "Directory":"Data",
+            "Scope": "CSS",
+            "Suffix":".css"
+        },
+        "CSS Cache":
+        {
+            "Driver":"IO.Store.Directory",
+            "Directory":"Public",
+            "Scope":"css",
+            "Suffix":".css"
+        },
+        "JS":{
+            "Driver":"IO.Store.Directory",
+            "Directory":"Data",
+            "Scope":"JS",
+            "Suffix":".js"
+        },
+        "JS Cache":{
+            "Driver":"IO.Store.Directory",
+            "Directory":"Public",
+            "Scope":"js",
+            "Suffix":".js"
+        }
+    },
+    "Alias":
+    {
+
+    }
+}

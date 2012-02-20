@@ -5,7 +5,7 @@
      * @description: F Class
      * @package Codeine Framework
      * @subpackage Core
-     * @version 7.1
+     * @version 7.2
      */
 
     define('Codeine', __DIR__);
@@ -236,7 +236,7 @@
                              'Graphviz.Layout' => 'dot',
                              'Title' => 'Calls',
                              'Value' => self::$_History,
-                             'Format' => 'png'
+                             'Formats' => 'png'
                         )
                     ));*/
 

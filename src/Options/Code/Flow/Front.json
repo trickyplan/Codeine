@@ -13,7 +13,7 @@
         {
             "Rendering":
             {
-                "Service":"Engine.View",
+                "Service":"View",
                 "Method":"Render"
             }
         },

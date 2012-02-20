@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description: Фронт контроллер
      * @package Codeine
-     * @version 7.1
+     * @version 7.2
      * @date 31.08.11
      * @time 1:12
      */
@@ -26,7 +26,7 @@
         // Передаём его в рендерер
 
         $Call['Context'] = 'app';
-        $Call = F::Run('Engine.View', 'Render', $Call);
+        $Call = F::Run('View', 'Render', $Call);
 
         return $Call;
     });
