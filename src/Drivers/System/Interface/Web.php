@@ -21,8 +21,9 @@
 
         $Call = F::Run($Call['Service'], $Call['Method'], $Call);
 
-    foreach ($Call['Headers'] as $Key => $Value)
-            header ($Key . ' ' . $Value);
+        if (isset($Call['Headers']))
+            foreach ($Call['Headers'] as $Key => $Value)
+                header ($Key . ' ' . $Value);
 
         echo $Call['Output'];
 

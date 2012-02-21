@@ -3,36 +3,8 @@
     {
         "Renderer":
         {
-            "Service": "View.Strategy.Renderer",
-            "Method":  "Defined"
-        }
-    },
-    "Postprocessors":
-    {
-        "Parslets":
-        {
-            "Service":"View.Processors.Parslets",
-            "Method": "Process"
-        },
-        "CSS":
-        {
-            "Service":"View.Processors.HTML.CSS",
-            "Method":"Process"
-        },
-        "Minify":
-        {
-            "Service":"View.Processors.HTML.Minify",
-            "Method":"Process"
-        },
-        "JS":
-        {
-            "Service":"View.Processors.HTML.JS",
-            "Method":"Process"
-        },
-        "I18N":
-        {
-            "Service": "View.Processors.Locale",
-            "Method": "Process"
+            "Service": "View.Strategy.Defined",
+            "Method":  "Select"
         }
     }
 }

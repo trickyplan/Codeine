@@ -5,15 +5,6 @@
         {
             "Service":"Test.View",
             "Method":"Root"
-        },
-        "/docs":
-        {
-            "Service":"Code.Documentation.Generator",
-            "Method":"Service",
-            "Call":{
-                "Service":"Security.Hash.MD5",
-                "Method":"Get"
-            }
         }
     }
 }

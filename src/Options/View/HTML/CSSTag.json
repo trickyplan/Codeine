@@ -3,12 +3,12 @@
     {
         "Minify":
         {
-            "Service":"View.Processors.CSS.Minify",
+            "Service":"View.CSS.Minify",
             "Method": "Process"
         },
         "Variables":
         {
-            "Service":"View.Processors.CSS.Variables",
+            "Service":"View.CSS.Variables",
             "Method":"Process"
         }
     }

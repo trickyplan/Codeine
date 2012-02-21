@@ -16,13 +16,13 @@
 
             $sz = sizeof($Slices);
 
-            for ($ic = 0; $ic<$sz; $ic++)
+            for ($ic = 0; $ic < $sz; $ic++)
             {
                 $ID = implode('/', array_slice($Slices, 0, $ic));
 
                 if ($Sublayout = F::Run('View', 'LoadParsed',
                     array (
-                          'Scope' => 'Layout',
+                          'Scope' => strtolower($Call['Service']),
                           'ID'=> $ID,
                           'Data' => isset($Call['Front'])? $Call['Front']:array()
                     )))

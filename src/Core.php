@@ -148,10 +148,11 @@
                         $Call = F::Merge($Call, $Argument);
             }
 
-            $ParentNamespace = self::$_Service;
+            if ($Service !== null)
+                self::$_Service = $Service;
 
-            self::$_Service = $Service;
-            self::$_Method  = $Method;
+            if ($Method !== null)
+                self::$_Method  = $Method;
 
             $Call = self::Merge(self::loadOptions(), $Call);
 
@@ -160,10 +161,13 @@
             if (!isset($Call['Result']))
             {
                 if ((null === self::getFn(self::$_Method)) && (null === self::_loadSource (self::$_Service)))
+                {
+                    trigger_error('Service not found '.self::$_Service); // FIXME ASAP!
                     $Result = (is_array($Call) && isset($Call['Fallback']))? $Call['Fallback']: null;
+                }
                 else
                     {
-                        $F = self::getFn($Method);
+                        $F = self::getFn(self::$_Method);
 
                         if (is_callable($F))
                            $Result = $F($Call);
@@ -180,8 +184,6 @@
             }
 
             self::$_Stack->pop();
-
-            self::$_Service = $ParentNamespace;
 
             return $Result;
         }

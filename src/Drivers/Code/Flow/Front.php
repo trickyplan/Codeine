@@ -11,15 +11,13 @@
 
     self::setFn('Run', function ($Call)
     {
-        // В этом месте, практически всегда, проихсодит роутинг.
+        // В этом месте, практически всегда, происходит роутинг.
 
         $Call = F::Run('Code.Flow.Hook', 'Run',  $Call, array('On' => 'beforeRun')); // JP beforeRun
 
             // Если передан нормальный вызов, совершаем его
             if (F::isCall($Call))
-            {
                 $Call = F::Run($Call['Service'], $Call['Method'], $Call, $Call['Call']);
-            }
             // В противном случае, 404
             else
                 $Call = F::Run ('Code.Flow.Hook', 'Run', $Call, array('On' => 'on404'));

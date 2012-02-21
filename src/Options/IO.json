@@ -1,54 +1,40 @@
 {
     "Storages":
     {
-        "Primary":
+        "Static":
         {
-            "Driver": "IO.Store.Mongo",
-            "URL": "127.0.0.1",
-            "Database": "Primary"
+            "Driver":"IO.Storage.Directory",
+            "Directory":"Data",
+            "Suffix":".html"
         },
         "Layout":
         {
-            "Driver":"IO.Store.Directory",
-            "Directory":"Data/View"
-        },
-        "Locale":
-        {
-            "Driver":"IO.Store.Directory",
-            "Directory":"Data/Locale",
-            "Scope": "Languages",
-            "Suffix": ".json",
-            "Format": "Data.Formats.JSON"
+            "Driver":"IO.Storage.Directory",
+            "Directory":"Assets"
         },
         "CSS":
         {
-            "Driver":"IO.Store.Directory",
-            "Directory":"Data",
-            "Scope": "CSS",
+            "Driver":"IO.Storage.Directory",
+            "Directory":"Assets",
             "Suffix":".css"
         },
         "CSS Cache":
         {
-            "Driver":"IO.Store.Directory",
+            "Driver":"IO.Storage.Directory",
             "Directory":"Public",
             "Scope":"css",
             "Suffix":".css"
         },
         "JS":{
-            "Driver":"IO.Store.Directory",
-            "Directory":"Data",
-            "Scope":"JS",
+            "Driver":"IO.Storage.Directory",
+            "Directory":"Assets",
             "Suffix":".js"
         },
         "JS Cache":{
-            "Driver":"IO.Store.Directory",
+            "Driver":"IO.Storage.Directory",
             "Directory":"Public",
             "Scope":"js",
             "Suffix":".js"
         }
-    },
-    "Alias":
-    {
-
     }
 }

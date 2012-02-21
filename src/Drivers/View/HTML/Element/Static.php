@@ -9,5 +9,5 @@
 
      self::setFn('Make', function ($Call)
      {
-         return F::Run ('View', 'Load', array('Scope' => 'Static', 'ID' => $Call['Value']));
+         return F::Run ('IO', 'Read', array('Storage' => 'Static', 'Where' => $Call['Value']), $Call);
      });

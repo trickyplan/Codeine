@@ -9,7 +9,7 @@
 
     self::setFn ('Root', function ($Call)
     {
-        $Call['Renderer'] = 'View.Render.HTML';
+        $Call['Renderer'] = 'View.HTML';
 
         $Call['Output']['Content'] =
             array(

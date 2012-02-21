@@ -1,0 +1,61 @@
+{
+    "Hooks":
+    {
+        "beforePipeline":
+        {
+            "LoadingLayout":
+            {
+                "Service": "View.HTML.Layout",
+                "Method": "Load",
+                "Scope": "default",
+                "Call":
+                {
+                    "ID": "Main"
+                }
+            },
+            "Meta":
+            {
+                "Service":"View.HTML.Meta",
+                "Method":"Inject"
+            },
+            "Front":
+            {
+                "Service":"View.HTML.Front",
+                "Method":"Layouts"
+            }
+        },
+        "afterRender":
+        {
+            "Parslets":
+            {
+                "Service":"View.HTML.Parslets",
+                "Method":"Process"
+            },
+            "Minify":
+            {
+                "Service":"View.HTML.Minify",
+                "Method":"Process"
+            },
+            "CSS":
+            {
+                "Service":"View.HTML.CSSTag",
+                "Method":"Process"
+            },
+            "JS":
+            {
+                "Service":"View.HTML.JSTag",
+                "Method":"Process"
+            },
+            "CleanPlaces":
+            {
+                "Service": "View.HTML.Places",
+                "Method": "Clean"
+            },
+            "I18N":
+            {
+                "Service":"View.HTML.Locale",
+                "Method":"Process"
+            }
+        }
+    }
+}

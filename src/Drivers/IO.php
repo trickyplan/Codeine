@@ -33,7 +33,12 @@
 
     self::setFn ('Read', function ($Call)
     {
-        $Call = F::Merge($Call, F::Run('IO', 'Open', $Call));
+        $Call = F::Merge(F::Run('IO', 'Open', $Call), $Call);
+
+        // Если в Where простая переменная - это ID.
+        if (isset($Call['Where']) && is_scalar($Call['Where']))
+            $Call['Where'] = array('ID' => $Call['Where']);
+
         $Data = F::Run ($Call['Driver'], 'Read', $Call);
 
         if (isset($Call['Format']))
@@ -44,22 +49,31 @@
 
     self::setFn ('Write', function ($Call)
     {
-        $Storage = F::Run ('IO', 'Open', $Call);
+        $Call = F::Merge(F::Run('IO', 'Open', $Call), $Call);
+
+        // Если в Where простая переменная - это ID.
+        if (isset($Call['Where']) && is_scalar($Call['Where']))
+            $Call['Where'] = array ('ID' => $Call['Where']);
 
         if (isset($Call['Format']))
             $Call['Data'] = F::Run ($Call['Format'], 'Encode', array('Value' => $Call['Data']));
 
-        return F::Run ($Storage['Driver'], 'Write', $Call, $Storage);
+        return F::Run ($Call['Driver'], 'Write', $Call);
     });
 
     self::setFn ('Close', function ($Call)
     {
-        $Storage = F::Run ('IO', 'Open', $Call);
-        return F::Run ($Storage['Driver'], 'Close', $Call, $Storage);
+        $Call = F::Merge(F::Run('IO', 'Open', $Call), $Call);
+        return F::Run ($Call['Driver'], 'Close', $Call);
     });
 
     self::setFn ('Execute', function ($Call)
     {
-        $Storage = F::Run ('IO', 'Open', $Call);
-        return F::Run ($Storage['Driver'], $Call['Execute'], $Call, $Storage);
+        // Если в Where простая переменная - это ID.
+        if (isset($Call['Where']) && is_scalar($Call['Where']))
+            $Call['Where'] = array ('ID' => $Call['Where']);
+
+        $Call = F::Merge(F::Run('IO', 'Open', $Call), $Call);
+
+        return F::Run ($Call['Driver'], $Call['Execute'], $Call);
     });
