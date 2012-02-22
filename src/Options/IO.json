@@ -12,6 +12,13 @@
             "Driver":"IO.Storage.Directory",
             "Directory":"Assets"
         },
+        "Locale":
+        {
+            "Driver":"IO.Storage.Directory",
+            "Directory":"Assets",
+            "Format": "Formats.JSON",
+            "Suffix":".json"
+        },
         "CSS":
         {
             "Driver":"IO.Storage.Directory",

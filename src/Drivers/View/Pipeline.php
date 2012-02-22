@@ -9,7 +9,6 @@
 
     self::setFn('Process', function ($Call)
     {
-
         if (preg_match_all('@<place>(.*)<\/place>@SsUu', $Call['Layout'], $Places))
         {
             if (isset($Call['Output']))

@@ -14,13 +14,14 @@
         foreach ($Call['IDs'] as $CSSFile)
         {
             list($Asset, $ID) = F::Run('View', 'Asset.Route', array ('Value' => $CSSFile));
+
             $Hash[] = $CSSFile . F::Run('IO', 'Execute', array (
                                                                'Storage' => 'CSS',
                                                                'Scope'   => $Asset.'/css',
                                                                'Execute' => 'Version',
                                                                'Where'   =>
                                                                array (
-                                                                   'ID' => $CSSFile
+                                                                   'ID' => $ID
                                                                )
                                                          ));
         }

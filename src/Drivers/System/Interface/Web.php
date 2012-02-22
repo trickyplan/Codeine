@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description Web Interface 
      * @package Codeine
-     * @version 7.2
+     * @version 7.1
      */
 
     self::setFn ('Run', function ($Call)
@@ -21,9 +21,11 @@
 
         $Call = F::Run($Call['Service'], $Call['Method'], $Call);
 
-        if (isset($Call['Headers']))
-            foreach ($Call['Headers'] as $Key => $Value)
+        foreach ($Call['Headers'] as $Key => $Value)
                 header ($Key . ' ' . $Value);
+
+        if (isset($Call['Start']))
+            $Call['Output'] = str_replace('<gentime/>', round((microtime(true) - $Call['Start'])*1000), $Call['Output']);
 
         echo $Call['Output'];
 

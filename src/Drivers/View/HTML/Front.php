@@ -12,22 +12,26 @@
         if (F::isCall($Call))
         {
             $Slices = explode('.', $Call['Service']);
-            $Slices[] = $Call['Method'];
 
             $sz = sizeof($Slices);
 
-            for ($ic = 0; $ic < $sz; $ic++)
-            {
-                $ID = implode('/', array_slice($Slices, 0, $ic));
+            $Asset = strtolower($Slices[0]);
 
-                if ($Sublayout = F::Run('View', 'LoadParsed',
+            $IDs = array('Main');
+            for ($ic = 1; $ic < $sz; $ic++)
+                $IDs[] = implode('/', array_slice($Slices, 1, $ic));
+
+
+            foreach ($IDs as $ID)
+                if (($Sublayout = F::Run('View', 'LoadParsed',
                     array (
-                          'Scope' => strtolower($Call['Service']),
-                          'ID'=> $ID,
-                          'Data' => isset($Call['Front'])? $Call['Front']:array()
-                    )))
+                          'Scope' => $Asset,
+                          'ID'    => $ID,
+                          'Data'  => isset($Call['Front']) ? $Call['Front'] : array ()
+                    )) !== null)
+                )
+
                     $Call['Layout'] = str_replace('<place>Content</place>', $Sublayout, $Call['Layout']);
-            }
         }
 
         return $Call;

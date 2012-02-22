@@ -14,6 +14,7 @@
 
     self::setFn('Render', function ($Call)
     {
+
        $Call = F::Run ('Code.Flow.Hook', 'Run', $Call, array('On' => 'beforeRender')); // JP beforeRender
 
        $Call = F::Run ('Code.Flow.Hook', 'Run', $Call, array('On' => 'beforePipeline')); // JP beforePipeline

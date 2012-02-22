@@ -4,13 +4,11 @@
      * @author BreathLess
      * @description  
      * @package Codeine
-     * @version 7.2
+     * @version 7.1
      */
 
      self::setFn('Route', function ($Call)
      {
-         $NewCall = null;
-
          foreach ($Call['Routers'] as $Router)
          {
              // Пробуем роутер из списка...
@@ -21,9 +19,8 @@
                  break;
          }
 
-         $Call = F::Merge($Call, $NewCall);
-
-         $Call['Call'] = isset($Call['Call']) ? $Call['Call'] : null;
+         if (isset($NewCall))
+            $Call['Run'] = $NewCall;
 
          return $Call;
      });
