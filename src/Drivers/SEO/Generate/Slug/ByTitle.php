@@ -14,11 +14,11 @@
         if (is_array($Call['Key']))
         {
             foreach ($Call['Key'] as $cKey)
-                $Call['Value'][]= $Call['Data'][$cKey];
+                if (!empty($Call['Data'][$cKey]))
+                    $Call['Value'][]= $Call['Data'][$cKey];
 
             $Call['Value'] = implode($Call['Delimiter'], $Call['Value']);
         }
-
         else
             $Call['Value'] = $Call['Data'][$Call['Key']];
 

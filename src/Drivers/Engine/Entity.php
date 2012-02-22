@@ -70,8 +70,8 @@
         {
             if (F::isCall($Node))
                 {
-                    if ($Response =  F::Run($Node['Service'], $Node['Method'], $Node['Call'], array ('Data' => $Call['Data'],
-                                                                                                    'Node'  => $Name)) !== null)
+                    if (($Response = F::Run($Node['Service'], $Node['Method'], $Node['Call'], array ('Data' => $Call['Data'],
+                                                                                                    'Node'  => $Name))) !== null)
                         $Updated[$Name] = $Response;
                 }
             else
@@ -91,6 +91,8 @@
                   'Scope'   => $Call['Entity'],
                   'Data'    => $Updated,
             ));
+
+        $Updated['ID'] = $Call['Where']['ID'];
 
         F::Run('Code.Flow.Hook', 'Run', $Call, $Model, array ('Data' => $Updated,
                                                              'On'    => 'afterUpdate'));
