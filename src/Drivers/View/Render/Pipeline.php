@@ -25,7 +25,7 @@
                 $Call['Layout'] = str_replace('<place>' . $Place . '</place>', implode('', $Widgets), $Call['Layout']);
         }
 
-        $Call['Layout'] = str_replace('<place>' . $Place . '</place>', '', $Call['Layout']);
+        $Call['Layout'] = preg_replace('@<place>(.*)<\/place>@SsUu', '', $Call['Layout']);
         $Call['Output'] = $Call['Layout'];
 
         return $Call;
