@@ -1,5 +1,10 @@
-nmr (0.1) unstable; urgency=low
+Codeine (7.2) unstable; urgency=high
 
-* Initial release
+    * Поддержка бандлов.
+    * Префикс Engine у IO, Auth, View убран
+    * Движки Template и View соединены.
+    * Поддержка null-вызовов
+    * Кеширование склееных ресурсов работает
+    * Короткая форма Where
 
 -- Dmitry Bergstein <dmitry.bergstein@gmail.com>
