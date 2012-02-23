@@ -18,5 +18,6 @@
             foreach ($Call['Postprocessors'] as $Processor)
                $Call = F::Run($Processor['Service'], $Processor['Method'], $Call, isset($Processor['Call'])? $Processor['Call']: null);
 
+        $Call['Output'] = preg_replace('@<place>(.*)<\/place>@SsUu', '', $Call['Output']);
         return $Call;
     });
