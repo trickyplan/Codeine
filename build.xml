@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="codeine-alpha" default="final" basedir=".">
+<project name="codeine-aurora" default="final" basedir=".">
 
     <import file="build/initialize.xml"/>
     <import file="build/phplint.xml"/>
