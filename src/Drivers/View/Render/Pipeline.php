@@ -25,6 +25,7 @@
                 $Call['Layout'] = str_replace('<place>' . $Place . '</place>', implode('', $Widgets), $Call['Layout']);
         }
 
+        $Call['Layout'] = str_replace('<place>' . $Place . '</place>', '', $Call['Layout']);
         $Call['Output'] = $Call['Layout'];
 
         return $Call;
