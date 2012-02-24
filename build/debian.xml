@@ -59,7 +59,7 @@
 
 
 
-    <target name="make" depends="folders, control, source, etc, docs">
+    <target name="make" depends="folders, control, source, docs">
         <exec command="dpkg --build '${package}' ${distribution}/ " dir="."/>
     </target>
 </project>
