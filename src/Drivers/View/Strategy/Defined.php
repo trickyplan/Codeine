@@ -9,5 +9,5 @@
 
     self::setFn ('Select', function ($Call)
     {
-        return array('Service' => isset($Call['Renderer'])? $Call['Renderer']: $Call['Default'], 'Method' => 'Render');
+        return array('Service' => (isset($Call['Renderer'])? $Call['Renderer']: $Call['Default']), 'Method' => 'Render');
     });

@@ -205,22 +205,6 @@
             { };
         }
 
-        public static function Set($Key, $Value)
-        {
-            return self::$_Storage[self::$_Service][$Key] = $Value;
-        }
-
-        public static function Get($Key = null, $Default = null)
-        {
-            if (null === $Key && isset(self::$_Storage[self::$_Service]))
-                return self::$_Storage[self::$_Service];
-
-            if (isset(self::$_Storage[self::$_Service][$Key]))
-                return self::$_Storage[self::$_Service][$Key];
-            else
-                return $Default;
-        }
-
         public static function Live($Variable, $Call = array())
         {
             if (self::isCall($Variable))
@@ -269,6 +253,25 @@
                 }
 
             return true;
+        }
+
+        public static function Dot ($Array, $Key)
+        {
+            if (strpos($Key, '.') !== false)
+            {
+                $Keys = explode('.', $Key);
+
+                $Tail = $Array;
+                foreach ($Keys as $iKey)
+                    if (isset($Tail[$iKey]))
+                        $Tail = $Tail[$iKey];
+                    else
+                        return null;
+
+                return $Tail;
+            }
+            else
+                return isset($Array[$Key])? $Array[$Key]: null;
         }
 
         public static function Error($errno , $errstr , $errfile , $errline , $errcontext)
@@ -328,10 +331,6 @@
             return $Call;
         }
 
-        public static function getOption($Key)
-        {
-            return isset(self::$_Options[$Key])? self::$_Options[$Key]: null;
-        }
     }
 
     function f()

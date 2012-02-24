@@ -9,9 +9,8 @@
 
      self::setFn('Make', function ($Call)
      {
+         $MainLayout =  F::Run ('View', 'Load', $Call, array('ID' => $Call['Value']));
 
-         $MainLayout =  F::Run ('View', 'Load', $Call, array('Scope' => $Call['Scope'],
-                                                                   'ID' => $Call['Value']));
          if (preg_match_all ('@<k>(.*)</k>@SsUu', $MainLayout, $Pockets))
          {
              $Layout = array();
@@ -19,6 +18,8 @@
              foreach ($Call['Data'] as $N => $Data)
              {
                 $Layout[$N] = $MainLayout;
+
+                $Data['ID'] = $N;
 
                 foreach ($Pockets[1] as $IX => $Match)
                 {
@@ -33,7 +34,9 @@
                          $Layout[$N] = str_replace ($Pockets[0][$IX], '', $Layout[$N]);
                 }
              }
+
+             return implode('', $Layout);
          }
 
-         return implode('', $Layout);
+         return '';
     });

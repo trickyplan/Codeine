@@ -18,8 +18,10 @@
         $Call['Output']['Content'] = array (array (
                                                 'Type'  => 'Template',
                                                 'Scope' => 'errors',
-                                                'Value' => '404'
+                                                'Value' => '404',
+                                                'Data' => array(
+                                                    'Suggestion' => F::Live($Call['Prediction'], $Call)
+                                                )
                                             ));
-
         return $Call;
      });

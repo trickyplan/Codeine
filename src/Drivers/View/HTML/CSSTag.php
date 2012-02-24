@@ -15,7 +15,7 @@
         {
             list($Asset, $ID) = F::Run('View', 'Asset.Route', array ('Value' => $CSSFile));
 
-            $Hash[] = $CSSFile . F::Run('IO', 'Execute', array (
+            $Hash[] = $CSSFile .rand(). F::Run('IO', 'Execute', array (
                                                                'Storage' => 'CSS',
                                                                'Scope'   => $Asset.'/css',
                                                                'Execute' => 'Version',
@@ -45,41 +45,49 @@
         {
             $CSSHash = F::Run(null, 'Hash', array('IDs' => $Parsed[1]));
 
-            if (!F::Run('IO', 'Execute', array('Storage' => 'CSS Cache', 'Execute' => 'Exist', 'Where' => array('ID' => $CSSHash))))
-            {
-                $CSS = array();
-
-                foreach ($Parsed[1] as $CSSFile)
+                if ((isset($Call['Caching']['Enabled']) && $Call['Caching']['Enabled'])
+                    && F::Run('IO', 'Execute', array ('Storage' => 'CSS Cache',
+                                                     'Execute'  => 'Exist',
+                                                     'Where'    => array ('ID' => $CSSHash)))
+                )
                 {
-                    list($Asset, $ID) = F::Run('View', 'Asset.Route', array('Value' => $CSSFile));
 
-                    if ($CSSSource = F::Run('IO', 'Read', array (
-                                                                'Storage' => 'CSS',
-                                                                'Scope'   => $Asset . '/css',
-                                                                'Where'   => $ID
-                                                          )))
-                        $CSS[] = $CSSSource;
-                    else
-                        trigger_error('No CSS: '.$CSSFile);
+                }
+                else
+                {
+                    $CSS = array();
+
+                    foreach ($Parsed[1] as $CSSFile)
+                    {
+                        list($Asset, $ID) = F::Run('View', 'Asset.Route', array('Value' => $CSSFile));
+
+                        if ($CSSSource = F::Run('IO', 'Read', array (
+                                                                    'Storage' => 'CSS',
+                                                                    'Scope'   => $Asset . '/css',
+                                                                    'Where'   => $ID
+                                                              )))
+                            $CSS[] = $CSSSource;
+                        else
+                            trigger_error('No CSS: '.$CSSFile);
+                    }
+
+                    $CSS = implode ('', $CSS);
+
+                    if (isset($Call['CSS.Postprocessors']) && $Call['CSS.Postprocessors'])
+                        foreach($Call['CSS.Postprocessors'] as $Processor)
+                            $CSS = F::Run($Processor['Service'], $Processor['Method'], array('Value' => $CSS));
+
+                    F::Run ('IO', 'Write',
+                            array(
+                                 'Storage' => 'CSS Cache',
+                                 'Where'   => $CSSHash,
+                                 'Data' => $CSS
+                            ));
+
                 }
 
-                $CSS = implode ('', $CSS);
-
-                if (isset($Call['CSS.Postprocessors']) && $Call['CSS.Postprocessors'])
-                    foreach($Call['CSS.Postprocessors'] as $Processor)
-                        $CSS = F::Run($Processor['Service'], $Processor['Method'], array('Value' => $CSS));
-
-                F::Run ('IO', 'Write',
-                        array(
-                             'Storage' => 'CSS Cache',
-                             'Where'   => $CSSHash,
-                             'Data' => $CSS
-                        ));
-
-            }
-
             foreach ($Parsed[0] as $cParsed)
-                $Call['Output'] = str_replace($cParsed,'', $Call['Output']);
+                $Call['Output'] = str_replace($cParsed, '', $Call['Output']);
         }
 
         // TODO Codeinize

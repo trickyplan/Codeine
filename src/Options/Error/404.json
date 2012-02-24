@@ -1,0 +1,7 @@
+{
+    "Prediction":
+    {
+        "Service": "Error.404.Prediction.Similar",
+        "Method": "Suggest"
+    }
+}

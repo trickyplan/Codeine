@@ -19,23 +19,44 @@
         if (!isset($Call['Scope']))
             $Call['Scope'] = '';
 
-        $Suffix = isset($Call['Suffix'])? $Call['Suffix']: '';
-        $Prefix= isset($Call['Prefix'])? $Call['Prefix'] : '';
+        $Postfix = isset($Call['Suffix']) ? $Call['Suffix'] : '';
+        $Prefix = isset($Call['Prefix']) ? $Call['Prefix'] : '';
+        $Path = $Call['Link'].'/'.$Call['Scope'].'/';
 
-        $Call['Where']['ID'] = (array) $Call['Where']['ID'];
+        if(!isset($Call['Where']))
+        {
+            $Directory = new RecursiveDirectoryIterator(Root.'/'.$Path);
+            $Iterator  = new RecursiveIteratorIterator($Directory);
+            $Regex     = new RegexIterator($Iterator, '/'.$Prefix.'(.+)'.$Postfix.'$/i', RecursiveRegexIterator::GET_MATCH);
 
-        foreach ($Call['Where']['ID'] as &$ID)
-            $ID = $Call['Link'] . '/' . $Call['Scope'] . '/' . $Prefix. $ID. $Suffix;
+            $Data = array();
 
-        if (isset($Call['Debug']))
-            d(__FILE__, __LINE__, $Call['Where']['ID']);
+            foreach($Regex as $File)
+            {
+                $Pathinfo = pathinfo($File[0]);
+                $Data[$Pathinfo['filename']] = file_get_contents($File[0]);
+            }
 
-        $Filename = F::findFile($Call['Where']['ID'] );
-
-        if (file_exists ($Filename))
-            return file_get_contents ($Filename);
+            return $Data;
+        }
         else
-            return null;
+        {
+            $Call['Where']['ID'] = (array) $Call['Where']['ID'];
+
+            foreach ($Call['Where']['ID'] as &$ID)
+                $ID = $Path.$Prefix.$ID.$Postfix;
+
+            $Filename = F::findFile($Call['Where']['ID']);
+
+            if (isset($Call['Debug']))
+                d(__FILE__, __LINE__, $Call['Where']['ID']);
+
+            if (file_exists($Filename))
+                return file_get_contents($Filename);
+            else
+                return null;
+        }
+
     });
 
     self::setFn ('Write', function ($Call)
@@ -43,10 +64,10 @@
         if (!isset($Call['Scope']))
             $Call['Scope'] = '';
 
-        $Suffix   = isset($Call['Suffix']) ? $Call['Suffix'] : '';
+        $Postfix   = isset($Call['Suffix']) ? $Call['Suffix'] : '';
         $Prefix   = isset($Call['Prefix']) ? $Call['Prefix'] : '';
 
-        $Filename = Root.'/'.$Call['Link'] . '/' . $Call['Scope'] . '/' . $Prefix . $Call['Where']['ID'] . $Suffix;
+        $Filename = Root.'/'.$Call['Link'] . '/' . $Call['Scope'] . '/' . $Prefix . $Call['Where']['ID'] . $Postfix;
 
         if (isset($Call['Debug']))
             d(__FILE__, __LINE__, $Call['Where']['ID']);
@@ -67,10 +88,10 @@
         if (!isset($Call['Scope']))
             $Call['Scope'] = '';
 
-        $Suffix   = isset($Call['Suffix']) ? $Call['Suffix'] : '';
+        $Postfix   = isset($Call['Suffix']) ? $Call['Suffix'] : '';
         $Prefix   = isset($Call['Prefix']) ? $Call['Prefix'] : '';
 
-        $Filename = F::findFile ($Call['Link'] .'/'. $Call['Scope'] . '/' . $Prefix . $Call['Where']['ID'] . $Suffix);
+        $Filename = F::findFile ($Call['Link'] .'/'. $Call['Scope'] . '/' . $Prefix . $Call['Where']['ID'] . $Postfix);
 
         if (file_exists ($Filename))
             return filemtime($Filename);
@@ -83,10 +104,10 @@
         if (!isset($Call['Scope']))
             $Call['Scope'] = '';
 
-        $Suffix   = isset($Call['Suffix']) ? $Call['Suffix'] : '';
+        $Postfix   = isset($Call['Suffix']) ? $Call['Suffix'] : '';
         $Prefix   = isset($Call['Prefix']) ? $Call['Prefix'] : '';
 
-        $Filename = F::findFile ($Call['Link'] . '/' . $Call['Scope'] . '/' . $Prefix . $Call['Where']['ID'] . $Suffix);
+        $Filename = F::findFile ($Call['Link'] . '/' . $Call['Scope'] . '/' . $Prefix . $Call['Where']['ID'] . $Postfix);
 
         return file_exists ($Filename);
     });

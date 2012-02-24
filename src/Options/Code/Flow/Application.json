@@ -1,12 +1,15 @@
 {
-    "Hooks":
-    {
-        "beforeRun":
-        {
-            "Routing":
-            {
-                "Service": "Code.Flow.Front.Routing",
-                "Method": "Route"
+    "Hooks":{
+        "afterRun":{
+            "Rendering":{
+                "Service":"View",
+                "Method":"Render"
+            }
+        },
+        "on404":{
+            "ErrorPage":{
+                "Service":"Error.404",
+                "Method":"Block"
             }
         }
     }

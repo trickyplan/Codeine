@@ -11,22 +11,22 @@
 
     self::setFn('Run', function ($Call)
     {
-       // $Call = F::Run('Code.Flow.Application.Hook', 'Run',  $Call, array('On' => 'beforeRun')); // JP beforeRun
+        // В этом месте, практически всегда, происходит роутинг.
 
-        $Call['Value']['Call'] = isset($Call['Value']['Call']) ? $Call['Value']['Call']: null;
+        $Call = F::Run('Code.Flow.Hook', 'Run', $Call, array ('On' => 'beforeRun')); // JP beforeRun
 
-
-        if (isset($Call['Value']['Service']) && isset($Call['Value']['Method']))
-            $Call = F::Run($Call['Value']['Service'], $Call['Value']['Method'], $Call, (array) $Call['Value']['Call']);
+        // Если передан нормальный вызов, совершаем его
+        if (F::isCall($Call['Run']))
+        {
+            list($Call['Service'], $Call['Method']) = array ($Call['Run']['Service'], $Call['Run']['Method']);
+            $Call = F::Live($Call['Run'], $Call);
+        }
+        // В противном случае, 404
         else
-            $Call = F::Run ('Code.Flow.Application.Hook', 'Run', $Call, array('On' => 'on404'));
+            $Call = F::Run('Code.Flow.Hook', 'Run', $Call, array ('On' => 'on404'));
 
-        //$Call = F::Run ('Code.Flow.Application.Hook', 'Run', $Call, array('On' => 'afterRun')); // JP afterRun
-
-        // Передаём его в рендерер
-
-        $Call['Context'] = 'app';
-        $Call = F::Run('View', 'Render', $Call);
+        // А здесь - рендеринг
+        $Call = F::Run('Code.Flow.Hook', 'Run', $Call, array ('On' => 'afterRun')); // JP afterRun
 
         return $Call;
     });

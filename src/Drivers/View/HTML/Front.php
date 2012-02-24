@@ -23,15 +23,16 @@
 
 
             foreach ($IDs as $ID)
-                if (($Sublayout = F::Run('View', 'LoadParsed',
+                if (null !== (($Sublayout = F::Run('View', 'LoadParsed', $Call,
                     array (
                           'Scope' => $Asset,
                           'ID'    => $ID,
                           'Data'  => isset($Call['Front']) ? $Call['Front'] : array ()
-                    )) !== null)
+                    ))))
                 )
-
+                {
                     $Call['Layout'] = str_replace('<place>Content</place>', $Sublayout, $Call['Layout']);
+                }
         }
 
         return $Call;

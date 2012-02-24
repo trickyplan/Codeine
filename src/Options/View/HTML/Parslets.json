@@ -1,3 +1,4 @@
 {
-    "Parslets": ["Layout", "Fn", "Exec"]
+    "Var": "Output",
+    "Parslets": ["Layout", "Fn", "Exec", "Lower"]
 }

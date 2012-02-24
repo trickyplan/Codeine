@@ -42,7 +42,13 @@
         $Data = F::Run ($Call['Driver'], 'Read', $Call);
 
         if (isset($Call['Format']))
-            $Data = F::Run($Call['Format'], 'Decode', array('Value' => $Data));
+        {
+            if (is_array($Data))
+                foreach($Data as &$Element)
+                    $Element = F::Run($Call['Format'], 'Decode', array ('Value' => $Element));
+            else
+                $Data = F::Run($Call['Format'], 'Decode', array('Value' => $Data));
+        }
 
         return $Data;
     });

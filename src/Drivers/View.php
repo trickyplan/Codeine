@@ -53,9 +53,7 @@
 
     self::setFn('Render', function ($Call)
     {
-        $Renderer = F::Run($Call['Strategy']['Renderer']['Service'], $Call['Strategy']['Renderer']['Method'], $Call);
-
-        return F::Run($Renderer['Service'], $Renderer['Method'], $Call);
+        return F::Live (F::Live($Call['Rendering'], $Call), $Call);
     });
 
     self::setFn('Asset.Route', function ($Call)
