@@ -28,8 +28,8 @@
 
          return F::Run ('View', 'LoadParsed', $Call,
                         array(
-                             'Scope' => 'UI',
-                             'ID'    => 'HTML/Form/'.(isset($Call['View'])? $Call['View'] : 'Select'),
+                             'Scope' => 'Default',
+                             'ID'    => 'UI/HTML/Form/'.(isset($Call['View'])? $Call['View'] : 'Select'),
                              'Data'  => $Call
                         ));
      });

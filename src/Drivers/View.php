@@ -33,7 +33,7 @@
 
     self::setFn('Load', function ($Call)
     {
-        return $Call['Layout'] = F::Run('IO', 'Read', $Call,
+        return F::Run('IO', 'Read', $Call,
             array (
                   'Storage' => 'Layout',
                   'Where'   => array ('ID' => array (
@@ -53,7 +53,8 @@
 
     self::setFn('Render', function ($Call)
     {
-        return F::Live (F::Live($Call['Rendering'], $Call), $Call);
+        $Call =  F::Live (F::Live($Call['Rendering'], $Call), $Call);
+        return $Call;
     });
 
     self::setFn('Asset.Route', function ($Call)

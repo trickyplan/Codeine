@@ -9,11 +9,11 @@
 
     self::setFn('Process', function ($Call)
     {
-        $Locales = array();
-
         if (preg_match_all('@<locale>(.*)<\/locale>@SsUu', $Call['Output'], $Pockets))
         {
             $Language = F::Run('System.Interface.Web', 'DetectUALanguage');
+
+            $Locales = array ();
 
             foreach ($Pockets[1] as $IX => $Match)
             {
@@ -22,10 +22,9 @@
                 $Locales = F::Merge($Locales, F::Run('IO', 'Read',
                     array (
                           'Storage' => 'Locale',
-                          'Scope'   => $Asset.'/locale/'.$Language,
+                          'Scope'   => $Asset.'/Locale/'.$Language,
                           'Where'   => $ID
                     )));
-
 
                 $Call['Output'] = str_replace($Pockets[0][$IX], '', $Call['Output']);
             }
@@ -52,7 +51,7 @@
                         }
 
                     if ($TrueMatch)
-                        $Call['Output'] = str_replace($Pockets[0][$IX], $Locales[$Match], $Call['Output']);
+                        $Call['Output'] = str_replace($Pockets[0][$IX], $Locales[$TrueMatch], $Call['Output']);
                     else
                         $Call['Output'] = str_replace($Pockets[0][$IX], '<span class="nl">' . $Match . '</span>', $Call['Output']);
                 }

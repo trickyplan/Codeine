@@ -43,6 +43,7 @@
 
     self::setFn('Values', function ($Call)
     {
+
         $Values = '';
         if (isset($Call['Data']))
         {
@@ -113,31 +114,31 @@
     self::setFn('Read', function (array $Call)
     {
         return 'select '
-               .F::Run('IO.Syntax.MySQL', 'Keys', $Call)
-               .F::Run('IO.Syntax.MySQL', 'Scope', $Call)
-               .F::Run('IO.Syntax.MySQL', 'Where', $Call)
-               .F::Run('IO.Syntax.MySQL', 'Sort', $Call);
+               .F::Run(null, 'Keys', $Call)
+               .F::Run(null, 'Scope', $Call)
+               .F::Run(null, 'Where', $Call)
+               .F::Run(null, 'Sort', $Call);
     });
 
     self::setFn('Insert', function (array $Call)
     {
         return 'insert into '
-            .F::Run('IO.Syntax.MySQL', 'Table', $Call)
-            .F::Run('IO.Syntax.MySQL', 'Keys', $Call)
-            .F::Run('IO.Syntax.MySQL', 'Values', $Call);
+            .F::Run(null, 'Table', $Call)
+            .F::Run(null, 'Keys', $Call)
+            .F::Run(null, 'Values', $Call);
     });
 
     self::setFn('Update', function ($Call)
     {
         return 'update '
-            .F::Run('IO.Syntax.MySQL', 'Table', $Call).
-            'set '.F::Run('IO.Syntax.MySQL', 'Set', $Call)
-            .F::Run('IO.Syntax.MySQL', 'Where', $Call);
+            .F::Run(null, 'Table', $Call).
+            'set '.F::Run(null, 'Set', $Call)
+            .F::Run(null, 'Where', $Call);
     });
 
     self::setFn('Delete', function ($Call)
     {
         return 'delete from '
-            . F::Run('IO.Syntax.MySQL', 'Table', $Call)
-            . F::Run('IO.Syntax.MySQL', 'Where', $Call);
+            . F::Run(null, 'Table', $Call)
+            . F::Run(null, 'Where', $Call);
     });

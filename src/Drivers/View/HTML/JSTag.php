@@ -19,7 +19,7 @@
                                                                'Storage' => 'JS',
                                                                'Scope'   => $Asset.'/js',
                                                                'Execute' => 'Version',
-                                                               'Where'   => $JSFile
+                                                               'Where'   => $ID
                                                          ));
         }
 
@@ -30,8 +30,6 @@
 
     self::setFn('Process', function ($Call)
     {
-        $JSHash = '';
-
         if (preg_match_all('@<js>(.*)<\/js>@SsUu', $Call['Output'], $Parsed))
         {
             $JSHash = F::Run(null, 'Hash', array ('IDs' => $Parsed[1]));
@@ -70,10 +68,9 @@
                 $Parsed[0] as $cParsed
             )
                 $Call['Output'] = str_replace($cParsed, '', $Call['Output']);
+
+            $Call['Output'] = str_replace('<place>JS</place>', '<script src="/js/' . $JSHash . '.js" type="text/javascript"></script>', $Call['Output']);
         }
 
-        // TODO Codeinize
-
-        $Call['Output'] = str_replace('<place>JS</place>', '<script src="/js/' . $JSHash . '.js" type="text/javascript"></script>', $Call['Output']);
         return $Call;
     });

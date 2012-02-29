@@ -1,10 +1,7 @@
 {
-    "Strategy":
+    "Rendering":
     {
-        "Renderer":
-        {
-            "Service": "View.Strategy.Defined",
-            "Method":  "Select"
-        }
+        "Service": "View.Strategy.Defined",
+        "Method":  "Select"
     }
 }

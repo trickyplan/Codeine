@@ -9,6 +9,6 @@
 
      self::setFn('Load', function ($Call)
      {
-         $Call['Layout'] = F::Run ('View', 'Load', array('Scope' => 'default'), $Call);
+         $Call['Layout'] = F::Run ('View', 'Load', array('Scope' => 'Default'), $Call);
          return $Call;
      });

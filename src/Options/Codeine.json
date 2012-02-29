@@ -7,6 +7,13 @@
     "Behaviours": ["Contract"],
     "Hooks":
     {
-
+        "Service.NotFound":
+        {
+            "ErrorPage":
+            {
+                "Service": "Error.500",
+                "Method": "Page"
+            }
+        }
     }
 }

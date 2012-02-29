@@ -23,7 +23,7 @@
 
     self::setFn ('Read', function ($Call)
     {
-        $Query = F::Run('IO.Syntax.MySQL', 'Read', $Call);
+        $Query = F::Run('IO.Storage.MySQL.Syntax', 'Read', $Call);
 
         $Result = $Call['Link']->query($Query);
 
@@ -48,13 +48,13 @@
             $ReturnID = false;
 
             if (isset($Call['Data']))
-                $Query = F::Run('IO.Syntax.MySQL', 'Update', $Call);
+                $Query = F::Run('IO.Storage.MySQL.Syntax', 'Update', $Call);
             else
-                $Query = F::Run('IO.Syntax.MySQL', 'Delete', $Call);
+                $Query = F::Run('IO.Storage.MySQL.Syntax', 'Delete', $Call);
         }
         else
         {
-            $Query = F::Run('IO.Syntax.MySQL', 'Insert', $Call);
+            $Query = F::Run('IO.Storage.MySQL.Syntax', 'Insert', $Call);
             $ReturnID = true;
         }
 

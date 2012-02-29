@@ -28,14 +28,12 @@
         public static function Bootstrap ($Call = null)
         {
             mb_internal_encoding('UTF-8');
+
             if (isset($_SERVER['Environment']))
                 self::$_Environment = $_SERVER['Environment'];
 
             if (isset($Call['Environment']))
                 self::$_Environment = $Call['Environment'];
-
-            self::$_Stack = new SplStack();
-            self::$_Stack->push('Core');
 
             if (isset($Call['Path']))
             {
@@ -78,7 +76,6 @@
                    if (file_exists($Filenames[$ic] = $Path.'/'.$Name))
                         return $Filenames[$ic];
 
-           //trigger_error($Names[0].' not found'); // FIXME
            return null;
         }
 
@@ -154,36 +151,41 @@
             if ($Method !== null)
                 self::$_Method  = $Method;
 
-            $Call = self::Merge(self::loadOptions(), $Call);
+            $Result = F::Execute(self::$_Service, self::$_Method, $Call);
 
-            self::$_Stack->push($Call);
+            return $Result;
+        }
+
+        protected static function Execute($Service, $Method, $Call)
+        {
+            $Call = self::Merge(self::loadOptions(), $Call);
 
             if (!isset($Call['Result']))
             {
-                if ((null === self::getFn(self::$_Method)) && (null === self::_loadSource (self::$_Service)))
+                if ((null === self::getFn($Method)) && (null === self::_loadSource($Service)))
                 {
-                    trigger_error('Service not found '.self::$_Service); // FIXME ASAP!
-                    $Result = (is_array($Call) && isset($Call['Fallback']))? $Call['Fallback']: null;
+                    $Result = (is_array($Call) && isset($Call['Fallback']))?
+                               $Call['Fallback']                        :
+                               F::Run('Code.Flow.Hook', 'Run', self::$_Options['Codeine'], array ('On'   => 'Service.NotFound',
+                                                                                           'Call' => $Call));
                 }
                 else
-                    {
-                        $F = self::getFn(self::$_Method);
+                {
+                    $F = self::getFn($Method);
 
-                        if (is_callable($F))
-                           $Result = $F($Call);
-                        else
-                           $Result = isset($Call['Fallback'])? $Call['Fallback']: null;
-                    }
+                    if (is_callable($F))
+                        $Result = $F($Call);
+                    else
+                        $Result = isset($Call['Fallback']) ? $Call['Fallback'] : null;
+                }
             }
             else
             {
-                if(is_array ($Call))
-                    $Result =  $Call['Result'];
+                if (is_array($Call))
+                    $Result = $Call['Result'];
                 else
                     $Result = null;
             }
-
-            self::$_Stack->pop();
 
             return $Result;
         }
@@ -210,22 +212,22 @@
             if (self::isCall($Variable))
                 return F::Run($Variable['Service'], $Variable['Method'], $Call, isset($Variable['Call'])? $Variable['Call']: array());
             else
+            {
+                if (is_array($Variable))
+                    foreach ($Variable as &$cVariable)
+                        $cVariable = self::Live($cVariable, $Call);
+                else
+                {
+                    if ('$' == substr($Variable, 0, 1))
+                        $Variable = F::Dot($Call, substr($Variable, 1));
+                }
+
                 return $Variable;
+            }
         }
 
         public static function Shutdown()
         {
-            /*file_put_contents(Root.'/Data/graph.png', F::Run (
-                        array(
-                             'Service' => 'View.Generators.Graphviz',
-                             'Method' => 'Do',
-                             'Graphviz.Layout' => 'dot',
-                             'Title' => 'Calls',
-                             'Value' => self::$_History,
-                             'Formats' => 'png'
-                        )
-                    ));*/
-
             return null; // TODO onShutdown
         }
 
@@ -277,7 +279,7 @@
         public static function Error($errno , $errstr , $errfile , $errline , $errcontext)
         {
             // FIXME
-            echo '<div class="Error"> PHP: '.$errstr.' in <a href="xdebug://'.$errfile.'@'.$errline.'">'.$errfile.':'.$errline.'</a> </div>';
+            echo '<div class="alert-error"> PHP: '.$errstr.' in <a href="xdebug://'.$errfile.'@'.$errline.'">'.$errfile.':'.$errline.'</a> </div>';
             d(__FILE__, __LINE__, self::$_Stack->top());
         }
 
@@ -315,7 +317,7 @@
                         }
                     }
 
-                self::$_Options[$Service] = $Options;
+                    self::$_Options[$Service] = $Options;
             }
 
             return self::$_Options[$Service];
@@ -331,7 +333,17 @@
             return $Call;
         }
 
+        public static function Set ($Key, $Value)
+        {
+            self::$_Storage[$Key] = $Value;
+        }
+
+        public static function Get ($Key)
+        {
+            return isset(self::$_Storage[$Key]) ? self::$_Storage[$Key]: null;
+        }
     }
+
 
     function f()
     {

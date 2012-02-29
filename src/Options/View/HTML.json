@@ -7,7 +7,7 @@
             {
                 "Service": "View.HTML.Layout",
                 "Method": "Load",
-                "Scope": "default",
+                "Scope": "Default",
                 "Call":
                 {
                     "ID": "Main"

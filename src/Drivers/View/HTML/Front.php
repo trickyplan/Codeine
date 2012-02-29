@@ -15,12 +15,11 @@
 
             $sz = sizeof($Slices);
 
-            $Asset = strtolower($Slices[0]);
+            $Asset = $Slices[0];
 
             $IDs = array('Main');
             for ($ic = 1; $ic < $sz; $ic++)
                 $IDs[] = implode('/', array_slice($Slices, 1, $ic));
-
 
             foreach ($IDs as $ID)
                 if (null !== (($Sublayout = F::Run('View', 'LoadParsed', $Call,

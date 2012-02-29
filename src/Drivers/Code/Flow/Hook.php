@@ -9,10 +9,9 @@
 
      self::setFn('Run', function ($Call)
      {
-         if (isset($Call['Hooks'][$Call['On']]))
-             foreach ($Call['Hooks'][$Call['On']] as $Name => $Hook)
+         if ($Hooks = F::Dot($Call, 'Hooks.'.$Call['On']))
+             foreach ($Hooks as $Name => $Hook)
                  $Call = F::Run($Hook['Service'], $Hook['Method'], $Call, isset($Hook['Call'])? $Hook['Call']: array());
-
 
          return $Call;
      });

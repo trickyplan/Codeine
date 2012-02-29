@@ -9,18 +9,18 @@
 
     self::setFn ('Page', function ($Call)
     {
-        $Call['Headers']['HTTP/1.0'] = '404 Not Found';
+        $Call['Headers']['HTTP/1.0'] = '500 Internal Server Error';
 
-        $Call['Title'] = '404';
+        $Call['Title'] = '500';
         $Call['Description'] = 'TODO';
         $Call['Keywords'] = array ('TODO');
 
         $Call['Output']['Content'] = array (array (
                                                 'Type'  => 'Template',
-                                                'Scope' => 'Errors',
-                                                'Value' => '404',
+                                                'Scope' => 'Error',
+                                                'Value' => '500',
                                                 'Data' => array(
-                                                    'Suggestion' => F::Live($Call['Prediction'], $Call)
+
                                                 )
                                             ));
         return $Call;
