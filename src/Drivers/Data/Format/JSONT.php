@@ -10,6 +10,7 @@
     * @version 7.2
     */
 
+    // FIXME Глобальный неймспейс лучше не трогать
     function expand ($a, $e = null)
     {
         if (!is_null($e)) $a = str_replace('$', $e, $a);
