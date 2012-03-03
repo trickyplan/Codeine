@@ -20,11 +20,6 @@
         protected static $_Storage;
         protected static $_History = array();
 
-        /**
-             * @var SplStack;
-             */
-        protected static $_Stack;
-
         public static function Bootstrap ($Call = null)
         {
             mb_internal_encoding('UTF-8');
@@ -156,35 +151,25 @@
             return $Result;
         }
 
-        protected static function Execute($Service, $Method, $Call)
+        public static function Execute($Service, $Method, $Call)
         {
             $Call = self::Merge(self::loadOptions(), $Call);
 
-            if (!isset($Call['Result']))
+            if ((null === self::getFn($Method)) && (null === self::_loadSource($Service)))
             {
-                if ((null === self::getFn($Method)) && (null === self::_loadSource($Service)))
-                {
-                    $Result = (is_array($Call) && isset($Call['Fallback']))?
-                               $Call['Fallback']                        :
-                               F::Run('Code.Flow.Hook', 'Run', self::$_Options['Codeine'], array ('On'   => 'Service.NotFound',
-                                                                                           'Call' => $Call));
-                }
-                else
-                {
-                    $F = self::getFn($Method);
-
-                    if (is_callable($F))
-                        $Result = $F($Call);
-                    else
-                        $Result = isset($Call['Fallback']) ? $Call['Fallback'] : null;
-                }
+                $Result = (is_array($Call) && isset($Call['Fallback']))?
+                           $Call['Fallback']                        :
+                           F::Run('Code.Flow.Hook', 'Run', self::$_Options['Codeine'], array ('On'   => 'Service.NotFound',
+                                                                                       'Call' => $Call));
             }
             else
             {
-                if (is_array($Call))
-                    $Result = $Call['Result'];
+                $F = self::getFn($Method);
+
+                if (is_callable($F))
+                    $Result = $F($Call);
                 else
-                    $Result = null;
+                    $Result = isset($Call['Fallback']) ? $Call['Fallback'] : null;
             }
 
             return $Result;
@@ -228,6 +213,7 @@
 
         public static function Shutdown()
         {
+            F::Run('IO', 'Close', array('Storage' => 'Developer'));
             return null; // TODO onShutdown
         }
 
@@ -278,15 +264,12 @@
 
         public static function Error($errno , $errstr , $errfile , $errline , $errcontext)
         {
-            // FIXME
             echo '<div class="alert-error"> PHP: '.$errstr.' in <a href="xdebug://'.$errfile.'@'.$errline.'">'.$errfile.':'.$errline.'</a> </div>';
-            d(__FILE__, __LINE__, self::$_Stack->top());
         }
 
-        public static function loadOptions($Service = null, $Method = null)
+        public static function loadOptions($Service = null)
         {
             $Service = ($Service == null)? self::$_Service: $Service;
-            $Method = ($Method  == null) ? self::$_Method : $Method;
 
             if (!isset(self::$_Options[$Service]))
             {
@@ -295,11 +278,9 @@
                     if ($Filenames = self::findFiles (
                         array(
                              'Options/'.strtr($Service, '.', '/').'.'.self::$_Environment.'.json',
-                             'Options/'.strtr($Service, '.', '/').'.json',
-                             'Options/'.strtr($Service, '.', '/').'/'.$Method.'.'.self::$_Environment.'.json',
-                             'Options/'.strtr($Service, '.', '/').'/'.$Method.'.json')
+                             'Options/'.strtr($Service, '.', '/').'.json'
                         )
-                    )
+                    ))
                     {
                         $Options = array();
 
@@ -309,7 +290,7 @@
 
                             if ($Filename && !$Current)
                             {
-                                trigger_error('JSON file corrupted: ' . $Filename); //FIXME
+                                trigger_error('JSON: ' . $Filename.':'. json_last_error()); //FIXME
                                 return null;
                             }
 
@@ -335,7 +316,7 @@
 
         public static function Set ($Key, $Value)
         {
-            self::$_Storage[$Key] = $Value;
+            return self::$_Storage[$Key] = $Value;
         }
 
         public static function Get ($Key)

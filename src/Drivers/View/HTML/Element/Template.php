@@ -9,7 +9,7 @@
 
      self::setFn('Make', function ($Call)
      {
-         $Layout = F::Run('View', 'Load', $Call, array ('Scope' => $Call['Scope'], 'ID' => $Call['Value']));
+         $Layout = F::Run('View', 'Load', $Call, array ('ID' => $Call['Value']));
 
          while (preg_match_all ('@<k>(.*)</k>@SsUu', $Layout, $Pockets))
          {
