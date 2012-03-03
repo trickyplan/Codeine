@@ -1,0 +1,10 @@
+{
+    "Processors":
+    {
+        "Mixin":
+        {
+            "Service": "Entity.Mixin",
+            "Method": "Process"
+        }
+    }
+}

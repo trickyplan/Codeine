@@ -1,0 +1,10 @@
+{
+    "Nodes":
+    {
+        "Count":
+        {
+            "Type": "Integer",
+            "Min": 0
+        }
+    }
+}

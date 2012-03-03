@@ -113,6 +113,13 @@
 
     self::setFn('Model', function ($Call)
     {
-        // TODO Realize Model
-        return F::loadOptions('Entity.'.$Call['Entity']);
+        $Call['Model'] = F::loadOptions('Entity.'.$Call['Entity']);
+
+        if (isset($Call['Processors']))
+        {
+            foreach ($Call['Processors'] as $Processor)
+                $Call['Model'] = F::Live($Processor, $Call);
+        }
+
+        return $Call['Model'];
     });

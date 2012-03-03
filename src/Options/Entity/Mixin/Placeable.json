@@ -1,0 +1,18 @@
+{
+    "Nodes":
+    {
+        "Lattitude":
+        {
+            "Type": "Float"
+        },
+        "Longitude":
+        {
+            "Type":"Float"
+        },
+        "Altitude":
+        {
+            "Type":"Float",
+            "Default": 0
+        }
+    }
+}
