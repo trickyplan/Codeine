@@ -32,6 +32,12 @@
             "Scope":"css",
             "Suffix":".css"
         },
+        "LESS":
+        {
+            "Driver":"IO.Storage.Directory",
+            "Directory":"Assets",
+            "Suffix":".less"
+        },
         "JS":{
             "Driver":"IO.Storage.Directory",
             "Directory":"Assets",
@@ -42,6 +48,14 @@
             "Directory":"Public",
             "Scope":"js",
             "Suffix":".js"
+        },
+        "Run Cache":
+        {
+            "Driver":"IO.Storage.XCache"
+        },
+        "Developer":
+        {
+            "Driver":"IO.Log.Console"
         }
     },
     "Methods":

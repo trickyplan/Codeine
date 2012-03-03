@@ -59,7 +59,7 @@
 
     self::setFn('Asset.Route', function ($Call)
     {
-        if (mb_strpos($Call['Value'], ':') !== false)
+        if (strpos($Call['Value'], ':') !== false)
             return explode(':', $Call['Value']);
         else
             return array ($Call['Value'], $Call['Value']);

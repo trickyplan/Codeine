@@ -15,7 +15,7 @@
         {
             list($Asset, $ID) = F::Run('View', 'Asset.Route', array ('Value' => $CSSFile));
 
-            $Hash[] = $CSSFile .rand(). F::Run('IO', 'Execute', array (
+            $Hash[] = $CSSFile .F::Run('IO', 'Execute', array (
                                                                'Storage' => 'CSS',
                                                                'Scope'   => $Asset.'/css',
                                                                'Execute' => 'Version',
@@ -27,14 +27,6 @@
         }
 
         return sha1(implode('', $Hash));
-    });
-
-    self::setFn('Parse', function ($Call)
-    {
-        if (mb_strpos($Call['Value'], ':') !== false)
-            return explode(':', $Call['Value']);
-        else
-            return array($Call['Value'], $Call['Value']);
     });
 
     self::setFn ('Process', function ($Call)
@@ -91,7 +83,7 @@
         }
 
         // TODO Codeinize
-        $Call['Output'] = str_replace('<place>CSS</place>', '<link href="/css/'.$CSSHash.'.css" rel="stylesheet" >', $Call['Output']);
+        $Call['Output'] = str_replace('<place>CSS</place>', '<link href="/css/'.$CSSHash.'.css" rel="stylesheet" />', $Call['Output']);
 
         return $Call;
     });

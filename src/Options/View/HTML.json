@@ -36,6 +36,11 @@
                 "Service":"View.HTML.Minify",
                 "Method":"Process"
             },
+            "LESS":
+            {
+                "Service":"View.HTML.LESSTag",
+                "Method":"Process"
+            },
             "CSS":
             {
                 "Service":"View.HTML.CSSTag",
