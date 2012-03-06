@@ -22,7 +22,7 @@
              if(in_array($Key, $Call['Selected']))
                  $Options[] = '<option value="'.$Key.'" selected>'.$Value.'</option>';
              else
-                $Options[] = '<option value="' . $Key . '">' . $Value . '</option>';
+                 $Options[] = '<option value="' . $Key . '">' . $Value . '</option>';
 
          $Call['Value'] = implode('', $Options);
 

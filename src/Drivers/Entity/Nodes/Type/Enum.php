@@ -11,3 +11,8 @@
     {
         return $Call['Value'];
     });
+
+    self::setFn('Output', function ($Call)
+    {
+        return $Call['Value'];
+    });

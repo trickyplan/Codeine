@@ -1,0 +1,15 @@
+{
+    "Storage": "Test",
+    "Nodes":
+    {
+        "Title":
+        {
+            "Type": "String",
+            "Default": "Default title"
+        },
+        "Body":
+        {
+            "Type": "Text"
+        }
+    }
+}

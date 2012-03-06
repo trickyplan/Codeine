@@ -2,7 +2,7 @@
 
     /**
      * @author BreathLess
-     * @date 27.08.11
+     * @date 27.28.11
      * @time 5:17
      */
 
@@ -10,12 +10,12 @@
 
     F::Bootstrap();
 
-    F::Run(
-        'System.Interface.Web',
-        'Run',
-            array(
-                 'Service' => 'Code.Flow.Front',
-                 'Method'  => 'Run'
-            )
-    );
+    $Call = F::Run(
+            'System.Interface.Web',
+            'Run',
+                array(
+                     'Service' => 'Code.Flow.Front',
+                     'Method'  => 'Run'
+                )
+        );
 

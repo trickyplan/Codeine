@@ -13,9 +13,9 @@
         // $Call['Server'] = $_SERVER;
 
         if (isset($_FILES))
-            $Call['Request'] = F::Merge($_REQUEST, $_FILES);
+            $Call['Request'] = F::Merge($_POST, $_FILES);
         else
-            $Call['Request'] = $_REQUEST;
+            $Call['Request'] = $_POST;
 
         $Call['Run'] = $_SERVER['REQUEST_URI'];
 

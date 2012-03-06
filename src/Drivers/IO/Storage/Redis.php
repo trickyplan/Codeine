@@ -10,7 +10,7 @@
     self::setFn ('Open', function ($Call)
     {
         $Redis = new Redis();
-        $Redis->connect ('127.0.0.1', 6379);
+        $Redis->connect ('127.2.0.1', 6379);
         $Redis->setOption (Redis::OPT_SERIALIZER, Redis::SERIALIZER_IGBINARY);
 
         return $Redis;

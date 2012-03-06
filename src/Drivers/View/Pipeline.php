@@ -16,7 +16,17 @@
                 if (is_array($Call['Output']))
                     foreach ($Call['Output'] as $Place => $Widgets)
                         foreach ($Widgets as $Key => $Widget)
-                            $Call['Output'][$Place][$Key] = F::Run($Call['Renderer'] . '.Element.' . $Widget['Type'], 'Make', $Widget);
+                            $Call['Output'][$Place][$Key] = F::Run(
+                                'Code.Run.Cached', 'Run',
+                                array(
+                                     'Run' =>
+                                         array(
+                                             'Service' => $Call['Renderer'] . '.Element.' . $Widget['Type'],
+                                             'Method'  => 'Make',
+                                             'Call'    => $Widget
+                                         )
+                                )
+                            );
             }
             else
                 $Call['Output']['Content'] = array ('No output'); // FIXME Add Hook

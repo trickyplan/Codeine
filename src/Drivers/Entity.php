@@ -11,42 +11,24 @@
     {
         $Model = F::Run('Entity', 'Model', $Call);
 
-        // TODO Heterogenic mapping
-        $Created = array();
-
         foreach ($Model['Nodes'] as $Name => $Node)
         {
-            if (F::isCall($Node))
-                $Created[$Name] = F::Run($Node['Service'], $Node['Method'],
-                    $Node['Call'],
-                    array(
-                         'Data' => F::Merge($Call['Data'], $Created),
-                         'Node' => $Name));
-            else
+            foreach ($Call['Processors']['Nodes'] as $Processor)
             {
-                if (isset($Call['Data'][$Name]))
-                    $Created[$Name] = $Call['Data'][$Name];
-                else
-                {
-                    if(isset($Node['Default']))
-                        $Created[$Name] = $Node['Default'];
-                }
+                $Call['Data'][$Name] = F::Live($Processor, array('Method' => 'Write', 'Data' => $Call['Data'], 'Name' => $Name, 'Node' => $Node));
             }
         }
 
-        $Call['RAW'] = $Call['Data']; // FIXME
-        $Call['Data'] = array(); // FIXME
-
-        $Created['ID'] = F::Run('IO', 'Write', $Call,
+        $Call['Data']['ID'] = F::Run('IO', 'Write', $Call,
             array (
                   'Storage' => $Model['Storage'],
-                  'Scope' => $Call['Entity'],
-                  'Data' => $Created
+                  'Scope' => $Call['Entity']
             ));
-        // FIXME
-        F::Run('Code.Flow.Hook', 'Run', $Call, $Model, array ('Data' => $Created, 'On' => 'afterCreate'));
 
-        return $Created;
+        // FIXME
+        F::Run('Code.Flow.Hook', 'Run', $Call, $Model, array ('On' => 'afterCreate'));
+
+        return $Call['Data'];
     });
 
     self::setFn('Read', function ($Call)
@@ -64,37 +46,30 @@
     {
         $Model = F::Run('Entity', 'Model', $Call);
 
-        $Updated = array();
-
         foreach ($Model['Nodes'] as $Name => $Node)
         {
             if (F::isCall($Node))
                 {
-                    if ($Response =  F::Run($Node['Service'], $Node['Method'], $Node['Call'], array ('Data' => $Call['Data'],
-                                                                                                    'Node'  => $Name)) !== null)
-                        $Updated[$Name] = $Response;
+                    if ($Response =  F::Live($Node, array ('Data' => $Call['Data'], 'Node'  => $Name)) !== null)
+                        $Call['Data'][$Name] = $Response;
                 }
             else
                 {
                     if (isset($Call['Data'][$Name]))
-                        $Updated[$Name] = $Call['Data'][$Name];
+                        $Call['Data'][$Name] = $Call['Data'][$Name];
                 }
         }
 
-        $Call['RAW'] = $Call['Data']; // FIXME
-        $Call['Data'] = array();
-
-
+        d(__FILE__, __LINE__, $Call);
         F::Run('IO', 'Write', $Call,
             array (
                   'Storage' => $Model['Storage'],
-                  'Scope'   => $Call['Entity'],
-                  'Data'    => $Updated,
+                  'Scope'   => $Call['Entity']
             ));
 
-        F::Run('Code.Flow.Hook', 'Run', $Call, $Model, array ('Data' => $Updated,
-                                                             'On'    => 'afterUpdate'));
-        return $Updated;
+        F::Run('Code.Flow.Hook', 'Run', $Call, $Model, array ('On'    => 'afterUpdate'));
+
+        return $Call['Data'];
     });
 
     self::setFn('Delete', function ($Call)
@@ -115,9 +90,9 @@
     {
         $Call['Model'] = F::loadOptions('Entity.'.$Call['Entity']);
 
-        if (isset($Call['Processors']))
+        if (isset($Call['Processors']['Model']))
         {
-            foreach ($Call['Processors'] as $Processor)
+            foreach ($Call['Processors']['Model'] as $Processor)
                 $Call['Model'] = F::Live($Processor, $Call);
         }
 

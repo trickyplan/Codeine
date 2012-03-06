@@ -58,7 +58,7 @@
 
     self::setFn('Table', function ($Call)
     {
-        return '`' . $Call['Scope'] . '` ';
+        return '`' . strtr($Call['Scope'],array('/' => '', '.' => '')) . '` ';
     });
 
     self::setFn ('Scope', function ($Call)
@@ -114,8 +114,8 @@
     self::setFn('Read', function (array $Call)
     {
         return 'select '
-               .F::Run(null, 'Keys', $Call)
-               .F::Run(null, 'Scope', $Call)
+               .F::Run(null, 'Keys', $Call).
+               'from '.F::Run(null, 'Table', $Call)
                .F::Run(null, 'Where', $Call)
                .F::Run(null, 'Sort', $Call);
     });

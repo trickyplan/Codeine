@@ -1,6 +1,10 @@
 {
     "Storages":
     {
+        "Test":
+        {
+            "Driver": "IO.Storage.Test"
+        },
         "Static":
         {
             "Driver":"IO.Storage.Directory",

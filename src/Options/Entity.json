@@ -1,10 +1,20 @@
 {
     "Processors":
     {
-        "Mixin":
+        "Model":
         {
-            "Service": "Entity.Mixin",
-            "Method": "Process"
+            "Mixin":{
+                "Service":"Entity.Model.Mixin",
+                "Method":"Process"
+            }
+        },
+        "Nodes":
+        {
+            "Default":
+            {
+                "Service":"Entity.Nodes.Default",
+                "Method":"Process"
+            }
         }
     }
 }

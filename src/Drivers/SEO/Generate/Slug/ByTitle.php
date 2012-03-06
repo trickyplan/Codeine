@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description  
      * @package Codeine
-     * @version 7.0
+     * @version 7.2
      */
 
     self::setFn('Generate', function ($Call)
@@ -14,7 +14,8 @@
         if (is_array($Call['Key']))
         {
             foreach ($Call['Key'] as $cKey)
-                $Call['Value'][]= $Call['Data'][$cKey];
+                if (!empty($Call['Data'][$cKey]))
+                    $Call['Value'][]= $Call['Data'][$cKey];
 
             $Call['Value'] = implode($Call['Delimiter'], $Call['Value']);
         }

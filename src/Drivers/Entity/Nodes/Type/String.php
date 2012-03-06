@@ -7,7 +7,12 @@
      * @version 7.2
      */
 
-    self::setFn ('Input', function ($Call)
+    self::setFn('Input', function ($Call)
+    {
+        return $Call['Value'];
+    });
+
+    self::setFn('Output', function ($Call)
     {
         return $Call['Value'];
     });

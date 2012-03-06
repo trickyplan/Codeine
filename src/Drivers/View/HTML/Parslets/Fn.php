@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description Exec Parslet 
      * @package Codeine
-     * @version 7.0
+     * @version 7.2
      */
 
      self::setFn('Parse', function ($Call)
@@ -14,9 +14,7 @@
               $Match = simplexml_load_string('<?xml version=\'1.0\'?><exec>'.$Match.'</exec>');
               $Match = json_decode(json_encode($Match), true);
 
-              $Output = F::Live($Match, array(
-                                             'Fallback' => 'fn tag failed'
-                                        ));
+              $Output = F::Live($Match);
 
               if (is_array($Output))
                   $Output = implode(',', $Output);
