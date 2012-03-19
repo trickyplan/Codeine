@@ -19,7 +19,6 @@
 
             $Call['Value'] = implode($Call['Delimiter'], $Call['Value']);
         }
-
         else
             $Call['Value'] = $Call['Data'][$Call['Key']];
 
