@@ -47,18 +47,13 @@
     {
         if (isset($Call['Where']))
         {
-            $ReturnID = false;
-
             if (isset($Call['Data']))
                 $Query = F::Run('IO.Storage.MySQL.Syntax', 'Update', $Call);
             else
                 $Query = F::Run('IO.Storage.MySQL.Syntax', 'Delete', $Call);
         }
         else
-        {
             $Query = F::Run('IO.Storage.MySQL.Syntax', 'Insert', $Call);
-            $ReturnID = true;
-        }
 
         F::Log($Query);
 
