@@ -29,6 +29,8 @@
 
         echo $Call['Output'];
 
+        ob_flush();
+
         return $Call;
     });
 
