@@ -11,5 +11,5 @@
 
     self::setFn('Get', function ($Call)
     {
-        return rand(0, 4294967295);
+        return rand(0, 2147483647);
     });

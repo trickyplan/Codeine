@@ -25,10 +25,9 @@
     {
         $Query = F::Run('IO.Storage.MySQL.Syntax', 'Read', $Call);
 
-        $Result = $Call['Link']->query($Query);
+        F::Log($Query);
 
-        if (isset($Call['Debug']))
-            d(__FILE__, __LINE__, $Query);
+        $Result = $Call['Link']->query($Query);
 
         $Data = array();
 
@@ -58,8 +57,7 @@
             $ReturnID = true;
         }
 
-        if (isset($Call['Debug']))
-            d(__FILE__, __LINE__, $Query);
+        F::Log($Query);
 
         $Result = $Call['Link']->query($Query);
 

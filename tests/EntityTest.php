@@ -2,14 +2,15 @@
 
     class EntityTest extends PHPUnit_Framework_TestCase
     {
-        public function testCreate()
+        public function testUpdate()
         {
-            F::Run('Entity', 'Create', array(
+            F::Run('Entity', 'Update', array(
                                             'Entity' => 'Test',
                                             'Data' =>
                                                 array(
                                                     'Key' => 'Value'
-                                                )
+                                                ),
+                                            'Where' => 'ID'
                                        ));
         }
     }

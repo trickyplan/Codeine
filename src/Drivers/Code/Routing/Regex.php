@@ -23,8 +23,7 @@
                     if (is_scalar($Value) && isset($Matches[$Value]))
                         $Rule['Call'][$Key] = $Matches[$Value];
 
-                if (isset($Rule['Debug']) && $Rule['Debug'] === true)
-                    d(__FILE__, __LINE__, $Rule);
+                F::Run('IO', 'Write', array('Storage' => 'Developer', 'Level' => 'Info', 'Data' => 'Regex Router Match: '.$Rule['Match']));
 
                 return $Rule;
             }

@@ -55,7 +55,7 @@
 
     self::setFn ('Write', function ($Call)
     {
-        $Call = F::Run('IO', 'Open', $Call);
+        $Call = F::Merge(F::Run('IO', 'Open', $Call), $Call);
 
         // Если в Where простая переменная - это ID.
         if (isset($Call['Where']) && is_scalar($Call['Where']))

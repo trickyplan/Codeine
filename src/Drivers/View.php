@@ -10,23 +10,8 @@
 
     self::setFn('Parse', function ($Call)
     {
-        if (preg_match_all('@<k>(.*)</k>@SsUu', $Call['Value'], $Pockets))
-        {
-            foreach (
-                $Pockets[1] as $IX => $Match
-            )
-            {
-                if (isset($Call['Data'][$Match]))
-                {
-                    if (is_array($Call['Data'][$Match]))
-                        $Call['Data'][$Match] = implode(' ', $Call[$Match]);
-
-                    $Call['Value'] = str_replace($Pockets[0][$IX], $Call['Data'][$Match], $Call['Value']);
-                }
-                else
-                    $Call['Value'] = str_replace($Pockets[0][$IX], '', $Call['Value']);
-            }
-        }
+        foreach ($Call['Parsers'] as $Parser)
+            $Call['Value'] = F::Live($Parser, $Call);
 
         return $Call['Value'];
     });

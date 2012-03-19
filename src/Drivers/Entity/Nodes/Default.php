@@ -9,13 +9,15 @@
 
     self::setFn('Process', function ($Call)
     {
-        if (!isset($Call['Data'][$Call['Name']]))
+        foreach ($Call['Nodes'] as $Name => $Node)
         {
-            if (isset($Call['Node']['Default']))
-                return F::Live($Call['Node']['Default']);
-            else
-                return null;
+            if (!isset($Call['Data'][$Name]))
+            {
+                if (isset($Node['Default']))
+                    $Call['Data'][$Name] = F::Live($Node['Default']); // FIXME Add flag
+                else
+                    $Call['Data'][$Name] = null;
+            }
         }
-        else
-            return $Call['Data'][$Call['Name']];
+        return $Call;
     });

@@ -17,11 +17,13 @@
         protected static $_Code;
         protected static $_Service = 'Codeine';
         protected static $_Method = 'Do';
-        protected static $_Storage;
-        protected static $_History = array();
+        protected static $_Storage = array();
+        protected static $_Speed;
 
         public static function Bootstrap ($Call = null)
         {
+            self::$_Speed = array(microtime(true), memory_get_usage(), 0);
+
             mb_internal_encoding('UTF-8');
 
             if (isset($_SERVER['Environment']))
@@ -43,7 +45,7 @@
             self::loadOptions();
 
             register_shutdown_function ('F::Shutdown');
-            // set_error_handler ('F::Error'); // Instability
+            set_error_handler ('F::Error'); // Instability
         }
 
         public static function Merge($First, $Second)
@@ -99,7 +101,7 @@
                 $Filename = self::findFile(self::$_Options['Codeine']['Driver']['Path'].'/'.$Path.self::$_Options['Codeine']['Driver']['Extension']);
 
             if ($Filename)
-                return (include $Filename);
+                return (include_once $Filename);
             else
             {
                 return null;
@@ -131,6 +133,8 @@
          */
         public static function Run($Service, $Method, $Call = array())
         {
+            self::$_Speed[2]++;
+
             // TODO Infinite cycle protection
 
             if (($sz = func_num_args())>3)
@@ -195,7 +199,16 @@
         public static function Live($Variable, $Call = array())
         {
             if (self::isCall($Variable))
+            {
+                if (($sz = func_num_args())>2)
+                {
+                    for($ic = 2; $ic<$sz; $ic++)
+                        if (is_array($Argument = func_get_arg ($ic)))
+                            $Call = F::Merge($Call, $Argument);
+                }
+
                 return F::Run($Variable['Service'], $Variable['Method'], $Call, isset($Variable['Call'])? $Variable['Call']: array());
+            }
             else
             {
                 if (is_array($Variable))
@@ -213,6 +226,7 @@
 
         public static function Shutdown()
         {
+            F::Run('Code.Run.Delayed', 'Flush');
             F::Run('IO', 'Close', array('Storage' => 'Developer'));
             return null; // TODO onShutdown
         }
@@ -264,7 +278,27 @@
 
         public static function Error($errno , $errstr , $errfile , $errline , $errcontext)
         {
-            echo '<div class="alert-error"> PHP: '.$errstr.' in <a href="xdebug://'.$errfile.'@'.$errline.'">'.$errfile.':'.$errline.'</a> </div>';
+            return F::Run(
+                'IO', 'Write',
+                array(
+                     'Storage' => 'Developer',
+                     'Type' => 'Error',
+                     'Data' => $errstr.' '.$errfile.'@'.$errline
+                )
+            );
+        }
+
+        public static function Log ($Message, $Type = 'Info', $Tags = '')
+        {
+            return F::Run(
+                'IO', 'Write',
+                array(
+                     'Storage' => 'Developer',
+                     'Type' => $Type,
+                     'Data' => $Message,
+                     'Tags' => $Tags
+                )
+            );
         }
 
         public static function loadOptions($Service = null)
@@ -323,6 +357,14 @@
         {
             return isset(self::$_Storage[$Key]) ? self::$_Storage[$Key]: null;
         }
+
+        public static function Speed()
+        {
+            $Time = (microtime(true)-self::$_Speed[0]);
+            $Memory = memory_get_peak_usage()-self::$_Speed[1];
+            return 'SI:'.(round(1/(($Memory/1048576)*$Time), 2)).'('.self::$_Speed[2].')'; // megabyte-second
+        }
+
     }
 
 

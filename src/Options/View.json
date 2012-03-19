@@ -1,4 +1,22 @@
 {
+    "Parsers":
+    {
+        "Layout":
+        {
+            "Service": "View.Parser.Layout",
+            "Method": "Parse"
+        },
+        "KeyBlock":
+        {
+            "Service": "View.Parser.KeyBlock",
+            "Method": "Parse"
+        },
+        "Key":
+        {
+            "Service": "View.Parser.Key",
+            "Method": "Parse"
+        }
+    },
     "Rendering":
     {
         "Service": "View.Strategy.Defined",

@@ -57,9 +57,13 @@
         {
             "Driver":"IO.Storage.XCache"
         },
+        "Run Queue":
+        {
+            "Driver":"IO.Queue.SPL"
+        },
         "Developer":
         {
-            "Driver":"IO.Log.Console"
+            "Driver":"IO.Log.ChromePhp"
         }
     },
     "Methods":

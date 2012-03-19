@@ -19,7 +19,17 @@
             $Keys = '('.implode (',', $Keys).')';
         }
         else
-            $Keys = '*';
+        {
+            if(isset($Call['Keys']))
+            {
+                foreach ($Call['Keys'] as $Key)
+                    $Keys[] = $Call['Link']->real_escape_string ($Key);
+
+                $Keys = '('.implode (',', $Keys).')';
+            }
+            else
+                $Keys = '*';
+        }
 
         return $Keys;
     });
@@ -58,12 +68,7 @@
 
     self::setFn('Table', function ($Call)
     {
-        return '`' . strtr($Call['Scope'],array('/' => '', '.' => '')) . '` ';
-    });
-
-    self::setFn ('Scope', function ($Call)
-    {
-        return ' from `'.$Call['Scope'].'`';
+        return '`' . strtr($Call['Scope'],array('/' => '', '.' => '')) . '`';
     });
 
     self::setFn('Sort', function ($Call)
@@ -98,9 +103,15 @@
                 $Relation = '=';
 
                 if (is_array($Value))
-                    list($Relation, $Value) = $Value;
+                {
+                    foreach ($Value as $Relation => &$Value)
+                        if (is_array($Value))
+                            $Value = '('.implode(',', $Value).')';
+                }
+                else
+                    $Value = '\''.$Call['Link']->real_escape_string($Value).'\'';
 
-                $Conditions[] = '`'.$Key.'` '. $Relation.' \''.$Call['Link']->real_escape_string($Value).'\'';
+                $Conditions[] = '`'.$Key.'` '. $Relation.' '.$Value.'';
             }
 
             $WhereString = $WhereString . ' ' . implode(' AND ', $Conditions);
@@ -115,7 +126,7 @@
     {
         return 'select '
                .F::Run(null, 'Keys', $Call).
-               'from '.F::Run(null, 'Table', $Call)
+               ' from '.F::Run(null, 'Table', $Call)
                .F::Run(null, 'Where', $Call)
                .F::Run(null, 'Sort', $Call);
     });

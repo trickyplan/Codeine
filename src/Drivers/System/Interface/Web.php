@@ -25,12 +25,10 @@
             foreach ($Call['Headers'] as $Key => $Value)
                 header ($Key . ' ' . $Value);
 
-        if (isset($Call['Start']))
-            $Call['Output'] = str_replace('<gentime/>', round((microtime(true) - $Call['Start'])*1000), $Call['Output']);
+        F::Log(F::Speed());
 
         echo $Call['Output'];
 
-        ob_flush ();
         return $Call;
     });
 

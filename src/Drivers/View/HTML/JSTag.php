@@ -42,11 +42,12 @@
                 {
                     list($Asset, $ID) = F::Run('View', 'Asset.Route', array ('Value' => $JSFile));
 
-                    $JS[] = F::Run('IO', 'Read', array (
+                    if(null == ($JS[] = F::Run('IO', 'Read', array (
                                                         'Storage' => 'JS',
                                                         'Scope'   => $Asset . '/js',
                                                         'Where'   => $ID
-                                                  ));
+                                                  ))))
+                        trigger_error('No JS: '.$JSFile);
                 }
 
                 $JS = implode('', $JS);

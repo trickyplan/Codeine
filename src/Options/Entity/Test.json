@@ -10,6 +10,15 @@
         "Body":
         {
             "Type": "Text"
+        },
+        "Live":
+        {
+            "Service": "Security.Hash.MD5",
+            "Method": "Get",
+            "Call":
+            {
+                "Value": "Test"
+            }
         }
     }
 }

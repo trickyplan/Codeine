@@ -36,7 +36,7 @@
                     $Pockets[1] as $IX => $Match
                 )
                 {
-                    $Slices   = explode('.', $Match);
+                    $Slices   = explode('.', trim($Match));
                     $szSlices = sizeof($Slices);
 
                     $TrueMatch = false;

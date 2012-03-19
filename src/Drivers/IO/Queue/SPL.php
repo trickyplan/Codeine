@@ -2,26 +2,23 @@
 
     /* Codeine
      * @author BreathLess
-     * @description Console Object Support
+     * @description  
      * @package Codeine
      * @version 7.2
      */
 
     self::setFn('Open', function ($Call)
     {
-        return array ();
+        return new SplQueue();
     });
 
     self::setFn('Write', function ($Call)
     {
-        PhpConsole::debug($Call['Data']);
-
+        $Call['Link']->enqueue($Call['Data']);
         return $Call;
     });
 
-    self::setFn('Close', function ($Call)
+    self::setFn('Read', function ($Call)
     {
-
-
-        return $Call;
+       return $Call['Link']->isEmpty()? null: $Call['Link']->dequeue();
     });

@@ -1,19 +1,56 @@
 {
-    "Processors":
+    "Hooks":
     {
-        "Model":
+        "afterLoad":
         {
-            "Mixin":{
+            "Add mixins":
+            {
                 "Service":"Entity.Model.Mixin",
                 "Method":"Process"
             }
         },
-        "Nodes":
+        "beforeCreate":
         {
-            "Default":
+            "Add default values for undefined":
             {
                 "Service":"Entity.Nodes.Default",
                 "Method":"Process"
+            },
+            "Datatypes":
+            {
+                "Service":"Entity.Nodes.Type",
+                "Method":"Write"
+            },
+            "Make variables alive":
+            {
+                "Service":"Entity.Nodes.Live",
+                "Method":"Process"
+            }
+        },
+        "beforeUpdate":
+        {
+            "Datatypes":
+            {
+                "Service":"Entity.Nodes.Type",
+                "Method":"Write"
+            },
+            "Make variables alive":
+            {
+                "Service":"Entity.Nodes.Live",
+                "Method":"Process"
+            },
+            "Add default values for undefined":
+            {
+                "Service":"Entity.Nodes.Default",
+                "Method":"Process"
+            }
+        },
+        "afterRead":
+        {
+            "Datatypes":
+            {
+                "Service":"Entity.Nodes.Type",
+                "Method":"Read"
             }
         }
     }

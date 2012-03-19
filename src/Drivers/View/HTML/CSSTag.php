@@ -80,10 +80,11 @@
 
             foreach ($Parsed[0] as $cParsed)
                 $Call['Output'] = str_replace($cParsed, '', $Call['Output']);
-        }
 
-        // TODO Codeinize
-        $Call['Output'] = str_replace('<place>CSS</place>', '<link href="/css/'.$CSSHash.'.css" rel="stylesheet" />', $Call['Output']);
+            $Call['Output'] = str_replace('<place>CSS</place>', '<link href="/css/'.$CSSHash.'.css" rel="stylesheet" />', $Call['Output']);
+        }
+        else
+            $Call['Output'] = str_replace('<place>CSS</place>', '', $Call['Output']);
 
         return $Call;
     });

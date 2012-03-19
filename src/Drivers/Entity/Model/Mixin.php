@@ -9,9 +9,9 @@
 
     self::setFn('Process', function ($Call)
     {
-        if (isset($Call['Model']['Mixins']))
-            foreach ($Call['Model']['Mixins'] as $Mixin)
-                $Call['Model'] = F::Merge($Call['Model'], F::loadOptions('Entity.' . $Mixin));
+        if (isset($Call['Mixins']))
+            foreach ($Call['Mixins'] as $Mixin)
+                $Call = F::Merge($Call, F::loadOptions('Entity.' . $Mixin));
 
-         return $Call['Model'];
+         return $Call;
      });
