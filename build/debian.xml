@@ -40,7 +40,7 @@
     </target>
 
     <target name="source">
-        <mkdir dir="${package}/${destination-source}/${phing.project.name}"/>
+        <mkdir dir="${package}/${destination-source}/Codeine"/>
         <copy todir="${package}/${destination-source}/Codeine">
             <fileset dir="${source-code}">
                 <include name="*/**"/>
