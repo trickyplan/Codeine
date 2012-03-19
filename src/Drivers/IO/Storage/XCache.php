@@ -14,14 +14,14 @@
 
     self::setFn ('Read', function ($Call)
     {
-        return xcache_get($Call['Where']['ID']);
+        return xcache_get($Call['Scope'].$Call['Where']['ID']);
     });
 
     self::setFn ('Write', function ($Call)
     {
         return (null === $Call['Data'])?
-            xcache_unset($Call['Where']['ID']):
-            xcache_set($Call['Where']['ID'], $Call['Data'], $Call['TTL']);
+            xcache_unset($Call['Scope'].$Call['Where']['ID']):
+            xcache_set($Call['Scope'].$Call['Where']['ID'], $Call['Data'], $Call['TTL']);
     });
 
     self::setFn ('Close', function ($Call)
@@ -36,5 +36,5 @@
 
     self::setFn ('Exist', function ($Call)
     {
-        return xcache_isset ($Call['Where']['ID']);
+        return xcache_isset ($Call['Scope'].$Call['Where']['ID']);
     });
