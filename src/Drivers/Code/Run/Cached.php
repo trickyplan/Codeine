@@ -14,7 +14,6 @@
         $Result = F::Run('IO', 'Read', array
                              (
                                 'Storage' => 'Run Cache',
-                                'Scope' => $Call['Run']['Service'],
                                 'Where' => $ID
                              ));
 
@@ -25,7 +24,6 @@
             F::Run('IO', 'Write', array
                (
                    'Storage' => 'Run Cache',
-                   'Scope'   => $Call['Run']['Service'],
                    'Where'   => $ID,
                    'TTL'     => 15,
                    'Data'    => $Result
