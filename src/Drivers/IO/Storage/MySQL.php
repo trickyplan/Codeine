@@ -29,6 +29,9 @@
 
         $Result = $Call['Link']->query($Query);
 
+        if ($Call['Link']->errno != 0)
+            F::Log($Call['Link']->error,'Error');
+
         $Data = array();
 
         while($Row = $Result->fetch_assoc())
@@ -60,6 +63,9 @@
         F::Log($Query);
 
         $Result = $Call['Link']->query($Query);
+
+        if ($Call['Link']->errno != 0)
+            F::Log($Call['Link']->error,'Error');
 
         if ($Result)
             $Result = $Call['Link']->insert_id;
