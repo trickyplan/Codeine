@@ -47,6 +47,7 @@
     {
         $Call = F::Run(null, 'Load', $Call);
 
+        $Call['Data'] = F::Merge(F::Run(null, 'Read', $Call), $Call['Data']);
         $Call['Data']['ID'] = $Call['Where'];
 
         $Call = F::Run('Code.Flow.Hook', 'Run', $Call, array ('On'=> 'beforeUpdate'));
@@ -85,6 +86,18 @@
         $Call = F::Merge($Call, F::loadOptions('Entity.'.$Call['Entity']));
 
         $Call = F::Run('Code.Flow.Hook', 'Run', $Call, array ('On'=> 'afterLoad'));
+
+        return $Call;
+    });
+
+    self::setFn('Set', function ($Call)
+    {
+        $Call = F::Run(null, 'Load', $Call);
+        // TODO Atomic hooks
+        F::Run('IO', 'Write', $Call,
+            array (
+                  'Scope' => $Call['Entity']
+            ));
 
         return $Call;
     });

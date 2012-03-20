@@ -22,6 +22,9 @@
         else
             $Call['Value'] = $Call['Data'][$Call['Key']];
 
+        if (empty($Call['Value']))
+            return null;
+
         $Call['Value'] = mb_strtolower($Call['Value']);
 
         $Call['Value'] = strtr($Call['Value'], ' ', $Call['Delimiter']);
