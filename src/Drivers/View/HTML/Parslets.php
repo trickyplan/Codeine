@@ -13,12 +13,8 @@
          {
              $Tag = strtolower($Parslet);
 
-             while (preg_match_all('@<'.$Tag.'>(.*)<\/'.$Tag.'>@SsUu', $Call[$Call['Var']], $Parsed))
-                 $Call[$Call['Var']] = F::Run('View.HTML.Parslets.'.$Parslet, 'Parse', $Call,
-                    array(
-                        'Parsed' => $Parsed
-                    )
-                 );
+             if (preg_match_all('/<'.$Tag.'>(.*)<\/'.$Tag.'>/Uus', $Call[$Call['Var']], $Call['Parsed']))
+                 $Call[$Call['Var']] = F::Run('View.HTML.Parslets.'.$Parslet, 'Parse', $Call);
          }
 
          return $Call;
