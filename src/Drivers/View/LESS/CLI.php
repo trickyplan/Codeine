@@ -9,5 +9,5 @@
 
     self::setFn('Compile', function ($Call)
     {
-        return shell_exec('lessc ' . $Call['Value']);
+        return shell_exec('lessc ' . $Call['Value'].' > '.$Call['CSS']);
     });
