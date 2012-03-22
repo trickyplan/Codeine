@@ -13,7 +13,7 @@
         {
             foreach ($Pockets[1] as $IX => $Match)
             {
-                if ($Matched = F::Dot($Call['Data'], $Match))
+                if (($Matched = F::Dot($Call['Data'], $Match)) !== null)
                 {
                     if (is_array($Matched))
                         $Matched = implode(' ', $Matched);

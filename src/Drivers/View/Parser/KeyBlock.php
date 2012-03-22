@@ -9,19 +9,19 @@
 
     self::setFn('Parse', function ($Call)
     {
-        if (preg_match_all('@<block>(.*)<k>(.*)</k>(.*)</block>@SsUu', $Call['Value'], $Pockets))
+        if (preg_match_all('@<block>(.*)<k>(.*)<\/k>(.*)<\/block>@SsUu', $Call['Value'], $Pockets))
         {
             foreach ($Pockets[2] as $IX => $Match)
             {
                 $Output = '';
 
-                if (isset($Call['Data'][$Match]))
+                if (($Matched = F::Dot($Call['Data'], $Match)) !== null)
                 {
                     if (is_array($Call['Data'][$Match]))
                         foreach($Call['Data'][$Match] as $cMatch)
                             $Output.= $Pockets[1][$IX].$cMatch.$Pockets[3][$IX];
                     else
-                        $Output = $Call['Data'][$Match];
+                        $Output = $Pockets[1][$IX].$Call['Data'][$Match].$Pockets[3][$IX];
 
                     $Call['Value'] = str_replace($Pockets[0][$IX], $Output, $Call['Value']);
                 }
