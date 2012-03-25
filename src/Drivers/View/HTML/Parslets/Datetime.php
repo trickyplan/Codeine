@@ -13,11 +13,18 @@
         {
             $Root = simplexml_load_string($Call['Parsed'][0][$IX]);
             $Inner = (string) $Root;
+            $Engine = isset($Root->attributes()->engine)? (string) $Root->attributes()->engine: 'Date';
             $Format = isset($Root->attributes()->format)? (string) $Root->attributes()->format: 'Y.m.d H:i:s';
 
             // TODO Due bug 13744 at w3c validator, time tag temporary diabled.
             // $Outer = '<time datetime="'.date(DATE_ISO8601, $Match).'">'.date($Format, $Inner).'</time>';
-            $Outer = date($Format, $Inner);
+
+            $Outer = F::Run('Formats.Date.Engine.'.$Engine, 'Parse',
+                array(
+                     'Format' => $Format,
+                     'Value' => $Inner
+                ));
+
 
             $Call['Output'] = str_replace ($Call['Parsed'][0][$IX], $Outer, $Call['Output']);
         }
