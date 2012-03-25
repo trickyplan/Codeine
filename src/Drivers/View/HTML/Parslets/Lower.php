@@ -9,7 +9,7 @@
 
      self::setFn('Parse', function ($Call)
      {
-          foreach ($Call['Parsed'][1] as $Ix => $Match)
+          foreach ($Call['Parsed'][2] as $Ix => $Match)
             $Call['Output'] = str_replace($Call['Parsed'][0][$Ix], mb_strtolower($Match), $Call['Output']);
 
           return $Call['Output'];

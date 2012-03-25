@@ -13,11 +13,6 @@
                     "ID": "Main"
                 }
             },
-            "Meta":
-            {
-                "Service":"View.HTML.Meta",
-                "Method":"Inject"
-            },
             "Front":
             {
                 "Service":"View.HTML.Front",
@@ -45,6 +40,11 @@
             {
                 "Service":"View.HTML.JSTag",
                 "Method":"Process"
+            },
+            "Meta":
+            {
+                "Service":"View.HTML.Meta",
+                "Method":"Scan"
             },
             "CleanPlaces":
             {

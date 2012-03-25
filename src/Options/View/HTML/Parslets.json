@@ -1,4 +1,5 @@
 {
     "Var": "Output",
+    "MaxPasses": 3,
     "Parslets": ["Layout", "Fn", "Exec", "Lower"]
 }

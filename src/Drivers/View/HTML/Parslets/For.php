@@ -9,10 +9,20 @@
 
     self::setFn ('Parse', function ($Call)
     {
-        foreach ($Call['Parsed'][1] as $Ix => $Match)
+        foreach ($Call['Parsed'][2] as $IX => $Match)
         {
-            $For = simplexml_load_string('<?xml version=\'1.0\'?><for>'.$Match.'</for>');
-            $Call['Output'] = str_replace ($Call['Parsed'][0][$Ix], str_repeat($For->data->asXML(), (integer) $For->count),$Call['Output']);
+            $Root = simplexml_load_string($Call['Parsed'][0][$IX]);
+
+            $Outer = '';
+            $Inner = (string) $Root;
+
+            $From = (int) $Root->attributes()->from;
+            $To = (int) $Root->attributes()->to;
+
+            for($i = $From; $i <= $To; $i++)
+                $Outer.= str_replace('<num/>', $i, $Inner);
+
+            $Call['Output'] = str_replace ($Call['Parsed'][0][$IX], $Outer, $Call['Output']);
         }
 
         return $Call['Output'];

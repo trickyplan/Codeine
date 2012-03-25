@@ -9,7 +9,7 @@
 
      self::setFn('Parse', function ($Call)
      {
-          foreach ($Call['Parsed'][1] as $Ix => $Match)
+          foreach ($Call['Parsed'][2] as $Ix => $Match)
           {
               $Match = json_decode(json_encode(simplexml_load_string('<?xml version=\'1.0\'?><exec>'.$Match.'</exec>')), true);
 

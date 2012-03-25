@@ -7,50 +7,43 @@
      * @version 7.2
      */
 
-    self::setFn('Inject', function ($Call)
+    self::setFn('Scan', function ($Call)
     {
-        if(isset($Call['Title']))
-            $Call['Output']['Title'][]
-                = array (
-                'Type'  => 'Page.Title',
-                'Value' => $Call['Title']
-            );
-        else
-            $Call['Output']['Errors'][]
-                = array (
-                'Type'  => 'Block',
-                'Class' => 'warning',
-                'Value' => 'Заголовок страницы не задан.' // FIXME
-            );
+        if (preg_match_all('@<subtitle>(.*)<\/subtitle>@SsUu', $Call['Output'], $Pockets))
+        {
+            foreach ($Pockets[1] as $IX => $Match)
+            {
+                // TODO Придумать синтаксис для сложения.
+                $Call['Title'] = $Match;
+                $Call['Output'] = str_replace($Pockets[0][$IX], '', $Call['Output']);
+            }
+        }
 
-        if (isset($Call['Description']))
-            $Call['Output']['Meta'][]
-                = array (
-                'Type'  => 'Page.Description',
-                'Value' => $Call['Description']
-            );
-        else
-            $Call['Output']['Errors'][]
-                = array (
-                'Type'  => 'Block',
-                'Class' => 'warning',
-                'Value' => 'Описание страницы не задано.' // FIXME
-            );
+        $Call['Output'] = str_replace('<title/>', '<title>'.$Call['Title'].'</title>', $Call['Output']);
 
-        if (isset($Call['Keywords']))
-            $Call['Output']['Meta'][]
-                = array (
-                'Type'  => 'Page.Keywords',
-                'Value' => $Call['Keywords']
-            );
-        else
-            $Call['Output']['Errors'][]
-                = array (
-                'Type'  => 'Block',
-                'Class' => 'warning',
-                'Value' => 'Ключевые слова страницы не заданы.' // FIXME
-            );
+        if (preg_match_all('@<description>(.*)<\/description>@SsUu', $Call['Output'], $Pockets))
+        {
+            foreach ($Pockets[1] as $IX => $Match)
+            {
+                // TODO Придумать синтаксис для сложения.
+                $Call['Description'] = $Match;
+                $Call['Output'] = str_replace($Pockets[0][$IX], '', $Call['Output']);
+            }
+        }
 
+        $Call['Output'] = str_replace('<description/>', '<meta name="description" content="'.$Call['Description'].'" />', $Call['Output']);
 
-         return $Call;
-     });
+        if (preg_match_all('@<keyword>(.*)<\/keyword>@SsUu', $Call['Output'], $Pockets))
+            {
+                foreach ($Pockets[1] as $IX => $Match)
+                {
+                    // TODO Придумать синтаксис для сложения.
+                    $Call['Keywords'][] = $Match;
+                    $Call['Output'] = str_replace($Pockets[0][$IX], '', $Call['Output']);
+                }
+            }
+
+        $Call['Output'] = str_replace('<keywords/>', '<meta name="keywords" content="'.implode(',',$Call['Keywords']).'" />', $Call['Output']);
+
+        return $Call;
+    });

@@ -9,7 +9,7 @@
 
      self::setFn('Parse', function ($Call)
      {
-          foreach ($Call['Parsed'][1] as $Ix => $Match)
+          foreach ($Call['Parsed'][2] as $Ix => $Match)
           {
               preg_match ('/(\+(\d+)) ?\(?(\d{3})\)? ?(\d{3})[ -]?(\d{2})[ -]?(\d{2})/', $Match, $Parts);
               $TelForm = implode ('', array_slice ($Parts, 2, 6));
