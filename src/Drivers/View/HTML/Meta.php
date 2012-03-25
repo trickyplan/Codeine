@@ -17,9 +17,11 @@
                 $Call['Title'] = $Match;
                 $Call['Output'] = str_replace($Pockets[0][$IX], '', $Call['Output']);
             }
-        }
 
-        $Call['Output'] = str_replace('<title/>', '<title>'.$Call['Title'].'</title>', $Call['Output']);
+            $Call['Output'] = str_replace('<title/>', '<title>'.$Call['Title'].'</title>', $Call['Output']);
+        }
+        else
+            $Call['Output'] = str_replace('<title/>', '', $Call['Output']);
 
         if (preg_match_all('@<description>(.*)<\/description>@SsUu', $Call['Output'], $Pockets))
         {
@@ -29,21 +31,25 @@
                 $Call['Description'] = $Match;
                 $Call['Output'] = str_replace($Pockets[0][$IX], '', $Call['Output']);
             }
-        }
 
-        $Call['Output'] = str_replace('<description/>', '<meta name="description" content="'.$Call['Description'].'" />', $Call['Output']);
+            $Call['Output'] = str_replace('<description/>', '<meta name="description" content="'.$Call['Description'].'" />', $Call['Output']);
+        }
+        else
+            $Call['Output'] = str_replace('<description/>', '', $Call['Output']);
 
         if (preg_match_all('@<keyword>(.*)<\/keyword>@SsUu', $Call['Output'], $Pockets))
+        {
+            foreach ($Pockets[1] as $IX => $Match)
             {
-                foreach ($Pockets[1] as $IX => $Match)
-                {
-                    // TODO Придумать синтаксис для сложения.
-                    $Call['Keywords'][] = $Match;
-                    $Call['Output'] = str_replace($Pockets[0][$IX], '', $Call['Output']);
-                }
+                // TODO Придумать синтаксис для сложения.
+                $Call['Keywords'][] = $Match;
+                $Call['Output'] = str_replace($Pockets[0][$IX], '', $Call['Output']);
             }
 
-        $Call['Output'] = str_replace('<keywords/>', '<meta name="keywords" content="'.implode(',',$Call['Keywords']).'" />', $Call['Output']);
+            $Call['Output'] = str_replace('<keywords/>', '<meta name="keywords" content="'.implode(',',$Call['Keywords']).'" />', $Call['Output']);
+        }
+        else
+            $Call['Output'] = str_replace('<keywords/>', '', $Call['Output']);
 
         return $Call;
     });
