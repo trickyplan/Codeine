@@ -249,10 +249,10 @@
                 {
                     $NewFullKey = is_numeric($Key)? $FullKey.'#': $FullKey.'.'.$Key;
 
-                    $Fn($Key, $Value, &$Data, $NewFullKey);
+                    $Fn($Key, $Value, $Data, $NewFullKey);
 
                     if (is_array ($Value))
-                        self::Map (&$Value, $Fn, &$Data, $NewFullKey);
+                        self::Map ($Value, $Fn, &$Data, $NewFullKey);
                 }
 
             return true;
