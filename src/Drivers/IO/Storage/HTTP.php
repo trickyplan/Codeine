@@ -50,7 +50,8 @@
 
     self::setFn ('Close', function ($Call)
     {
-        return curl_close ($Call['Link']);
+        curl_close ($Call['Link']);
+        return true;
     });
 
     self::setFn('Execute', function ($Call)

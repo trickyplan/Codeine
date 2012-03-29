@@ -7,7 +7,7 @@
      * @version 7.2
      */
 
-    self::setFn ('Keys', function ($Call)
+    self::setFn ('WriteKeys', function ($Call)
     {
         if (isset($Call['Data']))
         {
@@ -18,18 +18,21 @@
 
             $Keys = '('.implode (',', $Keys).')';
         }
-        else
-        {
-            if(isset($Call['Keys']))
-            {
-                foreach ($Call['Keys'] as $Key)
-                    $Keys[] = $Call['Link']->real_escape_string ($Key);
 
-                $Keys = '('.implode (',', $Keys).')';
-            }
-            else
-                $Keys = '*';
+        return $Keys;
+    });
+
+    self::setFn('ReadKeys', function ($Call)
+    {
+        if(isset($Call['Keys']))
+        {
+            foreach ($Call['Keys'] as $Key)
+                $Keys[] = $Call['Link']->real_escape_string ($Key);
+
+            $Keys = '('.implode (',', $Keys).')';
         }
+        else
+            $Keys = '*';
 
         return $Keys;
     });
@@ -125,7 +128,7 @@
     self::setFn('Read', function (array $Call)
     {
         return 'select '
-               .F::Run(null, 'Keys', $Call).
+               .F::Run(null, 'ReadKeys', $Call).
                ' from '.F::Run(null, 'Table', $Call)
                .F::Run(null, 'Where', $Call)
                .F::Run(null, 'Sort', $Call);
@@ -135,7 +138,7 @@
     {
         return 'insert into '
             .F::Run(null, 'Table', $Call)
-            .F::Run(null, 'Keys', $Call)
+            .F::Run(null, 'WriteKeys', $Call)
             .F::Run(null, 'Values', $Call);
     });
 

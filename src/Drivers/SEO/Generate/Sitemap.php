@@ -25,7 +25,7 @@
 
         }
 
-        $Call['Renderer'] = 'View.Render.XML';
+        $Call['Renderer'] = 'View.XML';
         $Call['Namespace'] = 'http://www.sitemaps.org/schemas/sitemap/0.9';
         $Call['Attributes'] =
             array(

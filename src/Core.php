@@ -105,6 +105,7 @@
                 return (include_once $Filename);
             else
             {
+                F::Log($Service.' not found');
                 return null;
             }
         }
@@ -145,27 +146,28 @@
                         $Call = F::Merge($Call, $Argument);
             }
 
-            if ($Service !== null)
-                self::$_Service = $Service;
-
-            if ($Method !== null)
-                self::$_Method  = $Method;
-
-            $Result = F::Execute(self::$_Service, self::$_Method, $Call);
+            $Result = F::Execute($Service, $Method, $Call);
 
             return $Result;
         }
 
         public static function Execute($Service, $Method, $Call)
         {
+            $OldService = self::$_Service;
+            $OldMethod = self::$_Method;
+
+            if ($Service !== null)
+                self::$_Service = $Service;
+
+            if ($Method !== null)
+                self::$_Method  = $Method;
+
+
             $Call = self::Merge(self::loadOptions(), $Call);
 
             if ((null === self::getFn($Method)) && (null === self::_loadSource($Service)))
             {
-                $Result = (is_array($Call) && isset($Call['Fallback']))?
-                           $Call['Fallback']                        :
-                           F::Run('Code.Flow.Hook', 'Run', self::$_Options['Codeine'], array ('On'   => 'Service.NotFound',
-                                                                                       'Call' => $Call));
+                $Result = (is_array($Call) && isset($Call['Fallback']))? $Call['Fallback'] : null;
             }
             else
             {
@@ -176,6 +178,9 @@
                 else
                     $Result = isset($Call['Fallback']) ? $Call['Fallback'] : null;
             }
+
+            self::$_Service = $OldService;
+            self::$_Method = $OldMethod;
 
             return $Result;
         }
@@ -291,7 +296,7 @@
 
         public static function Log ($Message, $Type = 'Info', $Tags = '')
         {
-            return F::Run(
+            return F::Execute(
                 'IO', 'Write',
                 array(
                      'Storage' => 'Developer',

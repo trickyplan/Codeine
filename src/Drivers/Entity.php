@@ -45,15 +45,19 @@
 
     self::setFn('Update', function ($Call)
     {
+        $Data = F::Run(null, 'Read', $Call);
+
+
         $Call = F::Run(null, 'Load', $Call);
 
-        $Call['Data'] = F::Merge(F::Run(null, 'Read', $Call), $Call['Data']);
-        $Call['Data']['ID'] = $Call['Where'];
+        $Call['Data'] = F::Merge($Data[0], $Call['Data']);
+
+        $Call['Data']['ID'] = $Call['Where']; // FIXME
 
         $Call = F::Run('Code.Flow.Hook', 'Run', $Call, array ('On'=> 'beforeUpdate'));
 
         foreach ($Call['Data'] as $Key => $Value)
-            if (null === $Value)
+            if ((null === $Value) or ($Value == $Data[0][$Key]))
                 unset($Call['Data'][$Key]);
 
         F::Run('IO', 'Write', $Call,
