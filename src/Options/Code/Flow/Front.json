@@ -7,6 +7,11 @@
             {
                 "Service": "Code.Flow.Front.Routing",
                 "Method": "Route"
+            },
+            "Audit":
+            {
+                "Service": "Security.Auth",
+                "Method": "Audit"
             }
         },
         "afterRun":

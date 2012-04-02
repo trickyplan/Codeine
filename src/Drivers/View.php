@@ -8,6 +8,14 @@
      * @issue 30
      */
 
+    self::setFn('Render', function ($Call)
+    {
+        foreach ($Call['Parsers'] as $Parser)
+            $Call['Value'] = F::Live($Parser, $Call);
+
+        return $Call;
+    });
+
     self::setFn('Parse', function ($Call)
     {
         foreach ($Call['Parsers'] as $Parser)

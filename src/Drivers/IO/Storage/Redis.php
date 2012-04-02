@@ -23,9 +23,14 @@
 
     self::setFn ('Write', function ($Call)
     {
-        return (null === $Call['Data'])?
-            $Call['Link']->del($Call['Where']['ID']):
-            $Call['Link']->set($Call['Where']['ID'], $Call['Data'], $Call['TTL']);
+        if (isset($Call['Where']))
+        {
+            return (null === $Call['Data']) ?
+                $Call['Link']->del($Call['Where']['ID']):
+                $Call['Link']->set($Call['Where']['ID'], $Call['Data'], $Call['TTL']);
+        }
+        else
+            return $Call['Link']->set($Call['Data']['ID'], $Call['Data'], $Call['TTL']);
     });
 
     self::setFn ('Close', function ($Call)

@@ -1,5 +1,13 @@
 {
     "Hooks":{
+        "beforeRun":
+        {
+            "Audit":
+            {
+                "Service": "Security.Auth",
+                "Method": "Audit"
+            }
+        },
         "afterRun":{
             "Rendering":{
                 "Service":"View",

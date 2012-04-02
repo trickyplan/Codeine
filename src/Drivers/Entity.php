@@ -47,7 +47,6 @@
     {
         $Data = F::Run(null, 'Read', $Call);
 
-
         $Call = F::Run(null, 'Load', $Call);
 
         $Call['Data'] = F::Merge($Data[0], $Call['Data']);
