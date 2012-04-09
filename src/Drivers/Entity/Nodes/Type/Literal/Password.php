@@ -9,7 +9,7 @@
 
     self::setFn('Write', function ($Call)
     {
-        return filter_var($Call['Value'], FILTER_SANITIZE_STRING);
+        return F::Run('Security.Auth.System.Password', 'Challenge', $Call);
     });
 
     self::setFn('Read', function ($Call)

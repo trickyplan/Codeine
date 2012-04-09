@@ -9,7 +9,7 @@
 
     self::setFn('Write', function ($Call)
     {
-        return filter_var($Call['Value'], FILTER_SANITIZE_STRING);
+        return $Call['Value'];
     });
 
     self::setFn('Read', function ($Call)
