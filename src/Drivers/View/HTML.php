@@ -9,16 +9,11 @@
 
     self::setFn('Render', function ($Call)
     {
+       $Call = F::Run ('Code.Flow.Hook', 'Run', $Call, array('On' => 'beforePipeline'));      // JP beforeRender
 
-       $Call = F::Run ('Code.Flow.Hook', 'Run', $Call, array('On' => 'beforeRender'));      // JP beforeRender
+           $Call = F::Run ('View.Pipeline','Process', $Call, array('Renderer' => 'View.HTML')); // Pipelining
 
-           $Call = F::Run ('Code.Flow.Hook', 'Run', $Call, array('On' => 'beforePipeline'));    // JP beforePipeline
-
-               $Call = F::Run ('View.Pipeline','Process', $Call, array('Renderer' => 'View.HTML')); // Pipelining
-
-           $Call = F::Run ('Code.Flow.Hook', 'Run', $Call, array ('On' => 'afterPipeline'));    // JP afterPipeline
-
-       $Call = F::Run ('Code.Flow.Hook', 'Run', $Call, array ('On' => 'afterRender'));      // JP afterRender
+       $Call = F::Run ('Code.Flow.Hook', 'Run', $Call, array ('On' => 'afterPipeline'));      // JP afterRender
 
        return $Call;
     });

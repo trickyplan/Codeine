@@ -1,0 +1,10 @@
+{
+    "Nodes":
+    {
+        "User":
+        {
+            "Service":"Security.Auth",
+            "Method":"Username"
+        }
+    }
+}

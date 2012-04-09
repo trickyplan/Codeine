@@ -19,9 +19,14 @@
         foreach ($Call['Regex'] as $Rule)
             if (preg_match($Rule['Match'], $Call['Run'], $Matches))
             {
-                foreach ($Rule['Call'] as $Key => $Value)
-                    if (is_scalar($Value) && isset($Matches[$Value]))
-                        $Rule['Call'][$Key] = $Matches[$Value];
+                $Rule['Call'] = F::Map($Rule['Call'], function ($Key, &$Value) use ($Matches)
+                {
+                    if (is_scalar($Value) && substr($Value, 0, 1) == '$')
+                    {
+                        if (isset($Matches[substr($Value, 1)]))
+                            $Value = $Matches[substr($Value, 1)];
+                    }
+                });
 
                 F::Run('IO', 'Write', array('Storage' => 'Developer', 'Level' => 'Info', 'Data' => 'Regex Router Match: '.$Rule['Match']));
 

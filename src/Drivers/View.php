@@ -8,14 +8,6 @@
      * @issue 30
      */
 
-    self::setFn('Render', function ($Call)
-    {
-        foreach ($Call['Parsers'] as $Parser)
-            $Call['Value'] = F::Live($Parser, $Call);
-
-        return $Call;
-    });
-
     self::setFn('Parse', function ($Call)
     {
         foreach ($Call['Parsers'] as $Parser)
@@ -46,7 +38,23 @@
 
     self::setFn('Render', function ($Call)
     {
-        $Call =  F::Live (F::Live($Call['Rendering'], $Call), $Call);
+        $Call = F::Run('Code.Flow.Hook', 'Run', $Call, array ('On'=> 'beforeRender'));
+
+        $Call = F::Live (F::Live($Call['Rendering'], $Call), $Call);
+
+        $Call = F::Run('Code.Flow.Hook', 'Run', $Call, array ('On'=> 'afterRender'));
+
+        return $Call;
+    });
+
+    self::setFn('RenderSlice', function ($Call)
+    {
+        $Call = F::Run('Code.Flow.Hook', 'Run', $Call, array ('On'=> 'beforeRenderSlice'));
+
+        $Call = F::Live (F::Live($Call['Rendering'], $Call), $Call);
+
+        $Call = F::Run('Code.Flow.Hook', 'Run', $Call, array ('On'=> 'afterRenderSlice'));
+
         return $Call;
     });
 

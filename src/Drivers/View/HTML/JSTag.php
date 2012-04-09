@@ -13,6 +13,7 @@
 
         foreach ($Call['IDs'] as $JSFile)
         {
+            F::Log($JSFile);
             list($Asset, $ID) = F::Run('View', 'Asset.Route', array ('Value' => $JSFile));
 
             $Hash[] = $JSFile . F::Run('IO', 'Execute', array (
@@ -30,7 +31,7 @@
 
     self::setFn('Process', function ($Call)
     {
-        if (preg_match_all('@<js>(.*)<\/js>@SsUu', $Call['Output'], $Parsed))
+        if (preg_match_all('/<js>(.*)<\/js>/SsUu', $Call['Output'], $Parsed))
         {
             $JSHash = F::Run(null, 'Hash', array ('IDs' => $Parsed[1]));
 

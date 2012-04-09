@@ -9,9 +9,10 @@
             }
         },
         "afterRun":{
-            "Rendering":{
+            "Rendering":
+            {
                 "Service":"View",
-                "Method":"Render"
+                "Method":"RenderSlice"
             }
         },
         "on404":{

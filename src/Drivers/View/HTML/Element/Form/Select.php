@@ -18,6 +18,7 @@
 
          $Call['Value'] = F::Live($Call['Value']);
 
+
          foreach ($Call['Value'] as $Key => $Value)
              if(in_array($Key, (array)$Call['Selected']))
                  $Options[] = '<option value="'.$Key.'" selected>'.$Value.'</option>';

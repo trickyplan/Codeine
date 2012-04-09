@@ -1,0 +1,28 @@
+<div class="control-group">
+    <label class="control-label" for="<k>Name</k>"> <l><k>Entity</k>.<k>Name</k></l> :</label>
+    <div class="controls">
+        <input id="<k>Name</k>" type="<k>Subtype</k>" name="<k>Name</k>" required="<k>Required</k>" autofocus="autofocus" class="span4" value="<k>Value</k>" pattern="<k>Regex</k>" placeholder="<k>Placeholder</k>"/>
+    </div>
+</div>
+<script type="text/javascript">
+    $('#<k>Name</k>').keyup(function()
+    {
+        var el = $(this);
+        var eld = this;
+
+        $.ajax(
+            {
+                url: '/user/checkname',
+                type: 'post',
+                data:
+                {
+                    ID: el.attr('value')
+                },
+                success: function (data)
+                {
+                    eld.setCustomValidity(data);
+                }
+            }
+            );
+    })
+</script>

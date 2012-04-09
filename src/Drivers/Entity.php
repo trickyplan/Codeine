@@ -31,7 +31,7 @@
 
     self::setFn('Read', function ($Call)
     {
-        $Call = F::Run(null, 'Load', $Call);
+        $Call = F::Run('Entity', 'Load', $Call);
 
         $Call['Data'] = F::Run('IO', 'Read', $Call,
             array (

@@ -19,12 +19,14 @@
         protected static $_Method = 'Do';
         protected static $_Storage = array();
         protected static $_Speed;
+        protected static $_Profile = array();
 
         public static function Bootstrap ($Call = null)
         {
             self::$_Speed = array(microtime(true), memory_get_usage(), 0);
 
             mb_internal_encoding('UTF-8');
+
             setlocale(LC_ALL, "ru_RU.UTF-8");
 
             if (isset($_SERVER['Environment']))
@@ -123,7 +125,7 @@
         public static function hashCall($Call)
         {
             if (self::isCall($Call))
-                return $Call['Service'].':'.$Call['Method'].'('.sha1(serialize($Call)).')';
+                return sha1(serialize($Call));
             else
                 return serialize($Call);
         }
@@ -133,11 +135,11 @@
          * @param  $Call
          * @return mixed
          */
+
         public static function Run($Service, $Method, $Call = array())
         {
-            self::$_Speed[2]++;
-
             // TODO Infinite cycle protection
+
 
             if (($sz = func_num_args())>3)
             {
@@ -146,13 +148,32 @@
                         $Call = F::Merge($Call, $Argument);
             }
 
-            $Result = F::Execute($Service, $Method, $Call);
+            if (isset($Call['Behaviours'][$Method]))
+            {
+                $Behaviours = $Call['Behaviours'][$Method];
+                unset($Call['Behaviours']);
+
+                foreach ($Behaviours as $Behaviour)
+                {
+                    $Result = F::Run('Code.Behaviours.'.$Behaviour, 'Run', array(
+                                                                      'Service' => $Service,
+                                                                      'Method' => $Method,
+                                                                      'Call' => $Call
+                                                                 )); // FIXME Many behaviours
+                }
+            }
+            else
+                $Result = F::Execute($Service, $Method, $Call);
+
+
 
             return $Result;
         }
 
         public static function Execute($Service, $Method, $Call)
         {
+            self::$_Speed[2]++;
+
             $OldService = self::$_Service;
             $OldMethod = self::$_Method;
 
@@ -161,7 +182,6 @@
 
             if ($Method !== null)
                 self::$_Method  = $Method;
-
 
             $Call = self::Merge(self::loadOptions(), $Call);
 
@@ -173,10 +193,19 @@
             {
                 $F = self::getFn($Method);
 
+                // HARDCORE PROFILING
+                //$ST  = microtime(true);
+
                 if (is_callable($F))
                     $Result = $F($Call);
                 else
                     $Result = isset($Call['Fallback']) ? $Call['Fallback'] : null;
+
+
+                //if (!isset(self::$_Profile[self::$_Service.':'.self::$_Method]))
+                //    self::$_Profile[self::$_Service.':'.self::$_Method] = 0;
+
+                //self::$_Profile[self::$_Service.':'.self::$_Method] += round((microtime(true) - $ST)*1000);
             }
 
             self::$_Service = $OldService;
@@ -232,6 +261,10 @@
 
         public static function Shutdown()
         {
+            // HARDCORE PROFILING
+            // arsort(self::$_Profile);
+            // d(__FILE__, __LINE__, self::$_Profile);
+
             F::Run('Code.Run.Delayed', 'Flush');
             F::Run('IO', 'Close', array('Storage' => 'Developer'));
             return null; // TODO onShutdown
@@ -257,10 +290,10 @@
                     $Fn($Key, $Value, $Data, $NewFullKey);
 
                     if (is_array ($Value))
-                        self::Map ($Value, $Fn, &$Data, $NewFullKey);
+                        $Value = self::Map ($Value, $Fn, &$Data, $NewFullKey);
                 }
 
-            return true;
+            return $Array;
         }
 
         public static function Dot ($Array, $Key)
@@ -301,7 +334,7 @@
                 array(
                      'Storage' => 'Developer',
                      'Type' => $Type,
-                     'Data' => $Message,
+                     'Data' => round((microtime(true) - self::$_Speed[0])*1000).' '.$Message,
                      'Tags' => $Tags
                 )
             );

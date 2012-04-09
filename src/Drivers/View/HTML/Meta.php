@@ -21,7 +21,7 @@
             $Call['Output'] = str_replace('<title/>', '<title>'.$Call['Title'].'</title>', $Call['Output']);
         }
         else
-            $Call['Output'] = str_replace('<title/>', '', $Call['Output']);
+            $Call['Output'] = str_replace('<title/>', '<title>'.$Call['Title'].'</title>', $Call['Output']);
 
         if (preg_match_all('@<description>(.*)<\/description>@SsUu', $Call['Output'], $Pockets))
         {

@@ -34,10 +34,6 @@
             }
         }
 
-        // F::Run(null, 'Attach', $Call, array('User' => 'Root'));
-
-        // d(__FILE__, __LINE__, $Call['SID']);
-        // d(__FILE__, __LINE__, $Call['Session']);
         return $Call;
     });
 
@@ -86,4 +82,9 @@
                   'Where' => $Call['SID'],
                   'Data' => array('User' => null)
              ));
+    });
+
+    self::setFn('Username', function ($Call)
+    {
+        return isset($Call['Session']['User']['ID'])? $Call['Session']['User']['ID']: null;
     });

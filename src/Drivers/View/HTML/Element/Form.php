@@ -12,7 +12,7 @@
          return F::Run ('View', 'LoadParsed', $Call,
                            array(
                                 'Scope' => 'Default',
-                                'ID'    => 'UI/HTML/Form/Textarea',
-                                'Data' => $Call
+                                'ID'    => 'UI/HTML/Form',
+                                'Data'  => $Call
                            ));
      });

@@ -19,9 +19,9 @@
                 {
                     if (is_array($Call['Data'][$Match]))
                         foreach($Call['Data'][$Match] as $cMatch)
-                            $Output.= $Pockets[1][$IX].$cMatch.$Pockets[3][$IX];
+                            $Output.= $Pockets[1][$IX].($cMatch).$Pockets[3][$IX];
                     else
-                        $Output = $Pockets[1][$IX].$Call['Data'][$Match].$Pockets[3][$IX];
+                        $Output = $Pockets[1][$IX].($Call['Data'][$Match]).$Pockets[3][$IX];
 
                     $Call['Value'] = str_replace($Pockets[0][$IX], $Output, $Call['Value']);
                 }

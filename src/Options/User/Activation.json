@@ -1,0 +1,33 @@
+{
+    "Sender":
+    {
+        "Service": "IO",
+        "Method": "Write",
+        "Call":
+        {
+            "Storage": "EMail"
+        }
+    },
+    "Subject": "Активация аккаунта",
+    "Widgets":
+    {
+        "Success":
+        {
+            "Box":
+            {
+                "Type": "Block",
+                "Class": "alert alert-success",
+                "Value": "Активация прошла успешно"
+            }
+        },
+        "Failure":
+        {
+            "Box":
+            {
+                "Type": "Block",
+                "Class": "alert alert-error",
+                "Value": "Активация не удалась"
+            }
+        }
+    }
+}

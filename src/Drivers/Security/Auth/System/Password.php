@@ -28,26 +28,10 @@
 
         }
 
-        if ($User[0]['Password'] == F::Live($Call['Challenger'], array('Value' => $Call['Request']['Password'])))
-        {
-            F::Run('Security.Auth', 'Attach', $Call, array('User' => $User[0]['ID']));
+        return ($User[0]['Password'] == F::Live($Call['Challenger'], array('Value' => $Call['Request']['Password'])));
+    });
 
-            $Call['Output']['Content'][]
-                = array(
-                'Type' => 'Block',
-                'Class' => 'alert alert-success',
-                'Value' => 'Password accepted'
-            );
-        }
-        else
-        {
-            $Call['Output']['Content'][]
-                = array(
-                'Type' => 'Block',
-                'Class' => 'alert alert-error',
-                'Value' => 'Wrong password'
-            );
-        }
-
-        return $Call;
+    self::setFn('Challenge', function ($Call)
+    {
+        return F::Live($Call['Challenger'], $Call);
     });

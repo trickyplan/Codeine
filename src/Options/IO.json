@@ -68,13 +68,14 @@
         "Developer":
         {
             "Driver":"IO.Log.ChromePhp"
-        }
-    },
-    "Methods":
-    {
-        "Open":
+        },
+        "EMail":
         {
-            "Caching": true
+            "Driver": "IO.Transport.Mail",
+            "Headers":
+            {
+                "From:": "Codeine"
+            }
         }
     }
 }

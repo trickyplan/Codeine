@@ -9,6 +9,44 @@
 
     self::setFn('Do', function ($Call)
     {
-        return F::Run('Security.Auth.System.Password', 'Authentificate', $Call);
+        if (F::Run('Security.Auth.System.Password', 'Authentificate', $Call))
+        {
+            $User = F::Run('Entity', 'Read',
+                     array(
+                          'Entity' => 'User',
+                          'Where' =>
+                              array(
+                                  'Login' => $Call['Request']['Login']
+                              )
+                     ));
 
+            if ($User[0]['Status'] == 1)
+            {
+                F::Run('Security.Auth', 'Attach', $Call, array('User' => $User[0]['ID']));
+
+                $Call['Output']['Content'][]
+                    = array(
+                    'Type' => 'Block',
+                    'Class' => 'alert alert-success',
+                    'Value' => 'Access granted'
+                );
+            }
+            else
+                $Call['Output']['Content'][]
+                    = array(
+                    'Type' => 'Block',
+                    'Class' => 'alert alert-success',
+                    'Value' => 'User not activated'
+                );
+
+        }
+        else
+            $Call['Output']['Content'][]
+                = array(
+                'Type' => 'Block',
+                'Class' => 'alert alert-success',
+                'Value' => 'Access denied'
+            );
+
+        return $Call;
     });

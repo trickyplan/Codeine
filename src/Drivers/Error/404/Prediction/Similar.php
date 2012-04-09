@@ -13,10 +13,14 @@
         $Static = F::loadOptions('Code.Routing.Static');
         $Levels = array ();
 
-        foreach ($Static['Links'] as $URL => $Link)
-            $Levels[$URL] = similar_text($URL, $Keys[0]);
+        if (isset($Keys[0]))
+        {
+            foreach ($Static['Links'] as $URL => $Link)
+                $Levels[$URL] = similar_text($URL, $Keys[0]);
+            asort($Levels);
 
-        asort($Levels);
-
-        return array_pop(array_keys($Levels));
+            return array_pop(array_keys($Levels));
+        }
+        else
+            return null;
     });

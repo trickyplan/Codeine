@@ -1,0 +1,91 @@
+{
+    "Storage": "Primary",
+    "ID":
+    {
+        "Service": "Security.UID.Integer",
+        "Method": "Get"
+    },
+    "Nodes":
+    {
+        "Login":
+        {
+            "Type": "Literal.String",
+            "Regex": "[A-Za-z]+",
+            "Widgets":
+            {
+                "Create":
+                {
+                    "Type": "Form.TextfieldUnique",
+                    "Placeholder": "Латинские буквы"
+                }
+            }
+        },
+        "Password":
+        {
+            "Type": "Literal.Password",
+            "Widgets":
+            {
+                "Create":
+                {
+                    "Type": "Form.Password",
+                    "Placeholder": "Длиннее 4-х символов"
+                }
+            }
+        },
+        "Fullname":
+        {
+            "Type": "Literal.String",
+            "Widgets":
+            {
+                "Create":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        },
+        "EMail":
+        {
+            "Type": "Literal.EMail",
+            "Widgets":
+            {
+                "Create":
+                {
+                    "Type": "Form.Textfield",
+                    "Subtype": "email"
+                }
+            }
+        },
+        "City":
+        {
+            "Type": "Complex.One2One",
+            "Widgets":
+            {
+                "Create":
+                {
+                    "Type": "Form.Select",
+                    "Value":
+                    {
+                        "Service": "Entity.Dict",
+                        "Method": "Get",
+                        "Call":
+                        {
+                            "Entity": "City",
+                            "Key": "Title"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "Hooks":
+    {
+        "afterCreate":
+        {
+            "Activation":
+            {
+                "Service": "User.Activation",
+                "Method": "Send"
+            }
+        }
+    }
+}
