@@ -460,7 +460,7 @@ class ChromePhp
             break;
 
             default:
-                ChromePhp::log($Call['Data'], $Call['Tags']);
+                ChromePhp::info($Call['Data'], $Call['Tags']);
             break;
         }
 

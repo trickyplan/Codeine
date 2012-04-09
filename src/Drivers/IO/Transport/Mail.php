@@ -16,5 +16,12 @@
 
     self::setFn('Write', function ($Call)
     {
-        return mb_send_mail($Call['Scope'], $Call['ID'], $Call['Data']);
+        $HeaderStr = '';
+
+        foreach($Call['Headers'] as $Key => $Value)
+            $HeaderStr.= $Key.' '.$Value."\n";
+
+        $HeaderStr.= 'Content-type: '.$Call['Headers']['Content-type:']."\n";
+
+        return mb_send_mail($Call['Scope'], $Call['ID'], $Call['Data'], $HeaderStr);
     });
