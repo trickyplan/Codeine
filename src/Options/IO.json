@@ -7,7 +7,7 @@
         },
         "Session":
         {
-            "Driver": "IO.Storage.Redis"
+            "Driver": "IO.Storage.Test"
         },
         "Static":
         {
