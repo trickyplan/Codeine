@@ -93,6 +93,16 @@
         return $SortString;
     });
 
+    self::setFn('Limit', function ($Call)
+    {
+        if (isset($Call['Limit']))
+            $LimitString = ' limit '.$Call['Limit']['From'].', '.$Call['Limit']['To']; // FIXME Checks
+        else
+            $LimitString = '';
+
+        return $LimitString;
+    });
+
     self::setFn ('Where', function ($Call)
     {
         if (isset($Call['Where']))
@@ -131,7 +141,8 @@
                .F::Run(null, 'ReadKeys', $Call).
                ' from '.F::Run(null, 'Table', $Call)
                .F::Run(null, 'Where', $Call)
-               .F::Run(null, 'Sort', $Call);
+               .F::Run(null, 'Sort', $Call)
+               .F::Run(null, 'Limit', $Call);
     });
 
     self::setFn('Insert', function (array $Call)
@@ -147,12 +158,20 @@
         return 'update '
             .F::Run(null, 'Table', $Call).
             'set '.F::Run(null, 'Set', $Call)
-            .F::Run(null, 'Where', $Call);
+            .F::Run(null, 'Where', $Call)
+            .F::Run(null, 'Limit', $Call);
     });
 
     self::setFn('Delete', function ($Call)
     {
         return 'delete from '
             . F::Run(null, 'Table', $Call)
-            . F::Run(null, 'Where', $Call);
+            . F::Run(null, 'Where', $Call)
+            .F::Run(null, 'Limit', $Call);
+    });
+
+    self::setFn('Count', function (array $Call)
+    {
+        return 'select count(*) from '.F::Run(null, 'Table', $Call)
+               .F::Run(null, 'Where', $Call);
     });

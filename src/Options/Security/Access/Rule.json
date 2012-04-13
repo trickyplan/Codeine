@@ -1,0 +1,18 @@
+{
+    "Rules":
+    {
+        "Main":
+        {
+            "Decision": true
+        },
+        "Administrators can create entities":
+        {
+            "Service": "Entity",
+            "Method": "Create",
+            "User": {
+                "ID": 0
+            },
+            "Decision": true
+        }
+    }
+}

@@ -5,10 +5,6 @@
         {
             "Driver": "IO.Storage.Test"
         },
-        "Session":
-        {
-            "Driver": "IO.Storage.Test"
-        },
         "Static":
         {
             "Driver":"IO.Storage.Directory",

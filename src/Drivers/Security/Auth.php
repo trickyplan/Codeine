@@ -86,5 +86,6 @@
 
     self::setFn('Username', function ($Call)
     {
+        $Call = F::Run(null, 'Audit', $Call);
         return isset($Call['Session']['User']['ID'])? $Call['Session']['User']['ID']: null;
     });

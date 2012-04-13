@@ -32,7 +32,6 @@
         if ($Call['Link']->errno != 0)
             F::Log($Call['Link']->error,'Error');
 
-
         $Data = array();
 
         while($Row = $Result->fetch_assoc())
@@ -74,7 +73,9 @@
         return true;
     });
 
-    self::setFn ('Execute', function ($Call)
+    self::setFn ('Count', function ($Call)
     {
-        return $Call['Link']->query($Call['Execute']);
+        $Result = $Call['Link']->query(F::Run('IO.Storage.MySQL.Syntax', 'Count', $Call))->fetch_assoc();
+
+        return $Result['count(*)'];
     });

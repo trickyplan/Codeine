@@ -9,10 +9,10 @@
 
     self::setFn ('Write', function ($Call)
     {
-        return $Call['Value'];
+        return array_search($Call['Value'], $Call['Nodes'][$Call['Node']]['Enum']);
     });
 
     self::setFn('Read', function ($Call)
     {
-        return $Call['Value'];
+        return $Call['Nodes'][$Call['Node']]['Enum'][$Call['Value']];
     });

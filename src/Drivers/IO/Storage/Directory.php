@@ -69,9 +69,6 @@
 
         $Filename = Root.'/'.$Call['Link'] . '/' . $Call['Scope'] . '/' . $Prefix . $Call['Where']['ID'] . $Postfix;
 
-        if (isset($Call['Debug']))
-            d(__FILE__, __LINE__, $Call['Where']['ID']);
-
         if (isset($Call['Data']))
             return file_put_contents ($Filename, $Call['Data']);
         else

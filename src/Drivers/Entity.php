@@ -104,3 +104,14 @@
 
         return $Call;
     });
+
+    self::setFn('Count', function ($Call)
+    {
+        $Call = F::Run(null, 'Load', $Call);
+
+        return F::Run('IO', 'Execute', $Call,
+            array (
+                  'Execute' => 'Count',
+                  'Scope'   => $Call['Entity']
+            ));
+    });

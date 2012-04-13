@@ -315,6 +315,16 @@
                 return isset($Array[$Key])? $Array[$Key]: null;
         }
 
+        public static function Hook($On, $Call)
+        {
+            if (isset($Call['Hooks']))
+                 if ($Hooks = F::Dot($Call, 'Hooks.' . $On))
+                     foreach ($Hooks as $Hook)
+                         $Call = F::Run($Hook['Service'], $Hook['Method'], $Call, isset($Hook['Call']) ? $Hook['Call'] : array ());
+
+            return $Call;
+        }
+
         public static function Error($errno , $errstr , $errfile , $errline , $errcontext)
         {
             return F::Run(

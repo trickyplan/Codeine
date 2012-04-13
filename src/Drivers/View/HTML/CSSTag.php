@@ -31,8 +31,6 @@
 
     self::setFn ('Process', function ($Call)
     {
-        $CSSHash = '';
-
         if (preg_match_all ('@<css>(.*)<\/css>@SsUu', $Call['Output'], $Parsed))
         {
             $CSSHash = F::Run(null, 'Hash', array('IDs' => $Parsed[1]));
