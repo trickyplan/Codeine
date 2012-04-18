@@ -23,7 +23,7 @@
         }
         // В противном случае, 404
         else
-            $Call = F::Run('Code.Flow.Hook', 'Run', $Call, array ('On' => 'on404'));
+            $Call = F::Hook('on404', $Call);
 
         // А здесь - рендеринг
         $Call = F::Run('Code.Flow.Hook', 'Run', $Call, array ('On' => 'afterRun')); // JP afterRun

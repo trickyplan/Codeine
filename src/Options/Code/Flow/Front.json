@@ -12,6 +12,11 @@
             {
                 "Service": "Security.Auth",
                 "Method": "Audit"
+            },
+            "Access":
+            {
+                "Service": "Code.Flow.Front.Access",
+                "Method": "Check"
             }
         },
         "afterRun":

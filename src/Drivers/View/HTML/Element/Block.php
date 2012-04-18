@@ -9,8 +9,10 @@
 
      self::setFn('Make', function ($Call)
      {
-         if (is_array($Call['Class']))
-             $Call['Class'] = implode(' ', $Call['Class']);
-         
-         return '<div class="'.$Call['Class'].'">'.$Call['Value'].'</div>';
+         return F::Run ('View', 'LoadParsed', $Call,
+                           array(
+                                'Scope' => 'Default',
+                                'ID'    => 'UI/HTML/Block',
+                                'Data'  => $Call
+                           ));
      });

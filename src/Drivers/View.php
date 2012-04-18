@@ -38,24 +38,20 @@
 
     self::setFn('Render', function ($Call)
     {
-        $Call = F::Run('Code.Flow.Hook', 'Run', $Call, array ('On'=> 'beforeRender'));
+        $Call = F::Hook('beforeRender', $Call);
 
         $Call = F::Live (F::Live($Call['Rendering'], $Call), $Call);
 
-        $Call = F::Run('Code.Flow.Hook', 'Run', $Call, array ('On'=> 'afterRender'));
-
-        return $Call;
+        return F::Hook('afterRender', $Call);
     });
 
     self::setFn('RenderSlice', function ($Call)
     {
-        $Call = F::Run('Code.Flow.Hook', 'Run', $Call, array ('On'=> 'beforeRenderSlice'));
+        $Call = F::Hook('beforeRenderSlice', $Call);
 
         $Call = F::Live (F::Live($Call['Rendering'], $Call), $Call);
 
-        $Call = F::Run('Code.Flow.Hook', 'Run', $Call, array ('On'=> 'afterRenderSlice'));
-
-        return $Call;
+        return F::Hook('afterRenderSlice', $Call);
     });
 
     self::setFn('Asset.Route', function ($Call)

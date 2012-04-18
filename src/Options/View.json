@@ -15,6 +15,11 @@
         {
             "Service": "View.Parser.Key",
             "Method": "Parse"
+        },
+        "Call":
+        {
+            "Service": "View.Parser.Call",
+            "Method": "Parse"
         }
     },
     "Rendering":

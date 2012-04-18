@@ -1,0 +1,21 @@
+{
+    "Hooks":
+    {
+        "beforeList":
+        {
+            "Pagination":
+            {
+                "Service": "Entity.List.Pagination",
+                "Method": "beforeList"
+            }
+        },
+        "afterList":
+        {
+            "Pagination":
+            {
+                "Service": "Entity.List.Pagination",
+                "Method": "afterList"
+            }
+        }
+    }
+}

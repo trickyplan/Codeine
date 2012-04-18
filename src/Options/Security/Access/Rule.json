@@ -1,18 +1,34 @@
 {
+    "Weight": 0,
+    "Decision": false,
     "Rules":
     {
-        "Main":
+        "EverybodyCanRead":
         {
-            "Decision": true
+            "Decision": true,
+            "Weight": 50,
+            "Call":
+            {
+                "Service": "Entity.Show.Static",
+                "Method": "Do"
+            }
         },
         "Administrators can create entities":
         {
-            "Service": "Entity",
-            "Method": "Create",
-            "User": {
-                "ID": 0
-            },
-            "Decision": true
+            "Decision": true,
+            "Weight": 100,
+            "Call":
+            {
+                "Service": "Entity.Create",
+                "Method": "Do",
+                "Session":
+                {
+                    "User":
+                    {
+                        "ID": "8"
+                    }
+                }
+            }
         }
     }
 }

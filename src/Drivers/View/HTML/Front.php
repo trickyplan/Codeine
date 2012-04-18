@@ -26,7 +26,7 @@
                     array (
                           'Scope' => $Asset,
                           'ID'    => $ID,
-                          'Data'  => isset($Call['Front']) ? $Call['Front'] : array ()
+                          'Data'  => isset($Call) ? $Call : array ()
                     ))))
                 )
                 {
