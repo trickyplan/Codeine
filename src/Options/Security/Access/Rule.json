@@ -1,6 +1,6 @@
 {
-    "Weight": 0,
-    "Decision": false,
+    "Weight": 200,
+    "Decision": true,
     "Rules":
     {
         "EverybodyCanRead":

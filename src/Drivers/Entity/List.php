@@ -39,7 +39,7 @@
                 $Call['Output']['Content'][] = array(
                     'Type'  => 'Template',
                     'Scope' => $Call['Entity'],
-                    'Value' => 'Show.'.(isset($Call['Template'])? $Call['Template']: 'Short'),
+                    'Value' => 'Show/'.(isset($Call['Template'])? $Call['Template']: 'Short'),
                     'Data' => $Element
                 );
         }

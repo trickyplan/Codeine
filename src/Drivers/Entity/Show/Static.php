@@ -9,23 +9,18 @@
 
     self::setFn('Do', function ($Call)
     {
-        $Element = F::Run('Entity', 'Read', $Call);
+        list($Call[$Call['Entity']]) = F::Run('Entity', 'Read', $Call);
 
-        if (empty($Element))
+        if (empty($Call[$Call['Entity']]))
             $Call = F::Run('Error.404', 'Page', $Call);
         else
         {
             $Call['Output']['Content'][] = array (
                 'Type'  => 'Template',
                 'Scope' => $Call['Entity'],
-                'Value' => 'Show.Full',
-                'Data'  => $Element[0]
+                'Value' => 'Show/Full',
+                'Data' => $Call[$Call['Entity']]
             );
-
-            $Call['Title']       = $Element[0]['Name'].' '.$Element[0]['Surname'];
-            $Call['Description'] = $Element[0]['Name'] . ' ' . $Element[0]['Surname'];
-            $Call['Keywords']    = preg_split('/\s/', $Element[0]['Name']);
-
         }
 
         return $Call;

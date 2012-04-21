@@ -10,4 +10,4 @@
      self::setFn('Make', function ($Call)
      {
          return  F::Run('View', 'LoadParsed', $Call, array ('ID' => $Call['Value']));
-    });
+     });
