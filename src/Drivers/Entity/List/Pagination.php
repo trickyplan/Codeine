@@ -23,14 +23,15 @@
 
     self::setFn('afterList', function ($Call)
     {
-        $Call['Output']['Content'][] = array(
-                'Type'  => 'Paginator',
-                'Total' => $Call['Front']['Count'],
-                'EPP' => $Call['EPP'],
-                'Page' => $Call['Page'],
-                'PageURL' => $Call['PageURL'],
-                'PageCount' => $Call['PageCount']
-            );
+        if ($Call['PageCount']>1)
+            $Call['Output']['Content'][] = array(
+                    'Type'  => 'Paginator',
+                    'Total' => $Call['Front']['Count'],
+                    'EPP' => $Call['EPP'],
+                    'Page' => $Call['Page'],
+                    'PageURL' => $Call['PageURL'],
+                    'PageCount' => $Call['PageCount']
+                );
 
 
         return $Call;
