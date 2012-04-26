@@ -1,0 +1,9 @@
+{
+    "Strategy": "Normal",
+    "Algos":
+    {
+        "Normal": "SHA1",
+        "Fast": "CRC32",
+        "Secure": "SHA2"
+    }
+}
