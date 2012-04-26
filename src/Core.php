@@ -23,6 +23,12 @@
 
         public static function Bootstrap ($Call = null)
         {
+            if (file_exists(Root.'/down'))
+            {
+                readfile(__DIR__.'/down.html');
+                die();
+            }
+
             self::$_Speed = array(microtime(true), memory_get_usage(), 0);
 
             mb_internal_encoding('UTF-8');
