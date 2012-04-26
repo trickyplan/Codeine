@@ -31,7 +31,7 @@
     {
         return F::Run('View', 'Parse',
             array (
-                  'Data'  => $Call['Data'],
+                  'Data'  => isset($Call['Data'])? $Call['Data']: null,
                   'Value' => F::Run('View', 'Load', $Call)
             ));
     });

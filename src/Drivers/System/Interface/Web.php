@@ -17,7 +17,7 @@
         else
             $Call['Request'] = $_POST;
 
-        $Call['Run'] = $_SERVER['REQUEST_URI'];
+        $Call['Run'] = urldecode($_SERVER['REQUEST_URI']);
 
         $Call = F::Run($Call['Service'], $Call['Method'], $Call);
 
