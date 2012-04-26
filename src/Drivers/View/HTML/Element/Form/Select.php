@@ -18,6 +18,8 @@
 
          $Call['Value'] = F::Live($Call['Value']);
 
+         if (isset($Call['Multiple']))
+             $Call['Name'] .= '[]';
 
          foreach ($Call['Value'] as $Key => $Value)
              if(in_array($Key, (array)$Call['Selected']))

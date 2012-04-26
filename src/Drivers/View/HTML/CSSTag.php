@@ -26,7 +26,7 @@
                                                          ));
         }
 
-        return sha1(implode('', $Hash));
+        return F::Run('Security.Hash', 'Get', array('Value' => implode('', $Hash)));
     });
 
     self::setFn ('Process', function ($Call)
@@ -58,7 +58,7 @@
                                                               )))
                             $CSS[] = $CSSSource;
                         else
-                            trigger_error('No CSS: '.$CSSFile);
+                            trigger_error('No CSS: '.$CSSFile); // FIXNE
                     }
 
                     $CSS = implode ('', $CSS);

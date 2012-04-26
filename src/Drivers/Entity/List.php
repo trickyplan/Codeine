@@ -44,6 +44,7 @@
                 );
         }
 
+        $Call['Front']['Count'] = sizeof($Elements);
         $Call = F::Hook('afterList', $Call);
 
         return $Call;

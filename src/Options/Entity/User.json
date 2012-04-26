@@ -1,5 +1,6 @@
 {
     "Storage": "Primary",
+    "EPP": 5,
     "ID":
     {
         "Service": "Security.UID.Integer",

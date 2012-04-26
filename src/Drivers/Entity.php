@@ -38,7 +38,7 @@
                   'Scope'   => $Call['Entity']
             ));
 
-        $Call = F::Run('Code.Flow.Hook', 'Run', $Call, array ('On' => 'afterRead'));
+        $Call = F::Hook('afterRead', $Call);
 
         return $Call['Data'];
     });

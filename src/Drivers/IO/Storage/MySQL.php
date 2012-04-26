@@ -75,7 +75,10 @@
 
     self::setFn ('Count', function ($Call)
     {
-        $Result = $Call['Link']->query(F::Run('IO.Storage.MySQL.Syntax', 'Count', $Call))->fetch_assoc();
+        $Result = $Call['Link']->query(F::Run('IO.Storage.MySQL.Syntax', 'Count', $Call));
+
+        if ($Result)
+            $Result = $Result->fetch_assoc();
 
         return $Result['count(*)'];
     });

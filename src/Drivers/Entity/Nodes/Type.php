@@ -13,11 +13,12 @@
             return $Call;
 
         foreach ($Call['Nodes'] as $Name => $Node)
-            if (isset($Node['Type']))
-                foreach($Call['Data'] as $IX => $Element)
-                    $Call['Data'][$IX][$Name] = F::Run('Entity.Nodes.Type.'.$Node['Type'], 'Read', $Call,
+            if (!empty($Node['Type']))
+                foreach ($Call['Data'] as $IX => &$Element)
+                    $Element[$Name] = F::Run('Entity.Nodes.Type.'.$Node['Type'], 'Read', $Call,
                         array('Node' => $Name,
-                              'Value' => isset($Element[$Name])? $Element[$Name]: null));
+                              'ID' => $Element['ID'],
+                              'Value' => (isset($Element[$Name])? $Element[$Name]: null)));
 
         return $Call;
     });

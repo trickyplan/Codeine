@@ -11,8 +11,6 @@
     {
         $Call = F::Merge($Call, F::loadOptions('Entity.'.$Call['Entity']));
 
-
-
         $Call['Output']['Content']['Form']['Action'] = $Call['URL'];
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST')
@@ -35,7 +33,10 @@
         {
             if (isset($Node['Widgets']['Create']))
                 $Call['Output']['Form'][] =
-                    F::Merge($Node, F::Merge($Node['Widgets']['Create'], array('Name' => $Name, 'Entity' => $Call['Entity'],'Data' => $Call['Data'])));
+                    F::Merge($Node, F::Merge($Node['Widgets']['Create'],
+                        array('Name' => $Name,
+                              'Entity' => $Call['Entity'],
+                              'Data' =>  $Call['Data'])));
 
         }
 

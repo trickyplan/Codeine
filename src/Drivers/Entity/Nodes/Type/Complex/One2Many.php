@@ -43,7 +43,7 @@
                                     'Scope' => $Call['Entity'].'2'.$Call['Node'],
                                     'Where' =>
                                         array (
-                                            $Call['Entity'].'ID' => $Call['Data'][0]['ID']
+                                            $Call['Entity'].'ID' => $Call['ID']
                                         )
                                ));
 
