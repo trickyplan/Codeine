@@ -25,6 +25,11 @@
             {
                 "Service":"Entity.Nodes.Live",
                 "Method":"Process"
+            },
+            "Filter":
+            {
+                "Service":"Entity.Nodes.Filter",
+                "Method":"Process"
             }
         },
         "beforeUpdate":
@@ -42,6 +47,11 @@
             "Add default values for undefined":
             {
                 "Service":"Entity.Nodes.Default",
+                "Method":"Process"
+            },
+            "Filter":
+            {
+                "Service":"Entity.Nodes.Filter",
                 "Method":"Process"
             }
         },

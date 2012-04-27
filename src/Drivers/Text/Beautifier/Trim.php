@@ -9,8 +9,7 @@
 
     self::setFn('Process', function ($Call)
     {
-        foreach ($Call['Beautifiers'] as $Rule)
-            $Call = F::Run('Text.Beautifier.'.$Rule, 'Process', $Call);
+        $Call['Value'] = trim($Call['Value']);
 
-        return $Call['Value'];
-    });
+        return $Call;
+     });

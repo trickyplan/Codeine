@@ -1,0 +1,3 @@
+{
+    "Beautifiers": ["PunctSpace", "Copyright", "Hellip", "MDash", "Quotes", "Registered", "RedundantSpaces", "Trim"]
+}

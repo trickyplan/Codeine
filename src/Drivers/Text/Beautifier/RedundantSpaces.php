@@ -9,6 +9,7 @@
 
     self::setFn('Process', function ($Call)
     {
-        $Call['Value'] = preg_replace('/,(\w+)/i', ', \1', $Call['Value']);
+        $Call['Value'] = preg_replace('/\s+/', ' ', $Call['Value']);
+
         return $Call;
      });

@@ -9,8 +9,6 @@
 
     self::setFn('Process', function ($Call)
     {
-        foreach ($Call['Beautifiers'] as $Rule)
-            $Call = F::Run('Text.Beautifier.'.$Rule, 'Process', $Call);
-
-        return $Call['Value'];
-    });
+        $Call['Value'] = preg_replace('/([\.,;\:!\?])(\w+)/SsUui', '\1 \2', $Call['Value']);
+        return $Call;
+     });
