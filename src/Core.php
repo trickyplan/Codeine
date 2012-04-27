@@ -296,7 +296,7 @@
                     $Fn($Key, $Value, $Data, $NewFullKey);
 
                     if (is_array ($Value))
-                        $Value = self::Map ($Value, $Fn, &$Data, $NewFullKey);
+                        $Value = self::Map ($Value, $Fn, $Data, $NewFullKey);
                 }
 
             return $Array;
