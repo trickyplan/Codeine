@@ -24,13 +24,25 @@
 
             if (isset($Call['Session']['User']))
             {
-                $User = F::Run('Entity', 'Read',
+
+                if($Call['Session']['Expire'] < time())
+                {
+                    F::Run('Entity', 'Delete',
+                        array(
+                             'Entity' => 'Session',
+                             'Where' => $Call['SID']
+                        ));
+                }
+                else
+                {
+                    $User = F::Run('Entity', 'Read',
                             array(
                                  'Entity' => 'User',
                                  'Where' => $Call['Session']['User']
                             ));
 
-                $Call['Session']['User'] = $User[0];
+                    $Call['Session']['User'] = $User[0];
+                }
             }
         }
 
@@ -70,7 +82,7 @@
              array(
                   'Entity' => 'Session',
                   'Where' => $Call['SID'],
-                  'Data' => array('User' => $Call['User'])
+                  'Data' => array('User' => $Call['User'], 'Expire' => time()+ $Call['TTL'])
              ));
     });
 

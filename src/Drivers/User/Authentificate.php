@@ -22,7 +22,10 @@
 
             if ($User[0]['Status'] == 1)
             {
-                F::Run('Security.Auth', 'Attach', $Call, array('User' => $User[0]['ID']));
+                if (isset($Call['Request']['TTL']))
+                    $Call['TTL'] = $Call['Request']['TTL'];
+
+                F::Run('Security.Auth', 'Attach', $Call, array('User' => $User[0]['ID'], 'TTL' => $Call['TTLs'][$Call['TTL']]));
 
                 $Call['Output']['Content'][]
                     = array(
@@ -35,7 +38,7 @@
                 $Call['Output']['Content'][]
                     = array(
                     'Type' => 'Block',
-                    'Class' => 'alert alert-success',
+                    'Class' => 'alert alert-warning',
                     'Value' => 'User not activated'
                 );
 
@@ -44,7 +47,7 @@
             $Call['Output']['Content'][]
                 = array(
                 'Type' => 'Block',
-                'Class' => 'alert alert-success',
+                'Class' => 'alert alert-danger',
                 'Value' => 'Access denied'
             );
 
