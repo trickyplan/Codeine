@@ -12,7 +12,7 @@
         $Call['Output']['Sidebar'][] =
               array(
                   'Type' => 'Button',
-                  'Value' => 'Hash.Test',
+                  'Value' => '<l>Hash.Test</l>',
                   'Action' => '/control/Security/HashTest'
               );
 

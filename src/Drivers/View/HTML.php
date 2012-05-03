@@ -11,9 +11,42 @@
     {
        $Call = F::Run ('Code.Flow.Hook', 'Run', $Call, array('On' => 'beforePipeline'));      // JP beforeRender
 
-           $Call = F::Run ('View.Pipeline','Process', $Call, array('Renderer' => 'View.HTML')); // Pipelining
+           $Call = F::Run (null,'Pipeline', $Call, array('Renderer' => 'View.HTML')); // Pipelining
 
        $Call = F::Run ('Code.Flow.Hook', 'Run', $Call, array ('On' => 'afterPipeline'));      // JP afterRender
 
        return $Call;
+    });
+
+    self::setFn('Pipeline', function ($Call)
+    {
+        if(!isset($Call['Layout']))
+            $Call['Layout'] = '<place>Content</place>';
+
+        if (isset($Call['Layouts']))
+            foreach ($Call['Layouts'] as $Layout)
+                if (($Sublayout =  F::Run('View', 'LoadParsed', $Layout)) !== null)
+                    $Call['Layout'] = str_replace('<place>Content</place>', $Sublayout, $Call['Layout']);
+
+        if (preg_match_all('@<place>(.*)<\/place>@SsUu', $Call['Layout'], $Places))
+        {
+            if (isset($Call['Output']))
+            {
+                if (is_array($Call['Output']))
+                    foreach ($Call['Output'] as $Place => $Widgets)
+                        foreach ($Widgets as $Key => $Widget)
+                            $Call['Output'][$Place][$Key] = F::Run($Call['Renderer'] . '.Element.' . $Widget['Type'], 'Make', $Widget);
+                // TODO Normal caching
+            }
+
+            if (!isset($Call['Output']['Content']))
+                $Call['Output']['Content'] = array();
+
+            foreach ($Call['Output'] as $Place => $Widgets)
+                $Call['Layout'] = str_replace('<place>' . $Place . '</place>', implode('', $Widgets), $Call['Layout']);
+        }
+
+        $Call['Output'] = $Call['Layout'];
+
+        return $Call;
     });

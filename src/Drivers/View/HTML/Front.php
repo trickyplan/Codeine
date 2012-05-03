@@ -9,6 +9,9 @@
 
     self::setFn('Layouts', function ($Call)
     {
+        if (!isset($Call['Layouts']))
+            $Call['Layouts'] = array();
+
         if (F::isCall($Call))
         {
             $Slices = explode('.', $Call['Service']);
@@ -22,16 +25,7 @@
                 $IDs[] = implode('/', array_slice($Slices, 1, $ic));
 
             foreach ($IDs as $ID)
-                if (null !== (($Sublayout = F::Run('View', 'LoadParsed', $Call,
-                    array (
-                          'Scope' => $Asset,
-                          'ID'    => $ID,
-                          'Data'  => isset($Call) ? $Call : array ()
-                    ))))
-                )
-                {
-                    $Call['Layout'] = str_replace('<place>Content</place>', $Sublayout, $Call['Layout']);
-                }
+               array_unshift($Call['Layouts'], array ('Scope' => $Asset, 'ID'    => $ID));
         }
 
         return $Call;

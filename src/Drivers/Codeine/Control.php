@@ -13,12 +13,12 @@
 
         $Current = file_get_contents('https://raw.github.com/Breathless/Codeine/master/docs/VERSION');
 
-        $Call['Output']['Content'][] =
-            array(
-                'Type' => 'Block',
-                'Class' => 'alert '.($Current>'7.2'? 'alert-error': 'alert-success'),
-                'Value' => 'Установленная версия: 7.2. <br/> Актуальная версия: '.$Current
-            );
+        $Call['Output']['Content'][] = array (
+            array (
+                'Type'  => 'Block',
+                'Class' => 'alert ' . ($Current > '7.2' ? 'alert-error' : 'alert-success'),
+                'Value' => 'Установленная версия: 7.2. <br/> Актуальная версия: ' . $Current
+            ));
 
 
 

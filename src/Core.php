@@ -326,7 +326,16 @@
             if (isset($Call['Hooks']))
                  if ($Hooks = F::Dot($Call, 'Hooks.' . $On))
                      foreach ($Hooks as $Hook)
-                         $Call = F::Run($Hook['Service'], $Hook['Method'], $Call, isset($Hook['Call']) ? $Hook['Call'] : array ());
+                     {
+/*                         if(isset($Hook['Call']))
+                            $Hook['Call'] = F::Map($Hook['Call'], function ($Key, &$Value) use ($Call)
+                            {
+                                if (is_scalar($Value) && substr($Value, 0, 1) == '$')
+                                    $Value = F::Dot($Call, substr($Value, 1));
+                            });*/
+
+                         $Call = F::Live($Hook, $Call);
+                     }
 
             return $Call;
         }

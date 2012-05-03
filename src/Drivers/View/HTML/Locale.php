@@ -19,12 +19,15 @@
             {
                 list($Asset, $ID) = F::Run('View', 'Asset.Route', array('Value' => $Match));
 
-                $Locales = F::Merge($Locales, F::Run('IO', 'Read',
+                $AddLocales = F::Run('IO', 'Read',
                     array (
                           'Storage' => 'Locale',
                           'Scope'   => $Asset.'/Locale/'.$Language,
                           'Where'   => $ID
-                    )));
+                    ));
+
+                if ($AddLocales)
+                    $Locales = F::Merge($Locales, $AddLocales);
 
                 $Call['Output'] = str_replace($Pockets[0][$IX], '', $Call['Output']);
             }

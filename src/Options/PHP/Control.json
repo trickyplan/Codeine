@@ -1,0 +1,7 @@
+{
+    "Requirements":
+    {
+        "display_errors": "Off",
+        "expose_php": "Off"
+    }
+}

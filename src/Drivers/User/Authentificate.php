@@ -35,21 +35,28 @@
                 );
             }
             else
+            {
                 $Call['Output']['Content'][]
                     = array(
                     'Type' => 'Block',
                     'Class' => 'alert alert-warning',
                     'Value' => 'User not activated'
                 );
+            }
 
         }
         else
+        {
             $Call['Output']['Content'][]
                 = array(
                 'Type' => 'Block',
                 'Class' => 'alert alert-danger',
                 'Value' => 'Access denied'
             );
+
+            $Call = F::Hook('Access.Denied', $Call);
+
+        }
 
         return $Call;
     });

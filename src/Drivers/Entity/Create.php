@@ -11,6 +11,8 @@
     {
         $Call = F::Merge($Call, F::loadOptions('Entity.'.$Call['Entity']));
 
+        $Call = F::Hook('beforeCreate', $Call);
+
         $Call['Output']['Content']['Form']['Action'] = $Call['URL'];
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST')
@@ -21,10 +23,7 @@
                       'Data' => F::Merge($Call['Data'], $Call['Request'])
                 ));
 
-            // TODO SLUG
-            $Call['Value'] = '/'.strtolower($Call['Entity']).'/'.$Call['Element']['ID']; // FIXME Reverse routing #243
-
-            $Call = F::Run('Code.Flow.Hook', 'Run', $Call, array ('On'=> 'afterCreate'));
+            $Call = F::Hook('afterCreate', $Call);
 
             return $Call;
         }
