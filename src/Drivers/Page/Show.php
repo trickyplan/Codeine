@@ -12,9 +12,10 @@
         foreach ($Call['Places'] as $Place => $Template)
             $Call['Output'][$Place][] =
                 array(
-                    'Type'  => 'Static',
-                    'Scope' => 'Page',
-                    'Value' => $Template
+                    'Type'  => 'Template',
+                    'Scope' => $Template['Scope'],
+                    'Value' => $Template['ID'],
+                    'Data' => $Call
                 );
 
         return $Call;
