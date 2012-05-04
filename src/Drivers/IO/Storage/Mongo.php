@@ -20,7 +20,12 @@
 
     self::setFn ('Read', function ($Call)
     {
-        return $Call['Link']->$Call['Scope']->find($Call['Where']);
+        $Cursor = $Call['Link']->$Call['Scope']->find($Call['Where']);
+
+        foreach ($Cursor as $Doc)
+            $Data[] = $Doc;
+
+        return $Data;
     });
 
     self::setFn ('Write', function ($Call)
