@@ -13,7 +13,10 @@
 
         $Call = F::Hook('beforeCreate', $Call);
 
-        $Call['Output']['Content']['Form']['Action'] = $Call['URL'];
+        $Call['Locales'][] = $Call['Entity'];
+
+        if (isset($Call['URL']))
+            $Call['Output']['Content']['Form']['Action'] = $Call['URL'];
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST')
         {
@@ -34,8 +37,7 @@
                 $Call['Output']['Form'][] =
                     F::Merge($Node, F::Merge($Node['Widgets']['Create'],
                         array('Name' => $Name,
-                              'Entity' => $Call['Entity'],
-                              'Data' =>  $Call['Data'])));
+                              'Entity' => $Call['Entity'])));
 
         }
 

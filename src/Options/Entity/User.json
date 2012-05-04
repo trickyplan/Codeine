@@ -55,27 +55,6 @@
                     "Subtype": "email"
                 }
             }
-        },
-        "City":
-        {
-            "Type": "Complex.One2One",
-            "Widgets":
-            {
-                "Create":
-                {
-                    "Type": "Form.Select",
-                    "Value":
-                    {
-                        "Service": "Entity.Dict",
-                        "Method": "Get",
-                        "Call":
-                        {
-                            "Entity": "City",
-                            "Key": "Title"
-                        }
-                    }
-                }
-            }
         }
     },
     "Hooks":

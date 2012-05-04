@@ -28,6 +28,10 @@
                 if (($Sublayout =  F::Run('View', 'LoadParsed', $Layout)) !== null)
                     $Call['Layout'] = str_replace('<place>Content</place>', $Sublayout, $Call['Layout']);
 
+        if (preg_match_all('@<call>(.*)<\/call>@SsUu', $Call['Layout'], $Pocket)) // TODO Вынести в хук
+            foreach ($Pocket[0] as $IX => $Match)
+                $Call['Layout'] = str_replace($Match, F::Dot($Call, $Pocket[1][$IX]), $Call['Layout']);
+
         if (preg_match_all('@<place>(.*)<\/place>@SsUu', $Call['Layout'], $Places))
         {
             if (isset($Call['Output']))
@@ -45,6 +49,10 @@
             foreach ($Call['Output'] as $Place => $Widgets)
                 $Call['Layout'] = str_replace('<place>' . $Place . '</place>', implode('', $Widgets), $Call['Layout']);
         }
+
+        if (preg_match_all('@<call>(.*)<\/call>@SsUu', $Call['Layout'], $Pocket)) // TODO Вынести в хук
+            foreach ($Pocket[0] as $IX => $Match)
+                $Call['Layout'] = str_replace($Match, F::Dot($Call, $Pocket[1][$IX]), $Call['Layout']);
 
         $Call['Output'] = $Call['Layout'];
 

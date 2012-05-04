@@ -63,13 +63,17 @@
             },
             "I18N":
             {
-                "Service":"View.HTML.Locale",
+                "Service":"View.HTML.LocaleNG",
                 "Method":"Process"
             }
         },
         "afterRenderSlice":
         {
-
+            "I18N":
+            {
+                "Service":"View.HTML.LocaleNG",
+                "Method":"Process"
+            }
         }
     }
 }

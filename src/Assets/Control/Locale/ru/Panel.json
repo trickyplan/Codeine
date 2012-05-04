@@ -1,0 +1,15 @@
+{
+    "Control":
+    {
+        "Main": "Обзор",
+        "Codeine": "Ядро",
+        "PHP":"PHP",
+        "Nginx":"Nginx",
+        "IO":"Данные",
+        "Security":"Безопасность",
+        "Review":"Отзывы",
+        "Log":"Журнал",
+        "Doctor":"Доктора",
+        "Hospital":"Больницы"
+    }
+}

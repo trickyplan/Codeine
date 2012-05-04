@@ -10,6 +10,7 @@
     self::setFn('Do', function ($Call)
     {
         list($Call[$Call['Entity']]) = F::Run('Entity', 'Read', $Call);
+        $Call['Locales'][] = $Call['Entity'];
 
         if (empty($Call[$Call['Entity']]))
             $Call = F::Run('Error.404', 'Page', $Call);

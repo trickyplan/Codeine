@@ -6,8 +6,8 @@
             "Service":"Code.Documentation.Generator",
             "Method":"Method",
             "Call":{
-                "Service":1,
-                "Method":2
+                "Service":"$1",
+                "Method":"$2"
             }
         },
         "Documentation.Service":
@@ -17,7 +17,7 @@
             "Method":"Service",
             "Call":
             {
-                "Service": 1
+                "Service":"$1"
             }
         }
 

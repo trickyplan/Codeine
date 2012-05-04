@@ -9,19 +9,19 @@
 
     self::setFn('Do', function ($Call)
     {
-        $Call = F::Merge($Call, F::loadOptions('Entity.'.$Call['Entity']));
+        $Call = F::Merge(F::loadOptions('Entity.'.$Call['Entity']), $Call);
 
-        $Call['Output']['Content'][] = array(
-                    'Type'  => 'Template',
+        $Call['Layouts'][] = array(
                     'Scope' => $Call['Entity'],
-                    'Value' => 'Main'
+                    'ID' => 'Main'
                 );
 
-        $Call['Output']['Content'][] = array(
-                    'Type'  => 'Template',
+        $Call['Layouts'][] = array(
                     'Scope' => $Call['Entity'],
-                    'Value' => 'List'
+                    'ID' => 'List'
                 );
+
+        $Call['Locales'][] = $Call['Entity'];
 
         $Call = F::Hook('beforeList', $Call);
 

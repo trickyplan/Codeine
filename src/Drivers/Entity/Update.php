@@ -10,20 +10,25 @@
     self::setFn('Do', function ($Call)
     {
         $Call = F::Merge($Call, F::loadOptions('Entity.'.$Call['Entity']));
+        $Call['Where'] = F::Live($Call['Where']);
 
         $Call['Element'] = F::Run('Entity', 'Read', $Call);
 
+        $Call = F::Hook('beforeUpdate', $Call);
+
+        $Call['Locales'][] = $Call['Entity'];
+
+
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST')
         {
-            $Call['Element'] = F::Run('Entity', 'Update', $Call,
+
+            $Call['Element'] = F::Merge($Call['Element'][0], F::Run('Entity', 'Update', $Call,
                 array (
                       'Data' => F::Merge($Call['Data'], $Call['Request'])
-                ));
+                )));
 
-            // TODO SLUG
-            $Call['Value'] = '/'.strtolower($Call['Entity']).'/'.$Call['Element']['Slug']; // FIXME Reverse routing #243
-
-            $Call = F::Run('Code.Flow.Hook', 'Run', $Call, array ('On'=> 'afterUpdate'));
+            $Call = F::Hook('afterUpdate', $Call);
 
             return $Call;
         }

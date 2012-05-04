@@ -86,5 +86,6 @@
     self::setFn('Redirect', function ($Call)
     {
         $Call['Headers']['Location:'] = $Call['Value'];
+
         return $Call;
     });
