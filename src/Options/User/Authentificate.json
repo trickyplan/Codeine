@@ -4,22 +4,5 @@
     {
         "Long": 613200,
         "Short": 87600
-    },
-    "Hooks":
-    {
-        "Access":
-        {
-            "Denied":
-            {
-                "Show.Message":
-                {
-
-                },
-                "Register.Incident":
-                {
-
-                }
-            }
-        }
     }
 }

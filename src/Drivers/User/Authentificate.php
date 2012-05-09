@@ -33,6 +33,11 @@
                     'Class' => 'alert alert-success',
                     'Value' => 'Access granted'
                 );
+
+                $Call = F::Hook('onSuccess', $Call);
+
+                return $Call;
+
             }
             else
             {

@@ -192,9 +192,7 @@
             $Call = self::Merge(self::loadOptions(), $Call);
 
             if ((null === self::getFn($Method)) && (null === self::_loadSource($Service)))
-            {
                 $Result = (is_array($Call) && isset($Call['Fallback']))? $Call['Fallback'] : null;
-            }
             else
             {
                 $F = self::getFn($Method);
@@ -233,8 +231,7 @@
                 return null;
 
             // Fuckup of IDE hinting
-            return function ()
-            { };
+            return function (){};
         }
 
         public static function Live($Variable, $Call = array())
