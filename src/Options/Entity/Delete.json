@@ -1,24 +1,7 @@
 {
-    "Output":
-    {
-        "Content":
-        {
-            "Form":
-            {
-                "Type": "Form"
-            }
-        }
-    },
-    "Widgets":
-    {
-        "Literal.String":
-        {
-            "Type": "Form.Textfield"
-        }
-    },
    "Hooks":
    {
-        "afterCreate":
+        "afterDelete":
          {
              "Redirect":
             {

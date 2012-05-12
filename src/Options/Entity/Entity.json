@@ -1,0 +1,82 @@
+{
+    "Storage": "Options",
+    "EPP": 5,
+    "Nodes":
+    {
+        "ID":
+        {
+            "Type": "Literal.String",
+            "Widgets":
+            {
+                "Create":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        },
+        "Storage":
+        {
+            "Type": "Literal.String",
+            "Default": "Primary",
+            "Widgets":
+            {
+                "Create":
+                {
+                    "Type": "Form.Select",
+                    "Value": {
+                        "Primary": "Primary"
+                    },
+                    "Selected": "Primary"
+                }
+            }
+        },
+        "Nodes":
+        {
+            "Type": "Complex.Nodes",
+            "Widgets":
+            {
+                "Create":
+                {
+                    "Type": "Form.Div"
+                }
+            }
+        }
+    },
+    "Hooks":
+    {
+        "afterCreate":
+        {
+            "Redirect":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "Redirect",
+                "Call":
+                {
+                    "Value": "/control/Domain"
+                }
+            },
+            "Create Table":
+            {
+                "Service": "Entity.MySQL",
+                "Method": "Generate"
+            }
+        },
+        "afterDelete":
+        {
+            "Redirect":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "Redirect",
+                "Call":
+                {
+                    "Value": "/control/Domain"
+                }
+            },
+            "Destroy Table":
+            {
+                "Service": "Entity.MySQL",
+                "Method": "Destroy"
+            }
+        }
+    }
+}

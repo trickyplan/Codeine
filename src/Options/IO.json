@@ -5,11 +5,12 @@
         {
             "Driver": "IO.Storage.Test"
         },
-        "Static":
+        "Options":
         {
             "Driver":"IO.Storage.Directory",
-            "Directory":"Data",
-            "Suffix":".html"
+            "Directory":"Options",
+            "Format": "Formats.JSON",
+            "Suffix":".json"
         },
         "Layout":
         {

@@ -9,7 +9,7 @@
 
     self::setFn('Do', function ($Call)
     {
-        $Call = F::Merge(F::loadOptions('Entity.'.$Call['Entity']), $Call);
+        $Call = F::Merge(F::loadOptions('Domain.'.$Call['Entity']), $Call);
 
         $Call['Layouts'][] = array(
                     'Scope' => $Call['Entity'],

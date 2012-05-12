@@ -9,11 +9,14 @@
 
     self::setFn('Layouts', function ($Call)
     {
+
         if (!isset($Call['Layouts']))
             $Call['Layouts'] = array();
 
         if (F::isCall($Call))
         {
+
+
             $Slices = explode('.', $Call['Service']);
 
             $sz = sizeof($Slices);

@@ -73,6 +73,11 @@
         return true;
     });
 
+    self::setFn ('Execute', function ($Call)
+    {
+        return $Call['Link']->query($Call['Run']);
+    });
+
     self::setFn ('Count', function ($Call)
     {
         $Result = $Call['Link']->query(F::Run('IO.Storage.MySQL.Syntax', 'Count', $Call));

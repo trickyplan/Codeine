@@ -5,6 +5,11 @@
         {
             "Service":"Test.View",
             "Method":"Root"
+        },
+        "/control":
+        {
+            "Service": "Control.Panel",
+            "Method": "Do"
         }
     }
 }

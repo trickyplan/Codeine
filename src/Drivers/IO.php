@@ -40,6 +40,8 @@
 
         if (isset($Call['Driver']))
             $Data = F::Run ($Call['Driver'], 'Read', $Call);
+        else
+            $Data = null;
 
         if (isset($Call['Format']))
         {
@@ -75,11 +77,7 @@
 
     self::setFn ('Execute', function ($Call)
     {
-        // Если в Where простая переменная - это ID.
-        if (isset($Call['Where']) && is_scalar($Call['Where']))
-            $Call['Where'] = array ('ID' => $Call['Where']);
-
         $Call = F::Merge(F::Run('IO', 'Open', $Call), $Call);
 
-        return F::Run ($Call['Driver'], $Call['Execute'], $Call);
+        return F::Run ($Call['Driver'], 'Execute', $Call);
     });

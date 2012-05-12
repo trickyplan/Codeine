@@ -11,7 +11,7 @@
     {
         if (isset($Call['Mixins']))
             foreach ($Call['Mixins'] as $Mixin)
-                $Call = F::Merge($Call, F::loadOptions('Entity.' . $Mixin));
+                $Call = F::Merge($Call, F::loadOptions('Domain.' . $Mixin));
 
         return $Call;
      });

@@ -1,4 +1,8 @@
 {
+    "Caching":
+    {
+        "Enabled": true
+    },
     "CSS.Postprocessors":
     {
         "Minify":

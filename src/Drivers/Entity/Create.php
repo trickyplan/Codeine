@@ -23,7 +23,7 @@
             $Call['Element'] = F::Run('Entity', 'Create',
                 array (
                       'Entity' => $Call['Entity'],
-                      'Data' => F::Merge($Call['Data'], $Call['Request'])
+                      'Data' => isset($Call['Data'])? F::Merge($Call['Data'], $Call['Request']): $Call['Request']
                 ));
 
             $Call = F::Hook('afterCreate', $Call);
@@ -33,11 +33,18 @@
 
         foreach ($Call['Nodes'] as $Name => $Node)
         {
-            if (isset($Node['Widgets']['Create']))
-                $Call['Output']['Form'][] =
-                    F::Merge($Node, F::Merge($Node['Widgets']['Create'],
-                        array('Name' => $Name,
-                              'Entity' => $Call['Entity'])));
+            if (!isset($Node['Widgets']['Create']))
+            {
+                if (isset($Call['Widgets'][$Node['Type']]))
+                    $Node['Widgets']['Create'] = $Call['Widgets'][$Node['Type']];
+                else
+                    $Node['Widgets']['Create'] = array('Type' => 'Form.Textfield');
+            }
+
+            $Call['Output']['Form'][] =
+                F::Merge($Node, F::Merge($Node['Widgets']['Create'],
+                    array('Name' => $Name,
+                          'Entity' => $Call['Entity'])));
 
         }
 

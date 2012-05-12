@@ -67,9 +67,9 @@
         $Postfix   = isset($Call['Suffix']) ? $Call['Suffix'] : '';
         $Prefix   = isset($Call['Prefix']) ? $Call['Prefix'] : '';
 
-        $Filename = Root.'/'.$Call['Link'] . '/' . $Call['Scope'] . '/' . $Prefix . $Call['Where']['ID'] . $Postfix;
+        $Filename = Root.'/'.$Call['Link'] . '/' . $Call['Scope'] . '/' . $Prefix . (isset($Call['ID'])? $Call['ID']: $Call['Where']['ID']) . $Postfix;
 
-        if (isset($Call['Data']))
+        if (isset($Call['Data']) && ($Call['Data'] != 'null') && ($Call['Data'] != null))
             return file_put_contents ($Filename, $Call['Data']);
         else
             return unlink ($Filename);

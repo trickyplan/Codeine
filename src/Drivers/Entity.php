@@ -11,7 +11,10 @@
     {
         $Call = F::Run(null, 'Load', $Call);
 
-        $Call['Data']['ID'] = F::Live($Call['ID']);
+        if (isset($Call['Data']['ID']))
+            $Call['ID'] = $Call['Data']['ID'];
+        else
+            $Call['ID'] = F::Run('Security.UID.Integer', 'Get', $Call);
 
         $Call = F::Run('Code.Flow.Hook', 'Run', $Call, array ('On'=> 'beforeCreate'));
 
