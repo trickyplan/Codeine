@@ -18,17 +18,6 @@
     },
    "Hooks":
    {
-        "afterCreate":
-         {
-             "Redirect":
-            {
-                "Service": "System.Interface.Web",
-                "Method": "Redirect",
-                "Call":
-                {
-                    "Value": "/control/Domain"
-                }
-            }
-         }
+
    }
 }
