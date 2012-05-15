@@ -1,0 +1,10 @@
+{
+    "Engines":
+    {
+        "Primary":
+        {
+            "Driver": "Search.Sphinx",
+            "Server": "localhost"
+        }
+    }
+}

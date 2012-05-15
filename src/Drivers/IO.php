@@ -66,6 +66,9 @@
         if (isset($Call['Format']))
             $Call['Data'] = F::Run ($Call['Format'], 'Encode', array('Value' => $Call['Data']));
 
+        if (!isset($Call['Driver']))
+            d(__FILE__, __LINE__, $Call);
+
         return F::Run ($Call['Driver'], 'Write', $Call);
     });
 
