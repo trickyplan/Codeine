@@ -39,8 +39,10 @@
             {
                 $JS = array ();
 
+                $Parsed[1] = array_unique($Parsed[1]);
                 foreach ($Parsed[1] as $JSFile)
                 {
+                    F::Log($JSFile);
                     list($Asset, $ID) = F::Run('View', 'Asset.Route', array ('Value' => $JSFile));
 
                     if(null == ($JS[] = F::Run('IO', 'Read', array (
