@@ -37,8 +37,6 @@
             {
                 if (isset($Call['Widgets'][$Node['Type']]))
                     $Node['Widgets']['Create'] = $Call['Widgets'][$Node['Type']];
-                else
-                    $Node['Widgets']['Create'] = array('Type' => 'Form.Textfield');
             }
 
             $Call['Output']['Form'][] =
