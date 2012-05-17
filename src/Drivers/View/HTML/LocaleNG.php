@@ -13,6 +13,7 @@
 
             $Locales = array ();
 
+        if (isset($Call['Locales']))
             foreach ($Call['Locales'] as $Locale)
             {
                 list($Asset, $ID) = F::Run('View', 'Asset.Route', array('Value' => $Locale));

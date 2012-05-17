@@ -20,9 +20,9 @@
                                                                'Scope'   => $Asset.'/css',
                                                                'Execute' => 'Version',
                                                                'Where'   =>
-                                                               array (
-                                                                   'ID' => $ID
-                                                               )
+                                                                   array (
+                                                                       'ID' => $ID
+                                                                   )
                                                          ));
         }
 

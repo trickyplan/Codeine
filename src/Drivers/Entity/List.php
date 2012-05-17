@@ -9,7 +9,7 @@
 
     self::setFn('Do', function ($Call)
     {
-        $Call = F::Merge(F::loadOptions('Domain.'.$Call['Entity']), $Call);
+        $Call = F::Merge(F::loadOptions('Entity.'.$Call['Entity']), $Call);
 
         $Call['Layouts'][] = array(
                     'Scope' => $Call['Entity'],
@@ -23,9 +23,15 @@
 
         $Call['Locales'][] = $Call['Entity'];
 
+        $Call['Front']['Count'] = F::Run('Entity', 'Count', $Call);
+
         $Call = F::Hook('beforeList', $Call);
 
         $Elements = F::Run('Entity', 'Read', $Call);
+
+
+
+
 
         if (sizeof($Elements) == 0)
             $Call['Output']['Content'][] = array(
@@ -44,7 +50,7 @@
                 );
         }
 
-        $Call['Front']['Count'] = sizeof($Elements);
+
         $Call = F::Hook('afterList', $Call);
 
         return $Call;

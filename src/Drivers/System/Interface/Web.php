@@ -41,7 +41,7 @@
 
     self::setFn ('User.IP', function ($Call)
     {
-        return $_SERVER['REMOTE_ADDR'];
+        return isset($Call['IP.Substitute'][$_SERVER['REMOTE_ADDR']])? $Call['IP.Substitute'][$_SERVER['REMOTE_ADDR']]: $_SERVER['REMOTE_ADDR'];
     });
 
     self::setFn('User.Geo', function ($Call)

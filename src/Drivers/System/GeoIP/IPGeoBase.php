@@ -21,5 +21,6 @@
     self::setFn('City', function ($Call)
     {
         $Response = F::Run('System.GeoIP.IPGeoBase', 'Load', $Call);
+
         return isset($Response->ip->city)? $Response->ip->city: $Response->ip->country;
     });

@@ -20,7 +20,10 @@
                                                                'Storage' => 'JS',
                                                                'Scope'   => $Asset.'/js',
                                                                'Execute' => 'Version',
-                                                               'Where'   => $ID
+                                                               'Where'   =>
+                                                                   array(
+                                                                       'ID' => $ID
+                                                                   )
                                                          ));
         }
 
@@ -35,7 +38,7 @@
         {
             $JSHash = F::Run(null, 'Hash', array ('IDs' => $Parsed[1]));
 
-            if (!F::Run('IO', 'Execute', array ('Storage' => 'JS Cache', 'Execute'  => 'Exist', 'Where' => $JSHash)))
+            if (!F::Run('IO', 'Execute', array ('Storage' => 'JS Cache', 'Execute'  => 'Exist', 'Where' => array('ID' => $JSHash))))
             {
                 $JS = array ();
 

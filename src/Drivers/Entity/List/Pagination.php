@@ -22,6 +22,7 @@
         }
         else
         {
+
             $Call['Limit']['From']= 0;
             $Call['Limit']['To'] = $Call['Count'];
         }
@@ -31,16 +32,15 @@
 
     self::setFn('afterList', function ($Call)
     {
-        if ($Call['PageCount']>1 && !isset($Call['Count']))
-            $Call['Output']['Content'][] = array(
-                    'Type'  => 'Paginator',
-                    'Total' => $Call['Front']['Count'],
-                    'EPP' => $Call['EPP'],
-                    'Page' => $Call['Page'],
-                    'PageURL' => $Call['PageURL'],
-                    'PageCount' => $Call['PageCount']
-                );
-
+        if (($Call['PageCount']>1) && !isset($Call['Count']))
+            $Call['Output']['Pagination'][] = array(
+                'Type'  => 'Paginator',
+                'Total' => $Call['Front']['Count'],
+                'EPP' => $Call['EPP'],
+                'Page' => $Call['Page'],
+                'PageURL' => $Call['PageURL'],
+                'PageCount' => $Call['PageCount']
+            );
 
         return $Call;
     });

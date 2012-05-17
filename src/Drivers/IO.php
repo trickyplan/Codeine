@@ -82,5 +82,5 @@
     {
         $Call = F::Merge(F::Run('IO', 'Open', $Call), $Call);
 
-        return F::Run ($Call['Driver'], 'Execute', $Call);
+        return F::Run ($Call['Driver'], $Call['Execute'], $Call);
     });

@@ -11,6 +11,7 @@
     {
         $Call['SID'] = F::Run($Call['Source'], 'Read', $Call);
 
+
         if (empty($Call['SID']))
             $Call = F::Run(null, 'Register', $Call);
         else
@@ -61,7 +62,8 @@
                  'Where' => $Call['SID'],
                  'Data' =>
                     array (
-                        'User' => null
+                        'User' => null,
+                        'Created' => time()
                     )
             ));
 
@@ -100,4 +102,14 @@
     {
         $Call = F::Run(null, 'Audit', $Call);
         return isset($Call['Session']['User']['ID'])? $Call['Session']['User']['ID']: null;
+    });
+
+    self::setFn('Write', function ($Call)
+    {
+        return F::Run('Entity', 'Update',
+             array(
+                  'Entity' => 'Session',
+                  'Where' => $Call['SID'],
+                  'Data' => $Call['Data'])
+             );
     });

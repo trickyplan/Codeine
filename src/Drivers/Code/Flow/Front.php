@@ -14,7 +14,6 @@
         // В этом месте, практически всегда, происходит роутинг.
 
         $Call = F::Run('Code.Flow.Hook', 'Run',  $Call, array('On' => 'beforeRun')); // JP beforeRun
-
             // Если передан нормальный вызов, совершаем его
             if (F::isCall($Call['Run']))
             {
@@ -28,7 +27,7 @@
             }
             // В противном случае, 404
             else
-                $Call = F::Run ('Code.Flow.Hook', 'Run', $Call, array('On' => 'on404'));
+                $Call = F::Hook('on404', $Call);
 
         // А здесь - рендеринг
         $Call = F::Run ('Code.Flow.Hook', 'Run', $Call, array('On' => 'afterRun')); // JP afterRun

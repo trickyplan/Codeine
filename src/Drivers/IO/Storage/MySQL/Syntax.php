@@ -14,7 +14,7 @@
             $Keys = array();
 
             foreach ($Call['Data'] as $Key => $Value)
-                $Keys[] = $Call['Link']->real_escape_string ($Key); // ?
+                $Keys[] = '`'.$Call['Link']->real_escape_string ($Key).'`'; // ?
 
             $Keys = '('.implode (',', $Keys).')';
         }
@@ -27,7 +27,7 @@
         if(isset($Call['Keys']))
         {
             foreach ($Call['Keys'] as $Key)
-                $Keys[] = $Call['Link']->real_escape_string ($Key);
+                $Keys[] = '`'.$Call['Link']->real_escape_string ($Key).'`';
 
             $Keys = '('.implode (',', $Keys).')';
         }
