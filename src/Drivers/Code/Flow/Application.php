@@ -19,7 +19,7 @@
         if (F::isCall($Call['Run']))
         {
             list($Call['Service'], $Call['Method']) = array ($Call['Run']['Service'], $Call['Run']['Method']);
-            $Call = F::Live($Call['Run'], $Call);
+            $Call = F::Live($Call['Run'], $Call, array('Context' => 'app'));
         }
         // В противном случае, 404
         else

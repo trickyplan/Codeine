@@ -1,10 +1,4 @@
 {
-    "TTL": "Short",
-    "TTLs":
-    {
-        "Long": 613200,
-        "Short": 87600
-    },
     "Hooks":
     {
         "onSuccess":

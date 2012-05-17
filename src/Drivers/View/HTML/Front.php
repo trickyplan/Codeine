@@ -15,8 +15,6 @@
 
         if (F::isCall($Call))
         {
-
-
             $Slices = explode('.', $Call['Service']);
 
             $sz = sizeof($Slices);

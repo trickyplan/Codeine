@@ -9,13 +9,12 @@
 
     self::setFn('Do', function ($Call)
     {
-        // TODO Realize "Do" function
         if (isset($Call['Session']['User']))
             $Call['Output']['Content'][] =
                 array(
                     'Type' => 'Template',
                     'Scope' => 'User',
-                    'Value' => 'Show.Cabinet',
+                    'Value' => 'Show/Cabinet',
                     'Data' => $Call['Session']['User']
                 );
         else

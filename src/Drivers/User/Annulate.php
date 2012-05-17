@@ -11,12 +11,7 @@
     {
         F::Run('Security.Auth', 'Detach', $Call);
 
-        $Call['Output']['Content'][]
-                = array(
-                'Type' => 'Block',
-                'Class' => 'alert alert-success',
-                'Value' => 'Successful exit'
-            );
+        $Call = F::Hook('onSuccess', $Call);
 
         return $Call;
 
