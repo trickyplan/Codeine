@@ -30,7 +30,7 @@
                                              array(
                                                   'Scope' => 'User',
                                                   'ID' => 'Activation.EMail',
-                                                  'Data' => $User
+                                                  'Data' => array_merge($User, array('ActivationURL' => $_SERVER['HTTP_HOST'].'/activate/user/'.$User['Code']))
                                              ));
         $Message['Headers'] = array ('Content-type:' => ' text/html; charset="utf-8"');
 

@@ -11,7 +11,6 @@
     {
         $Call['SID'] = F::Run($Call['Source'], 'Read', $Call);
 
-
         if (empty($Call['SID']))
             $Call = F::Run(null, 'Register', $Call);
         else
@@ -112,4 +111,10 @@
                   'Where' => $Call['SID'],
                   'Data' => $Call['Data'])
              );
+    });
+
+    self::setFn('Read', function ($Call)
+    {
+        $Call = F::Run(null, 'Audit', $Call);
+        return isset($Call['Session'][$Call['Key']])? $Call['Session'][$Call['Key']]: null;
     });

@@ -12,11 +12,12 @@
 
         $.ajax(
             {
-                url: '/user/checkname',
+                url: '/check',
                 type: 'post',
                 data:
                 {
-                    ID: el.attr('value')
+                    Key: '<k>Name</k>',
+                    Value: el.attr('value')
                 },
                 success: function (data)
                 {
