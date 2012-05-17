@@ -15,6 +15,11 @@
 
         $Call['Locales'][] = $Call['Entity'];
 
+        $Call['Layouts'][] = array(
+                    'Scope' => $Call['Entity'],
+                    'ID' => 'Create'
+                );
+
         if (isset($Call['URL']))
             $Call['Output']['Content']['Form']['Action'] = $Call['URL'];
 

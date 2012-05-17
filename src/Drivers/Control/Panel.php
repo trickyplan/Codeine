@@ -39,13 +39,6 @@
         else
         {
             $Call['Bundle']= 'Main';
-
-            $Call['Output']['Content'][] =
-                array(
-                    'Type' => 'Block',
-                    'Class' => 'alert alert-info',
-                    'Value' => 'Выберите пакет для настройки'
-                );
         }
 
 

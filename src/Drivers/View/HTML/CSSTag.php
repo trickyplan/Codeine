@@ -35,7 +35,8 @@
         {
             $CSSHash = F::Run(null, 'Hash', array('IDs' => $Parsed[1]));
 
-                if ((isset($Call['Caching']['Enabled']) && $Call['Caching']['Enabled'])
+                if ((isset($Call['Caching']['Enabled'])
+                    && $Call['Caching']['Enabled'])
                     && F::Run('IO', 'Execute', array ('Storage' => 'CSS Cache',
                                                      'Execute'  => 'Exist',
                                                      'Where'    => array ('ID' => $CSSHash)))
@@ -78,6 +79,9 @@
 
             foreach ($Parsed[0] as $cParsed)
                 $Call['Output'] = str_replace($cParsed, '', $Call['Output']);
+
+            if (strpos($Call['Output'], '<place>CSS</place>') === false)
+                trigger_error('Place for CSS missed');
 
             $Call['Output'] = str_replace('<place>CSS</place>', '<link href="/css/'.$CSSHash.'.css" rel="stylesheet" />', $Call['Output']);
         }

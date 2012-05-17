@@ -1,5 +1,5 @@
 {
-    "Weight": 200,
+    "Weight": 0,
     "Decision": true,
     "Rules":
     {
@@ -13,21 +13,14 @@
                 "Method": "Do"
             }
         },
-        "Administrators can create entities":
+        "Control enabled for administrators":
         {
             "Decision": true,
             "Weight": 100,
             "Call":
             {
-                "Service": "Entity.Create",
-                "Method": "Do",
-                "Session":
-                {
-                    "User":
-                    {
-                        "ID": "8"
-                    }
-                }
+                "Service": "Control.Panel",
+                "Method": "Do"
             }
         }
     }
