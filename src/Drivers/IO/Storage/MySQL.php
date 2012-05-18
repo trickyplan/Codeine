@@ -73,7 +73,7 @@
         return true;
     });
 
-    self::setFn ('Execute', function ($Call)
+    self::setFn ('Run', function ($Call)
     {
         return $Call['Link']->query($Call['Run']);
     });

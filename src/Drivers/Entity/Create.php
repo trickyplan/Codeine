@@ -38,17 +38,11 @@
 
         foreach ($Call['Nodes'] as $Name => $Node)
         {
-            if (!isset($Node['Widgets']['Create']))
-            {
-                if (isset($Call['Widgets'][$Node['Type']]))
-                    $Node['Widgets']['Create'] = $Call['Widgets'][$Node['Type']];
-            }
-
-            $Call['Output']['Form'][] =
-                F::Merge($Node, F::Merge($Node['Widgets']['Create'],
-                    array('Name' => $Name,
-                          'Entity' => $Call['Entity'])));
-
+            if (isset($Node['Widgets']['Create']))
+                $Call['Output']['Form'][] = F::Merge($Node['Widgets']['Create'], array('Name' => $Name, 'Entity' => $Call['Entity']));
+            else
+                $Call['Output']['Form'][] = F::Merge(F::Run('Entity.Nodes.Type.'.$Node['Type'], 'Widget', $Call, array ('Purpose' => 'Create', 'Node' => $Node)),
+                    array('Entity' => $Call['Entity'], 'Name' => $Name));
         }
 
         $Call['Front']['Entity'] = $Call['Entity']; //FIXME

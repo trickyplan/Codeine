@@ -9,7 +9,7 @@
 
     self::setFn('Write', function ($Call)
     {
-        return filter_var($Call['Value'], FILTER_SANITIZE_STRING);
+        return F::Run('IO', 'Write', array ('Storage' =>  'Upload', 'Value' => $Call['Value']));
     });
 
     self::setFn('Read', function ($Call)
@@ -27,7 +27,7 @@
         // FIXME ASAP
         return '
             <div class="well">
-            <h6>Строковый</h6>
+            <h6>Файл</h6>
             <div class="control-group">
                 <label class="control-label" for="Name"> Имя атрибута:</label>
                 <div class="controls">
@@ -35,7 +35,7 @@
                 </div>
             </div>
 
-            <input id="Type" type="hidden" name="Nodes[Type][]" value="Literal.String">
+            <input id="Type" type="hidden" name="Nodes[Type][]" value="File.Upload">
 
             <div class="control-group">
                 <label class="control-label" for="Type"> Обязательное?</label>

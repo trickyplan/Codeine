@@ -1,0 +1,17 @@
+{
+    "Widgets":
+    {
+        "Create":
+        {
+            "Type": "Form.File"
+        },
+        "Update":
+        {
+            "Type": "Form.File"
+        },
+        "Show":
+        {
+            "Type": "Image"
+        }
+    }
+}

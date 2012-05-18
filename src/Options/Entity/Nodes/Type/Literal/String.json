@@ -1,0 +1,21 @@
+{
+    "Widgets":
+    {
+        "Create":
+        {
+            "Type": "Form.Textfield"
+        },
+        "Update":
+        {
+            "Type": "Form.Textfield"
+        },
+        "Filter":
+        {
+            "Type": "Form.Textfield"
+        },
+        "Show":
+        {
+            "Type": "Text"
+        }
+    }
+}

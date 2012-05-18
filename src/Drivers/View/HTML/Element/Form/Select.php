@@ -29,7 +29,8 @@
 
          $Call['Value'] = implode('', $Options);
 
-         return F::Run ('View', 'LoadParsed', $Call,
+
+         return F::Run ('View', 'LoadParsed',
                         array(
                              'Scope' => 'Default',
                              'ID'    => 'UI/HTML/Form/'.(isset($Call['Template'])? $Call['Template'] : 'Select'),

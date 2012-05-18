@@ -9,5 +9,5 @@
 
     self::setFn('Get', function ($Call)
     {
-         return F::Live($Call['ID']). $Call['Map'] [$Call['Data'][$Call['Node']]['type']];
+         return F::Live($Call['ID']). $Call['Map'] [$Call['Value']['type']];
     });

@@ -118,13 +118,18 @@
                 if (is_array($Value))
                 {
                     foreach ($Value as $Relation => &$Value)
+                    {
                         if (is_array($Value))
                             $Value = '('.implode(',', $Value).')';
+
+                        $Conditions[] = '`'.$Key.'` '. $Relation.' '.(is_numeric($Value)? $Value: '\''.$Value.'\'');
+                    }
                 }
                 else
-                    $Value = '\''.$Call['Link']->real_escape_string($Value).'\'';
-
-                $Conditions[] = '`'.$Key.'` '. $Relation.' '.$Value.'';
+                {
+                    $Value = $Call['Link']->real_escape_string($Value);
+                    $Conditions[] = '`'.$Key.'` '. $Relation.' '.(is_numeric($Value)? $Value: '\''.$Value.'\'');
+                }
             }
 
             $WhereString = $WhereString . ' ' . implode(' AND ', $Conditions);

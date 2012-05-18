@@ -1,0 +1,24 @@
+{
+    "Widgets":
+    {
+        "Create":
+        {
+            "Type": "Form.Select",
+            "Value": ""
+        },
+        "Update":
+        {
+            "Type": "Form.Select",
+            "Value": ""
+        },
+        "Filter":
+        {
+            "Type": "Form.Select",
+            "Value": ""
+        },
+        "Show":
+        {
+            "Type": "Far"
+        }
+    }
+}

@@ -38,18 +38,11 @@
 
         foreach ($Call['Nodes'] as $Name => $Node)
         {
-            if (!isset($Node['Widgets']['Update']))
-            {
-                    if (isset($Node['Widgets']['Create']))
-                        $Node['Widgets']['Update'] = $Node['Widgets']['Create'];
-            }
-
-            $Call['Output']['Form'][] =
-                F::Merge($Node['Widgets']['Update'],
-                     array('Name' => $Name,
-                           'Entity' => $Call['Entity'],
-                           'Value' => isset($Node['Widgets']['Update']['Value'])? $Node['Widgets']['Update']['Value']: F::Live($Call['Element'][0][$Name]),
-                           'Selected' => F::Live($Call['Element'][0][$Name])));
+            if (isset($Node['Widgets']['Update']))
+                $Call['Output']['Form'][] = F::Merge($Node['Widgets']['Update'], array('Name' => $Name, 'Entity' => $Call['Entity'], 'Value' => $Call['Element'][0][$Name]));
+            else
+                $Call['Output']['Form'][] = F::Merge(F::Run('Entity.Nodes.Type.'.$Node['Type'], 'Widget', $Call, array ('Purpose' => 'Update', 'Node' => $Node)),
+                    array('Entity' => $Call['Entity'], 'Name' => $Name, 'Value' => $Call['Element'][0][$Name]));
 
         }
 

@@ -2,19 +2,19 @@
 
     /* Codeine
      * @author BreathLess
-     * @description
+     * @description  
      * @package Codeine
      * @version 7.2
      */
 
     self::setFn('Write', function ($Call)
     {
-        return filter_var($Call['Value'], FILTER_SANITIZE_STRING);
+        return (bool) $Call['Value'];
     });
 
     self::setFn('Read', function ($Call)
     {
-        return $Call['Value'];
+        return (bool) $Call['Value'];
     });
 
     self::setFn('Widget', function ($Call)
@@ -27,7 +27,7 @@
         // FIXME ASAP
         return '
             <div class="well">
-            <h6>Строковый</h6>
+            <h6>Логический</h6>
             <div class="control-group">
                 <label class="control-label" for="Name"> Имя атрибута:</label>
                 <div class="controls">
@@ -35,7 +35,7 @@
                 </div>
             </div>
 
-            <input id="Type" type="hidden" name="Nodes[Type][]" value="Literal.String">
+            <input id="Type" type="hidden" name="Nodes[Type][]" value="Boolean">
 
             <div class="control-group">
                 <label class="control-label" for="Type"> Обязательное?</label>
