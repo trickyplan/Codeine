@@ -12,7 +12,7 @@
          if (!isset($Call['Subtype']))
              $Call['Subtype'] = 'text';
 
-         return F::Run ('View', 'LoadParsed', $Call,
+         return F::Run ('View', 'LoadParsed',
                            array(
                                 'Scope' => 'Default',
                                 'ID'    => 'UI/HTML/Form/Textfield',

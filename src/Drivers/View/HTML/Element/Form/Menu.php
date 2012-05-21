@@ -11,20 +11,20 @@
      {
          $Options = array();
 
-         if (isset($Call['Selected']))
-            $Call['Selected'] = F::Live($Call['Selected']);
+         if (isset($Call['Value']))
+            $Call['Value'] = F::Live($Call['Value']);
          else
-            $Call['Selected'] = array();
+            $Call['Value'] = array();
 
-         $Call['Value'] = F::Live($Call['Value']);
+         $Call['Options'] = F::Live($Call['Options']);
 
-         foreach ($Call['Value'] as $Key => $Value)
-             if(in_array($Key, (array)$Call['Selected']))
+         foreach ($Call['Options'] as $Key => $Value)
+             if(in_array($Key, (array) $Call['Value']))
                  $Options[] = '<option value="'.$Key.'" selected>'.$Value.'</option>';
              else
                  $Options[] = '<option value="' . $Key . '">' . $Value . '</option>';
 
-         $Call['Value'] = implode('', $Options);
+         $Call['Options'] = implode('', $Options);
 
          return F::Run ('View', 'LoadParsed', $Call,
                         array(

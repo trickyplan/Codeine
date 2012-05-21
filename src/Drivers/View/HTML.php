@@ -24,7 +24,7 @@
             $Call['Layout'] = '<place>Content</place>';
 
         if (isset($Call['Layouts']))
-            foreach ($Call['Layouts'] as $Layout)
+            foreach ($Call['Layouts'] as $Layout) // FIXME I'm fat
                 if (($Sublayout =  F::Run('View', 'LoadParsed', $Layout, array('Context' => $Call['Context']))) !== null)
                     $Call['Layout'] = str_replace('<place>Content</place>', $Sublayout, $Call['Layout']);
 
@@ -60,6 +60,5 @@
                 $Call['Layout'] = str_replace($Match, F::Dot($Call, $Pocket[1][$IX]), $Call['Layout']);
 
         $Call['Output'] = $Call['Layout'];
-
         return $Call;
     });

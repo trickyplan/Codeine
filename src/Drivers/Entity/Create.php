@@ -17,6 +17,11 @@
 
         $Call['Layouts'][] = array(
                     'Scope' => $Call['Entity'],
+                    'ID' => 'Main'
+                );
+
+        $Call['Layouts'][] = array(
+                    'Scope' => $Call['Entity'],
                     'ID' => 'Create'
                 );
 
@@ -38,11 +43,8 @@
 
         foreach ($Call['Nodes'] as $Name => $Node)
         {
-            if (isset($Node['Widgets']['Create']))
-                $Call['Output']['Form'][] = F::Merge($Node['Widgets']['Create'], array('Name' => $Name, 'Entity' => $Call['Entity']));
-            else
-                $Call['Output']['Form'][] = F::Merge(F::Run('Entity.Nodes.Type.'.$Node['Type'], 'Widget', $Call, array ('Purpose' => 'Create', 'Node' => $Node)),
-                    array('Entity' => $Call['Entity'], 'Name' => $Name));
+            if (isset($Node['Widgets']['Write']))
+                $Call['Output']['Form'][] = F::Merge($Node['Widgets']['Write'], array('Name' => $Name, 'Entity' => $Call['Entity']));
         }
 
         $Call['Front']['Entity'] = $Call['Entity']; //FIXME
