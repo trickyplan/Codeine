@@ -14,8 +14,8 @@
         $Call['Output']['Content'][] =
             array (
                 'Type'  => 'Block',
-                'Class' => 'alert ' . ($Current > '7.2' ? 'alert-error' : 'alert-success'),
-                'Value' => 'Установленная версия: 7.2. <br/> Актуальная версия: ' . $Current
+                'Class' => 'alert ' . ($Current > '7.3' ? 'alert-error' : 'alert-success'),
+                'Value' => 'Установленная версия: 7.3. <br/> Актуальная версия: ' . $Current
             );
 
         return $Call;
