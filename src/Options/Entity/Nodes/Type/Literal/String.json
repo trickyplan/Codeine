@@ -1,21 +1,35 @@
 {
     "Widgets":
     {
-        "Create":
+        "Normal":
         {
-            "Type": "Form.Textfield"
+            "Write":
+            {
+                "Type": "Form.Textarea"
+            },
+            "Filter":
+            {
+                "Type": "Form.Textfield"
+            },
+            "Show":
+            {
+                "Type": "Text"
+            }
         },
-        "Update":
+        "Long":
         {
-            "Type": "Form.Textfield"
-        },
-        "Filter":
-        {
-            "Type": "Form.Textfield"
-        },
-        "Show":
-        {
-            "Type": "Text"
+            "Write":
+            {
+                "Type": "Form.Textfield"
+            },
+            "Filter":
+            {
+                "Type": "Form.Textfield"
+            },
+            "Show":
+            {
+                "Type": "Text"
+            }
         }
     }
 }

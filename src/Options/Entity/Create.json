@@ -8,5 +8,32 @@
                 "Type": "Form"
             }
         }
+    },
+    "Hooks":
+    {
+        "afterCreate":
+        {
+            "Redirect":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "Redirect",
+                "Call":
+                {
+                    "Value": "/control/Domain"
+                }
+            }
+        },
+        "afterDelete":
+        {
+            "Redirect":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "Redirect",
+                "Call":
+                {
+                    "Value": "/control/Domain"
+                }
+            }
+        }
     }
 }

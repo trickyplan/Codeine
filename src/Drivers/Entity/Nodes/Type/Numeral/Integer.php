@@ -19,7 +19,7 @@
 
     self::setFn('Widget', function ($Call)
     {
-        return $Call['Widgets'][$Call['Purpose']];
+                return $Call['Widgets'];
     });
 
     self::setFn('Form', function ($Call)

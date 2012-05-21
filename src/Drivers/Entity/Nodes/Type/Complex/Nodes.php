@@ -14,30 +14,40 @@
 
         foreach ($Names as $Index => $Name)
             foreach ($Call['Value'] as $Key => $Nodes)
-                $Data[$Name][$Key] = $Nodes[$Index];
+                if (isset($Nodes[$Index]))
+                    $Data[$Name][$Key] = $Nodes[$Index];
 
         foreach ($Data as &$Node)
         {
-            if (strpos($Node['Type'],'Entity') !== false)
+            $Controls = F::Run('Entity.Nodes.Type.'.$Node['Type'], 'Widget', $Call);
+
+            if (isset($Node['Control']))
             {
-                list(, $Entity) = explode('.',$Node['Type']);
+                $Node['Widgets'] = $Controls[$Node['Control']];
+            }
+            else
+                $Node['Widgets'] = $Controls['Normal'];
 
+            if (isset($Node['Link']))
+            {
                 $Node['Type'] = 'Complex.One2One';
-                $Node['Widgets']['Create'] =
-                    array ('Type' => 'Form.Select',
-                    'Value' => array (
-
-                        'Service' => 'Entity.Dict',
-                        'Method' => 'Get',
-                        'Call' =>
-                        array (
-                            'Entity' => $Entity,
-                            'Key' => 'Title'
+                $Node['Widgets']['Write'] =
+                    array (
+                        'Type' => 'Form.Select',
+                        'Options' => array
+                            (
+                                'Service' => 'Entity.Dict',
+                                'Method' => 'Get',
+                                'Call' =>
+                                array (
+                                    'Entity' => $Node['Link']['Entity'],
+                                    'Key' => $Node['Link']['Key']
+                                )
                         )
-                    )
                 );
             }
         }
+
         return $Data;
     });
 

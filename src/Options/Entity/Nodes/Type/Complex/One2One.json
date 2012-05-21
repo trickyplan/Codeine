@@ -1,24 +1,16 @@
 {
     "Widgets":
     {
-        "Create":
+        "Normal":
         {
-            "Type": "Form.Select",
-            "Value": ""
-        },
-        "Update":
-        {
-            "Type": "Form.Select",
-            "Value": ""
-        },
-        "Filter":
-        {
-            "Type": "Form.Select",
-            "Value": ""
-        },
-        "Show":
-        {
-            "Type": "Far"
+            "Write":
+            {
+                "Type": "Form.Select"
+            },
+            "Show":
+            {
+                "Type": "Far"
+            }
         }
     }
 }

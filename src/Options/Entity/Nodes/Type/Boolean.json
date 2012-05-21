@@ -1,21 +1,16 @@
 {
     "Widgets":
     {
-        "Create":
+        "Normal":
         {
-            "Type": "Form.Checkbox"
-        },
-        "Update":
-        {
-            "Type": "Form.Checkbox"
-        },
-        "Filter":
-        {
-            "Type": "Form.Checkbox"
-        },
-        "Show":
-        {
-            "Type": "Tick"
+            "Write":
+            {
+                "Type": "Form.Checkbox"
+            },
+            "Show":
+            {
+                "Type": "Tick"
+            }
         }
     }
 }
