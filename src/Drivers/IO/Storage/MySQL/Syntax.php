@@ -120,16 +120,23 @@
                     foreach ($Value as $Relation => &$Value)
                     {
                         if (is_array($Value))
+                        {
                             $Value = '('.implode(',', $Value).')';
+                            $Quote = false;
+                        }
+                        else
+                            $Quote = is_numeric($Value);
 
-                        $Conditions[] = '`'.$Key.'` '. $Relation.' '.(is_numeric($Value)? $Value: '\''.$Value.'\'');
+
                     }
                 }
                 else
                 {
                     $Value = $Call['Link']->real_escape_string($Value);
-                    $Conditions[] = '`'.$Key.'` '. $Relation.' '.(is_numeric($Value)? $Value: '\''.$Value.'\'');
+                    $Quote = true;
                 }
+
+                $Conditions[] = '`'.$Key.'` '. $Relation.' '.($Quote ? '\''.$Value.'\'': $Value);
             }
 
             $WhereString = $WhereString . ' ' . implode(' AND ', $Conditions);

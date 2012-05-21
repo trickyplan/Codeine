@@ -9,6 +9,9 @@
 
     self::setFn('beforeList', function ($Call)
     {
+        if (isset($Call['NoPage']) && ($Call['NoPage'] == true))
+            return $Call;
+
         if (!isset($Call['Count']))
         {
             if (!isset($Call['Page']))
@@ -22,7 +25,6 @@
         }
         else
         {
-
             $Call['Limit']['From']= 0;
             $Call['Limit']['To'] = $Call['Count'];
         }
@@ -32,6 +34,9 @@
 
     self::setFn('afterList', function ($Call)
     {
+        if (isset($Call['NoPage']) && ($Call['NoPage'] == true))
+            return $Call;
+
         if (($Call['PageCount']>1) && !isset($Call['Count']))
             $Call['Output']['Pagination'][] = array(
                 'Type'  => 'Paginator',

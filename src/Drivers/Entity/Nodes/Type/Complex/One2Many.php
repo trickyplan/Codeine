@@ -35,6 +35,19 @@
         return null;
     });
 
+    self::setFn('Widget', function ($Call)
+    {
+        return F::Merge(F::Merge($Call['Widgets'][$Call['Purpose']],
+                        array(
+                            'Value' => F::Run('Entity.Dict', 'Get',
+                                array(// FIXME
+                                     'Entity' => $Call['Node']['Link']['Entity'],
+                                     'Key' => $Call['Node']['Link']['Key'])))),
+                            array('Entity' => $Call['Node']['Link']['Entity'], 'Link' => $Call['Node']['Link']['Entity'],
+                                  'Key' => $Call['Node']['Link']['Key']));
+    });
+
+
     self::setFn('Read', function ($Call)
     {
         $Data = F::Run('IO', 'Read', array(

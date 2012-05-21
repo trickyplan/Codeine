@@ -27,11 +27,10 @@
 
         $Call = F::Hook('beforeList', $Call);
 
-        $Elements = F::Run('Entity', 'Read', $Call);
-
-
-
-
+        if ($Call['Where'] !== false)
+            $Elements = F::Run('Entity', 'Read', $Call);
+        else
+            $Elements = array();
 
         if (sizeof($Elements) == 0)
             $Call['Output']['Content'][] = array(
@@ -41,11 +40,14 @@
             );
         else
         {
+            if (!isset($Call['Selected']))
+                $Call['Selected'] = null;
+
             foreach ($Elements as $Element)
                 $Call['Output']['Content'][] = array(
                     'Type'  => 'Template',
                     'Scope' => $Call['Entity'],
-                    'Value' => 'Show/'.(isset($Call['Template'])? $Call['Template']: 'Short'),
+                    'Value' => 'Show/'.(isset($Call['Template'])? $Call['Template']: 'Short').($Call['Selected'] == $Element['ID']? '.Selected': ''),
                     'Data' => $Element
                 );
         }

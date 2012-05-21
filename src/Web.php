@@ -6,16 +6,25 @@
      * @time 5:17
      */
 
+
+    if (file_exists(Root.'/down') && !isset($_COOKIE['Magic']))
+    {
+        readfile(__DIR__.'/down.html');
+        die();
+    }
+
     include 'Codeine/Core.php';
 
-    F::Bootstrap();
+    F::Bootstrap (array(
+                       'Path' => array(Root)
+                       //,'Trace' => true
+                  ));
 
-    $Call = F::Run(
-            'System.Interface.Web',
-            'Run',
-                array(
-                     'Service' => 'Code.Flow.Front',
-                     'Method'  => 'Run'
-                )
-        );
-
+    F::Run(
+        'System.Interface.Web',
+        'Run',
+        array(
+            'Service' => 'Code.Flow.Front',
+            'Method'  => 'Run'
+        )
+    );

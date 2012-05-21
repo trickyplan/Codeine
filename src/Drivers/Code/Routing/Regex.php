@@ -16,7 +16,10 @@
 
         // TODO Error: Not found Regex Table
 
-        foreach ($Call['Regex'] as $Rule)
+        $Decision = null;
+        $Weight = 0;
+
+        foreach ($Call['Regex'] as $Name => $Rule)
             if (preg_match($Rule['Match'], $Call['Run'], $Matches))
             {
                 $Rule['Call'] = F::Map($Rule['Call'], function ($Key, &$Value) use ($Matches)
@@ -28,10 +31,20 @@
                     }
                 });
 
-                F::Run('IO', 'Write', array('Storage' => 'Developer', 'Level' => 'Info', 'Data' => 'Regex Router Match: '.$Rule['Match']));
+                F::Log('Regex router rule '.$Name.' matched');
 
-                return $Rule;
+                if (!isset($Rule['Weight']))
+                    $Rule['Weight'] = 0;
+
+                if ($Rule['Weight'] >= $Weight)
+                {
+                    $Weight = $Rule['Weight'];
+                    $Decision = $Rule;
+                    $Selected = $Name;
+                }
             }
 
-        return null;
+        F::Log('Regex router rule '.$Selected.' selected');
+
+        return $Decision;
     });

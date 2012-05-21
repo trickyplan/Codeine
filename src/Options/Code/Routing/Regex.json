@@ -3,7 +3,8 @@
     {
         "Subcontrol":
         {
-            "Match":"@^/control/(.*)/(.*)@",
+            "Match":"@^/control/(.*)/(.*)$@",
+            "Weight": 5,
             "Service":"Control.Panel",
             "Method":"Do",
             "Zone": "Control",
