@@ -36,6 +36,17 @@
 
         F::Live($Call['Sender'], $Message);
 
+        list(,$Message['Server']) = explode('@', $Message['Scope']);
+
+        $Call['Output']['Content'] = array(
+            array(
+                'Type'  => 'Template',
+                'Scope' => 'User',
+                'Value' => 'Activation',
+                'Data'  => $Message
+            )
+        );
+
         return $Call;
     });
 
