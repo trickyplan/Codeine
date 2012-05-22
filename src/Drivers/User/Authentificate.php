@@ -25,7 +25,10 @@
                 if (isset($Call['Request']['TTL']))
                     $Call['TTL'] = $Call['Request']['TTL'];
 
-                F::Run('Security.Auth', 'Attach', $Call, array('User' => $User[0]['ID'], 'TTL' => $Call['TTLs'][$Call['TTL']]));
+
+                $Call['Session'] = F::Run('Security.Auth', 'Attach', $Call,
+                    array('User' => $User[0]['ID'],
+                          'TTL' => $Call['TTLs'][$Call['TTL']]));
 
                 $Call['Output']['Content'][]
                     = array(

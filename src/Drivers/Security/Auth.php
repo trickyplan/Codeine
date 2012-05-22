@@ -24,7 +24,6 @@
 
             if (isset($Call['Session']['User']))
             {
-
                 if($Call['Session']['Expire'] < time())
                 {
                     F::Run('Entity', 'Delete',
@@ -89,6 +88,7 @@
 
     self::setFn('Detach', function ($Call)
     {
+        $Call = F::Run(null, 'Audit', $Call);
         return F::Run('Entity', 'Update',
              array(
                   'Entity' => 'Session',
@@ -105,6 +105,7 @@
 
     self::setFn('Write', function ($Call)
     {
+        $Call = F::Run(null, 'Audit', $Call);
         return F::Run('Entity', 'Update',
              array(
                   'Entity' => 'Session',

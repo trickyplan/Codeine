@@ -28,7 +28,7 @@
         $Message['Data']  = F::Run('View', 'LoadParsed',
                                              array(
                                                   'Scope' => 'User',
-                                                  'ID' => 'Activation.EMail',
+                                                  'ID' => 'Activation/EMail',
                                                   'Data' => array_merge($User, array('ActivationURL' => $_SERVER['HTTP_HOST'].'/activate/user/'.$User['Code']))
                                              ));
         $Message['Headers'] = array ('Content-type:' => ' text/html; charset="utf-8"');
