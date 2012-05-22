@@ -9,12 +9,13 @@
 
     self::setFn('Do', function ($Call)
     {
-        foreach($Call['Bundles'] as &$Bundle)
-            $Bundle = array('Title' => '<l>Control.'.$Bundle.'</l>', 'URL' => '/control/'.$Bundle);
+        foreach($Call['Bundles'] as $Bundle)
+            $Call['Options'][] = array('Title' => '<l>Control.'.$Bundle.'</l>', 'URL' => '/control/'.$Bundle);
 
         $Call['Output']['Navigation'][] = array(
             'Type' => 'Navlist',
-            'Value' => $Call['Bundles']
+            'Options' => $Call['Options'],
+            'Value' => isset($Call['Bundle'])? array_search($Call['Bundle'], $Call['Bundles']): null
         );
 
         if (isset($Call['Bundle']))

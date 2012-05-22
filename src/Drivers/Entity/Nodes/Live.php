@@ -15,7 +15,8 @@
                 if (isset($Node[$Call['Purpose']]) && F::isCall($Node[$Call['Purpose']]))
                     $Call['Data'][$Name] = F::Live($Node[$Call['Purpose']], $Call, array('Node' => $Name));
                 else
-                    $Call['Data'][$Name] = F::Live($Node['Write'], $Call, array('Node' => $Name));
+                    if (isset($Node['Write']))
+                        $Call['Data'][$Name] = F::Live($Node['Write'], $Call, array('Node' => $Name));
             }
 
         return $Call;
