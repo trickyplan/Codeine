@@ -14,7 +14,7 @@
             "Regex": "[A-Za-z]+",
             "Widgets":
             {
-                "Create":
+                "Write":
                 {
                     "Type": "Form.TextfieldUnique",
                     "Placeholder": "Латинские буквы"
@@ -26,7 +26,7 @@
             "Type": "Literal.Password",
             "Widgets":
             {
-                "Create":
+                "Write":
                 {
                     "Type": "Form.Password",
                     "Placeholder": "Длиннее 4-х символов"
@@ -38,7 +38,7 @@
             "Type": "Literal.String",
             "Widgets":
             {
-                "Create":
+                "Write":
                 {
                     "Type": "Form.Textfield"
                 }
@@ -49,7 +49,7 @@
             "Type": "Literal.EMail",
             "Widgets":
             {
-                "Create":
+                "Write":
                 {
                     "Type": "Form.Textfield",
                     "Subtype": "email"

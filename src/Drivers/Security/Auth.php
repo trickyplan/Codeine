@@ -25,13 +25,7 @@
             if (isset($Call['Session']['User']))
             {
                 if($Call['Session']['Expire'] < time())
-                {
-                    F::Run('Entity', 'Delete',
-                        array(
-                             'Entity' => 'Session',
-                             'Where' => $Call['SID']
-                        ));
-                }
+                    $Call = F::Run(null, 'Annulate', $Call);
                 else
                 {
                     $User = F::Run('Entity', 'Read',
@@ -39,6 +33,9 @@
                                  'Entity' => 'User',
                                  'Where' => $Call['Session']['User']
                             ));
+
+                    if ($User[0]['Status'] == -1)
+                        $Call = F::Run(null, 'Annulate', $Call);
 
                     $Call['Session']['User'] = $User[0];
                 }
@@ -70,8 +67,13 @@
 
     self::setFn('Annulate', function ($Call)
     {
-        // TODO Realize "Annulate" function
+        F::Run($Call['Source'], 'Annulate', $Call);
 
+        F::Run('Entity', 'Delete',
+                        array(
+                             'Entity' => 'Session',
+                             'Where' => $Call['SID']
+                        ));
 
         return $Call;
     });
