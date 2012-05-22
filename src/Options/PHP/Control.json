@@ -3,5 +3,9 @@
     {
         "display_errors": "Off",
         "expose_php": "Off"
+    },
+    "Versions":
+    {
+        "5.4.3-1~dotdeb.0": "Stable"
     }
 }

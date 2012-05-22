@@ -9,11 +9,14 @@
 
     self::setFn('Do', function ($Call)
     {
+        $Version = phpversion();
+        $Version = isset($Call['Versions'][$Version])? $Call['Versions'][$Version]: 'Untested';
+
         $Call['Output']['Content'] = array (
             array (
                 'Type'  => 'Block',
-                'Class' => 'alert alert-info',
-                'Value' => 'PHP: '.phpversion()
+                'Class' => 'alert '.(('Stable' == $Version)? 'alert-success': (('Unstable' == $Version)? 'alert-error': '')),
+                'Value' => 'PHP: '.phpversion().' — '.$Version
             ));
 
         $INI = ini_get_all();
@@ -30,11 +33,12 @@
                         'Value' => 'Recommended value for <strong>'.$Key.'</strong> is "'.$Call['Requirements'][$Key].'"'
                     );
         }
-            $Call['Output']['Content'][] =
-                array (
-                    'Type'  => 'Table',
-                    'Value' => $Data
-                );
+
+        $Call['Output']['Content'][] =
+            array (
+                'Type'  => 'Table',
+                'Value' => $Data
+            );
 
          return $Call;
      });
