@@ -9,11 +9,11 @@
 
     self::setFn('Do', function ($Call)
     {
-        $Call =  F::Hook('beforeDelete', $Call);
+        $Call =  F::Hook('beforeEntityDelete', $Call);
 
-            $Call = F::Run('Entity', 'Delete', $Call);
+        $Call = F::Run('Entity', 'Delete', $Call);
 
-        $Call = F::Hook('afterDelete', $Call);
+        $Call = F::Hook('afterEntityDelete', $Call);
 
         return $Call;
     });

@@ -85,7 +85,13 @@
 
     self::setFn('Redirect', function ($Call)
     {
-        $Call['Headers']['Location:'] = $Call['Value'];
+        $URL = $Call['Location'];
+
+        if (preg_match_all('/\$(\S+)/', $URL, $Vars))
+            foreach ($Vars[0] as $IX => $Key)
+                $URL = str_replace($Key, F::Dot($Call,$Vars[1][$IX]) , $URL);
+
+        $Call['Headers']['Location:'] = $URL;
 
         return $Call;
     });

@@ -13,7 +13,7 @@
 
         $Call['Element'] = F::Run('Entity', 'Read', $Call);
 
-        $Call = F::Hook('beforeUpdate', $Call);
+        $Call = F::Hook('beforeEntityUpdate', $Call);
 
         $Call['Locales'][] = $Call['Entity']; // FIXME Hook!
 
@@ -36,7 +36,7 @@
                       'Data' => F::Merge($Call['Data'], $Call['Request'])
                 )));
 
-            $Call = F::Hook('afterUpdate', $Call);
+            $Call = F::Hook('afterEntityUpdate', $Call);
 
             return $Call;
         }

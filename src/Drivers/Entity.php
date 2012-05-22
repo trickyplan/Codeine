@@ -16,7 +16,9 @@
         else
             $Call['ID'] = F::Run('Security.UID.Integer', 'Get', $Call);
 
-        $Call = F::Run('Code.Flow.Hook', 'Run', $Call, array ('On'=> 'beforeCreate'));
+        $Call['Data']['ID'] = $Call['ID'];
+
+        $Call = F::Hook('beforeCreate', $Call);
 
         foreach ($Call['Data'] as $Key => $Value)
             if (null === $Value)
@@ -27,7 +29,7 @@
                   'Scope' => $Call['Entity']
             ));
 
-        F::Run('Code.Flow.Hook', 'Run', $Call, array ('On' => 'afterCreate'));
+        $Call = F::Hook('afterCreate', $Call);
 
         return $Call['Data'];
     });

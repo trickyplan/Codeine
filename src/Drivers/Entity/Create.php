@@ -11,7 +11,7 @@
     {
         $Call = F::Merge($Call, F::loadOptions('Entity.'.$Call['Entity']));
 
-        $Call = F::Hook('beforeCreate', $Call);
+        $Call = F::Hook('beforeEntityCreate', $Call);
 
         $Call['Locales'][] = $Call['Entity'];
 
@@ -36,7 +36,8 @@
                       'Data' => isset($Call['Data'])? F::Merge($Call['Data'], $Call['Request']): $Call['Request']
                 ));
 
-            $Call = F::Hook('afterCreate', $Call);
+
+            $Call = F::Hook('afterEntityCreate', $Call);
 
             return $Call;
         }
@@ -46,8 +47,6 @@
             if (isset($Node['Widgets']['Write']))
                 $Call['Output']['Form'][] = F::Merge($Node['Widgets']['Write'], array('Name' => $Name, 'Entity' => $Call['Entity']));
         }
-
-        $Call['Front']['Entity'] = $Call['Entity']; //FIXME
 
         return $Call;
     });
