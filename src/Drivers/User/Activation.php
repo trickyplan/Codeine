@@ -9,8 +9,7 @@
 
     self::setFn('Send', function ($Call)
     {
-        $User = $Call['Element'];
-
+        $User = F::Run('Entity', 'Read', array('Entity' => 'User', 'Where' => $Call['Element'] ))[0];
         $User['Code'] = F::Run('Security.UID.GUID', 'Get');
 
         F::Run('IO', 'Write',
@@ -42,7 +41,7 @@
             array(
                 'Type'  => 'Template',
                 'Scope' => 'User',
-                'Value' => 'Activation',
+                'Value' => 'Activation/Needed',
                 'Data'  => $Message
             )
         );
@@ -80,12 +79,22 @@
                      'Data' => null
                 ));
 
-            $Call['Output']['Content'] = $Call['Widgets']['Success'];
+            $Call['Output']['Content'] = array(
+                array(
+                    'Type'  => 'Template',
+                    'Scope' => 'User',
+                    'Value' => 'Activation/Success',
+                    'Data' => $Activation
+                )
+        );
         }
         else
-            $Call['Output']['Content'] = $Call['Widgets']['Failure'];
-
-
+            $Call['Output']['Content'] = array(
+                array(
+                    'Type'  => 'Template',
+                    'Scope' => 'User',
+                    'Value' => 'Activation/Failure'
+                ));
 
         return $Call;
     });

@@ -41,11 +41,14 @@
             }
             else
             {
+                list(,$User[0]['Server']) = explode('@', $User[0]['EMail']);
+
                 $Call['Output']['Content'][]
                     = array(
-                    'Type' => 'Block',
-                    'Class' => 'alert alert-warning',
-                    'Value' => 'User not activated'
+                    'Type' => 'Template',
+                    'Scope' => 'User',
+                    'Value' => 'Activation/Needed',
+                    'Data' => $User[0]
                 );
             }
 
