@@ -57,7 +57,7 @@
                 "Method": "Redirect",
                 "Call":
                 {
-                    "Value": "/control/Domain"
+                    "Location": "/control/Domain"
                 }
             }
         },
@@ -69,7 +69,7 @@
                 "Method": "Redirect",
                 "Call":
                 {
-                    "Value": "/control/Domain"
+                    "Location": "/control/Domain"
                 }
             },
             "Destroy Table":
