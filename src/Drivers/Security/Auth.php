@@ -95,7 +95,7 @@
              array(
                   'Entity' => 'Session',
                   'Where' => $Call['SID'],
-                  'Data' => array('User' => null)
+                  'Data' => array('User' => -1)
              ));
     });
 
