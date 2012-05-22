@@ -23,11 +23,6 @@
                               )
                      ));
 
-        if (empty($User))
-        {
-
-        }
-
         return ($User[0]['Password'] == F::Live($Call['Challenger'], array('Value' => $Call['Request']['Password'])));
     });
 

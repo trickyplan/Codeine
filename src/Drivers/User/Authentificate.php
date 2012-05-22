@@ -44,15 +44,30 @@
             }
             else
             {
-                list(,$User[0]['Server']) = explode('@', $User[0]['EMail']);
+                if ($User[0]['Status'] == -1)
+                {
+                    $User[0]['Server'] = $_SERVER['HTTP_HOST'];
 
-                $Call['Output']['Content'][]
-                    = array(
-                    'Type' => 'Template',
-                    'Scope' => 'User',
-                    'Value' => 'Activation/Needed',
-                    'Data' => $User[0]
-                );
+                    $Call['Output']['Content'][]
+                        = array(
+                        'Type' => 'Template',
+                        'Scope' => 'User',
+                        'Value' => 'Banned',
+                        'Data' => $User[0]
+                    );
+                }
+                else
+                {
+                    list(,$User[0]['Server']) = explode('@', $User[0]['EMail']);
+
+                    $Call['Output']['Content'][]
+                        = array(
+                        'Type' => 'Template',
+                        'Scope' => 'User',
+                        'Value' => 'Activation/Needed',
+                        'Data' => $User[0]
+                    );
+                }
             }
 
         }
