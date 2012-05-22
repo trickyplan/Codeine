@@ -10,8 +10,13 @@
     self::setFn('Process', function ($Call)
     {
         foreach ($Call['Nodes'] as $Name => $Node)
-            if (F::isCall($Node) && !isset($Call['Data'][$Name]))
-                $Call['Data'][$Name] = F::Live($Node, $Call, array('Node' => $Name));
+            if (empty($Call['Data'][$Name]))
+            {
+                if (isset($Node[$Call['Purpose']]) && F::isCall($Node[$Call['Purpose']]))
+                    $Call['Data'][$Name] = F::Live($Node[$Call['Purpose']], $Call, array('Node' => $Name));
+                else
+                    $Call['Data'][$Name] = F::Live($Node['Write'], $Call, array('Node' => $Name));
+            }
 
         return $Call;
     });

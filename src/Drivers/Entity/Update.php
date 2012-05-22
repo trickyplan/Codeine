@@ -31,7 +31,6 @@
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST')
         {
-
             $Call['Element'] = F::Merge($Call['Element'], F::Run('Entity', 'Update', $Call,
                 array (
                       'Data' => F::Merge($Call['Data'], $Call['Request'])

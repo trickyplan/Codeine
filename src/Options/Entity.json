@@ -24,7 +24,11 @@
             "Make variables alive":
             {
                 "Service":"Entity.Nodes.Live",
-                "Method":"Process"
+                "Method":"Process",
+                "Call":
+                {
+                    "Purpose": "Create"
+                }
             },
             "Filter":
             {
@@ -42,7 +46,11 @@
             "Make variables alive":
             {
                 "Service":"Entity.Nodes.Live",
-                "Method":"Process"
+                "Method":"Process",
+                "Call":
+                {
+                    "Purpose": "Update"
+                }
             },
             "Add default values for undefined":
             {

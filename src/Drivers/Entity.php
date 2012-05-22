@@ -57,9 +57,15 @@
         else
             $Call['Data'] = F::Merge($Data, $Call['Data']);
 
+
         $Call['Data']['ID'] = $Call['Where']; // FIXME
 
         $Call = F::Run('Code.Flow.Hook', 'Run', $Call, array ('On'=> 'beforeUpdate'));
+
+        foreach($Call['Data'] as $Key => $Value)
+            if ($Value == null)
+                unset($Call['Data'][$Key]);
+
 
         F::Run('IO', 'Write', $Call,
             array (
