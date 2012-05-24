@@ -9,7 +9,7 @@
 
      self::setFn('Make', function ($Call)
      {
-         $Element = F::Run('Entity', 'Read', array('Entity' => $Call['Node']['Entity'], 'Where' => $Call['Value']));
+         $Element = F::Run('Entity', 'Read', array('Entity' => $Call['Node']['Link']['Entity'], 'Where' => $Call['Value']));
 
-         return $Element[0][$Call['Node']['Key']];
+         return $Element[0][$Call['Node']['Link']['Key']];
      });
