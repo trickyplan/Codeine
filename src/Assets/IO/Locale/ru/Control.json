@@ -1,0 +1,16 @@
+{
+    "IO":
+    {
+        "Storage":
+        {
+            "MySQL":
+            {
+                "Uptime": "Время от запуска"
+            },
+            "Redis":
+            {
+                "redis_version": "Версия Redis"
+            }
+        }
+    }
+}

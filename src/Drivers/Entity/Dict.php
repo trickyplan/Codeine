@@ -11,7 +11,7 @@
     {
         $Elements = F::Run('Entity', 'Read', array ('Entity' => $Call['Entity']));
 
-        $Data = array();
+        $Data = array(0 => '');
 
         foreach($Elements as $Element)
             $Data[$Element['ID']] = $Element[$Call['Key']];

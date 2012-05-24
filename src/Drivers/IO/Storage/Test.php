@@ -9,7 +9,6 @@
 
     self::setFn ('Open', function ($Call)
     {
-        d(__FILE__, __LINE__, $Call);
     });
 
     self::setFn ('Read', function ($Call)
@@ -29,5 +28,5 @@
 
     self::setFn ('Execute', function ($Call)
     {
-        d(__FILE__, __LINE__, $Call);
+
     });

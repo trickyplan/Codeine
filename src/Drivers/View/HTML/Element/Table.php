@@ -36,7 +36,8 @@
                      ));
          }
 
-         return F::Run ('View', 'LoadParsed', $Call,
+         if(!isset($Call['Headless']))
+            return F::Run ('View', 'LoadParsed', $Call,
                            array(
                                 'Scope' => 'Default',
                                 'ID'    => 'UI/HTML/Table/Body',
@@ -44,4 +45,6 @@
                                     'Value' => $Rows
                                 )
                            ));
+         else
+            return $Rows;
      });

@@ -108,3 +108,22 @@
 
         return file_exists ($Filename);
     });
+
+    self::setFn('Status', function ($Call)
+    {
+        $Postfix = isset($Call['Suffix']) ? $Call['Suffix'] : '';
+        $Prefix = isset($Call['Prefix']) ? $Call['Prefix'] : '';
+        $Path = $Call['Link'].'/'.$Call['Scope'].'/';
+
+        $ic = 0;
+        $Directory = new RecursiveDirectoryIterator(Root.'/'.$Path);
+        $Iterator  = new RecursiveIteratorIterator($Directory);
+        $Regex     = new RegexIterator($Iterator, '/'.$Prefix.'(.+)'.$Postfix.'$/i', RecursiveRegexIterator::GET_MATCH);
+
+        $Data = array();
+
+        foreach($Regex as $File)
+            $ic++;
+
+        return array (array ('Files',  $ic));
+    });

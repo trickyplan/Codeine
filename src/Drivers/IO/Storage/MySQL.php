@@ -78,6 +78,15 @@
         return $Call['Link']->query($Call['Run']);
     });
 
+    self::setFn ('Status', function ($Call)
+    {
+        $Data = explode("  ", $Call['Link']->stat());
+        foreach ($Data as &$Row)
+            $Row = explode(':', $Row);
+
+        return $Data;
+    });
+
     self::setFn ('Count', function ($Call)
     {
         $Result = $Call['Link']->query(F::Run('IO.Storage.MySQL.Syntax', 'Count', $Call));

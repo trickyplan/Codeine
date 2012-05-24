@@ -61,7 +61,7 @@
                 }
             }
         },
-        "afterDelete":
+        "afterEntityDelete":
         {
             "Redirect":
             {

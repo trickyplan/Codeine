@@ -125,7 +125,7 @@
                             $Quote = false;
                         }
                         else
-                            $Quote = is_numeric($Value);
+                            $Quote = !is_numeric($Value);
 
 
                     }

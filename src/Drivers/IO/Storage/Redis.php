@@ -48,3 +48,12 @@
     {
         return $Call['Link']->exists ($Call['Where']['ID']);
     });
+
+    self::setFn('Status', function ($Call)
+    {
+       $Info = $Call['Link']->info();
+       foreach ($Info as $Key => &$Value)
+           $Value = array($Key, $Value);
+
+       return $Info;
+    });
