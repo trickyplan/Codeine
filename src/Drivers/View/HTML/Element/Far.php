@@ -9,6 +9,7 @@
 
      self::setFn('Make', function ($Call)
      {
+         d(__FILE__, __LINE__, $Call);
          $Element = F::Run('Entity', 'Read', array('Entity' => $Call['Name'], 'Where' => $Call['Value']));
 
          d(__FILE__, __LINE__, $Element);
