@@ -50,7 +50,10 @@
             {
                 "Service": "Entity.MySQL",
                 "Method": "Generate"
-            },
+            }
+        },
+        "afterEntityCreate":
+        {
             "Redirect":
             {
                 "Service": "System.Interface.Web",

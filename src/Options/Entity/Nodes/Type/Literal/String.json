@@ -5,7 +5,7 @@
         {
             "Write":
             {
-                "Type": "Form.Textarea"
+                "Type": "Form.Textfield"
             },
             "Filter":
             {
@@ -20,11 +20,11 @@
         {
             "Write":
             {
-                "Type": "Form.Textfield"
+                "Type": "Form.Textarea"
             },
             "Filter":
             {
-                "Type": "Form.Textfield"
+                "Type": "Form.Textarea"
             },
             "Show":
             {
