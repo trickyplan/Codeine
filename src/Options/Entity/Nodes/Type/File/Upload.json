@@ -1,7 +1,7 @@
 {
     "Widgets":
     {
-        "Normal":
+        "Image":
         {
             "Write":
             {
@@ -10,6 +10,17 @@
             "Show":
             {
                 "Type": "Image"
+            }
+        },
+        "Normal":
+        {
+            "Write":
+            {
+                "Type": "Form.File"
+            },
+            "Show":
+            {
+                "Type": "Link"
             }
         }
     }
