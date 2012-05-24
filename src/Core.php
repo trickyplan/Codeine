@@ -230,6 +230,9 @@
 
         public static function Live($Variable, $Call = array())
         {
+            if (isset($Variable['NoLive']))
+                return $Variable;
+
             if (self::isCall($Variable))
             {
                 if (($sz = func_num_args())>2)

@@ -40,6 +40,54 @@
                     "Type": "Form.Nodes"
                 }
             }
+        },
+        "Hooks":
+        {
+            "Default":
+            {
+                "NoLive": true,
+                "afterEntityCreate":
+                {
+                    "Redirect":
+                    {
+                        "Service": "System.Interface.Web",
+                        "Method": "Redirect",
+                        "Call":
+                        {
+                            "Location": "/app/$Entity"
+                        }
+                    }
+                },
+                "afterEntityUpdate":
+                {
+                    "Redirect":
+                    {
+                        "Service": "System.Interface.Web",
+                        "Method": "Redirect",
+                        "Call":
+                        {
+                            "Location": "/app/$Entity"
+                        }
+                    }
+                },
+                "afterEntityDelete":
+                {
+                    "Redirect":
+                    {
+                        "Service": "System.Interface.Web",
+                        "Method": "Redirect",
+                        "Call":
+                        {
+                            "Location": "/app/$Entity"
+                        }
+                    },
+                    "Destroy Table":
+                    {
+                        "Service": "Entity.MySQL",
+                        "Method": "Destroy"
+                    }
+                }
+            }
         }
     },
     "Hooks":
