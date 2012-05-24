@@ -7,6 +7,10 @@
             {
                 "Type": "Form.Checkbox"
             },
+            "Filter":
+            {
+                "Type": "Form.Checkbox"
+            },
             "Show":
             {
                 "Type": "Tick"
