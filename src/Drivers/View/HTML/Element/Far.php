@@ -9,8 +9,7 @@
 
      self::setFn('Make', function ($Call)
      {
-         d(__FILE__, __LINE__, $Call);
-         $Element = F::Run('Entity', 'Read', array('Entity' => $Call['Name'], 'Where' => $Call['Value']));
+         $Element = F::Run('Entity', 'Read', array('Entity' => $Call['Node']['Entity'], 'Where' => $Call['Value']));
 
-         return $Element[0][$Call['Key']];
+         return $Element[0][$Call['Node']['Key']];
      });
