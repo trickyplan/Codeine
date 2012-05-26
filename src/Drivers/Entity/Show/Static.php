@@ -24,13 +24,13 @@
                 );
 
         if (empty($Call[$Call['Entity']]))
-            $Call = F::Run('Error.404', 'Page', $Call);
+            $Call = F::Run('Error/404', 'Page', $Call);
         else
         {
             $Call['Output']['Content'][] = array (
                 'Type'  => 'Template',
                 'Scope' => $Call['Entity'],
-                'Value' => 'Show/Full',
+                'Value' => 'Show/'.(isset($Call['Template'])? $Call['Template']: 'Full'),
                 'Data' => $Call[$Call['Entity']]
             );
         }

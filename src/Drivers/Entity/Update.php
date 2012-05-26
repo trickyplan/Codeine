@@ -11,6 +11,8 @@
     {
         $Call = F::Merge($Call, F::loadOptions('Entity.'.$Call['Entity']));
 
+        $Call['Where'] = F::Live($Call['Where']);
+
         $Call['Element'] = F::Run('Entity', 'Read', $Call);
 
         $Call = F::Hook('beforeEntityUpdate', $Call);
@@ -46,7 +48,7 @@
 
         foreach ($Call['Nodes'] as $Name => $Node)
         {
-            if (isset($Node['Widgets']['Write']))
+            if (isset($Node['Widgets']['Write']) and (!isset($Node['WriteOnce'])))
                 $Call['Output']['Form'][] =
                     F::Merge($Node['Widgets']['Write'],
                         array('Name' => $Name,

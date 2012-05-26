@@ -20,7 +20,7 @@
         $Weight = 0;
 
         foreach ($Call['Regex'] as $Name => $Rule)
-            if (preg_match($Rule['Match'], $Call['Run'], $Matches))
+            if (preg_match ($Rule['Match'], $Call['Run'], $Matches))
             {
                 $Rule['Call'] = F::Map($Rule['Call'], function ($Key, &$Value) use ($Matches)
                 {
@@ -44,7 +44,10 @@
                 }
             }
 
-        F::Log('Regex router rule '.$Selected.' selected');
+        if (isset($Selected))
+            F::Log('Regex router rule '.$Selected.' selected');
+        else
+            F::Log('No one regex rule selected');
 
         return $Decision;
     });

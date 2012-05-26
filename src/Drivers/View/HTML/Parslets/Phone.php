@@ -18,5 +18,5 @@
               $Call['Output'] = str_replace($Call['Parsed'][0][$Ix], '<a class="tel" href="tel:'.$TelForm.'">'.$HumanForm.'</a>', $Call['Output']);
           }
 
-          return $Call['Output'];
+          return $Call;
      });

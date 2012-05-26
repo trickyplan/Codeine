@@ -9,9 +9,9 @@
 
     self::setFn('Process', function ($Call)
     {
-            $Language = F::Run('System.Interface.Web', 'DetectUALanguage');
+        $Language = F::Run('System.Interface.Web', 'DetectUALanguage');
 
-            $Locales = array ();
+        $Locales = array ();
 
         if (isset($Call['Locales']))
             foreach ($Call['Locales'] as $Locale)
@@ -26,7 +26,10 @@
                     ));
 
                 if ($AddLocales)
+                {
+                    F::Log('Locale '.$Locale.' loaded');
                     $Locales = F::Merge($Locales, $AddLocales);
+                }
             }
 
             if (preg_match_all('@<l>(.*)<\/l>@SsUu', $Call['Output'], $Pockets))
@@ -52,7 +55,7 @@
                     if ($TrueMatch)
                         $Call['Output'] = str_replace($Pockets[0][$IX], $Replace, $Call['Output']);
                     else
-                        $Call['Output'] = str_replace($Pockets[0][$IX], '<span class="nl">' . $Match . '</span>', $Call['Output']);
+                        $Call['Output'] = str_replace($Pockets[0][$IX], $Match, $Call['Output']);
                 }
             }
 

@@ -15,9 +15,9 @@
 
              $Passes = 0;
 
-             while (preg_match_all('/<'.$Tag.'(.*)>(.*)<\/'.$Tag.'>/SsUu', $Call[$Call['Var']], $Call['Parsed']))
+             while (preg_match_all('/<'.$Tag.'(.*)>(.*)<\/'.$Tag.'>/SsUu', $Call['Output'], $Call['Parsed']))
              {
-                 $Call[$Call['Var']] = F::Run('View.HTML.Parslets.'.$Parslet, 'Parse', $Call);
+                 $Call = F::Run('View.HTML.Parslets.'.$Parslet, 'Parse', $Call);
                  $Passes++;
 
                  if ($Passes > $Call['MaxPasses'])

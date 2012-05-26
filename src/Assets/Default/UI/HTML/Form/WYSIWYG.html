@@ -1,0 +1,32 @@
+<css>jquery.wysiwyg</css>
+<js>jquery.wysiwyg</js>
+<div class="control-group">
+    <label class="control-label" for="<k>Name</k>"> <l><k>Entity</k>.<k>Name</k></l> :</label>
+    <div class="controls">
+        <textarea id="<k>Name</k>" class="wysiwyg" name="<k>Name</k>"> <k>Value</k></textarea>
+    </div>
+</div>
+<script type="text/javascript">
+$(function() {
+    $('#<k>Name</k>').wysiwyg(
+            {
+                rmUnusedControls: true,
+                controls:
+                {
+                    bold:
+                    {
+                        visible: true
+                    },
+                    italic:
+                    {
+                        visible: true
+                    },
+                    underline:
+                    {
+                        visible: true
+                    }
+                }
+            }
+    );
+});
+</script>

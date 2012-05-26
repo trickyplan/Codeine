@@ -24,5 +24,5 @@
             $Call['Output'] = str_replace ($Call['Parsed'][0][$IX], $Outer, $Call['Output']);
         }
 
-        return $Call['Output'];
+        return $Call;
     });

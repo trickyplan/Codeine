@@ -16,5 +16,5 @@
                 F::Run ('View', 'Load', array('Scope' => $Asset, 'ID' => $ID)),$Call['Output']);
         }
 
-        return $Call['Output'];
+        return $Call;
     });

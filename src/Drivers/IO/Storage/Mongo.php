@@ -20,10 +20,16 @@
 
     self::setFn ('Read', function ($Call)
     {
-        $Cursor = $Call['Link']->$Call['Scope']->find($Call['Where']);
+        if (isset($Call['Where']))
+            $Cursor = $Call['Link']->$Call['Scope']->find($Call['Where']);
+        else
+            $Cursor = $Call['Link']->$Call['Scope']->find();
 
-        foreach ($Cursor as $Doc)
-            $Data[] = $Doc;
+        if ($Cursor->count()>0)
+            foreach ($Cursor as $cCursor)
+                $Data[] = $cCursor;
+        else
+            $Data = null;
 
         return $Data;
     });

@@ -24,5 +24,5 @@
               , $Call['Output']);
           }
 
-          return $Call['Output'];
+          return $Call;
      });

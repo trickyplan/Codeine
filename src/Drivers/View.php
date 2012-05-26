@@ -18,13 +18,18 @@
 
     self::setFn('Load', function ($Call)
     {
-        return F::Run('IO', 'Read', $Call,
+        $Data =  F::Run('IO', 'Read', $Call,
             array (
                   'Storage' => 'Layout',
                   'Where'   => array ('ID' => array (
                       $Call['ID'] . (isset($Call['Context']) ? '.' . $Call['Context'] : '') . (isset($Call['Extension']) ? $Call['Extension'] : '.html'),
                       $Call['ID'] . '.html'))
             ));
+
+        if (null !== $Data && isset($Call['DebugLayouts']))
+            $Data = "\n".'<!-- '.$Call['Scope'].':'.$Call['ID'].' started -->'."\n".$Data."\n".'<!-- '.$Call['Scope'].':'.$Call['ID'].' ended -->';
+
+        return $Data;
     });
 
     self::setFn('LoadParsed', function ($Call)
@@ -56,6 +61,7 @@
 
     self::setFn('Asset.Route', function ($Call)
     {
+        $Call['Value'] = strtr($Call['Value'], '.','/');
         if (strpos($Call['Value'], ':') !== false)
             return explode(':', $Call['Value']);
         else

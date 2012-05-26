@@ -35,6 +35,7 @@
         if (sizeof($Elements) == 0)
             $Call['Output']['Content'][] = array(
                 'Type'  => 'Template',
+                'Context' => $Call['Context'],
                 'Scope' => $Call['Entity'],
                 'Value' => 'Empty'
             );
