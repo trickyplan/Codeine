@@ -9,12 +9,22 @@
 
     self::setFn('Do', function ($Call)
     {
-        // TODO Realize "Do" function
         $IDs = F::Run('Search', 'Query',
              array(
                   'Engine' => 'Primary',
+                  'Entity' => $Call['Entity'],
                   'Query' => $Call['Request']['Query']
              ));
+
+        $Call['Layouts'][] = array(
+                    'Scope' => $Call['Entity'],
+                    'ID' => 'Main'
+                );
+
+        $Call['Layouts'][] = array(
+                    'Scope' => $Call['Entity'],
+                    'ID' => 'Search'
+                );
 
         //d(__FILE__, __LINE__, $Call['Request']['Query']);
         //d(__FILE__, __LINE__, $IDs);
@@ -38,7 +48,7 @@
                 $Call['Output']['Content'][] = array(
                     'Type'  => 'Template',
                     'Scope' => $Call['Entity'],
-                    'Value' => 'Show/'.(isset($Call['Template'])? $Call['Template']: 'Short'),
+                    'Value' => 'Show/'.(isset($Call['Template'])? $Call['Template']: 'Search'),
                     'Data' => $Element
                 );
         }
