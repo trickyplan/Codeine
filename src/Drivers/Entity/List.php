@@ -44,13 +44,18 @@
             if (!isset($Call['Selected']))
                 $Call['Selected'] = null;
 
-            foreach ($Elements as $Element)
+            foreach ($Elements as $ID => $Element)
+            {
+                if (!isset($Element['ID']))
+                    $Element['ID'] = $ID;
+
                 $Call['Output']['Content'][] = array(
                     'Type'  => 'Template',
                     'Scope' => $Call['Entity'],
-                    'Value' => 'Show/'.(isset($Call['Template'])? $Call['Template']: 'Short').($Call['Selected'] == $Element['ID']? '.Selected': ''),
+                    'Value' => 'Show/'.(isset($Call['Template'])? $Call['Template']: 'Short').($Call['Selected'] == $Element['ID'] ? '.Selected': ''),
                     'Data' => $Element
                 );
+            }
         }
 
 
