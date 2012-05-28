@@ -1,8 +1,22 @@
-<css>jquery.wysiwyg</css>
-<js>jquery.wysiwyg</js>
+<js>wysihtml5</js>
+<css>bootstrap-wysihtml5</css>
+<js>bootstrap-wysihtml5</js>
 <div class="control-group">
     <label class="control-label" for="<k>Name</k>"> <l><k>Entity</k>.<k>Name</k></l> :</label>
     <div class="controls">
-        <textarea id="<k>Name</k>" class="wysiwyg" name="<k>Name</k>"> <k>Value</k></textarea>
+        <textarea id="<k>Name</k>" class="wysiwyg span6" name="<k>Name</k>"> <k>Value</k></textarea>
     </div>
 </div>
+<jsrun>
+    $(function()
+    {
+        $('.wysiwyg').wysihtml5({
+            "font-styles": false, //Font styling, e.g. h1, h2, etc. Default true
+            "emphasis": true, //Italics, bold, etc. Default true
+            "lists": false, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
+            "html": false, //Button which allows you to edit the generated HTML. Default false
+            "link": true, //Button to insert a link. Default true,
+            "image": true //Button to insert an image. Default true
+        });
+    });
+</jsrun>
