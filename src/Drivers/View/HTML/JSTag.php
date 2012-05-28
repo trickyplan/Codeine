@@ -13,7 +13,6 @@
 
         foreach ($Call['IDs'] as $JSFile)
         {
-            F::Log($JSFile);
             list($Asset, $ID) = F::Run('View', 'Asset.Route', array ('Value' => $JSFile));
 
             $Hash[] = $JSFile . F::Run('IO', 'Execute', array (
@@ -34,9 +33,19 @@
 
     self::setFn('Process', function ($Call)
     {
+        if (preg_match_all('/<jsrun>(.*)<\/jsrun>/SsUu', $Call['Output'], $Parsed))
+        {
+            $RunJS = implode(';', $Parsed[1]);
+            $Call['Output'] = preg_replace('/<jsrun>(.*)<\/jsrun>/SsUu', '', $Call['Output']);
+        }
+        else
+            $RunJS = '';
+
         if (preg_match_all('/<js>(.*)<\/js>/SsUu', $Call['Output'], $Parsed))
         {
-            $JSHash = F::Run(null, 'Hash', array ('IDs' => $Parsed[1]));
+            $Parsed[1] = array_unique($Parsed[1]);
+
+            $JSHash = F::Run(null, 'Hash', array ('IDs' => $Parsed[1])).sha1($RunJS);
 
             if (!F::Run('IO', 'Execute', array ('Storage' => 'JS Cache', 'Execute'  => 'Exist', 'Where' => array('ID' => $JSHash))))
             {
@@ -45,7 +54,6 @@
                 $Parsed[1] = array_unique($Parsed[1]);
                 foreach ($Parsed[1] as $JSFile)
                 {
-                    F::Log($JSFile);
                     list($Asset, $ID) = F::Run('View', 'Asset.Route', array ('Value' => $JSFile));
 
                     if(null == ($JS[] = F::Run('IO', 'Read', array (
@@ -54,9 +62,11 @@
                                                         'Where'   => $ID
                                                   ))))
                         trigger_error('No JS: '.$JSFile);
+                    else
+                        F::Log('JS loaded: '.$JSFile);
                 }
 
-                $JS = implode('', $JS);
+                $JS = implode('', $JS).$RunJS;
 
                 if (isset($Call['JS.Postprocessors']) && $Call['JS.Postprocessors'])
                     foreach ($Call['JS.Postprocessors'] as $Processor)

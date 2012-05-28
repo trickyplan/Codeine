@@ -37,7 +37,7 @@
         if (isset($Call['NoPage']) && ($Call['NoPage'] == true))
             return $Call;
 
-        if (($Call['PageCount']>1) && !isset($Call['Count']))
+        if ((isset($Call['PageCount']) && $Call['PageCount']>1) && !isset($Call['Count']))
             $Call['Output']['Pagination'][] = array(
                 'Type'  => 'Paginator',
                 'Total' => $Call['Front']['Count'],

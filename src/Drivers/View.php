@@ -61,7 +61,6 @@
 
     self::setFn('Asset.Route', function ($Call)
     {
-        $Call['Value'] = strtr($Call['Value'], '.','/');
         if (strpos($Call['Value'], ':') !== false)
             return explode(':', $Call['Value']);
         else

@@ -1,18 +1,19 @@
-<css>jquery.ui:datepicker</css>
-<js>jquery.ui:datepicker</js>
-<js>jquery.ui:datepicker-ru</js>
+<js>bootstrap-datepicker</js>
+<css>bootstrap-datepicker</css>
 
 <div class="control-group">
-    <label class="control-label"><l><k>Entity</k>.<k>Name</k></l></label>
+    <label class="control-label" for="<k>Name</k>"><l><k>Entity</k>.<k>Name</k></l></label>
 
     <div class="controls">
-        <input type="text" class="span2 hasdatepicker" name="<k>Name</k>" id="<k>Name</k>" value="<k>Value</k>" required="<k>Required</k>">
+       <div class="input-append date" id="dp3" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
+          <input class="span2 datepicker" size="16" type="text" value="12-02-2012">
+          <span class="add-on"><i class="icon-th"></i></span>
+        </div>
     </div>
 </div>
 
-<script type="text/javascript">
-$(document).ready(function()
-{
-   $('#<k>Name</k>').datepicker();
-});
-</script>
+<jsrun>
+    $(function(){
+        $('.datapicker').datepicker();
+    });
+</jsrun>

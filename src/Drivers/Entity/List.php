@@ -27,7 +27,7 @@
 
         $Call = F::Hook('beforeList', $Call);
 
-        if ($Call['Where'] !== false)
+        if (!isset($Call['Where']) || $Call['Where'] !== false)
             $Elements = F::Run('Entity', 'Read', $Call);
         else
             $Elements = array();

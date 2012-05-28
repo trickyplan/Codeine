@@ -20,9 +20,6 @@
 
     self::setFn('Pipeline', function ($Call)
     {
-        if(!isset($Call['Layout']))
-            $Call['Layout'] = '<place>Content</place>';
-
         if (isset($Call['Layouts']))
             foreach ($Call['Layouts'] as $Layout) // FIXME I'm fat
                 if (($Sublayout =  F::Run('View', 'LoadParsed', $Layout, array('Context' => $Call['Context']))) !== null)

@@ -1,4 +1,6 @@
 {
+    "Context": "",
+    "Layout": "<place>Content</place>",
     "Hooks":
     {
         "beforePipeline":

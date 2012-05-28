@@ -33,6 +33,8 @@
     {
         if (preg_match_all ('@<css>(.*)<\/css>@SsUu', $Call['Output'], $Parsed))
         {
+            $Parsed[1] = array_unique($Parsed[1]);
+
             $CSSHash = F::Run(null, 'Hash', array('IDs' => $Parsed[1]));
 
                 if ((isset($Call['Caching']['Enabled'])
@@ -57,7 +59,10 @@
                                                                     'Scope'   => $Asset . '/css',
                                                                     'Where'   => $ID
                                                               )))
+                        {
+                            F::Log('CSS loaded: '.$CSSFile);
                             $CSS[] = $CSSSource;
+                        }
                         else
                             trigger_error('No CSS: '.$CSSFile); // FIXNE
                     }
