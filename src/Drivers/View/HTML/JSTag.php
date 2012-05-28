@@ -60,7 +60,7 @@
                                                         'Storage' => 'JS',
                                                         'Scope'   => $Asset . '/js',
                                                         'Where'   => $ID
-                                                  ))))
+                                                  ))[0]))
                         trigger_error('No JS: '.$JSFile);
                     else
                         F::Log('JS loaded: '.$JSFile);

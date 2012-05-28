@@ -61,7 +61,7 @@
                                                               )))
                         {
                             F::Log('CSS loaded: '.$CSSFile);
-                            $CSS[] = $CSSSource;
+                            $CSS[] = $CSSSource[0];
                         }
                         else
                             trigger_error('No CSS: '.$CSSFile); // FIXNE

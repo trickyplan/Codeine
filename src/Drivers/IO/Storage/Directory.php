@@ -52,7 +52,7 @@
                 d(__FILE__, __LINE__, $Call['Where']['ID']);
 
             if (file_exists($Filename))
-                return file_get_contents($Filename);
+                return array (file_get_contents($Filename));
             else
                 return null;
         }
