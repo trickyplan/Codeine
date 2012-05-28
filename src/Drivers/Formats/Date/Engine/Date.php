@@ -7,7 +7,7 @@
      * @version 7.2
      */
 
-    self::setFn('Parse', function ($Call)
+    self::setFn('Format', function ($Call)
     {
          return date($Call['Format'], $Call['Value']);
-     });
+    });

@@ -45,7 +45,10 @@
         foreach ($Call['Nodes'] as $Name => $Node)
         {
             if (isset($Node['Widgets']['Write']))
-                $Call['Output']['Form'][] = F::Merge($Node['Widgets']['Write'], array('Name' => $Name, 'Entity' => $Call['Entity']));
+                $Call['Output']['Form'][] = F::Merge($Node['Widgets']['Write'],
+                    array('Name' => $Name,
+                          'Entity' => $Call['Entity'],
+                          'Value' => isset($Node['Default'])? F::Live($Node['Default']): ''));
         }
 
         return $Call;
