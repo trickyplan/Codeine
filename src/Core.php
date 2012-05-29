@@ -242,7 +242,8 @@
                             $Call = F::Merge($Call, $Argument);
                 }
 
-                return F::Run(F::Live($Variable['Service']), F::Live($Variable['Method']), $Call, isset($Variable['Call'])? F::Live($Variable['Call']): array());
+                return F::Run($Variable['Service'], $Variable['Method'],
+                    $Call, isset($Variable['Call'])? $Variable['Call']: array());
             }
             else
             {

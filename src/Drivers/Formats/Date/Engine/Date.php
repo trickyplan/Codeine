@@ -9,5 +9,8 @@
 
     self::setFn('Format', function ($Call)
     {
-         return date($Call['Format'], $Call['Value']);
+        if (isset($Call['Value']))
+            return date($Call['Format'], $Call['Value']);
+        else
+            return date($Call['Format']);
     });
