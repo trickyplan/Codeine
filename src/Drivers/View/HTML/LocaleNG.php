@@ -23,7 +23,7 @@
                           'Storage' => 'Locale',
                           'Scope'   => $Asset.'/Locale/'.$Language,
                           'Where'   => $ID
-                    ));
+                    ))[0];
 
                 if ($AddLocales)
                 {
