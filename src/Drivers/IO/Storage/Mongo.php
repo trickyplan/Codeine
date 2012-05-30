@@ -37,7 +37,12 @@
     self::setFn ('Write', function ($Call)
     {
         if (null === $Call['Data'])
-            return $Call['Link']->$Call['Scope']->remove ($Call['Where']);
+        {
+            if (isset($Call['Where']))
+                return $Call['Link']->$Call['Scope']->remove ($Call['Where']);
+            else
+                return $Call['Link']->$Call['Scope']->remove ();
+        }
         else
         {
             if (isset($Call['Where']))

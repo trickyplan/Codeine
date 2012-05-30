@@ -61,6 +61,10 @@
 
     self::setFn('Delete', function ($Call)
     {
-        F::Run('User.Delete', 'Do', $Call);
         return F::Run('Entity.Delete', 'Do', array('Entity' => 'User', 'Where' => $Call['ID']), $Call);
+    });
+
+    self::setFn('Flush', function ($Call)
+    {
+        return F::Run('Entity.Delete', 'Do', array('Entity' => 'User'), $Call);
     });
