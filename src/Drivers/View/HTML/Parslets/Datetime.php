@@ -19,7 +19,7 @@
             // TODO Due bug 13744 at w3c validator, time tag temporary diabled.
             // $Outer = '<time datetime="'.date(DATE_ISO8601, $Match).'">'.date($Format, $Inner).'</time>';
 
-            $Outer = F::Run('Formats.Date.Engine.'.$Engine, 'Parse',
+            $Outer = F::Run('Formats.Date.Engine.'.$Engine, 'Format',
                 array(
                      'Format' => $Format,
                      'Value' => $Inner

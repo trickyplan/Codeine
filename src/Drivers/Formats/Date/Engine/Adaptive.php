@@ -7,7 +7,7 @@
      * @version 7.2
      */
 
-    self::setFn('Parse', function ($Call)
+    self::setFn('Format', function ($Call)
     {
         $Value = strptime($Call['Value'],'%s');
 

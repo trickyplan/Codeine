@@ -16,13 +16,15 @@
         else
             $Call['ID'] = F::Run('Security.UID.Integer', 'Get', $Call);
 
-        $Call['Data']['ID'] = $Call['ID'];
-
         $Call = F::Hook('beforeCreate', $Call);
 
+        $Nodes = array_keys($Call['Nodes']);
+
         foreach ($Call['Data'] as $Key => $Value)
-            if (null === $Value)
+            if (null === $Value or !in_array($Key, $Nodes))
                 unset($Call['Data'][$Key]);
+
+        $Call['Data']['ID'] = $Call['ID'];
 
         F::Run('IO', 'Write', $Call,
             array (
