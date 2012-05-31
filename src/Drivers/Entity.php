@@ -63,8 +63,10 @@
 
         $Call = F::Run('Code.Flow.Hook', 'Run', $Call, array ('On'=> 'beforeUpdate'));
 
+        $Nodes = array_keys($Call['Nodes']);
+
         foreach($Call['Data'] as $Key => $Value)
-            if ($Value == null or $Data[$Key] == $Value)
+            if ($Value == null or !isset($Data[$Key]) or $Data[$Key] == $Value or !in_array($Key, $Nodes))
                 unset($Call['Data'][$Key]);
 
         F::Run('IO', 'Write', $Call,

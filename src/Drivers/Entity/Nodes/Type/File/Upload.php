@@ -9,6 +9,7 @@
 
     self::setFn('Write', function ($Call)
     {
+        // FIXME Scope Support
         return F::Run('IO', 'Write', array ('Storage' =>  'Upload', 'Value' => $Call['Value']));
     });
 
