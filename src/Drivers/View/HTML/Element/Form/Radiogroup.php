@@ -11,7 +11,7 @@
     {
         $Output = '';
 
-        foreach($Call['Value'] as $Value)
+        foreach($Call['Options'] as $Value)
             $Output.= F::Run('View', 'LoadParsed',
                 array('Scope' => 'Default',
                       'ID' => 'UI/HTML/Form/Radio',

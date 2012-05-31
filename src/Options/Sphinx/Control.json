@@ -1,0 +1,15 @@
+{
+    "Output":
+    {
+        "Sidebar":
+        {
+            "Reindex":
+            {
+                "Type" : "Button",
+                "Class": "btn-danger",
+                "Value" : "Переиндексация",
+                "Action": "/control/Sphinx/Reindex"
+            }
+        }
+    }
+}

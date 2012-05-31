@@ -23,11 +23,6 @@
                     'Data' => F::Merge(array('Name' => $Name), $Storage)
                 );
 
-            $Info = F::Run('IO', 'Execute', array('Storage' => $Name, 'Execute' => 'Status'));
-
-            foreach ($Info as &$Row)
-                $Row[0] = '<l>'.$Storage['Driver'].'.'.$Row[0].'</l>';
-
             $Call['Output']['Storage_'.$Name][] =
                 array(
                     'Type' => 'Table',

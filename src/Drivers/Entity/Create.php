@@ -9,7 +9,7 @@
 
     self::setFn('Do', function ($Call)
     {
-        $Call = F::Merge($Call, F::loadOptions('Entity.'.$Call['Entity']));
+        $Call = F::Merge(F::loadOptions('Entity.'.$Call['Entity']), $Call);
 
         $Call = F::Hook('beforeEntityCreate', $Call);
 
@@ -21,9 +21,9 @@
                 );
 
         $Call['Layouts'][] = array(
-                    'Scope' => $Call['Entity'],
-                    'ID' => 'Create'
-                );
+                'Scope' => $Call['Entity'],
+                'ID' => 'Create'
+            );
 
         if (isset($Call['URL']))
             $Call['Output']['Content']['Form']['Action'] = $Call['URL'];
@@ -36,7 +36,6 @@
                       'Data' => isset($Call['Data'])? F::Merge($Call['Data'], $Call['Request']): $Call['Request']
                 ));
 
-
             $Call = F::Hook('afterEntityCreate', $Call);
 
             return $Call;
@@ -44,11 +43,24 @@
 
         foreach ($Call['Nodes'] as $Name => $Node)
         {
+
             if (isset($Node['Widgets']['Write']))
-                $Call['Output']['Form'][] = F::Merge($Node['Widgets']['Write'],
+            {
+                $Value = isset($Node['Default'])? F::Live($Node['Default']): '';
+
+                if (isset($Call['Data'][$Name]))
+                    $Value = $Call['Data'][$Name];
+
+                $Widget = F::Merge($Node['Widgets']['Write'],
                     array('Name' => $Name,
                           'Entity' => $Call['Entity'],
-                          'Value' => isset($Node['Default'])? F::Live($Node['Default']): ''));
+                          'Value' => $Value));
+            }
+
+            if (isset($Call['CustomTemplate']))
+                $Call['Output'][$Name][] = $Widget;
+            else
+                $Call['Output']['Form'][] = $Widget;
         }
 
         return $Call;

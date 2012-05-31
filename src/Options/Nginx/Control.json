@@ -1,0 +1,26 @@
+{
+    "Output":
+    {
+        "Sidebar":
+        {
+            "Status":
+            {
+                "Type" : "Button",
+                "Value" : "Status",
+                "Action": "/control/Nginx"
+            },
+            "Errors":
+            {
+                "Type" : "Button",
+                "Value" : "Error Log",
+                "Action": "/control/Nginx/Errors"
+            },
+            "Access":
+            {
+                "Type" : "Button",
+                "Value" : "Access Log",
+                "Action": "/control/Nginx/Access"
+            }
+        }
+    }
+}

@@ -22,7 +22,7 @@
         foreach ($Call['Regex'] as $Name => $Rule)
             if (preg_match ($Rule['Match'], $Call['Run'], $Matches))
             {
-                $Rule['Call'] = F::Map($Rule['Call'], function ($Key, &$Value) use ($Matches)
+                $Rule = F::Map($Rule, function ($Key, &$Value) use ($Matches)
                 {
                     if (is_scalar($Value) && substr($Value, 0, 1) == '$')
                     {

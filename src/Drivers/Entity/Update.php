@@ -9,7 +9,7 @@
 
     self::setFn('Do', function ($Call)
     {
-        $Call = F::Merge($Call, F::loadOptions('Entity.'.$Call['Entity']));
+        $Call = F::Merge( F::loadOptions('Entity.'.$Call['Entity']), $Call);
 
         $Call['Where'] = F::Live($Call['Where']);
 
