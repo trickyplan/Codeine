@@ -3,25 +3,6 @@
     "Decision": true,
     "Rules":
     {
-        "EverybodyCanRead":
-        {
-            "Decision": true,
-            "Weight": 50,
-            "Call":
-            {
-                "Service": "Entity.Show.Static",
-                "Method": "Do"
-            }
-        },
-        "Control enabled for administrators":
-        {
-            "Decision": true,
-            "Weight": 100,
-            "Call":
-            {
-                "Service": "Control.Panel",
-                "Method": "Do"
-            }
-        }
+
     }
 }

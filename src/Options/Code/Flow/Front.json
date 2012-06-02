@@ -34,6 +34,17 @@
                 "Service": "Error.404",
                 "Method": "Page"
             }
+        },
+        "Access":
+        {
+            "Denied":
+            {
+                "ErrorPage":
+                {
+                    "Service": "Error.403",
+                    "Method": "Page"
+                }
+            }
         }
     }
 }

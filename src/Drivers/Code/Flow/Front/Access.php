@@ -14,10 +14,8 @@
 
          $Call = F::Run('Security.Access', 'Check', $Call);
 
-         if ($Call['Decision'] === false)
-         {
-             header('HTTP/1.1 403 Forbidden');
-         }
+         if ($Call['Decision'] == false)
+             $Call = F::Hook('Access.Denied', $Call);
 
          return $Call;
      });

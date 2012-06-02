@@ -43,15 +43,21 @@
 
         foreach ($Call['Nodes'] as $Name => $Node)
         {
+            if (isset($Node['Widgets']['Create']))
+                $Widget = $Node['Widgets']['Create'];
+            elseif (isset($Node['Widgets']['Write']))
+                    $Widget = $Node['Widgets']['Write'];
+            else
+                $Widget = null;
 
-            if (isset($Node['Widgets']['Write']))
+            if (null !== $Widget)
             {
                 $Value = isset($Node['Default'])? F::Live($Node['Default']): '';
 
                 if (isset($Call['Data'][$Name]))
                     $Value = $Call['Data'][$Name];
 
-                $Widget = F::Merge($Node['Widgets']['Write'],
+                $Widget = F::Merge($Widget,
                     array('Name' => $Name,
                           'Entity' => $Call['Entity'],
                           'Value' => $Value));
@@ -60,7 +66,7 @@
             if (isset($Call['CustomTemplate']))
                 $Call['Output'][$Name][] = $Widget;
             else
-                $Call['Output']['Form'][] = $Widget;
+                $Call['Output']['Form'][$Name] = $Widget;
         }
 
         return $Call;

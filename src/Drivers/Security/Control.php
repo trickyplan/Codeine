@@ -9,13 +9,6 @@
 
     self::setFn('Do', function ($Call)
     {
-        $Call['Output']['Sidebar'][] =
-              array(
-                  'Type' => 'Button',
-                  'Value' => '<l>Hash.Test</l>',
-                  'Action' => '/control/Security/HashTest'
-              );
-
         return $Call;
     });
 
@@ -38,6 +31,21 @@
                   'Value' => $Key.' ('.$Hash.') '.round(1/$ST).' hash/sec'
               );
         }
+
+        return $Call;
+    });
+
+    self::setFn('Rules', function ($Call)
+    {
+        $Rules = F::loadOptions('Security.Access.Rule')['Rules'];
+
+        $Call['Output']['Content'][] =
+            array(
+                'Type' => 'Templates',
+                'Scope' => 'Security/Access',
+                'Value' => '/Rule/Show/Short',
+                'Data' => $Rules
+            );
 
         return $Call;
     });

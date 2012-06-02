@@ -2,6 +2,13 @@
     "Storage": "Session",
     "Nodes":
     {
+        "User":
+        {
 
+        },
+        "Expire":
+        {
+
+        }
     }
 }

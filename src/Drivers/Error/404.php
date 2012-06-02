@@ -25,3 +25,16 @@
                                             ));
         return $Call;
      });
+
+        self::setFn('Block', function ($Call)
+        {
+            $Call['Output']['Content'] = array (array (
+                                                'Type'  => 'Template',
+                                                'Scope' => 'Errors/Blocks',
+                                                'Value' => '404',
+                                                'Data' => array(
+                                                    'Suggestion' => F::Live($Call['Prediction'], $Call)
+                                                )
+                                            ));
+            return $Call;
+        });

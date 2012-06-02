@@ -34,9 +34,6 @@
                                  'Where' => $Call['Session']['User']
                             ));
 
-                    if ($User[0]['Status'] == -1)
-                        $Call = F::Run(null, 'Annulate', $Call);
-
                     $Call['Session']['User'] = $User[0];
                 }
             }

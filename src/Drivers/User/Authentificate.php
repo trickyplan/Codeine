@@ -80,7 +80,7 @@
                 'Value' => 'Access denied'
             );
 
-            $Call = F::Hook('Access.Denied', $Call);
+            $Call = F::Hook('Authentification.Failed', $Call);
 
         }
 

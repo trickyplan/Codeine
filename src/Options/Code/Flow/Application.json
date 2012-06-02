@@ -6,6 +6,11 @@
             {
                 "Service": "Security.Auth",
                 "Method": "Audit"
+            },
+            "Access":
+            {
+                "Service": "Code.Flow.Front.Access",
+                "Method": "Check"
             }
         },
         "afterRun":{
@@ -16,9 +21,20 @@
             }
         },
         "on404":{
-            "ErrorPage":{
+            "ErrorBlock":{
                 "Service":"Error.404",
                 "Method":"Block"
+            }
+        },
+        "Access":
+        {
+            "Denied":
+            {
+                "ErrorBlock":
+                {
+                    "Service": "Error.403",
+                    "Method": "Block"
+                }
             }
         }
     }

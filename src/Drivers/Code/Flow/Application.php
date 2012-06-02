@@ -16,14 +16,17 @@
         $Call = F::Run('Code.Flow.Hook', 'Run', $Call, array ('On' => 'beforeRun')); // JP beforeRun
 
         // Если передан нормальный вызов, совершаем его
-        if (F::isCall($Call['Run']))
+        if (!isset($Call['Output']))
         {
-            list($Call['Service'], $Call['Method']) = array ($Call['Run']['Service'], $Call['Run']['Method']);
-            $Call = F::Live($Call['Run'], $Call, array('Context' => 'app'));
+            if (F::isCall($Call['Run']))
+            {
+                list($Call['Service'], $Call['Method']) = array ($Call['Run']['Service'], $Call['Run']['Method']);
+                $Call = F::Live($Call['Run'], $Call, array('Context' => 'app'));
+            }
+            // В противном случае, 404
+            else
+                $Call = F::Hook('on404', $Call);
         }
-        // В противном случае, 404
-        else
-            $Call = F::Hook('on404', $Call);
 
         // А здесь - рендеринг
         $Call = F::Run('Code.Flow.Hook', 'Run', $Call, array ('On' => 'afterRun')); // JP afterRun
