@@ -420,7 +420,7 @@
         public static function Speed()
         {
             $Time = (microtime(true)-self::$_Speed[0]);
-            $Memory = memory_get_peak_usage()-self::$_Speed[1];
+            $Memory = memory_get_peak_usage(true)-self::$_Speed[1];
             return 'SI:'.(round(1/(($Memory/1048576)*$Time), 2)).'('.self::$_Speed[2].')'.round($Memory/1048576,2); // megabyte-second
         }
 

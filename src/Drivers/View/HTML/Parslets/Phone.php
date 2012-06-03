@@ -11,11 +11,17 @@
      {
           foreach ($Call['Parsed'][2] as $Ix => $Match)
           {
-              preg_match ('/(\+(\d+)) ?\(?(\d{3})\)? ?(\d{3})[ -]?(\d{2})[ -]?(\d{2})/', $Match, $Parts);
-              $TelForm = implode ('', array_slice ($Parts, 2, 6));
-              $HumanForm = '+'.$Parts[2].' ('. $Parts[3].') '. $Parts[4].' '. $Parts[5]. ' '. $Parts[6];
+              if(preg_match ('^/(\+(\d+)) ?\(?(\d{3})\)? ?(\d{3})[ -]?(\d{2})[ -]?(\d{2})$/', $Match, $Parts))
+              {
+                  $TelForm = implode ('', array_slice ($Parts, 2, 6));
+                  $HumanForm = '+'.$Parts[2].' ('. $Parts[3].') '. $Parts[4].' '. $Parts[5]. ' '. $Parts[6];
 
-              $Call['Output'] = str_replace($Call['Parsed'][0][$Ix], '<a class="tel" href="tel:'.$TelForm.'">'.$HumanForm.'</a>', $Call['Output']);
+                  $Call['Output'] = str_replace($Call['Parsed'][0][$Ix], '<a class="tel" href="tel:'.$TelForm.'">'.$HumanForm.'</a>', $Call['Output']);
+              }
+              else
+                  $Call['Output'] = str_replace($Call['Parsed'][0][$Ix], '<a class="tel" href="tel:'.$Match.'">'.$Match.'</a>', $Call['Output']);
+
+
           }
 
           return $Call;

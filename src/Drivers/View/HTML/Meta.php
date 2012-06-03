@@ -9,19 +9,25 @@
 
     self::setFn('Scan', function ($Call)
     {
+        $Call['Title'] = (array) $Call['Title'];
+
+        $Call['Title'][] = F::loadOptions('Project')['Title'];
+
         if (preg_match_all('@<subtitle>(.*)<\/subtitle>@SsUu', $Call['Output'], $Pockets))
         {
             foreach ($Pockets[1] as $IX => $Match)
             {
-                // TODO Придумать синтаксис для сложения.
-                $Call['Title'] = $Match;
+                $Call['Title'][] = $Match;
                 $Call['Output'] = str_replace($Pockets[0][$IX], '', $Call['Output']);
             }
 
-            $Call['Output'] = str_replace('<title/>', '<title>'.$Call['Title'].'</title>', $Call['Output']);
+            if ($Call['Reverse'])
+                $Call['Title'] = array_reverse($Call['Title']);
+
+            $Call['Output'] = str_replace('<title/>', '<title>'.implode($Call['Delimiter'], $Call['Title']).'</title>', $Call['Output']);
         }
         else
-            $Call['Output'] = str_replace('<title/>', '<title>'.$Call['Title'].'</title>', $Call['Output']);
+            $Call['Output'] = str_replace('<title/>', '<title>'.implode($Call['Delimiter'], $Call['Title']).'</title>', $Call['Output']);
 
         if (preg_match_all('@<description>(.*)<\/description>@SsUu', $Call['Output'], $Pockets))
         {
