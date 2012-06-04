@@ -105,7 +105,7 @@
     self::setFn('Write', function ($Call)
     {
         $Call = F::Run(null, 'Audit', $Call);
-        return F::Run('Entity', 'Update',
+        return F::Run('Entity', 'Set',
              array(
                   'Entity' => 'Session',
                   'Where' => $Call['SID'],
