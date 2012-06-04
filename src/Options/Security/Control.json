@@ -1,0 +1,33 @@
+{
+    "Output":
+    {
+        "Sidebar":
+        {
+            "EntropyTest":
+            {
+                "Type" : "Button",
+                "Disabled": true,
+                "Value" : "<l>Security.Entropy.Test</l>"
+            },
+            "CipherTest":
+            {
+                "Type" : "Button",
+                "Disabled": true,
+                "Value" : "<l>Security.Cipher.Test</l>"
+            },
+            "HashTest":
+            {
+                "Type" : "Button",
+                "Action": "/control/Security/HashTest",
+                "Value" : "<l>Security.Hash.Test</l>"
+            },
+            "Rules":
+            {
+                "Type" : "Button",
+                "Action": "/control/Security/Rules",
+                "Value" : "<l>Security.Access.Rule.List</l>"
+            }
+
+        }
+    }
+}
