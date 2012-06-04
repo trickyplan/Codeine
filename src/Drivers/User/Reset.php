@@ -20,7 +20,6 @@
         {
             $User = $User[0];
 
-             d(__FILE__, __LINE__, $User);
             $NewPassword = F::Live($Call['Password']['Generator']);
 
             F::Run('Entity', 'Update',
