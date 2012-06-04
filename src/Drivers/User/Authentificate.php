@@ -37,7 +37,7 @@
                     'Value' => 'Access granted'
                 );
 
-                $Call = F::Hook('onSuccess', $Call);
+                $Call = F::Hook('Authentification.Success', $Call);
 
                 return $Call;
 
@@ -74,11 +74,11 @@
         else
         {
             $Call['Output']['Content'][]
-                = array(
-                'Type' => 'Block',
-                'Class' => 'alert alert-danger',
-                'Value' => 'Access denied'
-            );
+                        = array(
+                        'Type' => 'Template',
+                        'Scope' => 'User',
+                        'Value' => 'Incorrect'
+                    );
 
             $Call = F::Hook('Authentification.Failed', $Call);
 

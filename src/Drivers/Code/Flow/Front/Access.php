@@ -12,6 +12,8 @@
          if (F::isCall($Call['Run']))
              $Call = F::Merge($Call, $Call['Run']);
 
+         unset($Call['Decision'], $Call['Weight']);
+
          $Call = F::Run('Security.Access', 'Check', $Call);
 
          if ($Call['Decision'] == false)

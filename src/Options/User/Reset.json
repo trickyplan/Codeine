@@ -1,0 +1,23 @@
+{
+    "Password":
+    {
+        "Generator":
+        {
+            "Service": "Security.Password.Generator.Pronouncable",
+            "Method": "Get",
+            "Call":
+            {
+                "Length": 8
+            }
+        }
+    },
+    "Sender":
+    {
+        "Service": "IO",
+        "Method": "Write",
+        "Call":
+        {
+            "Storage": "EMail"
+        }
+    }
+}

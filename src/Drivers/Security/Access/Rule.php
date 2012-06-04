@@ -48,11 +48,13 @@
         foreach ($Call['Rules'] as $Name => $Rule)
         {
             if (isset($Rule['Debug']))
+            {
                 d(__FILE__, __LINE__, array_diff_assoc_recursive($Rule['Run'], $Call));
+            }
 
             if ($Rule['Weight'] >= $Call['Weight'])
             {
-                if (isset($Rule['Run']) && (array_diff_assoc_recursive($Rule['Run'], $Call) == null))
+                if (isset($Rule['Run']) && (array_diff_assoc_recursive($Rule['Run'], $Call) === null))
                 {
                     F::Log('Rule «'.$Name.'» applied');
                     $Call['Decision'] = $Rule['Decision'];
@@ -60,7 +62,9 @@
                     $Call['Rule'] = $Rule;
                 }
                 else
+                {
                     F::Log('Rule «'.$Name.'» tested');
+                }
             }
             else
                 F::Log('Rule «'.$Name.'» skipped ('.$Rule['Weight'].'<'.$Call['Weight'].')');

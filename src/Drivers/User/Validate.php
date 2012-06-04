@@ -16,7 +16,7 @@
         if (empty($Element))
             $Call['Output'] = '';
         else
-            $Call['Output'] = 'Занято';
+            $Call['Output'] = 'Логин занят';
 
         return $Call;
     });

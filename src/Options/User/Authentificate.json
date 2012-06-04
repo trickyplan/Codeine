@@ -7,15 +7,22 @@
     },
     "Hooks":
     {
-        "onSuccess":
+        "Authentification":
         {
-            "Redirect":
+            "Failed":
             {
-                "Service": "System.Interface.Web",
-                "Method": "Redirect",
-                "Call":
+                
+            },
+            "Success":
+            {
+                "Redirect":
                 {
-                    "Location": "/"
+                    "Service": "System.Interface.Web",
+                    "Method": "Redirect",
+                    "Call":
+                    {
+                        "Location": "/"
+                    }
                 }
             }
         }
