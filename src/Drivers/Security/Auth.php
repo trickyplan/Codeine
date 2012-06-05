@@ -64,6 +64,7 @@
 
     self::setFn('Annulate', function ($Call)
     {
+        $Call = F::Run(null, 'Audit', $Call);
         F::Run($Call['Source'], 'Annulate', $Call);
 
         F::Run('Entity', 'Delete',
@@ -77,7 +78,7 @@
 
     self::setFn('Attach', function ($Call)
     {
-        return F::Run('Entity', 'Update',
+        return F::Run('Entity', 'Set',
              array(
                   'Entity' => 'Session',
                   'Where' => $Call['SID'],
@@ -88,7 +89,7 @@
     self::setFn('Detach', function ($Call)
     {
         $Call = F::Run(null, 'Audit', $Call);
-        return F::Run('Entity', 'Update',
+        return F::Run('Entity', 'Set',
              array(
                   'Entity' => 'Session',
                   'Where' => $Call['SID'],

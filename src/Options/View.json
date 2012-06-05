@@ -1,9 +1,4 @@
 {
-    "Behaviours":
-    {
-        "Load": ["Memo"],
-        "Render": ["Memo"]
-    },
     "Parsers":
     {
         "Layout":
