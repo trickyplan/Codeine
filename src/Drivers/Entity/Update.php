@@ -16,7 +16,7 @@
 
         if (!empty($Call['Where']))
         {
-            $Call['Element'] = F::Run('Entity', 'Read', $Call);
+            $Call['Data'] = F::Run('Entity', 'Read', $Call);
 
             $Call = F::Hook('beforeEntityUpdate', $Call);
 
@@ -32,7 +32,7 @@
                         'ID' => 'Update'
                     );// FIXME Hook!
 
-            $Call['Element'] = $Call['Element'][0];
+            $Call['Data'] = $Call['Data'][0];
 
             if ($_SERVER['REQUEST_METHOD'] == 'POST')
             {
@@ -51,13 +51,32 @@
 
             foreach ($Call['Nodes'] as $Name => $Node)
             {
-                if (isset($Node['Widgets']['Write']) and (!isset($Node['WriteOnce'])))
-                    $Call['Output']['Form'][] =
-                        F::Merge($Node['Widgets']['Write'],
-                            array('Name' => $Name,
-                                  'Entity' => $Call['Entity'],
-                                  'Value' => $Call['Element'][$Name]));
+                if (isset($Node['Widgets']['Update']))
+                    $Widget = $Node['Widgets']['Update'];
+                elseif (isset($Node['Widgets']['Write']) and (!isset($Node['WriteOnce'])))
+                        $Widget = $Node['Widgets']['Write'];
+                else
+                    $Widget = null;
+
+                if (null !== $Widget)
+                {
+                    $Value = isset($Node['Default'])? F::Live($Node['Default']): '';
+
+                    if (isset($Call['Data'][$Name]))
+                        $Value = $Call['Data'][$Name];
+
+                    $Widget = F::Merge($Widget,
+                        array('Name' => $Name,
+                              'Entity' => $Call['Entity'],
+                              'Value' => $Value));
+                }
+
+                if (isset($Call['CustomTemplate']))
+                    $Call['Output'][$Name][] = $Widget;
+                else
+                    $Call['Output']['Form'][$Name] = $Widget;
             }
+
         }
         else
             $Call = F::Hook('on404', $Call);

@@ -9,5 +9,15 @@
 
     self::setFn('Make', function ($Call)
     {
-        return F::Run('View', 'LoadParsed', array('Scope' => 'Default', 'ID' => 'UI/HTML/Form/Stars', 'Data' => $Call));
+        $Stars = '';
+        for ($IC = 1; $IC <= $Call['Stars']; $IC++)
+        {
+            $StarData = array('Num' => $IC);
+            if ($Call['Value'] == $IC+1)
+                $StarData['Checked'] = true;
+
+            $Stars.=  F::Run('View', 'LoadParsed', array('Scope' => 'Default', 'ID' => 'UI/HTML/Form/Star', 'Data' => F::Merge($Call, $StarData)));
+        }
+
+        return F::Run('View', 'LoadParsed', array('Scope' => 'Default', 'ID' => 'UI/HTML/Form/Stars', 'Data' => F::Merge($Call,array('Stars' => $Stars))));
      });

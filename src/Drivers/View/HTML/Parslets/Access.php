@@ -9,18 +9,19 @@
 
      self::setFn('Parse', function ($Call)
      {
-          foreach ($Call['Parsed'][2] as $IX => $Match)
+          foreach ($Call['Parsed'][0] as $IX => $Match)
           {
                 $Root = simplexml_load_string($Match);
 
                 $Outer = '';
                 $Inner = (string) $Root->asXML();
 
-                $Call['Run'] = array();
-                $Call['Run']['Service'] = (string) $Root->attributes()->service;
-                $Call['Run']['Method'] = (string) $Root->attributes()->method;
+                unset($Call['Weight'], $Call['Decision']);
 
-                F::Run('Security.Access', 'Check', $Call);
+                $Call['Service'] = (string) $Root->attributes()->service;
+                $Call['Method'] = (string) $Root->attributes()->method;
+
+                $Call = F::Run('Security.Access', 'Check', $Call);
 
                 if ($Call['Decision'])
                     $Outer = $Inner;

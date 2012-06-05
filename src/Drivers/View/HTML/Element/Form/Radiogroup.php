@@ -15,7 +15,7 @@
             $Output.= F::Run('View', 'LoadParsed',
                 array('Scope' => 'Default',
                       'ID' => 'UI/HTML/Form/Radio',
-                      'Data' => F::Merge($Call, array('Value' => $Value))));
+                      'Data' => F::Merge($Call, array('Value' => $Value, 'Checked' => ($Value == $Call['Value']? 'true': 'false')))));
 
         return F::Run('View', 'LoadParsed', array('Scope' => 'Default', 'ID' => 'UI/HTML/Form/Radiogroup', 'Data' => F::Merge($Call, array(
             'Radios' => $Output))));
