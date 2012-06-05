@@ -20,7 +20,7 @@
                               )
                      ));
 
-            if ($User[0]['Status'] == 1)
+            if ($User[0]['Status'] >= 1)
             {
                 if (isset($Call['Request']['TTL']))
                     $Call['TTL'] = $Call['Request']['TTL'];
