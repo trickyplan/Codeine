@@ -56,6 +56,12 @@
             "Call":{
                 "Element": "$1"
             }
+        },
+        "Auto API":
+        {
+            "Match": "@^/api/(.*)@",
+            "Service":"$1",
+            "Method":"Do"
         }
     }
 }

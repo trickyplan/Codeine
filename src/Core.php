@@ -20,6 +20,7 @@
         protected static $_Storage = array();
         protected static $_Speed;
         protected static $_Profile = array();
+        protected static $_Log = array();
 
         public static function Bootstrap ($Call = null)
         {
@@ -267,6 +268,15 @@
             // d(__FILE__, __LINE__, self::$_Profile);
 
             F::Run('Code.Run.Delayed', 'Flush');
+
+            F::Execute(
+                'IO', 'Write',
+                array(
+                     'Storage' => 'Developer',
+                     'Data' => self::$_Log
+                )
+            );
+
             F::Run('IO', 'Close', array('Storage' => 'Developer'));
             return null; // TODO onShutdown
         }
@@ -337,27 +347,12 @@
 
         public static function Error($errno , $errstr , $errfile , $errline , $errcontext)
         {
-            return F::Run(
-                'IO', 'Write',
-                array(
-                     'Storage' => 'Developer',
-                     'Type' => 'Error',
-                     'Data' => $errstr.' '.$errfile.'@'.$errline
-                )
-            );
+            return F::Log($errstr.' '.$errfile.'@'.$errline);
         }
 
         public static function Log ($Message, $Type = 'Info', $Tags = '')
         {
-            return F::Execute(
-                'IO', 'Write',
-                array(
-                     'Storage' => 'Developer',
-                     'Type' => $Type,
-                     'Data' => round((microtime(true) - self::$_Speed[0])*1000).' '.$Message,
-                     'Tags' => $Tags
-                )
-            );
+            self::$_Log[] = round((microtime(true) - self::$_Speed[0]) * 1000) . ' ' . $Message;
         }
 
         public static function loadOptions($Service = null)

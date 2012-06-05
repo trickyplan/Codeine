@@ -40,10 +40,13 @@
     {
         $Call = F::Run('Entity', 'Load', $Call);
 
-        $Call['Data'] = F::Run('IO', 'Read', $Call,
-            array (
-                  'Scope'   => $Call['Entity']
-            ));
+        $Call = F::Hook('beforeRead', $Call);
+
+        if (!isset($Call['Data']))
+            $Call['Data'] = F::Run('IO', 'Read', $Call,
+                array (
+                      'Scope'   => $Call['Entity']
+                ));
 
         $Call = F::Hook('afterRead', $Call);
 

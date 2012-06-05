@@ -17,12 +17,12 @@
         curl_setopt_array($Call['Link'],
           array(
                CURLOPT_HEADER => false,
-               CURLOPT_RETURNTRANSFER => true,
+               CURLOPT_RETURNTRANSFER => true, // FIXME Codeinize!
                CURLOPT_COOKIEJAR => 'cookie.txt',
                CURLOPT_FOLLOWLOCATION => true,
                CURLOPT_CONNECTTIMEOUT => 15,
                CURLOPT_URL => $Call['Where']['ID']));
-        
+
         return curl_exec($Call['Link']);
     });
 

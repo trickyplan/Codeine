@@ -3,7 +3,7 @@
     {
         "Enabled": true
     },
-    "CSS.Postprocessors":
+    "Postprocessors":
     {
         "Minify":
         {

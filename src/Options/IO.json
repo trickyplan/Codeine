@@ -73,6 +73,10 @@
             {
                 "From:": "Codeine"
             }
+        },
+        "Web":
+        {
+            "Driver": "IO.Network.HTTP.Curl"
         }
     }
 }

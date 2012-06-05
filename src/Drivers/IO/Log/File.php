@@ -9,12 +9,12 @@
 
     self::setFn('Open', function ($Call)
     {
-        return fopen($Call['Filename'], 'a+');
+        return fopen($Call['Filename'], $Call['Mode']);
     });
 
     self::setFn('Write', function ($Call)
     {
-        return fwrite($Call['Link'], $Call['Data']."\n");
+        return fwrite($Call['Link'], implode("\n", (array) $Call['Data']));
     });
 
     self::setFn('Close', function ($Call)

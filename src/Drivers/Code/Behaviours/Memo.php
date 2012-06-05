@@ -11,10 +11,15 @@
     {
         $Hash = F::hashCall($Call);
 
-        if (($Result = F::Get($Hash)) === null)
+        if (!xcache_isset($Hash))
         {
             $Result = F::Run($Call['Service'], $Call['Method'], $Call['Call']);
-            F::Set($Hash, $Result);
+            xcache_set($Hash, $Result);
+        }
+        else
+        {
+            $Result = xcache_get($Hash);
+            F::Log($Call['Service'].':'.$Call['Method'].' memoized');
         }
 
         return $Result;

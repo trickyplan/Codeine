@@ -1,3 +1,7 @@
 {
-    "System": "Rule"
+    "System": "Rule",
+    "Behaviours":
+    {
+        "Check": ["Memo"]
+    }
 }

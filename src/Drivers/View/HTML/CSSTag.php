@@ -69,8 +69,8 @@
 
                     $CSS = implode ('', $CSS);
 
-                    if (isset($Call['CSS.Postprocessors']) && $Call['CSS.Postprocessors'])
-                        foreach($Call['CSS.Postprocessors'] as $Processor)
+                    if (isset($Call['Postprocessors']) && $Call['Postprocessors'])
+                        foreach($Call['Postprocessors'] as $Processor)
                             $CSS = F::Run($Processor['Service'], $Processor['Method'], array('Value' => $CSS));
 
                     F::Run ('IO', 'Write',
@@ -82,8 +82,7 @@
 
                 }
 
-            foreach ($Parsed[0] as $cParsed)
-                $Call['Output'] = str_replace($cParsed, '', $Call['Output']);
+                $Call['Output'] = str_replace($Parsed[0], '', $Call['Output']);
 
             if (strpos($Call['Output'], '<place>CSS</place>') === false)
                 trigger_error('Place for CSS missed');

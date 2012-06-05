@@ -81,10 +81,7 @@
 
             }
 
-            foreach (
-                $Parsed[0] as $cParsed
-            )
-                $Call['Output'] = str_replace($cParsed, '', $Call['Output']);
+                $Call['Output'] = str_replace($Parsed[0], '', $Call['Output']);
 
             $Call['Output'] = str_replace('<place>JS</place>', '<script src="/js/' . $JSHash . '.js" type="text/javascript"></script>', $Call['Output']);
         }
