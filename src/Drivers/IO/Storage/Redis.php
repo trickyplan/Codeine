@@ -18,7 +18,7 @@
 
     self::setFn ('Read', function ($Call)
     {
-        return $Call['Link']->get($Call['Where']['ID']);
+        return array($Call['Link']->get($Call['Where']['ID']));
     });
 
     self::setFn ('Write', function ($Call)

@@ -20,9 +20,9 @@
                     array(
                          'Entity' => 'Session',
                          'Where' => $Call['SID']
-                    ));
+                    ))[0];
 
-            if (isset($Call['Session']['User']))
+            if (isset($Call['Session']['User']) && !empty($Call['Session']['User']))
             {
                 if($Call['Session']['Expire'] < time())
                     $Call = F::Run(null, 'Annulate', $Call);
@@ -78,7 +78,7 @@
 
     self::setFn('Attach', function ($Call)
     {
-        return F::Run('Entity', 'Set',
+        return F::Run('Entity', 'Update',
              array(
                   'Entity' => 'Session',
                   'Where' => $Call['SID'],
@@ -89,7 +89,7 @@
     self::setFn('Detach', function ($Call)
     {
         $Call = F::Run(null, 'Audit', $Call);
-        return F::Run('Entity', 'Set',
+        return F::Run('Entity', 'Update',
              array(
                   'Entity' => 'Session',
                   'Where' => $Call['SID'],
@@ -106,7 +106,8 @@
     self::setFn('Write', function ($Call)
     {
         $Call = F::Run(null, 'Audit', $Call);
-        return F::Run('Entity', 'Set',
+
+        return F::Run('Entity', 'Update',
              array(
                   'Entity' => 'Session',
                   'Where' => $Call['SID'],

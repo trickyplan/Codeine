@@ -109,10 +109,9 @@
     self::setFn('Set', function ($Call)
     {
         $Call = F::Run(null, 'Load', $Call);
-        // TODO Atomic hooks
         F::Run('IO', 'Write', $Call,
             array (
-                  'Scope' => $Call['Entity']
+                  'Scope' => $Call['Storage']
             ));
 
         return $Call;
