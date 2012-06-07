@@ -13,7 +13,8 @@
         for ($IC = 1; $IC <= $Call['Stars']; $IC++)
         {
             $StarData = array('Num' => $IC);
-            if ($Call['Value'] == $IC+1)
+
+            if ($Call['Value'] == $IC)
                 $StarData['Checked'] = true;
 
             $Stars.=  F::Run('View', 'LoadParsed', array('Scope' => 'Default', 'ID' => 'UI/HTML/Form/Star', 'Data' => F::Merge($Call, $StarData)));

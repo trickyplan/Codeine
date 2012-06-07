@@ -9,16 +9,15 @@
 
     self::setFn('Do', function ($Call)
     {
-
         $Call = F::Merge( F::loadOptions('Entity.'.$Call['Entity']), $Call);
 
         $Call['Where'] = F::Live($Call['Where']);
 
         if (!empty($Call['Where']))
         {
-            $Call['Data'] = F::Run('Entity', 'Read', $Call);
-
             $Call = F::Hook('beforeEntityUpdate', $Call);
+
+            $Call['Element'] = F::Run('Entity', 'Read', $Call)[0];
 
             $Call['Locales'][] = $Call['Entity']; // FIXME Hook!
 
@@ -32,13 +31,11 @@
                         'ID' => 'Update'
                     );// FIXME Hook!
 
-            $Call['Data'] = $Call['Data'][0];
-
             if ($_SERVER['REQUEST_METHOD'] == 'POST')
             {
                 $Call['Element'] = F::Merge($Call['Element'], F::Run('Entity', 'Update', $Call,
                     array (
-                          'Data' => F::Merge($Call['Data'], $Call['Request'])
+                          'Data' => $Call['Request']
                     )));
 
                 $Call = F::Hook('afterEntityUpdate', $Call);
@@ -62,8 +59,8 @@
                 {
                     $Value = isset($Node['Default'])? F::Live($Node['Default']): '';
 
-                    if (isset($Call['Data'][$Name]))
-                        $Value = $Call['Data'][$Name];
+                    if (isset($Call['Element'][$Name]))
+                        $Value = $Call['Element'][$Name];
 
                     $Widget = F::Merge($Widget,
                         array('Name' => $Name,

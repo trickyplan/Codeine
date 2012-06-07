@@ -18,8 +18,10 @@
 
                 unset($Call['Weight'], $Call['Decision']);
 
-                $Call['Service'] = (string) $Root->attributes()->service;
-                $Call['Method'] = (string) $Root->attributes()->method;
+                $Attr = (array) $Root->attributes();
+
+                foreach ($Attr['@attributes'] as $Key => $Value)
+                    $Call = F::Dot($Call, $Key, $Value);
 
                 $Call = F::Run('Security.Access', 'Check', $Call);
 

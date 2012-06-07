@@ -59,10 +59,10 @@
 
         $Call = F::Run(null, 'Load', $Call);
 
+        $Call['Data']['ID'] = $Call['Where']; // FIXME
+
         if (isset($Data[0]))
             $Data = $Data[0];
-
-        $Call['Data']['ID'] = $Call['Where']; // FIXME
 
         $Call = F::Run('Code.Flow.Hook', 'Run', $Call, array ('On'=> 'beforeUpdate'));
 

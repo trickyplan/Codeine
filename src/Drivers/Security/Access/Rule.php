@@ -56,10 +56,13 @@
             {
                 if (isset($Rule['Run']) && (array_diff_assoc_recursive($Rule['Run'], $Call) === null))
                 {
-                    F::Log('Rule «'.$Name.'» applied');
-                    $Call['Decision'] = $Rule['Decision'];
-                    $Call['Weight'] = $Rule['Weight'];
-                    $Call['Rule'] = $Rule;
+                    if (!isset($Rule['Expression']) || F::Live($Rule['Expression'], $Call))
+                    {
+                        F::Log('Rule «'.$Name.'» applied');
+                        $Call['Decision'] = $Rule['Decision'];
+                        $Call['Weight'] = $Rule['Weight'];
+                        $Call['Rule'] = $Rule;
+                    }
                 }
                 else
                 {

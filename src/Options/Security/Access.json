@@ -1,6 +1,6 @@
 {
     "System": "Rule",
-    "Behaviours":
+    "-Behaviours":
     {
         "Check": ["Memo"]
     }

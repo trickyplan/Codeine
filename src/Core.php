@@ -309,11 +309,34 @@
 
         public static function Dot ($Array, $Key)
         {
+            if (func_num_args() == 3)
+            {
+                $Value = func_get_arg(2);
+
+                if (strpos($Key, '.') !== false)
+                {
+                    $Keys = explode('.', $Key);
+
+                    $Tail = $Array;
+
+                    foreach ($Keys as $iKey)
+                        if (isset($Tail[$iKey]))
+                            $Tail = &$Tail[$iKey];
+
+                    $Tail[$iKey] = $Value;
+                }
+                else
+                    $Array[$Key] = $Value;
+
+                return $Array;
+            }
+
             if (strpos($Key, '.') !== false)
             {
                 $Keys = explode('.', $Key);
 
                 $Tail = $Array;
+
                 foreach ($Keys as $iKey)
                     if (isset($Tail[$iKey]))
                         $Tail = $Tail[$iKey];
