@@ -13,9 +13,6 @@
           {
                 $Root = simplexml_load_string($Match);
 
-                $Outer = '';
-                $Inner = (string) $Root->asXML();
-
                 unset($Call['Weight'], $Call['Decision']);
 
                 $Attr = (array) $Root->attributes();
@@ -26,14 +23,11 @@
                 $Call = F::Run('Security.Access', 'Check', $Call);
 
                 if ($Call['Decision'])
-                    $Outer = $Inner;
+                    $Outer = $Call['Parsed'][2][$IX];
                 else
                     $Outer = '';
 
-                $Call['Output'] = str_replace ($Call['Parsed'][0][$IX], $Outer, $Call['Output']);
-
-
-
+                $Call['Output'] = str_replace ($Match, $Outer, $Call['Output']);
           }
 
           return $Call;
