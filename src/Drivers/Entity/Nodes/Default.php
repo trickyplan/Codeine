@@ -16,7 +16,8 @@
                 if (isset($Node['Default']))
                     $Call['Data'][$Name] = F::Live($Node['Default']); // FIXME Add flag
                 else
-                    $Call['Data'][$Name] = null;
+                    if ($Call['Purpose'] == 'Create')
+                        $Call['Data'][$Name] = null;
             }
         }
         return $Call;

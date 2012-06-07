@@ -25,17 +25,9 @@
                 if (isset($Call['Request']['TTL']))
                     $Call['TTL'] = $Call['Request']['TTL'];
 
-
-                $Call['Session'] = F::Run('Security.Auth', 'Attach', $Call,
+                F::Run('Security.Auth', 'Attach', $Call,
                     array('User' => $User[0]['ID'],
                           'TTL' => $Call['TTLs'][$Call['TTL']]));
-
-                $Call['Output']['Content'][]
-                    = array(
-                    'Type' => 'Block',
-                    'Class' => 'alert alert-success',
-                    'Value' => 'Access granted'
-                );
 
                 $Call = F::Hook('Authentification.Success', $Call);
 

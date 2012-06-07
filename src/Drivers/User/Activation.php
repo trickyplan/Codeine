@@ -56,11 +56,11 @@
                   'Storage' => 'Activation',
                   'Scope' => 'Activation',
                   'Where' => $Call['Code']
-             ));
+             ))[0];
 
-        if ($Activation)
+        if ($Activation !== false)
         {
-            F::Run('Entity', 'Set',
+            F::Run('Entity', 'Update',
                 array(
                      'Entity' => 'User',
                      'Where' => $Activation['User'],
@@ -86,7 +86,7 @@
                     'Value' => 'Activation/Success',
                     'Data' => $Activation
                 )
-        );
+            );
         }
         else
             $Call['Output']['Content'] = array(

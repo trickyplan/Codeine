@@ -28,7 +28,7 @@
 
         F::Run('IO', 'Write', $Call,
             array (
-                  'Scope' => $Call['Storage']
+                  'Scope' => $Call['Entity']
             ));
 
         $Call = F::Hook('afterCreate', $Call);
@@ -42,11 +42,10 @@
 
         $Call = F::Hook('beforeRead', $Call);
 
-        if (!isset($Call['Data']))
-            $Call['Data'] = F::Run('IO', 'Read', $Call,
-                array (
-                      'Scope'   => $Call['Entity']
-                ));
+        $Call['Data'] = F::Run('IO', 'Read', $Call,
+            array (
+                  'Scope'   => $Call['Entity']
+            ));
 
         $Call = F::Hook('afterRead', $Call);
 
@@ -55,16 +54,17 @@
 
     self::setFn('Update', function ($Call)
     {
-        $Data = F::Run(null, 'Read', $Call);
-
         $Call = F::Run(null, 'Load', $Call);
 
-        $Call['Data']['ID'] = $Call['Where']; // FIXME
+        $Data = F::Run(null, 'Read', $Call);
 
         if (isset($Data[0]))
             $Data = $Data[0];
 
+        $Call['Data']['ID'] = $Call['Where'];
+
         $Call = F::Run('Code.Flow.Hook', 'Run', $Call, array ('On'=> 'beforeUpdate'));
+
 
         $Nodes = array_keys($Call['Nodes']);
 
@@ -102,17 +102,6 @@
         $Call = F::Merge($Call, F::loadOptions('Entity.'.$Call['Entity']));
 
         $Call = F::Run('Code.Flow.Hook', 'Run', $Call, array ('On'=> 'afterLoad'));
-
-        return $Call;
-    });
-
-    self::setFn('Set', function ($Call)
-    {
-        $Call = F::Run(null, 'Load', $Call);
-        F::Run('IO', 'Write', $Call,
-            array (
-                  'Scope' => $Call['Storage']
-            ));
 
         return $Call;
     });

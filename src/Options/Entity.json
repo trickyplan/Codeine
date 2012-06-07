@@ -55,7 +55,11 @@
             "Add default values for undefined":
             {
                 "Service":"Entity.Nodes.Default",
-                "Method":"Process"
+                "Method":"Process",
+                "Call":
+                {
+                    "Purpose": "Update"
+                }
             },
             "Filter":
             {
