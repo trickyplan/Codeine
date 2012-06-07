@@ -48,12 +48,12 @@
 
         F::Run($Call['Source'], 'Write', $Call);
 
-        $Call['Session'] = F::Run('Entity', 'Create',
+        $Call['Session'] = F::Run('Entity', 'Create', $Call,
             array(
                  'Entity' => 'Session',
-                 'Where' => $Call['SID'],
                  'Data' =>
                     array (
+                        'ID' => $Call['SID'],
                         'User' => null,
                         'Created' => time()
                     )

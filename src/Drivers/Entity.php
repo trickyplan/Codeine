@@ -28,7 +28,7 @@
 
         F::Run('IO', 'Write', $Call,
             array (
-                  'Scope' => $Call['Entity']
+                  'Scope' => $Call['Storage']
             ));
 
         $Call = F::Hook('afterCreate', $Call);

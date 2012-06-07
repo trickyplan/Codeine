@@ -1,6 +1,11 @@
 {
     "Storages":
     {
+        "Session":
+        {
+            "Driver": "IO.Storage.Redis",
+            "TTL": 0
+        },
         "Test":
         {
             "Driver": "IO.Storage.Test"

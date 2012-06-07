@@ -4,11 +4,11 @@
     {
         "User":
         {
-
+            "Type": "Literal.String"
         },
         "Expire":
         {
-
+            "Type": "Numeral.Integer"
         }
     }
 }
