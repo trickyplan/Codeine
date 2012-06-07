@@ -1,7 +1,7 @@
 <div class="control-group">
     <label class="control-label" for="<k>Name</k>"> <l><k>Entity</k>.<k>Name</k></l> :</label>
     <div class="controls">
-        <input id="<k>Name</k>" type="<k>Subtype</k>" name="<k>Name</k>" required="<k>Required</k>" autofocus="autofocus" class="span4" value="<k>Value</k>" pattern="<k>Regex</k>" placeholder="<k>Placeholder</k>"/>
+        <input id="<k>Name</k>" type="<k>Subtype</k>" name="<k>Name</k>" <block>required="<k>Required</k>"</block> class="span4" value="<k>Value</k>" <block>pattern="<k>Regex</k>"</block> placeholder="<k>Placeholder</k>"/>
     </div>
 </div>
 <jsrun>
@@ -21,7 +21,7 @@
                 },
                 success: function (data)
                 {
-                    eld.setCustomValidity(data);
+                     eld.setCustomValidity("");
                 }
             }
             );
