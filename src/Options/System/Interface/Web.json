@@ -14,8 +14,23 @@
         },
         "Default": "ru"
     },
-    "IP.Substitute":
+    "Hooks":
     {
-        "127.0.0.1": "91.144.141.98"
+        "beforeRun":
+        {
+            "Output Buffering":
+            {
+                "Service": "System.Interface.Web.OB",
+                "Method": "Start"
+            }
+        },
+        "afterRun":
+        {
+            "Output Buffering":
+            {
+                "Service": "System.Interface.Web.OB",
+                "Method": "Finish"
+            }
+        }
     }
 }

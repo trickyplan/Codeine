@@ -104,3 +104,20 @@
     {
         return true;
     });
+
+    self::setFn('Version', function ($Call)
+    {
+        $Call['Link'] = curl_init($Call['Where']['ID']);
+
+        curl_setopt_array($Call['Link'],
+                array(
+                    CURLOPT_HEADER => true,
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_COOKIEJAR => $Call['CookieFile'],
+                    CURLOPT_FILETIME => true,
+                    CURLOPT_NOBODY => true,
+                    CURLOPT_FOLLOWLOCATION => $Call['Follow'],
+                    CURLOPT_CONNECTTIMEOUT => $Call['Timeout']));
+
+        return curl_getinfo($Call['Link'])['filetime'];
+    });

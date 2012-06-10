@@ -98,7 +98,13 @@
             "Driver": "IO.Network.HTTP.Curl",
             "Timeout": 15,
             "CookieFile": "cookie.txt",
-            "Follow": true
+            "Follow": true,
+            "Cache":
+            {
+                "Driver":"IO.Storage.Directory",
+                "Directory":"Data",
+                "Scope":"Cache"
+            }
         }
     },
     "Hooks":

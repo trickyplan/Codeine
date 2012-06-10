@@ -83,5 +83,8 @@
     {
         $Call = F::Merge(F::Run('IO', 'Open', $Call), $Call);
 
+        if (isset($Call['Where']) && is_scalar($Call['Where']))
+                $Call['Where'] = array('ID' => $Call['Where']);
+
         return F::Run ($Call['Driver'], $Call['Execute'], $Call);
     });

@@ -9,52 +9,49 @@
 
     self::setFn ('Run', function ($Call)
     {
-        ob_start();
-        // $Call['Server'] = $_SERVER;
+        $Call = F::Hook('beforeRun', $Call);
 
-        if (isset($_FILES))
-            $Call['Request'] = F::Merge($_POST, $_FILES);
-        else
-            $Call['Request'] = $_POST;
+        if (!isset($Call['SkipRun']))
+        {
+            if (isset($_FILES))
+                $Call['Request'] = F::Merge($_POST, $_FILES);
+            else
+                $Call['Request'] = $_POST;
 
-        $Call['Run'] = urldecode($_SERVER['REQUEST_URI']);
+            $Call['Run'] = urldecode($_SERVER['REQUEST_URI']);
 
-        $Call = F::Run($Call['Service'], $Call['Method'], $Call);
+            $Call = F::Run($Call['Service'], $Call['Method'], $Call);
 
-        if (isset($Call['Headers']))
-            foreach ($Call['Headers'] as $Key => $Value)
-                header ($Key . ' ' . $Value);
+            if (isset($Call['Headers']))
+                foreach ($Call['Headers'] as $Key => $Value)
+                    header ($Key . ' ' . $Value);
 
-        F::Log(F::Speed());
+            F::Log(F::Speed());
 
-        echo $Call['Output'];
+            echo $Call['Output'];
+        }
 
-        ob_flush();
+        $Call = F::Hook('afterRun', $Call);
 
         return $Call;
     });
 
     self::setFn ('User.Agent', function ($Call)
     {
-        return $_SERVER['HTTP_USER_AGENT'];
-    });
 
-    self::setFn ('User.IP', function ($Call)
-    {
-        return isset($Call['IP.Substitute'][$_SERVER['REMOTE_ADDR']])? $Call['IP.Substitute'][$_SERVER['REMOTE_ADDR']]: $_SERVER['REMOTE_ADDR'];
     });
 
     self::setFn('User.Geo', function ($Call)
     {
         return F::Run('System.GeoIP.PHPGeoIP', 'Country',
             array(
-                    'Value' => F::Run('System.Interface.Web', 'User.IP', $Call
+                    'Value' => F::Run('System.Interface.Web.IP', 'Get', $Call
                  )));
     });
 
     self::setFn('User.Time', function ($Call)
     {
-        $IP = F::Run('System.Interface.Web', 'User.IP', $Call);
+        $IP = F::Run('System.Interface.Web.IP', 'Get', $Call);
 
         return F::Run('System.Timezone.PHPGeoIP', 'CountryAndRegion',
             array (

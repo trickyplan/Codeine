@@ -46,7 +46,7 @@
             }
 
             if (!isset($Call['Output']['Content']))
-                $Call['Output']['Content'] = array();
+                $Call['Output'] = array('Content' => array());
 
             foreach ($Call['Output'] as $Place => $Widgets)
                 $Call['Layout'] = str_replace('<place>' . $Place . '</place>', implode('', $Widgets), $Call['Layout']);

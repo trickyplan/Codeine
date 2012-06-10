@@ -9,7 +9,10 @@
 
     self::setFn('Scan', function ($Call)
     {
-        $Call['Title'] = (array) $Call['Title'];
+        if (isset($Call['Title']))
+            $Call['Title'] = (array) $Call['Title'];
+        else
+            $Call['Title'] = array();
 
         $Call['Title'][] = F::loadOptions('Project')['Title'];
 

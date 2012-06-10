@@ -1,0 +1,14 @@
+{
+    "Caniuse":
+    {
+        "Source":
+        {
+            "Service": "IO",
+            "Method": "Read",
+            "Call": {
+                "Storage": "Web",
+                "Where": "https://raw.github.com/Fyrd/caniuse/master/data.json"
+            }
+        }
+    }
+}
