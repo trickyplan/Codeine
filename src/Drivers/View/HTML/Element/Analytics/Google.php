@@ -16,7 +16,6 @@
             $Code = '<!-- Do Not Track enabled. Google Analytics supressed. -->';
         else
             $Code = "<script type=\"text/javascript\">
-
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-".$Call['ID']."']);
   _gaq.push(['_trackPageview']);
