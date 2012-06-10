@@ -21,7 +21,10 @@
                 $Call  = F::Merge($Call['Storages'][$Alias['Storage']], $Alias);
             }
             else
-                return F::Run('Code.Flow.Hook', 'Run', $Call, array ('On'=> 'Storage.NotFound'));
+            {
+                F::Log($Call['Storage'].' not found', 'Error');
+                return $Call = F::Hook('Storage.NotFound', $Call);
+            }
         }
 
         if (($Call['Link'] = F::Get($StorageID)) === null)

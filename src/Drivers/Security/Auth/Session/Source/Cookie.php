@@ -14,7 +14,7 @@
 
     self::setFn ('Write', function ($Call)
     {
-        setcookie ('SID', $Call['SID'], (time() + 187600), '/', null, false, true); // OPTME!
+        setcookie ('SID', $Call['Session']['ID'], (time() + $Call['TTL']), '/', null, $Call['Secure'], $Call['HTTP Only']); // OPTME!
         return $Call;
     });
 

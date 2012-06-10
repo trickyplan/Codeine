@@ -11,25 +11,18 @@
     {
         $Call = F::Run(null, 'Load', $Call);
 
-        if (isset($Call['Data']['ID']))
-            $Call['ID'] = $Call['Data']['ID'];
-        else
-            $Call['ID'] = F::Run('Security.UID.Integer', 'Get', $Call);
-
         $Call = F::Hook('beforeCreate', $Call);
 
-        $Nodes = array_keys($Call['Nodes']);
+            $Nodes = array_keys($Call['Nodes']);
 
-        foreach ($Call['Data'] as $Key => $Value)
-            if (null === $Value or !in_array($Key, $Nodes))
-                unset($Call['Data'][$Key]);
+            foreach ($Call['Data'] as $Key => $Value)
+                if (null === $Value or !in_array($Key, $Nodes))
+                    unset($Call['Data'][$Key]);
 
-        $Call['Data']['ID'] = $Call['ID'];
-
-        F::Run('IO', 'Write', $Call,
-            array (
-                  'Scope' => $Call['Entity']
-            ));
+        $Call['Data'] = F::Run('IO', 'Write', $Call,
+                array (
+                      'Scope' => $Call['Entity']
+                ));
 
         $Call = F::Hook('afterCreate', $Call);
 
@@ -40,12 +33,12 @@
     {
         $Call = F::Run('Entity', 'Load', $Call);
 
-        $Call = F::Hook('beforeRead', $Call);
+            $Call = F::Hook('beforeRead', $Call);
 
-        $Call['Data'] = F::Run('IO', 'Read', $Call,
-            array (
-                  'Scope'   => $Call['Entity']
-            ));
+            $Call['Data'] = F::Run('IO', 'Read', $Call,
+                array (
+                      'Scope'   => $Call['Entity']
+                ));
 
         $Call = F::Hook('afterRead', $Call);
 
@@ -56,21 +49,17 @@
     {
         $Call = F::Run(null, 'Load', $Call);
 
-        $Data = F::Run(null, 'Read', $Call);
-
-        if (isset($Data[0]))
-            $Data = $Data[0];
+        $OldData = F::Run(null, 'Read', $Call)[0];
 
         $Call['Data']['ID'] = $Call['Where'];
 
         $Call = F::Run('Code.Flow.Hook', 'Run', $Call, array ('On'=> 'beforeUpdate'));
 
-
         $Nodes = array_keys($Call['Nodes']);
 
-        foreach($Call['Data'] as $Key => $Value)
-            if ($Value == null or $Data[$Key] == $Value or !in_array($Key, $Nodes))
-                unset($Call['Data'][$Key]);
+        foreach ($Call['Data'] as $Key => $Value)
+                if ($Value == $OldData[$Key] or empty($Value) or !in_array($Key, $Nodes))
+                    unset($Call['Data'][$Key]);
 
         F::Run('IO', 'Write', $Call,
             array (

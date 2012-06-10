@@ -1,24 +1,23 @@
 {
-    "Storage": "Test",
+    "Storage": "MySQL",
     "Nodes":
     {
-        "Title":
+        "String":
         {
-            "Type": "String",
+            "Type": "Literal.String",
             "Default": "Default title"
         },
-        "Body":
+        "Text":
         {
-            "Type": "Text"
+            "Type": "Literal.Text"
         },
-        "Live":
+        "Integer":
         {
-            "Service": "Security.Hash.MD5",
-            "Method": "Get",
-            "Call":
-            {
-                "Value": "Test"
-            }
+            "Type": "Numeral.Integer"
+        },
+        "Boolean":
+        {
+            "Type": "Boolean"
         }
     }
 }

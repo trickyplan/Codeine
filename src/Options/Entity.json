@@ -14,12 +14,20 @@
             "Add default values for undefined":
             {
                 "Service":"Entity.Nodes.Default",
-                "Method":"Process"
+                "Method":"Process",
+                "Call":
+                {
+                    "Purpose": "Create"
+                }
             },
             "Datatypes":
             {
                 "Service":"Entity.Nodes.Type",
-                "Method":"Write"
+                "Method":"Write",
+                "Call":
+                {
+                    "Purpose": "Create"
+                }
             },
             "Make variables alive":
             {
@@ -33,7 +41,11 @@
             "Filter":
             {
                 "Service":"Entity.Nodes.Filter",
-                "Method":"Process"
+                "Method":"Process",
+                "Call":
+                {
+                    "Purpose": "Create"
+                }
             }
         },
         "beforeUpdate":
@@ -41,7 +53,11 @@
             "Datatypes":
             {
                 "Service":"Entity.Nodes.Type",
-                "Method":"Write"
+                "Method":"Write",
+                "Call":
+                {
+                    "Purpose": "Update"
+                }
             },
             "Make variables alive":
             {
@@ -64,7 +80,11 @@
             "Filter":
             {
                 "Service":"Entity.Nodes.Filter",
-                "Method":"Process"
+                "Method":"Process",
+                "Call":
+                {
+                    "Purpose": "Update"
+                }
             }
         },
         "afterRead":

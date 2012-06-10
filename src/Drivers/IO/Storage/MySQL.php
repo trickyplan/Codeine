@@ -35,7 +35,9 @@
         $Data = array();
 
         while($Row = $Result->fetch_assoc())
+        {
             $Data[] = $Row;
+        }
 
         return $Data;
     });
@@ -80,7 +82,7 @@
 
     self::setFn ('Status', function ($Call)
     {
-        $Data = explode("  ", $Call['Link']->stat());
+        $Data = explode('  ', $Call['Link']->stat());
         foreach ($Data as &$Row)
             $Row = explode(':', $Row);
 

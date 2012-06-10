@@ -44,7 +44,7 @@
             break;
         }
 
-        F::Run('Entity', 'Set', array(
+        F::Run('Entity', 'Update', array(
                                         'Entity' => 'User',
                                         'Where' => $Call['ID'],
                                         'Data' => array(

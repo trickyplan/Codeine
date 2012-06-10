@@ -9,21 +9,66 @@
 
     self::setFn('Open', function ($Call)
     {
-        return curl_init();
+        return true;
     });
 
     self::setFn('Read', function ($Call)
     {
-        curl_setopt_array($Call['Link'],
-          array(
-               CURLOPT_HEADER => false,
-               CURLOPT_RETURNTRANSFER => true, // FIXME Codeinize!
-               CURLOPT_COOKIEJAR => 'cookie.txt',
-               CURLOPT_FOLLOWLOCATION => true,
-               CURLOPT_CONNECTTIMEOUT => 15,
-               CURLOPT_URL => $Call['Where']['ID']));
+        $Return = null;
 
-        return curl_exec($Call['Link']);
+        if (is_array($Call['Where']['ID']))
+        {
+            $Call['Link'] = curl_multi_init();
+
+            $Links = array();
+
+            foreach ($Call['Where']['ID'] as $cID)
+            {
+                $Links[$cID] = curl_init($cID);
+
+                curl_setopt_array($Links[$cID],
+                  array(
+                       CURLOPT_HEADER => false,
+                       CURLOPT_RETURNTRANSFER => true,
+                       CURLOPT_COOKIEJAR => $Call['CookieFile'],
+                       CURLOPT_FOLLOWLOCATION => $Call['Follow'],
+                       CURLOPT_CONNECTTIMEOUT => $Call['Timeout']));
+
+                curl_multi_add_handle($Call['Link'], $Links[$cID]);
+            }
+
+            $Running = null;
+
+            do
+                curl_multi_exec($Call['Link'], $Running);
+            while ($Running > 0);
+
+             foreach ($Links as $ID => $Link)
+             {
+                $Return[] = curl_multi_getcontent($Link);
+                curl_multi_remove_handle($Call['Link'], $Link);
+             }
+
+             curl_multi_close($Call['Link']);
+        }
+        else
+        {
+            $Call['Link'] = curl_init($Call['Where']['ID']);
+
+            curl_setopt_array($Call['Link'],
+                array(
+                    CURLOPT_HEADER => false,
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_COOKIEJAR => $Call['CookieFile'],
+                    CURLOPT_FOLLOWLOCATION => $Call['Follow'],
+                    CURLOPT_CONNECTTIMEOUT => $Call['Timeout']));
+
+            $Return = array(curl_exec($Call['Link']));
+
+            curl_close($Call['Link']);
+        }
+
+        return $Return;
     });
 
     self::setFn('Write', function ($Call)
@@ -37,11 +82,12 @@
             array(
                 CURLOPT_URL => $Call['Where']['ID'],
                 CURLOPT_POST => true,
-                CURLOPT_COOKIEJAR => 'cookie.txt',
+                CURLOPT_COOKIEJAR => $Call['CookieFile'],
+                CURLOPT_FOLLOWLOCATION => $Call['Follow'],
+                CURLOPT_CONNECTTIMEOUT => $Call['Timeout'],
                 CURLOPT_HTTPHEADER => $Headers,
                 CURLOPT_USERPWD => $UPWD, // FIXME
                 CURLOPT_HTTPAUTH => CURLAUTH_BASIC,
-                CURLOPT_FOLLOWLOCATION => true,
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_POSTFIELDS => $Call['Data']));
 

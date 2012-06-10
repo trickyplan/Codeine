@@ -11,7 +11,7 @@
     {
         $Call =  F::Hook('beforeEntityDelete', $Call);
 
-        $Call = F::Run('Entity', 'Delete', $Call);
+            $Call = F::Run('Entity', 'Delete', $Call);
 
         $Call = F::Hook('afterEntityDelete', $Call);
 

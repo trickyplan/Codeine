@@ -370,12 +370,12 @@
 
         public static function Error($errno , $errstr , $errfile , $errline , $errcontext)
         {
-            return F::Log($errstr.' '.$errfile.'@'.$errline);
+            return F::Log($errstr.' '.$errfile.'@'.$errline, 'Error');
         }
 
-        public static function Log ($Message, $Type = 'Info', $Tags = '')
+        public static function Log ($Message, $Type = 'Info')
         {
-            self::$_Log[] = round((microtime(true) - self::$_Speed[0]) * 1000) . ' ' . $Message;
+            return self::$_Log[] = array(round(microtime(true) - self::$_Speed[0], 4), $Message, $Type);
         }
 
         public static function loadOptions($Service = null)

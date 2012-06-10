@@ -1,6 +1,20 @@
 {
     "Storages":
     {
+        "Redis":
+        {
+            "Driver": "IO.Storage.Redis",
+            "TTL": 0
+        },
+        "MySQL":
+        {
+            "Driver": "IO.Storage.MySQL",
+            "Server":"localhost",
+            "Database":"Codeine",
+            "User":"root",
+            "Password":"phoenix",
+            "Charset":"utf8"
+        },
         "Session":
         {
             "Driver": "IO.Storage.Redis",
@@ -8,7 +22,7 @@
         },
         "Test":
         {
-            "Driver": "IO.Storage.Test"
+            "Driver": "IO.Test"
         },
         "Options":
         {
@@ -81,7 +95,20 @@
         },
         "Web":
         {
-            "Driver": "IO.Network.HTTP.Curl"
+            "Driver": "IO.Network.HTTP.Curl",
+            "Timeout": 15,
+            "CookieFile": "cookie.txt",
+            "Follow": true
+        }
+    },
+    "Hooks":
+    {
+        "Storage":
+        {
+            "NotFound":
+            {
+
+            }
         }
     }
 }

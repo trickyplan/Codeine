@@ -44,18 +44,12 @@
 
     self::setFn('Register', function ($Call)
     {
-        $Call['SID'] = F::Live($Call['Generator']);
-
-        F::Run($Call['Source'], 'Write', $Call);
-
         $Call['Session'] = F::Run('Entity', 'Create', $Call,
             array(
-                 'Entity' => 'Session',
-                 'Data' =>
-                    array (
-                        'ID' => $Call['SID']
-                    )
+                 'Entity' => 'Session'
             ));
+
+        F::Run($Call['Source'], 'Write', $Call);
 
         return $Call;
     });

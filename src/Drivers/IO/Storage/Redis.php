@@ -10,7 +10,7 @@
     self::setFn ('Open', function ($Call)
     {
         $Redis = new Redis();
-        $Redis->connect ('127.0.0.1', 6379);
+        $Redis->connect ($Call['Server'], $Call['Port']);
         $Redis->setOption (Redis::OPT_SERIALIZER, Redis::SERIALIZER_IGBINARY);
 
         return $Redis;
@@ -18,7 +18,10 @@
 
     self::setFn ('Read', function ($Call)
     {
-        return array($Call['Link']->get($Call['Where']['ID']));
+        if (is_array($Call['Where']['ID']))
+            return $Call['Link']->mGet($Call['Where']['ID']);
+        else
+            return array($Call['Link']->get($Call['Where']['ID']));
     });
 
     self::setFn ('Write', function ($Call)
@@ -31,7 +34,12 @@
                 $Call['Link']->set($Call['Where']['ID'], F::Merge($Call['Link']->get($Call['Where']['ID']), $Call['Data']), $Call['TTL']);
         }
         else
-            return $Call['Link']->set($Call['Data']['ID'], $Call['Data'], $Call['TTL']);
+        {
+            $Call['Link']->set($Call['Data']['ID'], $Call['Data'], $Call['TTL']);
+            F::Log($Call['Data']);
+        }
+
+        return $Call['Data'];
     });
 
     self::setFn ('Close', function ($Call)

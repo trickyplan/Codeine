@@ -14,7 +14,7 @@
             $Keys = array();
 
             foreach ($Call['Data'] as $Key => $Value)
-                $Keys[] = '`'.$Call['Link']->real_escape_string ($Key).'`'; // ?
+                $Keys[] = '`'.$Call['Link']->real_escape_string ($Key).'`';
 
             $Keys = '('.implode (',', $Keys).')';
         }
@@ -44,7 +44,7 @@
             $Sets = array ();
 
             foreach ($Call['Data'] as $Key => $Value)
-                $Sets[] = $Call['Link']->real_escape_string($Key).' = \''. $Call['Link']->real_escape_string($Value).'\'';
+                $Sets[] = '`'.$Call['Link']->real_escape_string($Key).'` = \''. $Call['Link']->real_escape_string($Value).'\'';
 
             $Sets = implode(',', $Sets);
         }

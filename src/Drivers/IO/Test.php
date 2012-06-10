@@ -9,24 +9,25 @@
 
     self::setFn ('Open', function ($Call)
     {
+        return true;
     });
 
     self::setFn ('Read', function ($Call)
     {
-        d(__FILE__, __LINE__, $Call['Where']);
+        return true;
     });
 
     self::setFn ('Write', function ($Call)
     {
-        d(__FILE__, __LINE__, $Call['Data']);
+        return true;
     });
 
     self::setFn ('Close', function ($Call)
     {
-        d(__FILE__, __LINE__, $Call);
+        return true;
     });
 
     self::setFn ('Execute', function ($Call)
     {
-
+        return true;
     });

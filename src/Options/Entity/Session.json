@@ -1,0 +1,26 @@
+{
+    "Storage": "Session",
+    "Nodes":
+    {
+        "ID":
+        {
+            "Create":
+            {
+                "Service": "Security.UID.GUID",
+                "Method": "Get"
+            }
+        },
+        "User":
+        {
+
+        },
+        "Created":
+        {
+            "Create":
+            {
+                "Service": "System.Date.Time",
+                "Method": "Get"
+            }
+        }
+    }
+}
