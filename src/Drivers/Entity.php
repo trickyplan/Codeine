@@ -86,11 +86,11 @@
 
     self::setFn('Load', function ($Call)
     {
-        $Call = F::Run('Code.Flow.Hook', 'Run', $Call, array ('On'=> 'beforeLoad'));
+        $Call = F::Hook('beforeLoad', $Call);
 
         $Call = F::Merge($Call, F::loadOptions('Entity.'.$Call['Entity']));
 
-        $Call = F::Run('Code.Flow.Hook', 'Run', $Call, array ('On'=> 'afterLoad'));
+        $Call = F::Hook('afterEntityLoad', $Call);
 
         return $Call;
     });

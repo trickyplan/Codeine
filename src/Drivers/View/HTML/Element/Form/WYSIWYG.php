@@ -9,7 +9,6 @@
 
     self::setFn('Make', function ($Call)
     {
-        // TODO Options Support
         return F::Run ('View', 'LoadParsed', $Call,
                            array(
                                 'Scope' => 'Default',

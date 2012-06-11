@@ -68,7 +68,10 @@
             $Call['Where'] = array ('ID' => $Call['Where']);
 
         if (isset($Call['Format']))
+        {
+            $Call['ID'] = $Call['Data']['ID'];
             $Call['Data'] = F::Run ($Call['Format'], 'Encode', array('Value' => $Call['Data']));
+        }
 
         return F::Run ($Call['Driver'], 'Write', $Call);
     });

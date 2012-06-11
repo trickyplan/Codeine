@@ -18,12 +18,17 @@
 
     self::setFn('Load', function ($Call)
     {
+        $IDs = array();
+
+        if (isset($Call['Context']) && !empty($Call['Context']))
+            $IDs[] =  $Call['ID'].'.'.$Call['Context'].'.'.$Call['Extension'];
+
+        $IDs[] = $Call['ID'] . '.html';
+
         $Data =  F::Run('IO', 'Read', $Call,
             array (
                   'Storage' => 'Layout',
-                  'Where'   => array ('ID' => array (
-                      $Call['ID'] . (isset($Call['Context']) ? '.' . $Call['Context'] : '') . (isset($Call['Extension']) ? $Call['Extension'] : '.html'),
-                      $Call['ID'] . '.html'))
+                  'Where'   => array ('ID' => $IDs)
             ))[0];
 
         if (null !== $Data && isset($Call['DebugLayouts']))
