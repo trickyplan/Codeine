@@ -52,7 +52,7 @@
                     $Call = F::Run('Entity.Form.Layout.'.$Call['FormLayout'], 'Add', $Call,
                         array(
                             'Name' => $Name,
-                            'Widget' => F::Merge($Node, $Widget)));
+                            'Widget' => $Widget));
                 }
             }
         }

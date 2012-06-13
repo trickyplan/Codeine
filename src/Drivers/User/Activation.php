@@ -9,7 +9,7 @@
 
     self::setFn('Send', function ($Call)
     {
-        $User = F::Run('Entity', 'Read', array('Entity' => 'User', 'Where' => $Call['Data']['ID'] ))[0];
+        $User = F::Run('Entity', 'Read', array('Entity' => 'User', 'Where' => $Call['Data']['ID']))[0];
 
         $User['Code'] = F::Run('Security.UID.GUID', 'Get');
 
@@ -43,7 +43,7 @@
             array(
                 'Type'  => 'Template',
                 'Scope' => 'User',
-                'Value' => 'Activation/Needed',
+                'ID' => 'Activation/Needed',
                 'Data'  => $Message
             )
         );
