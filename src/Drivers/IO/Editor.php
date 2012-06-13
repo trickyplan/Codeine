@@ -12,7 +12,7 @@
         $Data = F::Run('IO', 'Read',
             array(
                 'Storage' => 'Primary',
-                'Scope' => 'Shop'
+                'Scope' => 'Product'
             ));
 
         foreach ($Data as $IX => $Element)

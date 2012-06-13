@@ -1,0 +1,99 @@
+{
+    "Hooks":
+    {
+        "afterEntityLoad":
+        {
+            "Add mixins":
+            {
+                "Service":"Entity.Model.Mixin",
+                "Method":"Process"
+            }
+        },
+        "beforeCreate":
+        {
+            "Add default values for undefined":
+            {
+                "Service":"Entity.Nodes.Default",
+                "Method":"Process",
+                "Call":
+                {
+                    "Purpose": "Create"
+                }
+            },
+            "Datatypes":
+            {
+                "Service":"Entity.Nodes.Type",
+                "Method":"Write",
+                "Call":
+                {
+                    "Purpose": "Create"
+                }
+            },
+            "Make variables alive":
+            {
+                "Service":"Entity.Nodes.Live",
+                "Method":"Process",
+                "Call":
+                {
+                    "Purpose": "Create"
+                }
+            },
+            "Filter":
+            {
+                "Service":"Entity.Nodes.Filter",
+                "Method":"Process",
+                "Call":
+                {
+                    "Purpose": "Create"
+                }
+            }
+        },
+        "beforeUpdate":
+        {
+            "Datatypes":
+            {
+                "Service":"Entity.Nodes.Type",
+                "Method":"Write",
+                "Call":
+                {
+                    "Purpose": "Update"
+                }
+            },
+            "Make variables alive":
+            {
+                "Service":"Entity.Nodes.Live",
+                "Method":"Process",
+                "Call":
+                {
+                    "Purpose": "Update"
+                }
+            },
+            "Add default values for undefined":
+            {
+                "Service":"Entity.Nodes.Default",
+                "Method":"Process",
+                "Call":
+                {
+                    "Purpose": "Update"
+                }
+            },
+            "Filter":
+            {
+                "Service":"Entity.Nodes.Filter",
+                "Method":"Process",
+                "Call":
+                {
+                    "Purpose": "Update"
+                }
+            }
+        },
+        "afterRead":
+        {
+            "Datatypes":
+            {
+                "Service":"Entity.Nodes.Type",
+                "Method":"Read"
+            }
+        }
+    }
+}

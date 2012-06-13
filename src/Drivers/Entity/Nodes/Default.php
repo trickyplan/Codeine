@@ -11,13 +11,12 @@
     {
         foreach ($Call['Nodes'] as $Name => $Node)
         {
-            if (!isset($Call['Data'][$Name]))
+            if (!isset($Call['Data'][$Name]) or empty($Call['Data'][$Name]))
             {
-                if (isset($Node['Default']))
-                    $Call['Data'][$Name] = F::Live($Node['Default']); // FIXME Add flag
-                else
-                    if ($Call['Purpose'] == 'Create')
-                        $Call['Data'][$Name] = null;
+                if (!isset($Node['Default']))
+                    $Node['Default'] = null;
+
+                $Call['Data'][$Name] = F::Live($Node['Default']); // FIXME Add flag
             }
         }
         return $Call;

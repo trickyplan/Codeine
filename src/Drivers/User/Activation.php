@@ -9,7 +9,8 @@
 
     self::setFn('Send', function ($Call)
     {
-        $User = F::Run('Entity', 'Read', array('Entity' => 'User', 'Where' => $Call['Element'] ))[0];
+        $User = F::Run('Entity', 'Read', array('Entity' => 'User', 'Where' => $Call['Data']['ID'] ))[0];
+
         $User['Code'] = F::Run('Security.UID.GUID', 'Get');
 
         F::Run('IO', 'Write',
@@ -29,7 +30,8 @@
                                              array(
                                                   'Scope' => 'User',
                                                   'ID' => 'Activation/EMail',
-                                                  'Data' => array_merge($User, array('ActivationURL' => $_SERVER['HTTP_HOST'].'/activate/user/'.$User['Code']))
+                                                  'Data' => array_merge($User,
+                                                      array('ActivationURL' => $_SERVER['HTTP_HOST'].'/activate/user/'.$User['Code']))
                                              ));
         $Message['Headers'] = array ('Content-type:' => ' text/html; charset="utf-8"');
 
@@ -69,7 +71,7 @@
                                 )
                 ));
 
-            //F::Run('Security.Auth', 'Attach', array('User' => $Activation['User']));
+            F::Run('Security.Auth', 'Attach', array('User' => $Activation['User']));
 
             F::Run('IO', 'Write',
                 array(
@@ -81,9 +83,9 @@
 
             $Call['Output']['Content'] = array(
                 array(
-                    'Type'  => 'Template',
+                    'Type' => 'Template',
                     'Scope' => 'User',
-                    'Value' => 'Activation/Success',
+                    'ID' => 'Activation/Success',
                     'Data' => $Activation
                 )
             );
@@ -93,7 +95,7 @@
                 array(
                     'Type'  => 'Template',
                     'Scope' => 'User',
-                    'Value' => 'Activation/Failure'
+                    'ID' => 'Activation/Failure'
                 ));
 
         return $Call;

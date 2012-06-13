@@ -14,7 +14,7 @@
                 array(
                     'Type' => 'Template',
                     'Scope' => 'User',
-                    'Value' => 'Show/Cabinet',
+                    'ID' => 'Show/Cabinet',
                     'Data' => $Call['Session']['User']
                 );
         else
@@ -22,7 +22,7 @@
                 array(
                     'Type' => 'Template',
                     'Scope' => 'User',
-                    'Value' => 'Guest'
+                    'ID' => 'Guest'
                 );
 
          return $Call;

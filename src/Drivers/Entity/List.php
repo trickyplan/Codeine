@@ -2,62 +2,44 @@
 
     /* Codeine
      * @author BreathLess
-     * @description Create Doctor
+     * @description  
      * @package Codeine
-     * @version 7.0
+     * @version 7.4
      */
 
     self::setFn('Do', function ($Call)
     {
-        $Call = F::Merge(F::Run('Entity', 'Load', $Call), $Call);
-
-        $Call['Layouts'][] = array(
-                    'Scope' => $Call['Entity'],
-                    'ID' => 'Main'
-                );
-
-        $Call['Layouts'][] = array(
-                    'Scope' => $Call['Entity'],
-                    'ID' => 'List'
-                );
-
-        $Call['Locales'][] = $Call['Entity'];
-
-        $Call['Front']['Count'] = F::Run('Entity', 'Count', $Call);
-
         $Call = F::Hook('beforeList', $Call);
 
-        if (!isset($Call['Where']) || $Call['Where'] !== false)
-            $Elements = F::Run('Entity', 'Read', $Call);
-        else
-            $Elements = array();
+        $Elements = F::Run('Entity', 'Read', $Call);
+
+        $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Main');
+        $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'List');
+        $Call['Locales'][] = $Call['Entity'];
+
+        if (!isset($Call['Selected'])) $Call['Selected'] = null;
 
         if (sizeof($Elements) == 0)
             $Call['Output']['Content'][] = array(
                 'Type'  => 'Template',
                 'Context' => $Call['Context'],
                 'Scope' => $Call['Entity'],
-                'Value' => 'Empty'
+                'ID' => 'Empty'
             );
         else
-        {
-            if (!isset($Call['Selected']))
-                $Call['Selected'] = null;
-
             foreach ($Elements as $ID => $Element)
             {
-                if (!isset($Element['ID']))
-                    $Element['ID'] = $ID;
+                if (!isset($Element['ID'])) $Element['ID'] = $ID;
 
-                $Call['Output']['Content'][] = array(
-                    'Type'  => 'Template',
-                    'Scope' => $Call['Entity'],
-                    'Value' => 'Show/'.(isset($Call['Template'])? $Call['Template']: 'Short').($Call['Selected'] == $Element['ID'] ? '.Selected': ''),
-                    'Data' => $Element
-                );
+                $Call['Output']['Content'][] =
+                    array(
+                        'Type'  => 'Template',
+                        'Scope' => $Call['Entity'],
+                        'ID' => 'Show/'.(isset($Call['Template'])? $Call['Template']: 'Short').($Call['Selected'] == $Element['ID'] ? '.Selected': ''),
+                        // FIXME Strategy of selecting templates
+                        'Data'  => $Element
+                    );
             }
-        }
-
 
         $Call = F::Hook('afterList', $Call);
 

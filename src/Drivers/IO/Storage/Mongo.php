@@ -27,7 +27,10 @@
 
         if ($Cursor->count()>0)
             foreach ($Cursor as $cCursor)
+            {
+                unset($cCursor['_id']);
                 $Data[] = $cCursor;
+            }
         else
             $Data = null;
 

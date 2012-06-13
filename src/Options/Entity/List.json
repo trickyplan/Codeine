@@ -3,6 +3,11 @@
     {
         "beforeList":
         {
+            "Load model (essential)":
+            {
+                "Service":"Entity",
+                "Method":"Load"
+            },
             "Pagination":
             {
                 "Service": "Entity.List.Pagination",

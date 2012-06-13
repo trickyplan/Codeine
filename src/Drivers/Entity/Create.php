@@ -9,65 +9,80 @@
 
     self::setFn('Do', function ($Call)
     {
-        $Call = F::Merge(F::Run('Entity', 'Load', $Call), $Call);
+        $Call = F::Hook('beforeCreateDo', $Call);
 
-        $Call = F::Hook('beforeEntityCreate', $Call);
+        return F::Run(null, $_SERVER['REQUEST_METHOD'], $Call);
+    });
 
+    self::setFn('GET', function ($Call)
+    {
+        $Call = F::Hook('beforeCreateGet', $Call);
+
+        $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Main');
+        $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Create');
         $Call['Locales'][] = $Call['Entity'];
 
-        $Call['Layouts'][] = array(
-                    'Scope' => $Call['Entity'],
-                    'ID' => 'Main'
-                );
+        // Загрузить предопределённые данные и умолчания
+        // Сгенерировать форму
 
-        $Call['Layouts'][] = array(
-                'Scope' => $Call['Entity'],
-                'ID' => 'Create'
-            );
-
-        if (isset($Call['URL']))
-            $Call['Output']['Content']['Form']['Action'] = $Call['URL'];
-
-        if ($_SERVER['REQUEST_METHOD'] == 'POST')
-        {
-            $Call['Element'] = F::Run('Entity', 'Create',
-                array (
-                      'Entity' => $Call['Entity'],
-                      'Data' => isset($Call['Data'])? F::Merge($Call['Data'], $Call['Request']): $Call['Request']
-                ));
-
-            $Call = F::Hook('afterEntityCreate', $Call);
-
-            return $Call;
-        }
-
+        // Для каждой ноды в модели
         foreach ($Call['Nodes'] as $Name => $Node)
         {
-            if (isset($Node['Widgets']['Create']))
-                $Widget = $Node['Widgets']['Create'];
-            elseif (isset($Node['Widgets']['Write']))
-                    $Widget = $Node['Widgets']['Write'];
-            else
-                $Widget = null;
-
-            if (null !== $Widget)
+            // Если виджеты вообще определены
+            if (isset($Node['Widgets']))
             {
-                $Value = isset($Node['Default'])? F::Live($Node['Default']): '';
+                // Определяем, какие именно используем
+                if (isset($Node['Widgets'][$Call['Purpose']])) // Для нашего случая
+                    $Widget = $Node['Widgets'][$Call['Purpose']];
+                elseif (isset($Node['Widgets']['Write'])) // Для записи как таковой
+                    $Widget = $Node['Widgets']['Write'];
+                else
+                    $Widget = null;
 
-                if (isset($Call['Data'][$Name]))
-                    $Value = $Call['Data'][$Name];
+                if (null !== $Widget)
+                {
+                    $Widget['Entity'] = $Call['Entity'];
+                    $Widget['Name'] = $Name;
 
-                $Widget = F::Merge($Widget,
-                    array('Name' => $Name,
-                          'Entity' => $Call['Entity'],
-                          'Value' => $Value));
+                    // Если есть значение, добавляем
+                    if (isset($Call['Data'][$Name]))
+                        $Widget['Value'] = $Call['Data'][$Name];
+
+                    // Помещаем виджет в поток
+                    $Call = F::Run('Entity.Form.Layout.'.$Call['FormLayout'], 'Add', $Call,
+                        array(
+                            'Name' => $Name,
+                            'Widget' => F::Merge($Node, $Widget)));
+                }
             }
-
-            if (isset($Call['CustomTemplate']))
-                $Call['Output'][$Name][] = $Widget;
-            else
-                $Call['Output']['Form'][$Name] = $Widget;
         }
+
+        // Вывести
+
+
+        $Call = F::Hook('afterCreateGet', $Call);
+
+        return $Call;
+    });
+
+    self::setFn('POST', function ($Call)
+    {
+        $Call = F::Hook('beforeCreatePost', $Call);
+
+        // Берём данные из запроса
+
+        if (isset($Call['Data']))
+            $Call['Data'] = F::Merge($Call['Request'], $Call['Data']);
+        else
+            $Call['Data'] = $Call['Request'];
+
+        // Отправляем в Entity.Create
+
+        $Call['Data'] = F::Run('Entity', 'Create', $Call);
+
+        // Выводим результат
+
+        $Call = F::Hook('afterCreatePost', $Call);
 
         return $Call;
     });

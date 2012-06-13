@@ -4,80 +4,84 @@
      * @author BreathLess
      * @description  
      * @package Codeine
-     * @version 7.2
+     * @version 7.4
      */
 
     self::setFn('Do', function ($Call)
     {
-        $Call = F::Merge(F::Run('Entity', 'Load', $Call), $Call);
+        $Call['Purpose'] = 'Update';
+        $Call['Where'] = F::Live($Call['Where']); // FIXME
 
-        $Call['Where'] = F::Live($Call['Where']);
+        return F::Run(null, $_SERVER['REQUEST_METHOD'], $Call);
+    });
 
-        if (!empty($Call['Where']))
+    self::setFn('GET', function ($Call)
+    {
+        $Call = F::Hook('beforeUpdateGet', $Call);
+
+        $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Main');
+        $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Update');
+        $Call['Locales'][] = $Call['Entity'];
+
+        // Загрузить предопределённые данные и умолчания
+
+        $Call['Data'] = F::Run('Entity', 'Read', $Call)[0];
+        // Сгенерировать форму
+
+        // Для каждой ноды в модели
+        foreach ($Call['Nodes'] as $Name => $Node)
         {
-            $Call = F::Hook('beforeEntityUpdate', $Call);
-
-            $Call['Element'] = F::Run('Entity', 'Read', $Call)[0];
-
-            $Call['Locales'][] = $Call['Entity']; // FIXME Hook!
-
-            $Call['Layouts'][] = array(
-                        'Scope' => $Call['Entity'],
-                        'ID' => 'Main'
-                    );// FIXME Hook!
-
-            $Call['Layouts'][] = array(
-                        'Scope' => $Call['Entity'],
-                        'ID' => 'Update'
-                    );// FIXME Hook!
-
-            if ($_SERVER['REQUEST_METHOD'] == 'POST')
+            // Если виджеты вообще определены
+            if (isset($Node['Widgets']) && !isset($Node['WriteOnce']))
             {
-                $Call['Element'] = F::Merge($Call['Element'], F::Run('Entity', 'Update', $Call,
-                    array (
-                          'Data' => $Call['Request']
-                    )));
-
-                $Call = F::Hook('afterEntityUpdate', $Call);
-
-                return $Call;
-            }
-
-            if (isset($Call['URL']))
-                $Call['Output']['Content']['Form']['Action'] = $Call['URL'];
-
-            foreach ($Call['Nodes'] as $Name => $Node)
-            {
-                if (isset($Node['Widgets']['Update']))
-                    $Widget = $Node['Widgets']['Update'];
-                elseif (isset($Node['Widgets']['Write']) and (!isset($Node['WriteOnce'])))
-                        $Widget = $Node['Widgets']['Write'];
+                // Определяем, какие именно используем
+                if (isset($Node['Widgets'][$Call['Purpose']])) // Для нашего случая
+                    $Widget = $Node['Widgets'][$Call['Purpose']];
+                elseif (isset($Node['Widgets']['Write'])) // Для записи как таковой
+                    $Widget = $Node['Widgets']['Write'];
                 else
                     $Widget = null;
 
                 if (null !== $Widget)
                 {
-                    $Value = isset($Node['Default'])? F::Live($Node['Default']): '';
+                    $Widget['Entity'] = $Call['Entity'];
+                    $Widget['Name'] = $Name;
 
-                    if (isset($Call['Element'][$Name]))
-                        $Value = $Call['Element'][$Name];
+                    // Если есть значение, добавляем
+                    if (isset($Call['Data'][$Name]))
+                        $Widget['Value'] = $Call['Data'][$Name];
 
-                    $Widget = F::Merge($Widget,
-                        array('Name' => $Name,
-                              'Entity' => $Call['Entity'],
-                              'Value' => $Value));
+                    // Помещаем виджет в поток
+                    $Call = F::Run('Entity.Form.Layout.'.$Call['FormLayout'], 'Add', $Call,
+                        array(
+                            'Name' => $Name,
+                            'Node' => $Node,
+                            'Widget' => F::Merge($Node, $Widget)));
                 }
-
-                if (isset($Call['CustomTemplate']))
-                    $Call['Output'][$Name][] = $Widget;
-                else
-                    $Call['Output']['Form'][$Name] = $Widget;
             }
-
         }
-        else
-            $Call = F::Hook('on404', $Call);
 
+        // Вывести
+
+        $Call = F::Hook('afterUpdateGet', $Call);
+
+        return $Call;
+    });
+
+    self::setFn('POST', function ($Call)
+    {
+        $Call = F::Hook('beforeUpdatePost', $Call);
+
+        // Берём данные из запроса
+
+        $Call['Data'] = $Call['Request'];
+
+        // Отправляем в Entity.Update
+        $Call['Data'] = F::Run('Entity', 'Update', $Call);
+
+        // Выводим результат
+
+        $Call = F::Hook('afterUpdatePost', $Call);
 
         return $Call;
     });

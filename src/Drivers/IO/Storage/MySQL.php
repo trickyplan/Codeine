@@ -64,10 +64,7 @@
         if ($Call['Link']->errno != 0)
             F::Log($Call['Link']->error,'Error');
 
-        if ($Result)
-            $Result = $Call['Link']->insert_id;
-
-        return $Result;
+        return $Call['Data'];
     });
 
     self::setFn ('Close', function ($Call)

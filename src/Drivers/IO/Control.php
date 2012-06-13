@@ -19,15 +19,8 @@
                 array(
                     'Type' => 'Template',
                     'Scope' => 'IO',
-                    'Value' => 'Control/Short',
+                    'ID' => 'Control/Short',
                     'Data' => F::Merge(array('Name' => $Name), $Storage)
-                );
-
-            $Call['Output']['Storage_'.$Name][] =
-                array(
-                    'Type' => 'Table',
-                    'Headless' => true,
-                    'Value' => $Info
                 );
         }
 

@@ -1,4 +1,17 @@
 {
+    "Purpose": "Update",
+    "FormLayout": "Full",
+    "Hooks":
+    {
+        "beforeUpdateGet":
+        {
+            "Load model (essential)":
+            {
+                "Service":"Entity",
+                "Method":"Load"
+            }
+        }
+    },
     "Output":
     {
         "Content":
@@ -8,16 +21,5 @@
                 "Type": "Form"
             }
         }
-    },
-    "Widgets":
-    {
-        "Literal.String":
-        {
-            "Type": "Form.Textfield"
-        }
-    },
-    "Hooks":
-    {
-
     }
 }

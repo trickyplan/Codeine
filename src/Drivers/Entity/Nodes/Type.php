@@ -7,30 +7,39 @@
      * @version 7.2
      */
 
-    self::setFn('Read', function ($Call)
-    {
-        if (empty($Call['Data']))
-            return $Call;
-
-        foreach ($Call['Nodes'] as $Name => $Node)
-            if (isset($Node['Type']))
-                foreach ($Call['Data'] as $IX => &$Element)
-                    $Element[$Name] =
-                        F::Run('Entity.Nodes.Type.'.$Node['Type'], 'Read', $Call,
-                        array('Node' => $Name,
-                              'ID' => $Element['ID'],
-                              'Value' => (isset($Element[$Name])? $Element[$Name]: null)));
-
-        return $Call;
-    });
-
     self::setFn('Write', function ($Call)
     {
         foreach ($Call['Nodes'] as $Name => $Node)
+            if (isset($Node['Type']) && isset($Call['Data'][$Name]))
+            {
+                $Call['Data'][$Name] =
+                    F::Run('Data.Type.'.$Node['Type'], 'Write',
+                        array('Entity' => $Call['Entity'],
+                            'Name' => $Name,
+                            'Node' => $Node,
+                            'Data' => $Call['Data'],
+                            'Value' => $Call['Data'][$Name]));
+
+                if (null === $Call['Data'][$Name])
+                    unset($Call['Data'][$Name]);
+            }
+
+        // TODO Multiwrite
+        return $Call;
+    });
+
+    self::setFn('Read', function ($Call)
+    {
+        foreach ($Call['Nodes'] as $Name => $Node)
             if (isset($Node['Type']))
-                if (isset($Call['Data'][$Name]))
-                    $Call['Data'][$Name] = F::Run('Entity.Nodes.Type.'.$Node['Type'], 'Write', $Call,
-                        array('Node' => $Name,
-                              'Value' => $Call['Data'][$Name]));
+                foreach ($Call['Data'] as &$Element)
+                    $Element[$Name] =
+                        F::Run('Data.Type.'.$Node['Type'], 'Read',
+                            array('Entity' => $Call['Entity'],
+                                  'Name' => $Name,
+                                  'Node' => $Node,
+                                  'Data' => $Element,
+                                  'Value' => isset($Element[$Name])? $Element[$Name]: null));
+
         return $Call;
     });

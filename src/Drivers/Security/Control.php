@@ -39,13 +39,14 @@
     {
         $Rules = F::loadOptions('Security.Access.Rule')['Rules'];
 
-        $Call['Output']['Content'][] =
-            array(
-                'Type' => 'Templates',
-                'Scope' => 'Security/Access',
-                'Value' => '/Rule/Show/Short',
-                'Data' => $Rules
-            );
+        foreach ($Rules as $Rule)
+            $Call['Output']['Content'][] =
+                array(
+                    'Type' => 'Template',
+                    'Scope' => 'Security/Access',
+                    'ID' => '/Rule/Show/Short',
+                    'Data' => $Rule
+                );
 
         return $Call;
     });

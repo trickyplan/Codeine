@@ -9,16 +9,21 @@
 
     self::setFn('Process', function ($Call)
     {
-
         foreach ($Call['Nodes'] as $Name => $Node)
-            if (!isset($Call['Data'][$Name]) || empty($Call['Data'][$Name]))
+        {
+            $Run = null;
+
+            if (isset($Node[$Call['Purpose']]))
+                $Run = $Node[$Call['Purpose']];
+            elseif (isset($Node['Write']))
+                $Run = $Node['Write'];
+
+            if (null !== $Run)
             {
-                if (isset($Node[$Call['Purpose']]) && F::isCall($Node[$Call['Purpose']]))
-                    $Call['Data'][$Name] = F::Live($Node[$Call['Purpose']], $Call, array('Node' => $Name));
-                else
-                    if (isset($Node['Write']))
-                        $Call['Data'][$Name] = F::Live($Node['Write'], $Call, array('Node' => $Name));
+                if (!isset($Node['User Override']) || !isset($Call['Data'][$Name]))
+                    $Call['Data'][$Name] = F::Live($Run, $Call);
             }
+        }
 
         return $Call;
     });

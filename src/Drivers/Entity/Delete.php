@@ -2,18 +2,26 @@
 
     /* Codeine
      * @author BreathLess
-     * @description Create Doctor
+     * @description  
      * @package Codeine
-     * @version 7.0
+     * @version 7.4
      */
 
     self::setFn('Do', function ($Call)
     {
-        $Call =  F::Hook('beforeEntityDelete', $Call);
+        $Call['Purpose'] = 'Delete';
+        $Call['Where'] = F::Live($Call['Where']); // FIXME
 
-            $Call = F::Run('Entity', 'Delete', $Call);
+        return F::Run(null, $_SERVER['REQUEST_METHOD'], $Call);
+    });
 
-        $Call = F::Hook('afterEntityDelete', $Call);
+    self::setFn('GET', function ($Call)
+    {
+        $Call = F::Hook('beforeDeleteGet', $Call);
+
+        F::Run('Entity', 'Delete', $Call);
+
+        $Call = F::Hook('afterDeleteGet', $Call);
 
         return $Call;
     });

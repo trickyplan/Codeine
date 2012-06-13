@@ -1,4 +1,17 @@
 {
+    "Purpose": "Create",
+    "FormLayout": "Full",
+    "Hooks":
+    {
+        "beforeCreateDo":
+        {
+            "Load model (essential)":
+            {
+                "Service":"Entity",
+                "Method":"Load"
+            }
+        }
+    },
     "Output":
     {
         "Content":

@@ -45,14 +45,14 @@
             $Call['Output']['Content'][] = array(
                 'Type' => 'Template',
                 'Scope' => 'User',
-                'Value' => 'Reset/Success'
+                'ID' => 'Reset/Success'
             );
         }
         else
             $Call['Output']['Content'][] = array(
                 'Type' => 'Template',
                 'Scope' => 'User',
-                'Value' => 'Reset/404'
+                'ID' => 'Reset/404'
             );
 
         return $Call;
@@ -63,7 +63,7 @@
         $Call['Output']['Content'][] = array(
             'Type' => 'Template',
             'Scope' => 'User',
-            'Value' => 'Reset/Form'
+            'ID' => 'Reset/Form'
         );
         return $Call;
     });

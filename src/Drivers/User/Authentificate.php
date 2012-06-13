@@ -44,7 +44,7 @@
                         = array(
                         'Type' => 'Template',
                         'Scope' => 'User',
-                        'Value' => 'Banned',
+                        'ID' => 'Banned',
                         'Data' => $User[0]
                     );
                 }
@@ -56,7 +56,7 @@
                         = array(
                         'Type' => 'Template',
                         'Scope' => 'User',
-                        'Value' => 'Activation/Needed',
+                        'ID' => 'Activation/Needed',
                         'Data' => $User[0]
                     );
                 }
@@ -69,7 +69,7 @@
                         = array(
                         'Type' => 'Template',
                         'Scope' => 'User',
-                        'Value' => 'Incorrect'
+                        'ID' => 'Incorrect'
                     );
 
             $Call = F::Hook('Authentification.Failed', $Call);

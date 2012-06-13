@@ -32,9 +32,9 @@
                             array(
                                  'Entity' => 'User',
                                  'Where' => $Call['Session']['User']
-                            ));
+                            ))[0];
 
-                    $Call['Session']['User'] = $User[0];
+                    $Call['Session']['User'] = $User;
                 }
             }
         }

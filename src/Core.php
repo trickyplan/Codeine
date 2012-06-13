@@ -54,16 +54,21 @@
 
         public static function Merge($First, $Second)
         {
-            if (is_array($Second) && is_array($First))
+            if (is_array($Second))
             {
-                foreach ($Second as $Key => $Value)
-                    if (isset($First[$Key]) && is_array($Value))
-                        $First[$Key] = self::Merge($First[$Key], $Second[$Key]);
-                    else
-                        $First[$Key] = $Value;
+                if (is_array($First))
+                    {
+                        foreach ($Second as $Key => $Value)
+                            if (isset($First[$Key]) && is_array($Value))
+                                $First[$Key] = self::Merge($First[$Key], $Second[$Key]);
+                            else
+                                $First[$Key] = $Value;
+                    }
+                else
+                    $First = $Second;
             }
             else
-                $First = $Second;
+                $Second = $First;
 
             return $First;
         }

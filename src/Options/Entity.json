@@ -1,33 +1,22 @@
 {
     "Hooks":
     {
-        "afterEntityLoad":
+        "beforeEntityCreate":
         {
-            "Add mixins":
+            "Load model (essential)":
             {
-                "Service":"Entity.Model.Mixin",
+                "Service":"Entity",
+                "Method":"Load"
+            },
+            "Strict":
+            {
+                "Service":"Entity.Nodes.Strict",
                 "Method":"Process"
-            }
-        },
-        "beforeCreate":
-        {
-            "Add default values for undefined":
+            },
+            "Default values":
             {
                 "Service":"Entity.Nodes.Default",
-                "Method":"Process",
-                "Call":
-                {
-                    "Purpose": "Create"
-                }
-            },
-            "Datatypes":
-            {
-                "Service":"Entity.Nodes.Type",
-                "Method":"Write",
-                "Call":
-                {
-                    "Purpose": "Create"
-                }
+                "Method":"Process"
             },
             "Make variables alive":
             {
@@ -37,6 +26,11 @@
                 {
                     "Purpose": "Create"
                 }
+            },
+            "Datatypes":
+            {
+                "Service":"Entity.Nodes.Type",
+                "Method":"Write"
             },
             "Filter":
             {
@@ -48,29 +42,31 @@
                 }
             }
         },
-        "beforeUpdate":
+        "beforeEntityUpdate":
         {
+            "Load model (essential)":
+            {
+                "Service":"Entity",
+                "Method":"Load"
+            },
+            "Strict":
+            {
+                "Service":"Entity.Nodes.Strict",
+                "Method":"Process"
+            },
+            "Updated values":
+            {
+                "Service":"Entity.Nodes.Updated",
+                "Method":"Process"
+            },
             "Datatypes":
             {
                 "Service":"Entity.Nodes.Type",
-                "Method":"Write",
-                "Call":
-                {
-                    "Purpose": "Update"
-                }
+                "Method":"Write"
             },
             "Make variables alive":
             {
                 "Service":"Entity.Nodes.Live",
-                "Method":"Process",
-                "Call":
-                {
-                    "Purpose": "Update"
-                }
-            },
-            "Add default values for undefined":
-            {
-                "Service":"Entity.Nodes.Default",
                 "Method":"Process",
                 "Call":
                 {
@@ -87,7 +83,23 @@
                 }
             }
         },
-        "afterRead":
+        "beforeEntityDelete":
+        {
+            "Load model (essential)":
+            {
+                "Service":"Entity",
+                "Method":"Load"
+            }
+        },
+        "beforeEntityRead":
+        {
+            "Load model (essential)":
+            {
+                "Service":"Entity",
+                "Method":"Load"
+            }
+        },
+        "afterEntityRead":
         {
             "Datatypes":
             {
