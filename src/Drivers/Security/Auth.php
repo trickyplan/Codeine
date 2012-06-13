@@ -28,7 +28,10 @@
             if (isset($Call['Session']['User']) && !empty($Call['Session']['User']))
             {
                 if($Call['Session']['Expire'] < time())
+                {
                     $Call = F::Run(null, 'Annulate', $Call);
+                    die('Annulated');
+                }
                 else
                 {
                     $User = F::Run('Entity', 'Read',
@@ -81,9 +84,8 @@
                   'Where' => $Call['SID'],
                   'Data' =>
                         array(
-                            'ID' => $Call['SID'],
                             'User' => $Call['User'],
-                            'Expire' => time()+$Call['TTL'])
+                            'Expire' => time()+87600) // FIXME
              ));
     });
 
