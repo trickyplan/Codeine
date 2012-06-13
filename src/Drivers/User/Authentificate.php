@@ -29,9 +29,7 @@
                     array('User' => $User['ID'],
                           'TTL' => $Call['TTLs'][$Call['TTL']]));
 
-                d(__FILE__, __LINE__, $Call['Session']);
-//                $Call = F::Hook('Authentification.Success', $Call);
-
+                $Call = F::Hook('Authentification.Success', $Call);
                 return $Call;
 
             }
