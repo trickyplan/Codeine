@@ -71,7 +71,7 @@
                                 )
                 ));
 
-            F::Run('Security.Auth', 'Attach', array('User' => $Activation['User']));
+            F::Run('Security.Auth', 'Attach', array('User' => $Activation['User'],'Expire' => 87600)); //FIXME
 
             F::Run('IO', 'Write',
                 array(
