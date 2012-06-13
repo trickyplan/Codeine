@@ -12,7 +12,7 @@
         $Call['SID'] = F::Run($Call['Source'], 'Read', $Call);
 
         if (empty($Call['SID']))
-            $Call = F::Run(null, 'Register', $Call);
+            $Call['Session'] = F::Run(null, 'Register', $Call);
         else
         {
             $Call['Session'] =
@@ -21,6 +21,9 @@
                          'Entity' => 'Session',
                          'Where' => $Call['SID']
                     ))[0];
+
+            if ($Call['Session'] == null)
+                $Call['Session'] = F::Run(null, 'Register', $Call);
 
             if (isset($Call['Session']['User']) && !empty($Call['Session']['User']))
             {
@@ -46,12 +49,13 @@
     {
         $Call['Session'] = F::Run('Entity', 'Create', $Call,
             array(
-                 'Entity' => 'Session'
+                 'Entity' => 'Session',
+                 'Data' => array()
             ));
 
         F::Run($Call['Source'], 'Write', $Call);
 
-        return $Call;
+        return $Call['Session'];
     });
 
     self::setFn('Annulate', function ($Call)
@@ -77,6 +81,7 @@
                   'Where' => $Call['SID'],
                   'Data' =>
                         array(
+                            'ID' => $Call['SID'],
                             'User' => $Call['User'],
                             'Expire' => time()+$Call['TTL'])
              ));

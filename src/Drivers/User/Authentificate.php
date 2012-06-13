@@ -18,18 +18,19 @@
                               array(
                                   'Login' => $Call['Request']['Login']
                               )
-                     ));
+                     ))[0];
 
-            if ($User[0]['Status'] >= 1)
+            if ($User['Status'] >= 1)
             {
                 if (isset($Call['Request']['TTL']))
                     $Call['TTL'] = $Call['Request']['TTL'];
 
-                F::Run('Security.Auth', 'Attach', $Call,
-                    array('User' => $User[0]['ID'],
+                $Call['Session'] = F::Run('Security.Auth', 'Attach', $Call,
+                    array('User' => $User['ID'],
                           'TTL' => $Call['TTLs'][$Call['TTL']]));
 
-                $Call = F::Hook('Authentification.Success', $Call);
+                d(__FILE__, __LINE__, $Call['Session']);
+//                $Call = F::Hook('Authentification.Success', $Call);
 
                 return $Call;
 

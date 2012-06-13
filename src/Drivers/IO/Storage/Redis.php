@@ -31,7 +31,7 @@
             if (null === $Call['Data'])
                 $Call['Link']->del($Call['Where']['ID']);
             else
-                $Call['Link']->set($Call['Where']['ID'], F::Merge($Call['Link']->get($Call['Where']['ID']), $Call['Data']), $Call['TTL']);
+                $Call['Link']->set($Call['Where']['ID'], $Call['Data'], $Call['TTL']);
         }
         else
         {

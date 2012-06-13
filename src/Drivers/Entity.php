@@ -57,7 +57,7 @@
 
         $Call = F::Hook('afterEntityUpdate', $Call);
 
-        return $Call;
+        return $Call['Data'];
     });
 
     self::setFn('Delete', function ($Call)
