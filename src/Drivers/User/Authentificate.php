@@ -9,7 +9,7 @@
 
     self::setFn('Do', function ($Call)
     {
-        if (F::Run('Security.Auth.System.Password', 'Authentificate', $Call))
+        if (F::Run('Security.Auth.System.'.$Call['Mode'], 'Authentificate', $Call))
         {
             $User = F::Run('Entity', 'Read',
                      array(

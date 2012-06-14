@@ -1,9 +1,0 @@
-{
-    "Map":
-    {
-        "GET": "Show",
-        "POST" : "Create",
-        "PUT": "Update",
-        "DELETE": "Delete"
-    }
-}

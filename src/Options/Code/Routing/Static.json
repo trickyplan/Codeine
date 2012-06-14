@@ -10,6 +10,39 @@
         {
             "Service": "Control.Panel",
             "Method": "Do"
+        },
+        "/login":
+        {
+            "Service":"User.Identificate",
+            "Method":"Do"
+        },
+        "/logout":
+        {
+            "Service":"User.Annulate",
+            "Method":"Do"
+        },
+        "/forgot":
+        {
+            "Service":"User.Reset",
+            "Method":"Do"
+        },
+        "/auth":
+        {
+            "Service":"User.Authentificate",
+            "Method":"Do",
+            "Call":
+            {
+                "Mode": "Password"
+            }
+        },
+        "/auth/social":
+        {
+            "Service":"User.Authentificate",
+            "Method":"Do",
+            "Call":
+            {
+                "Mode": "Loginza"
+            }
         }
     }
 }
