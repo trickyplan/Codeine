@@ -1,6 +1,6 @@
 <?php
 
-    require F::findFile('Vendor/ccampbell/chromephp/ChromePhp.php');
+    require Codeine.'/Vendor/ccampbell/chromephp/ChromePhp.php';
 
     self::setFn('Open', function ($Call)
     {
