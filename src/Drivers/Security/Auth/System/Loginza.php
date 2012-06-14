@@ -12,7 +12,7 @@
 
     });
 
-    self::setFn('Authenticate', function ($Call)
+    self::setFn('Authentificate', function ($Call)
     {
         d(__FILE__, __LINE__, F::Run('IO', 'Read',
          array(
