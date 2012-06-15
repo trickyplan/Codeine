@@ -7,6 +7,7 @@
      * @version 7.2
      */
     include "Mail.php";
+    include('Mail/mime.php');
 
     self::setFn ('Open', function ($Call)
     {
@@ -20,5 +21,19 @@
     self::setFn('Write', function ($Call)
     {
         $Call['Headers'] = array ('From' => $Call['From'], 'To' => $Call['To'], 'Subject' => $Call['ID']);
+
+        $mime = new Mail_mime("\n");
+
+        // Setting the body of the email
+        $mime->setParam('html_charset', 'utf-8');
+        $mime->setParam('text_charset', 'utf-8');
+        $mime->setParam('head_charset', 'utf-8');
+
+        $mime->setTXTBody(strip_tags($Call['Data']));
+        $mime->setHTMLBody($Call['Data']);
+
+        $Call['Data'] = $mime->get();
+        $Call['Headers'] = $mime->headers($Call['Headers']);
+
         return $Call['Link']->send($Call['Scope'], $Call['Headers'], $Call['Data']);
     });

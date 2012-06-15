@@ -6,6 +6,7 @@
  * Released under the MIT License.
  */
 
+
 var GMaps = (function($) {
   "use strict";
 

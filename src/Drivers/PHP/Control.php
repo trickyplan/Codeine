@@ -9,6 +9,12 @@
 
     self::setFn('Do', function ($Call)
     {
+
+        return $Call;
+     });
+
+    self::setFn('Version', function ($Call)
+    {
         $Version = phpversion();
         $Version = isset($Call['Versions'][$Version])? $Call['Versions'][$Version]: 'Untested';
 
@@ -19,11 +25,28 @@
                 'Value' => 'PHP: '.phpversion().' — '.$Version
             ));
 
-        $INI = ini_get_all();
+        $Extensions = get_loaded_extensions();
+
+        foreach ($Extensions as $Extension)
+            $Versions[] = array('<l>PHP.Extension.'.$Extension.'</l>', phpversion($Extension));
+
+
+        $Call['Output']['Content'][] =
+            array (
+                'Type'  => 'Table',
+                'Value' => $Versions
+            );
+
+        return $Call;
+    });
+
+    self::setFn('Settings', function ($Call)
+    {
+        $INI = ini_get_all(null,false);
 
         foreach ($INI as $Key => $Value)
         {
-            $Data[] = array ($Key, $Value['local_value']);
+            $Data[] = array ('<l>PHP.INI.'.$Key.'</l>', nl2br(wordwrap($Value)));
 
             if (isset($Call['Requirements'][$Key]) && ($Call['Requirements'][$Key] != $Value['local_value']))
                 $Call['Output']['Content'][] =
@@ -40,5 +63,23 @@
                 'Value' => $Data
             );
 
-         return $Call;
-     });
+
+
+        return $Call;
+    });
+
+    self::setFn('XCache', function ($Call)
+    {
+        $XCache = xcache_info(XC_TYPE_PHP,0);
+
+        foreach ($XCache as $Key => &$Value)
+            $Value = array('<l>PHP.XCache.'.$Key.'</l>', $Value);
+
+        $Call['Output']['Content'][] =
+            array (
+                'Type'  => 'Table',
+                'Value' => $XCache
+            );
+
+        return $Call;
+    });

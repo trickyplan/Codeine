@@ -9,11 +9,17 @@
 
     self::setFn('Do', function ($Call)
     {
-        foreach($Call['Bundles'] as $Bundle)
-            $Call['Options'][] = array('Title' => '<l>Control.'.$Bundle.'</l>', 'URL' => '/control/'.$Bundle);
+        foreach($Call['Bundles'] as $Group => $Bundles)
+        {
+            $Call['Options'][] = '<l>Control.'.$Group.'</l>';
+
+            foreach ($Bundles as $Bundle)
+                $Call['Options'][] = array('ID' => $Bundle, 'Title' => '<l>Control.'.$Bundle.'</l>', 'URL' => '/control/'.$Bundle);
+        }
 
         $Call['Output']['Navigation'][] = array(
             'Type' => 'Navlist',
+            'Scope' => 'Control',
             'Options' => $Call['Options'],
             'Value' => isset($Call['Bundle'])? array_search($Call['Bundle'], $Call['Bundles']): null
         );

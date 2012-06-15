@@ -1,6 +1,8 @@
 {
     "Control":
     {
+        "Project": "Проект",
+        "Platform": "Платформа",
         "Main": "Обзор",
         "Codeine": "Ядро",
         "PHP":"PHP",

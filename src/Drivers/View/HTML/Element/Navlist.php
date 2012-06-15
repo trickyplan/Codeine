@@ -19,18 +19,26 @@
          $Call['Options'] = F::Live($Call['Options']);
 
          foreach ($Call['Options'] as $Key => $Value)
-             $Options[] = F::Run ('View', 'LoadParsed', $Call,
+             if (is_array($Value))
+                 $Options[] = F::Run ('View', 'LoadParsed', $Call,
                     array(
-                         'Scope' => 'Default',
+                         'Scope' => isset($Call['Scope'])? $Call['Scope']: 'Default',
                          'ID'    => 'UI/HTML/Navlist/'.(in_array($Key, (array)$Call['Value']) ? 'Active' : 'Passive'),
                          'Data'  => $Value
+                    ));
+             else
+                $Options[] = F::Run ('View', 'LoadParsed', $Call,
+                    array(
+                         'Scope' => isset($Call['Scope'])? $Call['Scope']: 'Default',
+                         'ID'    => 'UI/HTML/Navlist/Header',
+                         'Data'  => array('Title' => $Value)
                     ));
 
          $Call['Value'] = implode('', $Options);
 
          return F::Run ('View', 'LoadParsed', $Call,
                         array(
-                             'Scope' => 'Default',
+                             'Scope' => isset($Call['Scope'])? $Call['Scope']: 'Default',
                              'ID'    => 'UI/HTML/'.(isset($Call['Template'])? $Call['Template'] : 'Navlist'),
                              'Data'  => $Call
                         ));

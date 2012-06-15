@@ -10,6 +10,14 @@
                 "Service":"Entity",
                 "Method":"Load"
             }
+        },
+        "beforeUpdatePost":
+        {
+            "Load model (essential)":
+            {
+                "Service":"Entity",
+                "Method":"Load"
+            }
         }
     },
     "Output":
