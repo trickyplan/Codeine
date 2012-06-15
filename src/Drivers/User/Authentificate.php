@@ -9,24 +9,17 @@
 
     self::setFn('Do', function ($Call)
     {
-        if (F::Run('Security.Auth.System.'.$Call['Mode'], 'Authentificate', $Call))
-        {
-            $User = F::Run('Entity', 'Read',
-                     array(
-                          'Entity' => 'User',
-                          'Where' =>
-                              array(
-                                  'Login' => $Call['Request']['Login']
-                              )
-                     ))[0];
+        $Call = F::Run('Security.Auth.System.'.$Call['Mode'], 'Authentificate', $Call);
 
-            if ($User['Status'] >= 1)
+        if (!empty($Call['User']))
+        {
+            if ($Call['User']['Status'] >= 1)
             {
                 if (isset($Call['Request']['TTL']))
                     $Call['TTL'] = $Call['Request']['TTL'];
 
                 $Call['Session'] = F::Run('Security.Auth', 'Attach', $Call,
-                    array('User' => $User['ID'],
+                    array('User' => $Call['User']['ID'],
                           'TTL' => $Call['TTLs'][$Call['TTL']]));
 
                 $Call = F::Hook('Authentification.Success', $Call);
@@ -35,28 +28,28 @@
             }
             else
             {
-                if ($User[0]['Status'] == -1)
+                if ($Call['User']['Status'] == -1)
                 {
-                    $User[0]['Server'] = $_SERVER['HTTP_HOST'];
+                    $Call['User']['Server'] = $_SERVER['HTTP_HOST'];
 
                     $Call['Output']['Content'][]
                         = array(
                         'Type' => 'Template',
                         'Scope' => 'User',
                         'ID' => 'Banned',
-                        'Data' => $User[0]
+                        'Data' => $Call['User']
                     );
                 }
                 else
                 {
-                    list(,$User[0]['Server']) = explode('@', $User[0]['EMail']);
+                    list(,$Call['User']['Server']) = explode('@', $Call['User']['EMail']);
 
                     $Call['Output']['Content'][]
                         = array(
                         'Type' => 'Template',
                         'Scope' => 'User',
                         'ID' => 'Activation/Needed',
-                        'Data' => $User[0]
+                        'Data' => $Call['User']
                     );
                 }
             }

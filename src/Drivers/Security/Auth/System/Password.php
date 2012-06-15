@@ -14,16 +14,17 @@
 
     self::setFn('Authentificate', function ($Call)
     {
-        $User = F::Run('Entity', 'Read',
+        $Call['User'] = F::Run('Entity', 'Read',
                      array(
                           'Entity' => 'User',
                           'Where' =>
                               array(
-                                  'Login' => $Call['Request']['Login']
+                                  'Login' => $Call['Request']['Login'],
+                                  'Password' => F::Live($Call['Challenger'], array('Value' => $Call['Request']['Password']))
                               )
-                     ));
+                     ))[0];
 
-        return ($User[0]['Password'] == F::Live($Call['Challenger'], array('Value' => $Call['Request']['Password'])));
+        return $Call;
     });
 
     self::setFn('Challenge', function ($Call)

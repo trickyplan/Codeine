@@ -24,33 +24,33 @@
         {
             // Проверить, есть ли такой пользователь
 
-            $User = F::Run('Entity','Read',
+            $Call['User'] = F::Run('Entity','Read',
                 array(
                     'Entity' => 'User',
                     'Where'  => array(
-                        'Login' => $Call[$Response['identity']]
+                        'Login' => $Response['identity']
                     )
-                ));
+                ))[0];
 
-            d(__FILE__, __LINE__, $Response['identity']);
             // Если нет, зарегистрировать
-            if (empty($User))
+            if (empty($Call['User']))
             {
-                $User = F::Run('Entity','Create',
+                $Call['User'] = F::Run('Entity','Create',
                     array(
                         'Entity' => 'User',
                         'Debug' => true,
                         'Data'  => array(
                             'Login' => $Response['identity'],
-                            'Fullname' => isset($Response['name']['full_name'])? $Response['name']['full_name']: $Response['name']['first_name'].' '.$Response['name']['last_name'],
+                            'Status' => 1,
+                            'Fullname' => isset($Response['name']['full_name'])
+                                ? $Response['name']['full_name']
+                                : $Response['name']['first_name'].' '.$Response['name']['last_name'],
                             'EMail' => $Response['email']
                         )
                     ));
             }
 
-            d(__FILE__, __LINE__, $User);
         }
 
-        die();
         return $Call;
     });
