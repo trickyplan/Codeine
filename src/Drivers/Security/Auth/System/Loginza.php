@@ -41,6 +41,7 @@
                         'Data'  => array(
                             'Login' => $Response['identity'],
                             'Status' => 1,
+                            'Phone' => $Response['phone']['mobile'],
                             'Photo' => $Response['photo'],
                             'Fullname' => isset($Response['name']['full_name'])
                                 ? $Response['name']['full_name']
@@ -60,6 +61,7 @@
                         ),
                         'Data'  => array(
                             'Photo' => $Response['photo'],
+                            'Phone' => $Response['phone']['mobile'],
                             'Fullname' => isset($Response['name']['full_name'])
                                 ? $Response['name']['full_name']
                                 : $Response['name']['first_name'].' '.$Response['name']['last_name'],
