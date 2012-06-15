@@ -1,0 +1,13 @@
+{
+    "Loginza":
+    {
+        "ID": 24623,
+        "Key": "1dc118bc34d783e2117a7b826fccbe2a",
+        "Map":
+        {
+            "EMail": "email",
+            "Phone": "phone.mobile",
+            "Photo": "photo"
+        }
+    }
+}
