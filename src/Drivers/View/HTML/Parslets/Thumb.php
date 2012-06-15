@@ -13,8 +13,10 @@
         {
             $Thumb = json_decode(json_encode(simplexml_load_string('<thumb>'.$Match.'</thumb>')),true); // FIXME Абстрагировать этот пиздец
 
-            if (preg_match('/^http/', $Thumb['URL']))
+            if (preg_match('/^http.*/', $Thumb['URL']))
+            {
                 $Filename = $Thumb['URL'];
+            }
             else
             {
                 $Filename = Root . '/' . $Thumb['URL'];
@@ -33,7 +35,9 @@
 
                 if (getimagesize($Filename))
                 {
-                    $Image = new Gmagick($Filename);
+                    $Blob = file_get_contents($Filename);
+                    $Image = new Gmagick();
+                    $Image->readimageblob($Blob);
                     $Image->cropThumbnailImage($Thumb['Width'], $Thumb['Width']);
                     $Image->writeImage(Root.'/Public'.$ThumbURL);
                 }
