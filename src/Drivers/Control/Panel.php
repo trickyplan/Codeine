@@ -9,6 +9,26 @@
 
     self::setFn('Do', function ($Call)
     {
+        if (!isset($Call['Bundle']))
+            $Call['Bundle'] = isset($Call['Start'])? $Call['Start']: 'Main';
+
+        if (!isset($Call['Option']))
+            $Call['Option'] = 'Do';
+
+        $Call['Locales'][] = $Call['Bundle'].':Control';
+
+        $Call['Layouts'][] = array(
+            'Scope' => $Call['Bundle'],
+            'ID' => 'Control'
+        );
+
+        $Call['Layouts'][] = array(
+            'Scope' => $Call['Bundle'],
+            'ID' => 'Control/'.$Call['Option']
+        );
+
+        $Call = F::Run($Call['Bundle'].'.Control', $Call['Option'], $Call);
+
         foreach($Call['Bundles'] as $Group => $Bundles)
         {
             $Call['Options'][] = '<l>Control.'.$Group.'</l>';
@@ -21,33 +41,8 @@
             'Type' => 'Navlist',
             'Scope' => 'Control',
             'Options' => $Call['Options'],
-            'Value' => isset($Call['Bundle'])? array_search($Call['Bundle'], $Call['Bundles']): null
+            'Value' => $Call['Bundle']
         );
-
-        if (isset($Call['Bundle']))
-        {
-            if (!isset($Call['Option']))
-                $Call['Option'] = 'Do';
-
-            $Call['Locales'][] = $Call['Bundle'].':Control';
-
-            $Call['Layouts'][] = array(
-                'Scope' => $Call['Bundle'],
-                'ID' => 'Control'
-            );
-
-            $Call['Layouts'][] = array(
-                'Scope' => $Call['Bundle'],
-                'ID' => 'Control/'.$Call['Option']
-            );
-
-            $Call = F::Run($Call['Bundle'].'.Control', $Call['Option'], $Call);
-        }
-        else
-        {
-            $Call['Bundle']= isset($Call['Default'])? $Call['Default']: 'Main';
-        }
-
 
         return $Call;
      });
