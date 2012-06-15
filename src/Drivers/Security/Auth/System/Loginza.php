@@ -14,12 +14,41 @@
 
     self::setFn('Authentificate', function ($Call)
     {
-        d(__FILE__, __LINE__, F::Run('IO', 'Read',
+        $Response = json_decode(F::Run('IO', 'Read',
          array(
              'Storage' => 'Web',
-             'Where' => 'http://loginza.ru/api/authinfo?token='.$Call['token'].'&id=24623&sig='.md5($Call['token'].'1dc118bc34d783e2117a7b826fccbe2a')
-         )));;
+             'Where' => 'http://loginza.ru/api/authinfo?token='.$Call['Request']['token'].'&id=24623&sig='.md5($Call['Request']['token'].'1dc118bc34d783e2117a7b826fccbe2a')
+         ))[0], true);
 
-die();
+        if (isset($Response['identity']))
+        {
+            // Проверить, есть ли такой пользователь
+
+            $User = F::Run('Entity','Read',
+                array(
+                    'Entity' => 'User',
+                    'Where'  => array(
+                        'Login' => $Call[$Response['identity']]
+                    )
+                ));
+
+            // Если нет, зарегистрировать
+            if (empty($User))
+            {
+                $User = F::Run('Entity','Create',
+                    array(
+                        'Entity' => 'User',
+                        'Data'  => array(
+                            'Login' => $Response['identity'],
+                            'Fullname' => isset($Response['name']['full_name'])? $Response['name']['full_name']: $Response['name']['first_name'].' '.$Response['name']['last_name'],
+                            'EMail' => $Response['email']
+                        )
+                    ));
+            }
+
+            d(__FILE__, __LINE__, $User);
+        }
+
+        die();
         return $Call;
     });
