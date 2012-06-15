@@ -45,7 +45,7 @@
         }
         else
         {
-            $Call['Bundle']= 'Main';
+            $Call['Bundle']= isset($Call['Default'])? $Call['Default']: 'Main';
         }
 
 
