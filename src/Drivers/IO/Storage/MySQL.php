@@ -57,6 +57,9 @@
         else
             $Query = F::Run('IO.Storage.MySQL.Syntax', 'Insert', $Call);
 
+        if (isset($Call['Debug']))
+            d(__FILE__, __LINE__, $Query);
+
         F::Log($Query);
 
         $Result = $Call['Link']->query($Query);

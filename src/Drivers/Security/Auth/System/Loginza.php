@@ -32,12 +32,14 @@
                     )
                 ));
 
+            d(__FILE__, __LINE__, $Response['identity']);
             // Если нет, зарегистрировать
             if (empty($User))
             {
                 $User = F::Run('Entity','Create',
                     array(
                         'Entity' => 'User',
+                        'Debug' => true,
                         'Data'  => array(
                             'Login' => $Response['identity'],
                             'Fullname' => isset($Response['name']['full_name'])? $Response['name']['full_name']: $Response['name']['first_name'].' '.$Response['name']['last_name'],
