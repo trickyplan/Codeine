@@ -13,10 +13,15 @@
         {
             $Thumb = json_decode(json_encode(simplexml_load_string('<thumb>'.$Match.'</thumb>')),true); // FIXME Абстрагировать этот пиздец
 
-            $Filename = Root . '/' . $Thumb['URL'];
+            if (preg_match('/^http/', $Thumb['URL']))
+                $Filename = $Thumb['URL'];
+            else
+            {
+                $Filename = Root . '/' . $Thumb['URL'];
 
-            if(!is_file($Filename) or is_dir($Filename))
-                $Filename = F::findFile((isset($Thumb['Default'])? $Thumb['Default']: 'Assets/Doctor/img/nophoto.jpg')); // FIXME Конфиг
+                if(!is_file($Filename) or is_dir($Filename))
+                    $Filename = F::findFile((isset($Thumb['Default'])? $Thumb['Default']: 'Assets/Default/img/nophoto.jpg')); // FIXME Конфиг
+            }
 
             //crop and resize the image
 

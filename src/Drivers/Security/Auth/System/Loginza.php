@@ -42,6 +42,7 @@
                         'Data'  => array(
                             'Login' => $Response['identity'],
                             'Status' => 1,
+                            'Photo' => $Response['photo'],
                             'Fullname' => isset($Response['name']['full_name'])
                                 ? $Response['name']['full_name']
                                 : $Response['name']['first_name'].' '.$Response['name']['last_name'],
