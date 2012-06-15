@@ -32,24 +32,6 @@
                     )
                 ))[0];
 
-            {
-                $Call['User'] = F::Run('Entity','Update',
-                    array(
-                        'Entity' => 'User',
-                        'Where' =>
-                        array(
-                            'Login' => $Response['identity']
-                        ),
-                        'Data'  => array(
-                            'Photo' => $Response['photo'],
-                            'Fullname' => isset($Response['name']['full_name'])
-                                ? $Response['name']['full_name']
-                                : $Response['name']['first_name'].' '.$Response['name']['last_name'],
-                            'EMail' => $Response['email']
-                        )
-                    ));
-            }
-
             // Если нет, зарегистрировать
             if (empty($Call['User']))
             {
@@ -67,7 +49,24 @@
                         )
                     ));
             }
-
+            else
+            {
+                $Call['User'] = F::Run('Entity','Update',
+                    array(
+                        'Entity' => 'User',
+                        'Where' =>
+                        array(
+                            'Login' => $Response['identity']
+                        ),
+                        'Data'  => array(
+                            'Photo' => $Response['photo'],
+                            'Fullname' => isset($Response['name']['full_name'])
+                                ? $Response['name']['full_name']
+                                : $Response['name']['first_name'].' '.$Response['name']['last_name'],
+                            'EMail' => $Response['email']
+                        )
+                    ));
+            }
         }
 
         return $Call;
