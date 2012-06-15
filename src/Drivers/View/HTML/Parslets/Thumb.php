@@ -20,7 +20,7 @@
                 $Filename = Root . '/' . $Thumb['URL'];
 
                 if(!is_file($Filename) or is_dir($Filename))
-                    $Filename = F::findFile((isset($Thumb['Default'])? $Thumb['Default']: 'Assets/Default/img/nophoto.jpg')); // FIXME Конфиг
+                    $Filename = F::findFile((isset($Thumb['Default'])? $Thumb['Default']: 'Assets/Default/img/no.jpg')); // FIXME Конфиг
             }
 
             //crop and resize the image
