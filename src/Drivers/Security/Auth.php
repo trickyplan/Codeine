@@ -98,7 +98,7 @@
                   'Where' => $Call['SID'],
                   'Data' =>
                   array(
-                      'User' => null
+                      'User' => -1
                   )
              ));
     });

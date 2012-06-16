@@ -28,6 +28,7 @@
         // Для каждой ноды в модели
         foreach ($Call['Nodes'] as $Name => $Node)
         {
+            $Widget = null;
             // Если виджеты вообще определены
             if (isset($Node['Widgets']))
             {
@@ -36,8 +37,6 @@
                     $Widget = $Node['Widgets'][$Call['Purpose']];
                 elseif (isset($Node['Widgets']['Write'])) // Для записи как таковой
                     $Widget = $Node['Widgets']['Write'];
-                else
-                    $Widget = null;
 
                 if (null !== $Widget)
                 {
