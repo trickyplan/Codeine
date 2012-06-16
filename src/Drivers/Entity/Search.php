@@ -40,7 +40,7 @@
             $Call['Output']['Content'][] = array(
                 'Type'  => 'Template',
                 'Scope' => $Call['Entity'],
-                'Value' => 'Empty'
+                'ID' => 'EmptySearch'
             );
         else
         {
@@ -48,7 +48,7 @@
                 $Call['Output']['Content'][] = array(
                     'Type'  => 'Template',
                     'Scope' => $Call['Entity'],
-                    'Value' => 'Show/'.(isset($Call['Template'])? $Call['Template']: 'Search'),
+                    'ID' => 'Show/'.(isset($Call['Template'])? $Call['Template']: 'Search'),
                     'Data' => $Element
                 );
         }
