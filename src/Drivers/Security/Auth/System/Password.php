@@ -9,6 +9,26 @@
 
     self::setFn('Identificate', function ($Call)
     {
+        $Call['Locales'][] = 'User';
+
+        $Call['Output']['Content'][] = array(
+            'Type' => 'Form',
+            'Action' => '/auth' //FIXME
+        );
+
+        $Call['Output']['Form'][] = array(
+            'Type' => 'Form.Textfield',
+            'Entity' => 'User',
+            'Name' => $Call['Determinant']
+        );
+
+        $Call['Output']['Form'][] = array(
+            'Type' => 'Form.Password',
+            'Mode' => 'One',
+            'Entity' => 'User',
+            'Name' => 'Password'
+        );
+
         return $Call;
     });
 
@@ -19,7 +39,7 @@
                           'Entity' => 'User',
                           'Where' =>
                               array(
-                                  'Login' => $Call['Request']['Login'],
+                                  $Call['Determinant'] => $Call['Request'][$Call['Determinant']],
                                   'Password' => F::Live($Call['Challenger'], array('Value' => $Call['Request']['Password']))
                               )
                      ))[0];

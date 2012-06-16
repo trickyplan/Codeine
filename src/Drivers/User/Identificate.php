@@ -9,5 +9,5 @@
 
     self::setFn('Do', function ($Call)
     {
-        return F::Run('Security.Auth.System.Password', 'Identificate', $Call);
+        return $Call;
     });

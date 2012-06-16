@@ -30,7 +30,6 @@
                 if($Call['Session']['Expire'] < time())
                 {
                     $Call = F::Run(null, 'Annulate', $Call);
-                    die('Annulated');
                 }
                 else
                 {
@@ -99,7 +98,7 @@
                   'Where' => $Call['SID'],
                   'Data' =>
                   array(
-                      'User' => -1
+                      'User' => null
                   )
              ));
     });

@@ -9,7 +9,8 @@
 
     self::setFn('Identificate', function ($Call)
     {
-
+        $Call['LoginzaURL'] = 'http://'.$_SERVER['HTTP_HOST'].'/auth/social'; // FIXME
+        return $Call;
     });
 
     self::setFn('Authentificate', function ($Call)

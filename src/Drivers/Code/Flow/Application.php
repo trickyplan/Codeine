@@ -22,6 +22,11 @@
             {
                 list($Call['Service'], $Call['Method']) = array ($Call['Run']['Service'], $Call['Run']['Method']);
                 $Call = F::Live($Call['Run'], $Call, array('Context' => 'app'));
+
+                $Slices = explode('.', $Call['Run']['Service']);
+
+                $Call['Locales'][] = $Slices[0];
+                $Call['Locales'][] = $Slices[0].':'.implode('.', array_slice($Slices, 1));
             }
             // В противном случае, 404
             else
