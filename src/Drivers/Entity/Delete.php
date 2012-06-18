@@ -9,7 +9,8 @@
 
     self::setFn('Do', function ($Call)
     {
-        $Call['Purpose'] = 'Delete';
+        $Call = F::Hook('beforeDeleteDo', $Call);
+
         $Call['Where'] = F::Live($Call['Where']); // FIXME
 
         return F::Run(null, $_SERVER['REQUEST_METHOD'], $Call);

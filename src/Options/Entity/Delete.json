@@ -1,0 +1,14 @@
+{
+    "Purpose": "Delete",
+    "Hooks":
+    {
+        "beforeDeleteDo":
+        {
+            "Load model (essential)":
+            {
+                "Service":"Entity",
+                "Method":"Load"
+            }
+        }
+    }
+}

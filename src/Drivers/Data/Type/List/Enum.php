@@ -14,5 +14,5 @@
 
     self::setFn('Read', function ($Call)
     {
-        return $Call['Node']['Enum'][$Call['Value']];
+        return $Call['Node']['Enum'][(int)$Call['Value']];
     });

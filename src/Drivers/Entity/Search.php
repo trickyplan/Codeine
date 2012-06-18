@@ -28,29 +28,23 @@
 
         //d(__FILE__, __LINE__, $Call['Request']['Query']);
         // d(__FILE__, __LINE__, $IDs);
-        if ($IDs !== null)
-            $Elements = F::Run('Entity', 'Read', array(
-                              'Entity' => $Call['Entity'],
-                              'Where' => array('ID' => array('IN' => array_keys($IDs)))
-                         ));
-        else
-            $Elements = array();
 
-        if (sizeof($Elements) == 0)
-            $Call['Output']['Content'][] = array(
-                'Type'  => 'Template',
-                'Scope' => $Call['Entity'],
-                'ID' => 'EmptySearch'
-            );
+        $Call['Locales'][] = $Call['Entity'];
+        $Call['Output']['Content'][] = '<h2 class="page-header"><l>'.$Call['Entity'].'.Entity</l></h2>';
+
+        if (!empty($IDs) && null !== $IDs)
+            $Call = F::Run('Entity.List', 'Do', $Call,
+                array(
+                    'Where' => array('ID' => array('IN' => array_keys($IDs))),
+                    'Template' => (isset($Call['Template'])? $Call['Template']: 'Search')));
         else
-        {
-            foreach ($Elements as $Element)
-                $Call['Output']['Content'][] = array(
-                    'Type'  => 'Template',
+            $Call['Output']['Content'][] =
+                array(
+                    'Type' => 'Template',
                     'Scope' => $Call['Entity'],
-                    'ID' => 'Show/'.(isset($Call['Template'])? $Call['Template']: 'Search'),
-                    'Data' => $Element
+                    'ID' => 'EmptySearch'
                 );
-        }
+
         return $Call;
+
      });

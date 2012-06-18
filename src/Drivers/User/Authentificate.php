@@ -57,14 +57,7 @@
         }
         else
         {
-            $Call['Output']['Content'][]
-                        = array(
-                        'Type' => 'Template',
-                        'Scope' => 'User',
-                        'ID' => 'Incorrect'
-                    );
-
-            $Call = F::Hook('Authentification.Failed', $Call);
+             $Call = F::Hook('Authentification.Failed', $Call);
 
         }
 

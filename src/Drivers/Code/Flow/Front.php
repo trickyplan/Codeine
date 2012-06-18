@@ -20,13 +20,12 @@
         {
             if (F::isCall($Call['Run']))
             {
-                list($Call['Service'], $Call['Method']) = array($Call['Run']['Service'], $Call['Run']['Method']);
-                $Call = F::Live($Call['Run'], $Call);
-
                 $Slices = explode('.', $Call['Run']['Service']);
-
                 $Call['Locales'][] = $Slices[0];
                 $Call['Locales'][] = $Slices[0].':'.implode('.', array_slice($Slices, 1));
+
+                list($Call['Service'], $Call['Method']) = array($Call['Run']['Service'], $Call['Run']['Method']);
+                $Call = F::Live($Call['Run'], $Call);
             }
             // В противном случае, 404
             else

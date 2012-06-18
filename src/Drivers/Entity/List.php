@@ -9,6 +9,7 @@
 
     self::setFn('Do', function ($Call)
     {
+        $Call = F::Merge(F::loadOptions('Entity.'.$Call['Entity']), $Call); // FIXME
         $Call = F::Hook('beforeList', $Call);
 
         $Elements = F::Run('Entity', 'Read', $Call);

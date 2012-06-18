@@ -16,7 +16,7 @@
             "Default values":
             {
                 "Service":"Entity.Nodes.Default",
-                "Method":"Process"
+                "Method":"Write"
             },
             "Make variables alive":
             {
@@ -101,10 +101,20 @@
         },
         "afterEntityRead":
         {
+            "Default values":
+            {
+                "Service":"Entity.Nodes.Default",
+                "Method":"Read"
+            },
             "Datatypes":
             {
                 "Service":"Entity.Nodes.Type",
                 "Method":"Read"
+            },
+            "Hooks":
+            {
+                "Service":"Entity.Nodes.Hook",
+                "Method":"Process"
             }
         }
     }

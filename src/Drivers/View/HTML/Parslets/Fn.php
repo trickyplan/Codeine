@@ -11,7 +11,8 @@
      {
           foreach ($Call['Parsed'][2] as $Ix => $Match)
           {
-              $Match = simplexml_load_string('<?xml version=\'1.0\'?><exec>'.$Match.'</exec>');
+              $Match = simplexml_load_string('<?xml version=\'1.0\'?><fn>'.$Match.'</fn>');
+
               $Match = json_decode(json_encode($Match), true);
 
               $Output = F::Live($Match);

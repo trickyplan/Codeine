@@ -10,9 +10,12 @@
     self::setFn('Process', function ($Call)
     {
         foreach ($Call['Nodes'] as $Name => $Node)
-            if (isset($Node['Filter']))
-                foreach ($Node['Filter'] as $Filter)
-                    $Call['Data'][$Name] = F::Live($Filter, array('Value' => $Call['Data'][$Name]));
+        {
+            if (isset($Node['afterRead']))
+                foreach ($Call['Data'] as &$Row)
+                    foreach ($Node['afterRead'] as $Hook)
+                        $Row[$Name] = F::Live($Hook, array('Value'=> $Row[$Name]));
+        }
 
         return $Call;
     });

@@ -18,7 +18,7 @@
         $Call['Output']['Content'] = array (array (
                                                 'Type'  => 'Template',
                                                 'Scope' => 'Errors',
-                                                'Value' => '404',
+                                                'ID' => '404',
                                                 'Data' => array(
                                                     'Suggestion' => F::Live($Call['Prediction'], $Call)
                                                 )
@@ -31,7 +31,7 @@
             $Call['Output']['Content'] = array (array (
                                                 'Type'  => 'Template',
                                                 'Scope' => 'Errors/Blocks',
-                                                'Value' => '404',
+                                                'ID' => '404',
                                                 'Data' => array(
                                                     'Suggestion' => F::Live($Call['Prediction'], $Call)
                                                 )

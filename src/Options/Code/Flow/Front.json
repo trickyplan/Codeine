@@ -3,6 +3,11 @@
     {
         "beforeRun":
         {
+            "Project":
+            {
+                "Service": "Project.Preload",
+                "Method": "Do"
+            },
             "Routing":
             {
                 "Service": "Code.Flow.Front.Routing",

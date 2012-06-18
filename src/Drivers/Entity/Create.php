@@ -46,12 +46,16 @@
                     // Если есть значение, добавляем
                     if (isset($Call['Data'][$Name]))
                         $Widget['Value'] = $Call['Data'][$Name];
+                    elseif(isset($Node['Default']))
+                        $Widget['Value'] = F::Live($Node['Default']);
 
                     // Помещаем виджет в поток
                     $Call = F::Run('Entity.Form.Layout.'.$Call['FormLayout'], 'Add', $Call,
                         array(
                             'Name' => $Name,
                             'Widget' => $Widget));
+
+                    $Call['Widget'] = null;
                 }
             }
         }

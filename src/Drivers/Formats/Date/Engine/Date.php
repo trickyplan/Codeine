@@ -9,7 +9,6 @@
 
     self::setFn('Format', function ($Call)
     {
-
         if (isset($Call['Value']))
         {
             if ($Call['Format'] == 'ISO8601')

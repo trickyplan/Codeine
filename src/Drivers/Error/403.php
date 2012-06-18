@@ -18,7 +18,7 @@
         $Call['Output']['Content'] = array (array (
                                                 'Type'  => 'Template',
                                                 'Scope' => 'Errors',
-                                                'Value' => '403',
+                                                'ID' => '403',
                                                 'Data'  => $Call
                                             ));
 
@@ -32,7 +32,7 @@
         $Call['Output']['Content'] = array (array (
                                             'Type'  => 'Template',
                                             'Scope' => 'Errors/Blocks',
-                                            'Value' => '403',
+                                            'ID' => '403',
                                             'Data'  => $Call
                                         ));
         return $Call;

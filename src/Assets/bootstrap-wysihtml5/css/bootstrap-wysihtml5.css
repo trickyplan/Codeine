@@ -46,4 +46,5 @@ ul.wysihtml5-commands-disabled .dropdown-menu {
 .wysiwyg
 {
     min-height: 10em;
+    width: 40%;
 }

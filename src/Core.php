@@ -67,8 +67,6 @@
                 else
                     $First = $Second;
             }
-            else
-                $Second = $First;
 
             return $First;
         }

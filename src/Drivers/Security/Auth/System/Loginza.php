@@ -62,6 +62,14 @@
                         'Data'  => $UserData
                     ));
         }
+        else
+               $Call['Output']['Content'][]
+                        = array(
+                        'Type' => 'Template',
+                        'Scope' => 'User',
+                        'ID' => 'Failed'
+                    );
+
 
         return $Call;
     });

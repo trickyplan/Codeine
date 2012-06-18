@@ -44,6 +44,14 @@
                               )
                      ))[0];
 
+        if (empty($Call['User']))
+            $Call['Output']['Content'][]
+                        = array(
+                        'Type' => 'Template',
+                        'Scope' => 'User',
+                        'ID' => 'Incorrect'
+                    );
+
         return $Call;
     });
 
