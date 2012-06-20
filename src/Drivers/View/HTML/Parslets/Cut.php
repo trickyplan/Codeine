@@ -11,7 +11,8 @@
     {
         foreach ($Call['Parsed'][2] as $IX => $Match)
         {
-            $Root = simplexml_load_string($Call['Parsed'][0][$IX]);
+            $Root = simplexml_load_string('<root '.$Call['Parsed'][1][$IX].'></root>');
+
             $Inner = (string) $Root;
             $Words = (int) $Root->attributes()->words;
 
