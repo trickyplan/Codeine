@@ -10,6 +10,8 @@
     function array_diff_assoc_recursive($array1, $array2)
     {
         // FIXME Codeinize
+        $Relations = array('<', '>');
+
         foreach($array1 as $key => $value)
         {
             if ($value != '*')

@@ -34,13 +34,12 @@
             // Если виджеты вообще определены
             if (isset($Node['Widgets']) && !isset($Node['WriteOnce']))
             {
+                $Widget = null;
                 // Определяем, какие именно используем
                 if (isset($Node['Widgets'][$Call['Purpose']])) // Для нашего случая
                     $Widget = $Node['Widgets'][$Call['Purpose']];
                 elseif (isset($Node['Widgets']['Write'])) // Для записи как таковой
                     $Widget = $Node['Widgets']['Write'];
-                else
-                    $Widget = null;
 
                 if (null !== $Widget)
                 {
@@ -57,6 +56,8 @@
                             'Name' => $Name,
                             'Node' => $Node,
                             'Widget' => F::Merge($Node, $Widget)));
+
+                    $Call['Widget'] = null;
                 }
             }
         }

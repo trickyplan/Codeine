@@ -14,7 +14,7 @@
                 array(
                     'Type'  => 'Template',
                     'Scope' => $Template['Scope'],
-                    'Value' => $Template['ID'],
+                    'ID' => $Template['ID'],
                     'Data' => $Call
                 );
 

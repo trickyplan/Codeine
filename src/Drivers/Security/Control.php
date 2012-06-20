@@ -39,7 +39,7 @@
     {
         $Rules = F::loadOptions('Security.Access.Rule')['Rules'];
 
-        foreach ($Rules as $Rule)
+        foreach ($Rules as $Rule['ID'] => $Rule)
             $Call['Output']['Content'][] =
                 array(
                     'Type' => 'Template',

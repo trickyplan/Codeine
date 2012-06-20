@@ -7,6 +7,11 @@
             "Service": "View.Parser.Layout",
             "Method": "Parse"
         },
+        "Call":
+        {
+            "Service": "View.Parser.Call",
+            "Method": "Parse"
+        },
         "KeyBlock":
         {
             "Service": "View.Parser.KeyBlock",
@@ -15,11 +20,6 @@
         "Key":
         {
             "Service": "View.Parser.Key",
-            "Method": "Parse"
-        },
-        "Call":
-        {
-            "Service": "View.Parser.Call",
             "Method": "Parse"
         }
     },

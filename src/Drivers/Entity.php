@@ -24,7 +24,6 @@
 
         $Call['Scope'] = $Call['Entity'];
 
-        // d(__FILE__, __LINE__, $Call['Data']);
         $Call['Data'] = F::Run('IO', 'Write', $Call);
 
         $Call = F::Hook('afterEntityCreate', $Call);

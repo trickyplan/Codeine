@@ -39,7 +39,7 @@
 
     self::setFn('LoadParsed', function ($Call)
     {
-        return F::Run('View', 'Parse',
+        return F::Run('View', 'Parse', $Call,
             array (
                   'Data'  => isset($Call['Data'])? $Call['Data']: null,
                   'Value' => F::Run('View', 'Load', $Call)
