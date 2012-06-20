@@ -35,10 +35,10 @@
                                 )),
                             $Call['Output']);
                     else
-                        $Call['Output'] = str_replace($Call['Parsed'][0][$Ix], '#' . $ID, $Call['Output']);
+                        $Call['Output'] = str_replace($Call['Parsed'][0][$Ix], '', $Call['Output']);
             }
             else
-                $Call['Output'] = str_replace($Call['Parsed'][0][$Ix], '#' . $Match, $Call['Output']);
+                $Call['Output'] = str_replace($Call['Parsed'][0][$Ix], '', $Call['Output']);
 
         }
 
