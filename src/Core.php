@@ -272,7 +272,7 @@
 
             F::Run('Code.Run.Delayed', 'Flush');
 
-            if ($_ENV['Environment'] !== 'Production')
+            if ($_SERVER['Environment'] != 'Production')
             {
                 F::Execute(
                     'IO', 'Write',
