@@ -55,7 +55,6 @@
                     'ID' => 'Reset/404'
                 );
 
-        $Call = F::Hook('afterReset', $Call);
         return $Call;
     });
 

@@ -1,4 +1,3 @@
-#!/usr/bin/php
 <?php
 
     /**
@@ -8,13 +7,17 @@
 
     include 'Codeine/Core.php';
 
-    F::Bootstrap();
+    F::Bootstrap (array(
+                       'Path' => array(Root)
+                       //,'Trace' => true
+                  ));
 
-    $Opts = getopt ('s:m:', array('Service:', 'Method:'));
+    $Opts = getopt ('', array('Service:', 'Method:'));
 
     F::Run(
         'System.Interface.CLI',
         'Run',
-            $Opts
+        $Opts
     );
 
+    exit(0);

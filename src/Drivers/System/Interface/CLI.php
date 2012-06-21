@@ -11,11 +11,11 @@
     {
         $Call = F::Run ($Call['Service'], $Call['Method'], $Call);
 
-        $Call['Renderer'] = 'View.Render.Striptags';
+        $Call['Renderer'] = 'View.Plaintext';
 
-        $Call = F::Run ('View', 'Render', $Call);
+        $Call = F::Run('View', 'Render', $Call);
 
-        echo $Call['Output'];
+        echo $Call['Output']."\n";
 
         return $Call;
     });
