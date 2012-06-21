@@ -83,7 +83,6 @@
     self::setFn('Redirect', function ($Call)
     {
         $URL = $Call['Location'];
-        d(__FILE__, __LINE__, $Call['Location']);
 
         if (preg_match_all('/\$(\S+)/', $URL, $Vars))
             foreach ($Vars[0] as $IX => $Key)
