@@ -9,7 +9,7 @@
 
     self::setFn('Do', function ($Call)
     {
-        list($Call[$Call['Entity']]) = F::Run('Entity', 'Read', $Call);
+        $Call['Data'] = F::Run('Entity', 'Read', $Call)[0];
 
         $Call['Locales'][] = $Call['Entity'];
 
@@ -23,7 +23,7 @@
                     'ID' => 'Show'
                 );
 
-        if (empty($Call[$Call['Entity']]))
+        if (empty($Call['Data']))
             $Call = F::Run('Error/404', 'Page', $Call);
         else
         {
@@ -31,7 +31,7 @@
                 'Type'  => 'Template',
                 'Scope' => $Call['Entity'],
                 'ID' => 'Show/'.(isset($Call['Template'])? $Call['Template']: 'Full'),
-                'Data' => $Call[$Call['Entity']]
+                'Data' => $Call['Data']
             );
         }
 

@@ -13,7 +13,10 @@
         {
             $Thumb = json_decode(json_encode(simplexml_load_string('<thumb>'.$Match.'</thumb>')),true); // FIXME Абстрагировать этот пиздец
 
-            $Thumb['Default'] = F::Live($Thumb['Default']);
+            if (isset($Thumb['Default']))
+                $Thumb['Default'] = F::Live($Thumb['Default']);
+            else
+                $Thumb['Default'] = $Call['Default'];
 
             if (preg_match('/^http.*/', $Thumb['URL']))
             {

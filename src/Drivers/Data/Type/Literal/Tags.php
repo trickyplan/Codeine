@@ -2,15 +2,14 @@
 
     /* Codeine
      * @author BreathLess
-     * @description  
+     * @description
      * @package Codeine
      * @version 7.2
      */
 
     self::setFn('Write', function ($Call)
     {
-
-        return $Call['Value'];
+        return explode(',', $Call['Value']);
     });
 
     self::setFn('Read', function ($Call)

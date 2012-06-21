@@ -97,6 +97,11 @@
             {
                 "Service":"Entity",
                 "Method":"Load"
+            },
+            "Strict where typing":
+            {
+                "Service": "Entity.Nodes.Where",
+                "Method": "Process"
             }
         },
         "afterEntityRead":

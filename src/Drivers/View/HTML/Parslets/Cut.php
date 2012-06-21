@@ -13,7 +13,7 @@
         {
             $Root = simplexml_load_string('<root '.$Call['Parsed'][1][$IX].'></root>');
 
-            $Inner = (string) $Root;
+            $Inner = $Call['Parsed'][2][$IX];
             $Words = (int) $Root->attributes()->words;
 
             if (preg_match('/([^ \n\r]+[ \n\r]+){1,'.$Words.'}/s', $Inner, $Match))

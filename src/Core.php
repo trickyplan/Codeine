@@ -272,15 +272,20 @@
 
             F::Run('Code.Run.Delayed', 'Flush');
 
-            F::Execute(
-                'IO', 'Write',
-                array(
-                     'Storage' => 'Developer',
-                     'Data' => self::$_Log
-                )
-            );
+            if ($_ENV['Environment'] !== 'Production')
+            {
+                F::Execute(
+                    'IO', 'Write',
+                    array(
+                        'Storage' => 'Developer',
+                        'Data' => self::$_Log
+                    )
+                );
 
-            F::Run('IO', 'Close', array('Storage' => 'Developer'));
+                F::Run('IO', 'Close', array('Storage' => 'Developer'));
+            }
+
+
             return null; // TODO onShutdown
         }
 
@@ -292,6 +297,23 @@
                     $Data[$Key] = $Array[$Key];
 
             return $Data;
+        }
+
+        public static function RunN($Variable, $Key, $Call = array())
+        {
+
+            if (null !== $Variable)
+            {
+                if (is_array($Variable))
+                    foreach ($Variable as &$cVariable)
+                        $cVariable = F::Run($Call['Service'], $Call['Method'], $Call['Call'], array($Key => $cVariable));
+                else
+                    $Variable = F::Run($Call['Service'], $Call['Method'], $Call['Call'], array($Key => $Variable));
+            }
+            else
+                $Variable = F::Run($Call['Service'], $Call['Method'], $Call['Call']);
+
+            return $Variable;
         }
 
         public static function Map ($Array, $Fn, $Data = null, $FullKey = '')
@@ -306,6 +328,8 @@
                     if (is_array ($Value))
                         $Value = self::Map ($Value, $Fn, $Data, $NewFullKey);
                 }
+            else
+                $Array = $Fn('', $Array, $Data, $FullKey);
 
             return $Array;
         }

@@ -84,7 +84,7 @@
                   'Data' =>
                         array(
                             'User' => $Call['User'],
-                            'Expire' => time()+87600) // FIXME
+                            'Expire' => time()+$Call['TTL']) // FIXME
              ));
     });
 

@@ -11,6 +11,15 @@
             "Service": "Control.Panel",
             "Method": "Do"
         },
+        "/join":
+        {
+            "Service":"Entity.Create",
+            "Method":"Do",
+            "Call":
+            {
+                "Entity": "User"
+            }
+        },
         "/login":
         {
             "Service":"User.Identificate",

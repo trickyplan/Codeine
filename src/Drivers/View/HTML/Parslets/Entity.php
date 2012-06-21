@@ -20,6 +20,7 @@
                     list(,$Entity, $ID) = $Slices;
 
                     $Call['Locales'][] = $Entity;
+
                     $Element = F::Run('Entity', 'Read',
                         array (
                               'Entity' => $Entity,

@@ -83,7 +83,7 @@
         },
         "Developer":
         {
-            "Driver":"IO.Log.ChromePhp"
+            "Driver":"IO.Null"
         },
         "EMail":
         {
