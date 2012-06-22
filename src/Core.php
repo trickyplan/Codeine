@@ -47,6 +47,10 @@
                 self::$_Options['Path'] = array (Codeine);
 
             self::loadOptions();
+            self::loadOptions('Project');
+
+            if (self::$_Options['Project']['Version']['Codeine'] > self::$_Options['Codeine']['Version'])
+                die('Codeine '.self::$_Options['Project']['Version']['Codeine'].'+ needed. Installed: '.self::$_Options['Codeine']['Version']);
 
             register_shutdown_function ('F::Shutdown');
             set_error_handler ('F::Error'); // Instability
