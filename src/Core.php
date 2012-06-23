@@ -348,16 +348,21 @@
                 {
                     $Keys = explode('.', $Key);
 
-                    $Tail = $Array;
+                    $Tail = &$Array;
 
                     foreach ($Keys as $iKey)
-                        if (isset($Tail[$iKey]))
-                            $Tail = &$Tail[$iKey];
+                    {
+                        if (!isset($Tail[$iKey]))
+                           $Tail[$iKey] = [];
 
-                    $Tail[$iKey] = $Value;
+                        $Tail = &$Tail[$iKey];
+                    }
+
+                    $Tail = $Value;
                 }
                 else
                     $Array[$Key] = $Value;
+
 
                 return $Array;
             }

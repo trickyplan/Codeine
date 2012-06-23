@@ -42,6 +42,7 @@
                 {
                     $Widget['Entity'] = $Call['Entity'];
                     $Widget['Name'] = $Name;
+                    $Widget['ID'] = strtr($Name, '.','_');
 
                     // Если есть значение, добавляем
                     if (isset($Call['Data'][$Name]))

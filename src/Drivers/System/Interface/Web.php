@@ -18,6 +18,12 @@
             else
                 $Call['Request'] = $_POST;
 
+            foreach ($Call['Request'] as $Key => $Value)
+            {
+                unset($Call['Request'][$Key]);
+                $Call['Request'][strtr($Key, '_','.')] = $Value;
+            }
+
             $Call['Run'] = urldecode($_SERVER['REQUEST_URI']);
 
             $Call = F::Run($Call['Service'], $Call['Method'], $Call);

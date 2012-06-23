@@ -26,6 +26,7 @@
         // Загрузить предопределённые данные и умолчания
 
         $Call['Data'] = F::Run('Entity', 'Read', $Call)[0];
+
         // Сгенерировать форму
 
         // Для каждой ноды в модели
@@ -47,8 +48,7 @@
                     $Widget['Name'] = $Name;
 
                     // Если есть значение, добавляем
-                    if (isset($Call['Data'][$Name]))
-                        $Widget['Value'] = $Call['Data'][$Name];
+                    $Widget['Value'] = F::Dot($Call['Data'], $Name);
 
                     // Помещаем виджет в поток
                     $Call = F::Run('Entity.Form.Layout.'.$Call['FormLayout'], 'Add', $Call,

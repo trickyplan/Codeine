@@ -9,7 +9,10 @@
 
     self::setFn('Write', function ($Call)
     {
-        return F::Run('Security.Auth.System.Password', 'Challenge', $Call);
+        if (!empty($Call['Value']))
+            return F::Run('Security.Auth.System.Password', 'Challenge', $Call);
+        else
+            return null;
     });
 
     self::setFn('Read', function ($Call)

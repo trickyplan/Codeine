@@ -22,6 +22,7 @@
                     array('User' => $Call['User']['ID'], 'TTL' => $Call['TTLs'][$Call['TTL']]));
 
                 $Call = F::Hook('Authentification.Success', $Call);
+
                 return $Call;
 
             }

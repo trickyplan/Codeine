@@ -48,10 +48,14 @@
         }
         else
         {
+            $Data = array();
+            foreach ($Call['Data'] as $Key => $Value)
+                $Data = F::Dot($Data, $Key, $Value);
+
             if (isset($Call['Where']))
-                return $Call['Link']->$Call['Scope']->update($Call['Where'], $Call['Data']);
+                return $Call['Link']->$Call['Scope']->update($Call['Where'], array('$set' => $Data));
             else
-                return $Call['Link']->$Call['Scope']->insert ($Call['Data']);
+                return $Call['Link']->$Call['Scope']->insert ($Data);
         }
     });
 
