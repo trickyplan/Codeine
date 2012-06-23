@@ -13,10 +13,7 @@
 
         $Call['Renderer'] = 'View.JSON';
 
-        if (empty($Element))
-            $Call['Output'] = '';
-        else
-            $Call['Output'] = 'Занято';
+        $Call['Output'] = empty($Element);
 
         return $Call;
     });
