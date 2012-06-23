@@ -13,6 +13,9 @@
         if (!isset($Call['Layouts']))
             $Call['Layouts'] = array();
 
+        if (isset($Call['Zone']))
+            $Call['Layouts'][] = array('Scope' => $Call['Zone'], 'ID' => 'Zone');
+
         if (F::isCall($Call))
         {
             $Slices = explode('.', $Call['Service']);

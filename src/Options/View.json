@@ -52,6 +52,11 @@
                 "Service":"View.HTML.JSTag",
                 "Method":"Process"
             },
+            "Image":
+            {
+                "Service":"View.HTML.Image",
+                "Method":"Process"
+            },
             "Meta":
             {
                 "Service":"View.HTML.Meta",
@@ -70,11 +75,6 @@
             "I18N":
             {
                 "Service":"View.HTML.LocaleNG",
-                "Method":"Process"
-            },
-            "Image":
-            {
-                "Service":"View.HTML.Image",
                 "Method":"Process"
             }
         },
