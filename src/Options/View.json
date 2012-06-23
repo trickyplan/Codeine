@@ -71,6 +71,11 @@
             {
                 "Service":"View.HTML.LocaleNG",
                 "Method":"Process"
+            },
+            "Image":
+            {
+                "Service":"View.HTML.Image",
+                "Method":"Process"
             }
         },
         "afterRenderSlice":

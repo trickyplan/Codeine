@@ -56,6 +56,19 @@
             "Scope":"css",
             "Suffix":".css"
         },
+        "IMG":
+        {
+            "Driver":"IO.Storage.Directory",
+            "Directory":"Assets",
+            "Suffix":".png"
+        },
+        "IMG Cache":
+        {
+            "Driver":"IO.Storage.Directory",
+            "Directory":"Public",
+            "Scope":"images",
+            "Suffix":".png"
+        },
         "LESS":
         {
             "Driver":"IO.Storage.Directory",
