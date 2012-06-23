@@ -52,6 +52,15 @@
             {
                 "Mode": "Loginza"
             }
+        },
+        "/check":
+        {
+            "Service": "User.Validate",
+            "Method": "Do",
+            "Call":
+            {
+                "Key":"EMail"
+            }
         }
     }
 }
