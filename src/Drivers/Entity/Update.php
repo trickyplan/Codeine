@@ -46,6 +46,7 @@
                 {
                     $Widget['Entity'] = $Call['Entity'];
                     $Widget['Name'] = $Name;
+                    $Widget['ID'] = strtr($Name, '.','_');
 
                     // Если есть значение, добавляем
                     $Widget['Value'] = F::Dot($Call['Data'], $Name);
