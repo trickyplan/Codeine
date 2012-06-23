@@ -54,7 +54,10 @@
             "Service":"User.Activation",
             "Method":"Send",
             "Call":{
-                "Data": "$1"
+                "Data":
+                {
+                    "ID": "$1"
+                }
             }
         },
         "Auto API":

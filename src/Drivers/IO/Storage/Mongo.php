@@ -53,9 +53,11 @@
                 $Data = F::Dot($Data, $Key, $Value);
 
             if (isset($Call['Where']))
-                return $Call['Link']->$Call['Scope']->update($Call['Where'], array('$set' => $Data));
+                $Call['Link']->$Call['Scope']->update($Call['Where'], array('$set' => $Data));
             else
-                return $Call['Link']->$Call['Scope']->insert ($Data);
+                $Call['Link']->$Call['Scope']->insert ($Data);
+
+            return $Data;
         }
     });
 

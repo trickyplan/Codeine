@@ -9,7 +9,7 @@
 
     self::setFn('Send', function ($Call)
     {
-        $User = F::Run('Entity', 'Read', array('Entity' => 'User', 'Where' => $Call['Data']['ID']))[0];
+        $User = F::Run('Entity', 'Read', array('Entity' => 'User', 'Where' => (int) $Call['Data']['ID']))[0]; // FIXME
 
         $User['Code'] = F::Run('Security.UID.GUID', 'Get');
 
@@ -37,14 +37,14 @@
 
         F::Live($Call['Sender'], $Message);
 
-        list(,$Message['Server']) = explode('@', $Message['Scope']);
+        list(,$User['Server']) = explode('@', $User['EMail']);
 
         $Call['Output']['Content'] = array(
             array(
                 'Type'  => 'Template',
                 'Scope' => 'User',
                 'ID' => 'Activation/Needed',
-                'Data'  => $Message
+                'Data'  => $User
             )
         );
 
@@ -62,7 +62,7 @@
 
         if ($Activation !== false)
         {
-            F::Run('Entity', 'Update',
+            F::Run('Entity', 'Set',
                 array(
                      'Entity' => 'User',
                      'Where' => $Activation['User'],

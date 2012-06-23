@@ -58,7 +58,6 @@
         else
         {
              $Call = F::Hook('Authentification.Failed', $Call);
-
         }
 
         return $Call;

@@ -86,3 +86,14 @@
                   'Scope'   => $Call['Entity']
             ));
     });
+
+    self::setFn('Set', function ($Call)
+    {
+        $Call = F::Run(null, 'Load', $Call);
+
+        $Call['Scope'] = $Call['Entity'];
+
+        $Call['Data'] = F::Run('IO', 'Write', $Call);
+
+        return $Call['Data'];
+    });
