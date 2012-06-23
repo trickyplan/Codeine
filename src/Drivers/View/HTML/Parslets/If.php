@@ -15,18 +15,22 @@
 
             $Outer = '';
 
-            $Value = (int) $Root->attributes()->value;
+            $Value = (string) $Root->attributes()->value;
 
             $Decision = false;
 
-            if (null !== ($Eq = $Root->attributes()->eq) && $Value == $Eq)
-                $Decision = true;
+            if (null !== ($Eq = $Root->attributes()->eq))
+                $Decision = ($Value == $Eq);
 
-            if (null !== ($Lt = $Root->attributes()->lt) && $Value < $Lt)
-                $Decision = true;
+            if (null !== ($Neq = $Root->attributes()->neq))
+                $Decision = ($Value != $Neq);
 
-            if (null !== ($Gt = $Root->attributes()->gt) && $Value > $Gt)
-                $Decision = true;
+            if (null !== ($Lt = $Root->attributes()->lt))
+                $Decision = ($Value < $Lt);
+
+            if (null !== ($Gt = $Root->attributes()->gt))
+                $Decision = ($Value == $Gt);
+
 
             if ($Decision)
                 $Outer = $Call['Parsed'][2][$IX];
