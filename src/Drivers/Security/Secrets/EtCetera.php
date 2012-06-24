@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description EtCetera Loader 
      * @package Codeine
-     * @version 7.2
+     * @version 7.4.5
      */
 
     self::setFn ('Password', function ($Call)

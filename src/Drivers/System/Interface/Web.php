@@ -9,7 +9,7 @@
 
     self::setFn ('Run', function ($Call)
     {
-        $Call = F::Hook('beforeRun', $Call);
+        $Call = F::Hook('beforeInterfaceRun', $Call);
 
         if (!isset($Call['SkipRun']))
         {
@@ -37,7 +37,7 @@
             echo $Call['Output'];
         }
 
-        $Call = F::Hook('afterRun', $Call);
+        $Call = F::Hook('afterInterfaceRun', $Call);
 
         return $Call;
     });

@@ -9,7 +9,8 @@
 
     self::setFn('Process', function ($Call)
     {
-        $Call['Value'] = preg_replace('/\.{3}/', '&#8230;', $Call['Value']);
+        // TODO Realize "Process" function
+
 
         return $Call;
-     });
+    });

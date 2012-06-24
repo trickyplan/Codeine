@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description: Standart SHA1
      * @package Codeine
-     * @version 7.2
+     * @version 7.4.5
      * @date 22.11.10
      * @time 4:41
      */

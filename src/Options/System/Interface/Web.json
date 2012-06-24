@@ -16,7 +16,7 @@
     },
     "Hooks":
     {
-        "beforeRun":
+        "beforeInterfaceRun":
         {
             "Output Buffering":
             {
@@ -24,7 +24,7 @@
                 "Method": "Start"
             }
         },
-        "afterRun":
+        "afterInterfaceRun":
         {
             "Output Buffering":
             {

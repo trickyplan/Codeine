@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description: Фронт контроллер
      * @package Codeine
-     * @version 7.2
+     * @version 7.4.5
      * @date 31.08.11
      * @time 1:12
      */
@@ -32,6 +32,7 @@
             else
                 $Call = F::Hook('on404', $Call);
         }
+
 
         // А здесь - рендеринг
         $Call = F::Run('Code.Flow.Hook', 'Run', $Call, array ('On' => 'afterRun')); // JP afterRun
