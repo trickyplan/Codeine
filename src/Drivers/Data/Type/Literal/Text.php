@@ -9,7 +9,7 @@
 
     self::setFn('Write', function ($Call)
     {
-        return strip_tags($Call['Value'], '<b><i><u>'); // FIXME
+        return nl2br(strip_tags($Call['Value'], '<b><i><u>')); // FIXME
     });
 
     self::setFn('Read', function ($Call)
