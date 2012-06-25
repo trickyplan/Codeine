@@ -21,7 +21,7 @@
                     "Method": "Redirect",
                     "Call":
                     {
-                        "Location": "/cabinet"
+                        "Location": "/"
                     }
                 }
             }
