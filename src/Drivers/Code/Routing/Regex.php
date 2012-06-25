@@ -19,30 +19,33 @@
         $Decision = null;
         $Weight = 0;
 
-        foreach ($Call['Regex'] as $Name => $Rule)
-            if (preg_match ($Rule['Match'], $Call['Run'], $Matches))
-            {
-                $Rule = F::Map($Rule, function ($Key, &$Value) use ($Matches)
+        if (isset($Call['Regex']))
+            foreach ($Call['Regex'] as $Name => $Rule)
+                if (preg_match ($Rule['Match'], $Call['Run'], $Matches))
                 {
-                    if (is_scalar($Value) && substr($Value, 0, 1) == '$')
+                    $Rule = F::Map($Rule, function ($Key, &$Value) use ($Matches)
                     {
-                        if (isset($Matches[substr($Value, 1)]))
-                            $Value = $Matches[substr($Value, 1)];
+                        if (is_scalar($Value) && substr($Value, 0, 1) == '$')
+                        {
+                            if (isset($Matches[substr($Value, 1)]))
+                                $Value = $Matches[substr($Value, 1)];
+                        }
+                    });
+
+                    F::Log('Regex router rule '.$Name.' matched');
+
+                    if (!isset($Rule['Weight']))
+                        $Rule['Weight'] = 0;
+
+                    if ($Rule['Weight'] >= $Weight)
+                    {
+                        $Weight = $Rule['Weight'];
+                        $Decision = $Rule;
+                        $Selected = $Name;
                     }
-                });
-
-                F::Log('Regex router rule '.$Name.' matched');
-
-                if (!isset($Rule['Weight']))
-                    $Rule['Weight'] = 0;
-
-                if ($Rule['Weight'] >= $Weight)
-                {
-                    $Weight = $Rule['Weight'];
-                    $Decision = $Rule;
-                    $Selected = $Name;
                 }
-            }
+        else
+            die('Regex routes table corrupted'); // FIXME
 
         if (isset($Selected))
             F::Log('Regex router rule '.$Selected.' selected');

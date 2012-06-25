@@ -14,13 +14,18 @@
         if (strpos($Call['Run'], '?'))
             list($Call['Run']) = explode('?', $Call['Run']);
 
-        if (is_string($Call['Run']) && isset($Call['Links'][$Call['Run']]))
+        if (isset($Call['Links']))
         {
-            if (isset($Rule['Debug']) && $Rule['Debug'] === true)
-                d(__FILE__, __LINE__, $Rule);
+            if (is_string($Call['Run']) && isset($Call['Links'][$Call['Run']]))
+            {
+                if (isset($Rule['Debug']) && $Rule['Debug'] === true)
+                    d(__FILE__, __LINE__, $Rule);
 
-            return $Call['Links'][$Call['Run']];
+                return $Call['Links'][$Call['Run']];
+            }
         }
+        else
+            die('Static routes table corrupted'); // FIXME
 
         return null;
     });
