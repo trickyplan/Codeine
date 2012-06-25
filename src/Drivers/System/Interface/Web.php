@@ -14,9 +14,9 @@
         if (!isset($Call['SkipRun']))
         {
             if (isset($_FILES))
-                $Call['Request'] = F::Merge($_POST, $_FILES);
+                $Call['Request'] = F::Merge($_REQUEST, $_FILES);
             else
-                $Call['Request'] = $_POST;
+                $Call['Request'] = $_REQUEST;
 
             foreach ($Call['Request'] as $Key => $Value)
             {

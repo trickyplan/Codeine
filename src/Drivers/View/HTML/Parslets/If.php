@@ -22,15 +22,14 @@
             if (null !== ($Eq = $Root->attributes()->eq))
                 $Decision = ($Value == $Eq);
 
-            if (null !== ($Neq = $Root->attributes()->neq))
+            if (null !== ($Neq = (string)$Root->attributes()->neq))
                 $Decision = ($Value != $Neq);
 
-            if (null !== ($Lt = $Root->attributes()->lt))
+            if (null !== ($Lt = (string) $Root->attributes()->lt))
                 $Decision = ($Value < $Lt);
 
-            if (null !== ($Gt = $Root->attributes()->gt))
-                $Decision = ($Value == $Gt);
-
+            if (null !== ($Gt = (string) $Root->attributes()->gt))
+                $Decision = ($Value > $Gt);
 
             if ($Decision)
                 $Outer = $Call['Parsed'][2][$IX];

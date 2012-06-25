@@ -76,19 +76,23 @@
 
     self::setFn('Sort', function ($Call)
     {
+        $SortString = '';
+
         if (isset($Call['Sort']))
         {
-            $SortString = ' order by';
-
             $Conditions = array ();
 
-            foreach ($Call['Sort'] as $Key => $Direction)
-                $Conditions[] = $Call['Link']->real_escape_string($Key). '+0 '.($Direction == SORT_ASC? 'ASC': 'DESC');
 
-            $SortString = $SortString . ' ' . implode(',', $Conditions);
+            foreach ($Call['Sort'] as $Key => $Direction)
+                if (isset($Call['Nodes'][$Key]))
+                    $Conditions[] = $Call['Link']->real_escape_string($Key)
+                        .(is_numeric($Call['Nodes'][$Key])? '+0': '')
+                        .' '.($Direction == SORT_ASC? 'ASC': 'DESC');
+
+            if (sizeof($Conditions)>0)
+                $SortString = ' order by ' . implode(',', $Conditions);
         }
-        else
-            $SortString = '';
+
 
         return $SortString;
     });
