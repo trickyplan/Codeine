@@ -32,7 +32,7 @@
                 version="${release}"
                 maintainer="${maintainer}"
                 description="${description}"
-                depends="php5-fpm (>= 5.3) | php5-cli (>= 5.3)"
+                depends="php5-fpm (>= 5.4) | php5-cli (>= 5.4)"
                 homepage="${homepage}"
                 provides="${phing.project.name}"
                 filename="${package}/DEBIAN/control"
