@@ -20,7 +20,8 @@
         $Weight = 0;
 
         if (isset($Call['Regex']))
-            foreach ($Call['Regex'] as $Name => $Rule)
+            {
+                foreach ($Call['Regex'] as $Name => $Rule)
                 if (preg_match ($Rule['Match'], $Call['Run'], $Matches))
                 {
                     $Rule = F::Map($Rule, function ($Key, &$Value) use ($Matches)
@@ -44,6 +45,7 @@
                         $Selected = $Name;
                     }
                 }
+            }
         else
             die('Regex routes table corrupted'); // FIXME
 
