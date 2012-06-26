@@ -43,6 +43,19 @@
             "Format": "Formats.JSON",
             "Suffix":".json"
         },
+        "Image":
+        {
+            "Driver":"IO.Storage.Directory",
+            "Directory":"Assets",
+            "Suffix":".png"
+        },
+        "Image Cache":
+        {
+            "Driver":"IO.Storage.Directory",
+            "Directory":"Public",
+            "Scope":"images",
+            "Suffix":".png"
+        },
         "CSS":
         {
             "Driver":"IO.Storage.Directory",
@@ -55,19 +68,6 @@
             "Directory":"Public",
             "Scope":"css",
             "Suffix":".css"
-        },
-        "IMG":
-        {
-            "Driver":"IO.Storage.Directory",
-            "Directory":"Assets",
-            "Suffix":".png"
-        },
-        "IMG Cache":
-        {
-            "Driver":"IO.Storage.Directory",
-            "Directory":"Public",
-            "Scope":"images",
-            "Suffix":".png"
         },
         "LESS":
         {

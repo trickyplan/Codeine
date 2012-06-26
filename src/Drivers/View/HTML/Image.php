@@ -17,7 +17,7 @@
             list($Asset, $ID) = F::Run('View', 'Asset.Route', array ('Value' => $ImageFile));
 
             $Hash[] = $ImageFile .F::Run('IO', 'Execute', array (
-                'Storage' => 'IMG',
+                'Storage' => 'Image',
                 'Scope'   => $Asset.'/images',
                 'Execute' => 'Version',
                 'Where'   =>
@@ -31,7 +31,7 @@
         return F::Run('Security.Hash', 'Get', array('Value' => implode('', $Hash)));
     });
 
-    //Склеить имаги
+   // FIXME  Функцию Image.Join можно вытащить целиком в отдельный файл (Сделать универсальной без заточки на спрайты)
     self::setFn('Image.Join', function($Call)
     {
         //var_dump($Call['URLs']);
@@ -51,7 +51,7 @@
             list($Asset, $ID) = F::Run('View', 'Asset.Route', array('Value' => $ImageFile));
 
             $ImageSource = F::Run('IO', 'Read', array (
-                'Storage' => 'IMG',
+                'Storage' => 'Image',
                 'Scope'   => $Asset . '/images',
                 'Where'   => $ID
             ));
@@ -99,28 +99,28 @@
                 }
             }
 
-            if(!$MWidth&&!$MHeight)break;
+            if($MWidth==0||$MHeight==0)continue;
             //размер нужно будет просчитать зарание под количество картинок
             $SGImg->newimage( $MWidth,$MHeight,'black');
 
             $X = 0;
 
-            foreach($ImageHandle[$Sprite] as $imgInSprite )
+            foreach($ImageHandle[$Sprite] as $ImgInSprite )
             {
 
-                list($Asset, $ID) = F::Run('View', 'Asset.Route', array('Value' => (string)$imgInSprite['XML']->URL));
+                list($Asset, $ID) = F::Run('View', 'Asset.Route', array('Value' => (string)$ImgInSprite['XML']->URL));
 
                 $CSS.='.'.$Sprite.'-'.$ID.'{';
 
                 $CSS.='background:url(/images/'.$Hash.'.png) -'.$X.'px 0px;';
 
-                $CSS.='height:'.$imgInSprite['Gmagick']->getImageHeight().'px;';
+                $CSS.='height:'.$ImgInSprite['Gmagick']->getImageHeight().'px;';
 
-                $CSS.='width:'.$imgInSprite['Gmagick']->getImageWidth().'px;} ';
+                $CSS.='width:'.$ImgInSprite['Gmagick']->getImageWidth().'px;} ';
 
-                $SGImg = $SGImg->compositeimage($imgInSprite['Gmagick'],Gmagick::COMPOSITE_COPY,$X,0);
+                $SGImg = $SGImg->compositeimage($ImgInSprite['Gmagick'],Gmagick::COMPOSITE_COPY,$X,0);
 
-                $X+=$imgInSprite['Gmagick']->getImageWidth();
+                $X+=$ImgInSprite['Gmagick']->getImageWidth();
             }
 
             $SGImg->setImageFormat('png');
@@ -129,7 +129,7 @@
 
             F::Run ('IO', 'Write',
                 array(
-                    'Storage' => 'IMG Cache',
+                    'Storage' => 'Image Cache',
                     'Where'   => $Hash,
                     'Data' =>  $STR
                 ));
