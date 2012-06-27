@@ -41,7 +41,8 @@
                 if (null !== $Widget)
                 {
                     $Widget['Entity'] = $Call['Entity'];
-                    $Widget['Name'] = $Name;
+                    $Widget['Node'] = $Name;
+                    $Widget['Name'] = strtr($Name, '.','_');
                     $Widget['ID'] = strtr($Name, '.','_');
 
                     // Если есть значение, добавляем
