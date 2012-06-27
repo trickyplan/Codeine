@@ -67,6 +67,10 @@
                 {
                     F::Log('Rule «'.$Name.'» tested');
                 }
+
+                if(isset($Rule['Service']) && isset($Rule['Method']) && isset($Rule['Message']))
+                if (($Call['Service'] == $Rule['Run']['Service']) && ($Call['Method'] == $Rule['Run']['Method']))
+                    $Call['Message'] = $Rule['Message'];
             }
             else
                 F::Log('Rule «'.$Name.'» skipped ('.$Rule['Weight'].'<'.$Call['Weight'].')');

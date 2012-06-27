@@ -13,7 +13,7 @@
     {
         // В этом месте, практически всегда, происходит роутинг.
 
-        $Call = F::Run('Code.Flow.Hook', 'Run', $Call, array ('On' => 'beforeRun')); // JP beforeRun
+        $Call = F::Run('Code.Flow.Hook', 'Run', $Call, array ('On' => 'beforeApplicationRun')); // JP beforeRun
 
         // Если передан нормальный вызов, совершаем его
         if (!isset($Call['Output']))
@@ -35,7 +35,7 @@
 
 
         // А здесь - рендеринг
-        $Call = F::Run('Code.Flow.Hook', 'Run', $Call, array ('On' => 'afterRun')); // JP afterRun
+        $Call = F::Run('Code.Flow.Hook', 'Run', $Call, array ('On' => 'afterApplicationRun')); // JP afterRun
 
         return $Call;
     });
