@@ -1,6 +1,21 @@
 {
     "Regex":
     {
+        "Subcontrol with ID and Action":
+        {
+            "Match":"@^/control/(.*)/(.*)/(.*)/(.*)$@",
+            "Weight": 20,
+            "Service":"Control.Panel",
+            "Method":"Do",
+            "Zone": "Control",
+            "Call":
+            {
+                "Bundle": "$1",
+                "Option": "$2",
+                "Where": "$3",
+                "Action": "$4"
+            }
+        },
         "Subcontrol with ID":
         {
             "Match":"@^/control/(.*)/(.*)/(.*)$@",
@@ -65,6 +80,16 @@
             "Match": "@^/api/(.*)@",
             "Service":"$1",
             "Method":"Do"
+        },
+        "Error":
+        {
+            "Match": "@/error/(.*)@",
+            "Service": "Error.Page",
+            "Method": "Do",
+            "Call":
+            {
+                "Code": "$1"
+            }
         }
     }
 }

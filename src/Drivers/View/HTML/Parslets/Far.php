@@ -21,7 +21,7 @@
                               'Where'  => $ID));
 
                     if (!empty($Element))
-                        $Call['Output'] = str_replace($Call['Parsed'][0][$Ix], $Element[0][$Key],$Call['Output']);
+                        $Call['Output'] = str_replace($Call['Parsed'][0][$Ix], F::Dot($Element[0], $Key),$Call['Output']);
                     else
                         $Call['Output'] = str_replace($Call['Parsed'][0][$Ix], '' . $ID, $Call['Output']);
             }

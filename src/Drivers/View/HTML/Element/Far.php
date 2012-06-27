@@ -11,5 +11,5 @@
      {
          $Element = F::Run('Entity', 'Read', array('Entity' => $Call['Node']['Link']['Entity'], 'Where' => $Call['Value']));
 
-         return $Element[0][$Call['Node']['Link']['Key']];
+         return F::Dot($Element[0],$Call['Node']['Link']['Key']);
      });

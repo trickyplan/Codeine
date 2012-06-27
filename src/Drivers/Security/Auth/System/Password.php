@@ -29,6 +29,13 @@
             'Name' => 'Password'
         );
 
+        $Call['Output']['Form'][] = array(
+            'Type' => 'Form.Checkbox',
+            'Entity' => 'User',
+            'Name' => 'TTL',
+            'Value' => 'Long'
+        );
+
         return $Call;
     });
 
