@@ -19,12 +19,3 @@
         <input class="Pair_<k>Name</k>" id="<k>Name</k>2" type="password" <block>required="<k>Required</k>"</block> autocomplete="off" class="span4" value="" placeholder="Пароли должны совпадать"/>
     </div>
 </div>
-<jsrun>
-    $('form').submit(function()
-    {
-        if ($('#<k>Name</k>').val() != $('#<k>Name</k>2').val())
-            this.setCustomValidity('Пароли не совпадают');
-        else
-            this.setCustomValidity('');
-    })
-</jsrun>
