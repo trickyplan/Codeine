@@ -468,7 +468,7 @@
 
         public static function Get ($Key)
         {
-            return isset(self::$_Storage[$Key]) ? self::$_Storage[$Key]: null;
+            return (isset(self::$_Storage[$Key]) ? self::$_Storage[$Key]: null);
         }
 
         public static function Speed()
