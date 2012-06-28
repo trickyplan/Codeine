@@ -103,6 +103,12 @@
              ));
     });
 
+    self::setFn('SID', function ($Call)
+    {
+        $Call = F::Run(null, 'Audit', $Call);
+        return $Call['SID'];
+    });
+
     self::setFn('Username', function ($Call)
     {
         $Call = F::Run(null, 'Audit', $Call);
