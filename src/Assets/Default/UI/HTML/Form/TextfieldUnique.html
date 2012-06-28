@@ -26,7 +26,10 @@
                 },
                 success: function (data)
                 {
-                     eld.setCustomValidity(data);
+                     if(data)
+                        eld.setCustomValidity('');
+                    else
+                        eld.setCustomValidity('Занято');
                 }
             }
             );
