@@ -17,5 +17,8 @@ $.tools.validator.fn("[data-unique]", "Занято", function(input) {
             }
         );
 
+    if(input.attr('value') == input.attr('data-value'))
+        result = true;
+
     return result;
 });
