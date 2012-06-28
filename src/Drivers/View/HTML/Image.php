@@ -46,7 +46,7 @@
         foreach($Call['URLs'] as $Key=>$ImageFile)
         {
 
-            $UniqueSprite[$Key] = (string)$Call['XML'][$Key]->Sprite;
+            $UniqueSprite[$Key] = (string)($Call['XML'][$Key]->Sprite?$Call['XML'][$Key]->Sprite:'MainSprite');
 
             list($Asset, $ID) = F::Run('View', 'Asset.Route', array('Value' => $ImageFile));
 
@@ -105,23 +105,34 @@
 
             $X = 0;
 
+            $FlagDebug = $Call['DebugLayouts'];
+
+            $Call['DebugLayouts'] = null;
+
             foreach($ImageHandle[$Sprite] as $ImgInSprite )
             {
 
                 list($Asset, $ID) = F::Run('View', 'Asset.Route', array('Value' => (string)$ImgInSprite['XML']->URL));
 
-                $CSS.='.'.$Sprite.'-'.$ID.'{';
-
-                $CSS.='background:url(/images/'.$Hash.'.png) -'.$X.'px 0px;';
-
-                $CSS.='height:'.$ImgInSprite['Gmagick']->getImageHeight().'px;';
-
-                $CSS.='width:'.$ImgInSprite['Gmagick']->getImageWidth().'px;} ';
+                $CSS.=F::Run ('View', 'LoadParsed', $Call,
+                    array(
+                         'Scope' => isset($Call['Scope'])? $Call['Scope']: 'Default',
+                         'ID'    => 'UI/HTML/Sprite',
+                         'Data'  => array(
+                             "Sprite"=>$Sprite,
+                             "Image"=>$ID,
+                             "Path"=>$Hash,
+                             "XPos"=>$X,
+                             "Height"=>$ImgInSprite['Gmagick']->getImageHeight(),
+                             "Width"=>$ImgInSprite['Gmagick']->getImageWidth()
+                         )
+                    ));
 
                 $SGImg = $SGImg->compositeimage($ImgInSprite['Gmagick'],Gmagick::COMPOSITE_COPY,$X,0);
 
                 $X+=$ImgInSprite['Gmagick']->getImageWidth();
             }
+            $Call['DebugLayouts'] = $FlagDebug;
 
             $SGImg->setImageFormat('png');
 
