@@ -1,7 +1,7 @@
 <div class="control-group">
     <label class="control-label" for="<k>Name</k>"> <l><k>Entity</k>.<k>Name</k></l> :</label>
     <div class="controls">
-        <input id="<k>Name</k>" type="<k>Subtype</k>" name="<k>Name</k>" class="span4"
+        <input data-value="<k>Value</k>" data-unique="<k>Name</k>" id="<k>Name</k>" type="<k>Subtype</k>" name="<k>Name</k>" class="span4"
         <block>required="<k>Required</k>"</block>
         <block>placeholder="<k>Placeholder</k>"</block>
         <block>pattern="<k>Regex</k>"</block>
@@ -9,26 +9,4 @@
         />
     </div>
 </div>
-<jsrun>
-    $('#<k>Name</k>').keyup(function()
-    {
-        var el = $(this);
-        var eld = this;
-
-        $.ajax(
-            {
-                url: '/check',
-                type: 'post',
-                data:
-                {
-                    Key: '<k>Name</k>',
-                    Value: el.attr('value')
-                },
-                success: function (data)
-                {
-                     eld.setCustomValidity(data);
-                }
-            }
-            );
-    })
-</jsrun>
+<js>jquery.tools:unique</js>

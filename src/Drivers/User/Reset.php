@@ -22,11 +22,11 @@
             list($Call['User']) = $Call['User'];
             $NewPassword = F::Live($Call['Password']['Generator']);
 
-            F::Run('Entity', 'Update',
+            F::Run('Entity', 'Set',
                 array(
                      'Entity' => 'User',
                      'Where'  => $Call['User']['ID'],
-                     'Data' => array ('Password' => $NewPassword)
+                     'Data' => array ('Password' => sha1($NewPassword)) // FIXME
                 ));
 
             $Message['Scope'] = $Call['User']['EMail'];

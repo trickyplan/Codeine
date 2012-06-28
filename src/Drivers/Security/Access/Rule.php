@@ -44,6 +44,7 @@
 
     self::setFn('Check', function ($Call)
     {
+
         foreach ($Call['Rules'] as $Name => $Rule)
         {
             if (isset($Rule['Debug']))
@@ -67,6 +68,10 @@
                 {
                     F::Log('Rule «'.$Name.'» tested');
                 }
+
+                if (isset($Rule['Run']['Service']) && isset($Rule['Run']['Method']) && isset($Rule['Message']))
+                    if (($Call['Service'] == $Rule['Run']['Service']) && ($Call['Method'] == $Rule['Run']['Method']))
+                        $Call['Message'] = $Rule['Message'];
             }
             else
                 F::Log('Rule «'.$Name.'» skipped ('.$Rule['Weight'].'<'.$Call['Weight'].')');

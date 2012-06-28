@@ -1,6 +1,6 @@
 {
     "Hooks":{
-        "beforeRun":
+        "beforeApplicationRun":
         {
             "Audit":
             {
@@ -13,7 +13,7 @@
                 "Method": "Check"
             }
         },
-        "afterRun":{
+        "afterApplicationRun":{
             "Rendering":
             {
                 "Service":"View",
