@@ -1,4 +1,4 @@
-$.tools.validator.fn("[data-unique]", "Занято", function(input) {
+$.tools.validator.fn("[data-unique]", {ru: "Занято"}, function(input) {
     var result;
     $.ajax(
             {
