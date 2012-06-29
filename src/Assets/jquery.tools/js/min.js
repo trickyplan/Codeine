@@ -856,7 +856,7 @@
         },
         messages: {
             "*": {
-                en: "Please correct this value"
+                en: "Введите корректное значение"
             }
         },
         localize: function (b, a) {
@@ -977,12 +977,14 @@ $(document).ready(
   function ()
   {
       $.tools.validator.localize("ru", {
+          '*'			: 'Введите корректные данные',
           ':email'  		: 'Введите корректный e-mail',
           ':number' 		: 'Введите число',
           '[max]'	 		: 'Не больше $1 символов',
           '[min]'	 		: 'Не меньше $1 символов',
           '[required]' 	: 'Поле обязательное',
-          '[data-unique]': 'Занято'
+          '[data-unique]': 'Занято',
+          '[data-equals]': 'Поля не совпадают'
       });
   }
 );
