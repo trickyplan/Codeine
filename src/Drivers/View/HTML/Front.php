@@ -9,12 +9,11 @@
 
     self::setFn('Layouts', function ($Call)
     {
-
         if (!isset($Call['Layouts']))
             $Call['Layouts'] = array();
 
         if (isset($Call['Zone']))
-            $Call['Layouts'][] = array('Scope' => $Call['Zone'], 'ID' => 'Zone');
+            array_unshift($Call['Layouts'], array('Scope' => $Call['Zone'], 'ID' => 'Zone'));
 
         if (F::isCall($Call))
         {
@@ -26,10 +25,10 @@
 
             $IDs = array('Main');
             for ($ic = 1; $ic < $sz; $ic++)
-                $IDs[] = implode('/', array_slice($Slices, 1, $ic));
+                $IDs[$ic] = implode('/', array_slice($Slices, 1, $ic));
 
             foreach ($IDs as $ID)
-               array_unshift($Call['Layouts'], array ('Scope' => $Asset, 'ID'    => $ID));
+                array_unshift($Call['Layouts'], array ('Scope' => $Asset, 'ID'    => $ID));
         }
 
         return $Call;

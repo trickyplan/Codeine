@@ -1,8 +1,8 @@
-Welcome to the Codeine 7.2 Release!
+Welcome to the Codeine 7.4 Release!
 
 RELEASE INFORMATION
 ---------------
-Codeine 7.2 Release.
+Codeine 7.4 Release.
 Released on Feb 20, 2011.
 
 NEW FEATURES
@@ -13,7 +13,7 @@ New Codeine structure.
 SYSTEM REQUIREMENTS
 -------------------
 
-Codeine requires PHP 5.3.5 or later.
+Codeine requires PHP 5.4 or later.
 
 INSTALLATION
 ------------
