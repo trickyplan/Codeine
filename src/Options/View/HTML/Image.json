@@ -2,5 +2,7 @@
     "Caching":
     {
         "Enabled": true
-    }
+    },
+    "OutputFormat":"png"
+
 }

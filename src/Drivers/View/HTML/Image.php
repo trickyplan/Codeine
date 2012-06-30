@@ -11,7 +11,7 @@
     {
 
         $Hash = array ();
-        //var_Dump($Call['IDs']);
+
         foreach ($Call['IDs'] as $ImageFile)
         {
             list($Asset, $ID) = F::Run('View', 'Asset.Route', array ('Value' => $ImageFile));
@@ -27,7 +27,7 @@
             ));
 
         }
-       // var_Dump(F::Run('Security.Hash', 'Get', array('Value' => implode('', $Hash))));
+
         return F::Run('Security.Hash', 'Get', array('Value' => implode('', $Hash)));
     });
 
@@ -65,8 +65,6 @@
                 $Width = (int)($Call['XML'][$Key]->Width?$Call['XML'][$Key]->Width:$GImg->getImageWidth());
 
                 $Height = (int)($Call['XML'][$Key]->Height?$Call['XML'][$Key]->Height:$GImg->getImageHeight());
-
-                //var_dump($Width,$Height);
 
                 $GImg->resizeImage($Width, $Height, null, 1);
 
@@ -124,7 +122,8 @@
                              "Path"=>$Hash,
                              "XPos"=>$X,
                              "Height"=>$ImgInSprite['Gmagick']->getImageHeight(),
-                             "Width"=>$ImgInSprite['Gmagick']->getImageWidth()
+                             "Width"=>$ImgInSprite['Gmagick']->getImageWidth(),
+                             "OutputFormat"=>$Call['OutputFormat']
                          )
                     ));
 
@@ -134,10 +133,10 @@
             }
             $Call['DebugLayouts'] = $FlagDebug;
 
-            $SGImg->setImageFormat('png');
+            $SGImg->setImageFormat($Call['OutputFormat']);
 
             $STR = $SGImg->getImageBlob();
-            //var_dump($Hash);
+
             F::Run ('IO', 'Write',
                 array(
                     'Storage' => 'Image Cache',
@@ -169,21 +168,20 @@
 
             foreach($UniqueParse as $Key=>$XMLObject)
             {
-               // var_dump($XMLObject);
+
                 $ImgXML[$Key]= simplexml_load_string($XMLObject);
 
                 if(!isset($ImgXML[$Key]->Sprite))$ImgXML[$Key]->Sprite = 'MainSprite';
 
                 $URLs[$Key] = (string)$ImgXML[$Key]->URL;
-                //Временное решение
+
                 $Sprite[(string)($ImgXML[$Key]->Sprite)][] = $URLs[$Key];
-                //F::Run(null, 'Hash', array('IDs' => array((string)$ImgXML[$Key]->URL)));
 
             }
 
             //Массив спрайто в (общем случае один если у всех картинок группа одна была)
             foreach($Sprite as $Key=>$Images){
-                //var_dump($Key,$Images);
+
                 if ((isset($Call['Caching']['Enabled'])
                     && $Call['Caching']['Enabled'])
                     && F::Run('IO', 'Execute', array ('Storage' => 'Image Cache',
@@ -191,7 +189,7 @@
                         'Where'    => array ('ID' =>F::Run(null, 'Hash', array('IDs' => array($Key))))))
                 )
                 {
-                    //die('fsa');
+                    //echo 'From Cache';
                 }else{
 
                     $SpriteGroups = F::Run(null, 'Image.Join', array('XML' => $ImgXML,'URLs'=>$Images));
@@ -204,9 +202,9 @@
 
                 }
             }
-            //die('df');
+
             foreach($ImgXML as $Key=>$val){
-                //Если есть в кеше ничего не делать
+
                 $ImageFile = $URLs[$Key];
 
                 list($Asset, $ID) = F::Run('View', 'Asset.Route', array('Value' => $ImageFile));
