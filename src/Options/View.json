@@ -42,6 +42,11 @@
                 "Service":"View.HTML.Minify",
                 "Method":"Process"
             },
+            "Image":
+            {
+                "Service":"View.HTML.Image",
+                "Method":"Process"
+            },
             "CSS":
             {
                 "Service":"View.HTML.CSSTag",
@@ -50,11 +55,6 @@
             "JS":
             {
                 "Service":"View.HTML.JSTag",
-                "Method":"Process"
-            },
-            "Image":
-            {
-                "Service":"View.HTML.Image",
                 "Method":"Process"
             },
             "Meta":
