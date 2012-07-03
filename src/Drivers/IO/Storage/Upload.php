@@ -21,7 +21,7 @@
 
             move_uploaded_file($Call['Value']['tmp_name'], Root . '/' . $Call['Directory'] . '/' . $Call['Scope'] . '/' . $Name);
 
-            return $Call['Directory'].'/'.$Name;
+            return $Call['Directory'].'/'.$Call['Scope'].'/'.$Name;
         }
         else
             return null;
