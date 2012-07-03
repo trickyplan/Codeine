@@ -20,6 +20,16 @@
 
     self::setFn ('Read', function ($Call)
     {
+        foreach ($Call['Where'] as $Key => &$Value) // FIXME Повысить уровень абстракции
+            if (isset($Call['Nodes'][$Key]['Type']))
+            {
+                if (is_array($Value))
+                    foreach ($Value as $Relation => &$cValue)
+                        $cValue = F::Run('Data.Type.'.$Call['Nodes'][$Key]['Type'], 'Read', array('Value' => $cValue));
+                else
+                    $Value = F::Run('Data.Type.'.$Call['Nodes'][$Key]['Type'], 'Read', array('Value' => $Value));
+            }
+
         if (isset($Call['Where']))
             $Cursor = $Call['Link']->$Call['Scope']->find($Call['Where']);
         else
