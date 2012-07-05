@@ -10,6 +10,6 @@ $(function()
                 link = $('a[rel="next"]').attr('href')
             break;
         }
-        if (link) document.location = link;
+        if (link !== undefined) document.location = link;
     });
 });
