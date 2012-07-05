@@ -90,9 +90,11 @@
     {
         $URL = $Call['Location'];
 
-        if (preg_match_all('/\$(\S+)/', $URL, $Vars))
+        if (preg_match_all('@\$([\.\w]+)@', $URL, $Vars))
+        {
             foreach ($Vars[0] as $IX => $Key)
                 $URL = str_replace($Key, F::Dot($Call,$Vars[1][$IX]) , $URL);
+        }
 
         $Call['Headers']['Location:'] = $URL;
 

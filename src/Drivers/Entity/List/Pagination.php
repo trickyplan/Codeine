@@ -44,7 +44,8 @@
                 'EPP' => $Call['EPP'],
                 'Page' => $Call['Page'],
                 'PageURL' => $Call['PageURL'],
-                'PageCount' => $Call['PageCount']
+                'PageCount' => $Call['PageCount'],
+                'PageURLPostfix' => isset($Call['PageURLPostfix'])? $Call['PageURLPostfix']: ''
             );
 
         return $Call;

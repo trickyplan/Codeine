@@ -10,7 +10,6 @@
     self::setFn('Make', function ($Call)
     {
         $Output = '';
-
         if ($Call['Page']> 1)
             $Output.= F::Run('View', 'LoadParsed',
                 array('Scope' => 'Default',
@@ -18,7 +17,9 @@
                       'Data' =>
                         array(
                             'Num' => $Call['Page']-1,
-                            'URL' => $Call['PageURL'])));
+                            'URL' => $Call['PageURL'],
+                            'PageURLPostfix' => $Call['PageURLPostfix'],
+                        )));
 
         for ($ic = 1; $ic <= $Call['PageCount']; $ic++)
             $Output.= F::Run('View', 'LoadParsed',
@@ -27,7 +28,8 @@
                       'Data' =>
                         array(
                             'Num' => $ic,
-                            'URL' => $Call['PageURL'])));
+                            'URL' => $Call['PageURL'],
+                            'PageURLPostfix' => $Call['PageURLPostfix'])));
 
         if ($Call['Page']< $Call['PageCount'])
             $Output.= F::Run('View', 'LoadParsed',
@@ -36,7 +38,8 @@
                       'Data' =>
                         array(
                             'Num' => $Call['Page']+1,
-                            'URL' => $Call['PageURL'])));
+                            'URL' => $Call['PageURL'],
+                            'PageURLPostfix' => $Call['PageURLPostfix'])));
 
         return F::Run('View', 'LoadParsed', array('Scope' => 'Default', 'ID' => 'UI/HTML/Paginator', 'Data' => array($Call, 'Pages' => $Output)));
      });

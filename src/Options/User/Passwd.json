@@ -1,0 +1,35 @@
+{
+    "Hooks":
+    {
+
+    },
+    "Output":
+    {
+        "Content":
+        {
+            "Form":
+            {
+                "Type": "Form"
+            }
+        },
+        "Form":
+        {
+            "Old":
+            {
+                "Entity": "User",
+                "Type": "Form.Password",
+                "Mode": "One",
+                "Name": "OldPassword",
+                "Node": "OldPassword"
+            },
+            "New":
+            {
+                "Entity": "User",
+                "Type": "Form.Password",
+                "Name": "NewPassword",
+                "Node": "NewPassword"
+            }
+
+        }
+    }
+}
