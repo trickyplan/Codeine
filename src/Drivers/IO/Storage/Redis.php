@@ -37,7 +37,8 @@
                 $Call['Link']->del($Call['Scope'].$Call['Where']['ID']);
             else
             {
-                $Call['Link']->set($Call['Scope'].$Call['Where']['ID'], F::Merge(F::Run(null, 'Read', $Call)[0], $Call['Data']), $Call['TTL']);
+                $Call['Data'] = F::Merge(F::Run(null, 'Read', $Call)[0], $Call['Data']);
+                $Call['Link']->set($Call['Scope'].$Call['Where']['ID'], $Call['Data'], $Call['TTL']);
             }
         }
         else

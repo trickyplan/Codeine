@@ -31,9 +31,10 @@
             else
                 $Node['Default'] = F::Live($Node['Default']);
 
-            foreach ($Call['Data'] as &$Element)
-                if (!isset($Element[$Name]) or empty($Element[$Name]))
-                    $Element[$Name] = $Node['Default']; // FIXME Add flag
+            if (isset($Call['Data']))
+                foreach ($Call['Data'] as &$Element)
+                    if (!isset($Element[$Name]) or empty($Element[$Name]))
+                        $Element[$Name] = $Node['Default']; // FIXME Add flag
         }
 
         return $Call;

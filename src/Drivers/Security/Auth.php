@@ -42,6 +42,7 @@
                     $Call['Session']['User'] = $User;
                 }
             }
+
         }
 
         return $Call;

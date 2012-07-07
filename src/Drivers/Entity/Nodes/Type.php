@@ -33,20 +33,21 @@
     {
         foreach ($Call['Nodes'] as $Name => $Node)
             if (isset($Node['Type']))
-                foreach ($Call['Data'] as &$Element)
-                {
-                    $Element[$Name] = F::RunN ($Element[$Name], 'Value',
-                                [
-                                    'Service' => 'Data.Type.'.$Node['Type'],
-                                    'Method' => 'Read',
-                                    'Call' => [
-                                        'Entity' => $Call['Entity'],
-                                        'Name' => $Name,
-                                        'Node' => $Node,
-                                        'Data' => $Element,
-                                        'Value' => null]
-                                ]);
-                }
+                if(isset($Call['Data']))
+                    foreach ($Call['Data'] as &$Element)
+                    {
+                        $Element[$Name] = F::RunN ($Element[$Name], 'Value',
+                                    [
+                                        'Service' => 'Data.Type.'.$Node['Type'],
+                                        'Method' => 'Read',
+                                        'Call' => [
+                                            'Entity' => $Call['Entity'],
+                                            'Name' => $Name,
+                                            'Node' => $Node,
+                                            'Data' => $Element,
+                                            'Value' => null]
+                                    ]);
+                    }
 
         return $Call;
     });

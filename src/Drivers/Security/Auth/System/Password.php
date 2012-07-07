@@ -39,7 +39,7 @@
         return $Call;
     });
 
-    self::setFn('Authentificate', function ($Call)
+    self::setFn('Authenticate', function ($Call)
     {
         $Call['User'] = F::Run('Entity', 'Read',
                      array(

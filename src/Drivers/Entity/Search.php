@@ -30,7 +30,8 @@
         // d(__FILE__, __LINE__, $IDs);
 
         $Call['Locales'][] = $Call['Entity'];
-        $Call['Output']['Content'][] = '<h2 class="page-header"><l>'.$Call['Entity'].'.Entity</l></h2>';
+        $Call['Output']['Content'][] = '<div class="clearfix">&nbsp;</div>
+<h2 class="page-header"><l>'.$Call['Entity'].'.Entity</l></h2>'; // FIXME
 
         if (!empty($IDs) && null !== $IDs)
             $Call = F::Run('Entity.List', 'Do', $Call,

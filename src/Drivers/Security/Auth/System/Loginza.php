@@ -13,7 +13,7 @@
         return $Call;
     });
 
-    self::setFn('Authentificate', function ($Call)
+    self::setFn('Authenticate', function ($Call)
     {
         $Response = json_decode(F::Run('IO', 'Read',
          array(

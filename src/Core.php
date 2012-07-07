@@ -347,22 +347,15 @@
                 if (strpos($Key, '.') !== false)
                 {
                     $Keys = explode('.', $Key);
+                    $Key = array_shift($Keys);
 
-                    $Tail = &$Array;
+                    if (!isset($Array[$Key]))
+                        $Array[$Key] = [];
 
-                    foreach ($Keys as $iKey)
-                    {
-                        if (!isset($Tail[$iKey]))
-                           $Tail[$iKey] = [];
-
-                        $Tail = &$Tail[$iKey];
-                    }
-
-                    $Tail = $Value;
+                    $Array[$Key] = F::Dot($Array[$Key], implode('.', $Keys), $Value);
                 }
                 else
                     $Array[$Key] = $Value;
-
 
                 return $Array;
             }
