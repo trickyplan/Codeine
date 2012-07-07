@@ -13,21 +13,30 @@
         {
             foreach ($Call['Parsed'][0] as $IX => $Match)
             {
-                $Root = simplexml_load_string($Match);
+                $Root = simplexml_load_string('<forkey'.$Call['Parsed'][1][$IX].'></forkey>');
 
                 $Output = '';
 
                 $Key = (string) $Root->attributes()->key;
 
+                $Data = F::Dot($Call['Data'], $Key);
+
                 foreach ($Call['Data'][$Key] as $KeyIndex => $Value)
                 {
                     $Output[$KeyIndex] = $Call['Parsed'][2][$IX];
+
+                    $Value['#'] = $KeyIndex;
+
+                    if (preg_match_all('/<subvalue/>/SsUu', $Output[$KeyIndex], $Pockets))
+                        $Output[$KeyIndex] = str_replace($Pockets[0][1], $Value, $Output[$KeyIndex]);
 
                     if (preg_match_all('/<subk>(.*)<\/subk>/SsUu', $Output[$KeyIndex], $Pockets))
                     {
                         foreach ($Pockets[1] as $IC => $Subkey)
                             if (($Data = F::Dot($Value, $Subkey))!== null)
                                 $Output[$KeyIndex] = str_replace($Pockets[0][$IC], $Data, $Output[$KeyIndex]);
+                            else
+                                $Output[$KeyIndex] = str_replace($Pockets[0][$IC], 0, $Output[$KeyIndex]);
                     }
                 }
 

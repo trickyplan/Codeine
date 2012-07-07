@@ -7,6 +7,11 @@
             "Service": "View.Parser.Layout",
             "Method": "Parse"
         },
+        "Forkey":
+        {
+            "Service": "View.Parser.Forkey",
+            "Method": "Parse"
+        },
         "Call":
         {
             "Service": "View.Parser.Call",
