@@ -49,6 +49,8 @@
                     $Widget['Name'] = strtr($Name, '.','_');
                     $Widget['ID'] = strtr($Name, '.','_');
 
+                    $Widget = F::Merge($Node, $Widget);
+
                     // Если есть значение, добавляем
                     $Widget['Value'] = F::Dot($Call['Data'], $Name);
 
