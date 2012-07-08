@@ -48,6 +48,14 @@
             )
         );
 
+        if (isset($Call['Second']))
+            $Call['Output']['Message'][] =
+                array(
+                    'Type'  => 'Block',
+                    'Class' => 'alert alert-success',
+                    'Value'  => 'Письмо выслано повторно'
+                );
+
         return $Call;
     });
 
