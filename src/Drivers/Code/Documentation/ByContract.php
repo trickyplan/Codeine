@@ -11,18 +11,17 @@
     {
         $Call['Locales'][] = 'Code/Documentation:ByContract';
 
-        $Call['Contract'] = F::loadOptions('Security.Hash.MD5')['Get'];
-        $Call['Contract']['Service'] = 'Security.Hash.MD5';
-        $Call['Contract']['Method'] = 'Get';
+        $Call['Contract'] = F::loadOptions($Call['Doc']['Service'], $Call['Doc']['Method']);
 
-        foreach ($Call['Contract']['Example'] as $Example)
+        foreach ($Call['Contract']['Example'] as $Name => $Example)
         {
             $Args = array();
-            foreach ($Example['Call'] as $Key => $Value)
-                $Args[] = "'".$Key."' => '".$Value."'";
-
-            $Call['Contract']['Code'] =
-                "F::Run('".$Call['Contract']['Service']."', '".$Call['Contract']['Method']."', array(".implode(',', $Args).")";
+            $Call['Contract']['Code'][] = '<h4>'.$Name.'</h4>'.
+highlight_string("<?php
+    F::Run('".$Call['Doc']['Service']."', '".$Call['Doc']['Method']."',
+".var_export($Example['Call'], true).');
+?>
+    '.$Example['Result'], true);
 
         }
 

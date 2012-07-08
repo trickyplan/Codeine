@@ -1,11 +1,6 @@
 {
     "Links":
     {
-        "/md5":
-        {
-            "Service":"Code.Documentation.ByContract",
-            "Method":"Do"
-        },
         "/":
         {
             "Service":"Test.View",

@@ -30,6 +30,25 @@
                     if (preg_match_all('/<subvalue/>/SsUu', $Output[$KeyIndex], $Pockets))
                         $Output[$KeyIndex] = str_replace($Pockets[0][1], $Value, $Output[$KeyIndex]);
 
+                    if (preg_match_all('@<block>(.*)<subk>(.*)<\/subk>(.*)<\/block>@SsUu', $Output[$KeyIndex], $Pockets))
+                    {
+
+                        foreach ($Pockets[2] as $IC => $Subkey)
+                            if (($Data = F::Dot($Value, $Subkey))!== null)
+                            {
+                                $SubOutput = '';
+                                $Data = (array) $Data;
+
+                                foreach ($Data as $SubData)
+                                    $SubOutput.= $Pockets[1][$IX].$SubData.$Pockets[3][$IX];
+
+                                $Output[$KeyIndex] = str_replace($Pockets[0][$IC], $SubOutput, $Output[$KeyIndex]);
+
+                            }
+                            else
+                                $Output[$KeyIndex] = str_replace($Pockets[0][$IC], '', $Output[$KeyIndex]);
+                    }
+
                     if (preg_match_all('/<subk>(.*)<\/subk>/SsUu', $Output[$KeyIndex], $Pockets))
                     {
                         foreach ($Pockets[1] as $IC => $Subkey)

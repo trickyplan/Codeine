@@ -407,18 +407,24 @@
             return self::$_Log[] = array(round(microtime(true) - self::$_Speed[0], 4), $Message, $Type);
         }
 
-        public static function loadOptions($Service = null)
+        public static function loadOptions($Service = null, $Method = null)
         {
             $Service = ($Service == null)? self::$_Service: $Service;
+            $Method = ($Method == null)? self::$_Method: $Method;
 
-            if (!isset(self::$_Options[$Service]))
+            // Если контракт уже не загружен
+            if (!isset(self::$_Options[$Service][$Method]))
             {
                 $Options = array();
 
+                    $ServicePath = strtr($Service, '.', '/');
+
                     if ($Filenames = self::findFiles (
                         array(
-                             'Options/'.strtr($Service, '.', '/').'.'.self::$_Environment.'.json',
-                             'Options/'.strtr($Service, '.', '/').'.json'
+                             'Options/'.$ServicePath.'.'.self::$_Environment.'.json',
+                             'Options/'.$ServicePath.'.json',
+                             'Options/'.$ServicePath.'/'.$Method.'.'.self::$_Environment.'.json',
+                             'Options/'.$ServicePath.'/'.$Method.'.json',
                         )
                     ))
                     {

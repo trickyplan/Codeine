@@ -90,6 +90,22 @@
             {
                 "Code": "$1"
             }
+        },
+        "Auto Doc":
+        {
+            "Match": "@^/docs/(.*)/(.*)@",
+            "Service":"Code.Documentation.ByContract",
+            "Method":"Do",
+            "Call":
+            {
+                "Doc":
+                {
+                    "Service": "$1",
+                    "Method": "$2"
+                }
+            }
         }
+
+
     }
 }

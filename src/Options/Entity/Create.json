@@ -1,4 +1,52 @@
 {
+    "Pure":false,
+    "Description":{
+        "ru_RU":"Создаёт объект в Хранилище из предоставленных данных, соответственно модели."
+    },
+    "Wiki":["ORM","Проблемно-ориентированное_проектирование"],
+    "Call":{
+        "Entity":
+        {
+            "Description":
+            {
+                "ru_RU":"Идентификатор модели"
+            },
+            "Type":"Literal.String",
+            "Required":true
+        },
+        "Data":
+        {
+            "Description":
+            {
+                "ru_RU":"Данные для создания объекта"
+            },
+            "Required": true,
+            "Type":"Array.Associative"
+        }
+    },
+    "Result":
+    {
+        "Type":"Array.Associative",
+        "Description":
+        {
+            "ru_RU":"Возвращает ассоциативный массив, в том виде, в котором он был записан, после обработки хуками и фильтрами"
+        }
+    },
+    "Example":
+    {
+        "Создание новой страницы":
+        {
+            "Call":
+            {
+                "Entity": "Page",
+                "Data":
+                {
+                    "Title": "Заголовок",
+                    "Body": "Тело страницы"
+                }
+            }
+        }
+    },
     "Purpose": "Create",
     "FormLayout": "Full",
     "Hooks":
