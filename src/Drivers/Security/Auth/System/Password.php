@@ -15,11 +15,11 @@
             'Type' => 'Form',
             'Action' => '/auth' //FIXME
         );
-
         $Call['Output']['Form'][] = array(
             'Type' => 'Form.Textfield',
             'Entity' => 'User',
-            'Name' => $Call['Determinant']
+            'Name' => $Call['Determinant'],
+            'Value' => isset($_COOKIE['Determinant'])? $_COOKIE['Determinant']: ''
         );
 
         $Call['Output']['Form'][] = array(

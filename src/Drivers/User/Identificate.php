@@ -9,5 +9,7 @@
 
     self::setFn('Do', function ($Call)
     {
+        $Call = F::Hook('beforeIdentificate', $Call);
+
         return $Call;
     });

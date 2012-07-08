@@ -1,15 +1,18 @@
 {
     "Hooks":
     {
-        "onSuccess":
+        "Annulate":
         {
-            "Redirect":
+            "Success":
             {
-                "Service": "System.Interface.Web",
-                "Method": "Redirect",
-                "Call":
+                "Redirect":
                 {
-                    "Location": "/"
+                    "Service": "System.Interface.Web",
+                    "Method": "Redirect",
+                    "Call":
+                    {
+                        "Location": "/"
+                    }
                 }
             }
         }

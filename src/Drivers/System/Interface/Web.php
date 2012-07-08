@@ -24,6 +24,7 @@
                 $Call['Request'][strtr($Key, '_','.')] = $Value;
             }
 
+            $Call['Cookie'] = $_COOKIE;
             $Call['Run'] = urldecode($_SERVER['REQUEST_URI']);
 
             $Call = F::Run($Call['Service'], $Call['Method'], $Call);
