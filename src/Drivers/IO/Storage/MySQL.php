@@ -25,7 +25,7 @@
     {
         $Query = F::Run('IO.Storage.MySQL.Syntax', 'Read', $Call);
 
-        if (null === ($Data = F::Get($Query)))
+        //if (null === ($Data = F::Get($Query)))
         {
             F::Log($Query);
 
@@ -41,8 +41,8 @@
 
             F::Set($Query, $Data);
         }
-        else
-            F::Log($Query.' memoized!'); // FIXME
+        /*else
+            F::Log($Query.' memoized!'); // FIXME*/
 
         return $Data;
     });

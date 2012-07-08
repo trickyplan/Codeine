@@ -35,8 +35,8 @@
             if (isset($Node['Type']))
                 if(isset($Call['Data']))
                     foreach ($Call['Data'] as &$Element)
-                    {
-                        $Element[$Name] = F::RunN ($Element[$Name], 'Value',
+                        if (isset($Element[$Name]))
+                            $Element[$Name] = F::RunN ($Element[$Name], 'Value',
                                     [
                                         'Service' => 'Data.Type.'.$Node['Type'],
                                         'Method' => 'Read',
@@ -47,7 +47,6 @@
                                             'Data' => $Element,
                                             'Value' => null]
                                     ]);
-                    }
 
         return $Call;
     });

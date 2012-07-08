@@ -25,7 +25,7 @@
             if ($Call['Session'] == null)
                 $Call['Session'] = F::Run(null, 'Register', $Call);
 
-            if (isset($Call['Session']['User']) && !empty($Call['Session']['User']))
+            if (isset($Call['Session']['User']) && !empty($Call['Session']['User']) && $Call['Session']['User'] !== 0)
             {
                 if($Call['Session']['Expire'] < time())
                 {
@@ -42,9 +42,7 @@
                     $Call['Session']['User'] = $User;
                 }
             }
-
         }
-
         return $Call;
     });
 
