@@ -17,6 +17,7 @@
                                 'Entity' => $Call['Entity'],
                                 'Name' => $Name,
                                 'Node' => $Node,
+                                'Purpose' => $Call['Purpose'],
                                 'Data' => $Call['Data'],
                                 'Value' => $Call['Data'][$Name]
                             ]);

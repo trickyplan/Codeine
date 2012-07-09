@@ -30,7 +30,11 @@
             "Datatypes":
             {
                 "Service":"Entity.Nodes.Type",
-                "Method":"Write"
+                "Method":"Write",
+                "Call":
+                {
+                    "Purpose": "Create"
+                }
             },
             "Filter":
             {
@@ -62,7 +66,11 @@
             "Datatypes":
             {
                 "Service":"Entity.Nodes.Type",
-                "Method":"Write"
+                "Method":"Write",
+                "Call":
+                {
+                    "Purpose": "Update"
+                }
             },
             "Make variables alive":
             {

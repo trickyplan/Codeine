@@ -327,10 +327,12 @@
                 {
                     $NewFullKey = is_numeric($Key)? $FullKey.'#': $FullKey.'.'.$Key;
 
-                    $Fn($Key, $Value, $Data, $NewFullKey);
+                    $Fn($Key, $Value, $Data, $NewFullKey, $Array);
 
                     if (is_array ($Value))
-                        $Value = self::Map ($Value, $Fn, $Data, $NewFullKey);
+                        $Array[$Key] = self::Map ($Value, $Fn, $Data, $NewFullKey, $Array);
+                    else
+                        $Array[$Key] = $Value;
                 }
             else
                 $Array = $Fn('', $Array, $Data, $FullKey);
@@ -399,6 +401,15 @@
 
         public static function Error($errno , $errstr , $errfile , $errline , $errcontext)
         {
+            if (isset(self::$_Options['Project']['Airbrake']))
+            {
+                $Airbrake = curl_init('http://one2tool.local/airbrake');
+                curl_setopt_array($Airbrake, [
+                    CURLOPT_POST => true,
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_POSTFIELDS => json_encode(['Report' => ['Message' => $errstr]])]);
+                echo curl_exec($Airbrake);
+            }
             return F::Log($errstr.' '.$errfile.'@'.$errline, 'Error');
         }
 

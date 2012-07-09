@@ -29,10 +29,20 @@
                 else
                     $Value = F::Run('Data.Type.'.$Call['Nodes'][$Key]['Type'], 'Read', array('Value' => $Value));
             }
+
         if (isset($Call['Where']))
             $Cursor = $Call['Link']->$Call['Scope']->find($Call['Where']);
         else
             $Cursor = $Call['Link']->$Call['Scope']->find();
+
+        if (isset($Call['Fields']))
+        {
+            $Fields = array();
+            foreach ($Call['Fields'] as $Field)
+                $Fields[$Field] = true;
+
+            $Cursor->fields($Fields);
+        }
 
         if ($Cursor->count()>0)
             foreach ($Cursor as $cCursor)
