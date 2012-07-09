@@ -20,7 +20,7 @@
 
     self::setFn('Write', function ($Call)
     {
-        $Call['Headers'] = array ('From' => $Call['From'], 'To' => $Call['To'], 'Subject' => $Call['ID']);
+        $Call['Headers'] = array ('From' => $Call['From'],'To' => $Call['Scope'].' <'.$Call['Scope'].'>', 'Subject' => $Call['ID']);
 
         $mime = new Mail_mime("\n");
 
