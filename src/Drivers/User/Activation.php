@@ -79,8 +79,6 @@
                                 )
                 ));
 
-            F::Run('Security.Auth', 'Attach', array('User' => $Activation['User']));
-
             F::Run('IO', 'Write',
                 array(
                      'Storage' => 'Activation',
