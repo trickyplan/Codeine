@@ -22,7 +22,7 @@
              $Call['Name'] .= '[]';
 
          foreach ($Call['Options'] as $Key => $Value)
-             if(in_array($Value, (array) $Call['Value']))
+             if(in_array($Key, (array) $Call['Value']))
                  $Options[] = '<option value="'.$Key.'" selected>'.$Value.'</option>';
              else
                  $Options[] = '<option value="' . $Key . '">' . $Value . '</option>';
