@@ -18,7 +18,6 @@
             else
                 $Thumb['Default'] = $Call['Default'];
 
-            if (is_string($Thumb['URL']))
             {
                 if (preg_match('/^http.*/', $Thumb['URL']))
                 {
