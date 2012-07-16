@@ -40,7 +40,6 @@
                                             $Call['Entity'].'ID' => $Call['Data']['ID']
                                         )
                                ));
-
         $Result = array();
 
         foreach ($Data as $Row)

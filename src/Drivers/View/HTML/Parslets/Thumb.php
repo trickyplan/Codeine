@@ -18,21 +18,24 @@
             else
                 $Thumb['Default'] = $Call['Default'];
 
-            if (preg_match('/^http.*/', $Thumb['URL']))
+            if (is_string($Thumb['URL']))
             {
-                $Filename = $Thumb['URL'];
-            }
-            else
-            {
-                $Filename = Root . '/' . $Thumb['URL'];
-
-                if (!is_file($Filename) or is_dir($Filename))
+                if (preg_match('/^http.*/', $Thumb['URL']))
                 {
-                    if (preg_match('/^http.*/', $Thumb['Default']))
-                        $Filename = $Thumb['Default'];
-                    else
-                        $Filename = F::findFile($Thumb['Default']);
-                } // FIXME Конфиг
+                    $Filename = $Thumb['URL'];
+                }
+                else
+                {
+                    $Filename = Root . '/' . $Thumb['URL'];
+
+                    if (!is_file($Filename) or is_dir($Filename))
+                    {
+                        if (preg_match('/^http.*/', $Thumb['Default']))
+                            $Filename = $Thumb['Default'];
+                        else
+                            $Filename = F::findFile($Thumb['Default']);
+                    } // FIXME Конфиг
+                }
             }
 
             //crop and resize the image

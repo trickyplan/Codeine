@@ -36,18 +36,17 @@
             if (isset($Node['Type']))
                 if(isset($Call['Data']))
                     foreach ($Call['Data'] as &$Element)
-                        if (isset($Element[$Name])) // FIXME Dot
-                            $Element[$Name] = F::RunN ($Element[$Name], 'Value',
-                                    [
-                                        'Service' => 'Data.Type.'.$Node['Type'],
-                                        'Method' => 'Read',
-                                        'Call' => [
-                                            'Entity' => $Call['Entity'],
-                                            'Name' => $Name,
-                                            'Node' => $Node,
-                                            'Data' => $Element,
-                                            'Value' => null]
-                                    ]);
+                        $Element[$Name] = F::RunN ($Element[$Name], 'Value',
+                                [
+                                    'Service' => 'Data.Type.'.$Node['Type'],
+                                    'Method' => 'Read',
+                                    'Call' => [
+                                        'Entity' => $Call['Entity'],
+                                        'Name' => $Name,
+                                        'Node' => $Node,
+                                        'Data' => $Element,
+                                        'Value' => null]
+                                ]);
 
         return $Call;
     });

@@ -72,7 +72,10 @@
         if ($Call['Link']->errno != 0)
             F::Log($Call['Link']->error,'Error');
 
-        return $Call['Data'];
+        if (isset($Call['Data']))
+            return $Call['Data'];
+        else
+            return null;
     });
 
     self::setFn ('Close', function ($Call)

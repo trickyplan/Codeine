@@ -408,7 +408,7 @@
                     CURLOPT_POST => true,
                     CURLOPT_RETURNTRANSFER => true,
                     CURLOPT_POSTFIELDS => json_encode(['Report' => ['Message' => $errstr]])]);
-                echo curl_exec($Airbrake);
+                curl_exec($Airbrake);
             }
             return F::Log($errstr.' '.$errfile.'@'.$errline, 'Error');
         }
