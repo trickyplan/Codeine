@@ -27,7 +27,6 @@
             if (isset($Node['Default']))
             {
                 $Node['Default'] = F::Live($Node['Default']);
-
                 if (isset($Call['Data']))
                     foreach ($Call['Data'] as &$Element)
                         if (!isset($Element[$Name]) or empty($Element[$Name]))

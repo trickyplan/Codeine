@@ -32,21 +32,21 @@
 
     self::setFn('Read', function ($Call)
     {
-        foreach ($Call['Nodes'] as $Name => $Node)
-            if (isset($Node['Type']))
-                if(isset($Call['Data']))
+        if(isset($Call['Data']))
+            foreach ($Call['Nodes'] as $Name => $Node)
+                if (isset($Node['Type']))
                     foreach ($Call['Data'] as &$Element)
-                        $Element[$Name] = F::RunN ($Element[$Name], 'Value',
-                                [
-                                    'Service' => 'Data.Type.'.$Node['Type'],
-                                    'Method' => 'Read',
-                                    'Call' => [
-                                        'Entity' => $Call['Entity'],
-                                        'Name' => $Name,
-                                        'Node' => $Node,
-                                        'Data' => $Element,
-                                        'Value' => null]
-                                ]);
-
+                        if (isset($Element[$Name]) or isset($Node['External'])) // FIXME Dot
+                            $Element[$Name] = F::RunN ($Element[$Name], 'Value',
+                                    [
+                                        'Service' => 'Data.Type.'.$Node['Type'],
+                                        'Method' => 'Read',
+                                        'Call' => [
+                                            'Entity' => $Call['Entity'],
+                                            'Name' => $Name,
+                                            'Node' => $Node,
+                                            'Data' => $Element,
+                                            'Value' => null]
+                                    ]);
         return $Call;
     });
