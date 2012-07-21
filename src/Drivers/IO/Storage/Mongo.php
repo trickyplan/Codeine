@@ -44,6 +44,13 @@
             $Cursor->fields($Fields);
         }
 
+        if (isset($Call['Sort']))
+            foreach($Call['Sort'] as $Key => $Direction)
+                $Cursor->sort(array($Key => ($Direction == SORT_ASC? 1: -1)));
+
+        if (isset($Call['Limit']))
+            $Cursor->limit($Call['Limit']['To']-$Call['Limit']['From'])->skip($Call['Limit']['From']);
+
         if ($Cursor->count()>0)
             foreach ($Cursor as $cCursor)
             {

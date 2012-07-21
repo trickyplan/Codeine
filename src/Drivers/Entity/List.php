@@ -14,8 +14,12 @@
 
         $Elements = F::Run('Entity', 'Read', $Call);
 
-        $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Main');
-        $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'List');
+        if (!isset($Call['NoEntityLayouts']))
+        {
+            $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Main');
+            $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'List');
+        }
+
         $Call['Locales'][] = $Call['Entity'];
 
         if (!isset($Call['Selected']))
@@ -29,6 +33,10 @@
                 'ID' => 'Empty'
             );
         else
+        {
+            if (isset($Call['Reverse']))
+                $Elements = array_reverse($Elements, true);
+
             foreach ($Elements as $IX => $Element)
             {
                 if (!isset($Element['ID']))
@@ -43,8 +51,10 @@
                         'Data'  => $Element
                     );
             }
+        }
 
         $Call = F::Hook('afterList', $Call);
 
         return $Call;
     });
+

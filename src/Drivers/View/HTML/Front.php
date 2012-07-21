@@ -12,9 +12,6 @@
         if (!isset($Call['Layouts']))
             $Call['Layouts'] = array();
 
-        if (isset($Call['Zone']))
-            array_unshift($Call['Layouts'], array('Scope' => $Call['Zone'], 'ID' => 'Zone'));
-
         if (F::isCall($Call))
         {
             $Slices = explode('.', $Call['Service']);
@@ -30,6 +27,9 @@
             foreach ($IDs as $ID)
                 array_unshift($Call['Layouts'], array ('Scope' => $Asset, 'ID'    => $ID));
         }
+
+        if (isset($Call['Zone']))
+            array_unshift($Call['Layouts'], array('Scope' => $Call['Zone'], 'ID' => 'Zone'));
 
         return $Call;
      });

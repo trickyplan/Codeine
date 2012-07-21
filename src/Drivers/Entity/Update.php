@@ -19,8 +19,12 @@
     {
         $Call = F::Hook('beforeUpdateGet', $Call);
 
-        $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Main');
-        $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Update');
+        if (!isset($Call['NoEntityLayouts']))
+        {
+            $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Main');
+            $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Update');
+        }
+
         $Call['Locales'][] = $Call['Entity'];
 
         // Загрузить предопределённые данные и умолчания

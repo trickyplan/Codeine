@@ -36,8 +36,8 @@
             foreach ($Call['Nodes'] as $Name => $Node)
                 if (isset($Node['Type']))
                     foreach ($Call['Data'] as &$Element)
-                        if (isset($Element[$Name]) or isset($Node['External'])) // FIXME Dot
-                            $Element[$Name] = F::RunN ($Element[$Name], 'Value',
+                        if (F::Dot($Element, $Name) != null or isset($Node['External']))
+                            $Element = F::Dot($Element, $Name, F::RunN ($Element[$Name], 'Value',
                                     [
                                         'Service' => 'Data.Type.'.$Node['Type'],
                                         'Method' => 'Read',
@@ -47,6 +47,6 @@
                                             'Node' => $Node,
                                             'Data' => $Element,
                                             'Value' => null]
-                                    ]);
+                                    ]));
         return $Call;
     });

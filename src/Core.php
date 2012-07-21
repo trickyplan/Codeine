@@ -455,6 +455,11 @@
                         }
                     }
 
+
+                    if (isset($Options['Mixins']))
+                        foreach($Options['Mixins'] as $Mixin)
+                            $Options = F::Merge($Options, F::loadOptions($Mixin));
+
                     self::$_Options[$Service] = $Options;
             }
 

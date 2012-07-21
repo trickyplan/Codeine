@@ -18,8 +18,12 @@
     {
         $Call = F::Hook('beforeCreateGet', $Call);
 
-        $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Main');
-        $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Create');
+        if (!isset($Call['NoEntityLayouts']))
+        {
+            $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Main');
+            $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Create');
+        }
+
         $Call['Locales'][] = $Call['Entity'];
 
         // Загрузить предопределённые данные и умолчания

@@ -29,12 +29,21 @@
             $Iterator  = new RecursiveIteratorIterator($Directory);
             $Regex     = new RegexIterator($Iterator, '/'.$Prefix.'(.+)'.$Postfix.'$/i', RecursiveRegexIterator::GET_MATCH);
 
+            $DirSz = strlen(Root.'/'.$Path);
+
             $Data = array();
 
             foreach($Regex as $File)
             {
                 $Pathinfo = pathinfo($File[0]);
-                $Data[$Pathinfo['filename']] = file_get_contents($File[0]);
+
+                if (($Pathinfo['filename'] != '') && ($Pathinfo['filename'] != '.'))
+                {
+                    $Path = substr($Pathinfo['dirname'], $DirSz);
+
+                    $ID = $Path.'.'.$Pathinfo['filename'];
+                    $Data[] = $ID;
+                }
             }
 
             return $Data;

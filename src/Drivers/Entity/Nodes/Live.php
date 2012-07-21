@@ -13,16 +13,32 @@
         {
             $Run = null;
 
-            if (isset($Node[$Call['Purpose']]))
-                $Run = $Node[$Call['Purpose']];
-            elseif (isset($Node['Write']))
-                $Run = $Node['Write'];
-
-            if (null !== $Run)
+            switch ($Call['Purpose'])
             {
-                if (!isset($Node['User Override']) || !isset($Call['Data'][$Name]))
-                    $Call['Data'][$Name] = F::Live($Run, $Call);
+                case 'Read':
+                    if (isset($Node[$Call['Purpose']]))
+                    {
+                        $Run = $Node[$Call['Purpose']];
+                        foreach($Call['Data'] as &$Element)
+                            $Element = F::Live($Run, ['Data' => $Element, 'Name' => $Name, 'Node' => $Node]);
+                    }
+
+
+                break;
+
+                default:
+                    if (isset($Node[$Call['Purpose']]))
+                        $Run = $Node[$Call['Purpose']];
+                    elseif (isset($Node['Write']))
+                        $Run = $Node['Write'];
+
+                    if (null !== $Run)
+                        if (!isset($Node['User Override']) || !isset($Call['Data'][$Name]))
+                            $Call['Data'][$Name] = F::Live($Run, $Call);
+
+                break;
             }
+
         }
 
         return $Call;

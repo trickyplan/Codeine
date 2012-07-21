@@ -14,5 +14,6 @@
 
     self::setFn('Read', function ($Call)
     {
+        $Call['Node']['Options'] = F::Live($Call['Node']['Options']);
         return $Call['Node']['Options'][(int) $Call['Value']];
     });
