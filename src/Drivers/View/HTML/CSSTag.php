@@ -33,7 +33,7 @@
     {
         $CSS = array();
 
-        $ImageGenerateCSS = "";
+        $ImageGenerateCSS = '';
 
         if(preg_match_all('@<style(.*)>(.*)<\/style>@SsUu', $Call['Output'], $StyleTags))
         {

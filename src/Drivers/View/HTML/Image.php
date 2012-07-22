@@ -41,7 +41,7 @@
 
         $ImageHandle = array();
 
-        $CSS = "";
+        $CSS = '';
         //Идем по картинкам
         foreach($Call['URLs'] as $Key=>$ImageFile)
         {
