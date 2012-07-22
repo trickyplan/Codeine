@@ -31,11 +31,31 @@
 
     self::setFn ('Process', function ($Call)
     {
+        $CSS = array();
+
+        $ImageGenerateCSS = "";
+
+        if(preg_match_all('@<style(.*)>(.*)<\/style>@SsUu', $Call['Output'], $StyleTags))
+        {
+            foreach($StyleTags[2] as $Key=>$CSSStyle){
+
+                if(trim($StyleTags[1][$Key])=='type="text/css-generate"')
+                        $ImageGenerateCSS = $CSSStyle;
+                    else
+                        $CSS[] = $CSSStyle;
+            }
+
+            $Call['Output'] = str_replace($StyleTags[0], '', $Call['Output']);
+
+        }
+
         if (preg_match_all ('@<css>(.*)<\/css>@SsUu', $Call['Output'], $Parsed))
         {
             $Parsed[1] = array_unique($Parsed[1]);
 
-            $CSSHash = F::Run(null, 'Hash', array('IDs' => $Parsed[1]));
+            $CSSHash = F::Run(null, 'Hash', array('IDs' => $Parsed[1])).sha1(implode('',$CSS));
+
+            $CSS[] = $ImageGenerateCSS;
 
                 if ((isset($Call['Caching']['Enabled'])
                     && $Call['Caching']['Enabled'])
@@ -48,7 +68,6 @@
                 }
                 else
                 {
-                    $CSS = array();
 
                     foreach ($Parsed[1] as $CSSFile)
                     {

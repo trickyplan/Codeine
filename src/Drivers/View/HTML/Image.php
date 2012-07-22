@@ -34,7 +34,7 @@
    // FIXME  Функцию Image.Join можно вытащить целиком в отдельный файл (Сделать универсальной без заточки на спрайты)
     self::setFn('Image.Join', function($Call)
     {
-        //var_dump($Call['URLs']);
+
         $UniqueSprite = array();
 
         $SpriteHandle = array();
@@ -55,7 +55,7 @@
                 'Scope'   => $Asset . '/images',
                 'Where'   => $ID
             ));
-            //var_dump( $ImageSource);
+
             if(isset($ImageSource[0]))
             {
                 $GImg = new Gmagick(); //readimageblob
@@ -66,13 +66,11 @@
 
                 $Height = (int)($Call['XML'][$Key]->Height?$Call['XML'][$Key]->Height:$GImg->getImageHeight());
 
-                //var_dump($Width,$Height);
-
                 $GImg->resizeImage($Width, $Height, null, 1);
 
                 $ImageHandle[(string)$Call['XML'][$Key]->Sprite][] =  array('Gmagick'=>$GImg,'XML'=>$Call['XML'][$Key]);
             }
-            //var_dump( $Imagick);
+
             //Загрузить картинку сделать из нее источник записать создать
         }
 
@@ -124,7 +122,8 @@
                              "Path"=>$Hash,
                              "XPos"=>$X,
                              "Height"=>$ImgInSprite['Gmagick']->getImageHeight(),
-                             "Width"=>$ImgInSprite['Gmagick']->getImageWidth()
+                             "Width"=>$ImgInSprite['Gmagick']->getImageWidth(),
+                             "OutputFormat"=>$Call['OutputFormat']
                          )
                     ));
 
@@ -134,7 +133,7 @@
             }
             $Call['DebugLayouts'] = $FlagDebug;
 
-            $SGImg->setImageFormat('png');
+            $SGImg->setImageFormat($Call['OutputFormat']);
 
             $STR = $SGImg->getImageBlob();
 
@@ -147,15 +146,13 @@
 
             $SpriteHandle[] = $SGImg;
         }
-        //var_dump($css);
-       // var_dump($UniqueSprite);
+
         //возврат названий спрайтов
         return array('UniqueSprite'=>$UniqueSprite,'SpriteHandel'=>$SpriteHandle,'css'=>$CSS);
     });
     //Точка входа
     self::setFn ('Process', function ($Call)
     {
-        //var_dump(debug_backtrace());
         //Поиск xml вставки в буфере
 
         if (preg_match_all ('@<image>(.*)<\/image>@SsUu', $Call['Output'], $Parsed))
@@ -163,7 +160,7 @@
 
             $UniqueParse =  array_unique($Parsed[0]);
 
-            $ImageHash = array();
+            $Sprite = array();
 
             $ImgXML =array();
 
@@ -171,75 +168,46 @@
 
             foreach($UniqueParse as $Key=>$XMLObject)
             {
-                   // var_dump($XMLObject);
-                    $ImgXML[$Key]= simplexml_load_string($XMLObject);
 
-                    if(!isset($ImgXML[$Key]->Sprite))$ImgXML[$Key]->Sprite = 'MainSprite';
+                $ImgXML[$Key]= simplexml_load_string($XMLObject);
 
-                    $URLs[$Key] = (string)$ImgXML[$Key]->URL;
-                    //Временное решение
-                    $ImageHash[$Key] = F::Run(null, 'Hash', array('IDs' => array((string)$ImgXML[$Key]->URL)));
+                if(!isset($ImgXML[$Key]->Sprite))$ImgXML[$Key]->Sprite = 'MainSprite';
+
+                $URLs[$Key] = (string)$ImgXML[$Key]->URL;
+
+                $Sprite[(string)($ImgXML[$Key]->Sprite)][] = $URLs[$Key];
+
             }
+
             //Массив спрайто в (общем случае один если у всех картинок группа одна была)
+            foreach($Sprite as $Key=>$Images){
 
-            $SpriteGroups = F::Run(null, 'Image.Join', array('XML' => $ImgXML,'URLs'=>$URLs));
+                if ((isset($Call['Caching']['Enabled'])
+                    && $Call['Caching']['Enabled'])
+                    && F::Run('IO', 'Execute', array ('Storage' => 'Image Cache',
+                        'Execute'  => 'Exist',
+                        'Where'    => array ('ID' =>F::Run(null, 'Hash', array('IDs' => array($Key))))))
+                )
+                {
+                    //echo 'From Cache';
+                }else{
 
-            if($Parsed[0][0]&&$SpriteGroups['css']){
+                    $SpriteGroups = F::Run(null, 'Image.Join', array('XML' => $ImgXML,'URLs'=>$Images));
 
-                $Call['Output'] =
-                    str_replace($Parsed[0][0], '<style>'.$SpriteGroups['css'].'</style>'.$Parsed[0][0], $Call['Output']);
+                    if($Parsed[0][0]&&$SpriteGroups['css'])
+                        $Call['Output'] =
+                            str_replace($Parsed[0][0], '<style type="text/css-generate">'.$SpriteGroups['css'].'</style>'.$Parsed[0][0], $Call['Output']);
 
+
+
+                }
             }
 
             foreach($ImgXML as $Key=>$val){
-                //Если есть в кеше ничего не делать
+
                 $ImageFile = $URLs[$Key];
+
                 list($Asset, $ID) = F::Run('View', 'Asset.Route', array('Value' => $ImageFile));
-
-                /*if ((isset($Call['Caching']['Enabled'])
-                    && $Call['Caching']['Enabled'])
-                    && F::Run('IO', 'Execute', array ('Storage' => 'IMG Cache',
-                        'Execute'  => 'Exist',
-                        'Where'    => array ('ID' => $ImageHash[$key])))
-                )
-                {
-                    //die('hash is load');
-                }
-                else
-                {
-                    //die('ds');
-                    $IMG = array();
-
-                   // foreach ($URLs as $ImageFile)
-                    //{
-                            //var_dump($ImageFile);
-                        //Возврат разбитого значения $Asset каталог и $ID имя файлика затребованного
-
-                        //var_dump($Asset);
-                        if ($ImageSource = F::Run('IO', 'Read', array (
-                            'Storage' => 'IMG',
-                            'Scope'   => $Asset . '/images',
-                            'Where'   => $ID
-                        )))
-                        {
-                            //header("Content-type: image/png");
-                            //die($ImageSource[0]);
-                           //var_dump($ImageSource);
-                            F::Log('IMG loaded: '.$ImageFile);
-                            $IMG[] = $ImageSource[0];
-                        }
-                        else
-                            trigger_error('No IMG: '.$ImageFile); // FIXNE
-                  //  }
-                    //Сохраняет под именем хеша файлики
-                    F::Run ('IO', 'Write',
-                        array(
-                            'Storage' => 'IMG Cache',
-                            'Where'   => $ImageHash[$key],
-                            'Data' =>  $IMG
-                        ));
-
-                }*/
 
                 $Call['Output'] =
                     str_replace($UniqueParse[$Key],
