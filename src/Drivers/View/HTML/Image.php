@@ -15,9 +15,9 @@
         foreach ($Call['IDs'] as $ImageFile)
         {
             list($Asset, $ID) = F::Run('View', 'Asset.Route', array ('Value' => $ImageFile));
-          //  var_dump($ID);
+
             $Hash[] = $ImageFile .F::Run('IO', 'Execute', array (
-                'Storage' => 'IMG',
+                'Storage' => 'Image',
                 'Scope'   => $Asset.'/images',
                 'Execute' => 'Version',
                 'Where'   =>
@@ -27,184 +27,196 @@
             ));
 
         }
-        //var_dump(F::Run('Security.Hash', 'Get', array('Value' => implode('', $Hash))));
+
         return F::Run('Security.Hash', 'Get', array('Value' => implode('', $Hash)));
     });
 
-    //Склеить имаги
-    self::setFn('Image.Join', function($Call){
-        //die('ds');
-        $UniqueSprite = array();
-        $SpriteHandel = array();
-        $ImageHandel = array();
-        $css = "";
-        //Идем по картинкам
-        foreach($Call['URLs'] as $key=>$ImageFile){
+   // FIXME  Функцию Image.Join можно вытащить целиком в отдельный файл (Сделать универсальной без заточки на спрайты)
+    self::setFn('Image.Join', function($Call)
+    {
 
-            $UniqueSprite[$key] = (string)$Call['XML'][$key]->Sprite;
+        $UniqueSprite = array();
+
+        $SpriteHandle = array();
+
+        $ImageHandle = array();
+
+        $CSS = '';
+        //Идем по картинкам
+        foreach($Call['URLs'] as $Key=>$ImageFile)
+        {
+
+            $UniqueSprite[$Key] = (string)($Call['XML'][$Key]->Sprite?$Call['XML'][$Key]->Sprite:'MainSprite');
 
             list($Asset, $ID) = F::Run('View', 'Asset.Route', array('Value' => $ImageFile));
 
             $ImageSource = F::Run('IO', 'Read', array (
-                'Storage' => 'IMG',
+                'Storage' => 'Image',
                 'Scope'   => $Asset . '/images',
                 'Where'   => $ID
             ));
-            $ImageSource = $ImageSource[0];
-            //var_dump( $ImageSource);
-            if($ImageSource){
+
+            if(isset($ImageSource[0]))
+            {
                 $GImg = new Gmagick(); //readimageblob
-                $GImg->readimageblob( $ImageSource);
-                $ImageHandel[(string)$Call['XML'][$key]->Sprite][] =  array('Gmagick'=>$GImg,'XML'=>$Call['XML'][$key]);
+
+                $GImg->readimageblob($ImageSource[0]);
+
+                $Width = (int)($Call['XML'][$Key]->Width?$Call['XML'][$Key]->Width:$GImg->getImageWidth());
+
+                $Height = (int)($Call['XML'][$Key]->Height?$Call['XML'][$Key]->Height:$GImg->getImageHeight());
+
+                $GImg->resizeImage($Width, $Height, null, 1);
+
+                $ImageHandle[(string)$Call['XML'][$Key]->Sprite][] =  array('Gmagick'=>$GImg,'XML'=>$Call['XML'][$Key]);
             }
-            //var_dump( $Imagick);
+
             //Загрузить картинку сделать из нее источник записать создать
         }
+
         $UniqueSprite =  array_unique($UniqueSprite);
 
-        foreach($UniqueSprite as $sprite){
+        foreach($UniqueSprite as $Sprite)
+        {
             $SGImg = new Gmagick();
             //Подсчет
-            $hash = F::Run(null, 'Hash', array('IDs' => array($sprite)));
+            $Hash = F::Run(null, 'Hash', array('IDs' => array($Sprite)));
 
-            $mwidth = 0; $mheight=0;
-            foreach($ImageHandel[$sprite] as $imgInSprite ){
-                $mwidth+= $imgInSprite['Gmagick']->getImageWidth();
-                if( $mheight<$imgInSprite['Gmagick']->getImageHeight()){
-                    $mheight=$imgInSprite['Gmagick']->getImageHeight();
+            $MWidth = 0;
+
+            $MHeight = 0;
+
+            foreach($ImageHandle[$Sprite] as $imgInSprite )
+            {
+                $MWidth+= $imgInSprite['Gmagick']->getImageWidth();
+
+                if( $MHeight<$imgInSprite['Gmagick']->getImageHeight())
+                {
+
+                    $MHeight=$imgInSprite['Gmagick']->getImageHeight();
                 }
             }
-            if(!$mwidth&&!$mheight)break;
+
+            if($MWidth==0||$MHeight==0)continue;
             //размер нужно будет просчитать зарание под количество картинок
-            $SGImg->newimage( $mwidth,$mheight,'black');
+            $SGImg->newimage( $MWidth,$MHeight,'black');
 
-            $x = 0;
-            foreach($ImageHandel[$sprite] as $imgInSprite ){
-               list($Asset, $ID) = F::Run('View', 'Asset.Route', array('Value' => (string)$imgInSprite['XML']->URL));
-               $css.='.'.$sprite.'-'.$ID.'{';
-               $css.='background:url(/images/'.$hash.'.png) -'.$x.'px 0px;';
-               $css.='height:'.$imgInSprite['Gmagick']->getImageHeight().'px;';
-               $css.='width:'.$imgInSprite['Gmagick']->getImageWidth().'px;} ';
+            $X = 0;
 
-               $SGImg = $SGImg->compositeimage($imgInSprite['Gmagick'],Gmagick::COMPOSITE_COPY,$x,0);
+            $FlagDebug = $Call['DebugLayouts'];
 
-               $x+=$imgInSprite['Gmagick']->getImageWidth();
+            $Call['DebugLayouts'] = null;
+
+            foreach($ImageHandle[$Sprite] as $ImgInSprite )
+            {
+
+                list($Asset, $ID) = F::Run('View', 'Asset.Route', array('Value' => (string)$ImgInSprite['XML']->URL));
+
+                $CSS.=F::Run ('View', 'LoadParsed', $Call,
+                    array(
+                         'Scope' => isset($Call['Scope'])? $Call['Scope']: 'Default',
+                         'ID'    => 'UI/HTML/Sprite',
+                         'Data'  => array(
+                             "Sprite"=>$Sprite,
+                             "Image"=>$ID,
+                             "Path"=>$Hash,
+                             "XPos"=>$X,
+                             "Height"=>$ImgInSprite['Gmagick']->getImageHeight(),
+                             "Width"=>$ImgInSprite['Gmagick']->getImageWidth(),
+                             "OutputFormat"=>$Call['OutputFormat']
+                         )
+                    ));
+
+                $SGImg = $SGImg->compositeimage($ImgInSprite['Gmagick'],Gmagick::COMPOSITE_COPY,$X,0);
+
+                $X+=$ImgInSprite['Gmagick']->getImageWidth();
             }
-            //var_Dump($css);
-            $SGImg->setImageFormat('png');
-            $str = $SGImg->getImageBlob();
+            $Call['DebugLayouts'] = $FlagDebug;
+
+            $SGImg->setImageFormat($Call['OutputFormat']);
+
+            $STR = $SGImg->getImageBlob();
 
             F::Run ('IO', 'Write',
                 array(
-                    'Storage' => 'IMG Cache',
-                    'Where'   => $hash,
-                    'Data' =>  $str
+                    'Storage' => 'Image Cache',
+                    'Where'   => $Hash,
+                    'Data' =>  $STR
                 ));
-            $SpriteHandel[] = $SGImg;
+
+            $SpriteHandle[] = $SGImg;
         }
-        //var_dump($css);
-       // var_dump($UniqueSprite);
+
         //возврат названий спрайтов
-        return array('UniqueSprite'=>$UniqueSprite,'SpriteHandel'=>$SpriteHandel,'css'=>$css);
+        return array('UniqueSprite'=>$UniqueSprite,'SpriteHandel'=>$SpriteHandle,'css'=>$CSS);
     });
     //Точка входа
     self::setFn ('Process', function ($Call)
     {
         //Поиск xml вставки в буфере
+
         if (preg_match_all ('@<image>(.*)<\/image>@SsUu', $Call['Output'], $Parsed))
         {
 
+            $UniqueParse =  array_unique($Parsed[0]);
 
-            $ImageHash = array();
+            $Sprite = array();
+
             $ImgXML =array();
+
             $URLs = array();
-            foreach($Parsed[0] as $key=>$XMLObject){
-                   // var_dump($XMLObject);
-                    $ImgXML[$key]= simplexml_load_string($XMLObject);
-                    $URLs[$key] = (string)$ImgXML[$key]->URL;
-                    //Временное решение
-                    $ImageHash[$key] = F::Run(null, 'Hash', array('IDs' => array((string)$ImgXML[$key]->URL)));
+
+            foreach($UniqueParse as $Key=>$XMLObject)
+            {
+
+                $ImgXML[$Key]= simplexml_load_string($XMLObject);
+
+                if(!isset($ImgXML[$Key]->Sprite))$ImgXML[$Key]->Sprite = 'MainSprite';
+
+                $URLs[$Key] = (string)$ImgXML[$Key]->URL;
+
+                $Sprite[(string)($ImgXML[$Key]->Sprite)][] = $URLs[$Key];
+
             }
+
             //Массив спрайто в (общем случае один если у всех картинок группа одна была)
+            foreach($Sprite as $Key=>$Images){
 
-
-            $SpriteGroups = F::Run(null, 'Image.Join', array('XML' => $ImgXML,'URLs'=>$URLs));
-
-            if($Parsed[0][0]&&$SpriteGroups['css']){
-
-                $Call['Output'] =
-                    str_replace($Parsed[0][0], '<style>'.$SpriteGroups['css'].'</style>'.$Parsed[0][0], $Call['Output']);
-
-            }
-
-            //foreach($SpriteGroups['UniqueSprite'] as $sprite){
-            // $ImageHash = F::Run(null, 'Hash', array('IDs' => array($sprite)));
-            //}
-
-            foreach($ImgXML as $key=>$val){
-                //Если есть в кеше ничего не делать
-                $ImageFile = $URLs[$key];
-                list($Asset, $ID) = F::Run('View', 'Asset.Route', array('Value' => $ImageFile));
-
-                /*if ((isset($Call['Caching']['Enabled'])
+                if ((isset($Call['Caching']['Enabled'])
                     && $Call['Caching']['Enabled'])
-                    && F::Run('IO', 'Execute', array ('Storage' => 'IMG Cache',
+                    && F::Run('IO', 'Execute', array ('Storage' => 'Image Cache',
                         'Execute'  => 'Exist',
-                        'Where'    => array ('ID' => $ImageHash[$key])))
+                        'Where'    => array ('ID' =>F::Run(null, 'Hash', array('IDs' => array($Key))))))
                 )
                 {
-                    //die('hash is load');
+                    //echo 'From Cache';
+                }else{
+
+                    $SpriteGroups = F::Run(null, 'Image.Join', array('XML' => $ImgXML,'URLs'=>$Images));
+
+                    if($Parsed[0][0]&&$SpriteGroups['css'])
+                        $Call['Output'] =
+                            str_replace($Parsed[0][0], '<style type="text/css-generate">'.$SpriteGroups['css'].'</style>'.$Parsed[0][0], $Call['Output']);
+
+
+
                 }
-                else
-                {
-                    //die('ds');
-                    $IMG = array();
+            }
 
-                   // foreach ($URLs as $ImageFile)
-                    //{
-                            //var_dump($ImageFile);
-                        //Возврат разбитого значения $Asset каталог и $ID имя файлика затребованного
+            foreach($ImgXML as $Key=>$val){
 
-                        //var_dump($Asset);
-                        if ($ImageSource = F::Run('IO', 'Read', array (
-                            'Storage' => 'IMG',
-                            'Scope'   => $Asset . '/images',
-                            'Where'   => $ID
-                        )))
-                        {
-                            //header("Content-type: image/png");
-                            //die($ImageSource[0]);
-                           //var_dump($ImageSource);
-                            F::Log('IMG loaded: '.$ImageFile);
-                            $IMG[] = $ImageSource[0];
-                        }
-                        else
-                            trigger_error('No IMG: '.$ImageFile); // FIXNE
-                  //  }
-                    //Сохраняет под именем хеша файлики
-                    F::Run ('IO', 'Write',
-                        array(
-                            'Storage' => 'IMG Cache',
-                            'Where'   => $ImageHash[$key],
-                            'Data' =>  $IMG
-                        ));
+                $ImageFile = $URLs[$Key];
 
-                }*/
-
-
-                if (strpos($Call['Output'], '<place_img>IMG:'.$ID.'</place_img>') === false)
-                    trigger_error('Place for IMG missed');
+                list($Asset, $ID) = F::Run('View', 'Asset.Route', array('Value' => $ImageFile));
 
                 $Call['Output'] =
-                    str_replace('<place_img>IMG:'.$ID.'</place_img>',
+                    str_replace($UniqueParse[$Key],
                                '<div class="'.((string)$val->Sprite).'-'.$ID.'"></div>',
                                $Call['Output']);
             }
 
             $Call['Output'] = str_replace($Parsed[0], '', $Call['Output']);
         }
-        else
-            $Call['Output'] = str_replace('<place_img>IMG</place_img>', '', $Call['Output']);
 
         return $Call;
     });

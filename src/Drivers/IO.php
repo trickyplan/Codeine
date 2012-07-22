@@ -38,23 +38,22 @@
         $Call = F::Merge(F::Run('IO', 'Open', $Call), $Call);
 
         // Если в Where простая переменная - это ID.
-            if (isset($Call['Where']) && is_scalar($Call['Where']))
-                $Call['Where'] = array('ID' => $Call['Where']);
+        if (isset($Call['Where']) && is_scalar($Call['Where']))
+            $Call['Where'] = array('ID' => $Call['Where']);
 
+        if (isset($Call['Driver']))
+            $Call['Data'] = F::Run ($Call['Driver'], 'Read', $Call);
+        else
+            $Call['Data'] = null;
 
-            if (isset($Call['Driver']))
-                $Call['Data'] = F::Run ($Call['Driver'], 'Read', $Call);
+        if (isset($Call['Format']))
+        {
+            if (is_array($Call['Data']))
+                foreach($Call['Data'] as &$Element)
+                    $Element = F::Run($Call['Format'], 'Decode', array ('Value' => $Element));
             else
-                $Call['Data'] = null;
-
-            if (isset($Call['Format']))
-            {
-                if (is_array($Call['Data']))
-                    foreach($Call['Data'] as &$Element)
-                        $Element = F::Run($Call['Format'], 'Decode', array ('Value' => $Element));
-                else
-                    $Call['Data'] = F::Run($Call['Format'], 'Decode', array('Value' => $Call['Data']));
-            }
+                $Call['Data'] = F::Run($Call['Format'], 'Decode', array('Value' => $Call['Data']));
+        }
 
         return $Call['Data'];
     });

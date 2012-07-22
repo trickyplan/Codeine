@@ -18,8 +18,12 @@
     {
         $Call = F::Hook('beforeCreateGet', $Call);
 
-        $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Main');
-        $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Create');
+        if (!isset($Call['NoEntityLayouts']))
+        {
+            $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Main');
+            $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Create');
+        }
+
         $Call['Locales'][] = $Call['Entity'];
 
         // Загрузить предопределённые данные и умолчания
@@ -41,8 +45,10 @@
                 if (null !== $Widget)
                 {
                     $Widget['Entity'] = $Call['Entity'];
-                    $Widget['Name'] = $Name;
+                    $Widget['Node'] = $Name;
+                    $Widget['Name'] = strtr($Name, '.','_');
                     $Widget['ID'] = strtr($Name, '.','_');
+                    $Widget = F::Merge($Node, $Widget);
 
                     // Если есть значение, добавляем
                     if (isset($Call['Data'][$Name]))
@@ -75,18 +81,21 @@
 
         // Берём данные из запроса
 
-        if (isset($Call['Data']))
-            $Call['Data'] = F::Merge($Call['Request'], $Call['Data']);
-        else
-            $Call['Data'] = $Call['Request'];
+        if (!isset($Call['Failure']))
+        {
+            if (isset($Call['Data']))
+                $Call['Data'] = F::Merge($Call['Request'], $Call['Data']);
+            else
+                $Call['Data'] = $Call['Request'];
 
-        // Отправляем в Entity.Create
+            // Отправляем в Entity.Create
 
-        $Call['Data'] = F::Run('Entity', 'Create', $Call);
+            $Call['Data'] = F::Run('Entity', 'Create', $Call);
 
-        // Выводим результат
+            // Выводим результат
 
-        $Call = F::Hook('afterCreatePost', $Call);
+            $Call = F::Hook('afterCreatePost', $Call);
+        }
 
         return $Call;
     });

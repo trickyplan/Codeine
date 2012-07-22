@@ -20,9 +20,20 @@
     {
         $Call = F::Hook('beforeDeleteGet', $Call);
 
+        $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Main');
+        $Call['Layouts'][] = array('Scope' => 'Entity','ID' => 'Delete');
+        $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Delete');
+
+        $Call = F::Run('Entity.Show.Static', 'Do', $Call, array('Template' => 'Short', 'Context' => 'internal'));
+
+        return $Call;
+    });
+
+    self::setFn('POST', function ($Call)
+    {
         F::Run('Entity', 'Delete', $Call);
 
-        $Call = F::Hook('afterDeleteGet', $Call);
+        $Call = F::Hook('afterDeletePost', $Call);
 
         return $Call;
     });

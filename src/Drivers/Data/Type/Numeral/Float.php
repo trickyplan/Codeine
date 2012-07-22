@@ -9,10 +9,10 @@
 
     self::setFn('Write', function ($Call)
     {
-        return (double) $Call['Value'];
+        return $Call['Value'];
     });
 
     self::setFn('Read', function ($Call)
     {
-        return (double) $Call['Value'];
+        return (float) $Call['Value'];
     });

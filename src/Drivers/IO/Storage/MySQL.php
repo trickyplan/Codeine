@@ -25,19 +25,24 @@
     {
         $Query = F::Run('IO.Storage.MySQL.Syntax', 'Read', $Call);
 
-        F::Log($Query);
-
-        $Result = $Call['Link']->query($Query);
-
-        if ($Call['Link']->errno != 0)
-            F::Log($Call['Link']->error,'Error');
-
-        $Data = array();
-
-        while($Row = $Result->fetch_assoc())
+        if (null === ($Data = F::Get($Query))) // FIXME Нормальная мемоизация
         {
-            $Data[] = $Row;
+            F::Log($Query);
+
+            $Result = $Call['Link']->query($Query);
+
+            if ($Call['Link']->errno != 0)
+                F::Log($Call['Link']->error,'Error');
+
+            $Data = array();
+
+            while($Row = $Result->fetch_assoc())
+                $Data[] = $Row;
+
+            F::Set($Query, $Data);
         }
+        else
+            F::Log($Query.' memoized!'); // FIXME
 
         return $Data;
     });
@@ -67,7 +72,10 @@
         if ($Call['Link']->errno != 0)
             F::Log($Call['Link']->error,'Error');
 
-        return $Call['Data'];
+        if (isset($Call['Data']))
+            return $Call['Data'];
+        else
+            return null;
     });
 
     self::setFn ('Close', function ($Call)

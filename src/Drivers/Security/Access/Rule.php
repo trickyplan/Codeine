@@ -10,8 +10,6 @@
     function array_diff_assoc_recursive($array1, $array2)
     {
         // FIXME Codeinize
-        $Relations = array('<', '>');
-
         foreach($array1 as $key => $value)
         {
             if ($value != '*')
@@ -24,7 +22,6 @@
                       }
                       elseif(!is_array($array2[$key]))
                       {
-
                           $difference[$key] = $value;
                       }
                       else
@@ -47,6 +44,7 @@
 
     self::setFn('Check', function ($Call)
     {
+
         foreach ($Call['Rules'] as $Name => $Rule)
         {
             if (isset($Rule['Debug']))
@@ -70,6 +68,10 @@
                 {
                     F::Log('Rule «'.$Name.'» tested');
                 }
+
+                if (isset($Rule['Run']['Service']) && isset($Rule['Run']['Method']) && isset($Rule['Message']))
+                    if (($Call['Service'] == $Rule['Run']['Service']) && ($Call['Method'] == $Rule['Run']['Method']))
+                        $Call['Message'] = $Rule['Message'];
             }
             else
                 F::Log('Rule «'.$Name.'» skipped ('.$Rule['Weight'].'<'.$Call['Weight'].')');

@@ -20,10 +20,36 @@
 
     self::setFn ('Read', function ($Call)
     {
+        foreach ($Call['Where'] as $Key => &$Value) // FIXME Повысить уровень абстракции
+            if (isset($Call['Nodes'][$Key]['Type']))
+            {
+                if (is_array($Value))
+                    foreach ($Value as $Relation => &$cValue)
+                        $cValue = F::Run('Data.Type.'.$Call['Nodes'][$Key]['Type'], 'Read', array('Value' => $cValue));
+                else
+                    $Value = F::Run('Data.Type.'.$Call['Nodes'][$Key]['Type'], 'Read', array('Value' => $Value));
+            }
+
         if (isset($Call['Where']))
             $Cursor = $Call['Link']->$Call['Scope']->find($Call['Where']);
         else
             $Cursor = $Call['Link']->$Call['Scope']->find();
+
+        if (isset($Call['Fields']))
+        {
+            $Fields = array();
+            foreach ($Call['Fields'] as $Field)
+                $Fields[$Field] = true;
+
+            $Cursor->fields($Fields);
+        }
+
+        if (isset($Call['Sort']))
+            foreach($Call['Sort'] as $Key => $Direction)
+                $Cursor->sort(array($Key => ($Direction == SORT_ASC? 1: -1)));
+
+        if (isset($Call['Limit']))
+            $Cursor->limit($Call['Limit']['To']-$Call['Limit']['From'])->skip($Call['Limit']['From']);
 
         if ($Cursor->count()>0)
             foreach ($Cursor as $cCursor)

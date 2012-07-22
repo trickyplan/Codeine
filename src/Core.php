@@ -327,10 +327,12 @@
                 {
                     $NewFullKey = is_numeric($Key)? $FullKey.'#': $FullKey.'.'.$Key;
 
-                    $Fn($Key, $Value, $Data, $NewFullKey);
+                    $Fn($Key, $Value, $Data, $NewFullKey, $Array);
 
                     if (is_array ($Value))
-                        $Value = self::Map ($Value, $Fn, $Data, $NewFullKey);
+                        $Array[$Key] = self::Map ($Value, $Fn, $Data, $NewFullKey, $Array);
+                    else
+                        $Array[$Key] = $Value;
                 }
             else
                 $Array = $Fn('', $Array, $Data, $FullKey);
@@ -347,22 +349,15 @@
                 if (strpos($Key, '.') !== false)
                 {
                     $Keys = explode('.', $Key);
+                    $Key = array_shift($Keys);
 
-                    $Tail = &$Array;
+                    if (!isset($Array[$Key]))
+                        $Array[$Key] = [];
 
-                    foreach ($Keys as $iKey)
-                    {
-                        if (!isset($Tail[$iKey]))
-                           $Tail[$iKey] = [];
-
-                        $Tail = &$Tail[$iKey];
-                    }
-
-                    $Tail = $Value;
+                    $Array[$Key] = F::Dot($Array[$Key], implode('.', $Keys), $Value);
                 }
                 else
                     $Array[$Key] = $Value;
-
 
                 return $Array;
             }
@@ -406,6 +401,15 @@
 
         public static function Error($errno , $errstr , $errfile , $errline , $errcontext)
         {
+            if (isset(self::$_Options['Project']['Airbrake']))
+            {
+                $Airbrake = curl_init('http://one2tool.local/airbrake');
+                curl_setopt_array($Airbrake, [
+                    CURLOPT_POST => true,
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_POSTFIELDS => json_encode(['Report' => ['Message' => $errstr]])]);
+                curl_exec($Airbrake);
+            }
             return F::Log($errstr.' '.$errfile.'@'.$errline, 'Error');
         }
 
@@ -414,18 +418,24 @@
             return self::$_Log[] = array(round(microtime(true) - self::$_Speed[0], 4), $Message, $Type);
         }
 
-        public static function loadOptions($Service = null)
+        public static function loadOptions($Service = null, $Method = null)
         {
             $Service = ($Service == null)? self::$_Service: $Service;
+            $Method = ($Method == null)? self::$_Method: $Method;
 
-            if (!isset(self::$_Options[$Service]))
+            // Если контракт уже не загружен
+            if (!isset(self::$_Options[$Service][$Method]))
             {
                 $Options = array();
 
+                    $ServicePath = strtr($Service, '.', '/');
+
                     if ($Filenames = self::findFiles (
                         array(
-                             'Options/'.strtr($Service, '.', '/').'.'.self::$_Environment.'.json',
-                             'Options/'.strtr($Service, '.', '/').'.json'
+                             'Options/'.$ServicePath.'.'.self::$_Environment.'.json',
+                             'Options/'.$ServicePath.'.json',
+                             'Options/'.$ServicePath.'/'.$Method.'.'.self::$_Environment.'.json',
+                             'Options/'.$ServicePath.'/'.$Method.'.json',
                         )
                     ))
                     {
@@ -444,6 +454,11 @@
                             $Options = self::Merge($Options, $Current);
                         }
                     }
+
+
+                    if (isset($Options['Mixins']))
+                        foreach($Options['Mixins'] as $Mixin)
+                            $Options = F::Merge($Options, F::loadOptions($Mixin));
 
                     self::$_Options[$Service] = $Options;
             }
@@ -468,7 +483,7 @@
 
         public static function Get ($Key)
         {
-            return isset(self::$_Storage[$Key]) ? self::$_Storage[$Key]: null;
+            return (isset(self::$_Storage[$Key]) ? self::$_Storage[$Key]: null);
         }
 
         public static function Speed()

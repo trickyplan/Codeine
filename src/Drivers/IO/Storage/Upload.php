@@ -11,14 +11,17 @@
 
     self::setFn ('Write', function ($Call)
     {
-
         if(!empty($Call['Value']['name']))
         {
             $Name = F::Live($Call['Naming'], $Call);
 
+            if (isset($Call['MIME']))
+                if (!in_array($Call['Value']['type'],$Call['MIME']))
+                    return null;
+
             move_uploaded_file($Call['Value']['tmp_name'], Root . '/' . $Call['Directory'] . '/' . $Call['Scope'] . '/' . $Name);
 
-            return $Call['Directory'].'/'.$Name;
+            return $Call['Directory'].'/'.$Call['Scope'].'/'.$Name;
         }
         else
             return null;

@@ -9,7 +9,7 @@
 
     self::setFn('Do', function ($Call)
     {
-        $Call = F::Run('Security.Auth.System.'.$Call['Mode'], 'Authentificate', $Call);
+        $Call = F::Run('Security.Auth.System.'.$Call['Mode'], 'Authenticate', $Call);
 
         if (!empty($Call['User']))
         {
@@ -22,7 +22,6 @@
                     array('User' => $Call['User']['ID'], 'TTL' => $Call['TTLs'][$Call['TTL']]));
 
                 $Call = F::Hook('Authentification.Success', $Call);
-
                 return $Call;
 
             }

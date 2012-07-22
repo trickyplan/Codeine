@@ -11,7 +11,7 @@
     {
         F::Run('Security.Auth', 'Detach', $Call);
 
-        $Call = F::Hook('onSuccess', $Call);
+        $Call = F::Hook('Annulate.Success', $Call);
 
         return $Call;
 

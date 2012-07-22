@@ -13,10 +13,8 @@
         {
             if (!isset($Call['Data'][$Name]) or empty($Call['Data'][$Name]))
             {
-                if (!isset($Node['Default']))
-                    $Node['Default'] = null;
-
-                $Call['Data'][$Name] = F::Live($Node['Default']); // FIXME Add flag
+                if (isset($Node['Default']))
+                    $Call['Data'][$Name] = F::Live($Node['Default']); // FIXME Add flag
             }
         }
         return $Call;
@@ -26,14 +24,14 @@
     {
         foreach ($Call['Nodes'] as $Name => $Node)
         {
-            if (!isset($Node['Default']))
-                $Node['Default'] = null;
-            else
+            if (isset($Node['Default']))
+            {
                 $Node['Default'] = F::Live($Node['Default']);
-
-            foreach ($Call['Data'] as &$Element)
-                if (!isset($Element[$Name]) or empty($Element[$Name]))
-                    $Element[$Name] = $Node['Default']; // FIXME Add flag
+                if (isset($Call['Data']))
+                    foreach ($Call['Data'] as &$Element)
+                        if (!isset($Element[$Name]) or empty($Element[$Name]))
+                            $Element[$Name] = $Node['Default']; // FIXME Add flag
+            }
         }
 
         return $Call;

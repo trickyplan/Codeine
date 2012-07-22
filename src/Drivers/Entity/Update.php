@@ -19,14 +19,17 @@
     {
         $Call = F::Hook('beforeUpdateGet', $Call);
 
-        $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Main');
-        $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Update');
+        if (!isset($Call['NoEntityLayouts']))
+        {
+            $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Main');
+            $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Update');
+        }
+
         $Call['Locales'][] = $Call['Entity'];
 
         // Загрузить предопределённые данные и умолчания
 
         $Call['Data'] = F::Run('Entity', 'Read', $Call)[0];
-
         // Сгенерировать форму
 
         // Для каждой ноды в модели
@@ -45,8 +48,11 @@
                 if (null !== $Widget)
                 {
                     $Widget['Entity'] = $Call['Entity'];
-                    $Widget['Name'] = $Name;
+                    $Widget['Node'] = $Name;
+                    $Widget['Name'] = strtr($Name, '.','_');
                     $Widget['ID'] = strtr($Name, '.','_');
+
+                    $Widget = F::Merge($Node, $Widget);
 
                     // Если есть значение, добавляем
                     $Widget['Value'] = F::Dot($Call['Data'], $Name);
@@ -77,6 +83,7 @@
         // Берём данные из запроса
 
         $Call['Data'] = $Call['Request'];
+
 
         // Отправляем в Entity.Update
         $Call['Data'] = F::Run('Entity', 'Update', $Call);

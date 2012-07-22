@@ -26,7 +26,10 @@
             return $Call['Link']->mGet($Call['Where']['ID']);
         }
         else
-            return array($Call['Link']->get($Call['Scope'].$Call['Where']['ID']));
+            if (($Result = $Call['Link']->get($Call['Scope'].$Call['Where']['ID'])) !== false)
+                return array($Result);
+            else
+                return null;
     });
 
     self::setFn ('Write', function ($Call)
@@ -37,7 +40,8 @@
                 $Call['Link']->del($Call['Scope'].$Call['Where']['ID']);
             else
             {
-                $Call['Link']->set($Call['Scope'].$Call['Where']['ID'], F::Merge(F::Run(null, 'Read', $Call)[0], $Call['Data']), $Call['TTL']);
+                $Call['Data'] = F::Merge(F::Run(null, 'Read', $Call)[0], $Call['Data']);
+                $Call['Link']->set($Call['Scope'].$Call['Where']['ID'], $Call['Data'], $Call['TTL']);
             }
         }
         else
@@ -61,7 +65,7 @@
 
     self::setFn ('Exist', function ($Call)
     {
-        return $Call['Link']->exists ($Call['Where']['ID']);
+        return $Call['Link']->exists ($Call['Scope'].$Call['Where']['ID']);
     });
 
     self::setFn('Status', function ($Call)

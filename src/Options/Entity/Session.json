@@ -12,11 +12,11 @@
         },
         "User":
         {
-
+            "Type": "Numeral.Integer"
         },
         "Expire":
         {
-
+            "Type": "Numeral.Integer"
         },
         "Created":
         {

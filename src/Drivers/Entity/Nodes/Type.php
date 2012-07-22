@@ -17,6 +17,7 @@
                                 'Entity' => $Call['Entity'],
                                 'Name' => $Name,
                                 'Node' => $Node,
+                                'Purpose' => $Call['Purpose'],
                                 'Data' => $Call['Data'],
                                 'Value' => $Call['Data'][$Name]
                             ]);
@@ -31,22 +32,21 @@
 
     self::setFn('Read', function ($Call)
     {
-        foreach ($Call['Nodes'] as $Name => $Node)
-            if (isset($Node['Type']))
-                foreach ($Call['Data'] as &$Element)
-                {
-                    $Element[$Name] = F::RunN ($Element[$Name], 'Value',
-                                [
-                                    'Service' => 'Data.Type.'.$Node['Type'],
-                                    'Method' => 'Read',
-                                    'Call' => [
-                                        'Entity' => $Call['Entity'],
-                                        'Name' => $Name,
-                                        'Node' => $Node,
-                                        'Data' => $Element,
-                                        'Value' => null]
-                                ]);
-                }
-
+        if(isset($Call['Data']))
+            foreach ($Call['Nodes'] as $Name => $Node)
+                if (isset($Node['Type']))
+                    foreach ($Call['Data'] as &$Element)
+                        if (F::Dot($Element, $Name) != null or isset($Node['External']))
+                            $Element = F::Dot($Element, $Name, F::RunN ($Element[$Name], 'Value',
+                                    [
+                                        'Service' => 'Data.Type.'.$Node['Type'],
+                                        'Method' => 'Read',
+                                        'Call' => [
+                                            'Entity' => $Call['Entity'],
+                                            'Name' => $Name,
+                                            'Node' => $Node,
+                                            'Data' => $Element,
+                                            'Value' => null]
+                                    ]));
         return $Call;
     });

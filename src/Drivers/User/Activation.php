@@ -48,6 +48,14 @@
             )
         );
 
+        if (isset($Call['Second']))
+            $Call['Output']['Message'][] =
+                array(
+                    'Type'  => 'Block',
+                    'Class' => 'alert alert-success',
+                    'Value'  => 'Письмо выслано повторно'
+                );
+
         return $Call;
     });
 
@@ -70,8 +78,6 @@
                                     'Status' => 1
                                 )
                 ));
-
-            F::Run('Security.Auth', 'Attach', array('User' => $Activation['User']));
 
             F::Run('IO', 'Write',
                 array(

@@ -35,9 +35,14 @@
             "Service":"User.Reset",
             "Method":"Do"
         },
+        "/changepwd":
+        {
+            "Service":"User.Passwd",
+            "Method":"Do"
+        },
         "/auth":
         {
-            "Service":"User.Authentificate",
+            "Service":"User.Authenticate",
             "Method":"Do",
             "Call":
             {
@@ -46,7 +51,7 @@
         },
         "/auth/social":
         {
-            "Service":"User.Authentificate",
+            "Service":"User.Authenticate",
             "Method":"Do",
             "Call":
             {

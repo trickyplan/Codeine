@@ -9,6 +9,9 @@
 
      self::setFn('Make', function ($Call)
      {
+         if ($Call['Value'])
+             $Call['Checked'] = 'checked';
+
          return F::Run ('View', 'LoadParsed', $Call,
                            array(
                                 'Scope' => 'Default',
