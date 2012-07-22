@@ -45,13 +45,20 @@
             {
                 F::Log('Thumbnail created');
 
-                if (getimagesize($Filename))
+                try
                 {
-                    $Blob = file_get_contents($Filename);
-                    $Image = new Gmagick();
-                    $Image->readimageblob($Blob);
-                    $Image->cropThumbnailImage($Thumb['Width'], $Thumb['Width']);
-                    $Image->writeImage(Root.'/Public'.$ThumbURL);
+                    if (getimagesize($Filename))
+                    {
+                        $Blob = file_get_contents($Filename);
+                        $Image = new Gmagick();
+                        $Image->readimageblob($Blob);
+                        $Image->cropThumbnailImage($Thumb['Width'], $Thumb['Width']);
+                        $Image->writeImage(Root.'/Public'.$ThumbURL);
+                    }
+                }
+                catch (Exception $e)
+                {
+// Let it fails
                 }
             }
 
