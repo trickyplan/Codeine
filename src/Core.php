@@ -99,7 +99,11 @@
                         $Results[] = $Filenames[$ic];
 
             $Results = array_reverse($Results);
-            return empty($Results)? null: $Results;
+
+            if (empty($Results))
+                return null;
+            else
+                return $Results;
         }
 
         protected static function _loadSource($Service)
@@ -447,14 +451,36 @@
 
                             if ($Filename && !$Current)
                             {
-                                trigger_error('JSON: ' . $Filename.':'. json_last_error()); //FIXME
+                                switch (json_last_error()) {
+                                    case JSON_ERROR_NONE:
+                                        $JSONError =  ' - No errors';
+                                    break;
+                                    case JSON_ERROR_DEPTH:
+                                        $JSONError =  ' - Maximum stack depth exceeded';
+                                    break;
+                                    case JSON_ERROR_STATE_MISMATCH:
+                                        $JSONError =  ' - Underflow or the modes mismatch';
+                                    break;
+                                    case JSON_ERROR_CTRL_CHAR:
+                                        $JSONError =  ' - Unexpected control character found';
+                                    break;
+                                    case JSON_ERROR_SYNTAX:
+                                        $JSONError =  ' - Syntax error, malformed JSON';
+                                    break;
+                                    case JSON_ERROR_UTF8:
+                                        $JSONError =  ' - Malformed UTF-8 characters, possibly incorrectly encoded';
+                                    break;
+                                    default:
+                                        $JSONError =  ' - Unknown error';
+                                    break;
+                                }
+                                trigger_error('JSON Error: ' . $Filename.':'. $JSONError); //FIXME
                                 return null;
                             }
 
                             $Options = self::Merge($Options, $Current);
                         }
                     }
-
 
                     if (isset($Options['Mixins']))
                         foreach($Options['Mixins'] as $Mixin)

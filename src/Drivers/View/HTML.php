@@ -45,8 +45,9 @@
                 // TODO Normal caching
             }
 
-            foreach ($Call['Output'] as $Place => $Widgets)
-                $Call['Layout'] = str_replace('<place>' . $Place . '</place>', implode('', $Widgets), $Call['Layout']);
+            if (isset($Call['Output']) && is_array($Call['Output']))
+                foreach ($Call['Output'] as $Place => $Widgets)
+                    $Call['Layout'] = str_replace('<place>' . $Place . '</place>', implode('', $Widgets), $Call['Layout']);
         }
 
         if (preg_match_all('@<call>(.*)<\/call>@SsUu', $Call['Layout'], $Pocket)) // TODO Вынести в хук
