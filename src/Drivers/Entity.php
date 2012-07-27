@@ -11,7 +11,7 @@
     {
         $Call = F::Hook('beforeLoad', $Call);
 
-        $Call = F::Merge(F::loadOptions('Entity.'.$Call['Entity']), $Call);
+        $Call = F::Merge(F::loadOptions($Call['Entity'].'.Entity'), $Call);
 
         // $Call = F::Hook('afterEntityLoad', $Call);
 
