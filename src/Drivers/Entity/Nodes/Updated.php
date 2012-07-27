@@ -11,11 +11,12 @@
     {
         foreach ($Call['Nodes'] as $Name => $Node)
         {
-            if (!isset($Call['Data'][$Name])
-                || empty($Call['Data'][$Name])
-                || null == $Call['Data'][$Name]
-                || $Call['Data'][$Name] == $Call['Current'][$Name])
-                $Call['Data'][$Name] = $Call['Current'][$Name];
+            if (!isset($Node['Nullable']) && !$Node['Nullable'])
+                if (!isset($Call['Data'][$Name])
+                    || empty($Call['Data'][$Name])
+                    || null == $Call['Data'][$Name]
+                    || $Call['Data'][$Name] == $Call['Current'][$Name])
+                    $Call['Data'][$Name] = $Call['Current'][$Name];
         }
 
         return $Call;

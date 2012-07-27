@@ -16,3 +16,8 @@
     {
         return (int) $Call['Value'];
     });
+
+    self::setFn('Populate', function ($Call)
+    {
+        return rand();
+    });

@@ -92,7 +92,7 @@
         },
         "Developer":
         {
-            "Driver":"IO.Null"
+            "Driver":"IO.Log.Echo"
         },
         "EMail":
         {

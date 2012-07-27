@@ -307,23 +307,6 @@
             return $Data;
         }
 
-        public static function RunN($Variable, $Key, $Call = array())
-        {
-
-            if (null !== $Variable)
-            {
-                if (is_array($Variable))
-                    foreach ($Variable as &$cVariable)
-                        $cVariable = F::Run($Call['Service'], $Call['Method'], $Call['Call'], array($Key => $cVariable));
-                else
-                    $Variable = F::Run($Call['Service'], $Call['Method'], $Call['Call'], array($Key => $Variable));
-            }
-            else
-                $Variable = F::Run($Call['Service'], $Call['Method'], $Call['Call']);
-
-            return $Variable;
-        }
-
         public static function Map ($Array, $Fn, $Data = null, $FullKey = '')
         {
             if (is_array ($Array))

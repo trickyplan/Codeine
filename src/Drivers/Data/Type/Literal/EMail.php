@@ -16,3 +16,8 @@
     {
         return $Call['Value'];
     });
+
+    self::setFn('Populate', function ($Call)
+    {
+        return rand().'@one2team.ru';
+    });

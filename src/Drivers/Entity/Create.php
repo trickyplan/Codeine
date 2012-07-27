@@ -11,7 +11,10 @@
     {
         $Call = F::Hook('beforeCreateDo', $Call);
 
-        return F::Run(null, $_SERVER['REQUEST_METHOD'], $Call);
+        $Call = F::Run(null, $_SERVER['REQUEST_METHOD'], $Call);
+
+        unset($Call['Context']);
+        return $Call;
     });
 
     self::setFn('GET', function ($Call)
@@ -20,8 +23,8 @@
 
         if (!isset($Call['NoEntityLayouts']))
         {
-            $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Main');
-            $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Create');
+            $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Main', 'Context' => $Call['Context']);
+            $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Create', 'Context' => $Call['Context']);
         }
 
         $Call['Locales'][] = $Call['Entity'];
@@ -48,6 +51,8 @@
                     $Widget['Node'] = $Name;
                     $Widget['Name'] = strtr($Name, '.','_');
                     $Widget['ID'] = strtr($Name, '.','_');
+                    $Widget['Context'] = $Call['Context'];
+
                     $Widget = F::Merge($Node, $Widget);
 
                     // Если есть значение, добавляем

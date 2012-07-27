@@ -22,7 +22,7 @@
     {
         if (isset($Call['Layouts']))
             foreach ($Call['Layouts'] as $Layout) // FIXME I'm fat
-                if (($Sublayout =  F::Run('View', 'LoadParsed', $Layout, array('Context' => $Call['Context']))) !== null)
+                if (($Sublayout =  F::Run('View', 'LoadParsed', $Layout)) !== null)
                     $Call['Layout'] = str_replace('<place>Content</place>', $Sublayout, $Call['Layout']);
 
         if (preg_match_all('@<call>(.*)<\/call>@SsUu', $Call['Layout'], $Pocket)) // TODO Вынести в хук

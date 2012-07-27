@@ -17,3 +17,8 @@
         $Call['Node']['Options'] = F::Live($Call['Node']['Options']);
         return $Call['Node']['Options'][(int) $Call['Value']];
     });
+
+    self::setFn('Populate', function ($Call)
+    {
+        return array_rand($Call['Node']['Options']);
+    });

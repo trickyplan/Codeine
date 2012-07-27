@@ -19,5 +19,10 @@
 
     self::setFn('Populate', function ($Call)
     {
-        return sha1(rand());
+        $Result = '';
+
+        for($ic = 0; $ic < $Call['Node']['Size']; $ic++)
+            $Result.= rand(0,9);
+
+        return $Result;
     });
