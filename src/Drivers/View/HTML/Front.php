@@ -20,16 +20,23 @@
 
             $Asset = $Slices[0];
 
-            $IDs = [];
+
             for ($ic = 1; $ic < $sz; $ic++)
                 $IDs[$ic] = implode('/', array_slice($Slices, 1, $ic));
+
+            $IDs[] = 'Main';
 
             foreach ($IDs as $ID)
                 array_unshift($Call['Layouts'], array ('Scope' => $Asset, 'ID'    => $ID, 'Context' => $Call['Context']));
         }
 
         if (isset($Call['Zone']))
-            array_unshift($Call['Layouts'], array('Scope' => $Call['Zone'], 'ID' => 'Zone'));
+        {
+            $Call['Zone'] = (array) $Call['Zone'];
+
+            foreach ($Call['Zone'] as $Zone)
+                array_unshift($Call['Layouts'], array('Scope' => $Zone, 'ID' => 'Zone'));
+        }
 
         return $Call;
      });
