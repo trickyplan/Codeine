@@ -20,7 +20,7 @@
                     {
                         $Run = $Node[$Call['Purpose']];
                         foreach($Call['Data'] as &$Element)
-                            $Element = F::Live($Run, ['Data' => $Element, 'Name' => $Name, 'Node' => $Node]);
+                            $Element = F::Live($Run, ['Data' => $Element, 'Name' => $Name, 'Node' => $Node, 'Nodes' => $Call['Nodes']]);
                     }
 
 
