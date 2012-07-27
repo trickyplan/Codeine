@@ -41,8 +41,7 @@
                 {
                     $Path = substr($Pathinfo['dirname'], $DirSz);
 
-                    $ID = $Path.'.'.$Pathinfo['filename'];
-                    $Data[] = $ID;
+                    $Data[$Pathinfo['filename']] = file_get_contents($File[0]);
                 }
             }
 

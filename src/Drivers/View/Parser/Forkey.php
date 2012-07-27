@@ -27,7 +27,7 @@
 
                     $Value['#'] = $KeyIndex;
 
-                    if (preg_match_all('/<subvalue/>/SsUu', $Output[$KeyIndex], $Pockets))
+                    if (preg_match_all('@<subvalue/>@SsUu', $Output[$KeyIndex], $Pockets))
                         $Output[$KeyIndex] = str_replace($Pockets[0][1], $Value, $Output[$KeyIndex]);
 
                     if (preg_match_all('@<block>(.*)<subk>(.*)<\/subk>(.*)<\/block>@SsUu', $Output[$KeyIndex], $Pockets))
