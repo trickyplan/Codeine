@@ -77,6 +77,9 @@
 
         $Filename = Root.'/'.$Call['Link'] . '/' . $Call['Scope'] . '/' . $Prefix . (isset($Call['ID'])? $Call['ID']: $Call['Where']['ID']) . $Postfix;
 
+        if (!is_dir(Root.'/'.$Call['Link'] . '/' . $Call['Scope'] . '/'))
+            mkdir(Root.'/'.$Call['Link'] . '/' . $Call['Scope'] . '/', 0777, true);
+
         if (isset($Call['Data']) && ($Call['Data'] != 'null') && ($Call['Data'] != null))
             return file_put_contents ($Filename, $Call['Data']);
         else

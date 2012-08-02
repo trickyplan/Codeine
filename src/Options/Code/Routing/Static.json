@@ -66,6 +66,11 @@
             {
                 "Key":"EMail"
             }
+        },
+        "/translate":
+        {
+            "Service": "Locale.Add",
+            "Method": "Do"
         }
     }
 }

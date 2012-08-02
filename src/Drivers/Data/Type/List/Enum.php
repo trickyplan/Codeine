@@ -9,12 +9,13 @@
 
     self::setFn ('Write', function ($Call)
     {
-        return (int) $Call['Value'];
+        return array_search($Call['Value'], $Call['Node']['Options']) ;
     });
 
     self::setFn('Read', function ($Call)
     {
         $Call['Node']['Options'] = F::Live($Call['Node']['Options']);
+
         return $Call['Node']['Options'][(int) $Call['Value']];
     });
 

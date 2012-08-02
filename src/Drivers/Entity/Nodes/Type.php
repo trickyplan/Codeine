@@ -10,21 +10,21 @@
     self::setFn('Write', function ($Call)
     {
         foreach ($Call['Nodes'] as $Name => $Node)
-            if (isset($Node['Type']) && isset($Call['Data'][$Name]))
+        {
+            if (isset($Node['Type']) && (F::Dot($Call['Data'], $Name) !== null))
             {
-                $Call['Data'][$Name] =
+                $Call['Data'] = F::Dot($Call['Data'], $Name,
                     F::Run('Data.Type.'.$Node['Type'], 'Write',[
-                                'Entity' => $Call['Entity'],
-                                'Name' => $Name,
-                                'Node' => $Node,
-                                'Purpose' => $Call['Purpose'],
-                                'Data' => $Call['Data'],
-                                'Value' => $Call['Data'][$Name]
-                            ]);
+                        'Entity' => $Call['Entity'],
+                        'Name' => $Name,
+                        'Node' => $Node,
+                        'Purpose' => $Call['Purpose'],
+                        'Data' => $Call['Data'],
+                        'Value' => F::Dot($Call['Data'], $Name)
+                    ]));
 
-                if (null === $Call['Data'][$Name])
-                    unset($Call['Data'][$Name]);
             }
+        }
 
         // TODO Multiwrite
         return $Call;

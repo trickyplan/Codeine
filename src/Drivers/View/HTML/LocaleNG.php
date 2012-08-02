@@ -55,7 +55,7 @@
                     if ($TrueMatch)
                         $Call['Output'] = str_replace($Pockets[0][$IX], $Replace, $Call['Output']);
                     else
-                        $Call['Output'] = str_replace($Pockets[0][$IX], $Match, $Call['Output']);
+                        $Call['Output'] = str_replace($Pockets[0][$IX], '<span class="nl">' . $Match . '</span>', $Call['Output']);
                 }
             }
 

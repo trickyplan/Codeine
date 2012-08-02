@@ -20,9 +20,12 @@
     {
         $Call = F::Hook('beforeDeleteGet', $Call);
 
-        $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Main');
-        $Call['Layouts'][] = array('Scope' => 'Entity','ID' => 'Delete');
-        $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Delete');
+        if (!isset($Call['NoEntityLayouts']))
+        {
+            $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Main');
+            $Call['Layouts'][] = array('Scope' => 'Entity','ID' => 'Delete');
+            $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Delete');
+        }
 
         $Call = F::Run('Entity.Show.Static', 'Do', $Call, array('Template' => 'Short', 'Context' => 'internal'));
 

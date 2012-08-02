@@ -359,7 +359,12 @@
                     if (isset($Tail[$iKey]))
                         $Tail = $Tail[$iKey];
                     else
-                        return null;
+                    {
+                        if (isset($Array[$Key]))
+                            return $Array[$Key];
+                        else
+                            return null;
+                    }
 
                 return $Tail;
             }

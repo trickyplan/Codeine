@@ -25,3 +25,11 @@
                                             ));
         return $Call;
      });
+
+    self::setFn('Die', function ($Call)
+    {
+        // TODO Realize "Die" function
+        die('500');
+
+        return $Call;
+    });

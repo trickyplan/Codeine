@@ -48,8 +48,6 @@
     {
         $Call['Current'] = F::Run('Entity', 'Read', $Call)[0];
 
-
-
         $Call = F::Hook('beforeEntityUpdate', $Call);
 
         $Call['Scope'] = $Call['Entity'];

@@ -12,9 +12,8 @@
         if (is_scalar($Call['Value']))
             return $Call['Value'];
 
-        // FIXME Scope Support
         if ($Call['Value']['error'] == 0)
-            return F::Run('IO', 'Write', array ('Storage' =>  'Upload', 'Value' => $Call['Value']));
+            return F::Run('IO', 'Write', array ('Storage' =>  'Upload', 'Scope' => $Call['Node']['Scope'], 'Value' => $Call['Value']));
         else
             return null;
     });

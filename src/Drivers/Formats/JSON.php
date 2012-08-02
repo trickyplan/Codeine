@@ -16,7 +16,7 @@
 
     self::setFn('Encode', function ($Call)
     {
-        return json_encode($Call['Value']);
+        return json_encode($Call['Value'], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
     });
 
     self::setFn('Encode.Call', function ($Call)

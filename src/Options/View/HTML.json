@@ -5,16 +5,6 @@
     {
         "beforePipeline":
         {
-            "LoadingLayout":
-            {
-                "Service": "View.HTML.Layout",
-                "Method": "Load",
-                "Scope": "Default",
-                "Call":
-                {
-                    "ID": "Main"
-                }
-            },
             "Front":
             {
                 "Service":"View.HTML.Front",

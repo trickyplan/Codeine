@@ -1,0 +1,27 @@
+{
+    "Server": "127.0.0.1",
+    "Hooks":
+    {
+        "IO":
+        {
+            "Storage":
+            {
+                "Mongo":
+                {
+                    "Update":
+                    {
+                        "Failed":
+                        {
+                            "Error Page":
+                            {
+                                "Service": "Error.500",
+                                "Method": "Die"
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+}

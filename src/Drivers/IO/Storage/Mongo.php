@@ -30,6 +30,8 @@
                     $Value = F::Run('Data.Type.'.$Call['Nodes'][$Key]['Type'], 'Read', array('Value' => $Value));
             }
 
+        unset($Value, $Key);
+
         if (isset($Call['Where']))
             $Cursor = $Call['Link']->$Call['Scope']->find($Call['Where']);
         else
@@ -65,6 +67,17 @@
 
     self::setFn ('Write', function ($Call)
     {
+        foreach ($Call['Where'] as $Key => &$Value) // FIXME Повысить уровень абстракции
+            if (isset($Call['Nodes'][$Key]['Type']))
+            {
+                if (is_array($Value))
+                    foreach ($Value as &$cValue)
+                        $cValue = F::Run('Data.Type.'.$Call['Nodes'][$Key]['Type'], 'Read', array('Value' => $cValue));
+                else
+                    $Value = F::Run('Data.Type.'.$Call['Nodes'][$Key]['Type'], 'Read', array('Value' => $Value));
+            }
+
+        unset($Value, $Key);
         if (null === $Call['Data'])
         {
             if (isset($Call['Where']))
@@ -75,11 +88,14 @@
         else
         {
             $Data = array();
+
             foreach ($Call['Data'] as $Key => $Value)
                 $Data = F::Dot($Data, $Key, $Value);
 
             if (isset($Call['Where']))
-                $Call['Link']->$Call['Scope']->update($Call['Where'], array('$set' => $Data));
+            {
+                $Call['Link']->$Call['Scope']->update($Call['Where'], array('$set' => $Data)) or F::Hook('IO.Mongo.Update.Failed', $Call);
+            }
             else
                 $Call['Link']->$Call['Scope']->insert ($Data);
 

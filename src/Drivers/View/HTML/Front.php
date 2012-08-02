@@ -10,7 +10,9 @@
     self::setFn('Layouts', function ($Call)
     {
         if (!isset($Call['Layouts']))
-            $Call['Layouts'] = array();
+            $Call['Layouts'] = [];
+
+
 
         if (F::isCall($Call))
         {
@@ -38,5 +40,10 @@
                 array_unshift($Call['Layouts'], array('Scope' => $Zone, 'ID' => 'Zone'));
         }
 
+        if (empty($Call['Context']))
+            array_unshift($Call['Layouts'], array(
+                'Scope' => 'Default',
+                'ID' => 'Main'
+            ));
         return $Call;
      });

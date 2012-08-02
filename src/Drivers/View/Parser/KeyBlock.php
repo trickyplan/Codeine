@@ -17,6 +17,9 @@
 
                 if (($Matched = F::Dot($Call['Data'], $Match)) !== null)
                 {
+                    if (($Matched === false) || ($Matched === 0))
+                        $Matched = '0';
+
                     if (is_array($Call['Data'][$Match]))
                         foreach($Call['Data'][$Match] as $cMatch)
                             $Output.= $Pockets[1][$IX].($cMatch).$Pockets[3][$IX];

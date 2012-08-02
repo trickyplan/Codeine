@@ -34,7 +34,12 @@
 
                     if (null !== $Run)
                         if (!isset($Node['User Override']) || !isset($Call['Data'][$Name]))
-                            $Call['Data'][$Name] = F::Live($Run, $Call);
+                        {
+                            if (isset($Run['Return Call']) && $Run['Return Call'])
+                                $Call = F::Live($Run, $Call);
+                            else
+                                $Call['Data'][$Name] = F::Live($Run, $Call);
+                        }
 
                 break;
             }

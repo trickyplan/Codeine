@@ -58,11 +58,6 @@
                 "Service":"Entity.Nodes.Strict",
                 "Method":"Process"
             },
-            "Updated values":
-            {
-                "Service":"Entity.Nodes.Updated",
-                "Method":"Process"
-            },
             "Datatypes":
             {
                 "Service":"Entity.Nodes.Type",
@@ -71,6 +66,11 @@
                 {
                     "Purpose": "Update"
                 }
+            },
+            "Updated values":
+            {
+                "Service":"Entity.Nodes.Updated",
+                "Method":"Process"
             },
             "Make variables alive":
             {
