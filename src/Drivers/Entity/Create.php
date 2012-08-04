@@ -21,11 +21,8 @@
     {
         $Call = F::Hook('beforeCreateGet', $Call);
 
-        if (!isset($Call['NoEntityLayouts']))
-        {
-            $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Main', 'Context' => $Call['Context']);
-            $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Create', 'Context' => $Call['Context']);
-        }
+        $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Main','Context' => $Call['Context']);
+        $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Create','Context' => $Call['Context']);
 
         $Call['Locales'][] = $Call['Entity'];
 

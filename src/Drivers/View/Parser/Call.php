@@ -18,6 +18,9 @@
                     if (is_array($Matched))
                         $Matched = implode(' ', $Matched);
 
+                    if (($Matched === false) || ($Matched === 0))
+                        $Matched = '0';
+
                     $Call['Value'] = str_replace($Pockets[0][$IX], $Matched, $Call['Value']);
                 }
                 else

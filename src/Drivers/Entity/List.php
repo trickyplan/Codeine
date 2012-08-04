@@ -9,16 +9,13 @@
 
     self::setFn('Do', function ($Call)
     {
-        $Call = F::Merge(F::loadOptions('Entity.'.$Call['Entity']), $Call); // FIXME
+        $Call = F::Merge(F::loadOptions($Call['Entity'].'.Entity'), $Call); // FIXME
         $Call = F::Hook('beforeList', $Call);
 
         $Elements = F::Run('Entity', 'Read', $Call);
 
-        if (!isset($Call['NoEntityLayouts']))
-        {
-            $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Main');
-            $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'List');
-        }
+        $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Main','Context' => $Call['Context']);
+        $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'List','Context' => $Call['Context']);
 
         $Call['Locales'][] = $Call['Entity'];
 

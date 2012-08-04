@@ -152,7 +152,6 @@
         {
             // TODO Infinite cycle protection
 
-
             if (($sz = func_num_args())>3)
             {
                 for($ic = 3; $ic<$sz; $ic++)
@@ -344,7 +343,12 @@
                     $Array[$Key] = F::Dot($Array[$Key], implode('.', $Keys), $Value);
                 }
                 else
-                    $Array[$Key] = $Value;
+                {
+                    if ($Value === null)
+                        unset($Array[$Key]);
+                    else
+                        $Array[$Key] = $Value;
+                }
 
                 return $Array;
             }
@@ -395,12 +399,7 @@
         {
             if (isset(self::$_Options['Project']['Airbrake']))
             {
-                $Airbrake = curl_init('http://one2tool.local/airbrake');
-                curl_setopt_array($Airbrake, [
-                    CURLOPT_POST => true,
-                    CURLOPT_RETURNTRANSFER => true,
-                    CURLOPT_POSTFIELDS => json_encode(['Report' => ['Message' => $errstr]])]);
-                curl_exec($Airbrake);
+
             }
             return F::Log($errstr.' '.$errfile.'@'.$errline, 'Error');
         }
@@ -416,65 +415,63 @@
             $Method = ($Method == null)? self::$_Method: $Method;
 
             // Если контракт уже не загружен
-            if (!isset(self::$_Options[$Service][$Method]))
+            if (!isset(self::$_Options[$Service]))
             {
                 $Options = array();
 
-                    $ServicePath = strtr($Service, '.', '/');
+                $ServicePath = strtr($Service, '.', '/');
 
-                    if ($Filenames = self::findFiles (
-                        array(
-                             'Options/'.$ServicePath.'.'.self::$_Environment.'.json',
-                             'Options/'.$ServicePath.'.json',
-                             'Options/'.$ServicePath.'/'.$Method.'.'.self::$_Environment.'.json',
-                             'Options/'.$ServicePath.'/'.$Method.'.json',
-                        )
-                    ))
+                if ($Filenames = self::findFiles (
+                    array(
+                         'Options/'.$ServicePath.'.'.self::$_Environment.'.json',
+                         'Options/'.$ServicePath.'.json',
+                         'Options/'.$ServicePath.'/'.$Method.'.'.self::$_Environment.'.json',
+                         'Options/'.$ServicePath.'/'.$Method.'.json',
+                    )
+                ))
+                {
+                    foreach ($Filenames as $Filename)
                     {
-                        $Options = array();
+                        $Current = json_decode(file_get_contents($Filename), true);
 
-                        foreach ($Filenames as $Filename)
+                        if ($Filename && !$Current)
                         {
-                            $Current = json_decode(file_get_contents($Filename), true);
-
-                            if ($Filename && !$Current)
-                            {
-                                switch (json_last_error()) {
-                                    case JSON_ERROR_NONE:
-                                        $JSONError =  ' - No errors';
-                                    break;
-                                    case JSON_ERROR_DEPTH:
-                                        $JSONError =  ' - Maximum stack depth exceeded';
-                                    break;
-                                    case JSON_ERROR_STATE_MISMATCH:
-                                        $JSONError =  ' - Underflow or the modes mismatch';
-                                    break;
-                                    case JSON_ERROR_CTRL_CHAR:
-                                        $JSONError =  ' - Unexpected control character found';
-                                    break;
-                                    case JSON_ERROR_SYNTAX:
-                                        $JSONError =  ' - Syntax error, malformed JSON';
-                                    break;
-                                    case JSON_ERROR_UTF8:
-                                        $JSONError =  ' - Malformed UTF-8 characters, possibly incorrectly encoded';
-                                    break;
-                                    default:
-                                        $JSONError =  ' - Unknown error';
-                                    break;
-                                }
-                                trigger_error('JSON Error: ' . $Filename.':'. $JSONError); //FIXME
-                                return null;
+                            switch (json_last_error()) {
+                                case JSON_ERROR_NONE:
+                                    $JSONError =  ' - No errors';
+                                break;
+                                case JSON_ERROR_DEPTH:
+                                    $JSONError =  ' - Maximum stack depth exceeded';
+                                break;
+                                case JSON_ERROR_STATE_MISMATCH:
+                                    $JSONError =  ' - Underflow or the modes mismatch';
+                                break;
+                                case JSON_ERROR_CTRL_CHAR:
+                                    $JSONError =  ' - Unexpected control character found';
+                                break;
+                                case JSON_ERROR_SYNTAX:
+                                    $JSONError =  ' - Syntax error, malformed JSON';
+                                break;
+                                case JSON_ERROR_UTF8:
+                                    $JSONError =  ' - Malformed UTF-8 characters, possibly incorrectly encoded';
+                                break;
+                                default:
+                                    $JSONError =  ' - Unknown error';
+                                break;
                             }
-
-                            $Options = self::Merge($Options, $Current);
+                            trigger_error('JSON Error: ' . $Filename.':'. $JSONError); //FIXME
+                            return null;
                         }
+
+                        $Options = self::Merge($Options, $Current);
                     }
+                }
 
-                    if (isset($Options['Mixins']))
-                        foreach($Options['Mixins'] as $Mixin)
-                            $Options = F::Merge($Options, F::loadOptions($Mixin));
+                if (isset($Options['Mixins']))
+                    foreach($Options['Mixins'] as $Mixin)
+                        $Options = F::Merge($Options, F::loadOptions($Mixin));
 
-                    self::$_Options[$Service] = $Options;
+                self::$_Options[$Service] = $Options;
             }
 
             return self::$_Options[$Service];

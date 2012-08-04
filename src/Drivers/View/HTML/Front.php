@@ -12,8 +12,6 @@
         if (!isset($Call['Layouts']))
             $Call['Layouts'] = [];
 
-
-
         if (F::isCall($Call))
         {
             $Slices = explode('.', $Call['Service']);
@@ -40,7 +38,7 @@
                 array_unshift($Call['Layouts'], array('Scope' => $Zone, 'ID' => 'Zone'));
         }
 
-        if (empty($Call['Context']))
+        if (!isset($Call['Context']) || empty($Call['Context']))
             array_unshift($Call['Layouts'], array(
                 'Scope' => 'Default',
                 'ID' => 'Main'

@@ -11,9 +11,15 @@
     {
         $Call = F::Hook('beforeLoad', $Call);
 
-        $Call = F::Merge(F::loadOptions($Call['Entity'].'.Entity'), $Call);
+        F::Log('Trying to loading '.$Call['Entity']);
 
-        // $Call = F::Hook('afterEntityLoad', $Call);
+
+        if (is_array($Model = F::loadOptions($Call['Entity'].'.Entity')))
+            $Call = F::Merge($Model, $Call);
+        else
+            F::Log('Model for '.$Call['Entity'].'not found');
+
+       // $Call = F::Hook('afterEntityLoad', $Call);
 
         return $Call;
     });

@@ -86,9 +86,12 @@
 
 
         // Отправляем в Entity.Update
+
         $Call['Data'] = F::Run('Entity', 'Update', $Call);
 
-        // Выводим результат
+        $Call['Data']['ID'] = $Call['Where'];
+
+       // Выводим результат
 
         $Call = F::Hook('afterUpdatePost', $Call);
 

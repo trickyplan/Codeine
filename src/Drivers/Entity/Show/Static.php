@@ -13,15 +13,8 @@
 
         $Call['Locales'][] = $Call['Entity'];
 
-        $Call['Layouts'][] = array(
-                    'Scope' => $Call['Entity'],
-                    'ID' => 'Main'
-                );
-
-        $Call['Layouts'][] = array(
-                    'Scope' => $Call['Entity'],
-                    'ID' => 'Show'
-                );
+        $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Main','Context' => $Call['Context']);
+        $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Show','Context' => $Call['Context']);
 
         if (empty($Call['Data']))
             $Call = F::Run('Error/404', 'Page', $Call);

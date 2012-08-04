@@ -9,6 +9,6 @@
 
      self::setFn('Make', function ($Call)
      {
-         $Result = F::Run('Code.Flow.Application', 'Run', array('Context' => 'app', 'Run' => $Call['Run']));
+         $Result = F::Run('Code.Flow.Application', 'Run', array('Run' => $Call['Run']));
          return $Result['Output'];
      });
