@@ -38,7 +38,7 @@
                 array_unshift($Call['Layouts'], array('Scope' => $Zone, 'ID' => 'Zone'));
         }
 
-        if (!isset($Call['Context']) || empty($Call['Context']))
+        if (!isset($Call['Context']) or empty($Call['Context']))
             array_unshift($Call['Layouts'], array(
                 'Scope' => 'Default',
                 'ID' => 'Main'

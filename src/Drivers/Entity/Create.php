@@ -13,7 +13,6 @@
 
         $Call = F::Run(null, $_SERVER['REQUEST_METHOD'], $Call);
 
-        unset($Call['Context']);
         return $Call;
     });
 
@@ -28,6 +27,7 @@
 
         // Загрузить предопределённые данные и умолчания
         // Сгенерировать форму
+
 
         // Для каждой ноды в модели
         foreach ($Call['Nodes'] as $Name => $Node)
@@ -70,8 +70,6 @@
         }
 
         // Вывести
-
-
         $Call = F::Hook('afterCreateGet', $Call);
 
         return $Call;

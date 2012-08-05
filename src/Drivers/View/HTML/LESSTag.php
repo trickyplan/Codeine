@@ -30,11 +30,11 @@
                               'Storage' => 'CSS',
                               'Where'   => $Parsed[1][$IX],
                               'Scope'   => $Asset . '/css',
-                              'Data'    => d(__FILE__, __LINE__, F::Run('View.LESS.CLI', 'Compile',
+                              'Data'    => F::Run('View.LESS.CLI', 'Compile',
                                    array (
                                          'Value' => $LESSFile,
                                          'CSS' => Root.'/Assets/'.$Asset.'/css/'.$ID.'.css') // FIXME
-                               ))
+                               )
                         ));
                 };
 

@@ -9,7 +9,6 @@
 
     self::setFn ('Write', function ($Call)
     {
-        d(__FILE__, __LINE__, $Call['Data']);
         F::Run('Entity', 'Delete', array(
                                     'Entity' => $Call['Entity'].'2'.$Call['Name'],
                                     'Where' =>

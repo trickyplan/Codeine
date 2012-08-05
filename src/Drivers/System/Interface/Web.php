@@ -62,8 +62,8 @@
 
         return F::Run('System.Timezone.PHPGeoIP', 'CountryAndRegion',
             array (
-                  'Country' => d(__FILE__, __LINE__, F::Run('System.GeoIP.PHPGeoIP', 'Country', array ('Value' => $IP))),
-                  'Region' => d(__FILE__, __LINE__, F::Run('System.GeoIP.PHPGeoIP', 'Region', array ('Value' => $IP)))
+                  'Country' => F::Run('System.GeoIP.PHPGeoIP', 'Country', array ('Value' => $IP)),
+                  'Region' => F::Run('System.GeoIP.PHPGeoIP', 'Region', array ('Value' => $IP))
             ));
     });
 
