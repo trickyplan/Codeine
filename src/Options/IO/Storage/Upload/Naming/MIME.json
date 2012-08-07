@@ -1,0 +1,8 @@
+{
+    "Map":
+    {
+        "image/jpeg": ".jpg",
+        "image/png": ".png",
+        "application/msword": ".doc"
+    }
+}
