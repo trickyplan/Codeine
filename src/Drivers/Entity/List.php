@@ -12,6 +12,8 @@
         $Call = F::Merge(F::loadOptions($Call['Entity'].'.Entity'), $Call); // FIXME
         $Call = F::Hook('beforeList', $Call);
 
+        $Call['Where'] = F::Live($Call['Where']); // FIXME
+
         $Elements = F::Run('Entity', 'Read', $Call);
 
         $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Main','Context' => $Call['Context']);

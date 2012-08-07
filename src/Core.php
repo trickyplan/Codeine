@@ -5,7 +5,7 @@
      * @description: F Class
      * @package Codeine Framework
      * @subpackage Core
-     * @version 7.4.5
+     * @version 7.6.2
      */
 
     define('Codeine', __DIR__);
@@ -397,10 +397,6 @@
 
         public static function Error($errno , $errstr , $errfile , $errline , $errcontext)
         {
-            if (isset(self::$_Options['Project']['Airbrake']))
-            {
-
-            }
             return F::Log($errstr.' '.$errfile.'@'.$errline, 'Error');
         }
 

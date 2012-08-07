@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description: 
      * @package Codeine
-     * @version 7.4.5
+     * @version 7.6.2
      * @date 13.08.11
      * @time 22:37
      */
@@ -21,7 +21,7 @@
 
             move_uploaded_file($Call['Value']['tmp_name'], Root . '/' . $Call['Directory'] . '/' . $Call['Scope'] . '/' . $Name);
 
-            return $Call['Directory'].'/'.$Call['Scope'].'/'.$Name;
+            return $Name;
         }
         else
             return null;

@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description Транслитерация по правилам загранпаспортов 
      * @package Codeine
-     * @version 7.4.5
+     * @version 7.6.2
      */
 
     self::setFn('2English', function ($Call)

@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description Pagination hooks 
      * @package Codeine
-     * @version 7.4.5
+     * @version 7.6.2
      */
 
     self::setFn('beforeList', function ($Call)
