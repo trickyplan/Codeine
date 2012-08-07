@@ -3,6 +3,7 @@
     {
         "image/jpeg": ".jpg",
         "image/png": ".png",
-        "application/msword": ".doc"
+        "application/msword": ".doc",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document": ".docx"
     }
 }
