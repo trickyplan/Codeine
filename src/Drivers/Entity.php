@@ -51,9 +51,10 @@
 
             $Call = F::Hook('afterEntityRead', $Call);
 
-            foreach ($Call['Data'] as $Element)
-                if (isset($Element['ID']))
-                    F::Set('Entity.'.$Element['ID'], $Element);
+            if (is_array($Call['Data']))
+                foreach ($Call['Data'] as $Element)
+                    if (isset($Element['ID']))
+                        F::Set('Entity.'.$Element['ID'], $Element);
         }
 
         return $Call['Data'];
