@@ -33,8 +33,6 @@
                 foreach ($Call['Headers'] as $Key => $Value)
                     header ($Key . ' ' . $Value);
 
-            F::Log(F::Speed());
-
             echo $Call['Output'];
         }
 

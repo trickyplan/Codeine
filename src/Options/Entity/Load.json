@@ -1,0 +1,47 @@
+{
+    "Contract":
+    {
+        "Pure":false,
+        "Call":{
+            "Entity":
+            {
+                "Description":
+                {
+                    "ru_RU":"Идентификатор модели"
+                },
+                "Type":"Literal.String",
+                "Required":true
+            },
+            "Data":
+            {
+                "Description":
+                {
+                    "ru_RU":"Данные для создания объекта"
+                },
+                "Required": true,
+                "Type":"Array.Associative"
+            }
+        }
+    },
+    "Hooks":
+    {
+        "beforeCreateDo":
+        {
+            "Load model (essential)":
+            {
+                "Service":"Entity",
+                "Method":"Load"
+            }
+        }
+    },
+    "Output":
+    {
+        "Content":
+        {
+            "Form":
+            {
+                "Type": "Form"
+            }
+        }
+    }
+}

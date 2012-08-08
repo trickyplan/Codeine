@@ -25,24 +25,20 @@
     {
         $Query = F::Run('IO.Storage.MySQL.Syntax', 'Read', $Call);
 
-        if (null === ($Data = F::Get($Query))) // FIXME Нормальная мемоизация
+        if (null == ($Data = F::Get($Query))) // FIXME Нормальная мемоизация
         {
             F::Log($Query);
 
             $Result = $Call['Link']->query($Query);
+            F::Counter('MySQL');
 
             if ($Call['Link']->errno != 0)
                 F::Log($Call['Link']->error,'Error');
 
-            $Data = array();
-
-            while($Row = $Result->fetch_assoc())
-                $Data[] = $Row;
+            $Data = $Result->fetch_all(MYSQLI_ASSOC);
 
             F::Set($Query, $Data);
         }
-        else
-            F::Log($Query.' memoized!'); // FIXME
 
         return $Data;
     });
@@ -67,7 +63,8 @@
 
         F::Log($Query);
 
-        $Result = $Call['Link']->query($Query);
+        $Call['Link']->query($Query);
+        F::Counter('MySQL');
 
         if ($Call['Link']->errno != 0)
             F::Log($Call['Link']->error,'Error');
@@ -100,6 +97,7 @@
     self::setFn ('Count', function ($Call)
     {
         $Result = $Call['Link']->query(F::Run('IO.Storage.MySQL.Syntax', 'Count', $Call));
+        F::Counter('MySQL');
 
         if ($Result)
             $Result = $Result->fetch_assoc();

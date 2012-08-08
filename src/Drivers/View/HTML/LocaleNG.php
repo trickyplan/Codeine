@@ -26,15 +26,12 @@
                     ))[0];
 
                 if ($AddLocales)
-                {
-                    F::Log('Locale '.$Locale.' loaded');
                     $Locales = F::Merge($Locales, $AddLocales);
-                }
             }
 
             if (preg_match_all('@<l>(.*)<\/l>@SsUu', $Call['Output'], $Pockets))
             {
-
+                $Pockets[1] = array_unique($Pockets[1]);
                 foreach (
                     $Pockets[1] as $IX => $Match
                 )

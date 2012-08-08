@@ -12,12 +12,12 @@
         $Call = F::Merge(F::loadOptions($Call['Entity'].'.Entity'), $Call); // FIXME
         $Call = F::Hook('beforeList', $Call);
 
+        if (isset($Call['Where']))
         $Call['Where'] = F::Live($Call['Where']); // FIXME
 
         $Elements = F::Run('Entity', 'Read', $Call);
 
         $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Main','Context' => $Call['Context']);
-        $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'List','Context' => $Call['Context']);
 
         $Call['Locales'][] = $Call['Entity'];
 
@@ -33,6 +33,8 @@
             );
         else
         {
+            $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'List','Context' => $Call['Context']);
+
             if (isset($Call['Reverse']))
                 $Elements = array_reverse($Elements, true);
 

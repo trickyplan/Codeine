@@ -20,6 +20,9 @@
 
     self::setFn ('Read', function ($Call)
     {
+        F::Counter('IO.Mongo');
+        F::Counter('IO.Mongo.Reads');
+
         foreach ($Call['Where'] as $Key => &$Value) // FIXME Повысить уровень абстракции
             if (isset($Call['Nodes'][$Key]['Type']))
             {
@@ -67,6 +70,9 @@
 
     self::setFn ('Write', function ($Call)
     {
+        F::Counter('IO.Mongo');
+        F::Counter('IO.Mongo.Writes');
+
         foreach ($Call['Where'] as $Key => &$Value) // FIXME Повысить уровень абстракции
             if (isset($Call['Nodes'][$Key]['Type']))
             {

@@ -11,6 +11,8 @@
     {
         if (preg_match_all('@<k>(.*)</k>@SsUu', $Call['Value'], $Pockets))
         {
+            $Pockets[1] = array_unique($Pockets[1]);
+
             foreach ($Pockets[1] as $IX => $Match)
             {
                 if (($Matched = F::Dot($Call['Data'], $Match)) !== null)

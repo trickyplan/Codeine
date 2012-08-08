@@ -17,6 +17,9 @@
 
              while (preg_match_all('/<'.$Tag.'(.*)>(.*)<\/'.$Tag.'>/SsUu', $Call['Output'], $Call['Parsed']))
              {
+                 foreach ($Call['Parsed'] as &$Row)
+                     $Row = array_unique($Row);
+
                  $Call = F::Run('View.HTML.Parslets.'.$Parslet, 'Parse', $Call);
                  $Passes++;
 

@@ -43,9 +43,18 @@
 
         $Call['Scope'] = $Call['Entity'];
 
-        $Call['Data'] = F::Run('IO', 'Read', $Call);
+        if (isset($Call['Where']['ID']) && (($Call['Data'] = F::Get('Entity.'.$Call['Where']['ID'])) !== null))
+            ;
+        else
+        {
+            $Call['Data'] = F::Run('IO', 'Read', $Call);
 
-        $Call = F::Hook('afterEntityRead', $Call);
+            $Call = F::Hook('afterEntityRead', $Call);
+
+            foreach ($Call['Data'] as $Element)
+                if (isset($Element['ID']))
+                    F::Set('Entity.'.$Element['ID'], $Element);
+        }
 
         return $Call['Data'];
     });

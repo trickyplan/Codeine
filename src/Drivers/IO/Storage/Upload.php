@@ -27,3 +27,8 @@
             return null;
 
     });
+
+    self::setFn('Read', function ($Call)
+    {
+        return file_get_contents(Root . '/' . $Call['Directory'] . '/' . $Call['Scope'] . '/' . $Call['Where']['ID']);
+    });
