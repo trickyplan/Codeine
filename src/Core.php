@@ -60,6 +60,9 @@
             if (isset(self::$_Options['Project']['Version']['Codeine']) && self::$_Options['Project']['Version']['Codeine'] > self::$_Options['Codeine']['Version'])
                 die('Codeine '.self::$_Options['Project']['Version']['Codeine'].'+ needed. Installed: '.self::$_Options['Codeine']['Version']);
 
+            self::Log('Codeine: '.self::$_Options['Codeine']['Version']);
+            self::Log('Environment: '.self::$_Environment);
+
             register_shutdown_function ('F::Shutdown');
             set_error_handler ('F::Error'); // Instability
         }
