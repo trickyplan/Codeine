@@ -391,7 +391,7 @@
             if (isset($Call['Hooks']))
                  if ($Hooks = F::Dot($Call, 'Hooks.' . $On))
                      foreach ($Hooks as $Hook)
-                         $Call = F::Run($Hook['Service'],$Hook['Method'],$Hook['Call'],  $Call);
+                         $Call = F::Run($Hook['Service'],$Hook['Method'], isset($Hook['Call'])? $Hook['Call']: [],  $Call);
 
             return $Call;
         }
