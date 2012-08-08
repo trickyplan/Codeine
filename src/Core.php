@@ -422,10 +422,12 @@
 
                 $ServicePath = strtr($Service, '.', '/');
 
-                $Filenames = ['Options/'.$ServicePath.'.json'];
+                $Filenames = [];
 
                 if (self::$_Environment != 'Production')
                     $Filenames[] = 'Options/'.$ServicePath.'.'.self::$_Environment.'.json';
+
+                $Filenames[] = ['Options/'.$ServicePath.'.json'];
 
                 if ($Filenames = self::findFiles ($Filenames))
                 {
