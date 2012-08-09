@@ -10,6 +10,54 @@
                 "Service":"View.HTML.Front",
                 "Method":"Layouts"
             }
+        },
+        "afterPipeline":
+        {
+            "Parslets":
+            {
+                "Service":"View.HTML.Parslets",
+                "Method":"Process"
+            },
+            "Minify":
+            {
+                "Service":"View.HTML.Minify",
+                "Method":"Process"
+            },
+            "Image":
+            {
+                "Service":"View.HTML.Image",
+                "Method":"Process"
+            },
+            "CSS":
+            {
+                "Service":"View.HTML.CSSTag",
+                "Method":"Process"
+            },
+            "JS":
+            {
+                "Service":"View.HTML.JSTag",
+                "Method":"Process"
+            },
+            "Meta":
+            {
+                "Service":"View.HTML.Meta",
+                "Method":"Scan"
+            },
+            "CleanPlaces":
+            {
+                "Service": "View.HTML.Places",
+                "Method": "Clean"
+            },
+            "Breadcrumbs":
+            {
+                "Service":"View.HTML.Breadcrumbs",
+                "Method":"Scan"
+            },
+            "I18N":
+            {
+                "Service":"View.HTML.LocaleNG",
+                "Method":"Process"
+            }
         }
     }
 }
