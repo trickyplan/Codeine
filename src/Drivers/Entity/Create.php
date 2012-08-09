@@ -81,12 +81,19 @@
 
         // Берём данные из запроса
 
+
         if (!isset($Call['Failure']))
         {
             if (isset($Call['Data']))
                 $Call['Data'] = F::Merge($Call['Request'], $Call['Data']);
             else
                 $Call['Data'] = $Call['Request'];
+
+            foreach ($Call['Nodes'] as $Name => $Node)
+            {
+                if (!isset($Node['Widgets']) && isset($Call['Data'][$Name]))
+                    unset($Call['Data'][$Name]);
+            }
 
             // Отправляем в Entity.Create
 
