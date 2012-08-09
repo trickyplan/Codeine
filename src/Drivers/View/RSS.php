@@ -42,7 +42,7 @@
                         $XML->text(date(DATE_RSS, $Element['Data']['Created']));
                     $XML->endElement(); // description
 
-                    $XML->startElement('Description');
+                    $XML->startElement('description');
                             $XML->writeCdata($Element['Data']['Description']);
                     $XML->endElement(); // description
 
