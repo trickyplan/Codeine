@@ -84,12 +84,11 @@
 
         $Call['Data'] = $Call['Request'];
 
-
         // Отправляем в Entity.Update
 
         $Call['Data'] = F::Run('Entity', 'Update', $Call);
 
-        $Call['Data']['ID'] = $Call['Where'];
+        $Call['Data'] = F::Run('Entity', 'Read', $Call)[0];
 
        // Выводим результат
 
