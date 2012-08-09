@@ -51,7 +51,7 @@
         $XML->endElement(); // rss
         $XML->endDocument();
 
-        $Call['Output'] = str_replace('Description', 'description', $XML->outputMemory(true));
+        $Call['Output'] = $XML->outputMemory(true);
         
         return $Call;
     });
