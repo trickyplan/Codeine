@@ -9,7 +9,7 @@
 
     self::setFn('Render', function ($Call)
     {
-        //$Call['Headers']['Content-type:'] = 'application/rss+xml';
+        $Call['Headers']['Content-type:'] = 'application/rss+xml';
         $XML = new XMLWriter();
         $XML->openMemory();
         $XML->startDocument('1.0', 'UTF-8');
