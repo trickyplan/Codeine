@@ -89,7 +89,7 @@
 
             else
                 $Call['Output'] = str_replace('<place>JS</place>',
-                    '<script src="/js/' . $JSHash . '.js" type="text/javascript"></script>', $Call['Output']);
+                    '<script src="'.$Call['JS Host'].'/js/' . $JSHash . '.js" type="text/javascript"></script>', $Call['Output']);
         }
 
         return $Call;
