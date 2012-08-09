@@ -9,7 +9,7 @@
 
     self::setFn('Render', function ($Call)
     {
-        $Call['Headers']['Content-type:'] = 'application/rss+xml';
+        //$Call['Headers']['Content-type:'] = 'application/rss+xml';
         $XML = new XMLWriter();
         $XML->openMemory();
         $XML->startDocument('1.0', 'UTF-8');
@@ -22,6 +22,12 @@
         $XML->endAttribute();
 
         $XML->startElement('channel');
+
+        $XML->writeElement('title', $Call['Title']);
+        $XML->writeElement('description', $Call['Description']);
+        $XML->writeElement('generator', 'Codeine');
+        $XML->writeElement('pubDate', date(DATE_RSS, time()));
+        $XML->writeElement('lastBuildDate', date(DATE_RSS, time()));
 
         foreach ($Call['Output']['Content'] as $Element)
             if ($Element['Type'] == 'Template')
