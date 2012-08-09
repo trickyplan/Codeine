@@ -85,7 +85,7 @@
 
             if (isset($Call['Async']))
                 $Call['Output'] = str_replace('<place>JS</place>',
-                '<script type="text/javascript"> var script = document.createElement(\'script\'); script.src = \'/js/'.$JSHash.'.js\';                    document.getElementsByTagName(\'head\')[0].appendChild(script);</script>', $Call['Output']);
+                '<script type="text/javascript"> var script = document.createElement(\'script\'); script.src = \''.$Call['JS Host'].'/js/'.$JSHash.'.js\';                    document.getElementsByTagName(\'head\')[0].appendChild(script);</script>', $Call['Output']);
 
             else
                 $Call['Output'] = str_replace('<place>JS</place>',
