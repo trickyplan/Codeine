@@ -67,11 +67,6 @@
                     "Purpose": "Update"
                 }
             },
-            "Updated values":
-            {
-                "Service":"Entity.Nodes.Updated",
-                "Method":"Process"
-            },
             "Make variables alive":
             {
                 "Service":"Entity.Nodes.Live",
@@ -80,6 +75,11 @@
                 {
                     "Purpose": "Update"
                 }
+            },
+            "Updated values":
+            {
+                "Service":"Entity.Nodes.Updated",
+                "Method":"Process"
             },
             "Filter":
             {
