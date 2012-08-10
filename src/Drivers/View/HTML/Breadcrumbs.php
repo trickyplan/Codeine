@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description  
      * @package Codeine
-     * @version 7.4.5
+     * @version 7.6.2
      */
 
     self::setFn('Scan', function ($Call)
@@ -15,7 +15,7 @@
         {
             foreach ($Pockets[0] as $IX => $Match)
             {
-                $Match = simplexml_load_string($Match);
+                $Match = simplexml_load_string('<breadcrumb '.$Pockets[1][$IX].'></breadcrumb>');
 
                 $URL = (string) $Match->attributes()->href;
                 $Call['Breadcrumbs'][strlen($URL)] = array('URL' => $URL, 'Title' => $Pockets[2][$IX]);

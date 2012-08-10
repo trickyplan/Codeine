@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description Media includes support 
      * @package Codeine
-     * @version 7.4.5
+     * @version 7.6.2
      */
 
     self::setFn('Hash', function ($Call)
@@ -85,11 +85,11 @@
 
             if (isset($Call['Async']))
                 $Call['Output'] = str_replace('<place>JS</place>',
-                '<script type="text/javascript"> var script = document.createElement(\'script\'); script.src = \'/js/'.$JSHash.'.js\';                    document.getElementsByTagName(\'head\')[0].appendChild(script);</script>', $Call['Output']);
+                '<script type="text/javascript"> var script = document.createElement(\'script\'); script.src = \''.$Call['JS Host'].'/js/'.$JSHash.'.js\';                    document.getElementsByTagName(\'head\')[0].appendChild(script);</script>', $Call['Output']);
 
             else
                 $Call['Output'] = str_replace('<place>JS</place>',
-                    '<script src="/js/' . $JSHash . '.js" type="text/javascript"></script>', $Call['Output']);
+                    '<script src="'.$Call['JS Host'].'/js/' . $JSHash . '.js" type="text/javascript"></script>', $Call['Output']);
         }
 
         return $Call;

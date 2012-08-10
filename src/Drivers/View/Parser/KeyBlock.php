@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description <k> tag 
      * @package Codeine
-     * @version 7.4.5
+     * @version 7.6.2
      */
 
     self::setFn('Parse', function ($Call)
@@ -17,6 +17,9 @@
 
                 if (($Matched = F::Dot($Call['Data'], $Match)) !== null)
                 {
+                    if (($Matched === false) || ($Matched === 0))
+                        $Matched = '0';
+
                     if (is_array($Call['Data'][$Match]))
                         foreach($Call['Data'][$Match] as $cMatch)
                             $Output.= $Pockets[1][$IX].($cMatch).$Pockets[3][$IX];

@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description  New IO Engine
      * @package Codeine
-     * @version 7.4.5
+     * @version 7.6.2
      */
 
     self::setFn ('Open', function ($Call)
@@ -35,7 +35,7 @@
 
     self::setFn ('Read', function ($Call)
     {
-        $Call = F::Merge(F::Run('IO', 'Open', $Call), $Call);
+        $Call = F::Run('IO', 'Open', $Call);
 
         // Если в Where простая переменная - это ID.
         if (isset($Call['Where']) && is_scalar($Call['Where']))
@@ -46,21 +46,16 @@
         else
             $Call['Data'] = null;
 
-        if (isset($Call['Format']))
-        {
-            if (is_array($Call['Data']))
-                foreach($Call['Data'] as &$Element)
-                    $Element = F::Run($Call['Format'], 'Decode', array ('Value' => $Element));
-            else
-                $Call['Data'] = F::Run($Call['Format'], 'Decode', array('Value' => $Call['Data']));
-        }
+        if (isset($Call['Format']) && is_array($Call['Data']))
+            foreach($Call['Data'] as &$Element)
+                $Element = F::Run($Call['Format'], 'Decode', array ('Value' => $Element));
 
         return $Call['Data'];
     });
 
     self::setFn ('Write', function ($Call)
     {
-        $Call = F::Merge(F::Run('IO', 'Open', $Call), $Call);
+        $Call = F::Run('IO', 'Open', $Call);
 
         // Если в Where простая переменная - это ID.
         if (isset($Call['Where']) && is_scalar($Call['Where']))
@@ -77,13 +72,13 @@
 
     self::setFn ('Close', function ($Call)
     {
-        $Call = F::Merge(F::Run('IO', 'Open', $Call), $Call);
+        $Call = F::Run('IO', 'Open', $Call);
         return F::Run ($Call['Driver'], 'Close', $Call);
     });
 
     self::setFn ('Execute', function ($Call)
     {
-        $Call = F::Merge(F::Run('IO', 'Open', $Call), $Call);
+        $Call = F::Run('IO', 'Open', $Call);
 
         if (isset($Call['Where']) && is_scalar($Call['Where']))
                 $Call['Where'] = array('ID' => $Call['Where']);

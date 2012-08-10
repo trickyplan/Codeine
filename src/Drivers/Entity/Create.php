@@ -4,30 +4,30 @@
      * @author BreathLess
      * @description  
      * @package Codeine
-     * @version 7.4.5
+     * @version 7.6.2
      */
 
     self::setFn('Do', function ($Call)
     {
         $Call = F::Hook('beforeCreateDo', $Call);
 
-        return F::Run(null, $_SERVER['REQUEST_METHOD'], $Call);
+        $Call = F::Run(null, $_SERVER['REQUEST_METHOD'], $Call);
+
+        return $Call;
     });
 
     self::setFn('GET', function ($Call)
     {
         $Call = F::Hook('beforeCreateGet', $Call);
 
-        if (!isset($Call['NoEntityLayouts']))
-        {
-            $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Main');
-            $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Create');
-        }
+        $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Main','Context' => $Call['Context']);
+        $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Create','Context' => $Call['Context']);
 
         $Call['Locales'][] = $Call['Entity'];
 
         // Загрузить предопределённые данные и умолчания
         // Сгенерировать форму
+
 
         // Для каждой ноды в модели
         foreach ($Call['Nodes'] as $Name => $Node)
@@ -48,6 +48,8 @@
                     $Widget['Node'] = $Name;
                     $Widget['Name'] = strtr($Name, '.','_');
                     $Widget['ID'] = strtr($Name, '.','_');
+                    $Widget['Context'] = $Call['Context'];
+
                     $Widget = F::Merge($Node, $Widget);
 
                     // Если есть значение, добавляем
@@ -68,8 +70,6 @@
         }
 
         // Вывести
-
-
         $Call = F::Hook('afterCreateGet', $Call);
 
         return $Call;
@@ -81,12 +81,19 @@
 
         // Берём данные из запроса
 
+
         if (!isset($Call['Failure']))
         {
             if (isset($Call['Data']))
                 $Call['Data'] = F::Merge($Call['Request'], $Call['Data']);
             else
                 $Call['Data'] = $Call['Request'];
+
+            foreach ($Call['Nodes'] as $Name => $Node)
+            {
+                if (!isset($Node['Widgets']) && isset($Call['Data'][$Name]))
+                    unset($Call['Data'][$Name]);
+            }
 
             // Отправляем в Entity.Create
 

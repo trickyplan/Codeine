@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description Exec Parslet 
      * @package Codeine
-     * @version 7.4.5
+     * @version 7.6.2
      */
 
      self::setFn('Parse', function ($Call)
@@ -13,7 +13,7 @@
           {
               $Match = json_decode(json_encode(simplexml_load_string('<exec>'.$Match.'</exec>')), true); // I love PHP :(
 
-              $Application = F::Run('Code.Flow.Application', 'Run', array('Context' => 'app', 'Run' => $Match));
+              $Application = F::Run('Code.Flow.Application', 'Run', array('Run' => $Match, 'Context' => 'app'));
 
               $Call['Output'] = str_replace($Call['Parsed'][0][$Ix], $Application['Output'], $Call['Output']);
           }

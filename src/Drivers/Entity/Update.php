@@ -84,11 +84,13 @@
 
         $Call['Data'] = $Call['Request'];
 
-
         // Отправляем в Entity.Update
+
         $Call['Data'] = F::Run('Entity', 'Update', $Call);
 
-        // Выводим результат
+        $Call['Data'] = F::Run('Entity', 'Read', $Call)[0];
+
+       // Выводим результат
 
         $Call = F::Hook('afterUpdatePost', $Call);
 

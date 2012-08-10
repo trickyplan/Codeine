@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description LESS tags support
      * @package Codeine
-     * @version 7.4.5
+     * @version 7.6.2
      */
 
     self::setFn ('Process', function ($Call)
@@ -30,11 +30,11 @@
                               'Storage' => 'CSS',
                               'Where'   => $Parsed[1][$IX],
                               'Scope'   => $Asset . '/css',
-                              'Data'    => d(__FILE__, __LINE__, F::Run('View.LESS.CLI', 'Compile',
+                              'Data'    => F::Run('View.LESS.CLI', 'Compile',
                                    array (
                                          'Value' => $LESSFile,
                                          'CSS' => Root.'/Assets/'.$Asset.'/css/'.$ID.'.css') // FIXME
-                               ))
+                               )
                         ));
                 };
 

@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description: Standart MD5
      * @package Codeine
-     * @version 7.4.5
+     * @version 7.6.2
      * @date 22.11.10
      * @time 4:40
      */

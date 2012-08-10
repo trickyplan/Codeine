@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description: 
      * @package Codeine
-     * @version 7.4.5
+     * @version 7.6.2
      * @date 13.08.11
      * @time 22:37
      */
@@ -23,7 +23,24 @@
         $Prefix = isset($Call['Prefix']) ? $Call['Prefix'] : '';
         $Path = $Call['Link'].'/'.$Call['Scope'].'/';
 
-        if(!isset($Call['Where']))
+        if(isset($Call['Where']))
+        {
+            $Call['Where']['ID'] = (array) $Call['Where']['ID'];
+
+            foreach ($Call['Where']['ID'] as &$ID)
+                $ID = $Path.$Prefix.$ID.$Postfix;
+
+            $Filename = F::findFile($Call['Where']['ID']);
+
+            if (isset($Call['Debug']))
+                d(__FILE__, __LINE__, $Call['Where']['ID']);
+
+            if (F::file_exists($Filename))
+                return array (file_get_contents($Filename));
+            else
+                return null;
+        }
+        else
         {
             $Directory = new RecursiveDirectoryIterator(Root.'/'.$Path);
             $Iterator  = new RecursiveIteratorIterator($Directory);
@@ -41,29 +58,11 @@
                 {
                     $Path = substr($Pathinfo['dirname'], $DirSz);
 
-                    $ID = $Path.'.'.$Pathinfo['filename'];
-                    $Data[] = $ID;
+                    $Data[$Pathinfo['filename']] = file_get_contents($File[0]);
                 }
             }
 
             return $Data;
-        }
-        else
-        {
-            $Call['Where']['ID'] = (array) $Call['Where']['ID'];
-
-            foreach ($Call['Where']['ID'] as &$ID)
-                $ID = $Path.$Prefix.$ID.$Postfix;
-
-            $Filename = F::findFile($Call['Where']['ID']);
-
-            if (isset($Call['Debug']))
-                d(__FILE__, __LINE__, $Call['Where']['ID']);
-
-            if (file_exists($Filename))
-                return array (file_get_contents($Filename));
-            else
-                return null;
         }
 
     });
@@ -77,6 +76,9 @@
         $Prefix   = isset($Call['Prefix']) ? $Call['Prefix'] : '';
 
         $Filename = Root.'/'.$Call['Link'] . '/' . $Call['Scope'] . '/' . $Prefix . (isset($Call['ID'])? $Call['ID']: $Call['Where']['ID']) . $Postfix;
+
+        if (!is_dir(Root.'/'.$Call['Link'] . '/' . $Call['Scope'] . '/'))
+            mkdir(Root.'/'.$Call['Link'] . '/' . $Call['Scope'] . '/', 0777, true);
 
         if (isset($Call['Data']) && ($Call['Data'] != 'null') && ($Call['Data'] != null))
             return file_put_contents ($Filename, $Call['Data']);
@@ -99,7 +101,7 @@
 
         $Filename = F::findFile ($Call['Link'] .'/'. $Call['Scope'] . '/' . $Prefix . $Call['Where']['ID'] . $Postfix);
 
-        if (file_exists ($Filename))
+        if (F::file_exists ($Filename))
             return filemtime($Filename);
         else
             return null;
@@ -115,7 +117,7 @@
 
         $Filename = F::findFile ($Call['Link'] . '/' . $Call['Scope'] . '/' . $Prefix . $Call['Where']['ID'] . $Postfix);
 
-        return file_exists ($Filename);
+        return F::file_exists ($Filename);
     });
 
     self::setFn('Status', function ($Call)

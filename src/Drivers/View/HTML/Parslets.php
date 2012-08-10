@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description Apriori Parser 
      * @package Codeine
-     * @version 7.4.5
+     * @version 7.6.2
      */
 
      self::setFn('Process', function ($Call)
@@ -17,6 +17,9 @@
 
              while (preg_match_all('/<'.$Tag.'(.*)>(.*)<\/'.$Tag.'>/SsUu', $Call['Output'], $Call['Parsed']))
              {
+                 foreach ($Call['Parsed'] as &$Row)
+                     $Row = array_unique($Row);
+
                  $Call = F::Run('View.HTML.Parslets.'.$Parslet, 'Parse', $Call);
                  $Passes++;
 

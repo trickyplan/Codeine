@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description: 
      * @package Codeine
-     * @version 7.4.5
+     * @version 7.6.2
      * @date 13.08.11
      * @time 22:46
      */
@@ -16,7 +16,7 @@
 
     self::setFn('Encode', function ($Call)
     {
-        return json_encode($Call['Value']);
+        return json_encode($Call['Value'], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
     });
 
     self::setFn('Encode.Call', function ($Call)

@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description  
      * @package Codeine
-     * @version 7.4.5
+     * @version 7.6.2
      */
 
     self::setFn('Do', function ($Call)
@@ -15,11 +15,11 @@
         {
             if ($Call['User']['Status'] >= 1)
             {
-                if (isset($Call['Request']['TTL']))
-                    $Call['TTL'] = $Call['Request']['TTL'];
+                if (isset($Call['Request']['Remember']))
+                    $Call['TTL'] = $Call['TTLs']['Long'];
 
                 $Call['Session'] = F::Run('Security.Auth', 'Attach', $Call,
-                    array('User' => $Call['User']['ID'], 'TTL' => $Call['TTLs'][$Call['TTL']]));
+                    array('User' => $Call['User']['ID']));
 
                 $Call = F::Hook('Authentification.Success', $Call);
                 return $Call;

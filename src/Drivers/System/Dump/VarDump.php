@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description: var_dump wrapper
      * @package Codeine
-     * @version 7.4.5
+     * @version 7.6.2
      * @date 22.11.10
      * @time 5:21
      */

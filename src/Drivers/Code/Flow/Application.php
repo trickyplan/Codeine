@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description: Фронт контроллер
      * @package Codeine
-     * @version 7.4.5
+     * @version 7.6.2
      * @date 31.08.11
      * @time 1:12
      */
@@ -13,7 +13,8 @@
     {
         // В этом месте, практически всегда, происходит роутинг.
 
-        $Call = F::Run('Code.Flow.Hook', 'Run', $Call, array ('On' => 'beforeApplicationRun')); // JP beforeRun
+
+        $Call = F::Hook('beforeApplicationRun', $Call);
 
         // Если передан нормальный вызов, совершаем его
         if (!isset($Call['Output']))
@@ -21,11 +22,12 @@
             if (F::isCall($Call['Run']))
             {
                 list($Call['Service'], $Call['Method']) = array ($Call['Run']['Service'], $Call['Run']['Method']);
-                $Call = F::Live($Call['Run'], $Call, array('Context' => 'app'));
+
+                $Call = F::Live($Call['Run'], $Call, ['Context' => 'app']);
 
                 $Slices = explode('.', $Call['Run']['Service']);
 
-                $Call['Locales'][] = $Slices[0];
+                $Call['Locales'][] = $Slices[0]; // FIXME Hook
                 $Call['Locales'][] = $Slices[0].':'.implode('.', array_slice($Slices, 1));
             }
             // В противном случае, 404
@@ -35,7 +37,7 @@
 
 
         // А здесь - рендеринг
-        $Call = F::Run('Code.Flow.Hook', 'Run', $Call, array ('On' => 'afterApplicationRun')); // JP afterRun
+        $Call = F::Hook('afterApplicationRun', $Call);
 
         return $Call;
     });

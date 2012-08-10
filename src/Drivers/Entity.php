@@ -11,9 +11,15 @@
     {
         $Call = F::Hook('beforeLoad', $Call);
 
-        $Call = F::Merge(F::loadOptions('Entity.'.$Call['Entity']), $Call);
+        F::Log('Trying to loading '.$Call['Entity']);
 
-        // $Call = F::Hook('afterEntityLoad', $Call);
+
+        if (is_array($Model = F::loadOptions($Call['Entity'].'.Entity')))
+            $Call = F::Merge($Model, $Call);
+        else
+            F::Log('Model for '.$Call['Entity'].'not found');
+
+       // $Call = F::Hook('afterEntityLoad', $Call);
 
         return $Call;
     });
@@ -37,9 +43,19 @@
 
         $Call['Scope'] = $Call['Entity'];
 
-        $Call['Data'] = F::Run('IO', 'Read', $Call);
+        if (isset($Call['Where']['ID']) && (($Call['Data'] = F::Get('Entity.'.$Call['Where']['ID'])) !== null))
+            ;
+        else
+        {
+            $Call['Data'] = F::Run('IO', 'Read', $Call);
 
-        $Call = F::Hook('afterEntityRead', $Call);
+            $Call = F::Hook('afterEntityRead', $Call);
+
+            if (is_array($Call['Data']))
+                foreach ($Call['Data'] as $Element)
+                    if (isset($Element['ID']))
+                        F::Set('Entity.'.$Element['ID'], $Element);
+        }
 
         return $Call['Data'];
     });
@@ -47,8 +63,6 @@
     self::setFn('Update', function ($Call)
     {
         $Call['Current'] = F::Run('Entity', 'Read', $Call)[0];
-
-
 
         $Call = F::Hook('beforeEntityUpdate', $Call);
 

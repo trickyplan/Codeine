@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description Date() engine 
      * @package Codeine
-     * @version 7.4.5
+     * @version 7.6.2
      */
 
     self::setFn('Format', function ($Call)
@@ -21,5 +21,5 @@
         if ($Now['tm_year'] != $Value['tm_year'])
             $Format .= '%G';
 
-        return strftime($Format, $Call['Value']);
+        return mb_strtolower(strftime($Format, $Call['Value']));
      });

@@ -4,18 +4,20 @@
      * @author BreathLess
      * @description Default value support 
      * @package Codeine
-     * @version 7.4.5
+     * @version 7.6.2
      */
 
     self::setFn('Process', function ($Call)
     {
         foreach ($Call['Nodes'] as $Name => $Node)
         {
-            if (!isset($Call['Data'][$Name])
-                || empty($Call['Data'][$Name])
-                || null == $Call['Data'][$Name]
-                || $Call['Data'][$Name] == $Call['Current'][$Name])
-                $Call['Data'][$Name] = $Call['Current'][$Name];
+            if (!isset($Node['Nullable']) && !$Node['Nullable'])
+            {
+                $New = F::Dot($Call['Data'], $Name);
+
+                if (($New === null) || ($New == F::Dot($Call['Current'], $Name)))
+                    $Call['Data'] = F::Dot($Call['Data'], $Name, null);
+            }
         }
 
         return $Call;

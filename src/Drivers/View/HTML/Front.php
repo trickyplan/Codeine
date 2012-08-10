@@ -4,13 +4,13 @@
      * @author BreathLess
      * @description  
      * @package Codeine
-     * @version 7.4.5
+     * @version 7.6.2
      */
 
     self::setFn('Layouts', function ($Call)
     {
         if (!isset($Call['Layouts']))
-            $Call['Layouts'] = array();
+            $Call['Layouts'] = [];
 
         if (F::isCall($Call))
         {
@@ -20,16 +20,28 @@
 
             $Asset = $Slices[0];
 
-            $IDs = array('Main');
+
             for ($ic = 1; $ic < $sz; $ic++)
                 $IDs[$ic] = implode('/', array_slice($Slices, 1, $ic));
 
+            $IDs[] = 'Main';
+
             foreach ($IDs as $ID)
-                array_unshift($Call['Layouts'], array ('Scope' => $Asset, 'ID'    => $ID));
+                array_unshift($Call['Layouts'], array ('Scope' => $Asset, 'ID'    => $ID, 'Context' => $Call['Context']));
         }
 
         if (isset($Call['Zone']))
-            array_unshift($Call['Layouts'], array('Scope' => $Call['Zone'], 'ID' => 'Zone'));
+        {
+            $Call['Zone'] = (array) $Call['Zone'];
 
+            foreach ($Call['Zone'] as $Zone)
+                array_unshift($Call['Layouts'], array('Scope' => $Zone, 'ID' => 'Zone'));
+        }
+
+        if (!isset($Call['Context']) or empty($Call['Context']))
+            array_unshift($Call['Layouts'], array(
+                'Scope' => 'Default',
+                'ID' => 'Main'
+            ));
         return $Call;
      });

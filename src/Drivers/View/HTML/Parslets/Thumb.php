@@ -11,13 +11,14 @@
     {
         foreach ($Call['Parsed'][2] as $Ix => $Match)
         {
-            $Thumb = json_decode(json_encode(simplexml_load_string('<thumb>'.$Match.'</thumb>')),true); // FIXME Абстрагировать этот пиздец
+            $Thumb = json_decode(json_encode(simplexml_load_string(html_entity_decode('<thumb>'.$Match.'</thumb>'))),true); // FIXME Абстрагировать этот пиздец
 
             if (isset($Thumb['Default']))
                 $Thumb['Default'] = F::Live($Thumb['Default']);
             else
                 $Thumb['Default'] = $Call['Default'];
 
+            if (is_string($Thumb['URL']))
             {
                 if (preg_match('/^http.*/', $Thumb['URL']))
                 {
@@ -25,15 +26,18 @@
                 }
                 else
                 {
-                    $Filename = Root . '/' . $Thumb['URL'];
-
-                    if (!is_file($Filename) or is_dir($Filename))
+                    if (isset($Thumb['URL']))
                     {
-                        if (preg_match('/^http.*/', $Thumb['Default']))
-                            $Filename = $Thumb['Default'];
-                        else
-                            $Filename = F::findFile($Thumb['Default']);
-                    } // FIXME Конфиг
+                        $Filename = Root . '/' . $Thumb['URL'];
+
+                        if (!is_file($Filename) or is_dir($Filename))
+                        {
+                            if (preg_match('/^http.*/', $Thumb['Default']))
+                                $Filename = $Thumb['Default'];
+                            else
+                                $Filename = F::findFile($Thumb['Default']);
+                        } // FIXME Конфиг
+                    }
                 }
             }
 
@@ -41,7 +45,7 @@
 
             $ThumbURL = '/thumbs/'.$Thumb['Width'].'_'.sha1($Filename) . '.jpg'; // FIXME Абстрагировать
 
-            if (!file_exists(Root.'/Public'.$ThumbURL))
+            if (!F::file_exists(Root.'/Public'.$ThumbURL))
             {
                 F::Log('Thumbnail created');
 

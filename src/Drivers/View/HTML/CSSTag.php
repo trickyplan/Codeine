@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description Media includes support 
      * @package Codeine
-     * @version 7.4.5
+     * @version 7.6.2
      */
 
     self::setFn('Hash', function ($Call)
@@ -106,7 +106,7 @@
             if (strpos($Call['Output'], '<place>CSS</place>') === false)
                 trigger_error('Place for CSS missed');
 
-            $Call['Output'] = str_replace('<place>CSS</place>', '<link href="/css/'.$CSSHash.'.css" rel="stylesheet" />', $Call['Output']);
+            $Call['Output'] = str_replace('<place>CSS</place>', '<link href="'.$Call['CSS Host'].'/css/'.$CSSHash.'.css" rel="stylesheet" />', $Call['Output']);
         }
         else
             $Call['Output'] = str_replace('<place>CSS</place>', '', $Call['Output']);

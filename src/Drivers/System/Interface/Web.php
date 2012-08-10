@@ -27,13 +27,13 @@
             $Call['Cookie'] = $_COOKIE;
             $Call['Run'] = urldecode($_SERVER['REQUEST_URI']);
 
+            $Call['IP'] = F::Run('System.Interface.Web.IP', 'Get', $Call);
+
             $Call = F::Run($Call['Service'], $Call['Method'], $Call);
 
             if (isset($Call['Headers']))
                 foreach ($Call['Headers'] as $Key => $Value)
                     header ($Key . ' ' . $Value);
-
-            F::Log(F::Speed());
 
             echo $Call['Output'];
         }
@@ -62,8 +62,8 @@
 
         return F::Run('System.Timezone.PHPGeoIP', 'CountryAndRegion',
             array (
-                  'Country' => d(__FILE__, __LINE__, F::Run('System.GeoIP.PHPGeoIP', 'Country', array ('Value' => $IP))),
-                  'Region' => d(__FILE__, __LINE__, F::Run('System.GeoIP.PHPGeoIP', 'Region', array ('Value' => $IP)))
+                  'Country' => F::Run('System.GeoIP.PHPGeoIP', 'Country', array ('Value' => $IP)),
+                  'Region' => F::Run('System.GeoIP.PHPGeoIP', 'Region', array ('Value' => $IP))
             ));
     });
 

@@ -4,18 +4,18 @@
      * @author BreathLess
      * @description  
      * @package Codeine
-     * @version 7.4.5
+     * @version 7.6.2
      */
 
     self::setFn('Make', function ($Call)
     {
         $Output = '';
 
-        foreach($Call['Options'] as $Value)
+        foreach($Call['Options'] as $IX => $Value)
             $Output.= F::Run('View', 'LoadParsed',
                 array('Scope' => 'Default',
                       'ID' => 'UI/HTML/Form/Radio',
-                      'Data' => F::Merge($Call, array('Value' => $Value, 'Checked' => ($Value == $Call['Value']? 'true': 'false')))));
+                      'Data' => F::Merge($Call, array('Value' => $Value, 'Checked' => ($Value == $Call['Value']? 'true': null)))));
 
         return F::Run('View', 'LoadParsed', array('Scope' => 'Default', 'ID' => 'UI/HTML/Form/Radiogroup', 'Data' => F::Merge($Call, array(
             'Radios' => $Output))));

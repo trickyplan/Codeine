@@ -4,11 +4,10 @@
      * @author BreathLess
      * @description  
      * @package Codeine
-     * @version 7.4.5
+     * @version 7.6.2
      */
 
      self::setFn('Make', function ($Call)
      {
-         $Result = F::Run('Code.Flow.Application', 'Run', array('Context' => 'app', 'Run' => $Call['Run']));
-         return $Result['Output'];
+         return F::Run('Code.Flow.Application', 'Run', array('Run' => $Call['Run']))['Output'];
      });

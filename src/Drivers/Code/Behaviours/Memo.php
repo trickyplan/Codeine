@@ -4,23 +4,30 @@
      * @author BreathLess
      * @description Memoize call
      * @package Codeine
-     * @version 7.4.5
+     * @version 7.6.2
      */
 
     self::setFn('Run', function ($Call)
     {
-        $Hash = F::hashCall($Call);
+        $Hash = '';
 
-        if (!xcache_isset($Hash))
-        {
-            $Result = F::Run($Call['Service'], $Call['Method'], $Call['Call']);
-            xcache_set($Hash, $Result);
+        if (isset($Call['Contract']))
+            {
+                foreach($Call['Contract']['Call'] as $Arg => $Node)
+                    $Hash.= $Call[$Arg];
+
+                if (!xcache_isset($Hash))
+                {
+                    $Result = F::Run($Call['Service'], $Call['Method'], $Call['Call']);
+                    xcache_set($Hash, $Result);
+                }
+                else
+                {
+                    $Result = xcache_get($Hash);
+                }
         }
         else
-        {
-            $Result = xcache_get($Hash);
-            F::Log($Call['Service'].':'.$Call['Method'].' memoized');
-        }
+            $Result = F::Run($Call['Service'], $Call['Method'], $Call['Call']);;
 
         return $Result;
     });

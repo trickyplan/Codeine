@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description: 
      * @package Codeine
-     * @version 7.4.5
+     * @version 7.6.2
      */
 
     self::setFn('Process', function ($Call)
@@ -26,15 +26,12 @@
                     ))[0];
 
                 if ($AddLocales)
-                {
-                    F::Log('Locale '.$Locale.' loaded');
                     $Locales = F::Merge($Locales, $AddLocales);
-                }
             }
 
             if (preg_match_all('@<l>(.*)<\/l>@SsUu', $Call['Output'], $Pockets))
             {
-
+                $Pockets[1] = array_unique($Pockets[1]);
                 foreach (
                     $Pockets[1] as $IX => $Match
                 )
@@ -55,7 +52,7 @@
                     if ($TrueMatch)
                         $Call['Output'] = str_replace($Pockets[0][$IX], $Replace, $Call['Output']);
                     else
-                        $Call['Output'] = str_replace($Pockets[0][$IX], $Match, $Call['Output']);
+                        $Call['Output'] = str_replace($Pockets[0][$IX], '<span class="nl">' . $Match . '</span>', $Call['Output']);
                 }
             }
 

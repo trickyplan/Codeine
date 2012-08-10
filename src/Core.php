@@ -5,26 +5,34 @@
      * @description: F Class
      * @package Codeine Framework
      * @subpackage Core
-     * @version 7.4.5
+     * @version 7.6.2
      */
 
     define('Codeine', __DIR__);
 
     final class F
     {
-        protected static $_Environment = 'Production';
-        protected static $_Options;
-        protected static $_Code;
-        protected static $_Service = 'Codeine';
-        protected static $_Method = 'Do';
-        protected static $_Storage = array();
-        protected static $_Speed;
-        protected static $_Profile = array();
-        protected static $_Log = array();
+        private static $_Environment = 'Production';
+        private static $_Options;
+        private static $_Code;
+
+        private static $_Service = 'Codeine';
+        private static $_Method = 'Do';
+
+        private static $_Storage = array();
+        private static $_Ticks = array();
+        private static $_Speed = array();
+        private static $_Counters = array();
+        private static $_Log = array();
+
+        public static function Environment()
+        {
+            return self::$_Environment;
+        }
 
         public static function Bootstrap ($Call = null)
         {
-            self::$_Speed = array(microtime(true), memory_get_usage(), 0);
+            self::Start(self::$_Service . '.' . self::$_Method);
 
             mb_internal_encoding('UTF-8');
 
@@ -51,6 +59,9 @@
 
             if (isset(self::$_Options['Project']['Version']['Codeine']) && self::$_Options['Project']['Version']['Codeine'] > self::$_Options['Codeine']['Version'])
                 die('Codeine '.self::$_Options['Project']['Version']['Codeine'].'+ needed. Installed: '.self::$_Options['Codeine']['Version']);
+
+            self::Log('Codeine: '.self::$_Options['Codeine']['Version']);
+            self::Log('Environment: '.self::$_Environment);
 
             register_shutdown_function ('F::Shutdown');
             set_error_handler ('F::Error'); // Instability
@@ -81,7 +92,7 @@
 
            foreach ($Names as $Name)
                foreach (self::$_Options['Path'] as $ic => $Path)
-                   if (file_exists($Filenames[$ic] = $Path.'/'.$Name))
+                   if (F::file_exists($Filenames[$ic] = $Path.'/'.$Name))
                         return $Filenames[$ic];
 
            return null;
@@ -95,21 +106,22 @@
 
             foreach (self::$_Options['Path'] as $ic => $Path)
                 foreach ($Names as $Name)
-                    if (file_exists($Filenames[$ic] = $Path . '/' . $Name))
+                    if (F::file_exists($Filenames[$ic] = $Path . '/' . $Name))
                         $Results[] = $Filenames[$ic];
 
             $Results = array_reverse($Results);
-            return empty($Results)? null: $Results;
+
+            if (empty($Results))
+                return null;
+            else
+                return $Results;
         }
 
-        protected static function _loadSource($Service)
+        private static function _loadSource($Service)
         {
             $Path = strtr($Service, '.', '/');
 
-            if (isset($Call['Filename']))
-                $Filename = $Call['Filename'];
-            else
-                $Filename = self::findFile(self::$_Options['Codeine']['Driver']['Path'].'/'.$Path.self::$_Options['Codeine']['Driver']['Extension']);
+            $Filename = self::findFile(self::$_Options['Codeine']['Driver']['Path'].'/'.$Path.self::$_Options['Codeine']['Driver']['Extension']);
 
             if ($Filename)
                 return (include_once $Filename);
@@ -148,7 +160,6 @@
         {
             // TODO Infinite cycle protection
 
-
             if (($sz = func_num_args())>3)
             {
                 for($ic = 3; $ic<$sz; $ic++)
@@ -180,7 +191,7 @@
 
         public static function Execute($Service, $Method, $Call)
         {
-            self::$_Speed[2]++;
+            self::Counter('Calls');
 
             $OldService = self::$_Service;
             $OldMethod = self::$_Method;
@@ -199,19 +210,19 @@
             {
                 $F = self::getFn($Method);
 
-                // HARDCORE PROFILING
-                //$ST  = microtime(true);
-
                 if (is_callable($F))
+                {
+                    self::Stop($OldService. '.' . $OldMethod);
+                    self::Start(self::$_Service . '.' . self::$_Method);
                     $Result = $F($Call);
+                    self::Counter(self::$_Service);
+                    self::Counter(self::$_Service.'.'.self::$_Method);
+                    self::Stop(self::$_Service . '.' . self::$_Method);
+                    self::Start($OldService. '.' . $OldMethod);
+                }
                 else
                     $Result = isset($Call['Fallback']) ? $Call['Fallback'] : null;
 
-
-                //if (!isset(self::$_Profile[self::$_Service.':'.self::$_Method]))
-                //    self::$_Profile[self::$_Service.':'.self::$_Method] = 0;
-
-                //self::$_Profile[self::$_Service.':'.self::$_Method] += round((microtime(true) - $ST)*1000);
             }
 
             self::$_Service = $OldService;
@@ -220,15 +231,17 @@
             return $Result;
         }
 
-        public static function setFn($Function, $Code)
+        public static function setFn($Function, $Code = null)
         {
-            return self::$_Code[self::$_Service.'.'.$Function] = $Code;
+            return self::$_Code[self::$_Service][$Function] = $Code;
         }
 
         public static function getFn($Function)
         {
-            if (isset(self::$_Code[self::$_Service . '.' . $Function]))
-                return self::$_Code[self::$_Service . '.' . $Function];
+            if (isset(self::$_Code[self::$_Service][$Function]))
+            {
+                return self::$_Code[self::$_Service][$Function];
+            }
             else
                 return null;
 
@@ -238,6 +251,8 @@
 
         public static function Live($Variable, $Call = array())
         {
+            self::Counter('Live');
+
             if (isset($Variable['NoLive']))
                 return $Variable;
 
@@ -270,10 +285,6 @@
 
         public static function Shutdown()
         {
-            // HARDCORE PROFILING
-            // arsort(self::$_Profile);
-            // d(__FILE__, __LINE__, self::$_Profile);
-
             F::Run('Code.Run.Delayed', 'Flush');
 
             if (self::$_Environment != 'Production')
@@ -289,6 +300,10 @@
                 F::Run('IO', 'Close', array('Storage' => 'Developer'));
             }
 
+            self::Stop(self::$_Service . '.' . self::$_Method);
+
+            if (isset($_REQUEST['SR71']))
+                self::SR71();
 
             return null; // TODO onShutdown
         }
@@ -301,23 +316,6 @@
                     $Data[$Key] = $Array[$Key];
 
             return $Data;
-        }
-
-        public static function RunN($Variable, $Key, $Call = array())
-        {
-
-            if (null !== $Variable)
-            {
-                if (is_array($Variable))
-                    foreach ($Variable as &$cVariable)
-                        $cVariable = F::Run($Call['Service'], $Call['Method'], $Call['Call'], array($Key => $cVariable));
-                else
-                    $Variable = F::Run($Call['Service'], $Call['Method'], $Call['Call'], array($Key => $Variable));
-            }
-            else
-                $Variable = F::Run($Call['Service'], $Call['Method'], $Call['Call']);
-
-            return $Variable;
         }
 
         public static function Map ($Array, $Fn, $Data = null, $FullKey = '')
@@ -357,7 +355,12 @@
                     $Array[$Key] = F::Dot($Array[$Key], implode('.', $Keys), $Value);
                 }
                 else
-                    $Array[$Key] = $Value;
+                {
+                    if ($Value === null)
+                        unset($Array[$Key]);
+                    else
+                        $Array[$Key] = $Value;
+                }
 
                 return $Array;
             }
@@ -372,7 +375,12 @@
                     if (isset($Tail[$iKey]))
                         $Tail = $Tail[$iKey];
                     else
-                        return null;
+                    {
+                        if (isset($Array[$Key]))
+                            return $Array[$Key];
+                        else
+                            return null;
+                    }
 
                 return $Tail;
             }
@@ -382,40 +390,24 @@
 
         public static function Hook($On, $Call)
         {
+            self::Counter('Hooks');
             if (isset($Call['Hooks']))
                  if ($Hooks = F::Dot($Call, 'Hooks.' . $On))
                      foreach ($Hooks as $Hook)
-                     {
-/*                         if(isset($Hook['Call']))
-                            $Hook['Call'] = F::Map($Hook['Call'], function ($Key, &$Value) use ($Call)
-                            {
-                                if (is_scalar($Value) && substr($Value, 0, 1) == '$')
-                                    $Value = F::Dot($Call, substr($Value, 1));
-                            });*/
-
-                         $Call = F::Live($Hook, $Call);
-                     }
+                         $Call = F::Run($Hook['Service'],$Hook['Method'], isset($Hook['Call'])? $Hook['Call']: [],  $Call);
 
             return $Call;
         }
 
         public static function Error($errno , $errstr , $errfile , $errline , $errcontext)
         {
-            if (isset(self::$_Options['Project']['Airbrake']))
-            {
-                $Airbrake = curl_init('http://one2tool.local/airbrake');
-                curl_setopt_array($Airbrake, [
-                    CURLOPT_POST => true,
-                    CURLOPT_RETURNTRANSFER => true,
-                    CURLOPT_POSTFIELDS => json_encode(['Report' => ['Message' => $errstr]])]);
-                curl_exec($Airbrake);
-            }
             return F::Log($errstr.' '.$errfile.'@'.$errline, 'Error');
         }
 
         public static function Log ($Message, $Type = 'Info')
         {
-            return self::$_Log[] = array(round(microtime(true) - self::$_Speed[0], 4), $Message, $Type);
+            if (self::$_Environment !== 'Production')
+                return self::$_Log[] = array(round(microtime(true) - self::$_Ticks['T']['Codeine.Do'], 4), $Message, $Type);
         }
 
         public static function loadOptions($Service = null, $Method = null)
@@ -424,43 +416,63 @@
             $Method = ($Method == null)? self::$_Method: $Method;
 
             // Если контракт уже не загружен
-            if (!isset(self::$_Options[$Service][$Method]))
+            if (!isset(self::$_Options[$Service]))
             {
                 $Options = array();
 
-                    $ServicePath = strtr($Service, '.', '/');
+                $ServicePath = strtr($Service, '.', '/');
 
-                    if ($Filenames = self::findFiles (
-                        array(
-                             'Options/'.$ServicePath.'.'.self::$_Environment.'.json',
-                             'Options/'.$ServicePath.'.json',
-                             'Options/'.$ServicePath.'/'.$Method.'.'.self::$_Environment.'.json',
-                             'Options/'.$ServicePath.'/'.$Method.'.json',
-                        )
-                    ))
+                $Filenames = [];
+
+                if (self::$_Environment != 'Production')
+                    $Filenames[] = 'Options/'.$ServicePath.'.'.self::$_Environment.'.json';
+
+                $Filenames[] = 'Options/'.$ServicePath.'.json';
+
+                if ($Filenames = self::findFiles ($Filenames))
+                {
+                    foreach ($Filenames as $Filename)
                     {
-                        $Options = array();
+                        $Current = json_decode(file_get_contents($Filename), true);
 
-                        foreach ($Filenames as $Filename)
+                        if ($Filename && !$Current)
                         {
-                            $Current = json_decode(file_get_contents($Filename), true);
-
-                            if ($Filename && !$Current)
-                            {
-                                trigger_error('JSON: ' . $Filename.':'. json_last_error()); //FIXME
-                                return null;
+                            switch (json_last_error()) {
+                                case JSON_ERROR_NONE:
+                                    $JSONError =  ' - No errors';
+                                break;
+                                case JSON_ERROR_DEPTH:
+                                    $JSONError =  ' - Maximum stack depth exceeded';
+                                break;
+                                case JSON_ERROR_STATE_MISMATCH:
+                                    $JSONError =  ' - Underflow or the modes mismatch';
+                                break;
+                                case JSON_ERROR_CTRL_CHAR:
+                                    $JSONError =  ' - Unexpected control character found';
+                                break;
+                                case JSON_ERROR_SYNTAX:
+                                    $JSONError =  ' - Syntax error, malformed JSON';
+                                break;
+                                case JSON_ERROR_UTF8:
+                                    $JSONError =  ' - Malformed UTF-8 characters, possibly incorrectly encoded';
+                                break;
+                                default:
+                                    $JSONError =  ' - Unknown error';
+                                break;
                             }
-
-                            $Options = self::Merge($Options, $Current);
+                            trigger_error('JSON Error: ' . $Filename.':'. $JSONError); //FIXME
+                            return null;
                         }
+
+                        $Options = self::Merge($Options, $Current);
                     }
+                }
 
+                if (isset($Options['Mixins']))
+                    foreach($Options['Mixins'] as $Mixin)
+                        $Options = F::Merge($Options, F::loadOptions($Mixin));
 
-                    if (isset($Options['Mixins']))
-                        foreach($Options['Mixins'] as $Mixin)
-                            $Options = F::Merge($Options, F::loadOptions($Mixin));
-
-                    self::$_Options[$Service] = $Options;
+                self::$_Options[$Service] = $Options;
             }
 
             return self::$_Options[$Service];
@@ -486,11 +498,55 @@
             return (isset(self::$_Storage[$Key]) ? self::$_Storage[$Key]: null);
         }
 
-        public static function Speed()
+        public static function file_exists($Filename)
         {
-            $Time = (microtime(true)-self::$_Speed[0]);
-            $Memory = memory_get_peak_usage(true)-self::$_Speed[1];
-            return 'SI:'.(round(1/(($Memory/1048576)*$Time), 2)).'('.self::$_Speed[2].')'.round($Memory/1048576,2); // megabyte-second
+            return isset(self::$_Storage['FE'][$Filename])? self::$_Storage['FE'][$Filename]: self::$_Storage['FE'][$Filename] = file_exists($Filename);
+        }
+
+        public static function Counter ($Key, $Value = 1)
+        {
+            if (isset(self::$_Counters['C'][$Key]))
+                self::$_Counters['C'][$Key]+= $Value;
+            else
+                self::$_Counters['C'][$Key] = $Value;
+
+            return self::$_Counters['C'][$Key];
+        }
+
+        public static function Start ($Key)
+        {
+            return self::$_Ticks['T'][$Key] = microtime(true);
+        }
+
+        public static function Stop ($Key)
+        {
+            if (isset(self::$_Counters['T'][$Key]))
+                return self::$_Counters['T'][$Key] += round((microtime(true) - self::$_Ticks['T'][$Key])*1000,2);
+            else
+                return self::$_Counters['T'][$Key] = round((microtime(true) - self::$_Ticks['T'][$Key])*1000,2);
+        }
+
+        public static function MStart ($Key)
+        {
+            return self::$_Ticks['M'][$Key] = memory_get_peak_usage(true);
+        }
+
+        public static function MStop ($Key)
+        {
+            return self::$_Counters['M'][$Key] += memory_get_peak_usage(true) - self::$_Ticks['M'][$Key];
+        }
+
+        public static function SR71()
+        {
+           $Summary['Time'] = array_sum(self::$_Counters['T']);
+           $Summary['Calls'] = array_sum(self::$_Counters['C']);
+
+           arsort(self::$_Counters['T']);
+           echo "<pre>time\tcalls\trtime\trcall\tfn\n".$Summary['Time']."\n";
+           foreach (self::$_Counters['T'] as $Key => $Value)
+               echo $Value."\t".self::$_Counters['C'][$Key]."\t".round(($Value/$Summary['Time'])*100)."%\t".round((self::$_Counters['C'][$Key]/$Summary['Calls'])*100)."%\t".$Key."\n";
+
+           echo '</pre>';
         }
 
     }
