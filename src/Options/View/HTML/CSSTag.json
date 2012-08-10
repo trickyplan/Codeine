@@ -9,11 +9,6 @@
         {
             "Service":"View.CSS.Minify",
             "Method": "Process"
-        },
-        "Variables":
-        {
-            "Service":"View.CSS.Variables",
-            "Method":"Process"
         }
     }
 }
