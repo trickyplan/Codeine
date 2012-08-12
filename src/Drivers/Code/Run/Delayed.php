@@ -9,24 +9,23 @@
 
     self::setFn('Run', function ($Call)
     {
-        return F::Run('IO', 'Write', array
-                             (
-                                'Storage' => 'Run Queue',
-                                'Scope' => '',
-                                'Data' => $Call['Run']
-                             ));
+        if (F::Run('Code.Flow.Daemon', 'Running?', $Call) || $Call['Delayed Mode'] == 'Dirty')
+            return F::Run('IO', 'Write', array
+                 (
+                    'Storage' => 'Run Queue',
+                    'Scope' => 'RQ',
+                    'Data' => $Call['Run']
+                 ));
+        else
+            return F::Live($Call['Run']);
      });
 
-    self::setFn('Flush', function ($Call)
+    self::setFn('Execute', function ($Call)
     {
+        return F::Live($Call['Run']);
+    });
 
-        while(($Run = F::Run('IO', 'Read', array
-                              (
-                                 'Storage' => 'Run Queue',
-                                 'Scope' => ''
-                              ))) !== null)
-            F::Live($Run);
-
-
-        return $Call;
+    self::setFn('Queue', function ($Call)
+    {
+        return F::Run('IO', 'Read', ['Storage' => 'Run Queue', 'Scope' => 'RQ']);
     });
