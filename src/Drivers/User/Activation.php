@@ -24,7 +24,7 @@
                      )
             ));
 
-        $Message['Scope'] = $User['EMail'];
+        $Message['Scope'] = F::Dot($User, $Call['Name Field']).' <'.$User['EMail'].'>';
         $Message['ID']    = $Call['Subject'];
         $Message['Data']  = F::Run('View', 'LoadParsed',
                                              array(
@@ -35,7 +35,9 @@
                                              ));
         $Message['Headers'] = array ('Content-type:' => ' text/html; charset="utf-8"');
 
-        F::Live($Call['Sender'], $Message);
+        F::Run('Code.Run.Delayed', 'Run', [
+            'Run' => F::Merge($Call['Sender'], ['Call' => $Message])
+        ]);
 
         list(,$User['Server']) = explode('@', $User['EMail']);
 
