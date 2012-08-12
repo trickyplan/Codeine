@@ -6,8 +6,8 @@
      * @package Codeine
      * @version 7.6.2
      */
-    include "Mail.php";
-    include('Mail/mime.php');
+    include 'Mail.php';
+    include 'Mail/mime.php';
 
     self::setFn ('Open', function ($Call)
     {
@@ -20,7 +20,11 @@
 
     self::setFn('Write', function ($Call)
     {
-        $Call['Headers'] = array ('From' => $Call['From'],'To' => $Call['Scope'].' <'.$Call['Scope'].'>', 'Subject' => $Call['ID']);
+        $Call['Headers'] =  [
+            'Return-path' => $Call['Username'],
+            'From' => $Call['From'].' <'.$Call['Username'].'>',
+            'To' => $Call['Scope'],
+            'Subject' => $Call['ID']];
 
         $mime = new Mail_mime("\n");
 
@@ -32,7 +36,7 @@
         $mime->setTXTBody(strip_tags($Call['Data']));
         $mime->setHTMLBody($Call['Data']);
 
-        $Call['Data'] = $mime->get();
+        $Call['Data'] = $mime->get(array('text_charset' => 'utf-8'));
         $Call['Headers'] = $mime->headers($Call['Headers']);
 
         return $Call['Link']->send($Call['Scope'], $Call['Headers'], $Call['Data']);
