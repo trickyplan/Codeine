@@ -18,6 +18,7 @@
         $Elements = F::Run('Entity', 'Read', $Call);
 
         $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Main','Context' => $Call['Context']);
+        $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'List','Context' => $Call['Context']);
 
         $Call['Locales'][] = $Call['Entity'];
 
@@ -33,7 +34,7 @@
             );
         else
         {
-            $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'List','Context' => $Call['Context']);
+            $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Table','Context' => $Call['Context']);
 
             if (isset($Call['Reverse']))
                 $Elements = array_reverse($Elements, true);

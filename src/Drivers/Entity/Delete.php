@@ -35,5 +35,7 @@
 
         $Call = F::Hook('afterDeletePost', $Call);
 
+        $Call['Output'][] = true;
+
         return $Call;
     });

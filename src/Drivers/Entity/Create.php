@@ -94,7 +94,6 @@
                 if (!isset($Node['Widgets']) && isset($Call['Data'][$Name]))
                     unset($Call['Data'][$Name]);
             }
-
             // Отправляем в Entity.Create
 
             $Call['Data'] = F::Run('Entity', 'Create', $Call);
