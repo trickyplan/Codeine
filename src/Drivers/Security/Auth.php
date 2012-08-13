@@ -34,7 +34,7 @@
                 }
                 else
                 {
-                    if (isset($Call['Session']['Secondary']) && !empty($Call['Session']['Secondary']) && null !== $Call['Session']['Secondary'])
+                    if (isset($Call['Session']['Secondary']) &&  -1 !== $Call['Session']['Secondary'])
                         $User = F::Run('Entity', 'Read',
                             array(
                                  'Entity' => 'User',
@@ -119,7 +119,7 @@
                   'Where' => $Call['SID'],
                   'Data' =>
                   [
-                      'Secondary' => null
+                      'Secondary' => -1
                   ]
              ));
         else
