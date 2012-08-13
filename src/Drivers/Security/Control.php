@@ -20,9 +20,10 @@
         {
             $ST = microtime(true);
 
-            F::Run('Security.Hash.'.$Hash, 'Get', array('Value' => time()));
+            for($a = 0; $a < 1000; $a++) // FIXME Option
+                F::Run('Security.Hash.'.$Hash, 'Get', array('Value' => rand()));
 
-            $ST = microtime(true)-$ST;
+            $ST = (microtime(true)-$ST)/$a;
 
             $Call['Output']['Content'][] =
               array(

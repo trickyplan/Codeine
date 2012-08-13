@@ -10,12 +10,10 @@
     self::setFn('Do', function ($Call)
     {
         if (!isset($Call['Bundle']))
-            $Call['Bundle'] = isset($Call['Start'])? $Call['Start']: 'Main';
+            $Call['Bundle'] = isset($Call['Start'])? $Call['Start']: 'Codeine';
 
         if (!isset($Call['Option']))
             $Call['Option'] = 'Do';
-
-        $Call['Locales'][] = $Call['Bundle'].':Control';
 
         $Call['Layouts'][] = array(
             'Scope' => $Call['Bundle'],
@@ -34,7 +32,10 @@
             $Call['Options'][] = '<l>Control.'.$Group.'</l>';
 
             foreach ($Bundles as $Bundle)
+            {
+                $Call['Locales'][] = $Bundle.':Control';
                 $Call['Options'][] = array('ID' => $Bundle, 'Title' => '<l>Control.'.$Bundle.'</l>', 'URL' => '/control/'.$Bundle);
+            }
         }
 
         $Call['Output']['Navigation'][] = array(
