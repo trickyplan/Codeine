@@ -20,7 +20,22 @@
                     {
                         $Run = $Node[$Call['Purpose']];
                         foreach($Call['Data'] as &$Element)
-                            $Element = F::Live($Run, ['Data' => $Element, 'Name' => $Name, 'Node' => $Node, 'Nodes' => $Call['Nodes']]);
+                        {
+                            if (($NewElement = F::Live($Run,
+                                [
+                                    'Value' => $Element[$Name],
+                                    'Entity' => $Call['Entity'],
+                                    'Data' => $Element,
+                                    'Name' => $Name,
+                                    'Node' => $Node,
+                                    'Nodes' => $Call['Nodes']])) !== null)
+                            {
+                                if (isset($Call['Return Call']) && $Call['Return Call'])
+                                    $Element = $NewElement;
+                                else
+                                    $Element[$Name] = $NewElement;
+                            }
+                        }
                     }
 
 
