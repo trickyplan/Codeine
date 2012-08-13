@@ -12,10 +12,13 @@
     self::setFn ('Open', function ($Call)
     {
         return Mail::factory('smtp',
-                   array ('host' => $Call['Host'],
+                   array (
+                     'host' => $Call['Host'],
+                     'port' => isset($Call['Port'])? $Call['Port']: 25,
                      'auth' => true,
                      'username' => $Call['Username'],
-                     'password' => $Call['Password']));
+                     'password' => $Call['Password'],
+                   ));
     });
 
     self::setFn('Write', function ($Call)
