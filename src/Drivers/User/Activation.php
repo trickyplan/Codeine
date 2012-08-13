@@ -24,7 +24,7 @@
                      )
             ));
 
-        $Message['Scope'] = F::Dot($User, $Call['Name Field']).' <'.$User['EMail'].'>';
+        $Message['Scope'] = '"'.F::Dot($User, $Call['Name Field']).'" <'.$User['EMail'].'>';
         $Message['ID']    = $Call['Subject'];
         $Message['Data']  = F::Run('View', 'LoadParsed',
                                              array(
@@ -72,7 +72,7 @@
 
         if ($Activation !== false)
         {
-            F::Run('Entity', 'Set',
+            F::Run('Entity', 'Update',
                 array(
                      'Entity' => 'User',
                      'Where' => $Activation['User'],
