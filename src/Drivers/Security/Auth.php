@@ -25,7 +25,7 @@
             if ($Call['Session'] == null)
                 $Call['Session'] = F::Run(null, 'Register', $Call);
 
-            if (isset($Call['Session']['User']) && !empty($Call['Session']['User']) && $Call['Session']['User'] !== 0)
+            if (isset($Call['Session']['User']) && !empty($Call['Session']['User']) && $Call['Session']['User'] !== -1)
             {
                 if($Call['Session']['Expire'] < time())
                 {
@@ -112,7 +112,7 @@
     {
         $Call = F::Run(null, 'Audit', $Call);
 
-        if (isset($Call['Session']['Secondary']) && !empty($Call['Session']['Secondary']))
+        if (isset($Call['Session']['Secondary']) && !empty($Call['Session']['Secondary']) && $Call['Session']['Secondary'] !== -1)
             F::Run('Entity', 'Update',
              array(
                   'Entity' => 'Session',
