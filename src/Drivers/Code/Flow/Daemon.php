@@ -47,7 +47,7 @@
                     }
                     else
                     {
-                        F::Live($Call['Execute'], ['Run' => $Trigger[0]]);
+                        echo F::Live($Call['Execute'], ['Run' => $Trigger[0]]);
                         exit;
                     }
                 }
