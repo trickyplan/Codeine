@@ -24,14 +24,17 @@
         F::Counter('IO.Mongo.Reads');
 
         foreach ($Call['Where'] as $Key => &$Value) // FIXME Повысить уровень абстракции
+        {
             if (isset($Call['Nodes'][$Key]['Type']))
             {
                 if (is_array($Value))
-                    foreach ($Value as $Relation => &$cValue)
-                        $cValue = F::Run('Data.Type.'.$Call['Nodes'][$Key]['Type'], 'Read', array('Value' => $cValue));
+                    foreach ($Value as &$cValue)
+                        $cValue = F::Run('Data.Type.'.$Call['Nodes'][$Key]['Type'], 'Read', array('Value' => $cValue, 'Purpose' => 'Where'));
                 else
-                    $Value = F::Run('Data.Type.'.$Call['Nodes'][$Key]['Type'], 'Read', array('Value' => $Value));
+                    $Value = F::Run('Data.Type.'.$Call['Nodes'][$Key]['Type'], 'Read', array('Value' => $Value, 'Purpose' => 'Where'));
             }
+
+        }
 
         unset($Value, $Key);
 
@@ -73,7 +76,10 @@
         F::Counter('IO.Mongo');
         F::Counter('IO.Mongo.Writes');
 
+        $Where = array();
+
         foreach ($Call['Where'] as $Key => &$Value) // FIXME Повысить уровень абстракции
+        {
             if (isset($Call['Nodes'][$Key]['Type']))
             {
                 if (is_array($Value))
@@ -82,6 +88,10 @@
                 else
                     $Value = F::Run('Data.Type.'.$Call['Nodes'][$Key]['Type'], 'Read', array('Value' => $Value));
             }
+            $Where = F::Dot($Where, $Key, $Value);
+        }
+
+        $Call['Where'] = $Where;
 
         unset($Value, $Key);
 
