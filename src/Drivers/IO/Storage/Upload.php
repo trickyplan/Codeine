@@ -22,11 +22,7 @@
             if (move_uploaded_file($Call['Value']['tmp_name'], Root . '/' . $Call['Directory'] . '/' . $Call['Scope'] . '/' .$Call['Name']))
                 return $Call['Name'];
             else
-            {
-                d(__FILE__, __LINE__, $Call);
-                d(__FILE__, __LINE__, Root . '/' . $Call['Directory'] . '/' . $Call['Scope'] . '/' .$Call['Name']);
                 die('Uploading failed');
-            }
         }
         else
             return null;
