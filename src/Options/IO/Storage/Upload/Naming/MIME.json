@@ -111,7 +111,7 @@
         "application\/vnd.mobius.dis":".dis",
         "image\/vnd.djvu":".djvu",
         "application\/vnd.dna":".dna",
-        "application\/msword":".wiz",
+        "application\/msword":".doc",
         "application\/vnd.ms-word.document.macroenabled.12":".docm",
         "application\/vnd.openxmlformats-officedocument.wordprocessingml.document":".docx",
         "application\/vnd.ms-word.template.macroenabled.12":".dotm",
