@@ -9,7 +9,7 @@
 
     self::setFn('Count', function ($Call)
     {
-        return sizeof(F::Run('Entity', 'Read',
+        return sizeof(F::Run('Entity', 'Read', $Call,
                     array(
                          'Entity' => $Call['Linked'],
                          'Where' =>
