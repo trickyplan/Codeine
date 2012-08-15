@@ -9,11 +9,11 @@
 
     self::setFn('Do', function ($Call)
     {
+        if (isset($Call['Where']))
+            $Call['Where'] = F::Live($Call['Where']); // FIXME
+
         $Call = F::Merge(F::loadOptions($Call['Entity'].'.Entity'), $Call); // FIXME
         $Call = F::Hook('beforeList', $Call);
-
-        if (isset($Call['Where']))
-        $Call['Where'] = F::Live($Call['Where']); // FIXME
 
         $Elements = F::Run('Entity', 'Read', $Call);
 
@@ -34,7 +34,12 @@
             );
         else
         {
-            $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Table','Context' => $Call['Context']);
+            $Call['Layouts'][] =
+                [
+                    'Scope' => $Call['Entity'],
+                    'ID' => (isset($Call['Table'])? $Call['Table']: 'Table'),
+                    'Context' => $Call['Context']
+                ];
 
             if (isset($Call['Reverse']))
                 $Elements = array_reverse($Elements, true);
@@ -60,3 +65,12 @@
         return $Call;
     });
 
+    self::setFn('RAW', function ($Call)
+    {
+        $Elements = F::Run('Entity', 'Read', $Call);
+
+        foreach ($Elements as $Element)
+            $Output[$Element['ID']] = $Element[$Call['Key']];
+
+        return $Output;
+    });
