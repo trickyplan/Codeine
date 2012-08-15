@@ -30,6 +30,7 @@
 
 
         // Для каждой ноды в модели
+        $ic = 0;
         foreach ($Call['Nodes'] as $Name => $Node)
         {
             $Widget = null;
@@ -59,8 +60,11 @@
                         $Widget['Value'] = F::Live($Node['Default']);
 
                     // Помещаем виджет в поток
+                    $ic++;
+
                     $Call = F::Run('Entity.Form.Layout.'.$Call['FormLayout'], 'Add', $Call,
                         array(
+                            'IC' => $ic,
                             'Name' => $Name,
                             'Widget' => $Widget));
 
