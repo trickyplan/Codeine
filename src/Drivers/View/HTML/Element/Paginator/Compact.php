@@ -10,9 +10,8 @@
     self::setFn('Make', function ($Call)
     {
         $Output = '';
-
         for ($ic = $Call['Page']-7; $ic <= $Call['Page']+7; $ic++)
-            if ($ic>0 && $ic<$Call['PageCount'])
+            if ($ic>0 && $ic<=$Call['PageCount'])
                 $Output.= F::Run('View', 'LoadParsed',
                 array('Scope' => 'Default',
                       'ID' => ($ic == $Call['Page']? 'UI/HTML/Paginator/Current': 'UI/HTML/Paginator/Page'),
