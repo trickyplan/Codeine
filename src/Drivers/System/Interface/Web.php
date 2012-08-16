@@ -35,11 +35,17 @@
                 foreach ($Call['Headers'] as $Key => $Value)
                     header ($Key . ' ' . $Value);
 
-            echo $Call['Output'];
+            $Call = F::Live ($Call['Interface']['Output'], $Call);
         }
 
         $Call = F::Hook('afterInterfaceRun', $Call);
 
+        return $Call;
+    });
+
+    self::setFn('Output', function ($Call)
+    {
+        echo $Call['Output'];
         return $Call;
     });
 

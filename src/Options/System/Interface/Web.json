@@ -1,4 +1,12 @@
 {
+    "Interface":
+    {
+        "Output":
+        {
+            "Service": "System.Interface.Web",
+            "Method": "Output"
+        }
+    },
     "Headers":
     {
         "HTTP/1.0": "200 OK",
