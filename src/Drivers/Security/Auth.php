@@ -27,7 +27,7 @@
 
             if (isset($Call['Session']['User']) && !empty($Call['Session']['User']) && $Call['Session']['User'] !== -1)
             {
-                if($Call['Session']['Expire'] < time())
+                if ($Call['Session']['Expire'] < time())
                 {
                     $Call = F::Run(null, 'Annulate', $Call);
                     F::Log('Session expired');
@@ -52,7 +52,6 @@
             }
         }
 
-      //  d(__FILE__, __LINE__, $Call['Session']);
         return $Call;
     });
 
