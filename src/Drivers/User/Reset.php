@@ -15,18 +15,18 @@
 
     self::setFn('ByID', function ($Call)
     {
-        $Call['User'] = F::Run('Entity', 'Read', $Call, array('Entity' => 'User'));
+        $Call['User'] = F::Run('Entity', 'Read', $Call, array('Entity' => 'User'))[0];
 
         if (!empty($Call['User']))
         {
-            list($Call['User']) = $Call['User'];
             $NewPassword = F::Live($Call['Password']['Generator']);
 
-            F::Run('Entity', 'Set',
+            F::Run('Entity', 'Update',
                 array(
-                     'Entity' => 'User',
-                     'Where'  => $Call['User']['ID'],
-                     'Data' => array ('Password' => sha1($NewPassword)) // FIXME
+                      'Entity' => 'User',
+                      'Purpose' => 'Reset',
+                      'Where'  => $Call['User']['ID'],
+                      'Data' => array ('Password' => $NewPassword) // FIXME
                 ));
 
             $Message['Scope'] = $Call['User']['EMail'];
