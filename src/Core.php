@@ -394,11 +394,15 @@
 
         public static function Hook($On, $Call)
         {
-            self::Counter('Hooks');
             if (isset($Call['Hooks']))
                  if ($Hooks = F::Dot($Call, 'Hooks.' . $On))
+                 {
                      foreach ($Hooks as $Hook)
-                         $Call = F::Run($Hook['Service'],$Hook['Method'], isset($Hook['Call'])? $Hook['Call']: [],  $Call);
+                         if (F::isCall($Hook))
+                             $Call = F::Run($Hook['Service'],$Hook['Method'], isset($Hook['Call'])? $Hook['Call']: [],  $Call);
+                         else
+                             $Call = F::Merge($Call, $Hook);
+                 }
 
             return $Call;
         }
