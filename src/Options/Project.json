@@ -1,0 +1,37 @@
+{
+    "Name": "My Project",
+    "Description":
+    {
+        "Short": "Short description goes here",
+        "Full": "Full description goes here"
+    },
+    "Version":
+    {
+        "Project": "0.1",
+        "Codeine": "7.6.3"
+    },
+    "Humans":
+    {
+        "Anybody":
+        {
+            "Role":["Backend Developer", "Frontend Developer"],
+            "EMail": "anybody@gmail.com"
+        }
+    },
+    "Events":
+    {
+        "Started": 1354001901,
+        "Released": 0
+    },
+    "Copyright":
+    {
+        "License": "",
+        "Rights": "",
+        "Year": 2012
+    },
+    "Links":
+    {
+        "Development":"project.local",
+        "Production": "project.ru"
+    }
+}
