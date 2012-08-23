@@ -21,6 +21,12 @@
                 "Action": "/control/Security/HashTest",
                 "Value" : "<l>Security.Hash.Test</l>"
             },
+            "UIDTest":
+            {
+                "Type" : "Button",
+                "Action": "/control/Security/UIDTest",
+                "Value" : "<l>Security.UID.Test</l>"
+            },
             "Rules":
             {
                 "Type" : "Button",

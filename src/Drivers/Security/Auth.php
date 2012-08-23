@@ -78,6 +78,8 @@
                              'Where' => $Call['SID']
                         ));
 
+        F::Log('Session annulated');
+
         return $Call;
     });
 
@@ -86,25 +88,31 @@
         $Call = F::Run(null, 'Audit', $Call);
 
         if (isset($Call['Session']['User']['ID']))
-            return F::Run('Entity', 'Update',
-             array(
-                  'Entity' => 'Session',
-                  'Where' => $Call['SID'],
-                  'Data' =>
-                        array(
-                            'Secondary' => $Call['User'],
-                            'Expire' => time()+$Call['TTL']) // FIXME
-             ));
-        else
+        {
+            F::Log('Secondary logon');
             return F::Run('Entity', 'Update',
                 array(
-                  'Entity' => 'Session',
-                  'Where' => $Call['SID'],
-                  'Data' =>
-                        array(
-                            'User' => $Call['User'],
-                            'Expire' => time()+$Call['TTL']) // FIXME
+                    'Entity' => 'Session',
+                    'Where' => $Call['SID'],
+                    'Data' =>
+                    array(
+                        'Secondary' => $Call['User'],
+                        'Expire' => time()+$Call['TTL']) // FIXME
                 ));
+        }
+        else
+        {
+            F::Log('Primary logon');
+            return F::Run('Entity', 'Update',
+                array(
+                    'Entity' => 'Session',
+                    'Where' => $Call['SID'],
+                    'Data' =>
+                    array(
+                        'User' => $Call['User'],
+                        'Expire' => time()+$Call['TTL']) // FIXME
+                ));
+        }
     });
 
     self::setFn('Detach', function ($Call)

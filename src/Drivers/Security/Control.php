@@ -36,6 +36,25 @@
         return $Call;
     });
 
+    self::setFn('UIDTest', function ($Call)
+    {
+        $Options = F::loadOptions('Security.UID');
+
+        foreach ($Options['Modes'] as $Key => $Generator)
+        {
+            $UID = F::Live ($Generator);
+
+            $Call['Output']['Content'][] =
+              array(
+                  'Type' => 'Block',
+                  'Class' => 'alert alert-success',
+                  'Value' => $Key.' ('.$UID.')'
+              );
+        }
+
+        return $Call;
+    });
+
     self::setFn('Rules', function ($Call)
     {
         $Rules = F::loadOptions('Security.Access.Rule')['Rules'];
