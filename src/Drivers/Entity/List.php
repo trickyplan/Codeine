@@ -49,6 +49,8 @@
                 if (!isset($Element['ID']))
                     $Element['ID'] = $IX;
 
+                $Element['IX'] = $IX+1;
+
                 $Call['Output']['Content'][] =
                     array(
                         'Type'  => 'Template',
