@@ -43,7 +43,9 @@
 
         $Call['Scope'] = $Call['Entity'];
 
-        if (isset($Call['Where']['ID']) && (($Call['Data'] = F::Get('Entity.'.$Call['Where']['ID'])) !== null))
+        if (isset($Call['Where']['ID'])
+            && is_scalar($Call['Where']['ID'])
+            && (($Call['Data'] = F::Get('Entity.'.$Call['Where']['ID'])) !== null))
             ;
         else
         {
