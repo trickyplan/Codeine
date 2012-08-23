@@ -4,6 +4,11 @@
     {
         "beforeRun":
         {
+            "Codeine":
+            {
+                "Service": "Codeine.Preload",
+                "Method": "Do"
+            },
             "Project":
             {
                 "Service": "Project.Preload",
