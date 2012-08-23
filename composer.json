@@ -31,7 +31,7 @@
             "type": "package",
             "package": {
                 "name": "one2team/codeine",
-                "version": "7.6.4",
+                "version": "7.6.4-beta",
                 "dist": {
                     "url": "http://deb.one2team.ru/",
                     "type": "deb"
