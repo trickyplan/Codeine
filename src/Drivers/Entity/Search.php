@@ -18,26 +18,35 @@
 
         $Call['Layouts'][] = array(
                     'Scope' => $Call['Entity'],
-                    'ID' => 'Main'
+                    'ID' => 'Main',
+                    'Context' => $Call['Context']
                 );
 
         $Call['Layouts'][] = array(
                     'Scope' => $Call['Entity'],
-                    'ID' => 'Search'
+                    'ID' => 'Search',
+                    'Context' => $Call['Context']
                 );
 
-        //d(__FILE__, __LINE__, $Call['Request']['Query']);
-        // d(__FILE__, __LINE__, $IDs);
-
         $Call['Locales'][] = $Call['Entity'];
-        $Call['Output']['Content'][] = '<div class="clearfix">&nbsp;</div>
-<h2 class="page-header"><l>'.$Call['Entity'].'.Entity</l></h2>'; // FIXME
 
         if (!empty($IDs) && null !== $IDs)
-            $Call = F::Run('Entity.List', 'Do', $Call,
-                array(
-                        'Where' => array('ID' => array('IN' => array_keys($IDs))),
-                    'Template' => (isset($Call['Template'])? $Call['Template']: 'Search')));
+            $Call = F::Run('Entity.List', 'Do',
+                    $Call,
+                    [
+                        'Where' =>
+                            [
+                                'ID' =>
+                                    [
+                                        'IN' => array_keys($IDs)
+                                    ]
+                            ],
+                        'Template' => (
+                                isset($Call['Template'])?
+                                $Call['Template']:
+                                'Search')
+                    ]
+                );
         else
             $Call['Output']['Content'][] =
                 array(
