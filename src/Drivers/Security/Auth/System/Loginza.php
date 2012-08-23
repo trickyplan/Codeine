@@ -9,6 +9,9 @@
 
     self::setFn('Identificate', function ($Call)
     {
+        if ($Call['Loginza']['ID'] == 0)
+            $Call = F::Hook('Loginza.NotConfigured', $Call);
+
         $Call['LoginzaURL'] = 'http://'.$_SERVER['HTTP_HOST'].'/auth/social'; // FIXME
         return $Call;
     });

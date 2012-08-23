@@ -1,13 +1,37 @@
 {
     "Loginza":
     {
-        "ID": 24623,
-        "Key": "1dc118bc34d783e2117a7b826fccbe2a",
+        "ID": 0,
+        "Key": "yourkeyhere",
         "Map":
         {
             "EMail": "email",
             "Phone": "phone.mobile",
             "Photo": "photo"
+        }
+    },
+    "Hooks":
+    {
+        "Loginza":
+        {
+            "NotConfigured":
+            {
+                "Block":
+                {
+                    "Output":
+                    {
+                        "Content":
+                        {
+                            "Error":
+                            {
+                                "Type": "Block",
+                                "Class": "alert",
+                                "Value": "Loginza not configured"
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
