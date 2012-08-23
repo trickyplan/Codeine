@@ -17,7 +17,7 @@
             "Method": "Get",
             "Call":
             {
-                "Size": 16
+                "Size": 6
             }
         },
         "Fast":
@@ -27,12 +27,8 @@
         },
         "Fast+":
         {
-            "Service": "Security.UID.Digits",
-            "Method": "Get",
-            "Call":
-            {
-                "Size": 6
-            }
+            "Service": "Security.UID.Integer",
+            "Method": "Get"
         }
     }
 }
