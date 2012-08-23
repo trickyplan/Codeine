@@ -1,0 +1,91 @@
+{
+    "Storage": "Primary",
+    "EPP": 20,
+    "Nodes":
+    {
+        "ID":
+        {
+            "Type": "Numeral.Integer",
+            "Create":
+            {
+                "Service": "Security.UID.Integer",
+                "Method": "Get"
+            }
+        },
+        "EMail":
+        {
+            "Type": "Literal.EMail",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.TextfieldUnique",
+                    "Subtype": "email"
+                }
+            }
+        },
+        "Status":
+        {
+            "Default": 1
+        },
+        "Password":
+        {
+            "Type": "Literal.Password",
+            "WriteOnce": true,
+            "Widgets":
+            {
+                "Create":
+                {
+                    "Type": "Form.Password",
+                    "Required": true
+                }
+            }
+        },
+        "Fullname":
+        {
+            "Type": "Literal.String",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        },
+        "Created":
+        {
+            "Create":
+            {
+                "Service":"System.Date.Time",
+                "Method":"Get"
+            }
+        }
+    },
+    "Hooks":
+    {
+        "afterCreatePost":
+        {
+            "Redirect":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "Redirect",
+                "Call":
+                {
+                    "Location": "/"
+                }
+            }
+        },
+        "afterUpdatePost":
+        {
+            "Redirect":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "Redirect",
+                "Call":
+                {
+                    "Location": "/"
+                }
+            }
+        }
+    }
+}
