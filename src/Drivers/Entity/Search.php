@@ -13,7 +13,7 @@
              array(
                   'Engine' => 'Primary',
                   'Entity' => $Call['Entity'],
-                  'Query' => $Call['Request']['Query']
+                  'Query' => isset($Call['Query'])? $Call['Query']: $Call['Request']['Query']
              ));
 
         $Call['Layouts'][] = array(
@@ -36,7 +36,7 @@
         if (!empty($IDs) && null !== $IDs)
             $Call = F::Run('Entity.List', 'Do', $Call,
                 array(
-                    'Where' => array('ID' => array('IN' => array_keys($IDs))),
+                        'Where' => array('ID' => array('IN' => array_keys($IDs))),
                     'Template' => (isset($Call['Template'])? $Call['Template']: 'Search')));
         else
             $Call['Output']['Content'][] =
