@@ -11,7 +11,7 @@
     {
         foreach ($Call['Nodes'] as $Name => $Node)
         {
-            if (!isset($Node['Nullable']) && !$Node['Nullable'])
+            if (!isset($Node['Nullable']) || !$Node['Nullable'])
             {
                 $New = F::Dot($Call['Data'], $Name);
 
