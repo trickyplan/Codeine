@@ -41,7 +41,7 @@
     {
         return F::Run('View', 'Parse', $Call,
             array (
-                  'Data'  => isset($Call['Data'])? $Call['Data']: null,
+                  'Data'  => (isset($Call['Data'])? $Call['Data']: null),
                   'Value' => F::Run('View', 'Load', $Call)
             ));
     });
@@ -55,19 +55,17 @@
         return F::Hook('afterRender', $Call);
     });
 
-    self::setFn('RenderSlice', function ($Call)
-    {
-        $Call = F::Hook('beforeRenderSlice', $Call);
-
-        $Call = F::Live (F::Live($Call['Rendering'], $Call), $Call);
-
-        return F::Hook('afterRenderSlice', $Call);
-    });
-
     self::setFn('Asset.Route', function ($Call)
     {
         if (strpos($Call['Value'], ':') !== false)
             return explode(':', $Call['Value']);
         else
             return array ($Call['Value'], $Call['Value']);
+    });
+
+    self::setFn('Add', function ($Call)
+    {
+        $Call['Output'][$Call['Place']][] = $Call['Element'];
+
+        return $Call;
     });
