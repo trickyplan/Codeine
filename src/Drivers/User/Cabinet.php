@@ -9,7 +9,7 @@
 
     self::setFn('Do', function ($Call)
     {
-        if (isset($Call['Session']['User']))
+        if (isset($Call['Session']['User']) && ($Call['Session']['User'] != -1))
             $Call['Output']['Content'][] =
                 array(
                     'Type' => 'Template',
