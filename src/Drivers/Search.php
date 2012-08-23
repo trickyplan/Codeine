@@ -24,7 +24,7 @@
 
     self::setFn('Query', function ($Call)
     {
-        return F::Run($Call['Engines'][$Call['Engine']]['Driver'], null, $Call);
+        return F::Run($Call['Engines'][$Call['Engine']]['Driver'], 'Query', $Call);
     });
 
 
