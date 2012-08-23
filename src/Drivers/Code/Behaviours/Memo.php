@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description Memoize call
      * @package Codeine
-     * @version 7.6.2
+     * @version 7.x
      */
 
     self::setFn('Run', function ($Call)

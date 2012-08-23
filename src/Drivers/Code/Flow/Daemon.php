@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description  
      * @package Codeine
-     * @version 7.6.2
+     * @version 7.x
      */
 
     // 10xs for http://leonid.shevtsov.me/ru/mnogoprocessovye-demony-na-php#ixzz23J4hMu6y

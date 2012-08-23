@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description: microtime() wrapper
      * @package Codeine
-     * @version 7.6.2
+     * @version 7.x
      * @date 09.03.11
      * @time 16:34
      */

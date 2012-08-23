@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description: Фронт контроллер
      * @package Codeine
-     * @version 7.6.2
+     * @version 7.x
      * @date 31.08.11
      * @time 1:12
      */

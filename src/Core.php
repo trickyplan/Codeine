@@ -5,8 +5,7 @@
      * @description: F Class
      * @package Codeine Framework
      * @subpackage Core
-     * @version 7.6.2
-     */
+          */
 
     define('Codeine', __DIR__);
 

@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description Media includes support 
      * @package Codeine
-     * @version 7.6.2
+     * @version 7.x
      */
 
     self::setFn('Hash', function ($Call)

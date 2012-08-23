@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description Output Buffering
      * @package Codeine
-     * @version 7.6.2
+     * @version 7.x
      */
 
     self::setFn('Start', function ($Call)

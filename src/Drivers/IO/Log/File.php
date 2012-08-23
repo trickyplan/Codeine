@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description Console Object Support
      * @package Codeine
-     * @version 7.6.2
+     * @version 7.x
      */
 
     self::setFn('Open', function ($Call)

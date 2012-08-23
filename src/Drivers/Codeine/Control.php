@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description  
      * @package Codeine
-     * @version 7.6.2
+     * @version 7.x
      */
 
     self::setFn('Do', function ($Call)
@@ -14,8 +14,8 @@
         $Call['Output']['Content'][] =
             array (
                 'Type'  => 'Block',
-                'Class' => 'alert ' . ($Current > '7.6.3' ? 'alert-error' : 'alert-success'), // FIXME
-                'Value' => 'Установленная версия: 7.6.3. <br/> Актуальная версия: ' . $Current
+                'Class' => 'alert ' . ($Current > $Call['Codeine']['Version'] ? 'alert-error' : 'alert-success'), // FIXME
+                'Value' => 'Установленная версия: '.$Call['Codeine']['Version']. '<br/> Актуальная версия: ' . $Current
             );
 
         return $Call;

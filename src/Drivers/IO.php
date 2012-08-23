@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description  New IO Engine
      * @package Codeine
-     * @version 7.6.2
+     * @version 7.x
      */
 
     self::setFn ('Open', function ($Call)

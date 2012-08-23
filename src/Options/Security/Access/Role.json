@@ -1,0 +1,21 @@
+{
+    "Roles":
+    {
+        "All":
+        {
+            "Show frontpage": true
+        },
+        "Root":
+        {
+            "Parent": "All"
+        }
+    },
+    "Rights":
+    {
+        "Show frontpage":
+        {
+            "Service": "Test.View",
+            "Method": "Do"
+        }
+    }
+}
