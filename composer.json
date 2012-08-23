@@ -1,0 +1,46 @@
+{
+    "name": "one2team/codeine",
+    "description": "Functional styled php-framework",
+    "keywords": ["framework", "oop sucks", "fp rules"],
+    "homepage": "http://one2team.ru/project/Codeine",
+    "license": "BSD-2-Clause",
+    "version": "7.6.4-beta",
+    "authors": [
+        {
+            "name": "Dmitry Bergstein",
+            "email": "bergstein@one2team.ru",
+            "homepage": "http://one2team.ru",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "email": "support@one2team.ru",
+        "issues": "http://task.one2team.ru/projects/codeine/issues",
+        "wiki": "http://task.one2team.ru/projects/codeine/wiki"
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "http://packagist.org"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/Breathless/Codeine"
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "one2team/codeine",
+                "version": "7.6.4",
+                "dist": {
+                    "url": "http://deb.one2team.ru/",
+                    "type": "deb"
+                }
+            }
+        }
+    ],
+    "require":
+    {
+        "php": ">=5.4"
+    }
+}
