@@ -25,16 +25,16 @@
             if ($Call['Session'] == null)
                 $Call['Session'] = F::Run(null, 'Register', $Call);
 
-            if (isset($Call['Session']['User']) && !empty($Call['Session']['User']) && $Call['Session']['User'] !== 0)
+            if (isset($Call['Session']['User']) && !empty($Call['Session']['User']) && $Call['Session']['User'] !== -1)
             {
-                if($Call['Session']['Expire'] < time())
+                if ($Call['Session']['Expire'] < time())
                 {
                     $Call = F::Run(null, 'Annulate', $Call);
                     F::Log('Session expired');
                 }
                 else
                 {
-                    if (isset($Call['Session']['Secondary']) && !empty($Call['Session']['Secondary']) && null !== $Call['Session']['Secondary'])
+                    if (isset($Call['Session']['Secondary']) &&  -1 !== $Call['Session']['Secondary'])
                         $User = F::Run('Entity', 'Read',
                             array(
                                  'Entity' => 'User',
@@ -52,7 +52,6 @@
             }
         }
 
-      //  d(__FILE__, __LINE__, $Call['Session']);
         return $Call;
     });
 
@@ -79,6 +78,8 @@
                              'Where' => $Call['SID']
                         ));
 
+        F::Log('Session annulated');
+
         return $Call;
     });
 
@@ -87,39 +88,45 @@
         $Call = F::Run(null, 'Audit', $Call);
 
         if (isset($Call['Session']['User']['ID']))
-            return F::Run('Entity', 'Update',
-             array(
-                  'Entity' => 'Session',
-                  'Where' => $Call['SID'],
-                  'Data' =>
-                        array(
-                            'Secondary' => $Call['User'],
-                            'Expire' => time()+$Call['TTL']) // FIXME
-             ));
-        else
+        {
+            F::Log('Secondary logon');
             return F::Run('Entity', 'Update',
                 array(
-                  'Entity' => 'Session',
-                  'Where' => $Call['SID'],
-                  'Data' =>
-                        array(
-                            'User' => $Call['User'],
-                            'Expire' => time()+$Call['TTL']) // FIXME
+                    'Entity' => 'Session',
+                    'Where' => $Call['SID'],
+                    'Data' =>
+                    array(
+                        'Secondary' => $Call['User'],
+                        'Expire' => time()+$Call['TTL']) // FIXME
                 ));
+        }
+        else
+        {
+            F::Log('Primary logon');
+            return F::Run('Entity', 'Update',
+                array(
+                    'Entity' => 'Session',
+                    'Where' => $Call['SID'],
+                    'Data' =>
+                    array(
+                        'User' => $Call['User'],
+                        'Expire' => time()+$Call['TTL']) // FIXME
+                ));
+        }
     });
 
     self::setFn('Detach', function ($Call)
     {
         $Call = F::Run(null, 'Audit', $Call);
 
-        if (isset($Call['Session']['Secondary']) && !empty($Call['Session']['Secondary']))
+        if (isset($Call['Session']['Secondary']) && !empty($Call['Session']['Secondary']) && $Call['Session']['Secondary'] !== -1)
             F::Run('Entity', 'Update',
              array(
                   'Entity' => 'Session',
                   'Where' => $Call['SID'],
                   'Data' =>
                   [
-                      'Secondary' => null
+                      'Secondary' => -1
                   ]
              ));
         else

@@ -25,6 +25,8 @@
         private static $_Counters = array();
         private static $_Log = array();
 
+        private static $_Live = false;
+
         public static function Environment()
         {
             return self::$_Environment;
@@ -32,6 +34,8 @@
 
         public static function Bootstrap ($Call = null)
         {
+            self::$_Live = true;
+
             self::Start(self::$_Service . '.' . self::$_Method);
 
             mb_internal_encoding('UTF-8');
@@ -124,7 +128,7 @@
             $Filename = self::findFile(self::$_Options['Codeine']['Driver']['Path'].'/'.$Path.self::$_Options['Codeine']['Driver']['Extension']);
 
             if ($Filename)
-                return (include_once $Filename);
+                return (include $Filename);
             else
             {
                 F::Log($Service.' not found');
@@ -156,7 +160,7 @@
          * @return mixed
          */
 
-        public static function Run($Service, $Method, $Call = array())
+        public static function Run($Service, $Method = null , $Call = array())
         {
             // TODO Infinite cycle protection
 
@@ -204,11 +208,11 @@
 
             $Call = self::Merge(self::loadOptions(), $Call);
 
-            if ((null === self::getFn($Method)) && (null === self::_loadSource($Service)))
+            if ((null === self::getFn(self::$_Method)) && (null === self::_loadSource(self::$_Service)))
                 $Result = (is_array($Call) && isset($Call['Fallback']))? $Call['Fallback'] : null;
             else
             {
-                $F = self::getFn($Method);
+                $F = self::getFn(self::$_Method);
 
                 if (is_callable($F))
                 {
@@ -549,6 +553,26 @@
            echo '</pre>';
         }
 
+        public static function setLive($Live)
+        {
+            self::$_Live = (bool) $Live;
+        }
+
+        public static function getLive()
+        {
+            return self::$_Live;
+        }
+
+        public static function Reload ()
+        {
+            foreach (self::$_Options as $Service)
+                F::loadOptions($Service);
+
+            foreach (self::$_Code as $Service)
+                F::_loadSource($Service);
+
+            return true;
+        }
     }
 
 

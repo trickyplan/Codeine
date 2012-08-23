@@ -32,16 +32,5 @@
     {
         "Service": "View.Strategy.Defined",
         "Method":  "Select"
-    },
-    "Hooks":
-    {
-        "afterRenderSlice":
-        {
-            "I18N":
-            {
-                "Service":"View.HTML.LocaleNG",
-                "Method":"Process"
-            }
-        }
     }
 }

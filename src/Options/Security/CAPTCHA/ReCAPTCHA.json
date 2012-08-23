@@ -1,0 +1,26 @@
+{
+    "ReCAPTCHA":
+    {
+        "Public": "",
+        "Private": ""
+    },
+    "Hooks":
+    {
+        "CAPTCHA":
+        {
+            "Failed":
+            {
+                "Error Page":
+                {
+                    "Service": "Error.Page",
+                    "Method": "Do",
+                    "Call":
+                    {
+                        "Code": 418
+                    }
+                }
+            }
+        }
+
+    }
+}

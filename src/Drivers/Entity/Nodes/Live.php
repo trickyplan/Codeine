@@ -19,8 +19,25 @@
                     if (isset($Node[$Call['Purpose']]))
                     {
                         $Run = $Node[$Call['Purpose']];
-                        foreach($Call['Data'] as &$Element)
-                            $Element = F::Live($Run, ['Data' => $Element, 'Name' => $Name, 'Node' => $Node, 'Nodes' => $Call['Nodes']]);
+
+                        if (isset($Call['Data']))
+                            foreach($Call['Data'] as &$Element)
+                            {
+                                if (($NewElement = F::Live($Run,
+                                    [
+                                        'Value' => isset($Element[$Name])? $Element[$Name]: null,
+                                        'Entity' => $Call['Entity'],
+                                        'Data' => $Element,
+                                        'Name' => $Name,
+                                        'Node' => $Node,
+                                        'Nodes' => $Call['Nodes']])) !== null)
+                                {
+                                    if (isset($Call['Return Call']) && $Call['Return Call'])
+                                        $Element = $NewElement;
+                                    else
+                                        $Element[$Name] = $NewElement;
+                                }
+                            }
                     }
 
 
@@ -33,7 +50,7 @@
                         $Run = $Node['Write'];
 
                     if (null !== $Run)
-                        if ((isset($Node['User Override']) && empty($Call['Data'][$Name])) or !isset($Call['Data'][$Name]))
+                        if ((isset($Node['User Override'])) or !isset($Call['Data'][$Name]))
                         {
                             if (isset($Run['Return Call']) && $Run['Return Call'])
                                 $Call = F::Live($Run, $Call);

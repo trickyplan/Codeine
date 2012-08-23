@@ -86,9 +86,17 @@
         {
             "Driver":"IO.Storage.XCache"
         },
+        "Run Once":
+        {
+            "Driver":"IO.Storage.Redis",
+            "Server": "127.0.0.1",
+            "Port": 6379
+        },
         "Run Queue":
         {
-            "Driver":"IO.Queue.SPL"
+            "Driver":"IO.Queue.Redis",
+            "Server": "127.0.0.1",
+            "Port": 6379
         },
         "Developer":
         {

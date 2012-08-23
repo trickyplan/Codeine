@@ -13,8 +13,6 @@
 
          if (isset($Call['Value']))
             $Call['Value'] = F::Live($Call['Value']);
-         else
-            $Call['Value'] = array();
 
          $Call['Options'] = F::Live($Call['Options']);
 
@@ -23,7 +21,7 @@
                  $Options[] = F::Run ('View', 'LoadParsed', $Call,
                     array(
                          'Scope' => isset($Call['Scope'])? $Call['Scope']: 'Default',
-                         'ID'    => 'UI/HTML/Navlist/'.($Value['ID'] === $Call['Value'] ? 'Active' : 'Passive'),
+                         'ID'    => 'UI/HTML/Navlist/'.($Value['ID'] == $Call['Value'] ? 'Active' : 'Passive'),
                          'Data'  => $Value
                     ));
              else

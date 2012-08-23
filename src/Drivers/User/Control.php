@@ -9,7 +9,12 @@
 
     self::setFn('Do', function ($Call)
     {
-        return F::Run('Entity.List', 'Do', array('Entity' => 'User', 'Template' => 'Control', 'PageURL' => '/control/User/page', 'Context' => 'internal'), $Call);
+        return F::Run('Entity.List', 'Do', array('Entity' => 'User', 'Template' => 'Control', 'PageURL' => '/control/User/page', 'Context' => 'app'), $Call);
+    });
+
+    self::setFn('Show', function ($Call)
+    {
+        return F::Run('Entity.Show.Static', 'Do', array('Entity' => 'User', 'PageURL' => '/control/User/page', 'Context' => 'app'), $Call);
      });
 
     self::setFn('Create', function ($Call)

@@ -1,0 +1,38 @@
+{
+    "Modes":
+    {
+        "Secure+":
+        {
+            "Service": "Security.UID.Paranoid",
+            "Method": "Get"
+        },
+        "Secure":
+        {
+            "Service": "Security.UID.GUID",
+            "Method": "Get"
+        },
+        "Normal":
+        {
+            "Service": "Security.UID.Digits",
+            "Method": "Get",
+            "Call":
+            {
+                "Size": 16
+            }
+        },
+        "Fast":
+        {
+            "Service": "Security.UID.Integer",
+            "Method": "Get"
+        },
+        "Fast+":
+        {
+            "Service": "Security.UID.Digits",
+            "Method": "Get",
+            "Call":
+            {
+                "Size": 6
+            }
+        }
+    }
+}

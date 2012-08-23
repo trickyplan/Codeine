@@ -1,10 +1,18 @@
 {
+    "Interface":
+    {
+        "Output":
+        {
+            "Service": "System.Interface.Web",
+            "Method": "Output"
+        }
+    },
     "Headers":
     {
         "HTTP/1.0": "200 OK",
         "Content-type:": "text/html; charset=utf-8",
         "Content-Language:": "ru",
-        "X-Powered-By:": "Codeine 7.2"
+        "X-Powered-By:": "Codeine 7.6.2"
     },
     "Language":
     {

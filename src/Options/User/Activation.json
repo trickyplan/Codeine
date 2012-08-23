@@ -9,24 +9,49 @@
         }
     },
     "Subject": "Активация аккаунта",
-    "Widgets":
+    "Activation":
     {
-        "Success":
+        "Auto Login": true
+    },
+    "Hooks":
+    {
+        "Activation":
         {
-            "Box":
+            "Success":
             {
-                "Type": "Block",
-                "Class": "alert alert-success",
-                "Value": "Активация прошла успешно"
-            }
-        },
-        "Failure":
-        {
-            "Box":
+                "Show page":
+                {
+                    "Service": "View",
+                    "Method": "Add",
+                    "Call":
+                    {
+                        "Place": "Content",
+                        "Element":
+                        {
+                            "Type": "Template",
+                            "Scope": "User",
+                            "ID": "Activation/Success"
+                        }
+                    }
+                }
+            },
+            "Failed":
             {
-                "Type": "Block",
-                "Class": "alert alert-error",
-                "Value": "Активация не удалась"
+                "Show page":
+                {
+                    "Service": "View",
+                    "Method": "Add",
+                    "Call":
+                    {
+                        "Place": "Content",
+                        "Element":
+                        {
+                            "Type": "Template",
+                            "Scope": "User",
+                            "ID": "Activation/Failed"
+                        }
+                    }
+                }
             }
         }
     }

@@ -13,15 +13,16 @@
     {
         if(!empty($Call['Value']['name']))
         {
-            $Name = F::Live($Call['Naming'], $Call);
+            $Call['Name'] = F::Live($Call['Naming'], $Call);
 
             if (isset($Call['MIME']))
                 if (!in_array($Call['Value']['type'],$Call['MIME']))
                     return null;
 
-            move_uploaded_file($Call['Value']['tmp_name'], Root . '/' . $Call['Directory'] . '/' . $Call['Scope'] . '/' . $Name);
-
-            return $Name;
+            if (move_uploaded_file($Call['Value']['tmp_name'], Root . '/' . $Call['Directory'] . '/' . $Call['Scope'] . '/' .$Call['Name']))
+                return $Call['Name'];
+            else
+                die('Uploading failed');
         }
         else
             return null;

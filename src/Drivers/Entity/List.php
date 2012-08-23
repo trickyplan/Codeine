@@ -9,15 +9,16 @@
 
     self::setFn('Do', function ($Call)
     {
+        if (isset($Call['Where']))
+            $Call['Where'] = F::Live($Call['Where']); // FIXME
+
         $Call = F::Merge(F::loadOptions($Call['Entity'].'.Entity'), $Call); // FIXME
         $Call = F::Hook('beforeList', $Call);
-
-        if (isset($Call['Where']))
-        $Call['Where'] = F::Live($Call['Where']); // FIXME
 
         $Elements = F::Run('Entity', 'Read', $Call);
 
         $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Main','Context' => $Call['Context']);
+        $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'List','Context' => $Call['Context']);
 
         $Call['Locales'][] = $Call['Entity'];
 
@@ -33,7 +34,12 @@
             );
         else
         {
-            $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'List','Context' => $Call['Context']);
+            $Call['Layouts'][] =
+                [
+                    'Scope' => $Call['Entity'],
+                    'ID' => (isset($Call['Table'])? $Call['Table']: 'Table'),
+                    'Context' => $Call['Context']
+                ];
 
             if (isset($Call['Reverse']))
                 $Elements = array_reverse($Elements, true);
@@ -42,6 +48,8 @@
             {
                 if (!isset($Element['ID']))
                     $Element['ID'] = $IX;
+
+                $Element['IX'] = $IX+1;
 
                 $Call['Output']['Content'][] =
                     array(
@@ -59,3 +67,12 @@
         return $Call;
     });
 
+    self::setFn('RAW', function ($Call)
+    {
+        $Elements = F::Run('Entity', 'Read', $Call);
+
+        foreach ($Elements as $Element)
+            $Output[$Element['ID']] = $Element[$Call['Key']];
+
+        return $Output;
+    });

@@ -11,7 +11,7 @@
     {
         $Call = F::Hook('beforeLoad', $Call);
 
-        F::Log('Trying to loading '.$Call['Entity']);
+        F::Log('Loading entity '.$Call['Entity']);
 
 
         if (is_array($Model = F::loadOptions($Call['Entity'].'.Entity')))

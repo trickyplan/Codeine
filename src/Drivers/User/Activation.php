@@ -24,7 +24,7 @@
                      )
             ));
 
-        $Message['Scope'] = $User['EMail'];
+        $Message['Scope'] = '"'.F::Dot($User, $Call['Name Field']).'" <'.$User['EMail'].'>';
         $Message['ID']    = $Call['Subject'];
         $Message['Data']  = F::Run('View', 'LoadParsed',
                                              array(
@@ -35,7 +35,9 @@
                                              ));
         $Message['Headers'] = array ('Content-type:' => ' text/html; charset="utf-8"');
 
-        F::Live($Call['Sender'], $Message);
+        F::Run('Code.Run.Delayed', 'Run', [
+            'Run' => F::Merge($Call['Sender'], ['Call' => $Message])
+        ]);
 
         list(,$User['Server']) = explode('@', $User['EMail']);
 
@@ -70,7 +72,7 @@
 
         if ($Activation !== false)
         {
-            F::Run('Entity', 'Set',
+            F::Run('Entity', 'Update',
                 array(
                      'Entity' => 'User',
                      'Where' => $Activation['User'],
@@ -87,22 +89,14 @@
                      'Data' => null
                 ));
 
-            $Call['Output']['Content'] = array(
-                array(
-                    'Type' => 'Template',
-                    'Scope' => 'User',
-                    'ID' => 'Activation/Success',
-                    'Data' => $Activation
-                )
-            );
+            if (isset($Call['Activation']['Auto Login']) && $Call['Activation']['Auto Login'])
+                F::Run('Security.Auth', 'Attach', $Call, ['User' => $Activation['User'], 'TTL' => 3600]);
+
+            $Call = F::Hook('Activation.Success', $Call);
+
         }
         else
-            $Call['Output']['Content'] = array(
-                array(
-                    'Type'  => 'Template',
-                    'Scope' => 'User',
-                    'ID' => 'Activation/Failure'
-                ));
+            $Call = F::Hook('Activation.Failed', $Call);
 
         return $Call;
     });

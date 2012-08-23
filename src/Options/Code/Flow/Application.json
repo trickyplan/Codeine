@@ -1,5 +1,7 @@
 {
-    "Hooks":{
+    "Context": "app",
+    "Hooks":
+    {
         "beforeApplicationRun":
         {
             "Audit":
@@ -13,14 +15,16 @@
                 "Method": "Check"
             }
         },
-        "afterApplicationRun":{
+        "afterApplicationRun":
+        {
             "Rendering":
             {
                 "Service":"View",
-                "Method":"RenderSlice"
+                "Method":"Render"
             }
         },
-        "on404":{
+        "on404":
+        {
             "ErrorBlock":{
                 "Service":"Error.404",
                 "Method":"Block"
