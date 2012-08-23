@@ -32,6 +32,7 @@
     {
         "5.4.3-1~dotdeb.0": "Stable",
         "5.4.4-1~dotdeb.0": "Unrecommended",
-        "5.4.5-1~dotdeb.0": "Stable"
+        "5.4.5-1~dotdeb.0": "Stable",
+        "5.4.6-1~dotdeb.0": "Stable"
     }
 }
