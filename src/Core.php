@@ -160,7 +160,7 @@
          * @return mixed
          */
 
-        public static function Run($Service, $Method, $Call = array())
+        public static function Run($Service, $Method = null , $Call = array())
         {
             // TODO Infinite cycle protection
 
@@ -208,11 +208,11 @@
 
             $Call = self::Merge(self::loadOptions(), $Call);
 
-            if ((null === self::getFn($Method)) && (null === self::_loadSource($Service)))
+            if ((null === self::getFn(self::$_Method)) && (null === self::_loadSource(self::$_Service)))
                 $Result = (is_array($Call) && isset($Call['Fallback']))? $Call['Fallback'] : null;
             else
             {
-                $F = self::getFn($Method);
+                $F = self::getFn(self::$_Method);
 
                 if (is_callable($F))
                 {
