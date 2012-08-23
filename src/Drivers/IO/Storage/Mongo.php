@@ -20,26 +20,31 @@
 
     self::setFn ('Read', function ($Call)
     {
-        F::Counter('IO.Mongo');
-        F::Counter('IO.Mongo.Reads');
-
-        foreach ($Call['Where'] as $Key => &$Value) // FIXME Повысить уровень абстракции
+        if (isset($Call['Where']))
         {
-            if (isset($Call['Nodes'][$Key]['Type']))
+            $Where = [];
+
+            foreach ($Call['Where'] as $Key => &$Value) // FIXME Повысить уровень абстракции
             {
+                if (!isset($Call['Nodes'][$Key]['Type']))
+                    $Call['Nodes'][$Key]['Type'] = 'Dummy';
+
                 if (is_array($Value))
-                    foreach ($Value as &$cValue)
-                        $cValue = F::Run('Data.Type.'.$Call['Nodes'][$Key]['Type'], 'Read', array('Value' => $cValue, 'Purpose' => 'Where'));
+                    foreach ($Value as $Relation => &$cValue)
+                    {
+                        if ($Relation == 'IN')
+                            $Where[$Key] = ['$in' => $cValue];
+                        else
+                            $Where[$Key] = [$Relation => F::Run('Data.Type.'.$Call['Nodes'][$Key]['Type'], 'Read', array('Value' => $cValue, 'Purpose' => 'Where'))];
+                    }
                 else
-                    $Value = F::Run('Data.Type.'.$Call['Nodes'][$Key]['Type'], 'Read', array('Value' => $Value, 'Purpose' => 'Where'));
+                    $Where[$Key] = F::Run('Data.Type.'.$Call['Nodes'][$Key]['Type'], 'Read', array('Value' => $Value, 'Purpose' => 'Where'));
             }
 
+            unset($Value, $Key);
+
+            $Cursor = $Call['Link']->$Call['Scope']->find($Where);
         }
-
-        unset($Value, $Key);
-
-        if (isset($Call['Where']))
-            $Cursor = $Call['Link']->$Call['Scope']->find($Call['Where']);
         else
             $Cursor = $Call['Link']->$Call['Scope']->find();
 
@@ -54,7 +59,7 @@
 
         if (isset($Call['Sort']))
             foreach($Call['Sort'] as $Key => $Direction)
-                $Cursor->sort(array($Key => ($Direction == SORT_ASC? 1: -1)));
+                $Cursor->sort(array($Key => (int)(($Direction == SORT_ASC) or ($Direction == 1))? 1: -1));
 
         if (isset($Call['Limit']))
             $Cursor->limit($Call['Limit']['To']-$Call['Limit']['From'])->skip($Call['Limit']['From']);
@@ -73,22 +78,22 @@
 
     self::setFn ('Write', function ($Call)
     {
-        F::Counter('IO.Mongo');
-        F::Counter('IO.Mongo.Writes');
-
-        foreach ($Call['Where'] as $Key => &$Value) // FIXME Повысить уровень абстракции
+        if (isset($Call['Where']))
         {
-            if (isset($Call['Nodes'][$Key]['Type']))
+            foreach ($Call['Where'] as $Key => &$Value) // FIXME Повысить уровень абстракции
             {
-                if (is_array($Value))
-                    foreach ($Value as &$cValue)
-                        $cValue = F::Run('Data.Type.'.$Call['Nodes'][$Key]['Type'], 'Read', array('Value' => $cValue));
-                else
-                    $Value = F::Run('Data.Type.'.$Call['Nodes'][$Key]['Type'], 'Read', array('Value' => $Value));
+                if (isset($Call['Nodes'][$Key]['Type']))
+                {
+                    if (is_array($Value))
+                        foreach ($Value as &$cValue)
+                            $cValue = F::Run('Data.Type.'.$Call['Nodes'][$Key]['Type'], 'Read', array('Value' => $cValue));
+                    else
+                        $Value = F::Run('Data.Type.'.$Call['Nodes'][$Key]['Type'], 'Read', array('Value' => $Value));
+                }
             }
-        }
 
-        unset($Value, $Key);
+            unset($Value, $Key);
+        }
 
         if (null === $Call['Data'])
         {
@@ -128,9 +133,6 @@
 
     self::setFn ('Count', function ($Call)
     {
-        F::Counter('IO.Mongo');
-        F::Counter('IO.Mongo.Reads');
-
         foreach ($Call['Where'] as $Key => &$Value) // FIXME Повысить уровень абстракции
         {
             if (isset($Call['Nodes'][$Key]['Type']))
