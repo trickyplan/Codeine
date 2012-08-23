@@ -89,22 +89,14 @@
                      'Data' => null
                 ));
 
-            $Call['Output']['Content'] = array(
-                array(
-                    'Type' => 'Template',
-                    'Scope' => 'User',
-                    'ID' => 'Activation/Success',
-                    'Data' => $Activation
-                )
-            );
+            if (isset($Call['Activation']['Auto Login']) && $Call['Activation']['Auto Login'])
+                F::Run('Security.Auth', 'Attach', $Call, ['User' => $Activation['User'], 'TTL' => 3600]);
+
+            $Call = F::Hook('Activation.Success', $Call);
+
         }
         else
-            $Call['Output']['Content'] = array(
-                array(
-                    'Type'  => 'Template',
-                    'Scope' => 'User',
-                    'ID' => 'Activation/Failure'
-                ));
+            $Call = F::Hook('Activation.Failed', $Call);
 
         return $Call;
     });
