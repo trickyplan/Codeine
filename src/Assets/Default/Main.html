@@ -19,6 +19,7 @@
     <css>bootstrap</css>
     <css>bootstrap:responsive</css>
 
+    <js>jquery:min</js>
     <js>bootstrap</js>
     <place>CSS</place>
 </head>
@@ -26,10 +27,28 @@
 <body>
 
 <div id="container">
-    <div id="content" role="main" class="container">
+
+    <div class="navbar">
+        <div class="navbar-inner">
+            <a class="brand" href="/"><call>Project.Title</call></a>
+            <exec>
+                <Service>User.Cabinet</Service>
+                <Method>Do</Method>
+            </exec>
+        </div>
+    </div>
+
+    <div id="content" role="main" class="container-fluid">
         <place>Content</place>
+
+        <ul class="nav nav-pills">
+            <li><a href="http://one2team.ru">Сайт ONE2TEAM</a></li>
+            <li><a href="http://task.one2team.ru/projects/codeine">Таск-трекер Codeine</a></li>
+            <li><a href="http://task.one2team.ru/projects/codeine/wiki">Codeine Wiki</a></li>
+        </ul>
     </div>
 </div>
+
 <place>JS</place>
 
 </body>

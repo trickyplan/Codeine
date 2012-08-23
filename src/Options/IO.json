@@ -100,7 +100,7 @@
         },
         "Developer":
         {
-            "Driver":"IO.Log.Echo"
+            "Driver":"IO.Log.Null"
         },
         "EMail":
         {
