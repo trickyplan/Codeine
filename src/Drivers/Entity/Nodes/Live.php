@@ -50,7 +50,7 @@
                         $Run = $Node['Write'];
 
                     if (null !== $Run)
-                        if ((isset($Node['User Override'])) or !isset($Call['Data'][$Name]))
+                        if (!isset($Node['User Override']) or !isset($Call['Data'][$Name]))
                         {
                             if (isset($Run['Return Call']) && $Run['Return Call'])
                                 $Call = F::Live($Run, $Call);
