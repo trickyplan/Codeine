@@ -1,20 +1,31 @@
 {
+    "Role": ["All"],
+    "Decision": true,
     "Roles":
     {
         "All":
         {
-            "Show frontpage": true
+            "Rights":
+            {
+                "Frontpage": true,
+                "Cabinet": true
+            }
         },
         "Root":
         {
-            "Parent": "All"
+
         }
     },
     "Rights":
     {
-        "Show frontpage":
+        "Frontpage":
         {
-            "Service": "Test.View",
+            "Service": "Codeine.Frontpage",
+            "Method": "Do"
+        },
+        "Cabinet":
+        {
+            "Service": "User.Cabinet",
             "Method": "Do"
         }
     }

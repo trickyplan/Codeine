@@ -32,8 +32,13 @@
                 "Type" : "Button",
                 "Action": "/control/Security/Rules",
                 "Value" : "<l>Security.Access.Rule.List</l>"
+            },
+            "Roles":
+            {
+                "Type" : "Button",
+                "Action": "/control/Security/Roles",
+                "Value" : "<l>Security.Access.Roles</l>"
             }
-
         }
     }
 }
