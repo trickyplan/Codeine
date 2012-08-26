@@ -11,44 +11,50 @@
      {
          // TODO Header Support
 
-         $Rows = '';
-         // $Columns = array_keys(current($Call['Value']));
+         $Cells = '';
 
-         // $Cells = '';
+         array_unshift($Call['Columns'], 'Corner');
 
-         /*foreach ($Columns as $Value)
+         foreach ($Call['Columns'] as $Value)
              $Cells.= F::Run ('View', 'LoadParsed', $Call,
                      array(
                           'Scope' => 'Default',
-                          'ID'    => 'UI/HTML/Table/Cell',
+                          'ID'    => $Call['Template'].'/HeadCell',
                           'Data'  => array(
-                              'Value' => $Value
+                              'Value' => '<l>'.$Call['Name'].'.'.$Value.'</l>'
                           )
                      ));
 
           $Rows = F::Run ('View', 'LoadParsed', $Call,
                      array(
                           'Scope' => 'Default',
-                          'ID'    => 'UI/HTML/Table/Row',
+                          'ID'    => $Call['Template'].'/Row',
                           'Data'  => array(
                               'Value' => $Cells
                           )
-                     ));*/
+                     ));
 
-         foreach ($Call['Value'] as $Title => $Row)
+         foreach ($Call['Value'] as $RowTitle => $RowCells)
          {
-             $Cells = '';
+             $Cells = '<td>'.$RowTitle.'</td>';
 
-             foreach ($Row as $Key => $Value)
-                 $Cells .= F::Run ('View', 'LoadParsed', $Call,
+             foreach ($RowCells as $Key => $Value)
+                 $Cells .=
+                     F::Run ('View', 'LoadParsed', $Call,
                      array(
                           'Scope' => 'Default',
                           'ID'    => $Call['Template'].'/Cell',
                           'Data'  => array(
-                              'Key' => $Key,
-                              'Value' => $Value
+                              'Value' => F::Run('View.HTML.Element.Form.Checkbox', 'Make',
+                                  [
+                                      'Template' => 'Checkbox/Clean',
+                                      'Title' => $Key,
+                                      'TrueValue' => true,
+                                      'Value' => $Value,
+                                      'Name' => $Call['Name'].'['.$RowTitle.']['.$Key.']'])
                           )
                      ));
+
 
              $Rows.= F::Run ('View', 'LoadParsed', $Call,
                      array(
