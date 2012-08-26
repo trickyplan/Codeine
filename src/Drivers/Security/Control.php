@@ -70,3 +70,8 @@
 
         return $Call;
     });
+
+    self::setFn('Roles', function ($Call)
+    {
+        return F::Run('Security.Control.Role', 'Do', $Call);
+    });

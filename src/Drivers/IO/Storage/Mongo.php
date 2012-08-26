@@ -80,19 +80,28 @@
     {
         if (isset($Call['Where']))
         {
+            $Where = [];
+
             foreach ($Call['Where'] as $Key => &$Value) // FIXME Повысить уровень абстракции
             {
-                if (isset($Call['Nodes'][$Key]['Type']))
-                {
-                    if (is_array($Value))
-                        foreach ($Value as &$cValue)
-                            $cValue = F::Run('Data.Type.'.$Call['Nodes'][$Key]['Type'], 'Read', array('Value' => $cValue));
-                    else
-                        $Value = F::Run('Data.Type.'.$Call['Nodes'][$Key]['Type'], 'Read', array('Value' => $Value));
-                }
+                if (!isset($Call['Nodes'][$Key]['Type']))
+                    $Call['Nodes'][$Key]['Type'] = 'Dummy';
+
+                if (is_array($Value))
+                    foreach ($Value as $Relation => &$cValue)
+                    {
+                        if ($Relation == 'IN')
+                            $Where[$Key] = ['$in' => $cValue];
+                        else
+                            $Where[$Key] = [$Relation => F::Run('Data.Type.'.$Call['Nodes'][$Key]['Type'], 'Read', array('Value' => $cValue, 'Purpose' => 'Where'))];
+                    }
+                else
+                    $Where[$Key] = F::Run('Data.Type.'.$Call['Nodes'][$Key]['Type'], 'Read', array('Value' => $Value, 'Purpose' => 'Where'));
             }
 
             unset($Value, $Key);
+
+            $Call['Where'] = $Where;
         }
 
         if (null === $Call['Data'])

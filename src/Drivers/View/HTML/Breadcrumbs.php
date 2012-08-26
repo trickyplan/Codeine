@@ -22,9 +22,6 @@
                 $Call['Output'] = str_replace($Pockets[0][$IX], '', $Call['Output']);
             }
 
-            ksort($Call['Breadcrumbs']);
-
-
             $Last = array_pop($Call['Breadcrumbs']);
 
             foreach ($Call['Breadcrumbs'] as $Breadcrumb)

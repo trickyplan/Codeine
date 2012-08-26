@@ -1,0 +1,9 @@
+{
+    "Storages":
+    {
+        "Developer":
+        {
+            "Driver":"IO.Log.Echo"
+        }
+    }
+}
