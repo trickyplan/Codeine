@@ -17,6 +17,11 @@
             "Service": "View.Parser.Call",
             "Method": "Parse"
         },
+        "Array":
+        {
+            "Service": "View.Parser.ArrayKey",
+            "Method": "Parse"
+        },
         "KeyBlock":
         {
             "Service": "View.Parser.KeyBlock",
