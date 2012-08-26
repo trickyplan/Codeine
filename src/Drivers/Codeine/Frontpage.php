@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn ('Root', function ($Call)
+    self::setFn ('Do', function ($Call)
     {
         $Call['Output']['Content'] =
             [

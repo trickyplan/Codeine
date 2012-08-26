@@ -3,8 +3,8 @@
     {
         "/":
         {
-            "Service":"Test.View",
-            "Method":"Root"
+            "Service":"Codeine.Frontpage",
+            "Method":"Do"
         },
         "/control":
         {
