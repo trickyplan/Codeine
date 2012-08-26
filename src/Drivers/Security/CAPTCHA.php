@@ -14,5 +14,8 @@
 
     self::setFn('Check', function ($Call)
     {
-        return F::Run($Call['CAPTCHA Service'], 'Check', $Call);
+        if (isset($Call['CAPTCHA']['Bypass']))
+            return $Call;
+        else
+            return F::Run($Call['CAPTCHA Service'], 'Check', $Call);
     });

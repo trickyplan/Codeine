@@ -49,6 +49,7 @@
 
     self::setFn('Check', function ($Call)
     {
+        unlink(Root.'/Public/captcha/'.$Call['Request']['CAPTCHA.Challenge'].'.png');
         if ($Call['Request']['CAPTCHA.Challenge'] != sha1($Call['Request']['CAPTCHA.Answer']))
         {
             $Call['Failure'] = true;
