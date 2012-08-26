@@ -19,7 +19,7 @@
 
     self::setFn('Create', function ($Call)
     {
-        return F::Run('Entity.Create', 'Do', array('Entity' => 'User'), $Call);
+        return F::Run('Entity.Create', 'Do', array('Entity' => 'User', 'Context' => 'app'), $Call);
     });
 
     self::setFn('Update', function ($Call)
@@ -29,9 +29,8 @@
 
     self::setFn('Magic', function ($Call)
     {
-        $Call['User'] = F::Run('Entity', 'Read', array(
-                                        'Entity' => 'User',
-                                        'Where' => $Call['ID']
+        $Call['User'] = F::Run('Entity', 'Read', $Call, array(
+                                        'Entity' => 'User'
                                    ));
 
         switch($Call['User'][0]['Status'])
@@ -49,17 +48,25 @@
             break;
         }
 
-        F::Run('Entity', 'Update', array(
+        F::Run('Entity', 'Update', $Call, array(
                                         'Entity' => 'User',
-                                        'Where' => $Call['ID'],
                                         'Data' => array(
                                             'Status' => $Status
                                         )
                                    ));
         // FIXME
-        $Call = F::Merge($Call, F::loadOptions('Entity.User'));
+        $Call = F::Merge($Call, F::loadOptions('User.Entity'));
 
         $Call = F::Hook('afterMagic', $Call);
+
+        return $Call;
+    });
+
+    self::setFn('Login', function ($Call)
+    {
+        $Call['Session'] = F::Run('Security.Auth', 'Attach', ['User' => $Call['ID']]);
+
+        $Call = F::Hook('afterLogin', $Call);
 
         return $Call;
     });
