@@ -19,17 +19,12 @@
     {
         $Call = F::Hook('beforeUpdateGet', $Call);
 
-        if (!isset($Call['NoEntityLayouts']))
-        {
-            $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Main');
-            $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Update');
-        }
-
         $Call['Locales'][] = $Call['Entity'];
 
         // Загрузить предопределённые данные и умолчания
 
         $Call['Data'] = F::Run('Entity', 'Read', $Call)[0];
+
         // Сгенерировать форму
 
         // Для каждой ноды в модели

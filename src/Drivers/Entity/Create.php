@@ -21,7 +21,10 @@
         $Call = F::Hook('beforeCreateGet', $Call);
 
         $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Main','Context' => $Call['Context']);
-        $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Create','Context' => $Call['Context']);
+        $Call['Layouts'][] = array(
+            'Scope' => $Call['Entity'],
+            'ID' => isset($Call['Custom Layouts']['Create'])? $Call['Custom Layouts']['Create']: 'Create',
+            'Context' => $Call['Context']);
 
         $Call['Locales'][] = $Call['Entity'];
 
