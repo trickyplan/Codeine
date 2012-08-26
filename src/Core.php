@@ -89,6 +89,34 @@
             return $First;
         }
 
+        public static function Diff ($First, $Second)
+        {
+            foreach($First as $Key => $Value)
+            {
+                if ($Value != '*')
+                {
+                    if(is_array($Value))
+                    {
+                          if(!isset($Second[$Key]))
+                              $Diff[$Key] = $Value;
+                          elseif(!is_array($Second[$Key]))
+                              $Diff[$Key] = $Value;
+                          else
+                          {
+                              $NewDiff = F::Diff ($Value, $Second[$Key]);
+
+                              if(null !== $NewDiff)
+                                    $Diff[$Key] = $NewDiff;
+                          }
+                      }
+                      elseif (!isset($Second[$Key]) || $Second[$Key] != $Value)
+                          $Diff[$Key] = $Value;
+                }
+            }
+
+            return (!isset($Diff) ? null : $Diff);
+        }
+
         public static function findFile($Names)
         {
            $Names = (array) $Names;
