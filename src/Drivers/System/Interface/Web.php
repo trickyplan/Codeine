@@ -106,7 +106,9 @@
                 $URL = str_replace($Key, F::Dot($Call,$Vars[1][$IX]) , $URL);
         }
 
+        $Call['Headers']['HTTP/1.1'] = ' 301 Moved Permanently';
         $Call['Headers']['Location:'] = $URL;
+
 
         return $Call;
     });
