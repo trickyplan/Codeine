@@ -11,13 +11,12 @@
 
     self::setFn('Route', function ($Call)
     {
-
-        if (is_string($Call['Value']) && mb_strpos($Call['Value'], '/') !== false)
+        if (is_string($Call['Run']) && mb_strpos($Call['Run'], '/') !== false)
         {
 
             $NewCall = array();
 
-            $Slices = explode('/', trim($Call['Value'],'/'));
+            $Slices = explode('/', trim($Call['Run'],'/'));
             $Size = sizeof($Slices);
 
             if (($Size % 2) !== 0)
@@ -26,8 +25,8 @@
             for ($ic = 0; $ic < $Size; $ic += 2)
                 $NewCall[$Slices[$ic]] = urldecode($Slices[$ic+1]);
 
-            return $NewCall;
+            $Call['Run'] = $NewCall;
         }
-        else
-            return $Call;
+
+        return $Call;
     });

@@ -21,11 +21,11 @@
                 if (isset($Rule['Debug']) && $Rule['Debug'] === true)
                     d(__FILE__, __LINE__, $Rule);
 
-                return $Call['Links'][$Call['Run']];
+                $Call['Run'] = $Call['Links'][$Call['Run']];
             }
         }
         else
             die('Static routes table corrupted'); // FIXME
 
-        return null;
+        return $Call;
     });

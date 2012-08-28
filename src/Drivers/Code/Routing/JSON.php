@@ -11,8 +11,8 @@
 
     self::setFn('Route', function ($Call)
     {
-        if (is_string($Call['Value']))
-            return json_decode($Call['Value'], true);
-        else
-            return null;
+        if (is_string($Call['Run']))
+            $Call['Run'] = json_decode($Call['Run'], true);
+
+        return $Call;
     });

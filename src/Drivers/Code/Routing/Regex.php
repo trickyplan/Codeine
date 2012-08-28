@@ -15,7 +15,6 @@
             list($Call['Run']) = explode('?', $Call['Run']);
 
         // TODO Error: Not found Regex Table
-
         $Decision = null;
         $Weight = 0;
 
@@ -63,5 +62,7 @@
         else
             F::Log('No one regex rule selected');
 
-        return $Decision;
+        $Call['Run'] = $Decision;
+
+        return $Call;
     });

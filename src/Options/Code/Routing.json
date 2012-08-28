@@ -1,6 +1,10 @@
 {
     "Routers":[
         {
+            "Service":"Code.Routing.Rewrite",
+            "Method":"Route"
+        },
+        {
             "Service":"Code.Routing.Static",
             "Method":"Route"
         },

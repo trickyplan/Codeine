@@ -16,7 +16,7 @@
             },
             "Routing":
             {
-                "Service": "Code.Flow.Front.Routing",
+                "Service": "Code.Routing",
                 "Method": "Route"
             },
             "Audit":
