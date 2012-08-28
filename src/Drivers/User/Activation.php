@@ -43,14 +43,15 @@
 
         list(,$User['Server']) = explode('@', $User['EMail']);
 
-        $Call['Output']['Content'] = array(
-            array(
+        $Call['Output']['Content'] =
+        [
+            [
                 'Type'  => 'Template',
                 'Scope' => 'User',
                 'ID' => 'Activation/Needed',
                 'Data'  => $User
-            )
-        );
+            ]
+        ];
 
         if (isset($Call['Second']))
             $Call['Output']['Message'][] =

@@ -60,32 +60,5 @@
                 "Method":"Get"
             }
         }
-    },
-    "Hooks":
-    {
-        "afterCreatePost":
-        {
-            "Redirect":
-            {
-                "Service": "System.Interface.Web",
-                "Method": "Redirect",
-                "Call":
-                {
-                    "Location": "/"
-                }
-            }
-        },
-        "afterUpdatePost":
-        {
-            "Redirect":
-            {
-                "Service": "System.Interface.Web",
-                "Method": "Redirect",
-                "Call":
-                {
-                    "Location": "/"
-                }
-            }
-        }
     }
 }
