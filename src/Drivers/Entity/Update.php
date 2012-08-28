@@ -21,6 +21,12 @@
 
         $Call['Locales'][] = $Call['Entity'];
 
+        $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Main','Context' => $Call['Context']);
+        $Call['Layouts'][] = array(
+            'Scope' => $Call['Entity'],
+            'ID' => isset($Call['Custom Layouts']['Create'])? $Call['Custom Layouts']['Update']: 'Update',
+            'Context' => $Call['Context']);
+
         // Загрузить предопределённые данные и умолчания
 
         $Call['Data'] = F::Run('Entity', 'Read', $Call)[0];

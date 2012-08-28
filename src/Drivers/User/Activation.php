@@ -26,13 +26,15 @@
 
         $Message['Scope'] = '"'.F::Dot($User, $Call['Name Field']).'" <'.$User['EMail'].'>';
         $Message['ID']    = $Call['Subject'];
-        $Message['Data']  = F::Run('View', 'LoadParsed',
+
+        $Message['Data']  = F::Run('View', 'LoadParsed', $Call,
                                              array(
                                                   'Scope' => 'User',
                                                   'ID' => 'Activation/EMail',
                                                   'Data' => array_merge($User,
                                                       array('ActivationURL' => $_SERVER['HTTP_HOST'].'/activate/user/'.$User['Code']))
                                              ));
+
         $Message['Headers'] = array ('Content-type:' => ' text/html; charset="utf-8"');
 
         F::Run('Code.Run.Delayed', 'Run', [
