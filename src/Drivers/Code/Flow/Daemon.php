@@ -47,7 +47,7 @@
                     }
                     else
                     {
-                        echo F::Live($Call['Execute'], ['Run' => $Trigger[0]]);
+                        echo getmypid().': '.F::Live($Call['Execute'], ['Run' => $Trigger[0]]).PHP_EOL;
                         exit;
                     }
                 }
