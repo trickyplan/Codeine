@@ -60,7 +60,7 @@
     <target name="version" depends="folders">
         <echo file="${package}/${destination-source}/Codeine/Options/Version.json" append="false">
             {
-                "Build": ${build}
+                "Build": ${env.build}
             }
         </echo>
     </target>
