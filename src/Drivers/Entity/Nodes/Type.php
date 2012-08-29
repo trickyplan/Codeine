@@ -14,7 +14,7 @@
             if (isset($Node['Type']) && (F::Dot($Call['Data'], $Name) !== null))
             {
                 $Call['Data'] = F::Dot($Call['Data'], $Name,
-                    F::Run('Data.Type.'.$Node['Type'], 'Write',[
+                    F::Run('Data.Type.'.$Node['Type'], 'Write', $Node, [
                         'Entity' => $Call['Entity'],
                         'Name' => $Name,
                         'Node' => $Node,

@@ -35,7 +35,19 @@
                                     if (isset($Call['Return Call']) && $Call['Return Call'])
                                         $Element = $NewElement;
                                     else
+                                    {
                                         $Element[$Name] = $NewElement;
+
+                                        if (!isset($Call['From Update']) && isset($Node['Read']['Store']) && $Node['Read']['Store'])
+                                            F::Run('Entity', 'Update', [
+                                                 'Entity' => $Call['Entity'],
+                                                 'Where' => $Element['ID'],
+                                                 'Data' =>
+                                                     [
+                                                         $Name => $Element[$Name]
+                                                     ]
+                                             ]);
+                                    }
                                 }
                             }
                     }

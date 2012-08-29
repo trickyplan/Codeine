@@ -24,7 +24,7 @@
         $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Main','Context' => $Call['Context']);
         $Call['Layouts'][] = array(
             'Scope' => $Call['Entity'],
-            'ID' => isset($Call['Custom Layouts']['Create'])? $Call['Custom Layouts']['Update']: 'Update',
+            'ID' => isset($Call['Custom Layouts']['Update'])? $Call['Custom Layouts']['Update']: 'Update',
             'Context' => $Call['Context']);
 
         // Загрузить предопределённые данные и умолчания
@@ -50,6 +50,7 @@
                 {
                     $Widget['Entity'] = $Call['Entity'];
                     $Widget['Node'] = $Name;
+                    $Widget['Label'] = $Call['Entity'].'.'.$Name;
                     $Widget['Name'] = strtr($Name, '.','_');
                     $Widget['ID'] = strtr($Name, '.','_');
 

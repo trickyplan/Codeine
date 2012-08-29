@@ -64,7 +64,7 @@
 
     self::setFn('Update', function ($Call)
     {
-        $Call['Current'] = F::Run('Entity', 'Read', $Call)[0];
+        $Call['Current'] = F::Run('Entity', 'Read', $Call, ['From Update' => true])[0];
 
         $Call = F::Hook('beforeEntityUpdate', $Call);
 
@@ -103,15 +103,4 @@
                   'Execute' => 'Count',
                   'Scope'   => $Call['Entity']
             ));
-    });
-
-    self::setFn('Set', function ($Call)
-    {
-        $Call = F::Run(null, 'Load', $Call);
-
-        $Call['Scope'] = $Call['Entity'];
-
-        $Call['Data'] = F::Run('IO', 'Write', $Call);
-
-        return $Call['Data'];
     });

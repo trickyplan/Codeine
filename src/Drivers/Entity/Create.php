@@ -49,6 +49,7 @@
                 if (null !== $Widget)
                 {
                     $Widget['Entity'] = $Call['Entity'];
+                    $Widget['Label'] = $Call['Entity'].'.'.$Name;
                     $Widget['Node'] = $Name;
                     $Widget['Name'] = strtr($Name, '.','_');
                     $Widget['ID'] = strtr($Name, '.','_');
