@@ -58,18 +58,32 @@
                 self::$_Options['Path'] = array (Codeine);
 
             self::loadOptions();
+
+            self::Versioning();
+
+            register_shutdown_function ('F::Shutdown');
+            set_error_handler ('F::Error'); // Instability
+        }
+
+        protected static function Versioning()
+        {
             self::loadOptions('Version');
 
             if (isset(self::$_Options['Project']['Version']['Codeine'])
                 && self::$_Options['Project']['Version']['Codeine'] > self::$_Options['Version']['Codeine']['Major'])
                 die('Codeine '.self::$_Options['Project']['Version']['Codeine'].'+ needed. Installed: '.self::$_Options['Version']['Codeine']['Major']);
+            // FIXME — maybe warning?
 
             self::Log('Codeine: '.self::$_Options['Version']['Codeine']['Major']);
-            self::Log('Core build: '.self::$_Options['Version']['Codeine']['Minor']);
-            self::Log('Environment: '.self::$_Environment);
+            self::Log('Build: '.self::$_Options['Version']['Codeine']['Minor']);
 
-            register_shutdown_function ('F::Shutdown');
-            set_error_handler ('F::Error'); // Instability
+            if (isset(self::$_Options['Version']['Project']))
+            {
+                self::Log('Project: '.self::$_Options['Version']['Project']['Major']);
+                self::Log('Build: '.self::$_Options['Version']['Project']['Minor']);
+            }
+
+            self::Log('Environment: '.self::$_Environment);
         }
 
         public static function Merge($First, $Second)
@@ -318,8 +332,6 @@
 
         public static function Shutdown()
         {
-            F::Run('Code.Run.Delayed', 'Flush');
-
             if (self::$_Environment != 'Production')
             {
                 F::Execute(
