@@ -4,6 +4,5 @@
     {
         "Path": "Drivers",
         "Extension": ".php"
-    },
-    "Behaviours": ["Contract"]
+    }
 }
