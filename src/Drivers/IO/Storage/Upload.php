@@ -19,8 +19,13 @@
                 if (!in_array($Call['Value']['type'],$Call['MIME']))
                     return null;
 
-            if (move_uploaded_file($Call['Value']['tmp_name'], Root . '/' . $Call['Directory'] . '/' . $Call['Scope'] . '/' .$Call['Name']))
+            $Call['Fullname'] = '/' . $Call['Scope'] . '/' .$Call['Name'];
+
+            if (move_uploaded_file($Call['Value']['tmp_name'], Root.'/' . $Call['Directory'].$Call['Fullname']))
+            {
+                $Call = F::Hook('File.Uploaded', $Call);
                 return $Call['Name'];
+            }
             else
                 die('Uploading failed');
         }
