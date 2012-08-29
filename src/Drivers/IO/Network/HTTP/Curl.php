@@ -73,6 +73,8 @@
 
     self::setFn('Write', function ($Call)
     {
+        $Call['Link'] = curl_init($Call['Where']['ID']);
+
         $Headers = isset($Call['Headers'])? $Call['Headers']: array();
         $UPWD = isset($Call['user:pass'])? $Call['user:pass']:'';
 
