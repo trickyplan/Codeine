@@ -14,8 +14,8 @@
         $Call['Output']['Content'][] =
             array (
                 'Type'  => 'Block',
-                'Class' => 'alert ' . ($Current > $Call['Codeine']['Version'] ? 'alert-error' : 'alert-success'), // FIXME
-                'Value' => 'Установленная версия: '.$Call['Codeine']['Version']. '<br/> Актуальная версия: ' . $Current
+                'Class' => 'alert ' . ($Current > $Call['Version']['Codeine']['Major'] ? 'alert-error' : 'alert-success'), // FIXME
+                'Value' => 'Установленная версия: '.$Call['Version']['Codeine']['Major']. '<br/> Актуальная версия: ' . $Current
             );
 
         return $Call;
