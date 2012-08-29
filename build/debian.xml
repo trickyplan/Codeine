@@ -49,15 +49,20 @@
     </target>
 
     <target name="docs" depends="folders">
+        <mkdir dir="${package}/${destination-documents}/${phing.project.name}/"/>
+        <copy todir="${package}/${destination-documents}/${phing.project.name}/">
+            <fileset dir="${source-docs}">
+                <include name="*/**"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="version" depends="folders">
         <echo file="${package}/${destination-source}/Codeine/Options/Version.json" append="false">
             {
                 "Build": ${build}
             }
         </echo>
-    </target>
-
-    <target name="version" depends="folders">
-
     </target>
 
     <target name="make" depends="folders, control, source, docs">
