@@ -29,12 +29,15 @@
 
         foreach($Call['Bundles'] as $Group => $Bundles)
         {
-            $Call['Options'][] = '<l>Control.'.$Group.'</l>';
+            $Call['Options'][] = $Group;
+
+            if (in_array($Call['Bundle'], $Bundles))
+                $Call['Group'] = $Group;
 
             foreach ($Bundles as $Bundle)
             {
                 $Call['Locales'][] = $Bundle.':Control';
-                $Call['Options'][] = array('ID' => $Bundle, 'Title' => '<l>Control.'.$Bundle.'</l>', 'URL' => '/control/'.$Bundle);
+                $Call['Options'][] = ['ID' => $Bundle, 'Group' => $Group];
             }
         }
 

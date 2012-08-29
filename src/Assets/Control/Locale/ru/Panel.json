@@ -1,15 +1,21 @@
 {
     "Control":
     {
-        "Project": "Проект",
-        "Platform": "Платформа",
-        "Main": "Обзор",
-        "User": "Пользователи",
-        "Codeine": "Ядро",
-        "PHP":"PHP",
-        "Nginx":"Nginx",
-        "IO":"Данные",
-        "Security":"Безопасность",
-        "Log":"Журнал"
+        "Group":
+        {
+            "Project": "Проект",
+            "Platform": "Платформа"
+        },
+        "Platform":
+        {
+            "User": "Пользователи",
+            "Codeine": "Ядро",
+            "PHP":"PHP",
+            "Nginx":"Nginx",
+            "IO":"Данные",
+            "Security":"Безопасность",
+            "Log":"Журнал"
+        }
+
     }
 }
