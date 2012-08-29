@@ -59,9 +59,13 @@
 
     <target name="version" depends="folders">
         <echo file="${package}/${destination-source}/Codeine/Options/Version.json" append="false">
-            {
-                "Build": ${env.build}
-            }
+{
+    "Codeine":
+    {
+        "Major": "${version}",
+        "Minor": "${env.build}
+    }
+}
         </echo>
     </target>
 

@@ -58,12 +58,14 @@
                 self::$_Options['Path'] = array (Codeine);
 
             self::loadOptions();
-            self::loadOptions('Project');
+            self::loadOptions('Version');
 
-            if (isset(self::$_Options['Project']['Version']['Codeine']) && self::$_Options['Project']['Version']['Codeine'] > self::$_Options['Codeine']['Version'])
-                die('Codeine '.self::$_Options['Project']['Version']['Codeine'].'+ needed. Installed: '.self::$_Options['Codeine']['Version']);
+            if (isset(self::$_Options['Project']['Version']['Codeine'])
+                && self::$_Options['Project']['Version']['Codeine'] > self::$_Options['Version']['Codeine']['Major'])
+                die('Codeine '.self::$_Options['Project']['Version']['Codeine'].'+ needed. Installed: '.self::$_Options['Version']['Codeine']['Major']);
 
-            self::Log('Codeine: '.self::$_Options['Codeine']['Version']);
+            self::Log('Codeine: '.self::$_Options['Version']['Codeine']['Major']);
+            self::Log('Core build: '.self::$_Options['Version']['Codeine']['Minor']);
             self::Log('Environment: '.self::$_Environment);
 
             register_shutdown_function ('F::Shutdown');
