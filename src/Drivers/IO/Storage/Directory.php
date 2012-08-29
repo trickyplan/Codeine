@@ -81,7 +81,10 @@
             mkdir(Root.'/'.$Call['Link'] . '/' . $Call['Scope'] . '/', 0777, true);
 
         if (isset($Call['Data']) && ($Call['Data'] != 'null') && ($Call['Data'] != null))
-            return file_put_contents ($Filename, $Call['Data']);
+            if (file_put_contents ($Filename, $Call['Data']))
+                return $Call['Data'];
+            else
+                F::Log('Write failed');
         else
             return unlink ($Filename);
     });
@@ -137,4 +140,20 @@
             $ic++;
 
         return array (array ('Files',  $ic));
+    });
+
+    self::setFn('Upload', function ($Call)
+    {
+        $Call['Fullname'] = $Call['Scope'].'/'.$Call['Name'];
+
+        if ($Call['Value']['error'] == 0)
+        {
+            if (move_uploaded_file($Call['Value']['tmp_name'], Root.'/' . $Call['Directory'].'/'.$Call['Fullname']))
+            {
+                $Call = F::Hook('File.Uploaded', $Call);
+                return $Call['Name'];
+            }
+        }
+
+        return null;
     });

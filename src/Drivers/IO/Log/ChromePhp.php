@@ -9,7 +9,6 @@
 
     self::setFn('Write', function ($Call)
     {
-
         foreach ($Call['Data'] as $Message)
         {
             switch($Message[2])

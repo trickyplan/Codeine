@@ -12,10 +12,14 @@
         if (is_scalar($Call['Value']))
             return $Call['Value'];
 
-        if ($Call['Value']['error'] == 0)
-            return F::Run('IO', 'Write', array ('Storage' =>  'Upload', 'Scope' => $Call['Node']['Scope'], 'Value' => $Call['Value']));
-        else
-            return null;
+        $Call['ID'] = $Call['Data']['ID'];
+        $Call['Name'] = F::Live($Call['Node']['Naming'], $Call);
+
+        return F::Run('IO', 'Execute', $Call,
+        [
+            'Execute' => 'Upload',
+            'Storage' => $Call['Node']['Storage']
+        ]);
     });
 
     self::setFn('Read', function ($Call)

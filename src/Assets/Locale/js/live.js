@@ -21,7 +21,10 @@ $(document).ready(function(){
                         el.html(translation);
                     }
                 }
-            )
+            );
+
+            return false;
         }
+
     });
 });

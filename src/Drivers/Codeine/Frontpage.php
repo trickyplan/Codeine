@@ -14,7 +14,7 @@
                 [
                     'Type' => 'Heading',
                     'Level' => 1,
-                    'Value' => 'Codeine '.$Call['Codeine']['Version'].' works!'
+                    'Value' => 'Codeine '.$Call['Version']['Codeine']['Major'].' works!'
                 ],
                 [
                     'Type'  => 'Heading',

@@ -20,11 +20,14 @@
                     if (($Matched === false) || ($Matched === 0))
                         $Matched = '0';
 
-                    if (is_array($Call['Data'][$Match]))
-                        foreach($Call['Data'][$Match] as $cMatch)
-                            $Output.= $Pockets[1][$IX].($cMatch).$Pockets[3][$IX];
-                    else
-                        $Output = $Pockets[1][$IX].($Call['Data'][$Match]).$Pockets[3][$IX];
+                    if ($DotMatched = F::Dot($Call['Data'], $Match))
+                    {
+                        if (is_array($DotMatched))
+                            foreach($DotMatched as $cMatch)
+                                $Output.= $Pockets[1][$IX].($cMatch).$Pockets[3][$IX];
+                        else
+                            $Output = $Pockets[1][$IX].($DotMatched).$Pockets[3][$IX];
+                    }
 
                     $Call['Value'] = str_replace($Pockets[0][$IX], $Output, $Call['Value']);
                 }

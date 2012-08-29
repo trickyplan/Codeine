@@ -1,7 +1,7 @@
 {
     "Storages":
     {
-        "File":
+        "JSON":
         {
             "Driver":"IO.Storage.Directory",
             "Directory":"Data",

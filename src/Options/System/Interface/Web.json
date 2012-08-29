@@ -12,7 +12,8 @@
         "HTTP/1.0": "200 OK",
         "Content-type:": "text/html; charset=utf-8",
         "Content-Language:": "ru",
-        "X-Powered-By:": "Codeine 7.6.2"
+        "Server:": "HAL 9000",
+        "X-Powered-By:": "Codeine 7.6.3"
     },
     "Language":
     {

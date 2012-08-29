@@ -7,6 +7,7 @@
         "application/octet-stream":".so",
         "application/x-authorware-bin":".x32",
         "audio/x-aac":".aac",
+        "application/x-deb": ".deb",
         "application/x-authorware-map":".aam",
         "application/x-authorware-seg":".aas",
         "application/x-abiword":".abw",

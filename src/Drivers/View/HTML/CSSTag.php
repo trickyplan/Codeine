@@ -35,7 +35,7 @@
 
         $ImageGenerateCSS = '';
 
-        if(preg_match_all('@<style(.*)>(.*)<\/style>@SsUu', $Call['Output'], $StyleTags))
+        if (preg_match_all('@<style(.*)>(.*)<\/style>@SsUu', $Call['Output'], $StyleTags))
         {
             foreach($StyleTags[2] as $Key=>$CSSStyle){
 
