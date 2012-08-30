@@ -35,6 +35,11 @@
         },
         "afterInterfaceRun":
         {
+            "Spit log":
+            {
+                "Service": "IO.Log",
+                "Method": "Spit"
+            },
             "Output Buffering":
             {
                 "Service": "System.Interface.Web.OB",

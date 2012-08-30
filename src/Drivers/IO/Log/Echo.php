@@ -7,12 +7,15 @@
 
     self::setFn('Write', function ($Call)
     {
-        echo '<pre>';
+        if ($Call['Renderer'] == 'View.HTML')
+        {
+            echo '<pre>';
 
-        foreach ($Call['Data'] as $Message)
-            echo '['.$Message[2].']'.$Message[0].':'.$Message[1]."\n";
+            foreach ($Call['Data'] as $Message)
+                echo '['.$Message[2].']'.$Message[0].':'.$Message[1]."\n";
 
-        echo '</pre>';
+            echo '</pre>';
+        }
 
         return $Call;
     });

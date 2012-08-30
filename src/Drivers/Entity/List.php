@@ -36,7 +36,7 @@
         {
             $Call['Layouts'][] =
                 [
-                    'Scope' => $Call['Entity'],
+                    'Scope' => isset($Call['Scope'])? $Call['Scope'] :$Call['Entity'],
                     'ID' => (isset($Call['Table'])? $Call['Table']: 'Table'),
                     'Context' => $Call['Context']
                 ];
@@ -54,7 +54,7 @@
                 $Call['Output']['Content'][] =
                     array(
                         'Type'  => 'Template',
-                        'Scope' => $Call['Entity'],
+                        'Scope' => isset($Call['Scope'])? $Call['Scope'] :$Call['Entity'],
                         'ID' => 'Show/'.(isset($Call['Template'])? $Call['Template']: 'Short').($Call['Selected'] === $Element['ID'] ? '.Selected': ''),
                         // FIXME Strategy of selecting templates
                         'Data'  => $Element

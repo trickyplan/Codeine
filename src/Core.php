@@ -330,29 +330,6 @@
             }
         }
 
-        public static function Shutdown()
-        {
-            if (self::$_Environment != 'Production')
-            {
-                F::Execute(
-                    'IO', 'Write',
-                    array(
-                        'Storage' => 'Developer',
-                        'Data' => self::$_Log
-                    )
-                );
-
-                F::Run('IO', 'Close', array('Storage' => 'Developer'));
-            }
-
-            self::Stop(self::$_Service . '.' . self::$_Method);
-
-            if (isset($_REQUEST['SR71']))
-                self::SR71();
-
-            return null; // TODO onShutdown
-        }
-
         public static function Extract($Array, $Keys)
         {
             $Data = array();
@@ -389,22 +366,25 @@
             {
                 $Value = func_get_arg(2);
 
-                if (strpos($Key, '.') !== false)
+                if (is_array($Array))
                 {
-                    $Keys = explode('.', $Key);
-                    $Key = array_shift($Keys);
+                    if (strpos($Key, '.') !== false)
+                    {
+                        $Keys = explode('.', $Key);
+                        $Key = array_shift($Keys);
 
-                    if (!isset($Array[$Key]))
-                        $Array[$Key] = [];
+                        if (!isset($Array[$Key]))
+                            $Array[$Key] = [];
 
-                    $Array[$Key] = F::Dot($Array[$Key], implode('.', $Keys), $Value);
-                }
-                else
-                {
-                    if ($Value === null)
-                        unset($Array[$Key]);
+                        $Array[$Key] = F::Dot($Array[$Key], implode('.', $Keys), $Value);
+                    }
                     else
-                        $Array[$Key] = $Value;
+                    {
+                        if ($Value === null)
+                            unset($Array[$Key]);
+                        else
+                            $Array[$Key] = $Value;
+                    }
                 }
 
                 return $Array;
@@ -457,6 +437,11 @@
         {
             if (self::$_Environment !== 'Production')
                 return self::$_Log[] = array(round(microtime(true) - self::$_Ticks['T']['Codeine.Do'], 4), $Message, $Type);
+        }
+
+        public static function Logs()
+        {
+            return self::$_Log;
         }
 
         public static function loadOptions($Service = null, $Method = null)
@@ -618,12 +603,16 @@
 
             return true;
         }
-    }
 
+        public static function Shutdown($Call)
+        {
+            self::Stop(self::$_Service . '.' . self::$_Method);
 
-    function f()
-    {
-        return call_user_func_array(array('F','Run'), func_get_args());
+            if (isset($_REQUEST['SR71']))
+                self::SR71();
+
+            return null;
+        }
     }
 
     function d()

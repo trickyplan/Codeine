@@ -22,7 +22,7 @@
         {
             $Call['Output']['Content'][] = array (
                 'Type'  => 'Template',
-                'Scope' => $Call['Entity'],
+                'Scope' => isset($Call['Scope'])? $Call['Scope'] :$Call['Entity'],
                 'ID' => 'Show/'.(isset($Call['Template'])? $Call['Template']: 'Full'),
                 'Data' => $Call['Data']
             );
