@@ -9,7 +9,7 @@
 
     self::setFn('Do', function ($Call)
     {
-        $IDs = F::Run('Search', 'Query',
+        $IDs = F::Run('Search', 'Query', $Call,
              array(
                   'Engine' => 'Primary',
                   'Entity' => $Call['Entity'],

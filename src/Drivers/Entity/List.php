@@ -17,8 +17,11 @@
 
         $Elements = F::Run('Entity', 'Read', $Call);
 
-        $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Main','Context' => $Call['Context']);
-        $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'List','Context' => $Call['Context']);
+        if (!isset($Call['Scope']))
+            $Call['Scope'] = $Call['Entity'];
+
+        $Call['Layouts'][] = array('Scope' => $Call['Scope'],'ID' => 'Main','Context' => $Call['Context']);
+        $Call['Layouts'][] = array('Scope' => $Call['Scope'],'ID' => 'List','Context' => $Call['Context']);
 
         $Call['Locales'][] = $Call['Entity'];
 
@@ -29,14 +32,14 @@
             $Call['Output']['Content'][] = array(
                 'Type'  => 'Template',
                 'Context' => $Call['Context'],
-                'Scope' => $Call['Entity'],
+                'Scope' => $Call['Scope'],
                 'ID' => 'Empty'
             );
         else
         {
             $Call['Layouts'][] =
                 [
-                    'Scope' => isset($Call['Scope'])? $Call['Scope'] :$Call['Entity'],
+                    'Scope' => $Call['Scope'],
                     'ID' => (isset($Call['Table'])? $Call['Table']: 'Table'),
                     'Context' => $Call['Context']
                 ];
@@ -54,7 +57,7 @@
                 $Call['Output']['Content'][] =
                     array(
                         'Type'  => 'Template',
-                        'Scope' => isset($Call['Scope'])? $Call['Scope'] :$Call['Entity'],
+                        'Scope' => $Call['Scope'],
                         'ID' => 'Show/'.(isset($Call['Template'])? $Call['Template']: 'Short').($Call['Selected'] === $Element['ID'] ? '.Selected': ''),
                         // FIXME Strategy of selecting templates
                         'Data'  => $Element
