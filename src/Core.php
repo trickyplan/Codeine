@@ -205,7 +205,8 @@
 
         public static function Run($Service, $Method = null , $Call = array())
         {
-            // TODO Infinite cycle protection
+/*            if (($Service == self::$_Service) && ($Method == self::$_Method))
+                return null;*/
 
             if (($sz = func_num_args())>3)
             {
@@ -214,32 +215,13 @@
                         $Call = F::Merge($Call, $Argument);
             }
 
-            if (isset($Call['Behaviours'][$Method]))
-            {
-                $Behaviours = $Call['Behaviours'][$Method];
-                unset($Call['Behaviours']);
-
-                foreach ($Behaviours as $Behaviour)
-                {
-                    $Result = F::Run('Code.Behaviours.'.$Behaviour, 'Run', array(
-                                                                      'Service' => $Service,
-                                                                      'Method' => $Method,
-                                                                      'Call' => $Call
-                                                                 )); // FIXME Many behaviours
-                }
-            }
-            else
-                $Result = F::Execute($Service, $Method, $Call);
-
-
+            $Result = F::Execute($Service, $Method, $Call);
 
             return $Result;
         }
 
         public static function Execute($Service, $Method, $Call)
         {
-            self::Counter('Calls');
-
             $OldService = self::$_Service;
             $OldMethod = self::$_Method;
 
@@ -261,7 +243,9 @@
                 {
                     self::Stop($OldService. '.' . $OldMethod);
                     self::Start(self::$_Service . '.' . self::$_Method);
+
                     $Result = $F($Call);
+
                     self::Counter(self::$_Service);
                     self::Counter(self::$_Service.'.'.self::$_Method);
                     self::Stop(self::$_Service . '.' . self::$_Method);
@@ -420,7 +404,7 @@
                  {
                      foreach ($Hooks as $Hook)
                          if (F::isCall($Hook))
-                             $Call = F::Run($Hook['Service'],$Hook['Method'], isset($Hook['Call'])? $Hook['Call']: [],  $Call);
+                             $Call = F::Run($Hook['Service'],$Hook['Method'], $Call, ['On' => $On], isset($Hook['Call'])? $Hook['Call']: []);
                          else
                              $Call = F::Merge($Call, $Hook);
                  }
@@ -494,6 +478,7 @@
                                     $JSONError =  ' - Unknown error';
                                 break;
                             }
+
                             trigger_error('JSON Error: ' . $Filename.':'. $JSONError); //FIXME
                             return null;
                         }

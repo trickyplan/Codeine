@@ -1,15 +1,15 @@
 {
-    "Mode": "Two",
     "Attributes":
     {
         "String":
         {
-            "Type": "password",
+            "Type": "",
             "ID": "",
             "Name": "",
             "Class": "span12",
             "Pattern": "",
-            "Placeholder": ""
+            "Placeholder": "",
+            "Value": ""
         },
         "Boolean":
         {

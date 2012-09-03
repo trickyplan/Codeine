@@ -9,6 +9,8 @@
 
     self::setFn ('Parse', function ($Call)
     {
+        $Call['Parsed'][2] = array_unique($Call['Parsed'][2]);
+
         foreach ($Call['Parsed'][2] as $IX => $Match)
         {
             $Root = simplexml_load_string('<root '.$Call['Parsed'][1][$IX].'></root>');

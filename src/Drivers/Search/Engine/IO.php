@@ -9,13 +9,13 @@
 
     self::setFn('Query', function ($Call)
     {
-        $SERP = F::Run('IO', 'Read', $Call['Engines'][$Call['Engine']],
+        $SERP = F::Run('IO', 'Read', $Call, $Call['Engines'][$Call['Engine']],
             [
                 'Fields' => ['ID'],
                 'Scope' => $Call['Entity'],
                 'Where' =>
                     [
-                        'Index' => $Call['Query']
+                        'Keywords' => mb_strtolower($Call['Query'])
                     ]
             ]);
 

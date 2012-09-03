@@ -45,10 +45,14 @@
                      array(
                           'Entity' => 'User',
                           'Where' =>
-                              array(
+                              [
                                   $Call['Determinant'] => $Call['Request'][$Call['Determinant']],
-                                  'Password' => F::Live($Call['Challenger'], array('Value' => $Call['Request']['Password']))
-                              )
+                                  'Password' => F::Run('Security.Hash', 'Get',
+                                    [
+                                         'Mode' => 'Secure',
+                                         'Value' => $Call['Request']['Password']
+                                    ])
+                              ]
                      ))[0];
 
         if (empty($Call['User']))
@@ -60,9 +64,4 @@
                     );
 
         return $Call;
-    });
-
-    self::setFn('Challenge', function ($Call)
-    {
-        return F::Live($Call['Challenger'], $Call);
     });

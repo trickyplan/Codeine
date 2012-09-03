@@ -12,13 +12,13 @@
     self::setFn('Run', function ($Call)
     {
         // В этом месте, практически всегда, происходит роутинг.
-
         $Call = F::Hook('beforeRun', $Call);
 
         // Если передан нормальный вызов, совершаем его
 
         if (!isset($Call['Output']))
         {
+
             if (F::isCall($Call['Run']))
             {
                 $Slices = explode('.', $Call['Run']['Service']);
@@ -32,11 +32,13 @@
             // В противном случае, 404
             else
                 $Call = F::Hook('on404', $Call);
+
+            $Call['Context'] = '';
+            // А здесь - рендеринг
+            $Call = F::Hook('afterRun', $Call);
+
         }
 
-        $Call['Context'] = '';
-        // А здесь - рендеринг
-        $Call = F::Hook('afterRun', $Call);
 
 
         return $Call;

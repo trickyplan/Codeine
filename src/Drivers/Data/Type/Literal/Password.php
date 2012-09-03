@@ -10,7 +10,11 @@
     self::setFn('Write', function ($Call)
     {
         if (!empty($Call['Value']) && $Call['Purpose'] != 'Update')
-            return F::Run('Security.Auth.System.Password', 'Challenge', $Call);
+            return F::Run('Security.Hash', 'Get',
+                            [
+                                'Mode' => 'Secure',
+                                'Value' => $Call['Value']
+                            ]);
         else
             return null;
     });

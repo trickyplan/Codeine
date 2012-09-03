@@ -115,7 +115,7 @@
                 $CSS.=F::Run ('View', 'LoadParsed', $Call,
                     array(
                          'Scope' => isset($Call['Scope'])? $Call['Scope']: 'Default',
-                         'ID'    => 'UI/HTML/Sprite',
+                         'ID'    => 'UI/Sprite',
                          'Data'  => array(
                              "Sprite"=>$Sprite,
                              "Image"=>$ID,

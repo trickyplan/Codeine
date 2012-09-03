@@ -26,8 +26,6 @@
             'ID' => isset($Call['Custom Layouts']['Create'])? $Call['Custom Layouts']['Create']: 'Create',
             'Context' => $Call['Context']);
 
-        $Call['Locales'][] = $Call['Entity'];
-
         // Загрузить предопределённые данные и умолчания
         // Сгенерировать форму
 
@@ -49,13 +47,16 @@
                 if (null !== $Widget)
                 {
                     $Widget['Entity'] = $Call['Entity'];
-                    $Widget['Label'] = $Call['Entity'].'.'.$Name;
+                    $Widget['Label'] = $Call['Entity'].':Entity.'.$Name;
                     $Widget['Node'] = $Name;
                     $Widget['Name'] = strtr($Name, '.','_');
                     $Widget['ID'] = strtr($Name, '.','_');
                     $Widget['Context'] = $Call['Context'];
 
                     $Widget = F::Merge($Node, $Widget);
+
+                    if($ic == 0)
+                        $Widget['Autofocus'] = true;
 
                     // Если есть значение, добавляем
                     if (isset($Call['Data'][$Name]))

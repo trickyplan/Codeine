@@ -29,15 +29,16 @@
             $Call['Run'] = urldecode($_SERVER['REQUEST_URI']);
 
             $Call['IP'] = F::Run('System.Interface.Web.IP', 'Get', $Call);
+            $Call['UA'] = F::Run('System.Interface.Web.UA', 'Get', $Call);
 
             $Call = F::Run($Call['Service'], $Call['Method'], $Call);
 
             if (isset($Call['Headers']))
                 foreach ($Call['Headers'] as $Key => $Value)
                     header ($Key . ' ' . $Value);
-
-            $Call = F::Live ($Call['Interface']['Output'], $Call);
         }
+
+        $Call = F::Live ($Call['Interface']['Output'], $Call);
 
         $Call = F::Hook('afterInterfaceRun', $Call);
 

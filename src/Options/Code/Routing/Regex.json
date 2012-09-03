@@ -3,7 +3,7 @@
     {
         "Subcontrol with ID and Action":
         {
-            "Match":"@^/control/(.*)/(.*)/(.*)/(.*)$@",
+            "Match":"@^/control/(.*)/(.*)/(.*)/(.*)$@Ssu",
             "Weight": 20,
             "Service":"Control.Panel",
             "Method":"Do",
@@ -12,13 +12,13 @@
             {
                 "Bundle": "$1",
                 "Option": "$2",
-                "Where": "$3",
-                "Action": "$4"
+                "Action": "$3",
+                "Where": "$4"
             }
         },
         "Subcontrol with ID":
         {
-            "Match":"@^/control/(.*)/(.*)/(.*)$@",
+            "Match":"@^/control/(.*)/(.*)/(.*)$@Ssu",
             "Weight": 10,
             "Service":"Control.Panel",
             "Method":"Do",

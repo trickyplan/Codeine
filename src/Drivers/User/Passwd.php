@@ -23,24 +23,31 @@
         // FIXME
         if ($Call['Session']['User']['Password'] == sha1($Call['Request']['OldPassword']))
         {
-            F::Run('Entity', 'Set',
+            F::Run('Entity', 'Update',
                 array(
                      'Entity' => 'User',
                      'Where'  => $Call['Session']['User']['ID'],
-                     'Data' => array ('Password' => sha1($Call['Request']['NewPassword'])) // FIXME
-                ));
+                     'Data' =>
+                        [
+                            'Password' => F::Run('Security.Hash', 'Get',
+                            [
+                                'Mode' => 'Secure',
+                                'Value' => $Call['Request']['NewPassword']
+                            ])
+                        ])
+                );
 
             array_unshift($Call['Output']['Content'], array(
                     'Type' => 'Block',
                     'Class' => 'alert alert-success',
-                    'Value' => '<l>User.Passwd.Success</l>'
+                    'Value' => '<l>User:Passwd.Success</l>'
                 ));
         }
         else
             array_unshift($Call['Output']['Content'], array(
                     'Type' => 'Block',
                     'Class' => 'alert alert-danger',
-                    'Value' => '<l>User.Passwd.Error.OldPasswd.Incorrect</l>'
+                    'Value' => '<l>User:Passwd.Error.OldPasswd.Incorrect</l>'
                 ));
 
 

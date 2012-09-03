@@ -22,12 +22,15 @@
             $NewPassword = F::Live($Call['Password']['Generator']);
 
             F::Run('Entity', 'Update',
-                array(
+                [
                       'Entity' => 'User',
                       'Purpose' => 'Reset',
                       'Where'  => $Call['User']['ID'],
-                      'Data' => array ('Password' => $NewPassword) // FIXME
-                ));
+                      'Data' =>
+                       [
+                          'Password' => $NewPassword
+                       ]// FIXME
+                ]);
 
             $Message['Scope'] = $Call['User']['EMail'];
             $Message['ID']    = 'Восстановление пароля';

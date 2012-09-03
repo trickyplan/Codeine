@@ -20,18 +20,21 @@
     {
         $IDs = array();
 
-        if (isset($Call['Context']) && !empty($Call['Context']))
-            $IDs[] =  $Call['ID'].'.'.$Call['Context'].'.'.$Call['Extension'];
+        $IDs[] = $Call['ID'];
 
-        $IDs[] = $Call['ID'] . '.html';
+        if (isset($Call['Context']) && !empty($Call['Context']))
+            $IDs[] =  $Call['ID'].'.'.$Call['Context'];
 
         $Data =  F::Run('IO', 'Read', $Call,
-            array (
+            [
                   'Storage' => 'Layout',
-                  'Where'   => array ('ID' => $IDs)
-            ))[0];
+                  'Where'   =>
+                  [
+                      'ID' => array_reverse($IDs)
+                  ]
+            ])[0];
 
-        if (null !== $Data && isset($Call['DebugLayouts']))
+        if ((null !== $Data) && isset($Call['DebugLayouts']))
             $Data = "\n".'<!-- '.$Call['Scope'].':'.$Call['ID'].' started -->'."\n".$Data."\n".'<!-- '.$Call['Scope'].':'.$Call['ID'].' ended -->';
 
         return $Data;

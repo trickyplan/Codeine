@@ -61,20 +61,12 @@
             "Datatypes":
             {
                 "Service":"Entity.Nodes.Type",
-                "Method":"Write",
-                "Call":
-                {
-                    "Purpose": "Update"
-                }
+                "Method":"Write"
             },
             "Make variables alive":
             {
                 "Service":"Entity.Nodes.Live",
-                "Method":"Process",
-                "Call":
-                {
-                    "Purpose": "Update"
-                }
+                "Method":"Process"
             },
             "Updated values":
             {
@@ -84,11 +76,7 @@
             "Filter":
             {
                 "Service":"Entity.Nodes.Filter",
-                "Method":"Process",
-                "Call":
-                {
-                    "Purpose": "Update"
-                }
+                "Method":"Process"
             }
         },
         "beforeEntityDelete":

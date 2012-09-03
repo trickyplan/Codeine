@@ -56,7 +56,7 @@
         {
             "Create":
             {
-                "Service":"System.Date.Time",
+                "Service":"System.Time",
                 "Method":"Get"
             }
         }

@@ -9,9 +9,9 @@
 
     self::setFn('Send', function ($Call)
     {
-        $User = F::Run('Entity', 'Read', array('Entity' => 'User', 'Where' => (int) $Call['Data']['ID']))[0]; // FIXME
+        $User = F::Run('Entity', 'Read', array('Entity' => 'User', 'Where' => $Call['Data']['ID']))[0]; // FIXME
 
-        $User['Code'] = F::Run('Security.UID.GUID', 'Get');
+        $User['Code'] = F::Run('Security.UID', 'Get');
 
         F::Run('IO', 'Write',
             array(
@@ -28,12 +28,15 @@
         $Message['ID']    = $Call['Subject'];
 
         $Message['Data']  = F::Run('View', 'LoadParsed', $Call,
-                                             array(
-                                                  'Scope' => 'User',
-                                                  'ID' => 'Activation/EMail',
-                                                  'Data' => array_merge($User,
-                                                      array('ActivationURL' => $_SERVER['HTTP_HOST'].'/activate/user/'.$User['Code']))
-                                             ));
+                                             [
+                                                  'Scope' => 'User/Activation',
+                                                  'ID' => 'EMail',
+                                                  'Data' =>
+                                                      array_merge($Call, $User,
+                                                      [
+                                                          'ActivationURL' => $Call['Host'].'/activate/user/'.$User['Code']
+                                                      ])
+                                             ]);
 
         $Message['Headers'] = array ('Content-type:' => ' text/html; charset="utf-8"');
 
@@ -47,8 +50,8 @@
         [
             [
                 'Type'  => 'Template',
-                'Scope' => 'User',
-                'ID' => 'Activation/Needed',
+                'Scope' => 'User/Activation',
+                'ID' => 'Needed',
                 'Data'  => $User
             ]
         ];

@@ -1,0 +1,21 @@
+{
+    "Mode": "Normal",
+    "Modes":
+    {
+        "Hard":
+        {
+            "Service": "Security.Entropy.RandomOrg",
+            "Method": "Get"
+        },
+        "Normal":
+        {
+            "Service": "Security.Entropy.Mersenne",
+            "Method": "Get"
+        },
+        "Fast":
+        {
+            "Service": "Security.Entropy.Rand",
+            "Method": "Get"
+        }
+    }
+}

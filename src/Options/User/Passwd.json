@@ -20,14 +20,16 @@
                 "Type": "Form.Password",
                 "Mode": "One",
                 "Name": "OldPassword",
-                "Node": "OldPassword"
+                "Node": "OldPassword",
+                "Label": "User:Entity.OldPassword"
             },
             "New":
             {
                 "Entity": "User",
                 "Type": "Form.Password",
                 "Name": "NewPassword",
-                "Node": "NewPassword"
+                "Node": "NewPassword",
+                "Label": "User:Entity.NewPassword"
             }
 
         }

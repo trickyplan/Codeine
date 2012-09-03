@@ -9,7 +9,7 @@
 
     self::setFn('Do', function ($Call)
     {
-        F::Run('Security.Auth', 'Detach', $Call);
+        $Call = F::Run('Security.Auth', 'Detach', $Call);
 
         $Call = F::Hook('Annulate.Success', $Call);
 

@@ -35,22 +35,30 @@
 
     self::setFn ('Read', function ($Call)
     {
+        unset($Call['Result']);
         $Call = F::Run('IO', 'Open', $Call);
 
-        // Если в Where простая переменная - это ID.
-        if (isset($Call['Where']) && is_scalar($Call['Where']))
-            $Call['Where'] = array('ID' => $Call['Where']);
+        $Call = F::Hook('beforeIORead', $Call);
 
-        if (isset($Call['Driver']))
-            $Call['Data'] = F::Run ($Call['Driver'], 'Read', $Call);
-        else
-            $Call['Data'] = null;
+        if (!isset($Call['Result']))
+        {
+            // Если в Where простая переменная - это ID.
+            if (isset($Call['Where']) && is_scalar($Call['Where']))
+                $Call['Where'] = array('ID' => $Call['Where']);
 
-        if (isset($Call['Format']) && is_array($Call['Data']))
-            foreach($Call['Data'] as &$Element)
-                $Element = F::Run($Call['Format'], 'Decode', array ('Value' => $Element));
+            if (isset($Call['Driver']))
+                $Call['Result'] = F::Run ($Call['Driver'], 'Read', $Call);
+            else
+                $Call['Result'] = null;
 
-        return $Call['Data'];
+            if (isset($Call['Format']) && is_array($Call['Result']))
+                foreach($Call['Result'] as &$Element)
+                    $Element = F::Run($Call['Format'], 'Decode', array ('Value' => $Element));
+        }
+
+        $Call = F::Hook('afterIORead', $Call);
+
+        return $Call['Result'];
     });
 
     self::setFn ('Write', function ($Call)

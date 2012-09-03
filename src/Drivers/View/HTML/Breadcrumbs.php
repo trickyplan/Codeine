@@ -27,13 +27,13 @@
             foreach ($Call['Breadcrumbs'] as $Breadcrumb)
                 $Breadcrumbs.= F::Run('View', 'LoadParsed', array(
                     'Scope' => 'Default',
-                    'ID' => 'UI/HTML/Breadcrumb/Active',
+                    'ID' => 'UI/Breadcrumb/Active',
                     'Data' => $Breadcrumb
                 ));
 
             $Breadcrumbs.= F::Run('View', 'LoadParsed', array(
                     'Scope' => 'Default',
-                    'ID' => 'UI/HTML/Breadcrumb/Passive',
+                    'ID' => 'UI/Breadcrumb/Passive',
                     'Data' => $Last
                 ));
 

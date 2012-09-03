@@ -1,7 +1,3 @@
 {
-    "System": "Role",
-    "-Behaviours":
-    {
-        "Check": ["Memo"]
-    }
+    "System": "Role"
 }

@@ -1,9 +1,32 @@
 {
-    "Strategy": "Normal",
-    "Algos":
+    "Salt": "",
+    "Mode": "Normal",
+    "Modes":
     {
-        "Normal": "SHA1",
-        "Fast": "CRC32",
-        "Secure": "SHA2"
+        "Secure+":
+        {
+            "Service": "Security.Hash.BCrypt",
+            "Method": "Get"
+        },
+        "Secure":
+        {
+            "Service": "Security.Hash.SHA2",
+            "Method": "Get"
+        },
+        "Normal":
+        {
+            "Service": "Security.Hash.SHA1",
+            "Method": "Get"
+        },
+        "Fast":
+        {
+            "Service": "Security.Hash.MD5",
+            "Method": "Get"
+        },
+        "Fast+":
+        {
+            "Service": "Security.Hash.CRC32",
+            "Method": "Get"
+        }
     }
 }

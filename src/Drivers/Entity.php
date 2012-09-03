@@ -11,9 +11,6 @@
     {
         $Call = F::Hook('beforeLoad', $Call);
 
-        F::Log('Loading entity '.$Call['Entity']);
-
-
         if (is_array($Model = F::loadOptions($Call['Entity'].'.Entity')))
             $Call = F::Merge($Model, $Call);
         else
@@ -64,9 +61,9 @@
 
     self::setFn('Update', function ($Call)
     {
-        $Call['Current'] = F::Run('Entity', 'Read', $Call, ['From Update' => true])[0];
-
         $Call = F::Hook('beforeEntityUpdate', $Call);
+
+        $Call['Current'] = F::Run('Entity', 'Read', $Call, ['From Update' => true])[0];
 
         $Call['Scope'] = $Call['Entity'];
 
@@ -79,9 +76,9 @@
 
     self::setFn('Delete', function ($Call)
     {
-        $Call['Current'] = F::Run('Entity', 'Read', $Call)[0];
-
         $Call = F::Hook('beforeEntityDelete', $Call);
+
+        $Call['Current'] = F::Run('Entity', 'Read', $Call)[0];
 
         $Call['Scope'] = $Call['Entity'];
 
