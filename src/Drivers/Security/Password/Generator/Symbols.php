@@ -2,7 +2,7 @@
 
     /* Codeine
      * @author BreathLess
-     * @description: Random integer
+     * @description: Password generator
      * @package Codeine
      * @version 7.x
      * @date 04.12.10
@@ -11,25 +11,21 @@
 
     self::setFn('Get', function ($Call)
     {
-        $Alphabet = 'abcdefghijklmnopqrstuvxwyzABCDEFGHIJKLMNOPQRSTUVXYZ';
         $Output = '';
 
-        $Min = 0;
-        $Max = strlen($Alphabet);
+        for($IC = 0; $IC<$Call['Size']; $IC++)
+            $Output.= array_rand($Call['Password']['Alphabet'][$Call['Mode']]);
 
         switch ($Call['Case'])
         {
             case 'Lower':
-                $Max = strlen($Alphabet)/2;
+                $Output = strtolower($Output);
             break;
 
             case 'Upper':
-                $Min = strlen($Alphabet)/2;
+                $Output = strtoupper($Output);
             break;
         }
-
-        for($IC = 0; $IC<$Call['Size']; $IC++)
-            $Output.= $Alphabet[rand($Min, $Max)];
 
         return $Output;
     });

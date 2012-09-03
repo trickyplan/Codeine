@@ -1,0 +1,52 @@
+{
+    "Salt": "",
+    "Mode": "Normal",
+    "Modes":
+    {
+        "Secure+":
+        {
+            "Service": "Security.Password.Generator.RandomOrg",
+            "Method": "Get",
+            "Call":
+            {
+                "Size": 12
+            }
+        },
+        "Secure":
+        {
+            "Service": "Security.Password.Generator.Symbols",
+            "Method": "Get",
+            "Call":
+            {
+                "Size": 12
+            }
+        },
+        "Normal":
+        {
+            "Service": "Security.Password.Generator.Symbols",
+            "Method": "Get",
+            "Call":
+            {
+                "Size": 8
+            }
+        },
+        "Easy":
+        {
+            "Service": "Security.Password.Generator.Pronouncable",
+            "Method": "Get",
+            "Call":
+            {
+                "Size": 6
+            }
+        },
+        "Easy+":
+        {
+            "Service": "Security.Password.Generator.PIN",
+            "Method": "Get",
+            "Call":
+            {
+                "Size": 4
+            }
+        }
+    }
+}

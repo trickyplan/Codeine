@@ -1,0 +1,11 @@
+{
+    "Mode": "Normal",
+    "Password":
+    {
+        "Alphabet":
+        {
+            "Normal": "abcdefghijklmnopqrstuvxwyzABCDEFGHIJKLMNOPQRSTUVXYZ1234567890",
+            "Hard": "!\"№;%:?*()_+=-~/\<>,.[]{}abcdefghijklmnopqrstuvxwyzABCDEFGHIJKLMNOPQRSTUVXYZ1234567890"
+        }
+    }
+}
