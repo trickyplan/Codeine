@@ -37,7 +37,8 @@
         "Layout":
         {
             "Driver":"IO.Storage.Directory",
-            "Directory":"Assets"
+            "Directory":"Assets",
+            "Suffix": ".html"
         },
         "Locale":
         {

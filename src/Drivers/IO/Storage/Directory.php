@@ -17,26 +17,32 @@
     self::setFn ('Read', function ($Call)
     {
         if (!isset($Call['Scope']))
-            $Call['Scope'] = '';
+            $Call['Scope'] = 'Default';
 
         $Postfix = isset($Call['Suffix']) ? $Call['Suffix'] : '';
         $Prefix = isset($Call['Prefix']) ? $Call['Prefix'] : '';
         $Path = $Call['Link'].'/'.$Call['Scope'].'/';
 
-        if(isset($Call['Where']))
+        if (isset($Call['Where']))
         {
             $Call['Where']['ID'] = (array) $Call['Where']['ID'];
 
             foreach ($Call['Where']['ID'] as &$ID)
                 $ID = $Path.$Prefix.$ID.$Postfix;
 
-            $Filename = F::findFile($Call['Where']['ID']);
+            $Filenames = F::findFiles($Call['Where']['ID']);
 
-            if (isset($Call['Debug']))
-                d(__FILE__, __LINE__, $Call['Where']['ID']);
+            if ($Filenames !== null)
+            {
+                $Filenames = array_reverse($Filenames);
+                $Result = [];
 
-            if (F::file_exists($Filename))
-                return array (file_get_contents($Filename));
+                foreach ($Filenames as $Filename)
+                    $Result[] = file_get_contents($Filename);
+
+
+                return $Result;
+            }
             else
                 return null;
         }

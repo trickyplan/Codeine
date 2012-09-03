@@ -48,6 +48,7 @@
         else
             $Cursor = $Call['Link']->$Call['Scope']->find();
 
+
         if (isset($Call['Fields']))
         {
             $Fields = array();
@@ -118,8 +119,8 @@
             foreach ($Call['Data'] as $Key => $Value)
                 $Data = F::Dot($Data, $Key, $Value);
 
-            //if (isset($Call['Current']))
-            $Data = F::Merge($Call['Current'], $Data);
+            if (isset($Call['Current']))
+                $Data = F::Merge($Call['Current'], $Data);
 
             if (isset($Call['Where']))
                 $Call['Link']->$Call['Scope']->update($Call['Where'], $Data) or F::Hook('IO.Mongo.Update.Failed', $Call);
@@ -142,23 +143,25 @@
 
     self::setFn ('Count', function ($Call)
     {
-        foreach ($Call['Where'] as $Key => &$Value) // FIXME Повысить уровень абстракции
+        if (isset($Call['Where']))
         {
-            if (isset($Call['Nodes'][$Key]['Type']))
+            foreach ($Call['Where'] as $Key => &$Value) // FIXME Повысить уровень абстракции
             {
-                if (is_array($Value))
-                    foreach ($Value as &$cValue)
-                        $cValue = F::Run('Data.Type.'.$Call['Nodes'][$Key]['Type'], 'Read', array('Value' => $cValue, 'Purpose' => 'Where'));
-                else
-                    $Value = F::Run('Data.Type.'.$Call['Nodes'][$Key]['Type'], 'Read', array('Value' => $Value, 'Purpose' => 'Where'));
+                if (isset($Call['Nodes'][$Key]['Type']))
+                {
+                    if (is_array($Value))
+                        foreach ($Value as &$cValue)
+                            $cValue = F::Run('Data.Type.'.$Call['Nodes'][$Key]['Type'], 'Read', array('Value' => $cValue, 'Purpose' => 'Where'));
+                    else
+                        $Value = F::Run('Data.Type.'.$Call['Nodes'][$Key]['Type'], 'Read', array('Value' => $Value, 'Purpose' => 'Where'));
+                }
+
             }
 
-        }
+            unset($Value, $Key);
 
-        unset($Value, $Key);
-
-        if (isset($Call['Where']))
             $Cursor = $Call['Link']->$Call['Scope']->find($Call['Where']);
+        }
         else
             $Cursor = $Call['Link']->$Call['Scope']->find();
 
