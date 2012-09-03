@@ -9,52 +9,54 @@
 
     self::setFn('Process', function ($Call)
     {
-        $Language = F::Run('System.Interface.Web', 'DetectUALanguage');
+        $Call['Language'] = F::Live($Call['Language']);
 
-        $Locales = array ();
+        if (preg_match_all('@<l>(.*)<\/l>@SsUu', $Call['Output'], $Pockets))
+        {
+            $Pockets[1] = array_unique($Pockets[1]);
 
-        if (isset($Call['Locales']))
-            foreach ($Call['Locales'] as $Locale)
+            $Locales = [];
+
+            foreach ($Pockets[1] as $IX => $Match)
             {
-                list($Asset, $ID) = F::Run('View', 'Asset.Route', array('Value' => $Locale));
+                $Slices = explode('.', trim($Match));
 
-                $AddLocales = F::Run('IO', 'Read',
-                    array (
-                          'Storage' => 'Locale',
-                          'Scope'   => $Asset.'/Locale/'.$Language,
-                          'Where'   => $ID
-                    ))[0];
-
-                if ($AddLocales)
-                    $Locales = F::Merge($Locales, $AddLocales);
-            }
-
-            if (preg_match_all('@<l>(.*)<\/l>@SsUu', $Call['Output'], $Pockets))
-            {
-                $Pockets[1] = array_unique($Pockets[1]);
-                foreach (
-                    $Pockets[1] as $IX => $Match
-                )
+                if (!isset($Locales[$Slices[0]]))
                 {
-                    $Slices   = explode('.', trim($Match));
-                    $szSlices = sizeof($Slices);
+                    list($Asset, $ID) = F::Run('View', 'Asset.Route', array('Value' => $Slices[0]));
 
-                    $TrueMatch = false;
+                    $NewLocales = F::Run('IO', 'Read',
+                        array (
+                              'Storage' => 'Locale',
+                              'Scope'   => $Asset.'/Locale/'.$Call['Language'],
+                              'Where'   => $ID
+                        ));
 
-                    for ($ic = $szSlices; $ic > 0; --$ic) // TODO Абстрагировать
-                        if ($Replace = F::Dot($Locales, $cMatch = implode('.', array_slice($Slices, 0, $ic))))
-                        {
-                            if (!is_array($Replace))
-                                $TrueMatch = $cMatch;
-                            break;
-                        }
+                    $Locales[$Slices[0]] = [];
 
-                    if ($TrueMatch)
-                        $Call['Output'] = str_replace($Pockets[0][$IX], $Replace, $Call['Output']);
-                    else
-                        $Call['Output'] = str_replace($Pockets[0][$IX], '<span class="nl">' . $Match . '</span>', $Call['Output']);
+                    if (is_array($NewLocales))
+                    foreach ($NewLocales as $NewLocale)
+                        $Locales[$Slices[0]] = F::Merge($Locales[$Slices[0]], $NewLocale);
                 }
+
+                $szSlices = sizeof($Slices);
+
+                $TrueMatch = false;
+
+                for ($ic = $szSlices; $ic > 0; --$ic) // TODO Абстрагировать
+                    if ($Replace = F::Dot($Locales, $cMatch = implode('.', array_slice($Slices, 0, $ic))))
+                    {
+                        if (!is_array($Replace))
+                            $TrueMatch = $cMatch;
+                        break;
+                    }
+
+                if ($TrueMatch)
+                    $Call['Output'] = str_replace($Pockets[0][$IX], $Replace, $Call['Output']);
+                else
+                    $Call['Output'] = str_replace($Pockets[0][$IX], '<span class="nl">' . $Match . '</span>', $Call['Output']);
             }
+        }
 
         return $Call;
     });

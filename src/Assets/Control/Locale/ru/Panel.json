@@ -1,21 +1,7 @@
 {
-    "Control":
+    "Group":
     {
-        "Group":
-        {
-            "Project": "Проект",
-            "Platform": "Платформа"
-        },
-        "Platform":
-        {
-            "User": "Пользователи",
-            "Codeine": "Ядро",
-            "PHP":"PHP",
-            "Nginx":"Nginx",
-            "IO":"Данные",
-            "Security":"Безопасность",
-            "Log":"Журнал"
-        }
-
+        "Project": "Проект",
+        "Platform": "Платформа"
     }
 }

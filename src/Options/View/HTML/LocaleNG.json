@@ -1,6 +1,7 @@
 {
-    "Locales":
+    "Language":
     {
-        "Project": "Project"
+        "Service": "System.Interface.Web",
+        "Method": "DetectUALanguage"
     }
 }
