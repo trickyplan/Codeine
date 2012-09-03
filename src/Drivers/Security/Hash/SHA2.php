@@ -11,6 +11,6 @@
 
     self::setFn('Get', function ($Call)
     {
-        return hash('sha512', $Call['Value']);
+        return hash('sha512', $Call['Value'].$Call['Salt']);
     });
 

@@ -11,5 +11,5 @@
 
     self::setFn('Get', function ($Call)
     {
-        return md5($Call['Value'], $Call['Salt']);
+        return crypt($Call['Value'], $Call['Salt']);
     });

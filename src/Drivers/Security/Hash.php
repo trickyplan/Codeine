@@ -11,5 +11,8 @@
 
     self::setFn('Get', function ($Call)
     {
-        return F::Run('Security.Hash.'.$Call['Algos'][$Call['Strategy']], 'Get', $Call);
+        if (isset($Call['Modes'][$Call['Mode']]))
+            return F::Live($Call['Modes'][$Call['Mode']], $Call);
+        else
+            return null;
     });
