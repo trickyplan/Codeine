@@ -1,18 +1,48 @@
 {
-    "Storage": "Session",
+    "Storage": "Primary",
     "Nodes":
     {
         "ID":
         {
             "Create":
             {
-                "Service": "Security.UID.GUID",
+                "Service": "Security.UID",
+                "Method": "Get",
+                "Call":
+                {
+                    "Mode": "Secure"
+                }
+            }
+        },
+        "Heartbeat":
+        {
+
+        },
+        "IP.Start":
+        {
+            "Create":
+            {
+                "Service": "System.Interface.Web.IP",
+                "Method": "Get"
+            }
+        },
+        "IP.Current":
+        {
+            "Update":
+            {
+                "Service": "System.Interface.Web.IP",
                 "Method": "Get"
             }
         },
         "User":
         {
             "Type": "Numeral.Integer"
+        },
+        "Secondary":
+        {
+            "Type": "Numeral.Integer",
+            "Default": null,
+            "Nullable": true
         },
         "Expire":
         {
@@ -22,8 +52,27 @@
         {
             "Create":
             {
-                "Service": "System.Date.Time",
-                "Method": "Get"
+                "Service": "System.Time",
+                "Method": "Get",
+                "Call":
+                {
+                    "Mode": "Normal"
+                }
+            }
+        }
+    },
+    "Hooks":
+    {
+        "afterEntityDelete":
+        {
+           "Redirect":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "Redirect",
+                "Call":
+                {
+                    "Location": "/control/Session"
+                }
             }
         }
     }
