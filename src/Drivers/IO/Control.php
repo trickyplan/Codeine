@@ -11,10 +11,18 @@
     {
         // TODO Realize "Do" function
 
+
+        return $Call;
+    });
+
+    self::setFn('Storages', function ($Call)
+    {
         $IO = F::loadOptions('IO');
 
         foreach ($IO['Storages'] as $Name => $Storage)
         {
+            $Storage['Status'] = F::Run('IO', 'Open', ['Storage' => $Name]) !== null;
+
             $Call['Output']['Content'][] =
                 array(
                     'Type' => 'Template',

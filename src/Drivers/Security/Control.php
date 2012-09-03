@@ -16,22 +16,50 @@
     {
         $Options = F::loadOptions('Security.Hash');
 
-        foreach ($Options['Algos'] as $Key=> $Hash)
+        foreach ($Options['Modes'] as $Mode => $Hash)
         {
             $ST = microtime(true);
 
             for($a = 0; $a < 1000; $a++) // FIXME Option
-                F::Run('Security.Hash.'.$Hash, 'Get', array('Value' => rand()));
+                F::Live($Hash, array('Value' => rand()));
 
             $ST = (microtime(true)-$ST)/$a;
 
-            $Call['Output']['Content'][] =
-              array(
-                  'Type' => 'Block',
-                  'Class' => 'alert alert-success',
-                  'Value' => $Key.' ('.$Hash.') '.round(1/$ST).' hash/sec'
-              );
+            $Data[] = [$Mode, $Hash['Service'], round(1/$ST).' hps'];
         }
+
+        $Call['Output']['Content'][] =
+              array(
+                  'Type' => 'Table',
+                  'Value' => $Data
+              );
+
+        return $Call;
+    });
+
+    self::setFn('EntropyTest', function ($Call)
+    {
+        $Options = F::loadOptions('Security.Entropy');
+
+        foreach ($Options['Modes'] as $Mode => $Rand)
+        {
+            $Result = [];
+
+            $ST = microtime(true);
+
+            for($a = 0; $a < 4; $a++) // FIXME Option
+                $Result[] = F::Live($Rand, array('Min' => 0, 'Max' => 1000));
+
+            $ST = (microtime(true)-$ST)/$a;
+
+            $Data[] = [$Mode, $Rand['Service'], implode(', ',$Result), round(1/$ST).' hps'];
+        }
+
+        $Call['Output']['Content'][] =
+              array(
+                  'Type' => 'Table',
+                  'Value' => $Data
+              );
 
         return $Call;
     });

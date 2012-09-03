@@ -1,8 +1,13 @@
 {
-    "PHP":
+    "Title": "PHP",
+    "Options":
     {
         "Version": "Версии",
         "Settings": "Настройки",
         "XCache": "Кэш"
+    },
+    "Extension":
+    {
+        "Core": "Ядро"
     }
 }

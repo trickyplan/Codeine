@@ -1,0 +1,12 @@
+{
+    "Title": "Codeine",
+    "Options":
+    {
+        "Version": "Версия"
+    },
+    "Version":
+    {
+        "Actual": "Актуальная",
+        "Installed": "Установленная"
+    }
+}

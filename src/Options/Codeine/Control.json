@@ -1,21 +1,3 @@
 {
-    "Output":
-    {
-        "Sidebar":
-        {
-            "Auto":
-            {
-                "Type" : "Button",
-                "Disabled": true,
-                "Value" : "Автотест"
-            },
-            "Perfomance":
-            {
-                "Type" : "Button",
-                "Disabled": true,
-                "Value" : "Тест производительности"
-            }
-
-        }
-    }
+    "Sidebar": ["Version"]
 }

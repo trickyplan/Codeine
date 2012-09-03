@@ -1,28 +1,5 @@
 {
-    "Output":
-    {
-        "Sidebar":
-        {
-            "Version":
-            {
-                "Type": "Button",
-                "Value": "<l>PHP.Version</l>",
-                "Action": "/control/PHP/Version"
-            },
-            "Setting":
-            {
-                "Type": "Button",
-                "Value": "<l>PHP.Settings</l>",
-                "Action": "/control/PHP/Settings"
-            },
-            "XCache":
-            {
-                "Type": "Button",
-                "Value": "<l>PHP.XCache</l>",
-                "Action": "/control/PHP/XCache"
-            }
-        }
-    },
+    "Sidebar": ["Version", "Settings", "XCache"],
     "Requirements":
     {
         "display_errors": "Off",

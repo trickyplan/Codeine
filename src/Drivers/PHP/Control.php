@@ -28,7 +28,7 @@
         $Extensions = get_loaded_extensions();
 
         foreach ($Extensions as $Extension)
-            $Versions[] = array('<l>PHP.Extension.'.$Extension.'</l>', phpversion($Extension));
+            $Versions[] = array('<l>PHP:Control.Extension.'.$Extension.'</l>', phpversion($Extension));
 
 
         $Call['Output']['Content'][] =
@@ -46,7 +46,7 @@
 
         foreach ($INI as $Key => $Value)
         {
-            $Data[] = array ('<l>PHP.INI.'.$Key.'</l>', nl2br(wordwrap($Value)));
+            $Data[] = array ('<l>PHP:Control.Ini.'.$Key.'</l>', nl2br(wordwrap($Value)));
 
             if (isset($Call['Requirements'][$Key]) && ($Call['Requirements'][$Key] != $Value['local_value']))
                 $Call['Output']['Content'][] =

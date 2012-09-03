@@ -1,7 +1,7 @@
 {
     "Bundles":
         {
-            "Project": ["User"],
-            "Platform": ["Codeine", "PHP", "IO", "Security"]
+            "Project": ["User", "Journal"],
+            "Platform": ["Codeine", "PHP", "IO", "Security", "Session"]
         }
 }

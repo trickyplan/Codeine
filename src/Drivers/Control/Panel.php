@@ -36,10 +36,18 @@
 
             foreach ($Bundles as $Bundle)
             {
-                $Call['Locales'][] = $Bundle.':Control';
                 $Call['Options'][] = ['ID' => $Bundle, 'Group' => $Group];
             }
         }
+
+        foreach ($Call['Sidebar'] as &$Sidebar)
+            $Pills[] = ['ID' => $Sidebar, 'URL' => '/control/'.$Call['Bundle'].'/'.$Sidebar, 'Title' => $Call['Bundle'].':Control.Options.'.$Sidebar];
+
+        $Call['Output']['Sidebar'][] = array(
+                'Type' => 'Navpills',
+                'Options' => $Pills,
+                'Value' => $Call['Option']
+            );
 
         $Call['Output']['Navigation'][] = array(
             'Type' => 'Navlist',
