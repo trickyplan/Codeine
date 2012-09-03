@@ -1,0 +1,30 @@
+{
+    "Mode": "Normal",
+    "Modes":
+    {
+        "Precise+":
+        {
+            "Service": "System.Time.Microtime",
+            "Method": "Get"
+        },
+        "Precise":
+        {
+            "Service": "System.Time.Microtime",
+            "Method": "Get"
+        },
+        "Normal":
+        {
+            "Service": "System.Time.Standart",
+            "Method": "Get"
+        },
+        "Rough":
+        {
+            "Service": "System.Time.Rough",
+            "Method": "Get",
+            "Call":
+            {
+                "Precision": 6
+            }
+        }
+    }
+}
