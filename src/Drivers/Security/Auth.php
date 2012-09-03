@@ -23,7 +23,17 @@
                     ))[0];
 
             if ($Call['Session'] == null)
-                $Call['Session'] = F::Run(null, 'Register', $Call);
+                if (!isset($Call['No Auto Register']) || !$Call['No Auto Register'])
+                    $Call['Session'] = F::Run(null, 'Register', $Call);
+
+            if (isset($Call['Heartbeat']) && $Call['Heartbeat'])
+                F::Run('Entity', 'Update',
+                    array(
+                         'Entity' => 'Session',
+                         'Where' => $Call['SID'],
+                         'Data' =>
+                             ['Heartbeat' => F::Run('System.Time', 'Get')]
+                    ));
 
             if (isset($Call['Session']['User']) && !empty($Call['Session']['User']) && $Call['Session']['User'] !== -1)
             {
@@ -60,7 +70,7 @@
         $Call['Session'] = F::Run('Entity', 'Create', $Call,
             array(
                  'Entity' => 'Session',
-                 'Data' => array()
+                 'Data' => []
             ));
 
         F::Run($Call['Source'], 'Write', $Call);
@@ -120,7 +130,7 @@
         $Call = F::Run(null, 'Audit', $Call);
 
         if (isset($Call['Session']['Secondary']) && !empty($Call['Session']['Secondary']) && $Call['Session']['Secondary'] !== -1)
-            F::Run('Entity', 'Update',
+            $Call['Session'] = F::Run('Entity', 'Update',
              array(
                   'Entity' => 'Session',
                   'Where' => $Call['SID'],
@@ -130,7 +140,7 @@
                   ]
              ));
         else
-            F::Run('Entity', 'Update',
+            $Call['Session'] = F::Run('Entity', 'Update',
              array(
                   'Entity' => 'Session',
                   'Where' => $Call['SID'],
@@ -139,6 +149,8 @@
                       'User' => -1
                   )
              ));
+
+        return $Call;
     });
 
     self::setFn('SID', function ($Call)
