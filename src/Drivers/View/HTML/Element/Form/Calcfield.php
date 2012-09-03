@@ -12,7 +12,7 @@
          return F::Run ('View', 'LoadParsed',
                            array(
                                 'Scope' => 'Default',
-                                'ID'    => 'UI/HTML/Form/Calcfield',
+                                'ID'    => 'UI/Form/Calcfield',
                                 'Data'  => $Call
                            ));
      });

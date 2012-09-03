@@ -21,11 +21,6 @@
          if (isset($Call['Multiple']))
              $Call['Name'] .= '[]';
 
-         if (isset($Call['Localized']) && $Call['Localized'])
-             $Call['Label'] = $Call['Entity'].'.'.$Call['Node'].'.Label';
-         else
-             $Call['Label'] = $Call['Entity'].'.'.$Call['Node'];
-
          foreach ($Call['Options'] as $Key => $Value)
          {
              if (isset($Call['Localized']) && $Call['Localized'])
@@ -42,7 +37,7 @@
          return F::Run ('View', 'LoadParsed',
                         array(
                              'Scope' => 'Default',
-                             'ID'    => 'UI/HTML/Form/'.(isset($Call['Template'])? $Call['Template'] : 'Select'),
+                             'ID'    => 'UI/Form/'.(isset($Call['Template'])? $Call['Template'] : 'Select'),
                              'Data'  => $Call
                         ));
      });

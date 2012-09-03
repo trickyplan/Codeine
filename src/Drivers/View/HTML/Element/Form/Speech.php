@@ -15,7 +15,7 @@
          return F::Run ('View', 'LoadParsed',
                            array(
                                 'Scope' => 'Default',
-                                'ID'    => 'UI/HTML/Form/Speech',
+                                'ID'    => 'UI/Form/Speech',
                                 'Data'  => $Call
                            ));
      });

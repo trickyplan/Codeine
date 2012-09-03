@@ -9,13 +9,12 @@
 
      self::setFn('Make', function ($Call)
      {
-         if (!isset($Call['Subtype']))
-             $Call['Subtype'] = 'text';
+         $Call['HTML'] = F::Run('View.HTML.Element.Base', 'Make', $Call, ['Tag' => 'input', 'Type' => 'text']);
 
          return F::Run ('View', 'LoadParsed',
                            array(
                                 'Scope' => 'Default',
-                                'ID'    => 'UI/HTML/Form/Textfield',
+                                'ID'    => 'UI/Form/Textfield',
                                 'Data'  => $Call
                            ));
      });

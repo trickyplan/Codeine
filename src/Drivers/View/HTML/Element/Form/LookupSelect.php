@@ -30,7 +30,7 @@
          return F::Run ('View', 'LoadParsed', $Call,
                         array(
                              'Scope' => 'Default',
-                             'ID'    => 'UI/HTML/Form/'.(isset($Call['Template'])? $Call['Template'] : 'Select'),
+                             'ID'    => 'UI/Form/'.(isset($Call['Template'])? $Call['Template'] : 'Select'),
                              'Data'  => $Call
                         ));
      });

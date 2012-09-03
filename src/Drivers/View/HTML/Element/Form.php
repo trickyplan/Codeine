@@ -12,7 +12,7 @@
          return F::Run ('View', 'LoadParsed', $Call,
                            array(
                                 'Scope' => 'Default',
-                                'ID'    => 'UI/HTML/'.(isset($Call['Form'])? $Call['Form']: 'Form'),
+                                'ID'    => 'UI/'.(isset($Call['Form'])? $Call['Form']: 'Form'),
                                 'Data'  => $Call
                            ));
      });

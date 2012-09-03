@@ -14,9 +14,9 @@
         foreach($Call['Options'] as $IX => $Value)
             $Output.= F::Run('View', 'LoadParsed',
                 array('Scope' => 'Default',
-                      'ID' => 'UI/HTML/Form/Radio',
+                      'ID' => 'UI/Form/Radio',
                       'Data' => F::Merge($Call, array('Value' => $Value, 'Checked' => ($Value == $Call['Value']? 'true': null)))));
 
-        return F::Run('View', 'LoadParsed', array('Scope' => 'Default', 'ID' => 'UI/HTML/Form/Radiogroup', 'Data' => F::Merge($Call, array(
+        return F::Run('View', 'LoadParsed', array('Scope' => 'Default', 'ID' => 'UI/Form/Radiogroup', 'Data' => F::Merge($Call, array(
             'Radios' => $Output))));
      });

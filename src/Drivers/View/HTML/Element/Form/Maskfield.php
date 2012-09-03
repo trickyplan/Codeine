@@ -9,5 +9,5 @@
 
     self::setFn('Make', function ($Call)
     {
-        return F::Run('View', 'LoadParsed', array('Scope' => 'Default', 'ID' => 'UI/HTML/Form/Maskfield', 'Data' => $Call));
+        return F::Run('View', 'LoadParsed', array('Scope' => 'Default', 'ID' => 'UI/Form/Maskfield', 'Data' => $Call));
      });

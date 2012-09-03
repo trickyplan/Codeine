@@ -14,12 +14,12 @@
             if ($ic>0 && $ic<=$Call['PageCount'])
                 $Output.= F::Run('View', 'LoadParsed',
                 array('Scope' => 'Default',
-                      'ID' => ($ic == $Call['Page']? 'UI/HTML/Paginator/Current': 'UI/HTML/Paginator/Page'),
+                      'ID' => ($ic == $Call['Page']? 'UI/Paginator/Current': 'UI/Paginator/Page'),
                       'Data' =>
                         array(
                             'Num' => $ic,
                             'URL' => $Call['PageURL'],
                             'PageURLPostfix' => $Call['PageURLPostfix'])));
 
-        return F::Run('View', 'LoadParsed', array('Scope' => 'Default', 'ID' => 'UI/HTML/Paginator', 'Data' => array($Call, 'Pages' => $Output)));
+        return F::Run('View', 'LoadParsed', array('Scope' => 'Default', 'ID' => 'UI/Paginator', 'Data' => array($Call, 'Pages' => $Output)));
      });

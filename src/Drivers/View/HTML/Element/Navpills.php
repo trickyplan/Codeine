@@ -21,15 +21,8 @@
                  $Options[] = F::Run ('View', 'LoadParsed', $Call,
                     array(
                          'Scope' => isset($Call['Scope'])? $Call['Scope']: 'Default',
-                         'ID'    => 'UI/Navlist/'.($Value['ID'] == $Call['Value'] ? 'Active' : 'Passive'),
+                         'ID'    => 'UI/Navpills/'.($Value['ID'] == $Call['Value'] ? 'Active' : 'Passive'),
                          'Data'  => $Value
-                    ));
-             else
-                $Options[] = F::Run ('View', 'LoadParsed', $Call,
-                    array(
-                         'Scope' => isset($Call['Scope'])? $Call['Scope']: 'Default',
-                         'ID'    => 'UI/Navlist/Header',
-                         'Data'  => array('Title' => $Value)
                     ));
 
          $Call['Value'] = implode('', $Options);
@@ -37,7 +30,7 @@
          return F::Run ('View', 'LoadParsed', $Call,
                         array(
                              'Scope' => isset($Call['Scope'])? $Call['Scope']: 'Default',
-                             'ID'    => 'UI/'.(isset($Call['Template'])? $Call['Template'] : 'Navlist'),
+                             'ID'    => 'UI/'.(isset($Call['Template'])? $Call['Template'] : 'Navpills'),
                              'Data'  => $Call
                         ));
      });
