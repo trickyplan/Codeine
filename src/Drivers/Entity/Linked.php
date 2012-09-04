@@ -10,14 +10,14 @@
     self::setFn('Count', function ($Call)
     {
         if (isset($Call['Data']['ID']))
-            return sizeof(F::Run('Entity', 'Read', $Call,
+            return F::Run('Entity', 'Count', $Call,
                     array(
                          'Entity' => $Call['Linked'],
                          'Where' =>
                              [
                                 $Call['Entity'] => $Call['Data']['ID']
                              ]
-                    )));
+                    ));
         else
             return null;
     });
