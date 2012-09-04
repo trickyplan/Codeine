@@ -449,6 +449,7 @@
 
                 if ($Filenames = self::findFiles ($Filenames))
                 {
+
                     foreach ($Filenames as $Filename)
                     {
                         $Current = json_decode(file_get_contents($Filename), true);

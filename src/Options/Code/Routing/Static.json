@@ -9,7 +9,8 @@
         "/control":
         {
             "Service": "Control.Panel",
-            "Method": "Do"
+            "Method": "Do",
+            "Zone": "Control"
         },
         "/join":
         {
