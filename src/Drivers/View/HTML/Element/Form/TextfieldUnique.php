@@ -12,6 +12,7 @@
          $Call['HTML'] = F::Run('View.HTML.Element.Base', 'Make', $Call,
              [
                  'Tag' => 'input',
+                 'Type' => $Call['Subtype'],
                  'data-value' => $Call['Value'],
                  'data-unique' => $Call['Name']
              ]);

@@ -19,11 +19,15 @@
 
             foreach ($Pockets[1] as $IX => $Match)
             {
-                $Slices = explode('.', trim($Match));
+                list($Locale, $Token) = explode(':', $Match);
 
-                if (!isset($Locales[$Slices[0]]))
+                $Slices = explode('.', trim($Token));
+
+                if (!isset($Locales[$Locale]))
                 {
-                    list($Asset, $ID) = F::Run('View', 'Asset.Route', array('Value' => $Slices[0]));
+                    $LocaleParts = explode('.', $Locale);
+                    $ID = array_pop($LocaleParts);
+                    $Asset = implode('.', $LocaleParts);
 
                     $NewLocales = F::Run('IO', 'Read',
                         array (
@@ -32,11 +36,11 @@
                               'Where'   => $ID
                         ));
 
-                    $Locales[$Slices[0]] = [];
+                    $Locales[$Locale] = [];
 
                     if (is_array($NewLocales))
-                    foreach ($NewLocales as $NewLocale)
-                        $Locales[$Slices[0]] = F::Merge($Locales[$Slices[0]], $NewLocale);
+                        foreach ($NewLocales as $NewLocale)
+                            $Locales[$Locale] = F::Merge($Locales[$Locale], $NewLocale);
                 }
 
                 $szSlices = sizeof($Slices);
@@ -44,7 +48,7 @@
                 $TrueMatch = false;
 
                 for ($ic = $szSlices; $ic > 0; --$ic) // TODO Абстрагировать
-                    if ($Replace = F::Dot($Locales, $cMatch = implode('.', array_slice($Slices, 0, $ic))))
+                    if ($Replace = F::Dot($Locales[$Locale], $cMatch = implode('.', array_slice($Slices, 0, $ic))))
                     {
                         if (!is_array($Replace))
                             $TrueMatch = $cMatch;

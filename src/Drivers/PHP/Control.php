@@ -9,12 +9,6 @@
 
     self::setFn('Do', function ($Call)
     {
-
-        return $Call;
-     });
-
-    self::setFn('Version', function ($Call)
-    {
         $Version = phpversion();
         $Version = isset($Call['Versions'][$Version])? $Call['Versions'][$Version]: 'Untested';
 
@@ -24,6 +18,14 @@
                 'Class' => 'alert '.(('Stable' == $Version)? 'alert-success': (('Unstable' == $Version)? 'alert-error': '')),
                 'Value' => 'PHP: '.phpversion().' — '.$Version
             ));
+
+        return $Call;
+     });
+
+    self::setFn('Version', function ($Call)
+    {
+
+
 
         $Extensions = get_loaded_extensions();
 

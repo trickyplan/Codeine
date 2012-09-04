@@ -21,7 +21,7 @@
                 "Mode": "One",
                 "Name": "OldPassword",
                 "Node": "OldPassword",
-                "Label": "User:Entity.OldPassword"
+                "Label": "User.Entity:OldPassword"
             },
             "New":
             {
@@ -29,7 +29,8 @@
                 "Type": "Form.Password",
                 "Name": "NewPassword",
                 "Node": "NewPassword",
-                "Label": "User:Entity.NewPassword"
+                "Mode": "Two",
+                "Label": "User.Entity:NewPassword"
             }
 
         }

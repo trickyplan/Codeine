@@ -22,8 +22,12 @@
         },
         "/login":
         {
-            "Service":"User.Identificate",
-            "Method":"Do"
+            "Service":"User.Authenticate",
+            "Method":"Do",
+            "Call":
+            {
+                "Mode": "Password"
+            }
         },
         "/logout":
         {
@@ -39,15 +43,6 @@
         {
             "Service":"User.Passwd",
             "Method":"Do"
-        },
-        "/auth":
-        {
-            "Service":"User.Authenticate",
-            "Method":"Do",
-            "Call":
-            {
-                "Mode": "Password"
-            }
         },
         "/auth/social":
         {

@@ -50,7 +50,7 @@
                 {
                     $Widget['Entity'] = $Call['Entity'];
                     $Widget['Node'] = $Name;
-                    $Widget['Label'] = $Call['Entity'].':Entity.'.$Name;
+                    $Widget['Label'] = $Call['Entity'].'.Entity:'.$Name;
                     $Widget['Name'] = strtr($Name, '.','_');
                     $Widget['ID'] = strtr($Name, '.','_');
 

@@ -9,6 +9,16 @@
 
     self::setFn('Do', function ($Call)
     {
+        return F::Run(null, $_SERVER['REQUEST_METHOD'], $Call);
+    });
+
+    self::setFn('GET', function ($Call)
+    {
+        return $Call;
+    });
+
+    self::setFn('POST', function ($Call)
+    {
         $Call = F::Run('Security.Auth.System.'.$Call['Mode'], 'Authenticate', $Call);
 
         if (!empty($Call['User']))
@@ -21,7 +31,7 @@
                 $Call['Session'] = F::Run('Security.Auth', 'Attach', $Call,
                     array('User' => $Call['User']['ID']));
 
-                $Call = F::Hook('Authentification.Success', $Call);
+                $Call = F::Hook('Authenticating.Success', $Call);
                 return $Call;
 
             }
@@ -56,7 +66,7 @@
         }
         else
         {
-             $Call = F::Hook('Authentification.Failed', $Call);
+             $Call = F::Hook('Authenticating.Failed', $Call);
         }
 
         return $Call;

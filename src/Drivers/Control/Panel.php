@@ -25,7 +25,7 @@
             'ID' => 'Control/'.$Call['Option']
         );
 
-        $Call = F::Run($Call['Bundle'].'.Control', $Call['Option'], $Call);
+        $Call = F::Run($Call['Bundle'].'.Control', $Call['Option'], $Call, ['Context' => 'app']);
 
         foreach($Call['Bundles'] as $Group => $Bundles)
         {
@@ -41,7 +41,7 @@
         }
 
         foreach ($Call['Sidebar'] as &$Sidebar)
-            $Pills[] = ['ID' => $Sidebar, 'URL' => '/control/'.$Call['Bundle'].'/'.$Sidebar, 'Title' => $Call['Bundle'].':Control.Options.'.$Sidebar];
+            $Pills[] = ['ID' => $Sidebar, 'URL' => '/control/'.$Call['Bundle'].'/'.$Sidebar, 'Title' => $Call['Bundle'].'.Control:Options.'.$Sidebar];
 
         $Call['Output']['Sidebar'][] = array(
                 'Type' => 'Navpills',

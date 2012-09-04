@@ -107,6 +107,11 @@
                 "Service":"Entity.Nodes.Default",
                 "Method":"Read"
             },
+            "Datatypes":
+            {
+                "Service":"Entity.Nodes.Type",
+                "Method":"Read"
+            },
             "Make variables alive":
             {
                 "Service":"Entity.Nodes.Live",
@@ -115,11 +120,6 @@
                 {
                     "Purpose": "Read"
                 }
-            },
-            "Datatypes":
-            {
-                "Service":"Entity.Nodes.Type",
-                "Method":"Read"
             },
             "Hooks":
             {

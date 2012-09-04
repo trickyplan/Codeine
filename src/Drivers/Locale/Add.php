@@ -11,8 +11,12 @@
     {
         $Language = F::Run('System.Interface.Web', 'DetectUALanguage');
 
-        $Tokens = explode('.', $Call['Request']['Token']);
-        list($Asset, $ID) = F::Run('View', 'Asset.Route', array('Value' => array_shift($Tokens)));
+        list($Locale, $Token) = explode(':', $Call['Request']['Token']);
+
+        $Slices = explode('.', $Locale);
+
+        $ID = array_pop($Slices);
+        $Asset = implode('.', $Slices);
 
         $Locale = F::Run('IO', 'Read',
                     array (
@@ -22,7 +26,7 @@
                     ))[0];
 
 
-        $Locale = F::Dot($Locale, $Call['Request']['Token'], $Call['Request']['Translation']);
+        $Locale = F::Dot($Locale, $Token, $Call['Request']['Translation']);
 
         F::Run('IO', 'Write',
                     array (
