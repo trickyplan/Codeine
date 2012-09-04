@@ -17,10 +17,7 @@
 
         $Elements = F::Run('Entity', 'Read', $Call);
 
-        if (!isset($Call['Scope']))
-            $Call['Scope'] = $Call['Entity'];
-        else
-            $Call['Scope'] = $Call['Entity'].'/'.$Call['Scope'];
+        $Call['Scope'] = isset($Call['Scope'])? $Call['Entity'].'/'.$Call['Scope']: $Call['Scope'] = $Call['Entity'];
 
         $Call['Layouts'][] = array('Scope' => $Call['Scope'],'ID' => 'Main','Context' => $Call['Context']);
         $Call['Layouts'][] = array('Scope' => $Call['Scope'],'ID' => 'List','Context' => $Call['Context']);
