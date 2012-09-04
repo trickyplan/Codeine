@@ -96,7 +96,7 @@
                 ));
 
             if (isset($Call['Activation']['Auto Login']) && $Call['Activation']['Auto Login'])
-                F::Run('Security.Auth', 'Attach', $Call, ['User' => $Activation['User'], 'TTL' => 3600]);
+                $Call = F::Run('Security.Auth', 'Attach', $Call, ['User' => $Activation['User']]);
 
             $Call = F::Hook('Activation.Success', $Call);
 
