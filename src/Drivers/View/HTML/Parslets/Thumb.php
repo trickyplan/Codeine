@@ -26,18 +26,15 @@
                 }
                 else
                 {
-                    if (isset($Thumb['URL']))
-                    {
-                        $Filename = Root . '/' . $Thumb['URL'];
+                    $Filename = Root . '/' . $Thumb['URL'];
 
-                        if (!is_file($Filename) or is_dir($Filename))
-                        {
-                            if (preg_match('/^http.*/', $Thumb['Default']))
-                                $Filename = $Thumb['Default'];
-                            else
-                                $Filename = F::findFile($Thumb['Default']);
-                        } // FIXME Конфиг
-                    }
+                    if (!is_file($Filename) or is_dir($Filename))
+                    {
+                        if (preg_match('/^http.*/', $Thumb['Default']))
+                            $Filename = $Thumb['Default'];
+                        else
+                            $Filename = F::findFile($Thumb['Default']);
+                    } // FIXME Конфиг
                 }
             }
 
