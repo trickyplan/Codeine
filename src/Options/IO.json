@@ -8,21 +8,6 @@
             "Format": "Formats.JSON",
             "Suffix":".json"
         },
-        "MySQL":
-        {
-            "Driver": "IO.Storage.MySQL",
-            "Server":"localhost",
-            "Database":"Codeine",
-            "User":"codeine",
-            "Password":"codeine",
-            "Charset":"utf8"
-        },
-        "Session":
-        {
-            "Driver": "IO.Storage.Redis",
-            "Scope": "Session",
-            "TTL": 0
-        },
         "Test":
         {
             "Driver": "IO.Test"
@@ -90,22 +75,6 @@
             "Scope":"js",
             "Suffix":".js"
         },
-        "Run Cache":
-        {
-            "Driver":"IO.Storage.XCache"
-        },
-        "Run Once":
-        {
-            "Driver":"IO.Storage.Redis",
-            "Server": "127.0.0.1",
-            "Port": 6379
-        },
-        "Run Queue":
-        {
-            "Driver":"IO.Queue.Redis",
-            "Server": "127.0.0.1",
-            "Port": 6379
-        },
         "Developer":
         {
             "Driver":"IO.Null"
@@ -129,16 +98,6 @@
                 "Driver":"IO.Storage.Directory",
                 "Directory":"Data",
                 "Scope":"Cache"
-            }
-        }
-    },
-    "Hooks":
-    {
-        "Storage":
-        {
-            "NotFound":
-            {
-
             }
         }
     }
