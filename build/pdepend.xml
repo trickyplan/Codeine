@@ -4,7 +4,7 @@
     <property name="reports" value="reports"/>
     <property name="source-code" value="src"/>
 
-    <target name="analyze">
+    <target name="pdepend">
         <phpdepend file="${source-code}">
             <logger type="jdepend-xml" outfile="${reports}/metrics.xml"/>
         </phpdepend>
