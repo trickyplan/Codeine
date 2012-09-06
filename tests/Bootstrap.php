@@ -1,5 +1,5 @@
 <?php
 
-    include '../src/Codeine/Core.php';
+    include '../src/Core.php';
 
     F::Bootstrap();
