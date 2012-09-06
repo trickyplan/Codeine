@@ -6,7 +6,7 @@
     <property name="source-code" value="src"/>
 
     <target name="analyze">
-        <echo>phpLoc on ${source-code}</echo>
+        <echo msg="phpLoc on ${source-code}" />
         <phploc reportType="txt" reportName="phploc.txt" reportDirectory="${reports}">
             <fileset dir="${source-code}">
                 <include name="**/*.php"/>
