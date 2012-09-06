@@ -9,11 +9,11 @@
             $this->_Path = Codeine . '/Options/';
         }
 
-        protected function enumerateContracts ()
+        public function testAll()
         {
             $Directory = new RecursiveDirectoryIterator($this->_Path);
             $Iterator  = new RecursiveIteratorIterator($Directory);
-            $Regex     = new RegexIterator($Iterator, '/^.+\.json$/i', RecursiveRegexIterator::GET_MATCH);
+            $Regex     = new RegexIterator($Iterator, '/^.+\.test.json$/i', RecursiveRegexIterator::GET_MATCH);
 
             $szPath = strlen($this->_Path);
             $List = array();
@@ -21,41 +21,25 @@
             foreach ($Regex as $File)
                 $List[] = mb_substr ($File[0], $szPath, strlen ($File[0]) - $szPath - 5);
 
+            foreach ($List as $Service)
+                $this->ServiceTest($Service);
+
             return $List;
         }
 
-        public function testByContract()
+        protected function ServiceTest ($Service)
         {
-            $Contracts = $this->enumerateContracts();
+            $Tests = F::findFiles('Options/'.$Service.'.json');
 
-            foreach ($Contracts as $Service)
-            {
-                $Contract = json_decode(file_get_contents($this->_Path.$Service.'.json'), true);
+            if (is_array($Tests))
+                foreach ($Tests as $Test)
+                {
+                    $Test = json_decode(file_get_contents($Test),true);
+                    foreach ($Test['Suites'] as $Suite)
+                        foreach ($Suite as $Case)
+                            $this->assertEquals(F::Run($Test['Service'], $Case['Method'], $Case['Call']), $Case['Result']);
+                }
 
-                $Service = strtr ($Service, '/', '.');
-
-                if (isset($Contract['Test']))
-                    foreach($Contract['Test'] as $Method => $Suite)
-                    {
-                        foreach($Suite as $Case)
-                        {
-                            $Result = F::Run($Service, $Method, $Case['Call']);
-
-                            foreach ($Case['Result'] as $Condition => $Value)
-                            {
-                                switch ($Condition)
-                                {
-                                    case 'Equals':
-                                        $this->assertEquals($Value, $Result);
-                                        break;
-
-                                    case 'NotEquals':
-                                        $this->assertNotEquals($Value, $Result);
-                                    break;
-                                }
-                            }
-                        }
-                    }
-            }
+            return true;
         }
     }

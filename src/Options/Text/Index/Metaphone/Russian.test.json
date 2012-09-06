@@ -1,0 +1,18 @@
+{
+    "Service": "Text.Index.Metaphone.Russian",
+    "Suites":
+    {
+        "Positives":
+        {
+            "Bergstein":
+            {
+                "Method": "Get",
+                "Call":
+                {
+                    "Value": "Бергштейн"
+                },
+                "Result": "пиркштин"
+            }
+        }
+    }
+}

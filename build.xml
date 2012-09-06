@@ -26,7 +26,7 @@
     <target name="phase2" depends="phase1, phplint.check"></target>
 
     <!-- Tests & docs -->
-    <target name="phase3" depends="phase2"></target>
+    <target name="phase3" depends="phase2, phpunit.test"></target>
 
     <!-- Metrics -->
     <target name="phase4" depends="phase3, phploc.analyze"></target>
