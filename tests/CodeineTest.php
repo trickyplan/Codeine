@@ -1,5 +1,30 @@
 <?php
 
+    class ServiceTest extends PHPUnit_Framework_TestCase
+    {
+        public function __call($Name, $Args)
+        {
+            if (substr($Name, 0, 4) =='test')
+            {
+                $Service = substr($Name, 4);
+
+                $Tests = F::findFiles('Options/'.$Service.'.json');
+
+                if (is_array($Tests))
+                    foreach ($Tests as $Test)
+                    {
+                        $Test = json_decode(file_get_contents($Test),true);
+                        foreach ($Test['Suites'] as $Suite)
+                            foreach ($Suite as $Case)
+                                $this->assertEquals(F::Run($Test['Service'], $Case['Method'], $Case['Call']), $Case['Result']);
+                    }
+            }
+            else
+                return $this->$Name($Args);
+        }
+    }
+
+
     class CodeineTest extends PHPUnit_Framework_TestCase
     {
         protected $_Path;
@@ -22,24 +47,14 @@
                 $List[] = mb_substr ($File[0], $szPath, strlen ($File[0]) - $szPath - 5);
 
             foreach ($List as $Service)
-                $this->ServiceTest($Service);
+            {
+                $Test = new ServiceTest();
+                $Service = 'test'.$Service;
+                $Test->$Service ();
+            }
 
             return $List;
         }
 
-        protected function ServiceTest ($Service)
-        {
-            $Tests = F::findFiles('Options/'.$Service.'.json');
 
-            if (is_array($Tests))
-                foreach ($Tests as $Test)
-                {
-                    $Test = json_decode(file_get_contents($Test),true);
-                    foreach ($Test['Suites'] as $Suite)
-                        foreach ($Suite as $Case)
-                            $this->assertEquals(F::Run($Test['Service'], $Case['Method'], $Case['Call']), $Case['Result']);
-                }
-
-            return true;
-        }
     }
