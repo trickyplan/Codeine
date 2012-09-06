@@ -29,7 +29,7 @@
     <target name="phase3" depends="phase2, test"></target>
 
     <!-- Metrics -->
-    <target name="phase4" depends="phase3, phploc, pdepend"></target>
+    <target name="phase4" depends="phase3, phploc"></target>
 
     <!-- Packaging -->
     <target name="phase5" depends="phase4, tarball.make, debian.make"></target>
