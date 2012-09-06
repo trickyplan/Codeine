@@ -9,7 +9,7 @@
         <phpunit bootstrap="${tests}/Bootstrap.php">
             <formatter todir="${reports}" type="xml"/>
             <batchtest classpath="${source-code}">
-                <fileset dir="${source-code}/${tests}">
+                <fileset dir="${tests}">
                     <include name="**/*Test*.php"/>
                 </fileset>
             </batchtest>
