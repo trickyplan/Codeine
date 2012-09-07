@@ -48,7 +48,6 @@
         else
             $Cursor = $Call['Link']->$Call['Scope']->find();
 
-
         if (isset($Call['Fields']))
         {
             $Fields = array();

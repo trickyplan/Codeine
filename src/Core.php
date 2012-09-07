@@ -352,6 +352,9 @@
 
                 if (is_array($Array))
                 {
+                    if (is_numeric($Key))
+                        $Key = (int) $Key;
+
                     if (strpos($Key, '.') !== false)
                     {
                         $Keys = explode('.', $Key);

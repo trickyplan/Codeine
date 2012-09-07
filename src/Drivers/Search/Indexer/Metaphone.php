@@ -11,18 +11,27 @@
     {
         $Index = [];
 
+
         foreach ($Call['Nodes'] as $Name => $Node)
         {
             if (isset($Node['Index']) && $Node['Index'])
             {
-                if (preg_match_all('/([a-zA-Zа-яА-Я0-9]+)/Ssu', strip_tags($Call['Data'][$Name]), $Pockets))
+                $Call['Data'][$Name] = preg_replace('/<[\/\!]*?[^<>]*?>/si', '.', $Call['Data'][$Name]);
+                if (preg_match_all('/([a-zA-Zа-яА-ЯёЁ]+)/Ssu', $Call['Data'][$Name], $Pockets))
                 {
                     foreach($Pockets[1] as $Pocket)
-                        $Index[] =
-                            F::Run('Text.Transform.Transliterate.Passport', '2English', ['Value' => F::Run('Text.Index.Metaphone.Russian', 'Get', ['Value' => mb_strtolower($Pocket)])]);
+                    {
+                        $IDX = F::Run('Text.Transform.Transliterate.Passport', '2English', ['Value' => F::Run('Text.Index.Metaphone.Russian', 'Get', ['Value' => mb_strtolower($Pocket)])]);
+
+                        if (strlen($IDX)>2)
+                            $Index[] = $IDX;
+                    }
                 }
             }
         }
 
-        return array_unique($Index); // TODO Relevancy
+        $Index = array_unique($Index); // TODO Relevancy
+        sort($Index);
+
+        return $Index;
     });
