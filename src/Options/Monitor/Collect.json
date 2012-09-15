@@ -1,0 +1,23 @@
+{
+    "Monitor":
+    {
+        "Bundles":
+        {
+            "Codeine":
+            {
+                "Period": "86400"
+            }
+        }
+    },
+    "Hooks":
+    {
+        "afterCollect":
+        {
+            "Store":
+            {
+                "Service": "Monitor.Collect.IO",
+                "Method": "Write"
+            }
+        }
+    }
+}
