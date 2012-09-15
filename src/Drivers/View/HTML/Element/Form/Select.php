@@ -21,10 +21,13 @@
          if (isset($Call['Multiple']))
              $Call['Name'] .= '[]';
 
+         if (isset($Call['Localized']) && $Call['Localized'])
+                 $Call['Label'] = $Call['Entity'].'.Entity:'.$Call['Node'].'.Label';
+
          foreach ($Call['Options'] as $Key => $Value)
          {
              if (isset($Call['Localized']) && $Call['Localized'])
-                 $Value = '<l>'.$Call['Entity'].'.'.$Call['Node'].'.'.$Value.'</l>';
+                 $Value = '<l>'.$Call['Entity'].'.Entity:'.$Call['Node'].'.'.$Value.'</l>';
 
              if(in_array($Value, (array) $Call['Value']) || in_array($Key, (array) $Call['Value']))
                  $Options[] = '<option value="'.$Key.'" selected>'.$Value.'</option>';

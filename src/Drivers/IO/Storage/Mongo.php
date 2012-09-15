@@ -20,6 +20,7 @@
 
     self::setFn ('Read', function ($Call)
     {
+        $Data = null;
         if (isset($Call['Where']))
         {
             $Where = [];

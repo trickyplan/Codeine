@@ -1,4 +1,5 @@
 {
+    "Subtype": "text",
     "Attributes":
     {
         "String":
@@ -9,7 +10,9 @@
             "Class": "span12",
             "Pattern": "",
             "Placeholder": "",
-            "Value": ""
+            "Value": "",
+            "Min": "",
+            "Max": ""
         },
         "Boolean":
         {

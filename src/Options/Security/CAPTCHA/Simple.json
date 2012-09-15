@@ -1,4 +1,7 @@
 {
+    "Width": 100,
+    "Height": 25,
+    "Type": "PNG",
     "Hooks":
     {
         "CAPTCHA":

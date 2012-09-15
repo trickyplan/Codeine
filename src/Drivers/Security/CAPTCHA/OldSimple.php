@@ -31,44 +31,16 @@
     {
         $Code = F::Run(null, 'Code', $Call);
 
-        $Call['Image'] = F::Run(
-            'Image', 'Create', $Call
-        );
+        $Image = imagecreatetruecolor(100, 25);
 
-        $Call['Image'] = F::Run(
-            'Image', 'Pipeline', $Call,
-            [
-                'Steps' =>
-                [
-                    [
-                        'Process' => 'Draw.Fill.Solid:Dot',
-                        'X' => 0,
-                        'Y' => 0,
-                        'Color' =>
-                            [
-                                'R' => 255,
-                                'G' => 255,
-                                'B' => 255
-                            ]
-                    ],
-                    [
-                        'Process' => 'Text.Line:Add',
-                        'X' => 20,
-                        'Y' => 0,
-                        'Size' => 10,
-                        'Text' => $Code,
-                        'Color' =>
-                            [
-                                'R' => 0,
-                                'G' => 0,
-                                'B' => 0
-                            ]
-                    ]
-                ]
-            ]
-        );
+        imagefill($Image, 0, 0, imagecolorallocate($Image, 255,255,255));
 
-        F::Run('Image', 'Save', $Call, ['ID' => Root.'/Public/captcha/'.sha1($Code).'.png']);
+        $Codes = str_split($Code, 1);
+
+        foreach ($Codes as $IX => $Char)
+            imagettftext($Image, rand (10,14), rand(-25,25), 20+$IX*15, 15, imagecolorallocate($Image, 0,0,0), F::findFile('Assets/droid/ttf/DroidSans.ttf'), $Char);
+
+        imagepng($Image, Root.'/Public/captcha/'.sha1($Code).'.png');
 
         $Call['Session']['CAPTCHA'] = sha1($Code);
 

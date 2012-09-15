@@ -11,8 +11,6 @@
     {
         $Call['Data'] = F::Run('Entity', 'Read', $Call)[0];
 
-        $Call['Locales'][] = $Call['Entity'];
-
         $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Main','Context' => $Call['Context']);
         $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Show','Context' => $Call['Context']);
 

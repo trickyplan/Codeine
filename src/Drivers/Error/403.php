@@ -15,14 +15,13 @@
         $Call['Description'] = 'TODO';
         $Call['Keywords'] = array ('TODO');
 
-        $Call['Output']['Content'] = array (array (
-                                                'Type'  => 'Template',
-                                                'Scope' => 'Errors',
-                                                'ID' => '403',
-                                                'Data'  => $Call
-                                            ));
+        $Call['Layouts'][] =
+            [
+                'Scope' => 'Errors',
+                'ID' => '403'
+            ];
 
-
+        $Call['Failure'] = true;
         unset ($Call['Service'], $Call['Method']);
         return $Call;
      });
