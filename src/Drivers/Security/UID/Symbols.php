@@ -13,8 +13,10 @@
     {
         $Output = '';
 
+        $SZ = strlen($Call['UID']['Alphabet']);
+
         for($IC = 0; $IC<$Call['Size']; $IC++)
-            $Output.= array_rand($Call['UID']['Alphabet']);
+            $Output.= $Call['UID']['Alphabet'][rand(0, $SZ)];
 
         switch ($Call['Case'])
         {
