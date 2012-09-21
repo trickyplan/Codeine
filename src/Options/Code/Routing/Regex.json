@@ -105,8 +105,16 @@
                     "Method": "$2"
                 }
             }
+        },
+        "Experiment":
+        {
+            "Match": "@^/experiment/(.*)@",
+            "Service":"Experiment",
+            "Method":"Set",
+            "Call":
+            {
+                "Experiment": "$1"
+            }
         }
-
-
     }
 }
