@@ -9,7 +9,12 @@
 
     self::setFn('Write', function ($Call)
     {
-        return explode(',', $Call['Value']);
+        $Tags = explode(',', $Call['Value']);
+
+        foreach ($Tags as &$Tag)
+            $Tag = trim($Tag);
+
+        return $Tags;
     });
 
     self::setFn('Read', function ($Call)
