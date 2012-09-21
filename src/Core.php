@@ -290,7 +290,7 @@
 
         public static function Live($Variable, $Call = array())
         {
-            if (is_callable($Variable))
+            if ($Variable instanceof Closure)
                 return $Variable($Call);
 
             if (isset($Variable['NoLive']))

@@ -80,3 +80,10 @@
     {
         return F::Run('Entity.Delete', 'Do', array('Entity' => 'User'), $Call);
     });
+
+    self::setFn('Menu', function ($Call)
+    {
+        $Count = F::Run('Entity', 'Count', $Call, ['Entity' => 'User']);
+
+        return ['Count' => $Count];
+    });
