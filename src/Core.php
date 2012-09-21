@@ -15,6 +15,8 @@
         private static $_Options;
         private static $_Code;
 
+        private static $_Overflow;
+
         private static $_Service = 'Codeine';
         private static $_Method = 'Do';
 
@@ -57,6 +59,10 @@
             else
                 self::$_Options['Path'] = array (Codeine);
 
+            if (isset($_COOKIE['Experiment']))
+                if (isset(self::$_Options['Experiments'][$_COOKIE['Experiment']]))
+                    self::$_Options['Path'][] = Root.'/Labs/'.self::$_Options['Experiments'][$_COOKIE['Experiment']];
+
             self::loadOptions();
 
             self::Versioning();
@@ -71,8 +77,8 @@
 
             if (isset(self::$_Options['Project']['Version']['Codeine'])
                 && self::$_Options['Project']['Version']['Codeine'] > self::$_Options['Version']['Codeine']['Major'])
-                die('Codeine '.self::$_Options['Project']['Version']['Codeine'].'+ needed. Installed: '.self::$_Options['Version']['Codeine']['Major']);
-            // FIXME — maybe warning?
+                trigger_error('Codeine '.self::$_Options['Project']['Version']['Codeine'].'+ needed. Installed: '
+                    .self::$_Options['Version']['Codeine']['Major']);
 
             self::Log('Codeine: '.self::$_Options['Version']['Codeine']['Major']);
             self::Log('Build: '.self::$_Options['Version']['Codeine']['Minor']);
@@ -203,11 +209,8 @@
          * @return mixed
          */
 
-        public static function Run($Service, $Method = null , $Call = array())
+        public static function Run($Service, $Method = null , ArrayAccess $Call)
         {
-/*            if (($Service == self::$_Service) && ($Method == self::$_Method))
-                return null;*/
-
             if (($sz = func_num_args())>3)
             {
                 for($ic = 3; $ic<$sz; $ic++)
@@ -230,6 +233,11 @@
 
             if ($Method !== null)
                 self::$_Method  = $Method;
+
+/*            if (($OldService == $Service) && ($OldMethod == $Method))
+                self::$_Overflow++;
+            else
+                self::$_Overflow = 0;*/
 
             $Call = self::Merge(self::loadOptions(), $Call);
 
@@ -282,7 +290,8 @@
 
         public static function Live($Variable, $Call = array())
         {
-            self::Counter('Live');
+            if (is_callable($Variable))
+                return $Variable($Call);
 
             if (isset($Variable['NoLive']))
                 return $Variable;
@@ -605,6 +614,8 @@
 
     function d()
     {
-        call_user_func_array(array('F','Dump'), func_get_args());
+        if (F::Environment() == 'Development')
+            call_user_func_array(array('F','Dump'), func_get_args());
+
         return func_get_arg(2);
     }
