@@ -24,12 +24,15 @@
                     {
                         if (is_array($DotMatched))
                             foreach($DotMatched as $cMatch)
-                                $Output.= $Pockets[1][$IX].($cMatch).$Pockets[3][$IX];
+                                $Output.= str_replace('<k>'.$Match.'</k>', $cMatch,$Pockets[1][$IX]).
+                                    ($cMatch)
+                                    .str_replace('<k>'.$Match.'</k>', $cMatch,$Pockets[3][$IX]);
                         else
                             $Output = $Pockets[1][$IX].($DotMatched).$Pockets[3][$IX];
                     }
 
                     $Call['Value'] = str_replace($Pockets[0][$IX], $Output, $Call['Value']);
+                    $Output = '';
                 }
                 else
                     $Call['Value'] = str_replace($Pockets[0][$IX], '', $Call['Value']);
