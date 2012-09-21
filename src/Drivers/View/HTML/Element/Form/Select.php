@@ -27,12 +27,14 @@
          foreach ($Call['Options'] as $Key => $Value)
          {
              if (isset($Call['Localized']) && $Call['Localized'])
-                 $Value = '<l>'.$Call['Entity'].'.Entity:'.$Call['Node'].'.'.$Value.'</l>';
-
-             if(in_array($Value, (array) $Call['Value']) || in_array($Key, (array) $Call['Value']))
-                 $Options[] = '<option value="'.$Key.'" selected>'.$Value.'</option>';
+                 $lValue = '<l>'.$Call['Entity'].'.Entity:'.$Call['Node'].'.'.$Value.'</l>';
              else
-                 $Options[] = '<option value="' . $Key . '">' . $Value . '</option>';
+                 $lValue = $Value;
+
+             if(in_array($Value, (array) $Call['Value']) or in_array($Key, (array) $Call['Value']))
+                 $Options[] = '<option value="'.$Key.'" selected>'.$lValue.'</option>';
+             else
+                 $Options[] = '<option value="' . $Key . '">' . $lValue . '</option>';
          }
 
          $Call['Options'] = implode('', $Options);
