@@ -67,13 +67,17 @@
 
     self::setFn('Register', function ($Call)
     {
+        $Call = F::Hook('beforeRegister', $Call);
+
         $Call['Session'] = F::Run('Entity', 'Create', $Call,
             array(
                  'Entity' => 'Session',
-                 'Data' => []
+                 'Data' => isset($Call['Data'])? $Call['Data']: []
             ));
 
         F::Run($Call['Source'], 'Write', $Call);
+
+        $Call = F::Hook('afterRegister', $Call);
 
         return $Call['Session'];
     });
