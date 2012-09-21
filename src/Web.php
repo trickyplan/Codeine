@@ -23,8 +23,9 @@
     F::Run(
         'System.Interface.Web',
         'Run',
-        array(
+        [
             'Service' => 'Code.Flow.Front',
             'Method'  => 'Run'
-        )
+        ]
     );
+
