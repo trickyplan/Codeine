@@ -25,6 +25,8 @@
         if (isset($Call['Context']) && !empty($Call['Context']))
             $IDs[] =  $Call['ID'].'.'.$Call['Context'];
 
+        $Call['Scope'] = strtr($Call['Scope'], '.', '/');
+
         $Data =  F::Run('IO', 'Read', $Call,
             [
                   'Storage' => 'Layout',
