@@ -40,11 +40,13 @@
                 foreach ($Filenames as $Filename)
                     $Result[] = file_get_contents($Filename);
 
-
                 return $Result;
             }
             else
+            {
+                F::Log('Not found '.$Call['Where']['ID'][0]);
                 return null;
+            }
         }
         else
         {
@@ -81,7 +83,8 @@
         $Postfix   = isset($Call['Suffix']) ? $Call['Suffix'] : '';
         $Prefix   = isset($Call['Prefix']) ? $Call['Prefix'] : '';
 
-        $Filename = Root.'/'.$Call['Link'] . '/' . $Call['Scope'] . '/' . $Prefix . (isset($Call['ID'])? $Call['ID']: $Call['Where']['ID']) . $Postfix;
+        $Filename = Root.'/'.$Call['Link'] . '/' . $Call['Scope'] . '/' . $Prefix . (isset($Call['Where']['ID'])? $Call['Where']['ID']: $Call['ID']) .
+        $Postfix;
 
         if (!is_dir(Root.'/'.$Call['Link'] . '/' . $Call['Scope'] . '/'))
             mkdir(Root.'/'.$Call['Link'] . '/' . $Call['Scope'] . '/', 0777, true);

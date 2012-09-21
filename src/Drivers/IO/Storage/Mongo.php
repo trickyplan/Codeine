@@ -20,6 +20,7 @@
 
     self::setFn ('Read', function ($Call)
     {
+        $Call['Scope'] = strtr($Call['Scope'], '.', '_');
         $Data = null;
         if (isset($Call['Where']))
         {
@@ -43,7 +44,6 @@
             }
 
             unset($Value, $Key);
-
             $Cursor = $Call['Link']->$Call['Scope']->find($Where);
         }
         else
@@ -79,6 +79,7 @@
 
     self::setFn ('Write', function ($Call)
     {
+        $Call['Scope'] = strtr($Call['Scope'], '.', '_');
         if (isset($Call['Where']))
         {
             $Where = [];
@@ -138,11 +139,13 @@
 
     self::setFn ('Execute', function ($Call)
     {
+
         return $Call['Link']->execute($Call['Command']);
     });
 
     self::setFn ('Count', function ($Call)
     {
+        $Call['Scope'] = strtr($Call['Scope'], '.', '_');
         if (isset($Call['Where']))
         {
             foreach ($Call['Where'] as $Key => &$Value) // FIXME Повысить уровень абстракции
