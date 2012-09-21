@@ -36,7 +36,12 @@
 
             foreach ($Bundles as $Bundle)
             {
-                $Call['Options'][] = ['ID' => $Bundle, 'Group' => $Group];
+                $Options = ['ID' => $Bundle, 'Group' => $Group];
+
+                if (($BundleOptions = F::Run($Bundle.'.Control', 'Menu', $Call)) !== null)
+                    $Options = F::Merge($Options, $BundleOptions);
+
+                $Call['Options'][] = $Options;
             }
         }
 
