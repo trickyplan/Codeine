@@ -28,8 +28,8 @@
             $Call['Host'] = $_SERVER['HTTP_HOST'];
             $Call['Run'] = urldecode($_SERVER['REQUEST_URI']);
 
-            $Call['IP'] = F::Run('System.Interface.Web.IP', 'Get', $Call);
-            $Call['UA'] = F::Run('System.Interface.Web.UA', 'Get', $Call);
+            $Call['IP'] = function ($Call) {return F::Run('System.Interface.Web.IP', 'Get', $Call);};
+            $Call['UA'] = function ($Call) {return F::Run('System.Interface.Web.UA', 'Get', $Call);};
 
             $Call = F::Run($Call['Service'], $Call['Method'], $Call);
 
@@ -47,21 +47,17 @@
 
     self::setFn('Output', function ($Call)
     {
-        echo $Call['Output'];
+        if (is_string($Call['Output']))
+            echo $Call['Output'];
+        else
+            print_r($Call['Output']);
+
         return $Call;
     });
 
     self::setFn ('User.Agent', function ($Call)
     {
 
-    });
-
-    self::setFn('User.Geo', function ($Call)
-    {
-        return F::Run('System.GeoIP.PHPGeoIP', 'Country',
-            array(
-                    'Value' => F::Run('System.Interface.Web.IP', 'Get', $Call
-                 )));
     });
 
     self::setFn('User.Time', function ($Call)
