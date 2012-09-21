@@ -32,9 +32,9 @@
                     array (
                           'Storage' => 'Locale',
                           'Scope'   => $Asset.'/Locale/'.$Language,
-                          'Where'   => $ID,
+                          'ID'   => $ID,
                           'Data' => $Locale
-                    ))[0];
+                    ));
 
         $Call['Renderer'] = 'View.JSON';
 
