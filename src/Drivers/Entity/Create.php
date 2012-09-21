@@ -20,6 +20,9 @@
     {
         $Call = F::Hook('beforeCreateGet', $Call);
 
+        if (isset($Call['Request']))
+            $Call['Data'] = F::Merge($Call['Request'], $Call['Data']);
+
         $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Main','Context' => $Call['Context']);
         $Call['Layouts'][] = array(
             'Scope' => $Call['Entity'],
@@ -54,6 +57,8 @@
                     $Widget['Context'] = $Call['Context'];
 
                     $Widget = F::Merge($Node, $Widget);
+
+                    $Widget['Data'] = $Call['Data'];
 
                     if($ic == 0)
                         $Widget['Autofocus'] = true;
