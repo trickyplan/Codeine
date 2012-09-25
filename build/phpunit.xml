@@ -6,13 +6,5 @@
     <property name="tests" value="tests"/>
 
     <target name="test">
-        <phpunit bootstrap="${tests}/Bootstrap.php">
-            <formatter todir="${reports}" type="xml"/>
-            <batchtest classpath="${source-code}">
-                <fileset dir="${tests}">
-                    <include name="**/*Test*.php"/>
-                </fileset>
-            </batchtest>
-        </phpunit>
     </target>
 </project>
