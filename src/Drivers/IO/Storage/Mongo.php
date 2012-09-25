@@ -42,7 +42,6 @@
                 else
                     $Where[$Key] = F::Run('Data.Type.'.$Call['Nodes'][$Key]['Type'], 'Read', array('Value' => $Value, 'Purpose' => 'Where'));
             }
-
             unset($Value, $Key);
             $Cursor = $Call['Link']->$Call['Scope']->find($Where);
         }

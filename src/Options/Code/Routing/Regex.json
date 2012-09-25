@@ -16,6 +16,20 @@
                 "Where": "$4"
             }
         },
+        "Subcontrol with page":
+        {
+            "Match":"@^/control/(.*)/page(.*)$@Ssu",
+            "Weight": 10,
+            "Service":"Control.Panel",
+            "Method":"Do",
+            "Zone": "Control",
+            "Call":
+            {
+                "Bundle": "$1",
+                "Option": "Do",
+                "Page": "$2"
+            }
+        },
         "Subcontrol with ID":
         {
             "Match":"@^/control/(.*)/(.*)/(.*)$@Ssu",

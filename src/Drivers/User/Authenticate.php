@@ -55,11 +55,11 @@
 
                     $Call['Output']['Content'][]
                         = array(
-                        'Type' => 'Template',
-                        'Scope' => 'User',
-                        'ID' => 'Activation/Needed',
-                        'Data' => $Call['User']
-                    );
+                            'Type' => 'Template',
+                            'Scope' => 'User',
+                            'ID' => 'Activation/Needed',
+                            'Data' => $Call['User']
+                        );
                 }
             }
 

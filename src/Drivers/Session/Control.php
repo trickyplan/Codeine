@@ -20,10 +20,17 @@
 
     self::setFn('Delete', function ($Call)
     {
-        return F::Run('Entity', 'Delete', array('Entity' => 'Session'), $Call);
+        return F::Run('Entity.Delete', 'POST', array('Entity' => 'Session'), $Call);
     });
 
     self::setFn('Flush', function ($Call)
     {
-        return F::Run('Entity.Delete', 'Do', array('Entity' => 'Session'), $Call);
+        return F::Run('Entity.Delete', 'POST', $Call, ['Entity' => 'Session']);
+    });
+
+    self::setFn('Menu', function ($Call)
+    {
+
+        $Count = F::Run('Entity', 'Count', $Call, ['Entity' => 'Session']);
+        return ['Count' => $Count];
     });

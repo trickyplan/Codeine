@@ -17,7 +17,7 @@
             {
                 if (($Matched = F::Dot($Call, $Match)) !== null)
                 {
-                    $Matched = F::Live($Matched, $Call);
+                    $Matched = F::Live($Matched);
 
                     if (is_array($Matched))
                         $Matched = implode(' ', $Matched);
