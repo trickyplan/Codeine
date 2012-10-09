@@ -1,5 +1,5 @@
 {
-    "Storage": "File",
+    "Storage": "Primary",
     "EPP": 20,
     "Nodes":
     {
@@ -58,6 +58,21 @@
             {
                 "Service":"System.Time",
                 "Method":"Get"
+            }
+        }
+    },
+    "Hooks":
+    {
+        "afterCreatePost":
+        {
+           "Redirect":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "Redirect",
+                "Call":
+                {
+                    "Location": "/"
+                }
             }
         }
     }

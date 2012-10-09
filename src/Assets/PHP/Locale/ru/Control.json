@@ -1,13 +1,16 @@
 {
     "Title": "PHP",
-    "Options":
-    {
-        "Version": "Версии",
-        "Settings": "Настройки",
-        "XCache": "Кэш"
-    },
-    "Extension":
-    {
-        "Core": "Ядро"
+    "Version": "Версии",
+    "Settings": "Настройки",
+    "XCache": "Кэш",
+    "PHP:Control": {
+        "Extension": {
+            "Core": "Ядро"
+        },
+        "Ini": {
+            "date": {
+                "timezone": "Временная зона"
+            }
+        }
     }
 }

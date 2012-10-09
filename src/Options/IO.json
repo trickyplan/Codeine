@@ -1,17 +1,6 @@
 {
     "Storages":
     {
-        "JSON":
-        {
-            "Driver":"IO.Storage.Directory",
-            "Directory":"Data",
-            "Format": "Formats.JSON",
-            "Suffix":".json"
-        },
-        "Test":
-        {
-            "Driver": "IO.Test"
-        },
         "Options":
         {
             "Driver":"IO.Storage.Directory",
@@ -57,12 +46,6 @@
             "Directory":"Public",
             "Scope":"css",
             "Suffix":".css"
-        },
-        "LESS":
-        {
-            "Driver":"IO.Storage.Directory",
-            "Directory":"Assets",
-            "Suffix":".less"
         },
         "JS":{
             "Driver":"IO.Storage.Directory",

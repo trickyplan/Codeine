@@ -13,6 +13,7 @@
         F::Run('IO', 'Write',
         [
             'Storage' => 'Journal',
+            'Scope'  => $Call['Host'],
             'Data'   => F::Merge($Call,
                 [
                     'ID'    => F::Run('Security.UID', 'Get', ['Mode' => $Call['Journal']['UID']]),

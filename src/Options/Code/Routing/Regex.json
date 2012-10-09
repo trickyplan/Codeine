@@ -4,7 +4,7 @@
         "Subcontrol with ID and Action":
         {
             "Match":"@^/control/(.*)/(.*)/(.*)/(.*)$@Ssu",
-            "Weight": 20,
+            "Weight": 45,
             "Service":"Control.Panel",
             "Method":"Do",
             "Zone": "Control",
@@ -19,7 +19,7 @@
         "Subcontrol with page":
         {
             "Match":"@^/control/(.*)/page(.*)$@Ssu",
-            "Weight": 10,
+            "Weight": 35,
             "Service":"Control.Panel",
             "Method":"Do",
             "Zone": "Control",
@@ -33,7 +33,7 @@
         "Subcontrol with ID":
         {
             "Match":"@^/control/(.*)/(.*)/(.*)$@Ssu",
-            "Weight": 10,
+            "Weight": 25,
             "Service":"Control.Panel",
             "Method":"Do",
             "Zone": "Control",
@@ -47,7 +47,7 @@
         "Subcontrol":
         {
             "Match":"@^/control/(.*)/(.*)$@",
-            "Weight": 5,
+            "Weight": 15,
             "Service":"Control.Panel",
             "Method":"Do",
             "Zone": "Control",
@@ -60,6 +60,7 @@
         "Control":
         {
             "Match":"@^/control/(.*)@",
+            "Weight": 10,
             "Service":"Control.Panel",
             "Method":"Do",
             "Zone": "Control",
@@ -128,6 +129,21 @@
             "Call":
             {
                 "Experiment": "$1"
+            }
+        },
+        "Page":
+        {
+            "Match": "@/(.*)@",
+            "Weight": -5,
+            "Service": "Entity.Show.Static",
+            "Method": "Do",
+            "Call":
+            {
+                "Entity": "Page",
+                "Where":
+                {
+                    "Slug": "$1"
+                }
             }
         }
     }

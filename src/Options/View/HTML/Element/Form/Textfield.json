@@ -17,7 +17,8 @@
         "Boolean":
         {
             "Autofocus": false,
-            "Required": false
+            "Required": false,
+            "Disabled": false
         }
     }
 }

@@ -209,7 +209,7 @@
          * @return mixed
          */
 
-        public static function Run($Service, $Method = null , ArrayAccess $Call)
+        public static function Run($Service, $Method = null , $Call = [])
         {
             if (($sz = func_num_args())>3)
             {

@@ -16,7 +16,7 @@
 
         // TODO Error: Not found Regex Table
         $Decision = null;
-        $Weight = 0;
+        $Weight = -255;
 
         if (isset($Call['Regex']))
             {

@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description  
      * @package Codeine
-     * @version 7.4.5
+     * @version 7.x
      */
 
     self::setFn('Count', function ($Call)

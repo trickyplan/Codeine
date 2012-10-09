@@ -23,8 +23,10 @@
                     ))[0];
 
             if ($Call['Session'] == null)
-                if (!isset($Call['No Auto Register']) || !$Call['No Auto Register'])
-                    $Call['Session'] = F::Run(null, 'Register', $Call);
+                {
+                    if (!isset($Call['No Auto Register']) || !$Call['No Auto Register'])
+                        $Call['Session'] = F::Run(null, 'Register', $Call);
+                }
 
             if (isset($Call['Heartbeat']) && $Call['Heartbeat'])
                 F::Run('Entity', 'Update',

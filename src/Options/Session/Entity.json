@@ -4,6 +4,7 @@
     {
         "ID":
         {
+            "Type": "Literal.String",
             "Create":
             {
                 "Service": "Security.UID",
@@ -63,7 +64,7 @@
     },
     "Hooks":
     {
-        "afterEntityDelete":
+        "afterDeletePost":
         {
            "Redirect":
             {
