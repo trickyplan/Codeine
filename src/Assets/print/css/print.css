@@ -1,0 +1,40 @@
+@media print
+{
+    body
+    {
+        font-size: 12pt;
+        background: white;
+    }
+
+    /* hide */
+
+    .hidden-print
+    {
+        display: none;
+    }
+
+    .visible-print
+    {
+        display: block !important;
+    }
+
+    nav
+    {
+        display: none;
+    }
+
+    /* links */
+
+    #page-content a:link:after, #content a:visited:after
+    {
+       content: " (" attr(href) ") ";
+       font-size: 90%;
+    }
+
+    /* JivoSite */
+
+    #jivo_top_wrap
+    {
+        display: none;
+    }
+}
