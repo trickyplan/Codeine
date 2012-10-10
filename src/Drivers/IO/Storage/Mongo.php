@@ -117,7 +117,10 @@
             $Data = array();
 
             foreach ($Call['Data'] as $Key => $Value)
+            {
+                unset ($Call['Data'][$Key]);
                 $Data = F::Dot($Data, $Key, $Value);
+            }
 
             if (isset($Call['Current']))
                 $Data = F::Merge($Call['Current'], $Data);
