@@ -82,9 +82,10 @@
                 array(
                      'Entity' => 'User',
                      'Where' => $Activation['User'],
-                     'Data' => array(
-                                    'Status' => 1
-                                )
+                     'Data' =>
+                         [
+                            'Status' => true
+                         ]
                 ));
 
             F::Run('IO', 'Write',
@@ -96,7 +97,7 @@
                 ));
 
             if (isset($Call['Activation']['Auto Login']) && $Call['Activation']['Auto Login'])
-                $Call['Session'] = F::Run('Security.Auth', 'Attach', $Call, ['User' => $Activation['User']]);
+                $Call['Session'] = F::Run('Security.Auth', 'Attach', $Call, ['User' => $Activation['User'], 'TTL' => 3600]);
 
             $Call = F::Hook('Activation.Success', $Call);
 

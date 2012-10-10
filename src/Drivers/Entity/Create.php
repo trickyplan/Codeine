@@ -52,16 +52,8 @@
                     $Widget['Entity'] = $Call['Entity'];
                     $Widget['Label'] = $Call['Entity'].'.Entity:'.$Name;
                     $Widget['Node'] = $Name;
-                    if (strpos($Name,'.') !== false)
-                    {
-                        $Slices = explode('.', $Name);
 
-                        $Widget['Name'] = array_shift($Slices);
-                        foreach ($Slices as $Slice)
-                            $Widget['Name'].= '['.$Slice.']';
-                    }
-                    else
-                        $Widget['Name'] = $Name;
+                    $Widget['Name'] = strtr($Name, '.', '_');
 
                     $Widget['ID'] = strtr($Name, '.','_');
                     $Widget['Context'] = $Call['Context'];
@@ -104,7 +96,6 @@
         $Call = F::Hook('beforeCreatePost', $Call);
 
         // Берём данные из запроса
-
 
         if (!isset($Call['Failure']))
         {

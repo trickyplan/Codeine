@@ -39,6 +39,7 @@
 
             if (isset($Call['Session']['User']) && !empty($Call['Session']['User']) && $Call['Session']['User'] !== -1)
             {
+
                 if ($Call['Session']['Expire'] < time())
                 {
                     $Call = F::Run(null, 'Annulate', $Call);

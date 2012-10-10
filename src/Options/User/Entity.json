@@ -63,7 +63,7 @@
     },
     "Hooks":
     {
-        "afterCreatePost":
+        "_afterCreatePost":
         {
            "Redirect":
             {

@@ -123,7 +123,7 @@
                 $Data = F::Merge($Call['Current'], $Data);
 
             if (isset($Call['Where']))
-                $Call['Link']->$Call['Scope']->update($Call['Where'], $Data) or F::Hook('IO.Mongo.Update.Failed', $Call);
+                $Call['Link']->$Call['Scope']->update($Call['Where'], ['$set' => $Data]) or F::Hook('IO.Mongo.Update.Failed', $Call);
             else
                 $Call['Link']->$Call['Scope']->insert ($Data);
 
