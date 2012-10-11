@@ -2,6 +2,15 @@
     "Storage": "Primary",
     "Nodes":
     {
+        "ID":
+        {
+            "Type": "Literal.String",
+            "Create":
+            {
+                "Service": "Security.UID",
+                "Method": "Get"
+            }
+        },
         "Title":
         {
             "Type": "Literal.String",

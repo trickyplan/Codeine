@@ -15,8 +15,13 @@
 
     self::setFn('Create', function ($Call)
     {
-        return F::Run('Entity.Create', 'Do', array('Entity' => 'Page', 'PageURL' => '/control/Page/page', 'Context' => 'app'), $Call);
+        return F::Run('Entity.Create', 'Do', array('Entity' => 'Page', 'Context' => 'app'), $Call);
      });
+
+    self::setFn('Update', function ($Call)
+    {
+        return F::Run('Entity.Update', 'Do', array('Entity' => 'Page', 'Context' => 'app'), $Call);
+    });
 
     self::setFn('Show', function ($Call)
     {
