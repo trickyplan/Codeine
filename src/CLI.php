@@ -7,12 +7,13 @@
 
     include 'Codeine/Core.php';
 
-    F::Bootstrap (array(
-                       'Path' => array(Root)
-                       //,'Trace' => true
-                  ));
+    $Opts = getopt ('', array('Service:', 'Method:', 'Environment:'));
 
-    $Opts = getopt ('', array('Service:', 'Method:'));
+    F::Bootstrap ([
+                       'Path' => array(Root),
+                       'Environment' => isset($Opts['Environment'])? $Opts['Environment']: 'Production'
+                       //,'Trace' => true
+                  ]);
 
     F::Run(
         'System.Interface.CLI',

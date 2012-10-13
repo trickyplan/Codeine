@@ -3,7 +3,7 @@
     {
         "/":
         {
-            "Service":"Codeine.Frontpage",
+            "Service":"Project.Frontpage",
             "Method":"Do"
         },
         "/control":
