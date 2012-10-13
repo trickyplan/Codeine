@@ -54,11 +54,7 @@
             "Create":
             {
                 "Service": "System.Time",
-                "Method": "Get",
-                "Call":
-                {
-                    "Mode": "Normal"
-                }
+                "Method": "Get"
             }
         }
     },

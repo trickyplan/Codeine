@@ -15,28 +15,28 @@
         $Call['Output']['Content'] = array (
             array (
                 'Type'  => 'Block',
-                'Class' => 'alert '.(('Stable' == $Version)? 'alert-success': (('Unstable' == $Version)? 'alert-error': '')),
-                'Value' => 'PHP: '.phpversion().' — '.$Version
+                'Class' => 'alert '.('Stable' == $Version? 'alert-success': 'alert-warning'),
+                'Value' => 'PHP: '.phpversion().' <br/> <l>PHP.Control:Version.Verdict.'.$Version.'</l>'
             ));
 
         return $Call;
      });
 
-    self::setFn('Version', function ($Call)
+    self::setFn('Extensions', function ($Call)
     {
-
-
-
         $Extensions = get_loaded_extensions();
 
         foreach ($Extensions as $Extension)
-            $Versions[] = array('<l>PHP:Control.Extension.'.$Extension.'</l>', phpversion($Extension));
+            $ExtensionsRows[] = [
+                $Extension,
+                phpversion($Extension),
+                '<l>PHP.Extension:'.$Extension.'</l>'];
 
 
         $Call['Output']['Content'][] =
             array (
                 'Type'  => 'Table',
-                'Value' => $Versions
+                'Value' => $ExtensionsRows
             );
 
         return $Call;
@@ -48,14 +48,14 @@
 
         foreach ($INI as $Key => $Value)
         {
-            $Data[] = array ('<l>PHP:Control.Ini.'.$Key.'</l>', nl2br(wordwrap($Value)));
+            $Data[] = array ('<l>PHP.Ini:'.$Key.'</l>', nl2br(wordwrap($Value)));
 
             if (isset($Call['Requirements'][$Key]) && ($Call['Requirements'][$Key] != $Value['local_value']))
                 $Call['Output']['Content'][] =
                     array (
                         'Type'  => 'Block',
                         'Class' => 'alert alert-danger',
-                        'Value' => 'Recommended value for <strong>'.$Key.'</strong> is "'.$Call['Requirements'][$Key].'"'
+                        'Value' => '<strong>'.$Key.'</strong> = "'.$Call['Requirements'][$Key].'"'
                     );
         }
 
@@ -75,7 +75,7 @@
         $XCache = xcache_info(XC_TYPE_PHP,0);
 
         foreach ($XCache as $Key => &$Value)
-            $Value = array('<l>PHP.XCache.'.$Key.'</l>', $Value);
+            $Value = array('<l>PHP.XCache:'.$Key.'</l>', $Value);
 
         $Call['Output']['Content'][] =
             array (

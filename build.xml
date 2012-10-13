@@ -16,7 +16,7 @@
     <import file="build/debian.xml"/>
     <import file="build/tarball.xml"/>
 
-    <property name="homepage" value="http://one2team.ru/projects/codeine"/>
+    <property name="homepage" value="http://one2team.ru/projects/Codeine"/>
     <property name="maintainer" value="Johnny Funt"/>
     <property name="destination-source" value="/usr/share/php/"/>
 

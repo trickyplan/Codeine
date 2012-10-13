@@ -19,5 +19,5 @@
 
     self::setFn('Read', function ($Call)
     {
-        return $Call['Value'];
+        return implode(',', $Call['Value']);
     });
