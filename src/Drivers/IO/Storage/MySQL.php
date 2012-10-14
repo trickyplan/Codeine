@@ -36,7 +36,10 @@
                 F::Log($Call['Link']->error,'Error');
 
             if ($Result->num_rows>0)
+            {
                 $Data = $Result->fetch_all(MYSQLI_ASSOC);
+                $Result->free();
+            }
             else
                 F::Log($Query.' is empty');
 
