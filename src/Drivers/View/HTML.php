@@ -14,7 +14,6 @@
         $Call = F::Run (null,'Pipeline', $Call, array('Renderer' => 'View.HTML')); // Pipelining
 
         $Call = F::Hook('afterPipeline', $Call);
-
         return $Call;
     });
 
@@ -71,5 +70,7 @@
             }
 
         $Call['Output'] = $Call['Layout'];
+        $Call['Output'] = preg_replace('/<place>(.*)<\/place>/SsUu', '', $Call['Output']);
+
         return $Call;
     });

@@ -43,7 +43,7 @@
         "CSS Cache":
         {
             "Driver":"IO.Storage.Directory",
-            "Directory":"Public",
+            "Directory":"Public/cache",
             "Scope":"css",
             "Suffix":".css"
         },
@@ -54,7 +54,7 @@
         },
         "JS Cache":{
             "Driver":"IO.Storage.Directory",
-            "Directory":"Public",
+            "Directory":"Public/cache",
             "Scope":"js",
             "Suffix":".js"
         },

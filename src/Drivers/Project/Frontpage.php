@@ -9,6 +9,6 @@
 
     self::setFn('Do', function ($Call)
     {
-        
+
         return $Call;
     });
