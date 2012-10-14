@@ -29,7 +29,9 @@
     self::setFn('Die', function ($Call)
     {
         // TODO Realize "Die" function
-        die('500');
 
-        return $Call;
+        header('HTTP/1.0 500 Internal Server Error');
+        readfile(F::findFile('Assets/Errors/500.html'));
+        die();
+
     });

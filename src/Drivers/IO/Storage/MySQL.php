@@ -11,8 +11,8 @@
     {
         $Link = new mysqli($Call['Server'], $Call['User'], F::Live($Call['Password']));
 
-        if ($Link->errno != 0)
-            return $Link->error;
+        if (!$Link->ping())
+            return null;
 
         $Link->select_db ($Call['Database']);
         $Link->set_charset ($Call['Charset']);
