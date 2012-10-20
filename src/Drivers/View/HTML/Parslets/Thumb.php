@@ -40,7 +40,7 @@
 
             //crop and resize the image
 
-            $ThumbURL = '/thumbs/'.$Thumb['Width'].'_'.sha1($Filename) . '.jpg'; // FIXME Абстрагировать
+            $ThumbURL = '/cache/thumbs/'.$Thumb['Width'].'_'.sha1($Filename) . '.jpg'; // FIXME Абстрагировать
 
             if (!F::file_exists(Root.'/Public'.$ThumbURL))
             {
