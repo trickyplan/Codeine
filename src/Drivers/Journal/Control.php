@@ -19,14 +19,21 @@
                 ]
         ]);
 
-        foreach ($Entries as $Entry)
-            $Call['Output']['Content'][] =
-                [
-                    'Type' => 'Template',
-                    'Scope' => 'Journal',
-                    'ID' => 'Show/Control',
-                    'Data' => $Entry
-                ];
+        if (sizeof($Entries) > 0)
+            foreach ($Entries as $Entry)
+                $Call['Output']['Content'][] =
+                    [
+                        'Type' => 'Template',
+                        'Scope' => 'Journal',
+                        'ID' => 'Show/Control',
+                        'Data' => $Entry
+                    ];
+        else
+            $Call['Output']['Content'][] = array(
+                'Type'  => 'Template',
+                'Scope' => 'Journal',
+                'ID' => 'Empty'
+            );
 
         return $Call;
     });

@@ -43,6 +43,11 @@
                 "Service":"View.HTML.Breadcrumbs",
                 "Method":"Scan"
             },
+            "Places":
+            {
+                "Service":"View.HTML.Places",
+                "Method":"Clean"
+            },
             "I18N":
             {
                 "Service":"View.HTML.LocaleNG",

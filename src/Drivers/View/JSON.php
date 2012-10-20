@@ -10,7 +10,7 @@
     self::setFn ('Render', function ($Call)
     {
        $Call['Headers']['Content-type:'] = 'text/json';
-       $Call['Output'] = json_encode($Call['Output']['Content']);
+       $Call['Output'] = json_encode($Call['Output']);
 
        return $Call;
     });

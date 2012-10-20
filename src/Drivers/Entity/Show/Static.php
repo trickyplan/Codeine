@@ -9,6 +9,8 @@
 
     self::setFn('Do', function ($Call)
     {
+        $Call['Where'] = F::Live($Call['Where']);
+
         $Call['Data'] = F::Run('Entity', 'Read', $Call)[0];
 
         $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Main','Context' => $Call['Context']);

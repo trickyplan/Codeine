@@ -58,15 +58,5 @@
                 "Method":"Load"
             }
         }
-    },
-    "Output":
-    {
-        "Content":
-        {
-            "Form":
-            {
-                "Type": "Form"
-            }
-        }
     }
 }

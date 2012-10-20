@@ -29,7 +29,7 @@
         if (preg_match_all('@<call>(.*)<\/call>@SsUu', $Call['Layout'], $Pocket)) // TODO Вынести в хук
             foreach ($Pocket[0] as $IX => $Match)
             {
-                $Matched = F::Dot($Call, $Pocket[1][$IX]);
+                $Matched = F::Live(F::Dot($Call, $Pocket[1][$IX]));
 
                 if (($Matched === false) || ($Matched === 0))
                         $Matched = '0';
@@ -61,7 +61,7 @@
         if (preg_match_all('@<call>(.*)<\/call>@SsUu', $Call['Layout'], $Pocket)) // TODO Вынести в хук
             foreach ($Pocket[0] as $IX => $Match)
             {
-                $Matched = F::Dot($Call, $Pocket[1][$IX]);
+                $Matched = F::Live(F::Dot($Call, $Pocket[1][$IX]));
 
                 if (($Matched === false) || ($Matched === 0))
                         $Matched = '0';
@@ -70,7 +70,6 @@
             }
 
         $Call['Output'] = $Call['Layout'];
-        $Call['Output'] = preg_replace('/<place>(.*)<\/place>/SsUu', '', $Call['Output']);
 
         return $Call;
     });
