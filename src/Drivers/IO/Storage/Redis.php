@@ -11,7 +11,7 @@
     {
         $Redis = new Redis();
         $Redis->connect ($Call['Server'], $Call['Port']);
-        $Redis->setOption (Redis::OPT_SERIALIZER, Redis::SERIALIZER_IGBINARY); // FIXME
+       // $Redis->setOption (Redis::OPT_SERIALIZER, Redis::SERIALIZER_NONE); // FIXME
 
         return $Redis;
     });
@@ -23,10 +23,10 @@
             foreach ($Call['Where']['ID'] as &$ID)
                 $ID = $Call['Scope'].$ID;
 
-            return $Call['Link']->mGet($Call['Where']['ID']);
+            return json_decode($Call['Link']->mGet($Call['Where']['ID']), true);
         }
         else
-            if (($Result = $Call['Link']->get($Call['Scope'].$Call['Where']['ID'])) !== false)
+            if (($Result = json_decode($Call['Link']->get($Call['Scope'].$Call['Where']['ID']), true))  !== false)
                 return array($Result);
             else
                 return null;
@@ -41,7 +41,7 @@
             else
             {
                 $Call['Data'] = F::Merge(F::Run(null, 'Read', $Call)[0], $Call['Data']);
-                $Call['Link']->set($Call['Scope'].$Call['Where']['ID'], $Call['Data'], $Call['TTL']);
+                $Call['Link']->set($Call['Scope'].$Call['Where']['ID'], json_encode($Call['Data']), $Call['TTL']);
             }
         }
         else

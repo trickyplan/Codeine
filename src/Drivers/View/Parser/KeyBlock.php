@@ -15,12 +15,12 @@
             {
                 $Output = '';
 
-                if (($Matched = F::Dot($Call['Data'], $Match)) !== null)
+                if (($Matched = F::Live(F::Dot($Call['Data'], $Match))) !== null)
                 {
                     if (($Matched === false) || ($Matched === 0))
                         $Matched = '0';
 
-                    if ($DotMatched = F::Dot($Call['Data'], $Match))
+                    if ($DotMatched = F::Live(F::Dot($Call['Data'], $Match)))
                     {
                         if (is_array($DotMatched))
                             foreach($DotMatched as $cMatch)

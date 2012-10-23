@@ -12,7 +12,7 @@
         if (is_scalar($Call['Value']))
             return $Call['Value'];
 
-        $Call['ID'] = $Call['Data']['ID'];
+        $Call['ID'] = F::Run('Security.UID', 'Get',$Call);
         $Call['Name'] = F::Live($Call['Node']['Naming'], $Call);
 
         return F::Run('IO', 'Execute', $Call,

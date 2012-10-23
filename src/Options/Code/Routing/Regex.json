@@ -7,7 +7,7 @@
             "Weight": 45,
             "Service":"Control.Panel",
             "Method":"Do",
-            "Zone": "Control",
+            "Zone": ["Control"],
             "Call":
             {
                 "Bundle": "$1",
@@ -22,7 +22,7 @@
             "Weight": 35,
             "Service":"Control.Panel",
             "Method":"Do",
-            "Zone": "Control",
+            "Zone": ["Control"],
             "Call":
             {
                 "Bundle": "$1",
@@ -36,7 +36,7 @@
             "Weight": 25,
             "Service":"Control.Panel",
             "Method":"Do",
-            "Zone": "Control",
+            "Zone": ["Control"],
             "Call":
             {
                 "Bundle": "$1",
@@ -50,7 +50,7 @@
             "Weight": 15,
             "Service":"Control.Panel",
             "Method":"Do",
-            "Zone": "Control",
+            "Zone": ["Control"],
             "Call":
             {
                 "Bundle": "$1",
@@ -63,7 +63,7 @@
             "Weight": 10,
             "Service":"Control.Panel",
             "Method":"Do",
-            "Zone": "Control",
+            "Zone": ["Control"],
             "Call":
             {
                 "Bundle": "$1"

@@ -416,7 +416,7 @@
                  {
                      foreach ($Hooks as $Hook)
                          if (F::isCall($Hook))
-                             $Call = F::Run($Hook['Service'],$Hook['Method'], $Call, ['On' => $On], isset($Hook['Call'])? $Hook['Call']: []);
+                             $Call = F::Run($Hook['Service'],$Hook['Method'], isset($Hook['Call'])? $Hook['Call']: [], $Call, ['On' => $On]);
                          else
                              $Call = F::Merge($Call, $Hook);
                  }

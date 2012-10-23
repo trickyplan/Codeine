@@ -4,7 +4,7 @@
 <subtitle>ЦУП</subtitle>
 <subtitle><l><call>Bundle</call>.Control:Title</l></subtitle>
 
-<div class="page-header">
+<div class="page-header hidden-print">
     <a href="/">&larr; <l>Control.Panel:Return</l></a>
     <h2><l>Control.Panel:Title</l></h2>
     <h3><l><call>Bundle</call>.Control:Title</l></h3>
@@ -12,10 +12,10 @@
 <div class="page-content">
     <div class="row-fluid">
         <div class="span3">
-            <place>Navigation</place>
+            <div class="hidden-print"><place>Navigation</place></div>
         </div>
         <div class="span9">
-            <place>Sidebar</place>
+            <div class="hidden-print"><place>Sidebar</place></div>
             <place>Content</place>
         </div>
     </div>

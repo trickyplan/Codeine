@@ -32,8 +32,6 @@
                     array('User' => $Call['User']['ID']));
 
                 $Call = F::Hook('Authenticating.Success', $Call);
-                return $Call;
-
             }
             else
             {
@@ -65,9 +63,7 @@
 
         }
         else
-        {
              $Call = F::Hook('Authenticating.Failed', $Call);
-        }
 
         return $Call;
     });

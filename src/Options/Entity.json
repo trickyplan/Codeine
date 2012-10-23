@@ -61,12 +61,20 @@
             "Datatypes":
             {
                 "Service":"Entity.Nodes.Type",
-                "Method":"Write"
+                "Method":"Write",
+                "Call":
+                {
+                    "Purpose": "Update"
+                }
             },
             "Make variables alive":
             {
                 "Service":"Entity.Nodes.Live",
-                "Method":"Process"
+                "Method":"Process",
+                "Call":
+                {
+                    "Purpose": "Update"
+                }
             },
             "Updated values":
             {

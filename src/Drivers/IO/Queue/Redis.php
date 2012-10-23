@@ -11,7 +11,7 @@
     {
         $Redis = new Redis();
         $Redis->connect ($Call['Server'], $Call['Port']);
-        $Redis->setOption (Redis::OPT_SERIALIZER, Redis::SERIALIZER_IGBINARY); // FIXME
+        // $Redis->setOption (Redis::OPT_SERIALIZER, Redis::SERIALIZER_IGBINARY); // FIXME
 
         return $Redis;
     });
@@ -19,12 +19,12 @@
     self::setFn('Read', function ($Call)
     {
         if (($Result = $Call['Link']->lPop($Call['Scope'])) !== false)
-            return array($Result);
+            return array(json_decode($Result, true));
         else
             return null;
     });
 
     self::setFn('Write', function ($Call)
     {
-        return $Call['Link']->rPush($Call['Scope'], $Call['Data']);
+        return $Call['Link']->rPush($Call['Scope'], json_encode($Call['Data']));
     });

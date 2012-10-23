@@ -5,7 +5,21 @@
         {
             "Failed":
             {
-                
+                "Fail":
+                {
+                    "Output":
+                    {
+                        "Message":
+                        {
+                            "Error":
+                            {
+                                "Type": "Block",
+                                "Class": "alert alert-danger",
+                                "Value": "Аутентификация не удалась"
+                            }
+                        }
+                    }
+                }
             },
             "Success":
             {

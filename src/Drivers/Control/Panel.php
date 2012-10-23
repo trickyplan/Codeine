@@ -15,17 +15,21 @@
         if (!isset($Call['Option']))
             $Call['Option'] = 'Do';
 
-        $Call['Layouts'][] = array(
-            'Scope' => $Call['Bundle'],
-            'ID' => 'Control'
-        );
-
-        $Call['Layouts'][] = array(
-            'Scope' => $Call['Bundle'],
-            'ID' => 'Control/'.$Call['Option']
-        );
 
         $Call = F::Run($Call['Bundle'].'.Control', $Call['Option'], $Call, ['Context' => 'app']);
+
+        $Call['Layouts'][] = array(
+            'Scope' => $Call['Bundle'],
+            'ID' => 'Control',
+            'Context' => $Call['Context']
+        );
+
+        $Call['Layouts'][] = array(
+            'Scope' => $Call['Bundle'],
+            'ID' => 'Control/'.$Call['Option'],
+            'Context' => $Call['Context']
+        );
+
 
         foreach($Call['Bundles'] as $Group => $Bundles)
         {
