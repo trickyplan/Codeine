@@ -3,5 +3,20 @@
     {
         "Service": "Error.404.Prediction.Similar",
         "Method": "Suggest"
-    }
+    },
+    "Layouts":
+    [
+        {
+            "Scope": "Default",
+            "ID": "Main"
+        },
+        {
+            "Scope": "Project",
+            "ID":"Zone"
+        },
+        {
+            "Scope": "Errors",
+            "ID":"404"
+        }
+    ]
 }

@@ -15,11 +15,6 @@
         $Call['Description'] = 'TODO';
         $Call['Keywords'] = array ('TODO');
 
-        $Call['Layouts']['Err'] =
-            [
-                'Scope' => 'Errors',
-                'ID' => '404'
-            ];
 
         $Call['Failure'] = true;
         unset ($Call['Service'], $Call['Method']);

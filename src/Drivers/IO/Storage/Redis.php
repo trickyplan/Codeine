@@ -11,7 +11,6 @@
     {
         $Redis = new Redis();
         $Redis->connect ($Call['Server'], $Call['Port']);
-       // $Redis->setOption (Redis::OPT_SERIALIZER, Redis::SERIALIZER_NONE); // FIXME
 
         return $Redis;
     });
@@ -26,10 +25,12 @@
             return json_decode($Call['Link']->mGet($Call['Where']['ID']), true);
         }
         else
+        {
             if (($Result = json_decode($Call['Link']->get($Call['Scope'].$Call['Where']['ID']), true))  !== false)
                 return array($Result);
             else
                 return null;
+        }
     });
 
     self::setFn ('Write', function ($Call)
@@ -46,8 +47,7 @@
         }
         else
         {
-            $Call['Link']->set($Call['Scope'].$Call['Data']['ID'], $Call['Data'], $Call['TTL']);
-            F::Log($Call['Data']);
+            $Call['Link']->set($Call['Scope'].$Call['Data']['ID'], json_encode($Call['Data']), $Call['TTL']);
         }
 
         return $Call['Data'];

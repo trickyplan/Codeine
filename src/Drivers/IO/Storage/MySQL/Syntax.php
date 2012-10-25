@@ -29,7 +29,7 @@
             foreach ($Call['Keys'] as $Key)
                 $Keys[] = '`'.$Call['Link']->real_escape_string ($Key).'`';
 
-            $Keys = '('.implode (',', $Keys).')';
+            $Keys = implode (',', $Keys);
         }
         else
             $Keys = '*';

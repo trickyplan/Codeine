@@ -19,7 +19,7 @@
                  'Scope' => 'Activation',
                  'Data' =>
                      array(
-                         'ID' => $User['Code'],
+                         'ID' => (int) $User['Code'],
                          'User' => $User['ID']
                      )
             ));
@@ -73,10 +73,10 @@
              array(
                   'Storage' => 'Activation',
                   'Scope' => 'Activation',
-                  'Where' => $Call['Code']
+                  'Where' => (int) $Call['Code']
              ))[0];
 
-        if ($Activation !== false)
+        if ($Activation !== null)
         {
             F::Run('Entity', 'Update',
                 array(
