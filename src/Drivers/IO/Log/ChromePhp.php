@@ -9,6 +9,7 @@
 
     self::setFn('Write', function ($Call)
     {
+        d(__FILE__, __LINE__, $Call['Data']);
         foreach ($Call['Data'] as $Message)
         {
             switch($Message[2])

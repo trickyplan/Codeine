@@ -9,12 +9,12 @@
     {
         if ($Call['Renderer'] == 'View.HTML')
         {
-            echo '<pre>';
+            echo '<table class="table table-condensed">';
 
             foreach ($Call['Data'] as $Message)
-                echo '['.$Message[2].'] '.$Message[0].':'.$Message[1]."\n";
+                echo '<tr><td>'.$Message[2].'</td><td>'.$Message[0].'</td><td>'.$Message[1]."</td></tr>";
 
-            echo '</pre>';
+            echo '</table>';
         }
 
         return $Call;
