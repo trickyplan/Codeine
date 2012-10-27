@@ -6,6 +6,11 @@
             "Service":"Project.Frontpage",
             "Method":"Do"
         },
+        "/benchmark":
+        {
+            "Service": "Server.Benchmark",
+            "Method": "Do"
+        },
         "/control":
         {
             "Service": "Control.Panel",
