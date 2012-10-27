@@ -9,10 +9,13 @@
 
     self::setFn('Do', function ($Call)
     {
+        $Overall = 0;
         foreach($Call['Benchmarks'] as $Benchmark)
         {
-            $Results[] = [$Benchmark, F::Run('Server.Benchmark.'.$Benchmark, 'Test', $Call)];
+            $Rate = F::Run('Server.Benchmark.'.$Benchmark, 'Test', $Call);
+            $Results[] = [$Benchmark, $Rate];
         }
+
 
         $Call['Output']['Content'][] =
             [
