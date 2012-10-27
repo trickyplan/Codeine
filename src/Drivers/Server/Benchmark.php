@@ -14,8 +14,10 @@
         {
             $Rate = F::Run('Server.Benchmark.'.$Benchmark, 'Test', $Call);
             $Results[] = [$Benchmark, $Rate];
+            $Overall += $Rate;
         }
 
+        $Results[] = ['Overall', $Overall];
 
         $Call['Output']['Content'][] =
             [
