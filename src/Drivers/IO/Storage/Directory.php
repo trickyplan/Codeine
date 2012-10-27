@@ -44,7 +44,7 @@
             }
             else
             {
-                F::Log('Not found '.$Call['Where']['ID'][0]);
+                // F::Log('Not found '.$Call['Where']['ID'][0]);
                 return null;
             }
         }

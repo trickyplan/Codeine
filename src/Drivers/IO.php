@@ -22,8 +22,7 @@
             }
             else
             {
-                F::Log($Call['Storage'].' not found', 'Error');
-                return $Call = F::Hook('Storage.NotFound', $Call);
+                die($Call['Storage'].' not found'); // FIXME
             }
         }
 
@@ -54,9 +53,9 @@
             if (isset($Call['Format']) && is_array($Call['Result']))
                 foreach($Call['Result'] as &$Element)
                     $Element = F::Run($Call['Format'], 'Decode', array ('Value' => $Element));
-        }
 
-        $Call = F::Hook('afterIORead', $Call);
+            $Call = F::Hook('afterIORead', $Call);
+        }
 
         return $Call['Result'];
     });

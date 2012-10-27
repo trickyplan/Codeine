@@ -27,8 +27,6 @@
 
         if (null == ($Data = F::Get($Query))) // FIXME Нормальная мемоизация
         {
-            F::Log($Query);
-
             $Result = $Call['Link']->query($Query);
             F::Counter('MySQL');
 
@@ -39,9 +37,10 @@
             {
                 $Data = $Result->fetch_all(MYSQLI_ASSOC);
                 $Result->free();
+                F::Log('['.sizeof($Data).']'.$Query);
             }
             else
-                F::Log($Query.' is empty');
+                F::Log('[Empty] '.$Query);
 
             F::Set($Query, $Data);
         }
@@ -49,9 +48,6 @@
         return $Data;
     });
 
-    /**
-     * @var mysqli $Call["Link"]
-     */
     self::setFn ('Write', function ($Call)
     {
         if (isset($Call['Where']))

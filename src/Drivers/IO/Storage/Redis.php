@@ -22,11 +22,11 @@
             foreach ($Call['Where']['ID'] as &$ID)
                 $ID = $Call['Scope'].$ID;
 
-            return json_decode($Call['Link']->mGet($Call['Where']['ID']), true);
+            return $Call['Link']->mGet($Call['Where']['ID']);
         }
         else
         {
-            if (($Result = json_decode($Call['Link']->get($Call['Scope'].$Call['Where']['ID']), true))  !== false)
+            if (($Result = $Call['Link']->get($Call['Scope'].$Call['Where']['ID']))  !== false)
                 return array($Result);
             else
                 return null;
@@ -40,14 +40,11 @@
             if (null === $Call['Data'])
                 $Call['Link']->del($Call['Scope'].$Call['Where']['ID']);
             else
-            {
-                $Call['Data'] = F::Merge(F::Run(null, 'Read', $Call)[0], $Call['Data']);
-                $Call['Link']->set($Call['Scope'].$Call['Where']['ID'], json_encode($Call['Data']), $Call['TTL']);
-            }
+                $Call['Link']->set($Call['Scope'].$Call['Where']['ID'], $Call['Data'], $Call['TTL']);
         }
         else
         {
-            $Call['Link']->set($Call['Scope'].$Call['Data']['ID'], json_encode($Call['Data']), $Call['TTL']);
+            $Call['Link']->set($Call['Scope'].$Call['Data']['ID'], $Call['Data'], $Call['TTL']);
         }
 
         return $Call['Data'];

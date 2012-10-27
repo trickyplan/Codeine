@@ -14,6 +14,10 @@
             "Directory":"Assets",
             "Suffix": ".html"
         },
+        "Redis":
+        {
+            "Driver": "IO.Storage.Redis"
+        },
         "Locale":
         {
             "Driver":"IO.Storage.Directory",
