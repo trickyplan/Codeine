@@ -13,7 +13,7 @@
         $password = '';
 
         $vowels = array('a', 'e', 'u');
-        $cons = array('b', 'c', 'd', 'g', 'h', 'j', 'k','m', '_N', 'p', 'r', 's', 't', 'u', 'v', 'w', 'tr',
+        $cons = array('b', 'c', 'd', 'g', 'h', 'j', 'k','m', 'N', 'p', 'r', 's', 't', 'u', 'v', 'w', 'tr',
         'cr', 'br', 'fr', 'th', 'dr', 'ch', 'ph', 'wr', 'st', 'sp', 'sw', 'pr', 'sl', 'cl');
 
         $num_vowels = count($vowels);
