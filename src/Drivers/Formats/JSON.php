@@ -5,8 +5,6 @@
      * @description: 
      * @package Codeine
      * @version 7.x
-     * @date 13.08.11
-     * @time 22:46
      */
 
     self::setFn('Decode', function ($Call)
