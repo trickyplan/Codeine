@@ -28,6 +28,8 @@
 
         private static $_Live = false;
 
+        private static $_SR71 = false;
+
         public static function Environment()
         {
             return self::$_Environment;
@@ -36,6 +38,9 @@
         public static function Bootstrap ($Call = null)
         {
             self::$_Live = true;
+
+            if (isset($_REQUEST['SR71']))
+                self::$_SR71 = true;
 
             self::Start(self::$_Service . '.' . self::$_Method);
 
@@ -249,15 +254,20 @@
 
                 if (is_callable($F))
                 {
-                    self::Stop($OldService. '.' . $OldMethod);
-                    self::Start(self::$_Service . '.' . self::$_Method);
+                    if (self::$_SR71)
+                    {
+                        self::Stop($OldService. '.' . $OldMethod);
+                        self::Start(self::$_Service . '.' . self::$_Method);
+                    }
 
                     $Result = $F($Call);
 
-                    self::Counter(self::$_Service);
-                    self::Counter(self::$_Service.'.'.self::$_Method);
-                    self::Stop(self::$_Service . '.' . self::$_Method);
-                    self::Start($OldService. '.' . $OldMethod);
+                    if (self::$_SR71)
+                    {
+                        self::Counter(self::$_Service.'.'.self::$_Method);
+                        self::Stop(self::$_Service . '.' . self::$_Method);
+                        self::Start($OldService. '.' . $OldMethod);
+                    }
                 }
                 else
                     $Result = isset($Call['Fallback']) ? $Call['Fallback'] : null;
@@ -573,9 +583,11 @@
            $Summary['Calls'] = array_sum(self::$_Counters['C']);
 
            arsort(self::$_Counters['T']);
-           echo "<pre>time\tcalls\trtime\trcall\tfn\n".$Summary['Time']."\n";
+           echo "<pre>time\tcalls\trtime\trcall\tfn\n".$Summary['Time']."\t".$Summary['Calls']."\n";
            foreach (self::$_Counters['T'] as $Key => $Value)
-               echo $Value."\t".self::$_Counters['C'][$Key]."\t".round(($Value/$Summary['Time'])*100)."%\t".round((self::$_Counters['C'][$Key]/$Summary['Calls'])*100)."%\t".$Key."\n";
+               echo $Value."\t".self::$_Counters['C'][$Key]."\t".round(($Value/$Summary['Time'])*100)
+                         ."%\t".round((self::$_Counters['C'][$Key]/$Summary['Calls']),2)*100
+                         ."%\t".$Key."\n";
 
            echo '</pre>';
         }
@@ -605,7 +617,7 @@
         {
             self::Stop(self::$_Service . '.' . self::$_Method);
 
-            if (isset($_REQUEST['SR71']))
+            if (F::$_SR71)
                 self::SR71();
 
             return null;

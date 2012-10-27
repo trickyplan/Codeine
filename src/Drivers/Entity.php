@@ -101,3 +101,9 @@
                   'Scope'   => $Call['Entity']
             ));
     });
+
+    self::setFn('Far', function ($Call)
+    {
+        $Element = F::Run(null, 'Read', $Call)[0];
+        return isset($Element[$Call['Key']])? $Element[$Call['Key']]: null;
+    });
