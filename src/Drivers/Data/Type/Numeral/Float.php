@@ -14,5 +14,5 @@
 
     self::setFn('Read', function ($Call)
     {
-        return (float) $Call['Value'];
+        return (float) strtr($Call['Value'], ',','.');
     });
