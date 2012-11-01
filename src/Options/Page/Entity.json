@@ -46,7 +46,7 @@
         },
         "Body":
         {
-            "Type": "Literal.String",
+            "Type": "Literal.HTML",
             "Widgets":
             {
                 "Write":

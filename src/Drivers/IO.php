@@ -22,7 +22,7 @@
             }
             else
             {
-                die($Call['Storage'].' not found'); // FIXME
+                trigger_error($Call['Storage'].' not found'); // FIXME
             }
         }
 

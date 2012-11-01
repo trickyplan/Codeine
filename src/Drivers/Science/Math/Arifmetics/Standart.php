@@ -19,8 +19,7 @@
 
     self::setFn('Multiply', function ($Call)
     {
-        d(__FILE__, __LINE__, $Call['B']);
-        return $Call['A']*(float)$Call['B'];
+        return strtr($Call['A'],',','.')*strtr($Call['B'],',','.');
     });
 
     self::setFn('Divide', function ($Call)
