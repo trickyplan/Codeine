@@ -137,6 +137,7 @@
             "Weight": -5,
             "Service": "Entity.Show.Static",
             "Method": "Do",
+            "Zone": ["Project"],
             "Call":
             {
                 "Entity": "Page",

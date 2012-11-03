@@ -44,17 +44,17 @@
 
             if (!F::file_exists(Root.'/Public'.$ThumbURL))
             {
-                F::Log('Thumbnail created');
+
 
                 try
                 {
                     if (getimagesize($Filename))
                     {
-                        $Blob = file_get_contents($Filename);
-                        $Image = new Gmagick();
-                        $Image->readimageblob($Blob);
+                        $Image = new Gmagick($Filename);
                         $Image->cropThumbnailImage($Thumb['Width'], $Thumb['Width']);
+                        $Image->enhanceimage();
                         $Image->writeImage(Root.'/Public'.$ThumbURL);
+                        F::Log('Thumbnail created', LOG_INFO);
                     }
                 }
                 catch (Exception $e)

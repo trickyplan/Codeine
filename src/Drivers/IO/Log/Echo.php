@@ -2,26 +2,20 @@
 
     self::setFn('Open', function ($Call)
     {
+        if ($Call['Renderer'] == 'View.HTML')
+            echo '<pre>';
         return true;
     });
 
     self::setFn('Write', function ($Call)
     {
-        if ($Call['Renderer'] == 'View.HTML')
-        {
-            echo '<pre>';
-
-            foreach ($Call['Data'] as $Message)
-                echo '['.$Message[2].'] '.$Message[0].':'.$Message[1]."\n";
-
-            echo '</pre>';
-        }
-
-        return $Call;
+        echo $Call['Data'][0]."\t\t".$Call['Data'][1]."\n";
+        return true;
     });
 
     self::setFn('Close', function ($Call)
     {
-
+        if ($Call['Renderer'] == 'View.HTML')
+            echo '</pre>';
         return $Call;
     });

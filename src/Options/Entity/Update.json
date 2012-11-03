@@ -3,15 +3,7 @@
     "FormLayout": "Full",
     "Hooks":
     {
-        "beforeUpdateGet":
-        {
-            "Load model (essential)":
-            {
-                "Service":"Entity",
-                "Method":"Load"
-            }
-        },
-        "beforeUpdatePost":
+        "beforeUpdateDo":
         {
             "Load model (essential)":
             {

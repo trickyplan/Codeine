@@ -9,6 +9,8 @@
 
     self::setFn('Do', function ($Call)
     {
+        $Call = F::Hook('beforeUpdateDo', $Call);
+
         $Call['Purpose'] = 'Update';
         $Call['Where'] = F::Live($Call['Where']); // FIXME
 
@@ -90,7 +92,6 @@
 
         $Call['Data'] = F::Run('Entity', 'Update', $Call);
 
-        $Call['Data'] = F::Run('Entity', 'Read', $Call)[0];
 
        // Выводим результат
 

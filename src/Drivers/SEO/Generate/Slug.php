@@ -15,12 +15,17 @@
         {
             foreach ($Call['Key'] as $cKey)
             {
-                $Call['Data'][$cKey] = trim($Call['Data'][$cKey]);
-                if (!empty($Call['Data'][$cKey]))
-                    $Call['Value'][]= $Call['Data'][$cKey];
+                if (isset($Call['Data'][$cKey]))
+                {
+                    $Call['Data'][$cKey] = trim($Call['Data'][$cKey]);
+
+                    if (!empty($Call['Data'][$cKey]))
+                        $Call['Value'][]= $Call['Data'][$cKey];
+                }
             }
 
-            $Call['Value'] = implode($Call['Delimiter'], $Call['Value']);
+            if (!empty($Call['Value']))
+                $Call['Value'] = implode($Call['Delimiter'], $Call['Value']);
         }
         else
             $Call['Value'] = trim($Call['Data'][$Call['Key']]);

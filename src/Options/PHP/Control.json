@@ -11,6 +11,7 @@
         "5.4.4-1~dotdeb.0": "Outdated",
         "5.4.5-1~dotdeb.0": "Outdated",
         "5.4.6-1~dotdeb.0": "Outdated",
-        "5.4.7-1~dotdeb.0": "Stable"
+        "5.4.7-1~dotdeb.0": "Outdated",
+        "5.4.8-1~dotdeb.0": "Stable"
     }
 }

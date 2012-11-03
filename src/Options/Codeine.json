@@ -1,4 +1,5 @@
 {
+    "Verbose": 6,
     "Driver":
     {
         "Path": "Drivers",

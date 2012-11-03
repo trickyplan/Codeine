@@ -79,11 +79,11 @@
                                                                     'Where'   => $ID
                                                               )))
                         {
-                            F::Log('CSS loaded: '.$CSSFile);
+                            F::Log('CSS loaded: '.$CSSFile, LOG_DEBUG);
                             $CSS[] = $CSSSource[0];
                         }
                         else
-                            trigger_error('No CSS: '.$CSSFile); // FIXNE
+                            F::Log('CSS cannot loaded: '.$CSSFile, LOG_WARNING);
                     }
 
                     $CSS = implode ('', $CSS);

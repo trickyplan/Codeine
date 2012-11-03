@@ -12,21 +12,21 @@
         F::Run('Entity', 'Delete', array(
                                     'Entity' => $Call['Entity'].'2'.$Call['Name'],
                                     'Where' =>
-                                        array (
-                                            $Call['Entity'].'ID' => $Call['Data']['ID']
-                                        )
+                                        [
+                                            $Call['Entity'] => $Call['Data']['ID']
+                                        ]
                                ));
 
-
         foreach ($Call['Value'] as $Value)
-            F::Run('Entity', 'Create', array(
-                                        'Entity' => $Call['Entity'].'2'.$Call['Name'],
-                                        'Data' =>
-                                            array (
-                                                $Call['Name'].'ID' => $Value,
-                                                $Call['Entity'].'ID' => $Call['Data']['ID']
-                                            )
-                                   ));
+            F::Run('Entity', 'Create',
+                [
+                    'Entity' => $Call['Entity'].'2'.$Call['Name'],
+                    'Data' =>
+                        [
+                             $Call['Name'] => $Value,
+                             $Call['Entity'] => $Call['Data']['ID']
+                        ]
+               ]);
 
         return null;
     });
@@ -38,13 +38,13 @@
                                         'Entity' => $Call['Entity'].'2'.$Call['Name'],
                                         'Where' =>
                                             array (
-                                                $Call['Entity'].'ID' => $Call['Data']['ID']
+                                                $Call['Entity'] => $Call['Data']['ID']
                                             )
                                    ));
             $Result = array();
 
             foreach ($Data as $Row)
-                $Result[] = $Row[$Call['Name'] . 'ID'];
+                $Result[] = $Row[$Call['Name']];
 
             return $Result;
         };

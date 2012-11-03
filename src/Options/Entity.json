@@ -1,6 +1,22 @@
 {
     "Hooks":
     {
+        "beforeEntityWrite":
+        {
+            "Make variables alive":
+            {
+                "Service":"Entity.Nodes.Hook",
+                "Method":"Process"
+            }
+        },
+        "afterEntityWrite":
+        {
+            "Make variables alive":
+            {
+                "Service":"Entity.Nodes.Hook",
+                "Method":"Process"
+            }
+        },
         "beforeEntityCreate":
         {
             "Load model (essential)":
@@ -20,12 +36,8 @@
             },
             "Make variables alive":
             {
-                "Service":"Entity.Nodes.Live",
-                "Method":"Process",
-                "Call":
-                {
-                    "Purpose": "Create"
-                }
+                "Service":"Entity.Nodes.Hook",
+                "Method":"Process"
             },
             "Datatypes":
             {
@@ -58,6 +70,11 @@
                 "Service":"Entity.Nodes.Strict",
                 "Method":"Process"
             },
+            "Typecast":
+            {
+                "Service":"Entity.Nodes.Typecast",
+                "Method":"Process"
+            },
             "Datatypes":
             {
                 "Service":"Entity.Nodes.Type",
@@ -69,21 +86,17 @@
             },
             "Make variables alive":
             {
-                "Service":"Entity.Nodes.Live",
-                "Method":"Process",
-                "Call":
-                {
-                    "Purpose": "Update"
-                }
-            },
-            "Updated values":
-            {
-                "Service":"Entity.Nodes.Updated",
+                "Service":"Entity.Nodes.Hook",
                 "Method":"Process"
             },
             "Filter":
             {
                 "Service":"Entity.Nodes.Filter",
+                "Method":"Process"
+            },
+            "Updated values":
+            {
+                "Service":"Entity.Nodes.Updated",
                 "Method":"Process"
             }
         },
@@ -93,6 +106,11 @@
             {
                 "Service":"Entity",
                 "Method":"Load"
+            },
+            "Typecast":
+            {
+                "Service":"Entity.Nodes.Typecast",
+                "Method":"Process"
             }
         },
         "beforeEntityRead":
@@ -102,10 +120,10 @@
                 "Service":"Entity",
                 "Method":"Load"
             },
-            "Strict where typing":
+            "Typecast":
             {
-                "Service": "Entity.Nodes.Where",
-                "Method": "Process"
+                "Service":"Entity.Nodes.Typecast",
+                "Method":"Process"
             }
         },
         "afterEntityRead":
@@ -119,15 +137,6 @@
             {
                 "Service":"Entity.Nodes.Type",
                 "Method":"Read"
-            },
-            "Make variables alive":
-            {
-                "Service":"Entity.Nodes.Live",
-                "Method":"Process",
-                "Call":
-                {
-                    "Purpose": "Read"
-                }
             },
             "Hooks":
             {

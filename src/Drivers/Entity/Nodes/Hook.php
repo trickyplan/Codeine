@@ -11,10 +11,9 @@
     {
         foreach ($Call['Nodes'] as $Name => $Node)
         {
-            if (isset($Node['afterRead']))
-                foreach ($Call['Data'] as &$Row)
-                    foreach ($Node['afterRead'] as $Hook)
-                        $Row[$Name] = F::Live($Hook, array('Value'=> $Row[$Name]));
+            if (isset($Node['Hooks']))
+                if(isset($Node['Hooks'][$Call['On']]))
+                    $Call['Data'][$Name] = F::Live($Node['Hooks'][$Call['On']], $Call);
         }
 
         return $Call;

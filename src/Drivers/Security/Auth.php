@@ -43,7 +43,7 @@
                 if ($Call['Session']['Expire'] < time())
                 {
                     $Call = F::Run(null, 'Annulate', $Call);
-                    F::Log('Session expired');
+                    F::Log('Session expired', LOG_INFO);
                 }
                 else
                 {
@@ -95,7 +95,7 @@
                              'Where' => $Call['SID']
                         ));
 
-        F::Log('Session annulated');
+        F::Log('Session annulated', LOG_INFO);
 
         return $Call;
     });
@@ -106,7 +106,7 @@
 
         if (isset($Call['Session']['User']['ID']))
         {
-            F::Log('Secondary logon');
+            F::Log('Secondary logon', LOG_INFO);
             return F::Run('Entity', 'Update',
                 array(
                     'Entity' => 'Session',
@@ -119,7 +119,7 @@
         }
         else
         {
-            F::Log('Primary logon');
+            F::Log('Primary logon', LOG_INFO);
             return F::Run('Entity', 'Update',
                 array(
                     'Entity' => 'Session',
@@ -177,11 +177,11 @@
         $Call = F::Run(null, 'Audit', $Call);
 
         return F::Run('Entity', 'Update',
-             array(
+             [
                   'Entity' => 'Session',
                   'Where' => $Call['SID'],
-                  'Data' => $Call['Data'])
-             );
+                  'Data' => $Call['Data']
+             ]);
     });
 
     self::setFn('Read', function ($Call)

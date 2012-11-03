@@ -33,6 +33,7 @@
                 array(
                      'Entity' => 'User',
                      'Where'  => $Call['Session']['User']['ID'],
+                     'Purpose' => 'Reset',
                      'Data' =>
                         [
                             'Password' => $Call['Request']['NewPassword']

@@ -61,9 +61,9 @@
                                                         'Scope'   => $Asset . '/js',
                                                         'Where'   => $ID
                                                   ))[0]))
-                        trigger_error('No JS: '.$JSFile);
+                        F::Log('JS cannot loaded: '.$JSFile, LOG_WARNING);
                     else
-                        F::Log('JS loaded: '.$JSFile);
+                        F::Log('JS loaded: '.$JSFile, LOG_DEBUG);
                 }
 
                 $JS = implode('', $JS).$RunJS;

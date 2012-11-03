@@ -31,16 +31,16 @@
             F::Counter('MySQL');
 
             if ($Call['Link']->errno != 0)
-                F::Log($Call['Link']->error,'Error');
+                F::Log($Call['Link']->error, LOG_CRIT);
 
             if ($Result->num_rows>0)
             {
                 $Data = $Result->fetch_all(MYSQLI_ASSOC);
                 $Result->free();
-                F::Log('['.sizeof($Data).']'.$Query);
+                F::Log('['.sizeof($Data).'] '.$Query, LOG_DEBUG);
             }
             else
-                F::Log('[Empty] '.$Query);
+                F::Log('[Empty] '.$Query, LOG_INFO);
 
             F::Set($Query, $Data);
         }
@@ -60,16 +60,14 @@
         else
             $Query = F::Run('IO.Storage.MySQL.Syntax', 'Insert', $Call);
 
-        if (isset($Call['Debug']))
-            d(__FILE__, __LINE__, $Query);
-
-        F::Log($Query);
+        F::Log($Query, LOG_INFO);
 
         $Call['Link']->query($Query);
+
         F::Counter('MySQL');
 
         if ($Call['Link']->errno != 0)
-            F::Log($Call['Link']->error,'Error');
+            F::Log($Call['Link']->error, LOG_ERR);
 
         if (isset($Call['Data']))
             return $Call['Data'];

@@ -10,20 +10,22 @@
 
     self::setFn('Spit', function ($Call)
     {
-        if (self::$_Environment != 'Production')
+        $Logs = F::Logs();
+
+        foreach ($Logs as $Log)
         {
             F::Run(
                 'IO', 'Write',
                 [
                     'Renderer' => $Call['Renderer'],
                     'Storage' => 'Developer',
-                    'Data' => F::Logs()
+                    'Scope' => $Call['Project']['ID'],
+                    'Data' => $Log
                 ]
             );
-
-            F::Run('IO', 'Close', array('Storage' => 'Developer'));
         }
 
+        F::Run('IO', 'Close', array('Storage' => 'Developer'));
 
         return $Call;
     });

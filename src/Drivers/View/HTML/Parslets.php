@@ -22,7 +22,7 @@
 
                  if ($Passes > $Call['MaxPasses'])
                  {
-                     F::Log($Parslet.' Parslet raised max passes limit.', 'Error');
+                     F::Log($Parslet.' Parslet raised max passes limit.', LOG_ERR);
                      break;
                  }
              }

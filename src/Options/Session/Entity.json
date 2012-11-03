@@ -4,14 +4,17 @@
     {
         "ID":
         {
-            "Type": "Literal.String",
-            "Create":
+            "Type": "Numeral.Integer",
+            "Hooks":
             {
-                "Service": "Security.UID",
-                "Method": "Get",
-                "Call":
+                "beforeEntityCreate":
                 {
-                    "Mode": "Secure"
+                    "Service": "Security.UID",
+                    "Method": "Get",
+                    "Call":
+                    {
+                        "Mode": "Secure"
+                    }
                 }
             }
         },
@@ -21,18 +24,24 @@
         },
         "IP.Start":
         {
-            "Create":
+            "Hooks":
             {
-                "Service": "System.Interface.Web.IP",
-                "Method": "Get"
+                "beforeEntityCreate":
+                {
+                    "Service": "System.Interface.Web.IP",
+                    "Method": "Get"
+                }
             }
         },
         "IP.Current":
         {
-            "Update":
+            "Hooks":
             {
-                "Service": "System.Interface.Web.IP",
-                "Method": "Get"
+                "beforeEntityUpdate":
+                {
+                    "Service": "System.Interface.Web.IP",
+                    "Method": "Get"
+                }
             }
         },
         "User":
@@ -51,10 +60,13 @@
         },
         "Created":
         {
-            "Create":
+            "Hooks":
             {
-                "Service": "System.Time",
-                "Method": "Get"
+                "beforeEntityCreate":
+                {
+                    "Service": "System.Time",
+                    "Method": "Get"
+                }
             }
         }
     },

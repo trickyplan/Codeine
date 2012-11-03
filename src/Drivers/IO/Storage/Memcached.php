@@ -44,10 +44,7 @@
             }
         }
         else
-        {
             $Call['Link']->set($Call['Scope'].$Call['Data']['ID'], $Call['Data'], $Call['TTL']);
-            F::Log($Call['Data']);
-        }
 
         return $Call['Data'];
     });

@@ -44,7 +44,7 @@
             }
             else
             {
-                // F::Log('Not found '.$Call['Where']['ID'][0]);
+                F::Log('Not found '.$Call['Where']['ID'][0], LOG_INFO);
                 return null;
             }
         }
@@ -93,7 +93,7 @@
             if (file_put_contents ($Filename, $Call['Data']))
                 return $Call['Data'];
             else
-                F::Log('Write failed');
+                F::Log('Write failed', LOG_ERR);
         else
             return unlink ($Filename);
     });

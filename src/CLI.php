@@ -9,6 +9,9 @@
 
     $Opts = getopt ('', array('Service:', 'Method:', 'Environment:'));
 
+    if (!isset($Opts['Method']))
+        $Opts['Method'] = 'Do';
+
     F::Bootstrap ([
                        'Path' => array(Root),
                        'Environment' => isset($Opts['Environment'])? $Opts['Environment']: 'Production'

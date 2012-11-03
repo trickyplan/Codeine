@@ -10,6 +10,8 @@
     self::setFn ('Open', function ($Call)
     {
         $StorageID = $Call['Storage'];
+        if (!isset($Call['Storage']))
+            die ('Null Storage');
 
         if (isset($Call['Storages'][$StorageID]))
             $Call = F::Merge($Call, $Call['Storages'][$StorageID]);

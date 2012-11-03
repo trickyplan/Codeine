@@ -47,7 +47,7 @@
                                 }
                             });
 
-                            F::Log('Regex router rule '.$Name.' matched');
+                            F::Log('Regex router rule '.$Name.' matched', LOG_DEBUG);
 
                             $Weight = $Rule['Weight'];
                             $Decision = $Rule;
@@ -60,9 +60,9 @@
             die('Regex routes table corrupted'); // FIXME
 
         if (isset($Selected))
-            F::Log('Regex router rule '.$Selected.' selected');
+            F::Log('Regex router rule '.$Selected.' selected', LOG_INFO);
         else
-            F::Log('No one regex rule selected');
+            F::Log('No one regex rule selected', LOG_INFO);
 
         $Call['Run'] = $Decision;
 

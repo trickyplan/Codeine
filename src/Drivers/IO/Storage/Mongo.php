@@ -22,29 +22,9 @@
     {
         $Call['Scope'] = strtr($Call['Scope'], '.', '_');
         $Data = null;
+
         if (isset($Call['Where']))
-        {
-            $Where = [];
-
-            foreach ($Call['Where'] as $Key => &$Value) // FIXME Повысить уровень абстракции
-            {
-                if (!isset($Call['Nodes'][$Key]['Type']))
-                    $Call['Nodes'][$Key]['Type'] = 'Dummy';
-
-                if (is_array($Value))
-                    foreach ($Value as $Relation => &$cValue)
-                    {
-                        if ($Relation == 'IN')
-                            $Where[$Key] = ['$in' => $cValue];
-                        else
-                            $Where[$Key] = [$Relation => F::Run('Data.Type.'.$Call['Nodes'][$Key]['Type'], 'Read', array('Value' => $cValue, 'Purpose' => 'Where'))];
-                    }
-                else
-                    $Where[$Key] = F::Run('Data.Type.'.$Call['Nodes'][$Key]['Type'], 'Read', array('Value' => $Value, 'Purpose' => 'Where'));
-            }
-            unset($Value, $Key);
-            $Cursor = $Call['Link']->$Call['Scope']->find($Where);
-        }
+            $Cursor = $Call['Link']->$Call['Scope']->find($Call['Where']);
         else
             $Cursor = $Call['Link']->$Call['Scope']->find();
 
@@ -79,31 +59,6 @@
     self::setFn ('Write', function ($Call)
     {
         $Call['Scope'] = strtr($Call['Scope'], '.', '_');
-        if (isset($Call['Where']))
-        {
-            $Where = [];
-
-            foreach ($Call['Where'] as $Key => &$Value) // FIXME Повысить уровень абстракции
-            {
-                if (!isset($Call['Nodes'][$Key]['Type']))
-                    $Call['Nodes'][$Key]['Type'] = 'Dummy';
-
-                if (is_array($Value))
-                    foreach ($Value as $Relation => &$cValue)
-                    {
-                        if ($Relation == 'IN')
-                            $Where[$Key] = ['$in' => $cValue];
-                        else
-                            $Where[$Key] = [$Relation => F::Run('Data.Type.'.$Call['Nodes'][$Key]['Type'], 'Read', array('Value' => $cValue, 'Purpose' => 'Where'))];
-                    }
-                else
-                    $Where[$Key] = F::Run('Data.Type.'.$Call['Nodes'][$Key]['Type'], 'Read', array('Value' => $Value, 'Purpose' => 'Where'));
-            }
-
-            unset($Value, $Key);
-
-            $Call['Where'] = $Where;
-        }
 
         if (null === $Call['Data'])
         {
@@ -148,25 +103,9 @@
     self::setFn ('Count', function ($Call)
     {
         $Call['Scope'] = strtr($Call['Scope'], '.', '_');
+
         if (isset($Call['Where']))
-        {
-            foreach ($Call['Where'] as $Key => &$Value) // FIXME Повысить уровень абстракции
-            {
-                if (isset($Call['Nodes'][$Key]['Type']))
-                {
-                    if (is_array($Value))
-                        foreach ($Value as &$cValue)
-                            $cValue = F::Run('Data.Type.'.$Call['Nodes'][$Key]['Type'], 'Read', array('Value' => $cValue, 'Purpose' => 'Where'));
-                    else
-                        $Value = F::Run('Data.Type.'.$Call['Nodes'][$Key]['Type'], 'Read', array('Value' => $Value, 'Purpose' => 'Where'));
-                }
-
-            }
-
-            unset($Value, $Key);
-
             $Cursor = $Call['Link']->$Call['Scope']->find($Call['Where']);
-        }
         else
             $Cursor = $Call['Link']->$Call['Scope']->find();
 

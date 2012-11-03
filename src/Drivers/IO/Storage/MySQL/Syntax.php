@@ -44,7 +44,8 @@
             $Sets = array ();
 
             foreach ($Call['Data'] as $Key => $Value)
-                $Sets[] = '`'.$Call['Link']->real_escape_string($Key).'` = \''. $Call['Link']->real_escape_string($Value).'\'';
+                if (is_scalar($Value))
+                    $Sets[] = '`'.$Call['Link']->real_escape_string($Key).'` = \''. $Call['Link']->real_escape_string($Value).'\'';
 
             $Sets = implode(',', $Sets);
         }
@@ -87,7 +88,7 @@
                 if (isset($Call['Nodes'][$Key]))
                     $Conditions[] = $Call['Link']->real_escape_string($Key)
                         .(is_numeric($Call['Nodes'][$Key])? '+0': '')
-                        .' '.($Direction == SORT_ASC? 'ASC': 'DESC');
+                        .' '.($Direction == 'ASC'? 'ASC': 'DESC');
 
             if (sizeof($Conditions)>0)
                 $SortString = ' order by ' . implode(',', $Conditions);
@@ -139,6 +140,9 @@
                     $Value = $Call['Link']->real_escape_string($Value);
                     $Quote = true;
                 }
+
+                if ($Relation == '$in')
+                    $Relation = 'IN';
 
                 $Conditions[] = '`'.$Key.'` '. $Relation.' '.($Quote ? '\''.$Value.'\'': $Value);
             }

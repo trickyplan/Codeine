@@ -12,19 +12,18 @@
     final class F
     {
         private static $_Environment = 'Production';
+
         private static $_Options;
         private static $_Code;
-
-        private static $_Overflow;
 
         private static $_Service = 'Codeine';
         private static $_Method = 'Do';
 
-        private static $_Storage = array();
-        private static $_Ticks = array();
-        private static $_Speed = array();
-        private static $_Counters = array();
-        private static $_Log = array();
+        private static $_Storage = [];
+        private static $_Ticks = [];
+        private static $_Speed = [];
+        private static $_Counters = [];
+        private static $_Log = [];
 
         private static $_Live = false;
 
@@ -57,12 +56,12 @@
             if (isset($Call['Path']))
             {
                 if (is_array($Call['Path']))
-                    self::$_Options['Path'] = array_merge($Call['Path'], array(Codeine));
+                    self::$_Options['Path'] = array_merge($Call['Path'], [Codeine]);
                 else
-                    self::$_Options['Path'] = array($Call['Path'], Codeine);
+                    self::$_Options['Path'] = [$Call['Path'], Codeine];
             }
             else
-                self::$_Options['Path'] = array (Codeine);
+                self::$_Options['Path'] = [Codeine];
 
             if (isset($_COOKIE['Experiment']))
                 if (isset(self::$_Options['Experiments'][$_COOKIE['Experiment']]))
@@ -85,16 +84,16 @@
                 trigger_error('Codeine '.self::$_Options['Project']['Version']['Codeine'].'+ needed. Installed: '
                     .self::$_Options['Version']['Codeine']['Major']);
 
-            self::Log('Codeine: '.self::$_Options['Version']['Codeine']['Major']);
-            self::Log('Build: '.self::$_Options['Version']['Codeine']['Minor']);
+            self::Log('Codeine: '.self::$_Options['Version']['Codeine']['Major'], LOG_INFO);
+            self::Log('Build: '.self::$_Options['Version']['Codeine']['Minor'], LOG_INFO);
 
             if (isset(self::$_Options['Version']['Project']))
             {
-                self::Log('Project: '.self::$_Options['Version']['Project']['Major']);
-                self::Log('Build: '.self::$_Options['Version']['Project']['Minor']);
+                self::Log('Project: '.self::$_Options['Version']['Project']['Major'], LOG_INFO);
+                self::Log('Build: '.self::$_Options['Version']['Project']['Minor'], LOG_INFO);
             }
 
-            self::Log('Environment: '.self::$_Environment);
+            self::Log('Environment: '.self::$_Environment, LOG_INFO);
         }
 
         public static function Merge($First, $Second)
@@ -158,7 +157,7 @@
 
         public static function findFiles ($Names)
         {
-            $Results = array();
+            $Results = [];
 
             $Names = (array) $Names;
 
@@ -185,7 +184,7 @@
                 return (include $Filename);
             else
             {
-                F::Log($Service.' not found');
+                F::Log($Service.' not found', LOG_CRIT);
                 return null;
             }
         }
@@ -293,12 +292,9 @@
             }
             else
                 return null;
-
-            // Fuckup of IDE hinting
-            return function (){};
         }
 
-        public static function Live($Variable, $Call = array())
+        public static function Live($Variable, $Call = [])
         {
             if ($Variable instanceof Closure)
                 return $Variable($Call);
@@ -316,7 +312,7 @@
                 }
 
                 return F::Run($Variable['Service'], $Variable['Method'],
-                    $Call, isset($Variable['Call'])? $Variable['Call']: array());
+                    $Call, isset($Variable['Call'])? $Variable['Call']: []);
             }
             else
             {
@@ -335,7 +331,7 @@
 
         public static function Extract($Array, $Keys)
         {
-            $Data = array();
+            $Data = [];
             foreach ($Keys as $Key)
                 if (is_scalar($Key) &&  isset($Array[$Key]))
                     $Data[$Key] = $Array[$Key];
@@ -436,13 +432,26 @@
 
         public static function Error($errno , $errstr , $errfile , $errline , $errcontext)
         {
-            return F::Log($errstr.' '.$errfile.'@'.$errline, 'Error');
+            return F::Log($errstr.' '.$errfile.'@'.$errline, LOG_ERR);
         }
 
-        public static function Log ($Message, $Type = 'Info')
+        /*
+         * Verbosity
+         *
+         *
+         * 7 - Debug
+         * 6 - Notice
+         * 5 - Warning
+         * 4 - Error
+         * 3 - Failure
+         * 2 - Critical
+         * 1 - Emergency
+         * 0 - Apocalypse
+         */
+        public static function Log ($Message, $Verbose = 6)
         {
-            if (self::$_Environment !== 'Production')
-                return self::$_Log[] = array(round(microtime(true) - self::$_Ticks['T']['Codeine.Do'], 4), $Message, $Type);
+            if ($Verbose <= self::$_Options['Codeine']['Verbose'])
+                return self::$_Log[] = [round(microtime(true) - self::$_Ticks['T']['Codeine.Do'], 4)*1000, $Message, $Verbose];
         }
 
         public static function Logs()
@@ -458,7 +467,7 @@
             // Если контракт уже не загружен
             if (!isset(self::$_Options[$Service]))
             {
-                $Options = array();
+                $Options = [];
 
                 $ServicePath = strtr($Service, '.', '/');
 
@@ -627,7 +636,7 @@
     function d()
     {
         if (F::Environment() == 'Development')
-            call_user_func_array(array('F','Dump'), func_get_args());
+            call_user_func_array(['F','Dump'], func_get_args());
 
         return func_get_arg(2);
     }

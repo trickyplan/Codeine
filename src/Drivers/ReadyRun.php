@@ -73,7 +73,6 @@
         {
             $Call['Output'] = $RR[0]['Page'];
             $Call['SkipRun'] = true;
-            F::Log('RR!');
         }
 
         return $Call;

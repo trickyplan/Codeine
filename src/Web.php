@@ -15,10 +15,10 @@
 
     include 'Codeine/Core.php';
 
-    F::Bootstrap (array(
+    F::Bootstrap ([
                        'Path' => array(Root)
                        //,'Trace' => true
-                  ));
+                  ]);
 
     F::Run(
         'System.Interface.Web',

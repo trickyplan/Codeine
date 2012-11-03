@@ -9,29 +9,26 @@
 
     self::setFn('Write', function ($Call)
     {
-        foreach ($Call['Data'] as $Message)
-        {
-            switch($Message[2])
+            switch($Call['Data'][2])
             {
                 case 'Error':
-                    $Call['Link']->error($Message[0].': '.$Message[1]);
+                    $Call['Link']->error($Call['Data'][0].': '.$Call['Data'][1]);
                 break;
 
                 case 'Begin':
-                    $Call['Link']->group($Message[0].': '.$Message[1]);
+                    $Call['Link']->group($Call['Data'][0].': '.$Call['Data'][1]);
                 break;
 
                 case 'End':
-                    $Call['Link']->groupEnd($Message[0].': '.$Message[1]);
+                    $Call['Link']->groupEnd($Call['Data'][0].': '.$Call['Data'][1]);
                 break;
 
                 default:
-                    $Call['Link']->log($Message[0].': '.$Message[1]);
+                    $Call['Link']->log($Call['Data'][0].': '.$Call['Data'][1]);
                 break;
             }
-        }
 
-        return $Call;
+        return true;
     });
 
     self::setFn('Close', function ($Call)

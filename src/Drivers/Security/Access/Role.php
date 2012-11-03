@@ -35,13 +35,13 @@
                     if (isset($Call['Roles'][$Role]['Rights'][$Call['Right']]))
                         $Call['Decision'] = $Call['Roles'][$Role]['Rights'][$Call['Right']];
                     else
-                        F::Log('Permission for '.$Call['Right'].' not configured');
+                        F::Log('Permission for '.$Call['Right'].' not configured', LOG_WARNING);
                 }
                 else
-                    F::Log('Unknown role');
+                    F::Log('Unknown role', LOG_WARNING);
         }
         else
-            F::Log('Unknown right');
+            F::Log('Unknown right', LOG_WARNING);
 
         return $Call;
     });
