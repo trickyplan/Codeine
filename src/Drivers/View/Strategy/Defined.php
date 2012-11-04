@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn ('Select', function ($Call)
+    setFn ('Select', function ($Call)
     {
         return array('Service' => (isset($Call['Renderer'])? $Call['Renderer']: $Call['Default']), 'Method' => 'Render');
     });

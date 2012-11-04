@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Identificate', function ($Call)
+    setFn('Identificate', function ($Call)
     {
         if ($Call['Loginza']['ID'] == 0)
             $Call = F::Hook('Loginza.NotConfigured', $Call);
@@ -16,7 +16,7 @@
         return $Call;
     });
 
-    self::setFn('Authenticate', function ($Call)
+    setFn('Authenticate', function ($Call)
     {
         $Response = json_decode(F::Run('IO', 'Read',
          array(

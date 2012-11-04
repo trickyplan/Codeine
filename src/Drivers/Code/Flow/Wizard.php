@@ -9,7 +9,7 @@
      * @time 1:12
      */
 
-    self::setFn('Run', function ($Call)
+    setFn('Run', function ($Call)
     {
       $Call = F::Live($Call['Apps'][$Call['Step']], $Call);
 

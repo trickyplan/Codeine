@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn ('Open', function ($Call)
+    setFn ('Open', function ($Call)
     {
         $StorageID = $Call['Storage'];
         if (!isset($Call['Storage']))
@@ -34,7 +34,7 @@
         return $Call;
      });
 
-    self::setFn ('Read', function ($Call)
+    setFn ('Read', function ($Call)
     {
         unset($Call['Result']);
         $Call = F::Run('IO', 'Open', $Call);
@@ -62,7 +62,7 @@
         return $Call['Result'];
     });
 
-    self::setFn ('Write', function ($Call)
+    setFn ('Write', function ($Call)
     {
         $Call = F::Run('IO', 'Open', $Call);
 
@@ -76,13 +76,13 @@
         return F::Run ($Call['Driver'], 'Write', $Call);
     });
 
-    self::setFn ('Close', function ($Call)
+    setFn ('Close', function ($Call)
     {
         $Call = F::Run('IO', 'Open', $Call);
         return F::Run ($Call['Driver'], 'Close', $Call);
     });
 
-    self::setFn ('Execute', function ($Call)
+    setFn ('Execute', function ($Call)
     {
         $Call = F::Run('IO', 'Open', $Call);
 

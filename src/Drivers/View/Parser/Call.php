@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Parse', function ($Call)
+    setFn('Parse', function ($Call)
     {
         if (preg_match_all('@<c>(.*)</c>@SsUu', $Call['Value'], $Pockets))
         {

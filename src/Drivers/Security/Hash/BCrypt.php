@@ -9,7 +9,7 @@
      * @time 4:40
      */
 
-    self::setFn('Get', function ($Call)
+    setFn('Get', function ($Call)
     {
         return crypt($Call['Value'], $Call['Salt']);
     });

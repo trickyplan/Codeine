@@ -7,12 +7,12 @@
      * @version 7.x
      */
 
-    self::setFn('Write', function ($Call)
+    setFn('Write', function ($Call)
     {
         return strip_tags($Call['Value'], '<b><i><u><br>'); // FIXME
     });
 
-    self::setFn('Read', function ($Call)
+    setFn('Read', function ($Call)
     {
         return $Call['Value'];
     });

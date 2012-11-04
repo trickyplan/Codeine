@@ -7,17 +7,17 @@
      * @version 7.x
      */
 
-    self::setFn('Open', function ($Call)
+    setFn('Open', function ($Call)
     {
         return fopen($Call['Filename'], $Call['Mode']);
     });
 
-    self::setFn('Write', function ($Call)
+    setFn('Write', function ($Call)
     {
         return fwrite($Call['Link'], implode("\n", (array) $Call['Data']));
     });
 
-    self::setFn('Close', function ($Call)
+    setFn('Close', function ($Call)
     {
         return fclose($Call['Link']);
     });

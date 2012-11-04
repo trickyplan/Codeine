@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Hash', function ($Call)
+    setFn('Hash', function ($Call)
     {
         $Hash = array ();
 
@@ -29,7 +29,7 @@
         return F::Run('Security.Hash', 'Get', array('Value' => implode('', $Hash)));
     });
 
-    self::setFn ('Process', function ($Call)
+    setFn ('Process', function ($Call)
     {
         $CSS = array();
 

@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Get', function ($Call)
+    setFn('Get', function ($Call)
     {
         $Elements = F::Run('Entity', 'Read', array ('Entity' => $Call['Entity']));
 

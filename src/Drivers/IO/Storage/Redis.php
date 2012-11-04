@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn ('Open', function ($Call)
+    setFn ('Open', function ($Call)
     {
         $Redis = new Redis();
         $Redis->connect ($Call['Server'], $Call['Port']);
@@ -15,7 +15,7 @@
         return $Redis;
     });
 
-    self::setFn ('Read', function ($Call)
+    setFn ('Read', function ($Call)
     {
         if (is_array($Call['Where']['ID']))
         {
@@ -33,7 +33,7 @@
         }
     });
 
-    self::setFn ('Write', function ($Call)
+    setFn ('Write', function ($Call)
     {
         if (isset($Call['Where']))
         {
@@ -50,22 +50,22 @@
         return $Call['Data'];
     });
 
-    self::setFn ('Close', function ($Call)
+    setFn ('Close', function ($Call)
     {
         return true;
     });
 
-    self::setFn ('Execute', function ($Call)
+    setFn ('Execute', function ($Call)
     {
         return true;
     });
 
-    self::setFn ('Exist', function ($Call)
+    setFn ('Exist', function ($Call)
     {
         return $Call['Link']->exists ($Call['Scope'].$Call['Where']['ID']);
     });
 
-    self::setFn('Status', function ($Call)
+    setFn('Status', function ($Call)
     {
        $Info = $Call['Link']->info();
        foreach ($Info as $Key => &$Value)

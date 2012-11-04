@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Do', function ($Call)
+    setFn('Do', function ($Call)
     {
         $Call = F::Hook('beforeCreateDo', $Call);
 
@@ -16,7 +16,7 @@
         return $Call;
     });
 
-    self::setFn('GET', function ($Call)
+    setFn('GET', function ($Call)
     {
         $Call = F::Hook('beforeCreateGet', $Call);
 
@@ -95,7 +95,7 @@
         return $Call;
     });
 
-    self::setFn('POST', function ($Call)
+    setFn('POST', function ($Call)
     {
         $Call = F::Hook('beforeCreatePost', $Call);
 
@@ -115,11 +115,20 @@
             }
             // Отправляем в Entity.Create
 
-            $Call['Data'] = F::Run('Entity', 'Create', $Call);
+            $Call = F::Run('Entity', 'Create', $Call);
 
-            // Выводим результат
-
-            $Call = F::Hook('afterCreatePost', $Call);
+            if (empty($Call['Errors']))
+                $Call = F::Hook('afterCreatePost', $Call);
+            else
+                foreach ($Call['Errors'] as $Name =>$Node)
+                    foreach ($Node as $Error)
+                        $Call['Output']['Content'][] =
+                        [
+                            'Type' => 'Block',
+                            'Class' => 'alert alert-danger',
+                            'Value' => '<l>'.$Call['Entity'].'.Error:'.$Name.'.'.$Error.'</l>'
+                        ];
+                // Выводим результат
         }
 
         return $Call;

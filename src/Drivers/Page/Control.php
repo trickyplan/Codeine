@@ -8,38 +8,38 @@
      */
 
 
-    self::setFn('Do', function ($Call)
+    setFn('Do', function ($Call)
     {
         return F::Run('Entity.List', 'Do', array('Entity' => 'Page', 'Template' => 'Control', 'PageURL' => '/control/Page/page', 'Context' => 'app'), $Call);
     });
 
-    self::setFn('Create', function ($Call)
+    setFn('Create', function ($Call)
     {
         return F::Run('Entity.Create', 'Do', array('Entity' => 'Page', 'Context' => 'app'), $Call);
      });
 
-    self::setFn('Update', function ($Call)
+    setFn('Update', function ($Call)
     {
         return F::Run('Entity.Update', 'Do', array('Entity' => 'Page', 'Context' => 'app'), $Call);
     });
 
-    self::setFn('Show', function ($Call)
+    setFn('Show', function ($Call)
     {
         return F::Run('Entity.Show.Static', 'Do', array('Entity' => 'Page', 'PageURL' => '/control/Page/page', 'Context' => 'app'), $Call);
      });
 
-    self::setFn('Delete', function ($Call)
+    setFn('Delete', function ($Call)
     {
         $_SERVER['REQUEST_METHOD'] = 'POST';
         return F::Run('Entity.Delete', 'Do', $Call, ['Entity' => 'Page']);
     });
 
-    self::setFn('Flush', function ($Call)
+    setFn('Flush', function ($Call)
     {
         return F::Run('Entity.Delete', 'POST', $Call, ['Entity' => 'Page']);
     });
 
-    self::setFn('Menu', function ($Call)
+    setFn('Menu', function ($Call)
     {
         $Count = F::Run('Entity', 'Count', $Call, ['Entity' => 'Page']);
         return ['Count' => $Count];

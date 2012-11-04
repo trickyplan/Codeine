@@ -7,13 +7,13 @@
      * @version 7.x
      */
 
-    self::setFn('Do', function ($Call)
+    setFn('Do', function ($Call)
     {
         $Call = F::Hook('beforeReset', $Call);
         return F::Run(null, $_SERVER['REQUEST_METHOD'], $Call);
     });
 
-    self::setFn('ByID', function ($Call)
+    setFn('ByID', function ($Call)
     {
         $Call['User'] = F::Run('Entity', 'Read', $Call, array('Entity' => 'User'))[0];
 
@@ -61,12 +61,12 @@
         return $Call;
     });
 
-    self::setFn('POST', function ($Call)
+    setFn('POST', function ($Call)
     {
         return F::Run(null, 'ByID', $Call, array('Where' => array('EMail' => $Call['Request']['EMail'])));
     });
 
-    self::setFn('GET', function ($Call)
+    setFn('GET', function ($Call)
     {
         $Call['Output']['Content'][] = array(
             'Type' => 'Template',

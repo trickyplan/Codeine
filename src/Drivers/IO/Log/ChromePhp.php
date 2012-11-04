@@ -2,12 +2,12 @@
 
     require Codeine.'/Vendor/ccampbell/chromephp/ChromePhp.php';
 
-    self::setFn('Open', function ($Call)
+    setFn('Open', function ($Call)
     {
         return ChromePhp::getInstance();
     });
 
-    self::setFn('Write', function ($Call)
+    setFn('Write', function ($Call)
     {
             switch($Call['Data'][2])
             {
@@ -31,7 +31,7 @@
         return true;
     });
 
-    self::setFn('Close', function ($Call)
+    setFn('Close', function ($Call)
     {
 
         return $Call;

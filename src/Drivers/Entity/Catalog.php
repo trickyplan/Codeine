@@ -7,7 +7,7 @@
      * @version 7.4
      */
 
-    self::setFn('Do', function ($Call)
+    setFn('Do', function ($Call)
     {
         $Call = F::Merge(F::loadOptions('Entity.'.$Call['Entity']), $Call); // FIXME
         $Call = F::Hook('beforeCatalog', $Call);

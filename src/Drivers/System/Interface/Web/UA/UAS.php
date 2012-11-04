@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Get', function ($Call)
+    setFn('Get', function ($Call)
     {
         return json_decode (F::Run('IO', 'Read', array(
                 'Storage' => 'Web',

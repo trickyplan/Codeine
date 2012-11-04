@@ -7,7 +7,7 @@
      * @version 7.1
      */
 
-     self::setFn('Route', function ($Call)
+     setFn('Route', function ($Call)
      {
          foreach ($Call['Routers'] as $Router)
          {

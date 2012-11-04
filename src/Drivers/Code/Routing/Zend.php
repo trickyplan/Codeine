@@ -9,7 +9,7 @@
      * @time 6:38
      */
 
-    self::setFn('Route', function ($Call)
+    setFn('Route', function ($Call)
     {
         if (is_string($Call['Run']) && mb_strpos($Call['Run'], '/') !== false)
         {

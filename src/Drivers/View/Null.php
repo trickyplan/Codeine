@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Render', function ($Call)
+    setFn('Render', function ($Call)
     {
         return null;
     });

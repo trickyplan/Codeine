@@ -7,7 +7,7 @@
      * @version 7.1
      */
 
-    self::setFn ('Run', function ($Call)
+    setFn ('Run', function ($Call)
     {
         $Call = F::Hook('beforeInterfaceRun', $Call);
 
@@ -45,7 +45,7 @@
         return $Call;
     });
 
-    self::setFn('Output', function ($Call)
+    setFn('Output', function ($Call)
     {
         if (is_string($Call['Output']))
             echo $Call['Output'];
@@ -55,12 +55,12 @@
         return $Call;
     });
 
-    self::setFn ('User.Agent', function ($Call)
+    setFn ('User.Agent', function ($Call)
     {
 
     });
 
-    self::setFn('User.Time', function ($Call)
+    setFn('User.Time', function ($Call)
     {
         $IP = F::Run('System.Interface.Web.IP', 'Get', $Call);
 
@@ -71,7 +71,7 @@
             ));
     });
 
-    self::setFn ('DetectUALanguage', function ($Call)
+    setFn ('DetectUALanguage', function ($Call)
     {
         if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE']))
         {
@@ -94,7 +94,7 @@
         return $Call['Language']['Default'];
     });
 
-    self::setFn('Redirect', function ($Call)
+    setFn('Redirect', function ($Call)
     {
         $URL = $Call['Location'];
 

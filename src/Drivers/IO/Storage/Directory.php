@@ -9,12 +9,12 @@
      * @time 22:37
      */
 
-    self::setFn ('Open', function ($Call)
+    setFn ('Open', function ($Call)
     {
         return $Call['Directory'];
     });
 
-    self::setFn ('Read', function ($Call)
+    setFn ('Read', function ($Call)
     {
         if (!isset($Call['Scope']))
             $Call['Scope'] = 'Default';
@@ -75,7 +75,7 @@
 
     });
 
-    self::setFn ('Write', function ($Call)
+    setFn ('Write', function ($Call)
     {
         if (!isset($Call['Scope']))
             $Call['Scope'] = '';
@@ -98,12 +98,12 @@
             return unlink ($Filename);
     });
 
-    self::setFn ('Close', function ($Call)
+    setFn ('Close', function ($Call)
     {
         return true;
     });
 
-    self::setFn ('Version', function ($Call)
+    setFn ('Version', function ($Call)
     {
         if (!isset($Call['Scope']))
             $Call['Scope'] = '';
@@ -119,7 +119,7 @@
             return null;
     });
 
-    self::setFn ('Exist', function ($Call)
+    setFn ('Exist', function ($Call)
     {
         if (!isset($Call['Scope']))
             $Call['Scope'] = '';
@@ -132,7 +132,7 @@
         return F::file_exists ($Filename);
     });
 
-    self::setFn('Status', function ($Call)
+    setFn('Status', function ($Call)
     {
         $Postfix = isset($Call['Suffix']) ? $Call['Suffix'] : '';
         $Prefix = isset($Call['Prefix']) ? $Call['Prefix'] : '';
@@ -151,7 +151,7 @@
         return array (array ('Files',  $ic));
     });
 
-    self::setFn('Upload', function ($Call)
+    setFn('Upload', function ($Call)
     {
         $Call['Fullname'] = $Call['Scope'].'/'.$Call['Name'];
 

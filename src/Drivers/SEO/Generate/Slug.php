@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Generate', function ($Call)
+    setFn('Generate', function ($Call)
     {
         $Call['Value'] = '';
 

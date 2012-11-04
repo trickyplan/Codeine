@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Count', function ($Call)
+    setFn('Count', function ($Call)
     {
         if (isset($Call['Data']['ID']))
             return F::Run('Entity', 'Count', $Call,

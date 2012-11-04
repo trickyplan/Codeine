@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('beforeList', function ($Call)
+    setFn('beforeList', function ($Call)
     {
         if (isset($Call['NoPage']) && ($Call['NoPage'] == true))
             return $Call;
@@ -32,7 +32,7 @@
         return $Call;
     });
 
-    self::setFn('afterList', function ($Call)
+    setFn('afterList', function ($Call)
     {
         if (isset($Call['NoPage']) && ($Call['NoPage'] == true))
             return $Call;

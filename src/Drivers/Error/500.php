@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn ('Page', function ($Call)
+    setFn ('Page', function ($Call)
     {
         $Call['Headers']['HTTP/1.0'] = '500 Internal Server Error';
 
@@ -17,7 +17,7 @@
 
         $Call['Output']['Content'] = array (array (
                                                 'Type'  => 'Template',
-                                                'Scope' => 'Error',
+                                                'Scope' => 'Errors',
                                                 'Value' => '500',
                                                 'Data' => array(
 
@@ -26,7 +26,7 @@
         return $Call;
      });
 
-    self::setFn('Die', function ($Call)
+    setFn('Die', function ($Call)
     {
         // TODO Realize "Die" function
 

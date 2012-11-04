@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Get', function ($Call)
+    setFn('Get', function ($Call)
     {
         if (isset($Call['Modes'][$Call['Mode']]))
             return F::Live($Call['Modes'][$Call['Mode']], $Call);

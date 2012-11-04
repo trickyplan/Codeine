@@ -9,7 +9,7 @@
      * @time 14:56
      */
 
-    self::setFn('Get', function ($Call)
+    setFn('Get', function ($Call)
     {
         // 22345200-abe8-4f60-90c8-0d43c5f6c0f6
 

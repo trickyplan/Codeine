@@ -7,17 +7,17 @@
      * @version 7.x
      */
 
-    self::setFn('Write', function ($Call)
+    setFn('Write', function ($Call)
     {
         return ip2long($Call['Value']);
     });
 
-    self::setFn('Read', function ($Call)
+    setFn('Read', function ($Call)
     {
         return long2ip($Call['Value']);
     });
 
-    self::setFn('Populate', function ($Call)
+    setFn('Populate', function ($Call)
     {
         return rand();
     });

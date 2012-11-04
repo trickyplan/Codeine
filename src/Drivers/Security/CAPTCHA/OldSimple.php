@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Code', function ($Call)
+    setFn('Code', function ($Call)
     {
         // FIX THIS SHIT
     // TODO Realize "Code" function
@@ -27,7 +27,7 @@
         return implode("", $array_mix);
     });
 
-    self::setFn('Widget', function ($Call)
+    setFn('Widget', function ($Call)
     {
         $Code = F::Run(null, 'Code', $Call);
 
@@ -47,7 +47,7 @@
         return $Call;
     });
 
-    self::setFn('Check', function ($Call)
+    setFn('Check', function ($Call)
     {
         unlink(Root.'/Public/captcha/'.$Call['Request']['CAPTCHA.Challenge'].'.png');
         if ($Call['Request']['CAPTCHA.Challenge'] != sha1($Call['Request']['CAPTCHA.Answer']))

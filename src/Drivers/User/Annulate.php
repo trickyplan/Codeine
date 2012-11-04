@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Do', function ($Call)
+    setFn('Do', function ($Call)
     {
         $Call = F::Run('Security.Auth', 'Detach', $Call);
 

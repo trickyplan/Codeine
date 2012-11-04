@@ -7,13 +7,13 @@
      * @version 7.x
      */
 
-    self::setFn('Write', function ($Call)
+    setFn('Write', function ($Call)
     {
 
         return $Call['Value'];
     });
 
-    self::setFn('Read', function ($Call)
+    setFn('Read', function ($Call)
     {
         return $Call['Value'];
     });

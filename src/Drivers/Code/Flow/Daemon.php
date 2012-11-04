@@ -9,7 +9,7 @@
 
     // 10xs for http://leonid.shevtsov.me/ru/mnogoprocessovye-demony-na-php#ixzz23J4hMu6y
 
-    self::setFn('Run', function ($Call)
+    setFn('Run', function ($Call)
     {
         declare(ticks = 1);
 
@@ -75,7 +75,7 @@
         return $Call;
     });
 
-    self::setFn('Running?', function ($Call)
+    setFn('Running?', function ($Call)
     {
         $PIDFile = F::Run(null, 'PIDFile', $Call);
 
@@ -92,17 +92,17 @@
         return false;
     });
 
-    self::setFn('PIDFile', function ($Call)
+    setFn('PIDFile', function ($Call)
     {
         return $Call['PID']['Prefix'].$Call['DaemonID'].$Call['PID']['Postfix'];
     });
 
-    self::setFn('Stop', function ($Call)
+    setFn('Stop', function ($Call)
     {
         return F::setLive(false);
     });
 
-    self::setFn('Signal', function ($Call)
+    setFn('Signal', function ($Call)
     {
         if (isset($Call['Codes'][$Call['Signal']]))
         {
@@ -118,7 +118,7 @@
         return null;
     });
 
-    self::setFn('Flush', function ($Call)
+    setFn('Flush', function ($Call)
     {
         F::Reload();
         echo 'Core flushed'.PHP_EOL;

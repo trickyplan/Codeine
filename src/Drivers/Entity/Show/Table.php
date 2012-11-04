@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Do', function ($Call)
+    setFn('Do', function ($Call)
     {
         $Element = F::Run('Entity', 'Read', $Call)[0];
 

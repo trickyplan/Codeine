@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Get', function ($Call)
+    setFn('Get', function ($Call)
     {
         $Index = [];
 

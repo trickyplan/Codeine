@@ -7,22 +7,22 @@
      * @version 7.x
      */
 
-    self::setFn('Open', function ($Call)
+    setFn('Open', function ($Call)
     {
         return F::Run($Call['Engines'][$Call['Engine']]['Driver'], null, $Call);
     });
 
-    self::setFn('Add', function ($Call)
+    setFn('Add', function ($Call)
     {
         return F::Run($Call['Engines'][$Call['Engine']]['Driver'], null, $Call);
     });
 
-    self::setFn('Remove', function ($Call)
+    setFn('Remove', function ($Call)
     {
         return F::Run($Call['Engines'][$Call['Engine']]['Driver'], null, $Call);
     });
 
-    self::setFn('Query', function ($Call)
+    setFn('Query', function ($Call)
     {
         return F::Run($Call['Engines'][$Call['Engine']]['Driver'], 'Query', $Call);
     });

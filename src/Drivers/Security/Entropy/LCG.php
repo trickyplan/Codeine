@@ -8,7 +8,7 @@
      */
 
 
-    self::setFn('Get', function ($Call)
+    setFn('Get', function ($Call)
     {
         return $Call['Min']+lcg_value()*$Call['Max']-$Call['Min'];
     });

@@ -7,12 +7,12 @@
     * @version 7.1
     */
 
-    self::setFn('Open', function ($Call)
+    setFn('Open', function ($Call)
     {
         return true;
     });
 
-    self::setFn('Read', function ($Call)
+    setFn('Read', function ($Call)
     {
         $Return = null;
 
@@ -71,7 +71,7 @@
         return $Return;
     });
 
-    self::setFn('Write', function ($Call)
+    setFn('Write', function ($Call)
     {
         $Call['Link'] = curl_init($Call['Where']['ID']);
 
@@ -96,18 +96,18 @@
         return curl_exec($Call['Link']);
     });
 
-    self::setFn ('Close', function ($Call)
+    setFn ('Close', function ($Call)
     {
         curl_close ($Call['Link']);
         return true;
     });
 
-    self::setFn('Execute', function ($Call)
+    setFn('Execute', function ($Call)
     {
         return true;
     });
 
-    self::setFn('Version', function ($Call)
+    setFn('Version', function ($Call)
     {
         $Call['Link'] = curl_init($Call['Where']['ID']);
 

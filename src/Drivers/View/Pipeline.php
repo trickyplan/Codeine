@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Process', function ($Call)
+    setFn('Process', function ($Call)
     {
         if (preg_match_all('@<place>(.*)<\/place>@SsUu', $Call['Layout'], $Places))
         {

@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Render', function ($Call)
+    setFn('Render', function ($Call)
     {
         $XML = new XMLWriter();
         $XML->openMemory();

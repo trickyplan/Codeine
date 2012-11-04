@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Load', function ($Call)
+    setFn('Load', function ($Call)
     {
         return simplexml_load_string(F::Run('IO', 'Read',
         [
@@ -16,25 +16,25 @@
         ])[0]);
     });
 
-    self::setFn('LatLon', function ($Call)
+    setFn('LatLon', function ($Call)
     {
         $Response = F::Run(null, 'Load', $Call);
         return ['Lat' => $Response->ip->lat, 'Lon' => $Response->ip->lng];
     });
 
-    self::setFn('Country', function ($Call)
+    setFn('Country', function ($Call)
     {
         $Response = F::Run(null, 'Load', $Call);
         return (string) $Response->ip->country;
     });
 
-    self::setFn('Region', function ($Call)
+    setFn('Region', function ($Call)
     {
         $Response = F::Run(null, 'Load', $Call);
         return (string) $Response->ip->region;
     });
 
-    self::setFn('City', function ($Call)
+    setFn('City', function ($Call)
     {
         $Response = F::Run(null, 'Load', $Call);
 

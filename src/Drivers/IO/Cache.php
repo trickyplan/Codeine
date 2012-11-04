@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Read', function ($Call)
+    setFn('Read', function ($Call)
     {
         if (isset($Call['Cache']))
         {
@@ -27,7 +27,7 @@
             return $Call;
     });
 
-    self::setFn('Write', function ($Call)
+    setFn('Write', function ($Call)
     {
         if (isset($Call['Cache']))
             F::Run('IO', 'Write',

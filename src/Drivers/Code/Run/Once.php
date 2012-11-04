@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Run', function ($Call)
+    setFn('Run', function ($Call)
     {
         $Result = F::Run('IO', 'Read', array
                              (
@@ -32,7 +32,7 @@
         return $Call;
     });
 
-    self::setFn('Prepare', function ($Call)
+    setFn('Prepare', function ($Call)
     {
         $UID = F::Run('Security.UID', 'Get', ['Mode' => 'Secure+']);
 

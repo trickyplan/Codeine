@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn ('Run', function ($Call)
+    setFn ('Run', function ($Call)
     {
         $Call = F::Run ($Call['Service'], $Call['Method'], $Call);
 

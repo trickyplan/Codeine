@@ -11,7 +11,7 @@
     margin: 0;
 }
 
-input.invalid
+input.invalid, .invalid
 {
-    background-color: #ffd1c5;
+    background-color: #ffd1c5 !important;
 }

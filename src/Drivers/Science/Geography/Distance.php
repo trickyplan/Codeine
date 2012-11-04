@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Calc', function ($Call)
+    setFn('Calc', function ($Call)
     {
         // http://kobzarev.com/programming/calculation-of-distances-between-cities-on-their-coordinates.html
         // перевести координаты в радианы

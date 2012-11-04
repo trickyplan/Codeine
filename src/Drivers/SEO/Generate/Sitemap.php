@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Generate', function ($Call)
+    setFn('Generate', function ($Call)
     {
         $Links = array();
         $Call['Headers']['Content-type:'] = 'text/xml; charset=utf-8';
@@ -46,7 +46,7 @@
         return $Call;
     });
 
-    self::setFn('Ping', function ($Call)
+    setFn('Ping', function ($Call)
     {
         foreach($Call['SearchEngines'] as $Name=> $URL)
             $Call['Responses'][$Name] = F::Run('IO', 'Read',

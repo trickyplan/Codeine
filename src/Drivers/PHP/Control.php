@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Do', function ($Call)
+    setFn('Do', function ($Call)
     {
         $Version = phpversion();
         $Version = isset($Call['Versions'][$Version])? $Call['Versions'][$Version]: 'Untested';
@@ -22,7 +22,7 @@
         return $Call;
      });
 
-    self::setFn('Extensions', function ($Call)
+    setFn('Extensions', function ($Call)
     {
         $Extensions = get_loaded_extensions();
 
@@ -42,7 +42,7 @@
         return $Call;
     });
 
-    self::setFn('Settings', function ($Call)
+    setFn('Settings', function ($Call)
     {
         $INI = ini_get_all(null,false);
 
@@ -70,7 +70,7 @@
         return $Call;
     });
 
-    self::setFn('XCache', function ($Call)
+    setFn('XCache', function ($Call)
     {
         $XCache = xcache_info(XC_TYPE_PHP,0);
 

@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Do', function ($Call)
+    setFn('Do', function ($Call)
     {
         if (!isset($Call['Bundle']))
             $Call['Bundle'] = isset($Call['Start'])? $Call['Start']: 'Codeine';

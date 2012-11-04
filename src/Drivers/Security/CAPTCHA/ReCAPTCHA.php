@@ -7,14 +7,14 @@
      * @version 7.x
      */
 
-    self::setFn('Widget', function ($Call)
+    setFn('Widget', function ($Call)
     {
 
 
         return $Call;
     });
 
-    self::setFn('Check', function ($Call)
+    setFn('Check', function ($Call)
     {
         $CAPTCHA = curl_init();
         $Data =

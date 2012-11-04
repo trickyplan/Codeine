@@ -9,7 +9,7 @@
      * @time 14:56
      */
 
-    self::setFn('Get', function ($Call)
+    setFn('Get', function ($Call)
     {
         $Output = '';
 

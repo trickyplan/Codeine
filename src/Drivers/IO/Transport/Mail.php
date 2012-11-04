@@ -9,12 +9,12 @@
      * @time 22:20
      */
 
-    self::setFn ('Open', function ($Call)
+    setFn ('Open', function ($Call)
     {
         return true;
     });
 
-    self::setFn('Write', function ($Call)
+    setFn('Write', function ($Call)
     {
         $HeaderStr = '';
 

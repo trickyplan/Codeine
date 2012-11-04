@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn ('Write', function ($Call)
+    setFn ('Write', function ($Call)
     {
         F::Run('Entity', 'Delete', array(
                                     'Entity' => $Call['Entity'].'2'.$Call['Name'],
@@ -31,7 +31,7 @@
         return null;
     });
 
-    self::setFn('Read', function ($Call)
+    setFn('Read', function ($Call)
     {
         return function() use ($Call) {
             $Data = F::Run('Entity', 'Read', array (

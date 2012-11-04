@@ -7,7 +7,7 @@
      * @version 7.1
      */
 
-     self::setFn('Check', function ($Call)
+     setFn('Check', function ($Call)
      {
          if (F::isCall($Call['Run']))
              $Call = F::Merge($Call, $Call['Run']);

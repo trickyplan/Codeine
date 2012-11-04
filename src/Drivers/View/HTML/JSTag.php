@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Hash', function ($Call)
+    setFn('Hash', function ($Call)
     {
         $Hash = array ();
 
@@ -31,7 +31,7 @@
 
 
 
-    self::setFn('Process', function ($Call)
+    setFn('Process', function ($Call)
     {
         if (preg_match_all('/<jsrun>(.*)<\/jsrun>/SsUu', $Call['Output'], $Parsed))
         {

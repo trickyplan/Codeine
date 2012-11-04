@@ -7,7 +7,7 @@
      * @version 6.0
      */
 
-     self::setFn('Scan', function ($Call)
+     setFn('Scan', function ($Call)
      {
          $Lines = explode("\n", $Call['Source']);
          $Output = array();

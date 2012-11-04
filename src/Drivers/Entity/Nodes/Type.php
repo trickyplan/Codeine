@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Write', function ($Call)
+    setFn('Write', function ($Call)
     {
         foreach ($Call['Nodes'] as $Name => $Node)
         {
@@ -30,7 +30,7 @@
         return $Call;
     });
 
-    self::setFn('Read', function ($Call)
+    setFn('Read', function ($Call)
     {
         if(isset($Call['Data']))
             foreach ($Call['Nodes'] as $Name => $Node)

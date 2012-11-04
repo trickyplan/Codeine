@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn ('SimpleRun', function ($Call)
+    setFn ('SimpleRun', function ($Call)
     {
         return true;
     });

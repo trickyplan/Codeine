@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Do', function ($Call)
+    setFn('Do', function ($Call)
     {
         $LastNews = simplexml_load_string(file_get_contents('http://one2team.ru/blog/category/Codeine.rss'));
 
@@ -24,7 +24,7 @@
     });
 
 
-    self::setFn('Version', function ($Call)
+    setFn('Version', function ($Call)
     {
         $Current = file_get_contents('https://raw.github.com/Breathless/Codeine/master/docs/VERSION');
 

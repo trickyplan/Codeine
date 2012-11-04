@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-     self::setFn('Make', function ($Call)
+     setFn('Make', function ($Call)
      {
          if (isset($Call['Localized']) && $Call['Localized'])
              $Call['Value'] = '<l>'. $Call['Value'].'</l>';

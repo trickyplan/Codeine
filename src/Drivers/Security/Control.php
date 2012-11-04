@@ -7,12 +7,12 @@
      * @version 7.x
      */
 
-    self::setFn('Do', function ($Call)
+    setFn('Do', function ($Call)
     {
         return $Call;
     });
 
-    self::setFn('HashTest', function ($Call)
+    setFn('HashTest', function ($Call)
     {
         $Options = F::loadOptions('Security.Hash');
 
@@ -37,7 +37,7 @@
         return $Call;
     });
 
-    self::setFn('EntropyTest', function ($Call)
+    setFn('EntropyTest', function ($Call)
     {
         $Options = F::loadOptions('Security.Entropy');
 
@@ -64,7 +64,7 @@
         return $Call;
     });
 
-    self::setFn('UIDTest', function ($Call)
+    setFn('UIDTest', function ($Call)
     {
         $Options = F::loadOptions('Security.UID');
 
@@ -83,7 +83,7 @@
         return $Call;
     });
 
-    self::setFn('Rules', function ($Call)
+    setFn('Rules', function ($Call)
     {
         $Rules = F::loadOptions('Security.Access.Rule')['Rules'];
 
@@ -99,7 +99,7 @@
         return $Call;
     });
 
-    self::setFn('Roles', function ($Call)
+    setFn('Roles', function ($Call)
     {
         return F::Run('Security.Control.Role', 'Do', $Call);
     });

@@ -7,7 +7,7 @@
      * @version 7.0
      */
 
-    self::setFn('Do', function ($Call)
+    setFn('Do', function ($Call)
     {
         $Call['Where'] = F::Live($Call['Where']);
 

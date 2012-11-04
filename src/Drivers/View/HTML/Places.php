@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn ('Clean', function ($Call)
+    setFn ('Clean', function ($Call)
     {
         // Cleanup unused places
         $Call['Output'] = preg_replace('@<place>(.+)</place>@', '', $Call['Output']);

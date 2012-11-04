@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('LatLon', function ($Call)
+    setFn('LatLon', function ($Call)
     {
         if (isset($Call['Modes'][$Call['Mode']]))
             return F::Run($Call['Modes'][$Call['Mode']], 'LatLon', $Call);
@@ -15,7 +15,7 @@
             return null;
     });
 
-    self::setFn('Country', function ($Call)
+    setFn('Country', function ($Call)
     {
         if (isset($Call['Modes'][$Call['Mode']]))
             return F::Run($Call['Modes'][$Call['Mode']], 'Country', $Call);
@@ -23,7 +23,7 @@
             return null;
     });
 
-    self::setFn('Region', function ($Call)
+    setFn('Region', function ($Call)
     {
         if (isset($Call['Modes'][$Call['Mode']]))
             return F::Run($Call['Modes'][$Call['Mode']], 'Region', $Call);
@@ -32,7 +32,7 @@
     });
 
 
-    self::setFn('City', function ($Call)
+    setFn('City', function ($Call)
     {
         if (isset($Call['Modes'][$Call['Mode']]))
             return F::Run($Call['Modes'][$Call['Mode']], 'City', $Call);

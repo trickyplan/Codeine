@@ -9,7 +9,7 @@
     include 'Mail.php';
     include 'Mail/mime.php';
 
-    self::setFn ('Open', function ($Call)
+    setFn ('Open', function ($Call)
     {
         return Mail::factory('smtp',
                    array (
@@ -21,7 +21,7 @@
                    ));
     });
 
-    self::setFn('Write', function ($Call)
+    setFn('Write', function ($Call)
     {
         $Call['Headers'] =  [
             'Return-path' => $Call['Username'],

@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Do', function ($Call)
+    setFn('Do', function ($Call)
     {
         $CanIUse = json_decode(F::Live($Call['Caniuse']['Source'], $Call)[0], true) ;
 

@@ -8,7 +8,7 @@
      * @issue 30
      */
 
-    self::setFn('Parse', function ($Call)
+    setFn('Parse', function ($Call)
     {
         foreach ($Call['Parsers'] as $Parser)
             $Call['Value'] = F::Live($Parser, $Call);
@@ -16,7 +16,7 @@
         return $Call['Value'];
     });
 
-    self::setFn('Load', function ($Call)
+    setFn('Load', function ($Call)
     {
         $IDs = array();
 
@@ -42,7 +42,7 @@
         return $Data;
     });
 
-    self::setFn('LoadParsed', function ($Call)
+    setFn('LoadParsed', function ($Call)
     {
         return F::Run('View', 'Parse', $Call,
             array (
@@ -51,7 +51,7 @@
             ));
     });
 
-    self::setFn('Render', function ($Call)
+    setFn('Render', function ($Call)
     {
         $Call = F::Hook('beforeRender', $Call);
 
@@ -60,7 +60,7 @@
         return F::Hook('afterRender', $Call);
     });
 
-    self::setFn('Asset.Route', function ($Call)
+    setFn('Asset.Route', function ($Call)
     {
         if (strpos($Call['Value'], ':') !== false)
             return explode(':', $Call['Value']);
@@ -68,7 +68,7 @@
             return array ($Call['Value'], $Call['Value']);
     });
 
-    self::setFn('Add', function ($Call)
+    setFn('Add', function ($Call)
     {
         $Call['Output'][$Call['Place']][] = $Call['Element'];
 

@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Do', function ($Call)
+    setFn('Do', function ($Call)
     {
         $Host = 'http://'.$_SERVER['HTTP_HOST'];
 
@@ -33,7 +33,7 @@
         return $Call;
     });
 
-    self::setFn('Get', function ($Call)
+    setFn('Get', function ($Call)
     {
         if (!isset($Call['URL']))
             $Call['URL'] = '/';

@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Open', function ($Call)
+    setFn('Open', function ($Call)
     {
         $Redis = new Redis();
         $Redis->connect ($Call['Server'], $Call['Port']);
@@ -16,7 +16,7 @@
         return $Redis;
     });
 
-    self::setFn('Read', function ($Call)
+    setFn('Read', function ($Call)
     {
         if (($Result = $Call['Link']->lPop($Call['Scope'])) !== false)
             return array(json_decode($Result, true));
@@ -24,7 +24,7 @@
             return null;
     });
 
-    self::setFn('Write', function ($Call)
+    setFn('Write', function ($Call)
     {
         return $Call['Link']->rPush($Call['Scope'], json_encode($Call['Data']));
     });

@@ -8,7 +8,7 @@
      */
 
 
-    self::setFn('Do', function ($Call)
+    setFn('Do', function ($Call)
     {
         $Entries = F::Run('IO', 'Read',
         [
@@ -38,7 +38,7 @@
         return $Call;
     });
 
-    self::setFn('Show', function ($Call)
+    setFn('Show', function ($Call)
     {
         $Entry = F::Run('IO', 'Read',
         [
@@ -58,7 +58,7 @@
         return $Call;
     });
 
-    self::setFn('Filter', function ($Call)
+    setFn('Filter', function ($Call)
     {
         array_shift($Call['Request']);
 

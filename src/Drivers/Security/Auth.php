@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Audit', function ($Call)
+    setFn('Audit', function ($Call)
     {
         $Call['SID'] = F::Run($Call['Source'], 'Read', $Call);
 
@@ -68,7 +68,7 @@
         return $Call;
     });
 
-    self::setFn('Register', function ($Call)
+    setFn('Register', function ($Call)
     {
         $Call = F::Hook('beforeRegister', $Call);
 
@@ -76,7 +76,7 @@
             array(
                  'Entity' => 'Session',
                  'Data' => isset($Call['Data'])? $Call['Data']: []
-            ));
+            ))['Data'];
 
         F::Run($Call['Source'], 'Write', $Call);
 
@@ -85,7 +85,7 @@
         return $Call['Session'];
     });
 
-    self::setFn('Annulate', function ($Call)
+    setFn('Annulate', function ($Call)
     {
         F::Run($Call['Source'], null , $Call);
 
@@ -100,7 +100,7 @@
         return $Call;
     });
 
-    self::setFn('Attach', function ($Call)
+    setFn('Attach', function ($Call)
     {
         $Call = F::Run(null, 'Audit', $Call);
 
@@ -132,7 +132,7 @@
         }
     });
 
-    self::setFn('Detach', function ($Call)
+    setFn('Detach', function ($Call)
     {
         $Call = F::Run(null, 'Audit', $Call);
 
@@ -160,19 +160,19 @@
         return $Call;
     });
 
-    self::setFn('SID', function ($Call)
+    setFn('SID', function ($Call)
     {
         $Call = F::Run(null, 'Audit', $Call);
         return $Call['SID'];
     });
 
-    self::setFn('Username', function ($Call)
+    setFn('Username', function ($Call)
     {
         $Call = F::Run(null, 'Audit', $Call);
         return isset($Call['Session']['User']['ID'])? $Call['Session']['User']['ID']: null;
     });
 
-    self::setFn('Write', function ($Call)
+    setFn('Write', function ($Call)
     {
         $Call = F::Run(null, 'Audit', $Call);
 
@@ -184,7 +184,7 @@
              ]);
     });
 
-    self::setFn('Read', function ($Call)
+    setFn('Read', function ($Call)
     {
         $Call = F::Run(null, 'Audit', $Call);
         return isset($Call['Session'][$Call['Key']])? $Call['Session'][$Call['Key']]: null;

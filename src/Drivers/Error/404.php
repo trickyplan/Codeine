@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn ('Page', function ($Call)
+    setFn ('Page', function ($Call)
     {
         $Call['Headers']['HTTP/1.0'] = '404 Not Found';
 
@@ -22,15 +22,15 @@
         return $Call;
      });
 
-        self::setFn('Block', function ($Call)
-        {
-            $Call['Output']['Content'] = array (array (
-                                                'Type'  => 'Template',
-                                                'Scope' => 'Errors/Blocks',
-                                                'ID' => '404',
-                                                'Data' => array(
-                                                    'Suggestion' => F::Live($Call['Prediction'], $Call)
-                                                )
-                                            ));
-            return $Call;
-        });
+    setFn('Block', function ($Call)
+    {
+        $Call['Output']['Content'] = array (array (
+                                            'Type'  => 'Template',
+                                            'Scope' => 'Errors/Blocks',
+                                            'ID' => '404',
+                                            'Data' => array(
+                                                'Suggestion' => F::Live($Call['Prediction'], $Call)
+                                            )
+                                        ));
+        return $Call;
+    });

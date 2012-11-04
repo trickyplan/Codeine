@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Suggest', function ($Call)
+    setFn('Suggest', function ($Call)
     {
         $Keys = array_keys($Call['Request']);
         $Static = F::loadOptions('Code.Routing.Static');

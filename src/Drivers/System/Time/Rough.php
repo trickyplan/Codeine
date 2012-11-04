@@ -9,7 +9,7 @@
      * @time 16:34
      */
 
-    self::setFn('Get', function ($Call)
+    setFn('Get', function ($Call)
     {
         return floor(time()/$Call['Precision'])*$Call['Precision'];
     });

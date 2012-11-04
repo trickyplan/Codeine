@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-     self::setFn('Make', function ($Call)
+     setFn('Make', function ($Call)
      {
          $Element = F::Run('Entity', 'Read', array('Entity' => $Call['Node']['Link']['Entity'], 'Where' => $Call['Value']));
 

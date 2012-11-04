@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Do', function ($Call)
+    setFn('Do', function ($Call)
     {
         $Overall = 0;
         foreach($Call['Benchmarks'] as $Benchmark)

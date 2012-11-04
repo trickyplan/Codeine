@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Add', function ($Call)
+    setFn('Add', function ($Call)
     {
         if (isset($Call['Modes'][$Call['Mode']]))
             return F::Run($Call['Modes'][$Call['Mode']], null, $Call);
@@ -15,7 +15,7 @@
             return null;
     });
 
-    self::setFn('Substract', function ($Call)
+    setFn('Substract', function ($Call)
     {
         if (isset($Call['Modes'][$Call['Mode']]))
             return F::Run($Call['Modes'][$Call['Mode']], null, $Call);
@@ -23,7 +23,7 @@
             return null;
     });
 
-    self::setFn('Multiply', function ($Call)
+    setFn('Multiply', function ($Call)
     {
         if (isset($Call['Modes'][$Call['Mode']]))
             return F::Run($Call['Modes'][$Call['Mode']], null, $Call);
@@ -31,7 +31,7 @@
             return null;
     });
 
-    self::setFn('Divide', function ($Call)
+    setFn('Divide', function ($Call)
     {
         if (isset($Call['Modes'][$Call['Mode']]))
             return F::Run($Call['Modes'][$Call['Mode']], null, $Call);

@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Run', function ($Call)
+    setFn('Run', function ($Call)
     {
         $Hash = [$Call['Run']['Service'], $Call['Run']['Method']];
 

@@ -9,13 +9,13 @@
      * @time 22:46
      */
 
-    self::setFn('Decode', function ($Call)
+    setFn('Decode', function ($Call)
     {
         $Result = json_decode($Call['Value'], true);
         return $Result['result'];
     });
 
-    self::setFn('Encode', function ($Call)
+    setFn('Encode', function ($Call)
     {
         return json_encode(array(
                                'jsonrpc' => '2.0',

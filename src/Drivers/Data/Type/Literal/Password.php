@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Write', function ($Call)
+    setFn('Write', function ($Call)
     {
         if (!empty($Call['Value']) && $Call['Purpose'] != 'Update')
             return F::Run('Security.Hash', 'Get',
@@ -19,7 +19,7 @@
             return null;
     });
 
-    self::setFn('Read', function ($Call)
+    setFn('Read', function ($Call)
     {
         return $Call['Value'];
     });

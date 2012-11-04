@@ -8,7 +8,7 @@
      */
 
 
-    self::setFn('Process', function ($Call)
+    setFn('Process', function ($Call)
     {
         // TODO Realize "Do" function
         

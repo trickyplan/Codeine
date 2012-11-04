@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('LatLon', function ($Call)
+    setFn('LatLon', function ($Call)
     {
         $Record = geoip_record_by_name($Call['Value']);
         return [
@@ -16,17 +16,17 @@
         ];
     });
 
-    self::setFn('Country', function ($Call)
+    setFn('Country', function ($Call)
     {
         return geoip_country_code_by_name($Call['Value']);
     });
 
-    self::setFn('City', function ($Call)
+    setFn('City', function ($Call)
     {
         return geoip_record_by_name($Call['Value'])['city'];
     });
 
-    self::setFn('Region', function ($Call)
+    setFn('Region', function ($Call)
     {
         return geoip_region_by_name($Call['Value']);
     });

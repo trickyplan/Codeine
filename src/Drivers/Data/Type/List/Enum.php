@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn ('Write', function ($Call)
+    setFn ('Write', function ($Call)
     {
         $Call['Node']['Options'] = F::Live($Call['Node']['Options']);
 
@@ -18,7 +18,7 @@
         return $Call['Value'];
     });
 
-    self::setFn('Read', function ($Call)
+    setFn('Read', function ($Call)
     {
         if (!isset($Call['Purpose']) || $Call['Purpose'] != 'Where')
         {
@@ -31,7 +31,7 @@
 
     });
 
-    self::setFn('Populate', function ($Call)
+    setFn('Populate', function ($Call)
     {
         return array_rand($Call['Node']['Options']);
     });

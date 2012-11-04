@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn ('Process', function ($Call)
+    setFn ('Process', function ($Call)
     {
         $Call['Headers']['Content-type:'] = 'image/png'; // FIXME
         $Call['Output'] = $Call['Image'];

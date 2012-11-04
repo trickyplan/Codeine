@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Scan', function ($Call)
+    setFn('Scan', function ($Call)
     {
         $Breadcrumbs = '';
 

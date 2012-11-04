@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Parse', function ($Call)
+    setFn('Parse', function ($Call)
     {
         if (preg_match_all('@<array>(.*)<k>(.*)<\/k>(.*)<\/array>@SsUu', $Call['Value'], $Pockets))
         {

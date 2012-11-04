@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Do', function ($Call)
+    setFn('Do', function ($Call)
     {
         $Call['Project'] = F::loadOptions('Project');
         $Call['Version'] = F::loadOptions('Version');

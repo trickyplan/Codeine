@@ -7,19 +7,19 @@
      * @version 7.x
      */
 
-    self::setFn('Open', function ($Call)
+    setFn('Open', function ($Call)
     {
         return array ();
     });
 
-    self::setFn('Write', function ($Call)
+    setFn('Write', function ($Call)
     {
         PhpConsole::debug($Call['Data']);
 
         return $Call;
     });
 
-    self::setFn('Close', function ($Call)
+    setFn('Close', function ($Call)
     {
 
 

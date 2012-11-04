@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Process', function ($Call)
+    setFn('Process', function ($Call)
     {
         foreach ($Call['Nodes'] as $Name => $Node)
         {

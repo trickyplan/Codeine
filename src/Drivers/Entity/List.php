@@ -7,7 +7,7 @@
      * @version 7.4
      */
 
-    self::setFn('Do', function ($Call)
+    setFn('Do', function ($Call)
     {
         if (isset($Call['Where']))
             $Call['Where'] = F::Live($Call['Where']); // FIXME
@@ -69,7 +69,7 @@
         return $Call;
     });
 
-    self::setFn('RAW', function ($Call)
+    setFn('RAW', function ($Call)
     {
         $Elements = F::Run('Entity', 'Read', $Call);
 

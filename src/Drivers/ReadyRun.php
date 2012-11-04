@@ -8,7 +8,7 @@
      */
 
 
-    self::setFn('Scan', function ($Call)
+    setFn('Scan', function ($Call)
     {
         // TODO Realize "Do" function
         $DOM = new DOMDocument();
@@ -44,7 +44,7 @@
         return $Call;
     });
 
-    self::setFn('Prefetch', function ($Call)
+    setFn('Prefetch', function ($Call)
     {
         $_COOKIE['SID'] = $Call['SID'];
 
@@ -57,7 +57,7 @@
         return $Call['URL'].' prefetched';
     });
 
-    self::setFn('Check', function ($Call)
+    setFn('Check', function ($Call)
     {
         $RR = F::Run('IO', 'Read',
             [

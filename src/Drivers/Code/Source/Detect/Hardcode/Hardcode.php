@@ -9,7 +9,7 @@
      * @time 0:20
      */
 
-    self::setFn('Detect', function ($Call)
+    setFn('Detect', function ($Call)
     {
         // FIXME
         if (!isset($Call['Functions']))

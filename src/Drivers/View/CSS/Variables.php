@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn ('Process', function ($Call)
+    setFn ('Process', function ($Call)
     {
         if (isset($Call['Map']) && is_array($Call['Map']))
             if (preg_match_all('@var\("(.*)"\)@SsUu', $Call['Value'], $Pockets))

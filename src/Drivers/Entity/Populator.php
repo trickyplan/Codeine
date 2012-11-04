@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Form', function ($Call)
+    setFn('Form', function ($Call)
     {
         $Call['Entity'] = $Call['Request']['Entity'];
         $Call = F::Run('Entity', 'Load', $Call);

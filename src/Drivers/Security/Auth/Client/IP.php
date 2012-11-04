@@ -7,13 +7,13 @@
      * @version 7.x
      */
 
-    self::setFn ('Widget.New', function ($Call)
+    setFn ('Widget.New', function ($Call)
         {
 
             return $Call;
         });
 
-    self::setFn ('Widget.Enter', function ($Call)
+    setFn ('Widget.Enter', function ($Call)
         {
             return array(
                            'Place'  => 'Login.Form',
@@ -23,7 +23,7 @@
                        );
         });
 
-    self::setFn ('Check', function ($Call)
+    setFn ('Check', function ($Call)
         {
             return $Call['User']['Auth']['IP'] == sha1($_SERVER['REMOTE_ADDR']); //FIXME
         });

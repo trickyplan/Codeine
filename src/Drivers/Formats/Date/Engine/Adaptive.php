@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Format', function ($Call)
+    setFn('Format', function ($Call)
     {
         $Value = strptime($Call['Value'],'%s');
 

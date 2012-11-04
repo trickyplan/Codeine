@@ -9,7 +9,7 @@
      * @time 6:17
      */
 
-    self::setFn('Route', function ($Call)
+    setFn('Route', function ($Call)
     {
         if (is_string($Call['Run']))
             $Call['Run'] = json_decode($Call['Run'], true);

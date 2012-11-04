@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Query', function ($Call)
+    setFn('Query', function ($Call)
     {
         $Data = null;
 

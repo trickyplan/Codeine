@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-     self::setFn('Run', function ($Call)
+     setFn('Run', function ($Call)
      {
          if (isset($Call['Hooks']))
              if ($Hooks = F::Dot($Call, 'Hooks.' . $Call['On']))

@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Write', function ($Call)
+    setFn('Write', function ($Call)
     {
         $Tags = explode(',', $Call['Value']);
 
@@ -17,7 +17,7 @@
         return $Tags;
     });
 
-    self::setFn('Read', function ($Call)
+    setFn('Read', function ($Call)
     {
         return implode(',', $Call['Value']);
     });

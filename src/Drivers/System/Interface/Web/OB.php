@@ -7,13 +7,13 @@
      * @version 7.x
      */
 
-    self::setFn('Start', function ($Call)
+    setFn('Start', function ($Call)
     {
         ob_start();
         return $Call;
     });
 
-    self::setFn('Finish', function ($Call)
+    setFn('Finish', function ($Call)
     {
         ob_flush();
         return $Call;

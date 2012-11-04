@@ -7,17 +7,17 @@
      * @version 7.x
      */
 
-    self::setFn('Decode', function ($Call)
+    setFn('Decode', function ($Call)
     {
         return json_decode($Call['Value'], true);
     });
 
-    self::setFn('Encode', function ($Call)
+    setFn('Encode', function ($Call)
     {
         return json_encode($Call['Value'], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
     });
 
-    self::setFn('Encode.Call', function ($Call)
+    setFn('Encode.Call', function ($Call)
     {
         $Call['Value'] = json_encode($Call['Value']);
         return $Call;

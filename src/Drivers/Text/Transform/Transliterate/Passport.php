@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('2English', function ($Call)
+    setFn('2English', function ($Call)
     {
         $Call['Value'] = strtr($Call['Value'], $Call['Map']);
 

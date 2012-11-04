@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Output', function ($Call)
+    setFn('Output', function ($Call)
     {
         $Message = [];
         $Message['Scope'] = $Call['Recipient'];

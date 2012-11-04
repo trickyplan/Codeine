@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-     self::setFn('Parse', function ($Call)
+     setFn('Parse', function ($Call)
      {
           foreach ($Call['Parsed'][0] as $IX => $Match)
           {

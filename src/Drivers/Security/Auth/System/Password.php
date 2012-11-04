@@ -7,7 +7,7 @@
      * @version 7.0
      */
 
-    self::setFn('Identificate', function ($Call)
+    setFn('Identificate', function ($Call)
     {
         $Call['Locales'][] = 'User';
 
@@ -39,7 +39,7 @@
         return $Call;
     });
 
-    self::setFn('Authenticate', function ($Call)
+    setFn('Authenticate', function ($Call)
     {
         $Call['User'] = F::Run('Entity', 'Read',
                      array(

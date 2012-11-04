@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Do', function ($Call)
+    setFn('Do', function ($Call)
     {
         // TODO Realize "Do" function
 
@@ -15,7 +15,7 @@
         return $Call;
     });
 
-    self::setFn('Storages', function ($Call)
+    setFn('Storages', function ($Call)
     {
         $IO = F::loadOptions('IO');
 

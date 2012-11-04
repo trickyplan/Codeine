@@ -7,22 +7,22 @@
      * @version 7.x
      */
 
-    self::setFn('Eq', function ($Call)
+    setFn('Eq', function ($Call)
     {
         return ($Call['A'] == $Call['B']);
     });
 
-    self::setFn('NotEq', function ($Call)
+    setFn('NotEq', function ($Call)
     {
         return ($Call['A'] != $Call['B']);
     });
 
-    self::setFn('Lt', function ($Call)
+    setFn('Lt', function ($Call)
     {
         return $Call['A'] < $Call['B'];
     });
 
-    self::setFn('Gt', function ($Call)
+    setFn('Gt', function ($Call)
     {
         return !$Call['A'] > $Call['B'];
     });

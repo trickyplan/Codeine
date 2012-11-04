@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Do', function ($Call)
+    setFn('Do', function ($Call)
     {
         $Sphinx = new SphinxClient();
         $Sphinx->setServer( 'localhost', 9312 );
@@ -34,7 +34,7 @@
         return $Call;
     });
 
-    self::setFn('Reindex', function ($Call)
+    setFn('Reindex', function ($Call)
     {
         $Call['Output']['Content'][] =
                 array(

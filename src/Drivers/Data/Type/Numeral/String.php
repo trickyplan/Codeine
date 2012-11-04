@@ -7,17 +7,17 @@
      * @version 7.x
      */
 
-    self::setFn('Write', function ($Call)
+    setFn('Write', function ($Call)
     {
         return (string) filter_var($Call['Value'], FILTER_SANITIZE_STRING);
     });
 
-    self::setFn('Read', function ($Call)
+    setFn('Read', function ($Call)
     {
         return (string) $Call['Value'];
     });
 
-    self::setFn('Populate', function ($Call)
+    setFn('Populate', function ($Call)
     {
         $Result = '';
 

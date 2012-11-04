@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn ('Open', function ($Call)
+    setFn ('Open', function ($Call)
     {
         $Link = new mysqli($Call['Server'], $Call['User'], F::Live($Call['Password']));
 
@@ -21,7 +21,7 @@
         return $Link;
     });
 
-    self::setFn ('Read', function ($Call)
+    setFn ('Read', function ($Call)
     {
         $Query = F::Run('IO.Storage.MySQL.Syntax', 'Read', $Call);
 
@@ -48,7 +48,7 @@
         return $Data;
     });
 
-    self::setFn ('Write', function ($Call)
+    setFn ('Write', function ($Call)
     {
         if (isset($Call['Where']))
         {
@@ -67,7 +67,10 @@
         F::Counter('MySQL');
 
         if ($Call['Link']->errno != 0)
+        {
             F::Log($Call['Link']->error, LOG_ERR);
+            return null;
+        }
 
         if (isset($Call['Data']))
             return $Call['Data'];
@@ -75,17 +78,17 @@
             return null;
     });
 
-    self::setFn ('Close', function ($Call)
+    setFn ('Close', function ($Call)
     {
         return true;
     });
 
-    self::setFn ('Run', function ($Call)
+    setFn ('Run', function ($Call)
     {
         return $Call['Link']->query($Call['Run']);
     });
 
-    self::setFn ('Status', function ($Call)
+    setFn ('Status', function ($Call)
     {
         $Data = explode('  ', $Call['Link']->stat());
         foreach ($Data as &$Row)
@@ -94,7 +97,7 @@
         return $Data;
     });
 
-    self::setFn ('Count', function ($Call)
+    setFn ('Count', function ($Call)
     {
         $Result = $Call['Link']->query(F::Run('IO.Storage.MySQL.Syntax', 'Count', $Call));
         F::Counter('MySQL');

@@ -7,18 +7,18 @@
      * @version 7.x
      */
 
-    self::setFn('Do', function ($Call)
+    setFn('Do', function ($Call)
     {
         return F::Run(null, $_SERVER['REQUEST_METHOD'], $Call);
     });
 
-    self::setFn('GET', function ($Call)
+    setFn('GET', function ($Call)
     {
 
         return $Call;
     });
 
-    self::setFn('POST', function ($Call)
+    setFn('POST', function ($Call)
     {
         // FIXME
         if ($Call['Session']['User']['Password'] == F::Run('Security.Hash', 'Get',

@@ -8,7 +8,7 @@
      */
 
 
-    self::setFn('Write', function ($Call)
+    setFn('Write', function ($Call)
     {
         F::Run('IO', 'Write',
         [

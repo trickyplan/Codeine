@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Get', function ($Call)
+    setFn('Get', function ($Call)
     {
         if (isset($_SERVER['HTTP_X_REAL_IP']))
             $_SERVER['REMOTE_ADDR'] = $_SERVER['HTTP_X_REAL_IP'];

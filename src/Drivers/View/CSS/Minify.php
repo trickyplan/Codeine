@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn ('Process', function ($Call)
+    setFn ('Process', function ($Call)
     {
         $CSS  = $Call['Value'];
 

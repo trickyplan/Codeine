@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn ('Parse', function ($Call)
+    setFn ('Parse', function ($Call)
     {
         if (preg_match_all('@<layout>(.*)</layout>@SsUu', $Call['Value'], $Call['Parsed']))
         {

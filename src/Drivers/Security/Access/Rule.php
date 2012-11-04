@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Check', function ($Call)
+    setFn('Check', function ($Call)
     {
 
         foreach ($Call['Rules'] as $Name => $Rule)

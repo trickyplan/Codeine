@@ -6,15 +6,21 @@
         "ID":
         {
             "Type": "Numeral.Integer",
-            "Create":
+            "Unique": true,
+            "Hooks":
             {
-                "Service": "Security.UID.Integer",
-                "Method": "Get"
+                "beforeEntityCreate":
+                {
+                    "Service": "Security.UID",
+                    "Method": "Get"
+                }
             }
         },
         "EMail":
         {
             "Type": "Literal.EMail",
+            "Required": true,
+            "Unique": true,
             "Widgets":
             {
                 "Write":
@@ -32,6 +38,7 @@
         {
             "Type": "Literal.Password",
             "WriteOnce": true,
+            "Required": true,
             "Widgets":
             {
                 "Create":
@@ -44,6 +51,7 @@
         "Fullname":
         {
             "Type": "Literal.String",
+            "Required": true,
             "Widgets":
             {
                 "Write":
@@ -54,10 +62,13 @@
         },
         "Created":
         {
-            "Create":
+            "Hooks":
             {
-                "Service":"System.Time",
-                "Method":"Get"
+                "beforeEntityCreate":
+                {
+                    "Service":"System.Time",
+                    "Method":"Get"
+                }
             }
         }
     },
@@ -72,6 +83,18 @@
                 "Call":
                 {
                     "Location": "/"
+                }
+            }
+        },
+        "onCreateFailed":
+        {
+            "Error Page":
+            {
+                "Service": "Error.Page",
+                "Method": "Do",
+                "Call":
+                {
+                    "Code": 400
                 }
             }
         }

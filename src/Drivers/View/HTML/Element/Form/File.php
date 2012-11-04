@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-     self::setFn('Make', function ($Call)
+     setFn('Make', function ($Call)
      {
          return F::Run ('View', 'LoadParsed', $Call,
                            array(

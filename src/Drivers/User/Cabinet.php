@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Do', function ($Call)
+    setFn('Do', function ($Call)
     {
         if (isset($Call['Session']['User']) && ($Call['Session']['User'] != -1))
             $Call['Output']['Content'][] =

@@ -8,7 +8,7 @@
      */
 
 
-    self::setFn('Make', function ($Call)
+    setFn('Make', function ($Call)
     {
         foreach ($Call['Attributes']['String'] as $Attribute => $Value)
         {

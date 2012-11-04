@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Detect', function ($Call)
+    setFn('Detect', function ($Call)
     {
         return (isset($_SERVER['HTTP_DNT']) || isset($_SERVER['X-Do-Not-Track']));
      });

@@ -7,7 +7,7 @@
     * @version 7.5
     */
 
-    self::setFn('Hash', function ($Call)
+    setFn('Hash', function ($Call)
     {
 
         $Hash = array ();
@@ -32,7 +32,7 @@
     });
 
 // FIXME  Функцию Image.Join можно вытащить целиком в отдельный файл (Сделать универсальной без заточки на спрайты)
-    self::setFn('Image.Join', function($Call)
+    setFn('Image.Join', function($Call)
     {
 
         $UniqueSprite = array ();
@@ -152,7 +152,7 @@
         return array ('UniqueSprite' => $UniqueSprite, 'SpriteHandel' => $SpriteHandle, 'css' => $CSS);
     });
 //Точка входа
-    self::setFn('Process', function ($Call)
+    setFn('Process', function ($Call)
     {
         //Поиск xml вставки в буфере
 

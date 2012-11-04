@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Check', function ($Call)
+    setFn('Check', function ($Call)
     {
         if (time()%$Call['Period'] == 0)
         {

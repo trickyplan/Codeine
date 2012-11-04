@@ -9,7 +9,7 @@
      * @time 6:17
      */
 
-    self::setFn('Route', function ($Call)
+    setFn('Route', function ($Call)
     {
         if (strpos($Call['Run'], '?'))
             list($Call['Run']) = explode('?', $Call['Run']);

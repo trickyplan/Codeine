@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Bar', function ($Call)
+    setFn('Bar', function ($Call)
     {
         if (isset($_COOKIE['Experiment']))
         {
@@ -33,7 +33,7 @@
         return $Call;
     });
 
-    self::setFn('Set', function ($Call)
+    setFn('Set', function ($Call)
     {
         if (isset($Call['Experiments'][$Call['Experiment']]))
         {

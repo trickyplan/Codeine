@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Test', function ($Call)
+    setFn('Test', function ($Call)
     {
         $Cycles = 1000000-2;
 

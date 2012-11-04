@@ -7,12 +7,12 @@
      * @version 7.x
      */
 
-    self::setFn('Do', function ($Call)
+    setFn('Do', function ($Call)
     {
         return F::Run(null, $_SERVER['REQUEST_METHOD'], $Call);
     });
 
-    self::setFn('GET', function ($Call)
+    setFn('GET', function ($Call)
     {
         foreach ($Call['Roles'] as $Role['ID'] => $Role)
             foreach ($Call['Rights'] as $Right['ID'] => $Right)
@@ -30,7 +30,7 @@
     });
 
 
-    self::setFn('POST', function ($Call)
+    setFn('POST', function ($Call)
     {
         // TODO Realize "POST" function
         d(__FILE__, __LINE__, $Call['Request']);

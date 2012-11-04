@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Write', function ($Call)
+    setFn('Write', function ($Call)
     {
         return F::Run('IO', 'Write', $Call,
         [

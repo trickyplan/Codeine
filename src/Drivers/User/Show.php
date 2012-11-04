@@ -7,7 +7,7 @@
      * @version 7.0
      */
 
-    self::setFn('Do', function ($Call)
+    setFn('Do', function ($Call)
     {
         $Element = F::Run('Entity', 'Read', array('Entity' => 'User', 'Where' => $Call['ID']));
 

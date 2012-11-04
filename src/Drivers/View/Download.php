@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Render', function ($Call)
+    setFn('Render', function ($Call)
     {
         $Call['Headers']['Content-type:'] = mime_content_type($Call['Output']['File']);
 

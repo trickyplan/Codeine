@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Process', function ($Call)
+    setFn('Process', function ($Call)
     {
         include Codeine.'/Vendor/yandex/translate/Yandex_Translate.php';
 

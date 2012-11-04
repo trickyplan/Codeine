@@ -8,7 +8,7 @@
      */
 
 
-    self::setFn('Get', function ($Call)
+    setFn('Get', function ($Call)
     {
         if (isset($Call['Modes'][$Call['Mode']]))
         {

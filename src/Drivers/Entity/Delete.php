@@ -7,7 +7,7 @@
      * @version 7.4
      */
 
-    self::setFn('Do', function ($Call)
+    setFn('Do', function ($Call)
     {
         $Call = F::Hook('beforeDeleteDo', $Call);
 
@@ -16,7 +16,7 @@
         return F::Run(null, $_SERVER['REQUEST_METHOD'], $Call);
     });
 
-    self::setFn('GET', function ($Call)
+    setFn('GET', function ($Call)
     {
         $Call = F::Hook('beforeDeleteGet', $Call);
 
@@ -28,7 +28,7 @@
         return $Call;
     });
 
-    self::setFn('POST', function ($Call)
+    setFn('POST', function ($Call)
     {
         F::Run('Entity', 'Delete', $Call);
 

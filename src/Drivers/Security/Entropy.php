@@ -8,7 +8,7 @@
      */
 
 
-    self::setFn('Do', function ($Call)
+    setFn('Do', function ($Call)
     {
         if (isset($Call['Modes'][$Call['Mode']]))
             return F::Live($Call['Modes'][$Call['Mode']], $Call);

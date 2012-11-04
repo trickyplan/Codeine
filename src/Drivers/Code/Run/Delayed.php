@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Run', function ($Call)
+    setFn('Run', function ($Call)
     {
         if (F::Run('Code.Flow.Daemon', 'Running?', $Call) || $Call['Delayed Mode'] == 'Dirty')
             return F::Run('IO', 'Write', array
@@ -20,12 +20,12 @@
             return F::Live($Call['Run']);
      });
 
-    self::setFn('Execute', function ($Call)
+    setFn('Execute', function ($Call)
     {
         return F::Live($Call['Run']);
     });
 
-    self::setFn('Queue', function ($Call)
+    setFn('Queue', function ($Call)
     {
         return F::Run('IO', 'Read', ['Storage' => 'Run Queue', 'Scope' => 'RQ']);
     });

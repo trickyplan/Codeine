@@ -1,11 +1,11 @@
 <?php
 
-    self::setFn('Open', function ($Call)
+    setFn('Open', function ($Call)
     {
         return true;
     });
 
-    self::setFn('Write', function ($Call)
+    setFn('Write', function ($Call)
     {
         if ($Call['Renderer'] == 'View.HTML')
         {
@@ -20,7 +20,7 @@
         return $Call;
     });
 
-    self::setFn('Close', function ($Call)
+    setFn('Close', function ($Call)
     {
 
         return $Call;

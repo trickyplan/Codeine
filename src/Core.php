@@ -420,6 +420,7 @@
             if (isset($Call['Hooks']))
                  if ($Hooks = F::Dot($Call, 'Hooks.' . $On))
                  {
+                     F::Log($On, LOG_DEBUG);
                      foreach ($Hooks as $Hook)
                          if (F::isCall($Hook))
                              $Call = F::Run($Hook['Service'],$Hook['Method'], isset($Hook['Call'])? $Hook['Call']: [], $Call, ['On' => $On]);
@@ -594,7 +595,7 @@
            arsort(self::$_Counters['T']);
            echo "<pre>time\tcalls\trtime\trcall\tfn\n".$Summary['Time']."\t".$Summary['Calls']."\n";
            foreach (self::$_Counters['T'] as $Key => $Value)
-               echo $Value."\t".self::$_Counters['C'][$Key]."\t".round(($Value/$Summary['Time'])*100)
+               echo round($Value)."\t".self::$_Counters['C'][$Key]."\t".round(($Value/$Summary['Time'])*100)
                          ."%\t".round((self::$_Counters['C'][$Key]/$Summary['Calls']),2)*100
                          ."%\t".$Key."\n";
 
@@ -639,4 +640,9 @@
             call_user_func_array(['F','Dump'], func_get_args());
 
         return func_get_arg(2);
+    }
+
+    function setFn($Name, $Function)
+    {
+        return F::setFn($Name, $Function);
     }

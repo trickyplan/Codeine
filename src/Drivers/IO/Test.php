@@ -7,27 +7,27 @@
      * @version 7.x
      */
 
-    self::setFn ('Open', function ($Call)
+    setFn ('Open', function ($Call)
     {
         return true;
     });
 
-    self::setFn ('Read', function ($Call)
+    setFn ('Read', function ($Call)
     {
         return true;
     });
 
-    self::setFn ('Write', function ($Call)
+    setFn ('Write', function ($Call)
     {
         return true;
     });
 
-    self::setFn ('Close', function ($Call)
+    setFn ('Close', function ($Call)
     {
         return true;
     });
 
-    self::setFn ('Execute', function ($Call)
+    setFn ('Execute', function ($Call)
     {
         return true;
     });

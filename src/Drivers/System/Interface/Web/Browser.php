@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Info', function ($Call)
+    setFn('Info', function ($Call)
     {
         // TODO Realize "Info" function
 

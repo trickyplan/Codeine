@@ -7,12 +7,12 @@
      * @version 7.x
      */
 
-    self::setFn('Decode', function ($Call)
+    setFn('Decode', function ($Call)
     {
         return igbinary_unserialize($Call['Value']);
     });
 
-    self::setFn('Encode', function ($Call)
+    setFn('Encode', function ($Call)
     {
         return igbinary_serialize($Call['Value']);
     });

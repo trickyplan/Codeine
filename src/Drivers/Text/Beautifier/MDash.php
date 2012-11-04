@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Process', function ($Call)
+    setFn('Process', function ($Call)
     {
         $Call['Value'] = preg_replace('/ - /', '&nbsp;&#8212; ', $Call['Value']);
 

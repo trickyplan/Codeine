@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Layouts', function ($Call)
+    setFn('Layouts', function ($Call)
     {
         if (!isset($Call['Layouts']))
             $Call['Layouts'] = [];

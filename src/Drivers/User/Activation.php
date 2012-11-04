@@ -7,71 +7,74 @@
      * @version 7.x
      */
 
-    self::setFn('Send', function ($Call)
+    setFn('Send', function ($Call)
     {
-        $User = F::Run('Entity', 'Read', array('Entity' => 'User', 'Where' => $Call['Data']['ID']))[0]; // FIXME
+        if (isset($Call['Data']['ID']))
+            {
+                $User = F::Run('Entity', 'Read', array('Entity' => 'User', 'Where' => $Call['Data']['ID']))[0]; // FIXME
 
-        $User['Code'] = F::Run('Security.UID', 'Get');
+                $User['Code'] = F::Run('Security.UID', 'Get');
 
-        F::Run('IO', 'Write',
-            array(
-                 'Storage' => 'Activation',
-                 'Scope' => 'Activation',
-                 'Data' =>
-                     array(
-                         'ID' => (int) $User['Code'],
-                         'User' => $User['ID']
-                     )
-            ));
+                F::Run('IO', 'Write',
+                    array(
+                         'Storage' => 'Primary',
+                         'Scope' => 'Activation',
+                         'Data' =>
+                             array(
+                                 'ID' => (int) $User['Code'],
+                                 'User' => $User['ID']
+                             )
+                    ));
 
-        $Message['Scope'] = '"'.F::Dot($User, $Call['Name Field']).'" <'.$User['EMail'].'>';
-        $Message['ID']    = $Call['Subject'];
+                $Message['Scope'] = '"'.F::Dot($User, $Call['Name Field']).'" <'.$User['EMail'].'>';
+                $Message['ID']    = $Call['Subject'];
 
-        $Message['Data']  = F::Run('View', 'LoadParsed', $Call,
-                                             [
-                                                  'Scope' => 'User/Activation',
-                                                  'ID' => 'EMail',
-                                                  'Data' =>
-                                                      array_merge($Call, $User,
-                                                      [
-                                                          'ActivationURL' => $Call['Host'].'/activate/user/'.$User['Code']
-                                                      ])
-                                             ]);
+                $Message['Data']  = F::Run('View', 'LoadParsed', $Call,
+                                                     [
+                                                          'Scope' => 'User/Activation',
+                                                          'ID' => 'EMail',
+                                                          'Data' =>
+                                                              array_merge($Call, $User,
+                                                              [
+                                                                  'ActivationURL' => $Call['Host'].'/activate/user/'.$User['Code']
+                                                              ])
+                                                     ]);
 
-        $Message['Headers'] = array ('Content-type:' => ' text/html; charset="utf-8"');
+                $Message['Headers'] = array ('Content-type:' => ' text/html; charset="utf-8"');
 
-        F::Run('Code.Run.Delayed', 'Run', [
-            'Run' => F::Merge($Call['Sender'], ['Call' => $Message])
-        ]);
+                F::Run('Code.Run.Delayed', 'Run', [
+                    'Run' => F::Merge($Call['Sender'], ['Call' => $Message])
+                ]);
 
-        list(,$User['Server']) = explode('@', $User['EMail']);
+                list(,$User['Server']) = explode('@', $User['EMail']);
 
-        $Call['Output']['Content'] =
-        [
-            [
-                'Type'  => 'Template',
-                'Scope' => 'User/Activation',
-                'ID' => 'Needed',
-                'Data'  => $User
-            ]
-        ];
+                $Call['Output']['Content'] =
+                [
+                    [
+                        'Type'  => 'Template',
+                        'Scope' => 'User/Activation',
+                        'ID' => 'Needed',
+                        'Data'  => $User
+                    ]
+                ];
 
-        if (isset($Call['Second']))
-            $Call['Output']['Message'][] =
-                array(
-                    'Type'  => 'Block',
-                    'Class' => 'alert alert-success',
-                    'Value'  => 'Письмо выслано повторно'
-                );
+                if (isset($Call['Second']))
+                    $Call['Output']['Message'][] =
+                        array(
+                            'Type'  => 'Block',
+                            'Class' => 'alert alert-success',
+                            'Value'  => 'Письмо выслано повторно'
+                        );
+            }
 
         return $Call;
     });
 
-    self::setFn('Check', function ($Call)
+    setFn('Check', function ($Call)
     {
         $Activation = F::Run('IO', 'Read',
              array(
-                  'Storage' => 'Activation',
+                  'Storage' => 'Primary',
                   'Scope' => 'Activation',
                   'Where' => (int) $Call['Code']
              ))[0];
@@ -90,7 +93,7 @@
 
             F::Run('IO', 'Write',
                 array(
-                     'Storage' => 'Activation',
+                     'Storage' => 'Primary',
                      'Scope' => 'Activation',
                      'Where' => $Call['Code'],
                      'Data' => null

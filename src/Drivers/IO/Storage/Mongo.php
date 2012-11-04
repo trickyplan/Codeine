@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn ('Open', function ($Call)
+    setFn ('Open', function ($Call)
     {
         $Link = new Mongo('mongodb://'.$Call['Server']);
         $Link = $Link->selectDB($Call['Database']);
@@ -18,7 +18,7 @@
         return $Link;
     });
 
-    self::setFn ('Read', function ($Call)
+    setFn ('Read', function ($Call)
     {
         $Call['Scope'] = strtr($Call['Scope'], '.', '_');
         $Data = null;
@@ -56,51 +56,51 @@
         return $Data;
     });
 
-    self::setFn ('Write', function ($Call)
+    setFn ('Write', function ($Call)
     {
         $Call['Scope'] = strtr($Call['Scope'], '.', '_');
 
-        if (null === $Call['Data'])
-        {
-            if (isset($Call['Where']))
-                return $Call['Link']->$Call['Scope']->remove ($Call['Where']);
-            else
-                return $Call['Link']->$Call['Scope']->remove ();
-        }
-        else
-        {
-            $Data = array();
-
-            foreach ($Call['Data'] as $Key => $Value)
+            if (null === $Call['Data'])
             {
-                unset ($Call['Data'][$Key]);
-                $Data = F::Dot($Data, $Key, $Value);
+                if (isset($Call['Where']))
+                    return $Call['Link']->$Call['Scope']->remove ($Call['Where']);
+                else
+                    return $Call['Link']->$Call['Scope']->remove ();
             }
-
-            if (isset($Call['Current']))
-                $Data = F::Merge($Call['Current'], $Data);
-
-            if (isset($Call['Where']))
-                $Call['Link']->$Call['Scope']->update($Call['Where'], ['$set' => $Data]) or F::Hook('IO.Mongo.Update.Failed', $Call);
             else
-                $Call['Link']->$Call['Scope']->insert ($Data);
+            {
+                $Data = array();
 
-            return $Data;
-        }
+                foreach ($Call['Data'] as $Key => $Value)
+                {
+                    unset ($Call['Data'][$Key]);
+                    $Data = F::Dot($Data, $Key, $Value);
+                }
+
+                if (isset($Call['Current']))
+                    $Data = F::Merge($Call['Current'], $Data);
+
+                if (isset($Call['Where']))
+                    $Call['Link']->$Call['Scope']->update($Call['Where'], ['$set' => $Data]) or F::Hook('IO.Mongo.Update.Failed', $Call);
+                else
+                    $Call['Link']->$Call['Scope']->insert ($Data);
+
+                return $Data;
+            }
     });
 
-    self::setFn ('Close', function ($Call)
+    setFn ('Close', function ($Call)
     {
         return true;
     });
 
-    self::setFn ('Execute', function ($Call)
+    setFn ('Execute', function ($Call)
     {
 
         return $Call['Link']->execute($Call['Command']);
     });
 
-    self::setFn ('Count', function ($Call)
+    setFn ('Count', function ($Call)
     {
         $Call['Scope'] = strtr($Call['Scope'], '.', '_');
 

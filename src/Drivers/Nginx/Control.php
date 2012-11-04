@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Do', function ($Call)
+    setFn('Do', function ($Call)
     {
         $Call['Output']['Status'][] =
             array(
@@ -18,7 +18,7 @@
         return $Call;
     });
 
-    self::setFn('Errors', function ($Call)
+    setFn('Errors', function ($Call)
     {
         $Call['Output']['Content'][] =
         array(
@@ -29,7 +29,7 @@
         return $Call;
     });
 
-    self::setFn('Access', function ($Call)
+    setFn('Access', function ($Call)
     {
         $Call['Output']['Content'][] =
         array(

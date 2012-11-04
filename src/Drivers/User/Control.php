@@ -7,27 +7,27 @@
      * @version 7.x
      */
 
-    self::setFn('Do', function ($Call)
+    setFn('Do', function ($Call)
     {
         return F::Run('Entity.List', 'Do', array('Entity' => 'User', 'Template' => 'Control', 'PageURL' => '/control/User/page', 'Context' => 'app'), $Call);
     });
 
-    self::setFn('Show', function ($Call)
+    setFn('Show', function ($Call)
     {
         return F::Run('Entity.Show.Static', 'Do', array('Entity' => 'User', 'PageURL' => '/control/User/page', 'Context' => 'app'), $Call);
      });
 
-    self::setFn('Create', function ($Call)
+    setFn('Create', function ($Call)
     {
         return F::Run('Entity.Create', 'Do', array('Entity' => 'User', 'Context' => 'app'), $Call);
     });
 
-    self::setFn('Update', function ($Call)
+    setFn('Update', function ($Call)
     {
         return F::Run('Entity.Update', 'Do', array('Entity' => 'User', 'Where' => $Call['ID']), $Call);
     });
 
-    self::setFn('Magic', function ($Call)
+    setFn('Magic', function ($Call)
     {
         $Call['User'] = F::Run('Entity', 'Read', $Call, array(
                                         'Entity' => 'User'
@@ -62,7 +62,7 @@
         return $Call;
     });
 
-    self::setFn('Login', function ($Call)
+    setFn('Login', function ($Call)
     {
         $Call['Session'] = F::Run('Security.Auth', 'Attach', ['User' => $Call['ID']]);
 
@@ -71,17 +71,17 @@
         return $Call;
     });
 
-    self::setFn('Delete', function ($Call)
+    setFn('Delete', function ($Call)
     {
         return F::Run('Entity.Delete', 'Do', array('Entity' => 'User', 'Where' => $Call['ID']), $Call);
     });
 
-    self::setFn('Flush', function ($Call)
+    setFn('Flush', function ($Call)
     {
         return F::Run('Entity.Delete', 'Do', array('Entity' => 'User'), $Call);
     });
 
-    self::setFn('Menu', function ($Call)
+    setFn('Menu', function ($Call)
     {
         $Count = F::Run('Entity', 'Count', $Call, ['Entity' => 'User']);
 

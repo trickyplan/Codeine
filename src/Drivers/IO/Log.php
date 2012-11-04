@@ -8,7 +8,7 @@
      */
 
 
-    self::setFn('Spit', function ($Call)
+    setFn('Spit', function ($Call)
     {
         $Logs = F::Logs();
 

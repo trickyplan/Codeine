@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn ('WriteKeys', function ($Call)
+    setFn ('WriteKeys', function ($Call)
     {
         if (isset($Call['Data']))
         {
@@ -22,7 +22,7 @@
         return $Keys;
     });
 
-    self::setFn('ReadKeys', function ($Call)
+    setFn('ReadKeys', function ($Call)
     {
         if(isset($Call['Keys']))
         {
@@ -37,7 +37,7 @@
         return $Keys;
     });
 
-    self::setFn('Set', function ($Call)
+    setFn('Set', function ($Call)
     {
         if (isset($Call['Data']))
         {
@@ -55,7 +55,7 @@
         return $Sets;
     });
 
-    self::setFn('Values', function ($Call)
+    setFn('Values', function ($Call)
     {
 
         $Values = '';
@@ -70,12 +70,12 @@
         return ' values ('.$Values.')';
     });
 
-    self::setFn('Table', function ($Call)
+    setFn('Table', function ($Call)
     {
         return '`' . strtr($Call['Scope'],array('/' => '', '.' => '')) . '`';
     });
 
-    self::setFn('Sort', function ($Call)
+    setFn('Sort', function ($Call)
     {
         $SortString = '';
 
@@ -98,7 +98,7 @@
         return $SortString;
     });
 
-    self::setFn('Limit', function ($Call)
+    setFn('Limit', function ($Call)
     {
         if (isset($Call['Limit']))
             $LimitString = ' limit '.$Call['Limit']['From'].', '.$Call['Limit']['To']; // FIXME Checks
@@ -108,7 +108,7 @@
         return $LimitString;
     });
 
-    self::setFn ('Where', function ($Call)
+    setFn ('Where', function ($Call)
     {
         if (isset($Call['Where']))
         {
@@ -155,7 +155,7 @@
         return $WhereString;
     });
 
-    self::setFn('Read', function (array $Call)
+    setFn('Read', function (array $Call)
     {
         return 'select '
                .F::Run(null, 'ReadKeys', $Call).
@@ -165,7 +165,7 @@
                .F::Run(null, 'Limit', $Call);
     });
 
-    self::setFn('Insert', function (array $Call)
+    setFn('Insert', function (array $Call)
     {
         return 'insert into '
             .F::Run(null, 'Table', $Call)
@@ -173,7 +173,7 @@
             .F::Run(null, 'Values', $Call);
     });
 
-    self::setFn('Update', function ($Call)
+    setFn('Update', function ($Call)
     {
         return 'update '
             .F::Run(null, 'Table', $Call).
@@ -182,7 +182,7 @@
             .F::Run(null, 'Limit', $Call);
     });
 
-    self::setFn('Delete', function ($Call)
+    setFn('Delete', function ($Call)
     {
         return 'delete from '
             . F::Run(null, 'Table', $Call)
@@ -190,7 +190,7 @@
             .F::Run(null, 'Limit', $Call);
     });
 
-    self::setFn('Count', function (array $Call)
+    setFn('Count', function (array $Call)
     {
         return 'select count(*) from '.F::Run(null, 'Table', $Call)
                .F::Run(null, 'Where', $Call);

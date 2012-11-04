@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Decode', function ($Call)
+    setFn('Decode', function ($Call)
     {
         $Data = array();
         if (preg_match_all('@(.*)\{(.*)\}@SsUu', $Call['Value'], $RuleSets))
@@ -22,7 +22,7 @@
          return $Data;
     });
 
-    self::setFn('Encode', function ($Call)
+    setFn('Encode', function ($Call)
     {
         $Data = array();
         foreach($Call['Value'] as $Selector => $RuleSet)

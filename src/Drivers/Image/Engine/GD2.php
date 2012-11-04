@@ -8,7 +8,7 @@
      */
 
 
-    self::setFn('Create', function ($Call)
+    setFn('Create', function ($Call)
     {
         $Call['Image'] =
             [
@@ -21,7 +21,7 @@
         return $Call['Image'];
     });
 
-    self::setFn('Load', function ($Call)
+    setFn('Load', function ($Call)
     {
         list ($Call['Image']['Widht'], $Call['Image']['Height'], $Call['Image']['Type']) = getimagesize($Call['ID']);
 
@@ -107,7 +107,7 @@
         return $Call['Image'];
     });
 
-    self::setFn('Save', function ($Call)
+    setFn('Save', function ($Call)
     {
         // TODO Realize "Save" function
         switch ($Call['Image']['Type'])

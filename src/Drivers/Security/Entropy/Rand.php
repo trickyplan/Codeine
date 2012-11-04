@@ -8,7 +8,7 @@
      */
 
 
-    self::setFn('Get', function ($Call)
+    setFn('Get', function ($Call)
     {
         return rand($Call['Min'], $Call['Max']);
     });

@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn ('Select', function ($Call)
+    setFn ('Select', function ($Call)
     {
         return null; // FIXME
     });

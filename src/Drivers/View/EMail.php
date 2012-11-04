@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    self::setFn('Render', function ($Call)
+    setFn('Render', function ($Call)
     {
         $Call['Context'] = 'email';
         $Call = F::Hook('beforePipeline', $Call);
@@ -19,7 +19,7 @@
         return $Call;
     });
 
-    self::setFn('Pipeline', function ($Call)
+    setFn('Pipeline', function ($Call)
     {
         if (isset($Call['Layouts']))
         {
