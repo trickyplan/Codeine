@@ -9,10 +9,10 @@
 
     setFn('Write', function ($Call)
     {
-        return $Call['Value']; // FIXME
+        return htmlspecialchars($Call['Value']); // FIXME
     });
 
     setFn('Read', function ($Call)
     {
-        return $Call['Value'];
+        return html_entity_decode($Call['Value']);
     });

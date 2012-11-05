@@ -48,6 +48,11 @@
                 "Service":"View.HTML.Places",
                 "Method":"Clean"
             },
+            "Minify":
+            {
+                "Service":"View.HTML.Minify",
+                "Method":"Process"
+            },
             "I18N":
             {
                 "Service":"View.HTML.LocaleNG",

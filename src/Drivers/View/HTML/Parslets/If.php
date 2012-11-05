@@ -23,13 +23,9 @@
 
             if (null != ($Eq = (string) $Root->attributes()->eq))
                 $Decision = ($Value == $Eq);
-            else
-                $Decision = ($Value == null);
 
             if (null != ($Neq = (string) $Root->attributes()->neq))
                 $Decision = ($Value != $Neq);
-            else
-                $Decision = ($Value != null);
 
             if (null != ($Lt = (string) $Root->attributes()->lt))
                 $Decision = ($Value < $Lt);

@@ -1,0 +1,41 @@
+{
+    "Nodes":
+    {
+        "Created":
+        {
+            "Type": "Numeral.Integer",
+            "Hooks":
+            {
+                "beforeEntityCreate":
+                {
+                    "Service": "System.Time",
+                    "Method": "Get"
+                }
+            }
+        },
+        "Modified":
+        {
+            "Type": "Numeral.Integer",
+            "Hooks":
+            {
+                "beforeEntityCreate":
+                {
+                    "Service": "System.Time",
+                    "Method": "Get"
+                }
+            }
+        },
+        "User":
+        {
+            "Type": "Numeral.Integer",
+            "Hooks":
+            {
+                "beforeEntityCreate":
+                {
+                    "Service": "Security.Auth",
+                    "Method": "Username"
+                }
+            }
+        }
+    }
+}

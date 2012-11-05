@@ -12,7 +12,7 @@
         $Call['Output']['Status'][] =
             array(
                 'Type' => 'Text',
-            'Value' => file_get_contents('http://'.$_SERVER['HTTP_HOST'].'/nginx_status')
+            'Value' => file_get_contents('http://'.$Call['Host'].'/nginx_status')
         );
 
         return $Call;

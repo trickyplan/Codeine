@@ -44,8 +44,20 @@
             $Sets = array ();
 
             foreach ($Call['Data'] as $Key => $Value)
+            {
                 if (is_scalar($Value))
+                {
+                    if (!is_float($Value) and !is_int($Value))
+                        $Value = $Call['Link']->real_escape_string($Value); // ?
+                    else
+                        $Value = strtr($Value, ',','.');
+                    // FIXME I'm shitcode
+
                     $Sets[] = '`'.$Call['Link']->real_escape_string($Key).'` = \''. $Call['Link']->real_escape_string($Value).'\'';
+                }
+            }
+
+
 
             $Sets = implode(',', $Sets);
         }
@@ -57,12 +69,15 @@
 
     setFn('Values', function ($Call)
     {
-
         $Values = '';
+
         if (isset($Call['Data']))
         {
             foreach ($Call['Data'] as &$Value)
-                $Value = '\''.$Call['Link']->real_escape_string($Value). '\''; // ?
+                if (!is_float($Value) and !is_int($Value))
+                    $Value = '\''.$Call['Link']->real_escape_string($Value). '\''; // ?
+                else
+                    $Value = strtr($Value, ',','.'); // FIXME I'm shitcode
 
             $Values = implode(',', $Call['Data']);
         }

@@ -7,7 +7,10 @@
 
     include 'Codeine/Core.php';
 
-    $Opts = getopt ('', array('Service:', 'Method:', 'Environment:'));
+
+    foreach ($argv as $arg)
+        if (preg_match('/--(\S+)\=(\S+)/', $arg, $Pockets))
+            $Opts[$Pockets[1]] = $Pockets[2];
 
     if (!isset($Opts['Method']))
         $Opts['Method'] = 'Do';

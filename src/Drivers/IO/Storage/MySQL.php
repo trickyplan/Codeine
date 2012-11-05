@@ -64,6 +64,9 @@
 
         $Call['Link']->query($Query);
 
+        if (!isset($Call['Data']['ID']))
+            $Call['Data']['ID'] = $Call['Link']->insert_id;
+
         F::Counter('MySQL');
 
         if ($Call['Link']->errno != 0)

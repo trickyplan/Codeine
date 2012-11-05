@@ -11,7 +11,8 @@
     {
         $Call = F::Run ($Call['Service'], $Call['Method'], $Call);
 
-        $Call['Renderer'] = 'View.Plaintext';
+        if (isset($Call['Renderer']) && $Call['Renderer']=='View.HTML')
+            $Call['Renderer'] = 'View.Plaintext';
 
         $Call = F::Run('View', 'Render', $Call);
 

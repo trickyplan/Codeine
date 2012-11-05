@@ -25,7 +25,7 @@
             }
 
             $Call['Cookie'] = $_COOKIE;
-            $Call['Host'] = $_SERVER['HTTP_HOST'];
+            $Call['Host'] = 'http://'.$_SERVER['HTTP_HOST'];
             $Call['Run'] = urldecode($_SERVER['REQUEST_URI']);
 
             $Call['IP'] = function ($Call) {return F::Run('System.Interface.Web.IP', 'Get', $Call);};

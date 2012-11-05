@@ -9,7 +9,7 @@
 
     setFn('Write', function ($Call)
     {
-        return $Call['Value'];
+        return (float) strtr($Call['Value'], ',','.');
     });
 
     setFn('Read', function ($Call)

@@ -18,28 +18,26 @@
 
         if (!isset($Call['Output']))
         {
-
             if (F::isCall($Call['Run']))
             {
-                $Slices = explode('.', $Call['Run']['Service']);
-                $Call['Locales'][] = $Slices[0];
-                $Call['Locales'][] = $Slices[0].':'.implode('.', array_slice($Slices, 1));
+                if (!isset($Call['Failure']))
+                {
+                    $Slices = explode('.', $Call['Run']['Service']);
 
-                list($Call['Service'], $Call['Method']) = array($Call['Run']['Service'], $Call['Run']['Method']);
-                $Call['Environment'] = F::Environment();
-                $Call = F::Live($Call['Run'], $Call);
+                    $Call['Locales'][] = $Slices[0];
+                    $Call['Locales'][] = $Slices[0].':'.implode('.', array_slice($Slices, 1));
+
+                    list($Call['Service'], $Call['Method']) = array($Call['Run']['Service'], $Call['Run']['Method']);
+                    $Call['Environment'] = F::Environment();
+                    $Call = F::Live($Call['Run'], $Call);
+                }
             }
             // В противном случае, 404
-            else
-                $Call = F::Hook('on404', $Call);
-
             $Call['Context'] = '';
-            // А здесь - рендеринг
-            $Call = F::Hook('afterRun', $Call);
-
         }
 
-
+        // А здесь - рендеринг
+            $Call = F::Hook('afterRun', $Call);
 
         return $Call;
     });

@@ -37,7 +37,7 @@
             {
                 if ($Call['User']['Status'] == -1)
                 {
-                    $Call['User']['Server'] = $_SERVER['HTTP_HOST'];
+                    $Call['User']['Server'] = $Call['Host'];
 
                     $Call['Output']['Content'][]
                         = array(

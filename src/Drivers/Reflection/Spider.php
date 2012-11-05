@@ -9,7 +9,7 @@
 
     setFn('Do', function ($Call)
     {
-        $Host = 'http://'.$_SERVER['HTTP_HOST'];
+        $Host = 'http://'.$Call['Host'];
 
         $Data['/'] = F::Run(null, 'Get', array('URL' => $Host.'/'));
 

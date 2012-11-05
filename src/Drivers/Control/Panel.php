@@ -15,7 +15,6 @@
         if (!isset($Call['Option']))
             $Call['Option'] = 'Do';
 
-
         $Call = F::Run($Call['Bundle'].'.Control', $Call['Option'], $Call, ['Context' => 'app']);
 
         $Call['Layouts'][] = array(
@@ -52,18 +51,22 @@
         foreach ($Call['Sidebar'] as &$Sidebar)
             $Pills[] = ['ID' => $Sidebar, 'URL' => '/control/'.$Call['Bundle'].'/'.$Sidebar, 'Title' => $Call['Bundle'].'.Control:Options.'.$Sidebar];
 
-        $Call['Output']['Sidebar'][] = array(
+        // FIXME Костыль
+        if (!$Call['Failure'])
+        {
+            $Call['Output']['Sidebar'][] = array(
                 'Type' => 'Navpills',
                 'Options' => $Pills,
                 'Value' => $Call['Option']
             );
 
-        $Call['Output']['Navigation'][] = array(
-            'Type' => 'Navlist',
-            'Scope' => 'Control',
-            'Options' => $Call['Options'],
-            'Value' => $Call['Bundle']
-        );
+            $Call['Output']['Navigation'][] = array(
+                'Type' => 'Navlist',
+                'Scope' => 'Control',
+                'Options' => $Call['Options'],
+                'Value' => $Call['Bundle']
+            );
+        }
 
         return $Call;
      });

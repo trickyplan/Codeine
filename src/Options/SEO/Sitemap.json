@@ -1,0 +1,23 @@
+{
+    "SearchEngines":
+    {
+        "Google":"http://google.com",
+        "Yandex":"http://yandex.ru",
+        "Bing": "http://bing.com",
+        "Yahoo": "http://yahoo.com",
+        "Ask": "http://ask.com"
+    },
+    "Entities":
+    {
+        "Article":
+        {
+            "Frequency": "weekly",
+            "Priority": 1
+        },
+        "Page":
+        {
+            "Frequency": "weekly",
+            "Priority": 1
+        }
+    }
+}

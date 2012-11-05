@@ -1,63 +1,18 @@
 {
+    "Mixins": ["User.Static"],
     "Links":
     {
         "/":
         {
+            "Zone": ["Project"],
             "Service":"Project.Frontpage",
             "Method":"Do"
-        },
-        "/benchmark":
-        {
-            "Service": "Server.Benchmark",
-            "Method": "Do"
         },
         "/control":
         {
             "Service": "Control.Panel",
             "Method": "Do",
             "Zone": "Control"
-        },
-        "/join":
-        {
-            "Service":"Entity.Create",
-            "Method":"Do",
-            "Call":
-            {
-                "Entity": "User"
-            }
-        },
-        "/login":
-        {
-            "Service":"User.Authenticate",
-            "Method":"Do",
-            "Call":
-            {
-                "Mode": "Password"
-            }
-        },
-        "/logout":
-        {
-            "Service":"User.Annulate",
-            "Method":"Do"
-        },
-        "/forgot":
-        {
-            "Service":"User.Reset",
-            "Method":"Do"
-        },
-        "/changepwd":
-        {
-            "Service":"User.Passwd",
-            "Method":"Do"
-        },
-        "/auth/social":
-        {
-            "Service":"User.Authenticate",
-            "Method":"Do",
-            "Call":
-            {
-                "Mode": "Loginza"
-            }
         },
         "/check":
         {
@@ -72,6 +27,11 @@
         {
             "Service": "Locale.Add",
             "Method": "Do"
+        },
+        "/sitemap.xml":
+        {
+            "Service": "SEO.Sitemap",
+            "Method": "Index"
         }
     }
 }

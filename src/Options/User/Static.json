@@ -1,0 +1,68 @@
+{
+    "Links":
+    {
+        "/join":
+        {
+            "Zone": ["Project"],
+            "Service":"Entity.Create",
+            "Method":"Do",
+            "Call":
+            {
+                "Entity": "User"
+            }
+        },
+        "/login":
+        {
+            "Zone": ["Project"],
+            "Service":"User.Authenticate",
+            "Method":"Do",
+            "Call":
+            {
+                "Mode": "Password"
+            }
+        },
+        "/logout":
+        {
+            "Zone": ["Project"],
+            "Service":"User.Annulate",
+            "Method":"Do"
+        },
+        "/forgot":
+        {
+            "Zone": ["Project"],
+            "Service":"User.Reset",
+            "Method":"Do"
+        },
+        "/changepwd":
+        {
+            "Zone": ["Project"],
+            "Service":"User.Passwd",
+            "Method":"Do"
+        },
+        "/auth/social":
+        {
+            "Zone": ["Project"],
+            "Service":"User.Authenticate",
+            "Method":"Do",
+            "Call":
+            {
+                "Mode": "Loginza"
+            }
+        },
+        "/profile":
+        {
+            "Zone": ["Project"],
+            "Service":"Entity.Update",
+            "Method":"Do",
+            "Call":
+            {
+                "Entity": "User",
+                "Where":
+                {
+                    "Service": "Security.Auth",
+                    "Method": "Username"
+                }
+            }
+        }
+    }
+}
