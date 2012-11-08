@@ -20,9 +20,13 @@
          if (!isset($Call['Required']))
              array_unshift($Call['Options'], null);
 
-         foreach ($Call['Options'] as $Option)
+         foreach ($Call['Options'] as $Key => $Option)
          {
-             list ($Key, $Value) = $Option;
+             if (is_array($Option))
+                list ($Key, $Value) = $Option;
+             else
+                 $Value = $Option;
+
              if (isset($Call['Localized']) && $Call['Localized'])
                  $lValue = '<l>'.$Call['Entity'].'.Entity:'.$Call['Node'].'.'.$Value.'</l>';
              else

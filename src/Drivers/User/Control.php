@@ -19,7 +19,7 @@
 
     setFn('Create', function ($Call)
     {
-        return F::Run('Entity.Create', 'Do', array('Entity' => 'User', 'Context' => 'app'), $Call);
+        return F::Run('Entity.Create', 'Do', $Call, ['Entity' => 'User', 'Scope' => 'Control']);
     });
 
     setFn('Update', function ($Call)

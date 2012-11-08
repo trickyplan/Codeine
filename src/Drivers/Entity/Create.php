@@ -23,10 +23,12 @@
         if (isset($Call['Request']) && isset($Call['Data']))
             $Call['Data'] = F::Merge($Call['Request'], $Call['Data']);
 
+        $Call['Scope'] = isset($Call['Scope'])? $Call['Entity'].'/'.$Call['Scope']: $Call['Scope'] = $Call['Entity'];
+
         $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Main','Context' => $Call['Context']);
         $Call['Layouts'][] = array(
-            'Scope' => $Call['Entity'],
-            'ID' => isset($Call['Custom Layouts']['Create'])? $Call['Custom Layouts']['Create']: 'Create',
+            'Scope' => $Call['Scope'],
+            'ID' => 'Create',
             'Context' => $Call['Context']);
 
         // Загрузить предопределённые данные и умолчания

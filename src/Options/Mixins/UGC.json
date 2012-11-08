@@ -36,6 +36,18 @@
                     "Method": "Username"
                 }
             }
+        },
+        "Editor":
+        {
+            "Type": "Numeral.Integer",
+            "Hooks":
+            {
+                "beforeEntityUpdate":
+                {
+                    "Service": "Security.Auth",
+                    "Method": "Username"
+                }
+            }
         }
     }
 }

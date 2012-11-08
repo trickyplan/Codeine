@@ -21,6 +21,7 @@
          foreach ($Call['Options'] as $Option)
          {
               list ($Key, $Value) = $Option;
+
               if(in_array($Key, (array) $Call['Value']))
                 $Options[] = '<option value="'.$Key.'" selected>'.$Value.'</option>';
               else

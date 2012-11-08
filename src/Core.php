@@ -418,7 +418,7 @@
         public static function Hook($On, $Call)
         {
             if (isset($Call['Hooks']))
-                 if ($Hooks = F::Dot($Call, 'Hooks.' . $On))
+                 if (($Hooks = F::Dot($Call, 'Hooks.' . $On)) && !isset($Call['No'][$On]))
                  {
                      F::Log($On, LOG_DEBUG);
                      foreach ($Hooks as $Hook)
