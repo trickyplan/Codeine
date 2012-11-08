@@ -22,8 +22,6 @@
 
         if (isset($Call['Request']) && isset($Call['Data']))
             $Call['Data'] = F::Merge($Call['Request'], $Call['Data']);
-        else
-            $Call['Data'] = [];
 
         $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Main','Context' => $Call['Context']);
         $Call['Layouts'][] = array(
