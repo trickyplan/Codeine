@@ -18,11 +18,14 @@
 
          $Call['Options'] = F::Live($Call['Options']);
 
-         foreach ($Call['Options'] as $Key => $Value)
-             if(in_array($Key, (array) $Call['Value']))
-                 $Options[] = '<option value="'.$Key.'" selected>'.$Value.'</option>';
-             else
-                 $Options[] = '<option value="' . $Key . '">' . $Value . '</option>';
+         foreach ($Call['Options'] as $Option)
+         {
+              list ($Key, $Value) = $Option;
+              if(in_array($Key, (array) $Call['Value']))
+                $Options[] = '<option value="'.$Key.'" selected>'.$Value.'</option>';
+              else
+                $Options[] = '<option value="' . $Key . '">' . $Value . '</option>';
+         }
 
          $Call['Options'] = implode('', $Options);
 

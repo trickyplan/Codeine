@@ -34,8 +34,9 @@
         $Call['Data'] = F::Run('Entity', 'Read', $Call)[0];
 
         // Сгенерировать форму
-$ic = 0;
+        $ic = 0;
         // Для каждой ноды в модели
+
         foreach ($Call['Nodes'] as $Name => $Node)
         {
             // Если виджеты вообще определены

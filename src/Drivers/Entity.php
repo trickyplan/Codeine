@@ -61,6 +61,8 @@
         if (isset($Call['Where']) && is_scalar($Call['Where']))
             $Call['Where'] = array('ID' => $Call['Where']);
 
+        $Call['Data']['ID'] = $Call['Where']['ID'];
+
         $Call['Current'] = F::Live(F::Run('Entity', 'Read', $Call, ['From Update' => true])[0]);
 
         $Call = F::Hook('beforeEntityWrite', $Call);
