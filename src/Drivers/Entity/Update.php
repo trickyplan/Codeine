@@ -34,13 +34,14 @@
         $Call['Data'] = F::Run('Entity', 'Read', $Call)[0];
 
         // Сгенерировать форму
-
+$ic = 0;
         // Для каждой ноды в модели
         foreach ($Call['Nodes'] as $Name => $Node)
         {
             // Если виджеты вообще определены
             if (isset($Node['Widgets']) && !isset($Node['WriteOnce']))
             {
+                $ic++;
                 $Widget = null;
                 // Определяем, какие именно используем
                 if (isset($Node['Widgets'][$Call['Purpose']])) // Для нашего случая
@@ -58,15 +59,33 @@
 
                     $Widget = F::Merge($Node, $Widget);
 
+                    $Widget['Data'] = $Call['Data'];
+
+                    if (isset($Widget['Options']))
+                        $Widget['Options'] = F::Live($Widget['Options']);
+                    else
+                        $Widget['Options'] = array();
+
+                    if($ic == 0)
+                        $Widget['Autofocus'] = true;
+
                     // Если есть значение, добавляем
-                    $Widget['Value'] = F::Dot($Call['Data'], $Name);
+                    if (isset($Call['Data'][$Name]))
+                        $Widget['Value'] = $Call['Data'][$Name];
+                    elseif(isset($Node['Default']))
+                        $Widget['Value'] = F::Live($Node['Default']);
+
+                    if (isset($Widget['Value']))
+                        $Widget['Value'] = F::Live($Widget['Value']);
+                    else
+                        $Widget['Value'] = null;
 
                     // Помещаем виджет в поток
                     $Call = F::Run('Entity.Form.Layout.'.$Call['FormLayout'], 'Add', $Call,
                         array(
                             'Name' => $Name,
                             'Node' => $Node,
-                            'Widget' => F::Merge($Node, $Widget)));
+                            'Widget' => $Widget));
 
                     $Call['Widget'] = null;
                 }

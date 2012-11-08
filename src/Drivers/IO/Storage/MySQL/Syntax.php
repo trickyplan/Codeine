@@ -137,7 +137,7 @@
 
                 if (is_array($Value))
                 {
-                    foreach ($Value as $Relation => &$Value)
+                    foreach ($Value as $Relation => &$Value) // FIXME!
                     {
                         if (is_array($Value))
                         {
@@ -146,8 +146,6 @@
                         }
                         else
                             $Quote = !is_numeric($Value);
-
-
                     }
                 }
                 else

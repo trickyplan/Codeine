@@ -11,18 +11,14 @@
      {
          $Options = array();
 
-         if (isset($Call['Options']))
-            $Call['Options'] = F::Live($Call['Options']);
-         else
-            $Call['Options'] = array();
-
-         $Call['Value'] = F::Live($Call['Value']);
-
          if (isset($Call['Multiple']))
              $Call['Name'] .= '[]';
 
          if (isset($Call['Localized']) && $Call['Localized'])
                  $Call['Label'] = $Call['Entity'].'.Entity:'.$Call['Node'].'.Label';
+
+         if (!isset($Call['Required']))
+             array_unshift($Call['Options'], null);
 
          foreach ($Call['Options'] as $Key => $Value)
          {

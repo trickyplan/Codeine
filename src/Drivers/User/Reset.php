@@ -38,7 +38,7 @@
                                                  array(
                                                       'Scope' => 'User',
                                                       'ID' => 'Reset/EMail',
-                                                      'Data' => array_merge($Call['User'], array('Password' => $NewPassword))
+                                                      'Data' => array_merge($Call['User'], array('Password' => $NewPassword, 'Host' => $Call['Host']))
                                                  ));
 
             $Message['Headers'] = array ('Content-type:' => ' text/html; charset="utf-8"');

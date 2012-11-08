@@ -7,7 +7,7 @@
      * @version 7.0
      */
 
-    self::setFn('Generate', function ($Call)
+    setFn('Generate', function ($Call)
     {
         $Elements = F::Run('Entity', 'Read', ['Entity' => 'Article', 'Fields' => ['Slug']]);
         $Data = [];

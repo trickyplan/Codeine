@@ -36,7 +36,8 @@
                                                           'Data' =>
                                                               array_merge($Call, $User,
                                                               [
-                                                                  'ActivationURL' => $Call['Host'].'/activate/user/'.$User['Code']
+                                                                  'ActivationURL' => $Call['Host'].'/activate/user/'.$User['Code'],
+                                                                  'Host' => $Call['Host']
                                                               ])
                                                      ]);
 

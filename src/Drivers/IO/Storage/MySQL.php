@@ -110,3 +110,14 @@
 
         return $Result['count(*)'];
     });
+
+    setFn ('ID', function ($Call)
+    {
+        $Result = $Call['Link']->query('SELECT MAX(id) AS ID FROM '.$Call['Scope']);
+        F::Counter('MySQL');
+
+        if ($Result)
+            $Result = $Result->fetch_assoc();
+
+        return $Result['ID']+$Call['Increment'];
+    });

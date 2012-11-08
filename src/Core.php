@@ -520,8 +520,11 @@
                 }
 
                 if (isset($Options['Mixins']))
-                    foreach($Options['Mixins'] as $Mixin)
+                    foreach($Options['Mixins'] as &$Mixin)
+                    {
                         $Options = F::Merge($Options, F::loadOptions($Mixin));
+                        unset($Mixin);
+                    }
 
                 self::$_Options[$Service] = $Options;
             }
@@ -604,7 +607,7 @@
 
         public static function setLive($Live)
         {
-            self::$_Live = (bool) $Live;
+            return self::$_Live = (bool) $Live;
         }
 
         public static function getLive()

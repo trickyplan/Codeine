@@ -17,7 +17,12 @@
             $Overall += $Rate;
         }
 
-        $Results[] = ['Overall', $Overall];
+        $Call['Output']['Content'][] =
+        [
+            'Type' => 'Block',
+            'Class' => 'hero-unit',
+            'Value' => '<h2>'.$Overall.' баллов</h2>'
+        ];
 
         $Call['Output']['Content'][] =
             [

@@ -20,8 +20,10 @@
     {
         $Call = F::Hook('beforeCreateGet', $Call);
 
-        if (isset($Call['Request']))
+        if (isset($Call['Request']) && isset($Call['Data']))
             $Call['Data'] = F::Merge($Call['Request'], $Call['Data']);
+        else
+            $Call['Data'] = [];
 
         $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Main','Context' => $Call['Context']);
         $Call['Layouts'][] = array(
@@ -66,6 +68,11 @@
 
                     $Widget['Data'] = $Call['Data'];
 
+                    if (isset($Widget['Options']))
+                        $Widget['Options'] = F::Live($Widget['Options'], $Call);
+                    else
+                        $Widget['Options'] = array();
+
                     if($ic == 0)
                         $Widget['Autofocus'] = true;
 
@@ -75,14 +82,20 @@
                     elseif(isset($Node['Default']))
                         $Widget['Value'] = F::Live($Node['Default']);
 
+                    if (isset($Widget['Value']))
+                        $Widget['Value'] = F::Live($Widget['Value']);
+                    else
+                        $Widget['Value'] = null;
+
                     // Помещаем виджет в поток
                     $ic++;
 
                     $Call = F::Run('Entity.Form.Layout.'.$Call['FormLayout'], 'Add', $Call,
-                        array(
+                        [
                             'IC' => $ic,
                             'Name' => $Name,
-                            'Widget' => $Widget));
+                            'Widget' => $Widget
+                        ]);
 
                     $Call['Widget'] = null;
                 }
