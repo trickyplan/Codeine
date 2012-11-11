@@ -9,6 +9,12 @@
 
     setFn('Check', function ($Call)
     {
-        return F::Run('Security.Access.'.$Call['System'], 'Check', $Call);
+        if (is_array($Call['System']))
+            foreach ($Call['System'] as $System)
+                $Call = F::Run('Security.Access.'.$System, 'Check', $Call);
+        else
+            F::Run('Security.Access.'.$Call['System'], 'Check', $Call);
+
+        return $Call;
     });
 

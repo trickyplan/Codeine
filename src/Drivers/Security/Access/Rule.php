@@ -9,7 +9,6 @@
 
     setFn('Check', function ($Call)
     {
-
         foreach ($Call['Rules'] as $Name => $Rule)
         {
             if (isset($Rule['Debug']))
