@@ -12,23 +12,31 @@
         if (!isset($Call['Bundle']))
             $Call['Bundle'] = isset($Call['Start'])? $Call['Start']: 'Codeine';
 
+        if (!isset($Call['Action']))
+            $Call['Action'] = 'Do';
+
         if (!isset($Call['Option']))
-            $Call['Option'] = 'Do';
-
-        $Call = F::Run($Call['Bundle'].'.Control', $Call['Option'], $Call, ['Context' => 'app']);
+            $Call = F::Run($Call['Bundle'].'.Report', $Call['Action'], $Call, ['Context' => 'app']);
+        else
+            $Call = F::Run($Call['Bundle'].'.Report.'.$Call['Option'], $Call['Action'], $Call, ['Context' => 'app']);
 
         $Call['Layouts'][] = array(
             'Scope' => $Call['Bundle'],
-            'ID' => 'Control',
+            'ID' => 'Report',
             'Context' => $Call['Context']
         );
 
         $Call['Layouts'][] = array(
             'Scope' => $Call['Bundle'],
-            'ID' => 'Control/'.$Call['Option'],
+            'ID' => 'Report/'.$Call['Option'],
             'Context' => $Call['Context']
         );
 
+        $Call['Layouts'][] = array(
+            'Scope' => $Call['Bundle'],
+            'ID' => 'Report/'.$Call['Option'].'/'.$Call['Action'],
+            'Context' => $Call['Context']
+        );
 
         foreach($Call['Bundles'] as $Group => $Bundles)
         {
@@ -41,7 +49,7 @@
             {
                 $Options = ['ID' => $Bundle, 'Group' => $Group];
 
-                if (($BundleOptions = F::Run($Bundle.'.Control', 'Menu', $Call)) !== null)
+                if (($BundleOptions = F::Run($Bundle.'.Report', 'Menu', $Call)) !== null)
                     $Options = F::Merge($Options, $BundleOptions);
 
                 $Call['Options'][] = $Options;
@@ -49,9 +57,8 @@
         }
 
         foreach ($Call['Sidebar'] as &$Sidebar)
-            $Pills[] = ['ID' => $Sidebar, 'URL' => '/control/'.$Call['Bundle'].'/'.$Sidebar, 'Title' => $Call['Bundle'].'.Control:Options.'.$Sidebar];
+            $Pills[] = ['ID' => $Sidebar, 'URL' => '/report/'.$Call['Bundle'].'/'.$Sidebar, 'Title' => $Call['Bundle'].'.Report:Options.'.$Sidebar];
 
-        // FIXME Костыль
         if (!isset($Call['Failure']))
         {
             $Call['Output']['Sidebar'][] = [
@@ -62,7 +69,7 @@
 
             $Call['Output']['Navigation'][] = [
                 'Type' => 'Navlist',
-                'Scope' => 'Control',
+                'Scope' => 'Report',
                 'Options' => $Call['Options'],
                 'Value' => $Call['Bundle']
             ];

@@ -146,18 +146,20 @@
                         }
                         else
                             $Quote = !is_numeric($Value);
+
+                        if ($Relation == '$in')
+                            $Relation = 'IN';
+
+                        $Conditions[] = '`'.$Key.'` '. $Relation.' '.($Quote ? '\''.$Value.'\'': $Value);
                     }
                 }
                 else
                 {
                     $Value = $Call['Link']->real_escape_string($Value);
                     $Quote = true;
+
+                    $Conditions[] = '`'.$Key.'` '. $Relation.' '.($Quote ? '\''.$Value.'\'': $Value);
                 }
-
-                if ($Relation == '$in')
-                    $Relation = 'IN';
-
-                $Conditions[] = '`'.$Key.'` '. $Relation.' '.($Quote ? '\''.$Value.'\'': $Value);
             }
 
             $WhereString = $WhereString . ' ' . implode(' AND ', $Conditions);

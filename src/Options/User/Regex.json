@@ -1,0 +1,27 @@
+{
+    "Regex":
+    {
+        "Activate.User":
+        {
+            "Match":"@^/activate/user/(.*)@",
+            "Service":"User.Activation",
+            "Method":"Check",
+            "Call":{
+                "Code": "$1"
+            }
+        },
+        "SendMail.User":
+        {
+            "Match": "@^/mail/user/(.*)@",
+            "Service":"User.Activation",
+            "Method":"Send",
+            "Call":{
+                "Second": true,
+                "Data":
+                {
+                    "ID": "$1"
+                }
+            }
+        }
+    }
+}

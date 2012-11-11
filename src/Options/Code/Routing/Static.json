@@ -8,12 +8,6 @@
             "Service":"Project.Frontpage",
             "Method":"Do"
         },
-        "/control":
-        {
-            "Service": "Control.Panel",
-            "Method": "Do",
-            "Zone": "Control"
-        },
         "/check":
         {
             "Service": "User.Validate",

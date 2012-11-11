@@ -102,7 +102,9 @@
 
     setFn ('Count', function ($Call)
     {
-        $Result = $Call['Link']->query(F::Run('IO.Storage.MySQL.Syntax', 'Count', $Call));
+        $Query = F::Run('IO.Storage.MySQL.Syntax', 'Count', $Call);
+        $Result = $Call['Link']->query($Query);
+        F::Log($Query, LOG_DEBUG);
         F::Counter('MySQL');
 
         if ($Result)

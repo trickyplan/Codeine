@@ -1,0 +1,73 @@
+{
+    "Regex":
+    {
+        "ЦО — пакет — действие — уточнение — ID":
+        {
+            "Match":"@^/report/(.*)/(.*)/(.*)/(.*)$@Ssu",
+            "Weight": 45,
+            "Service":"Report.Panel",
+            "Method":"Do",
+            "Zone": ["Report"],
+            "Call":
+            {
+                "Bundle": "$1",
+                "Option": "$2",
+                "Action": "$3",
+                "Where": "$4"
+            }
+        },
+        "ЦО — пакет — страница":
+        {
+            "Match":"@^/report/(.*)/page(.*)$@Ssu",
+            "Weight": 35,
+            "Service":"Report.Panel",
+            "Method":"Do",
+            "Zone": ["Report"],
+            "Call":
+            {
+                "Bundle": "$1",
+                "Option": "Do",
+                "Page": "$2"
+            }
+        },
+        "ЦО — пакет — действие — ID":
+        {
+            "Match":"@^/report/(.*)/(.*)/(.*)$@Ssu",
+            "Weight": 25,
+            "Service":"Report.Panel",
+            "Method":"Do",
+            "Zone": ["Report"],
+            "Call":
+            {
+                "Bundle": "$1",
+                "Option": "$2",
+                "Where": "$3"
+            }
+        },
+        "ЦО — пакет — действие":
+        {
+            "Match":"@^/report/(.*)/(.*)$@",
+            "Weight": 15,
+            "Service":"Report.Panel",
+            "Method":"Do",
+            "Zone": ["Report"],
+            "Call":
+            {
+                "Bundle": "$1",
+                "Option": "$2"
+            }
+        },
+        "ЦО — пакет":
+        {
+            "Match":"@^/report/(.*)@",
+            "Weight": 10,
+            "Service":"Report.Panel",
+            "Method":"Do",
+            "Zone": ["Report"],
+            "Call":
+            {
+                "Bundle": "$1"
+            }
+        }
+    }
+}

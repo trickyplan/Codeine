@@ -1,0 +1,11 @@
+{
+    "Links":
+    {
+        "/report":
+        {
+            "Service": "Report.Panel",
+            "Method": "Do",
+            "Zone": ["Report"]
+        }
+    }
+}
