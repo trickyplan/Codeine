@@ -32,12 +32,12 @@
                 array(
                     'Entity' => 'User',
                     'Where'  => array(
-                        'Login' => $Response['identity']
+                        'EMail' => $Response['identity']
                     )
                 ))[0];
 
             $UserData = array(
-                        'Login' => $Response['identity'],
+                        'EMail' => $Response['identity'],
                         'Status' => 1,
                         'Fullname' => isset($Response['name']['full_name'])
                                 ? $Response['name']['full_name']
@@ -60,7 +60,7 @@
                         'Entity' => 'User',
                         'Where' =>
                         array(
-                            'Login' => $Response['identity']
+                            'EMail' => $Response['identity']
                         ),
                         'Data'  => $UserData
                     ));
