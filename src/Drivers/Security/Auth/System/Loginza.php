@@ -31,17 +31,17 @@
             $Call['User'] = F::Run('Entity','Read',
                 array(
                     'Entity' => 'User',
-                    'Where'  => array(
+                    'Where'  => [
                         'EMail' => $Response['identity']
-                    )
+                    ]
                 ))[0];
 
-            $UserData = array(
+            $UserData = [
                         'EMail' => $Response['identity'],
                         'Status' => 1,
                         'Fullname' => isset($Response['name']['full_name'])
                                 ? $Response['name']['full_name']
-                                : $Response['name']['first_name'].' '.$Response['name']['last_name']);
+                                : $Response['name']['first_name'].' '.$Response['name']['last_name']];
             // FIXME
 
             foreach ($Call['Loginza']['Map'] as $Own => $Provider)
@@ -50,10 +50,10 @@
             // Если нет, зарегистрировать
             if (empty($Call['User']))
                 $Call['User'] = F::Run('Entity','Create',
-                    array(
+                    [
                         'Entity' => 'User',
                         'Data'  => $UserData
-                    ));
+                    ])['Data'];
             else
                 $Call['User'] = F::Run('Entity','Update',
                     array(
@@ -63,7 +63,7 @@
                             'EMail' => $Response['identity']
                         ),
                         'Data'  => $UserData
-                    ));
+                    ))['Data'];
         }
         else
                $Call['Output']['Content'][]
