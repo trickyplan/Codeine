@@ -20,8 +20,11 @@
 
                 if (is_array($Value))
                     foreach ($Value as $Relation => &$cValue)
-                        $Where[$Key][$Relation] =
-                            F::Run('Data.Type.'.$Call['Nodes'][$Key]['Type'], 'Read', array('Value' => $cValue, 'Purpose' => 'Where'));
+                        if (!is_array($cValue))
+                            $Where[$Key][$Relation] =
+                                F::Run('Data.Type.'.$Call['Nodes'][$Key]['Type'], 'Read', array('Value' => $cValue, 'Purpose' => 'Where'));
+                        else
+                            $Where[$Key][$Relation] =$cValue;
                 else
                     $Where[$Key] = F::Run('Data.Type.'.$Call['Nodes'][$Key]['Type'], 'Read', array('Value' => $Value, 'Purpose' => 'Where'));
             }
