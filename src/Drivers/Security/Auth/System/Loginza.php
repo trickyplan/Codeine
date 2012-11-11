@@ -34,7 +34,10 @@
                     'Where'  => [
                         'EMail' => $Response['identity']
                     ]
-                ))[0];
+                ));
+
+            if (isset($Call['User'][0]))
+                $Call['User'] = $Call['User'][0];
 
             $UserData = [
                         'EMail' => $Response['identity'],
@@ -49,21 +52,28 @@
 
             // Если нет, зарегистрировать
             if (empty($Call['User']))
+            {
                 $Call['User'] = F::Run('Entity','Create',
                     [
-                        'Entity' => 'User',
-                        'Data'  => $UserData
+                    'Entity' => 'User',
+                    'Data'  => $UserData
                     ])['Data'];
+
+                F::Log('User registered '.$Call['User']['ID'], LOG_INFO);
+            }
             else
+            {
                 $Call['User'] = F::Run('Entity','Update',
                     array(
-                        'Entity' => 'User',
-                        'Where' =>
-                        array(
-                            'EMail' => $Response['identity']
-                        ),
-                        'Data'  => $UserData
+                         'Entity' => 'User',
+                         'Where' =>
+                         array(
+                             'EMail' => $Response['identity']
+                         ),
+                         'Data'  => $UserData
                     ))['Data'];
+                F::Log('User authorized'.$Call['User']['ID'], LOG_INFO);
+            }
         }
         else
                $Call['Output']['Content'][]
@@ -73,6 +83,6 @@
                         'ID' => 'Failed'
                     );
 
-
+d(__FILE__, __LINE__, $Call['User']);
         return $Call;
     });
