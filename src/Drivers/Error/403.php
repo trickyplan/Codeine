@@ -15,11 +15,15 @@
         $Call['Description'] = 'TODO';
         $Call['Keywords'] = array ('TODO');
 
-        $Call['Layouts'] =
-            [[
+        $Call['Layouts'][] = [
+            'Scope' => 'Project',
+            'ID' => 'Zone'
+        ];
+        $Call['Layouts'][] =
+            [
                 'Scope' => 'Errors',
                 'ID' => '403'
-            ]];
+            ];
 
         $Call['Output']['Content'] =['403'];
         $Call['Failure'] = true;
