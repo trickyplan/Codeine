@@ -1,17 +1,15 @@
 {
-    "Mixins": ["Mixins.SEO"],
     "Storage": "Primary",
     "Nodes":
     {
         "ID":
         {
             "Type": "Literal.String",
-            "Hooks":
+            "Widgets":
             {
-                "beforeEntityCreate":
+                "Write":
                 {
-                    "Service": "Security.UID",
-                    "Method": "Get"
+                    "Type": "Form.Textfield"
                 }
             }
         },
@@ -36,17 +34,6 @@
                     "Type": "Form.WYSIWYG"
                 }
             }
-        },
-        "Slug":
-        {
-            "Type": "Literal.String",
-            "Widgets":
-            {
-                "Write":
-                {
-                    "Type": "Form.Textfield"
-                }
-            }
         }
     },
     "Hooks":
@@ -59,7 +46,7 @@
                 "Method": "Redirect",
                 "Call":
                 {
-                    "Location": "/control/Page"
+                    "Location": "/control/Block"
                 }
             }
         },
@@ -71,7 +58,7 @@
                 "Method": "Redirect",
                 "Call":
                 {
-                    "Location": "/control/Page"
+                    "Location": "/control/Block"
                 }
             }
         }
