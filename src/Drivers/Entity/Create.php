@@ -73,8 +73,8 @@
                     else
                         $Widget['Options'] = array();
 
-                    if($ic == 0)
-                        $Widget['Autofocus'] = true;
+/*                    if($ic == 0)
+                        $Widget['Autofocus'] = true;*/
 
                     // Если есть значение, добавляем
                     if (isset($Call['Data'][$Name]))
