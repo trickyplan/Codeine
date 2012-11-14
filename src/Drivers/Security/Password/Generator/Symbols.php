@@ -13,19 +13,22 @@
     {
         $Output = '';
 
+        $Chars = str_split($Call['Password']['Alphabet'][$Call['Mode']], 1);
+
         for($IC = 0; $IC<$Call['Size']; $IC++)
-            $Output.= array_rand($Call['Password']['Alphabet'][$Call['Mode']]);
+            $Output.= $Chars[array_rand($Chars)];
 
-        switch ($Call['Case'])
-        {
-            case 'Lower':
-                $Output = strtolower($Output);
-            break;
+        if (isset($Call['Case']))
+            switch ($Call['Case'])
+            {
+                case 'Lower':
+                    $Output = strtolower($Output);
+                break;
 
-            case 'Upper':
-                $Output = strtoupper($Output);
-            break;
-        }
+                case 'Upper':
+                    $Output = strtoupper($Output);
+                break;
+            }
 
         return $Output;
     });
