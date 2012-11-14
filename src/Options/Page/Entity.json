@@ -74,6 +74,18 @@
                     "Location": "/control/Page"
                 }
             }
+        },
+        "afterDeletePost":
+        {
+            "Redirect":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "Redirect",
+                "Call":
+                {
+                    "Location": "/control/Page"
+                }
+            }
         }
     }
 }
