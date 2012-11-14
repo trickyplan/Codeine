@@ -72,7 +72,8 @@
     setFn('RAW', function ($Call)
     {
         $Call = F::Merge(F::loadOptions($Call['Entity'].'.Entity'), $Call); // FIXME
-        $Call = F::Hook('beforeList', $Call);
+
+        $Call = F::Hook('beforeRAWList', $Call);
 
         $Elements = F::Run('Entity', 'Read', $Call);
 
