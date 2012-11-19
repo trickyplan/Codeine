@@ -143,10 +143,14 @@
                 "Service":"Entity.Nodes.Type",
                 "Method":"Read"
             },
-            "Hooks":
+            "Make variables alive":
             {
                 "Service":"Entity.Nodes.Hook",
-                "Method":"Process"
+                "Method":"Process",
+                "Call":
+                {
+                    "Purpose": "Read"
+                }
             }
         }
     }

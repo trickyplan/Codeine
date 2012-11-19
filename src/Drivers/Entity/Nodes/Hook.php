@@ -9,12 +9,19 @@
 
     setFn('Process', function ($Call)
     {
-        if (isset($Call['Nodes']))
+       if (isset($Call['Nodes']))
             foreach ($Call['Nodes'] as $Name => $Node)
             {
                 if (isset($Node['Hooks']))
                     if(isset($Node['Hooks'][$Call['On']]))
-                        $Call['Data'][$Name] = F::Live($Node['Hooks'][$Call['On']], $Call);
+                    {
+                        // Multiread
+                        if (isset($Call['Purpose']) && ($Call['Purpose'] == 'Read'))
+                            foreach ($Call['Data'] as &$Data)
+                                $Data[$Name] = F::Live($Node['Hooks'][$Call['On']], $Call);
+                        else
+                            $Call['Data'][$Name] = F::Live($Node['Hooks'][$Call['On']], $Call);
+                    }
             }
 
         return $Call;

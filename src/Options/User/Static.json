@@ -35,7 +35,6 @@
         },
         "/changepwd":
         {
-            "Zone": ["Project"],
             "Service":"User.Passwd",
             "Method":"Do"
         },
@@ -51,7 +50,7 @@
         },
         "/profile":
         {
-            "Zone": ["Project"],
+            "Zone": ["User"],
             "Service":"Entity.Update",
             "Method":"Do",
             "Call":

@@ -2,7 +2,7 @@
 
     /* Codeine
      * @author BreathLess
-     * @description  New IO Engine
+     * @description  New IO Date
      * @package Codeine
      * @version 7.x
      */

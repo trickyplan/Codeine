@@ -14,16 +14,16 @@
             $Root = simplexml_load_string('<root'.$Call['Parsed'][1][$IX].'></root>');
 
             $Engine = isset($Root->attributes()->engine)? (string) $Root->attributes()->engine: 'Date';
-            $Format = isset($Root->attributes()->format)? (string) $Root->attributes()->format: 'Y.m.d H:i:s';
 
             // TODO Due bug 13744 at w3c validator, time tag temporary diabled.
             // $Outer = '<time datetime="'.date(DATE_ISO8601, $Match).'">'.date($Format, $Inner).'</time>';
 
-            $Outer = F::Run('Formats.Date.Engine.'.$Engine, 'Format',
-                array(
-                     'Format' => $Format,
-                     'Value' => $Match
-                ));
+            $Outer = [ 'Value' => $Match ];
+
+            if (isset($Root->attributes()->format))
+                $Outer['Format'] = (string) $Root->attributes()->format;
+
+            $Outer = F::Run('Formats.Date.Engine.'.$Engine, 'Format', $Outer);
 
             $Call['Locales']['Formats.Date:'.$Engine] = 'Formats.Date:'.$Engine;
 

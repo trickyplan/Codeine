@@ -71,8 +71,8 @@
                         $Widget['Autofocus'] = true;
 
                     // Если есть значение, добавляем
-                    if (isset($Call['Data'][$Name]))
-                        $Widget['Value'] = $Call['Data'][$Name];
+                    if (null != ($Dot = F::Dot($Call['Data'], $Name)))
+                        $Widget['Value'] = $Dot;
                     elseif(isset($Node['Default']))
                         $Widget['Value'] = F::Live($Node['Default']);
 

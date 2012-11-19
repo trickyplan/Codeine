@@ -19,7 +19,7 @@
 
     setFn('Create', function ($Call)
     {
-        return F::Run('Entity.Create', 'Do', $Call, ['Entity' => 'User', 'Scope' => 'Control']);
+        return F::Run('Entity.Create', 'Do', $Call, ['Entity' => 'User', 'Scope' => 'Control', 'CAPTCHA' => ['Bypass' => true]]);
     });
 
     setFn('Update', function ($Call)
@@ -27,44 +27,11 @@
         return F::Run('Entity.Update', 'Do', array('Entity' => 'User', 'Where' => $Call['ID']), $Call);
     });
 
-    setFn('Magic', function ($Call)
-    {
-        $Call['User'] = F::Run('Entity', 'Read', $Call, array(
-                                        'Entity' => 'User'
-                                   ));
-
-        switch($Call['User'][0]['Status'])
-        {
-            case 0:
-                $Status = 1;
-            break;
-
-            case 1:
-                $Status = -1;
-            break;
-
-            case -1:
-                $Status = 1;
-            break;
-        }
-
-        F::Run('Entity', 'Update', $Call, array(
-                                        'Entity' => 'User',
-                                        'Data' => array(
-                                            'Status' => $Status
-                                        )
-                                   ));
-        // FIXME
-        $Call = F::Merge($Call, F::loadOptions('User.Entity'));
-
-        $Call = F::Hook('afterMagic', $Call);
-
-        return $Call;
-    });
-
     setFn('Login', function ($Call)
     {
-        $Call['Session'] = F::Run('Security.Auth', 'Attach', ['User' => $Call['ID']]);
+        $Call = F::Run('Entity', 'Load', $Call, ['Entity' => 'User']);
+
+        $Call['Session'] = F::Run('Security.Auth', 'Attach', ['User' => $Call['Where']]);
 
         $Call = F::Hook('afterLogin', $Call);
 

@@ -55,7 +55,7 @@
 
             if (isset($Call['Path']))
             {
-                if (is_array($Call['Path']))
+                if ((array) $Call['Path'] === $Call['Path'])
                     self::$_Options['Path'] = array_merge($Call['Path'], [Codeine]);
                 else
                     self::$_Options['Path'] = [$Call['Path'], Codeine];
@@ -98,12 +98,12 @@
 
         public static function Merge($First, $Second)
         {
-            if (is_array($Second))
+            if ((array)$Second === $Second)
             {
-                if (is_array($First))
+                if ((array) $First === $First)
                     {
-                        foreach ($Second as $Key => $Value)
-                            if (isset($First[$Key]) && is_array($Value))
+                        foreach ($Second as $Key => &$Value)
+                            if (isset($First[$Key]) && ((array)$Value === $Value))
                                 $First[$Key] = self::Merge($First[$Key], $Second[$Key]);
                             else
                                 $First[$Key] = $Value;
@@ -178,14 +178,19 @@
         {
             $Path = strtr($Service, '.', '/');
 
-            $Filename = self::findFile(self::$_Options['Codeine']['Driver']['Path'].'/'.$Path.self::$_Options['Codeine']['Driver']['Extension']);
+            $Filenames = self::findFiles(self::$_Options['Codeine']['Driver']['Path'].'/'.$Path.self::$_Options['Codeine']['Driver']['Extension']);
 
-            if ($Filename)
-                return (include $Filename);
+            if (!empty($Filenames))
+            {
+                foreach ($Filenames as $Filename)
+                    include $Filename;
+
+                return true;
+            }
             else
             {
                 F::Log($Service.' not found', LOG_CRIT);
-                return null;
+                return false;
             }
         }
 
@@ -196,7 +201,7 @@
          */
         public static function isCall($Call)
         {
-            return (is_array($Call) && isset($Call['Service']) && isset($Call['Method']));
+            return (((array) $Call === $Call) && isset($Call['Service']) && isset($Call['Method']));
         }
 
         public static function hashCall($Call)
@@ -245,7 +250,7 @@
 
             $Call = self::Merge(self::loadOptions(), $Call);
 
-            if ((null === self::getFn(self::$_Method)) && (null === self::_loadSource(self::$_Service)))
+            if ((null === self::getFn(self::$_Method)) && !self::_loadSource(self::$_Service))
                 $Result = (is_array($Call) && isset($Call['Fallback']))? $Call['Fallback'] : null;
             else
             {
@@ -316,14 +321,12 @@
             }
             else
             {
-                if (is_array($Variable))
+                if ((array) $Variable === $Variable)
                     foreach ($Variable as &$cVariable)
                         $cVariable = self::Live($cVariable, $Call);
                 else
-                {
                     if ('$' == substr($Variable, 0, 1))
                         $Variable = F::Dot($Call, substr($Variable, 1));
-                }
 
                 return $Variable;
             }

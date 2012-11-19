@@ -9,13 +9,15 @@
 
     setFn('Query', function ($Call)
     {
+
         $SERP = F::Run('IO', 'Read', $Call, $Call['Engines'][$Call['Engine']],
             [
                 'Fields' => ['ID'],
                 'Scope' => $Call['Entity'],
                 'Where' =>
                     [
-                        'Keywords' => mb_strtolower($Call['Query'])
+                        'Keywords' => F::Run('Text.Transform.Transliterate.Passport', '2English', ['Value' => F::Run('Text.Index.Metaphone.Russian', 'Get',
+            ['Value' => mb_strtolower($Call['Query'])])]) // FIXME SOON
                     ]
             ]);
 

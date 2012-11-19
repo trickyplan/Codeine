@@ -10,9 +10,8 @@
     setFn('Process', function ($Call)
     {
         if (isset($Call['Node']['Required']) && $Call['Node']['Required'])
-        {
-            if (!isset($Call['Data'][$Call['Name']]) or empty($Call['Data'][$Call['Name']]))
+            if (!isset($Call['Data'][$Call['Name']]) or (empty($Call['Data'][$Call['Name']]) && !isset($Call['Node']['Nullable'])))
                 return 'Required';
-        }
+
         return true;
     });

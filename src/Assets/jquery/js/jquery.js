@@ -3663,7 +3663,7 @@ jQuery.each( ("blur focus focusin focusout load resize scroll unload click dblcl
 	}
 });
 /*!
- * Sizzle CSS Selector Engine
+ * Sizzle CSS Selector Date
  *  Copyright 2012 jQuery Foundation and other contributors
  *  Released under the MIT license
  *  http://sizzlejs.com/

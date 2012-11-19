@@ -9,13 +9,13 @@
 
     setFn('Count', function ($Call)
     {
-        if (isset($Call['Data']['ID']))
-            return F::Run('Entity', 'Count', $Call,
+        if (isset($Call['Data'][0]['ID']))
+            return F::Run('Entity', 'Count',
                     array(
                          'Entity' => $Call['Linked'],
                          'Where' =>
                              [
-                                $Call['Entity'] => $Call['Data']['ID']
+                                $Call['Entity'] => $Call['Data'][0]['ID']
                              ]
                     ));
         else

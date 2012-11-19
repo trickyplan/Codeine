@@ -17,7 +17,7 @@
             {
                 if (($Matched = F::Live(F::Dot($Call['Data'], $Match))) !== null)
                 {
-                    if (is_array($Matched))
+                    if ((array) $Matched === $Matched)
                         $Matched = implode(' ', $Matched);
 
                     if (($Matched === false) || ($Matched === 0))

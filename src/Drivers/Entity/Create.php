@@ -28,7 +28,7 @@
         $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Main','Context' => $Call['Context']);
         $Call['Layouts'][] = array(
             'Scope' => $Call['Scope'],
-            'ID' => 'Create',
+            'ID' => isset($Call['Custom Layouts']['Create'])?  $Call['Custom Layouts']['Create']: 'Create',
             'Context' => $Call['Context']);
 
         // Загрузить предопределённые данные и умолчания
