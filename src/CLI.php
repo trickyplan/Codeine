@@ -18,7 +18,6 @@
     F::Bootstrap ([
                        'Path' => array(Root),
                        'Environment' => isset($Opts['Environment'])? $Opts['Environment']: 'Production'
-                       //,'Trace' => true
                   ]);
 
     F::Run(

@@ -18,6 +18,9 @@
                 if (($New === null) || ($New == F::Dot($Call['Current'], $Name)))
                     $Call['Data'] = F::Dot($Call['Data'], $Name, null);
             }
+            else
+                if (($New === null) || ($New == F::Dot($Call['Current'], $Name)))
+                    $Call['Data'][$Name] = null;
         }
 
         return $Call;
