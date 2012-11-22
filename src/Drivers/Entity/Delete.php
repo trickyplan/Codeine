@@ -21,6 +21,7 @@
         $Call = F::Hook('beforeDeleteGet', $Call);
 
         $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Main','Context' => $Call['Context']);
+        $Call['Layouts'][] = array('Scope' => 'Entity','ID' => 'Delete','Context' => $Call['Context']);
 
         $Call = F::Run('Entity.Show.Static', 'Do', $Call, array('Template' => 'Delete', 'Context' => 'app'));
 
