@@ -74,6 +74,12 @@
                 "From:": "Codeine"
             }
         },
+        "File":
+        {
+            "Driver": "IO.Storage.Directory",
+            "Directory": "Public/uploads",
+            "Public": "uploads"
+        },
         "Web":
         {
             "Driver": "IO.Network.HTTP.Curl",

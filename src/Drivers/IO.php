@@ -10,6 +10,7 @@
     setFn ('Open', function ($Call)
     {
         $StorageID = $Call['Storage'];
+
         if (!isset($Call['Storage']))
             die ('Null Storage');
 
