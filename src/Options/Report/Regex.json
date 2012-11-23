@@ -44,6 +44,23 @@
                 "Where": "$3"
             }
         },
+        "ЦО — пакет — действие — уточнение - ID - страница":
+        {
+            "Match":"@^/report/(.*)/(.*)/(.*)/(.*)/page(.*)$@Ssu",
+            "Weight": 65,
+            "Service":"Report.Panel",
+            "Method":"Do",
+            "Zone": ["Report"],
+            "Call":
+            {
+                "Bundle": "$1",
+                "Option": "$2",
+                "Action": "$3",
+                "Where": "$4",
+                "Page": "$5"
+            }
+        },
+
         "ЦО — пакет — действие":
         {
             "Match":"@^/report/(.*)/(.*)$@",
