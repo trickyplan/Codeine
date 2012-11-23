@@ -44,8 +44,6 @@
 
             if (!F::file_exists(Root.'/Public'.$ThumbURL))
             {
-
-
                 try
                 {
                     if (getimagesize($Filename))
