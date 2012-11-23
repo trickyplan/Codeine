@@ -87,5 +87,22 @@
                 "Scope":"Cache"
             }
         }
+    },
+    "Hooks":
+    {
+        "Storage":
+        {
+            "Open":
+            {
+                "Failed":
+                {
+                    "Error500":
+                    {
+                        "Service": "Error.500",
+                        "Method": "Die"
+                    }
+                }
+            }
+        }
     }
 }

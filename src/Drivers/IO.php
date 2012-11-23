@@ -32,7 +32,7 @@
             $Call['Link'] = F::Set($StorageID, F::Run($Call['Driver'], 'Open', $Call));
 
         if ($Call['Link'] === null)
-            F::Log($Call['Storage'].' cannot opened', LOG_CRIT);
+            $Call = F::Hook('Storage.Open.Failed', $Call);
 
         return $Call;
      });
