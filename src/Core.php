@@ -525,7 +525,7 @@
                 if (isset($Options['Mixins']))
                     foreach($Options['Mixins'] as &$Mixin)
                     {
-                        $Options = F::Merge($Options, F::loadOptions($Mixin));
+                        $Options = F::Merge(F::loadOptions($Mixin), $Options);
                         unset($Mixin);
                     }
 
