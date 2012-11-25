@@ -1,0 +1,25 @@
+{
+    "QoS":
+    {
+        "Weight": 0,
+        "Class": 2,
+        "Rules":
+        {
+            "Users is 1":
+            {
+                "Weight": 100,
+                "Class": 1,
+                "Run":
+                {
+                    "Session":
+                    {
+                        "User":
+                        {
+                            "ID": "*"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

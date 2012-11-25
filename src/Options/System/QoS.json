@@ -1,0 +1,18 @@
+{
+    "QoS":
+    {
+        "Active": true,
+        "Method": "BestEffort",
+        "Classes":
+        {
+            "2":
+            {
+                "Throttle if loaded":
+                {
+                    "Service": "System.Hardware.CPU.Throttler",
+                    "Method": "Run"
+                }
+            }
+        }
+    }
+}
