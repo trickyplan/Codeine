@@ -4,12 +4,11 @@ $(function()
         switch (event.keyCode ? event.keyCode : event.which ? event.which : null)
         {
             case 0x25:
-                link = $('a[rel="prev"]').attr('href');
+                $('a[rel="prev"]').click();
             break;
             case 0x27:
-                link = $('a[rel="next"]').attr('href')
+                $('a[rel="next"]').click();
             break;
         }
-        if (link !== undefined) document.location = link;
     });
 });

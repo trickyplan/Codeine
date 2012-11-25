@@ -28,6 +28,11 @@
             {
                 "Service": "Code.Flow.Front.Access",
                 "Method": "Check"
+            },
+            "QoS":
+            {
+                "Service": "System.QoS",
+                "Method": "Start"
             }
         },
         "afterRun":
@@ -36,6 +41,11 @@
             {
                 "Service":"View",
                 "Method":"Render"
+            },
+            "QoS":
+            {
+                "Service": "System.QoS",
+                "Method": "Start"
             }
         },
         "on404":
