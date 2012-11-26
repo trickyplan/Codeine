@@ -1,3 +1,8 @@
 {
-    "Title": "SEO"
+    "Title": "SEO",
+    "Options": {
+        "Do": "Обзор",
+        "Robots": "Robots",
+        "Sitemaps": "Карты сайта"
+    }
 }
