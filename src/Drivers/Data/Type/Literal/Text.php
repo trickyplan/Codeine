@@ -9,10 +9,10 @@
 
     setFn('Write', function ($Call)
     {
-        return strip_tags($Call['Value'], '<b><i><u><br>'); // FIXME
+        return strip_tags($Call['Value'], '<br/><b><i><u><br>'); // FIXME
     });
 
     setFn('Read', function ($Call)
     {
-        return $Call['Value'];
+        return nl2br($Call['Value']);
     });
