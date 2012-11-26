@@ -10,7 +10,9 @@
     setFn('Generate', function ($Call)
     {
         $Elements = F::Run('Entity', 'Read', ['Entity' => 'Article', 'Fields' => ['Slug']]);
-        $Data = [];
+        $Data = [
+            'http://'.$Call['Host'].'/articles'
+        ];
 
         foreach ($Elements as $Element)
             $Data[] = 'http://'.$Call['Host'].'/article/'.$Element['Slug']; // FIXME!
