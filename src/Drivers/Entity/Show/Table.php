@@ -12,6 +12,7 @@
         $Element = F::Run('Entity', 'Read', $Call)[0];
 
         $Data = [];
+
         F::Map($Element, function ($Key, $Value, $D, $Fullkey) use ($Call, &$Data)
         {
             if (!is_array($Value))
