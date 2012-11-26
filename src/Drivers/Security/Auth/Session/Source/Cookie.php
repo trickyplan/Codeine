@@ -9,6 +9,9 @@
 
     setFn ('Read', function ($Call)
     {
+        if (PHP_SAPI == 'cli')
+            return 'CLI';
+
         return isset($_COOKIE['SID']) ? $_COOKIE['SID']: null;
     });
 
