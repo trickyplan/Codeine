@@ -10,37 +10,13 @@
 
     setFn('Do', function ($Call)
     {
-        $Entries = F::Run('IO', 'Read',
-        [
-            'Storage' => 'Journal',
-            'Sort' =>
-                [
-                    'Time' => SORT_DESC
-                ]
-        ]);
-
-        if (sizeof($Entries) > 0)
-            foreach ($Entries as $Entry)
-                $Call['Output']['Content'][] =
-                    [
-                        'Type' => 'Template',
-                        'Scope' => 'Journal',
-                        'ID' => 'Show/Control',
-                        'Data' => $Entry
-                    ];
-        else
-            $Call['Output']['Content'][] = array(
-                'Type'  => 'Template',
-                'Scope' => 'Journal',
-                'ID' => 'Empty'
-            );
-
-        return $Call;
+        return F::Run('Entity.List', 'Do', array('Entity' => 'Journal', 'Template' => 'Control', 'PageURL' => '/control/Journal/page', 'Context' => 'app'),
+            $Call);
     });
 
     setFn('Show', function ($Call)
     {
-        $Entry = F::Run('IO', 'Read',
+        $Entry = F::Run('Entity', 'Read',
         [
             'Storage' => 'Journal',
             'Where' => $Call['Where']

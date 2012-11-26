@@ -32,24 +32,64 @@
 
         foreach($Call['Bundles'] as $Group => $Bundles)
         {
-            $Call['Options'][] = $Group;
 
             if (in_array($Call['Bundle'], $Bundles))
                 $Call['Group'] = $Group;
+
+            $GroupOptions = [];
 
             foreach ($Bundles as $Bundle)
             {
                 $Options = ['ID' => $Bundle, 'Group' => $Group];
 
-                if (($BundleOptions = F::Run($Bundle.'.Control', 'Menu', $Call)) !== null)
+                if (($BundleOptions = F::Run($Bundle.'.Control', 'Menu')) !== null)
                     $Options = F::Merge($Options, $BundleOptions);
 
-                $Call['Options'][] = $Options;
+                $Call['Run'] = [
+                        'Service' => 'Control.Panel',
+                        'Method'  => 'Do',
+                        'Call' =>
+                        [
+                            'Bundle' => $Bundle,
+                            'Option' => 'Do'
+                        ]
+                    ];
+
+                unset($Call['Decision'],$Call['Weight']);
+                $Call = F::Run('Security.Access', 'Check', $Call);
+
+                if ($Call['Decision'])
+                    $GroupOptions[] = $Options;
             }
+
+            if (count($GroupOptions) > 0)
+            {
+                $Call['Options'][] = $Group;
+                $Call['Options'] = array_merge($Call['Options'], $GroupOptions);
+            }
+
+
         }
 
         foreach ($Call['Sidebar'] as &$Sidebar)
-            $Pills[] = ['ID' => $Sidebar, 'URL' => '/control/'.$Call['Bundle'].'/'.$Sidebar, 'Title' => $Call['Bundle'].'.Control:Options.'.$Sidebar];
+        {
+            unset($Call['Decision'],$Call['Weight']);
+
+            $Call['Run'] = [
+                        'Service' => 'Control.Panel',
+                        'Method'  => 'Do',
+                        'Call' =>
+                        [
+                            'Bundle' => $Call['Bundle'],
+                            'Option' => $Sidebar
+                        ]
+                    ];
+
+            $Call = F::Run('Security.Access', 'Check', $Call);
+
+            if ($Call['Decision'])
+                $Pills[] = ['ID' => $Sidebar, 'URL' => '/control/'.$Call['Bundle'].'/'.$Sidebar, 'Title' => $Call['Bundle'].'.Control:Options.'.$Sidebar];
+        }
 
         // FIXME Костыль
         if (!isset($Call['Failure']))

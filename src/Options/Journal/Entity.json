@@ -1,0 +1,52 @@
+{
+    "Storage": "Primary",
+    "Nodes":
+    {
+        "ID":
+        {
+            "Type": "Literal.String",
+            "Hooks":
+            {
+                "beforeEntityCreate":
+                {
+                    "Service": "Security.UID",
+                    "Method": "Get",
+                    "Call":
+                    {
+                        "Mode": "Secure+"
+                    }
+                }
+            }
+        },
+        "Time":
+        {
+            "Hooks":
+            {
+                "beforeEntityCreate":
+                {
+                    "Service": "System.Time",
+                    "Method": "Get"
+                }
+            }
+        },
+        "Entity":
+        {
+
+        },
+        "Event":
+        {
+
+        },
+        "User":
+        {
+            "Hooks":
+            {
+                "beforeEntityCreate":
+                {
+                    "Service": "Security.Auth",
+                    "Method": "Username"
+                }
+            }
+        }
+    }
+}

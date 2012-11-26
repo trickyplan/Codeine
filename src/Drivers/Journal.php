@@ -10,17 +10,13 @@
 
     setFn('Write', function ($Call)
     {
-        F::Run('IO', 'Write',
+        F::Run('Entity', 'Create',
         [
-            'Storage' => 'Journal',
-            'Scope'  => 'Journal',
+            'Entity' => 'Journal',
             'Data'   =>
                 [
-                    'ID'    => F::Run('Security.UID', 'Get', ['Mode' => $Call['Journal']['UID']]),
-                    'Time'   => F::Run('System.Time', 'Get', ['Mode' => $Call['Journal']['Timer']]),
                     'Entity' => $Call['Entity'],
-                    'Event' => $Call['Event'],
-                    'User' => $Call['Session']['User']['ID']
+                    'Event' => $Call['Event']
                 ]
         ]);
 

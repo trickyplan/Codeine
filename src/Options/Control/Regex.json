@@ -66,7 +66,8 @@
             "Zone": ["Control"],
             "Call":
             {
-                "Bundle": "$1"
+                "Bundle": "$1",
+                "Option": "Do"
             }
         }
     }

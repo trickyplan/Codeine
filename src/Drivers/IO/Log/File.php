@@ -12,6 +12,11 @@
         return fopen($Call['Filename'], $Call['Mode']);
     });
 
+    setFn('Read', function ($Call)
+    {
+        return fgets($Call['Link']);
+    });
+
     setFn('Write', function ($Call)
     {
         return fwrite($Call['Link'], implode("\n", (array) $Call['Data']));
