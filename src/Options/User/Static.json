@@ -42,7 +42,7 @@
         {
             "Zone": ["Project"],
             "Service":"User.Authenticate",
-            "Method":"Do",
+            "Method":"POST",
             "Call":
             {
                 "Mode": "Loginza"

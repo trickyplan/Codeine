@@ -84,5 +84,6 @@
                     );
 
 d(__FILE__, __LINE__, $Call['User']);
+        die();
         return $Call;
     });
