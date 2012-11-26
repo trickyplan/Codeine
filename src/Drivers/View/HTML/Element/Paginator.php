@@ -9,8 +9,11 @@
 
     setFn('Make', function ($Call)
     {
+        $Call['FirstURL'] = preg_replace('@/page(\d+)@', '', $_SERVER['REQUEST_URI']);
+
         if (empty($Call['PageURL']))
-            $Call['PageURL'] = preg_replace('@/page(\d+)@', '', $_SERVER['REQUEST_URI']).'/page';
+            $Call['PageURL'] = $Call['FirstURL'].'/page';
+
         // FIXME! Temporary COSTYL
         return F::Run('View.HTML.Element.Paginator.'.$Call['Method'], 'Make', $Call);
     });
