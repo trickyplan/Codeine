@@ -1,9 +1,12 @@
 <tr><td>
     <div class="pull-right">
-        <ul class="nav nav-pills">
-            <li><a href="/control/<call>Entity</call>/Show/<k>ID</k>">Просмотреть</a></li>
-            <li><a href="/control/<call>Entity</call>/Update/<k>ID</k>">Редактировать</a></li>
-            <li><a href="/control/<call>Entity</call>/Delete/<k>ID</k>">Удалить</a></li>
+        <ul class="nav nav-pills pull-right">
+            <access Service="Control.Panel" Method="Do" Call.Bundle="<call>Entity</call>" Call.Option="Update">
+                <li><a href="/control/<call>Entity</call>/Update/<k>ID</k>">Редактировать</a></li>
+            </access>
+            <access Service="Control.Panel" Method="Do" Call.Bundle="<call>Entity</call>" Call.Option="Delete">
+                <li><a href="/control/<call>Entity</call>/Delete/<k>ID</k>">Удалить</a></li>
+            </access>
         </ul>
     </div>
 <h4><k>Title</k></h4>

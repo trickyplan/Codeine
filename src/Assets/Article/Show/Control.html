@@ -1,9 +1,12 @@
-<tr>
-    <td><a href="/article/<k>Slug</k>"><k>Title</k></a></td>
-    <td><entity>User:<k>User</k></entity></td>
-    <td><datetime><k>Created</k></datetime></td>
-    <td><datetime><k>Modified</k></datetime></td>
-    <td class="btn-group">
-        <a class="btn" href="/control/Article/Update/<k>ID</k>">Редактировать</a>
-        <a class="btn btn-danger" href="/control/Article/Delete/<k>ID</k>">Удалить</a></td>
-</tr>
+<tr><td>
+    <ul class="nav nav-pills pull-right">
+        <access Service="Control.Panel" Method="Do" Call.Bundle="<call>Entity</call>" Call.Option="Update">
+            <li><a href="/control/<call>Entity</call>/Update/<k>ID</k>">Редактировать</a></li>
+        </access>
+        <access Service="Control.Panel" Method="Do" Call.Bundle="<call>Entity</call>" Call.Option="Delete">
+            <li><a href="/control/<call>Entity</call>/Delete/<k>ID</k>">Удалить</a></li>
+        </access>
+     </ul>
+    <h4><k>Title</k></h4>
+    <h5>/<k>Slug</k></h5>
+</td></tr>
