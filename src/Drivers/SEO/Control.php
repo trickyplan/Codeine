@@ -10,7 +10,7 @@
     setFn('Do', function ($Call)
     {
         // TODO Realize "Do" function
-
+        $Call['Output']['Content'][] = ['Type' => 'Block', 'Class' => 'alert', 'Value' => 'Блок в разработке.'];
 
         return $Call;
     });
@@ -26,6 +26,13 @@
         }
 
         $Call['Robots'] = file_get_contents(Root.'/Public/robots.txt');
+
+        return $Call;
+    });
+
+    setFn('Sitemaps', function ($Call)
+    {
+        $Call['Output']['Content'][] = ['Type' => 'Block', 'Class' => 'alert', 'Value' => 'Блок в разработке.'];
 
         return $Call;
     });
