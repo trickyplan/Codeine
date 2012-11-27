@@ -20,10 +20,8 @@
 
             if (is_string($Thumb['URL']))
             {
-                if (preg_match('/^http.*/', $Thumb['URL']))
-                {
-                    $Filename = $Thumb['URL'];
-                }
+                if (preg_match('/^http.*/', $Thumb['Remote']))
+                    $Filename = $Thumb['Remote'];
                 else
                 {
                     $Filename = Root . '/' . $Thumb['URL'];
