@@ -24,8 +24,6 @@
              'Where' => 'http://loginza.ru/api/authinfo?token='.$Call['Request']['token'].'&id='.$Call['Loginza']['ID'].'&sig='.md5($Call['Request']['token'].$Call['Loginza']['Key'])
          ))[0], true);
 
-        d(__FILE__, __LINE__, $Response);
-
         if (isset($Response['identity']))
         {
             // Проверить, есть ли такой пользователь
@@ -37,9 +35,6 @@
                         'EMail' => $Response['identity']
                     ]
                 ));
-
-            if (isset($Call['User'][0]))
-                $Call['User'] = $Call['User'][0];
 
             $UserData = [
                         'EMail' => $Response['identity'],
