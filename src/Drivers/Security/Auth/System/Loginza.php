@@ -44,6 +44,7 @@
             $UserData = [
                         'EMail' => $Response['identity'],
                         'Status' => 1,
+                        'Password' => sha1(rand()),
                         'Fullname' => isset($Response['name']['full_name'])
                                 ? $Response['name']['full_name']
                                 : $Response['name']['first_name'].' '.$Response['name']['last_name']];
