@@ -28,6 +28,7 @@
         {
             // Проверить, есть ли такой пользователь
 
+            d(__FILE__, __LINE__, $Response);
             $Call['User'] = F::Run('Entity','Read',
                 array(
                     'Entity' => 'User',
@@ -72,7 +73,11 @@
                          ),
                          'Data'  => $UserData
                     ))['Data'];
+
                 F::Log('User authorized'.$Call['User']['ID'], LOG_INFO);
+
+
+                die();
             }
         }
         else

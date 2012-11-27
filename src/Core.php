@@ -21,7 +21,6 @@
 
         private static $_Storage = [];
         private static $_Ticks = [];
-        private static $_Speed = [];
         private static $_Counters = [];
         private static $_Log = [];
 
