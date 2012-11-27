@@ -5,7 +5,6 @@
         "Key": "yourkeyhere",
         "Map":
         {
-            "EMail": "email",
             "Phone": "phone.mobile",
             "Photo": "photo"
         }
