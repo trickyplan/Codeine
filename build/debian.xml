@@ -69,7 +69,7 @@
         </echo>
     </target>
 
-    <target name="make" depends="folders, control, source, docs, version">
+    <target name="debian" depends="folders, control, source, docs, version">
         <exec command="dpkg --build '${package}' ${distribution}/ " dir="."/>
     </target>
 </project>
