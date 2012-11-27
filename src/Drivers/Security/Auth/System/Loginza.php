@@ -27,15 +27,6 @@
         if (isset($Response['identity']))
         {
             // Проверить, есть ли такой пользователь
-
-            $Call['User'] = F::Run('Entity','Read',
-                array(
-                    'Entity' => 'User',
-                    'Where'  => [
-                        'EMail' => $Response['identity']
-                    ]
-                ));
-
             $UserData = [
                         'EMail' => $Response['identity'],
                         'Status' => 1,
@@ -47,6 +38,14 @@
 
             foreach ($Call['Loginza']['Map'] as $Own => $Provider)
                 $UserData[$Own] = F::Dot($Response, $Provider);
+
+            $Call['User'] = F::Run('Entity','Read',
+                array(
+                    'Entity' => 'User',
+                    'Where'  => [
+                        'EMail' => $Response['identity']
+                    ]
+                ));
 
             // Если нет, зарегистрировать
             if (empty($Call['User']))
