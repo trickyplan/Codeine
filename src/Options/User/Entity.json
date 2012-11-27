@@ -18,7 +18,7 @@
         },
         "EMail":
         {
-            "Type": "Literal.EMail",
+            "Type": "Literal.String",
             "Required": true,
             "Unique": true,
             "Widgets":

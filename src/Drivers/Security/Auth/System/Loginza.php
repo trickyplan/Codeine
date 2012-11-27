@@ -76,8 +76,6 @@
                     ))['Data'];
 
                 F::Log('User authorized'.$Call['User']['ID'], LOG_INFO);
-
-
             }
         }
         else
@@ -87,7 +85,7 @@
                         'Scope' => 'User',
                         'ID' => 'Failed'
                     );
-                die();
+
 
         return $Call;
     });
