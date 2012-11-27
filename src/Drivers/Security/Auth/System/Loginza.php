@@ -24,11 +24,12 @@
              'Where' => 'http://loginza.ru/api/authinfo?token='.$Call['Request']['token'].'&id='.$Call['Loginza']['ID'].'&sig='.md5($Call['Request']['token'].$Call['Loginza']['Key'])
          ))[0], true);
 
+        d(__FILE__, __LINE__, $Response);
+
         if (isset($Response['identity']))
         {
             // Проверить, есть ли такой пользователь
 
-            d(__FILE__, __LINE__, $Response);
             $Call['User'] = F::Run('Entity','Read',
                 array(
                     'Entity' => 'User',
@@ -77,7 +78,6 @@
                 F::Log('User authorized'.$Call['User']['ID'], LOG_INFO);
 
 
-                die();
             }
         }
         else
@@ -87,6 +87,7 @@
                         'Scope' => 'User',
                         'ID' => 'Failed'
                     );
+                die();
 
         return $Call;
     });
