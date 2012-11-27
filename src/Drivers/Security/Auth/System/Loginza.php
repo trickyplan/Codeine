@@ -45,7 +45,7 @@
                     'Where'  => [
                         'EMail' => $Response['identity']
                     ]
-                ));
+                ))[0];
 
             // Если нет, зарегистрировать
             if (empty($Call['User']))
@@ -60,15 +60,15 @@
             }
             else
             {
-                $Call['User'] = F::Run('Entity','Update',
-                    array(
+                F::Run('Entity','Update',
+                    [
                          'Entity' => 'User',
                          'Where' =>
-                         array(
+                         [
                              'EMail' => $Response['identity']
-                         ),
+                         ],
                          'Data'  => $UserData
-                    ))['Data'];
+                    ]);
 
                 F::Log('User authorized'.$Call['User']['ID'], LOG_INFO);
             }
