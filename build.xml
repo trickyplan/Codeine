@@ -3,7 +3,6 @@
 <project name="codeine" default="final" basedir=".">
 
     <import file="build/initialize.xml"/>
-    <import file="build/phplint.xml"/>
 
     <import file="build/debian.xml"/>
 
@@ -14,7 +13,7 @@
     <target name="phase1" depends="properties, folders"></target>
 
     <!-- Source code checks -->
-    <target name="phase2" depends="phase1, check"></target>
+    <target name="phase2" depends="phase1"></target>
 
     <!-- Tests & docs -->
     <target name="phase3" depends="phase2"></target>
