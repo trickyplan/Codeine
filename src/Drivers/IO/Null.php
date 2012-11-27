@@ -9,7 +9,7 @@
 
     setFn('Open', function ($Call)
     {
-        return null;
+        return true;
     });
 
     setFn('Read', function ($Call)

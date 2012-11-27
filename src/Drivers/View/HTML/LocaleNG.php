@@ -29,6 +29,8 @@
                     $ID = array_pop($LocaleParts);
                     $Asset = implode('.', $LocaleParts);
 
+                    $Asset = strtr($Asset, '.', '/');
+
                     $NewLocales = F::Run('IO', 'Read',
                         array (
                               'Storage' => 'Locale',

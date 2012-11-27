@@ -9,7 +9,8 @@
 
     setFn('Write', function ($Call)
     {
-        $Date = strptime($Call['Value'],'%d.%m.%Y');
+        $Date = strptime($Call['Value'],'%Y-%m-%d');
+
         return mktime(0,0,0, 1+$Date['tm_mon'], $Date['tm_mday'], 1900+$Date['tm_year']);
     });
 
