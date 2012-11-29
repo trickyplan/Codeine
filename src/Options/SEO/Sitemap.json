@@ -9,15 +9,6 @@
     },
     "Entities":
     {
-        "Article":
-        {
-            "Frequency": "weekly",
-            "Priority": 1
-        },
-        "Page":
-        {
-            "Frequency": "weekly",
-            "Priority": 1
-        }
+
     }
 }
