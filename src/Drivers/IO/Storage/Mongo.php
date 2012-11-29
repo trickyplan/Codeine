@@ -13,7 +13,7 @@
         $Link = $Link->selectDB($Call['Database']);
 
         if (isset($Call['Auth']))
-            $Link->authentificate($Call['Auth']['Username'], $Call['Auth']['Password']);
+            $Link->authenticate($Call['Auth']['Username'], $Call['Auth']['Password']);
 
         return $Link;
     });
