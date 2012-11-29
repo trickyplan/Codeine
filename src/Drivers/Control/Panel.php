@@ -29,10 +29,8 @@
             'Context' => $Call['Context']
         );
 
-
         foreach($Call['Bundles'] as $Group => $Bundles)
         {
-
             if (in_array($Call['Bundle'], $Bundles))
                 $Call['Group'] = $Group;
 
