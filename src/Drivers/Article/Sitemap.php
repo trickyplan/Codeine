@@ -11,11 +11,11 @@
     {
         $Elements = F::Run('Entity', 'Read', ['Entity' => 'Article', 'Fields' => ['Slug']]);
         $Data = [
-            'http://'.$Call['Host'].'/articles'
+            $Call['Host'].'/articles'
         ];
 
         foreach ($Elements as $Element)
-            $Data[] = 'http://'.$Call['Host'].'/article/'.$Element['Slug']; // FIXME!
+            $Data[] = $Call['Host'].'/article/'.$Element['Slug']; // FIXME!
 
         return $Data;
      });
