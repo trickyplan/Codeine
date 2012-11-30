@@ -12,6 +12,7 @@
           foreach ($Call['Parsed'][2] as $Ix => $Match)
           {
               $Match = json_decode(json_encode(simplexml_load_string('<exec>'.$Match.'</exec>')), true); // I love PHP :(
+              $Match['Call']['Session'] = $Call['Session'];
 
               $Application = F::Run('Code.Flow.Application', 'Run', array('Run' => $Match, 'Context' => 'app'));
               $Call['Output'] = str_replace($Call['Parsed'][0][$Ix], $Application['Output'], $Call['Output']);

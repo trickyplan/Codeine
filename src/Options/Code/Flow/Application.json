@@ -4,15 +4,7 @@
     {
         "beforeApplicationRun":
         {
-            "Audit":
-            {
-                "Service": "Security.Auth",
-                "Method": "Audit",
-                "Call":
-                {
-                    "No Auto Register": true
-                }
-            },
+
             "Access":
             {
                 "Service": "Code.Flow.Front.Access",

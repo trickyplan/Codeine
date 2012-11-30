@@ -12,7 +12,10 @@
         $Call['SID'] = F::Run($Call['Source'], 'Read', $Call);
 
         if (empty($Call['SID']))
-            $Call['Session'] = F::Run(null, 'Register', $Call);
+        {
+            if (!isset($Call['No Auto Register']) || !$Call['No Auto Register'])
+                $Call['Session'] = F::Run(null, 'Register', $Call);
+        }
         else
         {
             $Call['Session'] =
@@ -71,6 +74,8 @@
     setFn('Register', function ($Call)
     {
         $Call = F::Hook('beforeRegister', $Call);
+
+        F::Log('SESSION CREATED');
 
         $Call['Session'] = F::Run('Entity', 'Create', $Call,
             array(

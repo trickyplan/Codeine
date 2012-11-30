@@ -40,6 +40,7 @@
 
     setFn('Delete', function ($Call)
     {
+        $Call['Layouts'][] = ['Scope' => 'Entity', 'ID' => 'Delete']; // FIXME
         return F::Run('Entity.Delete', 'Do', array('Entity' => 'User', 'Where' => $Call['ID']), $Call);
     });
 
