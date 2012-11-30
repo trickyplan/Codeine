@@ -126,14 +126,15 @@
         {
             F::Log('Primary logon', LOG_INFO);
             return F::Run('Entity', 'Update',
-                array(
+                [
                     'Entity' => 'Session',
                     'Where' => $Call['SID'],
                     'Data' =>
-                    array(
+                    [
                         'User' => $Call['User'],
-                        'Expire' => time()+$Call['TTL']) // FIXME
-                ));
+                        'Expire' => time()+$Call['TTL'] // FIXME
+                    ]
+                ]);
         }
     });
 

@@ -29,7 +29,7 @@
                     $Call['TTL'] = $Call['TTLs']['Long'];
 
                 $Call['Session'] = F::Run('Security.Auth', 'Attach', $Call,
-                    array('User' => $Call['User']['ID']));
+                    ['User' => $Call['User']['ID']]);
 
                 $Call = F::Hook('Authenticating.Success', $Call);
             }

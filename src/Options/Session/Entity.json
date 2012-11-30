@@ -4,7 +4,7 @@
     {
         "ID":
         {
-            "Type": "Numeral.Integer",
+            "Type": "Literal.String",
             "Hooks":
             {
                 "beforeEntityCreate":
@@ -13,7 +13,7 @@
                     "Method": "Get",
                     "Call":
                     {
-                        "Mode": "Secure"
+                        "Mode": "Secure+"
                     }
                 }
             }
