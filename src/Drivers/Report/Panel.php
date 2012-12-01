@@ -9,6 +9,9 @@
 
     setFn('Do', function ($Call)
     {
+        // Heavy Reporting
+        set_time_limit(0);
+
         if (!isset($Call['Bundle']))
             $Call['Bundle'] = isset($Call['Start'])? $Call['Start']: 'Codeine';
 
