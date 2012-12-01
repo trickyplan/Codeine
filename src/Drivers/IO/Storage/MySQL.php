@@ -24,9 +24,9 @@
     setFn ('Read', function ($Call)
     {
         $Query = F::Run('IO.Storage.MySQL.Syntax', 'Read', $Call);
+
         if (null == ($Data = F::Get($Query)))
         {
-            F::Log($Query);
             $Result = $Call['Link']->query($Query);
             F::Counter('MySQL');
 
