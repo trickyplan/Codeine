@@ -14,7 +14,7 @@
             $Keys = array();
 
             foreach ($Call['Data'] as $Key => $Value)
-                $Keys[] = '`'.$Call['Link']->real_escape_string ($Key).'`';
+                $Keys[] = '`'.$Key.'`';
 
             $Keys = '('.implode (',', $Keys).')';
         }
@@ -27,7 +27,7 @@
         if(isset($Call['Keys']))
         {
             foreach ($Call['Keys'] as $Key)
-                $Keys[] = '`'.$Call['Link']->real_escape_string ($Key).'`';
+                $Keys[] = '`'.$Call['Link']->quote ($Key).'`';
 
             $Keys = implode (',', $Keys);
         }
@@ -47,17 +47,13 @@
             {
                 if (is_scalar($Value))
                 {
-                    if (!is_float($Value) and !is_int($Value))
-                        $Value = $Call['Link']->real_escape_string($Value); // ?
-                    else
+                    if (is_float($Value) or !is_int($Value))
                         $Value = strtr($Value, ',','.');
                     // FIXME I'm shitcode
 
-                    $Sets[] = '`'.$Call['Link']->real_escape_string($Key).'` = \''. $Call['Link']->real_escape_string($Value).'\'';
+                    $Sets[] = '`'.$Key.'` = '. $Call['Link']->quote($Value);
                 }
             }
-
-
 
             $Sets = implode(',', $Sets);
         }
@@ -75,7 +71,7 @@
         {
             foreach ($Call['Data'] as &$Value)
                 if (!is_float($Value) and !is_int($Value))
-                    $Value = '\''.$Call['Link']->real_escape_string($Value). '\''; // ?
+                    $Value = '\''.$Call['Link']->quote($Value). '\''; // ?
                 else
                     $Value = strtr($Value, ',','.'); // FIXME I'm shitcode
 
@@ -101,7 +97,7 @@
 
             foreach ($Call['Sort'] as $Key => $Direction)
                 if (isset($Call['Nodes'][$Key]))
-                    $Conditions[] = $Call['Link']->real_escape_string($Key)
+                    $Conditions[] = $Call['Link']->quote($Key)
                         .(is_numeric($Call['Nodes'][$Key])? '+0': '')
                         .' '.($Direction == 'ASC'? 'ASC': 'DESC');
 
@@ -139,25 +135,19 @@
                 {
                     foreach ($Value as $Relation => &$Value) // FIXME!
                     {
-                        if (is_array($Value))
-                        {
-                            $Value = '('.implode(',', $Value).')';
-                            $Quote = false;
-                        }
-                        else
-                            $Quote = !is_numeric($Value);
+                        $Value = '('.implode(',', $Value).')';
+
 
                         if ($Relation == '$in')
                             $Relation = 'IN';
 
-                        $Conditions[] = '`'.$Key.'` '. $Relation.' '.($Quote ? '\''.$Value.'\'': $Value);
+                        $Conditions[] = '`'.$Key.'` '. $Relation.' '.$Call['Link']->quote($Value);
                     }
                 }
                 else
                 {
-                    $Quote = true;
-
-                    $Conditions[] = '`'.$Key.'` '. $Relation.' '.($Quote ? '\''.$Value.'\'': $Value);
+                    $Value = $Call['Link']->quote($Value);
+                    $Conditions[] = '`'.$Key.'` '. $Relation.' '.$Value;
                 }
             }
 
@@ -191,7 +181,7 @@
     {
         return 'update '
             .F::Run(null, 'Table', $Call).
-            'set '.F::Run(null, 'Set', $Call)
+            ' set '.F::Run(null, 'Set', $Call)
             .F::Run(null, 'Where', $Call)
             .F::Run(null, 'Limit', $Call);
     });

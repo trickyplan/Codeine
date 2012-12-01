@@ -24,7 +24,7 @@
 
     setFn ('Read', function ($Call)
     {
-        $Query = F::Run('IO.Storage.MySQL.Syntax', 'Read', $Call);
+        $Query = F::Run('IO.Storage.PDO.Syntax', 'Read', $Call);
 
         if (null == ($Data = F::Get($Query))) // FIXME Нормальная мемоизация
         {
@@ -53,19 +53,19 @@
         if (isset($Call['Where']))
         {
             if (isset($Call['Data']))
-                $Query = F::Run('IO.Storage.MySQL.Syntax', 'Update', $Call);
+                $Query = F::Run('IO.Storage.PDO.Syntax', 'Update', $Call);
             else
-                $Query = F::Run('IO.Storage.MySQL.Syntax', 'Delete', $Call);
+                $Query = F::Run('IO.Storage.PDO.Syntax', 'Delete', $Call);
         }
         else
-            $Query = F::Run('IO.Storage.MySQL.Syntax', 'Insert', $Call);
+            $Query = F::Run('IO.Storage.PDO.Syntax', 'Insert', $Call);
 
         F::Log($Query, LOG_INFO);
 
         $Call['Link']->exec($Query);
 
         if (!isset($Call['Data']['ID']))
-            $Call['Data']['ID'] = $Call['Link']->insert_id;
+            $Call['Data']['ID'] = $Call['Link']->lastInsertId();
 
         F::Counter('MySQL');
 
@@ -102,7 +102,7 @@
 
     setFn ('Count', function ($Call)
     {
-        $Query = F::Run('IO.Storage.MySQL.Syntax', 'Count', $Call);
+        $Query = F::Run('IO.Storage.PDO.Syntax', 'Count', $Call);
         $Result = $Call['Link']->query($Query);
         F::Log($Query, LOG_DEBUG);
         F::Counter('MySQL');
