@@ -14,7 +14,7 @@
             $Keys = array();
 
             foreach ($Call['Data'] as $Key => $Value)
-                $Keys[] = '`'.$Key.'`';
+                $Keys[] = '`'.$Call['Link']->escapeString ($Key).'`';
 
             $Keys = '('.implode (',', $Keys).')';
         }
@@ -27,7 +27,7 @@
         if(isset($Call['Keys']))
         {
             foreach ($Call['Keys'] as $Key)
-                $Keys[] = '`'.$Key.'`';
+                $Keys[] = '`'.$Call['Link']->escapeString ($Key).'`';
 
             $Keys = implode (',', $Keys);
         }
@@ -47,11 +47,13 @@
             {
                 if (is_scalar($Value))
                 {
-                    if (is_float($Value) or is_int($Value))
+                    if (!is_float($Value) and !is_int($Value))
+                        $Value = $Call['Link']->escapeString($Value); // ?
+                    else
                         $Value = strtr($Value, ',','.');
                     // FIXME I'm shitcode
 
-                    $Sets[] = '`'.$Key.'` = \''.$Value.'\'';
+                    $Sets[] = '`'.$Call['Link']->escapeString($Key).'` = \''. $Call['Link']->escapeString($Value).'\'';
                 }
             }
 
@@ -73,7 +75,7 @@
         {
             foreach ($Call['Data'] as &$Value)
                 if (!is_float($Value) and !is_int($Value))
-                    $Value = '\''.$Value. '\''; // ?
+                    $Value = '\''.$Call['Link']->escapeString($Value). '\''; // ?
                 else
                     $Value = strtr($Value, ',','.'); // FIXME I'm shitcode
 
@@ -99,7 +101,7 @@
 
             foreach ($Call['Sort'] as $Key => $Direction)
                 if (isset($Call['Nodes'][$Key]))
-                    $Conditions[] = $Key
+                    $Conditions[] = $Call['Link']->escapeString($Key)
                         .(is_numeric($Call['Nodes'][$Key])? '+0': '')
                         .' '.($Direction == 'ASC'? 'ASC': 'DESC');
 
@@ -153,6 +155,7 @@
                 }
                 else
                 {
+                    $Value = $Call['Link']->escapeString($Value);
                     $Quote = true;
 
                     $Conditions[] = '`'.$Key.'` '. $Relation.' '.($Quote ? '\''.$Value.'\'': $Value);

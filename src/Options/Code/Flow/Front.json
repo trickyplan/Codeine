@@ -2,7 +2,7 @@
     "Context": "",
     "Hooks":
     {
-        "beforeRun":
+        "beforeFrontRun":
         {
             "Codeine":
             {
@@ -35,7 +35,7 @@
                 "Method": "Start"
             }
         },
-        "afterRun":
+        "afterFrontRun":
         {
             "Rendering":
             {

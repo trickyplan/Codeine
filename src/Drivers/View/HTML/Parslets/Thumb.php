@@ -11,7 +11,8 @@
     {
         foreach ($Call['Parsed'][2] as $Ix => $Match)
         {
-            $Thumb = json_decode(json_encode(simplexml_load_string(html_entity_decode('<thumb>'.$Match.'</thumb>'))),true); // FIXME Абстрагировать этот пиздец
+            $Thumb = json_decode(json_encode(simplexml_load_string(html_entity_decode('<thumb>'.$Match.'</thumb>'))),true);
+            // FIXME Абстрагировать этот пиздец
 
             if (isset($Thumb['Default']))
                 $Thumb['Default'] = F::Live($Thumb['Default']);
@@ -20,7 +21,7 @@
 
             if (is_string($Thumb['URL']))
             {
-                if (preg_match('/^http.*/', $Thumb['Remote']))
+                if (isset($Thumb['Remote'])  && preg_match('/^http.*/', $Thumb['Remote']))
                     $Filename = $Thumb['Remote'];
                 else
                 {

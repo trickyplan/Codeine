@@ -4,7 +4,11 @@
     {
         "beforeApplicationRun":
         {
-
+            "Audit":
+            {
+                "Service": "Security.Auth",
+                "Method": "Audit"
+            },
             "Access":
             {
                 "Service": "Code.Flow.Front.Access",

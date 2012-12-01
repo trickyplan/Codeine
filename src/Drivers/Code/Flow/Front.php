@@ -12,7 +12,7 @@
     setFn('Run', function ($Call)
     {
         // В этом месте, практически всегда, происходит роутинг.
-        $Call = F::Hook('beforeRun', $Call);
+        $Call = F::Hook('beforeFrontRun', $Call);
 
         // Если передан нормальный вызов, совершаем его
 
@@ -37,7 +37,7 @@
         }
 
         // А здесь - рендеринг
-            $Call = F::Hook('afterRun', $Call);
+            $Call = F::Hook('afterFrontRun', $Call);
 
         return $Call;
     });

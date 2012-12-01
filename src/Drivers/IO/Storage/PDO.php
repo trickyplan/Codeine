@@ -9,33 +9,34 @@
 
     setFn ('Open', function ($Call)
     {
-        $Link = new mysqli($Call['Server'], $Call['User'], F::Live($Call['Password']));
-
-        if (!$Link->ping())
-            return null;
-
-        $Link->select_db ($Call['Database']);
-        $Link->set_charset ($Call['Charset']);
-     //   $Link->autocommit ($Call['AutoCommit']);
+        try
+        {
+            $Link = new PDO($Call['DSN'], $Call['User'], $Call['Password']);
+        }
+        catch (PDOException $e)
+        {
+            F::Log($e->getMessage(), LOG_ERR);
+            $Link = null;
+        }
 
         return $Link;
     });
 
     setFn ('Read', function ($Call)
     {
-        $Query = $Call['Link']->real_escape_string(F::Run('IO.Storage.MySQL.Syntax', 'Read', $Call));
+        $Query = F::Run('IO.Storage.MySQL.Syntax', 'Read', $Call);
+
         if (null == ($Data = F::Get($Query))) // FIXME Нормальная мемоизация
         {
             $Result = $Call['Link']->query($Query);
             F::Counter('MySQL');
 
-            if ($Call['Link']->errno != 0)
-                F::Log($Call['Link']->error, LOG_CRIT);
+            if ($Call['Link']->errorCode() != 0)
+                F::Log($Call['Link']->errorInfo(), LOG_CRIT);
 
-            if ($Result->num_rows>0)
+            if ($Result->rowCount()>0)
             {
-                $Data = $Result->fetch_all(MYSQLI_ASSOC);
-                $Result->free();
+                $Data = $Result->fetchAll(PDO::FETCH_ASSOC);
                 F::Log('['.sizeof($Data).'] '.$Query, LOG_DEBUG);
             }
             else
@@ -59,19 +60,18 @@
         else
             $Query = F::Run('IO.Storage.MySQL.Syntax', 'Insert', $Call);
 
-        $Query = $Call['Link']->real_escape_string($Query);
         F::Log($Query, LOG_INFO);
 
-        $Call['Link']->query($Query);
+        $Call['Link']->exec($Query);
 
         if (!isset($Call['Data']['ID']))
             $Call['Data']['ID'] = $Call['Link']->insert_id;
 
         F::Counter('MySQL');
 
-        if ($Call['Link']->errno != 0)
+        if ($Call['Link']->errorCode() != 0)
         {
-            F::Log($Call['Link']->error, LOG_ERR);
+            F::Log($Call['Link']->errorInfo(), LOG_ERR);
             return null;
         }
 
@@ -108,7 +108,7 @@
         F::Counter('MySQL');
 
         if ($Result)
-            $Result = $Result->fetch_assoc();
+            $Result = $Result->fetch(PDO::FETCH_ASSOC);
 
         return $Result['count(*)'];
     });
@@ -119,7 +119,7 @@
         F::Counter('MySQL');
 
         if ($Result)
-            $Result = $Result->fetch_assoc();
+            $Result = $Result->fetch(PDO::FETCH_ASSOC);
 
         return $Result['ID']+$Call['Increment'];
     });
