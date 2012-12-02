@@ -66,7 +66,8 @@
 
                     $Widget = F::Merge($Node, $Widget);
 
-                    $Widget['Data'] = $Call['Data'];
+                    if (isset($Call['Data']))
+                        $Widget['Data'] = $Call['Data'];
 
                     if (isset($Widget['Options']))
                         $Widget['Options'] = F::Live($Widget['Options'], $Call);

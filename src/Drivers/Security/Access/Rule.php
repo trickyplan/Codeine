@@ -29,7 +29,7 @@
                     }
                 }
 
-                if (isset($Rule['Run']['Service']) && isset($Rule['Run']['Method']) && isset($Rule['Message']))
+                if (isset($Call['Service']) && isset($Rule['Run']['Service']) && isset($Rule['Run']['Method']) && isset($Rule['Message']))
                     if (($Call['Service'] == $Rule['Run']['Service']) && ($Call['Method'] == $Rule['Run']['Method']))
                         $Call['Message'] = $Rule['Message'];
             }
