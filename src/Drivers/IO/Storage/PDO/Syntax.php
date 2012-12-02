@@ -135,8 +135,8 @@
                 {
                     foreach ($Value as $Relation => &$Value) // FIXME!
                     {
-                        $Value = '('.implode(',', $Value).')';
-
+                        if (is_array($Value))
+                            $Value = '('.implode(',', $Value).')';
 
                         if ($Relation == '$in')
                             $Relation = 'IN';

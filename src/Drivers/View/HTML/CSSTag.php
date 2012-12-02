@@ -103,9 +103,6 @@
 
                 $Call['Output'] = str_replace($Parsed[0], '', $Call['Output']);
 
-            if (strpos($Call['Output'], '<place>CSS</place>') === false)
-                trigger_error('Place for CSS missed');
-
             $Call['Output'] = str_replace('<place>CSS</place>', '<link href="'.$Call['CSS Host'].'/cache/css/'.$CSSHash.'.css" rel="stylesheet" />',
                 $Call['Output']);
         }

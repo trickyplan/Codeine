@@ -27,7 +27,7 @@
             "Service": "SEO.Sitemap",
             "Method": "Index"
         },
-        "/monitor":
+        "/monitor.json":
         {
             "Service": "Monitor",
             "Method": "Do",

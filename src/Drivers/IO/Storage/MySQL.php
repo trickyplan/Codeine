@@ -105,6 +105,7 @@
     {
         $Query = F::Run('IO.Storage.MySQL.Syntax', 'Count', $Call);
         $Result = $Call['Link']->query($Query);
+
         F::Log($Query, LOG_DEBUG);
         F::Counter('MySQL');
 

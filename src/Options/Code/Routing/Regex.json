@@ -44,7 +44,7 @@
         },
         "Monitor":
         {
-            "Match": "@/monitor/(.*)@",
+            "Match": "@/monitor/(.*).json@",
             "Service": "Monitor",
             "Method": "Do",
             "Renderer": "View.JSON",
