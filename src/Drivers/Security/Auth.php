@@ -13,7 +13,9 @@
 
         if (empty($Call['SID']))
         {
-            $Call['Session'] = F::Run(null, 'Register', $Call);
+            F::Log('Empty SID', LOG_ERR);
+            if (!isset($Call['No Auto Register']) or !$Call['No Auto Register'])
+                $Call['Session'] = F::Run(null, 'Register', $Call);
         }
         else
         {
