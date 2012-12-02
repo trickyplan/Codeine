@@ -26,6 +26,12 @@
         {
             "Service": "SEO.Sitemap",
             "Method": "Index"
+        },
+        "/monitor":
+        {
+            "Service": "Monitor",
+            "Method": "Do",
+            "Renderer": "View.JSON"
         }
     }
 }

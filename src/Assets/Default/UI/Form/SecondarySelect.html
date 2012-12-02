@@ -1,0 +1,29 @@
+<div class="control-group">
+    <label class="control-label" for="<k>Name</k>"> <l><k>Label</k></l>:
+            <if value="<k>Required</k>" eq="1"><span class="required-star">*</span></if>
+</label>
+    <div class="controls">
+        <select id="<k>ID</k>" <block>multiple=<k>Multiple</k></block> name="<k>Name</k>" <block>required="<k>Required</k>" </block> class="span12"         size="<k>Size</k>">
+
+        </select>
+    </div>
+</div>
+<jsrun>
+    $('#<k>Primary</k>').change(function()
+    {
+        var val = $(this).val();
+        $.ajax(
+        {
+            url: '/dict/<k>Name</k>/<k>Primary</k>/'+val,
+            success: function (data)
+            {
+                $('#<k>ID</k>').html('');
+                for (row in data)
+                   $('#<k>ID</k>').append('<option value="'+data[row][0]+'">'+data[row][1]+'</option>');
+            }
+        }
+        );
+    });
+    $('#<k>Primary</k>').change();
+
+</jsrun>

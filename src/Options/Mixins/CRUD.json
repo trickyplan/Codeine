@@ -1,0 +1,53 @@
+{
+    "Hooks":
+    {
+        "beforeCreateGet":
+        {
+            "Store URL":
+            {
+                "Service": "Entity.Redirect.Back",
+                "Method": "Store"
+            }
+        },
+        "afterCreatePost":
+        {
+            "Restore URL":
+            {
+                "Service": "Entity.Redirect.Back",
+                "Method": "Redirect"
+            }
+        },
+        "beforeUpdateGet":
+        {
+            "Store URL":
+            {
+                "Service": "Entity.Redirect.Back",
+                "Method": "Store"
+            }
+        },
+        "afterUpdatePost":
+        {
+            "Restore URL":
+            {
+                "Service": "Entity.Redirect.Back",
+                "Method": "Redirect"
+            }
+        },
+        "beforeDeleteGet":
+        {
+            "Store URL":
+            {
+                "Service": "Entity.Redirect.Back",
+                "Method": "Store"
+            }
+        },
+        "afterDeletePost":
+        {
+            "Restore URL":
+            {
+                "Service": "Entity.Redirect.Back",
+                "Method": "Redirect"
+            }
+        }
+    }
+}

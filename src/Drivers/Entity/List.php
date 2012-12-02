@@ -82,3 +82,17 @@
 
         return $Output;
     });
+
+    setFn('RAW2', function ($Call)
+    {
+        $Call = F::Merge($Call, F::loadOptions($Call['Entity'].'.Entity')); // FIXME
+
+        $Call = F::Hook('beforeRAWList', $Call);
+
+        $Elements = F::Run('Entity', 'Read', $Call);
+
+        foreach ($Elements as $Element)
+            $Call['Output'][] = [$Element['ID'], $Element[$Call['Key']]];
+
+        return $Call;
+    });

@@ -9,5 +9,13 @@
 
     setFn('Do', function ($Call)
     {
-        return F::loadOptions('Version');
+        foreach ($Call['Sensors'] as $Sensor)
+            $Sensors[$Sensor] = F::Run(null, $Sensor, $Call);
+
+        return $Sensors;
+    });
+
+    setFn('Version', function ($Call)
+    {
+        return F::loadOptions('Version')['Codeine'];
     });

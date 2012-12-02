@@ -42,6 +42,17 @@
                 "Experiment": "$1"
             }
         },
+        "Monitor":
+        {
+            "Match": "@/monitor/(.*)@",
+            "Service": "Monitor",
+            "Method": "Do",
+            "Renderer": "View.JSON",
+            "Call":
+            {
+                "Bundle": "$1"
+            }
+        },
         "Page":
         {
             "Match": "@/(.*)@",
