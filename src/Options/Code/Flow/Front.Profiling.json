@@ -2,7 +2,7 @@
     "Context": "",
     "Hooks":
     {
-        "beforeRun":
+        "beforeFrontRun":
         {
             "Profiling":
             {
@@ -35,7 +35,7 @@
                 "Method": "Check"
             }
         },
-        "afterRun":
+        "afterFrontRun":
         {
             "Rendering":
             {

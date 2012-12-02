@@ -28,7 +28,6 @@
 
             if ($Call['Session'] == null)
                 {
-                    F::Log('Empty Session', LOG_ERR);
                     if (!isset($Call['No Auto Register']) || !$Call['No Auto Register'])
                         $Call['Session'] = F::Run(null, 'Register', $Call);
                 }
