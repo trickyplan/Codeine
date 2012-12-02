@@ -48,12 +48,12 @@
                 if (is_scalar($Value))
                 {
                     if (!is_float($Value) and !is_int($Value))
-                        $Value = $Call['Link']->real_escape_string($Value); // ?
+                        $Value = '\''.$Call['Link']->real_escape_string($Value).'\''; // ?
                     else
                         $Value = strtr($Value, ',','.');
                     // FIXME I'm shitcode
 
-                    $Sets[] = '`'.$Call['Link']->real_escape_string($Key).'` = \''. $Call['Link']->real_escape_string($Value).'\'';
+                    $Sets[] = '`'.$Call['Link']->real_escape_string($Key).'` = '. $Call['Link']->real_escape_string($Value);
                 }
             }
 
@@ -155,8 +155,7 @@
                 }
                 else
                 {
-                    $Quote = true;
-
+                    $Quote = !is_numeric($Value);
                     $Conditions[] = '`'.$Key.'` '. $Relation.' '.($Quote ? '\''.$Value.'\'': $Value);
                 }
             }
