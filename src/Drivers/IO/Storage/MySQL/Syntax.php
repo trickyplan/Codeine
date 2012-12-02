@@ -53,7 +53,7 @@
                         $Value = strtr($Value, ',','.');
                     // FIXME I'm shitcode
 
-                    $Sets[] = '`'.$Call['Link']->real_escape_string($Key).'` = '. $Call['Link']->real_escape_string($Value);
+                    $Sets[] = '`'.$Call['Link']->real_escape_string($Key).'` = '.$Value;
                 }
             }
 

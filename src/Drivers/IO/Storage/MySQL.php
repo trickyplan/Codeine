@@ -60,7 +60,6 @@
         else
             $Query = F::Run('IO.Storage.MySQL.Syntax', 'Insert', $Call);
 
-        $Query = $Call['Link']->real_escape_string($Query);
         F::Log($Query, LOG_INFO);
 
         $Call['Link']->query($Query);
