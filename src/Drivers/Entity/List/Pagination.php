@@ -43,7 +43,7 @@
                 'Total' => $Call['Front']['Count'],
                 'EPP' => $Call['EPP'],
                 'Page' => $Call['Page'],
-                'FirstURL' => str_replace($Call['PageURL'], '', $_SERVER['REQUEST_URI']).(isset($Call['PageURLPostfix'])? $Call['PageURLPostfix']: ''),
+                'FirstURL' => isset($Call['PageURL'])? str_replace($Call['PageURL'], '', $_SERVER['REQUEST_URI']).(isset($Call['PageURLPostfix'])? $Call['PageURLPostfix']: ''): '',
                 'PageURL' => isset($Call['PageURL'])? $Call['PageURL']: '',
                 'PageCount' => $Call['PageCount'],
                 'PageURLPostfix' => isset($Call['PageURLPostfix'])? $Call['PageURLPostfix']: ''

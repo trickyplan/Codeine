@@ -31,7 +31,10 @@
             F::Counter('MySQL');
 
             if ($Call['Link']->errno != 0)
-                F::Log($Call['Link']->error, LOG_CRIT);
+            {
+                F::Log($Query, LOG_ERR);
+                F::Log($Call['Link']->error, LOG_ERR);
+            }
 
             if ($Result->num_rows>0)
             {
