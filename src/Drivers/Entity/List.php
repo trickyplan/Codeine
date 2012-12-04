@@ -15,7 +15,10 @@
         $Call = F::Merge(F::loadOptions($Call['Entity'].'.Entity'), $Call); // FIXME
         $Call = F::Hook('beforeList', $Call);
 
-        $Elements = F::Run('Entity', 'Read', $Call);
+        if (!isset($Call['Elements']))
+            $Elements = F::Run('Entity', 'Read', $Call);
+        else
+            $Elements = $Call['Elements'];
 
         $Call['Scope'] = isset($Call['Scope'])? $Call['Entity'].'/'.$Call['Scope']: $Call['Scope'] = $Call['Entity'];
 
