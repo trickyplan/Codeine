@@ -30,30 +30,30 @@
 
         $Call['Locales'][] = $Call['Entity'];
 
+        $Where = [];
+
         if (!empty($IDs) && null !== $IDs)
-            $Call = F::Run('Entity.List', 'Do',
-                    $Call,
-                    [
-                        'Where' =>
-                            [
-                                'ID' =>
-                                    [
-                                        'IN' => array_keys($IDs)
-                                    ]
-                            ],
-                        'Template' => (
-                                isset($Call['Template'])?
-                                $Call['Template']:
-                                'Search')
-                    ]
-                );
-        else
-            $Call['Output']['Content'][] =
-                array(
-                    'Type' => 'Template',
-                    'Scope' => $Call['Entity'],
-                    'ID' => 'EmptySearch'
-                );
+        {
+            $Where['ID'] = [
+                        'IN' => array_keys($IDs)
+                    ];
+        }
+
+        if (isset($Call['Request']['Filter']))
+            foreach ($Call['Request']['Filter'] as $Key => $Value)
+                $Where[$Key] = $Value;
+
+        $Call = F::Run('Entity.List', 'Do',
+                $Call,
+                [
+                'Context' => 'app',
+                'Where' => $Where,
+                'Template' => (
+                isset($Call['Template'])?
+                    $Call['Template']:
+                    'Search')
+                ]
+            );
 
         return $Call;
 

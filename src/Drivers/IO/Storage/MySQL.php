@@ -91,7 +91,18 @@
 
     setFn ('Run', function ($Call)
     {
-        return $Call['Link']->query($Call['Run']);
+        $Result = $Call['Link']->query($Call['Run']);
+
+        if ($Result->num_rows>0)
+            {
+                $Data = $Result->fetch_all(MYSQLI_ASSOC);
+                $Result->free();
+                F::Log('['.sizeof($Data).'] '.$Query, LOG_DEBUG);
+            }
+        else
+            $Data = null;
+
+        return $Data;
     });
 
     setFn ('Status', function ($Call)
