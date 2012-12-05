@@ -25,7 +25,7 @@
     {
         $Query = F::Run('IO.Storage.MySQL.Syntax', 'Read', $Call);
 
-        if (null == ($Data = F::Get($Query)))
+        if (null == ($Data = F::Get($Query)) or isset($Call['NoMemo'])) // FIXME
         {
             $Result = $Call['Link']->query($Query);
             F::Counter('MySQL');

@@ -19,10 +19,11 @@
         {
             $Call['Session'] =
                 F::Run('Entity', 'Read',
-                    array(
+                    [
                          'Entity' => 'Session',
-                         'Where' => $Call['SID']
-                    ))[0];
+                         'Where' => $Call['SID'],
+                         'NoMemo' => true
+                    ])[0];
 
             if ($Call['Session'] == null)
                 {
