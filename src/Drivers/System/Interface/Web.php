@@ -46,6 +46,8 @@
 
         $Call = F::Hook('afterInterfaceRun', $Call);
 
+        fastcgi_finish_request();
+
         return $Call;
     });
 

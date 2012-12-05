@@ -19,6 +19,7 @@
 
             $Value = (string) $Root->attributes()->value;
 
+
             $Decision = false;
 
             if (null != ($Eq = (string) $Root->attributes()->eq))

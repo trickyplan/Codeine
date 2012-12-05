@@ -2,8 +2,8 @@
     "Sidebar": ["Extensions", "Settings", "XCache"],
     "Requirements":
     {
-        "display_errors": "Off",
-        "expose_php": "Off"
+        "display_errors": "",
+        "expose_php": ""
     },
     "Versions":
     {
