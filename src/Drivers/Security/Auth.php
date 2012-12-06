@@ -172,6 +172,9 @@
 
     setFn('Username', function ($Call)
     {
+        if (PHP_SAPI == 'cli')
+            return 0;
+
         $Call = F::Run(null, 'Audit', $Call);
         return isset($Call['Session']['User']['ID'])? $Call['Session']['User']['ID']: null;
     });
