@@ -1,11 +1,12 @@
 $(document).ready(function ()
     {
-        $('a.ajax-link').live('click',
+        $('a.ajax').live('click',
             function ()
             {
                 var el = $(this);
                 $.ajax({
                     type: 'POST',
+                    async: false,
                     url: el.attr('href'),
                     success: function(data)
                     {
