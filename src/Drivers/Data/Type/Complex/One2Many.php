@@ -41,10 +41,11 @@
                                                 $Call['Entity'] => $Call['Data']['ID']
                                             )
                                    ));
-            $Result = array();
+            $Result = [];
 
-            foreach ($Data as $Row)
-                $Result[] = $Row[$Call['Name']];
+            if(is_array($Data))
+                foreach ($Data as $Row)
+                    $Result[] = $Row[$Call['Name']];
 
             return $Result;
         };
