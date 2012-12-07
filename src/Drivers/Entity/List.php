@@ -49,22 +49,23 @@
             if (isset($Call['Reverse']))
                 $Elements = array_reverse($Call['Elements'], true);
 
-            foreach ($Call['Elements'] as $IX => $Element)
-            {
-                if (!isset($Element['ID']))
-                    $Element['ID'] = $IX;
+            if (is_array($Call['Elements']))
+                foreach ($Call['Elements'] as $IX => $Element)
+                {
+                    if (!isset($Element['ID']))
+                        $Element['ID'] = $IX;
 
-                $Element['IX'] = $IX+1;
+                    $Element['IX'] = $IX+1;
 
-                $Call['Output']['Content'][] =
-                    array(
-                        'Type'  => 'Template',
-                        'Scope' => $Call['Scope'],
-                        'ID' => 'Show/'.(isset($Call['Template'])? $Call['Template']: 'Short').($Call['Selected'] === $Element['ID'] ? '.Selected': ''),
-                        // FIXME Strategy of selecting templates
-                        'Data'  => $Element
-                    );
-            }
+                    $Call['Output']['Content'][] =
+                        array(
+                            'Type'  => 'Template',
+                            'Scope' => $Call['Scope'],
+                            'ID' => 'Show/'.(isset($Call['Template'])? $Call['Template']: 'Short').($Call['Selected'] === $Element['ID'] ? '.Selected': ''),
+                            // FIXME Strategy of selecting templates
+                            'Data'  => $Element
+                        );
+                }
         }
 
         $Call = F::Hook('afterList', $Call);
