@@ -8,6 +8,7 @@
           */
 
     define('Codeine', __DIR__);
+    define ('REQID', microtime(true));
 
     final class F
     {
