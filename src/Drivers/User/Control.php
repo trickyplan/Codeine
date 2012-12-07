@@ -49,6 +49,11 @@
         return F::Run('Entity.Delete', 'Do', array('Entity' => 'User'), $Call);
     });
 
+    setFn('Rights', function ($Call)
+    {
+        return F::Run('User.Rights', 'Do', $Call);
+    });
+
     setFn('Menu', function ($Call)
     {
         $Count = F::Run('Entity', 'Count', $Call, ['Entity' => 'User']);

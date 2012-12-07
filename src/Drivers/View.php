@@ -36,7 +36,7 @@
                   ]
             ])[0];
 
-        if ((null !== $Data) && isset($Call['DebugLayouts']))
+        if ((null !== $Data) && isset($Call['View']['Layouts']['Debug']))
             $Data = "\n".'<!-- '.$Call['Scope'].':'.$Call['ID'].' started -->'."\n".$Data."\n".'<!-- '.$Call['Scope'].':'.$Call['ID'].' ended -->';
 
         return $Data;
