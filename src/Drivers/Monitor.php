@@ -20,7 +20,8 @@
         if (!isset($Call['Sensor']))
             $Call['Sensor'] = 'Do';
 
-        $Call['Output'][$Call['Bundle']] =  F::Run($Call['Bundle'].'.Monitor', $Call['Sensor'], $Call);
+        $Call['Output'] =  F::Run($Call['Bundle'].'.Monitor', $Call['Sensor'], $Call);
+
         return $Call;
     });
 
