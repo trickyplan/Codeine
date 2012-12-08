@@ -32,6 +32,12 @@
             "Service": "Monitor",
             "Method": "Do",
             "Renderer": "View.JSON"
+        },
+        "/uploader":
+        {
+            "Service": "IO.Uploader",
+            "Method": "Do",
+            "Renderer": "View.JSON"
         }
     }
 }
