@@ -42,9 +42,23 @@
                 "Experiment": "$1"
             }
         },
+        "Monitor with Option":
+        {
+            "Match": "@/monitor/(.*)/(.*).json@",
+            "Weight": 30,
+            "Service": "Monitor",
+            "Method": "Do",
+            "Renderer": "View.JSON",
+            "Call":
+            {
+                "Bundle": "$1",
+                "Sensor": "$2"
+            }
+        },
         "Monitor":
         {
             "Match": "@/monitor/(.*).json@",
+            "Weight": 20,
             "Service": "Monitor",
             "Method": "Do",
             "Renderer": "View.JSON",
