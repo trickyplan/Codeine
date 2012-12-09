@@ -29,7 +29,6 @@
                 $Call = F::Hook('on404', $Call);
         }
 
-
         // А здесь - рендеринг
         $Call = F::Hook('afterApplicationRun', $Call);
 
