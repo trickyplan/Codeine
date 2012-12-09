@@ -9,6 +9,11 @@
                 "Service": "Security.Auth",
                 "Method": "Audit"
             },
+            "Layouts":
+            {
+                "Service": "Code.Flow.Application.Layouts",
+                "Method": "Do"
+            },
             "Access":
             {
                 "Service": "Code.Flow.Front.Access",
