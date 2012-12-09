@@ -7,19 +7,18 @@
      * @version 7.x
      */
 
-    setFn('Layouts', function ($Call)
+    setFn('Do', function ($Call)
     {
         if (!isset($Call['Layouts']))
             $Call['Layouts'] = [];
 
-        if (F::isCall($Call))
+        if (F::isCall($Call['Run']))
         {
-            $Slices = explode('.', $Call['Service']);
+            $Slices = explode('.', $Call['Run']['Service']);
 
             $sz = sizeof($Slices);
 
             $Asset = $Slices[0];
-
 
             for ($ic = 1; $ic < $sz; $ic++)
                 $IDs[$ic] = implode('/', array_slice($Slices, 1, $ic));
@@ -30,12 +29,12 @@
                 array_unshift($Call['Layouts'], array ('Scope' => $Asset, 'ID'    => $ID, 'Context' => $Call['Context']));
         }
 
-        if (isset($Call['Zone']))
+        if (isset($Call['Run']['Zone']))
         {
-            $Call['Zone'] = (array) $Call['Zone'];
+            $Call['Run']['Zone'] = (array) $Call['Run']['Zone'];
 
-            foreach ($Call['Zone'] as $Zone)
-                array_unshift($Call['Layouts'], array('Scope' => $Zone, 'ID' => 'Zone'));
+            foreach ($Call['Run']['Zone'] as $Zone)
+                array_unshift($Call['Layouts'], array('Scope' => $Zone, 'ID' => 'Zone', 'Context' => $Call['Context']));
         }
 
         array_unshift($Call['Layouts'], array(

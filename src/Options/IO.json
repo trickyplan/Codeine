@@ -1,6 +1,10 @@
 {
     "Storages":
     {
+        "Primary":
+        {
+            "Driver": "IO.Storage.Memory"
+        },
         "Options":
         {
             "Driver":"IO.Storage.Directory",

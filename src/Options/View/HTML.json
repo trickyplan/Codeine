@@ -3,14 +3,6 @@
     "Layout": "<place>Content</place>",
     "Hooks":
     {
-        "beforePipeline":
-        {
-            "Front":
-            {
-                "Service":"View.HTML.Front",
-                "Method":"Layouts"
-            }
-        },
         "afterPipeline":
         {
             "Parslets":

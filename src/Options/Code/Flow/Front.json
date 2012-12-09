@@ -24,6 +24,11 @@
                 "Service": "Security.Auth",
                 "Method": "Audit"
             },
+            "Layouts":
+            {
+                "Service": "Code.Flow.Front.Layouts",
+                "Method": "Do"
+            },
             "Access":
             {
                 "Service": "Code.Flow.Front.Access",

@@ -3,6 +3,159 @@
     "Decision": true,
     "Rules":
     {
-
+        "Главная страница доступна всем":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Project.Frontpage",
+                "Method": "Do"
+            }
+        },
+        "Страница регистрации доступна всем":
+        {
+            "Decision": true,
+            "Weight": 75,
+            "Run":
+            {
+                "Service": "Entity.Create",
+                "Method": "Do",
+                "Call":
+                {
+                    "Entity": "User"
+                }
+            }
+        },
+        "Страница валидации доступна всем":
+        {
+            "Decision": true,
+            "Weight": 75,
+            "Run":
+            {
+                "Service": "User.Validate"
+            }
+        },
+        "Страница активации доступна всем":
+        {
+            "Decision": true,
+            "Weight": 75,
+            "Run":
+            {
+                "Service": "User.Activation"
+            }
+        },
+        "Блок парольной идентификации доступен всем":
+        {
+            "Decision": true,
+            "Weight": 75,
+            "Run":
+            {
+                "Service": "Security.Auth.System.Password"
+            }
+        },
+        "Блок социальной идентификации доступен всем":
+        {
+            "Decision": true,
+            "Weight": 75,
+            "Run":
+            {
+                "Service": "Security.Auth.System.Loginza"
+            }
+        },
+        "Страница аутентификации доступна всем":
+        {
+            "Decision": true,
+            "Weight": 75,
+            "Run":
+            {
+                "Service": "User.Authenticate"
+            }
+        },
+        "Страница выхода доступна вошедшим":
+        {
+            "Decision": true,
+            "Weight": 75,
+            "Run":
+            {
+                "Service": "User.Annulate",
+                "Method": "Do",
+                "Session":
+                {
+                    "User":
+                    {
+                        "ID": "*"
+                    }
+                }
+            }
+        },
+        "Sitemap доступен всем":
+        {
+            "Decision": true,
+            "Weight": 200,
+            "Run":
+            {
+                "Service":"SEO.Sitemap"
+            }
+        },
+        "Страницы ошибок доступны всем":
+        {
+            "Decision": true,
+            "Weight": 200,
+            "Run":
+            {
+                "Service":"Error.Page"
+            }
+        },
+        "Забаненным ничего нельзя":
+        {
+            "Decision": 0,
+            "Weight": 125,
+            "Message": "Вы забанены",
+            "Run":
+            {
+                "Service": "*",
+                "Session":
+                {
+                    "User":
+                    {
+                        "Status": -1
+                    }
+                }
+            }
+        },
+        "Восстановления пароля возможно для всех":
+        {
+            "Decision": true,
+            "Weight": 100,
+            "Run":
+            {
+                "Service":"User.Reset"
+            }
+        },
+        "Страница доступна всем":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Entity.Show.Static",
+                "Method": "Do",
+                "Call":
+                {
+                    "Entity": "Page"
+                }
+            }
+        },
+        "Кабинет доступен всем":
+        {
+            "Decision": true,
+            "Weight": 150,
+            "Run":
+            {
+                "Service": "User.Cabinet",
+                "Method": "Do"
+            }
+        }
     }
 }

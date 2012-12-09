@@ -9,6 +9,11 @@
                 "Service": "Security.Auth",
                 "Method": "Audit"
             },
+            "Layouts":
+            {
+                "Service": "Code.Flow.Front.Layouts",
+                "Method": "Do"
+            },
             "Access":
             {
                 "Service": "Code.Flow.Front.Access",
@@ -23,9 +28,10 @@
                 "Method":"Render"
             }
         },
-        "on404":
+        "404":
         {
-            "ErrorBlock":{
+            "ErrorBlock":
+            {
                 "Service":"Error.404",
                 "Method":"Block"
             }

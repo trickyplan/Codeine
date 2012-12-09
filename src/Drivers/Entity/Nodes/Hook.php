@@ -17,8 +17,11 @@
                     {
                         // Multiread
                         if (isset($Call['Purpose']) && ($Call['Purpose'] == 'Read'))
-                            foreach ($Call['Data'] as &$Data)
-                                $Data[$Name] = F::Live($Node['Hooks'][$Call['On']], $Call);
+                        {
+                            if (isset($Call['Data']))
+                                foreach ($Call['Data'] as &$Data)
+                                    $Data[$Name] = F::Live($Node['Hooks'][$Call['On']], $Call);
+                        }
                         else
                             $Call['Data'][$Name] = F::Live($Node['Hooks'][$Call['On']], $Call);
                     }

@@ -15,17 +15,24 @@
         $Call['Description'] = 'TODO';
         $Call['Keywords'] = array ('TODO');
 
-        $Call['Layouts'][] = [
-            'Scope' => 'Project',
-            'ID' => 'Zone'
+        $Call['Layouts'] = [
+            [
+                'Scope' => 'Default',
+                'ID' => 'Main'
+            ],
+            [
+                'Scope' => 'Project',
+                'ID' => 'Zone'
+            ]
         ];
+
         $Call['Layouts'][] =
             [
                 'Scope' => 'Errors',
                 'ID' => '403'
             ];
 
-        $Call['Output']['Content'] =['403'];
+        $Call['Output']['Content'] = '403';
         $Call['Failure'] = true;
 
         unset($Call['Service'],$Call['Method']);
