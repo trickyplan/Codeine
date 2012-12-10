@@ -10,7 +10,8 @@
 
     setFn('Do', function ($Call)
     {
-        return F::Run('Entity.List', 'Do', array('Entity' => 'Page', 'Template' => 'Control', 'PageURL' => '/control/Page/page', 'Context' => 'app'), $Call);
+        return F::Run('Entity.List', 'Do', $Call,
+            ['Entity' => 'Page', 'Template' => 'Control', 'PageURL' => '/control/Page/page', 'Context' => 'control','Sort' => ['Priority' => 'ASC']]);
     });
 
     setFn('Create', function ($Call)

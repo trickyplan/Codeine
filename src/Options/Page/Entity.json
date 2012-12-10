@@ -37,6 +37,31 @@
                 }
             }
         },
+        "Menu":
+        {
+            "Type": "Boolean",
+            "Default": false,
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Checkbox",
+                    "TrueValue": true
+                }
+            }
+        },
+        "Priority":
+        {
+            "Type": "Numeral.Integer",
+            "Default": 0,
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        },
         "Slug":
         {
             "Type": "Literal.String",

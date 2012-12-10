@@ -11,6 +11,11 @@
             "Service": "View.Parser.Forkey",
             "Method": "Parse"
         },
+        "Treekey":
+        {
+            "Service": "View.Parser.TreeKey",
+            "Method": "Parse"
+        },
         "Call":
         {
             "Service": "View.Parser.Call",
