@@ -14,7 +14,7 @@
         if (!isset($Call['SkipRun']))
         {
             if (isset($_FILES))
-                $Call['Request'] = F::Merge($_REQUEST, $_FILES);
+                $Call['Request'] = F::Merge($_FILES, $_REQUEST);
             else
                 $Call['Request'] = $_REQUEST;
 
