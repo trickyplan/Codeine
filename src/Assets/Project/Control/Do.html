@@ -1,0 +1,26 @@
+<h2><call>Project.Title</call></h2>
+
+<table class="table table-striped">
+    <tr>
+        <td>Доступность</td>
+        <td>
+            <if value="<fn><Service>Condition.Lock</Service><Method>Check</Method><Call><ID>down</ID></Call></fn>" neq="1">
+                <l>Project.Entity:Open.1</l>
+                <a class="pull-right" href="/control/Project/Down">Закрыть</a>
+            </if>
+
+            <if value="<fn><Service>Condition.Lock</Service><Method>Check</Method><Call><ID>down</ID></Call></fn>" eq="1">
+                <l>Project.Entity:Open.0</l>
+                <a class="pull-right" href="/control/Project/Down">Открыть</a>
+            </if>
+        </td>
+    </tr>
+    <tr>
+        <td>Версия проекта</td>
+        <td><call>Version.Project.Major</call>.<call>Version.Project.Minor</call></td>
+    </tr>
+    <tr>
+        <td>Версия ядра</td>
+        <td><call>Version.Codeine.Major</call>.<call>Version.Codeine.Minor</call></td>
+    </tr>
+</table>
