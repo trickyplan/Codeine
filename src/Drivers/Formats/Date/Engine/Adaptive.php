@@ -21,5 +21,7 @@
         if ($Now['tm_year'] != $Value['tm_year'])
             $Format .= '%G';
 
+        $Format.= ', %l:%M';
+
         return mb_strtolower(strftime($Format, $Call['Value']));
      });

@@ -335,9 +335,11 @@
         public static function Extract($Array, $Keys)
         {
             $Data = [];
-            foreach ($Keys as $Key)
-                if (is_scalar($Key) &&  isset($Array[$Key]))
-                    $Data[$Key] = $Array[$Key];
+
+            foreach ($Array as $Row)
+                foreach ($Keys as $Key)
+                    if (is_scalar($Key) && isset($Row[$Key]))
+                        $Data[$Key][] = $Row[$Key];
 
             return $Data;
         }

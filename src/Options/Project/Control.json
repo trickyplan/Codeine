@@ -1,0 +1,84 @@
+{
+    "Sidebar": ["Do", "Down"],
+    "Hooks":
+    {
+        "Disable":
+        {
+            "Fail":
+            {
+                "Show Message":
+                {
+                    "Output":
+                    {
+                        "Content":
+                        {
+                            "Message":
+                            {
+                                "Type": "Block",
+                                "Class": "alert alert-danger",
+                                "Value": "<l>Project.Down:Disable.Fail</l>"
+                            }
+                        }
+                    }
+                }
+            },
+            "Success":
+            {
+                "Show Message":
+                {
+                    "Output":
+                    {
+                        "Content":
+                        {
+                            "Message":
+                            {
+                                "Type": "Block",
+                                "Class": "alert",
+                                "Value": "<l>Project.Down:Disable.Success</l>"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "Enable":
+        {
+            "Fail":
+            {
+                "Show Message":
+                {
+                    "Output":
+                    {
+                        "Content":
+                        {
+                            "Message":
+                            {
+                                "Type": "Block",
+                                "Class": "alert alert-danger",
+                                "Value": "<l>Project.Down:Enable.Fail</l>"
+                            }
+                        }
+                    }
+                }
+            },
+            "Success":
+            {
+                "Show Message":
+                {
+                    "Output":
+                    {
+                        "Content":
+                        {
+                            "Message":
+                            {
+                                "Type": "Block",
+                                "Class": "alert alert-success",
+                                "Value": "<l>Project.Down:Enable.Success</l>"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

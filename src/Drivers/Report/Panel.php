@@ -62,21 +62,18 @@
         foreach ($Call['Sidebar'] as &$Sidebar)
             $Pills[] = ['ID' => $Sidebar, 'URL' => '/report/'.$Call['Bundle'].'/'.$Sidebar, 'Title' => $Call['Bundle'].'.Report:Options.'.$Sidebar];
 
-        if (!isset($Call['Failure']))
-        {
-            $Call['Output']['Sidebar'][] = [
-                'Type' => 'Navpills',
-                'Options' => $Pills,
-                'Value' => $Call['Option']
-            ];
+        $Call['Output']['Sidebar'][] = [
+            'Type' => 'Navpills',
+            'Options' => $Pills,
+            'Value' => $Call['Option']
+        ];
 
-            $Call['Output']['Navigation'][] = [
-                'Type' => 'Navlist',
-                'Scope' => 'Report',
-                'Options' => $Call['Options'],
-                'Value' => $Call['Bundle']
-            ];
-        }
+        $Call['Output']['Navigation'][] = [
+            'Type' => 'Navlist',
+            'Scope' => 'Report',
+            'Options' => $Call['Options'],
+            'Value' => $Call['Bundle']
+        ];
 
         return $Call;
      });

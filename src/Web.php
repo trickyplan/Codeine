@@ -7,7 +7,7 @@
      */
 
 
-    if (file_exists(Root.'/down') && !isset($_COOKIE['Magic']))
+    if (file_exists(Root.'/locks/down') && !isset($_COOKIE['Magic']))
     {
         readfile(__DIR__.'/down.html');
         die();
