@@ -1,4 +1,8 @@
 {
+    "Sitemap":
+    {
+        "Mode": "Index"
+    },
     "SearchEngines":
     {
         "Google":"http://google.com",

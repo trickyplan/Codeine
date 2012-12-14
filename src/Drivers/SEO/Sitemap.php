@@ -7,6 +7,14 @@
      * @version 7.x
      */
 
+    setFn('Do', function ($Call)
+    {
+        if (!isset($Call['Sitemap']['Mode']))
+            $Call['Sitemap']['Mode'] = 'Index';
+
+        return F::Run(null, $Call['Sitemap']['Mode'], $Call);
+    });
+
     setFn('Index', function ($Call)
     {
         $Links = array();
@@ -43,9 +51,45 @@
         return $Call;
     });
 
+    setFn('Combined', function ($Call)
+    {
+        $Links = [];
+        $Call['Headers']['Content-type:'] = 'text/xml; charset=utf-8';
+
+        $Call['Renderer'] = 'View.XML';
+        $Call['Namespace'] = 'http://www.sitemaps.org/schemas/sitemap/0.9';
+        $Call['Attributes'] =
+            array(
+                array(
+                    'Prefix' => 'xmlns',
+                    'Key' => 'xsi',
+                    'Value' => 'http://www.w3.org/2001/XMLSchema-instance'
+                ),
+                array(
+                    'Prefix' => 'xsi',
+                    'Key' => 'schemaLocation',
+                    'Value' => 'http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd'
+                )
+            );
+        foreach ($Call['Entities'] as $Handler => $Data)
+        {
+            $SubLinks = F::Run($Handler.'.Sitemap', 'Generate', $Call);
+                foreach ($SubLinks as $Sublink)
+                    $Links[] = array ('url' => array (
+                                      'loc'         => htmlspecialchars($Sublink),
+                                      'changefreq'  => $Data['Frequency'],
+                                      'priority'    => $Data['Priority']
+                                  ));
+        }
+
+        $Call['Output'] =  array('Root' => 'urlset', 'Content' => $Links);
+
+        return $Call;
+    });
+
     setFn('Entity', function ($Call)
     {
-        $Links = array();
+        $Call['Links'] = [];
         $Call['Headers']['Content-type:'] = 'text/xml; charset=utf-8';
 
         $Call['Renderer'] = 'View.XML';
@@ -67,13 +111,13 @@
         $SubLinks = F::Run($Call['Entity'].'.Sitemap', 'Generate', $Call);
 
         foreach ($SubLinks as $Sublink)
-            $Links[] = array ('url' => array (
+            $Call['Links'][] = array ('url' => array (
                                   'loc'         => htmlspecialchars($Sublink),
                                   'changefreq'  => $Call['Entities'][$Call['Entity']]['Frequency'],
                                   'priority'    => $Call['Entities'][$Call['Entity']]['Priority']
                               ));
 
-        $Call['Output'] =  array('Root' => 'urlset', 'Content' => $Links);
+        $Call['Output'] =  array('Root' => 'urlset', 'Content' => $Call['Links']);
 
         return $Call;
     });
