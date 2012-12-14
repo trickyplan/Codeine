@@ -1,4 +1,4 @@
-<project name="debian" default="make">
+<project name="debian" default="debian">
     <taskdef name="phpdeb" classname="phing.tasks.my.PHPDebTask"/>
 
     <!-- Stubs -->
@@ -28,7 +28,7 @@
                 <include name="*/**"/>
             </fileset>
         </copy>
-        <phpdeb name="${phing.project.name}-${branch}"
+        <phpdeb name="${phing.project.name}-${env.branch}"
                 version="${release}"
                 maintainer="${maintainer}"
                 description="${description}"
@@ -70,6 +70,7 @@
     </target>
 
     <target name="debian" depends="folders, control, source, docs, version">
-        <exec command="dpkg --build '${package}' ${distribution}/ " dir="."/>
+        <exec command="dpkg --build '${package}' ${distribution}/ " dir="." output="true" />
+        <delete dir="${package}" includeemptydirs="true" failonerror="true" />
     </target>
 </project>
