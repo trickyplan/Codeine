@@ -71,8 +71,7 @@
 
             self::Versioning();
 
-            register_shutdown_function ('F::Shutdown');
-            set_error_handler ('F::Error'); // Instability
+            set_error_handler ('F::Error');
         }
 
         protected static function Versioning()
@@ -98,7 +97,7 @@
 
         public static function Merge($First, $Second)
         {
-            if ((array)$Second === $Second)
+            if ((array) $Second === $Second)
             {
                 if ((array) $First === $First)
                     {
@@ -422,16 +421,17 @@
 
         public static function Hook($On, $Call)
         {
-            if (isset($Call['Hooks']))
-                 if (($Hooks = F::Dot($Call, 'Hooks.' . $On)) && (!isset($Call['No'][$On])))
+             if (isset($Call['Hooks']) && ($Hooks = F::Dot($Call, 'Hooks.' . $On)) && (!isset($Call['No'][$On])))
+             {
+                 foreach ($Hooks as $HookName => $Hook)
                  {
-                     F::Log($On, LOG_DEBUG);
-                     foreach ($Hooks as $Hook)
-                         if (F::isCall($Hook))
-                             $Call = F::Run($Hook['Service'],$Hook['Method'], isset($Hook['Call'])? $Hook['Call']: [], $Call, ['On' => $On]);
-                         else
-                             $Call = F::Merge($Call, $Hook);
+                     F::Log($On.':'.$HookName, LOG_DEBUG);
+                     if (F::isCall($Hook))
+                         $Call = F::Run($Hook['Service'],$Hook['Method'], isset($Hook['Call'])? $Hook['Call']: [], $Call, ['On' => $On]);
+                     else
+                         $Call = F::Merge($Call, $Hook);
                  }
+             }
 
             return $Call;
         }
@@ -602,10 +602,10 @@
 
            arsort(self::$_Counters['T']);
            echo "<pre>time\tcalls\trtime\trcall\tfn\n".$Summary['Time']."\t".$Summary['Calls']."\n";
-           foreach (self::$_Counters['T'] as $Key => $Value)
-               echo round($Value)."\t".self::$_Counters['C'][$Key]."\t".round(($Value/$Summary['Time'])*100)
-                         ."%\t".round((self::$_Counters['C'][$Key]/$Summary['Calls']),2)*100
-                         ."%\t".$Key."\n";
+               foreach (self::$_Counters['T'] as $Key => $Value)
+                   echo round($Value)."\t".self::$_Counters['C'][$Key]."\t".round(($Value/$Summary['Time'])*100)
+                             ."%\t".round((self::$_Counters['C'][$Key]/$Summary['Calls']),2)*100
+                             ."%\t".$Key."\n";
 
            echo '</pre>';
         }
@@ -631,14 +631,14 @@
             return true;
         }
 
-        public static function Shutdown($Call)
+        public static function Shutdown()
         {
             self::Stop(self::$_Service . '.' . self::$_Method);
 
-            if (F::$_SR71)
+            if (self::$_SR71)
                 self::SR71();
 
-            return null;
+            return true;
         }
     }
 

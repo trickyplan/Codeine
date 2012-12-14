@@ -16,11 +16,10 @@
     include 'Codeine/Core.php';
 
     F::Bootstrap ([
-                       'Path' => array(Root)
-                       //,'Trace' => true
+                    'Path' => [Root]
                   ]);
 
-    F::Run(
+    $Call = F::Run(
         'System.Interface.Web',
         'Run',
         [
@@ -29,3 +28,6 @@
         ]
     );
 
+    F::Shutdown($Call);
+
+    fastcgi_finish_request();

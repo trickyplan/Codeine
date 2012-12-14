@@ -27,7 +27,7 @@
         else
         {
             if (($Result = $Call['Link']->get($Call['Scope'].$Call['Where']['ID']))  !== false)
-                return array($Result);
+                return [$Result];
             else
                 return null;
         }
@@ -44,7 +44,7 @@
         }
         else
         {
-            $Call['Link']->set($Call['Scope'].$Call['Data']['ID'], $Call['Data'], $Call['TTL']);
+            $Call['Link']->set($Call['Scope'].$Call['ID'], $Call['Data'], $Call['TTL']);
         }
 
         return $Call['Data'];

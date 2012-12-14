@@ -49,7 +49,7 @@
         {
             // Если в Where простая переменная - это ID.
             if (isset($Call['Where']) && is_scalar($Call['Where']))
-                $Call['Where'] = array('ID' => $Call['Where']);
+                $Call['Where'] = ['ID' => $Call['Where']];
 
             if (isset($Call['Driver']))
                 $Call['Result'] = F::Run ($Call['Driver'], 'Read', $Call);
@@ -58,7 +58,7 @@
 
             if (isset($Call['Format']) && is_array($Call['Result']))
                 foreach($Call['Result'] as &$Element)
-                    $Element = F::Run($Call['Format'], 'Decode', array ('Value' => $Element));
+                    $Element = F::Run($Call['Format'], 'Decode', ['Value' => $Element]);
 
             $Call = F::Hook('afterIORead', $Call);
         }
@@ -72,12 +72,22 @@
 
         // Если в Where простая переменная - это ID.
         if (isset($Call['Where']) && is_scalar($Call['Where']))
-            $Call['Where'] = array ('ID' => $Call['Where']);
+            $Call['Where'] = ['ID' => $Call['Where']];
 
         if (isset($Call['Format']))
-            $Call['Data'] = F::Run ($Call['Format'], 'Encode', array('Value' => $Call['Data']));
+        {
+            if (isset($Call['Data']))
+                $Call['ID'] = $Call['Data']['ID'];
 
-        return F::Run ($Call['Driver'], 'Write', $Call);
+            $Call['Data'] = F::Run ($Call['Format'], 'Encode', ['Value' => $Call['Data']]);
+        }
+
+        $Call['Data'] = F::Run ($Call['Driver'], 'Write', $Call);
+
+        if (isset($Call['Format']))
+            $Call['Data'] = F::Run ($Call['Format'], 'Decode', ['Value' => $Call['Data']]);
+
+        return $Call['Data'];
     });
 
     setFn ('Close', function ($Call)

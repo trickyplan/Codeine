@@ -76,10 +76,10 @@
         $Call = F::Hook('beforeRegister', $Call);
 
         $Call['Session'] = F::Run('Entity', 'Create', $Call,
-            array(
+            [
                  'Entity' => 'Session',
                  'Data' => isset($Call['Data'])? $Call['Data']: []
-            ))['Data'];
+            ])['Data'];
 
         F::Run($Call['Source'], 'Write', $Call);
 

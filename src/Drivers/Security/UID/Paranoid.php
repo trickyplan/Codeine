@@ -14,7 +14,7 @@
         $Output = '';
 
         for ($ic = 0; $ic < 64; $ic++)
-            $Output.=dechex(rand(0,15));
+            $Output.= dechex(rand(0,15));
 
         return $Output;
     });
