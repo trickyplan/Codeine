@@ -14,7 +14,10 @@
 
     setFn('Read', function ($Call)
     {
-        return long2ip($Call['Value']);
+        if (is_int($Call['Value']))
+            return long2ip($Call['Value']);
+        else
+            return null;
     });
 
     setFn('Populate', function ($Call)

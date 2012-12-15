@@ -79,14 +79,7 @@
             "Run":
             {
                 "Service": "User.Annulate",
-                "Method": "Do",
-                "Session":
-                {
-                    "User":
-                    {
-                        "ID": "*"
-                    }
-                }
+                "Method": "Do"
             }
         },
         "Sitemap доступен всем":
