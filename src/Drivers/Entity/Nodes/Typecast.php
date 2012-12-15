@@ -29,6 +29,7 @@
                         $Where[$Key] = F::Run('Data.Type.'.$Call['Nodes'][$Key]['Type'], 'Read',
                             ['Value' => $Value, 'Purpose' => 'Where']);
                 }
+                else
                     $Where[$Key] = $Value;
             }
             $Call['Where'] = $Where;
