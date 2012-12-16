@@ -32,6 +32,9 @@
                     $Call = F::Live($Call['Run'], $Call);
                 }
             }
+            else
+                $Call = F::Hook('NotFound', $Call);
+
             // В противном случае, 404
             $Call['Context'] = '';
         }

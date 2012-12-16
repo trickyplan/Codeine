@@ -53,9 +53,9 @@
                 "Method": "Start"
             }
         },
-        "on404":
+        "NotFound":
         {
-            "ErrorPage":
+            "Error Page":
             {
                 "Service": "Error.404",
                 "Method": "Page"
