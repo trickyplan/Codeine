@@ -28,9 +28,9 @@
                 "Method":"Render"
             }
         },
-        "404":
+        "NotFound":
         {
-            "ErrorBlock":
+            "Error":
             {
                 "Service":"Error.404",
                 "Method":"Block"

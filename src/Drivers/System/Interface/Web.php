@@ -25,12 +25,14 @@
             }
 
             $Call['Cookie'] = $_COOKIE;
+
             if ($_SERVER['HTTPS'])
                 $Call['Host'] = 'https://'.$_SERVER['HTTP_HOST'];
             else
                 $Call['Host'] = 'http://'.$_SERVER['HTTP_HOST'];
 
             $Call['Run'] = urldecode($_SERVER['REQUEST_URI']);
+            $Call['URI'] = urldecode($_SERVER['REQUEST_URI']);
 
             $Call['IP'] = function ($Call) {return F::Run('System.Interface.Web.IP', 'Get', $Call);};
             $Call['UA'] = function ($Call) {return F::Run('System.Interface.Web.UA', 'Get', $Call);};

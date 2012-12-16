@@ -19,7 +19,7 @@
         $Call['Scope'] = isset($Call['Scope'])? $Call['Entity'].'/'.$Call['Scope']: $Call['Scope'] = $Call['Entity'];
 
         if (empty($Call['Data']))
-            $Call = F::Run('Error.404', 'Page', $Call);
+            $Call = F::Hook('NotFound', $Call);
         else
         {
             $Call['Output']['Content'][] = array (

@@ -12,7 +12,7 @@
         $Element = F::Run('Entity', 'Read', array('Entity' => 'User', 'Where' => $Call['ID']));
 
         if (empty($Element))
-            $Call = F::Run('Error.404', 'Page', $Call);
+            $Call = F::Hook('NotFound', $Call);
         else
         {
             $Call['Output']['Content'][] = array (

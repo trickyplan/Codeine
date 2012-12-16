@@ -1,4 +1,22 @@
 {
     "Delimiter": " — ",
-    "Reverse": false
+    "Reverse": false,
+    "Meta Sources":
+    {
+        "Title":
+        {
+            "Service": "View.HTML.Meta.Scan",
+            "Method": "Title"
+        },
+        "Keywords":
+        {
+            "Service": "View.HTML.Meta.Scan",
+            "Method": "Keywords"
+        },
+        "Description":
+        {
+            "Service": "View.HTML.Meta.Scan",
+            "Method": "Description"
+        }
+    }
 }

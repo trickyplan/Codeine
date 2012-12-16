@@ -55,7 +55,7 @@
         },
         "NotFound":
         {
-            "Error Page":
+            "Error":
             {
                 "Service": "Error.404",
                 "Method": "Page"
