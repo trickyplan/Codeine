@@ -113,12 +113,26 @@
 
         // Отправляем в Entity.Update
 
-        $Call['Data'] = F::Run('Entity', 'Update', $Call);
-
+        $Call = F::Run('Entity', 'Update', $Call);
 
        // Выводим результат
 
-        $Call = F::Hook('afterUpdatePost', $Call);
+        if (empty($Call['Errors']))
+            $Call = F::Hook('afterUpdatePost', $Call);
+        else
+        {
+            foreach ($Call['Errors'] as $Name =>$Node)
+                foreach ($Node as $Error)
+                    $Call['Output']['Message'][] =
+                        [
+                            'Type' => 'Block',
+                            'Class' => 'alert alert-danger',
+                            'Value' => '<l>'.$Call['Entity'].'.Error:'.$Name.'.'.$Error.'</l>'
+                        ];
+
+            $Call = F::Run(null, 'GET', $Call);
+        }
+
 
         return $Call;
     });

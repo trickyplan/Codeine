@@ -89,22 +89,18 @@
                 $Pills[] = ['ID' => $Sidebar, 'URL' => '/control/'.$Call['Bundle'].'/'.$Sidebar, 'Title' => $Call['Bundle'].'.Control:Options.'.$Sidebar];
         }
 
-        // FIXME Костыль
-        if (!isset($Call['Failure']))
-        {
-            $Call['Output']['Sidebar'][] = [
-                'Type' => 'Navpills',
-                'Options' => $Pills,
-                'Value' => $Call['Option']
-            ];
+        $Call['Output']['Sidebar'][] = [
+            'Type' => 'Navpills',
+            'Options' => $Pills,
+            'Value' => $Call['Option']
+        ];
 
-            $Call['Output']['Navigation'][] = [
-                'Type' => 'Navlist',
-                'Scope' => 'Control',
-                'Options' => $Call['Options'],
-                'Value' => $Call['Bundle']
-            ];
-        }
+        $Call['Output']['Navigation'][] = [
+            'Type' => 'Navlist',
+            'Scope' => 'Control',
+            'Options' => $Call['Options'],
+            'Value' => $Call['Bundle']
+        ];
 
         return $Call;
      });

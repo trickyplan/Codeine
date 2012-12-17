@@ -99,6 +99,11 @@
                 "Service":"Entity.Nodes.Filter",
                 "Method":"Process"
             },
+            "Validate":
+            {
+                "Service":"Entity.Validate",
+                "Method":"Process"
+            },
             "Updated values":
             {
                 "Service":"Entity.Nodes.Updated",

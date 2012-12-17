@@ -9,14 +9,15 @@
 
     setFn('Process', function ($Call)
     {
-        if (isset($Call['Node']['Unique']) && $Call['Node']['Unique'])
+        if (isset($Call['Node']['Unique']) && $Call['Node']['Unique'] && isset($Call['Data'][$Call['Name']]))
         {
             if (F::Run('Entity', 'Count',
                         [
                              'Entity' => $Call['Entity'],
                              'Where' =>
                                  [
-                                    $Call['Name'] => $Call['Data'][$Call['Name']]
+                                    $Call['Name'] => $Call['Data'][$Call['Name']],
+                                    'ID' => ['<>' => $Call['Data']['ID']]
                                  ]
                         ]) > 0)
                 return 'Unique';
