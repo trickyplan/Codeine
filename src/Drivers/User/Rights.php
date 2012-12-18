@@ -43,12 +43,17 @@
 
     setFn('POST', function ($Call)
     {
+        if (!isset($Call['Request']['Rights']) or null == $Call['Request']['Rights'])
+            $NewRights = '';
+        else
+            $NewRights = implode(',', array_keys($Call['Request']['Rights']));
+
         F::Run('Entity', 'Update', [
                        'Entity' => 'User',
                        'Where' => $Call['Where'],
                        'Data' =>
                            [
-                               'Rights' => implode(',', array_keys($Call['Request']['Rights']))
+                               'Rights' => $NewRights
                            ]
                ]);
 

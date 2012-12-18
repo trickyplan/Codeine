@@ -11,16 +11,16 @@
     {
         foreach ($Call['Nodes'] as $Name => $Node)
         {
+            $New = F::Dot($Call['Data'], $Name);
+
             if (!isset($Node['Nullable']) || !$Node['Nullable'])
             {
-                $New = F::Dot($Call['Data'], $Name);
-
                 if (($New === null) || ($New == F::Dot($Call['Current'], $Name)))
                     $Call['Data'] = F::Dot($Call['Data'], $Name, null);
             }
             else
-                if (($New === null) || ($New == F::Dot($Call['Current'], $Name)))
-                    $Call['Data'][$Name] = null;
+                if (($New === null) or ($New == F::Dot($Call['Current'], $Name)))
+                    unset($Call['Data'][$Name]);
         }
 
         return $Call;

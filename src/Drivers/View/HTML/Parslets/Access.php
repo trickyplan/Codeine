@@ -18,7 +18,7 @@
                 $Attr = (array) $Root->attributes();
 
                 foreach ($Attr['@attributes'] as $Key => $Value)
-                    $Call['Run'] = F::Dot($Call, $Key, $Value);
+                    $Call['Run'] = F::Dot($Call['Run'], $Key, $Value);
 
                 $Call = F::Run('Security.Access', 'Check', $Call);
 

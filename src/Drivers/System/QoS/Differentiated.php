@@ -24,8 +24,5 @@
 
     setFn('Finish', function ($Call)
     {
-        // TODO Realize "Finish" function
-
-
         return $Call;
     });

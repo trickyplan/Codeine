@@ -13,14 +13,12 @@
         {
             $UserRights = (array) explode(',', $Call['Session']['User']['Rights']);
 
-        foreach ($Call['Access']['Rights'] as $Name => $Rule)
-            if (($Diff = F::Diff($Rule, $Call['Run'])) === null)
-            {
-                F::Log('Права: Применено правило: '.$Name, LOG_INFO);
-                $Call['Decision'] = in_array($Name, $UserRights);
-            }
-/*            else
-                d(__FILE__, __LINE__, $Diff);*/
+            foreach ($Call['Access']['Rights'] as $Name => $Rule)
+                if (($Diff = F::Diff($Rule, $Call['Run'])) === null)
+                {
+                    F::Log('Права: Применено правило: '.$Name, LOG_INFO);
+                    $Call['Decision'] = in_array($Name, $UserRights);
+                }
         }
 
         F::Log('Права: Итоговое решение:'. ($Call['Decision']? 'Разрешить': 'Запретить'), LOG_INFO);
