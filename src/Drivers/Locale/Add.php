@@ -32,7 +32,7 @@
                     array (
                           'Storage' => 'Locale',
                           'Scope'   => $Asset.'/Locale/'.$Language,
-                          'ID'   => $ID,
+                          'Where'   => $ID,
                           'Data' => $Locale
                     ));
 

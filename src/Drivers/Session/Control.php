@@ -26,7 +26,7 @@
 
     setFn('Flush', function ($Call)
     {
-        return F::Run('Entity.Delete', 'POST', $Call, ['Entity' => 'Session', 'Expire' => ['<' => time()]]);
+        return F::Run('Entity.Delete', 'POST', $Call, ['Entity' => 'Session', 'Where' => ['Expire' => ['<' => time()], ['ID' => ['<>' => $Call['SID']]]]]);
     });
 
     setFn('Menu', function ($Call)
