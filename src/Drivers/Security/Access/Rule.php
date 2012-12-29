@@ -22,7 +22,7 @@
                 {
                     if (!isset($Rule['Expression']) || F::Live($Rule['Expression'], $Call))
                     {
-                        F::Log('Применено правило «'.$Name.'»', LOG_INFO);
+                        F::Log('Rule «'.$Name.'» applied', LOG_INFO);
                         $Call['Decision'] = $Rule['Decision'];
                         $Call['Weight'] = $Rule['Weight'];
                         $Call['Rule'] = $Rule;
@@ -35,6 +35,6 @@
             }
         }
 
-        F::Log('Итоговое решение:'. ($Call['Decision']? 'Разрешить': 'Запретить'), LOG_INFO);
+        F::Log('Final decision:'. ($Call['Decision']? 'Allow': 'Deny'), LOG_INFO);
         return $Call;
      });

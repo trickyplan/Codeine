@@ -335,10 +335,23 @@
         {
             $Data = [];
 
-            foreach ($Array as $Row)
+            foreach ($Array as $IX => $Row)
                 foreach ($Keys as $Key)
                     if (is_scalar($Key) && isset($Row[$Key]))
-                        $Data[$Key][] = $Row[$Key];
+                        $Data[$Key][$IX] = $Row[$Key];
+
+            return $Data;
+        }
+
+        public static function Sort($Array, $Key, $Direction = SORT_DESC)
+        {
+            $Data = [];
+
+            foreach ($Array as $Row)
+                if (isset($Row[$Key]))
+                    $Data[$Row['ID']] = $Row[$Key];
+
+            $Direction == SORT_ASC? asort($Data): arsort($Data);
 
             return $Data;
         }

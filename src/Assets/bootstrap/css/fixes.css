@@ -2,3 +2,19 @@
 {
     color: #7e602f;
 }
+
+.bordered
+{
+    border: 1px solid #cccccc;
+    padding: 25px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+
+.shadowed
+{
+    -webkit-box-shadow: 0px 2px 3px rgba(50, 50, 50, 0.5);
+    -moz-box-shadow:    0px 2px 3px rgba(50, 50, 50, 0.5);
+    box-shadow:         0px 2px 3px rgba(50, 50, 50, 0.5);
+}

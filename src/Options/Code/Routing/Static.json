@@ -1,5 +1,5 @@
 {
-    "Mixins": ["User.Static"],
+    "Mixins": ["User.Static","Control.Static"],
     "Links":
     {
         "/":

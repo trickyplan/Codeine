@@ -82,7 +82,7 @@
         $Elements = F::Run('Entity', 'Read', $Call);
 
         foreach ($Elements as $Element)
-            $Output[] = [$Element['ID'], $Element[$Call['Key']]];
+            $Output[] = [$Element[$Call['Primary']], $Element[$Call['Key']]];
 
         return $Output;
     });

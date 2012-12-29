@@ -5,7 +5,7 @@
         {
             "Service": "Control.Panel",
             "Method": "Do",
-            "Zone": "Control"
+            "Zone": ["Control"]
         }
     }
 }

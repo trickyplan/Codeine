@@ -81,9 +81,6 @@
                     else
                         $Widget['Value'] = null;
 
-                    if (is_array($Widget['Value']))
-                        $Widget['Value'] = implode(';', $Widget['Value']);
-
                     // Помещаем виджет в поток
                     $Call = F::Run('Entity.Form.Layout.'.$Call['FormLayout'], 'Add', $Call,
                         array(

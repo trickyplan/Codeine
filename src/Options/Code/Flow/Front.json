@@ -50,7 +50,7 @@
             "QoS":
             {
                 "Service": "System.QoS",
-                "Method": "Start"
+                "Method": "Finish"
             }
         },
         "NotFound":

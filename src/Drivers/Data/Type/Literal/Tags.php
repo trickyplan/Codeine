@@ -19,5 +19,5 @@
 
     setFn('Read', function ($Call)
     {
-        return implode(',', $Call['Value']);
+        return $Call['Value'];
     });

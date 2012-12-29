@@ -1,0 +1,13 @@
+{
+    "Human Date":
+    {
+        "Threshold":
+        {
+            "Now": 10,
+            "Second": 55,
+            "Minute": 3300,
+            "Hour": 86000,
+            "Day": 600000
+        }
+    }
+}

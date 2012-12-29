@@ -16,7 +16,7 @@
         if (strftime('%U', $Call['Value']) == strftime('%U', time()))
             $Format = '%A';
         else
-            $Format = '%d, %B';
+            $Format = '%B, %d';
 
         if ($Now['tm_year'] != $Value['tm_year'])
             $Format .= '%G';

@@ -15,7 +15,7 @@
         "Server:": "HAL 9000 / Codeine7",
         "Pragma:": "no-cache",
         "Expires:": "Thu, 1 Jan 1970 03:00:00 GMT",
-        "X-UA-Compatible": "IE=edge,chrome=1"
+        "X-UA-Compatible:": "IE=edge,chrome=1"
     },
     "Language":
     {

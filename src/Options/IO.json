@@ -51,7 +51,8 @@
             "Scope":"css",
             "Suffix":".css"
         },
-        "JS":{
+        "JS":
+        {
             "Driver":"IO.Storage.Directory",
             "Directory":"Assets",
             "Suffix":".js"
