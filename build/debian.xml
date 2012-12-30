@@ -71,6 +71,5 @@
 
     <target name="debian" depends="folders, control, source, docs, version">
         <exec command="dpkg --build '${package}' ${distribution}/ " dir="." output="true" />
-        <delete dir="${package}" includeemptydirs="true" failonerror="true" />
     </target>
 </project>
