@@ -28,7 +28,7 @@
                 <include name="*/**"/>
             </fileset>
         </copy>
-        <phpdeb name="${phing.project.name}-${env.branch}"
+        <phpdeb name="${phing.project.name}"
                 version="${release}"
                 maintainer="${maintainer}"
                 description="${description}"
