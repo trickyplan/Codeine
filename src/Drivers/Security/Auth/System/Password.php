@@ -46,16 +46,18 @@
                           'Entity' => 'User',
                           'Where' =>
                               [
-                                  $Call['Determinant'] => $Call['Request'][$Call['Determinant']],
-                                  'Password' => F::Run('Security.Hash', 'Get',
-                                    [
-                                         'Mode' => 'Secure',
-                                         'Value' => $Call['Request']['Password']
-                                    ])
+                                  $Call['Determinant'] => $Call['Request'][$Call['Determinant']]
                               ]
                      ))[0];
 
-        if (empty($Call['User']))
+        $Challenge = F::Run('Security.Hash', 'Get',
+                                     [
+                                          'Mode' => 'Secure',
+                                          'Value' => $Call['Request']['Password'],
+                                          'Salt' => isset($Call['User']['Salt'])? $Call['User']['Salt']: ''
+                                     ]);
+
+        if ($Call['User']['Password'] != $Challenge)
             $Call['Output']['Content'][]
                         = array(
                         'Type' => 'Template',

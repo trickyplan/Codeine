@@ -63,7 +63,7 @@
     "Codeine":
     {
         "Major": "${version}",
-        "Minor": ${env.build}
+        "Minor": "${env.build}"
     }
 }
         </echo>
