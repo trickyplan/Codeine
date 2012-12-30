@@ -9,7 +9,7 @@
 
     setFn('Do', function ($Call)
     {
-        return F::Run('Entity.List', 'Do', array('Entity' => 'User', 'Template' => 'Control', 'PageURL' => '/control/User/page', 'Context' => 'app'), $Call);
+        return F::Run('Entity.List', 'Do', array('Entity' => 'User', 'Scope' => 'Control', 'PageURL' => '/control/User/page', 'Context' => 'app'), $Call);
     });
 
     setFn('Show', function ($Call)

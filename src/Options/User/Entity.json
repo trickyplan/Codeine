@@ -34,6 +34,18 @@
         {
             "Default": 1
         },
+        "Fullname":
+        {
+            "Type": "Literal.String",
+            "Required": true,
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        },
         "Password":
         {
             "Type": "Literal.Password",
@@ -45,18 +57,6 @@
                 {
                     "Type": "Form.Password",
                     "Required": true
-                }
-            }
-        },
-        "Fullname":
-        {
-            "Type": "Literal.String",
-            "Required": true,
-            "Widgets":
-            {
-                "Write":
-                {
-                    "Type": "Form.Textfield"
                 }
             }
         },
