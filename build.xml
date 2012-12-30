@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="codeine" default="final" basedir=".">
+<project name="codeine-beta" default="final" basedir=".">
 
     <import file="build/initialize.xml"/>
 
