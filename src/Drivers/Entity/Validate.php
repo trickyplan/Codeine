@@ -19,7 +19,10 @@
                     'Node' => $Node,
                     'Data' => $Call['Data']]
                 )) !== true)
+                {
                     $Call['Errors'][$Name][] = $Error;
+                    F::Log('EV: '.$Name.' '.$Error, LOG_ERR);
+                }
         }
 
         if (!empty($Call['Errors']))

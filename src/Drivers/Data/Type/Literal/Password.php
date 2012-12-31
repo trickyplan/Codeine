@@ -16,7 +16,7 @@
                                 'Value' => $Call['Value']
                             ]);
         else
-            return null;
+            return $Call['Value'];
     });
 
     setFn('Read', function ($Call)

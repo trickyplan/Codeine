@@ -71,6 +71,24 @@
                 {
                     "Type": "Form.Textfield"
                 }
+            },
+            "Hooks":
+            {
+                "beforeEntityWrite":
+                {
+                    "Service": "SEO.Slug",
+                    "Method": "Generate",
+                    "Call":
+                    {
+                        "Key": "Title",
+                        "Delimiter": "-",
+                        "Transliteration":
+                        {
+                            "Service":"Text.Transform.Transliterate.Passport",
+                            "Method": "2English"
+                        }
+                    }
+                }
             }
         }
     },

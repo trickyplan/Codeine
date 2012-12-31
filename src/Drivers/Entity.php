@@ -41,8 +41,8 @@
     setFn('Read', function ($Call)
     {
         // Если в Where простая переменная - это ID.
-            if (isset($Call['Where']) && is_scalar($Call['Where']))
-                $Call['Where'] = ['ID' => $Call['Where']];
+        if (isset($Call['Where']) && is_scalar($Call['Where']))
+            $Call['Where'] = ['ID' => $Call['Where']];
 
         $Call = F::Hook('beforeEntityRead', $Call);
 
@@ -63,9 +63,13 @@
 
         $Call['Data']['ID'] = $Call['Where']['ID'];
 
-        $Call['Current'] = F::Live(F::Run('Entity', 'Read', $Call, ['From Update' => true])[0]);
+        $Call['Current'] = F::Run('Entity', 'Read', $Call, ['From Update' => true])[0];
+
+        if (isset($Call['Current']))
+            $Call['Data'] = F::Merge($Call['Current'], $Call['Data']);
 
         $Call = F::Hook('beforeEntityWrite', $Call);
+
             $Call = F::Hook('beforeEntityUpdate', $Call);
 
             $Call['Scope'] = $Call['Entity'];
@@ -73,6 +77,7 @@
             $Call['Data'] = F::Run('IO', 'Write', $Call);
 
             $Call = F::Hook('afterEntityUpdate', $Call);
+
         $Call = F::Hook('afterEntityWrite', $Call);
 
         return $Call;

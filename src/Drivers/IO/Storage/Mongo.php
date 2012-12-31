@@ -60,33 +60,33 @@
     {
         $Call['Scope'] = strtr($Call['Scope'], '.', '_');
 
-            if (null === $Call['Data'])
-            {
-                if (isset($Call['Where']))
-                    return $Call['Link']->$Call['Scope']->remove ($Call['Where']);
-                else
-                    return $Call['Link']->$Call['Scope']->remove ();
-            }
+        if (null === $Call['Data'])
+        {
+            if (isset($Call['Where']))
+                return $Call['Link']->$Call['Scope']->remove ($Call['Where']);
             else
+                return $Call['Link']->$Call['Scope']->remove ();
+        }
+        else
+        {
+            $Data = array();
+
+            foreach ($Call['Data'] as $Key => $Value)
             {
-                $Data = array();
-
-                foreach ($Call['Data'] as $Key => $Value)
-                {
-                    unset ($Call['Data'][$Key]);
-                    $Data = F::Dot($Data, $Key, $Value);
-                }
-
-                if (isset($Call['Current']))
-                    $Data = F::Merge($Call['Current'], $Data);
-
-                if (isset($Call['Where']))
-                    $Call['Link']->$Call['Scope']->update($Call['Where'], ['$set' => $Data]) or F::Hook('IO.Mongo.Update.Failed', $Call);
-                else
-                    $Call['Link']->$Call['Scope']->insert ($Data);
-
-                return $Data;
+                unset ($Call['Data'][$Key]);
+                $Data = F::Dot($Data, $Key, $Value);
             }
+
+            if (isset($Call['Current']))
+                $Data = F::Merge($Call['Current'], $Data);
+
+            if (isset($Call['Where']))
+                $Call['Link']->$Call['Scope']->update($Call['Where'], ['$set' => $Data]) or F::Hook('IO.Mongo.Update.Failed', $Call);
+            else
+                $Call['Link']->$Call['Scope']->insert ($Data);
+
+            return $Data;
+        }
     });
 
     setFn ('Close', function ($Call)

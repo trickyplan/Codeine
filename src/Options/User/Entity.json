@@ -50,6 +50,7 @@
             "Type": "Literal.Password",
             "WriteOnce": true,
             "Required": true,
+            "NoLive": true,
             "Widgets":
             {
                 "Create":
