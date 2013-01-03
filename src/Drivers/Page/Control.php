@@ -11,7 +11,7 @@
     setFn('Do', function ($Call)
     {
         return F::Run('Entity.List', 'Do', $Call,
-            ['Entity' => 'Page', 'Template' => 'Control', 'PageURL' => '/control/Page/page', 'Context' => 'control','Sort' => ['Priority' => 'ASC']]);
+            ['Entity' => 'Page', 'Scope' => 'Control']);
     });
 
     setFn('Create', function ($Call)
