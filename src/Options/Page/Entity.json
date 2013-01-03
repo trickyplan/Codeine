@@ -1,6 +1,7 @@
 {
     "Mixins": ["Mixins.SEO"],
     "Storage": "Primary",
+    "EPP": 10,
     "Nodes":
     {
         "ID":
