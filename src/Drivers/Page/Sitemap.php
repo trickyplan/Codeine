@@ -9,7 +9,7 @@
 
     setFn('Generate', function ($Call)
     {
-        $Elements = F::Run('Entity', 'Read', ['Entity' => 'Page', 'Fields' => ['Slug'], 'Where' => ['Menu' => true]]);
+        $Elements = F::Run('Entity', 'Read', ['Entity' => 'Page', 'Fields' => ['Slug']]);
         $Data = [];
 
         foreach ($Elements as $Element)
