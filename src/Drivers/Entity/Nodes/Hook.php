@@ -20,7 +20,7 @@
                         {
                             if (isset($Call['Data']))
                                 foreach ($Call['Data'] as &$Data)
-                                    $Data[$Name] = F::Live($Node['Hooks'][$Call['On']], ['Data' => $Data]);
+                                    $Data[$Name] = F::Live($Node['Hooks'][$Call['On']], ['Entity' => $Call['Entity'], 'Data' => $Data]);
                         }
                         else
                             $Call['Data'][$Name] = F::Live($Node['Hooks'][$Call['On']], $Call);
