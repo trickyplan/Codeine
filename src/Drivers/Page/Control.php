@@ -11,7 +11,7 @@
     setFn('Do', function ($Call)
     {
         return F::Run('Entity.List', 'Do', $Call,
-            ['Entity' => 'Page', 'Scope' => 'Control']);
+            ['Entity' => 'Page', 'Scope' => 'Control', 'Sort' => ['Created' => 'DESC']]);
     });
 
     setFn('Create', function ($Call)
