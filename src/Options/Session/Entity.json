@@ -22,28 +22,6 @@
         {
 
         },
-        "IP.Start":
-        {
-            "Hooks":
-            {
-                "beforeEntityCreate":
-                {
-                    "Service": "System.Interface.Web.IP",
-                    "Method": "Get"
-                }
-            }
-        },
-        "IP.Current":
-        {
-            "Hooks":
-            {
-                "beforeEntityUpdate":
-                {
-                    "Service": "System.Interface.Web.IP",
-                    "Method": "Get"
-                }
-            }
-        },
         "User":
         {
             "Type": "Numeral.Integer"
