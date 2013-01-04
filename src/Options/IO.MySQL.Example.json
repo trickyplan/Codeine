@@ -1,0 +1,14 @@
+{
+    "Storages":
+    {
+        "Primary":
+        {
+            "Driver":"IO.Storage.MySQL",
+            "Server":"localhost",
+            "Database":"database",
+            "User":"user",
+            "Password":"password",
+            "Charset":"utf8"
+        }
+    }
+}
