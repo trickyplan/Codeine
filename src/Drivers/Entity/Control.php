@@ -29,6 +29,7 @@
 
     setFn('Delete', function ($Call)
     {
+        $Call['Layouts'][] = ['Scope' => 'Entity', 'ID' => 'Delete'];
         return F::Run('Entity.Delete', 'Do', $Call, ['Entity' => $Call['Bundle'], 'Scope' => 'Control']);
     });
 
