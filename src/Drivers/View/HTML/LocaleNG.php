@@ -40,6 +40,8 @@
 
                     $Locales[$Locale] = [];
 
+                    $NewLocales = array_reverse($NewLocales);
+
                     if (is_array($NewLocales))
                         foreach ($NewLocales as $NewLocale)
                             $Locales[$Locale] = F::Merge($Locales[$Locale], $NewLocale);

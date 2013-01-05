@@ -53,10 +53,10 @@
                 if (null !== $Widget)
                 {
                     $Widget['Entity'] = $Call['Entity'];
-                    $Widget['Node'] = $Name;
-                    $Widget['Label'] = $Call['Entity'].'.Entity:'.$Name;
-                    $Widget['Name'] = strtr($Name, '.','_');
-                    $Widget['ID'] = strtr($Name, '.','_');
+                    $Widget['Node']   = $Name;
+                    $Widget['Label']  = $Call['Entity'].'.Entity:'.$Name;
+                    $Widget['Name']   = strtr($Name, '.','_');
+                    $Widget['ID']     = strtr($Name, '.','_');
 
                     $Widget = F::Merge($Node, $Widget);
 
@@ -83,10 +83,11 @@
 
                     // Помещаем виджет в поток
                     $Call = F::Run('Entity.Form.Layout.'.$Call['FormLayout'], 'Add', $Call,
-                        array(
+                        [
                             'Name' => $Name,
                             'Node' => $Node,
-                            'Widget' => $Widget));
+                            'Widget' => $Widget]
+                        );
 
                     $Call['Widget'] = null;
                 }
