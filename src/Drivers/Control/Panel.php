@@ -40,7 +40,7 @@
             {
                 $Options = ['ID' => $Bundle, 'Group' => $Group];
 
-                if (($BundleOptions = F::Run($Bundle.'.Control', 'Menu')) !== null)
+                if (($BundleOptions = F::Run($Bundle.'.Control', 'Menu', ['Bundle' => $Bundle])) !== null)
                     $Options = F::Merge($Options, $BundleOptions);
 
                 $Call['Run'] = [

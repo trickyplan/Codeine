@@ -7,25 +7,7 @@
      * @version 7.x
      */
 
-    setFn('Do', function ($Call)
-    {
-        return F::Run('Entity.List', 'Do', array('Entity' => 'User', 'Scope' => 'Control', 'PageURL' => '/control/User/page', 'Context' => 'app'), $Call);
-    });
-
-    setFn('Show', function ($Call)
-    {
-        return F::Run('Entity.Show.Static', 'Do', array('Entity' => 'User', 'PageURL' => '/control/User/page', 'Context' => 'app'), $Call);
-     });
-
-    setFn('Create', function ($Call)
-    {
-        return F::Run('Entity.Create', 'Do', $Call, ['Entity' => 'User', 'Scope' => 'Control', 'CAPTCHA' => ['Bypass' => true]]);
-    });
-
-    setFn('Update', function ($Call)
-    {
-        return F::Run('Entity.Update', 'Do', array('Entity' => 'User', 'Where' => $Call['ID']), $Call);
-    });
+    self::_loadSource('Entity.Control');
 
     setFn('Login', function ($Call)
     {
@@ -38,25 +20,7 @@
         return $Call;
     });
 
-    setFn('Delete', function ($Call)
-    {
-        $Call['Layouts'][] = ['Scope' => 'Entity', 'ID' => 'Delete']; // FIXME
-        return F::Run('Entity.Delete', 'Do', array('Entity' => 'User', 'Where' => $Call['ID']), $Call);
-    });
-
-    setFn('Flush', function ($Call)
-    {
-        return F::Run('Entity.Delete', 'Do', array('Entity' => 'User'), $Call);
-    });
-
     setFn('Rights', function ($Call)
     {
         return F::Run('User.Rights', 'Do', $Call);
-    });
-
-    setFn('Menu', function ($Call)
-    {
-        $Count = F::Run('Entity', 'Count', $Call, ['Entity' => 'User']);
-
-        return ['Count' => $Count];
     });
