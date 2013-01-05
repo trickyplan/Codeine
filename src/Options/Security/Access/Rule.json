@@ -140,6 +140,32 @@
                 }
             }
         },
+        "Страница профиля доступна зарегистрированным":
+        {
+            "Decision": true,
+            "Weight": 100,
+            "Run":
+            {
+                "Service": "Entity.Update",
+                "Method": "Do",
+                "Session":
+                    {
+                        "User":
+                        {
+                            "ID": "*"
+                        }
+                    },
+                "Call":
+                {
+                    "Entity": "User",
+                    "Where":
+                    {
+                        "Service": "Security.Auth",
+                        "Method": "Username"
+                    }
+                }
+            }
+        },
         "Кабинет доступен всем":
         {
             "Decision": true,
