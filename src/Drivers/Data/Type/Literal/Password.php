@@ -12,7 +12,7 @@
         if (!empty($Call['Value']) && $Call['Purpose'] != 'Update')
             return F::Run('Security.Hash', 'Get',
                             [
-                                'Mode' => 'Secure',
+                                'Mode' => 'Password',
                                 'Value' => $Call['Value']
                             ]);
         else

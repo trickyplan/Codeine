@@ -52,7 +52,7 @@
 
         $Challenge = F::Run('Security.Hash', 'Get',
                                      [
-                                          'Mode' => 'Secure',
+                                          'Mode' => 'Password',
                                           'Value' => $Call['Request']['Password'],
                                           'Salt' => isset($Call['User']['Salt'])? $Call['User']['Salt']: ''
                                      ]);

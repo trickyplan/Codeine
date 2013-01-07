@@ -3,6 +3,11 @@
     "Mode": "Normal",
     "Modes":
     {
+        "Password":
+        {
+            "Service": "Security.Hash.SHA2",
+            "Method": "Get"
+        },
         "Secure+":
         {
             "Service": "Security.Hash.BCrypt",
