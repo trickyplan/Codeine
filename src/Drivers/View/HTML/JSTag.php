@@ -66,7 +66,7 @@
                         F::Log('JS loaded: '.$JSFile);
                 }
 
-                $JS = implode('', $JS).$RunJS;
+                $JS = implode(';', $JS).$RunJS;
 
                 if (isset($Call['JS.Postprocessors']) && $Call['JS.Postprocessors'])
                     foreach ($Call['JS.Postprocessors'] as $Processor)

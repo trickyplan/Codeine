@@ -8,12 +8,16 @@
     margin: 1em;
 }
 
-.block
+.block, .block-bordered
+{
+    padding: 4px 4px 2px 12px;
+    margin: 4px;
+}
+
+.block-bordered
 {
     border-radius: 4px;
     border: 1px solid #cccccc;
-    padding: 4px 4px 2px 12px;
-    margin: 4px;
 }
 
 .pointer

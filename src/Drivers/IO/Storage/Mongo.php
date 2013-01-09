@@ -69,7 +69,7 @@
         }
         else
         {
-            $Data = array();
+            $Data = [];
 
             foreach ($Call['Data'] as $Key => $Value)
             {
@@ -77,13 +77,19 @@
                 $Data = F::Dot($Data, $Key, $Value);
             }
 
-            if (isset($Call['Current']))
-                $Data = F::Merge($Call['Current'], $Data);
+            $Data = F::Merge($Call['Current'], $Data);
 
-            if (isset($Call['Where']))
-                $Call['Link']->$Call['Scope']->update($Call['Where'], ['$set' => $Data]) or F::Hook('IO.Mongo.Update.Failed', $Call);
-            else
-                $Call['Link']->$Call['Scope']->insert ($Data);
+            try
+            {
+                if (isset($Call['Where']))
+                    $Call['Link']->$Call['Scope']->update($Call['Where'], $Data);
+                else
+                    $Call['Link']->$Call['Scope']->insert ($Data);
+            }
+            catch (MongoCursorException $e)
+            {
+                return F::Hook('IO.Mongo.Update.Failed', $Call);
+            }
 
             return $Data;
         }

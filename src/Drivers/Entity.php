@@ -14,7 +14,7 @@
         if (is_array($Model = F::loadOptions($Call['Entity'].'.Entity')))
             $Call = F::Merge($Model, $Call);
         else
-            trigger_error('Model for '.$Call['Entity'].'not found');
+            F::Log('Model for '.$Call['Entity'].'not found', LOG_ERR);
 
        // $Call = F::Hook('afterEntityLoad', $Call);
 
@@ -23,16 +23,22 @@
 
     setFn('Create', function ($Call)
     {
-        $Call = F::Hook('beforeEntityWrite', $Call);
             $Call = F::Hook('beforeEntityCreate', $Call);
+                $Call = F::Hook('beforeEntityWrite', $Call);
 
-            $Call['Scope'] = $Call['Entity'];
+            if (isset($Call['Substitute']))
+                $Call['Scope'] = $Call['Substitute'];
+            else
+                $Call['Scope'] = $Call['Entity'];
 
             if (!isset($Call['Failure']))
             {
                 $Call['Data'] = F::Run('IO', 'Write', $Call);
-                $Call = F::Hook('afterEntityCreate', $Call);
+
                 $Call = F::Hook('afterEntityWrite', $Call);
+
+                $Call = F::Hook('afterEntityCreate', $Call);
+
             }
 
         return $Call;
@@ -46,7 +52,10 @@
 
         $Call = F::Hook('beforeEntityRead', $Call);
 
-        $Call['Scope'] = $Call['Entity'];
+        if (isset($Call['Substitute']))
+            $Call['Scope'] = $Call['Substitute'];
+        else
+            $Call['Scope'] = $Call['Entity'];
 
         $Call['Data'] = F::Run('IO', 'Read', $Call);
 
@@ -68,17 +77,22 @@
         if (isset($Call['Current']))
             $Call['Data'] = F::Merge($Call['Current'], $Call['Data']);
 
-        $Call = F::Hook('beforeEntityWrite', $Call);
 
-            $Call = F::Hook('beforeEntityUpdate', $Call);
+        $Call = F::Hook('beforeEntityUpdate', $Call);
 
-            $Call['Scope'] = $Call['Entity'];
+            $Call = F::Hook('beforeEntityWrite', $Call);
 
-            $Call['Data'] = F::Run('IO', 'Write', $Call);
+                if (isset($Call['Substitute']))
+                    $Call['Scope'] = $Call['Substitute'];
+                else
+                    $Call['Scope'] = $Call['Entity'];
 
-            $Call = F::Hook('afterEntityUpdate', $Call);
+                $Call['Data'] = F::Run('IO', 'Write', $Call);
 
-        $Call = F::Hook('afterEntityWrite', $Call);
+            $Call = F::Hook('afterEntityWrite', $Call);
+
+        $Call = F::Hook('afterEntityUpdate', $Call);
+
 
         return $Call;
     });
@@ -92,15 +106,22 @@
 
         $Call = F::Hook('beforeEntityDelete', $Call);
 
-        $Call['Current'] = F::Run('Entity', 'Read', $Call)[0];
+            $Call = F::Hook('beforeEntityWrite', $Call);
 
-        $Call['Scope'] = $Call['Entity'];
+                $Call['Current'] = F::Run('Entity', 'Read', $Call)[0];
 
-        $Call['Data'] = null;
+                if (isset($Call['Substitute']))
+                    $Call['Scope'] = $Call['Substitute'];
+                else
+                    $Call['Scope'] = $Call['Entity'];
 
-        F::Run('IO', 'Write', $Call);
+                $Call['Data'] = null;
 
-        $Call['Data'] = $Call['Current'];
+                F::Run('IO', 'Write', $Call);
+
+                $Call['Data'] = $Call['Current'];
+
+            $Call = F::Hook('afterEntityWrite', $Call);
 
         $Call = F::Hook('afterEntityDelete', $Call);
 

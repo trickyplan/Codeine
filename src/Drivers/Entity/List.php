@@ -31,12 +31,10 @@
             $Call['Selected'] = null;
 
         if ((sizeof($Call['Elements']) == 0 or (null === $Call['Elements'])) and !isset($Call['NoEmpty']))
-            $Call['Output']['Content'][] = array(
-                'Type'  => 'Template',
-                'Context' => $Call['Context'],
-                'Scope' => $Call['Scope'],
-                'ID' => 'Empty'
-            );
+        {
+            $Call['Layouts'][] = ['Scope' => $Call['Scope'], 'ID' => 'Empty'];
+            $Call['Layouts'][] = ['Scope' => 'Entity', 'ID' => 'Empty'];
+        }
         else
         {
             $Call['Layouts'][] =

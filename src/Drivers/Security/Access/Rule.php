@@ -36,5 +36,6 @@
         }
 
         F::Log('Final decision:'. ($Call['Decision']? 'Allow': 'Deny'), LOG_INFO);
+        // unset($Call['Rules']);?
         return $Call;
      });
