@@ -23,7 +23,7 @@
 
         if (!empty($Call['User']))
         {
-            if ($Call['User']['Status'] >= 1)
+            if (!isset($Call['User']['Status']) || $Call['User']['Status'] >= 1)
             {
                 if (isset($Call['Request']['Remember']))
                     $Call['TTL'] = $Call['TTLs']['Long'];
