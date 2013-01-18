@@ -31,7 +31,12 @@
 
         // Загрузить предопределённые данные и умолчания
 
-        $Call['Data'] = F::Run('Entity', 'Read', $Call)[0];
+        $Call['Data'] = F::Run('Entity', 'Read', $Call);
+
+        if (isset($Call['Data'][0]))
+            $Call['Data'] = $Call['Data'][0];
+        else
+            return $Call = F::Hook('NotFound', $Call);
 
         // Сгенерировать форму
         $ic = 0;
