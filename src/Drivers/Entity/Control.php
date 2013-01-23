@@ -38,3 +38,16 @@
         $Count = F::Run('Entity', 'Count', $Call, ['Entity' => $Call['Bundle'], 'Scope' => 'Control']);
         return ['Count' => $Count];
     });
+
+    setFn('Export', function ($Call)
+    {
+        $Elements = F::Run('Entity', 'Read',
+                    [
+                         'Entity' => $Call['Bundle']
+                    ]);
+
+        $Call['Renderer'] = 'View.JSON';
+        $Call['Output']['Content'] = $Elements;
+
+        return $Call;
+    });

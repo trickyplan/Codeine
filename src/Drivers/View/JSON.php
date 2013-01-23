@@ -10,7 +10,7 @@
     setFn ('Render', function ($Call)
     {
        $Call['Headers']['Content-type:'] = 'text/json';
-       $Call['Output'] = json_encode($Call['Output'], JSON_UNESCAPED_UNICODE);
+       $Call['Output'] = json_encode($Call['Output']['Content'], JSON_UNESCAPED_UNICODE);
 
        return $Call;
     });

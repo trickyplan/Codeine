@@ -1,0 +1,8 @@
+{
+    "Headers":
+    {
+        "Content-type:": "application/octet-stream",
+        "Accept-Ranges:": "bytes",
+        "Connection:": "keep-alive"
+    }
+}

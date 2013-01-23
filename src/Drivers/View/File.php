@@ -9,11 +9,9 @@
 
     setFn('Render', function ($Call)
     {
-        $Call['Headers']['Content-type:'] = 'application/octet-stream';
-        $Call['Headers']['Accept-Ranges:'] = 'bytes';
-        $Call['Headers']['Connection:'] = 'keep-alive';
+        $Call['Headers']['Content-Disposition:'] = 'attachment;filename="'.urlencode($Call['Title']).'"';
 
-        $Call['Output'] = file_get_contents($Call['Output']['File']);
+        $Call['Output'] = file_get_contents($Call['Output']['Content']);
 
         return $Call;
     });

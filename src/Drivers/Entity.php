@@ -36,8 +36,7 @@
                 $Call['Data'] = F::Run('IO', 'Write', $Call);
 
                 $Call = F::Hook('afterEntityWrite', $Call);
-
-                $Call = F::Hook('afterEntityCreate', $Call);
+            $Call = F::Hook('afterEntityCreate', $Call);
 
             }
 
@@ -46,7 +45,7 @@
 
     setFn('Read', function ($Call)
     {
-        // Если в Where простая переменная - это ID.
+        // Если в Where скалярная переменная - это ID.
         if (isset($Call['Where']) && is_scalar($Call['Where']))
             $Call['Where'] = ['ID' => $Call['Where']];
 
@@ -66,7 +65,7 @@
 
     setFn('Update', function ($Call)
     {
-        // Если в Where простая переменная - это ID.
+        // Если в Where скалярная переменная - это ID.
         if (isset($Call['Where']) && is_scalar($Call['Where']))
             $Call['Where'] = array('ID' => $Call['Where']);
 
@@ -99,7 +98,7 @@
 
     setFn('Delete', function ($Call)
     {
-        // Если в Where простая переменная - это ID.
+        // Если в Where скалярная переменная - это ID.
             if (isset($Call['Where']) && is_scalar($Call['Where']))
                 $Call['Where'] = array('ID' => $Call['Where']);
 

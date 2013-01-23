@@ -21,7 +21,7 @@
                  $Options[] = F::Run ('View', 'LoadParsed', $Call,
                     array(
                          'Scope' => isset($Call['Scope'])? $Call['Scope']: 'Default',
-                         'ID'    => 'UI/Navlist/'.($Value['ID'] == $Call['Value'] ? 'Active' : 'Passive'),
+                         'ID'    => 'UI/Navlist/Passive',
                          'Data'  => $Value
                     ));
              else
