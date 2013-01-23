@@ -162,6 +162,18 @@
                     "Location": "/control/Blog/Show/$Data.ID"
                 }
             }
+        },
+        "afterDeletePost":
+        {
+            "Redirect":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "Redirect",
+                "Call":
+                {
+                    "Location": "/control/Blog"
+                }
+            }
         }
     }
 }
