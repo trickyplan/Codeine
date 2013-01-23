@@ -1,0 +1,50 @@
+{
+    "Nodes":
+    {
+        "Words":
+        {
+            "Hooks":
+            {
+                "afterEntityRead":
+                {
+                    "Service": "Text.Stats.Words",
+                    "Method": "Count",
+                    "Call":
+                    {
+                        "Key": "Body"
+                    }
+                }
+            }
+        },
+        "Chars":
+        {
+            "Hooks":
+            {
+                "afterEntityRead":
+                {
+                    "Service": "Text.Stats.Chars",
+                    "Method": "CountWithOutSpaces",
+                    "Call":
+                    {
+                        "Key": "Body"
+                    }
+                }
+            }
+        },
+        "Sickness":
+        {
+            "Hooks":
+            {
+                "afterEntityRead":
+                {
+                    "Service": "Text.Stats.Sickness",
+                    "Method": "Calculate",
+                    "Call":
+                    {
+                        "Key": "Body"
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,5 +1,5 @@
 {
-    "Mixins": ["Mixins.UGC"],
+    "Mixins": ["Mixins.UGC", "Mixins.Text"],
     "Storage": "Primary",
     "EPP": 5,
     "Nodes":
@@ -85,36 +85,6 @@
                             "Service":"Text.Transform.Transliterate.Passport",
                             "Method": "2English"
                         }
-                    }
-                }
-            }
-        },
-        "Words":
-        {
-            "Hooks":
-            {
-                "beforeEntityWrite":
-                {
-                    "Service": "Text.Stats.Words",
-                    "Method": "Count",
-                    "Call":
-                    {
-                        "Key": "Body"
-                    }
-                }
-            }
-        },
-        "Chars":
-        {
-            "Hooks":
-            {
-                "afterEntityRead":
-                {
-                    "Service": "Text.Stats.Chars",
-                    "Method": "CountWithOutSpaces",
-                    "Call":
-                    {
-                        "Key": "Body"
                     }
                 }
             }

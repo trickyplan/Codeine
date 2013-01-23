@@ -1,5 +1,5 @@
 {
-    "Mixins": ["Mixins.SEO"],
+    "Mixins": ["Mixins.SEO", "Mixins.Text"],
     "Storage": "Primary",
     "EPP": 20,
     "Nodes":
