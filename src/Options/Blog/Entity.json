@@ -1,0 +1,167 @@
+{
+    "Mixins": ["Mixins.UGC"],
+    "Storage": "Primary",
+    "EPP": 5,
+    "Nodes":
+    {
+        "ID":
+        {
+            "Type": "Literal.String",
+            "Hooks":
+            {
+                "beforeEntityCreate":
+                {
+                    "Service": "Security.UID",
+                    "Method": "Get"
+                }
+            }
+        },
+        "Title":
+        {
+            "Type": "Literal.String",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        },
+        "Category":
+        {
+            "Type": "Literal.String",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        },
+        "Description":
+        {
+            "Type": "Literal.HTML",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.WYSIWYG"
+                }
+            }
+        },
+        "Body":
+        {
+            "Type": "Literal.HTML",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.WYSIWYG"
+                }
+            }
+        },
+        "Slug":
+        {
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            },
+            "User Override": true,
+            "Hooks":
+            {
+                "beforeEntityWrite":
+                {
+                    "Service": "SEO.Slug",
+                    "Method": "Generate",
+                    "Call":
+                    {
+                        "Key": "Title",
+                        "Delimiter": "-",
+                        "Transliteration":
+                        {
+                            "Service":"Text.Transform.Transliterate.Passport",
+                            "Method": "2English"
+                        }
+                    }
+                }
+            }
+        },
+        "Words":
+        {
+            "Hooks":
+            {
+                "beforeEntityWrite":
+                {
+                    "Service": "Text.Stats.Words",
+                    "Method": "Count",
+                    "Call":
+                    {
+                        "Key": "Body"
+                    }
+                }
+            }
+        },
+        "Chars":
+        {
+            "Hooks":
+            {
+                "afterEntityRead":
+                {
+                    "Service": "Text.Stats.Chars",
+                    "Method": "CountWithOutSpaces",
+                    "Call":
+                    {
+                        "Key": "Body"
+                    }
+                }
+            }
+        },
+        "Published":
+        {
+            "Type": "Date.Short",
+            "Default":
+            {
+                "Service": "System.Time",
+                "Method": "Get"
+            },
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Datepicker",
+                    "Format": "d.m.Y"
+                }
+            }
+        }
+    },
+    "Hooks":
+    {
+        "afterCreatePost":
+        {
+            "Redirect":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "Redirect",
+                "Call":
+                {
+                    "Location": "/blog/$Data.Slug"
+                }
+            }
+        },
+        "afterUpdatePost":
+        {
+            "Redirect":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "Redirect",
+                "Call":
+                {
+                    "Location": "/control/Blog/Show/$Data.ID"
+                }
+            }
+        }
+    }
+}
