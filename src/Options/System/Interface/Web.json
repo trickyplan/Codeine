@@ -12,9 +12,9 @@
         "HTTP/1.0": "200 OK",
         "Content-type:": "text/html; charset=utf-8",
         "Content-Language:": "ru",
-        "Server:": "HAL 9000 / Codeine7",
+        "Server:": "HAL9000",
         "Pragma:": "no-cache",
-        "Expires:": "Thu, 1 Jan 1970 03:00:00 GMT"
+        "Expires:": "Thu, 11 Jan 1971 11:11:11 GMT"
     },
     "Language":
     {
