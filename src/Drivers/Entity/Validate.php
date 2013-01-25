@@ -17,6 +17,7 @@
                     'Entity' => $Call['Entity'],
                     'Name' => $Name,
                     'Node' => $Node,
+                    'Current' => $Call['Current'],
                     'Data' => $Call['Data']]
                 )) !== true)
                 {
