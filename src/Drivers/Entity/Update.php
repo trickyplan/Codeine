@@ -118,6 +118,7 @@
 
         $Call = F::Run('Entity', 'Update', $Call);
 
+
        // Выводим результат
 
         if (empty($Call['Errors']))
@@ -135,7 +136,6 @@
 
             $Call = F::Run(null, 'GET', $Call);
         }
-
 
         return $Call;
     });

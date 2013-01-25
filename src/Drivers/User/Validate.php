@@ -13,7 +13,7 @@
 
         $Call['Renderer'] = 'View.JSON';
 
-        $Call['Output'] = empty($Element);
+        $Call['Output']['Content'] = empty($Element);
 
         return $Call;
     });

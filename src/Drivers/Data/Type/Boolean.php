@@ -9,7 +9,10 @@
 
     setFn('Write', function ($Call)
     {
-        return (bool) $Call['Value'];
+        if (isset($Call['Value']))
+            return (bool) $Call['Value'];
+        else
+            return false;
     });
 
     setFn('Read', function ($Call)
