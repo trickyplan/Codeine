@@ -8,7 +8,7 @@
           */
 
     define('Codeine', __DIR__);
-    define ('REQID', microtime(true));
+    define ('REQID', microtime(true).rand());
 
     final class F
     {
