@@ -17,7 +17,7 @@
 
     setFn ('Write', function ($Call)
     {
-        setcookie ('SID', $Call['Session']['ID'], 2147483648, '/', null, $Call['Secure'], $Call['HTTP Only']); // OPTME!
+        setcookie ('SID', $Call['Session']['ID'], time()+84600*180, '/', null, $Call['Secure'], $Call['HTTP Only']); // OPTME!
         $_COOKIE['SID'] = $Call['Session']['ID'];
         return $Call;
     });
