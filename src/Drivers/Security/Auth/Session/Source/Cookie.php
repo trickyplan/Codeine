@@ -25,7 +25,8 @@
 
     setFn('Annulate', function ($Call)
     {
-        setcookie ('SID', ''); // OPTME!
+        if (isset($_COOKIE['SID']))
+            setcookie ('SID', ''); // OPTME!
 
         return $Call;
     });
