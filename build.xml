@@ -8,9 +8,9 @@
 
     <property name="homepage" value="http://one2team.ru/projects/Codeine"/>
     <property name="maintainer" value="Johnny Funt"/>
-    <property name="destination-source" value="/usr/share/php/"/>
+    <property name="destination-source" value="/usr/share/php/Codeine"/>
 
-    <target name="phase1" depends="properties, folders"></target>
+    <target name="phase1" depends="properties"></target>
 
     <!-- Source code checks -->
     <target name="phase2" depends="phase1"></target>
