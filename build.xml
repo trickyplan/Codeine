@@ -9,6 +9,7 @@
     <property name="homepage" value="http://one2team.ru/projects/Codeine"/>
     <property name="maintainer" value="Johnny Funt"/>
     <property name="destination-source" value="/usr/share/php/Codeine"/>
+    <property name="depends" value="php5-fpm (>=5.4.10), php5-cli (>=5.4.10)"/>
 
     <target name="phase1" depends="properties"></target>
 
