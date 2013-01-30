@@ -22,7 +22,7 @@
     <target name="phase4" depends="phase3"></target>
 
     <!-- Packaging -->
-    <target name="phase5" depends="phase4, debian"></target>
+    <target name="phase5" depends="phase4, debian.make"></target>
 
     <target name="final" depends="phase5"></target>
 
