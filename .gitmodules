@@ -1,0 +1,3 @@
+[submodule "build"]
+	path = build
+	url = git@src.one2team.ru:one2team/build.git

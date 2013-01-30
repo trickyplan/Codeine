@@ -13,10 +13,12 @@
         $Call['Description'] = 'TODO';
         $Call['Keywords'] = array ('TODO');
 
-        $Call['Output']['Content'] = array (array (
-                                                'Type'  => 'Template',
-                                                'Scope' => 'Errors',
-                                                'ID' => $Call['Code']
-                                            ));
+        $Call['Layouts'] = [['Scope' => 'Default', 'ID' => 'Main'], ['Scope' => 'Project', 'ID' => 'Zone']];
+
+        $Call['Output']['Content'] = [[
+                                        'Type'  => 'Template',
+                                        'Scope' => 'Errors',
+                                        'ID' => $Call['Code']
+                                     ]];
         return $Call;
      });

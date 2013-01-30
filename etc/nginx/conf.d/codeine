@@ -1,6 +1,8 @@
     charset utf-8;
 	index  index.php;
 
+    error_page 500 501 502 503 504 /down.html;
+
 	location / {
 		try_files $uri $uri/ /index.php?$uri&$args;
 	}
