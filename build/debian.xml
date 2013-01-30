@@ -1,0 +1,92 @@
+<project name="debian" default="make">
+    <taskdef name="phpdeb" classname="phing.tasks.my.PHPDebTask"/>
+
+    <!-- Stubs -->
+    <property name="description" value=""/>
+    <property name="homepage" value=""/>
+    <property name="maintainer" value=""/>
+
+    <!-- Source directories -->
+    <property name="source-code" value="src"/>
+    <property name="source-docs" value="docs"/>
+    <property name="source-etc" value="etc"/>
+
+    <!-- Build directories -->
+    <property name="distribution" value="distribution"/>
+    <property name="key" value="" />
+    <property name="destination-etc" value="etc"/>
+    <property name="destination-source" value="var/www" />
+    <property name="destination-documents" value="usr/share/doc"/>
+
+    <target name="control">
+        <mkdir dir="${package}/DEBIAN"/>
+        <copy todir="${package}/DEBIAN">
+            <fileset dir="debian">
+                <include name="*/**"/>
+            </fileset>
+        </copy>
+        <phpdeb name="${phing.project.name}"
+                version="${release}"
+                maintainer="${maintainer}"
+                description="${description}"
+                depends="${depends}"
+                homepage="${homepage}"
+                provides="${phing.project.name}"
+                private="${key}"
+                filename="${package}/DEBIAN/control"
+                />
+    </target>
+
+    <target name="source">
+        <mkdir dir="${package}/${destination-source}"/>
+        <copy todir="${package}/${destination-source}">
+            <fileset dir="${source-code}">
+                <include name="*/**"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="etc">
+        <mkdir dir="${package}/${destination-etc}"/>
+        <copy todir="${package}/${destination-etc}/">
+            <fileset dir="${source-etc}">
+                <include name="*/**"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="docs">
+        <mkdir dir="${package}/${destination-documents}/${phing.project.name}/"/>
+        <copy todir="${package}/${destination-documents}/${phing.project.name}/">
+            <fileset dir="${source-docs}">
+                <include name="*/**"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="version">
+        <echo file="${package}/${destination-source}/Options/Version.json" append="false">
+{
+    "Codeine":
+    {
+        "Major": "${version}",
+        "Minor": "${env.build}"
+    }
+}
+        </echo>
+    </target>
+
+    <target name="usr" depends="folders">
+        <mkdir dir="${package}/usr/bin"/>
+        <copy todir="${package}/usr/bin">
+            <fileset dir="usr/bin">
+                <include name="*/**"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="make" depends="control, etc, source, usr, version, docs">
+        <exec command="fakeroot dpkg --build '${package}' ${distribution}/ " logoutput="true"/>
+        <delete dir="${package}" includeemptydirs="true" failonerror="true" />
+    </target>
+</project>

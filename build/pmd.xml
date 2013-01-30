@@ -1,0 +1,16 @@
+<project name="pmd" default="check">
+
+    <!-- Default values -->
+    <property name="reports" value="reports"/>
+    <property name="source-code" value="src"/>
+
+    <target name="check">
+        <phpmd>
+            <fileset dir="${source-code}">
+                <include name="**/*.php"/>
+            </fileset>
+            <formatter type="xml" outfile="${reports}/pmd.xml"/>
+        </phpmd>
+    </target>
+
+</project>

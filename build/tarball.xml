@@ -1,0 +1,14 @@
+<project name="tarball" default="make">
+
+    <!-- Default values -->
+    <property name="distribution" value="distribution"/>
+    <property name="source-code" value="src"/>
+
+    <target name="make">
+        <tar destFile="${distribution}/${package}.tar.gz" compression="gzip">
+            <fileset dir="${source-code}">
+                <include name="*"/>
+            </fileset>
+        </tar>
+    </target>
+</project>
