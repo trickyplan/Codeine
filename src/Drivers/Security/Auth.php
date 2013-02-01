@@ -84,8 +84,6 @@
 
         F::Run($Call['Source'], 'Write', $Call);
 
-        setcookie('nocache', true);
-
         $Call = F::Hook('afterRegister', $Call);
 
         return $Call['Session'];
@@ -110,6 +108,8 @@
     setFn('Attach', function ($Call)
     {
         $Call = F::Run(null, 'Audit', $Call, ['Auto Register' => true]);
+
+        setcookie('nocache', true);
 
         if (isset($Call['Session']['User']['ID']))
         {
