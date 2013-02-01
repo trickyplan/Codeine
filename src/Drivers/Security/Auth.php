@@ -43,7 +43,6 @@
             if (isset($Call['Session']['User']) && !empty($Call['Session']['User']) && $Call['Session']['User'] !== -1)
             {
                 $Call['Headers']['Cache-Control:'] = 'private';
-                setcookie('nocache', true);
 
                 if ($Call['Session']['Expire'] < time())
                 {
@@ -85,6 +84,8 @@
 
         F::Run($Call['Source'], 'Write', $Call);
 
+        setcookie('nocache', true);
+
         $Call = F::Hook('afterRegister', $Call);
 
         return $Call['Session'];
@@ -100,6 +101,7 @@
                              'Where' => $Call['SID']
                         ));
 
+        setcookie('nocache', false);
         F::Log('Session annulated', LOG_INFO);
 
         return $Call;
