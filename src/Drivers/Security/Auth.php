@@ -27,7 +27,7 @@
 
             if ($Call['Session'] == null)
                 {
-                    if (!isset($Call['No Auto Register']) || !$Call['No Auto Register'])
+                    if (isset($Call['Auto Register']) && $Call['Auto Register'])
                         $Call['Session'] = F::Run(null, 'Register', $Call);
                 }
 
@@ -42,6 +42,8 @@
 
             if (isset($Call['Session']['User']) && !empty($Call['Session']['User']) && $Call['Session']['User'] !== -1)
             {
+                $Call['Headers']['Cache-Control:'] = 'private';
+                setcookie('nocache', true);
 
                 if ($Call['Session']['Expire'] < time())
                 {
@@ -105,7 +107,7 @@
 
     setFn('Attach', function ($Call)
     {
-        $Call = F::Run(null, 'Audit', $Call);
+        $Call = F::Run(null, 'Audit', $Call, ['Auto Register' => true]);
 
         if (isset($Call['Session']['User']['ID']))
         {
