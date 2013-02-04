@@ -103,7 +103,8 @@
 
                 $Call['Output'] = str_replace($Parsed[0], '', $Call['Output']);
 
-            $Call['Output'] = str_replace('<place>CSS</place>', '<link href="'.$Call['CSS Host'].'/cache/css/'.$CSSHash.'.css" rel="stylesheet" />',
+            $Call['Output'] = str_replace('<place>CSS</place>', '<link href="'.$Call['Proto'].$Call['CSS Host'].'/cache/css/'.$CSSHash.'.css" rel="stylesheet"
+            />',
                 $Call['Output']);
         }
         else

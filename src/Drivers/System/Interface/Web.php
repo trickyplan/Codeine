@@ -26,10 +26,16 @@
 
             $Call['Cookie'] = $_COOKIE;
 
-            if ($_SERVER['HTTPS'])
+            if (isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']))
+            {
+                $Call['Proto'] = 'https://';
                 $Call['Host'] = 'https://'.$_SERVER['HTTP_HOST'];
+            }
             else
+            {
+                $Call['Proto'] = 'http://';
                 $Call['Host'] = 'http://'.$_SERVER['HTTP_HOST'];
+            }
 
             $Call['Run'] = urldecode($_SERVER['REQUEST_URI']);
             $Call['URI'] = urldecode($_SERVER['REQUEST_URI']);
