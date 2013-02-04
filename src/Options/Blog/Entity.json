@@ -117,7 +117,7 @@
                 "Method": "Redirect",
                 "Call":
                 {
-                    "Location": "/blog/$Data.Slug"
+                    "Location": "/control/Blog/Show/$Data.ID"
                 }
             }
         },

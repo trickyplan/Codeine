@@ -40,6 +40,9 @@
             {
                 $Options = ['ID' => $Bundle, 'Group' => $Group];
 
+                if (isset($Call['Icons'][$Bundle]))
+                    $Options['Icon'] = $Call['Icons'][$Bundle];
+
                 if (($BundleOptions = F::Run($Bundle.'.Control', 'Menu', ['Bundle' => $Bundle])) !== null)
                     $Options = F::Merge($Options, $BundleOptions);
 
