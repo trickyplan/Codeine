@@ -1,0 +1,11 @@
+{
+    "Storages":
+    {
+        "Primary":
+        {
+            "Driver":"IO.Storage.Mongo",
+            "Server":"localhost",
+            "Database":"database"
+        }
+    }
+}

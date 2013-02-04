@@ -18,6 +18,8 @@
 	{
 	    include fastcgi_params;
 
+        fastcgi_keep_conn on;
+
         fastcgi_param  Environment $Environment;
 		fastcgi_pass   127.0.0.1:9000;
 		fastcgi_index  index.php;
