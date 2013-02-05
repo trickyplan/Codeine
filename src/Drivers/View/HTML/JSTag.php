@@ -83,13 +83,19 @@
 
                 $Call['Output'] = str_replace($Parsed[0], '', $Call['Output']);
 
+            if (isset($Call['JS Host']) && !empty($Call['JS Host']))
+                $Source = $Call['Proto'].$Call['JS Host'].'/cache/js/'.$JSHash.'.js';
+            else
+                $Source = '/cache/js/'.$JSHash.'.js';
+
             if (isset($Call['Async']))
                 $Call['Output'] = str_replace('<place>JS</place>',
-                '<script type="text/javascript"> var script = document.createElement(\'script\'); script.src = \''.$Call['Proto'].$Call['JS Host'].'/cache/js/'.$JSHash.'.js\';                    document.getElementsByTagName(\'head\')[0].appendChild(script);</script>', $Call['Output']);
+                '<script type="text/javascript"> var script = document.createElement(\'script\'); script.src = \''.$Source.'\';
+                        document.getElementsByTagName(\'head\')[0].appendChild(script);</script>', $Call['Output']);
 
             else
                 $Call['Output'] = str_replace('<place>JS</place>',
-                    '<script src="'.$Call['Proto'].$Call['JS Host'].'/cache/js/' . $JSHash . '.js" type="text/javascript"></script>', $Call['Output']);
+                    '<script src="'.$Source.'" type="text/javascript"></script>', $Call['Output']);
         }
 
         return $Call;
