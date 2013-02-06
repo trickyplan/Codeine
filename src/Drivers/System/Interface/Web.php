@@ -26,7 +26,8 @@
 
             $Call['Cookie'] = $_COOKIE;
 
-            if ((isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS'])) or ($_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https'))
+            if ((isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS'])) or
+                (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&$_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https'))
             {
                 $Call['Proto'] = 'https://';
                 $Call['Host'] = 'https://'.$_SERVER['HTTP_HOST'];

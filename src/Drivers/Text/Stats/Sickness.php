@@ -20,11 +20,15 @@
         $Words = F::Run(null, 'Words', $Call);
 
         $Overall = count($Words);
-        $Repeated = 0;
+        if ($Overall>0)
+
+        {$Repeated = 0;
 
         foreach ($Words as $Word => $Count)
             if ($Count > 1)
                 $Repeated+=$Count-1;
 
-        return round($Repeated/$Overall*100);
+        return round($Repeated/$Overall*100);}
+        else
+            return 0;
     });
