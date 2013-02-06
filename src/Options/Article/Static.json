@@ -1,0 +1,36 @@
+{
+    "Links":
+    {
+        "/articles":
+        {
+            "Service":"Entity.List",
+            "Method":"Do",
+            "Call":
+            {
+                "Entity": "Article",
+                "PageURL": "/articles/page/",
+                "Sort":
+                {
+                    "Created": "DESC"
+                }
+            },
+            "Zone": ["Project"]
+        },
+        "/articles.rss":
+        {
+            "Service":"Entity.List",
+            "Method":"Do",
+            "Call":
+            {
+                "Renderer": "View.RSS",
+                "Title": "Статьи MedGreat.com",
+                "Description": "Интересное о медицине",
+                "Entity": "Article",
+                "Sort":
+                {
+                    "Created": "DESC"
+                }
+            }
+        }
+    }
+}

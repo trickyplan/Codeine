@@ -1,0 +1,118 @@
+{
+    "Mixins": ["Mixins.UGC", "Mixins.SEO", "Mixins.Text"],
+    "Storage": "Primary",
+    "EPP": 20,
+    "Nodes":
+    {
+        "ID":
+        {
+            "Hooks":
+            {
+                "beforeEntityCreate":
+                {
+                    "Service": "Security.UID.Integer",
+                    "Method": "Get"
+                }
+            }
+        },
+        "Title":
+        {
+            "Type": "Literal.String",
+            "Required": true,
+            "Filter":
+            {
+                "Beauty":
+                {
+                    "Service": "Text.Beautifier",
+                    "Method": "Process"
+                }
+            },
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        },
+        "Text":
+        {
+            "Type": "Literal.HTML",
+            "Required": true,
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.WYSIWYG"
+                }
+            }
+        },
+        "Slug":
+        {
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            },
+            "Hooks":
+            {
+                "beforeEntityWrite":
+                {
+                    "Service": "SEO.Slug",
+                    "Method": "Generate",
+                    "Call":
+                    {
+                        "Key": "Title",
+                        "Delimiter": "-",
+                        "Transliteration":
+                        {
+                            "Service":"Text.Transform.Transliterate.Passport",
+                            "Method": "2English"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "Hooks":
+    {
+        "afterCreatePost":
+        {
+            "Redirect":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "Redirect",
+                "Call":
+                {
+                    "Location": "/control/$Entity"
+                }
+            }
+        },
+        "afterUpdatePost":
+        {
+            "Redirect":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "Redirect",
+                "Call":
+                {
+                    "Location": "/control/$Entity"
+                }
+            }
+        },
+        "afterDeletePost":
+        {
+            "Redirect":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "Redirect",
+                "Call":
+                {
+                    "Location": "/control/$Entity"
+                }
+            }
+        }
+    }
+}

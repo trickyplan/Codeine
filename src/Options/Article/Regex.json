@@ -1,0 +1,75 @@
+{
+    "Regex":
+    {
+        "Страница статей":
+        {
+            "Zone": ["Project"],
+            "Match":"@/articles/page/(.*)@",
+            "Service":"Entity.List",
+            "Method":"Do",
+            "Call":
+            {
+                "Entity": "Article",
+                "Page":  "$1",
+                "Sort":
+                {
+                    "Created": "DESC"
+                }
+            }
+        },
+        "Категория статей":
+        {
+            "Zone": ["Project"],
+            "Match":"@/articles/category/(.*)@",
+            "Service":"Entity.List",
+            "Method":"Do",
+            "Weight": 30,
+            "Call":
+            {
+                "Entity": "Article",
+                "Where":
+                {
+                    "Category":  "$1"
+                }
+            }
+        },
+        "RSS категории статей":
+        {
+            "Zone": ["Project"],
+            "Match":"@/articles/category/(.*).rss@",
+            "Weight": 44,
+            "Service":"Entity.List",
+            "Method":"Do",
+            "Call":
+            {
+                "Renderer": "View.RSS",
+                "Title": "Статьи",
+                "Description": "Интересное о",
+                "Entity": "Article",
+                "Where":
+                {
+                    "Category": "$1"
+                },
+                "Sort":
+                {
+                    "Created": "DESC"
+                }
+            }
+        },
+        "Статья":
+        {
+            "Zone": ["Project"],
+            "Match":"@/article/(.*)@",
+            "Service":"Entity.Show.Static",
+            "Method":"Do",
+            "Call":
+            {
+                "Entity": "Article",
+                "Where":
+                {
+                    "Slug":  "$1"
+                }
+            }
+        }
+    }
+}

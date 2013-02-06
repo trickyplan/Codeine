@@ -1,0 +1,35 @@
+{
+    "Links":
+    {
+        "/blog":
+        {
+            "Service":"Entity.List",
+            "Method":"Do",
+            "Call":{
+                "Entity": "Blog",
+                "PageURL": "/blog/page/",
+                "Sort":
+                {
+                    "Created": "DESC"
+                }
+            },
+            "Zone": ["User"]
+        },
+        "/blog.rss":
+        {
+            "Service":"Entity.List",
+            "Method":"Do",
+            "Call":
+            {
+                "Renderer": "View.RSS",
+                "Title": "Блог PneClickFinance",
+                "Description": "Интересное о финансах",
+                "Entity": "Blog",
+                "Sort":
+                {
+                    "Created": "DESC"
+                }
+            }
+        }
+    }
+}

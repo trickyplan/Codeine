@@ -1,0 +1,75 @@
+{
+    "Regex":
+    {
+        "Страница блога":
+        {
+            "Match":"@/blog/page/(.*)@",
+            "Service":"Entity.List",
+            "Method":"Do",
+            "Call":
+            {
+                "Entity": "Blog",
+                "Page":  "$1",
+                "Sort":
+                {
+                    "Created": "DESC"
+                }
+            },
+            "Zone": ["User"]
+        },
+        "Категория блога":
+        {
+            "Match":"@/blog/category/(.*)@",
+            "Service":"Entity.List",
+            "Method":"Do",
+            "Weight": 30,
+            "Call":
+            {
+                "Entity": "Blog",
+                "Where":
+                {
+                    "Category":  "$1"
+                }
+            },
+            "Zone": ["User"]
+        },
+        "RSS категории блога":
+        {
+            "Match":"@/blog/category/(.*).rss@",
+            "Weight": 44,
+            "Service":"Entity.List",
+            "Method":"Do",
+            "Call":
+            {
+                "Renderer": "View.RSS",
+                "Title": "Блог ONE2TEAM",
+                "Description": "Интересное о web-разработке",
+                "Entity": "Blog",
+                "Where":
+                {
+                    "Category": "$1"
+                },
+                "Sort":
+                {
+                    "Created": "DESC"
+                }
+            },
+            "Zone": ["Project"]
+        },
+        "Блог":
+        {
+            "Match":"@/blog/(.*)@",
+            "Service":"Entity.Show.Static",
+            "Method":"Do",
+            "Call":
+            {
+                "Entity": "Blog",
+                "Where":
+                {
+                    "Slug":  "$1"
+                }
+            },
+            "Zone": ["User"]
+        }
+    }
+}
