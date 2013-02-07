@@ -31,9 +31,7 @@
         }
 
         if (!isset($Call['Rule']))
-        {
             F::Log('No one rule applied', LOG_WARNING);
-        }
 
         F::Log('Final decision:'. ($Call['Decision']? 'Allow': 'Deny'), LOG_INFO);
         // unset($Call['Rules']);?
