@@ -47,7 +47,7 @@
                     $XML->endElement(); // description
 
                     $XML->startElement('link');
-                        $XML->text('http://'.$Call['Host'].'/'.strtolower($Element['Scope']).'/'.$Element['Data']['Slug']); // FIXME It's shit!
+                        $XML->text($Call['Host'].'/'.strtolower($Element['Scope']).'/'.$Element['Data']['Slug']); // FIXME It's shit!
                     $XML->endElement(); // title
 
                 $XML->endElement(); // item

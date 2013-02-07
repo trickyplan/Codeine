@@ -12,7 +12,9 @@
         $LastNews = simplexml_load_string(file_get_contents('http://one2team.ru/blog/category/Codeine.rss'));
 
         foreach ($LastNews->channel->item as $item)
+        {
             $Table[] = ['<a href="'.$item->link.'">'.$item->title.'</a>'];
+        }
 
         $Call['Output']['Content'][] =
         [
