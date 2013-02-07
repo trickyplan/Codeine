@@ -6,6 +6,7 @@
     {
         "ID":
         {
+            "Type": "Numeral.Integer",
             "Hooks":
             {
                 "beforeEntityCreate":
