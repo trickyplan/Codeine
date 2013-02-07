@@ -11,18 +11,13 @@
     {
         foreach ($Call['Rules'] as $Name => $Rule)
         {
-            if (isset($Rule['Debug']))
-            {
-                d(__FILE__, __LINE__, F::Diff($Rule['Run'], $Call));
-            }
-
             if ($Rule['Weight'] >= $Call['Weight'])
             {
                 if (isset($Rule['Run']) && (F::Diff($Rule['Run'], $Call) === null))
                 {
                     if (!isset($Rule['Expression']) || F::Live($Rule['Expression'], $Call))
                     {
-                        F::Log('Rule «'.$Name.'» applied', LOG_INFO);
+                        F::Log('Rule '.$Name.' applied', LOG_INFO);
                         $Call['Decision'] = $Rule['Decision'];
                         $Call['Weight'] = $Rule['Weight'];
                         $Call['Rule'] = $Rule;
@@ -33,6 +28,11 @@
                     if (($Call['Service'] == $Rule['Run']['Service']) && ($Call['Method'] == $Rule['Run']['Method']))
                         $Call['Message'] = $Rule['Message'];
             }
+        }
+
+        if (!isset($Call['Rule']))
+        {
+            F::Log('No one rule applied', LOG_WARNING);
         }
 
         F::Log('Final decision:'. ($Call['Decision']? 'Allow': 'Deny'), LOG_INFO);

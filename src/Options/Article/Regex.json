@@ -62,6 +62,7 @@
             "Match":"@/article/(.*)@",
             "Service":"Entity.Show.Static",
             "Method":"Do",
+            "Weight": 40,
             "Call":
             {
                 "Entity": "Article",
