@@ -132,7 +132,7 @@
             "Weight": 50,
             "Run":
             {
-                "Service": "Page.Show",
+                "Service": "Entity.Show.Static",
                 "Method": "Do",
                 "Call":
                 {
