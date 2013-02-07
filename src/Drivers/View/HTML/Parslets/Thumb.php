@@ -21,7 +21,7 @@
 
             if (is_string($Thumb['URL']))
             {
-                if (isset($Thumb['Remote'])  && preg_match('/^http.*/', $Thumb['Remote']))
+                if (isset($Thumb['Remote']) && !empty($Thumb['Remote']) && preg_match('/^http.*/', $Thumb['Remote']))
                     $Filename = $Thumb['Remote'];
                 else
                 {

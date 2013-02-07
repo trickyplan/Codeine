@@ -40,7 +40,7 @@
                              ['Heartbeat' => F::Run('System.Time', 'Get')]
                     ));
 
-            if (isset($Call['Session']['User']) && !empty($Call['Session']['User']) && $Call['Session']['User'] !== -1)
+            if (isset($Call['Session']['User']) && !empty($Call['Session']['User']) && $Call['Session']['User'] !== null)
             {
                 $Call['Headers']['Cache-Control:'] = 'private';
 
@@ -51,7 +51,7 @@
                 }
                 else
                 {
-                    if (isset($Call['Session']['Secondary']) &&  -1 !== $Call['Session']['Secondary'])
+                    if (isset($Call['Session']['Secondary']) && null != $Call['Session']['Secondary'])
                         $User = F::Run('Entity', 'Read',
                             array(
                                  'Entity' => 'User',
@@ -144,14 +144,14 @@
     {
         $Call = F::Run(null, 'Audit', $Call);
 
-        if (isset($Call['Session']['Secondary']) && !empty($Call['Session']['Secondary']) && $Call['Session']['Secondary'] !== -1)
+        if (isset($Call['Session']['Secondary']) && !empty($Call['Session']['Secondary']) && $Call['Session']['Secondary'] !== null)
             $Call['Session'] = F::Run('Entity', 'Update',
              array(
                   'Entity' => 'Session',
                   'Where' => $Call['SID'],
                   'Data' =>
                   [
-                      'Secondary' => -1
+                      'Secondary' => null
                   ]
              ));
         else
@@ -161,7 +161,7 @@
                   'Where' => $Call['SID'],
                   'Data' =>
                   array(
-                      'User' => -1
+                      'User' => null
                   )
              ));
 
