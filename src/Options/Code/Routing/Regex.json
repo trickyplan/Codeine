@@ -71,7 +71,7 @@
         {
             "Match": "@/(.*)@",
             "Weight": -5,
-            "Service": "Entity.Show.Static",
+            "Service": "Page.Show",
             "Method": "Do",
             "Zone": ["Project"],
             "Call":

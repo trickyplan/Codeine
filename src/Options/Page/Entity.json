@@ -91,6 +91,17 @@
                     }
                 }
             }
+        },
+        "Redirect":
+        {
+            "Type": "Literal.String",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
         }
     },
     "Hooks":
