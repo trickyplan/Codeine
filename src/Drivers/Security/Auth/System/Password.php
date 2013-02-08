@@ -57,13 +57,18 @@
                                           'Salt' => isset($Call['User']['Salt'])? $Call['User']['Salt']: ''
                                      ]);
 
+
         if ($Call['User']['Password'] != $Challenge)
+        {
             $Call['Output']['Content'][]
-                        = array(
-                        'Type' => 'Template',
-                        'Scope' => 'User',
-                        'ID' => 'Incorrect'
-                    );
+                = array(
+                'Type' => 'Template',
+                'Scope' => 'User',
+                'ID' => 'Incorrect'
+            );
+
+            unset($Call['User']);
+        }
 
         return $Call;
     });
