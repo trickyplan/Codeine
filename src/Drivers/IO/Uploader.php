@@ -15,7 +15,7 @@
         $Call['Name'] = F::Live($Call['Naming'], $Call);
 
         if (move_uploaded_file($_FILES['file']['tmp_name'], Root.$Call['Uploader']['Directory'].'/misc/'.$Call['Name']))
-            $Call['Output']['filelink'] = '/uploads/misc/'.$Call['Name']; // FIXME Scope support
+            $Call['Output']['Content']['filelink'] = '/uploads/misc/'.$Call['Name']; // FIXME Scope support
 
         return $Call;
     });
