@@ -121,6 +121,5 @@
         $Call['Headers']['HTTP/1.1'] = ' 301 Moved Permanently';
         $Call['Headers']['Location:'] = $URL;
 
-
         return $Call;
     });

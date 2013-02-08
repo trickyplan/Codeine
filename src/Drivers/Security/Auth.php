@@ -99,7 +99,7 @@
                              'Where' => $Call['SID']
                         ));
 
-        setcookie('nocache', false);
+        setcookie('nocache', null, 0 , '/');
         F::Log('Session annulated', LOG_INFO);
 
         return $Call;
