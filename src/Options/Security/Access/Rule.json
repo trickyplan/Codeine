@@ -78,7 +78,7 @@
             "Weight": 75,
             "Run":
             {
-                "Service": "User.Annulate",
+                "Service": "Session.Annulate",
                 "Method": "Do"
             }
         },

@@ -24,7 +24,13 @@
         "/logout":
         {
             "Zone": ["Project"],
-            "Service":"User.Annulate",
+            "Service":"Session.Annulate",
+            "Method":"Do"
+        },
+        "/exit":
+        {
+            "Zone": ["Project"],
+            "Service":"Session.Annulate",
             "Method":"Do"
         },
         "/forgot":

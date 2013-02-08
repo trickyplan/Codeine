@@ -147,14 +147,15 @@
     {
         $Call = F::Run(null, 'Audit', $Call);
 
-        if (isset($Call['Session']['Secondary']) && !empty($Call['Session']['Secondary']) && $Call['Session']['Secondary'] !== null)
+        if (isset($Call['Session']['Secondary']) && !empty($Call['Session']['Secondary']) && $Call['Session']['Secondary'] !== null &&
+            $Call['Session']['Secondary'] != -1)
             $Call['Session'] = F::Run('Entity', 'Update',
              array(
                   'Entity' => 'Session',
                   'Where' => $Call['SID'],
                   'Data' =>
                   [
-                      'Secondary' => null
+                      'Secondary' => -1
                   ]
              ));
         else
@@ -164,7 +165,7 @@
                   'Where' => $Call['SID'],
                   'Data' =>
                   array(
-                      'User' => null
+                      'User' => -1
                   )
              ));
 
