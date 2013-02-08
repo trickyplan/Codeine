@@ -40,7 +40,7 @@
                              ['Heartbeat' => F::Run('System.Time', 'Get')]
                     ));
 
-            if (isset($Call['Session']['User']) && !empty($Call['Session']['User']) && $Call['Session']['User'] !== null && $Call['Session']['User'] != -1)
+            if (isset($Call['Session']['User']) && !empty($Call['Session']['User']) && $Call['Session']['User'] != -1)
             {
                 $Call['Headers']['Cache-Control:'] = 'private';
 
@@ -147,8 +147,7 @@
     {
         $Call = F::Run(null, 'Audit', $Call);
 
-        if (isset($Call['Session']['Secondary']) && !empty($Call['Session']['Secondary']) && $Call['Session']['Secondary'] !== null &&
-            $Call['Session']['Secondary'] != -1)
+        if (isset($Call['Session']['Secondary']) && !empty($Call['Session']['Secondary']) && $Call['Session']['Secondary'] != -1)
             $Call['Session'] = F::Run('Entity', 'Update',
              array(
                   'Entity' => 'Session',
@@ -196,7 +195,7 @@
                   'Entity' => 'Session',
                   'Where' => $Call['SID'],
                   'Data' => $Call['Data']
-             ]);
+             ])['Current'];
     });
 
     setFn('Read', function ($Call)

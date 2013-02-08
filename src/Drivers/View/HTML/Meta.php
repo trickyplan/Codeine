@@ -15,13 +15,11 @@
 
             $Page = F::Run(null, 'Page', $Call);
 
-            if (empty($Page))
-            {
-                $Call = F::Live($Call['Meta Sources']['Title'], $Call);
-                $Call = F::Live($Call['Meta Sources']['Keywords'], $Call);
-                $Call = F::Live($Call['Meta Sources']['Description'], $Call);
-            }
-            else
+            $Call = F::Live($Call['Meta Sources']['Title'], $Call);
+            $Call = F::Live($Call['Meta Sources']['Keywords'], $Call);
+            $Call = F::Live($Call['Meta Sources']['Description'], $Call);
+
+            if (!empty($Page))
                 $Call = F::Merge($Call, $Page);
 
             if ($Call['Reverse'])

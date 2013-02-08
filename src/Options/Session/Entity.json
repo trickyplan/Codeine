@@ -24,7 +24,7 @@
         },
         "User":
         {
-            "Nullable": true,
+            "Default": -1,
             "Type": "Numeral.Integer"
         },
         "Secondary":
