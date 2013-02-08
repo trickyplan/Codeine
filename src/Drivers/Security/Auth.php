@@ -40,7 +40,7 @@
                              ['Heartbeat' => F::Run('System.Time', 'Get')]
                     ));
 
-            if (isset($Call['Session']['User']) && !empty($Call['Session']['User']) && $Call['Session']['User'] !== null)
+            if (isset($Call['Session']['User']) && !empty($Call['Session']['User']) && $Call['Session']['User'] !== null && $Call['Session']['User'] != -1)
             {
                 $Call['Headers']['Cache-Control:'] = 'private';
 
@@ -109,7 +109,10 @@
     {
         $Call = F::Run(null, 'Audit', $Call, ['Auto Register' => true]);
 
-        setcookie('nocache', true);
+        setcookie('nocache', true); // FIXME
+
+        if (!isset($Call['TTL']) or ($Call['TTL'] == 0))
+            $Call['TTL'] = 86400;
 
         if (isset($Call['Session']['User']['ID']))
         {

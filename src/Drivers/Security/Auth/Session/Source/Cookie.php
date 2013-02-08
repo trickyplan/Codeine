@@ -17,15 +17,15 @@
 
     setFn ('Write', function ($Call)
     {
-        setcookie ('SID', $Call['Session']['ID'], time()+84600*180, '/', null, $Call['Secure'], $Call['HTTP Only']); // OPTME!
         $_COOKIE['SID'] = $Call['Session']['ID'];
+        setcookie ('SID', $Call['Session']['ID'], time()+84600*180, '/', null, $Call['Secure'], $Call['HTTP Only']); // OPTME!
         return $Call;
     });
 
 
     setFn('Annulate', function ($Call)
     {
-        if (isset($_COOKIE['SID']) && !empty($_COOKIE['SID']))
+        if (isset($_COOKIE['SID']) && empty($_COOKIE['SID']))
             setcookie ('SID', ''); // OPTME!
 
         return $Call;
