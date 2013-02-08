@@ -12,6 +12,7 @@
         if (isset($Call['NoPage']) && ($Call['NoPage'] == true))
             return $Call;
 
+
         if (!isset($Call['Count']))
         {
             if (!isset($Call['Page']))

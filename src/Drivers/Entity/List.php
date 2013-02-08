@@ -11,15 +11,13 @@
     {
         $Call = F::Merge($Call, F::loadOptions($Call['Entity'].'.Entity')); // FIXME
 
+        if (isset($Call['Where']))
+            $Call['Where'] = F::Live($Call['Where']); // FIXME
+
         $Call = F::Hook('beforeList', $Call);
 
         if (!isset($Call['Elements']))
-        {
-            if (isset($Call['Where']))
-                $Call['Where'] = F::Live($Call['Where']); // FIXME
-
             $Call['Elements'] = F::Run('Entity', 'Read', $Call);
-        }
 
         $Call['Scope'] = isset($Call['Scope'])? $Call['Entity'].'/'.$Call['Scope']: $Call['Scope'] = $Call['Entity'];
 
