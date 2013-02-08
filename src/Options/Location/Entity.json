@@ -1,0 +1,128 @@
+{
+    "Storage": "Primary",
+    "EPP": 10,
+    "Nodes":
+    {
+        "ID":
+        {
+            "Type": "Numeral.Integer",
+            "Hooks":
+            {
+                "beforeEntityCreate":
+                {
+                    "Service": "IO",
+                    "Method": "Execute",
+                    "Call":
+                    {
+                        "Execute": "ID",
+                        "Scope": "Location",
+                        "Increment": 1
+                    }
+                }
+            }
+        },
+        "Title":
+        {
+            "Required": true,
+            "Type": "Literal.String",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        },
+        "Lat":
+        {
+            "Required": true,
+            "Type": "Numeral.Float",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        },
+        "Long":
+        {
+            "Required": true,
+            "Type": "Numeral.Float",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        },
+        "Slug":
+        {
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            },
+            "Hooks":
+            {
+                "beforeEntityWrite":
+                {
+                    "Service": "SEO.Slug",
+                    "Method": "Generate",
+                    "Call":
+                    {
+                        "Key": "Title",
+                        "Delimiter": "-",
+                        "Transliteration":
+                        {
+                            "Service":"Text.Transform.Transliterate.Passport",
+                            "Method": "2English"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "Hooks":
+    {
+        "afterCreatePost":
+        {
+            "Redirect":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "Redirect",
+                "Call":
+                {
+                    "Location": "/control/$Entity"
+                }
+            }
+        },
+        "afterUpdatePost":
+        {
+            "Redirect":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "Redirect",
+                "Call":
+                {
+                    "Location": "/control/$Entity"
+                }
+            }
+        },
+        "afterDeletePost":
+        {
+            "Redirect":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "Redirect",
+                "Call":
+                {
+                    "Location": "/control/$Entity"
+                }
+            }
+        }
+    }
+}

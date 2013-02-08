@@ -1,0 +1,26 @@
+{
+    "Nodes":
+    {
+        "Location":
+        {
+            "Type": "Complex.Many2One",
+            "Options":
+            {
+                "Service": "Entity.List",
+                "Method": "RAW",
+                "Call":
+                {
+                    "Entity": "Location",
+                    "Key": "Title"
+                }
+            },
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Menu"
+                }
+            }
+        }
+    }
+}

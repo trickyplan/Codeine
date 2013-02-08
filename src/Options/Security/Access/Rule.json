@@ -1,6 +1,6 @@
 {
     "Weight": 0,
-    "Decision": true,
+    "Decision": false,
     "Rules":
     {
         "Главная страница доступна всем":

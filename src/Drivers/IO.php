@@ -12,7 +12,10 @@
         $StorageID = $Call['Storage'];
 
         if (!isset($Call['Storage']))
-            die ('Null Storage');
+        {
+            d(__FILE__, __LINE__, $Call['Run']);
+            return trigger_error ('Null Storage');
+        }
 
         if (isset($Call['Storages'][$StorageID]))
             $Call = F::Merge($Call, $Call['Storages'][$StorageID]);
