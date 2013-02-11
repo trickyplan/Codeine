@@ -57,6 +57,12 @@
                            ]
                ]);
 
-        $Call = F::Run('System.Interface.Web', 'Redirect', $Call, ['Location' => '/control/User']);
+        $Call['Output']['Content'][] =
+            [
+                'Type' => 'Block',
+                'Class' => 'alert alert-success',
+                'Value' => 'OK'
+            ];
+
         return $Call;
     });

@@ -51,3 +51,20 @@
 
         return $Call;
     });
+
+    setFn('Check', function ($Call)
+    {
+        return F::Run('Entity.Check', 'Do', $Call, ['Entity' => $Call['Bundle']]);
+    });
+
+    setFn('Accept', function ($Call)
+    {
+        $Call['Layouts'][] = ['Scope' => 'Entity', 'ID' => 'Accept'];
+        return F::Run('Entity.Accept', 'Do', $Call, ['Entity' => $Call['Bundle']]);
+    });
+
+    setFn('Reject', function ($Call)
+    {
+        $Call['Layouts'][] = ['Scope' => 'Entity', 'ID' => 'Reject'];
+        return F::Run('Entity.Reject', 'Do', $Call, ['Entity' => $Call['Bundle']]);
+    });

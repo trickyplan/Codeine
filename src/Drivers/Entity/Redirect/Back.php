@@ -11,6 +11,7 @@
     {
         if(!isset($Call['BackURL']))
             $Call['BackURL'] = $_SERVER['HTTP_REFERER'];
+
         return $Call;
     });
 

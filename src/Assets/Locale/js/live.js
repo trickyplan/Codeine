@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    $('.nl').live('click', function()
+    $('.nl').on('click', function()
     {
         var translation = prompt('Перевести как');
 

@@ -1,0 +1,69 @@
+{
+    "Nodes":
+    {
+        "Moderated":
+        {
+            "Type": "Numeral.Integer",
+            "Hooks":
+            {
+                "beforeEntityCreate":
+                {
+                    "Service": "System.Time",
+                    "Method": "Get"
+                }
+            }
+        },
+        "Moderator":
+        {
+            "Type": "Numeral.Integer",
+            "Hooks":
+            {
+                "beforeEntityCreate":
+                {
+                    "Service": "Security.Auth",
+                    "Method": "Username"
+                }
+            }
+        },
+        "Status":
+        {
+            "Type": "Ternary",
+            "Default": 0
+        }
+    },
+    "Hooks":
+    {
+        "beforeAcceptDo":
+        {
+            "Store URL":
+            {
+                "Service": "Entity.Redirect.Back",
+                "Method": "Store"
+            }
+        },
+        "afterAcceptPost":
+        {
+            "Restore URL":
+            {
+                "Service": "Entity.Redirect.Back",
+                "Method": "Redirect"
+            }
+        },
+        "beforeRejectDo":
+        {
+            "Store URL":
+            {
+                "Service": "Entity.Redirect.Back",
+                "Method": "Store"
+            }
+        },
+        "afterRejectPost":
+        {
+            "Restore URL":
+            {
+                "Service": "Entity.Redirect.Back",
+                "Method": "Redirect"
+            }
+        }
+    }
+}

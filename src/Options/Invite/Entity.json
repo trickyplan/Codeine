@@ -1,0 +1,38 @@
+{
+    "Storage": "Primary",
+    "Nodes":
+    {
+        "ID":
+        {
+            "Type": "Literal.String",
+            "Hooks":
+            {
+                "beforeEntityCreate":
+                {
+                    "Service": "Security.UID",
+                    "Method": "Get",
+                    "Call":
+                    {
+                        "Mode": "Secure"
+                    }
+                }
+            }
+        },
+        "Expire":
+        {
+            "Type": "Date.Short",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Datepicker"
+                }
+            }
+        },
+        "Active":
+        {
+            "Type": "Boolean",
+            "Default": true
+        }
+    }
+}

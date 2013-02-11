@@ -9,8 +9,7 @@
 
     setFn('Do', function ($Call)
     {
-        // TODO Realize "Do" function
-        $Call['Output']['Content'][] = ['Type' => 'Block', 'Class' => 'alert', 'Value' => 'Блок в разработке.'];
+
 
         return $Call;
     });

@@ -191,6 +191,15 @@
                 "Service": "User.Cabinet",
                 "Method": "Do"
             }
+        },
+        "Перевод доступен всем":
+        {
+            "Decision": true,
+            "Weight": 150,
+            "Run":
+            {
+                "Service": "Locale.Add"
+            }
         }
     }
 }

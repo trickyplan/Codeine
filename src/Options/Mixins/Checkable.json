@@ -1,0 +1,34 @@
+{
+    "Nodes":
+    {
+        "Checked":
+        {
+            "Type": "Numeral.Integer",
+            "Hooks":
+            {
+                "beforeEntityCreate":
+                {
+                    "Service": "System.Time",
+                    "Method": "Get"
+                }
+            }
+        },
+        "Checker":
+        {
+            "Type": "Numeral.Integer",
+            "Hooks":
+            {
+                "beforeEntityCreate":
+                {
+                    "Service": "Security.Auth",
+                    "Method": "Username"
+                }
+            }
+        },
+        "Check":
+        {
+            "Type": "Boolean",
+            "Default": false
+        }
+    }
+}

@@ -3,7 +3,7 @@
     {
         "Developer":
         {
-            "Driver":"IO.Log.ChromePhp"
+            "Driver":"IO.Log.Echo"
         }
     }
 }
