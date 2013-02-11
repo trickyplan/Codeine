@@ -7,7 +7,7 @@
      */
 
 
-    if (file_exists(Root.'/locks/down') && !isset($_COOKIE['Magic']))
+    if (file_exists(Codeine.'/locks/down') && !isset($_COOKIE['Magic']))
     {
         header('HTTP/1.1 503 Service Temporarily Unavailable');
         header('Status: 503 Service Temporarily Unavailable');
