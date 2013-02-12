@@ -13,8 +13,7 @@
 
         if (!isset($Call['Storage']))
         {
-            d(__FILE__, __LINE__, $Call['Run']);
-            return trigger_error ('Null Storage');
+            return F::Log('IO Null Storage: ', LOG_ERR);
         }
 
         if (isset($Call['Storages'][$StorageID]))

@@ -3,7 +3,7 @@
     {
         "Страница блога":
         {
-            "Match":"@/blog/page/(.*)@",
+            "Match":"/blog/page/(.*)",
             "Service":"Entity.List",
             "Method":"Do",
             "Call":
@@ -19,7 +19,7 @@
         },
         "Категория блога":
         {
-            "Match":"@/blog/category/(.*)@",
+            "Match":"/blog/category/(.*)",
             "Service":"Entity.List",
             "Method":"Do",
             "Weight": 30,
@@ -35,7 +35,7 @@
         },
         "RSS категории блога":
         {
-            "Match":"@/blog/category/(.*).rss@",
+            "Match":"/blog/category/(.*).rss",
             "Weight": 44,
             "Service":"Entity.List",
             "Method":"Do",
@@ -58,7 +58,7 @@
         },
         "Блог":
         {
-            "Match":"@/blog/(.*)@",
+            "Match":"/blog/(.*)",
             "Service":"Entity.Show.Static",
             "Method":"Do",
             "Call":

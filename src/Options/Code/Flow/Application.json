@@ -4,11 +4,6 @@
     {
         "beforeApplicationRun":
         {
-            "Audit":
-            {
-                "Service": "Security.Auth",
-                "Method": "Audit"
-            },
             "Layouts":
             {
                 "Service": "Code.Flow.Application.Layouts",

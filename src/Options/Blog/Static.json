@@ -13,7 +13,7 @@
                     "Created": "DESC"
                 }
             },
-            "Zone": ["User"]
+            "Zone": ["Project"]
         },
         "/blog.rss":
         {

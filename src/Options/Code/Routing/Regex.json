@@ -1,16 +1,20 @@
 {
     "Mixins": ["Control.Regex"],
+    "Pattern": {
+        "Prefix": "@",
+        "Postfix": "@SsUu"
+    },
     "Regex":
     {
         "Auto API":
         {
-            "Match": "@^/api/(.*)@",
+            "Match": "^/api/(.*)",
             "Service":"$1",
             "Method":"Do"
         },
         "Error":
         {
-            "Match": "@/error/(.*)@",
+            "Match": "/error/(.*)",
             "Service": "Error.Page",
             "Method": "Do",
             "Call":
@@ -20,7 +24,7 @@
         },
         "Auto Doc":
         {
-            "Match": "@^/docs/(.*)/(.*)@",
+            "Match": "^/docs/(.*)/(.*)",
             "Service":"Code.Documentation.ByContract",
             "Method":"Do",
             "Call":
@@ -34,7 +38,7 @@
         },
         "Experiment":
         {
-            "Match": "@^/experiment/(.*)@",
+            "Match": "^/experiment/(.*)",
             "Service":"Experiment",
             "Method":"Set",
             "Call":
@@ -44,7 +48,7 @@
         },
         "Monitor with Option":
         {
-            "Match": "@/monitor/(.*)/(.*).json@",
+            "Match": "/monitor/(.*)/(.*).json",
             "Weight": 30,
             "Service": "Monitor",
             "Method": "Do",
@@ -57,7 +61,7 @@
         },
         "Monitor":
         {
-            "Match": "@/monitor/(.*).json@",
+            "Match": "/monitor/(.*).json",
             "Weight": 20,
             "Service": "Monitor",
             "Method": "Do",
@@ -69,7 +73,7 @@
         },
         "Page":
         {
-            "Match": "@/(.*)@",
+            "Match": "/(.*)",
             "Weight": -5,
             "Service": "Entity.Show.Static",
             "Method": "Do",

@@ -3,7 +3,7 @@
     {
         "Activate.User":
         {
-            "Match":"@^/activate/user/(.*)@",
+            "Match":"^/activate/user/(.*)",
             "Service":"User.Activation",
             "Method":"Check",
             "Call":{
@@ -12,7 +12,7 @@
         },
         "SendMail.User":
         {
-            "Match": "@^/mail/user/(.*)@",
+            "Match": "^/mail/user/(.*)",
             "Service":"User.Activation",
             "Method":"Send",
             "Call":{

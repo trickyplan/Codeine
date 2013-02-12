@@ -27,7 +27,8 @@
 
                     if ($Rule['Weight'] > $Weight)
                     {
-                        if (preg_match ($Rule['Match'], $Call['Run'], $Matches))
+                        F::Log($Rule['Match'], LOG_DEBUG);
+                        if (preg_match ($Call['Pattern']['Prefix'].$Rule['Match'].$Call['Pattern']['Postfix'], $Call['Run'], $Matches))
                         {
                             $Rule = F::Map($Rule, function (&$Key, &$Value, $Data, $FullKey, &$Array) use ($Matches)
                             {

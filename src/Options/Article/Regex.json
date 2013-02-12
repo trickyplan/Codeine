@@ -4,7 +4,7 @@
         "Страница статей":
         {
             "Zone": ["Project"],
-            "Match":"@/articles/page/(.*)@",
+            "Match":"/articles/page/(.*)",
             "Service":"Entity.List",
             "Method":"Do",
             "Call":
@@ -20,7 +20,7 @@
         "Категория статей":
         {
             "Zone": ["Project"],
-            "Match":"@/articles/category/(.*)@",
+            "Match":"/articles/category/(.*)",
             "Service":"Entity.List",
             "Method":"Do",
             "Weight": 30,
@@ -36,7 +36,7 @@
         "RSS категории статей":
         {
             "Zone": ["Project"],
-            "Match":"@/articles/category/(.*).rss@",
+            "Match":"/articles/category/(.*).rss",
             "Weight": 44,
             "Service":"Entity.List",
             "Method":"Do",
@@ -59,7 +59,7 @@
         "Статья":
         {
             "Zone": ["Project"],
-            "Match":"@/article/(.*)@",
+            "Match":"/article/(.*)",
             "Service":"Entity.Show.Static",
             "Method":"Do",
             "Weight": 40,

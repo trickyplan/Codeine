@@ -38,6 +38,11 @@
             {
                 "Service": "System.QoS",
                 "Method": "Start"
+            },
+            "Location":
+            {
+                "Service": "Location.URL",
+                "Method": "Do"
             }
         },
         "afterFrontRun":

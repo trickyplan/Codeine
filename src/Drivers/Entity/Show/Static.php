@@ -9,6 +9,11 @@
 
     setFn('Do', function ($Call)
     {
+        $Call = F::Merge($Call, F::loadOptions($Call['Entity'].'.Entity')); // FIXME
+
+        $Call = F::Hook('beforeShow', $Call);
+
+
         $Call['Where'] = F::Live($Call['Where']);
 
         if (!isset($Call['Data']))
@@ -36,5 +41,6 @@
             }
         }
 
+        $Call = F::Hook('afterShow', $Call);
         return $Call;
     });

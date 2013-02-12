@@ -3,7 +3,7 @@
     {
         "ЦО — пакет — действие — уточнение — ID":
         {
-            "Match":"@^/report/(.*)/(.*)/(.*)/(.*)$@Ssu",
+            "Match":"^/report/(.*)/(.*)/(.*)/(.*)$",
             "Weight": 45,
             "Service":"Report.Panel",
             "Method":"Do",
@@ -18,7 +18,7 @@
         },
 	"ЦО — пакет — действие — страница":
         {
-            "Match":"@^/report/(.*)/(.*)/page(.*)$@Ssu",
+            "Match":"^/report/(.*)/(.*)/page(.*)$",
             "Weight": 35,
             "Service":"Report.Panel",
             "Method":"Do",
@@ -32,7 +32,7 @@
         },
         "ЦО — пакет — страница":
         {
-            "Match":"@^/report/(.*)/page(.*)$@Ssu",
+            "Match":"^/report/(.*)/page(.*)$",
             "Weight": 35,
             "Service":"Report.Panel",
             "Method":"Do",
@@ -46,7 +46,7 @@
         },
         "ЦО — пакет — действие — ID":
         {
-            "Match":"@^/report/(.*)/(.*)/(.*)$@Ssu",
+            "Match":"^/report/(.*)/(.*)/(.*)$",
             "Weight": 25,
             "Service":"Report.Panel",
             "Method":"Do",
@@ -60,7 +60,7 @@
         },
         "ЦО — пакет — действие — уточнение - ID - страница":
         {
-            "Match":"@^/report/(.*)/(.*)/(.*)/(.*)/page(.*)$@Ssu",
+            "Match":"^/report/(.*)/(.*)/(.*)/(.*)/page(.*)$",
             "Weight": 65,
             "Service":"Report.Panel",
             "Method":"Do",
@@ -77,7 +77,7 @@
 
         "ЦО — пакет — действие":
         {
-            "Match":"@^/report/(.*)/(.*)$@",
+            "Match":"^/report/(.*)/(.*)$",
             "Weight": 15,
             "Service":"Report.Panel",
             "Method":"Do",
@@ -90,7 +90,7 @@
         },
         "ЦО — пакет":
         {
-            "Match":"@^/report/(.*)@",
+            "Match":"^/report/(.*)",
             "Weight": 10,
             "Service":"Report.Panel",
             "Method":"Do",
