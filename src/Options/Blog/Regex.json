@@ -15,7 +15,7 @@
                     "Created": "DESC"
                 }
             },
-            "Zone": ["User"]
+            "Zone": ["Project"]
         },
         "Категория блога":
         {
@@ -31,7 +31,7 @@
                     "Category":  "$1"
                 }
             },
-            "Zone": ["User"]
+            "Zone": ["Project"]
         },
         "RSS категории блога":
         {
@@ -69,7 +69,8 @@
                     "Slug":  "$1"
                 }
             },
-            "Zone": ["User"]
+            "Last": true,
+            "Zone": ["Project"]
         }
     }
 }

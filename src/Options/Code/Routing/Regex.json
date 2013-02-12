@@ -2,7 +2,7 @@
     "Mixins": ["Control.Regex"],
     "Pattern": {
         "Prefix": "@",
-        "Postfix": "@SsUu"
+        "Postfix": "@su"
     },
     "Regex":
     {

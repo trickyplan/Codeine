@@ -20,15 +20,19 @@
 
         if (isset($Call['Regex']))
             {
+                $ix = 0;
                 foreach ($Call['Regex'] as $Name => $Rule)
                 {
+                    $ix++;
+                    $Rule['Match'] = $Call['Pattern']['Prefix'].$Rule['Match'].$Call['Pattern']['Postfix'];
+
                     if (!isset($Rule['Weight']))
                         $Rule['Weight'] = 0;
 
                     if ($Rule['Weight'] > $Weight)
                     {
                         F::Log($Rule['Match'], LOG_DEBUG);
-                        if (preg_match ($Call['Pattern']['Prefix'].$Rule['Match'].$Call['Pattern']['Postfix'], $Call['Run'], $Matches))
+                        if (preg_match ($Rule['Match'], $Call['Run'], $Matches))
                         {
                             $Rule = F::Map($Rule, function (&$Key, &$Value, $Data, $FullKey, &$Array) use ($Matches)
                             {
@@ -53,6 +57,9 @@
                             $Weight = $Rule['Weight'];
                             $Decision = $Rule;
                             $Selected = $Name;
+
+                            if (isset($Rule['Last']) && $Rule['Last'])
+                                break;
                         }
                     }
                 }
@@ -61,7 +68,7 @@
             die('Regex routes table corrupted'); // FIXME
 
         if (isset($Selected))
-            F::Log('Regex router rule '.$Selected.' selected', LOG_INFO);
+            F::Log('Regex router rule '.$Selected.' selected after. '.($ix.' of '.sizeof($Call['Regex'])), LOG_INFO);
         else
             F::Log('No one regex rule selected', LOG_INFO);
 
