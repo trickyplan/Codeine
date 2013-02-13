@@ -9,16 +9,19 @@
 
     setFn('Sort', function ($Call)
     {
+        if (isset($Call['List']['Sort']))
+            $Call['Sort'] = $Call['List']['Sort'];
+
         if (isset($Call['Request']['sort']))
         {
-            $Call['Sort'] = [$Call['Request']['sort'] => 'ASC'];
+            $Call['Sort'] = [$Call['Request']['sort'] => true];
             $Call['PageURLPostfix'] = '?sort='.$Call['Request']['sort'];
         }
         else
         {
             if( isset($Call['Request']['rsort']))
             {
-                $Call['Sort'] = [$Call['Request']['rsort'] => 'DESC'];
+                $Call['Sort'] = [$Call['Request']['rsort'] => false];
                 $Call['PageURLPostfix'] = '?rsort='.$Call['Request']['rsort'];
             }
         }

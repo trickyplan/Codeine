@@ -96,14 +96,13 @@
 
         if (isset($Call['Sort']))
         {
-            $Conditions = array ();
-
+            $Conditions = [];
 
             foreach ($Call['Sort'] as $Key => $Direction)
                 if (isset($Call['Nodes'][$Key]))
                     $Conditions[] = $Call['Link']->real_escape_string($Key)
                         .(is_numeric($Call['Nodes'][$Key])? '+0': '')
-                        .' '.($Direction == 'ASC'? 'ASC': 'DESC');
+                        .' '.($Direction? 'ASC': 'DESC');
 
             if (sizeof($Conditions)>0)
                 $SortString = ' order by ' . implode(',', $Conditions);

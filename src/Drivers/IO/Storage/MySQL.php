@@ -40,7 +40,7 @@
             {
                 $Data = $Result->fetch_all(MYSQLI_ASSOC);
                 $Result->free();
-                F::Log('['.sizeof($Data).'] '.$Query, LOG_DEBUG);
+                F::Log('['.sizeof($Data).'] '.$Query, LOG_INFO);
             }
             else
                 F::Log('[Empty] '.$Query, LOG_INFO);
