@@ -24,7 +24,7 @@
                 foreach ($Call['Regex'] as $Name => $Rule)
                 {
                     $ix++;
-                    $Rule['Match'] = $Call['Pattern']['Prefix'].$Rule['Match'].$Call['Pattern']['Postfix'];
+                    // $Rule['Match'] = $Call['Pattern']['Prefix'].$Rule['Match'].$Call['Pattern']['Postfix'];
 
                     if (!isset($Rule['Weight']))
                         $Rule['Weight'] = 0;
@@ -32,7 +32,7 @@
                     if ($Rule['Weight'] > $Weight)
                     {
                         F::Log($Rule['Match'], LOG_DEBUG);
-                        if (preg_match ($Rule['Match'], $Call['Run'], $Matches))
+                        if (mb_ereg($Rule['Match'], $Call['Run'], $Matches))
                         {
                             $Rule = F::Map($Rule, function (&$Key, &$Value, $Data, $FullKey, &$Array) use ($Matches)
                             {
@@ -58,8 +58,8 @@
                             $Decision = $Rule;
                             $Selected = $Name;
 
-                            if (isset($Rule['Last']) && $Rule['Last'])
-                                break;
+                            /*if (isset($Rule['Last']) && $Rule['Last'])
+                                break;*/
                         }
                     }
                 }
