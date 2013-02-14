@@ -26,7 +26,7 @@
                                                          ));
         }
 
-        return sha1(implode('', $Hash));
+        return F::Run('Security.Hash', 'Get', array('Value' => implode('', $Hash).$Call['Runs']));
     });
 
 
@@ -36,16 +36,16 @@
         if (preg_match_all('/<jsrun>(.*)<\/jsrun>/SsUu', $Call['Output'], $Parsed))
         {
             $RunJS = implode(';', $Parsed[1]);
-            $Call['Output'] = preg_replace('/<jsrun>(.*)<\/jsrun>/SsUu', '', $Call['Output']);
+            $Call['Output'] = str_replace($Parsed[0], '', $Call['Output']);
         }
         else
             $RunJS = '';
 
-        if (preg_match_all('/<js>(.*)<\/js>/SsUu', $Call['Output'], $Parsed))
+        if ($Parsed = F::Run('Text.Regex', 'All', ['Pattern' => '<js>(.+?)<\/js>', 'Value' => $Call['Output']]))
         {
             $Parsed[1] = array_unique($Parsed[1]);
 
-            $JSHash = F::Run(null, 'Hash', array ('IDs' => $Parsed[1])).sha1($RunJS);
+            $JSHash = F::Run(null, 'Hash', array ('IDs' => $Parsed[1], 'Runs' => $RunJS));
 
             if (!F::Run('IO', 'Execute', array ('Storage' => 'JS Cache', 'Execute'  => 'Exist', 'Where' => array('ID' => $JSHash))))
             {
@@ -89,13 +89,14 @@
                 $Source = '/cache/js/'.$JSHash.'.js';
 
             if (isset($Call['Async']))
-                $Call['Output'] = str_replace('<place>JS</place>',
-                '<script type="text/javascript"> var script = document.createElement(\'script\'); script.src = \''.$Source.'\';
-                        document.getElementsByTagName(\'head\')[0].appendChild(script);</script>', $Call['Output']);
+                $JSOut = '<script type="text/javascript"> var script = document.createElement(\'script\'); script.src = \''.$Source.'\';
+                        document.getElementsByTagName(\'head\')[0].appendChild(script);</script>';
 
             else
-                $Call['Output'] = str_replace('<place>JS</place>',
-                    '<script src="'.$Source.'" type="text/javascript"></script>', $Call['Output']);
+                $JSOut = '<script src="'.$Source.'" type="text/javascript"></script>';
+
+            $Call['Output'] = str_replace('<place>JS</place>', $JSOut, $Call['Output']);
+
         }
 
         return $Call;

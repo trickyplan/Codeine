@@ -14,7 +14,7 @@
          $Pockets = array();
 
          foreach ($Lines as $Number => $Line)
-             if (preg_match('/fixme (.+)$/SsUui', $Line, $Pockets))
+             if (mb_ereg('/fixme (.+)$/SsUui', $Line, $Pockets))
                  $Output[$Number] = $Pockets[1];
 
          if (count($Output) == 0)

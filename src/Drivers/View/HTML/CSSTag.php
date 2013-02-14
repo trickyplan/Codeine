@@ -15,15 +15,15 @@
         {
             list($Asset, $ID) = F::Run('View', 'Asset.Route', array ('Value' => $CSSFile));
 
-            $Hash[] = $CSSFile .F::Run('IO', 'Execute', array (
+            $Hash[] = $CSSFile .F::Run('IO', 'Execute', [
                                                                'Storage' => 'CSS',
                                                                'Scope'   => $Asset.'/css',
                                                                'Execute' => 'Version',
                                                                'Where'   =>
-                                                                   array (
+                                                                   [
                                                                        'ID' => $ID
-                                                                   )
-                                                         ));
+                                                                   ]
+                                                        ]);
         }
 
         return F::Run('Security.Hash', 'Get', array('Value' => implode('', $Hash)));
@@ -33,29 +33,9 @@
     {
         $CSS = array();
 
-        $ImageGenerateCSS = '';
-
-        if (preg_match_all('@<style(.*)>(.*)<\/style>@SsUu', $Call['Output'], $StyleTags))
+        if ($Parsed = F::Run('Text.Regex', 'All', ['Pattern' => '<css>(.+?)<\/css>', 'Value' => $Call['Output']]))
         {
-            foreach($StyleTags[2] as $Key=>$CSSStyle){
-
-                if(trim($StyleTags[1][$Key])=='type="text/css-generate"')
-                        $ImageGenerateCSS = $CSSStyle;
-                    else
-                        $CSS[] = $CSSStyle;
-            }
-
-            $Call['Output'] = str_replace($StyleTags[0], '', $Call['Output']);
-
-        }
-
-        if (preg_match_all ('@<css>(.*)<\/css>@SsUu', $Call['Output'], $Parsed))
-        {
-            $Parsed[1] = array_unique($Parsed[1]);
-
-            $CSSHash = F::Run(null, 'Hash', array('IDs' => $Parsed[1])).sha1(implode('',$CSS));
-
-            $CSS[] = $ImageGenerateCSS;
+            $CSSHash = F::Run(null, 'Hash', array('IDs' => $Parsed[1]));
 
                 if ((isset($Call['Caching']['Enabled'])
                     && $Call['Caching']['Enabled'])
@@ -98,25 +78,20 @@
                                  'Where'   => $CSSHash,
                                  'Data' => $CSS
                             ));
-
                 }
 
-                $Call['Output'] = str_replace($Parsed[0], '', $Call['Output']);
+            $Call['Output'] = str_replace($Parsed[0], '', $Call['Output']);
 
-        if(!isset($Call['Proto']))
-            $Call['Proto'] ='';
+            if(!isset($Call['Proto']))
+                $Call['Proto'] ='';
 
-        if (isset($Call['CSS Host']) && !empty($Call['CSS Host']))
-            $Call['Output'] =
-                str_replace('<place>CSS</place>', '<link href="'.$Call['Proto'].$Call['CSS Host'].'/cache/css/'.$CSSHash.'.css" rel="stylesheet" />',
-                        $Call['Output']);
+            if (isset($Call['CSS Host']) && !empty($Call['CSS Host']))
+                $CSSOut = '<link href="'.$Call['Proto'].$Call['CSS Host'].'/cache/css/'.$CSSHash.'.css" rel="stylesheet" />';
             else
-                $Call['Output'] =
-                    str_replace('<place>CSS</place>', '<link href="/cache/css/'.$CSSHash.'.css" rel="stylesheet" />',
-                            $Call['Output']);
+                $CSSOut = '<link href="/cache/css/'.$CSSHash.'.css" rel="stylesheet" />';
+
+            $Call['Output'] = str_replace('<place>CSS</place>', $CSSOut, $Call['Output']);
         }
-        else
-            $Call['Output'] = str_replace('<place>CSS</place>', '', $Call['Output']);
 
         return $Call;
     });

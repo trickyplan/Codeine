@@ -10,11 +10,11 @@
     setFn('Decode', function ($Call)
     {
         $Data = array();
-        if (preg_match_all('@(.*)\{(.*)\}@SsUu', $Call['Value'], $RuleSets))
+        if (mb_ereg_all('@(.*)\{(.*)\}@SsUu', $Call['Value'], $RuleSets))
             foreach($RuleSets[0] as $IX => $RuleSet)
             {
                 $Data[trim($RuleSets[1][$IX])] = array();
-                if (preg_match_all('@(.*)\:(.*);@SsUu', $RuleSets[2][$IX], $Rules))
+                if (mb_ereg_all('@(.*)\:(.*);@SsUu', $RuleSets[2][$IX], $Rules))
                     foreach ($Rules[0] as $IC=> $Rule)
                         $Data[trim($RuleSets[1][$IX])][trim($Rules[1][$IC])] = trim($Rules[2][$IC]);
             }

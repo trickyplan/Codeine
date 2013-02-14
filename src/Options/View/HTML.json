@@ -10,19 +10,14 @@
                 "Service":"View.HTML.Parslets",
                 "Method":"Process"
             },
-            "Image":
+            "JS":
             {
-                "Service":"View.HTML.Image",
+                "Service":"View.HTML.JSTag",
                 "Method":"Process"
             },
             "CSS":
             {
                 "Service":"View.HTML.CSSTag",
-                "Method":"Process"
-            },
-            "JS":
-            {
-                "Service":"View.HTML.JSTag",
                 "Method":"Process"
             },
             "Meta":
