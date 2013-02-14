@@ -18,7 +18,12 @@
                  $Call['Label'] = $Call['Entity'].'.Entity:'.$Call['Node'].'.Label';
 
          if (!isset($Call['Required']))
-             array_unshift($Call['Options'], [0, 'Null']);
+         {
+             if (isset($Call['Localized']) && $Call['Localized'])
+                array_unshift($Call['Options'], [0, '0']);
+             else
+                array_unshift($Call['Options'], [0, '']);
+         }
 
          foreach ($Call['Options'] as $Key => $Option)
          {

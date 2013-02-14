@@ -538,11 +538,12 @@
                 }
 
                 if (isset($Options['Mixins']))
+                {
                     foreach($Options['Mixins'] as &$Mixin)
-                    {
                         $Options = F::Merge(F::loadOptions($Mixin), $Options);
-                        unset($Mixin);
-                    }
+
+                    unset($Options['Mixins']);
+                }
 
                 self::$_Options[$Service] = $Options;
             }
