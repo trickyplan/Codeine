@@ -44,7 +44,7 @@
                 ];
 
             if (isset($Call['Reverse']))
-                $Elements = array_reverse($Call['Elements'], true);
+                $Call['Elements'] = array_reverse($Call['Elements'], true);
 
             if (is_array($Call['Elements']))
                 foreach ($Call['Elements'] as $IX => $Element)
@@ -54,14 +54,15 @@
 
                     $Element['IX'] = $IX+1;
 
-                    $Call['Output']['Content'][] =
-                        array(
-                            'Type'  => 'Template',
-                            'Scope' => $Call['Scope'],
-                            'ID' => 'Show/'.(isset($Call['Template'])? $Call['Template']: 'Short').($Call['Selected'] === $Element['ID'] ? '.Selected': ''),
-                            // FIXME Strategy of selecting templates
-                            'Data'  => $Element
-                        );
+                    if (isset($Call['Show Redirects']) or !isset($Element['Redirect']) or empty($Element['Redirect']))
+                        $Call['Output']['Content'][] =
+                            array(
+                                'Type'  => 'Template',
+                                'Scope' => $Call['Scope'],
+                                'ID' => 'Show/'.(isset($Call['Template'])? $Call['Template']: 'Short').($Call['Selected'] === $Element['ID'] ? '.Selected': ''),
+                                // FIXME Strategy of selecting templates
+                                'Data'  => $Element
+                            );
                 }
         }
 

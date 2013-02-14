@@ -13,7 +13,6 @@
 
         $Call = F::Hook('beforeShow', $Call);
 
-
         $Call['Where'] = F::Live($Call['Where']);
 
         if (!isset($Call['Data']))
