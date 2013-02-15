@@ -34,3 +34,8 @@
 
         return $Call;
     });
+
+    setFn('Reverse', function ($Call)
+    {
+        return $Call;
+    });

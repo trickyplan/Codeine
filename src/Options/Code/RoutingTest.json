@@ -1,0 +1,57 @@
+{
+    "Suites":
+    {
+        "Reverse Route":
+        {
+            "Static":
+            {
+                "-Run":
+                {
+                    "Service": "Code.Routing",
+                    "Method": "Reverse",
+                    "Call":
+                    {
+                        "Run":
+                        {
+                            "Service": "Project.Frontpage",
+                            "Method": "Do"
+                        }
+                    }
+                },
+                "-Result":
+                {
+                    "Equal": "/"
+                }
+            },
+            "Regex":
+            {
+                "Run":
+                {
+                    "Service": "Code.Routing",
+                    "Method": "Reverse",
+                    "Call":
+                    {
+                        "Run":
+                        {
+                            "Service": "Entity.Show.Static",
+                            "Method": "Do",
+                            "Call":
+                            {
+                                "Entity": "Blog",
+                                "Where":
+                                {
+                                    "Slug": "test"
+                                }
+                            },
+                            "Zone": ["Project"]
+                        }
+                    }
+                },
+                "Result":
+                {
+                    "Equal": "/blog/test"
+                }
+            }
+        }
+    }
+}

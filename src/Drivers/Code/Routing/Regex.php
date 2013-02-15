@@ -77,3 +77,9 @@
         unset($Call['Regex']);
         return $Call;
     });
+
+
+    setFn('Reverse', function ($Call)
+    {
+        return $Call;
+    });

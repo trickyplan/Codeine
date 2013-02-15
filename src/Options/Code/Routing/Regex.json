@@ -6,12 +6,6 @@
     },
     "Regex":
     {
-        "Auto API":
-        {
-            "Match": "^/api/(.*)",
-            "Service":"$1",
-            "Method":"Do"
-        },
         "Error":
         {
             "Match": "/error/(.*)",
@@ -22,20 +16,6 @@
                 "Code": "$1"
             }
         },
-        "Auto Doc":
-        {
-            "Match": "^/docs/(.*)/(.*)",
-            "Service":"Code.Documentation.ByContract",
-            "Method":"Do",
-            "Call":
-            {
-                "Doc":
-                {
-                    "Service": "$1",
-                    "Method": "$2"
-                }
-            }
-        },
         "Experiment":
         {
             "Match": "^/experiment/(.*)",
@@ -44,31 +24,6 @@
             "Call":
             {
                 "Experiment": "$1"
-            }
-        },
-        "Monitor with Option":
-        {
-            "Match": "/monitor/(.*)/(.*).json",
-            "Weight": 30,
-            "Service": "Monitor",
-            "Method": "Do",
-            "Renderer": "View.JSON",
-            "Call":
-            {
-                "Bundle": "$1",
-                "Sensor": "$2"
-            }
-        },
-        "Monitor":
-        {
-            "Match": "/monitor/(.*).json",
-            "Weight": 20,
-            "Service": "Monitor",
-            "Method": "Do",
-            "Renderer": "View.JSON",
-            "Call":
-            {
-                "Bundle": "$1"
             }
         },
         "Page":

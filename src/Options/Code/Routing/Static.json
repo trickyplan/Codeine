@@ -2,6 +2,15 @@
     "Mixins": ["User.Static","Control.Static"],
     "Links":
     {
+        "/test":
+        {
+            "Service": "Test",
+            "Method": "Do",
+            "Call":
+            {
+                "Test Service": "Code.Routing"
+            }
+        },
         "/":
         {
             "Zone": ["Project"],

@@ -12,7 +12,7 @@
          foreach ($Call['Routers'] as $Router)
          {
              // Пробуем роутер из списка...
-             $NewCall = F::Run($Router['Service'], $Router['Method'], $Call);
+             $NewCall = F::Run('Code.Routing.'.$Router, null, $Call);
 
              // Если результат - валидный вызов, то выходим из перебора
              if (F::isCall($NewCall['Run']))
@@ -24,3 +24,20 @@
 
          return $Call;
      });
+
+    setFn('Reverse', function ($Call)
+    {
+        return $Call; // Disabled
+//        foreach ($Call['Routers'] as $Router)
+        $Router = 'Regex';
+        {
+             // Пробуем роутер из списка...
+             $Call = F::Run('Code.Routing.'.$Router, null, $Call);
+
+             // Если результат - валидный вызов, то выходим из перебора
+        /*     if (isset($Call['Link']))
+                 break;*/
+         }
+
+        return $Call['Link'];
+    });

@@ -29,3 +29,19 @@
 
         return $Call;
     });
+
+    setFn('Reverse', function ($Call)
+    {
+        if (isset($Call['Links']))
+        {
+            foreach ($Call['Links'] as $Link => $Run)
+            {
+                if (F::Diff($Call['Run'], $Run) == null)
+                    $Call['Link'] = $Link;
+            }
+        }
+        else
+            die('Static routes table corrupted'); // FIXME
+
+        return $Call;
+    });

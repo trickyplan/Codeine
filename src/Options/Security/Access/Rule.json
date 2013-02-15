@@ -3,6 +3,16 @@
     "Decision": false,
     "Rules":
     {
+        "Тест доступен всем":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Test",
+                "Method": "Do"
+            }
+        },
         "Главная страница доступна всем":
         {
             "Decision": true,

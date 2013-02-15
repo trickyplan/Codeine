@@ -28,15 +28,12 @@
         "Image":
         {
             "Driver":"IO.Storage.Directory",
-            "Directory":"Assets",
-            "Suffix":".png"
+            "Directory":"Assets"
         },
         "Image Cache":
         {
             "Driver":"IO.Storage.Directory",
-            "Directory":"Public",
-            "Scope":"images",
-            "Suffix":".png"
+            "Directory":"Public"
         },
         "CSS":
         {

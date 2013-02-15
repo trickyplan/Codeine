@@ -1,16 +1,3 @@
 {
-    "Routers":[
-        {
-            "Service":"Code.Routing.Rewrite",
-            "Method":"Route"
-        },
-        {
-            "Service":"Code.Routing.Static",
-            "Method":"Route"
-        },
-        {
-            "Service":"Code.Routing.Regex",
-            "Method":"Route"
-        }
-    ]
+    "Routers": ["Rewrite", "Static", "Regex"]
 }
