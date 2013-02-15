@@ -3,7 +3,7 @@
     {
         "Generator":
         {
-            "Service": "Security.Password.Generator.Pronouncable",
+            "Service": "Security.Password.Generator",
             "Method": "Get",
             "Call":
             {

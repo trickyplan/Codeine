@@ -49,3 +49,14 @@
                                         ));
         return $Call;
     });
+
+    setFn('Die', function ($Call)
+    {
+        // TODO Realize "Die" function
+
+        header('HTTP/1.0 403 Forbidden');
+        readfile(F::findFile('Assets/Errors/403.html'));
+        F::Shutdown($Call);
+        die();
+
+    });

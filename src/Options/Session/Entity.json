@@ -1,5 +1,6 @@
 {
     "Storage": "Primary",
+    "EPP": 20,
     "Nodes":
     {
         "ID":
@@ -35,7 +36,19 @@
         },
         "Expire":
         {
-            "Type": "Numeral.Integer"
+            "Type": "Numeral.Integer",
+            "Hooks":
+            {
+                "beforeEntityCreate":
+                {
+                    "Service": "System.Time",
+                    "Method": "Get",
+                    "Call":
+                    {
+                        "Increment": 15778463
+                    }
+                }
+            }
         },
         "Created":
         {

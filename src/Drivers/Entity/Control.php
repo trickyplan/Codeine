@@ -68,3 +68,8 @@
         $Call['Layouts'][] = ['Scope' => 'Entity', 'ID' => 'Reject'];
         return F::Run('Entity.Reject', 'Do', $Call, ['Entity' => $Call['Bundle']]);
     });
+
+    setFn('Truncate', function ($Call)
+    {
+        return F::Run('Entity.Truncate', 'Do', $Call, ['Entity' => $Call['Bundle']]);
+    });

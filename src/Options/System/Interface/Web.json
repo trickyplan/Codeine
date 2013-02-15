@@ -29,6 +29,11 @@
     {
         "beforeInterfaceRun":
         {
+            "Filter UA":
+            {
+                "Service": "Security.UA",
+                "Method": "Filter"
+            },
             "Output Buffering":
             {
                 "Service": "System.Interface.Web.OB",

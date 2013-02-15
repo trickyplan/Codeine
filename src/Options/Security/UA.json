@@ -1,0 +1,31 @@
+{
+    "Bad UA": [
+        "nmap|nikto|wikto|sf|sqlmap|bsqlbf|w3af|acunetix|havij|appscan"
+    ],
+    "Hooks":
+    {
+        "BadUADetected":
+        {
+            "Log":
+            {
+                "Service": "F",
+                "Method": "Log",
+                "Call":
+                {
+                    "Message": "Bad UA Detected: $UA",
+                    "Type": 1
+                }
+            },
+            "Spit log":
+            {
+                "Service": "IO.Log",
+                "Method": "Spit"
+            },
+            "Die":
+            {
+                "Service": "Error.403",
+                "Method": "Die"
+            }
+        }
+    }
+}

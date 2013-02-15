@@ -25,17 +25,7 @@
 
         $Call = F::Hook('beforePipeline', $Call);
 
-
-        if ($Places = F::Run('Text.Regex', 'All', ['Pattern' => '<call>(.+?)<\/call>', 'Value' => $Call['Layout']]))
-            foreach ($Places[0] as $IX => $Match)
-            {
-                $Matched = F::Live(F::Dot($Call, $Places[1][$IX]));
-
-                if (($Matched === false) || ($Matched === 0))
-                        $Matched = '0';
-
-                $Call['Layout'] = str_replace($Match, $Matched, $Call['Layout']);
-            }
+        $Call = F::Run(null, 'Parse Call', $Call);
 
         if ($Places = F::Run('Text.Regex', 'All', ['Pattern' => '<place>(.+?)<\/place>', 'Value' => $Call['Layout']]))
         {
@@ -43,16 +33,16 @@
             {
                 if (is_array($Call['Output']))
                     foreach ($Call['Output'] as $Place => $Widgets)
-                        if(is_array($Widgets))
-                        foreach ($Widgets as $Key => $Widget)
-                        {
-                            if(is_array($Widget))
-                                $Call['Output'][$Place][$Key]
-                                    = F::Run($Call['Renderer'] . '.Element.' . $Widget['Type'], 'Make', $Widget, array('Session' => $Call['Session']));
-                                    // FIXME FIXME FIXME
-                            else
-                                $Call['Output'][$Place][$Key] = $Widget;
-                        }
+                        if (is_array($Widgets))
+                            foreach ($Widgets as $Key => $Widget)
+                            {
+                                if (is_array($Widget))
+                                    $Call['Output'][$Place][$Key]
+                                        = F::Run($Call['Renderer'] . '.Element.' . $Widget['Type'], 'Make', $Widget, array('Session' => $Call['Session']));
+                                        // FIXME FIXME FIXME
+                                else
+                                    $Call['Output'][$Place][$Key] = $Widget;
+                            }
                 // TODO Normal caching
             }
 
@@ -62,21 +52,28 @@
                         $Call['Layout'] = str_replace('<place>' . $Place . '</place>', implode('', $Widgets), $Call['Layout']);
         }
 
-        if ($Places = F::Run('Text.Regex', 'All', ['Pattern' => '<call>(.+?)<\/call>', 'Value' => $Call['Layout']]))
-            foreach ($Places[0] as $IX => $Match)
-            {
-                $Matched = F::Live(F::Dot($Call, $Places[1][$IX]));
-
-                if (($Matched === false) || ($Matched === 0))
-                        $Matched = '0';
-
-                $Call['Layout'] = str_replace($Match, $Matched, $Call['Layout']);
-            }
+        $Call = F::Run(null, 'Parse Call', $Call);
 
         $Call['Output'] = $Call['Layout'];
 
         $Call = F::Hook('afterPipeline', $Call);
 
+
+        return $Call;
+    });
+
+    setFn('Parse Call', function ($Call)
+    {
+        if (preg_match_all('@<call>(.*)<\/call>@SsUu', $Call['Layout'], $Places))
+            foreach ($Places[0] as $IX => $Match)
+            {
+                $Places[1][$IX] = F::Live(F::Dot($Call, $Places[1][$IX]));
+
+                if (($Places[1][$IX] === false) || ($Places[1][$IX]=== 0))
+                        $Matched = '0';
+            }
+
+        $Call['Layout'] = str_replace($Places[0], $Places[1], $Call['Layout']);
 
         return $Call;
     });

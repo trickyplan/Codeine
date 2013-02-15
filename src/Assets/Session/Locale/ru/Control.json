@@ -3,6 +3,6 @@
     "Actions": "Действия",
     "Annulate": "Аннулировать",
     "Options": {
-        "Flush": "Очистить"
+        "Truncate": "Очистить"
     }
 }
