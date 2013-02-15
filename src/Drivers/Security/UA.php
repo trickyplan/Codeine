@@ -14,7 +14,7 @@
 
         if (isset($Call['Bad UA']))
             foreach ($Call['Bad UA'] as $Bad)
-                if (preg_match('/'.$Bad.'/', $Call['UA']))
+                if (preg_match('/'.$Bad.'/SsUui', $Call['UA']))
                 {
                     $Call = F::Hook('BadUADetected', $Call);
                     $Call['Skip Run'] = true;

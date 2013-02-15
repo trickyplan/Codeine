@@ -19,9 +19,18 @@
                 }
             }
         },
-        "Heartbeat":
+        "Heartbeat":{},
+        "IP":
         {
-
+            "Type": "Numeral.IP",
+            "Hooks":
+            {
+                "beforeEntityCreate":
+                {
+                    "Service": "System.Interface.Web.IP",
+                    "Method": "Get"
+                }
+            }
         },
         "User":
         {
