@@ -18,7 +18,7 @@
         },
         "ЦУП — пакет — действие — уточнение — ID":
         {
-            "Match":"^/control/(.*)/(.*)/(.*)/(.*)$",
+            "Match":"^/control/(.+)/(.*)/(.*)/(.*)$",
             "Weight": 45,
             "Service":"Control.Panel",
             "Method":"Do",
@@ -33,7 +33,7 @@
         },
         "ЦУП — пакет — действие — страница":
         {
-            "Match":"^/control/(.*)/(.*)/page(.*)$",
+            "Match":"^/control/(.+)/(.*)/page(.*)$",
             "Weight": 35,
             "Service":"Control.Panel",
             "Method":"Do",
@@ -47,7 +47,7 @@
         },
         "ЦУП — пакет — страница":
         {
-            "Match":"^/control/(.*)/page(.*)$",
+            "Match":"^/control/(.+)/page(.*)$",
             "Weight": 35,
             "Service":"Control.Panel",
             "Method":"Do",
@@ -61,7 +61,7 @@
         },
         "ЦУП — пакет — действие — ID":
         {
-            "Match":"^/control/(.*)/(.*)/(.*)$",
+            "Match":"^/control/(.+)/(.*)/(.*)$",
             "Weight": 25,
             "Service":"Control.Panel",
             "Method":"Do",
@@ -75,7 +75,7 @@
         },
         "ЦУП — пакет — действие":
         {
-            "Match":"^/control/(.*)/(.*)$",
+            "Match":"^/control/(.+)/(.+)$",
             "Weight": 15,
             "Service":"Control.Panel",
             "Method":"Do",
@@ -88,7 +88,7 @@
         },
         "ЦУП — пакет":
         {
-            "Match":"^/control/([A-z]+)$",
+            "Match":"^/control/(.+)$",
             "Weight": 10,
             "Service":"Control.Panel",
             "Method":"Do",
