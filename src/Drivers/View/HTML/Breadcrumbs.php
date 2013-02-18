@@ -39,9 +39,18 @@
 
         }
 
+        if (count($Call['Breadcrumbs']) > 0)
+        {
+            $Breadcrumbs = F::Run('View', 'LoadParsed', array(
+                    'Scope' => 'Default',
+                    'ID' => 'UI/Breadcrumb',
+                    'Data' => ['Breadcrumbs' => $Breadcrumbs]
+                ));
 
-
-        $Call['Output'] = str_replace('<breadcrumbs/>', $Breadcrumbs, $Call['Output']);
+            $Call['Output'] = str_replace('<breadcrumbs/>', $Breadcrumbs, $Call['Output']);
+        }
+        else
+            $Call['Output'] = str_replace('<breadcrumbs/>', '', $Call['Output']);
 
         return $Call;
     });
