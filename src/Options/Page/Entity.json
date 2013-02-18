@@ -6,7 +6,7 @@
     {
         "ID":
         {
-            "Type": "Literal.String",
+            "Type": "Numeral.Integer",
             "Hooks":
             {
                 "beforeEntityCreate":

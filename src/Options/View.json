@@ -1,4 +1,11 @@
 {
+    "View":
+    {
+        "Layouts":
+        {
+            "Debug": false
+        }
+    },
     "Parsers":
     {
         "Layout":
