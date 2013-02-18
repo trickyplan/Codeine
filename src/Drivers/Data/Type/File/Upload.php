@@ -9,7 +9,7 @@
 
     setFn('Write', function ($Call)
     {
-        if (is_scalar($Call['Value']))
+        if (isset($Call['Value']) && is_scalar($Call['Value']))
             return $Call['Value'];
 
         $Call['ID'] = F::Run('Security.UID', 'Get',$Call);

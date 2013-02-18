@@ -36,6 +36,9 @@
             if (is_array($Call['Keywords']))
                 $Call['Keywords'] = implode('', $Call['Keywords']);
 
+            if (is_array($Call['Description']))
+                $Call['Description'] = implode('', $Call['Description']);
+
             $Call['Output'] = str_replace('<title/>', '<title>'.$Call['Title'].'</title>', $Call['Output']);
             $Call['Output'] = str_replace('<keywords/>', '<meta name="keywords" content="'.$Call['Keywords'].'" />', $Call['Output']);
             $Call['Output'] = str_replace('<description/>', '<meta name="description" content="'.$Call['Description'].'" />', $Call['Output']);
