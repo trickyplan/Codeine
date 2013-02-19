@@ -39,7 +39,7 @@
 
         }
 
-        if (count($Call['Breadcrumbs']) > 0)
+        if (isset($Call['Breadcrumbs']) && count($Call['Breadcrumbs']) > 0)
         {
             $Breadcrumbs = F::Run('View', 'LoadParsed', array(
                     'Scope' => 'Default',
