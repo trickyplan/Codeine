@@ -2,6 +2,10 @@
     "Mixins": ["Mixins.UGC", "Mixins.Text"],
     "Storage": "Primary",
     "EPP": 5,
+    "Sort":
+    {
+        "Created": false
+    },
     "Nodes":
     {
         "ID":
