@@ -59,7 +59,9 @@
                             array(
                                 'Type'  => 'Template',
                                 'Scope' => $Call['Scope'],
-                                'ID' => 'Show/'.(isset($Call['Template'])? $Call['Template']: 'Short').($Call['Selected'] === $Element['ID'] ? '.Selected': ''),
+                                'ID' => 'Show/'
+                                            .(isset($Call['Template'])? $Call['Template']: 'Short')
+                                            .($Call['Selected'] == $Element['ID'] ? '.Selected': ''),
                                 // FIXME Strategy of selecting templates
                                 'Data'  => $Element
                             );
