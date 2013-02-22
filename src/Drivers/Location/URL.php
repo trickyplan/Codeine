@@ -23,7 +23,7 @@
         else
         {
             $Call['Session']['Location'] = 0;
-            $Call['Session']['LocationURL'] = '/';
+            $Call['Session']['LocationURL'] = '';
         }
 
         return $Call;
