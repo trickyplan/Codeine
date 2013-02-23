@@ -83,6 +83,9 @@
 
                 $Call['Output'] = str_replace($Parsed[0], '', $Call['Output']);
 
+            if(!isset($Call['Proto']))
+                $Call['Proto'] ='';
+
             if (isset($Call['JS Host']) && !empty($Call['JS Host']))
                 $Source = $Call['Proto'].$Call['JS Host'].'/cache/js/'.$JSHash.'.js';
             else

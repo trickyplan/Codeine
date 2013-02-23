@@ -1,0 +1,29 @@
+{
+    "Storage": "Primary",
+    "Nodes":
+    {
+        "ID":
+        {
+            "Type": "Literal.String",
+            "Hooks":
+            {
+                "beforeEntityCreate":
+                {
+                    "Service": "Security.UID",
+                    "Method": "Get"
+                }
+            }
+        },
+        "Title":
+        {
+            "Type": "Literal.String",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        }
+    }
+}

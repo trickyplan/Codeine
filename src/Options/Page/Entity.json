@@ -106,6 +106,14 @@
     },
     "Hooks":
     {
+        "beforeList":
+        {
+            "Sort":
+            {
+                "Service": "Entity.List.Sort",
+                "Method": "Sort"
+            }
+        },
         "afterCreatePost":
         {
             "Redirect":
