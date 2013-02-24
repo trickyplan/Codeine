@@ -72,6 +72,8 @@
             self::Versioning();
 
             set_error_handler ('F::Error');
+
+            register_shutdown_function('F::Shutdown');
         }
 
         protected static function Versioning()
