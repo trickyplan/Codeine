@@ -42,6 +42,7 @@
         {
             "Type": "Boolean",
             "Default": false,
+            "Nullable": true,
             "Widgets":
             {
                 "Write":
