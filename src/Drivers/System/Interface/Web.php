@@ -43,6 +43,7 @@
 
             $Call['Run'] = urldecode($_SERVER['REQUEST_URI']);
             $Call['URI'] = urldecode($_SERVER['REQUEST_URI']);
+            $Call['URL'] = parse_url($Call['URI'], PHP_URL_PATH);
         }
 
         $Call = F::Run($Call['Service'], $Call['Method'], $Call);

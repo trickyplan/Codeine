@@ -9,4 +9,9 @@ $(document).ready(function ()
             $(this).parent().addClass("active");
         }
     });
+
+    $("a").each(function(){
+       if (str == this.href.toLowerCase())
+               $(this).addClass("active");
+    });
 });

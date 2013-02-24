@@ -29,3 +29,8 @@
 {
     text-align: center;
 }
+
+.off
+{
+    opacity: 0.7;
+}
