@@ -9,7 +9,7 @@
 
     setFn('Write', function ($Call)
     {
-        return $Call['Value'];
+        return implode(';', $Call['Value']);
     });
 
     setFn('Read', function ($Call)

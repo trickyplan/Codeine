@@ -9,6 +9,8 @@
 
     setFn('Do', function ($Call)
     {
+        $Location = '';
+
         if (isset($Call['Location']))
             $Location = $Call['Location'];
 
