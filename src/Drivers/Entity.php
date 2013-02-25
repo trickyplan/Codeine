@@ -23,22 +23,21 @@
 
     setFn('Create', function ($Call)
     {
-            $Call = F::Hook('beforeEntityCreate', $Call);
-                $Call = F::Hook('beforeEntityWrite', $Call);
+        $Call = F::Hook('beforeEntityCreate', $Call);
+            $Call = F::Hook('beforeEntityWrite', $Call);
 
-            if (isset($Call['Substitute']))
-                $Call['Scope'] = $Call['Substitute'];
-            else
-                $Call['Scope'] = $Call['Entity'];
+        if (isset($Call['Substitute']))
+            $Call['Scope'] = $Call['Substitute'];
+        else
+            $Call['Scope'] = $Call['Entity'];
 
-            if (!isset($Call['Failure']))
-            {
-                $Call['Data'] = F::Run('IO', 'Write', $Call);
+        if (!isset($Call['Failure']))
+        {
+            $Call['Data'] = F::Run('IO', 'Write', $Call);
 
-                $Call = F::Hook('afterEntityWrite', $Call);
-            $Call = F::Hook('afterEntityCreate', $Call);
-
-            }
+            $Call = F::Hook('afterEntityWrite', $Call);
+        $Call = F::Hook('afterEntityCreate', $Call);
+        }
 
         return $Call;
     });

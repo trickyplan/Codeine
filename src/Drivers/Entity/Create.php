@@ -112,7 +112,6 @@
     setFn('POST', function ($Call)
     {
         $Call = F::Hook('beforeCreatePost', $Call);
-
         // Берём данные из запроса
 
         if (!isset($Call['Failure']))
@@ -131,7 +130,7 @@
 
             $Call = F::Run('Entity', 'Create', $Call);
 
-            if (empty($Call['Errors']))
+            if (!isset($Call['Failure']))
                 $Call = F::Hook('afterCreatePost', $Call);
             else
                 foreach ($Call['Errors'] as $Name =>$Node)

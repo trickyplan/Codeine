@@ -9,20 +9,22 @@
 
     setFn('Do', function ($Call)
     {
+        if (isset($Call['Location']))
+            $Location = $Call['Location'];
+
         if (isset($Call['Request']['Location']))
-            $Call['Location'] = F::Live($Call['Request']['Location']);
+            $Location = F::Live($Call['Request']['Location']);
 
         if (isset($Call['Call']['Where']['Location']))
-            $Call['Location'] = F::Live($Call['Call']['Where']['Location']);
+            $Location = F::Live($Call['Call']['Where']['Location']);
 
-        if (isset($Call['Location']) && !empty($Call['Location']))
+        if (isset($Location) && !empty($Location))
         {
-            $Call['Session']['Location'] = F::Live($Call['Location']);
-            $Call['Session']['LocationURL'] = '/'.F::Run('Entity', 'Far', ['Entity' => 'Location', 'Where' => F::Live($Call['Location']), 'Key' => 'Slug']);
+            $Call['Session']['Location'] = $Location;
+            $Call['Session']['LocationURL'] = '/'.F::Run('Entity', 'Far', ['Entity' => 'Location', 'Where' => $Location, 'Key' => 'Slug']);
         }
         else
         {
-
             $Call['Session']['Location'] = 0;
             $Call['Session']['LocationURL'] = '';
         }
