@@ -73,3 +73,8 @@
     {
         return F::Run('Entity.Truncate', 'Do', $Call, ['Entity' => $Call['Bundle']]);
     });
+
+    setFn('Touch', function ($Call)
+    {
+        return F::Run('Entity.Touch', 'Do', $Call, ['Entity' => $Call['Bundle']]);
+    });

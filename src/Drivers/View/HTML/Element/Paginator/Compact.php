@@ -33,7 +33,7 @@
                           'Data' =>
                             array(
                                 'Num' => $ic,
-                                'URL' => $Call['FirstURL'])));
+                                'URL' => $Call['FirstURL'].$Call['PageURLPostfix'])));
                 else
                     $Output.= F::Run('View', 'LoadParsed',
                         array(

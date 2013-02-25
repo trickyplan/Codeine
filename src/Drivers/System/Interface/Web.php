@@ -24,7 +24,7 @@
             foreach ($Call['Request'] as $Key => $Value)
             {
                 unset($Call['Request'][$Key]);
-                $Call['Request'][strtr($Key, '_','.')] = $Value;
+                $Call['Request'] = F::Dot($Call['Request'], strtr($Key, '_','.'), $Value);
             }
 
             $Call['Cookie'] = $_COOKIE;
@@ -44,6 +44,7 @@
             $Call['Run'] = urldecode($_SERVER['REQUEST_URI']);
             $Call['URI'] = urldecode($_SERVER['REQUEST_URI']);
             $Call['URL'] = parse_url($Call['URI'], PHP_URL_PATH);
+            $Call['URL Query'] = parse_url($Call['URI'], PHP_URL_QUERY);
         }
 
         $Call = F::Run($Call['Service'], $Call['Method'], $Call);

@@ -7,7 +7,7 @@
             "Weight": 45,
             "Service":"Report.Panel",
             "Method":"Do",
-            "Zone": ["Report"],
+            "Zone": ["Control"],
             "Call":
             {
                 "Bundle": "$1",
@@ -22,7 +22,7 @@
             "Weight": 35,
             "Service":"Report.Panel",
             "Method":"Do",
-            "Zone": ["Report"],
+            "Zone": ["Control"],
             "Call":
             {
                 "Bundle": "$1",
@@ -36,7 +36,7 @@
             "Weight": 35,
             "Service":"Report.Panel",
             "Method":"Do",
-            "Zone": ["Report"],
+            "Zone": ["Control"],
             "Call":
             {
                 "Bundle": "$1",
@@ -50,7 +50,7 @@
             "Weight": 25,
             "Service":"Report.Panel",
             "Method":"Do",
-            "Zone": ["Report"],
+            "Zone": ["Control"],
             "Call":
             {
                 "Bundle": "$1",
@@ -64,7 +64,7 @@
             "Weight": 65,
             "Service":"Report.Panel",
             "Method":"Do",
-            "Zone": ["Report"],
+            "Zone": ["Control"],
             "Call":
             {
                 "Bundle": "$1",
@@ -81,7 +81,7 @@
             "Weight": 15,
             "Service":"Report.Panel",
             "Method":"Do",
-            "Zone": ["Report"],
+            "Zone": ["Control"],
             "Call":
             {
                 "Bundle": "$1",
@@ -94,7 +94,7 @@
             "Weight": 10,
             "Service":"Report.Panel",
             "Method":"Do",
-            "Zone": ["Report"],
+            "Zone": ["Control"],
             "Call":
             {
                 "Bundle": "$1"

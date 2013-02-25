@@ -28,7 +28,7 @@
                                     ($cMatch)
                                     .str_replace('<k>'.$Match.'</k>', $cMatch,$Pockets[3][$IX]));
                         else
-                            $Output = $Pockets[1][$IX].($DotMatched).$Pockets[3][$IX];
+                            $Output = str_replace('<#/>', '', $Pockets[1][$IX].($DotMatched).$Pockets[3][$IX]);
                     }
 
                     $Call['Value'] = str_replace($Pockets[0][$IX], $Output, $Call['Value']);
