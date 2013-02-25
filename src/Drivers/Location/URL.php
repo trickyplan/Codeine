@@ -18,6 +18,8 @@
         if (isset($Call['Call']['Where']['Location']))
             $Location = F::Live($Call['Call']['Where']['Location']);
 
+        $Location = F::Live($Location);
+
         if (isset($Location) && !empty($Location))
         {
             $Call['Session']['Location'] = $Location;
