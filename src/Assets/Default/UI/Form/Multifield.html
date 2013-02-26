@@ -4,10 +4,12 @@
 
     <div class="controls">
         <fieldset id="FS<k>ID</k>">
-            <input type="text" name="<k>Name</k>[]" id="<k>ID</k>" value="<k>Value</k>" class="span12">
+            <input type="text" name="<k>Name</k>[]" recname="<k>Name</k>" id="<k>ID</k>_0" class="span12" value="<k>Value.0</k>">
         </fieldset>
     </div>
 </div>
 <jsrun>
-        $("#FS<k>ID</k>").EnableMultiField({confirmOnRemove: false, linkText: 'Добавить', removeLinkText: 'Удалить'});
+    $("#FS<k>ID</k>").EnableMultiField({confirmOnRemove: false, linkText: 'Добавить', removeLinkText: 'Удалить',
+    data: <k>Data</k>
+    });
 </jsrun>
