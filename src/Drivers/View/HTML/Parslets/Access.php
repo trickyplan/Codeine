@@ -11,7 +11,7 @@
      {
           foreach ($Call['Parsed'][0] as $IX => $Match)
           {
-                $Root = simplexml_load_string($Match);
+                $Root = simplexml_load_string('<access '.$Call['Parsed'][1][$IX].'></access>');
 
                 unset($Call['Weight'], $Call['Decision']);
 
@@ -27,7 +27,7 @@
                 else
                     $Outer = '';
 
-                $Call['Output'] = str_replace ($Match, $Outer, $Call['Output']);
+                $Call['Output'] = str_replace ($Call['Parsed'][0][$IX], $Outer, $Call['Output']);
           }
 
           return $Call;
