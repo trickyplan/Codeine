@@ -42,10 +42,10 @@
                     );
 
               $HTML = '<img src="'.$Path.'" '
-                    .(isset($Match['Class']) ? 'class="'.$Match['Class'].'"': '')
-                    .(isset($Match['Width']) ? 'width="'.$Match['Width'].'"': '')
-                    .(isset($Match['Height']) ? 'height="'.$Match['Height'].'"': '')
-                    .(isset($Match['Alt']) ? 'alt="'.$Match['Alt'].'"': '')
+                    .(isset($Match['Class']) ? ' class="'.$Match['Class'].'"': '')
+                    .(isset($Match['Width']) ? ' width="'.$Match['Width'].'"': '')
+                    .(isset($Match['Height']) ? ' height="'.$Match['Height'].'"': '')
+                    .(isset($Match['Alt']) ? ' alt="'.$Match['Alt'].'"': '')
                   .' />';
 
               $Call['Output'] = str_replace($Call['Parsed'][0], $HTML, $Call['Output']);
