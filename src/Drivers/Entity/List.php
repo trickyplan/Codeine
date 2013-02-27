@@ -55,16 +55,23 @@
                     $Element['IX'] = $IX+1;
 
                     if (isset($Call['Show Redirects']) or !isset($Element['Redirect']) or empty($Element['Redirect']))
+                    {
+                        if ($Call['Selected'] == $Element['ID'] or $Call['Selected'] == '*')
+                            $Selected = '.Selected';
+                        else
+                            $Selected = '';
+
                         $Call['Output']['Content'][] =
                             array(
                                 'Type'  => 'Template',
                                 'Scope' => $Call['Scope'],
                                 'ID' => 'Show/'
-                                            .(isset($Call['Template'])? $Call['Template']: 'Short')
-                                            .($Call['Selected'] == $Element['ID'] ? '.Selected': ''),
+                                    .(isset($Call['Template'])? $Call['Template']: 'Short')
+                                    .$Selected,
                                 // FIXME Strategy of selecting templates
                                 'Data'  => $Element
                             );
+                    }
                 }
         }
 

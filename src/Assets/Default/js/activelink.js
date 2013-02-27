@@ -3,7 +3,7 @@ $(document).ready(function ()
     var str = location.href.toLowerCase();
     $("li a").each(function ()
     {
-        if (str.indexOf(this.href.toLowerCase()) > -1)
+        if (str == this.href.toLowerCase())
             $(this).parent().addClass("active");
     });
 
