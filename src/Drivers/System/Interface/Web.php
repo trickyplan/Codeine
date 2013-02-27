@@ -93,12 +93,12 @@
 
             foreach ($Languages as $Language => $Quality)
             {
-                if (isset($Call['Language']['Map'][$Language]))
-                    return $Call['Language']['Map'][$Language];
+                if (isset($Call['Languages']['Map'][$Language]))
+                    return $Call['Languages']['Map'][$Language];
             }
         }
 
-        return $Call['Language']['Default'];
+        return $Call['Languages']['Default'];
     });
 
     setFn('Redirect', function ($Call)
