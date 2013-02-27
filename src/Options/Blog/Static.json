@@ -22,8 +22,9 @@
             "Call":
             {
                 "Renderer": "View.RSS",
-                "Title": "Блог PneClickFinance",
-                "Description": "Интересное о финансах",
+                "Title": "Блог",
+                "Link": "/blog",
+                "Description": "",
                 "Entity": "Blog",
                 "Sort":
                 {

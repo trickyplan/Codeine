@@ -24,6 +24,7 @@
         $XML->startElement('channel');
 
         $XML->writeElement('title', $Call['Title']);
+        $XML->writeElement('link', $Call['Link']);
         $XML->writeElement('description', $Call['Description']);
         $XML->writeElement('generator', 'Codeine');
         $XML->writeElement('pubDate', date(DATE_RSS, time()));
