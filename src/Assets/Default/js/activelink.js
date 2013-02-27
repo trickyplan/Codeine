@@ -4,14 +4,11 @@ $(document).ready(function ()
     $("li a").each(function ()
     {
         if (str.indexOf(this.href.toLowerCase()) > -1)
-        {
-            $("li.active").removeClass("active");
             $(this).parent().addClass("active");
-        }
     });
 
     $("a").each(function(){
        if (str == this.href.toLowerCase())
-               $(this).addClass("active");
+           $(this).addClass("active");
     });
 });
