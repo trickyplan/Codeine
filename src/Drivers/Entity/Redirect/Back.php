@@ -9,21 +9,18 @@
 
     setFn('Store', function ($Call)
     {
-        if(!isset($Call['BackURL']))
-            $Call['BackURL'] = $_SERVER['HTTP_REFERER'];
+        if(!isset($Call['Request']['BackURL']))
+            $Call['Request']['BackURL'] = $_SERVER['HTTP_REFERER'];
 
-        return $Call;
-    });
-
-    setFn('Redirect', function ($Call)
-    {
-        $Call = F::Run('System.Interface.Web', 'Redirect', $Call, array('Location' => $Call['Request']['BackURL']));
         return $Call;
     });
 
     setFn('Restore', function ($Call)
     {
-        $Call['BackURL'] = $Call['Request']['BackURL'];
+        if (isset($Call['Request']['BackURL']))
+            $Call = F::Run('System.Interface.Web', 'Redirect', $Call, ['Location' => $Call['Request']['BackURL']]);
+        else
+            $Call = F::Run('System.Interface.Web', 'Redirect', $Call, ['Location' => $_SERVER['HTTP_REFERER']]);
 
         return $Call;
     });

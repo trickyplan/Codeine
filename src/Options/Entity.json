@@ -26,6 +26,24 @@
                 "Service":"Entity.Nodes.Typecast",
                 "Method":"Process"
             },
+            "Make variables alive":
+            {
+                "Service":"Entity.Nodes.Hook",
+                "Method":"Process"
+            }
+        },
+        "beforeEntityCreate":
+        {
+            "Default values":
+            {
+                "Service":"Entity.Nodes.Default",
+                "Method":"Write"
+            },
+            "Make variables alive":
+            {
+                "Service":"Entity.Nodes.Hook",
+                "Method":"Process"
+            },
             "Datatypes":
             {
                 "Service":"Entity.Nodes.Type",
@@ -35,29 +53,6 @@
                     "Purpose": "Create"
                 }
             },
-            "Make variables alive":
-            {
-                "Service":"Entity.Nodes.Hook",
-                "Method":"Process"
-            },
-            "Validate":
-            {
-                "Service":"Entity.Validate",
-                "Method":"Process"
-            }
-        },
-        "beforeEntityCreate":
-        {
-            "Make variables alive":
-            {
-                "Service":"Entity.Nodes.Hook",
-                "Method":"Process"
-            },
-            "Default values":
-            {
-                "Service":"Entity.Nodes.Default",
-                "Method":"Write"
-            },
             "Filter":
             {
                 "Service":"Entity.Nodes.Filter",
@@ -66,13 +61,37 @@
                 {
                     "Purpose": "Create"
                 }
+            },
+            "Validate":
+            {
+                "Service":"Entity.Validate",
+                "Method":"Process"
             }
         },
         "beforeEntityUpdate":
         {
+            "Make variables alive":
+            {
+                "Service":"Entity.Nodes.Hook",
+                "Method":"Process"
+            },
+            "Datatypes":
+            {
+                "Service":"Entity.Nodes.Type",
+                "Method":"Write",
+                "Call":
+                {
+                    "Purpose": "Update"
+                }
+            },
             "Filter":
             {
                 "Service":"Entity.Nodes.Filter",
+                "Method":"Process"
+            },
+            "Validate":
+            {
+                "Service":"Entity.Validate",
                 "Method":"Process"
             },
             "Updated values":
@@ -107,15 +126,6 @@
                 "Method":"Process"
             }
         },
-        "afterEntityWrite":
-        {
-            "Make variables alive":
-            {
-                "Service":"Entity.Nodes.Hook",
-                "Method":"Process"
-            }
-        },
-
         "afterEntityRead":
         {
             "Default values":

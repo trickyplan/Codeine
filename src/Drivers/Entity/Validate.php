@@ -16,7 +16,6 @@
                     'Entity' => $Call['Entity'],
                     'Name' => $Name,
                     'Node' => $Node,
-                    'Current' => isset($Call['Current'])? $Call['Current']: [],
                     'Data' => $Call['Data']]
                 )) !== true)
                 {

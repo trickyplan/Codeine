@@ -6,7 +6,7 @@
             "Type": "Numeral.Integer",
             "Hooks":
             {
-                "beforeEntityCreate":
+                "beforeCheck":
                 {
                     "Service": "System.Time",
                     "Method": "Get"
@@ -18,7 +18,7 @@
             "Type": "Numeral.Integer",
             "Hooks":
             {
-                "beforeEntityCreate":
+                "beforeCheck":
                 {
                     "Service": "Security.Auth",
                     "Method": "Username"

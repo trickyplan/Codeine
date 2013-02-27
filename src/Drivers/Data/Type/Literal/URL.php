@@ -27,7 +27,7 @@
 
             return $Parts['scheme'].'://'.$Parts['host'].$Parts['path'].$Parts['query'].$Parts['fragment'];
         }
-        else return null;
+        else return '';
     });
 
     setFn('Read', function ($Call)

@@ -9,5 +9,8 @@
 
     setFn('Get', function ($Call)
     {
-        return F::Live($Call['ID']). $Call['Map'] [$Call['Value']['type']];
+        if (isset($Call['Value']['type']) && isset($Call['Map'] [$Call['Value']['type']]))
+            return F::Live($Call['ID']). $Call['Map'] [$Call['Value']['type']];
+        else
+            return null;
     });

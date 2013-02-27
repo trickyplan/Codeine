@@ -32,6 +32,7 @@
                     if ($Rule['Weight'] > $Weight)
                     {
                         F::Log($Rule['Match'], LOG_DEBUG);
+                        $Matches = [];
                         if (mb_ereg($Rule['Match'], $Call['Run'], $Matches))
                         {
                             $Rule = F::Map($Rule, function (&$Key, &$Value, $Data, $FullKey, &$Array) use ($Matches)
