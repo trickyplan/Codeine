@@ -4,6 +4,7 @@
         "Location":
         {
             "Type": "Complex.Many2One",
+            "Required": true,
             "Options":
             {
                 "Service": "Entity.List",
