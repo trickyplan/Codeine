@@ -1,7 +1,0 @@
-{
-    "Language":
-    {
-        "Service": "System.Interface.Web",
-        "Method": "DetectUALanguage"
-    }
-}

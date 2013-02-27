@@ -9,8 +9,6 @@
 
     setFn('Process', function ($Call)
     {
-        $Call['Language'] = F::Live($Call['Language']);
-
         if (preg_match_all('@<l>(.*)<\/l>@SsUu', $Call['Output'], $Pockets))
         {
             $Pockets[1] = array_unique($Pockets[1]);
