@@ -30,25 +30,15 @@
 
             $Call['Cookie'] = $_COOKIE;
 
-            if ((isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS'])) or
-                (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&$_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https'))
-            {
-                $Call['Proto'] = 'https://';
-                $Call['Host'] = 'https://'.$_SERVER['HTTP_HOST'];
-            }
-            else
-            {
-                $Call['Proto'] = 'http://';
-                $Call['Host'] = 'http://'.$_SERVER['HTTP_HOST'];
-            }
+            $Call = F::Run(null, 'Protocol', $Call);
 
             $Call['Run'] = urldecode($_SERVER['REQUEST_URI']);
             $Call['URI'] = urldecode($_SERVER['REQUEST_URI']);
             $Call['URL'] = parse_url($Call['URI'], PHP_URL_PATH);
             $Call['URL Query'] = parse_url($Call['URI'], PHP_URL_QUERY);
-        }
 
-        $Call = F::Run($Call['Service'], $Call['Method'], $Call);
+            $Call = F::Run($Call['Service'], $Call['Method'], $Call);
+        }
 
             if (isset($Call['Headers']))
                 foreach ($Call['Headers'] as $Key => $Value)
@@ -123,6 +113,23 @@
 
         $Call['Headers']['HTTP/1.1'] = ' 301 Moved Permanently';
         $Call['Headers']['Location:'] = $URL;
+
+        return $Call;
+    });
+
+    setFn('Protocol', function ($Call)
+    {
+        if ((isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS'])) or
+                (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&$_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https'))
+            {
+                $Call['Proto'] = 'https://';
+                $Call['Host'] = 'https://'.$_SERVER['HTTP_HOST'];
+            }
+            else
+            {
+                $Call['Proto'] = 'http://';
+                $Call['Host'] = 'http://'.$_SERVER['HTTP_HOST'];
+            }
 
         return $Call;
     });
