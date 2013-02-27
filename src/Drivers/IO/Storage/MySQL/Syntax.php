@@ -149,7 +149,11 @@
                         if ($Relation == '$in')
                             $Relation = 'IN';
 
-                        $Conditions[] = '`'.$Key.'` '. $Relation.' '.($Quote ? '\''.$Value.'\'': $Value);
+                        if ($Relation == 'Like')
+                            $Value = '%'.$Value.'%';
+
+                        if (!empty($Value))
+                            $Conditions[] = '`'.$Key.'` '. $Relation.' '.($Quote ? '\''.$Value.'\'': $Value);
                     }
                 }
                 else
