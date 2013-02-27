@@ -1,69 +1,15 @@
 {
     "Hooks":
     {
+        "beforeOperation":
+        {
+            "Substitute":
+            {
+                "Service": "Entity.Hooks.Substitute",
+                "Method": "beforeOperation"
+            }
+        },
         "beforeEntityWrite":
-        {
-            "Make variables alive":
-            {
-                "Service":"Entity.Nodes.Hook",
-                "Method":"Process"
-            }
-        },
-        "afterEntityWrite":
-        {
-            "Make variables alive":
-            {
-                "Service":"Entity.Nodes.Hook",
-                "Method":"Process"
-            }
-        },
-        "beforeEntityCreate":
-        {
-            "Load model (essential)":
-            {
-                "Service":"Entity",
-                "Method":"Load"
-            },
-            "Strict":
-            {
-                "Service":"Entity.Nodes.Strict",
-                "Method":"Process"
-            },
-            "Default values":
-            {
-                "Service":"Entity.Nodes.Default",
-                "Method":"Write"
-            },
-            "Make variables alive":
-            {
-                "Service":"Entity.Nodes.Hook",
-                "Method":"Process"
-            },
-            "Datatypes":
-            {
-                "Service":"Entity.Nodes.Type",
-                "Method":"Write",
-                "Call":
-                {
-                    "Purpose": "Create"
-                }
-            },
-            "Filter":
-            {
-                "Service":"Entity.Nodes.Filter",
-                "Method":"Process",
-                "Call":
-                {
-                    "Purpose": "Create"
-                }
-            },
-            "Validate":
-            {
-                "Service":"Entity.Validate",
-                "Method":"Process"
-            }
-        },
-        "beforeEntityUpdate":
         {
             "Load model (essential)":
             {
@@ -86,7 +32,7 @@
                 "Method":"Write",
                 "Call":
                 {
-                    "Purpose": "Update"
+                    "Purpose": "Create"
                 }
             },
             "Make variables alive":
@@ -94,14 +40,39 @@
                 "Service":"Entity.Nodes.Hook",
                 "Method":"Process"
             },
-            "Filter":
-            {
-                "Service":"Entity.Nodes.Filter",
-                "Method":"Process"
-            },
             "Validate":
             {
                 "Service":"Entity.Validate",
+                "Method":"Process"
+            }
+        },
+        "beforeEntityCreate":
+        {
+            "Make variables alive":
+            {
+                "Service":"Entity.Nodes.Hook",
+                "Method":"Process"
+            },
+            "Default values":
+            {
+                "Service":"Entity.Nodes.Default",
+                "Method":"Write"
+            },
+            "Filter":
+            {
+                "Service":"Entity.Nodes.Filter",
+                "Method":"Process",
+                "Call":
+                {
+                    "Purpose": "Create"
+                }
+            }
+        },
+        "beforeEntityUpdate":
+        {
+            "Filter":
+            {
+                "Service":"Entity.Nodes.Filter",
                 "Method":"Process"
             },
             "Updated values":
@@ -136,6 +107,15 @@
                 "Method":"Process"
             }
         },
+        "afterEntityWrite":
+        {
+            "Make variables alive":
+            {
+                "Service":"Entity.Nodes.Hook",
+                "Method":"Process"
+            }
+        },
+
         "afterEntityRead":
         {
             "Default values":

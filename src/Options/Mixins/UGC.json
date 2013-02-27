@@ -1,6 +1,18 @@
 {
     "Nodes":
     {
+        "User":
+        {
+            "Type": "Numeral.Integer",
+            "Hooks":
+            {
+                "beforeEntityCreate":
+                {
+                    "Service": "Security.Auth",
+                    "Method": "Username"
+                }
+            }
+        },
         "Created":
         {
             "Type": "Numeral.Integer",
@@ -18,22 +30,10 @@
             "Type": "Numeral.Integer",
             "Hooks":
             {
-                "beforeEntityWrite":
+                "beforeUpdatePost":
                 {
                     "Service": "System.Time",
                     "Method": "Get"
-                }
-            }
-        },
-        "User":
-        {
-            "Type": "Numeral.Integer",
-            "Hooks":
-            {
-                "beforeEntityCreate":
-                {
-                    "Service": "Security.Auth",
-                    "Method": "Username"
                 }
             }
         },
@@ -42,7 +42,7 @@
             "Type": "Numeral.Integer",
             "Hooks":
             {
-                "beforeEntityUpdate":
+                "beforeUpdatePost":
                 {
                     "Service": "Security.Auth",
                     "Method": "Username"

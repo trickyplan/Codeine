@@ -11,7 +11,9 @@
     {
         $Call = F::Run('Entity', 'Load', $Call);
 
-            $Call = F::Hook('beforeCheck', $Call);
+        $Call = F::Hook('beforeCheck', $Call);
+
+            $Call['Data'] = F::Run('Entity', 'Read', $Call, ['From Update' => true]);
 
             F::Run('Entity', 'Update', $Call,
             [
@@ -23,7 +25,7 @@
                 ]
             ]);
 
-        $Call = F::Run('System.Interface.Web', 'Redirect', $Call, ['Location' => $_SERVER['HTTP_REFERER']]);
+        $Call = F::Hook('afterCheck', $Call);
 
         return $Call;
     });

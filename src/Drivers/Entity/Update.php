@@ -108,11 +108,12 @@
 
     setFn('POST', function ($Call)
     {
-        $Call = F::Hook('beforeUpdatePost', $Call);
-
         // Берём данные из запроса
 
         $Call['Data'] = $Call['Request'];
+
+        $Call = F::Hook('beforeUpdatePost', $Call);
+
 
         // Отправляем в Entity.Update
 

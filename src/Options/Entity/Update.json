@@ -10,6 +10,14 @@
                 "Service":"Entity",
                 "Method":"Load"
             }
+        },
+        "beforeUpdatePost":
+        {
+            "Make variables alive":
+            {
+                "Service":"Entity.Nodes.Hook",
+                "Method":"Process"
+            }
         }
     },
     "Output":

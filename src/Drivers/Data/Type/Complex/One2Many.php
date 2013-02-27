@@ -9,24 +9,32 @@
 
     setFn ('Write', function ($Call)
     {
-        F::Run('Entity', 'Delete', array(
-                                    'Entity' => $Call['Entity'].'2'.$Call['Name'],
-                                    'Where' =>
-                                        [
-                                            $Call['Entity'] => $Call['Data']['ID']
-                                        ]
-                               ));
+        if (isset($Call['Value']))
+        {
+            $Call['Value'] = F::Live($Call['Value']);
 
-        foreach ($Call['Value'] as $Value)
-            F::Run('Entity', 'Create',
-                [
-                    'Entity' => $Call['Entity'].'2'.$Call['Name'],
-                    'Data' =>
+            if (!empty($Call['Value']))
+            {
+                F::Run('Entity', 'Delete', array(
+                                        'Entity' => $Call['Entity'].'2'.$Call['Name'],
+                                        'Where' =>
+                                            [
+                                                $Call['Entity'] => $Call['Data']['ID']
+                                            ]
+                                   ));
+
+                foreach ($Call['Value'] as $Value)
+                    F::Run('Entity', 'Create',
                         [
-                             $Call['Name'] => $Value,
-                             $Call['Entity'] => $Call['Data']['ID']
-                        ]
-               ]);
+                            'Entity' => $Call['Entity'].'2'.$Call['Name'],
+                            'Data' =>
+                                [
+                                     $Call['Name'] => $Value,
+                                     $Call['Entity'] => $Call['Data']['ID']
+                                ]
+                       ]);
+            }
+        }
 
         return null;
     });

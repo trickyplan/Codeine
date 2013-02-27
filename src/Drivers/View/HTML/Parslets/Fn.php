@@ -22,6 +22,9 @@
               if (is_array($Output))
                   $Output = implode(',', $Output);
 
+              if (is_float($Output))
+                  $Output = str_replace(',', '.', $Output);
+
               $Call['Output'] = str_replace($Call['Parsed'][0][$Ix],
                   $Output
               , $Call['Output']);
