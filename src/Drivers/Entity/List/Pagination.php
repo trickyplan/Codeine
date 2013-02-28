@@ -42,8 +42,9 @@
 
         $Call['PageURLPostfix'].= isset($Call['URL Query'])? '?'.$Call['URL Query']: '';
 
-        if (!isset($Call['FirstURL']))
+        if (!isset($Call['FirstURL']) && isset($Call['URL']))
             $Call['FirstURL'] = preg_replace('@/page(\d+)@', '', $Call['URL']);
+
 
         if (isset($Call['PageCount']) && $Call['PageCount']>1)
             $Call['Output']['Pagination'][] = array(
@@ -51,7 +52,7 @@
                 'Total' => $Call['Front']['Count'],
                 'EPP' => $Call['EPP'],
                 'Page' => $Call['Page'],
-                'FirstURL' => $Call['FirstURL'],
+                'FirstURL' => isset($Call['FirstURL'])? $Call['FirstURL']: '',
                 'PageURL' => isset($Call['PageURL'])? $Call['PageURL']: '',
                 'PageCount' => $Call['PageCount'],
                 'PageURLPostfix' => $Call['PageURLPostfix']
