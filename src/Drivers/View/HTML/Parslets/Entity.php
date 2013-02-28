@@ -11,8 +11,14 @@
     {
         foreach ($Call['Parsed'][2] as $Ix => $Match)
         {
-            $Root = simplexml_load_string('<root'.$Call['Parsed'][1][$Ix].'></root>');
-            $Template = isset($Root->attributes()->template)? (string) $Root->attributes()->template: 'Tag';
+            if (!empty($Call['Parsed'][1][$Ix]))
+            {
+                $Root = simplexml_load_string('<root '.$Call['Parsed'][1][$Ix].'></root>');
+                $Template = isset($Root->attributes()->template)? (string) $Root->attributes()->template: 'Tag';
+            }
+            else
+                $Template = 'Tag';
+
 
             if (preg_match('@^(.+)\:(.+)$@SsUu', $Call['Parsed'][2][$Ix], $Slices))
             {

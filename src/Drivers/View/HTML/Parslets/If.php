@@ -11,11 +11,11 @@
     {
         foreach ($Call['Parsed'][2] as $IX => $Match)
         {
-            $Root = simplexml_load_string('<root '.$Call['Parsed'][1][$IX].'></root>');
+            $Root = simplexml_load_string('<if '.$Call['Parsed'][1][$IX].'></if>');
 
             $Outer = '';
 
-            if ($Root)
+            if ($Root !== false)
                 {
 
                     $Value = (string) $Root->attributes()->value;
