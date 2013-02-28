@@ -21,7 +21,6 @@
                             'URL' => $Call['PageURL'].($Call['Page']-1).$Call['PageURLPostfix'],
                         )));
 
-
         for ($ic = $Call['Page']-7; $ic <= $Call['Page']+7; $ic++)
             if ($ic>0 && $ic<=$Call['PageCount'])
             {

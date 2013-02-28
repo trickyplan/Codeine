@@ -15,7 +15,7 @@
 
         if (!isset($Call['Count']))
         {
-            if (!isset($Call['Page']))
+            if (!isset($Call['Page']) or empty($Call['Page']))
                 $Call['Page'] = 1;
 
             $Call['Front']['Count'] = F::Run('Entity', 'Count', $Call);
@@ -42,13 +42,16 @@
 
         $Call['PageURLPostfix'].= isset($Call['URL Query'])? '?'.$Call['URL Query']: '';
 
+        if (!isset($Call['FirstURL']))
+            $Call['FirstURL'] = preg_replace('@/page(\d+)@', '', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
+
         if (isset($Call['PageCount']) && $Call['PageCount']>1)
             $Call['Output']['Pagination'][] = array(
                 'Type'  => 'Paginator',
                 'Total' => $Call['Front']['Count'],
                 'EPP' => $Call['EPP'],
                 'Page' => $Call['Page'],
-                'FirstURL' => isset($Call['PageURL'])? str_replace($Call['PageURL'], '', $_SERVER['REQUEST_URI']).$Call['PageURLPostfix']: $Call['PageURLPostfix'],
+                'FirstURL' => $Call['FirstURL'],
                 'PageURL' => isset($Call['PageURL'])? $Call['PageURL']: '',
                 'PageCount' => $Call['PageCount'],
                 'PageURLPostfix' => $Call['PageURLPostfix']

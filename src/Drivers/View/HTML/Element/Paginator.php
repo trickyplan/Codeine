@@ -9,8 +9,6 @@
 
     setFn('Make', function ($Call)
     {
-        $Call['FirstURL'] = preg_replace('@/page(\d+)@', '', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
-
         if (empty($Call['PageURL']))
             $Call['PageURL'] = $Call['FirstURL'].'/page';
 
