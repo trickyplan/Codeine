@@ -11,7 +11,7 @@
      {
         foreach ($Call['Parsed'][2] as $IX => $Match)
         {
-            $Root = simplexml_load_string('<root'.$Call['Parsed'][1][$IX].'></root>');
+            $Root = simplexml_load_string('<root '.$Call['Parsed'][1][$IX].'></root>');
 
             $Engine = isset($Root->attributes()->engine)? (string) $Root->attributes()->engine: 'Date';
 
