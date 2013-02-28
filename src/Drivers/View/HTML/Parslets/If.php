@@ -15,24 +15,28 @@
 
             $Outer = '';
 
-            $Value = (string) $Root->attributes()->value;
+            if ($Root)
+                {
 
-            $Decision = false;
+                    $Value = (string) $Root->attributes()->value;
 
-            if (null != ($Eq = (string) $Root->attributes()->eq))
-                $Decision = ($Value == $Eq);
+                    $Decision = false;
 
-            if (null != ($Neq = (string) $Root->attributes()->neq))
-                $Decision = ($Value != $Neq);
+                    if (null != ($Eq = (string) $Root->attributes()->eq))
+                        $Decision = ($Value == $Eq);
 
-            if (null != ($Lt = (string) $Root->attributes()->lt))
-                $Decision = ($Value < $Lt);
+                    if (null != ($Neq = (string) $Root->attributes()->neq))
+                        $Decision = ($Value != $Neq);
 
-            if (null != ($Gt = (string) $Root->attributes()->gt))
-                $Decision = ($Value > $Gt);
+                    if (null != ($Lt = (string) $Root->attributes()->lt))
+                        $Decision = ($Value < $Lt);
 
-            if ($Decision)
-                $Outer = $Call['Parsed'][2][$IX];
+                    if (null != ($Gt = (string) $Root->attributes()->gt))
+                        $Decision = ($Value > $Gt);
+
+                    if ($Decision)
+                        $Outer = $Call['Parsed'][2][$IX];
+                }
 
             $Call['Output'] = str_replace ($Call['Parsed'][0][$IX], $Outer, $Call['Output']);
         }
