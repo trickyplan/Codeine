@@ -43,7 +43,7 @@
         $Call['PageURLPostfix'].= isset($Call['URL Query'])? '?'.$Call['URL Query']: '';
 
         if (!isset($Call['FirstURL']))
-            $Call['FirstURL'] = preg_replace('@/page(\d+)@', '', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
+            $Call['FirstURL'] = preg_replace('@/page(\d+)@', '', $Call['URL']);
 
         if (isset($Call['PageCount']) && $Call['PageCount']>1)
             $Call['Output']['Pagination'][] = array(
