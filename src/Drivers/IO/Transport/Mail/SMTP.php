@@ -6,8 +6,8 @@
      * @package Codeine
      * @version 7.x
      */
-    include 'Mail.php';
-    include 'Mail/mime.php';
+    include_once 'Mail.php';
+    include_once 'Mail/mime.php';
 
     setFn ('Open', function ($Call)
     {
@@ -37,7 +37,9 @@
         $mime->setParam('head_charset', 'utf-8');
 
         $mime->setTXTBody(strip_tags($Call['Data']));
-        $mime->setHTMLBody($Call['Data']);
+
+        if (isset($Call['HTML Mail']) && $Call['HTML Mail'])
+            $mime->setHTMLBody($Call['Data']);
 
         $Call['Data'] = $mime->get(array('text_charset' => 'utf-8'));
         $Call['Headers'] = $mime->headers($Call['Headers']);

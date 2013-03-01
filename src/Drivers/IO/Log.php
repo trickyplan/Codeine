@@ -12,18 +12,17 @@
     {
         $Logs = F::Logs();
 
-        foreach ($Logs as $Log)
-        {
-            F::Run(
-                'IO', 'Write',
-                [
-                    'Renderer' => $Call['Renderer'],
-                    'Storage' => 'Developer',
-                    'Scope' => $Call['Project']['ID'],
-                    'Data' => $Log
-                ]
-            );
-        }
+        foreach ($Logs as &$Log)
+            $Log = implode ("\t", $Log);
+
+        F::Run(
+            'IO', 'Write',
+            [
+                'Renderer' => $Call['Renderer'],
+                'Storage' => 'Developer',
+                'Data' => implode(PHP_EOL, $Logs)
+            ]
+        );
 
         F::Run('IO', 'Close', array('Storage' => 'Developer'));
 
