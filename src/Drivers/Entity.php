@@ -34,7 +34,6 @@
             $Call = F::Hook('beforeEntityWrite', $Call);
                 $Call = F::Hook('beforeEntityCreate', $Call);
 
-        d(__FILE__, __LINE__, $Call['Data']);
             if (!isset($Call['Failure']))
             {
                 $Call['Data'] = F::Run('IO', 'Write', $Call);
