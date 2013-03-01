@@ -115,9 +115,13 @@
 
                 $Call = F::Hook('beforeEntityWrite', $Call);
 
+                    $Call['Current'] = F::Run('Entity', 'Read', $Call, ['From Delete' => true])[0];
+
                     $Call['Data'] = null;
 
                     F::Run('IO', 'Write', $Call);
+
+                    $Call['Data'] = $Call['Current'];
 
                 $Call = F::Hook('afterEntityWrite', $Call);
 
