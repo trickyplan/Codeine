@@ -17,7 +17,7 @@
             if (isset($Node['Index']) && $Node['Index'])
             {
                 $Call['Data'][$Name] = preg_replace('/<[\/\!]*?[^<>]*?>/si', '.', $Call['Data'][$Name]);
-                if (mb_ereg_all('/([a-zA-Zа-яА-ЯёЁ]+)/Ssu', $Call['Data'][$Name], $Pockets))
+                if (preg_match_all('/([a-zA-Zа-яА-ЯёЁ]+)/Ssu', $Call['Data'][$Name], $Pockets))
                 {
                     foreach($Pockets[1] as $Pocket)
                     {

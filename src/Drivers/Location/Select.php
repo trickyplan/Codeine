@@ -13,6 +13,9 @@
 
         $Here = F::Run('Entity', 'Read', ['Entity' => 'Location', 'Where' => $Call['Location']])[0];
 
+        if ($Call['URL'] == '/')
+            $Call['URL'] = '';
+
         foreach ($Locations as $Location)
         {
             if (null == $Here['Slug'])
