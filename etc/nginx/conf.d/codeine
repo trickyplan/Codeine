@@ -44,6 +44,11 @@
         fastcgi_temp_file_write_size 1m;
 	}
 
+    location ~ .php$
+    {
+        return 404;
+    }
+
 	location = /favicon.ico {
 		log_not_found off;
         expires max;
