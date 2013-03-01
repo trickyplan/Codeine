@@ -331,10 +331,11 @@
         {
             $Data = [];
 
-            foreach ($Array as $IX => $Row)
-                foreach ($Keys as $Key)
-                    if (is_scalar($Key) && isset($Row[$Key]))
-                        $Data[$Key][$IX] = $Row[$Key];
+            if (is_array($Array))
+                foreach ($Array as $IX => $Row)
+                    foreach ($Keys as $Key)
+                        if (is_scalar($Key) && isset($Row[$Key]))
+                            $Data[$Key][$IX] = $Row[$Key];
 
             return $Data;
         }
