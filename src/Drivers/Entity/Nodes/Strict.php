@@ -9,10 +9,15 @@
 
     setFn('Process', function ($Call)
     {
+        $Data = [];
         if (isset($Call['Data']))
-            foreach ($Call['Data'] as $Name => $Value)
-                if (!isset($Call['Nodes'][$Name]))
-                    unset($Call['Data'][$Name]);
+        {
+            foreach ($Call['Nodes'] as $Name => $Node)
+                if (F::Dot($Call['Nodes'], $Name) !== null)
+                    $Data = F::Dot($Data, $Name, F::Dot($Call['Data'], $Name));
+
+            $Call['Data'] = $Data;
+        }
 
         return $Call;
     });
