@@ -8,7 +8,7 @@
 
     setFn('Write', function ($Call)
     {
-        // if ($Call['Renderer'] == 'View.HTML')
+        if ($Call['Renderer'] == 'View.HTML')
             echo '<pre>'.$Call['Data'].'</pre>';
 
         return true;
