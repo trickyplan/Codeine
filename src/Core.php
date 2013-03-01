@@ -317,8 +317,8 @@
             else
             {
                 if ((array) $Variable === $Variable)
-                    foreach ($Variable as &$cVariable)
-                        $cVariable = self::Live($cVariable, $Call);
+                    foreach ($Variable as $Key => &$cVariable)
+                        $Variable = F::Dot($Variable, $Key, self::Live($cVariable, $Call));
                 else
                     if ('$' == substr($Variable, 0, 1))
                         $Variable = F::Dot($Call, substr($Variable, 1));

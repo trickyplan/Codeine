@@ -13,7 +13,7 @@
             foreach ($Call['Nodes'] as $Name => $Node)
             {
                 if (isset($Node['Hooks']))
-                    if(isset($Node['Hooks'][$Call['On']]))
+                    if (isset($Node['Hooks'][$Call['On']]))
                     {
                         // Multiread
                         if (isset($Call['Purpose']) && ($Call['Purpose'] == 'Read'))

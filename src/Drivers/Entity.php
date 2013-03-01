@@ -153,8 +153,6 @@
 
     setFn('Far', function ($Call)
     {
-        $Call['Scope'] = $Call['Entity'];
-
         $Element = F::Run(null, 'Read', $Call)[0];
         return isset($Element[$Call['Key']])? $Element[$Call['Key']]: null;
     });
