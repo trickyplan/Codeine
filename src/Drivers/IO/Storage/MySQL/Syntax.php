@@ -128,7 +128,7 @@
         {
             $WhereString = ' where ';
 
-            $Conditions = array();
+            $Conditions = [];
 
             foreach($Call['Where'] as $Key => $Value)
             {
@@ -163,7 +163,10 @@
                 }
             }
 
-            $WhereString = $WhereString . ' ' . implode(' AND ', $Conditions);
+            if (!empty($Conditions))
+                $WhereString = $WhereString . ' ' . implode(' AND ', $Conditions);
+            else
+                $WhereString = $WhereString .'1=0';
         }
         else
             $WhereString = '';
