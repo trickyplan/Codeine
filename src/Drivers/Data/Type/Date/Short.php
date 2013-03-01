@@ -9,9 +9,14 @@
 
     setFn('Write', function ($Call)
     {
-        $Date = strptime($Call['Value'],'%d.%m.%Y');
+        if (isset($Call['Value']) && !empty($Call['Value']) && $Call['Value']>0)
+        {
+            $Date = strptime($Call['Value'],'%d.%m.%Y');
+            return mktime(0,0,0, 1+$Date['tm_mon'], $Date['tm_mday'], 1900+$Date['tm_year']);
+        }
+        else
+            return null;
 
-        return mktime(0,0,0, 1+$Date['tm_mon'], $Date['tm_mday'], 1900+$Date['tm_year']);
     });
 
     setFn('Read', function ($Call)
