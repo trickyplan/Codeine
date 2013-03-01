@@ -22,7 +22,7 @@
                 [
                     'Renderer' => $Call['Renderer'],
                     'Storage' => 'Developer',
-                    'ID' => $Call['URL'],
+                    'ID' => $Call['Host'].$Call['URL'],
                     'Data' => implode(PHP_EOL, $Logs)
                 ]
             );
