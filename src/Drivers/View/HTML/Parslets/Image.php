@@ -15,7 +15,7 @@
 
               list($Asset, $ID) = F::Run('View', 'Asset.Route', array('Value' => $Match['Source']));
 
-              $Image = $Asset.'.'.$ID;
+              $Image = strtr($Asset.'.'.$ID, '/', '.');
 
               $Path = $Call['Image Cache'].$Image;
 
