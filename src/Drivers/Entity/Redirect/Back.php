@@ -9,7 +9,7 @@
 
     setFn('Store', function ($Call)
     {
-        if(!isset($Call['Request']['BackURL']))
+        if(!isset($Call['Request']['BackURL']) && isset($_SERVER['HTTP_REFERER']))
             $Call['Request']['BackURL'] = $_SERVER['HTTP_REFERER'];
 
         return $Call;
@@ -20,7 +20,8 @@
         if (isset($Call['Request']['BackURL']))
             $Call = F::Run('System.Interface.Web', 'Redirect', $Call, ['Location' => $Call['Request']['BackURL']]);
         else
-            $Call = F::Run('System.Interface.Web', 'Redirect', $Call, ['Location' => $_SERVER['HTTP_REFERER']]);
+            if (isset($_SERVER['HTTP_REFERER']))
+                $Call = F::Run('System.Interface.Web', 'Redirect', $Call, ['Location' => $_SERVER['HTTP_REFERER']]);
 
         return $Call;
     });
