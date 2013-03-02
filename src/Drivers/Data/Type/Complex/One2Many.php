@@ -9,31 +9,26 @@
 
     setFn ('Write', function ($Call)
     {
-        if (isset($Call['Value']) && !empty($Call['Value']))
+        if (!empty($Call['Value']))
         {
-            $Call['Value'] = F::Live($Call['Value']);
+            F::Run('Entity', 'Delete', array(
+                                    'Entity' => $Call['Entity'].'2'.$Call['Name'],
+                                    'Where' =>
+                                        [
+                                            $Call['Entity'] => $Call['Current']['ID']
+                                        ]
+                               ));
 
-            if ($Call['Value'] != F::Live($Call['Current'][$Call['Name']]))
-            {
-                F::Run('Entity', 'Delete', array(
-                                        'Entity' => $Call['Entity'].'2'.$Call['Name'],
-                                        'Where' =>
-                                            [
-                                                $Call['Entity'] => $Call['Data']['ID']
-                                            ]
-                                   ));
-
-                foreach ($Call['Value'] as $Value)
-                    F::Run('Entity', 'Create',
-                        [
-                            'Entity' => $Call['Entity'].'2'.$Call['Name'],
-                            'Data' =>
-                                [
-                                     $Call['Name'] => $Value,
-                                     $Call['Entity'] => $Call['Data']['ID']
-                                ]
-                       ]);
-            }
+            foreach ($Call['Value'] as $Value)
+                F::Run('Entity', 'Create',
+                    [
+                        'Entity' => $Call['Entity'].'2'.$Call['Name'],
+                        'Data' =>
+                            [
+                                 $Call['Name'] => $Value,
+                                 $Call['Entity'] => $Call['Current']['ID']
+                            ]
+                   ]);
         }
 
         return null;

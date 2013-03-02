@@ -111,7 +111,6 @@
                 if (isset($Call['Where']) && is_scalar($Call['Where']))
                     $Call['Where'] = array('ID' => $Call['Where']);
 
-
             $Call = F::Hook('beforeEntityDelete', $Call);
 
                 $Call = F::Hook('beforeEntityWrite', $Call);

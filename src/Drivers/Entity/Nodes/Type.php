@@ -20,7 +20,7 @@
                         'Node' => $Node,
                         'Purpose' => $Call['Purpose'],
                         'Data' => $Call['Data'],
-                        'Current' => isset($Call['Current'])? $Call['Current']: [],
+                        'Current' => isset($Call['Current'])? $Call['Current']: null,
                         'Value' => F::Dot($Call['Data'], $Name)
                     ]));
 

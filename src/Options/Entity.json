@@ -75,20 +75,6 @@
                 "Service":"Entity.Nodes.Hook",
                 "Method":"Process"
             },
-            "Datatypes":
-            {
-                "Service":"Entity.Nodes.Type",
-                "Method":"Write",
-                "Call":
-                {
-                    "Purpose": "Update"
-                }
-            },
-            "Filter":
-            {
-                "Service":"Entity.Nodes.Filter",
-                "Method":"Process"
-            },
             "Validate":
             {
                 "Service":"Entity.Validate",
@@ -98,6 +84,20 @@
             {
                 "Service":"Entity.Nodes.Updated",
                 "Method":"Process"
+            },
+            "Filter":
+            {
+                "Service":"Entity.Nodes.Filter",
+                "Method":"Process"
+            },
+            "Datatypes":
+            {
+                "Service":"Entity.Nodes.Type",
+                "Method":"Write",
+                "Call":
+                {
+                    "Purpose": "Update"
+                }
             }
         },
         "beforeEntityDelete":

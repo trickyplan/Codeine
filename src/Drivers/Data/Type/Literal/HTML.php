@@ -14,5 +14,5 @@
 
     setFn('Read', function ($Call)
     {
-        return html_entity_decode($Call['Value']);
+        return htmlspecialchars_decode($Call['Value']);
     });
