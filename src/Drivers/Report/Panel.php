@@ -29,17 +29,19 @@
             'Context' => $Call['Context']
         );
 
-        $Call['Layouts'][] = array(
-            'Scope' => $Call['Bundle'],
-            'ID' => 'Report/'.$Call['Option'],
-            'Context' => $Call['Context']
-        );
+        if (isset($Call['Option']))
+            $Call['Layouts'][] = array(
+                'Scope' => $Call['Bundle'],
+                'ID' => 'Report/'.$Call['Option'],
+                'Context' => $Call['Context']
+            );
 
-        $Call['Layouts'][] = array(
-            'Scope' => $Call['Bundle'],
-            'ID' => 'Report/'.$Call['Option'].'/'.$Call['Action'],
-            'Context' => $Call['Context']
-        );
+        if (isset($Call['Option']))
+            $Call['Layouts'][] = array(
+                'Scope' => $Call['Bundle'],
+                'ID' => 'Report/'.$Call['Option'].'/'.$Call['Action'],
+                'Context' => $Call['Context']
+            );
 
         foreach($Call['Bundles'] as $Group => $Bundles)
         {
@@ -68,11 +70,12 @@
             foreach ($Call['Sidebar'] as &$Sidebar)
                 $Pills[] = ['ID' => $Sidebar, 'URL' => '/report/'.$Call['Bundle'].'/'.$Sidebar, 'Title' => $Call['Bundle'].'.Report:Options.'.$Sidebar];
 
-        $Call['Output']['Sidebar'][] = [
-            'Type' => 'Navpills',
-            'Options' => $Pills,
-            'Value' => $Call['Option']
-        ];
+        if (isset($Call['Option']))
+            $Call['Output']['Sidebar'][] = [
+                'Type' => 'Navpills',
+                'Options' => $Pills,
+                'Value' => $Call['Option']
+            ];
 
         $Call['Output']['Navigation'][] = [
             'Type' => 'Navlist',
