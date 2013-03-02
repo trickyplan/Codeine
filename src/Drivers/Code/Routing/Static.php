@@ -27,6 +27,7 @@
         else
             die('Static routes table corrupted'); // FIXME
 
+        unset($Call['Links']);
         return $Call;
     });
 

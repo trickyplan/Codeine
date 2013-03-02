@@ -26,6 +26,7 @@
         private static $_Log = [];
 
         private static $_Live = false;
+        private static $_Memory= 0;
 
         private static $_SR71 = false;
 
@@ -263,6 +264,7 @@
 
                     if (self::$_SR71)
                     {
+                        self::$_Memory = memory_get_usage(true);
                         self::Counter(self::$_Service.'.'.self::$_Method);
                         self::Stop(self::$_Service . '.' . self::$_Method);
                         self::Start($OldService. '.' . $OldMethod);
@@ -612,7 +614,7 @@
            $Summary['Calls'] = array_sum(self::$_Counters['C']);
 
            arsort(self::$_Counters['T']);
-           echo "<pre>time\tcalls\trtime\trcall\tfn\n".$Summary['Time']."\t".$Summary['Calls']."\n";
+           echo 'Memory: '.round(self::$_Memory/1024)." Kb. <pre>time\tcalls\trtime\trcall\tfn\n".$Summary['Time']."\t".$Summary['Calls']."\n";
                foreach (self::$_Counters['T'] as $Key => $Value)
                    echo round($Value)."\t".self::$_Counters['C'][$Key]."\t".round(($Value/$Summary['Time'])*100)
                              ."%\t".round((self::$_Counters['C'][$Key]/$Summary['Calls']),2)*100
@@ -647,7 +649,10 @@
             self::Stop(self::$_Service . '.' . self::$_Method);
 
             if (self::$_SR71)
+            {
+                self::$_Memory = memory_get_usage();
                 self::SR71();
+            }
 
             return true;
         }
