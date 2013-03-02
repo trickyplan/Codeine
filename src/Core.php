@@ -646,13 +646,21 @@
 
         public static function Shutdown()
         {
+            // foreach (self::$_Log as $Line)
+            //    echo implode ("\t", $Line).PHP_EOL;
+
             self::Stop(self::$_Service . '.' . self::$_Method);
+
+            // $E = error_get_last();
+            //print_r($E);
 
             if (self::$_SR71)
             {
                 self::$_Memory = memory_get_usage();
                 self::SR71();
             }
+
+            ob_flush();
 
             return true;
         }

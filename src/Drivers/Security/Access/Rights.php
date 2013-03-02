@@ -21,7 +21,8 @@
                 }
         }
 
-        F::Log('Права: Итоговое решение:'. ($Call['Decision']? 'Разрешить': 'Запретить'), LOG_INFO);
+        F::Log('Rights decision:'. ($Call['Decision']? 'Allow': 'Deny'), LOG_INFO);
 
+        unset($Call['Access']);
         return $Call;
     });

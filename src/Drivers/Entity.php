@@ -53,13 +53,13 @@
 
         $Call = F::Hook('beforeOperation', $Call);
 
-            // Если в Where скалярная переменная - это ID.
-            if (isset($Call['Where']) && is_scalar($Call['Where']))
-                $Call['Where'] = ['ID' => $Call['Where']];
+        // Если в Where скалярная переменная - это ID.
+        if (isset($Call['Where']) && is_scalar($Call['Where']))
+            $Call['Where'] = ['ID' => $Call['Where']];
 
             $Call = F::Hook('beforeEntityRead', $Call);
 
-            $Call['Data'] = F::Run('IO', 'Read', $Call);
+                $Call['Data'] = F::Run('IO', 'Read', $Call);
 
             $Call = F::Hook('afterEntityRead', $Call);
 
@@ -76,9 +76,9 @@
 
             // Если в Where скалярная переменная - это ID.
             if (isset($Call['Where']) && is_scalar($Call['Where']))
-                $Call['Where'] = array('ID' => $Call['Where']);
+                $Call['Where'] = ['ID' => $Call['Where']];
 
-            $Call['Current'] = F::Run('Entity', 'Read', $Call, ['From Update' => true])[0];
+            $Call['Current'] = F::Run('Entity', 'Read', $Call, ['Purpose' => 'Update'])[0];
 
             $Call['Data'] = F::Merge($Call['Current'],$Call['Data']);
 
@@ -96,6 +96,7 @@
             $Call = F::Hook('afterEntityWrite', $Call);
 
         $Call = F::Hook('afterOperation', $Call);
+
 
         return $Call;
     });

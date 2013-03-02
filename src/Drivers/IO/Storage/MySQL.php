@@ -36,6 +36,12 @@
                 F::Log($Call['Link']->error, LOG_ERR);
             }
 
+            if ($Result->num_rows>1000)
+            {
+                d(__FILE__, __LINE__, $Query);
+                die();
+            }
+
             if ($Result->num_rows>0)
             {
                 $Data = $Result->fetch_all(MYSQLI_ASSOC);

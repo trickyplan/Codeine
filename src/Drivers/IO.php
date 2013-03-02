@@ -42,7 +42,9 @@
 
     setFn ('Read', function ($Call)
     {
-        unset($Call['Result']);
+        if (isset($Call['Result']))
+            unset($Call['Result']);
+
         $Call = F::Run('IO', 'Open', $Call);
 
         $Call = F::Hook('beforeIORead', $Call);

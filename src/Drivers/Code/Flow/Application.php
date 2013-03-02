@@ -14,7 +14,8 @@
         // В этом месте, практически всегда, происходит роутинг.
 
         $Call = F::Hook('beforeApplicationRun', $Call);
-$Call['Language'] = function ($Call) {return F::Run('System.Interface.Web', 'DetectUALanguage', $Call);};
+        $Call['Language'] = function ($Call) {return F::Run('System.Interface.Web', 'DetectUALanguage', $Call);};
+
         // FIXME
         // Если передан нормальный вызов, совершаем его
         if (!isset($Call['Output']))

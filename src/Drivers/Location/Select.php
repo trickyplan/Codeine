@@ -29,12 +29,12 @@
             }
 
             $Call['Output']['Content'][] =
-                array(
+                [
                     'Type' => 'Template',
                     'Scope' => 'Location',
                     'ID' => 'Show/Widget',
                     'Data' => $Location
-                );
+                ];
         }
 
         return $Call;
