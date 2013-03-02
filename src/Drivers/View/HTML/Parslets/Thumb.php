@@ -49,7 +49,7 @@
                     {
                         $Image = new Gmagick($Filename);
                         $Image->cropThumbnailImage($Thumb['Width'], $Thumb['Width']);
-                        $Image->enhanceimage();
+                        $Image->setCompressionQuality(100);
                         $Image->writeImage(Root.'/Public'.$ThumbURL);
                         F::Log('Thumbnail created', LOG_INFO);
                     }
