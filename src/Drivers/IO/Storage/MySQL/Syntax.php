@@ -130,38 +130,39 @@
 
             $Conditions = [];
 
-            foreach($Call['Where'] as $Key => $Value)
-            {
-                $Relation = '=';
-
-                if (is_array($Value))
+            if (is_array($Call['Where']))
+                foreach($Call['Where'] as $Key => $Value)
                 {
-                    foreach ($Value as $Relation => &$Value) // FIXME!
+                    $Relation = '=';
+
+                    if (is_array($Value))
                     {
-                        if (is_array($Value))
+                        foreach ($Value as $Relation => &$Value) // FIXME!
                         {
-                            $Value = '('.implode(',', $Value).')';
-                            $Quote = false;
+                            if (is_array($Value))
+                            {
+                                $Value = '('.implode(',', $Value).')';
+                                $Quote = false;
+                            }
+                            else
+                                $Quote = !is_numeric($Value);
+
+                            if ($Relation == '$in')
+                                $Relation = 'IN';
+
+                            if ($Relation == 'Like')
+                                $Value = '%'.$Value.'%';
+
+                            if (!empty($Value))
+                                $Conditions[] = '`'.$Key.'` '. $Relation.' '.($Quote ? '\''.$Value.'\'': $Value);
                         }
-                        else
-                            $Quote = !is_numeric($Value);
-
-                        if ($Relation == '$in')
-                            $Relation = 'IN';
-
-                        if ($Relation == 'Like')
-                            $Value = '%'.$Value.'%';
-
-                        if (!empty($Value))
-                            $Conditions[] = '`'.$Key.'` '. $Relation.' '.($Quote ? '\''.$Value.'\'': $Value);
+                    }
+                    else
+                    {
+                        $Quote = !is_numeric($Value);
+                        $Conditions[] = '`'.$Key.'` '. $Relation.' '.($Quote ? '\''.$Value.'\'': $Value);
                     }
                 }
-                else
-                {
-                    $Quote = !is_numeric($Value);
-                    $Conditions[] = '`'.$Key.'` '. $Relation.' '.($Quote ? '\''.$Value.'\'': $Value);
-                }
-            }
 
             if (!empty($Conditions))
                 $WhereString = $WhereString . ' ' . implode(' AND ', $Conditions);
