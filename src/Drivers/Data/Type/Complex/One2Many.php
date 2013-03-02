@@ -9,11 +9,11 @@
 
     setFn ('Write', function ($Call)
     {
-        if (isset($Call['Value']))
+        if (isset($Call['Value']) && !empty($Call['Value']))
         {
             $Call['Value'] = F::Live($Call['Value']);
 
-            if (!empty($Call['Value']))
+            if ($Call['Value'] != F::Live($Call['Current'][$Call['Name']]))
             {
                 F::Run('Entity', 'Delete', array(
                                         'Entity' => $Call['Entity'].'2'.$Call['Name'],

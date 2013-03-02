@@ -20,6 +20,7 @@
                         'Node' => $Node,
                         'Purpose' => $Call['Purpose'],
                         'Data' => $Call['Data'],
+                        'Current' => $Call['Current'],
                         'Value' => F::Dot($Call['Data'], $Name)
                     ]));
 

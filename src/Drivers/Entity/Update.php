@@ -112,6 +112,7 @@
 
         $Call['Data'] = $Call['Request'];
 
+        d(__FILE__, __LINE__, $Call['Request']);
         $Call = F::Hook('beforeUpdatePost', $Call);
 
 
