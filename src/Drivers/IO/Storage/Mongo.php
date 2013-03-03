@@ -24,13 +24,23 @@
         $Data = null;
 
         if (isset($Call['Where']))
-            $Cursor = $Call['Link']->$Call['Scope']->find($Call['Where']);
+        {
+            foreach ($Call['Where'] as $Key => $Value)
+                if (is_array($Value))
+                    foreach ($Value as $Subkey => $Subvalue)
+                        $Where[$Key.'.'.$Subkey] = $Subvalue;
+                else
+                    $Where[$Key] = $Value;
+
+            $Cursor = $Call['Link']->$Call['Scope']->find($Where);
+        }
         else
             $Cursor = $Call['Link']->$Call['Scope']->find();
 
         if (isset($Call['Fields']))
         {
             $Fields = array();
+
             foreach ($Call['Fields'] as $Field)
                 $Fields[$Field] = true;
 
@@ -64,34 +74,22 @@
         {
             if (isset($Call['Where']))
                 return $Call['Link']->$Call['Scope']->remove ($Call['Where']);
-            else
-                return $Call['Link']->$Call['Scope']->remove ();
         }
         else
         {
-            $Data = [];
-
-            foreach ($Call['Data'] as $Key => $Value)
-            {
-                unset ($Call['Data'][$Key]);
-                $Data = F::Dot($Data, $Key, $Value);
-            }
-
-            $Data = F::Merge($Call['Current'], $Data);
-
             try
             {
                 if (isset($Call['Where']))
-                    $Call['Link']->$Call['Scope']->update($Call['Where'], $Data);
+                    $Call['Link']->$Call['Scope']->update($Call['Where'], ['$set' => $Call['Data']]);
                 else
-                    $Call['Link']->$Call['Scope']->insert ($Data);
+                    $Call['Link']->$Call['Scope']->insert ($Call['Data']);
             }
             catch (MongoCursorException $e)
             {
                 return F::Hook('IO.Mongo.Update.Failed', $Call);
             }
 
-            return $Data;
+            return $Call['Data'];
         }
     });
 

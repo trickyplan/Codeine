@@ -22,9 +22,9 @@
             else
             {
                 if ($New == $Current)
-                    unset($Call['Data'][$Name]);
+                    $Call['Data'] = F::Dot($Call['Data'], $Name, null);
                 elseif ($New === null)
-                    $Call['Data'][$Name] = 0;
+                    $Call['Data'] = F::Dot($Call['Data'], $Name, 0);
             }
         }
 

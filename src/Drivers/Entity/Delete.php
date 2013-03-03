@@ -28,7 +28,7 @@
 
     setFn('POST', function ($Call)
     {
-        F::Run('Entity', 'Delete', $Call);
+        $Call = F::Run('Entity', 'Delete', $Call);
 
         $Call = F::Hook('afterDeletePost', $Call);
 

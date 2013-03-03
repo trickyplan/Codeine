@@ -22,6 +22,8 @@
             if (!empty($Page))
                 $Call = F::Merge($Call, $Page);
 
+            $Call['Header'] = $Call['Title'][count($Call['Title'])-1];
+
             if ($Call['Reverse'])
                 $Call['Title'] = array_reverse($Call['Title']);
 
@@ -39,6 +41,7 @@
             if (is_array($Call['Description']))
                 $Call['Description'] = implode('', $Call['Description']);
 
+            $Call['Output'] = str_replace('<header/>', $Call['Header'], $Call['Output']);
             $Call['Output'] = str_replace('<title/>', '<title>'.$Call['Title'].'</title>', $Call['Output']);
             $Call['Output'] = str_replace('<keywords/>', '<meta name="keywords" content="'.$Call['Keywords'].'" />', $Call['Output']);
             $Call['Output'] = str_replace('<description/>', '<meta name="description" content="'.$Call['Description'].'" />', $Call['Output']);

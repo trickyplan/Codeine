@@ -82,15 +82,15 @@
 
         if ($Activation !== null)
         {
-            F::Run('Entity', 'Update',
-                array(
+            F::Run('Entity', 'Update', $Call,
+                [
                      'Entity' => 'User',
                      'Where' => $Activation['User'],
                      'Data' =>
                          [
                             'Status' => true
                          ]
-                ));
+                ]);
 
             F::Run('IO', 'Write',
                 array(

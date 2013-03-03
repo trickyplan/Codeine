@@ -78,7 +78,7 @@
     setFn('Check', function ($Call)
     {
         unlink(Root.'/Public/captcha/'.$Call['Request']['CAPTCHA.Challenge'].'.png');
-        if ($Call['Request']['CAPTCHA.Challenge'] != sha1($Call['Request']['CAPTCHA.Answer']))
+        if ($Call['Request']['CAPTCHA']['Challenge'] != sha1($Call['Request']['CAPTCHA']['Answer']))
         {
             $Call['Failure'] = true;
             $Call = F::Hook('CAPTCHA.Failed', $Call);
