@@ -56,7 +56,7 @@
                         if (!isset($Element['ID']))
                             $Element['ID'] = $IX;
 
-                        $Element['IX'] = $IX+1;
+                        $Element['IX'] = $Call['EPP']*($Call['Page']-1)+$IX+1;
 
                         if (isset($Call['Show Redirects']) or !isset($Element['Redirect']) or empty($Element['Redirect']))
                         {

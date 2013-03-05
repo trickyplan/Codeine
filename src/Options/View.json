@@ -8,6 +8,21 @@
     },
     "Parsers":
     {
+        "KeyBlock 1":
+        {
+            "Service": "View.Parser.KeyBlock",
+            "Method": "Parse"
+        },
+        "Key 1":
+        {
+            "Service": "View.Parser.Key",
+            "Method": "Parse"
+        },
+        "Call 1":
+        {
+            "Service": "View.Parser.Call",
+            "Method": "Parse"
+        },
         "Layout":
         {
             "Service": "View.Parser.Layout",
@@ -23,17 +38,17 @@
             "Service": "View.Parser.TreeKey",
             "Method": "Parse"
         },
-        "Call":
+        "Call 2":
         {
             "Service": "View.Parser.Call",
             "Method": "Parse"
         },
-        "KeyBlock":
+        "KeyBlock 2":
         {
             "Service": "View.Parser.KeyBlock",
             "Method": "Parse"
         },
-        "Key":
+        "Key 2":
         {
             "Service": "View.Parser.Key",
             "Method": "Parse"
