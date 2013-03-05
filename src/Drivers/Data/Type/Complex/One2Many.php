@@ -15,7 +15,7 @@
                                     'Entity' => $Call['Entity'].'2'.$Call['Name'],
                                     'Where' =>
                                         [
-                                            $Call['Entity'] => $Call['Current']['ID']
+                                            $Call['Entity'] => isset($Call['Data']['ID'])? $Call['Data']['ID']: $Call['Current']['ID']
                                         ]
                                ));
 
@@ -26,7 +26,7 @@
                         'Data' =>
                             [
                                  $Call['Name'] => $Value,
-                                 $Call['Entity'] => $Call['Current']['ID']
+                                 $Call['Entity'] => isset($Call['Data']['ID'])? $Call['Data']['ID']: $Call['Current']['ID']
                             ]
                    ]);
         }
