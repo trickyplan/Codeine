@@ -122,6 +122,13 @@
         return $LimitString;
     });
 
+    setFn('Join', function ($Call)
+    {
+
+
+        return $Call;
+    });
+
     setFn ('Where', function ($Call)
     {
         if (isset($Call['Where']))
