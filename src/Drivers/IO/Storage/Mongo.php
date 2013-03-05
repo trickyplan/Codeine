@@ -73,7 +73,7 @@
     {
         $Call['Scope'] = strtr($Call['Scope'], '.', '_');
 
-        if (null === $Call['Data'])
+        if (null === $Call['Data'] or empty($Call['Data']))
         {
             if (isset($Call['Where']))
                 return $Call['Link']->$Call['Scope']->remove ($Call['Where']);
@@ -103,7 +103,6 @@
 
     setFn ('Execute', function ($Call)
     {
-
         return $Call['Link']->execute($Call['Command']);
     });
 
@@ -111,8 +110,18 @@
     {
         $Call['Scope'] = strtr($Call['Scope'], '.', '_');
 
+
         if (isset($Call['Where']))
-            $Cursor = $Call['Link']->$Call['Scope']->find($Call['Where']);
+        {
+            foreach ($Call['Where'] as $Key => $Value)
+                if (is_array($Value))
+                    foreach ($Value as $Subkey => $Subvalue)
+                        $Where[$Key.'.'.$Subkey] = $Subvalue;
+                else
+                    $Where[$Key] = $Value;
+
+            $Cursor = $Call['Link']->$Call['Scope']->find($Where);
+        }
         else
             $Cursor = $Call['Link']->$Call['Scope']->find();
 
