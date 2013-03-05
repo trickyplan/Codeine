@@ -109,7 +109,8 @@
     {
         $Call = F::Run('IO', 'Open', $Call);
 
-        $Call['Where'] = F::Live($Call['Where']);
+        if (isset($Call['Where'])
+            $Call['Where'] = F::Live($Call['Where']);
 
         if (isset($Call['Where']) && is_scalar($Call['Where']))
             $Call['Where'] = array('ID' => $Call['Where']);
