@@ -147,11 +147,12 @@
                             else
                                 $Quote = !is_numeric($Value);
 
-                            if ($Relation == '$in')
-                                $Relation = 'IN';
-
-                            if ($Relation == 'Like')
-                                $Value = '%'.$Value.'%';
+                            switch ($Relation)
+                            {
+                                case '$in': $Relation = 'IN'; break;
+                                case '$ne': $Relation = '<>'; break;
+                                case 'Like': $Value = '%'.$Value.'%'; break;
+                            }
 
                             if (!empty($Value))
                                 $Conditions[] = '`'.$Key.'` '. $Relation.' '.($Quote ? '\''.$Value.'\'': $Value);

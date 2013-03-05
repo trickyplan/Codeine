@@ -28,5 +28,8 @@
                      $Attributes[] = strtolower($Attribute);
         }
 
-        return '<'.$Call['Tag'].' '.implode(' ', $Attributes).' />';
+        if (isset($Call['Block']) && $Call['Block'])
+            return '<'.$Call['Tag'].' '.implode(' ', $Attributes).'>'.$Call['Value'].'</'.$Call['Tag'].'>';
+        else
+            return '<'.$Call['Tag'].' '.implode(' ', $Attributes).' />';
     });

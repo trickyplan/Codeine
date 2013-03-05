@@ -9,12 +9,12 @@
 
     setFn('Write', function ($Call)
     {
-        return $Call['Value'];
+        return (string) $Call['Value'];
     });
 
     setFn('Read', function ($Call)
     {
-        return $Call['Value'];
+        return (string) $Call['Value'];
     });
 
     setFn('Populate', function ($Call)

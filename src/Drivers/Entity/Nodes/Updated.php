@@ -14,17 +14,20 @@
             $New = F::Live(F::Dot($Call['Data'], $Name));
             $Current = F::Live(F::Dot($Call['Current'], $Name));
 
-            if (!isset($Node['Nullable']) || !$Node['Nullable'])
+            if (strpos($Name, '.') == false)
             {
-                if (($New === null) || ($New == $Current))
-                    $Call['Data'] = F::Dot($Call['Data'], $Name, null);
-            }
-            else
-            {
-                if ($New == $Current)
-                    $Call['Data'] = F::Dot($Call['Data'], $Name, null);
-                elseif ($New === null)
-                    $Call['Data'] = F::Dot($Call['Data'], $Name, 0);
+                if (!isset($Node['Nullable']) || !$Node['Nullable'])
+                {
+                    if (($New === null) || ($New == $Current))
+                        $Call['Data'] = F::Dot($Call['Data'], $Name, null);
+                }
+                else
+                {
+                    if ($New == $Current)
+                        $Call['Data'] = F::Dot($Call['Data'], $Name, null);
+                    elseif ($New === null)
+                        $Call['Data'] = F::Dot($Call['Data'], $Name, 0);
+                }
             }
         }
 

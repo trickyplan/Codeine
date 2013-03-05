@@ -25,7 +25,7 @@
             return isset($Call['Node']['Options'][$Call['Value']])? $Call['Node']['Options'][$Call['Value']]: $Call['Value'];
         }
         else
-            return $Call['Value'];
+            return (int) $Call['Value'];
 
     });
 

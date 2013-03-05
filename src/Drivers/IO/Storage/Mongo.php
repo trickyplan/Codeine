@@ -37,31 +37,34 @@
         else
             $Cursor = $Call['Link']->$Call['Scope']->find();
 
-        if (isset($Call['Fields']))
+        $Data = null;
+
+        if ($Cursor !== null)
         {
-            $Fields = array();
-
-            foreach ($Call['Fields'] as $Field)
-                $Fields[$Field] = true;
-
-            $Cursor->fields($Fields);
-        }
-
-        if (isset($Call['Sort']))
-            foreach($Call['Sort'] as $Key => $Direction)
-                $Cursor->sort(array($Key => (int)(($Direction == SORT_ASC) or ($Direction == 1))? 1: -1));
-
-        if (isset($Call['Limit']))
-            $Cursor->limit($Call['Limit']['To']-$Call['Limit']['From'])->skip($Call['Limit']['From']);
-
-        if ($Cursor->count()>0)
-            foreach ($Cursor as $cCursor)
+            if (isset($Call['Fields']))
             {
-                unset($cCursor['_id']);
-                $Data[] = $cCursor;
+                $Fields = array();
+
+                foreach ($Call['Fields'] as $Field)
+                    $Fields[$Field] = true;
+
+                $Cursor->fields($Fields);
             }
-        else
-            $Data = null;
+
+            if (isset($Call['Sort']))
+                foreach($Call['Sort'] as $Key => $Direction)
+                    $Cursor->sort(array($Key => (int)(($Direction == SORT_ASC) or ($Direction == 1))? 1: -1));
+
+            if (isset($Call['Limit']))
+                $Cursor->limit($Call['Limit']['To']-$Call['Limit']['From'])->skip($Call['Limit']['From']);
+
+            if ($Cursor->count()>0)
+                foreach ($Cursor as $cCursor)
+                {
+                    unset($cCursor['_id']);
+                    $Data[] = $cCursor;
+                }
+        }
 
         return $Data;
     });
@@ -115,3 +118,16 @@
 
         return $Cursor->count();
     });
+
+    setFn ('ID', function ($Call)
+    {
+        $Call['Scope'] = strtr($Call['Scope'], '.', '_');
+
+        if (isset($Call['Where']))
+            $Cursor = $Call['Link']->$Call['Scope']->find($Call['Where']);
+        else
+            $Cursor = $Call['Link']->$Call['Scope']->find();
+
+        return $Cursor->count()+1;
+    });
+

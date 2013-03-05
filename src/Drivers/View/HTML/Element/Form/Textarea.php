@@ -9,10 +9,15 @@
 
      setFn('Make', function ($Call)
      {
-         return F::Run ('View', 'LoadParsed', $Call,
+         if (is_array($Call['Value']))
+             $Call['Value'] = implode(',',$Call['Value']);
+
+         $Call['HTML'] = F::Run('View.HTML.Element.Base', 'Make', $Call, ['Tag' => 'textarea']);
+
+         return F::Run ('View', 'LoadParsed',
                            array(
                                 'Scope' => 'Default',
                                 'ID'    => 'UI/Form/Textarea',
-                                'Data' => $Call
+                                'Data'  => $Call
                            ));
      });

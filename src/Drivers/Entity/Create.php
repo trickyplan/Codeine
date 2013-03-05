@@ -23,20 +23,23 @@
         if (isset($Call['Request']) && isset($Call['Data']))
             $Call['Data'] = F::Merge($Call['Request'], $Call['Data']);
 
-        $Call['Scope'] = isset($Call['Scope'])? $Call['Entity'].'/'.$Call['Scope']: $Call['Scope'] = $Call['Entity'];
+        $Call['Scope'] = isset($Call['Scope'])? $Call['Scope']: $Call['Scope'] = $Call['Entity'];
 
-        $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Main','Context' => $Call['Context']);
-        $Call['Layouts'][] = array(
-            'Scope' => $Call['Scope'],
-            'ID' => isset($Call['Custom Layouts']['Create'])?  $Call['Custom Layouts']['Create']: 'Create',
-            'Context' => $Call['Context']);
+        $Call['Layouts'][] = ['Scope' => $Call['Entity'],'ID' => 'Main','Context' => $Call['Context']];
+
+        $Call['Layouts'][] =
+            [
+                'Scope' => $Call['Scope'],
+                'ID' => isset($Call['Custom Layouts']['Create'])?  $Call['Custom Layouts']['Create']: 'Create',
+                'Context' => $Call['Context']
+            ];
 
         // Загрузить предопределённые данные и умолчания
         // Сгенерировать форму
 
         $Call['Output']['Content']['Form'] = [
                 'Type' => 'Form',
-                'Action' => isset($Call['Action'])?$Call['Action']: ''
+                'Action' => isset($Call['Action'])? $Call['Action']: ''
         ];
 
         // Для каждой ноды в модели
@@ -78,10 +81,9 @@
                         $Widget['Autofocus'] = true;*/
 
                     // Если есть значение, добавляем
-                    if (isset($Call['Data'][$Name]))
-                        $Widget['Value'] = $Call['Data'][$Name];
-                    elseif(isset($Node['Default']))
-                        $Widget['Value'] = F::Live($Node['Default']);
+                    if (($Widget['Value'] =  F::Dot($Call['Data'], $Name)) === null)
+                        if (isset($Node['Default']))
+                            $Widget['Value'] = F::Live($Node['Default']);
 
                     if (isset($Widget['Value']))
                         $Widget['Value'] = F::Live($Widget['Value']);
@@ -126,21 +128,26 @@
                 if (!isset($Node['Widgets']) && isset($Call['Data'][$Name]))
                     unset($Call['Data'][$Name]);
             }
+
             // Отправляем в Entity.Create
 
             $Call = F::Run('Entity', 'Create', $Call);
 
-            if (!isset($Call['Failure']))
+            if (!isset($Call['Errors']))
                 $Call = F::Hook('afterCreatePost', $Call);
             else
+            {
                 foreach ($Call['Errors'] as $Name =>$Node)
                     foreach ($Node as $Error)
-                        $Call['Output']['Content'][] =
-                        [
-                            'Type' => 'Block',
-                            'Class' => 'alert alert-danger',
-                            'Value' => '<l>'.$Call['Entity'].'.Error:'.$Name.'.'.$Error.'</l>'
-                        ];
+                        $Call['Output']['Message'][] =
+                            [
+                                'Type' => 'Block',
+                                'Class' => 'alert alert-danger',
+                                'Value' => '<l>'.$Call['Entity'].'.Error:'.$Name.'.'.$Error.'</l>'
+                            ];
+
+                $Call = F::Run(null, 'GET', $Call);
+            }
                 // Выводим результат
         }
 

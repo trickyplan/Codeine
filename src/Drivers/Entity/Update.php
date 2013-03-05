@@ -24,6 +24,7 @@
         $Call['Locales'][] = $Call['Entity'];
 
         $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Main','Context' => $Call['Context']);
+
         $Call['Layouts'][] = array(
             'Scope' => $Call['Entity'],
             'ID' => isset($Call['Custom Layouts']['Update'])? $Call['Custom Layouts']['Update']: 'Update',
@@ -110,10 +111,12 @@
     {
         // Берём данные из запроса
 
-        $Call['Data'] = $Call['Request'];
+        if (isset($Call['Data']))
+            $Call['Data'] = F::Merge($Call['Data'], $Call['Request']);
+        else
+            $Call['Data'] = $Call['Request'];
 
         $Call = F::Hook('beforeUpdatePost', $Call);
-
 
         // Отправляем в Entity.Update
 

@@ -13,25 +13,29 @@
         {
             $Where = [];
 
-            foreach ($Call['Where'] as $Key => &$Value)
+            foreach ($Call['Nodes'] as $Name => $Node)
             {
-                if (isset($Call['Nodes'][$Key]['Type']))
+                if (($Value = F::Dot($Call['Where'], $Name)) !== null)
                 {
-                    if (is_array($Value))
-                        foreach ($Value as $Relation => &$cValue)
-                            if (!is_array($cValue))
-                                $Where[$Key][$Relation] =
-                                    F::Run('Data.Type.'.$Call['Nodes'][$Key]['Type'], 'Read',
-                                        ['Value' => $cValue, 'Purpose' => 'Where']);
-                            else
-                                $Where[$Key][$Relation] =$cValue;
-                    else
-                        $Where[$Key] = F::Run('Data.Type.'.$Call['Nodes'][$Key]['Type'], 'Read',
-                            ['Value' => $Value, 'Purpose' => 'Where']);
+                    if (isset($Node['Type']))
+                    {
+                        // d(__FILE__, __LINE__, $Node['Type']);
+                        if (is_array($Value))
+                        {
+                            foreach ($Value as $Relation => $cValue)
+                                if (!is_array($cValue))
+                                    $Value[$Relation] = F::Run('Data.Type.'.$Node['Type'], 'Read', ['Value' => $cValue, 'Purpose' => 'Where']);
+                                else
+                                    $Value[$Relation] = $cValue;
+                        }
+                        else
+                            $Value = F::Run('Data.Type.'.$Node['Type'], 'Read', ['Value' => $Value, 'Purpose' => 'Where']);
+                    }
+
+                    $Where = F::Dot($Where, $Name, $Value);
                 }
-                else
-                    $Where[$Key] = $Value;
             }
+
             $Call['Where'] = $Where;
         }
 

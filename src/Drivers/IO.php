@@ -61,11 +61,16 @@
                 $Call['Result'] = null;
 
             if (isset($Call['Format']) && is_array($Call['Result']))
+            {
                 foreach($Call['Result'] as &$Element)
                     $Element = F::Run($Call['Format'], 'Decode', ['Value' => $Element]);
+            }
 
             $Call = F::Hook('afterIORead', $Call);
         }
+
+        if (isset($Call['One']) && $Call['One'])
+            return $Call['Result'][0];
 
         return $Call['Result'];
     });
@@ -104,8 +109,10 @@
     {
         $Call = F::Run('IO', 'Open', $Call);
 
+        $Call['Where'] = F::Live($Call['Where']);
+
         if (isset($Call['Where']) && is_scalar($Call['Where']))
-                $Call['Where'] = array('ID' => $Call['Where']);
+            $Call['Where'] = array('ID' => $Call['Where']);
 
         return F::Run ($Call['Driver'], $Call['Execute'], $Call);
     });

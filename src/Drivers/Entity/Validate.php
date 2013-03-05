@@ -11,17 +11,21 @@
     {
         foreach ($Call['Nodes'] as $Name => $Node)
             foreach ($Call['Validators'] as $Validator)
-                if (($Error = F::Run('Entity.Validate.'.$Validator, 'Process',
+            {
+                $Error = F::Run('Entity.Validate.'.$Validator, 'Process',
                     [
-                    'Entity' => $Call['Entity'],
-                    'Name' => $Name,
-                    'Node' => $Node,
-                    'Data' => $Call['Data']]
-                )) !== true)
+                        'Entity' => $Call['Entity'],
+                        'Name' => $Name,
+                        'Node' => $Node,
+                        'Data' => $Call['Data']
+                    ]);
+
+                if ($Error !== true)
                 {
                     $Call['Errors'][$Name][] = $Error;
                     F::Log('EV: '.$Name.' '.$Error, LOG_ERR);
                 }
+            }
 
         if (!empty($Call['Errors']))
             $Call['Failure'] = true;

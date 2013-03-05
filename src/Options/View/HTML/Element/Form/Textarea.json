@@ -1,0 +1,21 @@
+{
+    "Block": true,
+    "Attributes":
+    {
+        "String":
+        {
+            "ID": "",
+            "Name": "",
+            "Class": "span12",
+            "Placeholder": "",
+            "Value": "",
+            "Rows": 5
+        },
+        "Boolean":
+        {
+            "Autofocus": false,
+            "Required": false,
+            "Disabled": false
+        }
+    }
+}
