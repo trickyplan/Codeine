@@ -125,7 +125,10 @@
         else
             $Cursor = $Call['Link']->$Call['Scope']->find();
 
-        return $Cursor->count();
+        if ($Cursor)
+            return $Cursor->count();
+        else
+            return null;
     });
 
     setFn ('ID', function ($Call)
