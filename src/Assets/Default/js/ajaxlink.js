@@ -4,13 +4,14 @@ $(document).ready(function ()
             function ()
             {
                 var el = $(this);
+                $('#'+el.attr('target')).addClass('muted');
                 $.ajax({
                     type: 'POST',
-                    async: false,
                     url: el.attr('href'),
                     success: function(data)
                     {
                         $('#'+el.attr('target')).html(data)
+                        $('#'+el.attr('target')).removeClass('muted');
                     }
 
                 });
