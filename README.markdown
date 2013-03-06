@@ -1,4 +1,4 @@
-![Codeine](https://github.com/Breathless/Codeine/blob/master/docs/logo.png?raw=true "Codeine")
+![Codeine](https://one2team.ru/img/projects/Codeine.png "Codeine")
 
 Codeine is PHP-framework (not yet another), with microcore architecture, and ultimate functional/code volume ratio.
 
