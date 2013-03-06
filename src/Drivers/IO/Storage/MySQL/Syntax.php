@@ -144,35 +144,35 @@
 
                     if (is_array($Value) && !empty($Value))
                     {
-                        foreach ($Value as $Relation => &$Value) // FIXME!
+                        foreach ($Value as $Relation => &$lValue) // FIXME!
                         {
-                            if (!empty($Value))
+                            if (!empty($lValue))
                             {
-                                if (is_array($Value))
+                                if (is_array($lValue))
                                 {
-                                    if (!empty($Value[0]))
+                                    if (!empty($lValue[0]))
                                     {
-                                        $Value = '('.implode(',', $Value).')';
+                                        $lValue = '('.implode(',', $lValue).')';
                                         $Quote = false;
                                     }
                                     else
                                     {
-                                        unset($Value);
+                                        unset($Value[$Relation]);
                                         $Quote = true;
                                     }
                                 }
                                 else
-                                    $Quote = !is_numeric($Value);
+                                    $Quote = !is_numeric($lValue);
 
                                 switch ($Relation)
                                 {
                                     case '$in': $Relation = 'IN'; break;
                                     case '$ne': $Relation = '<>'; break;
-                                    case 'Like': $Value = '%'.$Value.'%';
+                                    case 'Like': $lValue = '%'.$lValue.'%';
                                     break;
                                 }
 
-                                $Conditions[] = '`'.$Key.'` '. $Relation.' '.($Quote ? '\''.$Value.'\'': $Value);
+                                $Conditions[] = '`'.$Key.'` '. $Relation.' '.($Quote ? '\''.$lValue.'\'': $lValue);
                             }
                         }
                     }

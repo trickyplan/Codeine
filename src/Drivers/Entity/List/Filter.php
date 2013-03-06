@@ -9,7 +9,7 @@
 
     setFn('beforeList', function ($Call)
     {
-        if (isset($Call['Request']['Filter']))
+        if (isset($Call['Request']['Filter']) && is_array($Call['Request']['Filter']))
         {
             foreach ($Call['Request']['Filter'] as $Key => $Value)
                 if (!empty($Value))
