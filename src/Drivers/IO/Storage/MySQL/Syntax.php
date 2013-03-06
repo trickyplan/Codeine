@@ -165,7 +165,8 @@
                                     break;
                                 }
 
-                                $Conditions[] = '`'.$Key.'` '. $Relation.' '.($Quote ? '\''.$lValue.'\'': $lValue);
+                                if (!is_array($lValue))
+                                    $Conditions[] = '`'.$Key.'` '. $Relation.' '.($Quote ? '\''.$lValue.'\'': $lValue);
                             }
                         }
                     }
