@@ -142,46 +142,49 @@
                 {
                     $Relation = '=';
 
-                    if (is_array($Value) && !empty($Value))
-                    {
-                        foreach ($Value as $Relation => &$lValue) // FIXME!
+                    if (!empty($Value))
                         {
-                            if (!empty($lValue))
+                            if (is_array($Value))
                             {
-                                if (is_array($lValue))
+                                foreach ($Value as $Relation => &$lValue) // FIXME!
                                 {
-                                    if (!empty($lValue[0]))
+                                    if (!empty($lValue))
                                     {
-                                        $lValue = '('.implode(',', $lValue).')';
-                                        $Quote = false;
-                                    }
-                                    else
-                                    {
-                                        unset($Value[$Relation]);
-                                        $Quote = true;
+                                        if (is_array($lValue))
+                                        {
+                                            if (!empty($lValue[0]))
+                                            {
+                                                $lValue = '('.implode(',', $lValue).')';
+                                                $Quote = false;
+                                            }
+                                            else
+                                            {
+                                                unset($Value[$Relation]);
+                                                $Quote = true;
+                                            }
+                                        }
+                                        else
+                                            $Quote = !is_numeric($lValue);
+
+                                        switch ($Relation)
+                                        {
+                                            case '$in': $Relation = 'IN'; break;
+                                            case '$ne': $Relation = '<>'; break;
+                                            case 'Like': $lValue = '%'.$lValue.'%';
+                                            break;
+                                        }
+
+                                        $Conditions[] = '`'.$Key.'` '. $Relation.' '.($Quote ? '\''.$lValue.'\'': $lValue);
                                     }
                                 }
-                                else
-                                    $Quote = !is_numeric($lValue);
-
-                                switch ($Relation)
-                                {
-                                    case '$in': $Relation = 'IN'; break;
-                                    case '$ne': $Relation = '<>'; break;
-                                    case 'Like': $lValue = '%'.$lValue.'%';
-                                    break;
-                                }
-
-                                $Conditions[] = '`'.$Key.'` '. $Relation.' '.($Quote ? '\''.$lValue.'\'': $lValue);
+                            }
+                            else
+                            {
+                                $Quote = !is_numeric($Value);
+                                $Conditions[] = '`'.$Key.'` '. $Relation.' '.($Quote ? '\''.$Value.'\'': $Value);
                             }
                         }
                     }
-                    else
-                    {
-                        $Quote = !is_numeric($Value);
-                        $Conditions[] = '`'.$Key.'` '. $Relation.' '.($Quote ? '\''.$Value.'\'': $Value);
-                    }
-                }
 
             if (!empty($Conditions) && $Call['Where'] !== null)
                 $WhereString = $WhereString . ' ' . implode(' AND ', $Conditions);
