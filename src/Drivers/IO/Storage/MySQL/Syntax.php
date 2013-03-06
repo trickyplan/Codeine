@@ -142,27 +142,38 @@
                 {
                     $Relation = '=';
 
-                    if (is_array($Value))
+                    if (is_array($Value) && !empty($Value))
                     {
                         foreach ($Value as $Relation => &$Value) // FIXME!
                         {
-                            if (is_array($Value))
-                            {
-                                $Value = '('.implode(',', $Value).')';
-                                $Quote = false;
-                            }
-                            else
-                                $Quote = !is_numeric($Value);
-
-                            switch ($Relation)
-                            {
-                                case '$in': $Relation = 'IN'; break;
-                                case '$ne': $Relation = '<>'; break;
-                                case 'Like': $Value = '%'.$Value.'%'; break;
-                            }
-
                             if (!empty($Value))
+                            {
+                                if (is_array($Value))
+                                {
+                                    if (!empty($Value[0]))
+                                    {
+                                        $Value = '('.implode(',', $Value).')';
+                                        $Quote = false;
+                                    }
+                                    else
+                                    {
+                                        unset($Value);
+                                        $Quote = true;
+                                    }
+                                }
+                                else
+                                    $Quote = !is_numeric($Value);
+
+                                switch ($Relation)
+                                {
+                                    case '$in': $Relation = 'IN'; break;
+                                    case '$ne': $Relation = '<>'; break;
+                                    case 'Like': $Value = '%'.$Value.'%';
+                                    break;
+                                }
+
                                 $Conditions[] = '`'.$Key.'` '. $Relation.' '.($Quote ? '\''.$Value.'\'': $Value);
+                            }
                         }
                     }
                     else
