@@ -1,14 +1,12 @@
-Welcome to the Codeine 7.4 Release!
+Welcome to the Codeine 7.7.11 Release!
 
 RELEASE INFORMATION
 ---------------
-Codeine 7.4 Release.
-Released on Feb 20, 2011.
+Codeine 7.7.11 Release.
+Released on March 6 , 2013.
 
 NEW FEATURES
 ------------
-
-New Codeine structure.
 
 SYSTEM REQUIREMENTS
 -------------------
