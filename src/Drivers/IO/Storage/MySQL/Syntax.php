@@ -122,13 +122,6 @@
         return $LimitString;
     });
 
-    setFn('Join', function ($Call)
-    {
-
-
-        return $Call;
-    });
-
     setFn ('Where', function ($Call)
     {
         if (isset($Call['Where']))
@@ -142,49 +135,47 @@
                 {
                     $Relation = '=';
 
-                    if (!empty($Value))
+                    if (is_array($Value))
+                    {
+                        foreach ($Value as $Relation => &$lValue) // FIXME!
                         {
-                            if (is_array($Value))
+                            if (!empty($lValue))
                             {
-                                foreach ($Value as $Relation => &$lValue) // FIXME!
+                                if (is_array($lValue))
                                 {
-                                    if (!empty($lValue))
+                                    if (!empty($lValue[0]))
                                     {
-                                        if (is_array($lValue))
-                                        {
-                                            if (!empty($lValue[0]))
-                                            {
-                                                $lValue = '('.implode(',', $lValue).')';
-                                                $Quote = false;
-                                            }
-                                            else
-                                            {
-                                                unset($Value[$Relation]);
-                                                $Quote = true;
-                                            }
-                                        }
-                                        else
-                                            $Quote = !is_numeric($lValue);
-
-                                        switch ($Relation)
-                                        {
-                                            case '$in': $Relation = 'IN'; break;
-                                            case '$ne': $Relation = '<>'; break;
-                                            case 'Like': $lValue = '%'.$lValue.'%';
-                                            break;
-                                        }
-
-                                        $Conditions[] = '`'.$Key.'` '. $Relation.' '.($Quote ? '\''.$lValue.'\'': $lValue);
+                                        $lValue = '('.implode(',', $lValue).')';
+                                        $Quote = false;
+                                    }
+                                    else
+                                    {
+                                        unset($Value[$Relation]);
+                                        $Quote = true;
                                     }
                                 }
-                            }
-                            else
-                            {
-                                $Quote = !is_numeric($Value);
-                                $Conditions[] = '`'.$Key.'` '. $Relation.' '.($Quote ? '\''.$Value.'\'': $Value);
+                                else
+                                    $Quote = !is_numeric($lValue);
+
+                                switch ($Relation)
+                                {
+                                    case '$in': $Relation = 'IN'; break;
+                                    case '$ne': $Relation = '<>'; break;
+                                    case 'Like': $lValue = '%'.$lValue.'%';
+                                    break;
+                                }
+
+                                $Conditions[] = '`'.$Key.'` '. $Relation.' '.($Quote ? '\''.$lValue.'\'': $lValue);
                             }
                         }
                     }
+                    else
+                    {
+                        $Quote = !is_numeric($Value);
+                        if (!is_array($Value))
+                            $Conditions[] = '`'.$Key.'` '. $Relation.' '.($Quote ? '\''.$Value.'\'': $Value);
+                    }
+                }
 
             if (!empty($Conditions) && $Call['Where'] !== null)
                 $WhereString = $WhereString . ' ' . implode(' AND ', $Conditions);
@@ -234,6 +225,5 @@
 
     setFn('Count', function (array $Call)
     {
-        return 'select count(*) from '.F::Run(null, 'Table', $Call)
-               .F::Run(null, 'Where', $Call);
+        return 'select count(*) from '.F::Run(null, 'Table', $Call).F::Run(null, 'Where', $Call);
     });

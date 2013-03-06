@@ -16,71 +16,65 @@
 
         $Call = F::Hook('beforeList', $Call);
 
-        if (isset($Call['Where']) and empty($Call['Where']))
-            $Call = F::Hook('NotFound', $Call);
+        $Call['Scope'] = isset($Call['Scope'])? $Call['Entity'].'/'.$Call['Scope']: $Call['Scope'] = $Call['Entity'];
+        $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Main','Context' => $Call['Context']);
+        $Call['Layouts'][] = array('Scope' => $Call['Scope'],'ID' => isset($Call['Custom Templates']['List'])? $Call['Custom Templates']['List'] :'List','Context' => $Call['Context']);
+
+        $Call['Locales'][] = $Call['Entity'];
+
+        if (!isset($Call['Elements']))
+            $Call['Elements'] = F::Run('Entity', 'Read', $Call);
+
+        if (!isset($Call['Selected']))
+            $Call['Selected'] = null;
+
+        if ((sizeof($Call['Elements']) == 0 or (null === $Call['Elements'])) and !isset($Call['NoEmpty']))
+        {
+            $Call['Layouts'][] = ['Scope' => $Call['Scope'], 'ID' => 'Empty'];
+            $Call['Layouts'][] = ['Scope' => 'Entity', 'ID' => 'Empty'];
+        }
         else
         {
-            if (!isset($Call['Elements']))
-                $Call['Elements'] = F::Run('Entity', 'Read', $Call);
+            $Call['Layouts'][] =
+                [
+                    'Scope' => $Call['Scope'],
+                    'ID' => (isset($Call['Table'])? $Call['Table']: 'Table'),
+                    'Context' => $Call['Context']
+                ];
 
-            $Call['Scope'] = isset($Call['Scope'])? $Call['Entity'].'/'.$Call['Scope']: $Call['Scope'] = $Call['Entity'];
+            if (isset($Call['Reverse']))
+                $Call['Elements'] = array_reverse($Call['Elements'], true);
 
-            $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Main','Context' => $Call['Context']);
-            $Call['Layouts'][] = array('Scope' => $Call['Scope'],'ID' => isset($Call['Custom Templates']['List'])? $Call['Custom Templates']['List'] :'List','Context' => $Call['Context']);
+            if (is_array($Call['Elements']))
+                foreach ($Call['Elements'] as $IX => $Element)
+                {
+                    if (!isset($Element['ID']))
+                        $Element['ID'] = $IX;
 
-            $Call['Locales'][] = $Call['Entity'];
+                    if (isset($Call['Page']) && isset($Call['EPP']))
+                        $Element['IX'] = $Call['EPP']*($Call['Page']-1)+$IX+1;
+                    else
+                        $Element['IX'] = $IX+1;
 
-            if (!isset($Call['Selected']))
-                $Call['Selected'] = null;
-
-            if ((sizeof($Call['Elements']) == 0 or (null === $Call['Elements'])) and !isset($Call['NoEmpty']))
-            {
-                $Call['Layouts'][] = ['Scope' => $Call['Scope'], 'ID' => 'Empty'];
-                $Call['Layouts'][] = ['Scope' => 'Entity', 'ID' => 'Empty'];
-            }
-            else
-            {
-                $Call['Layouts'][] =
-                    [
-                        'Scope' => $Call['Scope'],
-                        'ID' => (isset($Call['Table'])? $Call['Table']: 'Table'),
-                        'Context' => $Call['Context']
-                    ];
-
-                if (isset($Call['Reverse']))
-                    $Call['Elements'] = array_reverse($Call['Elements'], true);
-
-                if (is_array($Call['Elements']))
-                    foreach ($Call['Elements'] as $IX => $Element)
+                    if (isset($Call['Show Redirects']) or !isset($Element['Redirect']) or empty($Element['Redirect']))
                     {
-                        if (!isset($Element['ID']))
-                            $Element['ID'] = $IX;
-
-                        if (isset($Call['Page']) && isset($Call['EPP']))
-                            $Element['IX'] = $Call['EPP']*($Call['Page']-1)+$IX+1;
+                        if ($Call['Selected'] == $Element['ID'] or $Call['Selected'] == '*')
+                            $Selected = '.Selected';
                         else
-                            $Element['IX'] = $IX+1;
+                            $Selected = '';
 
-                        if (isset($Call['Show Redirects']) or !isset($Element['Redirect']) or empty($Element['Redirect']))
-                        {
-                            if ($Call['Selected'] == $Element['ID'] or $Call['Selected'] == '*')
-                                $Selected = '.Selected';
-                            else
-                                $Selected = '';
-
-                            $Call['Output']['Content'][] =
-                                array(
-                                    'Type'  => 'Template',
-                                    'Scope' => $Call['Scope'],
-                                    'ID' => 'Show/'
-                                        .(isset($Call['Template'])? $Call['Template']: 'Short')
-                                        .$Selected,
-                                    // FIXME Strategy of selecting templates
-                                    'Data'  => $Element
-                                );
-                        }
+                        $Call['Output']['Content'][] =
+                            array(
+                                'Type'  => 'Template',
+                                'Scope' => $Call['Scope'],
+                                'ID' => 'Show/'
+                                    .(isset($Call['Template'])? $Call['Template']: 'Short')
+                                    .$Selected,
+                                // FIXME Strategy of selecting templates
+                                'Data'  => $Element
+                            );
                     }
-            }
+                }
         }
 
         $Call = F::Hook('afterList', $Call);
