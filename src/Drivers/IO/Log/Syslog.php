@@ -14,7 +14,10 @@
 
     setFn('Write', function ($Call)
     {
-        return syslog($Call['Data'][2], $Call['Data'][0].': '.$Call['Data'][1]);
+        foreach ($Call['RAW'] as $Row)
+            syslog($Row[0], $Row[2]);
+
+        return true;
     });
 
     setFn('Close', function ($Call)

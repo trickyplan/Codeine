@@ -9,10 +9,9 @@
 
     setFn('Load', function ($Call)
     {
-
         $Call = F::Hook('beforeOperation', $Call);
 
-            $Call = F::Hook('beforeLoad', $Call);
+            $Call = F::Hook('beforeEntityLoad', $Call);
 
             if (is_array($Model = F::loadOptions($Call['Entity'].'.Entity')))
                 $Call = F::Merge($Model, $Call);
@@ -22,6 +21,7 @@
            // $Call = F::Hook('afterEntityLoad', $Call);
 
         $Call = F::Hook('afterOperation', $Call);
+
 
         return $Call;
     });

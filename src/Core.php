@@ -453,7 +453,7 @@
 
         public static function Error($errno , $errstr , $errfile , $errline , $errcontext)
         {
-            return F::Log($errstr.' '.$errfile.'@'.$errline, LOG_ERR);
+            return F::Log($errno.' '.$errstr.' '.$errfile.'@'.$errline, LOG_ERR);
         }
 
         /*
@@ -472,7 +472,7 @@
         public static function Log ($Message, $Verbose = 6)
         {
             if ($Verbose <= self::$_Options['Codeine']['Verbose'])
-                return self::$_Log[] = [round(microtime(true) - self::$_Ticks['T']['Codeine.Do'], 4)*1000, $Message, $Verbose];
+                return self::$_Log[] = [$Verbose, round(microtime(true) - self::$_Ticks['T']['Codeine.Do'], 4)*1000, $Message];
         }
 
         public static function Logs()
