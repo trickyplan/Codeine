@@ -122,6 +122,7 @@
 
         $Call = F::Run('Entity', 'Update', $Call);
 
+        $Call['Data'] = F::Merge(F::Run('Entity', 'Read', $Call)[0], $Call['Data']);
 
        // Выводим результат
 

@@ -28,7 +28,12 @@
                                         ]);
                         }
                         else
-                            $Call['Data'][$Name] = F::Live($Node['Hooks'][$Call['On']], $Call);
+                        {
+                            if (isset($Node['User Override']) and $Node['User Override'] and !empty($Call['Data'][$Name]))
+                                ;
+                            else
+                                $Call['Data'][$Name] = F::Live($Node['Hooks'][$Call['On']], $Call);
+                        }
                     }
             }
 

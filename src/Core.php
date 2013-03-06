@@ -433,6 +433,9 @@
 
         public static function Hook($On, $Call)
         {
+             if (isset($Call['Custom Hooks'][$On]))
+                 $On = $Call['Custom Hooks'][$On];
+
              if (isset($Call['Hooks']) && ($Hooks = F::Dot($Call, 'Hooks.' . $On)) && (!isset($Call['No'][$On])))
              {
                  foreach ($Hooks as $HookName => $Hook)
