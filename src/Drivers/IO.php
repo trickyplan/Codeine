@@ -34,8 +34,8 @@
         if (($Call['Link'] = F::Get($StorageID)) === null)
             $Call['Link'] = F::Set($StorageID, F::Run($Call['Driver'], 'Open', $Call));
 
-        if ($Call['Link'] === null)
-            $Call = F::Hook('Storage.Open.Failed', $Call);
+        /*if ($Call['Link'] === null)
+            $Call = F::Hook('Storage.Open.Failed', $Call);*/
 
         return $Call;
      });

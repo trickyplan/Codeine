@@ -124,6 +124,7 @@
 
     setFn ('Where', function ($Call)
     {
+
         if (isset($Call['Where']))
         {
             $WhereString = ' where ';
@@ -143,16 +144,8 @@
                             {
                                 if (is_array($lValue))
                                 {
-                                    if (!empty($lValue[0]))
-                                    {
-                                        $lValue = '('.implode(',', $lValue).')';
-                                        $Quote = false;
-                                    }
-                                    else
-                                    {
-                                        unset($Value[$Relation]);
-                                        $Quote = true;
-                                    }
+                                    $lValue = '('.implode(',', $lValue).')';
+                                    $Quote = false;
                                 }
                                 else
                                     $Quote = !is_numeric($lValue);
