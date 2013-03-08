@@ -12,6 +12,9 @@
         if (!isset($Call['Layouts']))
             $Call['Layouts'] = [];
 
+        if (!isset($Call['Run']['Context']))
+            $Call['Run']['Context'] = '';
+
         if (F::isCall($Call['Run']))
         {
             $Slices = explode('.', $Call['Run']['Service']);
