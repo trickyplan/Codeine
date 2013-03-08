@@ -26,7 +26,7 @@
             $IDs[] = 'Main';
 
             foreach ($IDs as $ID)
-                array_unshift($Call['Layouts'], array ('Scope' => $Asset, 'ID'    => $ID, 'Context' => $Call['Context']));
+                array_unshift($Call['Layouts'], array ('Scope' => $Asset, 'ID'    => $ID, 'Context' => $Call['Run']['Context']));
         }
 
         if (isset($Call['Run']['Zone']))
@@ -34,13 +34,13 @@
             $Call['Run']['Zone'] = (array) $Call['Run']['Zone'];
 
             foreach ($Call['Run']['Zone'] as $Zone)
-                array_unshift($Call['Layouts'], array('Scope' => $Zone, 'ID' => 'Zone', 'Context' => $Call['Context']));
+                array_unshift($Call['Layouts'], array('Scope' => $Zone, 'ID' => 'Zone', 'Context' => $Call['Run']['Context']));
         }
 
         array_unshift($Call['Layouts'], array(
             'Scope' => 'Default',
             'ID' => 'Main',
-            'Context' => $Call['Context']
+            'Context' => $Call['Run']['Context']
         ));
 
         return $Call;

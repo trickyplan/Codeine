@@ -36,15 +36,16 @@
                 $Call['Description'] = '';
 
             if (is_array($Call['Keywords']))
-                $Call['Keywords'] = implode('', $Call['Keywords']);
+                $Call['Keywords'] = implode(',', $Call['Keywords']);
 
             if (is_array($Call['Description']))
                 $Call['Description'] = implode('', $Call['Description']);
 
             $Call['Output'] = str_replace('<header/>', $Call['Header'], $Call['Output']);
-            $Call['Output'] = str_replace('<title/>', '<title>'.$Call['Title'].'</title>', $Call['Output']);
-            $Call['Output'] = str_replace('<keywords/>', '<meta name="keywords" content="'.$Call['Keywords'].'" />', $Call['Output']);
-            $Call['Output'] = str_replace('<description/>', '<meta name="description" content="'.$Call['Description'].'" />', $Call['Output']);
+
+            $Call['Output'] = str_replace('<title/>', '<title>'.strip_tags($Call['Title']).'</title>', $Call['Output']);
+            $Call['Output'] = str_replace('<keywords/>', '<meta name="keywords" content="'.strip_tags($Call['Keywords']).'" />', $Call['Output']);
+            $Call['Output'] = str_replace('<description/>', '<meta name="description" content="'.strip_tags($Call['Description']).'" />', $Call['Output']);
         }
 
         return $Call;

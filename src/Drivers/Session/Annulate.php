@@ -16,5 +16,4 @@
         $Call = F::Hook('afterLogout', $Call);
 
         return $Call;
-
     });
