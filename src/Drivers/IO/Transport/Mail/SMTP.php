@@ -11,7 +11,8 @@
 
     setFn ('Open', function ($Call)
     {
-        return Mail::factory('smtp',
+        $Mail = new Mail;
+        return $Mail->factory('smtp',
                    array (
                      'host' => $Call['Host'],
                      'port' => isset($Call['Port'])? $Call['Port']: 25,
