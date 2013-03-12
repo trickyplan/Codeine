@@ -32,6 +32,6 @@
 
         header('HTTP/1.0 500 Internal Server Error');
         readfile(F::findFile('Assets/Errors/500.html'));
-        die();
+        echo 'F!';
 
     });

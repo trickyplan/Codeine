@@ -9,12 +9,12 @@
 
     setFn('Do', function ($Call)
     {
-
         $Call = F::Merge($Call, F::loadOptions($Call['Entity'].'.Entity')); // FIXME
 
         $Call = F::Hook('beforeShow', $Call);
 
         $Call['Where'] = F::Live($Call['Where']);
+        $Call['Limit'] = ['From' => 0, 'To' => 1];
 
         if (!isset($Call['Data']))
             $Call['Data'] = F::Run('Entity', 'Read', $Call)[0];

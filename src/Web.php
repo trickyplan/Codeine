@@ -13,20 +13,21 @@
         header('Status: 503 Service Temporarily Unavailable');
 
         readfile('down.html');
-        die();
     }
+    else
+    {
+        include 'Codeine/Core.php';
 
-    include 'Codeine/Core.php';
+        F::Bootstrap ([
+                        'Path' => [Root]
+                      ]);
 
-    F::Bootstrap ([
-                    'Path' => [Root]
-                  ]);
-
-    $Call = F::Run(
-        'System.Interface.Web',
-        'Run',
-        [
-            'Service' => 'Code.Flow.Front',
-            'Method'  => 'Run'
-        ]
-    );
+        $Call = F::Run(
+            'System.Interface.Web',
+            'Run',
+            [
+                'Service' => 'Code.Flow.Front',
+                'Method'  => 'Run'
+            ]
+        );
+    }

@@ -56,7 +56,4 @@
 
         header('HTTP/1.0 403 Forbidden');
         readfile(F::findFile('Assets/Errors/403.html'));
-        F::Shutdown($Call);
-        die();
-
     });

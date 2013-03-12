@@ -12,9 +12,7 @@
         $Call['SID'] = F::Run($Call['Source'], 'Read', $Call);
 
         if (empty($Call['SID']))
-        {
             $Call['Session'] = F::Run(null, 'Register', $Call);
-        }
         else
         {
             $Call['Session'] =
