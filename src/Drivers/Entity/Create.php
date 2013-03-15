@@ -135,7 +135,7 @@
 
             $Call = F::Run('Entity', 'Create', $Call);
 
-            if (!isset($Call['Errors']))
+            if (!isset($Call['Errors']) or empty($Call['Errors']))
                 $Call = F::Hook('afterCreatePost', $Call);
             else
             {

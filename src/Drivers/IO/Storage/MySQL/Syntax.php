@@ -205,8 +205,7 @@
         return 'update '
             .F::Run(null, 'Table', $Call).
             ' set '.F::Run(null, 'Set', $Call)
-            .F::Run(null, 'Where', $Call)
-            .F::Run(null, 'Limit', $Call);
+            .F::Run(null, 'Where', $Call);
     });
 
     setFn('Delete', function ($Call)

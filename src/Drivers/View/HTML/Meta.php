@@ -43,9 +43,9 @@
 
             $Call['Output'] = str_replace('<header/>', $Call['Header'], $Call['Output']);
 
-            $Call['Output'] = str_replace('<title/>', '<title>'.strip_tags($Call['Title']).'</title>', $Call['Output']);
-            $Call['Output'] = str_replace('<keywords/>', '<meta name="keywords" content="'.strip_tags($Call['Keywords']).'" />', $Call['Output']);
-            $Call['Output'] = str_replace('<description/>', '<meta name="description" content="'.strip_tags($Call['Description']).'" />', $Call['Output']);
+            $Call['Output'] = str_replace('<title/>', '<title>'.strip_tags($Call['Title'], '<l><k>').'</title>', $Call['Output']);
+            $Call['Output'] = str_replace('<keywords/>', '<meta name="keywords" content="'.strip_tags($Call['Keywords'], '<l><k>').'" />', $Call['Output']);
+            $Call['Output'] = str_replace('<description/>', '<meta name="description" content="'.strip_tags($Call['Description'], '<l><k>').'" />', $Call['Output']);
         }
 
         return $Call;

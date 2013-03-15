@@ -22,7 +22,7 @@
                         'Data' => $Call['Data'],
                         'Current' => isset($Call['Current'])? $Call['Current']: null,
                         'Value' => F::Dot($Call['Data'], $Name)
-                    ]));
+                    ])); // FIXME SHIT!
 
             }
         }
@@ -33,7 +33,7 @@
 
     setFn('Read', function ($Call)
     {
-        if(isset($Call['Data']))
+        if (isset($Call['Data']))
             foreach ($Call['Nodes'] as $Name => $Node)
                 if (isset($Node['Type']))
                     foreach ($Call['Data'] as &$Element)

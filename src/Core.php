@@ -481,10 +481,10 @@
          * 1 - Emergency
          * 0 - Apocalypse
          */
-        public static function Log ($Message, $Verbose = 6)
+        public static function Log ($Message, $Verbose = 7)
         {
             if ($Verbose <= self::$_Options['Codeine']['Verbose'])
-                return self::$_Log[] = [$Verbose, round(microtime(true) - self::$_Ticks['T']['Codeine.Do'], 4)*1000, $Message];
+                return self::$_Log[] = [$Verbose, round(microtime(true) - self::$_Ticks['T']['Codeine.Do'], 4), $Message];
         }
 
         public static function Logs()
@@ -570,9 +570,14 @@
             // FIXME!
             echo '<div class="xdebug-header">'.substr($File, strpos($File, 'Drivers')).' <strong>@'.$Line.'</strong>'.file($File)[$Line-1].'</div>';
 
-            $Call2 = $Call;
-            ksort($Call2);
-            var_dump($Call2);
+            if (is_array($Call))
+            {
+                $Call2 = $Call;
+                ksort($Call2);
+                var_dump($Call2);
+            }
+            else
+                var_dump($Call);
 
             return $Call;
         }
@@ -631,11 +636,17 @@
            $Summary['Calls'] = array_sum(self::$_Counters['C']);
 
            arsort(self::$_Counters['T']);
-           echo 'Memory: '.round(self::$_Memory/1024)." Kb. <pre>time\tcalls\trtime\trcall\tfn\n".$Summary['Time']."\t".$Summary['Calls']."\n";
+           echo 'Memory: '.round(self::$_Memory/1024)." Kb. <pre>time\tcalls\trtime\tTC\trcall\tfn\n".$Summary['Time']."\t".$Summary['Calls']
+               ."\t100%\t100%\n";
                foreach (self::$_Counters['T'] as $Key => $Value)
-                   echo round($Value)."\t".self::$_Counters['C'][$Key]."\t".round(($Value/$Summary['Time'])*100)
-                             ."%\t".round((self::$_Counters['C'][$Key]/$Summary['Calls']),2)*100
-                             ."%\t".$Key."\n";
+                   echo implode("\t", [
+                            round($Value),
+                            self::$_Counters['C'][$Key],
+                            round(($Value/$Summary['Time'])*100,2),
+                            round($Value/self::$_Counters['C'][$Key], 2),
+                            round((self::$_Counters['C'][$Key]/$Summary['Calls'])*100,2),
+                            $Key
+                        ])."\n";
 
            echo '</pre>';
         }

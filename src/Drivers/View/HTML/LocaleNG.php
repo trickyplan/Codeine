@@ -13,8 +13,6 @@
 
         if (preg_match_all('@<l>(.*)<\/l>@SsUu', $Call['Output'], $Pockets))
         {
-            $Pockets[1] = array_unique($Pockets[1]);
-
             $Locales = [];
 
             foreach ($Pockets[1] as $IX => $Match)
@@ -45,6 +43,8 @@
                     if (is_array($NewLocales))
                         foreach ($NewLocales as $NewLocale)
                             $Locales[$Locale] = F::Merge($Locales[$Locale], $NewLocale);
+                    else
+                        F::Log('Locale '.$Locale.' not loaded', LOG_ERR);
                 }
 
                 $szSlices = sizeof($Slices);

@@ -21,31 +21,37 @@
         return $Link;
     });
 
+    setFn('Operation', function ($Call)
+    {
+        $Call['Result'] = $Call['Link']->query($Call['Query']);
+
+        if ($Call['Link']->errno != 0)
+        {
+            F::Log($Call['Query'], LOG_ERR);
+            F::Log($Call['Link']->errno.':'.$Call['Link']->error, LOG_ERR);
+            $Call = F::Hook('MySQL.Error.'.$Call['Link']->errno, $Call);
+        }
+        else
+            F::Log($Call['Query'], LOG_INFO);
+
+        F::Counter('MySQL');
+
+        return $Call;
+    });
+
     setFn ('Read', function ($Call)
     {
         $Query = F::Run('IO.Storage.MySQL.Syntax', 'Read', $Call);
 
         if (null == ($Data = F::Get($Query)) or isset($Call['NoMemo'])) // FIXME
         {
-            $Result = $Call['Link']->query($Query);
+            $Call = F::Run(null, 'Operation', $Call, ['Query' => $Query]);
 
-            F::Counter('MySQL');
-
-            if ($Call['Link']->errno != 0)
+            if ($Call['Result']->num_rows>0)
             {
-                F::Log($Query, LOG_ERR);
-                F::Log($Call['Link']->errno.':'.$Call['Link']->error, LOG_ERR);
-                $Call = F::Hook('MySQL.Error.'.$Call['Link']->errno, $Call);
+                $Data = $Call['Result']->fetch_all(MYSQLI_ASSOC);
+                $Call['Result']->free();
             }
-
-            if ($Result->num_rows>0)
-            {
-                $Data = $Result->fetch_all(MYSQLI_ASSOC);
-                $Result->free();
-                F::Log('['.sizeof($Data).'] '.$Query, LOG_INFO);
-            }
-            else
-                F::Log('[Empty] '.$Query, LOG_INFO);
 
             F::Set($Query, $Data);
         }
@@ -65,21 +71,10 @@
         else
             $Query = F::Run('IO.Storage.MySQL.Syntax', 'Insert', $Call);
 
-        F::Log($Query, LOG_INFO);
-
-        $Call['Link']->query($Query);
-
-        if ($Call['Link']->errno != 0)
-        {
-            F::Log($Query, LOG_ERR);
-            F::Log($Call['Link']->errno.':'.$Call['Link']->error, LOG_ERR);
-            $Call = F::Hook('MySQL.Error.'.$Call['Link']->errno, $Call);
-        }
+        $Call = F::Run(null, 'Operation', $Call, ['Query' => $Query]);
 
         if (!isset($Call['Data']['ID']))
             $Call['Data']['ID'] = $Call['Link']->insert_id;
-
-        F::Counter('MySQL');
 
         if ($Call['Link']->errno != 0)
         {
@@ -100,12 +95,12 @@
 
     setFn ('Run', function ($Call)
     {
-        $Result = $Call['Link']->query($Call['Run']);
+        $Call = F::Run(null, 'Operation', $Call, ['Query' => $Call['Run']]);
 
-        if ($Result->num_rows>0)
+        if ($Call['Result']->num_rows>0)
             {
-                $Data = $Result->fetch_all(MYSQLI_ASSOC);
-                $Result->free();
+                $Data = $Call['Result']->fetch_all(MYSQLI_ASSOC);
+                $Call['Result']->free();
                 F::Log('['.sizeof($Data).'] '.$Call['Run'], LOG_DEBUG);
             }
         else
@@ -117,6 +112,7 @@
     setFn ('Status', function ($Call)
     {
         $Data = explode('  ', $Call['Link']->stat());
+
         foreach ($Data as &$Row)
             $Row = explode(':', $Row);
 
@@ -126,24 +122,21 @@
     setFn ('Count', function ($Call)
     {
         $Query = F::Run('IO.Storage.MySQL.Syntax', 'Count', $Call);
-        $Result = $Call['Link']->query($Query);
 
-        F::Log($Query, LOG_DEBUG);
-        F::Counter('MySQL');
+        $Call = F::Run(null, 'Operation', $Call, ['Query' => $Query]);
 
-        if ($Result)
-            $Result = $Result->fetch_assoc();
+        if ($Call['Result'])
+            $Call['Result'] = $Call['Result']->fetch_assoc();
 
-        return $Result['count(*)'];
+        return $Call['Result']['count(*)'];
     });
 
     setFn ('ID', function ($Call)
     {
-        $Result = $Call['Link']->query('SELECT MAX(id) AS ID FROM '.$Call['Scope']);
-        F::Counter('MySQL');
+        $Call = F::Run(null, 'Operation', $Call, ['Query' => 'SELECT MAX(id) AS ID FROM '.$Call['Scope']]);
 
-        if ($Result)
-            $Result = $Result->fetch_assoc();
+        if ($Call['Result'])
+            $Call['Result'] = $Call['Result']->fetch_assoc();
 
-        return $Result['ID']+$Call['Increment'];
+        return $Call['Result']['ID']+$Call['Increment'];
     });

@@ -70,7 +70,10 @@
                 $Places[1][$IX] = F::Live(F::Dot($Call, $Places[1][$IX]));
 
                 if (($Places[1][$IX] === false) || ($Places[1][$IX]=== 0))
-                        $Matched = '0';
+                    $Places[1][$IX] = '0';
+
+                if (is_array($Places[1][$IX]))
+                    $Places[1][$IX] = implode('', $Places[1][$IX]);
             }
 
         $Call['Layout'] = str_replace($Places[0], $Places[1], $Call['Layout']);

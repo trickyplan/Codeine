@@ -16,20 +16,17 @@
             if (is_array($Model = F::loadOptions($Call['Entity'].'.Entity')))
                 $Call = F::Merge($Model, $Call);
             else
-                F::Log('Model for '.$Call['Entity'].'not found', LOG_ERR);
+                F::Log('Model for '.$Call['Entity'].'not found', LOG_CRIT);
 
-           // $Call = F::Hook('afterEntityLoad', $Call);
+           $Call = F::Hook('afterEntityLoad', $Call);
 
         $Call = F::Hook('afterOperation', $Call);
-
 
         return $Call;
     });
 
     setFn('Create', function ($Call)
     {
-        $Call['Scope'] = $Call['Entity'];
-
         $Call = F::Hook('beforeOperation', $Call);
             $Call = F::Hook('beforeEntityWrite', $Call);
                 $Call = F::Hook('beforeEntityCreate', $Call);
@@ -44,13 +41,11 @@
 
         $Call = F::Hook('afterOperation', $Call);
 
-        return $Call['Data'];
+        return $Call;
     });
 
     setFn('Read', function ($Call)
     {
-        $Call['Scope'] = $Call['Entity'];
-
         $Call = F::Hook('beforeOperation', $Call);
 
         // Если в Where скалярная переменная - это ID.
@@ -70,8 +65,6 @@
 
     setFn('Update', function ($Call)
     {
-        $Call['Scope'] = $Call['Entity'];
-
         $Call = F::Hook('beforeOperation', $Call);
 
             // Если в Where скалярная переменная - это ID.
@@ -103,8 +96,6 @@
 
     setFn('Delete', function ($Call)
     {
-        $Call['Scope'] = $Call['Entity'];
-
         $Call = F::Hook('beforeOperation', $Call);
 
             // Если в Where скалярная переменная - это ID.
@@ -134,11 +125,8 @@
 
     setFn('Count', function ($Call)
     {
-        $Call['Scope'] = $Call['Entity'];
-
         $Call = F::Hook('beforeOperation', $Call);
-
-        $Call = F::Run(null, 'Load', $Call);
+            $Call = F::Hook('beforeEntityCount', $Call);
 
         $Call['Data'] = F::Run('IO', 'Execute', $Call,
             [
@@ -146,6 +134,7 @@
                   'Scope'   => $Call['Entity']
             ]);
 
+            $Call = F::Hook('afterEntityCount', $Call);
         $Call = F::Hook('afterOperation', $Call);
 
         return $Call['Data'];

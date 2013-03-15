@@ -11,6 +11,8 @@
     {
         if (isset($Call['Substitute']))
             $Call['Scope'] = $Call['Substitute'];
+        else
+            $Call['Scope'] = $Call['Entity'];
 
         return $Call;
     });

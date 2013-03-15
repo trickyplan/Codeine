@@ -30,4 +30,7 @@
                 'Method'  => 'Run'
             ]
         );
+
+        if ($Call === null)
+            d(__FILE__, __LINE__, F::Logs());;
     }

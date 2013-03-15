@@ -3,9 +3,9 @@
     {
         "beforeOperation":
         {
-            "Substitute":
+            "Scope":
             {
-                "Service": "Entity.Hooks.Substitute",
+                "Service": "Entity.Hooks.Scope",
                 "Method": "beforeOperation"
             }
         },
@@ -114,6 +114,19 @@
             }
         },
         "beforeEntityRead":
+        {
+            "Load model (essential)":
+            {
+                "Service":"Entity",
+                "Method":"Load"
+            },
+            "Typecast":
+            {
+                "Service":"Entity.Nodes.Typecast",
+                "Method":"Process"
+            }
+        },
+        "beforeEntityCount":
         {
             "Load model (essential)":
             {

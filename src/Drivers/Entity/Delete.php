@@ -11,28 +11,34 @@
     {
         $Call = F::Hook('beforeDeleteDo', $Call);
 
-        $Call['Where'] = F::Live($Call['Where']); // FIXME
+            $Call['Where'] = F::Live($Call['Where']); // FIXME
 
-        return F::Run(null, $_SERVER['REQUEST_METHOD'], $Call);
+            $Call = F::Run(null, $_SERVER['REQUEST_METHOD'], $Call);
+
+        $Call = F::Hook('afterDeleteDo', $Call);
+
+        return $Call;
     });
 
     setFn('GET', function ($Call)
     {
         $Call = F::Hook('beforeDeleteGet', $Call);
 
-        $Call['Layouts'][] = ['Scope' => $Call['Entity'],'ID' => 'Main','Context' => $Call['Context']];
-        $Call = F::Run('Entity.Show.Static', 'Do', $Call, ['Template' => 'Delete', 'Context' => 'app']);
+            $Call['Layouts'][] = ['Scope' => $Call['Entity'],'ID' => 'Main','Context' => $Call['Context']];
+            $Call = F::Run('Entity.Show.Static', 'Do', $Call, ['Template' => 'Delete', 'Context' => 'app']);
+
+        $Call = F::Hook('afterDeleteGet', $Call);
 
         return $Call;
     });
 
     setFn('POST', function ($Call)
     {
-        $Call = F::Run('Entity', 'Delete', $Call);
+        $Call = F::Hook('beforeDeletePost', $Call);
+
+            $Call = F::Run('Entity', 'Delete', $Call);
 
         $Call = F::Hook('afterDeletePost', $Call);
-
-        $Call['Output'][] = true;
 
         return $Call;
     });
