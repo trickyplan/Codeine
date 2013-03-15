@@ -24,8 +24,8 @@
         "/logout":
         {
             "Zone": ["Project"],
-            "Service":"Session.Annulate",
-            "Method":"Do"
+            "Service":"Session",
+            "Method":"Annulate"
         },
         "/forgot":
         {
@@ -58,8 +58,12 @@
                 "Entity": "User",
                 "Where":
                 {
-                    "Service": "Security.Auth",
-                    "Method": "Username"
+                    "Service": "Session",
+                    "Method": "Read",
+                    "Call":
+                    {
+                        "Key": "Username"
+                    }
                 }
             }
         }

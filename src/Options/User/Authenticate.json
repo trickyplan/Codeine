@@ -1,6 +1,18 @@
 {
     "Hooks":
     {
+        "afterAuthenticatePost":
+        {
+            "Redirect":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "Redirect",
+                "Call":
+                {
+                    "Location": "/"
+                }
+            }
+        },
         "Authenticating":
         {
             "Failed":
@@ -18,18 +30,6 @@
                                 "Value": "Аутентификация не удалась"
                             }
                         }
-                    }
-                }
-            },
-            "Success":
-            {
-                "Redirect":
-                {
-                    "Service": "System.Interface.Web",
-                    "Method": "Redirect",
-                    "Call":
-                    {
-                        "Location": "/"
                     }
                 }
             }

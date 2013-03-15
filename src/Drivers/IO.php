@@ -91,7 +91,10 @@
             $Call['Data'] = F::Run ($Call['Format'], 'Encode', ['Value' => $Call['Data']]);
         }
 
-        $Call['Data'] = F::Run ($Call['Driver'], 'Write', $Call);
+        if (isset($Call['Driver']))
+            $Call['Data'] = F::Run ($Call['Driver'], 'Write', $Call);
+        else
+            F::Log('IO Driver not set.', LOG_CRIT);
 
         if (isset($Call['Format']))
             $Call['Data'] = F::Run ($Call['Format'], 'Decode', ['Value' => $Call['Data']]);

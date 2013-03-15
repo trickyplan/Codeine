@@ -1,0 +1,29 @@
+{
+    "Generator":
+    {
+        "SID":
+        {
+            "Service": "Security.UID",
+            "Method": "Get",
+            "Call":
+            {
+                "Mode": "Secure+"
+            }
+        }
+    },
+    "Hooks":
+    {
+        "afterAnnulate":
+        {
+            "Redirect":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "Redirect",
+                "Call":
+                {
+                    "Location": "/"
+                }
+            }
+        }
+    }
+}

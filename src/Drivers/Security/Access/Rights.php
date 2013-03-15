@@ -9,7 +9,7 @@
 
     setFn('Check', function ($Call)
     {
-        if (isset($Call['Session']['User']))
+        if (isset($Call['Session']['User']['Rights']))
         {
             $UserRights = (array) explode(',', $Call['Session']['User']['Rights']);
 

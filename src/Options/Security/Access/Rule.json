@@ -88,8 +88,8 @@
             "Weight": 75,
             "Run":
             {
-                "Service": "Session.Annulate",
-                "Method": "Do"
+                "Service": "Session",
+                "Method": "Annulate"
             }
         },
         "Sitemap доступен всем":

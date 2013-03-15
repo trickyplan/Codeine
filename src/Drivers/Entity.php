@@ -44,7 +44,7 @@
 
         $Call = F::Hook('afterOperation', $Call);
 
-        return $Call;
+        return $Call['Data'];
     });
 
     setFn('Read', function ($Call)

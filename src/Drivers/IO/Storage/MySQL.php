@@ -35,6 +35,7 @@
             {
                 F::Log($Query, LOG_ERR);
                 F::Log($Call['Link']->errno.':'.$Call['Link']->error, LOG_ERR);
+                $Call = F::Hook('MySQL.Error.'.$Call['Link']->errno, $Call);
             }
 
             if ($Result->num_rows>0)
@@ -67,6 +68,13 @@
         F::Log($Query, LOG_INFO);
 
         $Call['Link']->query($Query);
+
+        if ($Call['Link']->errno != 0)
+        {
+            F::Log($Query, LOG_ERR);
+            F::Log($Call['Link']->errno.':'.$Call['Link']->error, LOG_ERR);
+            $Call = F::Hook('MySQL.Error.'.$Call['Link']->errno, $Call);
+        }
 
         if (!isset($Call['Data']['ID']))
             $Call['Data']['ID'] = $Call['Link']->insert_id;

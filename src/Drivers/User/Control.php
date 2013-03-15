@@ -13,7 +13,7 @@
     {
         $Call = F::Run('Entity', 'Load', $Call, ['Entity' => 'User']);
 
-        $Call['Session'] = F::Run('Security.Auth', 'Attach', ['User' => $Call['Where']]);
+        $Call['Session'] = F::Run('Session', 'Write', $Call, ['Data' => ['Secondary' => $Call['Where']]]);
 
         $Call = F::Hook('afterLogin', $Call);
 

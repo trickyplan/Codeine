@@ -19,10 +19,10 @@
                 "Service": "Code.Routing",
                 "Method": "Route"
             },
-            "Audit":
+            "Session":
             {
-                "Service": "Security.Auth",
-                "Method": "Audit"
+                "Service": "Session",
+                "Method": "Initialize"
             },
             "Layouts":
             {

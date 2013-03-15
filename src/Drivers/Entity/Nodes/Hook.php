@@ -30,9 +30,12 @@
                         else
                         {
                             if (isset($Node['User Override']) and $Node['User Override'] and !empty($Call['Data'][$Name]))
-                                ;
+                                F::Log('Node '.$Name.' overriden by user.', LOG_INFO);
                             else
+                            {
                                 $Call['Data'][$Name] = F::Live($Node['Hooks'][$Call['On']], $Call);
+                                F::Log('Node '.$Name.' executed.', LOG_INFO);
+                            }
                         }
                     }
             }

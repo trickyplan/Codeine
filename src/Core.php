@@ -104,11 +104,14 @@
             {
                 if ((array) $First === $First)
                     {
-                        foreach ($Second as $Key => &$Value)
-                            if (isset($First[$Key]) && ((array)$Value === $Value))
-                                $First[$Key] = self::Merge($First[$Key], $Second[$Key]);
-                            else
-                                $First[$Key] = $Value;
+                        if ($First !== $Second)
+                        {
+                            foreach ($Second as $Key => &$Value)
+                                if (isset($First[$Key]) && ((array)$Value === $Value))
+                                    $First[$Key] = self::Merge($First[$Key], $Second[$Key]);
+                                else
+                                    $First[$Key] = $Value;
+                        }
                     }
                 else
                     $First = $Second;
@@ -244,7 +247,16 @@
             else
                 self::$_Overflow = 0;*/
 
-            $Call = self::Merge(self::loadOptions(), $Call);
+
+            $FnOptions = self::loadOptions();
+
+            if(!isset($FnOptions['Isolated']))
+            {
+                $Call = self::Merge($FnOptions, $Call);
+                $FnOptions = [];
+            }
+
+
 
             if ((null === self::getFn(self::$_Method)) && !self::_loadSource(self::$_Service))
                 $Result = (is_array($Call) && isset($Call['Fallback']))? $Call['Fallback'] : null;
@@ -260,7 +272,7 @@
                         self::Start(self::$_Service . '.' . self::$_Method);
                     }
 
-                    $Result = $F($Call);
+                    $Result = $F(F::Merge($Call, $FnOptions));
 
                     if (self::$_SR71)
                     {
@@ -556,9 +568,11 @@
         public static function Dump($File, $Line, $Call)
         {
             // FIXME!
-            echo '<div class="xdebug-header">'.substr($File, strpos($File, 'Drivers')).' <strong>@'.$Line.'</strong></div>';
+            echo '<div class="xdebug-header">'.substr($File, strpos($File, 'Drivers')).' <strong>@'.$Line.'</strong>'.file($File)[$Line-1].'</div>';
 
-            var_dump($Call);
+            $Call2 = $Call;
+            ksort($Call2);
+            var_dump($Call2);
 
             return $Call;
         }

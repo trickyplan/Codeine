@@ -1,31 +1,25 @@
 {
     "Storage": "Primary",
-    "EPP": 20,
     "Nodes":
     {
         "ID":
         {
-            "Type": "Literal.String",
-            "Hooks":
-            {
-                "beforeEntityCreate":
-                {
-                    "Service": "Security.UID",
-                    "Method": "Get",
-                    "Call":
-                    {
-                        "Mode": "Secure+"
-                    }
-                }
-            }
+            "Type": "Literal.String"
         },
-        "Heartbeat":{},
+        "Heartbeat":
+        {
+
+        },
+        "URL":
+        {
+            "Type": "Literal.String"
+        },
         "IP":
         {
             "Type": "Numeral.IP",
             "Hooks":
             {
-                "beforeEntityCreate":
+                "beforeEntityWrite":
                 {
                     "Service": "System.Interface.Web.IP",
                     "Method": "Get"
@@ -61,6 +55,7 @@
         },
         "Created":
         {
+            "Type": "Numeral.Integer",
             "Hooks":
             {
                 "beforeEntityCreate":
