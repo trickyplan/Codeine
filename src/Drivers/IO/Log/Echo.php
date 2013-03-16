@@ -9,7 +9,20 @@
     setFn('Write', function ($Call)
     {
         if ($Call['Renderer'] == 'View.HTML')
-            echo '<pre>'.$Call['Data'].'</pre>';
+        {
+            $Output = '<table class="console">';
+
+            foreach ($Call['Data'] as $IX => $Row)
+                $Output .= '<tr class="'.$Call['Levels'][$Row[0]].'">
+                        <td>'.$Row[1].'</td>
+                        <th>'.($Row[3] == $Call['Data'][$IX-1][3]? '': $Row[3]).'</th>
+                        <td>'.$Row[2].'</td>
+                        </tr>';
+
+            $Output .= '</table>';
+
+            echo $Output;
+        }
 
         return true;
     });

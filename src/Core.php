@@ -256,8 +256,6 @@
                 $FnOptions = [];
             }
 
-
-
             if ((null === self::getFn(self::$_Method)) && !self::_loadSource(self::$_Service))
                 $Result = (is_array($Call) && isset($Call['Fallback']))? $Call['Fallback'] : null;
             else
@@ -481,10 +479,11 @@
          * 1 - Emergency
          * 0 - Apocalypse
          */
+
         public static function Log ($Message, $Verbose = 7)
         {
             if ($Verbose <= self::$_Options['Codeine']['Verbose'])
-                return self::$_Log[] = [$Verbose, round(microtime(true) - self::$_Ticks['T']['Codeine.Do'], 4), $Message];
+                return self::$_Log[] = [$Verbose, round(microtime(true) - self::$_Ticks['T']['Codeine.Do'], 4), $Message, self::$_Service];
         }
 
         public static function Logs()
@@ -567,8 +566,7 @@
 
         public static function Dump($File, $Line, $Call)
         {
-            // FIXME!
-            echo '<div class="xdebug-header">'.substr($File, strpos($File, 'Drivers')).' <strong>@'.$Line.'</strong>'.file($File)[$Line-1].'</div>';
+            echo '<div class="console">'.substr($File, strpos($File, 'Drivers')).'@'.$Line.'<br/><code>'.file($File)[$Line-1].'</code>';
 
             if (is_array($Call))
             {
@@ -579,6 +577,7 @@
             else
                 var_dump($Call);
 
+            echo '</div>';
             return $Call;
         }
 

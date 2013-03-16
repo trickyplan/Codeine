@@ -32,13 +32,13 @@
                 array_unshift($Call['Layouts'], array ('Scope' => $Asset, 'ID'    => $ID, 'Context' => $Call['Run']['Context']));
         }
 
-        if (isset($Call['Run']['Zone']))
-        {
+        if (!isset($Call['Run']['Zone']))
+            $Call['Run']['Zone'] = ['Project'];
+        else
             $Call['Run']['Zone'] = (array) $Call['Run']['Zone'];
 
             foreach ($Call['Run']['Zone'] as $Zone)
                 array_unshift($Call['Layouts'], array('Scope' => $Zone, 'ID' => 'Zone', 'Context' => $Call['Run']['Context']));
-        }
 
         array_unshift($Call['Layouts'], array(
             'Scope' => 'Default',

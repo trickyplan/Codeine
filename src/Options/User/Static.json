@@ -3,7 +3,6 @@
     {
         "/join":
         {
-            "Zone": ["Project"],
             "Service":"Entity.Create",
             "Method":"Do",
             "Call":
@@ -13,7 +12,6 @@
         },
         "/login":
         {
-            "Zone": ["Project"],
             "Service":"User.Authenticate",
             "Method":"Do",
             "Call":
@@ -23,13 +21,11 @@
         },
         "/logout":
         {
-            "Zone": ["Project"],
             "Service":"Session",
             "Method":"Annulate"
         },
         "/forgot":
         {
-            "Zone": ["Project"],
             "Service":"User.Reset",
             "Method":"Do"
         },
@@ -40,7 +36,6 @@
         },
         "/auth/social":
         {
-            "Zone": ["Project"],
             "Service":"User.Authenticate",
             "Method":"POST",
             "Call":
@@ -50,7 +45,6 @@
         },
         "/profile":
         {
-            "Zone": ["User"],
             "Service":"Entity.Update",
             "Method":"Do",
             "Call":
@@ -58,11 +52,14 @@
                 "Entity": "User",
                 "Where":
                 {
-                    "Service": "Session",
-                    "Method": "Read",
-                    "Call":
+                    "ID":
                     {
-                        "Key": "Username"
+                        "Service": "Session",
+                        "Method": "Read",
+                        "Call":
+                        {
+                            "Key": "User.ID"
+                        }
                     }
                 }
             }

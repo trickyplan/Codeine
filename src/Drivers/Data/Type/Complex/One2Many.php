@@ -36,20 +36,20 @@
 
     setFn('Read', function ($Call)
     {
-        return function() use ($Call) {
-            $Data = F::Run('Entity', 'Read', array (
-                                        'Entity' => $Call['Entity'].'2'.$Call['Name'],
-                                        'Where' =>
-                                            array (
-                                                $Call['Entity'] => $Call['Data']['ID']
-                                            )
-                                   ));
-            $Result = [];
+        $Data = F::Run('Entity', 'Read', [
+                                    'Entity' => $Call['Entity'].'2'.$Call['Name'],
+                                    'Where' =>
+                                        [
+                                            $Call['Entity'] => $Call['Data']['ID']
+                                        ]
+                                    ]
+                               );
 
-            if(is_array($Data))
-                foreach ($Data as $Row)
-                    $Result[] = $Row[$Call['Name']];
+        $Result = [];
 
-            return $Result;
-        };
+        if(is_array($Data))
+            foreach ($Data as $Row)
+                $Result[] = $Row[$Call['Name']];
+
+        return $Result;
     });

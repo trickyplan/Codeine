@@ -23,7 +23,7 @@
 
     setFn('Operation', function ($Call)
     {
-        $Call['Result'] = $Call['Link']->query($Call['Query']);
+        $Call['MySQL Result'] = $Call['Link']->query($Call['Query']);
 
         if ($Call['Link']->errno != 0)
         {
@@ -32,9 +32,10 @@
             $Call = F::Hook('MySQL.Error.'.$Call['Link']->errno, $Call);
         }
         else
+        {
             F::Log($Call['Query'], LOG_INFO);
-
-        F::Counter('MySQL');
+            F::Counter('MySQL');
+        }
 
         return $Call;
     });
@@ -43,18 +44,15 @@
     {
         $Query = F::Run('IO.Storage.MySQL.Syntax', 'Read', $Call);
 
-        if (null == ($Data = F::Get($Query)) or isset($Call['NoMemo'])) // FIXME
+        $Call = F::Run(null, 'Operation', $Call, ['Query' => $Query]);
+
+        if ($Call['MySQL Result']->num_rows>0)
         {
-            $Call = F::Run(null, 'Operation', $Call, ['Query' => $Query]);
-
-            if ($Call['Result']->num_rows>0)
-            {
-                $Data = $Call['Result']->fetch_all(MYSQLI_ASSOC);
-                $Call['Result']->free();
-            }
-
-            F::Set($Query, $Data);
+            $Data = $Call['MySQL Result']->fetch_all(MYSQLI_ASSOC);
+            $Call['MySQL Result']->free();
         }
+        else
+            $Data = null;
 
         return $Data;
     });
@@ -97,10 +95,10 @@
     {
         $Call = F::Run(null, 'Operation', $Call, ['Query' => $Call['Run']]);
 
-        if ($Call['Result']->num_rows>0)
+        if ($Call['MySQL Result']->num_rows>0)
             {
-                $Data = $Call['Result']->fetch_all(MYSQLI_ASSOC);
-                $Call['Result']->free();
+                $Data = $Call['MySQL Result']->fetch_all(MYSQLI_ASSOC);
+                $Call['MySQL Result']->free();
                 F::Log('['.sizeof($Data).'] '.$Call['Run'], LOG_DEBUG);
             }
         else
@@ -125,18 +123,18 @@
 
         $Call = F::Run(null, 'Operation', $Call, ['Query' => $Query]);
 
-        if ($Call['Result'])
-            $Call['Result'] = $Call['Result']->fetch_assoc();
+        if ($Call['MySQL Result'])
+            $Call['MySQL Result'] = $Call['MySQL Result']->fetch_assoc();
 
-        return $Call['Result']['count(*)'];
+        return $Call['MySQL Result']['count(*)'];
     });
 
     setFn ('ID', function ($Call)
     {
         $Call = F::Run(null, 'Operation', $Call, ['Query' => 'SELECT MAX(id) AS ID FROM '.$Call['Scope']]);
 
-        if ($Call['Result'])
-            $Call['Result'] = $Call['Result']->fetch_assoc();
+        if ($Call['MySQL Result'])
+            $Call['MySQL Result'] = $Call['MySQL Result']->fetch_assoc();
 
-        return $Call['Result']['ID']+$Call['Increment'];
+        return $Call['MySQL Result']['ID']+$Call['Increment'];
     });

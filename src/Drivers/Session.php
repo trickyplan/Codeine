@@ -54,7 +54,7 @@
 
     setFn('Read', function ($Call)
     {
-        $Call['Session'] = F::Run('Entity', 'Read', ['Entity' => 'Session', 'Where' => $Call['SID'],'One' => true]);
+        $Call = F::Run(null, 'Initialize', $Call);
 
         if (isset($Call['Key']))
             return F::Dot($Call['Session'], $Call['Key']);

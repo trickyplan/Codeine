@@ -158,20 +158,20 @@
             {
                 "Service": "Entity.Update",
                 "Method": "Do",
-                "Session":
-                    {
-                        "User":
-                        {
-                            "ID": "*"
-                        }
-                    },
                 "Call":
                 {
                     "Entity": "User",
                     "Where":
                     {
-                        "Service": "Security.Auth",
-                        "Method": "Username"
+                        "ID":
+                        {
+                            "Service": "Session",
+                            "Method": "Read",
+                            "Call":
+                            {
+                                "Key": "User.ID"
+                            }
+                        }
                     }
                 }
             }

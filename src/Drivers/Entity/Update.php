@@ -10,7 +10,6 @@
     setFn('Do', function ($Call)
     {
         $Call = F::Hook('beforeUpdateDo', $Call);
-
         $Call['Purpose'] = 'Update';
         $Call['Where'] = F::Live($Call['Where']); // FIXME
 

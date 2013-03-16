@@ -20,8 +20,12 @@
             {
                 "beforeCheck":
                 {
-                    "Service": "Security.Auth",
-                    "Method": "Username"
+                    "Service": "Session",
+                    "Method": "Read",
+                    "Call":
+                    {
+                        "Key": "User.ID"
+                    }
                 }
             }
         },

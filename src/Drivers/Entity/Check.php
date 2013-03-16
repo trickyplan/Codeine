@@ -13,15 +13,13 @@
 
         $Call = F::Hook('beforeCheck', $Call);
 
-            $Call['Data'] = F::Run('Entity', 'Read', $Call, ['From Update' => true]);
+            $Call['Data'] = F::Run('Entity', 'Read', $Call, ['From Update' => true])[0];
 
             F::Run('Entity', 'Update', $Call,
             [
                 'Data' =>
                 [
-                    'Check' => true,
-                    'Checked' => F::Run('System.Time', 'Get', $Call),
-                    'Checker' => $Call['Session']['User']['ID']
+                    'Check' => true
                 ]
             ]);
 

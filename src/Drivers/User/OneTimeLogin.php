@@ -13,11 +13,11 @@
        [
             'Run' =>
                 [
-                    'Service' => 'Security.Auth',
-                    'Method' => 'Attach',
+                    'Service' => 'Session',
+                    'Method' => 'Write',
                     'Call' =>
                         [
-                            'User' => $Call['ID']
+                            'Data' => ['User' => $Call['ID']]
                         ]
                 ]
        ]);

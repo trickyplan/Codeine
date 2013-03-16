@@ -18,6 +18,7 @@
 
     setFn('GET', function ($Call)
     {
+
         $Call = F::Hook('beforeCreateGet', $Call);
 
         if (isset($Call['Request']) && isset($Call['Data']))
@@ -33,9 +34,6 @@
                 'ID' => isset($Call['Custom Layouts']['Create'])?  $Call['Custom Layouts']['Create']: 'Create',
                 'Context' => $Call['Context']
             ];
-
-        // Загрузить предопределённые данные и умолчания
-        // Сгенерировать форму
 
         $Call['Output']['Content']['Form'] = [
                 'Type' => 'Form',

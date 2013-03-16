@@ -16,12 +16,12 @@
             foreach ($Call['Access']['Rights'] as $Name => $Rule)
                 if (($Diff = F::Diff($Rule, $Call['Run'])) === null)
                 {
-                    F::Log('Права: Применено правило: '.$Name, LOG_INFO);
+                    F::Log('Rule applied: '.$Name, LOG_INFO);
                     $Call['Decision'] = in_array($Name, $UserRights);
                 }
         }
 
-        F::Log('Rights decision:'. ($Call['Decision']? 'Allow': 'Deny'), LOG_INFO);
+        F::Log('Decision:'. ($Call['Decision']? 'Allow': 'Deny'), LOG_INFO);
 
         unset($Call['Access']);
         return $Call;

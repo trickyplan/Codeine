@@ -14,7 +14,10 @@
             $Call = F::Hook('beforeEntityLoad', $Call);
 
             if (is_array($Model = F::loadOptions($Call['Entity'].'.Entity')))
+            {
+                F::Log('Model for '.$Call['Entity'].' loaded', LOG_INFO);
                 $Call = F::Merge($Model, $Call);
+            }
             else
                 F::Log('Model for '.$Call['Entity'].'not found', LOG_CRIT);
 
@@ -27,11 +30,12 @@
 
     setFn('Create', function ($Call)
     {
+
         $Call = F::Hook('beforeOperation', $Call);
             $Call = F::Hook('beforeEntityWrite', $Call);
                 $Call = F::Hook('beforeEntityCreate', $Call);
 
-            if (!isset($Call['Failure']))
+            if (!isset($Call['Failure']) or !$Call['Failure'])
             {
                 $Call['Data'] = F::Run('IO', 'Write', $Call);
 
@@ -48,10 +52,6 @@
     {
         $Call = F::Hook('beforeOperation', $Call);
 
-        // Если в Where скалярная переменная - это ID.
-        if (isset($Call['Where']) && is_scalar($Call['Where']))
-            $Call['Where'] = ['ID' => $Call['Where']];
-
             $Call = F::Hook('beforeEntityRead', $Call);
 
                 $Call['Data'] = F::Run('IO', 'Read', $Call);
@@ -66,10 +66,6 @@
     setFn('Update', function ($Call)
     {
         $Call = F::Hook('beforeOperation', $Call);
-
-            // Если в Where скалярная переменная - это ID.
-            if (isset($Call['Where']) && is_scalar($Call['Where']))
-                $Call['Where'] = ['ID' => $Call['Where']];
 
             $Call['Current'] = F::Run('Entity', 'Read', $Call, ['Purpose' => 'Update'])[0];
 
@@ -97,10 +93,6 @@
     setFn('Delete', function ($Call)
     {
         $Call = F::Hook('beforeOperation', $Call);
-
-            // Если в Where скалярная переменная - это ID.
-                if (isset($Call['Where']) && is_scalar($Call['Where']))
-                    $Call['Where'] = array('ID' => $Call['Where']);
 
             $Call = F::Hook('beforeEntityDelete', $Call);
 

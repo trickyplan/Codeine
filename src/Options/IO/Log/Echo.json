@@ -1,0 +1,3 @@
+{
+    "Levels": ["Apocalypse", "Emergency", "Critical", "Error", "Warning", "Notice", "Debug"]
+}

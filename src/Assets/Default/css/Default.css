@@ -25,12 +25,66 @@
     cursor: pointer;
 }
 
-.center
-{
-    text-align: center;
-}
-
 .off
 {
     opacity: 0.7;
+}
+
+.console
+{
+    font: 14px monospace;
+    margin: auto;
+    background-color: white;
+    width: 90%;
+    border: 1px solid lightgray;
+    border-radius: 8px !important;
+    border-spacing: 12px;
+    padding: 12px;
+}
+
+.console th
+{
+    text-align: left;
+}
+
+.console td, .console tr
+{
+    padding: 6px;
+    margin: 6px;
+}
+
+.console tr.Notice,
+{
+    background-color: lightcyan;
+    opacity: 0.8;
+}
+
+.console tr.Debug
+{
+    background-color: white;
+    opacity: 0.8;
+}
+
+.console tr:hover
+{
+    opacity: 1;
+    background-color: black;
+    color: white;
+}
+
+.console tr.Warning
+{
+    background-color: orangered;
+}
+
+.console tr.Error, .console tr.Failure,
+{
+    background-color: red;
+    color: #ffffff;
+}
+
+.console tr.Apocalypse, .console tr.Critical, .console tr.Emergency
+{
+    background-color: black;
+    color: #ffffff;
 }
