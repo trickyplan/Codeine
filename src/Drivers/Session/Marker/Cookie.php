@@ -26,7 +26,7 @@
             $Call['Marker']['Cookie']['Secure'],
             $Call['Marker']['Cookie']['HTTP Only']))
 
-            $_COOKIE[$Call['Marker']['Cookie']['Name']] = $Call['Session']['ID'];
+            $_COOKIE[$Call['Marker']['Cookie']['Name']] = $Call['SID'];
         else
             $Call = F::Hook('Cookie.Set.Failed', $Call);
 
