@@ -37,6 +37,14 @@
         $mime->setParam('text_charset', 'utf-8');
         $mime->setParam('head_charset', 'utf-8');
 
+        if (is_array($Call['Data']))
+        {
+            foreach ($Call['Data'] as &$Row)
+                $Row = implode("\t", $Row);
+
+            $Call['Data'] = implode(PHP_EOL, $Call['Data']);
+        }
+
         $mime->setTXTBody(strip_tags($Call['Data']));
 
         if (isset($Call['HTML Mail']) && $Call['HTML Mail'])

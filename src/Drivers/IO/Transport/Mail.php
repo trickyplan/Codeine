@@ -23,5 +23,6 @@
 
         $HeaderStr.= 'Content-type: '.$Call['Headers']['Content-type:']."\n";
 
+
         return mb_send_mail($Call['Scope'], $Call['ID'], $Call['Data'], $HeaderStr);
     });
