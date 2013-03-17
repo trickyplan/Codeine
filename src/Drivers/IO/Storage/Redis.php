@@ -40,11 +40,11 @@
             if (null === $Call['Data'])
                 $Call['Link']->del($Call['Scope'].$Call['Where']['ID']);
             else
-                $Call['Link']->set($Call['Scope'].$Call['Where']['ID'], $Call['Data'], $Call['TTL']);
+                $Call['Link']->set($Call['Scope'].$Call['Where']['ID'], $Call['Data'][0], $Call['TTL']);
         }
         else
         {
-            $Call['Link']->set($Call['Scope'].$Call['ID'], $Call['Data'], $Call['TTL']);
+            $Call['Link']->set($Call['Scope'].$Call['ID'], $Call['Data'][0], $Call['TTL']);
         }
 
         return $Call['Data'];

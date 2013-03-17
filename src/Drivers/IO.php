@@ -69,9 +69,6 @@
             $Call = F::Hook('afterIORead', $Call);
         }
 
-        if (isset($Call['One']) && $Call['One'])
-            return $Call['Result'][0];
-
         return $Call['Result'];
     });
 

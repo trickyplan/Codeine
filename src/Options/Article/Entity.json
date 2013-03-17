@@ -1,5 +1,5 @@
 {
-    "Mixins": ["Mixins.UGC", "Mixins.SEO", "Mixins.Text"],
+    "Mixins": ["Mixins.UGC", "Mixins.SEO", "Mixins.Text", "Mixins.CRUD"],
     "Storage": "Primary",
     "EPP": 20,
     "Nodes":
@@ -36,18 +36,6 @@
                 }
             }
         },
-        "Body":
-        {
-            "Type": "Literal.HTML",
-            "Required": true,
-            "Widgets":
-            {
-                "Write":
-                {
-                    "Type": "Form.WYSIWYG"
-                }
-            }
-        },
         "Slug":
         {
             "Widgets":
@@ -73,45 +61,6 @@
                             "Method": "2English"
                         }
                     }
-                }
-            }
-        }
-    },
-    "Hooks":
-    {
-        "afterCreatePost":
-        {
-            "Redirect":
-            {
-                "Service": "System.Interface.Web",
-                "Method": "Redirect",
-                "Call":
-                {
-                    "Location": "/control/$Entity"
-                }
-            }
-        },
-        "afterUpdatePost":
-        {
-            "Redirect":
-            {
-                "Service": "System.Interface.Web",
-                "Method": "Redirect",
-                "Call":
-                {
-                    "Location": "/control/$Entity"
-                }
-            }
-        },
-        "afterDeletePost":
-        {
-            "Redirect":
-            {
-                "Service": "System.Interface.Web",
-                "Method": "Redirect",
-                "Call":
-                {
-                    "Location": "/control/$Entity"
                 }
             }
         }

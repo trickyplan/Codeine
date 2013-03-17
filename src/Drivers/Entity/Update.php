@@ -31,73 +31,77 @@
 
         // Загрузить предопределённые данные и умолчания
 
-        $Call['Data'] = F::Run('Entity', 'Read', $Call, ['Purpose' => 'Update']);
+        $Call['Data'] = F::Run('Entity', 'Read', $Call);
 
-        if (isset($Call['Data'][0]))
-            $Call['Data'] = $Call['Data'][0];
+        if (null === $Call['Data'])
+            $Call = F::Hook('NotFound', $Call);
         else
-            return $Call = F::Hook('NotFound', $Call);
-
-        // Сгенерировать форму
-        $ic = 0;
-        // Для каждой ноды в модели
-
-        foreach ($Call['Nodes'] as $Name => $Node)
         {
-            // Если виджеты вообще определены
-            if (isset($Node['Widgets']) && !isset($Node['WriteOnce']))
+            // Сгенерировать форму
+            $ic = 0;
+            // Для каждой ноды в модели
+
+            foreach ($Call['Data'] as $IX => $Element)
             {
-                $ic++;
-                $Widget = null;
-                // Определяем, какие именно используем
-                if (isset($Node['Widgets'][$Call['Purpose']])) // Для нашего случая
-                    $Widget = $Node['Widgets'][$Call['Purpose']];
-                elseif (isset($Node['Widgets']['Write'])) // Для записи как таковой
-                    $Widget = $Node['Widgets']['Write'];
-
-                if (null !== $Widget)
+                foreach ($Call['Nodes'] as $Name => $Node)
                 {
-                    $Widget['Entity'] = $Call['Entity'];
-                    $Widget['Node']   = $Name;
-                    $Widget['Label']  = $Call['Entity'].'.Entity:'.$Name;
-                    $Widget['Name']   = strtr($Name, '.','_');
-                    $Widget['ID']     = strtr($Name, '.','_');
+                    // Если виджеты вообще определены
+                    if (isset($Node['Widgets']) && !isset($Node['WriteOnce']))
+                    {
+                        $ic++;
+                        $Widget = null;
+                        // Определяем, какие именно используем
+                        if (isset($Node['Widgets'][$Call['Purpose']])) // Для нашего случая
+                            $Widget = $Node['Widgets'][$Call['Purpose']];
+                        elseif (isset($Node['Widgets']['Write'])) // Для записи как таковой
+                            $Widget = $Node['Widgets']['Write'];
 
-                    $Widget = F::Merge($Node, $Widget);
+                        if (null !== $Widget)
+                        {
+                            $Widget['Entity'] = $Call['Entity'];
+                            $Widget['Node']   = $Name;
+                            $Widget['Label']  = $Call['Entity'].'.Entity:'.$Name;
+                            $Widget['Name']   = 'Data'.'['.$IX.']['.strtr($Name, '.','_').']';
+                            $Widget['ID']     = strtr($Name, '.','_').$IX;
 
-                    $Widget['Data'] = $Call['Data'];
+                            $Widget = F::Merge($Node, $Widget);
 
-                    if (isset($Widget['Options']))
-                        $Widget['Options'] = F::Live($Widget['Options']);
-                    else
-                        $Widget['Options'] = array();
+                            $Widget['Data'] = $Element;
 
-                    if($ic == 0)
-                        $Widget['Autofocus'] = true;
+                            if (isset($Widget['Options']))
+                                $Widget['Options'] = F::Live($Widget['Options']);
+                            else
+                                $Widget['Options'] = array();
 
-                    // Если есть значение, добавляем
-                    if (null != ($Dot = F::Dot($Call['Data'], $Name)))
-                        $Widget['Value'] = $Dot;
-                    elseif(isset($Node['Default']))
-                        $Widget['Value'] = F::Live($Node['Default']);
+                            if($ic == 0)
+                                $Widget['Autofocus'] = true;
 
-                    if (isset($Widget['Value']))
-                        $Widget['Value'] = F::Live($Widget['Value']);
-                    else
-                        $Widget['Value'] = null;
+                            // Если есть значение, добавляем
+                            if (null != ($Dot = F::Dot($Element, $Name)))
+                                $Widget['Value'] = $Dot;
+                            elseif(isset($Node['Default']))
+                                $Widget['Value'] = F::Live($Node['Default']);
 
-                    // Помещаем виджет в поток
-                    $Call = F::Run('Entity.Form.Layout.'.$Call['FormLayout'], 'Add', $Call,
-                        [
-                            'Name' => $Name,
-                            'Node' => $Node,
-                            'Widget' => $Widget]
-                        );
+                            if (isset($Widget['Value']))
+                                $Widget['Value'] = F::Live($Widget['Value']);
+                            else
+                                $Widget['Value'] = null;
 
-                    $Call['Widget'] = null;
+                            // Помещаем виджет в поток
+                            $Call = F::Run('Entity.Form.Layout.'.$Call['FormLayout'], 'Add', $Call,
+                                [
+                                    'Name' => $Name,
+                                    'Node' => $Node,
+                                    'Widget' => $Widget]
+                                );
+
+                            $Call['Widget'] = null;
+                        }
+                    }
                 }
             }
         }
+
 
         // Вывести
 
@@ -108,20 +112,18 @@
 
     setFn('POST', function ($Call)
     {
-        // Берём данные из запроса
+        $Call = F::Hook('beforeUpdatePost', $Call);
 
         if (isset($Call['Data']))
-            $Call['Data'] = F::Merge($Call['Data'], $Call['Request']);
+            $Call['Data'] = F::Merge($Call['Data'], $Call['Request']['Data']);
         else
-            $Call['Data'] = $Call['Request'];
-
-        $Call = F::Hook('beforeUpdatePost', $Call);
+            $Call['Data'] = $Call['Request']['Data'];
 
         // Отправляем в Entity.Update
 
         $Call = F::Run('Entity', 'Update', $Call);
 
-        $Call['Data'] = F::Merge(F::Run('Entity', 'Read', $Call)[0], $Call['Data']);
+        // $Call['Data'] = F::Merge(F::Run('Entity', 'Read', $Call), $Call['Data']);
 
        // Выводим результат
 

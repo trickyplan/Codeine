@@ -9,6 +9,7 @@
 
     setFn('Do', function ($Call)
     {
+
         $Call = F::Hook('beforeCreateDo', $Call);
 
         $Call = F::Run(null, $_SERVER['REQUEST_METHOD'], $Call);
@@ -18,7 +19,6 @@
 
     setFn('GET', function ($Call)
     {
-
         $Call = F::Hook('beforeCreateGet', $Call);
 
         if (isset($Call['Request']) && isset($Call['Data']))
@@ -42,6 +42,7 @@
 
         // Для каждой ноды в модели
         $ic = 0;
+
         foreach ($Call['Nodes'] as $Name => $Node)
         {
             $Widget = null;
@@ -83,6 +84,7 @@
                         if (($Widget['Value'] =  F::Dot($Call['Data'], $Name)) === null)
                             if (isset($Node['Default']))
                                 $Widget['Value'] = F::Live($Node['Default']);
+
                     // Упростить
 
                     if (isset($Widget['Value']))
@@ -118,16 +120,18 @@
 
         if (!isset($Call['Failure']))
         {
+            /*foreach ($Call['Nodes'] as $Name => $Node)
+            {
+                if (!isset($Node['Widgets']) && isset($Call['Data'][$Name]))
+                    unset($Call['Data'][$Name]);
+            }*/ // FIXME Вынести в Strict
+
             if (isset($Call['Data']))
                 $Call['Data'] = F::Merge($Call['Request'], $Call['Data']);
             else
                 $Call['Data'] = $Call['Request'];
 
-            foreach ($Call['Nodes'] as $Name => $Node)
-            {
-                if (!isset($Node['Widgets']) && isset($Call['Data'][$Name]))
-                    unset($Call['Data'][$Name]);
-            }
+            $Call['Data'] = [$Call['Data']];
 
             // Отправляем в Entity.Create
 

@@ -1,5 +1,5 @@
 {
-    "Mixins": ["Mixins.SEO", "Mixins.Text"],
+    "Mixins": ["Mixins.SEO", "Mixins.Text", "Mixins.CRUD"],
     "Storage": "Primary",
     "EPP": 20,
     "Sort":
@@ -105,53 +105,6 @@
                 "Write":
                 {
                     "Type": "Form.Textfield"
-                }
-            }
-        }
-    },
-    "Hooks":
-    {
-        "beforeList":
-        {
-            "Sort":
-            {
-                "Service": "Entity.List.Sort",
-                "Method": "Sort"
-            }
-        },
-        "afterCreatePost":
-        {
-            "Redirect":
-            {
-                "Service": "System.Interface.Web",
-                "Method": "Redirect",
-                "Call":
-                {
-                    "Location": "/control/Page"
-                }
-            }
-        },
-        "afterUpdatePost":
-        {
-            "Redirect":
-            {
-                "Service": "System.Interface.Web",
-                "Method": "Redirect",
-                "Call":
-                {
-                    "Location": "/control/Page"
-                }
-            }
-        },
-        "afterDeletePost":
-        {
-            "Redirect":
-            {
-                "Service": "System.Interface.Web",
-                "Method": "Redirect",
-                "Call":
-                {
-                    "Location": "/control/Page"
                 }
             }
         }

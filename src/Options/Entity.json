@@ -26,9 +26,9 @@
                 "Service":"Entity.Nodes.Strict",
                 "Method":"Process"
             },
-            "Typecast":
+            "Where":
             {
-                "Service":"Entity.Nodes.Typecast",
+                "Service":"Entity.Nodes.Where",
                 "Method":"Process"
             },
             "Make variables alive":
@@ -39,15 +39,15 @@
         },
         "beforeEntityCreate":
         {
-            "Default values":
-            {
-                "Service":"Entity.Nodes.Default",
-                "Method":"Write"
-            },
             "Make variables alive":
             {
                 "Service":"Entity.Nodes.Hook",
                 "Method":"Process"
+            },
+            "Default values":
+            {
+                "Service":"Entity.Nodes.Default",
+                "Method":"Write"
             },
             "Datatypes":
             {
@@ -112,9 +112,9 @@
                 "Service":"Entity",
                 "Method":"Load"
             },
-            "Typecast":
+            "Where":
             {
-                "Service":"Entity.Nodes.Typecast",
+                "Service":"Entity.Nodes.Where",
                 "Method":"Process"
             }
         },
@@ -125,9 +125,9 @@
                 "Service":"Entity",
                 "Method":"Load"
             },
-            "Typecast":
+            "Where":
             {
-                "Service":"Entity.Nodes.Typecast",
+                "Service":"Entity.Nodes.Where",
                 "Method":"Process"
             }
         },
@@ -138,9 +138,9 @@
                 "Service":"Entity",
                 "Method":"Load"
             },
-            "Typecast":
+            "Where":
             {
-                "Service":"Entity.Nodes.Typecast",
+                "Service":"Entity.Nodes.Where",
                 "Method":"Process"
             }
         },

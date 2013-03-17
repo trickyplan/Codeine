@@ -32,7 +32,9 @@
     {
 
         $Call = F::Hook('beforeOperation', $Call);
+
             $Call = F::Hook('beforeEntityWrite', $Call);
+
                 $Call = F::Hook('beforeEntityCreate', $Call);
 
             if (!isset($Call['Failure']) or !$Call['Failure'])
@@ -40,6 +42,7 @@
                 $Call['Data'] = F::Run('IO', 'Write', $Call);
 
                 $Call = F::Hook('afterEntityCreate', $Call);
+
             $Call = F::Hook('afterEntityWrite', $Call);
             }
 
@@ -60,18 +63,19 @@
 
         $Call = F::Hook('afterOperation', $Call);
 
-        return $Call['Data'];
+        if (isset($Call['One']))
+            return $Call['Data'][0];
+        else
+            return $Call['Data'];
     });
 
     setFn('Update', function ($Call)
     {
         $Call = F::Hook('beforeOperation', $Call);
 
-            $Call['Current'] = F::Run('Entity', 'Read', $Call, ['Purpose' => 'Update'])[0];
+            $Call['Current'] = F::Run('Entity', 'Read', $Call);
 
             $Call['Data'] = F::Merge($Call['Current'],$Call['Data']);
-
-            $Call['Data']['ID'] = $Call['Where']['ID'];
 
             $Call = F::Hook('beforeEntityWrite', $Call);
 
@@ -92,23 +96,19 @@
 
     setFn('Delete', function ($Call)
     {
+        $Call['Data'] = F::Run('Entity', 'Read', $Call);
+
         $Call = F::Hook('beforeOperation', $Call);
 
-            $Call = F::Hook('beforeEntityDelete', $Call);
+            $Call = F::Hook('beforeEntityWrite', $Call);
 
-                $Call = F::Hook('beforeEntityWrite', $Call);
+                $Call = F::Hook('beforeEntityDelete', $Call);
 
-                    $Call['Current'] = F::Run('Entity', 'Read', $Call, ['From Delete' => true])[0];
+                    // F::Run('IO', 'Write', $Call, ['Data' => null]);
 
-                    $Call['Data'] = null;
+                $Call = F::Hook('afterEntityDelete', $Call);
 
-                    F::Run('IO', 'Write', $Call);
-
-                    $Call['Data'] = $Call['Current'];
-
-                $Call = F::Hook('afterEntityWrite', $Call);
-
-            $Call = F::Hook('afterEntityDelete', $Call);
+        $Call = F::Hook('afterEntityWrite', $Call);
 
         $Call = F::Hook('afterOperation', $Call);
 

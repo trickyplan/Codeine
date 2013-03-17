@@ -1,6 +1,17 @@
 {
     "Nodes":
     {
+        "Body":
+        {
+            "Type": "Literal.HTML",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.WYSIWYG"
+                }
+            }
+        },
         "Words":
         {
             "Hooks":

@@ -9,24 +9,27 @@
 
     setFn('Process', function ($Call)
     {
-        foreach ($Call['Nodes'] as $Name => $Node)
+        foreach ($Call['Data'] as &$Element)
         {
-            $New = F::Live(F::Dot($Call['Data'], $Name));
-            $Current = F::Live(F::Dot($Call['Current'], $Name));
-
-            if (strpos($Name, '.') == false)
+            foreach ($Call['Nodes'] as $Name => $Node)
             {
-                if (!isset($Node['Nullable']) || !$Node['Nullable'])
+                $New = F::Live(F::Dot($Element, $Name));
+                $Current = F::Live(F::Dot($Call['Current'], $Name));
+
+                if (strpos($Name, '.') == false)
                 {
-                    if (($New === null) || ($New == $Current))
-                        $Call['Data'] = F::Dot($Call['Data'], $Name, null);
-                }
-                else
-                {
-                    if ($New == $Current)
-                        $Call['Data'] = F::Dot($Call['Data'], $Name, null);
-                    elseif ($New === null)
-                        $Call['Data'] = F::Dot($Call['Data'], $Name, 0);
+                    if (!isset($Node['Nullable']) || !$Node['Nullable'])
+                    {
+                        if (($New === null) || ($New == $Current))
+                            $Element = F::Dot($Element, $Name, null);
+                    }
+                    else
+                    {
+                        if ($New == $Current)
+                            $Element = F::Dot($Element, $Name, null);
+                        elseif ($New === null)
+                            $Element= F::Dot($Element, $Name, 0);
+                    }
                 }
             }
         }

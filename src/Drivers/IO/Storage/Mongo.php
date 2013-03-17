@@ -91,13 +91,20 @@
             {
                 if (isset($Call['Where']))
                 {
-                    F::Log('Mongo: db.'.$Call['Entity'].'.update('.json_encode($Call['Where'].',',json_encode(['$set' => $Call['Data']])).')', LOG_INFO);
-                    $Call['Link']->$Call['Scope']->update($Call['Where'], ['$set' => $Call['Data']]);
+                    foreach ($Call['Data'] as $Element)
+                    {
+                        F::Log('Mongo: db.'.$Call['Entity'].'.update('.json_encode(['ID' => $Element]).',',json_encode(['$set' => $Element]).')', LOG_INFO);
+                        $Call['Link']->$Call['Scope']->update($Call['Where'], ['$set' => $Element]);
+                    }
                 }
                 else
                 {
-                    F::Log('Mongo: db.'.$Call['Entity'].'.insert('.json_encode($Call['Data']).')', LOG_INFO);
-                    $Call['Link']->$Call['Scope']->insert ($Call['Data']);
+                    foreach ($Call['Data'] as $Element)
+                    {
+                        F::Log('Mongo: db.'.$Call['Entity'].'.insert('.json_encode($Element).')', LOG_INFO);
+                        $Call['Link']->$Call['Scope']->insert ($Element);
+                    }
+
                 }
             }
             catch (MongoCursorException $e)

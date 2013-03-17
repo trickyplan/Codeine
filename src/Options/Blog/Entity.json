@@ -1,5 +1,5 @@
 {
-    "Mixins": ["Mixins.UGC", "Mixins.Text"],
+    "Mixins": ["Mixins.UGC", "Mixins.Text", "Mixins.CRUD"],
     "Storage": "Primary",
     "EPP": 5,
     "Sort":
@@ -53,17 +53,7 @@
                 }
             }
         },
-        "Body":
-        {
-            "Type": "Literal.HTML",
-            "Widgets":
-            {
-                "Write":
-                {
-                    "Type": "Form.WYSIWYG"
-                }
-            }
-        },
+
         "Slug":
         {
             "Widgets":
@@ -118,45 +108,6 @@
                 "Write":
                 {
                     "Type": "Form.Textfield"
-                }
-            }
-        }
-    },
-    "Hooks":
-    {
-        "afterCreatePost":
-        {
-            "Redirect":
-            {
-                "Service": "System.Interface.Web",
-                "Method": "Redirect",
-                "Call":
-                {
-                    "Location": "/control/Blog/Show/$Data.ID"
-                }
-            }
-        },
-        "afterUpdatePost":
-        {
-            "Redirect":
-            {
-                "Service": "System.Interface.Web",
-                "Method": "Redirect",
-                "Call":
-                {
-                    "Location": "/control/Blog/Show/$Data.ID"
-                }
-            }
-        },
-        "afterDeletePost":
-        {
-            "Redirect":
-            {
-                "Service": "System.Interface.Web",
-                "Method": "Redirect",
-                "Call":
-                {
-                    "Location": "/control/Blog"
                 }
             }
         }

@@ -678,8 +678,9 @@
 
             self::Stop(self::$_Service . '.' . self::$_Method);
 
-            // $E = error_get_last();
-            //print_r($E);
+            $E = error_get_last();
+
+            print_r($E);
 
             if (self::$_SR71)
             {
@@ -689,7 +690,7 @@
 
             ob_flush();
 
-            return true;
+            return false;
         }
     }
 

@@ -14,7 +14,7 @@
             "Restore URL":
             {
                 "Service": "Entity.Redirect.Back",
-                "Method": "Redirect"
+                "Method": "Restore"
             }
         },
         "beforeUpdateGet":
@@ -30,7 +30,7 @@
             "Restore URL":
             {
                 "Service": "Entity.Redirect.Back",
-                "Method": "Redirect"
+                "Method": "Restore"
             }
         },
         "beforeDeleteGet":
@@ -46,7 +46,7 @@
             "Restore URL":
             {
                 "Service": "Entity.Redirect.Back",
-                "Method": "Redirect"
+                "Method": "Restore"
             }
         }
     }

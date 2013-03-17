@@ -9,10 +9,11 @@
 
     setFn('Process', function ($Call)
     {
-        foreach ($Call['Nodes'] as $Name => $Node)
-            if (isset($Node['Filter']) && isset($Call['Data'][$Name]))
-                foreach ($Node['Filter'] as $Filter)
-                    $Call['Data'][$Name] = F::Live($Filter, array('Value' => $Call['Data'][$Name]));
+        foreach ($Call['Data'] as $Element)
+            foreach ($Call['Nodes'] as $Name => $Node)
+                if (isset($Node['Filter']) && isset($Element[$Name]))
+                    foreach ($Node['Filter'] as $Filter)
+                        $Element[$Name] = F::Live($Filter, ['Value' => $Element[$Name]]);
 
         return $Call;
     });

@@ -1,4 +1,5 @@
 {
+    "Mixins": ["Mixins.CRUD"],
     "Storage": "Primary",
     "Nodes":
     {
@@ -32,45 +33,6 @@
                 "Write":
                 {
                     "Type": "Form.WYSIWYG"
-                }
-            }
-        }
-    },
-    "Hooks":
-    {
-        "afterCreatePost":
-        {
-            "Redirect":
-            {
-                "Service": "System.Interface.Web",
-                "Method": "Redirect",
-                "Call":
-                {
-                    "Location": "/control/Block"
-                }
-            }
-        },
-        "afterUpdatePost":
-        {
-            "Redirect":
-            {
-                "Service": "System.Interface.Web",
-                "Method": "Redirect",
-                "Call":
-                {
-                    "Location": "/control/Block"
-                }
-            }
-        },
-        "afterDeletePost":
-        {
-            "Redirect":
-            {
-                "Service": "System.Interface.Web",
-                "Method": "Redirect",
-                "Call":
-                {
-                    "Location": "/control/Block"
                 }
             }
         }

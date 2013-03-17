@@ -9,35 +9,28 @@
 
     setFn('Process', function ($Call)
     {
-       if (isset($Call['Nodes']))
+        if (isset($Call['Nodes']) && isset($Call['Data']))
             foreach ($Call['Nodes'] as $Name => $Node)
             {
-                if (isset($Node['Hooks']))
-                    if (isset($Node['Hooks'][$Call['On']]))
+                if (isset($Node['Hooks']) && isset($Node['Hooks'][$Call['On']]))
+                {
+                    foreach ($Call['Data'] as &$Element)
                     {
-                        // Multiread
-                        if (isset($Call['Purpose']) && ($Call['Purpose'] == 'Read'))
-                        {
-                            if (isset($Call['Data']))
-                                foreach ($Call['Data'] as &$Data)
-                                    $Data[$Name] = F::Live($Node['Hooks'][$Call['On']],
-                                        [
-                                            'Entity' => $Call['Entity'],
-                                            'Nodes' => $Call['Nodes'], // FIXME Bullshit.
-                                            'Data' => $Data
-                                        ]);
-                        }
+                        if (isset($Node['User Override']) and $Node['User Override'] and !empty($Element[$Name]))
+                            F::Log('Node '.$Name.' overriden by user.', LOG_INFO);
                         else
                         {
-                            if (isset($Node['User Override']) and $Node['User Override'] and !empty($Call['Data'][$Name]))
-                                F::Log('Node '.$Name.' overriden by user.', LOG_INFO);
-                            else
-                            {
-                                $Call['Data'][$Name] = F::Live($Node['Hooks'][$Call['On']], $Call);
-                                F::Log('Node '.$Name.' executed.', LOG_INFO);
-                            }
+                            $Element[$Name] = F::Live($Node['Hooks'][$Call['On']],
+                                               [
+                                                   'Entity' => $Call['Entity'],
+                                                   'Nodes' => $Call['Nodes'],
+                                                   'Data' => $Element
+                                               ]);
+
+                            F::Log('Node '.$Name.' executed.', LOG_INFO);
                         }
                     }
+                }
             }
 
         return $Call;
