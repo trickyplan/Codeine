@@ -15,7 +15,7 @@
             foreach ($Call['Data'] as $IX => $Row)
                 $Output .= '<tr class="'.$Call['Levels'][$Row[0]].'">
                         <td>'.$Row[1].'</td>
-                        <th>'.($Row[3] == $Call['Data'][$IX-1][3]? '': $Row[3]).'</th>
+                        <td>'.($Row[3] == $Call['Data'][$IX-1][3]? '': $Row[3]).'</td>
                         <td>'.$Row[2].'</td>
                         </tr>';
 

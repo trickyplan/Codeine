@@ -66,7 +66,7 @@
                             F::Log('CSS cannot loaded: '.$CSSFile, LOG_WARNING);
                     }
 
-                    $CSS = implode ('', $CSS);
+                    $CSS = implode (' ', $CSS);
 
                     if (isset($Call['Postprocessors']) && $Call['Postprocessors'])
                         foreach($Call['Postprocessors'] as $Processor)

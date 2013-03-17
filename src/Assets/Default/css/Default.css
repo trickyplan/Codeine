@@ -34,7 +34,6 @@
 {
     font: 14px monospace;
     margin: auto;
-    background-color: white;
     width: 90%;
     border: 1px solid lightgray;
     border-radius: 8px !important;
@@ -53,16 +52,33 @@
     margin: 6px;
 }
 
-.console tr.Notice,
+tr.Notice,
 {
     background-color: lightcyan;
     opacity: 0.8;
 }
 
-.console tr.Debug
+tr.Debug
 {
     background-color: white;
     opacity: 0.8;
+}
+
+tr.Warning
+{
+    background-color: orangered;
+}
+
+tr.Error
+{
+    background-color: darkred;
+    color: #ffffff;
+}
+
+tr.Apocalypse, tr.Critical, tr.Emergency
+{
+    background-color: black;
+    color: #ffffff;
 }
 
 .console tr:hover
@@ -70,21 +86,4 @@
     opacity: 1;
     background-color: black;
     color: white;
-}
-
-.console tr.Warning
-{
-    background-color: orangered;
-}
-
-.console tr.Error, .console tr.Failure,
-{
-    background-color: red;
-    color: #ffffff;
-}
-
-.console tr.Apocalypse, .console tr.Critical, .console tr.Emergency
-{
-    background-color: black;
-    color: #ffffff;
 }
