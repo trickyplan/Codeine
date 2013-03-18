@@ -14,7 +14,7 @@
 
     setFn('Write', function ($Call)
     {
-        foreach ($Call['RAW'] as $Row)
+        foreach ($Call['Data'] as $Row)
             syslog($Row[0], $Row[2]);
 
         return true;

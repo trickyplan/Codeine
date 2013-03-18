@@ -684,7 +684,7 @@
 
             $E = error_get_last();
 
-            if (!empty($E))
+            if (!empty($E) and self::$_Environment != 'Production')
             {
                 $Logs = F::Logs();
                 foreach ($Logs as $Log)
@@ -705,7 +705,7 @@
 
     function d()
     {
-        if (F::Environment() == 'Development')
+        if (F::Environment() != 'Production')
             call_user_func_array(['F','Dump'], func_get_args());
 
         return func_get_arg(2);
