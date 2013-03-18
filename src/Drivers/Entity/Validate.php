@@ -24,7 +24,7 @@
                     if ($Error !== true)
                     {
                         $Call['Errors'][$Name][] = $Error;
-                        F::Log('EV: '.$Name.' '.$Error, LOG_ERR);
+                        F::Log($Name.' '.$Error, LOG_INFO);
                     }
                 }
 

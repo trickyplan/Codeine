@@ -58,8 +58,6 @@
                                           'Salt' => isset($Call['User']['Salt'])? $Call['User']['Salt']: ''
                                      ]);
 
-        d(__FILE__, __LINE__, $Challenge);
-
         if ($Call['User']['Password'] != $Challenge)
         {
             $Call['Output']['Content'][]
