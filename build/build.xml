@@ -19,7 +19,7 @@
     <property name="description" value="Description"/>
     <property name="homepage" value="http://one2team.ru/project/*"/>
     <property name="maintainer" value="Johnny Funt"/>
-    <property name="destination-source" value="/var/www/"/>
+    <property name="destination-source" value="/var/www/one2team"/>
 
     <target name="phase1" depends="properties"></target>
 
@@ -33,7 +33,7 @@
     <target name="phase4" depends="phase3, phploc.analyze"></target>
 
     <!-- Packaging -->
-    <target name="phase5" depends="phase4, debian.make"></target>
+    <target name="phase5" depends="phase4, debian"></target>
 
 
     <target name="final" depends="phase5"></target>

@@ -1,4 +1,4 @@
-<project name="debian" default="make">
+<project name="debian" default="debian">
     <taskdef name="phpdeb" classname="phing.tasks.my.PHPDebTask"/>
 
     <!-- Stubs -->
@@ -15,7 +15,6 @@
     <property name="distribution" value="distribution"/>
     <property name="key" value="" />
     <property name="destination-etc" value="etc"/>
-    <property name="destination-source" value="var/www" />
     <property name="destination-documents" value="usr/share/doc"/>
 
     <target name="control">
@@ -79,14 +78,13 @@
     <target name="usr" depends="folders">
         <mkdir dir="${package}/usr/bin"/>
         <copy todir="${package}/usr/bin">
-            <fileset dir="usr/bin">
+            <fileset dir="./usr/bin">
                 <include name="*/**"/>
             </fileset>
         </copy>
     </target>
 
-    <target name="make" depends="control, etc, source, usr, version, docs">
+    <target name="debian" depends="control, etc, usr, source, docs">
         <exec command="fakeroot dpkg --build '${package}' ${distribution}/ " logoutput="true"/>
-        <delete dir="${package}" includeemptydirs="true" failonerror="true" />
     </target>
 </project>
