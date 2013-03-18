@@ -22,6 +22,7 @@
                                         'Name' => $Name,
                                         'Node' => $Node,
                                         'Data' => $Element,
+                                        'Purpose' => isset($Call['Purpose'])? $Call['Purpose']: '',
                                         'Value' => F::Dot($Element, $Name)
                                     ]));
                     }
@@ -44,6 +45,7 @@
                                         'Name' => $Name,
                                         'Node' => $Node,
                                         'Data' => $Element,
+                                        'Purpose' => isset($Call['Purpose'])? $Call['Purpose']: '',
                                         'Value' => F::Dot($Element, $Name)
                                     ]));
                     }

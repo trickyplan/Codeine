@@ -44,12 +44,10 @@
     {
         $Call['Session'] = F::Run('Entity', 'Read', ['Entity' => 'Session', 'Where' => $Call['SID'],'One' => true]);
 
-        $Call['Data'] = [$Call['Data']];
-
         if (null === $Call['Session'])
-            $Call['Session'] = F::Run('Entity', 'Create', $Call, ['Entity' => 'Session', 'Data' => [['ID' => $Call['SID']]]]);
+            $Call['Session'] = F::Run('Entity', 'Create', $Call, ['Entity' => 'Session', 'Data' => ['ID' => $Call['SID']], 'One' => true]);
         else
-            $Call['Session'] = F::Run('Entity', 'Update', $Call, ['Entity' => 'Session', 'Where' => $Call['SID']]);
+            $Call['Session'] = F::Run('Entity', 'Update', $Call, ['Entity' => 'Session', 'Where' => $Call['SID'], 'One' => true]);
 
         return $Call;
     });

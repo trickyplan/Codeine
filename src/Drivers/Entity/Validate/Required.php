@@ -11,7 +11,7 @@
     {
         if (isset($Call['Node']['Required']) && $Call['Node']['Required'] && !isset($Call['Node']['Nullable']))
         {
-            if (F::Dot($Call['Data'], $Call['Name']) === null and F::Dot($Call['Current'], $Call['Name']) === null)
+            if (F::Dot($Call['Data'], $Call['Name']) === null)
                 return 'Required';
         }
 

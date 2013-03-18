@@ -28,8 +28,10 @@
                       'Where'  => $Call['User']['ID'],
                       'Data' =>
                        [
-                          'Password' => $NewPassword
-                       ]// FIXME
+                            [
+                                'Password' => $NewPassword
+                            ]
+                       ]
                 ]);
 
             $Message['Scope'] = $Call['User']['EMail'];

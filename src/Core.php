@@ -227,6 +227,7 @@
                         $Call = F::Merge($Call, $Argument);
             }
 
+            //F::Log('Run: '.$Service,':'.$Method, 7);
             $Result = F::Execute($Service, $Method, $Call);
 
             return $Result;

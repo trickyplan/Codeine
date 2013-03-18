@@ -20,7 +20,10 @@
                                       'ID' => ['$ne' => $Call['Data']['ID']]
                                    ]
                           ]) > 0)
+            {
+                d(__FILE__, __LINE__, $Call['Data'][$Call['Name']]);
                 return 'Unique';
+            }
         }
         return true;
     });

@@ -36,7 +36,9 @@
                      'Purpose' => 'Reset',
                      'Data' =>
                         [
-                            'Password' => $Call['Request']['NewPassword']
+                            [
+                                'Password' => $Call['Request']['NewPassword']
+                            ]
                         ])
                 );
 

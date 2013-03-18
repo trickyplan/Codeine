@@ -85,11 +85,6 @@
                 "Service":"Entity.Validate",
                 "Method":"Process"
             },
-            "Updated values":
-            {
-                "Service":"Entity.Nodes.Updated",
-                "Method":"Process"
-            },
             "Filter":
             {
                 "Service":"Entity.Nodes.Filter",
@@ -103,6 +98,11 @@
                 {
                     "Purpose": "Update"
                 }
+            },
+            "Updated values":
+            {
+                "Service":"Entity.Nodes.Updated",
+                "Method":"Process"
             }
         },
         "beforeEntityDelete":

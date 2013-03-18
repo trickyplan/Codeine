@@ -11,13 +11,14 @@
     {
         if (!empty($Call['Value']))
         {
-            F::Run('Entity', 'Delete', array(
+            F::Run('Entity', 'Delete', [
                                     'Entity' => $Call['Entity'].'2'.$Call['Name'],
                                     'Where' =>
                                         [
-                                            $Call['Entity'] => isset($Call['Data']['ID'])? $Call['Data']['ID']: $Call['Current']['ID']
-                                        ]
-                               ));
+                                            $Call['Entity'] => isset($Call['Data']['ID'])? $Call['Data']['ID']: $Call['Data']['ID']
+                                        ],
+                                    'One' => true
+                               ]);
 
             foreach ($Call['Value'] as $Value)
                 F::Run('Entity', 'Create',
@@ -25,8 +26,8 @@
                         'Entity' => $Call['Entity'].'2'.$Call['Name'],
                         'Data' =>
                             [
-                                 $Call['Name'] => $Value,
-                                 $Call['Entity'] => isset($Call['Data']['ID'])? $Call['Data']['ID']: $Call['Current']['ID']
+                                 [$Call['Name'] => $Value,
+                                 $Call['Entity'] => isset($Call['Data']['ID'])? $Call['Data']['ID']: $Call['Data']['ID']]
                             ]
                    ]);
         }

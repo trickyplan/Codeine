@@ -17,8 +17,9 @@
     {
         $User = F::Run('Entity', 'Read', $Call,
                     [
-                         'Entity' => 'User'
-                    ])[0];
+                         'Entity' => 'User',
+                         'One' => true
+                    ]);
 
         $Rights = (array) explode(',',$User['Rights']);
 
@@ -51,6 +52,7 @@
         F::Run('Entity', 'Update', [
                        'Entity' => 'User',
                        'Where' => $Call['Where'],
+                       'One' => true,
                        'Data' =>
                            [
                                'Rights' => $NewRights

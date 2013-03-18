@@ -9,29 +9,28 @@
 
     setFn('Process', function ($Call)
     {
-        if (isset($Call['Nodes']) && isset($Call['Data']))
+        if (isset($Call['Nodes']))
             foreach ($Call['Nodes'] as $Name => $Node)
-            {
                 if (isset($Node['Hooks']) && isset($Node['Hooks'][$Call['On']]))
                 {
-                    foreach ($Call['Data'] as &$Element)
-                    {
-                        if (isset($Node['User Override']) and $Node['User Override'] and !empty($Element[$Name]))
-                            F::Log('Node '.$Name.' overriden by user.', LOG_INFO);
-                        else
+                    if (is_array($Call['Data']))
+                        foreach ($Call['Data'] as &$Element)
                         {
-                            $Element[$Name] = F::Live($Node['Hooks'][$Call['On']],
-                                               [
-                                                   'Entity' => $Call['Entity'],
-                                                   'Nodes' => $Call['Nodes'],
-                                                   'Data' => $Element
-                                               ]);
+                            if (isset($Node['User Override']) and $Node['User Override'] and !empty($Element[$Name]))
+                                F::Log('Node '.$Name.' overriden by user.', LOG_INFO);
+                            else
+                            {
+                                $Element[$Name] = F::Live($Node['Hooks'][$Call['On']],
+                                                   [
+                                                       'Entity' => $Call['Entity'],
+                                                       'Nodes' => $Call['Nodes'],
+                                                       'Data' => $Element
+                                                   ]);
 
-                            F::Log('Node '.$Name.' executed.', LOG_INFO);
+                                F::Log('Node '.$Name.' executed.', LOG_INFO);
+                            }
                         }
-                    }
                 }
-            }
 
         return $Call;
     });

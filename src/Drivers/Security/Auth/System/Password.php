@@ -42,13 +42,14 @@
     setFn('Authenticate', function ($Call)
     {
         $Call['User'] = F::Run('Entity', 'Read',
-                     array(
+                     [
                           'Entity' => 'User',
                           'Where' =>
                               [
                                   $Call['Determinant'] => $Call['Request'][$Call['Determinant']]
-                              ]
-                     ))[0];
+                              ],
+                          'One' => true
+                     ]);
 
         $Challenge = F::Run('Security.Hash', 'Get',
                                      [
@@ -57,6 +58,7 @@
                                           'Salt' => isset($Call['User']['Salt'])? $Call['User']['Salt']: ''
                                      ]);
 
+        d(__FILE__, __LINE__, $Challenge);
 
         if ($Call['User']['Password'] != $Challenge)
         {

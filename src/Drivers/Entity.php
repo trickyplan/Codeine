@@ -28,6 +28,11 @@
 
     setFn('Create', function ($Call)
     {
+        if (isset($Call['One']))
+        {
+            $Call['Data'] = [$Call['Data']];
+            unset($Call['One']);
+        }
 
         $Call = F::Hook('beforeOperation', $Call);
 
@@ -69,6 +74,12 @@
 
     setFn('Update', function ($Call)
     {
+        if (isset($Call['One']))
+        {
+            $Call['Data'] = [$Call['Data']];
+            unset($Call['One']);
+        }
+
         $Call = F::Hook('beforeOperation', $Call);
 
             $Call['Current'] = F::Run('Entity', 'Read', $Call);
@@ -78,6 +89,8 @@
             $Call = F::Hook('beforeEntityWrite', $Call);
 
                 $Call = F::Hook('beforeEntityUpdate', $Call);
+
+                    $Call['Data'][0]['ID'] = $Call['Where']['ID'];
 
                     if (!empty($Call['Data']))
                         $Call['Data'] = F::Run('IO', 'Write', $Call);
@@ -95,6 +108,7 @@
     setFn('Delete', function ($Call)
     {
         $Call['Data'] = F::Run('Entity', 'Read', $Call);
+        $Call['Current'] = $Call['Data'];
 
         $Call = F::Hook('beforeOperation', $Call);
 
@@ -102,7 +116,11 @@
 
                 $Call = F::Hook('beforeEntityDelete', $Call);
 
-                    // F::Run('IO', 'Write', $Call, ['Data' => null]);
+                    unset($Call['Data']);
+
+                    F::Run('IO', 'Write', $Call, ['Data' => [null]]);
+
+                    $Call['Data'] = $Call['Current'];
 
                 $Call = F::Hook('afterEntityDelete', $Call);
 

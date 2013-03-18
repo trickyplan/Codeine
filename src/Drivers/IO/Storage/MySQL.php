@@ -60,7 +60,8 @@
     setFn ('Write', function ($Call)
     {
         $Data = $Call['Data'];
-        foreach ($Data as $Element)
+
+        foreach ($Data as &$Element)
         {
             $Call['Data'] = $Element;
 
@@ -77,19 +78,21 @@
             $Call = F::Run(null, 'Operation', $Call, ['Query' => $Query]);
 
             if (!isset($Call['Data']['ID']))
-                $Call['Data']['ID'] = $Call['Link']->insert_id;
+                $Element['ID'] = $Call['Link']->insert_id;
 
             if ($Call['Link']->errno != 0)
             {
                 F::Log($Call['Link']->error, LOG_ERR);
                 return null;
             }
-
-            if (isset($Call['Data']))
-                return $Call['Data'];
-            else
-                return null;
         }
+
+        $Call['Data'] = $Data;
+
+        if (isset($Call['Data']))
+            return $Call['Data'];
+        else
+            return null;
 
 
 
