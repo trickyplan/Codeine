@@ -9,7 +9,7 @@
 
     setFn('Write', function ($Call)
     {
-        if (is_array($Call['Value']))
+        if (is_array($Call['Value']) && !empty($Call['Value']))
             return implode(';', $Call['Value']);
         else
             return $Call['Value'];
