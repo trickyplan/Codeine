@@ -6228,7 +6228,7 @@ function cloneCopyEvent( src, dest ) {
 function fixCloneNodeIssues( src, dest ) {
 	var nodeName, data, e;
 
-	// We do not need to do anything for non-Elements
+	// We do not need to do anything for non-Element
 	if ( dest.nodeType !== 1 ) {
 		return;
 	}

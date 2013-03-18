@@ -3,6 +3,11 @@
     {
         "beforeOperation":
         {
+            "Load model (essential)":
+            {
+                "Service":"Entity",
+                "Method":"Load"
+            },
             "Scope":
             {
                 "Service": "Entity.Hooks.Scope",
@@ -16,11 +21,6 @@
         },
         "beforeEntityWrite":
         {
-            "Load model (essential)":
-            {
-                "Service":"Entity",
-                "Method":"Load"
-            },
             "Strict":
             {
                 "Service":"Entity.Nodes.Strict",
@@ -47,7 +47,7 @@
             "Default values":
             {
                 "Service":"Entity.Nodes.Default",
-                "Method":"Write"
+                "Method":"Process"
             },
             "Datatypes":
             {
@@ -120,11 +120,6 @@
         },
         "beforeEntityRead":
         {
-            "Load model (essential)":
-            {
-                "Service":"Entity",
-                "Method":"Load"
-            },
             "Where":
             {
                 "Service":"Entity.Nodes.Where",
@@ -149,7 +144,7 @@
             "Default values":
             {
                 "Service":"Entity.Nodes.Default",
-                "Method":"Read"
+                "Method":"Process"
             },
             "Datatypes":
             {

@@ -98,7 +98,7 @@
                 }
             }
         },
-        "afterLogin":
+        "-afterLogin":
         {
             "Redirect":
             {

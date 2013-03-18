@@ -11,7 +11,7 @@
     {
         $Locations = F::Run('Entity', 'Read', ['Entity' => 'Location', 'NoPage' => true]);
 
-        $Here = F::Run('Entity', 'Read', ['Entity' => 'Location', 'Where' => $Call['Location']])[0];
+        $Here = F::Run('Entity', 'Read', ['Entity' => 'Location', 'Where' => $Call['Location'], 'One' => true]);
 
         if ($Call['URL'] == '/')
             $Call['URL'] = '';

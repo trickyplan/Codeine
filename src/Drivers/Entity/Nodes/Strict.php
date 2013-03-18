@@ -10,7 +10,6 @@
     setFn('Process', function ($Call)
     {
         if (isset($Call['Data']))
-        {
             foreach ($Call['Data'] as &$Element)
             {
                 $Data = [];
@@ -21,7 +20,6 @@
 
                 $Element = $Data;
             }
-        }
 
         return $Call;
     });

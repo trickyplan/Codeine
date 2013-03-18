@@ -9,21 +9,19 @@
 
     setFn('Load', function ($Call)
     {
-        $Call = F::Hook('beforeOperation', $Call);
-
             $Call = F::Hook('beforeEntityLoad', $Call);
 
-            if (is_array($Model = F::loadOptions($Call['Entity'].'.Entity')))
+            $Model = F::loadOptions($Call['Entity'].'.Entity');
+
+            if (!empty($Model))
             {
                 F::Log('Model for '.$Call['Entity'].' loaded', LOG_INFO);
                 $Call = F::Merge($Model, $Call);
             }
             else
-                F::Log('Model for '.$Call['Entity'].'not found', LOG_CRIT);
+                F::Log('Model for '.$Call['Entity'].' not found', LOG_CRIT);
 
            $Call = F::Hook('afterEntityLoad', $Call);
-
-        $Call = F::Hook('afterOperation', $Call);
 
         return $Call;
     });

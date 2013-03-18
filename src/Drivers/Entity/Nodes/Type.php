@@ -16,7 +16,7 @@
                     {
                         if (F::Dot($Element, $Name))
                             $Element = F::Dot($Element, $Name, F::Run ('Data.Type.'.$Node['Type'],
-                                    'Read',
+                                    'Write',
                                     [
                                         'Entity' => $Call['Entity'],
                                         'Name' => $Name,

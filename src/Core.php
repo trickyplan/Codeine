@@ -102,19 +102,20 @@
         {
             if ((array) $Second === $Second)
             {
-                if ((array) $First === $First)
+                if ($First !== $Second)
+                {
+                    if ((array) $First === $First)
                     {
-                        if ($First !== $Second)
-                        {
-                            foreach ($Second as $Key => &$Value)
-                                if (isset($First[$Key]) && ((array)$Value === $Value))
-                                    $First[$Key] = self::Merge($First[$Key], $Second[$Key]);
-                                else
-                                    $First[$Key] = $Value;
-                        }
+                        foreach ($Second as $Key => &$Value)
+                            if (isset($First[$Key]) && ((array)$Value === $Value))
+                                $First[$Key] = self::Merge($First[$Key], $Second[$Key]);
+                            else
+                                $First[$Key] = $Value;
+
                     }
-                else
-                    $First = $Second;
+                    else
+                        $First = $Second;
+                }
             }
 
             return $First;
@@ -678,17 +679,24 @@
 
             self::Stop(self::$_Service . '.' . self::$_Method);
 
+            ob_flush();
+
             $E = error_get_last();
 
-            print_r($E);
+            if (!empty($E))
+            {
+                $Logs = F::Logs();
+                foreach ($Logs as $Log)
+                    echo implode(' ', $Log).'<br/>';
+            }
+
+
 
             if (self::$_SR71)
             {
                 self::$_Memory = memory_get_usage();
                 self::SR71();
             }
-
-            ob_flush();
 
             return false;
         }

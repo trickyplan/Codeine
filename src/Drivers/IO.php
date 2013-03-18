@@ -9,12 +9,13 @@
 
     setFn ('Open', function ($Call)
     {
-        $StorageID = $Call['Storage'];
-
         if (!isset($Call['Storage']))
         {
-            return F::Log('IO Null Storage: ', LOG_ERR);
+            F::Log('IO Null Storage: ', LOG_ERR);
+            return null;
         }
+
+        $StorageID = $Call['Storage'];
 
         if (isset($Call['Storages'][$StorageID]))
             $Call = F::Merge($Call, $Call['Storages'][$StorageID]);
