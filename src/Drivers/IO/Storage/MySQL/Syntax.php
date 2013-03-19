@@ -142,7 +142,7 @@
                         {
                             if (!empty($lValue))
                             {
-                                if (is_array($lValue))
+                                if (is_array($lValue) & !empty($lValue))
                                 {
                                     $lValue = '('.implode(',', $lValue).')';
                                     $Quote = false;
@@ -154,11 +154,11 @@
                                 {
                                     case '$in': $Relation = 'IN'; break;
                                     case '$ne': $Relation = '<>'; break;
-                                    case 'Like': $lValue = '%'.$lValue.'%';
+                                    case 'Like': if ($lValue == '()') $lValue = ''; else $lValue = '%'.$lValue.'%';
                                     break;
                                 }
 
-                                if (!is_array($lValue))
+                                if (!is_array($lValue) && !empty($lValue))
                                     $Conditions[] = '`'.$Key.'` '. $Relation.' '.($Quote ? '\''.$lValue.'\'': $lValue);
                             }
                         }
