@@ -17,8 +17,5 @@
 
     setFn('Read', function ($Call)
     {
-        if (isset($Call['Purpose']) && $Call['Purpose'] != 'Read')
-            return $Call['Value'];
-        else
-            return explode(';', $Call['Value']);
+        return explode(';', $Call['Value']);
     });
