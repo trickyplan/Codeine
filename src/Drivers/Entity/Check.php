@@ -13,8 +13,6 @@
 
         $Call = F::Hook('beforeCheck', $Call);
 
-            $Call['Data'] = F::Run('Entity', 'Read', $Call);
-
             F::Run('Entity', 'Update', $Call,
             [
                 'One' => true,

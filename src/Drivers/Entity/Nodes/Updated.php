@@ -10,8 +10,10 @@
     setFn('Process', function ($Call)
     {
         if (isset($Call['Data']))
-            $Call['Data'] = F::Diff($Call['Data'], $Call['Current']);
-
+        {
+            foreach ($Call['Data'] as $IX => &$Element)
+                $Element = array_diff_assoc($Element, $Call['Current'][$IX]);
+        }
 
         return $Call;
     });
