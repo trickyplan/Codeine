@@ -20,8 +20,11 @@
     {
         $Call = F::Hook('beforeCreateGet', $Call);
 
-        if (isset($Call['Request']) && isset($Call['Data']))
-            $Call['Data'] = F::Merge($Call['Request'], $Call['Data']);
+        if (isset($Call['Request']['Data']) && isset($Call['Data']))
+            $Call['Data'] = F::Merge($Call['Request']['Data'], $Call['Data']);
+        else
+            if (isset ($Call['Request']['Data']))
+                $Call['Data'] = $Call['Request']['Data'];
 
         $Call['Scope'] = isset($Call['Scope'])? $Call['Scope']: $Call['Scope'] = $Call['Entity'];
 
