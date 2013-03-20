@@ -12,8 +12,7 @@
         if (isset($Call['Data']))
         {
             foreach ($Call['Data'] as $IX => &$Element)
-                $Element = array_diff_assoc($Element, $Call['Current'][$IX]);
+                $Element = F::Diff($Call['Current'][$IX], $Element);
         }
-
         return $Call;
     });

@@ -20,13 +20,13 @@
         if (is_array($Call['Where']['ID']))
         {
             foreach ($Call['Where']['ID'] as &$ID)
-                $ID = $Call['Scope'].$ID;
+                $ID = $Call['Scope'].'.'.$ID;
 
             return $Call['Link']->mGet($Call['Where']['ID']);
         }
         else
         {
-            if (($Result = $Call['Link']->get($Call['Scope'].$Call['Where']['ID']))  !== false)
+            if (($Result = $Call['Link']->get($Call['Scope'].'.'.$Call['Where']['ID']))  !== false)
                 return [$Result];
             else
                 return null;
@@ -37,14 +37,15 @@
     {
         if (isset($Call['Where']))
         {
+
             if (null === $Call['Data'])
-                $Call['Link']->del($Call['Scope'].$Call['Where']['ID']);
+                $Call['Link']->del($Call['Scope'].'.'.$Call['Where']['ID']);
             else
-                $Call['Link']->set($Call['Scope'].$Call['Where']['ID'], $Call['Data'][0], $Call['TTL']);
+                $Call['Link']->set($Call['Scope'].'.'.$Call['Where']['ID'], $Call['Data'], $Call['TTL']);
         }
         else
         {
-            $Call['Link']->set($Call['Scope'].$Call['ID'], $Call['Data'][0], $Call['TTL']);
+            $Call['Link']->set($Call['Scope'].$Call['ID'], $Call['Data'], $Call['TTL']);
         }
 
         return $Call['Data'];
