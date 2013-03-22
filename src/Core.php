@@ -142,7 +142,7 @@
                                     $Diff[$Key] = $NewDiff;
                             }
                         }
-                        elseif (!isset($Second[$Key]) || $Second[$Key] !== $Value)
+                        elseif (!isset($Second[$Key]) || $Second[$Key] !==  $Value)
                         {
                             $Diff[$Key] = $Value;
                         }
