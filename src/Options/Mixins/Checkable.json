@@ -6,7 +6,7 @@
             "Type": "Numeral.Integer",
             "Hooks":
             {
-                "beforeCheck":
+                "beforeEntityUpdate":
                 {
                     "Service": "System.Time",
                     "Method": "Get"
@@ -18,7 +18,7 @@
             "Type": "Numeral.Integer",
             "Hooks":
             {
-                "beforeCheck":
+                "beforeEntityUpdate":
                 {
                     "Service": "Session",
                     "Method": "Read",
@@ -33,6 +33,17 @@
         {
             "Type": "Boolean",
             "Default": false
+        }
+    },
+    "Hooks":
+    {
+        "afterCheck":
+        {
+            "Restore URL":
+            {
+                "Service": "Entity.Redirect.Back",
+                "Method": "Restore"
+            }
         }
     }
 }

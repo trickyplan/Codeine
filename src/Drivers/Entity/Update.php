@@ -112,12 +112,12 @@
 
     setFn('POST', function ($Call)
     {
-        $Call = F::Hook('beforeUpdatePost', $Call);
-
         if (isset($Call['Data']))
             $Call['Data'] = F::Merge($Call['Data'], $Call['Request']['Data']);
         else
             $Call['Data'] = $Call['Request']['Data'];
+
+        $Call = F::Hook('beforeUpdatePost', $Call);
 
         // Отправляем в Entity.Update
 

@@ -90,6 +90,11 @@
                 "Service":"Entity.Nodes.Filter",
                 "Method":"Process"
             },
+            "Updated values":
+            {
+                "Service":"Entity.Nodes.Updated",
+                "Method":"Process"
+            },
             "Datatypes":
             {
                 "Service":"Entity.Nodes.Type",
@@ -98,11 +103,6 @@
                 {
                     "Purpose": "Update"
                 }
-            },
-            "Updated values":
-            {
-                "Service":"Entity.Nodes.Updated",
-                "Method":"Process"
             }
         },
         "beforeEntityDelete":
@@ -116,6 +116,15 @@
             {
                 "Service":"Entity.Nodes.Where",
                 "Method":"Process"
+            },
+            "Datatypes":
+            {
+                "Service":"Entity.Nodes.Type",
+                "Method":"Write",
+                "Call":
+                {
+                    "Purpose": "Delete"
+                }
             }
         },
         "beforeEntityRead":

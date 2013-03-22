@@ -26,7 +26,6 @@
                 ]
             ]);
 
-
         $Call = F::Hook('afterCheck', $Call);
 
         return $Call;

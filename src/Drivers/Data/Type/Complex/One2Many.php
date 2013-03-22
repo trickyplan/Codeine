@@ -9,28 +9,28 @@
 
     setFn ('Write', function ($Call)
     {
-        if (!empty($Call['Value']))
-        {
-            F::Run('Entity', 'Delete', [
-                                    'Entity' => $Call['Entity'].'2'.$Call['Name'],
-                                    'Where' =>
-                                        [
-                                            $Call['Entity'] => isset($Call['Data']['ID'])? $Call['Data']['ID']: $Call['Data']['ID']
-                                        ],
-                                    'One' => true
-                               ]);
+        F::Run('Entity', 'Delete', [
+                                'Entity' => $Call['Entity'].'2'.$Call['Name'],
+                                'Where' =>
+                                    [
+                                        $Call['Entity'] => isset($Call['Data']['ID'])? $Call['Data']['ID']: $Call['Data']['ID']
+                                    ],
+                                'One' => true
+                           ]);
 
+        if ((isset($Call['Purpose']) and $Call['Purpose'] != 'Delete') or !isset($Call['Purpose']))
             foreach ($Call['Value'] as $Value)
                 F::Run('Entity', 'Create',
                     [
                         'Entity' => $Call['Entity'].'2'.$Call['Name'],
+                        'One' => true,
                         'Data' =>
                             [
-                                 [$Call['Name'] => $Value,
-                                 $Call['Entity'] => isset($Call['Data']['ID'])? $Call['Data']['ID']: $Call['Data']['ID']]
+                                 $Call['Name'] => $Value,
+                                 $Call['Entity'] => isset($Call['Data']['ID'])? $Call['Data']['ID']: $Call['Data']['ID']
                             ]
-                   ]);
-        }
+                ]);
+
 
         return null;
     });

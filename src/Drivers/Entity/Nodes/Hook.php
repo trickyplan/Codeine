@@ -23,11 +23,15 @@
                                 $Element[$Name] = F::Live($Node['Hooks'][$Call['On']],
                                                    [
                                                        'Entity' => $Call['Entity'],
+                                                       'Name' => $Name,
                                                        'Nodes' => $Call['Nodes'],
                                                        'Data' => $Element
                                                    ]);
 
-                                F::Log('Node '.$Name.' executed.', LOG_INFO);
+                                if (is_array($Element[$Name]))
+                                    F::Log('Node '.$Name.' executed as '.json_encode($Element[$Name]) , LOG_INFO);
+                                else
+                                    F::Log('Node '.$Name.' executed as '.$Element[$Name], LOG_INFO);
                             }
                         }
                 }

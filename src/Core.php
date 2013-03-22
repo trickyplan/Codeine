@@ -123,30 +123,33 @@
 
         public static function Diff ($First, $Second)
         {
-            foreach($First as $Key => $Value)
-            {
-                if ($Value != '*')
+            if ((array) $First === $First)
+                foreach ($First as $Key => $Value)
                 {
-                    if(is_array($Value))
+                    if ($Value !== '*')
                     {
-                          if(!isset($Second[$Key]))
-                              $Diff[$Key] = $Value;
-                          elseif(!is_array($Second[$Key]))
-                              $Diff[$Key] = $Value;
-                          else
-                          {
-                              $NewDiff = F::Diff ($Value, $Second[$Key]);
+                        if ((array) $Value === $Value)
+                        {
+                            if (!isset($Second[$Key]))
+                                $Diff[$Key] = $Value;
+                            elseif (!is_array($Second[$Key]))
+                                $Diff[$Key] = $Value;
+                            else
+                            {
+                                $NewDiff = F::Diff($Value, $Second[$Key]);
 
-                              if(null !== $NewDiff)
+                                if ($NewDiff !== null)
                                     $Diff[$Key] = $NewDiff;
-                          }
-                      }
-                      elseif (!isset($Second[$Key]) || $Second[$Key] != $Value)
-                          $Diff[$Key] = $Value;
+                            }
+                        }
+                        elseif (!isset($Second[$Key]) || $Second[$Key] !== $Value)
+                        {
+                            $Diff[$Key] = $Value;
+                        }
+                    }
                 }
-            }
 
-            return (!isset($Diff) ? null : $Diff);
+            return !isset($Diff) ? null : $Diff;
         }
 
         public static function findFile($Names)
@@ -227,7 +230,7 @@
                         $Call = F::Merge($Call, $Argument);
             }
 
-            //F::Log('Run: '.$Service,':'.$Method, 7);
+            // F::Log('Run: '.$Service,':'.$Method, 7);
             $Result = F::Execute($Service, $Method, $Call);
 
             return $Result;

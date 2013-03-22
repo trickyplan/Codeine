@@ -10,12 +10,20 @@
     setFn('Write', function ($Call)
     {
         if (is_array($Call['Value']) && !empty($Call['Value']))
+        {
             return implode(';', $Call['Value']);
+        }
         else
             return $Call['Value'];
     });
 
     setFn('Read', function ($Call)
     {
-        return explode(';', $Call['Value']);
+        $Output = [];
+        $Data = explode(';', $Call['Value']);
+
+        foreach ($Data as $V)
+            $Output[$V] = $V;
+
+        return $Output;
     });

@@ -77,7 +77,7 @@
                 if (!is_float($Value) and !is_int($Value))
                     $Value = '\''.$Call['Link']->real_escape_string($Value). '\''; // ?
                 else
-                    $Value = strtr($Value, ',','.'); // FIXME I'm shitcode
+                    $Value = strtr($Value, ',', '.'); // FIXME I'm shitcode
 
             $Values = implode(',', $Call['Data']);
         }
@@ -148,7 +148,12 @@
                                     $Quote = false;
                                 }
                                 else
+                                {
+                                    if (is_float($lValue))
+                                        $lValue = str_replace(',', '.', $lValue);
+
                                     $Quote = !is_numeric($lValue);
+                                }
 
                                 switch ($Relation)
                                 {
