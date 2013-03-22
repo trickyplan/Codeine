@@ -1,5 +1,5 @@
 {
-    "Bad UA": [
+    "-Bad UA": [
         "nmap|nikto|wikto|sf|sqlmap|bsqlbf|w3af|acunetix|havij|appscan"
     ],
     "Hooks":

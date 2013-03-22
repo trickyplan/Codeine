@@ -164,13 +164,16 @@
                                 }
 
                                 if (!is_array($lValue) && !empty($lValue))
-                                    $Conditions[] = '`'.$Key.'` '. $Relation.' '.($Quote ? '\''.$lValue.'\'': $lValue);
+                                    $Conditions[] = '`'.$Key.'` '. $Relation.' '.($Quote ? '\''.$Call['Link']->real_escape_string($lValue).'\'': $lValue);
                             }
                         }
                     }
                     else
                     {
                         $Quote = !is_numeric($Value);
+
+                        $Value = $Call['Link']->real_escape_string($Value);
+
                         if (!is_array($Value))
                             $Conditions[] = '`'.$Key.'` '. $Relation.' '.($Quote ? '\''.$Value.'\'': $Value);
                     }
