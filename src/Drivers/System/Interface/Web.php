@@ -17,7 +17,7 @@
 
         if (!isset($Call['Skip Run']))
         {
-             if (isset($_FILES))
+             if (isset($_FILES['Data']))
             {
                 foreach ($_FILES['Data'] as $Key => $Value)
                     foreach ($Value as $IX => $cValue)
