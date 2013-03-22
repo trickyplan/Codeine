@@ -18,7 +18,7 @@
                 if (($Matched = F::Live(F::Dot($Call['Data'], $Match))) !== null)
                 {
                     if ((array) $Matched === $Matched)
-                        $Matched = implode(' ', $Matched);
+                        $Matched = array_shift($Matched);
 
                     if (($Matched === false) or ($Matched === 0) )
                         $Matched = '0';

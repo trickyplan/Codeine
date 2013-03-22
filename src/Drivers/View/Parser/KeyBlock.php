@@ -23,10 +23,13 @@
                     if ($DotMatched = F::Live(F::Dot($Call['Data'], $Match)))
                     {
                         if (is_array($DotMatched))
+                        {
+                            sort($DotMatched);
                             foreach($DotMatched as $ICV => $cMatch)
                                 $Output.= str_replace('<#/>', $ICV, str_replace('<k>'.$Match.'</k>', $cMatch,$Pockets[1][$IX]).
                                     ($cMatch)
                                     .str_replace('<k>'.$Match.'</k>', $cMatch,$Pockets[3][$IX]));
+                        }
                         else
                             $Output = str_replace('<#/>', '', $Pockets[1][$IX].($DotMatched).$Pockets[3][$IX]);
                     }

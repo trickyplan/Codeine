@@ -16,7 +16,7 @@
                 if ($K > 0)
                     $Data[] = [$Call['Name'] => $V];
 
-        $Call['Data'] = json_encode($Data);
+        $Call['Data'] = json_encode($Data, JSON_UNESCAPED_UNICODE);
 
         return F::Run('View', 'LoadParsed', array('Scope' => 'Default', 'ID' => 'UI/Form/Multifield', 'Data' => $Call));
      });
