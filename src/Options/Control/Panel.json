@@ -3,6 +3,7 @@
     "Bundles":
         {
             "Project": ["User", "Page", "Journal"],
-            "Platform": ["Codeine", "PHP", "IO", "Security", "Session"]
+            "Platform": ["Codeine", "PHP", "IO", "Security", "Session"],
+            "Developer": ["Developer"]
         }
 }
