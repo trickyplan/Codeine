@@ -143,8 +143,6 @@
         $Iterator  = new RecursiveIteratorIterator($Directory);
         $Regex     = new RegexIterator($Iterator, '/'.$Prefix.'(.+)'.$Postfix.'$/i', RecursiveRegexIterator::GET_MATCH);
 
-        $Data = array();
-
         foreach($Regex as $File)
             $ic++;
 
@@ -153,7 +151,7 @@
 
     setFn('Upload', function ($Call)
     {
-        $Call['Fullname'] = $Call['Scope'].'/'.$Call['Name'];
+        $Call['Fullname'] = $Call['Node']['Scope'].'/'.$Call['Name'];
 
         if ($Call['Value']['error'] == 0)
         {
@@ -162,6 +160,8 @@
                 $Call = F::Hook('File.Uploaded', $Call);
                 return $Call['Name'];
             }
+            else
+                die($Call['Value']['tmp_name']);
         }
 
         return null;
