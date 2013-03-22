@@ -6,10 +6,6 @@
         {
             "Type": "Literal.String"
         },
-        "Heartbeat":
-        {
-
-        },
         "URL":
         {
             "Type": "Literal.String"

@@ -39,3 +39,12 @@
 
         return $Call;
     });
+
+    setFn('Select', function ($Call)
+    {
+        F::Run('Session', 'Write', $Call, ['Data' => ['Location' => $Call['Location']]]);
+
+        $Call = F::Run('Entity.Redirect', 'Restore', $Call);
+
+        return $Call;
+    });

@@ -11,6 +11,9 @@
     {
         $Location = '';
 
+        if (isset($Call['Session']['Location']))
+            $Location = $Call['Session']['Location'];
+
         if (isset($Call['Location']))
             $Location = $Call['Location'];
 
@@ -32,6 +35,8 @@
             $Call['Session']['Location'] = 0;
             $Call['Session']['LocationURL'] = '';
         }
+
+        F::Run('Session', 'Write', $Call, ['Data' => ['Location' => $Location]]);
 
         return $Call;
     });
