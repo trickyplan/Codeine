@@ -44,7 +44,7 @@
     {
         F::Run('Session', 'Write', $Call, ['Data' => ['Location' => $Call['Location']]]);
 
-        $Call = F::Run('Entity.Redirect', 'Restore', $Call);
+        $Call = F::Run('System.Interface.Web', 'Redirect', $Call, ['Location' => $_SERVER['HTTP_REFERER']]);
 
         return $Call;
     });
