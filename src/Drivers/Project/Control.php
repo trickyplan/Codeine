@@ -9,7 +9,7 @@
 
     setFn('Do', function ($Call)
     {
-
+        $Call['Project']['MTime'] = filemtime(Root.'/Options/Version.json');
         return $Call;
     });
 
