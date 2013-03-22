@@ -13,7 +13,10 @@
 
         $Call = F::Hook('beforeTouch', $Call);
 
-        F::Run('Entity', 'Update', $Call, ['Data' => []]);
+        $Data = F::Run('Entity', 'Read', $Call);
+
+        foreach ($Data as $Element)
+            F::Run('Entity', 'Update', $Call, ['One' => true, 'Where'=> $Element['ID'], 'Data' => []]);
 
         $Call = F::Hook('afterTouch', $Call);
 
