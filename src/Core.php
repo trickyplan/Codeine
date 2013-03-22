@@ -45,6 +45,7 @@
             self::Start(self::$_Service . '.' . self::$_Method);
 
             mb_internal_encoding('UTF-8');
+            libxml_use_internal_errors(true);
 
             setlocale(LC_ALL, "ru_RU.UTF-8");
 
