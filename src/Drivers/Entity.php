@@ -92,8 +92,10 @@
 
                     $Call['Data'][0]['ID'] = $Call['Where']['ID'];
 
-                    if (!empty($Call['Data']))
-                        $Call['Data'] = F::Run('IO', 'Write', $Call);
+                    F::Run('IO', 'Write', $Call);
+
+                    $Call['Data'] = F::Run ('Entity', 'Read', $Call);
+
 
                 $Call = F::Hook('afterEntityUpdate', $Call);
 

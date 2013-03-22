@@ -16,8 +16,10 @@
         {
             $Pingback = file_get_contents($Call['Pingback']);
             preg_match('/(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)/', $Pingback, $Pockets);
-            return $Pockets[0];
+            $IP = $Pockets[0];
         }
         else
-            return isset($Call['Substitute'][$_SERVER['REMOTE_ADDR']])? $Call['Substitute'][$_SERVER['REMOTE_ADDR']]: $_SERVER['REMOTE_ADDR'];
+            $IP = isset($Call['Substitute'][$_SERVER['REMOTE_ADDR']])? $Call['Substitute'][$_SERVER['REMOTE_ADDR']]: $_SERVER['REMOTE_ADDR'];
+
+        return $IP;
     });
