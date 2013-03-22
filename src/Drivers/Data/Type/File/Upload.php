@@ -9,7 +9,6 @@
 
     setFn('Write', function ($Call)
     {
-        d(__FILE__, __LINE__, $Call['Value']);
         if (isset($Call['Value']) && is_scalar($Call['Value']))
             return $Call['Value'];
 
