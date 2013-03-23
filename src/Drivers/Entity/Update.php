@@ -117,13 +117,15 @@
         else
             $Call['Data'] = $Call['Request']['Data'];
 
+        $Call['Data'] = F::Merge(F::Run('Entity', 'Read', $Call), $Call['Data']);
+
         $Call = F::Hook('beforeUpdatePost', $Call);
 
         // Отправляем в Entity.Update
 
         $Call = F::Run('Entity', 'Update', $Call);
 
-        // $Call['Data'] = F::Merge(F::Run('Entity', 'Read', $Call), $Call['Data']);
+        $Call['Data'] = F::Merge(F::Run('Entity', 'Read', $Call), $Call['Data']);
 
        // Выводим результат
 

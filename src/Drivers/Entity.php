@@ -86,11 +86,13 @@
 
             $Call['Data'] = F::Merge($Call['Current'],$Call['Data']);
 
+
+$Call['Data'][0]['ID'] = $Call['Where']['ID'];
+
             $Call = F::Hook('beforeEntityWrite', $Call);
 
                 $Call = F::Hook('beforeEntityUpdate', $Call);
 
-                    $Call['Data'][0]['ID'] = $Call['Where']['ID'];
 
                     F::Run('IO', 'Write', $Call);
 

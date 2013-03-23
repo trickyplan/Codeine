@@ -12,7 +12,7 @@
             $Call['Data'] = F::Diff($Call['Data'], $Call['Current']);
 
         foreach ($Call['Current'] as $IX => &$Element)
-            $Element['ID'] = $Call['Current'][$IX]['ID'];
+            $Call['Data'][$IX]['ID'] = $Call['Current'][$IX]['ID'];
 
         return $Call;
     });

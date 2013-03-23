@@ -22,7 +22,7 @@
                 foreach ($_FILES['Data'] as $Key => $Value)
                     foreach ($Value as $IX => $cValue)
                         foreach ($cValue as $C2 => $V2)
-                            $_REQUEST['Data'][$C2][$IX][$Key] = $V2;
+                            $_REQUEST['Data'][$IX][$C2][$Key] = $V2;
                 // FUCK!
             }
 
