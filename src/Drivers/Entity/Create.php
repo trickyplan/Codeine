@@ -131,7 +131,10 @@
             if (isset($Call['Data']))
                 $Call['Data'] = F::Merge($Call['Data'], $Call['Request']['Data']);
             else
-                $Call['Data'] = $Call['Request']['Data'];
+            {
+                if (isset($Call['Request']['Data']))
+                    $Call['Data'] = $Call['Request']['Data'];
+            }
 
             // Отправляем в Entity.Create
 

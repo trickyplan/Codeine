@@ -60,6 +60,10 @@
 
         if ($Call['User']['Password'] != $Challenge)
         {
+            F::Log('Passwords don\'t match', LOG_INFO);
+            F::Log('User password hash is '.$Call['User']['Password'], LOG_INFO);
+            F::Log('Request password hash is '.$Challenge, LOG_INFO);
+
             $Call['Output']['Content'][]
                 = array(
                 'Type' => 'Template',

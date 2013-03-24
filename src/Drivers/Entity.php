@@ -86,8 +86,7 @@
 
             $Call['Data'] = F::Merge($Call['Current'],$Call['Data']);
 
-
-$Call['Data'][0]['ID'] = $Call['Where']['ID'];
+            $Call['Data'][0]['ID'] = $Call['Where']['ID'];
 
             $Call = F::Hook('beforeEntityWrite', $Call);
 
@@ -111,8 +110,11 @@ $Call['Data'][0]['ID'] = $Call['Where']['ID'];
 
     setFn('Delete', function ($Call)
     {
-        $Call['Data'] = F::Run('Entity', 'Read', $Call);
-        $Call['Current'] = $Call['Data'];
+        if(isset($Call['Where']))
+        {
+            $Call['Data'] = F::Run('Entity', 'Read', $Call);
+            $Call['Current'] = $Call['Data'];
+        }
 
         $Call = F::Hook('beforeOperation', $Call);
 
@@ -124,6 +126,7 @@ $Call['Data'][0]['ID'] = $Call['Where']['ID'];
 
                     F::Run('IO', 'Write', $Call, ['Data' => [null]]);
 
+                    if(isset($Call['Where']))
                     $Call['Data'] = $Call['Current'];
 
                 $Call = F::Hook('afterEntityDelete', $Call);

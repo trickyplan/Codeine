@@ -25,6 +25,8 @@
 
         if (isset($Call['Where']) and $Call['Where'] !== null)
         {
+            $Where = [];
+
             foreach ($Call['Where'] as $Key => $Value)
                 if (is_array($Value))
                     foreach ($Value as $Subkey => $Subvalue)
@@ -77,16 +79,6 @@
     {
         $Call['Scope'] = strtr($Call['Scope'], '.', '_');
 
-        if (null === $Call['Data'] or empty($Call['Data']))
-        {
-            if (isset($Call['Where']))
-            {
-                F::Log('Mongo: db.'.$Call['Entity'].'remove('.json_encode($Call['Where']).')', LOG_INFO);
-                return $Call['Link']->$Call['Scope']->remove ($Call['Where']);
-            }
-        }
-        else
-        {
             try
             {
                 if (isset($Call['Where']))
@@ -101,8 +93,21 @@
                 {
                     foreach ($Call['Data'] as $Element)
                     {
-                        F::Log('Mongo: db.'.$Call['Entity'].'.insert('.json_encode($Element).')', LOG_INFO);
-                        $Call['Link']->$Call['Scope']->insert ($Element);
+                        if ($Element === null)
+                        {
+                            if (isset($Call['Where']))
+                            {
+                                F::Log('Mongo: db.'.$Call['Entity'].'remove('.json_encode($Call['Where']).')', LOG_INFO);
+                                $Call['Link']->$Call['Scope']->remove ($Call['Where']);
+                            }
+                            else
+                                $Call['Link']->$Call['Scope']->remove ();
+                        }
+                        else
+                        {
+                            F::Log('Mongo: db.'.$Call['Entity'].'.insert('.json_encode($Element).')', LOG_INFO);
+                            $Call['Link']->$Call['Scope']->insert ($Element);
+                        }
                     }
 
                 }
@@ -113,7 +118,6 @@
             }
 
             return $Call['Data'];
-        }
     });
 
     setFn ('Close', function ($Call)

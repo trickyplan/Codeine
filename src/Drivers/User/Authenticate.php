@@ -45,6 +45,8 @@
                     $Call = F::Hook('Authenticating.Failed.Session', $Call);
             }
         }
+        else
+            F::Log('Authentification failed', LOG_INFO);
 
         return $Call;
     });
