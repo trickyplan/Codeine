@@ -120,6 +120,7 @@
         $Call = F::Hook('beforeCreatePost', $Call);
         // Берём данные из запроса
 
+
         if (!isset($Call['Failure']))
         {
             /*foreach ($Call['Nodes'] as $Name => $Node)
@@ -128,11 +129,17 @@
                     unset($Call['Data'][$Name]);
             }*/ // FIXME Вынести в Strict
 
-            if (isset($Call['Data']))
-                $Call['Data'] = F::Merge($Call['Data'], $Call['Request']['Data']);
-            else
+            if (isset($Call['One']) && isset($Call['Data']))
             {
-                if (isset($Call['Request']['Data']))
+                $Call['Data'] = [$Call['Data']];
+                unset($Call['One']);
+            }
+
+            if (isset($Call['Request']['Data']))
+            {
+                if (isset($Call['Data']))
+                    $Call['Data'] = F::Merge($Call['Data'], $Call['Request']['Data']);
+                else
                     $Call['Data'] = $Call['Request']['Data'];
             }
 

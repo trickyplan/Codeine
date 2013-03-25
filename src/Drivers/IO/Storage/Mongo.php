@@ -34,12 +34,12 @@
                 else
                     $Where[$Key] = $Value;
 
-            F::Log('Mongo: db.'.$Call['Scope'].'.find('.json_encode($Where).')', LOG_INFO);
+            F::Log('db.'.$Call['Scope'].'.find('.json_encode($Where).')', LOG_INFO);
             $Cursor = $Call['Link']->$Call['Scope']->find($Where);
         }
         else
         {
-            F::Log('Mongo: db.'.$Call['Scope'].'.find()', LOG_INFO);
+            F::Log('db.'.$Call['Scope'].'.find()', LOG_INFO);
             $Cursor = $Call['Link']->$Call['Scope']->find();
         }
 
@@ -79,45 +79,56 @@
     {
         $Call['Scope'] = strtr($Call['Scope'], '.', '_');
 
-            try
+        try
+        {
+            if (isset($Call['Where']))
             {
-                if (isset($Call['Where']))
+                foreach ($Call['Data'] as $Element)
                 {
-                    foreach ($Call['Data'] as $Element)
+                    if ($Element === null)
                     {
-                        F::Log('Mongo: db.'.$Call['Entity'].'.update('.json_encode(['ID' => $Element]).',',json_encode(['$set' => $Element]).')', LOG_INFO);
+                        F::Log('db.'.$Call['Entity'].'remove('.json_encode($Call['Where']).')', LOG_INFO);
+                        $Call['Link']->$Call['Scope']->remove ($Call['Where']);
+                    }
+                    else
+                    {
+                        F::Log('db.'.$Call['Entity'].'.update('.json_encode(['ID' => $Element]).',',json_encode(['$set' => $Element]).')', LOG_INFO);
                         $Call['Link']->$Call['Scope']->update($Call['Where'], ['$set' => $Element]);
                     }
                 }
-                else
+            }
+            else
+            {
+                foreach ($Call['Data'] as $Element)
                 {
-                    foreach ($Call['Data'] as $Element)
+                    if ($Element === null)
                     {
-                        if ($Element === null)
+                        if (isset($Call['Where']))
                         {
-                            if (isset($Call['Where']))
-                            {
-                                F::Log('Mongo: db.'.$Call['Entity'].'remove('.json_encode($Call['Where']).')', LOG_INFO);
-                                $Call['Link']->$Call['Scope']->remove ($Call['Where']);
-                            }
-                            else
-                                $Call['Link']->$Call['Scope']->remove ();
+                            F::Log('db.'.$Call['Entity'].'remove('.json_encode($Call['Where']).')', LOG_INFO);
+                            $Call['Link']->$Call['Scope']->remove ($Call['Where']);
                         }
                         else
                         {
-                            F::Log('Mongo: db.'.$Call['Entity'].'.insert('.json_encode($Element).')', LOG_INFO);
-                            $Call['Link']->$Call['Scope']->insert ($Element);
+                            F::Log('db.'.$Call['Entity'].'remove()', LOG_INFO);
+                            $Call['Link']->$Call['Scope']->remove ();
                         }
                     }
-
+                    else
+                    {
+                        F::Log('db.'.$Call['Entity'].'.insert('.json_encode($Element).')', LOG_INFO);
+                        $Call['Link']->$Call['Scope']->insert ($Element);
+                    }
                 }
-            }
-            catch (MongoCursorException $e)
-            {
-                return F::Hook('IO.Mongo.Update.Failed', $Call);
-            }
 
-            return $Call['Data'];
+            }
+        }
+        catch (MongoCursorException $e)
+        {
+            return F::Hook('IO.Mongo.Write.Failed', $Call);
+        }
+
+        return $Call['Data'];
     });
 
     setFn ('Close', function ($Call)

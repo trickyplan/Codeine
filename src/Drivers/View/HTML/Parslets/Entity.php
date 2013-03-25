@@ -41,7 +41,7 @@
                             )),
                         $Call['Output']);
                 else
-                    $Call['Output'] = str_replace($Call['Parsed'][0][$Ix], '', $Call['Output']);
+                    $Call['Output'] = str_replace($Call['Parsed'][0][$Ix], $ID, $Call['Output']);
             }
             else
                 $Call['Output'] = str_replace($Call['Parsed'][0][$Ix], '', $Call['Output']);

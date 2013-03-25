@@ -1,4 +1,6 @@
-var Codeine =
+$(document).ready(function()
 {
-    version: '7.7.3'
-};
+    $(document).bind('keypress', '~', function() {
+        $('table.console').toggle();
+    });
+});

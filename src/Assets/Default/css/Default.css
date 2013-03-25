@@ -29,16 +29,25 @@
 {
     opacity: 0.7;
 }
-
 .console
 {
+    background-color: white;
     font: 14px monospace;
     margin: auto;
-    width: 90%;
+    width: 80%;
     border: 1px solid lightgray;
     border-radius: 8px !important;
     border-spacing: 12px;
     padding: 12px;
+}
+
+table.console
+{
+    display: none;
+    z-index: 99;
+    position: absolute;
+    top: 10px;
+    left: 10%;
 }
 
 .console th

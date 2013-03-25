@@ -92,11 +92,11 @@
 
                 $Call = F::Hook('beforeEntityUpdate', $Call);
 
-
                     F::Run('IO', 'Write', $Call);
 
                     $Call['Data'] = F::Run ('Entity', 'Read', $Call);
 
+                $Call['Data'][0]['ID'] = $Call['Where']['ID'];
 
                 $Call = F::Hook('afterEntityUpdate', $Call);
 

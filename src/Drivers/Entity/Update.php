@@ -112,10 +112,19 @@
 
     setFn('POST', function ($Call)
     {
-        if (isset($Call['Data']))
-            $Call['Data'] = F::Merge($Call['Data'], $Call['Request']['Data']);
-        else
-            $Call['Data'] = $Call['Request']['Data'];
+        if (isset($Call['One']) && isset($Call['Data']))
+        {
+            $Call['Data'] = [$Call['Data']];
+            unset($Call['One']);
+        }
+
+        if (isset($Call['Request']['Data']))
+        {
+            if (isset($Call['Data']))
+                $Call['Data'] = F::Merge($Call['Data'], $Call['Request']['Data']);
+            else
+                $Call['Data'] = $Call['Request']['Data'];
+        }
 
         $Call['Data'] = F::Merge(F::Run('Entity', 'Read', $Call), $Call['Data']);
 
