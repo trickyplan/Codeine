@@ -19,7 +19,7 @@
                 [
                     'Renderer' => $Call['Renderer'],
                     'Storage' => 'Developer',
-                    'ID' => 'Crash Report from '.$Call['Host'],
+                    'ID' => 'Crash Report from '.$Call['URL'],
                     'Data' => $Logs
                 ]
             );
