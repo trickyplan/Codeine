@@ -1,4 +1,9 @@
 {
+    "TTLs":
+    {
+        "Short": 86400,
+        "Long": 604800
+    },
     "Hooks":
     {
         "afterAuthenticatePost":
