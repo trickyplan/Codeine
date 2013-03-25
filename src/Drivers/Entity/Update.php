@@ -13,6 +13,12 @@
         $Call['Purpose'] = 'Update';
         $Call['Where'] = F::Live($Call['Where']); // FIXME
 
+        if (isset($Call['One']) && isset($Call['Data']))
+        {
+            $Call['Data'] = [$Call['Data']];
+            unset($Call['One']);
+        }
+        
         return F::Run(null, $_SERVER['REQUEST_METHOD'], $Call);
     });
 
@@ -112,12 +118,6 @@
 
     setFn('POST', function ($Call)
     {
-        if (isset($Call['One']) && isset($Call['Data']))
-        {
-            $Call['Data'] = [$Call['Data']];
-            unset($Call['One']);
-        }
-
         if (isset($Call['Request']['Data']))
         {
             if (isset($Call['Data']))

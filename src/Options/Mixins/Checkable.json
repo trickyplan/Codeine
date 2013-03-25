@@ -3,31 +3,11 @@
     {
         "Checked":
         {
-            "Type": "Numeral.Integer",
-            "Hooks":
-            {
-                "beforeEntityUpdate":
-                {
-                    "Service": "System.Time",
-                    "Method": "Get"
-                }
-            }
+            "Type": "Numeral.Integer"
         },
         "Checker":
         {
-            "Type": "Numeral.Integer",
-            "Hooks":
-            {
-                "beforeEntityUpdate":
-                {
-                    "Service": "Session",
-                    "Method": "Read",
-                    "Call":
-                    {
-                        "Key": "User.ID"
-                    }
-                }
-            }
+            "Type": "Numeral.Integer"
         },
         "Check":
         {

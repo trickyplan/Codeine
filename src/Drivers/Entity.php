@@ -46,7 +46,7 @@
 
                 $Call = F::Hook('afterEntityCreate', $Call);
 
-            $Call = F::Hook('afterEntityWrite', $Call);
+                $Call = F::Hook('afterEntityWrite', $Call);
             }
 
         $Call = F::Hook('afterOperation', $Call);

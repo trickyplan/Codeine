@@ -13,6 +13,13 @@
 
         $Call = F::Run(null, $_SERVER['REQUEST_METHOD'], $Call);
 
+        if (isset($Call['One']) && isset($Call['Data']))
+        {
+            $Call['Data'] = [$Call['Data']];
+            unset($Call['One']);
+        }
+
+
         return $Call;
     });
 
@@ -128,12 +135,6 @@
                 if (!isset($Node['Widgets']) && isset($Call['Data'][$Name]))
                     unset($Call['Data'][$Name]);
             }*/ // FIXME Вынести в Strict
-
-            if (isset($Call['One']) && isset($Call['Data']))
-            {
-                $Call['Data'] = [$Call['Data']];
-                unset($Call['One']);
-            }
 
             if (isset($Call['Request']['Data']))
             {

@@ -22,7 +22,9 @@
                 'One' => true,
                 'Data' =>
                 [
-                    'Check' => true
+                    'Check' => true,
+                    'Checker' => $Call['Session']['User']['ID'],
+                    'Checked' => time()
                 ]
             ]);
 
