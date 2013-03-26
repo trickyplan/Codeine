@@ -3,7 +3,8 @@
     "Group":
     {
         "Project": "Проект",
-        "Platform": "Платформа"
+        "Platform": "Платформа",
+        "Developer": "Разработчик"
     },
     "Return": "Вернуться к сайту"
 }
