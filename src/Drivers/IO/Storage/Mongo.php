@@ -87,8 +87,8 @@
                 {
                     if ($Element === null)
                     {
-/*                        F::Log('db.'.$Call['Entity'].'remove('.json_encode($Call['Where']).')', LOG_INFO);*/
-                        $Call['Link']->$Call['Scope']->remove ($Call['Where']);
+  /*                      F::Log('db.'.$Call['Entity'].'remove('.json_encode($Call['Where']).')', LOG_INFO);
+  */                      $Call['Link']->$Call['Scope']->remove ($Call['Where']);
                     }
                     else
                     {
