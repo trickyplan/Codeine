@@ -87,12 +87,12 @@
                 {
                     if ($Element === null)
                     {
-                        F::Log('db.'.$Call['Entity'].'remove('.json_encode($Call['Where']).')', LOG_INFO);
+/*                        F::Log('db.'.$Call['Entity'].'remove('.json_encode($Call['Where']).')', LOG_INFO);*/
                         $Call['Link']->$Call['Scope']->remove ($Call['Where']);
                     }
                     else
                     {
-                        F::Log('db.'.$Call['Entity'].'.update('.json_encode(['ID' => $Call['Where']]).',',json_encode(['$set' => $Element]).')', LOG_INFO);
+/*                        F::Log('db.'.$Call['Entity'].'.update('.json_encode(['ID' => $Call['Where']]).',',json_encode(['$set' => $Element]).')', LOG_INFO);*/
                         $Call['Link']->$Call['Scope']->update($Call['Where'], ['$set' => $Element]);
                     }
                 }
