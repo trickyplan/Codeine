@@ -9,9 +9,10 @@
 
     setFn('Send', function ($Call)
     {
+        $Call['Data'] = $Call['Data'][0];
         if (isset($Call['Data']['ID']))
             {
-                $User = F::Run('Entity', 'Read', array('Entity' => 'User', 'Where' => $Call['Data']['ID']))[0]; // FIXME
+                $User = F::Run('Entity', 'Read', array('Entity' => 'User', 'Where' => $Call['Data']['ID'], 'One' => true)); // FIXME
 
                 $User['Code'] = F::Run('Security.UID', 'Get');
 
@@ -20,10 +21,10 @@
                          'Storage' => 'Primary',
                          'Scope' => 'Activation',
                          'Data' =>
-                             array(
+                             [[
                                  'ID' => (int) $User['Code'],
                                  'User' => $User['ID']
-                             )
+                             ]]
                     ));
 
                 $Message['Scope'] = '"'.F::Dot($User, $Call['Name Field']).'" <'.$User['EMail'].'>';
@@ -86,6 +87,7 @@
                 [
                      'Entity' => 'User',
                      'Where' => $Activation['User'],
+                     'One' => true,
                      'Data' =>
                          [
                             'Status' => true

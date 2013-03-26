@@ -87,12 +87,12 @@
                 {
                     if ($Element === null)
                     {
-  /*                      F::Log('db.'.$Call['Entity'].'remove('.json_encode($Call['Where']).')', LOG_INFO);
-  */                      $Call['Link']->$Call['Scope']->remove ($Call['Where']);
+                        F::Log('db.'.$Call['Scope'].'remove('.json_encode($Call['Where']).')', LOG_INFO);
+                        $Call['Link']->$Call['Scope']->remove ($Call['Where']);
                     }
                     else
                     {
-/*                        F::Log('db.'.$Call['Entity'].'.update('.json_encode(['ID' => $Call['Where']]).',',json_encode(['$set' => $Element]).')', LOG_INFO);*/
+                        F::Log('db.'.$Call['Scope'].'.update('.json_encode(['ID' => $Call['Where']]).','.json_encode(['$set' => $Element]).')',LOG_INFO);
                         $Call['Link']->$Call['Scope']->update($Call['Where'], ['$set' => $Element]);
                     }
                 }
@@ -105,18 +105,18 @@
                     {
                         if (isset($Call['Where']))
                         {
-                            F::Log('db.'.$Call['Entity'].'remove('.json_encode($Call['Where']).')', LOG_INFO);
+                            F::Log('db.'.$Call['Scope'].'remove('.json_encode($Call['Where']).')', LOG_INFO);
                             $Call['Link']->$Call['Scope']->remove ($Call['Where']);
                         }
                         else
                         {
-                            F::Log('db.'.$Call['Entity'].'remove()', LOG_INFO);
+                            F::Log('db.'.$Call['Scope'].'remove()', LOG_INFO);
                             $Call['Link']->$Call['Scope']->remove ();
                         }
                     }
                     else
                     {
-                        F::Log('db.'.$Call['Entity'].'.insert('.json_encode($Element).')', LOG_INFO);
+                        F::Log('db.'.$Call['Scope'].'.insert('.json_encode($Element).')', LOG_INFO);
                         $Call['Link']->$Call['Scope']->insert ($Element);
                     }
                 }

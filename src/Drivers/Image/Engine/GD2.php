@@ -117,11 +117,11 @@
             break;
 
         	case 'JPEG':
-                imagejpeg($Call['Image']['Object'], $Call['ID'], $Call['JPEG']['Quality']);
+                imagejpeg($Call['Image']['Object'], $Call['ID']); // $Call['JPEG']['Quality']
             break;
 
         	case 'PNG':
-                imagepng($Call['Image']['Object'], $Call['ID'], $Call['JPEG']['Quality']);
+                imagepng($Call['Image']['Object'], $Call['ID']); // $Call['JPEG']['Quality']
             break;
 
             case 'SWF':

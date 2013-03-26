@@ -72,31 +72,34 @@
 
         }
 
-        foreach ($Call['Sidebar'] as &$Sidebar)
+        if (isset($Call['Sidebar']) && is_array($Call['Sidebar']))
         {
-            unset($Call['Decision'],$Call['Weight']);
+            foreach ($Call['Sidebar'] as &$Sidebar)
+            {
+                unset($Call['Decision'],$Call['Weight']);
 
-            $Call['Run'] = [
-                        'Service' => 'Control.Panel',
-                        'Method'  => 'Do',
-                        'Call' =>
-                        [
-                            'Bundle' => $Call['Bundle'],
-                            'Option' => $Sidebar
-                        ]
-                    ];
+                $Call['Run'] = [
+                            'Service' => 'Control.Panel',
+                            'Method'  => 'Do',
+                            'Call' =>
+                            [
+                                'Bundle' => $Call['Bundle'],
+                                'Option' => $Sidebar
+                            ]
+                        ];
 
-            $Call = F::Run('Security.Access', 'Check', $Call);
+                $Call = F::Run('Security.Access', 'Check', $Call);
 
-            if ($Call['Decision'])
-                $Pills[] = ['ID' => $Sidebar, 'URL' => '/control/'.$Call['Bundle'].'/'.$Sidebar, 'Title' => $Call['Bundle'].'.Control:Options.'.$Sidebar];
+                if ($Call['Decision'])
+                    $Pills[] = ['ID' => $Sidebar, 'URL' => '/control/'.$Call['Bundle'].'/'.$Sidebar, 'Title' => $Call['Bundle'].'.Control:Options.'.$Sidebar];
+            }
+
+            $Call['Output']['Sidebar'][] = [
+                'Type' => 'Navpills',
+                'Options' => $Pills,
+                'Value' => $Call['Option']
+            ];
         }
-
-        $Call['Output']['Sidebar'][] = [
-            'Type' => 'Navpills',
-            'Options' => $Pills,
-            'Value' => $Call['Option']
-        ];
 
         $Call['Output']['Navigation'][] = [
             'Type' => 'Navlist',

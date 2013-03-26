@@ -9,16 +9,15 @@
 
     setFn('Do', function ($Call)
     {
-        $Call = F::Hook('beforeCreateDo', $Call);
-
-        $Call = F::Run(null, $_SERVER['REQUEST_METHOD'], $Call);
-
         if (isset($Call['One']) && isset($Call['Data']))
         {
             $Call['Data'] = [$Call['Data']];
             unset($Call['One']);
         }
 
+        $Call = F::Hook('beforeCreateDo', $Call);
+
+        $Call = F::Run(null, $_SERVER['REQUEST_METHOD'], $Call);
 
         return $Call;
     });
@@ -70,7 +69,7 @@
                     $Widget['Label'] = $Call['Entity'].'.Entity:'.$Name;
                     $Widget['Node'] = $Name;
 
-                    $Widget['Name']   = 'Data'.'[0]['.strtr($Name, '.','_').']';
+                    $Widget['Name']   = 'Data'.'[0]['.strtr($Name, '.               ','_').']';
 
                     $Widget['ID'] = strtr($Name, '.','_');
                     $Widget['Context'] = $Call['Context'];

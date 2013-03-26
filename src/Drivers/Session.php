@@ -64,7 +64,7 @@
 
     setFn('Annulate', function ($Call)
     {
-        if ($Call['Session']['Secondary'] != -1)
+        if (isset($Call['Session']['Secondary']) && $Call['Session']['Secondary'] != -1)
             $Call = F::Run('Session', 'Write', $Call, ['Data' => ['Secondary' => -1]]);
         else
             $Call = F::Run('Session', 'Write', $Call, ['Data' => ['User' => -1]]);
