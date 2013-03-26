@@ -92,7 +92,7 @@
                     }
                     else
                     {
-                        F::Log('db.'.$Call['Entity'].'.update('.json_encode(['ID' => $Element]).',',json_encode(['$set' => $Element]).')', LOG_INFO);
+                        F::Log('db.'.$Call['Entity'].'.update('.json_encode(['ID' => $Call['Where']]).',',json_encode(['$set' => $Element]).')', LOG_INFO);
                         $Call['Link']->$Call['Scope']->update($Call['Where'], ['$set' => $Element]);
                     }
                 }
