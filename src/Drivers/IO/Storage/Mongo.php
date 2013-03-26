@@ -148,6 +148,8 @@
 
         if (isset($Call['Where']))
         {
+            $Where = [];
+
             foreach ($Call['Where'] as $Key => $Value)
                 if (is_array($Value))
                     foreach ($Value as $Subkey => $Subvalue)
