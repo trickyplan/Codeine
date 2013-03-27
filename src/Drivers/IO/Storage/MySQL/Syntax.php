@@ -159,7 +159,12 @@
                                 {
                                     case '$in': $Relation = 'IN'; break;
                                     case '$ne': $Relation = '<>'; break;
-                                    case 'Like': if ($lValue == '()') $lValue = ''; else $lValue = '%'.$lValue.'%';
+                                    case 'Like':
+                                        if ($lValue == '()')
+                                            $lValue = '';
+                                        else
+                                            $lValue = '%'.$lValue.'%';
+                                        $Quote = true;
                                     break;
                                 }
 
