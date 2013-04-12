@@ -1,0 +1,61 @@
+{
+    "Links":
+    {
+        "/messages/new":
+        {
+            "Service": "Entity.Create",
+            "Method": "Do",
+            "Call":
+            {
+                "Entity": "Message"
+            }
+        },
+        "/messages":
+        {
+            "Service": "Message.Frontpage",
+            "Method": "Do"
+        },
+        "/messages/inbox":
+        {
+            "Service": "Entity.List",
+            "Method": "Do",
+            "Call":
+            {
+                "Entity": "Message",
+                "Where":
+                {
+                    "To":
+                    {
+                        "Service": "Session",
+                        "Method": "Read",
+                        "Call":
+                        {
+                            "Key": "User.ID"
+                        }
+                    }
+                }
+            }
+        },
+        "/messages/outbox":
+        {
+            "Service": "Entity.List",
+            "Method": "Do",
+            "Call":
+            {
+                "Entity": "Message",
+                "Where":
+                {
+                    "User":
+                    {
+                        "Service": "Session",
+                        "Method": "Read",
+                        "Call":
+                        {
+                            "Key": "User.ID"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

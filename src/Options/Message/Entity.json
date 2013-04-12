@@ -1,0 +1,75 @@
+{
+    "Mixins": ["Mixins.CRUD", "Mixins.UGC"],
+    "Storage": "Primary",
+    "Nodes":
+    {
+        "ID":
+        {
+            "Type": "Literal.String",
+            "Hooks":
+            {
+                "beforeEntityCreate":
+                {
+                    "Service": "Security.UID",
+                    "Method": "Get",
+                    "Call":
+                    {
+                        "Mode": "Secure"
+                    }
+                }
+            }
+        },
+        "To":
+        {
+            "Type": "Literal.String",
+            "Required": true,
+            "Options":
+            {
+                "Service": "Entity.List",
+                "Method": "RAW",
+                "Call":
+                {
+                    "Entity": "User",
+                    "Key": "Fullname"
+                }
+            },
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Select"
+                }
+            }
+        },
+        "Subject":
+        {
+            "Type": "Literal.String",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        },
+        "Body":
+        {
+            "Type": "Literal.Text",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textarea"
+                }
+            }
+        },
+        "isRead":
+        {
+            "Type": "Boolean"
+        },
+        "Readed":
+        {
+            "Type": "Numeral.Integer"
+        }
+    }
+}

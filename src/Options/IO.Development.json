@@ -3,7 +3,7 @@
     {
         "Developer":
         {
-            "Driver":"IO.Log.Syslog"
+            "Driver":"IO.Log.Echo"
         }
     }
 }

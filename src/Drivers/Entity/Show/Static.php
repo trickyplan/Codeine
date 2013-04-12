@@ -38,9 +38,9 @@
                     'ID' => 'Show/'.(isset($Call['Template'])? $Call['Template']: 'Full'),
                     'Data' => $Call['Data']
                 );
+
+                $Call = F::Hook('afterShow', $Call);
             }
         }
-
-        $Call = F::Hook('afterShow', $Call);
         return $Call;
     });

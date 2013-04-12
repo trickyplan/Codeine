@@ -1,0 +1,16 @@
+{
+    "Regex":
+    {
+        "Message":
+        {
+            "Match": "/message/(.*)",
+            "Service": "Entity.Show.Static",
+            "Method": "Do",
+            "Call":
+            {
+                "Entity": "Message",
+                "Where": "$1"
+            }
+        }
+    }
+}

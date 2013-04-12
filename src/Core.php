@@ -695,8 +695,6 @@
                     echo implode(' ', $Log).'<br/>';
             }
 
-
-
             if (self::$_SR71)
             {
                 self::$_Memory = memory_get_usage();
