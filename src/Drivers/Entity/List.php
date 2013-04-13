@@ -84,14 +84,17 @@
 
     setFn('RAW', function ($Call)
     {
+        $Output = [];
+
         $Call = F::Merge($Call, F::loadOptions($Call['Entity'].'.Entity')); // FIXME
 
         $Call = F::Hook('beforeRAWList', $Call);
 
         $Elements = F::Run('Entity', 'Read', $Call);
 
-        foreach ($Elements as $Element)
-            $Output[] = [$Element[$Call['Primary']], $Element[$Call['Key']]];
+        if ($Elements !== null)
+            foreach ($Elements as $Element)
+                $Output[] = [$Element[$Call['Primary']], $Element[$Call['Key']]];
 
         return $Output;
     });

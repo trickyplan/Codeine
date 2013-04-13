@@ -14,6 +14,7 @@
                     "Method": "Execute",
                     "Call":
                     {
+                        "Storage": "Primary",
                         "Execute": "ID",
                         "Scope": "Location",
                         "Increment": 1
