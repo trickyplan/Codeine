@@ -39,9 +39,10 @@
             $Call = F::Run(null, 'Protocol', $Call);
 
             $Call['Run'] = urldecode($_SERVER['REQUEST_URI']);
-            $Call['URI'] = urldecode($_SERVER['REQUEST_URI']);
+            $Call['URL Query'] = parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY);
+            $Call['URI'] = urldecode($_SERVER['REQUEST_URI']).(empty($Call['URL Query'])? '?' : '');
             $Call['URL'] = parse_url($Call['URI'], PHP_URL_PATH);
-            $Call['URL Query'] = parse_url($Call['URI'], PHP_URL_QUERY);
+
 
             $Call = F::Run($Call['Service'], $Call['Method'], $Call);
         }
