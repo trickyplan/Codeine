@@ -1,6 +1,5 @@
 <subtitle><k>Subject</k></subtitle>
 <breadcrumb href="/message/<k>ID</k>"><k>Subject</k></breadcrumb>
-
 <div class="row-fluid">
     <div class="span6">
         <k>Body</k>
@@ -24,3 +23,15 @@
         </table>
     </div>
 </div>
+<h4>Ответить</h4>
+<exec>
+    <Service>Entity.Create</Service>
+    <Method>Do</Method>
+    <Call>
+        <Entity>Message</Entity>
+        <Data>
+            <To><k>From</k></To>
+            <Subject><k>Subject</k></Subject>
+        </Data>
+    </Call>
+</exec>

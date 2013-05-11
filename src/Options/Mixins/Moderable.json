@@ -29,7 +29,7 @@
                 }
             }
         },
-        "Status":
+        "Allowed":
         {
             "Type": "Ternary",
             "Default": 0

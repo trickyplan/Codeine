@@ -71,5 +71,20 @@
         {
             "Type": "Numeral.Integer"
         }
+    },
+    "Hooks":
+    {
+        "afterCreatePost":
+        {
+            "Restore URL":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "Redirect",
+                "Call":
+                {
+                    "Location": "/message/$Data.0.ID"
+                }
+            }
+        }
     }
 }

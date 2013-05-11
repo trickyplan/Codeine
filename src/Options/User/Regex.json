@@ -1,6 +1,18 @@
 {
     "Regex":
     {
+        "Show user":
+        {
+            "Match":"^/user/(\\d+)",
+            "Service":"Entity.Show.Static",
+            "Method":"Do",
+            "Zone": ["Project"],
+            "Call":
+            {
+                "Entity": "User",
+                "Where": "$1"
+            }
+        },
         "Activate.User":
         {
             "Match":"^/activate/user/(.*)",
