@@ -17,7 +17,7 @@
 
     setFn('Restore', function ($Call)
     {
-        if (isset($Call['Request']['BackURL']))
+        if (isset($Call['Request']['BackURL']) && !empty($Call['Request']['BackURL']))
             $Call = F::Run('System.Interface.Web', 'Redirect', $Call, ['Location' => $Call['Request']['BackURL']]);
         else
             if (isset($_SERVER['HTTP_REFERER']))
