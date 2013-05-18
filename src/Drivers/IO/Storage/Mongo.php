@@ -29,7 +29,8 @@
 
             foreach ($Call['Where'] as $Key => $Value)
                 if (is_array($Value))
-                        $Where[$Key] = ['$in' => $Value];
+                    foreach ($Value as $Subkey => $Subvalue)
+                        $Where[$Key.'.'.$Subkey] = $Subvalue;
                 else
                     $Where[$Key] = $Value;
 

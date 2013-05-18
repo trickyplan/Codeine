@@ -50,7 +50,8 @@
             "Call":
             {
                 "Entity": "User",
-                    "Where":
+                "One": true,
+                "Where":
                 {
                     "ID":
                     {
