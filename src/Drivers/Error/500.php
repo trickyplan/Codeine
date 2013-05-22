@@ -31,7 +31,8 @@
         // TODO Realize "Die" function
 
         header('HTTP/1.0 500 Internal Server Error');
-        readfile(F::findFile('Assets/Errors/500.html'));
-        echo 'F!';
-
+        if (file_exists('down.html'))
+            readfile('down.html');
+        else
+            readfile('Codeine/down.html');
     });
