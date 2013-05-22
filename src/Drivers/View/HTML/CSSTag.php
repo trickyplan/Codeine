@@ -35,19 +35,20 @@
 
         if ($Parsed = F::Run('Text.Regex', 'All', ['Pattern' => '<css>(.+?)<\/css>', 'Value' => $Call['Output']]))
         {
+
             $CSSHash = F::Run(null, 'Hash', array('IDs' => $Parsed[1]));
 
                 if ((isset($Call['Caching']['Enabled'])
                     && $Call['Caching']['Enabled'])
-                    && F::Run('IO', 'Execute', array ('Storage' => 'CSS Cache',
-                                                     'Execute'  => 'Exist',
-                                                     'Where'    => array ('ID' => $CSSHash)))
+                    && F::Run('IO', 'Execute', ['Storage' => 'CSS Cache','Execute'  => 'Exist','Where'    => ['ID' => $CSSHash]])
                 )
                 {
-
+                    F::Log('CSS Cache hit', LOG_INFO);
+                    // Ничего не делать
                 }
                 else
                 {
+                    F::Log('CSS Cache miss', LOG_INFO);
 
                     foreach ($Parsed[1] as $CSSFile)
                     {

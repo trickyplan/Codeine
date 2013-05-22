@@ -42,7 +42,8 @@
 
     setFn('Select', function ($Call)
     {
-        F::Run('Session', 'Write', $Call, ['Data' => ['Location' => $Call['Location']]]);
+        if ($Call['Location'] != $Call['Session']['Location'])
+            F::Run('Session', 'Write', $Call, ['Data' => ['Location' => $Call['Location']]]);
 
         if (isset($_SERVER['HTTP_REFERER']))
             $Call = F::Run('System.Interface.Web', 'Redirect', $Call, ['Location' => $_SERVER['HTTP_REFERER']]);

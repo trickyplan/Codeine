@@ -85,3 +85,8 @@
 
         return $Call;
     });
+
+    setFn('Menu', function ($Call)
+    {
+        return ['Count' => phpversion()];
+    });

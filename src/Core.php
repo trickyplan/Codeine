@@ -158,9 +158,14 @@
            $Names = (array) $Names;
 
            foreach ($Names as $Name)
+           {
+               if (mb_substr($Name,0,1) == '/' && F::file_exists($Name))
+                   return $Name;
+
                foreach (self::$_Options['Path'] as $ic => $Path)
                    if (F::file_exists($Filenames[$ic] = $Path.'/'.$Name))
-                        return $Filenames[$ic];
+                       return $Filenames[$ic];
+           }
 
            return null;
         }
@@ -171,10 +176,15 @@
 
             $Names = (array) $Names;
 
-            foreach (self::$_Options['Path'] as $ic => $Path)
-                foreach ($Names as $Name)
+            foreach ($Names as $Name)
+            {
+                if (substr($Name,0,1) == '/' && F::file_exists($Name))
+                    return $Name;
+
+                foreach (self::$_Options['Path'] as $ic => $Path)
                     if (F::file_exists($Filenames[$ic] = $Path . '/' . $Name))
                         $Results[] = $Filenames[$ic];
+            }
 
             $Results = array_reverse($Results);
 

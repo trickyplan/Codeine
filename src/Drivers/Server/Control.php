@@ -9,6 +9,7 @@
 
     setFn('Do', function ($Call)
     {
+        $Call['Output']['Content'][] = '<pre>'.shell_exec('uname -a').'</pre>'; // TODO
         return $Call;
     });
 

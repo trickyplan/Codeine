@@ -80,14 +80,24 @@
         if (!isset($Call['Scope']))
             $Call['Scope'] = '';
 
+        if (mb_substr($Call['Link'], 0, 1) == '/')
+            $DirName = $Call['Link'] . '/' . $Call['Scope'] . '/';
+        else
+            $DirName = Root.'/'.$Call['Link'] . '/' . $Call['Scope'] . '/';
+
         $Postfix   = isset($Call['Suffix']) ? $Call['Suffix'] : '';
         $Prefix   = isset($Call['Prefix']) ? $Call['Prefix'] : '';
 
-        $Filename = Root.'/'.$Call['Link'] . '/' . $Call['Scope'] . '/' . $Prefix . (isset($Call['Where']['ID'])? $Call['Where']['ID']: $Call['ID']) .
+        $Filename = $DirName. $Prefix . (isset($Call['Where']['ID'])? $Call['Where']['ID']: $Call['ID']) .
         $Postfix;
 
-        if (!is_dir(Root.'/'.$Call['Link'] . '/' . $Call['Scope'] . '/'))
-            mkdir(Root.'/'.$Call['Link'] . '/' . $Call['Scope'] . '/', 0777, true);
+        if (!is_dir($DirName))
+        {
+            if (mkdir($DirName, 0777, true))
+                F::Log('Directory '.$DirName.' created', LOG_INFO);
+            else
+                F::Log('Directory '.$DirName.' cannot created', LOG_ERR);
+        }
 
         if (isset($Call['Data']) && ($Call['Data'] != 'null') && ($Call['Data'] != null))
             if (file_put_contents ($Filename, $Call['Data']))
@@ -124,7 +134,7 @@
         if (!isset($Call['Scope']))
             $Call['Scope'] = '';
 
-        $Postfix   = isset($Call['Suffix']) ? $Call['Suffix'] : '';
+        $Postfix  = isset($Call['Suffix']) ? $Call['Suffix'] : '';
         $Prefix   = isset($Call['Prefix']) ? $Call['Prefix'] : '';
 
         $Filename = F::findFile ($Call['Link'] . '/' . $Call['Scope'] . '/' . $Prefix . $Call['Where']['ID'] . $Postfix);

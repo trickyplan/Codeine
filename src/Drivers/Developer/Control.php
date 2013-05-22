@@ -11,9 +11,11 @@
     {
         $Call['Developer'] = F::loadOptions('Developer');
 
-        $Call['License'] = json_decode(F::Run('IO', 'Read', ['Storage' => 'Web', 'Where' => $Call['Developer']['URL'].'/licenses/'.$Call['Project']['License']])[0], true);
+        if (isset($Call['Project']['License']))
+            $Call['License'] = json_decode(F::Run('IO', 'Read', ['Storage' => 'Web', 'Where' => $Call['Developer']['URL'].'/licenses/'
+    .$Call['Project']['License']])[0], true); // FIXME
 
-        if (is_array($Call['License']))
+        if (isset($Call['License']) && is_array($Call['License']))
             foreach ($Call['License'] as $Product => $License)
             {
                 $Call['Output']['Licenses'][] =

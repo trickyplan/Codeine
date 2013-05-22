@@ -64,7 +64,7 @@
         "Location":
         {
             "Type": "Numeral.Integer",
-            "Nullable": true
+            "Default": 0
         }
     },
     "Hooks":

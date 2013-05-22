@@ -53,10 +53,13 @@
 
     setFn('Page', function ($Call)
     {
+        if ($Call['URL'] == '/')
+            $Call['URL'] = '//';
+
         $Page = F::Run('Entity', 'Read',
                     [
                          'Entity' => 'Page',
-                         'Where' => ['Slug' => substr($Call['URI'], 1)]
+                         'Where' => ['Slug' => substr($Call['URL'], 1)]
                     ]);
 
         $Data = [];

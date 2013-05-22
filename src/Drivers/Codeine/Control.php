@@ -46,3 +46,8 @@
 
         return $Call;
     });
+
+    setFn('Menu', function ($Call)
+    {
+        return ['Count' => $Call['Version']['Codeine']['Major'].'.'.$Call['Version']['Codeine']['Minor']];
+    });

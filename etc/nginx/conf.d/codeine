@@ -7,6 +7,11 @@
 		try_files $uri $uri/ /index.php?$uri&$args;
 	}
 
+    location ~ cache
+    {
+        root /tmp;
+    }
+
 	location ~* \.(jpg|jpeg|gif|css|png|js|ico|html|woff)$
 	{
 		access_log        off;

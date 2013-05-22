@@ -22,33 +22,53 @@
               if (F::Run ('IO', 'Exist',
                             [
                                 'Storage' => 'Image Cache',
-                                'Scope'   => $Call['Image Cache'],
                                 'Where'   => $Image
                             ]))
-                  ;
+              {
+                  $HTML = '<img src="'.$Path.'" '
+                        .(isset($Match['Class']) ? ' class="'.$Match['Class'].'"': '')
+                        .(isset($Match['Width']) ? ' width="'.$Match['Width'].'"': '')
+                        .(isset($Match['Height']) ? ' height="'.$Match['Height'].'"': '')
+                        .(isset($Match['Alt']) ? ' alt="'.$Match['Alt'].'"': '')
+                      .' />';
+              }
               else
-                    F::Run ('IO', 'Write',
-                        [
-                            'Storage' => 'Image Cache',
-                            'Where'   => $Image,
-                            'Scope' => $Call['Image Cache'],
-                            'Data' => F::Run('IO', 'Read',
-                                [
-                                     'Storage' => 'Image',
-                                     'Scope'   => $Asset . '/img',
-                                     'Where'   => $ID
-                                ])
-                        ]
-                    );
+              {
+                  $ImageData = F::Run('IO', 'Read',
+                                           [
+                                           'Storage' => 'Image',
+                                           'Scope'   => $Asset . '/img',
+                                           'Where'   => $ID
+                                           ]);
 
-              $HTML = '<img src="'.$Path.'" '
-                    .(isset($Match['Class']) ? ' class="'.$Match['Class'].'"': '')
-                    .(isset($Match['Width']) ? ' width="'.$Match['Width'].'"': '')
-                    .(isset($Match['Height']) ? ' height="'.$Match['Height'].'"': '')
-                    .(isset($Match['Alt']) ? ' alt="'.$Match['Alt'].'"': '')
-                  .' />';
+                  if ($ImageData != null)
+                  {
+                      F::Run ('IO', 'Write',
+                              [
+                              'Storage' => 'Image Cache',
+                              'Where'   => $Image,
+                              'Data' => $ImageData
+                              ]
+                      );
 
-              $Call['Output'] = str_replace($Call['Parsed'][0], $HTML, $Call['Output']);
+                      $HTML = '<img src="'.$Path.'" '
+                        .(isset($Match['Class']) ? ' class="'.$Match['Class'].'"': '')
+                        .(isset($Match['Width']) ? ' width="'.$Match['Width'].'"': '')
+                        .(isset($Match['Height']) ? ' height="'.$Match['Height'].'"': '')
+                        .(isset($Match['Alt']) ? ' alt="'.$Match['Alt'].'"': '')
+                      .' />';
+                  }
+                  else
+                      $HTML = '<img src="/default.gif" '
+                        .(isset($Match['Class']) ? ' class="'.$Match['Class'].'"': '')
+                        .(isset($Match['Width']) ? ' width="'.$Match['Width'].'"': '')
+                        .(isset($Match['Height']) ? ' height="'.$Match['Height'].'"': '')
+                        .(isset($Match['Alt']) ? ' alt="'.$Match['Alt'].'"': '')
+                      .' />';
+              }
+
+
+              $Call['Output'] = str_replace($Call['Parsed'][0][$Ix], $HTML, $Call['Output']);
           }
 
 

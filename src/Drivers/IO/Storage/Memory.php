@@ -14,12 +14,17 @@
 
     setFn ('Read', function ($Call)
     {
-        return F::Get($Call['Where']['ID']);
+        if (isset($Call['Where']['ID']))
+            return F::Get($Call['Where']['ID']);
+        else
+            return null;
     });
 
     setFn ('Write', function ($Call)
     {
-        return F::Set($Call['Where']['ID'], $Call['Data'], $Call['TTL']);
+        foreach ($Call['Data'] as $Data)
+            F::Set($Data['ID'], $Data);
+        return $Call['Data'];
     });
 
     setFn ('Close', function ($Call)

@@ -1,5 +1,5 @@
 {
-    "Title": "My Project",
+    "Title": "My Project on Codeine",
     "Description":
     {
         "Short": "Short description goes here",
@@ -8,7 +8,7 @@
     "Version":
     {
         "Project": "0.1",
-        "Codeine": "7.6.3"
+        "Codeine": "7.8"
     },
     "Humans":
     {
