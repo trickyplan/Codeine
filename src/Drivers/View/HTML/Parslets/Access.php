@@ -22,7 +22,7 @@
 
                 $Call = F::Run('Security.Access', 'Check', $Call);
 
-                if ($Call['Decision'])
+                if ($Call['Decision'] === true)
                     $Outer = $Call['Parsed'][2][$IX];
                 else
                     $Outer = '';

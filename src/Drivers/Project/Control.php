@@ -15,6 +15,7 @@
 
     setFn('Down', function ($Call)
     {
+        setcookie('Magic', true);
         $DownFile = Root.'/locks/down';
 
         if (file_exists($DownFile))
@@ -26,7 +27,7 @@
         }
         else
         {
-            if (touch($DownFile))
+            if (file_put_contents($DownFile, time().' '.print_r($Call['Session'], true)))
                 $Call = F::Hook('Disable.Success', $Call);
             else
                 $Call = F::Hook('Disable.Fail', $Call);

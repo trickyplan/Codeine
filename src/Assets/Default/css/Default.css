@@ -3,6 +3,11 @@
     color: red;
 }
 
+.center
+{
+    text-align: center;
+}
+
 .spaced
 {
     margin: 1em;
