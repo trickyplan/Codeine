@@ -12,7 +12,10 @@
         header('HTTP/1.1 503 Service Temporarily Unavailable');
         header('Status: 503 Service Temporarily Unavailable');
 
-        readfile('down.html');
+        if (file_exists('down.html'))
+            readfile('down.html');
+        else
+            readfile('Codeine/down.html');
     }
     else
     {
