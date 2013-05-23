@@ -7,7 +7,7 @@
 		try_files $uri $uri/ /index.php?$uri&$args;
 	}
 
-    location ~ cache
+    location ~ ^/cache
     {
         root /tmp;
     }
