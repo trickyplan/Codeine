@@ -341,12 +341,14 @@
 
                 return F::Run($Variable['Service'], $Variable['Method'],
                     $Call, isset($Variable['Call'])? $Variable['Call']: []);
+
+                // FIXME?
             }
             else
             {
                 if ((array) $Variable === $Variable)
                     foreach ($Variable as $Key => &$cVariable)
-                        $Variable = F::Dot($Variable, $Key, self::Live($cVariable, $Call));
+                        $Variable = F::Dot($Variable, $Key, self::Live($cVariable));
                 else
                     if ('$' == substr($Variable, 0, 1))
                         $Variable = F::Dot($Call, substr($Variable, 1));

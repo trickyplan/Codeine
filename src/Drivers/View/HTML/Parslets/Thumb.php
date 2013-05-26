@@ -39,9 +39,8 @@
 
             //crop and resize the image
 
-            $ThumbURL = '/cache/thumbs/'.$Thumb['Width'].'_'.sha1($Filename) . '.jpg'; // FIXME Абстрагировать
+            $ThumbURL = $Thumb['Width'].'_'.sha1($Filename) . '.jpg'; // FIXME Абстрагировать
 
-            if (!F::file_exists(Root.'/Public'.$ThumbURL))
             {
                 try
                 {
@@ -50,7 +49,14 @@
                         $Image = new Gmagick($Filename);
                         $Image->cropThumbnailImage($Thumb['Width'], $Thumb['Width']);
                         $Image->setCompressionQuality(100);
-                        $Image->writeImage(Root.'/Public'.$ThumbURL);
+
+                        F::Run ('IO', 'Write',
+                              [
+                              'Storage' => 'Image Cache',
+                              'Where'   => $ThumbURL,
+                              'Data' => $Image->getImageBlob()
+                              ]
+                          );
                         F::Log('Thumbnail created', LOG_INFO);
                     }
                 }
@@ -70,7 +76,7 @@
                              array(
                                  'Width' => $Thumb['Width'],
                                  'Height' => $Thumb['Width'],
-                                 'URL' => $ThumbURL
+                                 'URL' => '/cache/images/'.$ThumbURL
                              ))
 
                     )), $Call['Output']);

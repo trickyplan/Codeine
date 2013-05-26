@@ -23,7 +23,11 @@
                 $ix = 0;
                 foreach ($Call['Regex'] as $Name => $Rule)
                 {
+                    // «Оживляем» переменную
+                    $Rule['Match'] = F::Live($Rule['Match']);
+
                     $ix++;
+
                     // $Rule['Match'] = $Call['Pattern']['Prefix'].$Rule['Match'].$Call['Pattern']['Postfix'];
 
                     if (!isset($Rule['Weight']))
