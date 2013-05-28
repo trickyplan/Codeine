@@ -18,3 +18,12 @@
 
         return $Call;
     });
+
+    setFn('afterList', function ($Call)
+    {
+        if (isset($Call['Request']['Filter']) && is_array($Call['Request']['Filter']))
+            unset($Call['Request']['Filter']);
+
+        $Call['Where'] = [];
+        return $Call;
+    });

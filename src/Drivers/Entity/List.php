@@ -79,6 +79,8 @@
 
         $Call = F::Hook('afterList', $Call);
 
+        unset($Call['Elements']);
+
         return $Call;
     });
 

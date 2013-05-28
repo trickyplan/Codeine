@@ -22,6 +22,11 @@
         },
         "afterList":
         {
+            "Filter":
+            {
+                "Service": "Entity.List.Filter",
+                "Method": "afterList"
+            },
             "Pagination":
             {
                 "Service": "Entity.List.Pagination",
