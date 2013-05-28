@@ -53,6 +53,7 @@
                 $Call['User'] = F::Run('Entity','Create',
                     [
                     'Entity' => 'User',
+                    'One' => true,
                     'Data'  => $UserData
                     ])['Data'];
 
