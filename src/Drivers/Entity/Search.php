@@ -9,6 +9,17 @@
 
     setFn('Do', function ($Call)
     {
+        return F::Run(null, $_SERVER['REQUEST_METHOD'], $Call);
+    });
+
+    setFn('GET', function ($Call)
+    {
+
+        return $Call;
+    });
+
+    setFn('POST', function ($Call)
+    {
         if (!isset($Call['Entity']))
             $Entities = $Call['Entities'];
         else
@@ -41,9 +52,7 @@
             $Where = [];
 
             if (!empty($IDs) && null !== $IDs)
-            {
                 $Where['ID'] = array_keys($IDs);
-            }
 
             if (isset($Call['Request']['Filter']))
                 foreach ($Call['Request']['Filter'] as $Key => $Value)

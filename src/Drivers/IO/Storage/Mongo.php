@@ -30,7 +30,10 @@
             foreach ($Call['Where'] as $Key => $Value)
                 if (is_array($Value))
                     foreach ($Value as $Subkey => $Subvalue)
-                        $Where[$Key.'.'.$Subkey] = $Subvalue;
+                        if (is_numeric($Subkey))
+                            $Where[$Key] = $Subvalue;
+                        else
+                            $Where[$Key][$Subkey] = $Subvalue;
                 else
                     $Where[$Key] = $Value;
 
@@ -65,11 +68,17 @@
                 $Cursor->limit($Call['Limit']['To']-$Call['Limit']['From'])->skip($Call['Limit']['From']);
 
             if ($Cursor->count()>0)
+            {
                 foreach ($Cursor as $cCursor)
                 {
                     unset($cCursor['_id']);
                     $Data[] = $cCursor;
                 }
+
+                F::Log($Cursor->count().' documents loaded', LOG_INFO);
+            }
+            else
+                F::Log('0 documents loaded', LOG_INFO);
         }
 
         return $Data;

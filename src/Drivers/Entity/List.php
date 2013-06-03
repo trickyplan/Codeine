@@ -30,8 +30,10 @@
 
         if ((sizeof($Call['Elements']) == 0 or (null === $Call['Elements'])) and !isset($Call['NoEmpty']))
         {
-            $Call['Layouts'][] = ['Scope' => $Call['Scope'], 'ID' => 'Empty'];
-            $Call['Layouts'][] = ['Scope' => 'Entity', 'ID' => 'Empty'];
+            $Empty = isset($Call['Custom Templates']['Empty'])? $Call['Custom Templates']['Empty']: 'Empty';
+
+            $Call['Layouts'][] = ['Scope' => $Call['Scope'], 'ID' => $Empty];
+            $Call['Layouts'][] = ['Scope' => 'Entity', 'ID' => $Empty];
         }
         else
         {

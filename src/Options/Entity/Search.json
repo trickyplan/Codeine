@@ -1,3 +1,7 @@
 {
-    "Entities": ["Page"]
+    "Entities": ["Page"],
+    "Custom Templates":
+    {
+        "Empty": "Search/Empty"
+    }
 }

@@ -10,6 +10,5 @@
     setFn('2English', function ($Call)
     {
         $Call['Value'] = strtr($Call['Value'], $Call['Map']);
-
         return $Call['Value'];
     });

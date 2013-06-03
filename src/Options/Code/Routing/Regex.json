@@ -6,6 +6,16 @@
     },
     "Regex":
     {
+        "Search":
+        {
+            "Match": "/search/(.*)",
+            "Service": "Entity.Search",
+            "Method": "Do",
+            "Call":
+            {
+                "Entity": "$1"
+            }
+        },
         "Error":
         {
             "Match": "/error/(.*)",
