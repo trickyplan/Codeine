@@ -25,12 +25,21 @@
                         'Path' => [Root]
                       ]);
 
-        $Call = F::Run(
-            'System.Interface.Web',
-            'Run',
-            [
-                'Service' => 'Code.Flow.Front',
-                'Method'  => 'Run'
-            ]
-        );
+        try
+        {
+            $Call = F::Run(
+                'System.Interface.Web',
+                'Run',
+                [
+                    'Service' => 'Code.Flow.Front',
+                    'Method'  => 'Run'
+                ]
+            );
+        }
+        catch (Exception $E)
+        {
+            d(__FILE__, __LINE__, $E->getMessage());
+            F::Log('Exception: '.$E->getMessage(), LOG_ERR);
+        }
+
     }
