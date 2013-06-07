@@ -32,8 +32,10 @@
                     foreach ($Value as $Subkey => $Subvalue)
                         if (is_numeric($Subkey))
                             $Where[$Key] = $Subvalue;
-                        else
+                        elseif (substr($Subkey, 0, 1) == '$')
                             $Where[$Key][$Subkey] = $Subvalue;
+                        else
+                            $Where[$Key.'.'.$Subkey] = $Subvalue;
                 else
                     $Where[$Key] = $Value;
 
