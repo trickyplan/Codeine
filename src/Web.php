@@ -38,8 +38,7 @@
         }
         catch (Exception $E)
         {
-            d(__FILE__, __LINE__, $E->getMessage());
-            F::Log('Exception: '.$E->getMessage(), LOG_ERR);
+            F::Error($E->getCode(), $E->getMessage(), $E->getFile(), $E->getLine(), $E->getTrace());
         }
 
     }

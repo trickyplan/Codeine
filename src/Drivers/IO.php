@@ -28,7 +28,7 @@
             }
             else
             {
-                trigger_error($Call['Storage'].' not found'); // FIXME
+                F::Log($Call['Storage'].' not found'); // FIXME
             }
         }
 

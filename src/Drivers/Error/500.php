@@ -15,24 +15,16 @@
         $Call['Description'] = 'TODO';
         $Call['Keywords'] = array ('TODO');
 
-        $Call['Output']['Content'] = array (array (
-                                                'Type'  => 'Template',
-                                                'Scope' => 'Errors',
-                                                'Value' => '500',
-                                                'Data' => array(
-
-                                                )
-                                            ));
+        $Call['Output']['Content'] = [[
+                                        'Type'  => 'Template',
+                                        'Scope' => 'Errors',
+                                        'Value' => '500',
+                                        'Data' => []
+                                    ]];
         return $Call;
      });
 
     setFn('Die', function ($Call)
     {
-        // TODO Realize "Die" function
-
-        header('HTTP/1.0 500 Internal Server Error');
-        if (file_exists('down.html'))
-            readfile('down.html');
-        else
-            readfile('Codeine/down.html');
+        die(str_replace('<place>Message</place>', $Call['On'], file_get_contents(F::findFile('Assets/Errors/500.html'))));
     });

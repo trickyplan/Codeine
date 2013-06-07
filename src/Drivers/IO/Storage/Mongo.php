@@ -9,7 +9,15 @@
 
     setFn ('Open', function ($Call)
     {
-        $Link = new MongoClient('mongodb://'.$Call['Server']);
+        try
+        {
+            $Link = new MongoClient('mongodb://'.$Call['Server']);
+        }
+        catch (MongoException $E)
+        {
+            return null;
+        }
+
         $Link = $Link->selectDB($Call['Database']);
 
         if (isset($Call['Auth']))
