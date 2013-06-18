@@ -8,7 +8,7 @@
             {
                 "Write":
                 {
-                    "Type": "Form.Textarea"
+                    "Type": "Form.WYSIWYG"
                 }
             }
         },

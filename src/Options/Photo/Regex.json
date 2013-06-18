@@ -1,0 +1,37 @@
+{
+    "Regex":
+    {
+        "Upload photo":
+        {
+            "Match": "/photo/new",
+            "Service": "Entity.Create",
+            "Method": "Do",
+            "Call":
+            {
+                "Entity": "Photo"
+            }
+        },
+        "Show photo":
+        {
+            "Match": "/photo/(.*)",
+            "Service": "Entity.Show.Static",
+            "Method": "Do",
+            "Call":
+            {
+                "Entity": "Photo",
+                "Where": "$1"
+            }
+        },
+        "Show photos":
+        {
+            "Match": "/photos",
+            "Service": "Entity.List",
+            "Method": "Do",
+            "Call":
+            {
+                "Entity": "Photo",
+                "Where": "$1"
+            }
+        }
+    }
+}
