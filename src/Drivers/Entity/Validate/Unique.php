@@ -19,6 +19,7 @@
             if (isset($Call['Node']['Unique By Location']))
                 $Where['Location'] = $Call['Data']['Location'];
 
+
             if (F::Run('Entity', 'Count',
                           [
                                'Entity' => $Call['Entity'],
@@ -26,5 +27,6 @@
                           ]) > 0)
                 return 'Unique';
         }
+
         return true;
     });

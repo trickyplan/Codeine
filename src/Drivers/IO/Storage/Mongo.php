@@ -165,21 +165,30 @@
         $Call['Scope'] = strtr($Call['Scope'], '.', '_');
 
 
-        if (isset($Call['Where']))
+        if (isset($Call['Where']) and $Call['Where'] !== null)
         {
             $Where = [];
 
             foreach ($Call['Where'] as $Key => $Value)
                 if (is_array($Value))
                     foreach ($Value as $Subkey => $Subvalue)
-                        $Where[$Key.'.'.$Subkey] = $Subvalue;
+                        if (is_numeric($Subkey))
+                            $Where[$Key] = $Subvalue;
+                        elseif (substr($Subkey, 0, 1) == '$')
+                            $Where[$Key][$Subkey] = $Subvalue;
+                        else
+                            $Where[$Key.'.'.$Subkey] = $Subvalue;
                 else
                     $Where[$Key] = $Value;
 
+            F::Log('db.'.$Call['Scope'].'.find('.json_encode($Where).')', LOG_INFO);
             $Cursor = $Call['Link']->$Call['Scope']->find($Where);
         }
         else
+        {
+            F::Log('db.'.$Call['Scope'].'.find()', LOG_INFO);
             $Cursor = $Call['Link']->$Call['Scope']->find();
+        }
 
         if ($Cursor)
             return $Cursor->count();

@@ -10,6 +10,8 @@
 
     setFn('Spit', function ($Call)
     {
+        F::Log('NC: '.F::$NC, LOG_INFO);
+
         $Logs = F::Logs();
 
         if (!empty($Logs))

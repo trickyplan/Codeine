@@ -3,6 +3,7 @@
     "Options":
     {
         "HashTest": "Тест хэширования",
-        "EntropyTest": "Тест ГСЧ"
+        "EntropyTest": "Тест ГСЧ",
+        "Rules": "Правила доступа"
     }
 }

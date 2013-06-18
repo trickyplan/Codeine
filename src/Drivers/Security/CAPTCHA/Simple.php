@@ -77,7 +77,8 @@
 
     setFn('Check', function ($Call)
     {
-        unlink(Root.'/Public/captcha/'.$Call['Request']['CAPTCHA']['Challenge'].'.png');
+        if (file_exists(Root.'/Public/captcha/'.$Call['Request']['CAPTCHA']['Challenge'].'.png'))
+            unlink(Root.'/Public/captcha/'.$Call['Request']['CAPTCHA']['Challenge'].'.png');
 
         if (!isset($Call['Session']['User']['ID']) && $Call['Request']['CAPTCHA']['Challenge'] != sha1($Call['Request']['CAPTCHA']['Answer']))
         {

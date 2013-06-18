@@ -1,7 +1,7 @@
 {
     "Links":
     {
-        "/messages/new":
+        "/message/new":
         {
             "Service": "Entity.Create",
             "Method": "Do",
@@ -21,6 +21,7 @@
             "Method": "Do",
             "Call":
             {
+                "Folder": "Inbox",
                 "Entity": "Message",
                 "Where":
                 {
@@ -42,6 +43,7 @@
             "Method": "Do",
             "Call":
             {
+                "Folder": "Outbox",
                 "Entity": "Message",
                 "Where":
                 {

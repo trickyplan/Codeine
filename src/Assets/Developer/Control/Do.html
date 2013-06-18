@@ -1,7 +1,7 @@
 <div class="well">
-    <h2>Ваш разработчик</h2>
-    <if value="<call>Developer.Title</call>" neq="">
+    <if value="<call>Developer.Title</call>" neq="0">
             <img class="img-rounded pull-right" src="<call>Developer.URL</call>/img/logo.png" />
+            <h2>Ваш разработчик</h2>
             <h2>
                 <a href="<call>Developer.URL</call>"><call>Developer.URL</call></a>
             </h2>
@@ -16,9 +16,9 @@
             <a href="http://codeine-framework.ru">Найти?</a> &nbsp;
         </div>
     </if>
+    <div class="clearfix"></div>
 </div>
 
-<div class="clearfix"></div>
 <div class="well">
     <h2>Ваши лицензии</h2>
     <place>Licenses</place>

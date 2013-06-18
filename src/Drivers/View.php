@@ -45,10 +45,10 @@
     setFn('LoadParsed', function ($Call)
     {
         return F::Run('View', 'Parse', $Call,
-            array (
+            [
                   'Data'  => (isset($Call['Data'])? $Call['Data']: null),
                   'Value' => F::Run('View', 'Load', $Call)
-            ));
+            ]);
     });
 
     setFn('Render', function ($Call)

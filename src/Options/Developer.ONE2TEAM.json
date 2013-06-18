@@ -1,6 +1,9 @@
 {
-    "Title": "ONE2TEAM",
-    "URL": "http://one2team.ru",
-    "EMail": "support@one2team.ru",
-    "Phone": "+78432023303"
+    "Developer":
+    {
+        "Title": "ONE2TEAM",
+        "URL": "http://one2team.ru",
+        "EMail": "support@one2team.ru",
+        "Phone": "+78432023303"
+    }
 }

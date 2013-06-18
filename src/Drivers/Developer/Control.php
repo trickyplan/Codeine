@@ -21,7 +21,7 @@
                 $Call['Output']['Licenses'][] =
                     [
                         'Type' => 'Block',
-                        'Value' => '<h2>'.$Product.'</h2>'
+                        'Value' => '<h3>'.$Product.'</h3>'
                     ];
 
                 $Call['Output']['Licenses'][] =

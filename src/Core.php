@@ -29,6 +29,7 @@
         private static $_Memory= 0;
 
         private static $_SR71 = false;
+        public static $NC = 0;
 
         public static function Environment()
         {
@@ -303,6 +304,8 @@
 
             self::$_Service = $OldService;
             self::$_Method = $OldMethod;
+
+            self::$NC++;
 
             return $Result;
         }
@@ -717,7 +720,6 @@
                 self::$_Memory = memory_get_usage();
                 self::SR71();
             }
-
             return false;
         }
     }

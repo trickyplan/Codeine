@@ -1,0 +1,78 @@
+{
+    "Rules":
+    {
+        "Главная сообщений доступна вошедшим":
+        {
+            "Decision": true,
+            "Weight": 75,
+            "Run":
+            {
+                "Service": "Message.Frontpage",
+                "Method": "Do",
+                "Session":
+                {
+                    "User":
+                    {
+                        "ID": "*"
+                    }
+                }
+            }
+        },
+        "Входящие и исходящие доступны вошедшим":
+        {
+            "Decision": true,
+            "Weight": 75,
+            "Run":
+            {
+                "Service": "Entity.List",
+                "Method": "Do",
+                "Call":
+                {
+                    "Entity": "Message"
+                },
+                "Session":
+                {
+                    "User":
+                    {
+                        "ID": "*"
+                    }
+                }
+            }
+        },
+        "Создание сообщений доступно вошедшим":
+        {
+            "Decision": true,
+            "Weight": 75,
+            "Run":
+            {
+                "Service": "Entity.Create",
+                "Method": "Do",
+                "Call":
+                {
+                    "Entity": "Message"
+                },
+                "Session":
+                {
+                    "User":
+                    {
+                        "ID": "*"
+                    }
+                }
+            }
+        },
+        "Сообщение доступно автору":
+        {
+            "Decision": true,
+            "Weight": 75,
+            "Run":
+            {
+                "Service": "Entity.Show.Static",
+                "Method": "Do",
+                "Call":
+                {
+                    "Entity": "Message"
+                }
+            }
+        }
+    }
+}

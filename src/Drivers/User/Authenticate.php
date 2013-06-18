@@ -41,12 +41,13 @@
 
                 if ($Call['Session']['User'] == $Call['User'])
                     $Call = F::Hook('afterAuthenticatePost', $Call);
-                else
-                    $Call = F::Hook('Authenticating.Failed.Session', $Call);
             }
         }
         else
+        {
+            $Call = F::Hook('Authenticating.Failed', $Call);
             F::Log('Authentification failed', LOG_INFO);
+        }
 
         return $Call;
     });
