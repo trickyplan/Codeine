@@ -18,6 +18,7 @@
         {
             // ищем хотя бы 1 слово  из поисковой фразы
             // FIXME Добавить опций
+            $Sphinx->setLimits($Call['Limits']['From'], $Call['Limits']['To'], $Call['Limits']['To']);
             if ($Sphinx->setMatchMode(SPH_MATCH_ANY))
             {
                 // поисковый запрос
