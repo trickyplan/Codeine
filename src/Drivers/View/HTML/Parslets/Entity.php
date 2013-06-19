@@ -27,9 +27,11 @@
                 $Call['Locales'][] = $Entity;
 
                 $Element = F::Run('Entity', 'Read',
-                    array (
+                    [
                           'Entity' => $Entity,
-                          'Where'  => $ID));
+                          'Where'  => $ID,
+                          'One' => true
+                    ]);
 
                 if (!empty($Element))
                     $Call['Output'] = str_replace($Call['Parsed'][0][$Ix],
@@ -37,7 +39,7 @@
                             array (
                                   'Scope'  => $Entity,
                                   'ID'     => 'Show/'.$Template,
-                                  'Data'   => $Element[0]
+                                  'Data'   => $Element
                             )),
                         $Call['Output']);
                 else
