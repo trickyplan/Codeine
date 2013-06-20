@@ -135,7 +135,6 @@
         $Call = F::Hook('beforeCreatePost', $Call);
         // Берём данные из запроса
 
-
         if (!isset($Call['Failure']))
         {
             /*foreach ($Call['Nodes'] as $Name => $Node)

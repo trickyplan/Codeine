@@ -48,6 +48,8 @@
 
                 $Call = F::Hook('afterEntityWrite', $Call);
             }
+            else
+                $Call['Data'] = null;
 
         $Call = F::Hook('afterOperation', $Call);
 
