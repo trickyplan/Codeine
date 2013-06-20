@@ -21,24 +21,16 @@
     {
         include 'Codeine/Core.php';
 
-        F::Bootstrap ([
-                        'Path' => [Root]
-                      ]);
-
-        try
-        {
-            $Call = F::Run(
-                'System.Interface.Web',
-                'Run',
+        $Call = F::Bootstrap
+            ([
+                'Path' => [Root],
+                'Service' => 'System.Interface.Web',
+                'Method' => 'Do',
+                'Call' =>
                 [
                     'Service' => 'Code.Flow.Front',
                     'Method'  => 'Run'
                 ]
-            );
-        }
-        catch (Exception $E)
-        {
-            F::Error($E->getCode(), $E->getMessage(), $E->getFile(), $E->getLine(), $E->getTrace());
-        }
+            ]);
 
     }

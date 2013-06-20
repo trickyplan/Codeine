@@ -4,5 +4,16 @@
     {
         "Path": "Drivers",
         "Extension": ".php"
+    },
+    "Hooks":
+    {
+        "onBootstrap":
+        {
+            "Versioning":
+            {
+                "Service": "Codeine.Versioning",
+                "Method": "Do"
+            }
+        }
     }
 }

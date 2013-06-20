@@ -7,15 +7,12 @@
      * @subpackage Core
           */
 
-    define('Codeine', __DIR__);
-    define ('REQID', microtime(true).rand());
-
     final class F
     {
         private static $_Environment = 'Production';
 
-        private static $_Options;
-        private static $_Code;
+        private static $_Options = [];
+        private static $_Code = [];
 
         private static $_Service = 'Codeine';
         private static $_Method = 'Do';
@@ -28,26 +25,35 @@
         private static $_Live = false;
         private static $_Memory= 0;
 
-        private static $_SR71 = false;
-        public static $NC = 0;
+        private static $_SR71 = false;  // Internal Profiler
+        private static $_Prism = false; // Prism records calls ))
+        private static $_Calls;
 
-        public static function Environment()
+        private static $NC = 0;
+
+
+        private static function Environment()
         {
             return self::$_Environment;
         }
 
         public static function Bootstrap ($Call = null)
         {
+            define('Codeine', __DIR__);
+            define ('REQID', microtime(true).rand());
+
             self::$_Live = true;
 
             if (isset($_REQUEST['SR71']))
                 self::$_SR71 = true;
 
+            if (isset($_REQUEST['Prism']))
+                self::$_Prism = true;
+
             self::Start(self::$_Service . '.' . self::$_Method);
 
             mb_internal_encoding('UTF-8');
             libxml_use_internal_errors(true);
-
             setlocale(LC_ALL, "ru_RU.UTF-8");
 
             if (isset($_SERVER['Environment']))
@@ -55,6 +61,8 @@
 
             if (isset($Call['Environment']))
                 self::$_Environment = $Call['Environment'];
+
+            self::Log('Environment: '.self::$_Environment, LOG_INFO);
 
             if (isset($Call['Path']))
             {
@@ -72,32 +80,13 @@
 
             self::loadOptions();
 
-            self::Versioning();
-
             set_error_handler ('F::Error');
 
             register_shutdown_function('F::Shutdown');
-        }
 
-        protected static function Versioning()
-        {
-            self::loadOptions('Version');
+            $Call = F::Hook('onBootstrap', $Call);
 
-            if (isset(self::$_Options['Project']['Version']['Codeine'])
-                && self::$_Options['Project']['Version']['Codeine'] > self::$_Options['Version']['Codeine']['Major'])
-                trigger_error('Codeine '.self::$_Options['Project']['Version']['Codeine'].'+ needed. Installed: '
-                    .self::$_Options['Version']['Codeine']['Major']);
-
-            self::Log('Codeine: '.self::$_Options['Version']['Codeine']['Major'], LOG_INFO);
-            self::Log('Build: '.self::$_Options['Version']['Codeine']['Minor'], LOG_INFO);
-
-            if (isset(self::$_Options['Version']['Project']))
-            {
-                self::Log('Project: '.self::$_Options['Version']['Project']['Major'], LOG_INFO);
-                self::Log('Build: '.self::$_Options['Version']['Project']['Minor'], LOG_INFO);
-            }
-
-            self::Log('Environment: '.self::$_Environment, LOG_INFO);
+            return F::Live($Call);
         }
 
         public static function Merge($First, $Second)
@@ -215,11 +204,6 @@
             }
         }
 
-        /**
-         * @description Проверяет, является ли массив правильно сконструированным вызовом.
-         * @param  $Call
-         * @return bool
-         */
         public static function isCall($Call)
         {
             return (((array) $Call === $Call) && isset($Call['Service']) && isset($Call['Method']));
@@ -242,14 +226,16 @@
                         $Call = F::Merge($Call, $Argument);
             }
 
-            // F::Log('Run: '.$Service,':'.$Method, 7);
             $Result = F::Execute($Service, $Method, $Call);
 
             return $Result;
         }
 
-        public static function Execute($Service, $Method, $Call)
+        private static function Execute($Service, $Method, $Call)
         {
+            if (self::$_Prism)
+                self::$_Calls[] = [microtime(true), $Service, $Method, $Call];
+
             $OldService = self::$_Service;
             $OldMethod = self::$_Method;
 
@@ -312,17 +298,15 @@
 
         public static function setFn($Function, $Code = null)
         {
-            return self::$_Code[self::$_Service][$Function] = $Code;
+            if (self::$_Service == 'Codeine')
+                self::$$Function = $Code;
+            else
+                return self::$_Code[self::$_Service][$Function] = $Code;
         }
 
         public static function getFn($Function)
         {
-            if (isset(self::$_Code[self::$_Service][$Function]))
-            {
-                return self::$_Code[self::$_Service][$Function];
-            }
-            else
-                return null;
+            return (isset(self::$_Code[self::$_Service][$Function]))? self::$_Code[self::$_Service][$Function]: null;
         }
 
         public static function Live($Variable, $Call = [])
@@ -501,18 +485,18 @@
          * 0 - Apocalypse
          */
 
-        public static function Log ($Message, $Verbose = 7)
+        private static function Log ($Message, $Verbose = 7)
         {
             if ($Verbose <= self::$_Options['Codeine']['Verbose'])
                 return self::$_Log[] = [$Verbose, round(microtime(true) - self::$_Ticks['T']['Codeine.Do'], 4), $Message, self::$_Service];
         }
 
-        public static function Logs()
+        private static function Logs()
         {
             return self::$_Log;
         }
 
-        public static function loadOptions($Service = null, $Method = null)
+        private static function loadOptions($Service = null, $Method = null)
         {
             $Service = ($Service == null)? self::$_Service: $Service;
             $Method = ($Method == null)? self::$_Method: $Method;
@@ -627,12 +611,12 @@
             return self::$_Counters['C'][$Key];
         }
 
-        public static function Start ($Key)
+        private static function Start ($Key)
         {
             return self::$_Ticks['T'][$Key] = microtime(true);
         }
 
-        public static function Stop ($Key)
+        private static function Stop ($Key)
         {
             if (isset(self::$_Counters['T'][$Key]))
                 return self::$_Counters['T'][$Key] += round((microtime(true) - self::$_Ticks['T'][$Key])*1000,2);
@@ -645,22 +629,28 @@
             }
         }
 
-        public static function MStart ($Key)
+        private static function MStart ($Key)
         {
             return self::$_Ticks['M'][$Key] = memory_get_peak_usage(true);
         }
 
-        public static function MStop ($Key)
+        private static function MStop ($Key)
         {
             return self::$_Counters['M'][$Key] += memory_get_peak_usage(true) - self::$_Ticks['M'][$Key];
         }
 
-        public static function SR71()
+        private static function Prism()
+        {
+            return file_put_contents('/tmp/codeine'.REQID, json_encode(self::$_Calls, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+        }
+
+        private static function SR71()
         {
            $Summary['Time'] = array_sum(self::$_Counters['T']);
            $Summary['Calls'] = array_sum(self::$_Counters['C']);
 
            arsort(self::$_Counters['T']);
+
            echo 'Memory: '.round(self::$_Memory/1024)." Kb. <pre>time\tcalls\trtime\tTC\trcall\tfn\n".$Summary['Time']."\t".$Summary['Calls']
                ."\t100%\t100%\n";
                foreach (self::$_Counters['T'] as $Key => $Value)
@@ -697,7 +687,7 @@
             return true;
         }
 
-        public static function Shutdown()
+        private static function Shutdown()
         {
             // foreach (self::$_Log as $Line)
             //    echo implode ("\t", $Line).PHP_EOL;
@@ -720,6 +710,12 @@
                 self::$_Memory = memory_get_usage();
                 self::SR71();
             }
+
+            if (self::$_Prism)
+            {
+                self::Prism();
+            }
+
             return false;
         }
     }

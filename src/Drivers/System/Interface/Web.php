@@ -7,7 +7,7 @@
      * @version 7.1
      */
 
-    setFn ('Run', function ($Call)
+    setFn ('Do', function ($Call)
     {
         $Call['IP'] = function ($Call) {return F::Run('System.Interface.Web.IP', 'Get', $Call);};
         $Call['UA'] = function ($Call) {return F::Run('System.Interface.Web.UA', 'Get', $Call);};
