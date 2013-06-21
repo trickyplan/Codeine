@@ -6,6 +6,8 @@
      * @package Codeine Framework
      * @subpackage Core
           */
+    define('Codeine', __DIR__);
+    define ('REQID', microtime(true).rand());
 
     final class F
     {
@@ -39,9 +41,6 @@
 
         public static function Bootstrap ($Call = null)
         {
-            define('Codeine', __DIR__);
-            define ('REQID', microtime(true).rand());
-
             self::$_Live = true;
 
             if (isset($_REQUEST['SR71']))
