@@ -24,7 +24,7 @@
         "Rights": "ONE2TEAM",
         "Year": 2013
     },
-    "Links":
+    "Hosts":
     {
         "Development":"project.local",
         "Production": "project.ru"

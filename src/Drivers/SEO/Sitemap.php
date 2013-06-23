@@ -71,6 +71,7 @@
                     'Value' => 'http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd'
                 )
             );
+
         foreach ($Call['Entities'] as $Handler => $Data)
         {
             $SubLinks = F::Run($Handler.'.Sitemap', 'Generate', $Call);
