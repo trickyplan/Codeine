@@ -34,7 +34,7 @@
         private static $NC = 0;
 
 
-        private static function Environment()
+        public static function Environment()
         {
             return self::$_Environment;
         }

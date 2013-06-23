@@ -56,7 +56,3 @@
 		log_not_found off;
         expires max;
 	}
-	location = /robots.txt {
-		allow all;
-		log_not_found off;
-	}
