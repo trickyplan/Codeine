@@ -9,7 +9,7 @@
 
     setFn('Widget', function ($Call)
     {
-        $Locations = F::Run('Entity', 'Read', ['Entity' => 'Location', 'NoPage' => true]);
+        $Locations = F::Run('Entity', 'Read', ['Entity' => 'Location', 'NoPage' => true, 'Sort' => ['Priority' => false, 'Title' => true]]);
 
         $Here = F::Run('Entity', 'Read', ['Entity' => 'Location', 'Where' => $Call['Location'], 'One' => true]);
 

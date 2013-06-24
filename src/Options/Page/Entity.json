@@ -1,5 +1,5 @@
 {
-    "Mixins": ["Mixins.SEO", "Mixins.Text", "Mixins.CRUD"],
+    "Mixins": ["Mixins.SEO", "Mixins.Text", "Mixins.CRUD", "Mixins.Priority"],
     "Storage": "Primary",
     "EPP": 20,
     "Sort":
@@ -53,18 +53,6 @@
                 {
                     "Type": "Form.Checkbox",
                     "TrueValue": true
-                }
-            }
-        },
-        "Priority":
-        {
-            "Type": "Numeral.Integer",
-            "Default": 0,
-            "Widgets":
-            {
-                "Write":
-                {
-                    "Type": "Form.Textfield"
                 }
             }
         },

@@ -1,0 +1,17 @@
+{
+    "Nodes":
+    {
+        "Priority":
+        {
+            "Type": "Numeral.Integer",
+            "Default": 0,
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        }
+    }
+}
