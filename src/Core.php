@@ -32,6 +32,7 @@
         private static $_Calls;
 
         private static $NC = 0;
+        private static $_Verbose = 3;
 
 
         public static function Environment()
@@ -61,7 +62,6 @@
             if (isset($Call['Environment']))
                 self::$_Environment = $Call['Environment'];
 
-            self::Log('Environment: '.self::$_Environment, LOG_INFO);
 
             if (isset($Call['Path']))
             {
@@ -78,7 +78,9 @@
                     self::$_Options['Path'][] = Root.'/Labs/'.self::$_Options['Experiments'][$_COOKIE['Experiment']];
 
             self::loadOptions();
+            self::Log('Environment: '.self::$_Environment, LOG_INFO);
 
+            self::$_Verbose = self::$_Options['Codeine']['Verbose'];
             set_error_handler ('F::Error');
 
             register_shutdown_function('F::Shutdown');
@@ -486,7 +488,7 @@
 
         private static function Log ($Message, $Verbose = 7)
         {
-            if ($Verbose <= self::$_Options['Codeine']['Verbose'])
+            if ($Verbose <= self::$_Verbose)
                 return self::$_Log[] = [$Verbose, round(microtime(true) - self::$_Ticks['T']['Codeine.Do'], 4), $Message, self::$_Service];
         }
 
