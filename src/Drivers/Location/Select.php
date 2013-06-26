@@ -9,7 +9,7 @@
 
     setFn('Widget', function ($Call)
     {
-        $Locations = F::Run('Entity', 'Read', ['Entity' => 'Location', 'NoPage' => true, 'Sort' => ['Priority' => false, 'Title' => true]]);
+        $Locations = F::Run('Entity', 'Read', ['Entity' => 'Location', 'Sort' => ['Priority' => false, 'Title' => true]]);
 
         $Here = F::Run('Entity', 'Read', ['Entity' => 'Location', 'Where' => $Call['Location'], 'One' => true]);
 
@@ -19,7 +19,7 @@
         foreach ($Locations as $Location)
         {
             if (null === $Here['Slug'])
-                $Location['URL'] = '/'.$Location['Slug'].$Call['URL'];
+                $Location['URL'] = '/'.$Location['Slug'];
             else
             {
                 if (preg_match('@^/'.$Here['Slug'].'@Ssuu', $Call['URL']))
