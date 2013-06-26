@@ -2,7 +2,7 @@
     "Mixins": ["User.Static","Control.Static"],
     "Links":
     {
-        "/about":
+        "/about/project":
         {
             "Service": "Project.About",
             "Method": "Do"

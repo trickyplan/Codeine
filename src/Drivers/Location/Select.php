@@ -18,7 +18,7 @@
 
         foreach ($Locations as $Location)
         {
-            if (null == $Here['Slug'])
+            if (null === $Here['Slug'])
                 $Location['URL'] = '/'.$Location['Slug'].$Call['URL'];
             else
             {
