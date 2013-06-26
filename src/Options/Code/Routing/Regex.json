@@ -51,6 +51,17 @@
                     "Slug": "$1"
                 }
             }
+        },
+        "Test":
+        {
+            "Match": "/test/(.+)",
+            "Weight": 5,
+            "Service": "Test",
+            "Method": "Do",
+            "Call":
+            {
+                "Test": "$1"
+            }
         }
     }
 }

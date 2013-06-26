@@ -9,7 +9,7 @@
 
     setFn('Do', function ($Call)
     {
-        $Test = F::loadOptions($Call['Test Service'].'Test');
+        $Test = F::loadOptions($Call['Test']);
 
         foreach ($Test['Suites'] as $SuiteName => $Suite)
         {
@@ -21,6 +21,10 @@
                 $Result = F::Live($Case['Run']);
 
                 $Call['Output']['Content'][] = '<div class="well">Expected result: '.$Case['Result']['Equal'].'</div>';
+
+                if (isset($Result['Output']['Content']))
+                    $Result = print_r($Result['Output']['Content'], true);
+
                 $Call['Output']['Content'][] = '<div class="well">Actual result: '.$Result.'</div>';
 
                 if ($Result == $Case['Result']['Equal'])
