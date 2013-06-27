@@ -1,12 +1,7 @@
 {
     "Engines":
     {
-        "Sphinx Example":
-        {
-            "Driver": "Search.Engine.Sphinx",
-            "Server": "localhost"
-        },
-        "IO Example":
+        "Primary":
         {
             "Driver": "Search.Engine.IO",
             "Storage": "Primary"

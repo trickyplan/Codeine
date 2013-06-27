@@ -1,0 +1,16 @@
+{
+    "Nodes":
+    {
+        "Keywords":
+        {
+            "Hooks":
+            {
+                "beforeEntityWrite":
+                {
+                    "Service": "Search.Indexer.Metaphone",
+                    "Method": "Get"
+                }
+            }
+        }
+    }
+}

@@ -32,8 +32,7 @@
         {
             $Empty = isset($Call['Custom Templates']['Empty'])? $Call['Custom Templates']['Empty']: 'Empty';
 
-            $Call['Layouts'][] = ['Scope' => $Call['Scope'], 'ID' => $Empty];
-            $Call['Layouts'][] = ['Scope' => 'Entity', 'ID' => $Empty];
+            $Call['Output']['Content'][] = ['Type' => 'Template', 'Scope' => 'Entity', 'Entity' => $Call['Entity'],  'ID' => $Empty];
         }
         else
         {

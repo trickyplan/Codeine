@@ -20,7 +20,10 @@
         {
             foreach ($Call['Layouts'] as $Layout) // FIXME I'm fat
                 if (($Sublayout =  F::Run('View', 'LoadParsed', $Layout)) !== null)
-                    $Call['Layout'] = str_replace('<place>Content</place>', $Sublayout, $Call['Layout']);
+                    if (mb_strpos($Call['Layout'], '<place>Content</place>') !== false)
+                        $Call['Layout'] = str_replace('<place>Content</place>', $Sublayout, $Call['Layout']);
+                    else
+                        $Call['Layout'] = $Call['Layout'].$Sublayout;
         }
 
         $Call = F::Hook('beforePipeline', $Call);

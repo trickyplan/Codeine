@@ -32,7 +32,6 @@
             $IDs = F::Run('Search', 'Query', $Call,
              [
                   'Engine' => 'Primary',
-                  'Entity' => $Entity,
                   'Query' => isset($Call['Query'])? $Call['Query']: $Call['Request']['Query']
              ]);
 
