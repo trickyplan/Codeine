@@ -1,5 +1,7 @@
-![Codeine](https://raw.github.com/Breathless/Codeine/master/docs/logo.png "Codeine")
+![Codeine](http://codeine-framework.ru/cache/images/Project.logo.png "Codeine")
 
 Codeine is PHP-framework (not yet another), with microcore architecture, and ultimate functional/code volume ratio.
 
-![Built with PHPStorm](http://www.jetbrains.com/phpstorm/documentation/phpstorm_banners/phpstorm1/phpstorm468x60_white.gif "PHP Storm")
+![Built with Navicat](http://codeine-framework.ru/navicat.jpg "Navicat")
+
+![Built with PHPStorm](http://codeine-framework.ru/phpstorm.gif "PHP Storm")
