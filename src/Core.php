@@ -497,7 +497,7 @@
             return self::$_Log;
         }
 
-        private static function loadOptions($Service = null, $Method = null)
+        public static function loadOptions($Service = null, $Method = null)
         {
             $Service = ($Service == null)? self::$_Service: $Service;
             $Method = ($Method == null)? self::$_Method: $Method;
