@@ -9,12 +9,12 @@
     </div>
 </div>
 <jsrun>
-    $('#<k>Primary</k>').change(function()
+    $('#<k>Primary</k>0').change(function()
     {
         var val = $(this).val();
         $.ajax(
         {
-            url: '/dict/<k>Name</k>/<k>Primary</k>/'+val,
+            url: '/<k>Key</k>/<k>Primary</k>/'+val+'.json',
             success: function (data)
             {
                 $('#<k>ID</k>').html('');

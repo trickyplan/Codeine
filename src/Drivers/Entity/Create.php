@@ -80,6 +80,8 @@
                     else
                         $Widget['Name'] .= '['.$Name.']';
 
+                    $Widget['Key'] = $Name;
+
                     $Widget['ID'] = strtr($Name, '.','_');
                     $Widget['Context'] = $Call['Context'];
 

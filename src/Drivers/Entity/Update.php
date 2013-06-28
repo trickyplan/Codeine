@@ -69,6 +69,8 @@
                             $Widget['Name']   = 'Data'.'['.$IX.']['.strtr($Name, '.','_').']';
                             $Widget['ID']     = strtr($Name, '.','_').$IX;
 
+                            $Widget['Key'] = $Name;
+
                             $Widget = F::Merge($Node, $Widget);
 
                             $Widget['Data'] = $Element;
