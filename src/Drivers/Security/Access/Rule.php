@@ -47,7 +47,7 @@
             F::Log('No one rule applied', LOG_INFO);
 
         F::Log('Final decision:'. ($Call['Decision']? 'Allow': 'Deny'), LOG_INFO);
-
+d(__FILE__, __LINE__, $Call['Rules']);
         unset($Call['Rules']);
         return $Call;
      });
