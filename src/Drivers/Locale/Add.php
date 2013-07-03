@@ -28,16 +28,21 @@
 
         $Locale = F::Dot($Locale, $Token, $Call['Request']['Translation']);
 
-        F::Run('IO', 'Write',
+        if ($Locale === null)
+            $Locale = [$Token => $Call['Request']['Translation']];
+
+        if (null !== F::Run('IO', 'Write',
                     array (
                           'Storage' => 'Locale',
                           'Scope'   => $Asset.'/Locale/'.$Language,
                           'Where'   => $ID,
                           'Data' => $Locale
-                    ));
+                    )))
+            $Call['Output']['Content'] = true;
+        else
+            $Call['Output']['Content'] = false;
 
         $Call['Renderer'] = 'View.JSON';
 
-        $Call['Output'] = true;
         return $Call;
     });

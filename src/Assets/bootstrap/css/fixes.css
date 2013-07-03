@@ -18,3 +18,13 @@
     -moz-box-shadow:    0px 2px 3px rgba(50, 50, 50, 0.5);
     box-shadow:         0px 2px 3px rgba(50, 50, 50, 0.5);
 }
+
+.breadcrumb
+{
+    background: none;
+}
+
+.navbar .breadcrumb
+{
+    margin: 0;
+}

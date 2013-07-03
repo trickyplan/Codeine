@@ -3,7 +3,8 @@
     {
         "Developer":
         {
-            "Driver":"IO.Log.Echo"
+            "-Driver":"IO.Log.Echo",
+            "Remove minus before «driver» word": ""
         }
     }
 }

@@ -51,8 +51,3 @@
     {
         return 404;
     }
-
-	location = /favicon.ico {
-		log_not_found off;
-        expires max;
-	}

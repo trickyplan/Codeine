@@ -68,7 +68,7 @@
             ]
         );
 
-        F::Run('Image', 'Save', $Call, ['ID' => Root.'/Public/captcha/'.sha1($Code).'.png']);
+        F::Run('Image', 'Save', $Call, ['ID' => '/tmp/cache/captcha/'.sha1($Code).'.png']); // FIXME
 
         $Call['Session']['CAPTCHA'] = sha1($Code);
 
@@ -77,8 +77,8 @@
 
     setFn('Check', function ($Call)
     {
-        if (file_exists(Root.'/Public/captcha/'.$Call['Request']['CAPTCHA']['Challenge'].'.png'))
-            unlink(Root.'/Public/captcha/'.$Call['Request']['CAPTCHA']['Challenge'].'.png');
+        if (file_exists('/tmp/cache/captcha/'.$Call['Request']['CAPTCHA']['Challenge'].'.png'))
+            unlink('/tmp/cache/captcha/'.$Call['Request']['CAPTCHA']['Challenge'].'.png');
 
         if (!isset($Call['Session']['User']['ID']) && $Call['Request']['CAPTCHA']['Challenge'] != sha1($Call['Request']['CAPTCHA']['Answer']))
         {

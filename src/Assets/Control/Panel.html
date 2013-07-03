@@ -1,19 +1,20 @@
-<breadcrumb href="/control">ЦУП</breadcrumb>
+<breadcrumb href="/control"><l>Control.Panel:Title</l></breadcrumb>
+<subtitle><l>Control.Panel:Title</l></subtitle>
+
+<breadcrumb href="/control/<call>Bundle</call>"><l><call>Bundle</call>.Control:Title</l></breadcrumb>
+<subtitle><l><call>Bundle</call>.Control:Title</l></subtitle>
+
+
 <div class="navbar">
     <div class="navbar-inner">
-        <a class="brand" href="/"><call>Project.Title</call></a>
+        <div class="pull-left">
+            <breadcrumbs/>
+        </div>
         <exec>
             <Service>User.Cabinet</Service>
             <Method>Do</Method>
         </exec>
     </div>
-    <breadcrumbs/>
-</div>
-<subtitle>ЦУП</subtitle>
-
-<div class="hidden-print">
-    <h2><l>Control.Panel:Title</l></h2>
-    <h3><l><call>Bundle</call>.Control:Title</l></h3>
 </div>
 
 <div class="row-fluid">

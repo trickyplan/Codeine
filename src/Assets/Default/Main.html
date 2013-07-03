@@ -19,40 +19,23 @@
 
     <css>bootstrap:min</css>
     <css>bootstrap:responsive.min</css>
+    <css>bootstrap:fixes</css>
+
     <css>Default</css>
 
-    <js>jquery18:min</js>
+    <js>jquery:min</js>
     <js>bootstrap:min</js>
 
     <js>Locale:live</js>
 
     <place>CSS</place>
+
+    <breadcrumb href="/"><call>Project.Title</call></breadcrumb>
 </head>
 
 <body>
 
-<div id="container">
-
-    <div class="navbar">
-        <div class="navbar-inner">
-            <a class="brand" href="/"><call>Project.Title</call></a>
-            <exec>
-                <Service>User.Cabinet</Service>
-                <Method>Do</Method>
-            </exec>
-        </div>
-    </div>
-
-    <div id="content" role="main" class="container-fluid">
-        <place>Content</place>
-
-        <ul class="nav nav-pills">
-            <li><a href="http://one2team.ru">Сайт ONE2TEAM</a></li>
-            <li><a href="http://task.one2team.ru/projects/codeine">Таск-трекер Codeine</a></li>
-            <li><a href="http://task.one2team.ru/projects/codeine/wiki">Codeine Wiki</a></li>
-        </ul>
-    </div>
-</div>
+<place>Content</place>
 
 <place>JS</place>
 

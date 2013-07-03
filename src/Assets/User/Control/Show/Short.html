@@ -1,10 +1,18 @@
-<tr><td>
+<div class="block-bordered">
+    <img class="img-rounded spaced pull-left" src="<fn>
+                    <Service>Services.Avatar.Gravatar</Service>
+                    <Method>Get</Method>
+                    <Call>
+                        <EMail><k>EMail</k></EMail>
+                    </Call></fn>&amp;s=60" alt="<k>Fullname</k>" title="<k>Fullname</k>" width="60" height="60"/>
+
     <div class="pull-right">
         <ul class="nav nav-pills">
             <li><a href="/control/<call>Entity</call>/Update/<k>ID</k>"><l><call>Entity</call>.Control:Update</l></a></li>
             <li><a href="/control/<call>Entity</call>/Delete/<k>ID</k>"><l><call>Entity</call>.Control:Delete</l></a></li>
         </ul>
     </div>
-    <h3><k>Surname</k> <k>Name</k></h3>
-    <h4><k>EMail</k></h4>
-</td></tr>
+    <a href="/control/User/Show/<k>ID</k>"><h3><k>Fullname</k></h3></a>
+    <a href="mailto:<k>EMail</k>"><k>EMail</k></a>
+    <div class="clearfix"></div>
+</div>

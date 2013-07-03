@@ -1,4 +1,5 @@
 {
+    "Mixins": ["Mixins.CRUD"],
     "Storage": "Primary",
     "EPP": 20,
     "Nodes":
@@ -10,8 +11,12 @@
             {
                 "beforeEntityCreate":
                 {
-                    "Service": "Security.UID",
-                    "Method": "Get"
+                    "Service": "Security.UID.Count",
+                    "Method": "Get",
+                    "Call":
+                    {
+                        "Entity": "User"
+                    }
                 }
             }
         },
@@ -24,7 +29,7 @@
             {
                 "Write":
                 {
-                    "Type": "Form.TextfieldUnique",
+                    "Type": "Form.Textfield",
                     "Subtype": "email"
                 }
             }
@@ -74,7 +79,7 @@
     },
     "Hooks":
     {
-        "-afterCreatePost":
+        "afterCreatePost":
         {
            "Redirect":
             {
@@ -82,7 +87,7 @@
                 "Method": "Redirect",
                 "Call":
                 {
-                    "Location": "/"
+                    "Location": "/login"
                 }
             }
         },

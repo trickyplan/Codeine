@@ -559,7 +559,7 @@
                 if (isset($Options['Mixins']))
                 {
                     foreach($Options['Mixins'] as &$Mixin)
-                        $Options = F::Merge(F::loadOptions($Mixin), $Options);
+                        $Options = F::Merge($Options, F::loadOptions($Mixin));
 
                     unset($Options['Mixins']);
                 }
@@ -699,11 +699,22 @@
 
             $E = error_get_last();
 
-            if (!empty($E) and self::$_Environment != 'Production')
+            if (!empty($E))
             {
-                $Logs = F::Logs();
-                foreach ($Logs as $Log)
-                    echo implode(' ', $Log).'<br/>';
+                if (self::$_Environment != 'Production')
+                {
+                    header ('HTTP/1.0 500 Internal Server Error');
+                    // TODO Real error triggering
+                }
+                else
+                {
+                    $Logs = F::Logs();
+                    foreach ($Logs as $Log)
+                        echo implode(' ', $Log).'<br/>';
+
+                    echo $E['message'];
+                }
+
             }
 
             if (self::$_SR71)

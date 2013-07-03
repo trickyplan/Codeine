@@ -15,9 +15,9 @@
          $Call['HTML'] = F::Run('View.HTML.Element.Base', 'Make', $Call, ['Tag' => 'input', 'Type' => (isset($Call['Subtype'])? $Call['Subtype']: 'text')]);
 
          return F::Run ('View', 'LoadParsed',
-                           array(
+                           [
                                 'Scope' => 'Default',
                                 'ID'    => 'UI/Form/Textfield',
                                 'Data'  => $Call
-                           ));
+                           ]);
      });

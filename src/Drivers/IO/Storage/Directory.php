@@ -103,7 +103,10 @@
             if (file_put_contents ($Filename, $Call['Data']))
                 return $Call['Data'];
             else
+            {
                 F::Log('Write failed', LOG_ERR);
+                return null;
+            }
         else
             return unlink ($Filename);
     });
