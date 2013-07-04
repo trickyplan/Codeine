@@ -111,6 +111,15 @@
                 "Service":"SEO.Sitemap"
             }
         },
+        "Robots доступен всем":
+        {
+            "Decision": true,
+            "Weight": 200,
+            "Run":
+            {
+                "Service":"SEO.Robots"
+            }
+        },
         "Страницы ошибок доступны всем":
         {
             "Decision": true,
