@@ -20,7 +20,7 @@
                     if (isset($Rule['Debug']))
                     {
                         d(__FILE__, __LINE__, $Rule['Run']);
-                        d(__FILE__, __LINE__, F::Diff($Call, $Rule['Run']));
+                        d(__FILE__, __LINE__, F::Diff($Rule['Run'], $Call));
                     }
 
                     if (isset($Rule['Run']) && (F::Diff($Rule['Run'], $Call) === null))

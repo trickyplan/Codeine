@@ -11,8 +11,6 @@
     {
         if (isset($Call['URI']))
         {
-            $Call['Title'] = [$Call['Project']['Title']];
-
             $Page = F::Run(null, 'Page', $Call);
 
             $Call = F::Live($Call['Meta Sources']['Title'], $Call);
