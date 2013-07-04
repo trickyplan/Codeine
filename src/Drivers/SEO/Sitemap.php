@@ -17,7 +17,12 @@
 
     setFn('Index', function ($Call)
     {
-        $Links = array();
+        $Links = ['url' => [
+            'loc'         => '/',
+            'changefreq'  => 'daily',
+            'priority'    => 1
+        ]];
+
         $Call['Headers']['Content-type:'] = 'text/xml; charset=utf-8';
 
         $Call['Renderer'] = 'View.XML';
@@ -53,7 +58,12 @@
 
     setFn('Combined', function ($Call)
     {
-        $Links = [];
+        $Links = ['url' => [
+            'loc'         => '/',
+            'changefreq'  => 'daily',
+            'priority'    => 1
+        ]];
+        ;
         $Call['Headers']['Content-type:'] = 'text/xml; charset=utf-8';
 
         $Call['Renderer'] = 'View.XML';
@@ -76,11 +86,11 @@
         {
             $SubLinks = F::Run($Handler.'.Sitemap', 'Generate', $Call);
                 foreach ($SubLinks as $Sublink)
-                    $Links[] = array ('url' => array (
+                    $Links[] = ['url' => [
                                       'loc'         => htmlspecialchars($Sublink),
                                       'changefreq'  => $Data['Frequency'],
                                       'priority'    => $Data['Priority']
-                                  ));
+                                  ]];
         }
 
         $Call['Output'] =  array('Root' => 'urlset', 'Content' => $Links);
