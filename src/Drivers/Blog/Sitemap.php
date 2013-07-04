@@ -9,7 +9,7 @@
 
     setFn('Generate', function ($Call)
     {
-        $Elements = F::Run('Entity', 'Read', array ('Entity' => 'Blog'));
+        $Elements = F::Run('Entity', 'Read', ['Entity' => 'Blog']);
         $Data = ['http://'.$_SERVER['HTTP_HOST'].'/blog'];
 
         foreach ($Elements as $Element)
