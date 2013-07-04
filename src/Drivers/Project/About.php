@@ -9,5 +9,6 @@
 
     setFn('Do', function ($Call)
     {
+        $Call['Developer'] = F::loadOptions('Developer');
         return $Call;
     });

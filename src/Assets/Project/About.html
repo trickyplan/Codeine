@@ -2,20 +2,23 @@
 <subtitle>О проекте <call>Project.Title</call></subtitle>
 
 <div class="hero-unit">
-    <a href="/"><img src="/img/logo.png" class="pull-right btn btn-large btn-inverse"/></a>
-    <h1><call>Project.Description.Short</call></h1>
-    <h2><call>Project.Description.Full</call></h2>
+    <h1><call>Project.Title</call></h1>
+    <h2><call>Project.Description.Short</call></h2>
+    <h3><call>Project.Description.Full</call></h3>
 </div>
 
 <div class="well">
     Разработка начата: <strong><datetime><call>Project.Events.Started</call></datetime></strong> <br/>
-    Запуск проекта: <strong><datetime><call>Project.Events.Released</call></datetime></strong><br/>
+    <block>Запуск проекта: <strong><datetime><call>Project.Events.Released</call></datetime></strong><br/></block>
 
     Версия <call>Project.Title</call>: <strong><call>Version.Project.Major</call>.<call>Version.Project.Minor</call></strong> <br/>
     Версия Codeine: <strong><call>Version.Codeine.Major</call>.<call>Version.Codeine.Minor</call></strong>
 </div>
 
 <div class="well">
-    Все права соблюдены.<br/>
-    <a href="http://<call>Project.Links.Production</call>"><call>Project.Copyright.Rights</call></a>, <call>Project.Copyright.Year</call>
+    Все права соблюдены. <a href="http://<call>Project.Hosts.Production</call>"><call>Project.Copyright.Rights</call></a>, <call>Project.Copyright.Year</call>
+</div>
+
+<div class="well">
+    Разработчик — <a href="<call>Developer.URL</call>"><call>Developer.Title</call></a>
 </div>

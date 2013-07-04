@@ -23,6 +23,16 @@
                 "Method": "Do"
             }
         },
+        "Страница о сервисе доступна всем":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Project.About",
+                "Method": "Do"
+            }
+        },
         "Страница регистрации доступна всем":
         {
             "Decision": true,
