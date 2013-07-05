@@ -12,7 +12,7 @@
         "HTTP/1.0": "200 OK",
         "Content-type:": "text/html; charset=utf-8",
         "Content-Language:": "ru",
-        "Cache-Control": "no-cache",
+        "Cache-Control:": "no-cache",
         "X-Frame-Options:": "DENY",
         "X-Content-Type-Options:": "nosniff",
         "X-XSS-Protection:": " 1; mode=block"

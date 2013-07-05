@@ -131,11 +131,13 @@
             {
                 $Call['Proto'] = 'https://';
                 $Call['Host'] = 'https://'.$_SERVER['HTTP_HOST'];
+                $Call['RHost'] = $_SERVER['HTTP_HOST'];
             }
             else
             {
                 $Call['Proto'] = 'http://';
                 $Call['Host'] = 'http://'.$_SERVER['HTTP_HOST'];
+                $Call['RHost'] = $_SERVER['HTTP_HOST'];
             }
 
         return $Call;
