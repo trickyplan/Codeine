@@ -42,7 +42,10 @@
             if (is_array($Call['Description']))
                 $Call['Description'] = implode('', $Call['Description']);
 
-            $Call['Output'] = str_replace('<header/>', $Call['Header'], $Call['Output']);
+            if (isset($Call['Header']))
+                $Call['Output'] = str_replace('<header/>', $Call['Header'], $Call['Output']);
+            else
+                $Call['Output'] = str_replace('<header/>', '', $Call['Output']);
 
             $Call['Output'] = str_replace('<title/>', '<title>'.strip_tags($Call['Title'], '<l><k>').'</title>', $Call['Output']);
             $Call['Output'] = str_replace('<keywords/>', '<meta name="keywords" content="'.strip_tags($Call['Keywords'], '<l><k>').'" />', $Call['Output']);
