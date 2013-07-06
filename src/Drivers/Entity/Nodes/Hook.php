@@ -13,7 +13,7 @@
             foreach ($Call['Nodes'] as $Name => $Node)
                 if (isset($Node['Hooks']) && isset($Node['Hooks'][$Call['On']]))
                 {
-                    if (is_array($Call['Data']))
+                    if (isset($Call['Data']) && is_array($Call['Data']))
                         foreach ($Call['Data'] as &$Element)
                         {
                             if (isset($Node['User Override']) and $Node['User Override'] and !empty($Element[$Name]))
