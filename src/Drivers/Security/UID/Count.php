@@ -11,7 +11,8 @@
 
     setFn('Get', function ($Call)
     {
-        $Call['Where'] = F::Live($Call['Where']);
+        if (isset($Call['Where']))
+            $Call['Where'] = F::Live($Call['Where']);
 
         return F::Run('Entity', 'Count', $Call)+$Call['Increment'];
     });
