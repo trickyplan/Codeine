@@ -500,7 +500,7 @@
         public static function loadOptions($Service = null, $Method = null)
         {
             $Service = ($Service == null)? self::$_Service: $Service;
-            $Method = ($Method == null)? self::$_Method: $Method;
+/*            $Method = ($Method == null)? self::$_Method: $Method;*/
 
             // Если контракт уже не загружен
             if (!isset(self::$_Options[$Service]))
@@ -516,7 +516,7 @@
 
                 $Filenames[] = 'Options/'.$ServicePath.'.json';
 
-                if ($Filenames = self::findFiles ($Filenames))
+                if (($Filenames = self::findFiles ($Filenames)) !== null)
                 {
                     foreach ($Filenames as $Filename)
                     {
@@ -555,6 +555,9 @@
                         $Options = self::Merge($Options, $Current);
                     }
                 }
+                else
+                    $Options = [];
+
 
                 if (isset($Options['Mixins']))
                 {

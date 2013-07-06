@@ -9,25 +9,37 @@
 
     setFn('Load', function ($Call)
     {
-            $Call = F::Hook('beforeEntityLoad', $Call);
+        if (!isset($Call['Entity']))
+        {
+            F::Log('Entity not defined.', LOG_ERR);
+            return null;
+        }
 
-            $Model = F::loadOptions($Call['Entity'].'.Entity');
+        $Call = F::Hook('beforeEntityLoad', $Call);
 
-            if (!empty($Model))
-            {
-                F::Log('Model for '.$Call['Entity'].' loaded', LOG_INFO);
-                $Call = F::Merge($Model, $Call);
-            }
-            else
-                F::Log('Model for '.$Call['Entity'].' not found', LOG_CRIT);
+        $Model = F::loadOptions($Call['Entity'].'.Entity');
 
-           $Call = F::Hook('afterEntityLoad', $Call);
+        if (!empty($Model))
+        {
+            F::Log('Model for '.$Call['Entity'].' loaded', LOG_INFO);
+            $Call = F::Merge($Model, $Call);
+        }
+        else
+            F::Log('Model for '.$Call['Entity'].' not found', LOG_CRIT);
+
+       $Call = F::Hook('afterEntityLoad', $Call);
 
         return $Call;
     });
 
     setFn('Create', function ($Call)
     {
+        if (!isset($Call['Entity']))
+        {
+            F::Log('Entity not defined.', LOG_ERR);
+            return null;
+        }
+
         if (isset($Call['One']))
         {
             $Call['Data'] = [$Call['Data']];
@@ -58,6 +70,12 @@
 
     setFn('Read', function ($Call)
     {
+        if (!isset($Call['Entity']))
+        {
+            F::Log('Entity not defined.', LOG_ERR);
+            return null;
+        }
+
         $Call = F::Hook('beforeOperation', $Call);
 
             $Call = F::Hook('beforeEntityRead', $Call);
@@ -76,6 +94,12 @@
 
     setFn('Update', function ($Call)
     {
+        if (!isset($Call['Entity']))
+        {
+            F::Log('Entity not defined.', LOG_ERR);
+            return null;
+        }
+
         if (isset($Call['One']))
         {
             $Call['Data'] = [$Call['Data']];
@@ -112,6 +136,12 @@
 
     setFn('Delete', function ($Call)
     {
+        if (!isset($Call['Entity']))
+        {
+            F::Log('Entity not defined.', LOG_ERR);
+            return null;
+        }
+
         if(isset($Call['Where']))
         {
             $Call['Data'] = F::Run('Entity', 'Read', $Call);
@@ -142,6 +172,12 @@
 
     setFn('Count', function ($Call)
     {
+        if (!isset($Call['Entity']))
+        {
+            F::Log('Entity not defined.', LOG_ERR);
+            return null;
+        }
+
         $Call = F::Hook('beforeOperation', $Call);
             $Call = F::Hook('beforeEntityCount', $Call);
 
