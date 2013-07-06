@@ -46,8 +46,3 @@
         fastcgi_busy_buffers_size 1m;
         fastcgi_temp_file_write_size 1m;
 	}
-
-    location ~ .php$
-    {
-        return 404;
-    }
