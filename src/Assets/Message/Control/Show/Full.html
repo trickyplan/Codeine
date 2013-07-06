@@ -1,0 +1,38 @@
+<subtitle><k>Subject</k></subtitle>
+<breadcrumb href="/message/<k>ID</k>"><k>Subject</k></breadcrumb>
+<div class="row-fluid">
+    <div class="span6">
+        <k>Body</k>
+    </div>
+    <div class="span6">
+        <table class="table table-striped">
+            <tr>
+                <td>От</td>
+                <td><entity>User:<k>User</k></entity></td>
+            </tr>
+            <tr>
+                <td>Кому</td>
+                <td><entity>User:<k>To</k></entity></td>
+            </tr>
+            <tr>
+                <td>Отправлено</td>
+                <td>
+                    <datetime><k>Created</k></datetime>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<h4>Ответить</h4>
+<exec>
+    <Service>Entity.Create</Service>
+    <Method>Do</Method>
+    <Call>
+        <Entity>Message</Entity>
+        <Action>/message/new</Action>
+        <Data>
+            <To><k>From</k></To>
+            <Subject><k>Subject</k></Subject>
+        </Data>
+    </Call>
+</exec>
