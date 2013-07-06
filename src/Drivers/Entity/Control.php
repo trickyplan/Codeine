@@ -9,7 +9,7 @@
 
     setFn('Do', function ($Call)
     {
-        return F::Run('Entity.List', 'Do', $Call, ['Entity' => $Call['Bundle'], 'Scope' => 'Control', 'Show Redirects' => true]);
+        return F::Run('Entity.List', 'Do',['Sort' => ['ID' => true]], $Call, ['Entity' => $Call['Bundle'], 'Scope' => 'Control', 'Show Redirects' => true]);
     });
 
     setFn('Show', function ($Call)
