@@ -11,6 +11,7 @@
     {
         $Call = F::Hook('beforeDeleteDo', $Call);
 
+        if (isset($Call['Where']))
             $Call['Where'] = F::Live($Call['Where']); // FIXME
 
             $Call = F::Run(null, $_SERVER['REQUEST_METHOD'], $Call);
