@@ -7,7 +7,6 @@
             "Method":"Do",
             "Call":{
                 "Entity": "Blog",
-                "PageURL": "/blog/page/",
                 "Sort":
                 {
                     "Created": false

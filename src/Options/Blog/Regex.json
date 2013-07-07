@@ -1,9 +1,9 @@
 {
     "Regex":
     {
-        "Страница блога":
+        "Страница списка блога":
         {
-            "Match":"/blog/page/(.*)",
+            "Match":"^/blog/page(.*)$",
             "Service":"Entity.List",
             "Method":"Do",
             "Call":
@@ -19,7 +19,7 @@
         },
         "Категория блога":
         {
-            "Match":"/blog/category/(.*)",
+            "Match":"^/blog/category/(.*)$",
             "Service":"Entity.List",
             "Method":"Do",
             "Weight": 30,
@@ -38,9 +38,31 @@
             },
             "Zone": ["Project"]
         },
+        "Категория блога, страницы":
+        {
+            "Match":"^/blog/category/(.+)/page(.+)$",
+            "Service":"Entity.List",
+            "Method":"Do",
+            "Weight": 30,
+            "Call":
+            {
+                "Entity": "Blog",
+                "Key": "Category",
+                "Page": "$2",
+                "Custom Templates":
+                {
+                    "List": "Category"
+                },
+                "Where":
+                {
+                    "Category":  "$1"
+                }
+            },
+            "Zone": ["Project"]
+        },
         "RSS категории блога":
         {
-            "Match":"/blog/category/(.*).rss",
+            "Match":"^/blog/category/(.*).rss$",
             "Weight": 44,
             "Service":"Entity.List",
             "Method":"Do",
@@ -63,7 +85,7 @@
         },
         "Блог":
         {
-            "Match":"/blog/(.*)",
+            "Match":"^/blog/(.*)$",
             "Service":"Entity.Show.Static",
             "Method":"Do",
             "Call":
