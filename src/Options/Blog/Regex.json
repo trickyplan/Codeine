@@ -26,6 +26,11 @@
             "Call":
             {
                 "Entity": "Blog",
+                "Key": "Category",
+                "Custom Templates":
+                {
+                    "List": "Category"
+                },
                 "Where":
                 {
                     "Category":  "$1"

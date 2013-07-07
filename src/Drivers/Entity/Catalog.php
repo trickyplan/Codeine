@@ -12,27 +12,29 @@
         $Call = F::Merge(F::loadOptions('Entity.'.$Call['Entity']), $Call); // FIXME
         $Call = F::Hook('beforeCatalog', $Call);
 
-        $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Main');
-        $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Catalog');
+        $Call['Layouts'][] = ['Scope' => $Call['Entity'],'ID' => 'Catalog'];
+
         $Call['Locales'][] = $Call['Entity'];
 
-        $Elements = F::Run('Entity', 'Read', array('Entity' => $Call['Entity'], 'Fields' => array($Call['Key'])));
+        $Elements = F::Run('Entity', 'Read', ['Entity' => $Call['Entity'], 'Fields' => [$Call['Key']]]);
 
         foreach ($Elements as $Element)
             $Keys[] = $Element[$Call['Key']];
 
         $Keys = array_count_values($Keys);
 
+
         foreach ($Keys as $Value => $Count)
             $Call['Output']['Content'][]=
                 array(
                     'Type' => 'Template',
                     'Scope' => $Call['Entity'],
-                    'ID' => 'Catalog/Row',
-                    'Data' => array(
+                    'ID' => 'Catalog/'.$Call['Key'],
+                    'Data' =>
+                    [
                         'Count' => $Count,
                         'Value' => $Value
-                    )
+                    ]
                 );
 
         $Call = F::Hook('afterCatalog', $Call);
