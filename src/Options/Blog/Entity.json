@@ -10,13 +10,17 @@
     {
         "ID":
         {
-            "Type": "Literal.String",
+            "Type": "Numeral.Integer",
             "Hooks":
             {
                 "beforeEntityCreate":
                 {
-                    "Service": "Security.UID",
-                    "Method": "Get"
+                    "Service": "Security.UID.Count",
+                    "Method": "Get",
+                    "Call":
+                    {
+                        "Entity": "Blog"
+                    }
                 }
             }
         },
