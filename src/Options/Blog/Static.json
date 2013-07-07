@@ -9,7 +9,7 @@
                 "Entity": "Blog",
                 "Sort":
                 {
-                    "Created": false
+                    "Published": false
                 }
             },
             "Zone": ["Project"]
@@ -27,7 +27,7 @@
                 "Entity": "Blog",
                 "Sort":
                 {
-                    "Created": false
+                    "Published": false
                 }
             }
         }

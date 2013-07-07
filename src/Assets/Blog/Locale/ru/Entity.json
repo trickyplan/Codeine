@@ -3,6 +3,7 @@
     "Category": "Рубрика",
     "Description": "Описание",
     "Body": "Текст",
+    "Source": "Источник",
     "Slug": "ЧПУ",
     "Published": "Опубликовать",
     "Empty": "Блог пуст",
