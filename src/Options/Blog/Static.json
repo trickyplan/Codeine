@@ -10,7 +10,7 @@
                 "PageURL": "/blog/page/",
                 "Sort":
                 {
-                    "Created": "DESC"
+                    "Created": false
                 }
             },
             "Zone": ["Project"]
@@ -28,7 +28,7 @@
                 "Entity": "Blog",
                 "Sort":
                 {
-                    "Created": "DESC"
+                    "Created": false
                 }
             }
         }
