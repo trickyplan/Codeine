@@ -100,17 +100,16 @@
         "Published":
         {
             "Type": "Date.Short",
-            "Default":
-            {
-                "Service": "System.Time",
-                "Method": "Get"
-            },
             "Widgets":
             {
                 "Write":
                 {
                     "Type": "Form.Datepicker",
-                    "Format": "d.m.Y"
+                    "Value":
+                    {
+                        "Service": "System.Time",
+                        "Method": "Get"
+                    }
                 }
             }
         },

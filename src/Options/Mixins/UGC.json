@@ -20,6 +20,7 @@
         "Created":
         {
             "Type": "Numeral.Integer",
+            "User Override": true,
             "Hooks":
             {
                 "beforeEntityCreate":
