@@ -1,7 +1,7 @@
 {
     "Mixins": ["Mixins.UGC", "Mixins.Text", "Mixins.CRUD"],
     "Storage": "Primary",
-    "EPP": 5,
+    "EPP": 10,
     "Sort":
     {
         "Created": false
