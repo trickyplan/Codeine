@@ -2,21 +2,32 @@
 <breadcrumb href="/blog/category/<k>Category</k>"><k>Category</k></breadcrumb>
 <breadcrumb href="/blog/<k>Slug</k>"><k>Title</k></breadcrumb>
 <h2 class="page-header"><k>Title</k></h2>
-<div class="spaced">
-    <div class="pull-left">
+
+<div class="row-fluid">
+    <div class="span8">
         <em><datetime><k>Created</k></datetime></em>
+
+        <block><div class="pull-right">
+            <strong>Категория:</strong> <a href="/blog/category/<k>Category</k>"><k>Category</k></a><br/>
+        </div></block>
+
+        <div class="clearfix"></div>
+        <k>Description</k>
+        <k>Body</k>
     </div>
-    <block><div class="pull-right">
-        <strong>Категория:</strong> <a href="/blog/category/<k>Category</k>"><k>Category</k></a><br/>
-    </div></block>
-    <div class="row-fluid">
-        <div class="span12">
-            <div>
-                <k>Description</k>
-            </div>
-            <div>
-                <k>Body</k>
-            </div>
-        </div>
+    <div class="span4">
+        <ul class="nav nav-stacked">
+            <exec>
+                <Service>Entity.List</Service>
+                <Method>Do</Method>
+                <Call>
+                    <Template>Line</Template>
+                    <Entity><call>Entity</call></Entity>
+                    <Where>
+                        <Category><k>Category</k></Category>
+                    </Where>
+                </Call>
+            </exec>
+        </ul>
     </div>
 </div>
