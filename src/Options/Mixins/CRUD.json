@@ -9,14 +9,6 @@
                 "Method": "Store"
             }
         },
-        "afterCreatePost":
-        {
-            "Restore URL":
-            {
-                "Service": "Entity.Redirect.Back",
-                "Method": "Restore"
-            }
-        },
         "beforeUpdateGet":
         {
             "Store URL":

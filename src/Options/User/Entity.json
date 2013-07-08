@@ -79,16 +79,12 @@
     },
     "Hooks":
     {
-        "-afterCreatePost":
+        "afterCreatePost":
         {
-           "Redirect":
+            "Activation":
             {
-                "Service": "System.Interface.Web",
-                "Method": "Redirect",
-                "Call":
-                {
-                    "Location": "/login"
-                }
+                "Service": "User.Activation",
+                "Method": "Send"
             }
         },
         "afterDeletePost":
