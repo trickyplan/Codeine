@@ -38,6 +38,11 @@
             {
                 "Service": "Location.URL",
                 "Method": "Do"
+            },
+            "451":
+            {
+                "Service": "Freedom.Restrictions",
+                "Method": "Do"
             }
         },
         "afterFrontRun":
