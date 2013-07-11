@@ -1,5 +1,4 @@
 {
-    "Mixins": ["Mixins.CRUD"],
     "Storage": "Primary",
     "EPP": 20,
     "Nodes":

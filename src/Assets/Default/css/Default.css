@@ -36,11 +36,8 @@
 }
 .console
 {
-    background-color: white;
     font: 14px monospace;
     margin: auto;
-    border: 1px solid lightgray;
-    border-radius: 8px !important;
     border-spacing: 12px;
     padding: 12px;
 }
@@ -64,7 +61,6 @@ tr.Notice,
 
 tr.Debug
 {
-    background-color: white;
     opacity: 0.8;
 }
 
