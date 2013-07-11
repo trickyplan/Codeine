@@ -246,6 +246,20 @@
             {
                 "Service": "Locale.Add"
             }
+        },
+        "Меню видно всем":
+        {
+            "Decision": true,
+            "Weight": 100,
+            "Run":
+            {
+                "Service": "Entity.List",
+                "Method": "Do",
+                "Call":
+                {
+                    "Entity": "Page"
+                }
+            }
         }
     }
 }

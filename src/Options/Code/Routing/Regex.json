@@ -1,5 +1,5 @@
 {
-    "Mixins": ["Control.Regex"],
+    "Mixins": ["Control.Regex", "User.Regex"],
     "Pattern": {
         "Prefix": "@",
         "Postfix": "@su"
