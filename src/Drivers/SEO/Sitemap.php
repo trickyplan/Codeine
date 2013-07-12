@@ -59,7 +59,7 @@
     setFn('Combined', function ($Call)
     {
         $Links = ['url' => [
-            'loc'         => '/',
+            'loc'         => $Call['Host'].'/',
             'changefreq'  => 'daily',
             'priority'    => 1
         ]];
