@@ -1,9 +1,9 @@
 {
     "Start": "Codeine",
     "Bundles":
-        {
-            "Project": ["User", "Page", "Block"],
-            "Platform": ["Codeine", "PHP", "IO", "Security", "Session", "SEO", "Server"],
-            "Developer": ["Developer"]
-        }
+    {
+        "Project": ["User", "Page", "Block"],
+        "Platform": ["Codeine", "PHP", "IO", "Security", "Session", "SEO", "Server"],
+        "Developer": ["Developer"]
+    }
 }

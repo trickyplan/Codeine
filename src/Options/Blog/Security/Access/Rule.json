@@ -1,0 +1,33 @@
+{
+    "Rules":
+    {
+        "Блог доступен всем":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Entity.List",
+                "Method": "Do",
+                "Call":
+                {
+                    "Entity": "Blog"
+                }
+            }
+        },
+        "Пост доступен всем":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Entity.Show.Static",
+                "Method": "Do",
+                "Call":
+                {
+                    "Entity": "Blog"
+                }
+            }
+        }
+    }
+}
