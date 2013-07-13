@@ -28,12 +28,6 @@
 
             $Call['Request'] = $_REQUEST;
 
-            foreach ($Call['Request'] as $Key => $Value)
-            {
-                unset($Call['Request'][$Key]);
-                $Call['Request'] = F::Dot($Call['Request'], strtr($Key, '_','.'), $Value);
-            }
-
             $Call['Cookie'] = $_COOKIE;
 
             $Call = F::Run(null, 'Protocol', $Call);

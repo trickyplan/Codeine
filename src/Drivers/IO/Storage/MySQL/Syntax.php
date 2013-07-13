@@ -187,7 +187,7 @@
             if (!empty($Conditions) && $Call['Where'] !== null)
                 $WhereString = $WhereString . ' ' . implode(' AND ', $Conditions);
             else
-                $WhereString = $WhereString .'1=0';
+                $WhereString = '';
         }
         else
             $WhereString = '';

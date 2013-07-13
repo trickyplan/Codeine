@@ -1,11 +1,14 @@
 {
-    "Output":
+    "Purpose": "Filter",
+    "FormLayout": "Full",
+    "Hooks":
     {
-        "Content":
+        "beforeFilterDo":
         {
-            "Form":
+            "Load model (essential)":
             {
-                "Type": "Form"
+                "Service":"Entity",
+                "Method":"Load"
             }
         }
     }

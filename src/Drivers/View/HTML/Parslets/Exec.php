@@ -13,9 +13,16 @@
           {
               $Match = json_decode(json_encode(simplexml_load_string('<exec>'.$Match.'</exec>')), true); // I love PHP :(
 
-              if($Match)
+              if ($Match)
               {
-                  $Application = F::Run('Code.Flow.Application', 'Run', ['Run' => $Match, 'Context' => 'app', 'Session' => $Call['Session']]);
+                  $Application = F::Run('Code.Flow.Application', 'Run',
+                      [
+                          'Run' => $Match,
+                          'Context' => 'app',
+                          'Session' => $Call['Session'],
+                          'Request' => $Call['Request']
+                      ]);
+
                   $Call['Output'] = str_replace($Call['Parsed'][0][$Ix], $Application['Output'], $Call['Output']);
               }
               else
