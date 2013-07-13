@@ -3,7 +3,7 @@
     {
         "Страница списка блога":
         {
-            "Match":"^/blog/page(.*)$",
+            "Match":"^/blog/page(\\d+)$",
             "Service":"Entity.List",
             "Method":"Do",
             "Call":
@@ -40,7 +40,7 @@
         },
         "Категория блога, страницы":
         {
-            "Match":"^/blog/category/(.+)/page(.+)$",
+            "Match":"^/blog/category/(.+)/page(\\d+)$",
             "Service":"Entity.List",
             "Method":"Do",
             "Weight": 30,
