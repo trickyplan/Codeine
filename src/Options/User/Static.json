@@ -10,6 +10,15 @@
                 "Entity": "User"
             }
         },
+        "/users":
+        {
+            "Service":"Entity.List",
+            "Method":"Do",
+            "Call":
+            {
+                "Entity": "User"
+            }
+        },
         "/login":
         {
             "Service":"User.Authenticate",
