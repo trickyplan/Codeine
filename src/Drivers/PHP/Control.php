@@ -70,22 +70,6 @@
         return $Call;
     });
 
-    setFn('XCache', function ($Call)
-    {
-        $XCache = xcache_info(XC_TYPE_PHP,0);
-
-        foreach ($XCache as $Key => &$Value)
-            $Value = array('<l>PHP.XCache:'.$Key.'</l>', $Value);
-
-        $Call['Output']['Content'][] =
-            array (
-                'Type'  => 'Table',
-                'Value' => $XCache
-            );
-
-        return $Call;
-    });
-
     setFn('Menu', function ($Call)
     {
         return ['Count' => phpversion()];

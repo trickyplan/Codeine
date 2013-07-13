@@ -1,5 +1,5 @@
 {
-    "Sidebar": ["Extensions", "Settings", "XCache"],
+    "Sidebar": ["Extensions", "Settings"],
     "Requirements":
     {
         "display_errors": "",
@@ -20,6 +20,8 @@
         "5.4.13-1~dotdeb.0": "Outdated",
         "5.4.14-1~dotdeb.0": "Outdated",
         "5.4.15-1~dotdeb.0": "Outdated",
-        "5.4.16-1~dotdeb.0": "Stable"
-    }
+        "5.4.16-1~dotdeb.0": "Outdated",
+        "5.4.17-1~dotdeb.0": "Stable",
+        "5.5.0-1~dotdeb.1": "Stable"
+}
 }

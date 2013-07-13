@@ -110,6 +110,22 @@
                 }
             }
         },
+        "beforeUpdateGet":
+        {
+            "Store URL":
+            {
+                "Service": "Entity.Redirect.Back",
+                "Method": "Store"
+            }
+        },
+        "afterUpdatePost":
+        {
+            "Restore URL":
+            {
+                "Service": "Entity.Redirect.Back",
+                "Method": "Restore"
+            }
+        },
         "afterLogout":
         {
             "Redirect":

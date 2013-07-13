@@ -3,8 +3,7 @@
     "Options":
     {
         "Extensions": "Расширения",
-        "Settings": "Настройки",
-        "XCache": "Кэш"
+        "Settings": "Настройки"
     },
     "Extension": {
         "Core": "Ядро"
