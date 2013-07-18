@@ -4,11 +4,6 @@
     {
         "beforeFrontRun":
         {
-            "Project":
-            {
-                "Service": "Project.Preload",
-                "Method": "Do"
-            },
             "Routing":
             {
                 "Service": "Code.Routing",

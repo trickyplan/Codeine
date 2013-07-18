@@ -77,7 +77,8 @@
                 if (isset(self::$_Options['Experiments'][$_COOKIE['Experiment']]))
                     self::$_Options['Path'][] = Root.'/Labs/'.self::$_Options['Experiments'][$_COOKIE['Experiment']];
 
-            self::loadOptions();
+            $Call = F::Merge($Call, self::loadOptions('Codeine'));
+
             self::Log('Environment: '.self::$_Environment, LOG_INFO);
 
             self::$_Verbose = self::$_Options['Codeine']['Verbose'];
