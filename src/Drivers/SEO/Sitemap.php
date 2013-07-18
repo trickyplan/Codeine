@@ -17,11 +17,7 @@
 
     setFn('Index', function ($Call)
     {
-        $Links = ['url' => [
-            'loc'         => $Call['Host'].'/',
-            'changefreq'  => 'daily',
-            'priority'    => 1
-        ]];
+        $Links = [];
 
         $Call['Headers']['Content-type:'] = 'text/xml; charset=utf-8';
 
@@ -58,11 +54,11 @@
 
     setFn('Combined', function ($Call)
     {
-        $Links = ['url' => [
+        $Links = [['url' => [
             'loc'         => $Call['Host'].'/',
             'changefreq'  => 'daily',
             'priority'    => 1
-        ]];
+        ]]];
         ;
         $Call['Headers']['Content-type:'] = 'text/xml; charset=utf-8';
 
