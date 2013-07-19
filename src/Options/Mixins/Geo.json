@@ -9,7 +9,7 @@
             {
                 "Write":
                 {
-                    "Type": "Form.Menu",
+                    "Type": "Form.Select",
                     "Options":
                     {
                         "Service": "Entity.List",
