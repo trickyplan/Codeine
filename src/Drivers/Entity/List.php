@@ -28,7 +28,12 @@
             $Call['Elements'] = F::Run('Entity', 'Read', $Call);
 
         if (!isset($Call['Selected']))
-            $Call['Selected'] = null;
+        {
+            if (isset($Call['Request']['ID']))
+                $Call['Selected'] = $Call['Request']['ID'];
+            else
+                $Call['Selected'] = null;
+        }
 
         if ((sizeof($Call['Elements']) == 0 or (null === $Call['Elements'])) and !isset($Call['NoEmpty']))
         {
