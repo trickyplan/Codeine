@@ -9,20 +9,19 @@
 
     setFn('beforeList', function ($Call)
     {
-        if (isset($Call['NoPage']) && ($Call['NoPage'] == true))
+        if (isset($Call['NoPage']) && $Call['NoPage'])
             return $Call;
-
 
         if (!isset($Call['Count']))
         {
             if (!isset($Call['Page']) or empty($Call['Page']))
                 $Call['Page'] = 1;
 
-            $Call['Front']['Count'] = F::Run('Entity', 'Count', $Call);
+            $Call['Count'] = F::Run('Entity', 'Count', $Call);
             $Call['Limit']['From']= ($Call['Page']-1)*$Call['EPP'];
             $Call['Limit']['To'] = $Call['EPP'];
 
-            $Call['PageCount'] = ceil($Call['Front']['Count']/$Call['EPP']);
+            $Call['PageCount'] = ceil($Call['Count']/$Call['EPP']);
         }
         else
         {
@@ -35,7 +34,7 @@
 
     setFn('afterList', function ($Call)
     {
-        if (isset($Call['NoPage']) && ($Call['NoPage'] == true))
+        if (isset($Call['NoPage']) && $Call['NoPage'])
             return $Call;
 
         $Call['PageURLPostfix'] = isset($Call['PageURLPostfix'])? $Call['PageURLPostfix']: '';
@@ -49,7 +48,7 @@
         if (isset($Call['PageCount']) && $Call['PageCount']>1)
             $Call['Output']['Pagination'][] = array(
                 'Type'  => 'Paginator',
-                'Total' => $Call['Front']['Count'],
+                'Total' => $Call['Count'],
                 'EPP' => $Call['EPP'],
                 'Page' => $Call['Page'],
                 'FirstURL' => isset($Call['FirstURL'])? $Call['FirstURL']: '',
