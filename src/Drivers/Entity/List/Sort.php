@@ -7,18 +7,24 @@
      * @version 7.2
      */
 
-    setFn('Sort', function ($Call)
+    setFn('beforeList', function ($Call)
     {
-        if (isset($Call['List']['Sort']))
+        if (isset($Call['List']['Sort']) && isset($Call['Nodes'][$Call['List']['Sort']]))
             $Call['Sort'] = $Call['List']['Sort'];
 
-        if (isset($Call['Request']['sort']))
+        if (isset($Call['Request']['sort']) && isset($Call['Nodes'][$Call['Request']['sort']]))
             $Call['Sort'] = [$Call['Request']['sort'] => true];
         else
         {
-            if( isset($Call['Request']['rsort']))
+            if(isset($Call['Request']['rsort']) && isset($Call['Nodes'][$Call['Request']['rsort']]))
                 $Call['Sort'] = [$Call['Request']['rsort'] => false];
         }
 
+        return $Call;
+    });
+
+    setFn('afterList', function ($Call)
+    {
+        unset($Call['Sort']);
         return $Call;
     });

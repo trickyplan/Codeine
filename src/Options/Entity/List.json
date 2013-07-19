@@ -12,7 +12,7 @@
             "Sort":
             {
                 "Service": "Entity.List.Sort",
-                "Method": "Sort"
+                "Method": "beforeList"
             },
             "Pagination":
             {
@@ -25,6 +25,11 @@
             "Filter":
             {
                 "Service": "Entity.List.Filter",
+                "Method": "afterList"
+            },
+            "Sort":
+            {
+                "Service": "Entity.List.Sort",
                 "Method": "afterList"
             },
             "Pagination":
