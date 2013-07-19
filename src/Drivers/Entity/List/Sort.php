@@ -9,7 +9,7 @@
 
     setFn('beforeList', function ($Call)
     {
-        if (isset($Call['List']['Sort']) && isset($Call['Nodes'][$Call['List']['Sort']]))
+        if (isset($Call['List']['Sort']))
             $Call['Sort'] = $Call['List']['Sort'];
 
         if (isset($Call['Request']['sort']) && isset($Call['Nodes'][$Call['Request']['sort']]))
