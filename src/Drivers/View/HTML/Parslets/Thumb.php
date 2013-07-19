@@ -41,7 +41,7 @@
 
             $ThumbURL = $Thumb['Width'].'_'.sha1($Filename) . '.jpg'; // FIXME Абстрагировать
 
-            if (null === F::Run ('IO', 'Execute',
+            if (null == F::Run ('IO', 'Execute',
                 [
                     'Execute' => 'Exist',
                     'Storage' => 'Image Cache',

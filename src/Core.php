@@ -354,10 +354,9 @@
             $Data = [];
 
             if (is_array($Array))
-                foreach ($Array as $IX => $Row)
-                    foreach ($Keys as $Key)
-                        if (is_scalar($Key) && isset($Row[$Key]))
-                            $Data[$Key][$IX] = $Row[$Key];
+                foreach ($Keys as $Key)
+                    if (is_scalar($Key))
+                        $Data[$Key] = array_column($Array, $Key, 'ID');
 
             return $Data;
         }

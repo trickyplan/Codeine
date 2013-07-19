@@ -62,6 +62,12 @@
             else
                 unset($Call['Elements']);
 
+            $Call['Layouts'][] = [
+                'Scope' => 'Entity',
+                'ID' => 'List',
+                'Context' => $Call['Context']
+            ];
+
             $Call = F::Run('Entity.List', 'Do',
                     $Call,
                     [
