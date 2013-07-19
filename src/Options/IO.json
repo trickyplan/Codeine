@@ -95,6 +95,22 @@
     },
     "Hooks":
     {
+        "beforeIORead":
+        {
+            "Dedup":
+            {
+                "Service": "IO.Dedup",
+                "Method": "beforeIORead"
+            }
+        },
+        "afterIORead":
+        {
+            "Dedup":
+            {
+                "Service": "IO.Dedup",
+                "Method": "afterIORead"
+            }
+        },
         "Storage":
         {
             "Open":

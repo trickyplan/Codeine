@@ -20,10 +20,7 @@
         $Model = F::loadOptions($Call['Entity'].'.Entity');
 
         if (!empty($Model))
-        {
-            F::Log('Model for '.$Call['Entity'].' loaded', LOG_INFO);
             $Call = F::Merge($Model, $Call);
-        }
         else
             F::Log('Model for '.$Call['Entity'].' not found', LOG_CRIT);
 
