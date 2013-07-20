@@ -16,8 +16,11 @@
             trigger_error('Codeine '.self::$_Options['Project']['Version']['Codeine'].'+ needed. Installed: '
                 .self::$_Options['Version']['Codeine']['Major']);
 
-        self::Log('Codeine: '.self::$_Options['Version']['Codeine']['Major'], LOG_INFO);
-        self::Log('Build: '.self::$_Options['Version']['Codeine']['Minor'], LOG_INFO);
+        if (isset(self::$_Options['Version']['Codeine']))
+        {
+            self::Log('Codeine: '.self::$_Options['Version']['Codeine']['Major'], LOG_INFO);
+            self::Log('Build: '.self::$_Options['Version']['Codeine']['Minor'], LOG_INFO);
+        }
 
         if (isset(self::$_Options['Version']['Project']))
         {
