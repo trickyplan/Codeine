@@ -1,3 +1,18 @@
 {
-    "Benchmarks": ["Time", "For","Foreach","Concat"]
+    "Benchmark":
+    {
+        "Version": 1,
+        "Modules": ["Time", "For","Foreach","Concat"]
+    },
+    "Hooks":
+    {
+        "afterBenchmark":
+        {
+            "Send":
+            {
+                "Service": "Server.Benchmark",
+                "Method": "Send"
+            }
+        }
+    }
 }

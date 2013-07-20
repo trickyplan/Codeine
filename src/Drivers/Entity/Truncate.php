@@ -9,6 +9,8 @@
 
     setFn('Do', function ($Call)
     {
+        $Call = F::Hook('beforeDeleteDo', $Call);
+
         F::Run('Entity', 'Delete', $Call, ['Where' => ['Expire' => ['<' => time()]]]);
 
         $Call = F::Hook('afterDeletePost', $Call);

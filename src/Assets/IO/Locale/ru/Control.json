@@ -2,6 +2,7 @@
     "Title": "IO",
     "Options":
     {
+        "Do": "Дашборд",
         "Storages": "Хранилища"
     }
 }

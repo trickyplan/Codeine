@@ -112,7 +112,7 @@
                     else
                     {
                         F::Log('db.'.$Call['Scope'].'.update('.json_encode($Call['Where']).','.json_encode(['$set' => $Element]).')',LOG_INFO);
-                        $Call['Link']->$Call['Scope']->update($Call['Where'], ['$set' => $Element], ['multiple' => true]);
+                        $Call['Link']->$Call['Scope']->update($Call['Where'], ['$set' => $Element], ['upsert' => true, 'multiple' => true]);
                     }
                 }
             }

@@ -9,26 +9,45 @@
 
     setFn('Do', function ($Call)
     {
-        $Overall = 0;
-        foreach($Call['Benchmarks'] as $Benchmark)
-        {
-            $Rate = F::Run('Server.Benchmark.'.$Benchmark, 'Test', $Call);
-            $Results[] = [$Benchmark, $Rate];
-            $Overall += $Rate;
-        }
+        $Call = F::Hook('beforeBenchmark', $Call);
 
-        $Call['Output']['Content'][] =
-        [
-            'Type' => 'Block',
-            'Class' => 'hero-unit',
-            'Value' => '<h2>'.$Overall.' баллов</h2>'
-        ];
+            $Call['Overall'] = 0;
 
-        $Call['Output']['Content'][] =
+            foreach($Call['Benchmark']['Modules'] as $Benchmark)
+            {
+                $Rate = F::Run('Server.Benchmark.'.$Benchmark, 'Test', $Call);
+                $Results[] = [$Benchmark, $Rate];
+                $Call['Overall'] += $Rate;
+            }
+
+            $Call['Output']['Overall'][] = $Call['Overall'];
+
+            $Call['Output']['Results'][] =
+                [
+                    'Type' => 'Table',
+                    'Value' => $Results
+                ];
+
+        $Call = F::Hook('afterBenchmark', $Call);
+
+        return $Call;
+    });
+
+    setFn('Send', function ($Call)
+    {
+        $Result = json_decode(F::Run('IO', 'Write',
             [
-                'Type' => 'Table',
-                'Value' => $Results
-            ];
+                'Storage' => 'Web',
+                'Where' => 'http://codeine-framework.ru/benchmarks',
+                'Data' =>
+                [
+                    'Host' => $Call['Host'],
+                    'Score' => $Call['Overall'],
+                    'Version' => $Call['Benchmark']['Version']
+                ]
+            ]), true);
+
+        $Call['Output']['Top'][] = $Result['Your'];
 
         return $Call;
     });

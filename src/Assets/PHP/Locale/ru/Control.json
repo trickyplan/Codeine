@@ -3,7 +3,8 @@
     "Options":
     {
         "Extensions": "Расширения",
-        "Settings": "Настройки"
+        "Settings": "Настройки",
+        "Do": "Дашборд"
     },
     "Extension": {
         "Core": "Ядро"

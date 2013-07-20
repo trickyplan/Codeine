@@ -12,3 +12,9 @@
         $Call['Value'] = strtr($Call['Value'], $Call['Map']);
         return $Call['Value'];
     });
+
+    setFn('2Russian', function ($Call)
+    {
+        $Call['Value'] = strtr($Call['Value'], $Call['Reverse Map']);
+        return $Call['Value'];
+    });
