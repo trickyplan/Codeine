@@ -1,8 +1,3 @@
-.alert-warning
-{
-    color: #7e602f;
-}
-
 .bordered
 {
     border: 1px solid #cccccc;
@@ -27,4 +22,15 @@
 .navbar .breadcrumb
 {
     margin: 0;
+}
+
+.alert
+{
+    margin-bottom: 4px;
+}
+
+.caps
+{
+    font-variant: small-caps;
+    text-transform: lowercase;
 }
