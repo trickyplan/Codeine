@@ -20,6 +20,8 @@
 
     setFn('afterList', function ($Call)
     {
-        $Call['Where'] = [];
+        if (isset($Call['Request']['Filter']) && is_array($Call['Request']['Filter']))
+            $Call['Where'] = [];
+
         return $Call;
     });
