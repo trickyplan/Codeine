@@ -43,6 +43,7 @@
                 [
                     'Host' => $Call['Host'],
                     'Score' => $Call['Overall'],
+                    'Environment' => F::Environment(),
                     'Version' => $Call['Benchmark']['Version']
                 ]
             ]), true);
