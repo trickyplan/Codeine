@@ -49,6 +49,7 @@
             ]), true);
 
         $Call['Output']['Top'][] = $Result['Your'];
+        $Call['Output']['Total'][] = $Result['Total'];
 
         return $Call;
     });

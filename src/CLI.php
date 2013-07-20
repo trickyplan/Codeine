@@ -14,6 +14,8 @@
     if (!isset($Opts['Method']))
         $Opts['Method'] = 'Do';
 
+    !defined('Root')? define('Root', Codeine): false;
+
     F::Bootstrap ([
                        'Path' => [Root],
                        'Environment' => isset($Opts['Environment'])? $Opts['Environment']: 'Production'
