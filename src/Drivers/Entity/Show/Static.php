@@ -43,6 +43,5 @@
             }
         }
 
-        unset($Call['Where']);
         return $Call;
     });

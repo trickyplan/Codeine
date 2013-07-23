@@ -27,7 +27,7 @@
 
         $Call['Scope'] = strtr($Call['Scope'], '.', '/');
 
-        $Data =  F::Run('IO', 'Read', $Call,
+        $Data =  F::Run('IO', 'Read', $Call, ['Where' => null],
             [
                   'Storage' => 'Layout',
                   'Where'   =>
