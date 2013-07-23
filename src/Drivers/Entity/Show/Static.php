@@ -42,5 +42,7 @@
                 $Call = F::Hook('afterShow', $Call);
             }
         }
+
+        unset($Call['Where']);
         return $Call;
     });
