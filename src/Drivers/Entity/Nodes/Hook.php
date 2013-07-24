@@ -20,18 +20,18 @@
                                 F::Log('Node '.$Name.' overriden by user.', LOG_INFO);
                             else
                             {
-                                $Element[$Name] = F::Live($Node['Hooks'][$Call['On']],
+                                $Element = F::Dot($Element, $Name, F::Live($Node['Hooks'][$Call['On']],
                                                    [
                                                        'Entity' => $Call['Entity'],
                                                        'Name' => $Name,
                                                        'Nodes' => $Call['Nodes'],
                                                        'Data' => $Element
-                                                   ]);
+                                                   ]));
 
-                                if (is_array($Element[$Name]))
-                                    F::Log('Node '.$Name.' executed as '.json_encode($Element[$Name]) , LOG_INFO);
-                                else
-                                    F::Log('Node '.$Name.' executed as '.$Element[$Name], LOG_INFO);
+                            if (is_array(F::Dot($Element, $Name)))
+                                F::Log('Node '.$Name.' executed as '.json_encode(F::Dot($Element, $Name)) , LOG_INFO);
+                            else
+                                F::Log('Node '.$Name.' executed as '.F::Dot($Element, $Name), LOG_INFO);
                             }
                         }
                 }

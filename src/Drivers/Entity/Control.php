@@ -9,6 +9,12 @@
 
     setFn('Do', function ($Call)
     {
+        $Call['Layouts'][] = [
+            'Scope' => 'Entity',
+            'ID' => 'List',
+            'Context' => ''
+        ];
+
         return F::Run('Entity.List', 'Do',['Sort' => ['ID' => false]], $Call, ['Entity' => $Call['Bundle'], 'Scope' => 'Control', 'Show Redirects' => true]);
     });
 

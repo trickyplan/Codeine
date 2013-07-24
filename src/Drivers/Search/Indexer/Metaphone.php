@@ -16,8 +16,10 @@
         {
             if (isset($Node['Index']) && $Node['Index'])
             {
-                $Call['Data'][$Name] = preg_replace('/<[\/\!]*?[^<>]*?>/Ssi', '.', $Call['Data'][$Name]);
-                if (preg_match_all('/([^\W]+)/Ssu', $Call['Data'][$Name], $Pockets))
+                $Data[$Name]
+                    = preg_replace('/<[\/\!]*?[^<>]*?>/Ssi', '.', F::Dot($Call['Data'], $Name));
+
+                if (is_string($Data[$Name]) && preg_match_all('/([^\W]+)/Ssu', $Data[$Name], $Pockets))
                 {
                     foreach($Pockets[1] as $Pocket)
                     {

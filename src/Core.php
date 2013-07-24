@@ -489,10 +489,15 @@
          * 0 - Apocalypse
          */
 
-        private static function Log ($Message, $Verbose = 7)
+        public static function Log ($Message, $Verbose = 7)
         {
             if ($Verbose <= self::$_Verbose)
-                return self::$_Log[] = [$Verbose, round(microtime(true) - self::$_Ticks['T']['Codeine.Do'], 4), $Message, self::$_Service];
+            {
+                if (PHP_SAPI == 'cli')
+                    echo $Message.PHP_EOL;
+                else
+                    return self::$_Log[] = [$Verbose, round(microtime(true) - self::$_Ticks['T']['Codeine.Do'], 4), $Message, self::$_Service];
+            }
         }
 
         private static function Logs()

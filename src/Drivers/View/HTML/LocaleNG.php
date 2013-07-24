@@ -9,7 +9,8 @@
 
     setFn('Process', function ($Call)
     {
-        $Call['Language'] = F::Live($Call['Language']);
+        if (isset($Call['Language']))
+            $Call['Language'] = F::Live($Call['Language']);
 
         if (preg_match_all('@<l>(.*)<\/l>@SsUu', $Call['Output'], $Pockets))
         {

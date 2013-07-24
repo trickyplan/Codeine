@@ -17,12 +17,12 @@
             {
                 foreach ($Call['Key'] as $cKey)
                 {
-                    if (isset($Call['Data'][$cKey]))
+                    if (F::Dot($Call['Data'], $cKey) != null)
                     {
-                        $Call['Data'][$cKey] = trim($Call['Data'][$cKey]);
+                        $Call['Data'][$cKey] = trim(F::Dot($Call['Data'], $cKey));
 
                         if (!empty($Call['Data'][$cKey]))
-                            $Call['Value'][]= $Call['Data'][$cKey];
+                            $Call['Value'][]= F::Dot($Call['Data'], $cKey);
                     }
                 }
 
