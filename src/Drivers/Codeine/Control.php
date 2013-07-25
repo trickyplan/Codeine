@@ -9,11 +9,11 @@
 
     setFn('Do', function ($Call)
     {
-        $LastNews = simplexml_load_string(file_get_contents('http://one2team.ru/blog/category/Codeine.rss'));
+        $LastNews = simplexml_load_string(file_get_contents('http://codeine-framework.ru/blog.rss'));
 
         foreach ($LastNews->channel->item as $item)
         {
-            $Table[] = ['<a href="'.$item->link.'">'.$item->title.'</a>'];
+            $Table[] = ['<a href="'.$item->link.'">'.$item->title.'</a>', $item->pubDate];
         }
 
         $Call['Output']['Content'][] =
