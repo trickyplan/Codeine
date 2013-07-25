@@ -21,6 +21,9 @@
 	{
 	    include fastcgi_params;
 
+        access_log /var/log/nginx/codeine_access.log codeine;
+        error_log /var/log/nginx/codeine_error.log warn;
+
         fastcgi_keep_conn on;
 
         fastcgi_param  Environment $Environment;
