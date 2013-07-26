@@ -23,7 +23,7 @@
 
             echo $Output;
         }
-        else
+        elseif ($Call['Renderer'] == 'View.Plaintext')
         {
             $Output = '';
 

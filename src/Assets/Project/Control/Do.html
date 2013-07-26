@@ -1,8 +1,8 @@
-<h2><call>Project.Title</call></h2>
+<h1 class="page-header"><call>Project.Title</call></h1>
 
 <table class="table table-striped">
     <tr>
-        <td>Доступность</td>
+        <th class="span4">Доступность</th>
         <td>
             <if value="<fn><Service>Condition.Lock</Service><Method>Check</Method><Call><ID>down</ID></Call></fn>" neq="1">
                 <l>Project.Entity:Open.1</l>
@@ -14,17 +14,27 @@
         </td>
     </tr>
     <tr>
-        <td>Версия проекта</td>
+        <th>Версия проекта</th>
         <td><call>Version.Project.Major</call>.<call>Version.Project.Minor</call></td>
     </tr>
     <tr>
-        <td>Последнее обновление</td>
+        <th>Последнее обновление</th>
         <td>
-            <datetime format="d.m.Y H:i"><call>Project.MTime</call></datetime>
+            <datetime format="d.m.Y H:i"><fn>
+                <Service>IO</Service>
+                <Method>Version</Method>
+                <Call>
+                    <Scope>Options</Scope>
+                    <Where>Version</Where>
+                </Call>
+            </fn></datetime>
         </td>
     </tr>
     <tr>
-        <td>Версия ядра</td>
-        <td><call>Version.Codeine.Major</call>.<call>Version.Codeine.Minor</call></td>
+        <th>Версия ядра</th>
+        <td>
+            Codeine <call>Version.Codeine.Major</call>.<call>Version.Codeine.Minor</call>
+        </td>
     </tr>
 </table>
+<layout>Project:Status</layout>

@@ -489,7 +489,7 @@
          * 0 - Apocalypse
          */
 
-        public static function Log ($Message, $Verbose = 7)
+        public static function Log ($Message, $Verbose = LOG_INFO)
         {
             if ($Verbose <= self::$_Verbose or $Verbose == LOG_USER)
             {
@@ -731,8 +731,6 @@
             //    echo implode ("\t", $Line).PHP_EOL;
 
             self::Stop(self::$_Service . '.' . self::$_Method);
-
-            ob_flush();
 
             $E = error_get_last();
 

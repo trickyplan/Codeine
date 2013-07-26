@@ -44,3 +44,8 @@
 {
     margin-bottom: 0;
 }
+
+acronym
+{
+    border-bottom: 1px gray dotted !important;
+}

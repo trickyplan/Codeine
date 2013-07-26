@@ -40,7 +40,8 @@
             $Call['Value'] = strtr($Call['Value'], ' ', $Call['Delimiter']);
 
             if (isset($Call['Transliteration']))
-                $Call['Value'] = F::Run($Call['Transliteration']['Service'], $Call['Transliteration']['Method'], array ('Value' => $Call['Value']));
+                $Call['Value'] =
+                    F::Live($Call['Transliteration'],['Value' => $Call['Value']]);
 
             $Call['Value'] = preg_replace('/([^a-z0-9\-])/', '', $Call['Value']); // FIXME
         }
