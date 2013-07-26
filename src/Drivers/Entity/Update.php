@@ -66,7 +66,18 @@
                             $Widget['Entity'] = $Call['Entity'];
                             $Widget['Node']   = $Name;
                             $Widget['Label']  = $Call['Entity'].'.Entity:'.$Name;
-                            $Widget['Name']   = 'Data'.'['.$IX.']['.strtr($Name, '.','_').']';
+                            $Widget['Name']   = 'Data'.'['.$IX.']';
+
+                            if (strpos($Name, '.') !== false)
+                            {
+                                $Slices = explode('.', $Name);
+
+                                foreach ($Slices as $Slice)
+                                    $Widget['Name'].= '['.$Slice.']';
+                            }
+                            else
+                                $Widget['Name'] .= '['.$Name.']';
+
                             $Widget['ID']     = strtr($Name, '.','_').$IX;
 
                             $Widget['Key'] = $Name;

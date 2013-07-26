@@ -16,7 +16,10 @@
                     if (isset($Call['Data']) && is_array($Call['Data']))
                         foreach ($Call['Data'] as &$Element)
                         {
-                            if (isset($Node['User Override']) and $Node['User Override'] and !empty($Element[$Name]))
+                            if (isset($Node['User Override'])
+                                and $Node['User Override']
+                                and null !== (F::Dot($Element, $Name))
+                               )
                                 F::Log('Node '.$Name.' overriden by user.', LOG_INFO);
                             else
                             {
@@ -35,6 +38,5 @@
                             }
                         }
                 }
-
         return $Call;
     });
