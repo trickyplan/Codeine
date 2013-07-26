@@ -491,10 +491,35 @@
 
         public static function Log ($Message, $Verbose = 7)
         {
-            if ($Verbose <= self::$_Verbose)
+            if ($Verbose <= self::$_Verbose or $Verbose == LOG_USER)
             {
                 if (PHP_SAPI == 'cli')
-                    echo $Message.PHP_EOL;
+                {
+                    switch ($Verbose)
+                    {
+                        case LOG_ERR:
+                            echo "\033[31 ".$Message.PHP_EOL." \033[31m";
+                        break;
+
+                        case LOG_WARNING:
+                            echo "\033[33 ".$Message.PHP_EOL." \033[33m";
+                        break;
+
+                        case LOG_DEBUG:
+                        {
+                            echo "\033[30 ".$Message.PHP_EOL." \033[30m";
+                        }
+
+                        case LOG_USER:
+                        {
+                            echo "\033[37 ".$Message.PHP_EOL." \033[37m";
+                        }
+
+                        default:
+                            echo $Message.PHP_EOL;
+                        break;
+                    }
+                }
                 else
                     return self::$_Log[] = [$Verbose, round(microtime(true) - self::$_Ticks['T']['Codeine.Do'], 4), $Message, self::$_Service];
             }
@@ -700,7 +725,7 @@
             return true;
         }
 
-        private static function Shutdown()
+        public static function Shutdown()
         {
             // foreach (self::$_Log as $Line)
             //    echo implode ("\t", $Line).PHP_EOL;

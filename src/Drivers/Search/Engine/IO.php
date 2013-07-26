@@ -18,9 +18,11 @@
                     [
                         'Keywords' =>
                             F::Run(
-                                'Text.Transform.Transliterate.Passport',
-                                '2English',
+                                'Text.Transform.Transliterate.Simple',
+                                'Do',
                                 [
+                                    'From' => 'Russian',
+                                    'To' => 'English',
                                     'Value' => F::Run('Text.Index.Metaphone.Russian', 'Get', ['Value' => mb_strtolower($Call['Query'])])]) // FIXME SOON
                     ]
             ]);

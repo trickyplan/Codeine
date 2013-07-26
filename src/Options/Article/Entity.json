@@ -57,8 +57,13 @@
                         "Delimiter": "-",
                         "Transliteration":
                         {
-                            "Service":"Text.Transform.Transliterate.Passport",
-                            "Method": "2English"
+                            "Service":"Text.Transform.Transliterate.Simple",
+                            "Method": "Do",
+                            "Call":
+                            {
+                                "From":"Russian",
+                                "To": "English"
+                            }
                         }
                     }
                 }

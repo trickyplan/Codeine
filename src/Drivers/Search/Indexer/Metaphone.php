@@ -23,8 +23,13 @@
                 {
                     foreach($Pockets[1] as $Pocket)
                     {
-                        $IDX = F::Run('Text.Transform.Transliterate.Passport', '2English',
-                                      ['Value' => F::Run('Text.Index.Metaphone.Russian', 'Get', ['Value' => mb_strtolower($Pocket)])]);
+                        $IDX = F::Run('Text.Transform.Transliterate.Simple', 'Do',
+                                      [
+                                          'From' => 'Russian',
+                                          'To' => 'English',
+                                          'Value' =>
+                                          F::Run('Text.Index.Metaphone.Russian', 'Get',
+                                              ['Value' => mb_strtolower($Pocket)])]);
 
                         $Index[] = $IDX;
                     }
