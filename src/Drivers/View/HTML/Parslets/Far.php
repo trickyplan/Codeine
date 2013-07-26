@@ -16,14 +16,18 @@
                 list(,$Entity, $ID, $Key) = $Slices;
 
                     $Element = F::Run('Entity', 'Read',
-                        array (
-                              'Entity' => $Entity,
-                              'Where'  => $ID));
+                        [
+                          'Entity' => $Entity,
+                          'Where'  => $ID,
+                          'One' => true
+                        ]);
 
                     if (!empty($Element))
-                        $Call['Output'] = str_replace($Call['Parsed'][0][$Ix], F::Dot($Element[0], $Key),$Call['Output']);
+                        $Call['Output'] =
+                            str_replace($Call['Parsed'][0][$Ix], F::Dot($Element, $Key),$Call['Output']);
                     else
-                        $Call['Output'] = str_replace($Call['Parsed'][0][$Ix], '' . $ID, $Call['Output']);
+                        $Call['Output'] =
+                            str_replace($Call['Parsed'][0][$Ix], '' . $ID, $Call['Output']);
             }
             else
                 $Call['Output'] = str_replace($Call['Parsed'][0][$Ix], '' . $Match, $Call['Output']);
