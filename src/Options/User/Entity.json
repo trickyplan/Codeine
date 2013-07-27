@@ -33,6 +33,10 @@
                 }
             }
         },
+        "External":
+        {
+            "Type": "Literal.String"
+        },
         "Status":
         {
             "Default": 1

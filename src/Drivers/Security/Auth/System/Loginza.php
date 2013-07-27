@@ -32,6 +32,7 @@
         {
             // Проверить, есть ли такой пользователь
             $UserData = [
+                        'External' => str_replace('http://', '', $Response['provider']),
                         'EMail' => $Response['identity'],
                         'Status' => 1,
                         'Password' => sha1(rand()),
