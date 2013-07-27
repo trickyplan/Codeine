@@ -18,5 +18,6 @@
         $Call['Output']['Content'][] = 'User-agent: *';
         $Call['Output']['Content'][] = 'Disallow: ';
 
+        $Call['Output']['Content'] = [implode(PHP_EOL, $Call['Output']['Content'])];
         return $Call;
     });
