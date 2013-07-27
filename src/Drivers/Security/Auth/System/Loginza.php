@@ -30,9 +30,8 @@
 
         if (isset($Response['identity']))
         {
-            // Проверить, есть ли такой пользователь
             $UserData = [
-                        'External' => str_replace('http://', '', $Response['provider']),
+                        'External' => parse_url($Response['provider'], PHP_URL_HOST),
                         'EMail' => $Response['identity'],
                         'Status' => 1,
                         'Password' => sha1(rand()),
@@ -43,6 +42,8 @@
 
             foreach ($Call['Loginza']['Map'] as $Own => $Provider)
                 $UserData[$Own] = F::Dot($Response, $Provider);
+
+            // Проверить, есть ли такой пользователь
 
             $Call['User'] = F::Run('Entity','Read',
                 [
