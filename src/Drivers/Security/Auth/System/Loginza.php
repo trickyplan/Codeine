@@ -75,7 +75,7 @@
                              'EMail' => $Response['identity']
                          ],
                          'Data'  => $UserData
-                    ])['Data'];
+                    ])['Data'][0];
 
                 F::Log('User authorized '.$Call['User']['ID'], LOG_INFO);
             }
@@ -87,7 +87,6 @@
                         'Scope' => 'User',
                         'ID' => 'Failed'
                    ];
-
 
         return $Call;
     });
