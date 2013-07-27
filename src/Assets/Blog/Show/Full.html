@@ -5,18 +5,25 @@
 
 <div class="row-fluid">
     <div class="span8">
-        <em><datetime><k>Created</k></datetime></em>
+        <div class="block">
+            <k>Description</k>
+        </div>
+        <div class="block">
+            <k>Body</k>
+        </div>
+        <div class="pull-left">
+            <entity>User:<k>User</k></entity>
+        </div>
 
-        <block><div class="pull-right">
-            <strong>Категория:</strong> <a href="/blog/category/<k>Category</k>"><k>Category</k></a><br/>
-        </div></block>
+        <div class="pull-right">
+            <datetime><k>Created</k></datetime>
+        </div>
 
-        <div class="clearfix"></div>
-        <k>Description</k>
-        <k>Body</k>
     </div>
     <div class="span4">
+
         <ul class="nav nav-stacked">
+            <li><a class="nav-header" href="/blog/category/<k>Category</k>">Рубрика: <k>Category</k></a></li>
             <exec>
                 <Service>Entity.List</Service>
                 <Method>Do</Method>
