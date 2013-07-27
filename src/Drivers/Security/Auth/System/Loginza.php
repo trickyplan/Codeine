@@ -66,7 +66,7 @@
             }
             else
             {
-                F::Run('Entity','Update',
+                $Call['User'] = F::Run('Entity','Update',
                     [
                          'Entity' => 'User',
                          'One' => true,
@@ -75,7 +75,7 @@
                              'EMail' => $Response['identity']
                          ],
                          'Data'  => $UserData
-                    ]);
+                    ])['Data'];
 
                 F::Log('User authorized '.$Call['User']['ID'], LOG_INFO);
             }
