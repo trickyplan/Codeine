@@ -24,6 +24,7 @@
              'Where' => 'http://loginza.ru/api/authinfo?token='.$Call['Request']['token'].'&id='.$Call['Loginza']['ID'].'&sig='.md5($Call['Request']['token'].$Call['Loginza']['Key'])
          ))[0], true);
 
+        d(__FILE__, __LINE__, $Response);
         if (isset($Response['identity']))
         {
             // Проверить, есть ли такой пользователь
@@ -40,22 +41,23 @@
                 $UserData[$Own] = F::Dot($Response, $Provider);
 
             $Call['User'] = F::Run('Entity','Read',
-                array(
+                [
                     'Entity' => 'User',
+                    'One'    => true,
                     'Where'  => [
                         'EMail' => $Response['identity']
                     ]
-                ))[0];
+                ]);
 
             // Если нет, зарегистрировать
             if (empty($Call['User']))
             {
                 $Call['User'] = F::Run('Entity','Create',
                     [
-                    'Entity' => 'User',
-                    'One' => true,
-                    'Data'  => $UserData
-                    ])['Data'];
+                        'Entity' => 'User',
+                        'One' => true,
+                        'Data'  => $UserData
+                    ])['Data'][0];
 
                 F::Log('User registered '.$Call['User']['ID'], LOG_INFO);
             }
@@ -64,6 +66,7 @@
                 F::Run('Entity','Update',
                     [
                          'Entity' => 'User',
+                         'One' => true,
                          'Where' =>
                          [
                              'EMail' => $Response['identity']
@@ -71,16 +74,16 @@
                          'Data'  => $UserData
                     ]);
 
-                F::Log('User authorized'.$Call['User']['ID'], LOG_INFO);
+                F::Log('User authorized '.$Call['User']['ID'], LOG_INFO);
             }
         }
         else
-               $Call['Output']['Content'][]
-                        = array(
+               $Call['Output']['Content'][] =
+                   [
                         'Type' => 'Template',
                         'Scope' => 'User',
                         'ID' => 'Failed'
-                    );
+                   ];
 
 
         return $Call;
