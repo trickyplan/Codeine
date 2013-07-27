@@ -82,15 +82,10 @@
         "Web":
         {
             "Driver": "IO.Network.HTTP.Curl",
+            "Scope": "",
             "Timeout": 15,
             "CookieFile": "cookie.txt",
-            "Follow": true,
-            "Cache":
-            {
-                "Driver":"IO.Storage.Directory",
-                "Directory":"Data",
-                "Scope":"Cache"
-            }
+            "Follow": true
         }
     },
     "Hooks":
