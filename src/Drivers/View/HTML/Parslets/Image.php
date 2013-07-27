@@ -15,7 +15,7 @@
 
               list($Asset, $ID) = F::Run('View', 'Asset.Route', array('Value' => $Match['Source']));
 
-              $Image = strtr($Asset.'.', '/', '.').$ID;
+              $Image = strtr($Asset.'.'.$ID, '/', '.');
 
               $Path = $Call['Image Cache'].$Image;
 
@@ -51,19 +51,28 @@
                               ]
                       );
 
-                      $HTML = '<img src="'.$Path.'" '
-                        .(isset($Match['Class']) ? ' class="'.$Match['Class'].'"': '')
-                        .(isset($Match['Width']) ? ' width="'.$Match['Width'].'"': '')
-                        .(isset($Match['Height']) ? ' height="'.$Match['Height'].'"': '')
-                        .(isset($Match['Alt']) ? ' alt="'.$Match['Alt'].'"': '')
-                      .' />';
+
                   }
                   else
-                      $HTML = '<img src="/default.gif" '
-                        .(isset($Match['Class']) ? ' class="'.$Match['Class'].'"': '')
-                        .(isset($Match['Width']) ? ' width="'.$Match['Width'].'"': '')
-                        .(isset($Match['Height']) ? ' height="'.$Match['Height'].'"': '')
-                        .(isset($Match['Alt']) ? ' alt="'.$Match['Alt'].'"': '')
+                      F::Run ('IO', 'Write',
+                          [
+                              'Storage' => 'Image Cache',
+                              'Where'   => $Image,
+                              'Data' => F::Run('IO', 'Read',
+                                  [
+                                      'Storage' => 'Image',
+                                      'One' => true,
+                                      'Scope'   => 'Default/img',
+                                      'Where'   => 'default.gif'
+                                  ])
+                          ]
+                      );
+
+                  $HTML = '<img src="'.$Path.'" '
+                      .(isset($Match['Class']) ? ' class="'.$Match['Class'].'"': '')
+                      .(isset($Match['Width']) ? ' width="'.$Match['Width'].'"': '')
+                      .(isset($Match['Height']) ? ' height="'.$Match['Height'].'"': '')
+                      .(isset($Match['Alt']) ? ' alt="'.$Match['Alt'].'"': '')
                       .' />';
               }
 
