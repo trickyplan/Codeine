@@ -1,6 +1,6 @@
 $(document).ready(function ()
     {
-        $('a.ajax').live('click',
+        $('a.ajax').bind('click',
             function ()
             {
                 var el = $(this);
