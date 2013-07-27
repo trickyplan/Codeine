@@ -21,13 +21,12 @@
         $Response = json_decode(F::Run('IO', 'Read',
          [
              'Storage' => 'Web',
-             'One'     => true,
              'Where'   =>
                  'http://loginza.ru/api/authinfo?token='
                  .$Call['Request']['token']
                  .'&id='.$Call['Loginza']['ID']
                  .'&sig='.md5($Call['Request']['token'].$Call['Loginza']['Key'])
-         ]), true);
+         ])[0], true);
 
         if (isset($Response['identity']))
         {
