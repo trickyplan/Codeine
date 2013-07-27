@@ -9,10 +9,15 @@
 
     setFn('Words', function ($Call)
     {
-        $Text= strip_tags($Call['Data'][$Call['Key']]);
-        $Words = preg_split('~[\s0-9_]|[^\w]~u', $Text, -1, PREG_SPLIT_NO_EMPTY);
+        if (isset($Call['Data'][$Call['Key']]))
+        {
+            $Text= strip_tags($Call['Data'][$Call['Key']]);
+            $Words = preg_split('~[\s0-9_]|[^\w]~u', $Text, -1, PREG_SPLIT_NO_EMPTY);
 
-        return array_count_values($Words);
+            return array_count_values($Words);
+        }
+        else
+            return [];
     });
 
     setFn('Calculate', function ($Call)
