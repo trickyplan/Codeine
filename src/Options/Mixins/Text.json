@@ -16,7 +16,7 @@
         {
             "Hooks":
             {
-                "afterEntityRead":
+                "beforeEntityWrite":
                 {
                     "Service": "Text.Stats.Words",
                     "Method": "Count",
@@ -31,7 +31,7 @@
         {
             "Hooks":
             {
-                "afterEntityRead":
+                "beforeEntityWrite":
                 {
                     "Service": "Text.Stats.Chars",
                     "Method": "CountWithOutSpaces",
@@ -46,7 +46,7 @@
         {
             "Hooks":
             {
-                "afterEntityRead":
+                "beforeEntityWrite":
                 {
                     "Service": "Text.Stats.Sickness",
                     "Method": "Calculate",
