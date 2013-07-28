@@ -1,7 +1,8 @@
     charset utf-8;
 	index  index.php;
 
-	location / {
+	location /
+	{
 		try_files $uri $uri/ /index.php?$uri&$args;
 	}
 
@@ -21,8 +22,13 @@
 	{
 	    include fastcgi_params;
 
-        access_log /var/log/nginx/codeine_access.log codeine;
-        error_log /var/log/nginx/codeine_error.log warn;
+        if ($http_user_agent ~* (bot|crawl|\+http:)) {
+            access_log /var/log/nginx/$host.bots.log;
+        }
+
+        access_log /var/log/nginx/$host.access.log codeine;
+
+        error_log /var/log/nginx/$host.error.log warn;
 
         fastcgi_keep_conn on;
 
