@@ -1,0 +1,26 @@
+{
+    "Nodes":
+    {
+        "Age":
+        {
+            "Type": "List.Enum",
+            "Options":
+            {
+                "0": "Everyone",
+                "3": "Early chldhood",
+                "10": "Everyone 10 and older",
+                "13": "Teen",
+                "17": "Mature",
+                "18": "Adults Only 18+"
+            },
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Select"
+                }
+            }
+        }
+
+    }
+}

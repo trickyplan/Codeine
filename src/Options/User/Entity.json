@@ -78,6 +78,37 @@
                 }
             }
         },
+        "DOB":
+        {
+            "Default":
+            {
+                "Service": "System.Time",
+                "Method": "Get",
+                "Call":
+                {
+                    "Increment": "-756864000"
+                }
+            },
+            "Type": "Date.Short",
+            "Widgets":
+            {
+                "Update":
+                {
+                    "Type": "Form.Datepicker"
+                }
+            }
+        },
+        "Age":
+        {
+            "Hooks":
+            {
+                "afterEntityRead":
+                {
+                    "Service": "User.Entity",
+                    "Method": "Age"
+                }
+            }
+        },
         "Photo":
         {
             "Type": "File.Upload",
