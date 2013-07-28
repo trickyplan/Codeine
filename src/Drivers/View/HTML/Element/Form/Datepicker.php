@@ -14,5 +14,5 @@
 
         $Call['Value'] = date($Call['Format'], F::Live($Call['Value']));
 
-        return F::Run('View', 'LoadParsed', array('Scope' => 'Default', 'ID' => 'UI/Form/Datepicker', 'Data' => $Call));
+        return F::Run('View', 'Load', array('Scope' => 'Default', 'ID' => 'UI/Form/Datepicker', 'Data' => $Call));
      });

@@ -11,7 +11,7 @@
      {
          $Call['HTML'] = F::Run('View.HTML.Element.Base', 'Make', $Call, ['Tag' => 'input', 'Type' => 'password']);
 
-         return F::Run ('View', 'LoadParsed', $Call,
+         return F::Run ('View', 'Load', $Call,
                            array(
                                 'Scope' => 'Default',
                                 'ID'    => 'UI/Form/Password/'.$Call['Mode'],

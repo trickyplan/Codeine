@@ -14,7 +14,7 @@
 
          $Call['HTML'] = F::Run('View.HTML.Element.Base', 'Make', $Call, ['Tag' => 'textarea']);
 
-         return F::Run ('View', 'LoadParsed',
+         return F::Run ('View', 'Load',
                            array(
                                 'Scope' => 'Default',
                                 'ID'    => 'UI/Form/Textarea',

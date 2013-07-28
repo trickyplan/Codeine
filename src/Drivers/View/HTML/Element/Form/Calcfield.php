@@ -9,7 +9,7 @@
 
      setFn('Make', function ($Call)
      {
-         return F::Run ('View', 'LoadParsed',
+         return F::Run ('View', 'Load',
                            array(
                                 'Scope' => 'Default',
                                 'ID'    => 'UI/Form/Calcfield',

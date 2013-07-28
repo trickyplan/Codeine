@@ -17,8 +17,8 @@
             if (isset($Call['Value']) && $Call['Value'] == $IC)
                 $StarData['Checked'] = true;
 
-            $Stars.=  F::Run('View', 'LoadParsed', array('Scope' => 'Default', 'ID' => 'UI/Form/Star', 'Data' => F::Merge($Call, $StarData)));
+            $Stars.=  F::Run('View', 'Load', array('Scope' => 'Default', 'ID' => 'UI/Form/Star', 'Data' => F::Merge($Call, $StarData)));
         }
 
-        return F::Run('View', 'LoadParsed', array('Scope' => 'Default', 'ID' => 'UI/Form/Stars', 'Data' => F::Merge($Call,array('Stars' => $Stars))));
+        return F::Run('View', 'Load', array('Scope' => 'Default', 'ID' => 'UI/Form/Stars', 'Data' => F::Merge($Call,array('Stars' => $Stars))));
      });

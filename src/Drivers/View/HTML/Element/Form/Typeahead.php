@@ -19,7 +19,7 @@
 
          $Call['Options'] = json_encode(array_map(function($Element){return $Element[1];}, $Call['Options']), JSON_UNESCAPED_UNICODE);
 
-         return F::Run ('View', 'LoadParsed',
+         return F::Run ('View', 'Load',
                         array(
                              'Scope' => 'Default',
                              'ID'    => 'UI/Form/'.(isset($Call['Template'])? $Call['Template'] : 'Typeahead'),

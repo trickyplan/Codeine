@@ -102,7 +102,7 @@
 
         if ($Elements !== null)
             foreach ($Elements as $Element)
-                $Output[] = [$Element[$Call['Primary']], $Element[$Call['Key']]];
+                $Output[] = [$Element[$Call['Primary']], F::Dot($Element, $Call['Key'])];
 
         return $Output;
     });
@@ -116,7 +116,7 @@
         $Elements = F::Run('Entity', 'Read', $Call);
 
         foreach ($Elements as $Element)
-            $Call['Output']['Content'][] = [$Element['ID'], $Element[$Call['Key']]];
+            $Call['Output']['Content'][] = [$Element['ID'], F::Dot($Element, $Call['Key'])];
 
         return $Call;
     });

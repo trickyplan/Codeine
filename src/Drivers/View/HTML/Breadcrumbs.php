@@ -25,13 +25,13 @@
             $Last = array_pop($Call['Breadcrumbs']);
 
             foreach ($Call['Breadcrumbs'] as $Breadcrumb)
-                $Breadcrumbs.= F::Run('View', 'LoadParsed', array(
+                $Breadcrumbs.= F::Run('View', 'Load', array(
                     'Scope' => 'Default',
                     'ID' => 'UI/Breadcrumb/Active',
                     'Data' => $Breadcrumb
                 ));
 
-            $Breadcrumbs.= F::Run('View', 'LoadParsed', array(
+            $Breadcrumbs.= F::Run('View', 'Load', array(
                     'Scope' => 'Default',
                     'ID' => 'UI/Breadcrumb/Passive',
                     'Data' => $Last
@@ -41,7 +41,7 @@
 
         if (isset($Call['Breadcrumbs']) && count($Call['Breadcrumbs']) > 0)
         {
-            $Breadcrumbs = F::Run('View', 'LoadParsed', array(
+            $Breadcrumbs = F::Run('View', 'Load', array(
                     'Scope' => 'Default',
                     'ID' => 'UI/Breadcrumb',
                     'Data' => ['Breadcrumbs' => $Breadcrumbs]

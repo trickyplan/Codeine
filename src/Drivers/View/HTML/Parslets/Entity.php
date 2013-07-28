@@ -35,7 +35,7 @@
 
                 if (!empty($Element))
                     $Call['Output'] = str_replace($Call['Parsed'][0][$Ix],
-                        F::Run('View', 'LoadParsed',
+                        F::Run('View', 'Load',
                             array (
                                   'Scope'  => $Entity,
                                   'ID'     => 'Show/'.$Template,

@@ -11,7 +11,6 @@
      {
          $Options = array();
 
-
          if (isset($Call['One']))
              $Call['Options'] = $Call['Options'][0];
 
@@ -22,8 +21,7 @@
                  $Call['Label'] = $Call['Entity'].'.Entity:'.$Call['Node'].'.Label';
 
          if (!isset($Call['Required']))
-            $Call['Options'][0] = '0';
-
+            $Call['Options'][0] = '';
 
          foreach ($Call['Options'] as $Key => $Option)
          {
@@ -45,7 +43,7 @@
 
          $Call['Options'] = implode('', $Options);
 
-         return F::Run ('View', 'LoadParsed',
+         return F::Run ('View', 'Load',
                         array(
                              'Scope' => 'Default',
                              'ID'    => 'UI/Form/'.(isset($Call['Template'])? $Call['Template'] : 'Select'),

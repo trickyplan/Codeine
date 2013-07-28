@@ -12,7 +12,7 @@
         $Message['Scope'] = $Call['To']; // FIXME
         $Message['ID']    = $Call['Subject'];
 
-        $Message['Data']  = F::Run('View', 'LoadParsed', $Call,
+        $Message['Data']  = F::Run('View', 'Load', $Call,
                                              [
                                                   'Scope' => $Call['Entity'],
                                                   'ID' => 'Show/EMail'

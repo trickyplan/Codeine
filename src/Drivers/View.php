@@ -39,16 +39,13 @@
         if ((null !== $Data) && isset($Call['View']['Layouts']['Debug']) && $Call['View']['Layouts']['Debug'])
             $Data = "\n".'<!-- '.$Call['Scope'].':'.$Call['ID'].' started -->'."\n".$Data."\n".'<!-- '.$Call['Scope'].':'.$Call['ID'].' ended -->';
 
-        return $Data;
-    });
+        if (isset($Call['Data']))
+            $Data = F::Run(null, 'Parse', $Call,
+                [
+                    'Value' => $Data
+                ]);
 
-    setFn('LoadParsed', function ($Call)
-    {
-        return F::Run('View', 'Parse', $Call,
-            [
-                  'Data'  => (isset($Call['Data'])? $Call['Data']: null),
-                  'Value' => F::Run('View', 'Load', $Call)
-            ]);
+        return $Data;
     });
 
     setFn('Render', function ($Call)

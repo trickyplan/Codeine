@@ -24,7 +24,7 @@
         if (isset($Call['Layouts']))
         {
             foreach ($Call['Layouts'] as $Layout) // FIXME I'm fat
-                if (($Sublayout =  F::Run('View', 'LoadParsed', $Layout)) !== null)
+                if (($Sublayout =  F::Run('View', 'Load', $Layout)) !== null)
                     $Call['Layout'] = str_replace('<place>Content</place>', $Sublayout, $Call['Layout']);
         }
 

@@ -36,7 +36,7 @@
 
             $Message['Scope'] = $Call['User']['EMail'];
             $Message['ID']    = 'Восстановление пароля';
-            $Message['Data']  = F::Run('View', 'LoadParsed',
+            $Message['Data']  = F::Run('View', 'Load',
                                                  array(
                                                       'Scope' => 'User',
                                                       'ID' => 'Reset/EMail',

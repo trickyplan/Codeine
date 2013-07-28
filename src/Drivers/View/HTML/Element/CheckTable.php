@@ -16,7 +16,7 @@
          array_unshift($Call['Columns'], 'Corner');
 
          foreach ($Call['Columns'] as $Value)
-             $Cells.= F::Run ('View', 'LoadParsed', $Call,
+             $Cells.= F::Run ('View', 'Load', $Call,
                      array(
                           'Scope' => 'Default',
                           'ID'    => $Call['Template'].'/HeadCell',
@@ -25,7 +25,7 @@
                           )
                      ));
 
-          $Rows = F::Run ('View', 'LoadParsed', $Call,
+          $Rows = F::Run ('View', 'Load', $Call,
                      array(
                           'Scope' => 'Default',
                           'ID'    => $Call['Template'].'/Row',
@@ -40,7 +40,7 @@
 
              foreach ($RowCells as $Key => $Value)
                  $Cells .=
-                     F::Run ('View', 'LoadParsed', $Call,
+                     F::Run ('View', 'Load', $Call,
                      array(
                           'Scope' => 'Default',
                           'ID'    => $Call['Template'].'/Cell',
@@ -56,7 +56,7 @@
                      ));
 
 
-             $Rows.= F::Run ('View', 'LoadParsed', $Call,
+             $Rows.= F::Run ('View', 'Load', $Call,
                      array(
                           'Scope' => 'Default',
                           'ID'    => $Call['Template'].'/Row',
@@ -67,7 +67,7 @@
          }
 
          if(!isset($Call['Headless']))
-            return F::Run ('View', 'LoadParsed', $Call,
+            return F::Run ('View', 'Load', $Call,
                            array(
                                 'Scope' => 'Default',
                                 'ID'    => $Call['Template'].'/Body',

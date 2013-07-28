@@ -30,7 +30,7 @@
                 $Message['Scope'] = '"'.F::Dot($User, $Call['Name Field']).'" <'.$User['EMail'].'>';
                 $Message['ID']    = $Call['Subject'];
 
-                $Message['Data']  = F::Run('View', 'LoadParsed', $Call,
+                $Message['Data']  = F::Run('View', 'Load', $Call,
                                                      [
                                                           'Scope' => 'User/Activation',
                                                           'ID' => 'EMail',

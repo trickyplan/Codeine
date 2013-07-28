@@ -18,5 +18,5 @@
 
         $Call['Data'] = json_encode($Data, JSON_UNESCAPED_UNICODE);
 
-        return F::Run('View', 'LoadParsed', array('Scope' => 'Default', 'ID' => 'UI/Form/Multifield', 'Data' => $Call));
+        return F::Run('View', 'Load', array('Scope' => 'Default', 'ID' => 'UI/Form/Multifield', 'Data' => $Call));
      });

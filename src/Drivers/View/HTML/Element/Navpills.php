@@ -18,7 +18,7 @@
 
          foreach ($Call['Options'] as $Key => $Value)
              if (is_array($Value))
-                 $Options[] = F::Run ('View', 'LoadParsed', $Call,
+                 $Options[] = F::Run ('View', 'Load', $Call,
                     array(
                          'Scope' => isset($Call['Scope'])? $Call['Scope']: 'Default',
                          'ID'    => 'UI/Navpills/'.($Value['ID'] == $Call['Value'] ? 'Active' : 'Passive'),
@@ -27,7 +27,7 @@
 
          $Call['Value'] = implode('', $Options);
 
-         return F::Run ('View', 'LoadParsed', $Call,
+         return F::Run ('View', 'Load', $Call,
                         array(
                              'Scope' => isset($Call['Scope'])? $Call['Scope']: 'Default',
                              'ID'    => 'UI/'.(isset($Call['Template'])? $Call['Template'] : 'Navpills'),

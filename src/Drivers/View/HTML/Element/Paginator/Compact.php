@@ -12,7 +12,7 @@
         $Output = '';
 
         if ($Call['Page']> 1)
-            $Output.= F::Run('View', 'LoadParsed',
+            $Output.= F::Run('View', 'Load',
                 array('Scope' => 'Default',
                       'ID' => 'UI/Paginator/Prev',
                       'Data' =>
@@ -25,7 +25,7 @@
             if ($ic>0 && $ic<=$Call['PageCount'])
             {
                 if ($ic == 1)
-                    $Output.= F::Run('View', 'LoadParsed',
+                    $Output.= F::Run('View', 'Load',
                         array(
                           'Scope' => 'Default',
                           'ID' => ($ic == $Call['Page']? 'UI/Paginator/Current': 'UI/Paginator/Page'),
@@ -34,7 +34,7 @@
                                 'Num' => $ic,
                                 'URL' => $Call['FirstURL'].$Call['PageURLPostfix'])));
                 else
-                    $Output.= F::Run('View', 'LoadParsed',
+                    $Output.= F::Run('View', 'Load',
                         array(
                              'Scope' => 'Default',
                               'ID' => ($ic == $Call['Page']? 'UI/Paginator/Current': 'UI/Paginator/Page'),
@@ -47,7 +47,7 @@
             }
 
         if ($Call['Page']< $Call['PageCount'])
-            $Output.= F::Run('View', 'LoadParsed',
+            $Output.= F::Run('View', 'Load',
                 array('Scope' => 'Default',
                       'ID' => 'UI/Paginator/Next',
                       'Data' =>
@@ -55,5 +55,5 @@
                             'Num' => $Call['Page']+1,
                             'URL' => $Call['PageURL'].($Call['Page']+1).$Call['PageURLPostfix'])));
 
-        return F::Run('View', 'LoadParsed', array('Scope' => 'Default', 'ID' => 'UI/Paginator', 'Data' => array($Call, 'Pages' => $Output)));
+        return F::Run('View', 'Load', array('Scope' => 'Default', 'ID' => 'UI/Paginator', 'Data' => array($Call, 'Pages' => $Output)));
      });
