@@ -63,6 +63,16 @@
             {
                 "Test": "$1"
             }
+        },
+        "One Sitemap":
+        {
+            "Match": "/sitemap/(.+).xml",
+            "Service": "SEO.Sitemap",
+            "Method": "Entity",
+            "Call":
+            {
+                "Entity": "$1"
+            }
         }
     }
 }

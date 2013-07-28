@@ -4,12 +4,12 @@
 <breadcrumb href="/control/<call>Bundle</call>"><l><call>Bundle</call>.Control:Title</l></breadcrumb>
 <subtitle><l><call>Bundle</call>.Control:Title</l></subtitle>
 
-
 <div class="navbar">
     <div class="navbar-inner">
-        <div class="pull-left">
-            <breadcrumbs/>
-        </div>
+        <a href="/" class="brand"><call>Project.Title</call></a>
+        <ul class="nav">
+            <li><a href="/control"><l>Control.Panel:Title</l></a></li>
+        </ul>
         <div class="pull-right">
             <exec>
                 <Service>User.Cabinet</Service>
@@ -18,7 +18,7 @@
         </div>
     </div>
 </div>
-
+<breadcrumbs/>
 <div class="row-fluid">
     <div class="span2">
         <div class="hidden-print"><place>Navigation</place></div>

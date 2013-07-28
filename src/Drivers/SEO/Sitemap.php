@@ -42,7 +42,7 @@
                 [
                     'sitemap' =>
                     [
-                        'loc' => $Call['Host'].'/cache/sitemap/'.$Handler.'.xml'
+                        'loc' => $Call['Host'].'/sitemap/'.$Handler.'.xml'
                         // TODO lastmod
                     ]
                 ];
