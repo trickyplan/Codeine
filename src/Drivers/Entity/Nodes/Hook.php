@@ -13,14 +13,14 @@
             foreach ($Call['Nodes'] as $Name => $Node)
                 if (isset($Node['Hooks']) && isset($Node['Hooks'][$Call['On']]))
                 {
-                    if (isset($Call['Data']) && is_array($Call['Data']))
+                    if (isset($Call['Data']) && ((array) $Call['Data'] === $Call['Data']))
                         foreach ($Call['Data'] as &$Element)
                         {
                             if (isset($Node['User Override'])
-                                and $Node['User Override']
-                                and null !== (F::Dot($Element, $Name))
+                                && $Node['User Override']
+                                && null != (F::Dot($Element, $Name))
                                )
-                                F::Log('Node '.$Name.' overriden by user.', LOG_INFO);
+                                F::Log('Node '.$Name.' overriden by user with '.F::Dot($Element, $Name), LOG_INFO);
                             else
                             {
                                 $Element = F::Dot($Element, $Name, F::Live($Node['Hooks'][$Call['On']],
@@ -31,10 +31,10 @@
                                                        'Data' => $Element
                                                    ]));
 
-                            if (is_array(F::Dot($Element, $Name)))
-                                F::Log('Node '.$Name.' executed as '.json_encode(F::Dot($Element, $Name)) , LOG_INFO);
-                            else
-                                F::Log('Node '.$Name.' executed as '.F::Dot($Element, $Name), LOG_INFO);
+                                if (is_array(F::Dot($Element, $Name)))
+                                    F::Log('Node '.$Name.' executed as '.json_encode(F::Dot($Element, $Name)) , LOG_INFO);
+                                else
+                                    F::Log('Node '.$Name.' executed as '.F::Dot($Element, $Name), LOG_INFO);
                             }
                         }
                 }
