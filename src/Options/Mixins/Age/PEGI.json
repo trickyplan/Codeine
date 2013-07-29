@@ -3,7 +3,7 @@
     {
         "Age":
         {
-            "Type": "List.Enum",
+            "Type": "Numeral.Integer",
             "Options":
             {
                 "3": "PEGI 3",

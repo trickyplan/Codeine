@@ -459,11 +459,15 @@
              {
                  foreach ($Hooks as $HookName => $Hook)
                  {
-                     F::Log($On.':'.$HookName, LOG_DEBUG);
-                     if (F::isCall($Hook))
-                         $Call = F::Run($Hook['Service'],$Hook['Method'], isset($Hook['Call'])? $Hook['Call']: [], $Call, ['On' => $On]);
-                     else
-                         $Call = F::Merge($Call, $Hook);
+                     if (substr($HookName,0,1) != '-')
+                     {
+                         F::Log($On.':'.$HookName, LOG_DEBUG);
+
+                         if (F::isCall($Hook))
+                             $Call = F::Run($Hook['Service'],$Hook['Method'], isset($Hook['Call'])? $Hook['Call']: [], $Call, ['On' => $On]);
+                         else
+                             $Call = F::Merge($Call, $Hook);
+                     }
                  }
              }
 

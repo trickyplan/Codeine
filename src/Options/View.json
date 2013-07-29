@@ -1,62 +1,68 @@
 {
-    "View":
-    {
-        "Layouts":
-        {
-            "Debug": false
-        }
-    },
-    "Parsers":
-    {
-        "KeyBlock 1":
-        {
-            "Service": "View.Parser.KeyBlock",
-            "Method": "Parse"
-        },
-        "Key 1":
-        {
-            "Service": "View.Parser.Key",
-            "Method": "Parse"
-        },
-        "Call 1":
-        {
-            "Service": "View.Parser.Call",
-            "Method": "Parse"
-        },
-        "Layout":
-        {
-            "Service": "View.Parser.Layout",
-            "Method": "Parse"
-        },
-        "Forkey":
-        {
-            "Service": "View.Parser.Forkey",
-            "Method": "Parse"
-        },
-        "Treekey":
-        {
-            "Service": "View.Parser.TreeKey",
-            "Method": "Parse"
-        },
-        "Call 2":
-        {
-            "Service": "View.Parser.Call",
-            "Method": "Parse"
-        },
-        "KeyBlock 2":
-        {
-            "Service": "View.Parser.KeyBlock",
-            "Method": "Parse"
-        },
-        "Key 2":
-        {
-            "Service": "View.Parser.Key",
-            "Method": "Parse"
-        }
-    },
     "Rendering":
     {
         "Service": "View.Strategy.Defined",
         "Method":  "Select"
+    },
+    "Hooks":
+    {
+        "afterViewLoad":
+        {
+            "-Debug":
+            {
+                "Service": "View.Hooks.Debug",
+                "Method": "Do"
+            },
+            "KeyBlock 1":
+            {
+                "Service": "View.Hooks.KeyBlock",
+                "Method": "Parse"
+            },
+            "Key 1":
+            {
+                "Service": "View.Hooks.Key",
+                "Method": "Parse"
+            },
+            "Call 1":
+            {
+                "Service": "View.Hooks.Call",
+                "Method": "Parse"
+            },
+            "Layout":
+            {
+                "Service": "View.Hooks.Layout",
+                "Method": "Parse"
+            },
+            "Forkey":
+            {
+                "Service": "View.Hooks.Forkey",
+                "Method": "Parse"
+            },
+            "Treekey":
+            {
+                "Service": "View.Hooks.TreeKey",
+                "Method": "Parse"
+            },
+            "Call 2":
+            {
+                "Service": "View.Hooks.Call",
+                "Method": "Parse"
+            },
+            "KeyBlock 2":
+            {
+                "Service": "View.Hooks.KeyBlock",
+                "Method": "Parse"
+            },
+            "Key 2":
+            {
+                "Service": "View.Hooks.Key",
+                "Method": "Parse"
+            },
+            "Age":
+            {
+                "Service": "View.Hooks.Age",
+                "Method": "Do"
+            }
+        }
     }
 }

@@ -18,34 +18,29 @@
 
     setFn('Load', function ($Call)
     {
-        $IDs = array();
+        $Call = F::Hook('beforeViewLoad', $Call);
 
-        $IDs[] = $Call['ID'];
+            $IDs = array();
 
-        if (isset($Call['Context']) && !empty($Call['Context']))
-            $IDs[] =  $Call['ID'].'.'.$Call['Context'];
+            $IDs[] = $Call['ID'];
 
-        $Call['Scope'] = strtr($Call['Scope'], '.', '/');
+            if (isset($Call['Context']) && !empty($Call['Context']))
+                $IDs[] =  $Call['ID'].'.'.$Call['Context'];
 
-        $Data =  F::Run('IO', 'Read', $Call, ['Where' => null],
-            [
-                  'Storage' => 'Layout',
-                  'Where'   =>
-                  [
-                      'ID' => array_reverse($IDs)
-                  ]
-            ])[0];
+            $Call['Scope'] = strtr($Call['Scope'], '.', '/');
 
-        if ((null !== $Data) && isset($Call['View']['Layouts']['Debug']) && $Call['View']['Layouts']['Debug'])
-            $Data = "\n".'<!-- '.$Call['Scope'].':'.$Call['ID'].' started -->'."\n".$Data."\n".'<!-- '.$Call['Scope'].':'.$Call['ID'].' ended -->';
-
-        if (isset($Call['Data']))
-            $Data = F::Run(null, 'Parse', $Call,
+            $Call['Value'] =  F::Run('IO', 'Read', $Call, ['Where' => null],
                 [
-                    'Value' => $Data
-                ]);
+                      'Storage' => 'Layout',
+                      'Where'   =>
+                      [
+                          'ID' => array_reverse($IDs)
+                      ]
+                ])[0];
 
-        return $Data;
+        $Call = F::Hook('afterViewLoad', $Call);
+
+        return $Call['Value'];
     });
 
     setFn('Render', function ($Call)

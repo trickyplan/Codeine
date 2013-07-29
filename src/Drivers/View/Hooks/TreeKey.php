@@ -44,5 +44,5 @@
             }
         }
 
-        return $Call['Value'];
+        return $Call;
     });

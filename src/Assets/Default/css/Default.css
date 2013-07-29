@@ -87,3 +87,15 @@ tr.Apocalypse, tr.Critical, tr.Emergency
     background-color: black;
     color: white;
 }
+
+.age-restricted
+{
+    padding: 30px;
+}
+
+.age-restricted-level
+{
+    font-size: 48px;
+    font-weight: bold;
+    float: right;
+}

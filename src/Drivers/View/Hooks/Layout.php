@@ -13,12 +13,12 @@
         {
             foreach ($Call['Parsed'][1] as $Ix => $Match)
             {
-                list($Asset, $ID) = F::Run('View', 'Asset.Route', array('Value' => $Match));
+                list($Asset, $ID) = F::Run('View', 'Asset.Route', ['Value' => $Match]);
 
                 $Call['Value'] = str_replace ($Call['Parsed'][0][$Ix],
-                    F::Run ('View', 'Load', array('Scope' => $Asset, 'ID' => $ID)), $Call['Value']);
+                    F::Run ('View', 'Load', $Call, ['Scope' => $Asset, 'ID' => $ID]), $Call['Value']);
             }
         }
 
-        return $Call['Value'];
+        return $Call;
     });
