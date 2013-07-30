@@ -75,7 +75,7 @@
         }
         else
         {
-            F::Log('IO Null Storage: ', LOG_ERR);
+            F::Log('IO Null Storage: ', LOG_CRIT);
             return null;
         }
     });

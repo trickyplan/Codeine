@@ -4,6 +4,10 @@
         "Developer":
         {
             "Driver":"IO.Log.Echo"
+        },
+        "Layout":
+        {
+            "Not found verbosity": 5
         }
     }
 }

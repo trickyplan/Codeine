@@ -44,7 +44,7 @@
             }
             else
             {
-                F::Log('Not found '.$Call['Where']['ID'][0], LOG_INFO);
+                F::Log('Not found '.$Call['Where']['ID'][0], $Call['Not found verbosity']);
                 return null;
             }
         }
