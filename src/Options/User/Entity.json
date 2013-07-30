@@ -23,7 +23,6 @@
         {
             "Type": "Literal.String",
             "Required": true,
-            "Unique": true,
             "Widgets":
             {
                 "Write":

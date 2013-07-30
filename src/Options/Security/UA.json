@@ -1,6 +1,6 @@
 {
-    "-Bad UA": [
-        "nmap|nikto|wikto|sf|sqlmap|bsqlbf|w3af|acunetix|havij|appscan"
+    "Bad UA": [
+        "phantomjs|nmap|nikto|wikto|sf|sqlmap|bsqlbf|w3af|acunetix|havij|appscan"
     ],
     "Hooks":
     {
@@ -16,10 +16,10 @@
                     "Type": 1
                 }
             },
-            "Spit log":
+            "Block":
             {
-                "Service": "IO.Log",
-                "Method": "Spit"
+                "Service": "Error.403",
+                "Method": "Page"
             }
         }
     }

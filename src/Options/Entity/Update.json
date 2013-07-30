@@ -28,9 +28,10 @@
     {
         "Content":
         {
-            "Form":
+            "Form Widget":
             {
-                "Type": "Form"
+                "Type": "Form",
+                "Submit": "Update"
             }
         }
     }

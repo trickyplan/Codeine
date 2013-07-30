@@ -19,5 +19,16 @@
                 "Method":"Process"
             }
         }
+    },
+    "Output":
+    {
+        "Content":
+        {
+            "Form Widget":
+            {
+                "Type": "Form",
+                "Submit": "Create"
+            }
+        }
     }
 }
