@@ -72,6 +72,8 @@
 
         }
 
+        unset($Call['Options']);
+
         if (isset($Call['Sidebar']) && is_array($Call['Sidebar']))
         {
             foreach ($Call['Sidebar'] as &$Sidebar)
