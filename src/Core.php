@@ -211,7 +211,7 @@
             }
             else
             {
-                F::Log($Service.' not found', LOG_CRIT);
+                F::Log($Service.' not found', LOG_INFO);
                 return false;
             }
         }

@@ -11,6 +11,8 @@
      {
          $Options = array();
 
+         d(__FILE__, __LINE__, $Call['Options']);
+
          if (isset($Call['One']))
              $Call['Options'] = $Call['Options'][0];
 
@@ -18,17 +20,14 @@
              $Call['Name'] .= '[]';
 
          if (isset($Call['Localized']) && $Call['Localized'])
-                 $Call['Label'] = $Call['Entity'].'.Entity:'.$Call['Node'].'.Label';
-
-         if (!isset($Call['Required']))
-            $Call['Options'][0] = '';
+             $Call['Label'] = $Call['Entity'].'.Entity:'.$Call['Node'].'.Label';
 
          foreach ($Call['Options'] as $Key => $Option)
          {
              if (is_array($Option))
                 list ($Key, $Value) = $Option;
              else
-                 $Value = $Option;
+                $Value = $Option;
 
              if (isset($Call['Localized']) && $Call['Localized'])
                  $lValue = '<l>'.$Call['Entity'].'.Entity:'.$Call['Node'].'.'.$Value.'</l>';

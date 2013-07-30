@@ -32,8 +32,6 @@
             'ID' => isset($Call['Custom Layouts']['Update'])? $Call['Custom Layouts']['Update']: 'Update',
             'Context' => $Call['Context']);
 
-        $Call['Output']['Content']['Form']['Action'] = isset($Call['Action'])? $Call['Action']: '';
-
         // Загрузить предопределённые данные и умолчания
 
         $Call['Data'] = F::Run('Entity', 'Read', $Call);
@@ -88,7 +86,7 @@
                             if (isset($Widget['Options']))
                                 $Widget['Options'] = F::Live($Widget['Options']);
                             else
-                                $Widget['Options'] = array();
+                                $Widget['Options'] = [];
 
                             if($ic == 0)
                                 $Widget['Autofocus'] = true;
@@ -121,6 +119,8 @@
         // Вывести
 
         $Call = F::Hook('afterUpdateGet', $Call);
+
+        $Call['Output']['Content']['Form Widget']['Action'] = isset($Call['Action'])? $Call['Action']: '';
 
         return $Call;
     });

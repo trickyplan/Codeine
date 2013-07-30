@@ -91,7 +91,7 @@
     {
         $Output = [];
 
-        $Call = F::Merge($Call, F::loadOptions($Call['Entity'].'.Entity')); // FIXME
+        $Call = F::Merge(F::loadOptions($Call['Entity'].'.Entity'), $Call); // FIXME
 
         $Call = F::Hook('beforeRAWList', $Call);
 
@@ -99,7 +99,7 @@
 
         if ($Elements !== null)
             foreach ($Elements as $Element)
-                $Output[] = [$Element[$Call['Primary']], F::Dot($Element, $Call['Key'])];
+                $Output[$Element[$Call['Primary']]] = F::Dot($Element, $Call['Key']);
 
         return $Output;
     });

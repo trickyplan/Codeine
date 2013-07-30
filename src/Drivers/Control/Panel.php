@@ -43,7 +43,7 @@
                 if (isset($Call['Icons'][$Bundle]))
                     $Options['Icon'] = $Call['Icons'][$Bundle];
 
-                if (($BundleOptions = F::Run($Bundle.'.Control', 'Menu', $Call, ['Bundle' => $Bundle])) !== null)
+                if (($BundleOptions = F::Run($Bundle.'.Control', 'Menu', ['Bundle' => $Bundle])) !== null)
                     $Options = F::Merge($Options, $BundleOptions);
 
                 $Call['Run'] = [
@@ -65,8 +65,8 @@
 
             if (count($GroupOptions) > 0)
             {
-                $Call['Options'][] = $Group;
-                $Call['Options'] = array_merge($Call['Options'], $GroupOptions);
+                $Navigation[] = $Group;
+                $Navigation = array_merge($Navigation, $GroupOptions);
             }
 
 
@@ -105,11 +105,9 @@
         $Call['Output']['Navigation'][] = [
             'Type' => 'Navlist',
             'Widget Set' => 'Control',
-            'Options' => $Call['Options'],
+            'Options' => $Navigation,
             'Value' => $Call['Bundle']
         ];
-
-        unset($Call['Options']);
 
         return $Call;
      });

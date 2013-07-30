@@ -43,8 +43,6 @@
                 'Context' => $Call['Context']
             ];
 
-        $Call['Output']['Content']['Form']['Action'] = isset($Call['Action'])? $Call['Action']: '';
-
         // Для каждой ноды в модели
         $ic = 0;
 
@@ -125,6 +123,8 @@
 
         // Вывести
         $Call = F::Hook('afterCreateGet', $Call);
+
+        $Call['Output']['Content']['Form Widget']['Action'] = isset($Call['Action'])? $Call['Action']: '';
 
         return $Call;
     });
