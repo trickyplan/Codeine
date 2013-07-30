@@ -1,0 +1,14 @@
+{
+    "Key":["Title"],
+    "Delimiter": "-",
+    "Transliteration":
+    {
+        "Service":"Text.Transform.Transliterate.Simple",
+        "Method": "Do",
+        "Call":
+        {
+            "From": "Russian",
+            "To": "English"
+        }
+    }
+}

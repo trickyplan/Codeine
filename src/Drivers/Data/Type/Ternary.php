@@ -12,10 +12,10 @@
         if ($Call['Value'] == 0)
             return 0;
         else
-            return $Call['Value']/abs($Call['Value']);
+            return (int) $Call['Value']/abs($Call['Value']);
     });
 
     setFn('Read', function ($Call)
     {
-        return $Call['Value'];
+        return (int) $Call['Value'];
     });

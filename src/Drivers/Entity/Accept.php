@@ -22,8 +22,7 @@
     {
         $Call = F::Hook('beforeAcceptGet', $Call);
 
-            $Call['Layouts'][] = ['Scope' => $Call['Entity'],'ID' => 'Main','Context' => $Call['Context']];
-            $Call = F::Run('Entity.Show.Static', 'Do', $Call, ['Template' => 'Check', 'Context' => 'app']);
+            $Call = F::Run('Entity.List', 'Do', $Call, ['Context' => 'app']);
 
         $Call = F::Hook('afterAcceptGet', $Call);
 
@@ -32,10 +31,11 @@
 
     setFn('POST', function ($Call)
     {
-            $Call = F::Hook('beforeAcceptPost', $Call);
+        $Call = F::Hook('beforeAcceptPost', $Call);
 
             F::Run('Entity', 'Update', $Call,
             [
+                'One' => true,
                 'Data' =>
                 [
                     'Status' => 1,

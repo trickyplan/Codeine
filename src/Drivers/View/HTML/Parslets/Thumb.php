@@ -76,8 +76,8 @@
             $Call['Output'] = str_replace($Call['Parsed'][0][$Ix],
                 F::Run('View', 'Load',
                     array(
-                         'Scope' => 'Default',
-                         'ID' => 'UI/Thumbs/'.(isset($Thumb['Template'])? $Thumb['Template']: 'Normal'),
+                         'Scope' => $Call['Widget Set'].'/Widgets',
+                         'ID' => 'Thumbs/'.(isset($Thumb['Template'])? $Thumb['Template']: 'Normal'),
                          'Data' =>
                             F::Merge($Thumb,
                              array(

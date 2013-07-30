@@ -83,22 +83,7 @@
                 "beforeEntityWrite":
                 {
                     "Service": "SEO.Slug",
-                    "Method": "Generate",
-                    "Call":
-                    {
-                        "Key": "Title",
-                        "Delimiter": "-",
-                        "Transliteration":
-                        {
-                            "Service":"Text.Transform.Transliterate.Simple",
-                            "Method": "Do",
-                            "Call":
-                            {
-                                "From":"Russian",
-                                "To": "English"
-                            }
-                        }
-                    }
+                    "Method": "Generate"
                 }
             }
         },

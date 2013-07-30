@@ -11,8 +11,6 @@
     {
         if (isset($Call['Rules']) && is_array($Call['Rules']))
         {
-            F::Log(count($Call['Rules']).' rules loaded', LOG_INFO);
-
             foreach ($Call['Rules'] as $Name => $Rule)
             {
                 if ($Rule['Weight'] >= $Call['Weight'])
@@ -30,7 +28,7 @@
                             F::Log('Rule '.$Name.' applied', LOG_DEBUG);
                             $Call['Decision'] = $Rule['Decision'];
                             $Call['Weight'] = $Rule['Weight'];
-                            $Call['Rule'] = $Rule;
+                            $Call['Rule'] = $Name;
                         }
                     }
 
@@ -46,7 +44,10 @@
         if (!isset($Call['Rule']))
             F::Log('No one rule applied', LOG_INFO);
 
-        F::Log('Final decision:'. ($Call['Decision']? 'Allow': 'Deny'), LOG_INFO);
+        F::Log('Rule «'.$Call['Rule'].'» selected with weight '.$Call['Weight']);
+
+        F::Log('Final decision: '. ($Call['Decision']? 'Allow': 'Deny'), LOG_INFO);
+
         unset($Call['Rules']);
         return $Call;
      });

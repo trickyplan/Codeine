@@ -1,5 +1,5 @@
 {
     "Var": "Output",
     "MaxPasses": 3,
-    "Parslets": ["Layout", "Access", "Far",  "Fn", "Exec", "Lower", "Wiki", "Entity", "If", "Datetime", "Number", "Thumb", "Image", "Phone","Urlencode"]
+    "Parslets": ["Layout", "Far",  "Fn", "Exec", "Lower", "Wiki", "Entity", "If", "Datetime", "Number", "Thumb", "Image", "Phone","Urlencode", "Access"]
 }

@@ -11,9 +11,9 @@
      {
           foreach ($Call['Parsed'][0] as $IX => $Match)
           {
-                $Root = simplexml_load_string('<access '.$Call['Parsed'][1][$IX].'></access>');
-
                 unset($Call['Weight'], $Call['Decision']);
+
+                $Root = simplexml_load_string('<access '.$Call['Parsed'][1][$IX].'></access>');
 
                 $Attr = (array) $Root->attributes();
 
