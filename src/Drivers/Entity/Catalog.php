@@ -14,8 +14,6 @@
 
         $Call['Layouts'][] = ['Scope' => $Call['Entity'],'ID' => 'Catalog'];
 
-        $Call['Locales'][] = $Call['Entity'];
-
         $Elements = F::Run('Entity', 'Read', ['Entity' => $Call['Entity'], 'Fields' => [$Call['Key']]]);
 
         foreach ($Elements as $Element)

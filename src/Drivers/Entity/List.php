@@ -22,8 +22,6 @@
         $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Main','Context' => $Call['Context']);
         $Call['Layouts'][] = array('Scope' => $Call['Scope'],'ID' => isset($Call['Custom Templates']['List'])? $Call['Custom Templates']['List'] :'List','Context' => $Call['Context']);
 
-        $Call['Locales'][] = $Call['Entity'];
-
         if (!isset($Call['Elements']))
             $Call['Elements'] = F::Run('Entity', 'Read', $Call);
 
@@ -72,7 +70,7 @@
                             $Selected = '';
 
                         $Call['Output']['Content'][] =
-                            array(
+                            [
                                 'Type'  => 'Template',
                                 'Scope' => $Call['Scope'],
                                 'ID' => 'Show/'
@@ -80,13 +78,12 @@
                                     .$Selected,
                                 // FIXME Strategy of selecting templates
                                 'Data'  => $Element
-                            );
+                            ];
                     }
                 }
         }
 
         $Call = F::Hook('afterList', $Call);
-
         return $Call;
     });
 

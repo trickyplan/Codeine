@@ -9,8 +9,6 @@
 
     setFn('Identificate', function ($Call)
     {
-        $Call['Locales'][] = 'User';
-
         $Call['Output']['Content'][] = array(
             'Type' => 'Form',
             'Action' => '/auth' //FIXME

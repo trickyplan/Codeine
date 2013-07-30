@@ -46,8 +46,6 @@
                         'Context' => $Call['Context']
                     );
 
-            $Call['Locales'][] = $Entity;
-
             $Where = [];
 
             if (!empty($IDs) && null !== $IDs)

@@ -94,16 +94,17 @@
                     $Pills[] = ['ID' => $Sidebar, 'URL' => '/control/'.$Call['Bundle'].'/'.$Sidebar, 'Title' => $Call['Bundle'].'.Control:Options.'.$Sidebar];
             }
 
-            $Call['Output']['Sidebar'][] = [
+            $Call['Output']['Sidebar'][] =
+            [
                 'Type' => 'Navpills',
-                'Options' => $Pills,
+                'Options!' => $Pills,
                 'Value' => $Call['Option']
             ];
         }
 
         $Call['Output']['Navigation'][] = [
             'Type' => 'Navlist',
-            'Scope' => 'Control',
+            'Widget Set' => 'Control',
             'Options' => $Call['Options'],
             'Value' => $Call['Bundle']
         ];

@@ -43,10 +43,7 @@
                 'Context' => $Call['Context']
             ];
 
-        $Call['Output']['Content']['Form'] = [
-                'Type' => 'Form',
-                'Action' => isset($Call['Action'])? $Call['Action']: ''
-        ];
+        $Call['Output']['Content']['Form']['Action'] = isset($Call['Action'])? $Call['Action']: '';
 
         // Для каждой ноды в модели
         $ic = 0;

@@ -9,8 +9,6 @@
 
     setFn('Do', function ($Call)
     {
-        $Call['Locales'][] = 'Code/Documentation:ByContract';
-
         $Call['Contract'] = F::loadOptions($Call['Doc']['Service'], $Call['Doc']['Method']);
 
         foreach ($Call['Contract']['Example'] as $Name => $Example)

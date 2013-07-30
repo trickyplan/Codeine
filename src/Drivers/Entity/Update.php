@@ -25,14 +25,14 @@
     {
         $Call = F::Hook('beforeUpdateGet', $Call);
 
-        $Call['Locales'][] = $Call['Entity'];
-
-        $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Main','Context' => $Call['Context']);
+        $Call['Layouts'][] = ['Scope' => $Call['Entity'],'ID' => 'Main','Context' => $Call['Context']];
 
         $Call['Layouts'][] = array(
             'Scope' => $Call['Entity'],
             'ID' => isset($Call['Custom Layouts']['Update'])? $Call['Custom Layouts']['Update']: 'Update',
             'Context' => $Call['Context']);
+
+        $Call['Output']['Content']['Form']['Action'] = isset($Call['Action'])? $Call['Action']: '';
 
         // Загрузить предопределённые данные и умолчания
 
@@ -47,7 +47,6 @@
             // Для каждой ноды в модели
 
             foreach ($Call['Data'] as $IX => $Element)
-            {
                 foreach ($Call['Nodes'] as $Name => $Node)
                 {
                     // Если виджеты вообще определены
@@ -117,9 +116,7 @@
                         }
                     }
                 }
-            }
         }
-
 
         // Вывести
 
