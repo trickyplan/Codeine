@@ -100,10 +100,17 @@
                     if ((array) $First === $First)
                     {
                         foreach ($Second as $Key => &$Value)
-                            if (isset($First[$Key]) && ((array)$Value === $Value))
-                                $First[$Key] = self::Merge($First[$Key], $Second[$Key]);
+                        {
+                            if (substr($Key, strlen($Key)-1, 1) == '!')
+                                $First[substr($Key, 0, strlen($Key) -1)] = $Value;
                             else
-                                $First[$Key] = $Value;
+                            {
+                                if (isset($First[$Key]) && ((array)$Value === $Value))
+                                    $First[$Key] = self::Merge($First[$Key], $Second[$Key]);
+                                else
+                                    $First[$Key] = $Value;
+                            }
+                        }
 
                     }
                     else
@@ -258,14 +265,11 @@
 
             $FnOptions = self::loadOptions();
 
-            if(!isset($FnOptions['Isolated']))
-            {
-                $Call = self::Merge($FnOptions, $Call);
-                $FnOptions = [];
-            }
+            $Call = self::Merge($FnOptions, $Call);
+            $FnOptions = [];
 
             if ((null === self::getFn(self::$_Method)) && !self::_loadSource(self::$_Service))
-                $Result = (is_array($Call) && isset($Call['Fallback']))? $Call['Fallback'] : null;
+                $Result = (is_array($Call) && isset($Call['Fallback']))? $Call['Fallback'] : $Call;
             else
             {
                 $F = self::getFn(self::$_Method);
@@ -525,7 +529,7 @@
                     }
                 }
                 else
-                    return self::$_Log[] = [$Verbose, round(microtime(true) - self::$_Ticks['T']['Codeine.Do'], 4), $Message, self::$_Service];
+                    return self::$_Log[] = [$Verbose, round(microtime(true) - self::$_Ticks['T']['Codeine.Do'], 3), $Message, self::$_Service];
             }
         }
 
@@ -625,6 +629,7 @@
                 var_dump($Call);
 
             echo '</div>';
+
             return $Call;
         }
 
