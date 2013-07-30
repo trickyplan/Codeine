@@ -41,10 +41,11 @@
         else
             F::Log('No rules loaded', LOG_WARNING);
 
-        if (!isset($Call['Rule']))
+        if (isset($Call['Rule']))
+            F::Log('Rule «'.$Call['Rule'].'» selected with weight '.$Call['Weight']);
+        else
             F::Log('No one rule applied', LOG_INFO);
 
-        F::Log('Rule «'.$Call['Rule'].'» selected with weight '.$Call['Weight']);
 
         F::Log('Final decision: '. ($Call['Decision']? 'Allow': 'Deny'), LOG_INFO);
 
