@@ -28,7 +28,7 @@
 
                     $ix++;
 
-                    // $Rule['Match'] = $Call['Pattern']['Prefix'].$Rule['Match'].$Call['Pattern']['Postfix'];
+                    $Rule['Match'] = $Call['Regex Pattern']['Prefix'].$Rule['Match'].$Call['Regex Pattern']['Postfix'];
 
                     if (!isset($Rule['Weight']))
                         $Rule['Weight'] = 0;
@@ -37,7 +37,7 @@
                     {
                         F::Log($Rule['Match'], LOG_DEBUG);
                         $Matches = [];
-                        if (mb_ereg($Rule['Match'], $Call['Run'], $Matches))
+                        if (preg_match($Rule['Match'], $Call['Run'], $Matches))
                         {
                             $Rule = F::Map($Rule, function (&$Key, &$Value, $Data, $FullKey, &$Array) use ($Matches)
                             {
@@ -70,7 +70,7 @@
                 }
             }
         else
-            die('Regex routes table corrupted'); // FIXME
+            F::Log('Regex routes table corrupted', LOG_CRIT); // FIXME
 
         if (isset($Selected))
             F::Log('Regex router rule '.$Selected.' selected after. '.($ix.' of '.sizeof($Call['Regex'])), LOG_INFO);
