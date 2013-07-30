@@ -11,8 +11,7 @@
     {
         $Call['Layouts'][] = [
             'Scope' => 'Entity',
-            'ID' => 'List',
-            'Context' => ''
+            'ID' => 'List'
         ];
 
         return F::Run('Entity.List', 'Do',['Sort' => ['ID' => false]], $Call, ['Entity' => $Call['Bundle'], 'Scope' => 'Control', 'Show Redirects' => true]);
@@ -20,16 +19,31 @@
 
     setFn('Show', function ($Call)
     {
+        $Call['Layouts'][] = [
+            'Scope' => 'Entity',
+            'ID' => 'Show.Static'
+        ];
+
         return F::Run('Entity.Show.Static', 'Do', $Call, ['Entity' => $Call['Bundle'], 'Scope' => 'Control']);
      });
 
     setFn('Create', function ($Call)
     {
+        $Call['Layouts'][] = [
+            'Scope' => 'Entity',
+            'ID' => 'Create'
+        ];
+
         return F::Run('Entity.Create', 'Do', $Call, ['Entity' => $Call['Bundle'], 'Scope' => 'Control']);
     });
 
     setFn('Update', function ($Call)
     {
+        $Call['Layouts'][] = [
+            'Scope' => 'Entity',
+            'ID' => 'Update'
+        ];
+
         return F::Run('Entity.Update', 'Do', $Call, ['Entity' => $Call['Bundle'], 'Scope' => 'Control']);
     });
 
