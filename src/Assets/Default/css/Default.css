@@ -38,8 +38,10 @@
 {
     font: 14px monospace;
     margin: auto;
-    border-spacing: 12px;
-    padding: 12px;
+    padding: 0;
+    background-color: white;
+    color: black;
+    width: 940px !important;
 }
 
 .console th

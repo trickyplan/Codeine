@@ -18,32 +18,35 @@
                 $Match = simplexml_load_string('<breadcrumb '.$Pockets[1][$IX].'></breadcrumb>');
 
                 $URL = (string) $Match->attributes()->href;
-                $Call['Breadcrumbs'][strlen($URL)] = array('URL' => $URL, 'Title' => $Pockets[2][$IX]);
+
+                $Call['Breadcrumbs'][strlen($URL)] = ['URL' => $URL, 'Title' => $Pockets[2][$IX]];
                 $Call['Output'] = str_replace($Pockets[0][$IX], '', $Call['Output']);
             }
 
             $Last = array_pop($Call['Breadcrumbs']);
 
             foreach ($Call['Breadcrumbs'] as $Breadcrumb)
-                $Breadcrumbs.= F::Run('View', 'Load', array(
-                    'Scope' => 'Default',
-                    'ID' => 'UI/Breadcrumb/Active',
-                    'Data' => $Breadcrumb
-                ));
+                $Breadcrumbs.= F::Run('View', 'Load',
+                    [
+                        'Scope' => $Call['Widget Set'].'/Widgets',
+                        'ID' => 'Breadcrumb/Active',
+                        'Data' => $Breadcrumb
+                    ]);
 
-            $Breadcrumbs.= F::Run('View', 'Load', array(
-                    'Scope' => 'Default',
-                    'ID' => 'UI/Breadcrumb/Passive',
-                    'Data' => $Last
-                ));
+            $Breadcrumbs.= F::Run('View', 'Load',
+                    [
+                        'Scope' => $Call['Widget Set'].'/Widgets',
+                        'ID' => 'Breadcrumb/Passive',
+                        'Data' => $Last
+                    ]);
 
         }
 
         if (isset($Call['Breadcrumbs']) && count($Call['Breadcrumbs']) > 0)
         {
             $Breadcrumbs = F::Run('View', 'Load', array(
-                    'Scope' => 'Default',
-                    'ID' => 'UI/Breadcrumb',
+                    'Scope' => $Call['Widget Set'].'/Widgets',
+                    'ID' => 'Breadcrumb',
                     'Data' => ['Breadcrumbs' => $Breadcrumbs]
                 ));
 

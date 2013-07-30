@@ -24,8 +24,6 @@
             {
                 list(,$Entity, $ID) = $Slices;
 
-                $Call['Locales'][] = $Entity;
-
                 $Element = F::Run('Entity', 'Read',
                     [
                           'Entity' => $Entity,
@@ -36,11 +34,11 @@
                 if (!empty($Element))
                     $Call['Output'] = str_replace($Call['Parsed'][0][$Ix],
                         F::Run('View', 'Load',
-                            array (
+                            [
                                   'Scope'  => $Entity,
                                   'ID'     => 'Show/'.$Template,
                                   'Data'   => $Element
-                            )),
+                            ]),
                         $Call['Output']);
                 else
                     $Call['Output'] = str_replace($Call['Parsed'][0][$Ix], '', $Call['Output']);

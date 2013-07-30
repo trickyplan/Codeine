@@ -20,7 +20,7 @@
     {
         $Call = F::Hook('beforeViewLoad', $Call);
 
-            $IDs = array();
+            $IDs = [];
 
             $IDs[] = $Call['ID'];
 
@@ -37,6 +37,9 @@
                           'ID' => array_reverse($IDs)
                       ]
                 ])[0];
+
+        if (isset($Call['Data']) && !is_array($Call['Data']))
+            $Call['Data'] = ['Value' => $Call['Data']];
 
         $Call = F::Hook('afterViewLoad', $Call);
 

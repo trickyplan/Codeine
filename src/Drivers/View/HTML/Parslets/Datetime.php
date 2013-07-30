@@ -26,8 +26,6 @@
 
             $Outer = F::Run('Formats.Date.Engine.'.$Engine, 'Format', $Outer);
 
-            $Call['Locales']['Formats.Date:'.$Engine] = 'Formats.Date:'.$Engine;
-
             $Call['Output'] = str_replace ($Call['Parsed'][0][$IX], $Outer, $Call['Output']);
         }
 

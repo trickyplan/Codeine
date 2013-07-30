@@ -32,21 +32,34 @@
 
         if ($Places = F::Run('Text.Regex', 'All', ['Pattern' => '<place>(.+?)<\/place>', 'Value' => $Call['Layout']]))
         {
-            if (isset($Call['Output']))
+            if (isset($Call['Output']) && is_array($Call['Output']))
             {
-                if (is_array($Call['Output']))
-                    foreach ($Call['Output'] as $Place => $Widgets)
-                        if (is_array($Widgets))
-                            foreach ($Widgets as $Key => $Widget)
+                foreach ($Call['Output'] as $Place => $Widgets)
+                    if (is_array($Widgets))
+                        foreach ($Widgets as $Key => $Widget)
+                        {
+                            if (is_array($Widget))
                             {
-                                if (is_array($Widget))
-                                    $Call['Output'][$Place][$Key]
-                                        = F::Run($Call['Renderer'] . '.Element.' . $Widget['Type'], 'Make', $Widget, array('Session' => $Call['Session']));
-                                        // FIXME FIXME FIXME
-                                else
-                                    $Call['Output'][$Place][$Key] = $Widget;
+                                $Call['Output'][$Place][$Key] = F::Run ('View', 'Load',
+                                    [
+                                        'Scope' => $Call['Widget Set'].'/Widgets',
+                                        'ID'    => (isset($Call['Widget Template'])?
+                                                    $Call['Widget Template']
+                                                    : strtr($Widget['Type'],'.', '/')),
+                                        'Data'  =>
+                                            F::Run(
+                                                $Call['Renderer']
+                                                .'.Widget.'
+                                                .$Widget['Type'],
+                                                'Make',
+                                                $Call,
+                                                $Widget)
+                                    ]);
                             }
-                // TODO Normal caching
+                            else
+                                $Call['Output'][$Place][$Key] = $Widget;
+                        }
+                // TODO Block caching
             }
 
             if (isset($Call['Output']) && is_array($Call['Output']))
