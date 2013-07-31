@@ -42,7 +42,7 @@
             F::Log('No rules loaded', LOG_WARNING);
 
         if (isset($Call['Rule']))
-            F::Log('Rule «'.$Call['Rule'].'» selected with weight '.$Call['Weight']);
+            F::Log('Rule «'.$Call['Rule'].'» applied with weight '.$Call['Weight']);
         else
             F::Log('No one rule applied', LOG_INFO);
 

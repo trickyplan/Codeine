@@ -11,19 +11,20 @@
     {
         if (isset($Call['Session']['User']) && ($Call['Session']['User'] != -1))
             $Call['Output']['Content'][] =
-                array(
+                [
                     'Type' => 'Template',
                     'Scope' => 'User',
                     'ID' => 'Show/Cabinet',
                     'Data' => $Call['Session']['User']
-                );
+                ];
         else
             $Call['Output']['Content'][] =
-                array(
+                [
                     'Type' => 'Template',
-                    'Scope' => 'User',
-                    'ID' => 'Guest'
-                );
+                    'Scope' => 'Session',
+                    'ID' => 'Show/Cabinet',
+                    'Data' => $Call['Session']
+                ];
 
          return $Call;
     });

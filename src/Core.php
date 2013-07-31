@@ -369,13 +369,16 @@
         {
             $Data = [];
 
-            foreach ($Array as $Row)
+            foreach ($Array as $ID => $Row)
                 if (isset($Row[$Key]))
-                    $Data[$Row['ID']] = $Row[$Key];
+                    $Data[$ID] = $Row[$Key];
 
-            $Direction == SORT_ASC? asort($Data): arsort($Data);
+            $Direction ? asort($Data): arsort($Data);
 
-            return $Data;
+            foreach ($Data as $Key =>&$Value)
+                $Result[$Key] = $Array[$Key];
+
+            return $Result;
         }
 
         public static function Map ($Array, $Fn, $Data = null, $FullKey = '')
@@ -622,7 +625,6 @@
             if (is_array($Call))
             {
                 $Call2 = $Call;
-                ksort($Call2);
                 var_dump($Call2);
             }
             else

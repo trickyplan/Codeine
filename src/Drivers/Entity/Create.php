@@ -106,12 +106,14 @@
                     else
                         $Widget['Value'] = null;
 
+                    if (!isset($Widget['Weight']))
+                        $Widget['Weight'] = 0;
+
                     // Помещаем виджет в поток
-                    $ic++;
 
                     $Call = F::Run('Entity.Form.Layout.'.$Call['FormLayout'], 'Add', $Call,
                         [
-                            'IC' => $ic,
+                            'IC' => ++$ic,
                             'Name' => $Name,
                             'Widget' => $Widget
                         ]);
@@ -120,6 +122,8 @@
                 }
             }
         }
+
+        $Call['Output']['Form'] = F::Sort($Call['Output']['Form'], 'Weight', false);
 
         // Вывести
         $Call = F::Hook('afterCreateGet', $Call);

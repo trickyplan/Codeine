@@ -7,28 +7,30 @@
      * @version 7.x
      */
 
-     setFn('Parse', function ($Call)
-     {
-          foreach ($Call['Parsed'][0] as $IX => $Match)
-          {
-                unset($Call['Weight'], $Call['Decision']);
+    setFn('Parse', function ($Call)
+    {
+        foreach ($Call['Parsed'][0] as $IX => $Match)
+        {
+            $Call['Run'] = [];
 
-                $Root = simplexml_load_string('<access '.$Call['Parsed'][1][$IX].'></access>');
+            unset($Call['Weight'], $Call['Decision']);
 
-                $Attr = (array) $Root->attributes();
+            $Root = simplexml_load_string('<access '.$Call['Parsed'][1][$IX].'></access>');
 
-                foreach ($Attr['@attributes'] as $Key => $Value)
-                    $Call['Run'] = F::Dot($Call['Run'], $Key, $Value);
+            $Attr = (array) $Root->attributes();
 
-                $Call = F::Run('Security.Access', 'Check', $Call);
+            foreach ($Attr['@attributes'] as $Key => $Value)
+                $Call['Run'] = F::Dot($Call['Run'], $Key, $Value);
 
-                if ($Call['Decision'] === true)
-                    $Outer = $Call['Parsed'][2][$IX];
-                else
-                    $Outer = '';
+            $Call = F::Run('Security.Access', 'Check', $Call, $Call['Run']);
 
-                $Call['Output'] = str_replace ($Call['Parsed'][0][$IX], $Outer, $Call['Output']);
-          }
+            if ($Call['Decision'] === true)
+                $Outer = $Call['Parsed'][2][$IX];
+            else
+                $Outer = '';
 
-          return $Call;
-     });
+            $Call['Output'] = str_replace ($Call['Parsed'][0][$IX], $Outer, $Call['Output']);
+        }
+
+        return $Call;
+    });

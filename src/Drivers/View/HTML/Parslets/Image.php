@@ -50,10 +50,17 @@
                               'Data' => $ImageData
                               ]
                       );
-
-
                   }
                   else
+                  {
+                      if (isset($Match['Default']))
+                          list($Asset, $ID) = F::Run('View', 'Asset.Route', array('Value' => $Match['Default']));
+                      else
+                      {
+                          $Asset = 'Default/img';
+                          $ID = 'default.png';
+                      }
+
                       F::Run ('IO', 'Write',
                           [
                               'Storage' => 'Image Cache',
@@ -62,11 +69,12 @@
                                   [
                                       'Storage' => 'Image',
                                       'One' => true,
-                                      'Scope'   => 'Default/img',
-                                      'Where'   => 'default.gif'
+                                      'Scope'   => $Asset,
+                                      'Where'   => $ID
                                   ])
                           ]
                       );
+                  }
 
                   $HTML = '<img src="'.$Path.'" '
                       .(isset($Match['Class']) ? ' class="'.$Match['Class'].'"': '')

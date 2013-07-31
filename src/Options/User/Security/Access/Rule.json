@@ -1,6 +1,34 @@
 {
     "Rules":
     {
+        "Список пользователей доступен всем":
+        {
+            "Decision": true,
+            "Weight": 100,
+            "Run":
+            {
+                "Service": "Entity.List",
+                "Method": "Do",
+                "Call":
+                {
+                    "Entity": "User"
+                }
+            }
+        },
+        "Профиль пользователя доступен всем":
+        {
+            "Decision": true,
+            "Weight": 100,
+            "Run":
+            {
+                "Service": "Entity.Show.Static",
+                "Method": "Do",
+                "Call":
+                {
+                    "Entity": "User"
+                }
+            }
+        },
         "Страница регистрации доступна всем":
         {
             "Decision": true,
@@ -150,27 +178,6 @@
             "Run":
             {
                 "Service": "User.Services",
-                "Session":
-                {
-                    "User":
-                    {
-                        "ID": "*"
-                    }
-                }
-            }
-        },
-        "Список пользователей доступен зарегистрированным":
-        {
-            "Decision": true,
-            "Weight": 100,
-            "Run":
-            {
-                "Service": "Entity.List",
-                "Method": "Do",
-                "Call":
-                {
-                    "Entity": "User"
-                },
                 "Session":
                 {
                     "User":
