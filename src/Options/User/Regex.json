@@ -1,6 +1,16 @@
 {
     "Regex":
     {
+        "Users":
+        {
+            "Match": "^/users$",
+            "Service": "Entity.List",
+            "Method": "Do",
+            "Call":
+            {
+                "Entity": "User"
+            }
+        },
         "Show user":
         {
             "Match":"^/user/(\\d+)$",

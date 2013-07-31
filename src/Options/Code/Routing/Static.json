@@ -7,6 +7,16 @@
             "Service": "Project.About",
             "Method": "Do"
         },
+        "/oauth":
+        {
+            "Service": "Services.Social.VK",
+            "Method": "Authenticate"
+        },
+        "/auth/vk":
+        {
+            "Service": "Services.Social.VK",
+            "Method": "Identificate"
+        },
         "/":
         {
             "Zone": ["Project"],

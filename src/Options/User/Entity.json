@@ -79,15 +79,7 @@
         },
         "DOB":
         {
-            "Default":
-            {
-                "Service": "System.Time",
-                "Method": "Get",
-                "Call":
-                {
-                    "Increment": "-756864000"
-                }
-            },
+            "Default": 0,
             "Type": "Date.Short",
             "Widgets":
             {

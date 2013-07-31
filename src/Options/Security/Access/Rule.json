@@ -92,6 +92,15 @@
                 }
             }
         },
+        "VK":
+        {
+            "Decision": true,
+            "Weight": 200,
+            "Run":
+            {
+                "Service": "Services.Social.VK"
+            }
+        },
         "Перевод доступен всем":
         {
             "Decision": true,

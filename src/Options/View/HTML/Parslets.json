@@ -1,5 +1,23 @@
 {
     "Var": "Output",
     "MaxPasses": 3,
-    "Parslets": ["Layout", "Far",  "Fn", "Exec", "Lower", "Wiki", "Entity", "If", "Datetime", "Number", "Thumb", "Image", "Phone","Urlencode", "Access"]
+    "Parslets":
+    [
+        "Layout",
+        "Far",
+        "Fn",
+        "Exec",
+        "Lower",
+        "Wiki",
+        "Entity",
+        "If",
+        "Datetime",
+        "Number",
+        "Thumb",
+        "Image",
+        "Phone",
+        "Email",
+        "Urlencode",
+        "Access"
+    ]
 }

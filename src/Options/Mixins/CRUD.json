@@ -1,7 +1,7 @@
 {
     "Hooks":
     {
-        "beforeCreateGet":
+        "-beforeCreateGet":
         {
             "Store URL":
             {
@@ -9,7 +9,7 @@
                 "Method": "Store"
             }
         },
-        "afterCreatePost":
+        "-afterCreatePost":
         {
             "Restore URL":
             {

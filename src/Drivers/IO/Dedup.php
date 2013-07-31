@@ -9,7 +9,7 @@
 
     setFn('beforeIORead', function ($Call)
     {
-        if (isset($Call['Where']))
+        if (isset($Call['Where']) && !isset($Call['ReRead']))
         {
             $IOHash = sha1(serialize([$Call['Storage'],$Call['Scope'], $Call['Where']]));
 

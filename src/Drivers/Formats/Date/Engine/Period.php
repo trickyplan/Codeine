@@ -11,19 +11,16 @@
     {
         if (isset($Call['Value']))
         {
-            $Periods = ['min' => 60, 'hrs' => 3600];
+            $Call['Value'] = time()-$Call['Value'];
 
-            foreach ($Periods as $Period => $Value)
+            foreach ($Call['Period']['Units'] as $Period => $Value)
                 if ($Call['Value'] >= $Value)
                 {
-                    $Parts[$Period] = floor($Call['Value']/$Value);
-                    $Call['Value'] -= $Parts[$Period]*$Value;
+                    $Units = floor($Call['Value']/$Value);
+                    $Output[] = $Units.' <l>Formats.Period:'.$Period.'.'.($Units%20).'</l>';
+                    $Call['Value'] -= $Units*$Value;
                 }
 
-            $Parts['sec'] = $Call['Value'];
-
-            list($Key, $Value) = each($Parts);
-
-            return $Value.' '.$Key.'';
+            return implode(' ', array_slice($Output,0,$Call['Format']));
         }
     });
