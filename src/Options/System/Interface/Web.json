@@ -1,4 +1,16 @@
 {
+    "Context": "",
+    "Subdomains":
+    {
+        "iframe":
+        {
+            "Context": "iframe",
+            "Headers":
+            {
+                "X-Frame-Options:": null
+            }
+        }
+    },
     "Interface":
     {
         "Output":
@@ -13,7 +25,7 @@
         "Content-type:": "text/html; charset=utf-8",
         "Content-Language:": "ru",
         "Cache-Control:": "no-cache",
-        "X-Frame-Options:": "DENY",
+        "X-Frame-Options:": "SAMEORIGIN",
         "X-Content-Type-Options:": "nosniff",
         "X-XSS-Protection:": " 1; mode=block"
     },

@@ -140,7 +140,16 @@
     setFn('Protocol', function ($Call)
     {
         if (isset($Call['Project']['Hosts'][F::Environment()]))
+        {
+            if (preg_match('/(\S+)\.'.$Call['Project']['Hosts'][F::Environment()].'/', $_SERVER['HTTP_HOST'], $Subdomains)
+            && isset($Call['Subdomains'][$Subdomains[1]]))
+            {
+                $Call = F::Merge($Call, $Call['Subdomains'][$Subdomains[1]]);
+                F::Log('Active Subdomain detected: '.$Subdomains[1], LOG_INFO);
+            }
+
             $_SERVER['HTTP_HOST'] = $Call['Project']['Hosts'][F::Environment()];
+        }
 
         if ((isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS'])) or
                 (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&$_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https'))

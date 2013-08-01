@@ -12,9 +12,6 @@
         if (!isset($Call['Layouts']))
             $Call['Layouts'] = [];
 
-        if (!isset($Call['Run']['Context']))
-            $Call['Run']['Context'] = '';
-
         if (F::isCall($Call['Run']))
         {
             $Slices = explode('.', $Call['Run']['Service']);
@@ -29,7 +26,7 @@
             $IDs[] = 'Main';
 
             foreach ($IDs as $ID)
-                array_unshift($Call['Layouts'], array ('Scope' => $Asset, 'ID'    => $ID, 'Context' => $Call['Run']['Context']));
+                array_unshift($Call['Layouts'], array ('Scope' => $Asset, 'ID'    => $ID, 'Context' => $Call['Context']));
         }
 
         if (!isset($Call['Run']['Zone']))
@@ -38,12 +35,12 @@
             $Call['Run']['Zone'] = (array) $Call['Run']['Zone'];
 
             foreach ($Call['Run']['Zone'] as $Zone)
-                array_unshift($Call['Layouts'], array('Scope' => $Zone, 'ID' => 'Zone', 'Context' => $Call['Run']['Context']));
+                array_unshift($Call['Layouts'], array('Scope' => $Zone, 'ID' => 'Zone', 'Context' => $Call['Context']));
 
         array_unshift($Call['Layouts'], array(
             'Scope' => 'Default',
             'ID' => 'Main',
-            'Context' => $Call['Run']['Context']
+            'Context' => $Call['Context']
         ));
 
         return $Call;
