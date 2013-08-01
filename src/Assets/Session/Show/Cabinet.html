@@ -1,9 +1,18 @@
-<ul class="nav pull-right">
-    <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Гость<b class="caret"></b></a>
-        <ul class="dropdown-menu">
-          <li><a href="/login">Вход</a></li>
-          <li><a href="/join">Регистрация</a></li>
-        </ul>
-    </li>
-</ul>
+<h2>Войдите</h2>
+    <exec>
+        <Service>User.Authenticate</Service>
+        <Method>Do</Method>
+    </exec>
+
+<h2>Или зарегистрируйтесь</h2>
+<div class="block">
+    <exec>
+        <Service>Entity.Create</Service>
+        <Method>Do</Method>
+        <Call>
+            <Action>/join</Action>
+            <OnlyRequired>true</OnlyRequired>
+            <Entity>User</Entity>
+        </Call>
+    </exec>
+</div>

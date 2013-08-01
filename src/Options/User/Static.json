@@ -43,6 +43,11 @@
                 "Mode": "Loginza"
             }
         },
+        "/cabinet":
+        {
+            "Service":"User.Cabinet",
+            "Method":"Do"
+        },
         "/profile":
         {
             "Service":"Entity.Update",

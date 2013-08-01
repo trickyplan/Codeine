@@ -1,18 +1,8 @@
 {
-    "Sender":
-    {
-        "Service": "IO",
-        "Method": "Write",
-        "Call":
-        {
-            "Storage": "EMail"
-        }
-    },
-    "Name Field": "Fullname",
-    "Subject": "Активация аккаунта",
+    "Subject": "Активация аккаунта ",
     "Activation":
     {
-        "Auto Login": true
+        "AutoLogin": true
     },
     "Hooks":
     {

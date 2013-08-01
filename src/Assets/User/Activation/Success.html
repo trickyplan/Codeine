@@ -1,7 +1,12 @@
-<h2 class="page-header">Активация прошла успешно</h2>
-<div class="row-fluid">
-    <div class="span12">
-        <a href="/login" class="btn btn-success btn-large">Перейти к авторизации</a>
-        <place>Content</place>
-    </div>
+<subtitle>Активация прошла успешно</subtitle>
+<breadcrumb href="/activation/success">Активация прошла успешно</breadcrumb>
+
+<h2 class="page-header">Активация <call>Activation.AutoLogin</call>прошла успешно</h2>
+<div class="block">
+    <if value="<call>Session.User.ID</call>" eq="0">
+        <a href="/login">Перейти к авторизации</a>
+    </if>
+    <if value="<call>Session.User.ID</call>" neq="0">
+        <a href="/">Продолжить работу</a>
+    </if>
 </div>

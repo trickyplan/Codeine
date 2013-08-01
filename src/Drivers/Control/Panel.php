@@ -104,7 +104,6 @@
 
         $Call['Output']['Navigation'][] = [
             'Type' => 'Navlist',
-            'Widget Set' => 'Control',
             'Options' => $Navigation,
             'Value' => $Call['Bundle']
         ];

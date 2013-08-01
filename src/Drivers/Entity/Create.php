@@ -49,6 +49,10 @@
         foreach ($Call['Nodes'] as $Name => $Node)
         {
             $Widget = null;
+
+            if ($Call['OnlyRequired'] == true && (!isset($Node['Required']) or !$Node['Required']))
+                continue;
+
             // Если виджеты вообще определены
             if (isset($Node['Widgets']))
             {

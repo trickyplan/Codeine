@@ -15,9 +15,7 @@
 
               $Match = json_decode(json_encode($Match), true);
 
-
-
-              $Output = F::Live($Match);
+              $Output = F::Live($Match, $Call);
 
               if (is_array($Output))
                   $Output = implode(',', $Output);

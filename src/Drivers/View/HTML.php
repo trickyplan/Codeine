@@ -42,7 +42,7 @@
                             {
                                 $Call['Output'][$Place][$Key] = F::Run ('View', 'Load',
                                     [
-                                        'Scope' => $Call['Widget Set'].'/Widgets',
+                                        'Scope' => (isset($Widget['Widget Set'])? $Widget['Widget Set']: $Call['Widget Set']).'/Widgets',
                                         'ID'    => (isset($Call['Widget Template'])?
                                                     $Call['Widget Template']
                                                     : strtr($Widget['Type'],'.', '/')),

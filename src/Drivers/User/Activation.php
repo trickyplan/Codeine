@@ -9,12 +9,15 @@
 
     setFn('Send', function ($Call)
     {
-        $Call['Data'] = $Call['Data'][0];
+
+        if (isset($Call['Data'][0]))
+            $Call['Data'] = $Call['Data'][0];
+
         if (isset($Call['Data']['ID']))
             {
-                $User = F::Run('Entity', 'Read', array('Entity' => 'User', 'Where' => $Call['Data']['ID'], 'One' => true)); // FIXME
+                $Call['Data'] = F::Run('Entity', 'Read', array('Entity' => 'User', 'Where' => $Call['Data']['ID'], 'One' => true)); // FIXME
 
-                $User['Code'] = F::Run('Security.UID', 'Get');
+                $Call['Data']['Code'] = F::Run('Security.UID', 'Get');
 
                 F::Run('IO', 'Write',
                     array(
@@ -22,33 +25,34 @@
                          'Scope' => 'Activation',
                          'Data' =>
                              [[
-                                 'ID' => (int) $User['Code'],
-                                 'User' => $User['ID']
+                                 'ID' => (int) $Call['Data']['Code'],
+                                 'User' => $Call['Data']['ID']
                              ]]
                     ));
 
-                $Message['Scope'] = '"'.F::Dot($User, $Call['Name Field']).'" <'.$User['EMail'].'>';
+                $Message['Scope'] = '"'.$Call['Data']['Screen'].'" <'.$Call['Data']['EMail'].'>';
                 $Message['ID']    = $Call['Subject'];
 
-                $Message['Data']  = F::Run('View', 'Load', $Call,
+                $Message['Data']  = F::Run('View', 'Load',
                                                      [
                                                           'Scope' => 'User/Activation',
                                                           'ID' => 'EMail',
                                                           'Data' =>
-                                                              array_merge($Call, $User,
-                                                              [
-                                                                  'ActivationURL' => $Call['Host'].'/activate/user/'.$User['Code'],
-                                                                  'Host' => $Call['Host']
+                                                              F::Merge($Call,[
+                                                                   'URLActivation' => $Call['Host'].'/activate/user/'.$Call['Data']['Code']
                                                               ])
                                                      ]);
 
                 $Message['Headers'] = array ('Content-type:' => ' text/html; charset="utf-8"');
 
-                F::Run('Code.Run.Delayed', 'Run', [
-                    'Run' => F::Merge($Call['Sender'], ['Call' => $Message])
-                ]);
 
-                list(,$User['Server']) = explode('@', $User['EMail']);
+                F::Run('IO', 'Write', $Call, $Message,
+                    [
+                        'Storage' => 'EMail'
+                    ]);
+
+
+                list(,$Call['Data']['Server']) = explode('@', $Call['Data']['EMail']);
 
                 $Call['Output']['Content'] =
                 [
@@ -56,7 +60,7 @@
                         'Type'  => 'Template',
                         'Scope' => 'User/Activation',
                         'ID' => 'Needed',
-                        'Data'  => $User
+                        'Data'  => $Call['Data']
                     ]
                 ];
 
@@ -102,11 +106,10 @@
                      'Data' => null
                 ));
 
-            if (isset($Call['Activation']['Auto Login']) && $Call['Activation']['Auto Login'])
+            if (isset($Call['Activation']['AutoLogin']) && $Call['Activation']['AutoLogin'])
                 $Call['Session'] = F::Run('Session', 'Write', $Call, ['Data' => ['User' => $Activation['User']]]);
 
             $Call = F::Hook('Activation.Success', $Call);
-
         }
         else
             $Call = F::Hook('Activation.Failed', $Call);
