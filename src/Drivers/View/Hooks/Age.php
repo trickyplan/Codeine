@@ -9,8 +9,8 @@
 
     setFn('Do', function ($Call)
     {
-        if (isset($Call['Data']['Age']) && isset($Call['Session']['User']['Age']) && $Call['Session']['User']['Age'] < $Call['Data']['Age'])
-            $Call['Value'] = F::Run('View', 'Load', ['Scope' => 'Errors', 'ID' => 'Age', 'Data' => ['Level' => $Call['Data']['Age']]]);
+        if (isset($Call['Data']['AgeLimit']) && isset($Call['Session']['User']['Age']) && $Call['Session']['User']['Age'] < $Call['Data']['AgeLimit'])
+            $Call['Value'] = F::Run('View', 'Load', ['Scope' => 'Errors', 'ID' => 'Age', 'Data' => ['Level' => $Call['Data']['AgeLimit']]]);
 
         return $Call;
     });
