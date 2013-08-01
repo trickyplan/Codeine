@@ -1,0 +1,75 @@
+{
+    "Mixins": ["Mixins.CRUD"],
+    "Storage": "Primary",
+    "EPP": 20,
+    "Nodes":
+    {
+        "ID":
+        {
+            "Type": "Numeral.Integer",
+            "Hooks":
+            {
+                "beforeEntityCreate":
+                {
+                    "Service": "Security.UID.Count",
+                    "Method": "Get",
+                    "Call":
+                    {
+                        "Entity": "Country"
+                    }
+                }
+            }
+        },
+        "Title":
+        {
+            "Type": "Literal.String",
+            "Weight": 100,
+            "Always Set": true,
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        },
+        "Slug":
+        {
+            "User Override": true,
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            },
+            "Hooks":
+            {
+                "beforeEntityWrite":
+                {
+                    "Service": "SEO.Slug",
+                    "Method": "Generate"
+                }
+            }
+        }
+    },
+    "Hooks":
+    {
+        "beforeCreateGet":
+        {
+            "Store URL":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "StoreURL"
+            }
+        },
+        "afterCreatePost":
+        {
+            "Restore URL":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "RestoreURL"
+            }
+        }
+    }
+}

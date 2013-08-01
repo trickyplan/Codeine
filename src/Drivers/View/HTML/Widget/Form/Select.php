@@ -11,8 +11,6 @@
      {
          $Options = array();
 
-         d(__FILE__, __LINE__, $Call['Options']);
-
          if (isset($Call['One']))
              $Call['Options'] = $Call['Options'][0];
 

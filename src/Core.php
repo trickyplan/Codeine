@@ -368,6 +368,7 @@
         public static function Sort($Array, $Key, $Direction = SORT_DESC)
         {
             $Data = [];
+            $Result = [];
 
             foreach ($Array as $ID => $Row)
                 if (isset($Row[$Key]))

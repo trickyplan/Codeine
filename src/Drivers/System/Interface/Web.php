@@ -118,6 +118,25 @@
         return $Call;
     });
 
+    setFn('StoreURL', function ($Call)
+    {
+        if(!isset($Call['Request']['BackURL']) && isset($_SERVER['HTTP_REFERER']))
+            $Call['Request']['BackURL'] = $_SERVER['HTTP_REFERER'];
+
+        return $Call;
+    });
+
+    setFn('RestoreURL', function ($Call)
+    {
+        if (isset($Call['Request']['BackURL']) && !empty($Call['Request']['BackURL']))
+            $Call = F::Run('System.Interface.Web', 'Redirect', $Call, ['Location' => $Call['Request']['BackURL']]);
+        else
+            if (isset($_SERVER['HTTP_REFERER']))
+                $Call = F::Run('System.Interface.Web', 'Redirect', $Call, ['Location' => $_SERVER['HTTP_REFERER']]);
+
+        return $Call;
+    });
+
     setFn('Protocol', function ($Call)
     {
         if (isset($Call['Project']['Hosts'][F::Environment()]))

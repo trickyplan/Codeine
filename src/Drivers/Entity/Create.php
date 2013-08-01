@@ -44,7 +44,6 @@
             ];
 
         // Для каждой ноды в модели
-        $ic = 0;
 
         foreach ($Call['Nodes'] as $Name => $Node)
         {
@@ -117,7 +116,6 @@
 
                     $Call = F::Run('Entity.Form.Layout.'.$Call['FormLayout'], 'Add', $Call,
                         [
-                            'IC' => ++$ic,
                             'Name' => $Name,
                             'Widget' => $Widget
                         ]);

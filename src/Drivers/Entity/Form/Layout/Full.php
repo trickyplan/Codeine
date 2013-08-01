@@ -9,7 +9,7 @@
 
     setFn('Add', function ($Call)
     {
-       $Call['Output']['Form'][$Call['IC']] = $Call['Widget'];
+       $Call['Output']['Form'][] = $Call['Widget'];
 
        return $Call;
     });

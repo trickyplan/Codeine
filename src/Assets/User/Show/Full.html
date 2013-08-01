@@ -1,1 +1,48 @@
-<h1><k>Fullname</k></h1>
+<h1 class="page-header"><k>Fullname</k></h1>
+
+<table class="table table-striped">
+    <tr>
+        <td>
+            <l>User.Entity:Created</l>
+        </td>
+        <td>
+            <datetime><k>Created</k></datetime>
+            <small class="pull-right">
+                <datetime engine="Period" format="2"><k>Created</k></datetime> назад
+            </small>
+        </td>
+    </tr>
+    <block>
+        <tr>
+            <td>
+                <l>User.Entity:DOB</l>
+            </td>
+            <td>
+                <datetime format="d.m.Y"><k>DOB</k></datetime>
+                <small class="pull-right">
+                    <datetime engine="Period" format="1"><k>DOB</k></datetime>
+                </small>
+            </td>
+        </tr>
+    </block>
+    <block>
+        <tr>
+            <td>
+                <l>User.Entity:Country</l>
+            </td>
+            <td>
+                <entity>Country:<k>Country</k></entity>
+            </td>
+        </tr>
+    </block>
+    <block>
+        <tr>
+            <td>
+                <l>User.Entity:Location</l>
+            </td>
+            <td>
+                <k>Location</k>
+            </td>
+        </tr>
+    </block>
+</table>s

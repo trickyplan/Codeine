@@ -1,7 +1,7 @@
 {
     "Purpose": "Create",
     "FormLayout": "Full",
-    "OnlyRequired": true,
+    "OnlyRequired": false,
     "Hooks":
     {
         "beforeCreateDo":

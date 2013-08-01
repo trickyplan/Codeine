@@ -1,0 +1,47 @@
+{
+    "Rules":
+    {
+        "Show country allow to all":
+        {
+            "Decision": true,
+            "Weight": 100,
+            "Run":
+            {
+                "Service": "Entity.Show.Static",
+                "Method": "Do",
+                "Call":
+                {
+                    "Entity": "Country"
+                }
+            }
+        },
+        "List countries allow to all":
+        {
+            "Decision": true,
+            "Weight": 100,
+            "Run":
+            {
+                "Service": "Entity.List",
+                "Method": "Do",
+                "Call":
+                {
+                    "Entity": "Country"
+                }
+            }
+        },
+        "Catalog countries allow to all":
+        {
+            "Decision": true,
+            "Weight": 100,
+            "Run":
+            {
+                "Service": "Entity.Catalog",
+                "Method": "Do",
+                "Call":
+                {
+                    "Entity": "Country"
+                }
+            }
+        }
+    }
+}

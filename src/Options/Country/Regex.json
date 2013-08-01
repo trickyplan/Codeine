@@ -1,0 +1,57 @@
+{
+    "Regex":
+    {
+        "Show Country":
+        {
+            "Match": "^/country/(.*)$",
+            "Service": "Entity.Show.Static",
+            "Method": "Do",
+            "Call":
+            {
+                "Entity": "Country",
+                "Where":
+                {
+                    "Status": 1,
+                    "Slug": "$1"
+                }
+            }
+        },
+        "Show Countries":
+        {
+            "Match": "^/countries$",
+            "Service": "Entity.List",
+            "Method": "Do",
+            "Call":
+            {
+                "Entity": "Country",
+                "Where":
+                {
+                    "Status": 1
+                },
+                "Sort":
+                {
+                    "Title.ru": true
+                }
+            }
+        },
+        "Show Countries with pages":
+        {
+            "Match": "^/countries/page(\\d+)$",
+            "Service": "Entity.List",
+            "Method": "Do",
+            "Call":
+            {
+                "Entity": "Country",
+                "Where":
+                {
+                    "Status": 1
+                },
+                "Page": "$1",
+                "Sort":
+                {
+                    "Title.ru": true
+                }
+            }
+        }
+    }
+}
