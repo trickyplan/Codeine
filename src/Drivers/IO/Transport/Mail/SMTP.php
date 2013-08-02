@@ -26,7 +26,7 @@
     {
         $Call['Headers'] =  [
             'Return-path' => $Call['Username'],
-            'From' => (isset($Call['From'])? $Call['From']: $Call['Project']['Title']).' <'.$Call['Username'].'>',
+            'From' => (isset($Call['From'])? $Call['From']: isset($Call['Project']['Title'])? $Call['Project']['Title']: 'Codeine').' <'.$Call['Username'].'>',
             'To' => $Call['Scope'],
             'Subject' => $Call['ID']];
 
