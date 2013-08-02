@@ -19,16 +19,41 @@
                 "Service":"Entity.Nodes.Hook",
                 "Method":"Process"
             }
-        }
-    },
-    "Output":
-    {
-        "Content":
+        },
+        "beforeCreateGet":
         {
-            "Form Widget":
+            "Add form widget":
             {
-                "Type": "Form",
-                "Submit": "Create"
+                "Output":
+                {
+                    "Content":
+                    {
+                        "Form Widget":
+                        {
+                            "Type": "Form",
+                            "Submit": "Create"
+                        }
+                    }
+                }
+
+            }
+        },
+        "afterCreatePost":
+        {
+            "Add success layout":
+            {
+                "Output":
+                {
+                    "Content":
+                    {
+                        "Success layout":
+                        {
+                            "Type": "Template",
+                            "ID": "Created"
+                        }
+                    }
+                }
+
             }
         }
     }

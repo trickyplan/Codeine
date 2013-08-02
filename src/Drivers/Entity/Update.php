@@ -41,7 +41,7 @@
         else
         {
             // Сгенерировать форму
-            $ic = 0;
+            $IC = 1;
             // Для каждой ноды в модели
 
             foreach ($Call['Data'] as $IX => $Element)
@@ -50,7 +50,7 @@
                     // Если виджеты вообще определены
                     if (isset($Node['Widgets']) && !isset($Node['WriteOnce']))
                     {
-                        $ic++;
+                        $IC++;
                         $Widget = null;
                         // Определяем, какие именно используем
                         if (isset($Node['Widgets'][$Call['Purpose']])) // Для нашего случая
@@ -88,7 +88,7 @@
                             else
                                 $Widget['Options'] = [];
 
-                            if($ic == 0)
+                            if($IC == 0)
                                 $Widget['Autofocus'] = true;
 
                             // Если есть значение, добавляем
@@ -103,13 +103,13 @@
                                 $Widget['Value'] = null;
 
                             if (!isset($Widget['Weight']))
-                                $Widget['Weight'] = 0;
+                                $Widget['Weight'] = -$IC; // Magic
 
 
                             // Помещаем виджет в поток
                             $Call = F::Run('Entity.Form.Layout.'.$Call['FormLayout'], 'Add', $Call,
                                 [
-                                    'IC' => ++$ic,
+                                    'IC' => $IC,
                                     'Name' => $Name,
                                     'Node' => $Node,
                                     'Widget' => $Widget

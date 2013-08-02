@@ -45,8 +45,11 @@
 
         // Для каждой ноды в модели
 
+        $IC = 0;
+
         foreach ($Call['Nodes'] as $Name => $Node)
         {
+            $IC++;
             $Widget = null;
 
             if ($Call['OnlyRequired'] == true && (!isset($Node['Required']) or !$Node['Required']))
@@ -93,9 +96,6 @@
                     else
                         $Widget['Options'] = array();
 
-/*                    if($ic == 0)
-                        $Widget['Autofocus'] = true;*/
-
                     // Если есть значение, добавляем
                     if (isset($Call['Data']))
                         if (($Widget['Value'] =  F::Dot($Call['Data'], $Name)) === null)
@@ -110,7 +110,7 @@
                         $Widget['Value'] = null;
 
                     if (!isset($Widget['Weight']))
-                        $Widget['Weight'] = 0;
+                        $Widget['Weight'] = -$IC; // Magic
 
                     // Помещаем виджет в поток
 
