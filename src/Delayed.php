@@ -10,24 +10,30 @@
 
     include 'Codeine/Core.php';
 
-    F::Bootstrap (array(
-                       'Path' => array(Root)
-                       //,'Trace' => true
-                  ));
-
-    F::Run('Code.Flow.Daemon', 'Run', [
-        'DaemonID' => 'codeine-delayed',
-        'Execute' =>
+    $Call = F::Bootstrap
+        ([
+            'Path' => [Root],
+            'Service' => 'System.Interface.Web',
+            'Method' => 'Do',
+            'Call' =>
             [
-                'Service' => 'Code.Run.Delayed',
-                'Method'  => 'Execute'
-            ],
-        'Trigger' =>
-            [
-                'Service' => 'Code.Run.Delayed',
-                'Method'  => 'Queue'
+                'Service' => 'Code.Flow.Daemon',
+                'Method'  => 'Run',
+                'Call'    =>
+                [
+                    'DaemonID' => 'codeine-delayed',
+                    'Execute' =>
+                    [
+                        'Service' => 'Code.Run.Delayed',
+                        'Method'  => 'Execute'
+                    ],
+                    'Trigger' =>
+                    [
+                        'Service' => 'Code.Run.Delayed',
+                        'Method'  => 'Queue'
+                    ]
+                ]
             ]
-    ]);
-
+        ]);
 
     exit(0);
