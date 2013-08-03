@@ -30,41 +30,26 @@
             $Call['Entity'] = $Entity;
 
             $IDs = F::Run('Search', 'Query', $Call,
-             [
-                  'Engine' => 'Primary',
-                  'Query' => isset($Call['Query'])? $Call['Query']: $Call['Request']['Query']
-             ]);
+            [
+              'Engine' => 'Primary',
+              'Query' => isset($Call['Query'])? $Call['Query']: $Call['Request']['Query']
+            ]);
 
-            $Call['Layouts'][] = array(
-                        'Scope' => $Entity,
-                        'ID' => 'Main'
-                    );
+            $Call['Layouts'][] = ['Scope' => $Entity,'ID' => 'Main','Context' => $Call['Context']];
 
-            $Call['Layouts'][] = array(
-                        'Scope' => $Entity,
-                        'ID' => 'Search',
-                        'Context' => $Call['Context']
-                    );
+            $Call['Layouts'][] = ['Scope' => $Entity,'ID' => 'Search','Context' => $Call['Context']];
 
             $Where = [];
 
             if (!empty($IDs) && null !== $IDs)
-                $Where['ID'] = array_keys($IDs);
-
-            if (isset($Call['Request']['Filter']))
-                foreach ($Call['Request']['Filter'] as $Key => $Value)
-                    $Where[$Key] = $Value;
+                $Where['ID']['$in'] = array_keys($IDs);
 
             if (empty($Where))
                 $Call['Elements'] = [];
             else
                 unset($Call['Elements']);
 
-            $Call['Layouts'][] = [
-                'Scope' => 'Entity',
-                'ID' => 'List',
-                'Context' => $Call['Context']
-            ];
+            $Call['Layouts'][] = ['Scope' => 'Entity','ID' => 'List','Context' => $Call['Context']];
 
             $Call = F::Run('Entity.List', 'Do',
                     $Call,
