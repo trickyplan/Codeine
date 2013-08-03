@@ -107,8 +107,6 @@
 
             $Call['Current'] = F::Run('Entity', 'Read', $Call);
 
-            $Call['Data'] = F::Merge($Call['Current'],$Call['Data']);
-
             $Call['Data'][0]['ID'] = $Call['Where']['ID'];
 
             $Call = F::Hook('beforeEntityWrite', $Call);

@@ -20,6 +20,5 @@
 
                 $Element = $Data;
             }
-
         return $Call;
     });
