@@ -42,7 +42,7 @@
             "Store URL":
             {
                 "Service": "Entity.Redirect.Back",
-                "Method": "Store"
+                "Method": "StoreURL"
             }
         },
         "afterAcceptPost":
@@ -50,7 +50,7 @@
             "Restore URL":
             {
                 "Service": "Entity.Redirect.Back",
-                "Method": "Restore"
+                "Method": "RestoreURL"
             }
         },
         "beforeRejectDo":
@@ -58,7 +58,7 @@
             "Store URL":
             {
                 "Service": "Entity.Redirect.Back",
-                "Method": "Store"
+                "Method": "StoreURL"
             }
         },
         "afterRejectPost":
@@ -66,7 +66,7 @@
             "Restore URL":
             {
                 "Service": "Entity.Redirect.Back",
-                "Method": "Restore"
+                "Method": "RestoreURL"
             }
         }
     }

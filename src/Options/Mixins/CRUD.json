@@ -5,64 +5,64 @@
         {
             "Store URL":
             {
-                "Service": "Entity.Redirect.Back",
-                "Method": "Store"
+                "Service": "System.Interface.Web",
+                "Method": "StoreURL"
             }
         },
         "-afterCreatePost":
         {
             "Restore URL":
             {
-                "Service": "Entity.Redirect.Back",
-                "Method": "Restore"
+                "Service": "System.Interface.Web",
+                "Method": "RestoreURL"
             }
         },
         "beforeUpdateGet":
         {
             "Store URL":
             {
-                "Service": "Entity.Redirect.Back",
-                "Method": "Store"
+                "Service": "System.Interface.Web",
+                "Method": "StoreURL"
             }
         },
         "afterUpdatePost":
         {
             "Restore URL":
             {
-                "Service": "Entity.Redirect.Back",
-                "Method": "Restore"
+                "Service": "System.Interface.Web",
+                "Method": "RestoreURL"
             }
         },
         "beforeDeleteGet":
         {
             "Store URL":
             {
-                "Service": "Entity.Redirect.Back",
-                "Method": "Store"
+                "Service": "System.Interface.Web",
+                "Method": "StoreURL"
             }
         },
         "afterDeletePost":
         {
             "Restore URL":
             {
-                "Service": "Entity.Redirect.Back",
-                "Method": "Restore"
+                "Service": "System.Interface.Web",
+                "Method": "RestoreURL"
             }
         },
         "beforeTouch":
         {
             "Store URL":
             {
-                "Service": "Entity.Redirect.Back",
-                "Method": "Store"
+                "Service": "System.Interface.Web",
+                "Method": "StoreURL"
             }
         },
         "afterTouch":
         {
             "Restore URL":
             {
-                "Service": "Entity.Redirect.Back",
-                "Method": "Restore"
+                "Service": "System.Interface.Web",
+                "Method": "RestoreURL"
             }
         }
     }

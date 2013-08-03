@@ -21,8 +21,8 @@
         {
             "Restore URL":
             {
-                "Service": "Entity.Redirect.Back",
-                "Method": "Restore"
+                "Service": "System.Interface.Web",
+                "Method": "RestoreURL"
             }
         }
     }
