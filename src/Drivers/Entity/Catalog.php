@@ -17,10 +17,9 @@
         $Elements = F::Run('Entity', 'Read', ['Entity' => $Call['Entity'], 'Fields' => [$Call['Key']]]);
 
         foreach ($Elements as $Element)
-            $Keys[] = $Element[$Call['Key']];
+            $Keys[] = F::Dot($Element, $Call['Key']);
 
         $Keys = array_count_values($Keys);
-
 
         foreach ($Keys as $Value => $Count)
             $Call['Output']['Content'][]=
