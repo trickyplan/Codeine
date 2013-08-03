@@ -1,0 +1,17 @@
+<subtitle><far>User:<call>Where.User</call>:Fullname</far></subtitle>
+<breadcrumb href="/blog/category/<call>Where.User</call>"><far>User:<call>Where.User</call>:Fullname</far></breadcrumb>
+<h2 class="page-header">Автор: <far>User:<call>Where.User</call>:Fullname</far></entity></h2>
+
+<div class="row-fluid">
+    <div class="span8"><place>Content</place></div>
+    <div class="span4">
+        <exec>
+            <Service>Entity.Catalog</Service>
+            <Method>Do</Method>
+            <Call>
+                <Entity>Blog</Entity>
+                <Key>User</Key>
+            </Call>
+        </exec>
+    </div>
+</div>

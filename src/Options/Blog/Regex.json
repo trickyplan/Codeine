@@ -26,7 +26,6 @@
             "Call":
             {
                 "Entity": "Blog",
-                "Key": "Category",
                 "Custom Templates":
                 {
                     "List": "Category"
@@ -47,7 +46,6 @@
             "Call":
             {
                 "Entity": "Blog",
-                "Key": "Category",
                 "Page": "$2",
                 "Custom Templates":
                 {
@@ -56,6 +54,47 @@
                 "Where":
                 {
                     "Category":  "$1"
+                }
+            },
+            "Zone": ["Project"]
+        },
+        "Автор блога":
+        {
+            "Match":"^/blog/author/(.*)$",
+            "Service":"Entity.List",
+            "Method":"Do",
+            "Weight": 30,
+            "Call":
+            {
+                "Entity": "Blog",
+                "Custom Templates":
+                {
+                    "List": "Author"
+                },
+                "Where":
+                {
+                    "User":  "$1"
+                }
+            },
+            "Zone": ["Project"]
+        },
+        "Автор блога, страницы":
+        {
+            "Match":"^/blog/author/(.+)/page(\\d+)$",
+            "Service":"Entity.List",
+            "Method":"Do",
+            "Weight": 30,
+            "Call":
+            {
+                "Entity": "Blog",
+                "Page": "$2",
+                "Custom Templates":
+                {
+                    "List": "Author"
+                },
+                "Where":
+                {
+                    "User":  "$1"
                 }
             },
             "Zone": ["Project"]
