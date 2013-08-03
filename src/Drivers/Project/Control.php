@@ -35,3 +35,9 @@
 
         return $Call;
     });
+
+    setFn('Menu', function ($Call)
+    {
+        if (isset($Call['Version']))
+            return ['Count' => $Call['Version']['Project']['Major'].'.'.$Call['Version']['Project']['Minor']];
+    });

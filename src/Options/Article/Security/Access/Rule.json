@@ -1,0 +1,47 @@
+{
+    "Rules":
+    {
+        "Статьи доступны всем":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Entity.List",
+                "Method": "Do",
+                "Call":
+                {
+                    "Entity": "Article"
+                }
+            }
+        },
+        "Каталогизация статей доступна всем":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Entity.Catalog",
+                "Method": "Do",
+                "Call":
+                {
+                    "Entity": "Article"
+                }
+            }
+        },
+        "Статья доступна всем":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Entity.Show.Static",
+                "Method": "Do",
+                "Call":
+                {
+                    "Entity": "Article"
+                }
+            }
+        }
+    }
+}

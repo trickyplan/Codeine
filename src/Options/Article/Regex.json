@@ -3,7 +3,6 @@
     {
         "Страница статей":
         {
-            "Zone": ["Project"],
             "Match":"/articles/page/(.*)",
             "Service":"Entity.List",
             "Method":"Do",
@@ -19,23 +18,88 @@
         },
         "Категория статей":
         {
-            "Zone": ["Project"],
-            "Match":"/articles/category/(.*)",
+            "Match":"^/articles/category/(.*)$",
             "Service":"Entity.List",
             "Method":"Do",
             "Weight": 30,
             "Call":
             {
                 "Entity": "Article",
+                "Custom Templates":
+                {
+                    "List": "Category"
+                },
                 "Where":
                 {
                     "Category":  "$1"
                 }
-            }
+            },
+            "Zone": ["Project"]
+        },
+        "Категория статей, страницы":
+        {
+            "Match":"^/articles/category/(.+)/page(\\d+)$",
+            "Service":"Entity.List",
+            "Method":"Do",
+            "Weight": 30,
+            "Call":
+            {
+                "Entity": "Article",
+                "Page": "$2",
+                "Custom Templates":
+                {
+                    "List": "Category"
+                },
+                "Where":
+                {
+                    "Category":  "$1"
+                }
+            },
+            "Zone": ["Project"]
+        },
+        "Автор статей":
+        {
+            "Match":"^/articles/author/(.*)$",
+            "Service":"Entity.List",
+            "Method":"Do",
+            "Weight": 30,
+            "Call":
+            {
+                "Entity": "Article",
+                "Custom Templates":
+                {
+                    "List": "Author"
+                },
+                "Where":
+                {
+                    "User":  "$1"
+                }
+            },
+            "Zone": ["Project"]
+        },
+        "Автор статей, страницы":
+        {
+            "Match":"^/articles/author/(.+)/page(\\d+)$",
+            "Service":"Entity.List",
+            "Method":"Do",
+            "Weight": 30,
+            "Call":
+            {
+                "Entity": "Article",
+                "Page": "$2",
+                "Custom Templates":
+                {
+                    "List": "Author"
+                },
+                "Where":
+                {
+                    "User":  "$1"
+                }
+            },
+            "Zone": ["Project"]
         },
         "RSS категории статей":
         {
-            "Zone": ["Project"],
             "Match":"/articles/category/(.*).rss",
             "Weight": 44,
             "Service":"Entity.List",
@@ -58,7 +122,6 @@
         },
         "Статья":
         {
-            "Zone": ["Project"],
             "Match":"/article/(.*)",
             "Service":"Entity.Show.Static",
             "Method":"Do",

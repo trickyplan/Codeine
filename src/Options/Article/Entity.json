@@ -36,6 +36,17 @@
                 }
             }
         },
+        "Category":
+        {
+            "Type": "Literal.String",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        },
         "Slug":
         {
             "Widgets":
