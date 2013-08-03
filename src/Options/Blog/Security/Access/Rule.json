@@ -15,6 +15,20 @@
                 }
             }
         },
+        "Каталогизация блога доступна всем":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Entity.Catalog",
+                "Method": "Do",
+                "Call":
+                {
+                    "Entity": "Blog"
+                }
+            }
+        },
         "Пост доступен всем":
         {
             "Decision": true,
