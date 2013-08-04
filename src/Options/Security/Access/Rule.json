@@ -75,6 +75,20 @@
                 }
             }
         },
+        "Блок доступен всем":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Entity.Show.Static",
+                "Method": "Do",
+                "Call":
+                {
+                    "Entity": "Block"
+                }
+            }
+        },
         "ЦУП доступен пользователю номер 1":
         {
             "Decision": true,
@@ -90,15 +104,6 @@
                         "ID": 1
                     }
                 }
-            }
-        },
-        "VK":
-        {
-            "Decision": true,
-            "Weight": 200,
-            "Run":
-            {
-                "Service": "Services.Social.VK"
             }
         },
         "Перевод доступен всем":

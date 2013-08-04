@@ -102,12 +102,20 @@
                             if (isset($Node['Default']))
                                 $Widget['Value'] = F::Live($Node['Default']);
 
+                    if (isset($Node['Localized']) && $Node['Localized'])
+                        $Widget['Label'] = $Call['Entity'].'.Entity:'.$Name.'.Label';
+
                     // Упростить
 
                     if (isset($Widget['Value']))
                         $Widget['Value'] = F::Live($Widget['Value']);
                     else
-                        $Widget['Value'] = null;
+                    {
+                        if (isset($Node['Default']))
+                            $Widget['Value'] = F::Live($Node['Default']);
+                        else
+                            $Widget['Value'] = null;
+                    }
 
                     if (!isset($Widget['Weight']))
                         $Widget['Weight'] = -$IC; // Magic

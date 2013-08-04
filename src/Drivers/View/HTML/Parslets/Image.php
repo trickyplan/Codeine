@@ -37,7 +37,7 @@
                   $ImageData = F::Run('IO', 'Read',
                                            [
                                            'Storage' => 'Image',
-                                           'Scope'   => $Asset . '/img',
+                                           'Scope'   => strtr($Asset, '.', '/') . '/img',
                                            'Where'   => $ID
                                            ]);
 
@@ -54,10 +54,10 @@
                   else
                   {
                       if (isset($Match['Default']))
-                          list($Asset, $ID) = F::Run('View', 'Asset.Route', array('Value' => $Match['Default']));
+                          list($Asset, $ID) = F::Run('View', 'Asset.Route', ['Value' => $Match['Default']]);
                       else
                       {
-                          $Asset = 'Default/img';
+                          $Asset = 'Default';
                           $ID = 'default.png';
                       }
 
@@ -69,7 +69,7 @@
                                   [
                                       'Storage' => 'Image',
                                       'One' => true,
-                                      'Scope'   => $Asset,
+                                      'Scope'   => $Asset.'/img',
                                       'Where'   => $ID
                                   ])
                           ]

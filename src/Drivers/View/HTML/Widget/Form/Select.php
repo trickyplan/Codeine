@@ -17,9 +17,6 @@
          if (isset($Call['Multiple']))
              $Call['Name'] .= '[]';
 
-         if (isset($Call['Localized']) && $Call['Localized'])
-             $Call['Label'] = $Call['Entity'].'.Entity:'.$Call['Node'].'.Label';
-
          foreach ($Call['Options'] as $Key => $Option)
          {
              if (is_array($Option))
