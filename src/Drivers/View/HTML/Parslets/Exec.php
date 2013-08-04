@@ -19,8 +19,10 @@
                           'Run' => $Match,
                           'Context' => 'app',
                           'Session' => $Call['Session'],
-                          'Request' => $Call['Request']
+                          'Request' => $Call['Request'],
+                          'RHost' => $Call['RHost']
                       ]);
+                  // FIXME Fast
 
                   $Call['Output'] = str_replace($Call['Parsed'][0][$Ix], $Application['Output'], $Call['Output']);
               }

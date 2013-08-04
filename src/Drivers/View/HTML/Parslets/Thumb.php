@@ -45,6 +45,7 @@
                 [
                     'Execute' => 'Exist',
                     'Storage' => 'Image Cache',
+                    'Scope' => [$Call['RHost'], 'img'],
                     'Where'   => $ThumbURL
                 ]
             ))
@@ -60,6 +61,7 @@
                         F::Run ('IO', 'Write',
                               [
                               'Storage' => 'Image Cache',
+                              'Scope' => [$Call['RHost'], 'img'],
                               'Where'   => $ThumbURL,
                               'Data' => $Image->getImageBlob()
                               ]
@@ -83,7 +85,7 @@
                              array(
                                  'Width' => $Thumb['Width'],
                                  'Height' => $Thumb['Width'],
-                                 'URL' => '/cache/images/'.$ThumbURL
+                                 'URL' => '/cache/img/'.$ThumbURL
                              ))
 
                     )), $Call['Output']);
