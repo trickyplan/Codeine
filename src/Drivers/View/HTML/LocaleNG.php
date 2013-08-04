@@ -11,6 +11,8 @@
     {
         if (isset($Call['Language']))
             $Call['Language'] = F::Live($Call['Language']);
+        else
+            $Call['Language'] = 'ru';
 
         if (preg_match_all('@<l>(.*)<\/l>@SsUu', $Call['Output'], $Pockets))
         {

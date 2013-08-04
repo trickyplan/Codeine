@@ -13,43 +13,46 @@
           {
               $Match = json_decode(json_encode(simplexml_load_string('<image>'.$Match.'</image>')), true); // I love PHP :(
 
-              list($Asset, $ID) = F::Run('View', 'Asset.Route', array('Value' => $Match['Source']));
+              list($Asset, $ID) = F::Run('View', 'Asset.Route', ['Value' => $Match['Source']]);
 
-              $Image = strtr($Asset.'.'.$ID, '/', '.');
+              $Image = strtolower(strtr($Asset.'.'.$ID, '/', '.'));
 
-              $Path = $Call['Image Cache'].$Image;
+              $Path = $Call['Image']['Pathname'].$Image;
 
-              if (F::Run ('IO', 'Exist',
+              if (F::Run ('IO', 'Execute',
                             [
+                                'Execute' => 'Exist',
                                 'Storage' => 'Image Cache',
+                                'Scope'   => [$Call['RHost'], 'img'],
                                 'Where'   => $Image
                             ]))
               {
-                  $HTML = '<img src="'.$Path.'" '
-                        .(isset($Match['Class']) ? ' class="'.$Match['Class'].'"': '')
-                        .(isset($Match['Width']) ? ' width="'.$Match['Width'].'"': '')
-                        .(isset($Match['Height']) ? ' height="'.$Match['Height'].'"': '')
-                        .(isset($Match['Alt']) ? ' alt="'.$Match['Alt'].'"': '')
-                      .' />';
+                  F::Log('Image '.$Image.' cached', LOG_GOOD);
               }
               else
               {
+                  F::Log('Image '.$Image.' missed', LOG_BAD);
+
                   $ImageData = F::Run('IO', 'Read',
                                            [
                                            'Storage' => 'Image',
-                                           'Scope'   => strtr($Asset, '.', '/') . '/img',
+                                           'Scope'   => [strtr($Asset, '.', '/'), 'img'],
                                            'Where'   => $ID
                                            ]);
 
                   if ($ImageData != null)
                   {
-                      F::Run ('IO', 'Write',
+                      if (F::Run ('IO', 'Write',
                               [
                               'Storage' => 'Image Cache',
+                              'Scope'   => [$Call['RHost'], 'img'],
                               'Where'   => $Image,
                               'Data' => $ImageData
                               ]
-                      );
+                      ))
+                          F::Log('Image '.$Image.' writed', LOG_GOOD);
+                      else
+                          F::Log('Image '.$Image.' not writed', LOG_BAD);;
                   }
                   else
                   {
@@ -61,28 +64,32 @@
                           $ID = 'default.png';
                       }
 
-                      F::Run ('IO', 'Write',
+                      if (F::Run ('IO', 'Write',
                           [
                               'Storage' => 'Image Cache',
+                              'Scope'   => [$Call['RHost'], 'img'],
                               'Where'   => $Image,
                               'Data' => F::Run('IO', 'Read',
                                   [
                                       'Storage' => 'Image',
                                       'One' => true,
-                                      'Scope'   => $Asset.'/img',
+                                      'Scope'   => [$Asset, 'img'],
                                       'Where'   => $ID
                                   ])
                           ]
-                      );
+                      ))
+                          F::Log('Default image '.$Image.' writed', LOG_GOOD);
+                      else
+                          F::Log('Default image '.$Image.' not writed', LOG_BAD);
                   }
-
-                  $HTML = '<img src="'.$Path.'" '
-                      .(isset($Match['Class']) ? ' class="'.$Match['Class'].'"': '')
-                      .(isset($Match['Width']) ? ' width="'.$Match['Width'].'"': '')
-                      .(isset($Match['Height']) ? ' height="'.$Match['Height'].'"': '')
-                      .(isset($Match['Alt']) ? ' alt="'.$Match['Alt'].'"': '')
-                      .' />';
               }
+
+              $HTML = '<img src="'.$Path.'" '
+                  .(isset($Match['Class']) ? ' class="'.$Match['Class'].'"': '')
+                  .(isset($Match['Width']) ? ' width="'.$Match['Width'].'"': '')
+                  .(isset($Match['Height']) ? ' height="'.$Match['Height'].'"': '')
+                  .(isset($Match['Alt']) ? ' alt="'.$Match['Alt'].'"': '')
+                  .' />';
 
 
               $Call['Output'] = str_replace($Call['Parsed'][0][$Ix], $HTML, $Call['Output']);

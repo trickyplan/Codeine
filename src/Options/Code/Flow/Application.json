@@ -1,5 +1,9 @@
 {
     "Context": "app",
+    "Run":
+    {
+        "Method": "Do"
+    },
     "Hooks":
     {
         "beforeApplicationRun":

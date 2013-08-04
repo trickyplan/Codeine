@@ -9,33 +9,31 @@
 
     setFn ('Process', function ($Call)
     {
-        $CSS  = $Call['Value'];
+        if ($Call['CSS']['Strip Non-visible'])
+            $Call['CSS']['Styles'] = str_replace (array("\r\n", "\r", "\n", "\t", '  ', '    ', '    '), '', $Call['CSS']['Styles']);
 
-        if ($Call['Strip Non-visible'])
-            $CSS = str_replace (array("\r\n", "\r", "\n", "\t", '  ', '    ', '    '), '', $CSS);
+        if ($Call['CSS']['Strip Comments'])
+            $Call['CSS']['Styles'] = preg_replace ('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $Call['CSS']['Styles']);
 
-        if ($Call['Strip Comments'])
-            $CSS = preg_replace ('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $CSS);
-
-        if ($Call['Preserve Hacks'])
+        if ($Call['CSS']['Preserve Hacks'])
         {
-            $CSS = preg_replace ('@>/\\*\\s*\\*/@', '>/*keep*/', $CSS);
-            $CSS = preg_replace ('@/\\*\\s*\\*/\\s*:@', '/*keep*/:', $CSS);
-            $CSS = preg_replace ('@:\\s*/\\*\\s*\\*/@', ':/*keep*/', $CSS);
+            $Call['CSS']['Styles'] = preg_replace ('@>/\\*\\s*\\*/@', '>/*keep*/', $Call['CSS']['Styles']);
+            $Call['CSS']['Styles'] = preg_replace ('@/\\*\\s*\\*/\\s*:@', '/*keep*/:', $Call['CSS']['Styles']);
+            $Call['CSS']['Styles'] = preg_replace ('@:\\s*/\\*\\s*\\*/@', ':/*keep*/', $Call['CSS']['Styles']);
         }
 
-        if ($Call['Remove Whitespace'])
+        if ($Call['CSS']['Remove Whitespace'])
         {
-            $CSS = preg_replace ('/\\s*{\\s*/', '{', $CSS);
-            $CSS = preg_replace ('/;?\\s*}\\s*/', '}', $CSS);
-            $CSS = preg_replace ('/\\s*;\\s*/', ';', $CSS);
-            $CSS = preg_replace ('/url\\(\\s*([^\\)]+?)\\s*\\)/x', 'url($1)', $CSS);
-            $CSS = preg_replace ('/\\s*([{;])\\s*([\\*_]?[\\w\\-]+)\\s*:\\s*(\\b|[#\'"])/x', '$1$2:$3', $CSS);
-            $CSS = preg_replace ('/[ \\t]*\\n+\\s*/', "\n", $CSS);
+            $Call['CSS']['Styles'] = preg_replace ('/\\s*{\\s*/', '{', $Call['CSS']['Styles']);
+            $Call['CSS']['Styles'] = preg_replace ('/;?\\s*}\\s*/', '}', $Call['CSS']['Styles']);
+            $Call['CSS']['Styles'] = preg_replace ('/\\s*;\\s*/', ';', $Call['CSS']['Styles']);
+            $Call['CSS']['Styles'] = preg_replace ('/url\\(\\s*([^\\)]+?)\\s*\\)/x', 'url($1)', $Call['CSS']['Styles']);
+            $Call['CSS']['Styles'] = preg_replace ('/\\s*([{;])\\s*([\\*_]?[\\w\\-]+)\\s*:\\s*(\\b|[#\'"])/x', '$1$2:$3', $Call['CSS']['Styles']);
+            $Call['CSS']['Styles'] = preg_replace ('/[ \\t]*\\n+\\s*/', "\n", $Call['CSS']['Styles']);
         }
 
-        if ($Call['Minimize Colors'])
-            $CSS = preg_replace ('/([^=])#([a-f\\d])\\2([a-f\\d])\\3([a-f\\d])\\4([\\s;\\}])/i', '$1#$2$3$4$5', $CSS);
+        if ($Call['CSS']['Minimize Colors'])
+            $Call['CSS']['Styles'] = preg_replace ('/([^=])#([a-f\\d])\\2([a-f\\d])\\3([a-f\\d])\\4([\\s;\\}])/i', '$1#$2$3$4$5', $Call['CSS']['Styles']);
 
-        return $CSS;
+        return $Call;
      });

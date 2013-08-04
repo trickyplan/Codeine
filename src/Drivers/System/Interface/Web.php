@@ -27,9 +27,7 @@
             }
 
             $Call['Request'] = $_REQUEST;
-
             $Call['Cookie'] = $_COOKIE;
-
 
             $Call['Run'] = rawurldecode($_SERVER['REQUEST_URI']);
             $Call['URL Query'] = parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY);

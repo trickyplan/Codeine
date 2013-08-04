@@ -109,7 +109,9 @@
 
     setFn('Save', function ($Call)
     {
-        // TODO Realize "Save" function
+        if (!is_dir(dirname($Call['ID'])))
+            mkdir(dirname($Call['ID']), 0777, true);
+
         switch ($Call['Image']['Type'])
         {
             case 'GIF':

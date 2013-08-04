@@ -1,15 +1,22 @@
 {
-    "CSS Host":"",
-    "Caching":
+    "CSS":
     {
-        "Enabled": true
+        "Styles": [],
+        "Host": "",
+        "Pathname": "/cache/css/",
+        "Type": "text/css",
+        "Caching": true,
+        "Extension": ".css"
     },
-    "Postprocessors":
+    "Hooks":
     {
-        "Minify":
+        "afterCSSRender":
         {
-            "Service":"View.CSS.Minify",
-            "Method": "Process"
+            "Minify":
+            {
+                "Service":"View.CSS.Minify",
+                "Method": "Process"
+            }
         }
     }
 }

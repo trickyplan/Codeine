@@ -41,12 +41,14 @@
 
     setFn('Block', function ($Call)
     {
-        $Call['Output']['Content'] = array (array (
+        $Call['Output']['Content'] = [
+                                        [
                                             'Type'  => 'Template',
                                             'Scope' => 'Errors/Blocks',
                                             'ID' => '403',
                                             'Data'  => $Call
-                                        ));
+                                        ]
+                                     ];
         return $Call;
     });
 

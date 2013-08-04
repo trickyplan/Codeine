@@ -1,7 +1,18 @@
 {
-    "JS Host":"",
-    "Caching":
+    "JS":
     {
-        "Enabled": true
+        "Host": "",
+        "Caching": true,
+        "Pathname": "/cache/js/",
+        "Extension": ".js",
+        "Type": "text/javascript",
+        "Scripts": []
+    },
+    "Hooks":
+    {
+        "afterJSRender":
+        {
+
+        }
     }
 }

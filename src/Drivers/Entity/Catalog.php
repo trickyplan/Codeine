@@ -17,11 +17,12 @@
         $Elements = F::Run('Entity', 'Read', ['Entity' => $Call['Entity'], 'Fields' => [$Call['Key']]]);
 
         foreach ($Elements as $Element)
-            $Keys[] = F::Dot($Element, $Call['Key']);
+            if (($Value = F::Dot($Element, $Call['Key'])) !== null);
+                $Values[] = $Value;
 
-        $Keys = array_count_values($Keys);
+        $Values = array_count_values($Values);
 
-        foreach ($Keys as $Value => $Count)
+        foreach ($Values as $Value => $Count)
             $Call['Output']['Content'][]=
                 array(
                     'Type' => 'Template',

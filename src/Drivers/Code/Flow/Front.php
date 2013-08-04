@@ -24,8 +24,13 @@
                 {
                     $Slices = explode('.', $Call['Run']['Service']);
 
-                    list($Call['Service'], $Call['Method']) = array($Call['Run']['Service'], $Call['Run']['Method']);
+                    list($Call['Service'], $Call['Method'])
+                        = [$Call['Run']['Service'], $Call['Run']['Method']];
+
                     $Call['Environment'] = F::Environment();
+
+                    F::Log('*'.$Call['Service'].':'.$Call['Method'].'* started', LOG_INFO);
+
                     $Call = F::Live($Call['Run'], $Call);
                 }
             }

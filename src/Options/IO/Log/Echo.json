@@ -1,3 +1,15 @@
 {
-    "Levels": ["","Apocalypse", "Emergency", "Critical", "Error", "Warning", "Notice", "Debug"]
+    "Levels": {
+        "1": "Apocalypse",
+        "2": "Emergency",
+        "3": "Critical",
+        "4": "Error",
+        "5": "Warning",
+        "6": "Info",
+        "7": "Debug",
+        "8": "Important",
+        "9": "Good",
+        "10": "Bad",
+        "11": "Important"
+    }
 }

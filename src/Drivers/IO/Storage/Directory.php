@@ -18,6 +18,9 @@
     {
         if (!isset($Call['Scope']))
             $Call['Scope'] = 'Default';
+        else
+            if (is_array($Call['Scope']))
+                $Call['Scope'] = implode(DS, $Call['Scope']);
 
         $Postfix = isset($Call['Suffix']) ? $Call['Suffix'] : '';
         $Prefix = isset($Call['Prefix']) ? $Call['Prefix'] : '';
@@ -78,7 +81,10 @@
     setFn ('Write', function ($Call)
     {
         if (!isset($Call['Scope']))
-            $Call['Scope'] = '';
+            $Call['Scope'] = 'Default';
+        else
+            if (is_array($Call['Scope']))
+                $Call['Scope'] = implode(DS, $Call['Scope']);
 
         if (mb_substr($Call['Link'], 0, 1) == '/')
             $DirName = $Call['Link'] . '/' . $Call['Scope'] . '/';
@@ -119,7 +125,10 @@
     setFn ('Version', function ($Call)
     {
         if (!isset($Call['Scope']))
-            $Call['Scope'] = '';
+            $Call['Scope'] = 'Default';
+        else
+            if (is_array($Call['Scope']))
+                $Call['Scope'] = implode(DS, $Call['Scope']);
 
         $Postfix   = isset($Call['Suffix']) ? $Call['Suffix'] : '';
         $Prefix   = isset($Call['Prefix']) ? $Call['Prefix'] : '';
@@ -135,7 +144,10 @@
     setFn ('Exist', function ($Call)
     {
         if (!isset($Call['Scope']))
-            $Call['Scope'] = '';
+            $Call['Scope'] = 'Default';
+        else
+            if (is_array($Call['Scope']))
+                $Call['Scope'] = implode(DS, $Call['Scope']);
 
         $Postfix  = isset($Call['Suffix']) ? $Call['Suffix'] : '';
         $Prefix   = isset($Call['Prefix']) ? $Call['Prefix'] : '';
@@ -147,6 +159,12 @@
 
     setFn('Status', function ($Call)
     {
+        if (!isset($Call['Scope']))
+            $Call['Scope'] = 'Default';
+        else
+            if (is_array($Call['Scope']))
+                $Call['Scope'] = implode(DS, $Call['Scope']);
+
         $Postfix = isset($Call['Suffix']) ? $Call['Suffix'] : '';
         $Prefix = isset($Call['Prefix']) ? $Call['Prefix'] : '';
         $Path = $Call['Link'].'/'.$Call['Scope'].'/';

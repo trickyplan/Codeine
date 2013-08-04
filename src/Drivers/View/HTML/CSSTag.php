@@ -15,71 +15,75 @@
         {
             list($Asset, $ID) = F::Run('View', 'Asset.Route', array ('Value' => $CSSFile));
 
-            $Hash[] = $CSSFile .F::Run('IO', 'Execute', [
+            $Hash[] = $CSSFile.F::Run('IO', 'Execute', [
                                                                'Storage' => 'CSS',
-                                                               'Scope'   => $Asset.'/css',
+                                                               'Scope'   => [$Asset, 'css'],
                                                                'Execute' => 'Version',
                                                                'Where'   =>
-                                                                   [
-                                                                       'ID' => $ID
-                                                                   ]
+                                                               [
+                                                                   'ID' => $ID
+                                                               ]
                                                         ]);
         }
 
-        return F::Run('Security.Hash', 'Get', array('Value' => implode('', $Hash)));
+        return F::Run('Security.Hash', 'Get', ['Value' => implode('', $Hash)]);
     });
 
     setFn ('Process', function ($Call)
     {
-        $CSS = array();
-
         if ($Parsed = F::Run('Text.Regex', 'All', ['Pattern' => '<css>(.+?)<\/css>', 'Value' => $Call['Output']]))
         {
+            $CSSHash = F::Run(null, 'Hash', ['IDs' => $Parsed[1]]);
 
-            $CSSHash = F::Run(null, 'Hash', array('IDs' => $Parsed[1]));
+            if ($Call['CSS']['Caching'] && F::Run('IO', 'Execute',
+                    [
+                        'Storage' => 'CSS Cache',
+                        'Scope'   => [$Call['RHost'], 'css'],
+                        'Execute' => 'Exist',
+                        'Where'   =>
+                        [
+                            'ID' => $CSSHash
+                        ]
+                    ]))
+            {
+                F::Log('Cache *hit*', LOG_GOOD);
+                // Ничего не делать
+            }
+            else
+            {
+                F::Log('Cache *miss*', LOG_BAD);
 
-                if ((isset($Call['Caching']['Enabled'])
-                    && $Call['Caching']['Enabled'])
-                    && F::Run('IO', 'Execute', ['Storage' => 'CSS Cache','Execute'  => 'Exist','Where'    => ['ID' => $CSSHash]])
-                )
-                {
-                    F::Log('CSS Cache hit', LOG_INFO);
-                    // Ничего не делать
-                }
-                else
-                {
-                    F::Log('CSS Cache miss', LOG_INFO);
+                $Call = F::Hook('beforeCSSRender', $Call);
 
                     foreach ($Parsed[1] as $CSSFile)
                     {
                         list($Asset, $ID) = F::Run('View', 'Asset.Route', array('Value' => $CSSFile));
-
-                        if ($CSSSource = F::Run('IO', 'Read', array (
+    
+                        if ($CSSSource = F::Run('IO', 'Read', [
                                                                     'Storage' => 'CSS',
-                                                                    'Scope'   => $Asset . '/css',
+                                                                    'Scope'   => [$Asset, 'css'],
                                                                     'Where'   => $ID
-                                                              )))
+                                                              ]))
                         {
-                            F::Log('CSS loaded: '.$CSSFile, LOG_DEBUG);
-                            $CSS[] = $CSSSource[0];
+                            $Call['CSS']['Styles'][] = $CSSSource[0];
+                            F::Log('CSS loaded: '.$CSSFile, LOG_INFO);
                         }
                         else
-                            F::Log('CSS cannot loaded: '.$CSSFile, LOG_WARNING);
+                            F::Log('CSS cannot loaded: '.$CSSFile, LOG_INFO);
                     }
+    
+                    $Call['CSS']['Styles'] = implode (' ', $Call['CSS']['Styles']);
 
-                    $CSS = implode (' ', $CSS);
+                $Call = F::Hook('afterCSSRender', $Call);
 
-                    if (isset($Call['Postprocessors']) && $Call['Postprocessors'])
-                        foreach($Call['Postprocessors'] as $Processor)
-                            $CSS = F::Run($Processor['Service'], $Processor['Method'], array('Value' => $CSS));
-
-                    F::Run ('IO', 'Write',
-                            array(
-                                 'Storage' => 'CSS Cache',
-                                 'Where'   => $CSSHash,
-                                 'Data' => $CSS
-                            ));
-                }
+                F::Run ('IO', 'Write',
+                        [
+                             'Storage' => 'CSS Cache',
+                             'Scope'   => [$Call['RHost'], 'css'],
+                             'Where'   => $CSSHash,
+                             'Data' => $Call['CSS']['Styles']
+                        ]);
+            }
 
             $Call['Output'] = str_replace($Parsed[0], '', $Call['Output']);
 
@@ -87,9 +91,14 @@
                 $Call['Proto'] ='';
 
             if (isset($Call['CSS Host']) && !empty($Call['CSS Host']))
-                $CSSOut = '<link href="'.$Call['Proto'].$Call['CSS Host'].'/cache/css/'.$CSSHash.'.css" rel="stylesheet" />';
+                $CSSOut = '<link href="'
+                    .$Call['Proto']
+                    .$Call['CSS Host']
+                    .$Call['CSS']['Pathname']
+                    .$CSSHash
+                    .$Call['CSS']['Extension'].'" rel="stylesheet" type="'.$Call['CSS']['Type'].'"/>';
             else
-                $CSSOut = '<link href="/cache/css/'.$CSSHash.'.css" rel="stylesheet" />';
+                $CSSOut = '<link href="'.$Call['CSS']['Pathname'].$CSSHash.$Call['CSS']['Extension'].'" rel="stylesheet" />';
 
             $Call['Output'] = str_replace('<place>CSS</place>', $CSSOut, $Call['Output']);
         }

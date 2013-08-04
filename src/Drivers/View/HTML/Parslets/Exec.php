@@ -12,7 +12,6 @@
           foreach ($Call['Parsed'][2] as $Ix => $Match)
           {
               $Match = json_decode(json_encode(simplexml_load_string('<exec>'.$Match.'</exec>')), true); // I love PHP :(
-
               if ($Match)
               {
                   $Application = F::Run('Code.Flow.Application', 'Run',

@@ -13,6 +13,8 @@
 
          if (isset($Call['Value']))
             $Call['Value'] = F::Live($Call['Value']);
+         else
+            $Call['Value'] = ['ID' => 0];
 
          $Call['Options'] = F::Live($Call['Options']);
 

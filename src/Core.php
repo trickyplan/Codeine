@@ -6,8 +6,12 @@
      * @package Codeine Framework
      * @subpackage Core
           */
-    define('Codeine', __DIR__);
+    define ('Codeine', __DIR__);
     define ('REQID', microtime(true).rand());
+    define ('DS', DIRECTORY_SEPARATOR);
+    define ('LOG_GOOD', 9);
+    define ('LOG_BAD', 10);
+    define ('LOG_IMPORTANT', 11);
 
     final class F
     {
@@ -315,7 +319,13 @@
 
         public static function getFn($Function)
         {
-            return (isset(self::$_Code[self::$_Service][$Function]))? self::$_Code[self::$_Service][$Function]: null;
+            if (isset(self::$_Code[self::$_Service][$Function]))
+                return self::$_Code[self::$_Service][$Function];
+            else
+                if (isset(self::$_Code[self::$_Service]['Default']))
+                    return self::$_Code[self::$_Service]['Default'];
+
+            return null;
         }
 
         public static function Live($Variable, $Call = [])
@@ -490,7 +500,7 @@
         /*
          * Verbosity
          *
-         *
+         * 128 - Good News
          * 7 - Debug
          * 6 - Notice
          * 5 - Warning
@@ -503,7 +513,7 @@
 
         public static function Log ($Message, $Verbose = LOG_INFO)
         {
-            if ($Verbose <= self::$_Verbose or $Verbose == LOG_USER)
+            if ($Verbose <= self::$_Verbose or $Verbose > 7)
             {
                 if (PHP_SAPI == 'cli')
                 {
@@ -648,7 +658,9 @@
 
         public static function file_exists($Filename)
         {
-            return isset(self::$_Storage['FE'][$Filename])? self::$_Storage['FE'][$Filename]: self::$_Storage['FE'][$Filename] = file_exists($Filename);
+            return
+                (isset(self::$_Storage['FE'][$Filename]) ?
+                self::$_Storage['FE'][$Filename]: self::$_Storage['FE'][$Filename] = file_exists($Filename));
         }
 
         public static function Counter ($Key, $Value = 1)

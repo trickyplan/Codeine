@@ -16,11 +16,12 @@
                 $Output .= '<tr class="'.$Call['Levels'][$Row[0]].'">
                         <td>'.$Row[1].'</td>
                         <td>'.($Row[3] == $Call['Data'][$IX-1][3]? '': $Row[3]).'</td>
-                        <td>'.$Row[2].'</td>
+                        <td>'.stripslashes($Row[2]).'</td>
                         </tr>';
 
             $Output .= '</table>';
 
+            $Output = preg_replace('/\*(.+)\*/', '<strong>$1</strong>', $Output);
             echo $Output;
         }
         elseif ($Call['Renderer'] == 'View.Plaintext')

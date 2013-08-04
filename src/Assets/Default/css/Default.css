@@ -46,6 +46,7 @@
     background-color: white;
     color: black;
     width: 940px !important;
+    white-space: pre;
 }
 
 .console th
@@ -55,14 +56,23 @@
 
 .console td, .console tr
 {
-    padding: 6px;
-    margin: 6px;
+    padding: 10px;
+    margin: 2px;
+    border-bottom: thin solid;
 }
 
-tr.Notice,
+tr.Good
 {
-    background-color: lightcyan;
-    opacity: 0.8;
+    color: #468847;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+
+tr.Info
+{
+    color: #295c75;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
 }
 
 tr.Debug
@@ -72,18 +82,20 @@ tr.Debug
 
 tr.Warning
 {
-    background-color: orangered;
+    background-color: #fcf8e3;
+    border: 1px solid #fbeed5;
 }
 
-tr.Error
+tr.Error, tr.Bad
 {
-    background-color: darkred;
-    color: #ffffff;
+    color: #b94a48;
+    background-color: #f2dede;
+    border-color: #eed3d7;
 }
 
-tr.Apocalypse, tr.Critical, tr.Emergency
+tr.Apocalypse, tr.Critical, tr.Emergency, tr.Important
 {
-    background-color: black;
+    background-color: #151515;
     color: #ffffff;
 }
 

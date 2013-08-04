@@ -47,7 +47,7 @@
                 else
                     $Where[$Key] = $Value;
 
-            F::Log('db.'.$Call['Scope'].'.find('.json_encode($Where).')', LOG_INFO);
+            F::Log('db.'.$Call['Scope'].'.find('.json_encode($Where, JSON_PRETTY_PRINT).')', LOG_INFO);
             $Cursor = $Call['Link']->$Call['Scope']->find($Where);
         }
         else
@@ -84,11 +84,7 @@
                     unset($cCursor['_id']);
                     $Data[] = $cCursor;
                 }
-
-                F::Log($Cursor->count().' documents loaded', LOG_INFO);
             }
-            else
-                F::Log('0 documents loaded', LOG_INFO);
         }
 
         return $Data;
@@ -106,12 +102,12 @@
                 {
                     if ($Element === null)
                     {
-                        F::Log('db.'.$Call['Scope'].'remove('.json_encode($Call['Where']).')', LOG_INFO);
+                        F::Log('db.'.$Call['Scope'].'remove('.json_encode($Call['Where'], JSON_PRETTY_PRINT).')', LOG_INFO);
                         $Call['Link']->$Call['Scope']->remove ($Call['Where'], ['multiple' => true]);
                     }
                     else
                     {
-                        F::Log('db.'.$Call['Scope'].'.update('.json_encode($Call['Where']).','.json_encode(['$set' => $Element]).')',LOG_INFO);
+                        F::Log('db.'.$Call['Scope'].'.update('.json_encode($Call['Where']).','.json_encode(['$set' => $Element], JSON_PRETTY_PRINT).')',LOG_INFO);
                         $Call['Link']->$Call['Scope']->update($Call['Where'], ['$set' => $Element], ['upsert' => true, 'multiple' => true]);
                     }
                 }
@@ -124,7 +120,7 @@
                     {
                         if (isset($Call['Where']))
                         {
-                            F::Log('db.'.$Call['Scope'].'remove('.json_encode($Call['Where']).')', LOG_INFO);
+                            F::Log('db.'.$Call['Scope'].'remove('.json_encode($Call['Where'], JSON_PRETTY_PRINT).')', LOG_INFO);
                             $Call['Link']->$Call['Scope']->remove ($Call['Where'], ['multiple' => true]);
                         }
                         else
@@ -135,7 +131,7 @@
                     }
                     else
                     {
-                        F::Log('db.'.$Call['Scope'].'.insert('.json_encode($Element).')', LOG_INFO);
+                        F::Log('db.'.$Call['Scope'].'.insert('.json_encode($Element, JSON_PRETTY_PRINT).')', LOG_INFO);
                         $Call['Link']->$Call['Scope']->insert ($Element);
                     }
                 }

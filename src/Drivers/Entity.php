@@ -83,6 +83,8 @@
 
         $Call = F::Hook('afterOperation', $Call);
 
+        F::Log('*'.count($Call['Data']).'* '.$Call['Entity'].' readed', LOG_INFO);
+
         if (isset($Call['One']))
             return $Call['Data'][0];
         else
@@ -125,6 +127,7 @@
 
         $Call = F::Hook('afterOperation', $Call);
 
+        F::Log('*'.count($Call['Data']).'* '.$Call['Entity'].' updated', LOG_INFO);
 
         return $Call;
     });
@@ -161,6 +164,8 @@
         $Call = F::Hook('afterEntityWrite', $Call);
 
         $Call = F::Hook('afterOperation', $Call);
+
+        F::Log('*'.count($Call['Data']).'* '.$Call['Entity'].' deleted', LOG_INFO);
 
         return $Call;
     });

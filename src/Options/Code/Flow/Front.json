@@ -1,4 +1,8 @@
 {
+    "Run":
+    {
+        "Method": "Do"
+    },
     "Hooks":
     {
         "beforeFrontRun":
