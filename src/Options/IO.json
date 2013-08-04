@@ -56,7 +56,7 @@
         },
         "JS Cache":{
             "Driver":"IO.Storage.Directory",
-            "Directory":"/tmp/cache/js",
+            "Directory":"/tmp/cache",
             "Suffix":".js"
         },
         "Developer":

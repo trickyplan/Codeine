@@ -16,9 +16,15 @@
 
         $Elements = F::Run('Entity', 'Read', ['Entity' => $Call['Entity'], 'Fields' => [$Call['Key']]]);
 
+        $Values = [];
+
         foreach ($Elements as $Element)
-            if (($Value = F::Dot($Element, $Call['Key'])) !== null);
+        {
+            $Value = F::Dot($Element, $Call['Key']);
+            if (is_scalar($Value))
                 $Values[] = $Value;
+        }
+
 
         $Values = array_count_values($Values);
 

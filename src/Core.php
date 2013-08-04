@@ -325,7 +325,7 @@
                 if (isset(self::$_Code[self::$_Service]['Default']))
                     return self::$_Code[self::$_Service]['Default'];
 
-            return null;
+
         }
 
         public static function Live($Variable, $Call = [])

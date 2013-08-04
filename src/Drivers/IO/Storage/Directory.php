@@ -153,7 +153,6 @@
         $Prefix   = isset($Call['Prefix']) ? $Call['Prefix'] : '';
 
         $Filename = F::findFile ($Call['Link'] . '/' . $Call['Scope'] . '/' . $Prefix . $Call['Where']['ID'] . $Postfix);
-
         return F::file_exists ($Filename);
     });
 
