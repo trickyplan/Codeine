@@ -10,14 +10,14 @@
     setFn('Do', function ($Call)
     {
         $Call = F::Hook('beforeUpdateDo', $Call);
-        $Call['Purpose'] = 'Update';
+
         $Call['Where'] = F::Live($Call['Where']); // FIXME
 
         if (isset($Call['One']) && isset($Call['Data']))
             $Call['Data'] = [$Call['Data']];
 
         unset($Call['One']);
-        
+
         return F::Run(null, $_SERVER['REQUEST_METHOD'], $Call);
     });
 
@@ -128,7 +128,6 @@
         $Call = F::Hook('afterUpdateGet', $Call);
 
         $Call['Output']['Content']['Form Widget']['Action'] = isset($Call['Action'])? $Call['Action']: '';
-
         return $Call;
     });
 

@@ -12,7 +12,7 @@
         return simplexml_load_string(F::Run('IO', 'Read',
         [
             'Storage' => 'Web',
-            'Where' => $Call['Prefix'].$Call['Value'].$Call['Postfix']
+            'Where' => $Call['Prefix'].$Call['IP'].$Call['Postfix']
         ])[0]);
     });
 
@@ -37,6 +37,5 @@
     setFn('City', function ($Call)
     {
         $Response = F::Run(null, 'Load', $Call);
-
-        return isset($Response->ip->city)? $Response->ip->city: $Response->ip->country;
+        return (isset($Response->ip->city)? (string) $Response->ip->city: (string) $Response->ip->country);
     });

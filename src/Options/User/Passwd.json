@@ -1,8 +1,4 @@
 {
-    "Hooks":
-    {
-
-    },
     "Output":
     {
         "Content":
@@ -21,7 +17,7 @@
                 "Mode": "One",
                 "Name": "OldPassword",
                 "Node": "OldPassword",
-                "Label": "User.Entity:OldPassword"
+                "Label": "User.Passwd:OldPassword"
             },
             "New":
             {
@@ -30,7 +26,7 @@
                 "Name": "NewPassword",
                 "Node": "NewPassword",
                 "Mode": "Two",
-                "Label": "User.Entity:NewPassword"
+                "Label": "User.Passwd:NewPassword"
             }
 
         }

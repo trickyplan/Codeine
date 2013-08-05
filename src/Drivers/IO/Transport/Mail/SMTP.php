@@ -24,9 +24,16 @@
 
     setFn('Write', function ($Call)
     {
+
+        if (isset($Call['From']))
+            $Screen = $Call['From'];
+        elseif ( isset($Call['Project']['Title']))
+            $Screen = $Call['Project']['Title'].' <'.$Call['Username'].'>';
+        else
+            $Screen = 'Codeine <'.$Call['Username'].'>';
+
         $Call['Headers'] =  [
-            'Return-path' => $Call['Username'],
-            'From' => (isset($Call['From'])? $Call['From']: isset($Call['Project']['Title'])? $Call['Project']['Title']: 'Codeine').' <'.$Call['Username'].'>',
+            'From' => $Screen,
             'To' => $Call['Scope'],
             'Subject' => $Call['ID']];
 

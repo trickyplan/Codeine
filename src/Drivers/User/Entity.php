@@ -14,3 +14,8 @@
         else
             return 0;
     });
+
+    setFn('Location', function ($Call)
+    {
+        return F::Run('System.GeoIP', 'City', $Call);
+    });

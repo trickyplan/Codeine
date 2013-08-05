@@ -57,7 +57,6 @@
         {
             "Type": "Literal.Password",
             "WriteOnce": true,
-            "Required": true,
             "NoLive": true,
             "Widgets":
             {
@@ -169,7 +168,7 @@
         {
             "Store URL":
             {
-                "Service": "Entity.Redirect.Back",
+                "Service": "System.Interface.Web",
                 "Method": "StoreURL"
             }
         },
@@ -177,7 +176,7 @@
         {
             "Restore URL":
             {
-                "Service": "Entity.Redirect.Back",
+                "Service": "System.Interface.Web",
                 "Method": "RestoreURL"
             }
         },

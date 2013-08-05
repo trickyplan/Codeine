@@ -1,5 +1,20 @@
 {
     "Context": "",
+    "IP":
+    {
+        "Service": "System.Interface.Web.IP",
+        "Method": "Get"
+    },
+    "UA":
+    {
+        "Service": "System.Interface.Web.UA",
+        "Method": "Get"
+    },
+    "Language":
+    {
+        "Service": "System.Interface.Web.Language",
+        "Method": "Get"
+    },
     "Subdomains":
     {
         "iframe":
@@ -28,14 +43,6 @@
         "X-Frame-Options:": "SAMEORIGIN",
         "X-Content-Type-Options:": "nosniff",
         "X-XSS-Protection:": " 1; mode=block"
-    },
-    "Languages":
-    {
-        "Map":
-        {
-            "ru": "ru"
-        },
-        "Default": "ru"
     },
     "Hooks":
     {

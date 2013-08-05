@@ -14,7 +14,7 @@
                 if (isset($Node['Hooks']) && isset($Node['Hooks'][$Call['On']]))
                 {
                     if (isset($Call['Data']) && ((array) $Call['Data'] === $Call['Data']))
-                        foreach ($Call['Data'] as &$Element)
+                        foreach ($Call['Data'] as $IX => $Element)
                         {
                             if (isset($Node['User Override'])
                                 && $Node['User Override']
@@ -23,11 +23,9 @@
                                 F::Log('Node '.$Name.' overriden by user with '.F::Dot($Element, $Name), LOG_INFO);
                             else
                             {
-                                $Element = F::Dot($Element, $Name, F::Live($Node['Hooks'][$Call['On']],
+                                $Element = F::Dot($Element, $Name, F::Live($Node['Hooks'][$Call['On']], $Call,
                                                    [
-                                                       'Entity' => $Call['Entity'],
                                                        'Name' => $Name,
-                                                       'Nodes' => $Call['Nodes'],
                                                        'Data' => $Element
                                                    ]));
 
@@ -36,6 +34,8 @@
                                 else
                                     F::Log('Node '.$Name.' executed as '.F::Dot($Element, $Name), LOG_INFO);
                             }
+
+                            $Call['Data'][$IX] = $Element;
                         }
                 }
         return $Call;

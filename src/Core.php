@@ -249,9 +249,6 @@
 
         private static function Execute($Service, $Method, $Call)
         {
-            if (self::$_Prism)
-                self::$_Calls[] = [microtime(true), $Service, $Method, $Call];
-
             $OldService = self::$_Service;
             $OldMethod = self::$_Method;
 
@@ -344,7 +341,6 @@
                         if (is_array($Argument = func_get_arg ($ic)))
                             $Call = F::Merge($Call, $Argument);
                 }
-
                 return F::Run($Variable['Service'], $Variable['Method'],
                     $Call, isset($Variable['Call'])? $Variable['Call']: []);
 

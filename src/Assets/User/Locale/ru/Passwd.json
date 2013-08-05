@@ -1,4 +1,7 @@
 {
+    "Title": "Смена пароля",
+    "OldPassword": "Старый пароль",
+    "NewPassword": "Новый пароль",
     "Error":
     {
         "OldPasswd":

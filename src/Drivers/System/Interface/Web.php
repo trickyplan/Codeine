@@ -9,10 +9,6 @@
 
     setFn ('Do', function ($Call)
     {
-        $Call['IP'] = function ($Call) {return F::Run('System.Interface.Web.IP', 'Get', $Call);};
-        $Call['UA'] = function ($Call) {return F::Run('System.Interface.Web.UA', 'Get', $Call);};
-        $Call['Language'] = function ($Call) {return F::Run('System.Interface.Web', 'DetectUALanguage', $Call);};
-
         $Call = F::Hook('beforeInterfaceRun', $Call);
 
         if (!isset($Call['Skip Run']))
@@ -75,29 +71,6 @@
                   'Country' => F::Run('System.GeoIP.PHPGeoIP', 'Country', array ('Value' => $IP)),
                   'Region' => F::Run('System.GeoIP.PHPGeoIP', 'Region', array ('Value' => $IP))
             ));
-    });
-
-    setFn ('DetectUALanguage', function ($Call)
-    {
-        if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE']))
-        {
-            preg_match_all ('/([a-z]{1,8}(-[a-z]{1,8})?)\s*(;\s*q\s*=\s*(1|0\.[0-9]+))?/i', $_SERVER['HTTP_ACCEPT_LANGUAGE'], $Parsed);
-
-            $Languages = array_combine ($Parsed[1], $Parsed[4]);
-
-            foreach ($Languages as $Language => $Q)
-                if ($Q === '') $Languages[$Language] = 1;
-
-            arsort ($Languages, SORT_NUMERIC);
-
-            foreach ($Languages as $Language => $Quality)
-            {
-                if (isset($Call['Languages']['Map'][$Language]))
-                    return $Call['Languages']['Map'][$Language];
-            }
-        }
-
-        return $Call['Languages']['Default'];
     });
 
     setFn('Redirect', function ($Call)

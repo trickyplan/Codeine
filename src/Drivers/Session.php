@@ -28,12 +28,24 @@
 
             if (isset($Call['Session']['Secondary']) && $Call['Session']['Secondary'] != 0)
             {
-                $Call['Session']['User'] = F::Run('Entity', 'Read', ['Entity' => 'User', 'Where' => $Call['Session']['Secondary'], 'One' => true]);
+                $Call['Session']['User'] = F::Run('Entity', 'Read',
+                    [
+                        'Entity' => 'User',
+                        'Where' => $Call['Session']['Secondary'],
+                        'One' => true
+                    ]);
+
                 F::Log('Session: Secondary user '.$Call['Session']['Secondary']['ID'].' authenticated');
             }
             elseif (isset($Call['Session']['User']) && $Call['Session']['User'] != 0)
             {
-                $Call['Session']['User'] = F::Run('Entity', 'Read', ['Entity' => 'User', 'Where' => $Call['Session']['User'], 'One' => true]);
+                $Call['Session']['User'] = F::Run('Entity', 'Read',
+                    [
+                        'Entity' => 'User',
+                        'Where' => $Call['Session']['User'],
+                        'One' => true
+                    ]);
+
                 F::Log('Session: Primary user '.$Call['Session']['User']['ID'].' authenticated');
             }
         }
