@@ -18,28 +18,31 @@
 
         $Values = [];
 
-        foreach ($Elements as $Element)
+        if (count($Elements) > 0)
         {
-            $Value = F::Dot($Element, $Call['Key']);
-            if (is_scalar($Value))
-                $Values[] = $Value;
+            foreach ($Elements as $Element)
+            {
+                $Value = F::Dot($Element, $Call['Key']);
+                if (is_scalar($Value))
+                    $Values[] = $Value;
+            }
+
+            $Values = array_count_values($Values);
+
+            foreach ($Values as $Value => $Count)
+                $Call['Output']['Content'][]=
+                    array(
+                        'Type' => 'Template',
+                        'Scope' => $Call['Entity'],
+                        'ID' => 'Catalog/'.$Call['Key'],
+                        'Data' =>
+                        [
+                            'Count' => $Count,
+                            'Value' => $Value
+                        ]
+                    );
+
         }
-
-
-        $Values = array_count_values($Values);
-
-        foreach ($Values as $Value => $Count)
-            $Call['Output']['Content'][]=
-                array(
-                    'Type' => 'Template',
-                    'Scope' => $Call['Entity'],
-                    'ID' => 'Catalog/'.$Call['Key'],
-                    'Data' =>
-                    [
-                        'Count' => $Count,
-                        'Value' => $Value
-                    ]
-                );
 
         $Call = F::Hook('afterCatalog', $Call);
 
