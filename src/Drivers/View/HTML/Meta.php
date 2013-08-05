@@ -22,7 +22,7 @@
             if (!empty($Page))
                 $Call = F::Merge($Call, $Page);
 
-            if (!empty($Call['Title']))
+            if (isset($Call['Title'][count($Call['Title'])-1]))
                 $Call['Header'] = $Call['Title'][count($Call['Title'])-1];
 
             if ($Call['Reverse'])

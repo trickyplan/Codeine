@@ -9,7 +9,7 @@
 
     setFn('Do', function ($Call)
     {
-        $Language = F::Run('System.Interface.Web', 'DetectUALanguage');
+        $Language = F::Live($Call['Language']);
 
         list($Locale, $Token) = explode(':', $Call['Request']['Token']);
 

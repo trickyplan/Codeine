@@ -41,11 +41,12 @@
 
                     $Locales[$Locale] = [];
 
-                    $NewLocales = array_reverse($NewLocales);
-
                     if (is_array($NewLocales))
+                    {
+                        $NewLocales = array_reverse($NewLocales);
                         foreach ($NewLocales as $NewLocale)
                             $Locales[$Locale] = F::Merge($Locales[$Locale], $NewLocale);
+                    }
                     else
                         F::Log('Locale '.$Locale.' not loaded', LOG_ERR);
                 }

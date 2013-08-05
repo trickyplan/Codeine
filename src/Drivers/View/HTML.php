@@ -9,9 +9,7 @@
 
     setFn('Render', function ($Call)
     {
-        $Call = F::Run (null,'Pipeline', $Call, ['Renderer' => 'View.HTML']); // Pipelining
-
-        return $Call;
+        return F::Run (null,'Pipeline', $Call, ['Renderer' => 'View.HTML']); // Pipelining
     });
 
     setFn('Pipeline', function ($Call)

@@ -12,26 +12,26 @@
     setFn('Run', function ($Call)
     {
         // В этом месте, практически всегда, происходит роутинг.
+        $Call['Output'] = [];
+        $Call['Layouts'] = [];
+        $Call['Layout'] = '';
 
         $Call = F::Hook('beforeApplicationRun', $Call);
-        $Call['Language'] = function ($Call) {return F::Run('System.Interface.Web', 'DetectUALanguage', $Call);};
 
         // FIXME
         // Если передан нормальный вызов, совершаем его
-        if (!isset($Call['Output']))
+
+        if (F::isCall($Call['Run']))
         {
-            if (F::isCall($Call['Run']))
-            {
-                list($Call['Service'], $Call['Method']) = array ($Call['Run']['Service'], $Call['Run']['Method']);
+            list($Call['Service'], $Call['Method']) = array ($Call['Run']['Service'], $Call['Run']['Method']);
 
-                F::Log('*'.$Call['Service'].':'.$Call['Method'].'* started', LOG_INFO);
+            F::Log('*'.$Call['Service'].':'.$Call['Method'].'* started', LOG_INFO);
 
-                $Call = F::Live($Call['Run'], $Call, ['Context' => 'app']);
-            }
-            // В противном случае, 404
-            else
-                $Call = F::Hook('on404', $Call);
+            $Call = F::Live($Call['Run'], $Call, ['Context' => 'app']);
         }
+        // В противном случае, 404
+        else
+            $Call = F::Hook('on404', $Call);
 
         // А здесь - рендеринг
         $Call = F::Hook('afterApplicationRun', $Call);
