@@ -514,7 +514,7 @@
 
         public static function Log ($Message, $Verbose = LOG_INFO)
         {
-            if ($Verbose <= self::$_Verbose or (self::$_Environment != 'Production' && $Verbose > 7))
+            if ($Verbose <= self::$_Verbose or (self::$_Environment == 'Development' && $Verbose > 7))
             {
                 if (PHP_SAPI == 'cli')
                 {
