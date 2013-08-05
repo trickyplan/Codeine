@@ -70,7 +70,6 @@
 
         $Call = F::Hook('afterPipeline', $Call);
 
-
         return $Call;
     });
 

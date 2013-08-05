@@ -15,11 +15,7 @@
 
               if ($Match)
               {
-                  $Application = F::Run('Code.Flow.Application', 'Run', $Call,
-                      [
-                          'Run' => $Match,
-                          'Context' => 'app'
-                      ]);
+                  $Application = F::Run('Code.Flow.Application', 'Run', $Call, ['Run' => $Match,'Context' => 'app']);
 
                   $Call['Output'] = str_replace($Call['Parsed'][0][$Ix], $Application['Output'], $Call['Output']);
               }

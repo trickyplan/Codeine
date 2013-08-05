@@ -12,14 +12,14 @@
     setFn('Run', function ($Call)
     {
         // В этом месте, практически всегда, происходит роутинг.
-        $Call['Output'] = [];
-        $Call['Layouts'] = [];
-        $Call['Layout'] = '';
 
         $Call = F::Hook('beforeApplicationRun', $Call);
 
         // FIXME
         // Если передан нормальный вызов, совершаем его
+
+        foreach ($Call['Inherited'] as $Key)
+            $Inherited[$Key] = $Call[$Key];
 
         if (F::isCall($Call['Run']))
         {
@@ -27,7 +27,7 @@
 
             F::Log('*'.$Call['Service'].':'.$Call['Method'].'* started', LOG_INFO);
 
-            $Call = F::Live($Call['Run'], $Call, ['Context' => 'app']);
+            $Call = F::Live($Call['Run'], $Inherited, ['Context' => 'app']);
         }
         // В противном случае, 404
         else
