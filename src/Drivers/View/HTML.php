@@ -28,8 +28,6 @@
 
         $Call = F::Hook('beforePipeline', $Call);
 
-        $Call = F::Run(null, 'Parse Call', $Call);
-
         if ($Places = F::Run('Text.Regex', 'All', ['Pattern' => '<place>(.+?)<\/place>', 'Value' => $Call['Layout']]))
         {
             if (isset($Call['Output']) && is_array($Call['Output']))

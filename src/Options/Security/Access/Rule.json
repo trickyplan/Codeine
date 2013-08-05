@@ -1,5 +1,5 @@
 {
-    "Mixins": ["User.Security.Access.Rule"],
+    "Mixins": ["User.Security.Access.Rule", "Control.Security.Access.UserNo1"],
     "Weight": 0,
     "Decision": false,
     "Rules":
@@ -86,23 +86,6 @@
                 "Call":
                 {
                     "Entity": "Block"
-                }
-            }
-        },
-        "ЦУП доступен пользователю номер 1":
-        {
-            "Decision": true,
-            "Weight": 100,
-            "Run":
-            {
-                "Service": "Control.Panel",
-                "Method": "Do",
-                "Session":
-                {
-                    "User":
-                    {
-                        "ID": 1
-                    }
                 }
             }
         },

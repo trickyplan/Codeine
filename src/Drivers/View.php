@@ -20,28 +20,29 @@
     {
         $Call = F::Hook('beforeViewLoad', $Call);
 
-            $IDs = [];
+        $IDs = [];
 
-            $IDs[] = $Call['ID'];
+        $IDs[] = $Call['ID'];
 
-            if (isset($Call['Context']) && !empty($Call['Context']))
-                $IDs[] =  $Call['ID'].'.'.$Call['Context'];
+        if (isset($Call['Context']) && !empty($Call['Context']))
+            $IDs[] =  $Call['ID'].'.'.$Call['Context'];
 
-            $Call['Scope'] = strtr($Call['Scope'], '.', '/');
+        $Call['Scope'] = strtr($Call['Scope'], '.', '/');
 
-            $Call['Value'] =  F::Run('IO', 'Read', $Call, ['Where' => null],
-                [
-                      'Storage' => 'Layout',
-                      'Where'   =>
-                      [
-                          'ID' => array_reverse($IDs)
-                      ]
-                ])[0];
+        $Call['Value'] =  F::Run('IO', 'Read', $Call, ['Where' => null],
+            [
+                  'Storage' => 'Layout',
+                  'Where'   =>
+                  [
+                      'ID' => array_reverse($IDs)
+                  ]
+            ])[0];
 
         if (isset($Call['Data']) && !is_array($Call['Data']))
             $Call['Data'] = ['Value' => $Call['Data']];
 
-        $Call = F::Hook('afterViewLoad', $Call);
+        if ($Call['Value'] !== null)
+            $Call = F::Hook('afterViewLoad', $Call);
 
         return $Call['Value'];
     });

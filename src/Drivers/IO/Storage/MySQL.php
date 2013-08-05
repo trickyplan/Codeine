@@ -12,7 +12,12 @@
         $Link = new mysqli($Call['Server'], $Call['User'], F::Live($Call['Password']));
 
         if (!$Link->ping())
+        {
+            F::Log($Link->connect_error, LOG_ERR);
             return null;
+        }
+
+        F::Log($Link->host_info, LOG_INFO);
 
         $Link->select_db ($Call['Database']);
         $Link->set_charset ($Call['Charset']);

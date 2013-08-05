@@ -34,7 +34,7 @@
         "Image Cache":
         {
             "Driver":"IO.Storage.Directory",
-            "Directory":"/tmp/cache"
+            "Directory":"/tmp/codeine"
         },
         "CSS":
         {
@@ -45,7 +45,7 @@
         "CSS Cache":
         {
             "Driver":"IO.Storage.Directory",
-            "Directory":"/tmp/cache",
+            "Directory":"/tmp/codeine",
             "Suffix":".css"
         },
         "JS":
@@ -56,7 +56,7 @@
         },
         "JS Cache":{
             "Driver":"IO.Storage.Directory",
-            "Directory":"/tmp/cache",
+            "Directory":"/tmp/codeine",
             "Suffix":".js"
         },
         "Developer":

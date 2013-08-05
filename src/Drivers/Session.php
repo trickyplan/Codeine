@@ -26,12 +26,12 @@
         {
             $Call['Session'] = F::Run('Entity', 'Read', ['Entity' => 'Session', 'Where' => $Call['SID'], 'One' => true]);
 
-            if (isset($Call['Session']['Secondary']) && $Call['Session']['Secondary'] != -1)
+            if (isset($Call['Session']['Secondary']) && $Call['Session']['Secondary'] != 0)
             {
                 $Call['Session']['User'] = F::Run('Entity', 'Read', ['Entity' => 'User', 'Where' => $Call['Session']['Secondary'], 'One' => true]);
                 F::Log('Session: Secondary user '.$Call['Session']['Secondary']['ID'].' authenticated');
             }
-            elseif (isset($Call['Session']['User']) && $Call['Session']['User'] != -1)
+            elseif (isset($Call['Session']['User']) && $Call['Session']['User'] != 0)
             {
                 $Call['Session']['User'] = F::Run('Entity', 'Read', ['Entity' => 'User', 'Where' => $Call['Session']['User'], 'One' => true]);
                 F::Log('Session: Primary user '.$Call['Session']['User']['ID'].' authenticated');
@@ -64,10 +64,10 @@
 
     setFn('Annulate', function ($Call)
     {
-        if (isset($Call['Session']['Secondary']) && $Call['Session']['Secondary'] != -1)
-            $Call = F::Run('Session', 'Write', $Call, ['Data' => ['Secondary' => -1]]);
+        if (isset($Call['Session']['Secondary']) && $Call['Session']['Secondary'] != 0)
+            $Call = F::Run('Session', 'Write', $Call, ['Data' => ['Secondary' => 0]]);
         else
-            $Call = F::Run('Session', 'Write', $Call, ['Data' => ['User' => -1]]);
+            $Call = F::Run('Session', 'Write', $Call, ['Data' => ['User' => 0]]);
 
         $Call = F::Hook('afterAnnulate', $Call);
 

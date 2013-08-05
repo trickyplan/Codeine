@@ -41,6 +41,7 @@
 
                 if ($Call['Session']['User'] == $Call['User'])
                     $Call = F::Hook('afterAuthenticatePost', $Call);
+
             }
         }
         else

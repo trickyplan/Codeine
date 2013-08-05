@@ -21,8 +21,8 @@
         },
         "/logout":
         {
-            "Service":"Session",
-            "Method":"Annulate"
+            "Service":"User.Logout",
+            "Method":"Do"
         },
         "/forgot":
         {

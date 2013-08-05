@@ -14,14 +14,21 @@
         else
             $UserRights = [];
 
-        foreach ($Call['Access']['Rights'] as $Name => $Rule)
-            if (($Diff = F::Diff($Rule, $Call['Run'])) === null)
-            {
-                F::Log('Right applied: '.$Name, LOG_INFO);
-                $Call['Decision'] = in_array($Name, $UserRights);
-            }
+        if (!empty($UserRights))
+        {
+            foreach ($Call['Access']['Rights'] as $Name => $Rule)
+                if (($Diff = F::Diff($Rule, $Call['Run'])) === null)
+                {
+                    $Call['Decision'] = in_array($Name, $UserRights);
 
-        F::Log('Decision:'. ($Call['Decision']? 'Allow': 'Deny'), LOG_INFO);
+                    F::Log('Right applied: '.$Name, LOG_INFO);
+
+                    break;
+                }
+            F::Log('Final decision:'. ($Call['Decision']? 'Allow': 'Deny'), LOG_INFO);
+
+        }
+
 
         return $Call;
     });

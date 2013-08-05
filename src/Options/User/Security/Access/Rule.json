@@ -94,8 +94,8 @@
             "Weight": 75,
             "Run":
             {
-                "Service": "Session",
-                "Method": "Annulate"
+                "Service": "User.Logout",
+                "Method": "Do"
             }
         },
         "Забаненным ничего нельзя":

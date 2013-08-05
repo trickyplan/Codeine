@@ -38,11 +38,6 @@
                 "Service": "View.Hooks.Forkey",
                 "Method": "Parse"
             },
-            "Treekey":
-            {
-                "Service": "View.Hooks.TreeKey",
-                "Method": "Parse"
-            },
             "Call 2":
             {
                 "Service": "View.Hooks.Call",

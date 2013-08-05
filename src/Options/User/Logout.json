@@ -1,0 +1,13 @@
+{
+    "Hooks":
+    {
+        "afterUserLogout":
+        {
+            "Redirect":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "RestoreURL"
+            }
+        }
+    }
+}

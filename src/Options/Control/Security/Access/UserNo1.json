@@ -1,0 +1,22 @@
+{
+    "Rules":
+    {
+        "ЦУП доступен пользователю номер 1":
+        {
+            "Decision": true,
+            "Weight": 100,
+            "Run":
+            {
+                "Service": "Control.Panel",
+                "Method": "Do",
+                "Session":
+                {
+                    "User":
+                    {
+                        "ID": 1
+                    }
+                }
+            }
+        }
+    }
+}

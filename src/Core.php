@@ -363,14 +363,15 @@
             }
         }
 
-        public static function Extract($Array, $Keys)
+        public static function Extract($Array, $Keys, $ID = 'ID')
         {
             $Data = [];
+            $Keys = (array) $Keys;
 
             if (is_array($Array))
                 foreach ($Keys as $Key)
                     if (is_scalar($Key))
-                        $Data[$Key] = array_column($Array, $Key, 'ID');
+                        $Data[$Key] = array_column($Array, $Key, $ID);
 
             return $Data;
         }
@@ -713,10 +714,12 @@
 
            arsort(self::$_Counters['T']);
 
-           echo 'Memory: '.round(self::$_Memory/1024)." Kb. <pre>time\tcalls\trtime\tTC\trcall\tfn\n".$Summary['Time']."\t".$Summary['Calls']
-               ."\t100%\t100%\n";
+           echo '
+           <pre class="console">Memory: '.round(self::$_Memory/1024)." Kb.
+time\t\tcalls\t\t%time\t\tT/C\t\t%call\t\tfn\n".round($Summary['Time'])."\t\t".$Summary['Calls']
+               ."\t\t100\t\t".round($Summary['Time']/$Summary['Calls'],2)."\t\t100\t\t".$_SERVER['REQUEST_URI']."\n";
                foreach (self::$_Counters['T'] as $Key => $Value)
-                   echo implode("\t", [
+                   echo implode("\t\t", [
                             round($Value),
                             self::$_Counters['C'][$Key],
                             round(($Value/$Summary['Time'])*100,2),

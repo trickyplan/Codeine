@@ -13,7 +13,7 @@
 
     location ~ ^/cache/(.*)
     {
-        alias /tmp/cache/$host/$1;
+        alias /tmp/codeine/$host/$1;
     }
 
 	location ~* \.(jpg|jpeg|gif|css|png|js|ico|html|woff)$
