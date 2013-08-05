@@ -1,0 +1,3 @@
+{
+    "Inherited": ["Hooks", "IP", "UA", "Language", "Session", "Host", "RHost"]
+}

@@ -4,7 +4,6 @@
     {
         "Method": "Do"
     },
-    "Inherited": ["Hooks", "IP", "UA", "Language", "Session"],
     "Hooks":
     {
         "beforeApplicationRun":

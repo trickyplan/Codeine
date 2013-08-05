@@ -15,7 +15,10 @@
 
               if ($Match)
               {
-                  $Application = F::Run('Code.Flow.Application', 'Run', $Call, ['Run' => $Match,'Context' => 'app']);
+                  foreach ($Call['Inherited'] as $Key)
+                      $Match[$Key] = $Call[$Key];
+
+                  $Application = F::Run('Code.Flow.Application', 'Run', ['Run' => $Match, 'Context' => 'app']);
 
                   $Call['Output'] = str_replace($Call['Parsed'][0][$Ix], $Application['Output'], $Call['Output']);
               }

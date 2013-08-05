@@ -15,19 +15,13 @@
 
         $Call = F::Hook('beforeApplicationRun', $Call);
 
-        // FIXME
-        // Если передан нормальный вызов, совершаем его
-
-        foreach ($Call['Inherited'] as $Key)
-            $Inherited[$Key] = $Call[$Key];
-
         if (F::isCall($Call['Run']))
         {
             list($Call['Service'], $Call['Method']) = array ($Call['Run']['Service'], $Call['Run']['Method']);
 
             F::Log('*'.$Call['Service'].':'.$Call['Method'].'* started', LOG_INFO);
 
-            $Call = F::Live($Call['Run'], $Inherited, ['Context' => 'app']);
+            $Call = F::Live($Call['Run'], $Call, ['Context' => 'app']);
         }
         // В противном случае, 404
         else
