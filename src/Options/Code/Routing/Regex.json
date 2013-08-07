@@ -74,6 +74,16 @@
             {
                 "Entity": "$1"
             }
+        },
+        "To":
+        {
+            "Match": "/to/(.+)",
+            "Service": "System.Interface.Web",
+            "Method": "Redirect",
+            "Call":
+            {
+                "Location": "$1"
+            }
         }
     }
 }
