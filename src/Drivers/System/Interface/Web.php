@@ -9,6 +9,14 @@
 
     setFn ('Do', function ($Call)
     {
+        $Call['Request'] = $_REQUEST;
+        $Call['Cookie'] = $_COOKIE;
+
+        $Call['Run'] = rawurldecode($_SERVER['REQUEST_URI']);
+        $Call['URL Query'] = parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY);
+        $Call['URI'] = rawurldecode($_SERVER['REQUEST_URI']).(empty($Call['URL Query'])? '?' : '');
+        $Call['URL'] = parse_url($Call['URI'], PHP_URL_PATH);
+
         $Call = F::Hook('beforeInterfaceRun', $Call);
 
         if (!isset($Call['Skip Run']))
@@ -21,14 +29,6 @@
                             $_REQUEST['Data'][$IX][$C2][$Key] = $V2;
                 // FUCK!
             }
-
-            $Call['Request'] = $_REQUEST;
-            $Call['Cookie'] = $_COOKIE;
-
-            $Call['Run'] = rawurldecode($_SERVER['REQUEST_URI']);
-            $Call['URL Query'] = parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY);
-            $Call['URI'] = rawurldecode($_SERVER['REQUEST_URI']).(empty($Call['URL Query'])? '?' : '');
-            $Call['URL'] = parse_url($Call['URI'], PHP_URL_PATH);
 
             $Call = F::Run(null, 'Protocol', $Call);
 
