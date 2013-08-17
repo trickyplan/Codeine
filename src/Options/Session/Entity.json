@@ -16,7 +16,7 @@
             "Type": "Numeral.IP",
             "Hooks":
             {
-                "beforeEntityCreate":
+                "beforeEntityWrite":
                 {
                     "Service": "System.Interface.Web.IP",
                     "Method": "Get"

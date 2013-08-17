@@ -22,8 +22,6 @@
             {
                 list($Locale, $Token) = explode(':', $Match);
 
-                $Slices = explode('.', trim($Token));
-
                 if (!isset($Locales[$Locale]))
                 {
                     $LocaleParts = explode('.', $Locale);
@@ -51,19 +49,7 @@
                         F::Log('Locale '.$Locale.' not loaded', LOG_ERR);
                 }
 
-                $szSlices = sizeof($Slices);
-
-                $TrueMatch = false;
-
-                for ($ic = $szSlices; $ic > 0; --$ic) // TODO Абстрагировать
-                    if ($Replace = F::Dot($Locales[$Locale], $cMatch = implode('.', array_slice($Slices, 0, $ic))))
-                    {
-                        if (!is_array($Replace))
-                            $TrueMatch = $cMatch;
-                        break;
-                    }
-
-                if ($TrueMatch)
+                if (($Replace = F::Dot($Locales[$Locale], $Token)) !== null)
                     $Call['Output'] = str_replace($Pockets[0][$IX], $Replace, $Call['Output']);
                 else
                     $Call['Output'] = str_replace($Pockets[0][$IX], '<span class="nl">' . $Match . '</span>', $Call['Output']);

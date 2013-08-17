@@ -15,7 +15,7 @@
             return false;
     });
 
-    setFn('Read', function ($Call)
+    setFn(['Read', 'Where'], function ($Call)
     {
         return (bool) $Call['Value'];
     });

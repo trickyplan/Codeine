@@ -7,7 +7,10 @@
         },
         "Layout":
         {
-            "Not found verbosity": 5
+            "Verbosity":
+            {
+                "Not found": 5
+            }
         }
     }
 }

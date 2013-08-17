@@ -1,0 +1,21 @@
+<?php
+
+    /* Codeine
+     * @author BreathLess
+     * @description  
+     * @package Codeine
+     * @version 7.x
+     */
+
+    setFn('Generate', function ($Call)
+    {
+        $Elements = F::Run('Entity', 'Read', $Call, ['Fields' => ['Slug']]);
+
+        $Data = [];
+
+        if (count($Elements) > 0)
+            foreach ($Elements as $Element)
+                $Data[] = $Call['Host'].'/'.strtolower($Call['Entity']).'/'.$Element['Slug']; // FIXME!
+
+        return $Data;
+    });

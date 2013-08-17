@@ -14,7 +14,7 @@
         return null;
     });
 
-    setFn('Read', function ($Call)
+    setFn(['Read','Where'], function ($Call)
     {
         return F::Run('IO', 'Read', $Call['Node'], array('Scope' => $Call['Entity'], 'Where' => $Call['Data']['ID']))[0][$Call['Name']];
     });

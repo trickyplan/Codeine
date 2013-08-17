@@ -17,8 +17,10 @@
 
     setFn('Read', function ($Call)
     {
-        if (isset($Call['Purpose']) && $Call['Purpose'] == 'Where')
-            return $Call['Value'];
-        else
-            return explode(';', $Call['Value']);
+        return explode(';', $Call['Value']);
+    });
+
+    setFn('Where', function ($Call)
+    {
+        return $Call['Value'];
     });

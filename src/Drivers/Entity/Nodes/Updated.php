@@ -16,7 +16,7 @@
             foreach ($Call['Nodes'] as $Name => $Node)
             {
                 if (isset($Node['Always Set']) && $Node['Always Set'])
-                    foreach ($Call['Data'] as $IX => $Element)
+                    foreach ($Call['Current'] as $IX => $Element)
                         if (F::Dot($Diffed[$IX], $Name) === null)
                             $Diffed[$IX] = F::Dot($Diffed[$IX], $Name, F::Dot($Element, $Name));
                 // Даже не пытайтесь понять, просто примите это

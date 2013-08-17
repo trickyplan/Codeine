@@ -23,10 +23,23 @@
             for ($ic = 1; $ic < $sz; $ic++)
                 $IDs[$ic] = implode('/', array_slice($Slices, 1, $ic));
 
+            if (isset($Call['Run']['Call']['Entity']))
+                array_unshift($Call['Layouts'],
+                [
+                    'Scope' => $Call['Run']['Call']['Entity'],
+                    'ID'    => 'Main',
+                    'Context' => $Call['Context']
+                ]);
+
             $IDs[] = 'Main';
 
             foreach ($IDs as $ID)
-                array_unshift($Call['Layouts'], array ('Scope' => $Asset, 'ID'    => $ID, 'Context' => $Call['Context']));
+                array_unshift($Call['Layouts'],
+                    [
+                        'Scope' => $Asset,
+                        'ID'    => $ID,
+                        'Context' => $Call['Context']
+                    ]);
         }
 
         if (!isset($Call['Run']['Zone']))
@@ -35,13 +48,12 @@
             $Call['Run']['Zone'] = (array) $Call['Run']['Zone'];
 
             foreach ($Call['Run']['Zone'] as $Zone)
-                array_unshift($Call['Layouts'], array('Scope' => $Zone, 'ID' => 'Zone', 'Context' => $Call['Context']));
-
-        array_unshift($Call['Layouts'], array(
-            'Scope' => 'Default',
-            'ID' => 'Main',
-            'Context' => $Call['Context']
-        ));
+                array_unshift($Call['Layouts'],
+                    [
+                        'Scope' => $Zone,
+                        'ID' => 'Zone',
+                        'Context' => $Call['Context']
+                    ]);
 
         return $Call;
      });

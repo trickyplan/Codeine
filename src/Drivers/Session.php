@@ -20,22 +20,34 @@
             $Call['SID'] = F::Live($Call['Generator']['SID']);
             // Вешаем маркер
             if (F::Run('Session.Marker.Cookie', 'Write', $Call))
-                F::Log('Session: Marker added');
+                F::Log('Session: Marker added', LOG_INFO);
         }
         else
         {
-            $Call['Session'] = F::Run('Entity', 'Read', ['Entity' => 'Session', 'Where' => $Call['SID'], 'One' => true]);
+            $Call['Session'] = F::Run('Entity', 'Read',
+                [
+                    'Entity' => 'Session',
+                    'Where' => $Call['SID'],
+                    'One' => true
+                ]);
 
             if (isset($Call['Session']['Secondary']) && $Call['Session']['Secondary'] != 0)
             {
-                $Call['Session']['User'] = F::Run('Entity', 'Read',
+                $Call['Session']['Primary'] = F::Run('Entity', 'Read', $Call,
+                    [
+                        'Entity' => 'User',
+                        'Where' => $Call['Session']['User'],
+                        'One' => true
+                    ]);
+
+                $Call['Session']['User'] = F::Run('Entity', 'Read', $Call,
                     [
                         'Entity' => 'User',
                         'Where' => $Call['Session']['Secondary'],
                         'One' => true
                     ]);
 
-                F::Log('Session: Secondary user '.$Call['Session']['Secondary']['ID'].' authenticated');
+                F::Log('Session: Secondary user '.$Call['Session']['User']['ID'].' authenticated', LOG_INFO);
             }
             elseif (isset($Call['Session']['User']) && $Call['Session']['User'] != 0)
             {
@@ -46,27 +58,49 @@
                         'One' => true
                     ]);
 
-                F::Log('Session: Primary user '.$Call['Session']['User']['ID'].' authenticated');
+                F::Log('Session: Primary user '.$Call['Session']['User']['ID'].' authenticated', LOG_INFO);
             }
         }
+
+        F::Log($Call['Session'], LOG_INFO);
         return $Call;
     });
 
     setFn('Write', function ($Call)
     {
-        $Call['Session'] = F::Run('Entity', 'Read', ['Entity' => 'Session', 'Where' => $Call['SID'],'One' => true]);
+        $Call['Session'] = F::Run('Entity', 'Read',
+            [
+                'Entity' => 'Session',
+                'Where' => $Call['SID'],
+                'One' => true
+            ]);
 
         if (null === $Call['Session'])
-            $Call['Session'] = F::Run('Entity', 'Create', $Call, ['Entity' => 'Session', 'Data' => ['ID' => $Call['SID']], 'One' => true]);
+            $Call['Session'] = F::Run('Entity', 'Create',
+                [
+                    'Entity' => 'Session',
+                    'Data' =>
+                    [
+                        'ID' => $Call['SID']
+                    ],
+                    'One' => true
+                ])['Data'][0];
         else
-            $Call['Session'] = F::Run('Entity', 'Update', $Call, ['Entity' => 'Session', 'Where' => $Call['SID'], 'One' => true]);
+            $Call['Session'] = F::Run('Entity', 'Update',
+                [
+                    'Entity' => 'Session',
+                    'Where' => $Call['SID'],
+                    'One' => true,
+                    'Data' => $Call['Data']
+                ])['Data'][0];
 
         return $Call;
     });
 
     setFn('Read', function ($Call)
     {
-        $Call = F::Run(null, 'Initialize', $Call);
+        if (!isset($Call['Session']))
+            $Call = F::Run(null, 'Initialize', $Call);
 
         if (isset($Call['Key']))
             return F::Dot($Call['Session'], $Call['Key']);

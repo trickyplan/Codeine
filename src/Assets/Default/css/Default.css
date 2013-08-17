@@ -38,15 +38,18 @@
 {
     opacity: 0.7;
 }
+
 .console
 {
     font: 14px monospace;
     margin: auto;
+    margin-top: 40px;
     padding: 0;
     background-color: white;
     color: black;
-    width: 940px !important;
+    width: 80% !important;
     white-space: pre;
+    clear: both;
 }
 
 .console th
@@ -86,23 +89,28 @@ tr.Warning
     border: 1px solid #fbeed5;
 }
 
-tr.Error, tr.Bad
+tr.Error, tr.Bad, tr.Apocalypse, tr.Critical, tr.Emergency
 {
-    color: #b94a48;
+    color: darkred;
     background-color: #f2dede;
     border-color: #eed3d7;
 }
 
-tr.Apocalypse, tr.Critical, tr.Emergency, tr.Important
+tr.Important
 {
-    background-color: #151515;
+    background-color: #333333;
     color: #ffffff;
+}
+
+tr.Important
+{
+    font-size: 24px;
 }
 
 .console tr:hover
 {
     opacity: 1;
-    background-color: black;
+    background-color: #333333;
     color: white;
 }
 

@@ -12,7 +12,7 @@
         return htmlspecialchars($Call['Value'], ENT_HTML5 | ENT_QUOTES, 'UTF-8', false); // FIXME
     });
 
-    setFn('Read', function ($Call)
+    setFn(['Read', 'Where'], function ($Call)
     {
         return htmlspecialchars_decode($Call['Value'], ENT_HTML5 | ENT_QUOTES);
     });

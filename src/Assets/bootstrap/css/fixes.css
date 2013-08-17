@@ -49,3 +49,9 @@ acronym
 {
     border-bottom: 1px gray dotted !important;
 }
+
+.nav-pills li.active .label
+{
+    background-color: #eeeeee;
+    color: #08c;
+}

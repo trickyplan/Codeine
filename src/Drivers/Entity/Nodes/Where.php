@@ -22,18 +22,23 @@
                         {
                             foreach ($Value as $Relation => $cValue)
                                 if (!is_array($cValue))
-                                    $Value[$Relation] = F::Run('Data.Type.'.$Node['Type'], 'Read',
+                                    $Value[$Relation] = F::Run('Data.Type.'.$Node['Type'], 'Where',
                                                                [
                                                                'Node' => $Node,
-                                                               'Value' => $cValue,
-                                                               'Purpose' => 'Where'
+                                                               'Value' => $cValue
                                                                ]);
                                 else
                                     $Value[$Relation] = $cValue;
                             // FIXME Нативные массивы?
                         }
                         else
-                            $Value = F::Run('Data.Type.'.$Node['Type'], 'Read', ['Node' => $Node, 'Value' => $Value, 'Purpose' => 'Where']);
+                        {
+                            $Value = F::Run('Data.Type.'.$Node['Type'], 'Where',
+                                [
+                                    'Node' => $Node,
+                                    'Value' => $Value
+                                ]);
+                        }
                     }
 
                     $Where = F::Dot($Where, $Name, $Value);

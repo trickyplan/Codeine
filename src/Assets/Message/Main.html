@@ -1,19 +1,15 @@
-<subtitle>Сообщения</subtitle>
-<breadcrumb href="/messages">Сообщения</breadcrumb>
-<div class="btn-group">
-    <a class="btn btn-inverse" href="/message/new"><span class="icon-white icon-plus"></span> Создать сообщение</a>
+<subtitle><l>Message.Control:Title</l></subtitle>
+<breadcrumb href="/messages"><l>Message.Control:Title</l></breadcrumb>
+
+<div class="toolbar btn-group">
+    <a class="btn btn-large" href="/message/new">Создать сообщение</a>
+
+    <a class="btn btn-large" href="/messages/inbox">Входящие
+    </a>
+
+    <a class="btn btn-large" href="/messages/outbox">Исходящие
+
+    </a>
 </div>
 
-<ul class="nav nav-pills pull-right">
-    <li>
-        <a href="/messages/inbox">Входящие
-        <span class="badge"><call>Session.User.Inbox</call></span></a>
-    </li>
-    <li>
-        <a href="/messages/outbox">Исходящие
-            <span class="badge"><call>Session.User.Outbox</call></span>
-        </a>
-    </li>
-</ul>
-<div class="clearfix"></div>
 <place>Content</place>

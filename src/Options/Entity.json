@@ -137,11 +137,6 @@
         },
         "beforeEntityCount":
         {
-            "Load model (essential)":
-            {
-                "Service":"Entity",
-                "Method":"Load"
-            },
             "Where":
             {
                 "Service":"Entity.Nodes.Where",

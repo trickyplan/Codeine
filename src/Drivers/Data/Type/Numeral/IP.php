@@ -12,7 +12,7 @@
         return ip2long($Call['Value']);
     });
 
-    setFn('Read', function ($Call)
+    setFn(['Read', 'Where'], function ($Call)
     {
         if (is_int($Call['Value']))
             return long2ip($Call['Value']);

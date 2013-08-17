@@ -35,8 +35,6 @@
               'Query' => isset($Call['Query'])? $Call['Query']: $Call['Request']['Query']
             ]);
 
-            $Call['Layouts'][] = ['Scope' => $Entity,'ID' => 'Main','Context' => $Call['Context']];
-
             $Call['Layouts'][] = ['Scope' => $Entity,'ID' => 'Search','Context' => $Call['Context']];
 
             $Where = [];

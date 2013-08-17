@@ -34,8 +34,6 @@
 
         $Call['Scope'] = isset($Call['Scope'])? $Call['Scope']: $Call['Scope'] = $Call['Entity'];
 
-        $Call['Layouts'][] = ['Scope' => $Call['Entity'],'ID' => 'Main','Context' => $Call['Context']];
-
         $Call['Layouts'][] =
             [
                 'Scope' => $Call['Scope'],
@@ -92,9 +90,9 @@
                         $Widget['Data'] = $Call['Data'];
 
                     if (isset($Widget['Options']))
-                        $Widget['Options'] = F::Live($Widget['Options'], $Call);
+                        $Widget['Options'] = F::Live($Widget['Options']);
                     else
-                        $Widget['Options'] = array();
+                        $Widget['Options'] = [];
 
                     // Если есть значение, добавляем
                     if (isset($Call['Data']))
@@ -133,7 +131,8 @@
             }
         }
 
-        $Call['Output']['Form'] = F::Sort($Call['Output']['Form'], 'Weight', false);
+        if (isset($Call['Output']['Form']))
+            $Call['Output']['Form'] = F::Sort($Call['Output']['Form'], 'Weight', false);
 
         // Вывести
         $Call = F::Hook('afterCreateGet', $Call);
@@ -165,7 +164,6 @@
             }
 
             // Отправляем в Entity.Create
-
             $Call = F::Run('Entity', 'Create', $Call);
 
             if (!isset($Call['Errors']) or empty($Call['Errors']))

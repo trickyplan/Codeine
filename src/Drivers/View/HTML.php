@@ -14,19 +14,15 @@
 
     setFn('Pipeline', function ($Call)
     {
-        if (isset($Call['Layouts']))
-        {
-            foreach ($Call['Layouts'] as $Layout) // FIXME I'm fat
-                if (($Sublayout =  F::Run('View', 'Load', $Call, $Layout)) !== null)
-                    if (mb_strpos($Call['Layout'], '<place>Content</place>') !== false)
-                        $Call['Layout'] = str_replace('<place>Content</place>', $Sublayout, $Call['Layout']);
-                    else
-                        $Call['Layout'] = $Call['Layout'].$Sublayout;
-        }
-
         $Call = F::Hook('beforePipeline', $Call);
 
-        if ($Places = F::Run('Text.Regex', 'All', ['Pattern' => '<place>(.+?)<\/place>', 'Value' => $Call['Layout']]))
+        $Places = F::Run('Text.Regex', 'All',
+            [
+                'Pattern' => $Call['Place Pattern'],
+                'Value' => $Call['Layout']
+            ]);
+
+        if ($Places) //  Если есть посадочные места.
         {
             if (isset($Call['Output']) && is_array($Call['Output']))
             {

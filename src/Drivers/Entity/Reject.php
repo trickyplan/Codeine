@@ -22,7 +22,6 @@
     {
         $Call = F::Hook('beforeRejectGet', $Call);
 
-        $Call['Layouts'][] = ['Scope' => $Call['Entity'],'ID' => 'Main','Context' => $Call['Context']];
         $Call = F::Run('Entity.Show.Static', 'Do', $Call, ['Template' => 'Check', 'Context' => 'app']);
 
         $Call = F::Hook('afterRejectGet', $Call);

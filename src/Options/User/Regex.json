@@ -20,7 +20,10 @@
             "Call":
             {
                 "Entity": "User",
-                "Where": "$1"
+                "Where":
+                {
+                    "ID": "$1"
+                }
             }
         },
         "Activate.User":
@@ -31,6 +34,16 @@
             "Call":
             {
                 "Code": "$1"
+            }
+        },
+        "Login as user":
+        {
+            "Match":"^/login/user/(\\d+)$",
+            "Service":"User.Login",
+            "Method":"Do",
+            "Call":
+            {
+                "Where": "$1"
             }
         },
         "SendMail.User":

@@ -47,7 +47,7 @@
             }
             else
             {
-                F::Log('Not found '.$Call['Where']['ID'][0], $Call['Not found verbosity']);
+                F::Log('Not found '.$Call['Where']['ID'][0], $Call['Verbosity']['Not found']);
                 return null;
             }
         }

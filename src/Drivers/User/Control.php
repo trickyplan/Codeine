@@ -11,13 +11,7 @@
 
     setFn('Login', function ($Call)
     {
-        $Call = F::Run('Entity', 'Load', $Call, ['Entity' => 'User']);
-
-        $Call['Session'] = F::Run('Session', 'Write', $Call, ['Data' => ['Secondary' => $Call['Where']]]);
-
-        $Call = F::Hook('afterLogin', $Call);
-
-        return $Call;
+        return F::Run('User.Login', 'Do', $Call);
     });
 
     setFn('Rights', function ($Call)

@@ -20,7 +20,7 @@
                                 && $Node['User Override']
                                 && null != (F::Dot($Element, $Name))
                                )
-                                F::Log('Node '.$Name.' overriden by user with '.F::Dot($Element, $Name), LOG_INFO);
+                                F::Log('Node *'.$Name.'* overriden by user with *'.F::Dot($Element, $Name).'*', LOG_INFO);
                             else
                             {
                                 $Element = F::Dot($Element, $Name, F::Live($Node['Hooks'][$Call['On']], $Call,
@@ -30,13 +30,14 @@
                                                    ]));
 
                                 if (is_array(F::Dot($Element, $Name)))
-                                    F::Log('Node '.$Name.' executed as '.json_encode(F::Dot($Element, $Name)) , LOG_INFO);
+                                    F::Log('Node *'.$Name.'* executed as '.json_encode(F::Dot($Element, $Name)), LOG_INFO);
                                 else
-                                    F::Log('Node '.$Name.' executed as '.F::Dot($Element, $Name), LOG_INFO);
+                                    F::Log('Node *'.$Name.'* executed as '.F::Dot($Element, $Name), LOG_INFO);
                             }
 
                             $Call['Data'][$IX] = $Element;
                         }
                 }
+
         return $Call;
     });

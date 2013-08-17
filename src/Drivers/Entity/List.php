@@ -20,8 +20,6 @@
 
         $Call['Scope'] = isset($Call['Scope'])? $Call['Entity'].'/'.$Call['Scope']: $Call['Scope'] = $Call['Entity'];
 
-        $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Main','Context' => $Call['Context']);
-
         $Call['Layouts'][] = array('Scope' => $Call['Scope'],'ID' => isset($Call['Custom Templates']['List'])? $Call['Custom Templates']['List'] :'List','Context' => $Call['Context']);
 
         if (!isset($Call['Elements']))
@@ -39,7 +37,8 @@
         {
             $Empty = isset($Call['Custom Templates']['Empty'])? $Call['Custom Templates']['Empty']: 'Empty';
 
-            $Call['Output']['Content'][] = ['Type' => 'Template', 'Scope' => 'Entity', 'Entity' => $Call['Entity'],  'ID' => $Empty];
+            $Call['Output']['Content'][]
+                = ['Type' => 'Template', 'Scope' => $Call['Scope'], 'Entity' => $Call['Entity'],  'ID' => $Empty];
         }
         else
         {
@@ -92,8 +91,7 @@
     setFn('RAW', function ($Call)
     {
         $Output = [];
-
-        $Call = F::Merge(F::loadOptions($Call['Entity'].'.Entity'), $Call); // FIXME
+        $Call = F::Merge($Call, F::loadOptions($Call['Entity'].'.Entity')); // FIXME
 
         $Call = F::Hook('beforeRAWList', $Call);
 

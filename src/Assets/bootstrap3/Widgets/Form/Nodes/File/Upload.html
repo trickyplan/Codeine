@@ -1,0 +1,26 @@
+<div>
+    <h6>Файл</h6>
+    <div class="control-group">
+        <label class="control-label" for="Name"> Имя атрибута:</label>
+        <div class="controls">
+            <input id="Name" type="text" name="Nodes[Name][<k>ID</k>]" class="span12"/>
+        </div>
+    </div>
+
+    <input id="Type" type="hidden" name="Nodes[Type][<k>ID</k>]" value="File.Upload">
+
+    <div class="control-group">
+        <label class="control-label" for="Control"> Элемент управления</label>
+        <div class="controls">
+            <input type="radio" id="Control" name="Nodes[Control][<k>ID</k>]" value="Normal" /> Ссылка
+            <input type="radio" name="Nodes[Control][<k>ID</k>]" value="Image" /> Изображение
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="Required"> Обязательное?</label>
+        <div class="controls">
+            <input type="checkbox" id="Required" name="Nodes[Required][<k>ID</k>]"  />
+        </div>
+    </div>
+</div>

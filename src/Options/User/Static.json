@@ -32,7 +32,8 @@
         "/changepwd":
         {
             "Service":"User.Passwd",
-            "Method":"Do"
+            "Method":"Do",
+            "Zone": ["Project"]
         },
         "/auth/social":
         {
@@ -46,7 +47,8 @@
         "/cabinet":
         {
             "Service":"User.Cabinet",
-            "Method":"Do"
+            "Method":"Do",
+            "Zone": ["Project"]
         },
         "/profile":
         {

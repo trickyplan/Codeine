@@ -21,7 +21,7 @@
             else
                 $Outer = $Inner;
 
-            if (mb_strlen(trim($Inner)) >= mb_strlen($Outer))
+            if (mb_strlen(trim($Inner)) > mb_strlen($Outer))
             {
                 $Hellip = isset($Root->attributes()->hellip) ? (string) $Root->attributes()->hellip: '&hellip;';
                 $Hellip = isset($Root->attributes()->more)? '<a href="'.(string) $Root->attributes()->more.'">'.$Hellip.'</a>': $Hellip;

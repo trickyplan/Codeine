@@ -11,7 +11,22 @@
     {
         if (isset($Call['Value']))
         {
-            $Call['Value'] = time()-$Call['Value'];
+            $Time = time();
+
+            if ($Time < $Call['Value'])
+            {
+                $Prefix = '<l>Formats.Period:Future.Prefix</l> ';
+                $Postfix = ' <l>Formats.Period:Future.Postfix</l>';
+            }
+            elseif ($Time > $Call['Value'])
+            {
+                $Prefix = '<l>Formats.Period:Past.Prefix</l> ';
+                $Postfix = ' <l>Formats.Period:Past.Postfix</l>';
+            }
+            else
+                return '<l>Formats.Period:Now</l>';
+
+            $Call['Value'] = abs($Time-$Call['Value']);
 
             foreach ($Call['Period']['Units'] as $Period => $Value)
                 if ($Call['Value'] >= $Value)
@@ -21,6 +36,6 @@
                     $Call['Value'] -= $Units*$Value;
                 }
 
-            return implode(' ', array_slice($Output,0,$Call['Format']));
+            return $Prefix.implode(' ', array_slice($Output,0,$Call['Period']['Format'])).$Postfix;
         }
     });

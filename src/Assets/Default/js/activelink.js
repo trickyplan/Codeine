@@ -4,7 +4,7 @@ $(document).ready(function ()
 
     $("li a, td a").each(function ()
     {
-        if (str.indexOf(this.href.toLowerCase())>-1)
+        if (this.href.toLowerCase() == str)
             $(this).parent().addClass("active");
     });
 });

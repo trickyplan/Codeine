@@ -23,7 +23,6 @@
 
         $Call['Scope'] = isset($Call['Scope'])? $Call['Scope']: $Call['Scope'] = $Call['Entity'];
 
-        $Call['Layouts'][] = ['Scope' => $Call['Entity'],'ID' => 'Main','Context' => $Call['Context']];
         $Call['Layouts'][] = ['Scope' => $Call['Entity'],'ID' => 'Filter','Context' => $Call['Context']];
 
         $Call['Layouts'][] =

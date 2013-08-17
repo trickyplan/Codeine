@@ -23,6 +23,7 @@
         "Title":
         {
             "Type": "Literal.String",
+            "Weight": 100,
             "Widgets":
             {
                 "Write":
@@ -47,6 +48,7 @@
             "Type": "Boolean",
             "Default": false,
             "Nullable": true,
+            "Weight": 10,
             "Widgets":
             {
                 "Write":

@@ -11,6 +11,8 @@
 
     setFn('Run', function ($Call)
     {
+        F::Log('Front Controller started', LOG_IMPORTANT);
+
         // В этом месте, практически всегда, происходит роутинг.
         $Call = F::Hook('beforeFrontRun', $Call);
 
@@ -27,9 +29,9 @@
                     list($Call['Service'], $Call['Method'])
                         = [$Call['Run']['Service'], $Call['Run']['Method']];
 
-                    $Call['Environment'] = F::Environment();
+                    F::Log('*'.$Call['Service'].':'.$Call['Method'].'* started', LOG_IMPORTANT);
 
-                    F::Log('*'.$Call['Service'].':'.$Call['Method'].'* started', LOG_INFO);
+                    $Call['Environment'] = F::Environment();
 
                     $Call = F::Live($Call['Run'], $Call);
                 }

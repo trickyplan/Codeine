@@ -56,7 +56,7 @@
         return null;
     });
 
-    setFn('Read', function ($Call)
+    setFn(['Read','Where'], function ($Call)
     {
         $Data = F::Run('Entity', 'Read', [
                                     'Entity' => $Call['Entity'].'2'.$Call['Name'],

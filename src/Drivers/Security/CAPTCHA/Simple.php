@@ -70,7 +70,7 @@
 
         F::Run('Image', 'Save', $Call,
             [
-                'ID' => '/tmp/cache/'.$Call['RHost'].'/captcha/'.sha1($Code).'.png'
+                'ID' => '/tmp/codeine/'.$Call['RHost'].'/captcha/'.sha1($Code).'.png'
             ]); // FIXME
 
         $Call['Session']['CAPTCHA'] = sha1($Code);

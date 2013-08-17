@@ -172,7 +172,7 @@
                 "Method": "StoreURL"
             }
         },
-        "afterUpdatePost":
+        "-afterUpdatePost":
         {
             "Restore URL":
             {

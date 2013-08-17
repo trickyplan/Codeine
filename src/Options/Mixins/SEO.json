@@ -4,6 +4,7 @@
         "Keywords":
         {
             "Type": "Literal.String",
+            "Weight": -40,
             "Widgets":
             {
                 "Write":
@@ -15,6 +16,7 @@
         "Description":
         {
             "Type": "Literal.String",
+            "Weight": -40,
             "Widgets":
             {
                 "Write":

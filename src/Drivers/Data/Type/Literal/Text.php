@@ -12,7 +12,7 @@
         return strip_tags($Call['Value'], '<br/><b><i><u><br>'); // FIXME
     });
 
-    setFn('Read', function ($Call)
+    setFn(['Read', 'Where'], function ($Call)
     {
         return nl2br($Call['Value']);
     });

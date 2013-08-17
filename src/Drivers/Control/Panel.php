@@ -15,7 +15,7 @@
         if (!isset($Call['Option']))
             $Call['Option'] = 'Do';
 
-        $Call = F::Run($Call['Bundle'].'.Control', $Call['Option'], $Call, ['Context' => 'app']);
+        $Call = F::Run($Call['Bundle'].'.Control', $Call['Option'], $Call);
 
         $Call['Layouts'][] = array(
             'Scope' => $Call['Bundle'],
@@ -38,7 +38,10 @@
 
             foreach ($Bundles as $Bundle)
             {
-                $Options = ['ID' => $Bundle, 'Group' => $Group];
+                $Options = ['ID' => $Bundle,
+                    'URL' => '/control/'.$Bundle,
+                    'Title' => '<l>'.$Bundle.'.Control:Title</l>',
+                    'Group' => $Group];
 
                 if (isset($Call['Icons'][$Bundle]))
                     $Options['Icon'] = $Call['Icons'][$Bundle];

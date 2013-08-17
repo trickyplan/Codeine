@@ -11,69 +11,118 @@
     {
         if (isset($Call['URI']))
         {
-            $Call['Title'] = [];
+            $Call = F::Run(null, 'Page', $Call);
+            $Call = F::Run(null, 'Title', $Call);
+            $Call = F::Run(null, 'Keywords', $Call);
+            $Call = F::Run(null, 'Description', $Call);
+            $Call = F::Run(null, 'Header', $Call);
+        }
 
-            $Page = F::Run(null, 'Page', $Call);
+        return $Call;
+    });
 
-            $Call = F::Live($Call['Meta Sources']['Title'], $Call);
-            $Call = F::Live($Call['Meta Sources']['Keywords'], $Call);
-            $Call = F::Live($Call['Meta Sources']['Description'], $Call);
-
-            if (!empty($Page))
-                $Call = F::Merge($Call, $Page);
+    setFn('Title', function ($Call)
+    {
+        if (preg_match($Call['Meta']['Pattern']['Title'], $Call['Output']))
+        {
+            $Call = F::Live($Call['Meta']['Sources']['Title'], $Call);
 
             if (isset($Call['Title'][count($Call['Title'])-1]))
                 $Call['Header'] = $Call['Title'][count($Call['Title'])-1];
 
-            if ($Call['Reverse'])
+            if ($Call['Meta']['Title']['Reverse'])
                 $Call['Title'] = array_reverse($Call['Title']);
 
-            $Call['Title'] = implode($Call['Delimiter'], $Call['Title']);
+            $Call['Title'] = implode($Call['Meta']['Title']['Delimiter'], $Call['Title']);
+
+            $Call['Output'] = preg_replace(
+                        $Call['Meta']['Pattern']['Title'],
+                        '<title>'.strip_tags($Call['Title'], '<l><k>').'</title>',
+                        $Call['Output']);
+        }
+
+        return $Call;
+    });
+
+    setFn('Keywords', function ($Call)
+    {
+        if (preg_match($Call['Meta']['Pattern']['Keywords'], $Call['Output']))
+        {
+            $Call = F::Live($Call['Meta']['Sources']['Keywords'], $Call);
 
             if (!isset($Call['Keywords']))
                 $Call['Keywords'] = '';
+            else
+                if (is_array($Call['Keywords']))
+                    $Call['Keywords'] = implode(',', $Call['Keywords']);
+
+            $Call['Output'] = preg_replace(
+                        $Call['Meta']['Pattern']['Keywords'],
+                        '<meta name="keywords" content="'.strip_tags($Call['Keywords'], '<l><k>').'" />',
+                        $Call['Output']);
+        }
+
+        return $Call;
+    });
+
+    setFn('Description', function ($Call)
+    {
+        if (preg_match($Call['Meta']['Pattern']['Description'], $Call['Output']))
+        {
+            $Call = F::Live($Call['Meta']['Sources']['Description'], $Call);
 
             if (!isset($Call['Description']))
                 $Call['Description'] = '';
 
-            if (is_array($Call['Keywords']))
-                $Call['Keywords'] = implode(',', $Call['Keywords']);
-
             if (is_array($Call['Description']))
                 $Call['Description'] = implode('', $Call['Description']);
 
-            if (isset($Call['Header']))
-                $Call['Output'] = str_replace('<header/>', $Call['Header'], $Call['Output']);
-            else
-                $Call['Output'] = str_replace('<header/>', '', $Call['Output']);
-
-            $Call['Output'] = str_replace('<title/>', '<title>'.strip_tags($Call['Title'], '<l><k>').'</title>', $Call['Output']);
-            $Call['Output'] = str_replace('<keywords/>', '<meta name="keywords" content="'.strip_tags($Call['Keywords'], '<l><k>').'" />', $Call['Output']);
-            $Call['Output'] = str_replace('<description/>', '<meta name="description" content="'.strip_tags($Call['Description'], '<l><k>').'" />', $Call['Output']);
+            $Call['Output'] = preg_replace(
+                        $Call['Meta']['Pattern']['Description'],
+                        '<meta name="description" content="'.strip_tags($Call['Description'], '<l><k>').'" />',
+                        $Call['Output']);
         }
+
+        return $Call;
+    });
+
+    setFn('Header', function ($Call)
+    {
+        if (isset($Call['Header']))
+            $Call['Output'] = str_replace('<header/>', $Call['Header'], $Call['Output']);
+        else
+            $Call['Output'] = str_replace('<header/>', '', $Call['Output']);
 
         return $Call;
     });
 
     setFn('Page', function ($Call)
     {
-        if ($Call['URL'] == '/')
-            $Call['URL'] = '//';
-
-        $Page = F::Run('Entity', 'Read',
-                    [
-                         'Entity' => 'Page',
-                         'Where' => ['Slug' => substr($Call['URL'], 1)]
-                    ]);
-
-        $Data = [];
-
-        if (isset($Page[0]))
+        if (
+                preg_match($Call['Meta']['Pattern']['Title'], $Call['Output'])
+                ||
+                preg_match($Call['Meta']['Pattern']['Keywords'], $Call['Output'])
+                ||
+                preg_match($Call['Meta']['Pattern']['Description'], $Call['Output'])
+        )
         {
-            $Data['Title'][1] = $Page[0]['Title'];
-            $Data['Description'] = $Page[0]['Description'];
-            $Data['Keywords'] = $Page[0]['Keywords'];
+            if ($Call['URL'] == '/')
+                $Call['URL'] = '//';
+
+            $Page = F::Run('Entity', 'Read',
+                        [
+                            'One' => true,
+                            'Entity' => 'Page',
+                            'Where' => ['Slug' => substr($Call['URL'], 1)]
+                        ]);
+
+            if ($Page !== null)
+            {
+                $Call['Title'][1] = $Page['Title'];
+                $Call['Description'] = $Page['Description'];
+                $Call['Keywords'] = $Page['Keywords'];
+            }
         }
 
-        return $Data;
+        return $Call;
     });

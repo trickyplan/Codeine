@@ -15,7 +15,7 @@
             return (int) $Call['Value']/abs($Call['Value']);
     });
 
-    setFn('Read', function ($Call)
+    setFn(['Read', 'Where'], function ($Call)
     {
         return (int) $Call['Value'];
     });

@@ -23,7 +23,6 @@
             $Call = F::Run('System.Interface.Web','Redirect', $Call, ['Location' => $Call['Data']['Redirect']]);
         else
         {
-            $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Main','Context' => $Call['Context']);
             $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Show','Context' => $Call['Context']);
 
             $Call['Scope'] = isset($Call['Scope'])? $Call['Entity'].'/'.$Call['Scope']: $Call['Scope'] = $Call['Entity'];
@@ -43,5 +42,6 @@
             }
         }
 
+        F::Log($Call['Data'], LOG_INFO);
         return $Call;
     });

@@ -1,19 +1,10 @@
 <?php
 
-    /* Codeine
+    /*
      * @author BreathLess
-     * @description  
-     * @package Codeine
-     * @version 7.4.5
+     * @description Sitemap generator
+     * @package Sphinx
+     * @version 7.0
      */
 
-    setFn('Generate', function ($Call)
-    {
-        $Elements = F::Run('Entity', 'Read', ['Entity' => 'Blog']);
-        $Data = ['http://'.$_SERVER['HTTP_HOST'].'/blog'];
-
-        foreach ($Elements as $Element)
-            $Data[] = 'http://'.$_SERVER['HTTP_HOST'].'/blog/'.$Element['Slug']; // FIXME!
-
-        return $Data;
-     });
+    self::_loadSource('Entity.Sitemap');

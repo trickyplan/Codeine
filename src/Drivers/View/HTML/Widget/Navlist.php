@@ -20,12 +20,25 @@
 
          foreach ($Call['Options'] as $Key => $Value)
              if (is_array($Value))
+             {
                  $Options[] = F::Run ('View', 'Load', $Call,
-                    [
+                     [
                          'Scope' => $Call['Widget Set'].'/Widgets',
                          'ID'    => 'Navlist/'.($Value['ID'] == $Call['Value'] ? 'Active' : 'Passive'),
                          'Data'  => $Value
-                    ]);
+                     ]);
+/*
+                 if (isset($Value['Submenu']))
+                     foreach ($Value['Submenu'] as $Submenu)
+                     {
+                         $Options[] = F::Run ('View', 'Load', $Call,
+                         [
+                             'Scope' => $Call['Widget Set'].'/Widgets',
+                             'ID'    => 'Navlist/'.($Value['ID'] == $Call['Value'] ? 'Active' : 'Passive'),
+                             'Data'  => $Submenu
+                         ]);
+                     }*/
+             }
              else
                 $Options[] = F::Run ('View', 'Load', $Call,
                     [

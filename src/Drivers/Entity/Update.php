@@ -25,8 +25,6 @@
     {
         $Call = F::Hook('beforeUpdateGet', $Call);
 
-        $Call['Layouts'][] = ['Scope' => $Call['Entity'],'ID' => 'Main','Context' => $Call['Context']];
-
         $Call['Layouts'][] = array(
             'Scope' => $Call['Entity'],
             'ID' => isset($Call['Custom Layouts']['Update'])? $Call['Custom Layouts']['Update']: 'Update',
@@ -122,7 +120,9 @@
                     }
                 }
         }
-        $Call['Output']['Form'] = F::Sort($Call['Output']['Form'], 'Weight', false);
+
+        if (isset($Call['Output']['Form']))
+            $Call['Output']['Form'] = F::Sort($Call['Output']['Form'], 'Weight', false);
         // Вывести
 
         $Call = F::Hook('afterUpdateGet', $Call);

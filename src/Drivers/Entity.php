@@ -190,6 +190,8 @@
             $Call = F::Hook('afterEntityCount', $Call);
         $Call = F::Hook('afterOperation', $Call);
 
+        F::Log('*'.$Call['Data'].'* '.$Call['Entity'].' counted.', LOG_INFO);
+
         return $Call['Data'];
     });
 

@@ -25,7 +25,7 @@
 
     });
 
-    setFn('Read', function ($Call)
+    setFn(['Read', 'Where'], function ($Call)
     {
-        return $Call['Value'];
+        return $Call['Value']; // Separate Where?
     });

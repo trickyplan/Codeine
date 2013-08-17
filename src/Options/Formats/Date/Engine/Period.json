@@ -1,13 +1,15 @@
 {
     "Period":
     {
+        "Format": 2,
         "Units":
         {
             "Year": 31536000,
             "Month": 2419200,
             "Day": 86400,
             "Hour": 3600,
-            "Min": 60
+            "Min": 60,
+            "Seconds": 1
         }
     }
 }

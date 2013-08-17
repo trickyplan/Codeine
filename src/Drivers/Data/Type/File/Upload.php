@@ -12,17 +12,23 @@
         if (isset($Call['Value']) && is_scalar($Call['Value']))
             return $Call['Value'];
 
-        $Call['ID'] = F::Run('Security.UID', 'Get',$Call);
-        $Call['Name'] = F::Live($Call['Node']['Naming'], $Call);
+        if ($Call['Value']['error'] == 0)
+        {
+            $Call['ID'] = F::Run('Security.UID', 'Get',$Call);
+            $Call['Name'] = F::Live($Call['Node']['Naming'], $Call);
 
-        return F::Run('IO', 'Execute', $Call,
-        [
-            'Execute' => 'Upload',
-            'Storage' => $Call['Node']['Storage']
-        ]);
+            return F::Run('IO', 'Execute', $Call,
+            [
+                'Execute' => 'Upload',
+                'Storage' => $Call['Node']['Storage']
+            ]);
+        }
+        else
+            return null;
+
     });
 
-    setFn('Read', function ($Call)
+    setFn(['Read', 'Where'], function ($Call)
     {
         return $Call['Value'];
     });

@@ -1,6 +1,7 @@
 {
     "Mixins": ["Mixins.CRUD", "Mixins.UGC"],
     "Storage": "Primary",
+    "Folders": ["Inbox", "Outbox"],
     "Nodes":
     {
         "ID":
@@ -19,7 +20,7 @@
                 }
             }
         },
-        "To":
+        "Target":
         {
             "Type": "Literal.String",
             "Required": true,

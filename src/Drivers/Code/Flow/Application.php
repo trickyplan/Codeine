@@ -19,7 +19,7 @@
         {
             list($Call['Service'], $Call['Method']) = array ($Call['Run']['Service'], $Call['Run']['Method']);
 
-            F::Log('*'.$Call['Service'].':'.$Call['Method'].'* started', LOG_INFO);
+            F::Log('*'.$Call['Service'].':'.$Call['Method'].'* started', LOG_IMPORTANT);
 
             $Call = F::Live($Call['Run'], $Call, ['Context' => 'app']);
         }

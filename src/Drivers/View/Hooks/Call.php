@@ -25,6 +25,14 @@
 
                     $Call['Value'] = str_replace($Pockets[0][$IX], F::Live($Matched), $Call['Value']);
                 }
+                else
+                {
+                    F::Log(
+                        'Call to *'.$Match.'* cannot resolved at '.$Call['Scope'].':'.$Call['ID'],
+                        $Call['Verbosity']['Calltag']['Unresolved']);
+
+                    $Call['Value'] = str_replace($Pockets[0][$IX], '', $Call['Value']);
+                }
             }
         }
 

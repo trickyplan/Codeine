@@ -9,6 +9,15 @@
 
     setFn ('Do', function ($Call)
     {
+        if (isset($_FILES['Data']))
+        {
+            foreach ($_FILES['Data'] as $Key => $Value)
+                foreach ($Value as $IX => $cValue)
+                    foreach ($cValue as $C2 => $V2)
+                        $_REQUEST['Data'][$IX][$C2][$Key] = $V2;
+            // FUCK!
+        }
+
         $Call['Request'] = $_REQUEST;
         $Call['Cookie'] = $_COOKIE;
 
@@ -21,15 +30,6 @@
 
         if (!isset($Call['Skip Run']))
         {
-             if (isset($_FILES['Data']))
-            {
-                foreach ($_FILES['Data'] as $Key => $Value)
-                    foreach ($Value as $IX => $cValue)
-                        foreach ($cValue as $C2 => $V2)
-                            $_REQUEST['Data'][$IX][$C2][$Key] = $V2;
-                // FUCK!
-            }
-
             $Call = F::Run(null, 'Protocol', $Call);
 
             $Call = F::Run($Call['Service'], $Call['Method'], $Call);
@@ -49,10 +49,13 @@
 
     setFn('Output', function ($Call)
     {
-        if (is_string($Call['Output']))
-            echo $Call['Output'];
-        else
-            print_r($Call['Output']);
+        if (isset($Call['Output']))
+        {
+            if (is_string($Call['Output']))
+                echo $Call['Output'];
+            else
+                print_r($Call['Output']);
+        }
 
         return $Call;
     });

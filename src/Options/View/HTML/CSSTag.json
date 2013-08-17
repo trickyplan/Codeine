@@ -1,6 +1,7 @@
 {
     "CSS":
     {
+        "Pattern": "<css>(.+?)<\/css>",
         "Styles": [],
         "Host": "",
         "Pathname": "/cache/css/",

@@ -9,13 +9,15 @@
         <block>Максимальный размер: <k>MaxSize</k></block>
         <block><br/>Разрешённые типы: <k>TypeHint</k></block>
 
+
             <if value="<k>Value</k>" neq="">
-                <small>
-                    <file>/uploads/<k>Scope</k>/<k>Value</k></file>
-                    <label class="checkbox">
+                <div>
+                    <small>
+                        <file>/uploads/<k>Scope</k>/<k>Value</k></file>
                         <input type="checkbox" name="<k>Name</k>" value="-1" /> Удалить
-                    </label>
-                </small>
+                    </small>
+
+                </div>
             </if>
 
     </div>

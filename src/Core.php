@@ -83,12 +83,13 @@
 
             $Call = F::Merge($Call, self::loadOptions('Codeine'));
 
-            self::Log('Environment: '.self::$_Environment, LOG_INFO);
-
             self::$_Verbose = self::$_Options['Codeine']['Verbose'];
+
             set_error_handler ('F::Error');
 
             register_shutdown_function('F::Shutdown');
+F::Log('Codeine started', LOG_IMPORTANT);
+            F::Log('Environment: *'.self::$_Environment.'*', LOG_INFO);
 
             $Call = F::Hook('onBootstrap', $Call);
 
@@ -311,7 +312,13 @@
             if (self::$_Service == 'Codeine')
                 self::$$Function = $Code;
             else
-                return self::$_Code[self::$_Service][$Function] = $Code;
+            {
+                $Function = (array) $Function;
+                foreach ($Function as $CF)
+                    self::$_Code[self::$_Service][$CF] = $Code;
+
+                return $Code;
+            }
         }
 
         public static function getFn($Function)
@@ -377,11 +384,15 @@
             $Data = [];
             $Result = [];
 
+            $IC = 0;
             foreach ($Array as $ID => $Row)
                 if (isset($Row[$Key]))
                     $Data[$ID] = $Row[$Key];
+                else
+                    $Data[$ID] = $IC--;
 
-            $Direction ? asort($Data): arsort($Data);
+
+            $Direction == SORT_DESC ? asort($Data): arsort($Data);
 
             foreach ($Data as $Key =>&$Value)
                 $Result[$Key] = $Array[$Key];
@@ -472,16 +483,21 @@
 
              if (isset($Call['Hooks']) && ($Hooks = F::Dot($Call, 'Hooks.' . $On)) && (!isset($Call['No'][$On])))
              {
-                 foreach ($Hooks as $HookName => $Hook)
+                 if (count($Hooks) > 0)
                  {
-                     if (substr($HookName,0,1) != '-')
-                     {
-                         F::Log($On.':'.$HookName, LOG_DEBUG);
+                     $Hooks = F::Sort($Hooks, 'Weight', SORT_ASC);
 
-                         if (F::isCall($Hook))
-                             $Call = F::Run($Hook['Service'],$Hook['Method'], isset($Hook['Call'])? $Hook['Call']: [], $Call, ['On' => $On]);
-                         else
-                             $Call = F::Merge($Call, $Hook);
+                     foreach ($Hooks as $HookName => $Hook)
+                     {
+                         if (substr($HookName,0,1) != '-')
+                         {
+                             F::Log($On.':'.$HookName, LOG_DEBUG);
+
+                             if (F::isCall($Hook))
+                                 $Call = F::Run($Hook['Service'],$Hook['Method'], isset($Hook['Call'])? $Hook['Call']: [], $Call, ['On' => $On]);
+                             else
+                                 $Call = F::Merge($Call, $Hook);
+                         }
                      }
                  }
              }
@@ -491,7 +507,7 @@
 
         public static function Error($errno , $errstr , $errfile , $errline , $errcontext)
         {
-            return F::Log($errno.' '.$errstr.' '.$errfile.'@'.$errline, LOG_ERR);
+            return F::Log($errno.' '.$errstr.' '.$errfile.'@'.$errline, LOG_CRIT);
         }
 
         /*
@@ -512,6 +528,9 @@
         {
             if ($Verbose <= self::$_Verbose or (self::$_Environment == 'Development' && $Verbose > 7))
             {
+                if (!is_string($Message))
+                    $Message = json_encode($Message, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+
                 if (PHP_SAPI == 'cli')
                 {
                     switch ($Verbose)
@@ -549,7 +568,7 @@
             return self::$_Log;
         }
 
-        public static function loadOptions($Service = null, $Method = null)
+        public static function loadOptions($Service = null, $Method = null, $Call = [])
         {
             $Service = ($Service == null)? self::$_Service: $Service;
 /*            $Method = ($Method == null)? self::$_Method: $Method;*/
@@ -616,14 +635,14 @@
                 {
                     foreach($Options['Mixins'] as &$Mixin)
                     {
-                        $Options = F::Merge($Options, F::loadOptions($Mixin));
+                        $Options = F::Merge(F::loadOptions($Mixin), $Options);
                     }
                 }
 
                 self::$_Options[$Service] = $Options;
             }
 
-            return self::$_Options[$Service];
+            return F::Merge(self::$_Options[$Service], $Call);
         }
 
         public static function Dump($File, $Line, $Call)
@@ -711,20 +730,34 @@
            arsort(self::$_Counters['T']);
 
            echo '
-           <pre class="console">Memory: '.round(self::$_Memory/1024)." Kb.
-time\t\tcalls\t\t%time\t\tT/C\t\t%call\t\tfn\n".round($Summary['Time'])."\t\t".$Summary['Calls']
-               ."\t\t100\t\t".round($Summary['Time']/$Summary['Calls'],2)."\t\t100\t\t".$_SERVER['REQUEST_URI']."\n";
-               foreach (self::$_Counters['T'] as $Key => $Value)
-                   echo implode("\t\t", [
-                            round($Value),
-                            self::$_Counters['C'][$Key],
-                            round(($Value/$Summary['Time'])*100,2),
-                            round($Value/self::$_Counters['C'][$Key], 2),
-                            round((self::$_Counters['C'][$Key]/$Summary['Calls'])*100,2),
-                            $Key
-                        ])."\n";
+           <table class="table console">
+           <tr>
+                <th>Function name</th>
+                <th>Time, %</th>
+                <th>Calls, %</th>
+                <th>Time, ms</th>
+                <th>Calls, count</th>
+                <th>Time per call, ms</th>
+           </tr>
+           <tr>
+               <th>'.$_SERVER['REQUEST_URI'].'</th>
+               <th>100%</th>
+               <th>100%</th>
+               <th>'.round($Summary['Time']).'</th>
+               <th>'.$Summary['Calls'].'</th>
+               <th>'.round($Summary['Time']/$Summary['Calls'],2).'</th>
+           </tr>';
 
-           echo '</pre>';
+           foreach (self::$_Counters['T'] as $Key => $Value)
+               echo '<tr><td>'.$Key.'</td>'.
+                    '<td>'.round(($Value/$Summary['Time'])*100,2).'</td>'.
+                    '<td>'.round((self::$_Counters['C'][$Key]/$Summary['Calls'])*100,2).
+                    '<td>'.round($Value).'</td>'.
+                    '<td>'.self::$_Counters['C'][$Key].'</td>'.
+                   '<td>'.round($Value/self::$_Counters['C'][$Key], 2).'</td>'.
+                    '</td></tr>';
+
+           echo '</table>';
         }
 
         public static function setLive($Live)

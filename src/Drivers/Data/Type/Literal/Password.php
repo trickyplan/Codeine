@@ -19,7 +19,7 @@
             return $Call['Value'];
     });
 
-    setFn('Read', function ($Call)
+    setFn(['Read', 'Where'], function ($Call)
     {
         return $Call['Value'];
     });

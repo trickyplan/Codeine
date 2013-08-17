@@ -12,7 +12,7 @@
         return (string) filter_var($Call['Value'], FILTER_SANITIZE_STRING);
     });
 
-    setFn('Read', function ($Call)
+    setFn(['Read', 'Where'], function ($Call)
     {
         return (string) $Call['Value'];
     });

@@ -21,7 +21,7 @@
 
             $Output .= '</table>';
 
-            $Output = preg_replace('/\*(.+)\*/', '<strong>$1</strong>', $Output);
+            $Output = preg_replace('/\*(.+)\*/SsUu', '<strong>$1</strong>', $Output);
             echo $Output;
         }
         elseif ($Call['Renderer'] == 'View.Plaintext')

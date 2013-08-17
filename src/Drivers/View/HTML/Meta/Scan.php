@@ -9,6 +9,7 @@
 
     setFn('Title', function ($Call)
     {
+        $Call['Title'] = [];
         if (preg_match_all('@<subtitle>(.*)<\/subtitle>@SsUu', $Call['Output'], $Pockets))
         {
             foreach ($Pockets[1] as $IX => $Match)
