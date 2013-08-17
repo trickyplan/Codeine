@@ -26,6 +26,7 @@
     {
         if (preg_match_all('@<keyword>(.*)<\/keyword>@SsUu', $Call['Output'], $Pockets))
         {
+            $Call['Keywords'] = [];
             foreach ($Pockets[1] as $IX => $Match)
             {
                 // TODO Придумать синтаксис для сложения.
