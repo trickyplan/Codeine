@@ -62,7 +62,9 @@
             }
         }
 
-        F::Log($Call['Session'], LOG_INFO);
+        if (isset($Call['Session']))
+            F::Log($Call['Session'], LOG_INFO);
+
         return $Call;
     });
 

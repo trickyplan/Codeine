@@ -1,5 +1,8 @@
 {
-    "Not found verbosity": 6,
+    "Verbosity":
+    {
+        "Not found": 6
+    },
     "Storages":
     {
         "Primary":
