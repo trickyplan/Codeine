@@ -38,15 +38,18 @@
 
             foreach ($Bundles as $Bundle)
             {
-                $Options = ['ID' => $Bundle,
+                $Options = [
+                    'ID' => $Bundle,
                     'URL' => '/control/'.$Bundle,
                     'Title' => '<l>'.$Bundle.'.Control:Title</l>',
-                    'Group' => $Group];
+                    'Group' => $Group
+                ];
 
                 if (isset($Call['Icons'][$Bundle]))
                     $Options['Icon'] = $Call['Icons'][$Bundle];
 
-                if (($BundleOptions = F::Run($Bundle.'.Control', 'Menu', $Call, ['Bundle' => $Bundle])) !== null)
+                if (($BundleOptions =
+                        F::Run($Bundle.'.Control', 'Menu', $Call, ['Bundle' => $Bundle])) !== null)
                     $Options = F::Merge($Options, $BundleOptions);
 
                 $Call['Run'] = [

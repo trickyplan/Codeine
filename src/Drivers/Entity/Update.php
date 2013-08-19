@@ -25,6 +25,8 @@
     {
         $Call = F::Hook('beforeUpdateGet', $Call);
 
+        $Call['Scope'] = isset($Call['Scope'])? $Call['Entity'].'/'.$Call['Scope'] : $Call['Entity'];
+
         $Call['Layouts'][] = array(
             'Scope' => $Call['Entity'],
             'ID' => isset($Call['Custom Layouts']['Update'])? $Call['Custom Layouts']['Update']: 'Update',
@@ -55,6 +57,9 @@
                             $Widget = $Node['Widgets'][$Call['Purpose']];
                         elseif (isset($Node['Widgets']['Write'])) // Для записи как таковой
                             $Widget = $Node['Widgets']['Write'];
+
+                        if (isset($Widget['Scope']) && $Widget['Scope'] != $Call['Scope'])
+                            $Widget = null;
 
                         if (null !== $Widget)
                         {

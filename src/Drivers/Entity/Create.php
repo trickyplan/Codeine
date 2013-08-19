@@ -32,7 +32,7 @@
             if (isset ($Call['Request']['Data'][0]))
                 $Call['Data'] = $Call['Request']['Data'][0];
 
-        $Call['Scope'] = isset($Call['Scope'])? $Call['Scope']: $Call['Scope'] = $Call['Entity'];
+        $Call['Scope'] = isset($Call['Scope'])? $Call['Entity'].'/'.$Call['Scope'] : $Call['Entity'];
 
         $Call['Layouts'][] =
             [
@@ -61,6 +61,9 @@
                     $Widget = $Node['Widgets'][$Call['Purpose']];
                 elseif (isset($Node['Widgets']['Write'])) // Для записи как таковой
                     $Widget = $Node['Widgets']['Write'];
+
+                if (isset($Node['Scope']) && $Call['Entity'].'/'.$Node['Scope'] != $Call['Scope'])
+                    $Widget = null;
 
                 if (null !== $Widget)
                 {

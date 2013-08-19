@@ -17,13 +17,14 @@
 
             if ($Root !== false)
                 {
-
                     $Value = (string) $Root->attributes()->value;
 
                     $Decision = false;
 
                     if (null != ($Eq = (string) $Root->attributes()->eq))
+                    {
                         $Decision = ($Value == $Eq);
+                    }
 
                     if (null != ($Neq = (string) $Root->attributes()->neq))
                         $Decision = ($Value != $Neq);

@@ -1,4 +1,6 @@
 {
+    "Entity": "User",
+    "Purpose": "Passwd",
     "Output":
     {
         "Content":

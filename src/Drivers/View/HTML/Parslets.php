@@ -40,6 +40,8 @@
                      break;
                  }
              }
+
+             F::Log('Parslet '.$Parslet.' processed');
          }
 
          return $Call;

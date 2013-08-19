@@ -13,7 +13,9 @@
 
         $Call = F::Hook('beforeShow', $Call);
 
-        $Call['Where'] = F::Live($Call['Where']);
+        if (isset($Call['Where']))
+            $Call['Where'] = F::Live($Call['Where'], $Call);
+
         $Call['Limit'] = ['From' => 0, 'To' => 1];
 
         if (!isset($Call['Data']))
@@ -25,7 +27,7 @@
         {
             $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Show','Context' => $Call['Context']);
 
-            $Call['Scope'] = isset($Call['Scope'])? $Call['Entity'].'/'.$Call['Scope']: $Call['Scope'] = $Call['Entity'];
+            $Call['Scope'] = isset($Call['Scope'])? $Call['Entity'].'/'.$Call['Scope'] : $Call['Entity'];
 
             if (empty($Call['Data']))
                 $Call = F::Hook('NotFound', $Call);

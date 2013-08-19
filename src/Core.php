@@ -223,7 +223,7 @@ F::Log('Codeine started', LOG_IMPORTANT);
 
         public static function isCall($Call)
         {
-            return (((array) $Call === $Call) && isset($Call['Service']) && isset($Call['Method']));
+            return (((array) $Call === $Call) && isset($Call['Service']));
         }
 
         public static function hashCall($Call)
@@ -348,6 +348,10 @@ F::Log('Codeine started', LOG_IMPORTANT);
                         if (is_array($Argument = func_get_arg ($ic)))
                             $Call = F::Merge($Call, $Argument);
                 }
+
+                if (!isset($Variable['Method']))
+                    $Variable['Method'] = 'Do';
+
                 return F::Run($Variable['Service'], $Variable['Method'],
                     $Call, isset($Variable['Call'])? $Variable['Call']: []);
 
@@ -357,7 +361,7 @@ F::Log('Codeine started', LOG_IMPORTANT);
             {
                 if ((array) $Variable === $Variable)
                     foreach ($Variable as $Key => &$cVariable)
-                        $Variable = F::Dot($Variable, $Key, self::Live($cVariable));
+                        $Variable = F::Dot($Variable, $Key, self::Live($cVariable, $Call));
                 else
                     if ('$' == substr($Variable, 0, 1))
                         $Variable = F::Dot($Call, substr($Variable, 1));
@@ -494,7 +498,12 @@ F::Log('Codeine started', LOG_IMPORTANT);
                              F::Log($On.':'.$HookName, LOG_DEBUG);
 
                              if (F::isCall($Hook))
+                             {
+                                 if (!isset($Hook['Method']))
+                                     $Hook['Method'] = 'Do';
+
                                  $Call = F::Run($Hook['Service'],$Hook['Method'], isset($Hook['Call'])? $Hook['Call']: [], $Call, ['On' => $On]);
+                             }
                              else
                                  $Call = F::Merge($Call, $Hook);
                          }

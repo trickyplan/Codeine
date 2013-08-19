@@ -14,11 +14,11 @@
         $Call = F::Merge($Call, F::loadOptions($Call['Entity'].'.Entity')); // FIXME
 
         if (isset($Call['Where']))
-            $Call['Where'] = F::Live($Call['Where']); // FIXME
+            $Call['Where'] = F::Live($Call['Where'], $Call);
 
         $Call = F::Hook('beforeList', $Call);
 
-        $Call['Scope'] = isset($Call['Scope'])? $Call['Entity'].'/'.$Call['Scope']: $Call['Scope'] = $Call['Entity'];
+        $Call['Scope'] = isset($Call['Scope'])? $Call['Entity'].'/'.$Call['Scope'] : $Call['Entity'];
 
         $Call['Layouts'][] = array('Scope' => $Call['Scope'],'ID' => isset($Call['Custom Templates']['List'])? $Call['Custom Templates']['List'] :'List','Context' => $Call['Context']);
 
@@ -84,6 +84,7 @@
                 }
         }
 
+        unset($Call['Where']);
         $Call = F::Hook('afterList', $Call);
         return $Call;
     });
