@@ -78,9 +78,9 @@
                 )
             );
 
-        foreach ($Call['Entities'] as $Handler => $Data)
+        foreach ($Call['Entities'] as $Call['Entity'] => $Data)
         {
-            $SubLinks = F::Run($Handler.'.Sitemap', 'Generate', $Call);
+            $SubLinks = F::Run($Call['Entity'].'.Sitemap', 'Generate', $Call);
                 foreach ($SubLinks as $Sublink)
                     $Links[] = ['url' => [
                                       'loc'         => htmlspecialchars($Sublink),
