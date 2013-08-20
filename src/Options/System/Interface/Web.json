@@ -35,8 +35,8 @@
     {
         "Output":
         {
-            "Service": "System.Interface.Web",
-            "Method": "Output"
+            "Service": "IO.Print",
+            "Method": "Write"
         }
     },
     "Headers":

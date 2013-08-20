@@ -39,41 +39,13 @@
             foreach ($Call['Headers'] as $Key => $Value)
                 header ($Key . ' ' . $Value);
 
-        $Call = F::Live ($Call['Interface']['Output'], $Call);
+        if (isset($Call['Output']))
+            $Call = F::Live ($Call['Interface']['Output'], ['Data' => $Call['Output']]);
 
         $Call = F::Hook('afterInterfaceRun', $Call);
 
 
         return $Call;
-    });
-
-    setFn('Output', function ($Call)
-    {
-        if (isset($Call['Output']))
-        {
-            if (is_string($Call['Output']))
-                echo $Call['Output'];
-            else
-                print_r($Call['Output']);
-        }
-
-        return $Call;
-    });
-
-    setFn ('User.Agent', function ($Call)
-    {
-
-    });
-
-    setFn('User.Time', function ($Call)
-    {
-        $IP = F::Run('System.Interface.Web.IP', 'Get', $Call);
-
-        return F::Run('System.Timezone.PHPGeoIP', 'CountryAndRegion',
-            array (
-                  'Country' => F::Run('System.GeoIP.PHPGeoIP', 'Country', array ('Value' => $IP)),
-                  'Region' => F::Run('System.GeoIP.PHPGeoIP', 'Region', array ('Value' => $IP))
-            ));
     });
 
     setFn('Redirect', function ($Call)
