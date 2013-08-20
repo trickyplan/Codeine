@@ -9,14 +9,7 @@
 
     setFn ('Open', function ($Call)
     {
-        try
-        {
-            $Link = new MongoClient('mongodb://'.$Call['Server']);
-        }
-        catch (MongoException $E)
-        {
-            return null;
-        }
+        $Link = new MongoClient('mongodb://'.$Call['Server']);
 
         F::Log('Connected to *'.$Call['Server'].'*');
 

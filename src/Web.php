@@ -9,7 +9,24 @@
 
     include 'Codeine/Core.php';
 
-    if (file_exists(Root.'/locks/down') && !isset($_COOKIE['Magic']))
+    try
+    {
+        if (file_exists(Root.'/locks/down') && !isset($_COOKIE['Magic']))
+            throw new Exception('down');
+
+        $Call = F::Bootstrap
+        ([
+            'Path' => [Root],
+            'Service' => 'System.Interface.Web',
+            'Method' => 'Do',
+            'Call' =>
+            [
+                'Service' => 'Code.Flow.Front',
+                'Method'  => 'Run'
+            ]
+        ]);
+    }
+    catch (Exception $e)
     {
         header('HTTP/1.1 503 Service Temporarily Unavailable');
         header('Status: 503 Service Temporarily Unavailable');
@@ -19,19 +36,6 @@
         else
             readfile(Codeine.'/down.html');
     }
-    else
-    {
-        $Call = F::Bootstrap
-            ([
-                'Path' => [Root],
-                'Service' => 'System.Interface.Web',
-                'Method' => 'Do',
-                'Call' =>
-                [
-                    'Service' => 'Code.Flow.Front',
-                    'Method'  => 'Run'
-                ]
-            ]);
 
-    }
+
 

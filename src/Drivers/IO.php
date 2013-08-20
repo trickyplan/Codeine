@@ -49,6 +49,9 @@
         {
             $Call = F::Run('IO', 'Open', $Call);
 
+            if ($Call['Link'] === null)
+                return null;
+
             $Call = F::Hook('beforeIORead', $Call);
 
             if (!isset($Call['Result']))
@@ -86,6 +89,9 @@
         {
             $Call = F::Run('IO', 'Open', $Call);
 
+            if ($Call['Link'] === null)
+                return null;
+
             // Если в Where простая переменная - это ID.
             if (isset($Call['Where']) && is_scalar($Call['Where']))
                 $Call['Where'] = ['ID' => $Call['Where']];
@@ -120,6 +126,9 @@
         if (isset($Call['Storage']))
         {
             $Call = F::Run('IO', 'Open', $Call);
+            if ($Call['Link'] === null)
+                return null;
+
             return F::Run ($Call['Driver'], 'Close', $Call);
         }
         else
@@ -134,6 +143,9 @@
         if (isset($Call['Storage']))
         {
             $Call = F::Run('IO', 'Open', $Call);
+
+            if ($Call['Link'] === null)
+                return null;
 
             if (isset($Call['Where']))
                 $Call['Where'] = F::Live($Call['Where']);
