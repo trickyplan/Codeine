@@ -1,4 +1,8 @@
 {
+    "Headers":
+    {
+        "Content-type:": "text/html; charset=utf-8"
+    },
     "Widget Set": "bootstrap",
     "Extension": ".html",
     "Layout": "<place>Content</place>",

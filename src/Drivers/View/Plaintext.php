@@ -9,8 +9,6 @@
 
     setFn('Render', function ($Call)
     {
-        $Call['Headers']['Content-type:'] = 'text/plain';
-
         if (is_array($Call['Output']))
         {
             $Call = F::Hook('beforePipeline', $Call);
