@@ -157,15 +157,13 @@
                     F::Run('IO', 'Write', $Call, ['Data' => [null]]);
 
                     if(isset($Call['Where']))
-                    $Call['Data'] = $Call['Current'];
+                        $Call['Data'] = $Call['Current'];
 
                 $Call = F::Hook('afterEntityDelete', $Call);
 
         $Call = F::Hook('afterEntityWrite', $Call);
 
         $Call = F::Hook('afterOperation', $Call);
-
-        F::Log('*'.count($Call['Data']).'* '.$Call['Entity'].' deleted', LOG_INFO);
 
         return $Call;
     });
