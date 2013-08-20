@@ -11,17 +11,18 @@
 		try_files $uri $uri/ /index.php?$uri&$args;
 	}
 
+    location ~ ^/cache/(.*)
+    {
+        alias /tmp/codeine/$host/$1;
+        expires           max;
+    }
+
     location ~* \.(jpg|jpeg|gif|css|png|js|ico|html|woff)$
 	{
 		access_log        off;
 		expires           max;
 		add_header        Cache-Control  public;
 	}
-
-    location ~ ^/cache/(.*)
-    {
-        alias /tmp/codeine/$host/$1;
-    }
 
 	location ~ \.php$
 	{
