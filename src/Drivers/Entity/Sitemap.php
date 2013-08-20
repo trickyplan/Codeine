@@ -15,7 +15,8 @@
 
         if (count($Elements) > 0)
             foreach ($Elements as $Element)
-                $Data[] = $Call['Host'].'/'.strtolower($Call['Entity']).'/'.$Element['Slug']; // FIXME!
+                if (isset($Element['Slug']))
+                    $Data[] = $Call['Host'].'/'.strtolower($Call['Entity']).'/'.$Element['Slug']; // FIXME!
 
         return $Data;
     });
