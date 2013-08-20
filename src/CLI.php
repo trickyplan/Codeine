@@ -16,15 +16,13 @@
 
     !defined('Root')? define('Root', Codeine): false;
 
-    F::Bootstrap ([
-                       'Path' => [Root],
-                       'Environment' => isset($Opts['Environment'])? $Opts['Environment']: 'Production'
-                  ]);
-
-    F::Run(
-        'System.Interface.CLI',
-        'Run',
-        $Opts
-    );
+    $Call = F::Bootstrap
+    ([
+        'Path' => [Root],
+        'Environment' => isset($Opts['Environment'])? $Opts['Environment']: 'Production',
+        'Service' => 'System.Interface.CLI',
+        'Method' => 'Run',
+        'Call' => $Opts
+    ]);
 
     exit(0);

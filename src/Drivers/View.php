@@ -51,7 +51,7 @@
     {
         $Call = F::Hook('beforeRender', $Call);
 
-        $Call = F::Live (F::Live($Call['Rendering'], $Call), $Call);
+        $Call = F::Live ($Call['Renderer'], $Call);
 
         return F::Hook('afterRender', $Call);
     });

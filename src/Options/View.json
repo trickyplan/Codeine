@@ -1,9 +1,4 @@
 {
-    "Rendering":
-    {
-        "Service": "View.Strategy.Defined",
-        "Method":  "Select"
-    },
     "Hooks":
     {
         "afterViewLoad":

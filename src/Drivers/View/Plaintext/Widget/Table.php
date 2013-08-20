@@ -19,5 +19,7 @@
             $Output.= "\n";
         }
 
-        return $Output."\n";
+        $Call['Value'] = $Output."\n";
+
+        return $Call;
     });

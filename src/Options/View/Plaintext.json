@@ -1,0 +1,23 @@
+{
+    "Headers":
+    {
+        "Content-type:": "text/plain"
+    },
+    "Extension": ".txt",
+    "Hooks":
+    {
+        "afterPipeline":
+        {
+            "Parslets":
+            {
+                "Service":"View.HTML.Parslets",
+                "Method":"Process"
+            },
+            "I18N":
+            {
+                "Service":"View.HTML.LocaleNG",
+                "Method":"Process"
+            }
+        }
+    }
+}
