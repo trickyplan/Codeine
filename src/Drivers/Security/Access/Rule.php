@@ -54,6 +54,5 @@
             F::Log('No one rule applied — *'.($Call['Decision']? 'allowed': 'denied').'*
 '.json_encode($Call['Run'], JSON_PRETTY_PRINT), LOG_INFO);
 
-        unset($Call['Rules']);
         return $Call;
      });

@@ -383,20 +383,20 @@ F::Log('Codeine started', LOG_IMPORTANT);
             return $Data;
         }
 
-        public static function Sort($Array, $Key, $Direction = SORT_DESC)
+        public static function Sort($Array, $Key, $Direction = SORT_ASC)
         {
             $Data = [];
             $Result = [];
 
             $IC = 0;
             foreach ($Array as $ID => $Row)
-                if (isset($Row[$Key]))
-                    $Data[$ID] = $Row[$Key];
+                if (F::Dot($Row,$Key) !== null)
+                    $Data[$ID] = F::Dot($Row,$Key);
                 else
                     $Data[$ID] = $IC--;
 
 
-            $Direction == SORT_DESC ? asort($Data): arsort($Data);
+            $Direction == SORT_ASC ? asort($Data): arsort($Data);
 
             foreach ($Data as $Key =>&$Value)
                 $Result[$Key] = $Array[$Key];
@@ -489,7 +489,7 @@ F::Log('Codeine started', LOG_IMPORTANT);
              {
                  if (count($Hooks) > 0)
                  {
-                     $Hooks = F::Sort($Hooks, 'Weight', SORT_ASC);
+                     $Hooks = F::Sort($Hooks, 'Weight', SORT_DESC);
 
                      foreach ($Hooks as $HookName => $Hook)
                      {

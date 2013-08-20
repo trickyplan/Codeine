@@ -135,7 +135,7 @@
         }
 
         if (isset($Call['Output']['Form']))
-            $Call['Output']['Form'] = F::Sort($Call['Output']['Form'], 'Weight', false);
+            $Call['Output']['Form'] = F::Sort($Call['Output']['Form'], 'Weight', SORT_DESC);
 
         // Вывести
         $Call = F::Hook('afterCreateGet', $Call);
