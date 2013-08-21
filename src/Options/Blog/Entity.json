@@ -1,5 +1,5 @@
 {
-    "Mixins": ["Mixins.UGC", "Mixins.Text", "Mixins.CRUD", "Mixins.Age.Russia"],
+    "Mixins": ["Mixins.UGC", "Mixins.Text", "Mixins.CRUD"],
     "Storage": "Primary",
     "EPP": 10,
     "Sort":

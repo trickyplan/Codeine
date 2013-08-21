@@ -1,0 +1,17 @@
+{
+    "Nodes":
+    {
+        "CSS":
+        {
+            "Type": "Literal.String",
+            "Weight": -100,
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textarea"
+                }
+            }
+        }
+    }
+}
