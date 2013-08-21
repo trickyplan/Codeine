@@ -50,7 +50,10 @@
                 }
 
                 if (($Replace = F::Dot($Locales[$Locale], $Token)) !== null)
-                    $Call['Output'] = str_replace($Pockets[0][$IX], $Replace, $Call['Output']);
+                {
+                    if (is_scalar($Replace))
+                        $Call['Output'] = str_replace($Pockets[0][$IX], $Replace, $Call['Output']);
+                }
                 else
                     $Call['Output'] = str_replace($Pockets[0][$IX], '<span class="nl">' . $Match . '</span>', $Call['Output']);
             }

@@ -60,6 +60,8 @@
         $Call['Headers']['HTTP/1.1'] = ' 301 Moved Permanently';
         $Call['Headers']['Location:'] = $URL;
 
+        F::Log('Redirected to '.$URL, LOG_INFO);
+
         return $Call;
     });
 
