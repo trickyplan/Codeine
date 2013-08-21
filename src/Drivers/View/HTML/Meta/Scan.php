@@ -10,11 +10,10 @@
     setFn('Title', function ($Call)
     {
         if (preg_match_all('@<subtitle>(.*)<\/subtitle>@SsUu', $Call['Output'], $Pockets))
-            foreach ($Pockets[1] as $IX => $Match)
-            {
-                $Call['Title'][] = $Match;
-                $Call['Output'] = str_replace($Pockets[0][$IX], '', $Call['Output']);
-            }
+        {
+            $Call['Title'] = F::Merge($Call['Title'], $Pockets[1]);
+            $Call['Output'] = str_replace($Pockets[0], '', $Call['Output']);
+        }
 
         return $Call;
     });
@@ -22,11 +21,10 @@
     setFn('Keywords', function ($Call)
     {
         if (preg_match_all('@<keyword>(.*)<\/keyword>@SsUu', $Call['Output'], $Pockets))
-            foreach ($Pockets[1] as $IX => $Match)
-            {
-                $Call['Keywords'][] = $Match;
-                $Call['Output'] = str_replace($Pockets[0][$IX], '', $Call['Output']);
-            }
+        {
+            $Call['Keywords'] = F::Merge($Call['Keywords'], $Pockets[1]);
+            $Call['Output'] = str_replace($Pockets[0], '', $Call['Output']);
+        }
 
         return $Call;
     });
@@ -34,10 +32,9 @@
     setFn('Description', function ($Call)
     {
         if (preg_match_all('@<description>(.*)<\/description>@SsUu', $Call['Output'], $Pockets))
-            foreach ($Pockets[1] as $IX => $Match)
             {
-                $Call['Description'] = $Match;
-                $Call['Output'] = str_replace($Pockets[0][$IX], '', $Call['Output']);
+                $Call['Description'] = F::Merge($Call['Description'], $Pockets[1]);
+                $Call['Output'] = str_replace($Pockets[0], '', $Call['Output']);
             }
 
         return $Call;
