@@ -1,4 +1,7 @@
 {
+    "Title": [],
+    "Keywords": [],
+    "Description": "",
     "Meta":
     {
         "Title":
@@ -10,17 +13,17 @@
         {
             "Title":
             {
-                "Service": "View.HTML.Meta.Scan",
+                "Service": "View.RSS.Meta.Scan",
                 "Method": "Title"
             },
             "Keywords":
             {
-                "Service": "View.HTML.Meta.Scan",
+                "Service": "View.RSS.Meta.Scan",
                 "Method": "Keywords"
             },
             "Description":
             {
-                "Service": "View.HTML.Meta.Scan",
+                "Service": "View.RSS.Meta.Scan",
                 "Method": "Description"
             }
         }
