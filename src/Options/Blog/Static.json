@@ -25,6 +25,7 @@
                     "Method": "Render"
                 },
                 "Entity": "Blog",
+                "Link": "/blog",
                 "Sort":
                 {
                     "Created": false
