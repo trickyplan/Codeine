@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    setFn('Scan', function ($Call)
+    setFn('Process', function ($Call)
     {
         if (isset($Call['URI']))
         {

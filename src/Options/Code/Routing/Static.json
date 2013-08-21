@@ -19,7 +19,6 @@
         },
         "/":
         {
-            "Zone": ["Project"],
             "Service":"Project.Frontpage",
             "Method":"Do"
         },

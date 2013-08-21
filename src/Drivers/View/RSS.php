@@ -9,8 +9,10 @@
 
     setFn('Render', function ($Call)
     {
-        $Call['Headers']['Content-type:'] = 'application/rss+xml';
+        $Call = F::Hook('beforeRSSPipeline', $Call);
+
         $XML = new XMLWriter();
+
         $XML->openMemory();
         $XML->startDocument('1.0', 'UTF-8');
         $XML->setIndent(true);
@@ -26,7 +28,7 @@
         $XML->writeElement('title', $Call['Title']);
         $XML->writeElement('link', $Call['Host'].$Call['Link']);
         $XML->writeElement('description', $Call['Description']);
-        $XML->writeElement('generator', 'Codeine');
+        $XML->writeElement('generator', 'Codeine '.$Call['Version']['Codeine']['Major']);
         $XML->writeElement('pubDate', date(DATE_RSS, time()));
         $XML->writeElement('lastBuildDate', date(DATE_RSS, time()));
 
@@ -59,6 +61,8 @@
         $XML->endDocument();
 
         $Call['Output'] = $XML->outputMemory(true);
-        
+
+        $Call = F::Hook('afterRSSPipeline', $Call);
+
         return $Call;
     });

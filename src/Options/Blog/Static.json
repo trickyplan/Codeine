@@ -11,8 +11,7 @@
                 {
                     "Created": false
                 }
-            },
-            "Zone": ["Project"]
+            }
         },
         "/blog.rss":
         {
@@ -20,10 +19,11 @@
             "Method":"Do",
             "Call":
             {
-                "Renderer": "View.RSS",
-                "Title": "Блог",
-                "Link": "/blog",
-                "Description": "",
+                "Renderer":
+                {
+                    "Service": "View.RSS",
+                    "Method": "Render"
+                },
                 "Entity": "Blog",
                 "Sort":
                 {

@@ -24,18 +24,6 @@
             $Output = preg_replace('/\*(.+)\*/SsUu', '<strong>$1</strong>', $Output);
             echo $Output;
         }
-        else
-        {
-            $Output = '';
-
-            foreach ($Call['Data'] as $IX => $Row)
-                $Output .= $Call['Levels'][$Row[0]]
-                        ."\t".$Row[1]
-                        ."\t".($Row[3] == $Call['Data'][$IX-1][3]? '': $Row[3])
-                        ."\t".$Row[2];
-
-            echo $Output;
-        }
 
         return true;
     });

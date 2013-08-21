@@ -37,7 +37,7 @@
             "Meta":
             {
                 "Service":"View.HTML.Meta",
-                "Method":"Scan"
+                "Method":"Process"
             },
             "Breadcrumbs":
             {

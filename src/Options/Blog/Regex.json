@@ -14,8 +14,7 @@
                 {
                     "Created": "DESC"
                 }
-            },
-            "Zone": ["Project"]
+            }
         },
         "Категория блога":
         {
@@ -34,8 +33,7 @@
                 {
                     "Category":  "$1"
                 }
-            },
-            "Zone": ["Project"]
+            }
         },
         "Категория блога, страницы":
         {
@@ -55,8 +53,7 @@
                 {
                     "Category":  "$1"
                 }
-            },
-            "Zone": ["Project"]
+            }
         },
         "Автор блога":
         {
@@ -75,8 +72,7 @@
                 {
                     "User":  "$1"
                 }
-            },
-            "Zone": ["Project"]
+            }
         },
         "Автор блога, страницы":
         {
@@ -96,8 +92,7 @@
                 {
                     "User":  "$1"
                 }
-            },
-            "Zone": ["Project"]
+            }
         },
         "RSS категории блога":
         {
@@ -107,7 +102,11 @@
             "Method":"Do",
             "Call":
             {
-                "Renderer": "View.RSS",
+                "Renderer":
+                {
+                    "Service": "View.RSS",
+                    "Method": "Renderer"
+                },
                 "Title": "Блог ONE2TEAM",
                 "Description": "Интересное о web-разработке",
                 "Entity": "Blog",
@@ -119,8 +118,7 @@
                 {
                     "Created": "DESC"
                 }
-            },
-            "Zone": ["Project"]
+            }
         },
         "Блог":
         {
@@ -135,8 +133,7 @@
                     "Slug":  "$1"
                 }
             },
-            "Last": true,
-            "Zone": ["Project"]
+            "Last": true
         }
     }
 }

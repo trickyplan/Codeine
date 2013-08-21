@@ -1,0 +1,36 @@
+{
+    "Extension": ".rss",
+    "Headers":
+    {
+        "Content-type": "application/rss+xml"
+    },
+    "Hooks":
+    {
+        "beforeRSSPipeline":
+        {
+            "Layouts":
+            {
+                "Service":"View.HTML.Layouts",
+                "Method":"Do"
+            },
+            "Meta":
+            {
+                "Service":"View.RSS.Meta",
+                "Method":"Process"
+            }
+        },
+        "afterRSSPipeline":
+        {
+            "Parslets":
+            {
+                "Service":"View.HTML.Parslets",
+                "Method":"Process"
+            },
+            "I18N":
+            {
+                "Service":"View.HTML.LocaleNG",
+                "Method":"Process"
+            }
+        }
+    }
+}
