@@ -1,0 +1,25 @@
+{
+    "JS":
+    {
+        "Proto": "",
+        "Pattern": "<js>(.+?)<\/js>",
+        "Links": [],
+        "Output": [],
+        "Host": "",
+        "Pathname": "/cache/js/",
+        "Type": "application/javascript",
+        "Caching": true,
+        "Extension": ".js"
+    },
+    "Hooks":
+    {
+        "beforeJSOutput":
+        {
+            "Combine":
+            {
+                "Service":"View.HTML.JS.Combine",
+                "Method": "Do"
+            }
+        }
+    }
+}

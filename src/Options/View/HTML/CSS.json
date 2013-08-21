@@ -1,0 +1,33 @@
+{
+    "CSS":
+    {
+        "Proto": "",
+        "Pattern": "<css>(.+?)<\/css>",
+        "Links": [],
+        "Output": [],
+        "Host": "",
+        "Pathname": "/cache/css/",
+        "Type": "text/css",
+        "Caching": true,
+        "Extension": ".css"
+    },
+    "Hooks":
+    {
+        "beforeCSSOutput":
+        {
+            "Combine":
+            {
+                "Service":"View.HTML.CSS.Combine",
+                "Method": "Do"
+            }
+        },
+        "beforeCSSWrite":
+        {
+            "Minify":
+            {
+                "Service":"View.HTML.CSS.Minify",
+                "Method": "Do"
+            }
+        }
+    }
+}

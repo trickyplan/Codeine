@@ -9,7 +9,7 @@
     "Place Pattern": "<place>(.+?)<\/place>",
     "Hooks":
     {
-        "beforePipeline":
+        "beforeHTMLPipeline":
         {
             "Layouts":
             {
@@ -17,7 +17,7 @@
                 "Method":"Do"
             }
         },
-        "afterPipeline":
+        "afterHTMLRender":
         {
             "Parslets":
             {
@@ -26,12 +26,12 @@
             },
             "JS":
             {
-                "Service":"View.HTML.JSTag",
+                "Service":"View.HTML.JS",
                 "Method":"Process"
             },
             "CSS":
             {
-                "Service":"View.HTML.CSSTag",
+                "Service":"View.HTML.CSS",
                 "Method":"Process"
             },
             "Meta":

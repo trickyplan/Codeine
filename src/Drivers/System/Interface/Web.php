@@ -40,10 +40,9 @@
                 header ($Key . ' ' . $Value);
 
         if (isset($Call['Output']))
-            $Call = F::Live ($Call['Interface']['Output'], ['Data' => $Call['Output']]);
+            $Call = F::Live ($Call['Interface']['Output'], $Call, ['Data' => $Call['Output']]);
 
         $Call = F::Hook('afterInterfaceRun', $Call);
-
 
         return $Call;
     });

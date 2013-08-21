@@ -9,40 +9,41 @@
 
      setFn('Process', function ($Call)
      {
-         foreach ($Call['Parslets'] as $Parslet)
-         {
-             $Tag = strtolower($Parslet);
-
-             $Passes = 0;
-
-             while (preg_match_all('@<'.$Tag.' (.+)>(.*)</'.$Tag.'>@SsUu', $Call['Output'], $Call['Parsed']))
+         if ($Call['Context'] == '')
+             foreach ($Call['Parslets'] as $Parslet)
              {
-                 $Call = F::Run('View.HTML.Parslets.'.$Parslet, 'Parse', $Call);
-                 $Passes++;
+                 $Tag = strtolower($Parslet);
 
-                 if ($Passes > $Call['MaxPasses'])
+                 $Passes = 0;
+
+                 while (preg_match_all('@<'.$Tag.' (.+)>(.*)</'.$Tag.'>@SsUu', $Call['Output'], $Call['Parsed']))
                  {
-                     F::Log($Parslet.' Parslet raised max passes limit.', LOG_ERR);
-                     break;
+                     $Call = F::Run('View.HTML.Parslets.'.$Parslet, 'Parse', $Call);
+                     $Passes++;
+
+                     if ($Passes > $Call['MaxPasses'])
+                     {
+                         F::Log($Parslet.' Parslet raised max passes limit.', LOG_ERR);
+                         break;
+                     }
                  }
-             }
 
-             $Passes = 0;
+                 $Passes = 0;
 
-             while (preg_match_all('@<'.$Tag.'()>(.*)</'.$Tag.'>@SsUu', $Call['Output'], $Call['Parsed']))
-             {
-                 $Call = F::Run('View.HTML.Parslets.'.$Parslet, 'Parse', $Call);
-                 $Passes++;
-
-                 if ($Passes > $Call['MaxPasses'])
+                 while (preg_match_all('@<'.$Tag.'()>(.*)</'.$Tag.'>@SsUu', $Call['Output'], $Call['Parsed']))
                  {
-                     F::Log($Parslet.' Parslet raised max passes limit.', LOG_ERR);
-                     break;
-                 }
-             }
+                     $Call = F::Run('View.HTML.Parslets.'.$Parslet, 'Parse', $Call);
+                     $Passes++;
 
-             F::Log('Parslet '.$Parslet.' processed');
-         }
+                     if ($Passes > $Call['MaxPasses'])
+                     {
+                         F::Log($Parslet.' Parslet raised max passes limit.', LOG_ERR);
+                         break;
+                     }
+                 }
+
+                 F::Log('Parslet '.$Parslet.' processed', LOG_DEBUG);
+             }
 
          return $Call;
      });

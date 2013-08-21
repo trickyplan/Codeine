@@ -8,7 +8,7 @@
 
     setFn('Write', function ($Call)
     {
-        if ($Call['Renderer'] == 'View.HTML')
+        if ($Call['Renderer']['Service'] == 'View.HTML')
         {
             $Output = '<table class="console">';
 
@@ -24,7 +24,7 @@
             $Output = preg_replace('/\*(.+)\*/SsUu', '<strong>$1</strong>', $Output);
             echo $Output;
         }
-        elseif ($Call['Renderer'] == 'View.Plaintext')
+        else
         {
             $Output = '';
 

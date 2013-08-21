@@ -656,15 +656,9 @@ F::Log('Codeine started', LOG_IMPORTANT);
 
         public static function Dump($File, $Line, $Call)
         {
-            echo '<div class="console">'.substr($File, strpos($File, 'Drivers')).'@'.$Line.'<br/><code>'.file($File)[$Line-1].'</code>';
+            echo '<div class="console"><h5>'.substr($File, strpos($File, 'Drivers')).'@'.$Line.'&nbsp; '.trim(file($File)[$Line-1]).'</h5>';
 
-            if (is_array($Call))
-            {
-                $Call2 = $Call;
-                var_dump($Call2);
-            }
-            else
-                var_dump($Call);
+            var_dump($Call);
 
             echo '</div>';
 

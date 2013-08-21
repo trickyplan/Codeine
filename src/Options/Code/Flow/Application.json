@@ -28,8 +28,8 @@
         {
             "Rendering":
             {
-                "Service":"View",
-                "Method":"Render"
+                "Service":"View.HTML",
+                "Method":"Pipeline"
             }
         },
         "NotFound":

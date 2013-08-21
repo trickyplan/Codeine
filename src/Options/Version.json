@@ -3,5 +3,10 @@
     {
         "Major": "Git",
         "Minor": "Live"
+    },
+    "Project":
+    {
+        "Major": "Git",
+        "Minor": "Live"
     }
 }

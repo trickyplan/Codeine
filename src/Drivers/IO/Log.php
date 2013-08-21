@@ -19,16 +19,15 @@
         {
             // $Logs = array_reverse($Logs);
             F::Run(
-                'IO', 'Write',
+                'IO', 'Write', $Call,
                 [
-                    'Renderer' => $Call['Renderer'],
                     'Storage' => 'Developer',
                     'ID' => 'Crash Report from '.$Call['Host'].$Call['URL'],
                     'Data' => $Logs
                 ]
             );
 
-            F::Run('IO', 'Close', array('Storage' => 'Developer'));
+            F::Run('IO', 'Close', ['Storage' => 'Developer']);
         }
 
         return $Call;
