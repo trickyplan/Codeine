@@ -63,11 +63,11 @@
             F::Log('Request password hash is '.$Challenge, LOG_INFO);
 
             $Call['Output']['Content'][]
-                = array(
-                'Type' => 'Template',
-                'Scope' => 'User',
-                'ID' => 'Incorrect'
-            );
+                = [
+                        'Type' => 'Template',
+                        'Scope' => 'User/Authenticate',
+                        'ID' => 'Incorrect'
+                  ];
 
             unset($Call['User']);
         }
