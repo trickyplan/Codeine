@@ -86,7 +86,7 @@
                $Call['Output']['Content'][] =
                    [
                         'Type' => 'Template',
-                        'Scope' => 'User',
+                        'Scope' => 'User/Authenticate',
                         'ID' => 'Failed'
                    ];
 
