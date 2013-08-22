@@ -179,12 +179,12 @@
                 else
                     $Where[$Key] = $Value;
 
-            F::Log('db.*'.$Call['Scope'].'*.find('.json_encode($Where).')', LOG_INFO);
+            F::Log('db.*'.$Call['Scope'].'*.find('.json_encode($Where).').count()', LOG_INFO);
             $Cursor = $Call['Link']->$Call['Scope']->find($Where);
         }
         else
         {
-            F::Log('db.*'.$Call['Scope'].'*.find()', LOG_INFO);
+            F::Log('db.*'.$Call['Scope'].'*.find().count()', LOG_INFO);
             $Cursor = $Call['Link']->$Call['Scope']->find();
         }
 

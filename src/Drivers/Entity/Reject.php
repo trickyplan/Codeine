@@ -22,7 +22,7 @@
     {
         $Call = F::Hook('beforeRejectGet', $Call);
 
-        $Call = F::Run('Entity.Show.Static', 'Do', $Call, ['Template' => 'Check', 'Context' => 'app']);
+        $Call = F::Run('Entity.List', 'Do', $Call);
 
         $Call = F::Hook('afterRejectGet', $Call);
 

@@ -84,7 +84,6 @@
                 }
         }
 
-        unset($Call['Where']);
         $Call = F::Hook('afterList', $Call);
         return $Call;
     });

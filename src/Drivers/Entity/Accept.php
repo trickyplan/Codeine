@@ -22,7 +22,7 @@
     {
         $Call = F::Hook('beforeAcceptGet', $Call);
 
-            $Call = F::Run('Entity.List', 'Do', $Call, ['Context' => 'app']);
+            $Call = F::Run('Entity.List', 'Do', $Call);
 
         $Call = F::Hook('afterAcceptGet', $Call);
 

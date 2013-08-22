@@ -22,10 +22,11 @@
             $Output .= '</table>';
 
             $Output = preg_replace('/\*(.+)\*/SsUu', '<strong>$1</strong>', $Output);
-            echo $Output;
+
+            $Call['Output'] = str_replace('<logs/>', $Output, $Call['Output']);
         }
 
-        return true;
+        return $Call;
     });
 
     setFn('Close', function ($Call)

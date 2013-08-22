@@ -27,11 +27,6 @@
             {
                 "Service": "Project.Preload",
                 "Method": "Do"
-            },
-            "Output Buffering":
-            {
-                "Service": "System.Interface.Web.OB",
-                "Method": "Start"
             }
         },
         "afterInterfaceRun":
@@ -40,16 +35,6 @@
             {
                 "Service":"View",
                 "Method":"Render"
-            },
-            "Output Buffering":
-            {
-                "Service": "System.Interface.Web.OB",
-                "Method": "Finish"
-            },
-            "Spit log":
-            {
-                "Service": "IO.Log",
-                "Method": "Spit"
             }
         }
     }

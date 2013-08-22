@@ -39,10 +39,10 @@
             foreach ($Call['Headers'] as $Key => $Value)
                 header ($Key . ' ' . $Value);
 
+        $Call = F::Hook('afterInterfaceRun', $Call);
+
         if (isset($Call['Output']))
             $Call = F::Live ($Call['Interface']['Output'], $Call, ['Data' => $Call['Output']]);
-
-        $Call = F::Hook('afterInterfaceRun', $Call);
 
         return $Call;
     });

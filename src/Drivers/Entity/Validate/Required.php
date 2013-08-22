@@ -11,7 +11,10 @@
     {
         if (isset($Call['Node']['Required']) && $Call['Node']['Required'] && !isset($Call['Node']['Nullable']))
         {
-            $Produced = F::Merge($Call['Current'][0], $Call['Data']);
+            if (isset($Call['Current'][0]))
+                $Produced = F::Merge($Call['Current'][0], $Call['Data']);
+            else
+                $Produced = $Call['Data'];
 
             if (F::Dot($Produced, $Call['Name']) === null)
             {

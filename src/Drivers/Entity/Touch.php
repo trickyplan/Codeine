@@ -17,7 +17,12 @@
 
         if (is_array($Data))
             foreach ($Data as $Element)
-                F::Run('Entity', 'Update', $Call, ['One' => true, 'Where'=> $Element['ID'], 'Data' => []]);
+                F::Run('Entity', 'Update', $Call,
+                    [
+                        'One' => true,
+                        'Where'=> $Element['ID'],
+                        'Data' => $Element
+                    ]);
 
         $Call = F::Hook('afterTouch', $Call);
 

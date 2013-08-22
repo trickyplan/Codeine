@@ -18,7 +18,7 @@
         if (!empty($Logs))
         {
             // $Logs = array_reverse($Logs);
-            F::Run(
+            $Call = F::Run(
                 'IO', 'Write', $Call,
                 [
                     'Storage' => 'Developer',
