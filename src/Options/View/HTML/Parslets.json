@@ -3,10 +3,10 @@
     "MaxPasses": 3,
     "Parslets":
     [
+        "Exec",
         "Layout",
         "Far",
         "Io",
-        "Exec",
         "Fn",
         "Lower",
         "Wiki",
