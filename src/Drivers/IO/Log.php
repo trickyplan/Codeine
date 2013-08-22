@@ -18,7 +18,7 @@
         if (!empty($Logs))
         {
             // $Logs = array_reverse($Logs);
-            $Call = F::Run(
+            $Output = F::Run(
                 'IO', 'Write', $Call,
                 [
                     'Storage' => 'Developer',
@@ -26,6 +26,8 @@
                     'Data' => $Logs
                 ]
             );
+
+            $Call['Output'] = str_replace('<logs/>', $Output, $Call['Output']);
 
             F::Run('IO', 'Close', ['Storage' => 'Developer']);
         }
