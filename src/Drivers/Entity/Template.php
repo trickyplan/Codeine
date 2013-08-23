@@ -11,8 +11,6 @@
     {
         $Call = F::Run('Entity', 'Load', $Call);
 
-        $Call['Renderer'] = 'View.Plaintext';
-
         foreach ($Call['Nodes'] as $Name => $Node)
             $Rows[] = '<block><tr><th><l>'.$Call['Entity'].'.Entity:'.$Name.'</l></th><td><k>'.$Name.'</k></td></tr></block>';
 
