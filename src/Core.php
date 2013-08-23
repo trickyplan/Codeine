@@ -533,7 +533,7 @@ F::Log('Codeine started', LOG_IMPORTANT);
          * 0 - Apocalypse
          */
 
-        public static function Log ($Message, $Verbose = LOG_INFO)
+        public static function Log ($Message, $Verbose = LOG_INFO, $Target = 'Developer')
         {
             if ($Verbose <= self::$_Verbose or (self::$_Environment == 'Development' && $Verbose > 7))
             {
@@ -545,30 +545,30 @@ F::Log('Codeine started', LOG_IMPORTANT);
                     switch ($Verbose)
                     {
                         case LOG_ERR:
-                            echo "\033[31 ".$Message.PHP_EOL." \033[31m";
+                            echo $Target." \033[31 ".$Message.PHP_EOL." \033[31m";
                         break;
 
                         case LOG_WARNING:
-                            echo "\033[33 ".$Message.PHP_EOL." \033[33m";
+                            echo $Target." \033[33 ".$Message.PHP_EOL." \033[33m";
                         break;
 
                         case LOG_DEBUG:
                         {
-                            echo "\033[30 ".$Message.PHP_EOL." \033[30m";
+                            echo $Target." \033[30 ".$Message.PHP_EOL." \033[30m";
                         }
 
                         case LOG_USER:
                         {
-                            echo "\033[37 ".$Message.PHP_EOL." \033[37m";
+                            echo $Target." \033[37 ".$Message.PHP_EOL." \033[37m";
                         }
 
                         default:
-                            echo $Message.PHP_EOL;
+                            echo $Target.' '.$Message.PHP_EOL;
                         break;
                     }
                 }
                 else
-                    return self::$_Log[] = [$Verbose, round(microtime(true) - self::$_Ticks['T']['Codeine.Do'], 3), $Message, self::$_Service];
+                    return self::$_Log[$Target][] = [$Verbose, round(microtime(true) - self::$_Ticks['T']['Codeine.Do'], 3), $Message, self::$_Service];
             }
         }
 

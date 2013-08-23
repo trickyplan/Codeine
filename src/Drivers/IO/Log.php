@@ -18,14 +18,17 @@
         if (!empty($Logs))
         {
             // $Logs = array_reverse($Logs);
-            $Output = F::Run(
-                'IO', 'Write', $Call,
-                [
-                    'Storage' => 'Developer',
-                    'ID' => 'Crash Report from '.$Call['Host'].$Call['URL'],
-                    'Data' => $Logs
-                ]
-            );
+            $Output = '';
+
+            foreach ($Logs as $Channel => $Messages)
+                $Output .= F::Run(
+                    'IO', 'Write', $Call,
+                    [
+                        'Storage' => $Channel,
+                        'ID' => $Call['Host'].$Call['URL'],
+                        'Data' => $Messages
+                    ]
+                );
 
             $Call['Output'] = str_replace('<logs/>', $Output, $Call['Output']);
 

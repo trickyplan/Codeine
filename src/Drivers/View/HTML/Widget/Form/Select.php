@@ -17,6 +17,9 @@
          if (isset($Call['Multiple']))
              $Call['Name'] .= '[]';
 
+         if (!isset($Call['Required']) or !$Call['Required'])
+             $Call['Options'][-1] = 'No';
+
          foreach ($Call['Options'] as $Key => $Option)
          {
              if (is_array($Option))
@@ -29,7 +32,7 @@
              else
                  $lValue = $Value;
 
-             if($Key == $Call['Value'])
+             if ($Key == $Call['Value'] or $Value == $Call['Value'] or in_array($Key, $Call['Value']))
                  $Options[] = '<option value="'.$Key.'" selected>'.$lValue.'</option>';
              else
                  $Options[] = '<option value="' . $Key . '">' . $lValue . '</option>';

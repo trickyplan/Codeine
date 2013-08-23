@@ -68,7 +68,12 @@
                 if (null !== $Widget)
                 {
                     $Widget['Entity'] = $Call['Entity'];
-                    $Widget['Label'] = $Call['Entity'].'.Entity:'.$Name;
+
+                    if (isset($Node['Localized']) && $Node['Localized'])
+                        $Widget['Label']  = $Call['Entity'].'.Entity:'.$Name.'.Label';
+                    else
+                        $Widget['Label']  = $Call['Entity'].'.Entity:'.$Name;
+
                     $Widget['Node'] = $Name;
 
                     $Widget['Name']   = 'Data'.'[0]';

@@ -65,7 +65,12 @@
                         {
                             $Widget['Entity'] = $Call['Entity'];
                             $Widget['Node']   = $Name;
-                            $Widget['Label']  = $Call['Entity'].'.Entity:'.$Name;
+
+                            if (isset($Node['Localized']) && $Node['Localized'])
+                                $Widget['Label']  = $Call['Entity'].'.Entity:'.$Name.'.Label';
+                            else
+                                $Widget['Label']  = $Call['Entity'].'.Entity:'.$Name;
+
                             $Widget['Name']   = 'Data'.'['.$IX.']';
 
                             if (strpos($Name, '.') !== false)

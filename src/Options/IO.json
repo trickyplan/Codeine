@@ -57,14 +57,29 @@
             "Directory":"Assets",
             "Suffix":".js"
         },
-        "JS Cache":{
+        "JS Cache":
+        {
             "Driver":"IO.Storage.Directory",
             "Directory":"/tmp/codeine",
             "Suffix":".js"
         },
         "Developer":
         {
-            "Driver":"IO.Null"
+            "Driver":"IO.Log.File",
+            "Directory":"/var/log/codeine",
+            "Scope": "developer"
+        },
+        "Security":
+        {
+            "Driver":"IO.Log.File",
+            "Directory":"/var/log/codeine",
+            "Scope": "security"
+        },
+        "DBA":
+        {
+            "Driver":"IO.Log.File",
+            "Directory":"/var/log/codeine",
+            "Scope": "dba"
         },
         "EMail":
         {

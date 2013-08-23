@@ -56,7 +56,7 @@
 
     setFn('Menu', function ($Call)
     {
-        $Count = F::Run('Entity', 'Count', $Call, ['Entity' => $Call['Bundle'], 'Scope' => 'Control']);
+        $Count = F::Run('Entity', 'Count', $Call, ['Entity' => $Call['Bundle'], 'Scope' => 'Control', 'Where' => []]);
         return ['Count' => $Count];
     });
 
