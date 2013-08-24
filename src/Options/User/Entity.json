@@ -79,7 +79,8 @@
         },
         "DOB":
         {
-            "Default": 0,
+            "Default": null,
+            "Nullable": true,
             "Type": "Date.Short",
             "Widgets":
             {

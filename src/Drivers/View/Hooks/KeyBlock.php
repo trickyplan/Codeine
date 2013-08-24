@@ -17,16 +17,15 @@
 
                 if (($Matched = F::Live(F::Dot($Call['Data'], $Match))) !== null)
                 {
-                    if (($Matched === false) || ($Matched === 0))
-                        $Matched = '0';
-
                     if ($DotMatched = F::Live(F::Dot($Call['Data'], $Match)))
                     {
                         if (is_array($DotMatched))
                         {
                             sort($DotMatched);
                             foreach($DotMatched as $ICV => $cMatch)
-                                $Output.= str_replace('<#/>', $ICV, str_replace('<k>'.$Match.'</k>', $cMatch,$Pockets[1][$IX]).
+                                $Output.= str_replace('<#/>',
+                                    $ICV,
+                                    str_replace('<k>'.$Match.'</k>', $cMatch,$Pockets[1][$IX]).
                                     ($cMatch)
                                     .str_replace('<k>'.$Match.'</k>', $cMatch,$Pockets[3][$IX]));
                         }
