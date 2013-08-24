@@ -45,6 +45,5 @@
             ]);
 
         $Call = F::Hook('afterAcceptPost', $Call);
-
         return $Call;
     });

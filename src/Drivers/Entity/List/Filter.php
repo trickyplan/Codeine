@@ -15,6 +15,7 @@
                 if (!empty($Value))
                     $Call['Where'][$Key] = $Value;
         }
+
         return $Call;
     });
 

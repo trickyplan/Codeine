@@ -11,12 +11,11 @@
     {
         if (isset($Call['Where']))
         {
+            $Where = [];
             foreach ($Call['Where'] as $Key => $Value)
             {
                 if (isset($Call['Nodes'][$Key]['Substitute']))
-                {
                     $Where[$Call['Nodes'][$Key]['Substitute']] = $Value;
-                }
                 else
                     $Where[$Key] = $Value;
             }

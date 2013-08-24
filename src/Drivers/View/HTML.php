@@ -64,7 +64,7 @@
                     foreach ($Call['Output'] as $Place => $Widgets)
                         if (is_array($Widgets))
                             $Call['Layout'] = str_replace('<place>' . $Place . '</place>',
-                                implode('', $Widgets), $Call['Layout']);
+                                implode(PHP_EOL, $Widgets), $Call['Layout']);
                 }
             }
 

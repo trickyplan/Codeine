@@ -11,7 +11,7 @@
 
         <property name="homepage" value=""/>
         <property name="maintainer" value=""/>
-        <property name="release" value="${version}.r${env.build}"/>
+        <property name="release" value="${version}.${env.build}"/>
 
         <!-- Build directories -->
         <property name="package" value="${phing.project.name}-${release}"/>

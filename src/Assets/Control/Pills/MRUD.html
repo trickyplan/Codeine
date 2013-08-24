@@ -1,9 +1,23 @@
 <div class="nav nav-pills">
     <li>
-        <a href="/control/<call>Entity</call>/Accept/<k>ID</k>"><l><call>Entity</call>.Control:Options.Accept</l></a>
+        <if value="<k>Status</k>" neq="1">
+            <a href="/control/<call>Entity</call>/Accept/<k>ID</k>">
+                <l><call>Entity</call>.Control:Options.Accept</l>
+            </a>
+        </if>
+        <if value="<k>Status</k>" eq="1">
+            <a href=""><l><call>Entity</call>.Control:Options.Accepted</l></a>
+        </if>
     </li>
     <li>
-        <a href="/control/<call>Entity</call>/Reject/<k>ID</k>"><l><call>Entity</call>.Control:Options.Reject</l></a>
+        <if value="<k>Status</k>" neq="-1">
+            <a href="/control/<call>Entity</call>/Reject/<k>ID</k>">
+                <l><call>Entity</call>.Control:Options.Reject</l>
+            </a>
+        </if>
+        <if value="<k>Status</k>" eq="-1">
+            <a href=""><l><call>Entity</call>.Control:Options.Rejected</l></a>
+        </if>
     </li>
     <li>
         <a href="/control/<call>Entity</call>/Show/<k>ID</k>"><l><call>Entity</call>.Control:Options.Show</l></a>

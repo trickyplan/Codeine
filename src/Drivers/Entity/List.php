@@ -65,7 +65,7 @@
 
                     if (isset($Call['Show Redirects']) or !isset($Element['Redirect']) or empty($Element['Redirect']))
                     {
-                        if ($Call['Selected'] == $Element['ID'] or $Call['Selected'] == '*')
+                        if ($Call['Selected'] === $Element['ID'] or $Call['Selected'] == '*')
                             $Selected = '.Selected';
                         else
                             $Selected = '';

@@ -9,23 +9,22 @@
 
     setFn('Process', function ($Call)
     {
-        foreach ($Call['Data'] as $Element)
-            foreach ($Call['Nodes'] as $Name => $Node)
-                foreach ($Call['Validators'] as $Validator)
-                {
-                    $Error = F::Run('Entity.Validate.'.$Validator, 'Process', $Call,
-                        [
-                            'Name' => $Name,
-                            'Node' => $Node,
-                            'Data' => $Element
-                        ]);
+        foreach ($Call['Nodes'] as $Name => $Node)
+            foreach ($Call['Validators'] as $Validator)
+            {
+                $Error = F::Run('Entity.Validate.'.$Validator, 'Process', $Call,
+                    [
+                        'Name' => $Name,
+                        'Node' => $Node,
+                        'Data' => $Call['Data']
+                    ]);
 
-                    if ($Error !== true)
-                    {
-                        $Call['Errors'][$Name][] = $Error;
-                        F::Log($Name.' '.$Error, LOG_INFO);
-                    }
+                if ($Error !== true)
+                {
+                    $Call['Errors'][$Name][] = $Error;
+                    F::Log($Name.' '.$Error, LOG_INFO);
                 }
+            }
 
         if (!empty($Call['Errors']))
             $Call['Failure'] = true;

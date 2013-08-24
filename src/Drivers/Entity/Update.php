@@ -13,11 +13,6 @@
 
         $Call['Where'] = F::Live($Call['Where']); // FIXME
 
-        if (isset($Call['One']) && isset($Call['Data']))
-            $Call['Data'] = [$Call['Data']];
-
-        unset($Call['One']);
-
         return F::Run(null, $_SERVER['REQUEST_METHOD'], $Call);
     });
 

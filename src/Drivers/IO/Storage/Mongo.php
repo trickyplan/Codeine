@@ -50,12 +50,12 @@
                     $Where[$Key] = $Value;
 
             F::Log('db.*'.$Call['Scope'].'*.find('.json_encode($Where, JSON_PRETTY_PRINT).')', LOG_INFO);
-            $Cursor = $Call['Link']->$Call['Scope']->find($Where);
+            $Cursor = $Call['Link']->$Call['Scope']->find($Where,['_id' => 0]);
         }
         else
         {
             F::Log('db.*'.$Call['Scope'].'*.find()', LOG_INFO);
-            $Cursor = $Call['Link']->$Call['Scope']->find();
+            $Cursor = $Call['Link']->$Call['Scope']->find([],['_id' => 0]);
         }
 
         $Data = null;
@@ -64,7 +64,7 @@
         {
             if (isset($Call['Fields']))
             {
-                $Fields = array();
+                $Fields = [];
 
                 foreach ($Call['Fields'] as $Field)
                     $Fields[$Field] = true;
@@ -77,16 +77,10 @@
                     $Cursor->sort(array($Key => (int)(($Direction == SORT_ASC) or ($Direction == 1))? 1: -1));
 
             if (isset($Call['Limit']))
-                $Cursor->limit($Call['Limit']['To']-$Call['Limit']['From'])->skip($Call['Limit']['From']);
+                $Cursor->limit($Call['Limit']['To'])->skip($Call['Limit']['From']);
 
             if ($Cursor->count()>0)
-            {
-                foreach ($Cursor as $cCursor)
-                {
-                    unset($cCursor['_id']);
-                    $Data[] = $cCursor;
-                }
-            }
+                $Data = iterator_to_array($Cursor, false);
         }
 
         return $Data;
@@ -100,44 +94,48 @@
         {
             if (isset($Call['Where']))
             {
-                foreach ($Call['Data'] as $Element)
+                if (isset($Call['Data']))
                 {
-                    if ($Element === null)
-                    {
-                        F::Log('db.*'.$Call['Scope'].'*remove('.json_encode($Call['Where'], JSON_PRETTY_PRINT).')', LOG_INFO);
-                        $Call['Link']->$Call['Scope']->remove ($Call['Where'], ['multiple' => true]);
-                    }
-                    else
-                    {
-                        F::Log('db.*'.$Call['Scope'].'*.update('.json_encode($Call['Where']).','.json_encode(['$set' => $Element], JSON_PRETTY_PRINT).')',LOG_INFO);
-                        $Call['Link']->$Call['Scope']->update($Call['Where'], ['$set' => $Element], ['upsert' => true, 'multiple' => true]);
-                    }
+                    F::Log('db.*'.$Call['Scope'].'*.update('
+                        .json_encode($Call['Where']).','
+                        .json_encode(['$set' => $Call['Data']], JSON_PRETTY_PRINT).')',LOG_INFO);
+
+                    $Call['Link']->$Call['Scope']->update($Call['Where'], ['$set' => $Call['Data']], ['upsert' => true, 'multiple' => true]);
+
+                }
+                else
+                {
+                    F::Log('db.*'.$Call['Scope'].'*remove('
+                    .json_encode($Call['Where'], JSON_PRETTY_PRINT).')', LOG_INFO);
+
+                    $Call['Link']->$Call['Scope']->remove ($Call['Where'], ['multiple' => true]);
                 }
             }
             else
             {
-                foreach ($Call['Data'] as $Element)
+                if (isset($Call['Data']))
                 {
-                    if ($Element === null)
+                    F::Log('db.*'.$Call['Scope'].'*.insert('
+                    .json_encode($Call['Data'], JSON_PRETTY_PRINT).')', LOG_INFO);
+
+                    $Call['Link']->$Call['Scope']->insert ($Call['Data']);
+                    unset($Call['Data']['_id']); // Mongo, are you kiddin'me?
+                }
+                else
+                {
+                    if (isset($Call['Where']))
                     {
-                        if (isset($Call['Where']))
-                        {
-                            F::Log('db.*'.$Call['Scope'].'*remove('.json_encode($Call['Where'], JSON_PRETTY_PRINT).')', LOG_INFO);
-                            $Call['Link']->$Call['Scope']->remove ($Call['Where'], ['multiple' => true]);
-                        }
-                        else
-                        {
-                            F::Log('db.*'.$Call['Scope'].'*remove()', LOG_INFO);
-                            $Call['Link']->$Call['Scope']->remove ();
-                        }
+                        F::Log('db.*'.$Call['Scope'].'*remove('
+                        .json_encode($Call['Where'], JSON_PRETTY_PRINT).')', LOG_INFO);
+
+                        $Call['Link']->$Call['Scope']->remove ($Call['Where'], ['multiple' => true]);
                     }
                     else
                     {
-                        F::Log('db.*'.$Call['Scope'].'*.insert('.json_encode($Element, JSON_PRETTY_PRINT).')', LOG_INFO);
-                        $Call['Link']->$Call['Scope']->insert ($Element);
+                        F::Log('db.*'.$Call['Scope'].'*remove()', LOG_INFO);
+                        $Call['Link']->$Call['Scope']->remove ();
                     }
                 }
-
             }
         }
         catch (MongoCursorException $e)
@@ -145,7 +143,7 @@
             return F::Hook('IO.Mongo.Write.Failed', $Call);
         }
 
-        return $Call['Data'];
+        return isset($Call['Data'])? $Call['Data']: null;
     });
 
     setFn ('Close', function ($Call)

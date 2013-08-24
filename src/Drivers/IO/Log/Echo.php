@@ -11,7 +11,6 @@
         if ($Call['Renderer']['Service'] == 'View.HTML')
         {
             $Output = '<table class="console">';
-
             foreach ($Call['Data'] as $IX => $Row)
                 $Output .= '<tr class="'.$Call['Levels'][$Row[0]].'">
                         <td>'.$Row[1].'</td>

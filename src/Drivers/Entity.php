@@ -34,7 +34,7 @@
         if (!isset($Call['Entity']))
         {
             F::Log('Entity not defined.', LOG_ERR);
-            return null;
+            return $Call;
         }
 
         if (isset($Call['One']))
@@ -43,24 +43,32 @@
             unset($Call['One']);
         }
 
-        $Call = F::Hook('beforeOperation', $Call);
+        $Data = $Call['Data'];
 
-            $Call = F::Hook('beforeEntityWrite', $Call);
+        $Call['Data'] = null;
 
-                $Call = F::Hook('beforeEntityCreate', $Call);
+        foreach ($Data as $cData)
+        {
+            $Call['Data'] = $cData;
 
-            if (!isset($Call['Failure']) or !$Call['Failure'])
-            {
-                $Call['Data'] = F::Run('IO', 'Write', $Call);
+            $Call = F::Hook('beforeOperation', $Call);
 
-                $Call = F::Hook('afterEntityCreate', $Call);
+                $Call = F::Hook('beforeEntityWrite', $Call);
 
-                $Call = F::Hook('afterEntityWrite', $Call);
-            }
-            else
-                $Call['Data'] = null;
+                    $Call = F::Hook('beforeEntityCreate', $Call);
 
-        $Call = F::Hook('afterOperation', $Call);
+                    if (!isset($Call['Failure']) or !$Call['Failure'])
+                    {
+                        $Call['Data'] = F::Run('IO', 'Write', $Call);
+
+                        $Call = F::Hook('afterEntityCreate', $Call);
+                    }
+                    else
+                        $Call['Data'] = null;
+
+                    $Call = F::Hook('afterEntityWrite', $Call);
+            $Call = F::Hook('afterOperation', $Call);
+        }
 
         return $Call;
     });
@@ -77,16 +85,31 @@
 
             $Call = F::Hook('beforeEntityRead', $Call);
 
+
                 $Call['Data'] = F::Run('IO', 'Read', $Call);
 
-            $Call = F::Hook('afterEntityRead', $Call);
+        if ($Call['Data'] !== null)
+        {
+            $Data = $Call['Data'];
+
+            $Call['Data'] = null;
+
+            foreach ($Data as &$cData)
+            {
+                $Call['Data'] = $cData;
+                $Call = F::Hook('afterEntityRead', $Call);
+                $cData = $Call['Data'];
+            }
+
+            $Call['Data'] = $Data;
+        }
 
         $Call = F::Hook('afterOperation', $Call);
 
         F::Log('*'.count($Call['Data']).'* '.$Call['Entity'].' readed', LOG_INFO);
 
-        if (isset($Call['One']))
-            return $Call['Data'][0];
+        if (isset($Call['One']) and is_array($Call['Data']))
+            return array_shift($Call['Data']);
         else
             return $Call['Data'];
     });
@@ -105,27 +128,37 @@
             unset($Call['One']);
         }
 
-        $Call = F::Hook('beforeOperation', $Call);
+        $Data = $Call['Data'];
 
-            $Call['Current'] = F::Run('Entity', 'Read', $Call);
+        $Call['Data'] = null;
 
-            $Call['Data'][0]['ID'] = $Call['Where']['ID'];
+        $Current = F::Run('Entity', 'Read', $Call);
 
-            $Call = F::Hook('beforeEntityWrite', $Call);
+        foreach ($Data as $IX => $cData)
+        {
+            $Call['Data'] = $cData;
 
-                $Call = F::Hook('beforeEntityUpdate', $Call);
+            $Call = F::Hook('beforeOperation', $Call);
 
-                    F::Run('IO', 'Write', $Call);
+                $Call['Data']['ID'] = $Call['Where']['ID'];
+                $Call['Current'] = $Current[$IX];
 
-                    $Call['Data'] = F::Run ('Entity', 'Read', $Call);
+                $Call = F::Hook('beforeEntityWrite', $Call);
 
-                $Call['Data'][0]['ID'] = $Call['Where']['ID'];
+                    $Call = F::Hook('beforeEntityUpdate', $Call);
 
-                $Call = F::Hook('afterEntityUpdate', $Call);
+                        F::Run('IO', 'Write', $Call);
 
-            $Call = F::Hook('afterEntityWrite', $Call);
+                        $Call['Data'] = F::Run ('Entity', 'Read', $Call);
 
-        $Call = F::Hook('afterOperation', $Call);
+                    $Call['Data']['ID'] = $Call['Where']['ID'];
+
+                    $Call = F::Hook('afterEntityUpdate', $Call);
+
+                $Call = F::Hook('afterEntityWrite', $Call);
+
+            $Call = F::Hook('afterOperation', $Call);
+        }
 
         F::Log('*'.count($Call['Data']).'* '.$Call['Entity'].' updated', LOG_INFO);
 
@@ -140,28 +173,32 @@
             return null;
         }
 
-        if(isset($Call['Where']))
+        if (isset($Call['Where']))
         {
             $Call['Data'] = F::Run('Entity', 'Read', $Call);
             $Call['Current'] = $Call['Data'];
         }
+        else
+            $Call['Data'] = [null];
 
-        $Call = F::Hook('beforeOperation', $Call);
+        $Data = $Call['Data'];
 
-            $Call = F::Hook('beforeEntityWrite', $Call);
+            $Call = F::Hook('beforeOperation', $Call);
 
                 $Call = F::Hook('beforeEntityDelete', $Call);
 
+        foreach ($Data as $cData)
+        {
+            $Call['Data'] = $cData;
                     unset($Call['Data']);
 
-                    F::Run('IO', 'Write', $Call, ['Data' => [null]]);
+                    F::Run('IO', 'Write', $Call);
 
                     if(isset($Call['Where']))
                         $Call['Data'] = $Call['Current'];
 
-                $Call = F::Hook('afterEntityDelete', $Call);
-
-        $Call = F::Hook('afterEntityWrite', $Call);
+            $Call = F::Hook('afterEntityDelete', $Call);
+        }
 
         $Call = F::Hook('afterOperation', $Call);
 
@@ -195,6 +232,6 @@
 
     setFn('Far', function ($Call)
     {
-        $Element = F::Run(null, 'Read', $Call)[0];
+        $Element = F::Run(null, 'Read', $Call, ['One' => true]);
         return isset($Element[$Call['Key']])? $Element[$Call['Key']]: null;
     });

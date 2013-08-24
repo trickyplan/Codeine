@@ -15,10 +15,8 @@
             {
                 $Node['Default'] = F::Live($Node['Default']);
 
-                if (isset($Call['Data']))
-                    foreach ($Call['Data'] as &$Element)
-                        if (F::Dot($Element, $Name) === null)
-                            $Element = F::Dot($Element,$Name,$Node['Default']); // FIXME Add flag
+                if (F::Dot($Call['Data'], $Name) === null)
+                    $Call['Data'] = F::Dot($Call['Data'],$Name,$Node['Default']); // FIXME Add flag
 
             }
         }

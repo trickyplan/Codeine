@@ -795,18 +795,16 @@ F::Log('Codeine started', LOG_IMPORTANT);
 
             if (!empty($E))
             {
-                if (self::$_Environment != 'Production')
+                if (self::$_Environment == 'Production')
                 {
                     header ('HTTP/1.0 500 Internal Server Error');
                     // TODO Real error triggering
                 }
                 else
                 {
-                    $Logs = F::Logs();
-                    foreach ($Logs as $Log)
-                        echo implode(' ', $Log).'<br/>';
-
                     echo $E['message'];
+                    echo '<pre>';
+                    print_r(self::$_Log);
                 }
 
             }

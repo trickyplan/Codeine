@@ -3,15 +3,7 @@
     {
         "Moderated":
         {
-            "Type": "Numeral.Integer",
-            "Hooks":
-            {
-                "beforeEntityCreate":
-                {
-                    "Service": "System.Time",
-                    "Method": "Get"
-                }
-            }
+            "Type": "Numeral.Integer"
         },
         "Moderator":
         {

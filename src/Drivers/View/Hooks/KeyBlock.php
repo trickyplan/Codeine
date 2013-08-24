@@ -13,10 +13,10 @@
         {
             foreach ($Pockets[2] as $IX => $Match)
             {
-                $Output = '';
-
                 if (($Matched = F::Live(F::Dot($Call['Data'], $Match))) !== null)
                 {
+                    $Output = 0;
+
                     if ($DotMatched = F::Live(F::Dot($Call['Data'], $Match)))
                     {
                         if (is_array($DotMatched))
