@@ -28,13 +28,22 @@
     }
     catch (Exception $e)
     {
-        header('HTTP/1.1 503 Service Temporarily Unavailable');
-        header('Status: 503 Service Temporarily Unavailable');
+        switch ($Call['Environment'])
+        {
+            case 'Production':
+                header('HTTP/1.1 503 Service Temporarily Unavailable');
+                header('Status: 503 Service Temporarily Unavailable');
 
-        if (file_exists(Root.'/down.html'))
-            readfile(Root.'/down.html');
-        else
-            readfile(Codeine.'/down.html');
+                if (file_exists(Root.'/down.html'))
+                    readfile(Root.'/down.html');
+                else
+                    readfile(Codeine.'/down.html');
+            break;
+
+            default:
+                d(__FILE__, __LINE__, $e); ;
+            break;
+        }
     }
 
 

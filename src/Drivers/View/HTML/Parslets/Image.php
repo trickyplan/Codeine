@@ -41,19 +41,36 @@
 
                   $ImageData = F::Run('IO', 'Read',
                                            [
-                                           'Storage' => 'Image',
-                                           'Scope'   => [strtr($Asset, '.', '/'), 'img'],
-                                           'Where'   => $ID
-                                           ]);
+                                               'Storage' => 'Image',
+                                               'Scope'   => [strtr($Asset, '.', '/'), 'img'],
+                                               'Where'   => $ID
+                                           ])[0];
 
                   if ($ImageData != null)
                   {
+                      if (isset($Match['Width']))
+                      {
+                            $GImage = new Gmagick();
+                            $GImage->readimageblob($ImageData);
+                            $GImage->setCompressionQuality(100);
+
+                            if (!isset($Match['Height']))
+                               $Match['Height'] =
+                                   ($Match['Width']/$GImage->getimagewidth())*$GImage->getimageheight();
+
+                            $GImage->resizeimage($Match['Width'], $Match['Height'], null, 1);
+
+                            $ImageData = $GImage->getImageBlob();
+                      }
+
+                        F::Log('Thumbnail created', LOG_INFO);
+
                       if (F::Run ('IO', 'Write',
                               [
-                              'Storage' => 'Image Cache',
-                              'Scope'   => [$Call['RHost'], 'img'],
-                              'Where'   => $Image,
-                              'Data' => $ImageData
+                                  'Storage' => 'Image Cache',
+                                  'Scope'   => [$Call['RHost'], 'img'],
+                                  'Where'   => $Image,
+                                  'Data' => [$ImageData]
                               ]
                       ))
                           F::Log('Image '.$Image.' writed', LOG_GOOD);
