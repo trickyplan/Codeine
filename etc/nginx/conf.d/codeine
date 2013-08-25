@@ -24,7 +24,7 @@
 		add_header        Cache-Control  public;
 	}
 
-	location ~ \.php$
+	location ~ index.php$
 	{
 	    include fastcgi_params;
 
