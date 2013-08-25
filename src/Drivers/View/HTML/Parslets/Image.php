@@ -15,7 +15,13 @@
 
               list($Asset, $ID) = F::Run('View', 'Asset.Route', ['Value' => $Match['Source']]);
 
-              $Image = strtolower(strtr($Asset.'.'.$ID, '/', '.'));
+              $Image = F::Run('IO', 'Execute',
+                                           [
+                                               'Execute' => 'Version',
+                                               'Storage' => 'Image',
+                                               'Scope'   => [strtr($Asset, '.', '/'), 'img'],
+                                               'Where'   => $ID
+                                           ]).'_'.strtr($Asset.'.'.$ID, '/','.');
 
               $Path = $Call['Image']['Pathname'].$Image;
 

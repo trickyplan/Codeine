@@ -5,6 +5,14 @@
         "Method": "Render"
     },
     "Context": "",
+    "HTTP":
+    {
+        "Methods":
+        {
+            "Allowed": ["GET", "POST"],
+            "Default": "GET"
+        }
+    },
     "IP":
     {
         "Service": "System.Interface.Web.IP",

@@ -11,6 +11,9 @@
     {
         if (isset($Call['Request']['Filter']) && is_array($Call['Request']['Filter']))
         {
+            if (!isset($Call['Where']))
+                $Call['Where'] = [];
+
             foreach ($Call['Request']['Filter'] as $Key => $Value)
                 if (!empty($Value))
                     $Call['Where'][$Key] = $Value;

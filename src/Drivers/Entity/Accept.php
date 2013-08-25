@@ -11,9 +11,10 @@
     {
         $Call = F::Run('Entity', 'Load', $Call);
 
-        $Call = F::Hook('beforeAcceptDo', $Call);
-
+        if (isset($Call['Where']))
         $Call['Where'] = F::Live($Call['Where']); // FIXME
+
+        $Call = F::Hook('beforeAcceptDo', $Call);
 
         return F::Run(null, $_SERVER['REQUEST_METHOD'], $Call);
     });
@@ -35,8 +36,7 @@
 
             F::Run('Entity', 'Update', $Call,
             [
-                'One' => true,
-                'Data' =>
+                'Data!' =>
                 [
                     'Status' => 1,
                     'Moderated' => F::Run('System.Time', 'Get', $Call),

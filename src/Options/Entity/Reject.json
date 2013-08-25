@@ -1,0 +1,13 @@
+{
+    "Hooks":
+    {
+        "beforeRejectDo":
+        {
+            "Filter":
+            {
+                "Service": "Entity.List.Filter",
+                "Method": "beforeList"
+            }
+        }
+    }
+}

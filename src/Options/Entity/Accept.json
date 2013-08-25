@@ -1,0 +1,18 @@
+{
+    "Hooks":
+    {
+        "beforeAcceptDo":
+        {
+            "Filter":
+            {
+                "Service": "Entity.List.Filter",
+                "Method": "beforeList"
+            },
+            "Sort":
+            {
+                "Service": "Entity.List.Sort",
+                "Method": "beforeList"
+            }
+        }
+    }
+}

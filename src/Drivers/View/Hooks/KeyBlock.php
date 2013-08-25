@@ -15,7 +15,7 @@
             {
                 if (($Matched = F::Live(F::Dot($Call['Data'], $Match))) !== null)
                 {
-                    $Output = 0;
+                    $Output = '';
 
                     if ($DotMatched = F::Live(F::Dot($Call['Data'], $Match)))
                     {
@@ -34,7 +34,6 @@
                     }
 
                     $Call['Value'] = str_replace($Pockets[0][$IX], $Output, $Call['Value']);
-                    $Output = '';
                 }
                 else
                     $Call['Value'] = str_replace($Pockets[0][$IX], '', $Call['Value']);

@@ -128,30 +128,22 @@
             unset($Call['One']);
         }
 
-        $Data = $Call['Data'];
-
-        $Call['Data'] = null;
-
         $Current = F::Run('Entity', 'Read', $Call);
+        $NewData = $Call['Data'];
 
-        foreach ($Data as $IX => $cData)
+        foreach ($Current as $IX => $OldData)
         {
-            $Call['Data'] = $cData;
-
             $Call = F::Hook('beforeOperation', $Call);
 
-                $Call['Data']['ID'] = $Call['Where']['ID'];
-                $Call['Current'] = $Current[$IX];
+                $Call['Where'] = ['ID' => $OldData['ID']];
+                $Call['Data'] = F::Merge($OldData, $NewData);
+                $Call['Current'] = $OldData;
 
                 $Call = F::Hook('beforeEntityWrite', $Call);
 
                     $Call = F::Hook('beforeEntityUpdate', $Call);
 
                         F::Run('IO', 'Write', $Call);
-
-                        $Call['Data'] = F::Run ('Entity', 'Read', $Call);
-
-                    $Call['Data']['ID'] = $Call['Where']['ID'];
 
                     $Call = F::Hook('afterEntityUpdate', $Call);
 

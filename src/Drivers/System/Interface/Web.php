@@ -17,6 +17,12 @@
                         $_REQUEST['Data'][$IX][$C2][$Key] = $V2;
             // FUCK!
         }
+        if (!in_array($_SERVER['REQUEST_METHOD'], $Call['HTTP']['Methods']['Allowed']))
+            $_SERVER['REQUEST_METHOD'] = $Call['HTTP']['Methods']['Default'];
+
+        $Call['HTTP Method'] = $_SERVER['REQUEST_METHOD'];
+
+        F::Log('Method: '.$Call['HTTP Method'], LOG_INFO);
 
         $Call['Request'] = $_REQUEST;
         $Call['Cookie'] = $_COOKIE;
