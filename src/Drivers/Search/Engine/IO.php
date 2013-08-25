@@ -9,7 +9,6 @@
 
     setFn('Query', function ($Call)
     {
-
         $SERP = F::Run('IO', 'Read', $Call, $Call['Engines'][$Call['Engine']],
             [
                 'Fields' => ['ID'],
@@ -28,13 +27,18 @@
             ]);
 
         if (empty($SERP))
+        {
+            F::Log('*No results*', LOG_INFO);
             $Result = null;
+        }
         else
         {
             $Result = [];
 
             foreach ($SERP as $cSERP)
                 $Result[$cSERP['ID']] = 100; // TODO Relevancy
+
+            F::Log('*'.count($Result).' results* ', LOG_INFO);
         }
 
         return $Result;

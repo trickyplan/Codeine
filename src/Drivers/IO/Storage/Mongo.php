@@ -160,7 +160,6 @@
     {
         $Call['Scope'] = strtr($Call['Scope'], '.', '_');
 
-
         if (isset($Call['Where']) and $Call['Where'] !== null)
         {
             $Where = [];

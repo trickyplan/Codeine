@@ -14,7 +14,6 @@
 
     setFn('GET', function ($Call)
     {
-
         return $Call;
     });
 
@@ -31,35 +30,31 @@
 
             $IDs = F::Run('Search', 'Query', $Call,
             [
-              'Engine' => 'Primary',
-              'Query' => isset($Call['Query'])? $Call['Query']: $Call['Request']['Query']
+                  'Engine' => 'Primary',
+                  'Query' => isset($Call['Query'])? $Call['Query']: $Call['Request']['Query']
             ]);
 
             $Call['Layouts'][] = ['Scope' => $Entity,'ID' => 'Search','Context' => $Call['Context']];
 
-            $Where = [];
-
             if (!empty($IDs) && null !== $IDs)
+            {
+                $Where['ID'] = [];
                 $Where['ID']['$in'] = array_keys($IDs);
 
-            if (empty($Where))
-                $Call['Elements'] = [];
-            else
-                unset($Call['Elements']);
-
-            $Call['Layouts'][] = ['Scope' => 'Entity','ID' => 'List','Context' => $Call['Context']];
-
-            $Call = F::Run('Entity.List', 'Do',
+                $Call = F::Run('Entity.List', 'Do',
                     $Call,
                     [
-                        'Context' => 'app',
-                        'Where' => $Where,
+                        'Where!' => $Where,
                         'Template' => (
                         isset($Call['Template'])?
                             $Call['Template']:
                             'Short')
                     ]
                 );
+            }
+            else
+                $Call['Layouts'][] = ['Scope' => $Entity,'ID' => 'Empty','Context' => $Call['Context']];
+
         }
 
         return $Call;
