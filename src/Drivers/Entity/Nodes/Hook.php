@@ -36,7 +36,7 @@
                                                ]));
 
                             if (is_array(F::Dot($Call['Data'], $Name)))
-                                F::Log('Node *'.$Name.'* executed as '.json_encode(F::Dot($Call['Data'], $Name)), LOG_INFO);
+                                F::Log('Node *'.$Name.'* executed as '.json_encode(F::Dot($Call['Data'], $Name), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE), LOG_INFO);
                             else
                                 F::Log('Node *'.$Name.'* executed as '.F::Dot($Call['Data'], $Name), LOG_INFO);
                         }

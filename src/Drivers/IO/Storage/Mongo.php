@@ -49,7 +49,8 @@
                 else
                     $Where[$Key] = $Value;
 
-            F::Log('db.*'.$Call['Scope'].'*.find('.json_encode($Where, JSON_PRETTY_PRINT).')', LOG_INFO);
+            F::Log('db.*'.$Call['Scope'].'*.find('
+                .json_encode($Where, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE).')', LOG_INFO);
             $Cursor = $Call['Link']->$Call['Scope']->find($Where,['_id' => 0]);
         }
         else
@@ -98,7 +99,7 @@
                 {
                     F::Log('db.*'.$Call['Scope'].'*.update('
                         .json_encode($Call['Where']).','
-                        .json_encode(['$set' => $Call['Data']], JSON_PRETTY_PRINT).')',LOG_INFO);
+                        .json_encode(['$set' => $Call['Data']], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE).')',LOG_INFO);
 
                     $Call['Link']->$Call['Scope']->update($Call['Where'], ['$set' => $Call['Data']], ['upsert' => true, 'multiple' => true]);
 
@@ -106,7 +107,7 @@
                 else
                 {
                     F::Log('db.*'.$Call['Scope'].'*remove('
-                    .json_encode($Call['Where'], JSON_PRETTY_PRINT).')', LOG_INFO);
+                    .json_encode($Call['Where'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE).')', LOG_INFO);
 
                     $Call['Link']->$Call['Scope']->remove ($Call['Where'], ['multiple' => true]);
                 }
@@ -116,7 +117,7 @@
                 if (isset($Call['Data']))
                 {
                     F::Log('db.*'.$Call['Scope'].'*.insert('
-                    .json_encode($Call['Data'], JSON_PRETTY_PRINT).')', LOG_INFO);
+                    .json_encode($Call['Data'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE).')', LOG_INFO);
 
                     $Call['Link']->$Call['Scope']->insert ($Call['Data']);
                     unset($Call['Data']['_id']); // Mongo, are you kiddin'me?
@@ -126,7 +127,7 @@
                     if (isset($Call['Where']))
                     {
                         F::Log('db.*'.$Call['Scope'].'*remove('
-                        .json_encode($Call['Where'], JSON_PRETTY_PRINT).')', LOG_INFO);
+                        .json_encode($Call['Where'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE).')', LOG_INFO);
 
                         $Call['Link']->$Call['Scope']->remove ($Call['Where'], ['multiple' => true]);
                     }
@@ -176,7 +177,7 @@
                 else
                     $Where[$Key] = $Value;
 
-            F::Log('db.*'.$Call['Scope'].'*.find('.json_encode($Where).').count()', LOG_INFO);
+            F::Log('db.*'.$Call['Scope'].'*.find('.json_encode($Where, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE).').count()', LOG_INFO);
             $Cursor = $Call['Link']->$Call['Scope']->find($Where);
         }
         else

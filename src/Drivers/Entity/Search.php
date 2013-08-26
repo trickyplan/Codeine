@@ -26,6 +26,7 @@
 
         foreach ($Entities as $Entity)
         {
+            $Call['Where'] = [];
             $Call['Entity'] = $Entity;
 
             $IDs = F::Run('Search', 'Query', $Call,
@@ -34,12 +35,17 @@
                   'Query' => isset($Call['Query'])? $Call['Query']: $Call['Request']['Query']
             ]);
 
-            $Call['Layouts'][] = ['Scope' => $Entity,'ID' => 'Search','Context' => $Call['Context']];
+            $Call['Output']['Content'][] =
+                    [
+                        'Type' => 'Template',
+                        'Scope' => $Entity,
+                        'ID' => 'Search',
+                        'Context' => $Call['Context']
+                    ];
 
-            if (!empty($IDs) && null !== $IDs)
+            if (!empty($IDs))
             {
-                $Where['ID'] = [];
-                $Where['ID']['$in'] = array_keys($IDs);
+                $Where['ID'] = ['$in' => array_keys($IDs)];
 
                 $Call = F::Run('Entity.List', 'Do',
                     $Call,
@@ -53,8 +59,15 @@
                 );
             }
             else
-                $Call['Layouts'][] = ['Scope' => $Entity,'ID' => 'Empty','Context' => $Call['Context']];
+                $Call['Output']['Content'][] =
+                    [
+                        'Type' => 'Template',
+                        'Scope' => $Entity,
+                        'ID' => 'NotFound',
+                        'Context' => $Call['Context']
+                    ];
 
+            unset($Call['Scope'], $Call['Elements']);
         }
 
         return $Call;

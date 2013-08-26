@@ -16,13 +16,23 @@
         $Data = F::Run('Entity', 'Read', $Call);
 
         if (is_array($Data))
+        {
             foreach ($Data as $Element)
-                F::Run('Entity', 'Update', $Call,
+            {
+                $New = F::Run('Entity', 'Update', $Call,
                     [
                         'One' => true,
                         'Where'=> $Element['ID'],
                         'Data' => $Element
-                    ]);
+                    ])['Data'];
+
+                $Call['Output']['Content'][] =
+                [
+                    'Type' => 'Block',
+                    'Value' => 'Element '.$New['ID'].' touched'
+                ];
+            }
+        }
 
         $Call = F::Hook('afterTouch', $Call);
 

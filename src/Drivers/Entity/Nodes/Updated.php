@@ -16,8 +16,11 @@
             foreach ($Call['Nodes'] as $Name => $Node)
             {
                 if (isset($Node['Always Set']) && $Node['Always Set'])
-                        if (F::Dot($Diffed, $Name) === null)
-                            $Diffed = F::Dot($Diffed, $Name, F::Dot($Call['Current'], $Name));
+                    if (F::Dot($Diffed, $Name) === null)
+                        $Diffed = F::Dot($Diffed, $Name, F::Dot($Call['Current'], $Name));
+                    else
+                        $Diffed = F::Dot($Diffed, $Name, F::Dot($Call['Data'], $Name));
+
                 // Даже не пытайтесь понять, просто примите это
 
                 if (isset($Node['Nullable']) && $Node['Nullable'])

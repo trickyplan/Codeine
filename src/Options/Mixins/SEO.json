@@ -1,7 +1,7 @@
 {
     "Nodes":
     {
-        "Keywords":
+        "SEO.Keywords":
         {
             "Type": "Literal.String",
             "Weight": -40,
@@ -13,7 +13,7 @@
                 }
             }
         },
-        "Description":
+        "SEO.Description":
         {
             "Type": "Literal.String",
             "Weight": -40,
