@@ -65,6 +65,11 @@
                 "Service": "Security.UA",
                 "Method": "Filter"
             },
+            "Filter Request":
+            {
+                "Service": "Security.Request",
+                "Method": "Filter"
+            },
             "Project":
             {
                 "Service": "Project.Preload",
