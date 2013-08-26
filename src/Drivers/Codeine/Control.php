@@ -49,6 +49,6 @@
 
     setFn('Menu', function ($Call)
     {
-        if (isset($Call['Version']))
+        if (isset($Call['Version']['Codeine']))
             return ['Count' => $Call['Version']['Codeine']['Major'].'.'.$Call['Version']['Codeine']['Minor']];
     });
