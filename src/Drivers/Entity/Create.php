@@ -9,12 +9,6 @@
 
     setFn('Do', function ($Call)
     {
-        if (isset($Call['One']) && isset($Call['Data']))
-        {
-            $Call['Data'] = [$Call['Data']];
-            unset($Call['One']);
-        }
-
         $Call = F::Hook('beforeCreateDo', $Call);
 
         $Call = F::Run(null, $_SERVER['REQUEST_METHOD'], $Call);
