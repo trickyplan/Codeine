@@ -129,10 +129,14 @@
         }
 
         $Current = F::Run('Entity', 'Read', $Call);
-        $NewData = $Call['Data'];
 
         foreach ($Current as $IX => $OldData)
         {
+            if (isset($Call['Data'][$IX]))
+                $NewData = $Call['Data'][$IX];
+            else
+                $NewData = $Call['Data'];
+
             $Call = F::Hook('beforeOperation', $Call);
 
                 $Call['Where'] = ['ID' => $OldData['ID']];

@@ -18,8 +18,6 @@
                 if (isset($Node['Always Set']) && $Node['Always Set'])
                     if (F::Dot($Diffed, $Name) === null)
                         $Diffed = F::Dot($Diffed, $Name, F::Dot($Call['Current'], $Name));
-                    else
-                        $Diffed = F::Dot($Diffed, $Name, F::Dot($Call['Data'], $Name));
 
                 // Даже не пытайтесь понять, просто примите это
 

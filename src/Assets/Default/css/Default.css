@@ -158,3 +158,22 @@ tr.Important
 {
     float: none;
 }
+
+.table thead
+{
+    background-color: #222121;
+    background-image: -moz-linear-gradient(top, #272626, #1a1919);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#272626), to(#1a1919));
+    background-image: -webkit-linear-gradient(top, #272626, #1a1919);
+    background-image: -o-linear-gradient(top, #272626, #1a1919);
+    background-image: linear-gradient(to bottom, #272626, #1a1919);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff272626', endColorstr='#ff1a1919', GradientType=0);
+    border: 1px solid #000000;
+    color: #ffffff;
+}
+
+.table thead th
+{
+    padding: 12px 10px;
+}
