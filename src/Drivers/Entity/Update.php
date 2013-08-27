@@ -53,7 +53,8 @@
                         elseif (isset($Node['Widgets']['Write'])) // Для записи как таковой
                             $Widget = $Node['Widgets']['Write'];
 
-                        if (isset($Widget['Scope']) && $Widget['Scope'] != $Call['Scope'])
+
+                        if (isset($Node['Scope']) && $Call['Entity'].'/'.$Node['Scope'] != $Call['Scope'])
                             $Widget = null;
 
                         if (null !== $Widget)

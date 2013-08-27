@@ -31,6 +31,8 @@
         if ($Locale === null)
             $Locale = [$Token => $Call['Request']['Translation']];
 
+        asort($Locale);
+
         if (null !== F::Run('IO', 'Write',
                     array (
                           'Storage' => 'Locale',

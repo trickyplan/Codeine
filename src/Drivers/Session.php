@@ -86,7 +86,7 @@
                         'ID' => $Call['SID']
                     ],
                     'One' => true
-                ])['Data'][0];
+                ])['Data'];
         else
             $Call['Session'] = F::Run('Entity', 'Update',
                 [
@@ -94,7 +94,7 @@
                     'Where' => $Call['SID'],
                     'One' => true,
                     'Data' => $Call['Data']
-                ])['Data'][0];
+                ])['Data'];
 
         return $Call;
     });
