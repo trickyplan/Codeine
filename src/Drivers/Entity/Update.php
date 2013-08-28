@@ -20,6 +20,8 @@
     {
         $Call = F::Hook('beforeUpdateGet', $Call);
 
+        $Call['Tag'] = isset($Call['Scope'])? $Call['Scope']: null;
+
         $Call['Scope'] = isset($Call['Scope'])? $Call['Entity'].'/'.$Call['Scope'] : $Call['Entity'];
 
         $Call['Layouts'][] = array(
@@ -29,7 +31,7 @@
 
         // Загрузить предопределённые данные и умолчания
 
-        $Call['Data'] = F::Run('Entity', 'Read', $Call);
+        $Call['Data'] = F::Run('Entity', 'Read', $Call, ['ReRead' => true]);
 
         if (null === $Call['Data'])
             $Call = F::Hook('NotFound', $Call);
@@ -53,9 +55,8 @@
                         elseif (isset($Node['Widgets']['Write'])) // Для записи как таковой
                             $Widget = $Node['Widgets']['Write'];
 
-
-                        if (isset($Node['Scope']) && $Call['Entity'].'/'.$Node['Scope'] != $Call['Scope'])
-                            $Widget = null;
+                        if (isset($Node['Scope']) && !in_array($Call['Tag'], (array) $Node['Scope']))
+                            continue;
 
                         if (null !== $Widget)
                         {

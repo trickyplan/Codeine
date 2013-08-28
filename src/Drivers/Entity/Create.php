@@ -26,6 +26,8 @@
             if (isset ($Call['Request']['Data'][0]))
                 $Call['Data'] = $Call['Request']['Data'][0];
 
+        $Call['Tag'] = isset($Call['Scope'])? $Call['Scope']: null;
+
         $Call['Scope'] = isset($Call['Scope'])? $Call['Entity'].'/'.$Call['Scope'] : $Call['Entity'];
 
         $Call['Layouts'][] =
@@ -56,8 +58,8 @@
                 elseif (isset($Node['Widgets']['Write'])) // Для записи как таковой
                     $Widget = $Node['Widgets']['Write'];
 
-                if (isset($Node['Scope']) && $Call['Entity'].'/'.$Node['Scope'] != $Call['Scope'])
-                    $Widget = null;
+                if (isset($Node['Scope']) && !in_array($Call['Tag'], (array) $Node['Scope']))
+                    continue;
 
                 if (null !== $Widget)
                 {
