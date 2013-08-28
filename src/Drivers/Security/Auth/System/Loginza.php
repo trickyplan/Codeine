@@ -62,7 +62,7 @@
                         'Entity' => 'User',
                         'One' => true,
                         'Data'  => $UserData
-                    ])['Data'][0];
+                    ])['Data'];
 
                 F::Log('User registered '.$Call['User']['ID'], LOG_INFO);
             }
@@ -77,7 +77,7 @@
                              'ID' => $Call['User']['ID']
                          ],
                          'Data'  => $UserData
-                    ])['Data'][0];
+                    ])['Data'];
 
                 F::Log('User authorized '.$Call['User']['ID'], LOG_INFO);
             }
