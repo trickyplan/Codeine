@@ -17,21 +17,26 @@
             {
                 $Match = simplexml_load_string('<breadcrumb '.$Pockets[1][$IX].'></breadcrumb>');
 
-                $URL = (string) $Match->attributes()->href;
+                if ($Match)
+                {
+                    $URL = (string) $Match->attributes()->href;
 
-                $Call['Breadcrumbs'][strlen($URL)] = ['URL' => $URL, 'Title' => $Pockets[2][$IX]];
-                $Call['Output'] = str_replace($Pockets[0][$IX], '', $Call['Output']);
+                    $Call['Breadcrumbs'][] = ['URL' => $URL, 'Title' => $Pockets[2][$IX]];
+                    $Call['Output'] = str_replace($Pockets[0][$IX], '', $Call['Output']);
+                }
             }
 
             $Last = array_pop($Call['Breadcrumbs']);
 
             foreach ($Call['Breadcrumbs'] as $Breadcrumb)
+            {
                 $Breadcrumbs.= F::Run('View', 'Load',
                     [
                         'Scope' => $Call['Widget Set'].'/Widgets',
                         'ID' => 'Breadcrumb/Active',
                         'Data' => $Breadcrumb
                     ]);
+            }
 
             $Breadcrumbs.= F::Run('View', 'Load',
                     [
