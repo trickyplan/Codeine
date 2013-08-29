@@ -15,18 +15,28 @@
 
             foreach ($Call['Parsed'][1] as $IX => $Match)
             {
-                if (($Matched = F::Live(F::Dot($Call['Data'], $Match))) !== null)
-                {
-                    if ((array) $Matched === $Matched)
-                        $Matched = array_shift($Matched);
-
-                    if (($Matched === false) or ($Matched === 0) )
-                        $Matched = '0';
-
-                    $Call['Value'] = str_replace($Call['Parsed'][0][$IX], $Matched, $Call['Value']);
-                }
+                if (strpos(',', $Match))
+                    $Match = explode(',', $Match);
                 else
-                    $Call['Value'] = str_replace($Call['Parsed'][0][$IX], '', $Call['Value']);
+                    $Match = [$Match];
+
+                $Matched = '';
+
+                foreach ($Match as $CMatch)
+                {
+                    if (($Matched = F::Live(F::Dot($Call['Data'], $CMatch))) !== null)
+                    {
+                        if ((array) $Matched === $Matched)
+                            $Matched = array_shift($Matched);
+
+                        if (($Matched === false) or ($Matched === 0) )
+                            $Matched = '0';
+
+                        break;
+                    }
+                }
+
+                $Call['Value'] = str_replace($Call['Parsed'][0][$IX], $Matched, $Call['Value']);
             }
         }
 
