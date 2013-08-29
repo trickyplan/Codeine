@@ -11,19 +11,23 @@
      {
           foreach ($Call['Parsed'][2] as $Ix => $Match)
           {
-              $Pathinfo = pathinfo($Match);
-              $Filesize = F::Run('Formats.Number.Filesize', 'Do', ['Value' => filesize($Match)]);
-
-              $Call['Output'] =
-                  str_replace($Call['Parsed'][0][$Ix]
-                  ,'
+              if (empty($Match))
+                  $Match = '';
+              else
+              {
+                  $Pathinfo = pathinfo($Match);
+                  $Filesize = F::Run('Formats.Number.Filesize', 'Do', ['Value' => filesize($Match)]);
+                  $Match = '
                   <image>
                     <Source>Formats/File:'.strtolower($Pathinfo['extension']).'.png</Source>
                     <Default>Formats/File:default.png</Default>
                   </image>
                   <a target="_blank" href="'. $Match.'">
-                  '.$Pathinfo['basename'].' <small>('.$Filesize.')</a></small>'
-                  , $Call['Output']);
+                  '.$Pathinfo['basename'].' <small>('.$Filesize.')</a></small>';
+              }
+
+
+              $Call['Output'] = str_replace($Call['Parsed'][0][$Ix], $Match, $Call['Output']);
           }
 
           return $Call;
