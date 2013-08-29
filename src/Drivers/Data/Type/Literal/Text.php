@@ -14,5 +14,5 @@
 
     setFn(['Read', 'Where'], function ($Call)
     {
-        return nl2br($Call['Value']);
+        return nl2br(html_entity_decode($Call['Value']));
     });

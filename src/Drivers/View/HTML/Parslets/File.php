@@ -11,8 +11,8 @@
      {
           foreach ($Call['Parsed'][2] as $Ix => $Match)
           {
-              $Pathinfo = pathinfo(Root.'/Public'.$Match);
-              $Filesize = F::Run('Formats.Number.Filesize', 'Do', ['Value' => filesize(Root.'/Public'.$Match)]);
+              $Pathinfo = pathinfo($Match);
+              $Filesize = F::Run('Formats.Number.Filesize', 'Do', ['Value' => filesize($Match)]);
 
               $Call['Output'] =
                   str_replace($Call['Parsed'][0][$Ix]

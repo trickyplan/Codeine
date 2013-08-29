@@ -1,0 +1,54 @@
+{
+    "Rules":
+    {
+        "Комментарии доступны всем":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Entity.List",
+                "Method": "Do",
+                "Call":
+                {
+                    "Entity": "Comment"
+                }
+            }
+        },
+        "Комментарий видно всем":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Entity.Show.Static",
+                "Method": "Do",
+                "Call":
+                {
+                    "Entity": "Comment"
+                }
+            }
+        },
+        "Комментировать могут зарегистрированные":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Entity.Create",
+                "Method": "Do",
+                "Session":
+                {
+                    "User":
+                    {
+                        "ID": "*"
+                    }
+                },
+                "Call":
+                {
+                    "Entity": "Comment"
+                }
+            }
+        }
+    }
+}

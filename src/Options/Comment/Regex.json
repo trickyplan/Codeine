@@ -1,0 +1,87 @@
+{
+    "Regex":
+    {
+        "Страница списка комментариев к одной сущности":
+        {
+            "Match":"^/comments/(.*)/(.*)/page(\\d+)$",
+            "Service":"Entity.List",
+            "Method":"Do",
+            "Call":
+            {
+                "Entity": "Comment",
+                "Page":  "$3",
+                "Where":
+                {
+                    "Entity": "$1",
+                    "Object": "$2"
+                },
+                "Sort":
+                {
+                    "Created": "DESC"
+                }
+            }
+        },
+        "Список комментариев к одной сущности":
+        {
+            "Match":"^/comments/(.*)/(.*)$",
+            "Service":"Entity.List",
+            "Method":"Do",
+            "Call":
+            {
+                "Entity": "Comment",
+                "Where":
+                {
+                    "Entity": "$1",
+                    "Object": "$2"
+                },
+                "Sort":
+                {
+                    "Created": "DESC"
+                }
+            }
+        },
+        "Страница списка комментариев":
+        {
+            "Match":"^/comments/page(\\d+)$",
+            "Service":"Entity.List",
+            "Method":"Do",
+            "Call":
+            {
+                "Entity": "Comment",
+                "Page":  "$1",
+                "Sort":
+                {
+                    "Created": "DESC"
+                }
+            }
+        },
+        "Создать комментарий":
+        {
+            "Match":"^/comment/(.*)/(.*)$",
+            "Service":"Entity.Create",
+            "Method":"Do",
+            "Call":
+            {
+                "Entity": "Comment",
+                "Data":
+                [
+                    {
+                        "Entity": "$1",
+                        "Object": "$2"
+                    }
+                ]
+            }
+        },
+        "Комментарий":
+        {
+            "Match":"^/comment/(.*)$",
+            "Service":"Entity.Show.Static",
+            "Method":"Do",
+            "Call":
+            {
+                "Entity": "Comment",
+                "Where": "$1"
+            }
+        }
+    }
+}

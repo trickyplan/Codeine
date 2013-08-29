@@ -19,8 +19,7 @@
 
 .block, .block-bordered
 {
-    border-radius: 4px;
-    padding: 12px;
+    padding: 18px 10px;
     margin: 4px;
 }
 
@@ -176,4 +175,9 @@ tr.Important
 .table thead th
 {
     padding: 12px 10px;
+}
+
+.avatar
+{
+    border: 1px solid lightgray;
 }

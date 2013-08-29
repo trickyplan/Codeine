@@ -9,12 +9,11 @@
 
     setFn('Write', function ($Call)
     {
-        if (isset($Call['Value']) && is_scalar($Call['Value']))
-            return $Call['Value'];
+        $Call['Scope'] = strtolower($Call['Entity']);
 
         if ($Call['Value']['error'] == 0)
         {
-            $Call['ID'] = F::Run('Security.UID', 'Get',$Call);
+            $Call['ID'] = F::Run('Security.UID', 'Get', $Call);
             $Call['Name'] = F::Live($Call['Node']['Naming'], $Call);
 
             return F::Run('IO', 'Execute', $Call,

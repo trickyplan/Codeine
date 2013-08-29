@@ -181,7 +181,7 @@
 
     setFn('Upload', function ($Call)
     {
-        $Call['Fullname'] = $Call['Node']['Scope'].'/'.$Call['Name'];
+        $Call['Fullname'] = $Call['Scope'].'/'.$Call['Name'];
 
         if ($Call['Value']['error'] == 0)
         {

@@ -19,3 +19,13 @@
     {
         return F::Run('System.GeoIP', 'City', $Call);
     });
+
+    setFn('Photo', function ($Call)
+    {
+        if (isset($Call['Data']['Photo']) && !empty($Call['Data']['Photo']))
+            $Photo = '/Public/uploads/user/'.$Call['Data']['Photo']; // FIXME I'm shitcode.
+        else
+            $Photo = F::Run('Services.Avatar.Gravatar', 'Get', ['EMail' => $Call['Data']['EMail']]);
+
+        return $Photo;
+    });

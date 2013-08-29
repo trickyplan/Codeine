@@ -12,6 +12,7 @@
         foreach ($Call['Parsed'][2] as $Ix => $Match)
         {
             $Thumb = json_decode(json_encode(simplexml_load_string(html_entity_decode('<thumb>'.$Match.'</thumb>'))),true);
+
             // FIXME Абстрагировать этот пиздец
 
             if (isset($Thumb['Default']))
@@ -19,10 +20,10 @@
             else
                 $Thumb['Default'] = $Call['Default'];
 
-            if (is_string($Thumb['URL']))
+            if (isset($Thumb['URL']) && is_string($Thumb['URL']))
             {
-                if (isset($Thumb['Remote']) && !empty($Thumb['Remote']) && preg_match('/^http.*/', $Thumb['Remote']))
-                    $Filename = $Thumb['Remote'];
+                if (preg_match('/^http.*/', $Thumb['URL']))
+                    $Filename = $Thumb['URL'];
                 else
                 {
                     $Filename = Root . '/' . $Thumb['URL'];
@@ -33,8 +34,11 @@
                             $Filename = $Thumb['Default'];
                         else
                             $Filename = F::findFile($Thumb['Default']);
-                    } // FIXME Конфиг
+                    }
                 }
+
+
+                     // FIXME Конфиг
             }
 
             //crop and resize the image

@@ -1,0 +1,36 @@
+{
+    "Links":
+    {
+        "/comments":
+        {
+            "Service":"Entity.List",
+            "Method":"Do",
+            "Call":{
+                "Entity": "Comment",
+                "Sort":
+                {
+                    "Created": false
+                }
+            }
+        },
+        "/comments.rss":
+        {
+            "Service":"Entity.List",
+            "Method":"Do",
+            "Call":
+            {
+                "Renderer":
+                {
+                    "Service": "View.RSS",
+                    "Method": "Render"
+                },
+                "Entity": "Comment",
+                "Link": "/comments",
+                "Sort":
+                {
+                    "Created": false
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,58 @@
+{
+    "Mixins": ["Mixins.UGC", "Mixins.Text", "Mixins.CRUD"],
+    "Storage": "Primary",
+    "EPP": 5,
+    "Sort":
+    {
+        "Created": false
+    },
+    "Nodes":
+    {
+        "ID":
+        {
+            "Type": "Numeral.Integer",
+            "Hooks":
+            {
+                "beforeEntityCreate":
+                {
+                    "Service": "Security.UID.Count",
+                    "Method": "Get",
+                    "Call":
+                    {
+                        "Entity": "Comment"
+                    }
+                }
+            }
+        },
+        "Body":
+        {
+            "Type": "Literal.Text",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textarea"
+                }
+            }
+        },
+        "Entity":
+        {
+            "Type": "Literal.String"
+        },
+        "Object":
+        {
+            "Type": "Numeral.Integer"
+        }
+    },
+    "Hooks":
+    {
+        "afterCreatePost":
+        {
+            "Restore URL":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "RestoreURL"
+            }
+        }
+    }
+}
