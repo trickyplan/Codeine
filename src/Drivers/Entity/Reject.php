@@ -35,7 +35,6 @@
 
             F::Run('Entity', 'Update', $Call,
             [
-                'One' => true,
                 'Data' =>
                 [
                     'Status' => -1,
