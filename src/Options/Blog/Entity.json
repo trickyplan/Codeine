@@ -27,6 +27,8 @@
         "Title":
         {
             "Type": "Literal.String",
+            "Weight": 200,
+            "Required": true,
             "Widgets":
             {
                 "Write":
