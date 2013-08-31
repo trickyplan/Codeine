@@ -11,6 +11,9 @@
     {
         $Call['Scope'] = strtolower($Call['Entity']);
 
+        if (is_scalar($Call['Value']))
+            return $Call['Value'];
+
         if ($Call['Value']['error'] == 0)
         {
             $Call['ID'] = F::Run('Security.UID', 'Get', $Call);
