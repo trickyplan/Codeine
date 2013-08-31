@@ -24,8 +24,6 @@
                 $Call['Run'] = $Call['Links'][$Call['Run']];
             }
         }
-        else
-            die('Static routes table corrupted'); // FIXME
 
         unset($Call['Links']);
         return $Call;
@@ -41,8 +39,6 @@
                     $Call['Link'] = $Link;
             }
         }
-        else
-            die('Static routes table corrupted'); // FIXME
 
         return $Call;
     });

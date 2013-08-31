@@ -191,7 +191,7 @@
                 return $Call['Name'];
             }
             else
-                die($Call['Value']['tmp_name']);
+                F::Log('Upload failed '.$Call['Value']['tmp_name'], LOG_ERR);
         }
 
         return null;

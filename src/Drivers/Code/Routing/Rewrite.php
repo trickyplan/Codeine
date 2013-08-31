@@ -29,8 +29,6 @@
                     ];
             }
         }
-        else
-            die('Rewrite routes table corrupted'); // FIXME
 
         return $Call;
     });

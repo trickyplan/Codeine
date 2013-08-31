@@ -17,27 +17,6 @@
                     "Location": "/"
                 }
             }
-        },
-        "Authenticating":
-        {
-            "Failed":
-            {
-                "Show Message":
-                {
-                    "Output":
-                    {
-                        "Message":
-                        {
-                            "Incorrect  ":
-                            {
-                                "Type": "Block",
-                                "Class": "alert alert-danger",
-                                "Value": "Аутентификация не удалась"
-                            }
-                        }
-                    }
-                }
-            }
         }
     }
 }
