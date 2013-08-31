@@ -1,9 +1,8 @@
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
-            <label class="control-label" for="<k>Name</k>"> <l><k>Label</k></l>:</label>
-            <div class="controls">
-                <input class="Pair_<k>Name</k> span12"
+            <label for="<k>Name</k>"> <l><k>Label</k></l>:</label>
+                <input class="form-control"
                        id="<k>Name</k>"
                        type="password"
                        data-minlength="4"
@@ -13,17 +12,15 @@
                         value="<k>Value</k>"
                         <block>placeholder="<k>Placeholder</k>"</block>
                         <block>pattern="<k>Regex</k>"</block> />
-            </div>
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group">
-            <label class="control-label" for="<k>Name</k>2"> Повторите пароль:</label>
-            <div class="controls">
-                <input data-equals="<k>Name</k>" class="Pair_<k>Name</k> span12" id="<k>Name</k>2" type="password" <block>required="<k>Require
+            <label for="<k>Name</k>2"> Повторите пароль:</label>
+                <input data-equals="<k>Name</k>"
+                       class="form-control" type="password" <block>required="<k>Require
                 d</k>"</block>
-                autocomplete="off" value="<k>Value</k>" placeholder="Пароли должны совпадать"/>
-            </div>
+                autocomplete="off" value="<k>Value</k>" placeholder="Пароли должны совпадать" />
         </div>
     </div>
 </div>

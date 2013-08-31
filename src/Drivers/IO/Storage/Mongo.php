@@ -201,6 +201,6 @@
         else
             $Cursor = $Call['Link']->$Call['Scope']->find();
 
-        return $Cursor->count()+1;
+        return $Cursor->sort(['ID' => SORT_DESC])+1;
     });
 
