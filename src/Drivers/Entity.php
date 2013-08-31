@@ -183,18 +183,19 @@
 
                 $Call = F::Hook('beforeEntityDelete', $Call);
 
-        foreach ($Data as $cData)
-        {
-            $Call['Data'] = $cData;
-                    unset($Call['Data']);
+        if ($Data !== null)
+            foreach ($Data as $cData)
+            {
+                $Call['Data'] = $cData;
+                        unset($Call['Data']);
 
-                    F::Run('IO', 'Write', $Call);
+                        F::Run('IO', 'Write', $Call);
 
-                    if(isset($Call['Where']))
-                        $Call['Data'] = $Call['Current'];
+                        if(isset($Call['Where']))
+                            $Call['Data'] = $Call['Current'];
 
-            $Call = F::Hook('afterEntityDelete', $Call);
-        }
+                $Call = F::Hook('afterEntityDelete', $Call);
+            }
 
         $Call = F::Hook('afterOperation', $Call);
 

@@ -13,7 +13,7 @@
 
         for ($IC = 1; $IC <= $Call['Stars']; $IC++)
         {
-            $StarData = array('Num' => $IC);
+            $StarData = ['Num' => $IC];
 
             if (isset($Call['Value']) && $Call['Value'] == $IC)
                 $StarData['Checked'] = true;
