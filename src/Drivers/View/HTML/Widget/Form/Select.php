@@ -17,7 +17,7 @@
          if (isset($Call['Multiple']))
              $Call['Name'] .= '[]';
 
-         if (!isset($Call['Required']) or !$Call['Required'])
+         if ((!isset($Call['Required']) or !$Call['Required']) && !isset($Call['Options'][0]))
              $Call['Options'][0] = 'No';
 
          foreach ($Call['Options'] as $Key => $Option)

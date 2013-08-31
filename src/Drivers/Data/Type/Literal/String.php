@@ -9,7 +9,7 @@
 
     setFn('Write', function ($Call)
     {
-        return (string) filter_var($Call['Value'], FILTER_SANITIZE_STRING);
+        return (string) $Call['Value'];
     });
 
     setFn(['Read', 'Where'], function ($Call)

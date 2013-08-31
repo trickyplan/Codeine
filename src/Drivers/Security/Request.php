@@ -9,6 +9,6 @@
 
     setFn('Filter', function ($Call)
     {
-        $Call['Request'] = filter_var_array($Call['Request'], FILTER_SANITIZE_SPECIAL_CHARS);
+
         return $Call;
     });

@@ -4,16 +4,32 @@
 <subtitle><k>Fullname</k></subtitle>
 <breadcrumb href="/user/<k>ID</k>"><k>Fullname</k></breadcrumb>
 
-<div class="page-header">
-    <img class="img-rounded pull-left" src="<fn>
-                    <Service>Services.Avatar.Gravatar</Service>
-                    <Method>Get</Method>
-                    <Call>
-                        <EMail><k>EMail</k></EMail>
-                    </Call></fn>&amp;s=240" alt="<k>Fullname</k>" title="<k>Fullname</k>" width="120" height="120"/>
-    <h2><k>Fullname</k></h2>
-    <h4><k>Location</k>,  <entity>Country:<k>Country</k></entity></h4>
-    <div class="clearfix"></div>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-1">
+                <thumb>
+                    <URL>
+                        <k>Avatar</k>
+                    </URL>
+                    <Width>100</Width>
+                    <Class>img img-responsive</Class>
+                </thumb>
+            </div>
+            <div class="col-md-11">
+                <h2>
+                    <k>Fullname</k>
+                </h2>
+                <h4>
+                    <k>Location</k>
+                    ,
+                    <entity>Country:
+                        <k>Country</k>
+                    </entity>
+                </h4>
+            </div>
+        </div>
+    </div>
 </div>
 
 <table class="table table-striped">
