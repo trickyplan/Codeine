@@ -25,7 +25,9 @@
 
     setFn('Photo', function ($Call)
     {
-        if (isset($Call['Data']['Photo']) && !empty($Call['Data']['Photo']))
+        if (preg_match('/^http.*/', $Call['Data']['Photo']))
+            $Photo = $Call['Data']['Photo'];
+        elseif (isset($Call['Data']['Photo']) && !empty($Call['Data']['Photo']))
             $Photo = '/Public/uploads/user/'.$Call['Data']['Photo']; // FIXME I'm shitcode.
         else
             $Photo = F::Run('Services.Avatar.Gravatar', 'Get', ['EMail' => $Call['Data']['EMail']]);
