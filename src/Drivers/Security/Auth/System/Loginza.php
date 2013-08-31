@@ -60,7 +60,6 @@
                 $Call['User'] = F::Run('Entity','Create',
                     [
                         'Entity' => 'User',
-                        'One' => true,
                         'Data'  => $UserData
                     ])['Data'];
 
@@ -71,7 +70,6 @@
                 $Call['User'] = F::Run('Entity','Update',
                     [
                          'Entity' => 'User',
-                         'One' => true,
                          'Where' =>
                          [
                              'ID' => $Call['User']['ID']
