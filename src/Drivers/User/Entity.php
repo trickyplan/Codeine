@@ -17,7 +17,10 @@
 
     setFn('Location', function ($Call)
     {
-        return F::Run('System.GeoIP', 'City', $Call);
+        if ($Call['Data']['ID'] == $Call['Session']['User']['ID'])
+            return F::Run('System.GeoIP', 'City', $Call);
+        else
+            return $Call['Data']['Location'];
     });
 
     setFn('Photo', function ($Call)
