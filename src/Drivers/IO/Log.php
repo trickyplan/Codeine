@@ -25,7 +25,7 @@
                     'IO', 'Write', $Call,
                     [
                         'Storage' => $Channel,
-                        'ID' => $Call['Host'].$Call['URL'],
+                        'ID' => 'Log: '.$Call['Host'].$Call['URL'],
                         'Data!' => $Messages
                     ]
                 );
