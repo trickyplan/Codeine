@@ -27,6 +27,7 @@
         "Body":
         {
             "Type": "Literal.Text",
+            "Required": true,
             "Widgets":
             {
                 "Write":

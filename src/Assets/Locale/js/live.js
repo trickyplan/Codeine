@@ -18,13 +18,15 @@ $(document).ready(function(){
                     },
                     success: function (data)
                     {
-                        el.html(translation);
+                        if (data == true)
+                            el.html(translation);
+                        else
+                            el.html('Localization failed');
                     }
                 }
             );
-
-            return false;
         }
+            return false;
 
     });
 });

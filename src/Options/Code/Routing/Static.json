@@ -34,7 +34,12 @@
         "/translate":
         {
             "Service": "Locale.Add",
-            "Method": "Do"
+            "Method": "Do",
+            "Renderer":
+            {
+                "Service": "View.JSON",
+                "Method": "Render"
+            }
         },
         "/sitemap.xml":
         {

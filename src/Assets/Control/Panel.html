@@ -2,30 +2,37 @@
 <subtitle><l>Control.Panel:Title</l></subtitle>
 
 <breadcrumb href="/control/<call>Bundle</call>"><l><call>Bundle</call>.Control:Title</l></breadcrumb>
+
 <subtitle><l><call>Bundle</call>.Control:Title</l></subtitle>
 
-<div class="navbar">
-    <div class="navbar-inner">
-        <a href="/" class="brand"><call>Project.Title</call></a>
-        <ul class="nav">
-            <li><a href="/control"><l>Control.Panel:Title</l></a></li>
-        </ul>
-        <div class="pull-right">
+<nav class="navbar-inverse" role="navigation">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+              <span class="sr-only">Навигация</span>
+            </button>
+            <a class="navbar-brand" href="/">
+                <l>Control.Panel:Title</l> <call>Project.Title</call>
+            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
             <exec>
                 <Service>User.Cabinet</Service>
                 <Method>Do</Method>
             </exec>
         </div>
-    </div>
-</div>
+        <div class="clearfix"></div>
+    </nav>
 <breadcrumbs/>
-<div class="row-fluid">
-    <div class="span2">
-        <div class="hidden-print"><place>Navigation</place></div>
-    </div>
-    <div class="span10">
-        <div class="hidden-print"><place>Sidebar</place></div>
-        <div class="clearfix spaced"></div>
-        <place>Content</place>
+
+<div class="container liquid">
+    <div class="row">
+        <div class="col-lg-2">
+            <div class="hidden-print"><place>Navigation</place></div>
+        </div>
+        <div class="col-lg-10">
+            <place>Sidebar</place>
+            <hr/>
+            <place>Content</place>
+        </div>
     </div>
 </div>

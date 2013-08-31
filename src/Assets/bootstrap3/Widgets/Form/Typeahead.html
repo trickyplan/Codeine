@@ -1,9 +1,9 @@
-<div class="control-group">
+<div class="form-group">
     <label class="control-label" for="<k>Name</k>"> <l><k>Label</k></l>:
             <if value="<k>Required</k>" eq="1"><span class="required-star">*</span></if>
 </label>
     <div class="controls">
-        <input id="<k>ID</k>" name="<k>Name</k>" <block>required="<k>Required</k>" </block>  class="span12" type="text" data-provide="typeahead">
+        <input id="<k>ID</k>" name="<k>Name</k>" <block>required="<k>Required</k>" </block>  class="form-control" type="text" data-provide="typeahead">
     </div>
 </div>
 <jsrun>$('#<k>ID</k>').typeahead({source: <k>Options</k>});</jsrun>

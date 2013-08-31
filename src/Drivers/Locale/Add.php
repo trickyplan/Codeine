@@ -31,7 +31,7 @@
         if ($Locale === null)
             $Locale = [$Token => $Call['Request']['Translation']];
 
-        asort($Locale);
+        ksort($Locale);
 
         if (null !== F::Run('IO', 'Write',
                     array (
@@ -40,11 +40,10 @@
                           'Where'   => $ID,
                           'Data' => $Locale
                     )))
+
             $Call['Output']['Content'] = true;
         else
             $Call['Output']['Content'] = false;
-
-        $Call['Renderer'] = 'View.JSON';
 
         return $Call;
     });

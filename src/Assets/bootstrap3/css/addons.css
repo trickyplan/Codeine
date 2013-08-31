@@ -1,0 +1,45 @@
+.img-spaced
+{
+    margin: 4px 8px;
+}
+
+.navbar-default, .navbar-inverse
+{
+    border-radius: 0;
+}
+
+.table thead
+{
+    background-color: #222;
+    border: 1px solid #000000;
+    color: #cccccc;
+}
+
+.table thead a, .table thead a:hover
+{
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.table thead>tr>th
+{
+    padding: 14px 10px;
+}
+
+@media screen and (min-width: 1600px) {
+    .liquid {
+        max-width: 1570px;
+    }
+}
+
+@media screen and (min-width: 1900px) {
+    .liquid {
+        max-width: 1870px;
+    }
+}
+
+@media screen and (min-width: 2560px) {
+    .liquid {
+        max-width: 2530px;
+    }
+}

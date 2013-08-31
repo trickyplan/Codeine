@@ -3,6 +3,7 @@
     "MaxPasses": 3,
     "Parslets":
     [
+        "Far",
         "Exec",
         "Layout",
         "Far",

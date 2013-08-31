@@ -2,20 +2,15 @@
 <breadcrumb href="/comment/<k>ID</k>">Комментарий №<k>ID</k></breadcrumb>
 <h2 class="page-header">Комментарий №<k>ID</k> к «<entity><k>Entity</k>:<k>Object</k></entity>»</h2>
 
-<div class="block-bordered">
-    <div class="row-fluid">
-        <div class="span2 center">
-            <entity template="Avatar">User:<k>User</k></entity>
-        </div>
-        <div class="span10">
-            <k>Body</k>
-        </div>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <entity template="Avatar">User:<k>User</k></entity>
+        <k>Body</k>
     </div>
-    <div class="pull-right muted">
-        <small>
-            <entity>User:<k>User</k></entity>,
-            <a href="/comment/<k>ID</k>"><datetime engine="Period"><k>Created</k></datetime></a>
-        </small>
+    <div class="panel-footer">
+      <entity>User:<k>User</k></entity>
+      <a href="/comment/<k>ID</k>" class="pull-right">
+            <datetime engine="Period"><k>Created</k></datetime>
+      </a>
     </div>
-    <div class="clearfix"></div>
 </div>

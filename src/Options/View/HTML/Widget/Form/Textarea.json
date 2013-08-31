@@ -6,7 +6,7 @@
         {
             "ID": "",
             "Name": "",
-            "Class": "span12",
+            "Class": "form-control",
             "Placeholder": "",
             "Value": "",
             "Rows": 5

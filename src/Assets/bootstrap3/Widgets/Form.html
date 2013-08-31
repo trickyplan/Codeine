@@ -1,10 +1,13 @@
-<form id="form" method="post" class="form-vertical" action="<k>Action</k>" enctype="multipart/form-data" autocomplete="on">
+<div class="panel panel-default">
+    <div class="panel-body">
+        <form role="form" method="post" action="<k>Action</k>" enctype="multipart/form-data" autocomplete="on">
     <input type="hidden" name="BackURL" value="<call>Request.BackURL</call>" />
 
     <place>Form</place>
-    <div class="form-actions">
-        <button type="submit" class="btn btn-large btn-success">
-            <l><call>Entity</call>.<call>Purpose</call>:Submit</l>
-        </button>
-    </div>
+
+    <button type="submit" class="btn btn-large btn-success">
+        <l><k>Entity</k>.Control:Options.<k>Purpose</k></l>
+    </button>
 </form>
+    </div>
+</div>

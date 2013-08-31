@@ -1,18 +1,12 @@
-<div class="block-bordered">
-    <img class="img-rounded spaced pull-left" src="<fn>
-                    <Service>Services.Avatar.Gravatar</Service>
-                    <Method>Get</Method>
-                    <Call>
-                        <EMail><k>EMail</k></EMail>
-                    </Call></fn>&amp;s=60" alt="<k>Fullname</k>" title="<k>Fullname</k>" width="60" height="60"/>
-
-    <div class="pull-right">
-        <ul class="nav nav-pills">
-            <li><a href="/control/<call>Entity</call>/Update/<k>ID</k>"><l><call>Entity</call>.Control:Update</l></a></li>
-            <li><a href="/control/<call>Entity</call>/Delete/<k>ID</k>"><l><call>Entity</call>.Control:Delete</l></a></li>
-        </ul>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <k>ID</k>. <k>Fullname</k>
     </div>
-    <a href="/control/User/Show/<k>ID</k>"><h3><k>Fullname</k></h3></a>
-    <a href="mailto:<k>EMail</k>"><k>EMail</k></a>
-    <div class="clearfix"></div>
+    <div class="panel-body">
+        <div class="pull-right">
+            <layout>Control:Pills/RUD</layout>
+        </div>
+        <div>EMail: <a href="mailto:<k>EMail</k>"><k>EMail</k></a></div>
+        <div><datetime><k>Created</k></datetime></div>
+    </div>
 </div>
