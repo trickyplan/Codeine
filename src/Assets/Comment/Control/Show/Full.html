@@ -1,20 +1,15 @@
-<subtitle>«<k>Title</k>»</subtitle>
-<breadcrumb href="/blog/<k>Slug</k>"><k>Title</k></breadcrumb>
-<div class="spaced">
-    <div class="header">
-        <h1 class="red"><k>Title</k></h1>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="/comment/<k>ID</k>">Комментарий №<k>ID</k></a>
     </div>
-    <div class="well">
-        <strong>Опубликовано:</strong> <datetime><k>Created</k></datetime><br/>
-        <strong>Категория:</strong> <a href="/blog/category/<k>Category</k>"><k>Category</k></a><br/>
-        <k>Words</k> слов, <k>Chars</k> знаков без пробелов.
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="spaced">
-                <k>Description</k>
-                <k>Body</k>
-            </div>
+    <div class="panel-body">
+        <div class="pull-right">
+            <layout>Control.Pills:RUD</layout>
         </div>
+        <k>Body</k>
+    </div>
+    <div class="panel-footer">
+            <div class='pull-right'><datetime><k>Created</k></datetime></div>
+        <entity>User:<k>User</k></entity> на <entity><k>Entity</k>:<k>Object</k></entity>
     </div>
 </div>
