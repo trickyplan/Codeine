@@ -9,7 +9,7 @@
 
     setFn ('Process', function ($Call)
     {
-        $Call['Output'] = preg_replace ('/^\\s{2,}|\\s{2,}$/m', '', $Call['Output']);
+        $Call['Output'] = preg_replace ('/~<pre>\\s{2,}|\\s{2,}$/m', '', $Call['Output']);
 
         return $Call;
     });

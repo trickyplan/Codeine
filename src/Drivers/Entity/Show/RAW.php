@@ -29,11 +29,7 @@
             $Call = F::Hook('NotFound', $Call);
         else
         {
-            $Call['Output']['Content'][] = [
-                'Type' => 'Block',
-                'Class' => '',
-                'Value' => '<pre>'.json_encode($Call['Data'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES).'</pre>'
-            ];
+            $Call['Output']['Content'][] = '<pre>'.json_encode($Call['Data'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES).'</pre>';
 
             $Call = F::Hook('afterShow', $Call);
         }
