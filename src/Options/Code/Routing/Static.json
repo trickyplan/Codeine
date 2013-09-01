@@ -44,7 +44,12 @@
         "/sitemap.xml":
         {
             "Service": "SEO.Sitemap",
-            "Method": "Do"
+            "Method": "Do",
+            "Renderer":
+            {
+                "Service": "View.XML",
+                "Method": "Render"
+            }
         },
         "/monitor.json":
         {

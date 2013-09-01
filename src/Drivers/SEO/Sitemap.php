@@ -19,9 +19,6 @@
     {
         $Links = [];
 
-        $Call['Headers']['Content-type:'] = 'text/xml; charset=utf-8';
-
-        $Call['Renderer'] = 'View.XML';
         $Call['Namespace'] = 'http://www.sitemaps.org/schemas/sitemap/0.9';
         $Call['Attributes'] =
             array(
@@ -60,9 +57,6 @@
             'priority'    => 1
         ]]];
         ;
-        $Call['Headers']['Content-type:'] = 'text/xml; charset=utf-8';
-
-        $Call['Renderer'] = 'View.XML';
         $Call['Namespace'] = 'http://www.sitemaps.org/schemas/sitemap/0.9';
         $Call['Attributes'] =
             array(
@@ -97,9 +91,6 @@
     setFn('Entity', function ($Call)
     {
         $Call['Links'] = [];
-        $Call['Headers']['Content-type:'] = 'text/xml; charset=utf-8';
-
-        $Call['Renderer'] = 'View.XML';
         $Call['Namespace'] = 'http://www.sitemaps.org/schemas/sitemap/0.9';
         $Call['Attributes'] =
             array(

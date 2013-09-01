@@ -69,6 +69,11 @@
             "Match": "/sitemap/(.+).xml",
             "Service": "SEO.Sitemap",
             "Method": "Entity",
+            "Renderer":
+            {
+                "Service": "View.XML",
+                "Method": "Render"
+            },
             "Call":
             {
                 "Entity": "$1"
