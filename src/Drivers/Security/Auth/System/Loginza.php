@@ -42,8 +42,8 @@
                                 : $Response['name']['first_name'].' '.$Response['name']['last_name']];
             // FIXME
 
-            foreach ($Call['Loginza']['Map'] as $Own => $Provider)
-                $UserData[$Own] = F::Dot($Response, $Provider);
+            foreach ($Call['Loginza']['Map'] as $Own => $Their)
+                $UserData[$Own] = F::Dot($Response, $Their);
 
             // Проверить, есть ли такой пользователь
 
@@ -66,7 +66,7 @@
                             'Entity' => 'User',
                             'Data'  =>
                             [
-                                $Provider => $UserData
+                                strtr($Provider, '.','') => $UserData
                             ]
                         ])['Data'];
 
