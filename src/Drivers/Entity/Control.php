@@ -67,7 +67,12 @@
                          'Entity' => $Call['Bundle']
                     ]);
 
-        $Call['Renderer'] = 'View.JSON';
+        $Call['Renderer'] =
+            [
+                'Service' =>  'View.JSON',
+                'Method' =>  'Render'
+            ];
+
         $Call['Output']['Content'] = $Elements;
 
         return $Call;

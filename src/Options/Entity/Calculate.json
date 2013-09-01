@@ -1,3 +1,7 @@
 {
-    "Renderer": "View.Plaintext"
+    "Renderer":
+    {
+        "Service": "View.Plaintext",
+        "Method": "Render"
+    }
 }

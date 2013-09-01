@@ -21,9 +21,11 @@
             "Method":"Do",
             "Call":
             {
-                "Renderer": "View.RSS",
-                "Title": "Статьи MedGreat.com",
-                "Description": "Интересное о медицине",
+                "Renderer":
+                {
+                    "Service": "View.RSS",
+                    "Method": "Render"
+                },
                 "Entity": "Article",
                 "Sort":
                 {

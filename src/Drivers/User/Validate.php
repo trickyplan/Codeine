@@ -11,8 +11,6 @@
     {
         $Element = F::Run('Entity', 'Read', array('Entity' => 'User', 'Where' => array($Call['Request']['Key'] => $Call['Request']['Value'])));
 
-        $Call['Renderer'] = 'View.JSON';
-
         $Call['Output']['Content'] = empty($Element);
 
         return $Call;

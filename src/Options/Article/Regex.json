@@ -102,7 +102,11 @@
             "Method":"Do",
             "Call":
             {
-                "Renderer": "View.RSS",
+                "Renderer":
+                {
+                    "Service": "View.RSS",
+                    "Method": "Render"
+                },
                 "Title": "Статьи",
                 "Description": "Интересное о",
                 "Entity": "Article",

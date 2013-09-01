@@ -55,19 +55,31 @@
         {
             "Service": "Monitor",
             "Method": "Do",
-            "Renderer": "View.JSON"
+            "Renderer":
+            {
+                "Service": "View.JSON",
+                "Method": "Render"
+            }
         },
         "/uploader":
         {
             "Service": "IO.Uploader",
             "Method": "Do",
-            "Renderer": "View.JSON"
+            "Renderer":
+            {
+                "Service": "View.JSON",
+                "Method": "Render"
+            }
         },
         "/robots.txt":
         {
             "Service": "SEO.Robots",
             "Method": "Do",
-            "Renderer": "View.Plaintext"
+            "Renderer":
+            {
+                "Service": "View.Plaintext",
+                "Method": "Render"
+            }
         }
     }
 }
