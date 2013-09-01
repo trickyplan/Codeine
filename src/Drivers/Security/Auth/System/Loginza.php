@@ -30,8 +30,10 @@
 
         if (isset($Response['identity']))
         {
+            $Provider = parse_url($Response['provider'], PHP_URL_HOST);
+
             $UserData = [
-                        'External' => parse_url($Response['provider'], PHP_URL_HOST),
+                        'External' => $Provider,
                         'EMail' => $Response['identity'],
                         'Status' => 1,
                         'Password' => sha1(rand()),
@@ -54,16 +56,32 @@
                     ]
                 ]);
 
-            // Если нет, зарегистрировать
+            // Если нет, зарегистрировать или прикрепить
             if (empty($Call['User']))
             {
-                $Call['User'] = F::Run('Entity','Create',
-                    [
-                        'Entity' => 'User',
-                        'Data'  => $UserData
-                    ])['Data'];
+                if (isset($Call['Session']['User']['ID']))
+                {
+                    $Call['User'] = F::Run('Entity','Create',
+                        [
+                            'Entity' => 'User',
+                            'Data'  =>
+                            [
+                                $Provider => $UserData
+                            ]
+                        ])['Data'];
 
-                F::Log('User registered '.$Call['User']['ID'], LOG_INFO);
+                    F::Log('Account attached to user'.$Call['User']['ID'], LOG_INFO);
+                }
+                else
+                {
+                    $Call['User'] = F::Run('Entity','Create',
+                        [
+                            'Entity' => 'User',
+                            'Data'  => $UserData
+                        ])['Data'];
+
+                    F::Log('User registered '.$Call['User']['ID'], LOG_INFO);
+                }
             }
             else
             {

@@ -3,7 +3,7 @@
     {
         "Content-type:": "text/html; charset=utf-8"
     },
-    "Widget Set": "bootstrap",
+    "Widget Set": "bootstrap3",
     "Extension": ".html",
     "Layout": "<place>Content</place>",
     "Place Pattern": "<place>(.+?)<\/place>",
