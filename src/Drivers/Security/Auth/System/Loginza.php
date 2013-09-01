@@ -61,12 +61,13 @@
             {
                 if (isset($Call['Session']['User']['ID']))
                 {
-                    $Call['User'] = F::Run('Entity','Create',
+                    $Call['User'] = F::Run('Entity','Update',
                         [
                             'Entity' => 'User',
+                            'One' => true,
                             'Data'  =>
                             [
-                                strtr($Provider, '.','') => $UserData
+                                strtr($Provider, ['.'=>'']) => $Response
                             ]
                         ])['Data'];
 
