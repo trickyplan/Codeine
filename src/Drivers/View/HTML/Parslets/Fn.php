@@ -15,7 +15,10 @@
 
               $Match = json_decode(json_encode($Match), true);
 
-              $Output = F::Live($Match, $Call);
+              foreach ($Call['Inherited'] as $Key)
+                  $Match[$Key] = $Call[$Key];
+
+              $Output = F::Live($Match);
 
               if (is_array($Output))
                   $Output = implode(',', $Output);
