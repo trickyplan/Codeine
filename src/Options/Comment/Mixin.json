@@ -1,0 +1,17 @@
+{
+    "Nodes":
+    {
+        "Comments":
+        {
+            "Type": "Numeral.Integer",
+            "Hooks":
+            {
+                "afterEntityRead":
+                {
+                    "Service": "Comment.Count",
+                    "Method": "Get"
+                }
+            }
+        }
+    }
+}

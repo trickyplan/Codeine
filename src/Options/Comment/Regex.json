@@ -29,6 +29,10 @@
             "Call":
             {
                 "Entity": "Comment",
+                "Custom Templates":
+                {
+                    "List": "Object"
+                },
                 "Where":
                 {
                     "Entity": "$1",
