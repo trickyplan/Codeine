@@ -2,21 +2,25 @@
     <li>
         <if value="<k>Status</k>" neq="1">
             <a href="/control/<call>Entity</call>/Accept/<k>ID</k>">
-                <l><call>Entity</call>.Control:Options.Accept</l>
+                <span class="glyphicon glyphicon-ok"></span>
             </a>
         </if>
         <if value="<k>Status</k>" eq="1">
-            <a href=""><l><call>Entity</call>.Control:Options.Accepted</l></a>
+            <a href="#">
+                <span class="glyphicon glyphicon-ok-sign"></span>
+            </a>
         </if>
     </li>
     <li>
         <if value="<k>Status</k>" neq="-1">
             <a href="/control/<call>Entity</call>/Reject/<k>ID</k>">
-                <l><call>Entity</call>.Control:Options.Reject</l>
+                <span class="glyphicon glyphicon-minus"></span>
             </a>
         </if>
         <if value="<k>Status</k>" eq="-1">
-            <a href=""><l><call>Entity</call>.Control:Options.Rejected</l></a>
+            <a href="#">
+                <span class="glyphicon glyphicon-minus-sign"></span>
+            </a>
         </if>
     </li>
     <li>

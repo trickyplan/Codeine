@@ -1,5 +1,5 @@
 {
-    "Mixins": ["Mixins.UGC", "Mixins.Text", "Mixins.CRUD"],
+    "Mixins": ["Mixins.UGC", "Mixins.Text", "Mixins.CRUD", "Mixins.Moderable"],
     "Storage": "Primary",
     "EPP": 5,
     "Sort":
@@ -43,17 +43,6 @@
         "Object":
         {
             "Type": "Numeral.Integer"
-        }
-    },
-    "Hooks":
-    {
-        "afterCreatePost":
-        {
-            "Restore URL":
-            {
-                "Service": "System.Interface.Web",
-                "Method": "RestoreURL"
-            }
         }
     }
 }

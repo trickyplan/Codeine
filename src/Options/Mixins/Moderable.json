@@ -29,7 +29,7 @@
     },
     "Hooks":
     {
-        "beforeAcceptDo":
+        "beforeAcceptGet":
         {
             "Store URL":
             {
@@ -45,7 +45,7 @@
                 "Method": "RestoreURL"
             }
         },
-        "beforeRejectDo":
+        "beforeRejectGet":
         {
             "Store URL":
             {

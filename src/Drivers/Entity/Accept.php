@@ -12,7 +12,7 @@
         $Call = F::Run('Entity', 'Load', $Call);
 
         if (isset($Call['Where']))
-        $Call['Where'] = F::Live($Call['Where']); // FIXME
+            $Call['Where'] = F::Live($Call['Where']); // FIXME
 
         $Call = F::Hook('beforeAcceptDo', $Call);
 
@@ -23,7 +23,9 @@
     {
         $Call = F::Hook('beforeAcceptGet', $Call);
 
-            $Call = F::Run('Entity.List', 'Do', $Call);
+            $Call = F::Run('Entity.List', 'Do', $Call, ['Context' => 'app']);
+
+        $Call['Context'] = '';
 
         $Call = F::Hook('afterAcceptGet', $Call);
 

@@ -1,0 +1,22 @@
+<div class="control-group">
+    <label class="control-label" for="<k>Name</k>"> <l><k>Label</k></l> :</label>
+    <div class="controls">
+        <input type="file" name="<k>Name</k>"
+            <block>required="<k>Required</k>"</block>
+            class="col-md-12"
+            <block>pattern="<k>Regex</k>"</block>
+            <block>placeholder="<k>Placeholder</k>"</block> />
+        <block>Максимальный размер: <k>MaxSize</k></block>
+        <block><br/>Разрешённые типы: <k>TypeHint</k></block>
+
+            <if value="<k>Value</k>" neq="">
+                <div>
+                    <small>
+                        <file><k>Value</k></file>
+                        <input type="checkbox" name="<k>Name</k>" value="0" /> Удалить
+                    </small>
+                </div>
+            </if>
+
+    </div>
+</div>

@@ -1,0 +1,9 @@
+<div class="control-group">
+    <label class="control-label" for="<k>Name</k>"> <l><k>Label</k></l>:
+            <if value="<k>Required</k>" eq="1"><span class="required-star">*</span></if>
+</label>
+    <div class="controls">
+        <input id="<k>ID</k>" name="<k>Name</k>" <block>required="<k>Required</k>" </block>  class="col-md-12" type="text" data-provide="typeahead">
+    </div>
+</div>
+<jsrun>$('#<k>ID</k>').typeahead({source: <k>Options</k>});</jsrun>

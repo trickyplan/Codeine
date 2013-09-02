@@ -1,9 +1,14 @@
-<h2>Вы уверены, что хотите принять?</h2>
-<form action="" method="post" class="form-vertical">
-    <place>Content</place>
-
-    <div class="form-actions">
-        <input type="submit" class="btn btn-success" value="Принять" />
-        <a class="btn btn-danger">Я передумал</a>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        Одобрить эти элементы?
     </div>
-</form>
+    <div class="panel-body">
+        <form role="form" method="post" action="<k>Action</k>" enctype="multipart/form-data" autocomplete="on">
+            <input type="hidden" name="BackURL" value="<call>BackURL</call>" />
+            <place>Content</place>
+
+            <input type="submit" class="btn btn-success" value="Принять" />
+            <a class="btn btn-danger">Я передумал</a>
+        </form>
+    </div>
+</div>

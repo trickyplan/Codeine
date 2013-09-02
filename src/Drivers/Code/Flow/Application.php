@@ -30,5 +30,7 @@
         // А здесь - рендеринг
         $Call = F::Hook('afterApplicationRun', $Call);
 
+        $Call['Context'] = '';
+
         return $Call;
     });

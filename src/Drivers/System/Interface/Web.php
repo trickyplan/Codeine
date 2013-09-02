@@ -74,7 +74,7 @@
     setFn('StoreURL', function ($Call)
     {
         if(!isset($Call['Request']['BackURL']) && isset($_SERVER['HTTP_REFERER']))
-            $Call['Request']['BackURL'] = $_SERVER['HTTP_REFERER'];
+            $Call['BackURL'] = $_SERVER['HTTP_REFERER'];
 
         return $Call;
     });
