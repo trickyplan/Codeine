@@ -3,7 +3,15 @@
 </breadcrumb>
 <subtitle><far><call>Where.Entity</call>:<call>Where.Object</call>:Title</far></subtitle>
 
-<entity template="Short"><call>Where.Entity</call>:<call>Where.Object</call></entity>
+<exec>
+    <Service>Entity.Show.Static</Service>
+    <Method>Do</Method>
+    <Call>
+        <Entity><k>Entity</k></Entity>
+        <Object><k>Object</k></Object>
+        <Template>Short</Template>
+    </Call>
+</exec>
 
 <h2 class="page-header"><l><call>Entity</call>.Control:Title</l></h2>
 <place>Content</place>
