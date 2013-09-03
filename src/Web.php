@@ -30,7 +30,11 @@
     {
         switch ($_SERVER['Environment'])
         {
-            case 'Production':
+            case 'Development':
+                d(__FILE__, __LINE__, $e);
+            break;
+
+            default:
                 header('HTTP/1.1 503 Service Temporarily Unavailable');
                 header('Status: 503 Service Temporarily Unavailable');
 
@@ -38,10 +42,6 @@
                     readfile(Root.'/down.html');
                 else
                     readfile(Codeine.'/down.html');
-            break;
-
-            default:
-                d(__FILE__, __LINE__, $e); ;
             break;
         }
     }
