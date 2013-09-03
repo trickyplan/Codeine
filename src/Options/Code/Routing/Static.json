@@ -21,6 +21,11 @@
                 "Key":"EMail"
             }
         },
+        "/search":
+        {
+            "Service": "Entity.Search",
+            "Method": "Do"
+        },
         "/translate":
         {
             "Service": "Locale.Add",

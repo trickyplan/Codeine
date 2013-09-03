@@ -27,6 +27,7 @@
         foreach ($Entities as $Entity)
         {
             $Call['Where'] = [];
+
             $Call['Entity'] = $Entity;
 
             $IDs = F::Run('Search', 'Query', $Call,
@@ -50,6 +51,7 @@
                 $Call = F::Run('Entity.List', 'Do',
                     $Call,
                     [
+                        'Context' => 'app',
                         'Where!' => $Where,
                         'Template' => (
                         isset($Call['Template'])?
@@ -67,9 +69,8 @@
                         'Context' => $Call['Context']
                     ];
 
-            unset($Call['Scope'], $Call['Elements']);
+            unset($Call['Scope'], $Call['Elements'], $Call['Context']);
         }
-
         return $Call;
 
      });
