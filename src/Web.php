@@ -28,7 +28,7 @@
     }
     catch (Exception $e)
     {
-        switch ($Call['Environment'])
+        switch ($_SERVER['Environment'])
         {
             case 'Production':
                 header('HTTP/1.1 503 Service Temporarily Unavailable');
