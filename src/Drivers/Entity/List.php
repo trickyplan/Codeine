@@ -45,7 +45,7 @@
             $Call['Layouts'][] =
                 [
                     'Scope' => $Call['Scope'],
-                    'ID' => (isset($Call['Table'])? $Call['Table']: 'Table'),
+                    'ID' => (isset($Call['Custom Templates']['Table'])? $Call['Custom Templates']['Table']: 'Table'),
                     'Context' => $Call['Context']
                 ];
 
