@@ -121,6 +121,22 @@
                 "Service": "System.Interface.Web",
                 "Method": "Redirect"
             }
+        },
+        "OpenID":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Services.OpenID",
+                "Session":
+                {
+                    "User":
+                    {
+                        "ID": "*"
+                    }
+                }
+            }
         }
     }
 }
