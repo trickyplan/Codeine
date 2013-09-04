@@ -9,6 +9,8 @@
 
     setFn('Entry Point', function ($Call)
     {
-        d(__FILE__, __LINE__, $Call['Request']);
+        $Call['Output']['Content'][] =
+            '<pre>'.json_encode($Call['Request']).'</pre>';
+
         return $Call;
     });
