@@ -54,7 +54,7 @@
         },
         "Status":
         {
-            "Default": 1
+            "Default": 0
         },
         "Fullname":
         {
