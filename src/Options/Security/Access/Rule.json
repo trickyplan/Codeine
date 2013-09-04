@@ -128,7 +128,7 @@
             "Weight": 50,
             "Run":
             {
-                "Service": "Service.OpenID",
+                "Service": "Services.OpenID",
                 "Session":
                 {
                     "User":

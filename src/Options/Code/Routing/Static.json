@@ -78,7 +78,7 @@
         },
         "/openid":
         {
-            "Service": "Service.OpenID",
+            "Service": "Services.OpenID",
             "Method": "Entry Point"
         }
     }
