@@ -11,18 +11,6 @@
                 "Method":"Load"
             }
         },
-        "beforeUpdatePost":
-        {
-            "Make variables alive":
-            {
-                "Service":"Entity.Nodes.Hook",
-                "Method":"Process",
-                "Call":
-                {
-                    "Purpose": "Update"
-                }
-            }
-        },
         "afterUpdatePost":
         {
             "HTTP 202":

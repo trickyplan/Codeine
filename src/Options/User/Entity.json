@@ -34,6 +34,20 @@
                 }
             }
         },
+        "Gender":
+        {
+            "Type": "List.Enum",
+            "Default": 0,
+            "Options": ["M", "F"],
+            "Localizable": true,
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Radiogroup"
+                }
+            }
+        },
         "External":
         {
             "Type": "Literal.String"
@@ -129,17 +143,6 @@
                     "Method": "Photo"
                 }
             }
-        },
-        "Created":
-        {
-            "Hooks":
-            {
-                "beforeEntityCreate":
-                {
-                    "Service":"System.Time",
-                    "Method":"Get"
-                }
-            }
         }
     },
     "Hooks":
@@ -152,19 +155,7 @@
                 "Method": "Send"
             }
         },
-        "afterDeletePost":
-        {
-            "Redirect":
-            {
-                "Service": "System.Interface.Web",
-                "Method": "Redirect",
-                "Call":
-                {
-                    "Location": "/control/User"
-                }
-            }
-        },
-        "-afterLogin":
+        "afterLogin":
         {
             "Redirect":
             {
@@ -174,22 +165,6 @@
                 {
                     "Location": "/"
                 }
-            }
-        },
-        "beforeUpdateGet":
-        {
-            "Store URL":
-            {
-                "Service": "System.Interface.Web",
-                "Method": "StoreURL"
-            }
-        },
-        "-afterUpdatePost":
-        {
-            "Restore URL":
-            {
-                "Service": "System.Interface.Web",
-                "Method": "RestoreURL"
             }
         },
         "afterLogout":

@@ -6,7 +6,8 @@
         "Map":
         {
             "Phone": "phone.mobile",
-            "Photo": "photo"
+            "Photo": "photo",
+            "Gender": "gender"
         }
     },
     "Hooks":
