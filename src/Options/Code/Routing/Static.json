@@ -12,15 +12,6 @@
             "Service":"Project.Frontpage",
             "Method":"Do"
         },
-        "/check":
-        {
-            "Service": "User.Validate",
-            "Method": "Do",
-            "Call":
-            {
-                "Key":"EMail"
-            }
-        },
         "/search":
         {
             "Service": "Entity.Search",
@@ -43,16 +34,6 @@
             "Renderer":
             {
                 "Service": "View.XML",
-                "Method": "Render"
-            }
-        },
-        "/monitor.json":
-        {
-            "Service": "Monitor",
-            "Method": "Do",
-            "Renderer":
-            {
-                "Service": "View.JSON",
                 "Method": "Render"
             }
         },
