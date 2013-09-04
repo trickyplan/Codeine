@@ -1,0 +1,10 @@
+{
+    "Mode": "Normal",
+    "Modes":
+    {
+        "Big": "Science.Math.Constant.Euler.PHP",
+        "Precise": "Science.Math.Constant.Euler.PHP",
+        "Normal": "Science.Math.Constant.Euler.PHP",
+        "Fast": "Science.Math.Constant.Euler.PHP"
+    }
+}

@@ -9,5 +9,5 @@
 
     setFn('Get', function ($Call)
     {
-        return M_PI;
+        return M_E;
     });

@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    setFn('Get', function ($Call)
+    setFn('Log', function ($Call)
     {
-        return M_PI;
+        return log($Call['X'], F::Live($Call['Base']));
     });

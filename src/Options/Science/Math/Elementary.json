@@ -1,0 +1,10 @@
+{
+    "Mode": "Normal",
+    "Modes":
+    {
+        "Big": "Science.Math.Elementary.Standart",
+        "Precise": "Science.Math.Elementary.Standart",
+        "Normal": "Science.Math.Elementary.Standart",
+        "Fast": "Science.Math.Elementary.Standart"
+    }
+}

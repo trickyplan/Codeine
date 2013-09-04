@@ -1,0 +1,11 @@
+{
+    "Mode": "Normal",
+    "Modes":
+    {
+        "Big": "Science.Math.Constant.Pi.MIT-1B",
+        "Precise": "Science.Math.Constant.Pi.PHP",
+        "Normal": "Science.Math.Constant.Pi.PHP",
+        "Fast": "Science.Math.Constant.Pi.PHP",
+        "Are you kiddin'": "Science.Math.Constant.Pi.Archimed"
+    }
+}
