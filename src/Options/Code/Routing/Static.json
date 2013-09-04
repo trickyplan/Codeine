@@ -75,6 +75,11 @@
                 "Service": "View.Plaintext",
                 "Method": "Render"
             }
+        },
+        "/openid":
+        {
+            "Service": "Service.OpenID",
+            "Method": "Entry Point"
         }
     }
 }
