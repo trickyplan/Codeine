@@ -94,7 +94,7 @@
                      'One' => true,
                      'Data' =>
                          [
-                            'Status' => true
+                            'Status' => 1
                          ]
                 ]);
 
