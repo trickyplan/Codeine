@@ -91,7 +91,6 @@
                 [
                      'Entity' => 'User',
                      'Where' => $Activation['User'],
-                     'One' => true,
                      'Data' =>
                          [
                             'Status' => 1
