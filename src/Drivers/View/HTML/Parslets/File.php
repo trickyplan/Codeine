@@ -16,7 +16,9 @@
               else
               {
                   $Pathinfo = pathinfo($Match);
-                  $Filesize = F::Run('Formats.Number.Filesize', 'Do', ['Value' => filesize($Match)]);
+                  $Filesize = F::Run('Formats.Number.Filesize', 'Do',
+                      ['Value' => filesize(Root.'/Public'.$Match)]); // FIXME
+
                   $Match = '
                   <image>
                     <Source>Formats/File:'.strtolower($Pathinfo['extension']).'.png</Source>
