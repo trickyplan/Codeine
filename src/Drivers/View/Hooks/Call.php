@@ -18,7 +18,7 @@
                     $Matched = F::Live($Matched);
 
                     if (is_array($Matched))
-                        $Matched = implode(' ', $Matched);
+                        $Matched = '#';
 
                     if (($Matched === false) || ($Matched === 0))
                         $Matched = '0';
