@@ -40,6 +40,5 @@
              }
 
          $Call ['Options'] = implode('', $Options);
-
          return $Call;
      });

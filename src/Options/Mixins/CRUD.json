@@ -1,22 +1,6 @@
 {
     "Hooks":
     {
-        "beforeCreateGet":
-        {
-            "Store URL":
-            {
-                "Service": "System.Interface.Web",
-                "Method": "StoreURL"
-            }
-        },
-        "afterCreatePost":
-        {
-            "Restore URL":
-            {
-                "Service": "System.Interface.Web",
-                "Method": "RestoreURL"
-            }
-        },
         "beforeUpdateGet":
         {
             "Store URL":
