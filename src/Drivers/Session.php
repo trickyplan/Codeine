@@ -29,7 +29,8 @@
                 [
                     'Entity' => 'Session',
                     'Where' => $Call['SID'],
-                    'One' => true
+                    'One' => true,
+                    'ReRead' => true
                 ]);
 
             if (isset($Call['Session']['Secondary']) && $Call['Session']['Secondary'] != 0)
