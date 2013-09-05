@@ -37,7 +37,7 @@
 
             if (!isset($Call['Failure']))
             {
-                $Call['Session'] = F::Run('Session', 'Write', $Call, ['Data' => ['User' => $Call['User']['ID']]]);
+                $Call = F::Run('Session', 'Write', $Call, ['Data' => ['User' => $Call['User']['ID']]]);
 
                 if ($Call['Session']['User'] == $Call['User'])
                     $Call = F::Hook('afterAuthenticatePost', $Call);

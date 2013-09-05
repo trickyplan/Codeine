@@ -78,17 +78,21 @@
                 'One' => true
             ]);
 
+        $Call['Data']['ID'] = $Call['SID'];
+
         if (null === $Call['Session'])
-            $Call['Session'] = F::Run('Entity', 'Create',
-                [
-                    'Entity' => 'Session',
-                    'Data' =>
-                    [
-                        'ID' => $Call['SID']
-                    ],
-                    'One' => true
-                ])['Data'];
+        {
+            $Call['Session'] = F::Run('Entity', 'Create', $Call,
+                 [
+                     'Entity' => 'Session',
+                     'Data' => $Call['Data'],
+                     'One' => true
+                 ])['Data'];
+
+            F::Log('Session created '.$Call['SID'], LOG_INFO);
+        }
         else
+        {
             $Call['Session'] = F::Run('Entity', 'Update',
                 [
                     'Entity' => 'Session',
@@ -96,6 +100,11 @@
                     'One' => true,
                     'Data' => $Call['Data']
                 ])['Data'];
+
+            F::Log('Session updated '.$Call['SID'], LOG_INFO);
+        }
+
+        $Call = F::Run(null, 'Initialize', $Call);
 
         return $Call;
     });
