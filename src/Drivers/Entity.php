@@ -24,7 +24,9 @@
         else
             F::Log('Model for '.$Call['Entity'].' not found', LOG_CRIT);
 
-       $Call = F::Hook('afterEntityLoad', $Call);
+        $Call = F::Hook('afterEntityLoad', $Call);
+
+        $Call['entity'] = strtolower($Call['Entity']);
 
         return $Call;
     });

@@ -4,7 +4,7 @@
     "keywords": ["framework", "oop sucks", "fp rules"],
     "homepage": "http://one2team.ru/project/Codeine",
     "license": "BSD-2-Clause",
-    "version": "7.10.3",
+    "version": "7.20.0",
     "authors": [
         {
             "name": "Dmitry Bergstein",
@@ -31,7 +31,7 @@
             "type": "package",
             "package": {
                 "name": "one2team/codeine",
-                "version": "7.10.3",
+                "version": "7.20.0",
                 "dist": {
                     "url": "http://deb.one2team.ru/",
                     "type": "deb"

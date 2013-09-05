@@ -39,7 +39,7 @@
             "Type": "List.Enum",
             "Default": 0,
             "Options": ["M", "F"],
-            "Localizable": true,
+            "Localized": true,
             "Widgets":
             {
                 "Write":

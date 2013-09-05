@@ -49,6 +49,11 @@
                     if($IC == 0)
                         $Widget['Autofocus'] = true;
 
+                    if (isset($Widget['Options']))
+                        $Widget['Options'] = F::Live($Widget['Options']);
+                    else
+                        $Widget['Options'] = [];
+
                     if (isset($Node['Localized']) && $Node['Localized'])
                         $Widget['Label']  = $Call['Entity'].'.Entity:'.$Name.'.Label';
                     else
@@ -68,11 +73,6 @@
 
                     if (isset($Call['Data']))
                         $Widget['Data'] = $Call['Data'];
-
-                    if (isset($Widget['Options']))
-                        $Widget['Options'] = F::Live($Widget['Options']);
-                    else
-                        $Widget['Options'] = [];
 
                     // Если есть значение, добавляем
                     if (($Widget['Value'] = F::Dot($Call['Data'], $Name)) === null)
