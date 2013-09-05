@@ -147,7 +147,7 @@
     },
     "Hooks":
     {
-        "afterCreatePost":
+        "afterCreatePost!":
         {
             "Activation":
             {

@@ -1,6 +1,26 @@
 {
     "Hooks":
     {
+        "beforeCreateGet":
+        {
+            "Store URL":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "StoreURL"
+            }
+        },
+        "afterCreatePost":
+        {
+            "Redirect":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "Redirect",
+                "Call":
+                {
+                    "Location": "/user/$Data.ID"
+                }
+            }
+        },
         "beforeUpdateGet":
         {
             "Store URL":
