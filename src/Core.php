@@ -572,7 +572,7 @@ F::Log('Codeine started', LOG_IMPORTANT);
             }
         }
 
-        private static function Logs()
+        public static function Logs()
         {
             return self::$_Log;
         }

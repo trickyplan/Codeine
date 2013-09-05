@@ -45,29 +45,29 @@
 
         $Call = F::Hook('beforeOperation', $Call);
 
-        $Data = $Call['Data'];
+            $Data = $Call['Data'];
 
-        $Call['Data'] = null;
+            $Call['Data'] = null;
 
-        foreach ($Data as $cData)
-        {
-            $Call['Data'] = $cData;
+            foreach ($Data as $cData)
+            {
+                $Call['Data'] = $cData;
 
-                $Call = F::Hook('beforeEntityWrite', $Call);
+                    $Call = F::Hook('beforeEntityWrite', $Call);
 
-                $Call = F::Hook('beforeEntityCreate', $Call);
+                    $Call = F::Hook('beforeEntityCreate', $Call);
 
-                if (!isset($Call['Failure']) or !$Call['Failure'])
-                {
-                    $Call['Data'] = F::Run('IO', 'Write', $Call);
+                    if (!isset($Call['Failure']) or !$Call['Failure'])
+                    {
+                        $Call['Data'] = F::Run('IO', 'Write', $Call);
 
-                    $Call = F::Hook('afterEntityCreate', $Call);
-                }
-                else
-                    $Call['Data'] = null;
+                        $Call = F::Hook('afterEntityCreate', $Call);
+                    }
+                    else
+                        $Call['Data'] = null;
 
-                $Call = F::Hook('afterEntityWrite', $Call);
-        }
+                    $Call = F::Hook('afterEntityWrite', $Call);
+            }
 
         $Call = F::Hook('afterOperation', $Call);
 

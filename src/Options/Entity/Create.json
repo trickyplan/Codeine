@@ -16,7 +16,7 @@
         {
             "Make variables alive":
             {
-                "Service":"Entity.Nodes.Hook",
+                "Service":"Entity.Hooks.Live",
                 "Method":"Process"
             }
         },

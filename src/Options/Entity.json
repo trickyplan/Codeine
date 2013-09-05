@@ -23,17 +23,17 @@
         {
             "Strict":
             {
-                "Service":"Entity.Nodes.Strict",
+                "Service":"Entity.Hooks.Strict",
                 "Method":"Process"
             },
             "Where":
             {
-                "Service":"Entity.Nodes.Where",
+                "Service":"Entity.Hooks.Where",
                 "Method":"Process"
             },
             "Make variables alive":
             {
-                "Service":"Entity.Nodes.Hook",
+                "Service":"Entity.Hooks.Live",
                 "Method":"Process"
             }
         },
@@ -41,12 +41,12 @@
         {
             "Make variables alive":
             {
-                "Service":"Entity.Nodes.Hook",
+                "Service":"Entity.Hooks.Live",
                 "Method":"Process"
             },
             "Datatypes":
             {
-                "Service":"Entity.Nodes.Type",
+                "Service":"Entity.Hooks.Type",
                 "Method":"Write",
                 "Call":
                 {
@@ -55,7 +55,7 @@
             },
             "Filter":
             {
-                "Service":"Entity.Nodes.Filter",
+                "Service":"Entity.Hooks.Filter",
                 "Method":"Process",
                 "Call":
                 {
@@ -72,7 +72,7 @@
         {
             "Make variables alive":
             {
-                "Service":"Entity.Nodes.Hook",
+                "Service":"Entity.Hooks.Live",
                 "Method":"Process"
             },
             "Validate":
@@ -82,17 +82,17 @@
             },
             "Filter":
             {
-                "Service":"Entity.Nodes.Filter",
+                "Service":"Entity.Hooks.Filter",
                 "Method":"Process"
             },
             "Updated values":
             {
-                "Service":"Entity.Nodes.Updated",
+                "Service":"Entity.Hooks.Updated",
                 "Method":"Process"
             },
             "Datatypes":
             {
-                "Service":"Entity.Nodes.Type",
+                "Service":"Entity.Hooks.Type",
                 "Method":"Write",
                 "Call":
                 {
@@ -109,12 +109,12 @@
             },
             "Where":
             {
-                "Service":"Entity.Nodes.Where",
+                "Service":"Entity.Hooks.Where",
                 "Method":"Process"
             },
             "Datatypes":
             {
-                "Service":"Entity.Nodes.Type",
+                "Service":"Entity.Hooks.Type",
                 "Method":"Write",
                 "Call":
                 {
@@ -126,7 +126,7 @@
         {
             "Where":
             {
-                "Service":"Entity.Nodes.Where",
+                "Service":"Entity.Hooks.Where",
                 "Method":"Process"
             }
         },
@@ -134,7 +134,7 @@
         {
             "Where":
             {
-                "Service":"Entity.Nodes.Where",
+                "Service":"Entity.Hooks.Where",
                 "Method":"Process"
             }
         },
@@ -142,17 +142,17 @@
         {
             "Default values":
             {
-                "Service":"Entity.Nodes.Default",
+                "Service":"Entity.Hooks.Default",
                 "Method":"Process"
             },
             "Datatypes":
             {
-                "Service":"Entity.Nodes.Type",
+                "Service":"Entity.Hooks.Type",
                 "Method":"Read"
             },
             "Make variables alive":
             {
-                "Service":"Entity.Nodes.Hook",
+                "Service":"Entity.Hooks.Live",
                 "Method":"Process",
                 "Call":
                 {
