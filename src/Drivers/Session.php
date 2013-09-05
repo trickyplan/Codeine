@@ -18,6 +18,7 @@
 
             // Генерируем маркер
             $Call['SID'] = F::Live($Call['Generator']['SID']);
+
             // Вешаем маркер
             if (F::Run('Session.Marker.Cookie', 'Write', $Call))
                 F::Log('Session: Marker added', LOG_INFO);
