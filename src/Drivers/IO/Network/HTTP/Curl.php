@@ -45,7 +45,7 @@
 
              foreach ($Links as $ID => $Link)
              {
-                $Return[] = curl_multi_getcontent($Link);
+                $Return[$ID] = curl_multi_getcontent($Link);
                 curl_multi_remove_handle($Call['Link'], $Link);
              }
 

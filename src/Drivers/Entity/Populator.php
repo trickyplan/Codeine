@@ -13,6 +13,12 @@
 
         $Data = [];
 
+        if (isset($Call['Where']))
+        {
+            $Call['Populate Count'] = $Call['Where'];
+            unset($Call['Where']);
+        }
+
         for ($IX = 0; $IX < $Call['Populate Count']; ++$IX)
         {
             foreach ($Call['Nodes'] as $Name => $Node)
