@@ -108,7 +108,7 @@
     {
         "beforeIORead":
         {
-            "Dedup":
+            "Check":
             {
                 "Service": "IO.Dedup",
                 "Method": "beforeIORead"
@@ -116,7 +116,7 @@
         },
         "afterIORead":
         {
-            "Dedup":
+            "Save":
             {
                 "Service": "IO.Dedup",
                 "Method": "afterIORead"

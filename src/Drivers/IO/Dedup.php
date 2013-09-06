@@ -11,21 +11,23 @@
     {
         if (isset($Call['Where']) && !isset($Call['ReRead']))
         {
-            $IOHash = sha1(serialize([$Call['Storage'],$Call['Scope'], $Call['Where']]));
+            $Call['IOHash'] = sha1(serialize([$Call['Storage'],$Call['Scope'],$Call['Where']]));
 
-            if (($Result = F::Get($IOHash)) !== null)
+            if (($Result = F::Get($Call['IOHash'])) !== null)
+            {
+                F::Log($Call['IOHash'].' deduped', LOG_GOOD);
                 $Call['Result'] = $Result;
+            }
         }
+
+        unset($Call['ReRead']);
         return $Call;
     });
 
     setFn('afterIORead', function ($Call)
     {
-        if (isset($Call['Where']))
-        {
-            $IOHash = sha1(serialize([$Call['Storage'],$Call['Scope'], $Call['Where']]));
-            F::Set($IOHash, $Call['Result']);
-        }
+        if (isset($Call['IOHash']))
+            F::Set($Call['IOHash'], $Call['Result']);
 
         return $Call;
     });
