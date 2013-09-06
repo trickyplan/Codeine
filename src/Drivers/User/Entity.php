@@ -17,6 +17,7 @@
 
     setFn('Location', function ($Call)
     {
+        $Call['Data']['Location'] = null;
         if (isset($Call['Session']['User']['ID']))
             if ($Call['Data']['ID'] == $Call['Session']['User']['ID'])
                 return F::Run('System.GeoIP', 'City', $Call);
