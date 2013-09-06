@@ -11,7 +11,6 @@
     {
         $Call = F::Run('Entity', 'Load', $Call);
 
-        $Data = [];
 
         if (isset($Call['Where']))
         {
@@ -21,6 +20,8 @@
 
         for ($IX = 0; $IX < $Call['Populate Count']; ++$IX)
         {
+            $Data = [];
+
             foreach ($Call['Nodes'] as $Name => $Node)
             {
                 $Name = strtr($Name, '.', '_');
@@ -33,16 +34,16 @@
                         $Node['Examples'] = [];
 
                     if (isset($Node['Populator']))
-                        $Data[$IX][$Name] = F::Live($Node['Populator']);
+                        $Data[$Name] = F::Live($Node['Populator']);
                     else
                         if (isset($Node['Type']))
-                            $Data[$IX][$Name] = F::Run('Data.Type.'.$Node['Type'], 'Populate',['Node' => $Node]);
+                            $Data[$Name] = F::Run('Data.Type.'.$Node['Type'], 'Populate',['Node' => $Node]);
 
                     if (!empty($Node['Examples']))
-                        $Data[$IX][$Name] = $Node['Examples'][array_rand($Node['Examples'])];
+                        $Data[$Name] = $Node['Examples'][array_rand($Node['Examples'])];
 
-                    if ($Data[$IX][$Name] === null)
-                        unset($Data[$IX][$Name]);
+                    if ($Data[$Name] === null)
+                        unset($Data[$Name]);
                 }
             }
 
@@ -51,11 +52,11 @@
                 'Type' => 'Template',
                 'Scope' => $Call['Entity'],
                 'ID' => 'Show/Short',
-                'Data' => $Data[$IX]
+                'Data' => $Data
             ];
+            
+            F::Run('Entity', 'Create', $Call, ['One' => true, 'Data!' => $Data]);
         }
-
-        F::Run('Entity', 'Create', $Call, ['Data!' => $Data]);
 
         return $Call;
     });
