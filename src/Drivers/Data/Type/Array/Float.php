@@ -12,7 +12,8 @@
         $Call['Value'] = (array) $Call['Value'];
 
         foreach ($Call['Value'] as &$Value)
-            $Value = (float) $Value;
+            if (!is_array($Value))
+                $Value = (float) $Value;
 
         return $Call['Value'];
     });
@@ -22,7 +23,8 @@
         $Call['Value'] = (array) $Call['Value'];
 
         foreach ($Call['Value'] as &$Value)
-            $Value = (float) $Value;
+            if (!is_array($Value))
+                $Value = (float) $Value;
 
         return $Call['Value'];
     });

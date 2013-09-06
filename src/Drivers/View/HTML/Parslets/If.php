@@ -29,11 +29,11 @@
                     if (null != ($Neq = (string) $Root->attributes()->neq))
                         $Decision = ($Value != $Neq);
 
-                    if (null != ($Lt = (string) $Root->attributes()->lt))
-                        $Decision = ($Value < $Lt);
+                    if (null != ($Lt = $Root->attributes()->lt))
+                        $Decision = ((float)$Value < (float) $Lt);
 
-                    if (null != ($Gt = (string) $Root->attributes()->gt))
-                        $Decision = ($Value > $Gt);
+                    if (null != ($Gt = $Root->attributes()->gt))
+                        $Decision = ((float) $Value > (float) $Gt);
 
                     if ($Decision)
                         $Outer = $Call['Parsed'][2][$IX];
