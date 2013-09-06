@@ -32,3 +32,8 @@
 
         return $Data;
     });
+
+    setFn('Populate', function ($Call)
+    {
+        return rand($Call['From'], $Call['To']);
+    });

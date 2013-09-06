@@ -19,3 +19,8 @@
     {
         return (bool) $Call['Value'];
     });
+
+    setFn('Populate', function ($Call)
+    {
+        return (bool) rand(0,1);
+    });

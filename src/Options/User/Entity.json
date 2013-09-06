@@ -22,7 +22,7 @@
         },
         "EMail":
         {
-            "Type": "Literal.String",
+            "Type": "Literal.EMail",
             "Weight": 60,
             "Required": true,
             "Widgets":

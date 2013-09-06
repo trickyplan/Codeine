@@ -38,5 +38,5 @@
 
     setFn('Populate', function ($Call)
     {
-        return array_rand($Call['Node']['Options']);
+        return array_rand(F::Live($Call['Node']['Options']));
     });

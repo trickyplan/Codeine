@@ -110,6 +110,11 @@
         return F::Run('Entity.Touch', 'Do', $Call, ['Entity' => $Call['Bundle']]);
     });
 
+    setFn('Populate', function ($Call)
+    {
+        return F::Run('Entity.Populator', 'Do', $Call, ['Entity' => $Call['Bundle']]);
+    });
+
     setFn('Renumerate', function ($Call)
     {
         return F::Run('Entity.Renumerate', 'Do', $Call, ['Entity' => $Call['Bundle']]);

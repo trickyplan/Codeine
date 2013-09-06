@@ -16,8 +16,3 @@
     {
         return (string) $Call['Value'];
     });
-
-    setFn('Populate', function ($Call)
-    {
-        return sha1(rand());
-    });

@@ -7,30 +7,49 @@
      * @version 7.x
      */
 
-    setFn('Form', function ($Call)
+    setFn('Do', function ($Call)
     {
-        $Call['Entity'] = $Call['Request']['Entity'];
         $Call = F::Run('Entity', 'Load', $Call);
 
-        foreach ($Call['Nodes'] as $Name => $Node)
+        $Data = [];
+
+        for ($IX = 0; $IX < $Call['Populate Count']; ++$IX)
         {
-            $Name = strtr($Name, '.', '_');
+            foreach ($Call['Nodes'] as $Name => $Node)
+            {
+                $Name = strtr($Name, '.', '_');
 
-            if (isset($Node['Populator']))
-                $Data[$Name] = F::Live($Node['Populator']);
-            else
-                if (isset($Node['Type']))
-                    $Data[$Name] = F::Run('Data.Type.'.$Node['Type'], 'Populate', ['Node' => $Node]);
+                if (isset($Node['Widgets']))
+                {
+                    if(isset($Node['Examples']))
+                        $Node['Examples'] = F::Live($Node['Examples']);
+                    else
+                        $Node['Examples'] = [];
 
-            if (isset($Node['Examples']))
-                $Data[$Name] = $Node['Examples'][array_rand($Node['Examples'])];
+                    if (isset($Node['Populator']))
+                        $Data[$IX][$Name] = F::Live($Node['Populator']);
+                    else
+                        if (isset($Node['Type']))
+                            $Data[$IX][$Name] = F::Run('Data.Type.'.$Node['Type'], 'Populate',['Node' => $Node]);
 
-            if ($Data[$Name] === null)
-                unset($Data[$Name]);
+                    if (!empty($Node['Examples']))
+                        $Data[$IX][$Name] = $Node['Examples'][array_rand($Node['Examples'])];
+
+                    if ($Data[$IX][$Name] === null)
+                        unset($Data[$IX][$Name]);
+                }
+            }
+
+            $Call['Output']['Content'][] =
+            [
+                'Type' => 'Template',
+                'Scope' => $Call['Entity'],
+                'ID' => 'Show/Short',
+                'Data' => $Data[$IX]
+            ];
         }
 
-        $Call['Output']['Content'][] = $Data;
+        F::Run('Entity', 'Create', $Call, ['Data!' => $Data]);
 
-        $Call['Renderer'] = 'View.JSON';
         return $Call;
     });

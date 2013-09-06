@@ -22,5 +22,5 @@
 
     setFn('Populate', function ($Call)
     {
-        return rand();
+        return long2ip(rand());
     });
