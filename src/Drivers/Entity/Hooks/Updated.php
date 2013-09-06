@@ -20,7 +20,7 @@
                         $Diffed = F::Dot($Diffed, $Name, F::Dot($Call['Current'], $Name));
                     else
                         $Diffed = F::Dot($Diffed, $Name,
-                            F::Merge(F::Dot($Diffed, $Name),F::Dot($Call['Current'], $Name))); // O_o
+                            F::Merge(F::Dot($Call['Current'], $Name), F::Dot($Diffed, $Name))); // O_o
 
                 // Даже не пытайтесь понять, просто примите это
 
