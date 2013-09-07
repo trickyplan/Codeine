@@ -22,7 +22,7 @@
         },
         "Target":
         {
-            "Type": "Literal.String",
+            "Type": "Numeral.Integer",
             "Required": true,
             "Options":
             {
@@ -31,7 +31,11 @@
                 "Call":
                 {
                     "Entity": "User",
-                    "Key": "Fullname"
+                    "Key": "Fullname",
+                    "Sort":
+                    {
+                        "ID": true
+                    }
                 }
             },
             "Widgets":
@@ -64,27 +68,19 @@
                 }
             }
         },
-        "isRead":
-        {
-            "Type": "Boolean"
-        },
         "Readed":
         {
+            "Default": 0,
             "Type": "Numeral.Integer"
         }
     },
     "Hooks":
     {
-        "afterCreatePost":
+        "afterShow":
         {
             "Restore URL":
             {
-                "Service": "System.Interface.Web",
-                "Method": "Redirect",
-                "Call":
-                {
-                    "Location": "/message/$Data.0.ID"
-                }
+                "Service": "Message.MarkAsRead"
             }
         }
     }

@@ -39,6 +39,22 @@
                 }
             }
         },
+        "Уведомление доступно вошедшим":
+        {
+            "Decision": true,
+            "Weight": 75,
+            "Run":
+            {
+                "Service": "Message.Flash",
+                "Session":
+                {
+                    "User":
+                    {
+                        "ID": "*"
+                    }
+                }
+            }
+        },
         "Создание сообщений доступно вошедшим":
         {
             "Decision": true,

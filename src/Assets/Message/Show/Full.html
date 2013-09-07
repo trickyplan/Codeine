@@ -1,40 +1,35 @@
 <subtitle><k>Subject</k></subtitle>
 <breadcrumb href="/message/<k>ID</k>"><k>Subject</k></breadcrumb>
-<div class="row">
-    <div class="col-md-8">
-        <div class="panel" style="min-height: 200px;">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <k>Subject</k>
+        </div>
+        <div class="panel-body">
             <k>Body</k>
         </div>
-        &nbsp;
-            <exec>
-                <Service>Entity.Create</Service>
-                <Method>Do</Method>
-                <Call>
-                    <Entity>Message</Entity>
-                    <Action>/message/new</Action>
-                    <Data>
-                        <To><k>From</k></To>
-                        <Subject><k>Subject</k></Subject>
-                    </Data>
-                </Call>
-            </exec>
+        <div class="panel-footer">
+            <entity>User:<k>User</k></entity>
+                &nbsp;<span class="glyphicon glyphicon-chevron-right"></span>&nbsp;
+            <entity>User:<k>Target</k></entity>
+            <div class="pull-right">
+                <datetime><k>Created</k></datetime>
+                <block>
+                    <strong>Прочитано:</strong> <datetime><k>Readed</k></datetime>
+                </block>
+            </div>
+        </div>
     </div>
-    <div class="col-md-4">
-        <table class="table table-striped">
-            <tr>
-                <td>От</td>
-                <td><entity>User:<k>User</k></entity></td>
-            </tr>
-            <tr>
-                <td>Кому</td>
-                <td><entity>User:<k>Target</k></entity></td>
-            </tr>
-            <tr>
-                <td>Отправлено</td>
-                <td>
-                    <datetime><k>Created</k></datetime>
-                </td>
-            </tr>
-        </table>
-    </div>
-</div>
+
+<exec>
+    <Service>Entity.Create</Service>
+    <Method>Do</Method>
+    <Call>
+        <Title>Ответить</Title>
+        <Entity>Message</Entity>
+        <Action>/message/new</Action>
+        <Data>
+            <Target><k>User</k></Target>
+            <Subject><k>Subject</k></Subject>
+        </Data>
+    </Call>
+</exec>
