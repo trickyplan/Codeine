@@ -11,6 +11,9 @@
     {
         $IC = 0;
 
+        if (!isset($Call['Data']))
+            $Call['Data'] = [];
+
         // Для каждой ноды в модели
         foreach ($Call['Nodes'] as $Name => $Node)
         {
