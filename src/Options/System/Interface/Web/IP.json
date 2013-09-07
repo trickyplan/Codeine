@@ -1,6 +1,7 @@
 {
-    "1 Pingback": "http://checkip.dyndns.org",
+    "IP Headers": ["X_REAL_IP"],
     "Pingback": "http://ip.appspot.com",
+    "Pingback 1": "http://checkip.dyndns.org",
     "Substitute":
     {
 

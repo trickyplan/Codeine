@@ -9,8 +9,11 @@
 
     setFn('Get', function ($Call)
     {
-        if (isset($_SERVER['HTTP_X_REAL_IP']))
-            $_SERVER['REMOTE_ADDR'] = $_SERVER['HTTP_X_REAL_IP'];
+        foreach ($Call['IP Headers'] as $Header)
+        {
+            if (isset($_SERVER['HTTP_'.$Header]))
+                $_SERVER['REMOTE_ADDR'] = $_SERVER['HTTP_'.$Header];
+        }
 
         if ($_SERVER['REMOTE_ADDR'] == '127.0.0.1' && isset($Call['Pingback']))
         {
