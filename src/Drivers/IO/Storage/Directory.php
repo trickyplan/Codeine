@@ -185,6 +185,9 @@
 
         if ($Call['Value']['error'] == 0)
         {
+            if (!is_dir(Root.'/' . $Call['Directory'].'/'.$Call['Scope']))
+                mkdir(Root.'/' . $Call['Directory'].'/'.$Call['Scope']);
+
             if (move_uploaded_file($Call['Value']['tmp_name'], Root.'/' . $Call['Directory'].'/'.$Call['Fullname']))
             {
                 $Call = F::Hook('File.Uploaded', $Call);

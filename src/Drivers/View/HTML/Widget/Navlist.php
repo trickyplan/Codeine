@@ -25,7 +25,7 @@
                  $Options[] = F::Run ('View', 'Load', $Call,
                      [
                          'Scope' => $Call['Widget Set'].'/Widgets',
-                         'ID'    => 'Navlist/'.($Key == $Call['Value'] ? 'Active' : 'Passive'),
+                         'ID'    => 'Navlist/Element',
                          'Data'  => $Value
                      ]);
              }
