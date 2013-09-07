@@ -38,6 +38,9 @@
                 if (isset($Node['Scope']) && !in_array($Call['Tag'], (array) $Node['Scope']))
                     continue;
 
+                if($Call['Purpose'] == 'Create' && isset($Call['Data'][$Name]))
+                    $Widget['Type'] = 'Form.Hidden';
+
                 if (null !== $Widget)
                 {
                     // Передаём имя сущности
