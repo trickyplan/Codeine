@@ -42,6 +42,8 @@
                 {
                     // Передаём имя сущности
 
+                    $Widget = F::Merge($Node, $Widget);
+
                     $Widget['Entity'] = $Call['Entity'];
                     $Widget['Node'] = $Name;
                     $Widget['Name'] = 'Data'.'['.$Call['IX'].']';
@@ -52,8 +54,8 @@
                     if($IC == 0)
                         $Widget['Autofocus'] = true;
 
-                    if (isset($Widget['Options']))
-                        $Widget['Options'] = F::Live($Widget['Options']);
+                    if (isset($Node['Options']))
+                        $Widget['Options'] = F::Live($Node['Options']);
                     else
                         $Widget['Options'] = [];
 
@@ -71,8 +73,6 @@
                     }
                     else
                         $Widget['Name'] .= '['.$Name.']';
-
-                    $Widget = F::Merge($Node, $Widget);
 
                     if (isset($Call['Data']))
                         $Widget['Data'] = $Call['Data'];

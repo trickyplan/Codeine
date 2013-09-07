@@ -31,7 +31,7 @@
                  if (isset($Call['Localized']) && $Call['Localized'])
                     $lValue = '<l>'.$Call['Entity'].'.Entity:'.$Call['Key'].'.'.$Value.'</l>';
                  else
-                    $lValue = '<l>'.$Call['Entity'].'.Entity:'.$Call['Key'].'.'.$Value.'</l>';
+                    $lValue = $Value;
 
                  if ($Key == $Call['Value'] || $Value == $Call['Value'] || (is_array($Call['Value']) && in_array($Key, $Call['Value'])))
                      $Options[] = '<option value="'.$Key.'" selected>'.$lValue.'</option>';
