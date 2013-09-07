@@ -9,9 +9,10 @@
 
     setFn('Render', function ($Call)
     {
-        $Call['Headers']['Content-Disposition:'] = 'attachment;filename="'.urlencode($Call['Title']).'"';
+        $Call['Headers']['Content-type:'] = mime_content_type($Call['Output']['File']);
 
-        $Call['Output'] = file_get_contents($Call['Output']['Content']);
+        readfile($Call['Output']['File']);
+        $Call['Output'] = '';
 
         return $Call;
     });

@@ -176,7 +176,7 @@
         foreach($Regex as $File)
             $ic++;
 
-        return array (array ('Files',  $ic));
+        return [['Files',  $ic]];
     });
 
     setFn('Upload', function ($Call)
