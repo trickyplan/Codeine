@@ -9,7 +9,7 @@
 
     setFn('Parse', function ($Call)
     {
-        if (preg_match_all('@<k>(.*)</k>@SsUu', $Call['Value'], $Call['Parsed']))
+        if (preg_match_all('@<k>(.*)</k>@SsUu', $Call['Value'], $Call['Parsed']) && isset($Call['Data']))
         {
             $Call['Parsed'][1] = array_unique($Call['Parsed'][1]);
 
