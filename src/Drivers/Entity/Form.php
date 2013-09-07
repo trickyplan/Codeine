@@ -55,7 +55,7 @@
                         $Widget['Autofocus'] = true;
 
                     if (isset($Node['Options']))
-                        $Widget['Options'] = F::Live($Node['Options']);
+                        $Widget['Options'] = F::Live($Node['Options'], $Call);
                     else
                         $Widget['Options'] = [];
 
