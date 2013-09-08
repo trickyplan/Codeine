@@ -128,12 +128,12 @@ F::Log('Codeine started', LOG_IMPORTANT);
 
         public static function Diff ($First, $Second)
         {
-            if ((array) $First === $First)
+            if ((array) $First == $First)
                 foreach ($First as $Key => $Value)
                 {
                     if ($Value !== '*')
                     {
-                        if ((array) $Value === $Value)
+                        if ((array) $Value == $Value)
                         {
                             if (!isset($Second[$Key]))
                                 $Diff[$Key] = $Value;
@@ -147,7 +147,7 @@ F::Log('Codeine started', LOG_IMPORTANT);
                                     $Diff[$Key] = $NewDiff;
                             }
                         }
-                        elseif (!isset($Second[$Key]) || $Second[$Key] !==  $Value)
+                        elseif (!isset($Second[$Key]) || $Second[$Key] !=  $Value)
                         {
                             $Diff[$Key] = $Value;
                         }

@@ -124,17 +124,20 @@
     {
         $Call['Renderer'] = ['Service' => 'View.JSON', 'Method' => 'Render'];
 
+        if (isset($Call['Request']['Query']))
+            $Where = ['Title.ru' => '~/'.$Call['Request']['Query'].'/'];
+        else
+            $Where = $Call['Request']['Where'];
+
         $Call['Output']['Content'] =
             F::Run ('Entity.List', 'RAW', $Call,
                     [
                         'Entity' => $Call['Bundle'],
                         'Key' => 'Title.ru',
-                        'Where' =>
-                        [
-                            'Title.ru' => '/'.$Call['Request']['Query'].'/'
-                        ]
+                        'Where' => $Where
                     ]);
 
+        $Rows = [];
         foreach ($Call['Output']['Content'] as $Key => $Value)
             $Rows[] = ['id' => $Key, 'text' => $Value];
 

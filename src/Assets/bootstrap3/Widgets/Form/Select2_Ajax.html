@@ -1,7 +1,7 @@
 <div class="form-group">
     <label for="<k>Name</k>"> <l><k>Label</k></l>:
 </label>
-    <input type="hidden" id="<k>ID</k>" class="select2 form-control" <block>multiple=<k>Multiple</k></block> name="<k>Name</k>" <block>required="<k>Required</k>" </block> size="<k>Size</k>" />
+    <input type="hidden" id="<k>ID</k>" <block>multiple=<k>Multiple</k></block> name="<k>Name</k>" <block>required="<k>Required</k>" </block> size="<k>Size</k>" value="<k>Value</k>"/>
 </div>
 <css>select2</css>
 <js>select2</js>
@@ -10,9 +10,10 @@
     $('#<k>ID</k>').select2(
     {
         width: "100%",
+        multiple: true,
         ajax:
         {
-            url: '/control/Region/Dict',
+            url: '/control/<k>Key</k>/Dict',
             dataType: 'json',
             data: function (term) {
                 return {Query: term};
@@ -24,11 +25,19 @@
         },
         formatResult: function (object, container, query)
         {
-            console.log(object);
             return object.text;
         },
         formatSelection: function (item) {
             return item.text;
+        },
+        initSelection : function (element, callback)
+        {
+            $.ajax
+            ({
+                url: '/control/<k>Key</k>/Dict',
+                dataType: 'json',
+                data: {Where: $(element).val()},
+            }).done(function(data) { callback(data); });
         }
     });
 </jsrun>

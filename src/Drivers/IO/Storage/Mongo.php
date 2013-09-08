@@ -46,7 +46,7 @@
                         elseif (substr($Subkey, 0, 1) == '$')
                             $Where[$Key][$Subkey] = $Subvalue;
                         elseif (substr($Subvalue, 0, 1) == '~')
-                            $Where[$Key] = new MongoRegex(substr($Subvalue, 1));
+                            $Where[$Key.'.'.$Subkey] = new MongoRegex(substr($Subvalue, 1));
                 }
                 else
                 {
