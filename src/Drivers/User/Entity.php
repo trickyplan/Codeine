@@ -27,8 +27,6 @@
 
     setFn('Photo', function ($Call)
     {
-        $Photo = F::Run('Services.Avatar.Gravatar', 'Get', ['EMail' => $Call['Data']['EMail']]);
-
         if (isset($Call['Data']['Photo']))
         {
             if (preg_match('/^http.*/', $Call['Data']['Photo']))

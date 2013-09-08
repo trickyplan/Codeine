@@ -119,3 +119,26 @@
     {
         return F::Run('Entity.Renumerate', 'Do', $Call, ['Entity' => $Call['Bundle']]);
     });
+
+    setFn('Dict', function ($Call)
+    {
+        $Call['Renderer'] = ['Service' => 'View.JSON', 'Method' => 'Render'];
+
+        $Call['Output']['Content'] =
+            F::Run ('Entity.List', 'RAW', $Call,
+                    [
+                        'Entity' => $Call['Bundle'],
+                        'Key' => 'Title.ru',
+                        'Where' =>
+                        [
+                            'Title.ru' => '/'.$Call['Request']['Query'].'/'
+                        ]
+                    ]);
+
+        foreach ($Call['Output']['Content'] as $Key => $Value)
+            $Rows[] = ['id' => $Key, 'text' => $Value];
+
+        $Call['Output']['Content'] = $Rows;
+
+        return $Call;
+    });

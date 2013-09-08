@@ -39,7 +39,7 @@
                     continue;
 
                 if($Call['Purpose'] == 'Create' && isset($Call['Data'][$Name]))
-                    $Widget['Type'] = 'Form.Hidden';
+                    $Widget['Type'] = 'Form.Static';
 
                 if (null !== $Widget)
                 {
@@ -58,7 +58,7 @@
                         $Widget['Autofocus'] = true;
 
                     if (isset($Node['Options']))
-                        $Widget['Options'] = F::Live($Node['Options'], $Call);
+                        $Widget['Options'] = F::Live($Node['Options']);
                     else
                         $Widget['Options'] = [];
 

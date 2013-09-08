@@ -1,31 +1,34 @@
 <div class="form-group">
-    <label class="control-label" for="<k>Name</k>"> <l><k>Label</k></l>:
+    <label for="<k>Name</k>"> <l><k>Label</k></l>:
 </label>
-    <div class="controls">
-        <div id="<k>ID</k>" <block>multiple=<k>Multiple</k></block> name="<k>Name</k>" <block>required="<k>Required</k>" </block> size="<k>Size</k>">
-            <k>Options</k>
-        </div>
-    </div>
+    <input type="hidden" id="<k>ID</k>" class="select2 form-control" <block>multiple=<k>Multiple</k></block> name="<k>Name</k>" <block>required="<k>Required</k>" </block> size="<k>Size</k>" />
 </div>
+<css>select2</css>
+<js>select2</js>
 <jsrun>
+
     $('#<k>ID</k>').select2(
     {
         width: "100%",
         ajax:
         {
-            url: '<k>URL</k>',
+            url: '/control/Region/Dict',
             dataType: 'json',
-            data: function (term, page) { // page is the one-based page number tracked by Select2
-                    return {
-                        Query: term, //search term
-                        Page: page, // page number
-                    };
-                },
-            results: function (data, page)
+            data: function (term) {
+                return {Query: term};
+            },
+            results: function (data)
             {
                 return {results: data};
             }
-
+        },
+        formatResult: function (object, container, query)
+        {
+            console.log(object);
+            return object.text;
+        },
+        formatSelection: function (item) {
+            return item.text;
         }
     });
 </jsrun>

@@ -44,10 +44,15 @@
                             $Where[$Key] = $Subvalue;
                         elseif (substr($Subkey, 0, 1) == '$')
                             $Where[$Key][$Subkey] = $Subvalue;
-                        else
-                            $Where[$Key.'.'.$Subkey] = $Subvalue;
+                        elseif (substr($Subkey, 0, 1) == '~')
+                            $Where[$Key] = new MongoRegex($Subvalue);
                 else
-                    $Where[$Key] = $Value;
+                {
+                    if (substr($Value, 0, 1) == '/')
+                        $Where[$Key] = new MongoRegex($Value);
+                    else
+                        $Where[$Key] = $Value;
+                }
 
             F::Log('db.*'.$Call['Scope'].'*.find('
                 .json_encode($Where, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE).')', LOG_INFO);
