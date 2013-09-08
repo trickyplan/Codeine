@@ -101,6 +101,7 @@ tr.Important
     top: 0;
     left: 0;
     position: absolute;
+    z-index: 99;
 }
 
 .topbar li
