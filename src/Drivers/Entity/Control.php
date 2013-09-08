@@ -134,7 +134,11 @@
                     [
                         'Entity' => $Call['Bundle'],
                         'Key' => 'Title.ru',
-                        'Where' => $Where
+                        'Where' => $Where,
+                        'Sort' =>
+                        [
+                            'Title.ru' => false
+                        ]
                     ]);
 
         $Rows = [];
