@@ -15,17 +15,22 @@
                   $Match = '';
               else
               {
-                  $Pathinfo = pathinfo($Match);
-                  $Filesize = F::Run('Formats.Number.Filesize', 'Do',
-                      ['Value' => filesize(Root.'/Public'.$Match)]); // FIXME
+                  if (F::file_exists(Root.'/Public'.$Match))
+                  {
+                      $Pathinfo = pathinfo($Match);
+                      $Filesize = F::Run('Formats.Number.Filesize', 'Do',
+                          ['Value' => filesize(Root.'/Public'.$Match)]); // FIXME
 
-                  $Match = '
-                  <image>
-                    <Source>Formats/File:'.strtolower($Pathinfo['extension']).'.png</Source>
-                    <Default>Formats/File:default.png</Default>
-                  </image>
-                  <a target="_blank" href="'. $Match.'">
-                  '.$Pathinfo['basename'].' <small>('.$Filesize.')</a></small>';
+                      $Match = '
+                      <image>
+                        <Source>Formats/File:'.strtolower($Pathinfo['extension']).'.png</Source>
+                        <Default>Formats/File:default.png</Default>
+                      </image>
+                      <a target="_blank" href="'. $Match.'">
+                      '.$Pathinfo['basename'].' <small>('.$Filesize.')</a></small>';
+                  }
+                  else
+                      $Match = '';
               }
 
 
