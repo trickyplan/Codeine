@@ -633,20 +633,19 @@ F::Log('Codeine started', LOG_IMPORTANT);
                             return null;
                         }
 
+                        if (isset($Options['Mixins']))
+                        {
+                            foreach($Options['Mixins'] as &$Mixin)
+                            {
+                                $Options = F::Merge(F::loadOptions($Mixin), $Options);
+                            }
+                        }
+
                         $Options = self::Merge($Options, $Current);
                     }
                 }
                 else
                     $Options = [];
-
-
-                if (isset($Options['Mixins']))
-                {
-                    foreach($Options['Mixins'] as &$Mixin)
-                    {
-                        $Options = F::Merge(F::loadOptions($Mixin), $Options);
-                    }
-                }
 
                 self::$_Options[$Service] = $Options;
             }

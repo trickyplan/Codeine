@@ -43,9 +43,9 @@
                      [
                           'Entity' => 'User',
                           'Where' =>
-                              [
-                                  $Call['Determinant'] => $Call['Request'][$Call['Determinant']]
-                              ],
+                          [
+                              $Call['Determinant'] => $Call['Request'][$Call['Determinant']]
+                          ],
                           'One' => true
                      ]);
 

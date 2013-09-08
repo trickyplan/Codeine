@@ -34,6 +34,8 @@
             elseif (isset($Call['Data']['Photo']) && !empty($Call['Data']['Photo']))
                 $Photo = '/Public/uploads/user/'.$Call['Data']['Photo']; // FIXME I'm shitcode.
         }
+        else
+            $Photo = null;
 
         return $Photo;
     });

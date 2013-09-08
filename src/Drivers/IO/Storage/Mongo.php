@@ -39,17 +39,19 @@
 
             foreach ($Call['Where'] as $Key => $Value)
                 if (is_array($Value))
+                {
                     foreach ($Value as $Subkey => $Subvalue)
                         if (is_numeric($Subkey))
                             $Where[$Key] = $Subvalue;
                         elseif (substr($Subkey, 0, 1) == '$')
                             $Where[$Key][$Subkey] = $Subvalue;
-                        elseif (substr($Subkey, 0, 1) == '~')
-                            $Where[$Key] = new MongoRegex($Subvalue);
+                        elseif (substr($Subvalue, 0, 1) == '~')
+                            $Where[$Key] = new MongoRegex(substr($Subvalue, 1));
+                }
                 else
                 {
-                    if (substr($Value, 0, 1) == '/')
-                        $Where[$Key] = new MongoRegex($Value);
+                    if (substr($Value, 0, 1) == '~')
+                        $Where[$Key] = new MongoRegex(substr($Value, 1));
                     else
                         $Where[$Key] = $Value;
                 }

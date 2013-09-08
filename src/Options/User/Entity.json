@@ -31,6 +31,10 @@
                 {
                     "Type": "Form.Textfield",
                     "Subtype": "email"
+                },
+                "Update":
+                {
+                    "Type": "Form.Static"
                 }
             }
         },
@@ -155,7 +159,7 @@
                 "Method": "Send"
             }
         },
-        "afterLogin":
+        "afterLogin!":
         {
             "Redirect":
             {
@@ -167,7 +171,7 @@
                 }
             }
         },
-        "afterLogout":
+        "afterLogout!":
         {
             "Redirect":
             {

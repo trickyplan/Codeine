@@ -26,6 +26,11 @@
     padding: 14px 10px;
 }
 
+.form-control-static
+{
+    padding: 7px 0;
+}
+
 @media screen and (min-width: 1600px) {
     .liquid {
         max-width: 1570px;
