@@ -12,7 +12,12 @@
         // Если в Where скалярная переменная - это ID.
         if (isset($Call['Where']))
             if (is_scalar($Call['Where']))
-                $Call['Where'] = ['ID' => $Call['Where']];
+            {
+                if (strpos($Call['Where'], ',') !== false)
+                    $Call['Where'] = ['ID' => explode(',', $Call['Where'])];
+                else
+                    $Call['Where'] = ['ID' => $Call['Where']];
+            }
             else
                 $Call['Where'] = F::Live($Call['Where']);
 

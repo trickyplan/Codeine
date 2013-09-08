@@ -10,6 +10,7 @@
     setFn('Write', function ($Call)
     {
         $Call = F::Run('Entity', 'Load', $Call, ['Entity' => $Call['Name']]);
+
         $Call['Value'] = F::Run('Data.Type.'.$Call['Nodes']['ID']['Type'], 'Write', ['Value' => $Call['Value']]);
 
         $Element = F::Run('Entity', 'Read', ['One' => true, 'Entity' => $Call['Name'], 'Where' => $Call['Value']]);

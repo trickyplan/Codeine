@@ -25,6 +25,9 @@
         F::Log('Method: '.$Call['HTTP Method'], LOG_INFO);
 
         $Call['Request'] = $_REQUEST;
+
+        F::Log(json_encode($Call['Request'],
+            JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES), LOG_INFO);
         $Call['Cookie'] = $_COOKIE;
 
         $Call['Run'] = rawurldecode($_SERVER['REQUEST_URI']);

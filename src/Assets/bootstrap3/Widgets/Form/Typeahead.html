@@ -1,9 +1,17 @@
 <div class="form-group">
-    <label class="control-label" for="<k>Name</k>"> <l><k>Label</k></l>:
-            <if value="<k>Required</k>" eq="1"><span class="required-star">*</span></if>
-</label>
-    <div class="controls">
-        <input id="<k>ID</k>" name="<k>Name</k>" <block>required="<k>Required</k>" </block>  class="form-control" type="text" data-provide="typeahead">
+    <label for="<k>Name</k>"> <l><k>Label</k></l>:</label>
+    <div>
+        <input id="<k>ID</k>" class="form-control typeahead" type="text" name="<k>Name</k>" />
     </div>
 </div>
-<jsrun>$('#<k>ID</k>').typeahead({source: <k>Options</k>});</jsrun>
+<js>typeahead</js>
+<css>typeahead</css>
+<jsrun>
+
+    $('#<k>ID</k>').typeahead
+    ({
+        name: '<k>Key</k>',
+        prefetch: '/control/<k>Key</k>/Dict/<k>Value</k>',
+        remote: '/control/<k>Key</k>/Dict?Query=%QUERY'
+    });
+</jsrun>

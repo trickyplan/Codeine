@@ -3,6 +3,7 @@ Version: 3.4.2 Timestamp: Mon Aug 12 15:04:12 PDT 2013
 */
 .select2-container {
     margin: 0;
+    padding: 4px 0;
     position: relative;
     display: inline-block;
     /* inline-block for ie7 */
