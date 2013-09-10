@@ -78,7 +78,7 @@
                     {
                         $Call = F::Hook('beforeJSWrite', $Call);
 
-                            F::Log('Cache *miss*', LOG_BAD);
+                            F::Log('Cache *miss* *'.$JS.'*', LOG_BAD);
 
                             F::Run ('IO', 'Write',
                             [

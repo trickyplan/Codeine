@@ -9,31 +9,6 @@
 
     setFn('Identificate', function ($Call)
     {
-        $Call['Output']['Content'][] = array(
-            'Type' => 'Form',
-            'Action' => '/auth' //FIXME
-        );
-        $Call['Output']['Form'][] = array(
-            'Type' => 'Form.Textfield',
-            'Entity' => 'User',
-            'Name' => $Call['Determinant'],
-            'Value' => isset($_COOKIE['Determinant'])? $_COOKIE['Determinant']: ''
-        );
-
-        $Call['Output']['Form'][] = array(
-            'Type' => 'Form.Password',
-            'Mode' => 'One',
-            'Entity' => 'User',
-            'Name' => 'Password'
-        );
-
-        $Call['Output']['Form'][] = array(
-            'Type' => 'Form.Checkbox',
-            'Entity' => 'User',
-            'Name' => 'TTL',
-            'Value' => 'Long'
-        );
-
         return $Call;
     });
 

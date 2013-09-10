@@ -16,7 +16,8 @@
               $Match = json_decode(json_encode($Match), true);
 
               foreach ($Call['Inherited'] as $Key)
-                  $Match[$Key] = $Call[$Key];
+                  if (isset($Call[$Key]))
+                    $Match[$Key] = $Call[$Key];
 
               $Output = F::Live($Match);
 

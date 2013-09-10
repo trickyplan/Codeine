@@ -11,33 +11,45 @@
     {
         foreach ($Call['Parsed'][2] as $IX => $Match)
         {
-            $Root = simplexml_load_string('<if '.$Call['Parsed'][1][$IX].'></if>');
+            $IfTag = '<if '.$Call['Parsed'][1][$IX].'></if>';
+
+            $Root = simplexml_load_string($IfTag);
 
             $Outer = '';
 
             if ($Root !== false)
                 {
-                    $Value = (string) $Root->attributes()->value;
+                    $Options = iterator_to_array($Root->attributes());
+
+                    $Value = (string) $Options['value'];
 
                     $Decision = false;
 
-                    if (null != ($Eq = (string) $Root->attributes()->eq))
+                    if (isset($Options['null']))
                     {
-                        $Decision = ($Value == $Eq);
+                        if ($Options['null'] == 1)
+                            $Decision = (null == $Value);
+                        else
+                            $Decision = !(null == $Value);
                     }
 
-                    if (null != ($Neq = (string) $Root->attributes()->neq))
-                        $Decision = ($Value != $Neq);
+                    if (isset($Options['eq']))
+                        $Decision = ($Value == (string) $Options['eq']);
 
-                    if (null != ($Lt = $Root->attributes()->lt))
-                        $Decision = ((float)$Value < (float) $Lt);
+                    if (isset($Options['neq']))
+                        $Decision = ($Value != (string) $Options['neq']);
 
-                    if (null != ($Gt = $Root->attributes()->gt))
-                        $Decision = ((float) $Value > (float) $Gt);
+                    if (isset($Options['lt']))
+                        $Decision = ((float)$Value < (float) $Options['lt']);
+
+                    if (isset($Options['gt']))
+                        $Decision = ((float) $Value > (float) $Options['gt']);
 
                     if ($Decision)
                         $Outer = $Call['Parsed'][2][$IX];
                 }
+            else
+                F::Log($IfTag,' not parsed', LOG_WARNING);
 
             $Call['Output'] = str_replace ($Call['Parsed'][0][$IX], $Outer, $Call['Output']);
         }

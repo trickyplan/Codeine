@@ -6,16 +6,20 @@
     },
     "Hooks":
     {
-        "afterAuthenticatePost":
+        "beforeAuthenticateGet":
         {
-            "Redirect":
+            "Store URL":
             {
                 "Service": "System.Interface.Web",
-                "Method": "Redirect",
-                "Call":
-                {
-                    "Location": "/"
-                }
+                "Method": "StoreURL"
+            }
+        },
+        "afterAuthenticatePost":
+        {
+            "Restore URL":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "RestoreURL"
             }
         }
     }

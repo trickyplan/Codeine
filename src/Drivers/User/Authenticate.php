@@ -19,6 +19,7 @@
         $Call['Layouts'][] = ['Scope' => 'User.Authenticate', 'ID' => isset($Call['Session']['User']['ID'])? 'Logged': 'Guest'];
 
         $Call = F::Hook('afterAuthenticateGet', $Call);
+
         return $Call;
     });
 

@@ -16,7 +16,8 @@
               if ($Match)
               {
                   foreach ($Call['Inherited'] as $Key)
-                      $Match[$Key] = $Call[$Key];
+                      if (isset($Call[$Key]))
+                        $Match[$Key] = $Call[$Key];
 
                   $Application = F::Run('Code.Flow.Application', 'Run', ['Run' => $Match, 'Context' => 'app']);
 
