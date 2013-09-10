@@ -2,9 +2,18 @@
 
     /*
      * @author BreathLess
-     * @description Sitemap generator
-     * @package Sphinx
+     * @description Sitemap generator 
+     * @package Winebase
      * @version 7.0
      */
 
-    self::_loadSource('Entity.Sitemap');
+    setFn('Generate', function ($Call)
+    {
+        $Elements = F::Run('Entity', 'Read', ['Entity' => 'Comment', 'Fields' => ['ID']]);
+        $Data = [];
+
+        foreach ($Elements as $Element)
+            $Data[] = $Call['Host'].'/comment/'.$Element['ID']; // FIXME!
+
+        return $Data;
+     });
