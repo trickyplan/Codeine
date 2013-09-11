@@ -40,10 +40,10 @@
                         $Decision = ($Value != (string) $Options['neq']);
 
                     if (isset($Options['lt']))
-                        $Decision = ((float)$Value < (float) $Options['lt']);
+                        $Decision = ((float) preg_replace('/,/','.',$Value) < (float) $Options['lt']);
 
                     if (isset($Options['gt']))
-                        $Decision = ((float) $Value > (float) $Options['gt']);
+                        $Decision = ((float) preg_replace('/,/','.',$Value) > (float) $Options['gt']);
 
                     if ($Decision)
                         $Outer = $Call['Parsed'][2][$IX];
