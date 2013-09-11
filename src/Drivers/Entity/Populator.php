@@ -20,7 +20,7 @@
 
         for ($IX = 0; $IX < $Call['Populate Count']; ++$IX)
         {
-            $Data = [];
+            $Data = ['Populated' => true];
 
             foreach ($Call['Nodes'] as $Name => $Node)
             {

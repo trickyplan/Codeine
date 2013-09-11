@@ -9,7 +9,9 @@
 
     setFn('Do', function ($Call)
     {
-        if (!isset($Call['Context'])) $Call['Context'] = '';
+        if (!isset($Call['Context']))
+            $Call['Context'] = '';
+
         return F::Run(null, $_SERVER['REQUEST_METHOD'], $Call);
     });
 
@@ -20,6 +22,9 @@
 
     setFn('POST', function ($Call)
     {
+        if (!isset($Call['Context']))
+            $Call['Context'] = '';
+
         if (!isset($Call['Entity']))
             $Entities = $Call['Entities'];
         else

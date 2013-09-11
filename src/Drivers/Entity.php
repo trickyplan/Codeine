@@ -134,15 +134,19 @@
 
         $Current = F::Run('Entity', 'Read', $Call);
 
+        $NewData = $Call['Data'];
+
+        $Result = [];
+
         foreach ($Current as $IX => $OldData)
         {
-            if (isset($Call['Data'][$IX]))
-                $NewData = $Call['Data'][$IX];
+            if (isset($NewData[$IX]))
+                $Call['Data'] = $NewData[$IX];
             else
-                $NewData = $Call['Data'];
+                $Call['Data'] = $NewData;
 
             $Call['Where'] = ['ID' => $OldData['ID']];
-            $Call['Data'] = F::Merge($OldData, $NewData);
+            $Call['Data'] = F::Merge($OldData, $Call['Data']);
             $Call['Current'] = $OldData;
 
             $Call = F::Hook('beforeEntityWrite', $Call);
@@ -154,8 +158,11 @@
                 $Call = F::Hook('afterEntityUpdate', $Call);
 
             $Call = F::Hook('afterEntityWrite', $Call);
+
+            $Result[$IX] = $Call['Data'];
         }
 
+        $Call['Data'] = $Result;
         $Call = F::Hook('afterOperation', $Call);
 
         F::Log('*'.count($Call['Data']).'* '.$Call['Entity'].' updated', LOG_INFO);

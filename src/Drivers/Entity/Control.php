@@ -107,6 +107,7 @@
 
     setFn('Touch', function ($Call)
     {
+        $Call['Layouts'][] = ['Scope' => 'Entity', 'ID' => 'Touch'];
         return F::Run('Entity.Touch', 'Do', $Call, ['Entity' => $Call['Bundle']]);
     });
 

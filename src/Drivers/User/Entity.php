@@ -35,7 +35,7 @@
                 $Photo = '/Public/uploads/user/'.$Call['Data']['Photo']; // FIXME I'm shitcode.
         }
         else
-            $Photo = null;
+            $Photo = Codeine.'/Assets/User/img/DefaultM.png';
 
         return $Photo;
     });

@@ -13,26 +13,16 @@
 
         $Call = F::Hook('beforeTouch', $Call);
 
-        $Data = F::Run('Entity', 'Read', $Call);
+        $Results = F::Run('Entity', 'Update', $Call, ['Data!' => ['Modified' => time()]])['Data'];
 
-        if (is_array($Data))
-        {
-            foreach ($Data as $Element)
-            {
-                $New = F::Run('Entity', 'Update', $Call,
-                    [
-                        'One' => true,
-                        'Where'=> $Element['ID'],
-                        'Data' => $Element
-                    ])['Data'];
-
-                $Call['Output']['Content'][] =
+        foreach ($Results as $Result)
+            $Call['Output']['Content'][] =
                 [
-                    'Type' => 'Block',
-                    'Value' => 'Element '.$New['ID'].' touched'
+                    'Type' => 'Template',
+                    'Scope' => $Call['Entity'],
+                    'ID' => 'Show/Short',
+                    'Data' => $Result
                 ];
-            }
-        }
 
         $Call = F::Hook('afterTouch', $Call);
 
