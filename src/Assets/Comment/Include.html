@@ -1,17 +1,22 @@
 <h2 class="page-header">Комментарии</h2>
 
-<exec>
-    <Service>Entity.Create</Service>
-    <Method>Do</Method>
-    <Call>
-        <Action>/comment/<call>Entity</call>/<k>ID</k></Action>
-        <Entity>Comment</Entity>
-        <Data>
-            <Entity><call>Entity</call></Entity>
-            <Object><k>ID</k></Object>
-        </Data>
-    </Call>
-</exec>
+<if value="<call>Session.User.ID</call>" null="0">
+    <exec>
+        <Service>Entity.Create</Service>
+        <Method>Do</Method>
+        <Call>
+            <Action>/comment/<call>Entity</call>/<k>ID</k></Action>
+            <Entity>Comment</Entity>
+            <Data>
+                <Entity><call>Entity</call></Entity>
+                <Object><k>ID</k></Object>
+            </Data>
+        </Call>
+    </exec>
+</if>
+<if value="<call>Session.User.ID</call>" null="1">
+    <a class="btn btn-primary btn-lg" href="/login">Войти и написать комментарий</a>
+</if>
 
 <exec>
     <Service>Entity.List</Service>

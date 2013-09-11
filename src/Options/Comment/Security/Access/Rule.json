@@ -36,7 +36,6 @@
             "Run":
             {
                 "Service": "Entity.Create",
-                "Method": "Do",
                 "Session":
                 {
                     "User":
