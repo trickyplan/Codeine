@@ -24,7 +24,8 @@
             {
                 if (!isset($Call['Failure']))
                 {
-                    $Slices = explode('.', $Call['Run']['Service']);
+                    if (!isset($Call['Run']['Method']))
+                        $Call['Run']['Method'] = 'Do';
 
                     list($Call['Service'], $Call['Method'])
                         = [$Call['Run']['Service'], $Call['Run']['Method']];
