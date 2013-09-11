@@ -13,7 +13,7 @@
             return F::Run('Entity', 'Count', $Call,
                     [
                          'Entity' => $Call['Linked'],
-                         'Where' =>
+                         'Where!' =>
                          [
                             $Call['Entity'] => $Call['Data']['ID']
                          ]
