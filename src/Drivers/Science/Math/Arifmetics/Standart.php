@@ -19,7 +19,10 @@
 
     setFn('Multiply', function ($Call)
     {
-        return strtr($Call['A'],',','.')*strtr($Call['B'],',','.');
+        if (is_scalar($Call['A']) && is_scalar($Call['B']))
+            return strtr($Call['A'],',','.')*strtr($Call['B'],',','.');
+        else
+            return 0;
     });
 
     setFn('Divide', function ($Call)
