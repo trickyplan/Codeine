@@ -2,6 +2,10 @@
     "Mixins": ["Mixins.UGC", "Mixins.CRUD"],
     "Storage": "Primary",
     "EPP": 20,
+    "Sort":
+    {
+        "Karma": false
+    },
     "Nodes":
     {
         "ID":
