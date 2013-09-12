@@ -1,3 +1,7 @@
 {
+    "Headers":
+    {
+        "Content-type:": "application/json"
+    },
     "Extension": ".json"
 }

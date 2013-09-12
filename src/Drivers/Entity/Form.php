@@ -94,8 +94,9 @@
                     // Упростить
 
                     if (!isset($Widget['Weight']))
-                        $Widget['Weight'] = -$IC; // Magic
+                        $Widget['Weight'] = count($Call['Nodes'])-$IC; // Magic
 
+                    $Widget['Weight'] = 'X'.$Call['IX'].'W'.$Widget['Weight'];
                     // Помещаем виджет в поток
 
                     $Call = F::Run('Entity.Form.Layout.'.$Call['FormLayout'], 'Add', $Call,

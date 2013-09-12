@@ -72,7 +72,8 @@
 
     setFn('Export', function ($Call)
     {
-        $Elements = F::Run('Entity', 'Read',
+        set_time_limit(0);
+        $Elements = F::Run('Entity', 'Read', $Call,
                     [
                          'Entity' => $Call['Bundle']
                     ]);
