@@ -57,6 +57,11 @@
 
                 // CSS Output
 
+                if (isset($Call['CSS']['Host']) && !empty($Call['CSS']['Host']))
+                    $Host = $Call['CSS']['Host'];
+                else
+                    $Host = $Call['RHost'];
+
                 foreach ($Call['CSS']['Styles'] as $CSS => $CSSSource)
                 {
                     $CSS = sha1($CSSSource).'_'.$Asset.'_'.$ID;
@@ -64,7 +69,7 @@
                     if ($Call['CSS']['Caching'] && F::Run('IO', 'Execute',
                         [
                             'Storage' => 'CSS Cache',
-                            'Scope'   => [$Call['RHost'], 'css'],
+                            'Scope'   => [$Host, 'css'],
                             'Execute' => 'Exist',
                             'Where'   =>
                             [
@@ -83,7 +88,7 @@
                             F::Run ('IO', 'Write',
                             [
                                  'Storage' => 'CSS Cache',
-                                 'Scope'   => [$Call['RHost'], 'css'],
+                                 'Scope'   => [$Host, 'css'],
                                  'Where'   => $CSS,
                                  'Data' => $CSSSource
                             ]);

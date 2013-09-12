@@ -36,6 +36,14 @@
     padding: 10px 0;
 }
 
+.label-tag
+{
+    background-color: #f7f7f7;
+    color: #666666;
+    display: inline-block;
+    margin: 3px;
+}
+
 @media screen and (min-width: 1600px) {
     .liquid {
         max-width: 1570px;

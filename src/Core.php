@@ -545,21 +545,21 @@ F::Log('Codeine started', LOG_IMPORTANT);
                     switch ($Verbose)
                     {
                         case LOG_ERR:
-                            echo $Target." \033[31 ".$Message.PHP_EOL." \033[31m";
+                            echo $Target." \033[31 ".$Message.PHP_EOL." \033[31m".PHP_EOL;
                         break;
 
                         case LOG_WARNING:
-                            echo $Target." \033[33 ".$Message.PHP_EOL." \033[33m";
+                            echo $Target." \033[33 ".$Message.PHP_EOL." \033[33m".PHP_EOL;
                         break;
 
                         case LOG_DEBUG:
                         {
-                            echo $Target." \033[30 ".$Message.PHP_EOL." \033[30m";
+                            echo $Target." \033[30 ".$Message.PHP_EOL." \033[30m".PHP_EOL;
                         }
 
                         case LOG_USER:
                         {
-                            echo $Target." \033[37 ".$Message.PHP_EOL." \033[37m";
+                            echo $Target." \033[37 ".$Message.PHP_EOL." \033[37m".PHP_EOL;
                         }
 
                         default:

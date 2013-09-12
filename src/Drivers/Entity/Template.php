@@ -12,7 +12,7 @@
         $Call = F::Run('Entity', 'Load', $Call);
 
         foreach ($Call['Nodes'] as $Name => $Node)
-            $Rows[] = '<block><tr><th><l>'.$Call['Entity'].'.Entity:'.$Name.'</l></th><td><k>'.$Name.'</k></td></tr></block>';
+            $Rows[] = '<block><tr><th><l2>'.$Call['Entity'].'.Entity:'.$Name.'</l2></th><td><k>'.$Name.'</k></td></tr></block>';
 
         $Call['Output']['Content'][] = '<table class="table">'.implode("\n", $Rows).'</table>';
 

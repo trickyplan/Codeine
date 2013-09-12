@@ -45,7 +45,7 @@
                             $Where[$Key] = $Subvalue;
                         elseif (substr($Subkey, 0, 1) == '$')
                             $Where[$Key][$Subkey] = $Subvalue;
-                        elseif (substr($Subvalue, 0, 1) == '~')
+                        elseif (is_scalar($Subvalue) && substr($Subvalue, 0, 1) == '~')
                             $Where[$Key.'.'.$Subkey] = new MongoRegex(substr($Subvalue, 1));
                 }
                 else
@@ -140,7 +140,7 @@
                     }
                     else
                     {
-                        F::Log('db.*'.$Call['Scope'].'*remove()', LOG_INFO);
+                        F::Log('db.*'.$Call['Scope'].'*.remove()', LOG_INFO);
                         $Call['Link']->$Call['Scope']->remove ();
                     }
                 }
@@ -208,6 +208,8 @@
         else
             $Cursor = $Call['Link']->$Call['Scope']->find();
 
-        return $Cursor->sort(['ID' => SORT_DESC])+1;
+        $Cursor->limit(0,1);
+
+        return array_shift(iterator_to_array($Cursor->sort(['ID' => -1])))['ID']+1;
     });
 

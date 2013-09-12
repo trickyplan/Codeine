@@ -26,11 +26,6 @@
                 "Service":"Entity.Hooks.Strict",
                 "Method":"Process"
             },
-            "Where":
-            {
-                "Service":"Entity.Hooks.Where",
-                "Method":"Process"
-            },
             "Make variables alive":
             {
                 "Service":"Entity.Hooks.Live",
@@ -102,11 +97,6 @@
                 "Service":"Entity",
                 "Method":"Load"
             },
-            "Where":
-            {
-                "Service":"Entity.Hooks.Where",
-                "Method":"Process"
-            },
             "Datatypes":
             {
                 "Service":"Entity.Hooks.Type",
@@ -115,22 +105,6 @@
                 {
                     "Purpose": "Delete"
                 }
-            }
-        },
-        "beforeEntityRead":
-        {
-            "Where":
-            {
-                "Service":"Entity.Hooks.Where",
-                "Method":"Process"
-            }
-        },
-        "beforeEntityCount":
-        {
-            "Where":
-            {
-                "Service":"Entity.Hooks.Where",
-                "Method":"Process"
             }
         },
         "afterEntityRead":

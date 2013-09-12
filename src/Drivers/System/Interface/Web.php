@@ -44,6 +44,9 @@
             $Call = F::Run($Call['Service'], $Call['Method'], $Call);
         }
 
+        if (isset($Call['Output']))
+            $Call['Headers']['Content-Length:'] = mb_strlen($Call['Output']);
+
         if (isset($Call['Headers']))
             foreach ($Call['Headers'] as $Key => $Value)
                 header ($Key . ' ' . $Value);

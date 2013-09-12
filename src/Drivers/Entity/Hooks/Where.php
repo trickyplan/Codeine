@@ -11,6 +11,7 @@
     {
         // Если в Where скалярная переменная - это ID.
         if (isset($Call['Where']))
+        {
             if (is_scalar($Call['Where']))
             {
                 if (strpos($Call['Where'], ',') !== false)
@@ -18,16 +19,7 @@
                 else
                     $Call['Where'] = ['ID' => $Call['Where']];
             }
-            else
-                $Call['Where'] = F::Live($Call['Where']);
 
-        return $Call;
-    });
-
-    setFn('Process', function ($Call)
-    {
-        if (isset($Call['Where']))
-        {
             $Where = [];
 
             foreach ($Call['Nodes'] as $Name => $Node)
@@ -39,11 +31,12 @@
                         {
                             foreach ($Value as $Relation => $cValue)
                                 if (!is_array($cValue))
-                                    $Value[$Relation] = F::Run('Data.Type.'.$Node['Type'], 'Where',
-                                                               [
-                                                               'Node' => $Node,
-                                                               'Value' => $cValue
-                                                               ]);
+                                    $Value[$Relation]
+                                        = F::Run('Data.Type.'.$Node['Type'], 'Where',
+                                           [
+                                               'Node' => $Node,
+                                               'Value' => $cValue
+                                           ]);
                                 else
                                     $Value[$Relation] = $cValue;
                             // FIXME Нативные массивы?
@@ -58,10 +51,13 @@
                         }
                     }
 
-                    $Where = F::Dot($Where, $Name, $Value);
+                    $Where[$Name]  = $Value;
                 }
 
-            $Call['Where'] = $Where;
+            if (empty($Where))
+                $Call['Where'] = null;
+            else
+                $Call['Where'] = $Where;
         }
 
         return $Call;
