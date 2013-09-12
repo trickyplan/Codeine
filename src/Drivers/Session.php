@@ -16,12 +16,8 @@
         {
             F::Log('Session: Marker not set');
 
-            // Генерируем маркер
-            $Call['SID'] = F::Live($Call['Generator']['SID']);
-
-            // Вешаем маркер
-            if (F::Run('Session.Marker.Cookie', 'Write', $Call))
-                F::Log('Session: Marker added', LOG_INFO);
+            if (isset($Call['Session Auto']) && $Call['Session Auto'])
+                $Call = F::Run(null, 'Mark', $Call);
         }
         else
         {
@@ -72,6 +68,9 @@
 
     setFn('Write', function ($Call)
     {
+        if (!isset($Call['SID']))
+            $Call = F::Run(null, 'Mark', $Call);
+
         $Call['Session'] = F::Run('Entity', 'Read',
             [
                 'Entity' => 'Session',
@@ -129,6 +128,17 @@
             $Call = F::Run('Session', 'Write', $Call, ['Data' => ['User' => 0]]);
 
         $Call = F::Hook('afterAnnulate', $Call);
+
+        return $Call;
+    });
+
+    setFn('Mark', function ($Call)
+    {
+        $Call['SID'] = F::Live($Call['Generator']['SID']);
+
+            // Вешаем маркер, если включено автомаркирование
+            if (F::Run('Session.Marker.Cookie', 'Write', $Call))
+                F::Log('Session: Marker added', LOG_INFO);
 
         return $Call;
     });
