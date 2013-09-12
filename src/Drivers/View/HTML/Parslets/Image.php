@@ -25,11 +25,16 @@
 
               $Path = $Call['Image']['Pathname'].$Image;
 
+              if (isset($Call['Image']['Host']) && !empty($Call['Image']['Host']))
+                    $Host = $Call['Image']['Host'];
+                else
+                    $Host = $Call['RHost'];
+
               if (F::Run ('IO', 'Execute',
                             [
                                 'Execute' => 'Exist',
                                 'Storage' => 'Image Cache',
-                                'Scope'   => [$Call['RHost'], 'img'],
+                                'Scope'   => [$Host, 'img'],
                                 'Where'   => $Image
                             ]))
               {
@@ -63,12 +68,12 @@
                             $ImageData = $GImage->getImageBlob();
                       }
 
-                        F::Log('Thumbnail created', LOG_INFO);
+                      F::Log('Thumbnail created', LOG_INFO);
 
                       if (F::Run ('IO', 'Write',
                               [
                                   'Storage' => 'Image Cache',
-                                  'Scope'   => [$Call['RHost'], 'img'],
+                                  'Scope'   => [$Host, 'img'],
                                   'Where'   => $Image,
                                   'Data' => [$ImageData]
                               ]
@@ -107,7 +112,10 @@
                   }
               }
 
-              $HTML = '<img src="'.$Path.'" '
+              if (isset($Call['Image']['Host']))
+                 $Path = $Call['Image']['Proto'].$Call['Image']['Host'].$Path;
+
+                $HTML = '<img src="'.$Path.'" '
                   .(isset($Match['Class']) ? ' class="'.$Match['Class'].'"': '')
                   .(isset($Match['Width']) ? ' width="'.$Match['Width'].'"': '')
                   .(isset($Match['Height']) ? ' height="'.$Match['Height'].'"': '')
