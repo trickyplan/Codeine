@@ -63,7 +63,7 @@
 
                 foreach ($Call['JS']['Scripts'] as $JS => $JSSource)
                 {
-                    $JS = sha1($JSSource).'_'.$Asset.'_'.$ID;
+                    $JS = sha1($JSSource).'_'.$JS;
 
                     if ($Call['JS']['Caching'] && F::Run('IO', 'Execute',
                         [

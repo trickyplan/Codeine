@@ -64,7 +64,7 @@
 
                 foreach ($Call['CSS']['Styles'] as $CSS => $CSSSource)
                 {
-                    $CSS = sha1($CSSSource).'_'.$Asset.'_'.$ID;
+                    $CSS = sha1($CSSSource).'_'.$CSS;
 
                     if ($Call['CSS']['Caching'] && F::Run('IO', 'Execute',
                         [
