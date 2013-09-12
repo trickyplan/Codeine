@@ -56,6 +56,10 @@
                 $Call = F::Hook('beforeJSOutput', $Call);
 
                 // JS Output
+                if (isset($Call['JS']['Host']) && !empty($Call['JS']['Host']))
+                    $Host = $Call['JS']['Host'];
+                else
+                    $Host = $Call['RHost'];
 
                 foreach ($Call['JS']['Scripts'] as $JS => $JSSource)
                 {
@@ -64,7 +68,7 @@
                     if ($Call['JS']['Caching'] && F::Run('IO', 'Execute',
                         [
                             'Storage' => 'JS Cache',
-                            'Scope'   => [$Call['RHost'], 'js'],
+                            'Scope'   => [$Host, 'js'],
                             'Execute' => 'Exist',
                             'Where'   =>
                             [
@@ -83,7 +87,7 @@
                             F::Run ('IO', 'Write',
                             [
                                  'Storage' => 'JS Cache',
-                                 'Scope'   => [$Call['RHost'], 'js'],
+                                 'Scope'   => [$Host, 'js'],
                                  'Where'   => $JS,
                                  'Data' => $JSSource
                             ]);
