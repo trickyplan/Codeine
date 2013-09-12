@@ -95,8 +95,6 @@
 
                 $Call['User'] = array_pop($Call['User']);
 
-                $Call['User'] = $Call['User']['Data'];
-
                 F::Log('User authorized '.$Call['User']['ID'], LOG_INFO);
             }
         }
