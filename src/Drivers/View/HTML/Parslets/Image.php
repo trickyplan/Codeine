@@ -53,7 +53,7 @@
 
                   if ($ImageData != null)
                   {
-                      if (isset($Match['Width']))
+                      if (isset($Match['Width']) && isset($Match['Thumb']))
                       {
                             $GImage = new Gmagick();
                             $GImage->readimageblob($ImageData);
