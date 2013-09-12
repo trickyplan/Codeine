@@ -86,12 +86,16 @@
             }
             else
             {
-                $Call['User'] = array_pop(F::Run('Entity','Update',
+                $Call['User'] = F::Run('Entity','Update',
                     [
                          'Entity' => 'User',
                          'Where' => $Call['User']['ID'],
                          'Data'  => $UserData
-                    ]))['Data'];
+                    ]);
+
+                $Call['User'] = array_pop($Call['User']);
+
+                $Call['User'] = $Call['User']['Data'];
 
                 F::Log('User authorized '.$Call['User']['ID'], LOG_INFO);
             }
