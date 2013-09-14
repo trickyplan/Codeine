@@ -3,11 +3,6 @@
     {
         "afterViewLoad":
         {
-            "-Debug":
-            {
-                "Service": "View.Hooks.Debug",
-                "Method": "Do"
-            },
             "KeyBlock 1":
             {
                 "Service": "View.Hooks.KeyBlock",
@@ -26,11 +21,6 @@
             "Layout":
             {
                 "Service": "View.Hooks.Layout",
-                "Method": "Parse"
-            },
-            "Forkey":
-            {
-                "Service": "View.Hooks.Forkey",
                 "Method": "Parse"
             },
             "Call 2":

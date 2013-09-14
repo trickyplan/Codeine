@@ -112,6 +112,12 @@
         return F::Run('Entity.Touch', 'Do', $Call, ['Entity' => $Call['Bundle']]);
     });
 
+    setFn('Import', function ($Call)
+    {
+        $Call['Layouts'][] = ['Scope' => 'Entity', 'ID' => 'Import'];
+        return F::Run('Entity.Import', 'Do', $Call, ['Entity' => $Call['Bundle']]);
+    });
+
     setFn('Populate', function ($Call)
     {
         return F::Run('Entity.Populator', 'Do', $Call, ['Entity' => $Call['Bundle']]);

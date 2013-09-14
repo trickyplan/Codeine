@@ -95,6 +95,15 @@
             "Directory": "Public/uploads",
             "Public": "uploads"
         },
+        "Upload":
+        {
+            "Driver": "IO.Storage.Directory",
+            "Directory": "Data",
+            "Verbosity":
+            {
+                "Not found": 5
+            }
+        },
         "Web":
         {
             "Driver": "IO.Network.HTTP.Curl",
@@ -128,10 +137,14 @@
             {
                 "Failed":
                 {
-                    "Error500":
+                    "Error 500":
                     {
                         "Service": "Error.500",
-                        "Method": "Die"
+                        "Method": "Page",
+                        "Call":
+                        {
+                            "Message": "Storage Open Failed"
+                        }
                     }
                 }
             }

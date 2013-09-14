@@ -152,8 +152,14 @@
         $Postfix  = isset($Call['Suffix']) ? $Call['Suffix'] : '';
         $Prefix   = isset($Call['Prefix']) ? $Call['Prefix'] : '';
 
-        $Filename = F::findFile ($Call['Link'] . '/' . $Call['Scope'] . '/' . $Prefix . $Call['Where']['ID'] . $Postfix);
-        return F::file_exists ($Filename);
+        if (!empty($Call['Where']['ID']))
+        {
+            $Filename = F::findFile ($Call['Link'] . '/' . $Call['Scope'] . '/' . $Prefix . $Call['Where']['ID'] . $Postfix);
+            return F::file_exists ($Filename);
+        }
+        else
+            return false;
+
     });
 
     setFn('Status', function ($Call)
@@ -177,25 +183,4 @@
             $ic++;
 
         return [['Files',  $ic]];
-    });
-
-    setFn('Upload', function ($Call)
-    {
-        $Call['Fullname'] = $Call['Scope'].'/'.$Call['Name'];
-
-        if ($Call['Value']['error'] == 0)
-        {
-            if (!is_dir(Root.'/' . $Call['Directory'].'/'.$Call['Scope']))
-                mkdir(Root.'/' . $Call['Directory'].'/'.$Call['Scope']);
-
-            if (move_uploaded_file($Call['Value']['tmp_name'], Root.'/' . $Call['Directory'].'/'.$Call['Fullname']))
-            {
-                $Call = F::Hook('File.Uploaded', $Call);
-                return $Call['Name'];
-            }
-            else
-                F::Log('Upload failed '.$Call['Value']['tmp_name'], LOG_ERR);
-        }
-
-        return null;
     });

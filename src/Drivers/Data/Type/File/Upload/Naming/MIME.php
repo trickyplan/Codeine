@@ -9,8 +9,11 @@
 
     setFn('Get', function ($Call)
     {
-        if (isset($Call['Value']['type']) && isset($Call['Map'] [$Call['Value']['type']]))
-            return F::Live($Call['ID']). $Call['Map'] [$Call['Value']['type']];
+        $finfo = new finfo(FILEINFO_MIME);
+        list($Type) = explode(';', $finfo->buffer($Call['Data']));
+
+        if (isset($Call['Map'][$Type]))
+            return F::Live($Call['ID']).$Call['Map'][$Type];
         else
             return null;
     });

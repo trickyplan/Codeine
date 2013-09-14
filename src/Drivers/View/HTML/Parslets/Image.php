@@ -7,28 +7,39 @@
      * @version 7.x
      */
 
-     setFn('Parse', function ($Call)
-     {
-          foreach ($Call['Parsed'][2] as $Ix => $Match)
-          {
-              $Match = json_decode(json_encode(simplexml_load_string('<image>'.$Match.'</image>')), true); // I love PHP :(
+    setFn('Parse', function ($Call)
+    {
+        foreach ($Call['Parsed'][2] as $Ix => $Match)
+        {
+            $Match = json_decode(
+                json_encode(
+                    simplexml_load_string('<image>'.$Match.'</image>')), true); // I love PHP :(
 
-              list($Asset, $ID) = F::Run('View', 'Asset.Route', ['Value' => $Match['Source']]);
+              list($Asset, $ID) =
+                  F::Run('View', 'Asset.Route', ['Value' => $Match['Source']]);
+
+              if (isset($Match['Storage']))
+                  $Call['Image']['Storage'] = $Match['Storage'];
+
+              if (isset($Match['Scope']))
+                  $Call['Image']['Scope'] = $Match['Scope'];
+              else
+                  $Call['Image']['Scope'] = [strtr($Asset, '.', '/'), 'img'];
 
               $Image = F::Run('IO', 'Execute',
                                            [
                                                'Execute' => 'Version',
-                                               'Storage' => 'Image',
-                                               'Scope'   => [strtr($Asset, '.', '/'), 'img'],
+                                               'Storage' => $Call['Image']['Storage'],
+                                               'Scope'   => $Call['Image']['Scope'],
                                                'Where'   => $ID
                                            ]).'_'.strtr($Asset.'.'.$ID, '/','.');
 
               $Path = $Call['Image']['Pathname'].$Image;
 
               if (isset($Call['Image']['Host']) && !empty($Call['Image']['Host']))
-                    $Host = $Call['Image']['Host'];
-                else
-                    $Host = $Call['RHost'];
+                  $Host = $Call['Image']['Host'];
+              else
+                  $Host = $Call['RHost'];
 
               if (F::Run ('IO', 'Execute',
                             [
@@ -46,8 +57,8 @@
 
                   $ImageData = F::Run('IO', 'Read',
                                            [
-                                               'Storage' => 'Image',
-                                               'Scope'   => [strtr($Asset, '.', '/'), 'img'],
+                                               'Storage' => $Call['Image']['Storage'],
+                                               'Scope'   => $Call['Image']['Scope'],
                                                'Where'   => $ID
                                            ])[0];
 
@@ -124,8 +135,8 @@
 
 
               $Call['Output'] = str_replace($Call['Parsed'][0][$Ix], $HTML, $Call['Output']);
-          }
+            }
 
 
-          return $Call;
-     });
+      return $Call;
+    });

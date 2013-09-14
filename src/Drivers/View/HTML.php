@@ -74,6 +74,7 @@
 
         $Call['Output'] = $Call['Layout'];
 
+        unset($Call['Layout']);
         $Call = F::Hook('afterHTMLPipeline', $Call);
 
         return $Call;

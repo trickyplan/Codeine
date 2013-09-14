@@ -43,6 +43,8 @@
             // В противном случае, 404
         }
 
+        F::Log('Front Controller finished', LOG_IMPORTANT);
+
         // А здесь - рендеринг
             $Call = F::Hook('afterFrontRun', $Call);
 

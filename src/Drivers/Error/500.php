@@ -23,8 +23,3 @@
                                     ]];
         return $Call;
      });
-
-    setFn('Die', function ($Call)
-    {
-        die(str_replace('<place>Message</place>', $Call['On'], file_get_contents(F::findFile('Assets/Errors/500.html'))));
-    });

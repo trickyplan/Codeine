@@ -76,7 +76,7 @@
                             ]
                         ]))
                     {
-                        F::Log('Cache *hit*', LOG_GOOD);
+                        F::Log('Cache *hit* '.$JS, LOG_GOOD);
                     }
                     else
                     {
@@ -115,6 +115,8 @@
 
             $Call['Output'] = str_replace($Parsed[0], '', $Call['Output']);
         }
+
+        unset($Call['JS']);
 
         return $Call;
     });

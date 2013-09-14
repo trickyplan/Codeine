@@ -29,14 +29,15 @@
 
         $Call['Scope'] = strtr($Call['Scope'], '.', '/');
 
-        $Call['Value'] =  F::Run('IO', 'Read', $Call, ['Where' => null],
+        $Call['Value'] =  F::Run('IO', 'Read', $Call,
             [
                   'Storage' => 'Layout',
-                  'Where'   =>
+                  'Where!'   =>
                   [
                       'ID' => array_reverse($IDs)
                   ]
             ])[0];
+
 
         if (isset($Call['Data']) && !is_array($Call['Data']))
             $Call['Data'] = ['Value' => $Call['Data']];

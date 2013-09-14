@@ -10,13 +10,9 @@
     setFn ('Do', function ($Call)
     {
         if (isset($_FILES['Data']))
-        {
-            foreach ($_FILES['Data'] as $Key => $Value)
-                foreach ($Value as $IX => $cValue)
-                    foreach ($cValue as $C2 => $V2)
-                        $_REQUEST['Data'][$IX][$C2][$Key] = $V2;
-            // FUCK!
-        }
+            foreach ($_FILES['Data']['tmp_name'] as $IX => $Value)
+                $_REQUEST['Data'][$IX] = $Value;
+
         if (!in_array($_SERVER['REQUEST_METHOD'], $Call['HTTP']['Methods']['Allowed']))
             $_SERVER['REQUEST_METHOD'] = $Call['HTTP']['Methods']['Default'];
 

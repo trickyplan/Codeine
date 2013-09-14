@@ -24,6 +24,11 @@
                 "Service":"View.HTML.Parslets",
                 "Method":"Process"
             },
+            "Images":
+            {
+                "Service":"View.HTML.Image",
+                "Method":"Process"
+            },
             "JS":
             {
                 "Service":"View.HTML.JS",

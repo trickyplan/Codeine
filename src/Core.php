@@ -111,7 +111,10 @@ F::Log('Codeine started', LOG_IMPORTANT);
                             else
                             {
                                 if (isset($First[$Key]) && ((array)$Value === $Value))
-                                    $First[$Key] = self::Merge($First[$Key], $Second[$Key]);
+                                {
+                                    if ($First[$Key] !== $Second[$Key])
+                                        $First[$Key] = self::Merge($First[$Key], $Second[$Key]);
+                                }
                                 else
                                     $First[$Key] = $Value;
                             }
@@ -280,23 +283,27 @@ F::Log('Codeine started', LOG_IMPORTANT);
                 {
                     if (self::$_SR71)
                     {
+                        $Memory = memory_get_usage();
                         self::Stop($OldService. '.' . $OldMethod);
                         self::Start(self::$_Service . '.' . self::$_Method);
                     }
 
-                    $Result = $F(F::Merge($Call, $FnOptions));
+                    $Result = $F($Call);
 
                     if (self::$_SR71)
                     {
-                        self::$_Memory = memory_get_usage(true);
                         self::Counter(self::$_Service.'.'.self::$_Method);
                         self::Stop(self::$_Service . '.' . self::$_Method);
                         self::Start($OldService. '.' . $OldMethod);
+
+                        $Memory = round(memory_get_usage()-$Memory)/1024;
+
+                        if ($Memory > self::$_Options['Codeine']['Memory'])
+                            F::Log('High memory at '. self::$_Service.':'.self::$_Method.' +'.$Memory.'kb ('.memory_get_usage().')', LOG_WARNING);
                     }
                 }
                 else
                     $Result = isset($Call['Fallback']) ? $Call['Fallback'] : null;
-
             }
 
             self::$_Service = $OldService;
@@ -473,11 +480,11 @@ F::Log('Codeine started', LOG_IMPORTANT);
                         else
                             return null;
                     }
-
-                return $Tail;
             }
             else
-                return isset($Array[$Key])? $Array[$Key]: null;
+                $Tail = isset($Array[$Key])? $Array[$Key]: null;
+
+            return $Tail;
         }
 
         public static function Hook($On, $Call)
@@ -533,7 +540,7 @@ F::Log('Codeine started', LOG_IMPORTANT);
          * 0 - Apocalypse
          */
 
-        public static function Log ($Message, $Verbose = LOG_INFO, $Target = 'Developer')
+        public static function Log ($Message, $Verbose = 7, $Target = 'Developer')
         {
             if ($Verbose <= self::$_Verbose or (self::$_Environment == 'Development' && $Verbose > 7))
             {
@@ -544,22 +551,30 @@ F::Log('Codeine started', LOG_IMPORTANT);
                 {
                     switch ($Verbose)
                     {
+                        case LOG_EMERG:
+                            echo $Target."\033[0;31m ".$Message." \033[0m".PHP_EOL;
+                        break;
+
+                        case LOG_CRIT:
+                            echo $Target."\033[0;31m ".$Message." \033[0m".PHP_EOL;
+                        break;
+
                         case LOG_ERR:
-                            echo $Target." \033[31 ".$Message.PHP_EOL." \033[31m".PHP_EOL;
+                            echo $Target."\033[0;31m ".$Message." \033[0m".PHP_EOL;
                         break;
 
                         case LOG_WARNING:
-                            echo $Target." \033[33 ".$Message.PHP_EOL." \033[33m".PHP_EOL;
+                            echo $Target."\033[0;33m ".$Message." \033[0m".PHP_EOL;
                         break;
 
                         case LOG_DEBUG:
                         {
-                            echo $Target." \033[30 ".$Message.PHP_EOL." \033[30m".PHP_EOL;
+                            echo $Target."\033[0;30m ".$Message." \033[0m".PHP_EOL;
                         }
 
                         case LOG_USER:
                         {
-                            echo $Target." \033[37 ".$Message.PHP_EOL." \033[37m".PHP_EOL;
+                            echo $Target."\033[0;37m ".$Message." \033[0m".PHP_EOL;
                         }
 
                         default:
@@ -676,7 +691,7 @@ F::Log('Codeine started', LOG_IMPORTANT);
         {
             return
                 (isset(self::$_Storage['FE'][$Filename]) ?
-                self::$_Storage['FE'][$Filename]: self::$_Storage['FE'][$Filename] = file_exists($Filename));
+                self::$_Storage['FE'][$Filename]: self::$_Storage['FE'][$Filename] = file_exists($Filename) && is_file($Filename));
         }
 
         public static function Counter ($Key, $Value = 1)

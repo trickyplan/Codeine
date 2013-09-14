@@ -9,25 +9,27 @@
 
     setFn('Write', function ($Call)
     {
-        $Call['Scope'] = strtolower($Call['Entity']);
+        $Call['Scope'] .= $Call['Entity'].'/'.$Call['Name'];
 
-        if (is_scalar($Call['Value']))
-            return $Call['Value'];
-
-        if ($Call['Value']['error'] == 0)
+        if (is_uploaded_file($Call['Value']) or preg_match('/^http:\/\//', $Call['Value']))
         {
             $Call['ID'] = F::Run('Security.UID', 'Get', $Call);
+
+
+
+            $Call['Data'] = file_get_contents($Call['Value']);
             $Call['Name'] = F::Live($Call['Node']['Naming'], $Call);
 
-            return F::Run('IO', 'Execute', $Call,
+            F::Run('IO', 'Write', $Call,
             [
-                'Execute' => 'Upload',
-                'Storage' => $Call['Node']['Storage']
+                 'Storage' => $Call['Node']['Storage'],
+                 'Where'   => $Call['Name']
             ]);
-        }
-        else
-            return null;
 
+            return $Call['Name'];
+        }
+
+        return $Call['Value'];
     });
 
     setFn(['Read', 'Where'], function ($Call)

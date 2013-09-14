@@ -15,7 +15,7 @@
 
             if (($Result = F::Get($Call['IOHash'])) !== null)
             {
-                F::Log($Call['IOHash'].' deduped', LOG_GOOD);
+/*                F::Log($Call['IOHash'].' deduped', LOG_GOOD);*/
                 $Call['Result'] = $Result;
             }
         }

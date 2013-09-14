@@ -208,7 +208,7 @@
         else
             $Cursor = $Call['Link']->$Call['Scope']->find();
 
-        $Cursor->limit(0,1);
+        $Cursor->limit(1);
 
         return array_shift(iterator_to_array($Cursor->sort(['ID' => -1])))['ID']+1;
     });

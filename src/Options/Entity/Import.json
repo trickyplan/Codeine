@@ -1,0 +1,65 @@
+{
+    "Purpose": "Import",
+    "Hooks":
+    {
+        "beforeCreateDo":
+        {
+            "Load model (essential)":
+            {
+                "Service":"Entity",
+                "Method":"Load"
+            }
+        },
+        "beforeCreatePost":
+        {
+            "Make variables alive":
+            {
+                "Service":"Entity.Hooks.Live",
+                "Method":"Process"
+            }
+        },
+        "beforeCreateGet":
+        {
+            "Add form widget":
+            {
+                "Output":
+                {
+                    "Content":
+                    {
+                        "Form Widget":
+                        {
+                            "Type": "Form",
+                            "Submit": "Create"
+                        }
+                    }
+                }
+
+            }
+        },
+        "afterCreatePost":
+        {
+            "HTTP 201":
+            {
+                "Headers":
+                {
+                    "HTTP/1.0": "201 Created"
+                }
+            },
+            "Add success layout":
+            {
+                "Output":
+                {
+                    "Content":
+                    {
+                        "Success layout":
+                        {
+                            "Type": "Template",
+                            "ID": "Created"
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+}

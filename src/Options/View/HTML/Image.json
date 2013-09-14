@@ -1,0 +1,26 @@
+{
+    "Image":
+    {
+        "Tags": [],
+        "Proto": "",
+        "Host": "",
+        "Caching": true,
+        "Pattern": "<image>(.+?)<\/image>",
+        "Pathname": "/cache/img/",
+        "Quality": 85,
+        "Source":
+        {
+            "Storage": "Image"
+        }
+    },
+    "Hooks":
+    {
+        "beforeImageWrite":
+        {
+            "Thumbs":
+            {
+                "Service": "View.HTML.Image.Thumb"
+            }
+        }
+    }
+}

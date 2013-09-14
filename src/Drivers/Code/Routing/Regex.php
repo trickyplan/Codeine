@@ -80,6 +80,7 @@
         $Call['Run'] = $Decision;
 
         unset($Call['Regex']);
+
         return $Call;
     });
 
