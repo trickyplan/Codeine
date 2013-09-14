@@ -85,6 +85,7 @@
                         ]);
 
                     $ImageCached = $Version.'_'.
+                        $Call['Current Image']['Width'].
                         strtr($Call['Current Image']['Source']['Scope'].$Call['Current Image']['Source']['Where']['ID'], '/', '.');
 
                     if ($Call['Image']['Caching'] && F::Run('IO', 'Execute',
