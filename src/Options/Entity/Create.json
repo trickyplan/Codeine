@@ -12,14 +12,6 @@
                 "Method":"Load"
             }
         },
-        "beforeCreatePost":
-        {
-            "Make variables alive":
-            {
-                "Service":"Entity.Hooks.Live",
-                "Method":"Process"
-            }
-        },
         "beforeCreateGet":
         {
             "Add form widget":

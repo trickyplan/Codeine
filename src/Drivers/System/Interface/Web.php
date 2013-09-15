@@ -9,16 +9,17 @@
 
     setFn ('Do', function ($Call)
     {
-        if (isset($_FILES['Data']))
-            foreach ($_FILES['Data']['tmp_name'] as $IX => $Value)
-                $_REQUEST['Data'][$IX] = $Value;
-
         if (!in_array($_SERVER['REQUEST_METHOD'], $Call['HTTP']['Methods']['Allowed']))
             $_SERVER['REQUEST_METHOD'] = $Call['HTTP']['Methods']['Default'];
 
         $Call['HTTP Method'] = $_SERVER['REQUEST_METHOD'];
 
         F::Log('Method: '.$Call['HTTP Method'], LOG_INFO);
+
+        if (isset($_FILES['Data']))
+            foreach ($_FILES['Data']['tmp_name'] as $IX => $Value)
+                foreach ($Value as $K2 => $V2)
+                    $_REQUEST['Data'][$IX][$K2] = $V2;
 
         $Call['Request'] = $_REQUEST;
 

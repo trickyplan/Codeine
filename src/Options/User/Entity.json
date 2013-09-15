@@ -11,12 +11,8 @@
             {
                 "beforeEntityCreate":
                 {
-                    "Service": "Security.UID.Count",
-                    "Method": "Get",
-                    "Call":
-                    {
-                        "Entity": "User"
-                    }
+                    "Service": "Security.UID.Sequence",
+                    "Method": "Get"
                 }
             }
         },

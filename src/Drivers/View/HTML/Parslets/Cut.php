@@ -14,20 +14,20 @@
             $Root = simplexml_load_string('<root '.$Call['Parsed'][1][$IX].'></root>');
 
             $Inner = $Call['Parsed'][2][$IX];
-            $Words = (int) $Root->attributes()->words;
+            $WordCount = (int) $Root->attributes()->words;
 
-            if (preg_match('/([^ \n\r]+[ \n\r]+){1,'.$Words.'}/s', $Inner, $Match))
-                $Outer = $Match[0];
-            else
-                $Outer = $Inner;
+            $Words = preg_split('/[\s,]+/', $Inner);
 
-            if (mb_strlen(trim($Inner)) > mb_strlen($Outer))
+            if (count($Words) > $WordCount)
             {
+                $Outer = mb_substr($Inner, 0, mb_strpos($Inner, $Words[$WordCount-1]));
                 $Hellip = isset($Root->attributes()->hellip) ? (string) $Root->attributes()->hellip: '&hellip;';
                 $Hellip = isset($Root->attributes()->more)? '<a href="'.(string) $Root->attributes()->more.'">'.$Hellip.'</a>': $Hellip;
 
                 $Outer.= $Hellip;
             }
+            else
+                $Outer = $Inner;
 
             $Call['Output'] = str_replace ($Call['Parsed'][0][$IX], $Outer, $Call['Output']);
         }
