@@ -22,3 +22,18 @@ $(document).ready(function ()
         )
     }
 );
+
+$(document).ready(function ()
+    {
+        $('a[target=new]').bind('click',
+            function ()
+            {
+                var el = $(this);
+
+                window.open(el.attr('href'), 'new',"height=400,width=600");
+                return false;
+            }
+
+        )
+    }
+);

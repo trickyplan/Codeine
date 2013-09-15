@@ -40,8 +40,6 @@
 {
     background-color: #f7f7f7;
     color: #666666;
-    display: inline-block;
-    margin: 3px;
 }
 
 .label-lg
@@ -50,7 +48,10 @@
     padding: .6em 1.2em ;
 }
 
-
+a.no-border, .no-border a, a:hover.no-border, .no-border a:hover
+{
+    border: none;
+}
 
 @media screen and (min-width: 1600px) {
     .liquid {
