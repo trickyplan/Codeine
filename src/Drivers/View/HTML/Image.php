@@ -137,7 +137,10 @@
             // После вывода картинок
         }
 
-        $Call['Output'] = str_replace($Parsed[0],$Call['Image']['Tags'] , $Call['Output']);
+        if (empty($Call['Image']['Tags']))
+            $Call['Image']['Tags'] = '';
+
+        $Call['Output'] = str_replace($Parsed[0], $Call['Image']['Tags'] , $Call['Output']);
 
         unset($Call['Current Image'], $Call['Image']);
 
