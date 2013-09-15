@@ -9,10 +9,5 @@
 
      setFn('Make', function ($Call)
      {
-         if ($Call['Value'])
-             $Call['Checked'] = 'checked';
-         else
-             $Call['Checked'] = '';
-
          return $Call;
      });
