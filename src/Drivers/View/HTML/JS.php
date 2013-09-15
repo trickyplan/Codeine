@@ -63,7 +63,7 @@
 
                 foreach ($Call['JS']['Scripts'] as $JS => $JSSource)
                 {
-                    $JS = sha1($JSSource).'_'.$JS;
+                    $JS = sha1($JSSource).'_'.strtr($JS, ':', '_');
 
                     if ($Call['JS']['Caching'] && F::Run('IO', 'Execute',
                         [
@@ -96,17 +96,14 @@
                     }
 
 
-                    if (isset($Call['JS']['Host']) && !empty($Call['JS']['Host']))
-                        $Call['JS']['Links'][] = '<script src="'
-                            .$Call['JS']['Proto']
+                    $JSFilename = $Call['JS']['Proto']
                             .$Call['JS']['Host']
                             .$Call['JS']['Pathname']
                             .$JS
-                            .$Call['JS']['Extension'].'" type="'.$Call['JS']['Type'].'"></script>';
-                    else
-                        $Call['JS']['Links'][]
-                            = '<script src="'.$Call['JS']['Pathname'].$JS.$Call['JS']['Extension'].'" type="'.$Call['JS']['Type'].'"></script>';
-                }
+                            .$Call['JS']['Extension'];
+
+                    $Call['JS']['Links'][$JSFilename] = '<script src="'.$JSFilename.'" type="'.$Call['JS']['Type'].'"></script>';
+               }
 
                 $Call = F::Hook('afterJSOutput', $Call);
 

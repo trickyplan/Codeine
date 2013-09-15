@@ -20,6 +20,14 @@
                 "Service":"View.HTML.JS.Combine",
                 "Method": "Do"
             }
+        },
+        "afterJSOutput":
+        {
+            "Async":
+            {
+                "Service":"View.HTML.JS.Async",
+                "Method": "Do"
+            }
         }
     }
 }
