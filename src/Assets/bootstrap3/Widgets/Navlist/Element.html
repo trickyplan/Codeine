@@ -1,9 +1,13 @@
 <li>
     <a href="<k>URL</k>">
         <image>
-            <Source><k>ID</k>:<k>ID</k>.png</Source>
-            <Default>Default:application.png</Default>
+            <Source>
+                <Scope><k>ID</k>/img</Scope>
+                <Where><k>ID</k>.png</Where>
+            </Source>
             <Width>16</Width>
+            <Default>Default:application.png</Default>
+            <Class>img</Class>
         </image>
         <k>Title</k>
         <block><span class="badge pull-right"><k>Count</k></span></block>

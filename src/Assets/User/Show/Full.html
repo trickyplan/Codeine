@@ -8,13 +8,17 @@
     <div class="panel-body">
         <div class="row">
             <div class="col-md-1">
-                <thumb>
-                    <URL>
-                        <k>Avatar</k>
-                    </URL>
+                <image>
+                    <Source>
+                        <Storage>Upload</Storage>
+                        <Scope>User/Photo</Scope>
+                        <Where><k>Avatar</k></Where>
+                    </Source>
                     <Width>100</Width>
+                    <Default>User/img:Default<k>Gender</k>.png</Default>
+                    <Thumb></Thumb>
                     <Class>img img-responsive</Class>
-                </thumb>
+                </image>
             </div>
             <div class="col-md-11">
                 <h2>
@@ -23,9 +27,7 @@
                 <h4>
                     <k>Location</k>
                     ,
-                    <entity>Country:
-                        <k>Country</k>
-                    </entity>
+                    <entity>Country:<k>Country</k></entity>
                 </h4>
             </div>
         </div>
