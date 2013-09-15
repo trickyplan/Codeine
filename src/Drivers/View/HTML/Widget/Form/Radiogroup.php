@@ -25,7 +25,8 @@
                     'Data' =>
                     F::Merge ($Call,
                         [
-                            'Value' => $lValue,
+                            'Label' => $lValue,
+                            'Value' => $Value,
                             'Checked' => ($IX == $Call['Value']? 'checked': '')
                         ])
                 ]

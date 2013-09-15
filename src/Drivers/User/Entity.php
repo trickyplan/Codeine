@@ -27,6 +27,8 @@
 
     setFn('Photo', function ($Call)
     {
+        $Photo = null;
+
         if (isset($Call['Data']['Photo']))
         {
             if (preg_match('/^http.*/', $Call['Data']['Photo']))
@@ -36,8 +38,6 @@
             elseif (isset($Call['Data']['Photo']) && !empty($Call['Data']['Photo']))
                 $Photo = $Call['Data']['Photo'];
         }
-        else
-            $Photo = 'User:Default'.$Call['Data']['Gender'].'.png';
 
         return $Photo;
     });
