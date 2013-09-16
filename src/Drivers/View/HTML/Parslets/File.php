@@ -15,19 +15,25 @@
                   $Match = '';
               else
               {
-                  if (F::file_exists(Root.'/Public'.$Match))
+                  if (F::file_exists($Filename = Root.'/Data/'.$Match))
                   {
                       $Pathinfo = pathinfo($Match);
                       $Filesize = F::Run('Formats.Number.Filesize', 'Do',
-                          ['Value' => filesize(Root.'/Public'.$Match)]); // FIXME
+                          ['Value' => filesize($Filename)]); // FIXME
 
-                      $Match = '
-                      <image>
-                        <Source>Formats/File:'.strtolower($Pathinfo['extension']).'.png</Source>
-                        <Default>Formats/File:default.png</Default>
-                      </image>
-                      <a target="_blank" href="'. $Match.'">
-                      '.$Pathinfo['basename'].' <small>('.$Filesize.')</a></small>';
+                      $Data = [
+                              'URL' => $Match,
+                              'Filename' => $Pathinfo['basename'],
+                              'Filesize' => $Filesize,
+                              'Extension' => $Pathinfo['extension']
+                          ];
+
+                      $Match = F::Run('View', 'Load', $Call,
+                      [
+                          'Scope' => 'View/HTML/Parslets',
+                          'ID' => 'File',
+                          'Data' => $Data
+                      ]);
                   }
                   else
                       $Match = '';

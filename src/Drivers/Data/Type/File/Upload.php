@@ -9,7 +9,7 @@
 
     setFn('Write', function ($Call)
     {
-        $Call['Scope'] .= $Call['Entity'].'/'.$Call['Name'];
+        $Call['Scope'] = $Call['Entity'].'/'.$Call['Name'];
 
         if (is_uploaded_file($Call['Value']) or preg_match('/^http:\/\//', $Call['Value']))
         {
