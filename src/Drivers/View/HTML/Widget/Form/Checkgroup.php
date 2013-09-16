@@ -13,7 +13,7 @@
 
         $Call['Name'] .= '[]';
         
-        foreach ($Call['Options'] as $Call['Key'] => $Value)
+        foreach ($Call['Options'] as $Key => $Value)
         {
             if (isset($Call['Localized']) && $Call['Localized'])
                 $lValue = '<l>'.$Call['Entity'].'.Entity:'.$Call['Key'].'.'.$Value.'</l>';
@@ -21,11 +21,11 @@
                 $lValue = $Value;
 
             $Checked = (
-                $Call['Key'] == $Call['Value']
+                $Key == $Call['Value']
                 ||
                 $Value == $Call['Value']
                 || (is_array($Call['Value'])
-                && in_array($Call['Key'], $Call['Value'])));
+                && in_array($Key, $Call['Value'])));
 
             $Call['Checks'] .= F::Run('View', 'Load',
                 [
@@ -34,7 +34,8 @@
                     'Data' =>
                     F::Merge ($Call,
                         [
-                            'Value' => $lValue,
+                            'Value' => $Value,
+                            'Label' => $lValue,
                             'Checked' => $Checked? 'checked': ''
                         ])
                 ]

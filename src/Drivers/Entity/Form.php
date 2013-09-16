@@ -38,9 +38,6 @@
                 if (isset($Node['Scope']) && !in_array($Call['Tag'], (array) $Node['Scope']))
                     continue;
 
-                if($Call['Purpose'] == 'Create' && isset($Call['Data'][$Name]))
-                    $Widget['Type'] = 'Form.Static';
-
                 if (null !== $Widget)
                 {
                     // Передаём имя сущности

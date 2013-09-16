@@ -21,7 +21,7 @@
         $Call = F::Hook('beforeCreateGet', $Call);
 
         if (isset($Call['Request']['Data'][0]) && isset($Call['Data']))
-            $Call['Data'] = F::Merge($Call['Request']['Data'][0], $Call['Data']);
+            $Call['Data'] = F::Merge($Call['Request']['Data'][0], $Call['Data'][0]);
         else
             if (isset ($Call['Request']['Data'][0]))
                 $Call['Data'] = $Call['Request']['Data'][0];
@@ -39,7 +39,7 @@
 
         // Для каждой ноды в модели
 
-        $Call = F::Run('Entity.Form', 'Generate', $Call, ['IX' => 0]);
+        $Call = F::Run('Entity.Form', 'Generate', $Call, ['IX' => 0, 'Data!' => $Call['Data'][0]]);
 
         // Вывести
         $Call = F::Hook('afterCreateGet', $Call);
