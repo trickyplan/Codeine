@@ -33,11 +33,16 @@
             if ($Call['Meta']['Title']['Reverse'])
                 $Call['Title'] = array_reverse($Call['Title']);
 
+            $Call['OG Title'] = trim(html_entity_decode($Call['Title'][0]));
+
             $Call['Title'] = implode($Call['Meta']['Title']['Delimiter'], $Call['Title']);
+
+            $Call['Title'] = html_entity_decode(strip_tags($Call['Title'], '<l><k>'));
 
             $Call['Output'] = preg_replace(
                         $Call['Meta']['Pattern']['Title'],
-                        '<title>'.strip_tags($Call['Title'], '<l><k>').'</title>',
+                        '<title>'.$Call['Title'].'</title>'.
+                        '<meta property="og:title" content="'.$Call['OG Title'].'"/>',
                         $Call['Output']);
         }
 
