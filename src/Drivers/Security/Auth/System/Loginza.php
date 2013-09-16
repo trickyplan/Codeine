@@ -78,7 +78,8 @@
                     $Call['User'] = F::Run('Entity','Create',
                         [
                             'Entity' => 'User',
-                            'Data'  => $UserData
+                            'One'    => true,
+                            'Data'   => $UserData
                         ])['Data'];
 
                     F::Log('User registered '.$Call['User']['ID'], LOG_INFO);
