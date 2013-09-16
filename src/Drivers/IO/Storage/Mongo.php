@@ -210,6 +210,7 @@
 
         $Cursor->limit(1);
 
-        return array_shift(iterator_to_array($Cursor->sort(['ID' => -1])))['ID']+1;
+        $IDs = iterator_to_array($Cursor->sort(['ID' => -1]));
+        return (array_shift($IDs)['ID']+1);
     });
 
