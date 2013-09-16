@@ -89,9 +89,10 @@
             {
                 $Call['User'] = F::Run('Entity','Update',
                     [
-                         'Entity' => 'User',
-                         'Where' => $Call['User']['ID'],
-                         'Data'  => $UserData
+                         'Entity'   => 'User',
+                         'Where'    => $Call['User']['ID'],
+                         'One'      => true,
+                         'Data'     => $UserData
                     ]);
 
                 $Call['User'] = array_pop($Call['User']);
