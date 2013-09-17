@@ -39,6 +39,9 @@
 
         // Для каждой ноды в модели
 
+        if (!isset($Call['Data']))
+            $Call['Data'] = [[]];
+
         $Call = F::Run('Entity.Form', 'Generate', $Call, ['IX' => 0, 'Data!' => $Call['Data'][0]]);
 
         // Вывести
