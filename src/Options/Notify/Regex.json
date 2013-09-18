@@ -1,0 +1,50 @@
+{
+    "Regex":
+    {
+        "Уведомления":
+        {
+            "Match":"^/notifies$",
+            "Service":"Entity.List",
+            "Method":"Do",
+            "Call":
+            {
+                "Entity": "Notify",
+                "Where":
+                {
+                    "Service": "Notify.Role",
+                    "Method": "All"
+                },
+                "Sort":
+                {
+                    "Created": false
+                }
+            }
+        },
+        "Уведомления / Страницы ":
+        {
+            "Match":"^/notifies/page([\\d]+)$",
+            "Service":"Entity.List",
+            "Method":"Do",
+            "Call":
+            {
+                "Entity": "Notify",
+                "Page": "$1",
+                "Sort":
+                {
+                    "Created": false
+                }
+            }
+        },
+        "Слушаем":
+        {
+            "Match":"^/notify/subscribe$",
+            "Service":"Notify.Subscribe",
+            "Method":"Do",
+            "Renderer":
+            {
+                "Service": "View.JSON",
+                "Method": "Render"
+            }
+        }
+    }
+}

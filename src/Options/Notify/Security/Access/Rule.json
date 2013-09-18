@@ -1,0 +1,28 @@
+{
+    "Rules":
+    {
+        "Уведомления доступны всем":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Entity.List",
+                "Method": "Do",
+                "Call":
+                {
+                    "Entity": "Notify"
+                }
+            }
+        },
+        "Поток уведомлений доступен всем":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Notify.Subscribe"
+            }
+        }
+    }
+}

@@ -1,0 +1,44 @@
+{
+    "Mixins": ["Mixins.UGC"],
+    "Entity": "Notify",
+    "Storage": "Primary",
+    "EPP": 20,
+    "Nodes":
+    {
+        "ID":
+        {
+            "Type": "Numeral.Integer",
+            "Hooks":
+            {
+                "beforeEntityCreate":
+                {
+                    "Service": "Security.UID",
+                    "Method": "Get",
+                    "Call":
+                    {
+                        "Mode": "Normal"
+                    }
+                }
+            }
+        },
+        "Type":
+        {
+            "Type": "List.Enum",
+            "Default": 0,
+            "Options": ["info", "warning", "error"]
+        },
+        "Title":
+        {
+            "Type": "Literal.String"
+        },
+        "Text":
+        {
+            "Type": "Literal.String"
+        },
+        "Readed":
+        {
+            "Type": "Numeral.Integer",
+            "Default": 0
+        }
+    }
+}
