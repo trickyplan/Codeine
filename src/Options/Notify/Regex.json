@@ -11,8 +11,15 @@
                 "Entity": "Notify",
                 "Where":
                 {
-                    "Service": "Notify.Role",
-                    "Method": "All"
+                    "User":
+                    {
+                        "Service": "Session",
+                        "Method": "Read",
+                        "Call":
+                        {
+                            "Key": "User.ID"
+                        }
+                    }
                 },
                 "Sort":
                 {
@@ -29,6 +36,18 @@
             {
                 "Entity": "Notify",
                 "Page": "$1",
+                "Where":
+                {
+                    "User":
+                    {
+                        "Service": "Session",
+                        "Method": "Read",
+                        "Call":
+                        {
+                            "Key": "User.ID"
+                        }
+                    }
+                },
                 "Sort":
                 {
                     "Created": false
