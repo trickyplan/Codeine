@@ -1,6 +1,7 @@
 {
     "Image":
     {
+        "Class": "img",
         "Tags": [],
         "Proto": "",
         "Host": "",
