@@ -34,7 +34,7 @@
                     'Data' =>
                     F::Merge ($Call,
                         [
-                            'Value' => $Value,
+                            'Value' => $Key,
                             'Label' => $lValue,
                             'Checked' => $Checked? 'checked': ''
                         ])

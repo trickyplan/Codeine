@@ -9,8 +9,10 @@
 
      setFn('Make', function ($Call)
      {
-         if ($Call['Value'])
-             $Call['Checked'] = 'checked';
+         if (isset($Call['Localized']) && $Call['Localized'])
+                $Call['Label'] = '<l>'.$Call['Entity'].'.Entity:'.$Call['Key'].'.'.$Call['Value'].'</l>';
+            else
+                $Call['Label'] = $Call['Value'];
 
          return $Call;
      });

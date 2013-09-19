@@ -13,6 +13,8 @@
 
         $Call = F::Run('Session', 'Annulate', $Call);
 
+        F::Log('User '.$Call['Session']['User']['ID'].' logged off', LOG_INFO, 'Security');
+
         $Call = F::Hook('afterUserLogout', $Call);
 
         return $Call;

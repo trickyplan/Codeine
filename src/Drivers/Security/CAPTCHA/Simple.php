@@ -83,11 +83,7 @@
         if (file_exists('/tmp/cache/'.$Call['RHost'].'/captcha/'.$Call['Request']['CAPTCHA']['Challenge'].'.png'))
             unlink('/tmp/cache/'.$Call['RHost'].'/captcha/'.$Call['Request']['CAPTCHA']['Challenge'].'.png');
 
-        if (!isset($Call['Session']['User']['ID']) && $Call['Request']['CAPTCHA']['Challenge'] != sha1($Call['Request']['CAPTCHA']['Answer']))
-        {
-            $Call['Failure'] = true;
-            $Call = F::Hook('CAPTCHA.Failed', $Call);
-        }
-
-        return $Call;
+        return (
+            isset($Call['Session']['User']['ID'])
+            && $Call['Request']['CAPTCHA']['Challenge'] == sha1($Call['Request']['CAPTCHA']['Answer']));
     });

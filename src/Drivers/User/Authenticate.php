@@ -41,13 +41,16 @@
                 $Call = F::Run('Session', 'Write', $Call, ['Data' => ['User' => $Call['User']['ID']]]);
 
                 if ($Call['Session']['User'] == $Call['User'])
+                {
                     $Call = F::Hook('afterAuthenticatePost', $Call);
+                    F::Log('User authorized '.$Call['User']['ID'], LOG_INFO, 'Security');
+                }
             }
         }
         else
         {
             $Call = F::Hook('Authenticating.Failed', $Call);
-            F::Log('Authentification failed', LOG_INFO);
+            F::Log('Authentification failed', LOG_INFO, 'Security');
         }
 
         return $Call;

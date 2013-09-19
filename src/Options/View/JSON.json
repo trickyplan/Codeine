@@ -3,5 +3,21 @@
     {
         "Content-type:": "application/json"
     },
-    "Extension": ".json"
+    "Extension": ".json",
+    "Hooks":
+    {
+        "afterJSONRender":
+        {
+            "Parslets":
+            {
+                "Service":"View.JSON.Parslets",
+                "Method":"Process"
+            },
+            "I18N":
+            {
+                "Service":"View.HTML.LocaleNG",
+                "Method":"Process"
+            }
+        }
+    }
 }

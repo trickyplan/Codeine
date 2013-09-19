@@ -4,6 +4,7 @@
         "User":
         {
             "Type": "Numeral.Integer",
+            "User Override": true,
             "Hooks":
             {
                 "beforeEntityCreate":

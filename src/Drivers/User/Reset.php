@@ -52,6 +52,8 @@
                 'Scope' => 'User',
                 'ID' => 'Reset/Success'
             );
+
+            F::Log('User reset password '.$Call['User']['ID'], LOG_INFO, 'Security');
         }
         else
             $Call['Output']['Content'][] = array(

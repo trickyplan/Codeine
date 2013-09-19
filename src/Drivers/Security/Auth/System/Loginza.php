@@ -71,7 +71,7 @@
                             ]
                         ])['Data'];
 
-                    F::Log('Account attached to user'.$Call['User']['ID'], LOG_INFO);
+                    F::Log('Account attached to user'.$Call['User']['ID'], LOG_INFO, 'Security');
                 }
                 else
                 {
@@ -82,7 +82,7 @@
                             'Data'   => $UserData
                         ])['Data'];
 
-                    F::Log('User registered '.$Call['User']['ID'], LOG_INFO);
+                    F::Log('User registered '.$Call['User']['ID'], LOG_INFO, 'Security');
                 }
             }
             else
@@ -96,17 +96,19 @@
                     ]);
 
                 $Call['User'] = array_pop($Call['User']);
-
-                F::Log('User authorized '.$Call['User']['ID'], LOG_INFO);
             }
         }
         else
-               $Call['Output']['Content'][] =
-                   [
-                        'Type' => 'Template',
-                        'Scope' => 'User/Authenticate',
-                        'ID' => 'Failed'
-                   ];
+        {
+            $Call['Output']['Content'][] =
+                [
+                    'Type' => 'Template',
+                    'Scope' => 'User/Authenticate',
+                    'ID' => 'Failed'
+                ];
+
+            F::Log('Loginza failed '.$Call['User']['ID'], LOG_ERR, 'Security');
+        }
 
         return $Call;
     });

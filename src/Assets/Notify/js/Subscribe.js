@@ -16,7 +16,8 @@ var notify =
                             $.pnotify({
                                 title: json[i].Title,
                                 text: json[i].Text,
-                                type: json[i].Type
+                                type: json[i].Type,
+                                width: '25%'
                             });
                         }
                     }

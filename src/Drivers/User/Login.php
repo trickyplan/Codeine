@@ -13,6 +13,8 @@
 
         $Call = F::Run('Session', 'Write', $Call, ['Data' => ['Secondary' => $Call['Where']]]);
 
+        F::Log('User '.$Call['Session']['User']['ID'].' logged in '.$Call['Where'], LOG_INFO, 'Security');
+
         $Call = F::Hook('afterLogin', $Call);
 
         return $Call;

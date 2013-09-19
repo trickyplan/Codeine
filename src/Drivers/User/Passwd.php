@@ -47,6 +47,8 @@
                     'Class' => 'alert alert-success',
                     'Value' => '<l>User.Passwd:Success</l>'
                 );
+
+            F::Log('User '.$Call['Session']['User']['ID'].' changed password ', LOG_INFO, 'Security');
         }
         else
             $Call['Output']['Message'][] = array(

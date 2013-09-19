@@ -25,7 +25,7 @@
         {
             "Type": "List.Enum",
             "Default": 0,
-            "Options": ["info", "warning", "error"]
+            "Options": ["info", "warning", "success", "error"]
         },
         "Title":
         {
@@ -38,7 +38,10 @@
         "Readed":
         {
             "Type": "Numeral.Integer",
-            "Default": 0
+            "Hooks":
+            {
+                "beforeEntityCreate": 0
+            }
         }
     }
 }

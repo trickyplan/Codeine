@@ -14,8 +14,13 @@
 
     setFn('Check', function ($Call)
     {
-        if (isset($Call['CAPTCHA']['Bypass']))
-            return $Call;
-        else
-            return F::Run($Call['CAPTCHA Service'], 'Check', $Call);
+        if (!isset($Call['CAPTCHA']['Bypass']))
+            if (!F::Run($Call['CAPTCHA Service'], 'Check', $Call))
+            {
+                F::Log('CAPTCHA Failed from IP '.$Call['IP'], LOG_ERR, 'Security');
+                $Call['Failure'] = true;
+                $Call = F::Hook('CAPTCHA.Failed', $Call);
+            }
+
+        return $Call;
     });

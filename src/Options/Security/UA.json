@@ -6,16 +6,6 @@
     {
         "BadUADetected":
         {
-            "Log":
-            {
-                "Service": "F",
-                "Method": "Log",
-                "Call":
-                {
-                    "Message": "Bad UA Detected: $UA",
-                    "Type": 1
-                }
-            },
             "Block":
             {
                 "Service": "Error.403",

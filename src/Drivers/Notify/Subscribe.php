@@ -16,18 +16,20 @@
                     [
                         'User' =>
                         (isset($Call['Session']['User']['ID'])?
-                            $Call['Session']['User']['ID']: $Call['SID'])
+                            $Call['Session']['User']['ID']: $Call['SID']),
+                        'Readed' => 0
                     ]
                 ]);
 
         if (!empty($Elements))
         {
             foreach($Elements as $Element)
-                F::Run('Entity', 'Delete',
+                F::Run('Entity', 'Update',
                     [
                         'One'       => true,
                         'Entity'    => 'Notify',
-                        'Where'     => $Element['ID']
+                        'Where'     => $Element['ID'],
+                        'Data'      => ['Readed' => time()]
                     ]);
 
             $Call['Output']['Content'] = $Elements;
