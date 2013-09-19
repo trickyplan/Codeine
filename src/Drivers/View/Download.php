@@ -9,15 +9,15 @@
 
     setFn('Render', function ($Call)
     {
-        $Call['Headers']['Content-type:'] = mime_content_type($Call['Output']['File']);
 
-        $pi = pathinfo($Call['Output']['File']);
+        $Call['Headers']['Content-type:'] = mime_content_type($Call['Output']['Content']);
+
+        $pi = pathinfo($Call['Output']['Content']);
 
         $Call['Headers']['Content-Disposition:'] =
             'attachment;filename="'.$Call['Output']['Title'].'.'.$pi['extension'].'"';
 
-        readfile($Call['Output']['File']);
+        readfile($Call['Output']['Content']);
 
-        $Call['Output'] = '';
         return $Call;
     });
