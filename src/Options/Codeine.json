@@ -1,5 +1,6 @@
 {
-    "Memory": 512,
+    "Core Variables Limit": 128,
+    "Heavy Memory Limit": 512,
     "Verbose": 4,
     "Driver":
     {

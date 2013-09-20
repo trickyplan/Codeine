@@ -298,7 +298,7 @@ F::Log('Codeine started', LOG_IMPORTANT);
 
                         $Memory = round(memory_get_usage()-$Memory)/1024;
 
-                        if ($Memory > self::$_Options['Codeine']['Memory'])
+                        if ($Memory > self::$_Options['Codeine']['Heavy Memory Limit'])
                             F::Log('High memory at '. self::$_Service.':'.self::$_Method.' +'.$Memory.'kb ('.memory_get_usage().')', LOG_WARNING);
                     }
                 }
@@ -682,6 +682,9 @@ F::Log('Codeine started', LOG_IMPORTANT);
 
         public static function Set ($Key, $Value)
         {
+            if (count(self::$_Storage)>self::$_Options['Codeine']['Core Variables Limit'])
+                array_shift(self::$_Storage);
+
             return self::$_Storage[$Key] = $Value;
         }
 
