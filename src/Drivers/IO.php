@@ -98,7 +98,7 @@
 
             if (isset($Call['Format']))
             {
-                if (isset($Call['Data']))
+                if (isset($Call['Data']) && isset($Call['Data']['ID']))
                     $Call['ID'] = $Call['Data']['ID'];
 
                 $Call['Data'] = F::Run ($Call['Format'], 'Encode', ['Value' => $Call['Data']]);

@@ -34,12 +34,12 @@
         ksort($Locale);
 
         if (null !== F::Run('IO', 'Write',
-                    array (
+                    [
                           'Storage' => 'Locale',
                           'Scope'   => $Asset.'/Locale/'.$Language,
-                          'Where'   => $ID,
+                          'Where'   => ['ID' => $ID],
                           'Data' => $Locale
-                    )))
+                    ]))
 
             $Call['Output']['Content'] = true;
         else

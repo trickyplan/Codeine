@@ -9,7 +9,8 @@
 
     setFn('Do', function ($Call)
     {
-        $Call['Project']['MTime'] = filemtime(Root.'/Options/Version.json');
+        if (F::file_exists(Root.'/Options/Version.json'))
+            $Call['Project']['MTime'] = filemtime(Root.'/Options/Version.json');
         return $Call;
     });
 

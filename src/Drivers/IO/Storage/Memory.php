@@ -2,7 +2,6 @@
 
     /* Codeine
      * @author BreathLess
-     * @description APC Data Driver 
      * @package Codeine
      * @version 7.x
      */
