@@ -14,28 +14,38 @@
              {
                  $Tag = strtolower($Parslet);
 
-                 $Passes = 0;
+                 $Pass = 1;
 
-                 while (preg_match_all('@<'.$Tag.' (.+)>(.*)</'.$Tag.'>@SsUu', $Call['Output'], $Call['Parsed']))
+                 $cTag = $Tag;
+
+                 while (preg_match_all('@<'.$cTag.' (.+)>(.*)</'.$cTag.'>@SsUu', $Call['Output'], $Call['Parsed']))
                  {
                      $Call = F::Run('View.HTML.Parslets.'.$Parslet, 'Parse', $Call);
-                     $Passes++;
+                     $Pass++;
 
-                     if ($Passes > $Call['MaxPasses'])
+                     if ($Pass > 1)
+                         $cTag = $Tag.$Pass;
+
+                     if ($Pass > $Call['MaxPasses'])
                      {
                          F::Log($Parslet.' Parslet raised max passes limit.', LOG_ERR);
                          break;
                      }
                  }
 
-                 $Passes = 0;
+                 $Pass = 1;
 
-                 while (preg_match_all('@<'.$Tag.'()>(.*)</'.$Tag.'>@SsUu', $Call['Output'], $Call['Parsed']))
+                 $cTag = $Tag;
+
+                 while (preg_match_all('@<'.$cTag.'()>(.*)</'.$cTag.'>@SsUu', $Call['Output'], $Call['Parsed']))
                  {
                      $Call = F::Run('View.HTML.Parslets.'.$Parslet, 'Parse', $Call);
-                     $Passes++;
+                     $Pass++;
 
-                     if ($Passes > $Call['MaxPasses'])
+                     if ($Pass > 1)
+                         $cTag = $Tag.$Pass;
+
+                     if ($Pass > $Call['MaxPasses'])
                      {
                          F::Log($Parslet.' Parslet raised max passes limit.', LOG_ERR);
                          break;

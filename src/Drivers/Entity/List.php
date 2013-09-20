@@ -33,7 +33,21 @@
                 $Call['Selected'] = null;
         }
 
-        if ((sizeof($Call['Elements']) == 0 or (null === $Call['Elements'])) and !isset($Call['NoEmpty']))
+        $Empty = false;
+
+        if (sizeof($Call['Elements']) == 0)
+            $Empty = true;
+
+        if (isset($Call['Where']) && $Call['Where'] === [])
+            $Empty = true;
+
+        if (null === $Call['Elements'])
+            $Empty = true;
+
+        if (isset($Call['NoEmpty']))
+            $Empty = false;
+
+        if ($Empty)
         {
             $Empty = isset($Call['Custom Templates']['Empty'])? $Call['Custom Templates']['Empty']: 'Empty';
 

@@ -20,8 +20,9 @@
     {
         $Call['Node']['Options'] = F::Live($Call['Node']['Options']);
 
-        foreach ($Call['Value'] as &$Value)
-            $Value = $Call['Node']['Options'][$Value];
+        if(is_array($Call['Value']))
+            foreach ($Call['Value'] as &$Value)
+                $Value = $Call['Node']['Options'][$Value];
 
         return $Call['Value'];
     });

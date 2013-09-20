@@ -523,7 +523,7 @@ F::Log('Codeine started', LOG_IMPORTANT);
 
         public static function Error($errno , $errstr , $errfile , $errline , $errcontext)
         {
-            if (isset(self::$_Options['Perfect']))
+            if (isset(self::$_Options['Codeine']['Perfect']))
                 die('<h4>Perfect Mode</h4>'.$errno.' '.$errstr.' '.$errfile.'@'.$errline);
 
             return F::Log($errno.' '.$errstr.' '.$errfile.'@'.$errline, LOG_CRIT);
