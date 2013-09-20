@@ -22,9 +22,6 @@
 
     setFn('POST', function ($Call)
     {
-        if (!isset($Call['Context']))
-            $Call['Context'] = '';
-
         if (!isset($Call['Entity']))
             $Entities = $Call['Entities'];
         else
