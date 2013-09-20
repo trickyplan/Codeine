@@ -106,11 +106,8 @@
         },
         "Web":
         {
-            "Driver": "IO.Network.HTTP.Curl",
-            "Scope": "",
-            "Timeout": 15,
-            "CookieFile": "cookie.txt",
-            "Follow": true
+            "Driver": "IO.Network.HTTP.CURL",
+            "Scope": ""
         }
     },
     "Hooks":

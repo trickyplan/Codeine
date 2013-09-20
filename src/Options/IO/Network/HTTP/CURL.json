@@ -1,0 +1,12 @@
+{
+    "Connect Timeout": 15,
+    "Cookie File": "cookie.txt",
+    "Follow": true,
+    "Return Header": false,
+    "User Agent": "Mozilla/5.0 (compatible; Codeine/7.x)",
+    "Proxy":
+    {
+        "Host": null,
+        "Port": null
+    }
+}
