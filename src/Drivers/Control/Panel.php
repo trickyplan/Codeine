@@ -29,6 +29,8 @@
             'Context' => $Call['Context']
         );
 
+        $Navigation = [];
+
         foreach($Call['Bundles'] as $Group => $Bundles)
         {
             if (in_array($Call['Bundle'], $Bundles))
@@ -80,6 +82,7 @@
 
         if (isset($Call['Sidebar']) && is_array($Call['Sidebar']))
         {
+            $Pills = [];
             foreach ($Call['Sidebar'] as &$Sidebar)
             {
                 unset($Call['Decision'],$Call['Weight']);

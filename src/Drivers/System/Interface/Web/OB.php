@@ -15,6 +15,8 @@
 
     setFn('Finish', function ($Call)
     {
-        ob_flush();
+        if (ob_get_level() > 0)
+            ob_end_flush();
+
         return $Call;
     });

@@ -555,29 +555,29 @@ F::Log('Codeine started', LOG_IMPORTANT);
                     switch ($Verbose)
                     {
                         case LOG_EMERG:
-                            echo $Target."\033[0;31m ".$Message." \033[0m".PHP_EOL;
+                            fwrite(STDERR, $Target."\033[0;31m ".$Message." \033[0m".PHP_EOL);
                         break;
 
                         case LOG_CRIT:
-                            echo $Target."\033[0;31m ".$Message." \033[0m".PHP_EOL;
+                            fwrite(STDERR, $Target."\033[0;31m ".$Message." \033[0m".PHP_EOL);
                         break;
 
                         case LOG_ERR:
-                            echo $Target."\033[0;31m ".$Message." \033[0m".PHP_EOL;
+                            fwrite(STDERR, $Target."\033[0;31m ".$Message." \033[0m".PHP_EOL);
                         break;
 
                         case LOG_WARNING:
-                            echo $Target."\033[0;33m ".$Message." \033[0m".PHP_EOL;
+                            fwrite(STDERR, $Target."\033[0;33m ".$Message." \033[0m".PHP_EOL);
                         break;
 
                         case LOG_DEBUG:
                         {
-                            echo $Target."\033[0;30m ".$Message." \033[0m".PHP_EOL;
+                            fwrite(STDERR, $Target."\033[0;30m ".$Message." \033[0m".PHP_EOL);
                         }
 
                         case LOG_USER:
                         {
-                            echo $Target."\033[0;37m ".$Message." \033[0m".PHP_EOL;
+                            fwrite(STDERR, $Target."\033[0;37m ".$Message." \033[0m".PHP_EOL);
                         }
 
                         default:
