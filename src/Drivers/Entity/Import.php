@@ -24,6 +24,6 @@
 
     setFn('POST', function ($Call)
     {
-        F::Run('Entity','Create', $Call, ['Data' => [json_decode($Call['Request']['Data'], true)]]);
+        F::Run('Entity','Create', $Call, ['Data' => json_decode($Call['Request']['Data'], true)]);
         return $Call;
     });

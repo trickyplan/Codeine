@@ -44,7 +44,7 @@
                         'Type' => 'Template',
                         'Scope' => $Entity,
                         'ID' => 'Search',
-                        'Context' => $Call['Context']
+                        'Context' => ''
                     ];
 
             if (!empty($IDs))
@@ -69,7 +69,7 @@
                         'Type' => 'Template',
                         'Scope' => $Entity,
                         'ID' => 'NotFound',
-                        'Context' => $Call['Context']
+                        'Context' => ''
                     ];
 
             unset($Call['Scope'], $Call['Elements'], $Call['Context']);

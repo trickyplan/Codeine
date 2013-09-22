@@ -9,11 +9,16 @@
 
      setFn('Parse', function ($Call)
      {
-          foreach ($Call['Parsed'][2] as $Ix => $Match)
+          foreach ($Call['Parsed'][2] as $IX => $Match)
           {
-              $Match = simplexml_load_string('<fn>'.$Match.'</fn>');
+             $Root = simplexml_load_string('<root '.$Call['Parsed'][1][$IX].'></root>');
 
-              $Match = json_decode(json_encode($Match), true);
+              if ($Root->attributes()->type !== null)
+                  $Type = (string) $Root->attributes()->type;
+              else
+                  $Type = $Call['Type'];
+
+              $Match = F::Run('Formats.'.$Type, 'Decode', ['Value' => trim($Call['Parsed'][2][$IX])]);
 
               foreach ($Call['Inherited'] as $Key)
                   if (isset($Call[$Key]))
@@ -27,7 +32,7 @@
               if (is_float($Output))
                   $Output = str_replace(',', '.', $Output);
 
-              $Call['Output'] = str_replace($Call['Parsed'][0][$Ix],
+              $Call['Output'] = str_replace($Call['Parsed'][0][$IX],
                   $Output
               , $Call['Output']);
           }

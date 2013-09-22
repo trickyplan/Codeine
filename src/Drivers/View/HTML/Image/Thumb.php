@@ -19,7 +19,7 @@
                 $Call['Current Image']['Height'] =
                     ($Call['Current Image']['Width']/$GImage->getimagewidth())*$GImage->getimageheight();
 
-            $GImage->resizeimage($Call['Current Image']['Width'], $Call['Current Image']['Height'], null, 1);
+            $GImage->cropthumbnailimage($Call['Current Image']['Width'], $Call['Current Image']['Height']);
 
             $Call['Current Image']['Data'] = $GImage->getImageBlob();
         }
