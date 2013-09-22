@@ -48,6 +48,17 @@
     padding: .6em 1.2em ;
 }
 
+.progress-lg
+{
+    height: 48px;
+}
+.progress-lg .progress-bar
+{
+
+    font-size: 24px !important;
+    padding: 8px 20px;
+}
+
 a.no-border, .no-border a, a:hover.no-border, .no-border a:hover
 {
     border: none;

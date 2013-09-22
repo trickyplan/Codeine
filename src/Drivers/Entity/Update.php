@@ -11,7 +11,8 @@
     {
         $Call = F::Hook('beforeUpdateDo', $Call);
 
-        $Call['Where'] = F::Live($Call['Where']); // FIXME
+        if (isset($Call['Where']))
+            $Call['Where'] = F::Live($Call['Where']); // FIXME
 
         return F::Run(null, $_SERVER['REQUEST_METHOD'], $Call);
     });

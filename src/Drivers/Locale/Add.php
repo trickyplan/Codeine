@@ -19,12 +19,11 @@
         $Asset = implode('.', $Slices);
 
         $Locale = F::Run('IO', 'Read',
-                    array (
+                    [
                           'Storage' => 'Locale',
                           'Scope'   => $Asset.'/Locale/'.$Language,
                           'Where'   => $ID
-                    ))[0];
-
+                    ])[0];
 
         $Locale = F::Dot($Locale, $Token, $Call['Request']['Translation']);
 

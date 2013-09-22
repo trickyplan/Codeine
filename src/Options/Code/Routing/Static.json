@@ -47,6 +47,14 @@
                 "Method": "Render"
             }
         },
+        "/beacon":
+        {
+            "Service": "Codeine.Beacon",
+            "Renderer":
+            {
+                "Service": "View.File"
+            }
+        },
         "/robots.txt":
         {
             "Service": "SEO.Robots",

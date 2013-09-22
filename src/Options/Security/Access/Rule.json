@@ -4,14 +4,13 @@
     "Decision": false,
     "Rules":
     {
-        "Тест доступен всем":
+        "Маяк доступен всем":
         {
             "Decision": true,
             "Weight": 50,
             "Run":
             {
-                "Service": "Test",
-                "Method": "Do"
+                "Service": "Codeine.Beacon"
             }
         },
         "Главная страница доступна всем":

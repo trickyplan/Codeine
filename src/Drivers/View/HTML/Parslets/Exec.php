@@ -9,9 +9,16 @@
 
      setFn('Parse', function ($Call)
      {
-          foreach ($Call['Parsed'][2] as $Ix => $Match)
+          foreach ($Call['Parsed'][2] as $IX => $Match)
           {
-              $Match = json_decode(json_encode(simplexml_load_string('<exec>'.$Match.'</exec>')), true); // I love PHP :(
+              $Root = simplexml_load_string('<root '.$Call['Parsed'][1][$IX].'></root>');
+
+              if ($Root->attributes()->type !== null)
+                  $Type = (string) $Root->attributes()->type;
+              else
+                  $Type = $Call['Type'];
+
+              $Match = F::Run('Formats.'.$Type, 'Decode', ['Value' => trim($Call['Parsed'][2][$IX])]);
 
               if ($Match)
               {
@@ -21,10 +28,10 @@
 
                   $Application = F::Run('Code.Flow.Application', 'Run', ['Run' => $Match, 'Context' => 'app']);
 
-                  $Call['Output'] = str_replace($Call['Parsed'][0][$Ix], $Application['Output'], $Call['Output']);
+                  $Call['Output'] = str_replace($Call['Parsed'][0][$IX], $Application['Output'], $Call['Output']);
               }
               else
-                  $Call['Output'] = str_replace($Call['Parsed'][0][$Ix], '', $Call['Output']);
+                  $Call['Output'] = str_replace($Call['Parsed'][0][$IX], '', $Call['Output']);
 
 
           }

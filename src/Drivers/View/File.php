@@ -9,9 +9,9 @@
 
     setFn('Render', function ($Call)
     {
-        $Call['Headers']['Content-type:'] = mime_content_type($Call['Output']['File']);
+        $Call['Headers']['Content-type:'] = mime_content_type($Call['Output']['Content']);
 
-        readfile($Call['Output']['File']);
+        readfile($Call['Output']['Content']);
         $Call['Output'] = '';
 
         return $Call;

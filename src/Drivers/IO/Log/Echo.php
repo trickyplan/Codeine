@@ -22,6 +22,8 @@
 
             $Output = preg_replace('/\*(.+)\*/SsUu', '<strong>$1</strong>', $Output);
         }
+        else
+            $Output = '';
 
         return $Output;
     });

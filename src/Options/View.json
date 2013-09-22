@@ -1,4 +1,8 @@
 {
+    "Output":
+    {
+        "Content": []
+    },
     "Hooks":
     {
         "afterViewLoad":

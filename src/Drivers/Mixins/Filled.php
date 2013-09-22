@@ -14,11 +14,14 @@
 
         foreach ($Call['Nodes'] as $Name => $Node)
         {
-            $Total++;
-            $Value = F::Dot($Data, $Name);
+            if (isset($Node['Widgets']))
+            {
+                $Total++;
+                $Value = F::Dot($Data, $Name);
 
-            if (!empty($Value))
-                $Filled++;
+                if (!empty($Value))
+                    $Filled++;
+            }
         }
         return round(($Filled/$Total)*100);
     });
