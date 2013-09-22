@@ -114,7 +114,12 @@
                 return null;
             }
         else
-            return unlink ($Filename);
+        {
+            if (F::file_exists($Filename))
+                return unlink ($Filename);
+            else
+                return null;
+        }
     });
 
     setFn ('Close', function ($Call)

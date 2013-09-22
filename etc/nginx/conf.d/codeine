@@ -5,6 +5,7 @@
 
     log_not_found on;
     error_log /var/log/nginx/error.log warn;
+    access_log /var/log/nginx/$host.access.log codeine;
 
 	location /
 	{
@@ -13,6 +14,7 @@
 
     location ~ ^/cache/(.*)
     {
+        access_log        off;
         alias /tmp/codeine/$host/$1;
         expires           max;
     }
@@ -32,7 +34,6 @@
             access_log /var/log/nginx/$host.bots.log;
         }
 
-        access_log /var/log/nginx/$host.access.log codeine;
 
         fastcgi_keep_conn on;
 
