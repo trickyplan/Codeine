@@ -25,6 +25,10 @@
 
     setFn(['Read', 'Where'], function ($Call)
     {
+        $Call = F::Run('Entity', 'Load', $Call, ['Entity' => $Call['Name']]);
+
+        $Call['Value'] = F::Run('Data.Type.'.$Call['Nodes']['ID']['Type'], 'Write', ['Value' => $Call['Value']]);
+
         return $Call['Value'];
     });
 

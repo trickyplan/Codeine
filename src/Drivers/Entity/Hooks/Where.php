@@ -34,6 +34,7 @@
                                     $Value[$Relation]
                                         = F::Run('Data.Type.'.$Node['Type'], 'Where',
                                            [
+                                               'Name' => $Name,
                                                'Node' => $Node,
                                                'Value' => $cValue
                                            ]);
@@ -45,6 +46,7 @@
                         {
                             $Value = F::Run('Data.Type.'.$Node['Type'], 'Where',
                                 [
+                                    'Name' => $Name,
                                     'Node' => $Node,
                                     'Value' => $Value
                                 ]);
