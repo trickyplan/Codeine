@@ -31,7 +31,7 @@
 
             foreach ($Values as $Value => $Count)
                 $Call['Output']['Content'][]=
-                    array(
+                    [
                         'Type' => 'Template',
                         'Scope' => $Call['Entity'],
                         'ID' => 'Catalog/'.$Call['Key'],
@@ -40,7 +40,7 @@
                             'Count' => $Count,
                             'Value' => $Value
                         ]
-                    );
+                    ];
 
         }
 

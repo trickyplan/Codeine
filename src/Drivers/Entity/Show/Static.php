@@ -22,10 +22,10 @@
             $Call['Data'] = F::Run('Entity', 'Read', $Call)[0];
 
         if (isset($Call['Data']['Redirect']) && !empty($Call['Data']['Redirect']))
-            $Call = F::Run('System.Interface.Web','Redirect', $Call, ['Location' => $Call['Data']['Redirect']]);
+            $Call = F::Apply('System.Interface.Web','Redirect', $Call, ['Location' => $Call['Data']['Redirect']]);
         else
         {
-            $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Show','Context' => $Call['Context']);
+            $Call['Layouts'][] = ['Scope' => $Call['Entity'],'ID' => 'Show','Context' => $Call['Context']];
 
             $Call['Scope'] = isset($Call['Scope'])? $Call['Entity'].'/'.$Call['Scope'] : $Call['Entity'];
 

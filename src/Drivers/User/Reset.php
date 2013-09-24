@@ -15,7 +15,7 @@
 
     setFn('ByID', function ($Call)
     {
-        $Call['User'] = F::Run('Entity', 'Read', $Call, array('Entity' => 'User'))[0];
+        $Call['User'] = F::Run('Entity', 'Read', $Call,  ['Entity' => 'User', 'One' => true]);
 
         if (!empty($Call['User']))
         {
@@ -37,45 +37,60 @@
             $Message['Scope'] = $Call['User']['EMail'];
             $Message['ID']    = 'Восстановление пароля';
             $Message['Data']  = F::Run('View', 'Load',
-                                                 array(
+                                                 [
                                                       'Scope' => 'User',
                                                       'ID' => 'Reset/EMail',
-                                                      'Data' => array_merge($Call['User'], array('Password' => $NewPassword, 'Host' => $Call['Host']))
-                                                 ));
+                                                      'Data' =>
+                                                        array_merge($Call['User'],
+                                                            [
+                                                                'Password' => $NewPassword,
+                                                                'Host' => $Call['Host']
+                                                            ])
+                                                 ]);
 
-            $Message['Headers'] = array ('Content-type:' => ' text/html; charset="utf-8"');
+            $Message['Headers'] = ['Content-type:' => ' text/html; charset="utf-8"'];
 
             F::Live($Call['Sender'], $Message);
 
-            $Call['Output']['Content'][] = array(
+            $Call['Output']['Content'][] =
+            [
                 'Type' => 'Template',
                 'Scope' => 'User',
                 'ID' => 'Reset/Success'
-            );
+            ];
 
             F::Log('User reset password '.$Call['User']['ID'], LOG_INFO, 'Security');
         }
         else
-            $Call['Output']['Content'][] = array(
+            $Call['Output']['Content'][] =
+                [
                     'Type' => 'Template',
                     'Scope' => 'User',
                     'ID' => 'Reset/404'
-                );
+                ];
 
         return $Call;
     });
 
     setFn('POST', function ($Call)
     {
-        return F::Run(null, 'ByID', $Call, array('Where' => array('EMail' => $Call['Request']['EMail'])));
+        return F::Run(null, 'ByID', $Call,
+            [
+                'Where' =>
+                [
+                    'EMail' => $Call['Request']['EMail']
+                ]
+            ]);
     });
 
     setFn('GET', function ($Call)
     {
-        $Call['Output']['Content'][] = array(
-            'Type' => 'Template',
-            'Scope' => 'User',
-            'ID' => 'Reset/Form'
-        );
+        $Call['Output']['Content'][] =
+            [
+                'Type' => 'Template',
+                'Scope' => 'User',
+                'ID' => 'Reset/Form'
+            ];
+
         return $Call;
     });

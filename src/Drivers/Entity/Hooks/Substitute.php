@@ -56,7 +56,7 @@
 
     setFn('Write', function ($Call)
     {
-        $Call = F::Run(null, 'Where', $Call);
+        $Call = F::Apply(null, 'Where', $Call);
 
         if (isset($Call['Data']))
         {

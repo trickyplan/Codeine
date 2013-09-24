@@ -59,8 +59,8 @@
             self::Start(self::$_Service . '.' . self::$_Method);
 
             mb_internal_encoding('UTF-8');
-            libxml_use_internal_errors(true);
             setlocale(LC_ALL, "ru_RU.UTF-8");
+            libxml_use_internal_errors(true);
 
             if (isset($_SERVER['Environment']))
                 self::$_Environment = $_SERVER['Environment'];
@@ -101,109 +101,43 @@
             return F::Live($Call);
         }
 
-        public static function Merge($First, $Second)
+        public static function Shutdown()
         {
-            if ((array) $Second === $Second)
+            // foreach (self::$_Log as $Line)
+            //    echo implode ("\t", $Line).PHP_EOL;
+
+            self::Stop(self::$_Service . '.' . self::$_Method);
+
+            $E = error_get_last();
+
+            if (!empty($E))
             {
-                if ($First !== $Second)
+                if (self::$_Environment == 'Production')
                 {
-                    if ((array) $First === $First)
-                    {
-                        foreach ($Second as $Key => &$Value)
-                        {
-                            if (substr($Key, strlen($Key)-1, 1) == '!')
-                                $First[substr($Key, 0, strlen($Key) -1)] = $Value;
-                            else
-                            {
-                                if (isset($First[$Key]) && ((array)$Value === $Value))
-                                {
-                                    if ($First[$Key] !== $Second[$Key])
-                                        $First[$Key] = self::Merge($First[$Key], $Second[$Key]);
-                                }
-                                else
-                                    $First[$Key] = $Value;
-                            }
-                        }
-
-                    }
-                    else
-                        $First = $Second;
+                    header ('HTTP/1.0 500 Internal Server Error');
+                    // TODO Real error triggering
                 }
-            }
-
-            return $First;
-        }
-
-        public static function Diff ($First, $Second)
-        {
-            if ((array) $First == $First)
-                foreach ($First as $Key => $Value)
+                else
                 {
-                    if ($Value !== '*')
-                    {
-                        if ((array) $Value == $Value)
-                        {
-                            if (!isset($Second[$Key]))
-                                $Diff[$Key] = $Value;
-                            elseif (!is_array($Second[$Key]))
-                                $Diff[$Key] = $Value;
-                            else
-                            {
-                                $NewDiff = F::Diff($Value, $Second[$Key]);
-
-                                if ($NewDiff !== null)
-                                    $Diff[$Key] = $NewDiff;
-                            }
-                        }
-                        elseif (!isset($Second[$Key]) || $Second[$Key] !=  $Value)
-                        {
-                            $Diff[$Key] = $Value;
-                        }
-                    }
+                    echo $E['message'];
+                    echo '<pre>';
+                    print_r(self::$_Log);
                 }
 
-            return !isset($Diff) ? null : $Diff;
-        }
-
-        public static function findFile($Names)
-        {
-           $Names = (array) $Names;
-
-           foreach ($Names as $Name)
-           {
-               if (mb_substr($Name,0,1) == '/' && F::file_exists($Name))
-                   return $Name;
-
-               foreach (self::$_Options['Path'] as $ic => $Path)
-                   if (F::file_exists($Filenames[$ic] = $Path.'/'.$Name))
-                       return $Filenames[$ic];
-           }
-
-           return null;
-        }
-
-        public static function findFiles ($Names)
-        {
-            $Results = [];
-
-            $Names = (array) $Names;
-
-            foreach ($Names as $Name)
-            {
-                if (substr($Name,0,1) == '/' && F::file_exists($Name))
-                    return $Name;
-
-                foreach (self::$_Options['Path'] as $ic => $Path)
-                    if (F::file_exists($Filenames[$ic] = $Path . '/' . $Name))
-                        $Results[] = $Filenames[$ic];
             }
 
-            $Results = array_reverse($Results);
+            if (self::$_SR71)
+            {
+                self::$_Memory = memory_get_usage();
+                self::SR71();
+            }
 
-            if (empty($Results))
-                return null;
-            else
-                return $Results;
+            if (self::$_Prism)
+            {
+                self::Prism();
+            }
+
+            return false;
         }
 
         private static function _loadSource($Service)
@@ -229,29 +163,111 @@
             }
         }
 
+        public static function loadOptions($Service = null, $Method = null, $Call = [])
+        {
+            $Service = ($Service == null)? self::$_Service: $Service;
+/*            $Method = ($Method == null)? self::$_Method: $Method;*/
+
+            // Если контракт уже не загружен
+            if (!isset(self::$_Options[$Service]))
+            {
+                $Options = [];
+
+                $ServicePath = strtr($Service, '.', '/');
+
+                $Filenames = [];
+
+                if (self::$_Environment != 'Production')
+                    $Filenames[] = 'Options/'.$ServicePath.'.'.self::$_Environment.'.json';
+
+                $Filenames[] = 'Options/'.$ServicePath.'.json';
+
+                if (($Filenames = self::findFiles ($Filenames)) !== null)
+                {
+                    foreach ($Filenames as $Filename)
+                    {
+                        $Current = json_decode(file_get_contents($Filename), true);
+                        F::Log('Options from '.$Filename.' loaded', LOG_DEBUG);
+
+                        if ($Filename && !$Current)
+                        {
+                            switch (json_last_error()) {
+                                case JSON_ERROR_NONE:
+                                    $JSONError =  ' - No errors';
+                                break;
+                                case JSON_ERROR_DEPTH:
+                                    $JSONError =  ' - Maximum stack depth exceeded';
+                                break;
+                                case JSON_ERROR_STATE_MISMATCH:
+                                    $JSONError =  ' - Underflow or the modes mismatch';
+                                break;
+                                case JSON_ERROR_CTRL_CHAR:
+                                    $JSONError =  ' - Unexpected control character found';
+                                break;
+                                case JSON_ERROR_SYNTAX:
+                                    $JSONError =  ' - Syntax error, malformed JSON';
+                                break;
+                                case JSON_ERROR_UTF8:
+                                    $JSONError =  ' - Malformed UTF-8 characters, possibly incorrectly encoded';
+                                break;
+                                default:
+                                    $JSONError =  ' - Unknown error';
+                                break;
+                            }
+
+                            F::Log('JSON Error: ' . $Filename.':'. $JSONError, LOG_CRIT); //FIXME
+                            return null;
+                        }
+
+                        if (isset($Current['Mixins']))
+                        {
+                            foreach($Current['Mixins'] as &$Mixin)
+                                $Current = F::Merge(F::loadOptions($Mixin), $Current);
+                        }
+
+                        $Options = self::Merge($Options, $Current);
+                    }
+                }
+                else
+                {
+                    F::Log('No options for '.$Service, LOG_DEBUG);
+                    $Options = [];
+                }
+
+                self::$_Options[$Service] = $Options;
+            }
+
+            return F::Merge(self::$_Options[$Service], $Call);
+        }
+
         public static function isCall($Call)
         {
             return (((array) $Call === $Call) && isset($Call['Service']));
         }
 
-        public static function hashCall($Call)
-        {
-            if (self::isCall($Call))
-                return sha1(serialize($Call));
-            else
-                return serialize($Call);
-        }
-
         public static function Run($Service, $Method = null , $Call = [])
         {
             if (($sz = func_num_args())>3)
-            {
-                for($ic = 3; $ic<$sz; $ic++)
+                for($ic = 3; $ic < $sz; $ic++)
                     if (is_array($Argument = func_get_arg ($ic)))
                         $Call = F::Merge($Call, $Argument);
-            }
 
             $Result = F::Execute($Service, $Method, $Call);
+
+            return $Result;
+        }
+
+        public static function Apply($Service, $Method = null , $Call = [])
+        {
+            if (($sz = func_num_args())>3)
+                for($ic = 3; $ic < $sz; $ic++)
+                    if (is_array($Argument = func_get_arg ($ic)))
+                        $Call = F::Merge($Call, $Argument);
+
+            $Result = F::Execute($Service, $Method, $Call);
+
+            if ($Result === null)
+                $Result = $Call;
 
             return $Result;
         }
@@ -318,31 +334,6 @@
             return $Result;
         }
 
-        public static function setFn($Function, $Code = null)
-        {
-            if (self::$_Service == 'Codeine')
-                self::$$Function = $Code;
-            else
-            {
-                $Function = (array) $Function;
-                foreach ($Function as $CF)
-                    self::$_Code[self::$_Service][$CF] = $Code;
-
-                return $Code;
-            }
-        }
-
-        public static function getFn($Function)
-        {
-            if (isset(self::$_Code[self::$_Service][$Function]))
-                return self::$_Code[self::$_Service][$Function];
-            else
-                if (isset(self::$_Code[self::$_Service]['Default']))
-                    return self::$_Code[self::$_Service]['Default'];
-
-
-        }
-
         public static function Live($Variable, $Call = [])
         {
             if ($Variable instanceof Closure)
@@ -379,6 +370,221 @@
 
                 return $Variable;
             }
+        }
+
+        public static function Hook($On, $Call)
+        {
+             if (isset($Call['Custom Hooks'][$On]))
+                 $On = $Call['Custom Hooks'][$On];
+
+             if (isset($Call['Hooks']) && ($Hooks = F::Dot($Call, 'Hooks.' . $On)) && (!isset($Call['No'][$On])))
+             {
+                 if (count($Hooks) > 0)
+                 {
+                     $Hooks = F::Sort($Hooks, 'Weight', SORT_DESC);
+
+                     foreach ($Hooks as $HookName => $Hook)
+                     {
+                         if (substr($HookName,0,1) != '-')
+                         {
+                             F::Log($On.':'.$HookName, LOG_DEBUG);
+
+                             if (F::isCall($Hook))
+                             {
+                                 if (!isset($Hook['Method']))
+                                     $Hook['Method'] = 'Do';
+
+                                 $Call = F::Apply($Hook['Service'],$Hook['Method'], isset($Hook['Call'])? $Hook['Call']: [], $Call, ['On' => $On]);
+                             }
+                             else
+                                 $Call = F::Merge($Call, $Hook);
+                         }
+                     }
+                 }
+             }
+
+            return $Call;
+        }
+
+        public static function Error($errno , $errstr , $errfile , $errline , $errcontext)
+        {
+            if (isset(self::$_Options['Codeine']['Perfect']) && self::$_Options['Codeine']['Perfect'])
+                die('<h4>Perfect Mode</h4>'.$errno.' '.$errstr.' '.$errfile.'@'.$errline);
+
+            return F::Log($errno.' '.$errstr.' '.$errfile.'@'.$errline, LOG_CRIT);
+        }
+
+        public static function setLive($Live)
+        {
+            return self::$_Live = (bool) $Live;
+        }
+
+        public static function getLive()
+        {
+            return self::$_Live;
+        }
+
+        public static function reloadOptions ()
+        {
+            foreach (self::$_Options as $Service)
+                F::loadOptions($Service);
+
+            foreach (self::$_Code as $Service)
+                F::_loadSource($Service);
+
+            return true;
+        }
+
+        public static function Log ($Message, $Verbose = 7, $Target = 'Developer')
+        {
+            if ($Verbose <= self::$_Verbose or (self::$_Environment == 'Development' && $Verbose > 7))
+            {
+                if (!is_string($Message))
+                    $Message = json_encode($Message, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+
+                if (PHP_SAPI == 'cli')
+                {
+                    switch ($Verbose)
+                    {
+                        case LOG_EMERG:
+                            fwrite(STDERR, $Target."\033[0;31m ".$Message." \033[0m".PHP_EOL);
+                        break;
+
+                        case LOG_CRIT:
+                            fwrite(STDERR, $Target."\033[0;31m ".$Message." \033[0m".PHP_EOL);
+                        break;
+
+                        case LOG_ERR:
+                            fwrite(STDERR, $Target."\033[0;31m ".$Message." \033[0m".PHP_EOL);
+                        break;
+
+                        case LOG_WARNING:
+                            fwrite(STDERR, $Target."\033[0;33m ".$Message." \033[0m".PHP_EOL);
+                        break;
+
+                        case LOG_DEBUG:
+                        {
+                            fwrite(STDERR, $Target."\033[0;30m ".$Message." \033[0m".PHP_EOL);
+                        }
+
+                        case LOG_USER:
+                        {
+                            fwrite(STDERR, $Target."\033[0;37m ".$Message." \033[0m".PHP_EOL);
+                        }
+
+                        default:
+                            echo $Target.' '.$Message.PHP_EOL;
+                        break;
+                    }
+                }
+                else
+                    return self::$_Log[$Target][] = [$Verbose, round(microtime(true) - self::$_Ticks['T']['Codeine.Do'], 3), $Message, self::$_Service];
+            }
+        }
+
+        public static function Logs()
+        {
+            return self::$_Log;
+        }
+
+        public static function Dump($File, $Line, $Call)
+        {
+            echo '<div class="console"><h5>'.substr($File, strpos($File, 'Drivers')).'@'.$Line.'&nbsp; '.trim(file($File)[$Line-1]).'</h5>';
+
+            var_dump($Call);
+
+            echo '</div>';
+
+            return $Call;
+        }
+
+        public static function setFn($Function, $Code = null)
+        {
+            if (self::$_Service == 'Codeine')
+                self::$$Function = $Code;
+            else
+            {
+                $Function = (array) $Function;
+                foreach ($Function as $CF)
+                    self::$_Code[self::$_Service][$CF] = $Code;
+
+                return $Code;
+            }
+        }
+
+        public static function getFn($Function)
+        {
+            if (isset(self::$_Code[self::$_Service][$Function]))
+                return self::$_Code[self::$_Service][$Function];
+            else
+                if (isset(self::$_Code[self::$_Service]['Default']))
+                    return self::$_Code[self::$_Service]['Default'];
+
+
+        }
+
+        public static function Merge($First, $Second)
+        {
+            if ((array) $Second === $Second)
+            {
+                if ($First !== $Second)
+                {
+                    if ((array) $First === $First)
+                    {
+                        foreach ($Second as $Key => &$Value)
+                        {
+                            if (substr($Key, strlen($Key)-1, 1) == '!')
+                                $First[substr($Key, 0, strlen($Key) -1)] = $Value;
+                            else
+                            {
+                                if (isset($First[$Key]) && ((array)$Value === $Value))
+                                {
+                                    if ($First[$Key] !== $Second[$Key])
+                                        $First[$Key] = self::Merge($First[$Key], $Second[$Key]);
+                                }
+                                else
+                                    $First[$Key] = $Value;
+                            }
+                        }
+
+                    }
+                    else
+                        $First = $Second;
+                }
+            }
+
+            return $First;
+        }
+
+        public static function Diff ($First, $Second)
+        {
+            if ((array) $First == $First)
+                foreach ($First as $Key => $Value)
+                {
+                    if ($Value !== '*')
+                    {
+                        if ((array) $Value == $Value)
+                        {
+                            if (!isset($Second[$Key]))
+                                $Diff[$Key] = $Value;
+                            elseif (!is_array($Second[$Key]))
+                                $Diff[$Key] = $Value;
+                            else
+                            {
+                                $NewDiff = F::Diff($Value, $Second[$Key]);
+
+                                if ($NewDiff !== null)
+                                    $Diff[$Key] = $NewDiff;
+                            }
+                        }
+                        elseif (!isset($Second[$Key]) || $Second[$Key] !=  $Value)
+                        {
+                            $Diff[$Key] = $Value;
+                        }
+                    }
+                }
+
+            return !isset($Diff) ? null : $Diff;
         }
 
         public static function Extract($Array, $Keys, $ID = 'ID')
@@ -491,202 +697,6 @@
             return $Tail;
         }
 
-        public static function Hook($On, $Call)
-        {
-             if (isset($Call['Custom Hooks'][$On]))
-                 $On = $Call['Custom Hooks'][$On];
-
-             if (isset($Call['Hooks']) && ($Hooks = F::Dot($Call, 'Hooks.' . $On)) && (!isset($Call['No'][$On])))
-             {
-                 if (count($Hooks) > 0)
-                 {
-                     $Hooks = F::Sort($Hooks, 'Weight', SORT_DESC);
-
-                     foreach ($Hooks as $HookName => $Hook)
-                     {
-                         if (substr($HookName,0,1) != '-')
-                         {
-                             F::Log($On.':'.$HookName, LOG_DEBUG);
-
-                             if (F::isCall($Hook))
-                             {
-                                 if (!isset($Hook['Method']))
-                                     $Hook['Method'] = 'Do';
-
-                                 $Call = F::Run($Hook['Service'],$Hook['Method'], isset($Hook['Call'])? $Hook['Call']: [], $Call, ['On' => $On]);
-                             }
-                             else
-                                 $Call = F::Merge($Call, $Hook);
-                         }
-                     }
-                 }
-             }
-
-            return $Call;
-        }
-
-        public static function Error($errno , $errstr , $errfile , $errline , $errcontext)
-        {
-            if (isset(self::$_Options['Codeine']['Perfect']) && self::$_Options['Codeine']['Perfect'])
-                die('<h4>Perfect Mode</h4>'.$errno.' '.$errstr.' '.$errfile.'@'.$errline);
-
-            return F::Log($errno.' '.$errstr.' '.$errfile.'@'.$errline, LOG_CRIT);
-        }
-
-        /*
-         * Verbosity
-         *
-         * 128 - Good News
-         * 7 - Debug
-         * 6 - Notice
-         * 5 - Warning
-         * 4 - Error
-         * 3 - Failure
-         * 2 - Critical
-         * 1 - Emergency
-         * 0 - Apocalypse
-         */
-
-        public static function Log ($Message, $Verbose = 7, $Target = 'Developer')
-        {
-            if ($Verbose <= self::$_Verbose or (self::$_Environment == 'Development' && $Verbose > 7))
-            {
-                if (!is_string($Message))
-                    $Message = json_encode($Message, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-
-                if (PHP_SAPI == 'cli')
-                {
-                    switch ($Verbose)
-                    {
-                        case LOG_EMERG:
-                            fwrite(STDERR, $Target."\033[0;31m ".$Message." \033[0m".PHP_EOL);
-                        break;
-
-                        case LOG_CRIT:
-                            fwrite(STDERR, $Target."\033[0;31m ".$Message." \033[0m".PHP_EOL);
-                        break;
-
-                        case LOG_ERR:
-                            fwrite(STDERR, $Target."\033[0;31m ".$Message." \033[0m".PHP_EOL);
-                        break;
-
-                        case LOG_WARNING:
-                            fwrite(STDERR, $Target."\033[0;33m ".$Message." \033[0m".PHP_EOL);
-                        break;
-
-                        case LOG_DEBUG:
-                        {
-                            fwrite(STDERR, $Target."\033[0;30m ".$Message." \033[0m".PHP_EOL);
-                        }
-
-                        case LOG_USER:
-                        {
-                            fwrite(STDERR, $Target."\033[0;37m ".$Message." \033[0m".PHP_EOL);
-                        }
-
-                        default:
-                            echo $Target.' '.$Message.PHP_EOL;
-                        break;
-                    }
-                }
-                else
-                    return self::$_Log[$Target][] = [$Verbose, round(microtime(true) - self::$_Ticks['T']['Codeine.Do'], 3), $Message, self::$_Service];
-            }
-        }
-
-        public static function Logs()
-        {
-            return self::$_Log;
-        }
-
-        public static function loadOptions($Service = null, $Method = null, $Call = [])
-        {
-            $Service = ($Service == null)? self::$_Service: $Service;
-/*            $Method = ($Method == null)? self::$_Method: $Method;*/
-
-            // Если контракт уже не загружен
-            if (!isset(self::$_Options[$Service]))
-            {
-                $Options = [];
-
-                $ServicePath = strtr($Service, '.', '/');
-
-                $Filenames = [];
-
-                if (self::$_Environment != 'Production')
-                    $Filenames[] = 'Options/'.$ServicePath.'.'.self::$_Environment.'.json';
-
-                $Filenames[] = 'Options/'.$ServicePath.'.json';
-
-                if (($Filenames = self::findFiles ($Filenames)) !== null)
-                {
-                    foreach ($Filenames as $Filename)
-                    {
-                        $Current = json_decode(file_get_contents($Filename), true);
-                        F::Log('Options from '.$Filename.' loaded', LOG_DEBUG);
-
-                        if ($Filename && !$Current)
-                        {
-                            switch (json_last_error()) {
-                                case JSON_ERROR_NONE:
-                                    $JSONError =  ' - No errors';
-                                break;
-                                case JSON_ERROR_DEPTH:
-                                    $JSONError =  ' - Maximum stack depth exceeded';
-                                break;
-                                case JSON_ERROR_STATE_MISMATCH:
-                                    $JSONError =  ' - Underflow or the modes mismatch';
-                                break;
-                                case JSON_ERROR_CTRL_CHAR:
-                                    $JSONError =  ' - Unexpected control character found';
-                                break;
-                                case JSON_ERROR_SYNTAX:
-                                    $JSONError =  ' - Syntax error, malformed JSON';
-                                break;
-                                case JSON_ERROR_UTF8:
-                                    $JSONError =  ' - Malformed UTF-8 characters, possibly incorrectly encoded';
-                                break;
-                                default:
-                                    $JSONError =  ' - Unknown error';
-                                break;
-                            }
-
-                            F::Log('JSON Error: ' . $Filename.':'. $JSONError, LOG_CRIT); //FIXME
-                            return null;
-                        }
-
-                        if (isset($Current['Mixins']))
-                        {
-                            foreach($Current['Mixins'] as &$Mixin)
-                                $Current = F::Merge(F::loadOptions($Mixin), $Current);
-                        }
-
-                        $Options = self::Merge($Options, $Current);
-                    }
-                }
-                else
-                {
-                    F::Log('No options for '.$Service, LOG_DEBUG);
-                    $Options = [];
-                }
-
-                self::$_Options[$Service] = $Options;
-            }
-
-            return F::Merge(self::$_Options[$Service], $Call);
-        }
-
-        public static function Dump($File, $Line, $Call)
-        {
-            echo '<div class="console"><h5>'.substr($File, strpos($File, 'Drivers')).'@'.$Line.'&nbsp; '.trim(file($File)[$Line-1]).'</h5>';
-
-            var_dump($Call);
-
-            echo '</div>';
-
-            return $Call;
-        }
-
         public static function Set ($Key, $Value)
         {
             if (count(self::$_Storage)>self::$_Options['Codeine']['Core Variables Limit'])
@@ -698,13 +708,6 @@
         public static function Get ($Key)
         {
             return (isset(self::$_Storage[$Key]) ? self::$_Storage[$Key]: null);
-        }
-
-        public static function file_exists($Filename)
-        {
-            return
-                (isset(self::$_Storage['FE'][$Filename]) ?
-                self::$_Storage['FE'][$Filename]: self::$_Storage['FE'][$Filename] = file_exists($Filename) && is_file($Filename));
         }
 
         public static function Counter ($Key, $Value = 1)
@@ -745,11 +748,6 @@
             return self::$_Counters['M'][$Key] += memory_get_peak_usage(true) - self::$_Ticks['M'][$Key];
         }
 
-        private static function Prism()
-        {
-            return file_put_contents('/tmp/codeine'.REQID, json_encode(self::$_Calls, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
-        }
-
         private static function SR71()
         {
            $Summary['Time'] = array_sum(self::$_Counters['T']);
@@ -788,64 +786,52 @@
            echo '</table>';
         }
 
-        public static function setLive($Live)
+        public static function file_exists($Filename)
         {
-            return self::$_Live = (bool) $Live;
+            return
+                (isset(self::$_Storage['FE'][$Filename]) ?
+                self::$_Storage['FE'][$Filename]: self::$_Storage['FE'][$Filename] = file_exists($Filename) && is_file($Filename));
         }
 
-        public static function getLive()
+        public static function findFile($Names)
         {
-            return self::$_Live;
+           $Names = (array) $Names;
+
+           foreach ($Names as $Name)
+           {
+               if (mb_substr($Name,0,1) == '/' && F::file_exists($Name))
+                   return $Name;
+
+               foreach (self::$_Options['Path'] as $ic => $Path)
+                   if (F::file_exists($Filenames[$ic] = $Path.'/'.$Name))
+                       return $Filenames[$ic];
+           }
+
+           return null;
         }
 
-        public static function Reload ()
+        public static function findFiles ($Names)
         {
-            foreach (self::$_Options as $Service)
-                F::loadOptions($Service);
+            $Results = [];
 
-            foreach (self::$_Code as $Service)
-                F::_loadSource($Service);
+            $Names = (array) $Names;
 
-            return true;
-        }
-
-        public static function Shutdown()
-        {
-            // foreach (self::$_Log as $Line)
-            //    echo implode ("\t", $Line).PHP_EOL;
-
-            self::Stop(self::$_Service . '.' . self::$_Method);
-
-            $E = error_get_last();
-
-            if (!empty($E))
+            foreach ($Names as $Name)
             {
-                if (self::$_Environment == 'Production')
-                {
-                    header ('HTTP/1.0 500 Internal Server Error');
-                    // TODO Real error triggering
-                }
-                else
-                {
-                    echo $E['message'];
-                    echo '<pre>';
-                    print_r(self::$_Log);
-                }
+                if (substr($Name,0,1) == '/' && F::file_exists($Name))
+                    return $Name;
 
+                foreach (self::$_Options['Path'] as $ic => $Path)
+                    if (F::file_exists($Filenames[$ic] = $Path . '/' . $Name))
+                        $Results[] = $Filenames[$ic];
             }
 
-            if (self::$_SR71)
-            {
-                self::$_Memory = memory_get_usage();
-                self::SR71();
-            }
+            $Results = array_reverse($Results);
 
-            if (self::$_Prism)
-            {
-                self::Prism();
-            }
-
-            return false;
+            if (empty($Results))
+                return null;
+            else
+                return $Results;
         }
     }
 

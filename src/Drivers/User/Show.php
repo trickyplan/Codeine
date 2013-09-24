@@ -9,7 +9,7 @@
 
     setFn('Do', function ($Call)
     {
-        $Element = F::Run('Entity', 'Read', array('Entity' => 'User', 'Where' => $Call['ID']));
+        $Element = F::Run('Entity', 'Read', ['Entity' => 'User', 'Where' => $Call['ID']]);
 
         if (empty($Element))
             $Call = F::Hook('NotFound', $Call);

@@ -11,7 +11,7 @@
     include 'Codeine/Core.php';
 
     F::Bootstrap ([
-                       'Path' => array(Root)
+                       'Path' => [Root]
                        //,'Trace' => true
                   ]);
 

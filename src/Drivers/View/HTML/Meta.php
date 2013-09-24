@@ -11,11 +11,11 @@
     {
         if (isset($Call['URI']))
         {
-            $Call = F::Run(null, 'Page', $Call);
-            $Call = F::Run(null, 'Title', $Call);
-            $Call = F::Run(null, 'Keywords', $Call);
-            $Call = F::Run(null, 'Description', $Call);
-            $Call = F::Run(null, 'Header', $Call);
+            $Call = F::Apply(null, 'Page', $Call);
+            $Call = F::Apply(null, 'Title', $Call);
+            $Call = F::Apply(null, 'Keywords', $Call);
+            $Call = F::Apply(null, 'Description', $Call);
+            $Call = F::Apply(null, 'Header', $Call);
         }
 
         return $Call;

@@ -26,7 +26,7 @@
                 {
                     if ($Result['total'] >0)
                     {
-                        $Data = array();
+                        $Data = [];
                         foreach ($Result['matches'] as $ID => $Match)
                             $Data[$ID] = $Match['weight'];
                     }

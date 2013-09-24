@@ -65,6 +65,8 @@
                 {
                     $JS = sha1($JSSource).'_'.strtr($JS, ':', '_');
 
+                    $Write = true;
+
                     if ($Call['JS']['Caching'])
                     {
                         if (F::Run('IO', 'Execute',
@@ -79,25 +81,28 @@
                         ]))
                         {
                             F::Log('Cache *hit* '.$JS, LOG_GOOD);
+                            $Write = false;
                         }
                         else
                         {
-                            $Call = F::Hook('beforeJSWrite', $Call);
-
-                                F::Log('Cache *miss* *'.$JS.'*', LOG_BAD);
-
-                                F::Run ('IO', 'Write',
-                                [
-                                     'Storage' => 'JS Cache',
-                                     'Scope'   => [$Host, 'js'],
-                                     'Where'   => $JS,
-                                     'Data' => $JSSource
-                                ]);
-
-                            $Call = F::Hook('afterJSWrite', $Call);
+                            F::Log('Cache *miss* *'.$JS.'*', LOG_BAD);
                         }
                     }
 
+                    if ($Write)
+                    {
+                        $Call = F::Hook('beforeJSWrite', $Call);
+
+                            F::Run ('IO', 'Write',
+                            [
+                                 'Storage' => 'JS Cache',
+                                 'Scope'   => [$Host, 'js'],
+                                 'Where'   => $JS,
+                                 'Data' => $JSSource
+                            ]);
+
+                        $Call = F::Hook('afterJSWrite', $Call);
+                    }
 
                     $JSFilename = $Call['JS']['Proto']
                             .$Call['JS']['Host']

@@ -24,12 +24,12 @@
             $Storage['Status'] = F::Run('IO', 'Open', ['Storage' => $Name]) !== null;
 
             $Call['Output']['Content'][] =
-                array(
+                [
                     'Type' => 'Template',
                     'Scope' => 'IO',
                     'ID' => 'Control/Short',
-                    'Data' => F::Merge(array('Name' => $Name), $Storage)
-                );
+                    'Data' => F::Merge(['Name' => $Name], $Storage)
+                ];
         }
 
         return $Call;

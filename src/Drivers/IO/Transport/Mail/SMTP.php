@@ -57,7 +57,7 @@
         if (isset($Call['HTML Mail']) && $Call['HTML Mail'])
             $mime->setHTMLBody($Call['Data']);
 
-        $Call['Data'] = $mime->get(array('text_charset' => 'utf-8'));
+        $Call['Data'] = $mime->get(['text_charset' => 'utf-8']);
         $Call['Headers'] = $mime->headers($Call['Headers']);
 
         return $Call['Link']->send($Call['Scope'], $Call['Headers'], $Call['Data']);

@@ -11,7 +11,7 @@
     {
         if (isset($Call['Freedom']['URLs'][$_SERVER['REQUEST_URI']]))
         {
-            $Call = F::Run('Error.451', 'Page', $Call);
+            $Call = F::Apply('Error.451', 'Page', $Call);
             // TODO Country test
         }
 

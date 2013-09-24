@@ -13,8 +13,7 @@
     {
         if (is_string($Call['Run']) && mb_strpos($Call['Run'], '/') !== false)
         {
-
-            $NewCall = array();
+            $NewCall = [];
 
             $Slices = explode('/', trim($Call['Run'],'/'));
             $Size = sizeof($Slices);

@@ -17,7 +17,7 @@
             F::Log('Session: Marker not set');
 
             if (isset($Call['Session Auto']) && $Call['Session Auto'])
-                $Call = F::Run(null, 'Mark', $Call);
+                $Call = F::Apply(null, 'Mark', $Call);
         }
         else
         {
@@ -69,7 +69,7 @@
     setFn('Write', function ($Call)
     {
         if (!isset($Call['SID']))
-            $Call = F::Run(null, 'Mark', $Call);
+            $Call = F::Apply(null, 'Mark', $Call);
 
         $Call['Session'] = F::Run('Entity', 'Read',
             [
@@ -104,7 +104,7 @@
             F::Log('Session updated '.$Call['SID'], LOG_INFO);
         }
 
-        $Call = F::Run(null, 'Initialize', $Call);
+        $Call = F::Apply(null, 'Initialize', $Call);
 
         return $Call;
     });
@@ -112,7 +112,7 @@
     setFn('Read', function ($Call)
     {
         if (!isset($Call['Session']))
-            $Call = F::Run(null, 'Initialize', $Call);
+            $Call = F::Apply(null, 'Initialize', $Call);
 
         if (isset($Call['Key']))
             return F::Dot($Call['Session'], $Call['Key']);
@@ -123,9 +123,9 @@
     setFn('Annulate', function ($Call)
     {
         if (isset($Call['Session']['Secondary']) && $Call['Session']['Secondary'] != 0)
-            $Call = F::Run('Session', 'Write', $Call, ['Data' => ['Secondary' => 0]]);
+            $Call = F::Apply('Session', 'Write', $Call, ['Data' => ['Secondary' => 0]]);
         else
-            $Call = F::Run('Session', 'Write', $Call, ['Data' => ['User' => 0]]);
+            $Call = F::Apply('Session', 'Write', $Call, ['Data' => ['User' => 0]]);
 
         $Call = F::Hook('afterAnnulate', $Call);
 

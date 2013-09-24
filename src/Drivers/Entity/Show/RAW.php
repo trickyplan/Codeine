@@ -21,7 +21,7 @@
         if (!isset($Call['Data']))
             $Call['Data'] = F::Run('Entity', 'Read', $Call)[0];
 
-        $Call['Layouts'][] = array('Scope' => $Call['Entity'],'ID' => 'Show','Context' => $Call['Context']);
+        $Call['Layouts'][] = ['Scope' => $Call['Entity'],'ID' => 'Show','Context' => $Call['Context']];
 
         $Call['Scope'] = isset($Call['Scope'])? $Call['Entity'].'/'.$Call['Scope'] : $Call['Entity'];
 

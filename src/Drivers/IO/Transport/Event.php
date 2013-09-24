@@ -21,7 +21,7 @@
 
         if (isset($Map[$Call['Message']]))
         {
-            $Results = array();
+            $Results = [];
             
             foreach ($Map[$Call['Message']] as $Name => $Hook)
                 $Results[$Name] = F::Run($Call,$Hook);

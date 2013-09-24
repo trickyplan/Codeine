@@ -9,7 +9,7 @@
 
     setFn('Do', function ($Call)
     {
-        $Call = F::Run('Entity', 'Load', $Call);
+        $Call = F::Apply('Entity', 'Load', $Call);
 
 
         if (isset($Call['Where']))

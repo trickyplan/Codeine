@@ -15,19 +15,19 @@
         if (!isset($Call['Option']))
             $Call['Option'] = 'Do';
 
-        $Call = F::Run($Call['Bundle'].'.Control', $Call['Option'], $Call);
+        $Call = F::Apply($Call['Bundle'].'.Control', $Call['Option'], $Call);
 
-        $Call['Layouts'][] = array(
+        $Call['Layouts'][] = [
             'Scope' => $Call['Bundle'],
             'ID' => 'Control',
             'Context' => $Call['Context']
-        );
+        ];
 
-        $Call['Layouts'][] = array(
+        $Call['Layouts'][] = [
             'Scope' => $Call['Bundle'],
             'ID' => 'Control/'.$Call['Option'],
             'Context' => $Call['Context']
-        );
+        ];
 
         $Navigation = [];
 
@@ -65,7 +65,7 @@
                     ];
 
                 unset($Call['Decision'],$Call['Weight']);
-                $Call = F::Run('Security.Access', 'Check', $Call);
+                $Call = F::Apply('Security.Access', 'Check', $Call);
 
                 if ($Call['Decision'])
                     $GroupOptions[] = $Options;
@@ -97,7 +97,7 @@
                             ]
                         ];
 
-                $Call = F::Run('Security.Access', 'Check', $Call);
+                $Call = F::Apply('Security.Access', 'Check', $Call);
 
                 if ($Call['Decision'])
                     $Pills[] = ['ID' => $Sidebar, 'URL' => '/control/'.$Call['Bundle'].'/'.$Sidebar, 'Title' => $Call['Bundle'].'.Control:Options.'.$Sidebar];

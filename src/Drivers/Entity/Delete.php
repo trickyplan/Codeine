@@ -14,7 +14,7 @@
         if (isset($Call['Where']))
             $Call['Where'] = F::Live($Call['Where']); // FIXME
 
-            $Call = F::Run(null, $_SERVER['REQUEST_METHOD'], $Call);
+            $Call = F::Apply(null, $_SERVER['REQUEST_METHOD'], $Call);
 
         $Call = F::Hook('afterDeleteDo', $Call);
 
@@ -25,7 +25,7 @@
     {
         $Call = F::Hook('beforeDeleteGet', $Call);
 
-            $Call = F::Run('Entity.List', 'Do', $Call);
+            $Call = F::Apply('Entity.List', 'Do', $Call);
 
         $Call = F::Hook('afterDeleteGet', $Call);
 
@@ -36,7 +36,7 @@
     {
         $Call = F::Hook('beforeDeletePost', $Call);
 
-            $Call = F::Run('Entity', 'Delete', $Call);
+            $Call = F::Apply('Entity', 'Delete', $Call);
 
         $Call = F::Hook('afterDeletePost', $Call);
 

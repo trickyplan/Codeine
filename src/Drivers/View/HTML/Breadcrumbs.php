@@ -49,11 +49,12 @@
 
         if (isset($Call['Breadcrumbs']) && count($Call['Breadcrumbs']) > 0)
         {
-            $Breadcrumbs = F::Run('View', 'Load', array(
+            $Breadcrumbs = F::Run('View', 'Load',
+                [
                     'Scope' => $Call['Widget Set'].'/Widgets',
                     'ID' => 'Breadcrumb',
                     'Data' => ['Breadcrumbs' => $Breadcrumbs]
-                ));
+                ]);
 
             $Call['Output'] = str_replace('<breadcrumbs/>', $Breadcrumbs, $Call['Output']);
         }

@@ -18,7 +18,7 @@
 
                  while (preg_match_all('@<'.$Tag.' (.+)>(.*)</'.$Tag.'>@SsUu', $Call['Output'], $Call['Parsed']))
                  {
-                     $Call = F::Run('View.JSON.Parslets.'.$Parslet, 'Parse', $Call);
+                     $Call = F::Apply('View.JSON.Parslets.'.$Parslet, 'Parse', $Call);
                      $Passes++;
 
                      if ($Passes > $Call['MaxPasses'])
@@ -32,7 +32,7 @@
 
                  while (preg_match_all('@<'.$Tag.'()>(.*)</'.$Tag.'>@SsUu', $Call['Output'], $Call['Parsed']))
                  {
-                     $Call = F::Run('View.JSON.Parslets.'.$Parslet, 'Parse', $Call);
+                     $Call = F::Apply('View.JSON.Parslets.'.$Parslet, 'Parse', $Call);
                      $Passes++;
 
                      if ($Passes > $Call['MaxPasses'])

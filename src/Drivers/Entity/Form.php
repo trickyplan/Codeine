@@ -98,7 +98,7 @@
                     //$Widget['Label'] .=$Widget['Weight'];
                     // Помещаем виджет в поток
 
-                    $Call = F::Run('Entity.Form.Layout.'.$Call['FormLayout'], 'Add', $Call,
+                    $Call = F::Apply('Entity.Form.Layout.'.$Call['FormLayout'], 'Add', $Call,
                         [
                             'Name' => $Name,
                             'Widget' => $Widget

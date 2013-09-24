@@ -82,7 +82,7 @@
 
             if (isset($Call['Sort']))
                 foreach($Call['Sort'] as $Key => $Direction)
-                    $Cursor->sort(array($Key => (int)(($Direction == SORT_ASC) or ($Direction == 1))? 1: -1));
+                    $Cursor->sort([$Key => (int)(($Direction == SORT_ASC) or ($Direction == 1))? 1: -1]);
 
             if (isset($Call['Limit']))
                 $Cursor->limit($Call['Limit']['To'])->skip($Call['Limit']['From']);

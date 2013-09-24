@@ -47,7 +47,7 @@
 
         if (isset($Call['Storage']))
         {
-            $Call = F::Run('IO', 'Open', $Call);
+            $Call = F::Apply('IO', 'Open', $Call);
 
             if ($Call['Link'] === null)
                 return null;
@@ -87,7 +87,7 @@
     {
         if (isset($Call['Storage']))
         {
-            $Call = F::Run('IO', 'Open', $Call);
+            $Call = F::Apply('IO', 'Open', $Call);
 
             if ($Call['Link'] === null)
                 return null;
@@ -125,7 +125,8 @@
     {
         if (isset($Call['Storage']))
         {
-            $Call = F::Run('IO', 'Open', $Call);
+            $Call = F::Apply('IO', 'Open', $Call);
+
             if ($Call['Link'] === null)
                 return null;
 
@@ -142,7 +143,7 @@
     {
         if (isset($Call['Storage']))
         {
-            $Call = F::Run('IO', 'Open', $Call);
+            $Call = F::Apply('IO', 'Open', $Call);
 
             if ($Call['Link'] === null)
                 return null;
@@ -151,7 +152,7 @@
                 $Call['Where'] = F::Live($Call['Where']);
 
             if (isset($Call['Where']) && is_scalar($Call['Where']))
-                $Call['Where'] = array('ID' => $Call['Where']);
+                $Call['Where'] = ['ID' => $Call['Where']];
 
             return F::Run ($Call['Driver'], $Call['Execute'], $Call);
         }

@@ -59,7 +59,7 @@
 
             $DirSz = strlen(Root.'/'.$Path);
 
-            $Data = array();
+            $Data = [];
 
             foreach($Regex as $File)
             {

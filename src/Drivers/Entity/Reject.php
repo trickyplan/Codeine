@@ -9,7 +9,7 @@
 
     setFn('Do', function ($Call)
     {
-        $Call = F::Run('Entity', 'Load', $Call);
+        $Call = F::Apply('Entity', 'Load', $Call);
 
         $Call = F::Hook('beforeRejectDo', $Call);
 
@@ -22,7 +22,7 @@
     {
         $Call = F::Hook('beforeRejectGet', $Call);
 
-        $Call = F::Run('Entity.List', 'Do', $Call);
+        $Call = F::Apply('Entity.List', 'Do', $Call);
 
         $Call = F::Hook('afterRejectGet', $Call);
 

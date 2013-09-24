@@ -14,7 +14,7 @@
 
          unset($Call['Decision'], $Call['Weight']);
 
-         $Call = F::Run('Security.Access', 'Check', $Call);
+         $Call = F::Apply('Security.Access', 'Check', $Call);
 
          if ($Call['Decision'] == false)
              $Call = F::Hook('Access.Denied', $Call);

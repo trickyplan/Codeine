@@ -9,7 +9,7 @@
 
     setFn('Write', function ($Call)
     {
-        $Call = F::Run(null, gettype($Call['Data']), $Call);
+        $Call = F::Apply(null, gettype($Call['Data']), $Call);
         return $Call;
     });
 

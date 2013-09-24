@@ -11,9 +11,9 @@
     {
         if (is_array($Call['System']))
             foreach ($Call['System'] as $System)
-                $Call = F::Run('Security.Access.'.$System, 'Check', $Call);
+                $Call = F::Apply('Security.Access.'.$System, 'Check', $Call);
         else
-            $Call = F::Run('Security.Access.'.$Call['System'], 'Check', $Call);
+            $Call = F::Apply('Security.Access.'.$Call['System'], 'Check', $Call);
 
         return $Call;
     });

@@ -11,7 +11,7 @@
     {
         if (isset($Call['Data']))
         {
-            $Keys = array();
+            $Keys = [];
 
             foreach ($Call['Data'] as $Key => $Value)
                 $Keys[] = '`'.$Call['Link']->real_escape_string ($Key).'`';
@@ -87,7 +87,7 @@
 
     setFn('Table', function ($Call)
     {
-        return '`' . strtr($Call['Scope'],array('/' => '', '.' => '')) . '`';
+        return '`' . strtr($Call['Scope'], ['/' => '', '.' => '']) . '`';
     });
 
     setFn('Sort', function ($Call)

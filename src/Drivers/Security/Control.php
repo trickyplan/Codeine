@@ -21,7 +21,7 @@
             $ST = microtime(true);
 
             for($a = 0; $a < 1000; $a++) // FIXME Option
-                F::Live($Hash, array('Value' => rand()));
+                F::Live($Hash, ['Value' => rand()]);
 
             $ST = (microtime(true)-$ST)/$a;
 
@@ -29,10 +29,10 @@
         }
 
         $Call['Output']['Content'][] =
-              array(
+              [
                   'Type' => 'Table',
                   'Value' => $Data
-              );
+              ];
 
         return $Call;
     });
@@ -48,7 +48,7 @@
             $ST = microtime(true);
 
             for($a = 0; $a < 4; $a++) // FIXME Option
-                $Result[] = F::Live($Rand, array('Min' => 0, 'Max' => 1000));
+                $Result[] = F::Live($Rand, ['Min' => 0, 'Max' => 1000]);
 
             $ST = (microtime(true)-$ST)/$a;
 
@@ -56,10 +56,10 @@
         }
 
         $Call['Output']['Content'][] =
-              array(
+              [
                   'Type' => 'Table',
                   'Value' => $Data
-              );
+              ];
 
         return $Call;
     });
@@ -73,11 +73,11 @@
             $UID = F::Live ($Generator);
 
             $Call['Output']['Content'][] =
-              array(
+              [
                   'Type' => 'Block',
                   'Class' => 'alert alert-success',
                   'Value' => $Key.' ('.$UID.')'
-              );
+              ];
         }
 
         return $Call;
@@ -89,12 +89,12 @@
 
         foreach ($Rules as $Rule['ID'] => $Rule)
             $Call['Output']['Content'][] =
-                array(
+                [
                     'Type' => 'Template',
                     'Scope' => 'Security/Access',
                     'ID' => '/Rule/Show/Short',
                     'Data' => $Rule
-                );
+                ];
 
         return $Call;
     });

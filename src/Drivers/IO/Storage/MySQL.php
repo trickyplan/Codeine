@@ -49,7 +49,7 @@
     {
         $Query = F::Run('IO.Storage.MySQL.Syntax', 'Read', $Call);
 
-        $Call = F::Run(null, 'Operation', $Call, ['Query' => $Query]);
+        $Call = F::Apply(null, 'Operation', $Call, ['Query' => $Query]);
 
         if ($Call['MySQL Result']->num_rows>0)
         {
@@ -81,7 +81,7 @@
                 else
                     $Query = F::Run('IO.Storage.MySQL.Syntax', 'Insert', $Call);
 
-                $Call = F::Run(null, 'Operation', $Call, ['Query' => $Query]);
+                $Call = F::Apply(null, 'Operation', $Call, ['Query' => $Query]);
 
                 if (!isset($Call['Data']['ID']))
                     $Element['ID'] = $Call['Link']->insert_id;
@@ -111,7 +111,7 @@
 
     setFn ('Run', function ($Call)
     {
-        $Call = F::Run(null, 'Operation', $Call, ['Query' => $Call['Run']]);
+        $Call = F::Apply(null, 'Operation', $Call, ['Query' => $Call['Run']]);
 
         if ($Call['MySQL Result']->num_rows>0)
             {
@@ -139,7 +139,7 @@
     {
         $Query = F::Run('IO.Storage.MySQL.Syntax', 'Count', $Call);
 
-        $Call = F::Run(null, 'Operation', $Call, ['Query' => $Query]);
+        $Call = F::Apply(null, 'Operation', $Call, ['Query' => $Query]);
 
         if ($Call['MySQL Result'])
             $Call['MySQL Result'] = $Call['MySQL Result']->fetch_assoc();
@@ -149,7 +149,7 @@
 
     setFn ('ID', function ($Call)
     {
-        $Call = F::Run(null, 'Operation', $Call, ['Query' => 'SELECT MAX(id) AS ID FROM '.$Call['Scope']]);
+        $Call = F::Apply(null, 'Operation', $Call, ['Query' => 'SELECT MAX(id) AS ID FROM '.$Call['Scope']]);
 
         if ($Call['MySQL Result'])
             $Call['MySQL Result'] = $Call['MySQL Result']->fetch_assoc();

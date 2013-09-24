@@ -16,13 +16,13 @@
             $Call['Session']['Lat'] = $GeoIP['Lat'];
             $Call['Session']['Long'] = $GeoIP['Lon'];
 
-            $Cities = F::Run('Entity', 'Read', array('Entity' => 'Location'));
+            $Cities = F::Run('Entity', 'Read', ['Entity' => 'Location']);
 
-            $Sorted = array();
+            $Sorted = [];
 
             foreach ($Cities as $Location)
             {
-                $Sorted[$Location['ID']] = F::Run('Science.Geography.Distance', 'Calc', array('From' => $Call['Session'], 'To' => $Location));
+                $Sorted[$Location['ID']] = F::Run('Science.Geography.Distance', 'Calc', ['From' => $Call['Session'], 'To' => $Location]);
                 F::Log('Distance to '.$Location['Title'].' is '.$Sorted[$Location['ID']].' km', LOG_INFO);
             }
 

@@ -9,7 +9,7 @@
 
     setFn('Do', function ($Call)
     {
-        $Call = F::Run('Entity', 'Load', $Call);
+        $Call = F::Apply('Entity', 'Load', $Call);
 
         if (isset($Call['Where']))
             $Call['Where'] = F::Live($Call['Where']); // FIXME
@@ -23,7 +23,7 @@
     {
         $Call = F::Hook('beforeAcceptGet', $Call);
 
-            $Call = F::Run('Entity.List', 'Do', $Call, ['Context' => 'app']);
+            $Call = F::Apply('Entity.List', 'Do', $Call, ['Context' => 'app']);
 
         $Call['Context'] = '';
 

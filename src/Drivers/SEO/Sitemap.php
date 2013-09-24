@@ -19,21 +19,6 @@
     {
         $Links = [];
 
-        $Call['Namespace'] = 'http://www.sitemaps.org/schemas/sitemap/0.9';
-        $Call['Attributes'] =
-            array(
-                array(
-                    'Prefix' => 'xmlns',
-                    'Key' => 'xsi',
-                    'Value' => 'http://www.w3.org/2001/XMLSchema-instance'
-                ),
-                array(
-                    'Prefix' => 'xsi',
-                    'Key' => 'schemaLocation',
-                    'Value' => 'http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd'
-                )
-            );
-
         foreach ($Call['Entities'] as $Handler => $Data)
             $Links[] =
                 [
@@ -44,46 +29,40 @@
                     ]
                 ];
 
-        $Call['Output'] =  array('Root' => 'sitemapindex', 'Content' => $Links);
+        $Call['Output'] =  ['Root' => 'sitemapindex', 'Content' => $Links];
 
         return $Call;
     });
 
     setFn('Combined', function ($Call)
     {
-        $Links = [['url' => [
-            'loc'         => $Call['Host'].'/',
-            'changefreq'  => 'daily',
-            'priority'    => 1
-        ]]];
-        ;
-        $Call['Namespace'] = 'http://www.sitemaps.org/schemas/sitemap/0.9';
-        $Call['Attributes'] =
-            array(
-                array(
-                    'Prefix' => 'xmlns',
-                    'Key' => 'xsi',
-                    'Value' => 'http://www.w3.org/2001/XMLSchema-instance'
-                ),
-                array(
-                    'Prefix' => 'xsi',
-                    'Key' => 'schemaLocation',
-                    'Value' => 'http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd'
-                )
-            );
+        $Links =
+        [
+            [
+                'url' =>
+                [
+                    'loc'         => $Call['Host'].'/',
+                    'changefreq'  => 'daily',
+                    'priority'    => 1
+                ]
+            ]
+        ];
 
         foreach ($Call['Entities'] as $Call['Entity'] => $Data)
         {
             $SubLinks = F::Run($Call['Entity'].'.Sitemap', 'Generate', $Call);
                 foreach ($SubLinks as $Sublink)
-                    $Links[] = ['url' => [
+                    $Links[] = [
+                                    'url' =>
+                                    [
                                       'loc'         => htmlspecialchars($Sublink),
                                       'changefreq'  => $Data['Frequency'],
                                       'priority'    => $Data['Priority']
-                                  ]];
+                                    ]
+                               ];
         }
 
-        $Call['Output'] =  array('Root' => 'urlset', 'Content' => $Links);
+        $Call['Output'] =  ['Root' => 'urlset', 'Content' => $Links];
 
         return $Call;
     });
@@ -91,31 +70,20 @@
     setFn('Entity', function ($Call)
     {
         $Call['Links'] = [];
-        $Call['Namespace'] = 'http://www.sitemaps.org/schemas/sitemap/0.9';
-        $Call['Attributes'] =
-            array(
-                array(
-                    'Prefix' => 'xmlns',
-                    'Key' => 'xsi',
-                    'Value' => 'http://www.w3.org/2001/XMLSchema-instance'
-                ),
-                array(
-                    'Prefix' => 'xsi',
-                    'Key' => 'schemaLocation',
-                    'Value' => 'http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd'
-                )
-            );
 
         $SubLinks = F::Run($Call['Entity'].'.Sitemap', 'Generate', $Call);
 
         foreach ($SubLinks as $Sublink)
-            $Call['Links'][] = array ('url' => array (
-                                  'loc'         => htmlspecialchars($Sublink),
-                                  'changefreq'  => $Call['Entities'][$Call['Entity']]['Frequency'],
-                                  'priority'    => $Call['Entities'][$Call['Entity']]['Priority']
-                              ));
+            $Call['Links'][] = [
+                                  'url' =>
+                                  [
+                                      'loc'         => htmlspecialchars($Sublink),
+                                      'changefreq'  => $Call['Entities'][$Call['Entity']]['Frequency'],
+                                      'priority'    => $Call['Entities'][$Call['Entity']]['Priority']
+                                  ]
+                               ];
 
-        $Call['Output'] =  array('Root' => 'urlset', 'Content' => $Call['Links']);
+        $Call['Output'] =  ['Root' => 'urlset', 'Content' => $Call['Links']];
 
         return $Call;
     });
@@ -124,10 +92,10 @@
     {
         foreach($Call['SearchEngines'] as $Name=> $URL)
             $Call['Responses'][$Name] = F::Run('IO', 'Read',
-                array(
-                     'Storage' => 'HTTP',
+                [
+                     'Storage' => 'Web',
                      'ID' => $URL.'/ping?sitemap='.urlencode($Call['Host'].'/sitemap.xml')
-                ));
+                ]);
 
         return $Call;
     });

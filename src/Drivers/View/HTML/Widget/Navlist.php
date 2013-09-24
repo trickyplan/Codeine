@@ -9,7 +9,7 @@
 
      setFn('Make', function ($Call)
      {
-         $Options = array();
+         $Options = [];
 
          if (isset($Call['Value']))
             $Call['Value'] = F::Live($Call['Value']);
@@ -34,7 +34,7 @@
                      [
                          'Scope' => $Call['Widget Set'].'/Widgets',
                          'ID'    => 'Navlist/Header',
-                         'Data'  => array('Title' => $Value)
+                         'Data'  => ['Title' => $Value]
                      ]);
          }
 

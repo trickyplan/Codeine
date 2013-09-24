@@ -20,7 +20,7 @@
         {
             $Call['Link'] = curl_multi_init();
 
-            $Links = array();
+            $Links = [];
 
             foreach ($Call['Where']['ID'] as $cID)
             {
@@ -103,7 +103,7 @@
     {
         $Call['Link'] = curl_init($Call['Where']['ID']);
 
-        $Headers = isset($Call['Headers'])? $Call['Headers']: array();
+        $Headers = isset($Call['Headers'])? $Call['Headers']: [];
         $UPWD = isset($Call['user:pass'])? $Call['user:pass']:'';
 
         // TODO HTTP DELETE
@@ -153,14 +153,15 @@
         $Call['Link'] = curl_init($Call['Where']['ID']);
 
         curl_setopt_array($Call['Link'],
-                array(
+                [
                     CURLOPT_HEADER => true,
                     CURLOPT_RETURNTRANSFER => true,
                     CURLOPT_COOKIEJAR => $Call['CookieFile'],
                     CURLOPT_FILETIME => true,
                     CURLOPT_NOBODY => true,
                     CURLOPT_FOLLOWLOCATION => $Call['Follow'],
-                    CURLOPT_CONNECTTIMEOUT => $Call['Timeout']));
+                    CURLOPT_CONNECTTIMEOUT => $Call['Timeout']
+                ]);
 
         return curl_getinfo($Call['Link'])['filetime'];
     });

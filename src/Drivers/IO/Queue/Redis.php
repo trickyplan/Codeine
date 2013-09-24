@@ -19,7 +19,7 @@
     setFn('Read', function ($Call)
     {
         if (($Result = $Call['Link']->lPop($Call['Scope'])) !== false)
-            return array(json_decode($Result, true));
+            return [json_decode($Result, true)];
         else
             return null;
     });

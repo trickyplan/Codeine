@@ -20,7 +20,7 @@
 
                  while (preg_match_all('@<'.$cTag.' (.+)>(.*)</'.$cTag.'>@SsUu', $Call['Output'], $Call['Parsed']))
                  {
-                     $Call = F::Run('View.HTML.Parslets.'.$Parslet, 'Parse', $Call);
+                     $Call = F::Apply('View.HTML.Parslets.'.$Parslet, 'Parse', $Call);
                      $Pass++;
 
                      if ($Pass > 1)
@@ -39,7 +39,7 @@
 
                  while (preg_match_all('@<'.$cTag.'()>(.*)</'.$cTag.'>@SsUu', $Call['Output'], $Call['Parsed']))
                  {
-                     $Call = F::Run('View.HTML.Parslets.'.$Parslet, 'Parse', $Call);
+                     $Call = F::Apply('View.HTML.Parslets.'.$Parslet, 'Parse', $Call);
                      $Pass++;
 
                      if ($Pass > 1)

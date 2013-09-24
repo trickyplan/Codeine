@@ -14,5 +14,19 @@
     "Entities":
     {
 
-    }
+    },
+    "Namespace": "http://www.sitemaps.org/schemas/sitemap/0.9",
+    "Attributes": 
+    [
+        {
+            "Prefix":"xmlns",
+            "Key":"xsi",
+            "Value":"http://www.w3.org/2001/XMLSchema-instance"
+        },
+        {
+            "Prefix":"xsi",
+            "Key":"schemaLocation",
+            "Value":"http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
+        }
+    ]
 }

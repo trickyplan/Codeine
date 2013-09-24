@@ -120,7 +120,7 @@
 
     setFn('Flush', function ($Call)
     {
-        F::Reload();
+        F::reloadOptions();
         echo 'Core flushed'.PHP_EOL;
         return true;
     });

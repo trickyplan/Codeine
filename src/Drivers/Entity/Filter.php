@@ -83,7 +83,7 @@
                     if (isset($Widget['Options']))
                         $Widget['Options'] = F::Live($Widget['Options'], $Call);
                     else
-                        $Widget['Options'] = array();
+                        $Widget['Options'] = [];
 
 /*                    if($ic == 0)
                         $Widget['Autofocus'] = true;*/
@@ -104,7 +104,7 @@
                     // Помещаем виджет в поток
                     $ic++;
 
-                    $Call = F::Run('Entity.Form.Layout.'.$Call['FormLayout'], 'Add', $Call,
+                    $Call = F::Apply('Entity.Form.Layout.'.$Call['FormLayout'], 'Add', $Call,
                         [
                             'IC' => $ic,
                             'Name' => $Name,

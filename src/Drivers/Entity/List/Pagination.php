@@ -47,7 +47,8 @@
 
 
         if (isset($Call['PageCount']) && $Call['PageCount']>1)
-            $Call['Output']['Pagination'][] = array(
+            $Call['Output']['Pagination'][] =
+            [
                 'Type'  => 'Paginator',
                 'Total' => $Call['Count'],
                 'EPP' => $Call['EPP'],
@@ -56,7 +57,7 @@
                 'PageURL' => isset($Call['PageURL'])? $Call['PageURL']: '',
                 'PageCount' => $Call['PageCount'],
                 'PageURLPostfix' => $Call['PageURLPostfix']
-            );
+           ];
 
         return $Call;
     });

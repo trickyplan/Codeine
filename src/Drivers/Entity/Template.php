@@ -9,7 +9,7 @@
 
     setFn('Table', function ($Call)
     {
-        $Call = F::Run('Entity', 'Load', $Call);
+        $Call = F::Apply('Entity', 'Load', $Call);
 
         foreach ($Call['Nodes'] as $Name => $Node)
             $Rows[] = '<block><tr><th><l2>'.$Call['Entity'].'.Entity:'.$Name.'</l2></th><td><k>'.$Name.'</k></td></tr></block>';

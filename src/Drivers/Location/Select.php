@@ -46,9 +46,9 @@
             F::Run('Session', 'Write', $Call, ['Data' => ['Location' => $Call['Location']]]);
 
         if (isset($_SERVER['HTTP_REFERER']))
-            $Call = F::Run('System.Interface.Web', 'Redirect', $Call, ['Location' => $_SERVER['HTTP_REFERER']]);
+            $Call = F::Apply('System.Interface.Web', 'Redirect', $Call, ['Location' => $_SERVER['HTTP_REFERER']]);
         else
-            $Call = F::Run('System.Interface.Web', 'Redirect', $Call, ['Location' => '/']);
+            $Call = F::Apply('System.Interface.Web', 'Redirect', $Call, ['Location' => '/']);
 
         return $Call;
     });

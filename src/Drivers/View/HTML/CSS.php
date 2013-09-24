@@ -66,6 +66,8 @@
                 {
                     $CSS = sha1($CSSSource).'_'.$CSS;
 
+                    $Write = true;
+
                     if ($Call['CSS']['Caching'])
                     {
                         if (F::Run('IO', 'Execute',
@@ -80,23 +82,27 @@
                         ]))
                         {
                             F::Log('Cache *hit* '.$CSS, LOG_GOOD);
+                            $Write = false;
                         }
                         else
                         {
-                            $Call = F::Hook('beforeCSSWrite', $Call);
-
-                                F::Log('Cache *miss*', LOG_BAD);
-
-                                F::Run ('IO', 'Write',
-                                [
-                                     'Storage' => 'CSS Cache',
-                                     'Scope'   => [$Host, 'css'],
-                                     'Where'   => $CSS,
-                                     'Data' => $CSSSource
-                                ]);
-
-                            $Call = F::Hook('afterCSSWrite', $Call);
+                            F::Log('Cache *miss*', LOG_BAD);
                         }
+                    }
+
+                    if ($Write)
+                    {
+                        $Call = F::Hook('beforeCSSWrite', $Call);
+
+                            F::Run ('IO', 'Write',
+                            [
+                                 'Storage' => 'CSS Cache',
+                                 'Scope'   => [$Host, 'css'],
+                                 'Where'   => $CSS,
+                                 'Data' => $CSSSource
+                            ]);
+
+                        $Call = F::Hook('afterCSSWrite', $Call);
                     }
 
 

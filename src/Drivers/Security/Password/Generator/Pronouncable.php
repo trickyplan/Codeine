@@ -12,9 +12,9 @@
         $length = $Call['Length'];
         $password = '';
 
-        $vowels = array('a', 'e', 'u');
-        $cons = array('b', 'c', 'd', 'g', 'h', 'j', 'k','m', 'N', 'p', 'r', 's', 't', 'u', 'v', 'w', 'tr',
-        'cr', 'br', 'fr', 'th', 'dr', 'ch', 'ph', 'wr', 'st', 'sp', 'sw', 'pr', 'sl', 'cl');
+        $vowels = ['a', 'e', 'u'];
+        $cons = ['b', 'c', 'd', 'g', 'h', 'j', 'k','m', 'N', 'p', 'r', 's', 't', 'u', 'v', 'w', 'tr',
+        'cr', 'br', 'fr', 'th', 'dr', 'ch', 'ph', 'wr', 'st', 'sp', 'sw', 'pr', 'sl', 'cl'];
 
         $num_vowels = count($vowels);
         $num_cons = count($cons);

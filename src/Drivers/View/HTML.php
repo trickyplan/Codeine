@@ -70,7 +70,7 @@
 
         }
 
-        $Call = F::Run(null, 'Parse Call', $Call);
+        $Call = F::Apply(null, 'Parse Call', $Call);
 
         $Call['Output'] = $Call['Layout'];
 

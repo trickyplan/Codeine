@@ -9,7 +9,7 @@
 
      setFn('Make', function ($Call)
      {
-         $Options = array();
+         $Options = [];
 
          if (isset($Call['Multiple']))
              $Call['Name'] .= '[]';

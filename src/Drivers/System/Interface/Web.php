@@ -37,9 +37,8 @@
 
         if (!isset($Call['Skip Run']))
         {
-            $Call = F::Run(null, 'Protocol', $Call);
-
-            $Call = F::Run($Call['Service'], $Call['Method'], $Call);
+            $Call = F::Apply(null, 'Protocol', $Call);
+            $Call = F::Apply($Call['Service'], $Call['Method'], $Call);
         }
 
 /*        if (isset($Call['Output']))
@@ -91,9 +90,9 @@
     setFn('RestoreURL', function ($Call)
     {
         if (isset($Call['Request']['BackURL']) && !empty($Call['Request']['BackURL']))
-            $Call = F::Run('System.Interface.Web', 'Redirect', $Call, ['Location' => $Call['Request']['BackURL']]);
+            $Call = F::Apply('System.Interface.Web', 'Redirect', $Call, ['Location' => $Call['Request']['BackURL']]);
         elseif (isset($_SERVER['HTTP_REFERER']))
-            $Call = F::Run('System.Interface.Web', 'Redirect', $Call, ['Location' => $_SERVER['HTTP_REFERER']]);
+            $Call = F::Apply('System.Interface.Web', 'Redirect', $Call, ['Location' => $_SERVER['HTTP_REFERER']]);
 
         return $Call;
     });

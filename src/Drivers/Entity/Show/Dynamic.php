@@ -17,7 +17,7 @@
         {
             if (isset($Node['Widgets']['Show']))
                 $Call['Output']['Content'][] =
-                    F::Merge($Node['Widgets']['Show'], array('Key' => $Name, 'Value' => $Element[0][$Name]));
+                    F::Merge($Node['Widgets']['Show'], ['Key' => $Name, 'Value' => $Element[0][$Name]]);
 
         }
 

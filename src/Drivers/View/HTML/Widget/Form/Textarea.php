@@ -12,7 +12,7 @@
          if (is_array($Call['Value']))
              $Call['Value'] = implode(',',$Call['Value']);
 
-         $Call = F::Run('View.HTML.Widget.Base', 'Make', $Call, ['Tag' => 'textarea']);
+         $Call = F::Apply('View.HTML.Widget.Base', 'Make', $Call, ['Tag' => 'textarea']);
 
          return $Call;
      });

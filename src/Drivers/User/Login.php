@@ -9,9 +9,9 @@
 
     setFn('Do', function ($Call)
     {
-        $Call = F::Run('Entity', 'Load', $Call, ['Entity' => 'User']);
+        $Call = F::Apply('Entity', 'Load', $Call, ['Entity' => 'User']);
 
-        $Call = F::Run('Session', 'Write', $Call, ['Data' => ['Secondary' => $Call['Where']]]);
+        $Call = F::Apply('Session', 'Write', $Call, ['Data' => ['Secondary' => $Call['Where']]]);
 
         F::Log('User '.$Call['Session']['User']['ID'].' logged in '.$Call['Where'], LOG_INFO, 'Security');
 

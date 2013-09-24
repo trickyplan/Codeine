@@ -26,7 +26,7 @@
         }
         else
             if (($Result = $Call['Link']->get($Call['Scope'].$Call['Where']['ID'])) !== false)
-                return array($Result);
+                return [$Result];
             else
                 return null;
     });
@@ -68,7 +68,7 @@
     {
        $Info = $Call['Link']->getStats();
        foreach ($Info as $Key => &$Value)
-           $Value = array($Key, $Value);
+           $Value = [$Key, $Value];
 
        return $Info;
     });

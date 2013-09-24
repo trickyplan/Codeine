@@ -51,7 +51,7 @@
             {
                 $Where['ID'] = ['$in' => array_keys($IDs)];
 
-                $Call = F::Run('Entity.List', 'Do',
+                $Call = F::Apply('Entity.List', 'Do',
                     $Call,
                     [
                         'Context' => 'app',

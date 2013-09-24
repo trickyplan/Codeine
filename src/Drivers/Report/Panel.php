@@ -19,30 +19,33 @@
             $Call['Action'] = 'Do';
 
         if (!isset($Call['Option']))
-            $Call = F::Run($Call['Bundle'].'.Report', $Call['Action'], $Call, ['Context' => 'app']);
+            $Call = F::Apply($Call['Bundle'].'.Report', $Call['Action'], $Call, ['Context' => 'app']);
         else
-            $Call = F::Run($Call['Bundle'].'.Report.'.$Call['Option'], $Call['Action'], $Call, ['Context' => 'app']);
+            $Call = F::Apply($Call['Bundle'].'.Report.'.$Call['Option'], $Call['Action'], $Call, ['Context' => 'app']);
 
-        $Call['Layouts'][] = array(
+        $Call['Layouts'][] =
+        [
             'Scope' => $Call['Bundle'],
             'ID' => 'Report',
             'Context' => $Call['Context']
-        );
+        ];
 
         if (!isset($Call['Option']))
             $Call['Option'] = 'Do';
 
-        $Call['Layouts'][] = array(
+        $Call['Layouts'][] =
+        [
             'Scope' => $Call['Bundle'],
             'ID' => 'Report/'.$Call['Option'],
             'Context' => $Call['Context']
-        );
+        ];
 
-        $Call['Layouts'][] = array(
+        $Call['Layouts'][] =
+        [
             'Scope' => $Call['Bundle'],
             'ID' => 'Report/'.$Call['Option'].'/'.$Call['Action'],
             'Context' => $Call['Context']
-        );
+        ];
 
         foreach($Call['Bundles'] as $Group => $Bundles)
         {

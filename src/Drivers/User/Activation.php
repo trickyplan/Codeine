@@ -60,11 +60,11 @@
 
                 if (isset($Call['Second']))
                     $Call['Output']['Message'][] =
-                        array(
+                        [
                             'Type'  => 'Block',
                             'Class' => 'alert alert-success',
                             'Value'  => 'Письмо выслано повторно'
-                        );
+                        ];
             }
 
         return $Call;
@@ -100,7 +100,7 @@
                 ]);
 
             if (isset($Call['Activation']['AutoLogin']) && $Call['Activation']['AutoLogin'])
-                $Call = F::Run('Session', 'Write', $Call, ['Data' => ['User' => $Activation['User']]]);
+                $Call = F::Apply('Session', 'Write', $Call, ['Data' => ['User' => $Activation['User']]]);
 
             $Call = F::Hook('Activation.Success', $Call);
         }

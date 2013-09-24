@@ -11,7 +11,7 @@
     {
         if (isset($Call['QoS']['Active']) && $Call['QoS']['Active'])
         {
-            $Call = F::Run('System.QoS.'.$Call['QoS']['Method'], 'Start', $Call);
+            $Call = F::Apply('System.QoS.'.$Call['QoS']['Method'], 'Start', $Call);
 
             if(isset($Call['QoS']['Classes'][$Call['QoS']['Class']]))
             {

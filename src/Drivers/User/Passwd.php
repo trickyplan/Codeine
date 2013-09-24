@@ -30,32 +30,33 @@
 
 
             F::Run('Entity', 'Update',
-                array(
+                [
                      'Entity' => 'User',
                      'Where'  => $Call['Session']['User']['ID'],
                      'Purpose' => 'Reset',
+                     'One' => true,
                      'Data' =>
                         [
-                            [
-                                'Password' => $Call['Request']['NewPassword']
-                            ]
-                        ])
-                );
+                            'Password' => $Call['Request']['NewPassword']
+                        ]
+                ]);
 
-            $Call['Output']['Message'][] = array(
+            $Call['Output']['Message'][] =
+                [
                     'Type' => 'Block',
                     'Class' => 'alert alert-success',
                     'Value' => '<l>User.Passwd:Success</l>'
-                );
+                ];
 
             F::Log('User '.$Call['Session']['User']['ID'].' changed password ', LOG_INFO, 'Security');
         }
         else
-            $Call['Output']['Message'][] = array(
+            $Call['Output']['Message'][] =
+                [
                     'Type' => 'Block',
                     'Class' => 'alert alert-danger',
                     'Value' => '<l>User.Passwd:Error.OldPasswd.Incorrect</l>'
-                );
+                ];
 
 
         return $Call;

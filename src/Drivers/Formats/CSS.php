@@ -9,11 +9,11 @@
 
     setFn('Decode', function ($Call)
     {
-        $Data = array();
+        $Data = [];
         if (mb_ereg_all('@(.*)\{(.*)\}@SsUu', $Call['Value'], $RuleSets))
             foreach($RuleSets[0] as $IX => $RuleSet)
             {
-                $Data[trim($RuleSets[1][$IX])] = array();
+                $Data[trim($RuleSets[1][$IX])] = [];
                 if (mb_ereg_all('@(.*)\:(.*);@SsUu', $RuleSets[2][$IX], $Rules))
                     foreach ($Rules[0] as $IC=> $Rule)
                         $Data[trim($RuleSets[1][$IX])][trim($Rules[1][$IC])] = trim($Rules[2][$IC]);
@@ -24,10 +24,10 @@
 
     setFn('Encode', function ($Call)
     {
-        $Data = array();
+        $Data = [];
         foreach($Call['Value'] as $Selector => $RuleSet)
         {
-            $Rule = array();
+            $Rule = [];
             foreach ($RuleSet as $Key => $Value)
                 $Rule[] = $Key.': '.$Value.';';
 

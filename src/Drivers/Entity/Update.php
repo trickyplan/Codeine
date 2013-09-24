@@ -25,10 +25,12 @@
 
         $Call['Scope'] = isset($Call['Scope'])? $Call['Entity'].'/'.$Call['Scope'] : $Call['Entity'];
 
-        $Call['Layouts'][] = array(
-            'Scope' => $Call['Entity'],
-            'ID' => isset($Call['Custom Layouts']['Update'])? $Call['Custom Layouts']['Update']: 'Update',
-            'Context' => $Call['Context']);
+        $Call['Layouts'][] =
+            [
+                'Scope' => $Call['Entity'],
+                'ID' => isset($Call['Custom Layouts']['Update'])? $Call['Custom Layouts']['Update']: 'Update',
+                'Context' => $Call['Context']
+            ];
 
         // Загрузить предопределённые данные и умолчания
 
@@ -38,7 +40,7 @@
             $Call = F::Hook('NotFound', $Call);
         else
             foreach ($Call['Data'] as $IX => $cData)
-                $Call = F::Run('Entity.Form', 'Generate', $Call, ['IX' => $IX, 'Data!' => $cData]);
+                $Call = F::Apply('Entity.Form', 'Generate', $Call, ['IX' => $IX, 'Data!' => $cData]);
 
         // Вывести
 
@@ -61,7 +63,7 @@
         $Call = F::Hook('beforeUpdatePost', $Call);
 
         // Отправляем в Entity.Update
-        $Call = F::Run('Entity', 'Update', $Call);
+        $Call = F::Apply('Entity', 'Update', $Call);
 
         $Call['Data'] = F::Merge(F::Run('Entity', 'Read', $Call), $Call['Data']);
 
@@ -80,7 +82,7 @@
                             'Value' => '<l>'.$Call['Entity'].'.Error:'.$Name.'.'.$Error.'</l>'
                         ];
 
-            $Call = F::Run(null, 'GET', $Call);
+            $Call = F::Apply(null, 'GET', $Call);
         }
 
         return $Call;

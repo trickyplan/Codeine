@@ -22,7 +22,7 @@
             foreach ($Attr['@attributes'] as $Key => $Value)
                 $Call['Run'] = F::Dot($Call['Run'], $Key, $Value);
 
-            $Call = F::Run('Security.Access', 'Check', $Call, $Call['Run']);
+            $Call = F::Apply('Security.Access', 'Check', $Call, $Call['Run']);
 
             if ($Call['Decision'] === true)
                 $Outer = $Call['Parsed'][2][$IX];

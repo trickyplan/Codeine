@@ -13,9 +13,9 @@
              $Call['Subtype'] = 'text';
 
          return F::Run ('View', 'Load',
-                           array(
+                           [
                                 'Scope' => 'Default',
                                 'ID'    => 'UI/Form/Speech',
                                 'Data'  => $Call
-                           ));
+                           ]);
      });

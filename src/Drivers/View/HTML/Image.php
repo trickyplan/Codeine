@@ -88,6 +88,8 @@
                         $Call['Current Image']['Width'].
                         strtr($Call['Current Image']['Source']['Scope'].'.'.$Call['Current Image']['Source']['Where']['ID'], '/', '.');
 
+                    $Write = true;
+
                     if ($Call['Image']['Caching'])
                     {
                         if (F::Run('IO', 'Execute',
@@ -102,27 +104,32 @@
                         ]))
                         {
                             F::Log('Cache *hit* '.$ImageCached, LOG_GOOD);
+                            $Write = false;
                         }
                         else
                         {
-                            $Call['Current Image']['Data'] = F::Run('IO', 'Read',
+                            F::Log('Cache *miss* *'.$ImageCached.'*', LOG_BAD);
+                        }
+                    }
+
+                    if ($Write)
+                    {
+                        $Call['Current Image']['Data'] =
+                            F::Run('IO', 'Read',
                                 $Call['Current Image']['Source']
                             )[0];
 
-                            F::Log('Cache *miss* *'.$ImageCached.'*', LOG_BAD);
+                        $Call = F::Hook('beforeImageWrite', $Call);
 
-                            $Call = F::Hook('beforeImageWrite', $Call);
+                            F::Run ('IO', 'Write',
+                            [
+                                 'Storage' => 'Image Cache',
+                                 'Scope'   => [$Host, 'img'],
+                                 'Where'   => $ImageCached,
+                                 'Data' => $Call['Current Image']['Data']
+                            ]);
 
-                                F::Run ('IO', 'Write',
-                                [
-                                     'Storage' => 'Image Cache',
-                                     'Scope'   => [$Host, 'img'],
-                                     'Where'   => $ImageCached,
-                                     'Data' => $Call['Current Image']['Data']
-                                ]);
-
-                            $Call = F::Hook('afterImageWrite', $Call);
-                        }
+                        $Call = F::Hook('afterImageWrite', $Call);
                     }
 
                     $Call['Image']['Tags'][] = '<img src="'

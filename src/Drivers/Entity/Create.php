@@ -11,7 +11,7 @@
     {
         $Call = F::Hook('beforeCreateDo', $Call);
 
-        $Call = F::Run(null, $_SERVER['REQUEST_METHOD'], $Call);
+        $Call = F::Apply(null, $_SERVER['REQUEST_METHOD'], $Call);
 
         return $Call;
     });
@@ -42,7 +42,7 @@
         if (!isset($Call['Data'][0]))
             $Call['Data'] = [[]];
 
-        $Call = F::Run('Entity.Form', 'Generate', $Call, ['IX' => 0, 'Data!' => $Call['Data'][0]]);
+        $Call = F::Apply('Entity.Form', 'Generate', $Call, ['IX' => 0, 'Data!' => $Call['Data'][0]]);
 
         // Вывести
         $Call = F::Hook('afterCreateGet', $Call);
@@ -74,7 +74,7 @@
             }
 
             // Отправляем в Entity.Create
-            $Call = F::Run('Entity', 'Create', $Call);
+            $Call = F::Apply('Entity', 'Create', $Call);
 
             if (!isset($Call['Errors']) or empty($Call['Errors']))
                 $Call = F::Hook('afterCreatePost', $Call);
@@ -89,7 +89,7 @@
                                 'Value' => '<l>'.$Call['Entity'].'.Error:'.$Name.'.'.$Error.'</l>'
                             ];
 
-                $Call = F::Run(null, 'GET', $Call);
+                $Call = F::Apply(null, 'GET', $Call);
             }
                 // Выводим результат
         }

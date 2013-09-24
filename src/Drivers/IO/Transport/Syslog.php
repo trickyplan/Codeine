@@ -17,7 +17,7 @@
     setFn('Send', function ($Call)
     {
         if (!is_array($Call['Message']))
-            $Call['Message'] = array($Call['Message']);
+            $Call['Message'] = [$Call['Message']];
 
         if (isset($Call['Call']))
             $Aux = F::hashCall($Call['Call']);
@@ -26,7 +26,7 @@
 
         foreach ($Call['Message'] as $Ix => $Message)
             syslog(LOG_INFO, implode(' ',
-                    array($Ix, $Message, $Aux)));
+                    [$Ix, $Message, $Aux]));
 
         return true;
     });

@@ -27,7 +27,7 @@
     {
         $Call = F::Hook('beforeAuthenticatePost', $Call);
 
-        $Call = F::Run('Security.Auth.System.'.$Call['Mode'], 'Authenticate', $Call);
+        $Call = F::Apply('Security.Auth.System.'.$Call['Mode'], 'Authenticate', $Call);
 
         if (!empty($Call['User']))
         {
@@ -38,7 +38,7 @@
 
             if (!isset($Call['Failure']))
             {
-                $Call = F::Run('Session', 'Write', $Call, ['Data' => ['User' => $Call['User']['ID']]]);
+                $Call = F::Apply('Session', 'Write', $Call, ['Data' => ['User' => $Call['User']['ID']]]);
 
                 if ($Call['Session']['User'] == $Call['User'])
                 {

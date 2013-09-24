@@ -13,7 +13,7 @@
             foreach ($Call['CSS']['Styles'] as $Style)
             {
                 if ($Call['CSS']['Strip Non-visible'])
-                    $Style = str_replace (array("\r\n", "\r", "\n", "\t", '  ', '    ', '    '), '', $Style);
+                    $Style = str_replace (["\r\n", "\r", "\n", "\t", '  ', '    ', '    '], '', $Style);
 
                 if ($Call['CSS']['Strip Comments'])
                     $Style = preg_replace ('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $Style);

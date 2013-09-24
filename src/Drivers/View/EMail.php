@@ -12,7 +12,7 @@
         $Call['Context'] = 'email';
         $Call = F::Hook('beforePipeline', $Call);
 
-        $Call = F::Run (null, 'Pipeline', $Call, array('Renderer' => 'View.HTML')); // Pipelining
+        $Call = F::Run (null, 'Pipeline', $Call, ['Renderer' => 'View.HTML']); // Pipelining
 
         $Call = F::Hook('afterPipeline', $Call);
 
@@ -48,7 +48,8 @@
                         foreach ($Widgets as $Key => $Widget)
                         {
                             if(is_array($Widget))
-                                $Call['Output'][$Place][$Key] = F::Run($Call['Renderer'] . '.Element.' . $Widget['Type'], 'Make', $Widget, array('Session' => $Call['Session'])); // FIXME FIXME FIXME
+                                $Call['Output'][$Place][$Key] = F::Run($Call['Renderer'] . '.Element.' . $Widget['Type'],
+                                    'Make', $Widget, ['Session' => $Call['Session']]); // FIXME FIXME FIXME
                             else
                                 $Call['Output'][$Place][$Key] = $Widget;
                         }

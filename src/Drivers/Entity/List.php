@@ -20,7 +20,12 @@
 
         $Call['Scope'] = isset($Call['Scope'])? $Call['Entity'].'/'.$Call['Scope'] : $Call['Entity'];
 
-        $Call['Layouts'][] = array('Scope' => $Call['Scope'],'ID' => isset($Call['Custom Templates']['List'])? $Call['Custom Templates']['List'] :'List','Context' => $Call['Context']);
+        $Call['Layouts'][] =
+            [
+                'Scope' => $Call['Scope'],
+                'ID' => isset($Call['Custom Templates']['List'])? $Call['Custom Templates']['List'] :'List',
+                'Context' => $Call['Context']
+            ];
 
         if (!isset($Call['Elements']))
             $Call['Elements'] = F::Run('Entity', 'Read', $Call);

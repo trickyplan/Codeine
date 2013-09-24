@@ -32,7 +32,7 @@
         $Router = 'Regex';
         {
              // Пробуем роутер из списка...
-             $Call = F::Run('Code.Routing.'.$Router, null, $Call);
+             $Call = F::Apply('Code.Routing.'.$Router, null, $Call);
 
              // Если результат - валидный вызов, то выходим из перебора
         /*     if (isset($Call['Link']))

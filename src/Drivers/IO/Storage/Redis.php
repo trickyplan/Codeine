@@ -70,7 +70,7 @@
     {
        $Info = $Call['Link']->info();
        foreach ($Info as $Key => &$Value)
-           $Value = array($Key, $Value);
+           $Value = [$Key, $Value];
 
        return $Info;
     });
