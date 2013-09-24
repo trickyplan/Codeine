@@ -88,7 +88,9 @@
                         $Call['Current Image']['Width'].
                         strtr($Call['Current Image']['Source']['Scope'].'.'.$Call['Current Image']['Source']['Where']['ID'], '/', '.');
 
-                    if ($Call['Image']['Caching'] && F::Run('IO', 'Execute',
+                    if ($Call['Image']['Caching'])
+                    {
+                        if (F::Run('IO', 'Execute',
                         [
                             'Storage' => 'Image Cache',
                             'Scope'   => [$Host, 'img'],
@@ -98,28 +100,29 @@
                                 'ID' => $ImageCached
                             ]
                         ]))
-                    {
-                        F::Log('Cache *hit* '.$ImageCached, LOG_GOOD);
-                    }
-                    else
-                    {
-                        $Call['Current Image']['Data'] = F::Run('IO', 'Read',
-                            $Call['Current Image']['Source']
-                        )[0];
+                        {
+                            F::Log('Cache *hit* '.$ImageCached, LOG_GOOD);
+                        }
+                        else
+                        {
+                            $Call['Current Image']['Data'] = F::Run('IO', 'Read',
+                                $Call['Current Image']['Source']
+                            )[0];
 
-                        F::Log('Cache *miss* *'.$ImageCached.'*', LOG_BAD);
+                            F::Log('Cache *miss* *'.$ImageCached.'*', LOG_BAD);
 
-                        $Call = F::Hook('beforeImageWrite', $Call);
+                            $Call = F::Hook('beforeImageWrite', $Call);
 
-                            F::Run ('IO', 'Write',
-                            [
-                                 'Storage' => 'Image Cache',
-                                 'Scope'   => [$Host, 'img'],
-                                 'Where'   => $ImageCached,
-                                 'Data' => $Call['Current Image']['Data']
-                            ]);
+                                F::Run ('IO', 'Write',
+                                [
+                                     'Storage' => 'Image Cache',
+                                     'Scope'   => [$Host, 'img'],
+                                     'Where'   => $ImageCached,
+                                     'Data' => $Call['Current Image']['Data']
+                                ]);
 
-                        $Call = F::Hook('afterImageWrite', $Call);
+                            $Call = F::Hook('afterImageWrite', $Call);
+                        }
                     }
 
                     $Call['Image']['Tags'][] = '<img src="'

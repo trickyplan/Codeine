@@ -54,6 +54,8 @@
         if (isset($Call['Output']))
             $Call = F::Live ($Call['Interface']['Output'], $Call, ['Data' => $Call['Output']]);
 
+        fastcgi_finish_request();
+
         return $Call;
     });
 

@@ -7,11 +7,11 @@
      * @version 7.x
      */
 
-
     setFn('Spit', function ($Call)
     {
-        F::Log('Calls: '.F::$NC, LOG_INFO);
+        F::Log('Calls: '.self::$NC, LOG_INFO);
         F::Log('Memory: '.round(memory_get_usage()/1024).' KiB', LOG_INFO);
+
 
         $Logs = F::Logs();
 
@@ -30,7 +30,10 @@
                     ]
                 );
 
-            $Call['Output'] = str_replace('<logs/>', $Output, $Call['Output']);
+            if (isset($Call['Output']))
+                $Call['Output'] = str_replace('<logs/>', $Output, $Call['Output']);
+            else
+                echo $Output;
 
             F::Run('IO', 'Close', ['Storage' => 'Developer']);
         }

@@ -2,7 +2,6 @@
 
     setFn('Open', function ($Call)
     {
-
         return true;
     });
 

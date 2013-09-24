@@ -15,8 +15,11 @@
         if (isset($Call['Robots']['Crawl-delay']))
             $Call['Output']['Content'][] = 'Crawl-delay: '.$Call['Robots']['Crawl-delay'];
 
-        $Call['Output']['Content'][] = 'User-agent: *';
-        $Call['Output']['Content'][] = 'Disallow: ';
+        foreach ($Call['Robots']['Crawlers'] as $Crawler => $URL)
+        {
+            $Call['Output']['Content'][] = 'User-agent: '.$Crawler;
+            $Call['Output']['Content'][] = 'Disallow: '.$URL;
+        }
 
         $Call['Output']['Content'] = [implode(PHP_EOL, $Call['Output']['Content'])];
         return $Call;

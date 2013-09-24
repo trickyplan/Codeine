@@ -1,0 +1,10 @@
+{
+    "Robots":
+    {
+        "Crawl-delay": 0,
+        "Crawlers":
+        {
+            "*": "/"
+        }
+    }
+}

@@ -8,7 +8,9 @@
           */
     define ('Codeine', __DIR__);
     define ('REQID', microtime(true).rand());
-    define ('DS', DIRECTORY_SEPARATOR);
+
+    defined('DS')? null: define('DS', DIRECTORY_SEPARATOR);
+
     define ('LOG_GOOD', 9);
     define ('LOG_BAD', 10);
     define ('LOG_IMPORTANT', 11);
@@ -85,10 +87,13 @@
 
             self::$_Verbose = self::$_Options['Codeine']['Verbose'];
 
+            foreach (self::$_Options['Path'] as $Path)
+                F::Log('Path registered *'.$Path.'*', LOG_INFO);
+
             set_error_handler ('F::Error');
 
             register_shutdown_function('F::Shutdown');
-F::Log('Codeine started', LOG_IMPORTANT);
+            F::Log('Codeine started', LOG_IMPORTANT);
             F::Log('Environment: *'.self::$_Environment.'*', LOG_INFO);
 
             $Call = F::Hook('onBootstrap', $Call);
@@ -271,7 +276,6 @@ F::Log('Codeine started', LOG_IMPORTANT);
             $FnOptions = self::loadOptions();
 
             $Call = self::Merge($FnOptions, $Call);
-            $FnOptions = [];
 
             if ((null === self::getFn(self::$_Method)) && !self::_loadSource(self::$_Service))
                 $Result = (is_array($Call) && isset($Call['Fallback']))? $Call['Fallback'] : $Call;
@@ -523,7 +527,7 @@ F::Log('Codeine started', LOG_IMPORTANT);
 
         public static function Error($errno , $errstr , $errfile , $errline , $errcontext)
         {
-            if (isset(self::$_Options['Codeine']['Perfect']))
+            if (isset(self::$_Options['Codeine']['Perfect']) && self::$_Options['Codeine']['Perfect'])
                 die('<h4>Perfect Mode</h4>'.$errno.' '.$errstr.' '.$errfile.'@'.$errline);
 
             return F::Log($errno.' '.$errstr.' '.$errfile.'@'.$errline, LOG_CRIT);
@@ -619,7 +623,7 @@ F::Log('Codeine started', LOG_IMPORTANT);
                     foreach ($Filenames as $Filename)
                     {
                         $Current = json_decode(file_get_contents($Filename), true);
-                        F::Log($Filename, LOG_DEBUG);
+                        F::Log('Options from '.$Filename.' loaded', LOG_DEBUG);
 
                         if ($Filename && !$Current)
                         {
@@ -647,7 +651,7 @@ F::Log('Codeine started', LOG_IMPORTANT);
                                 break;
                             }
 
-                            trigger_error('JSON Error: ' . $Filename.':'. $JSONError); //FIXME
+                            F::Log('JSON Error: ' . $Filename.':'. $JSONError, LOG_CRIT); //FIXME
                             return null;
                         }
 
@@ -661,7 +665,10 @@ F::Log('Codeine started', LOG_IMPORTANT);
                     }
                 }
                 else
+                {
+                    F::Log('No options for '.$Service, LOG_DEBUG);
                     $Options = [];
+                }
 
                 self::$_Options[$Service] = $Options;
             }

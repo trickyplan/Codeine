@@ -65,7 +65,9 @@
                 {
                     $JS = sha1($JSSource).'_'.strtr($JS, ':', '_');
 
-                    if ($Call['JS']['Caching'] && F::Run('IO', 'Execute',
+                    if ($Call['JS']['Caching'])
+                    {
+                        if (F::Run('IO', 'Execute',
                         [
                             'Storage' => 'JS Cache',
                             'Scope'   => [$Host, 'js'],
@@ -75,24 +77,25 @@
                                 'ID' => $JS
                             ]
                         ]))
-                    {
-                        F::Log('Cache *hit* '.$JS, LOG_GOOD);
-                    }
-                    else
-                    {
-                        $Call = F::Hook('beforeJSWrite', $Call);
+                        {
+                            F::Log('Cache *hit* '.$JS, LOG_GOOD);
+                        }
+                        else
+                        {
+                            $Call = F::Hook('beforeJSWrite', $Call);
 
-                            F::Log('Cache *miss* *'.$JS.'*', LOG_BAD);
+                                F::Log('Cache *miss* *'.$JS.'*', LOG_BAD);
 
-                            F::Run ('IO', 'Write',
-                            [
-                                 'Storage' => 'JS Cache',
-                                 'Scope'   => [$Host, 'js'],
-                                 'Where'   => $JS,
-                                 'Data' => $JSSource
-                            ]);
+                                F::Run ('IO', 'Write',
+                                [
+                                     'Storage' => 'JS Cache',
+                                     'Scope'   => [$Host, 'js'],
+                                     'Where'   => $JS,
+                                     'Data' => $JSSource
+                                ]);
 
-                        $Call = F::Hook('afterJSWrite', $Call);
+                            $Call = F::Hook('afterJSWrite', $Call);
+                        }
                     }
 
 
