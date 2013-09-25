@@ -124,8 +124,8 @@
             if ($Page !== null)
             {
                 $Call['Title'][1] = $Page['Title'];
-                $Call['Description'] = $Page['Description'];
-                $Call['Keywords'] = $Page['Keywords'];
+                $Call['Description'] = isset($Page['Description'])? $Page['Description']: '';
+                $Call['Keywords'] = isset($Page['Keywords'])? $Page['Keywords']: '';
             }
         }
 
