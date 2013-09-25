@@ -463,17 +463,15 @@
                         break;
 
                         case LOG_DEBUG:
-                        {
                             fwrite(STDERR, $Target."\033[0;30m ".$Message." \033[0m".PHP_EOL);
-                        }
+                        break;
 
                         case LOG_USER:
-                        {
                             fwrite(STDERR, $Target."\033[0;37m ".$Message." \033[0m".PHP_EOL);
-                        }
+                        break;
 
                         default:
-                            echo $Target.' '.$Message.PHP_EOL;
+                            fwrite(STDERR, $Target.$Message.PHP_EOL);
                         break;
                     }
                 }
