@@ -12,7 +12,7 @@
          if (isset($Call['Localized']) && $Call['Localized'])
                 $Call['Label'] = '<l>'.$Call['Entity'].'.Entity:'.$Call['Key'].'.'.$Call['Value'].'</l>';
             else
-                $Call['Label'] = $Call['Value'];
+                $Call['Label'] = '<l>'.$Call['Entity'].'.Entity:'.$Call['Key'].'</l>';
 
          return $Call;
      });
