@@ -34,7 +34,6 @@
     {
         // FIXME Templatize
         // GA FIXME Options
-
         if (isset($Call['DNT Support']) && F::Run('System.Interface.Web.DNT', 'Detect', $Call))
             $Code = '<!-- Do Not Track enabled. Google Analytics supressed. -->';
         else

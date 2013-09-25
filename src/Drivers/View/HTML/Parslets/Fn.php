@@ -22,7 +22,8 @@
 
               foreach ($Call['Inherited'] as $Key)
                   if (isset($Call[$Key]))
-                    $Match[$Key] = $Call[$Key];
+                    $Match['Call'][$Key] = $Call[$Key];
+
 
               $Output = F::Live($Match);
 

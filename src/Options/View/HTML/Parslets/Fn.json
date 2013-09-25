@@ -1,4 +1,7 @@
 {
     "Type": "XML",
-    "Inherited": ["Hooks", "IP", "UA", "Language", "Session", "Host", "RHost", "URL", "URL Query", "URI", "Request", "Project"]
+    "Inherited":
+    [
+        "Hooks", "IP", "UA", "Language", "Session", "Host", "RHost", "URL", "URL Query", "URI", "Request", "Project"
+    ]
 }
