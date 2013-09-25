@@ -76,7 +76,7 @@
         return $Call;
     });
 
-    setFn('Redirect', function ($Call)
+    setFn('Remote Redirect', function ($Call)
     {
         $URL = $Call['Location'];
 
