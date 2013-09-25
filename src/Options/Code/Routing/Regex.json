@@ -88,6 +88,16 @@
             {
                 "Location": "$1"
             }
+        },
+        "Go":
+        {
+            "Match": "/go/(.+)",
+            "Service": "System.Interface.Web",
+            "Method": "Redirect",
+            "Call":
+            {
+                "Location": "http://$1"
+            }
         }
     }
 }
