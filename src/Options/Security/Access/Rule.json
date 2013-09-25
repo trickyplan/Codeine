@@ -120,6 +120,16 @@
                 "Service": "System.Interface.Web",
                 "Method": "Redirect"
             }
+        },
+        "Удалённый редирект всем":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "Remote Redirect"
+            }
         }
     }
 }
