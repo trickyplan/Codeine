@@ -76,6 +76,24 @@
         return $Call;
     });
 
+    setFn('Redirect', function ($Call)
+    {
+        $URL = $Call['Location'];
+
+        if (preg_match_all('@\$([\.\w]+)@', $URL, $Vars))
+        {
+            foreach ($Vars[0] as $IX => $Key)
+                $URL = str_replace($Key, F::Dot($Call,$Vars[1][$IX]) , $URL);
+        }
+
+        $Call['Headers']['HTTP/1.1'] = ' 301 Moved Permanently';
+        $Call['Headers']['Location:'] = 'http://'.$URL;
+
+        F::Log('Redirected to '.$URL, LOG_INFO);
+
+        return $Call;
+    });
+
     setFn('StoreURL', function ($Call)
     {
         if(!isset($Call['Request']['BackURL']) && isset($_SERVER['HTTP_REFERER']))

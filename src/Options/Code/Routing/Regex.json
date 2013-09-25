@@ -93,10 +93,10 @@
         {
             "Match": "/go/(.+)",
             "Service": "System.Interface.Web",
-            "Method": "Redirect",
+            "Method": "Remote Redirect",
             "Call":
             {
-                "Location": "http://$1"
+                "Location": "$1"
             }
         }
     }
