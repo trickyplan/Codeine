@@ -15,18 +15,25 @@
 
         $SH = function ($Signal) {return F::Run('Code.Flow.Daemon', 'Signal', ['Signal' => $Signal]);};
 
-        for ($SigID = 1; $SigID <= 28; $SigID ++)
-            pcntl_signal($SigID, $SH);
+        foreach ($Call['Signals'] as $SigID => $Hook)
+            if (!pcntl_signal(constant($SigID), $SH))
+                F::Log('Signal '.$SigID.' not handled', LOG_ERR);
 
         $PIDFile = F::Run(null, 'PIDFile', $Call);
 
         if (F::Run(null, 'Running?', $Call))
         {
-            echo 'Daemon already active';
+            F::Log('Daemon already active', LOG_CRIT);
             exit;
         }
         else
-            file_put_contents($PIDFile, getmypid());
+        {
+            if (file_put_contents($PIDFile, getmypid()) != false)
+                F::Log('PID file created: '.$PIDFile, LOG_WARNING);
+            else
+                F::Log('PID file failed: '.$PIDFile, LOG_ERR);
+
+        }
 
         $Ungrateful = [];
 
@@ -34,22 +41,25 @@
         {
             if ((count($Ungrateful) < $Call['MaxChilds']))
             {
-                if (($Trigger = F::Live($Call['Trigger'])) !== null)
-                {
-                    $PID = pcntl_fork();
+                $PID = pcntl_fork();
 
-                    if ($PID == -1)
-                        return -1; //TODO: ошибка - не смогли создать процесс
-                    elseif ($PID)
-                    {
-                        $Ungrateful[$PID] = true;
-                        echo 'Forked '.$PID.PHP_EOL;
-                    }
-                    else
-                    {
-                        echo getmypid().': '.F::Live($Call['Execute'], ['Run' => $Trigger[0]]).PHP_EOL;
-                        exit;
-                    }
+                if ($PID == -1)
+                {
+                    F::Log('Daemon: Fork failed', LOG_CRIT);
+                    return -1;
+                } //TODO: ошибка - не смогли создать процесс
+                elseif ($PID)
+                {
+                    $Ungrateful[$PID] = true;
+                    F::Log('Daemon: Forked '.$PID, LOG_INFO);
+                }
+                else
+                {
+                    $Result = F::Live($Call['Execute']);
+                    if ($Result !== null)
+                        F::Log(getmypid().': '.json_encode($Result), LOG_WARNING);
+
+                    exit;
                 }
             }
 
@@ -63,7 +73,7 @@
                 else
                 {
                     unset($Ungrateful[$Signaled]);
-                    echo 'Dead '.$Signaled.PHP_EOL;
+                    F::Log('Daemon: Dead '.$Signaled, LOG_WARNING);
                 }
             }
 
@@ -79,14 +89,23 @@
     {
         $PIDFile = F::Run(null, 'PIDFile', $Call);
 
-        if (is_file($PIDFile) )
+        if (file_exists($PIDFile))
         {
             //проверяем на наличие процесса
-            if (posix_kill(file_get_contents($PIDFile) ,0))
+            if (posix_kill((int) file_get_contents($PIDFile), 1))
                 return true; //демон уже запущен
             else //pid-файл есть, но процесса нет
-                if (!unlink($PIDFile))
-                    return (-1); //не могу уничтожить pid-файл. ошибка
+            {
+                if (posix_get_last_error() == 1) /* EPERM */
+                    return true;
+
+                if (is_writable($PIDFile) && !unlink($PIDFile))
+                    return (-1);
+            } //не могу уничтожить pid-файл. ошибка
+        }
+        else
+        {
+
         }
 
         return false;
@@ -94,7 +113,7 @@
 
     setFn('PIDFile', function ($Call)
     {
-        return $Call['PID']['Prefix'].$Call['DaemonID'].$Call['PID']['Postfix'];
+        return $Call['PID']['Prefix'].$Call['Execute']['Service'].$Call['PID']['Postfix'];
     });
 
     setFn('Stop', function ($Call)
@@ -108,9 +127,8 @@
         {
             $Signal = $Call['Codes'][$Call['Signal']];
 
-//            echo $Signal.' caughted'.PHP_EOL;
-
-            return F::Live($Call['Signals'][$Signal]);
+            if (isset($Call['Signals'][$Signal]))
+                return F::Live($Call['Signals'][$Signal]);
             // или Нет обработчиков
         }
         // или неизвестный код
@@ -121,6 +139,6 @@
     setFn('Flush', function ($Call)
     {
         F::reloadOptions();
-        echo 'Core flushed'.PHP_EOL;
+        F::Log('Core flushed', LOG_WARNING);
         return true;
     });

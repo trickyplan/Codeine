@@ -1,0 +1,20 @@
+{
+    "Mode": "Persist",
+    "Queue": "",
+    "Hooks":
+    {
+
+    },
+    "Actions":
+    {
+        "Say hello":
+        {
+            "Service": "IO.Print",
+            "Method": "Write",
+            "Call":
+            {
+                "Data": "Hello, meatbag!"
+            }
+        }
+    }
+}

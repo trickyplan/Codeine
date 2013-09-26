@@ -108,6 +108,13 @@
         {
             "Driver": "IO.Network.HTTP.CURL",
             "Scope": ""
+        },
+        "Delayed":
+        {
+            "Driver":"IO.Queue.File.JSON",
+            "Directory":"/var/spool/codeine",
+            "Scope": "Codeine",
+            "Filename": "delayed.json"
         }
     },
     "Hooks":

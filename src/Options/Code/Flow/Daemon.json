@@ -1,9 +1,8 @@
 {
-    "DaemonID":"Codeine",
     "MaxChilds":32,
     "PID":
     {
-        "Prefix": "/tmp/",
+        "Prefix": "/tmp/codeine/",
         "Postfix": ".pid"
     },
     "Signals":
@@ -23,45 +22,42 @@
             "Service":"Code.Flow.Daemon",
             "Method":"Stop"
         },
-        "SIGKILL":
-        {
-            "Service":"Code.Flow.Daemon",
-            "Method":"Stop"
-        },
         "SIGHUP":
         {
             "Service":"Code.Flow.Daemon",
             "Method":"Flush"
         }
     },
-    "Codes":["0",
-        "SIGHUP",
-        "SIGINT",
-        "SIGQUIT",
-        "SIGILL",
-        "SIGTRAP",
-        "SIGABRT",
-        "SIGBUS",
-        "SIGFPE",
-        "SIGKILL",
-        "SIGUSR1",
-        "SIGSEGV",
-        "SIGUSR2",
-        "SIGPIPE",
-        "SIGALRM",
-        "SIGTERM",
-        "SIGSTKFLT",
-        "SIGCHLD",
-        "SIGCONT",
-        "SIGSTOP",
-        "SIGTSTP",
-        "SIGTTIN",
-        "SIGTTOU",
-        "SIGURG",
-        "SIGXCPU",
-        "SIGXFSZ",
-        "SIGVTALRM",
-        "SIGPROF",
-        "SIGIO"
-    ]
+    "Codes":
+        [
+            "0",
+            "SIGHUP",
+            "SIGINT",
+            "SIGQUIT",
+            "SIGILL",
+            "SIGTRAP",
+            "SIGABRT",
+            "SIGBUS",
+            "SIGFPE",
+            "SIGKILL",
+            "SIGUSR1",
+            "SIGSEGV",
+            "SIGUSR2",
+            "SIGPIPE",
+            "SIGALRM",
+            "SIGTERM",
+            "SIGSTKFLT",
+            "SIGCHLD",
+            "SIGCONT",
+            "SIGSTOP",
+            "SIGTSTP",
+            "SIGTTIN",
+            "SIGTTOU",
+            "SIGURG",
+            "SIGXCPU",
+            "SIGXFSZ",
+            "SIGVTALRM",
+            "SIGPROF",
+            "SIGIO"
+        ]
 }

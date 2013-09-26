@@ -9,5 +9,7 @@
 
     setFn('Do', function ($Call)
     {
+        $Call = F::loadOptions($Call['Character'], $Call);
+
         return $Call;
     });

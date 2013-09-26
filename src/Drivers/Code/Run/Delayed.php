@@ -9,23 +9,33 @@
 
     setFn('Run', function ($Call)
     {
-        if (F::Run('Code.Flow.Daemon', 'Running?', $Call) || $Call['Delayed Mode'] == 'Dirty')
-            return F::Run('IO', 'Write', array
-                 (
-                    'Storage' => 'Run Queue',
-                    'Scope' => 'RQ',
+        if (F::Run('Code.Flow.Daemon', 'Running?',
+                [
+                    'Execute' =>
+                    [
+                        'Service' => 'Code.Run.Delayed'
+                    ]
+                ]) || $Call['Delayed Mode'] == 'Dirty')
+        {
+            F::Log('Delayed Run '.$Call['Run']['Service'].' queued', LOG_INFO);
+
+            return F::Run('IO', 'Write',
+                [
+                    'Storage' => 'Delayed',
                     'Data' => $Call['Run']
-                 ));
+                ]);
+        }
         else
+        {
+            F::Log('Delayed Run '.$Call['Run']['Service'].' executed', LOG_INFO);
             return F::Live($Call['Run']);
+        }
      });
 
     setFn('Execute', function ($Call)
     {
-        return F::Live($Call['Run']);
-    });
+        if ($Call['Run'] = F::Run('IO', 'Read', ['ReRead' => true, 'Storage' => 'Delayed']))
+            return F::Live($Call['Run']);
 
-    setFn('Queue', function ($Call)
-    {
-        return F::Run('IO', 'Read', ['Storage' => 'Run Queue', 'Scope' => 'RQ']);
+        return null;
     });
