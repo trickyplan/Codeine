@@ -50,6 +50,11 @@
                 "Service":"View.HTML.Breadcrumbs",
                 "Method":"Scan"
             },
+            "No Remote":
+            {
+                "Service":"View.HTML.NoRemote",
+                "Method":"Process"
+            },
             "Places":
             {
                 "Service":"View.HTML.Places",
