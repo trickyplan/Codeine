@@ -9,6 +9,6 @@
 
     setFn('Process', function ($Call)
     {
-        $Call['Output'] = preg_replace('@href="http://(.*)"@', 'href=/go/$1', $Call['Output']);
+        $Call['Output'] = preg_replace('@href="http://(.*)"@', 'href="/go/$1"', $Call['Output']);
         return $Call;
     });
