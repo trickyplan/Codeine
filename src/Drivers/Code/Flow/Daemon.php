@@ -13,74 +13,89 @@
     {
         declare(ticks = 1);
 
-        $SH = function ($Signal) {return F::Run('Code.Flow.Daemon', 'Signal', ['Signal' => $Signal]);};
+        $PID = pcntl_fork();
 
-        foreach ($Call['Signals'] as $SigID => $Hook)
-            if (!pcntl_signal(constant($SigID), $SH))
-                F::Log('Signal '.$SigID.' not handled', LOG_ERR);
-
-        $PIDFile = F::Run(null, 'PIDFile', $Call);
-
-        if (F::Run(null, 'Running?', $Call))
+        if ($PID == -1)
         {
-            F::Log('Daemon already active', LOG_CRIT);
-            exit;
+            F::Log('Daemon: Detach failed', LOG_CRIT);
+            die();
         }
+        else if ($PID)
+            {
+                F::Log('Daemon: Detach success', LOG_INFO);
+                exit;
+            }
         else
         {
-            if (file_put_contents($PIDFile, getmypid()) != false)
-                F::Log('PID file created: '.$PIDFile, LOG_WARNING);
+            $SH = function ($Signal) {return F::Run('Code.Flow.Daemon', 'Signal', ['Signal' => $Signal]);};
+
+            foreach ($Call['Signals'] as $SigID => $Hook)
+                if (!pcntl_signal(constant($SigID), $SH))
+                    F::Log('Signal '.$SigID.' not handled', LOG_ERR);
+
+            $PIDFile = F::Run(null, 'PIDFile', $Call);
+
+            if (F::Run(null, 'Running?', $Call))
+            {
+                F::Log('Daemon already active', LOG_CRIT);
+                exit;
+            }
             else
-                F::Log('PID file failed: '.$PIDFile, LOG_ERR);
-
-        }
-
-        $Ungrateful = [];
-
-        while (F::getLive())
-        {
-            if ((count($Ungrateful) < $Call['MaxChilds']))
             {
-                $PID = pcntl_fork();
-
-                if ($PID == -1)
-                {
-                    F::Log('Daemon: Fork failed', LOG_CRIT);
-                    return -1;
-                } //TODO: ошибка - не смогли создать процесс
-                elseif ($PID)
-                {
-                    $Ungrateful[$PID] = true;
-                    F::Log('Daemon: Forked '.$PID, LOG_INFO);
-                }
+                if (file_put_contents($PIDFile, getmypid()) != false)
+                    F::Log('PID file created: '.$PIDFile, LOG_WARNING);
                 else
-                {
-                    $Result = F::Live($Call['Execute']);
-                    if ($Result !== null)
-                        F::Log(getmypid().': '.json_encode($Result), LOG_WARNING);
+                    F::Log('PID file failed: '.$PIDFile, LOG_ERR);
 
-                    exit;
-                }
             }
 
-            while ($Signaled = pcntl_waitpid(-1, $Status, WNOHANG))
+            $Ungrateful = [];
+
+            while (F::getLive())
             {
-                if ($Signaled == -1)
+                if ((count($Ungrateful) < $Call['MaxChilds']))
                 {
-                    $Ungrateful = [];
-                    break;
+                    $PID = pcntl_fork();
+
+                    if ($PID == -1)
+                    {
+                        F::Log('Daemon: Fork failed', LOG_CRIT);
+                        return -1;
+                    } //TODO: ошибка - не смогли создать процесс
+                    elseif ($PID)
+                    {
+                        $Ungrateful[$PID] = true;
+                        F::Log('Daemon: Forked '.$PID, LOG_INFO);
+                    }
+                    else
+                    {
+                        $Result = F::Live($Call['Execute']);
+                        if ($Result !== null)
+                            F::Log(getmypid().': '.json_encode($Result), LOG_WARNING);
+
+                        exit;
+                    }
                 }
-                else
+
+                while ($Signaled = pcntl_waitpid(-1, $Status, WNOHANG))
                 {
-                    unset($Ungrateful[$Signaled]);
-                    F::Log('Daemon: Dead '.$Signaled, LOG_WARNING);
+                    if ($Signaled == -1)
+                    {
+                        $Ungrateful = [];
+                        break;
+                    }
+                    else
+                    {
+                        unset($Ungrateful[$Signaled]);
+                        F::Log('Daemon: Dead '.$Signaled, LOG_INFO);
+                    }
                 }
+
+                sleep(1);
             }
 
-            sleep(1);
-        }
-
-        unlink($PIDFile);
+            unlink($PIDFile);
+            }
 
         return $Call;
     });
