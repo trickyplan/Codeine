@@ -1,0 +1,41 @@
+{
+    "Regex":
+    {
+        "Vote for":
+        {
+            "Match":"^/vote/for/(.*)/(.*)",
+            "Service":"Entity.Vote",
+            "Weight": 150,
+            "Method":"Do",
+            "Renderer":
+            {
+                "Service": "View.JSON",
+                "Method": "Render"
+            },
+            "Call":
+            {
+                "Direction": "VoteFor",
+                "Type":"$1",
+                "Object":"$2"
+            }
+        },
+        "Vote against":
+        {
+            "Match":"^/vote/against/(.*)/(.*)",
+            "Weight": 150,
+            "Service":"Entity.Vote",
+            "Method":"Do",
+            "Renderer":
+            {
+                "Service": "View.JSON",
+                "Method": "Render"
+            },
+            "Call":
+            {
+                "Direction": "VoteAgainst",
+                "Type":"$1",
+                "Object":"$2"
+            }
+        }
+    }
+}

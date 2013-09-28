@@ -135,7 +135,12 @@
         if (isset($Call['Request']['Query']))
             $Where = ['Title.en' => '~/'.$Call['Request']['Query'].'/'];
         else
-            $Where = $Call['Request']['Where'];
+        {
+            if (isset($Call['Request']['Where']))
+                $Where = $Call['Request']['Where'];
+            else
+                $Where = [];
+        }
 
         $Call['Output']['Content'] =
             F::Run ('Entity.List', 'RAW', $Call,

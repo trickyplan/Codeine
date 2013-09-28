@@ -219,7 +219,7 @@
                             return null;
                         }
 
-                        if (isset($Current['Mixins']))
+                        if (isset($Current['Mixins']) && is_array($Current['Mixins']))
                         {
                             foreach($Current['Mixins'] as &$Mixin)
                                 $Current = F::Merge(F::loadOptions($Mixin), $Current);

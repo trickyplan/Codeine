@@ -2,17 +2,22 @@
 
     /* Codeine
      * @author BreathLess
-     * @description Default value support 
+     * @description  
      * @package Codeine
-     * @version 7.x
+     * @version 7.2
      */
 
-    setFn('Process', function ($Call)
+    setFn('beforeOperation', function ($Call)
     {
-        foreach ($Call['Nodes'] as $Name => $Node)
-            if (isset($Node['Filter']) && isset($Call['Data'][$Name]))
-                foreach ($Node['Filter'] as $Filter)
-                    $Call['Data'][$Name] = F::Live($Filter, ['Value' => $Call['Data'][$Name]]);
+        if (isset($Call['Request']['Filter']) && is_array($Call['Request']['Filter']))
+        {
+            if (!isset($Call['Where']))
+                $Call['Where'] = [];
+
+            foreach ($Call['Request']['Filter'] as $Key => $Value)
+                if (!empty($Value))
+                    $Call['Where'][$Key] = $Value;
+        }
 
         return $Call;
     });

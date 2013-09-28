@@ -1,0 +1,42 @@
+{
+    "Nodes":
+    {
+        "VoteFor":
+        {
+            "Type": "Numeral.Integer",
+            "Default": 0,
+            "Hooks":
+            {
+                "beforeEntityWrite":
+                {
+                    "Service": "Vote.Entity",
+                    "Method": "Count"
+                }
+            }
+        },
+        "VoteAgainst":
+        {
+            "Type": "Numeral.Integer",
+            "Default": 0,
+            "Hooks":
+            {
+                "beforeEntityWrite":
+                {
+                    "Service": "Vote.Entity",
+                    "Method": "Count"
+                }
+            }
+        }
+    },
+    "Hooks":
+    {
+        "afterCheck":
+        {
+            "Restore URL":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "RestoreURL"
+            }
+        }
+    }
+}

@@ -15,12 +15,18 @@
 
                 foreach ($Call['Output']['Content'] as $Key => $Widget)
                     if(is_array($Widget))
-                        $Call['Output']['Content'][$Key] =
-                            F::Run('View.Plaintext.Widget.' . $Widget['Type'], 'Make', $Widget)['Value'].PHP_EOL;
-                    else
-                        $Call['Output']['Content'][$Key] = $Widget.PHP_EOL;
+                    {
+                        if (isset($Widget['Type']))
+                            $Call['Output']['Content'][$Key] =
+                                F::Run('View.Plaintext.Widget.' . $Widget['Type'], 'Make', $Widget)['Value'].PHP_EOL;
+                        else
+                            $Call['Output']['Content'][$Key] = implode("\t", $Widget);
+                    }
 
-                $Call['Output'] = implode('', $Call['Output']['Content']);
+                    else
+                        $Call['Output']['Content'][$Key] = $Widget;
+
+                $Call['Output'] = implode(PHP_EOL, $Call['Output']['Content']);
 
             $Call = F::Hook('afterPipeline', $Call);
         }

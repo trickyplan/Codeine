@@ -14,7 +14,7 @@
         <if value="<k>Multiple</k>" eq="1">multiple: true,</if>
         ajax:
         {
-            url: '/control/<k>Key</k>/Dict',
+            url: '/dict/<k>Key</k>/<k>Field</k>.json',
             dataType: 'json',
             data: function (term) {
                 return {Query: term};

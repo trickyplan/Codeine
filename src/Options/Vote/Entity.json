@@ -1,0 +1,21 @@
+{
+    "Mixins": ["Mixins.UGC"],
+    "Storage": "Primary",
+    "EPP": 20,
+    "Nodes":
+    {
+        "Type":
+        {
+            "Type": "Literal.String"
+        },
+        "Object":
+        {
+            "Type": "Numeral.Integer"
+        },
+        "Direction":
+        {
+            "Type": "List.Enum",
+            "Options": ["VoteAgainst", "VoteFor"]
+        }
+    }
+}

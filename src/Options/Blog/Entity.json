@@ -1,5 +1,11 @@
 {
-    "Mixins": ["Mixins.UGC", "Mixins.Text", "Mixins.CRUD"],
+    "Mixins":
+        [
+            "Mixins.UGC",
+            "Mixins.Text",
+            "Mixins.CRUD",
+            "Mixins.Votable"
+        ],
     "Storage": "Primary",
     "EPP": 10,
     "Sort":

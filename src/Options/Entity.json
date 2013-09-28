@@ -17,6 +17,11 @@
             {
                 "Service": "Entity.Hooks.Where",
                 "Method": "beforeOperation"
+            },
+            "Filter":
+            {
+                "Service":"Entity.Hooks.Filter",
+                "Method":"beforeOperation"
             }
         },
         "beforeEntityWrite":
@@ -48,9 +53,9 @@
                     "Purpose": "Create"
                 }
             },
-            "Filter":
+            "Process":
             {
-                "Service":"Entity.Hooks.Filter",
+                "Service":"Entity.Hooks.Process",
                 "Method":"Process",
                 "Call":
                 {
@@ -77,7 +82,7 @@
             },
             "Filter":
             {
-                "Service":"Entity.Hooks.Filter",
+                "Service":"Entity.Hooks.Process",
                 "Method":"Process"
             },
             "Datatypes":

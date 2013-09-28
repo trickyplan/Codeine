@@ -1,0 +1,22 @@
+{
+    "Rules":
+    {
+        "Оценки доступны зарегистрированным":
+        {
+            "Decision": true,
+            "Weight": 100,
+            "Run":
+            {
+                "Service": "Entity.Vote",
+                "Method": "Do",
+                "Session":
+                {
+                    "User":
+                    {
+                        "ID": "*"
+                    }
+                }
+            }
+        }
+    }
+}

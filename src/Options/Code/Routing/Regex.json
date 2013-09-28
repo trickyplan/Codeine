@@ -38,6 +38,38 @@
                 "Experiment": "$1"
             }
         },
+        "Dict":
+        {
+            "Match": "^/dict/(.*)/(.*).json",
+            "Service":"Entity.Dict",
+            "Method":"Do",
+            "Renderer":
+            {
+                "Service": "View.JSON",
+                "Method": "Render"
+            },
+            "Call":
+            {
+                "Entity": "$1",
+                "Key": "$2"
+            }
+        },
+        "Dict Plaintext":
+        {
+            "Match": "^/dict/(.*)/(.*).txt",
+            "Service":"Entity.Dict",
+            "Method":"Do",
+            "Renderer":
+            {
+                "Service": "View.Plaintext",
+                "Method": "Render"
+            },
+            "Call":
+            {
+                "Entity": "$1",
+                "Key": "$2"
+            }
+        },
         "Page":
         {
             "Match": "/(.*)",
