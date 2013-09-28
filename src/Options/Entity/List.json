@@ -4,11 +4,6 @@
     {
         "beforeList":
         {
-            "Filter":
-            {
-                "Service": "Entity.List.Filter",
-                "Method": "beforeList"
-            },
             "Sort":
             {
                 "Service": "Entity.List.Sort",
@@ -22,11 +17,6 @@
         },
         "afterList":
         {
-            "Filter":
-            {
-                "Service": "Entity.List.Filter",
-                "Method": "afterList"
-            },
             "Sort":
             {
                 "Service": "Entity.List.Sort",
