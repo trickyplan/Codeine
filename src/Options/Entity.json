@@ -13,15 +13,15 @@
                 "Service": "Entity.Hooks.Scope",
                 "Method": "beforeOperation"
             },
-            "Where":
-            {
-                "Service": "Entity.Hooks.Where",
-                "Method": "beforeOperation"
-            },
             "Filter":
             {
                 "Service":"Entity.Hooks.Filter",
                 "Method":"beforeOperation"
+            },
+            "Where":
+            {
+                "Service": "Entity.Hooks.Where",
+                "Method": "beforeOperation"
             }
         },
         "beforeEntityWrite":
