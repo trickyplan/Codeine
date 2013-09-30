@@ -14,10 +14,13 @@
                         'Entity' => $Call['Entity']
                     ]);
 
-        foreach ($Call['Output']['Content'] as $Key => $Value)
-            $Rows[] = ['id' => $Key, 'text' => F::Dot($Value, $Call['Key'])];
+        if (!empty($Call['Output']['Content']))
+        {
+            foreach ($Call['Output']['Content'] as $Key => $Value)
+                $Rows[] = ['id' => $Value['ID'], 'text' => F::Dot($Value, $Call['Key'])];
 
-        $Call['Output']['Content'] = $Rows;
+            $Call['Output']['Content'] = $Rows;
+        }
 
         return $Call;
     });

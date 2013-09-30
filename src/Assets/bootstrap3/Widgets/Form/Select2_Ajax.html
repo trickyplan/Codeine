@@ -17,7 +17,7 @@
             url: '/dict/<k>Key</k>/<k>Field</k>.json',
             dataType: 'json',
             data: function (term) {
-                return {Query: term};
+                return {Filter: {'Title.en': '~/'+term+'/i'}};
             },
             results: function (data)
             {

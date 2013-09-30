@@ -85,7 +85,9 @@
                         ]);
 
                     $ImageCached = $Version.'_'.
-                        $Call['Current Image']['Width'].
+                        (isset($Call['Current Image']['Width'])? $Call['Current Image']['Width']: 0).
+                        'x'.
+                        (isset($Call['Current Image']['Height'])? $Call['Current Image']['Height']: 0).
                         strtr($Call['Current Image']['Source']['Scope'].'.'.$Call['Current Image']['Source']['Where']['ID'], '/', '.');
 
                     $Write = true;
