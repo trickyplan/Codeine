@@ -98,7 +98,7 @@ tr.Important
 
 .topbar
 {
-    top: 0;
+    top: 40%;
     left: 0;
     position: absolute;
     z-index: 99;
@@ -108,9 +108,8 @@ tr.Important
 {
     background-color: #ffffff;
     float: none;
+    margin: 0 !important;
 }
-
-
 
 .avatar
 {

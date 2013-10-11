@@ -28,6 +28,7 @@
         {
             "Type": "Literal.Text",
             "Required": true,
+            "Index": true,
             "Widgets":
             {
                 "Write":

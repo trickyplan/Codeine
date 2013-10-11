@@ -1,5 +1,29 @@
-<div class="progress progress-striped progress-lg">
-  <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <k>Filled</k>%;">
-    <k>Filled</k>% заполнено.
-  </div>
+<div class="progress progress-striped progress-md">
+    <if value="<k>Filled</k>" lt="30">
+      <div class="progress-bar progress-bar-danger" role="progressbar"
+           aria-valuenow="<k>Filled</k>" aria-valuemin="0" aria-valuemax="100" style="width: <k>Filled</k>%;">
+            <k>Filled</k>%
+      </div>
+    </if>
+
+    <if value="<k>Filled</k>" gt="29" lt="60">
+          <div class="progress-bar progress-bar-warning" role="progressbar"
+               aria-valuenow="<k>Filled</k>" aria-valuemin="0" aria-valuemax="100" style="width: <k>Filled</k>%;">
+            <k>Filled</k>%
+          </div>
+    </if>
+
+    <if value="<k>Filled</k>" gt="59" lt="90">
+          <div class="progress-bar progress-bar-info" role="progressbar"
+               aria-valuenow="<k>Filled</k>" aria-valuemin="0" aria-valuemax="100" style="width: <k>Filled</k>%;">
+            <k>Filled</k>%
+          </div>
+    </if>
+
+    <if value="<k>Filled</k>" gt="89">
+          <div class="progress-bar progress-bar-success" role="progressbar"
+               aria-valuenow="<k>Filled</k>" aria-valuemin="0" aria-valuemax="100" style="width: <k>Filled</k>%;">
+            <k>Filled</k>%
+          </div>
+    </if>
 </div>

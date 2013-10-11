@@ -22,39 +22,40 @@
 
             $Where = [];
 
-            foreach ($Call['Nodes'] as $Name => $Node)
-                if (($Value = F::Dot($Call['Where'], $Name)) !== null)
-                {
-                    if (isset($Node['Type']))
+            if (isset($Call['Nodes']))
+                foreach ($Call['Nodes'] as $Name => $Node)
+                    if (($Value = F::Dot($Call['Where'], $Name)) !== null)
                     {
-                        if (is_array($Value))
+                        if (isset($Node['Type']))
                         {
-                            foreach ($Value as $Relation => $cValue)
-                                if (!is_array($cValue))
-                                    $Value[$Relation]
-                                        = F::Run('Data.Type.'.$Node['Type'], 'Where',
-                                           [
-                                               'Name' => $Name,
-                                               'Node' => $Node,
-                                               'Value' => $cValue
-                                           ]);
-                                else
-                                    $Value[$Relation] = $cValue;
-                            // FIXME Нативные массивы?
+                            if (is_array($Value))
+                            {
+                                foreach ($Value as $Relation => $cValue)
+                                    if (!is_array($cValue))
+                                        $Value[$Relation]
+                                            = F::Run('Data.Type.'.$Node['Type'], 'Where',
+                                               [
+                                                   'Name' => $Name,
+                                                   'Node' => $Node,
+                                                   'Value' => $cValue
+                                               ]);
+                                    else
+                                        $Value[$Relation] = $cValue;
+                                // FIXME Нативные массивы?
+                            }
+                            else
+                            {
+                                $Value = F::Run('Data.Type.'.$Node['Type'], 'Where',
+                                    [
+                                        'Name' => $Name,
+                                        'Node' => $Node,
+                                        'Value' => $Value
+                                    ]);
+                            }
                         }
-                        else
-                        {
-                            $Value = F::Run('Data.Type.'.$Node['Type'], 'Where',
-                                [
-                                    'Name' => $Name,
-                                    'Node' => $Node,
-                                    'Value' => $Value
-                                ]);
-                        }
-                    }
 
-                    $Where[$Name]  = $Value;
-                }
+                        $Where[$Name]  = $Value;
+                    }
 
             if (empty($Where))
                 $Call['Where'] = null;

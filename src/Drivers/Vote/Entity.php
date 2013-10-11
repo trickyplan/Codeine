@@ -9,7 +9,8 @@
 
     setFn('Count', function ($Call)
     {
-        return F::Run('Entity', 'Count',
+        if (isset($Call['Data']['ID']))
+            return F::Run('Entity', 'Count',
                         [
                               'Entity' => 'Vote',
                               'Where'  =>
@@ -19,4 +20,6 @@
                                   'Direction'  => $Call['Name']
                               ]
                         ]);
+        else
+            return 0;
     });

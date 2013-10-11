@@ -9,6 +9,10 @@
 
     setFn('Process', function ($Call)
     {
-        $Call['Output'] = preg_replace('@a href="http://(.*)"@', 'a href="/go/$1"', $Call['Output']);
+        if (preg_match_all('@a href="http://(.*)"@SsUu',$Call['Output'], $Links))
+            foreach ($Links[1] as $IX => $Link)
+                if (!in_array($Link, $Call['No Remote']['Excluded']))
+                    $Call['Output'] = str_replace($Links[0][$IX], 'a href="/go/'.$Link.'"',$Call['Output']);
+
         return $Call;
     });

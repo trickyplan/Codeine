@@ -11,7 +11,7 @@
      {
         foreach ($Call['Parsed'][2] as $IX => $Match)
         {
-            $Root = simplexml_load_string('<number'.$Call['Parsed'][1][$IX].'></number>');
+            $Root = simplexml_load_string('<number '.$Call['Parsed'][1][$IX].'></number>');
 
             $Format = isset($Root->attributes()->format)? (string) $Root->attributes()->format: 'French';
             $Digits = isset($Root->attributes()->digits)? (int) $Root->attributes()->digits: 0;

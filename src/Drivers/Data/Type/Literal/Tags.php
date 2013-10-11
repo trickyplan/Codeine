@@ -9,12 +9,17 @@
 
     setFn('Write', function ($Call)
     {
-        $Tags = explode(',', $Call['Value']);
+        if (is_string($Call['Value']))
+        {
+            $Tags = explode(',', $Call['Value']);
 
-        foreach ($Tags as &$Tag)
-            $Tag = trim($Tag);
+            foreach ($Tags as &$Tag)
+                $Tag = trim($Tag);
 
-        return $Tags;
+            $Call['Value'] = $Tags;
+        }
+
+        return $Call['Value'];
     });
 
     setFn(['Read', 'Where'], function ($Call)

@@ -52,11 +52,24 @@
 {
     height: 48px;
 }
+
 .progress-lg .progress-bar
 {
 
     font-size: 24px !important;
     padding: 8px 20px;
+}
+
+.progress-md
+{
+    height: 32px;
+}
+
+.progress-md .progress-bar
+{
+
+    font-size: 18px !important;
+    padding: 4px 10px;
 }
 
 a.no-border, .no-border a, a:hover.no-border, .no-border a:hover

@@ -19,23 +19,35 @@
     setFn('LatLon', function ($Call)
     {
         $Response = F::Run(null, 'Load', $Call);
-        return ['Lat' => $Response->ip->lat, 'Lon' => $Response->ip->lng];
+        if ($Response)
+            return ['Lat' => $Response->ip->lat, 'Lon' => $Response->ip->lng];
+        else
+            return null;
     });
 
     setFn('Country', function ($Call)
     {
         $Response = F::Run(null, 'Load', $Call);
-        return (string) $Response->ip->country;
+        if ($Response)
+            return (string) $Response->ip->country;
+        else
+            return null;
     });
 
     setFn('Region', function ($Call)
     {
         $Response = F::Run(null, 'Load', $Call);
-        return (string) $Response->ip->region;
+        if ($Response)
+            return (string) $Response->ip->region;
+        else
+            return null;
     });
 
     setFn('City', function ($Call)
     {
         $Response = F::Run(null, 'Load', $Call);
-        return (isset($Response->ip->city)? (string) $Response->ip->city: (string) $Response->ip->country);
+        if ($Response)
+            return (isset($Response->ip->city)? (string) $Response->ip->city: (string) $Response->ip->country);
+        else
+            return null;
     });
