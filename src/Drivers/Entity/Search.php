@@ -9,9 +9,6 @@
 
     setFn('Do', function ($Call)
     {
-        if (!isset($Call['Context']))
-            $Call['Context'] = '';
-
         return F::Run(null, $_SERVER['REQUEST_METHOD'], $Call);
     });
 
@@ -44,7 +41,7 @@
                         'Type' => 'Template',
                         'Scope' => $Entity,
                         'ID' => 'Search',
-                        'Context' => ''
+                        'Context' => $Call['Context']
                     ];
 
             if (!empty($IDs))
@@ -54,7 +51,6 @@
                 $Call = F::Apply('Entity.List', 'Do',
                     $Call,
                     [
-                        'Context' => 'app',
                         'Where!' => $Where,
                         'Template' => (
                         isset($Call['Template'])?
@@ -69,10 +65,10 @@
                         'Type' => 'Template',
                         'Scope' => $Entity,
                         'ID' => 'NotFound',
-                        'Context' => ''
+                        'Context' => $Call['Context']
                     ];
 
-            unset($Call['Scope'], $Call['Elements'], $Call['Context']);
+            unset($Call['Scope'], $Call['Elements']);
         }
         return $Call;
 

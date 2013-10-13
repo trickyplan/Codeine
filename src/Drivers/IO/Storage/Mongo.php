@@ -80,6 +80,7 @@
                 $Cursor->fields($Fields);
             }
 
+
             if (isset($Call['Sort']))
                 foreach($Call['Sort'] as $Key => $Direction)
                 {

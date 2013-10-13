@@ -8,11 +8,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <layout>Project:Head</layout>
 
     <title/>
 
-    <meta property="og:url" content="<call>Host</call><call>URL</call>"/>
+    <layout>Project:Head</layout>
+    <layout>Project:OpenSearch</layout>
+    <layout>Project:OpenGraph</layout>
+
+    <description><call>Project.Description.Full</call></description>
 
     <description/>
 
@@ -25,6 +28,7 @@
 
     <js>jquery:min</js>
     <js>bootstrap3:min</js>
+    <js>bootstrap3:tooltip</js>
 
     <js>Locale:live</js>
     <js>modernizr</js>
@@ -34,7 +38,8 @@
     <place>CSS</place>
 </head>
 
-<body>
+<body itemscope itemtype="http://schema.org/WebPage">
+    <layout>Schema:Audience</layout>
     <place>Content</place>
     <place>JS</place>
     <logs/>

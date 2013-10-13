@@ -42,6 +42,15 @@
                 "Service":"SEO.Sitemap"
             }
         },
+        "Opensearch доступен всем":
+        {
+            "Decision": true,
+            "Weight": 200,
+            "Run":
+            {
+                "Service":"Project.OpenSearch"
+            }
+        },
         "Robots доступен всем":
         {
             "Decision": true,

@@ -7,9 +7,9 @@
     {
         "afterViewLoad":
         {
-            "KeyBlock 1":
+            "Block 1":
             {
-                "Service": "View.Hooks.KeyBlock",
+                "Service": "View.Hooks.Block",
                 "Method": "Parse"
             },
             "Key 1":
@@ -32,9 +32,9 @@
                 "Service": "View.Hooks.Call",
                 "Method": "Parse"
             },
-            "KeyBlock 2":
+            "Block 2":
             {
-                "Service": "View.Hooks.KeyBlock",
+                "Service": "View.Hooks.Block",
                 "Method": "Parse"
             },
             "Key 2":

@@ -28,6 +28,7 @@
         "Service": "System.Interface.Web.Language",
         "Method": "Get"
     },
+    "Locale": "ru_RU",
     "Subdomains":
     {
         "iframe":

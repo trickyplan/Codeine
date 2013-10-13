@@ -64,6 +64,15 @@
                 "Service": "View.Plaintext",
                 "Method": "Render"
             }
+        },
+        "/opensearch.xml":
+        {
+            "Service": "Project.OpenSearch",
+            "Renderer":
+            {
+                "Service": "View.XML",
+                "Method": "Render"
+            }
         }
     }
 }

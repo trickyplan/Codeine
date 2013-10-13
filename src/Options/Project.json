@@ -5,12 +5,17 @@
         "Short": "Short description goes here",
         "Full": "Full description goes here"
     },
-    "Humans":
+    "Contacts":
     {
         "Anybody":
         {
             "Role":["Backend Developer", "Frontend Developer"],
             "EMail": "anybody@gmail.com"
+        },
+        "Search":
+        {
+            "Role":["Search Administrator"],
+            "EMail": "search@project.ru"
         }
     },
     "Events":

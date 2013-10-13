@@ -23,7 +23,7 @@
             $XML->endAttribute();
         }
 
-        if ($Call['Attributes'])
+        if (isset($Call['Attributes']))
             foreach ($Call['Attributes'] as $Namespace)
             {
                 $XML->startAttributeNs($Namespace['Prefix'], $Namespace['Key'], null);
