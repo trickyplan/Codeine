@@ -1,0 +1,73 @@
+{
+    "Hooks":
+    {
+        "beforeCreateGet":
+        {
+            "Store URL":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "StoreURL"
+            }
+        },
+        "afterCreatePost":
+        {
+            "Redirect":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "Redirect",
+                "Call":
+                {
+                    "Location": "/$entity/$Data.Slug"
+                }
+            }
+        },
+        "beforeUpdateGet":
+        {
+            "Store URL":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "StoreURL"
+            }
+        },
+        "afterUpdatePost":
+        {
+            "Restore URL":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "RestoreURL"
+            }
+        },
+        "beforeDeleteGet":
+        {
+            "Store URL":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "StoreURL"
+            }
+        },
+        "afterDeletePost":
+        {
+            "Restore URL":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "RestoreURL"
+            }
+        },
+        "beforeTouch":
+        {
+            "Store URL":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "StoreURL"
+            }
+        },
+        "afterTouch":
+        {
+            "Restore URL":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "RestoreURL"
+            }
+        }
+    }
+}
