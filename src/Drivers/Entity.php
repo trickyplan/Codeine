@@ -17,16 +17,16 @@
 
         $Call = F::Hook('beforeEntityLoad', $Call);
 
-        $Model = F::loadOptions($Call['Entity'].'.Entity');
+            $Model = F::loadOptions($Call['Entity'].'.Entity');
 
-        if (!empty($Model))
-            $Call = F::Merge($Model, $Call);
-        else
-            F::Log('Model for '.$Call['Entity'].' not found', LOG_CRIT);
+            if (!empty($Model))
+                $Call = F::Merge($Model, $Call);
+            else
+                F::Log('Model for '.$Call['Entity'].' not found', LOG_CRIT);
 
         $Call = F::Hook('afterEntityLoad', $Call);
 
-        $Call['entity'] = strtolower($Call['Entity']);
+        $Call['entity'] = strtolower($Call['Entity']); // Hm.
 
         return $Call;
     });
@@ -132,7 +132,7 @@
 
         $Call = F::Hook('beforeOperation', $Call);
 
-        $Current = F::Run('Entity', 'Read', $Call);
+        $Current = F::Run('Entity', 'Read', $Call, ['ReRead' => true]);
 
         $NewData = $Call['Data'];
 

@@ -1,25 +1,25 @@
 {
     "Nodes":
     {
-        "Location":
+        "Lattitude":
         {
-            "Type": "Complex.Many2One",
-            "Required": true,
+            "Type": "Numeral.Float",
             "Widgets":
             {
                 "Write":
                 {
-                    "Type": "Form.Select",
-                    "Options":
-                    {
-                        "Service": "Entity.List",
-                        "Method": "RAW",
-                        "Call":
-                        {
-                            "Entity": "Location",
-                            "Key": "Title"
-                        }
-                    }
+                    "Type": "Form.Textfield"
+                }
+            }
+        },
+        "Longitude":
+        {
+            "Type": "Numeral.Float",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
                 }
             }
         }

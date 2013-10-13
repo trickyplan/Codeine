@@ -1,5 +1,5 @@
 {
-    "Mixins": ["Mixins.UGC", "Mixins.CRUD", "Mixins.Filled"],
+    "Mixins": ["Mixins.UGC", "Mixins.CRUD", "Mixins.Filled", "Mixins.Billing"],
     "Storage": "Primary",
     "EPP": 20,
     "Nodes":

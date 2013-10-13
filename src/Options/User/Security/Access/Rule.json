@@ -150,6 +150,32 @@
                 }
             }
         },
+        "Удаление профиля доступно зарегистрированным":
+        {
+            "Decision": true,
+            "Weight": 100,
+            "Run":
+            {
+                "Service": "Entity.Delete",
+                "Method": "Do",
+                "Call":
+                {
+                    "Entity": "User",
+                    "Where":
+                    {
+                        "ID":
+                        {
+                            "Service": "Session",
+                            "Method": "Read",
+                            "Call":
+                            {
+                                "Key": "User.ID"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "Страница профиля доступна зарегистрированным":
         {
             "Decision": true,

@@ -21,32 +21,38 @@
     {
         $Call = F::Hook('beforeUpdateGet', $Call);
 
-        $Call['Tag'] = isset($Call['Scope'])? $Call['Scope']: null;
+        if (!isset($Call['Failure']))
+        {
+            $Call['Output']['Content']['Form Widget'] = ['Type' => 'Form', 'Submit' => 'Update'];
 
-        $Call['Scope'] = isset($Call['Scope'])? $Call['Entity'].'/'.$Call['Scope'] : $Call['Entity'];
+            $Call['Tag'] = isset($Call['Scope'])? $Call['Scope']: null;
 
-        $Call['Layouts'][] =
-            [
-                'Scope' => $Call['Entity'],
-                'ID' => isset($Call['Custom Layouts']['Update'])? $Call['Custom Layouts']['Update']: 'Update',
-                'Context' => $Call['Context']
-            ];
+            $Call['Scope'] = isset($Call['Scope'])? $Call['Entity'].'/'.$Call['Scope'] : $Call['Entity'];
 
-        // Загрузить предопределённые данные и умолчания
+            $Call['Layouts'][] =
+                [
+                    'Scope' => $Call['Entity'],
+                    'ID' => isset($Call['Custom Layouts']['Update'])? $Call['Custom Layouts']['Update']: 'Update',
+                    'Context' => $Call['Context']
+                ];
 
-        $Call['Data'] = F::Run('Entity', 'Read', $Call, ['ReRead' => true]);
+            // Загрузить предопределённые данные и умолчания
 
-        if (null === $Call['Data'])
-            $Call = F::Hook('NotFound', $Call);
-        else
-            foreach ($Call['Data'] as $IX => $cData)
-                $Call = F::Apply('Entity.Form', 'Generate', $Call, ['IX' => $IX, 'Data!' => $cData]);
+            $Call['Data'] = F::Run('Entity', 'Read', $Call, ['ReRead' => true]);
 
-        // Вывести
+            if (null === $Call['Data'])
+                $Call = F::Hook('NotFound', $Call);
+            else
+                foreach ($Call['Data'] as $IX => $cData)
+                    $Call = F::Apply('Entity.Form', 'Generate', $Call, ['IX' => $IX, 'Data!' => $cData]);
+
+            // Вывести
+
+            $Call['Output']['Content']['Form Widget']['Action'] = isset($Call['Action'])? $Call['Action']: '';
+        }
 
         $Call = F::Hook('afterUpdateGet', $Call);
 
-        $Call['Output']['Content']['Form Widget']['Action'] = isset($Call['Action'])? $Call['Action']: '';
         return $Call;
     });
 
@@ -63,9 +69,10 @@
         $Call = F::Hook('beforeUpdatePost', $Call);
 
         // Отправляем в Entity.Update
+
         $Call = F::Apply('Entity', 'Update', $Call);
 
-        $Call['Data'] = F::Merge(F::Run('Entity', 'Read', $Call), $Call['Data']);
+        $Call['Data'] = F::Merge(F::Run('Entity', 'Read', $Call, ['ReRead' => true]), $Call['Data']);
 
        // Выводим результат
 

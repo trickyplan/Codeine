@@ -89,28 +89,32 @@
         {
             $Call = F::Apply('IO', 'Open', $Call);
 
-            if ($Call['Link'] === null)
-                return null;
+            $Call = F::Hook('beforeIOWrite', $Call);
 
-            // Если в Where простая переменная - это ID.
-            if (isset($Call['Where']) && is_scalar($Call['Where']))
-                $Call['Where'] = ['ID' => $Call['Where']];
+                if ($Call['Link'] === null)
+                    return null;
 
-            if (isset($Call['Format']))
-            {
-                if (isset($Call['Data']) && isset($Call['Data']['ID']))
-                    $Call['ID'] = $Call['Data']['ID'];
+                // Если в Where простая переменная - это ID.
+                if (isset($Call['Where']) && is_scalar($Call['Where']))
+                    $Call['Where'] = ['ID' => $Call['Where']];
 
-                $Call['Data'] = F::Run ($Call['Format'], 'Encode', ['Value' => $Call['Data']]);
-            }
+                if (isset($Call['Format']))
+                {
+                    if (isset($Call['Data']) && isset($Call['Data']['ID']))
+                        $Call['ID'] = $Call['Data']['ID'];
 
-            if (isset($Call['Driver']))
-                $Call['Data'] = F::Run ($Call['Driver'], 'Write', $Call);
-            else
-                F::Log('IO Driver not set.', LOG_CRIT);
+                    $Call['Data'] = F::Run ($Call['Format'], 'Encode', ['Value' => $Call['Data']]);
+                }
 
-            if (isset($Call['Format']))
-                $Call['Data'] = F::Run ($Call['Format'], 'Decode', ['Value' => $Call['Data']]);
+                if (isset($Call['Driver']))
+                    $Call['Data'] = F::Run ($Call['Driver'], 'Write', $Call);
+                else
+                    F::Log('IO Driver not set.', LOG_CRIT);
+
+                if (isset($Call['Format']))
+                    $Call['Data'] = F::Run ($Call['Format'], 'Decode', ['Value' => $Call['Data']]);
+
+            $Call = F::Hook('afterIOWrite', $Call);
 
             return $Call['Data'];
         }

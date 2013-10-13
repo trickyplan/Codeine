@@ -1,0 +1,18 @@
+{
+    "Nodes":
+    {
+        "Balance":
+        {
+            "Type": "Numeral.Float",
+            "Scope": ["Control"],
+            "Default": 0,
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        }
+    }
+}

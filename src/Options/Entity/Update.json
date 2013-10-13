@@ -36,16 +36,5 @@
 
             }
         }
-    },
-    "Output":
-    {
-        "Content":
-        {
-            "Form Widget":
-            {
-                "Type": "Form",
-                "Submit": "Update"
-            }
-        }
     }
 }

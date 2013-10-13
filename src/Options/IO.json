@@ -135,6 +135,22 @@
                 "Method": "afterIORead"
             }
         },
+        "beforeIOWrite":
+        {
+            "Check":
+            {
+                "Service": "IO.Dedup",
+                "Method": "beforeIOWrite"
+            }
+        },
+        "afterIOWrite":
+        {
+            "Clear":
+            {
+                "Service": "IO.Dedup",
+                "Method": "afterIOWrite"
+            }
+        },
         "Storage":
         {
             "Open":

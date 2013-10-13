@@ -73,6 +73,27 @@
         {
             "Service":"User.Services",
             "Method":"Do"
+        },
+        "/takeout":
+        {
+            "Service":"Entity.Delete",
+            "Method":"Do",
+            "Call":
+            {
+                "Entity": "User",
+                "Where":
+                {
+                    "ID":
+                    {
+                        "Service": "Session",
+                        "Method": "Read",
+                        "Call":
+                        {
+                            "Key": "User.ID"
+                        }
+                    }
+                }
+            }
         }
     }
 }
