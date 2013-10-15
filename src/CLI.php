@@ -5,7 +5,7 @@
      * @time 5:17
      */
 
-    include 'Codeine/Core.php';
+    include 'Core.php';
 
     foreach ($argv as $arg)
         if (preg_match('/--(\S+)\=(\S+)/', $arg, $Pockets))
