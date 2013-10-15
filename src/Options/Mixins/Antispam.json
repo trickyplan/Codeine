@@ -1,0 +1,23 @@
+{
+    "Nodes":
+    {
+        "Complaints":
+        {
+            "Type": "Numeral.Integer",
+            "Default": 0
+        },
+        "isSpam":
+        {
+            "Type": "Boolean",
+            "Default": 0,
+            "Hooks":
+            {
+                "beforeEntityWrite":
+                {
+                    "Service": "Security.Antispam",
+                    "Method": "Calculate"
+                }
+            }
+        }
+    }
+}

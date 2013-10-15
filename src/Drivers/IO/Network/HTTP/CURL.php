@@ -132,7 +132,7 @@
         if (curl_errno($Call['Link']))
             F::Log('CURL error: '.curl_error($Call['Link']), LOG_ERR);
         else
-            F::Log('CURL fetched '.$Call['URL'], LOG_INFO);
+            F::Log('CURL fetched '.$Call['Where']['ID'], LOG_INFO);
 
         return $Result;
     });

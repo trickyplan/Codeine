@@ -37,7 +37,7 @@
                         'Value' => 'Test case: '.$CaseName
                     ];
 
-                    $Result = F::Live($Case['Run']);
+                    $Result = F::Live($Case['Run'], $Call);
 
                     if (isset($Result['Output']['Content']))
                         $Result = print_r($Result['Output']['Content'], true);
