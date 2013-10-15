@@ -36,7 +36,10 @@
                     }
                 }
 
-                $Call['Value'] = str_replace($Call['Parsed'][0][$IX], $Matched, $Call['Value']);
+                if (!is_array($Matched))
+                    $Call['Value'] = str_replace($Call['Parsed'][0][$IX], $Matched, $Call['Value']);
+                else
+                    $Call['Value'] = str_replace($Call['Parsed'][0][$IX], '{}', $Call['Value']);
             }
         }
 

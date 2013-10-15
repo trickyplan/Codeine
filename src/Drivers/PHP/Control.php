@@ -48,24 +48,22 @@
 
         foreach ($INI as $Key => $Value)
         {
-            $Data[] = array ('<l>PHP.Ini:'.$Key.'</l>', nl2br(wordwrap($Value)));
+            $Data[] = [$Key, nl2br(wordwrap($Value))];
 
-            if (isset($Call['Requirements'][$Key]) && ($Call['Requirements'][$Key] != $Value['local_value']))
+            if (isset($Call['Requirements'][$Key]))
                 $Call['Output']['Content'][] =
-                    array (
+                    [
                         'Type'  => 'Block',
                         'Class' => 'alert alert-danger',
                         'Value' => '<strong>'.$Key.'</strong> = "'.$Call['Requirements'][$Key].'"'
-                    );
+                    ];
         }
 
         $Call['Output']['Content'][] =
-            array (
+            [
                 'Type'  => 'Table',
                 'Value' => $Data
-            );
-
-
+            ];
 
         return $Call;
     });

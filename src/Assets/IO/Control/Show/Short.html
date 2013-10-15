@@ -1,17 +1,18 @@
 <tr>
     <td><k>Name</k></td>
     <td><k>Driver</k></td>
-    <td><k>Server</k></td>
-    <td><k>Directory</k></td>
     <td>
-        <image>
-            <Source>
-                <Scope>IO/img/Status</Scope>
-                <Where><k>Status</k>.png</Where>
-            </Source>
-            <Width>16</Width>
-            <Default>Default:application.png</Default>
-            <Class>img</Class>
-        </image>
+        <k>Server</k>
+        <k>Directory</k>
+    </td>
+    <td><k>Size</k></td>
+    <td>
+        <if value="<k>Status</k>" eq="1">
+            <div class="label label-success">Online</div>
+        </if>
+
+        <if value="<k>Status</k>" eq="0">
+            <div class="label label-danger">Offline</div>
+        </if>
     </td>
 </tr>

@@ -1,40 +1,45 @@
-<h1 class="page-header"><call>Project.Title</call></h1>
+<div class="panel panel-success">
+    <div class="panel-heading">
+        <h2><call>Project.Title</call></h2>
+    </div>
+    <div class="panel-body">
+    <table class="table table-striped">
+        <tr>
+            <th>Доступность</th>
+            <td>
+                <if value="<fn><Service>Condition.Lock</Service><Method>Check</Method><Call><ID>down</ID></Call></fn>" neq="1">
+                    <l>Project.Entity:Open.1</l>
+                </if>
 
-<table class="table table-striped">
-    <tr>
-        <th class="col-md-4">Доступность</th>
-        <td>
-            <if value="<fn><Service>Condition.Lock</Service><Method>Check</Method><Call><ID>down</ID></Call></fn>" neq="1">
-                <l>Project.Entity:Open.1</l>
-            </if>
-
-            <if value="<fn><Service>Condition.Lock</Service><Method>Check</Method><Call><ID>down</ID></Call></fn>" eq="1">
-                <l>Project.Entity:Open.0</l>
-            </if>
-        </td>
-    </tr>
-    <tr>
-        <th>Версия проекта</th>
-        <td><call>Version.Project.Major</call>.<call>Version.Project.Minor</call></td>
-    </tr>
-    <tr>
-        <th>Последнее обновление</th>
-        <td>
-            <datetime format="d.m.Y H:i"><fn>
-                <Service>IO</Service>
-                <Method>Version</Method>
-                <Call>
-                    <Scope>Options</Scope>
-                    <Where>Version</Where>
-                </Call>
-            </fn></datetime>
-        </td>
-    </tr>
-    <tr>
-        <th>Версия ядра</th>
-        <td>
-            Codeine <call>Version.Codeine.Major</call>.<call>Version.Codeine.Minor</call>
-        </td>
-    </tr>
-</table>
-<layout>Project:Status</layout>
+                <if value="<fn><Service>Condition.Lock</Service><Method>Check</Method><Call><ID>down</ID></Call></fn>" eq="1">
+                    <l>Project.Entity:Open.0</l>
+                </if>
+            </td>
+        </tr>
+        <tr>
+            <th>Версия проекта</th>
+            <td><call>Version.Project.Major</call>.<call>Version.Project.Minor</call></td>
+        </tr>
+        <tr>
+            <th>Последнее обновление</th>
+            <td>
+                <datetime format="d.m.Y H:i"><fn>
+                    <Service>IO</Service>
+                    <Method>Version</Method>
+                    <Call>
+                        <Scope>Options</Scope>
+                        <Where>Version</Where>
+                    </Call>
+                </fn></datetime>
+            </td>
+        </tr>
+        <tr>
+            <th>Версия ядра</th>
+            <td>
+                Codeine <call>Version.Codeine.Major</call>.<call>Version.Codeine.Minor</call>
+            </td>
+        </tr>
+    </table>
+    <layout>Project:Status</layout>
+    </div>
+</div>

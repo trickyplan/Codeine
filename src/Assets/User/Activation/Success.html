@@ -1,12 +1,19 @@
 <subtitle>Активация прошла успешно</subtitle>
 <breadcrumb href="/activation/success">Активация прошла успешно</breadcrumb>
 
-<h2 class="page-header">Активация прошла успешно</h2>
-<div class="panel">
-    <if value="<call>Session.User.ID</call>" eq="0">
-        <a href="/login">Перейти к авторизации</a>
-    </if>
-    <if value="<call>Session.User.ID</call>" neq="0">
-        <a href="/">Продолжить работу</a>
-    </if>
+<div class="panel panel-success">
+    <div class="panel-heading">
+        Активация прошла успешно
+    </div>
+    <div class="panel-body">
+
+    </div>
+    <div class="panel-footer">
+        <if value="<call>Session.User.ID</call>" eq="0">
+            <a href="/login">Перейти к авторизации</a>
+        </if>
+        <if value="<call>Session.User.ID</call>" neq="0">
+            <a href="/">Продолжить работу</a>
+        </if>
+    </div>
 </div>

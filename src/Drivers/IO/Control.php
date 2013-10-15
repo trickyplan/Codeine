@@ -21,13 +21,14 @@
 
         foreach ($IO['Storages'] as $Name => $Storage)
         {
-            $Storage['Status'] = F::Run('IO', 'Open', ['Storage' => $Name]) !== null;
+            $Storage['Status'] = (F::Run('IO', 'Open', ['Storage' => $Name]) !== null);
+            $Storage['Size'] = F::Run('IO', 'Execute', ['Execute' => 'Size', 'Storage' => $Name]);
 
             $Call['Output']['Content'][] =
                 [
                     'Type' => 'Template',
                     'Scope' => 'IO',
-                    'ID' => 'Control/Short',
+                    'ID' => 'Control/Show/Short',
                     'Data' => F::Merge(['Name' => $Name], $Storage)
                 ];
         }

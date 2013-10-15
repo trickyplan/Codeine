@@ -156,3 +156,8 @@
 
         return $Call['MySQL Result']['ID']+$Call['Increment'];
     });
+
+    setFn('Size', function ($Call)
+    {
+        return 0;
+    });

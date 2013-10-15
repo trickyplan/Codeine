@@ -1,3 +1,17 @@
 {
-
+    "Nodes":
+    {
+        "ID":
+        {
+            "Type": "Numeral.Integer",
+            "Hooks":
+            {
+                "beforeEntityCreate":
+                {
+                    "Service": "Security.UID.Sequence",
+                    "Method": "Get"
+                }
+            }
+        }
+    }
 }

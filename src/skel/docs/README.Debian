@@ -3,5 +3,5 @@ Installation
 Install package.
 Include path will added automatically, just reload your php and fcgi-server;
 
- -- $Project.Humans.Developer.Name <$Project.Humans.Developer.EMail>,  $Project.Events.Started
+ -- $Project.Team.Maintainer.Name <$Project.Team.Maintainer.Mail>
 

@@ -165,3 +165,8 @@
 
         return curl_getinfo($Call['Link'])['filetime'];
     });
+
+    setFn('Size', function ($Call)
+    {
+        return '∞';
+    });

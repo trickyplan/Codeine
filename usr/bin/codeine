@@ -1,2 +1,2 @@
 #!/bin/bash
-php /usr/share/php/Codeine/CLI.php --Service=$1 --Method=$2
+php /usr/share/php/Codeine/CLI.php --Service=$1 --Method=$2 $3

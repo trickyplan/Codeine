@@ -11,12 +11,25 @@
     {
         $Call['Output']['System'][] = shell_exec('uname -a');
 
-        $CPUs = explode(PHP_EOL, trim(shell_exec('cat /proc/cpuinfo | grep "model name"')));
+        $CPUs = explode(PHP_EOL.PHP_EOL, trim(shell_exec('cat /proc/cpuinfo')));
 
-        foreach ($CPUs as $IX => $CPU)
+        $Call['CPU']['Count'] = count($CPUs);
+
+        foreach ($CPUs as $CPU)
         {
-            list(,$CPU) =  explode(':', $CPU);
-            $Call['Output']['CPU'][] = ($IX+1).' '.$CPU.PHP_EOL;
+            $CPU = explode(PHP_EOL, $CPU);
+            $CPUData = [];
+            foreach ($CPU as $Line)
+            {
+                list($Key, $Value) = explode(':', $Line);
+                $CPUData[] = [$Key, $Value];
+            }
+
+            $Call['Output']['CPU'][] =
+                [
+                    'Type'  => 'Table',
+                    'Value' => $CPUData
+                ];
         }
 
         return $Call;

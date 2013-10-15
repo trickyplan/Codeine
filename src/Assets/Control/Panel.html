@@ -5,13 +5,13 @@
 
 <subtitle><l><call>Bundle</call>.Control:Title</l></subtitle>
 
-<nav class="navbar-inverse" role="navigation">
+<nav class="navbar navbar-default" role="navigation">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
               <span class="sr-only">Навигация</span>
             </button>
             <a class="navbar-brand" href="/">
-                <l>Control.Panel:Title</l> <call>Project.Title</call>
+                <call>Project.Title</call>
             </a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
@@ -19,8 +19,10 @@
                 <Service>User.Cabinet</Service>
                 <Method>Do</Method>
             </exec>
+            <form class="navbar-form navbar-right" role="search"  action="/control/<call>Bundle</call>/Search" method="post">
+  <input name="Query" type="search" class="form-control" placeholder="Поиск" value="<call>Request.Query</call>">
+</form>
         </div>
-        <div class="clearfix"></div>
     </nav>
 <breadcrumbs/>
 
@@ -30,10 +32,8 @@
             <div class="hidden-print"><place>Navigation</place></div>
         </div>
         <div class="col-lg-10">
-            <div class="pull-right">
-                <layout>Control:Search</layout>
-            </div>
             <place>Sidebar</place>
+            <div class="spacer"></div>
             <place>Content</place>
         </div>
     </div>

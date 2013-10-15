@@ -5,28 +5,24 @@
         "Short": "Short description goes here",
         "Full": "Full description goes here"
     },
-    "Contacts":
+    "Team":
     {
-        "Anybody":
+        "Maintainer":
         {
-            "Role":["Backend Developer", "Frontend Developer"],
+            "Name": "Maintainer",
             "EMail": "anybody@gmail.com"
-        },
-        "Search":
-        {
-            "Role":["Search Administrator"],
-            "EMail": "search@project.ru"
         }
     },
     "Events":
     {
-        "Started": 1354001901,
-        "Released": 1370458657
+        "Started": 0,
+        "Released": 0
     },
     "Copyright":
     {
         "License": "",
-        "Rights": "ONE2TEAM",
+        "Holder": "ONE2TEAM",
+        "EMail": "mail@one2team.ru",
         "Year": 2013
     },
     "Hosts":

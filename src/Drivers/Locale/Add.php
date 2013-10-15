@@ -16,7 +16,7 @@
         $Slices = explode('.', $Locale);
 
         $ID = array_pop($Slices);
-        $Asset = implode('.', $Slices);
+        $Asset = implode('/', $Slices);
 
         $Locale = F::Run('IO', 'Read',
                     [

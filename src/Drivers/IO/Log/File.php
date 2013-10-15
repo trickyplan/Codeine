@@ -25,3 +25,8 @@
     {
         return fclose($Call['Link']);
     });
+
+    setFn('Size', function ($Call)
+    {
+        return round(filesize($Call['Directory'].DS.$Call['Scope'].'.log')/1024).'K';
+    });

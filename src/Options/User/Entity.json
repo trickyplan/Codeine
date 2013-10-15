@@ -1,5 +1,5 @@
 {
-    "Mixins": ["Mixins.UGC", "Mixins.CRUD", "Mixins.Filled", "Mixins.Billing"],
+    "Mixins": ["Mixins.UGC", "Mixins.CRUD", "Mixins.Filled", "Mixins.Billing", "Mixins.ID.Sequence"],
     "Storage": "Primary",
     "EPP": 20,
     "Nodes":
@@ -16,11 +16,25 @@
                 }
             }
         },
+        "Gender":
+        {
+            "Type": "List.Enum",
+            "Default": 0,
+            "Options": ["U", "M", "F"],
+            "Localized": true,
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Radiogroup"
+                }
+            }
+        },
         "EMail":
         {
             "Type": "Literal.EMail",
-            "Weight": 60,
             "Required": true,
+            "Unique": true,
             "Widgets":
             {
                 "Create":
@@ -31,20 +45,6 @@
                 "Update":
                 {
                     "Type": "Form.Static"
-                }
-            }
-        },
-        "Gender":
-        {
-            "Type": "List.Enum",
-            "Default": 0,
-            "Options": ["M", "F"],
-            "Localized": true,
-            "Widgets":
-            {
-                "Write":
-                {
-                    "Type": "Form.Radiogroup"
                 }
             }
         },

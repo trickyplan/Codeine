@@ -218,3 +218,7 @@
         return (array_shift($IDs)['ID']+1);
     });
 
+    setFn('Size', function ($Call)
+    {
+        return ($Call['Link']->execute('db.stats(1024)')['retval']['dataSize']).'K';
+    });

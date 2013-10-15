@@ -89,12 +89,6 @@
                 "From:": "Codeine"
             }
         },
-        "File":
-        {
-            "Driver": "IO.Storage.Directory",
-            "Directory": "Public/uploads",
-            "Public": "uploads"
-        },
         "Upload":
         {
             "Driver": "IO.Storage.Directory",

@@ -7,76 +7,76 @@
 <div class="panel panel-default">
     <div class="panel-body">
         <div class="row">
-            <div class="col-md-1">
+            <div class="col-md-2">
                 <image>
                     <Source>
                         <Storage>Upload</Storage>
                         <Scope>User/Photo</Scope>
                         <Where><k>Avatar</k></Where>
                     </Source>
-                    <Width>100</Width>
+                    <Width>200</Width>
+                    <Height>200</Height>
                     <Default>User/img:Default<k>Gender</k>.png</Default>
                     <Thumb/>
                     <Class>img img-responsive</Class>
                 </image>
             </div>
-            <div class="col-md-11">
+            <div class="col-md-10">
                 <h2>
                     <k>Fullname</k>
                 </h2>
                 <h4>
                     <k>Location</k>
-                    ,
                     <entity>Country:<k>Country</k></entity>
                 </h4>
+
+                <table class="table table-striped">
+                    <tr>
+                        <td>
+                            <l>User.Entity:Created</l>
+                        </td>
+                        <td>
+                            <datetime><k>Created</k></datetime>
+                            <small class="pull-right">
+                                <datetime engine="Period" format="2"><k>Created</k></datetime> назад
+                            </small>
+                        </td>
+                    </tr>
+                    <block>
+                        <tr>
+                            <td>
+                                <l>User.Entity:DOB</l>
+                            </td>
+                            <td>
+                                <datetime format="d.m.Y"><k>DOB</k></datetime>
+                                <small class="pull-right">
+                                    <datetime engine="Period" format="1"><k>DOB</k></datetime>
+                                </small>
+                            </td>
+                        </tr>
+                    </block>
+                    <block>
+                        <tr>
+                            <td>
+                                <l>User.Entity:Country</l>
+                            </td>
+                            <td>
+                                <entity>Country:<k>Country</k></entity>
+                            </td>
+                        </tr>
+                    </block>
+                    <block>
+                        <tr>
+                            <td>
+                                <l>User.Entity:Location</l>
+                            </td>
+                            <td>
+                                <k>Location</k>
+                            </td>
+                        </tr>
+                    </block>
+                </table>
             </div>
         </div>
     </div>
 </div>
-
-<table class="table table-striped">
-    <tr>
-        <td>
-            <l>User.Entity:Created</l>
-        </td>
-        <td>
-            <datetime><k>Created</k></datetime>
-            <small class="pull-right">
-                <datetime engine="Period" format="2"><k>Created</k></datetime> назад
-            </small>
-        </td>
-    </tr>
-    <block>
-        <tr>
-            <td>
-                <l>User.Entity:DOB</l>
-            </td>
-            <td>
-                <datetime format="d.m.Y"><k>DOB</k></datetime>
-                <small class="pull-right">
-                    <datetime engine="Period" format="1"><k>DOB</k></datetime>
-                </small>
-            </td>
-        </tr>
-    </block>
-    <block>
-        <tr>
-            <td>
-                <l>User.Entity:Country</l>
-            </td>
-            <td>
-                <entity>Country:<k>Country</k></entity>
-            </td>
-        </tr>
-    </block>
-    <block>
-        <tr>
-            <td>
-                <l>User.Entity:Location</l>
-            </td>
-            <td>
-                <k>Location</k>
-            </td>
-        </tr>
-    </block>
-</table>

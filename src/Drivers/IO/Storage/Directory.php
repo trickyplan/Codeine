@@ -189,3 +189,13 @@
 
         return [['Files',  $ic]];
     });
+
+    setFn('Size', function ($Call)
+    {
+        chdir(Root);
+        $Output = shell_exec('du --max-depth=0 -h '.$Call['Directory']);
+
+        list($Size, ) = explode ("\t",$Output);
+
+        return $Size;
+    });

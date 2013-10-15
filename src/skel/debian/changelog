@@ -1,5 +1,5 @@
-codeine (7.7.11) unstable; urgency=low
+$Project.Name (0.1) unstable; urgency=low
 
 * Initial release
 
--- Dmitry Bergstein <dmitry.bergstein@gmail.com>
+-- $Project.Team.Maintainer.Name <$Project.Team.Maintainer.Mail>

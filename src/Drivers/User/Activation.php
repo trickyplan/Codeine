@@ -24,7 +24,7 @@
                          ]
                     ]);
 
-                $Message['Scope'] = '"'.$Call['Data']['Screen'].'" <'.$Call['Data']['EMail'].'>';
+                $Message['Scope'] = '"'.$Call['Data']['Fullname'].'" <'.$Call['Data']['EMail'].'>';
                 $Message['ID']    = $Call['Subject'];
 
                 $Message['Data']  = F::Run('View', 'Load',

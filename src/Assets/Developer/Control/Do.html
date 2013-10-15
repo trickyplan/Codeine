@@ -1,25 +1,32 @@
-<div class="well">
-    <if value="<call>Developer.Title</call>" neq="0">
-            <img class="img-rounded pull-right" src="<call>Developer.URL</call>/img/logo.png" />
-            <h2>Ваш разработчик</h2>
-            <h2>
-                <a href="<call>Developer.URL</call>"><call>Developer.URL</call></a>
-            </h2>
-            <a href="http://codeine-framework.ru">Сменить</a> &nbsp;
-            <a href="mailto:<call>Developer.EMail</call>">Написать</a> &nbsp;
-            <a href="tel:<call>Developer.Phone</call>">Позвонить</a> &nbsp;
-    </if>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        Разработчик
+    </div>
+    <div class="panel-body">
+        <if value="<call>Developer.Title</call>" neq="0">
+                <img class="img-rounded pull-right" src="<call>Developer.URL</call>/logo.png" />
+                <h2>
+                    <a href="<call>Developer.URL</call>"><call>Developer.URL</call></a>
+                </h2>
+                <a href="http://codeine-framework.ru">Сменить</a> &nbsp;
+                <a href="mailto:<call>Developer.EMail</call>">Написать</a> &nbsp;
+                <a href="tel:<call>Developer.Phone</call>">Позвонить</a> &nbsp;
+        </if>
 
-    <if value="<call>Developer.Title</call>" eq="0">
-        <div class="alert alert-warning">
-            Нет разработчика.
-            <a href="http://codeine-framework.ru">Найти?</a> &nbsp;
-        </div>
-    </if>
-    <div class="clearfix"></div>
+        <if value="<call>Developer.Title</call>" eq="0">
+            <div class="alert alert-warning">
+                Нет разработчика.
+            </div>
+        </if>
+        <a class="btn btn-default" href="http://codeine-framework.ru">Найти разработчика</a>
+    </div>
 </div>
 
-<div class="well">
-    <h2>Ваши лицензии</h2>
-    <place>Licenses</place>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        Лицензии
+    </div>
+    <div class="panel-body">
+        <place>Licenses</place>
+    </div>
 </div>

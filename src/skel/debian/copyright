@@ -1,7 +1,7 @@
 Format-Specification: http://svn.debian.org/wsvn/dep/web/deps/dep5.mdwn?op=file&rev=135
-Name: codeine
-Maintainer: Dmitry Bergstein <dmitry.bergstein@gmail.com>
-Source: http://breathless.github.com/Codeine
+Name: $Porject.Name
+Maintainer: $Project.Team.Maintainer.Name <$Project.Team.Maintainer.Mail>
+Source: $Project.Source
 
-Copyright: 2004-2011 Dmitry Bergstein <dmitry.bergstein@gmail.com>
-License: BSD
+Copyright: $Project.Copyright.Year $Project.Copyright.Name <$Project.Copyright.Mail>
+License: $Project.Copyright.License

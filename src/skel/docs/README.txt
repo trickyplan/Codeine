@@ -1,14 +1,13 @@
-Welcome to the Reputator Release!
+Welcome to the $Project.Title Release!
 
 RELEASE INFORMATION
 ---------------
-Reputator website
-Released on Nov 15, 2011.
+$Project.Title
 
 SYSTEM REQUIREMENTS
 -------------------
 
-Requires PHP 5.5 or later, Codeine 7.10
+Requires PHP 5.5 or later, Codeine 7
 
 INSTALLATION
 ------------
@@ -19,7 +18,7 @@ QUESTIONS AND FEEDBACK
 ----------------------
 
 Send your questions by mail:
-reputator@one2team.ru
+$Project.Team.Maintainer.Mail
 
 LICENSE
 -------

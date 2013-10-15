@@ -20,8 +20,9 @@
             {
                 $Call['Output']['Licenses'][] =
                     [
-                        'Type' => 'Block',
-                        'Value' => '<h3>'.$Product.'</h3>'
+                        'Type' => 'Heading',
+                        'Level' => 3,
+                        'Value' => $Product
                     ];
 
                 $Call['Output']['Licenses'][] =

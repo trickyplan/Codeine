@@ -19,14 +19,12 @@
 
         $Call['Layouts'][] = [
             'Scope' => $Call['Bundle'],
-            'ID' => 'Control',
-            'Context' => $Call['Context']
+            'ID' => 'Control'
         ];
 
         $Call['Layouts'][] = [
             'Scope' => $Call['Bundle'],
-            'ID' => 'Control/'.$Call['Option'],
-            'Context' => $Call['Context']
+            'ID' => 'Control/'.$Call['Option']
         ];
 
         $Navigation = [];

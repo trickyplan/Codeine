@@ -5,30 +5,6 @@
         "Short": "Short description goes here",
         "Full": "Full description goes here"
     },
-    "Contacts":
-    {
-        "Anybody":
-        {
-            "Role":["Backend Developer", "Frontend Developer"],
-            "EMail": "anybody@gmail.com"
-        },
-        "Search":
-        {
-            "Role":["Search Administrator"],
-            "EMail": "search@project.ru"
-        }
-    },
-    "Events":
-    {
-        "Started": 1354001901,
-        "Released": 1370458657
-    },
-    "Copyright":
-    {
-        "License": "",
-        "Rights": "ONE2TEAM",
-        "Year": 2013
-    },
     "Hosts":
     {
         "Development":"project.local",
