@@ -1,0 +1,7 @@
+Format-Specification: http://svn.debian.org/wsvn/dep/web/deps/dep5.mdwn?op=file&rev=135
+Name: codeine
+Maintainer: Dmitry Bergstein <dmitry.bergstein@gmail.com>
+Source: http://breathless.github.com/Codeine
+
+Copyright: 2004-2011 Dmitry Bergstein <dmitry.bergstein@gmail.com>
+License: BSD
