@@ -25,7 +25,6 @@
             "Run":
             {
                 "Service": "Test",
-                "Method": "Do",
                 "Session":
                 {
                     "User":

@@ -68,7 +68,6 @@
             if (isset($Call['Environment']))
                 self::$_Environment = $Call['Environment'];
 
-
             if (isset($Call['Path']))
             {
                 if ((array) $Call['Path'] === $Call['Path'])
@@ -782,6 +781,11 @@
                     '</td></tr>';
 
            echo '</table>';
+        }
+
+        public static function getPaths()
+        {
+            return self::$_Options['Path'];
         }
 
         public static function file_exists($Filename)

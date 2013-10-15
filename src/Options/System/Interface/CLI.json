@@ -1,4 +1,5 @@
 {
+    "Return Code": 0,
     "Renderer":
     {
         "Service": "View.Plaintext",

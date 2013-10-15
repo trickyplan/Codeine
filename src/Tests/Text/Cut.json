@@ -1,0 +1,62 @@
+{
+            "Suites":
+        {
+            "Positive":
+            {
+                "Many Chars":
+                {
+                    "Run":
+                    {
+                        "Service": "Text.Cut",
+                        "Method": "Do",
+                        "Call":
+                        {
+                            "Cut": "Chars",
+                            "Value": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur adipiscing nec leo ut euismod. Nunc sed metus dapibus, gravida nisl quis, sagittis neque. Suspendisse ultricies odio non magna pellentesque ultrices.",
+                            "Chars": 10
+                        }
+                    },
+                    "Result":
+                    {
+                        "Equal": "Lorem ipsu…"
+                    }
+                },
+                "Many Words":
+                {
+                    "Run":
+                    {
+                        "Service": "Text.Cut",
+                        "Method": "Do",
+                        "Call":
+                        {
+                            "Cut": "Words",
+                            "Value": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur adipiscing nec leo ut euismod. Nunc sed metus dapibus, gravida nisl quis, sagittis neque. Suspendisse ultricies odio non magna pellentesque ultrices.",
+                            "Words": 4
+                        }
+                    },
+                    "Result":
+                    {
+                        "Equal": "Lorem ipsum dolor sit…"
+                    }
+                },
+                "One Sentence":
+                {
+                    "Run":
+                    {
+                        "Service": "Text.Cut",
+                        "Method": "Do",
+                        "Call":
+                        {
+                            "Cut": "Sentences",
+                            "Value": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur adipiscing nec leo ut euismod. Nunc sed metus dapibus, gravida nisl quis, sagittis neque. Suspendisse ultricies odio non magna pellentesque ultrices.",
+                            "Sentences": 1
+                        }
+                    },
+                    "Result":
+                    {
+                        "Equal": "Lorem ipsum dolor sit amet, consectetur adipiscing elit…"
+                    }
+                }
+            }
+        }
+}

@@ -96,6 +96,13 @@
                 "Test": "$1"
             }
         },
+        "All Tests":
+        {
+            "Match": "/test",
+            "Weight": 5,
+            "Service": "Test",
+            "Method": "All"
+        },
         "One Sitemap":
         {
             "Match": "/sitemap/(.+).xml",

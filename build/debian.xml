@@ -84,7 +84,11 @@
         </copy>
     </target>
 
-    <target name="debian" depends="control, etc, usr, source, version, docs">
+    <target name="codeine-test" depends="control, etc, usr, source, version, docs">
+        <exec command="php ${distribution}/CLI.php --Service=Test --Method=All " logoutput="true"/>
+    </target>
+
+    <target name="debian" depends="codeine-test, control, etc, usr, source, version, docs">
         <exec command="fakeroot dpkg --build '${package}' ${distribution}/ " logoutput="true"/>
     </target>
 </project>
