@@ -14,20 +14,30 @@
             $Root = simplexml_load_string('<root '.$Call['Parsed'][1][$IX].'></root>');
 
             $Inner = $Call['Parsed'][2][$IX];
-            $WordCount = (int) $Root->attributes()->words;
 
-            $Words = preg_split('/[\s,]+/', $Inner);
+            if ($Root->attributes()->chars)
+                $Outer = F::Run('Text.Cut', 'Do',
+                    [
+                        'Cut'   => 'Chars',
+                        'Value' => $Inner,
+                        'Chars' => (int) $Root->attributes()->chars
+                    ]);
 
-            if (count($Words) > $WordCount)
-            {
-                $Outer = mb_substr($Inner, 0, mb_strpos($Inner, $Words[$WordCount-1]));
-                $Hellip = isset($Root->attributes()->hellip) ? (string) $Root->attributes()->hellip: '&hellip;';
-                $Hellip = isset($Root->attributes()->more)? '<a href="'.(string) $Root->attributes()->more.'">'.$Hellip.'</a>': $Hellip;
+            if ($Root->attributes()->words)
+                $Outer = F::Run('Text.Cut', 'Do',
+                    [
+                        'Cut'   => 'Words',
+                        'Value' => $Inner,
+                        'Words' => (int) $Root->attributes()->words
+                    ]);
 
-                $Outer.= $Hellip;
-            }
-            else
-                $Outer = $Inner;
+            if ($Root->attributes()->sentences)
+                $Outer = F::Run('Text.Cut', 'Do',
+                    [
+                        'Cut'   => 'Sentences',
+                        'Value' => $Inner,
+                        'Sentences' => (int) $Root->attributes()->sentences
+                    ]);
 
             $Call['Output'] = str_replace ($Call['Parsed'][0][$IX], $Outer, $Call['Output']);
         }

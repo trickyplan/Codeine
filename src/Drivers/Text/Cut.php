@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    setFn ('SimpleRun', function ($Call)
+    setFn('Do', function ($Call)
     {
-        return true;
+        return F::Run('Text.Cut.'.$Call['Cut'], null, $Call);
     });

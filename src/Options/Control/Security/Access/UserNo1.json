@@ -17,6 +17,23 @@
                     }
                 }
             }
+        },
+        "Тесты доступны пользователю номер 1":
+        {
+            "Decision": true,
+            "Weight": 100,
+            "Run":
+            {
+                "Service": "Test",
+                "Method": "Do",
+                "Session":
+                {
+                    "User":
+                    {
+                        "ID": 1
+                    }
+                }
+            }
         }
     }
 }

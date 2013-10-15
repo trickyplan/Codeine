@@ -11,8 +11,8 @@
     {
         $Test = F::loadOptions($Call['Test']);
 
-        if ($Test)
-            foreach ($Test['Suites'] as $SuiteName => $Suite)
+        if (isset($Test['Tests']))
+            foreach ($Test['Tests']['Suites'] as $SuiteName => $Suite)
             {
                 $Call['Output']['Content'][] = '<h2>'.$SuiteName.'</h2>';
                 foreach ($Suite as $CaseName => $Case)
@@ -21,17 +21,19 @@
 
                     $Result = F::Live($Case['Run']);
 
-                    $Call['Output']['Content'][] = '<div class="well">Expected result: '.$Case['Result']['Equal'].'</div>';
+                    if ($Result == $Case['Result']['Equal'])
+                        $Call['Output']['Content'][] = '<div class="alert alert-success">Test passed.</div>';
+                    else
+                    {
+                        $Call['Output']['Content'][] = '<div class="well">Expected result: '.$Case['Result']['Equal'].'</div>';
 
                     if (isset($Result['Output']['Content']))
                         $Result = print_r($Result['Output']['Content'], true);
 
                     $Call['Output']['Content'][] = '<div class="well">Actual result: '.$Result.'</div>';
 
-                    if ($Result == $Case['Result']['Equal'])
-                        $Call['Output']['Content'][] = '<div class="alert alert-success">Test passed.</div>';
-                    else
                         $Call['Output']['Content'][] = '<div class="alert alert-danger">Test failed.</div>';
+                    }
                 }
             }
         else
