@@ -1,5 +1,5 @@
 {
-    "Mixins": ["Mixins.UGC", "Mixins.Text", "Mixins.CRUD", "Mixins.Moderable"],
+    "Mixins": ["Mixins.UGC", "Mixins.Text", "Mixins.CRUD", "Mixins.Moderable", "Mixins.Antispam"],
     "Storage": "Primary",
     "EPP": 5,
     "Sort":
