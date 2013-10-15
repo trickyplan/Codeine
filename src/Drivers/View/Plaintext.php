@@ -18,7 +18,7 @@
                     {
                         if (isset($Widget['Type']))
                             $Call['Output']['Content'][$Key] =
-                                F::Run('View.Plaintext.Widget.' . $Widget['Type'], 'Make', $Widget)['Value'].PHP_EOL;
+                                F::Run('View.Plaintext.Widget.' . $Widget['Type'], 'Make', $Widget)['Value'];
                         else
                             $Call['Output']['Content'][$Key] = implode("\t", $Widget);
                     }
