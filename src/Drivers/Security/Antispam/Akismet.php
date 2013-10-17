@@ -32,7 +32,6 @@
 
         F::Log('Akismet response: '.$Response, LOG_INFO);
 
-
         return !($Response === 'false');
     });
 

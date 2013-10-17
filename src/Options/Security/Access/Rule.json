@@ -23,6 +23,16 @@
                 "Method": "Do"
             }
         },
+        "Правила всем":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Project.Terms",
+                "Method": "Do"
+            }
+        },
         "Страница о сервисе доступна всем":
         {
             "Decision": true,
@@ -154,6 +164,15 @@
                         "ID": "*"
                     }
                 }
+            }
+        },
+        "Жалоба — всем":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Entity.Complain"
             }
         }
     }

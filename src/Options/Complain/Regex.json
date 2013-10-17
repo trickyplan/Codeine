@@ -1,0 +1,19 @@
+{
+    "Regex":
+    {
+        "Complain":
+        {
+            "Match": "/complain/(.+)/(.+)",
+            "Service": "Entity.Create",
+            "Call":
+            {
+                "Entity": "Complain",
+                "Data":
+                [{
+                    "Type": "$1",
+                    "Object": "$2"
+                }]
+            }
+        }
+    }
+}

@@ -12,7 +12,7 @@
         if (isset($Call['Language']))
             $Call['Language'] = F::Live($Call['Language']);
         else
-            $Call['Language'] = 'ru';
+            $Call['Language'] = $Call['Languages']['Default'];
 
         if (preg_match_all('@<l>(.*)<\/l>@SsUu', $Call['Output'], $Pockets))
         {
@@ -20,7 +20,13 @@
 
             foreach ($Pockets[1] as $IX => $Match)
             {
-                list($Locale, $Token) = explode(':', $Match);
+                if (strpos($Match, ':') !== false)
+                    list($Locale, $Token) = explode(':', $Match);
+                else
+                {
+                    $Locale = 'Locale';
+                    $Token = $Match;
+                }
 
                 if (!isset($Locales[$Locale]))
                 {
@@ -31,11 +37,11 @@
                     $Asset = strtr($Asset, '.', '/');
 
                     $NewLocales = F::Run('IO', 'Read',
-                        array (
+                        [
                               'Storage' => 'Locale',
                               'Scope'   => $Asset.'/Locale/'.$Call['Language'],
                               'Where'   => $ID
-                        ));
+                        ]);
 
                     $Locales[$Locale] = [];
 

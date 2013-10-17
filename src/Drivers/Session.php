@@ -58,6 +58,13 @@
 
                 F::Log('Session: Primary user '.$Call['Session']['User']['ID'].' authenticated', LOG_INFO);
             }
+
+            if (isset($Call['Session']['User']['Language']))
+            {
+                $Call['Language'] = $Call['Session']['User']['Language'];
+                F::Log('User language selected: '.$Call['Session']['User']['Language'], LOG_INFO);
+            }
+
         }
 
         if (isset($Call['Session']))

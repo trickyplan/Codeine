@@ -1,0 +1,62 @@
+{
+    "Mixins": ["Mixins.UGC", "Mixins.CRUD", "Mixins.ID.Sequence"],
+    "Storage": "Primary",
+    "EPP": 20,
+    "Nodes":
+    {
+        "Type":
+        {
+            "Type": "Literal.String"
+        },
+        "Object":
+        {
+            "Type": "Numeral.Integer"
+        },
+        "Rule":
+        {
+            "Type": "List.Enum",
+            "Nullable": true,
+            "Required": true,
+            "Localized": true,
+            "Options":
+            {
+                "Service": "Project.Terms",
+                "Method": "RAW"
+            },
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Radiogroup",
+                    "RadioClass": "list-group-item",
+                    "Values Locale": "Project.Terms:Rule"
+                }
+            }
+        }
+    },
+    "Hooks":
+    {
+        "beforeCreatePost!":
+        {
+            "Store URL":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "StoreURL"
+            }
+        },
+        "afterCreatePost!":
+        {
+            "Layouts":
+            {
+                "Layouts":
+                {
+                    "Created":
+                    {
+                        "Scope": "Complain",
+                        "ID": "Created"
+                    }
+                }
+            }
+        }
+    }
+}

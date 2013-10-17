@@ -27,7 +27,7 @@
                         ]) == 0
                 )
                 {
-                    F::Run('Entity', 'Create',
+                    F::Run('Entity', 'Create', $Call,
                         [
                             'Entity' => 'Vote',
                             'One'    => true,
@@ -43,7 +43,11 @@
             }
         }
 
-        F::Run('Entity.Touch', 'Do', ['Entity' => $Call['Type'], 'Where' => $Call['Object']]);
+        F::Run('Entity.Touch', 'Do', $Call,
+            [
+                'Entity' => $Call['Type'],
+                'Where' => $Call['Object']
+            ]);
 
         $Call['Output']['Content'] =
             F::Run('Entity', 'Far',

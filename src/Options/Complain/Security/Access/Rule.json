@@ -1,0 +1,25 @@
+{
+    "Rules":
+    {
+        "Жалобы доступны зарегистрированным":
+        {
+            "Decision": true,
+            "Weight": 100,
+            "Run":
+            {
+                "Service": "Entity.Create",
+                "Call":
+                {
+                    "Entity": "Complain"
+                },
+                "Session":
+                {
+                    "User":
+                    {
+                        "ID": "*"
+                    }
+                }
+            }
+        }
+    }
+}

@@ -73,6 +73,11 @@
                 "Service": "View.XML",
                 "Method": "Render"
             }
+        },
+        "/terms":
+        {
+            "Service": "Project.Terms",
+            "Method": "Do"
         }
     }
 }

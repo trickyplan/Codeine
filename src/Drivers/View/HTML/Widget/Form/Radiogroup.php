@@ -13,9 +13,14 @@
 
         foreach($Call['Options'] as $IX => $Value)
         {
-            if (isset($Call['Localized']) && $Call['Localized'])
-                $lValue = '<l>'.$Call['Entity'].'.Entity:'.$Call['Key'].'.'.$Value.'</l>';
-            else
+             if (isset($Call['Localized']) && $Call['Localized'])
+             {
+                 if (!isset($Call['Values Locale']))
+                     $Call['Values Locale'] = $Call['Entity'].'.Entity:'.$Call['Key'];
+
+                 $lValue = '<l>'.$Call['Values Locale'].'.'.$Value.'</l>';
+             }
+             else
                 $lValue = $Value;
 
             $Call['Radios'] .= F::Run('View', 'Load',

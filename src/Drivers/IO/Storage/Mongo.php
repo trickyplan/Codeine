@@ -215,7 +215,13 @@
         $Cursor->limit(1);
 
         $IDs = iterator_to_array($Cursor->sort(['ID' => -1]));
-        return (array_shift($IDs)['ID']+1);
+
+        $ID = array_shift($IDs);
+
+        if (!isset($ID['ID']))
+            $ID['ID'] = 0;
+
+        return ($ID['ID']+1);
     });
 
     setFn('Size', function ($Call)

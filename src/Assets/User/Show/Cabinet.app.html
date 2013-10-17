@@ -5,11 +5,16 @@
             <b class="caret"></b></a>
         <ul class="dropdown-menu">
             <access Service="Control.Panel" Method="Do">
-                <li><a href="/control">ЦУП</a></li>
+                <li>
+                    <a href="/control">
+                        <l>Control.Panel:Title</l>
+                    </a>
+                </li>
             </access>
-            <li><a href="/user/<k>ID</k>">Профиль</a></li>
-            <li><a href="/profile">Редактировать</a></li>
-            <li><a href="/logout">Выход</a></li>
+            <li><a href="/user/<k>ID</k>"><l>User.Profile:Title</l></a></li>
+            <li><a href="/logout">
+                <l>User.Logout:Title</l>
+            </a></li>
         </ul>
     </li>
 </ul>

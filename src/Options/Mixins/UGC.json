@@ -4,6 +4,7 @@
         "User":
         {
             "Type": "Numeral.Integer",
+            "Default": 0,
             "User Override": true,
             "Hooks":
             {

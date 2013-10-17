@@ -1,18 +1,24 @@
 <h2 class="secondary-header">Комментарии</h2>
 
 <if value="<call>Session.User.ID</call>" null="0">
-    <exec>
-        <Service>Entity.Create</Service>
-        <Method>Do</Method>
-        <Call>
-            <Action>/comment/<call>Entity</call>/<k>ID</k></Action>
-            <Entity>Comment</Entity>
-            <Data>
-                <Entity><call>Entity</call></Entity>
-                <Object><k>ID</k></Object>
-            </Data>
-        </Call>
-    </exec>
+    <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#comment">
+      Добавить комментарий
+    </button>
+
+    <div id="comment" class="collapse">
+        <exec>
+            <Service>Entity.Create</Service>
+            <Method>Do</Method>
+            <Call>
+                <Action>/comment/<call>Entity</call>/<k>ID</k></Action>
+                <Entity>Comment</Entity>
+                <Data>
+                    <Entity><call>Entity</call></Entity>
+                    <Object><k>ID</k></Object>
+                </Data>
+            </Call>
+        </exec>
+    </div>
 </if>
 <if value="<call>Session.User.ID</call>" null="1">
     <a class="btn btn-primary btn-lg" href="/login">Войти и написать комментарий</a>
