@@ -21,7 +21,7 @@
                 {
                     $URL = (string) $Match->attributes()->href;
 
-                    $Call['Breadcrumbs'][] = ['URL' => $URL, 'Title' => $Pockets[2][$IX]];
+                    $Call['Breadcrumbs'][] = ['URL' => $URL, 'Title' => strip_tags($Pockets[2][$IX])];
                     $Call['Output'] = str_replace($Pockets[0][$IX], '', $Call['Output']);
                 }
             }

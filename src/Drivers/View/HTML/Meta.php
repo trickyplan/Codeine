@@ -28,7 +28,7 @@
             $Call = F::Live($Call['Meta']['Sources']['Title'], $Call);
 
             if (isset($Call['Title'][count($Call['Title'])-1]))
-                $Call['Header'] = $Call['Title'][count($Call['Title'])-1];
+                $Call['Header'] = strip_tags($Call['Title'][count($Call['Title'])-1]);
 
             if ($Call['Meta']['Title']['Reverse'])
                 $Call['Title'] = array_reverse($Call['Title']);

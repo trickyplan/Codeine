@@ -22,7 +22,7 @@
                         $Call['Data'][$cKey] = trim(F::Dot($Call['Data'], $cKey));
 
                         if (!empty($Call['Data'][$cKey]))
-                            $Call['Value'][]= F::Dot($Call['Data'], $cKey);
+                            $Call['Value'][] = F::Dot($Call['Data'], $cKey);
                     }
                 }
 
