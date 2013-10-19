@@ -9,5 +9,6 @@
     {
         "Development":"project.local",
         "Production": "project.ru"
-    }
+    },
+    "Currency": "RUR"
 }

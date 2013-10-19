@@ -68,7 +68,8 @@
                         {
                             sort($DotMatched);
                             foreach($DotMatched as $ICV => $cMatch)
-                                $Output.= str_replace('<#/>',
+                                if (!is_array($cMatch))
+                                    $Output.= str_replace('<#/>',
                                     $ICV,
                                     str_replace('<k>'.$Match.'</k>', $cMatch,$Pockets[1][$IX]).
                                     ($cMatch)
