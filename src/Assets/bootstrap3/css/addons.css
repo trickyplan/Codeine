@@ -3,7 +3,7 @@
     margin: 4px 8px;
 }
 
-.navbar-default, .navbar-inverse
+.navbar
 {
     border-radius: 0;
     margin: 0
@@ -11,9 +11,11 @@
 
 .table thead
 {
-    background-color: #222;
-    border: 1px solid #000000;
-    color: #cccccc;
+    padding: 10px 15px;
+    border-bottom: 1px solid transparent;
+    color: #333333;
+    background-color: #f5f5f5;
+    border-color: #dddddd;
 }
 
 .table thead a, .table thead a:hover
@@ -109,4 +111,91 @@ a.no-border, .no-border a, a:hover.no-border, .no-border a:hover
 .text-sm
 {
     font-size: 10px;
+}
+
+.navbar-danger
+{
+  color: #ffffff;
+  background-color: #d9534f;
+  border-color: #d43f3a;
+}
+
+.navbar-danger .navbar-brand {
+  color: #ffffff;
+}
+
+.navbar-danger .navbar-brand:hover,
+.navbar-danger .navbar-brand:focus {
+  color: #ffffff;
+  background-color: transparent;
+}
+
+.navbar-danger .navbar-text {
+  color: #ffffff;
+}
+
+.navbar-danger .navbar-nav > li > a {
+  color: #ffffff;
+}
+
+.navbar-danger .navbar-nav > li > a:hover,
+.navbar-danger .navbar-nav > li > a:focus {
+  color: #ffffff;
+  background-color: transparent;
+}
+
+.navbar-danger .navbar-nav > .active > a,
+.navbar-danger .navbar-nav > .active > a:hover,
+.navbar-danger .navbar-nav > .active > a:focus {
+  color: #ffffff;
+  background-color: #080808;
+}
+
+.navbar-danger .navbar-nav > .disabled > a,
+.navbar-danger .navbar-nav > .disabled > a:hover,
+.navbar-danger .navbar-nav > .disabled > a:focus {
+  color: #444444;
+  background-color: transparent;
+}
+
+.navbar-danger .navbar-toggle {
+  border-color: #333333;
+}
+
+.navbar-danger .navbar-toggle:hover,
+.navbar-danger .navbar-toggle:focus {
+  background-color: #333333;
+}
+
+.navbar-danger .navbar-toggle .icon-bar {
+  background-color: #ffffff;
+}
+
+.navbar-danger .navbar-collapse,
+.navbar-danger .navbar-form {
+  border-color: #101010;
+}
+
+.navbar-danger .navbar-nav > .open > a,
+.navbar-danger .navbar-nav > .open > a:hover,
+.navbar-danger .navbar-nav > .open > a:focus {
+  color: #ffffff;
+  background-color: #080808;
+}
+
+.navbar-danger .navbar-nav > .dropdown > a:hover .caret {
+  border-top-color: #ffffff;
+  border-bottom-color: #ffffff;
+}
+
+.navbar-danger .navbar-nav > .dropdown > a .caret {
+  border-top-color: #999999;
+  border-bottom-color: #999999;
+}
+
+.navbar-danger .navbar-nav > .open > a .caret,
+.navbar-danger .navbar-nav > .open > a:hover .caret,
+.navbar-danger .navbar-nav > .open > a:focus .caret {
+  border-top-color: #ffffff;
+  border-bottom-color: #ffffff;
 }

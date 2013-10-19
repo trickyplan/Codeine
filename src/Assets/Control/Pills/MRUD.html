@@ -1,38 +1,25 @@
-<div class="nav nav-pills">
-    <li>
-        <if value="<k>Status</k>" neq="1">
-            <a href="/control/<call>Entity</call>/Accept/<k>ID</k>">
-                <span class="glyphicon glyphicon-ok"></span>
-            </a>
-        </if>
-        <if value="<k>Status</k>" eq="1">
-            <a href="#">
-                <span class="glyphicon glyphicon-ok-sign"></span>
-            </a>
-        </if>
-    </li>
-    <li>
-        <if value="<k>Status</k>" neq="-1">
-            <a href="/control/<call>Entity</call>/Reject/<k>ID</k>">
-                <span class="glyphicon glyphicon-minus"></span>
-            </a>
-        </if>
-        <if value="<k>Status</k>" eq="-1">
-            <a href="#">
-                <span class="glyphicon glyphicon-minus-sign"></span>
-            </a>
-        </if>
-    </li>
-    <li>
-        <a href="/control/<call>Entity</call>/Touch/<k>ID</k>"><i class="glyphicon glyphicon-refresh"></i></a>
-    </li>
-    <li>
-        <a href="/control/<call>Entity</call>/Show/<k>ID</k>"><i class="glyphicon glyphicon-eye-open"></i></a>
-    </li>
-    <li>
-        <a href="/control/<call>Entity</call>/Update/<k>ID</k>"><i class="glyphicon glyphicon-pencil"></i></a>
-    </li>
-    <li>
-        <a href="/control/<call>Entity</call>/Delete/<k>ID</k>"><i class="glyphicon glyphicon-trash"></i></a>
-    </li>
+<div class="btn-toolbar btn-group-sm">
+<if value="<k>Status</k>" neq="1">
+    <a href="/control/<call>Entity</call>/Accept/<k>ID</k>">
+        <i class="glyphicon glyphicon-ok" data-toggle="tooltip" title="Одобрить"></i>
+    </a>
+</if>
+<if value="<k>Status</k>" neq="-1">
+    <a href="/control/<call>Entity</call>/Reject/<k>ID</k>">
+        <i class="glyphicon glyphicon-minus" data-toggle="tooltip" title="Отклонить"></i>
+    </a>
+</if>
+    <a class="btn btn-default"
+       href="/control/<call>Entity</call>/Touch/<k>ID</k>">
+        <i class="icon glyphicon glyphicon-refresh" data-toggle="tooltip" title="Обновить"></i>
+    </a>
+    <a class="btn btn-default" href="/control/<call>Entity</call>/Show/<k>ID</k>">
+        <i class="icon glyphicon glyphicon-eye-open" data-toggle="tooltip" title="Просмотреть"></i>
+    </a>
+    <a class="btn btn-default" href="/control/<call>Entity</call>/Update/<k>ID</k>">
+        <i class="icon glyphicon glyphicon-pencil" data-toggle="tooltip" title="Редактировать"></i>
+    </a>
+    <a class="btn btn-danger" href="/control/<call>Entity</call>/Delete/<k>ID</k>">
+        <i class="icon glyphicon glyphicon-trash" data-toggle="tooltip" title="Удалить"></i>
+    </a>
 </div>
