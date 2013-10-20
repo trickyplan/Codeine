@@ -28,7 +28,17 @@
 
                   $Application = F::Run('Code.Flow.Application', 'Run', ['Run' => $Match, 'Context' => 'app']);
 
-                  $Call['Output'] = str_replace($Call['Parsed'][0][$IX], $Application['Output'], $Call['Output']);
+                  if (isset($Application['Output']))
+                    $Call['Output'] = str_replace(
+                            $Call['Parsed'][0][$IX],
+                            $Application['Output'],
+                            $Call['Output']);
+                  else
+                    $Call['Output'] = str_replace(
+                            $Call['Parsed'][0][$IX],
+                            '',
+                            $Call['Output']);
+
               }
               else
                   $Call['Output'] = str_replace($Call['Parsed'][0][$IX], '', $Call['Output']);
