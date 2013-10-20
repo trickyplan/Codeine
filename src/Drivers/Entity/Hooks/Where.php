@@ -63,5 +63,8 @@
                 $Call['Where'] = $Where;
         }
 
+        if (isset($Call['Where']))
+            $Call['Where'] = F::Live($Call['Where']);
+
         return $Call;
     });

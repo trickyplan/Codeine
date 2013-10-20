@@ -29,6 +29,7 @@
 
         $Navigation = [];
 
+        F::Log('Control Panel Navigation', LOG_IMPORTANT);
         foreach($Call['Bundles'] as $Group => $Bundles)
         {
             if (in_array($Call['Bundle'], $Bundles))

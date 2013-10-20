@@ -1,18 +1,16 @@
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <a href="/comment/<k>ID</k>">Комментарий №<k>ID</k></a>
+<li class="list-group-item">
+    <div class="pull-right">
+        <layout>Control:Pills/RUD</layout>
     </div>
-    <div class="panel-body">
-        <div class="pull-right">
-            <layout>Control.Pills:MRUD</layout>
-        </div>
-        <cut words="10">
+    <h4><entity>User:<k>User</k></entity> на <entity><k>Type</k>:<k>Object</k></entity></h4>
+    <div class="body">
+        <cut sentences="1">
             <k>Body</k>
         </cut>
     </div>
-    <div class="panel-footer">
+
+    <div class="pull-right">
         <layout>Mixins:Antispam</layout>
-            <div class='pull-right'><datetime><k>Created</k></datetime></div>
-        <entity>User:<k>User</k></entity> на <entity><k>Entity</k>:<k>Object</k></entity>
     </div>
-</div>
+    <datetime><k>Created</k></datetime>
+</li>

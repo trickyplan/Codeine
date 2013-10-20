@@ -15,7 +15,7 @@
             "Method": "Do",
             "Call":
             {
-                "Entity": "$1"
+                "Query": "$1"
             }
         },
         "Error":

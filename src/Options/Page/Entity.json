@@ -1,25 +1,14 @@
 {
-    "Mixins": ["Mixins.SEO", "Mixins.Text", "Mixins.CRUD", "Mixins.Priority"],
+    "Mixins": [
+        "Mixins.SEO",
+        "Mixins.Text",
+        "Mixins.Priority",
+        "Mixins.ID.Sequence"
+    ],
     "Storage": "Primary",
     "EPP": 20,
-    "Sort":
-    {
-        "Priority": false
-    },
     "Nodes":
     {
-        "ID":
-        {
-            "Type": "Literal.String",
-            "Hooks":
-            {
-                "beforeEntityCreate":
-                {
-                    "Service": "Security.UID",
-                    "Method": "Get"
-                }
-            }
-        },
         "Title":
         {
             "Type": "Literal.String",
@@ -53,8 +42,7 @@
             {
                 "Write":
                 {
-                    "Type": "Form.Checkbox",
-                    "TrueValue": true
+                    "Type": "Form.Checkbox"
                 }
             }
         },
@@ -86,6 +74,81 @@
                 {
                     "Type": "Form.Textfield"
                 }
+            }
+        }
+    },
+    "Hooks":
+    {
+        "beforeCreateGet":
+        {
+            "Store URL":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "StoreURL"
+            }
+        },
+        "afterCreatePost":
+        {
+            "Redirect":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "Redirect",
+                "Call":
+                {
+                    "Location": "/$Data.Slug"
+                }
+            }
+        },
+        "beforeUpdateGet":
+        {
+            "Store URL":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "StoreURL"
+            }
+        },
+        "afterUpdatePost":
+        {
+            "Redirect":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "Redirect",
+                "Call":
+                {
+                    "Location": "/$Data.0.Slug"
+                }
+            }
+        },
+        "beforeDeleteGet":
+        {
+            "Store URL":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "StoreURL"
+            }
+        },
+        "afterDeletePost":
+        {
+            "Restore URL":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "RestoreURL"
+            }
+        },
+        "beforeTouch":
+        {
+            "Store URL":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "StoreURL"
+            }
+        },
+        "afterTouch":
+        {
+            "Restore URL":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "RestoreURL"
             }
         }
     }

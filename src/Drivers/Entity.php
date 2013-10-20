@@ -222,7 +222,7 @@
         $Call = F::Hook('beforeOperation', $Call);
             $Call = F::Hook('beforeEntityCount', $Call);
 
-        $Call['Data'] = F::Run('IO', 'Execute', $Call,
+            $Call['Data'] = F::Run('IO', 'Execute', $Call,
             [
                   'Execute' => 'Count',
                   'Scope'   => $Call['Entity']

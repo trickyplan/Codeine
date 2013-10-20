@@ -6,7 +6,7 @@
     {
         "Title":
         {
-             "Delimiter": " — ",
+             "Delimiter": " - ",
              "Reverse": true
         },
         "Pattern":

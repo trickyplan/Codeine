@@ -1,11 +1,17 @@
-<tr><td>
+<li class="list-group-item">
     <div class="pull-right">
-        <layout>Control.Pills:RUD</layout>
+        <layout>Control:Pills/RUD</layout>
     </div>
-<h4><k>Title</k></h4>
-<h5>/<k>Slug</k></h5>
-<if value="<k>Menu</k>" eq="1"><span class="label label-important">Меню</span>&nbsp; </if>
-<if value="<k>Priority</k>" gt="0"><span class="label label-important"><l>Page.Entity:Priority</l>: <k>Priority</k></span></if>
 
-<div><k>Words</k> слов, <k>Chars</k> знаков без пробелов, <k>Sickness</k>% тошноты.</div>
-</td></tr>
+    <a href="/<k>Slug</k>"><h4><k>Title</k></h4></a>
+
+    <if value="<k>Menu</k>" eq="1">
+        <div class="label label-danger pull-right">Меню</div>
+    </if>
+
+    <if value="<k>Priority</k>" gt="0">
+        <l>Page.Entity:Priority</l>: <k>Priority</k>
+    </if>
+
+    <div><k>Words</k> слов, <k>Chars</k> знаков без пробелов, <k>Sickness</k>% тошноты.</div>
+</li>

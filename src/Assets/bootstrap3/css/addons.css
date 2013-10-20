@@ -199,3 +199,10 @@ a.no-border, .no-border a, a:hover.no-border, .no-border a:hover
   border-top-color: #ffffff;
   border-bottom-color: #ffffff;
 }
+
+.label-xl
+{
+    font-size: 200%;
+    padding: .6em 1.2em;
+    line-height: 200%;
+}

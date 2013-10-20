@@ -14,6 +14,7 @@
             $Root = simplexml_load_string('<root '.$Call['Parsed'][1][$IX].'></root>');
 
             $Inner = $Call['Parsed'][2][$IX];
+            $Outer = $Inner;
 
             if ($Root->attributes()->chars)
                 $Outer = F::Run('Text.Cut', 'Do',

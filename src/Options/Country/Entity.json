@@ -1,25 +1,14 @@
 {
-    "Mixins": ["Mixins.CRUD"],
+    "Mixins":
+    [
+        "Mixins.CRUDSlug",
+        "Mixins.UGC",
+        "Mixins.ID.Sequence"
+    ],
     "Storage": "Primary",
     "EPP": 20,
     "Nodes":
     {
-        "ID":
-        {
-            "Type": "Numeral.Integer",
-            "Hooks":
-            {
-                "beforeEntityCreate":
-                {
-                    "Service": "Security.UID.Sequence",
-                    "Method": "Get",
-                    "Call":
-                    {
-                        "Entity": "Country"
-                    }
-                }
-            }
-        },
         "Title":
         {
             "Type": "Literal.String",
@@ -35,6 +24,7 @@
         },
         "Slug":
         {
+            "Type": "Literal.String",
             "User Override": true,
             "Widgets":
             {
@@ -50,25 +40,6 @@
                     "Service": "SEO.Slug",
                     "Method": "Generate"
                 }
-            }
-        }
-    },
-    "Hooks":
-    {
-        "beforeCreateGet":
-        {
-            "Store URL":
-            {
-                "Service": "System.Interface.Web",
-                "Method": "StoreURL"
-            }
-        },
-        "afterCreatePost":
-        {
-            "Restore URL":
-            {
-                "Service": "System.Interface.Web",
-                "Method": "RestoreURL"
             }
         }
     }
