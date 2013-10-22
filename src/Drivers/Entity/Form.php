@@ -38,6 +38,10 @@
                 if (isset($Node['Scope']) && !in_array($Call['Tag'], (array) $Node['Scope']))
                     continue;
 
+                // Костыль.
+                if ($Call['Purpose'] == 'Create' && isset($Call['Data'][$Name]))
+                    continue;
+
                 if (null !== $Widget)
                 {
                     // Передаём имя сущности

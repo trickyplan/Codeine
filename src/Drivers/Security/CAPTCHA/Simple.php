@@ -31,9 +31,7 @@
     {
         $Code = F::Run(null, 'Code', $Call);
 
-        $Call['Image'] = F::Run(
-            'Image', 'Create', $Call
-        );
+        $Call['Image'] = F::Run('Image', 'Create', $Call,  $Call['CAPTCHA']);
 
         $Call['Image'] = F::Run(
             'Image', 'Pipeline', $Call,
@@ -71,7 +69,7 @@
         F::Run('Image', 'Save', $Call,
             [
                 'ID' => '/tmp/codeine/'.$Call['RHost'].'/captcha/'.sha1($Code).'.png'
-            ]); // FIXME
+            ]);
 
         $Call['Session']['CAPTCHA'] = sha1($Code);
 
@@ -80,10 +78,11 @@
 
     setFn('Check', function ($Call)
     {
-        if (file_exists('/tmp/cache/'.$Call['RHost'].'/captcha/'.$Call['Request']['CAPTCHA']['Challenge'].'.png'))
-            unlink('/tmp/cache/'.$Call['RHost'].'/captcha/'.$Call['Request']['CAPTCHA']['Challenge'].'.png');
+        if (file_exists('/tmp/codeine/'
+                        .$Call['RHost'].'/captcha/'
+                        .$Call['Request']['CAPTCHA']['Challenge'].'.png'))
 
-        return (
-            isset($Call['Session']['User']['ID'])
-            && $Call['Request']['CAPTCHA']['Challenge'] == sha1($Call['Request']['CAPTCHA']['Answer']));
+            unlink('/tmp/codeine/'.$Call['RHost'].'/captcha/'.$Call['Request']['CAPTCHA']['Challenge'].'.png');
+
+        return ($Call['Request']['CAPTCHA']['Challenge'] == sha1($Call['Request']['CAPTCHA']['Answer']));
     });

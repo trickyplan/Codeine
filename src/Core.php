@@ -80,11 +80,14 @@
 
             if (isset($_COOKIE['Experiment']))
                 if (isset(self::$_Options['Experiments'][$_COOKIE['Experiment']]))
-                    self::$_Options['Path'][] = Root.'/Labs/'.self::$_Options['Experiments'][$_COOKIE['Experiment']];
+                    self::$_Options['Path'][] =
+                        Root.'/Labs/'.self::$_Options['Experiments'][$_COOKIE['Experiment']];
 
             $Call = F::Merge($Call, self::loadOptions('Codeine'));
 
             self::$_Verbose = self::$_Options['Codeine']['Verbose'];
+
+            F::Log('Codeine started', LOG_IMPORTANT);
 
             foreach (self::$_Options['Path'] as $Path)
                 F::Log('Path registered *'.$Path.'*', LOG_INFO);
@@ -92,7 +95,6 @@
             set_error_handler ('F::Error');
 
             register_shutdown_function('F::Shutdown');
-            F::Log('Codeine started', LOG_IMPORTANT);
             F::Log('Environment: *'.self::$_Environment.'*', LOG_INFO);
 
             $Call = F::Hook('onBootstrap', $Call);
@@ -408,7 +410,17 @@
         public static function Error($errno , $errstr , $errfile , $errline , $errcontext)
         {
             if (isset(self::$_Options['Codeine']['Perfect']) && self::$_Options['Codeine']['Perfect'])
-                die('<h4>Perfect Mode</h4>'.$errno.' '.$errstr.' '.$errfile.'@'.$errline);
+            {
+                $Logs = F::Logs();
+
+                echo '<h4>Perfect Mode</h4>
+                '.$errno.' '.$errstr.' '.$errfile.'@'.$errline.'<pre>';
+                foreach ($Logs as $Channel)
+                    foreach ($Channel as $Log)
+                        echo $Log[1]."\t".$Log[2]."\t".PHP_EOL;
+
+                die ('</pre>');
+            }
 
             return F::Log($errno.' '.$errstr.' '.$errfile.'@'.$errline, LOG_CRIT);
         }

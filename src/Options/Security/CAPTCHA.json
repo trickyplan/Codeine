@@ -1,3 +1,11 @@
 {
-    "CAPTCHA Service": "Security.CAPTCHA.Simple"
+    "Mode": "Normal",
+    "Modes":
+    {
+        "Secure+": "Security.CAPTCHA.ReCAPTCHA",
+        "Secure": "Security.CAPTCHA.ReCAPTCHA",
+        "Normal": "Security.CAPTCHA.Simple",
+        "Fast": "Security.CAPTCHA.Dummy",
+        "Fast+": "Security.CAPTCHA.Dummy"
+    }
 }

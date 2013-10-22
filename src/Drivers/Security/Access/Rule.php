@@ -15,12 +15,6 @@
             {
                 if ($Rule['Weight'] >= $Call['Weight'])
                 {
-                    if (isset($Rule['Debug']))
-                    {
-                        d(__FILE__, __LINE__, $Rule['Run']);
-                        d(__FILE__, __LINE__, F::Diff($Rule['Run'], $Call));
-                    }
-
                     if (isset($Rule['Run']) && (F::Diff($Rule['Run'], $Call) === null))
                     {
                         if (!isset($Rule['Expression']) || F::Live($Rule['Expression'], $Call))
@@ -52,7 +46,7 @@
                 .' with weight '.$Call['Weight'].': '.$Call['Rule'], LOG_INFO);
         else
             F::Log('No one rule applied — *'.($Call['Decision']? 'allowed': 'denied').'*
-'.json_encode($Call['Run'], JSON_PRETTY_PRINT), LOG_INFO);
+'.json_encode($Call['Run']['Service'], JSON_PRETTY_PRINT), LOG_INFO);
 
         return $Call;
      });

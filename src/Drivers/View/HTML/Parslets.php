@@ -9,7 +9,7 @@
 
      setFn('Process', function ($Call)
      {
-         if ($Call['Context'] == '')
+         if (!isset($Call['Context']) || $Call['Context'] == '')
              foreach ($Call['Parslets'] as $Parslet)
              {
                  $Tag = strtolower($Parslet);
@@ -37,7 +37,8 @@
 
                  $cTag = $Tag;
 
-                 while (preg_match_all('@<'.$cTag.'()>(.*)</'.$cTag.'>@SsUu', $Call['Output'], $Call['Parsed']))
+                 while (preg_match_all('@<'.$cTag.'()>(.*)</'.$cTag.'>@SsUu',
+                     $Call['Output'], $Call['Parsed']))
                  {
                      $Call = F::Apply('View.HTML.Parslets.'.$Parslet, 'Parse', $Call);
                      $Pass++;

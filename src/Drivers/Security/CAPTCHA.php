@@ -9,15 +9,15 @@
 
     setFn('Widget', function ($Call)
     {
-        return F::Run($Call['CAPTCHA Service'], 'Widget', $Call);
+        return F::Apply($Call['Modes'][$Call['Mode']], 'Widget', $Call);
     });
 
     setFn('Check', function ($Call)
     {
         if (!isset($Call['CAPTCHA']['Bypass']))
-            if (!F::Run($Call['CAPTCHA Service'], 'Check', $Call))
+            if (!F::Run($Call['Modes'][$Call['Mode']], 'Check', $Call))
             {
-                F::Log('CAPTCHA Failed from IP '.$Call['IP'], LOG_ERR, 'Security');
+                F::Log('CAPTCHA Failed from IP '.F::Live($Call['IP']), LOG_ERR, 'Security');
                 $Call['Failure'] = true;
                 $Call = F::Hook('CAPTCHA.Failed', $Call);
             }

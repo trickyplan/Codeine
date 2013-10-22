@@ -1,7 +1,11 @@
 {
     "Storages":
     {
-        "Developer!":
+        "Developer":
+        {
+            "Driver":"IO.Log.Echo"
+        },
+        "Security":
         {
             "Driver":"IO.Log.Echo"
         },

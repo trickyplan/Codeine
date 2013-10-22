@@ -80,24 +80,6 @@ a.no-border, .no-border a, a:hover.no-border, .no-border a:hover
     border: none;
 }
 
-@media screen and (min-width: 1600px) {
-    .liquid {
-        max-width: 1570px;
-    }
-}
-
-@media screen and (min-width: 1900px) {
-    .liquid {
-        max-width: 1870px;
-    }
-}
-
-@media screen and (min-width: 2560px) {
-    .liquid {
-        max-width: 2530px;
-    }
-}
-
 .navbar .dropdown ul
 {
     width: 100%;
@@ -205,4 +187,9 @@ a.no-border, .no-border a, a:hover.no-border, .no-border a:hover
     font-size: 200%;
     padding: .6em 1.2em;
     line-height: 200%;
+}
+
+.liquid
+{
+    max-width: 100%;
 }
