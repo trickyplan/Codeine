@@ -15,7 +15,8 @@
         $Call['Output']['Content']['ShortName'] = 'Поиск по '.$Call['Project']['Title'];
         $Call['Output']['Content']['Description'] = $Call['Project']['Description']['Short'];
 
-        $Call['Output']['Content']['Contact'] = $Call['Project']['Contacts']['Search']['EMail'];
+        if(isset($Call['Project']['Contacts']['Search']['EMail']))
+            $Call['Output']['Content']['Contact'] = $Call['Project']['Contacts']['Search']['EMail'];
 
         $Call['Output']['Content']['URL'] =
             [
