@@ -12,7 +12,10 @@
          $Options = [];
 
          if (isset($Call['One']))
+         {
              $Call['Options'] = $Call['Options'][0];
+             unset($Call['One']);
+         }
 
          if (isset($Call['Multiple']))
              $Call['Name'] .= '[]';

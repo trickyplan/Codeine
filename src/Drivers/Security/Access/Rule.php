@@ -13,6 +13,9 @@
         {
             foreach ($Call['Rules'] as $Name => $Rule)
             {
+                if (!isset($Rule['Weight']))
+                    $Rule['Weight'] = $Call['Weight'];
+
                 if ($Rule['Weight'] >= $Call['Weight'])
                 {
                     if (isset($Rule['Run']) && (F::Diff($Rule['Run'], $Call) === null))

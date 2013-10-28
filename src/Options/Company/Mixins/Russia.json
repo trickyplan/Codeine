@@ -4,24 +4,26 @@
         "Company.Type":
         {
             "Type": "List.Enum",
+            "Localized": true,
+            "Default": 1,
             "Options":
             [
-                "Индивидуальный предприниматель",
-                "Общество с ограниченной ответственностью",
-                "Закрытое акционерное общество",
-                "Открытое акционерное общество",
-                "Федеральное унитарное предприятие",
-                "Государственное унитарное предприятие",
-                "Муниципальное унитарное предприятие",
-                "Полное товарищество",
-                "Товарищество на вере",
-                "Производственный кооператив"
+                "IE",
+                "LLC",
+                "CJSC",
+                "OJSC",
+                "FSUE",
+                "SUE",
+                "MUE",
+                "FP",
+                "LP",
+                "PC"
             ],
             "Widgets":
             {
                 "Write":
                 {
-                    "Type": "Form.Textfield"
+                    "Type": "Form.Select"
                 }
             }
         },
@@ -39,13 +41,13 @@
         "Company.INN":
         {
             "Type": "Literal.String",
-            "Size": 12,
+            "Size": 10,
             "Widgets":
             {
                 "Write":
                 {
                     "Type": "Form.Textfield",
-                    "Pattern": "[0-9]"
+                    "Pattern": "[0-9]{10}"
                 }
             }
         },
@@ -58,7 +60,7 @@
                 "Write":
                 {
                     "Type": "Form.Textfield",
-                    "Pattern": "[0-9]"
+                    "Pattern": "[0-9]{13}"
                 }
             }
         },
@@ -71,13 +73,25 @@
                 "Write":
                 {
                     "Type": "Form.Textfield",
-                    "Pattern": "[0-9]"
+                    "Pattern": "[0-9]{9}"
                 }
             }
         },
-        "Company.Director":
+        "Company.Director.Name":
         {
             "Type": "Literal.String",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        },
+        "Company.Director.Position":
+        {
+            "Type": "Literal.String",
+            "Default": "Директор",
             "Widgets":
             {
                 "Write":
@@ -121,14 +135,14 @@
         },
         "Company.Industry":
         {
-            "Type": "Complex.Array",
+            "Type": "Array.Enum",
             "Options":
             {
                 "Service": "IO",
                 "Method": "Read",
                 "Call":
                 {
-                    "Storage": "Classifiers",
+                    "Storage": "Permanent",
                     "Scope": "Russia",
                     "Where": "Industry"
                 }
@@ -148,12 +162,51 @@
         {
             "Type": "List.Enum",
             "Default": 0,
-            "Options": ["Общая", "УСН", "ЕНВД", "ЕСХН"],
+            "Localized": true,
+            "Options":
+            [
+                "General",
+                "Simplified",
+                "Unified",
+                "Agricultural"
+            ],
             "Widgets":
             {
                 "Write":
                 {
                     "Type": "Form.Select"
+                }
+            }
+        },
+        "Company.Bank.Name":
+        {
+            "Type": "Literal.String",
+            "Default": "Не указан БИК",
+            "Widgets":
+            {
+                "Update":
+                {
+                    "Type": "Form.Static"
+                }
+            },
+            "Hooks":
+            {
+                "beforeEntityWrite":
+                {
+                    "Service": "Company.Entity",
+                    "Method": "Company.Bank.Name"
+                }
+            }
+        },
+        "Company.Bank.Code":
+        {
+            "Type": "Literal.String",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield",
+                    "Pattern": "[0-9]{9}"
                 }
             }
         },
@@ -165,7 +218,8 @@
             {
                 "Write":
                 {
-                    "Type": "Form.Textfield"
+                    "Type": "Form.Textfield",
+                    "Pattern": "[0-9]{20}"
                 }
             }
         },
@@ -177,7 +231,24 @@
             {
                 "Write":
                 {
-                    "Type": "Form.Textfield"
+                    "Type": "Form.Textfield",
+                    "Pattern": "[0-9]{20}"
+                }
+            }
+        },
+        "Company.Since":
+        {
+            "Type": "Date.Short",
+            "Default":
+            {
+                "Service": "System.Time",
+                "Method": "Get"
+            },
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Datepicker"
                 }
             }
         }

@@ -1,0 +1,18 @@
+{
+    "Nodes":
+    {
+        "Title":
+        {
+            "Type": "Literal.String",
+            "Weight": 100,
+            "Required": true,
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        }
+    }
+}

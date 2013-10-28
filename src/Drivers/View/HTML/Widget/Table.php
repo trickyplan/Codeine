@@ -13,9 +13,17 @@
 
          $Call['Rows'] = '';
 
-         foreach ($Call['Value'] as $Title => $Row)
+         foreach ($Call['Value'] as $Row)
          {
              $Cells = '';
+
+             if (isset($Row['_Class']))
+             {
+                 $RowClass = $Row['_Class'];
+                 unset($Row['_Class']);
+             }
+             else
+                 $RowClass = '';
 
              foreach ($Row as $Key => $Value)
                  $Cells .= F::Run ('View', 'Load', $Call,
@@ -35,7 +43,8 @@
                           'ID'    => 'Table/Row',
                           'Data'  =>
                           [
-                              'Value' => $Cells
+                              'Value' => $Cells,
+                              'Class' => $RowClass
                           ]
                      ]);
          }

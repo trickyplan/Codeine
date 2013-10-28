@@ -9,11 +9,6 @@
 
     setFn('Process', function ($Call)
     {
-        if (isset($Call['Language']))
-            $Call['Language'] = F::Live($Call['Language']);
-        else
-            $Call['Language'] = $Call['Languages']['Default'];
-
         if (preg_match_all('@<l>(.*)<\/l>@SsUu', $Call['Output'], $Pockets))
         {
             $Locales = [];
@@ -39,7 +34,7 @@
                     $NewLocales = F::Run('IO', 'Read',
                         [
                               'Storage' => 'Locale',
-                              'Scope'   => $Asset.'/Locale/'.$Call['Language'],
+                              'Scope'   => $Asset.'/Locale/'.$Call['Locale'],
                               'Where'   => $ID
                         ]);
 

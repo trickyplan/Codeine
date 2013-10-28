@@ -104,8 +104,6 @@
         $Call['Link'] = curl_init($Call['Where']['ID']);
 
         $Headers = isset($Call['Headers'])? $Call['Headers']: [];
-        $UPWD = isset($Call['user:pass'])? $Call['user:pass']:'';
-
         // TODO HTTP DELETE
 
         curl_setopt_array($Call['Link'],
@@ -122,7 +120,8 @@
                 CURLOPT_POST             => true,
                 CURLOPT_COOKIEJAR        => $Call['Cookie File'],
                 CURLOPT_HTTPHEADER       => $Headers,
-                CURLOPT_USERPWD          => $UPWD, // FIXME
+                CURLOPT_USERPWD          => isset($Call['User'])?
+                    $Call['User'].':'.$Call['Password']: null, // FIXME
                 CURLOPT_HTTPAUTH         => CURLAUTH_BASIC,
                 CURLOPT_POSTFIELDS       => $Call['Data']
             ]);

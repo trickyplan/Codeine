@@ -1,5 +1,13 @@
 {
-    "Mixins": ["Mixins.UGC", "Mixins.CRUD", "Mixins.Filled", "Mixins.Billing", "Mixins.ID.Sequence"],
+    "Mixins":
+    [
+        "Mixins.UGC",
+        "Mixins.CRUD",
+        "Mixins.Filled",
+        "Mixins.Verifiable",
+        "Mixins.Billing",
+        "Mixins.ID.Sequence"
+    ],
     "Storage": "Primary",
     "EPP": 20,
     "Nodes":
@@ -8,6 +16,7 @@
         {
             "Type": "List.Enum",
             "Default": 0,
+            "Verifiable": true,
             "Options": ["U", "M", "F"],
             "Localized": true,
             "Widgets":
@@ -22,6 +31,7 @@
         {
             "Type": "Literal.EMail",
             "Required": true,
+            "Verifiable": true,
             "Unique": true,
             "Widgets":
             {
@@ -48,6 +58,7 @@
         {
             "Type": "Literal.String",
             "Required": true,
+            "Verifiable": true,
             "Widgets":
             {
                 "Write":
@@ -70,21 +81,12 @@
                 }
             }
         },
-        "Phone":
-        {
-            "Widgets":
-            {
-                "Update":
-                {
-                    "Type": "Form.Textfield"
-                }
-            }
-        },
         "DOB":
         {
             "Default": null,
             "Nullable": true,
             "Type": "Date.Short",
+            "Verifiable": true,
             "Widgets":
             {
                 "Update":

@@ -1,0 +1,40 @@
+{
+    "Suites":
+    {
+        "Web Services":
+        {
+            "Get Sberbank name by code":
+            {
+                "Run":
+                {
+                    "Service": "Government.Russia.CBR",
+                    "Method": "Code2Name",
+                    "Call":
+                    {
+                        "Value": "044525225"
+                    }
+                },
+                "Result":
+                {
+                    "Equal": "Открытое акционерное общество \"Сбербанк России\""
+                }
+            },
+            "Get USD/RUR exchange rate":
+            {
+                "Run":
+                {
+                    "Service": "Government.Russia.CBR",
+                    "Method": "GetRates",
+                    "Call":
+                    {
+                        "Currency": "USD"
+                    }
+                },
+                "Result":
+                {
+                    "Print": true
+                }
+            }
+        }
+    }
+}

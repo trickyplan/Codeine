@@ -27,7 +27,7 @@
                 $Call['Result'] = $Result;
             }
             else
-                F::Log($Call['IOHash'].' missed', LOG_BAD);
+                F::Log($Call['IOHash'].' missed', LOG_DEBUG);
         }
 
         unset($Call['ReRead']);

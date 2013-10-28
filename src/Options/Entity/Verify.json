@@ -1,0 +1,40 @@
+{
+    "Purpose": "Verify",
+    "FormLayout": "Full",
+    "Hooks":
+    {
+        "beforeVerifyDo":
+        {
+            "Load model (essential)":
+            {
+                "Service":"Entity",
+                "Method":"Load"
+            }
+        },
+        "afterVerifyPost":
+        {
+            "HTTP 202":
+            {
+                "Headers":
+                {
+                    "HTTP/1.0": "202 Accepted"
+                }
+            },
+            "Add success layout":
+            {
+                "Output":
+                {
+                    "Content":
+                    {
+                        "Success layout":
+                        {
+                            "Type": "Template",
+                            "ID": "Verified"
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+}

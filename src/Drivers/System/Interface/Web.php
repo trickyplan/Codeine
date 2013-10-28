@@ -9,12 +9,13 @@
 
     setFn ('Do', function ($Call)
     {
+        F::Log('Web Interface Started', LOG_IMPORTANT);
         if (!in_array($_SERVER['REQUEST_METHOD'], $Call['HTTP']['Methods']['Allowed']))
             $_SERVER['REQUEST_METHOD'] = $Call['HTTP']['Methods']['Default'];
 
         $Call['HTTP Method'] = $_SERVER['REQUEST_METHOD'];
 
-        F::Log('Method: '.$Call['HTTP Method'], LOG_INFO);
+        F::Log('Method: *'.$Call['HTTP Method'].'*', LOG_INFO);
 
         if (isset($_FILES['Data']))
             foreach ($_FILES['Data']['tmp_name'] as $IX => $Value)
@@ -29,15 +30,28 @@
         $Call['Cookie'] = $_COOKIE;
 
         $Call['Run'] = rawurldecode($_SERVER['REQUEST_URI']);
+        F::Log('Run String: '.$Call['Run'], LOG_INFO);
+
         $Call['URL Query'] = parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY);
+        if (!empty($Call['URL Query']))
+            F::Log('Query string: *'.$Call['URL Query'].'*', LOG_INFO);
+        else
+            F::Log('Empty query string', LOG_INFO);
+
         $Call['URI'] = rawurldecode($_SERVER['REQUEST_URI']).(empty($Call['URL Query'])? '?' : '');
+        F::Log('URI: '.$Call['URI'], LOG_INFO);
+
         $Call['URL'] = parse_url($Call['URI'], PHP_URL_PATH);
+        F::Log('URL: '.$Call['URI'], LOG_INFO);
+
+        $Call = F::Apply(null, 'Protocol', $Call);
+
+        $Call['Locale'] = F::Live($Call['Locale'], $Call);
 
         $Call = F::Hook('beforeInterfaceRun', $Call);
 
         if (!isset($Call['Skip Run']))
         {
-            $Call = F::Apply(null, 'Protocol', $Call);
             $Call = F::Apply($Call['Service'], $Call['Method'], $Call);
         }
 
@@ -142,6 +156,12 @@
                 $Call['Host'] = 'http://'.$_SERVER['HTTP_HOST'];
                 $Call['RHost'] = $_SERVER['HTTP_HOST'];
             }
+
+        F::Log('Protocol is *'.$Call['Proto'].'*', LOG_INFO);
+        F::Log('RHost is *'.$Call['RHost'].'*', LOG_INFO);
+        F::Log('Host is *'.$Call['Host'].'*', LOG_INFO);
+
+        $Call = F::loadOptions($Call['RHost'], null, $Call);
 
         return $Call;
     });

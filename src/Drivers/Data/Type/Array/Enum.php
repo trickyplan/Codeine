@@ -9,20 +9,17 @@
 
     setFn ('Write', function ($Call)
     {
-        $Call['Node']['Options'] = F::Live($Call['Node']['Options']);
-        foreach ($Call['Value'] as &$Value)
-            $Value = array_search($Value, $Call['Node']['Options']);
-
         return $Call['Value'];
     });
 
     setFn('Read', function ($Call)
     {
-        $Call['Node']['Options'] = F::Live($Call['Node']['Options']);
+        $Call['Node']['Options'] = F::Live($Call['Node']['Options'])[0];
 
         if(is_array($Call['Value']))
             foreach ($Call['Value'] as &$Value)
-                $Value = $Call['Node']['Options'][$Value];
+                if (isset($Call['Node']['Options'][(string)$Value]))
+                    $Value = $Call['Node']['Options'][(string)$Value];
 
         return $Call['Value'];
     });

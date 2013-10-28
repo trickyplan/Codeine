@@ -118,7 +118,8 @@
 
         if ($Elements !== null)
             foreach ($Elements as $Element)
-                $Output[$Element[$Call['Primary']]] = F::Dot($Element, $Call['Key']);
+                if (isset($Element[$Call['Primary']]))
+                    $Output[$Element[$Call['Primary']]] = F::Dot($Element, $Call['Key']);
 
         return $Output;
     });

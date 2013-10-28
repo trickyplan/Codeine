@@ -1,0 +1,18 @@
+{
+    "Locales":
+    {
+        "Detectors": ["System", "Accept", "Hosts"],
+        "Map":
+        {
+            "ru": "ru"
+        },
+        "Hosts":
+        {
+            "\\.ru": "ru",
+            "\\.com": "en",
+            "\\.net": "en",
+            "\\.org": "en"
+        },
+        "Default": "ru"
+    }
+}

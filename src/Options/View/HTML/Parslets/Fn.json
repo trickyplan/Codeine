@@ -2,6 +2,6 @@
     "Type": "XML",
     "Inherited":
     [
-        "Hooks", "IP", "UA", "Language", "Session", "Host", "RHost", "URL", "URL Query", "URI", "Request", "Project"
+        "Hooks", "IP", "UA", "Locale", "Session", "Host", "RHost", "URL", "URL Query", "URI", "Request", "Project"
     ]
 }

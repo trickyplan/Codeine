@@ -67,7 +67,7 @@
             },
             "I18N":
             {
-                "Service":"View.HTML.LocaleNG",
+                "Service":"View.HTML.Locale",
                 "Method":"Process"
             }
         }

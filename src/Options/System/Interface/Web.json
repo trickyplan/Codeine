@@ -23,12 +23,11 @@
         "Service": "System.Interface.Web.UA",
         "Method": "Get"
     },
-    "Language":
+    "Locale":
     {
-        "Service": "System.Interface.Web.Language",
-        "Method": "Get"
+        "Service": "Locale",
+        "Method": "Detect"
     },
-    "Locale": "ru_RU",
     "Subdomains":
     {
         "iframe":

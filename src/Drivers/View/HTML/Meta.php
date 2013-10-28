@@ -77,7 +77,7 @@
                 $Call['Description'] = '';
 
             if (is_array($Call['Description']))
-                $Call['Description'] = implode('', $Call['Description']);
+                $Call['Description'] = array_pop($Call['Description']);
 
             $Call['Output'] = preg_replace(
                         $Call['Meta']['Pattern']['Description'],

@@ -9,6 +9,13 @@
         {
             "Driver": "IO.Storage.Memory"
         },
+        "Permanent":
+        {
+            "Driver":"IO.Storage.Directory",
+            "Directory":"Data",
+            "Format": "Formats.JSON",
+            "Suffix":".json"
+        },
         "Options":
         {
             "Driver":"IO.Storage.Directory",

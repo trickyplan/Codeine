@@ -7,8 +7,9 @@
      * @version 7.x
      */
 
-    setFn ('Get', function ($Call)
+    setFn('Do', function ($Call)
     {
-        list ($Language, ) = explode('_', setlocale(LC_ALL, null));
-        return $Language;
+        $Call['Return'] = [true, $Call['Return']];
+
+        return $Call;
     });

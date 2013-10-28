@@ -1,0 +1,10 @@
+{
+    "Nodes":
+    {
+        "Verified":
+        {
+            "Type": "Complex.Array",
+            "Default": []
+        }
+    }
+}

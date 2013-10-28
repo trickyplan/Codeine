@@ -193,3 +193,40 @@ a.no-border, .no-border a, a:hover.no-border, .no-border a:hover
 {
     max-width: 100%;
 }
+
+.spotlight
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #e7e7e7;
+}
+
+.spotlight .panel
+{
+    width: 50%;
+    margin: 100px auto;
+    box-shadow: 0 2px 6px gray;
+
+}
+
+.caps
+{
+    text-transform: uppercase;
+}
+
+.img-caption
+{
+    position: relative;
+    top: -3.1em;
+    line-height: 2em;
+    margin-bottom: -2.5em;
+    padding: 10px 20px;
+    color: #ffffff;
+    text-shadow: 1px 1px 1px black;
+    text-transform: uppercase;
+    font-weight: 700 !important;
+    background-color: rgba(0, 0, 0, 0.5);
+}

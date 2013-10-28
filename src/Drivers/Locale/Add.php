@@ -9,35 +9,33 @@
 
     setFn('Do', function ($Call)
     {
-        $Language = F::Live($Call['Language']);
+        list($Scope, $Token) = explode(':', $Call['Request']['Token']);
 
-        list($Locale, $Token) = explode(':', $Call['Request']['Token']);
-
-        $Slices = explode('.', $Locale);
+        $Slices = explode('.', $Scope);
 
         $ID = array_pop($Slices);
         $Asset = implode('/', $Slices);
 
-        $Locale = F::Run('IO', 'Read',
+        $Tokens = F::Run('IO', 'Read',
                     [
                           'Storage' => 'Locale',
-                          'Scope'   => $Asset.'/Locale/'.$Language,
+                          'Scope'   => $Asset.'/Locale/'.$Call['Locale'],
                           'Where'   => $ID
                     ])[0];
 
-        $Locale = F::Dot($Locale, $Token, $Call['Request']['Translation']);
+        if ($Tokens === null)
+            $Tokens = [$Token => $Call['Request']['Translation']];
+        else
+            $Tokens = F::Dot($Tokens, $Token, $Call['Request']['Translation']);
 
-        if ($Locale === null)
-            $Locale = [$Token => $Call['Request']['Translation']];
-
-        ksort($Locale);
+        ksort($Tokens);
 
         if (null !== F::Run('IO', 'Write',
                     [
                           'Storage' => 'Locale',
-                          'Scope'   => $Asset.'/Locale/'.$Language,
+                          'Scope'   => $Asset.'/Locale/'.$Call['Locale'],
                           'Where'   => ['ID' => $ID],
-                          'Data' => $Locale
+                          'Data' => $Tokens
                     ]))
 
             $Call['Output']['Content'] = true;

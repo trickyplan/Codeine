@@ -1,0 +1,15 @@
+{
+    "Created": "Joined",
+    "DOB": "Date of birth",
+    "EMail": "EMail",
+    "Fullname": "Full name",
+    "Gender": {
+        "Label": "Gender",
+        "U": "Unspecified",
+        "M": "Male",
+        "F": "Female"
+    },
+    "Language": "Language",
+    "Phone": "Phone number",
+    "Photo": "Photo"
+}

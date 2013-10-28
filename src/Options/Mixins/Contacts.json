@@ -1,0 +1,25 @@
+{
+    "Nodes":
+    {
+        "Phone":
+        {
+            "Widgets":
+            {
+                "Update":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        },
+        "EMail":
+        {
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        }
+    }
+}

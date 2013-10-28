@@ -13,6 +13,15 @@
                 "Service": "Codeine.Beacon"
             }
         },
+        "Оплата доступна всем":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Payment.PaysIO"
+            }
+        },
         "Главная страница доступна всем":
         {
             "Decision": true,

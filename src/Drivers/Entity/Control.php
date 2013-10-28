@@ -58,6 +58,16 @@
         return F::Apply('Entity.Update', 'Do', $Call, ['Entity' => $Call['Bundle'], 'Scope' => 'Control']);
     });
 
+    setFn('Verify', function ($Call)
+    {
+        $Call['Layouts'][] = [
+            'Scope' => 'Entity',
+            'ID' => 'Verify'
+        ];
+
+        return F::Apply('Entity.Verify', 'Do', $Call, ['Entity' => $Call['Bundle'], 'Scope' => 'Control']);
+    });
+
     setFn('Delete', function ($Call)
     {
         $Call['Layouts'][] = ['Scope' => 'Entity', 'ID' => 'Delete'];

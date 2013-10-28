@@ -36,5 +36,16 @@
             }
         }
 
+        if (preg_match_all('@<call/>@SsUu', $Call['Value'], $Pockets))
+            $Call['Value'] = str_replace($Pockets[0],
+                '<pre>'
+                .htmlentities(
+                    json_encode($Call,
+                        JSON_PRETTY_PRINT
+                        | JSON_UNESCAPED_UNICODE
+                        | JSON_UNESCAPED_SLASHES))
+                .'</pre>',
+                $Call['Value']);
+
         return $Call;
     });

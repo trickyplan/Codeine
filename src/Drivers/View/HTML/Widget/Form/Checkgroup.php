@@ -12,7 +12,7 @@
         $Call['Checks'] = '';
 
         $Call['Name'] .= '[]';
-        
+
         foreach ($Call['Options'] as $Key => $Value)
         {
             if (isset($Call['Localized']) && $Call['Localized'])

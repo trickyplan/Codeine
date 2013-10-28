@@ -39,7 +39,7 @@
                     continue;
 
                 // Костыль.
-                if ($Call['Purpose'] == 'Create' && isset($Call['Data'][$Name]))
+                if ($Call['Purpose'] == 'Create' && F::Dot($Call['Data'], $Name) !== null)
                     continue;
 
                 if (null !== $Widget)
@@ -59,7 +59,7 @@
                         $Widget['Autofocus'] = true;
 
                     if (isset($Node['Options']))
-                        $Widget['Options'] = F::Live($Node['Options']);
+                        $Widget['Options'] = F::Live($Node['Options'], $Call);
                     else
                         $Widget['Options'] = [];
 

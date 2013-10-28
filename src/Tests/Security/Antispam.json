@@ -11,7 +11,10 @@
                         "Method": "Calculate",
                         "Call":
                         {
-                            "Body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur adipiscing nec leo ut euismod. Nunc sed metus dapibus, gravida nisl quis, sagittis neque. Suspendisse ultricies odio non magna pellentesque ultrices."
+                            "Data":
+                            {
+                                "Body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur adipiscing nec leo ut euismod. Nunc sed metus dapibus, gravida nisl quis, sagittis neque. Suspendisse ultricies odio non magna pellentesque ultrices."
+                            }
                         }
                     },
                     "Result":
@@ -27,7 +30,10 @@
                         "Method": "Calculate",
                         "Call":
                         {
-                            "Body": "Buy viagra codeine cialis <a href='http://viagracialis'/> ",
+                            "Data":
+                            {
+                                "Body": "Buy viagra codeine cialis <a href='http://viagracialis'/> "
+                            },
                             "User":
                             {
                                 "Fullname": "viagra-test-123"

@@ -11,69 +11,34 @@
     {
         $Test = json_decode(file_get_contents(F::findFile($Call['Test'])), true);
 
-        $Call['Output']['Content'][] =
-                [
-                    'Type' => 'Heading',
-                    'Level' => 2,
-                    'Value' => strtr($Call['Test'], '/', '.')
-                ];
+        $Call['Test'] = str_replace('.json', '', $Call['Test']);
+        $Call['Test'] = strtr($Call['Test'], '/', '.');
 
         if (isset($Test))
             foreach ($Test['Suites'] as $SuiteName => $Suite)
             {
-                $Call['Output']['Content'][] =
-                [
-                    'Type' => 'Heading',
-                    'Level' => 3,
-                    'Value' => 'Test suite: '.$SuiteName
-                ];
-
-                foreach ($Suite as $CaseName => $Case)
+                foreach ($Suite as $CaseName => $Call['Case'])
                 {
-                    $Call['Output']['Content'][] =
-                    [
-                        'Type' => 'Heading',
-                        'Level' => 4,
-                        'Value' => 'Test case: '.$CaseName
-                    ];
+                    $Call['Return'] = F::Live($Call['Case']['Run'], $Call);
 
-                    $Result = F::Live($Case['Run'], $Call);
+                    if (isset($Call['Return']['Output']['Content']))
+                        $Call['Return'] = print_r($Call['Return']['Output']['Content'], true);
 
-                    if (isset($Result['Output']['Content']))
-                        $Result = print_r($Result['Output']['Content'], true);
-
-                    if ($Result == $Case['Result']['Equal'])
-                        $Call['Output']['Content'][] =
-                        [
-                            'Type' =>  'Block',
-                            'Class' => 'alert alert-success',
-                            'Value' => 'Test passed'
-                        ];
-                    else
+                    foreach ($Call['Case']['Result'] as $Assert => $Call['Checker'])
                     {
-                        $Call['Failure'] = true;
-
-                        $Call['Output']['Content'][] =
-                        [
-                            'Type' =>  'Block',
-                            'Class' => 'alert alert-danger',
-                            'Value' => 'Test failed'
-                        ];
-
-                        $Call['Output']['Content'][] =
-                        [
-                            'Type' =>  'Block',
-                            'Class' => 'alert alert-warning',
-                            'Value' => 'Expectation: '.$Case['Result']['Equal']
-                        ];
-
-                        $Call['Output']['Content'][] =
-                        [
-                            'Type' =>  'Block',
-                            'Class' => 'alert alert-warning',
-                            'Value' => 'Reality: '.$Result
-                        ];
+                        $TestTime = microtime(true); // FIXME
+                            $Call = F::Apply('Test.Assert.'.$Assert, null, $Call);
+                        $TestTime = microtime(true)-$TestTime;
                     }
+
+                    $Call['Report'][] = [
+                        $Call['Test'],
+                        $SuiteName,
+                        $CaseName,
+                        $Call['Return'][1],
+                        round($TestTime, 5)*1000,
+                        '_Class' => $Call['Return'][0]? 'success' : 'danger'
+                    ];
                 }
             }
         else
@@ -87,6 +52,7 @@
         $Paths = F::getPaths();
 
         $Options = [];
+        $Call['Report'] = [];
 
         foreach ($Paths as $Path)
         {
@@ -104,6 +70,12 @@
 
         foreach ($Options as $Option)
             $Call = F::Apply(null, 'Do', $Call, ['Test' => $Option[0]]);
+
+        $Call['Output']['Content'][] =
+            [
+                'Type' => 'Table',
+                'Value' => $Call['Report']
+            ];
 
         return $Call;
     });

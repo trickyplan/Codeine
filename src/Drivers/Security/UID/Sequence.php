@@ -11,5 +11,9 @@
 
     setFn('Get', function ($Call)
     {
-        return F::Run('IO', 'Execute', ['Storage' => $Call['Storage'], 'Scope' => $Call['Entity'], 'Execute' => 'ID']);
+        return F::Run('IO', 'Execute', $Call,
+            [
+                'Scope' => $Call['Entity'],
+                'Execute' => 'ID'
+            ]);
     });

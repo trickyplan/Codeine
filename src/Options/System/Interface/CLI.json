@@ -7,10 +7,10 @@
     },
     "IP": "127.0.0.1",
     "UA": "Shell",
-    "Language":
+    "Locale":
     {
-        "Service": "System.Interface.CLI.Language",
-        "Method": "Get"
+        "Service": "Locale",
+        "Method": "Detect"
     },
     "Interface":
     {
@@ -18,6 +18,13 @@
         {
             "Service": "IO.Print",
             "Method": "Write"
+        }
+    },
+    "Session":
+    {
+        "User":
+        {
+            "ID": 1
         }
     },
     "Hooks":

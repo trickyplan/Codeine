@@ -61,6 +61,7 @@
 
                     if (!isset($Call['Failure']) or !$Call['Failure'])
                     {
+                        $Call['ID'] = $Call['Data']['ID'];
                         $Call['Data'] = F::Run('IO', 'Write', $Call);
 
                         $Call = F::Hook('afterEntityCreate', $Call);
@@ -145,7 +146,9 @@
             else
                 $Call['Data'] = $NewData;
 
-            $Call['Where'] = ['ID' => $OldData['ID']];
+            if (isset($OldData['ID']))
+                $Call['Where'] = ['ID' => $OldData['ID']];
+
             $Call['Data'] = F::Merge($OldData, $Call['Data']);
             $Call['Current'] = $OldData;
 
@@ -196,12 +199,13 @@
             foreach ($Data as $cData)
             {
                 $Call['Data'] = $cData;
-                        unset($Call['Data']);
 
-                        F::Run('IO', 'Write', $Call);
+                unset($Call['Data']);
 
-                        if(isset($Call['Where']))
-                            $Call['Data'] = $Call['Current'];
+                F::Run('IO', 'Write', $Call);
+
+                if(isset($Call['Where']))
+                    $Call['Data'] = $Call['Current'];
 
                 $Call = F::Hook('afterEntityDelete', $Call);
             }
