@@ -9,6 +9,18 @@
     {
         "Search":
         {
+            "Match": "^/search/(.*)/(.*)$",
+            "Weight": 20,
+            "Service": "Entity.Search",
+            "Method": "Do",
+            "Call":
+            {
+                "Entity": "$1",
+                "Query": "$2"
+            }
+        },
+        "Vertical Search":
+        {
             "Match": "^/search/(.*)$",
             "Weight": 20,
             "Service": "Entity.Search",

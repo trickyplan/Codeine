@@ -45,6 +45,7 @@
                     $Call = F::Apply('Entity.List', 'Do',
                         $Call,
                         [
+                            'Context' => 'app',
                             'Where!' => $Where,
                             'Template' => (
                             isset($Call['Template'])?
@@ -65,6 +66,8 @@
                 unset($Call['Scope'], $Call['Elements']);
             }
         }
+
+        $Call['Context'] = '';
 
         return $Call;
 

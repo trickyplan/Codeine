@@ -21,7 +21,7 @@
         $Call['Output']['Content']['Url'] =
             [
                 '@type' => 'text/html',
-                '@template' => $Call['Host'].'/search?Query={searchTerms}'
+                '@template' => $Call['Host'].'/search/{searchTerms}'
             ];
 
         return $Call;
