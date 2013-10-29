@@ -18,10 +18,10 @@
         if(isset($Call['Project']['Contacts']['Search']['EMail']))
             $Call['Output']['Content']['Contact'] = $Call['Project']['Contacts']['Search']['EMail'];
 
-        $Call['Output']['Content']['URL'] =
+        $Call['Output']['Content']['Url'] =
             [
-                'type' => 'text/html',
-                'template' => $Call['Host'].'/search?Query={searchTerms}'
+                '@type' => 'text/html',
+                '@template' => $Call['Host'].'/search?Query={searchTerms}'
             ];
 
         return $Call;

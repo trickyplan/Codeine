@@ -34,20 +34,28 @@
         F::Map($Call['Output']['Content'],
            function ($Key, $Value) use ($XML)
            {
-               if (is_numeric($Key))
+               if (substr($Key, 0, 1) == '@')
                {
-                   if ($Key > 0) // FIXME Костыль!
-                       $XML->endElement();
+                   $XML->startAttribute(substr($Key, 1));
+                   $XML->text($Value);
+                   $XML->endAttribute();
                }
                else
-                   $XML->startElement($Key);
-
-               if(!is_array($Value))
                {
-                   $XML->text($Value);
-                   $XML->endElement();
-               }
+                   if (is_numeric($Key))
+                   {
+                       if ($Key > 0) // FIXME Костыль!
+                           $XML->endElement();
+                   }
+                   else
+                       $XML->startElement($Key);
 
+                   if(!is_array($Value))
+                   {
+                       $XML->text($Value);
+                       $XML->endElement();
+                   }
+               }
            }
        );
 
