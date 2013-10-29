@@ -7,5 +7,36 @@
         "Normal": "Security.CAPTCHA.Simple",
         "Fast": "Security.CAPTCHA.Dummy",
         "Fast+": "Security.CAPTCHA.Dummy"
+    },
+    "Hooks":
+    {
+        "CAPTCHA":
+        {
+            "Failed":
+            {
+                "Error Page":
+                {
+                    "Service": "Entity.Create",
+                    "Method": "GET",
+                    "Call":
+                    {
+                        "Output":
+                        {
+                            "Message":
+                            {
+                                "Error":
+                                {
+                                    "Type": "Block",
+                                    "Class": "alert alert-danger",
+                                    "Value": "Введены неверные цифры"
+                                },
+                                "4": "<jsrun>$('#captcha').addClass('error')</jsrun>"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
     }
 }
