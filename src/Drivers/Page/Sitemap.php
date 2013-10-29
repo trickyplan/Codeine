@@ -12,6 +12,7 @@
         $Elements = F::Run('Entity', 'Read', ['Entity' => 'Page', 'Fields' => ['Slug']]);
         $Data = [];
 
+        if ($Elements !== null)
         foreach ($Elements as $Element)
             $Data[] = $Call['Host'].'/'.$Element['Slug']; // FIXME!
 
