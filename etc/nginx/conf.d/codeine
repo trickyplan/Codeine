@@ -30,6 +30,11 @@
 	{
 	    include fastcgi_params;
 
+        if ($http_user_agent ~* (bot|crawl|\+http:))
+        {
+            access_log /var/log/nginx/$host.bots.log;
+        }
+
         fastcgi_keep_conn on;
 
         fastcgi_param  Environment $Environment;

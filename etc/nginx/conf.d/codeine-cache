@@ -4,6 +4,7 @@
     merge_slashes on;
 
     log_not_found on;
+
     error_log /var/log/nginx/error.log warn;
     access_log /var/log/nginx/$host.access.log codeine;
 
@@ -58,7 +59,6 @@
         # Включаем/отключаем кеш в зависимости от состояния переменной no_cache
 
         fastcgi_cache_bypass $no_cache;
-        fastcgi_cache microcache;
 
         fastcgi_cache_key $scheme$host$request_method$request_uri;
         fastcgi_cache_valid 200 1s;
