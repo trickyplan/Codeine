@@ -18,7 +18,6 @@
         if ($Parsed)
         {
             // Image Output
-
             // Если изображения на отдельном сервере
 
             if (isset($Call['Image']['Host']) && !empty($Call['Image']['Host']))
@@ -47,9 +46,13 @@
             // Перед выводом картинок
             $Call = F::Hook('beforeImageOutput', $Call);
 
-                foreach ($Call['Images'] as $Call['Current Image'])
+                foreach ($Call['Images'] as $IX => $Call['Current Image'])
                 {
-                    $Call['Current Image']['Source']['Where'] = ['ID' => $Call['Current Image']['Source']['Where']];
+                    if (isset($Call['Current Image']['Source']['Where']))
+                        $Call['Current Image']['Source']['Where'] =
+                            ['ID' => $Call['Current Image']['Source']['Where']];
+                    else
+                        $Call['Current Image']['Source']['Where'] = null;
 
                     if (!F::Run('IO', 'Execute', $Call['Current Image']['Source'],
                     [
