@@ -30,6 +30,40 @@
 	{
 	    include fastcgi_params;
 
+        if ($http_user_agent ~* (bot|crawl|\+http:))
+        {
+            access_log /var/log/nginx/$host.bots.log;
+        }
+
+        set $no_cache 0;
+
+        # Отключаем кеш для всех методов, кроме GET и HEAD
+
+        if ($request_method !~ ^(GET|HEAD)$) {
+            set $no_cache "1";
+        }
+
+        # В случае если клиент загружает контент на сайт (no_cache = 1), делаем так, чтобы отдаваемые ему данные не кешировались в течение двух секунд и он смог увидеть результат загрузки
+
+        if ($no_cache = "1") {
+            add_header Set-Cookie "_mcnc=1; Max-Age=2; Path=/";
+            add_header X-Microcachable "0";
+        }
+        if ($http_cookie ~* "_mcnc") {
+            set $no_cache "1";
+        }
+
+        add_header X-Cached $no_cache;
+
+        # Включаем/отключаем кеш в зависимости от состояния переменной no_cache
+
+        fastcgi_cache_bypass $no_cache;
+        fastcgi_cache microcache;
+
+        fastcgi_cache_key $scheme$host$request_method$request_uri;
+        fastcgi_cache_valid 200 1s;
+        fastcgi_cache_use_stale updating;
+
         fastcgi_keep_conn on;
 
         fastcgi_param  Environment $Environment;
