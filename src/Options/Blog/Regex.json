@@ -120,7 +120,7 @@
                 }
             }
         },
-        "Блог":
+        "Блог-пост":
         {
             "Match":"^/blog/(.*)$",
             "Service":"Entity.Show.Static",
@@ -132,8 +132,40 @@
                 {
                     "Slug":  "$1"
                 }
-            },
-            "Last": true
+            }
+        },
+        "Блог":
+        {
+            "Match":"^/blog$",
+            "Service":"Entity.List",
+            "Method":"Do",
+            "Call":{
+                "Entity": "Blog",
+                "Sort":
+                {
+                    "Created": false
+                }
+            }
+        },
+        "RSS блога":
+        {
+            "Match":"^/blog.rss$",
+            "Service":"Entity.List",
+            "Method":"Do",
+            "Call":
+            {
+                "Renderer":
+                {
+                    "Service": "View.RSS",
+                    "Method": "Render"
+                },
+                "Entity": "Blog",
+                "Link": "/blog",
+                "Sort":
+                {
+                    "Created": false
+                }
+            }
         }
     }
 }

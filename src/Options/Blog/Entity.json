@@ -3,7 +3,8 @@
         [
             "Mixins.UGC",
             "Mixins.Text",
-            "Mixins.CRUD",
+            "Mixins.CRUDSlug",
+            "Mixins.SEO",
             "Mixins.Votable"
         ],
     "Storage": "Primary",
@@ -62,17 +63,6 @@
                 "Write":
                 {
                     "Type": "Form.Textfield"
-                }
-            }
-        },
-        "Description":
-        {
-            "Type": "Literal.HTML",
-            "Widgets":
-            {
-                "Write":
-                {
-                    "Type": "Form.WYSIWYG"
                 }
             }
         },

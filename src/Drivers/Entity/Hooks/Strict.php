@@ -12,10 +12,8 @@
         $Data = [];
 
         foreach ($Call['Nodes'] as $Name => $Node)
-        {
             if (F::Dot($Call['Nodes'], $Name) !== null)
                 $Data = F::Dot($Data, $Name, F::Dot($Call['Data'], $Name));
-        }
 
         $Call['Data'] = $Data;
 

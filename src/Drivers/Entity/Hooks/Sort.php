@@ -7,7 +7,7 @@
      * @version 7.2
      */
 
-    setFn('beforeList', function ($Call)
+    setFn('beforeOperation', function ($Call)
     {
         if (isset($Call['List']['Sort']))
             $Call['Sort'] = $Call['List']['Sort'];
@@ -20,11 +20,5 @@
                 $Call['Sort'] = [$Call['Request']['rsort'] => false];
         }
 
-        return $Call;
-    });
-
-    setFn('afterList', function ($Call)
-    {
-        unset($Call['Sort']);
         return $Call;
     });

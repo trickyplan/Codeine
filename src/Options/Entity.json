@@ -18,6 +18,11 @@
                 "Service":"Entity.Hooks.Filter",
                 "Method":"beforeOperation"
             },
+            "Sort":
+            {
+                "Service": "Entity.Hooks.Sort",
+                "Method": "beforeOperation"
+            },
             "Where":
             {
                 "Service": "Entity.Hooks.Where",

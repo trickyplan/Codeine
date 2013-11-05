@@ -40,6 +40,14 @@
                         'Sentences' => (int) $Root->attributes()->sentences
                     ]);
 
+            if ($Root->attributes()->more)
+                $Hellip = '<a href="'.((string) $Root->attributes()->more).'">'.$Call['Hellip'].'</a>';
+            else
+                $Hellip = $Call['Hellip'];
+
+            if (strlen($Outer) < strlen($Inner))
+                $Outer.= $Hellip;
+
             $Call['Output'] = str_replace ($Call['Parsed'][0][$IX], $Outer, $Call['Output']);
         }
 

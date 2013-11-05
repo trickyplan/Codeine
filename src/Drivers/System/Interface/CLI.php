@@ -7,8 +7,10 @@
      * @version 7.x
      */
 
-    setFn ('Run', function ($Call)
+    setFn ('Do', function ($Call)
     {
+        F::Log('CLI Interface Started', LOG_IMPORTANT);
+
         $Call = F::Hook('beforeInterfaceRun', $Call);
 
         $Call['Return Code'];

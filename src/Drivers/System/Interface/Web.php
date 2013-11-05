@@ -9,7 +9,8 @@
 
     setFn ('Do', function ($Call)
     {
-        F::Log('Web Interface Started', LOG_IMPORTANT);
+        F::Log('Interface: *Web*', LOG_INFO);
+
         if (!in_array($_SERVER['REQUEST_METHOD'], $Call['HTTP']['Methods']['Allowed']))
             $_SERVER['REQUEST_METHOD'] = $Call['HTTP']['Methods']['Default'];
 
@@ -51,9 +52,7 @@
         $Call = F::Hook('beforeInterfaceRun', $Call);
 
         if (!isset($Call['Skip Run']))
-        {
             $Call = F::Apply($Call['Service'], $Call['Method'], $Call);
-        }
 
 /*        if (isset($Call['Output']))
             $Call['Headers']['Content-Length:'] = strlen($Call['Output']);*/

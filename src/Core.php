@@ -448,46 +448,53 @@
 
         public static function Log ($Message, $Verbose = 7, $Target = 'Developer')
         {
-            if ($Verbose <= self::$_Verbose or (self::$_Environment == 'Development' && $Verbose > 7))
+            if ($Verbose <= self::$_Verbose)
             {
-                if (!is_string($Message))
-                    $Message = json_encode($Message, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-
                 if (PHP_SAPI == 'cli')
                 {
                     switch ($Verbose)
                     {
                         case LOG_EMERG:
-                            fwrite(STDERR, $Target."\033[0;31m ".$Message." \033[0m".PHP_EOL);
+                            fwrite(STDERR, $Target."> \033[0;31m ".$Message." \033[0m".PHP_EOL);
                         break;
 
                         case LOG_CRIT:
-                            fwrite(STDERR, $Target."\033[0;31m ".$Message." \033[0m".PHP_EOL);
+                            fwrite(STDERR, $Target."> \033[0;31m ".$Message." \033[0m".PHP_EOL);
                         break;
 
                         case LOG_ERR:
-                            fwrite(STDERR, $Target."\033[0;31m ".$Message." \033[0m".PHP_EOL);
+                            fwrite(STDERR, $Target."> \033[0;31m ".$Message." \033[0m".PHP_EOL);
                         break;
 
                         case LOG_WARNING:
-                            fwrite(STDERR, $Target."\033[0;33m ".$Message." \033[0m".PHP_EOL);
+                            fwrite(STDERR, $Target."> \033[0;33m ".$Message." \033[0m".PHP_EOL);
                         break;
 
                         case LOG_DEBUG:
-                            fwrite(STDERR, $Target."\033[0;30m ".$Message." \033[0m".PHP_EOL);
+                            fwrite(STDERR, $Target."> \033[0;30m ".$Message." \033[0m".PHP_EOL);
                         break;
 
                         case LOG_USER:
-                            fwrite(STDERR, $Target."\033[0;37m ".$Message." \033[0m".PHP_EOL);
+                            fwrite(STDERR, $Target."> \033[0;37m ".$Message." \033[0m".PHP_EOL);
                         break;
 
                         default:
-                            fwrite(STDERR, $Target.$Message.PHP_EOL);
+                            fwrite(STDERR, $Target.'> '.$Message.PHP_EOL);
                         break;
                     }
                 }
                 else
-                    return self::$_Log[$Target][] = [$Verbose, round(microtime(true) - self::$_Ticks['T']['Codeine.Do'], 3), $Message, self::$_Service];
+                {
+                    if (!is_string($Message))
+                        $Message = json_encode($Message, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+
+                    return self::$_Log[$Target][]
+                        = [
+                        $Verbose,
+                        round(microtime(true) - self::$_Ticks['T']['Codeine.Do'], 3),
+                        $Message,
+                        self::$_Service];
+                }
             }
         }
 

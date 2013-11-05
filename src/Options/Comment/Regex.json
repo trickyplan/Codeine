@@ -1,24 +1,19 @@
 {
     "Regex":
     {
-        "Страница списка комментариев к одной сущности":
+        "Comments by user, pages":
         {
-            "Match":"^/comments/(.*)/(.*)/page(\\d+)$",
-            "Service":"Entity.List",
-            "Method":"Do",
+            "Match": "/comments/author/(\\d+)/page(\\d+)",
+            "Service": "Entity.List",
+            "Method": "Do",
             "Call":
             {
                 "Entity": "Comment",
-                "Page":  "$3",
                 "Where":
                 {
-                    "Entity": "$1",
-                    "Object": "$2"
+                    "User": "$1"
                 },
-                "Sort":
-                {
-                    "Created": "DESC"
-                }
+                "Page": "$2"
             }
         },
         "Список комментариев к одной сущности":
@@ -85,6 +80,26 @@
             {
                 "Entity": "Comment",
                 "Where": "$1"
+            }
+        },
+        "Страница списка комментариев к одной сущности":
+        {
+            "Match":"^/comments/(.*)/(.*)/page(\\d+)$",
+            "Service":"Entity.List",
+            "Method":"Do",
+            "Call":
+            {
+                "Entity": "Comment",
+                "Page":  "$3",
+                "Where":
+                {
+                    "Entity": "$1",
+                    "Object": "$2"
+                },
+                "Sort":
+                {
+                    "Created": "DESC"
+                }
             }
         }
     }

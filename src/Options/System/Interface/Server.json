@@ -1,0 +1,98 @@
+{
+    "Renderer":
+    {
+        "Service": "View.HTML",
+        "Method": "Render"
+    },
+    "Context": "",
+    "HTTP":
+    {
+        "Methods":
+        {
+            "Allowed": ["GET", "POST"],
+            "Default": "GET"
+        }
+    },
+    "IP":
+    {
+        "Service": "System.Interface.Web.IP",
+        "Method": "Get"
+    },
+    "UA":
+    {
+        "Service": "System.Interface.Web.UA",
+        "Method": "Get"
+    },
+    "Locale":
+    {
+        "Service": "Locale",
+        "Method": "Detect"
+    },
+    "Subdomains":
+    {
+        "iframe":
+        {
+            "Context": "iframe",
+            "Headers":
+            {
+                "X-Frame-Options:": null
+            }
+        }
+    },
+    "Interface":
+    {
+        "Output":
+        {
+            "Service": "IO.Print",
+            "Method": "Write"
+        }
+    },
+    "Headers":
+    {
+        "HTTP/1.0": "200 OK",
+        "Content-Language:": "ru",
+        "Cache-Control:": "no-cache",
+        "X-Frame-Options:": "SAMEORIGIN",
+        "X-Content-Type-Options:": "nosniff",
+        "X-XSS-Protection:": " 1; mode=block"
+    },
+    "Hooks":
+    {
+        "beforeInterfaceRun":
+        {
+            "Filter UA":
+            {
+                "Service": "Security.UA",
+                "Method": "Filter"
+            },
+            "Filter Request":
+            {
+                "Service": "Security.Request",
+                "Method": "Filter"
+            },
+            "Project":
+            {
+                "Service": "Project.Preload",
+                "Method": "Do"
+            },
+            "Output Buffering":
+            {
+                "Service": "System.Interface.Web.OB",
+                "Method": "Start"
+            }
+        },
+        "afterInterfaceRun":
+        {
+            "Spit log":
+            {
+                "Service": "IO.Log",
+                "Method": "Spit"
+            },
+            "Output Buffering":
+            {
+                "Service": "System.Interface.Web.OB",
+                "Method": "Finish"
+            }
+        }
+    }
+}

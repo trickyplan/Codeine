@@ -216,17 +216,3 @@ a.no-border, .no-border a, a:hover.no-border, .no-border a:hover
 {
     text-transform: uppercase;
 }
-
-.img-caption
-{
-    position: relative;
-    top: -3.1em;
-    line-height: 2em;
-    margin-bottom: -2.5em;
-    padding: 10px 20px;
-    color: #ffffff;
-    text-shadow: 1px 1px 1px black;
-    text-transform: uppercase;
-    font-weight: 700 !important;
-    background-color: rgba(0, 0, 0, 0.5);
-}
