@@ -108,12 +108,12 @@
                             ]
                         ]))
                         {
-                            F::Log('Cache *hit* '.$ImageCached, LOG_ERR);
+                            F::Log('Cache *hit* '.$ImageCached, LOG_GOOD);
                             $Write = false;
                         }
                         else
                         {
-                            F::Log('Cache *miss* *'.$ImageCached.'*', LOG_ERR);
+                            F::Log('Cache *miss* *'.$ImageCached.'*', LOG_BAD);
                         }
                     }
 
