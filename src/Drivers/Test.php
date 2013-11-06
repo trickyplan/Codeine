@@ -65,7 +65,6 @@
 
                 $Options = array_merge($Options, iterator_to_array($Regex));
             }
-
         }
 
         foreach ($Options as $Option)

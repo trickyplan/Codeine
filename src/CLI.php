@@ -25,4 +25,4 @@
         'Call' => $Opts
     ]);
 
-    exit($Call['Return Code']);
+    exit(0);
