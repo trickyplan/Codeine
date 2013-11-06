@@ -18,7 +18,7 @@
                     },
                     "Result":
                     {
-                        "Equal": "Lorem ipsu…"
+                        "Equal": "Lorem ipsu"
                     }
                 },
                 "Many Words":
@@ -36,7 +36,7 @@
                     },
                     "Result":
                     {
-                        "Equal": "Lorem ipsum dolor sit…"
+                        "Equal": "Lorem ipsum dolor sit"
                     }
                 },
                 "One Sentence":
@@ -54,7 +54,7 @@
                     },
                     "Result":
                     {
-                        "Equal": "Lorem ipsum dolor sit amet, consectetur adipiscing elit…"
+                        "Equal": "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
                     }
                 }
             }
