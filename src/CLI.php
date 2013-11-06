@@ -21,7 +21,7 @@
         'Path' => [Root],
         'Environment' => isset($Opts['Environment'])? $Opts['Environment']: 'Production',
         'Service' => 'System.Interface.CLI',
-        'Method' => 'Run',
+        'Method' => 'Do',
         'Call' => $Opts
     ]);
 
