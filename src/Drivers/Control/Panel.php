@@ -83,7 +83,7 @@
 
         if (isset($Call['Sidebar']) && is_array($Call['Sidebar']))
         {
-            $Pills = [];
+            $Tabs = [];
             foreach ($Call['Sidebar'] as &$Sidebar)
             {
                 unset($Call['Decision'],$Call['Weight']);
@@ -101,13 +101,13 @@
                 $Call = F::Apply('Security.Access', 'Check', $Call);
 
                 if ($Call['Decision'])
-                    $Pills[] = ['ID' => $Sidebar, 'URL' => '/control/'.$Call['Bundle'].'/'.$Sidebar, 'Title' => $Call['Bundle'].'.Control:Options.'.$Sidebar];
+                    $Tabs[] = ['ID' => $Sidebar, 'URL' => '/control/'.$Call['Bundle'].'/'.$Sidebar, 'Title' => $Call['Bundle'].'.Control:Options.'.$Sidebar];
             }
 
             $Call['Output']['Sidebar'][] =
             [
-                'Type' => 'Navpills',
-                'Options!' => $Pills,
+                'Type' => 'Tabs',
+                'Options!' => $Tabs,
                 'Value' => $Call['Option']
             ];
         }

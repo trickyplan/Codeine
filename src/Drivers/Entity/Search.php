@@ -19,6 +19,8 @@
 
         if (isset($Call['Query']) && !empty($Call['Query']))
         {
+            $Call['Highlight'] = $Call['Query'];
+
             foreach ($Entities as $Entity)
             {
                 $Call['Where'] = [];

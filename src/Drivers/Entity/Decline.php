@@ -11,41 +11,39 @@
     {
         $Call = F::Apply('Entity', 'Load', $Call);
 
-        if (isset($Call['Where']))
-            $Call['Where'] = F::Live($Call['Where']); // FIXME
+        $Call = F::Hook('beforeDeclineDo', $Call);
 
-        $Call = F::Hook('beforeAcceptDo', $Call);
+        $Call['Where'] = F::Live($Call['Where']); // FIXME
 
         return F::Run(null, $_SERVER['REQUEST_METHOD'], $Call);
     });
 
     setFn('GET', function ($Call)
     {
-        $Call = F::Hook('beforeAcceptGet', $Call);
+        $Call = F::Hook('beforeDeclineGet', $Call);
 
-            $Call = F::Apply('Entity.List', 'Do', $Call, ['Context' => 'app']);
+        $Call = F::Apply('Entity.List', 'Do', $Call);
 
-        $Call['Context'] = '';
-
-        $Call = F::Hook('afterAcceptGet', $Call);
+        $Call = F::Hook('afterDeclineGet', $Call);
 
         return $Call;
     });
 
     setFn('POST', function ($Call)
     {
-        $Call = F::Hook('beforeAcceptPost', $Call);
+        $Call = F::Hook('beforeDeclinePost', $Call);
 
             F::Run('Entity', 'Update', $Call,
             [
-                'Data!' =>
+                'Data' =>
                 [
-                    'Status' => 1,
+                    'Status' => -1,
                     'Moderated' => F::Run('System.Time', 'Get', $Call),
                     'Moderator' => $Call['Session']['User']['ID']
                 ]
             ]);
 
-        $Call = F::Hook('afterAcceptPost', $Call);
+        $Call = F::Hook('afterDeclinePost', $Call);
+
         return $Call;
     });

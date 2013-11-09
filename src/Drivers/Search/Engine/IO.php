@@ -15,7 +15,9 @@
                 'Scope' => $Call['Entity'],
                 'Where' =>
                     [
-                        'Keywords' => F::Run('Text.Index.Metaphone.Russian', 'Get', ['Value' => mb_strtolower($Call['Query'])]) // FIXME SOON
+                        'Keywords' => F::Run('Text.Index.Metaphone.Russian',
+                                'Get',
+                                ['Value' => mb_strtolower($Call['Query'])]) // FIXME SOON
                     ]
             ]);
 

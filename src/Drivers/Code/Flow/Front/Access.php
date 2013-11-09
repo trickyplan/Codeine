@@ -17,7 +17,10 @@
          $Call = F::Apply('Security.Access', 'Check', $Call);
 
          if ($Call['Decision'] == false)
+         {
              $Call = F::Hook('Access.Denied', $Call);
+             $Call['Failure'] = true;
+         }
 
          return $Call;
      });
