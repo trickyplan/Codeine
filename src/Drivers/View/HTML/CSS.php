@@ -46,10 +46,11 @@
                     if ($Call['CSS']['Styles'][$CSS])
                         F::Log('CSS loaded: '.$CSS, LOG_DEBUG);
                     else
-                        F::Log('CSS cannot loaded: '.$CSS, LOG_WARNING);
+                        F::Log('CSS cannot loaded: '.$CSS, LOG_ERR);
                 }
 
-                $Call['CSS']['Styles'][] = $CSSInline;
+                if (!empty($CSSInline))
+                    $Call['CSS']['Styles'][] = $CSSInline;
 
                 $Call = F::Hook('afterCSSInput', $Call);
 

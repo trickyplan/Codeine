@@ -115,3 +115,9 @@ tr.Important
 {
     border: 1px solid lightgray;
 }
+
+.nl
+{
+    background-color: red;
+    color: white;
+}

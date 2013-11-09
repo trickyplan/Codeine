@@ -46,10 +46,11 @@
                     if ($Call['JS']['Scripts'][$JS])
                         F::Log('JS loaded: '.$JS, LOG_DEBUG);
                     else
-                        F::Log('JS cannot loaded: '.$JS, LOG_WARNING);
+                        F::Log('JS cannot loaded: '.$JS, LOG_ERR);
                 }
 
-                $Call['JS']['Scripts'][] = $JSInline;
+                if (!empty($JSInline))
+                    $Call['JS']['Scripts'][] = $JSInline;
 
                 $Call = F::Hook('afterJSInput', $Call);
 
