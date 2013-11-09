@@ -46,9 +46,12 @@
                         $XML->text(date(DATE_RSS, $Element['Data']['Created']));
                     $XML->endElement(); // description
 
-                    $XML->startElement('description');
+                    if (isset($Element['Data']['Description']))
+                    {
+                        $XML->startElement('description');
                             $XML->writeCdata($Element['Data']['Description']);
-                    $XML->endElement(); // description
+                        $XML->endElement(); // description
+                    }
 
                     $XML->startElement('link');
                         $XML->text($Call['Host'].'/'.strtolower($Element['Scope']).'/'.$Element['Data']['Slug']); // FIXME It's shit!
