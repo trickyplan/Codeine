@@ -28,16 +28,6 @@
         return F::Apply('Entity.Show.Static', 'Do', $Call, ['Entity' => $Call['Bundle'], 'Scope' => 'Control']);
     });
 
-    setFn('RAW', function ($Call)
-    {
-        $Call['Layouts'][] = [
-            'Scope' => 'Entity',
-            'ID' => 'Show.RAW'
-        ];
-
-        return F::Apply('Entity.Show.RAW', 'Do', $Call, ['Entity' => $Call['Bundle'], 'Scope' => 'Control']);
-     });
-
     setFn('Create', function ($Call)
     {
         $Call['Layouts'][] = [

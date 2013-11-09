@@ -1,4 +1,11 @@
 {
+    "Nodes":
+    {
+        "EV":
+        {
+            "Type": "Numeral.Integer"
+        }
+    },
     "Hooks":
     {
         "beforeOperation":

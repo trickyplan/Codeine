@@ -20,7 +20,12 @@
             $Model = F::loadOptions($Call['Entity'].'.Entity');
 
             if (!empty($Model))
+            {
+                if (!isset($Model['EV']))
+                    $Model['EV'] = 1;
+
                 $Call = F::Merge($Model, $Call);
+            }
             else
                 F::Log('Model for '.$Call['Entity'].' not found', LOG_CRIT);
 
@@ -62,6 +67,8 @@
                     if (!isset($Call['Failure']) or !$Call['Failure'])
                     {
                         $Call['ID'] = $Call['Data']['ID'];
+                        $Call['Data']['EV'] = $Call['EV'];
+
                         $Call['Data'] = F::Run('IO', 'Write', $Call);
 
                         $Call = F::Hook('afterEntityCreate', $Call);
@@ -150,6 +157,8 @@
                 $Call['Where'] = ['ID' => $OldData['ID']];
 
             $Call['Data'] = F::Merge($OldData, $Call['Data']);
+            $Call['Data']['EV'] = $Call['EV'];
+
             $Call['Current'] = $OldData;
 
             $Call = F::Hook('beforeEntityWrite', $Call);

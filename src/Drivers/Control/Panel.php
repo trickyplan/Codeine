@@ -18,7 +18,6 @@
         F::Log($Call['Bundle'].' '.$Call['Option'].' started', LOG_IMPORTANT);
         $Call = F::Apply($Call['Bundle'].'.Control', $Call['Option'], $Call);
 
-
         $Call['Layouts'][] = [
             'Scope' => $Call['Bundle'],
             'ID' => 'Control'

@@ -13,10 +13,12 @@
             if (preg_match('/'.$Host.'/', $Call['RHost']))
             {
                 $Call['Locale'] = $Locale;
+                F::Log('Hosts suggest locale *'
+                    .$Call['Locale']
+                    .'* by regex *'.$Host.'*', LOG_INFO);
                 break;
             }
 
-        F::Log('Hosts suggest locale *'.$Call['Locale'].'* by regex *'.$Host.'*', LOG_INFO);
 
         return $Call;
     });

@@ -1,4 +1,8 @@
 {
-    "Options.Update": "Update profile",
+    "Options":
+    {
+        "Update": "Update profile",
+        "RAW": "RAW View"
+    },
     "Title": "User"
 }
