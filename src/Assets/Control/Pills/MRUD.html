@@ -1,11 +1,11 @@
 <div class="btn-toolbar btn-group-sm">
 <if value="<k>Status</k>" neq="1">
-    <a class="btn btn-default" href="/control/<call>Entity</call>/Accept/<k>ID</k>">
+    <a class="btn btn-default" href="/control/<call>Entity</call>/Allow/<k>ID</k>">
         <i class="glyphicon glyphicon-ok" data-toggle="tooltip" title="Одобрить"></i>
     </a>
 </if>
 <if value="<k>Status</k>" neq="-1">
-    <a class="btn btn-default" href="/control/<call>Entity</call>/Reject/<k>ID</k>">
+    <a class="btn btn-default" href="/control/<call>Entity</call>/Disallow/<k>ID</k>">
         <i class="glyphicon glyphicon-minus" data-toggle="tooltip" title="Отклонить"></i>
     </a>
 </if>

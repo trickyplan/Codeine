@@ -166,6 +166,45 @@
                     "Created": false
                 }
             }
+        },
+        "Тег блога":
+        {
+            "Match":"^/blogs/tag/(.*)$",
+            "Service":"Entity.List",
+            "Method":"Do",
+            "Weight": 30,
+            "Call":
+            {
+                "Entity": "Blog",
+                "Custom Templates":
+                {
+                    "List": "List/Tag"
+                },
+                "Where":
+                {
+                    "Tags":  "$1"
+                }
+            }
+        },
+        "Тег  блога, страницы":
+        {
+            "Match":"^/blogs/tag/(.+)/page(\\d+)$",
+            "Service":"Entity.List",
+            "Method":"Do",
+            "Weight": 30,
+            "Call":
+            {
+                "Entity": "Blog",
+                "Page": "$2",
+                "Custom Templates":
+                {
+                    "List": "List/Tag"
+                },
+                "Where":
+                {
+                    "Tags":  "$1"
+                }
+            }
         }
     }
 }

@@ -1,0 +1,13 @@
+{
+    "Hooks":
+    {
+        "beforeShow":
+        {
+            "Load model (essential)":
+            {
+                "Service":"Entity",
+                "Method":"Load"
+            }
+        }
+    }
+}

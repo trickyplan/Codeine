@@ -5,7 +5,7 @@ Version: @@ver@@ Timestamp: @@timestamp@@
 
 This software is licensed under the Apache License, Version 2.0 (the "Apache License") or the GNU
 General Public License version 2 (the "GPL License"). You may choose either license to govern your
-use of this software only upon the condition that you accept all of the terms of either the Apache
+use of this software only upon the condition that you Allow all of the terms of either the Apache
 License or the GPL License.
 
 You may obtain a copy of the Apache License and the GPL License at:

@@ -1,0 +1,16 @@
+{
+    "Nodes":
+    {
+        "Tags":
+        {
+            "Type": "Literal.Tags",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        }
+    }
+}

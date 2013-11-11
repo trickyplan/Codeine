@@ -89,10 +89,10 @@
 				// Mark element for initialization (once all stars are ready)
 				rater.addClass('rating-to-be-drawn');
 				
-				// Accept readOnly setting from 'disabled' property
+				// Allow readOnly setting from 'disabled' property
 				if(input.attr('disabled') || input.hasClass('disabled')) control.readOnly = true;
 				
-				// Accept required setting from class property (class='required')
+				// Allow required setting from class property (class='required')
 				if(input.hasClass('required')) control.required = true;
 				
 				// Create 'cancel' button

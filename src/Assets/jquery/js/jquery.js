@@ -950,7 +950,7 @@ var i,
 	// Proper syntax: http://www.w3.org/TR/CSS21/syndata.html#value-def-identifier
 	identifier = characterEncoding.replace( "w", "w#" ),
 
-	// Acceptable operators http://www.w3.org/TR/selectors/#attribute-selectors
+	// Allowable operators http://www.w3.org/TR/selectors/#attribute-selectors
 	attributes = "\\[" + whitespace + "*(" + characterEncoding + ")" + whitespace +
 		"*(?:([*^$|!~]?=)" + whitespace + "*(?:(['\"])((?:\\\\.|[^\\\\])*?)\\3|(" + identifier + ")|)|)" + whitespace + "*\\]",
 
@@ -1853,7 +1853,7 @@ Expr = Sizzle.selectors = {
 				return null;
 			}
 
-			// Accept quoted arguments as-is
+			// Allow quoted arguments as-is
 			if ( match[3] && match[4] !== undefined ) {
 				match[2] = match[4];
 
@@ -3046,7 +3046,7 @@ jQuery.extend({
 		var tuples = [
 				// action, add listener, listener list, final state
 				[ "resolve", "done", jQuery.Callbacks("once memory"), "resolved" ],
-				[ "reject", "fail", jQuery.Callbacks("once memory"), "rejected" ],
+				[ "Disallow", "fail", jQuery.Callbacks("once memory"), "Disallowed" ],
 				[ "notify", "progress", jQuery.Callbacks("memory") ]
 			],
 			state = "pending",
@@ -3070,7 +3070,7 @@ jQuery.extend({
 								if ( returned && jQuery.isFunction( returned.promise ) ) {
 									returned.promise()
 										.done( newDefer.resolve )
-										.fail( newDefer.reject )
+										.fail( newDefer.Disallow )
 										.progress( newDefer.notify );
 								} else {
 									newDefer[ action + "With" ]( this === promise ? newDefer.promise() : this, fn ? [ returned ] : arguments );
@@ -3102,14 +3102,14 @@ jQuery.extend({
 			// Handle state
 			if ( stateString ) {
 				list.add(function() {
-					// state = [ resolved | rejected ]
+					// state = [ resolved | Disallowed ]
 					state = stateString;
 
-				// [ reject_list | resolve_list ].disable; progress_list.lock
+				// [ Disallow_list | resolve_list ].disable; progress_list.lock
 				}, tuples[ i ^ 1 ][ 2 ].disable, tuples[ 2 ][ 2 ].lock );
 			}
 
-			// deferred[ resolve | reject | notify ]
+			// deferred[ resolve | Disallow | notify ]
 			deferred[ tuple[0] ] = function() {
 				deferred[ tuple[0] + "With" ]( this === deferred ? promise : this, arguments );
 				return this;
@@ -3165,7 +3165,7 @@ jQuery.extend({
 				if ( resolveValues[ i ] && jQuery.isFunction( resolveValues[ i ].promise ) ) {
 					resolveValues[ i ].promise()
 						.done( updateFunc( i, resolveContexts, resolveValues ) )
-						.fail( deferred.reject )
+						.fail( deferred.Disallow )
 						.progress( updateFunc( i, progressContexts, progressValues ) );
 				} else {
 					--remaining;
@@ -3324,8 +3324,8 @@ function Data() {
 
 Data.uid = 1;
 
-Data.accepts = function( owner ) {
-	// Accepts only:
+Data.Allows = function( owner ) {
+	// Allows only:
 	//  - Node
 	//    - Node.ELEMENT_NODE
 	//    - Node.DOCUMENT_NODE
@@ -3337,10 +3337,10 @@ Data.accepts = function( owner ) {
 
 Data.prototype = {
 	key: function( owner ) {
-		// We can accept data for non-element nodes in modern browsers,
+		// We can Allow data for non-element nodes in modern browsers,
 		// but we should not, see #8335.
 		// Always return the key for a frozen object.
-		if ( !Data.accepts( owner ) ) {
+		if ( !Data.Allows( owner ) ) {
 			return 0;
 		}
 
@@ -3498,7 +3498,7 @@ data_priv = new Data();
 
 
 jQuery.extend({
-	acceptData: Data.accepts,
+	AllowData: Data.Allows,
 
 	hasData: function( elem ) {
 		return data_user.hasData( elem ) || data_priv.hasData( elem );
@@ -4596,7 +4596,7 @@ jQuery.event = {
 
 			// Native handler
 			handle = ontype && cur[ ontype ];
-			if ( handle && jQuery.acceptData( cur ) && handle.apply && handle.apply( cur, data ) === false ) {
+			if ( handle && jQuery.AllowData( cur ) && handle.apply && handle.apply( cur, data ) === false ) {
 				event.preventDefault();
 			}
 		}
@@ -4606,7 +4606,7 @@ jQuery.event = {
 		if ( !onlyHandlers && !event.isDefaultPrevented() ) {
 
 			if ( (!special._default || special._default.apply( eventPath.pop(), data ) === false) &&
-				jQuery.acceptData( elem ) ) {
+				jQuery.AllowData( elem ) ) {
 
 				// Call a native DOM method on the target with the same name name as the event.
 				// Don't do default actions on window, that's where global variables be (#6170)
@@ -5849,7 +5849,7 @@ jQuery.extend({
 			i = 0;
 
 		for ( ; (elem = elems[ i ]) !== undefined; i++ ) {
-			if ( Data.accepts( elem ) ) {
+			if ( Data.Allows( elem ) ) {
 				key = elem[ data_priv.expando ];
 
 				if ( key && (data = data_priv.cache[ key ]) ) {
@@ -6974,7 +6974,7 @@ jQuery.extend({
 		headers: {},
 		*/
 
-		accepts: {
+		Allows: {
 			"*": allTypes,
 			text: "text/plain",
 			html: "text/html",
@@ -7249,12 +7249,12 @@ jQuery.extend({
 			jqXHR.setRequestHeader( "Content-Type", s.contentType );
 		}
 
-		// Set the Accepts header for the server, depending on the dataType
+		// Set the Allows header for the server, depending on the dataType
 		jqXHR.setRequestHeader(
-			"Accept",
-			s.dataTypes[ 0 ] && s.accepts[ s.dataTypes[0] ] ?
-				s.accepts[ s.dataTypes[0] ] + ( s.dataTypes[ 0 ] !== "*" ? ", " + allTypes + "; q=0.01" : "" ) :
-				s.accepts[ "*" ]
+			"Allow",
+			s.dataTypes[ 0 ] && s.Allows[ s.dataTypes[0] ] ?
+				s.Allows[ s.dataTypes[0] ] + ( s.dataTypes[ 0 ] !== "*" ? ", " + allTypes + "; q=0.01" : "" ) :
+				s.Allows[ "*" ]
 		);
 
 		// Check for headers option
@@ -7399,7 +7399,7 @@ jQuery.extend({
 			if ( isSuccess ) {
 				deferred.resolveWith( callbackContext, [ success, statusText, jqXHR ] );
 			} else {
-				deferred.rejectWith( callbackContext, [ jqXHR, statusText, error ] );
+				deferred.DisallowWith( callbackContext, [ jqXHR, statusText, error ] );
 			}
 
 			// Status-dependent callbacks
@@ -7565,7 +7565,7 @@ function ajaxConvert( s, response, jqXHR, isSuccess ) {
 						tmp = conv2.split( " " );
 						if ( tmp[ 1 ] === current ) {
 
-							// If prev can be converted to accepted input
+							// If prev can be converted to Allowed input
 							conv = converters[ prev + " " + tmp[ 0 ] ] ||
 								converters[ "* " + tmp[ 0 ] ];
 							if ( conv ) {
@@ -7606,7 +7606,7 @@ function ajaxConvert( s, response, jqXHR, isSuccess ) {
 }
 // Install script dataType
 jQuery.ajaxSetup({
-	accepts: {
+	Allows: {
 		script: "text/javascript, application/javascript, application/ecmascript, application/x-ecmascript"
 	},
 	contents: {
@@ -7993,11 +7993,11 @@ function Animation( elem, properties, options ) {
 				}
 
 				// resolve when we played the last frame
-				// otherwise, reject
+				// otherwise, Disallow
 				if ( gotoEnd ) {
 					deferred.resolveWith( elem, [ animation, gotoEnd ] );
 				} else {
-					deferred.rejectWith( elem, [ animation, gotoEnd ] );
+					deferred.DisallowWith( elem, [ animation, gotoEnd ] );
 				}
 				return this;
 			}

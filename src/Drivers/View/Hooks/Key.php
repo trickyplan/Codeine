@@ -24,7 +24,9 @@
 
                 foreach ($Match as $CMatch)
                 {
-                    if (($Matched = F::Live(F::Dot($Call['Data'], $CMatch))) !== null)
+                    $Matched = F::Live(F::Dot($Call['Data'], $CMatch));
+
+                    if (!empty($Matched))
                     {
                         if ((array) $Matched === $Matched)
                             $Matched = array_shift($Matched);

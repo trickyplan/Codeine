@@ -448,7 +448,7 @@
 
         public static function Log ($Message, $Verbose = 7, $Target = 'Developer')
         {
-            if ($Verbose <= self::$_Verbose)
+            if ($Verbose <= self::$_Verbose or (F::Environment() == 'Development') && $Verbose > 9)
             {
                 if (PHP_SAPI == 'cli')
                 {

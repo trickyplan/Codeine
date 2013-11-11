@@ -13,9 +13,8 @@
         {
             if (!is_numeric($Call['Value']))
             {
-                $Date = strptime($Call['Value'],'%d.%m.%Y');
-
-                return mktime(3,0,0, 1+$Date['tm_mon'], $Date['tm_mday'], 1900+$Date['tm_year']);
+                $Date = date_parse_from_format('%d.%m.%Y', $Call['Value']);
+                return mktime(3,0,0, 1+$Date['month'], $Date['day'], $Date['year']);
             }
             else
                 return $Call['Value'];

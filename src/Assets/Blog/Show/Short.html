@@ -2,5 +2,18 @@
     <a href="/blog/<k>Slug</k>">
         <h2><k>Title</k></h2>
     </a>
-    <cut sentences="2" hellip="дальше" more="/blog/<k>Slug</k>"><k>Body</k></cut>
+    <cut sentences="2" more="/blog/<k>Slug</k>"><k>Body</k></cut>
+    <div class="pull-right">
+        <block>
+            <a rel="tag" class="label label-tag" href="/blogs/tag/<k>Tags</k>">
+                <span class="glyphicon glyphicon-tag"></span> <k>Tags</k>
+            </a>
+        </block>
+    </div>
+    <div class="text-muted">
+        <small>
+            <entity>User:<k>User</k></entity>,
+            <datetime><k>Created</k></datetime>
+        </small>
+    </div>
 </div>

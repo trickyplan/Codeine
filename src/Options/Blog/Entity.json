@@ -1,9 +1,12 @@
 {
     "Mixins":
         [
-            "Mixins.UGC",
+            "Mixins.ID.Sequence",
+            "Mixins.Titled",
             "Mixins.Text",
             "Mixins.CRUDSlug",
+            "Mixins.UGC",
+            "Mixins.Tags",
             "Mixins.SEO",
             "Mixins.Votable"
         ],
@@ -15,35 +18,6 @@
     },
     "Nodes":
     {
-        "ID":
-        {
-            "Type": "Numeral.Integer",
-            "Hooks":
-            {
-                "beforeEntityCreate":
-                {
-                    "Service": "Security.UID.Sequence",
-                    "Method": "Get",
-                    "Call":
-                    {
-                        "Entity": "Blog"
-                    }
-                }
-            }
-        },
-        "Title":
-        {
-            "Type": "Literal.String",
-            "Weight": 200,
-            "Required": true,
-            "Widgets":
-            {
-                "Write":
-                {
-                    "Type": "Form.Textfield"
-                }
-            }
-        },
         "Source":
         {
             "Type": "Literal.String",
@@ -52,52 +26,6 @@
                 "Write":
                 {
                     "Type": "Form.Textfield"
-                }
-            }
-        },
-        "Category":
-        {
-            "Type": "Literal.String",
-            "Widgets":
-            {
-                "Write":
-                {
-                    "Type": "Form.Textfield"
-                }
-            }
-        },
-        "Slug":
-        {
-            "Widgets":
-            {
-                "Write":
-                {
-                    "Type": "Form.Textfield"
-                }
-            },
-            "User Override": true,
-            "Hooks":
-            {
-                "beforeEntityWrite":
-                {
-                    "Service": "SEO.Slug",
-                    "Method": "Generate"
-                }
-            }
-        },
-        "Published":
-        {
-            "Type": "Date.Short",
-            "Widgets":
-            {
-                "Write":
-                {
-                    "Type": "Form.Datepicker",
-                    "Value":
-                    {
-                        "Service": "System.Time",
-                        "Method": "Get"
-                    }
                 }
             }
         },

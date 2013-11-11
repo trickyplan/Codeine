@@ -367,11 +367,11 @@ $.fn.ajaxSubmit = function(options) {
             if (s.global) {
                 $.active--;
             }
-            deferred.reject();
+            deferred.Disallow();
             return deferred;
         }
         if (xhr.aborted) {
-            deferred.reject();
+            deferred.Disallow();
             return deferred;
         }
 
@@ -521,12 +521,12 @@ $.fn.ajaxSubmit = function(options) {
             }
             if (e === CLIENT_TIMEOUT_ABORT && xhr) {
                 xhr.abort('timeout');
-                deferred.reject(xhr, 'timeout');
+                deferred.Disallow(xhr, 'timeout');
                 return;
             }
             else if (e == SERVER_ABORT && xhr) {
                 xhr.abort('server abort');
-                deferred.reject(xhr, 'error', 'server abort');
+                deferred.Disallow(xhr, 'error', 'server abort');
                 return;
             }
 
@@ -640,7 +640,7 @@ $.fn.ajaxSubmit = function(options) {
                     errMsg = xhr.statusText;
                 if (s.error)
                     s.error.call(s.context, xhr, status, errMsg);
-                deferred.reject(xhr, 'error', errMsg);
+                deferred.Disallow(xhr, 'error', errMsg);
                 if (g)
                     $.event.trigger("ajaxError", [xhr, s, errMsg]);
             }

@@ -40,10 +40,14 @@
                         'Sentences' => (int) $Root->attributes()->sentences
                     ]);
 
-            if ($Root->attributes()->more)
-                $Hellip = '<a href="'.((string) $Root->attributes()->more).'">'.$Call['Hellip'].'</a>';
+            if ($Root->attributes()->hellip)
+                $Hellip = (string) $Root->attributes()->hellip;
             else
                 $Hellip = $Call['Hellip'];
+
+            if ($Root->attributes()->more)
+                $Hellip = '<a href="'.((string) $Root->attributes()->more).'">'.$Hellip.'</a>';
+
 
             if (strlen($Outer) < strlen($Inner))
                 $Outer.= $Hellip;

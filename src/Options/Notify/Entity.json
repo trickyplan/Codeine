@@ -29,7 +29,7 @@
         },
         "Title":
         {
-            "Type": "Literal.String"
+            "Type": "Literal.HTML"
         },
         "Text":
         {

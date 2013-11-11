@@ -7,19 +7,7 @@
         },
         "Moderator":
         {
-            "Type": "Numeral.Integer",
-            "Hooks":
-            {
-                "beforeEntityCreate":
-                {
-                    "Service": "Session",
-                    "Method": "Read",
-                    "Call":
-                    {
-                        "Key": "User.ID"
-                    }
-                }
-            }
+            "Type": "Numeral.Integer"
         },
         "Status":
         {

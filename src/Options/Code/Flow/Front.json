@@ -18,6 +18,11 @@
                 "Service": "Session",
                 "Method": "Initialize"
             },
+            "Prepare":
+            {
+                "Service": "Code.Flow.Front.Before",
+                "Method": "Do"
+            },
             "Layouts":
             {
                 "Service": "Code.Flow.Front.Layouts",

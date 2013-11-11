@@ -13,6 +13,10 @@
         {
             foreach ($Call['Rules'] as $Name => $Rule)
             {
+                if (isset($Rule['Run']['Call']))
+                    foreach ($Rule['Run'] as &$Node)
+                        $Node = F::Live($Node);
+
                 if (!isset($Rule['Weight']))
                     $Rule['Weight'] = $Call['Weight'];
 
@@ -29,15 +33,18 @@
                             $Call['Rule'] = $Name;
                         }
                     }
+                    else
+                        if (isset($Rule['Debug']))
+                            d(__FILE__, __LINE__, F::Diff($Rule['Run'], $Call));
 
                     if (isset($Call['Service'])
                         && isset($Rule['Run']['Service'])
                         && isset($Rule['Run']['Method'])
                         && isset($Rule['Message']))
 
-                        if (($Call['Service'] == $Rule['Run']['Service'])
-                            && ($Call['Method'] == $Rule['Run']['Method']))
-                            $Call['Message'] = $Rule['Message'];
+                    if (($Call['Service'] == $Rule['Run']['Service'])
+                        && ($Call['Method'] == $Rule['Run']['Method']))
+                        $Call['Message'] = $Rule['Message'];
                 }
             }
         }

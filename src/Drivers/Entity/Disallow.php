@@ -11,7 +11,7 @@
     {
         $Call = F::Apply('Entity', 'Load', $Call);
 
-        $Call = F::Hook('beforeDeclineDo', $Call);
+        $Call = F::Hook('beforeDisallowDo', $Call);
 
         $Call['Where'] = F::Live($Call['Where']); // FIXME
 
@@ -20,18 +20,18 @@
 
     setFn('GET', function ($Call)
     {
-        $Call = F::Hook('beforeDeclineGet', $Call);
+        $Call = F::Hook('beforeDisallowGet', $Call);
 
         $Call = F::Apply('Entity.List', 'Do', $Call);
 
-        $Call = F::Hook('afterDeclineGet', $Call);
+        $Call = F::Hook('afterDisallowGet', $Call);
 
         return $Call;
     });
 
     setFn('POST', function ($Call)
     {
-        $Call = F::Hook('beforeDeclinePost', $Call);
+        $Call = F::Hook('beforeDisallowPost', $Call);
 
             F::Run('Entity', 'Update', $Call,
             [
@@ -43,7 +43,7 @@
                 ]
             ]);
 
-        $Call = F::Hook('afterDeclinePost', $Call);
+        $Call = F::Hook('afterDisallowPost', $Call);
 
         return $Call;
     });

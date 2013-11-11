@@ -99,16 +99,16 @@
         return F::Apply('Entity.Search', 'Do', $Call, ['Entity' => $Call['Bundle'], 'Scope' => 'Control']);
     });
 
-    setFn('Accept', function ($Call)
+    setFn('Allow', function ($Call)
     {
         $Call['Layouts'][] = ['Scope' => 'Entity', 'ID' => 'Accept'];
-        return F::Apply('Entity.Accept', 'Do', $Call, ['Entity' => $Call['Bundle']]);
+        return F::Apply('Entity.Allow', 'Do', $Call, ['Entity' => $Call['Bundle']]);
     });
 
-    setFn('Reject', function ($Call)
+    setFn('Disallow', function ($Call)
     {
         $Call['Layouts'][] = ['Scope' => 'Entity', 'ID' => 'Reject'];
-        return F::Apply('Entity.Reject', 'Do', $Call, ['Entity' => $Call['Bundle']]);
+        return F::Apply('Entity.Disallow', 'Do', $Call, ['Entity' => $Call['Bundle']]);
     });
 
     setFn('Touch', function ($Call)

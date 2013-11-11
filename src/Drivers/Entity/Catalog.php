@@ -23,7 +23,9 @@
             foreach ($Elements as $Element)
             {
                 $Value = F::Dot($Element, $Call['Key']);
-                if (is_scalar($Value))
+                if (is_array($Value))
+                    $Values = array_merge($Values, $Value);
+                elseif (is_scalar($Value))
                     $Values[] = $Value;
             }
 

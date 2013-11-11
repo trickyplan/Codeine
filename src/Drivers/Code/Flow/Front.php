@@ -16,10 +16,10 @@
         // В этом месте, практически всегда, происходит роутинг.
         $Call = F::Hook('beforeFrontRun', $Call);
 
-        // Если передан нормальный вызов, совершаем его
-
         if (!isset($Call['Output']))
         {
+            // Если передан нормальный вызов, совершаем его
+
             if (F::isCall($Call['Run']))
             {
                 if (!isset($Call['Failure']))
@@ -46,7 +46,7 @@
         F::Log('Front Controller finished', LOG_IMPORTANT);
 
         // А здесь - рендеринг
-            $Call = F::Hook('afterFrontRun', $Call);
+        $Call = F::Hook('afterFrontRun', $Call);
 
         return $Call;
     });

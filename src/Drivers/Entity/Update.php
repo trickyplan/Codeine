@@ -7,6 +7,26 @@
      * @version 7.4
      */
 
+    setFn('Before', function ($Call)
+    {
+        if (!isset($Call['Data']))
+            $Call['Data'] = F::Run('Entity', 'Read', $Call, ['ReRead' => true]);
+
+        if (isset($Call['Data']) && isset($Call['Request']['Data']))
+        {
+            if (isset($Call['Data'][0]))
+                $Call['Request']['Data'] = F::Merge($Call['Request']['Data'], $Call['Data']);
+            else
+            {
+                $SZ = count($Call['Request']['Data']);
+                for ($IC = 0; $IC < $SZ; $IC++)
+                    $Call['Request']['Data'][$IC] = $Call['Data'];
+            }
+        }
+
+        return $Call;
+    });
+
     setFn('Do', function ($Call)
     {
         $Call = F::Hook('beforeUpdateDo', $Call);
@@ -19,6 +39,8 @@
 
     setFn('GET', function ($Call)
     {
+        // Загрузить предопределённые данные и умолчания
+
         $Call = F::Hook('beforeUpdateGet', $Call);
 
         if (!isset($Call['Failure']))
@@ -36,15 +58,8 @@
                     'Context' => $Call['Context']
                 ];
 
-            // Загрузить предопределённые данные и умолчания
-
-            $Call['Data'] = F::Run('Entity', 'Read', $Call, ['ReRead' => true]);
-
-            if (null === $Call['Data'])
-                $Call = F::Hook('NotFound', $Call);
-            else
-                foreach ($Call['Data'] as $IX => $cData)
-                    $Call = F::Apply('Entity.Form', 'Generate', $Call, ['IX' => $IX, 'Data!' => $cData]);
+            foreach ($Call['Data'] as $IX => $cData)
+                $Call = F::Apply('Entity.Form', 'Generate', $Call, ['IX' => $IX, 'Data!' => $cData]);
 
             // Вывести
 
@@ -58,21 +73,11 @@
 
     setFn('POST', function ($Call)
     {
-        if (isset($Call['Request']['Data']))
-        {
-            if (isset($Call['Data']))
-                $Call['Data'] = F::Merge($Call['Data'], $Call['Request']['Data']);
-            else
-                $Call['Data'] = $Call['Request']['Data'];
-        }
-
         $Call = F::Hook('beforeUpdatePost', $Call);
 
         // Отправляем в Entity.Update
 
         $Call = F::Apply('Entity', 'Update', $Call);
-
-        $Call['Data'] = F::Merge(F::Run('Entity', 'Read', $Call, ['ReRead' => true]), $Call['Data']);
 
        // Выводим результат
 

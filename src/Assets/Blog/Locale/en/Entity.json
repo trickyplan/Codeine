@@ -1,0 +1,15 @@
+{
+    "Body": "Body",
+    "Category": "Category",
+    "Description": "Description",
+    "Published": "Publish on date",
+    "Redirect": "Redirect",
+    "SEO": {
+        "Keywords": "SEO Keywords",
+        "Title": "SEO Title",
+        "Description": "SEO Description"
+    },
+    "Slug": "SEO Slug",
+    "Source": "Source",
+    "Title": "Title"
+}

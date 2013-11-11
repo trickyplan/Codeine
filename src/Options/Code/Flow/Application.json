@@ -18,6 +18,11 @@
                 "Service": "Code.Flow.Application.Layouts",
                 "Method": "Do"
             },
+            "Prepare":
+            {
+                "Service": "Code.Flow.Front.Before",
+                "Method": "Do"
+            },
             "Access":
             {
                 "Service": "Code.Flow.Front.Access",

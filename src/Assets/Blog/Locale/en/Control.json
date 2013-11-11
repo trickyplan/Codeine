@@ -1,0 +1,10 @@
+{
+    "Options": {
+        "Update": "Update blog post",
+        "Do": "Dashboard",
+        "Create": "Create post",
+        "Import": "Import posts",
+        "Renumerate": "Renumerate"
+    },
+    "Title": "Blog"
+}

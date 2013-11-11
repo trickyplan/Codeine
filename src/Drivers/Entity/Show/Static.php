@@ -7,19 +7,18 @@
      * @version 7.0
      */
 
+    setFn('Before', function ($Call)
+    {
+        $Call['Data'] = F::Run('Entity', 'Read', $Call, ['One' => true]);
+
+        return $Call;
+    });
+
     setFn('Do', function ($Call)
     {
-        $Call = F::Merge($Call, F::loadOptions($Call['Entity'].'.Entity')); // FIXME
-
         $Call = F::Hook('beforeShow', $Call);
 
-        if (isset($Call['Where']))
-            $Call['Where'] = F::Live($Call['Where'], $Call);
-
-        $Call['Limit'] = ['From' => 0, 'To' => 1];
-
-        if (!isset($Call['Data']))
-            $Call['Data'] = F::Run('Entity', 'Read', $Call)[0];
+        $Call = F::Hook('beforeShowDo', $Call);
 
         if (isset($Call['Data']['Redirect']) && !empty($Call['Data']['Redirect']))
             $Call = F::Apply('System.Interface.Web','Redirect', $Call, ['Location' => $Call['Data']['Redirect']]);
@@ -44,6 +43,7 @@
             }
         }
 
-        F::Log($Call['Data'], LOG_INFO);
+        F::Log($Call['Data'], LOG_DEBUG);
+
         return $Call;
     });

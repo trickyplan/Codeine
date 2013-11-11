@@ -68,7 +68,7 @@
         }
 
         if (isset($Call['Session']))
-            F::Log($Call['Session'], LOG_INFO);
+            F::Log($Call['Session'], LOG_DEBUG);
 
         return $Call;
     });

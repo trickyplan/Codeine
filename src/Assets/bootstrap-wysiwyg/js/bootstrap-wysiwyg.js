@@ -9,7 +9,7 @@
 		fReader.onload = function (e) {
 			loader.resolve(e.target.result);
 		};
-		fReader.onerror = loader.reject;
+		fReader.onerror = loader.Disallow;
 		fReader.onprogress = loader.notify;
 		fReader.readAsDataURL(fileInfo);
 		return loader.promise();

@@ -1,17 +1,26 @@
-<subtitle>«<k>Title</k>»</subtitle>
-<breadcrumb href="/blog/category/<k>Category</k>"><k>Category</k></breadcrumb>
+<subtitle><k>SEO.Title,Title</k></subtitle>
 <breadcrumb href="/blog/<k>Slug</k>"><k>Title</k></breadcrumb>
+
 <access Service="Control.Panel">
     <layout>Control.Pills:Top</layout>
 </access>
+<h1 class="page-header">
+    <k>Title</k>
+</h1>
 <div class="row">
     <div class="col-md-8">
-        <h2 class="page-header"><k>Title</k></h2>
-
         <div class="panel panel-default">
             <div class="panel-body">
                 <article>
                     <k>Body</k>
+
+                    <div>
+                        <block>
+                            <a rel="tag" class="label label-tag" href="/blogs/tag/<k>Tags</k>">
+                                <span class="glyphicon glyphicon-tag"></span> <k>Tags</k>
+                            </a>
+                        </block>
+                    </div>
                 </article>
             </div>
             <div class="panel-footer">
@@ -25,8 +34,6 @@
         </div>
     </div>
     <div class="col-md-4">
-        <h2 class="page-header"><k>Category</k></h2>
-
         <ul class="nav nav-stacked">
             <exec>
                 <Service>Entity.List</Service>
@@ -35,7 +42,7 @@
                     <Template>Line</Template>
                     <Entity><call>Entity</call></Entity>
                     <Where>
-                        <Category><k>Category</k></Category>
+                        <Tags><k>Tags</k></Tags>
                     </Where>
                     <Sort>
                         <ID>1</ID>
