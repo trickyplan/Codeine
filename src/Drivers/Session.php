@@ -121,7 +121,7 @@
         if (!isset($Call['Session']))
             $Call = F::Apply(null, 'Initialize', $Call);
 
-        if (isset(isset($Call['Session']))
+        if (isset($Call['Session']))
         {
             if (isset($Call['Key']))
                 return F::Dot($Call['Session'], $Call['Key']);
