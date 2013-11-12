@@ -121,10 +121,13 @@
         if (!isset($Call['Session']))
             $Call = F::Apply(null, 'Initialize', $Call);
 
-        if (isset($Call['Key']) && isset($Call['Session']))
-            return F::Dot($Call['Session'], $Call['Key']);
-        else
-            return $Call['Session'];
+        if (isset(isset($Call['Session']))
+        {
+            if (isset($Call['Key']))
+                return F::Dot($Call['Session'], $Call['Key']);
+            else
+                return $Call['Session'];
+        }
     });
 
     setFn('Annulate', function ($Call)
