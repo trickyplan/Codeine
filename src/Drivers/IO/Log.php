@@ -12,30 +12,21 @@
         F::Log('Calls: '.self::$NC, LOG_INFO);
         F::Log('Memory: '.round(memory_get_usage()/1024).' KiB', LOG_INFO);
 
-
         $Logs = F::Logs();
 
         if (!empty($Logs))
         {
-            // $Logs = array_reverse($Logs);
-            $Output = '';
-
-            foreach ($Logs as $Channel => $Messages)
-                $Output .= F::Run(
-                    'IO', 'Write', $Call,
+            foreach ($Logs as $Call['Channel'] => $Call['Logs'])
+            {
+                F::Run('IO', 'Write', $Call,
                     [
-                        'Storage' => $Channel,
-                        'ID' => 'Log: '.$Call['Host'].$Call['URL'],
-                        'Data!' => $Messages
-                    ]
-                );
+                        'Storage' => $Call['Channel'],
+                        'ID' => $Call['URL'],
+                        'Data' => F::Run('Formats.Log.'.$Call['Log Format'], 'Do', $Call)
+                    ]);
 
-            if (isset($Call['Output']))
-                $Call['Output'] = str_replace('<logs/>', $Output, $Call['Output']);
-            else
-                echo $Output;
-
-            F::Run('IO', 'Close', ['Storage' => 'Developer']);
+                F::Run('IO', 'Close', ['Storage' => $Call['Channel']]);
+            }
         }
 
         return $Call;

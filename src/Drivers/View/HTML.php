@@ -59,7 +59,6 @@
                                 else
                                     $Call['Output'][$Place][$Key] = $Widget;
                             }
-                    // TODO Block caching
 
                     foreach ($Call['Output'] as $Place => $Widgets)
                         if (is_array($Widgets))

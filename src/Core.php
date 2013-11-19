@@ -34,8 +34,7 @@
         private static $_Memory= 0;
 
         private static $_SR71 = false;  // Internal Profiler
-        private static $_Prism = false; // Prism records calls ))
-        private static $_Calls;
+        private static $_Stack;
 
         private static $NC = 0;
         private static $_Verbose = 3;
@@ -48,13 +47,13 @@
 
         public static function Bootstrap ($Call = null)
         {
+
             self::$_Live = true;
 
             if (isset($_REQUEST['SR71']))
                 self::$_SR71 = true;
 
-            if (isset($_REQUEST['Prism']))
-                self::$_Prism = true;
+            self::$_Stack = new SplStack();
 
             self::Start(self::$_Service . '.' . self::$_Method);
 
@@ -94,7 +93,6 @@
 
             set_error_handler ('F::Error');
 
-            register_shutdown_function('F::Shutdown');
             F::Log('Environment: *'.self::$_Environment.'*', LOG_INFO);
 
             $Call = F::Hook('onBootstrap', $Call);
@@ -102,7 +100,7 @@
             return F::Live($Call);
         }
 
-        public static function Shutdown()
+        public static function Shutdown($Call = array())
         {
             // foreach (self::$_Log as $Line)
             //    echo implode ("\t", $Line).PHP_EOL;
@@ -130,15 +128,10 @@
             if (self::$_SR71)
             {
                 self::$_Memory = memory_get_usage();
-                self::SR71();
+                F::Run('Profile', 'Do', $Call);
             }
 
-            if (self::$_Prism)
-            {
-                self::Prism();
-            }
-
-            return false;
+            return true;
         }
 
         private static function _loadSource($Service)
@@ -278,6 +271,8 @@
             $OldService = self::$_Service;
             $OldMethod = self::$_Method;
 
+            self::$_Stack->push($Service.':'.$Method);
+
             if ($Service !== null)
                 self::$_Service = $Service;
 
@@ -332,7 +327,20 @@
 
             self::$NC++;
 
+            self::$_Stack->pop();
             return $Result;
+        }
+
+        public static function Stack()
+        {
+            $Output = [];
+
+            foreach (self::$_Stack as $IX => $Element)
+                $Output[] = str_pad("*", $IX+1).' '.$Element."\n";
+
+            echo '<pre>'.implode(array_reverse($Output)).'</pre>';
+
+            return $Output;
         }
 
         public static function Live($Variable, $Call = [])
@@ -762,44 +770,6 @@
         private static function MStop ($Key)
         {
             return self::$_Counters['M'][$Key] += memory_get_peak_usage(true) - self::$_Ticks['M'][$Key];
-        }
-
-        private static function SR71()
-        {
-           $Summary['Time'] = array_sum(self::$_Counters['T']);
-           $Summary['Calls'] = array_sum(self::$_Counters['C']);
-
-           arsort(self::$_Counters['T']);
-
-           echo '
-           <table class="table console">
-           <tr>
-                <th>Function name</th>
-                <th>Time, %</th>
-                <th>Calls, %</th>
-                <th>Time, ms</th>
-                <th>Calls, count</th>
-                <th>Time per call, ms</th>
-           </tr>
-           <tr>
-               <th>'.$_SERVER['REQUEST_URI'].'</th>
-               <th>100%</th>
-               <th>100%</th>
-               <th>'.round($Summary['Time']).'</th>
-               <th>'.$Summary['Calls'].'</th>
-               <th>'.round($Summary['Time']/$Summary['Calls'],2).'</th>
-           </tr>';
-
-           foreach (self::$_Counters['T'] as $Key => $Value)
-               echo '<tr><td>'.$Key.'</td>'.
-                    '<td>'.round(($Value/$Summary['Time'])*100,2).'</td>'.
-                    '<td>'.round((self::$_Counters['C'][$Key]/$Summary['Calls'])*100,2).
-                    '<td>'.round($Value).'</td>'.
-                    '<td>'.self::$_Counters['C'][$Key].'</td>'.
-                   '<td>'.round($Value/self::$_Counters['C'][$Key], 2).'</td>'.
-                    '</td></tr>';
-
-           echo '</table>';
         }
 
         public static function getPaths()

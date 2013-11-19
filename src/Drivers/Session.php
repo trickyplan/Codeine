@@ -14,7 +14,7 @@
         // Маркера нет — пользователь чистый гость
         if (null === $Call['SID'])
         {
-            F::Log('Session: Marker not set');
+            F::Log('Session: Marker not set', LOG_DEBUG, 'Security');
 
             if (isset($Call['Session Auto']) && $Call['Session Auto'])
                 $Call = F::Apply(null, 'Mark', $Call);
@@ -45,7 +45,7 @@
                         'One' => true
                     ]);
 
-                F::Log('Session: Secondary user '.$Call['Session']['User']['ID'].' authenticated', LOG_INFO);
+                F::Log('Session: Secondary user '.$Call['Session']['User']['ID'].' authenticated', LOG_INFO, 'Security');
             }
             elseif (isset($Call['Session']['User']) && $Call['Session']['User'] != 0)
             {
@@ -56,7 +56,7 @@
                         'One' => true
                     ]);
 
-                F::Log('Session: Primary user '.$Call['Session']['User']['ID'].' authenticated', LOG_INFO);
+                F::Log('Session: Primary user '.$Call['Session']['User']['ID'].' authenticated', LOG_INFO, 'Security');
             }
 
             if (isset($Call['Session']['User']['Locale']))
@@ -78,12 +78,8 @@
         if (!isset($Call['SID']))
             $Call = F::Apply(null, 'Mark', $Call);
 
-        $Call['Session'] = F::Run('Entity', 'Read',
-            [
-                'Entity' => 'Session',
-                'Where' => $Call['SID'],
-                'One' => true
-            ]);
+        if (!isset($Call['Session']))
+            $Call = F::Apply(null, 'Initialize', $Call);
 
         $Call['Data']['ID'] = $Call['SID'];
 
@@ -96,7 +92,7 @@
                      'One' => true
                  ])['Data'];
 
-            F::Log('Session created '.$Call['SID'], LOG_INFO);
+            F::Log('Session created '.$Call['SID'], LOG_INFO, 'Security');
         }
         else
         {
@@ -108,10 +104,8 @@
                     'Data' => $Call['Data']
                 ])['Data'];
 
-            F::Log('Session updated '.$Call['SID'], LOG_INFO);
+            F::Log('Session updated '.$Call['SID'], LOG_INFO, 'Security');
         }
-
-        $Call = F::Apply(null, 'Initialize', $Call);
 
         return $Call;
     });

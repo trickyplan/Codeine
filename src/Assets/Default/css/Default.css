@@ -19,63 +19,57 @@
 
 .console th
 {
-    text-align: left;
+    text-align: center;
 }
 
 .console td, .console tr
 {
     padding: 10px;
     margin: 2px;
-    border-bottom: thin solid;
+    border-bottom: 1px gray solid;
 }
 
-tr.Good
+tr.Good, td.Good
 {
     color: #468847;
     background-color: #dff0d8;
-    border-color: #d6e9c6;
 }
 
-tr.Info
+tr.Info, td.Info
 {
     color: #295c75;
     background-color: #d9edf7;
     border-color: #bce8f1;
 }
 
-tr.Debug
+tr.Debug, td.Debug
 {
     opacity: 0.8;
 }
 
-tr.Warning
+tr.Warning, td.Warning
 {
     background-color: #fcf8e3;
-    border: 1px solid #fbeed5;
 }
 
-tr.Error, tr.Bad, tr.Apocalypse, tr.Critical, tr.Emergency
+tr.Error, tr.Bad, tr.Apocalypse, tr.Critical, tr.Emergency,
+td.Error, td.Bad, td.Apocalypse, td.Critical, td.Emergency
 {
     color: darkred;
     background-color: #f2dede;
-    border-color: #eed3d7;
 }
 
-tr.Important
+tr.Important, td.Important
 {
     background-color: #333333;
     color: #ffffff;
-}
-
-tr.Important
-{
     font-size: 24px;
 }
 
-.console tr:hover
+.console tr:hover, .console tr:hover td
 {
     opacity: 1;
-    background-color: #333333;
+    background-color: #333333 !important;
     color: white;
 }
 

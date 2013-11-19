@@ -1,0 +1,22 @@
+{
+    "Profile Format": "HTML",
+    "Alerts":
+    {
+        "Red":
+        {
+            "ACalls": 250,
+            "RCalls": 20,
+            "RTime": 25,
+            "ATime": 150,
+            "TimePerCall": 20
+        },
+        "Yellow":
+        {
+            "ACalls": 200,
+            "RCalls": 10,
+            "RTime": 15,
+            "ATime": 50,
+            "TimePerCall": 10
+        }
+    }
+}

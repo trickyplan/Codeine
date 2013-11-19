@@ -18,7 +18,11 @@
 
                  $cTag = $Tag;
 
-                 while (preg_match_all('@<'.$cTag.' (.+)>(.*)</'.$cTag.'>@SsUu', $Call['Output'], $Call['Parsed']))
+                 while($Call['Parsed'] = F::Run('Text.Regex', 'All', $Call,
+                    [
+                        'Pattern' => '<'.$cTag.' (.+?)>(.*?)</'.$cTag.'>',
+                        'Value'   => $Call['Output']
+                    ]))
                  {
                      $Call = F::Apply('View.HTML.Parslets.'.$Parslet, 'Parse', $Call);
                      $Pass++;
@@ -37,8 +41,11 @@
 
                  $cTag = $Tag;
 
-                 while (preg_match_all('@<'.$cTag.'()>(.*)</'.$cTag.'>@SsUu',
-                     $Call['Output'], $Call['Parsed']))
+                 while($Call['Parsed'] = F::Run('Text.Regex', 'All', $Call,
+                    [
+                        'Pattern' => '<'.$cTag.'()>(.*?)</'.$cTag.'>',
+                        'Value'   => $Call['Output']
+                    ]))
                  {
                      $Call = F::Apply('View.HTML.Parslets.'.$Parslet, 'Parse', $Call);
                      $Pass++;

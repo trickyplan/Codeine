@@ -64,11 +64,7 @@
                         ]
                     ];
 
-                unset($Call['Decision'],$Call['Weight']);
-                $Call = F::Apply('Security.Access', 'Check', $Call);
-
-                if ($Call['Decision'])
-                    $GroupOptions[] = $Options;
+                $GroupOptions[] = $Options;
             }
 
             if (count($GroupOptions) > 0)
@@ -76,8 +72,6 @@
                 $Navigation[] = $Group;
                 $Navigation = array_merge($Navigation, $GroupOptions);
             }
-
-
         }
 
         if (isset($Call['Sidebar']) && is_array($Call['Sidebar']))
@@ -85,8 +79,6 @@
             $Tabs = [];
             foreach ($Call['Sidebar'] as &$Sidebar)
             {
-                unset($Call['Decision'],$Call['Weight']);
-
                 $Call['Run'] = [
                             'Service' => 'Control.Panel',
                             'Method'  => 'Do',
@@ -97,10 +89,11 @@
                             ]
                         ];
 
-                $Call = F::Apply('Security.Access', 'Check', $Call);
-
-                if ($Call['Decision'])
-                    $Tabs[] = ['ID' => $Sidebar, 'URL' => '/control/'.$Call['Bundle'].'/'.$Sidebar, 'Title' => $Call['Bundle'].'.Control:Options.'.$Sidebar];
+                $Tabs[] =
+                    [
+                        'ID' => $Sidebar,
+                        'URL' => '/control/'.$Call['Bundle'].'/'.$Sidebar,
+                        'Title' => $Call['Bundle'].'.Control:Options.'.$Sidebar];
             }
 
             $Call['Output']['Sidebar'][] =

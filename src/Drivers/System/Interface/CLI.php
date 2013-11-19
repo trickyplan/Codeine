@@ -17,10 +17,14 @@
             if (!isset($Call['Skip Run']))
                 $Call = F::Apply($Call['Service'], $Call['Method'], $Call);
 
-        $Call = F::Hook('afterInterfaceRun', $Call);
+        F::Run('IO','Write', $Call,
+            [
+                'Storage' => 'Output',
+                'Where' => $Call['URL'],
+                'Data' => $Call['Output']
+            ]);
 
-        if (isset($Call['Output']))
-            $Call = F::Live ($Call['Interface']['Output'], $Call, ['Data' => $Call['Output']]);
+        $Call = F::Hook('afterInterfaceRun', $Call);
 
         if (isset($Call['Failure']) && $Call['Failure'])
             $Call['Return Code'] = 1;

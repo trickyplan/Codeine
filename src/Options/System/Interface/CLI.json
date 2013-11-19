@@ -12,14 +12,6 @@
         "Service": "Locale",
         "Method": "Detect"
     },
-    "Interface":
-    {
-        "Output":
-        {
-            "Service": "IO.Print",
-            "Method": "Write"
-        }
-    },
     "Session":
     {
         "User":

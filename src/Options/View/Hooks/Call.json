@@ -1,4 +1,5 @@
 {
+    "Call Pattern": "<call>(.*?)</call>",
     "Verbosity":
     {
         "Calltag":

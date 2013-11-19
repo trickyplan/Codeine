@@ -3,11 +3,19 @@
     {
         "Developer":
         {
-            "Driver":"IO.Log.Echo"
+            "Driver": "IO.Print"
         },
         "Security":
         {
-            "Driver":"IO.Log.Echo"
+            "Driver": "IO.Print"
+        },
+        "Profiler":
+        {
+            "Driver": "IO.Print"
+        },
+        "DBA":
+        {
+            "Driver": "IO.Print"
         },
         "Layout":
         {

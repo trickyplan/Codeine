@@ -11,13 +11,20 @@
     {
         if (preg_match('/<place>CSS<\/place>/SsUu', $Call['Output']))
         {
-            if (preg_match_all('/<cssrun>(.*)<\/cssrun>/SsUu', $Call['Output'], $Parsed))
+            $Parsed = F::Run('Text.Regex', 'All',
+                [
+                    'Pattern' => $Call['CSS']['Inline Pattern'],
+                    'Value' => $Call['Output']
+                ]);
+
+            if ($Parsed)
             {
                 $CSSInline = implode(';', $Parsed[1]);
                 $Call['Output'] = str_replace($Parsed[0], '', $Call['Output']);
             }
             else
                 $CSSInline = '';
+
 
             $Parsed = F::Run('Text.Regex', 'All',
                 [

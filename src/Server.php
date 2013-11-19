@@ -25,4 +25,6 @@
         'Call' => $Opts
     ]);
 
+    F::Shutdown($Call);
+
     exit($Call['Return Code']);

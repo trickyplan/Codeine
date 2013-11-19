@@ -61,12 +61,14 @@
             foreach ($Call['Headers'] as $Key => $Value)
                 header ($Key . ' ' . $Value);
 
+        F::Run('IO','Write', $Call,
+            [
+                'Storage' => 'Output',
+                'Where' => $Call['URL'],
+                'Data' => $Call['Output']
+            ]);
+
         $Call = F::Hook('afterInterfaceRun', $Call);
-
-        if (isset($Call['Output']))
-            $Call = F::Live ($Call['Interface']['Output'], $Call, ['Data' => $Call['Output']]);
-
-        fastcgi_finish_request();
 
         return $Call;
     });

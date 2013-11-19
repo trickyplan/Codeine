@@ -39,5 +39,6 @@
         }
     }
 
+    F::Shutdown($Call);
 
-
+    fastcgi_finish_request();

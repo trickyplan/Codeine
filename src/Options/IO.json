@@ -5,6 +5,10 @@
     },
     "Storages":
     {
+        "Output":
+        {
+            "Driver": "IO.Print"
+        },
         "Primary":
         {
             "Driver": "IO.Storage.Memory"
@@ -75,6 +79,10 @@
             "Driver":"IO.Log.File",
             "Directory":"/var/log/codeine",
             "Scope": "developer"
+        },
+        "Profiler":
+        {
+            "Driver":"IO.Print"
         },
         "Security":
         {

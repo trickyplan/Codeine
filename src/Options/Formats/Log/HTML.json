@@ -1,5 +1,6 @@
 {
-    "Levels": {
+    "Levels":
+    {
         "1": "Apocalypse",
         "2": "Emergency",
         "3": "Critical",
@@ -11,5 +12,6 @@
         "9": "Good",
         "10": "Bad",
         "11": "Important"
-    }
+    },
+    "Asterisk Support": true
 }

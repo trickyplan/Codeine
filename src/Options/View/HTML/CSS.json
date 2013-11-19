@@ -2,7 +2,8 @@
     "CSS":
     {
         "Proto": "",
-        "Pattern": "<css>(.+?)<\/css>",
+        "Pattern": "<css>(.*?)<\/css>",
+        "Inline Pattern": "<cssrun>(.*?)<\/cssrun>",
         "Links": [],
         "Output": [],
         "Host": "",

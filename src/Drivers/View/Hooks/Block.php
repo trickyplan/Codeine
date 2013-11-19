@@ -17,9 +17,14 @@
 
     setFn('Call', function ($Call)
     {
-        if (preg_match_all('@<block>(.*)<call>(.*)<\/call>(.*)<\/block>@SsUu', $Call['Value'], $Pockets))
+        $Call['Parsed'] = F::Run('Text.Regex', 'All', $Call,
+        [
+            'Pattern' => $Call['Block Call Pattern']
+        ]);
+
+        if ($Call['Parsed'])
         {
-            foreach ($Pockets[2] as $IX => $Match)
+            foreach ($Call['Parsed'][2] as $IX => &$Match)
             {
                 if (($Matched = F::Live(F::Dot($Call, $Match))) !== null)
                 {
@@ -33,19 +38,21 @@
                             foreach($DotMatched as $ICV => $cMatch)
                                 $Output.= str_replace('<#/>',
                                     $ICV,
-                                    str_replace('<call>'.$Match.'</call>', $cMatch,$Pockets[1][$IX]).
+                                    str_replace('<call>'.$Match.'</call>', $cMatch,$Call['Parsed'][1][$IX]).
                                     ($cMatch)
-                                    .str_replace('<call>'.$Match.'</call>', $cMatch,$Pockets[3][$IX]));
+                                    .str_replace('<call>'.$Match.'</call>', $cMatch,$Call['Parsed'][3][$IX]));
                         }
                         else
-                            $Output = str_replace('<#/>', '', $Pockets[1][$IX].($DotMatched).$Pockets[3][$IX]);
+                            $Output = str_replace('<#/>', '', $Call['Parsed'][1][$IX].($DotMatched).$Call['Parsed'][3][$IX]);
                     }
 
-                    $Call['Value'] = str_replace($Pockets[0][$IX], $Output, $Call['Value']);
+                    $Match = $Output;
                 }
                 else
-                    $Call['Value'] = str_replace($Pockets[0][$IX], '', $Call['Value']);
+                    $Match = '';
             }
+
+            $Call['Value'] = str_replace($Call['Parsed'][0], $Call['Parsed'][2], $Call['Value']);
         }
 
         return $Call;
@@ -54,9 +61,14 @@
 
     setFn('Key', function ($Call)
     {
-        if (preg_match_all('@<block>(.*)<k>(.*)<\/k>(.*)<\/block>@SsUu', $Call['Value'], $Pockets))
+        $Call['Parsed'] = F::Run('Text.Regex', 'All', $Call,
+        [
+            'Pattern' => $Call['Block Key Pattern']
+        ]);
+
+        if ($Call['Parsed'])
         {
-            foreach ($Pockets[2] as $IX => $Match)
+            foreach ($Call['Parsed'][2] as $IX => &$Match)
             {
                 if (isset($Call['Data']) && ($Matched = F::Live(F::Dot($Call['Data'], $Match))) !== null)
                 {
@@ -71,19 +83,21 @@
                                 if (!is_array($cMatch))
                                     $Output.= str_replace('<#/>',
                                     $ICV,
-                                    str_replace('<k>'.$Match.'</k>', $cMatch,$Pockets[1][$IX]).
+                                    str_replace('<k>'.$Match.'</k>', $cMatch,$Call['Parsed'][1][$IX]).
                                     ($cMatch)
-                                    .str_replace('<k>'.$Match.'</k>', $cMatch,$Pockets[3][$IX]));
+                                    .str_replace('<k>'.$Match.'</k>', $cMatch,$Call['Parsed'][3][$IX]));
                         }
                         else
-                            $Output = str_replace('<#/>', '', $Pockets[1][$IX].($DotMatched).$Pockets[3][$IX]);
+                            $Output = str_replace('<#/>', '', $Call['Parsed'][1][$IX].($DotMatched).$Call['Parsed'][3][$IX]);
                     }
 
-                    $Call['Value'] = str_replace($Pockets[0][$IX], $Output, $Call['Value']);
+                    $Match = $Output;
                 }
                 else
-                    $Call['Value'] = str_replace($Pockets[0][$IX], '', $Call['Value']);
+                    $Match = '';
             }
+
+            $Call['Value'] = str_replace($Call['Parsed'][0], $Call['Parsed'][2], $Call['Value']);
         }
 
         return $Call;

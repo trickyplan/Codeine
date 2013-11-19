@@ -32,4 +32,6 @@
         ]
     ]);
 
+    F::Shutdown($Call);
+
     exit(0);

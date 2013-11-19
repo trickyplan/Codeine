@@ -20,9 +20,7 @@
     {
         $Call = F::Hook('beforeViewLoad', $Call);
 
-        $IDs = [];
-
-        $IDs[] = $Call['ID'];
+        $IDs = [$Call['ID']];
 
         if (isset($Call['Context']) && !empty($Call['Context']))
             $IDs[] =  $Call['ID'].'.'.$Call['Context'];
@@ -38,8 +36,7 @@
                   ]
             ])[0];
 
-
-        if (isset($Call['Data']) && !is_array($Call['Data']))
+        if (isset($Call['Data']) && ($Call['Data'] !== (array) $Call['Data']))
             $Call['Data'] = ['Value' => $Call['Data']];
 
         if ($Call['Value'] !== null)

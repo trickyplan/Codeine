@@ -2,7 +2,7 @@
     "JS":
     {
         "Proto": "",
-        "Pattern": "<js>(.+?)<\/js>",
+        "Pattern": "<js>(.*?)<\/js>",
         "Links": [],
         "Output": [],
         "Host": "",

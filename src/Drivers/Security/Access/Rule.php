@@ -15,7 +15,7 @@
             {
                 if (isset($Rule['Run']['Call']))
                     foreach ($Rule['Run'] as &$Node)
-                        $Node = F::Live($Node);
+                        $Node = F::Live($Node, $Call);
 
                 if (!isset($Rule['Weight']))
                     $Rule['Weight'] = $Call['Weight'];
@@ -53,10 +53,10 @@
 
         if (isset($Call['Rule']))
             F::Log('Rule '.($Call['Decision']? '*allows*': 'denies')
-                .' with weight '.$Call['Weight'].': '.$Call['Rule'], LOG_INFO);
+                .' with weight '.$Call['Weight'].': '.$Call['Rule'], LOG_INFO, 'Security');
         else
             F::Log('No one rule applied — *'.($Call['Decision']? 'allowed': 'denied').'*
-'.json_encode($Call['Run']['Service'], JSON_PRETTY_PRINT), LOG_INFO);
+'.json_encode($Call['Run']['Service'], JSON_PRETTY_PRINT), LOG_INFO, 'Security');
 
         return $Call;
      });

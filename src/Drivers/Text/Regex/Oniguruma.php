@@ -11,7 +11,7 @@
     {
         $Pockets = null;
 
-        mb_ereg($Call['Pattern'], $Call['Value'], $Pockets);
+        mb_ereg($Call['Pattern'], $Call['Value'], $Pockets, $Call['Regex Options']);
 
         return $Pockets;
     });
@@ -20,13 +20,14 @@
     {
         $Results = [];
 
-        mb_ereg_search_init($Call['Value']);
+        mb_ereg_search_init($Call['Value'], $Call['Pattern'], $Call['Regex Options']);
 
-        $Result = mb_ereg_search($Call['Pattern']);
+        $Result = mb_ereg_search();
 
-        if($Result)
+        if ($Result)
         {
             $Result = mb_ereg_search_getregs(); //get first result
+
             do
             {
                 foreach ($Result as $IX => $Value)
@@ -37,7 +38,7 @@
             while($Result);
         }
         else
-            return false;
+            $Results = false;
 
         return $Results;
     });

@@ -39,14 +39,6 @@
             }
         }
     },
-    "Interface":
-    {
-        "Output":
-        {
-            "Service": "IO.Print",
-            "Method": "Write"
-        }
-    },
     "Headers":
     {
         "HTTP/1.0": "200 OK",

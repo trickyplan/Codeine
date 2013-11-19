@@ -11,8 +11,6 @@
     {
         if (preg_match_all('@<treekey(.*)>(.*)</treekey>@SsUu', $Call['Value'], $Call['Parsed']))
         {
-            $Call['Parsed'][1] = array_unique($Call['Parsed'][1]);
-
             foreach ($Call['Parsed'][2] as $IX => $Match)
             {
                 $Root = simplexml_load_string('<forkey'.$Call['Parsed'][1][$IX].'></forkey>');

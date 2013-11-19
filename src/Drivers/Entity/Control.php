@@ -45,6 +45,8 @@
             'ID' => 'Update'
         ];
 
+        $Call = F::Apply('Entity.Update', 'Before', $Call, ['Entity' => $Call['Bundle'], 'Scope' => 'Control']);
+
         return F::Apply('Entity.Update', 'Do', $Call, ['Entity' => $Call['Bundle'], 'Scope' => 'Control']);
     });
 
@@ -66,7 +68,7 @@
 
     setFn('Menu', function ($Call)
     {
-        $Count = F::Run('Entity', 'Count', $Call, ['Entity' => $Call['Bundle'], 'Scope' => 'Control', 'Where' => []]);
+        $Count = F::Run('Entity', 'Count', $Call, ['Entity' => $Call['Bundle'], 'Scope' => 'Control']);
         return ['Count' => $Count];
     });
 

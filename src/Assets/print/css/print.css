@@ -11,10 +11,10 @@
     text-decoration: underline;
   }
   a[href]:after {
-    content: " (" attr(href) ")";
+    content: "";
   }
   abbr[title]:after {
-    content: " (" attr(title) ")";
+    content: "";
   }
   .ir a:after,
   a[href^="javascript:"]:after,
@@ -71,13 +71,5 @@
     nav
     {
         display: none;
-    }
-
-    /* links */
-
-    #page-content a:link:after, #content a:visited:after
-    {
-       content: " (" attr(href) ") ";
-       font-size: 90%;
     }
 }

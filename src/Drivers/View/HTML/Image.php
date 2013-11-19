@@ -17,6 +17,7 @@
 
         if ($Parsed)
         {
+            $Parsed[0] = array_unique($Parsed[0]);
             // Image Output
             // Если изображения на отдельном сервере
 
@@ -46,7 +47,7 @@
             // Перед выводом картинок
             $Call = F::Hook('beforeImageOutput', $Call);
 
-                foreach ($Call['Images'] as $IX => $Call['Current Image'])
+                foreach ($Call['Images'] as $Call['Current Image'])
                 {
                     if (isset($Call['Current Image']['Source']['Where']))
                         $Call['Current Image']['Source']['Where'] =
@@ -142,9 +143,9 @@
                             .$Call['Image']['Host']
                             .$Call['Image']['Pathname']
                             .$ImageCached.'"
-                            class="'.$Call['Current Image']['Class'].'"
-                            width="'.$Call['Current Image']['Width'].'"
-                            height="'.(isset($Call['Current Image']['Height'])? $Call['Current Image']['Height']: "").'" />';
+                            class="'.$Call['Current Image']['Class'].'" '
+                            .(isset($Call['Current Image']['Height'])? ' height="'.$Call['Current Image']['Height'].'"': ' ')
+                            .(isset($Call['Current Image']['Width'])? ' width="'.$Call['Current Image']['Width'].'"': ' ').'/>';
                 }
 
             $Call = F::Hook('afterImageOutput', $Call);

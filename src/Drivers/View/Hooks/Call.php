@@ -9,9 +9,14 @@
 
     setFn('Parse', function ($Call)
     {
-        if (preg_match_all('@<call>(.*)</call>@SsUu', $Call['Value'], $Pockets))
+        $Call['Parsed'] = F::Run('Text.Regex', 'All', $Call,
+        [
+            'Pattern' => $Call['Call Pattern']
+        ]);
+
+        if ($Call['Parsed'])
         {
-            foreach ($Pockets[1] as $IX => $Match)
+            foreach ($Call['Parsed'][1] as $IX => $Match)
             {
                 if (($Matched = F::Dot($Call, $Match)) !== null)
                 {
@@ -23,7 +28,7 @@
                     if (($Matched === false) || ($Matched === 0))
                         $Matched = '0';
 
-                    $Call['Value'] = str_replace($Pockets[0][$IX], F::Live($Matched), $Call['Value']);
+                    $Call['Parsed'][1][$IX] = F::Live($Matched);
                 }
                 else
                 {
@@ -31,13 +36,15 @@
                         'Call to *'.$Match.'* cannot resolved at '.$Call['Scope'].':'.$Call['ID'],
                         $Call['Verbosity']['Calltag']['Unresolved']);
 
-                    $Call['Value'] = str_replace($Pockets[0][$IX], '', $Call['Value']);
+                    $Call['Parsed'][1][$IX] = '';
                 }
             }
+
+            $Call['Value'] = str_replace($Call['Parsed'][0], $Call['Parsed'][1], $Call['Value']);
         }
 
         if (preg_match_all('@<call/>@SsUu', $Call['Value'], $Pockets))
-            $Call['Value'] = str_replace($Pockets[0],
+            $Call['Value'] = str_replace($Call['Parsed'][0],
                 '<pre>'
                 .htmlentities(
                     json_encode($Call,

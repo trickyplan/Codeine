@@ -7,7 +7,7 @@
     "Widget Set": "bootstrap3",
     "Extension": ".html",
     "Layout": "<place>Content</place>",
-    "Place Pattern": "<place>(.+?)<\/place>",
+    "Place Pattern": "<place>(.*?)<\/place>",
     "Hooks":
     {
         "beforeHTMLPipeline":

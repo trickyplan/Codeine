@@ -9,11 +9,14 @@
 
     setFn('Parse', function ($Call)
     {
-        if (preg_match_all('@<k>(.*)</k>@SsUu', $Call['Value'], $Call['Parsed']) && isset($Call['Data']))
-        {
-            $Call['Parsed'][1] = array_unique($Call['Parsed'][1]);
+        $Call['Parsed'] = F::Run('Text.Regex', 'All', $Call,
+        [
+            'Pattern' => $Call['Key Pattern']
+        ]);
 
-            foreach ($Call['Parsed'][1] as $IX => $Match)
+        if ($Call['Parsed'] && isset($Call['Data']))
+        {
+            foreach ($Call['Parsed'][1] as $IX => &$Match)
             {
                 if (mb_strpos($Match, ',') !== false)
                     $Match = explode(',', $Match);
@@ -38,11 +41,13 @@
                     }
                 }
 
-                if (!is_array($Matched))
-                    $Call['Value'] = str_replace($Call['Parsed'][0][$IX], $Matched, $Call['Value']);
+                if (is_array($Matched))
+                    $Match = '{}';
                 else
-                    $Call['Value'] = str_replace($Call['Parsed'][0][$IX], '{}', $Call['Value']);
+                    $Match = $Matched;
             }
+
+            $Call['Value'] = str_replace($Call['Parsed'][0], $Call['Parsed'][1], $Call['Value']);
         }
 
         return $Call;

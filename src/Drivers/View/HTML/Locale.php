@@ -9,11 +9,18 @@
 
     setFn('Process', function ($Call)
     {
-        if (preg_match_all('@<l>(.*)<\/l>@SsUu', $Call['Output'], $Pockets))
+        $Call['Parsed'] = F::Run('Text.Regex', 'All', $Call,
+        [
+            'Pattern' => $Call['Locale Pattern'],
+            'Value'   => $Call['Output']
+        ]);
+
+
+        if ($Call['Parsed'])
         {
             $Locales = [];
 
-            foreach ($Pockets[1] as $IX => $Match)
+            foreach ($Call['Parsed'][1] as &$Match)
             {
                 if (strpos($Match, ':') !== false)
                     list($Locale, $Token) = explode(':', $Match);
@@ -53,11 +60,13 @@
                 if (($Replace = F::Dot($Locales[$Locale], $Token)) !== null)
                 {
                     if (is_scalar($Replace))
-                        $Call['Output'] = str_replace($Pockets[0][$IX], $Replace, $Call['Output']);
+                        $Match = $Replace;
                 }
                 else
-                    $Call['Output'] = str_replace($Pockets[0][$IX], '<span class="nl">' . $Match . '</span>', $Call['Output']);
+                    $Match = '<span class="nl">' . $Match . '</span>';
             }
+
+            $Call['Output'] = str_replace($Call['Parsed'][0], $Call['Parsed'][1], $Call['Output']);
         }
 
         return $Call;

@@ -29,7 +29,7 @@
             }
 
             if (($Call['Link'] = F::Get($StorageID)) === null)
-                $Call['Link'] = F::Set($StorageID, F::Run($Call['Driver'], 'Open', $Call));
+                $Call['Link'] = F::Set($StorageID, F::Apply($Call['Driver'], 'Open', $Call));
 
             return $Call;
         }

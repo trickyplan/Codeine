@@ -3,6 +3,6 @@
     {
         "Proto": "",
         "Host": "",
-        "Caching": false
+        "Caching": true
     }
 }
