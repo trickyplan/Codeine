@@ -22,7 +22,7 @@
         $Output .= '</table>';
 
         if ($Call['Asterisk Support'])
-            $Output = preg_replace('/\*(.+)\*/SsUu', '<strong>$1</strong>', $Output);
+            $Output = preg_replace('/\*(.*)\*/SsUu', '<strong>$1</strong>', $Output);
 
         return $Output;
     });

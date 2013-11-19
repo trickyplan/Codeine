@@ -47,7 +47,7 @@
             }
             else
             {
-                F::Log('Not found '.$Call['Where']['ID'][0], $Call['Verbosity']['Not found']);
+                F::Log('Not found '.$Call['Where']['ID'][0], $Call['Verbosity']['Not found'], 'Administrator');
                 return null;
             }
         }
@@ -100,9 +100,9 @@
         if (!is_dir($DirName))
         {
             if (mkdir($DirName, 0777, true))
-                F::Log('Directory '.$DirName.' created', LOG_INFO);
+                F::Log('Directory '.$DirName.' created', LOG_INFO, 'Administrator');
             else
-                F::Log('Directory '.$DirName.' cannot created', LOG_ERR);
+                F::Log('Directory '.$DirName.' cannot created', LOG_ERR, 'Administrator');
         }
 
         if (isset($Call['Data']) && ($Call['Data'] != 'null') && ($Call['Data'] != null))
@@ -110,7 +110,7 @@
                 return $Call['Data'];
             else
             {
-                F::Log('Write failed', LOG_ERR);
+                F::Log('Write to *'.$Call['Storage'].'* failed', LOG_ERR, 'Administrator');
                 return null;
             }
         else

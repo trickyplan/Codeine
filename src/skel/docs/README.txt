@@ -14,7 +14,7 @@ INSTALLATION
 
 Please see INSTALL.txt.
 
-QUESTIONS AND FEEDBACK
+QUESTIONS AND FEESACK
 ----------------------
 
 Send your questions by mail:

@@ -90,7 +90,7 @@
             "Directory":"/var/log/codeine",
             "Scope": "security"
         },
-        "DBA":
+        "Administrator":
         {
             "Driver":"IO.Log.File",
             "Directory":"/var/log/codeine",

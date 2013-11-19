@@ -11,18 +11,18 @@
     {
         $Link = new MongoClient('mongodb://'.$Call['Server']);
 
-        F::Log('Connected to *'.$Call['Server'].'*');
+        F::Log('Connected to *'.$Call['Server'].'*', LOG_INFO, 'Administrator');
 
         $Link = $Link->selectDB($Call['Database']);
 
-        F::Log('Database *'.$Call['Database'].'* selected');
+        F::Log('Database *'.$Call['Database'].'* selected', LOG_INFO, 'Administrator');
 
         if (isset($Call['Auth']))
         {
             if ($Link->authenticate($Call['Auth']['Username'], $Call['Auth']['Password']))
-                F::Log('Authenticated as '.$Call['Auth']['Username']);
+                F::Log('Authenticated as '.$Call['Auth']['Username'], LOG_INFO, 'Administrator');
             else
-                F::Log('Authentication as '.$Call['Auth']['Username'].' failed');
+                F::Log('Authentication as '.$Call['Auth']['Username'].' failed', LOG_ERR, 'Administrator');
         }
 
         return $Link;
@@ -57,12 +57,12 @@
                 }
 
             F::Log('db.*'.$Call['Scope'].'*.find('
-                .json_encode($Where, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE).')', LOG_INFO);
+                .json_encode($Where, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE).')', LOG_INFO, 'Administrator');
             $Cursor = $Call['Link']->$Call['Scope']->find($Where,['_id' => 0]);
         }
         else
         {
-            F::Log('db.*'.$Call['Scope'].'*.find()', LOG_INFO);
+            F::Log('db.*'.$Call['Scope'].'*.find()', LOG_INFO, 'Administrator');
             $Cursor = $Call['Link']->$Call['Scope']->find([],['_id' => 0]);
         }
 
@@ -110,7 +110,7 @@
                 {
                     F::Log('db.*'.$Call['Scope'].'*.update('
                         .json_encode($Call['Where']).','
-                        .json_encode(['$set' => $Call['Data']], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE).')',LOG_INFO);
+                        .json_encode(['$set' => $Call['Data']], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE).')',LOG_INFO, 'Administrator');
 
                     $Call['Link']->$Call['Scope']->update($Call['Where'], ['$set' => $Call['Data']], ['upsert' => true, 'multiple' => true]);
 
@@ -118,7 +118,7 @@
                 else
                 {
                     F::Log('db.*'.$Call['Scope'].'*remove('
-                    .json_encode($Call['Where'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE).')', LOG_INFO);
+                    .json_encode($Call['Where'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE).')', LOG_INFO, 'Administrator');
 
                     $Call['Link']->$Call['Scope']->remove ($Call['Where'], ['multiple' => true]);
                 }
@@ -128,7 +128,7 @@
                 if (isset($Call['Data']))
                 {
                     F::Log('db.*'.$Call['Scope'].'*.insert('
-                    .json_encode($Call['Data'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE).')', LOG_INFO);
+                    .json_encode($Call['Data'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE).')', LOG_INFO, 'Administrator');
 
                     $Call['Link']->$Call['Scope']->insert ($Call['Data']);
                     unset($Call['Data']['_id']); // Mongo, are you kiddin'me?
@@ -138,13 +138,13 @@
                     if (isset($Call['Where']))
                     {
                         F::Log('db.*'.$Call['Scope'].'*remove('
-                        .json_encode($Call['Where'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE).')', LOG_INFO);
+                        .json_encode($Call['Where'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE).')', LOG_INFO, 'Administrator');
 
                         $Call['Link']->$Call['Scope']->remove ($Call['Where'], ['multiple' => true]);
                     }
                     else
                     {
-                        F::Log('db.*'.$Call['Scope'].'*.remove()', LOG_INFO);
+                        F::Log('db.*'.$Call['Scope'].'*.remove()', LOG_INFO, 'Administrator');
                         $Call['Link']->$Call['Scope']->remove ();
                     }
                 }
@@ -188,12 +188,12 @@
                 else
                     $Where[$Key] = $Value;
 
-            F::Log('db.*'.$Call['Scope'].'*.find('.json_encode($Where, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE).').count()', LOG_INFO);
+            F::Log('db.*'.$Call['Scope'].'*.find('.json_encode($Where, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE).').count()', LOG_INFO, 'Administrator');
             $Cursor = $Call['Link']->$Call['Scope']->find($Where);
         }
         else
         {
-            F::Log('db.*'.$Call['Scope'].'*.find().count()', LOG_INFO);
+            F::Log('db.*'.$Call['Scope'].'*.find().count()', LOG_INFO, 'Administrator');
             $Cursor = $Call['Link']->$Call['Scope']->find();
         }
 

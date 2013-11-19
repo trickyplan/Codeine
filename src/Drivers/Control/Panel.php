@@ -16,7 +16,7 @@
             $Call['Option'] = 'Do';
 
         F::Log($Call['Bundle'].' '.$Call['Option'].' started', LOG_IMPORTANT);
-        $Call = F::Apply($Call['Bundle'].'.Control', $Call['Option'], $Call);
+        $Call = F::Run($Call['Bundle'].'.Control', $Call['Option'], $Call);
 
         $Call['Layouts'][] = [
             'Scope' => $Call['Bundle'],
@@ -31,6 +31,7 @@
         $Navigation = [];
 
         F::Log('Control Panel Navigation', LOG_IMPORTANT);
+
         foreach($Call['Bundles'] as $Group => $Bundles)
         {
             if (in_array($Call['Bundle'], $Bundles))
@@ -51,18 +52,8 @@
                     $Options['Icon'] = $Call['Icons'][$Bundle];
 
                 if (($BundleOptions =
-                        F::Run($Bundle.'.Control', 'Menu', $Call, ['Bundle' => $Bundle])) !== null)
+                        F::Run($Bundle.'.Control', 'Menu', ['Bundle' => $Bundle])) !== null)
                     $Options = F::Merge($Options, $BundleOptions);
-
-                $Call['Run'] = [
-                        'Service' => 'Control.Panel',
-                        'Method'  => 'Do',
-                        'Call' =>
-                        [
-                            'Bundle' => $Bundle,
-                            'Option' => 'Do'
-                        ]
-                    ];
 
                 $GroupOptions[] = $Options;
             }
