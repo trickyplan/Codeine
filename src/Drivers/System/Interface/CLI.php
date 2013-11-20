@@ -20,7 +20,7 @@
         F::Run('IO','Write', $Call,
             [
                 'Storage' => 'Output',
-                'Where' => $Call['URL'],
+                'Where' => $Call['Service'].':'.$Call['Method'],
                 'Data' => $Call['Output']
             ]);
 
