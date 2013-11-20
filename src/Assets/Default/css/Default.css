@@ -94,7 +94,7 @@ tr.Important, td.Important
 {
     top: 40%;
     left: 0;
-    position: absolute;
+    position: absolute !important;
     z-index: 99;
 }
 
@@ -119,4 +119,15 @@ tr.Important, td.Important
 .no-border, .no-border:hover
 {
     text-decoration: none;
+}
+
+.muted
+{
+    opacity: 0.5;
+}
+
+.muted:hover
+{
+    opacity: 1;
+    transition: opacity 0.5s linear;
 }

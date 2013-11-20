@@ -56,14 +56,11 @@
                 "Entity": "User",
                 "Where":
                 {
-                    "ID":
+                    "Service": "Session",
+                    "Method": "Read",
+                    "Call":
                     {
-                        "Service": "Session",
-                        "Method": "Read",
-                        "Call":
-                        {
-                            "Key": "User.ID"
-                        }
+                        "Key": "User.ID"
                     }
                 }
             }

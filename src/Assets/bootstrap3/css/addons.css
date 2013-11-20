@@ -87,7 +87,7 @@ a.no-border, .no-border a, a:hover.no-border, .no-border a:hover
 
 .text-lg
 {
-    font-size: 20px;
+    font-size: 2em !important;
 }
 
 .text-sm
