@@ -130,24 +130,23 @@
             "Weight": 100,
             "Run":
             {
-                "Service": "Entity.Update",
-                "Method": "Do",
+                "Service":"Entity.Update",
                 "Call":
                 {
-                    "Entity": "User",
-                    "Where":
+                    "Entity": "User"
+                },
+                "Data":
+                [{
+                    "ID":
                     {
-                        "ID":
+                        "Service": "Session",
+                        "Method": "Read",
+                        "Call":
                         {
-                            "Service": "Session",
-                            "Method": "Read",
-                            "Call":
-                            {
-                                "Key": "User.ID"
-                            }
+                            "Key": "User.ID"
                         }
                     }
-                }
+                }]
             }
         },
         "Удаление профиля доступно зарегистрированным":

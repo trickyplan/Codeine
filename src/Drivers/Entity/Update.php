@@ -9,18 +9,37 @@
 
     setFn('Before', function ($Call)
     {
-        if (!isset($Call['Data']))
+        if (isset($Call['Data']))
+        {
             $Call['Data'] = F::Run('Entity', 'Read', $Call, ['ReRead' => true]);
 
-        if (isset($Call['Data']) && isset($Call['Request']['Data']))
-        {
-            if (isset($Call['Data'][0]))
-                $Call['Request']['Data'] = F::Merge($Call['Request']['Data'], $Call['Data']);
-            else
+            if (isset($Call['Request']['Data']))
             {
-                $SZ = count($Call['Request']['Data']);
-                for ($IC = 0; $IC < $SZ; $IC++)
-                    $Call['Request']['Data'][$IC] = $Call['Data'];
+                if (isset($Call['Data'][0]))
+                    $Call['Request']['Data'] = F::Merge($Call['Request']['Data'], $Call['Data']);
+                else
+                {
+                    $SZ = count($Call['Request']['Data']);
+                    for ($IC = 0; $IC < $SZ; $IC++)
+                        $Call['Request']['Data'][$IC] = $Call['Data'];
+                }
+            }
+        }
+        else
+        {
+            $Call['Data'] = F::Run('Entity', 'Read', $Call, ['ReRead' => true]);
+
+            if (isset($Call['Request']['Data']))
+            {
+                if (isset($Call['Data'][0]))
+                    $Call['Request']['Data'] = F::Merge($Call['Data'], $Call['Request']['Data']);
+                else
+                {
+                    $SZ = count($Call['Request']['Data']);
+
+                    for ($IC = 0; $IC < $SZ; $IC++)
+                        $Call['Data'][$IC] = $Call['Request']['Data'];
+                }
             }
         }
 
@@ -74,6 +93,9 @@
     setFn('POST', function ($Call)
     {
         $Call = F::Hook('beforeUpdatePost', $Call);
+
+
+        $Call['Data'] = $Call['Request']['Data'];
 
         // Отправляем в Entity.Update
 

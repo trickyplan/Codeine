@@ -182,11 +182,12 @@
         {
             "Type": "Literal.String",
             "Default": "Не указан БИК",
+            "User Override": true,
             "Widgets":
             {
-                "Update":
+                "Write":
                 {
-                    "Type": "Form.Static"
+                    "Type": "Form.Textfield"
                 }
             },
             "Hooks":

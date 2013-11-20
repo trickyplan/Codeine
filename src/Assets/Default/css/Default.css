@@ -115,3 +115,8 @@ tr.Important, td.Important
     background-color: red;
     color: white;
 }
+
+.no-border, .no-border:hover
+{
+    text-decoration: none;
+}

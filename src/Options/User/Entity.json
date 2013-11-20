@@ -23,7 +23,7 @@
             {
                 "Write":
                 {
-                    "Type": "Form.Radiogroup"
+                    "Type": "Form.Select"
                 }
             }
         },
