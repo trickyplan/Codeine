@@ -9,15 +9,16 @@
 
     setFn ('Detect', function ($Call)
     {
-        foreach ($Call['Locales']['Hosts'] as $Host => $Locale)
-            if (preg_match('/'.$Host.'/', $Call['RHost']))
-            {
-                $Call['Locale'] = $Locale;
-                F::Log('Hosts suggest locale *'
-                    .$Call['Locale']
-                    .'* by regex *'.$Host.'*', LOG_INFO);
-                break;
-            }
+        if (isset($Call['RHost']))
+            foreach ($Call['Locales']['Hosts'] as $Host => $Locale)
+                if (preg_match('/'.$Host.'/', $Call['RHost']))
+                {
+                    $Call['Locale'] = $Locale;
+                    F::Log('Hosts suggest locale *'
+                        .$Call['Locale']
+                        .'* by regex *'.$Host.'*', LOG_INFO);
+                    break;
+                }
 
 
         return $Call;

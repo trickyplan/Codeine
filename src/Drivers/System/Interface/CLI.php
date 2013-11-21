@@ -11,11 +11,15 @@
     {
         F::Log('CLI Interface Started', LOG_IMPORTANT);
 
+        $Call['Locale'] = F::Live($Call['Locale'], $Call);
+
         $Call = F::Hook('beforeInterfaceRun', $Call);
 
         $Call['Return Code'];
             if (!isset($Call['Skip Run']))
                 $Call = F::Apply($Call['Service'], $Call['Method'], $Call);
+
+        $Call = F::Hook('afterInterfaceRun', $Call);
 
         F::Run('IO','Write', $Call,
             [
@@ -23,8 +27,6 @@
                 'Where' => $Call['Service'].':'.$Call['Method'],
                 'Data' => $Call['Output']
             ]);
-
-        $Call = F::Hook('afterInterfaceRun', $Call);
 
         if (isset($Call['Failure']) && $Call['Failure'])
             $Call['Return Code'] = 1;

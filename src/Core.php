@@ -152,7 +152,7 @@
             }
             else
             {
-                F::Log('*'.$Service.'* not found', LOG_ERR);
+                F::Log('*'.$Service.'* not found', LOG_WARNING);
                 return false;
             }
         }
