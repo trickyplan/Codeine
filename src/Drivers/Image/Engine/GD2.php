@@ -109,21 +109,30 @@
 
     setFn('Save', function ($Call)
     {
-        if (!is_dir(dirname($Call['ID'])))
+        if (isset($Call['ID']) && !is_dir(dirname($Call['ID'])))
             mkdir(dirname($Call['ID']), 0777, true);
 
         switch ($Call['Image']['Type'])
         {
             case 'GIF':
-                imagegif($Call['Image']['Object'], $Call['ID']);
+                if (isset($Call['ID']))
+                    imagegif($Call['Image']['Object'], $Call['ID']);
+                else
+                    imagegif($Call['Image']['Object']);
             break;
 
         	case 'JPEG':
-                imagejpeg($Call['Image']['Object'], $Call['ID']); // $Call['JPEG']['Quality']
+                if (isset($Call['ID']))
+                    imagejpeg($Call['Image']['Object'], $Call['ID']);
+                else
+                    imagejpeg($Call['Image']['Object']);
             break;
 
         	case 'PNG':
-                imagepng($Call['Image']['Object'], $Call['ID']); // $Call['JPEG']['Quality']
+                if (isset($Call['ID']))
+                    imagepng($Call['Image']['Object'], $Call['ID']);
+                else
+                    imagepng($Call['Image']['Object']);
             break;
 
             case 'SWF':
@@ -171,7 +180,10 @@
             break;
 
         	case 'WBMP':
-                imagewbmp($Call['Image']['Object'], $Call['ID']);
+                if (isset($Call['ID']))
+                    imagewbmp($Call['Image']['Object'], $Call['ID']);
+                else
+                    imagewbmp($Call['Image']['Object']);
             break;
 
         	case 'XBM':

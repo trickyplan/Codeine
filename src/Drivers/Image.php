@@ -37,3 +37,8 @@
     {
         return F::Run('Image.Engine.'.$Call['Engine'], null, $Call);
     });
+
+    setFn('Get', function ($Call)
+    {
+        return F::Run('Image.Engine.'.$Call['Engine'], null, $Call);
+    });
