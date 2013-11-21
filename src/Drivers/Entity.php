@@ -48,6 +48,7 @@
         {
             $Call['Data'] = [$Call['Data']];
             unset($Call['One']);
+            $One = true;
         }
 
         $Call = F::Hook('beforeOperation', $Call);
@@ -80,6 +81,9 @@
             }
 
         $Call = F::Hook('afterOperation', $Call);
+
+        if (isset($One) and is_array($Call['Data']))
+            $Call['Data'] = array_shift($Call['Data']);
 
         return $Call;
     });
@@ -136,6 +140,7 @@
         {
             $Call['Data'] = [$Call['Data']];
             unset($Call['One']);
+            $One = true;
         }
 
         $Call = F::Hook('beforeOperation', $Call);
@@ -178,6 +183,9 @@
         $Call = F::Hook('afterOperation', $Call);
 
         F::Log('*'.count($Call['Data']).'* '.$Call['Entity'].' updated', LOG_INFO);
+
+        if (isset($One) and is_array($Call['Data']))
+            $Call['Data'] = array_shift($Call['Data']);
 
         return $Call;
     });

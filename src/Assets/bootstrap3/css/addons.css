@@ -42,7 +42,7 @@
 .label-tag
 {
     background-color: #f7f7f7;
-    color: #666666;
+    color: #666666 !important;
 }
 
 .label-lg
@@ -65,14 +65,14 @@
 
 .progress-md
 {
-    height: 32px;
+    height: 2.4em !important;
 }
 
 .progress-md .progress-bar
 {
 
-    font-size: 18px !important;
-    padding: 4px 10px;
+    font-size: 1.2em !important;
+    padding: 0.5em 1.2em;
 }
 
 a.no-border, .no-border a, a:hover.no-border, .no-border a:hover
@@ -92,7 +92,7 @@ a.no-border, .no-border a, a:hover.no-border, .no-border a:hover
 
 .text-sm
 {
-    font-size: 10px;
+    font-size: 0.8em !important;
 }
 
 .navbar-danger

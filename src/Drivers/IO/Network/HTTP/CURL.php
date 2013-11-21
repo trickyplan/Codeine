@@ -56,9 +56,9 @@
                 $Return[$ID] = curl_multi_getcontent($Link);
 
                 if (curl_errno($Link))
-                    F::Log('CURL error: '.curl_error($Link), LOG_ERR);
+                    F::Log('CURL error: '.curl_error($Link).'*'.$ID.'*', LOG_ERR);
                 else
-                    F::Log('CURL fetched '.$ID, LOG_INFO);
+                    F::Log('CURL fetched *'.$ID.'*', LOG_INFO);
 
                 curl_multi_remove_handle($Call['Link'], $Link);
             }
@@ -129,9 +129,12 @@
         $Result =  curl_exec($Call['Link']);
 
         if (curl_errno($Call['Link']))
-            F::Log('CURL error: '.curl_error($Call['Link']), LOG_ERR);
+        {
+            d(__FILE__, __LINE__, $Call);
+            F::Log('CURL error: '.curl_error($Call['Link']).'*'.$Call['Where']['ID'].'*', LOG_ERR);
+        }
         else
-            F::Log('CURL fetched '.$Call['Where']['ID'], LOG_INFO);
+            F::Log('CURL fetched *'.$Call['Where']['ID'].'*', LOG_INFO);
 
         return $Result;
     });

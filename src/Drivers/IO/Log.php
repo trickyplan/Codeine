@@ -22,7 +22,7 @@
                     [
                         'Storage' => $Call['Channel'],
                         'ID' => $Call['URL'],
-                        'Data' => F::Run('Formats.Log.'.$Call['Log Format'], 'Do', $Call)
+                        'Data' => F::Run($Call['Renderer']['Service'].'.Log', 'Do', $Call)
                     ]);
 
                 F::Run('IO', 'Close', ['Storage' => $Call['Channel']]);
