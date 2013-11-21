@@ -30,6 +30,8 @@
 
         foreach ($Call['Value'] as &$Value)
             $Value = array_search($Value, $Call['Node']['Options']);
+
+        return $Call['Value'];
     });
 
     setFn('Populate', function ($Call)

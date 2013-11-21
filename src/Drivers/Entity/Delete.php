@@ -7,12 +7,18 @@
      * @version 7.4
      */
 
+    setFn('Before', function ($Call)
+    {
+        $Call['Where'] = F::Live($Call['Where']);
+
+        $Call['Data'] = F::Run('Entity', 'Read', $Call, ['ReRead' => true]);
+
+        return $Call;
+    });
+
     setFn('Do', function ($Call)
     {
         $Call = F::Hook('beforeDeleteDo', $Call);
-
-        if (isset($Call['Where']))
-            $Call['Where'] = F::Live($Call['Where']); // FIXME
 
             $Call = F::Apply(null, $_SERVER['REQUEST_METHOD'], $Call);
 
@@ -25,7 +31,9 @@
     {
         $Call = F::Hook('beforeDeleteGet', $Call);
 
-            $Call = F::Apply('Entity.List', 'Do', $Call);
+            $Call = F::Apply('Entity.List', 'Do', $Call, ['Context' => 'app']);
+
+        $Call['Context'] = '';
 
         $Call = F::Hook('afterDeleteGet', $Call);
 

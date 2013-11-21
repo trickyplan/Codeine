@@ -9,7 +9,7 @@
 
      setFn('Make', function ($Call)
      {
-         if (($Call['Value'] == $Call['TrueValue']))
+         if (($Call['Value'] == $Call['TrueValue']) && !isset($Call['Checked']))
             $Call['Checked'] = true;
 
          if (isset($Call['Localized']) && $Call['Localized'])

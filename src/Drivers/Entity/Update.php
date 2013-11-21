@@ -97,7 +97,8 @@
         $Call = F::Hook('beforeUpdatePost', $Call);
 
 
-        $Call['Data'] = $Call['Request']['Data'];
+        if (isset($Call['Request']['Data']))
+            $Call['Data'] = $Call['Request']['Data'];
 
         // Отправляем в Entity.Update
 
