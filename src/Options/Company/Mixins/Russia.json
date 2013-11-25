@@ -47,7 +47,7 @@
                 "Write":
                 {
                     "Type": "Form.Textfield",
-                    "Pattern": "[0-9]{,10}"
+                    "Pattern": "[0-9]{10}"
                 }
             }
         },
@@ -60,7 +60,7 @@
                 "Write":
                 {
                     "Type": "Form.Textfield",
-                    "Pattern": "[0-9]{,13}"
+                    "Pattern": "[0-9]{13}"
                 }
             }
         },
@@ -73,7 +73,7 @@
                 "Write":
                 {
                     "Type": "Form.Textfield",
-                    "Pattern": "[0-9]{,9}"
+                    "Pattern": "[0-9]{9}"
                 }
             }
         },
@@ -207,7 +207,7 @@
                 "Write":
                 {
                     "Type": "Form.Textfield",
-                    "Pattern": "[0-9]{,9}"
+                    "Pattern": "[0-9]{9}"
                 }
             }
         },
@@ -220,7 +220,7 @@
                 "Write":
                 {
                     "Type": "Form.Textfield",
-                    "Pattern": "[0-9]{,20}"
+                    "Pattern": "[0-9]{20}"
                 }
             }
         },
@@ -233,7 +233,7 @@
                 "Write":
                 {
                     "Type": "Form.Textfield",
-                    "Pattern": "[0-9]{,20}"
+                    "Pattern": "[0-9]{20}"
                 }
             }
         },
