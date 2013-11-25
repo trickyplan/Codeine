@@ -66,13 +66,7 @@
                     F::Log('User Locale selected: '.$Call['Session']['User']['Locale'], LOG_INFO);
                 }
             }
-
-
-
         }
-
-        if (!isset($Call['Session']))
-            $Call['Session'] = [];
 
         F::Log($Call['Session'], LOG_DEBUG);
 

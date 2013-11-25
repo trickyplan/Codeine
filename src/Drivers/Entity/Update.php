@@ -45,7 +45,6 @@
                     'ID' => isset($Call['Custom Layouts']['Update'])? $Call['Custom Layouts']['Update']: 'Update',
                     'Context' => $Call['Context']
                 ];
-
             foreach ($Call['Data'] as $IX => $cData)
                 $Call = F::Apply('Entity.Form', 'Generate', $Call, ['IX' => $IX, 'Data!' => $cData]);
 
