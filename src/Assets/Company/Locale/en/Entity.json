@@ -1,0 +1,52 @@
+{
+    "Company": {
+        "Type": {
+            "LLC": "Limited Liability Company",
+            "CJSC": "Closed Joint Stock Company",
+            "OJSC": "Open Joint Stock Company",
+            "FSUE": "Federal State Unitary Enterprise",
+            "SUE": "State Unitary Enterprise",
+            "MUE": "Municipal Unitary Enterprise",
+            "FP": "Full partnership",
+            "LP": "Limited Partnership",
+            "PC": "Production Cooperative",
+            "Label": "Form of incorporation"
+        },
+        "Title": "Legal name",
+        "INN": "Individual taxpayer identification number",
+        "OGRN": "Primary state registration number",
+        "KPP": "Code reason for registration",
+        "Director":
+        {
+            "Name": "Director's name",
+            "Position": "Director's position"
+        },
+        "Accountant": "Accountant's name",
+        "Address": {
+            "Official": "Legal address",
+            "Real": "Actual address"
+        },
+        "Industry": "Industry",
+        "Taxes": {
+            "Label": "Tax system",
+            "General": "General system of taxation",
+            "Simplified-6": "Simplified tax system (6%)",
+            "Simplified-15": "Simplified tax system (15%)",
+            "Unified": "Unified tax on imputed income",
+            "Agricultural": "Unified agricultural tax"
+        },
+        "Bank": {
+            "Account": {
+                "Correspondent": "Correspondent bank account",
+                "Current": "Current bank account"
+            }
+        }
+    },
+    "Company.Type.IE": "Individual Entrepreneur",
+    "SEO": {
+        "Description": "SEO: Description",
+        "Keywords": "SEO: Keywords",
+        "Title": "SEO: Title"
+    },
+    "Title": "Public title"
+}

@@ -1,0 +1,10 @@
+{
+    "Options": {
+        "Do": "Dashboard",
+        "Create": "Create company",
+        "Update": "Update company",
+        "Show": "Show company",
+        "RAW": "RAW View"
+    },
+    "Title": "Company"
+}
