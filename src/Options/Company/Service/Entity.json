@@ -1,0 +1,171 @@
+{
+    "EV": 2,
+    "Mixins":
+    [
+        "Mixins.ID.Sequence",
+        "Mixins.Titled",
+        "Mixins.UGC",
+        "Mixins.SEO",
+        "Mixins.Priority",
+        "Mixins.CRUDSlug",
+        "Mixins.AIDA",
+        "Mixins.Tags",
+        "Mixins.Photo",
+        "Mixins.Filled"
+    ],
+    "Storage": "Primary",
+    "Nodes":
+    {
+        "Target":
+        {
+            "Type": "Literal.Text",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        },
+        "Tagline":
+        {
+            "Type": "Literal.String",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        },
+        "Public":
+        {
+            "Type": "Boolean",
+            "Nullable": true,
+            "Default": false,
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Checkbox",
+                    "TrueValue": "true"
+                }
+            }
+        },
+        "Soon":
+        {
+            "Type": "Boolean",
+            "Default": false,
+            "Nullable": true,
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Checkbox",
+                    "TrueValue": true
+                }
+            }
+        },
+        "Partner":
+        {
+            "Type": "Boolean",
+            "Default": false,
+            "Nullable": true,
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Checkbox",
+                    "TrueValue": true
+                }
+            }
+        },
+        "Auto":
+        {
+            "Type": "Boolean",
+            "Default": false,
+            "Nullable": true,
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Checkbox",
+                    "Value": true
+                }
+            }
+        },
+        "Costs":
+        {
+            "Type": "Numeral.Integer",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        },
+        "Unit":
+        {
+            "Type": "List.Enum",
+            "Options": ["PerHour", "PerProject", "PerMonth", "PerOperation"],
+            "Localized": true,
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Radiogroup"
+                }
+            }
+        },
+        "Also":
+        {
+            "Type": "Complex.Array",
+            "Options":
+            {
+                "Service": "Entity.List",
+                "Method": "RAW",
+                "Call":
+                {
+                    "Key": "Title"
+                }
+            },
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Select",
+                    "Multiple": true,
+                    "Size": 8
+                }
+            }
+        }
+    },
+    "Hooks":
+    {
+        "afterCreatePost":
+        {
+            "Redirect":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "Redirect",
+                "Call":
+                {
+                    "Location": "/control/$Entity"
+                }
+            }
+        },
+        "afterUpdatePost!":
+        {
+            "Redirect":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "Redirect",
+                "Call":
+                {
+                    "Location": "/control/$Entity"
+                }
+            }
+        }
+    }
+}

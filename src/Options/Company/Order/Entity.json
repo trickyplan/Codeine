@@ -1,0 +1,28 @@
+{
+    "Storage": "Primary",
+    "Mixins":
+    [
+        "Mixins.ID.Sequence",
+        "Mixins.UGC",
+        "Mixins.CRUD",
+        "Mixins.Text",
+        "Order.Mixins.Server"
+    ],
+    "Nodes":
+    {
+        "Company.Service":
+        {
+            "Type": "Entity",
+            "Options":
+            {
+                "Service": "Entity.List",
+                "Method": "RAW",
+                "Call":
+                {
+                    "Entity": "Company.Service",
+                    "Key": "Title"
+                }
+            }
+        }
+    }
+}

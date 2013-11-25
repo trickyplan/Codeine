@@ -1,0 +1,137 @@
+{
+    "Mixins":
+        [
+            "Mixins.Titled",
+            "Mixins.UGC",
+            "Mixins.SEO",
+            "Mixins.CRUDSlug",
+            "Mixins.AIDA",
+            "Mixins.Filled",
+            "Mixins.ID.Sequence"
+        ],
+    "Storage": "Primary",
+    "EPP": 20,
+    "Nodes":
+    {
+        "Priority":
+        {
+            "Type": "Numeral.Integer",
+            "Weight": 40,
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield",
+                    "Subtype": "number"
+                }
+            }
+        },
+        "Target":
+        {
+            "Type": "Literal.Text",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        },
+        "Category":
+        {
+            "Type": "Literal.String",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        },
+        "URL":
+        {
+            "Type": "Literal.String",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        },
+        "Tagline":
+        {
+            "Type": "Literal.String",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        },
+        "Public":
+        {
+            "Type": "Boolean",
+            "Nullable": true,
+            "Default": false,
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Checkbox",
+                    "TrueValue": "true"
+                }
+            }
+        },
+        "Lead.URL":
+        {
+            "Type": "Literal.String",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        },
+        "Lead.Title":
+        {
+            "Type": "Literal.String",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        }
+    },
+    "Hooks":
+    {
+        "afterCreatePost":
+        {
+            "Redirect":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "Redirect",
+                "Call":
+                {
+                    "Location": "/control/$Entity"
+                }
+            }
+        },
+        "afterUpdatePost":
+        {
+            "Redirect":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "Redirect",
+                "Call":
+                {
+                    "Location": "/control/$Entity"
+                }
+            }
+        }
+    }
+}

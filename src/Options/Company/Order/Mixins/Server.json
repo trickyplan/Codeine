@@ -1,0 +1,40 @@
+{
+    "Nodes":
+    {
+        "Server.IP":
+        {
+            "Type": "Numeral.IP",
+            "Default": "0.0.0.0",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        },
+        "Server.User":
+        {
+            "Type": "Literal.String",
+            "Default": "root",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        },
+        "Server.Password":
+        {
+            "Type": "Literal.String",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Password"
+                }
+            }
+        }
+    }
+}

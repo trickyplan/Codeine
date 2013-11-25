@@ -1,0 +1,26 @@
+{
+    "Rules":
+    {
+        "Документ доступен нам":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Entity.Show.Static",
+                "Method": "Do",
+                "Call":
+                {
+                    "Entity": "Company.Document"
+                },
+                "Session":
+                {
+                    "User":
+                    {
+                        "ID": "1"
+                    }
+                }
+            }
+        }
+    }
+}

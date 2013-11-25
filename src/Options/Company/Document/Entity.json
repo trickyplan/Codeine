@@ -1,0 +1,57 @@
+{
+    "Storage": "Primary",
+    "Mixins":
+    [
+        "Mixins.Titled",
+        "Mixins.CRUD",
+        "Mixins.Text",
+        "Mixins.UGC",
+        "Mixins.ID.Sequence"
+    ],
+    "Nodes":
+    {
+        "Doctype":
+        {
+            "Type": "List.Enum",
+            "Options": ["Command", "Agreement", "Letter"],
+            "Localized": true,
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Select"
+                }
+            }
+        },
+        "Date":
+        {
+            "Type": "Date.Short",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Datepicker"
+                }
+            }
+        },
+        "Number":
+        {
+            "Type": "Numeral.Integer",
+            "Hooks":
+            {
+                "beforeEntityCreate":
+                {
+                    "Service": "Security.UID.Sequence",
+                    "Method": "Get",
+                    "Call":
+                    {
+                        "Where":
+                        {
+                            "Doctype": "$Data.Doctype"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

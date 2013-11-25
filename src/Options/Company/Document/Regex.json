@@ -1,0 +1,17 @@
+{
+    "Regex":
+    {
+        "Show document":
+        {
+            "Match":"^/company/document/(.+)$",
+            "Service":"Entity.Show.Static",
+            "Method":"Do",
+            "Call":
+            {
+                "Entity": "Company.Document",
+                "Where": "$1"
+            },
+            "Last": true
+        }
+    }
+}

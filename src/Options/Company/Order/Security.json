@@ -1,0 +1,19 @@
+{
+    "Rules":
+    {
+        "Заказ — всем":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Entity.Create",
+                "Method": "Do",
+                "Call":
+                {
+                    "Entity": "Company.Order"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,48 @@
+{
+    "Mixins":
+    [
+        "Mixins.ID.Sequence",
+        "Mixins.Titled",
+        "Mixins.CRUD",
+        "Mixins.SEO",
+        "Mixins.Contacts",
+        "Company.Mixins.Russia"
+    ],
+    "Storage": "Primary",
+    "Nodes":
+    {
+        "Tagline":
+        {
+            "Type": "Literal.HTML",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.WYSIWYG"
+                }
+            }
+        },
+        "Powerpoints":
+        {
+            "Type": "Literal.HTML",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.WYSIWYG"
+                }
+            }
+        },
+        "Mission":
+        {
+            "Type": "Literal.HTML",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.WYSIWYG"
+                }
+            }
+        }
+    }
+}

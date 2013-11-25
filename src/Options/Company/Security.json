@@ -1,0 +1,33 @@
+{
+    "Rules":
+    {
+        "Профиль компании доступен всем":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Entity.Show.Static",
+                "Method": "Do",
+                "Call":
+                {
+                    "Entity": "Company"
+                }
+            }
+        },
+        "Список компаний доступен всем":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Entity.List",
+                "Method": "Do",
+                "Call":
+                {
+                    "Entity": "Company"
+                }
+            }
+        }
+    }
+}

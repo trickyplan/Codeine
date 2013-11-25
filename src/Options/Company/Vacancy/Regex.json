@@ -1,0 +1,28 @@
+{
+    "Regex":
+    {
+        "Show vacancy":
+        {
+            "Match":"^/company/vacancy/(.+)$",
+            "Service":"Entity.Show.Static",
+            "Method":"Do",
+            "Call":
+            {
+                "Entity": "Company.Vacancy",
+                "Where": "$1"
+            }
+        },
+        "Show vacancies":
+        {
+            "Match":"^/company/vacancies$",
+            "Service":"Entity.List",
+            "Method":"Do",
+            "Call":
+            {
+                "Entity": "Company.Vacancy",
+                "Where": "$1"
+            },
+            "Last": true
+        }
+    }
+}

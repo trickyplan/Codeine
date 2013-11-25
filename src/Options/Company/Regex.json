@@ -1,0 +1,41 @@
+{
+    "Regex":
+    {
+        "Company":
+        {
+            "Match": "/company$",
+            "Service": "Entity.Show.Static",
+            "Method": "Do",
+            "Call":
+            {
+                "Entity": "Company",
+                "Where": 1
+            }
+        },
+        "Companies":
+        {
+            "Match": "/companies$",
+            "Service": "Entity.List",
+            "Method": "Do",
+            "Call":
+            {
+                "Entity": "Company"
+            }
+        },
+        "Show company":
+        {
+            "Match":"^/company/(.+)$",
+            "Service":"Entity.Show.Static",
+            "Method":"Do",
+            "Call":
+            {
+                "Entity": "Company",
+                "Where":
+                {
+                    "Slug": "$1"
+                }
+            },
+            "Last": true
+        }
+    }
+}

@@ -1,0 +1,78 @@
+{
+    "Regex":
+    {
+        "Список продуктов, страница":
+        {
+            "Match":"^/products/page(\\d+)$",
+            "Service":"Entity.List",
+            "Method":"Do",
+            "Call":
+            {
+                "Entity": "Company.Product",
+                "Page":  "$1"
+            }
+        },
+        "Список продуктов":
+        {
+            "Match": "^/products$",
+            "Service": "Entity.List",
+            "Method": "Do",
+            "Call":
+            {
+                "Entity": "Company.Product"
+            }
+        },
+        "Список продуктов категории, страница":
+        {
+            "Match":"^/products/category/(.+)/page(\\d+)$",
+            "Service":"Entity.List",
+            "Method":"Do",
+            "Call":
+            {
+                "Entity": "Company.Product",
+                "Custom Templates":
+                {
+                    "List": "Category"
+                },
+                "Where":
+                {
+                    "Category": "$1"
+                },
+                "Page":  "$2"
+            }
+        },
+        "Список продуктов категории":
+        {
+            "Match": "^/products/category/(.+)$",
+            "Service": "Entity.List",
+            "Method": "Do",
+            "Call":
+            {
+                "Entity": "Company.Product",
+                "Custom Templates":
+                {
+                    "List": "Category"
+                },
+                "Where":
+                {
+                    "Category": "$1"
+                }
+            }
+        },
+        "Продукт":
+        {
+            "Match":"^/product/(.+)$",
+            "Service":"Entity.Show.Static",
+            "Method":"Do",
+            "Call":
+            {
+                "Entity": "Company.Product",
+                "Where":
+                {
+                    "Slug": "$1"
+                }
+            },
+            "Last": true
+        }
+    }
+}

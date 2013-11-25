@@ -1,0 +1,78 @@
+{
+    "Regex":
+    {
+        "Список услуг, страница":
+        {
+            "Match":"^/services/page(\\d+)$",
+            "Service":"Entity.List",
+            "Method":"Do",
+            "Call":
+            {
+                "Entity": "Company.Service",
+                "Page":  "$1"
+            }
+        },
+        "Список услуг":
+        {
+            "Match": "^/services$",
+            "Service": "Entity.List",
+            "Method": "Do",
+            "Call":
+            {
+                "Entity": "Company.Service"
+            }
+        },
+        "Список услуг по тегу, страница":
+        {
+            "Match":"^/services/tag/(.+)/page(\\d+)$",
+            "Service":"Entity.List",
+            "Method":"Do",
+            "Call":
+            {
+                "Entity": "Company.Service",
+                "Custom Templates":
+                {
+                    "List": "List/Tags"
+                },
+                "Where":
+                {
+                    "Tags": "$1"
+                },
+                "Page":  "$2"
+            }
+        },
+        "Список услуг по тегу":
+        {
+            "Match": "^/services/tag/(.+)$",
+            "Service": "Entity.List",
+            "Method": "Do",
+            "Call":
+            {
+                "Entity": "Company.Service",
+                "Custom Templates":
+                {
+                    "List": "List/Tags"
+                },
+                "Where":
+                {
+                    "Tags": "$1"
+                }
+            }
+        },
+        "Услуга":
+        {
+            "Match":"^/service/(.+)$",
+            "Service":"Entity.Show.Static",
+            "Method":"Do",
+            "Call":
+            {
+                "Entity": "Company.Service",
+                "Where":
+                {
+                    "Slug": "$1"
+                }
+            },
+            "Last": true
+        }
+    }
+}

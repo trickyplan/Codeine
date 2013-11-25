@@ -1,0 +1,37 @@
+{
+    "Regex":
+    {
+        "Заказ услуги":
+        {
+            "Match":"^/order/create/(.+)$",
+            "Service":"Entity.Create",
+            "Method":"Do",
+            "Call":
+            {
+                "Entity": "Order",
+                "Data":
+                [{
+                    "Company":
+                    {
+                        "Service":
+                        {
+                            "Service": "Entity",
+                            "Method": "Far",
+                            "Call":
+                            {
+                                "Entity": "Company.Service",
+                                "Key": "ID",
+                                "Where":
+                                {
+                                    "Slug": "$1"
+                                }
+                            }
+
+                        }
+                    }
+                }]
+            },
+            "Last": true
+        }
+    }
+}

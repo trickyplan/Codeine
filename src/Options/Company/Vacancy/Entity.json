@@ -1,0 +1,46 @@
+{
+    "Mixins":
+    [
+        "Mixins.ID.Sequence",
+        "Mixins.Titled",
+        "Mixins.CRUD",
+        "Mixins.SEO"
+    ],
+    "Storage": "Primary",
+    "Nodes":
+    {
+        "Open":
+        {
+            "Type": "Boolean",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Checkbox"
+                }
+            }
+        },
+        "Tagline":
+        {
+            "Type": "Literal.HTML",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.WYSIWYG"
+                }
+            }
+        },
+        "Requirements":
+        {
+            "Type": "Literal.HTML",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.WYSIWYG"
+                }
+            }
+        }
+    }
+}
