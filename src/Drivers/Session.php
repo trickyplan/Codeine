@@ -143,7 +143,7 @@
 
     setFn('Mark', function ($Call)
     {
-        $Call['SID'] = F::Live($Call['Generator']['SID']);
+        $Call['SID'] = F::Live($Call['SID']);
 
             // Вешаем маркер, если включено автомаркирование
             if (F::Run('Session.Marker.Cookie', 'Write', $Call))
