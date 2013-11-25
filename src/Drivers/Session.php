@@ -10,6 +10,7 @@
     setFn('Initialize', function ($Call)
     {
         $Call['SID'] = F::Run('Session.Marker.Cookie', 'Read', $Call);
+        $Call['Session'] = null;
 
         // Маркера нет — пользователь чистый гость
         if (null === $Call['SID'])
@@ -18,6 +19,7 @@
 
             if (isset($Call['Session Auto']) && $Call['Session Auto'])
                 $Call = F::Apply(null, 'Mark', $Call);
+
         }
         else
         {
@@ -25,6 +27,7 @@
                 [
                     'Entity' => 'Session',
                     'Where' => $Call['SID'],
+                    'ReRead' => true,
                     'One' => true
                 ]);
 
@@ -81,16 +84,10 @@
         if (!isset($Call['Session']))
             $Call = F::Apply(null, 'Initialize', $Call);
 
-        $Call['Data']['ID'] = $Call['SID'];
-
         if (null === $Call['Session'])
         {
-            $Call['Session'] = F::Run('Entity', 'Create', $Call,
-                 [
-                     'Entity' => 'Session',
-                     'Data' => $Call['Data'],
-                     'One' => true
-                 ]);
+            $Call['Data']['ID'] = $Call['SID'];
+            $Call['Session'] = F::Run('Entity', 'Create', $Call, ['Entity' => 'Session', 'One' => true]);
 
             F::Log('Session created '.$Call['SID'], LOG_INFO, 'Security');
         }
@@ -100,12 +97,12 @@
                 [
                     'Entity' => 'Session',
                     'Data' => $Call['Data'],
+                    'Where' => $Call['SID'],
                     'One' => true
                 ]);
 
             F::Log('Session updated '.$Call['SID'], LOG_INFO, 'Security');
         }
-
         return $Call;
     });
 

@@ -49,29 +49,28 @@
 
         $Call = F::Hook('beforeOperation', $Call);
 
-        foreach ($Call['Data'] as $IX => $Data)
-        {
-            $Call = F::Hook('beforeEntityWrite', $Call);
+            foreach ($Call['Data'] as $IX => $New)
+            {
+                $Call = F::Hook('beforeEntityWrite', $Call);
 
-                $Call = F::Hook('beforeEntityCreate', $Call);
+                    $Call = F::Hook('beforeEntityCreate', $Call);
 
-                if (!isset($Call['Failure']) or !$Call['Failure']) // FIXME Shit
-                {
-                    $Call['Data'][$IX] = F::Run('IO', 'Write', $Call, ['Data!' => $Data]);
-                    $Call = F::Hook('afterEntityCreate', $Call);
-                }
-                else
-                    $Call['Data'][$IX] = null;
+                    if (!isset($Call['Failure']) or !$Call['Failure']) // FIXME Shit
+                    {
+                        $Data[$IX] = F::Run('IO', 'Write', $Call, ['Data!' => $New]);
+                        $Call = F::Hook('afterEntityCreate', $Call);
+                    }
+                    else
+                        $Data[$IX] = null;
 
-            $Call = F::Hook('afterEntityWrite', $Call);
-        }
+                $Call = F::Hook('afterEntityWrite', $Call);
+            }
 
         $Call = F::Hook('afterOperation', $Call);
+        if (isset($Call['One']))
+            $Data = array_shift($Data);
 
-        if (isset($Call['One']) and is_array($Call['Data']))
-            $Call['Data'] = array_shift($Call['Data']);
-
-        return $Call['Data'];
+        return $Data;
     });
 
     setFn('Read', function ($Call)
@@ -128,6 +127,7 @@
 
         $Updates = $Call['Data'];
 
+        if ($Current)
         {
             foreach ($Current as $IX => $Call['Current'])
             {

@@ -13,7 +13,12 @@
         {
             if (isset($Node['Nullable']) && $Node['Nullable'])
                 if (F::Dot($Call['Data'], $Name) === null)
-                    $Call['Data'] = F::Dot($Call['Data'],$Name,$Node['Default']);
+                {
+                    if (isset($Node['Default']))
+                        $Call['Data'] = F::Dot($Call['Data'],$Name,$Node['Default']);
+                    else
+                        $Call['Data'] = F::Dot($Call['Data'],$Name, null);
+                }
         }
 
         return $Call;
