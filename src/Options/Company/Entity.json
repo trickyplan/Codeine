@@ -11,6 +11,18 @@
     "Storage": "Primary",
     "Nodes":
     {
+        "Logo":
+        {
+            "Type": "File.Upload",
+            "Storage": "Upload",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.File"
+                }
+            }
+        },
         "Tagline":
         {
             "Type": "Literal.HTML",
