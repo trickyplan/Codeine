@@ -13,7 +13,7 @@
 
         $Call = F::Hook('beforeTouch', $Call);
 
-        $Results = F::Run('Entity', 'Update', $Call, ['Data!' => ['Modified' => time()]])['Data'];
+        $Results = F::Run('Entity', 'Update', $Call, ['Data!' => ['Modified' => time()]]);
 
         foreach ($Results as $Result)
             $Call['Output']['Content'][] =

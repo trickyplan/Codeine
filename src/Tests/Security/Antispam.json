@@ -1,50 +1,50 @@
 {
-        "Suites":
+    "Suites":
+    {
+        "Positive":
         {
-            "Positive":
+            "Not spam":
             {
-                "Not spam":
+                "Run":
                 {
-                    "Run":
+                    "Service": "Security.Antispam",
+                    "Method": "Calculate",
+                    "Call":
                     {
-                        "Service": "Security.Antispam",
-                        "Method": "Calculate",
-                        "Call":
+                        "Data":
                         {
-                            "Data":
-                            {
-                                "Body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur adipiscing nec leo ut euismod. Nunc sed metus dapibus, gravida nisl quis, sagittis neque. Suspendisse ultricies odio non magna pellentesque ultrices."
-                            }
+                            "Body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur adipiscing nec leo ut euismod. Nunc sed metus dapibus, gravida nisl quis, sagittis neque. Suspendisse ultricies odio non magna pellentesque ultrices."
                         }
-                    },
-                    "Result":
-                    {
-                        "Equal": false
                     }
                 },
-                "Spam":
+                "Result":
                 {
-                    "Run":
+                    "Equal": false
+                }
+            },
+            "Spam":
+            {
+                "Run":
+                {
+                    "Service": "Security.Antispam",
+                    "Method": "Calculate",
+                    "Call":
                     {
-                        "Service": "Security.Antispam",
-                        "Method": "Calculate",
-                        "Call":
+                        "Data":
                         {
-                            "Data":
-                            {
-                                "Body": "Buy viagra codeine cialis <a href='http://viagracialis'/> "
-                            },
-                            "User":
-                            {
-                                "Fullname": "viagra-test-123"
-                            }
+                            "Body": "Buy viagra codeine cialis <a href='http://viagracialis'/> "
+                        },
+                        "User":
+                        {
+                            "Title": "viagra-test-123"
                         }
-                    },
-                    "Result":
-                    {
-                        "Equal": true
                     }
+                },
+                "Result":
+                {
+                    "Equal": true
                 }
             }
         }
+    }
 }

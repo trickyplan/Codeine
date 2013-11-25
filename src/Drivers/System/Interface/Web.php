@@ -12,9 +12,9 @@
         F::Log('Interface: *Web*', LOG_INFO);
 
         if (!in_array($_SERVER['REQUEST_METHOD'], $Call['HTTP']['Methods']['Allowed']))
-            $_SERVER['REQUEST_METHOD'] = $Call['HTTP']['Methods']['Default'];
-
-        $Call['HTTP Method'] = $_SERVER['REQUEST_METHOD'];
+            $Call['HTTP Method'] = $Call['HTTP']['Methods']['Default'];
+        else
+            $Call['HTTP Method'] = $_SERVER['REQUEST_METHOD'];
 
         F::Log('Method: *'.$Call['HTTP Method'].'*', LOG_INFO);
 

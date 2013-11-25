@@ -10,40 +10,7 @@
     setFn('Before', function ($Call)
     {
         $Call['Where'] = F::Live($Call['Where']);
-
-        if (isset($Call['Data']))
-        {
-            $Call['Data'] = F::Run('Entity', 'Read', $Call, ['ReRead' => true]);
-
-            if (isset($Call['Request']['Data']))
-            {
-                if (isset($Call['Data'][0]))
-                    $Call['Request']['Data'] = F::Merge($Call['Request']['Data'], $Call['Data']);
-                else
-                {
-                    $SZ = count($Call['Request']['Data']);
-                    for ($IC = 0; $IC < $SZ; $IC++)
-                        $Call['Request']['Data'][$IC] = $Call['Data'];
-                }
-            }
-        }
-        else
-        {
-            $Call['Data'] = F::Run('Entity', 'Read', $Call, ['ReRead' => true]);
-
-            if (isset($Call['Request']['Data']))
-            {
-                if (isset($Call['Data'][0]))
-                    $Call['Request']['Data'] = F::Merge($Call['Data'], $Call['Request']['Data']);
-                else
-                {
-                    $SZ = count($Call['Request']['Data']);
-
-                    for ($IC = 0; $IC < $SZ; $IC++)
-                        $Call['Data'][$IC] = $Call['Request']['Data'];
-                }
-            }
-        }
+        $Call['Data'] = F::Run('Entity', 'Read', $Call);
 
         return $Call;
     });
@@ -55,7 +22,7 @@
         if (isset($Call['Where']))
             $Call['Where'] = F::Live($Call['Where']); // FIXME
 
-        return F::Run(null, $_SERVER['REQUEST_METHOD'], $Call);
+        return F::Run(null, $Call['HTTP Method'], $Call);
     });
 
     setFn('GET', function ($Call)
@@ -96,31 +63,27 @@
     {
         $Call = F::Hook('beforeUpdatePost', $Call);
 
-
-        if (isset($Call['Request']['Data']))
             $Call['Data'] = $Call['Request']['Data'];
+            // Отправляем в Entity.Update
 
-        // Отправляем в Entity.Update
+            $Call['Data'] = F::Run('Entity', 'Update', $Call);
 
-        $Call = F::Apply('Entity', 'Update', $Call);
+           // Выводим результат
+            if (empty($Call['Errors']))
+                $Call = F::Hook('afterUpdatePost', $Call);
+            else
+            {
+                foreach ($Call['Errors'] as $Name =>$Node)
+                    foreach ($Node as $Error)
+                        $Call['Output']['Message'][] =
+                            [
+                                'Type' => 'Block',
+                                'Class' => 'alert alert-danger',
+                                'Value' => '<l>'.$Call['Entity'].'.Error:'.$Name.'.'.$Error.'</l>'
+                            ];
 
-       // Выводим результат
-
-        if (empty($Call['Errors']))
-            $Call = F::Hook('afterUpdatePost', $Call);
-        else
-        {
-            foreach ($Call['Errors'] as $Name =>$Node)
-                foreach ($Node as $Error)
-                    $Call['Output']['Message'][] =
-                        [
-                            'Type' => 'Block',
-                            'Class' => 'alert alert-danger',
-                            'Value' => '<l>'.$Call['Entity'].'.Error:'.$Name.'.'.$Error.'</l>'
-                        ];
-
-            $Call = F::Apply(null, 'GET', $Call);
-        }
+                $Call = F::Apply(null, 'GET', $Call);
+            }
 
         return $Call;
     });

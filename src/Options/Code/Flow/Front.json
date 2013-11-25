@@ -38,11 +38,6 @@
                 "Service": "System.QoS",
                 "Method": "Start"
             },
-            "Location":
-            {
-                "Service": "Location.URL",
-                "Method": "Do"
-            },
             "451":
             {
                 "Service": "Freedom.Restrictions",

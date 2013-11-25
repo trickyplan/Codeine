@@ -117,7 +117,7 @@
                 }
                 else
                 {
-                    F::Log('db.*'.$Call['Scope'].'*remove('
+                    F::Log('db.*'.$Call['Scope'].'*.remove('
                     .json_encode($Call['Where'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE).')', LOG_INFO, 'Administrator');
 
                     $Call['Link']->$Call['Scope']->remove ($Call['Where'], ['multiple' => true]);
@@ -137,7 +137,7 @@
                 {
                     if (isset($Call['Where']))
                     {
-                        F::Log('db.*'.$Call['Scope'].'*remove('
+                        F::Log('db.*'.$Call['Scope'].'*.remove('
                         .json_encode($Call['Where'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE).')', LOG_INFO, 'Administrator');
 
                         $Call['Link']->$Call['Scope']->remove ($Call['Where'], ['multiple' => true]);

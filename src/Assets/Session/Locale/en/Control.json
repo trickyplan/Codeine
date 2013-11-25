@@ -1,0 +1,9 @@
+{
+    "Annulate": "Annulate",
+    "Options": {
+        "Delete": "Delete all",
+        "Truncate": "Truncate expired",
+        "Do": "Dashboard"
+    },
+    "Title": "Session"
+}

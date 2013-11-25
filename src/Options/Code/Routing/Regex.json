@@ -113,7 +113,7 @@
             "Match": "/test",
             "Weight": 5,
             "Service": "Test",
-            "Method": "All"
+            "Method": "Do"
         },
         "One Sitemap":
         {

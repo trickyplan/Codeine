@@ -7,9 +7,9 @@
      * @version 7.x
      */
 
-    setFn('Do', function ($Call)
+    setFn('Run', function ($Call)
     {
-        $Test = json_decode(file_get_contents(F::findFile($Call['Test'])), true);
+        $Test = json_decode(file_get_contents(F::findFile('Tests/'.$Call['Test'].'.json')), true);
 
         $Call['Test'] = str_replace('.json', '', $Call['Test']);
         $Call['Test'] = strtr($Call['Test'], '/', '.');
@@ -27,7 +27,7 @@
                     foreach ($Call['Case']['Result'] as $Assert => $Call['Checker'])
                     {
                         $TestTime = microtime(true); // FIXME
-                            $Call = F::Apply('Test.Assert.'.$Assert, null, $Call);
+                            $Call['Return'] = F::Run('Test.Assert.'.$Assert, 'Do', $Call);
                         $TestTime = microtime(true)-$TestTime;
                     }
 
@@ -47,34 +47,52 @@
         return $Call;
     });
 
-    setFn('All', function ($Call)
+    setFn('Do', function ($Call)
     {
         $Paths = F::getPaths();
 
         $Options = [];
         $Call['Report'] = [];
 
-        foreach ($Paths as $Path)
+        if (isset($Call['Test']))
         {
-            if (is_dir($Path.'/Tests'))
-            {
-                $Directory = new RecursiveDirectoryIterator($Path.'/Tests');
-                $Iterator = new RecursiveIteratorIterator($Directory);
-                $Regex = new RegexIterator($Iterator,
-                    '@Tests/(.+).json$@', RecursiveRegexIterator::GET_MATCH);
+            $VCall = F::Apply(null, 'Run', ['Test' => $Call['Test']]);
 
-                $Options = array_merge($Options, iterator_to_array($Regex));
+            $Call['Output']['Content'][] =
+            [
+                'Type' => 'Table',
+                'Value' => $VCall['Report']
+            ];
+        }
+        else
+        {
+            foreach ($Paths as $Path)
+            {
+                if (is_dir($Path.'/Tests'))
+                {
+                    $Directory = new RecursiveDirectoryIterator($Path.'/Tests');
+                    $Iterator = new RecursiveIteratorIterator($Directory);
+                    $Regex = new RegexIterator($Iterator,
+                        '@Tests/(.+).json$@', RecursiveRegexIterator::GET_MATCH);
+
+                    $Options = array_merge($Options, iterator_to_array($Regex));
+                }
+            }
+            foreach ($Options as $Option)
+            {
+                $VCall = F::Apply(null, 'Run', $Call, ['Test' => $Option[1]]);
+
+                $Call['Output']['Content'][] =
+                [
+                    'Type' => 'Table',
+                    'Value' => $VCall['Report']
+                ];
             }
         }
 
-        foreach ($Options as $Option)
-            $Call = F::Apply(null, 'Do', $Call, ['Test' => $Option[0]]);
 
-        $Call['Output']['Content'][] =
-            [
-                'Type' => 'Table',
-                'Value' => $Call['Report']
-            ];
+
+
 
         return $Call;
     });

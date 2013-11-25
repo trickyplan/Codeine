@@ -87,6 +87,11 @@
                 "Service":"Entity.Hooks.Live",
                 "Method":"Process"
             },
+            "Nullable":
+            {
+                "Service":"Entity.Hooks.Nullable",
+                "Method":"Process"
+            },
             "Validate":
             {
                 "Service":"Entity.Validate",

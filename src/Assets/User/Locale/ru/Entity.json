@@ -5,7 +5,7 @@
     "EMail": "EMail",
     "Phone": "Телефон",
     "Nickname": "Никнейм",
-    "Fullname": "Имя",
+    "Title": "Имя",
     "Biography": "Биография",
     "Photo": "Фото",
     "Gender": {
@@ -21,6 +21,11 @@
     "Invite": "Инвайт",
     "Empty": "Пользователей нет",
     "Created": "Зарегистрировался",
+    "Password":
+    {
+        "First": "Пароль",
+        "Second": "Пароль ещё раз"
+    },
     "Status":
     {
         "Label": "Статус",

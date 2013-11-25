@@ -37,7 +37,7 @@
         private static $_Stack;
 
         private static $NC = 0;
-        private static $_Verbose = 3;
+        private static $_Paths = [];
 
 
         public static function Environment()
@@ -45,9 +45,8 @@
             return self::$_Environment;
         }
 
-        public static function Bootstrap ($Call = null)
+        public static function Bootstrap ($Call = [])
         {
-
             self::$_Live = true;
 
             if (isset($_REQUEST['SR71']))
@@ -67,28 +66,33 @@
             if (isset($Call['Environment']))
                 self::$_Environment = $Call['Environment'];
 
-            if (isset($Call['Path']))
+            if (isset($Call['Paths']))
             {
-                if ((array) $Call['Path'] === $Call['Path'])
-                    self::$_Options['Path'] = array_merge($Call['Path'], [Codeine]);
+                if ((array) $Call['Paths'] === $Call['Paths'])
+                    self::$_Paths = array_merge($Call['Paths'], [Codeine]);
                 else
-                    self::$_Options['Path'] = [$Call['Path'], Codeine];
+                    self::$_Paths = [$Call['Paths'], Codeine];
             }
             else
-                self::$_Options['Path'] = [Codeine];
+                self::$_Paths = [Codeine];
 
             if (isset($_COOKIE['Experiment']))
                 if (isset(self::$_Options['Experiments'][$_COOKIE['Experiment']]))
-                    self::$_Options['Path'][] =
+                    self::$_Paths [] =
                         Root.'/Labs/'.self::$_Options['Experiments'][$_COOKIE['Experiment']];
 
-            $Call = F::Merge($Call, self::loadOptions('Codeine'));
-
-            self::$_Verbose = self::$_Options['Codeine']['Verbose'];
+            self::loadOptions('Codeine');
 
             F::Log('Codeine started', LOG_IMPORTANT);
 
-            foreach (self::$_Options['Path'] as $Path)
+            if (isset(self::$_Options['Codeine']['Overlays']))
+                self::$_Paths =
+                    array_merge(
+                        [Root],
+                        self::$_Options['Codeine']['Overlays'],
+                        [Codeine]);
+
+            foreach (self::$_Paths as $Path)
                 F::Log('Path registered *'.$Path.'*', LOG_INFO);
 
             set_error_handler ('F::Error');
@@ -181,7 +185,6 @@
                     foreach ($Filenames as $Filename)
                     {
                         $Current = json_decode(file_get_contents($Filename), true);
-                        F::Log('Options from '.$Filename.' loaded', LOG_DEBUG);
 
                         if ($Filename && !$Current)
                         {
@@ -214,10 +217,8 @@
                         }
 
                         if (isset($Current['Mixins']) && is_array($Current['Mixins']))
-                        {
                             foreach($Current['Mixins'] as &$Mixin)
                                 $Current = F::Merge(F::loadOptions($Mixin), $Current);
-                        }
 
                         $Options = self::Merge($Options, $Current);
                     }
@@ -229,6 +230,7 @@
                 }
 
                 self::$_Options[$Service] = $Options;
+
             }
 
             return F::Merge(self::$_Options[$Service], $Call);
@@ -383,6 +385,8 @@
 
         public static function Hook($On, $Call)
         {
+             self::$_Stack->push($On);
+
              if (isset($Call['Custom Hooks'][$On]))
                  $On = $Call['Custom Hooks'][$On];
 
@@ -412,6 +416,8 @@
                  }
              }
 
+            self::$_Stack->pop();
+
             return $Call;
         }
 
@@ -421,13 +427,17 @@
             {
                 $Logs = F::Logs();
 
-                echo '<h4>Perfect Mode</h4>
+                echo '<h2>Perfect Mode</h2>
                 '.$errno.' '.$errstr.' '.$errfile.'@'.$errline.'<pre>';
-                foreach ($Logs as $Channel)
-                    foreach ($Channel as $Log)
-                        echo $Log[1]."\t".$Log[2]."\t".PHP_EOL;
 
-                die ('</pre>');
+                self::Stack();
+
+                foreach ($Logs as $Channel => $Records)
+                    foreach ($Records as $Log)
+                        echo $Channel."\t".$Log[1]."\t".$Log[2]."\t".PHP_EOL;
+
+                echo '</pre>';
+                die();
             }
 
             return F::Log($errno.' '.$errstr.' '.$errfile.'@'.$errline, LOG_CRIT);
@@ -456,7 +466,7 @@
 
         public static function Log ($Message, $Verbose = 7, $Target = 'Developer')
         {
-            if ($Verbose <= self::$_Verbose or (F::Environment() == 'Development') && $Verbose > 9)
+            if ($Verbose <= self::$_Options['Codeine']['Verbose'] or (F::Environment() == 'Development') && $Verbose > 9)
             {
                 if (PHP_SAPI == 'cli')
                 {
@@ -774,7 +784,7 @@
 
         public static function getPaths()
         {
-            return self::$_Options['Path'];
+            return self::$_Paths;
         }
 
         public static function file_exists($Filename)
@@ -793,7 +803,7 @@
                if (mb_substr($Name,0,1) == '/' && F::file_exists($Name))
                    return $Name;
 
-               foreach (self::$_Options['Path'] as $ic => $Path)
+               foreach (self::$_Paths as $ic => $Path)
                    if (F::file_exists($Filenames[$ic] = $Path.'/'.$Name))
                        return $Filenames[$ic];
            }
@@ -812,7 +822,7 @@
                 if (substr($Name,0,1) == '/' && F::file_exists($Name))
                     return $Name;
 
-                foreach (self::$_Options['Path'] as $ic => $Path)
+                foreach (self::$_Paths as $ic => $Path)
                     if (F::file_exists($Filenames[$ic] = $Path . '/' . $Name))
                         $Results[] = $Filenames[$ic];
             }

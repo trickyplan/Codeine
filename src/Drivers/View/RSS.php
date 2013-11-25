@@ -34,7 +34,7 @@
         $XML->writeElement('lastBuildDate', date(DATE_RSS, time()));
 
         foreach ($Call['Output']['Content'] as $Element)
-            if ($Element['Type'] == 'Template')
+            if ($Element['Type'] == 'Template' && isset($Element['Data']))
             {
                 $XML->startElement('item');
 

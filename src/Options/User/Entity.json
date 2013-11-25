@@ -54,7 +54,7 @@
         {
             "Default": 0
         },
-        "Fullname":
+        "Title":
         {
             "Type": "Literal.String",
             "Required": true,
@@ -140,7 +140,7 @@
                 "Method": "Send"
             }
         },
-        "afterLogin!":
+        "afterLogin":
         {
             "Redirect":
             {

@@ -25,7 +25,8 @@
         if (isset($Call['Context']) && !empty($Call['Context']))
             $IDs[] =  $Call['ID'].'.'.$Call['Context'];
 
-        $Call['Scope'] = strtr($Call['Scope'], '.', '/');
+        if (isset($Call['Scope']))
+            $Call['Scope'] = strtr($Call['Scope'], '.', '/');
 
         $Call['Value'] =  F::Run('IO', 'Read', $Call,
             [

@@ -20,7 +20,7 @@
 
     $Call = F::Bootstrap
     ([
-        'Path' => [Root],
+        'Paths' => [Root],
         'Environment' => isset($Opts['Environment'])? $Opts['Environment']: 'Production',
         'Service' => 'System.Interface.CLI',
         'Method' => 'Run',

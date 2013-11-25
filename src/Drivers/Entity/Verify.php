@@ -14,7 +14,7 @@
         if (isset($Call['Where']))
             $Call['Where'] = F::Live($Call['Where']); // FIXME
 
-        return F::Run(null, $_SERVER['REQUEST_METHOD'], $Call);
+        return F::Run(null, $Call['HTTP Method'], $Call);
     });
 
     setFn('GET', function ($Call)
@@ -96,9 +96,9 @@
 
         // Отправляем в Entity.Verify
 
-        $Call = F::Apply('Entity', 'Update', $Call);
+        $Call['Data'] =
+            F::Merge(F::Run('Entity', 'Read', $Call, ['ReRead' => true]), F::Apply('Entity', 'Update', $Call));
 
-        $Call['Data'] = F::Merge(F::Run('Entity', 'Read', $Call, ['ReRead' => true]), $Call['Data']);
 
        // Выводим результат
 

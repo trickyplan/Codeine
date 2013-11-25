@@ -7,9 +7,9 @@
      * @version 7.x
      */
 
-    setFn('Do', function ($Call)
+    setFn('Mark', function ($Call)
     {
-        $Call = F::loadOptions($Call['Character'], $Call);
+        $Call['Data']['EV'] = $Call['EV'];
 
         return $Call;
     });

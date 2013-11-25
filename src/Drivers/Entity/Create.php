@@ -11,7 +11,7 @@
     {
         $Call = F::Hook('beforeCreateDo', $Call);
 
-        $Call = F::Apply(null, $_SERVER['REQUEST_METHOD'], $Call);
+        $Call = F::Apply(null, $Call['HTTP Method'], $Call);
 
         return $Call;
     });
@@ -21,7 +21,7 @@
         $Call = F::Hook('beforeCreateGet', $Call);
 
         if (isset($Call['Request']['Data'][0]) && isset($Call['Data']))
-            $Call['Data'] = F::Merge($Call['Request']['Data'][0], $Call['Data'][0]);
+            $Call['Data'] = F::Merge($Call['Request']['Data'][0], $Call['Data']);
         else
             if (isset ($Call['Request']['Data'][0]))
                 $Call['Data'] = $Call['Request']['Data'][0];

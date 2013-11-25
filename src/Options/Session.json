@@ -1,15 +1,3 @@
 {
-    "Session Auto": false,
-    "Generator":
-    {
-        "SID":
-        {
-            "Service": "Security.UID",
-            "Method": "Get",
-            "Call":
-            {
-                "Mode": "Secure+"
-            }
-        }
-    }
+    "Session Auto": false
 }

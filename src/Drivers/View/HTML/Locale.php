@@ -54,7 +54,7 @@
                             $Locales[$Locale] = F::Merge($Locales[$Locale], $NewLocale);
                     }
                     else
-                        F::Log('Locale '.$Locale.' not loaded', LOG_ERR);
+                        F::Log('Locale '.$Locale.' not loaded', LOG_BAD);
                 }
 
                 if (($Replace = F::Dot($Locales[$Locale], $Token)) !== null)

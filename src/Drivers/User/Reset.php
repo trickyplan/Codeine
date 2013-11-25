@@ -10,7 +10,7 @@
     setFn('Do', function ($Call)
     {
         $Call = F::Hook('beforeReset', $Call);
-        return F::Run(null, $_SERVER['REQUEST_METHOD'], $Call);
+        return F::Run(null, $Call['HTTP Method'], $Call);
     });
 
     setFn('ByID', function ($Call)

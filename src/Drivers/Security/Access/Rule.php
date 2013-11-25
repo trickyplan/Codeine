@@ -35,7 +35,10 @@
                     }
                     else
                         if (isset($Rule['Debug']))
+                        {
                             d(__FILE__, __LINE__, F::Diff($Rule['Run'], $Call));
+                            d(__FILE__, __LINE__, $Rule['Run']);
+                        }
 
                     if (isset($Call['Service'])
                         && isset($Rule['Run']['Service'])

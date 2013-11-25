@@ -13,7 +13,6 @@
         {
             $Diffed  = F::Diff($Call['Data'], $Call['Current']);
 
-            d(__FILE__, __LINE__, $Diffed);
             foreach ($Call['Nodes'] as $Name => $Node)
             {
                 if (isset($Node['Always Set']) && $Node['Always Set'])
@@ -26,8 +25,6 @@
                     if (F::Dot($Diffed, $Name) === null)
                         $Diffed = F::Dot($Diffed, $Name, 0);
             }
-
-            d(__FILE__, __LINE__, $Diffed);
 
             $Diffed['ID'] = $Call['Data']['ID'];
 

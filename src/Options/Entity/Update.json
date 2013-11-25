@@ -29,6 +29,7 @@
                         "Success layout":
                         {
                             "Type": "Template",
+                            "Scope": "Entity",
                             "ID": "Updated"
                         }
                     }

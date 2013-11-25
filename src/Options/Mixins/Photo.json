@@ -1,0 +1,17 @@
+{
+    "Nodes":
+    {
+        "Photo":
+        {
+            "Type": "File.Upload",
+            "Storage": "Upload",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.File"
+                }
+            }
+        }
+    }
+}

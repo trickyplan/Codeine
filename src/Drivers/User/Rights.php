@@ -10,7 +10,7 @@
     setFn('Do', function ($Call)
     {
         $Call['Rights'] = F::loadOptions('Security.Access.Rights')['Access']['Rights'];
-        return F::Run(null, $_SERVER['REQUEST_METHOD'], $Call);
+        return F::Run(null, $Call['HTTP Method'], $Call);
     });
 
     setFn('GET', function ($Call)

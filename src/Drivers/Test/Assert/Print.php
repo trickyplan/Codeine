@@ -9,7 +9,5 @@
 
     setFn('Do', function ($Call)
     {
-        $Call['Return'] = [true, $Call['Return']];
-
-        return $Call;
+        return [true, $Call['Return']];
     });

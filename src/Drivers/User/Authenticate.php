@@ -9,14 +9,16 @@
 
     setFn('Do', function ($Call)
     {
-        return F::Run(null, $_SERVER['REQUEST_METHOD'], $Call);
+        return F::Run(null, $Call['HTTP Method'], $Call);
     });
 
     setFn('GET', function ($Call)
     {
         $Call = F::Hook('beforeAuthenticateGet', $Call);
 
-        $Call['Layouts'][] = ['Scope' => 'User.Authenticate', 'ID' => isset($Call['Session']['User']['ID'])? 'Logged': 'Guest'];
+        $Call['Layouts'][] = [
+            'Scope' => 'User.Authenticate',
+            'ID' => isset($Call['Session']['User']['ID'])? 'Logged': 'Guest'];
 
         $Call = F::Hook('afterAuthenticateGet', $Call);
 
@@ -40,7 +42,7 @@
             {
                 $Call = F::Apply('Session', 'Write', $Call, ['Data' => ['User' => $Call['User']['ID']]]);
 
-                if ($Call['Session']['User'] == $Call['User'])
+                if ($Call['Session']['User'] == $Call['User']['ID'])
                 {
                     $Call = F::Hook('afterAuthenticatePost', $Call);
                     F::Log('User authorized '.$Call['User']['ID'], LOG_INFO, 'Security');

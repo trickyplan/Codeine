@@ -17,7 +17,5 @@
             $Decision = false;
         }
 
-        $Call['Return'] = [$Decision, $Call['Return']];
-
-        return $Call;
+        return [$Decision, print_r($Call['Return'], true)];
     });

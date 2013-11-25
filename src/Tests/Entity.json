@@ -1,0 +1,111 @@
+{
+    "Suites":
+    {
+        "Positive":
+        {
+
+            "Create Object(s)":
+            {
+                "Run":
+                {
+                    "Service": "Entity",
+                    "Method": "Create",
+                    "Call":
+                    {
+                        "Entity": "Test",
+                        "Data":
+                        {
+                            "ID": 1,
+                            "Key": "Value"
+                        }
+                    }
+                },
+                "Result":
+                {
+                    "Equal":
+                    [{
+                        "ID": 1,
+                        "Key": "Value"
+                    }]
+                }
+            },
+            "Create Object":
+            {
+                "Run":
+                {
+                    "Service": "Entity",
+                    "Method": "Create",
+                    "Call":
+                    {
+                        "Entity": "Test",
+                        "One": true,
+                        "Data":
+                        {
+                            "ID": 2,
+                            "Key": "Value 2"
+                        }
+                    }
+                },
+                "Result":
+                {
+                    "Equal":
+                    {
+                        "ID": 2,
+                        "Key": "Value 2"
+                    }
+                }
+            },
+            "Update Object(s)":
+            {
+                "Run":
+                {
+                    "Service": "Entity",
+                    "Method": "Update",
+                    "Call":
+                    {
+                        "Entity": "Test",
+                        "Where": 1,
+                        "Data":
+                        {
+                            "Key": "Another Value"
+                        }
+                    }
+                },
+                "Result":
+                {
+                    "Equal":
+                    [{
+                        "ID": 1,
+                        "Key": "Another Value"
+                    }]
+                }
+            },
+            "Delete Object(s)":
+            {
+                "Run":
+                {
+                    "Service": "Entity",
+                    "Method": "Delete",
+                    "Call":
+                    {
+                        "Entity": "Test"
+                    }
+                },
+                "Result":
+                {
+                    "Equal":
+                    [
+                        {
+                            "ID": 2,
+                            "Key": "Value 2"
+                        },
+                        {
+                            "ID": 1,
+                            "Key": "Another Value"
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}

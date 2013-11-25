@@ -37,7 +37,7 @@
                         'EMail' => $Response['identity'],
                         'Status' => 1,
                         'Password' => sha1(rand()),
-                        'Fullname' => isset($Response['name']['full_name'])
+                        'Title' => isset($Response['name']['full_name'])
                                 ? $Response['name']['full_name']
                                 : $Response['name']['first_name'].' '.$Response['name']['last_name']];
             // FIXME
@@ -69,7 +69,7 @@
                             [
                                 strtr($Provider, ['.'=>'']) => $Response
                             ]
-                        ])['Data'];
+                        ]);
 
                     F::Log('Account attached to user'.$Call['User']['ID'], LOG_INFO, 'Security');
                 }
@@ -80,7 +80,7 @@
                             'Entity' => 'User',
                             'One'    => true,
                             'Data'   => $UserData
-                        ])['Data'];
+                        ]);
 
                     F::Log('User registered '.$Call['User']['ID'], LOG_INFO, 'Security');
                 }

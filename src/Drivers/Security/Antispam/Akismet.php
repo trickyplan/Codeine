@@ -22,9 +22,9 @@
                 'permalink' => $Call['URL'],
                 'comment_type' => 'comment',
                 'comment_author' =>
-                    isset($Call['User']['Fullname']) ? $Call['User']['Fullname']: '',
+                    isset($Call['User']['Title']) ? $Call['User']['Title']: '',
                 'comment_author_email' =>
-                    isset($Call['User']['EMail']) ? $Call['User']['Fullname']: '',
+                    isset($Call['User']['EMail']) ? $Call['User']['Title']: '',
 /*                'comment_author_url' => $Call['User']['URL'],*/
                 'comment_content' => $Call['Value']
             ]

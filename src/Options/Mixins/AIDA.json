@@ -1,0 +1,49 @@
+{
+    "Nodes":
+    {
+        "Attention":
+        {
+            "Type": "Literal.HTML",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.WYSIWYG"
+                }
+            }
+        },
+        "Interest":
+        {
+            "Type": "Literal.HTML",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.WYSIWYG"
+                }
+            }
+        },
+        "Desire":
+        {
+            "Type": "Literal.HTML",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.WYSIWYG"
+                }
+            }
+        },
+        "Action":
+        {
+            "Type": "Literal.HTML",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.WYSIWYG"
+                }
+            }
+        }
+    }
+}
