@@ -1,6 +1,6 @@
 {
     "Session Auto": false,
-    "SID":
+    "SID Generator":
     {
         "Service": "Security.UID",
         "Method": "Get",
