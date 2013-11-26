@@ -85,7 +85,7 @@
     </target>
 
     <target name="codeine-test" depends="control, etc, usr, source, version, docs">
-        <exec command="php ${package}/${destination-source}/CLI.php --Service=Test --Method=All " logoutput="true" checkreturn="true"/>
+        <exec command="php ${package}/${destination-source}/CLI.php --Service=Test --Method=Do " logoutput="true" checkreturn="true"/>
     </target>
 
     <target name="debian" depends="codeine-test, control, etc, usr, source, version, docs">
