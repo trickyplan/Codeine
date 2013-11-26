@@ -35,9 +35,6 @@
                 elseif (isset($Node['Widgets']['Write'])) // Для записи как таковой
                     $Widget = $Node['Widgets']['Write'];
 
-                if (isset($Call['Only Tag']) && (!isset($Node['Only Tag']) || $Node['Only Tag'] != $Call['Only Tag']))
-                    continue;
-
                 if (isset($Node['Scope']) && !in_array($Call['Tag'], (array) $Node['Scope']))
                     continue;
 

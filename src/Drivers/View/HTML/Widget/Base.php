@@ -29,9 +29,9 @@
         }
 
         if (isset($Call['Block']) && $Call['Block'])
-            $Call['View']['HTML'] = '<'.$Call['Tag'].' '.implode(' ', $Attributes).'>'.$Call['Value'].'</'.$Call['Tag'].'>';
+            $Call['HTML'] = '<'.$Call['Tag'].' '.implode(' ', $Attributes).'>'.$Call['Value'].'</'.$Call['Tag'].'>';
         else
-            $Call['View']['HTML'] = '<'.$Call['Tag'].' '.implode(' ', $Attributes).' />';
+            $Call['HTML'] = '<'.$Call['Tag'].' '.implode(' ', $Attributes).' />';
 
         return $Call;
     });
