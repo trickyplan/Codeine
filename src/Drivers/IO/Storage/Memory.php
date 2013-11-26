@@ -21,7 +21,11 @@
 
     setFn ('Write', function ($Call)
     {
-        F::Set($Call['Where']['ID'], $Call['Data']);
+        if (isset($Call['Where']['ID']))
+            F::Set($Call['Where']['ID'], $Call['Data']);
+        else
+            F::Set($Call['Data']['ID'], $Call['Data']);
+
         return $Call['Data'];
     });
 

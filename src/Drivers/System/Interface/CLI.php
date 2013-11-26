@@ -13,6 +13,9 @@
 
         $Call['Locale'] = F::Live($Call['Locale'], $Call);
 
+        $Call['HTTP']['Host'] = gethostname();
+        $Call['HTTP']['URL'] = '/';
+
         $Call = F::Hook('beforeInterfaceRun', $Call);
 
         $Call['Return Code'];

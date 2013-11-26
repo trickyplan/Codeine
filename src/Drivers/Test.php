@@ -35,7 +35,6 @@
                         $Call['Test'],
                         $SuiteName,
                         $CaseName,
-                        $Call['Return'][1],
                         round($TestTime, 5)*1000,
                         '_Class' => $Call['Return'][0]? 'success' : 'danger'
                     ];
@@ -78,6 +77,8 @@
                     $Options = array_merge($Options, iterator_to_array($Regex));
                 }
             }
+
+            sort($Options);
             foreach ($Options as $Option)
             {
                 $VCall = F::Apply(null, 'Run', $Call, ['Test' => $Option[1]]);
