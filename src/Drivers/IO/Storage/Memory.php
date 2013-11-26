@@ -21,8 +21,7 @@
 
     setFn ('Write', function ($Call)
     {
-        foreach ($Call['Data'] as $Data)
-            F::Set($Data['ID'], $Data);
+        F::Set($Call['Where']['ID'], $Call['Data']);
         return $Call['Data'];
     });
 
