@@ -12,9 +12,10 @@
     setFn ('Open', function ($Call)
     {
         $Mail = new Mail;
+
         return $Mail->factory('smtp',
                    array (
-                     'host' => $Call['Host'],
+                     'host' => $Call['Server'],
                      'port' => isset($Call['Port'])? $Call['Port']: 25,
                      'auth' => true,
                      'username' => $Call['Username'],
@@ -24,7 +25,6 @@
 
     setFn('Write', function ($Call)
     {
-
         if (isset($Call['From']))
             $Screen = $Call['From'];
         elseif ( isset($Call['Project']['Title']))
@@ -55,10 +55,18 @@
         $mime->setTXTBody(strip_tags($Call['Data']));
 
         if (isset($Call['HTML Mail']) && $Call['HTML Mail'])
+        {
             $mime->setHTMLBody($Call['Data']);
+            $Call['Headers']['Content-Type'] = 'text/html; charset=utf-8';
+        }
 
         $Call['Data'] = $mime->get(['text_charset' => 'utf-8']);
         $Call['Headers'] = $mime->headers($Call['Headers']);
 
-        return $Call['Link']->send($Call['Scope'], $Call['Headers'], $Call['Data']);
+        $Result = $Call['Link']->send($Call['Scope'], $Call['Headers'], $Call['Data']);
+
+        if ($Result instanceof PEAR_Error)
+            F::Log($Result->getMessage(), LOG_CRIT);
+
+        return $Call['Data'];
     });

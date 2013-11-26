@@ -1,8 +1,11 @@
 {
     "Context": "",
-    "Headers":
+    "HTTP":
     {
-        "Content-type:": "text/plain"
+        "Headers":
+        {
+            "Content-type:": "text/plain"
+        }
     },
     "Extension": ".txt",
     "Hooks":

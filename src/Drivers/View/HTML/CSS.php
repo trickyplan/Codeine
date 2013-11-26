@@ -68,7 +68,7 @@
                 if (isset($Call['CSS']['Host']) && !empty($Call['CSS']['Host']))
                     $Host = $Call['CSS']['Host'];
                 else
-                    $Host = $Call['RHost'];
+                    $Host = $Call['HTTP']['Host'];
 
                 foreach ($Call['CSS']['Styles'] as $CSS => $CSSSource)
                 {

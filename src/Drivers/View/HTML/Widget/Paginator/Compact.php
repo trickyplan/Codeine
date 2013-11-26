@@ -7,13 +7,14 @@
      * @version 7.x
      */
 
-    setFn('Make', function ($Call) {
+    setFn('Make', function ($Call)
+    {
         $Call['Value'] = '';
 
         if ($Call['Page'] > 1)
             $Call['Value'] .= F::Run('View', 'Load',
                 [
-                    'Scope' => $Call['Widget Set'].'/Widgets',
+                    'Scope' => $Call['View']['HTML']['Widget Set'].'/Widgets',
                     'ID' => 'Paginator/Prev',
                     'Data' =>
                     [
@@ -28,7 +29,7 @@
                 if ($ic == 1)
                     $Call['Value'] .= F::Run('View', 'Load',
                         [
-                            'Scope' => $Call['Widget Set'].'/Widgets',
+                            'Scope' => $Call['View']['HTML']['Widget Set'].'/Widgets',
                             'ID' => ($ic == $Call['Page'] ? 'Paginator/Current' : 'Paginator/Page'),
                             'Data' =>
                             [
@@ -39,7 +40,7 @@
                 else
                     $Call['Value'] .= F::Run('View', 'Load',
                         [
-                            'Scope' => $Call['Widget Set'].'/Widgets',
+                            'Scope' => $Call['View']['HTML']['Widget Set'].'/Widgets',
                             'ID' => ($ic == $Call['Page'] ? 'Paginator/Current' : 'Paginator/Page'),
                             'Data' =>
                             [
@@ -54,7 +55,7 @@
         if ($Call['Page'] < $Call['PageCount'])
             $Call['Value'] .= F::Run('View', 'Load',
                 [
-                    'Scope' => $Call['Widget Set'].'/Widgets',
+                    'Scope' => $Call['View']['HTML']['Widget Set'].'/Widgets',
                     'ID' => 'Paginator/Next',
                     'Data' =>
                     [

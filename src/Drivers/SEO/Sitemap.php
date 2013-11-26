@@ -24,7 +24,7 @@
                 [
                     'sitemap' =>
                     [
-                        'loc' => $Call['Host'].'/sitemap/'.$Handler.'.xml'
+                        'loc' => $Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/sitemap/'.$Handler.'.xml'
                         // TODO lastmod
                     ]
                 ];
@@ -41,7 +41,7 @@
             [
                 'url' =>
                 [
-                    'loc'         => $Call['Host'].'/',
+                    'loc'         => $Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/',
                     'changefreq'  => 'daily',
                     'priority'    => 1
                 ]
@@ -94,7 +94,7 @@
             $Call['Responses'][$Name] = F::Run('IO', 'Read',
                 [
                      'Storage' => 'Web',
-                     'ID' => $URL.'/ping?sitemap='.urlencode($Call['Host'].'/sitemap.xml')
+                     'ID' => $URL.'/ping?sitemap='.urlencode($Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/sitemap.xml')
                 ]);
 
         return $Call;

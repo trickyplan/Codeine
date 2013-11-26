@@ -68,7 +68,7 @@
 
         F::Run('Image', 'Save', $Call,
             [
-                'ID' => '/tmp/codeine/'.$Call['RHost'].'/captcha/'.sha1($Code).'.png'
+                'ID' => '/tmp/codeine/'.$Call['HTTP']['Host'].'/captcha/'.sha1($Code).'.png'
             ]);
 
         $Call['Session']['CAPTCHA'] = sha1($Code);
@@ -79,10 +79,10 @@
     setFn('Check', function ($Call)
     {
         if (file_exists('/tmp/codeine/'
-                        .$Call['RHost'].'/captcha/'
+                        .$Call['HTTP']['Host'].'/captcha/'
                         .$Call['Request']['CAPTCHA']['Challenge'].'.png'))
 
-            unlink('/tmp/codeine/'.$Call['RHost'].'/captcha/'.$Call['Request']['CAPTCHA']['Challenge'].'.png');
+            unlink('/tmp/codeine/'.$Call['HTTP']['Host'].'/captcha/'.$Call['Request']['CAPTCHA']['Challenge'].'.png');
 
         return ($Call['Request']['CAPTCHA']['Challenge'] == sha1($Call['Request']['CAPTCHA']['Answer']));
     });

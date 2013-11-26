@@ -32,7 +32,7 @@
             {
                 $Breadcrumbs.= F::Run('View', 'Load',
                     [
-                        'Scope' => $Call['Widget Set'].'/Widgets',
+                        'Scope' => $Call['View']['HTML']['Widget Set'].'/Widgets',
                         'ID' => 'Breadcrumb/Active',
                         'Data' => $Breadcrumb
                     ]);
@@ -40,7 +40,7 @@
 
             $Breadcrumbs.= F::Run('View', 'Load',
                     [
-                        'Scope' => $Call['Widget Set'].'/Widgets',
+                        'Scope' => $Call['View']['HTML']['Widget Set'].'/Widgets',
                         'ID' => 'Breadcrumb/Passive',
                         'Data' => $Last
                     ]);
@@ -51,7 +51,7 @@
         {
             $Breadcrumbs = F::Run('View', 'Load',
                 [
-                    'Scope' => $Call['Widget Set'].'/Widgets',
+                    'Scope' => $Call['View']['HTML']['Widget Set'].'/Widgets',
                     'ID' => 'Breadcrumb',
                     'Data' => ['Breadcrumbs' => $Breadcrumbs]
                 ]);

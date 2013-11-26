@@ -9,9 +9,9 @@
 
     setFn ('Do', function ($Call)
     {
-        $Call['Title'] = $Call['Code'];
-        $Call['Description'] = 'TODO';
-        $Call['Keywords'] = array ('TODO');
+        $Call['Page']['Title'] = $Call['Code'];
+        $Call['Page']['Description'] = 'TODO';
+        $Call['Page']['Keywords'] = array ('TODO');
 
         $Call['Layouts'] = [['Scope' => 'Default', 'ID' => 'Main'], ['Scope' => 'Project', 'ID' => 'Zone']];
 

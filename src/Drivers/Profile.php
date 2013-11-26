@@ -17,7 +17,7 @@
         F::Run('IO', 'Write', $Call,
                 [
                     'Storage' => 'Profiler',
-                    'ID' => 'Profile: '.$Call['Host'].$Call['URL'],
+                    'ID' => 'Profile: '.$Call['HTTP']['Host'].$Call['HTTP']['URL'],
                     'Data' => F::Run('Formats.Profile.'.$Call['Profile Format'], 'Do', $Call,
                         [
                             'Data' => self::$_Counters

@@ -25,7 +25,7 @@
 
             $Call['Radios'] .= F::Run('View', 'Load',
                 [
-                    'Scope' => $Call['Widget Set'].'/Widgets',
+                    'Scope' => $Call['View']['HTML']['Widget Set'].'/Widgets',
                     'ID' => 'Form/Radio',
                     'Data' =>
                     F::Merge ($Call,

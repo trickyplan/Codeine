@@ -103,7 +103,7 @@
     {
         $Call['Link'] = curl_init($Call['Where']['ID']);
 
-        $Headers = isset($Call['Headers'])? $Call['Headers']: [];
+        $Headers = isset($Call['HTTP']['Headers'])? $Call['HTTP']['Headers']: [];
         // TODO HTTP DELETE
 
         curl_setopt_array($Call['Link'],

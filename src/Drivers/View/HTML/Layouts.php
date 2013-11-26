@@ -13,7 +13,7 @@
         {
             array_unshift($Call['Layouts'],
             [
-                'Scope' => $Call['Widget Set'],
+                'Scope' => $Call['View']['HTML']['Widget Set'],
                 'ID' => 'Main',
                 'Context' => $Call['Context']
             ]);

@@ -29,7 +29,7 @@
 
             $Call['Checks'] .= F::Run('View', 'Load',
                 [
-                    'Scope' => $Call['Widget Set'].'/Widgets',
+                    'Scope' => $Call['View']['HTML']['Widget Set'].'/Widgets',
                     'ID' => 'Form/Checkbox',
                     'Data' =>
                     F::Merge ($Call,

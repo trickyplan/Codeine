@@ -60,7 +60,7 @@
                 if (isset($Call['JS']['Host']) && !empty($Call['JS']['Host']))
                     $Host = $Call['JS']['Host'];
                 else
-                    $Host = $Call['RHost'];
+                    $Host = $Call['HTTP']['Host'];
 
                 foreach ($Call['JS']['Scripts'] as $JS => $JSSource)
                 {

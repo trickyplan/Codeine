@@ -15,8 +15,7 @@
             "Old":
             {
                 "Entity": "User",
-                "Type": "Form.Password",
-                "Mode": "One",
+                "Type": "Form.Password.One",
                 "Name": "OldPassword",
                 "Node": "OldPassword",
                 "Label": "User.Passwd:OldPassword"

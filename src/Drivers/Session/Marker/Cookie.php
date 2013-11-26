@@ -12,7 +12,7 @@
         if (PHP_SAPI == 'cli')
             return '1';
 
-        return isset($_COOKIE[$Call['Marker']['Cookie']['Name']]) ? $_COOKIE[$Call['Marker']['Cookie']['Name']]: null;
+        return isset($Call['HTTP']['Cookie'][$Call['Marker']['Cookie']['Name']]) ? $Call['HTTP']['Cookie'][$Call['Marker']['Cookie']['Name']]: null;
     });
 
     setFn ('Write', function ($Call)
@@ -26,7 +26,7 @@
             $Call['Marker']['Cookie']['Secure'],
             $Call['Marker']['Cookie']['HTTP Only']))
 
-            $_COOKIE[$Call['Marker']['Cookie']['Name']] = $Call['SID'];
+            $Call['HTTP']['Cookie'][$Call['Marker']['Cookie']['Name']] = $Call['SID'];
         else
             $Call = F::Hook('Cookie.Set.Failed', $Call);
 
@@ -36,7 +36,7 @@
 
     setFn('Destroy', function ($Call)
     {
-        if (isset($_COOKIE[$Call['Marker']['Cookie']['Name']]))
+        if (isset($Call['HTTP']['Cookie'][$Call['Marker']['Cookie']['Name']]))
             setcookie ($Call['Marker']['Cookie']['Name'], ''); // OPTME!
 
         return $Call;

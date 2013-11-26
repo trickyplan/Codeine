@@ -13,8 +13,8 @@
 
         $Here = F::Run('Entity', 'Read', ['Entity' => 'Location', 'Where' => $Call['Location'], 'One' => true]);
 
-        if ($Call['URL'] == '/')
-            $Call['URL'] = '';
+        if ($Call['HTTP']['URL'] == '/')
+            $Call['HTTP']['URL'] = '';
 
         foreach ($Locations as $Location)
         {
@@ -22,8 +22,8 @@
                 $Location['URL'] = '/'.$Location['Slug'];
             else
             {
-                if (preg_match('@^/'.$Here['Slug'].'@Ssuu', $Call['URL']))
-                    $Location['URL'] = str_replace($Here['Slug'], $Location['Slug'], $Call['URL']);
+                if (preg_match('@^/'.$Here['Slug'].'@Ssuu', $Call['HTTP']['URL']))
+                    $Location['URL'] = str_replace($Here['Slug'], $Location['Slug'], $Call['HTTP']['URL']);
                 else
                     $Location['URL'] = '/'.$Location['Slug'];
             }

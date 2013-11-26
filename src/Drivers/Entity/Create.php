@@ -11,7 +11,7 @@
     {
         $Call = F::Hook('beforeCreateDo', $Call);
 
-        $Call = F::Apply(null, $Call['HTTP Method'], $Call);
+        $Call = F::Apply(null, $Call['HTTP']['Method'], $Call);
 
         return $Call;
     });
@@ -69,13 +69,12 @@
             if (isset($Call['Request']['Data']))
             {
                 if (isset($Call['Data']))
-                    $Call['Data'] = F::Merge($Call['Data'], $Call['Request']['Data']);
+                    $Call['Data'] = F::Merge($Call['Request']['Data'], $Call['Data']);
                 else
                     $Call['Data'] = $Call['Request']['Data'];
             }
-
             // Отправляем в Entity.Create
-            $Call = F::Apply('Entity', 'Create', $Call);
+            $Call['Data'] = F::Run('Entity', 'Create', $Call);
 
             if (!isset($Call['Errors']) or empty($Call['Errors']))
                 $Call = F::Hook('afterCreatePost', $Call);

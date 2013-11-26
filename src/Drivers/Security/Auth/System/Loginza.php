@@ -12,7 +12,7 @@
         if ($Call['Loginza']['ID'] == 0)
             $Call = F::Hook('Loginza.NotConfigured', $Call);
 
-        $Call['LoginzaURL'] = urlencode($Call['Host'].'/auth/social'); // FIXME
+        $Call['LoginzaURL'] = urlencode($Call['HTTP']['Host'].'/auth/social'); // FIXME
         return $Call;
     });
 

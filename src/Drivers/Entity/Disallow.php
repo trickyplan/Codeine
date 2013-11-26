@@ -15,7 +15,7 @@
 
         $Call['Where'] = F::Live($Call['Where']); // FIXME
 
-        return F::Run(null, $Call['HTTP Method'], $Call);
+        return F::Run(null, $Call['HTTP']['Method'], $Call);
     });
 
     setFn('GET', function ($Call)

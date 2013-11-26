@@ -9,32 +9,28 @@
 
     setFn ('Page', function ($Call)
     {
-        $Call['Headers']['HTTP/1.0'] = '403 Forbidden';
+        $Call['HTTP']['Headers']['HTTP/1.0'] = '403 Forbidden';
 
-        $Call['Title'] = '403';
-        $Call['Description'] = 'TODO';
-        $Call['Keywords'] = array ('TODO');
+        $Call['Page']['Title'] = '403';
+        $Call['Page']['Description'] = 'TODO';
+        $Call['Page']['Keywords'] = array ('TODO');
 
-        $Call['Layouts'] = [
-            [
-                'Scope' => 'Default',
-                'ID' => 'Main'
-            ],
-            [
-                'Scope' => 'Project',
-                'ID' => 'Zone'
-            ]
-        ];
+        $Call['Run'] = '/403';
 
-        $Call['Layouts'][] =
+        if (isset($Call['Reason']))
+            $Call['Output']['Content'][] =
             [
+                'Type' => 'Template',
+                'Scope' => 'Errors/403',
+                'ID' => $Call['Reason']
+            ];
+        else
+            $Call['Output']['Content'][] =
+            [
+                'Type' => 'Template',
                 'Scope' => 'Errors',
                 'ID' => '403'
             ];
-
-        $Call['Failure'] = true;
-
-        unset($Call['Service'],$Call['Method']);
 
         return $Call;
      });
@@ -54,8 +50,7 @@
 
     setFn('Die', function ($Call)
     {
-        // TODO Realize "Die" function
-
         header('HTTP/1.0 403 Forbidden');
         readfile(F::findFile('Assets/Errors/403.html'));
+        die();
     });

@@ -9,11 +9,11 @@
 
     setFn ('Page', function ($Call)
     {
-        $Call['Headers']['HTTP/1.0'] = '500 Internal Server Error';
+        $Call['HTTP']['Headers']['HTTP/1.0'] = '500 Internal Server Error';
 
-        $Call['Title'] = '500';
-        $Call['Description'] = 'TODO';
-        $Call['Keywords'] = array ('TODO');
+        $Call['Page']['Title'] = '500';
+        $Call['Page']['Description'] = 'TODO';
+        $Call['Page']['Keywords'] = array ('TODO');
 
         $Call['Output']['Content'] = [[
                                         'Type'  => 'Template',

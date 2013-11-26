@@ -93,7 +93,7 @@
         }
         else
         {
-            $Call['Session'] = F::Run('Entity', 'Update',
+            $Call['Session'] = F::Run('Entity', 'Update', $Call,
                 [
                     'Entity' => 'Session',
                     'Data' => $Call['Data'],

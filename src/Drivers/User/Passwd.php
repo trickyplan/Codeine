@@ -9,7 +9,7 @@
 
     setFn('Do', function ($Call)
     {
-        return F::Run(null, $Call['HTTP Method'], $Call);
+        return F::Run(null, $Call['HTTP']['Method'], $Call);
     });
 
     setFn('GET', function ($Call)
@@ -22,13 +22,11 @@
     {
         // FIXME
         if ($Call['Session']['User']['Password'] == F::Run('Security.Hash', 'Get',
-                            [
-                                'Mode' => 'Secure',
-                                'Value' => $Call['Request']['OldPassword']
-                            ]))
+        [
+            'Mode' => 'Secure',
+            'Value' => $Call['Request']['OldPassword']
+        ]))
         {
-
-
             F::Run('Entity', 'Update',
                 [
                      'Entity' => 'User',

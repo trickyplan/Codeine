@@ -13,7 +13,7 @@
         {
             $Call = F::Hook('beforeBillingDo', $Call);
 
-                $Call = F::Apply(null, $Call['HTTP Method'], $Call);
+                $Call = F::Apply(null, $Call['HTTP']['Method'], $Call);
 
             $Call = F::Hook('afterBillingDo', $Call);
         }

@@ -9,11 +9,11 @@
 
     setFn ('Page', function ($Call)
     {
-        $Call['Headers']['HTTP/1.0'] = '404 Not Found';
+        $Call['HTTP']['Headers']['HTTP/1.0'] = '404 Not Found';
 
-        $Call['Title'] = '404';
-        $Call['Description'] = 'TODO';
-        $Call['Keywords'] = array ('TODO');
+        $Call['Page']['Title'] = '404';
+        $Call['Page']['Description'] = 'TODO';
+        $Call['Page']['Keywords'] = array ('TODO');
 
         $Call['Layouts'] = [
             [

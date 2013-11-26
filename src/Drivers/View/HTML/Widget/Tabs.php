@@ -20,7 +20,7 @@
              if (is_array($Value))
                  $Options[] = F::Run ('View', 'Load', $Call,
                     [
-                         'Scope' => $Call['Widget Set'].'/Widgets',
+                         'Scope' => $Call['View']['HTML']['Widget Set'].'/Widgets',
                          'ID'    => 'Tabs/'.($Value['ID'] == $Call['Value'] ? 'Active' : 'Passive'),
                          'Data'  => $Value
                     ]);

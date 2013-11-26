@@ -16,7 +16,7 @@
                 if (is_array($Call['Output']))
                     foreach ($Call['Output'] as $Place => $Widgets)
                         foreach ($Widgets as $Key => $Widget)
-                            $Call['Output'][$Place][$Key] = F::Run($Call['Renderer'] . '.Element.' . $Widget['Type'], 'Make', $Widget);
+                            $Call['Output'][$Place][$Key] = F::Run($Call['View']['Renderer'] . '.Element.' . $Widget['Type'], 'Make', $Widget);
 
                 // TODO Normal caching
             }

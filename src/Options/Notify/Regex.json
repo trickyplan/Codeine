@@ -59,10 +59,13 @@
             "Match":"^/notify/subscribe$",
             "Service":"Notify.Subscribe",
             "Method":"Do",
-            "Renderer":
+            "View":
             {
-                "Service": "View.JSON",
-                "Method": "Render"
+                "Renderer":
+                {
+                    "Service": "View.JSON",
+                    "Method": "Render"
+                }
             }
         }
     }

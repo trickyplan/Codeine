@@ -9,7 +9,7 @@
 
      setFn('Make', function ($Call)
      {
-         $Call['HTML'] = F::Run('View.HTML.Widget.Base', 'Make', $Call, ['Tag' => 'input', 'Type' => 'password']);
+         $Call['View']['HTML'] = F::Run('View.HTML.Widget.Base', 'Make', $Call, ['Tag' => 'input', 'Type' => 'password']);
 
          return $Call;
      });

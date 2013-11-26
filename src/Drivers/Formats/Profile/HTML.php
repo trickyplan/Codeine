@@ -20,7 +20,7 @@
                     <th>Time per call, ms</th>
                </tr>
                <tr class="Important">
-                   <th>' . $Call['Host'] . $Call['URI'] . '</th>
+                   <th>' . $Call['HTTP']['Host'] . $Call['HTTP']['URI'] . '</th>
                    <th>100%</th>
                    <th>100%</th>
                    <th>' . round($Call['Profile']['Summary']['Time']) . '</th>

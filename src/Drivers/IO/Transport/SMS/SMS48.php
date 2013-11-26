@@ -24,7 +24,7 @@
             'to'        => $Call['Scope'],
             'from'      => $Call['From'],
             'check2'    => $CheckSum,
-            'dlr_url'   => $Call['URL'],
+            'dlr_url'   => $Call['HTTP']['URL'],
             'msg'       => $Message
            ],null, '&', PHP_QUERY_RFC3986
        ));

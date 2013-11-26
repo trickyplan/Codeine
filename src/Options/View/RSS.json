@@ -2,9 +2,12 @@
     "Layout": "",
     "Widget Set": "",
     "Extension": ".rss",
-    "Headers":
+    "HTTP":
     {
-        "Content-type": "application/rss+xml"
+        "Headers":
+        {
+            "Content-type": "application/rss+xml"
+        }
     },
     "Hooks":
     {

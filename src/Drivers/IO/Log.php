@@ -21,8 +21,8 @@
                 F::Run('IO', 'Write', $Call,
                     [
                         'Storage' => $Call['Channel'],
-                        'ID' => $Call['URL'],
-                        'Data' => F::Run($Call['Renderer']['Service'].'.Log', 'Do', $Call)
+                        'ID' => $Call['HTTP']['URL'],
+                        'Data' => F::Run($Call['View']['Renderer']['Service'].'.Log', 'Do', $Call)
                     ]);
 
                 F::Run('IO', 'Close', ['Storage' => $Call['Channel']]);

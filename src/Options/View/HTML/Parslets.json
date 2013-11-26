@@ -1,28 +1,36 @@
 {
-    "Var": "Output",
-    "MaxPasses": 3,
-    "Parslets":
-    [
-        "Far",
-        "Exec",
-        "Layout",
-        "Far",
-        "Io",
-        "Fn",
-        "Lower",
-        "Wiki",
-        "Entity",
-        "Far",
-        "If",
-        "Datetime",
-        "Number",
-        "File",
-        "Phone",
-        "Email",
-        "Urlencode",
-        "Cut",
-        "Fn",
-        "Access",
-        "Environment"
-    ]
+    "View":
+    {
+        "HTML":
+        {
+            "Parslets":
+            {
+                "Max Passes": 3,
+                "Queue":
+                [
+                    "Far",
+                    "Exec",
+                    "Layout",
+                    "Far",
+                    "Io",
+                    "Fn",
+                    "Lower",
+                    "Wiki",
+                    "Entity",
+                    "Far",
+                    "If",
+                    "Datetime",
+                    "Number",
+                    "File",
+                    "Phone",
+                    "Email",
+                    "Urlencode",
+                    "Cut",
+                    "Fn",
+                    "Access",
+                    "Environment"
+                ]
+            }
+        }
+    }
 }

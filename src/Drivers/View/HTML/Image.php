@@ -24,7 +24,7 @@
             if (isset($Call['Image']['Host']) && !empty($Call['Image']['Host']))
                 $Host = $Call['Image']['Host'];
             else
-                $Host = $Call['RHost'];
+                $Host = $Call['HTTP']['Host'];
 
             $Call['Images'] = $Parsed[1];
 

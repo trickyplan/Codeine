@@ -55,10 +55,13 @@
             "Match": "^/dict/(.*)/(.*).json",
             "Service":"Entity.Dict",
             "Method":"Do",
-            "Renderer":
+            "View":
             {
-                "Service": "View.JSON",
-                "Method": "Render"
+                "Renderer":
+                {
+                    "Service": "View.JSON",
+                    "Method": "Render"
+                }
             },
             "Call":
             {
@@ -71,10 +74,13 @@
             "Match": "^/dict/(.*)/(.*).txt",
             "Service":"Entity.Dict",
             "Method":"Do",
-            "Renderer":
+            "View":
             {
-                "Service": "View.Plaintext",
-                "Method": "Render"
+                "Renderer":
+                {
+                    "Service": "View.Plaintext",
+                    "Method": "Render"
+                }
             },
             "Call":
             {
@@ -120,10 +126,13 @@
             "Match": "/sitemap/(.+).xml",
             "Service": "SEO.Sitemap",
             "Method": "Entity",
-            "Renderer":
+            "View":
             {
-                "Service": "View.XML",
-                "Method": "Render"
+                "Renderer":
+                {
+                    "Service": "View.XML",
+                    "Method": "Render"
+                }
             },
             "Call":
             {

@@ -1,7 +1,10 @@
 {
-    "Headers":
+    "HTTP":
     {
-        "Content-type:": "application/json"
+        "Headers":
+        {
+            "Content-type:": "application/json"
+        }
     },
     "Extension": ".json",
     "Hooks":

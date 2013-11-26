@@ -4,18 +4,18 @@
   </button>
   <ul class="dropdown-menu" role="menu">
     <li>
-        <a target="_blank" href="http://www.facebook.com/sharer.php?s=100&p[url]=<call>URL</call>&p[title]=<header/>">
+        <a target="_blank" href="http://www.facebook.com/sharer.php?s=100&p[url]=<call>HTTP.Proto</call><call>HTTP.Host</call><call>HTTP.URL</call>&p[title]=<header/>">
             <l>Social.Share:Facebook</l>
         </a>
     </li>
 
     <li>
-        <a target="_blank" href="https://twitter.com/share?url=<call>URL</call>&text=<header/>&via=<call>RHost</call>">
+        <a target="_blank" href="https://twitter.com/share?url=<call>HTTP.Proto</call><call>HTTP.Host</call><call>HTTP.URL</call>&text=<header/>&via=<call>HTTP.Host</call>">
             <l>Social.Share:Twitter</l>
         </a>
     </li>
     <li>
-        <a target="_blank" href="https://plus.google.com/share?url=<call>URL</call>">
+        <a target="_blank" href="https://plus.google.com/share?url=<call>HTTP.Proto</call><call>HTTP.Host</call><call>HTTP.URL</call>">
             <l>Social.Share:GooglePlus</l>
         </a>
     </li>

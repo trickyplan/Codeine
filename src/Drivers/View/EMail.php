@@ -48,7 +48,7 @@
                         foreach ($Widgets as $Key => $Widget)
                         {
                             if(is_array($Widget))
-                                $Call['Output'][$Place][$Key] = F::Run($Call['Renderer'] . '.Element.' . $Widget['Type'],
+                                $Call['Output'][$Place][$Key] = F::Run($Call['View']['Renderer'] . '.Element.' . $Widget['Type'],
                                     'Make', $Widget, ['Session' => $Call['Session']]); // FIXME FIXME FIXME
                             else
                                 $Call['Output'][$Place][$Key] = $Widget;

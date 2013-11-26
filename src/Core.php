@@ -33,7 +33,8 @@
         private static $_Live = false;
         private static $_Memory= 0;
 
-        private static $_SR71 = false;  // Internal Profiler
+        private static $_Profile = false;  // Internal Profiler
+        private static $_PostMortem = false;  // Internal Profiler
         private static $_Stack;
 
         private static $NC = 0;
@@ -49,8 +50,11 @@
         {
             self::$_Live = true;
 
-            if (isset($_REQUEST['SR71']))
-                self::$_SR71 = true;
+            if (isset($_REQUEST['Profile']))
+                self::$_Profile = true;
+
+            if (isset($_REQUEST['PostMortem']))
+                self::$_PostMortem = true;
 
             self::$_Stack = new SplStack();
 
@@ -75,11 +79,6 @@
             }
             else
                 self::$_Paths = [Codeine];
-
-            if (isset($_COOKIE['Experiment']))
-                if (isset(self::$_Options['Experiments'][$_COOKIE['Experiment']]))
-                    self::$_Paths [] =
-                        Root.'/Labs/'.self::$_Options['Experiments'][$_COOKIE['Experiment']];
 
             self::loadOptions('Codeine');
 
@@ -129,10 +128,17 @@
 
             }
 
-            if (self::$_SR71)
+            if (self::$_Profile)
             {
                 self::$_Memory = memory_get_usage();
                 F::Run('Profile', 'Do', $Call);
+            }
+
+            if (self::$_PostMortem)
+            {
+                ksort($Call);
+                d(__FILE__, __LINE__, mb_strlen(serialize($Call)));
+                d(__FILE__, __LINE__, $Call);
             }
 
             return true;
@@ -299,7 +305,7 @@
 
                 if (is_callable($F))
                 {
-                    if (self::$_SR71)
+                    if (self::$_Profile)
                     {
                         $Memory = memory_get_usage();
                         self::Stop($OldService. '.' . $OldMethod);
@@ -308,7 +314,7 @@
 
                     $Result = $F($Call);
 
-                    if (self::$_SR71)
+                    if (self::$_Profile)
                     {
                         self::Counter(self::$_Service.'.'.self::$_Method);
                         self::Stop(self::$_Service . '.' . self::$_Method);
@@ -468,6 +474,10 @@
         {
             if ($Verbose <= self::$_Options['Codeine']['Verbose'] or (F::Environment() == 'Development') && $Verbose > 9)
             {
+                if (!is_string($Message))
+                    $Message = json_encode($Message,
+                        JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+
                 if (PHP_SAPI == 'cli')
                 {
                     switch ($Verbose)
@@ -503,9 +513,6 @@
                 }
                 else
                 {
-                    if (!is_string($Message))
-                        $Message = json_encode($Message, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-
                     return self::$_Log[$Target][]
                         = [
                         $Verbose,

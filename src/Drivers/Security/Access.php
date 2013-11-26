@@ -15,6 +15,6 @@
         else
             $Call = F::Apply('Security.Access.'.$Call['System'], 'Check', $Call);
 
-        return $Call;
+        return $Call['Decision'];
     });
 

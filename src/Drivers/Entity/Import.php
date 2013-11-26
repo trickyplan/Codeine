@@ -11,7 +11,7 @@
     {
         $Call = F::Hook('beforeCreateDo', $Call);
 
-        $Call = F::Apply(null, $Call['HTTP Method'], $Call);
+        $Call = F::Apply(null, $Call['HTTP']['Method'], $Call);
 
         return $Call;
     });

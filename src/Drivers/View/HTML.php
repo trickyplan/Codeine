@@ -11,7 +11,7 @@
     {
         $Call = F::Hook('beforeHTMLRender', $Call);
 
-            $Call = F::Run (null,'Pipeline', $Call); // Pipelining
+            $Call = F::Apply(null,'Pipeline', $Call); // Pipelining
 
         $Call = F::Hook('afterHTMLRender', $Call);
 
@@ -28,45 +28,38 @@
                 'Value' => $Call['Layout']
             ]);
 
-        if ($Places) //  Если есть посадочные места.
+        if ($Places && isset($Call['Output']) && is_array($Call['Output'])) //  Если есть посадочные места.
         {
-            if (isset($Call['Output']))
-            {
-                if (is_array($Call['Output']))
-                {
-                    foreach ($Call['Output'] as $Place => $Widgets)
-                        if (is_array($Widgets))
-                            foreach ($Widgets as $Key => $Widget)
-                            {
-                                if (is_array($Widget))
-                                {
-                                    $Call['Output'][$Place][$Key] = F::Run ('View', 'Load',
-                                        [
-                                            'Scope' => (isset($Widget['Widget Set'])? $Widget['Widget Set']: $Call['Widget Set']).'/Widgets',
-                                            'ID'    => (isset($Call['Widget Template'])?
-                                                        $Call['Widget Template']
-                                                        : strtr($Widget['Type'],'.', '/')),
-                                            'Data'  =>
-                                                F::Run(
-                                                    $Call['Renderer']['Service']
-                                                    .'.Widget.'
-                                                    .$Widget['Type'],
-                                                    'Make',
-                                                    $Call,
-                                                    $Widget)
-                                        ]);
-                                }
-                                else
-                                    $Call['Output'][$Place][$Key] = $Widget;
-                            }
+            foreach ($Call['Output'] as $Place => $Widgets)
+                if (is_array($Widgets))
+                    foreach ($Widgets as $Key => $Widget)
+                    {
+                        if (is_array($Widget))
+                        {
+                            $Call['Output'][$Place][$Key] = F::Run ('View', 'Load',
+                                [
+                                    'Scope' => (isset($Widget['Widget Set'])? $Widget['Widget Set']: $Call['View']['HTML']['Widget Set']).'/Widgets',
+                                    'ID'    => (isset($Call['Widget Template'])?
+                                                $Call['Widget Template']
+                                                : strtr($Widget['Type'],'.', '/')),
+                                    'Data'  =>
+                                        F::Run(
+                                            $Call['View']['Renderer']['Service']
+                                            .'.Widget.'
+                                            .$Widget['Type'],
+                                            'Make',
+                                            $Call,
+                                            $Widget)
+                                ]);
+                        }
+                        else
+                            $Call['Output'][$Place][$Key] = $Widget;
+                    }
 
-                    foreach ($Call['Output'] as $Place => $Widgets)
-                        if (is_array($Widgets))
-                            $Call['Layout'] = str_replace('<place>' . $Place . '</place>',
-                                implode(PHP_EOL, $Widgets), $Call['Layout']);
-                }
-            }
-
+            foreach ($Call['Output'] as $Place => $Widgets)
+                if (is_array($Widgets))
+                    $Call['Layout'] = str_replace('<place>' . $Place . '</place>',
+                        implode(PHP_EOL, $Widgets), $Call['Layout']);
         }
 
         $Call = F::Apply(null, 'Parse Call', $Call);

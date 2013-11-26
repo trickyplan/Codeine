@@ -10,7 +10,7 @@
      setFn('Process', function ($Call)
      {
          if (!isset($Call['Context']) || $Call['Context'] == '' && isset($Call['Output']))
-             foreach ($Call['Parslets'] as $Parslet)
+             foreach ($Call['View']['HTML']['Parslets']['Queue'] as $Parslet)
              {
                  $Tag = strtolower($Parslet);
 
@@ -20,7 +20,7 @@
 
                  while($Call['Parsed'] = F::Run('Text.Regex', 'All', $Call,
                     [
-                        'Pattern' => '<'.$cTag.' (.+?)>(.*?)</'.$cTag.'>',
+                        'Pattern' => '<'.$cTag.' (.*?)>(.*?)</'.$cTag.'>',
                         'Value'   => $Call['Output']
                     ]))
                  {
@@ -30,7 +30,7 @@
                      if ($Pass > 1)
                          $cTag = $Tag.$Pass;
 
-                     if ($Pass > $Call['MaxPasses'])
+                     if ($Pass > $Call['View']['HTML']['Parslets']['Max Passes'])
                      {
                          F::Log($Parslet.' Parslet raised max passes limit.', LOG_ERR);
                          break;
@@ -53,7 +53,7 @@
                      if ($Pass > 1)
                          $cTag = $Tag.$Pass;
 
-                     if ($Pass > $Call['MaxPasses'])
+                     if ($Pass > $Call['View']['HTML']['Parslets']['Max Passes'])
                      {
                          F::Log($Parslet.' Parslet raised max passes limit.', LOG_ERR);
                          break;

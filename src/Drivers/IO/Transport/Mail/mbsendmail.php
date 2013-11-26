@@ -18,10 +18,10 @@
     {
         $HeaderStr = '';
 
-        foreach($Call['Headers'] as $Key => $Value)
+        foreach($Call['HTTP']['Headers'] as $Key => $Value)
             $HeaderStr.= $Key.' '.$Value."\n";
 
-        $HeaderStr.= 'Content-type: '.$Call['Headers']['Content-type:']."\n";
+        $HeaderStr.= 'Content-type: '.$Call['HTTP']['Headers']['Content-type:']."\n";
 
 
         return mb_send_mail($Call['Scope'], $Call['ID'], $Call['Data'], $HeaderStr);

@@ -9,7 +9,7 @@
 
     setFn('Do', function ($Call)
     {
-        if ($Call['HTTP Method'] == 'POST')
+        if ($Call['HTTP']['Method'] == 'POST')
         {
             if (isset($Call['Session']['User']['ID']))
             {

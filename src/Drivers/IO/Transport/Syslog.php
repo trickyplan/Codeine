@@ -11,7 +11,7 @@
 
     setFn('Open', function ($Call)
     {
-        return openlog($Call['Host'], LOG_PID | LOG_PERROR, LOG_LOCAL0);
+        return openlog($Call['HTTP']['Host'], LOG_PID | LOG_PERROR, LOG_LOCAL0);
     });
 
     setFn('Send', function ($Call)

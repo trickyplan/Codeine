@@ -9,7 +9,7 @@
 
     setFn('Do', function ($Call)
     {
-        return F::Run(null, $Call['HTTP Method'], $Call);
+        return F::Run(null, $Call['HTTP']['Method'], $Call);
     });
 
     setFn('GET', function ($Call)

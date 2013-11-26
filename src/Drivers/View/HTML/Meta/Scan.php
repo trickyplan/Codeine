@@ -11,7 +11,7 @@
     {
         if (preg_match_all('@<subtitle>(.*)<\/subtitle>@SsUu', $Call['Output'], $Pockets))
         {
-            $Call['Title'] = F::Merge($Call['Title'], $Pockets[1]);
+            $Call['View']['HTML']['Title'] = F::Merge($Call['View']['HTML']['Title'], $Pockets[1]);
             $Call['Output'] = str_replace($Pockets[0], '', $Call['Output']);
         }
 
@@ -22,7 +22,7 @@
     {
         if (preg_match_all('@<keyword>(.*)<\/keyword>@SsUu', $Call['Output'], $Pockets))
         {
-            $Call['Keywords'] = F::Merge($Call['Keywords'], $Pockets[1]);
+            $Call['View']['HTML']['Keywords'] = F::Merge($Call['View']['HTML']['Keywords'], $Pockets[1]);
             $Call['Output'] = str_replace($Pockets[0], '', $Call['Output']);
         }
 
@@ -33,7 +33,7 @@
     {
         if (preg_match_all('@<description>(.*)<\/description>@SsUu', $Call['Output'], $Pockets))
             {
-                $Call['Description'] = F::Merge($Call['Description'], $Pockets[1]);
+                $Call['View']['HTML']['Description'] = F::Merge($Call['View']['HTML']['Description'], $Pockets[1]);
                 $Call['Output'] = str_replace($Pockets[0], '', $Call['Output']);
             }
 

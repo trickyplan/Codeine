@@ -22,9 +22,9 @@
                 'Data'  => $Element[0]
             );
 
-            $Call['Title']       = $Element[0]['Name'].' '.$Element[0]['Surname'];
-            $Call['Description'] = $Element[0]['Name'] . ' ' . $Element[0]['Surname'];
-            $Call['Keywords']    = preg_split('/\s/', $Element[0]['Name']);
+            $Call['Page']['Title']       = $Element[0]['Name'].' '.$Element[0]['Surname'];
+            $Call['Page']['Description'] = $Element[0]['Name'] . ' ' . $Element[0]['Surname'];
+            $Call['Page']['Keywords']    = preg_split('/\s/', $Element[0]['Name']);
 
         }
 

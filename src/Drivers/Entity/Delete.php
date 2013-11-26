@@ -20,7 +20,7 @@
     {
         $Call = F::Hook('beforeDeleteDo', $Call);
 
-            $Call = F::Apply(null, $Call['HTTP Method'], $Call);
+            $Call = F::Apply(null, $Call['HTTP']['Method'], $Call);
 
         $Call = F::Hook('afterDeleteDo', $Call);
 

@@ -13,6 +13,14 @@
         {
             "Driver": "IO.Storage.Memory"
         },
+        "Cookie":
+        {
+            "Driver":"IO.Storage.Cookie",
+            "TTL": 86400,
+            "Path": "/",
+            "Secure": false,
+            "HTTP Only": true
+        },
         "Permanent":
         {
             "Driver":"IO.Storage.Directory",
@@ -94,7 +102,7 @@
         {
             "Driver":"IO.Log.File",
             "Directory":"/var/log/codeine",
-            "Scope": "dba"
+            "Scope": "administrator"
         },
         "EMail":
         {

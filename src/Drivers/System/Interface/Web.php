@@ -11,60 +11,66 @@
     {
         F::Log('Interface: *Web*', LOG_INFO);
 
-        if (!in_array($_SERVER['REQUEST_METHOD'], $Call['HTTP']['Methods']['Allowed']))
-            $Call['HTTP Method'] = $Call['HTTP']['Methods']['Default'];
-        else
-            $Call['HTTP Method'] = $_SERVER['REQUEST_METHOD'];
+        // HTTP Method determining
+        $Call['HTTP']['Method'] =
+            in_array($_SERVER['REQUEST_METHOD'], $Call['HTTP']['Methods']['Allowed'])?
+            $_SERVER['REQUEST_METHOD']:
+            $Call['HTTP']['Methods']['Default'];
 
-        F::Log('Method: *'.$Call['HTTP Method'].'*', LOG_INFO);
+        F::Log('Method: *'.$Call['HTTP']['Method'].'*', LOG_INFO);
 
+        // Merge FILES to REQUEST.
         if (isset($_FILES['Data']))
             foreach ($_FILES['Data']['tmp_name'] as $IX => $Value)
                 foreach ($Value as $K2 => $V2)
                     if (!empty($V2))
                         $_REQUEST['Data'][$IX][$K2] = $V2;
 
+        // Request reading
         $Call['Request'] = $_REQUEST;
+        F::Log($Call['Request'], LOG_INFO);
 
-        F::Log(json_encode($Call['Request'],
-            JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES), LOG_INFO);
-        $Call['Cookie'] = $_COOKIE;
+        // Cookie reading
+        $Call['HTTP']['Cookie'] = $_COOKIE;
+        F::Log($Call['HTTP']['Cookie'], LOG_INFO);
 
-        $Call['Run'] = rawurldecode($_SERVER['REQUEST_URI']);
+        // Query string reading
+
+        $Call['HTTP']['URI'] = rawurldecode($_SERVER['REQUEST_URI']).(empty($Call['HTTP']['URL Query'])? '?' : '');
+        F::Log('URI: *'.$Call['HTTP']['URI'].'*', LOG_INFO);
+
+        $Call['HTTP']['URL'] = parse_url($Call['HTTP']['URI'], PHP_URL_PATH);
+        F::Log('URL: *'.$Call['HTTP']['URI'].'*', LOG_INFO);
+
+        $Call['HTTP']['URL Query'] = parse_url($Call['HTTP']['URI'], PHP_URL_QUERY);
+        empty($Call['HTTP']['URL Query'])?
+            F::Log('Empty query string.', LOG_INFO):
+            F::Log('Query string: *'.$Call['HTTP']['URL Query'].'*', LOG_INFO);
+
+        $Call['Run'] = $Call['HTTP']['URI'];
         F::Log('Run String: '.$Call['Run'], LOG_INFO);
-
-        $Call['URL Query'] = parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY);
-        if (!empty($Call['URL Query']))
-            F::Log('Query string: *'.$Call['URL Query'].'*', LOG_INFO);
-        else
-            F::Log('Empty query string', LOG_INFO);
-
-        $Call['URI'] = rawurldecode($_SERVER['REQUEST_URI']).(empty($Call['URL Query'])? '?' : '');
-        F::Log('URI: '.$Call['URI'], LOG_INFO);
-
-        $Call['URL'] = parse_url($Call['URI'], PHP_URL_PATH);
-        F::Log('URL: '.$Call['URI'], LOG_INFO);
 
         $Call = F::Apply(null, 'Protocol', $Call);
 
+        $Call['UA'] = F::Live($Call['UA'], $Call);
+        $Call['IP'] = F::Live($Call['IP'], $Call);
         $Call['Locale'] = F::Live($Call['Locale'], $Call);
 
         $Call = F::Hook('beforeInterfaceRun', $Call);
 
-        if (!isset($Call['Skip Run']))
-            $Call = F::Apply($Call['Service'], $Call['Method'], $Call);
+        $Call = F::Apply($Call['Service'], $Call['Method'], $Call);
 
 /*        if (isset($Call['Output']))
-            $Call['Headers']['Content-Length:'] = strlen($Call['Output']);*/
+            $Call['HTTP']['Headers']['Content-Length:'] = strlen($Call['Output']);*/
 
-        if (isset($Call['Headers']))
-            foreach ($Call['Headers'] as $Key => $Value)
+        if (isset($Call['HTTP']['Headers']))
+            foreach ($Call['HTTP']['Headers'] as $Key => $Value)
                 header ($Key . ' ' . $Value);
 
         F::Run('IO','Write', $Call,
             [
                 'Storage' => 'Output',
-                'Where' => $Call['URL'],
+                'Where' => $Call['HTTP']['URL'],
                 'Data' => $Call['Output']
             ]);
 
@@ -83,8 +89,8 @@
                 $URL = str_replace($Key, F::Dot($Call,$Vars[1][$IX]) , $URL);
         }
 
-        $Call['Headers']['HTTP/1.1'] = ' 301 Moved Permanently';
-        $Call['Headers']['Location:'] = $URL;
+        $Call['HTTP']['Headers']['HTTP/1.1'] = ' 301 Moved Permanently';
+        $Call['HTTP']['Headers']['Location:'] = $URL;
 
         F::Log('Redirected to '.$URL, LOG_INFO);
 
@@ -101,8 +107,8 @@
                 $URL = str_replace($Key, F::Dot($Call,$Vars[1][$IX]) , $URL);
         }
 
-        $Call['Headers']['HTTP/1.1'] = ' 301 Moved Permanently';
-        $Call['Headers']['Location:'] = 'http://'.$URL;
+        $Call['HTTP']['Headers']['HTTP/1.1'] = ' 301 Moved Permanently';
+        $Call['HTTP']['Headers']['Location:'] = 'http://'.$URL;
 
         F::Log('Redirected to '.$URL, LOG_INFO);
 
@@ -147,22 +153,19 @@
         if ((isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS'])) or
                 (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&$_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https'))
             {
-                $Call['Proto'] = 'https://';
-                $Call['Host'] = 'https://'.$_SERVER['HTTP_HOST'];
-                $Call['RHost'] = $_SERVER['HTTP_HOST'];
+                $Call['HTTP']['Proto'] = 'https://';
+                $Call['HTTP']['Host'] = $_SERVER['HTTP_HOST'];
             }
             else
             {
-                $Call['Proto'] = 'http://';
-                $Call['Host'] = 'http://'.$_SERVER['HTTP_HOST'];
-                $Call['RHost'] = $_SERVER['HTTP_HOST'];
+                $Call['HTTP']['Proto'] = 'http://';
+                $Call['HTTP']['Host'] = $_SERVER['HTTP_HOST'];
             }
 
-        F::Log('Protocol is *'.$Call['Proto'].'*', LOG_INFO);
-        F::Log('RHost is *'.$Call['RHost'].'*', LOG_INFO);
-        F::Log('Host is *'.$Call['Host'].'*', LOG_INFO);
+        F::Log('Protocol is *'.$Call['HTTP']['Proto'].'*', LOG_INFO);
+        F::Log('Host is *'.$Call['HTTP']['Host'].'*', LOG_INFO);
 
-        $Call = F::loadOptions($Call['RHost'], null, $Call);
+        $Call = F::loadOptions($Call['HTTP']['Host'], null, $Call);
 
         return $Call;
     });

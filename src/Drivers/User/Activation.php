@@ -33,7 +33,7 @@
                                                           'ID' => 'EMail',
                                                           'Data' =>
                                                               F::Merge($Call,[
-                                                                   'URLActivation' => $Call['Host'].'/activate/user/'.$Call['Data']['Code']
+                                                                   'URLActivation' => $Call['HTTP']['Host'].'/activate/user/'.$Call['Data']['Code']
                                                               ])
                                                      ]);
 

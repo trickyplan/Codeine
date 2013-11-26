@@ -9,17 +9,21 @@
 
     setFn('Filter', function ($Call)
     {
-        $Call['UA'] = F::Live($Call['UA']);
+        $Decision = true;
 
-        if (isset($Call['Bad UA']))
-            foreach ($Call['Bad UA'] as $Bad)
+        if (isset($Call['Security']['UA']['Bad']))
+            foreach ($Call['Security']['UA']['Bad'] as $Bad)
+            {
                 if (preg_match('/'.$Bad.'/SsUui', $Call['UA']))
                 {
                     F::Log('Bad UA Detected: '.$Call['UA'].' from IP '.F::Live($Call['IP']), LOG_ERR, 'Security');
-                    $Call = F::Hook('BadUADetected', $Call);
-                    $Call['Skip Run'] = true;
-                    break;
+                    $Decision = false;
                 }
+            }
+
+        $Call = $Decision?
+            F::Hook('Security.UA.Allowed', $Call):
+            F::Hook('Security.UA.Denied', $Call);
 
         return $Call;
     });

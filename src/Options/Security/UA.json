@@ -1,15 +1,36 @@
 {
-    "Bad UA": [
-        "phantomjs|nmap|nikto|wikto|sf|sqlmap|bsqlbf|w3af|acunetix|havij|appscan"
-    ],
+    "Security":
+    {
+        "UA":
+        {
+            "Bad":
+            [
+                "phantomjs|nmap|nikto|wikto|sf|sqlmap|bsqlbf|w3af|acunetix|havij|appscan"
+            ]
+        }
+    },
     "Hooks":
     {
-        "BadUADetected":
+        "Security":
         {
-            "Block":
+            "UA":
             {
-                "Service": "Error.403",
-                "Method": "Page"
+                "Denied":
+                {
+                    "Call":
+                    {
+                        "Service": "Error.403",
+                        "Method": "Page",
+                        "Call":
+                        {
+                            "Reason": "UA"
+                        }
+                    }
+                },
+                "Allowed":
+                {
+
+                }
             }
         }
     }

@@ -31,8 +31,22 @@
         },
         "/changepwd":
         {
-            "Service":"User.Passwd",
-            "Method":"Do"
+            "Service":"Entity.Update",
+            "Call":
+            {
+                "Purpose": "Password",
+                "Only Tag": "Password",
+                "Entity": "User",
+                "Where":
+                {
+                    "Service": "Session",
+                    "Method": "Read",
+                    "Call":
+                    {
+                        "Key": "User.ID"
+                    }
+                }
+            }
         },
         "/auth/social":
         {

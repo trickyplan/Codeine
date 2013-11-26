@@ -17,13 +17,16 @@
         {
             "Service":"Entity.List",
             "Method":"Do",
-            "Call":
+            "View":
             {
                 "Renderer":
                 {
                     "Service": "View.RSS",
                     "Method": "Render"
-                },
+                }
+            },
+            "Call":
+            {
                 "Entity": "Comment",
                 "Link": "/comments",
                 "Sort":

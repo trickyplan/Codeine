@@ -13,7 +13,7 @@
         $Data = [];
 
         foreach ($Elements as $Element)
-            $Data[] = $Call['Host'].'/comment/'.$Element['ID']; // FIXME!
+            $Data[] = $Call['HTTP']['Host'].'/comment/'.$Element['ID']; // FIXME!
 
         return $Data;
      });

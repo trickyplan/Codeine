@@ -11,10 +11,10 @@
     {
         $Call = F::Apply('System.Interface.Web', 'Protocol', $Call);
         return
-            $Call['Proto']
+            $Call['HTTP']['Proto']
             .$Call['Gravatar']['URL']
             .md5(strtolower(trim($Call['EMail'])))
             .'?s='
             .$Call['Gravatar']['Size']
-            .urlencode('&d='.$Call['Host'].'/img/no.jpg');
+            .urlencode('&d='.$Call['HTTP']['Host'].'/img/no.jpg');
     });

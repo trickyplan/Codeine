@@ -10,7 +10,7 @@
     setFn('Do', function ($Call)
     {
         $Call = F::Hook('beforeReset', $Call);
-        return F::Run(null, $Call['HTTP Method'], $Call);
+        return F::Run(null, $Call['HTTP']['Method'], $Call);
     });
 
     setFn('ByID', function ($Call)
@@ -21,10 +21,11 @@
         {
             $NewPassword = F::Live($Call['Password']['Generator']);
 
-            F::Run('Entity', 'Update',
+            $Call['User'] = F::Run('Entity', 'Update',
                 [
                       'Entity' => 'User',
                       'Purpose' => 'Reset',
+                      'One' => true,
                       'Where'  => $Call['User']['ID'],
                       'Data' =>
                        [
@@ -34,23 +35,33 @@
                        ]
                 ]);
 
-            $Message['Scope'] = $Call['User']['EMail'];
-            $Message['ID']    = 'Восстановление пароля';
-            $Message['Data']  = F::Run('View', 'Load',
-                                                 [
-                                                      'Scope' => 'User',
-                                                      'ID' => 'Reset/EMail',
-                                                      'Data' =>
-                                                        array_merge($Call['User'],
-                                                            [
-                                                                'Password' => $NewPassword,
-                                                                'Host' => $Call['Host']
-                                                            ])
-                                                 ]);
+            $VCall = $Call;
 
-            $Message['Headers'] = ['Content-type:' => ' text/html; charset="utf-8"'];
+            $VCall['Layouts'] =
+                [[
+                    'Scope' => 'Project',
+                    'ID'    => 'Zone',
+                    'Context' => 'mail'
+                ]];
 
-            F::Live($Call['Sender'], $Message);
+            $VCall['Output']['Content'][] =
+                [
+                    'Type'  => 'Template',
+                    'Scope' => 'User',
+                    'ID'    => 'Reset/EMail',
+                    'Data'  => F::Merge($Call['User'], ['Password' => $NewPassword])
+                ];
+
+            $VCall = F::Run('View', 'Render', $VCall, ['Context' => 'mail']);
+
+            F::Run('IO', 'Write', $VCall, [
+                'Storage' => 'EMail',
+                'ID' => 'Восстановление пароля',
+                'Scope' => $Call['User']['EMail'],
+                'Data' => $VCall['Output']]
+            );
+
+            F::Log('User reset password '.$Call['User']['ID'], LOG_INFO, 'Security');
 
             $Call['Output']['Content'][] =
             [
@@ -58,8 +69,6 @@
                 'Scope' => 'User',
                 'ID' => 'Reset/Success'
             ];
-
-            F::Log('User reset password '.$Call['User']['ID'], LOG_INFO, 'Security');
         }
         else
             $Call['Output']['Content'][] =

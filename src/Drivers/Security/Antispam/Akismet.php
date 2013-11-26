@@ -15,11 +15,11 @@
             'User Agent' => 'Codeine/7.x | Akismet/1.0',
             'Data' =>
             [
-                'blog' => $Call['Host'],
+                'blog' => $Call['HTTP']['Host'],
                 'user_ip' => F::Live($Call['IP']),
                 'user_agent' => $Call['UA'],
                 'referrer' => '',
-                'permalink' => $Call['URL'],
+                'permalink' => $Call['HTTP']['URL'],
                 'comment_type' => 'comment',
                 'comment_author' =>
                     isset($Call['User']['Title']) ? $Call['User']['Title']: '',

@@ -9,9 +9,9 @@
 
     setFn ('Detect', function ($Call)
     {
-        if (isset($Call['RHost']))
+        if (isset($Call['HTTP']['Host']))
             foreach ($Call['Locales']['Hosts'] as $Host => $Locale)
-                if (preg_match('/'.$Host.'/', $Call['RHost']))
+                if (preg_match('/'.$Host.'/', $Call['HTTP']['Host']))
                 {
                     $Call['Locale'] = $Locale;
                     F::Log('Hosts suggest locale *'

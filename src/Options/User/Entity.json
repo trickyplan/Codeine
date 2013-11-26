@@ -70,11 +70,10 @@
         "Password":
         {
             "Type": "Literal.Password",
-            "WriteOnce": true,
-            "NoLive": true,
+            "Only Tag": "Password",
             "Widgets":
             {
-                "Create":
+                "Write":
                 {
                     "Type": "Form.Password",
                     "Required": true

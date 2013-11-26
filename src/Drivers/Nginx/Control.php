@@ -12,7 +12,7 @@
         $Call['Output']['Status'][] =
             [
                 'Type' => 'Text',
-                'Value' => file_get_contents('http://'.$Call['Host'].'/nginx_status')
+                'Value' => file_get_contents('http://'.$Call['HTTP']['Host'].'/nginx_status')
             ];
 
         return $Call;
@@ -23,7 +23,7 @@
         $Call['Output']['Content'][] =
             [
                 'Type' => 'Text',
-                'Value' => '<pre>'.shell_exec('tail -n25 /var/log/nginx/'.$Call['Host'].'.error.log').'</pre>'
+                'Value' => '<pre>'.shell_exec('tail -n25 /var/log/nginx/'.$Call['HTTP']['Host'].'.error.log').'</pre>'
             ];
 
         return $Call;
@@ -34,7 +34,7 @@
         $Call['Output']['Content'][] =
             [
                 'Type' => 'Text',
-                'Value' => '<pre>'.shell_exec('tail -n25 /var/log/nginx/'.$Call['Host'].'.access.log').'</pre>'
+                'Value' => '<pre>'.shell_exec('tail -n25 /var/log/nginx/'.$Call['HTTP']['Host'].'.access.log').'</pre>'
             ];
 
         return $Call;

@@ -7,10 +7,13 @@
             "Service":"Entity.Vote",
             "Weight": 150,
             "Method":"Do",
-            "Renderer":
+            "View":
             {
-                "Service": "View.JSON",
-                "Method": "Render"
+                "Renderer":
+                {
+                    "Service": "View.JSON",
+                    "Method": "Render"
+                }
             },
             "Call":
             {
@@ -25,10 +28,13 @@
             "Weight": 150,
             "Service":"Entity.Vote",
             "Method":"Do",
-            "Renderer":
+            "View":
             {
-                "Service": "View.JSON",
-                "Method": "Render"
+                "Renderer":
+                {
+                    "Service": "View.JSON",
+                    "Method": "Render"
+                }
             },
             "Call":
             {

@@ -1,8 +1,11 @@
 {
-    "Renderer":
+    "View":
     {
-        "Service": "View.HTML",
-        "Method": "Render"
+        "Renderer":
+        {
+            "Service": "View.HTML",
+            "Method": "Render"
+        }
     },
     "Context": "",
     "HTTP":
@@ -11,6 +14,15 @@
         {
             "Allowed": ["GET", "POST"],
             "Default": "GET"
+        },
+        "Headers":
+        {
+            "HTTP/1.0": "200 OK",
+            "Content-Language:": "ru",
+            "Cache-Control:": "no-cache",
+            "X-Frame-Options:": "SAMEORIGIN",
+            "X-Content-Type-Options:": "nosniff",
+            "X-XSS-Protection:": " 1; mode=block"
         }
     },
     "IP":
@@ -39,20 +51,11 @@
             }
         }
     },
-    "Headers":
-    {
-        "HTTP/1.0": "200 OK",
-        "Content-Language:": "ru",
-        "Cache-Control:": "no-cache",
-        "X-Frame-Options:": "SAMEORIGIN",
-        "X-Content-Type-Options:": "nosniff",
-        "X-XSS-Protection:": " 1; mode=block"
-    },
     "Hooks":
     {
         "beforeInterfaceRun":
         {
-            "Filter UA":
+            "Filter by UA":
             {
                 "Service": "Security.UA",
                 "Method": "Filter"

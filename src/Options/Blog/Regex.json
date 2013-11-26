@@ -100,13 +100,16 @@
             "Weight": 44,
             "Service":"Entity.List",
             "Method":"Do",
-            "Call":
+            "View":
             {
                 "Renderer":
                 {
                     "Service": "View.RSS",
-                    "Method": "Renderer"
-                },
+                    "Method": "Render"
+                }
+            },
+            "Call":
+            {
                 "Title": "Блог ONE2TEAM",
                 "Description": "Интересное о web-разработке",
                 "Entity": "Blog",
@@ -152,13 +155,16 @@
             "Match":"^/blog.rss$",
             "Service":"Entity.List",
             "Method":"Do",
-            "Call":
+            "View":
             {
                 "Renderer":
                 {
                     "Service": "View.RSS",
                     "Method": "Render"
-                },
+                }
+            },
+            "Call":
+            {
                 "Entity": "Blog",
                 "Link": "/blog",
                 "Sort":

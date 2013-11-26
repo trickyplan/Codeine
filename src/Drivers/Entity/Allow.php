@@ -16,7 +16,7 @@
 
         $Call = F::Hook('beforeAllowDo', $Call);
 
-        return F::Run(null, $Call['HTTP Method'], $Call);
+        return F::Run(null, $Call['HTTP']['Method'], $Call);
     });
 
     setFn('GET', function ($Call)

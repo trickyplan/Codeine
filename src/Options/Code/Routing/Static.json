@@ -26,57 +26,75 @@
         {
             "Service": "Locale.Add",
             "Method": "Do",
-            "Renderer":
+            "View":
             {
-                "Service": "View.JSON",
-                "Method": "Render"
+                "Renderer":
+                {
+                    "Service": "View.JSON",
+                    "Method": "Render"
+                }
             }
         },
         "/sitemap.xml":
         {
             "Service": "SEO.Sitemap",
             "Method": "Do",
-            "Renderer":
+            "View":
             {
-                "Service": "View.XML",
-                "Method": "Render"
+                "Renderer":
+                {
+                    "Service": "View.XML",
+                    "Method": "Render"
+                }
             }
         },
         "/uploader":
         {
             "Service": "IO.Uploader",
             "Method": "Do",
-            "Renderer":
+            "View":
             {
-                "Service": "View.JSON",
-                "Method": "Render"
+                "Renderer":
+                {
+                    "Service": "View.JSON",
+                    "Method": "Render"
+                }
             }
         },
         "/beacon":
         {
             "Service": "Codeine.Beacon",
-            "Renderer":
+            "View":
             {
-                "Service": "View.File"
+                "Renderer":
+                {
+                    "Service": "View.File"
+                }
             }
         },
         "/robots.txt":
         {
             "Service": "SEO.Robots",
             "Method": "Do",
-            "Renderer":
+            "View":
             {
-                "Service": "View.Plaintext",
-                "Method": "Render"
+                "Renderer":
+                {
+                    "Service": "View.Plaintext",
+                    "Method": "Render"
+                }
             }
         },
         "/opensearch.xml":
         {
             "Service": "Project.OpenSearch",
-            "Renderer":
+            "View":
             {
-                "Service": "View.XML",
-                "Method": "Render"
+                "Renderer":
+                {
+                    "Service": "View.XML",
+                    "Method": "Render"
+                }
             }
         },
         "/terms":

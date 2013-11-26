@@ -1,8 +1,11 @@
 {
-    "Headers":
+    "HTTP":
     {
-        "Content-type:": "application/octet-stream",
-        "Accept-Ranges:": "bytes",
-        "Connection:": "keep-alive"
+        "Headers":
+        {
+            "Content-type:": "application/octet-stream",
+            "Accept-Ranges:": "bytes",
+            "Connection:": "keep-alive"
+        }
     }
 }

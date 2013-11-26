@@ -80,7 +80,7 @@
                          'Entity' => $Call['Bundle']
                     ]);
 
-        $Call['Renderer'] =
+        $Call['View']['Renderer'] =
             [
                 'Service' =>  'View.JSON',
                 'Method' =>  'Render'

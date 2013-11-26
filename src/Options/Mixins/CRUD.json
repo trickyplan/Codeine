@@ -17,7 +17,7 @@
                 "Method": "Redirect",
                 "Call":
                 {
-                    "Location": "/$entity/$Data.ID"
+                    "Location": "/$entity/$Data.0.ID"
                 }
             }
         },

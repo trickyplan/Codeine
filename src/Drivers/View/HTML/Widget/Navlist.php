@@ -24,7 +24,7 @@
              {
                  $Options[] = F::Run ('View', 'Load', $Call,
                      [
-                         'Scope' => $Call['Widget Set'].'/Widgets',
+                         'Scope' => $Call['View']['HTML']['Widget Set'].'/Widgets',
                          'ID'    => 'Navlist/Element',
                          'Data'  => $Value
                      ]);
@@ -32,7 +32,7 @@
              else
                  $Options[] = F::Run ('View', 'Load', $Call,
                      [
-                         'Scope' => $Call['Widget Set'].'/Widgets',
+                         'Scope' => $Call['View']['HTML']['Widget Set'].'/Widgets',
                          'ID'    => 'Navlist/Header',
                          'Data'  => ['Title' => $Value]
                      ]);

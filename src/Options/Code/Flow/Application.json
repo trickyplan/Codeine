@@ -1,8 +1,11 @@
 {
-    "Renderer":
+    "View":
     {
-        "Service": "View.HTML",
-        "Method": "Render"
+        "Renderer":
+        {
+            "Service": "View.HTML",
+            "Method": "Render"
+        }
     },
     "Context": "app",
     "Run":

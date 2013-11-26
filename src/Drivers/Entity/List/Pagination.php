@@ -40,10 +40,10 @@
 
         $Call['PageURLPostfix'] = isset($Call['PageURLPostfix'])? $Call['PageURLPostfix']: '';
 
-        $Call['PageURLPostfix'].= isset($Call['URL Query'])? '?'.$Call['URL Query']: '';
+        $Call['PageURLPostfix'].= isset($Call['HTTP']['URL Query'])? '?'.$Call['HTTP']['URL Query']: '';
 
-        if (!isset($Call['FirstURL']) && isset($Call['URL']))
-            $Call['FirstURL'] = preg_replace('@/page(\d+)@', '', $Call['URL']);
+        if (!isset($Call['FirstURL']) && isset($Call['HTTP']['URL']))
+            $Call['FirstURL'] = preg_replace('@/page(\d+)@', '', $Call['HTTP']['URL']);
 
 
         if (isset($Call['PageCount']) && $Call['PageCount']>1)

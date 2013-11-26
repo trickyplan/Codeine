@@ -9,11 +9,11 @@
 
     setFn ('Page', function ($Call)
     {
-        $Call['Headers']['HTTP/1.1'] = '451 Unavailable For Legal Reasons';
+        $Call['HTTP']['Headers']['HTTP/1.1'] = '451 Unavailable For Legal Reasons';
 
-        $Call['Title'] = '451';
-        $Call['Description'] = 'TODO';
-        $Call['Keywords'] = array ('TODO');
+        $Call['Page']['Title'] = '451';
+        $Call['Page']['Description'] = 'TODO';
+        $Call['Page']['Keywords'] = array ('TODO');
 
         $Call['Output']['Content'] = [[
                                         'Type'  => 'Template',

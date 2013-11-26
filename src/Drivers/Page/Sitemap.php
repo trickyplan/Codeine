@@ -14,7 +14,7 @@
 
         if ($Elements !== null)
         foreach ($Elements as $Element)
-            $Data[] = $Call['Host'].'/'.$Element['Slug']; // FIXME!
+            $Data[] = $Call['HTTP']['Host'].'/'.$Element['Slug']; // FIXME!
 
         return $Data;
      });

@@ -10,11 +10,11 @@
     setFn('Render', function ($Call)
     {
 
-        $Call['Headers']['Content-type:'] = mime_content_type($Call['Output']['Content']);
+        $Call['HTTP']['Headers']['Content-type:'] = mime_content_type($Call['Output']['Content']);
 
         $pi = pathinfo($Call['Output']['Content']);
 
-        $Call['Headers']['Content-Disposition:'] =
+        $Call['HTTP']['Headers']['Content-Disposition:'] =
             'attachment;filename="'.$Call['Output']['Title'].'.'.$pi['extension'].'"';
 
         readfile($Call['Output']['Content']);

@@ -62,7 +62,7 @@
                             print_r($Request);
 
         /*                    $Call['UA'] = $Headers['User-Agent'];
-                            $Call['URL'] = $Headers['Request Url'];*/
+                            $Call['HTTP']['URL'] = $Headers['Request Url'];*/
 
         /*                    $Call = F::Run('Code.Flow.Front', 'Run', $Call);*/
 

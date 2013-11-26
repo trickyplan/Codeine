@@ -25,10 +25,10 @@
 
         $XML->startElement('channel');
 
-        $XML->writeElement('title', $Call['Title']);
-        $XML->writeElement('link', $Call['Host'].$Call['Link']);
-        if (isset($Call['Description']))
-            $XML->writeElement('description', $Call['Description']);
+        $XML->writeElement('title', $Call['Page']['Title']);
+        $XML->writeElement('link', $Call['HTTP']['Host'].$Call['Link']);
+        if (isset($Call['Page']['Description']))
+            $XML->writeElement('description', $Call['Page']['Description']);
         $XML->writeElement('generator', 'Codeine '.$Call['Version']['Codeine']['Major']);
         $XML->writeElement('pubDate', date(DATE_RSS, time()));
         $XML->writeElement('lastBuildDate', date(DATE_RSS, time()));
@@ -54,7 +54,7 @@
                     }
 
                     $XML->startElement('link');
-                        $XML->text($Call['Host'].'/'.strtolower($Element['Scope']).'/'.$Element['Data']['Slug']); // FIXME It's shit!
+                        $XML->text($Call['HTTP']['Host'].'/'.strtolower($Element['Scope']).'/'.$Element['Data']['Slug']); // FIXME It's shit!
                     $XML->endElement(); // title
 
                 $XML->endElement(); // item

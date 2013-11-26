@@ -49,7 +49,9 @@
 
         $Call = F::Hook('beforeOperation', $Call);
 
-            foreach ($Call['Data'] as $IX => $New)
+        $NewData = $Call['Data'];
+
+            foreach ($NewData as $IX => $Call['Data'])
             {
                 $Call = F::Hook('beforeEntityWrite', $Call);
 
@@ -57,7 +59,7 @@
 
                     if (!isset($Call['Failure']) or !$Call['Failure']) // FIXME Shit
                     {
-                        $Data[$IX] = F::Run('IO', 'Write', $Call, ['Data!' => $New]);
+                        $Data[$IX] = F::Run('IO', 'Write', $Call);
                         $Call = F::Hook('afterEntityCreate', $Call);
                     }
                     else

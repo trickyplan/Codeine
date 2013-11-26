@@ -41,7 +41,7 @@
                 'Where' => 'http://codeine-framework.ru/benchmarks',
                 'Data' =>
                 [
-                    'Host' => $Call['Host'],
+                    'Host' => $Call['HTTP']['Host'],
                     'Score' => $Call['Overall'],
                     'Environment' => F::Environment(),
                     'Version' => $Call['Benchmark']['Version']
