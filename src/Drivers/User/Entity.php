@@ -41,3 +41,11 @@
 
         return $Photo;
     });
+
+    setFn('Fullname', function ($Call)
+    {
+        if (empty($Call['Data']['Title']))
+            return $Call['Data']['Fullname'];
+        else
+            return $Call['Data']['Title'];
+    });

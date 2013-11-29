@@ -43,6 +43,11 @@
                 "Service":"Entity.Hooks.Strict",
                 "Method":"Process"
             },
+            "Updated":
+            {
+                "Service":"Entity.Hooks.Updated",
+                "Method":"Process"
+            },
             "Make variables alive":
             {
                 "Service":"Entity.Hooks.Live",
@@ -85,11 +90,6 @@
             "Nullable":
             {
                 "Service":"Entity.Hooks.Nullable",
-                "Method":"Process"
-            },
-            "Updated":
-            {
-                "Service":"Entity.Hooks.Updated",
                 "Method":"Process"
             },
             "Datatypes":

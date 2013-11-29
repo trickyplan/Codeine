@@ -9,6 +9,7 @@
 
     setFn('Process', function ($Call)
     {
-        $Call['Data'] = F::Merge($Call['Current'], $Call['Data']);
+        if (isset($Call['Current']))
+            $Call['Data'] = F::Merge($Call['Current'], $Call['Data']);
         return $Call;
     });

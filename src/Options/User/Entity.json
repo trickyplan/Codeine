@@ -61,11 +61,19 @@
         {
             "Default": 0
         },
+        "Fullname": {},
         "Title":
         {
             "Type": "Literal.String",
-            "Required": true,
             "Verifiable": true,
+            "Hooks":
+            {
+                "beforeEntityUpdate":
+                {
+                    "Service": "User.Entity",
+                    "Method": "Fullname"
+                }
+            },
             "Widgets":
             {
                 "Write":
