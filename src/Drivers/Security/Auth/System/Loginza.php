@@ -94,8 +94,6 @@
                          'One'      => true,
                          'Data'     => $UserData
                     ]);
-
-                $Call['User'] = array_pop($Call['User']);
             }
         }
         else
