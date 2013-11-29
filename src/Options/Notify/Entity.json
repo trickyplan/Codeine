@@ -33,7 +33,7 @@
         },
         "Text":
         {
-            "Type": "Literal.String"
+            "Type": "Literal.HTML"
         },
         "Readed":
         {

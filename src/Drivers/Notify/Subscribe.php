@@ -24,13 +24,14 @@
         if (!empty($Elements))
         {
             foreach($Elements as $Element)
-                F::Run('Entity', 'Update',
+            {
+                F::Run('Entity', 'Update', $Call,
                     [
-                        'One'       => true,
                         'Entity'    => 'Notify',
                         'Where'     => $Element['ID'],
                         'Data'      => ['Readed' => time()]
                     ]);
+            }
 
             $Call['Output']['Content'] = $Elements;
         }

@@ -46,6 +46,8 @@
 
             unset($Call['User']);
         }
+        else
+            F::Log('Passwords match', LOG_GOOD, 'Security');
 
         return $Call;
     });

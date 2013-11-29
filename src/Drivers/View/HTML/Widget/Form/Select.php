@@ -43,7 +43,7 @@
                      || ((is_array($Call['Value']) && in_array ($Value, $Call['Value']))))
                      $Options[] = '<option value="'.$Key.'" selected>'.$lValue.'</option>';
                  else
-                     $Options[] = '<option value="' . $Key . '">' . $lValue . '</option>';
+                     $Options[] = '<option value="'.$Key.'">' . $lValue . '</option>';
              }
 
          $Call ['Options'] = implode('', $Options);

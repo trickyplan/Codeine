@@ -30,14 +30,14 @@
             $Call['Checks'] .= F::Run('View', 'Load',
                 [
                     'Scope' => $Call['View']['HTML']['Widget Set'].'/Widgets',
-                    'ID' => 'Form/Checkbox',
+                    'ID' => 'Form/Checkgroup/Checkbox',
                     'Data' =>
                     F::Merge ($Call,
                         [
                             'Value' => $Key,
                             'Checked' => $Checked,
                             'Label' => $lValue,
-                            'Checked' => $Checked? 'checked': ''
+                            'Checked' => $Checked ? 'checked': ''
                         ])
                 ]
             );

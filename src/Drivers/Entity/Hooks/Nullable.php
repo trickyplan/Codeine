@@ -12,14 +12,15 @@
         foreach ($Call['Nodes'] as $Name => $Node)
         {
             if (isset($Node['Nullable']) && $Node['Nullable'])
+            {
                 if (F::Dot($Call['Data'], $Name) === null)
                 {
                     if (isset($Node['Default']))
-                        $Call['Data'] = F::Dot($Call['Data'],$Name,$Node['Default']);
+                        $Call['Data'] = F::Dot($Call['Data'], $Name, $Node['Default']);
                     else
-                        $Call['Data'] = F::Dot($Call['Data'],$Name, null);
+                        $Call['Data'] = F::Dot($Call['Data'], $Name, null);
                 }
+            }
         }
-
         return $Call;
     });

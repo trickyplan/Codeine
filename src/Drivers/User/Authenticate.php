@@ -36,18 +36,15 @@
             if (isset($Call['Request']['Remember']))
                 $Call['TTL'] = $Call['TTLs']['Long'];
 
-            $Call = F::Hook('beforeAuthenticate', $Call);
+            $Call = F::Apply('Session', 'Write', $Call, ['Data' => ['User' => $Call['User']['ID']]]);
 
-            if (!isset($Call['Failure']))
+            if ($Call['Session']['User'] == $Call['User']['ID'])
             {
-                $Call = F::Apply('Session', 'Write', $Call, ['Data' => ['User' => $Call['User']['ID']]]);
-
-                if ($Call['Session']['User'] == $Call['User']['ID'])
-                {
-                    $Call = F::Hook('afterAuthenticatePost', $Call);
-                    F::Log('User authorized '.$Call['User']['ID'], LOG_INFO, 'Security');
-                }
+                $Call = F::Hook('afterAuthenticatePost', $Call);
+                F::Log('User authorized '.$Call['User']['ID'], LOG_INFO, 'Security');
             }
+            else
+                F::Log('User is not authorized', LOG_INFO, 'Security');
         }
         else
         {

@@ -14,7 +14,7 @@
 
     setFn('Read', function ($Call)
     {
-        $Call['Node']['Options'] = F::Live($Call['Node']['Options'])[0];
+        $Call['Node']['Options'] = F::Live($Call['Node']['Options']);
 
         if(is_array($Call['Value']))
             foreach ($Call['Value'] as &$Value)

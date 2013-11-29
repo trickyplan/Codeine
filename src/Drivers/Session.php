@@ -10,7 +10,6 @@
     setFn('Initialize', function ($Call)
     {
         $Call['SID'] = F::Run('Session.Marker.Cookie', 'Read', $Call);
-        $Call['Session'] = null;
 
         // Маркера нет — пользователь чистый гость
         if (null === $Call['SID'])
@@ -19,7 +18,6 @@
 
             if (isset($Call['Session Auto']) && $Call['Session Auto'])
                 $Call = F::Apply(null, 'Mark', $Call);
-
         }
         else
         {
@@ -62,13 +60,15 @@
 
                     F::Log('Session: Primary user '.$Call['Session']['User']['ID'].' authenticated', LOG_INFO, 'Security');
                 }
-
+/*
                 if (isset($Call['Session']['User']['Locale']))
                 {
                     $Call['Locale'] = $Call['Session']['User']['Locale'];
                     F::Log('User Locale selected: '.$Call['Session']['User']['Locale'], LOG_INFO);
-                }
+                }*/
             }
+            else
+                $Call['Session'] = [];
         }
 
         F::Log($Call['Session'], LOG_DEBUG);
@@ -84,7 +84,7 @@
         if (!isset($Call['Session']))
             $Call = F::Apply(null, 'Initialize', $Call);
 
-        if (null === $Call['Session'])
+        if (empty($Call['Session']))
         {
             $Call['Data']['ID'] = $Call['SID'];
             $Call['Session'] = F::Run('Entity', 'Create', $Call, ['Entity' => 'Session', 'One' => true]);
@@ -111,13 +111,10 @@
         if (!isset($Call['Session']))
             $Call = F::Apply(null, 'Initialize', $Call);
 
-        if (isset($Call['Session']))
-        {
-            if (isset($Call['Key']))
-                return F::Dot($Call['Session'], $Call['Key']);
-            else
-                return $Call['Session'];
-        }
+        if (isset($Call['Key']))
+            return F::Dot($Call['Session'], $Call['Key']);
+        else
+            return $Call['Session'];
     });
 
     setFn('Annulate', function ($Call)
@@ -136,9 +133,11 @@
     {
         $Call['SID'] = F::Live($Call['SID Generator']);
 
-            // Вешаем маркер, если включено автомаркирование
-            if (F::Run('Session.Marker.Cookie', 'Write', $Call))
-                F::Log('Session: Marker added', LOG_INFO);
+        // Вешаем маркер, если включено автомаркирование
+        if (F::Run('Session.Marker.Cookie', 'Write', $Call))
+            F::Log('Session Marker added', LOG_INFO, 'Security');
+        else
+            F::Log('Session Marker add failed', LOG_INFO, 'Security');
 
         return $Call;
     });

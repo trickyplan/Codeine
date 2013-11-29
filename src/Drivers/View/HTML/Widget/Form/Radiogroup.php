@@ -11,7 +11,7 @@
     {
         $Call['Radios'] = '';
 
-        foreach($Call['Options'] as $IX => $Value)
+        foreach($Call['Options'] as $Key => $Value)
         {
              if (isset($Call['Localized']) && $Call['Localized'])
              {
@@ -32,7 +32,7 @@
                         [
                             'Label' => $lValue,
                             'Value' => $Value,
-                            'Checked' => ($Value == $Call['Value'] ? 'checked': '')
+                            'Checked' => ($Key == $Call['Value'] ? 'checked': '')
                         ])
                 ]
             );

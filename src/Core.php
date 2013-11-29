@@ -346,7 +346,7 @@
             foreach (self::$_Stack as $IX => $Element)
                 $Output[] = str_pad("*", $IX+1).' '.$Element."\n";
 
-            echo '<pre>'.implode(array_reverse($Output)).'</pre>';
+            $Output = '<pre>'.implode(array_reverse($Output)).'</pre>';
 
             return $Output;
         }
@@ -446,7 +446,9 @@
                 die();
             }
 
-            return F::Log($errno.' '.$errstr.' '.$errfile.'@'.$errline, LOG_CRIT);
+            F::Log($errno.' '.$errstr.' '.$errfile.'@'.$errline, LOG_CRIT);
+            F::Log(F::Stack(), LOG_CRIT);
+
         }
 
         public static function setLive($Live)

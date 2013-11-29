@@ -24,7 +24,7 @@
                 if (!isset($Model['EV']))
                     $Model['EV'] = 1;
 
-                $Call = F::Merge($Model, $Call);
+                $Call = F::Merge($Call, $Model);
             }
             else
                 F::Log('Model for '.$Call['Entity'].' not found', LOG_CRIT);
@@ -38,6 +38,8 @@
 
     setFn('Create', function ($Call)
     {
+        $Data = [];
+
         if (!isset($Call['Entity']))
         {
             F::Log('Entity not defined.', LOG_ERR);
@@ -69,10 +71,14 @@
             }
 
         $Call = F::Hook('afterOperation', $Call);
+
         if (isset($Call['One']))
             $Data = array_shift($Data);
 
-        return $Data;
+        if (isset($Call['Errors']))
+            return ['Errors' => $Call['Errors']];
+        else
+            return $Data;
     });
 
     setFn('Read', function ($Call)
@@ -127,20 +133,20 @@
 
         $Current = F::Run('Entity', 'Read', $Call, ['One' => false]);
 
-        $Updates = $Call['Data'];
+        $Call['Updates'] = $Call['Data'];
 
         if ($Current)
         {
-            foreach ($Current as $IX => $Call['Current'])
+            foreach ($Current as $Call['IX'] => $Call['Current'])
             {
-                if (isset($Updates[$IX]))
-                    $Call['Data'] = F::Merge($Call['Current'], $Updates[$IX]);
-                else
-                    $Call['Data'] = F::Merge($Call['Current'], $Updates);
-
                 if (isset($Call['Current']['ID']))
                 {
                     $Call['Where'] = ['ID' => $Call['Current']['ID']];
+
+                    if (isset($Call['Updates'][$Call['IX']]))
+                        $Call['Data'] = $Call['Updates'][$Call['IX']];
+                    else
+                        $Call['Data'] = $Call['Updates'];
 
                     $Call = F::Hook('beforeEntityWrite', $Call);
 
@@ -152,7 +158,7 @@
 
                     $Call = F::Hook('afterEntityWrite', $Call);
 
-                    $Current[$IX] = $Call['Data'];
+                    $Current[$Call['IX']] = $Call['Data'];
                 }
             }
 

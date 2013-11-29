@@ -11,6 +11,8 @@
     {
         $Call = F::Hook('beforeCreateDo', $Call);
 
+        $Call['Scope'] = isset($Call['Scope'])? $Call['Entity'].'/'.$Call['Scope'] : $Call['Entity'];
+
         $Call = F::Apply(null, $Call['HTTP']['Method'], $Call);
 
         return $Call;
@@ -20,15 +22,7 @@
     {
         $Call = F::Hook('beforeCreateGet', $Call);
 
-        if (isset($Call['Request']['Data'][0]) && isset($Call['Data']))
-            $Call['Data'] = F::Merge($Call['Request']['Data'][0], $Call['Data']);
-        else
-            if (isset ($Call['Request']['Data'][0]))
-                $Call['Data'] = $Call['Request']['Data'][0];
-
         $Call['Tag'] = isset($Call['Scope'])? $Call['Scope']: null;
-
-        $Call['Scope'] = isset($Call['Scope'])? $Call['Entity'].'/'.$Call['Scope'] : $Call['Entity'];
 
         $Call['Layouts'][] =
             [
@@ -58,41 +52,43 @@
         $Call = F::Hook('beforeCreatePost', $Call);
         // Берём данные из запроса
 
-        if (!isset($Call['Failure']))
+        if (isset($Call['Request']['Data']))
         {
-            /*foreach ($Call['Nodes'] as $Name => $Node)
+            if (isset($Call['Data']))
             {
-                if (!isset($Node['Widgets']) && isset($Call['Data'][$Name]))
-                    unset($Call['Data'][$Name]);
-            }*/ // FIXME Вынести в Strict
+                if (!isset($Call['Data'][0]))
+                    $Call['Data'] = [$Call['Data']];
 
-            if (isset($Call['Request']['Data']))
-            {
-                if (isset($Call['Data']))
-                    $Call['Data'] = F::Merge($Call['Request']['Data'], $Call['Data']);
-                else
-                    $Call['Data'] = $Call['Request']['Data'];
+                $Call['Data'] = F::Merge($Call['Request']['Data'], $Call['Data']);
             }
-            // Отправляем в Entity.Create
-            $Call['Data'] = F::Run('Entity', 'Create', $Call);
-
-            if (!isset($Call['Errors']) or empty($Call['Errors']))
-                $Call = F::Hook('afterCreatePost', $Call);
             else
-            {
-                foreach ($Call['Errors'] as $Name =>$Node)
-                    foreach ($Node as $Error)
-                        $Call['Output']['Message'][] =
-                            [
-                                'Type' => 'Block',
-                                'Class' => 'alert alert-danger',
-                                'Value' => '<l>'.$Call['Entity'].'.Error:'.$Name.'.'.$Error.'</l>'
-                            ];
-
-                $Call = F::Apply(null, 'GET', $Call);
-            }
-                // Выводим результат
+                $Call['Data'] = $Call['Request']['Data'];
         }
+
+
+
+        // Отправляем в Entity.Create
+        $Result = F::Run('Entity', 'Create', $Call);
+
+        if (!isset($Result['Errors']) or empty($Result['Errors']))
+        {
+            $Call['Data'] = $Result;
+            $Call = F::Hook('afterCreatePost', $Call);
+        }
+        else
+        {
+            foreach ($Result['Errors'] as $Name =>$Node)
+                foreach ($Node as $Error)
+                    $Call['Output']['Message'][] =
+                        [
+                            'Type' => 'Block',
+                            'Class' => 'alert alert-danger',
+                            'Value' => '<l>'.$Call['Entity'].'.Error:'.$Name.'.'.$Error.'</l>'
+                        ];
+
+            $Call = F::Apply(null, 'GET', $Call, ['Purpose' => 'Correct']);
+        }
+        // Выводим результат
 
         return $Call;
     });

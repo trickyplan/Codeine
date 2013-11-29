@@ -19,7 +19,7 @@
                     $Call = F::Live($Hook, $Call);
             }
 
-            F::Log('*'.$Call['QoS']['Class'].'* class selected.', LOG_INFO);
+            F::Log('QoS *Class '.$Call['QoS']['Class'].'* selected.', LOG_INFO);
         }
         else
         {

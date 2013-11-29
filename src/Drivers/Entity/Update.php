@@ -9,8 +9,7 @@
 
     setFn('Before', function ($Call)
     {
-        $Call['Where'] = F::Live($Call['Where']);
-        $Call['Data'] = F::Run('Entity', 'Read', $Call);
+        $Call['Current'] = F::Run('Entity', 'Read', $Call);
 
         return $Call;
     });
@@ -18,9 +17,6 @@
     setFn('Do', function ($Call)
     {
         $Call = F::Hook('beforeUpdateDo', $Call);
-
-        if (isset($Call['Where']))
-            $Call['Where'] = F::Live($Call['Where']); // FIXME
 
         return F::Run(null, $Call['HTTP']['Method'], $Call);
     });
@@ -45,7 +41,8 @@
                     'ID' => isset($Call['Custom Layouts']['Update'])? $Call['Custom Layouts']['Update']: 'Update',
                     'Context' => $Call['Context']
                 ];
-            foreach ($Call['Data'] as $IX => $cData)
+
+            foreach ($Call['Current'] as $IX => $cData)
                 $Call = F::Apply('Entity.Form', 'Generate', $Call, ['IX' => $IX, 'Data!' => $cData]);
 
             // Вывести
@@ -62,7 +59,9 @@
     {
         $Call = F::Hook('beforeUpdatePost', $Call);
 
-            $Call['Data'] = $Call['Request']['Data'];
+            if (isset($Call['Request']['Data']))
+                $Call['Data'] = $Call['Request']['Data'];
+
             // Отправляем в Entity.Update
 
             $Call['Data'] = F::Run('Entity', 'Update', $Call);

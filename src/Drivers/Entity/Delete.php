@@ -11,7 +11,7 @@
     {
         $Call['Where'] = F::Live($Call['Where']);
 
-        $Call['Data'] = F::Run('Entity', 'Read', $Call, ['ReRead' => true]);
+        $Call['Current'] = F::Run('Entity', 'Read', $Call, ['ReRead' => true]);
 
         return $Call;
     });
@@ -44,7 +44,7 @@
     {
         $Call = F::Hook('beforeDeletePost', $Call);
 
-            $Call = F::Apply('Entity', 'Delete', $Call);
+            $Call['Data'] = F::Apply('Entity', 'Delete', $Call);
 
         $Call = F::Hook('afterDeletePost', $Call);
 

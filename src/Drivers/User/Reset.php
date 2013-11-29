@@ -47,8 +47,8 @@
             $VCall['Output']['Content'][] =
                 [
                     'Type'  => 'Template',
-                    'Scope' => 'User',
-                    'ID'    => 'Reset/EMail',
+                    'Scope' => 'User/Reset',
+                    'ID'    => 'EMail',
                     'Data'  => F::Merge($Call['User'], ['Password' => $NewPassword])
                 ];
 

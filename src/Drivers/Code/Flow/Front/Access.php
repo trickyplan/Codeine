@@ -14,11 +14,10 @@
 
          unset($Call['Decision'], $Call['Weight']);
 
-         if (!F::Run('Security.Access', 'Check', $Call))
-         {
+         if (F::Run('Security.Access', 'Check', $Call))
+             $Call = F::Hook('Access.Allowed', $Call);
+         else
              $Call = F::Hook('Access.Denied', $Call);
-             $Call['Failure'] = true;
-         }
 
          return $Call;
      });

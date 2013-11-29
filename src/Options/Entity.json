@@ -51,6 +51,15 @@
         },
         "beforeEntityCreate":
         {
+            "Process":
+            {
+                "Service":"Entity.Hooks.Process",
+                "Method":"Process",
+                "Call":
+                {
+                    "Purpose": "Create"
+                }
+            },
             "Make variables alive":
             {
                 "Service":"Entity.Hooks.Live",
@@ -60,15 +69,6 @@
             {
                 "Service":"Entity.Hooks.Type",
                 "Method":"Write",
-                "Call":
-                {
-                    "Purpose": "Create"
-                }
-            },
-            "Process":
-            {
-                "Service":"Entity.Hooks.Process",
-                "Method":"Process",
                 "Call":
                 {
                     "Purpose": "Create"
@@ -82,24 +82,14 @@
         },
         "beforeEntityUpdate":
         {
-            "Make variables alive":
-            {
-                "Service":"Entity.Hooks.Live",
-                "Method":"Process"
-            },
             "Nullable":
             {
                 "Service":"Entity.Hooks.Nullable",
                 "Method":"Process"
             },
-            "Validate":
+            "Updated":
             {
-                "Service":"Entity.Validate",
-                "Method":"Process"
-            },
-            "Filter":
-            {
-                "Service":"Entity.Hooks.Process",
+                "Service":"Entity.Hooks.Updated",
                 "Method":"Process"
             },
             "Datatypes":
@@ -110,6 +100,21 @@
                 {
                     "Purpose": "Update"
                 }
+            },
+            "Filter":
+            {
+                "Service":"Entity.Hooks.Process",
+                "Method":"Process"
+            },
+            "Make variables alive":
+            {
+                "Service":"Entity.Hooks.Live",
+                "Method":"Process"
+            },
+            "Validate":
+            {
+                "Service":"Entity.Validate",
+                "Method":"Process"
             }
         },
         "beforeEntityDelete":

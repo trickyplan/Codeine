@@ -13,7 +13,7 @@
         {
             foreach ($Call['Rules'] as $Name => $Rule)
             {
-                if (isset($Rule['Run']['Call']))
+                if (isset($Rule['Run']))
                     foreach ($Rule['Run'] as &$Node)
                         $Node = F::Live($Node, $Call);
 
@@ -36,8 +36,8 @@
                     else
                         if (isset($Rule['Debug']))
                         {
-                            d(__FILE__, __LINE__, F::Diff($Rule['Run'], $Call));
-                            d(__FILE__, __LINE__, $Rule['Run']);
+                            F::Log(F::Diff($Rule['Run'], $Call), LOG_INFO, 'Security');
+                            F::Log($Rule['Run'], LOG_INFO, 'Security');
                         }
 
                     if (isset($Call['Service'])
@@ -55,8 +55,8 @@
             F::Log('No rules loaded', LOG_WARNING);
 
         if (isset($Call['Rule']))
-            F::Log('Rule '.($Call['Decision']? '*allows*': 'denies')
-                .' with weight '.$Call['Weight'].': '.$Call['Rule'], LOG_INFO, 'Security');
+            F::Log('Rule *'.$Call['Rule'].'* '.($Call['Decision']? 'allows': 'denies')
+                .' with weight '.$Call['Weight'], LOG_INFO, 'Security');
         else
             F::Log('No one rule applied — *'.($Call['Decision']? 'allowed': 'denied').'*
 '.json_encode($Call['Run']['Service'], JSON_PRETTY_PRINT), LOG_INFO, 'Security');

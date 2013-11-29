@@ -1,12 +1,11 @@
 {
     "Mixins":
     [
+        "Mixins.ID.Sequence",
         "Mixins.UGC",
-        "Mixins.CRUD",
         "Mixins.Filled",
         "Mixins.Verifiable",
-        "Mixins.Billing",
-        "Mixins.ID.Sequence"
+        "Mixins.Billing"
     ],
     "Storage": "Primary",
     "EPP": 20,
@@ -35,7 +34,7 @@
             "Unique": true,
             "Widgets":
             {
-                "Create":
+                "Write":
                 {
                     "Type": "Form.Textfield",
                     "Subtype": "email"
@@ -43,6 +42,14 @@
                 "Update":
                 {
                     "Type": "Form.Static"
+                }
+            },
+            "Hooks":
+            {
+                "beforeEntityCreate":
+                {
+                    "Service": "User.EMail",
+                    "Method": "Verify"
                 }
             }
         },
@@ -131,14 +138,6 @@
     },
     "Hooks":
     {
-        "afterCreatePost!":
-        {
-            "Activation":
-            {
-                "Service": "User.Activation",
-                "Method": "Send"
-            }
-        },
         "afterLogin":
         {
             "Redirect":
@@ -148,6 +147,25 @@
                 "Call":
                 {
                     "Location": "/"
+                }
+            }
+        },
+        "afterUpdatePost!":
+        {
+            "Show message":
+            {
+                "Output":
+                {
+                    "Message":
+                    {
+                        "Success":
+                        {
+                            "Type": "Block",
+                            "Class": "alert alert-success",
+                            "Value": "Профиль обновлён"
+                        }
+                    }
+
                 }
             }
         },
