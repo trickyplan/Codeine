@@ -12,7 +12,7 @@
         if ($Call['View']['Renderer']['Service'] == 'View.HTML')
             return F::Apply(null, gettype($Call['Data']), $Call);
         else
-            return null;
+            return $Call;
     });
 
     setFn('boolean', function ($Call)
