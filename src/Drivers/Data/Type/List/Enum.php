@@ -11,7 +11,7 @@
     {
         $Call['Node']['Options'] = F::Live($Call['Node']['Options']);
 
-        return (int) array_search($Call['Value'], $Call['Node']['Options']);
+        return $Call['Value'];
     });
 
     setFn('Read', function ($Call)
