@@ -25,7 +25,7 @@
 
         $XML->startElement('channel');
 
-        $XML->writeElement('title', $Call['Page']['Title']);
+        $XML->writeElement('title', $Call['Project']['Title']); // FIXME
         $XML->writeElement('link', $Call['HTTP']['Host'].$Call['Link']);
         if (isset($Call['Page']['Description']))
             $XML->writeElement('description', $Call['Page']['Description']);

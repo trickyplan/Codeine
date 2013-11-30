@@ -11,19 +11,6 @@
     },
     "Hooks":
     {
-        "beforeRSSPipeline":
-        {
-            "Layouts":
-            {
-                "Service":"View.HTML.Layouts",
-                "Method":"Do"
-            },
-            "Meta":
-            {
-                "Service":"View.RSS.Meta",
-                "Method":"Process"
-            }
-        },
         "afterRSSPipeline":
         {
             "Parslets":

@@ -142,7 +142,8 @@
             "Match":"^/blog$",
             "Service":"Entity.List",
             "Method":"Do",
-            "Call":{
+            "Call":
+            {
                 "Entity": "Blog",
                 "Sort":
                 {
