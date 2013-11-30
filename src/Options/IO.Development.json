@@ -3,19 +3,19 @@
     {
         "Developer":
         {
-            "Driver": "IO.Print"
+            "Driver": "IO.Log.Print"
         },
         "Security":
         {
-            "Driver": "IO.Print"
+            "Driver": "IO.Log.Print"
         },
         "Profiler":
         {
-            "Driver": "IO.Print"
+            "Driver": "IO.Log.Print"
         },
         "Administrator":
         {
-            "Driver": "IO.Print"
+            "Driver": "IO.Log.Print"
         },
         "Layout":
         {
