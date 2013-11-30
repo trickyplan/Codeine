@@ -9,7 +9,12 @@
 
     setFn ('Write', function ($Call)
     {
-        return $Call['Value'];
+        $Data = [];
+        foreach ($Call['Value'] as &$Value)
+            if ($Value > 0)
+                $Data[] = (int) $Value;
+
+        return $Data;
     });
 
     setFn('Read', function ($Call)
@@ -18,8 +23,8 @@
 
         if(is_array($Call['Value']))
             foreach ($Call['Value'] as &$Value)
-                if (isset($Call['Node']['Options'][(string)$Value]))
-                    $Value = $Call['Node']['Options'][(string)$Value];
+                if (isset($Call['Node']['Options'][(int)$Value]))
+                    $Value = $Call['Node']['Options'][(int)$Value];
 
         return $Call['Value'];
     });
