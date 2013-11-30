@@ -16,7 +16,7 @@
             {
                 if (preg_match('/'.$Bad.'/SsUui', $Call['UA']))
                 {
-                    F::Log('Bad UA Detected: '.$Call['UA'].' from IP '.F::Live($Call['IP']), LOG_ERR, 'Security');
+                    F::Log('Bad UA Detected: '.$Call['UA'].' from IP '.F::Live($Call['IP']), LOG_WARNING, 'Security');
                     $Decision = false;
                 }
             }

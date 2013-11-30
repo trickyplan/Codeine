@@ -472,9 +472,9 @@
             return true;
         }
 
-        public static function Log ($Message, $Verbose = 7, $Target = 'Developer')
+        public static function Log ($Message, $Verbose = 7, $Channel = 'Developer')
         {
-            if ($Verbose <= self::$_Options['Codeine']['Verbose'] or (F::Environment() == 'Development') && $Verbose > 9)
+            if ($Verbose <= self::$_Options['Codeine']['Verbose'][$Channel] or (F::Environment() == 'Development') && $Verbose > 8)
             {
                 if (!is_string($Message))
                     $Message = json_encode($Message,
@@ -485,37 +485,37 @@
                     switch ($Verbose)
                     {
                         case LOG_EMERG:
-                            fwrite(STDERR, $Target."> \033[0;31m ".$Message." \033[0m".PHP_EOL);
+                            fwrite(STDERR, $Channel."> \033[0;31m ".$Message." \033[0m".PHP_EOL);
                         break;
 
                         case LOG_CRIT:
-                            fwrite(STDERR, $Target."> \033[0;31m ".$Message." \033[0m".PHP_EOL);
+                            fwrite(STDERR, $Channel."> \033[0;31m ".$Message." \033[0m".PHP_EOL);
                         break;
 
                         case LOG_ERR:
-                            fwrite(STDERR, $Target."> \033[0;31m ".$Message." \033[0m".PHP_EOL);
+                            fwrite(STDERR, $Channel."> \033[0;31m ".$Message." \033[0m".PHP_EOL);
                         break;
 
                         case LOG_WARNING:
-                            fwrite(STDERR, $Target."> \033[0;33m ".$Message." \033[0m".PHP_EOL);
+                            fwrite(STDERR, $Channel."> \033[0;33m ".$Message." \033[0m".PHP_EOL);
                         break;
 
                         case LOG_DEBUG:
-                            fwrite(STDERR, $Target."> \033[0;30m ".$Message." \033[0m".PHP_EOL);
+                            fwrite(STDERR, $Channel."> \033[0;30m ".$Message." \033[0m".PHP_EOL);
                         break;
 
                         case LOG_USER:
-                            fwrite(STDERR, $Target."> \033[0;37m ".$Message." \033[0m".PHP_EOL);
+                            fwrite(STDERR, $Channel."> \033[0;37m ".$Message." \033[0m".PHP_EOL);
                         break;
 
                         default:
-                            fwrite(STDERR, $Target.'> '.$Message.PHP_EOL);
+                            fwrite(STDERR, $Channel.'> '.$Message.PHP_EOL);
                         break;
                     }
                 }
                 else
                 {
-                    return self::$_Log[$Target][]
+                    return self::$_Log[$Channel][]
                         = [
                         $Verbose,
                         round(microtime(true) - self::$_Ticks['T']['Codeine.Do'], 3),

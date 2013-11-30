@@ -1,7 +1,12 @@
 {
     "Core Variables Limit": 128,
     "Heavy Memory Limit": 512,
-    "Verbose": 4,
+    "Verbose":
+    {
+        "Developer": 4,
+        "Administrator": 4,
+        "Security": 4
+    },
     "Driver":
     {
         "Path": "Drivers",

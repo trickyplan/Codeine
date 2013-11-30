@@ -1,4 +1,9 @@
 {
-    "Perfect": false,
-    "Verbose": 6
+    "Perfect": true,
+    "Verbose":
+    {
+        "Developer": 6,
+        "Administrator": 6,
+        "Security": 6
+    }
 }
