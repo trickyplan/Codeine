@@ -27,7 +27,6 @@
 
         $Call = F::Hook('beforeUpdateGet', $Call);
 
-        if (!isset($Call['Failure']))
         {
             $Call['Output']['Content']['Form Widget'] = ['Type' => 'Form', 'Submit' => 'Update'];
 
@@ -79,9 +78,9 @@
                                 'Class' => 'alert alert-danger',
                                 'Value' => '<l>'.$Call['Entity'].'.Error:'.$Name.'.'.$Error.'</l>'
                             ];
-
-                $Call = F::Apply(null, 'GET', $Call);
             }
+
+            $Call = F::Apply(null, 'GET', $Call);
 
         return $Call;
     });
