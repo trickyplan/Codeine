@@ -63,7 +63,7 @@
 
             // Отправляем в Entity.Update
 
-            $Call['Data'] = F::Run('Entity', 'Update', $Call);
+            $Call['Current'] = F::Run('Entity', 'Update', $Call);
 
            // Выводим результат
             if (empty($Call['Errors']))
