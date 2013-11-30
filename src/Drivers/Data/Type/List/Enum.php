@@ -21,7 +21,7 @@
         if (isset($Call['Node']['Options'][$Call['Value']]))
             return $Call['Node']['Options'][$Call['Value']];
         else
-            return null;
+            return $Call['Value'];
     });
 
     setFn('Where', function ($Call)
