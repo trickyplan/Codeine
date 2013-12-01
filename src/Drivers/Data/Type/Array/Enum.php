@@ -36,10 +36,12 @@
     {
         $Call['Node']['Options'] = F::Live($Call['Node']['Options']);
 
-        foreach ($Call['Value'] as &$Value)
-            $Value = array_search($Value, $Call['Node']['Options']);
+        $Data = [];
 
-        return $Call['Value'];
+        foreach ($Call['Value'] as &$Value)
+            $Data[] = (int) array_search($Value, $Call['Node']['Options']);
+
+        return $Data;
     });
 
     setFn('Populate', function ($Call)

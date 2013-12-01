@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    setFn ('Write', function ($Call)
+    setFn (['Write', 'Where'], function ($Call)
     {
         $Call['Node']['Options'] = F::Live($Call['Node']['Options']);
 
@@ -22,16 +22,6 @@
             return $Call['Node']['Options'][$Call['Value']];
         else
             return $Call['Value'];
-    });
-
-    setFn('Where', function ($Call)
-    {
-        $Call['Node']['Options'] = F::Live($Call['Node']['Options']);
-
-        if (isset($Call['Node']['Options']))
-            return (int) array_search($Call['Value'], $Call['Node']['Options']);
-        else
-            return (int) $Call['Value'];
     });
 
     setFn('Populate', function ($Call)
