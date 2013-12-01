@@ -9,10 +9,13 @@
 
     setFn ('Write', function ($Call)
     {
+        $Call['Node']['Options'] = F::Live($Call['Node']['Options']);
+
         $Data = [];
+
+
         foreach ($Call['Value'] as &$Value)
-            if ($Value > 0)
-                $Data[] = (int) $Value;
+            $Data[] = (int) array_search($Value, $Call['Node']['Options']);
 
         return $Data;
     });

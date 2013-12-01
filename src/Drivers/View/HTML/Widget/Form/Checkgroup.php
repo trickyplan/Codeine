@@ -25,7 +25,7 @@
                 ||
                 $Value == $Call['Value']
                 || (is_array($Call['Value'])
-                && in_array($Key, $Call['Value'])));
+                && in_array($Value, $Call['Value'])));
 
             $Call['Checks'] .= F::Run('View', 'Load',
                 [
