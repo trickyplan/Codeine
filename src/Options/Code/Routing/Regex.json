@@ -105,7 +105,7 @@
         },
         "Test":
         {
-            "Match": "/test/(.+)",
+            "Match": "^/test/(.+)$",
             "Weight": 5,
             "Service": "Test",
             "Method": "Do",
@@ -116,7 +116,7 @@
         },
         "All Tests":
         {
-            "Match": "/test",
+            "Match": "^/test$",
             "Weight": 5,
             "Service": "Test",
             "Method": "Do"

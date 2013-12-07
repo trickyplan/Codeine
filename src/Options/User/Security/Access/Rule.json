@@ -58,7 +58,7 @@
             "Weight": 75,
             "Run":
             {
-                "Service": "User.Activation"
+                "Service": "User.EMail"
             }
         },
         "Блок парольной идентификации доступен всем":
@@ -159,20 +159,27 @@
                 "Method": "Do",
                 "Call":
                 {
-                    "Entity": "User",
-                    "Where":
+                    "Entity": "User"
+                },
+                "Session":
+                {
+                    "User":
                     {
-                        "ID":
+                        "ID": "*"
+                    }
+                },
+                "Current":
+                [{
+                    "ID":
+                    {
+                        "Service": "Session",
+                        "Method": "Read",
+                        "Call":
                         {
-                            "Service": "Session",
-                            "Method": "Read",
-                            "Call":
-                            {
-                                "Key": "User.ID"
-                            }
+                            "Key": "User.ID"
                         }
                     }
-                }
+                }]
             }
         },
         "Страница профиля доступна зарегистрированным":

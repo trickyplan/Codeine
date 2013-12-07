@@ -9,8 +9,7 @@
 
     setFn('Before', function ($Call)
     {
-        $Call['Where'] = F::Live($Call['Where']);
-
+        $Call['Where'] = F::Live($Call['Where'], $Call);
         $Call['Current'] = F::Run('Entity', 'Read', $Call, ['ReRead' => true]);
 
         return $Call;

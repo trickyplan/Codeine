@@ -1,16 +1,15 @@
-<div class="panel panel-default">
-    <div class="panel-heading">
-        Удалить эти элементы?
-    </div>
-    <div class="panel-body">
-        <form role="form" method="post" enctype="multipart/form-data" autocomplete="on">
-            <input type="hidden" name="BackURL" value="<call>BackURL</call>" />
+<form role="form" method="post" enctype="multipart/form-data" autocomplete="on">
+    <div class="panel panel-danger">
+        <div class="panel-heading">
+            Удалить эти объекты?
+        </div>
+        <div class="panel-body">
             <place>Content</place>
-
-            <div class="form-actions">
-                <button type="submit" class="btn btn-danger">Удалить</button>
-                <a href="<call>BackURL</call>" class="btn btn-success">Я передумал</a>
-            </div>
-        </form>
+        </div>
+        <div class="panel-footer">
+            <input type="hidden" name="BackURL" value="<call>BackURL</call>" />
+            <button type="submit" class="btn btn-danger">Удалить</button>
+            <a href="<call>BackURL</call>" class="btn btn-success">Я передумал</a>
+        </div>
     </div>
-</div>
+</form>

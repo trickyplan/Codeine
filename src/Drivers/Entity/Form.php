@@ -39,7 +39,7 @@
                     continue;
 
                 // Костыль.
-                if ($Call['Purpose'] == 'Create' && F::Dot($Call['Data'], $Name) !== null)
+                if ($Call['Purpose'] == 'Create' && !empty(F::Dot($Call['Data'], $Name)))
                     continue;
 
                 if (null !== $Widget)
@@ -82,6 +82,7 @@
                         $Widget['Data'] = $Call['Data'];
 
                     // Если есть значение, добавляем
+
                     if (($Widget['Value'] = F::Dot($Call['Data'], $Name)) === null)
                     {
                         if (isset($Node['Default']))

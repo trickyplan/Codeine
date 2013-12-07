@@ -11,12 +11,6 @@
      {
          $Options = [];
 
-         if (isset($Call['One']))
-         {
-             $Call['Options'] = $Call['Options'][0];
-             unset($Call['One']);
-         }
-
          if (isset($Call['Multiple']))
              $Call['Name'] .= '[]';
 
@@ -38,9 +32,7 @@
                  else
                     $lValue = $Value;
 
-                 if (($Key == $Call['Value'])
-                     || ($Value == $Call['Value'])
-                     || ((is_array($Call['Value']) && in_array ($Value, $Call['Value']))))
+                 if (($Value == $Call['Value']) || ((is_array($Call['Value']) && in_array ($Value, $Call['Value']))))
                      $Options[] = '<option value="'.$Option.'" selected>'.$lValue.'</option>';
                  else
                      $Options[] = '<option value="'.$Option.'">' . $lValue . '</option>';

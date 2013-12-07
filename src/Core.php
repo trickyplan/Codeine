@@ -474,7 +474,9 @@
 
         public static function Log ($Message, $Verbose = 7, $Channel = 'Developer')
         {
-            if ($Verbose <= self::$_Options['Codeine']['Verbose'][$Channel] or (F::Environment() == 'Development') && $Verbose > 8)
+            if (($Verbose <= self::$_Options['Codeine']['Verbose'][$Channel])
+                or
+               ((F::Environment() == 'Development') && $Verbose > 8))
             {
                 if (!is_string($Message))
                     $Message = json_encode($Message,
@@ -501,11 +503,19 @@
                         break;
 
                         case LOG_DEBUG:
-                            fwrite(STDERR, $Channel."> \033[0;30m ".$Message." \033[0m".PHP_EOL);
+                            fwrite(STDERR, $Channel."> \033[0;37m ".$Message." \033[0m".PHP_EOL);
                         break;
 
                         case LOG_USER:
                             fwrite(STDERR, $Channel."> \033[0;37m ".$Message." \033[0m".PHP_EOL);
+                        break;
+
+                        case LOG_INFO:
+                            fwrite(STDERR, $Channel."> \033[1;34m ".$Message." \033[0m".PHP_EOL);
+                        break;
+
+                        case LOG_IMPORTANT:
+                            fwrite(STDERR, $Channel."> \033[0;31m ".$Message." \033[0m".PHP_EOL);
                         break;
 
                         default:

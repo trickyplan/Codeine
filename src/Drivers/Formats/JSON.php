@@ -9,7 +9,14 @@
 
     setFn('Decode', function ($Call)
     {
-        return json_decode($Call['Value'], true);
+        $Result = json_decode($Call['Value'], true);
+        if (json_last_error() > 0)
+        {
+            F::Log('JSON: '.json_last_error_msg(), LOG_ERR);
+            F::Log($Call['Value'], LOG_ERR);
+        }
+
+        return $Result;
     });
 
     setFn('Encode', function ($Call)

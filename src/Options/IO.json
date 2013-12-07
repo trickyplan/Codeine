@@ -35,6 +35,13 @@
             "Format": "Formats.JSON",
             "Suffix":".json"
         },
+        "SOAP Cache":
+        {
+            "Driver":"IO.Storage.Directory",
+            "Directory":"Data/SOAP",
+            "Format": "Formats.JSON",
+            "Suffix":".json"
+        },
         "Layout":
         {
             "Driver":"IO.Storage.Directory",

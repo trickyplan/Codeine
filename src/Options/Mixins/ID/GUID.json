@@ -1,0 +1,17 @@
+{
+    "Nodes":
+    {
+        "ID":
+        {
+            "Type": "Literal.String",
+            "Hooks":
+            {
+                "beforeEntityCreate":
+                {
+                    "Service": "Security.UID.GUID",
+                    "Method": "Get"
+                }
+            }
+        }
+    }
+}

@@ -164,7 +164,6 @@
 
             $Current = F::Run('Entity', 'Read', $Call, ['ReRead' => true, 'One' => false]);
 
-
             $Call = F::Hook('afterOperation', $Call);
 
             F::Log('*'.count($Call['Data']).'* '.$Call['Entity'].' updated', LOG_INFO);

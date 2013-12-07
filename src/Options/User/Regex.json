@@ -36,10 +36,10 @@
                 }
             }
         },
-        "Activate.User":
+        "Activate User":
         {
-            "Match":"^/activate/user/(\\d+)$",
-            "Service":"User.Activation",
+            "Match":"^/activate/(\\d+)$",
+            "Service":"User.EMail",
             "Method":"Check",
             "Call":
             {

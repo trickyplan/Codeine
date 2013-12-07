@@ -39,6 +39,7 @@
                         [
                             'Entity' => 'User',
                             'Where' => $Call['Session']['User'],
+                            'ReRead' => true,
                             'One' => true
                         ]);
 
@@ -46,6 +47,7 @@
                         [
                             'Entity' => 'User',
                             'Where' => $Call['Session']['Secondary'],
+                            'ReRead' => true,
                             'One' => true
                         ]);
 
@@ -73,7 +75,7 @@
                 $Call['Session'] = [];
         }
 
-        F::Log($Call['Session'], LOG_DEBUG);
+        F::Log($Call['Session'], LOG_INFO, 'Security');
 
         return $Call;
     });

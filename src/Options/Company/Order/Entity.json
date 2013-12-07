@@ -4,13 +4,11 @@
     [
         "Mixins.ID.Sequence",
         "Mixins.UGC",
-        "Mixins.CRUD",
-        "Mixins.Text",
-        "Order.Mixins.Server"
+        "Mixins.Text"
     ],
     "Nodes":
     {
-        "Company.Service":
+        "Company.CService":
         {
             "Type": "Entity",
             "Options":
@@ -19,7 +17,7 @@
                 "Method": "RAW",
                 "Call":
                 {
-                    "Entity": "Company.Service",
+                    "Entity": "Company.CService",
                     "Key": "Title"
                 }
             }

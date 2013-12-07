@@ -31,6 +31,8 @@
                         = [$Call['Run']['Service'], $Call['Run']['Method']];
 
                     F::Log('*'.$Call['Service'].':'.$Call['Method'].'* started', LOG_IMPORTANT);
+                    if (isset($Call['Call']))
+                        F::Log($Call['Call'], LOG_INFO);
 
                     $Call['Environment'] = F::Environment();
 

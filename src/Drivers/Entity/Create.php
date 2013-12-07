@@ -13,6 +13,9 @@
 
         $Call['Scope'] = isset($Call['Scope'])? $Call['Entity'].'/'.$Call['Scope'] : $Call['Entity'];
 
+        if (isset($Call['Data']))
+            $Call['Data'] = F::Live($Call['Data'], $Call);
+
         $Call = F::Apply(null, $Call['HTTP']['Method'], $Call);
 
         return $Call;
@@ -34,8 +37,11 @@
 
         // Для каждой ноды в модели
 
-        if (!isset($Call['Data'][0]))
+        if (!isset($Call['Data']))
             $Call['Data'] = [[]];
+
+        if (!isset($Call['Data'][0]))
+            $Call['Data'] = [$Call['Data']];
 
         $Call = F::Apply('Entity.Form', 'Generate', $Call, ['IX' => 0, 'Data!' => $Call['Data'][0]]);
 
@@ -64,8 +70,6 @@
             else
                 $Call['Data'] = $Call['Request']['Data'];
         }
-
-
 
         // Отправляем в Entity.Create
         $Result = F::Run('Entity', 'Create', $Call);

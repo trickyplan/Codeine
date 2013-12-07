@@ -1,0 +1,29 @@
+{
+    "Currencies":
+    {
+        "USD":
+        {
+            "RUR":
+            {
+                "Service": "Government.Russia.CBR",
+                "Method": "GetRates",
+                "Call":
+                {
+                    "Currency": "USD"
+                }
+            }
+        },
+        "EUR":
+        {
+            "RUR":
+            {
+                "Service": "Government.Russia.CBR",
+                "Method": "GetRates",
+                "Call":
+                {
+                    "Currency": "EUR"
+                }
+            }
+        }
+    }
+}

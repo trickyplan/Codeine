@@ -1,10 +1,9 @@
 {
     "Nodes":
     {
-        "Server.IP":
+        "Lead.URL":
         {
-            "Type": "Numeral.IP",
-            "Default": "0.0.0.0",
+            "Type": "Literal.String",
             "Widgets":
             {
                 "Write":
@@ -13,26 +12,14 @@
                 }
             }
         },
-        "Server.User":
+        "Lead.Title":
         {
             "Type": "Literal.String",
-            "Default": "root",
             "Widgets":
             {
                 "Write":
                 {
                     "Type": "Form.Textfield"
-                }
-            }
-        },
-        "Server.Password":
-        {
-            "Type": "Literal.String",
-            "Widgets":
-            {
-                "Write":
-                {
-                    "Type": "Form.Password"
                 }
             }
         }

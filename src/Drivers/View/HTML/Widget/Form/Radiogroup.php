@@ -32,7 +32,7 @@
                         [
                             'Label' => $lValue,
                             'Value' => $Value,
-                            'Checked' => ($Key == $Call['Value'] ? 'checked': '')
+                            'Checked' => ($Value == $Call['Value'] ? 'checked': '')
                         ])
                 ]
             );

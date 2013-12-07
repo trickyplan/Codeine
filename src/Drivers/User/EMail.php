@@ -36,7 +36,7 @@
                 'Type'  => 'Template',
                 'Scope' => 'User/Activation',
                 'ID'    => 'EMail',
-                'Data'  => F::Merge($Call['Data'], ['Password' => $Call['Data']['Code']])
+                'Data'  => $Call['Data']
             ]];
 
         $VCall = F::Run('View', 'Render', $VCall, ['Context' => 'mail']);
@@ -65,7 +65,7 @@
             F::Run('Entity', 'Update', $Call,
                 [
                      'Entity' => 'User',
-                     'Where' => $Activation['Data'],
+                     'Where' => $Activation['User'],
                      'Data' =>
                          [
                             'Status' => 1
@@ -81,7 +81,7 @@
                 ]);
 
             if (isset($Call['Activation']['AutoLogin']) && $Call['Activation']['AutoLogin'])
-                $Call = F::Apply('Session', 'Write', $Call, ['Data' => ['User' => $Activation['Data']]]);
+                $Call = F::Apply('Session', 'Write', $Call, ['Data' => ['User' => $Activation['User']]]);
 
             $Call = F::Hook('Activation.Success', $Call);
         }

@@ -144,7 +144,8 @@
                 {
                     "Storage": "Permanent",
                     "Scope": "Russia",
-                    "Where": "Industry"
+                    "Where": "Industry",
+                    "Return Key": 0
                 }
             },
             "Widgets":
@@ -153,8 +154,7 @@
                 {
                     "Type": "Form.Select",
                     "Size": 33,
-                    "Multiple": true,
-                    "One": true
+                    "Multiple": true
                 }
             }
         },

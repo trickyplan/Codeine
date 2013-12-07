@@ -10,19 +10,13 @@
         {
             "Success":
             {
-                "Show page":
+                "Redirect":
                 {
-                    "Service": "View",
-                    "Method": "Add",
+                    "Service": "System.Interface.Web",
+                    "Method": "Redirect",
                     "Call":
                     {
-                        "Place": "Content",
-                        "Element":
-                        {
-                            "Type": "Template",
-                            "Scope": "User",
-                            "ID": "Activation/Success"
-                        }
+                        "Location": "/"
                     }
                 }
             },

@@ -74,7 +74,10 @@
                 $Call = F::Hook('afterIORead', $Call);
             }
 
-            return $Call['Result'];
+            if (isset($Call['Return Key']) && $Call['Result'][$Call['Return Key']])
+                return $Call['Result'][$Call['Return Key']];
+            else
+                return $Call['Result'];
         }
         else
         {
@@ -100,7 +103,7 @@
 
                 if (isset($Call['Format']))
                 {
-                    if (isset($Call['Data']) && isset($Call['Data']['ID']))
+                    if (isset($Call['Data']) && is_array($Call['Data']) && isset($Call['Data']['ID']))
                         $Call['ID'] = $Call['Data']['ID'];
 
                     $Call['Data'] = F::Run ($Call['Format'], 'Encode', ['Value' => $Call['Data']]);

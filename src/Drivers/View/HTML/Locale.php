@@ -63,7 +63,10 @@
                         $Match = $Replace;
                 }
                 else
+                {
+                    F::Log('Locale '.$Match, LOG_ERR);
                     $Match = '<span class="nl">' . $Match . '</span>';
+                }
             }
 
             $Call['Output'] = str_replace($Call['Parsed'][0], $Call['Parsed'][1], $Call['Output']);

@@ -21,6 +21,7 @@
                     "If",
                     "Datetime",
                     "Number",
+                    "Currency",
                     "File",
                     "Phone",
                     "Email",

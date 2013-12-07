@@ -47,7 +47,7 @@
 
 .label-lg
 {
-    font-size: 100%;
+    font-size: 100% !important;
     padding: .6em 1.2em ;
 }
 
@@ -88,6 +88,12 @@ a.no-border, .no-border a, a:hover.no-border, .no-border a:hover
 .text-lg
 {
     font-size: 2em !important;
+}
+
+.text-md
+{
+    font-size: 1.5em !important;
+    line-height: normal;
 }
 
 .text-sm

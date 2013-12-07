@@ -42,7 +42,16 @@
                                                    'Value' => $cValue
                                                ]);
                                     else
-                                        $Value[$Relation] = $cValue;
+                                    {
+                                        foreach($cValue as $ccKey => $ccValue)
+                                            $Value[$Relation][$ccKey] =
+                                            F::Run('Data.Type.'.$Node['Type'], 'Where',
+                                               [
+                                                   'Name' => $Name,
+                                                   'Node' => $Node,
+                                                   'Value' => $ccValue
+                                               ]);
+                                    }
                                 // FIXME Нативные массивы?
                             }
                             else

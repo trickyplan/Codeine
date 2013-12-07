@@ -16,6 +16,7 @@
             $Call['Option'] = 'Do';
 
         F::Log($Call['Bundle'].' '.$Call['Option'].' started', LOG_IMPORTANT);
+
         $Call = F::Run($Call['Bundle'].'.Control', $Call['Option'], $Call);
 
         $Call['Layouts'][] = [

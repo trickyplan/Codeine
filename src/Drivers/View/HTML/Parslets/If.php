@@ -46,13 +46,17 @@
                         $Decision = ((float) preg_replace('/,/','.',$Value) > (float) $Options['gt']);
 
                     if (isset($Options['gt']) && isset($Options['lt']))
+                    {
                         $Decision =
                             ((float) preg_replace('/,/','.',$Value) < (float) $Options['lt'])
                             &&
                             ((float) preg_replace('/,/','.',$Value) > (float) $Options['gt']);
+                    }
 
                     if ($Decision)
                         $Outer = $Call['Parsed'][2][$IX];
+                    else
+                        $Outer = '';
                 }
             else
                 F::Log($IfTag,' not parsed', LOG_WARNING);

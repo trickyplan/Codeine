@@ -23,25 +23,20 @@
                 "Service": "Code.Flow.Front.Before",
                 "Method": "Do"
             },
-            "Layouts":
-            {
-                "Service": "Code.Flow.Front.Layouts",
-                "Method": "Do"
-            },
             "Access":
             {
                 "Service": "Code.Flow.Front.Access",
                 "Method": "Check"
             },
+            "Layouts":
+            {
+                "Service": "Code.Flow.Front.Layouts",
+                "Method": "Do"
+            },
             "QoS":
             {
                 "Service": "System.QoS",
                 "Method": "Start"
-            },
-            "451":
-            {
-                "Service": "Freedom.Restrictions",
-                "Method": "Do"
             }
         },
         "afterFrontRun":
