@@ -9,12 +9,15 @@
 
     setFn('Run', function ($Call)
     {
-        $Result = null;
+        $Result = [];
 
         $Server = ssh2_connect($Call['Server']['IP'], $Call['Server']['Port']);
 
         if ($Server === false)
+        {
             F::Log('SSH connect to '.$Call['Server']['IP'].' '.$Call['Server']['Port'].' failed', LOG_ERR);
+            $Result['Errors'][] = 'SSH.Connect.Failed';
+        }
         else
         {
             F::Log('SSH connected to '.$Call['Server']['IP'].' '.$Call['Server']['Port'], LOG_INFO);
@@ -35,7 +38,10 @@
                 $Result = stream_get_contents($Stream);
             }
             else
+            {
                 F::Log('SSH authentication as '.$Call['Server']['User'].' failed', LOG_ERR);
+                $Result['Errors'][] = 'Code.Run.SSH:Auth.Failed';
+            }
         }
 
         return $Result;

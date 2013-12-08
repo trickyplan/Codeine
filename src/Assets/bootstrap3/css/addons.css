@@ -42,7 +42,10 @@
 .label-tag
 {
     background-color: #f7f7f7;
+    border: 1px solid #cccccc;
     color: #666666 !important;
+    margin: 0 2px;
+    text-transform: lowercase;
 }
 
 .label-lg

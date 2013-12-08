@@ -31,18 +31,23 @@
 
             $Values = array_count_values($Values);
 
+            arsort($Values);
+
             foreach ($Values as $Value => $Count)
-                $Call['Output']['Content'][]=
-                    [
-                        'Type' => 'Template',
-                        'Scope' => $Call['Entity'],
-                        'ID' => 'Catalog/'.$Call['Key'],
-                        'Data' =>
+            {
+                if ($Count > $Call['Minimal'])
+                    $Call['Output']['Content'][]=
                         [
-                            'Count' => $Count,
-                            'Value' => $Value
-                        ]
-                    ];
+                            'Type' => 'Template',
+                            'Scope' => $Call['Entity'],
+                            'ID' => 'Catalog/'.$Call['Key'],
+                            'Data' =>
+                                [
+                                    'Count' => $Count,
+                                    'Value' => $Value
+                                ]
+                        ];
+            }
 
         }
 

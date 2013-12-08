@@ -1,0 +1,62 @@
+    charset utf-8;
+	index  index.php;
+
+    merge_slashes on;
+
+    log_not_found on;
+    error_log /var/log/nginx/error.log warn;
+    access_log /var/log/nginx/$host.access.log codeine;
+
+	location /
+	{
+		try_files $uri $uri/ /index.php?$uri&$args;
+	}
+
+    location ~ ^/cache/(.*)
+    {
+        access_log        off;
+        alias /tmp/codeine/$host/$1;
+        expires           max;
+    }
+
+    location ~* \.(jpg|jpeg|gif|css|png|js|ico|html|woff|ttf)$
+	{
+		access_log        off;
+		expires           max;
+		add_header        Cache-Control  public;
+	}
+
+	location ~ index.php$
+	{
+	    include fastcgi_params;
+
+        if ($http_user_agent ~* (bot|crawl|\+http:))
+        {
+            access_log /var/log/nginx/$host.bots.log;
+        }
+
+        fastcgi_keep_conn on;
+
+        fastcgi_param  Environment $Environment;
+		fastcgi_pass   unix:/var/run/php5-fpm.sock;
+		fastcgi_index  index.php;
+
+        fastcgi_param  DOCUMENT_ROOT    $document_root;
+        fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+        fastcgi_param  PATH_TRANSLATED  $document_root$fastcgi_script_name;
+
+        fastcgi_param  QUERY_STRING     $query_string;
+        fastcgi_param  REQUEST_METHOD   $request_method;
+        fastcgi_param  CONTENT_TYPE     $content_type;
+        fastcgi_param  CONTENT_LENGTH   $content_length;
+
+        fastcgi_intercept_errors        on;
+        fastcgi_ignore_client_abort     off;
+        fastcgi_connect_timeout 60;
+        fastcgi_send_timeout 180;
+        fastcgi_read_timeout 180;
+        fastcgi_buffer_size 1m;
+        fastcgi_buffers 4 1m;
+        fastcgi_busy_buffers_size 1m;
+        fastcgi_temp_file_write_size 1m;
+	}

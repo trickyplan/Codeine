@@ -525,7 +525,7 @@
                 }
                 else
                 {
-                    return self::$_Log[$Channel][]
+                    self::$_Log[$Channel][]
                         = [
                         $Verbose,
                         round(microtime(true) - self::$_Ticks['T']['Codeine.Do'], 3),
@@ -533,6 +533,8 @@
                         self::$_Service];
                 }
             }
+
+            return $Message;
         }
 
         public static function Logs()
