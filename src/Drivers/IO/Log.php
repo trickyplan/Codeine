@@ -21,7 +21,7 @@
                 F::Run('IO', 'Write', $Call,
                     [
                         'Storage' => $Call['Channel'],
-                        'ID' => $Call['HTTP']['URL'],
+                        'ID' => $Call['HTTP']['Proto'].$Call['HTTP']['Host'].$Call['HTTP']['URL'],
                         'Data' => F::Run('Formats.Log.HTML', 'Do', $Call)
                     ]);
 
