@@ -1,0 +1,16 @@
+{
+    "SEO":
+    {
+        "Audit":
+        {
+            "Keywords":
+            {
+                "Length":
+                {
+                    "Minimum": 20,
+                    "Maximum": 100
+                }
+            }
+        }
+    }
+}

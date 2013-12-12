@@ -89,7 +89,7 @@
             "User Override": true,
             "Hooks":
             {
-                "beforeEntityWrite":
+                "beforeEntityCreate":
                 {
                     "Service": "Security.Password.Generator",
                     "Method": "Get",
@@ -101,7 +101,7 @@
             },
             "Widgets":
             {
-                "Write":
+                "Create":
                 {
                     "Type": "Form.Password",
                     "Required": true

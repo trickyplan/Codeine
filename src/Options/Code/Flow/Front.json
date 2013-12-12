@@ -50,6 +50,16 @@
             {
                 "Service": "System.QoS",
                 "Method": "Finish"
+            },
+            "SEO Audit":
+            {
+                "Service": "SEO.Audit",
+                "Method": "Do"
+            },
+            "Latency Audit":
+            {
+                "Service": "Latency.Audit",
+                "Method": "Do"
             }
         },
         "NotFound":

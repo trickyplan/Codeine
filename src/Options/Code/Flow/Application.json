@@ -30,6 +30,11 @@
             {
                 "Service": "Code.Flow.Front.Access",
                 "Method": "Check"
+            },
+            "Cache":
+            {
+                "Service": "Code.Flow.Application.Cache",
+                "Method": "beforeApplicationRun"
             }
         },
         "afterApplicationRun":
@@ -38,6 +43,11 @@
             {
                 "Service":"View.HTML",
                 "Method":"Pipeline"
+            },
+            "Cache":
+            {
+                "Service": "Code.Flow.Application.Cache",
+                "Method": "afterApplicationRun"
             }
         },
         "NotFound":

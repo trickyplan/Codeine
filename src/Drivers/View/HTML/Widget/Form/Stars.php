@@ -9,7 +9,8 @@
 
     setFn('Make', function ($Call)
     {
-        $Call['View']['HTML'] = '';
+        $Call['HTML'] = '';
+
         for ($IC = 1; $IC <= $Call['Stars']; $IC++)
         {
             $StarData = ['Num' => $IC];
@@ -17,7 +18,7 @@
             if (isset($Call['Value']) && $Call['Value'] == $IC)
                 $StarData['Checked'] = 'checked';
 
-            $Call['View']['HTML'].=  F::Run('View', 'Load',
+            $Call['HTML'].=  F::Run('View', 'Load',
                 [
                     'Scope' => $Call['View']['HTML']['Widget Set'].'/Widgets',
                     'ID' => 'Form/Star',
@@ -25,6 +26,6 @@
                 ]);
         }
 
-        $Call['Value'] = $Call['View']['HTML'];
+        $Call['Value'] = $Call['HTML'];
         return $Call;
      });

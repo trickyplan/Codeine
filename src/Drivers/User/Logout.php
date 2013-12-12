@@ -9,10 +9,9 @@
 
     setFn('Do', function ($Call)
     {
-
         $Call = F::Hook('beforeUserLogout', $Call);
 
-            $Call = F::Apply('Session', 'Annulate', $Call);
+            F::Apply('Session', 'Annulate', $Call);
 
             F::Log('User '.$Call['Session']['User']['ID'].' logged off', LOG_INFO, 'Security');
 

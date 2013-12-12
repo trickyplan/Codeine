@@ -34,8 +34,9 @@
                 $Call['View']['HTML']['Title'] = array_reverse($Call['View']['HTML']['Title']);
 
             $Call['View']['HTML']['Title'] = implode($Call['Meta']['Title']['Delimiter'], $Call['View']['HTML']['Title']);
-
             $Call['View']['HTML']['Title'] = html_entity_decode(strip_tags($Call['View']['HTML']['Title'], '<l><k>'));
+            $Call['View']['HTML']['Title'] =
+                preg_replace('/[\x00-\x1F\x7F]/','',$Call['View']['HTML']['Title']);
 
             $Call['Output'] = preg_replace(
                         $Call['Meta']['Pattern']['Title'],

@@ -40,20 +40,30 @@
                         'ID'    => $ID,
                         'Context' => $Call['Context']
                     ]);
+
+            if (!isset($Call['Run']['Zone']))
+                $Call['Run']['Zone'] = ['Project'];
+            else
+                $Call['Run']['Zone'] = (array) $Call['Run']['Zone'];
+
+                foreach ($Call['Run']['Zone'] as $Zone)
+                    array_unshift($Call['Layouts'],
+                        [
+                            'Scope' => $Zone,
+                            'ID' => 'Zone',
+                            'Context' => $Call['Context']
+                        ]);
+        }
+        else
+        {
+            array_unshift($Call['Layouts'],
+                        [
+                            'Scope' => 'Project',
+                            'ID' => 'Zone',
+                            'Context' => $Call['Context']
+                        ]);
         }
 
-        if (!isset($Call['Run']['Zone']))
-            $Call['Run']['Zone'] = ['Project'];
-        else
-            $Call['Run']['Zone'] = (array) $Call['Run']['Zone'];
-
-            foreach ($Call['Run']['Zone'] as $Zone)
-                array_unshift($Call['Layouts'],
-                    [
-                        'Scope' => $Zone,
-                        'ID' => 'Zone',
-                        'Context' => $Call['Context']
-                    ]);
 
         return $Call;
      });

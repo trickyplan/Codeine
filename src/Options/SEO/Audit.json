@@ -1,0 +1,20 @@
+{
+    "Auditors":
+    {
+        "Check title length":
+        {
+            "Service": "SEO.Audit.Title",
+            "Method": "Length"
+        },
+        "Check keywords length":
+        {
+            "Service": "SEO.Audit.Keywords",
+            "Method": "Length"
+        },
+        "Check description length":
+        {
+            "Service": "SEO.Audit.Description",
+            "Method": "Length"
+        }
+    }
+}

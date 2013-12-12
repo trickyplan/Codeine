@@ -33,22 +33,14 @@
 
             arsort($Values);
 
-            foreach ($Values as $Value => $Count)
-            {
-                if ($Count > $Call['Minimal'])
-                    $Call['Output']['Content'][]=
-                        [
-                            'Type' => 'Template',
-                            'Scope' => $Call['Entity'],
-                            'ID' => 'Catalog/'.$Call['Key'],
-                            'Data' =>
-                                [
-                                    'Count' => $Count,
-                                    'Value' => $Value
-                                ]
-                        ];
-            }
-
+            $Call['Output']['Content'][] =
+                [
+                    'Type'    => 'TagCloud',
+                    'Value'   => $Values,
+                    'Minimal' => $Call['Minimal'],
+                    'Entity'  => $Call['Entity'],
+                    'Key'     => $Call['Key']
+                ];
         }
 
         $Call = F::Hook('afterCatalog', $Call);

@@ -7,7 +7,8 @@
      * @subpackage Core
           */
     define ('Codeine', __DIR__);
-    define ('REQID', microtime(true).rand());
+    define ('Started', microtime(true));
+    define ('REQID', Started.rand());
 
     defined('DS')? null: define('DS', DIRECTORY_SEPARATOR);
 
@@ -60,8 +61,9 @@
 
             self::Start(self::$_Service . '.' . self::$_Method);
 
-            mb_internal_encoding('UTF-8');
-            setlocale(LC_ALL, "ru_RU.UTF-8");
+            mb_internal_encoding('UTF-8'); // FIXME
+            setlocale(LC_ALL, "ru_RU.UTF-8"); // FIXME
+
             libxml_use_internal_errors(true);
 
             if (isset($_SERVER['Environment']))
@@ -105,9 +107,6 @@
 
         public static function Shutdown($Call = array())
         {
-            // foreach (self::$_Log as $Line)
-            //    echo implode ("\t", $Line).PHP_EOL;
-
             self::Stop(self::$_Service . '.' . self::$_Method);
 
             $E = error_get_last();

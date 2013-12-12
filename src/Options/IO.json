@@ -42,6 +42,13 @@
             "Format": "Formats.JSON",
             "Suffix":".json"
         },
+        "Application Cache":
+        {
+            "Driver":"IO.Storage.Directory",
+            "Directory":"Data/Application",
+            "Format": "Formats.JSON",
+            "Suffix":".json"
+        },
         "Layout":
         {
             "Driver":"IO.Storage.Directory",

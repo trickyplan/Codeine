@@ -31,7 +31,7 @@
 
         $Call = F::Hook('afterEntityLoad', $Call);
 
-        $Call['entity'] = strtolower($Call['Entity']); // Hm.
+        $Call['entity'] = strtr(strtolower($Call['Entity']), '.', '/'); // Hm.
 
         return $Call;
     });

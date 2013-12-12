@@ -17,6 +17,10 @@
         {
             "Driver": "IO.Log.Print"
         },
+        "SEO":
+        {
+            "Driver": "IO.Log.Print"
+        },
         "Layout":
         {
             "Verbosity":

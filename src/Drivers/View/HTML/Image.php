@@ -17,7 +17,6 @@
 
         if ($Parsed)
         {
-            $Parsed[0] = array_unique($Parsed[0]);
             // Image Output
             // Если изображения на отдельном сервере
 

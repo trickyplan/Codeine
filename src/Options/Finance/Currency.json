@@ -5,11 +5,14 @@
         {
             "RUR":
             {
-                "Service": "Government.Russia.CBR",
-                "Method": "GetRates",
-                "Call":
+                "Rate":
                 {
-                    "Currency": "USD"
+                    "Service": "Government.Russia.CBR",
+                    "Method": "GetRates",
+                    "Call":
+                    {
+                        "Currency": "USD"
+                    }
                 }
             }
         },
@@ -17,11 +20,29 @@
         {
             "RUR":
             {
-                "Service": "Government.Russia.CBR",
-                "Method": "GetRates",
-                "Call":
+                "Rate":
                 {
-                    "Currency": "EUR"
+                    "Service": "Government.Russia.CBR",
+                    "Method": "GetRates",
+                    "Call":
+                    {
+                        "Currency": "EUR"
+                    }
+                }
+            }
+        },
+        "GBP":
+        {
+            "RUR":
+            {
+                "Rate":
+                {
+                    "Service": "Government.Russia.CBR",
+                    "Method": "GetRates",
+                    "Call":
+                    {
+                        "Currency": "GBP"
+                    }
                 }
             }
         }

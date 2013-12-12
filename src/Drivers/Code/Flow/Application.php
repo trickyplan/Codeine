@@ -11,24 +11,15 @@
 
     setFn('Run', function ($Call)
     {
-        // В этом месте, практически всегда, происходит роутинг.
+        list($Call['Service'], $Call['Method']) = array ($Call['Run']['Service'], $Call['Run']['Method']);
 
-        $Call = F::Hook('beforeApplicationRun', $Call);
+        F::Log('*'.$Call['Service'].':'.$Call['Method'].'* started', LOG_IMPORTANT);
 
-        if (F::isCall($Call['Run']))
-        {
-            list($Call['Service'], $Call['Method']) = array ($Call['Run']['Service'], $Call['Run']['Method']);
-
-            F::Log('*'.$Call['Service'].':'.$Call['Method'].'* started', LOG_IMPORTANT);
+        $Call = F::Hook('beforeApplicationRun', $Call); // В этом месте, практически всегда, происходит роутинг.
 
             $Call = F::Live($Call['Run'], $Call, ['Context' => 'app']);
-        }
-        // В противном случае, 404
-        else
-            $Call = F::Hook('on404', $Call);
 
-        // А здесь - рендеринг
-        $Call = F::Hook('afterApplicationRun', $Call);
+        $Call = F::Hook('afterApplicationRun', $Call); // А здесь - рендеринг
 
         $Call['Context'] = '';
 

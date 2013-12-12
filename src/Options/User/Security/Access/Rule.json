@@ -134,19 +134,7 @@
                 "Call":
                 {
                     "Entity": "User"
-                },
-                "Current":
-                [{
-                    "ID":
-                    {
-                        "Service": "Session",
-                        "Method": "Read",
-                        "Call":
-                        {
-                            "Key": "User.ID"
-                        }
-                    }
-                }]
+                }
             }
         },
         "Удаление профиля доступно зарегистрированным":

@@ -124,11 +124,13 @@
     setFn('Annulate', function ($Call)
     {
         if (isset($Call['Session']['Secondary']) && $Call['Session']['Secondary'] != 0)
-            $Call = F::Apply('Session', 'Write', $Call, ['Data' => ['Secondary' => 0]]);
+            $Call = F::Apply('Session', 'Write', $Call, ['Data!' => ['Secondary' => 0]]);
         else
-            $Call = F::Apply('Session', 'Write', $Call, ['Data' => ['User' => 0]]);
+            $Call = F::Apply('Session', 'Write', $Call, ['Data!' => ['User' => 0]]);
 
         $Call = F::Hook('afterAnnulate', $Call);
+
+        $Call['Session'] = [];
 
         return $Call;
     });

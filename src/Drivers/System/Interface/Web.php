@@ -36,13 +36,14 @@
 
         // Query string reading
 
-        $Call['HTTP']['URI'] = rawurldecode($_SERVER['REQUEST_URI']).(empty($Call['HTTP']['URL Query'])? '?' : '');
+        $Call['HTTP']['URI'] = rawurldecode($_SERVER['REQUEST_URI']).(empty($Call['HTTP']['URL Query'])? '' : '');
         F::Log('URI: *'.$Call['HTTP']['URI'].'*', LOG_INFO);
 
         $Call['HTTP']['URL'] = parse_url($Call['HTTP']['URI'], PHP_URL_PATH);
         F::Log('URL: *'.$Call['HTTP']['URI'].'*', LOG_INFO);
 
         $Call['HTTP']['URL Query'] = parse_url($Call['HTTP']['URI'], PHP_URL_QUERY);
+
         empty($Call['HTTP']['URL Query'])?
             F::Log('Empty query string.', LOG_INFO):
             F::Log('Query string: *'.$Call['HTTP']['URL Query'].'*', LOG_INFO);
@@ -109,6 +110,7 @@
 
         $Call['HTTP']['Headers']['HTTP/1.1'] = ' 301 Moved Permanently';
         $Call['HTTP']['Headers']['Location:'] = 'http://'.$URL;
+        $Call['HTTP']['Headers']['Cache-Control:'] = ' no-store, no-cache, must-revalidate, post-check=0, pre-check=0';
 
         F::Log('Redirected to '.$URL, LOG_INFO);
 
@@ -149,6 +151,9 @@
 
             $_SERVER['HTTP_HOST'] = $Call['Project']['Hosts'][F::Environment()];
         }
+
+        if (preg_match('/:/', $_SERVER['HTTP_HOST']))
+            list ($_SERVER['HTTP_HOST'], $Call['HTTP']['Port']) = explode(':', $_SERVER['HTTP_HOST']);
 
         if ((isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS'])) or
                 (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&$_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https'))

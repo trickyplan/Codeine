@@ -24,18 +24,6 @@
                 "Call":
                 {
                     "Entity": "Company.Order"
-                },
-                "Data":
-                {
-                    "User":
-                    {
-                        "Service": "Session",
-                        "Method": "Read",
-                        "Call":
-                        {
-                            "Key": "User.ID"
-                        }
-                    }
                 }
             }
         },

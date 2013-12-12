@@ -123,9 +123,9 @@
                 }
             }
         },
-        "Блог-пост":
+        "Пост блога":
         {
-            "Match":"^/blog/(.*)$",
+            "Match":"/blog/(.*)",
             "Service":"Entity.Show.Static",
             "Method":"Do",
             "Call":

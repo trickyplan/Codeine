@@ -68,15 +68,7 @@
             "Call":
             {
                 "Entity": "User",
-                "Where":
-                {
-                    "Service": "Session",
-                    "Method": "Read",
-                    "Call":
-                    {
-                        "Key": "User.ID"
-                    }
-                }
+                "Where": "$Session.User.ID"
             }
         },
         "/user/services":

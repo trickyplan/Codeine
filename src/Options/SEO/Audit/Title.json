@@ -1,0 +1,16 @@
+{
+    "SEO":
+    {
+        "Audit":
+        {
+            "Title":
+            {
+                "Length":
+                {
+                    "Minimum": 24,
+                    "Maximum": 64
+                }
+            }
+        }
+    }
+}

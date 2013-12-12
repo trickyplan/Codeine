@@ -12,10 +12,10 @@
         $Hash = sha1(json_encode($Call['Call']));
         $Scope = $Call['Service'].'/'.$Call['Method'];
 
+        $Cached = F::Run('IO', 'Execute', ['Storage' => 'SOAP Cache', 'Scope' => $Scope, 'Execute' => 'Version', 'Where' => ['ID' => $Hash]]);
+
         if (isset($Call['Cache']))
         {
-            $Cached = F::Run('IO', 'Execute', ['Storage' => 'SOAP Cache', 'Scope' => $Scope, 'Execute' => 'Version', 'Where' => ['ID' => $Hash]]);
-
             if ($Cached > time() - $Call['Cache'])
             {
                 $Result = F::Run('IO', 'Read', ['Storage' => 'SOAP Cache', 'Scope' => $Scope, 'Where' => ['ID' => $Hash]])[0];
@@ -25,16 +25,17 @@
 
         if (!isset($Result))
         {
-            $SOAP = new SoapClient($Call['Service']);
-            F::Log($Call['Service'].'->'.$Call['Method'], LOG_INFO, 'Administrator');
-
             try
             {
+                $SOAP = new SoapClient($Call['Service']);
+                F::Log($Call['Service'].'->'.$Call['Method'], LOG_INFO, 'Administrator');
+
                 $Result = $SOAP->__soapCall($Call['Method'], [$Call['Call']]);
             }
             catch (SoapFault $e)
             {
-                return null;
+                F::Log($Call['Service'].'->'.$Call['Method'], LOG_ERR, 'Administrator');
+                return $Cached;
             }
 
             $Result = json_decode(json_encode($Result), true);

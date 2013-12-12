@@ -33,22 +33,26 @@
         $Rates = [];
         $LatestDate = F::Run('Code.Run.SOAP', 'Run',
          [
-              'Cache'   => 3600,
+              'Cache'   => 86400,
               'Service' => 'http://www.cbr.ru/DailyInfoWebServ/DailyInfo.asmx?WSDL',
               'Method' => 'GetLatestDateTime',
               'Call' => []
          ])['GetLatestDateTimeResult'];
 
-        $Result = simplexml_load_string(F::Run('Code.Run.SOAP', 'Run',
-        [
-             'Cache'   => 3600,
-             'Service' => 'http://www.cbr.ru/DailyInfoWebServ/DailyInfo.asmx?WSDL',
-             'Method' => 'GetCursOnDate',
-             'Call' =>
-             [
-                 'On_date' => $LatestDate
-             ]
-        ])['GetCursOnDateResult']['any'])->ValuteData->ValuteCursOnDate;
+        do
+        {
+            $Result = simplexml_load_string(F::Run('Code.Run.SOAP', 'Run',
+                [
+                    'Cache'   => 86400,
+                    'Service' => 'http://www.cbr.ru/DailyInfoWebServ/DailyInfo.asmx?WSDL',
+                    'Method' => 'GetCursOnDate',
+                    'Call' =>
+                        [
+                            'On_date' => $LatestDate
+                        ]
+                ])['GetCursOnDateResult']['any'])->ValuteData->ValuteCursOnDate;
+        }
+        while ($Result === null);
 
         foreach ($Result as $Currency)
             $Rates[(string) $Currency->VchCode] = (float) $Currency->Vcurs/ (int)$Currency->Vnom;
