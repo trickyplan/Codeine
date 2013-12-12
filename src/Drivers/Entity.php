@@ -252,5 +252,5 @@
     setFn('Far', function ($Call)
     {
         $Element = F::Run(null, 'Read', $Call, ['One' => true]);
-        return isset($Element[$Call['Key']])? $Element[$Call['Key']]: null;
+        return isset($Element[$Call['Key']])? $Element[$Call['Key']]: false;
     });
