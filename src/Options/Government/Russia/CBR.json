@@ -1,0 +1,10 @@
+{
+    "CBR":
+    {
+        "WSDL":
+        {
+            "Credit": "http://www.cbr.ru/CreditInfoWebServ/CreditOrgInfo.asmx?WSDL",
+            "Rates": "http://www.cbr.ru/DailyInfoWebServ/DailyInfo.asmx?WSDL"
+        }
+    }
+}

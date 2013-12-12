@@ -21,7 +21,8 @@
 
         $Call = F::Hook('afterApplicationRun', $Call); // А здесь - рендеринг
 
-        $Call['Context'] = '';
+        if (is_array($Call))
+            $Call['Context'] = '';
 
         return $Call;
     });

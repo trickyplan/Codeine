@@ -2,7 +2,7 @@
 
     /* Codeine
      * @author BreathLess
-     * @description  
+     * @description
      * @package Codeine
      * @version 7.x
      */
@@ -12,7 +12,7 @@
         $InternalCode = F::Run('Code.Run.SOAP', 'Run',
          [
              'Cache'   => 86400,
-             'Service' => 'http://www.cbr.ru/CreditInfoWebServ/CreditOrgInfo.asmx?WSDL',
+             'Service' => $Call['CBR']['WSDL']['Credit'],
              'Method' => 'BicToIntCode',
              'Call' => ['BicCode' => $Call['Value']]
          ])['BicToIntCodeResult'];
@@ -20,7 +20,7 @@
         $Info = simplexml_load_string(F::Run('Code.Run.SOAP', 'Run',
          [
              'Cache'   => 86400,
-             'Service' => 'http://www.cbr.ru/CreditInfoWebServ/CreditOrgInfo.asmx?WSDL',
+             'Service' => $Call['CBR']['WSDL']['Credit'],
              'Method' => 'CreditInfoByIntCodeXML',
              'Call' => ['InternalCode' => $InternalCode]
          ])['CreditInfoByIntCodeXMLResult']['any']);
@@ -31,31 +31,16 @@
     setFn('GetRates', function ($Call)
     {
         $Rates = [];
-        $LatestDate = F::Run('Code.Run.SOAP', 'Run',
-         [
-              'Cache'   => 86400,
-              'Service' => 'http://www.cbr.ru/DailyInfoWebServ/DailyInfo.asmx?WSDL',
-              'Method' => 'GetLatestDateTime',
-              'Call' => []
-         ])['GetLatestDateTimeResult'];
 
-        do
-        {
-            $Result = simplexml_load_string(F::Run('Code.Run.SOAP', 'Run',
-                [
-                    'Cache'   => 86400,
-                    'Service' => 'http://www.cbr.ru/DailyInfoWebServ/DailyInfo.asmx?WSDL',
-                    'Method' => 'GetCursOnDate',
-                    'Call' =>
-                        [
-                            'On_date' => $LatestDate
-                        ]
-                ])['GetCursOnDateResult']['any'])->ValuteData->ValuteCursOnDate;
-        }
-        while ($Result === null);
+        $Result = simplexml_load_string(F::Run('IO', 'Read',
+            [
+                'Storage' => 'Web',
+                'Where' => ['ID' => 'http://www.cbr.ru/scripts/XML_daily.asp']
+            ])[0]);
 
         foreach ($Result as $Currency)
-            $Rates[(string) $Currency->VchCode] = (float) $Currency->Vcurs/ (int)$Currency->Vnom;
+            $Rates[(string) $Currency->CharCode] =
+                (float) strtr($Currency->Value, ',', '.') / (int)$Currency->Nominal;
 
         return $Rates[$Call['Currency']];
     });

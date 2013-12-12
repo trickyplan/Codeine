@@ -35,6 +35,7 @@
             catch (SoapFault $e)
             {
                 F::Log($Call['Service'].'->'.$Call['Method'], LOG_ERR, 'Administrator');
+                F::Log($e->getMessage(), LOG_ERR, 'Administrator');
                 return $Cached;
             }
 

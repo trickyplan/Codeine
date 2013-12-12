@@ -1,0 +1,44 @@
+{
+    "Regex":
+    {
+        "Create service order":
+        {
+            "Match":"^/order/create/service/(.+)$",
+            "Service":"Entity.Create",
+            "Method":"Do",
+            "Call":
+            {
+                "Entity": "Company.Order",
+                "Data":
+                {
+                    "Company.CService":
+                    {
+                        "Service": "Entity",
+                        "Method": "Far",
+                        "Call":
+                        {
+                            "Entity": "Company.CService",
+                            "Key": "ID",
+                            "Where":
+                            {
+                                "Slug": "$1"
+                            }
+                        }
+                    }
+                }
+            },
+            "Last": true
+        },
+        "Show order":
+        {
+            "Match":"^/order/show/(.+)$",
+            "Service":"Entity.Show.Static",
+            "Method":"Do",
+            "Call":
+            {
+                "Entity": "Company.Order",
+                "Where": "$1"
+            }
+        }
+    }
+}
