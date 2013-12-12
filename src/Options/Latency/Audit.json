@@ -6,9 +6,9 @@
             "Limits":
             {
                 "Orange": 500,
-                "Yellow": 750,
-                "Red": 1000,
-                "Black": 1200
+                "Yellow": 1000,
+                "Red": 1500,
+                "Black": 2000
             }
         }
     }
