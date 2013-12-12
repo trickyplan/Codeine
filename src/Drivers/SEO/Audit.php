@@ -9,8 +9,9 @@
 
     setFn('Do', function ($Call)
     {
-        foreach($Call['Auditors'] as $Auditor)
-            $Call = F::Live($Auditor, $Call);
+        if (isset($Call['HTML']))
+            foreach($Call['Auditors'] as $Auditor)
+                $Call = F::Live($Auditor, $Call);
 
         return $Call;
     });
