@@ -26,7 +26,8 @@
   -webkit-box-shadow: none;
 }
 
-div[data-role="editor-toolbar"] {
+div[data-role="editor-toolbar"]
+{
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
