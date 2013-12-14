@@ -37,6 +37,7 @@
             [
                 'Data' =>
                 [
+                    'Verdict' => $Call['Request']['Verdict'],
                     'Status' => -1,
                     'Moderated' => F::Run('System.Time', 'Get', $Call),
                     'Moderator' => $Call['Session']['User']['ID']

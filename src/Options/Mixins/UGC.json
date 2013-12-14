@@ -8,15 +8,7 @@
             "User Override": true,
             "Hooks":
             {
-                "beforeEntityCreate":
-                {
-                    "Service": "Session",
-                    "Method": "Read",
-                    "Call":
-                    {
-                        "Key": "User.ID"
-                    }
-                }
+                "beforeEntityCreate": "$Session.User.ID"
             }
         },
         "Created":

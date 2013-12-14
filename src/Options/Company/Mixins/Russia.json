@@ -181,18 +181,9 @@
         "Company.Bank.Name":
         {
             "Type": "Literal.String",
-            "Default": "Не указан БИК",
-            "User Override": true,
-            "Widgets":
-            {
-                "Write":
-                {
-                    "Type": "Form.Textfield"
-                }
-            },
             "Hooks":
             {
-                "beforeEntityWrite":
+                "-beforeEntityWrite":
                 {
                     "Service": "Company.Entity",
                     "Method": "Company.Bank.Name"

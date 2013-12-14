@@ -1,6 +1,10 @@
 {
     "Nodes":
     {
+        "Verdict":
+        {
+            "Type": "Literal.Text"
+        },
         "Moderated":
         {
             "Type": "Numeral.Integer"
@@ -17,6 +21,19 @@
     },
     "Hooks":
     {
+        "beforeUpdatePost":
+        {
+            "Reset status":
+            {
+                "Request":
+                {
+                    "Data":
+                    [{
+                        "Status": 0
+                    }]
+                }
+            }
+        },
         "beforeAcceptGet":
         {
             "Store URL":

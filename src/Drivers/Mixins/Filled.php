@@ -14,12 +14,12 @@
 
         foreach ($Call['Nodes'] as $Name => $Node)
         {
-            if (isset($Node['Widgets']))
+            if (isset($Node['Widgets']['Write']))
             {
                 $Total++;
                 $Value = F::Dot($Data, $Name);
 
-                if (!empty($Value))
+                if ($Value !== null)
                     $Filled++;
             }
         }
