@@ -1,10 +1,11 @@
 {
     "Regex":
     {
-        "Message":
+        "Delete message":
         {
-            "Match": "/message/(.*)",
-            "Service": "Entity.Show.Static",
+            "Weight": 100,
+            "Match": "/message/delete/(.*)",
+            "Service": "Entity.Delete",
             "Method": "Do",
             "Call":
             {
@@ -12,10 +13,11 @@
                 "Where": "$1"
             }
         },
-        "Delete message":
+        "Message":
         {
-            "Match": "/message/delete/(.*)",
-            "Service": "Entity.Delete",
+            "Weight": 50,
+            "Match": "/message/(.*)",
+            "Service": "Entity.Show.Static",
             "Method": "Do",
             "Call":
             {

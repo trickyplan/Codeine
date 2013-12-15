@@ -82,6 +82,18 @@
             {
                 "Service": "Message.MarkAsRead"
             }
+        },
+        "afterDeletePost":
+        {
+            "Redirect":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "Redirect",
+                "Call":
+                {
+                    "Location": "/messages"
+                }
+            }
         }
     }
 }

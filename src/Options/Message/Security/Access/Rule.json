@@ -111,6 +111,24 @@
                     "Target": "$Session.User.ID"
                 }
             }
+        },
+        "Удаление доступно автору":
+        {
+            "Decision": true,
+            "Weight": 75,
+            "Run":
+            {
+                "Service": "Entity.Delete",
+                "Method": "Do",
+                "Call":
+                {
+                    "Entity": "Message"
+                },
+                    "Current":
+                    [{
+                        "User": "$Session.User.ID"
+                    }]
+            }
         }
     }
 }
