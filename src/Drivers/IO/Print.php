@@ -9,7 +9,10 @@
 
     setFn('Write', function ($Call)
     {
-        return F::Apply(null, gettype($Call['Data']), $Call);
+        if (!isset($Call['No Print Anymore']))
+            return F::Apply(null, gettype($Call['Data']), $Call);
+        else
+            return null;
     });
 
     setFn('boolean', function ($Call)

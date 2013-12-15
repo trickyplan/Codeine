@@ -41,15 +41,7 @@
             "Type": "Numeral.Integer",
             "Hooks":
             {
-                "beforeUpdatePost":
-                {
-                    "Service": "Session",
-                    "Method": "Read",
-                    "Call":
-                    {
-                        "Key": "User.ID"
-                    }
-                }
+                "beforeEntityUpdate": "$Session.User.ID"
             }
         }
     }

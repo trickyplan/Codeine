@@ -87,6 +87,28 @@
                 "Call":
                 {
                     "Entity": "Message"
+                },
+                "Data":
+                {
+                    "User": "$Session.User.ID"
+                }
+            }
+        },
+        "Сообщение доступно адресату":
+        {
+            "Decision": true,
+            "Weight": 75,
+            "Run":
+            {
+                "Service": "Entity.Show.Static",
+                "Method": "Do",
+                "Call":
+                {
+                    "Entity": "Message"
+                },
+                "Data":
+                {
+                    "Target": "$Session.User.ID"
                 }
             }
         }

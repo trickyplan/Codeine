@@ -75,15 +75,15 @@
         </div>
 
         <div class="btn-group">
-            <a class="btn btn-default" data-edit="undo" title="" data-original-title="Undo (Ctrl/Cmd+Z)"><i
-                    class="fa fa-undo"></i></a>
+            <a class="btn btn-default" data-edit="undo" title="" data-original-title="Undo (Ctrl/Cmd+Z)">
+                <i class="fa fa-undo"></i></a>
             <a class="btn btn-default" data-edit="redo" title="" data-original-title="Redo (Ctrl/Cmd+Y)"><i class="fa fa-repeat"></i></a>
         </div>
     </div>
     <div class="editor form-control" id="<k>ID</k>">
         <k>Value</k>
     </div>
-    <input type="hidden" name="<k>Name</k>" id="hd<k>ID</k>" value="<k>Value</k>" />
+    <input type="hidden" name="<k>Name</k>" required="required" id="hd<k>ID</k>" value="<k>Value</k>" />
 </div>
 <jsrun>
     $('#<k>ID</k>').wysiwyg();

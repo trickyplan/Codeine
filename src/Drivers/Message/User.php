@@ -14,7 +14,7 @@
                 'Entity' => 'Message',
                 'Where' =>
                 [
-                    'Target' => $Call['Current']['ID']
+                    'Target' => $Call['Data']['ID']
                 ]
             ]);
     });
@@ -26,7 +26,7 @@
                 'Entity' => 'Message',
                 'Where' =>
                 [
-                    'User' => $Call['Current']['ID']
+                    'User' => $Call['Data']['ID']
                 ]
             ]);
     });

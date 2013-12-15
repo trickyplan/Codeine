@@ -11,6 +11,17 @@
                 "Entity": "Message",
                 "Where": "$1"
             }
+        },
+        "Delete message":
+        {
+            "Match": "/message/delete/(.*)",
+            "Service": "Entity.Delete",
+            "Method": "Do",
+            "Call":
+            {
+                "Entity": "Message",
+                "Where": "$1"
+            }
         }
     }
 }

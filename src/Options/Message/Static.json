@@ -25,15 +25,7 @@
                 "Entity": "Message",
                 "Where":
                 {
-                    "Target":
-                    {
-                        "Service": "Session",
-                        "Method": "Read",
-                        "Call":
-                        {
-                            "Key": "User.ID"
-                        }
-                    }
+                    "Target": "$Session.User.ID"
                 }
             }
         },
@@ -47,15 +39,7 @@
                 "Entity": "Message",
                 "Where":
                 {
-                    "User":
-                    {
-                        "Service": "Session",
-                        "Method": "Read",
-                        "Call":
-                        {
-                            "Key": "User.ID"
-                        }
-                    }
+                    "User": "$Session.User.ID"
                 }
             }
         }
