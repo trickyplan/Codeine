@@ -1,0 +1,35 @@
+{
+    "FB":
+    {
+        "AppID": 0,
+        "Secret": "0",
+        "Rights": ""
+    },
+    "Hooks":
+    {
+        "afterFBAuthenticate":
+        {
+            "Redirect":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "Redirect",
+                "Call":
+                {
+                    "Location": "/profile"
+                }
+            }
+        },
+        "afterFBAnnulate":
+        {
+            "Redirect":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "Redirect",
+                "Call":
+                {
+                    "Location": "/profile"
+                }
+            }
+        }
+    }
+}

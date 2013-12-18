@@ -1,0 +1,37 @@
+{
+    "VK":
+    {
+        "Entry Point": "https://api.vk.com/method",
+        "Version": 5,
+        "AppID": 0,
+        "Secret": "SECRET",
+        "Rights": "friends,offline"
+    },
+    "Hooks":
+    {
+        "afterVKAuthenticate":
+        {
+            "Redirect":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "Redirect",
+                "Call":
+                {
+                    "Location": "/profile"
+                }
+            }
+        },
+        "afterVKAnnulate":
+        {
+            "Redirect":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "Redirect",
+                "Call":
+                {
+                    "Location": "/profile"
+                }
+            }
+        }
+    }
+}

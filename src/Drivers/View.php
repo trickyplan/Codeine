@@ -28,8 +28,9 @@
         if (isset($Call['Scope']))
             $Call['Scope'] = strtr($Call['Scope'], '.', '/');
 
-        $Call['Value'] =  F::Run('IO', 'Read', $Call,
+        $Call['Value'] =  F::Run('IO', 'Read',
             [
+                  'Scope' => $Call['Scope'],
                   'Storage' => 'Layout',
                   'Where!'   =>
                   [

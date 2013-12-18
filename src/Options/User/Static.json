@@ -94,6 +94,36 @@
                     }
                 }
             }
+        },
+        "/oauth/VK":
+        {
+            "Service": "Social.VK",
+            "Method": "Authenticate"
+        },
+        "/oauth/FB":
+        {
+            "Service": "Social.FB",
+            "Method": "Authenticate"
+        },
+        "/user/connect/VK":
+        {
+            "Service": "Social.VK",
+            "Method": "Identificate"
+        },
+        "/user/connect/FB":
+        {
+            "Service": "Social.FB",
+            "Method": "Identificate"
+        },
+        "/user/disconnect/VK":
+        {
+            "Service": "Social.VK",
+            "Method": "Annulate"
+        },
+        "/user/disconnect/FB":
+        {
+            "Service": "Social.FB",
+            "Method": "Annulate"
         }
     }
 }

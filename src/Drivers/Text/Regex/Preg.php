@@ -9,15 +9,21 @@
 
     setFn('Match', function ($Call)
     {
-        $Pockets = null;
-        preg_match($Call['Pattern'], $Call['Value'], $Pockets);
+        if (preg_match('@'.$Call['Pattern'].'@SsUu', $Call['Value'], $Pockets))
+            ;
+        else
+            $Pockets = false;
+
         return $Pockets;
     });
 
     setFn('All', function ($Call)
     {
-        $Pockets = null;
-        preg_match($Call['Pattern'], $Call['Value'], $Pockets);
+        if (preg_match_all('@'.$Call['Pattern'].'@Ssu', $Call['Value'], $Pockets))
+            ;
+        else
+            $Pockets = false;
+
         return $Pockets;
     });
 
