@@ -2,8 +2,6 @@
     charset utf-8;
 	index  index.php;
 
-    error_page 404 /404;
-
     merge_slashes on;
 
     log_not_found on;
