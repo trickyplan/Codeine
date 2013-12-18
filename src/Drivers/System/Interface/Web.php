@@ -159,12 +159,12 @@
                 (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&$_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https'))
             {
                 $Call['HTTP']['Proto'] = 'https://';
-                $Call['HTTP']['Host'] = $_SERVER['HTTP_HOST'];
+                $Call['HTTP']['Host'] = strtolower($_SERVER['HTTP_HOST']);
             }
             else
             {
                 $Call['HTTP']['Proto'] = 'http://';
-                $Call['HTTP']['Host'] = $_SERVER['HTTP_HOST'];
+                $Call['HTTP']['Host'] = strtolower($_SERVER['HTTP_HOST']);
             }
 
         F::Log('Protocol is *'.$Call['HTTP']['Proto'].'*', LOG_INFO);
