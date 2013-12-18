@@ -38,14 +38,14 @@
         "SOAP Cache":
         {
             "Driver":"IO.Storage.Directory",
-            "Directory":"Data/SOAP",
+            "Directory":"/tmp/codeine",
             "Format": "Formats.JSON",
             "Suffix":".json"
         },
         "Application Cache":
         {
             "Driver":"IO.Storage.Directory",
-            "Directory":"Data/Application",
+            "Directory":"/tmp/codeine",
             "Format": "Formats.JSON",
             "Suffix":".json"
         },
