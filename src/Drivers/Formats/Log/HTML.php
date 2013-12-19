@@ -14,7 +14,7 @@
 
         foreach ($Call['Logs'] as $IX => $Row)
             $Output .= '<tr class="'.$Call['Levels'][$Row[0]].'">
-                    <td>'.$Row[1].(isset($Call['Logs'][$IX-1][1])? '(+'.round($Row[1]-$Call['Logs'][$IX-1][1],4).')': '').'</td>
+                    <td>'.$Row[1].'</td>
                     <td>'.($Row[3] == (isset($Call['Data'][$IX-1][3])? $Call['Data'][$IX-1][3]: 0)? '': $Row[3]).'</td>
                     <td>'.stripslashes($Row[2]).'</td>
                     </tr>';

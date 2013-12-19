@@ -278,19 +278,16 @@
             $OldService = self::$_Service;
             $OldMethod = self::$_Method;
 
-            self::$_Stack->push($Service.':'.$Method);
-
             if ($Service !== null)
                 self::$_Service = $Service;
 
             if ($Method !== null)
                 self::$_Method  = $Method;
 
-/*            if (($OldService == $Service) && ($OldMethod == $Method))
-                self::$_Overflow++;
-            else
-                self::$_Overflow = 0;*/
+            self::Stop($OldService. '.' . $OldMethod);
+            self::Start(self::$_Service . '.' . self::$_Method);
 
+            self::$_Stack->push(self::$_Service.':'.self::$_Method);
 
             $FnOptions = self::loadOptions();
 
@@ -305,29 +302,26 @@
                 if (is_callable($F))
                 {
                     if (self::$_Profile)
-                    {
                         $Memory = memory_get_usage();
-                        self::Stop($OldService. '.' . $OldMethod);
-                        self::Start(self::$_Service . '.' . self::$_Method);
-                    }
 
                     $Result = $F($Call);
 
                     if (self::$_Profile)
                     {
                         self::Counter(self::$_Service.'.'.self::$_Method);
-                        self::Stop(self::$_Service . '.' . self::$_Method);
-                        self::Start($OldService. '.' . $OldMethod);
 
-                        $Memory = round(memory_get_usage()-$Memory)/1024;
+                        /*$Memory = round(memory_get_usage()-$Memory)/1024;
 
                         if ($Memory > self::$_Options['Codeine']['Heavy Memory Limit'])
-                            F::Log('High memory at '. self::$_Service.':'.self::$_Method.' +'.$Memory.'kb ('.memory_get_usage().')', LOG_WARNING);
+                            F::Log('High memory at '. self::$_Service.':'.self::$_Method.' +'.$Memory.'kb ('.memory_get_usage().')', LOG_WARNING, 'Profiler');*/
                     }
                 }
                 else
                     $Result = isset($Call['Fallback']) ? $Call['Fallback'] : null;
             }
+
+            self::Stop(self::$_Service . '.' . self::$_Method);
+            self::Start($OldService. '.' . $OldMethod);
 
             self::$_Service = $OldService;
             self::$_Method = $OldMethod;
@@ -335,6 +329,7 @@
             self::$NC++;
 
             self::$_Stack->pop();
+
             return $Result;
         }
 

@@ -9,9 +9,10 @@
 
     setFn ('Parse', function ($Call)
     {
-        $Call['Parsed'] = F::Run('Text.Regex', 'All', $Call,
+        $Call['Parsed'] = F::Run('Text.Regex', 'All',
             [
-                'Pattern' => $Call['Layout Pattern']
+                'Pattern' => $Call['Layout Pattern'],
+                'Value' => $Call['Value']
             ]);
 
         if ($Call['Parsed'])

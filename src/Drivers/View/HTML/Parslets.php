@@ -18,7 +18,7 @@
 
                  $cTag = $Tag;
 
-                 while($Call['Parsed'] = F::Run('Text.Regex', 'All', $Call,
+                 while($Call['Parsed'] = F::Run('Text.Regex', 'All',
                     [
                         'Pattern' => '<'.$cTag.' (.*?)>(.*?)</'.$cTag.'>',
                         'Value'   => $Call['Output']
@@ -41,7 +41,7 @@
 
                  $cTag = $Tag;
 
-                 while($Call['Parsed'] = F::Run('Text.Regex', 'All', $Call,
+                 while($Call['Parsed'] = F::Run('Text.Regex', 'All',
                     [
                         'Pattern' => '<'.$cTag.'()>(.*?)</'.$cTag.'>',
                         'Value'   => $Call['Output']

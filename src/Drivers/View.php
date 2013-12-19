@@ -20,6 +20,8 @@
     {
         $Call = F::Hook('beforeViewLoad', $Call);
 
+        F::Start ('Pure Load');
+
         $IDs = [$Call['ID']];
 
         if (isset($Call['Context']) && !empty($Call['Context']))
@@ -41,8 +43,12 @@
         if (isset($Call['Data']) && ($Call['Data'] !== (array) $Call['Data']))
             $Call['Data'] = ['Value' => $Call['Data']];
 
+        F::Stop('Pure Load');
+        F::Counter('Pure Load');
+
         if ($Call['Value'] !== null)
             $Call = F::Hook('afterViewLoad', $Call);
+
 
         return $Call['Value'];
     });

@@ -9,7 +9,7 @@
 
     setFn('Process', function ($Call)
     {
-        $Call['Parsed'] = F::Run('Text.Regex', 'All', $Call,
+        $Call['Parsed'] = F::Run('Text.Regex', 'All',
         [
             'Pattern' => $Call['Locale Pattern'],
             'Value'   => $Call['Output']

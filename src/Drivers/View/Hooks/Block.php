@@ -17,13 +17,17 @@
 
     setFn('Call', function ($Call)
     {
-        $Call['Parsed'] = F::Run('Text.Regex', 'All', $Call,
+        $Call['Parsed'] = F::Run('Text.Regex', 'All',
         [
-            'Pattern' => $Call['Block Call Pattern']
+            'Pattern' => $Call['Block Call Pattern'],
+            'Value' => $Call['Value']
         ]);
 
-        if ($Call['Parsed'])
+        if ($Call['Parsed'] && isset($Call['Data']))
         {
+            $Call['Parsed'][0] = array_unique($Call['Parsed'][0]);
+            $Call['Parsed'][1] = array_unique($Call['Parsed'][1]);
+
             foreach ($Call['Parsed'][2] as $IX => &$Match)
             {
                 if (($Matched = F::Live(F::Dot($Call, $Match))) !== null)
@@ -61,13 +65,17 @@
 
     setFn('Key', function ($Call)
     {
-        $Call['Parsed'] = F::Run('Text.Regex', 'All', $Call,
+        $Call['Parsed'] = F::Run('Text.Regex', 'All',
         [
-            'Pattern' => $Call['Block Key Pattern']
+            'Pattern' => $Call['Block Key Pattern'],
+            'Value' => $Call['Value']
         ]);
 
-        if ($Call['Parsed'])
+        if ($Call['Parsed'] && isset($Call['Data']))
         {
+            $Call['Parsed'][0] = array_unique($Call['Parsed'][0]);
+            $Call['Parsed'][1] = array_unique($Call['Parsed'][1]);
+
             foreach ($Call['Parsed'][2] as $IX => &$Match)
             {
                 if (isset($Call['Data']) && ($Matched = F::Live(F::Dot($Call['Data'], $Match))) !== null)

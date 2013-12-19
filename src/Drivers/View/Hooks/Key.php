@@ -9,13 +9,18 @@
 
     setFn('Parse', function ($Call)
     {
-        $Call['Parsed'] = F::Run('Text.Regex', 'All', $Call,
+        $Call['Parsed'] = F::Run('Text.Regex', 'All',
         [
-            'Pattern' => $Call['Key Pattern']
+            'Pattern' => $Call['Key Pattern'],
+            'Value' => $Call['Value']
         ]);
+
 
         if ($Call['Parsed'] && isset($Call['Data']))
         {
+            $Call['Parsed'][0] = array_unique($Call['Parsed'][0]);
+            $Call['Parsed'][1] = array_unique($Call['Parsed'][1]);
+
             foreach ($Call['Parsed'][1] as $IX => &$Match)
             {
                 if (mb_strpos($Match, ',') !== false)
