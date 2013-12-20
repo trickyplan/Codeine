@@ -9,6 +9,19 @@
 
     setFn('Do', function ($Call)
     {
+
+        $UserBalances = F::Run('Entity', 'Read', $Call,
+        [
+            'Entity' => 'User',
+            'Fields' => ['Balance']
+        ]);
+
+
+        $UserBalances = F::Extract($UserBalances, 'Balance')['Balance'];
+        $Call['Balance'] =
+        [
+            'Users' => array_sum($UserBalances)
+        ];
         return $Call;
     });
 

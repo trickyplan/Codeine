@@ -1,4 +1,5 @@
 {
+    "Currency TTL": 86400,
     "Currencies":
     {
         "USD":

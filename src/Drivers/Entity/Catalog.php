@@ -10,11 +10,12 @@
     setFn('Do', function ($Call)
     {
         $Call = F::Merge(F::loadOptions('Entity.'.$Call['Entity']), $Call); // FIXME
+
         $Call = F::Hook('beforeCatalog', $Call);
 
         $Call['Layouts'][] = ['Scope' => $Call['Entity'],'ID' => 'Catalog'];
 
-        $Elements = F::Run('Entity', 'Read', ['Entity' => $Call['Entity'], 'Fields' => [$Call['Key']]]);
+        $Elements = F::Run('Entity', 'Read', $Call, ['Fields' => [$Call['Key']]]);
 
         $Values = [];
 

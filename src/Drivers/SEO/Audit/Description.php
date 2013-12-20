@@ -25,7 +25,7 @@
         }
         else
         {
-            F::Log('SEO Description length is normal ', LOG_GOOD, 'SEO');
+            F::Log('SEO Description length is optimal ', LOG_GOOD, 'SEO');
         }
 
         return $Call;

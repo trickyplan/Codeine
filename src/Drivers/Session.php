@@ -75,7 +75,7 @@
                 $Call['Session'] = [];
         }
 
-        F::Log($Call['Session'], LOG_INFO, 'Security');
+        F::Log($Call['Session'], LOG_DEBUG, 'Security');
 
         return $Call;
     });

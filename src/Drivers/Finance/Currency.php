@@ -9,7 +9,12 @@
 
     setFn('GetRates', function ($Call)
     {
-        return F::Live($Call['Currencies'][$Call['From']][$Call['To']]['Rate']);
+        return F::Run('Code.Run.Cached', 'Run',
+            [
+                'Run' => $Call['Currencies'][$Call['From']][$Call['To']]['Rate'],
+                'TTL' => $Call['Currency TTL']
+            ]
+        );
     });
 
     setFn('Convert', function ($Call)

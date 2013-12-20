@@ -183,6 +183,15 @@
             {
                 "Service": "Entity.Complain"
             }
+        },
+        "404 — всем":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Errors.404"
+            }
         }
     }
 }

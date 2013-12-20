@@ -25,8 +25,9 @@
 
         if ($Call['Parsed'] && isset($Call['Data']))
         {
+
             $Call['Parsed'][0] = array_unique($Call['Parsed'][0]);
-            $Call['Parsed'][1] = array_unique($Call['Parsed'][1]);
+            $Call['Parsed'][2] = array_unique($Call['Parsed'][2]);
 
             foreach ($Call['Parsed'][2] as $IX => &$Match)
             {
@@ -74,7 +75,7 @@
         if ($Call['Parsed'] && isset($Call['Data']))
         {
             $Call['Parsed'][0] = array_unique($Call['Parsed'][0]);
-            $Call['Parsed'][1] = array_unique($Call['Parsed'][1]);
+            $Call['Parsed'][2] = array_unique($Call['Parsed'][2]);
 
             foreach ($Call['Parsed'][2] as $IX => &$Match)
             {

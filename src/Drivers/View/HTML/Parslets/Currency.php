@@ -20,6 +20,9 @@
                 if (isset($Root->attributes()->to))
                     $Call['Currency']['To'] = (string) $Root->attributes()->to;
 
+                if (isset($Root->attributes()->precision))
+                    $Call['Currency']['Precision'] = (string) $Root->attributes()->precision;
+
                 if (is_numeric($Match))
                 {
                     $Outer = number_format(F::Run('Finance.Currency', 'Convert',
@@ -27,7 +30,7 @@
                                 'From' => $Call['From'],
                                 'To' => $Call['Currency']['To'],
                                 'Value' => $Match
-                            ]), 2, ',', ' ').'&nbsp;'.$Call['Currency']['To'];
+                            ]), $Call['Currency']['Precision'], ',', ' ').'&nbsp;'.$Call['Currency']['To'];
                 }
             }
 

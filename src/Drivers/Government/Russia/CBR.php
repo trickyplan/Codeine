@@ -34,6 +34,7 @@
 
         $Result = simplexml_load_string(F::Run('IO', 'Read',
             [
+                'TTL' => 86400,
                 'Storage' => 'Web',
                 'Where' => ['ID' => 'http://www.cbr.ru/scripts/XML_daily.asp']
             ])[0]);

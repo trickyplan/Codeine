@@ -42,6 +42,13 @@
             "Format": "Formats.JSON",
             "Suffix":".json"
         },
+        "Run Cache":
+        {
+            "Driver":"IO.Storage.Directory",
+            "Directory":"/tmp/codeine",
+            "Format": "Formats.JSON",
+            "Suffix":".json"
+        },
         "Application Cache":
         {
             "Driver":"IO.Storage.Directory",

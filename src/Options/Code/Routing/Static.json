@@ -97,6 +97,11 @@
                 }
             }
         },
+        "/404":
+        {
+            "Service": "Errors.404",
+            "Method": "Page"
+        },
         "/terms":
         {
             "Service": "Project.Terms",

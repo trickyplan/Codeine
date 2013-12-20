@@ -9,25 +9,40 @@
 
     setFn('Run', function ($Call)
     {
-        $ID = F::hashCall($Call['Run']);
+        $Result = null;
+        $Run = true;
 
-        $Result = F::Run('IO', 'Read', array
-                             (
-                                'Storage' => 'Run Cache',
-                                'Where' => $ID
-                             ));
+        $CacheID = sha1(json_encode($Call['Run']));
 
-        if (null === $Result)
+        $Envelope = F::Run('IO', 'Read',
+            [
+                'Storage' => 'Run Cache',
+                'Where' => ['ID' => $CacheID]
+            ]);
+
+        if ($Envelope !== null && $Envelope[0]['Expire'] > time())
         {
-            $Result = F::Run($Call['Run']['Service'], $Call['Run']['Method'], $Call['Run']['Call']);
+            F::Log('Found good cache for '.$Call['Run']['Service'], LOG_GOOD, 'Developer');
 
-            F::Run('IO', 'Write', array
-               (
-                   'Storage' => 'Run Cache',
-                   'Where'   => $ID,
-                   'TTL'     => 15,
-                   'Data'    => $Result
-               ));
+            $Run = false;
+            $Result = $Envelope[0]['Result'];
+        }
+
+        if ($Run)
+        {
+            $Result = F::Live($Call['Run']);
+
+            F::Run('IO', 'Write',
+            [
+                'Storage' => 'Run Cache',
+                'Scope'   => 'Run',
+                'Where'   => ['ID' => $CacheID],
+                'Data'    =>
+                [
+                    'Result' => $Result,
+                    'Expire' => time()+$Call['TTL']
+                ]
+            ]);
         }
 
         return $Result;
