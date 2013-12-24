@@ -15,17 +15,17 @@
         {
             $Call = F::Hook('SEO.Audit.Keywords.TooLong', $Call);
             F::Log('SEO Keywords is too long *'.$Length.' chars* over *'
-                .$Call['SEO']['Audit']['Keywords']['Length']['Maximum'].'*', LOG_WARNING, 'SEO');
+                .$Call['SEO']['Audit']['Keywords']['Length']['Maximum'].'*', LOG_WARNING, 'Marketing');
         }
         elseif ($Length < $Call['SEO']['Audit']['Keywords']['Length']['Minimum'])
         {
             $Call = F::Hook('SEO.Audit.Keywords.TooShort', $Call);
             F::Log('SEO Keywords is too short *'.$Length.' chars* over *'
-                .$Call['SEO']['Audit']['Keywords']['Length']['Minimum'].'*', LOG_WARNING, 'SEO');
+                .$Call['SEO']['Audit']['Keywords']['Length']['Minimum'].'*', LOG_WARNING, 'Marketing');
         }
         else
         {
-            F::Log('SEO Keywords length is optimal ', LOG_GOOD, 'SEO');
+            F::Log('SEO Keywords length is optimal ', LOG_GOOD, 'Marketing');
         }
 
         return $Call;

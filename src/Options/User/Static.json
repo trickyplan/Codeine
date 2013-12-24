@@ -33,20 +33,17 @@
         "/changepwd":
         {
             "Service":"Entity.Update",
+            "Method": "Do",
             "Call":
             {
                 "Purpose": "Password",
-                "Only Tag": "Password",
+                "OnlyTag": ["Password"],
                 "Entity": "User",
-                "Where":
+                "Custom Layouts":
                 {
-                    "Service": "Session",
-                    "Method": "Read",
-                    "Call":
-                    {
-                        "Key": "User.ID"
-                    }
-                }
+                    "Update": "Update/Passwd"
+                },
+                "Where": "$Session.User.ID"
             }
         },
         "/auth/social":

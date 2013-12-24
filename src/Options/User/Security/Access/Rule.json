@@ -134,6 +134,13 @@
                 "Call":
                 {
                     "Entity": "User"
+                },
+                "Session":
+                {
+                    "User":
+                    {
+                        "ID": "*"
+                    }
                 }
             }
         },

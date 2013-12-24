@@ -7,7 +7,6 @@
 
     // 10xs for http://leonid.shevtsov.me/ru/mnogoprocessovye-demony-na-php#ixzz23J4hMu6y
 
-
     include 'Codeine/Core.php';
 
     $Opts = [];
@@ -16,14 +15,14 @@
         if (preg_match('/--(\S+)\=(\S+)/', $arg, $Pockets))
             $Opts = F::Dot($Opts, $Pockets[1], $Pockets[2]);
 
-    !defined('Root')? define('Root', Codeine): false;
+    !defined('Root')? define('Root', getcwd()): false;
 
     $Call = F::Bootstrap
     ([
         'Paths' => [Root],
         'Environment' => isset($Opts['Environment'])? $Opts['Environment']: 'Production',
         'Service' => 'System.Interface.CLI',
-        'Method' => 'Run',
+        'Method' => 'Do',
         'Call' =>
         [
             'Service' => 'Code.Flow.Daemon',
@@ -34,4 +33,4 @@
 
     F::Shutdown($Call);
 
-    exit(0);
+    exit($Call['Return Code']);

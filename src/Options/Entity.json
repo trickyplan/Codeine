@@ -155,6 +155,14 @@
                     "Purpose": "Read"
                 }
             }
+        },
+        "afterEntityCreate":
+        {
+            "Make variables alive":
+            {
+                "Service":"Entity.Hooks.Live",
+                "Method":"Process"
+            }
         }
     }
 }

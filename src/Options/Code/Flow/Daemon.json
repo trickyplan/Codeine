@@ -1,8 +1,10 @@
 {
     "MaxChilds":32,
+    "RT": 5,
     "PID":
     {
-        "Prefix": "/tmp/codeine/",
+        "Name": "codeined",
+        "Prefix": "/var/run/",
         "Postfix": ".pid"
     },
     "Signals":

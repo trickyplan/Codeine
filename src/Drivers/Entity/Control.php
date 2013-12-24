@@ -66,6 +66,12 @@
         return F::Apply('Entity.Delete', 'Do', $Call, ['Entity' => $Call['Bundle'], 'Scope' => 'Control']);
     });
 
+    setFn('Truncate', function ($Call)
+    {
+        $Call['Layouts'][] = ['Scope' => 'Entity', 'ID' => 'Delete'];
+        return F::Apply('Entity.Truncate', 'Do', $Call, ['Entity' => $Call['Bundle'], 'Scope' => 'Control']);
+    });
+
     setFn('Menu', function ($Call)
     {
         $Count = F::Run('Entity', 'Count', $Call, ['Entity' => $Call['Bundle'], 'Scope' => 'Control']);
@@ -89,11 +95,6 @@
         $Call['Output']['Content'] = $Elements;
 
         return $Call;
-    });
-
-    setFn('Check', function ($Call)
-    {
-        return F::Apply('Entity.Check', 'Do', $Call, ['Entity' => $Call['Bundle']]);
     });
 
     setFn('Search', function ($Call)

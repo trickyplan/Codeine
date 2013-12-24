@@ -5,7 +5,8 @@
         "Mixins.UGC",
         "Mixins.Filled",
         "Mixins.Verifiable",
-        "Mixins.Billing"
+        "Mixins.Billing",
+        "Mixins.Channel"
     ],
     "Storage": "Primary",
     "EPP": 20,
@@ -59,6 +60,7 @@
         },
         "Status":
         {
+            "Type": "Ternary",
             "Default": 0
         },
         "Fullname": {},
@@ -85,7 +87,7 @@
         "Password":
         {
             "Type": "Literal.Password",
-            "Only Tag": "Password",
+            "Scope": "Password",
             "User Override": true,
             "Hooks":
             {
@@ -101,7 +103,7 @@
             },
             "Widgets":
             {
-                "Create":
+                "Write":
                 {
                     "Type": "Form.Password",
                     "Required": true

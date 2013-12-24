@@ -35,7 +35,9 @@
         private static $_Memory= 0;
 
         private static $_Profile = false;  // Internal Profiler
-        private static $_PostMortem = false;  // Internal Profiler
+        private static $_Debug = false;  // Internal Profiler
+        private static $_Verbose;
+
         private static $_Stack;
 
         private static $NC = 0;
@@ -51,19 +53,12 @@
         {
             self::$_Live = true;
 
-            if (isset($_REQUEST['Profile']))
-                self::$_Profile = true;
-
-            if (isset($_REQUEST['PostMortem']))
-                self::$_PostMortem = true;
-
             self::$_Stack = new SplStack();
 
             self::Start(self::$_Service . '.' . self::$_Method);
 
             mb_internal_encoding('UTF-8'); // FIXME
             setlocale(LC_ALL, "ru_RU.UTF-8"); // FIXME
-
             libxml_use_internal_errors(true);
 
             if (isset($_SERVER['Environment']))
@@ -82,7 +77,20 @@
             else
                 self::$_Paths = [Codeine];
 
+            if (isset($_REQUEST['Profile']) && self::$_Environment != 'Production')
+                self::$_Profile = true;
+
             self::loadOptions('Codeine');
+
+            if (isset(self::$_Options['Codeine']['Verbose']))
+                self::$_Verbose = self::$_Options['Codeine']['Verbose'];
+
+            if (isset($_REQUEST['Debug']) && self::$_Environment != 'Production')
+            {
+                self::$_Debug = true;
+                foreach (self::$_Verbose as &$Level)
+                    $Level = PHP_INT_MAX;
+            }
 
             F::Log('Codeine started', LOG_IMPORTANT);
 
@@ -133,7 +141,7 @@
                 F::Run('Profile', 'Do', $Call);
             }
 
-            if (self::$_PostMortem)
+            if (self::$_Debug)
             {
                 ksort($Call);
                 d(__FILE__, __LINE__, mb_strlen(serialize($Call)));
@@ -468,7 +476,7 @@
 
         public static function Log ($Message, $Verbose = 7, $Channel = 'Developer')
         {
-            if (($Verbose <= self::$_Options['Codeine']['Verbose'][$Channel])
+            if (($Verbose <= self::$_Verbose[$Channel])
                 or
                ((F::Environment() == 'Development') && $Verbose > 8))
             {

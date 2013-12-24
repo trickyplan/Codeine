@@ -9,8 +9,9 @@
 
     setFn('Initialize', function ($Call)
     {
-        $Call['SID'] = F::Run('Session.Marker.Cookie', 'Read', $Call);
+        $Call = F::Hook('beforeSessionInitialize', $Call);
 
+        $Call['SID'] = F::Run('Session.Marker.Cookie', 'Read', $Call);
         // Маркера нет — пользователь чистый гость
         if (null === $Call['SID'])
         {
@@ -19,7 +20,7 @@
             if (isset($Call['Session Auto']) && $Call['Session Auto'])
                 $Call = F::Apply(null, 'Mark', $Call);
 
-            $Call['Session'] = [];
+            $Call['Session'] = F::Run('Entity', 'Create', $Call, ['Entity' => 'Session', 'One' => true]);
         }
         else
         {
@@ -33,6 +34,7 @@
 
             if ($Call['Session'] !== null)
             {
+                F::Log('Session: Channel *'.$Call['Session']['Channel'].'*', LOG_INFO, 'Security');
                 if (isset($Call['Session']['Secondary']) && $Call['Session']['Secondary'] != 0)
                 {
                     $Call['Session']['Primary'] = F::Run('Entity', 'Read', $Call,
@@ -75,7 +77,9 @@
                 $Call['Session'] = [];
         }
 
-        F::Log($Call['Session'], LOG_DEBUG, 'Security');
+        F::Log($Call['Session'], LOG_INFO, 'Security');
+
+        $Call = F::Hook('afterSessionInitialize', $Call);
 
         return $Call;
     });

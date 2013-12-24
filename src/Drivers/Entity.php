@@ -59,13 +59,13 @@
 
                     $Call = F::Hook('beforeEntityCreate', $Call);
 
-                    if (!isset($Call['Failure']) or !$Call['Failure']) // FIXME Shit
+                    if (isset($Call['Failure']) and $Call['Failure']) // FIXME Shit
+                        $Data[$IX] = null;
+                    else
                     {
                         $Data[$IX] = F::Run('IO', 'Write', $Call);
                         $Call = F::Hook('afterEntityCreate', $Call);
                     }
-                    else
-                        $Data[$IX] = null;
 
                 $Call = F::Hook('afterEntityWrite', $Call);
             }

@@ -40,15 +40,23 @@
                 "Code": "$1"
             }
         },
-        "Experiment":
+        "IP Flag":
         {
-            "Match": "^/experiment/(.*)",
-            "Service":"Experiment",
-            "Method":"Set",
-            "Call":
-            {
-                "Experiment": "$1"
-            }
+           "Match": "/utils/ip-flag/(.+)",
+           "Service": "Country.FlagByIP",
+           "Method": "Get",
+           "View":
+           {
+               "Renderer":
+               {
+                   "Service": "View.File",
+                   "Method": "Render"
+               }
+           },
+           "Call":
+           {
+               "IP": "$1"
+           }
         },
         "Dict":
         {
@@ -157,6 +165,17 @@
             "Call":
             {
                 "Location": "$1"
+            }
+        },
+        "Pay":
+        {
+            "Match": "/pay/(.+)/(.+)",
+            "Service": "Entity.Payment",
+            "Method": "Do",
+            "Call":
+            {
+                "Entity": "$1",
+                "Where": "$2"
             }
         }
     }

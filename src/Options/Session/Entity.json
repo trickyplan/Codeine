@@ -1,4 +1,5 @@
 {
+    "Mixins": ["Mixins.Channel"],
     "Storage": "Primary",
     "EPP": 50,
     "Nodes":
@@ -45,7 +46,7 @@
                     "Method": "Get",
                     "Call":
                     {
-                        "Increment": 15778463
+                        "Increment": 15552000
                     }
                 }
             }

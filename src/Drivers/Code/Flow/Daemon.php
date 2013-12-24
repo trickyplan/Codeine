@@ -12,13 +12,14 @@
     setFn('Run', function ($Call)
     {
         declare(ticks = 1);
+        $SH = function ($Signal) {return F::Run('Code.Flow.Daemon', 'Signal', ['Signal' => $Signal]);};
 
         $PID = pcntl_fork();
 
         if ($PID == -1)
         {
             F::Log('Daemon: Detach failed', LOG_CRIT);
-            die();
+            exit(1);
         }
         else if ($PID)
             {
@@ -27,8 +28,6 @@
             }
         else
         {
-            $SH = function ($Signal) {return F::Run('Code.Flow.Daemon', 'Signal', ['Signal' => $Signal]);};
-
             foreach ($Call['Signals'] as $SigID => $Hook)
                 if (!pcntl_signal(constant($SigID), $SH))
                     F::Log('Signal '.$SigID.' not handled', LOG_ERR);
@@ -38,7 +37,7 @@
             if (F::Run(null, 'Running?', $Call))
             {
                 F::Log('Daemon already active', LOG_CRIT);
-                exit;
+                exit (2);
             }
             else
             {
@@ -51,7 +50,9 @@
 
             $Ungrateful = [];
 
-            while (F::getLive())
+            F::Log('Daemon started', LOG_INFO);
+
+            while (F::Run(null, 'Running?', $Call))
             {
                 if ((count($Ungrateful) < $Call['MaxChilds']))
                 {
@@ -73,7 +74,7 @@
                         if ($Result !== null)
                             F::Log(getmypid().': '.json_encode($Result), LOG_WARNING);
 
-                        exit;
+                        exit(4);
                     }
                 }
 
@@ -91,11 +92,13 @@
                     }
                 }
 
-                sleep(1);
+                sleep($Call['RT']);
             }
 
-            unlink($PIDFile);
-            }
+            F::Log('Daemon stopped', LOG_INFO);
+            if (file_exists($PIDFile))
+                unlink($PIDFile);
+        }
 
         return $Call;
     });
@@ -118,17 +121,13 @@
                     return (-1);
             } //не могу уничтожить pid-файл. ошибка
         }
-        else
-        {
-
-        }
 
         return false;
     });
 
     setFn('PIDFile', function ($Call)
     {
-        return $Call['PID']['Prefix'].$Call['Execute']['Service'].$Call['PID']['Postfix'];
+        return $Call['PID']['Prefix'].$Call['PID']['Name'].$Call['PID']['Postfix'];
     });
 
     setFn('Stop', function ($Call)
@@ -138,6 +137,8 @@
 
     setFn('Signal', function ($Call)
     {
+        F::Log($Call['Signal'], LOG_CRIT);
+
         if (isset($Call['Codes'][$Call['Signal']]))
         {
             $Signal = $Call['Codes'][$Call['Signal']];
@@ -153,7 +154,6 @@
 
     setFn('Flush', function ($Call)
     {
-        F::reloadOptions();
         F::Log('Core flushed', LOG_WARNING);
         return true;
     });

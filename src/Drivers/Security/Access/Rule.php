@@ -26,7 +26,7 @@
                     {
                         if (!isset($Rule['Expression']) || F::Live($Rule['Expression'], $Call))
                         {
-                            F::Log('Rule '.$Name.' applied', LOG_DEBUG);
+                            F::Log('Rule '.$Name.' applied', LOG_DEBUG, 'Security');
 
                             $Call['Decision'] = $Rule['Decision'];
                             $Call['Weight'] = $Rule['Weight'];

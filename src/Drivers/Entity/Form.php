@@ -35,8 +35,31 @@
                 elseif (isset($Node['Widgets']['Write'])) // Для записи как таковой
                     $Widget = $Node['Widgets']['Write'];
 
-                if (isset($Node['Scope']) && !in_array($Call['Tag'], (array) $Node['Scope']))
-                    continue;
+                if (isset($Call['OnlyTag']))
+                {
+                    if (isset($Node['Scope']))
+                        $Node['Scope'];
+                    else
+                    {
+                        F::Log('Widget for *'.$Name.'* skipped (scope not set)', LOG_DEBUG);
+                        continue;
+                    }
+
+                    if (in_array($Node['Scope'], $Call['OnlyTag']))
+                    ;
+                    else
+                    {
+                        F::Log('Widget for *'.$Name.'* skipped (scope '.
+                            $Node['Scope'][0].' not equal tag '.$Call['OnlyTag'][0].'),', LOG_DEBUG);
+
+                        continue;
+                    }
+                }
+                else
+                    if (isset($Node['Scope']) && !in_array($Call['Tag'], (array) $Node['Scope']))
+                        continue;
+
+
 
                 // Костыль.
                 if ($Call['Purpose'] == 'Create' && !empty(F::Dot($Call['Data'], $Name)))
@@ -44,6 +67,7 @@
 
                 if (null !== $Widget)
                 {
+                    F::Log('Widget for *'.$Name.'* processing', LOG_DEBUG);
                     // Передаём имя сущности
 
                     $Widget = F::Merge($Node, $Widget);

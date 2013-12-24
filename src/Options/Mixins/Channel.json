@@ -1,0 +1,30 @@
+{
+    "Nodes":
+    {
+        "Channel":
+        {
+            "Type": "Literal.String",
+            "Default": "Direct",
+            "Hooks":
+            {
+                "beforeEntityCreate":
+                {
+                    "Service": "Channel.Determine",
+                    "Method": "Channel"
+                }
+            }
+        },
+        "Subchannel":
+        {
+            "Type": "Literal.String",
+            "Hooks":
+            {
+                "beforeEntityCreate":
+                {
+                    "Service": "Channel.Determine",
+                    "Method": "Subchannel"
+                }
+            }
+        }
+    }
+}

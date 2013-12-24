@@ -17,7 +17,6 @@
     setFn('Do', function ($Call)
     {
         $Call = F::Hook('beforeUpdateDo', $Call);
-
         return F::Run(null, $Call['HTTP']['Method'], $Call);
     });
 
@@ -26,7 +25,6 @@
         // Загрузить предопределённые данные и умолчания
 
         $Call = F::Hook('beforeUpdateGet', $Call);
-
         {
             $Call['Output']['Content']['Form Widget'] = ['Type' => 'Form', 'Submit' => 'Update'];
 
@@ -37,7 +35,8 @@
             $Call['Layouts'][] =
                 [
                     'Scope' => $Call['Entity'],
-                    'ID' => isset($Call['Custom Layouts']['Update'])? $Call['Custom Layouts']['Update']: 'Update',
+                    'ID' => isset($Call['Custom Layouts']['Update'])?
+                            $Call['Custom Layouts']['Update']: 'Update',
                     'Context' => $Call['Context']
                 ];
 

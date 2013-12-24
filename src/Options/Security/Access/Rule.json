@@ -13,15 +13,6 @@
                 "Service": "Codeine.Beacon"
             }
         },
-        "Оплата доступна всем":
-        {
-            "Decision": true,
-            "Weight": 50,
-            "Run":
-            {
-                "Service": "Payment.PaysIO"
-            }
-        },
         "Главная страница доступна всем":
         {
             "Decision": true,
@@ -191,6 +182,24 @@
             "Run":
             {
                 "Service": "Errors.404"
+            }
+        },
+        "IP Flag — всем":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Country.FlagByIP"
+            }
+        },
+        "Payment 2 all":
+        {
+            "Decision": true,
+            "Weight": 100,
+            "Run":
+            {
+                "Service": "Entity.Payment"
             }
         }
     }

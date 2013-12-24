@@ -108,7 +108,8 @@
             {
                 "Write":
                 {
-                    "Type": "Form.Textfield"
+                    "Type": "Form.Textfield",
+                    "Help": true
                 }
             }
         },
