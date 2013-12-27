@@ -12,7 +12,7 @@
         foreach ($Call['Nodes'] as $Name => $Node)
             foreach ($Call['Validators'] as $Validator)
             {
-                $Error = F::Run('Entity.Validate.'.$Validator, 'Process', $Call,
+                $Error = F::Run('Entity.Hooks.Validate.'.$Validator, 'Process', $Call,
                     [
                         'Name' => $Name,
                         'Node' => $Node,

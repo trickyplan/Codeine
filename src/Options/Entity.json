@@ -81,7 +81,7 @@
             },
             "Validate":
             {
-                "Service":"Entity.Validate",
+                "Service":"Entity.Hooks.Validate",
                 "Method":"Process"
             }
         },

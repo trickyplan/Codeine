@@ -185,7 +185,7 @@
             "Type": "Literal.String",
             "Hooks":
             {
-                "-beforeEntityWrite":
+                "beforeEntityWrite":
                 {
                     "Service": "Company.Entity",
                     "Method": "Company.Bank.Name"

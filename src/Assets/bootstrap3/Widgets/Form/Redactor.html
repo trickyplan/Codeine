@@ -7,6 +7,9 @@
         <if value="<k>Filled</k>" eq="1"><span class="filled-star" title="Рекомендуемое поле">*</span></if>
     </label>
     <textarea class="form-control" id="<k>ID</k>" <block>required="<k>Required</k>"</block> name="<k>Name</k>"><k>Value</k></textarea>
+    <if value="<k>Help</k>" eq="1">
+        <div class="help-block"><l><k>Entity</k>.Help:<k>Key</k></l></div>
+    </if>
 </div>
 <jsrun>
     $("#<k>ID</k>").redactor({lang: "ru", imageUpload: "/uploader", wym: true});

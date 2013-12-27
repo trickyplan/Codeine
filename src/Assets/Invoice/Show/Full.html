@@ -1,0 +1,77 @@
+<subtitle><l>Invoice.Entity:Entity</l> №<k>ID</k></subtitle>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <if value="<k>Status</k>" eq="Ready">
+            <div class="label label-success label-lg pull-right">
+                <l>Invoice.Entity:Status.<k>Status</k></l>
+            </div>
+        </if>
+
+        <if value="<k>Status</k>" eq="Processing">
+            <div class="label label-warning label-lg pull-right">
+                <l>Invoice.Entity:Status.<k>Status</k></l>
+            </div>
+        </if>
+
+        <if value="<k>Status</k>" eq="Queued">
+            <div class="label label-info label-lg pull-right">
+                <l>Invoice.Entity:Status.<k>Status</k></l>
+            </div>
+        </if>
+
+        <if value="<k>Status</k>" eq="Unpayed">
+            <div class="label label-warning label-lg pull-right">
+                <l>Invoice.Entity:Status.<k>Status</k></l>
+            </div>
+        </if>
+
+        <if value="<k>Status</k>" eq="Failed">
+            <div class="label label-danger label-lg pull-right">
+                <l>Invoice.Entity:Status.<k>Status</k></l>
+            </div>
+        </if>
+
+        <a href="/my/invoice/<k>ID</k>"><l>Invoice.Entity:Entity</l> #<k>ID</k></a>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-4">
+                <h6><l>Invoice.Entity:Created</l></h6>
+                <datetime><k>Created</k></datetime>
+            </div>
+            <div class="col-md-4">
+                <h6><l>Invoice.Entity:Expire</l></h6>
+                <datetime><k>Expire</k></datetime>
+            </div>
+            <div class="col-md-4">
+                <h6><l>Invoice.Entity:Status.Label</l></h6>
+                <l>Invoice.Entity:Status.<k>Status</k></l>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel-body">
+         <div class="row">
+            <div class="col-md-4">
+                <h6><l>Invoice.Entity:Total</l></h6>
+                <number><k>Total</k></number> <call>Project.Currency</call>
+            </div>
+            <block>
+                <div class="col-md-4">
+                    <h6><l>Invoice.Entity:Object</l></h6>
+                    <entity><k>Object.Entity</k>:<k>Object.Where</k></entity>
+                </div>
+            </block>
+        </div>
+    </div>
+</div>
+
+<exec>
+    <Service>Entity.Payment</Service>
+    <Method>Do</Method>
+    <Call>
+        <Entity>Invoice</Entity>
+        <Where><k>ID</k></Where>
+    </Call>
+</exec>

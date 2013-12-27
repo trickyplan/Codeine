@@ -18,7 +18,7 @@
     {
         $Call['Node']['Options'] = F::Live($Call['Node']['Options']);
 
-        if (isset($Call['Node']['Options'][$Call['Value']]))
+        if (is_scalar($Call['Value']) && isset($Call['Node']['Options'][$Call['Value']]))
             return $Call['Node']['Options'][$Call['Value']];
         else
             return $Call['Value'];

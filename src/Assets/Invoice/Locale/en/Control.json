@@ -1,0 +1,12 @@
+{
+    "Empty": {
+        "Title": "No invoices",
+        "Text": "Work harder."
+    },
+    "Options": {
+        "Do": "Dashboard",
+        "Delete": "Delete invoice",
+        "Show": "Show invoice"
+    },
+    "Title": "Invoices"
+}
