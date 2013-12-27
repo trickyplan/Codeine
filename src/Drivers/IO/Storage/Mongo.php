@@ -36,17 +36,16 @@
         if (isset($Call['Where']) and $Call['Where'] !== null)
         {
             $Where = [];
-
             foreach ($Call['Where'] as $Key => $Value)
                 if (is_array($Value))
                 {
                     foreach ($Value as $Subkey => $Subvalue)
                         if (is_numeric($Subkey))
                             $Where[$Key] = $Subvalue;
-                        elseif (substr($Subkey, 0, 1) == '$')
-                            $Where[$Key][$Subkey] = $Subvalue;
                         elseif (is_scalar($Subvalue) && substr($Subvalue, 0, 1) == '~')
                             $Where[$Key.'.'.$Subkey] = new MongoRegex(substr($Subvalue, 1));
+                        else
+                            $Where[$Key][$Subkey] = $Subvalue;
                 }
                 else
                 {

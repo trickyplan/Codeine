@@ -226,3 +226,8 @@ a.no-border, .no-border a, a:hover.no-border, .no-border a:hover
 {
     text-transform: uppercase;
 }
+
+.input-group
+{
+    width: 100%;
+}

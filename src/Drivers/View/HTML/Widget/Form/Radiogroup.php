@@ -23,6 +23,12 @@
              else
                 $lValue = $Value;
 
+            if (isset($Call['Keys as values']) && $Call['Keys as values'])
+            {
+                 $lValue = $Value;
+                 $Value = $Key;
+            }
+
             $Call['Radios'] .= F::Run('View', 'Load',
                 [
                     'Scope' => $Call['View']['HTML']['Widget Set'].'/Widgets',

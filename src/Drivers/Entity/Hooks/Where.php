@@ -72,8 +72,6 @@
                 $Call['Where'] = null;
             else
                 $Call['Where'] = $Where;
-
-
         }
 
         return $Call;

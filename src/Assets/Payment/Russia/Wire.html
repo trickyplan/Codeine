@@ -1,0 +1,68 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h6><l>Payment.Russia.Wire:Requisites</l></h6>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6">
+                <h6><l>Payment.Russia.Wire:Receiver</l></h6>
+                <l>Company.Entity:Company.Type.<call>Receiver.Company.Type</call></l> <call>Receiver.Company.Title</call>
+            </div>
+            <div class="col-md-6">
+                <h6><l>Company.Entity:Company.OGRN</l></h6>
+                <call>Receiver.Company.OGRN</call>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <h6><l>Company.Entity:Company.INN</l></h6>
+                <call>Receiver.Company.INN</call>
+            </div>
+            <div class="col-md-6">
+                <h6><l>Company.Entity:Company.KPP</l></h6>
+                <call>Receiver.Company.KPP</call>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <h6><l>Company.Entity:Company.Bank.Code</l></h6>
+                <call>Receiver.Company.Bank.Code</call>
+            </div>
+            <div class="col-md-6">
+                <h6><l>Company.Entity:Company.Bank.Name</l></h6>
+                <call>Receiver.Company.Bank.Name</call>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <h6><l>Company.Entity:Company.Bank.Account.Current</l></h6>
+                <call>Receiver.Company.Bank.Account.Current</call>
+            </div>
+            <div class="col-md-6">
+                <h6><l>Company.Entity:Company.Bank.Account.Correspondent</l></h6>
+                <call>Receiver.Company.Bank.Account.Correspondent</call>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <h6><l>Payment.Russia.Wire:Destination</l></h6>
+                <entity><call>Entity</call>:<call>Where</call></entity>.
+                <if value="<call>Receiver.Company.VAT</call>" eq="">
+                    <l>Payment.Russia.Wire:VAT.No</l>
+                </if>
+            </div>
+            <div class="col-md-6">
+                <h6><l>Payment.Russia.Wire:Total</l></h6>
+                <number><k>Costs</k></number> <call>Project.Currency</call>
+            </div>
+        </div>
+    </div>
+    <div class="alert alert-info">
+        <h4><l>Payment.Russia.Wire:Disclaimer.Title</l></h4>
+        <l>Payment.Russia.Wire:Disclaimer.Text</l>
+    </div>
+</div>

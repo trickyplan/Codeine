@@ -15,13 +15,13 @@
         },
         "SEO.Keywords":
         {
-            "Type": "Literal.String",
+            "Type": "Literal.Tags",
             "Weight": -40,
             "Widgets":
             {
                 "Write":
                 {
-                    "Type": "Form.Textfield"
+                    "Type": "Form.Textarea"
                 }
             }
         },

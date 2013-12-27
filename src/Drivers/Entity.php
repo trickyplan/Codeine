@@ -72,6 +72,8 @@
 
         $Call = F::Hook('afterOperation', $Call);
 
+        F::Log('*'.count($Call['Data']).'* '.$Call['Entity'].' created', LOG_INFO, 'Administrator');
+
         if (isset($Call['One']))
             $Data = array_shift($Data);
 
@@ -113,7 +115,7 @@
 
         $Call = F::Hook('afterOperation', $Call);
 
-        F::Log('*'.count($Call['Data']).'* '.$Call['Entity'].' readed', LOG_INFO);
+        F::Log('*'.count($Call['Data']).'* '.$Call['Entity'].' readed', LOG_INFO, 'Administrator');
 
         if (isset($Call['One']) && $Call['One'] && is_array($Call['Data']))
             return array_shift($Call['Data']);
@@ -166,7 +168,7 @@
 
             $Call = F::Hook('afterOperation', $Call);
 
-            F::Log('*'.count($Call['Data']).'* '.$Call['Entity'].' updated', LOG_INFO);
+            F::Log('*'.count($Call['Data']).'* '.$Call['Entity'].' updated', LOG_INFO, 'Administrator');
 
             if (isset($Call['One']))
             {
@@ -218,7 +220,7 @@
 
             $Call = F::Hook('afterOperation', $Call);
 
-            F::Log('*'.count($Current).'* '.$Call['Entity'].' removed', LOG_INFO);
+            F::Log('*'.count($Current).'* '.$Call['Entity'].' removed', LOG_INFO, 'Administrator');
         }
 
         return $Current;
@@ -244,9 +246,15 @@
             $Call = F::Hook('afterEntityCount', $Call);
         $Call = F::Hook('afterOperation', $Call);
 
-        F::Log('*'.$Call['Data'].'* '.$Call['Entity'].' counted.', LOG_INFO);
+        F::Log('*'.$Call['Data'].'* '.$Call['Entity'].' counted.', LOG_INFO, 'Administrator');
 
         return $Call['Data'];
+    });
+
+    setFn('Exist', function ($Call)
+    {
+        $Element = F::Run(null, 'Read', $Call, ['One' => true]);
+        return !empty($Element);
     });
 
     setFn('Far', function ($Call)

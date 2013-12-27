@@ -1,0 +1,10 @@
+{
+    "Nodes":
+    {
+        "Balance":
+        {
+            "Type": "Numeral.Float",
+            "Default": 0
+        }
+    }
+}

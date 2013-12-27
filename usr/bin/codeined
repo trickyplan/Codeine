@@ -1,0 +1,2 @@
+#!/bin/bash
+php /usr/share/php/Codeine/Daemon.php --Service=System.Time --Method=Get

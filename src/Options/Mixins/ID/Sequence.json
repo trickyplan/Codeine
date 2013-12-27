@@ -4,6 +4,7 @@
         "ID":
         {
             "Type": "Numeral.Integer",
+            "Unique": true,
             "Hooks":
             {
                 "beforeEntityCreate":

@@ -193,13 +193,13 @@
                 "Service": "Country.FlagByIP"
             }
         },
-        "Payment 2 all":
+        "Deposit 2 all":
         {
             "Decision": true,
             "Weight": 100,
             "Run":
             {
-                "Service": "Entity.Payment"
+                "Service": "Entity.Balance.Deposit"
             }
         }
     }

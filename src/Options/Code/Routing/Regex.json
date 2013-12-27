@@ -167,10 +167,10 @@
                 "Location": "$1"
             }
         },
-        "Pay":
+        "Deposit":
         {
-            "Match": "/pay/(.+)/(.+)",
-            "Service": "Entity.Payment",
+            "Match": "/deposit/(.*)/(.+)",
+            "Service": "Entity.Balance.Deposit",
             "Method": "Do",
             "Call":
             {

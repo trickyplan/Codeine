@@ -5,7 +5,7 @@
         "Mixins.UGC",
         "Mixins.Filled",
         "Mixins.Verifiable",
-        "Mixins.Billing",
+        "Mixins.Balance",
         "Mixins.Channel"
     ],
     "Storage": "Primary",
