@@ -20,7 +20,7 @@
             if (isset($Call['Session Auto']) && $Call['Session Auto'])
                 $Call = F::Apply(null, 'Mark', $Call);
 
-            $Call['Session'] = F::Run('Entity', 'Create', $Call, ['Entity' => 'Session', 'One' => true]);
+            $Call['Session'] = F::Run('Entity', 'Create', $Call, ['Entity' => 'Session', 'One' => true, 'Data' => []]);
         }
         else
         {

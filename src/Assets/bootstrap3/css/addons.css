@@ -201,6 +201,7 @@ a.no-border, .no-border a, a:hover.no-border, .no-border a:hover
 .liquid
 {
     max-width: 100%;
+    width: 100%;
 }
 
 .spotlight
