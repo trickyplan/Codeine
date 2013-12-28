@@ -11,6 +11,9 @@
 
     setFn('Run', function ($Call)
     {
+        if (!isset($Call['Daemons']))
+            exit(1);
+
         declare(ticks = 1);
         $SH = function ($Signal) {return F::Run('Code.Flow.Daemon', 'Signal', ['Signal' => $Signal]);};
 
@@ -66,14 +69,19 @@
                     elseif ($PID)
                     {
                         $Ungrateful[$PID] = true;
-                        F::Log('Daemon: Forked '.$PID, LOG_INFO);
+                        F::Log('Child forked '.$PID, LOG_INFO);
                     }
                     else
                     {
-                        $Result = F::Live($Call['Execute']);
-                        if ($Result !== null)
-                            F::Log(getmypid().': '.json_encode($Result), LOG_WARNING);
+                        foreach ($Call['Daemons'] as $Daemon)
+                            if (time()%$Daemon['Precision'] == 0)
+                            {
+                                F::Log($Daemon['Execute']['Service'].':'.$Daemon['Execute']['Method'], LOG_WARNING);
 
+                                $Result = F::Live($Daemon['Execute']);
+                                if ($Result !== null)
+                                    F::Log(getmypid().': '.json_encode($Result), LOG_WARNING);
+                            }
                         exit(4);
                     }
                 }
@@ -88,14 +96,14 @@
                     else
                     {
                         unset($Ungrateful[$Signaled]);
-                        F::Log('Daemon: Dead '.$Signaled, LOG_INFO);
+                        F::Log('Child dead '.$Signaled, LOG_INFO);
                     }
                 }
 
                 sleep($Call['RT']);
             }
 
-            F::Log('Daemon stopped', LOG_INFO);
+            F::Log('Daemon stopped', LOG_WARNING);
             if (file_exists($PIDFile))
                 unlink($PIDFile);
         }
@@ -137,8 +145,6 @@
 
     setFn('Signal', function ($Call)
     {
-        F::Log($Call['Signal'], LOG_CRIT);
-
         if (isset($Call['Codes'][$Call['Signal']]))
         {
             $Signal = $Call['Codes'][$Call['Signal']];
@@ -154,6 +160,5 @@
 
     setFn('Flush', function ($Call)
     {
-        F::Log('Core flushed', LOG_WARNING);
         return true;
     });

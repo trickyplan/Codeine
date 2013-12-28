@@ -7,6 +7,18 @@
         "Prefix": "/var/run/",
         "Postfix": ".pid"
     },
+    "-Daemons":
+    {
+        "Tick":
+        {
+            "Precision": 2,
+            "Execute":
+            {
+                "Service": "System.Time",
+                "Method": "Get"
+            }
+        }
+    },
     "Signals":
     {
         "SIGTERM":

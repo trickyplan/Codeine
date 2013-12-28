@@ -15,7 +15,10 @@
         if (preg_match('/--(\S+)\=(\S+)/', $arg, $Pockets))
             $Opts = F::Dot($Opts, $Pockets[1], $Pockets[2]);
 
-    !defined('Root')? define('Root', getcwd()): false;
+    if (isset($Opts['Path']))
+        define('Root', $Opts['Path']);
+    else
+        !defined('Root')? define('Root', getcwd()): false;
 
     $Call = F::Bootstrap
     ([

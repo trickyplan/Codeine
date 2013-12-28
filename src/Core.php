@@ -484,36 +484,38 @@
                     $Message = json_encode($Message,
                         JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 
+                $Time = date(DATE_RFC822).' ';
+
                 if (PHP_SAPI == 'cli')
                 {
                     switch ($Verbose)
                     {
                         case LOG_EMERG:
-                            fwrite(STDERR, $Channel."> \033[0;31m ".$Message." \033[0m".PHP_EOL);
+                            fwrite(STDERR, $Time.$Channel.": \033[0;31m ".$Message." \033[0m".PHP_EOL);
                         break;
 
                         case LOG_CRIT:
-                            fwrite(STDERR, $Channel."> \033[0;31m ".$Message." \033[0m".PHP_EOL);
+                            fwrite(STDERR, $Time.$Channel.": \033[0;31m ".$Message." \033[0m".PHP_EOL);
                         break;
 
                         case LOG_ERR:
-                            fwrite(STDERR, $Channel."> \033[0;31m ".$Message." \033[0m".PHP_EOL);
+                            fwrite(STDERR, $Time.$Channel.": \033[0;31m ".$Message." \033[0m".PHP_EOL);
                         break;
 
                         case LOG_WARNING:
-                            fwrite(STDERR, $Channel."> \033[0;33m ".$Message." \033[0m".PHP_EOL);
+                            fwrite(STDERR, $Time.$Channel.": \033[0;33m ".$Message." \033[0m".PHP_EOL);
                         break;
 
                         case LOG_DEBUG:
-                            fwrite(STDERR, $Channel."> \033[0;37m ".$Message." \033[0m".PHP_EOL);
+                            fwrite(STDERR, $Time.$Channel.": \033[0;37m ".$Message." \033[0m".PHP_EOL);
                         break;
 
                         case LOG_USER:
-                            fwrite(STDERR, $Channel."> \033[0;37m ".$Message." \033[0m".PHP_EOL);
+                            fwrite(STDERR, $Time.$Channel.": \033[0;37m ".$Message." \033[0m".PHP_EOL);
                         break;
 
                         case LOG_INFO:
-                            fwrite(STDERR, $Channel."> \033[1;34m ".$Message." \033[0m".PHP_EOL);
+                            fwrite(STDERR, $Time.$Channel.": \033[1;34m ".$Message." \033[0m".PHP_EOL);
                         break;
 
                         case LOG_IMPORTANT:

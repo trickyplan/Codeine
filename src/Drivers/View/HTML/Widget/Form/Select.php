@@ -32,6 +32,12 @@
                  else
                     $lValue = $Value;
 
+                 if (isset($Call['Keys as values']) && $Call['Keys as values'])
+                    {
+                         $lValue = $Value;
+                         $Option = $Key;
+                    }
+
                  if (($Value == $Call['Value']) || ((is_array($Call['Value']) && in_array ($Value, $Call['Value']))))
                      $Options[] = '<option value="'.$Option.'" selected>'.$lValue.'</option>';
                  else
