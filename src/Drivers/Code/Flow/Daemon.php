@@ -55,6 +55,7 @@
 
             F::Log('Daemon started', LOG_INFO);
 
+            $Ticks = 0;
             while (F::Run(null, 'Running?', $Call))
             {
                 if ((count($Ungrateful) < $Call['MaxChilds']))
@@ -74,7 +75,7 @@
                     else
                     {
                         foreach ($Call['Daemons'] as $Daemon)
-                            if (time()%$Daemon['Precision'] == 0)
+                            if ($Ticks++ % $Daemon['Precision'] == 0)
                             {
                                 F::Log($Daemon['Execute']['Service'].':'.$Daemon['Execute']['Method'], LOG_WARNING);
 

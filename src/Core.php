@@ -484,7 +484,7 @@
                     $Message = json_encode($Message,
                         JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 
-                $Time = date(DATE_RFC822).' ';
+                $Time = date(DATE_RFC850).' ';
 
                 if (PHP_SAPI == 'cli')
                 {
