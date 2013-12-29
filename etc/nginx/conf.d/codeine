@@ -6,7 +6,6 @@
     log_not_found on;
     error_log /var/log/nginx/error.log warn;
     access_log /var/log/nginx/$host.access.log codeine;
-    error_page 404 /404;
 
 	location /
 	{
