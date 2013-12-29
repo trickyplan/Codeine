@@ -28,14 +28,9 @@
         return $Link;
     });
 
-    setFn ('Read', function ($Call)
+    setFn('Where', function ($Call)
     {
-        $Call['Scope'] = strtr($Call['Scope'], '.', '_');
-        $Data = null;
-
-        if (isset($Call['Where']) and $Call['Where'] !== null)
-        {
-            $Where = [];
+        $Where = [];
             foreach ($Call['Where'] as $Key => $Value)
                 if (is_array($Value))
                 {
@@ -44,8 +39,10 @@
                             $Where[$Key] = $Subvalue;
                         elseif (is_scalar($Subvalue) && substr($Subvalue, 0, 1) == '~')
                             $Where[$Key.'.'.$Subkey] = new MongoRegex(substr($Subvalue, 1));
-                        else
+                        elseif (substr($Subkey, 0, 1) == '$')
                             $Where[$Key][$Subkey] = $Subvalue;
+                        else
+                            $Where[$Key.'.'.$Subkey] = $Subvalue;
                 }
                 else
                 {
@@ -55,9 +52,22 @@
                         $Where[$Key] = $Value;
                 }
 
+        $Call['Where'] = $Where;
+        return $Call;
+    });
+
+    setFn ('Read', function ($Call)
+    {
+        $Call['Scope'] = strtr($Call['Scope'], '.', '_');
+        $Data = null;
+
+        if (isset($Call['Where']) and $Call['Where'] !== null)
+        {
+            $Call = F::Apply(null, 'Where', $Call);
+
             F::Log('db.*'.$Call['Scope'].'*.find('
-                .json_encode($Where, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE).')', LOG_INFO, 'Administrator');
-            $Cursor = $Call['Link']->$Call['Scope']->find($Where,['_id' => 0]);
+                .json_encode($Call['Where'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE).')', LOG_INFO, 'Administrator');
+            $Cursor = $Call['Link']->$Call['Scope']->find($Call['Where'],['_id' => 0]);
         }
         else
         {
@@ -173,22 +183,11 @@
 
         if (isset($Call['Where']) and $Call['Where'] !== null)
         {
-            $Where = [];
+            $Call = F::Apply(null, 'Where', $Call);
 
-            foreach ($Call['Where'] as $Key => $Value)
-                if (is_array($Value))
-                    foreach ($Value as $Subkey => $Subvalue)
-                        if (is_numeric($Subkey))
-                            $Where[$Key] = $Subvalue;
-                        elseif (substr($Subkey, 0, 1) == '$')
-                            $Where[$Key][$Subkey] = $Subvalue;
-                        else
-                            $Where[$Key.'.'.$Subkey] = $Subvalue;
-                else
-                    $Where[$Key] = $Value;
-
-            F::Log('db.*'.$Call['Scope'].'*.find('.json_encode($Where, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE).').count()', LOG_INFO, 'Administrator');
-            $Cursor = $Call['Link']->$Call['Scope']->find($Where);
+            F::Log('db.*'.$Call['Scope'].'*.find('.json_encode($Call['Where'],
+                    JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE).').count()', LOG_INFO, 'Administrator');
+            $Cursor = $Call['Link']->$Call['Scope']->find($Call['Where']);
         }
         else
         {
