@@ -153,6 +153,13 @@
             "Directory":"/var/spool/codeine",
             "Scope": "Codeine",
             "Filename": "delayed.json"
+        },
+        "Bus":
+        {
+            "Driver":"IO.Queue.File.JSON",
+            "Directory":"/tmp/codeine/bus",
+            "Scope": "Codeine",
+            "Filename": ".json"
         }
     },
     "Hooks":

@@ -26,7 +26,7 @@
         }
         else if ($PID)
             {
-                F::Log('Daemon: Detach success', LOG_INFO);
+                F::Log('Daemon: Detach success', LOG_WARNING);
                 exit;
             }
         else
