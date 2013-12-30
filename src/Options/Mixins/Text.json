@@ -4,6 +4,7 @@
         "Body":
         {
             "Type": "Literal.HTML",
+            "Index": true,
             "Widgets":
             {
                 "Write":

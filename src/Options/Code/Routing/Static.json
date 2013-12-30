@@ -111,6 +111,11 @@
         {
             "Service": "Project.Terms",
             "Method": "Do"
+        },
+        "/api":
+        {
+            "Service": "Code.Flow.API",
+            "Method": "Run"
         }
     }
 }

@@ -44,8 +44,11 @@
 
     setFn('Fullname', function ($Call)
     {
-        if (empty($Call['Data']['Title']))
+        if (empty($Call['Data']['Title']) && isset($Call['Data']['Fullname']))
             return $Call['Data']['Fullname'];
         else
-            return $Call['Data']['Title'];
+            if (isset($Call['Data']['Fullname']))
+                return $Call['Data']['Title'];
+
+        return null;
     });

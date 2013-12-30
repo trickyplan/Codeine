@@ -4,6 +4,7 @@
         "SEO.Title":
         {
             "Type": "Literal.String",
+            "Index": true,
             "Weight": -40,
             "Widgets":
             {
@@ -16,6 +17,7 @@
         "SEO.Keywords":
         {
             "Type": "Literal.Tags",
+            "Index": true,
             "Weight": -40,
             "Widgets":
             {
@@ -28,6 +30,7 @@
         "SEO.Description":
         {
             "Type": "Literal.String",
+            "Index": true,
             "Weight": -40,
             "Widgets":
             {
