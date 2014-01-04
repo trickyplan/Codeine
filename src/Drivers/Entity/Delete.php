@@ -10,7 +10,7 @@
     setFn('Before', function ($Call)
     {
         $Call['Where'] = F::Live($Call['Where'], $Call);
-        $Call['Current'] = F::Run('Entity', 'Read', $Call, ['ReRead' => true]);
+        $Call['Current'] = F::Run('Entity', 'Read', $Call, ['Time' => microtime(true)]);
 
         return $Call;
     });

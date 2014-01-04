@@ -39,7 +39,7 @@
 
             // Загрузить предопределённые данные и умолчания
 
-            $Call['Data'] = F::Run('Entity', 'Read', $Call, ['ReRead' => true]);
+            $Call['Data'] = F::Run('Entity', 'Read', $Call, ['Time' => microtime(true)]);
 
             if (null === $Call['Data'])
                 $Call = F::Hook('NotFound', $Call);
@@ -97,7 +97,7 @@
         // Отправляем в Entity.Verify
 
         $Call['Data'] =
-            F::Merge(F::Run('Entity', 'Read', $Call, ['ReRead' => true]), F::Apply('Entity', 'Update', $Call));
+            F::Merge(F::Run('Entity', 'Read', $Call, ['Time' => microtime(true)]), F::Apply('Entity', 'Update', $Call));
 
 
        // Выводим результат

@@ -164,7 +164,7 @@
                 }
             }
 
-            $Current = F::Run('Entity', 'Read', $Call, ['ReRead' => true, 'One' => false]);
+            $Current = F::Run('Entity', 'Read', $Call, ['Time' => microtime(true), 'One' => false]);
 
             $Call = F::Hook('afterOperation', $Call);
 

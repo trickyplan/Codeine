@@ -53,7 +53,7 @@
             F::Run('Entity', 'Far',
                 [
                     'Entity' => $Call['Type'],
-                    'ReRead' => true,
+                    'Time' => microtime(true),
                     'Where' => $Call['Object'],
                     'Key' => $Call['Direction']
                 ]);;

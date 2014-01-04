@@ -14,5 +14,13 @@
 
     setFn('All', function ($Call)
     {
-        return F::Run('Text.Regex.'.$Call['Regex Engine'], null, $Call);
+        $Pattern = $Call['Pattern'];
+
+        self::Start($Pattern);
+
+            $Call = F::Run('Text.Regex.'.$Call['Regex Engine'], null, $Call);
+
+        self::Stop($Pattern);
+
+        return $Call;
     });

@@ -60,7 +60,7 @@
                         $Class[$Metric] = 'Error';
 
             $Output .= '<tr>
-                <td>' . $Key . '</td>' .
+                <td>' . htmlentities($Key) . '</td>' .
                 '<td class="' . $Class['RTime'] . '">' . $Call['RTime'] . '</td>' .
                 '<td class="' . $Class['RCalls'] . '">' . $Call['RCalls'] .
                 '<td class="' . $Class['ATime'] . '">' . $Call['ATime'] . '</td>' .
