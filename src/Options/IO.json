@@ -125,6 +125,12 @@
             "Directory":"/var/log/codeine",
             "Scope": "administrator"
         },
+        "Marketing":
+        {
+            "Driver":"IO.Log.File",
+            "Directory":"/var/log/codeine",
+            "Scope": "marketing"
+        },
         "EMail":
         {
             "Driver": "IO.Transport.Mail",
@@ -164,22 +170,6 @@
     },
     "Hooks":
     {
-        "beforeIORead":
-        {
-            "Check":
-            {
-                "Service": "IO.Dedup",
-                "Method": "beforeIORead"
-            }
-        },
-        "afterIORead":
-        {
-            "Save":
-            {
-                "Service": "IO.Dedup",
-                "Method": "afterIORead"
-            }
-        },
         "Storage":
         {
             "Open":
