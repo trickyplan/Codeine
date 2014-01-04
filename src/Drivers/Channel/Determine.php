@@ -22,8 +22,11 @@
             elseif (isset($_SERVER['HTTP_REFERER']))
                 {
                     $Referrer  = parse_url($_SERVER['HTTP_REFERER']);
-                    $Channel = $Referrer['host'];
-                    F::Log('Channel determined by referrer host *'.$Channel.'*', LOG_INFO, 'Marketing');
+                    if (isset($Referrer['host']))
+                    {
+                        $Channel = $Referrer['host'];
+                        F::Log('Channel determined by referrer host *'.$Channel.'*', LOG_INFO, 'Marketing');
+                    }
                 }
 
         return $Channel;
@@ -44,8 +47,11 @@
             elseif (isset($_SERVER['HTTP_REFERER']))
                 {
                     $Referrer  = parse_url($_SERVER['HTTP_REFERER']);
-                    $Subchannel = $Referrer['host'];
-                    F::Log('Subchannel determined by referrer host *'.$Subchannel.'*', LOG_INFO, 'Marketing');
+                    if (isset($Referrer['host']))
+                    {
+                        $Subchannel = $Referrer['host'];
+                        F::Log('Subchannel determined by referrer host *'.$Subchannel.'*', LOG_INFO, 'Marketing');
+                    }
                 }
 
         return $Subchannel;
