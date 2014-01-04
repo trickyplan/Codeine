@@ -34,7 +34,7 @@
 
     setFn('Execute', function ($Call)
     {
-        if ($Call['Run'] = F::Run('IO', 'Read', ['ReRead' => true, 'Storage' => 'Delayed']))
+        if ($Call['Run'] = F::Run('IO', 'Read', ['Time' => microtime(true), 'Storage' => 'Delayed']))
             return F::Live($Call['Run']);
 
         return null;

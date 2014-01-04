@@ -1,4 +1,14 @@
 {
+    "Contract":
+    {
+        "Entity":
+        {
+            "Read":
+            {
+                "Memo": ["Entity", "Where", "One" , "Time"]
+            }
+        }
+    },
     "Nodes":
     {
         "EV":

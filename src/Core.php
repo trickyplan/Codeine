@@ -261,9 +261,7 @@
                     if (is_array($Argument = func_get_arg ($ic)))
                         $Call = F::Merge($Call, $Argument);
 
-            $Result = F::Execute($Service, $Method, $Call);
-
-            return $Result;
+            return F::Execute($Service, $Method, $Call);
         }
 
         public static function Apply($Service, $Method = null , $Call = [])
@@ -309,20 +307,26 @@
 
                 if (is_callable($F))
                 {
-                    if (self::$_Profile)
-                        $Memory = memory_get_usage();
-
-                    $Result = $F($Call);
-
-                    if (self::$_Profile)
+                    if (isset($FnOptions['Contract'][self::$_Service][self::$_Method]['Memo']))
                     {
-                        self::Counter(self::$_Service.'.'.self::$_Method);
+                        $Memo = [self::$_Service, self::$_Method];
+                        foreach ($FnOptions['Contract'][self::$_Service][self::$_Method]['Memo'] as $Key)
+                            $Memo[] = F::Dot($Call, $Key);
 
-                        /*$Memory = round(memory_get_usage()-$Memory)/1024;
-
-                        if ($Memory > self::$_Options['Codeine']['Heavy Memory Limit'])
-                            F::Log('High memory at '. self::$_Service.':'.self::$_Method.' +'.$Memory.'kb ('.memory_get_usage().')', LOG_WARNING, 'Profiler');*/
+                        $Memo = json_encode($Memo);
                     }
+
+                    if (!isset($Memo) || ($Result = F::Get($Memo)) == null)
+                    {
+                        $Result = $F($Call);
+                        if (self::$_Profile)
+                            self::Counter(self::$_Service.'.'.self::$_Method);
+                    }
+                    else
+                        F::Log(self::$_Service.':'.self::$_Method.' memoized', LOG_DEBUG, 'Administrator');
+
+                    if (isset($Memo))
+                        F::Set($Memo, $Result);
                 }
                 else
                     $Result = isset($Call['Fallback']) ? $Call['Fallback'] : null;
@@ -340,6 +344,8 @@
 
             return $Result;
         }
+
+
 
         public static function Stack()
         {
@@ -758,9 +764,6 @@
 
         public static function Set ($Key, $Value)
         {
-            if (count(self::$_Storage)>self::$_Options['Codeine']['Core Variables Limit'])
-                array_shift(self::$_Storage);
-
             return self::$_Storage[$Key] = $Value;
         }
 

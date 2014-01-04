@@ -28,7 +28,7 @@
                 [
                     'Entity' => 'Session',
                     'Where' => $Call['SID'],
-                    'ReRead' => true,
+                    'Time' => microtime(true),
                     'One' => true
                 ]);
 
@@ -41,7 +41,7 @@
                         [
                             'Entity' => 'User',
                             'Where' => $Call['Session']['User'],
-                            'ReRead' => true,
+                            'Time' => microtime(true),
                             'One' => true
                         ]);
 
@@ -49,7 +49,7 @@
                         [
                             'Entity' => 'User',
                             'Where' => $Call['Session']['Secondary'],
-                            'ReRead' => true,
+                            'Time' => microtime(true),
                             'One' => true
                         ]);
 

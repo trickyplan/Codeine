@@ -14,6 +14,12 @@
 
         arsort(self::$_Counters['T']);
 
+        $Stats =
+        [
+            'Memory: '.(memory_get_usage(true)/1024).'Kb ',
+            'Peak memory: '.(memory_get_peak_usage(true)/1024).'Kb',
+            'Internal storage: '.count(self::$_Storage)
+        ];
         F::Run('IO', 'Write', $Call,
                 [
                     'Storage' => 'Profiler',
@@ -22,6 +28,13 @@
                         [
                             'Data' => self::$_Counters
                         ])
+                ]);
+
+        F::Run('IO', 'Write', $Call,
+                [
+                    'Storage' => 'Profiler',
+                    'ID' => 'Profile: '.$Call['HTTP']['Host'].$Call['HTTP']['URL'],
+                    'Data' => implode("\n", $Stats)
                 ]);
 
         return $Call;

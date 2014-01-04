@@ -1,4 +1,14 @@
 {
+    "Contract":
+    {
+        "IO":
+        {
+            "Read":
+            {
+                "Memo": ["Storage", "Scope", "Where", "Time"]
+            }
+        }
+    },
     "Verbosity":
     {
         "Not found": 6
@@ -164,22 +174,6 @@
     },
     "Hooks":
     {
-        "beforeIORead":
-        {
-            "Check":
-            {
-                "Service": "IO.Dedup",
-                "Method": "beforeIORead"
-            }
-        },
-        "afterIORead":
-        {
-            "Save":
-            {
-                "Service": "IO.Dedup",
-                "Method": "afterIORead"
-            }
-        },
         "Storage":
         {
             "Open":

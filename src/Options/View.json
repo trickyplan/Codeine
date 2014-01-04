@@ -1,4 +1,14 @@
 {
+    "Contract":
+    {
+        "View":
+        {
+            "Load":
+            {
+                "Memo": ["Scope", "ID", "Context", "Data", "Time"]
+            }
+        }
+    },
     "View":
     [
 
