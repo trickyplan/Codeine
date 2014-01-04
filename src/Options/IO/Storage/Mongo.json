@@ -6,7 +6,7 @@
         {
             "Storage":
             {
-                "Mongo":
+                "-Mongo":
                 {
                     "Update":
                     {

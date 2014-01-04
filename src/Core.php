@@ -123,7 +123,7 @@
             {
                 if (self::$_Environment == 'Production')
                 {
-                    header ('HTTP/1.0 500 Internal Server Error');
+                    // header ('HTTP/1.0 500 Internal Server Error');
                     // TODO Real error triggering
                 }
                 else
