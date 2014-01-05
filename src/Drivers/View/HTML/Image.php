@@ -138,7 +138,7 @@
                     }
 
                     if (empty($Call['Image']['Alt']))
-                        F::Log('Image: Alt is empty', LOG_WARNING);
+                        F::Log('Image: Alt is empty', LOG_INFO);
 
                     $Call['Image']['Tags'][] = '<img src="'
                             .$Call['Image']['Proto']
