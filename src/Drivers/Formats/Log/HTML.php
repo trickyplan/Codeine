@@ -10,7 +10,11 @@
     setFn('Do', function ($Call)
     {
         $Output = '<table class="console">
-        <tr class="'.$Call['Levels'][11].'"><td colspan="3">'.$Call['Channel'].' Channel ('.count($Call['Logs']).')</td></tr>';
+        <tr class="'.$Call['Levels'][11].'"><td colspan="3">'.$Call['Channel'].' Channel ('.count($Call['Logs']).')</td></tr>
+        <tr>
+            <td colspan="3">'.date(DATE_RSS, round(Started)).' *'.$Call['UA'].'* from *'.$Call['IP'].'*</td>
+        </tr>
+        ';
 
         foreach ($Call['Logs'] as $IX => $Row)
             $Output .= '<tr class="'.$Call['Levels'][$Row[0]].'">
