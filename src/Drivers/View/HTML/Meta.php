@@ -57,7 +57,8 @@
                 $Call['View']['HTML']['Keywords'] = '';
             else
                 if (is_array($Call['View']['HTML']['Keywords']))
-                    $Call['View']['HTML']['Keywords'] = implode(',', $Call['View']['HTML']['Keywords']);
+                    $Call['View']['HTML']['Keywords'] = implode(',',
+                        array_unique($Call['View']['HTML']['Keywords']));
 
             $Call['Output'] = preg_replace(
                         $Call['Meta']['Pattern']['Keywords'],
