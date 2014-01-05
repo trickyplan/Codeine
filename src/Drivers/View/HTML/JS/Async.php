@@ -16,7 +16,7 @@
             element.src = "'.$Link.'";
             document.body.appendChild(element);';
 
-        $Call['JS']['Links'] = ['<script defer type="text/javascript">
+        $Call['JS']['Links'] = ['<script type="text/javascript">
 
          // Add a script element as a child of the body
          function downloadJSAtOnload() {
