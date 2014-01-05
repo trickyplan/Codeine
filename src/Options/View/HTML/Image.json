@@ -3,6 +3,7 @@
     {
         "Class": "img",
         "Tags": [],
+        "Alt": "",
         "Proto": "",
         "Host": "",
         "Caching": true,

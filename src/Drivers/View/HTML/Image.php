@@ -137,11 +137,15 @@
                         $Call = F::Hook('afterImageWrite', $Call);
                     }
 
+                    if (empty($Call['Image']['Alt']))
+                        F::Log('Image: Alt is empty', LOG_WARNING);
+
                     $Call['Image']['Tags'][] = '<img src="'
                             .$Call['Image']['Proto']
                             .$Call['Image']['Host']
                             .$Call['Image']['Pathname']
                             .$ImageCached.'"
+                            alt="'.$Call['Image']['Alt'].'"
                             class="'.$Call['Current Image']['Class'].'" '
                             .(isset($Call['Current Image']['Height'])? ' height="'.$Call['Current Image']['Height'].'"': ' ')
                             .(isset($Call['Current Image']['Width'])? ' width="'.$Call['Current Image']['Width'].'"': ' ').'/>';
