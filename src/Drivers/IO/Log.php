@@ -20,6 +20,7 @@
             {
                 F::Run('IO', 'Write', $Call,
                     [
+                        'Print Log' => true,
                         'Storage' => $Call['Channel'],
                         'ID' => $Call['HTTP']['Proto'].$Call['HTTP']['Host'].$Call['HTTP']['URL'],
                         'Data' => F::Run('Formats.Log.HTML', 'Do', $Call)

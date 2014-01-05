@@ -1,5 +1,6 @@
 {
     "EV": 2,
+    "Slug": "service",
     "Mixins":
     [
         "Mixins.ID.Sequence",

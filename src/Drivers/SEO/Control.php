@@ -10,7 +10,6 @@
     setFn('Do', function ($Call)
     {
 
-
         return $Call;
     });
 
@@ -21,7 +20,8 @@
 
     setFn('Sitemaps', function ($Call)
     {
-        $Call['Output']['Content'][] = htmlentities(file_get_contents($Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/sitemap.xml'));
+        $Call['Output']['Content'][] = htmlentities(
+            file_get_contents($Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/sitemap.xml'));
 
         return $Call;
     });

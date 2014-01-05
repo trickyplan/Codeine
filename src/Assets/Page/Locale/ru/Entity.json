@@ -8,7 +8,8 @@
     "Redirect": "Редирект",
     "SEO": {
         "Description": "SEO: Описание",
-        "Keywords": "SEO: Ключевые слова"
+        "Keywords": "SEO: Ключевые слова",
+        "Title": "SEO: Заголовок"
     },
     "Slug": "ЧПУ",
     "Title": "Название"

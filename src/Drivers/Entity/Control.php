@@ -9,6 +9,38 @@
 
     setFn('Do', function ($Call)
     {
+        $Call['Output']['Content'][]
+        =
+            [
+                'Type'  => 'Table',
+                'Value' =>
+                [
+                    [
+                    '<l>'.$Call['Bundle'].'.Control:Total</l>',
+                    F::Run('Entity', 'Count', ['Entity' => $Call['Bundle']])
+                    ],
+                    [
+                    '<l>'.$Call['Bundle'].'.Control:Today</l>',
+                    F::Run('Entity', 'Count',
+                        [
+                            'Entity' => $Call['Bundle'],
+                            'Where'  =>
+                            [
+                                'Created' =>
+                                [
+                                    '$lt' => time(),
+                                    '$gt' => time()-86400
+                                ]
+                            ]
+                        ])
+                    ]
+                ]
+            ];
+        return $Call;
+    });
+
+    setFn('List', function ($Call)
+    {
         $Call['Layouts'][] = [
             'Scope' => 'Entity',
             'ID' => 'List',
@@ -63,7 +95,11 @@
     setFn('Delete', function ($Call)
     {
         $Call['Layouts'][] = ['Scope' => 'Entity', 'ID' => 'Delete'];
-        return F::Apply('Entity.Delete', 'Do', $Call, ['Entity' => $Call['Bundle'], 'Scope' => 'Control']);
+        $Call = F::Apply('Entity.Delete', 'Before', $Call, ['Entity' => $Call['Bundle'],
+            'Scope' => 'Control']);
+        
+        return F::Apply('Entity.Delete', 'Do', $Call, ['Entity' => $Call['Bundle'],
+            'Scope' => 'Control']);
     });
 
     setFn('Truncate', function ($Call)

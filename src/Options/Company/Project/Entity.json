@@ -1,4 +1,6 @@
 {
+    "EV": 1,
+    "Slug": "project",
     "Mixins":
         [
             "Mixins.Titled",

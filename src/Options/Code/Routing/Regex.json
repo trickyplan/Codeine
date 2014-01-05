@@ -133,7 +133,7 @@
         {
             "Match": "/sitemap/(.+).xml",
             "Service": "SEO.Sitemap",
-            "Method": "Entity",
+            "Method": "Do",
             "View":
             {
                 "Renderer":
@@ -144,6 +144,10 @@
             },
             "Call":
             {
+                "Sitemap":
+                {
+                    "Mode": "Entity"
+                },
                 "Entity": "$1"
             }
         },

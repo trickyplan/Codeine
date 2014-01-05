@@ -9,10 +9,10 @@
 
     setFn('Write', function ($Call)
     {
-        if (!isset($Call['No Print Anymore']))
-            return F::Apply(null, gettype($Call['Data']), $Call);
-        else
+        if ($Call['View']['Renderer']['Service'] != 'View.HTML' && isset($Call['Print Log']))
             return null;
+        else
+            return F::Apply(null, gettype($Call['Data']), $Call);
     });
 
     setFn('boolean', function ($Call)

@@ -55,11 +55,7 @@
             F::Log('No rules loaded', LOG_WARNING);
 
         if (isset($Call['Rule']))
-            F::Log('Rule *'.$Call['Rule'].'* '.($Call['Decision']? 'allows': 'denies')
-                .' with weight '.$Call['Weight'], LOG_INFO, 'Security');
-        else
-            F::Log('No one rule applied — *'.($Call['Decision']? 'allowed': 'denied').'*
-'.json_encode($Call['Run']['Service'], JSON_PRETTY_PRINT), LOG_INFO, 'Security');
+            F::Log('Rule *'.$Call['Rule'].'* decision *'.$Call['Decision'].'* with weight '.$Call['Weight'], LOG_INFO, 'Security');
 
         return $Call;
      });

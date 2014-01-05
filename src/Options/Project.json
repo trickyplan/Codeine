@@ -1,5 +1,9 @@
 {
     "Title": "My Project on Codeine",
+    "Join":
+    {
+        "Open": true
+    },
     "Description":
     {
         "Short": "Short description goes here",

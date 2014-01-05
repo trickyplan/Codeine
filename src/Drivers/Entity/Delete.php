@@ -9,7 +9,11 @@
 
     setFn('Before', function ($Call)
     {
-        $Call['Where'] = F::Live($Call['Where'], $Call);
+        if (isset($Call['Where']))
+            $Call['Where'] = F::Live($Call['Where'], $Call);
+        else
+            $Call = F::Hook('beforeDeleteAll', $Call);
+
         $Call['Current'] = F::Run('Entity', 'Read', $Call, ['Time' => microtime(true)]);
 
         return $Call;
@@ -30,6 +34,7 @@
     {
         $Call = F::Hook('beforeDeleteGet', $Call);
 
+        if (isset($Call['Where']))
             $Call = F::Apply('Entity.List', 'Do', $Call, ['Context' => 'app']);
 
         $Call['Context'] = '';
@@ -45,7 +50,7 @@
 
             $Call['Data'] = F::Apply('Entity', 'Delete', $Call);
 
-        $Call = F::Hook('afterDeletePost', $Call);
+        // $Call = F::Hook('afterDeletePost', $Call);
 
         return $Call;
     });

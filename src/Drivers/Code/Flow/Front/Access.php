@@ -14,7 +14,19 @@
 
          unset($Call['Decision'], $Call['Weight']);
 
-         if (F::Run('Security.Access', 'Check', $Call))
+         $Decision = F::Run('Security.Access', 'Check', $Call);
+
+         if ($Decision === 401)
+         {
+             $Call['Run'] =
+                [
+                    'Service' => 'User.Authenticate',
+                    'Method'  => 'Do',
+                    'Zone' => 'Default'
+                ];
+         }
+
+         if ($Decision)
              $Call = F::Hook('Access.Allowed', $Call);
          else
              $Call = F::Hook('Access.Denied', $Call);

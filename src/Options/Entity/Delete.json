@@ -2,6 +2,24 @@
     "Purpose": "Delete",
     "Hooks":
     {
+        "beforeDeleteAll":
+        {
+            "Alert":
+            {
+                "Output":
+                {
+                    "Content":
+                    {
+                        "Alert Box":
+                        {
+                            "Type": "Block",
+                            "Class": "alert alert-danger",
+                            "Value": "<l>Entity.Delete:Warning.All</l>"
+                        }
+                    }
+                }
+            }
+        },
         "beforeDeleteDo":
         {
             "Load model (essential)":
