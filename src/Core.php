@@ -77,7 +77,7 @@
             else
                 self::$_Paths = [Codeine];
 
-            if (isset($_REQUEST['Profile']) && self::$_Environment != 'Production')
+            if (isset($_REQUEST['Profile']))
                 self::$_Profile = true;
 
             self::loadOptions('Codeine');
