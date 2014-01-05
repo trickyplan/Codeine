@@ -11,7 +11,7 @@
     {
         if (isset($Call['HTTP']['URI']))
         {
-            $Call = F::Apply(null, 'HTML', $Call);
+            $Call = F::Apply(null, 'Page', $Call);
             $Call = F::Apply(null, 'Title', $Call);
             $Call = F::Apply(null, 'Keywords', $Call);
             $Call = F::Apply(null, 'Description', $Call);
@@ -100,7 +100,7 @@
         return $Call;
     });
 
-    setFn('HTML', function ($Call)
+    setFn('Page', function ($Call)
     {
         if (
                 preg_match($Call['Meta']['Pattern']['Title'], $Call['Output'])
@@ -122,7 +122,7 @@
 
             if ($Page !== null)
             {
-                $Call['View']['HTML']['Title'][1] = $Page['Title'];
+                array_unshift($Call['View']['HTML']['Title'], $Page['Title']);
                 $Call['View']['HTML']['Description'] = isset($Page['Description'])? $Page['Description']: '';
                 $Call['View']['HTML']['Keywords'] = isset($Page['Keywords'])? $Page['Keywords']: '';
             }
