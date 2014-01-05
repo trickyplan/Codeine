@@ -55,6 +55,12 @@
             {
                 $Return[$ID] = curl_multi_getcontent($Link);
 
+                if ($Call['Return Header'] && isset($Call['Only Header']))
+                {
+                    $Size = curl_getinfo($Link, CURLINFO_HEADER_SIZE);
+                    $Return[$ID] = substr($Return[$ID], 0, $Size);
+                }
+
                 if (curl_errno($Link))
                     F::Log('CURL error: '.curl_error($Link).'*'.$ID.'*', LOG_ERR);
                 else
@@ -87,6 +93,11 @@
 
             $Return = [curl_exec($Call['Link'])];
 
+            if ($Call['Return Header'] && isset($Call['Only Header']))
+            {
+                $Size = curl_getinfo($Call['Link'], CURLINFO_HEADER_SIZE);
+                $Return[0] = substr($Return[0], 0, $Size);
+            }
 
             if (curl_errno($Call['Link']))
                 F::Log('CURL error: '.curl_error($Call['Link']), LOG_ERR);
