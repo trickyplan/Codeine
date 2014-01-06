@@ -1,0 +1,60 @@
+{
+    "Nodes":
+    {
+        "Social.Facebook":
+        {
+            "Type": "Literal.String",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        },
+        "Social.Twitter":
+        {
+            "Type": "Literal.String",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        },
+        "Social.VK":
+        {
+            "Type": "Literal.String",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        },
+        "Social.Google":
+        {
+            "Type": "Literal.String",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        },
+        "Social.Tumblr":
+        {
+            "Type": "Literal.String",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        }
+    }
+}

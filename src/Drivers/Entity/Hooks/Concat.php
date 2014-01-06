@@ -14,5 +14,10 @@
         foreach ($Call['Keys'] as $Key)
             $Output[] = $Call['Data'][$Key];
 
-        return implode($Call['Glue'], $Output);
+        $Output = implode($Call['Glue'], $Output);
+
+        if (isset($Call['Hash']))
+            $Output = sha1($Output);
+
+        return $Output;
     });

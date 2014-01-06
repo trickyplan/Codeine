@@ -32,10 +32,9 @@
         else
             $Screen = 'Codeine <'.$Call['Username'].'>';
 
-        $Call['Headers'] =  [
-            'From' => $Screen,
-            'To' => $Call['Scope'],
-            'Subject' => $Call['ID']];
+        $Call['Headers']['From'] = $Screen;
+        $Call['Headers']['To'] = $Call['Scope'];
+        $Call['Headers']['Subject'] = $Call['ID'];
 
         $mime = new Mail_mime("\n");
 

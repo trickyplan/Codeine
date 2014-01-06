@@ -6,6 +6,7 @@
         "Mixins.CRUD",
         "Mixins.SEO",
         "Mixins.Contacts",
+        "Mixins.Social",
         "Company.Mixins.Russia"
     ],
     "Storage": "Primary",

@@ -113,6 +113,17 @@
                 }
             }
         },
+        "Company.Address.Postal":
+        {
+            "Type": "Literal.Text",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textarea"
+                }
+            }
+        },
         "Company.Address.Official":
         {
             "Type": "Literal.Text",
