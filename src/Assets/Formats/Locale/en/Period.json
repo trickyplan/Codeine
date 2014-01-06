@@ -1,0 +1,19 @@
+{
+    "Day": {
+        "9": "days",
+        "5": "days"
+    },
+    "Day.1": "day",
+    "Hour": {
+        "16": "hours",
+        "2": "hours"
+    },
+    "Min": {
+        "10": "minutes",
+        "11": "minutes"
+    },
+    "Past": {
+        "Postfix": "ago",
+        "Prefix": " "
+    }
+}
