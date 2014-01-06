@@ -1,5 +1,5 @@
 {
-    "IP Headers": ["X_REAL_IP"],
+    "IP Headers": ["HTTP_CF_CONNECTING_IP","X_REAL_IP"],
     "IP Regex": "/(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)/",
     "Substitute":
     {
