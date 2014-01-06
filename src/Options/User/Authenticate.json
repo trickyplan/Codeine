@@ -16,10 +16,14 @@
         },
         "afterAuthenticatePost":
         {
-            "Restore URL":
+            "Redirect":
             {
                 "Service": "System.Interface.Web",
-                "Method": "RestoreURL"
+                "Method": "Redirect",
+                "Call":
+                {
+                    "Location": "/"
+                }
             }
         }
     }
