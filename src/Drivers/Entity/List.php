@@ -40,6 +40,8 @@
 
         $Empty = false;
 
+        $Call['Template'] = (isset($Call['Template'])? $Call['Template']: 'Short');
+
         if (sizeof($Call['Elements']) == 0)
             $Empty = true;
 
@@ -61,12 +63,13 @@
         }
         else
         {
-            $Call['Layouts'][] =
-                [
-                    'Scope' => $Call['Scope'],
-                    'ID' => (isset($Call['Custom Templates']['Table'])? $Call['Custom Templates']['Table']: 'Table'),
-                    'Context' => $Call['Context']
-                ];
+            if ($Call['Template'] == 'Short')
+                $Call['Layouts'][] =
+                    [
+                        'Scope' => $Call['Scope'],
+                        'ID' => (isset($Call['Custom Templates']['Table'])? $Call['Custom Templates']['Table']: 'Table'),
+                        'Context' => $Call['Context']
+                    ];
 
             if (isset($Call['Reverse']))
                 $Call['Elements'] = array_reverse($Call['Elements'], true);
@@ -94,7 +97,7 @@
                                 'Type'  => 'Template',
                                 'Scope' => $Call['Scope'],
                                 'ID' => 'Show/'
-                                    .(isset($Call['Template'])? $Call['Template']: 'Short')
+                                    .$Call['Template']
                                     .$Selected,
                                 // FIXME Strategy of selecting templates
                                 'Data'  => $Element
