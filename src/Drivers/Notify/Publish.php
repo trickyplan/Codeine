@@ -9,14 +9,14 @@
 
     setFn('Do', function ($Call)
     {
-        /*F::Run('Entity', 'Create',
+        F::Run('Entity', 'Create', $Call,
             [
                 'Entity' => 'Notify',
                 'Data!' => F::Live($Call['Notify'], $Call),
                 'Session' => $Call['Session']
             ]);
 
-        unset($Call['Notify']);*/
+        unset($Call['Notify']);
 
         return $Call;
     });

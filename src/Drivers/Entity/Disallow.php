@@ -22,7 +22,7 @@
     {
         $Call = F::Hook('beforeDisallowGet', $Call);
 
-        $Call = F::Apply('Entity.List', 'Do', $Call);
+            $Call = F::Apply('Entity.List', 'Do', $Call);
 
         $Call = F::Hook('afterDisallowGet', $Call);
 
@@ -33,7 +33,7 @@
     {
         $Call = F::Hook('beforeDisallowPost', $Call);
 
-            F::Run('Entity', 'Update', $Call,
+            $Call['Data'] = F::Run('Entity', 'Update', $Call,
             [
                 'Data' =>
                 [

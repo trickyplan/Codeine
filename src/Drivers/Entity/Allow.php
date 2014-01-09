@@ -16,7 +16,11 @@
 
         $Call = F::Hook('beforeAllowDo', $Call);
 
-        return F::Run(null, $Call['HTTP']['Method'], $Call);
+            $Call = F::Run(null, $Call['HTTP']['Method'], $Call);
+
+        $Call = F::Hook('afterAllowDo', $Call);
+
+        return $Call;
     });
 
     setFn('GET', function ($Call)
@@ -36,7 +40,7 @@
     {
         $Call = F::Hook('beforeAllowPost', $Call);
 
-            F::Run('Entity', 'Update', $Call,
+            $Call['Data'] = F::Run('Entity', 'Update', $Call,
             [
                 'Data!' =>
                 [

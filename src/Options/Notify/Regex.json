@@ -11,15 +11,7 @@
                 "Entity": "Notify",
                 "Where":
                 {
-                    "User":
-                    {
-                        "Service": "Session",
-                        "Method": "Read",
-                        "Call":
-                        {
-                            "Key": "User.ID"
-                        }
-                    }
+                    "User": "$Session.User.ID"
                 },
                 "Sort":
                 {

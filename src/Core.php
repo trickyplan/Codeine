@@ -390,8 +390,16 @@
                     foreach ($Variable as $Key => &$cVariable)
                         $Variable = F::Dot($Variable, $Key, self::Live($cVariable, $Call));
                 else
-                    if ('$' == substr($Variable, 0, 1))
-                        $Variable = F::Dot($Call, substr($Variable, 1));
+                    if (preg_match_all('@\$([\w\.]+)@', $Variable, $Pockets))
+                    {
+                        foreach ($Pockets[1] as $IX => $Match)
+                        {
+                            $Subvariable = F::Dot($Call, $Match);
+                            if ($Subvariable !== null)
+                                $Variable = str_replace($Pockets[0][$IX], $Subvariable, $Variable);
+                        }
+
+                    }
 
                 return $Variable;
             }

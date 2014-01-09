@@ -29,7 +29,8 @@
                 {
                     "Data":
                     [{
-                        "Status": 0
+                        "Status": 0,
+                        "Moderator": "$Session.User.ID"
                     }]
                 }
             }
