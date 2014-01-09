@@ -11,7 +11,7 @@
      {
          $Options = [];
 
-         if (isset($Call['Multiple']))
+         if (isset($Call['Multiple']) && $Call['Multiple'])
              $Call['Name'] .= '[]';
 
          if ($Call['Options'] !== null)
