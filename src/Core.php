@@ -352,7 +352,8 @@
             $Output = [];
 
             foreach (self::$_Stack as $IX => $Element)
-                $Output[] = str_pad("*", $IX+1).' '.$Element."\n";
+                $Output[] = str_pad(" ", $IX+1).' '.$Element."
+";
 
             // $Output = '<pre>'.implode(array_reverse($Output)).'</pre>';
 

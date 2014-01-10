@@ -9,8 +9,8 @@
 
     setFn('Identificate', function ($Call)
     {
-        if ($Call['Loginza']['ID'] == 0)
-            $Call = F::Hook('Loginza.NotConfigured', $Call);
+        /*if ($Call['Loginza']['ID'] == 0)
+            $Call = F::Hook('Loginza.NotConfigured', $Call);*/
 
         $Call['LoginzaURL'] = urlencode($Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/auth/social'); // FIXME
         return $Call;
@@ -18,14 +18,19 @@
 
     setFn('Authenticate', function ($Call)
     {
+        if ($Call['Loginza']['ID'] > 0)
+            $Auth = '&id='.$Call['Loginza']['ID']
+                    .'&sig='.md5($Call['Request']['token'].$Call['Loginza']['Key']);
+        else
+            $Auth = '';
+
         $Response = json_decode(F::Run('IO', 'Read',
          [
              'Storage' => 'Web',
              'Where'   =>
                  'http://loginza.ru/api/authinfo?token='
-                 .$Call['Request']['token']
-                 .'&id='.$Call['Loginza']['ID']
-                 .'&sig='.md5($Call['Request']['token'].$Call['Loginza']['Key'])
+                 .$Call['Request']['token'].
+                 $Auth
          ])[0], true);
 
         if (isset($Response['identity']))
