@@ -1,6 +1,4 @@
 {
-    "Core Variables Limit": 128,
-    "Heavy Memory Limit": 512,
     "Verbose":
     {
         "Developer": 4,

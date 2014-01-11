@@ -14,19 +14,15 @@
             $StorageID = $Call['Storage'];
 
             if (isset($Call['Storages'][$StorageID]))
-                $Call = F::Merge($Call, $Call['Storages'][$StorageID]);
-            else
             {
-                if (isset($Call['Aliases'][$StorageID]))
-                {
-                    $Alias = $Call['Aliases'][$StorageID];
-                    $Call  = F::Merge($Call['Storages'][$Alias['Storage']], $Alias);
-                }
-                else
-                {
-                    F::Log($Call['Storage'].' not found'); // FIXME
-                }
+                if (is_string($Call['Storages'][$StorageID])
+                    && isset($Call['Storages'][$Call['Storages'][$StorageID]]))
+                $Call['Storages'][$StorageID] = $Call['Storages'][$Call['Storages'][$StorageID]];
+
+                $Call = F::Merge($Call, $Call['Storages'][$StorageID]);
             }
+            else
+                F::Log($Call['Storage'].' not found'); // FIXME
 
             if (($Call['Link'] = F::Get($StorageID)) === null)
                 $Call['Link'] = F::Set($StorageID, F::Apply($Call['Driver'], 'Open', $Call));

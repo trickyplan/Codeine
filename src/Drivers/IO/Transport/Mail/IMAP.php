@@ -36,3 +36,36 @@
 
         return $Data;
     });
+
+    setFn('Write', function ($Call)
+    {
+        $Headers['from'] = $Call['From'];
+        $Headers['subject'] = $Call['ID'];
+        $Headers['date']    = date(DATE_RFC2822);
+
+        $HTML = [];
+        $Plain = [];
+
+        $HTML['type'] = TYPETEXT;
+        $HTML['charset'] = 'utf-8';
+        $HTML['subtype'] = 'html';
+        $HTML['description'] = '';
+        $HTML['contents.data'] = $Call['Data'];
+
+        $Plain['type'] = TYPETEXT;
+        $Plain['charset'] = 'utf-8';
+        $Plain['subtype'] = 'plain';
+        $Plain['description'] = '';
+        $Plain['contents.data'] = strip_tags($Call['Data']);
+
+        $Body =  [
+                    ['type' => TYPEMULTIPART, 'subtype' => 'alternative'],
+                    $HTML,
+                    $Plain
+                ];
+        $Envelope = str_replace("\r",'',imap_mail_compose($Headers, $Body));
+
+        imap_mail($Call['Scope'], $Call['ID'],$Envelope);
+
+        return $Call['Data'];
+    });

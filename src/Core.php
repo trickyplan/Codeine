@@ -854,15 +854,15 @@
 
             $Names = (array) $Names;
 
-            foreach ($Names as $Name)
-            {
-                if (substr($Name,0,1) == '/' && F::file_exists($Name))
-                    return [$Name];
+            foreach (self::$_Paths as $ic => $Path)
+                foreach ($Names as $Name)
+                {
+                    if (substr($Name,0,1) == '/' && F::file_exists($Name))
+                        return [$Name];
 
-                foreach (self::$_Paths as $ic => $Path)
                     if (F::file_exists($Filenames[$ic] = $Path . '/' . $Name))
                         $Results[] = $Filenames[$ic];
-            }
+                }
 
             $Results = array_reverse($Results);
 

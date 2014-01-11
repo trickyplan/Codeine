@@ -1,22 +1,22 @@
 {
-    "name": "one2team/codeine",
+    "name": "trickyplan/codeine",
     "description": "Functional styled php-framework",
     "keywords": ["framework", "oop sucks", "fp rules"],
-    "homepage": "http://one2team.ru/project/Codeine",
+    "homepage": "http://trickyplan.ru/project/Codeine",
     "license": "BSD-2-Clause",
-    "version": "7.42.0",
+    "version": "7.77.0",
     "authors": [
         {
             "name": "Dmitry Bergstein",
-            "email": "bergstein@one2team.ru",
-            "homepage": "http://one2team.ru",
+            "email": "bergstein@trickyplan.ru",
+            "homepage": "http://trickyplan.ru",
             "role": "Developer"
         }
     ],
     "support": {
-        "email": "support@one2team.ru",
-        "issues": "http://task.one2team.ru/projects/codeine/issues",
-        "wiki": "http://task.one2team.ru/projects/codeine/wiki"
+        "email": "support@trickyplan.ru",
+        "issues": "http://task.trickyplan.ru/projects/codeine/issues",
+        "wiki": "http://task.trickyplan.ru/projects/codeine/wiki"
     },
     "repositories": [
         {
@@ -25,15 +25,15 @@
         },
         {
             "type": "vcs",
-            "url": "https://github.com/Breathless/Codeine"
+            "url": "https://github.com/trickyplan/Codeine"
         },
         {
             "type": "package",
             "package": {
-                "name": "one2team/codeine",
-                "version": "7.20.0",
+                "name": "trickyplan/codeine",
+                "version": "7.77.0",
                 "dist": {
-                    "url": "http://deb.one2team.ru/",
+                    "url": "http://deb.trickyplan.ru/",
                     "type": "deb"
                 }
             }

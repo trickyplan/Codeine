@@ -11,10 +11,6 @@
     {
         $Call['HTTP']['Headers']['HTTP/1.0'] = '404 Not Found';
 
-        $Call['Page']['Title'] = '404';
-        $Call['Page']['Description'] = 'TODO';
-        $Call['Page']['Keywords'] = array ('TODO');
-
         $Call['Layouts'] = [
             [
                 'Scope' => 'Default',
