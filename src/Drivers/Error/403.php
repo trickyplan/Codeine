@@ -11,10 +11,6 @@
     {
         $Call['HTTP']['Headers']['HTTP/1.0'] = '403 Forbidden';
 
-        $Call['Page']['Title'] = '403';
-        $Call['Page']['Description'] = 'TODO';
-        $Call['Page']['Keywords'] = array ('TODO');
-
         $Call['Run'] = '/403';
 
         if (isset($Call['Reason']))
