@@ -3,7 +3,9 @@
     {
         "Developer":
         {
-            "Driver": "IO.Log.Print"
+            "Driver":"IO.Log.File",
+            "Directory":"/var/log/codeine",
+            "Scope": "developer"
         },
         "Security":
         {

@@ -2,38 +2,6 @@
     "Loginza":
     {
         "ID": 0,
-        "Key": null,
-        "Map":
-        {
-            "Name": "name.first_name",
-            "Surname": "name.last_name",
-            "Phone": "phone.mobile",
-            "Photo": "photo",
-            "Gender": "gender"
-        }
-    },
-    "Hooks":
-    {
-        "Loginza":
-        {
-            "NotConfigured":
-            {
-                "Block":
-                {
-                    "Output":
-                    {
-                        "Content":
-                        {
-                            "Error":
-                            {
-                                "Type": "Block",
-                                "Class": "alert",
-                                "Value": "Loginza not configured"
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        "Key": null
     }
 }
