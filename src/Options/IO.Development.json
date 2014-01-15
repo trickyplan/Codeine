@@ -14,7 +14,7 @@
         "Profiler":
         {
             "Driver": "IO.Log.Print",
-            "Format": "Formats.Log.HTML"
+            "Format": "Formats.Log.RAW"
         },
         "Administrator":
         {

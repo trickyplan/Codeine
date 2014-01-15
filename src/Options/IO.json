@@ -115,7 +115,6 @@
                 "Directory":"/tmp/codeine",
                 "Suffix":".js"
             },
-
         "Developer":
         {
             "Driver":"IO.Log.File",
@@ -151,11 +150,7 @@
         },
         "EMail":
         {
-            "Driver": "IO.Transport.Mail",
-            "Headers":
-            {
-                "From:": "Codeine"
-            }
+            "Driver": "IO.Transport.Mail"
         },
         "Upload":
         {

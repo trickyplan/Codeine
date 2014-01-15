@@ -93,8 +93,14 @@
             if (isset($Call['Sort']))
                 foreach($Call['Sort'] as $Key => $Direction)
                 {
-                    $Cursor->sort([$Key => (int)(($Direction == SORT_ASC) or ($Direction == 1))? 1: -1]);
-                    F::Log('Sorted by '.$Key.''.$Direction, LOG_INFO);
+                    $Direction = (int)(($Direction == SORT_ASC) or ($Direction == 1))? 1: -1;
+
+                    $Cursor->sort([$Key => $Direction]);
+
+                    if ($Direction == 1)
+                        F::Log('Sorted by '.$Key.' ascending', LOG_INFO, 'Administrator');
+                    else
+                        F::Log('Sorted by '.$Key.' descending', LOG_INFO, 'Administrator');
                 }
 
             if (isset($Call['Limit']))

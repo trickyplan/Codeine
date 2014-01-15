@@ -34,7 +34,7 @@
                 [
                     'Storage' => 'Profiler',
                     'ID' => 'Profile: '.$Call['HTTP']['Host'].$Call['HTTP']['URL'],
-                    'Data' => implode("\n", $Stats)
+                    'Data' => '<div class="alert alert-info">'.implode("\n", $Stats).'</div>'
                 ]);
 
         return $Call;

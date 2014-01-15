@@ -4,7 +4,7 @@
         "Primary":
         {
             "Driver":"IO.Storage.Mongo",
-            "Server":"localhost",
+            "Server":"/tmp/mongodb-27017.sock",
             "Database":"database"
         }
     }

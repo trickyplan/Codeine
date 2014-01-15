@@ -36,7 +36,7 @@
         $Call['Headers']['To'] = $Call['Scope'];
         $Call['Headers']['Subject'] = $Call['ID'];
 
-        $mime = new Mail_mime("\n");
+        $mime = new Mail_mime();
 
         // Setting the body of the email
         $mime->setParam('html_charset', 'utf-8');
@@ -48,16 +48,17 @@
             foreach ($Call['Data'] as &$Row)
                 $Row = implode("\t", $Row);
 
-            $Call['Data'] = implode(PHP_EOL, $Call['Data']);
+            $Call['Data'] = '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html><body>'.implode(PHP_EOL, $Call['Data']).'</body></html>';
         }
-
-        $mime->setTXTBody(strip_tags($Call['Data']));
 
         if (isset($Call['HTML Mail']) && $Call['HTML Mail'])
         {
             $mime->setHTMLBody($Call['Data']);
             $Call['Headers']['Content-Type'] = 'text/html; charset=utf-8';
         }
+        else
+            $mime->setTXTBody(strip_tags($Call['Data']));
 
         $Call['Data'] = $mime->get(['text_charset' => 'utf-8']);
         $Call['Headers'] = $mime->headers($Call['Headers']);
@@ -65,7 +66,7 @@
         $Result = $Call['Link']->send($Call['Scope'], $Call['Headers'], $Call['Data']);
 
         if ($Result instanceof PEAR_Error)
-            F::Log($Result->getMessage(), LOG_CRIT);
+            F::Log($Result->getMessage(), LOG_INFO); // Temp.
 
         return $Call['Data'];
     });

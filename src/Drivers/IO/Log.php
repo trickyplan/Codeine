@@ -19,12 +19,12 @@
             foreach ($Logs as $Call['Channel'] => $Call['Logs'])
             {
                 F::Run('IO', 'Write', $Call,
-                    [
-                        'Print Log' => true,
-                        'Storage' => $Call['Channel'],
-                        'ID' => $Call['HTTP']['Proto'].$Call['HTTP']['Host'].$Call['HTTP']['URL'],
-                        'Data' => $Call['Logs']
-                    ]);
+                [
+                    'Print Log' => true,
+                    'Storage' => $Call['Channel'],
+                    'ID' => $Call['HTTP']['Proto'].$Call['HTTP']['Host'].':'.$Call['HTTP']['URL'],
+                    'Data' => $Call['Logs']
+                ]);
 
                 F::Run('IO', 'Close', ['Storage' => $Call['Channel']]);
             }

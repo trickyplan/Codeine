@@ -1,7 +1,8 @@
 {
+    "HTML Mail": true,
     "Headers":
     {
         "MIME-Version":"1.0",
-        "Content-type":"text/html; charset=utf-8"
+        "Content-Type":"text/html; charset=utf-8"
     }
 }
