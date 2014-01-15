@@ -18,7 +18,7 @@
               else
                   $Type = $Call['Type'];
 
-              $Match = F::Run('Formats.'.$Type, 'Decode', ['Value' => trim($Call['Parsed'][2][$IX])]);
+              $Match = F::Run('Formats.'.$Type, 'Read', ['Value' => trim($Call['Parsed'][2][$IX])]);
 
               foreach ($Call['Inherited'] as $Key)
                   if (isset($Call[$Key]))
