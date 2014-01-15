@@ -12,7 +12,7 @@
         $Links = [];
 
         foreach ($Call['Entities'] as $Handler => $Data)
-            $Links[] =
+            $Links [] =
                 [
                     'sitemap' =>
                     [

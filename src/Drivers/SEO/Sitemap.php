@@ -9,17 +9,31 @@
 
     setFn('Do', function ($Call)
     {
-        return F::Run('SEO.Sitemap.'.$Call['Sitemap']['Mode'], null, $Call);
+        $Call = F::Hook('beforeSitemap', $Call);
+            $Call = F::Run('SEO.Sitemap.'.$Call['Sitemap']['Mode'], null, $Call);
+        $Call = F::Hook('afterSitemap', $Call);
+
+        return $Call;
     });
 
     setFn('Ping', function ($Call)
     {
-        foreach($Call['SearchEngines'] as $Name=> $URL)
-            $Call['Responses'][$Name] = F::Run('IO', 'Read',
-                [
-                     'Storage' => 'Web',
-                     'ID' => $URL.'/ping?sitemap='.urlencode($Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/sitemap.xml')
-                ]);
+        $SitemapURL = '/ping?sitemap='.urlencode($Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/sitemap.xml');
+
+        $Pings = [];
+
+        foreach($Call['SearchEngines'] as $Name => $URL)
+            $Pings[$Name] = $URL.$SitemapURL;
+
+        F::Run('IO', 'Read',
+        [
+             'Storage' => 'Web',
+             'Where' =>
+             [
+                 'ID' => $Pings
+             ]
+        ]);
+
 
         return $Call;
     });

@@ -352,12 +352,11 @@
             $Output = [];
 
             foreach (self::$_Stack as $IX => $Element)
-                $Output[] = str_pad(" ", $IX+1).' '.$Element."
-";
+                $Output[] = str_pad(" ", $IX+1).' '.$Element;
 
             // $Output = '<pre>'.implode(array_reverse($Output)).'</pre>';
 
-            return $Output;
+            return implode(PHP_EOL, array_reverse($Output));
         }
 
         public static function Live($Variable, $Call = [])
