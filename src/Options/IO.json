@@ -124,8 +124,10 @@
         },
         "Profiler":
         {
-            "Driver":"IO.Print",
-            "Format": "Formats.Log.HTML"
+            "Driver":"IO.Log.File",
+            "Directory":"/var/log/codeine",
+            "Scope": "profiler",
+            "Format": "Formats.Log.RAW"
         },
         "Security":
         {
