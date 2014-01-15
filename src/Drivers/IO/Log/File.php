@@ -9,16 +9,12 @@
 
     setFn('Open', function ($Call)
     {
-        $File = fopen($Call['Directory'].DS.$Call['Scope'].'.log', 'a+');
-        return $File;
+        return fopen($Call['Directory'].DS.$Call['Scope'].$Call['Log']['File']['Extension'], $Call['Log']['File']['Mode']);
     });
 
     setFn('Write', function ($Call)
     {
-        foreach ($Call['Data'] as $Row)
-            fwrite($Call['Link'], $Row[1]."\t".$Row[3].PHP_EOL."\t".$Row[2].PHP_EOL);
-
-        return true;
+        return fwrite($Call['Link'], $Call['Data']);
     });
 
     setFn('Close', function ($Call)
@@ -28,5 +24,5 @@
 
     setFn('Size', function ($Call)
     {
-        return round(filesize($Call['Directory'].DS.$Call['Scope'].'.log')/1024).'K';
+        return filesize($Call['Directory'].DS.$Call['Scope'].$Call['Log']['File']['Extension']);
     });

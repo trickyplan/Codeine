@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    setFn('Decode', function ($Call)
+    setFn('Read', function ($Call)
     {
         $Result = json_decode($Call['Value'], true);
         if (json_last_error() > 0)
@@ -19,13 +19,13 @@
         return $Result;
     });
 
-    setFn('Encode', function ($Call)
+    setFn('Write', function ($Call)
     {
         return json_encode($Call['Value'],
             JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
     });
 
-    setFn('Encode.Call', function ($Call)
+    setFn('Write.Call', function ($Call)
     {
         $Call['Value'] = json_encode($Call['Value']);
         return $Call;

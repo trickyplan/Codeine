@@ -21,7 +21,16 @@
         },
         "Primary":
         {
-            "Driver": "IO.Storage.Memory"
+            "Driver": "IO.Storage.Memory",
+            "Description": "Default storage for all important data"
+        },
+        "Permanent":
+        {
+            "Description": "Storage for source-based data",
+            "Driver":"IO.Storage.Directory",
+            "Directory":"Data",
+            "Format": "Formats.JSON",
+            "Suffix":".json"
         },
         "Cookie":
         {
@@ -30,13 +39,6 @@
             "Path": "/",
             "Secure": false,
             "HTTP Only": true
-        },
-        "Permanent":
-        {
-            "Driver":"IO.Storage.Directory",
-            "Directory":"Data",
-            "Format": "Formats.JSON",
-            "Suffix":".json"
         },
         "Options":
         {
@@ -79,67 +81,73 @@
             "Format": "Formats.JSON",
             "Suffix":".json"
         },
-        "Image":
-        {
-            "Driver":"IO.Storage.Directory",
-            "Directory":"Assets"
-        },
-        "Image Cache":
-        {
-            "Driver":"IO.Storage.Directory",
-            "Directory":"/tmp/codeine"
-        },
-        "CSS":
-        {
-            "Driver":"IO.Storage.Directory",
-            "Directory":"Assets",
-            "Suffix":".css"
-        },
-        "CSS Cache":
-        {
-            "Driver":"IO.Storage.Directory",
-            "Directory":"/tmp/codeine",
-            "Suffix":".css"
-        },
-        "JS":
-        {
-            "Driver":"IO.Storage.Directory",
-            "Directory":"Assets",
-            "Suffix":".js"
-        },
-        "JS Cache":
-        {
-            "Driver":"IO.Storage.Directory",
-            "Directory":"/tmp/codeine",
-            "Suffix":".js"
-        },
+            "Image":
+            {
+                "Driver":"IO.Storage.Directory",
+                "Directory":"Assets"
+            },
+            "Image Cache":
+            {
+                "Driver":"IO.Storage.Directory",
+                "Directory":"/tmp/codeine"
+            },
+            "CSS":
+            {
+                "Driver":"IO.Storage.Directory",
+                "Directory":"Assets",
+                "Suffix":".css"
+            },
+            "CSS Cache":
+            {
+                "Driver":"IO.Storage.Directory",
+                "Directory":"/tmp/codeine",
+                "Suffix":".css"
+            },
+            "JS":
+            {
+                "Driver":"IO.Storage.Directory",
+                "Directory":"Assets",
+                "Suffix":".js"
+            },
+            "JS Cache":
+            {
+                "Driver":"IO.Storage.Directory",
+                "Directory":"/tmp/codeine",
+                "Suffix":".js"
+            },
+
         "Developer":
         {
             "Driver":"IO.Log.File",
             "Directory":"/var/log/codeine",
-            "Scope": "developer"
+            "Scope": "developer",
+            "Format": "Formats.Log.Plain"
         },
         "Profiler":
         {
-            "Driver":"IO.Print"
+            "Driver":"IO.Print",
+            "Format": "Formats.Log.HTML"
         },
         "Security":
         {
             "Driver":"IO.Log.File",
             "Directory":"/var/log/codeine",
-            "Scope": "security"
+            "Scope": "security",
+            "Format": "Formats.Log.Plain"
         },
         "Administrator":
         {
             "Driver":"IO.Log.File",
             "Directory":"/var/log/codeine",
-            "Scope": "administrator"
+            "Scope": "administrator",
+            "Format": "Formats.Log.Plain"
         },
         "Marketing":
         {
             "Driver":"IO.Log.File",
             "Directory":"/var/log/codeine",
-            "Scope": "marketing"
+            "Scope": "marketing",
+            "Format": "Formats.Log.Plain"
         },
         "EMail":
         {

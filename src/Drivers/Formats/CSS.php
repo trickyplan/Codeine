@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    setFn('Decode', function ($Call)
+    setFn('Read', function ($Call)
     {
         $Data = [];
         if (mb_ereg_all('@(.*)\{(.*)\}@SsUu', $Call['Value'], $RuleSets))
@@ -22,7 +22,7 @@
          return $Data;
     });
 
-    setFn('Encode', function ($Call)
+    setFn('Write', function ($Call)
     {
         $Data = [];
         foreach($Call['Value'] as $Selector => $RuleSet)

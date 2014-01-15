@@ -3,25 +3,30 @@
     {
         "Developer":
         {
-            "Driver":"IO.Log.File",
-            "Directory":"/var/log/codeine",
-            "Scope": "developer"
+            "Driver": "IO.Log.Print",
+            "Format": "Formats.Log.HTML"
         },
         "Security":
         {
-            "Driver": "IO.Log.Print"
+            "Driver": "IO.Log.Print",
+            "Format": "Formats.Log.HTML"
         },
         "Profiler":
         {
-            "Driver": "IO.Log.Print"
+            "Driver": "IO.Log.Print",
+            "Format": "Formats.Log.HTML"
         },
         "Administrator":
         {
-            "Driver": "IO.Log.Print"
+            "Driver": "IO.Log.Print",
+            "Format": "Formats.Log.HTML"
         },
         "Marketing":
         {
-            "Driver": "IO.Log.Print"
+            "Driver":"IO.Log.File",
+            "Directory":"/var/log/codeine",
+            "Scope": "marketing",
+            "Format": "Formats.Log.Plain"
         },
         "Layout":
         {

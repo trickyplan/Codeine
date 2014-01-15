@@ -23,7 +23,7 @@
                         'Print Log' => true,
                         'Storage' => $Call['Channel'],
                         'ID' => $Call['HTTP']['Proto'].$Call['HTTP']['Host'].$Call['HTTP']['URL'],
-                        'Data' => F::Run('Formats.Log.HTML', 'Do', $Call)
+                        'Data' => $Call['Logs']
                     ]);
 
                 F::Run('IO', 'Close', ['Storage' => $Call['Channel']]);

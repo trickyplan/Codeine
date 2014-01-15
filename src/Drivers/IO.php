@@ -64,7 +64,7 @@
                 if (isset($Call['Format']) && is_array($Call['Result']))
                 {
                     foreach($Call['Result'] as &$Element)
-                        $Element = F::Run($Call['Format'], 'Decode', ['Value' => $Element]);
+                        $Element = F::Run($Call['Format'], null, $Call, ['Value' => $Element]);
                 }
 
                 $Call = F::Hook('afterIORead', $Call);
@@ -102,16 +102,16 @@
                     if (isset($Call['Data']) && is_array($Call['Data']) && isset($Call['Data']['ID']))
                         $Call['ID'] = $Call['Data']['ID'];
 
-                    $Call['Data'] = F::Run ($Call['Format'], 'Encode', ['Value' => $Call['Data']]);
+                    $Call['Data'] = F::Run ($Call['Format'], null, $Call, ['Value' => $Call['Data']]);
                 }
 
                 if (isset($Call['Driver']))
-                    $Call['Data'] = F::Run ($Call['Driver'], 'Write', $Call);
+                    $Call['Data'] = F::Run ($Call['Driver'], null, $Call);
                 else
                     F::Log('IO Driver not set.', LOG_CRIT);
 
                 if (isset($Call['Format']))
-                    $Call['Data'] = F::Run ($Call['Format'], 'Decode', ['Value' => $Call['Data']]);
+                    $Call['Data'] = F::Run ($Call['Format'], null, $Call, ['Value' => $Call['Data']]);
 
             $Call = F::Hook('afterIOWrite', $Call);
 
