@@ -7,15 +7,24 @@
         "Prefix": "/var/run/",
         "Postfix": ".pid"
     },
-    "-Daemons":
+    "Daemons":
     {
-        "Tick":
+        "Tic Tac":
         {
-            "Precision": 2,
+            "Precision": 1,
             "Execute":
             {
                 "Service": "System.Time",
                 "Method": "Get"
+            }
+        },
+        "Delayed":
+        {
+            "Precision": 1,
+            "Execute":
+            {
+                "Service": "Code.Run.Delayed",
+                "Method": "Execute"
             }
         }
     },

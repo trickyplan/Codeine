@@ -15,7 +15,14 @@
             exit(1);
 
         declare(ticks = 1);
-        $SH = function ($Signal) {return F::Run('Code.Flow.Daemon', 'Signal', ['Signal' => $Signal]);};
+
+        $SH = function ($Signal) use ($Call)
+        {
+            return F::Run('Code.Flow.Daemon', 'Signal', $Call,
+                [
+                    'Signal' => $Signal
+                ]);
+        };
 
         $PID = pcntl_fork();
 
@@ -34,6 +41,8 @@
             foreach ($Call['Signals'] as $SigID => $Hook)
                 if (!pcntl_signal(constant($SigID), $SH))
                     F::Log('Signal '.$SigID.' not handled', LOG_ERR);
+                else
+                    F::Log('Signal '.$SigID.' handling', LOG_WARNING);
 
             $PIDFile = F::Run(null, 'PIDFile', $Call);
 
@@ -74,15 +83,16 @@
                     }
                     else
                     {
-                        foreach ($Call['Daemons'] as $Daemon)
-                            if ($Ticks++ % $Daemon['Precision'] == 0)
+                        foreach ($Call['Daemons'] as $DaemonName => $Daemon)
+                            if (($Ticks++ % $Daemon['Precision']) == 0)
                             {
-                                F::Log($Daemon['Execute']['Service'].':'.$Daemon['Execute']['Method'], LOG_WARNING);
+                                F::Log($DaemonName.' daemon waked up', LOG_WARNING);
 
                                 $Result = F::Live($Daemon['Execute']);
                                 if ($Result !== null)
                                     F::Log(getmypid().': '.json_encode($Result), LOG_WARNING);
                             }
+
                         exit(4);
                     }
                 }
@@ -141,14 +151,24 @@
 
     setFn('Stop', function ($Call)
     {
+        $PIDFile = F::Run(null, 'PIDFile', $Call);
+
+        if (file_exists($PIDFile))
+            unlink($PIDFile);
+
         return F::setLive(false);
     });
 
     setFn('Signal', function ($Call)
     {
+        if ($Call['Signal'] > 1)
+            F::Log('Caught signal '.$Call['Signal'], LOG_ERR);
+
         if (isset($Call['Codes'][$Call['Signal']]))
         {
             $Signal = $Call['Codes'][$Call['Signal']];
+
+            F::Log('Signal '.$Call['Signal'].' determined as '.$Call['Codes'][$Call['Signal']], LOG_ERR);
 
             if (isset($Call['Signals'][$Signal]))
                 return F::Live($Call['Signals'][$Signal]);
