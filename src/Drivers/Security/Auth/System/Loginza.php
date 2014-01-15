@@ -18,7 +18,7 @@
 
     setFn('Authenticate', function ($Call)
     {
-        if ($Call['Loginza']['ID'] > 0)
+        if ($Call['Loginza']['ID'] != 0)
             $Auth = '&id='.$Call['Loginza']['ID']
                     .'&sig='.md5($Call['Request']['token'].$Call['Loginza']['Key']);
         else
@@ -32,6 +32,8 @@
                  .$Call['Request']['token'].
                  $Auth
          ])[0], true);
+
+        F::Log($Response, LOG_INFO, 'Security');
 
         if (isset($Response['identity']))
         {
