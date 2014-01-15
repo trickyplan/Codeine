@@ -345,8 +345,6 @@
             return $Result;
         }
 
-
-
         public static function Stack()
         {
             $Output = [];

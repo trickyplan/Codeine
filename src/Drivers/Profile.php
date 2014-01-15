@@ -20,6 +20,7 @@
             'Peak memory: '.(memory_get_peak_usage(true)/1024).'Kb',
             'Internal storage: '.count(self::$_Storage)
         ];
+
         F::Run('IO', 'Write', $Call,
                 [
                     'Storage' => 'Profiler',

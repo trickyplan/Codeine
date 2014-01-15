@@ -17,6 +17,8 @@
             if ($Total >= $Value)
                 $Decision = $Limit;
 
+        $Verbose = LOG_DEBUG;
+
         switch($Decision)
         {
             case 'Green':
@@ -39,6 +41,10 @@
                 $Verbose = LOG_CRIT;
             break;
         }
+
+        if ($Verbose < 5)
+            self::$_Profile = true;
+
         F::Log('Latency level is *'.$Decision.'*, because total page time *'.$Total.'* ms', $Verbose, 'Profiler');
 
         $Call = F::Hook('Latency.Audit.'.$Decision, $Call);
