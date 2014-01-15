@@ -13,8 +13,20 @@
 
         $Cached = F::Run('IO', 'Read', ['Storage' => 'Application Cache', 'Where' => ['ID' => $Call['CID']]])[0];
 
-        if (is_array($Cached) && $Cached['Expires'] > time())
-            $Call['Run'] = ['Output' => $Cached['Result']];
+        if (is_array($Cached))
+        {
+            if ($Cached['Expires'] > time())
+            {
+                F::Log('CID '.j($Call['Run']).' cached', LOG_GOOD, 'Developer');
+                $Call['Run'] = ['Output' => $Cached['Result']];
+            }
+            else
+            {
+                F::Log('CID '.j($Call['Run']).' expired', LOG_INFO, 'Developer');
+                F::Run('IO', 'Write', ['Storage' => 'Application Cache', 'Where' => ['ID' => $Call['CID']], 'Data' => null]);
+            }
+
+        }
 
         return $Call;
     });

@@ -137,8 +137,8 @@
                         $Call = F::Hook('afterImageWrite', $Call);
                     }
 
-                    if (empty($Call['Image']['Alt']))
-                        F::Log('Image: Alt is empty', LOG_INFO);
+                    if (empty($Call['Current Image']['Alt']))
+                        F::Log('Image: Alt is empty for '.$ImageCached, LOG_INFO);
 
                     $Call['Image']['Tags'][] = '<img src="'
                             .$Call['Image']['Proto']
