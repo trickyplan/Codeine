@@ -22,7 +22,7 @@
                 [
                     'Print Log' => true,
                     'Storage' => $Call['Channel'],
-                    'ID' => $Call['HTTP']['Proto'].$Call['HTTP']['Host'].':'.$Call['HTTP']['URL'],
+                    'ID' => '['.$Call['Channel'].']'.$Call['HTTP']['Proto'].$Call['HTTP']['Host'].':'.$Call['HTTP']['URL'],
                     'Data' => $Call['Logs']
                 ]);
 
