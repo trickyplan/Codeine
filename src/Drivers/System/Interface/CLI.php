@@ -18,9 +18,8 @@
 
         $Call = F::Hook('beforeInterfaceRun', $Call);
 
-        $Call['Return Code'];
-            if (!isset($Call['Skip Run']))
-                $Call = F::Apply($Call['Service'], $Call['Method'], $Call);
+                if (!isset($Call['Skip Run']))
+                    $Call = F::Apply($Call['Service'], $Call['Method'], $Call);
 
         $Call = F::Hook('afterInterfaceRun', $Call);
 

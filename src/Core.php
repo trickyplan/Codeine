@@ -174,7 +174,7 @@
             }
         }
 
-        public static function loadOptions($Service = null, $Method = null, $Call = [])
+        public static function loadOptions($Service = null, $Method = null, $Call = [], $Path = 'Options')
         {
             $Service = ($Service == null)? self::$_Service: $Service;
 /*            $Method = ($Method == null)? self::$_Method: $Method;*/
@@ -189,9 +189,9 @@
                 $Filenames = [];
 
                 if (self::$_Environment != 'Production')
-                    $Filenames[] = 'Options/'.$ServicePath.'.'.self::$_Environment.'.json';
+                    $Filenames[] = $Path.DS.$ServicePath.'.'.self::$_Environment.'.json';
 
-                $Filenames[] = 'Options/'.$ServicePath.'.json';
+                $Filenames[] = $Path.DS.$ServicePath.'.json';
 
                 if (($Filenames = self::findFiles ($Filenames)) !== null)
                 {
@@ -243,7 +243,6 @@
                 }
 
                 self::$_Options[$Service] = $Options;
-
             }
 
             return F::Merge(self::$_Options[$Service], $Call);
@@ -345,6 +344,8 @@
             return $Result;
         }
 
+
+
         public static function Stack()
         {
             $Output = [];
@@ -378,7 +379,7 @@
                     $Variable['Method'] = 'Do';
 
                 return F::Run($Variable['Service'], $Variable['Method'],
-                    $Call, isset($Variable['Call'])? $Variable['Call']: []);
+                    $Call, isset($Variable['Call'])? self::Variable($Variable['Call'], $Call): []);
 
                 // FIXME?
             }
@@ -388,19 +389,29 @@
                     foreach ($Variable as $Key => &$cVariable)
                         $Variable = F::Dot($Variable, $Key, self::Live($cVariable, $Call));
                 else
-                    if (preg_match_all('@\$([\w\.]+)@', $Variable, $Pockets))
-                    {
-                        foreach ($Pockets[1] as $IX => $Match)
-                        {
-                            $Subvariable = F::Dot($Call, $Match);
-                            if ($Subvariable !== null)
-                                $Variable = str_replace($Pockets[0][$IX], $Subvariable, $Variable);
-                        }
-
-                    }
+                    $Variable = self::Variable($Variable, $Call);
 
                 return $Variable;
             }
+        }
+
+        public static function Variable ($Variable, $Call)
+        {
+            if (is_array($Variable))
+                foreach ($Variable as &$cVariable)
+                    $cVariable = self::Variable($cVariable, $Call);
+            else
+                if (preg_match_all('@\$([\w\.]+)@Ssu', $Variable, $Pockets))
+                {
+                    foreach ($Pockets[1] as $IX => $Match)
+                    {
+                        $Subvariable = F::Dot($Call, $Match);
+                        if ($Subvariable !== null)
+                            $Variable = str_replace($Pockets[0][$IX], $Subvariable, $Variable);
+                    }
+                }
+
+            return $Variable;
         }
 
         public static function Hook($On, $Call)
@@ -868,11 +879,6 @@
             else
                 return $Results;
         }
-    }
-
-    function j ($Call)
-    {
-        return json_encode($Call, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     }
 
     function d()

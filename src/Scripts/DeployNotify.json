@@ -1,0 +1,13 @@
+{
+    "Send message to developer":
+    {
+        "Service": "IO",
+        "Method": "Write",
+        "Call":
+        {
+            "Storage": "Developer",
+            "ID": "Project «$Project.Title» deployed on $Environment»",
+            "Data": "Project version: $Version.Project.Major $Version.Project.Minor"
+        }
+    }
+}

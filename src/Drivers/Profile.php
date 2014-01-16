@@ -26,11 +26,11 @@
                     'Storage' => 'Profiler',
                     'ID' => 'Profile: '.$Call['HTTP']['Host'].$Call['HTTP']['URL'],
                     'Data' =>
-                        '<div class="alert alert-info">'.implode("\n", $Stats).'</div>'.
-                        F::Run('Formats.Profile.'.$Call['Profile Format'], 'Do', $Call,
-                        [
-                            'Data' => self::$_Counters
-                        ])
+                    '<div class="alert alert-info">'.implode("\n", $Stats).'</div>'.
+                    F::Run('Formats.Profile.'.$Call['Profile Format'], 'Do', $Call,
+                    [
+                        'Data' => self::$_Counters
+                    ])
 
                 ]);
         return $Call;

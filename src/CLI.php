@@ -11,20 +11,25 @@
         if (preg_match('/--(\S+)\=(\S+)/', $arg, $Pockets))
             $Opts[$Pockets[1]] = $Pockets[2];
 
-    if (!isset($Opts['Method']))
-        $Opts['Method'] = 'Do';
+    !defined('Root')? define('Root', getcwd()): false;
 
-    !defined('Root')? define('Root', Codeine): false;
+    if (empty($Opts))
+        ;
+    else
+    {
+        if (!isset($Opts['Method']))
+            $Opts['Method'] = 'Do';
 
-    $Call = F::Bootstrap
-    ([
-        'Paths' => [Root],
-        'Environment' => isset($Opts['Environment'])? $Opts['Environment']: 'Production',
-        'Service' => 'System.Interface.CLI',
-        'Method' => 'Do',
-        'Call' => $Opts
-    ]);
+        $Call = F::Bootstrap
+            ([
+                'Paths' => [Root],
+                'Environment' => isset($Opts['Environment'])? $Opts['Environment']: 'Production',
+                'Service' => 'System.Interface.CLI',
+                'Method' => 'Do',
+                'Call' => $Opts
+            ]);
 
-    F::Shutdown($Call);
+        F::Shutdown($Call);
+        exit($Call['Return Code']);
+    }
 
-    exit($Call['Return Code']);
