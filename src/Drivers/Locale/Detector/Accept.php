@@ -24,9 +24,9 @@
 
             foreach ($Locales as $Locale => $Quality)
             {
-                if (isset($Call['Locales']['Map'][$Locale]))
+                if (isset($Call['Accept-Language'][$Locale]))
                 {
-                    $Call['Locale'] = $Call['Locales']['Map'][$Locale];
+                    $Call['Locale'] = $Call['Accept-Language'][$Locale];
                     break;
                 }
             }

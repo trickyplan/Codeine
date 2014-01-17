@@ -8,6 +8,25 @@
     <k>Title</k>
 </h1>
 <div class="row">
+    <div class="col-lg-4">
+        <ul class="nav nav-stacked">
+            <exec>
+                <Service>Entity.List</Service>
+                <Method>Do</Method>
+                <Call>
+                    <Template>Line</Template>
+                    <Entity><call>Entity</call></Entity>
+                    <Where>
+                        <Tags><k>Tags</k></Tags>
+                    </Where>
+                    <NoPage>true</NoPage>
+                    <Sort>
+                        <ID>1</ID>
+                    </Sort>
+                </Call>
+            </exec>
+        </ul>
+    </div>
     <div class="col-lg-8">
         <div class="panel panel-default">
             <div class="panel-body">
@@ -28,23 +47,5 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-4">
-        <ul class="nav nav-stacked">
-            <exec>
-                <Service>Entity.List</Service>
-                <Method>Do</Method>
-                <Call>
-                    <Template>Line</Template>
-                    <Entity><call>Entity</call></Entity>
-                    <Where>
-                        <Tags><k>Tags</k></Tags>
-                    </Where>
-                    <NoPage>true</NoPage>
-                    <Sort>
-                        <ID>1</ID>
-                    </Sort>
-                </Call>
-            </exec>
-        </ul>
-    </div>
+
 </div>
