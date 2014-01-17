@@ -509,6 +509,8 @@
 
                 $Time = date(DATE_RFC850).' ';
 
+                $Message = self::$_Service.':'.self::$_Method.' '.$Message;
+
                 if (PHP_SAPI == 'cli')
                 {
                     switch ($Verbose)
@@ -879,6 +881,11 @@
             else
                 return $Results;
         }
+    }
+
+    function j($Call)
+    {
+        return json_encode($Call, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     }
 
     function d()

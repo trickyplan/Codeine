@@ -23,7 +23,7 @@
                     'Print Log' => true,
                     'Storage' => $Call['Channel'],
                     'ID' => '['.$Call['Channel'].'] '.$Call['HTTP']['Proto'].$Call['HTTP']['Host'].':'.$Call['HTTP']['URL'],
-                    'Data' => $Call['Logs']
+                    'Data!' => $Call['Logs']
                 ]);
 
                 F::Run('IO', 'Close', ['Storage' => $Call['Channel']]);

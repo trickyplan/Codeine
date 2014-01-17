@@ -5,11 +5,11 @@
     {
         "Secure+":
         {
-            "Service": "Security.Password.Generator.RandomOrg",
+            "Service": "Security.Password.Generator.Symbols",
             "Method": "Get",
             "Call":
             {
-                "Size": 12
+                "Size": 32
             }
         },
         "Secure":

@@ -5,7 +5,8 @@
         "Alphabet":
         {
             "Normal": "abcdefghijklmnopqrstuvxwyzABCDEFGHIJKLMNOPQRSTUVXYZ1234567890",
-            "Hard": "!№;%:?*()_+=-~<>,.[]{}abcdefghijklmnopqrstuvxwyzABCDEFGHIJKLMNOPQRSTUVXYZ1234567890"
+            "Secure": "abcdefghijklmnopqrstuvxwyz1234567890",
+            "Secure+": "abcdefghijklmnopqrstuvxwyzABCDEFGHIJKLMNOPQRSTUVXYZ1234567890"
         }
     }
 }

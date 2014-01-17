@@ -11,8 +11,7 @@
     {
         $Call = F::Hook('beforeJSONRender', $Call);
 
-        $Call['Output'] = json_encode($Call['Output']['Content'],
-           JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+        $Call['Output'] = j($Call['Output']['Content']);
 
         $Call = F::Hook('afterJSONRender', $Call);
 
