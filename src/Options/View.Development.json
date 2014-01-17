@@ -1,0 +1,17 @@
+{
+    "View":
+    {
+        "Debug": true
+    },
+    "Hooks":
+    {
+        "afterViewLoad":
+        {
+            "Debug":
+            {
+                "Service": "View.Hooks.Debug",
+                "Method": "Do"
+            }
+        }
+    }
+}
