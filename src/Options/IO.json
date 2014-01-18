@@ -181,6 +181,13 @@
             "Directory":"/tmp/codeine/bus",
             "Scope": "Codeine",
             "Filename": ".json"
+        },
+        "Swarm":
+        {
+            "Driver":"IO.Storage.Directory",
+            "Directory":"/tmp/codeine/",
+            "Suffix": ".json",
+            "Format": "Formats.JSON"
         }
     },
     "Hooks":

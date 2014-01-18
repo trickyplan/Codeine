@@ -116,6 +116,19 @@
         {
             "Service": "Code.Flow.API",
             "Method": "Run"
+        },
+        "/swarm":
+        {
+            "Service": "Swarm",
+            "Method": "Do",
+            "View":
+            {
+                "Renderer":
+                {
+                    "Service": "View.JSON",
+                    "Method": "Render"
+                }
+            }
         }
     }
 }

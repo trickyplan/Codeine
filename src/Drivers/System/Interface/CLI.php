@@ -13,10 +13,10 @@
 
         $Call['Locale'] = F::Live($Call['Locale'], $Call);
 
-        $Call['HTTP']['Host'] = gethostname();
-        $Call['HTTP']['URL'] = '/';
-
         $Call = F::Hook('beforeInterfaceRun', $Call);
+
+        $Call['HTTP']['Host'] = $Call['Project']['Hosts'][F::Environment()];
+        $Call['HTTP']['URL'] = '/';
 
                 if (!isset($Call['Skip Run']))
                     $Call = F::Apply($Call['Service'], $Call['Method'], $Call);

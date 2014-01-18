@@ -1,0 +1,11 @@
+{
+    "HTTP":
+    {
+        "Proto": "http://"
+    },
+    "Swarm":
+    {
+        "ID": "World",
+        "Bootstrap": "trickyplan.ru.local"
+    }
+}

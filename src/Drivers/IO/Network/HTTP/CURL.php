@@ -134,16 +134,13 @@
                 CURLOPT_USERPWD          => isset($Call['User'])?
                     $Call['User'].':'.$Call['Password']: null, // FIXME
                 CURLOPT_HTTPAUTH         => CURLAUTH_BASIC,
-                CURLOPT_POSTFIELDS       => $Call['Data']
+                CURLOPT_POSTFIELDS       => http_build_query($Call['Data'])
             ]);
 
-        $Result =  curl_exec($Call['Link']);
+        $Result =  [curl_exec($Call['Link'])];
 
         if (curl_errno($Call['Link']))
-        {
-            d(__FILE__, __LINE__, $Call);
             F::Log('CURL error: '.curl_error($Call['Link']).'*'.$Call['Where']['ID'].'*', LOG_ERR);
-        }
         else
             F::Log('CURL fetched *'.$Call['Where']['ID'].'*', LOG_INFO);
 

@@ -209,6 +209,15 @@
             {
                 "Service": "Project.Theme"
             }
+        },
+        "Swarm":
+        {
+            "Decision": true,
+            "Weight": 1000,
+            "Run":
+            {
+                "Service": "Swarm"
+            }
         }
     }
 }

@@ -9,9 +9,7 @@
 
     setFn('Write', function ($Call)
     {
-        $Output = $Call['Data'];
-
-        $Output = preg_replace('/\*(.*)\*/SsUu', '$1', $Output);
-
+        $Output = $Call['Data'][0];
+        $Output = preg_replace('/\*(.*)\*/SsUu', '$1', implode(PHP_EOL, (array) $Output));
         return $Output;
     });
