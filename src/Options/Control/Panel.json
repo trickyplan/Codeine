@@ -2,7 +2,7 @@
     "Start": "Project",
     "Bundles":
     {
-        "Project": ["User", "Page", "Block"],
+        "Project": ["User", "Page", "Block", "Complain", "Finance"],
         "Platform": ["Project","Codeine", "PHP", "IO", "Security", "Session", "SEO", "Server"],
         "Developer": ["Developer"]
     },

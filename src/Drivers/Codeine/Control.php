@@ -9,25 +9,6 @@
 
     setFn('Do', function ($Call)
     {
-        $LastNews = simplexml_load_string(file_get_contents('http://codeine-framework.ru/blog.rss'));
-
-        foreach ($LastNews->channel->item as $item)
-        {
-            $Table[] = ['<a href="'.$item->link.'">'.$item->title.'</a>', $item->pubDate];
-        }
-
-        $Call['Output']['Content'][] =
-        [
-            'Type' => 'Table',
-            'Value' => $Table
-        ];
-
-        return $Call;
-    });
-
-
-    setFn('Version', function ($Call)
-    {
         $Current = file_get_contents('https://raw.github.com/Breathless/Codeine/master/docs/VERSION');
 
         $Call['Output']['Content'][] =

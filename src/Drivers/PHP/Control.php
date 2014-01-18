@@ -70,5 +70,8 @@
 
     setFn('Menu', function ($Call)
     {
-        return ['Count' => phpversion()];
+        $VersionNumber = phpversion();
+        $Version = isset($Call['Versions'][$VersionNumber])? $Call['Versions'][$VersionNumber]: 'Untested';
+
+        return ['Count' => $VersionNumber, 'Status' => ('Stable' == $Version? 'success': 'warning')];
     });

@@ -14,29 +14,6 @@
         return $Call;
     });
 
-    setFn('Down', function ($Call)
-    {
-        setcookie('Magic', true);
-        $DownFile = Root.'/locks/down';
-
-        if (file_exists($DownFile))
-        {
-            if (unlink($DownFile))
-                $Call = F::Hook('Enable.Success', $Call);
-            else
-                $Call = F::Hook('Enable.Fail', $Call);
-        }
-        else
-        {
-            if (file_put_contents($DownFile, time().' '.print_r($Call['Session'], true)))
-                $Call = F::Hook('Disable.Success', $Call);
-            else
-                $Call = F::Hook('Disable.Fail', $Call);
-        }
-
-        return $Call;
-    });
-
     setFn('Menu', function ($Call)
     {
         if (isset($Call['Version']))

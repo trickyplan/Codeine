@@ -11,6 +11,14 @@
     {
         $Call['Developer'] = F::loadOptions('Developer');
 
+        if (isset($Call['Developer']['URL']))
+        {
+            $Developer = F::Run('IO', 'Read', ['Storage' => 'Web','Where' => ['ID' => $Call['Developer']['URL']]]);
+
+            if (isset($Developer[0]))
+                $Call['Developer'] = json_decode($Developer[0], true);
+        }
+
         if (isset($Call['Project']['License']))
             $Call['License'] = json_decode(F::Run('IO', 'Read', ['Storage' => 'Web', 'Where' => $Call['Developer']['URL'].'/licenses/'
     .$Call['Project']['License']])[0], true); // FIXME
@@ -37,7 +45,7 @@
                     [
                         'Type' => 'Block',
                         'Class' => 'alert alert-danger',
-                        'Value' => 'Лицензий нет.'
+                        'Value' => 'Поддержка не оказывается.'
                     ];
 
         return $Call;

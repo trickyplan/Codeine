@@ -4,21 +4,25 @@
     </div>
     <div class="panel-body">
         <if value="<call>Developer.Title</call>" neq="0">
-                <img class="img-rounded pull-right" src="<call>Developer.URL</call>/logo.png" />
-                <h2>
-                    <a href="<call>Developer.URL</call>"><call>Developer.URL</call></a>
-                </h2>
-                <a href="http://codeine-framework.ru">Сменить</a> &nbsp;
-                <a href="mailto:<call>Developer.EMail</call>">Написать</a> &nbsp;
-                <a href="tel:<call>Developer.Phone</call>">Позвонить</a> &nbsp;
+                <div class="row">
+                    <div class="col-lg-8">
+                        <h2>
+                            <a href="<call>Developer.URL</call>"><call>Developer.Title</call></a>
+                        </h2>
+                        <a href="mailto:<call>Developer.EMail</call>">Написать</a> &nbsp;
+                        <a href="tel:<call>Developer.Phone</call>">Позвонить</a> &nbsp;
+                    </div>
+                    <div class="col-lg-4">
+                        <img class="img img-responsive pull-right" src="<call>Developer.URL</call>/logo.png" />
+                    </div>
+                </div>
         </if>
 
-        <if value="<call>Developer.Title</call>" eq="0">
+        <if value="<call>Developer</call>" eq="">
             <div class="alert alert-warning">
                 Нет разработчика.
             </div>
         </if>
-        <a class="btn btn-default" href="http://codeine-framework.ru">Найти разработчика</a>
     </div>
 </div>
 

@@ -46,7 +46,8 @@
                     'ID' => $Bundle,
                     'URL' => '/control/'.$Bundle,
                     'Title' => '<l>'.$Bundle.'.Control:Title</l>',
-                    'Group' => $Group
+                    'Group' => $Group,
+                    'Status' => 'default'
                 ];
 
                 if (isset($Call['Icons'][$Bundle]))

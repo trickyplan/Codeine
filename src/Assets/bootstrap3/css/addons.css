@@ -231,3 +231,10 @@ a.no-border, .no-border a, a:hover.no-border, .no-border a:hover
 {
     width: 100%;
 }
+
+.tab-pane
+{
+    padding: 15px;
+    border: 1px solid #d7d7d7;
+    border-top: none;
+}
