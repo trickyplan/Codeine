@@ -6,6 +6,6 @@
     "Swarm":
     {
         "ID": "World",
-        "Bootstrap": "trickyplan.ru.local"
+        "Bootstrap": "trickyplan.ru"
     }
 }
