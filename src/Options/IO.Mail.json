@@ -1,0 +1,34 @@
+{
+    "Storages": {
+        "Developer": {
+            "Scope": "bergstein@trickyplan.ru",
+            "Driver": "IO.Transport.Mail.SMTP",
+            "Format": "Formats.Log.HTML"
+        },
+        "Profiler": {
+            "Scope": "bergstein@trickyplan.ru",
+            "Driver": "IO.Transport.Mail.SMTP",
+            "Format": "Formats.Log.HTML"
+        },
+        "Administrator": {
+            "Scope": "admin@trickyplan.ru",
+            "Driver": "IO.Transport.Mail.SMTP",
+            "Format": "Formats.Log.HTML"
+        },
+        "Security": {
+            "Scope": "security@trickyplan.ru",
+            "Driver": "IO.Transport.Mail.SMTP",
+            "Format": "Formats.Log.HTML"
+        },
+        "Marketing": {
+            "Scope": "marketing@trickyplan.ru",
+            "Driver": "IO.Transport.Mail.SMTP",
+            "Format": "Formats.Log.HTML"
+        },
+        "Manager": {
+            "Scope": "wehave@trickyplan.ru",
+            "Driver": "IO.Transport.Mail.SMTP",
+            "Format": "Formats.Log.RAW"
+        }
+    }
+}

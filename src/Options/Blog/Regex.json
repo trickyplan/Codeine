@@ -110,8 +110,7 @@
             },
             "Call":
             {
-                "Title": "Блог ONE2TEAM",
-                "Description": "Интересное о web-разработке",
+                "Title": "Блог",
                 "Entity": "Blog",
                 "Where":
                 {
