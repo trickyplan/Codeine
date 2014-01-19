@@ -9,7 +9,7 @@
 
     setFn('Process', function ($Call)
     {
-        $Call['Value'] = preg_replace('/\(r\)/', '&#174;', $Call['Value']);
+        $Call['Value'] = preg_replace('/\(r\)/', '®', $Call['Value']);
 
         return $Call;
      });

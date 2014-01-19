@@ -10,8 +10,8 @@
     setFn('Do', function ($Call)
     {
         if (isset($Call['View']['Debug']) && $Call['View']['Debug'])
-            $Call['Value'] = "\n"
-                .'<!-- '.$Call['Scope'].':'.$Call['ID'].' started -->'
+            $Call['Value'] =
+                '<!-- '.$Call['Scope'].':'.$Call['ID'].' started -->'
                 ."\n".$Call['Value']."\n"
                 .'<!-- '.$Call['Scope'].':'.$Call['ID'].' ended -->';
 

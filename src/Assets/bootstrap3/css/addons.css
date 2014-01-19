@@ -48,6 +48,11 @@
     text-transform: lowercase;
 }
 
+.label-tag:hover
+{
+    background-color: #333333;
+}
+
 .label-lg
 {
     font-size: 100% !important;

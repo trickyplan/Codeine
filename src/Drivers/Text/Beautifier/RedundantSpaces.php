@@ -9,7 +9,6 @@
 
     setFn('Process', function ($Call)
     {
-        $Call['Value'] = preg_replace('/\s+/', ' ', $Call['Value']);
-
+        $Call['Value'] = preg_replace('/\s{2,}/', ' ', $Call['Value']);
         return $Call;
      });

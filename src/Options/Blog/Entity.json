@@ -18,6 +18,17 @@
     },
     "Nodes":
     {
+        "Subtitle":
+        {
+            "Type": "Literal.String",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        },
         "Source":
         {
             "Type": "Literal.String",

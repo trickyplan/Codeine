@@ -7,10 +7,10 @@
      * @version 7.x
      */
 
-    setFn('Process', function ($Call)
+    setFn('Do', function ($Call)
     {
         foreach ($Call['Beautifiers'] as $Rule)
             $Call = F::Apply('Text.Beautifier.'.$Rule, 'Process', $Call);
 
-        return $Call['Value'];
+        return html_entity_decode($Call['Value']);
     });

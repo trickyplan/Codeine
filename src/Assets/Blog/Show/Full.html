@@ -7,45 +7,29 @@
 <h1 class="page-header">
     <k>Title</k>
 </h1>
-<div class="row">
-    <div class="col-lg-4">
-        <ul class="nav nav-stacked">
-            <exec>
-                <Service>Entity.List</Service>
-                <Method>Do</Method>
-                <Call>
-                    <Template>Line</Template>
-                    <Entity><call>Entity</call></Entity>
-                    <Where>
-                        <Tags><k>Tags</k></Tags>
-                    </Where>
-                    <NoPage>true</NoPage>
-                    <Sort>
-                        <ID>1</ID>
-                    </Sort>
-                </Call>
-            </exec>
-        </ul>
-    </div>
-    <div class="col-lg-8">
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <k>Body</k>
-            </div>
-            <div class="panel-body">
-                <block>
-                    <a rel="tag" class="label label-tag" href="/blogs/tag/<k>Tags</k>"><k>Tags</k></a>
-                </block>
-            </div>
-            <div class="panel-footer">
-                <a href="/blog/author/<k>User</k>"><far>User:<k>User</k>:Title</far></a>
-                <div class="pull-right">
-                    <abbr title="<datetime engine="Period"><k>Created</k></datetime>">
-                        <datetime><k>Created</k></datetime>
-                    </abbr>
-                </div>
-            </div>
+<block>
+    <h2 class="page-header">
+        <k>Subtitle</k>
+    </h2>
+</block>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="readable">
+            <k>Body</k>
         </div>
     </div>
-
+    <div class="panel-body">
+        <block>
+            <a rel="tag" class="label label-tag" href="/blogs/tag/<k>Tags</k>"><k>Tags</k></a>
+        </block>
+    </div>
+    <div class="panel-footer">
+        <div class="pull-right">
+            <abbr title="<datetime engine="Period"><k>Created</k></datetime>">
+                <datetime><k>Created</k></datetime>
+            </abbr>
+        </div>
+        <a href="/blog/author/<k>User</k>"><far>User:<k>User</k>:Title</far></a>
+        <div class="clearfix"></div>
+    </div>
 </div>
