@@ -19,5 +19,5 @@
 
     setFn('Populate', function ($Call)
     {
-        return rand().'@one2team.ru';
+        return rand().'@codeine-framework.ru';
     });

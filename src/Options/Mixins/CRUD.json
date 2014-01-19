@@ -31,10 +31,14 @@
         },
         "afterUpdatePost":
         {
-            "Restore URL":
+            "Redirect URL":
             {
                 "Service": "System.Interface.Web",
-                "Method": "RestoreURL"
+                "Method": "Redirect",
+                "Call":
+                {
+                    "Location": "/$entity/$Data.0.ID"
+                }
             }
         },
         "beforeDeleteGet":

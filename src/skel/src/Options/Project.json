@@ -21,13 +21,13 @@
     "Copyright":
     {
         "License": "",
-        "Holder": "ONE2TEAM",
-        "EMail": "mail@one2team.ru",
+        "Holder": "Проект",
+        "EMail": "mail@project-name.ru",
         "Year": 2013
     },
     "Hosts":
     {
-        "Development":"project.local",
-        "Production": "project.ru"
+        "Development":"project-name.local",
+        "Production": "project-name.ru"
     }
 }

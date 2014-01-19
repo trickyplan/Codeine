@@ -9,8 +9,8 @@
 
     setFn('Process', function ($Call)
     {
-        if (preg_match_all('@a href="http(s?)://(.*)"@SsUu',$Call['Output'], $Links))
-            foreach ($Links[2] as $IX => $Link)
+        if (preg_match_all('@a href="https?://(.*)"@SsUu',$Call['Output'], $Links))
+            foreach ($Links[1] as $IX => $Link)
                 if (!in_array($Link, $Call['No Remote']['Excluded'])
                 &&
                 !in_array($Link, $Call['Project']['Hosts']))
