@@ -1,6 +1,7 @@
 {
     "Mixins": [
         "Mixins.SEO",
+        "Mixins.Titled",
         "Mixins.Text",
         "Mixins.Priority",
         "Mixins.ID.Sequence"
@@ -9,29 +10,6 @@
     "EPP": 20,
     "Nodes":
     {
-        "Title":
-        {
-            "Type": "Literal.String",
-            "Weight": 100,
-            "Widgets":
-            {
-                "Write":
-                {
-                    "Type": "Form.Textfield"
-                }
-            }
-        },
-        "Body":
-        {
-            "Type": "Literal.HTML",
-            "Widgets":
-            {
-                "Write":
-                {
-                    "Type": "Form.WYSIWYG"
-                }
-            }
-        },
         "Menu":
         {
             "Type": "Boolean",
