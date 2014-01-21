@@ -42,9 +42,6 @@
             break;
         }
 
-        if ($Verbose < 5)
-            self::$_Profile = true;
-
         F::Log('Latency level is *'.$Decision.'*, because total page time *'.$Total.'* ms', $Verbose, 'Profiler');
 
         $Call = F::Hook('Latency.Audit.'.$Decision, $Call);

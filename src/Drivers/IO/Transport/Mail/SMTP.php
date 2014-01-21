@@ -44,13 +44,7 @@
         $mime->setParam('head_charset', 'utf-8');
 
         if (is_array($Call['Data']))
-        {
-            foreach ($Call['Data'] as &$Row)
-                $Row = implode("\t", $Row);
-
-            $Call['Data'] = '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
-<html><body>'.implode(PHP_EOL, $Call['Data']).'</body></html>';
-        }
+            $Call['Data'] = implode(PHP_EOL, $Call['Data']);
 
         if (isset($Call['HTML Mail']) && $Call['HTML Mail'])
         {

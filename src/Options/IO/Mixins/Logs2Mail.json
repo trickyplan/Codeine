@@ -8,7 +8,8 @@
         "Profiler":
         {
             "Scope": "profiler@trickyplan.ru",
-            "Driver": "IO.Transport.Mail.SMTP"
+            "Driver": "IO.Transport.Mail.SMTP",
+            "Format": "Formats.Log.RAW"
         },
         "Administrator": {
             "Scope": "administrator@trickyplan.ru",

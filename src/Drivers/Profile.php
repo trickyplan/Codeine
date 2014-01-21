@@ -21,17 +21,12 @@
             'Internal storage: '.count(self::$_Storage)
         ];
 
-        F::Run('IO', 'Write', $Call,
-                [
-                    'Storage' => 'Profiler',
-                    'ID' => 'Profile: '.$Call['HTTP']['Host'].$Call['HTTP']['URL'],
-                    'Data' =>
-                    '<div class="alert alert-info">'.implode("\n", $Stats).'</div>'.
-                    F::Run('Formats.Profile.'.$Call['Profile Format'], 'Do', $Call,
+        F::Log(implode("\n", $Stats) , LOG_WARNING, 'Profiler');
+        F::Log(
+            F::Run('Formats.Profile.'.$Call['Profile Format'], 'Do', $Call,
                     [
                         'Data' => self::$_Counters
-                    ])
+                    ]), LOG_WARNING, 'Profiler');
 
-                ]);
         return $Call;
     });

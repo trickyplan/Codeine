@@ -35,7 +35,7 @@
         private static $_Memory= 0;
 
         private static $_Profile = false;  // Internal Profiler
-        private static $_Debug = false;  // Internal Profiler
+        private static $_Debug = false;  // Internal Debugger
         private static $_Verbose;
 
         private static $_Stack;
@@ -230,7 +230,7 @@
                         }
 
                         if (isset($Current['Mixins']) && is_array($Current['Mixins']))
-                            foreach($Current['Mixins'] as &$Mixin)
+                            foreach($Current['Mixins'] as $Mixin)
                                 $Current = F::Merge(F::loadOptions($Mixin), $Current);
 
                         $Options = self::Merge($Options, $Current);
