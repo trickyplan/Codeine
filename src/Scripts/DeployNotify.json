@@ -6,8 +6,8 @@
         "Call":
         {
             "Storage": "Developer",
-            "ID": "Project «$Project.Title» deployed on $Environment»",
-            "Data": "Project version: $Version.Project.Major $Version.Project.Minor"
+            "ID": "Project deployed on $Environment»",
+            "Data": ["Project version: $Version.Project.Major $Version.Project.Minor"]
         }
     }
 }
