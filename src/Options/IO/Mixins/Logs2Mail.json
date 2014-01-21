@@ -1,17 +1,17 @@
 {
     "Storages": {
         "Developer": {
-            "Scope": "bergstein@trickyplan.ru",
+            "Scope": "developer@trickyplan.ru",
             "Driver": "IO.Transport.Mail.SMTP",
             "Format": "Formats.Log.HTML"
         },
-        "Profiler": {
-            "Scope": "bergstein@trickyplan.ru",
-            "Driver": "IO.Transport.Mail.SMTP",
-            "Format": "Formats.Log.HTML"
+        "Profiler":
+        {
+            "Scope": "profiler@trickyplan.ru",
+            "Driver": "IO.Transport.Mail.SMTP"
         },
         "Administrator": {
-            "Scope": "admin@trickyplan.ru",
+            "Scope": "administrator@trickyplan.ru",
             "Driver": "IO.Transport.Mail.SMTP",
             "Format": "Formats.Log.HTML"
         },

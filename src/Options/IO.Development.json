@@ -23,10 +23,8 @@
         },
         "Marketing":
         {
-            "Driver":"IO.Log.File",
-            "Directory":"/var/log/codeine",
-            "Scope": "marketing",
-            "Format": "Formats.Log.Plain"
+            "Driver": "IO.Log.Print",
+            "Format": "Formats.Log.HTML"
         },
         "Layout":
         {
