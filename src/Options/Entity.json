@@ -53,6 +53,11 @@
                 "Service":"Entity.Hooks.Strict",
                 "Method":"Process"
             },
+            "Nullable":
+            {
+                "Service":"Entity.Hooks.Nullable",
+                "Method":"Process"
+            },
             "Updated":
             {
                 "Service":"Entity.Hooks.Updated",
@@ -97,11 +102,6 @@
         },
         "beforeEntityUpdate":
         {
-            "Nullable":
-            {
-                "Service":"Entity.Hooks.Nullable",
-                "Method":"Process"
-            },
             "Datatypes":
             {
                 "Service":"Entity.Hooks.Type",

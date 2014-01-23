@@ -9,7 +9,7 @@
 
     setFn('Do', function ($Call)
     {
-        F::Run('Entity', 'Create', $Call,
+        F::Run('Entity', 'Create',
             [
                 'Entity' => 'Notify',
                 'Data!' => F::Live($Call['Notify'], $Call),

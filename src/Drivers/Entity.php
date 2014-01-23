@@ -133,7 +133,7 @@
 
         $Call = F::Hook('beforeOperation', $Call);
 
-        $Current = F::Run('Entity', 'Read', $Call, ['One' => false]);
+        $Current = F::Run('Entity', 'Read', $Call, ['One' => false, 'Time' => microtime(true)]);
 
         $Call['Updates'] = $Call['Data'];
 

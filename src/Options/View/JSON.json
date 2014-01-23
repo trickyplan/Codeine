@@ -9,7 +9,7 @@
     "Extension": ".json",
     "Hooks":
     {
-        "afterJSONRender":
+        "beforeJSONRender":
         {
             "Parslets":
             {

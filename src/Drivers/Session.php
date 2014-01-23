@@ -9,9 +9,10 @@
 
     setFn('Initialize', function ($Call)
     {
+        $Call['SID'] = F::Run('Session.Marker.Cookie', 'Read', $Call);
+
         $Call = F::Hook('beforeSessionInitialize', $Call);
 
-        $Call['SID'] = F::Run('Session.Marker.Cookie', 'Read', $Call);
         // Маркера нет — пользователь чистый гость
         if (null === $Call['SID'])
         {
@@ -28,59 +29,66 @@
                 [
                     'Entity' => 'Session',
                     'Where' => $Call['SID'],
+                    'Time' => rand(),
+                    'One' => true
+                ]);
+
+                if ($Call['Session'] !== null)
+                {
+                    F::Log('Session: Channel *'.$Call['Session']['Channel'].'*', LOG_INFO, 'Security');
+                /*
+                    if (isset($Call['Session']['User']['Locale']))
+                    {
+                        $Call['Locale'] = $Call['Session']['User']['Locale'];
+                        F::Log('User Locale selected: '.$Call['Session']['User']['Locale'], LOG_INFO);
+                    }*/
+                }
+                else
+                    $Call['Session'] = [];
+        }
+
+        $Call = F::Hook('afterSessionInitialize', $Call);
+
+        $Call = F::Run(null, 'Load User', $Call);
+
+        F::Log($Call['Session'], LOG_INFO, 'Security');
+
+        return $Call;
+    });
+
+    setFn('Load User', function ($Call)
+    {
+        if (isset($Call['Session']['Secondary']) && $Call['Session']['Secondary'] != 0)
+        {
+            $Call['Session']['Primary'] = F::Run('Entity', 'Read', $Call,
+                [
+                    'Entity' => 'User',
+                    'Where' => $Call['Session']['User'],
                     'Time' => microtime(true),
                     'One' => true
                 ]);
 
-            if ($Call['Session'] !== null)
-            {
-                F::Log('Session: Channel *'.$Call['Session']['Channel'].'*', LOG_INFO, 'Security');
-                if (isset($Call['Session']['Secondary']) && $Call['Session']['Secondary'] != 0)
-                {
-                    $Call['Session']['Primary'] = F::Run('Entity', 'Read', $Call,
-                        [
-                            'Entity' => 'User',
-                            'Where' => $Call['Session']['User'],
-                            'Time' => microtime(true),
-                            'One' => true
-                        ]);
+            $Call['Session']['User'] = F::Run('Entity', 'Read', $Call,
+                [
+                    'Entity' => 'User',
+                    'Where' => $Call['Session']['Secondary'],
+                    'Time' => microtime(true),
+                    'One' => true
+                ]);
 
-                    $Call['Session']['User'] = F::Run('Entity', 'Read', $Call,
-                        [
-                            'Entity' => 'User',
-                            'Where' => $Call['Session']['Secondary'],
-                            'Time' => microtime(true),
-                            'One' => true
-                        ]);
-
-                    F::Log('Session: Secondary user '.$Call['Session']['User']['ID'].' authenticated', LOG_INFO, 'Security');
-                }
-                elseif (isset($Call['Session']['User']) && $Call['Session']['User'] != 0)
-                {
-                    $Call['Session']['User'] = F::Run('Entity', 'Read',
-                        [
-                            'Entity' => 'User',
-                            'Where' => $Call['Session']['User'],
-                            'One' => true
-                        ]);
-
-                    F::Log('Session: Primary user '.$Call['Session']['User']['ID'].' authenticated', LOG_INFO, 'Security');
-                }
-/*
-                if (isset($Call['Session']['User']['Locale']))
-                {
-                    $Call['Locale'] = $Call['Session']['User']['Locale'];
-                    F::Log('User Locale selected: '.$Call['Session']['User']['Locale'], LOG_INFO);
-                }*/
-            }
-            else
-                $Call['Session'] = [];
+            F::Log('Session: Secondary user '.$Call['Session']['User']['ID'].' authenticated', LOG_INFO, 'Security');
         }
+        elseif (isset($Call['Session']['User']) && $Call['Session']['User'] != 0)
+        {
+            $Call['Session']['User'] = F::Run('Entity', 'Read',
+                [
+                    'Entity' => 'User',
+                    'Where' => $Call['Session']['User'],
+                    'One' => true
+                ]);
 
-        F::Log($Call['Session'], LOG_INFO, 'Security');
-
-        $Call = F::Hook('afterSessionInitialize', $Call);
-
+            F::Log('Session: Primary user '.$Call['Session']['User']['ID'].' authenticated', LOG_INFO, 'Security');
+        }
         return $Call;
     });
 
@@ -111,6 +119,7 @@
 
             F::Log('Session updated '.$Call['SID'], LOG_INFO, 'Security');
         }
+
         return $Call;
     });
 

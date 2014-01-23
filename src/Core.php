@@ -458,10 +458,11 @@
             {
                 $Logs = F::Logs();
 
-                echo '<h2>Perfect Mode</h2>
-                '.$errno.' '.$errstr.' '.$errfile.'@'.$errline.'<pre>';
+                echo '<h2>Perfect Mode</h2>';
+                echo '<pre>'.self::Stack().'</pre>'.PHP_EOL;
+                echo $errno.' '.$errstr.' '.$errfile.'@'.$errline.'<pre>';
 
-                self::Stack();
+
 
                 foreach ($Logs as $Channel => $Records)
                     foreach ($Records as $Log)

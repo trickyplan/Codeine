@@ -8,5 +8,16 @@
         {
             "Mode": "Secure+"
         }
+    },
+    "Hooks":
+    {
+        "afterSessionInitialize":
+        {
+            "Check API key presents":
+            {
+                "Service": "Session.Hooks.API",
+                "Method": "afterSessionInitialize"
+            }
+        }
     }
 }

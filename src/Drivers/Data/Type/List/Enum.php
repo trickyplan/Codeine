@@ -9,9 +9,7 @@
 
     setFn ('Write', function ($Call)
     {
-        $Call['Node']['Options'] = F::Live($Call['Node']['Options']);
-
-        return array_search($Call['Value'], $Call['Node']['Options']);
+        return array_search($Call['Value'], F::Live($Call['Node']['Options']));
     });
 
     setFn('Read', function ($Call)

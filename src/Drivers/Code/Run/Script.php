@@ -15,7 +15,7 @@
         $VCall['Environment'] = F::Environment();
 
         foreach ($Script as $Run)
-            F::Live($Run, $VCall);
+            $VCall = F::Live($Run, $VCall);
 
-        return $Call;
+        return $VCall;
     });

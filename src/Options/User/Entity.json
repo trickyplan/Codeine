@@ -147,6 +147,22 @@
                 }
             }
         },
+        "APIKey":
+        {
+            "Type": "Literal.String",
+            "Hooks":
+            {
+                "beforeEntityWrite":
+                {
+                    "Service": "Security.UID",
+                    "Method": "Get",
+                    "Call":
+                    {
+                        "Mode": "Secure+"
+                    }
+                }
+            }
+        },
         "Avatar":
         {
             "Hooks":

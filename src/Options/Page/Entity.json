@@ -73,7 +73,7 @@
                 "Method": "Redirect",
                 "Call":
                 {
-                    "Location": "/$Data.Slug"
+                    "Location": "/$Data.0.Slug"
                 }
             }
         },
