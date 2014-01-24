@@ -10,12 +10,11 @@
     setFn('Code2Name', function ($Call)
     {
         $InternalCode = F::Run('Code.Run.SOAP', 'Run',
-         [
-             'Cache'   => 86400,
-             'Service' => $Call['CBR']['WSDL']['Credit'],
-             'Method' => 'BicToIntCode',
-             'Call' => ['BicCode' => $Call['Value']]
-         ])['BicToIntCodeResult'];
+          [
+              'Service' => $Call['CBR']['WSDL']['Credit'],
+              'Method' => 'BicToIntCode',
+              'Call' => ['BicCode' => '042202824']
+          ])['BicToIntCodeResult'];
 
         $Info = simplexml_load_string(F::Run('Code.Run.SOAP', 'Run',
          [

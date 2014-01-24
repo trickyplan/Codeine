@@ -3,8 +3,8 @@
     {
         "WSDL":
         {
-            "Credit": "http://212.40.192.49/CreditInfoWebServ/CreditOrgInfo.asmx?WSDL",
-            "Rates": "http://212.40.192.49/DailyInfoWebServ/DailyInfo.asmx?WSDL"
+            "Credit": "http://cbr.ru/CreditInfoWebServ/CreditOrgInfo.asmx?WSDL",
+            "Rates": "http://cbr.ru/DailyInfoWebServ/DailyInfo.asmx?WSDL"
         }
     }
 }

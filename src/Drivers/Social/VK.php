@@ -55,11 +55,16 @@
         if (isset($Call['Data']['VK']['Auth']) && !empty($Call['Data']['VK']['Auth']))
             $Call['Call']['access_token'] = $Call['Data']['VK']['Auth'];
 
+        if (isset($Call['Call']))
+            $Query = http_build_query($Call['Call']);
+        else
+            $Query = '';
+
         $Result = json_decode(F::Run('IO', 'Read',
                [
                    'Storage' => 'Web',
                    'Where' =>
-                   $Call['VK']['Entry Point'].'/'.$Call['Method'].'?'.http_build_query($Call['Call'])
+                   $Call['VK']['Entry Point'].'/'.$Call['Method'].'?'.$Query
                ])[0], true);
 
         if (isset($Result['response']))
