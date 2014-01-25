@@ -9,46 +9,47 @@
 
     setFn('Verify', function ($Call)
     {
-        $Call['Data']['Code'] = F::Run('Security.UID', 'Get');
+        foreach ($Call['Data'] as $Data)
+        {
+            $Data['Code'] = F::Run('Security.UID', 'Get');
 
-        F::Run('IO', 'Write',
-            [
-                 'Storage' => 'Primary',
-                 'Scope' => 'Activation',
-                 'Data' =>
-                 [
-                     'ID' => (int) $Call['Data']['Code'],
-                     'User' => $Call['Data']['ID']
-                 ]
-            ]);
+            F::Run('IO', 'Write',
+                [
+                     'Storage' => 'Primary',
+                     'Scope' => 'Activation',
+                     'Data' =>
+                     [
+                         'ID' => (int) $Data['Code'],
+                         'User' => $Data['ID']
+                     ]
+                ]);
 
-        $VCall = $Call;
+            $VCall = $Call;
 
-        $VCall['Layouts'] =
-            [[
-                'Scope' => 'Project',
-                'ID'    => 'Zone',
-                'Context' => 'mail'
-            ]];
+            $VCall['Layouts'] =
+                [[
+                    'Scope' => 'Project',
+                    'ID'    => 'Zone',
+                    'Context' => 'mail'
+                ]];
 
-        $VCall['Output']['Content'] =
-            [[
-                'Type'  => 'Template',
-                'Scope' => 'User/Activation',
-                'ID'    => 'EMail',
-                'Data'  => $Call['Data']
-            ]];
+            $VCall['Output']['Content'] =
+                [[
+                    'Type'  => 'Template',
+                    'Scope' => 'User/Activation',
+                    'ID'    => 'EMail',
+                    'Data'  => $Data
+                ]];
 
-        $VCall = F::Run('View', 'Render', $VCall, ['Context' => 'mail']);
+            $VCall = F::Run('View', 'Render', $VCall, ['Context' => 'mail']);
 
-        F::Run('IO', 'Write', $VCall, [
-            'Storage' => 'EMail',
-            'ID' => 'Активация аккаунта',
-            'Scope' => $Call['Data']['EMail'],
-            'Data' => $VCall['Output']]
-        );
-
-        return $Call['Data']['EMail'];
+            F::Run('IO', 'Write', $VCall, [
+                'Storage' => 'EMail',
+                'ID' => 'Активация аккаунта',
+                'Scope' => $Data['EMail'],
+                'Data' => $VCall['Output']]
+            );
+        }
     });
 
     setFn('Check', function ($Call)

@@ -47,7 +47,7 @@
             },
             "Hooks":
             {
-                "afterEntityCreate":
+                "afterCreatePost":
                 {
                     "Service": "User.EMail",
                     "Method": "Verify"

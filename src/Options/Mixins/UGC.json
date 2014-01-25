@@ -29,7 +29,7 @@
             "Type": "Numeral.Integer",
             "Hooks":
             {
-                "beforeUpdatePost":
+                "BeforeEntityWrite":
                 {
                     "Service": "System.Time",
                     "Method": "Get"
