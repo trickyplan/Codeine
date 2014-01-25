@@ -46,8 +46,7 @@
                 $Hellip = $Call['Hellip'];
 
             if ($Root->attributes()->more)
-                $Hellip = '<a class="hellip" href="'.((string) $Root->attributes()->more).'">'.$Hellip.'</a>';
-
+                $Hellip = '<a href="'.((string) $Root->attributes()->more).'" class="hellip">'.$Hellip.'</a>';
 
             if (strlen($Outer) < strlen($Inner))
                 $Outer.= $Hellip;

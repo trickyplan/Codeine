@@ -30,7 +30,6 @@
         "Company.Title":
         {
             "Type": "Literal.String",
-            "Required": true,
             "Widgets":
             {
                 "Write":
