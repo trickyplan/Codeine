@@ -6,6 +6,14 @@
             "Type": "Numeral.Integer",
             "Default": 0,
             "User Override": true,
+            "Scope": "Control",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Entity"
+                }
+            },
             "Hooks":
             {
                 "beforeEntityCreate": "$Session.User.ID"

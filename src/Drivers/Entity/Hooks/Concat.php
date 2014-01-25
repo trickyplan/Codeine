@@ -9,10 +9,11 @@
 
     setFn('Do', function ($Call)
     {
-        $Output = '';
+        $Output = [];
 
         foreach ($Call['Keys'] as $Key)
-            $Output[] = $Call['Data'][$Key];
+            if (isset($Call['Data'][$Key]))
+                $Output[] = $Call['Data'][$Key];
 
         $Output = implode($Call['Glue'], $Output);
 

@@ -39,14 +39,19 @@
         {
             $Provider = parse_url($Response['provider'], PHP_URL_HOST);
 
+            if (isset($Response['name']['full_name']))
+                $Title = $Response['name']['full_name'];
+            elseif (isset($Response['name']['first_name']) && isset($Response['name']['last_name']))
+                $Title = $Response['name']['first_name'].' '.$Response['name']['last_name'];
+            else
+                $Title = $Response['identity'];
+
             $UserData = [
                         'External' => $Provider,
                         'EMail' => $Response['identity'],
                         'Status' => 1,
                         'Password' => sha1(rand()),
-                        'Title' => isset($Response['name']['full_name'])
-                                ? $Response['name']['full_name']
-                                : $Response['name']['first_name'].' '.$Response['name']['last_name']];
+                        'Title' => $Title];
             // FIXME
 
             foreach ($Call['Loginza']['Map'] as $Own => $Their)
@@ -85,8 +90,8 @@
                     $Call['User'] = F::Run('Entity','Create',
                         [
                             'Entity' => 'User',
-                            'One'    => true,
-                            'Data'   => $UserData
+                            'Data'   => $UserData,
+                            'One'    => true
                         ]);
 
                     F::Log('User registered '.$Call['User']['ID'], LOG_INFO, 'Security');
@@ -112,7 +117,7 @@
                     'ID' => 'Failed'
                 ];
 
-            F::Log('Loginza failed '.$Call['User']['ID'], LOG_ERR, 'Security');
+            F::Log('Loginza failed ', LOG_ERR, 'Security');
         }
 
         return $Call;
