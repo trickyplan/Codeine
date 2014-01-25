@@ -16,13 +16,5 @@
             'One'    => true
         ]);
 
-        $Call['Output']['Content'][] =
-        [
-            'Type'  => 'Template',
-            'Scope' => 'Payment',
-            'ID'    => 'Russia/Wire',
-            'Data'  => $Call['Data']
-        ];
-
         return $Call;
     });

@@ -13,7 +13,7 @@
         [
             'Data' =>
             [
-                'Balance' => $Call['Data']['Costs']
+                'Balance' => $Call['Payment']['Value']
             ]
         ]);
         return $Call;

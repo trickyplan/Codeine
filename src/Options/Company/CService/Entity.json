@@ -17,17 +17,6 @@
     "Storage": "Primary",
     "Nodes":
     {
-        "Target":
-        {
-            "Type": "Literal.Text",
-            "Widgets":
-            {
-                "Write":
-                {
-                    "Type": "Form.Textfield"
-                }
-            }
-        },
         "Tagline":
         {
             "Type": "Literal.String",

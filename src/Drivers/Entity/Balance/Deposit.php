@@ -11,6 +11,9 @@
     {
         $Call = F::Hook('beforeDepositDo', $Call);
 
+        if (isset($Call['Request']['Payment']))
+            $Call['Payment'] = $Call['Request']['Payment'];
+
             $Call['Data'] = F::Run('Entity', 'Read', $Call, ['One' => true]);
             $Call = F::Run(null, $Call['HTTP']['Method'], $Call);
 
@@ -22,6 +25,9 @@
     setFn('GET', function ($Call)
     {
         $Call = F::Hook('beforeDepositGet', $Call);
+
+        if (!isset($Call['Data']['Costs']))
+            $Call['Data']['Costs'] = 0;
 
         $Call['Layouts'][] =
             [
@@ -63,7 +69,17 @@
         $Call = F::Hook('beforeDepositPost', $Call);
 
         if (in_array($Call['Request']['Payment']['Method'], $Call['Deposit Methods']))
+        {
             $Call = F::Apply('Payment.'.$Call['Request']['Payment']['Method'], 'Do', $Call);
+
+            $Call['Output']['Content'][] =
+            [
+                'Type'  => 'Template',
+                'Scope' => 'Payment',
+                'ID'    => strtr($Call['Request']['Payment']['Method'], '.', '/'),
+                'Data'  => $Call['Data']
+            ];
+        }
 
         $Call = F::Hook('afterDepositPost', $Call);
 
