@@ -20,7 +20,7 @@
         expires           max;
     }
 
-    location ~* \.(jpg|jpeg|gif|css|png|js|ico|html|woff|ttf)$
+    location ~* \.(jpg|jpeg|gif|css|png|js|ico|woff|ttf)$
 	{
 		access_log        off;
 		expires           max;
