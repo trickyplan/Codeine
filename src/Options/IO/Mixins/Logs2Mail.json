@@ -1,5 +1,6 @@
 {
-    "Storages": {
+    "Storages":
+    {
         "Developer": {
             "Scope": "developer@trickyplan.com",
             "Driver": "IO.Transport.Mail.SMTP",
@@ -25,11 +26,6 @@
             "Scope": "marketing@trickyplan.com",
             "Driver": "IO.Transport.Mail.SMTP",
             "Format": "Formats.Log.HTML"
-        },
-        "Manager": {
-            "Scope": "wehave@trickyplan.com",
-            "Driver": "IO.Transport.Mail.SMTP",
-            "Format": "Formats.Log.RAW"
         }
     }
 }
