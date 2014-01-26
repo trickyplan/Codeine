@@ -33,6 +33,9 @@
         $XML->writeElement('pubDate', date(DATE_RSS, time()));
         $XML->writeElement('lastBuildDate', date(DATE_RSS, time()));
 
+        if (!isset($Call['Slug']))
+            $Call['Slug'] = strtolower($Call['Entity']);
+
         foreach ($Call['Output']['Content'] as $Element)
             if ($Element['Type'] == 'Template' && isset($Element['Data']))
             {
@@ -55,7 +58,7 @@
 
                     $XML->startElement('link');
                         $XML->text($Call['HTTP']['Proto'].$Call['HTTP']['Host']
-                            .'/'.strtolower($Element['Scope']).'/'.$Element['Data']['Slug']); // FIXME It's shit!
+                            .'/'.$Call['Slug'].'/'.$Element['Data']['Slug']); // FIXME It's shit!
                     $XML->endElement(); // title
 
                 $XML->endElement(); // item
