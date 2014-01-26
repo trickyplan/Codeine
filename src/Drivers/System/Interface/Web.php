@@ -92,6 +92,7 @@
 
         $Call['HTTP']['Headers']['HTTP/1.1'] = ' 301 Moved Permanently';
         $Call['HTTP']['Headers']['Location:'] = $URL;
+        $Call['HTTP']['Headers']['Cache-Control:'] = 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0';
 
         F::Log('Redirected to '.$URL, LOG_INFO);
 
@@ -110,7 +111,7 @@
 
         $Call['HTTP']['Headers']['HTTP/1.1'] = ' 301 Moved Permanently';
         $Call['HTTP']['Headers']['Location:'] = 'http://'.$URL;
-        $Call['HTTP']['Headers']['Cache-Control:'] = ' no-store, no-cache, must-revalidate, post-check=0, pre-check=0';
+        $Call['HTTP']['Headers']['Cache-Control:'] = 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0';
 
         F::Log('Redirected to '.$URL, LOG_INFO);
 
