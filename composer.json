@@ -8,13 +8,13 @@
     "authors": [
         {
             "name": "Dmitry Bergstein",
-            "email": "bergstein@trickyplan.ru",
+            "email": "bergstein@trickyplan.com",
             "homepage": "http://trickyplan.ru",
             "role": "Developer"
         }
     ],
     "support": {
-        "email": "support@trickyplan.ru",
+        "email": "support@trickyplan.com",
         "issues": "http://task.trickyplan.ru/projects/codeine/issues",
         "wiki": "http://task.trickyplan.ru/projects/codeine/wiki"
     },
