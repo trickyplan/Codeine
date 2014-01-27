@@ -1,21 +1,21 @@
-<subtitle><l>Blog.Entity:Tag</l>: <call>Where.Tags</call></subtitle>
+<subtitle><l>Blog.Entity:Category</l>: <call>Where.Tags</call></subtitle>
 <breadcrumb href="/blogs/tag/<call>Where.Tag</call>"><call>Where.Tags</call></breadcrumb>
 <description>Записи в блоге по тегу «<call>Where.Tags</call>»</description>
 
 <h1 class="page-header"><header/></h1>
 
 <div class="row">
-    <div class="col-lg-8">
-        <place>Content</place>
-    </div>
-    <div class="col-lg-4">
+    <div class="col-lg-3">
         <exec>
             <Service>Entity.Catalog</Service>
             <Method>Do</Method>
             <Call>
                 <Entity>Blog</Entity>
-                <Key>Tags</Key>
+                <Key>Category</Key>
             </Call>
         </exec>
+    </div>
+    <div class="col-lg-9">
+        <place>Content</place>
     </div>
 </div>
