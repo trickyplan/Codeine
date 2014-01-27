@@ -6,9 +6,9 @@
             "Driver": "IO.Transport.Mail.SMTP",
             "Format": "Formats.Log.HTML"
         },
-        "Profiler":
+        "Perfomance":
         {
-            "Scope": "profiler@trickyplan.com",
+            "Scope": "perfomance@trickyplan.com",
             "Driver": "IO.Transport.Mail.SMTP",
             "Format": "Formats.Log.RAW"
         },

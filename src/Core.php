@@ -34,7 +34,7 @@
         private static $_Live = false;
         private static $_Memory= 0;
 
-        private static $_Profile = false;  // Internal Profiler
+        private static $_Profile = false;  // Internal Perfomance
         private static $_Debug = false;  // Internal Debugger
         private static $_Verbose;
 

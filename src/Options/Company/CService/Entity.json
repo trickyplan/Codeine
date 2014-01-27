@@ -42,20 +42,6 @@
                 }
             }
         },
-        "Soon":
-        {
-            "Type": "Boolean",
-            "Default": false,
-            "Nullable": true,
-            "Widgets":
-            {
-                "Write":
-                {
-                    "Type": "Form.Checkbox",
-                    "TrueValue": true
-                }
-            }
-        },
         "Partner":
         {
             "Type": "Boolean",

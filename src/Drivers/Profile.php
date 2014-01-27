@@ -21,12 +21,12 @@
             'Internal storage: '.count(self::$_Storage)
         ];
 
-        F::Log(implode("\n", $Stats) , LOG_WARNING, 'Profiler');
+        F::Log(implode("\n", $Stats) , LOG_WARNING, 'Perfomance');
         F::Log(
             F::Run('Formats.Profile.'.$Call['Profile Format'], 'Do', $Call,
                     [
                         'Data' => self::$_Counters
-                    ]), LOG_WARNING, 'Profiler');
+                    ]), LOG_WARNING, 'Perfomance');
 
         return $Call;
     });

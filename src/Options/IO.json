@@ -122,11 +122,11 @@
             "Scope": "developer",
             "Format": "Formats.Log.Plain"
         },
-        "Profiler":
+        "Perfomance":
         {
             "Driver":"IO.Log.File",
             "Directory":"/var/log/codeine",
-            "Scope": "profiler",
+            "Scope": "perfomance",
             "Format": "Formats.Log.RAW"
         },
         "Security":
