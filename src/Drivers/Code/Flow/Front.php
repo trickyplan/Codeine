@@ -34,8 +34,6 @@
                     if (isset($Call['Call']))
                         F::Log($Call['Call'], LOG_INFO);
 
-                    $Call['Environment'] = F::Environment();
-
                     $Call = F::Live($Call['Run'], $Call);
                 }
             }
