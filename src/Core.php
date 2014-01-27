@@ -510,8 +510,6 @@
 
                 $Time = date(DATE_RFC850).' ';
 
-                $Message = self::$_Service.':'.self::$_Method.' '.$Message;
-
                 if (PHP_SAPI == 'cli')
                 {
                     switch ($Verbose)
@@ -560,7 +558,7 @@
                         $Verbose,
                         round(microtime(true) - self::$_Ticks['T']['Codeine.Do'], 3),
                         $Message,
-                        self::$_Service];
+                        self::$_Service.':'.self::$_Method];
                 }
             }
 
