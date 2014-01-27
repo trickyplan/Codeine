@@ -16,26 +16,7 @@
                 }
             }
         },
-        "Категория блога":
-        {
-            "Match":"^/blog/category/(.*)$",
-            "Service":"Entity.List",
-            "Method":"Do",
-            "Weight": 30,
-            "Call":
-            {
-                "Entity": "Blog",
-                "Custom Templates":
-                {
-                    "List": "Category"
-                },
-                "Where":
-                {
-                    "Category":  "$1"
-                }
-            }
-        },
-        "Категория блога, страницы":
+         "Категория блога, страницы":
         {
             "Match":"^/blog/category/(.+)/page(\\d+)$",
             "Service":"Entity.List",
@@ -55,6 +36,26 @@
                 }
             }
         },
+        "Категория блога":
+        {
+            "Match":"^/blog/category/(.*)$",
+            "Service":"Entity.List",
+            "Method":"Do",
+            "Weight": 30,
+            "Call":
+            {
+                "Entity": "Blog",
+                "Custom Templates":
+                {
+                    "List": "Category"
+                },
+                "Where":
+                {
+                    "Category":  "$1"
+                }
+            }
+        },
+
         "Автор блога":
         {
             "Match":"^/blog/author/(.*)$",

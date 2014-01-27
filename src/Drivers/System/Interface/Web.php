@@ -71,7 +71,7 @@
             foreach ($Call['HTTP']['Headers'] as $Key => $Value)
                 header ($Key . ' ' . $Value);
 
-        F::Run('IO','Write', $Call,
+        F::Run('IO', 'Write', $Call,
             [
                 'Storage' => 'Output',
                 'Where' => $Call['HTTP']['URL'],
