@@ -19,7 +19,7 @@
 
         if (!empty($Call['User']))
         {
-            $NewPassword = F::Live($Call['Password']['Generator']);
+            $NewPassword = F::Live($Call['Reset']['Generator']);
 
             $Call['User'] = F::Run('Entity', 'Update',
                 [
@@ -55,10 +55,11 @@
             $VCall = F::Run('View', 'Render', $VCall, ['Context' => 'mail']);
 
             F::Run('IO', 'Write', $VCall, [
-                'Storage' => 'EMail',
+                'Storage' => $Call['Reset']['Send To'],
                 'ID' => 'Восстановление пароля',
                 'Scope' => $Call['User']['EMail'],
-                'Data' => $VCall['Output']]
+                'Data' => $VCall['Output']
+                ]
             );
 
             F::Log('User reset password '.$Call['User']['ID'], LOG_INFO, 'Security');

@@ -100,9 +100,9 @@
             }
 
             if (curl_errno($Call['Link']))
-                F::Log('CURL error: '.curl_error($Call['Link']), LOG_ERR);
+                F::Log(curl_error($Call['Link']).' *'.$Call['Where']['ID'].'*', LOG_ERR);
             else
-                F::Log('CURL fetched '.$Call['Where']['ID'], LOG_INFO);
+                F::Log('Fetched '.$Call['Where']['ID'], LOG_INFO);
 
             curl_close($Call['Link']);
         }

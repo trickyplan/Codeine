@@ -1,11 +1,11 @@
 {
-    "Perfect": true,
+    "Perfect": false,
     "Verbose":
     {
         "Developer": 6,
         "Administrator": 6,
         "Security": 6,
         "Marketing": 6,
-        "Perfomance": 6
+        "Performance": 6
     }
 }

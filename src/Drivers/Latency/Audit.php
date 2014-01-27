@@ -42,7 +42,7 @@
             break;
         }
 
-        F::Log('Latency level is *'.$Decision.'*, because total page time *'.$Total.'* ms', $Verbose, 'Perfomance');
+        F::Log('Latency level is *'.$Decision.'*, because total page time *'.$Total.'* ms', $Verbose, 'Performance');
 
         $Call = F::Hook('Latency.Audit.'.$Decision, $Call);
 

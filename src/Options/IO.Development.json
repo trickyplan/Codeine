@@ -11,10 +11,9 @@
             "Driver": "IO.Log.Print",
             "Format": "Formats.Log.HTML"
         },
-        "Perfomance":
+        "Performance":
         {
-            "Driver": "IO.Log.Print",
-            "Format": "Formats.Log.RAW"
+            "Driver": "IO.Log.Print"
         },
         "Administrator":
         {

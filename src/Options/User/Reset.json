@@ -1,5 +1,5 @@
 {
-    "Password":
+    "Reset":
     {
         "Generator":
         {
@@ -9,15 +9,7 @@
             {
                 "Length": 8
             }
-        }
-    },
-    "Sender":
-    {
-        "Service": "IO",
-        "Method": "Write",
-        "Call":
-        {
-            "Storage": "EMail"
-        }
+        },
+        "Send To": "EMail"
     }
 }

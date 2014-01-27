@@ -122,11 +122,11 @@
             "Scope": "developer",
             "Format": "Formats.Log.Plain"
         },
-        "Perfomance":
+        "Performance":
         {
             "Driver":"IO.Log.File",
             "Directory":"/var/log/codeine",
-            "Scope": "perfomance",
+            "Scope": "Performance",
             "Format": "Formats.Log.RAW"
         },
         "Security":
@@ -152,7 +152,7 @@
         },
         "EMail":
         {
-            "Driver": "IO.Transport.Mail"
+            "Driver": "IO.Transport.Mail.SMTP"
         },
         "Upload":
         {

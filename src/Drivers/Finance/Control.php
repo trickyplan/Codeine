@@ -9,7 +9,6 @@
 
     setFn('Do', function ($Call)
     {
-
         $UserBalances = F::Run('Entity', 'Read', $Call,
         [
             'Entity' => 'User',

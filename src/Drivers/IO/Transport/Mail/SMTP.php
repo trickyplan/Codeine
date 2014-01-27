@@ -14,13 +14,13 @@
         $Mail = new Mail;
 
         return $Mail->factory('smtp',
-                   array (
+                   [
                      'host' => $Call['Server'],
                      'port' => isset($Call['Port'])? $Call['Port']: 25,
                      'auth' => true,
                      'username' => $Call['Username'],
                      'password' => $Call['Password'],
-                   ));
+                   ]);
     });
 
     setFn('Write', function ($Call)
