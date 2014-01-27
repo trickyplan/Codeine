@@ -14,7 +14,7 @@
             foreach ($Call['Nodes'] as $Name => $Node)
             {
                 // Если частичная загрузка, то нужно проверить, нужен ли нам этот хук.
-                if (isset($Call['Partial']) && !in_array($Name, $Call['Fields']))
+                if (isset($Call['Fields']) && !in_array($Name, $Call['Fields']))
                     continue;
 
                 // Если у ноды определён нужный хук

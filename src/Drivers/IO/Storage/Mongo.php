@@ -31,26 +31,27 @@
     setFn('Where', function ($Call)
     {
         $Where = [];
-            foreach ($Call['Where'] as $Key => $Value)
-                if (is_array($Value))
-                {
-                    foreach ($Value as $Subkey => $Subvalue)
-                        if (is_numeric($Subkey))
-                            $Where[$Key] = $Subvalue;
-                        elseif (is_scalar($Subvalue) && substr($Subvalue, 0, 1) == '~')
-                            $Where[$Key.'.'.$Subkey] = new MongoRegex(substr($Subvalue, 1));
-                        elseif (substr($Subkey, 0, 1) == '$')
-                            $Where[$Key][$Subkey] = $Subvalue;
-                        else
-                            $Where[$Key.'.'.$Subkey] = $Subvalue;
-                }
-                else
-                {
-                    if (substr($Value, 0, 1) == '~')
-                        $Where[$Key] = new MongoRegex(substr($Value, 1));
+
+        foreach ($Call['Where'] as $Key => $Value)
+            if (is_array($Value))
+            {
+                foreach ($Value as $Subkey => $Subvalue)
+                    if (is_numeric($Subkey))
+                        $Where[$Key] = $Subvalue;
+                    elseif (is_scalar($Subvalue) && substr($Subvalue, 0, 1) == '~')
+                        $Where[$Key.'.'.$Subkey] = new MongoRegex(substr($Subvalue, 1));
+                    elseif (substr($Subkey, 0, 1) == '$')
+                        $Where[$Key][$Subkey] = $Subvalue;
                     else
-                        $Where[$Key] = $Value;
-                }
+                        $Where[$Key.'.'.$Subkey] = $Subvalue;
+            }
+            else
+            {
+                if (substr($Value, 0, 1) == '~')
+                    $Where[$Key] = new MongoRegex(substr($Value, 1));
+                else
+                    $Where[$Key] = $Value;
+            }
 
         $Call['Where'] = $Where;
         return $Call;
@@ -81,7 +82,7 @@
         {
             if (isset($Call['Fields']))
             {
-                $Fields = [];
+                $Fields = ['_id' => 0];
 
                 foreach ($Call['Fields'] as $Field)
                     $Fields[$Field] = true;

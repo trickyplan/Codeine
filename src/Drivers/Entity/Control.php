@@ -116,7 +116,9 @@
 
     setFn('Export', function ($Call)
     {
-        set_time_limit(0);
+        if (isset($Call['Request']['Fields']))
+            $Call['Fields'] = $Call['Request']['Fields'];
+
         $Elements = F::Run('Entity', 'Read', $Call,
                     [
                          'Entity' => $Call['Bundle']
