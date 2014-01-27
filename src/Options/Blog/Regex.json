@@ -18,7 +18,7 @@
         },
         "Категория блога, страницы":
         {
-            "Match":"^/blog/category/(.+)/page(\\d+)$",
+            "Match":"^/blog/tags/(.+)/page(\\d+)$",
             "Service":"Entity.List",
             "Method":"Do",
             "Weight": 30,
@@ -28,7 +28,7 @@
                 "Page": "$2",
                 "Custom Templates":
                 {
-                    "List": "List/Category"
+                    "List": "List/Tags"
                 },
                 "Where":
                 {
@@ -38,7 +38,7 @@
         },
         "Категория блога":
         {
-            "Match":"^/blog/category/(.*)$",
+            "Match":"^/blog/tags/(.*)$",
             "Service":"Entity.List",
             "Method":"Do",
             "Weight": 30,
@@ -47,7 +47,7 @@
                 "Entity": "Blog",
                 "Custom Templates":
                 {
-                    "List": "List/Category"
+                    "List": "List/Tags"
                 },
                 "Where":
                 {
@@ -97,7 +97,7 @@
         },
         "RSS категории блога":
         {
-            "Match":"^/blog/category/(.*).rss$",
+            "Match":"^/blog/tags/(.*).rss$",
             "Weight": 44,
             "Service":"Entity.List",
             "Method":"Do",
@@ -115,7 +115,7 @@
                 "Entity": "Blog",
                 "Where":
                 {
-                    "Category": "$1"
+                    "Tags": "$1"
                 },
                 "Sort":
                 {

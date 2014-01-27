@@ -11,7 +11,7 @@
             "Mixins.Votable"
         ],
     "Storage": "Primary",
-    "EPP": 10,
+    "EPP": 7,
     "Sort":
     {
         "Created": false
