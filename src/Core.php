@@ -34,7 +34,7 @@
         private static $_Live = false;
         private static $_Memory= 0;
 
-        private static $_Profile = false;  // Internal Performance
+        private static $_Performance = false;  // Internal Performance
         private static $_Debug = false;  // Internal Debugger
         private static $_Verbose;
 
@@ -82,8 +82,8 @@
             if (isset(self::$_Options['Codeine']['Verbose']))
                 self::$_Verbose = self::$_Options['Codeine']['Verbose'];
 
-            if (isset($_REQUEST['Profile']))
-                self::$_Profile = true;
+            if (isset($_REQUEST['Performance']))
+                self::$_Performance = true;
 
             if (isset($_REQUEST['Debug']))
             {
@@ -135,10 +135,10 @@
 
             }
 
-            if (self::$_Profile)
+            if (self::$_Performance)
             {
                 self::$_Memory = memory_get_usage();
-                F::Run('Profile', 'Do', $Call);
+                F::Run('Performance', 'Do', $Call);
             }
 
             if (self::$_Debug)
@@ -318,7 +318,7 @@
                     if (!isset($Memo) || ($Result = F::Get($Memo)) == null)
                     {
                         $Result = $F($Call);
-                        if (self::$_Profile)
+                        if (self::$_Performance)
                             self::Counter(self::$_Service.'.'.self::$_Method);
                     }
                     else

@@ -58,8 +58,8 @@
             },
             "Latency Audit":
             {
-                "Service": "Latency.Audit",
-                "Method": "Do"
+                "Service": "Performance.Latency",
+                "Method": "Audit"
             }
         },
         "NotFound":

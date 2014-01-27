@@ -8,6 +8,10 @@
         "Mixins.Balance",
         "Mixins.Channel"
     ],
+    "Sort":
+    {
+        "Created": true
+    },
     "Storage": "Primary",
     "EPP": 20,
     "Nodes":

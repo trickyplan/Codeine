@@ -9,8 +9,8 @@
 
     setFn('Do', function ($Call)
     {
-        $Call['Profile']['Summary']['Time'] = array_sum(self::$_Counters['T']);
-        $Call['Profile']['Summary']['Calls'] = array_sum(self::$_Counters['C']);
+        $Call['Performance']['Summary']['Time'] = array_sum(self::$_Counters['T']);
+        $Call['Performance']['Summary']['Calls'] = array_sum(self::$_Counters['C']);
 
         arsort(self::$_Counters['T']);
 
@@ -21,11 +21,11 @@
             'Internal storage: '.count(self::$_Storage)
         ];
 
-        F::Log(implode("\n", $Stats) , LOG_WARNING, 'Performance');
         F::Log(
-            F::Run('Formats.Profile.'.$Call['Profile Format'], 'Do', $Call,
+            F::Run('Formats.Performance.'.$Call['Performance Format'], 'Do', $Call,
                     [
-                        'Data' => self::$_Counters
+                        'Data'  => self::$_Counters,
+                        'Stats' => $Stats
                     ]), LOG_WARNING, 'Performance');
 
         return $Call;

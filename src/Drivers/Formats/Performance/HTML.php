@@ -7,9 +7,11 @@
  * @version 7.x
  */
 
-    setFn('Do', function ($Call) {
-        $Output = '
-               <table class="table console">
+    setFn('Do', function ($Call)
+    {
+        $Output =
+               '<div class="well">'.$Call['Stats'].'</div>'.
+               '<table class="table console">
                <thead>
                <tr>
                     <th>Function name</th>
@@ -23,9 +25,9 @@
                    <th>' . $Call['HTTP']['Host'] . $Call['HTTP']['URI'] . '</th>
                    <th>100%</th>
                    <th>100%</th>
-                   <th>' . round($Call['Profile']['Summary']['Time']) . '</th>
-                   <th>' . $Call['Profile']['Summary']['Calls'] . '</th>
-                   <th>' . round($Call['Profile']['Summary']['Time'] / $Call['Profile']['Summary']['Calls'], 2) . '</th>
+                   <th>' . round($Call['Performance']['Summary']['Time']) . '</th>
+                   <th>' . $Call['Performance']['Summary']['Calls'] . '</th>
+                   <th>' . round($Call['Performance']['Summary']['Time'] / $Call['Performance']['Summary']['Calls'], 2) . '</th>
                </tr>
                </thead>';
 
@@ -43,8 +45,8 @@
                     'TimePerCall' => 'Good'
                 ];
 
-            $Call['RTime'] = round(($Value / $Call['Profile']['Summary']['Time']) * 100, 2);
-            $Call['RCalls'] = round(($Call['Data']['C'][$Key] / $Call['Profile']['Summary']['Calls']) * 100, 2);
+            $Call['RTime'] = round(($Value / $Call['Performance']['Summary']['Time']) * 100, 2);
+            $Call['RCalls'] = round(($Call['Data']['C'][$Key] / $Call['Performance']['Summary']['Calls']) * 100, 2);
             $Call['ATime'] = round($Value);
             $Call['ACalls'] = $Call['Data']['C'][$Key];
             $Call['TimePerCall'] = round($Value / $Call['Data']['C'][$Key], 2);

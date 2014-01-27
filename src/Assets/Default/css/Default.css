@@ -90,21 +90,6 @@ tr.Important, td.Important
     border: none;
 }
 
-.topbar
-{
-    top: 40%;
-    left: 0;
-    position: absolute !important;
-    z-index: 99;
-}
-
-.topbar li
-{
-    background-color: #ffffff;
-    float: none;
-    margin: 0 !important;
-}
-
 .avatar
 {
     border: 1px solid lightgray;

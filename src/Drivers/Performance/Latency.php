@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    setFn('Do', function ($Call)
+    setFn('Audit', function ($Call)
     {
         $Total = round(microtime(true)-Started, 4)*1000;
 
