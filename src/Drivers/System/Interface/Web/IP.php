@@ -9,13 +9,15 @@
 
     setFn('Get', function ($Call)
     {
+        $IP = $_SERVER['REMOTE_ADDR'];
+
         foreach ($Call['IP Headers'] as $Header)
         {
             if (isset($_SERVER['HTTP_'.$Header]))
-                $_SERVER['REMOTE_ADDR'] = $_SERVER['HTTP_'.$Header];
+                $IP = $_SERVER['HTTP_'.$Header];
         }
 
-        if ($_SERVER['REMOTE_ADDR'] == '127.0.0.1' && isset($Call['Pingback']))
+        if ($IP == '127.0.0.1' && isset($Call['Pingback']))
         {
             if (($IP = F::Run('IO', 'Read', $Call, ['Storage' => 'Cookie', 'Where' => 'DeveloperIP'])) == null)
             {
@@ -33,15 +35,11 @@
 
         }
         else
-        {
-            if (isset($Call['Substitute'][$_SERVER['REMOTE_ADDR']]))
+            if (isset($Call['Substitute'][$IP]))
             {
-                $IP = $Call['Substitute'][$_SERVER['REMOTE_ADDR']];
-                F::Log('IP substituted from *'.$_SERVER['REMOTE_ADDR'].'* to '.$IP, LOG_INFO);
+                $IP = $Call['Substitute'][$IP];
+                F::Log('IP substituted from *'.$IP.'* to '.$IP, LOG_INFO);
             }
-            else
-                $IP = $_SERVER['REMOTE_ADDR'];
-        }
 
         return $IP;
     });
