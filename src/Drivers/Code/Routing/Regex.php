@@ -50,7 +50,7 @@
                                             $Key = str_replace($Pockets[0][$IX], $Matches[$Matcher], $Key );
                                         }
 
-                                if (preg_match_all('/\$(\d+)/', $Value, $Pockets))
+                                if (is_string($Value) && preg_match_all('/\$(\d+)/', $Value, $Pockets))
                                     foreach ($Pockets[1] as $IX => $Matcher)
                                         if (isset($Matches[$Matcher]))
                                             $Value = str_replace($Pockets[0][$IX], $Matches[$Matcher], $Value);
