@@ -13,6 +13,9 @@
     {
         if (!isset($Call['Daemons']))
             exit(1);
+        else
+            foreach ($Call['Daemons'] as $DaemonName => $Daemon)
+                F::Log('Daemon *'.$DaemonName.'* loaded');
 
         declare(ticks = 1);
 
