@@ -6,10 +6,10 @@
 
     <import file="build/debian.xml"/>
 
-    <property name="homepage" value="http://one2team.ru/projects/Codeine"/>
+    <property name="homepage" value="http://trickyplan.ru/projects/Codeine"/>
     <property name="maintainer" value="Johnny Funt"/>
     <property name="destination-source" value="/usr/share/php/Codeine"/>
-    <property name="depends" value="php5-fpm (>=5.4.16) | php5-cli (>=5.4.16) | php5-cgi (>=5.4.16)"/>
+    <property name="depends" value="php5-fpm (>=5.5.8) | php5-cli (>=5.5.8) | php5-cgi (>=5.5.8)"/>
 
     <target name="phase1" depends="properties"></target>
 
