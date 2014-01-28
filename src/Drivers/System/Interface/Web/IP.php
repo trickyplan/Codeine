@@ -14,7 +14,10 @@
         foreach ($Call['IP Headers'] as $Header)
         {
             if (isset($_SERVER['HTTP_'.$Header]))
+            {
                 $IP = $_SERVER['HTTP_'.$Header];
+                break;
+            }
         }
 
         if ($IP == '127.0.0.1' && isset($Call['Pingback']))
