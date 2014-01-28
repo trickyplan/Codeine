@@ -48,14 +48,6 @@
                 {
                     "Type": "Form.Static"
                 }
-            },
-            "Hooks":
-            {
-                "afterCreatePost":
-                {
-                    "Service": "User.EMail",
-                    "Method": "Verify"
-                }
             }
         },
         "External":
@@ -181,6 +173,14 @@
     },
     "Hooks":
     {
+        "afterCreatePost":
+        {
+            "Verify email":
+            {
+                "Service": "User.EMail",
+                "Method": "Verify"
+            }
+        },
         "afterLogin":
         {
             "Redirect":
