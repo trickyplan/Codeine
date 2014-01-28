@@ -15,7 +15,7 @@
             exit(1);
         else
             foreach ($Call['Daemons'] as $DaemonName => $Daemon)
-                F::Log('Daemon *'.$DaemonName.'* loaded');
+                F::Log('Daemon *'.$DaemonName.'* loaded', LOG_WARNING);
 
         declare(ticks = 1);
 
