@@ -135,12 +135,6 @@
 
             }
 
-            if (self::$_Performance)
-            {
-                self::$_Memory = memory_get_usage();
-                F::Run('Performance', 'Do', $Call);
-            }
-
             if (self::$_Debug)
             {
                 ksort($Call);

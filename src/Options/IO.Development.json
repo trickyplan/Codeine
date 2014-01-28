@@ -13,7 +13,8 @@
         },
         "Performance":
         {
-            "Driver": "IO.Log.Print"
+            "Driver": "IO.Log.Print",
+            "Format": "Formats.Log.HTML"
         },
         "Administrator":
         {

@@ -127,7 +127,7 @@
             "Driver":"IO.Log.File",
             "Directory":"/var/log/codeine",
             "Scope": "Performance",
-            "Format": "Formats.Log.RAW"
+            "Format": "Formats.Log.Plain"
         },
         "Security":
         {

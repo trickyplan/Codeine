@@ -54,14 +54,14 @@
             set $no_cache "1";
         }
 
-        add_header X-Cached $no_cache;
+        add_header X-No-Cached $no_cache;
 
         # Включаем/отключаем кеш в зависимости от состояния переменной no_cache
 
         fastcgi_cache_bypass $no_cache;
 
         fastcgi_cache_key $scheme$host$request_method$request_uri;
-        fastcgi_cache_valid 200 1s;
+        fastcgi_cache_valid 200 10m;
         fastcgi_cache_use_stale updating;
 
         fastcgi_keep_conn on;

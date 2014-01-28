@@ -9,9 +9,6 @@
 
     setFn('Spit', function ($Call)
     {
-        F::Log('Calls: '.self::$NC, LOG_INFO);
-        F::Log('Memory: '.round(memory_get_usage()/1024).' KiB', LOG_INFO);
-
         $Logs = F::Logs();
 
         if (!empty($Logs))
