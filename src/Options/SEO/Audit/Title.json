@@ -7,7 +7,7 @@
             {
                 "Length":
                 {
-                    "Minimum": 24,
+                    "Minimum": 20,
                     "Maximum": 64
                 }
             }
