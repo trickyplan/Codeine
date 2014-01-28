@@ -10,6 +10,7 @@
     setFn('Channel', function ($Call)
     {
         $Channel = null;
+
         if (isset($Call['Session']['User']['Channel']))
             $Channel = $Call['Session']['User']['Channel'];
         elseif (isset($Call['Session']['Channel']))

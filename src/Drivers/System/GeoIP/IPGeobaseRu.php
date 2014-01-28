@@ -28,6 +28,7 @@
     setFn('Country', function ($Call)
     {
         $Response = F::Run(null, 'Load', $Call);
+
         if ($Response)
             return (string) $Response->ip->country;
         else
