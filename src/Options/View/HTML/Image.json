@@ -23,6 +23,13 @@
             {
                 "Service": "View.HTML.Image.Thumb"
             }
+        },
+        "afterImageWrite":
+        {
+            "Optimize":
+            {
+                "Service": "View.HTML.Image.Optimize"
+            }
         }
     }
 }

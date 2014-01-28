@@ -87,7 +87,7 @@
                             'Execute' => 'Version'
                         ]);
 
-                    $ImageCached = $Version.'_'.
+                    $Call['Image']['Cached'] = $Version.'_'.
                         (isset($Call['Current Image']['Width'])? $Call['Current Image']['Width']: 0).
                         'x'.
                         (isset($Call['Current Image']['Height'])? $Call['Current Image']['Height']: 0).
@@ -104,16 +104,16 @@
                             'Execute' => 'Exist',
                             'Where'   =>
                             [
-                                'ID' => $ImageCached
+                                'ID' => $Call['Image']['Cached']
                             ]
                         ]))
                         {
-                            F::Log('Cache *hit* '.$ImageCached, LOG_GOOD);
+                            F::Log('Cache *hit* '.$Call['Image']['Cached'], LOG_GOOD);
                             $Write = false;
                         }
                         else
                         {
-                            F::Log('Cache *miss* *'.$ImageCached.'*', LOG_BAD);
+                            F::Log('Cache *miss* *'.$Call['Image']['Cached'].'*', LOG_BAD);
                         }
                     }
 
@@ -130,7 +130,7 @@
                             [
                                  'Storage' => 'Image Cache',
                                  'Scope'   => [$Host, 'img'],
-                                 'Where'   => $ImageCached,
+                                 'Where'   => $Call['Image']['Cached'],
                                  'Data' => $Call['Current Image']['Data']
                             ]);
 
@@ -138,13 +138,13 @@
                     }
 
                     if (empty($Call['Current Image']['Alt']))
-                        F::Log('Image: Alt is empty for '.$ImageCached, LOG_INFO);
+                        F::Log('Image: Alt is empty for '.$Call['Image']['Cached'], LOG_INFO);
 
                     $Call['Image']['Tags'][] = '<img src="'
                             .$Call['Image']['Proto']
                             .$Call['Image']['Host']
                             .$Call['Image']['Pathname']
-                            .$ImageCached.'"
+                            .$Call['Image']['Cached'].'"
                             alt="'.$Call['Image']['Alt'].'"
                             class="'.$Call['Current Image']['Class'].'" '
                             .(isset($Call['Current Image']['Height'])? ' height="'.$Call['Current Image']['Height'].'"': ' ')
