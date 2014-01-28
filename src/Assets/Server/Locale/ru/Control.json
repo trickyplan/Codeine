@@ -3,7 +3,8 @@
     "Options":
     {
         "Do": "Обзор",
-        "Benchmark": "Бенчмарк"
+        "Benchmark": "Бенчмарк",
+        "Environment": "Окружение"
     },
     "System": "Система",
     "CPU": "Процессоры"

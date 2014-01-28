@@ -39,3 +39,19 @@
     {
         return F::Run('Server.Benchmark', 'Do', $Call);
     });
+
+    setFn('Environment', function ($Call)
+    {
+        $Data = [];
+        
+        foreach ($_SERVER as $Key => $Value)
+            $Data[] = [$Key, $Value];
+
+        $Call['Output']['Content'][]
+        =
+        [
+            'Type' => 'Table',
+            'Value' => $Data
+        ];
+        return $Call;
+    });
