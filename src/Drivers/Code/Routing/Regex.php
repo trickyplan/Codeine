@@ -37,24 +37,23 @@
                     {
                         F::Log($Rule['Match'], LOG_DEBUG);
                         $Matches = [];
+
                         if (preg_match($Rule['Match'], $Call['Run'], $Matches))
                         {
                             $Rule = F::Map($Rule, function (&$Key, &$Value, $Data, $FullKey, &$Array) use ($Matches)
                             {
-                                if (is_scalar($Key) && substr($Key, 0, 1) == '$')
-                                {
-                                    if (isset($Matches[substr($Key, 1)]))
-                                    {
-                                        unset($Array[$Key]);
-                                        $Key = $Matches[substr($Key, 1)];
-                                    }
-                                }
+                                if (preg_match_all('/\$(\d+)/', $Key , $Pockets))
+                                    foreach ($Pockets[1] as $IX => $Matcher)
+                                        if (isset($Matches[$Matcher]))
+                                        {
+                                            unset($Array[$Key]);
+                                            $Key = str_replace($Pockets[0][$IX], $Matches[$Matcher], $Key );
+                                        }
 
-                                if (is_scalar($Value) && substr($Value, 0, 1) == '$')
-                                {
-                                    if (isset($Matches[substr($Value, 1)]))
-                                        $Value = $Matches[substr($Value, 1)];
-                                }
+                                if (preg_match_all('/\$(\d+)/', $Value, $Pockets))
+                                    foreach ($Pockets[1] as $IX => $Matcher)
+                                        if (isset($Matches[$Matcher]))
+                                            $Value = str_replace($Pockets[0][$IX], $Matches[$Matcher], $Value);
                             });
 
                             F::Log('Regex router rule *'.$Name.'* matched', LOG_DEBUG);

@@ -16,7 +16,27 @@
                 }
             }
         },
-        "Категория блога, страницы":
+        "Blog, Category, Page":
+        {
+            "Match":"^/blog/category/(.+)/page(\\d+)$",
+            "Service":"System.Interface.Web",
+            "Method":"Redirect",
+            "Call":
+            {
+                "Location": "/blog/tags/$1/page$2"
+            }
+        },
+        "Blog, Category":
+        {
+            "Match":"^/blog/category/(.*)$",
+            "Service":"System.Interface.Web",
+            "Method":"Redirect",
+            "Call":
+            {
+                "Location": "/blog/tags/$1"
+            }
+        },
+        "Blog, Tags, Page":
         {
             "Match":"^/blog/tags/(.+)/page(\\d+)$",
             "Service":"Entity.List",
@@ -36,7 +56,7 @@
                 }
             }
         },
-        "Категория блога":
+        "Blog, Tags":
         {
             "Match":"^/blog/tags/(.*)$",
             "Service":"Entity.List",
@@ -55,8 +75,7 @@
                 }
             }
         },
-
-        "Автор блога":
+        "Blog, Author":
         {
             "Match":"^/blog/author/(.*)$",
             "Service":"Entity.List",
@@ -75,7 +94,7 @@
                 }
             }
         },
-        "Автор блога, страницы":
+        "Blog, Author, Page":
         {
             "Match":"^/blog/author/(.+)/page(\\d+)$",
             "Service":"Entity.List",
