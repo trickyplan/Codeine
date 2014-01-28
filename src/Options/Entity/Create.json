@@ -32,6 +32,11 @@
         },
         "afterCreatePost":
         {
+            "Make variables alive":
+            {
+                "Service":"Entity.Hooks.Live",
+                "Method":"Process"
+            },
             "HTTP 201":
             {
                 "Headers":

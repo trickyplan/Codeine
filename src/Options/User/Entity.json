@@ -31,25 +31,6 @@
                 }
             }
         },
-        "EMail":
-        {
-            "Type": "Literal.EMail",
-            "Required": true,
-            "Verifiable": true,
-            "Unique": true,
-            "Widgets":
-            {
-                "Write":
-                {
-                    "Type": "Form.Textfield",
-                    "Subtype": "email"
-                },
-                "Update":
-                {
-                    "Type": "Form.Static"
-                }
-            }
-        },
         "External":
         {
             "Type": "Literal.String"
@@ -169,18 +150,37 @@
                     "Method": "Photo"
                 }
             }
+        },
+        "EMail":
+        {
+            "Type": "Literal.EMail",
+            "Required": true,
+            "Verifiable": true,
+            "Unique": true,
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield",
+                    "Subtype": "email"
+                },
+                "Update":
+                {
+                    "Type": "Form.Static"
+                }
+            },
+            "Hooks":
+            {
+                "beforeEntityCreate":
+                {
+                    "Service": "User.EMail",
+                    "Method": "Verify"
+                }
+            }
         }
     },
     "Hooks":
     {
-        "afterCreatePost":
-        {
-            "Verify email":
-            {
-                "Service": "User.EMail",
-                "Method": "Verify"
-            }
-        },
         "afterLogin":
         {
             "Redirect":

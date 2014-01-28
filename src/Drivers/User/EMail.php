@@ -9,9 +9,8 @@
 
     setFn('Verify', function ($Call)
     {
-        foreach ($Call['Data'] as $Data)
         {
-            $Data['Code'] = F::Run('Security.UID', 'Get');
+            $Call['Data']['Code'] = F::Run('Security.UID', 'Get');
 
             F::Run('IO', 'Write',
                 [
@@ -19,8 +18,8 @@
                      'Scope' => 'Activation',
                      'Data' =>
                      [
-                         'ID' => (int) $Data['Code'],
-                         'User' => $Data['ID']
+                         'ID' => (int) $Call['Data']['Code'],
+                         'User' => $Call['Data']['ID']
                      ]
                 ]);
 
@@ -38,7 +37,7 @@
                     'Type'  => 'Template',
                     'Scope' => 'User/Activation',
                     'ID'    => 'EMail',
-                    'Data'  => $Data
+                    'Data'  => $Call['Data']
                 ]];
 
             $VCall = F::Run('View', 'Render', $VCall, ['Context' => 'mail']);
@@ -46,10 +45,12 @@
             F::Run('IO', 'Write', $VCall, [
                 'Storage' => 'EMail',
                 'ID' => 'Активация аккаунта',
-                'Scope' => $Data['EMail'],
+                'Scope' => $Call['Data']['EMail'],
                 'Data' => $VCall['Output']]
             );
         }
+
+        return $Call['Data']['EMail'];
     });
 
     setFn('Check', function ($Call)
