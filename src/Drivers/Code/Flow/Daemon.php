@@ -65,7 +65,7 @@
 
             $Ungrateful = [];
 
-            F::Log('Daemon started', LOG_INFO);
+            F::Log('Daemon started', LOG_WARNING);
 
             $Ticks = 0;
             while (F::Run(null, 'Running?', $Call))
