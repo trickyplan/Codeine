@@ -174,12 +174,12 @@
 /*            $Method = ($Method == null)? self::$_Method: $Method;*/
 
             // Если контракт уже не загружен
-            if (!isset(self::$_Options[$Service]))
+            if (isset(self::$_Options[$Service]))
+                ;
+            else
             {
                 $Options = [];
-
                 $ServicePath = strtr($Service, '.', '/');
-
                 $Filenames = [];
 
                 if (self::$_Environment != 'Production')
@@ -193,7 +193,9 @@
                     {
                         $Current = json_decode(file_get_contents($Filename), true);
 
-                        if ($Filename && !$Current)
+                        if ($Current)
+                            F::Log('Options: *'.$Filename.'* loaded', LOG_DEBUG);
+                        else
                         {
                             switch (json_last_error()) {
                                 case JSON_ERROR_NONE:
@@ -218,27 +220,28 @@
                                     $JSONError =  ' - Unknown error';
                                 break;
                             }
-
                             F::Log('JSON Error: ' . $Filename.':'. $JSONError, LOG_CRIT); //FIXME
-                            return null;
+                            $Current = [];
                         }
 
                         if (isset($Current['Mixins']) && is_array($Current['Mixins']))
                             foreach($Current['Mixins'] as $Mixin)
+                            {
+                                F::Log('Options *'.$Filename.'* mixed with *'.$Mixin.'*', LOG_DEBUG);
                                 $Current = F::Merge(F::loadOptions($Mixin), $Current);
+                            }
 
                         $Options = self::Merge($Options, $Current);
                     }
                 }
                 else
                 {
-                    F::Log('No options for '.$Service, LOG_DEBUG);
+                    F::Log('No options for *'.$Service.'*', LOG_DEBUG);
                     $Options = [];
                 }
 
                 self::$_Options[$Service] = $Options;
             }
-
             return F::Merge(self::$_Options[$Service], $Call);
         }
 
@@ -600,37 +603,50 @@
 
         }
 
-        public static function Merge($First, $Second)
+        public static function Merge($Array, $Mixin)
         {
-            if ((array) $Second === $Second)
+            if ((array) $Mixin === $Mixin) // Если второй аргумент — массив
             {
-                if ($First !== $Second)
+                if ($Array === $Mixin)
+                    ;
+                else // Если аргументы не равны
                 {
-                    if ((array) $First === $First)
+                    if ((array) $Array === $Array) // Если первый аргумент массив
                     {
-                        foreach ($Second as $Key => &$Value)
+                        foreach ($Mixin as $MixinKey => $MixinValue) // Проходим по второму
                         {
-                            if (substr($Key, strlen($Key)-1, 1) == '!')
-                                $First[substr($Key, 0, strlen($Key) -1)] = $Value;
+                            if (preg_match('/(.*)!$/Ssu', $MixinKey, $Pockets)) // Если у нас ключ кончается на !
+                                $Array[$Pockets[1]] = $MixinValue;
+                            // Оверрайд
                             else
                             {
-                                if (isset($First[$Key]) && ((array)$Value === $Value))
+                                // Иначе, обычная замена
+                                if (isset($Array[$MixinKey])) // Если ключ из второго массива присутствует в первом
                                 {
-                                    if ($First[$Key] !== $Second[$Key])
-                                        $First[$Key] = self::Merge($First[$Key], $Second[$Key]);
+                                    if ((array) $MixinValue === $MixinValue) // Если значение из второго массива — массив
+                                    {
+                                        if ($Array[$MixinKey] === $Mixin[$MixinKey]) // Если значения в первом и втором массивах совпадают, ничего не делаем
+                                            ;
+                                        else
+                                            $Array[$MixinKey] = self::Merge($Array[$MixinKey], $Mixin[$MixinKey]); // Рекурсируем.
+                                    }
+                                    else
+                                        $Array[$MixinKey] = $MixinValue; // Иначе, просто копируем значение
+
+                                    // Строчки повторены, для читаемости
                                 }
                                 else
-                                    $First[$Key] = $Value;
+                                    $Array[$MixinKey] = $MixinValue; // Иначе, просто копируем значение
                             }
                         }
 
                     }
                     else
-                        $First = $Second;
+                        $Array = $Mixin; // Если первый аргумент не массив, то мерджить смысла нет.
                 }
             }
 
-            return $First;
+            return $Array;
         }
 
         public static function Diff ($First, $Second)

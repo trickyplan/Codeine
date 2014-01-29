@@ -3,6 +3,7 @@
     [
         "Mixins.ID.Sequence",
         "Mixins.UGC",
+        "Mixins.CRUD",
         "Mixins.Filled",
         "Mixins.Verifiable",
         "Mixins.Balance",

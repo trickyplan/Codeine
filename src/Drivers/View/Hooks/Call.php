@@ -24,10 +24,8 @@
             {
                 if (($Matched = F::Dot($Call, $Match)) !== null)
                 {
-                    $Matched = F::Live($Matched);
-
                     if (is_array($Matched))
-                        $Matched = '#';
+                        $Matched = j($Matched);
 
                     if (($Matched === false) || ($Matched === 0))
                         $Matched = '0';
