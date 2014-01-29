@@ -43,21 +43,14 @@
         if (isset($Call['DNT Support']) && F::Run('System.Interface.Web.DNT', 'Detect', $Call))
             $Code = '<!-- Do Not Track enabled. Google Analytics supressed. -->';
         else
-        {
-            if (isset($Call['Demography']) && $Call['Demography'])
-                $Source = "//stats.g.doubleclick.net/dc.js";
-            else
-                $Source = "//www.google-analytics.com/analytics.js";
-
             $Code = "<script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','".$Source."','ga');
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
   ga('create', 'UA-".$Call['ID']."', '".$Call['HTTP']['Host']."');
   ga('send', 'pageview');
 </script>";
-        }
 
         return $Code;
     });
