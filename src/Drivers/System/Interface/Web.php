@@ -37,7 +37,7 @@
         // Query string reading
 
         // Merge slashes
-        $_SERVER['REQUEST_URI'] = preg_replace('/(\/+)/', '/', $_SERVER['REQUEST_URI']);
+        $_SERVER['REQUEST_URI'] = preg_replace('/^(\/+)/', '/', $_SERVER['REQUEST_URI']);
 
         $Call['HTTP']['URI'] = rawurldecode($_SERVER['REQUEST_URI']).(empty($Call['HTTP']['URL Query'])? '' : '');
         F::Log('URI: *'.$Call['HTTP']['URI'].'*', LOG_INFO);
@@ -107,13 +107,16 @@
         $URL = $Call['Location'];
 
         if (preg_match_all('@\$([\.\w]+)@', $URL, $Vars))
-        {
             foreach ($Vars[0] as $IX => $Key)
                 $URL = str_replace($Key, F::Dot($Call,$Vars[1][$IX]) , $URL);
-        }
+
+        if (preg_match('/^http/', $URL))
+            ;
+        else
+            $URL = 'http://'.$URL;
 
         $Call['HTTP']['Headers']['HTTP/1.1'] = ' 301 Moved Permanently';
-        $Call['HTTP']['Headers']['Location:'] = 'http://'.$URL;
+        $Call['HTTP']['Headers']['Location:'] = $URL;
         $Call['HTTP']['Headers']['Cache-Control:'] = 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0';
 
         F::Log('Redirected to '.$URL, LOG_INFO);
