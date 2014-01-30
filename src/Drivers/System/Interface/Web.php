@@ -159,6 +159,7 @@
             $_SERVER['HTTP_HOST'] = $Call['Project']['Hosts'][F::Environment()];
         }
 
+
         if (preg_match('/:/', $_SERVER['HTTP_HOST']))
             list ($_SERVER['HTTP_HOST'], $Call['HTTP']['Port']) = explode(':', $_SERVER['HTTP_HOST']);
 
@@ -173,6 +174,9 @@
                 $Call['HTTP']['Proto'] = 'http://';
                 $Call['HTTP']['Host'] = strtolower($_SERVER['HTTP_HOST']);
             }
+
+        if (isset($Call['Force SSL']) && $Call['Force SSL'] && $Call['HTTP']['Proto'] == 'http://')
+            $Call = F::Run(null, 'Redirect', $Call, ['Location' => 'https://'.$Call['HTTP']['Host'].$Call['HTTP']['URI']]);
 
         F::Log('Protocol is *'.$Call['HTTP']['Proto'].'*', LOG_INFO);
         F::Log('Host is *'.$Call['HTTP']['Host'].'*', LOG_INFO);

@@ -7,6 +7,7 @@
             "Method": "Render"
         }
     },
+    "Force SSL": true,
     "Context": "",
     "HTTP":
     {
