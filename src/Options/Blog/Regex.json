@@ -195,7 +195,7 @@
         },
         "Тег блога":
         {
-            "Match":"^/blogs/tag/(.*)$",
+            "Match":"^/blog/tag/(.*)$",
             "Service":"Entity.List",
             "Method":"Do",
             "Weight": 30,
@@ -214,7 +214,7 @@
         },
         "Тег  блога, страницы":
         {
-            "Match":"^/blogs/tag/(.+)/page(\\d+)$",
+            "Match":"^/blog/tag/(.+)/page(\\d+)$",
             "Service":"Entity.List",
             "Method":"Do",
             "Weight": 30,
