@@ -37,11 +37,13 @@
 
         $Call['Output']['Content'][] =
             [
+                'Key'  => 'Payment.Value',
                 'Name'  => 'Payment[Value]',
                 'Type'  => 'Form.Textfield',
                 'Label' => $Call['Entity'].'.Deposit:Value',
                 'Value' => round($Call['Data']['Balance']-$Call['Data']['Costs'],2),
-                'Postfix'   => $Call['Project']['Currency']
+                'Postfix'   => $Call['Project']['Currency'],
+                'Help'  => true
             ];
 
         $Options = [];
