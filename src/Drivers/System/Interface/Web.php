@@ -163,8 +163,10 @@
         if (preg_match('/:/', $_SERVER['HTTP_HOST']))
             list ($_SERVER['HTTP_HOST'], $Call['HTTP']['Port']) = explode(':', $_SERVER['HTTP_HOST']);
 
-        if ((isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS'])) or
-                (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&$_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https'))
+        if (
+                   (isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']))
+                or (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')
+                or (isset($_SERVER['HTTP_X_HTTPS']) &&$_SERVER['HTTP_X_HTTPS']))
             {
                 $Call['HTTP']['Proto'] = 'https://';
                 $Call['HTTP']['Host'] = strtolower($_SERVER['HTTP_HOST']);
