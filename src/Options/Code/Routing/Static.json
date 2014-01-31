@@ -107,6 +107,12 @@
             "Service": "Errors.404",
             "Method": "Page"
         },
+        "/403":
+        {
+            "Service": "Errors.403",
+            "Method": "Page",
+            "Zone": "Default"
+        },
         "/terms":
         {
             "Service": "Project.Terms",

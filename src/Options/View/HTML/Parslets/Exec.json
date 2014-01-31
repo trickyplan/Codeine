@@ -2,7 +2,6 @@
     "Type": "XML",
     "Inherited":
     [
-        "Hooks",
         "IP",
         "UA",
         "Locale",

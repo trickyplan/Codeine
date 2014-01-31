@@ -14,19 +14,16 @@
         $Call['Run'] = '/403';
 
         if (isset($Call['Reason']))
-            $Call['Output']['Content'][] =
-            [
-                'Type' => 'Template',
-                'Scope' => 'Errors/403',
-                'ID' => $Call['Reason']
-            ];
+            ;
         else
-            $Call['Output']['Content'][] =
-            [
-                'Type' => 'Template',
-                'Scope' => 'Errors',
-                'ID' => '403'
-            ];
+            $Call['Reason'] = 'Access';
+
+        $Call['Output']['Content'][] =
+        [
+            'Type' => 'Template',
+            'Scope' => 'Errors/403',
+            'ID' => $Call['Reason']
+        ];
 
         return $Call;
      });
@@ -42,11 +39,4 @@
                                         ]
                                      ];
         return $Call;
-    });
-
-    setFn('Die', function ($Call)
-    {
-        header('HTTP/1.0 403 Forbidden');
-        readfile(F::findFile('Assets/Errors/403.html'));
-        die();
     });

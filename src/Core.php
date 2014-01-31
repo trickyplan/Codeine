@@ -307,7 +307,13 @@
                     {
                         $Memo = [self::$_Service, self::$_Method];
                         foreach ($FnOptions['Contract'][self::$_Service][self::$_Method]['Memo'] as $Key)
-                            $Memo[] = F::Dot($Call, $Key);
+                        {
+                            $Key = F::Dot($Call, $Key);
+                            if (null === $Key)
+                                ;
+                            else
+                                $Memo[] = $Key;
+                        }
 
                         $Memo = json_encode($Memo);
                     }

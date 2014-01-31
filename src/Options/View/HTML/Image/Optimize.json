@@ -1,5 +1,5 @@
 {
-    "-Image Optimizers":
+    "Image Optimizers":
     {
         "image/png": ["PNGCrush"]
     }

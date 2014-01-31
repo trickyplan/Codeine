@@ -5,7 +5,7 @@
         {
             "Read":
             {
-                "Memo": ["Entity", "Where", "One" , "Time"]
+                "Memo": ["Entity", "Where", "One" , "Time", "Fields", "Partial", "Limit", "Count", "Key"]
             }
         }
     },

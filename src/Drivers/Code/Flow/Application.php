@@ -13,7 +13,7 @@
     {
         list($Call['Service'], $Call['Method']) = array ($Call['Run']['Service'], $Call['Run']['Method']);
 
-        F::Log('*'.$Call['Service'].':'.$Call['Method'].'* started', LOG_IMPORTANT);
+        F::Log('Application *'.$Call['Service'].':'.$Call['Method'].'* started', LOG_IMPORTANT);
 
         $Call = F::Hook('beforeApplicationRun', $Call); // В этом месте, практически всегда, происходит роутинг.
 

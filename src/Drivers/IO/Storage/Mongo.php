@@ -82,6 +82,7 @@
         {
             if (isset($Call['Fields']))
             {
+                F::Log('*'.implode(',', $Call['Fields']).'* fields selected', LOG_INFO, 'Administrator');
                 $Fields = ['_id' => 0];
 
                 foreach ($Call['Fields'] as $Field)
@@ -99,13 +100,16 @@
                     $Cursor->sort([$Key => $Direction]);
 
                     if ($Direction == 1)
-                        F::Log('Sorted by '.$Key.' ascending', LOG_INFO, 'Administrator');
+                        F::Log('Sorted by *'.$Key.'* ascending', LOG_INFO, 'Administrator');
                     else
-                        F::Log('Sorted by '.$Key.' descending', LOG_INFO, 'Administrator');
+                        F::Log('Sorted by *'.$Key.'* descending', LOG_INFO, 'Administrator');
                 }
 
             if (isset($Call['Limit']))
+            {
                 $Cursor->limit($Call['Limit']['To'])->skip($Call['Limit']['From']);
+                F::Log('Sliced from *'.$Call['Limit']['From'].'* to '.$Call['Limit']['To'], LOG_INFO, 'Administrator');
+            }
 
             if ($Cursor->count()>0)
                 $Data = iterator_to_array($Cursor, false);

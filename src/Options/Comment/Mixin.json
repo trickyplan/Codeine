@@ -6,7 +6,7 @@
             "Type": "Numeral.Integer",
             "Hooks":
             {
-                "afterEntityRead":
+                "beforeEntityWrite":
                 {
                     "Service": "Comment.Count",
                     "Method": "Get"

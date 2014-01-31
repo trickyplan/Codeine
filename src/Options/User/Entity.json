@@ -20,7 +20,7 @@
         "Gender":
         {
             "Type": "List.Enum",
-            "Default": 0,
+            "Default": "U",
             "Verifiable": true,
             "Options": ["U", "M", "F"],
             "Localized": true,

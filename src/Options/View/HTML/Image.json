@@ -24,7 +24,7 @@
                 "Service": "View.HTML.Image.Thumb"
             }
         },
-        "afterImageWrite":
+        "-afterImageWrite":
         {
             "Optimize":
             {
