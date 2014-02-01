@@ -9,7 +9,6 @@
 
     setFn('beforeList', function ($Call)
     {
-
         if (isset($Call['NoPage']) && $Call['NoPage'])
             return $Call;
 

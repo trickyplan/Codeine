@@ -9,6 +9,7 @@
 
     setFn('Do', function ($Call)
     {
+
         if (!isset($Call['Context'])) $Call['Context'] = '';
 
         $Call = F::Merge($Call, F::loadOptions($Call['Entity'].'.Entity')); // FIXME

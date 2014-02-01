@@ -315,7 +315,7 @@
                                 $Memo[] = $Key;
                         }
 
-                        $Memo = json_encode($Memo);
+                        $Memo = sha1(serialize($Memo));
                     }
 
                     if (!isset($Memo) || ($Result = F::Get($Memo)) == null)
