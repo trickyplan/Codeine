@@ -5,7 +5,7 @@
         "Method": "Write",
         "Call":
         {
-            "Storage": "Developer",
+            "Storage": "Administrator",
             "ID": "Project $Version.Project.Major $Version.Project.Minor deployed on $Environment ",
             "Data": "Successful"
         }
