@@ -63,13 +63,12 @@
         }
         else
         {
-            if ($Call['Template'] == 'Short')
-                $Call['Layouts'][] =
-                    [
-                        'Scope' => $Call['Scope'],
-                        'ID' => (isset($Call['Custom Templates']['Table'])? $Call['Custom Templates']['Table']: 'Table'),
-                        'Context' => $Call['Context']
-                    ];
+            $Call['Layouts'][] =
+                [
+                    'Scope' => $Call['Scope'],
+                    'ID' => (isset($Call['Custom Templates']['Table'])? $Call['Custom Templates']['Table']: 'Table'),
+                    'Context' => $Call['Context']
+                ];
 
             if (isset($Call['Reverse']))
                 $Call['Elements'] = array_reverse($Call['Elements'], true);

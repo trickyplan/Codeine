@@ -30,7 +30,7 @@
             "Type": "Numeral.Integer",
             "Hooks":
             {
-                "BeforeEntityWrite":
+                "beforeEntityWrite":
                 {
                     "Service": "System.Time",
                     "Method": "Get"
