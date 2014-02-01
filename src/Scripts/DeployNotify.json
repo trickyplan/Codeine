@@ -6,7 +6,7 @@
         "Call":
         {
             "Storage": "Administrator",
-            "ID": "Project $Version.Project.Major $Version.Project.Minor deployed on $Environment ",
+            "ID": "[Administrator] Project $Version.Project.Major $Version.Project.Minor deployed on $Environment ",
             "Data": "Successful"
         }
     }
