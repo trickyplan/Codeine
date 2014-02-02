@@ -34,6 +34,9 @@
         $Call['HTTP']['Cookie'] = $_COOKIE;
         F::Log($Call['HTTP']['Cookie'], LOG_INFO);
 
+        if (isset($_SERVER['HTTP_REFERER']))
+            $Call['HTTP']['Referer'] = $_SERVER['HTTP_REFERER'];
+
         // Query string reading
 
         // Merge slashes
