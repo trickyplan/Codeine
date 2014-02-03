@@ -3,7 +3,6 @@
     [
         "Mixins.ID.Sequence",
         "Mixins.UGC",
-        "Mixins.CRUD",
         "Mixins.Filled",
         "Mixins.Verifiable",
         "Mixins.Balance",
@@ -65,7 +64,6 @@
         "Password":
         {
             "Type": "Literal.Password",
-            "Scope": "Password",
             "User Override": true,
             "Hooks":
             {
@@ -83,8 +81,7 @@
             {
                 "Write":
                 {
-                    "Type": "Form.Password",
-                    "Required": true
+                    "Type": "Form.Password"
                 }
             }
         },

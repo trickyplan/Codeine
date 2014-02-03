@@ -56,7 +56,7 @@
         "/uploader":
         {
             "Service": "IO.Uploader",
-            "Method": "Do",
+            "Method": "Write",
             "View":
             {
                 "Renderer":

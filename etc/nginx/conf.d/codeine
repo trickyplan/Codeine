@@ -14,17 +14,10 @@
 
     location ~ ^/cache/(.*)
     {
-        access_log        off;
         alias /tmp/codeine/$host/$1;
+        access_log        off;
         expires           max;
     }
-
-    location ~* \.(jpg|jpeg|gif|css|png|js|ico|woff|ttf)$
-	{
-		access_log        off;
-		expires           max;
-		add_header        Cache-Control  public;
-	}
 
 	location ~ index.php$
 	{

@@ -1,8 +1,4 @@
 {
-    "Uploader":
-    {
-        "Directory": "/Public/uploads"
-    },
     "Naming":
     {
         "Service": "Data.Type.File.Upload.Naming.MIME",

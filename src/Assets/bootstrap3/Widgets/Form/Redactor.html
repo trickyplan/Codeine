@@ -1,6 +1,9 @@
 <css>redactor</css>
 <js>redactor:min</js>
-
+<js>redactor:ru</js>
+<jsrun>
+    $("#<k>ID</k>").redactor({lang: "ru", imageUpload: "/uploader", wym: true});
+</jsrun>
 <div class="form-group">
     <label for="<k>ID</k>"><l><k>Label</k>:</l>
         <if value="<k>Required</k>" eq="required"><span class="required-star">*</span></if>
@@ -11,6 +14,3 @@
         <div class="help-block"><l><k>Entity</k>.Help:<k>Key</k></l></div>
     </if>
 </div>
-<jsrun>
-    $("#<k>ID</k>").redactor({lang: "ru", imageUpload: "/uploader", wym: true});
-</jsrun>

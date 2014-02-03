@@ -96,6 +96,27 @@
                 "Key": "$2"
             }
         },
+        "Uploads":
+        {
+            "Match": "/uploads/(.*)",
+            "Service": "IO.Uploader",
+            "Method": "Read",
+            "View":
+            {
+                "Renderer":
+                {
+                    "Service": "View.RAW",
+                    "Method": "Render"
+                }
+            },
+            "Call":
+            {
+                "Where":
+                {
+                    "ID": "$1"
+                }
+            }
+        },
         "Page":
         {
             "Match": "/(.*)",

@@ -15,8 +15,6 @@
         {
             $Call['ID'] = F::Run('Security.UID', 'Get', $Call);
 
-
-
             $Call['Data'] = file_get_contents($Call['Value']);
             $Call['Name'] = F::Live($Call['Node']['Naming'], $Call);
 
