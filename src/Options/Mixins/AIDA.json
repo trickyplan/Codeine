@@ -3,6 +3,7 @@
     {
         "Attention":
         {
+            "Index": true,
             "Type": "Literal.HTML",
             "Widgets":
             {
@@ -14,6 +15,7 @@
         },
         "Interest":
         {
+            "Index": true,
             "Type": "Literal.HTML",
             "Widgets":
             {
@@ -25,6 +27,7 @@
         },
         "Desire":
         {
+            "Index": true,
             "Type": "Literal.HTML",
             "Widgets":
             {
@@ -36,6 +39,7 @@
         },
         "Action":
         {
+            "Index": true,
             "Type": "Literal.HTML",
             "Widgets":
             {

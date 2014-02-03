@@ -3,6 +3,7 @@
     {
         "Tags":
         {
+            "Index": true,
             "Type": "Literal.Tags",
             "Widgets":
             {

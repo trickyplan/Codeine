@@ -23,7 +23,7 @@
 
         if (empty($SERP))
         {
-            F::Log('*No results*', LOG_INFO);
+            F::Log('*No results* for *'.$Call['Query'].'* in *'.$Call['Entity'].'*', LOG_INFO);
             $Result = null;
         }
         else

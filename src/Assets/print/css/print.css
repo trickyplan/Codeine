@@ -6,6 +6,10 @@
     background: transparent !important;
     box-shadow: none !important;
   }
+  hr.page-break
+  {
+      page-break-after: always;
+  }
   a,
   a:visited {
     text-decoration: underline;
@@ -36,8 +40,13 @@
   img {
     max-width: 100% !important;
   }
+  #reformal_tab
+  {
+      display: none;
+  }
+
   @page  {
-    margin: 0.5cm;
+    margin: 1.5cm;
   }
   p,
   h2,
