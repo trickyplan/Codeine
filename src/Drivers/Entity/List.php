@@ -105,7 +105,6 @@
                     }
                 }
         }
-
         $Call = F::Hook('afterList', $Call);
         return $Call;
     });

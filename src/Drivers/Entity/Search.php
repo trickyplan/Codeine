@@ -69,8 +69,5 @@
             }
         }
 
-        $Call['Context'] = '';
-
         return $Call;
-
      });

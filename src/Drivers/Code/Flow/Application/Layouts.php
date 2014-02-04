@@ -26,7 +26,7 @@
             $IDs[] = 'Main';
 
             foreach ($IDs as $ID)
-                array_unshift($Call['Layouts'], array ('Scope' => $Asset, 'ID'    => $ID, 'Context' => $Call['Context']));
+                array_unshift($Call['Layouts'], ['Scope' => $Asset, 'ID' => $ID, 'Context' => 'app']);
         }
 
         return $Call;

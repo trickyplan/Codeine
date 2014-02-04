@@ -5,7 +5,7 @@
         {
             "All":
             {
-                "Memo": ["Pattern", "Value", "Time"]
+                "-Memo": ["Pattern", "Value", "Time"]
             }
         }
     },

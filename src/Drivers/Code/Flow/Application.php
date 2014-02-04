@@ -17,7 +17,7 @@
 
         $Call = F::Hook('beforeApplicationRun', $Call); // В этом месте, практически всегда, происходит роутинг.
 
-            $Call = F::Live($Call['Run'], $Call, ['Context' => 'app']);
+            $Call = F::Live($Call['Run'], $Call);
 
         $Call = F::Hook('afterApplicationRun', $Call); // А здесь - рендеринг
 

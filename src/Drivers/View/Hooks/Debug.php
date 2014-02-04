@@ -10,10 +10,14 @@
     setFn('Do', function ($Call)
     {
         if (isset($Call['View']['Debug']) && $Call['View']['Debug'] && !isset($Call['No View Debug']) && !empty($Call['Value']))
+        {
+            $ID = $Call['Scope'].':'.$Call['ID'].(isset($Call['Context'])? ':'.$Call['Context']: '');
+
             $Call['Value'] =
-                '<!-- '.$Call['Scope'].':'.$Call['ID'].' started -->'
+                "\n".'<!-- '.$ID.' started -->'
                 ."\n".$Call['Value']."\n"
-                .'<!-- '.$Call['Scope'].':'.$Call['ID'].' ended -->';
+                .'<!-- '.$ID.' ended -->';
+        }
 
         return $Call;
     });

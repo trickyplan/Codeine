@@ -25,16 +25,19 @@
         if (isset($Call['Context']) && !empty($Call['Context']))
             $IDs[] =  $Call['ID'].'.'.$Call['Context'];
 
+        $IDs = array_reverse($IDs);
+
+
         if (isset($Call['Scope']))
             $Call['Scope'] = strtr($Call['Scope'], '.', '/');
 
-        $Call['Value'] =  F::Run('IO', 'Read',
+        $Call['Value'] = F::Run('IO', 'Read',
             [
                   'Scope' => $Call['Scope'],
                   'Storage' => 'Layout',
-                  'Where!'   =>
+                  'Where'   =>
                   [
-                      'ID' => array_reverse($IDs)
+                      'ID' => $IDs
                   ]
             ])[0];
 
@@ -43,7 +46,6 @@
 
         if ($Call['Value'] !== null)
             $Call = F::Hook('afterViewLoad', $Call);
-
 
         return $Call['Value'];
     });

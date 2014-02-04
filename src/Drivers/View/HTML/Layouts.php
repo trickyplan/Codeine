@@ -19,11 +19,15 @@
             ]);
 
             foreach ($Call['Layouts'] as $Layout) // FIXME I'm fat
-                if (($Sublayout =  F::Run('View', 'Load', $Call, $Layout)) !== null)
+            {
+                if (($Sublayout = F::Run('View', 'Load', $Call, $Layout)) !== null)
+                {
                     if (mb_strpos($Call['Layout'], '<place>Content</place>') !== false)
-                        $Call['Layout'] = str_replace('<place>Content</place>', $Sublayout, $Call['Layout']);
+                        $Call['Layout'] = preg_replace('/<place>Content<\/place>/', $Sublayout, $Call['Layout']);
                     else
                         $Call['Layout'] = $Call['Layout'].$Sublayout;
+                }
+            }
         }
 
         return $Call;

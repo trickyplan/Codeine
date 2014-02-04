@@ -30,11 +30,6 @@
             {
                 "Service": "Code.Flow.Application.Access",
                 "Method": "Check"
-            },
-            "Cache":
-            {
-                "Service": "Code.Flow.Application.Cache",
-                "Method": "beforeApplicationRun"
             }
         },
         "afterApplicationRun":

@@ -28,7 +28,7 @@
                       else
                         $Match[$Key] = null;
 
-                  $Application = F::Run('Code.Flow.Application', 'Run', ['Run' => $Match, 'Context' => 'app']);
+                  $Application = F::Run('Code.Flow.Application', 'Run', ['Run' => $Match]);
 
                   if (isset($Application['Output']))
                     $Call['Output'] = str_replace(
@@ -44,8 +44,6 @@
               }
               else
                   $Call['Output'] = str_replace($Call['Parsed'][0][$IX], 'Bad Exec.', $Call['Output']);
-
-
           }
 
           return $Call;

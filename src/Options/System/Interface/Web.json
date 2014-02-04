@@ -8,7 +8,6 @@
         }
     },
     "Force SSL": false,
-    "Context": "",
     "HTTP":
     {
         "Methods":

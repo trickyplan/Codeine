@@ -19,7 +19,7 @@
         {
             foreach ($Call['Parsed'][1] as $IX => &$Match)
             {
-                list($Asset, $ID) = F::Run('View', 'Asset.Route', ['Value' => $Match]);
+                list($Asset, $ID) = F::Run('View', 'Asset.Route', ['Value' => $Match]); // FIXME
                 $Match = F::Run ('View', 'Load', $Call, ['Scope' => $Asset, 'ID' => $ID]);
             }
 

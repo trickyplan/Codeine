@@ -41,7 +41,10 @@
                 $Result = [];
 
                 foreach ($Filenames as $Filename)
+                {
                     $Result[] = file_get_contents($Filename);
+                    F::Log('File *'.$Filename.' loaded ', LOG_DEBUG, 'Administrator');
+                }
 
                 return $Result;
             }
