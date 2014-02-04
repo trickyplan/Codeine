@@ -13,7 +13,6 @@
         {
             $GImage = new Gmagick();
             $GImage->readimageblob($Call['Current Image']['Data']);
-            $GImage->setCompressionQuality($Call['Image']['Quality']);
 
             if (!isset($Call['Current Image']['Height']))
                 $Call['Current Image']['Height'] =

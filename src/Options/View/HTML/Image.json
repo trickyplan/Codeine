@@ -9,7 +9,7 @@
         "Caching": true,
         "Pattern": "<image>(.+?)<\/image>",
         "Pathname": "/cache/img/",
-        "Quality": 85,
+        "Quality": 100,
         "Source":
         {
             "Storage": "Image"
