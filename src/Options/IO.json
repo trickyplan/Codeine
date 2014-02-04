@@ -5,7 +5,7 @@
         {
             "Read":
             {
-                "-Memo": ["Storage", "Scope", "Where", "Time", "Fields", "Limit", "Sort"]
+                "Memo": ["Storage", "Scope", "Where", "Time", "Fields", "Limit", "Sort"]
             }
         }
     },
