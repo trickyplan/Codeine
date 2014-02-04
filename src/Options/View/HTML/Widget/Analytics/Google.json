@@ -1,4 +1,14 @@
 {
-    "DNT Support": true,
-    "Demography": false
+    "Analytics":
+    {
+        "Google":
+        {
+            "DNT Support": true,
+            "Demography": false,
+            "URLs":
+            {
+                "Disabled": ["/park"]
+            }
+        }
+    }
 }
