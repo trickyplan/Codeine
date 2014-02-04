@@ -2,6 +2,8 @@
 
     include 'Codeine/Core.php';
 
+    $Call = [];
+
     try
     {
         if (file_exists(Root.'/locks/down') && !isset($_COOKIE['Magic']))
@@ -26,17 +28,15 @@
             case 'Development':
                 d(__FILE__, __LINE__, $e);
             break;
-
-            default:
-                header('HTTP/1.1 503 Service Temporarily Unavailable');
-                header('Status: 503 Service Temporarily Unavailable');
-
-                if (file_exists(Root.'/down.html'))
-                    readfile(Root.'/down.html');
-                else
-                    readfile(Codeine.'/down.html');
-            break;
         }
+
+        header('HTTP/1.1 503 Service Temporarily Unavailable');
+        header('Status: 503 Service Temporarily Unavailable');
+
+        if (file_exists(Root.'/Public/down.html'))
+            readfile(Root.'/Public/down.html');
+        else
+            readfile(Codeine.'/down.html');
     }
 
     F::Shutdown($Call);
