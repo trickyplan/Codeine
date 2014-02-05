@@ -136,7 +136,7 @@
 
             $URL = (isset($URL['path'])? $URL['path']: '').(isset($URL['query'])? '?'.$URL['query']: '');
 
-            if (in_array($URL, $Call['Processed']))
+            if (in_array($URL, $Call['Processed']) or in_array($URL, $Call['URLs']))
                 $Decision = false;
 
             if (isset($Call['White']) && !preg_match($Call['White'], $URL))

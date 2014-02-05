@@ -17,7 +17,11 @@
     border-color: #dddddd;
     border-bottom: 1px solid transparent;
 }
-
+.table thead td.active, .table thead td.active a
+{
+    color: #333333;
+    font-weight: bold;
+}
 .table thead a, .table thead a:hover
 {
     color: #ffffff;
@@ -44,8 +48,9 @@
     background-color: #f7f7f7;
     border: 1px solid #cccccc;
     color: #666666;
-    margin: 0 2px;
+    margin: 2px;
     text-transform: lowercase;
+    display: inline-block;
 }
 
 .label-tag:hover
