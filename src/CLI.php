@@ -8,7 +8,7 @@
     include 'Core.php';
 
     foreach ($argv as $arg)
-        if (preg_match('/--(\S+)\=(\S+)/', $arg, $Pockets))
+        if (preg_match('/^--(\w+)\=(.+)$/Ssu', $arg, $Pockets))
             $Opts[$Pockets[1]] = $Pockets[2];
 
     !defined('Root')? define('Root', getcwd()): false;

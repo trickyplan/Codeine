@@ -83,9 +83,16 @@
         {
             phpQuery::each(pq($Rule['Selector']),function($Index, $Element) use (&$Data, $Key, $Rule)
             {
-                $Value = preg_replace ('/\\s{2,}|\\s{2,}$/Ssm', "\n", pq($Element)->html());
+                if (isset($Rule['Text']))
+                    $Value = preg_replace ('/\\s{2,}|\\s{2,}$/Ssm', "\n", pq($Element)->text());
+                elseif (isset($Rule['Content']))
+                    $Value = preg_replace ('/\\s{2,}|\\s{2,}$/Ssm', "\n", pq($Element)->attr('content'));
+                else
+                    $Value = preg_replace ('/\\s{2,}|\\s{2,}$/Ssm', "\n", pq($Element)->html());
 
-                if (!empty($Value))
+                if (empty($Value))
+                    F::Log($Key.' not defined', LOG_ERR);
+                else
                 {
                     if (isset($Rule['Regex']))
                     {
@@ -102,8 +109,6 @@
                     if (!empty($Value))
                         $Data = F::Dot($Data, $Key.'.'.$Index, $Value);
                 }
-                else
-                    F::Log($Key.' not defined', LOG_ERR);
             });
 
             $Value = F::Dot($Data, $Key);

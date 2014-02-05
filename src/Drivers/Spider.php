@@ -23,8 +23,8 @@
         while($Call['Live'])
         {
             $Call['URL'] = array_shift($Call['URLs']);
-            F::Log('URL: '.$Call['Host'].$Call['URL'].' selected', LOG_WARNING);
 
+            F::Log('URL: '.$Call['Host'].$Call['URL'].' selected', LOG_WARNING);
 
                 $Call = F::Run(null, 'Fetch', $Call);
 
@@ -44,6 +44,8 @@
             if(count($Call['URLs']) == 0 or count($Links) > 200)
                 break;
 
+
+            file_put_contents('/var/scrape/'.$Call['URL'], $Call['Body']);
             $Call['IX']++;
         }
         return $Call;

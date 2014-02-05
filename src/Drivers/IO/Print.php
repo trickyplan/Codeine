@@ -9,7 +9,7 @@
 
     setFn('Write', function ($Call)
     {
-        if ($Call['View']['Renderer']['Service'] != 'View.HTML' && isset($Call['Print Log']))
+        if (isset($Call['View']['Renderer']['Service']) && $Call['View']['Renderer']['Service'] != 'View.HTML' && isset($Call['Print Log']))
             return null;
         else
             return F::Apply(null, gettype($Call['Data']), $Call);
