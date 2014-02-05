@@ -49,10 +49,7 @@
                        if (is_numeric($Key))
                        {
                            if ($Key > 0) // FIXME Костыль!
-                           {
                                $XML->endElement();
-                               $XML->startElement($Root);
-                           }
                        }
                        else
                        {
