@@ -1,13 +1,5 @@
 {
     "Return Code": 0,
-    "View":
-    {
-        "Renderer":
-        {
-            "Service": "View.Plaintext",
-            "Method": "Render"
-        }
-    },
     "IP": "127.0.0.1",
     "UA": "Shell",
     "Locale":

@@ -44,7 +44,7 @@
                 {
                     $Where['ID'] = ['$in' => array_keys($IDs)];
 
-                    $Call = F::Apply('Entity.List', 'Do',
+                    $VCall = F::Apply('Entity.List', 'Do',
                         $Call,
                         [
                             'Context' => 'app',
@@ -55,6 +55,8 @@
                                 'Short')
                         ]
                     );
+
+                    $Call['Output'] = F::Merge($Call['Output'], $VCall['Output']);
                 }
                 else
                     $Call['Output']['Content'][] =
@@ -71,3 +73,55 @@
 
         return $Call;
      });
+
+    setFn('Suggestions', function ($Call)
+    {
+        $Call['Headers']['Content-type:'] = 'application/x-suggestions+json';
+        $Suggestions = [];
+
+        if (!isset($Call['Entity']))
+            $Entities = $Call['Entities'];
+        else
+            $Entities = [$Call['Entity']];
+
+        foreach ($Entities as $Entity)
+        {
+            $IDs = F::Run('Search', 'Query', $Call,
+            [
+                'Entity' => $Entity,
+                'Engine' => 'Primary',
+                'Query'  => $Call['Request']['Query']
+            ]);
+
+            if (null === $IDs)
+                ;
+            else
+            {
+                $Results = F::Run('Entity', 'Read',
+                [
+                    'Entity' => $Entity,
+                    'Fields' => ['Title'],
+                    'Where' =>
+                    [
+                        'ID' =>
+                        [
+                            '$in' => array_keys($IDs)
+                        ]
+                    ]
+                ]);
+
+                foreach ($Results as $Result)
+                {
+                    $Suggestions[] = $Result['Title'];
+                }
+            }
+        }
+
+        $Call['Output']['Content'] =
+        [
+            $Call['Request']['Query'],
+            $Suggestions
+        ];
+
+        return $Call;
+    });

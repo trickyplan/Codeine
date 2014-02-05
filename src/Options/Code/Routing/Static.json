@@ -27,6 +27,36 @@
             "Service": "Entity.Search",
             "Method": "Do"
         },
+        "/search.rss":
+        {
+            "Service": "Entity.Search",
+            "Method": "Do",
+            "Call":
+            {
+                "Link": "/search"
+            },
+            "View":
+            {
+                "Renderer":
+                {
+                    "Service": "View.RSS",
+                    "Method": "Render"
+                }
+            }
+        },
+        "/search.json":
+        {
+            "Service": "Entity.Search",
+            "Method": "Suggestions",
+            "View":
+            {
+                "Renderer":
+                {
+                    "Service": "View.JSON",
+                    "Method": "Render"
+                }
+            }
+        },
         "/translate":
         {
             "Service": "Locale.Add",

@@ -18,8 +18,8 @@
         $Call['HTTP']['Host'] = $Call['Project']['Hosts'][F::Environment()];
         $Call['HTTP']['URL'] = '/';
 
-                if (!isset($Call['Skip Run']))
-                    $Call = F::Apply($Call['Service'], $Call['Method'], $Call);
+            if (!isset($Call['Skip Run']))
+                $Call = F::Apply($Call['Service'], $Call['Method'], $Call);
 
         $Call = F::Hook('afterInterfaceRun', $Call);
 

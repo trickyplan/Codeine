@@ -1,0 +1,10 @@
+{
+    "View":
+    {
+        "Renderer":
+        {
+            "Service": "View.JSON",
+            "Method": "Render"
+        }
+    }
+}

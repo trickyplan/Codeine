@@ -33,8 +33,10 @@
                     $XML->endAttribute();
                 }
 
+            $Root = '';
+
             F::Map($Call['Output']['Content'],
-               function ($Key, $Value) use ($XML)
+               function ($Key, $Value) use ($XML, &$Root)
                {
                    if (substr($Key, 0, 1) == '@')
                    {
@@ -47,16 +49,25 @@
                        if (is_numeric($Key))
                        {
                            if ($Key > 0) // FIXME Костыль!
+                           {
                                $XML->endElement();
+                               $XML->startElement($Root);
+                           }
                        }
                        else
+                       {
                            $XML->startElement($Key);
+                           $Root = $Key;
+                       }
 
-                       if(!is_array($Value))
+                       if (is_array($Value))
+                           ;
+                       else
                        {
                            $XML->text($Value);
                            $XML->endElement();
                        }
+
                    }
                }
            );

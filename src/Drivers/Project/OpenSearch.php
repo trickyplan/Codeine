@@ -18,22 +18,26 @@
         if(isset($Call['Project']['Contacts']['Search']['EMail']))
             $Call['Output']['Content']['Contact'] = $Call['Project']['Contacts']['Search']['EMail'];
 
+        $Call['Output']['Content']['Image'] =
+            [
+                '@height' => 48,
+                '@width'  => 48,
+                '@type'   => 'image/vnd.microsoft.icon',
+                $Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/favicon.ico'
+            ];
+
         $Call['Output']['Content']['Url'] =
             [
-                '@type' => 'text/html',
-                '@template' => $Call['HTTP']['Host'].'/search/{searchTerms}'
+                [
+                    '@type' => 'application/x-suggestions+json',
+                    '@template' => $Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/search.json?Query={searchTerms}'
+                ],
+                [
+                    '@type' => 'text/html',
+                    '@rel'  => 'results',
+                    '@template' => $Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/search?Query={searchTerms}'
+                ]
             ];
 
         return $Call;
     });
-
-/*
- *  <OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
-   <ShortName>Web Search</ShortName>
-   <Description>Use Example.com to search the Web.</Description>
-   <Tags>example web</Tags>
-   <Contact>admin@example.com</Contact>
-   <Url type="application/rss+xml"
-        template="http://example.com/?q={searchTerms}&amp;pw={startPage?}&amp;format=rss"/>
- </OpenSearchDescription>
- */

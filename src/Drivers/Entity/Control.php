@@ -155,7 +155,7 @@
     setFn('Touch', function ($Call)
     {
         $Call['Layouts'][] = ['Scope' => 'Entity', 'ID' => 'Touch'];
-        return F::Apply('Entity.Touch', 'Do', $Call, ['Entity' => $Call['Bundle']]);
+        return F::Apply('Entity.Touch', 'Do', $Call, ['Entity' => $Call['Bundle'], 'Scope' => 'Control']);
     });
 
     setFn('Import', function ($Call)

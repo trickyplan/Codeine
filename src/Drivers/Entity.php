@@ -164,13 +164,13 @@
                 }
             }
 
-            $Current = F::Run('Entity', 'Read', $Call, ['Time' => microtime(true), 'One' => false]);
+            // $Current = F::Run('Entity', 'Read', $Call, ['Time' => microtime(true), 'One' => false]);
 
             $Call = F::Hook('afterOperation', $Call);
 
             F::Log('*'.count($Call['Data']).'* '.$Call['Entity'].' updated', LOG_INFO, 'Administrator');
 
-            if (isset($Call['One']))
+            if (isset($Call['One']) && $Call['One'])
             {
                 unset($Call['One']);
 
@@ -196,7 +196,7 @@
 
         if ($Current)
         {
-            foreach ($Current as $IX => $Call['Current'])
+            foreach ($Current as $Call['Current'])
             {
                 $Call['Data'] = $Call['Current'];
 

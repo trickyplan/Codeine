@@ -9,7 +9,7 @@
 
     setFn('Length', function ($Call)
     {
-        if (isset($Call['View']['HTML']['Keywords']))
+        if (isset($Call['View']['HTML']['Keywords']) && is_string($Call['View']['HTML']['Keywords']))
         {
             $Length = mb_strlen($Call['View']['HTML']['Keywords']);
 

@@ -13,16 +13,17 @@
 
         $Call = F::Hook('beforeTouch', $Call);
 
-        $Results = F::Run('Entity', 'Update', $Call, ['Data!' => ['Modified' => time()]]);
+            $Call['Data'] = F::Run('Entity', 'Read', $Call);
+            $Results = F::Run('Entity', 'Update', $Call);
 
-        foreach ($Results as $Result)
-            $Call['Output']['Content'][] =
-                [
-                    'Type' => 'Template',
-                    'Scope' => $Call['Entity'],
-                    'ID' => 'Show/Short',
-                    'Data' => $Result
-                ];
+            foreach ($Results as $Result)
+                $Call['Output']['Content'][] =
+                    [
+                        'Type' => 'Template',
+                        'Scope' => $Call['Entity'].'/'.$Call['Scope'],
+                        'ID' => 'Show/Short',
+                        'Data' => $Result
+                    ];
 
         $Call = F::Hook('afterTouch', $Call);
 
