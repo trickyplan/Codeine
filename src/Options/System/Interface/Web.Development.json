@@ -1,0 +1,24 @@
+{
+    "Force SSL": false,
+    "Hooks":
+    {
+        "afterInterfaceRun!":
+        {
+            "Performance":
+            {
+                "Service": "Performance",
+                "Method": "Do"
+            },
+            "Spit log":
+            {
+                "Service": "IO.Log",
+                "Method": "Spit"
+            },
+            "Output Buffering":
+            {
+                "Service": "System.Interface.Web.OB",
+                "Method": "Finish"
+            }
+        }
+    }
+}

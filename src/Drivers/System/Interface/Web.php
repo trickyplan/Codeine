@@ -190,3 +190,9 @@
 
         return $Call;
     });
+
+    setFn('Finish', function ($Call)
+    {
+        fastcgi_finish_request();
+        return $Call;
+    });

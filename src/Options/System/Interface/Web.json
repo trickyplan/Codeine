@@ -77,6 +77,11 @@
         },
         "afterInterfaceRun":
         {
+            "FastCGI Finish Request":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "Finish"
+            },
             "Performance":
             {
                 "Service": "Performance",
