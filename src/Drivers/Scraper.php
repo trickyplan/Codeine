@@ -23,6 +23,8 @@
 
         while($Call['Live'])
         {
+            shuffle($Call['URLs']);
+
             $Call['URL'] = array_shift($Call['URLs']);
             F::Log('URL: '.$Call['Host'].$Call['URL'].' selected', LOG_WARNING);
 
@@ -52,13 +54,20 @@
 
             $Call['URLs'] = array_unique($Call['URLs']);
 
-            F::Log(count($Call['URLs']).' URLs queued', LOG_WARNING);
-            F::Log(count($Call['Processed']).' URLs processed', LOG_WARNING);
+            $ProcessedCount = count($Call['Processed']);
+            $QueuedCount = count($Call['URLs']);
 
+            F::Log($QueuedCount.' URLs queued', LOG_WARNING);
+            F::Log($ProcessedCount.' URLs processed', LOG_WARNING);
+
+            F::Log($ProcessedCount/($QueuedCount+$ProcessedCount).'%', LOG_WARNING);
 
             if(count($Call['URLs']) == 0)
                 break;
+
+            $Call['IX']++;
         }
+
         return $Call;
     });
 

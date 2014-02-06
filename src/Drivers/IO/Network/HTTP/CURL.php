@@ -144,6 +144,8 @@
         else
             F::Log('CURL fetched *'.$Call['Where']['ID'].'*', LOG_INFO);
 
+        curl_close ($Call['Link']);
+
         return $Result;
     });
 
