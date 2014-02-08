@@ -27,3 +27,11 @@
         F::Run('Entity','Create', $Call, ['Data' => json_decode($Call['Request']['Data'], true)]);
         return $Call;
     });
+
+    setFn('Input', function ($Call)
+    {
+        F::Run('Entity','Delete', $Call);
+        F::Run('Entity','Create', $Call, ['Data' => json_decode(file_get_contents('php://stdin'), true)]);
+
+        return $Call;
+    });

@@ -51,4 +51,10 @@
         }
 
         return $Result;
-     });
+    });
+
+    setFn('Add', function ($Call)
+    {
+
+        return $Call;
+    });

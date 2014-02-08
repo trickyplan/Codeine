@@ -9,7 +9,7 @@
 
     setFn('Run', function ($Call)
     {
-        $Script = F::loadOptions($Call['Call'], null, [], 'Scripts');
+        $Script = F::loadOptions($Call['Run'], null, [], 'Scripts');
 
         $VCall = $Call;
         $VCall['Environment'] = F::Environment();
