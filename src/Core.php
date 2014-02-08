@@ -559,7 +559,7 @@
                     self::$_Log[$Channel][]
                         = [
                         $Verbose,
-                        round(microtime(true) - self::$_Ticks['T']['Codeine.Do'], 3),
+                        round(microtime(true) - Started, 3),
                         $Message,
                         self::$_Service.':'.self::$_Method];
                 }
@@ -575,11 +575,18 @@
 
         public static function Dump($File, $Line, $Call)
         {
-            echo '<div class="console"><h5>'.substr($File, strpos($File, 'Drivers')).'@'.$Line.'&nbsp; '.trim(file($File)[$Line-1]).'</h5>';
-
-            var_dump($Call);
-
-            echo '</div>';
+            if (PHP_SAPI == 'cli')
+            {
+                echo PHP_EOL.substr($File, strpos($File, 'Drivers')).'@'.$Line.' '.trim(file($File)[$Line-1]).PHP_EOL;
+                echo var_export($Call).PHP_EOL;
+            }
+            else
+            {
+                echo '<div class="console"><h5>'.
+                    substr($File, strpos($File, 'Drivers')).'@'.$Line.'&nbsp; '.trim(file($File)[$Line-1]).'</h5>';
+                var_dump($Call);
+                echo '</div>';
+            }
 
             return $Call;
         }
@@ -821,19 +828,23 @@
 
         private static function Start ($Key)
         {
-            return self::$_Ticks['T'][$Key] = microtime(true);
+            if (isset(self::$_Performance))
+                return self::$_Ticks['T'][$Key] = microtime(true);
         }
 
         private static function Stop ($Key)
         {
-            if (isset(self::$_Counters['T'][$Key]))
-                return self::$_Counters['T'][$Key] += round((microtime(true) - self::$_Ticks['T'][$Key])*1000,2);
-            else
+            if (isset(self::$_Performance))
             {
-                if (isset(self::$_Ticks['T'][$Key]))
-                    return self::$_Counters['T'][$Key] = round((microtime(true) - self::$_Ticks['T'][$Key])*1000,2);
+                if (isset(self::$_Counters['T'][$Key]))
+                    return self::$_Counters['T'][$Key] += round((microtime(true) - self::$_Ticks['T'][$Key])*1000,2);
                 else
-                    return self::$_Counters['T'][$Key] = 0;
+                {
+                    if (isset(self::$_Ticks['T'][$Key]))
+                        return self::$_Counters['T'][$Key] = round((microtime(true) - self::$_Ticks['T'][$Key])*1000,2);
+                    else
+                        return self::$_Counters['T'][$Key] = 0;
+                }
             }
         }
 
@@ -908,7 +919,7 @@
 
     function d()
     {
-        if (F::Environment() != 'Production')
+        if (F::Environment() != 'Production' or PHP_SAPI == 'cli')
             call_user_func_array(['F','Dump'], func_get_args());
 
         return func_get_arg(2);
