@@ -15,6 +15,8 @@
             return null;
         }
 
+        unset($Call['Nodes']);
+
         $Call = F::Hook('beforeEntityLoad', $Call);
 
             $Model = F::loadOptions($Call['Entity'].'.Entity');
@@ -72,7 +74,7 @@
 
         $Call = F::Hook('afterOperation', $Call);
 
-        F::Log('*'.count($Call['Data']).'* '.$Call['Entity'].' created', LOG_INFO, 'Administrator');
+        F::Log('*'.count($Data).'* '.$Call['Entity'].' created', LOG_INFO, 'Administrator');
 
         if (isset($Call['One']))
             $Data = array_shift($Data);
@@ -133,7 +135,7 @@
 
         $Call = F::Hook('beforeOperation', $Call);
 
-        $Current = F::Run('Entity', 'Read', $Call, ['One' => false, 'Time' => microtime(true)]);
+        $Current = F::Run('Entity', 'Read', $Call, ['One' => false, 'Time' => rand()]);
 
         $Call['Updates'] = $Call['Data'];
 
@@ -169,6 +171,8 @@
             $Call = F::Hook('afterOperation', $Call);
 
             F::Log('*'.count($Call['Data']).'* '.$Call['Entity'].' updated', LOG_INFO, 'Administrator');
+
+            $Current = F::Run('Entity', 'Read', $Call, ['One' => false, 'Time' => rand()]);
 
             if (isset($Call['One']) && $Call['One'])
             {

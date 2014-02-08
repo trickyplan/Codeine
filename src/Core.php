@@ -303,7 +303,7 @@
 
                 if (is_callable($F))
                 {
-                    if (isset($FnOptions['Contract'][self::$_Service][self::$_Method]['Memo']))
+                    if (!isset($Call['No Memo']) && isset($FnOptions['Contract'][self::$_Service][self::$_Method]['Memo']))
                     {
                         $Memo = [self::$_Service, self::$_Method];
                         foreach ($FnOptions['Contract'][self::$_Service][self::$_Method]['Memo'] as $Key)
@@ -314,8 +314,7 @@
                             else
                                 $Memo[] = $Key;
                         }
-
-                        $Memo = sha1(serialize($Memo));
+                            $Memo = sha1(serialize($Memo));
                     }
 
                     if (!isset($Memo) || ($Result = F::Get($Memo)) == null)
@@ -327,11 +326,13 @@
                     else
                         F::Log(self::$_Service.':'.self::$_Method.' memoized', LOG_DEBUG, 'Administrator');
 
-                    if (isset($Memo))
+                    if (!isset($Call['No Memo']) && isset($Memo))
                         F::Set($Memo, $Result);
                 }
                 else
                     $Result = isset($Call['Fallback']) ? $Call['Fallback'] : null;
+
+                gc_collect_cycles();
             }
 
             self::Stop(self::$_Service . '.' . self::$_Method);

@@ -18,8 +18,7 @@
         {
             F::Log('Session: Marker not set', LOG_DEBUG, 'Security');
 
-            if (isset($Call['Session Auto']) && $Call['Session Auto'])
-                $Call = F::Apply(null, 'Mark', $Call);
+            $Call = F::Apply(null, 'Mark', $Call);
 
             $Call['Session'] = [];
         }
@@ -89,6 +88,10 @@
 
             F::Log('Session: Primary user '.$Call['Session']['User']['ID'].' authenticated', LOG_INFO, 'Security');
         }
+
+        if ($Call['Session']['User']['Status'] === 0)
+            $Call = F::Hook('ActivationNeeded', $Call);
+
         return $Call;
     });
 
@@ -100,10 +103,17 @@
         if (!isset($Call['Session']))
             $Call = F::Apply(null, 'Initialize', $Call);
 
-        if (empty($Call['Session']))
+         if (empty($Call['Session']))
         {
-            $Call['Data']['ID'] = $Call['SID'];
-            $Call['Session'] = F::Run('Entity', 'Create', $Call, ['Entity' => 'Session', 'One' => true]);
+            $Call['Session'] = F::Run('Entity', 'Create', $Call,
+                [
+                    'Entity' => 'Session',
+                    'One' => true,
+                    'Data' =>
+                    [
+                        'ID' => $Call['SID']
+                    ]
+                ]);
 
             F::Log('Session created '.$Call['SID'], LOG_INFO, 'Security');
         }
@@ -119,6 +129,8 @@
 
             F::Log('Session updated '.$Call['SID'], LOG_INFO, 'Security');
         }
+
+        $Call = F::Run(null, 'Load User', $Call);
 
         return $Call;
     });

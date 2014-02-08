@@ -91,7 +91,7 @@
         F::Log($Call['URL'].' fetching', LOG_WARNING);
         $MT = microtime(true);
 
-        $Result = F::Run('IO', 'Read', ['Storage' => 'Web', 'Where' => $Call['Host'].$Call['URL']]);
+        $Result = F::Run('IO', 'Read', ['No Memo' => true, 'Storage' => 'Web', 'Where' => $Call['Host'].$Call['URL']]);
         $Call['Body'] = array_pop($Result);
 
         F::Log($Call['URL'].' fetched by '.round((microtime(true)-$MT)*1000).' ms', LOG_WARNING);

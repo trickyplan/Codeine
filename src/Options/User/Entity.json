@@ -45,6 +45,7 @@
         {
             "Type": "Literal.String",
             "Verifiable": true,
+            "User Override": true,
             "Hooks":
             {
                 "beforeEntityUpdate":

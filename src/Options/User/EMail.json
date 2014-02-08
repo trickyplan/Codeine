@@ -2,7 +2,7 @@
     "Subject": "Активация аккаунта ",
     "Activation":
     {
-        "AutoLogin": true
+        "Auto Login": true
     },
     "Hooks":
     {

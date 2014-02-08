@@ -18,6 +18,23 @@
                 "Service": "Session.Hooks.API",
                 "Method": "afterSessionInitialize"
             }
+        },
+        "ActivationNeeded":
+        {
+            "Show alert":
+            {
+                "Output":
+                {
+                    "Message":
+                    [
+                        {
+                            "Type": "Template",
+                            "Scope": "User/Activation",
+                            "ID": "Needed"
+                        }
+                    ]
+                }
+            }
         }
     }
 }

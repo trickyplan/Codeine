@@ -69,9 +69,9 @@
                      'Entity' => 'User',
                      'Where' => $Activation['User'],
                      'Data' =>
-                         [
-                            'Status' => 1
-                         ]
+                     [
+                        'Status' => 1
+                     ]
                 ]);
 
             F::Run('IO', 'Write',
@@ -82,7 +82,7 @@
                      'Data' => null
                 ]);
 
-            if (isset($Call['Activation']['AutoLogin']) && $Call['Activation']['AutoLogin'])
+            if (isset($Call['Activation']['Auto Login']) && $Call['Activation']['Auto Login'])
                 $Call = F::Apply('Session', 'Write', $Call, ['Data' => ['User' => $Activation['User']]]);
 
             $Call = F::Hook('Activation.Success', $Call);
