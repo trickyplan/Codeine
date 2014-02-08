@@ -89,7 +89,7 @@
             F::Log('Session: Primary user '.$Call['Session']['User']['ID'].' authenticated', LOG_INFO, 'Security');
         }
 
-        if ($Call['Session']['User']['Status'] === 0)
+        if (isset($Call['Session']['User']['Status']) && $Call['Session']['User']['Status'] === 0)
             $Call = F::Hook('ActivationNeeded', $Call);
 
         return $Call;
