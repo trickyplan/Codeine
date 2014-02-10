@@ -91,7 +91,7 @@
         F::Log($Call['URL'].' fetching', LOG_WARNING);
         $MT = microtime(true);
 
-        $Result = F::Run('IO', 'Read', ['No Memo' => true, 'Storage' => 'Web', 'Where' => $Call['Host'].$Call['URL']]);
+        $Result = F::Run('IO', 'Read', $Call, ['No Memo' => true, 'Storage' => 'Web', 'Where' => $Call['Host'].$Call['URL']]);
         $Call['Body'] = array_pop($Result);
 
         F::Log($Call['URL'].' fetched by '.round((microtime(true)-$MT)*1000).' ms', LOG_WARNING);
@@ -169,26 +169,20 @@
 
     setFn('Select Proxy', function ($Call)
     {
-        if ($Call['IX'] % $Call['RPP'] == 0)
-        {
-            $Call['Proxy'] = [];
+        $Call['Proxy'] = [];
 
-            list($Call['Proxy']['Host'], $Call['Proxy']['Port']) =
-                explode(':', $Call['Proxies'][array_rand($Call['Proxies'])]);
+        list($Call['Proxy']['Host'], $Call['Proxy']['Port']) =
+            explode(':', $Call['Proxies'][array_rand($Call['Proxies'])]);
 
-            F::Log('Proxy: '.$Call['Proxy']['Host'].' selected', LOG_WARNING);
-        }
+        F::Log('Proxy: '.$Call['Proxy']['Host'].' selected', LOG_WARNING);
 
         return $Call;
     });
 
     setFn('Select User Agent', function ($Call)
     {
-        if ($Call['IX'] % $Call['RPP'] == 0)
-        {
-            $Call['User Agent'] = $Call['User Agents'][array_rand($Call['User Agents'])];
-            F::Log('UA: '.$Call['User Agent'].' selected', LOG_WARNING);
-        }
+        $Call['User Agent'] = $Call['User Agents'][array_rand($Call['User Agents'])];
+        F::Log('UA: '.$Call['User Agent'].' selected', LOG_WARNING);
 
         return $Call;
     });
