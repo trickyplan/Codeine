@@ -849,6 +849,11 @@
             }
         }
 
+        private static function Snapshot ()
+        {
+            return j(get_defined_vars());
+        }
+
         private static function MStart ($Key)
         {
             return self::$_Ticks['M'][$Key] = memory_get_peak_usage(true);

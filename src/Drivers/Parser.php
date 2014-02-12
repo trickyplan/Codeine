@@ -12,58 +12,58 @@
     {
         phpQuery::newDocumentHTML($Call['Markup']);
 
-        $Call['Nodes'] = F::loadOptions('Parser/'.$Call['Schema'])['Nodes'];
+            $Call['Nodes'] = F::loadOptions('Parser/'.$Call['Schema'])['Nodes'];
 
-        $Data = [];
+            $Data = [];
 
-        $Keys = 0;
+            $Keys = 0;
 
-        foreach ($Call['Nodes'] as $Key => $Rule)
-        {
-            phpQuery::each(pq($Rule['Selector']),function($Index, $Element) use (&$Data, $Key, $Rule)
+            foreach ($Call['Nodes'] as $Key => $Rule)
             {
-                if (isset($Rule['Text']))
-                    $Value = preg_replace ('/\\s{2,}|\\s{2,}$/Ssm', "\n", pq($Element)->text());
-                elseif (isset($Rule['Content']))
-                    $Value = preg_replace ('/\\s{2,}|\\s{2,}$/Ssm', "\n", pq($Element)->attr('content'));
-                elseif (isset($Rule['Value']))
-                    $Value = preg_replace ('/\\s{2,}|\\s{2,}$/Ssm', "\n", pq($Element)->attr('value'));
-                else
-                    $Value = preg_replace ('/\\s{2,}|\\s{2,}$/Ssm', "\n", pq($Element)->html());
-
-                if (empty($Value))
-                    F::Log($Key.' not defined', LOG_ERR);
-                else
+                phpQuery::each(pq($Rule['Selector']),function($Index, $Element) use (&$Data, $Key, $Rule)
                 {
-                    if (isset($Rule['Regex']))
+                    if (isset($Rule['Text']))
+                        $Value = preg_replace ('/\\s{2,}|\\s{2,}$/Ssm', "\n", pq($Element)->text());
+                    elseif (isset($Rule['Content']))
+                        $Value = preg_replace ('/\\s{2,}|\\s{2,}$/Ssm', "\n", pq($Element)->attr('content'));
+                    elseif (isset($Rule['Value']))
+                        $Value = preg_replace ('/\\s{2,}|\\s{2,}$/Ssm', "\n", pq($Element)->attr('value'));
+                    else
+                        $Value = preg_replace ('/\\s{2,}|\\s{2,}$/Ssm', "\n", pq($Element)->html());
+
+                    if (empty($Value))
+                        F::Log($Key.' not defined', LOG_ERR);
+                    else
                     {
-                        if (preg_match($Rule['Regex'], $Value, $Pockets))
-                            $Value = $Pockets[1];
-                        else
-                            $Value = null;
+                        if (isset($Rule['Regex']))
+                        {
+                            if (preg_match($Rule['Regex'], $Value, $Pockets))
+                                $Value = $Pockets[1];
+                            else
+                                $Value = null;
+                        }
+
+                        $Value = trim($Value);
+
+                        F::Log($Key.'.'.$Index.' is '.$Value, LOG_INFO);
+
+                        if (!empty($Value))
+                            $Data = F::Dot($Data, $Key.'.'.$Index, $Value);
                     }
+                });
 
-                    $Value = trim($Value);
+                $Value = F::Dot($Data, $Key);
 
-                    F::Log($Key.'.'.$Index.' is '.$Value, LOG_INFO);
+                if (null !== $Value)
+                    $Keys++;
 
-                    if (!empty($Value))
-                        $Data = F::Dot($Data, $Key.'.'.$Index, $Value);
-                }
-            });
+                if (count($Value) == 1)
+                    $Data = F::Dot($Data, $Key, $Value[0]);
+            }
 
-            $Value = F::Dot($Data, $Key);
+            $Data['Percent'] = floor($Keys/count($Call['Nodes'])*100);
 
-            if (null !== $Value)
-                $Keys++;
-
-            if (count($Value) == 1)
-                $Data = F::Dot($Data, $Key, $Value[0]);
-        }
-
-        $Data['Percent'] = floor($Keys/count($Call['Nodes'])*100);
-
-        $Call['Data'] = $Data;
+            $Call['Data'] = $Data;
 
         phpQuery::unloadDocuments();
 
