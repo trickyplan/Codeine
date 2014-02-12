@@ -15,7 +15,7 @@
         {
             if (isset($Node['Index']) && $Node['Index'])
             {
-                if (mb_ereg_all('/([a-zA-Zа-яА-Я]+)/Ssu', $Call['Data'][$Name], $Pockets))
+                if (preg_match_all('/([a-zA-Zа-яА-Я]+)/Ssu', $Call['Data'][$Name], $Pockets))
                 {
                     foreach($Pockets[1] as $Pocket)
                         $Index[] = mb_strtolower(strip_tags($Pocket));

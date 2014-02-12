@@ -7,27 +7,24 @@
      * @version 7.x
      */
 
-    setFn('Process', function ($Call)
+    setFn('Do', function ($Call)
     {
-        if (preg_match_all('@<place>(.*)<\/place>@SsUu', $Call['Layout'], $Places))
+        //if (preg_match_all('@<place>(.*)<\/place>@SsUu', $Call['Layout'], $Places))
         {
             if (isset($Call['Output']))
             {
                 if (is_array($Call['Output']))
                     foreach ($Call['Output'] as $Place => $Widgets)
                         foreach ($Widgets as $Key => $Widget)
-                            $Call['Output'][$Place][$Key] = F::Run($Call['View']['Renderer'] . '.Element.' . $Widget['Type'], 'Make', $Widget);
+                            if (isset($Widget['Type']))
+                            $Call['Output'][$Place][$Key] =
+                                F::Run($Call['View']['Renderer']['Service'] . '.Element.' . $Widget['Type'], 'Make', $Widget);
 
                 // TODO Normal caching
             }
             else
                 $Call['Output']['Content'] = array ('No output'); // FIXME Add Hook
-
-            foreach ($Call['Output'] as $Place => $Widgets)
-                $Call['Layout'] = str_replace('<place>' . $Place . '</place>', implode('', $Widgets), $Call['Layout']);
         }
-
-        $Call['Output'] = $Call['Layout'];
 
         return $Call;
     });

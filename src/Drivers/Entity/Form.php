@@ -38,7 +38,7 @@
                 if (isset($Call['OnlyTag']))
                 {
                     if (isset($Node['Scope']))
-                        $Node['Scope'];
+                        ;
                     else
                     {
                         F::Log('Widget for *'.$Name.'* skipped (scope not set)', LOG_DEBUG);

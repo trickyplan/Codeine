@@ -7,7 +7,9 @@
      * @version 7.x
      */
 
-     setFn('Make', function ($Call)
-     {
-         return $Call['Data'];
-     });
+    setFn('Do', function ($Call)
+    {
+        $Call['Value'] = strip_tags($Call['Value']);
+
+        return $Call;
+    });

@@ -7,24 +7,28 @@
      * @version 7.x
      */
 
-    setFn('Open', function ($Call)
-    {
-        return F::Run($Call['Engines'][$Call['Engine']]['Driver'], null, $Call['Engines'][$Call['Engine']], $Call);
-    });
-
-    setFn('Add', function ($Call)
-    {
-        return F::Run($Call['Engines'][$Call['Engine']]['Driver'], null, $Call['Engines'][$Call['Engine']], $Call);
-    });
-
-    setFn('Remove', function ($Call)
-    {
-        return F::Run($Call['Engines'][$Call['Engine']]['Driver'], null, $Call['Engines'][$Call['Engine']], $Call);
-    });
-
     setFn('Query', function ($Call)
     {
-        return F::Run($Call['Engines'][$Call['Engine']]['Driver'], null, $Call['Engines'][$Call['Engine']], $Call);
+        $Call['Query'] = $Call['Request']['Query'];
+
+        foreach ($Call['Providers'] as $ProviderName => $ProviderCall)
+        {
+            $Results = F::Live($ProviderCall, $Call);
+
+            foreach ($Results as $Result)
+            {
+                $Result['Provider'] = $ProviderName;
+                $Call['Output']['Content'][] =
+                    [
+                        'Type'  => 'Template',
+                        'Scope' => 'Search',
+                        'ID'    => 'Result',
+                        'Data'  => $Result
+                    ];
+            }
+        }
+
+        return $Call;
     });
 
 

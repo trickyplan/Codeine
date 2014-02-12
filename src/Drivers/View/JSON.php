@@ -9,15 +9,10 @@
 
     setFn ('Render', function ($Call)
     {
-        $Call['Output'] = json_encode($Call['Output']['Content'], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
-
         $Call = F::Hook('beforeJSONRender', $Call);
 
-        $Call['Output'] = str_replace(["\n","\r"],"",$Call['Output']);
-
-        $Call['Output'] = json_encode(
-                    json_decode($Call['Output'], true),
-                    JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+        $Call = F::Run('View.Pipeline', 'Do', $Call);
+        $Call['Output'] = j($Call['Output']['Content']);
 
         $Call = F::Hook('afterJSONRender', $Call);
 

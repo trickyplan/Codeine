@@ -24,13 +24,13 @@
         },
         "/search":
         {
-            "Service": "Entity.Search",
-            "Method": "Do"
+            "Service": "Search",
+            "Method": "Query"
         },
         "/search.rss":
         {
-            "Service": "Entity.Search",
-            "Method": "Do",
+            "Service": "Search",
+            "Method": "Query",
             "Call":
             {
                 "Link": "/search"
@@ -46,8 +46,8 @@
         },
         "/search.json":
         {
-            "Service": "Entity.Search",
-            "Method": "Suggestions",
+            "Service": "Search",
+            "Method": "Query",
             "View":
             {
                 "Renderer":

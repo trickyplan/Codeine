@@ -20,7 +20,7 @@
                 $Call['Output']['Content'][] =
                     [
                         'Type' => 'Template',
-                        'Scope' => $Call['Entity'].'/'.$Call['Scope'],
+                        'Scope' => $Call['Entity'].'/'.(isset($Call['Scope'])? $Call['Scope']: ''),
                         'ID' => 'Show/Short',
                         'Data' => $Result
                     ];

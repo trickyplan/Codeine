@@ -4,13 +4,12 @@
         "Keywords":
         {
             "Type": "Complex.Array",
-            "Always Set": true,
             "Hooks":
             {
                 "beforeEntityWrite":
                 {
-                    "Service": "Search.Indexer.Metaphone",
-                    "Method": "Get"
+                    "Service": "Search.Indexer",
+                    "Method": "Write"
                 }
             }
         }

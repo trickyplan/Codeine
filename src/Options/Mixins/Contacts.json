@@ -3,6 +3,8 @@
     {
         "Phone":
         {
+            "Type": "Literal.String",
+            "Index": true,
             "Widgets":
             {
                 "Update":

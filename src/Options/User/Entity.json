@@ -66,6 +66,7 @@
         {
             "Type": "Literal.Password",
             "User Override": true,
+            "Scope": "Password",
             "Hooks":
             {
                 "beforeEntityCreate":

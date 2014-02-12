@@ -1,0 +1,26 @@
+{
+    "Hooks":
+    {
+        "beforeTokenize":
+        {
+            "Strip Tags":
+            {
+                "Service": "Text.StripTags",
+                "Method": "Do"
+            },
+            "Lowercase":
+            {
+                "Service": "Text.Lower",
+                "Method": "Do"
+            }
+        },
+        "afterTokenize":
+        {
+            "Stop words":
+            {
+                "Service": "Text.StopWords",
+                "Method": "Filter"
+            }
+        }
+    }
+}
