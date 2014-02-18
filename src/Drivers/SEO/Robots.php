@@ -9,7 +9,7 @@
 
     setFn('Do', function ($Call)
     {
-        $Call['Output']['Content'][] = 'Host: '.$Call['HTTP']['Host'];
+        $Call['Output']['Content'][] = 'Host: '.$Call['HTTP']['Proto'].$Call['HTTP']['Host'];
         $Call['Output']['Content'][] = 'Sitemap: '.$Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/sitemap.xml';
 
         if (isset($Call['Robots']['Crawl-delay']))
