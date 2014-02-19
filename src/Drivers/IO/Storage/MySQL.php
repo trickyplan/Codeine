@@ -67,10 +67,7 @@
         $Data = $Call['Data'];
 
         if (is_array($Call['Data']))
-            foreach ($Data as &$Element)
             {
-                $Call['Data'] = $Element;
-
                 if (isset($Call['Where']))
                 {
                     if (isset($Call['Data']))
@@ -160,4 +157,37 @@
     setFn('Size', function ($Call)
     {
         return 0;
+    });
+
+    setFn('Table', function ($Call)
+    {
+        $Entity = F::loadOptions($Call['Entity'].'.Entity');
+
+
+        $Fields = [];
+
+        foreach ($Entity['Nodes'] as $Key => $Node)
+        {
+            if (!isset($Node['Type']))
+                $Node['Type'] = '';
+
+            switch ($Node['Type'])
+            {
+                case 'Numeral.Integer':
+                    $Type = 'int';
+                break;
+
+                case 'Literal.String':
+                    $Type = 'varchar (255)';
+                break;
+
+                default:
+                    $Type = 'text';
+                break;
+            }
+
+            $Fields[] = '`'.$Key.'` '.$Type;
+        }
+
+        echo 'create table '.$Call['Entity'].' ('.implode(',', $Fields).')'.PHP_EOL;
     });

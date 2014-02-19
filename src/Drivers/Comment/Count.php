@@ -9,14 +9,17 @@
 
     setFn('Get', function ($Call)
     {
-        return F::Run(
-            'Entity', 'Count', [
-                'Entity' => 'Comment',
-                'Where' =>
-                [
-                    'Entity' => $Call['Entity'],
-                    'Object' => $Call['Data']['ID']
+        if (isset($Call['Data']['ID']))
+            return F::Run(
+                'Entity', 'Count', [
+                    'Entity' => 'Comment',
+                    'Where' =>
+                    [
+                        'Entity' => $Call['Entity'],
+                        'Object' => $Call['Data']['ID']
+                    ]
                 ]
-            ]
-        );
+            );
+        else
+            return 0;
     });

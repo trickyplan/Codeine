@@ -21,6 +21,9 @@
             if (!isset($Call['Skip Run']))
                 $Call = F::Apply($Call['Service'], $Call['Method'], $Call);
 
+        if (!isset($Call['View']['Renderer']))
+            $Call['View']['Renderer'] = $Call['View']['Default']['Renderer'];
+
         $Call = F::Hook('afterInterfaceRun', $Call);
 
         F::Run('IO','Write', $Call,

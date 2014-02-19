@@ -11,7 +11,7 @@
     {
         $Call['Where'] = F::Live($Call['Where']);
 
-        $Call['Data'] = F::Run('Entity', 'Read', $Call, ['One' => true]);
+        $Call['Data'] = F::Run('Entity', 'Read', $Call, ['One' => true, 'Limit' => ['From' => 0, 'To' => 1]]);
 
         return $Call;
     });

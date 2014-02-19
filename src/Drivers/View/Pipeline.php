@@ -15,15 +15,18 @@
             {
                 if (is_array($Call['Output']))
                     foreach ($Call['Output'] as $Place => $Widgets)
-                        foreach ($Widgets as $Key => $Widget)
-                            if (isset($Widget['Type']))
-                            $Call['Output'][$Place][$Key] =
-                                F::Run($Call['View']['Renderer']['Service'] . '.Element.' . $Widget['Type'], 'Make', $Widget);
+                        if (is_array($Widgets))
+                        {
+                            foreach ($Widgets as $Key => $Widget)
+                                if (isset($Widget['Type']))
+                                $Call['Output'][$Place][$Key] =
+                                    F::Run($Call['View']['Renderer']['Service'] . '.Element.' . $Widget['Type'], 'Make', $Widget);
+                        }
 
                 // TODO Normal caching
             }
             else
-                $Call['Output']['Content'] = array ('No output'); // FIXME Add Hook
+                $Call['Output']['Content'] = null; // FIXME Add Hook
         }
 
         return $Call;

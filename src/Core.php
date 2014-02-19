@@ -354,8 +354,9 @@
         {
             $Output = [];
 
-            foreach (self::$_Stack as $IX => $Element)
-                $Output[] = str_pad(" ", $IX+1).' '.$Element;
+            $IX = count(self::$_Stack);
+            foreach (self::$_Stack as $Element)
+                $Output[] = str_pad(" ", $IX--).$Element;
 
             // $Output = '<pre>'.implode(array_reverse($Output)).'</pre>';
 
@@ -420,8 +421,6 @@
 
         public static function Hook($On, $Call)
         {
-             self::$_Stack->push($On);
-
              if (isset($Call['Custom Hooks'][$On]))
                  $On = $Call['Custom Hooks'][$On];
 
@@ -430,7 +429,6 @@
                  if (count($Hooks) > 0)
                  {
                      $Hooks = F::Sort($Hooks, 'Weight', SORT_DESC);
-
                      foreach ($Hooks as $HookName => $Hook)
                      {
                          if (substr($HookName,0,1) != '-')
@@ -450,8 +448,6 @@
                      }
                  }
              }
-
-            self::$_Stack->pop();
 
             return $Call;
         }
@@ -476,9 +472,7 @@
                 die();
             }
 
-            F::Log($errno.' '.$errstr.' '.$errfile.'@'.$errline, LOG_CRIT);
-            F::Log(F::Stack(), LOG_CRIT);
-
+            F::Log(F::Stack().PHP_EOL.$errno.' '.$errstr.' '.$errfile.'@'.$errline, LOG_CRIT);
         }
 
         public static function setLive($Live)
@@ -849,9 +843,9 @@
             }
         }
 
-        private static function Snapshot ()
+        private static function Snapshot ($Call = [])
         {
-            return j(get_defined_vars());
+            return j($Call);
         }
 
         private static function MStart ($Key)
