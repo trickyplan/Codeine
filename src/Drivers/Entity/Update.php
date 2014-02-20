@@ -16,37 +16,38 @@
 
     setFn('Do', function ($Call)
     {
-        $Call = F::Hook('beforeUpdateDo', $Call);
-        return F::Run(null, $Call['HTTP']['Method'], $Call);
+        return F::Hook('afterUpdateDo',
+                    F::Run(null, $Call['HTTP']['Method'],
+                        F::Hook('beforeUpdateDo', $Call)));
     });
 
     setFn('GET', function ($Call)
     {
         // Загрузить предопределённые данные и умолчания
+        $Call['Data'] = $Call['Current'][0];
 
         $Call = F::Hook('beforeUpdateGet', $Call);
-        {
-            $Call['Output']['Content']['Form Widget'] = ['Type' => 'Form', 'Submit' => 'Update'];
 
-            $Call['Tag'] = isset($Call['Scope'])? $Call['Scope']: null;
+        $Call['Output']['Content']['Form Widget'] = ['Type' => 'Form', 'Submit' => 'Update'];
 
-            $Call['Scope'] = isset($Call['Scope'])? $Call['Entity'].'/'.$Call['Scope'] : $Call['Entity'];
+        $Call['Tag'] = isset($Call['Scope'])? $Call['Scope']: null;
 
-            $Call['Layouts'][] =
-                [
-                    'Scope' => $Call['Entity'],
-                    'ID' => isset($Call['Custom Layouts']['Update'])?
-                            $Call['Custom Layouts']['Update']: 'Update',
-                    'Context' => $Call['Context']
-                ];
+        $Call['Scope'] = isset($Call['Scope'])? $Call['Entity'].'/'.$Call['Scope'] : $Call['Entity'];
 
-            foreach ($Call['Current'] as $IX => $cData)
-                $Call = F::Apply('Entity.Form', 'Generate', $Call, ['IX' => $IX, 'Data!' => $cData]);
+        $Call['Layouts'][] =
+            [
+                'Scope' => $Call['Entity'],
+                'ID' => isset($Call['Custom Layouts']['Update'])?
+                        $Call['Custom Layouts']['Update']: 'Update',
+                'Context' => $Call['Context']
+            ];
 
-            // Вывести
+        foreach ($Call['Current'] as $IX => $cData)
+            $Call = F::Apply('Entity.Form', 'Generate', $Call, ['IX' => $IX, 'Data!' => $cData]);
 
-            $Call['Output']['Content']['Form Widget']['Action'] = isset($Call['Action'])? $Call['Action']: '';
-        }
+        // Вывести
+
+        $Call['Output']['Content']['Form Widget']['Action'] = isset($Call['Action'])? $Call['Action']: '';
 
         $Call = F::Hook('afterUpdateGet', $Call);
 

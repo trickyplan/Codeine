@@ -16,7 +16,10 @@
         if (isset($Call['Data']))
             $Call['Data'] = F::Live($Call['Data'], $Call);
 
-        $Call = F::Apply(null, $Call['HTTP']['Method'], $Call);
+        if (isset($Call['Request']['Prepare']))
+            $Call = F::Apply(null, 'PREPARE', $Call);
+        else
+            $Call = F::Apply(null, $Call['HTTP']['Method'], $Call);
 
         return $Call;
     });
@@ -49,6 +52,34 @@
         $Call = F::Hook('afterCreateGet', $Call);
 
         $Call['Output']['Content']['Form Widget']['Action'] = isset($Call['Action'])? $Call['Action']: '';
+
+        return $Call;
+    });
+
+    setFn('PREPARE', function ($Call)
+    {
+        $Call['View']['Renderer'] = ['Service' => 'View.JSON', 'Method' => 'Render'];
+        $Call = F::Hook('beforeCreatePost', $Call);
+        // Берём данные из запроса
+
+        if (isset($Call['Request']['Data']))
+        {
+            if (isset($Call['Data']))
+            {
+                if (!isset($Call['Data'][0]))
+                    $Call['Data'] = [$Call['Data']];
+
+                $Call['Data'] = F::Merge($Call['Request']['Data'], $Call['Data']);
+            }
+            else
+                $Call['Data'] = $Call['Request']['Data'];
+        }
+
+        // Отправляем в Entity.Create
+
+        $Result = F::Run('Entity', 'Create', $Call, ['Dry' => true]);
+
+        $Call['Output']['Content'] = F::Diff($Result, $Call['Data']);
 
         return $Call;
     });
@@ -92,6 +123,7 @@
 
             $Call = F::Apply(null, 'GET', $Call, ['Purpose' => 'Correct']);
         }
+
         // Выводим результат
 
         return $Call;

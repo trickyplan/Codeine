@@ -13,6 +13,11 @@
 
         $pi = pathinfo($Call['Output']['Content']);
 
+        if (isset($Call['Output']['Title']))
+            ;
+        else
+            $Call['Output']['Title'] = $pi['filename'];
+
         $Call['HTTP']['Headers']['Content-Disposition:'] =
             'attachment;filename="'.$Call['Output']['Title'].'.'.$pi['extension'].'"';
 

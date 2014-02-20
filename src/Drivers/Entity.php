@@ -65,8 +65,16 @@
                         $Data[$IX] = null;
                     else
                     {
-                        $Data[$IX] = F::Run('IO', 'Write', $Call);
-                        $Call = F::Hook('afterEntityCreate', $Call);
+                        if (isset($Call['Dry']))
+                        {
+                            $Data[$IX] = $Call['Data'];
+                            F::Log('Dry shot for '.$Call['Entity'].' create');
+                        }
+                        else
+                        {
+                            $Data[$IX] = F::Run('IO', 'Write', $Call);
+                            $Call = F::Hook('afterEntityCreate', $Call);
+                        }
                     }
 
                 $Call = F::Hook('afterEntityWrite', $Call);
@@ -156,9 +164,13 @@
 
                         $Call = F::Hook('beforeEntityUpdate', $Call);
 
-                            F::Run('IO', 'Write', $Call);
-
-                        $Call = F::Hook('afterEntityUpdate', $Call);
+                            if (isset($Call['Dry']))
+                                F::Log('Dry shot for '.$Call['Entity'].' create');
+                            else
+                            {
+                                F::Run('IO', 'Write', $Call);
+                                $Call = F::Hook('afterEntityUpdate', $Call);
+                            }
 
                     $Call = F::Hook('afterEntityWrite', $Call);
 
