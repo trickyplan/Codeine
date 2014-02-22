@@ -35,7 +35,7 @@
             [
                 'TTL' => 86400,
                 'Storage' => 'Web',
-                'Where' => ['ID' => 'http://www.cbr.ru/scripts/XML_daily.asp']
+                'Where' => ['ID' => $Call['CBR']['XML']['Rates']]
             ])[0]);
 
         foreach ($Result as $Currency)
