@@ -75,7 +75,12 @@
         {
             foreach ($Call['Data'] as &$Value)
                 if (!is_float($Value) and !is_int($Value))
-                    $Value = '\''.$Call['Link']->real_escape_string($Value). '\''; // ?
+                {
+                    if (is_array($Value))
+                        $Value = '\''.$Call['Link']->real_escape_string(implode(',',$Value)). '\'';
+                    else
+                        $Value = '\''.$Call['Link']->real_escape_string($Value). '\'';
+                } // ?
                 else
                     $Value = strtr($Value, ',', '.'); // FIXME I'm shitcode
 
