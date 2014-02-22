@@ -32,17 +32,20 @@
         {
             $Result = F::Live($Call['Run']);
 
-            F::Run('IO', 'Write',
-            [
-                'Storage' => 'Run Cache',
-                'Scope'   => 'Run',
-                'Where'   => ['ID' => $CacheID],
-                'Data'    =>
+            if ($Result === null)
+                $Result = $Envelope[0]['Result'];
+            else
+                F::Run('IO', 'Write',
                 [
-                    'Result' => $Result,
-                    'Expire' => time()+$Call['TTL']
-                ]
-            ]);
+                    'Storage' => 'Run Cache',
+                    'Scope'   => 'Run',
+                    'Where'   => ['ID' => $CacheID],
+                    'Data'    =>
+                    [
+                        'Result' => $Result,
+                        'Expire' => time()+$Call['TTL']
+                    ]
+                ]);
         }
 
         return $Result;

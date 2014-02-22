@@ -24,10 +24,8 @@
                 {
                     if (isset($Rule['Text']))
                         $Value = preg_replace ('/\\s{2,}|\\s{2,}$/Ssm', "\n", pq($Element)->text());
-                    elseif (isset($Rule['Content']))
-                        $Value = preg_replace ('/\\s{2,}|\\s{2,}$/Ssm', "\n", pq($Element)->attr('content'));
-                    elseif (isset($Rule['Value']))
-                        $Value = preg_replace ('/\\s{2,}|\\s{2,}$/Ssm', "\n", pq($Element)->attr('value'));
+                    elseif (isset($Rule['Attr']))
+                        $Value = preg_replace ('/\\s{2,}|\\s{2,}$/Ssm', "\n", pq($Element)->attr($Rule['Attr']));
                     else
                         $Value = preg_replace ('/\\s{2,}|\\s{2,}$/Ssm', "\n", pq($Element)->html());
 

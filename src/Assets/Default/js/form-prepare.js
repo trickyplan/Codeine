@@ -1,8 +1,10 @@
-$('input,textarea').change(
+$('input,textarea,select').change(
     function (el)
     {
-      $.ajax('?Prepare',
-      {
+        var form = $(this).parents('form');
+        form.addClass('muted');
+        $.ajax('?Prepare',
+        {
             method: 'post',
             type: 'json',
             data: $(this).parents('form').serialize(),
@@ -26,7 +28,9 @@ $('input,textarea').change(
                             $('[name="Data['+index+']['+key+']"]').val(row[key]);
                     }
                 });
+
+                form.removeClass('muted');
             }
-      })
+        })
     }
 );
