@@ -19,5 +19,10 @@
 
     setFn('Convert', function ($Call)
     {
-        return $Call['Value']*F::Live($Call['Currencies'][$Call['From']][$Call['To']]['Rate']);
+        return $Call['Value']*F::Run('Code.Run.Cached', 'Run',
+            [
+                'Run' => $Call['Currencies'][$Call['From']][$Call['To']]['Rate'],
+                'TTL' => $Call['Currency TTL']
+            ]
+        );
     });
