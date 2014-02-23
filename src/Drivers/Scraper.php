@@ -12,7 +12,11 @@
     {
         F::Log($Call['Host'].' loading', LOG_WARNING);
         F::Log('Start URL: '.$Call['Start'], LOG_WARNING);
-        $Call['URLs'] = [$Call['Start']];
+
+        if (isset($Call['URLList']))
+            $Call['URLs'] = explode(PHP_EOL, file_get_contents($Call['URLList']));
+        else
+            $Call['URLs'] = [$Call['Start']];
 
         $Call = F::Run(null, 'Load Proxy List', $Call);
 
@@ -48,7 +52,10 @@
                 sleep(rand(0,$Call['Pause']));
             }
 
-            $Call = F::Run(null, 'Get Links', $Call);
+            if (isset($Call['URLList']))
+                ;
+            else
+                $Call = F::Run(null, 'Get Links', $Call);
 
             $Call['Processed'][] = $Call['URL'];
 
