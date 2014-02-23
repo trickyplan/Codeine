@@ -13,7 +13,7 @@
 
         if (!$Link->ping())
         {
-            F::Log($Link->connect_error, LOG_ERR);
+            F::Log($Link->connect_error, LOG_CRIT);
             return null;
         }
 
@@ -21,6 +21,7 @@
 
         $Link->select_db ($Call['Database']);
         $Link->set_charset ($Call['Charset']);
+        $Link->begin_transaction();
      //   $Link->autocommit ($Call['AutoCommit']);
 
         return $Link;
@@ -103,6 +104,7 @@
 
     setFn ('Close', function ($Call)
     {
+        $Call['Link']->commit();
         return true;
     });
 

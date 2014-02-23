@@ -115,6 +115,8 @@
 
         public static function Shutdown($Call = array())
         {
+            $Call = F::Hook('onShutdown', $Call);
+
             self::Stop(self::$_Service . '.' . self::$_Method);
 
             $E = error_get_last();

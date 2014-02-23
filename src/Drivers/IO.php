@@ -162,3 +162,11 @@
             return null;
         }
     });
+
+    setFn('Shutdown', function ($Call)
+    {
+        foreach ($Call['Storages'] as $StorageName => $Storage)
+            F::Run('IO', 'Close', $Call, ['Storage' => $StorageName]);
+
+        return $Call;
+    });
