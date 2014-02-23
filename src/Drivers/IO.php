@@ -163,6 +163,42 @@
         }
     });
 
+    setFn ('Commit', function ($Call)
+    {
+        if (isset($Call['Storage']))
+        {
+            $Call = F::Apply('IO', 'Open', $Call);
+
+            if ($Call['Link'] === null)
+                return null;
+
+            return F::Run ($Call['Driver'], null, $Call);
+        }
+        else
+        {
+            F::Log('IO Null Storage: ', LOG_ERR);
+            return null;
+        }
+    });
+
+    setFn ('Rollback', function ($Call)
+    {
+        if (isset($Call['Storage']))
+        {
+            $Call = F::Apply('IO', 'Open', $Call);
+
+            if ($Call['Link'] === null)
+                return null;
+
+            return F::Run ($Call['Driver'], null, $Call);
+        }
+        else
+        {
+            F::Log('IO Null Storage: ', LOG_ERR);
+            return null;
+        }
+    });
+
     setFn('Shutdown', function ($Call)
     {
         foreach ($Call['Storages'] as $StorageName => $Storage)

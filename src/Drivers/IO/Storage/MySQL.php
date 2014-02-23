@@ -158,6 +158,16 @@
         return 0;
     });
 
+    setFn('Commit', function ($Call)
+    {
+        return $Call['Link']->commit();
+    });
+
+    setFn('Rollback', function ($Call)
+    {
+        return $Call['Link']->rollback();
+    });
+
     setFn('Table', function ($Call)
     {
         $Entity = F::loadOptions($Call['Entity'].'.Entity');
