@@ -80,7 +80,7 @@
 
     setFn('Select Filename', function ($Call)
     {
-        $Root = '/var/cache/scraped/'.$Call['Host'];
+        $Root = '/var/cache/scraped/';
         $Call['Filename'] = $Root.$Call['URL'];
 
         if (substr($Call['Filename'], strlen($Call['Filename'])-1, 1) == '/')
