@@ -10,8 +10,7 @@
 
     setFn('Do', function ($Call)
     {
-        F::Log($Call['Host'].' loading', LOG_WARNING);
-        F::Log('Start URL: '.$Call['Host'].'/'.$Call['Start'], LOG_WARNING);
+        F::Log('Start URL: '.$Call['Start'], LOG_WARNING);
 
         if (isset($Call['URLList']))
             $Call['URLs'] = explode(PHP_EOL, file_get_contents($Call['URLList']));
@@ -31,9 +30,9 @@
 
             $Call['URL'] = array_shift($Call['URLs']);
             F::Log('URL: '.$Call['URL'].' selected', LOG_WARNING);
+            $Call['Host'] = parse_url($Call['URL'], PHP_URL_HOST);
 
             $Call = F::Run(null, 'Select Filename', $Call);
-            $Call['Host'] = parse_url($Call['URL'], PHP_URL_HOST);
 
             if (file_exists($Call['Filename']))
             {
