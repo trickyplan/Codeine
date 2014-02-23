@@ -11,7 +11,7 @@
     setFn('Do', function ($Call)
     {
         F::Log($Call['Host'].' loading', LOG_WARNING);
-        F::Log('Start URL: '.$Call['Start'], LOG_WARNING);
+        F::Log('Start URL: '.$Call['Host'].'/'.$Call['Start'], LOG_WARNING);
 
         if (isset($Call['URLList']))
             $Call['URLs'] = explode(PHP_EOL, file_get_contents($Call['URLList']));
@@ -30,9 +30,10 @@
             shuffle($Call['URLs']);
 
             $Call['URL'] = array_shift($Call['URLs']);
-            F::Log('URL: '.$Call['Host'].$Call['URL'].' selected', LOG_WARNING);
+            F::Log('URL: '.$Call['URL'].' selected', LOG_WARNING);
 
             $Call = F::Run(null, 'Select Filename', $Call);
+            $Call['Host'] = parse_url($Call['URL'], PHP_URL_HOST);
 
             if (file_exists($Call['Filename']))
             {
@@ -80,7 +81,7 @@
 
     setFn('Select Filename', function ($Call)
     {
-        $Root = '/var/cache/scraped/'.parse_url($Call['Host'], PHP_URL_HOST);
+        $Root = '/var/cache/scraped/'.$Call['Host'];
         $Call['Filename'] = $Root.$Call['URL'];
 
         if (substr($Call['Filename'], strlen($Call['Filename'])-1, 1) == '/')
@@ -98,7 +99,7 @@
         F::Log($Call['URL'].' fetching', LOG_WARNING);
         $MT = microtime(true);
 
-        $Result = F::Run('IO', 'Read', $Call, ['No Memo' => true, 'Storage' => 'Web', 'Where' => $Call['Host'].$Call['URL']]);
+        $Result = F::Run('IO', 'Read', $Call, ['No Memo' => true, 'Storage' => 'Web', 'Where' => $Call['URL']]);
         $Call['Body'] = array_pop($Result);
 
         F::Log($Call['URL'].' fetched by '.round((microtime(true)-$MT)*1000).' ms', LOG_WARNING);
@@ -165,7 +166,7 @@
                 $URL = '/'.$URL;
 
             if ($Decision)
-                $Call['URLs'][] = $URL;
+                $Call['URLs'][] = $Call['Host'].'/'.$URL;
 
         });
 
@@ -206,16 +207,22 @@
 
     setFn('Load Proxy List', function ($Call)
     {
-        if (file_exists(Root.'/proxy_http_ip.txt'))
+        if (isset($Call['NoProxy']))
+            ;
+        else
         {
-            F::Log(Root.'/proxy_http_ip.txt detected ', LOG_WARNING);
-            $List = file(Root.'/proxy_http_ip.txt');
+            if (file_exists(Root.'/proxy_http_ip.txt'))
+            {
+                F::Log(Root.'/proxy_http_ip.txt detected ', LOG_WARNING);
+                $List = file(Root.'/proxy_http_ip.txt');
 
-            foreach ($List as $Line)
-                if (!empty($Line))
-                    $Call['Proxies'][] = trim($Line);
+                foreach ($List as $Line)
+                    if (!empty($Line))
+                        $Call['Proxies'][] = trim($Line);
+
+                F::Log(count($Call['Proxies']).' proxies loaded', LOG_WARNING);
+            }
         }
 
-        F::Log(count($Call['Proxies']).' proxies loaded', LOG_WARNING);
         return $Call;
     });
