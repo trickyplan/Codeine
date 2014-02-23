@@ -176,20 +176,30 @@
 
     setFn('Select Proxy', function ($Call)
     {
-        $Call['Proxy'] = [];
+        if (isset($Call['NoProxy']))
+            ;
+        else
+        {
+            $Call['Proxy'] = [];
 
-        list($Call['Proxy']['Host'], $Call['Proxy']['Port']) =
-            explode(':', $Call['Proxies'][array_rand($Call['Proxies'])]);
+            list($Call['Proxy']['Host'], $Call['Proxy']['Port']) =
+                explode(':', $Call['Proxies'][array_rand($Call['Proxies'])]);
 
-        F::Log('Proxy: '.$Call['Proxy']['Host'].' selected', LOG_WARNING);
+            F::Log('Proxy: '.$Call['Proxy']['Host'].' selected', LOG_WARNING);
+        }
 
         return $Call;
     });
 
     setFn('Select User Agent', function ($Call)
     {
-        $Call['User Agent'] = $Call['User Agents'][array_rand($Call['User Agents'])];
-        F::Log('UA: '.$Call['User Agent'].' selected', LOG_WARNING);
+        if (isset($Call['NoUA']))
+            ;
+        else
+        {
+            $Call['User Agent'] = $Call['User Agents'][array_rand($Call['User Agents'])];
+            F::Log('UA: '.$Call['User Agent'].' selected', LOG_WARNING);
+        }
 
         return $Call;
     });
