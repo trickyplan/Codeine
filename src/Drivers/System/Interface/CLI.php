@@ -15,7 +15,9 @@
 
         $Call = F::Hook('beforeInterfaceRun', $Call);
 
-        $Call['HTTP']['Host'] = $Call['Project']['Hosts'][F::Environment()];
+        if (isset($Call['Project']['Hosts'][F::Environment()]))
+            $Call['HTTP']['Host'] = $Call['Project']['Hosts'][F::Environment()];
+
         $Call['HTTP']['URL'] = '/';
 
             if (!isset($Call['Skip Run']))

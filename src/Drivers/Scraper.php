@@ -80,8 +80,8 @@
 
     setFn('Select Filename', function ($Call)
     {
-        $Root = '/var/cache/scraped/';
-        $Call['Filename'] = $Root.$Call['URL'];
+        $Root = '/var/cache/scraped/'.$Call['Host'];
+        $Call['Filename'] = $Root.parse_url($Call['URL'], PHP_URL_PATH);
 
         if (substr($Call['Filename'], strlen($Call['Filename'])-1, 1) == '/')
             $Call['Filename'] = substr($Call['Filename'], 0, strlen($Call['Filename'])-1).'.html';
