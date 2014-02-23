@@ -30,6 +30,11 @@
             {
                 "Service":"View",
                 "Method":"Render"
+            },
+            "IO Shutdown":
+            {
+                "Service": "IO",
+                "Method": "Shutdown"
             }
         }
     }

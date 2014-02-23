@@ -22,14 +22,6 @@
                 "Service": "Codeine.Versioning",
                 "Method": "Do"
             }
-        },
-        "onShutdown":
-        {
-            "IO Shutdown":
-            {
-                "Service": "IO",
-                "Method": "Shutdown"
-            }
         }
     }
 }

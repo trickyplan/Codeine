@@ -82,6 +82,11 @@
                 "Service": "System.Interface.Web",
                 "Method": "Finish"
             },
+            "IO Shutdown":
+            {
+                "Service": "IO",
+                "Method": "Shutdown"
+            },
             "Performance":
             {
                 "Service": "Performance",

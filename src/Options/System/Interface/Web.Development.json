@@ -14,6 +14,11 @@
                 "Service": "IO.Log",
                 "Method": "Spit"
             },
+            "IO Shutdown":
+            {
+                "Service": "IO",
+                "Method": "Shutdown"
+            },
             "Output Buffering":
             {
                 "Service": "System.Interface.Web.OB",

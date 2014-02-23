@@ -97,15 +97,12 @@
             return $Call['Data'];
         else
             return null;
-
-
-
     });
 
     setFn ('Close', function ($Call)
     {
         $Call['Link']->commit();
-        return true;
+        return $Call['Link']->close();
     });
 
     setFn ('Run', function ($Call)
