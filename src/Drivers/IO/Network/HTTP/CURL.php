@@ -151,8 +151,10 @@
 
     setFn ('Close', function ($Call)
     {
-        curl_close ($Call['Link']);
-        return true;
+        if (is_resource($Call['Link']))
+            return curl_close ($Call['Link']);
+        else
+            return null;
     });
 
     setFn('Execute', function ($Call)
