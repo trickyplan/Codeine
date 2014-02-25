@@ -67,7 +67,7 @@
             F::Log($QueuedCount.' URLs queued', LOG_WARNING);
             F::Log($ProcessedCount.' URLs processed', LOG_WARNING);
 
-            F::Log($ProcessedCount/($QueuedCount+$ProcessedCount).'%', LOG_WARNING);
+            F::Log(($ProcessedCount/($QueuedCount+$ProcessedCount)*100).'%', LOG_WARNING);
 
             if(count($Call['URLs']) == 0)
                 break;
@@ -81,7 +81,7 @@
     setFn('Select Filename', function ($Call)
     {
         $Root = '/var/cache/scraped/'.$Call['Host'];
-        $Call['Filename'] = $Root.parse_url($Call['URL'], PHP_URL_PATH);
+        $Call['Filename'] = $Root.parse_url($Call['URL'], PHP_URL_PATH).parse_url($Call['URL'], PHP_URL_QUERY);
 
         if (substr($Call['Filename'], strlen($Call['Filename'])-1, 1) == '/')
             $Call['Filename'] = substr($Call['Filename'], 0, strlen($Call['Filename'])-1).'.html';
