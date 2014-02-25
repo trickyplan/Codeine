@@ -127,7 +127,7 @@
         {
             $Call = F::Apply('IO', 'Open', $Call);
 
-            if ($Call['Link'] === null)
+            if ($Call['Link'] === null or !$Call['Link'])
                 return null;
 
             return F::Run ($Call['Driver'], 'Close', $Call);
