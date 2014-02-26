@@ -32,7 +32,7 @@
             }
         }
 
-        F::Log('Accept-Language suggest locale *'.$Call['Locale'].'*', LOG_INFO);
+        F::Log('Accept-Language suggest locale *'.$Call['Locale'].'*', LOG_INFO + 0.5);
 
         return $Call;
     });

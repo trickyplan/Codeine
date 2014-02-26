@@ -16,7 +16,7 @@
                     $Call['Locale'] = $Locale;
                     F::Log('Hosts suggest locale *'
                         .$Call['Locale']
-                        .'* by regex *'.$Host.'*', LOG_INFO);
+                        .'* by regex *'.$Host.'*', LOG_INFO + 0.5);
                     break;
                 }
 

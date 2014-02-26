@@ -36,7 +36,7 @@
 
         private static $_Performance = false;  // Internal Performance
         private static $_Debug = false;  // Internal Debugger
-        private static $_Verbose;
+        private static $_Verbose; // can be float
 
         private static $_Stack;
 
@@ -510,7 +510,7 @@
 
                 if (PHP_SAPI == 'cli')
                 {
-                    switch ($Verbose)
+                    switch (round($Verbose))
                     {
                         case LOG_EMERG:
                             fwrite(STDERR, $Time.$Channel.": \033[0;31m ".$Message." \033[0m".PHP_EOL);
