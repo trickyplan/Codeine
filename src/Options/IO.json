@@ -84,6 +84,12 @@
                 "Driver":"IO.Storage.Directory",
                 "Directory":"/tmp/codeine"
             },
+            "LESS":
+            {
+                "Driver":"IO.Storage.Directory",
+                "Directory":"Assets",
+                "Suffix":".less"
+            },
             "CSS":
             {
                 "Driver":"IO.Storage.Directory",

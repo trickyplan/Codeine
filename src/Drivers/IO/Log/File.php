@@ -19,7 +19,10 @@
 
     setFn('Close', function ($Call)
     {
-        return fclose($Call['Link']);
+        if (is_resource($Call['Link']))
+            return fclose($Call['Link']);
+        else
+            return null;
     });
 
     setFn('Size', function ($Call)

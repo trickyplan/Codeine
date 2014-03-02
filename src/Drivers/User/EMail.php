@@ -9,6 +9,7 @@
 
     setFn('Verify', function ($Call)
     {
+        if (isset($Call['Data']['EMail']))
         {
             $Call['Data']['Code'] = F::Run('Security.UID', 'Get');
 

@@ -7,6 +7,18 @@
      * @version 7.0
      */
 
+    setFn('Do', function ($Call)
+    {
+        $Call['Output']['Content'][] =
+            [
+                'Type'  => 'Template',
+                'Scope' => 'Security.Auth',
+                'ID'    => 'Password'
+            ];
+
+        return $Call;
+    });
+
     setFn('Identificate', function ($Call)
     {
         return $Call;

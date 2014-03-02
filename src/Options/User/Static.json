@@ -13,12 +13,8 @@
         },
         "/login":
         {
-            "Service":"User.Authenticate",
-            "Method":"Do",
-            "Call":
-            {
-                "Mode": "Password"
-            }
+            "Service":"User.Login",
+            "Method":"Do"
         },
         "/logout":
         {
@@ -44,15 +40,6 @@
                     "Update": "Update/Passwd"
                 },
                 "Where": "$Session.User.ID"
-            }
-        },
-        "/auth/social":
-        {
-            "Service":"User.Authenticate",
-            "Method":"POST",
-            "Call":
-            {
-                "Mode": "Loginza"
             }
         },
         "/cabinet":
@@ -91,36 +78,6 @@
                     }
                 }
             }
-        },
-        "/oauth/VK":
-        {
-            "Service": "Social.VK",
-            "Method": "Authenticate"
-        },
-        "/oauth/FB":
-        {
-            "Service": "Social.FB",
-            "Method": "Authenticate"
-        },
-        "/user/connect/VK":
-        {
-            "Service": "Social.VK",
-            "Method": "Identificate"
-        },
-        "/user/connect/FB":
-        {
-            "Service": "Social.FB",
-            "Method": "Identificate"
-        },
-        "/user/disconnect/VK":
-        {
-            "Service": "Social.VK",
-            "Method": "Annulate"
-        },
-        "/user/disconnect/FB":
-        {
-            "Service": "Social.FB",
-            "Method": "Annulate"
         }
     }
 }

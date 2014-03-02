@@ -46,10 +46,30 @@
                 "Code": "$1"
             }
         },
+        "Identificate":
+        {
+            "Match":"^/identificate/(.+)$",
+            "Service":"User.Login",
+            "Method":"Identificate",
+            "Call":
+            {
+                "Mode": "$1"
+            }
+        },
+        "Authenticate":
+        {
+            "Match":"^/authenticate/(.+)$",
+            "Service":"User.Login",
+            "Method":"Authenticate",
+            "Call":
+            {
+                "Mode": "$1"
+            }
+        },
         "Login as user":
         {
             "Match":"^/login/user/(\\d+)$",
-            "Service":"User.Login",
+            "Service":"User.SecondaryLogin",
             "Method":"Do",
             "Call":
             {

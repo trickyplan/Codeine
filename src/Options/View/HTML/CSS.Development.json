@@ -9,6 +9,13 @@
     },
     "Hooks!":
     {
-
+        "beforeCSSLoad":
+        {
+            "Less Check":
+            {
+                "Service": "View.HTML.CSS.LESS",
+                "Method": "Check"
+            }
+        }
     }
 }

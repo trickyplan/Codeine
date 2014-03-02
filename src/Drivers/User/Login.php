@@ -9,15 +9,56 @@
 
     setFn('Do', function ($Call)
     {
+        $Call = F::Hook('beforeDo', $Call);
 
+            foreach ($Call['Auth Modes'] as $Mode)
+                $Call = F::Apply('Security.Auth.'.$Mode , null, $Call);
+        $Call = F::Hook('afterDo', $Call);
 
-        F::Log('User '.$Call['Session']['User']['ID'].' logged in '.$Call['Where'], LOG_INFO, 'Security');
+        return $Call;
+    });
 
-        $Call = F::Apply('Session', 'Write', $Call, ['Data' => ['Secondary' => $Call['Where']]]);
+    setFn('Identificate', function ($Call)
+    {
+        $Call = F::Hook('beforeIdentificate', $Call);
 
-        $Call = F::Apply('Entity', 'Load', $Call, ['Entity' => 'User']);
+        $Call = F::Apply('Security.Auth.'.$Call['Mode'], null, $Call);
 
-        $Call = F::Hook('afterLogin', $Call);
+        $Call['Layouts'][] = [
+            'Scope' => 'User.Authenticate',
+            'ID' => isset($Call['Session']['User']['ID'])? 'Logged': 'Guest'];
+
+        $Call = F::Hook('afterIdentificate', $Call);
+
+        return $Call;
+    });
+
+    setFn('Authenticate', function ($Call)
+    {
+        $Call = F::Hook('beforeAuthenticate', $Call);
+
+        $Call = F::Apply('Security.Auth.'.$Call['Mode'], null, $Call);
+
+        if (!empty($Call['User']))
+        {
+            if (isset($Call['Request']['Remember']))
+                $Call['TTL'] = $Call['TTLs']['Long'];
+
+            $Call = F::Apply('Session', 'Write', $Call, ['Data' => ['User' => $Call['User']['ID']]]);
+
+            if ($Call['Session']['User']['ID'] == $Call['User']['ID'])
+            {
+                $Call = F::Hook('afterAuthenticate', $Call);
+                F::Log('User authorized '.$Call['User']['ID'], LOG_INFO, 'Security');
+            }
+            else
+                F::Log('User is not authorized', LOG_INFO, 'Security');
+        }
+        else
+        {
+            $Call = F::Hook('Authenticating.Failed', $Call);
+            F::Log('Authentification failed', LOG_INFO, 'Security');
+        }
 
         return $Call;
     });

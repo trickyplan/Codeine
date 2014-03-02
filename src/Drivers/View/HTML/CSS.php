@@ -39,21 +39,25 @@
                 $Call = F::Hook('beforeCSSInput', $Call);
 
                 // CSS Input
-                foreach ($Call['CSS']['Input'] as $CSS)
+                foreach ($Call['CSS']['Input'] as $Call['CSS Filename'])
                 {
-                    list($Asset, $ID) = F::Run('View', 'Asset.Route', ['Value' => $CSS]);
+                    $Call = F::Hook('beforeCSSLoad', $Call);
 
-                    $Call['CSS']['Styles'][$CSS] = F::Run('IO', 'Read',
-                        [
-                            'Storage' => 'CSS',
-                            'Scope'   => [$Asset, 'css'],
-                            'Where'   => $ID
-                        ])[0];
+                        list($Asset, $ID) = F::Run('View', 'Asset.Route', ['Value' => $Call['CSS Filename']]);
 
-                    if ($Call['CSS']['Styles'][$CSS])
-                        F::Log('CSS loaded: '.$CSS, LOG_DEBUG);
-                    else
-                        F::Log('CSS cannot loaded: '.$CSS, LOG_ERR);
+                        $Call['CSS']['Styles'][$Call['CSS Filename']] = F::Run('IO', 'Read',
+                            [
+                                'Storage' => 'CSS',
+                                'Scope'   => [$Asset, 'css'],
+                                'Where'   => $ID
+                            ])[0];
+
+                        if ($Call['CSS']['Styles'][$Call['CSS Filename']])
+                            F::Log('CSS loaded: '.$Call['CSS Filename'], LOG_DEBUG);
+                        else
+                            F::Log('CSS cannot loaded: '.$Call['CSS Filename'], LOG_ERR);
+
+                    $Call = F::Hook('afterCSSLoad', $Call);
                 }
 
                 if (!empty($CSSInline))

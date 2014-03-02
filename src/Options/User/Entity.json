@@ -31,10 +31,6 @@
                 }
             }
         },
-        "External":
-        {
-            "Type": "Literal.String"
-        },
         "Status":
         {
             "Type": "Ternary",
@@ -154,7 +150,6 @@
         "EMail":
         {
             "Type": "Literal.EMail",
-            "Required": true,
             "Verifiable": true,
             "Unique": true,
             "Widgets":

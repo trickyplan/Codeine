@@ -61,31 +61,13 @@
                 "Service": "User.EMail"
             }
         },
-        "Блок парольной идентификации доступен всем":
-        {
-            "Decision": true,
-            "Weight": 75,
-            "Run":
-            {
-                "Service": "Security.Auth.System.Password"
-            }
-        },
-        "Блок социальной идентификации доступен всем":
-        {
-            "Decision": true,
-            "Weight": 75,
-            "Run":
-            {
-                "Service": "Security.Auth.System.Loginza"
-            }
-        },
         "Страница аутентификации доступна всем":
         {
             "Decision": true,
             "Weight": 75,
             "Run":
             {
-                "Service": "User.Authenticate"
+                "Service": "User.Login"
             }
         },
         "Страница выхода доступна вошедшим":
