@@ -74,8 +74,6 @@
             foreach ($Call['HTTP']['Headers'] as $Key => $Value)
                 header ($Key . ' ' . $Value);
 
-        d(__FILE__, __LINE__, $Call['HTTP']['Headers']);
-
         F::Run('IO', 'Write', $Call,
             [
                 'Storage' => 'Output',
