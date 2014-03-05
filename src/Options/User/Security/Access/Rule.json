@@ -64,7 +64,7 @@
         "Страница аутентификации доступна всем":
         {
             "Decision": true,
-            "Weight": 75,
+            "Weight": 1000,
             "Run":
             {
                 "Service": "User.Login"
