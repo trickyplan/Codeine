@@ -20,7 +20,7 @@
          {
              $Call['Run'] =
                 [
-                    'Service' => 'User.Authenticate',
+                    'Service' => 'User.Login',
                     'Method'  => 'Do',
                     'Zone' => 'Default'
                 ];

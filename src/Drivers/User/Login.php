@@ -25,7 +25,7 @@
         $Call = F::Apply('Security.Auth.'.$Call['Mode'], null, $Call);
 
         $Call['Layouts'][] = [
-            'Scope' => 'User.Authenticate',
+            'Scope' => 'User.Login',
             'ID' => isset($Call['Session']['User']['ID'])? 'Logged': 'Guest'];
 
         $Call = F::Hook('afterIdentificate', $Call);
