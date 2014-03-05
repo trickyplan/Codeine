@@ -1,0 +1,17 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <l>Security.Auth.OpenID:Title</l> <k>Project.Title</k>
+    </div>
+    <div class="panel-body">
+        <form role="form" method="post" action="/identificate/OpenID">
+            <div class="form-group">
+                <input class="form-control input-lg" id="Determinant" type="text" name="Identity" value="" required="required" autofocus="autofocus"/>
+            </div>
+            <button type="submit" class="btn btn-lg btn-block btn-success"><l>Security.Auth.OpenID:Submit</l></button>
+            <if value="<call>Project.Join.Open</call>" eq="1">
+                <a class="btn btn-lg btn-block btn-default" href="/join"><l>User.Create:Title</l></a>
+            </if>
+            <input type="hidden" name="BackURL" value="<k>BackURL</k>" />
+        </form>
+    </div>
+</div>

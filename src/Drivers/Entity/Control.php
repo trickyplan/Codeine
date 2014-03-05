@@ -142,13 +142,13 @@
 
     setFn('Allow', function ($Call)
     {
-        $Call['Layouts'][] = ['Scope' => 'Entity', 'ID' => 'Accept'];
+        $Call['Layouts'][] = ['Scope' => 'Entity', 'ID' => 'Allow'];
         return F::Apply('Entity.Allow', 'Do', $Call, ['Entity' => $Call['Bundle']]);
     });
 
     setFn('Disallow', function ($Call)
     {
-        $Call['Layouts'][] = ['Scope' => 'Entity', 'ID' => 'Reject'];
+        $Call['Layouts'][] = ['Scope' => 'Entity', 'ID' => 'Disallow'];
         return F::Apply('Entity.Disallow', 'Do', $Call, ['Entity' => $Call['Bundle']]);
     });
 

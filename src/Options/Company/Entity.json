@@ -12,6 +12,17 @@
     "Storage": "Primary",
     "Nodes":
     {
+        "URL":
+        {
+            "Type": "Literal.String",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        },
         "Logo":
         {
             "Type": "File.Upload",

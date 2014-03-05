@@ -1,0 +1,45 @@
+{
+    "VKontakte":
+    {
+        "Entry Point": "https://api.vk.com/method",
+        "Version": 5,
+        "AppID": 0,
+        "Secret": "",
+        "Rights": "friends,offline",
+        "Mapping":
+        {
+            "first_name": "Name",
+            "last_name": "Surname",
+            "sex": "Gender",
+            "photo_big": "Photo",
+            "home_phone": "Phone"
+        }
+    },
+    "Hooks":
+    {
+        "afterVKontakteAuthenticate":
+        {
+            "Redirect":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "Redirect",
+                "Call":
+                {
+                    "Location": "/profile"
+                }
+            }
+        },
+        "afterVKontakteAnnulate":
+        {
+            "Redirect":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "Redirect",
+                "Call":
+                {
+                    "Location": "/profile"
+                }
+            }
+        }
+    }
+}

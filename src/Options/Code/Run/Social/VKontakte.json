@@ -1,5 +1,5 @@
 {
-    "VK":
+    "VKontakte":
     {
         "Entry Point": "https://api.vk.com/method",
         "Version": 5,
@@ -9,7 +9,7 @@
     },
     "Hooks":
     {
-        "afterVKAuthenticate":
+        "afterVKontakteAuthenticate":
         {
             "Redirect":
             {
@@ -21,7 +21,7 @@
                 }
             }
         },
-        "afterVKAnnulate":
+        "afterVKontakteAnnulate":
         {
             "Redirect":
             {

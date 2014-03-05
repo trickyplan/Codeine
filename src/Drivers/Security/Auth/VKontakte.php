@@ -13,7 +13,7 @@
         [
             'Type'  => 'Template',
             'Scope' => 'Security.Auth',
-            'ID'    => 'VK'
+            'ID'    => 'VKontakte'
         ];
 
         return $Call;
@@ -23,20 +23,20 @@
     {
         return F::Run('System.Interface.Web', 'Redirect', $Call, ['Location' =>
             'https://oauth.vk.com/authorize?client_id='
-            .$Call['VK']['AppID']
-            .'&scope='.$Call['VK']['Rights']
+            .$Call['VKontakte']['AppID']
+            .'&scope='.$Call['VKontakte']['Rights']
             .'&display=popup'
-            .'&redirect_uri='.urlencode($Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/authenticate/VK')
+            .'&redirect_uri='.urlencode($Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/authenticate/VKontakte')
             .'&response_type=code'
-            .'&v='.$Call['VK']['Version']
+            .'&v='.$Call['VKontakte']['Version']
         ]);
     });
 
     setFn('Authenticate', function ($Call)
     {
-        $URL = 'https://oauth.vk.com/access_token?client_id='.$Call['VK']['AppID']
-            .'&client_secret='.$Call['VK']['Secret'].'&code='.$Call['Request']['code']
-            .'&redirect_uri='.urlencode($Call['HTTP']['Proto'].$Call['HTTP']['Host']).'/authenticate/VK';
+        $URL = 'https://oauth.vk.com/access_token?client_id='.$Call['VKontakte']['AppID']
+            .'&client_secret='.$Call['VKontakte']['Secret'].'&code='.$Call['Request']['code']
+            .'&redirect_uri='.urlencode($Call['HTTP']['Proto'].$Call['HTTP']['Host']).'/authenticate/VKontakte';
 
         $Result = F::Run('IO', 'Read',
             [
@@ -49,15 +49,27 @@
 
         if (isset($Result['access_token']))
         {
-            $Call['User'] = F::Run('Entity', 'Read', $Call,
-            [
-                'Entity' => 'User',
-                'One'    => true,
-                'Where'  =>
+            if (isset($Call['Session']['User']['ID']))
+                $Call['User'] = F::Run('Entity', 'Update', $Call,
                 [
-                    'VK.ID' => $Result['user_id']
-                ]
-            ]);
+                    'Entity' => 'User',
+                    'One'    => true,
+                    'Where'  => $Call['Session']['User']['ID'],
+                    'Data'   =>
+                    [
+                        'VKontakte.ID' => $Result['user_id']
+                    ]
+                ]);
+            else
+                $Call['User'] = F::Run('Entity', 'Read', $Call,
+                [
+                    'Entity' => 'User',
+                    'One'    => true,
+                    'Where'  =>
+                    [
+                        'VKontakte.ID' => $Result['user_id']
+                    ]
+                ]);
 
             if (empty($Call['User']))
             {
@@ -67,7 +79,7 @@
                     'One'    => true,
                     'Data'  =>
                     [
-                        'VK' =>
+                        'VKontakte' =>
                         [
                             'ID'    => $Result['user_id'],
                             'Auth'  => $Result['access_token']
@@ -77,7 +89,7 @@
                 ]);
             }
 
-            $VK = F::Run('Code.Run.Social.VK', 'Run',
+            $VKontakte = F::Run('Code.Run.Social.VKontakte', 'Run',
                     [
                         'Service'   => 'users',
                         'Method'    => 'get',
@@ -91,16 +103,16 @@
 
             $Updated = [];
 
-            foreach ($Call['VK']['Mapping'] as $VKField => $CodeineField)
-                if (isset($VK[$VKField]) && !empty($VK[$VKField]))
-                    $Updated[$CodeineField] = $VK[$VKField];
+            foreach ($Call['VKontakte']['Mapping'] as $VKontakteField => $CodeineField)
+                if (isset($VKontakte[$VKontakteField]) && !empty($VKontakte[$VKontakteField]))
+                    $Updated[$CodeineField] = $VKontakte[$VKontakteField];
 
             F::Run('Entity', 'Update',
                 [
                     'Entity' => 'User',
                     'Where'  =>
                     [
-                        'VK.ID' => $Result['user_id']
+                        'VKontakte.ID' => $Result['user_id']
                     ],
                     'Data'   => $Updated
                 ]);

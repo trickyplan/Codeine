@@ -12,6 +12,30 @@
                     "Type": "Form.Textfield"
                 }
             }
+        },
+        "Skype":
+        {
+            "Type": "Literal.String",
+            "Index": true,
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        },
+        "ICQ":
+        {
+            "Type": "Numeral.Integer",
+            "Index": true,
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
         }
     }
 }

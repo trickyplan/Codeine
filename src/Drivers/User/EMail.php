@@ -49,9 +49,11 @@
                 'Scope' => $Call['Data']['EMail'],
                 'Data' => $VCall['Output']]
             );
-        }
 
-        return $Call['Data']['EMail'];
+            return $Call['Data']['EMail'];
+        }
+        else
+            return null;
     });
 
     setFn('Check', function ($Call)

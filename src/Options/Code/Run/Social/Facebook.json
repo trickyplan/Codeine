@@ -1,0 +1,36 @@
+{
+    "Facebook":
+    {
+        "Entry Point": "https://graph.facebook.com",
+        "AppID": 0,
+        "Secret": "0",
+        "Rights": ""
+    },
+    "Hooks":
+    {
+        "afterFacebookAuthenticate":
+        {
+            "Redirect":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "Redirect",
+                "Call":
+                {
+                    "Location": "/profile"
+                }
+            }
+        },
+        "afterFacebookAnnulate":
+        {
+            "Redirect":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "Redirect",
+                "Call":
+                {
+                    "Location": "/profile"
+                }
+            }
+        }
+    }
+}

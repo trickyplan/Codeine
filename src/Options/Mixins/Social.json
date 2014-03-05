@@ -23,7 +23,7 @@
                 }
             }
         },
-        "Social.VK":
+        "Social.VKontakte":
         {
             "Type": "Literal.String",
             "Widgets":

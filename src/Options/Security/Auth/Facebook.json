@@ -1,13 +1,19 @@
 {
-    "FB":
+    "Facebook":
     {
         "AppID": 0,
-        "Secret": "0",
-        "Rights": ""
+        "Secret": "",
+        "Rights": "",
+        "Mapping":
+        {
+            "first_name": "Name",
+            "last_name": "Surname",
+            "gender": "Gender"
+        }
     },
     "Hooks":
     {
-        "afterFBAuthenticate":
+        "afterFacebookAuthenticate":
         {
             "Redirect":
             {
@@ -19,7 +25,7 @@
                 }
             }
         },
-        "afterFBAnnulate":
+        "afterFacebookAnnulate":
         {
             "Redirect":
             {
