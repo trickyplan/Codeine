@@ -12,9 +12,36 @@
         return true;
     });
 
+    setFn('Select User Agent', function ($Call)
+    {
+        if (isset($Call['Random User Agent']))
+        {
+            $Call['User Agent'] = $Call['User Agents'][array_rand($Call['User Agents'])];
+            F::Log('UA: '.$Call['User Agent'].' selected', LOG_INFO);
+        }
+        return $Call;
+    });
+
+    setFn('Select Proxy', function ($Call)
+    {
+        if (isset($Call['Random Proxy']) && isset($Call['Proxies']))
+        {
+            list($Call['Proxy']['Host'], $Call['Proxy']['Port']) =
+                explode(':', $Call['Proxies'][array_rand($Call['Proxies'])]);
+        }
+
+        if (isset($Call['Proxy']['Host']))
+            F::Log('Proxy: '.$Call['Proxy']['Host'].':'.$Call['Proxy']['Port'].' selected', LOG_INFO);
+
+        return $Call;
+    });
+
     setFn('Read', function ($Call)
     {
         $Return = null;
+
+        $Call = F::Run(null, 'Select User Agent', $Call);
+        $Call = F::Run(null, 'Select Proxy', $Call);
 
         if (is_array($Call['Where']['ID']))
         {
@@ -79,7 +106,7 @@
                 [
                    CURLOPT_HEADER           => $Call['Return Header'],
                    CURLOPT_RETURNTRANSFER   => true,
-                   CURLOPT_COOKIEJAR        => $Call['Cookie File'],
+/*                   CURLOPT_COOKIEJAR        => $Call['Cookie File'],*/
                    CURLOPT_FOLLOWLOCATION   => $Call['Follow'],
                    CURLOPT_CONNECTTIMEOUT   => $Call['Connect Timeout'],
                    CURLOPT_PROXY            => $Call['Proxy']['Host'],
@@ -100,9 +127,9 @@
             }
 
             if (curl_errno($Call['Link']))
-                F::Log(curl_error($Call['Link']).' *'.$Call['Where']['ID'].'*', LOG_ERR);
+                F::Log('CURL error: '.curl_error($Call['Link']).' *'.$Call['Where']['ID'].'*', LOG_ERR);
             else
-                F::Log('Fetched '.$Call['Where']['ID'], LOG_INFO);
+                F::Log('CURL fetched '.$Call['Where']['ID'], LOG_INFO);
 
             curl_close($Call['Link']);
         }
@@ -113,6 +140,7 @@
     setFn('Write', function ($Call)
     {
         $Call['Link'] = curl_init($Call['Where']['ID']);
+        $Call = F::Run(null, 'Select User Agent', $Call);
 
         $Headers = isset($Call['HTTP']['Headers'])? $Call['HTTP']['Headers']: [];
         // TODO HTTP DELETE
@@ -165,6 +193,7 @@
     setFn('Version', function ($Call)
     {
         $Call['Link'] = curl_init($Call['Where']['ID']);
+        $Call = F::Run(null, 'Select User Agent', $Call);
 
         curl_setopt_array($Call['Link'],
                 [

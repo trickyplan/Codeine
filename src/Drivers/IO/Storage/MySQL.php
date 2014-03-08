@@ -65,33 +65,28 @@
 
     setFn ('Write', function ($Call)
     {
-        $Data = $Call['Data'];
-
-        if (is_array($Call['Data']))
+        if (isset($Call['Where']))
+        {
+            if (isset($Call['Data']))
             {
-                if (isset($Call['Where']))
-                {
-                    if (isset($Call['Data']))
-                        $Query = F::Run('IO.Storage.MySQL.Syntax', 'Update', $Call);
-                    else
-                        $Query = F::Run('IO.Storage.MySQL.Syntax', 'Delete', $Call);
-                }
-                else
-                    $Query = F::Run('IO.Storage.MySQL.Syntax', 'Insert', $Call);
-
-                $Call = F::Apply(null, 'Operation', $Call, ['Query' => $Query]);
-
-                if (!isset($Call['Data']['ID']))
-                    $Element['ID'] = $Call['Link']->insert_id;
-
-                if ($Call['Link']->errno != 0)
-                {
-                    F::Log($Call['Link']->error, LOG_ERR);
-                    return null;
-                }
+                $Query = F::Run('IO.Storage.MySQL.Syntax', 'Update', $Call);
             }
+            else
+                $Query = F::Run('IO.Storage.MySQL.Syntax', 'Delete', $Call);
+        }
+        else
+            $Query = F::Run('IO.Storage.MySQL.Syntax', 'Insert', $Call);
 
-        $Call['Data'] = $Data;
+        $Call = F::Apply(null, 'Operation', $Call, ['Query' => $Query]);
+
+        if (!isset($Call['Data']['ID']))
+            $Element['ID'] = $Call['Link']->insert_id;
+
+        if ($Call['Link']->errno != 0)
+        {
+            F::Log($Call['Link']->error, LOG_ERR);
+            return null;
+        }
 
         if (isset($Call['Data']))
             return $Call['Data'];
