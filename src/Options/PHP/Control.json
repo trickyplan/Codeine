@@ -16,6 +16,7 @@
         "5.5.6-1~dotdeb.1": "Outdated",
         "5.5.7-1~dotdeb.1": "Outdated",
         "5.5.8-1~dotdeb.1": "Outdated",
-        "5.5.9-1~dotdeb.1": "Stable"
+        "5.5.9-1~dotdeb.1": "Outdated",
+        "5.5.10-1~dotdeb.1": "Stable"
     }
 }
