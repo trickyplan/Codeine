@@ -68,9 +68,7 @@
         if (isset($Call['Where']))
         {
             if (isset($Call['Data']))
-            {
                 $Query = F::Run('IO.Storage.MySQL.Syntax', 'Update', $Call);
-            }
             else
                 $Query = F::Run('IO.Storage.MySQL.Syntax', 'Delete', $Call);
         }
