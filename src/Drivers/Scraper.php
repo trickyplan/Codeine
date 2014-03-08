@@ -27,7 +27,7 @@
 
             F::Log('URL: '.$Call['URL'].' selected', LOG_WARNING);
 
-            $Call = F::Run(null, 'Select Filename', $Call);
+            $Call['Filename'] = F::Run(null, 'Select Filename', $Call);
 
             if (file_exists($Call['Filename']))
                 $Call = F::Run(null, 'Read', $Call);
@@ -115,7 +115,7 @@
 
         F::Log('Filename: '.$Call['Filename'].' selected', LOG_INFO);
 
-        return $Call;
+        return $Call['Filename'];
     });
 
     setFn('Fetch', function ($Call)
@@ -187,6 +187,7 @@
         phpQuery::newDocumentHTML($Call['Body']);
 
         $Call['NL'] = 0;
+
         phpQuery::each(pq('a'),function($Index, $Element) use (&$Call)
         {
             $URL = parse_url($Element->getAttribute('href'));
@@ -203,6 +204,8 @@
             elseif (isset($Call['Spider']['White']) && !preg_match('@'.$Call['Spider']['White'].'@', $URL))
                 $Decision = false;
             elseif (isset($Call['Spider']['Black']) && preg_match('@'.$Call['Spider']['Black'].'@', $URL))
+                $Decision = false;
+            elseif(file_exists(F::Run(null, 'Select Filename', $Call, ['URL' => $URL])))
                 $Decision = false;
 
             if (substr($URL, 0, 1) != '/')
