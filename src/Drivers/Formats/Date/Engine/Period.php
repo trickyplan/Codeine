@@ -28,6 +28,7 @@
 
             $Call['Value'] = abs($Time-$Call['Value']);
 
+            $Output = [];
             foreach ($Call['Period']['Units'] as $Period => $Value)
                 if ($Call['Value'] >= $Value)
                 {

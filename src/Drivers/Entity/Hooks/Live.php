@@ -29,23 +29,17 @@
                             F::Log('Node *'.$Name.'* overriden by user with *'.F::Dot($Call['Data'], $Name).'*', LOG_INFO);
                         else
                         {
-                            $Call['Data'] =
-                                F::Dot($Call['Data'], $Name,
-                                    F::Live($Node['Hooks'][$Call['On']],
+                            $LiveValue = F::Live($Node['Hooks'][$Call['On']],
                                         $Call,
                                         [
                                            'Name' => $Name,
                                            'Data' => $Call['Data']
-                                        ]));
+                                        ]);
 
-                            if (is_array(F::Dot($Call['Data'], $Name)))
-                                F::Log('Node *'.$Name.'* executed as '.json_encode(
-                                    F::Dot($Call['Data'], $Name),
-                                    JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE), LOG_INFO);
-                            else
-                                F::Log('Node *'.$Name.'* executed as '.
-                                F::Dot($Call['Data'], $Name)
-                                , LOG_INFO);
+                            $Call['Data'] =
+                                F::Dot($Call['Data'], $Name, $LiveValue);
+
+                            F::Log('Node *'.$Name.'* executed by '.j($Node['Hooks'][$Call['On']]).' as '.j($LiveValue), LOG_INFO);
                         }
                     }
                 }

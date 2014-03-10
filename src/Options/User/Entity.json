@@ -42,14 +42,6 @@
             "Type": "Literal.String",
             "Verifiable": true,
             "User Override": true,
-            "Hooks":
-            {
-                "beforeEntityUpdate":
-                {
-                    "Service": "User.Entity",
-                    "Method": "Fullname"
-                }
-            },
             "Widgets":
             {
                 "Write":
