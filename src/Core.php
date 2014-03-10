@@ -32,7 +32,6 @@
         private static $_Log = [];
 
         private static $_Live = false;
-        private static $_Memory= 0;
 
         private static $_Performance = false;  // Internal Performance
         private static $_Debug = false;  // Internal Debugger
@@ -64,7 +63,7 @@
             if (isset($_SERVER['Environment']))
                 self::$_Environment = $_SERVER['Environment'];
 
-            if (isset($Call['Environment']))
+            if (isset($Call['Environment']) and null !== $Call['Environment'])
                 self::$_Environment = $Call['Environment'];
 
             if (isset($Call['Paths']))
@@ -541,7 +540,7 @@
                         break;
 
                         case LOG_IMPORTANT:
-                            fwrite(STDERR, $Channel."> \033[0;31m ".$Message." \033[0m".PHP_EOL);
+                            fwrite(STDERR, $Time.$Channel."> \033[0;31m ".$Message." \033[0m".PHP_EOL);
                         break;
 
                         default:

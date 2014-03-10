@@ -28,6 +28,7 @@
             F::Log('URL: '.$Call['URL'].' selected', LOG_WARNING);
 
             $Call['Filename'] = F::Run(null, 'Select Filename', $Call);
+            F::Log('Filename: '.$Call['Filename'].' selected', LOG_INFO);
 
             if (file_exists($Call['Filename']))
                 $Call = F::Run(null, 'Read', $Call);
@@ -106,14 +107,12 @@
     setFn('Select Filename', function ($Call)
     {
         $Root = $Call['Scraped'].$Call['Host'];
-        $Call['Filename'] = $Root.parse_url($Call['URL'], PHP_URL_PATH).parse_url($Call['URL'], PHP_URL_QUERY);
+        $Call['Filename'] = $Root.parse_url($Call['URL'], PHP_URL_PATH).sha1(parse_url($Call['URL'], PHP_URL_QUERY));
 
         if (substr($Call['Filename'], strlen($Call['Filename'])-1, 1) == '/')
             $Call['Filename'] = substr($Call['Filename'], 0, strlen($Call['Filename'])-1).'.html';
         elseif (substr($Call['Filename'], strlen($Call['Filename'])-5) != '.html')
             $Call['Filename'] .= '.html';
-
-        F::Log('Filename: '.$Call['Filename'].' selected', LOG_INFO);
 
         return $Call['Filename'];
     });

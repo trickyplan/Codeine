@@ -30,7 +30,7 @@
                         $Value = preg_replace ('/\\s{2,}|\\s{2,}$/Ssm', "\n", pq($Element)->html());
 
                     if (empty($Value))
-                        F::Log($Key.' not defined', LOG_ERR);
+                        F::Log($Key.' not defined', LOG_INFO);
                     else
                     {
                         if (isset($Rule['Regex']))
