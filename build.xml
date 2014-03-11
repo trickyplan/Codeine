@@ -9,7 +9,7 @@
     <property name="homepage" value="http://trickyplan.ru/projects/Codeine"/>
     <property name="maintainer" value="Johnny Funt"/>
     <property name="destination-source" value="/usr/share/php/Codeine"/>
-    <property name="depends" value="php5-fpm (>=5.5.8) | php5-cli (>=5.5.8) | php5-cgi (>=5.5.8)"/>
+    <property name="depends" value="php5-fpm (>=5.5.0) | php5-cli (>=5.5.0) | php5-cgi (>=5.5.0)"/>
 
     <target name="phase1" depends="properties"></target>
 
