@@ -14,6 +14,17 @@
             "ID": 1
         }
     },
+    "View":
+    {
+        "Default":
+        {
+            "Renderer":
+            {
+                "Service": "View.Plaintext",
+                "Method": "Render"
+            }
+        }
+    },
     "Hooks":
     {
         "beforeInterfaceRun":
