@@ -124,20 +124,25 @@
             $MT = microtime(true);
             F::Log($Call['URL'].' fetching', LOG_INFO);
 
-            $Result = F::Run('IO', 'Read', $Call,
-                [
-                    'No Memo' => true,
-                    'Storage' => 'Web',
-                    'Random Proxy' => true,
-                    'Random User Agent' => true,
-                    'Connect Timeout' => 5,
-                    'Where' =>
+            if(substr($Call['URL'], 0,1) == '/')
+                $Call['Body'] = file_get_contents($Call['URL']);
+            else
+            {
+                $Result = F::Run('IO', 'Read', $Call,
                     [
-                        'ID' => $Call['URL']
-                    ]
-                ]);
+                        'No Memo' => true,
+                        'Storage' => 'Web',
+                        'Random Proxy' => true,
+                        'Random User Agent' => true,
+                        'Connect Timeout' => 5,
+                        'Where' =>
+                            [
+                                'ID' => $Call['URL']
+                            ]
+                    ]);
+                $Call['Body'] = array_pop($Result);
+            }
 
-            $Call['Body'] = array_pop($Result);
 
             F::Log($Call['URL'].' fetched by '.round((microtime(true)-$MT)*1000).' ms', LOG_WARNING);
 
