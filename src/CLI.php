@@ -7,6 +7,9 @@
 
     include 'Core.php';
 
+    if (isset($Opts[1]))
+        $Opts = json_decode(file_get_contents($Opts[1]), true);
+
     foreach ($argv as $arg)
         if (preg_match('/^--(\w+)\=(.+)$/Ssu', $arg, $Pockets))
             $Opts[$Pockets[1]] = $Pockets[2];
@@ -14,9 +17,6 @@
             $Opts[] = $arg;
 
     !defined('Root')? define('Root', getcwd()): false;
-
-    if (isset($Opts[1]))
-        $Opts = json_decode(file_get_contents($Opts[1]), true);
 
     if (empty($Opts))
         ;
