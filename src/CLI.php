@@ -7,16 +7,18 @@
 
     include 'Core.php';
 
-    if (isset($Opts[1]))
-        $Opts = json_decode(file_get_contents($Opts[1]), true);
-
     foreach ($argv as $arg)
         if (preg_match('/^--(\w+)\=(.+)$/Ssu', $arg, $Pockets))
             $Opts[$Pockets[1]] = $Pockets[2];
         else
             $Opts[] = $arg;
 
+    if (isset($Opts[1]))
+        $Opts = F::Merge(json_decode(file_get_contents($Opts[1]), true), $Opts);
+
     !defined('Root')? define('Root', getcwd()): false;
+
+        d(__FILE__, __LINE__, $Opts);
 
     if (empty($Opts))
         ;
