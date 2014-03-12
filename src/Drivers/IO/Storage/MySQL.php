@@ -13,11 +13,11 @@
 
         if (!$Link->ping())
         {
-            F::Log($Link->connect_error, LOG_CRIT);
+            F::Log($Link->connect_error, LOG_CRIT, 'Administrator');
             return null;
         }
 
-        F::Log($Link->host_info, LOG_INFO);
+        F::Log($Link->host_info, LOG_INFO, 'Administrator');
 
         $Link->select_db ($Call['Database']);
         $Link->set_charset ($Call['Charset']);
@@ -33,13 +33,13 @@
 
         if ($Call['Link']->errno != 0)
         {
-            F::Log($Call['Query'], LOG_ERR);
-            F::Log($Call['Link']->errno.':'.$Call['Link']->error, LOG_ERR);
+            F::Log($Call['Query'], LOG_ERR, 'Administrator');
+            F::Log($Call['Link']->errno.':'.$Call['Link']->error, LOG_ERR, 'Administrator');
             $Call = F::Hook('MySQL.Error.'.$Call['Link']->errno, $Call);
         }
         else
         {
-            F::Log($Call['Query'], LOG_INFO);
+            F::Log($Call['Query'], LOG_INFO, 'Administrator');
             F::Counter('MySQL');
         }
 
@@ -82,7 +82,7 @@
 
         if ($Call['Link']->errno != 0)
         {
-            F::Log($Call['Link']->error, LOG_ERR);
+            F::Log($Call['Link']->error, LOG_ERR, 'Administrator');
             return null;
         }
 
@@ -106,7 +106,7 @@
             {
                 $Data = $Call['MySQL Result']->fetch_all(MYSQLI_ASSOC);
                 $Call['MySQL Result']->free();
-                F::Log('['.sizeof($Data).'] '.$Call['Run'], LOG_DEBUG);
+                F::Log('['.sizeof($Data).'] '.$Call['Run'], LOG_DEBUG, 'Administrator');
             }
         else
             $Data = null;
