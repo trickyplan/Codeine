@@ -18,6 +18,10 @@
     },
     "Nodes":
     {
+        "Body":
+        {
+            "Type": "Literal.HTML"
+        },
         "Subtitle":
         {
             "Type": "Literal.String",
