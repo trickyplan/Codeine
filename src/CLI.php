@@ -18,8 +18,6 @@
 
     !defined('Root')? define('Root', getcwd()): false;
 
-        d(__FILE__, __LINE__, $Opts);
-
     if (empty($Opts))
         ;
     else
