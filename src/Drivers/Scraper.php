@@ -69,7 +69,7 @@
                 break;
 
                 case 'List':
-                    $Call['Bootstrap'] = explode(PHP_EOL, file_get_contents($Call['Bootstrap']));
+                    $Call['URLs'] = explode(PHP_EOL, file_get_contents($Call['Bootstrap']));
                 break;
 
                 case 'SitemapIndex':
