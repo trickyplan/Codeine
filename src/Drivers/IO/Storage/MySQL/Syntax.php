@@ -164,6 +164,8 @@
                                 {
                                     case '$in': $Relation = 'IN'; break;
                                     case '$ne': $Relation = '<>'; break;
+                                    case '$lt': $Relation = '<'; break;
+                                    case '$gt': $Relation = '>'; break;
                                     case 'Like':
                                         if ($lValue == '()')
                                             $lValue = '';
