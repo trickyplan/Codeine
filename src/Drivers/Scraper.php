@@ -37,7 +37,8 @@
                 $Call = F::Run(null, 'Fetch',$Call);
                 $Call = F::Run(null, 'Write', $Call);
 
-                sleep(rand(0,$Call['Pause']));
+                if (isset($Call['Pause']))
+                    sleep(rand(0,$Call['Pause']));
             }
 
             if (isset($Call['Spider']['Enabled']))
@@ -152,7 +153,6 @@
                     ]);
                 $Call['Body'] = array_pop($Result);
             }
-
 
             F::Log($Call['URL'].' fetched by '.round((microtime(true)-$MT)*1000).' ms', LOG_WARNING);
 
