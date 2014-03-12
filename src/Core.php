@@ -505,7 +505,7 @@
                     $Message = json_encode($Message,
                         JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 
-                $Time = date('d.m.Y H:i:s').round(microtime(true)-time(), 4).' ';
+                $Time = date('d.m.Y H:i:s').sprintf('%01.4f', microtime(true)-time()).' ';
 
                 if (PHP_SAPI == 'cli')
                 {
