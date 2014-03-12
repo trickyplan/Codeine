@@ -30,16 +30,20 @@
             $Call['Filename'] = F::Run(null, 'Select Filename', $Call);
             F::Log('Filename: '.$Call['Filename'].' selected', LOG_INFO);
 
-            if (file_exists($Call['Filename']))
-                $Call = F::Run(null, 'Read', $Call);
-            else
-            {
-                $Call = F::Run(null, 'Fetch',$Call);
-                $Call = F::Run(null, 'Write', $Call);
+            $Call = F::Hook('beforeFetch', $Call);
 
-                if (isset($Call['Pause']))
-                    sleep(rand(0,$Call['Pause']));
-            }
+                if (file_exists($Call['Filename']))
+                    $Call = F::Run(null, 'Read', $Call);
+                else
+                {
+                    $Call = F::Run(null, 'Fetch',$Call);
+                    $Call = F::Run(null, 'Write', $Call);
+
+                    if (isset($Call['Pause']))
+                        sleep(rand(0,$Call['Pause']));
+                }
+
+            $Call = F::Hook('afterFetch', $Call);
 
             if (isset($Call['Spider']['Enabled']))
                 $Call = F::Run(null, 'Spider', $Call);
@@ -130,8 +134,6 @@
 
     setFn('Fetch', function ($Call)
     {
-        $Call = F::Hook('beforeFetch', $Call);
-
             $MT = microtime(true);
             F::Log($Call['URL'].' fetching', LOG_INFO);
 
@@ -155,8 +157,6 @@
             }
 
             F::Log($Call['URL'].' fetched by '.round((microtime(true)-$MT)*1000).' ms', LOG_WARNING);
-
-        $Call = F::Hook('afterFetch', $Call);
 
         return $Call;
 
