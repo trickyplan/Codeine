@@ -107,7 +107,12 @@
     setFn('Select Filename', function ($Call)
     {
         $Root = $Call['Scraped'].$Call['Host'];
-        $Call['Filename'] = $Root.parse_url($Call['URL'], PHP_URL_PATH).sha1(parse_url($Call['URL'], PHP_URL_QUERY));
+        $Query = parse_url($Call['URL'], PHP_URL_QUERY);
+
+        if (strlen($Query) > 128)
+            $Query = sha1($Query);
+
+        $Call['Filename'] = $Root.parse_url($Call['URL'], PHP_URL_PATH).$Query;
 
         if (substr($Call['Filename'], strlen($Call['Filename'])-1, 1) == '/')
             $Call['Filename'] = substr($Call['Filename'], 0, strlen($Call['Filename'])-1).'.html';
