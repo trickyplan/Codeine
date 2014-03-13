@@ -75,6 +75,17 @@
                 }
             }
         },
+        "Blogs, Tags":
+        {
+            "Match":"^/blogs/tag/(.*)$",
+            "Service":"System.Interface.Web",
+            "Method":"Redirect",
+            "Weight": 30,
+            "Call":
+            {
+                "Location": "/blog/tags/$1"
+            }
+        },
         "Blog, Author":
         {
             "Match":"^/blog/author/(.*)$",
