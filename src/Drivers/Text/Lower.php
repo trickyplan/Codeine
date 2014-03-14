@@ -9,7 +9,8 @@
 
     setFn('Do', function ($Call)
     {
-        $Call['Value'] = mb_strtolower($Call['Value']);
+        if (is_string($Call['Value']))
+            $Call['Value'] = mb_strtolower($Call['Value']);
 
         return $Call;
     });

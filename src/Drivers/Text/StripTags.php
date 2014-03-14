@@ -9,7 +9,8 @@
 
     setFn('Do', function ($Call)
     {
-        $Call['Value'] = strip_tags($Call['Value']);
+        if (is_string($Call['Value']))
+            $Call['Value'] = strip_tags($Call['Value']);
 
         return $Call;
     });
