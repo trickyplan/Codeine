@@ -71,6 +71,17 @@
                 ]
             }
         },
+        "Редактировать комментарий":
+        {
+            "Match":"^/update/comment/(.*)$",
+            "Service":"Entity.Update",
+            "Method":"Do",
+            "Call":
+            {
+                "Entity": "Comment",
+                "Where": "$1"
+            }
+        },
         "Комментарий":
         {
             "Match":"^/comment/(.*)$",
