@@ -9,7 +9,8 @@
 
     setFn('Query', function ($Call)
     {
-        $Call['Query'] = $Call['Request']['Query'];
+        if (isset($Call['Request']['Query']))
+            $Call['Query'] = $Call['Request']['Query'];
 
         foreach ($Call['Providers'] as $ProviderName => $ProviderCall)
         {
@@ -18,6 +19,7 @@
             foreach ($Results as $Result)
             {
                 $Result['Provider'] = $ProviderName;
+
                 $Call['Output']['Content'][] =
                     [
                         'Type'  => 'Template',

@@ -23,8 +23,8 @@
         {
             "Match": "^/search/(.*)$",
             "Weight": 20,
-            "Service": "Entity.Search",
-            "Method": "Do",
+            "Service": "Search",
+            "Method": "Query",
             "Call":
             {
                 "Query": "$1"
