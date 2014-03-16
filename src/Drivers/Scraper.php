@@ -45,7 +45,7 @@
 
             $Call = F::Hook('afterFetch', $Call);
 
-            if (isset($Call['Spider']['Enabled']))
+            if (isset($Call['Spider']['Enabled']) && $Call['Spider']['Enabled'])
                 $Call = F::Run(null, 'Spider', $Call);
 
             $Call['Processed'][] = $Call['URL'];
