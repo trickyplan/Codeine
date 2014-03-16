@@ -79,7 +79,7 @@
 
                 case 'Counter':
                     for ($Call['IX'] = $Call['From']; $Call['IX']< $Call['To']; $Call['IX']++)
-                        $Call['URLs'] = str_replace('##', $Call['IX'], $Call['Bootstrap']);
+                        $Call['URLs'][] = str_replace('##', $Call['IX'], $Call['Bootstrap']);
                 break;
 
                 case 'SitemapIndex':
