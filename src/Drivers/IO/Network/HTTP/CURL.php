@@ -203,7 +203,7 @@
                     CURLOPT_FILETIME => true,
                     CURLOPT_NOBODY => true,
                     CURLOPT_FOLLOWLOCATION => $Call['Follow'],
-                    CURLOPT_CONNECTTIMEOUT => $Call['Timeout']
+                    CURLOPT_CONNECTTIMEOUT => $Call['Connect Timeout']
                 ]);
 
         return curl_getinfo($Call['Link'])['filetime'];

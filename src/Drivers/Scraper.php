@@ -77,6 +77,11 @@
                     $Call['URLs'] = explode(PHP_EOL, file_get_contents($Call['Bootstrap']));
                 break;
 
+                case 'Counter':
+                    for ($Call['IX'] = $Call['From']; $Call['IX']< $Call['To']; $Call['IX']++)
+                        $Call['URLs'] = str_replace('##', $Call['IX'], $Call['Bootstrap']);
+                break;
+
                 case 'SitemapIndex':
                     $SitemapIndex = simplexml_load_string(file_get_contents($Call['Bootstrap']));
 
@@ -147,7 +152,6 @@
                         'Storage' => 'Web',
                         'Random Proxy' => true,
                         'Random User Agent' => true,
-                        'Connect Timeout' => 5,
                         'Where' =>
                             [
                                 'ID' => $Call['URL']
