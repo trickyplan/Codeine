@@ -3,7 +3,7 @@
     {
         "AppID": 0,
         "Secret": "",
-        "Rights": "",
+        "Rights": "offline_access",
         "Mapping":
         {
             "first_name": "Name",
