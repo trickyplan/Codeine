@@ -10,7 +10,6 @@
     setFn ('Render', function ($Call)
     {
         $Call = F::Hook('beforeJSONRender', $Call);
-
         $Call = F::Run('View.Pipeline', 'Do', $Call);
         $Call['Output'] = j($Call['Output']['Content']);
 

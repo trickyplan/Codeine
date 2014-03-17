@@ -145,7 +145,10 @@
 
         $Current = F::Run('Entity', 'Read', $Call, ['One' => false, 'Time' => rand()]);
 
-        $Call['Updates'] = $Call['Data'];
+        if (isset($Call['Data']))
+            $Call['Updates'] = $Call['Data'];
+        else
+            $Call['Updates'] = $Current;
 
         if ($Current)
         {

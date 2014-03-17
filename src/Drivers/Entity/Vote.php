@@ -43,20 +43,20 @@
             }
         }
 
-        F::Run('Entity.Touch', 'Do', $Call,
+        F::Run('Entity', 'Update', $Call,
             [
                 'Entity' => $Call['Type'],
-                'Where' => $Call['Object']
+                'Where'  => $Call['Object']
             ]);
 
-        $Call['Output']['Content'] =
+        $Call['Output']['Content'][] =
             F::Run('Entity', 'Far',
                 [
                     'Entity' => $Call['Type'],
                     'Time' => microtime(true),
                     'Where' => $Call['Object'],
                     'Key' => $Call['Direction']
-                ]);;
+                ]);
 
         return $Call;
     });
