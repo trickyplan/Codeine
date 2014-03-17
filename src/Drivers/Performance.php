@@ -17,7 +17,7 @@
             arsort(self::$_Counters['T']);
 
             F::Log('Total time: '.round($Call['Performance']['Summary']['Time']).' ms', LOG_INFO, 'Performance');
-            F::Log('Total calls: '.round($Call['Performance']['Summary']['Calls']), LOG_INFO, 'Performance');
+            F::Log('Total calls: '.$Call['Performance']['Summary']['Calls'], LOG_INFO, 'Performance');
             F::Log('Total time per call: '.round($Call['Performance']['Summary']['Time'] / $Call['Performance']['Summary']['Calls'], 2).' ms'
                 , LOG_INFO, 'Performance');
 
@@ -26,8 +26,8 @@
 
             foreach (self::$_Counters['T'] as $Key => $Value)
             {
-                if (!isset($Call['Data']['C'][$Key]))
-                    $Call['Data']['C'][$Key] = 1;
+                if (!isset(self::$_Counters['C'][$Key]))
+                    self::$_Counters['C'][$Key] = 1;
 
                 $Class =
                     [
@@ -39,10 +39,10 @@
                     ];
 
                 $Call['RTime'] = round(($Value / $Call['Performance']['Summary']['Time']) * 100, 2);
-                $Call['RCalls'] = round(($Call['Data']['C'][$Key] / $Call['Performance']['Summary']['Calls']) * 100, 2);
+                $Call['RCalls'] = round((self::$_Counters['C'][$Key] / $Call['Performance']['Summary']['Calls']) * 100, 2);
                 $Call['ATime'] = round($Value);
-                $Call['ACalls'] = $Call['Data']['C'][$Key];
-                $Call['TimePerCall'] = round($Value / $Call['Data']['C'][$Key], 2);
+                $Call['ACalls'] = self::$_Counters['C'][$Key];
+                $Call['TimePerCall'] = round($Value / self::$_Counters['C'][$Key], 2);
 
                 if (isset($Call['Alerts']['Yellow']))
                     foreach ($Call['Alerts']['Yellow'] as $Metric => $Limit)

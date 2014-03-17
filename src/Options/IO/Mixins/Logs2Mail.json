@@ -10,7 +10,7 @@
         {
             "Scope": "Performance@trickyplan.com",
             "Driver": "IO.Transport.Mail.SMTP",
-            "Format": "Formats.Log.RAW"
+            "Format": "Formats.Log.HTML"
         },
         "Administrator": {
             "Scope": "administrator@trickyplan.com",

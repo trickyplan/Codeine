@@ -319,8 +319,8 @@
                     if (!isset($Memo) || ($Result = F::Get($Memo)) == null)
                     {
                         $Result = $F($Call);
-                        if (self::$_Performance)
-                            self::Counter(self::$_Service.'.'.self::$_Method);
+                        // if (self::$_Performance)
+                        self::Counter(self::$_Service.'.'.self::$_Method);
                     }
                     else
                         F::Log(self::$_Service.':'.self::$_Method.' memoized', LOG_DEBUG, 'Administrator');

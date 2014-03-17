@@ -18,7 +18,9 @@
                 $Call['Value'] = F::Dot($Call['Data'], $Name);
 
                     $Call = F::Hook('beforeTokenize', $Call);
-                        $Call['Words'] = preg_split('/[\s\.\?\!\,\:\;\/\-]/', $Call['Value']);
+                        if (is_string($Call['Value']))
+                            $Call['Words'] = preg_split('/[\s\.\?\!\,\:\;\/\-]/', $Call['Value']);
+
                     $Call = F::Hook('afterTokenize', $Call);
 
                 $Index = array_merge($Index, $Call['Words']);
