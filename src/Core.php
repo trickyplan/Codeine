@@ -822,13 +822,13 @@
 
         private static function Start ($Key)
         {
-            if (isset(self::$_Performance))
+            // if (isset(self::$_Performance))
                 return self::$_Ticks['T'][$Key] = microtime(true);
         }
 
         private static function Stop ($Key)
         {
-            if (isset(self::$_Performance))
+            // if (isset(self::$_Performance))
             {
                 if (isset(self::$_Counters['T'][$Key]))
                     return self::$_Counters['T'][$Key] += round((microtime(true) - self::$_Ticks['T'][$Key])*1000,2);
