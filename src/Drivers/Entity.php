@@ -143,20 +143,22 @@
 
         $Call = F::Hook('beforeOperation', $Call);
 
-        $Current = F::Run('Entity', 'Read', $Call, ['One' => false, 'Time' => rand()]);
+        $CurrentData = F::Run('Entity', 'Read', $Call, ['One' => false, 'Time' => rand()]);
 
         if (isset($Call['Data']))
             $Call['Updates'] = $Call['Data'];
         else
-            $Call['Updates'] = $Current;
+            $Call['Updates'] = $CurrentData;
 
-        if ($Current)
+        $VCall = [];
+
+        if ($CurrentData)
         {
-            foreach ($Current as $Call['IX'] => $Call['Current'])
+            foreach ($CurrentData as $Call['IX'] => $Call['Current'])
             {
                 if (isset($Call['Current']['ID']))
                 {
-                    $Call['Where'] = ['ID' => $Call['Current']['ID']];
+                    $VCall['Where'] = ['ID' => $Call['Current']['ID']];
 
                     if (isset($Call['Updates'][$Call['IX']]))
                         $Call['Data'] = $Call['Updates'][$Call['IX']];
@@ -168,16 +170,16 @@
                         $Call = F::Hook('beforeEntityUpdate', $Call);
 
                             if (isset($Call['Dry']))
-                                F::Log('Dry shot for '.$Call['Entity'].' create');
+                                F::Log('Dry shot for '.$Call['Entity'].' update');
                             else
                             {
-                                F::Run('IO', 'Write', $Call);
+                                F::Run('IO', 'Write', $Call, $VCall);
                                 $Call = F::Hook('afterEntityUpdate', $Call);
                             }
 
                     $Call = F::Hook('afterEntityWrite', $Call);
 
-                    $Current[$Call['IX']] = $Call['Data'];
+                    $CurrentData[$Call['IX']] = $Call['Data'];
                 }
             }
 
@@ -185,20 +187,20 @@
 
             $Call = F::Hook('afterOperation', $Call);
 
-            F::Log('*'.count($Call['Data']).'* '.$Call['Entity'].' updated', LOG_INFO, 'Administrator');
+            F::Log('*'.count($CurrentData).'* '.$Call['Entity'].' updated', LOG_INFO, 'Administrator');
 
-            $Current = F::Run('Entity', 'Read', $Call, ['One' => false, 'Time' => rand()]);
+            $CurrentData = F::Run('Entity', 'Read', $Call, ['One' => false, 'Time' => rand()]);
 
             if (isset($Call['One']) && $Call['One'])
             {
                 unset($Call['One']);
 
-                if (is_array($Current))
-                    $Current = array_shift($Current);
+                if (is_array($CurrentData))
+                    $CurrentData = array_shift($CurrentData);
             }
         }
 
-        return $Current;
+        return $CurrentData;
     });
 
     setFn('Delete', function ($Call)

@@ -30,6 +30,7 @@
 
     setFn('Block', function ($Call)
     {
+        $Call['Run'] = '/403';
         $Call['Output']['Content'] = [
                                         [
                                             'Type'  => 'Template',

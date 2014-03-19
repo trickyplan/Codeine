@@ -7,8 +7,7 @@
             "Method":"Do",
             "Call":
             {
-                "Entity": "User",
-                "OnlyRequired": true
+                "Entity": "User"
             }
         },
         "/login":

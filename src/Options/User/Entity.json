@@ -54,10 +54,9 @@
         {
             "Type": "Literal.Password",
             "User Override": true,
-            "Scope": "Password",
             "Hooks":
             {
-                "beforeEntityCreate":
+                "-beforeEntityCreate":
                 {
                     "Service": "Security.Password.Generator",
                     "Method": "Get",
@@ -158,7 +157,7 @@
             },
             "Hooks":
             {
-                "beforeEntityCreate":
+                "-beforeEntityCreate":
                 {
                     "Service": "User.EMail",
                     "Method": "Verify"

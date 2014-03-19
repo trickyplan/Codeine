@@ -27,9 +27,9 @@
 
                 $Call['Entity'] = $Entity;
 
-                $IDs = F::Run('Search', 'Query', $Call,
+                $Call = F::Run('Search', 'Query', $Call,
                 [
-                      'Engine' => 'Primary'
+                      'Provider' => $Call['Entity']
                 ]);
 
                 $Call['Output']['Content'][] =
@@ -40,34 +40,6 @@
                             'Context' => $Call['Context']
                         ];
 
-                if (!empty($IDs))
-                {
-                    $Where['ID'] = ['$in' => array_keys($IDs)];
-
-                    $VCall = F::Apply('Entity.List', 'Do',
-                        $Call,
-                        [
-                            'Context' => 'app',
-                            'Where!' => $Where,
-                            'Template' => (
-                            isset($Call['Template'])?
-                                $Call['Template']:
-                                'Short')
-                        ]
-                    );
-
-                    $Call['Output'] = F::Merge($Call['Output'], $VCall['Output']);
-                }
-                else
-                    $Call['Output']['Content'][] =
-                        [
-                            'Type' => 'Template',
-                            'Scope' => $Entity,
-                            'ID' => 'NotFound',
-                            'Context' => $Call['Context']
-                        ];
-
-                unset($Call['Scope'], $Call['Elements']);
             }
         }
 

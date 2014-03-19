@@ -13,17 +13,13 @@
 
         $Call = F::Hook('beforeTouch', $Call);
 
-            $Call['Data'] = F::Run('Entity', 'Read', $Call);
-            $Results = F::Run('Entity', 'Update', $Call);
+        $Results = F::Run('Entity', 'Update', $Call, ['One' => false]);
 
-            foreach ($Results as $Result)
-                $Call['Output']['Content'][] =
-                    [
-                        'Type' => 'Template',
-                        'Scope' => $Call['Entity'].'/'.(isset($Call['Scope'])? $Call['Scope']: ''),
-                        'ID' => 'Show/Short',
-                        'Data' => $Result
-                    ];
+        $Call['Output']['Content'][] =
+            [
+                'Type' => 'Block',
+                'Value' => count($Results).' touched'
+            ];
 
         $Call = F::Hook('afterTouch', $Call);
 
