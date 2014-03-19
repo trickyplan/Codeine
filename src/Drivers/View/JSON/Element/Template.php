@@ -9,5 +9,8 @@
 
      setFn('Make', function ($Call)
      {
-         return $Call['Data'];
+         if (isset($Call['Data']))
+            return $Call['Data'];
+         else
+            return null;
      });
