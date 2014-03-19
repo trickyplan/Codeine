@@ -1,4 +1,4 @@
-<?php
+    <?php
 
     /* Codeine
      * @author BreathLess
@@ -210,7 +210,7 @@
         {
             $URL = parse_url($Element->getAttribute('href'));
 
-            if (isset($URL['host']) && 'http://'.$URL['host'] != $Call['Host'])
+            if (isset($URL['host']) && $URL['host'] != $Call['Host'])
                 $Decision = false;
             else
                 $Decision = true;
