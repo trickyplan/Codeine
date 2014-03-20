@@ -11,8 +11,11 @@
     {
         $Elements = F::Run('Entity', 'Read', $Call);
 
-        foreach ($Elements as $Element)
-            $Call['Output']['Content'][] = $Element;
+        if (empty($Elements))
+            $Call['Output']['Content'] = null;
+        else
+            foreach ($Elements as $Element)
+                $Call['Output']['Content'][] = $Element;
 
         return $Call;
     });
