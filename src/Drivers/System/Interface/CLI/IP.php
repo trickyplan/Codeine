@@ -9,5 +9,5 @@
 
     setFn('Get', function ($Call)
     {
-        return gethostname();
+        return shell_exec('hostname -f');
     });
