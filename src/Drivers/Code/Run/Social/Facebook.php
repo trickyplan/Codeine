@@ -24,8 +24,8 @@
 
         $Result = array_pop($Result);
 
-        if (isset($Call['Return Key']) && isset($Result[$Call['Return Key']]))
-            $Result = $Result[$Call['Return Key']];
+        if (isset($Call['Return Key']) && F::Dot($Result, $Call['Return Key']))
+            $Result = F::Dot($Result, $Call['Return Key']);
 
         return $Result;
     });

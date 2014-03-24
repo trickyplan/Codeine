@@ -1,6 +1,10 @@
 {
     "Return Code": 0,
-    "IP": "127.0.0.1",
+    "IP":
+    {
+        "Service": "System.Interface.CLI.IP",
+        "Method": "Get"
+    },
     "UA": "Shell",
     "Locale":
     {
