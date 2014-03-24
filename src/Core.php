@@ -41,7 +41,7 @@
 
         private static $NC = 0;
         private static $_Paths = [];
-        public static $_Perfect = true;
+        public static $_Perfect = false;
 
         public static function Environment()
         {
