@@ -41,7 +41,7 @@
 
         private static $NC = 0;
         private static $_Paths = [];
-
+        public static $_Perfect = true;
 
         public static function Environment()
         {
@@ -109,6 +109,7 @@
 
             $Call = F::Hook('onBootstrap', $Call);
 
+            self:$_Perfect = self::$_Options['Codeine']['Perfect'];
             return F::Live($Call);
         }
 
@@ -453,7 +454,7 @@
 
         public static function Error($errno , $errstr , $errfile , $errline , $errcontext)
         {
-            if (isset(self::$_Options['Codeine']['Perfect']) && self::$_Options['Codeine']['Perfect'])
+            if (self::$_Perfect)
             {
                 $Logs = F::Logs();
 

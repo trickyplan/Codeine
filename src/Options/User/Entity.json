@@ -34,7 +34,7 @@
         "Status":
         {
             "Type": "Ternary",
-            "Default": 0
+            "Default": 1
         },
         "Fullname": {},
         "Title":
@@ -56,7 +56,7 @@
             "User Override": true,
             "Hooks":
             {
-                "-beforeEntityCreate":
+                "beforeEntityCreate":
                 {
                     "Service": "Security.Password.Generator",
                     "Method": "Get",
@@ -208,6 +208,22 @@
                 {
                     "Location": "/"
                 }
+            }
+        },
+        "beforeDeleteGet":
+        {
+            "Store URL":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "StoreURL"
+            }
+        },
+        "afterDeletePost":
+        {
+            "Restore URL":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "RestoreURL"
             }
         }
     }

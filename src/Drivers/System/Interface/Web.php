@@ -40,7 +40,7 @@
         // Query string reading
 
         // Merge slashes
-        $_SERVER['REQUEST_URI'] = preg_replace('/^(\/+)/', '/', $_SERVER['REQUEST_URI']);
+        $_SERVER['REQUEST_URI'] = preg_replace('/^(\/+)/Ssu', '/', $_SERVER['REQUEST_URI']);
 
         $Call['HTTP']['URI'] = rawurldecode($_SERVER['REQUEST_URI']).(empty($Call['HTTP']['URL Query'])? '' : '');
         F::Log('URI: *'.$Call['HTTP']['URI'].'*', LOG_INFO);

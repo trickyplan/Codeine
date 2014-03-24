@@ -25,6 +25,8 @@
 
     setFn('Write', function ($Call)
     {
+        self::$_Perfect = false;
+
         if (isset($Call['From']))
             $Screen = $Call['From'];
         elseif ( isset($Call['Project']['Title']))
@@ -60,7 +62,8 @@
         $Result = $Call['Link']->send($Call['Scope'], $Call['Headers'], $Call['Data']);
 
         if ($Result instanceof PEAR_Error)
-            F::Log($Result->getMessage(), LOG_INFO); // Temp.
+            F::Log($Result->getMessage(), LOG_ERR); // Temp.
 
+        self::$_Perfect = true;
         return $Call['Data'];
     });
