@@ -17,7 +17,7 @@
         },
         "Headers":
         {
-            "HTTP/1.0": "200 OK",
+            "HTTP/1.1": "200 OK",
             "Content-Language:": "ru",
             "X-Frame-Options:": "SAMEORIGIN",
             "X-Content-Type-Options:": "nosniff",

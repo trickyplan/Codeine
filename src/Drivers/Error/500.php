@@ -9,7 +9,7 @@
 
     setFn ('Page', function ($Call)
     {
-        $Call['HTTP']['Headers']['HTTP/1.0'] = '500 Internal Server Error';
+        $Call['HTTP']['Headers']['HTTP/1.1'] = '500 Internal Server Error';
 
         $Call['Page']['Title'] = '500';
         $Call['Page']['Description'] = 'TODO';

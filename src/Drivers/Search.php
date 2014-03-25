@@ -12,22 +12,19 @@
         if (isset($Call['Request']['Query']))
             $Call['Query'] = $Call['Request']['Query'];
 
-        foreach ($Call['Providers'] as $ProviderName => $ProviderCall)
+        if (isset($Call['Provider']))
+            $Providers = [$Call['Provider'] => $Call['Providers'][$Call['Provider']]];
+        else
+            $Providers = $Call['Providers'];
+
+        $Call['Output']['Content'] = [];
+
+        foreach ($Providers as $ProviderName => $ProviderCall)
         {
             $Results = F::Live($ProviderCall, $Call);
 
-            foreach ($Results as $Result)
-            {
-                $Result['Provider'] = $ProviderName;
-
-                $Call['Output']['Content'][] =
-                    [
-                        'Type'  => 'Template',
-                        'Scope' => 'Search',
-                        'ID'    => 'Result',
-                        'Data'  => $Result
-                    ];
-            }
+            $Call['Output']['Content'] = F::Merge($Call['Output']['Content'], $Results);
+            sort($Call['Output']['Content']);
         }
 
         return $Call;

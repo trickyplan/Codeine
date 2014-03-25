@@ -9,7 +9,7 @@
 
     setFn ('Page', function ($Call)
     {
-        $Call['HTTP']['Headers']['HTTP/1.0'] = '404 Not Found';
+        $Call['HTTP']['Headers']['HTTP/1.1'] = '404 Not Found';
 
         F::Log('Not found: '.$Call['HTTP']['URI'], $Call['404 Error Level'], 'Developer');
 

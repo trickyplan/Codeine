@@ -52,8 +52,8 @@
 
                         F::Log('Request accepted', LOG_INFO);
 
-                        $Headers = 'HTTP/1.0 '.$Call['HTTP']['Headers']['HTTP/1.0'].PHP_EOL;
-                        unset($Call['HTTP']['Headers']['HTTP/1.0']);
+                        $Headers = 'HTTP/1.1 '.$Call['HTTP']['Headers']['HTTP/1.1'].PHP_EOL;
+                        unset($Call['HTTP']['Headers']['HTTP/1.1']);
 
                         if (isset($Call['HTTP']['Headers']))
                             foreach ($Call['HTTP']['Headers'] as $Key => $Value)
