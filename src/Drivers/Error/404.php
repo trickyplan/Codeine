@@ -11,7 +11,10 @@
     {
         $Call['HTTP']['Headers']['HTTP/1.1'] = '404 Not Found';
 
-        F::Log('Not found: '.$Call['HTTP']['URI'], $Call['404 Error Level'], 'Developer');
+        F::Log('Page not found: '.$Call['HTTP']['URI'], $Call['404 Error Level'], 'Developer');
+
+        if (isset($Call['HTTP']['Referer']))
+            F::Log('Referrer: '.$Call['HTTP']['Referer'], $Call['404 Error Level'], 'Developer');
 
         $Call['Layouts'] = [
             [
