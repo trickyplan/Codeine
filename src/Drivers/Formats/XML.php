@@ -9,5 +9,5 @@
 
     setFn('Read', function ($Call)
     {
-        return json_decode(json_encode(simplexml_load_string('<root>'.$Call['Value'].'</root>')), true);
+        return json_decode(json_encode(simplexml_load_string($Call['Value'])), true);
     });

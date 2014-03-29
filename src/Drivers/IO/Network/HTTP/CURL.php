@@ -89,7 +89,7 @@
                 }
 
                 if (curl_errno($Link))
-                    F::Log('CURL error: '.curl_error($Link).'*'.$ID.'*', LOG_ERR);
+                    F::Log('CURL error: '.curl_error($Link).'*'.$ID.'*', LOG_WARNING);
                 else
                     F::Log('CURL fetched *'.$ID.'*', LOG_INFO);
 
@@ -106,7 +106,7 @@
                 [
                    CURLOPT_HEADER           => $Call['Return Header'],
                    CURLOPT_RETURNTRANSFER   => true,
-/*                   CURLOPT_COOKIEJAR        => $Call['Cookie File'],*/
+                   CURLOPT_COOKIEJAR        => $Call['Cookie File'],
                    CURLOPT_FOLLOWLOCATION   => $Call['Follow'],
                    CURLOPT_CONNECTTIMEOUT   => $Call['Connect Timeout'],
                    CURLOPT_PROXY            => $Call['Proxy']['Host'],
@@ -127,7 +127,7 @@
             }
 
             if (curl_errno($Call['Link']))
-                F::Log('CURL error: '.curl_error($Call['Link']).' *'.$Call['Where']['ID'].'*', LOG_ERR);
+                F::Log('CURL error: '.curl_error($Call['Link']).' *'.$Call['Where']['ID'].'*', LOG_WARNING);
             else
                 F::Log('CURL fetched '.$Call['Where']['ID'], LOG_INFO);
 
@@ -162,7 +162,9 @@
                 CURLOPT_USERPWD          => isset($Call['User'])?
                     $Call['User'].':'.$Call['Password']: null, // FIXME
                 CURLOPT_HTTPAUTH         => CURLAUTH_BASIC,
-                CURLOPT_POSTFIELDS       => http_build_query($Call['Data'])
+                CURLOPT_POSTFIELDS       => is_string($Call['Data'])?
+                                            $Call['Data']
+                                            : http_build_query($Call['Data'])
             ]);
 
         $Result =  [curl_exec($Call['Link'])];

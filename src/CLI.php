@@ -35,6 +35,10 @@
             ]);
 
         F::Shutdown($Call);
-        exit($Call['Return Code']);
+
+        if (isset($Call['Return Code']))
+            exit($Call['Return Code']);
+        else
+            exit(0);
     }
 

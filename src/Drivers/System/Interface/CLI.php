@@ -25,20 +25,30 @@
             if (!isset($Call['Skip Run']))
                 $Call = F::Apply($Call['Service'], $Call['Method'], $Call);
 
-        if (!isset($Call['View']['Renderer']))
-            $Call['View']['Renderer'] = $Call['View']['Default']['Renderer'];
+        if (is_array($Call))
+        {
+            if (!isset($Call['View']['Renderer']))
+                $Call['View']['Renderer'] = $Call['View']['Default']['Renderer'];
 
-        $Call = F::Hook('afterInterfaceRun', $Call);
+            $Call = F::Hook('afterInterfaceRun', $Call);
 
-        F::Run('IO','Write', $Call,
+            F::Run('IO','Write', $Call,
+                [
+                    'Storage' => 'Output',
+                    'Where' => $Call['Service'].':'.$Call['Method'],
+                    'Data' => $Call['Output']
+                ]);
+
+            if (isset($Call['Failure']) && $Call['Failure'])
+                $Call['Return Code'] = 1;
+        }
+
+        else
+            F::Run('IO','Write', $Call,
             [
                 'Storage' => 'Output',
-                'Where' => $Call['Service'].':'.$Call['Method'],
-                'Data' => $Call['Output']
+                'Data' => $Call
             ]);
-
-        if (isset($Call['Failure']) && $Call['Failure'])
-            $Call['Return Code'] = 1;
 
         return $Call;
     });

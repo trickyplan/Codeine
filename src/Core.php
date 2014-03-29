@@ -81,6 +81,9 @@
             if (isset(self::$_Options['Codeine']['Verbose']))
                 self::$_Verbose = self::$_Options['Codeine']['Verbose'];
 
+            if (isset($_SERVER['Verbose']))
+                self::$_Verbose = $_SERVER['Verbose'];
+
             if (isset($_REQUEST['Performance']))
                 self::$_Performance = true;
 
