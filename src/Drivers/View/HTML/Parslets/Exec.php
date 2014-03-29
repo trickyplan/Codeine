@@ -18,7 +18,7 @@
               else
                   $Type = $Call['Type'];
 
-              $Match = F::Run('Formats.'.$Type, 'Read', ['Value' => trim($Call['Parsed'][2][$IX])]);
+              $Match = F::Run('Formats.'.$Type, 'Read', ['Value' => '<root>'.trim($Call['Parsed'][2][$IX]).'</root>']);
 
               if ($Match)
               {

@@ -112,7 +112,7 @@
 
             $Call = F::Hook('onBootstrap', $Call);
 
-            self:$_Perfect = self::$_Options['Codeine']['Perfect'];
+            self::$_Perfect = self::$_Options['Codeine']['Perfect'];
             return F::Live($Call);
         }
 
