@@ -13,7 +13,7 @@
         else
             $Opts[] = $arg;
 
-    if (isset($Opts[1]))
+    if (isset($Opts[1]) && file_exists($Opts[1]))
         $Opts = F::Merge(json_decode(file_get_contents($Opts[1]), true), $Opts);
 
     !defined('Root')? define('Root', getcwd()): false;
@@ -22,19 +22,24 @@
         ;
     else
     {
-        if (!isset($Opts['Method']))
-            $Opts['Method'] = 'Do';
+        if (isset($Opts['Service']))
+        {
+            if (isset($Opts['Method']))
+                ;
+            else
+                $Opts['Method'] = 'Do';
 
-        $Call = F::Bootstrap
-            ([
-                'Paths' => [Root],
-                'Environment' => isset($Opts['Environment'])? $Opts['Environment']: null,
-                'Service' => 'System.Interface.CLI',
-                'Method' => 'Do',
-                'Call' => $Opts
-            ]);
+            $Call = F::Bootstrap
+                ([
+                    'Paths' => [Root],
+                    'Environment' => isset($Opts['Environment'])? $Opts['Environment']: null,
+                    'Service' => 'System.Interface.CLI',
+                    'Method' => 'Do',
+                    'Call' => $Opts
+                ]);
 
-        F::Shutdown($Call);
+            F::Shutdown($Call);
+        }
 
         if (isset($Call['Return Code']))
             exit($Call['Return Code']);
