@@ -44,7 +44,7 @@
 
         F::Log('Latency level is *'.$Decision.'*, because total page time *'.$Total.'* ms', $Verbose, 'Performance');
 
-        if ($Verbose < 4)
+        if ($Verbose <= LOG_WARNING)
             self::$_Performance = true;
 
         $Call = F::Hook('Latency.Audit.'.$Decision, $Call);
