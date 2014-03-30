@@ -62,3 +62,18 @@
 
         return $Call;
     });
+
+    setFn('Annulate', function ($Call)
+    {
+        $Call = F::Hook('beforeAnnulate', $Call);
+
+            $Call = F::Apply('Security.Auth.'.$Call['Mode'], null, $Call);
+
+            $Call['Layouts'][] = [
+                'Scope' => 'User.Login',
+                'ID' => isset($Call['Session']['User']['ID'])? 'Logged': 'Guest'];
+
+        $Call = F::Hook('afterAnnulate', $Call);
+
+        return $Call;
+    });

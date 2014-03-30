@@ -98,7 +98,13 @@
                 ]);
             }
 
-            $Updated = [];
+            $Updated =
+            [
+                'Facebook' =>
+                [
+                    'Auth'  => $Result['access_token']
+                ]
+            ];
 
             foreach ($Call['Facebook']['Mapping'] as $FacebookField => $CodeineField)
                 if (isset($Facebook[$FacebookField]) && !empty($Facebook[$FacebookField]))
@@ -116,6 +122,25 @@
         }
 
         $Call = F::Hook('afterFacebookAuthenticate', $Call);
+
+        return $Call;
+    });
+
+    setFn('Annulate', function ($Call)
+    {
+        F::Run('Entity', 'Update',
+        [
+            'Entity' => 'User',
+            'Where'  => $Call['Session']['User']['ID'],
+            'Data'   =>
+            [
+                'Facebook' =>
+                [
+                    'ID' => 0,
+                    'Auth' => 0
+                ]
+            ]
+        ]);
 
         return $Call;
     });

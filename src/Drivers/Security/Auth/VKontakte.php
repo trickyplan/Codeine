@@ -101,7 +101,13 @@
                         ]
                     ])[0];
 
-            $Updated = [];
+            $Updated =
+            [
+                'VKontakte' =>
+                [
+                    'Auth'  => $Result['access_token']
+                ]
+            ];
 
             foreach ($Call['VKontakte']['Mapping'] as $VKontakteField => $CodeineField)
                 if (isset($VKontakte[$VKontakteField]) && !empty($VKontakte[$VKontakteField]))
@@ -112,11 +118,33 @@
                     'Entity' => 'User',
                     'Where'  =>
                     [
-                        'VKontakte.ID' => $Result['user_id']
+                        'VKontakte' =>
+                        [
+                            'ID'    => $Result['user_id']
+                        ]
                     ],
                     'Data'   => $Updated
                 ]);
         }
+
+        return $Call;
+    });
+
+    setFn('Annulate', function ($Call)
+    {
+        F::Run('Entity', 'Update',
+        [
+            'Entity' => 'User',
+            'Where'  => $Call['Session']['User']['ID'],
+            'Data'   =>
+            [
+                'VKontakte' =>
+                [
+                    'ID' => null,
+                    'Auth' => null
+                ]
+            ]
+        ]);
 
         return $Call;
     });

@@ -66,6 +66,16 @@
                 "Mode": "$1"
             }
         },
+        "Annulate":
+        {
+            "Match":"^/annulate/(.+)$",
+            "Service":"User.Login",
+            "Method":"Annulate",
+            "Call":
+            {
+                "Mode": "$1"
+            }
+        },
         "Login as user":
         {
             "Match":"^/login/user/(\\d+)$",

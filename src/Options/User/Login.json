@@ -22,6 +22,14 @@
                 "Service": "System.Interface.Web",
                 "Method": "RestoreURL"
             }
+        },
+        "afterAnnulate":
+        {
+            "Restore URL":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "RestoreURL"
+            }
         }
     }
 }
