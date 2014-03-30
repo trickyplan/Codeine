@@ -18,9 +18,12 @@
 
         self::Start($Pattern);
 
-            $Call = F::Run('Text.Regex.'.$Call['Regex Engine'], null, $Call);
+            $Result = F::Run('Text.Regex.'.$Call['Regex Engine'], null, $Call);
+
+        if ($Result === false)
+            self::Counter('Unused regex');
 
         self::Stop($Pattern);
 
-        return $Call;
+        return $Result;
     });

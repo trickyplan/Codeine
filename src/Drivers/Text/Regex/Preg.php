@@ -20,10 +20,8 @@
     setFn('All', function ($Call)
     {
         if (preg_match_all('@'.$Call['Pattern'].'@Ssu', $Call['Value'], $Pockets))
-            ;
+            return $Pockets;
         else
-            $Pockets = false;
-
-        return $Pockets;
+            return false;
     });
 

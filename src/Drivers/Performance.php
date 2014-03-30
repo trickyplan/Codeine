@@ -14,6 +14,7 @@
             $Call['Performance']['Summary']['Time'] = array_sum(self::$_Counters['T']);
             $Call['Performance']['Summary']['Calls'] = array_sum(self::$_Counters['C']);
 
+            d(__FILE__, __LINE__, self::$_Counters['C']['Unused regex']);
             arsort(self::$_Counters['T']);
 
             F::Log('Total time: '.round($Call['Performance']['Summary']['Time']).' ms', LOG_INFO, 'Performance');
