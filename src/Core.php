@@ -113,6 +113,9 @@
             $Call = F::Hook('onBootstrap', $Call);
 
             self::$_Perfect = self::$_Options['Codeine']['Perfect'];
+
+            date_default_timezone_set(self::$_Options['Codeine']['Timezone']);
+
             return F::Live($Call);
         }
 
