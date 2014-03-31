@@ -91,11 +91,10 @@
                 $Cursor->fields($Fields);
             }
 
-
             if (isset($Call['Sort']))
                 foreach($Call['Sort'] as $Key => $Direction)
                 {
-                    $Direction = (int)(($Direction == SORT_ASC) or ($Direction == 1))? 1: -1;
+                    $Direction = (int)(($Direction == SORT_ASC) or ($Direction == 1))? MongoCollection::ASCENDING: MongoCollection::DESCENDING;
 
                     $Cursor->sort([$Key => $Direction]);
 
@@ -126,51 +125,56 @@
         {
             if (isset($Call['Where']))
             {
-                if (isset($Call['Data']))
+                if (isset($Call['Data'])) // Update Where
                 {
-                    F::Log('db.*'.$Call['Scope'].'*.update('
-                        .json_encode($Call['Where']).','
-                        .json_encode(['$set' => $Call['Data']], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE).')',LOG_INFO, 'Administrator');
+                    $Request = 'db.*'.$Call['Scope'].'*.update('.j($Call['Where']).','.j(['$set' => $Call['Data']]).')';
+                    $Result = $Call['Link']->$Call['Scope']->update($Call['Where'], ['$set' => $Call['Data']], ['upsert' => true, 'multiple' => true]);
 
-                    $Call['Link']->$Call['Scope']->update($Call['Where'], ['$set' => $Call['Data']], ['upsert' => true, 'multiple' => true]);
+                    if ($Result['ok'] == 1)
+                        F::Log($Request, LOG_INFO, 'Administrator');
+                    else
+                        F::Log($Request.j($Result), LOG_ERR, 'Administrator');
 
                 }
-                else
+                else // Delete Where
                 {
-                    F::Log('db.*'.$Call['Scope'].'*.remove('
-                    .json_encode($Call['Where'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE).')', LOG_INFO, 'Administrator');
+                    $Request = 'db.*'.$Call['Scope'].'*.remove('.j($Call['Where']).')';
+                    $Result = $Call['Link']->$Call['Scope']->remove ($Call['Where'], ['multiple' => true]);
 
-                    $Call['Link']->$Call['Scope']->remove ($Call['Where'], ['multiple' => true]);
+                    if ($Result['ok'] == 1)
+                        F::Log($Request, LOG_INFO, 'Administrator');
+                    else
+                        F::Log($Request.j($Result), LOG_ERR, 'Administrator');
                 }
             }
             else
             {
-                if (isset($Call['Data']))
+                if (isset($Call['Data'])) // Insert
                 {
-                    F::Log('db.*'.$Call['Scope'].'*.insert('
-                    .json_encode($Call['Data'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE).')', LOG_INFO, 'Administrator');
+                    $Request = 'db.*'.$Call['Scope'].'*.insert('.j($Call['Data']).')';
 
-                    $Call['Link']->$Call['Scope']->insert ($Call['Data']);
+                    $Result = $Call['Link']->$Call['Scope']->insert ($Call['Data']);
+
+                    if ($Result['ok'] == 1)
+                        F::Log($Request, LOG_INFO, 'Administrator');
+                    else
+                        F::Log($Request.j($Result), LOG_ERR, 'Administrator');
+
                     unset($Call['Data']['_id']); // Mongo, are you kiddin'me?
                 }
-                else
+                else // Delete All
                 {
-                    if (isset($Call['Where']))
-                    {
-                        F::Log('db.*'.$Call['Scope'].'*.remove('
-                        .json_encode($Call['Where'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE).')', LOG_INFO, 'Administrator');
+                    $Request = 'db.*'.$Call['Scope'].'*.remove()';
+                    $Result = $Call['Link']->$Call['Scope']->remove();
 
-                        $Call['Link']->$Call['Scope']->remove ($Call['Where'], ['multiple' => true]);
-                    }
+                    if ($Result['ok'] == 1)
+                        F::Log($Request, LOG_INFO, 'Administrator');
                     else
-                    {
-                        F::Log('db.*'.$Call['Scope'].'*.remove()', LOG_INFO, 'Administrator');
-                        $Call['Link']->$Call['Scope']->remove ();
-                    }
+                        F::Log($Request.j($Result), LOG_ERR, 'Administrator');
                 }
             }
         }
-        catch (MongoCursorException $e)
+        catch (MongoException $e)
         {
             return F::Hook('IO.Mongo.Write.Failed', $Call);
         }

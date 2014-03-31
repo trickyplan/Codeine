@@ -5,6 +5,7 @@
         {
             "Type": "Numeral.Integer",
             "Index": true,
+            "User Override": true,
             "Hooks":
             {
                 "beforeEntityCreate":

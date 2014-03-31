@@ -30,11 +30,13 @@
 
     setFn('Input', function ($Call)
     {
-        F::Run('Entity','Delete', $Call);
+        F::Run('Entity', 'Delete', $Call);
 
         $Call['Data'] = json_decode(file_get_contents('php://stdin'), true);
 
-        F::Run('Entity','Create', $Call);
+        F::Log(count($Call['Data']).' objects loaded from stdin', LOG_WARNING, 'Developer');
+
+        F::Run('Entity', 'Create', $Call);
 
         return $Call;
     });

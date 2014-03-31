@@ -7,6 +7,23 @@
      * @version 7.x
      */
 
+    setFn('Add', function ($Call)
+    {
+        $Data = [];
+
+        foreach ($Call['Nodes'] as $Name => $Node)
+            if (isset($Node['Index']) && $Node['Index'])
+                $Data[$Name] = F::Dot($Call['Data'], $Name);
+
+        F::Run('Search', 'Add', $Call,
+        [
+            'Provider' => $Call['Entity'],
+            'Data!'     => $Data
+        ]);
+
+        return $Call;
+    });
+
     setFn('Do', function ($Call)
     {
         if (!isset($Call['Entity']))
@@ -19,7 +36,7 @@
 
         if (isset($Call['Query']) && !empty($Call['Query']))
         {
-            $Call['Highlight'] = $Call['Query'];
+            $Call['View']['Highlight'] = $Call['Query'];
 
             foreach ($Entities as $Entity)
             {

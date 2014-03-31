@@ -5,7 +5,7 @@
      * @description: F Class
      * @package Codeine Framework
      * @subpackage Core
-          */
+    */
     define ('Codeine', __DIR__);
     define ('Started', microtime(true));
     define ('REQID', Started.rand());

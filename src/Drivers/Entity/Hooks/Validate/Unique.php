@@ -27,7 +27,7 @@
                                'Where' => $Where
                           ]) > 0)
             {
-                F::Log('Non-Unique '.$Call['Name'], LOG_ERR);
+                F::Log('Non-unique '.$Call['Name'].' value: '.j($Call['Data'][$Call['Name']]), LOG_ERR);
                 return 'Unique';
             }
         }

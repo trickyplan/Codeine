@@ -48,7 +48,9 @@
             return $Call;
         }
 
-        if (!isset($Call['Data'][0]))
+        if (isset($Call['Data'][0]))
+            ;
+        else
             $Call['Data'] = [$Call['Data']];
 
         $Call = F::Hook('beforeOperation', $Call);
