@@ -11,6 +11,9 @@
     {
         $Header = $Call['Channel'].' Channel ('.count($Call['Value']).')</td></tr><tr><td colspan="3">'.date(DATE_RSS, round(Started)).' *'.$Call['UA'].'* from *'.$Call['IP'].'*';
 
+        if (isset($Call['Session']['User']['ID']))
+            $Header.= 'User: '.$Call['Session']['User']['ID'].' ('.$Call['Session']['User']['Title'].')';
+
         if (is_array($Call['Value']))
         {
             $Output = '<table class="console"><tr class="'.$Call['Levels'][11].'"><td colspan="3">'.$Header.'</td></tr>';
