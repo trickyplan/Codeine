@@ -3,7 +3,7 @@
     {
         "Comments by user, pages":
         {
-            "Match": "/comments/author/(\\d+)/page(\\d+)",
+            "Match": "^/comments/author/(\\d+)/page(\\d+)",
             "Service": "Entity.List",
             "Method": "Do",
             "Call":

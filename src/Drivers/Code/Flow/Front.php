@@ -14,8 +14,8 @@
         // В этом месте, практически всегда, происходит роутинг.
         $Call = F::Hook('beforeFrontRun', $Call);
 
-        {
             // Если передан нормальный вызов, совершаем его
+            F::Log('Front Controlled *'.$Call['Service'].':'.$Call['Method'].'* started', LOG_IMPORTANT);
 
             if (F::isCall($Call['Run']))
             {
@@ -25,18 +25,12 @@
                 list($Call['Service'], $Call['Method'])
                     = [$Call['Run']['Service'], $Call['Run']['Method']];
 
-                F::Log('Front Controlled *'.$Call['Service'].':'.$Call['Method'].'* started', LOG_IMPORTANT);
 
                 if (isset($Call['Call']))
                     F::Log($Call['Call'], LOG_INFO);
 
                 $Call = F::Live($Call['Run'], $Call);
             }
-            else
-                $Call = F::Hook('NotFound', $Call);
-
-            // В противном случае, 404
-        }
 
         // А здесь - рендеринг
         $Call = F::Hook('afterFrontRun', $Call);

@@ -72,7 +72,7 @@
             F::Log('Regex routes table corrupted', LOG_CRIT); // FIXME
 
         if (isset($Selected))
-            F::Log('Regex router rule *'.$Selected.'* selected after. '.($ix.' of '.sizeof($Call['Regex'])), LOG_INFO);
+            F::Log('Regex router rule *'.$Selected.'* selected after '.($ix.' of '.sizeof($Call['Regex'])), LOG_INFO);
         else
             F::Log('No one regex rule selected', LOG_INFO);
 

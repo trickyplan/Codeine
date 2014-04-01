@@ -29,6 +29,24 @@
                 }
             }
         },
+        "Комментарий можно отредактировать":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Entity.Update",
+                "Call":
+                {
+                    "Entity": "Comment"
+                }
+            },
+            "Current":
+            [{
+                "Editable": true,
+                "User": "$Session.User.ID"
+            }]
+        },
         "Комментировать могут зарегистрированные":
         {
             "Decision": true,

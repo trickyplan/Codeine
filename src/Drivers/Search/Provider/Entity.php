@@ -24,7 +24,6 @@
             $KeywordResults = F::Run('Entity', 'Read',
                 [
                     'Entity' => $Call['Entity'],
-                    'Fields' => ['ID', 'Title'],
                     'Where' =>
                     [
                         'Keywords' => $Keyword // FIXME SOON
