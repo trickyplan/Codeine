@@ -10,7 +10,7 @@
     setFn('Process', function ($Call)
     {
         // Если модель определена
-        if (isset($Call['Nodes']))
+        if (isset($Call['Nodes']) and !isset($Call['Skip Live']))
             foreach ($Call['Nodes'] as $Name => $Node)
             {
                 // Если частичная загрузка, то нужно проверить, нужен ли нам этот хук.

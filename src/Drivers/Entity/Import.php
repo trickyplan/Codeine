@@ -36,7 +36,7 @@
 
         F::Log(count($Call['Data']).' objects loaded from stdin', LOG_WARNING, 'Developer');
 
-        F::Run('Entity', 'Create', $Call);
+        F::Run('Entity', 'Create', $Call, ['Skip Live' => true]);
 
         return $Call;
     });
