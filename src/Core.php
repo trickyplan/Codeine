@@ -251,6 +251,19 @@
             return F::Merge(self::$_Options[$Service], $Call);
         }
 
+        public static function saveOptions ($Service, $Options, $Path = 'Options')
+        {
+            $Service = ($Service == null)? self::$_Service: $Service;
+/*            $Method = ($Method == null)? self::$_Method: $Method;*/
+
+            // Если контракт уже не загружен
+
+            $ServicePath = strtr($Service, '.', '/');
+            $Filename = Root.DS.$Path.DS.$ServicePath.'.json';
+            file_put_contents($Filename, j($Options));
+            self::$_Options[$Service] = $Options;
+        }
+
         public static function isCall($Call)
         {
             return (((array) $Call === $Call) && isset($Call['Service']));
