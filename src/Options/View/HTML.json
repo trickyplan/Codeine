@@ -32,6 +32,11 @@
         },
         "afterHTMLRender":
         {
+            "Call 1":
+            {
+                "Service": "View.Hooks.Call",
+                "Method": "Parse"
+            },
             "Parslets":
             {
                 "Service":"View.HTML.Parslets",

@@ -42,19 +42,9 @@
                 "Service": "View.Hooks.Key",
                 "Method": "Parse"
             },
-            "Call 1":
-            {
-                "Service": "View.Hooks.Call",
-                "Method": "Parse"
-            },
             "Layout":
             {
                 "Service": "View.Hooks.Layout",
-                "Method": "Parse"
-            },
-            "Call 2":
-            {
-                "Service": "View.Hooks.Call",
                 "Method": "Parse"
             },
             "Block 2":

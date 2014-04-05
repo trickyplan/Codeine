@@ -59,7 +59,7 @@
                         $Outer = '';
                 }
             else
-                F::Log($IfTag,' not parsed', LOG_WARNING);
+                F::Log($IfTag.' not parsed', LOG_WARNING);
 
             $Call['Output'] = str_replace ($Call['Parsed'][0][$IX], $Outer, $Call['Output']);
         }

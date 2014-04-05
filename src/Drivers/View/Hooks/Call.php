@@ -12,7 +12,7 @@
         $Call['Parsed'] = F::Run('Text.Regex', 'All',
         [
             'Pattern' => $Call['Call Pattern'],
-            'Value' => $Call['Value']
+            'Value' => $Call['Output']
         ]);
 
         if ($Call['Parsed'] && isset($Call['Data']))
@@ -42,11 +42,11 @@
                 }
             }
 
-            $Call['Value'] = str_replace($Call['Parsed'][0], $Call['Parsed'][1], $Call['Value']);
+            $Call['Output'] = str_replace($Call['Parsed'][0], $Call['Parsed'][1], $Call['Output']);
         }
 
-        if (preg_match_all('@<call/>@SsUu', $Call['Value'], $Pockets))
-            $Call['Value'] = str_replace($Call['Parsed'][0],
+        if (preg_match_all('@<call/>@SsUu', $Call['Output'], $Pockets))
+            $Call['Output'] = str_replace($Call['Parsed'][0],
                 '<pre>'
                 .htmlentities(
                     json_encode($Call,
@@ -54,7 +54,7 @@
                         | JSON_UNESCAPED_UNICODE
                         | JSON_UNESCAPED_SLASHES))
                 .'</pre>',
-                $Call['Value']);
+                $Call['Output']);
 
         return $Call;
     });
