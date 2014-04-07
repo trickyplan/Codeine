@@ -1,7 +1,7 @@
 {
     "Regex":
     {
-        "Страница статей":
+        "Articles w/pagess":
         {
             "Match":"/articles/page/(.*)",
             "Service":"Entity.List",
@@ -16,26 +16,7 @@
                 }
             }
         },
-        "Категория статей":
-        {
-            "Match":"^/articles/category/(.*)$",
-            "Service":"Entity.List",
-            "Method":"Do",
-            "Weight": 30,
-            "Call":
-            {
-                "Entity": "Article",
-                "Custom Templates":
-                {
-                    "List": "Category"
-                },
-                "Where":
-                {
-                    "Category":  "$1"
-                }
-            }
-        },
-        "Категория статей, страницы":
+        "Articles Category w/pages":
         {
             "Match":"^/articles/category/(.+)/page(\\d+)$",
             "Service":"Entity.List",
@@ -55,9 +36,9 @@
                 }
             }
         },
-        "Автор статей":
+        "Articles Category":
         {
-            "Match":"^/articles/author/(.*)$",
+            "Match":"^/articles/category/(.*)$",
             "Service":"Entity.List",
             "Method":"Do",
             "Weight": 30,
@@ -66,15 +47,15 @@
                 "Entity": "Article",
                 "Custom Templates":
                 {
-                    "List": "Author"
+                    "List": "Category"
                 },
                 "Where":
                 {
-                    "User":  "$1"
+                    "Category":  "$1"
                 }
             }
         },
-        "Автор статей, страницы":
+        "Articles by author w/pages":
         {
             "Match":"^/articles/author/(.+)/page(\\d+)$",
             "Service":"Entity.List",
@@ -94,7 +75,26 @@
                 }
             }
         },
-        "RSS категории статей":
+        "Articles by author":
+        {
+            "Match":"^/articles/author/(.*)$",
+            "Service":"Entity.List",
+            "Method":"Do",
+            "Weight": 30,
+            "Call":
+            {
+                "Entity": "Article",
+                "Custom Templates":
+                {
+                    "List": "Author"
+                },
+                "Where":
+                {
+                    "User":  "$1"
+                }
+            }
+        },
+        "Articles Category RSS":
         {
             "Match":"/articles/category/(.*).rss",
             "Weight": 44,
@@ -110,8 +110,6 @@
             },
             "Call":
             {
-                "Title": "Статьи",
-                "Description": "Интересное о",
                 "Entity": "Article",
                 "Where":
                 {
@@ -123,7 +121,7 @@
                 }
             }
         },
-        "Статья":
+        "Article":
         {
             "Match":"/article/(.*)",
             "Service":"Entity.Show.Static",

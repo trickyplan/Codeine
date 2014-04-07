@@ -6,5 +6,10 @@
     "Keywords": "Ключевые слова",
     "Description": "Описание",
     "Category": "Рубрика",
-    "Empty": "Статей нет"
+    "Empty": "Статей нет",
+    "SEO": {
+        "Keywords": "Ключевые слова",
+        "Title": "SEO Заголовок",
+        "Description": "SEO Описание"
+    }
 }
