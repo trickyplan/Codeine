@@ -71,7 +71,7 @@
                 F::Log('db.*'.$Call['Scope'].'*.distinct()', LOG_INFO, 'Administrator');
                 $Data = $Call['Link']->$Call['Scope']->distinct($Call['Fields'][0], $Call['Where']);
 
-                foreach ($Data as $Key => &$Value)
+                foreach ($Data as &$Value)
                     $Value = [$Call['Fields'][0] => $Value];
             }
             else
@@ -163,7 +163,7 @@
                             'w'         => $Call['Mongo']['Write Concerns']
                         ]);
 
-                    if ($Result['ok'] == 1)
+                    if ($Result)
                         F::Log($Request, LOG_INFO, 'Administrator');
                     else
                         F::Log($Request.j($Result), LOG_ERR, 'Administrator');
@@ -178,7 +178,7 @@
                         'w'        => $Call['Mongo']['Write Concerns']
                     ]);
 
-                    if ($Result['ok'] == 1)
+                    if ($Result)
                         F::Log($Request, LOG_INFO, 'Administrator');
                     else
                         F::Log($Request.j($Result), LOG_ERR, 'Administrator');
@@ -195,7 +195,7 @@
                         'w'        => $Call['Mongo']['Write Concerns']
                     ]);
 
-                    if ($Result['ok'] == 1)
+                    if ($Result)
                         F::Log($Request, LOG_INFO, 'Administrator');
                     else
                         F::Log($Request.j($Result), LOG_ERR, 'Administrator');
@@ -211,7 +211,7 @@
                         'w'        => $Call['Mongo']['Write Concerns']
                     ]);
 
-                    if ($Result['ok'] == 1)
+                    if ($Result)
                         F::Log($Request, LOG_INFO, 'Administrator');
                     else
                         F::Log($Request.j($Result), LOG_ERR, 'Administrator');
