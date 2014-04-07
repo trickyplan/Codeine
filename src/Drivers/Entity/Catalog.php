@@ -15,22 +15,20 @@
 
         $Call['Layouts'][] = ['Scope' => $Call['Entity'],'ID' => 'Catalog'];
 
-        $Elements = F::Run('Entity', 'Read', $Call, ['Fields' => [$Call['Key']]]);
+        $Elements = F::Run('Entity', 'Read', $Call, ['Fields' => [$Call['Key']], 'Distinct' => true]);
 
         $Values = [];
 
         if (count($Elements) > 0)
         {
             foreach ($Elements as $Element)
-            {
-                $Value = F::Dot($Element, $Call['Key']);
-                if (is_array($Value))
-                    $Values = array_merge($Values, $Value);
-                elseif (is_scalar($Value))
-                    $Values[] = $Value;
-            }
-
-            $Values = array_count_values($Values);
+                $Values[$Element[$Call['Key']]] = F::Run('Entity', 'Count', $Call,
+                    [
+                        'Where' =>
+                        [
+                            $Call['Key'] => $Element[$Call['Key']]
+                        ]
+                    ]);
 
             arsort($Values);
 

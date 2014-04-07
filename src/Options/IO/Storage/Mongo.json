@@ -1,5 +1,12 @@
 {
     "Server": "127.0.0.1",
+    "Mongo":
+    {
+         "Upsert Enabled": true,
+         "Multiple Updates": true,
+         "Multiple Deletes": true,
+         "Write Concerns": 0
+    },
     "Hooks":
     {
         "IO":
