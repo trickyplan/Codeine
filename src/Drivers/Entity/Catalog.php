@@ -11,37 +11,39 @@
     {
         $Call = F::Merge(F::loadOptions('Entity.'.$Call['Entity']), $Call); // FIXME
 
+        $Call['Layouts'][] = ['Scope' => $Call['Entity'], 'ID' => 'Catalog'];
+        $Call['Fields'] = [$Call['Key']];
+        $Call['Distinct'] = true;
+
         $Call = F::Hook('beforeCatalog', $Call);
 
-        $Call['Layouts'][] = ['Scope' => $Call['Entity'],'ID' => 'Catalog'];
+            $Elements = F::Run('Entity', 'Read', $Call);
 
-        $Elements = F::Run('Entity', 'Read', $Call, ['Fields' => [$Call['Key']], 'Distinct' => true]);
+            $Values = [];
 
-        $Values = [];
-
-        if (count($Elements) > 0)
-        {
-            foreach ($Elements as $Element)
-                $Values[$Element[$Call['Key']]] = F::Run('Entity', 'Count',
-                    [
-                        'Entity' => $Call['Entity'],
-                        'Where' =>
+            if (count($Elements) > 0)
+            {
+                foreach ($Elements as $Element)
+                    $Values[$Element[$Call['Key']]] = F::Run('Entity', 'Count',
                         [
-                            $Call['Key'] => $Element[$Call['Key']]
-                        ]
-                    ]);
+                            'Entity' => $Call['Entity'],
+                            'Where' =>
+                            [
+                                $Call['Key'] => $Element[$Call['Key']]
+                            ]
+                        ]);
 
-            arsort($Values);
+                arsort($Values);
 
-            $Call['Output']['Content'][] =
-                [
-                    'Type'    => 'TagCloud',
-                    'Value'   => $Values,
-                    'Minimal' => $Call['Minimal'],
-                    'Entity'  => $Call['Entity'],
-                    'Key'     => $Call['Key']
-                ];
-        }
+                $Call['Output']['Content'][] =
+                    [
+                        'Type'    => 'TagCloud',
+                        'Value'   => $Values,
+                        'Minimal' => $Call['Minimal'],
+                        'Entity'  => $Call['Entity'],
+                        'Key'     => $Call['Key']
+                    ];
+            }
 
         $Call = F::Hook('afterCatalog', $Call);
 

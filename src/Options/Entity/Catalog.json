@@ -1,3 +1,23 @@
 {
-    "Minimal": 0
+    "EPP": 20,
+    "Minimal": 0,
+    "Hooks":
+    {
+        "beforeCatalog":
+        {
+            "Pagination":
+            {
+                "Service": "Entity.Catalog.Pagination",
+                "Method": "beforeCatalog"
+            }
+        },
+        "afterCatalog":
+        {
+            "Pagination":
+            {
+                "Service": "Entity.Catalog.Pagination",
+                "Method": "afterCatalog"
+            }
+        }
+    }
 }

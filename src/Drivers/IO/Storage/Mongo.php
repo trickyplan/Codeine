@@ -73,6 +73,9 @@
 
                 foreach ($Data as &$Value)
                     $Value = [$Call['Fields'][0] => $Value];
+
+                if (isset($Call['Limit']))
+                    $Data = array_slice($Data, $Call['Limit']['From'], $Call['Limit']['To']);
             }
             else
             {
@@ -91,6 +94,9 @@
 
                 foreach ($Data as $Key => &$Value)
                     $Value = [$Call['Fields'][0] => $Value];
+
+                if (isset($Call['Limit']))
+                    $Data = array_slice($Data, $Call['Limit']['From'], $Call['Limit']['To']);
             }
             else
             {
@@ -244,14 +250,33 @@
         {
             $Call = F::Apply(null, 'Where', $Call);
 
-            F::Log('db.*'.$Call['Scope'].'*.find('.json_encode($Call['Where'],
-                    JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE).').count()', LOG_INFO, 'Administrator');
-            $Cursor = $Call['Link']->$Call['Scope']->find($Call['Where']);
+            if (isset($Call['Distinct']) && $Call['Distinct'])
+            {
+                F::Log('db.*'.$Call['Scope'].'*.distinct('.j($Call['Where']).')', LOG_INFO, 'Administrator');
+                $Data = $Call['Link']->$Call['Scope']->distinct($Call['Fields'][0], $Call['Where']);
+
+                return count($Data);
+            }
+            else
+            {
+                F::Log('db.*'.$Call['Scope'].'*.find('.j($Call['Where']).').count()', LOG_INFO, 'Administrator');
+                $Cursor = $Call['Link']->$Call['Scope']->find($Call['Where']);
+            }
         }
         else
         {
-            F::Log('db.*'.$Call['Scope'].'*.find().count()', LOG_INFO, 'Administrator');
-            $Cursor = $Call['Link']->$Call['Scope']->find();
+            if (isset($Call['Distinct']) && $Call['Distinct'])
+            {
+                F::Log('db.*'.$Call['Scope'].'*.distinct()', LOG_INFO, 'Administrator');
+                $Data = $Call['Link']->$Call['Scope']->distinct($Call['Fields'][0]);
+
+                return count($Data);
+            }
+            else
+            {
+                F::Log('db.*'.$Call['Scope'].'*.find().count()', LOG_INFO, 'Administrator');
+                $Cursor = $Call['Link']->$Call['Scope']->find();
+            }
         }
 
         if ($Cursor)
