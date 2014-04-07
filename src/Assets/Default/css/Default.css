@@ -116,3 +116,10 @@ tr.Important, td.Important
     opacity: 1;
     transition: opacity 0.5s linear;
 }
+
+.version-badge
+{
+    position: fixed;
+    right: 0;
+    top: 100px;
+}

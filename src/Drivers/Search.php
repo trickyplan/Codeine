@@ -9,12 +9,18 @@
     setFn('Add', function ($Call)
     {
         if (isset($Call['Provider']))
-            $Providers = [$Call['Provider'] => $Call['Providers'][$Call['Provider']]];
-        else
-            $Providers = $Call['Providers'];
-
-        foreach ($Providers as $ProviderCall)
         {
+            if (is_array($Call['Provider']))
+                $Providers = $Call['Provider'];
+            else
+                $Providers = [$Call['Provider']];
+        }
+        else
+            $Providers = array_keys($Call['Providers']);
+
+        foreach ($Providers as $Provider)
+        {
+            $ProviderCall = $Call['Providers'][$Provider];
             $ProviderCall['Method'] = 'Add';
             F::Live($ProviderCall, $Call);
         }
@@ -30,19 +36,27 @@
             $Call['Query'] = $Call['Request']['Query'];
 
         if (isset($Call['Provider']))
-            $Providers = [$Call['Provider'] => $Call['Providers'][$Call['Provider']]];
+        {
+            if (is_array($Call['Provider']))
+                $Providers = $Call['Provider'];
+            else
+                $Providers = [$Call['Provider']];
+        }
         else
-            $Providers = $Call['Providers'];
+            $Providers = array_keys($Call['Providers']);
 
         $Call['Output']['Content'] = [];
 
-        foreach ($Providers as $ProviderCall)
+        foreach ($Providers as $Provider)
         {
+            $Call['Output'][$Provider] = [];
+
+            $ProviderCall = $Call['Providers'][$Provider];
             $ProviderCall['Method'] = 'Query';
 
             $Results = F::Live($ProviderCall, $Call);
 
-            $Call['Output']['Content'] = F::Merge($Call['Output']['Content'], $Results);
+            $Call['Output'][$Provider] = F::Merge($Call['Output'][$Provider], $Results);
         }
 
         return $Call;

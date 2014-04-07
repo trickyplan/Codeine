@@ -36,19 +36,27 @@
 
         $SERP = [];
 
-        foreach ($Results as &$Result)
-        {
-            $Result['From'] = $Call['HTTP']['Host'];
-            $Result['URL']  = $Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/'.strtolower($Call['Entity']).'/'.$Result['ID'];
-            $SERP[$Result['URL']] =
+        if (empty($Results))
+            $SERP[$Call['Scope']] =
                 [
                     'Type'  => 'Template',
-                    'Scope' => $Call['Scope'].'/Show',
-                    'ID'    => 'Search',
-                    'Data'  => $Result
+                    'Scope' => $Call['Scope'],
+                    'ID'    => 'Empty'
                 ];
+        else
+            foreach ($Results as &$Result)
+            {
+                $Result['From'] = $Call['HTTP']['Host'];
+                $Result['URL']  = $Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/'.strtolower($Call['Entity']).'/'.$Result['ID'];
+                $SERP[$Result['URL']] =
+                    [
+                        'Type'  => 'Template',
+                        'Scope' => $Call['Scope'].'/Show',
+                        'ID'    => 'Search',
+                        'Data'  => $Result
+                    ];
 
-        }
+            }
 
         return $SERP;
     });
