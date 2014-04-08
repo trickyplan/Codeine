@@ -16,10 +16,10 @@
             foreach ($Tags as &$Tag)
                 $Tag = trim($Tag);
 
-            $Tags = array_unique($Tags);
-
             $Call['Value'] = $Tags;
         }
+
+        $Call['Value'] = array_unique($Call['Value']);
 
         return $Call['Value'];
     });
