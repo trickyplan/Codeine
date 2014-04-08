@@ -678,31 +678,37 @@
 
         public static function Diff ($First, $Second)
         {
-            if ((array) $First == $First)
+            if (((array) $First === $First) && ((array) $Second === $Second))
                 foreach ($First as $Key => $Value)
                 {
-                    if ($Value !== '*')
+/*                    if (isset($Second[$Key]) && $Second[$Key] === $Value)
+                        continue;*/
+
+                    if ($Value === '*')
+                        ;
+                    else
                     {
-                        if ((array) $Value == $Value)
+                        if (!isset($Second[$Key]))
+                            $Diff[$Key] = $Value;
+                        else
                         {
-                            if (!isset($Second[$Key]))
-                                $Diff[$Key] = $Value;
-                            elseif (!is_array($Second[$Key]))
-                                $Diff[$Key] = $Value;
-                            else
+                            if ((array) $Second[$Key] === $Second[$Key])
                             {
                                 $NewDiff = F::Diff($Value, $Second[$Key]);
 
                                 if ($NewDiff !== null)
                                     $Diff[$Key] = $NewDiff;
                             }
-                        }
-                        elseif (!isset($Second[$Key]) || $Second[$Key] !=  $Value)
-                        {
-                            $Diff[$Key] = $Value;
+                            else
+                            {
+                                if ($Second[$Key] != $Value)
+                                    $Diff[$Key] = $Value;
+                            }
                         }
                     }
                 }
+            else
+                $Diff = ($First == $Second)? null: $Second;
 
             return !isset($Diff) ? null : $Diff;
         }
