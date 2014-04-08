@@ -1,3 +1,8 @@
+.label
+{
+    font-size: 0.8em;
+}
+
 .img-spaced
 {
     margin: 4px 8px;
@@ -48,14 +53,14 @@
     background-color: #f7f7f7;
     border: 1px solid #cccccc;
     color: #666666;
-    margin: 2px;
+    margin-right: 2px;
     text-transform: lowercase;
     display: inline-block;
 }
 
-.label-tag:hover
+.label-tag:hover, .label-tag a:hover
 {
-    color: #333333;
+    color: #333333 !important;
 }
 
 .label-lg
@@ -181,4 +186,10 @@ a.no-border, .no-border a, a:hover.no-border, .no-border a:hover
 .control-bar li a
 {
     background-color: #ffffff;
+}
+
+.label-default
+{
+    color: #222222;
+    margin-right: 2px;
 }

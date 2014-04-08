@@ -1,6 +1,20 @@
-<div class="panel">
-    <h3><a href="/article/<k>Slug</k>"><k>Title</k></a></h3>
+<div class="list-group-item">
+    <a href="/article/<k>Slug</k>">
+        <h4><k>Title</k></h4>
+    </a>
     <div>
-        <p><k>Description</k></p>
+        <k>Summary</k>…
+    </div>
+
+    <div class="pull-right">
+        <block>
+            <a rel="tag" class="label label-tag" href="/articles/tags/<k>Tags</k>"><k>Tags</k></a>
+        </block>
+    </div>
+
+    <div class="text-muted">
+        <small>
+            <datetime><k>Created</k></datetime>
+        </small>
     </div>
 </div>

@@ -16,8 +16,8 @@
                 [
                     'sitemap' =>
                     [
-                        'loc' => $Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/sitemap/'.$Handler.'.xml'
-                        // TODO lastmod
+                        'loc' => $Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/sitemap/'.$Handler.'.xml',
+                        'lastmod' => date(DATE_W3C)
                     ]
                 ];
 

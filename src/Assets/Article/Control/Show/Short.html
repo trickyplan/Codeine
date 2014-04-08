@@ -1,8 +1,17 @@
-<tr><td>
+<div class="list-group-item">
     <div class="pull-right">
         <layout>Control.Pills:RUD</layout>
     </div>
-    <a href="/control/<call>Entity</call>/Show/<k>ID</k>"><h4><k>Title</k></h4></a>
-    <h5>/<k>Slug</k></h5>
-    <k>Words</k> слов, <k>Chars</k> знаков без пробелов, <k>Sickness</k>% тошноты.
-</td></tr>
+    <a href="/article/<k>Slug</k>">
+        <h4><k>Title</k></h4>
+        <k>Summary</k>
+    </a>
+    <div class="spacer">
+        <strong><l>Article.Entity:Tags</l>:</strong>
+        <block>
+            <a class="label label-tag" href="/articles/tags/<k>Tags</k>"><k>Tags</k></a>
+        </block>
+    </div>
+    <div class="pull-right"><datetime><k>Created</k></datetime></div>
+    <layout>Mixins:Text</layout>
+</div>

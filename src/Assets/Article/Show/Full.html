@@ -1,43 +1,50 @@
-<subtitle><k>Title</k></subtitle>
-<description><k>Description</k></description>
-<block><keyword><k>Keywords</k></keyword></block>
-<breadcrumb href="/article/category/<k>Category</k>"><k>Category</k></breadcrumb>
-<breadcrumb href="/article/<k>Slug</k>"><k>Title</k></breadcrumb>
-
-<h2 class="page-header"><k>Title</k></h2>
+<subtitle>
+    <k>Title</k>
+</subtitle>
+<description>
+    <k>Description</k>
+</description>
+<block>
+    <keyword>
+        <k>SEO.Keywords,Tags</k>
+    </keyword>
+</block>
+<breadcrumb href="/articles/tags/<k>Tags</k>">
+    <k>Tags</k>
+</breadcrumb>
+<breadcrumb href="/article/<k>Slug</k>">
+    <k>Title</k>
+</breadcrumb>
+<access Service="Control.Panel">
+    <layout>Control.Pills:Top</layout>
+</access>
+<h1 class="page-header">
+    <k>Title</k>
+</h1>
 <div class="row">
-    <div class="col-lg-8">
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <article>
-                    <k>Description</k>
-                    <k>Body</k>
-                </article>
-            </div>
-            <div class="panel-footer">
-                <a href="/articles/author/<k>User</k>"><far>User:<k>User</k>:Title</far></a>
-
-                <div class="pull-right">
-                    <datetime><k>Created</k></datetime>
-                </div>
-            </div>
-        </div>
-
+    <div class="col-lg-3">
+        <exec>
+            <Service>Entity.Catalog</Service>
+            <Method>Do</Method>
+            <Call>
+                <Entity>Article</Entity>
+                <Key>Tags</Key>
+            </Call>
+        </exec>
     </div>
-    <div class="col-lg-4">
-        <ul class="nav nav-stacked">
-            <li><a class="nav-header" href="/articles/category/<k>Category</k>">Рубрика: <k>Category</k></a></li>
-            <exec>
-                <Service>Entity.List</Service>
-                <Method>Do</Method>
-                <Call>
-                    <Template>Line</Template>
-                    <Entity><call>Entity</call></Entity>
-                    <Where>
-                        <Category><k>Category</k></Category>
-                    </Where>
-                </Call>
-            </exec>
-        </ul>
+    <div class="col-lg-9">
+        <article class="readable">
+            <k>Body</k>
+        </article>
+
+        <block>
+            <span class="label label-tag"><k>Tags</k></span>
+        </block>
+
+        <div class="text-muted">
+            <datetime>
+                <k>Created</k>
+            </datetime>
+        </div>
     </div>
 </div>

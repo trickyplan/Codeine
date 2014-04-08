@@ -1,67 +1,39 @@
 {
-    "Mixins": ["Mixins.UGC", "Mixins.SEO", "Mixins.Text", "Mixins.CRUD"],
+    "Mixins":
+    [
+        "Mixins.ID.Sequence",
+        "Mixins.Titled",
+        "Mixins.Tags",
+        "Mixins.UGC",
+        "Mixins.SEO",
+        "Mixins.Text",
+        "Mixins.CRUDSlug"
+    ],
     "Storage": "Primary",
     "EPP": 20,
     "Nodes":
     {
-        "ID":
+        "Summary":
         {
-            "Type": "Numeral.Integer",
-            "Hooks":
-            {
-                "beforeEntityCreate":
-                {
-                    "Service": "Security.UID.Integer",
-                    "Method": "Get"
-                }
-            }
-        },
-        "Title":
-        {
-            "Type": "Literal.String",
-            "Required": true,
-            "Filter":
-            {
-                "Beauty":
-                {
-                    "Service": "Text.Beautifier",
-                    "Method": "Process"
-                }
-            },
+            "Type": "Literal.HTML",
+            "Index": true,
             "Widgets":
             {
                 "Write":
                 {
-                    "Type": "Form.Textfield"
-                }
-            }
-        },
-        "Category":
-        {
-            "Type": "Literal.String",
-            "Widgets":
-            {
-                "Write":
-                {
-                    "Type": "Form.Textfield"
-                }
-            }
-        },
-        "Slug":
-        {
-            "Widgets":
-            {
-                "Write":
-                {
-                    "Type": "Form.Textfield"
+                    "Type": "Form.WYSIWYG"
                 }
             },
             "Hooks":
             {
                 "beforeEntityWrite":
                 {
-                    "Service": "SEO.Slug",
-                    "Method": "Generate"
+                    "Service": "Text.Summary",
+                    "Method": "Get",
+                    "Call":
+                    {
+                        "Value": "$Data.Body"
+                    }
                 }
             }
         }

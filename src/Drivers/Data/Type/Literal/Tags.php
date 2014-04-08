@@ -16,6 +16,8 @@
             foreach ($Tags as &$Tag)
                 $Tag = trim($Tag);
 
+            $Tags = array_unique($Tags);
+
             $Call['Value'] = $Tags;
         }
 

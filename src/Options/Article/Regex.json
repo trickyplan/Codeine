@@ -16,9 +16,9 @@
                 }
             }
         },
-        "Articles Category w/pages":
+        "Articles Tags w/pages":
         {
-            "Match":"^/articles/category/(.+)/page(\\d+)$",
+            "Match":"^/articles/tags/(.+)/page(\\d+)$",
             "Service":"Entity.List",
             "Method":"Do",
             "Weight": 30,
@@ -28,17 +28,17 @@
                 "Page": "$2",
                 "Custom Templates":
                 {
-                    "List": "Category"
+                    "List": "Tags"
                 },
                 "Where":
                 {
-                    "Category":  "$1"
+                    "Tags":  "$1"
                 }
             }
         },
-        "Articles Category":
+        "Articles Tags":
         {
-            "Match":"^/articles/category/(.*)$",
+            "Match":"^/articles/tags/(.*)$",
             "Service":"Entity.List",
             "Method":"Do",
             "Weight": 30,
@@ -47,11 +47,11 @@
                 "Entity": "Article",
                 "Custom Templates":
                 {
-                    "List": "Category"
+                    "List": "Tags"
                 },
                 "Where":
                 {
-                    "Category":  "$1"
+                    "Tags":  "$1"
                 }
             }
         },
@@ -94,9 +94,9 @@
                 }
             }
         },
-        "Articles Category RSS":
+        "Articles Tags RSS":
         {
-            "Match":"/articles/category/(.*).rss",
+            "Match":"/articles/tags/(.*).rss",
             "Weight": 44,
             "Service":"Entity.List",
             "Method":"Do",
@@ -113,7 +113,7 @@
                 "Entity": "Article",
                 "Where":
                 {
-                    "Category": "$1"
+                    "Tags": "$1"
                 },
                 "Sort":
                 {

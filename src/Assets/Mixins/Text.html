@@ -1,0 +1,25 @@
+<block>
+    <div class="label label-default">
+        <k>Words</k> слов
+    </div>
+</block>
+<block>
+    <div class="label label-default">
+        <k>Chars</k> <span title="без пробелов">знаков</span>
+    </div>
+</block>
+<if value="<k>Sickness</k>" gt="33" lt="67">
+    <div class="label label-warning">
+        <k>Sickness</k>% тошноты
+    </div>
+</if>
+<if value="<k>Sickness</k>" gt="67">
+    <div class="label label-danger">
+        <k>Sickness</k>% тошноты
+    </div>
+</if>
+<if value="<k>Sickness</k>" lt="33">
+    <div class="label label-success">
+        <k>Sickness</k>% тошноты
+    </div>
+</if>
