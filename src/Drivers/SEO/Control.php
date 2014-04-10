@@ -9,7 +9,11 @@
 
     setFn('Do', function ($Call)
     {
-
+        $Call['Layouts'][] =
+        [
+            'Scope' => 'SEO',
+            'ID' => 'Stats'
+        ];
         return $Call;
     });
 
@@ -20,6 +24,12 @@
 
     setFn('Sitemaps', function ($Call)
     {
+        $Call['Layouts'][] =
+        [
+            'Scope' => 'SEO',
+            'ID' => 'Sitemaps'
+        ];
+
         $Call['Output']['Content'][] = htmlentities(
             file_get_contents($Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/sitemap.xml'));
 

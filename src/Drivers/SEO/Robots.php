@@ -9,6 +9,12 @@
 
     setFn('Do', function ($Call)
     {
+        $Call['Layouts'][] =
+        [
+            'Scope' => 'SEO',
+            'ID' => 'Robots'
+        ];
+
         $Call['Output']['Content'][] = 'Host: '.$Call['HTTP']['Proto'].$Call['HTTP']['Host'];
         $Call['Output']['Content'][] = 'Sitemap: '.$Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/sitemap.xml';
 

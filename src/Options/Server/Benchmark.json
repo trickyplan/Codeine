@@ -1,8 +1,35 @@
 {
     "Benchmark":
     {
-        "Version": 1,
-        "Modules": ["Time", "For","Foreach","Concat"]
+        "Version": 3,
+        "Modules":
+        {
+            "Run":
+            {
+                "Cycles": 1000,
+                "Weight": 2
+            },
+            "Time":
+            {
+                "Cycles": 1000000,
+                "Weight": 0.01
+            },
+            "For":
+            {
+                "Cycles": 1000000,
+                "Weight": 0.01
+            },
+            "Foreach":
+            {
+                "Cycles": 1000000,
+                "Weight": 0.01
+            },
+            "Concat":
+            {
+                "Cycles": 1000000,
+                "Weight": 0.01
+            }
+        }
     },
     "Hooks":
     {

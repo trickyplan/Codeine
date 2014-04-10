@@ -9,6 +9,12 @@
 
     setFn('Do', function ($Call)
     {
+        $Call['Layouts'][] =
+        [
+            'Scope' => 'Server',
+            'ID' => 'Overview'
+        ];
+
         $Call['Output']['System'][] = shell_exec('uname -a');
 
         $CPUs = explode(PHP_EOL.PHP_EOL, trim(shell_exec('cat /proc/cpuinfo')));

@@ -11,9 +11,10 @@
     {
         $Start = microtime(true);
 
-            for ($a = 1; $a<$Call['Cycles']; $a++)
-                microtime(true);
+        for ($a = 0; $a<$Call['Cycles']; $a++)
+            F::Run('Dummy', 'Do', $Call);
 
         $Stop = microtime(true);
+
         return $Call['Cycles']/($Stop-$Start);
     });

@@ -24,11 +24,6 @@
             'ID' => 'Control'
         ];
 
-        $Call['Layouts'][] = [
-            'Scope' => $Call['Bundle'],
-            'ID' => 'Control/'.$Call['Option']
-        ];
-
         $Navigation = [];
 
         F::Log('Control Panel Navigation', LOG_IMPORTANT);

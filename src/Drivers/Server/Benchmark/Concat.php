@@ -9,15 +9,13 @@
 
     setFn('Test', function ($Call)
     {
-        $Cycles = 500000;
-
         $String = '';
 
         $Start = microtime(true);
 
-        for ($a = 1; $a<$Cycles; $a++)
+        for ($a = 1; $a<$Call['Cycles']; $a++)
             $String.= chr(rand(65, 90));
 
         $Stop = microtime(true);
-        return round(1000/($Stop-$Start));
+        return $Call['Cycles']/($Stop-$Start);
     });

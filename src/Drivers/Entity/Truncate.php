@@ -11,7 +11,9 @@
     {
         $Call = F::Hook('beforeTruncateDo', $Call);
 
-            F::Run('Entity', 'Delete', $Call, ['Where' => ['Expire' => ['<' => time()]]]);
+        $Call['Where'] = ['Expire' => ['$lt' => time()]];
+
+            F::Run('Entity', 'Delete', $Call);
 
         $Call = F::Hook('afterTruncatePost', $Call);
 

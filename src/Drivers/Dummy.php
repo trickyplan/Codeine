@@ -9,11 +9,5 @@
 
     setFn('Do', function ($Call)
     {
-        $Call['Layouts'][] =
-        [
-            'Scope' => 'Security',
-            'ID' => 'Status'
-        ];
-
         return $Call;
     });

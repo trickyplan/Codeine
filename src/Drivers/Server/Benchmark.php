@@ -9,14 +9,19 @@
 
     setFn('Do', function ($Call)
     {
+        $Call['Layouts'][] =
+        [
+            'Scope' => 'Server',
+            'ID' => 'Benchmark'
+        ];
         $Call = F::Hook('beforeBenchmark', $Call);
 
             $Call['Overall'] = 0;
 
-            foreach($Call['Benchmark']['Modules'] as $Benchmark)
+            foreach($Call['Benchmark']['Modules'] as $BenchmarkName => $BenchmarkCall)
             {
-                $Rate = F::Run('Server.Benchmark.'.$Benchmark, 'Test', $Call);
-                $Results[] = [$Benchmark, $Rate];
+                $Rate = round(F::Run('Server.Benchmark.'.$BenchmarkName, 'Test', $BenchmarkCall)*$BenchmarkCall['Weight'], 2);
+                $Results[] = [$BenchmarkName, $Rate];
                 $Call['Overall'] += $Rate;
             }
 
@@ -35,10 +40,14 @@
 
     setFn('Send', function ($Call)
     {
-        $Result = json_decode(F::Run('IO', 'Write',
+        $Result = F::Run('IO', 'Write',
             [
                 'Storage' => 'Web',
-                'Where' => 'http://codeine-framework.ru/benchmarks',
+                'Output Format'  => 'Formats.JSON',
+                'Where' =>
+                [
+                    'ID' => 'http://codeine-framework.ru/benchmarks'
+                ],
                 'Data' =>
                 [
                     'Host' => $Call['HTTP']['Host'],
@@ -46,7 +55,7 @@
                     'Environment' => F::Environment(),
                     'Version' => $Call['Benchmark']['Version']
                 ]
-            ]), true);
+            ])[0];
 
         $Call['Output']['Top'][] = $Result['Your'];
         $Call['Output']['Total'][] = $Result['Total'];

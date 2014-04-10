@@ -9,6 +9,12 @@
 
     setFn('Do', function ($Call)
     {
+        $Call['Layouts'][] =
+        [
+            'Scope' => 'PHP',
+            'ID' => 'Version'
+        ];
+
         $Version = phpversion();
         $Version = isset($Call['Versions'][$Version])? $Call['Versions'][$Version]: 'Untested';
 

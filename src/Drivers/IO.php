@@ -112,6 +112,10 @@
 
             $Call = F::Hook('afterIOWrite', $Call);
 
+            if (isset($Call['Output Format']))
+                foreach ($Call['Data'] as $Key => $Data)
+                    $Call['Data'][$Key] = F::Run ($Call['Output Format'], 'Read', $Call, ['Value!' => $Data]);
+
             return $Call['Data'];
         }
         else

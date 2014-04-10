@@ -9,20 +9,18 @@
 
     setFn('Test', function ($Call)
     {
-        $Cycles = 150000;
-
         $Array = [];
 
         for ($a = 1; $a<24; $a++)
             $Array[$a] = $a*$a;
 
         $Start = microtime(true);
-            for ($a = 1; $a <$Cycles; $a++)
+            for ($a = 1; $a <$Call['Cycles']; $a++)
                 foreach ($Array as $Key => $Value)
                     {
                         $Value; $Key;
                     }
 
         $Stop = microtime(true);
-        return round(1000/($Stop-$Start));
+        return $Call['Cycles']/($Stop-$Start);
     });

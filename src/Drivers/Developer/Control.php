@@ -9,6 +9,12 @@
 
     setFn('Do', function ($Call)
     {
+        $Call['Layouts'][] =
+        [
+            'Scope' => 'Developer',
+            'ID' => 'Overview'
+        ];
+
         $Call['Developer'] = F::loadOptions('Developer');
 
         if (isset($Call['Developer']['URL']))

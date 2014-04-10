@@ -9,6 +9,12 @@
 
     setFn('Do', function ($Call)
     {
+        $Call['Layouts'][] =
+        [
+            'Scope' => 'Codeine',
+            'ID' => 'Version'
+        ];
+
         $Current = file_get_contents('https://raw.github.com/Breathless/Codeine/master/docs/VERSION');
 
         $Call['Output']['Content'][] =

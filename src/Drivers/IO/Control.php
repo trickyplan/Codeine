@@ -9,14 +9,23 @@
 
     setFn('Do', function ($Call)
     {
-        // TODO Realize "Do" function
-
+        $Call['Layouts'][] =
+        [
+            'Scope' => 'IO',
+            'ID' => 'Overview'
+        ];
 
         return $Call;
     });
 
     setFn('Storages', function ($Call)
     {
+        $Call['Layouts'][] =
+        [
+            'Scope' => 'IO',
+            'ID' => 'Storages'
+        ];
+
         $IO = F::loadOptions('IO');
 
         foreach ($IO['Storages'] as $Name => $Storage)

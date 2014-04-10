@@ -104,7 +104,7 @@
 
     setFn('Truncate', function ($Call)
     {
-        $Call['Layouts'][] = ['Scope' => 'Entity', 'ID' => 'Delete'];
+        $Call['Layouts'][] = ['Scope' => 'Entity', 'ID' => 'Truncate'];
         return F::Apply('Entity.Truncate', 'Do', $Call, ['Entity' => $Call['Bundle'], 'Scope' => 'Control']);
     });
 
