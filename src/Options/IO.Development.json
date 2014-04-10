@@ -1,31 +1,7 @@
 {
+    "Mixins": ["IO.Mixins.Logs2Browser"],
     "Storages":
     {
-        "Developer":
-        {
-            "Driver": "IO.Log.Print",
-            "Format": "Formats.Log.HTML"
-        },
-        "Security":
-        {
-            "Driver": "IO.Log.Print",
-            "Format": "Formats.Log.HTML"
-        },
-        "Performance":
-        {
-            "Driver": "IO.Log.Print",
-            "Format": "Formats.Log.HTML"
-        },
-        "Administrator":
-        {
-            "Driver": "IO.Log.Print",
-            "Format": "Formats.Log.HTML"
-        },
-        "Marketing":
-        {
-            "Driver": "IO.Log.Print",
-            "Format": "Formats.Log.HTML"
-        },
         "Layout":
         {
             "Verbosity":
