@@ -29,16 +29,24 @@
             else
                 $Opts['Method'] = 'Do';
 
-            $Call = F::Bootstrap
-                ([
-                    'Paths' => [Root],
-                    'Environment' => isset($Opts['Environment'])? $Opts['Environment']: null,
-                    'Service' => 'System.Interface.CLI',
-                    'Method' => 'Do',
-                    'Call' => $Opts
-                ]);
 
-            F::Shutdown($Call);
+            try
+            {
+                $Call = F::Bootstrap
+                    ([
+                        'Paths' => [Root],
+                        'Environment' => isset($Opts['Environment'])? $Opts['Environment']: null,
+                        'Service' => 'System.Interface.CLI',
+                        'Method' => 'Do',
+                        'Call' => $Opts
+                    ]);
+
+                F::Shutdown($Call);
+            }
+            catch (Exception $e)
+            {
+               F::Log($e->getMessage(), LOG_CRIT, 'Developer');
+            }
         }
 
         if (isset($Call['Return Code']))

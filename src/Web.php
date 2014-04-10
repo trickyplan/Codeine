@@ -26,17 +26,21 @@
         switch ($_SERVER['Environment'])
         {
             case 'Development':
-                d(__FILE__, __LINE__, $e);
+                F::Log($e->getMessage(), LOG_CRIT, 'Developer');
+            break;
+
+            default:
+                header('HTTP/1.1 503 Service Temporarily Unavailable');
+                header('Status: 503 Service Temporarily Unavailable');
+
+                if (file_exists(Root.'/Public/down.html'))
+                    readfile(Root.'/Public/down.html');
+                else
+                    readfile(Codeine.'/down.html');
             break;
         }
 
-        header('HTTP/1.1 503 Service Temporarily Unavailable');
-        header('Status: 503 Service Temporarily Unavailable');
 
-        if (file_exists(Root.'/Public/down.html'))
-            readfile(Root.'/Public/down.html');
-        else
-            readfile(Codeine.'/down.html');
     }
 
     F::Shutdown($Call);
