@@ -134,7 +134,7 @@
                 $URL = str_replace($Key, F::Dot($Call,$Vars[1][$IX]) , $URL);
         }
 
-        $Call['HTTP']['Headers']['HTTP/1.1'] = ' 303 See Other';
+        $Call['HTTP']['Headers']['HTTP/1.1'] = ' 301 Moved Permanently';
         $Call['HTTP']['Headers']['Location:'] = $URL;
         $Call['HTTP']['Headers']['Cache-Control:'] = 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0';
 
