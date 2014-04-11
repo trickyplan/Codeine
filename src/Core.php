@@ -81,9 +81,6 @@
             if (isset(self::$_Options['Codeine']['Verbose']))
                 self::$_Verbose = self::$_Options['Codeine']['Verbose'];
 
-            if (isset($_SERVER['Verbose']))
-                self::$_Verbose = $_SERVER['Verbose'];
-
             if (isset($_REQUEST['Performance']))
                 self::$_Performance = true;
 
@@ -538,7 +535,9 @@
         {
             if (($Verbose <= self::$_Verbose[$Channel])
                 or
-               ((F::Environment() == 'Development') && $Verbose > 8))
+               ((F::Environment() == 'Development') && $Verbose > 8)
+                or
+                (isset($_SERVER['Verbose']) && $Verbose <= $_SERVER['Verbose']))
             {
                 if (!is_string($Message))
                     $Message = json_encode($Message,
