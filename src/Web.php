@@ -23,10 +23,12 @@
     }
     catch (Exception $e)
     {
+        F::Log($e->getMessage(), LOG_CRIT, 'Developer');
+
         switch ($_SERVER['Environment'])
         {
             case 'Development':
-                F::Log($e->getMessage(), LOG_CRIT, 'Developer');
+                d(__FILE__, __LINE__, $e);
             break;
 
             default:
