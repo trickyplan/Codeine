@@ -56,7 +56,10 @@
 
             $Results = F::Live($ProviderCall, $Call);
 
-            $Call['Output'][$Provider] = F::Merge($Call['Output'][$Provider], $Results);
+            if (isset($Results['Meta']))
+                $Call = F::Merge($Call, $Results['Meta']);
+
+            $Call['Output'][$Provider] = F::Merge($Call['Output'][$Provider], $Results['SERP']);
         }
 
         return $Call;
