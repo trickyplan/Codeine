@@ -12,7 +12,7 @@
         return F::Run('Code.Run.Cached', 'Run',
             [
                 'Run' => $Call['Currencies'][$Call['From']][$Call['To']]['Rate'],
-                'TTL' => $Call['Currency TTL']
+                'RTTL' => $Call['Currency TTL']
             ]
         );
     });
@@ -22,7 +22,7 @@
         return $Call['Value']*F::Run('Code.Run.Cached', 'Run',
             [
                 'Run' => $Call['Currencies'][$Call['From']][$Call['To']]['Rate'],
-                'TTL' => $Call['Currency TTL']
+                'RTTL' => $Call['Currency TTL']
             ]
         );
     });
