@@ -17,7 +17,7 @@
         if (isset($Call['Random User Agent']))
         {
             $Call['User Agent'] = $Call['User Agents'][array_rand($Call['User Agents'])];
-            F::Log('UA: '.$Call['User Agent'].' selected', LOG_INFO);
+            F::Log('UA: '.$Call['User Agent'].' selected', LOG_INFO, 'Administrator');
         }
         return $Call;
     });
@@ -31,7 +31,7 @@
         }
 
         if (isset($Call['Proxy']['Host']))
-            F::Log('Proxy: '.$Call['Proxy']['Host'].':'.$Call['Proxy']['Port'].' selected', LOG_INFO);
+            F::Log('Proxy: '.$Call['Proxy']['Host'].':'.$Call['Proxy']['Port'].' selected', LOG_INFO, 'Administrator');
 
         return $Call;
     });
@@ -89,9 +89,9 @@
                 }
 
                 if (curl_errno($Link))
-                    F::Log('CURL error: '.curl_error($Link).'*'.$ID.'*', LOG_WARNING);
+                    F::Log('CURL error: '.curl_error($Link).'*'.$ID.'*', LOG_WARNING, 'Administrator');
                 else
-                    F::Log('CURL fetched *'.$ID.'*', LOG_INFO);
+                    F::Log('CURL fetched *'.$ID.'*', LOG_INFO, 'Administrator');
 
                 curl_multi_remove_handle($Call['Link'], $Link);
             }
@@ -127,9 +127,9 @@
             }
 
             if (curl_errno($Call['Link']))
-                F::Log('CURL error: '.curl_error($Call['Link']).' *'.$Call['Where']['ID'].'*', LOG_WARNING);
+                F::Log('CURL error: '.curl_error($Call['Link']).' *'.$Call['Where']['ID'].'*', LOG_WARNING, 'Administrator');
             else
-                F::Log('CURL fetched '.$Call['Where']['ID'], LOG_INFO);
+                F::Log('CURL fetched '.$Call['Where']['ID'], LOG_INFO, 'Administrator');
 
             curl_close($Call['Link']);
         }
@@ -172,7 +172,7 @@
         if (curl_errno($Call['Link']))
             F::Log('CURL error: '.curl_error($Call['Link']).'*'.$Call['Where']['ID'].'*', LOG_ERR);
         else
-            F::Log('CURL fetched *'.$Call['Where']['ID'].'*', LOG_INFO);
+            F::Log('CURL fetched *'.$Call['Where']['ID'].'*', LOG_INFO, 'Administrator');
 
         curl_close ($Call['Link']);
 

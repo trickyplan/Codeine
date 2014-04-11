@@ -59,7 +59,11 @@
             if (isset($Results['Meta']))
                 $Call = F::Merge($Call, $Results['Meta']);
 
-            $Call['Output'][$Provider] = F::Merge($Call['Output'][$Provider], $Results['SERP']);
+            if (isset($Results['SERP']))
+            {
+                $Call['Output']['Content'] = F::Merge($Call['Output']['Content'], $Results['SERP']);
+                $Call['Output'][$Provider] = F::Merge($Call['Output'][$Provider], $Results['SERP']);
+            }
         }
 
         return $Call;
