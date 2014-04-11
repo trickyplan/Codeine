@@ -12,6 +12,9 @@
         $Result = null;
         $Run = true;
 
+        $RTTL = $Call['Run']['RTTL'];
+        unset($Call['Run']['RTTL']);
+
         $CacheID = sha1(json_encode($Call['Run']));
         $Scope = $Call['Run']['Service'].DS.$Call['Run']['Method'];
 
@@ -45,7 +48,7 @@
                     'Data'    =>
                     [
                         'Result' => $Result,
-                        'Expire' => time()+$Call['Run']['RTTL']
+                        'Expire' => time()+$RTTL
                     ]
                 ]);
         }
