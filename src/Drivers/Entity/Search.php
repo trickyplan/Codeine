@@ -13,7 +13,12 @@
 
         foreach ($Call['Nodes'] as $Name => $Node)
             if (isset($Node['Index']) && $Node['Index'])
+            {
                 $Data[$Name] = F::Dot($Call['Data'], $Name);
+
+                if (is_array($Data[$Name]))
+                    $Data[$Name] = implode (' ', $Data[$Name]);
+            }
 
         F::Run('Search', 'Add', $Call,
         [
