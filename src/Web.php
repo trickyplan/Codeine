@@ -4,10 +4,16 @@
 
     $Call = [];
 
-    try
-    {
         if (file_exists(Root.'/locks/down') && !isset($_COOKIE['Magic']))
-            throw new Exception('down');
+        {
+            header('HTTP/1.1 503 Service Temporarily Unavailable');
+            header('Status: 503 Service Temporarily Unavailable');
+
+            if (file_exists(Root.'/Public/down.html'))
+                readfile(Root.'/Public/down.html');
+            else
+                readfile(Codeine.'/down.html');
+        }
 
         $Call = F::Bootstrap
         ([
@@ -20,29 +26,6 @@
                 'Method'  => 'Run'
             ]
         ]);
-    }
-    catch (Exception $e)
-    {
-        F::Log($e->getMessage(), LOG_CRIT, 'Developer');
 
-        switch ($_SERVER['Environment'])
-        {
-            case 'Development':
-                d(__FILE__, __LINE__, $e);
-            break;
-
-            default:
-                header('HTTP/1.1 503 Service Temporarily Unavailable');
-                header('Status: 503 Service Temporarily Unavailable');
-
-                if (file_exists(Root.'/Public/down.html'))
-                    readfile(Root.'/Public/down.html');
-                else
-                    readfile(Codeine.'/down.html');
-            break;
-        }
-
-
-    }
 
     F::Shutdown($Call);
