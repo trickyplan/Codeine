@@ -325,6 +325,7 @@
                     if (!isset($Call['No Memo']) && isset($FnOptions['Contract'][self::$_Service][self::$_Method]['Memo']))
                     {
                         $Memo = [self::$_Service, self::$_Method];
+
                         foreach ($FnOptions['Contract'][self::$_Service][self::$_Method]['Memo'] as $Key)
                         {
                             $Key = F::Dot($Call, $Key);
@@ -333,12 +334,30 @@
                             else
                                 $Memo[] = $Key;
                         }
-                            $Memo = sha1(serialize($Memo));
+
+                        $Memo = sha1(serialize($Memo));
                     }
 
                     if (!isset($Memo) || ($Result = F::Get($Memo)) == null)
                     {
-                        $Result = $F($Call);
+                        if (isset($Call['RTTL']))
+                        {
+                            $RTTL = $Call['RTTL'];
+                            unset($Call['RTTL']);
+
+                            $Result = F::Execute('Code.Run.Cached', 'Run',
+                                [
+                                    'Run' =>
+                                        [
+                                            'Service' => self::$_Service,
+                                            'Method'  => self::$_Method,
+                                            'Call'    => $Call,
+                                            'RTTL'    => $RTTL
+                                        ]
+                                ]);
+                        }
+                        else
+                            $Result = $F($Call);
                         // if (self::$_Performance)
                         self::Counter(self::$_Service.'.'.self::$_Method);
                     }

@@ -58,7 +58,7 @@
         "Run Cache":
         {
             "Driver":"IO.Storage.Directory",
-            "Directory":"/tmp/codeine",
+            "Directory":"/tmp/codeine/run",
             "Format": "Formats.JSON",
             "Suffix":".json"
         },

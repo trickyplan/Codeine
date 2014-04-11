@@ -22,10 +22,13 @@
             foreach ($Call['Where']['ID'] as &$ID)
                 $ID = $Call['Scope'].'.'.$ID;
 
+            F::Log('Redis Read: '.j($Call['Where']), LOG_INFO, 'Administrator');
             return $Call['Link']->mGet($Call['Where']['ID']);
         }
         else
         {
+            F::Log('Redis Read: '.j($Call['Where']), LOG_INFO, 'Administrator');
+
             if (($Result = $Call['Link']->get($Call['Scope'].'.'.$Call['Where']['ID']))  !== false)
                 return [$Result];
             else
@@ -37,14 +40,20 @@
     {
         if (isset($Call['Where']))
         {
-
             if (null === $Call['Data'])
+            {
+                F::Log('Redis Delete: '.j($Call['Where']), LOG_INFO, 'Administrator');
                 $Call['Link']->del($Call['Scope'].'.'.$Call['Where']['ID']);
+            }
             else
+            {
+                F::Log('Redis Update: '.j($Call['Where']), LOG_INFO, 'Administrator');
                 $Call['Link']->set($Call['Scope'].'.'.$Call['Where']['ID'], $Call['Data'], $Call['TTL']);
+            }
         }
         else
         {
+            F::Log('Redis Create: '.j($Call['Data']), LOG_INFO, 'Administrator');
             $Call['Link']->set($Call['Scope'].$Call['ID'], $Call['Data'], $Call['TTL']);
         }
 

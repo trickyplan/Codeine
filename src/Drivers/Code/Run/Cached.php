@@ -13,16 +13,18 @@
         $Run = true;
 
         $CacheID = sha1(json_encode($Call['Run']));
+        $Scope = $Call['Run']['Service'].DS.$Call['Run']['Method'];
 
         $Envelope = F::Run('IO', 'Read',
             [
                 'Storage' => 'Run Cache',
+                'Scope'   => $Scope,
                 'Where' => ['ID' => $CacheID]
             ]);
 
         if ($Envelope !== null && $Envelope[0]['Expire'] > time())
         {
-            F::Log('Found good cache for '.$Call['Run']['Service'], LOG_GOOD, 'Developer');
+            F::Log('Found good cache for '.$CacheID, LOG_INFO, 'Developer');
 
             $Run = false;
             $Result = $Envelope[0]['Result'];
@@ -38,12 +40,12 @@
                 F::Run('IO', 'Write',
                 [
                     'Storage' => 'Run Cache',
-                    'Scope'   => 'Run',
+                    'Scope'   => $Scope,
                     'Where'   => ['ID' => $CacheID],
                     'Data'    =>
                     [
                         'Result' => $Result,
-                        'Expire' => time()+$Call['TTL']
+                        'Expire' => time()+$Call['Run']['RTTL']
                     ]
                 ]);
         }
