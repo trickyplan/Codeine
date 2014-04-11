@@ -13,6 +13,7 @@
 
             foreach ($Call['Auth Modes'] as $Mode)
                 $Call = F::Apply('Security.Auth.'.$Mode , null, $Call);
+
         $Call = F::Hook('afterDo', $Call);
 
         return $Call;

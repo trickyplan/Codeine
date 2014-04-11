@@ -113,7 +113,7 @@
                 if (isset($VKontakte[$VKontakteField]) && !empty($VKontakte[$VKontakteField]))
                     $Updated[$CodeineField] = $VKontakte[$VKontakteField];
 
-            F::Run('Entity', 'Update',
+            F::Run('Entity', 'Update', $Call,
                 [
                     'Entity' => 'User',
                     'Where'  =>

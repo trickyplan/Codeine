@@ -110,7 +110,7 @@
                 if (isset($Facebook[$FacebookField]) && !empty($Facebook[$FacebookField]))
                     $Updated[$CodeineField] = $Facebook[$FacebookField];
 
-            F::Run('Entity', 'Update',
+            F::Run('Entity', 'Update', $Call,
                 [
                     'Entity' => 'User',
                     'Where'  =>
