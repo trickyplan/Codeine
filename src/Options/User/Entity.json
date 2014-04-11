@@ -92,7 +92,7 @@
         {
             "Hooks":
             {
-                "afterEntityRead":
+                "beforeEntityWrite":
                 {
                     "Service": "User.Entity",
                     "Method": "Age"

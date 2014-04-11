@@ -54,6 +54,14 @@
     {
         "beforeInterfaceRun":
         {
+            "Output Buffering":
+            {
+                "Service": "System.Interface.Web.OB",
+                "Method": "Start"
+            }
+        },
+        "beforeRequestRun":
+        {
             "Filter by UA":
             {
                 "Service": "Security.UA",
@@ -68,11 +76,6 @@
             {
                 "Service": "Project.Preload",
                 "Method": "Do"
-            },
-            "Output Buffering":
-            {
-                "Service": "System.Interface.Web.OB",
-                "Method": "Start"
             }
         },
         "afterInterfaceRun":

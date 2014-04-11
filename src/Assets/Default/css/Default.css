@@ -123,3 +123,8 @@ tr.Important, td.Important
     right: 0;
     top: 100px;
 }
+
+.strong
+{
+    font-weight: bold !important;
+}

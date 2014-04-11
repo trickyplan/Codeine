@@ -9,7 +9,9 @@
 
     setFn ('Do', function ($Call)
     {
-        F::Log('Interface: *Web*', LOG_INFO);
+        $Call = F::Hook('beforeInterfaceRun', $Call);
+
+        F::Log('Interface *Web* started', LOG_INFO);
 
         // HTTP Method determining
         $Call['HTTP']['Method'] =
@@ -28,11 +30,19 @@
 
         // Request reading
         $Call['Request'] = $_REQUEST;
-        F::Log($Call['Request'], LOG_INFO);
+
+        if (empty($Call['Request']))
+            ;
+        else
+            F::Log($Call['Request'], LOG_INFO);
 
         // Cookie reading
         $Call['HTTP']['Cookie'] = $_COOKIE;
-        F::Log($Call['HTTP']['Cookie'], LOG_INFO);
+
+        if (empty($Call['HTTP']['Cookie']))
+            ;
+        else
+            F::Log($Call['HTTP']['Cookie'], LOG_INFO);
 
         if (isset($_SERVER['HTTP_REFERER']))
             $Call['HTTP']['Referer'] = $_SERVER['HTTP_REFERER'];
@@ -64,7 +74,7 @@
         $Call['IP'] = F::Live($Call['IP'], $Call);
         $Call['Locale'] = F::Live($Call['Locale'], $Call);
 
-        $Call = F::Hook('beforeInterfaceRun', $Call);
+        $Call = F::Hook('beforeRequestRun', $Call);
 
         $Call = F::Apply($Call['Service'], $Call['Method'], $Call);
 
@@ -82,6 +92,8 @@
                 'Where' => $Call['HTTP']['URL'],
                 'Data' => $Call['Output']
             ]);
+
+        F::Log('Interface *Web* finished', LOG_INFO);
 
         $Call = F::Hook('afterInterfaceRun', $Call);
 

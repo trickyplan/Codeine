@@ -11,29 +11,30 @@
     {
         if (isset($Call['Storage']))
         {
-            $StorageID = $Call['Storage'];
-
-            if (isset($Call['Storages'][$StorageID]))
+            if (isset($Call['Storages'][$Call['Storage']]))
             {
-                if (is_string($Call['Storages'][$StorageID])
-                    && isset($Call['Storages'][$Call['Storages'][$StorageID]]))
-                $Call['Storages'][$StorageID] = $Call['Storages'][$Call['Storages'][$StorageID]];
+                $Call = F::Merge($Call, $Call['Storages'][$Call['Storage']]);
 
-                $Call = F::Merge($Call, $Call['Storages'][$StorageID]);
+                if (($Call['Link'] = F::Get($Call['Storage'])) === null)
+                {
+                   if (is_string($Call['Storages'][$Call['Storage']])
+                        && isset($Call['Storages'][$Call['Storages'][$Call['Storage']]]))
+
+                    $Call['Storages'][$Call['Storage']] = $Call['Storages'][$Call['Storages'][$Call['Storage']]];
+                    $Call['Link'] = F::Set($Call['Storage'], F::Apply($Call['Driver'], 'Open', $Call));
+                }
+
+                return $Call;
             }
             else
-                F::Log($Call['Storage'].' not found'); // FIXME
-
-            if (($Call['Link'] = F::Get($StorageID)) === null)
-                $Call['Link'] = F::Set($StorageID, F::Apply($Call['Driver'], 'Open', $Call));
-
-            return $Call;
+                F::Log($Call['Storage'].' not found', LOG_CRIT, 'Administrator'); // FIXME
         }
         else
         {
-            F::Log('IO Null Storage: ', LOG_ERR);
-            return null;
+            F::Log('Storage not defined', LOG_CRIT, 'Administrator');
         }
+
+        return null;
      });
 
     setFn ('Read', function ($Call)
