@@ -16,13 +16,14 @@
 
             arsort(self::$_Counters['T']);
 
-            F::Log('Total time: '.round($Call['Performance']['Summary']['Time']).' ms', LOG_INFO, 'Performance');
-            F::Log('Total calls: '.$Call['Performance']['Summary']['Calls'], LOG_INFO, 'Performance');
-            F::Log('Total time per call: '.round($Call['Performance']['Summary']['Time'] / $Call['Performance']['Summary']['Calls'], 2).' ms'
-                , LOG_INFO, 'Performance');
+            F::Log('Total time: '.round($Call['Performance']['Summary']['Time']).' ms', LOG_WARNING, 'Performance');
+            F::Log('Total calls: '.$Call['Performance']['Summary']['Calls'], LOG_WARNING, 'Performance');
+            F::Log('Total time per call: '
+                .round($Call['Performance']['Summary']['Time'] / $Call['Performance']['Summary']['Calls'], 2).' ms'
+                , LOG_WARNING, 'Performance');
 
-            F::Log('Memory: '.(memory_get_usage(true)/1024).'Kb ', LOG_INFO, 'Performance');
-            F::Log('Peak memory: '.(memory_get_peak_usage(true)/1024).'Kb', LOG_INFO, 'Performance');
+            F::Log('Memory: '.(memory_get_usage(true)/1024).'Kb ', LOG_WARNING, 'Performance');
+            F::Log('Peak memory: '.(memory_get_peak_usage(true)/1024).'Kb', LOG_WARNING, 'Performance');
 
             foreach (self::$_Counters['T'] as $Key => $Value)
             {

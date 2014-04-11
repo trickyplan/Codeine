@@ -131,7 +131,7 @@
         {
             "Hooks":
             {
-                "afterEntityRead":
+                "beforeEntityWrite":
                 {
                     "Service": "User.Entity",
                     "Method": "Photo"
