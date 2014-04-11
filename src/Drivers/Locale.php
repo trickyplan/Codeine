@@ -18,7 +18,7 @@
             F::Log('Locale is allowed *'.$Call['Locale'].'*', LOG_INFO + 0.5);
         else
         {
-            F::Log('Locale is not allowed *'.$Call['Locale'].'*', LOG_WARNING);
+            F::Log('Locale is not allowed *'.$Call['Locale'].'*', LOG_INFO + 0.7);
             $Call['Locale'] = $Call['Locales']['Default'];
             F::Log('Locale is *'.$Call['Locale'].'* by default', LOG_INFO + 0.5);
         }
