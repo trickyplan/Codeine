@@ -8,7 +8,6 @@
      */
     setFn('Add', function ($Call)
     {
-        d(__FILE__, __LINE__, $Call['Project']);
         if (isset($Call['Provider']))
         {
             if (is_array($Call['Provider']))
