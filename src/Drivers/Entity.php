@@ -31,6 +31,8 @@
             else
                 F::Log('Model for '.$Call['Entity'].' not found', LOG_CRIT);
 
+        $Call['Nodes'] = F::Sort($Call['Nodes'], 'Weight', SORT_DESC);
+
         $Call = F::Hook('afterEntityLoad', $Call);
 
         $Call['entity'] = strtr(strtolower($Call['Entity']), '.', '/'); // Hm.
