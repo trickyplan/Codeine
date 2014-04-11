@@ -63,6 +63,8 @@
 
             $Call['Data'] = $Data;
 
+        $Call = F::Run('Parser/'.$Call['Schema'], 'Do', $Call);
+
         phpQuery::unloadDocuments();
 
         return $Call;
