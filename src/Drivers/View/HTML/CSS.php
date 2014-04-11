@@ -120,7 +120,7 @@
 
                     if (isset($Call['CSS']['Host']) && !empty($Call['CSS']['Host']))
                         $Call['CSS']['Links'][] = '<link href="'
-                            .$Call['CSS']['Proto']
+                            .$Call['HTTP']['Proto']
                             .$Call['CSS']['Host']
                             .$Call['CSS']['Pathname']
                             .$CSS

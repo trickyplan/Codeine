@@ -105,11 +105,16 @@
                         $Call = F::Hook('afterJSWrite', $Call);
                     }
 
-                    $JSFilename = $Call['JS']['Proto']
-                            .$Call['JS']['Host']
-                            .$Call['JS']['Pathname']
-                            .$JS
-                            .$Call['JS']['Extension'];
+                    if (isset($Call['JS']['Host']) && !empty($Call['JS']['Host']))
+                        $JSFilename = $Call['HTTP']['Proto']
+                                .$Call['JS']['Host']
+                                .$Call['JS']['Pathname']
+                                .$JS
+                                .$Call['JS']['Extension'];
+                    else
+                        $JSFilename = $Call['JS']['Pathname']
+                                .$JS
+                                .$Call['JS']['Extension'];
 
                     $Call['JS']['Links'][$JSFilename] = '<script src="'.$JSFilename.'" type="'.$Call['JS']['Type'].'"></script>';
                }

@@ -140,15 +140,20 @@
                     if (empty($Call['Current Image']['Alt']))
                         F::Log('Image: Alt is empty for '.$Call['Image']['Cached'], LOG_INFO);
 
-                    $Call['Image']['Tags'][] = '<img src="'
-                            .$Call['Image']['Proto']
+                    $SRC = $Call['Image']['Pathname'].$Call['Image']['Cached'];
+
+                    if (isset($Call['Image']['Host']) && !empty($Call['Image']['Host']))
+                        $SRC = $Call['HTTP']['Proto']
                             .$Call['Image']['Host']
-                            .$Call['Image']['Pathname']
-                            .$Call['Image']['Cached'].'"
-                            alt="'.$Call['Image']['Alt'].'"
-                            class="'.$Call['Current Image']['Class'].'" '
-                            .(isset($Call['Current Image']['Height'])? ' height="'.$Call['Current Image']['Height'].'"': ' ')
-                            .(isset($Call['Current Image']['Width'])? ' width="'.$Call['Current Image']['Width'].'"': ' ').'/>';
+                            .$SRC;
+
+                    $Call['Image']['Tags'][] = '<img src="'
+                        .$SRC.'"
+                        alt="'.$Call['Image']['Alt'].'"
+                        class="'.$Call['Current Image']['Class'].'" '
+                        .(isset($Call['Current Image']['Height'])? ' height="'.$Call['Current Image']['Height'].'"': ' ')
+                        .(isset($Call['Current Image']['Width'])? ' width="'.$Call['Current Image']['Width'].'"': ' ').'/>';
+
                 }
 
             $Call = F::Hook('afterImageOutput', $Call);
