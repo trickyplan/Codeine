@@ -1,7 +1,11 @@
 {
     "Sitemap":
     {
-        "Mode": "Combined"
+        "URLs": 1000,
+        "Handlers":
+        {
+
+        }
     },
     "SearchEngines":
     {
@@ -11,10 +15,7 @@
         "Yahoo": "http://yahoo.com",
         "Ask": "http://ask.com"
     },
-    "Entities":
-    {
 
-    },
     "Namespace": "http://www.sitemaps.org/schemas/sitemap/0.9",
     "Attributes": 
     [

@@ -73,7 +73,7 @@
         "/sitemap.xml":
         {
             "Service": "SEO.Sitemap",
-            "Method": "Do",
+            "Method": "Index",
             "View":
             {
                 "Renderer":

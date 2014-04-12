@@ -13,12 +13,12 @@
           [
               'Service' => $Call['CBR']['WSDL']['Credit'],
               'Method' => 'BicToIntCode',
-              'Call' => ['BicCode' => '042202824']
+              'Call' => ['BicCode' => $Call['Value']]
           ])['BicToIntCodeResult'];
 
         $Info = simplexml_load_string(F::Run('Code.Run.SOAP', 'Run',
          [
-             'Cache'   => 86400,
+             'RTTL'   => 86400,
              'Service' => $Call['CBR']['WSDL']['Credit'],
              'Method' => 'CreditInfoByIntCodeXML',
              'Call' => ['InternalCode' => $InternalCode]

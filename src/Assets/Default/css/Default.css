@@ -128,3 +128,8 @@ tr.Important, td.Important
 {
     font-weight: bold !important;
 }
+
+.pointer
+{
+    cursor: pointer;
+}

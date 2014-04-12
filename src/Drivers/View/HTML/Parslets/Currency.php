@@ -30,7 +30,7 @@
                                 'From' => $Call['From'],
                                 'To' => $Call['Currency']['To'],
                                 'Value' => $Match
-                            ]), $Call['Currency']['Precision'], ',', ' ').'&nbsp;'.$Call['Currency']['To'];
+                            ]), $Call['Currency']['Precision'], ',', ' ');
                 }
             }
 

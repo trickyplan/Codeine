@@ -7,10 +7,35 @@
      * @version 7.x
      */
 
-    setFn('Do', function ($Call)
+    setFn('Index', function ($Call)
     {
         $Call = F::Hook('beforeSitemap', $Call);
-            $Call = F::Run('SEO.Sitemap.'.$Call['Sitemap']['Mode'], null, $Call);
+
+            $Call['Output'] =  ['Root' => 'sitemapindex', 'Content' => []];
+
+            foreach ($Call['Sitemap']['Handlers'] as $HandlerCall)
+            {
+                $HandlerCall['Method'] = 'Index';
+                $Call = F::Live($HandlerCall, $Call);
+            }
+
+        $Call = F::Hook('afterSitemap', $Call);
+
+        return $Call;
+    });
+
+    setFn('One', function ($Call)
+    {
+        $Call = F::Hook('beforeSitemap', $Call);
+
+            $Call['Output'] =  ['Root' => 'sitemapindex', 'Content' => []];
+
+            foreach ($Call['Sitemap']['Handlers'] as $HandlerCall)
+            {
+                $HandlerCall['Method'] = 'One';
+                $Call = F::Live($HandlerCall, $Call);
+            }
+
         $Call = F::Hook('afterSitemap', $Call);
 
         return $Call;
