@@ -28,13 +28,11 @@
     {
         $Call = F::Hook('beforeSitemap', $Call);
 
-            $Call['Output'] =  ['Root' => 'sitemap', 'Content' => []];
+        $Call['Output'] =  ['Root' => 'sitemap', 'Content' => []];
 
-            foreach ($Call['Sitemap']['Handlers'] as $HandlerCall)
-            {
-                $HandlerCall['Method'] = 'One';
-                $Call = F::Live($HandlerCall, $Call);
-            }
+        $HandlerCall = $Call['Sitemap']['Handlers'][$Call['Entity']];
+        $HandlerCall['Method'] = 'One';
+        $Call = F::Live($HandlerCall, $Call);
 
         $Call = F::Hook('afterSitemap', $Call);
 
