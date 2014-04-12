@@ -28,7 +28,7 @@
     {
         $Call = F::Hook('beforeSitemap', $Call);
 
-        $Call['Output'] =  ['Root' => 'sitemap', 'Content' => []];
+        $Call['Output'] =  ['Root' => 'urlset', 'Content' => []];
 
         $HandlerCall = $Call['Sitemap']['Handlers'][$Call['Entity']];
         $HandlerCall['Method'] = 'One';
