@@ -28,7 +28,7 @@
     {
         $Call = F::Hook('beforeSitemap', $Call);
 
-            $Call['Output'] =  ['Root' => 'sitemapindex', 'Content' => []];
+            $Call['Output'] =  ['Root' => 'sitemap', 'Content' => []];
 
             foreach ($Call['Sitemap']['Handlers'] as $HandlerCall)
             {
