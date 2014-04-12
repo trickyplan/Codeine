@@ -56,7 +56,10 @@
                     [
                         'url' =>
                         [
-                            'loc' => $Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/'.$Call['Slug'].'/'.$Element['Slug']
+                            'loc' => $Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/'.$Call['Slug'].'/'.$Element['Slug'],
+                            'lastmod' => date(DATE_W3C),
+                            'changefreq' => $Call['Frequency'],
+                            'priority'   => 1
                         ]
                     ]; // FIXME!
 
