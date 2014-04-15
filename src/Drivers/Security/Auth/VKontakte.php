@@ -61,7 +61,7 @@
                     ]
                 ]);
             else
-                $Call['User'] = F::Run('Entity', 'Read', $Call,
+                $Call['User'] = F::Run('Entity', 'Read',
                 [
                     'Entity' => 'User',
                     'One'    => true,
@@ -118,10 +118,7 @@
                     'Entity' => 'User',
                     'Where'  =>
                     [
-                        'VKontakte' =>
-                        [
-                            'ID'    => $Result['user_id']
-                        ]
+                        'VKontakte.ID' => $Result['user_id']
                     ],
                     'Data'   => $Updated
                 ]);

@@ -12,7 +12,7 @@
         $Result = null;
         $Run = true;
 
-        if (isset($Call['Run']['RTTL']))
+        if (isset($Call['Run']['RTTL']) && isset($Call['Run Cache Enabled']) && $Call['Run Cache Enabled'])
         {
             $RTTL = $Call['Run']['RTTL'];
             unset($Call['Run']['RTTL']);

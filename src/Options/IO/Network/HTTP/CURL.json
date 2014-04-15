@@ -1,5 +1,5 @@
 {
-    "Connect Timeout": 30,
+    "Connect Timeout": 15,
     "Cookie File": "cookie.txt",
     "Follow": true,
     "Password": "",

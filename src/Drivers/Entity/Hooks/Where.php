@@ -10,6 +10,7 @@
     setFn('beforeOperation', function ($Call)
     {
         // Если в Where скалярная переменная - это ID.
+
         if (isset($Call['Where']))
         {
             $Call['Where'] = F::Live($Call['Where'], $Call);
@@ -65,7 +66,7 @@
                             }
                         }
 
-                        $Where[$Name]  = $Value;
+                        $Where[$Name] = $Value;
                     }
 
             if (empty($Where))
