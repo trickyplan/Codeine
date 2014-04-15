@@ -15,8 +15,9 @@
 
         foreach ($Elements as $Element)
         {
+            $ID = $Element['ID'];
             unset($Element['ID']);
-            F::Run('Entity', 'Create', $Call, ['One' => true, 'Data' => $Element]);
+            F::Run('Entity', 'Update', $Call, ['One' => true, 'Where' => $ID,'Data' => $Element]);
         }
 
         return $Call;

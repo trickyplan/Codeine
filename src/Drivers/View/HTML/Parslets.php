@@ -9,7 +9,7 @@
 
      setFn('Process', function ($Call)
      {
-         if (!isset($Call['Context']) || $Call['Context'] == '' && isset($Call['Output']))
+         if (isset($Call['Output']))
              foreach ($Call['View']['HTML']['Parslets']['Queue'] as $Parslet)
              {
                  $Tag = strtolower($Parslet);

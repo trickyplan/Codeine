@@ -1,7 +1,7 @@
 {
-    "Subject": "Активация аккаунта ",
-    "Activation":
+    "EMail Activation":
     {
+        "Subject": "Активация аккаунта",
         "Auto Login": true
     },
     "Hooks":
@@ -16,7 +16,7 @@
                     "Method": "Redirect",
                     "Call":
                     {
-                        "Location": "/"
+                        "Location": "$ActivationData.BackURL"
                     }
                 }
             },

@@ -23,7 +23,8 @@
             {
                 "Write":
                 {
-                    "Type": "Form.Select"
+                    "Type": "Form.Select",
+                    "Help": true
                 }
             }
         },
@@ -34,7 +35,8 @@
             {
                 "Write":
                 {
-                    "Type": "Form.Textfield"
+                    "Type": "Form.Textfield",
+                    "Help": true
                 }
             }
         },
@@ -47,7 +49,8 @@
                 "Write":
                 {
                     "Type": "Form.Textfield",
-                    "Pattern": "[0-9]{10}"
+                    "Pattern": "[0-9]{10,11}",
+                    "Help": true
                 }
             }
         },
@@ -73,7 +76,8 @@
                 "Write":
                 {
                     "Type": "Form.Textfield",
-                    "Pattern": "[0-9]{9}"
+                    "Pattern": "[0-9]{9}",
+                    "Help": true
                 }
             }
         },
@@ -107,7 +111,8 @@
             {
                 "Write":
                 {
-                    "Type": "Form.Textfield"
+                    "Type": "Form.Textfield",
+                    "Help": true
                 }
             }
         },
@@ -125,7 +130,7 @@
         "Company.Director.Genitive.Position":
         {
             "Type": "Literal.String",
-            "Default": "Директор",
+            "Default": "Директора",
             "Widgets":
             {
                 "Write":
@@ -137,6 +142,7 @@
         "Company.Director.Genitive.Reason":
         {
             "Type": "Literal.String",
+            "Default": "Устава",
             "Widgets":
             {
                 "Write":
@@ -164,7 +170,8 @@
             {
                 "Write":
                 {
-                    "Type": "Form.Textarea"
+                    "Type": "Form.Textarea",
+                    "Help": true
                 }
             }
         },
@@ -255,7 +262,8 @@
                 "Write":
                 {
                     "Type": "Form.Textfield",
-                    "Pattern": "[0-9]{9}"
+                    "Pattern": "[0-9]{9}",
+                    "Help": true
                 }
             }
         },
@@ -267,7 +275,7 @@
                 "Write":
                 {
                     "Type": "Form.Textfield",
-                    "Pattern": "[0-9]{20}"
+                    "Pattern": "[0-9]{,20}"
                 }
             }
         },
@@ -279,7 +287,7 @@
                 "Write":
                 {
                     "Type": "Form.Textfield",
-                    "Pattern": "[0-9]{20}"
+                    "Pattern": "[0-9]{,20}"
                 }
             }
         },

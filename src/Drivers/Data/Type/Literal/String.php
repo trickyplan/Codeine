@@ -14,5 +14,6 @@
 
     setFn(['Read', 'Where'], function ($Call)
     {
-        return (string) htmlspecialchars($Call['Value']);
+        if (is_string($Call['Value']))
+            return (string) htmlspecialchars($Call['Value']);
     });

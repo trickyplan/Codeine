@@ -36,7 +36,6 @@
             "Type": "Ternary",
             "Default": 1
         },
-        "Fullname": {},
         "Title":
         {
             "Type": "Literal.String",

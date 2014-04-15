@@ -20,3 +20,19 @@
 <div style="margin-top: 4px;">
     Скопируйте эту ссылку в окно браузера: <k>URLActivation</k>
 </div>
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "EmailMessage",
+  "action": {
+    "@type": "ConfirmAction",
+    "name": "Активировать аккаунт",
+    "handler": {
+      "@type": "HttpActionHandler",
+      "url": "<k>URLActivation</k>"
+    }
+  },
+  "description": "Активация аккаунта на сайте <call>HTTP.Host</call>"
+}
+</script>

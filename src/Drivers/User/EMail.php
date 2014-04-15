@@ -19,8 +19,9 @@
                      'Scope' => 'Activation',
                      'Data' =>
                      [
-                         'ID' => (int) $Call['Data']['Code'],
-                         'User' => $Call['Data']['ID']
+                         'ID'      => (int) $Call['Data']['Code'],
+                         'User'    => $Call['Data']['ID'],
+                         'BackURL' => isset($Call['Request']['BackURL'])? $Call['Request']['BackURL']: '/'
                      ]
                 ]);
 
@@ -45,7 +46,7 @@
 
             F::Run('IO', 'Write', $VCall, [
                 'Storage' => 'EMail',
-                'ID' => 'Активация аккаунта',
+                'ID' => $Call['EMail Activation']['Subject'],
                 'Scope' => $Call['Data']['EMail'],
                 'Data' => $VCall['Output']]
             );
@@ -58,19 +59,19 @@
 
     setFn('Check', function ($Call)
     {
-        $Activation = F::Run('IO', 'Read',
+        $Call['ActivationData'] = F::Run('IO', 'Read',
              [
                   'Storage' => 'Primary',
                   'Scope' => 'Activation',
                   'Where' => (int) $Call['Code']
              ])[0];
 
-        if ($Activation !== null)
+        if ($Call['ActivationData'] !== null)
         {
             F::Run('Entity', 'Update', $Call,
                 [
                      'Entity' => 'User',
-                     'Where' => $Activation['User'],
+                     'Where' => $Call['ActivationData']['User'],
                      'Data' =>
                      [
                         'Status' => 1
@@ -85,8 +86,8 @@
                      'Data' => null
                 ]);
 
-            if (isset($Call['Activation']['Auto Login']) && $Call['Activation']['Auto Login'])
-                $Call = F::Apply('Session', 'Write', $Call, ['Data' => ['User' => $Activation['User']]]);
+            if (isset($Call['EMail Activation']['Auto Login']) && $Call['EMail Activation']['Auto Login'])
+                $Call = F::Apply('Session', 'Write', $Call, ['Data' => ['User' => $Call['ActivationData']['User']]]);
 
             $Call = F::Hook('Activation.Success', $Call);
         }

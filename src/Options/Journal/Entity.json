@@ -1,41 +1,19 @@
 {
     "Storage": "Primary",
+    "Mixins": [
+        "Mixins.ID.Sequence",
+        "Mixins.UGC"
+    ],
     "Nodes":
     {
-        "ID":
+        "Class":
         {
-            "Type": "Literal.String",
-            "Hooks":
-            {
-                "beforeEntityCreate":
-                {
-                    "Service": "Security.UID",
-                    "Method": "Get",
-                    "Call":
-                    {
-                        "Mode": "Secure+"
-                    }
-                }
-            }
+            "Type": "List.Enum",
+            "Options": ["info", "warning", "danger", "success"]
         },
-        "Time":
+        "Message":
         {
-            "Hooks":
-            {
-                "beforeEntityCreate":
-                {
-                    "Service": "System.Time",
-                    "Method": "Get"
-                }
-            }
-        },
-        "Entity":
-        {
-
-        },
-        "Event":
-        {
-
+            "Type": "Literal.String"
         },
         "User":
         {
