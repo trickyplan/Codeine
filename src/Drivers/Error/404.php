@@ -13,9 +13,9 @@
 
         if (isset($Call['HTTP']['Referer']))
             F::Log('Page not found: '.$Call['HTTP']['URI']
-                    .'.Referrer: '.$Call['HTTP']['Referer'], $Call['404 Error Level'], 'Developer');
+                    .'.Referrer: '.$Call['HTTP']['Referer'], $Call['404 Error Level'], 'Marketing');
         else
-            F::Log('Page not found: '.$Call['HTTP']['URI'], $Call['404 Error Level'], 'Developer');
+            F::Log('Page not found: '.$Call['HTTP']['URI'], $Call['404 Error Level'], 'Marketing');
 
         $Call['Layouts'] = [
             [
