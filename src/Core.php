@@ -367,8 +367,6 @@
                 }
                 else
                     $Result = isset($Call['Fallback']) ? $Call['Fallback'] : null;
-
-                gc_collect_cycles();
             }
 
             self::Stop(self::$_Service . '.' . self::$_Method);
