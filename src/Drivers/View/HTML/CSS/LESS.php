@@ -21,8 +21,28 @@
 
         if ($LESS)
         {
-            // FIXME! Temporary decision.
-            shell_exec('lessc '.Root.'/Assets/'.$Asset.'/less/'.$ID.'.less > '.Root.'/Assets/'.$Asset.'/css/'.$ID.'.css');
+            $LESSVersion = F::Run('IO', 'Execute',
+            [
+                'Execute' => 'Version',
+                'Storage' => 'LESS',
+                'Scope'   => [$Asset, 'less'],
+                'Where'   => $ID
+            ]);
+
+            $CSSVersion = F::Run('IO', 'Execute',
+                [
+                    'Execute' => 'Version',
+                    'Storage' => 'CSS',
+                    'Scope'   => [$Asset, 'css'],
+                    'Where'   => $ID
+                ]);
+
+            if ($LESSVersion != $CSSVersion)
+            {
+                // FIXME! Temporary decision.
+                shell_exec('lessc --clean-css '.Root.'/Assets/'.$Asset.'/less/'.$ID.'.less > '.Root.'/Assets/'.$Asset.'/css/'.$ID.'.css');
+                F::Log('LESS processed '.Root.'/Assets/'.$Asset.'/css/'.$ID.'.css', LOG_WARNING, 'Developer');
+            }
         }
 
         return $Call;
