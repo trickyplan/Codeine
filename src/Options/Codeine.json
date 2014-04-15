@@ -1,5 +1,5 @@
 {
-    "Timezone": "Europe/Moscow",
+    "Timezone": "UTC",
     "Perfect": false,
     "Core Storage Limit": 2048,
     "Verbose":

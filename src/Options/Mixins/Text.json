@@ -11,6 +11,18 @@
                 {
                     "Type": "Form.WYSIWYG"
                 }
+            },
+            "Hooks":
+            {
+                "beforeEntityWrite":
+                {
+                    "Service": "Text.Beautifier",
+                    "Method": "Do",
+                    "Call":
+                    {
+                        "Key": "Body"
+                    }
+                }
             }
         },
         "Words":

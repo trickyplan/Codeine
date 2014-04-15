@@ -58,6 +58,7 @@
 
             mb_internal_encoding('UTF-8'); // FIXME
             setlocale(LC_ALL, "ru_RU.UTF-8"); // FIXME
+
             libxml_use_internal_errors(true);
 
             if (isset($_SERVER['Environment']))
@@ -77,6 +78,8 @@
                 self::$_Paths = [Codeine];
 
             self::loadOptions('Codeine');
+
+            date_default_timezone_set(self::$_Options['Codeine']['Timezone']);
 
             if (isset(self::$_Options['Codeine']['Verbose']))
                 self::$_Verbose = self::$_Options['Codeine']['Verbose'];
@@ -110,8 +113,6 @@
             $Call = F::Hook('onBootstrap', $Call);
 
             self::$_Perfect = self::$_Options['Codeine']['Perfect'];
-
-            date_default_timezone_set(self::$_Options['Codeine']['Timezone']);
 
             return F::Live($Call);
         }

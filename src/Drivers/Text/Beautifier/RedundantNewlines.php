@@ -9,7 +9,8 @@
 
     setFn('Process', function ($Call)
     {
-        $Call['Value'] = preg_replace('/\([cCсС]+\)/', '©', $Call['Value']);
+        $Call['Value'] = preg_replace('/([\n]{3,})/m', PHP_EOL, $Call['Value']);
+        $Call['Value'] = preg_replace('/([<br\/?>]{3,})/m', '<br/>', $Call['Value']);
 
         return $Call;
      });
