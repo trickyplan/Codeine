@@ -52,6 +52,10 @@
             $Call['Output'][$Provider] = [];
 
             $ProviderCall = $Call['Providers'][$Provider];
+
+            if (isset($ProviderCall['Non-vertical']) && $ProviderCall['Non-vertical'])
+                continue;
+
             $ProviderCall['Method'] = 'Query';
 
             $Results = F::Live($ProviderCall, $Call);

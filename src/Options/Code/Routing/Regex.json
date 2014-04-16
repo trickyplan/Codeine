@@ -11,11 +11,11 @@
         {
             "Match": "^/search/(.*)/(.*)$",
             "Weight": 20,
-            "Service": "Entity.Search",
-            "Method": "Do",
+            "Service": "Search",
+            "Method": "Query",
             "Call":
             {
-                "Entity": "$1",
+                "Provider": "$1",
                 "Query": "$2"
             }
         },
