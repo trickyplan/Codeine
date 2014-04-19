@@ -9,14 +9,12 @@
 
     setFn('Query', function ($Call)
     {
-/*        $Call['Query'] = F::Run('Text.Index.Metaphone.Russian', 'Get',['Value' => mb_strtolower($Call['Query'])]);*/
-
-        if (!isset($Call['Scope']))
-            $Call['Scope'] = $Call['Entity'];
-        else
+        if (isset($Call['Scope']))
             $Call['Scope'] = $Call['Entity'].'/'.$Call['Scope'];
+        else
+            $Call['Scope'] = $Call['Entity'];
 
-        $Call['Query'] = preg_split('/\s/', $Call['Query']);
+        $Call['Query'] = preg_split('/\s/', mb_strtolower($Call['Query']));
         $Results = [];
 
         foreach($Call['Query'] as $Keyword)
@@ -58,5 +56,5 @@
 
             }
 
-        return $SERP;
+        return ['SERP' => $SERP, 'Meta' => ['Total' => count($Results)]];
     });
