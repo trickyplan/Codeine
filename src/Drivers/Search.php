@@ -53,7 +53,7 @@
 
             $ProviderCall = $Call['Providers'][$Provider];
 
-            if (isset($ProviderCall['Non-vertical']) && $ProviderCall['Non-vertical'])
+            if (isset($ProviderCall['Non-vertical']) && $ProviderCall['Non-vertical'] && !isset($Call['Provider']))
                 continue;
 
             $ProviderCall['Method'] = 'Query';

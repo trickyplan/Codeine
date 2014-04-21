@@ -18,11 +18,13 @@
         else
             $Call['Reason'] = 'Access';
 
-        $Call['Output']['Content'][] =
+        $Call['Output']['Content'] =
         [
-            'Type' => 'Template',
-            'Scope' => 'Errors/403',
-            'ID' => $Call['Reason']
+            [
+                'Type' => 'Template',
+                'Scope' => 'Errors/403',
+                'ID' => $Call['Reason']
+            ]
         ];
 
         return $Call;
