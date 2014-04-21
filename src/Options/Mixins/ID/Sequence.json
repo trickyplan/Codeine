@@ -10,12 +10,8 @@
             {
                 "beforeEntityCreate":
                 {
-                    "Service": "Security.UID",
-                    "Method": "Get",
-                    "Call":
-                    {
-                        "Mode": "Sequence"
-                    }
+                    "Service": "Security.UID.Sequence",
+                    "Method": "Get"
                 }
             }
         }
