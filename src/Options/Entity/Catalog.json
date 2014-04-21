@@ -1,6 +1,7 @@
 {
     "EPP": 20,
     "Minimal": 0,
+    "Entity RTTL": 60,
     "Hooks":
     {
         "beforeCatalog":

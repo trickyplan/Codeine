@@ -290,20 +290,20 @@
         $Call['Scope'] = strtr($Call['Scope'], '.', '_');
 
         if (isset($Call['Where']))
-            $Cursor = $Call['Link']->$Call['Scope']->find($Call['Where']);
+            $Cursor = $Call['Link']->$Call['Scope']->find($Call['Where'])->sort(['ID' => -1]);
         else
-            $Cursor = $Call['Link']->$Call['Scope']->find();
+            $Cursor = $Call['Link']->$Call['Scope']->find()->sort(['ID' => -1]);
 
         $Cursor->limit(1);
 
-        $IDs = iterator_to_array($Cursor->sort(['ID' => -1]));
+        $IDs = iterator_to_array($Cursor);
 
         $ID = array_shift($IDs);
 
         if (!isset($ID['ID']))
             $ID['ID'] = 0;
 
-        return ($ID['ID']+1);
+        return ((int) $ID['ID']+1);
     });
 
     setFn('Size', function ($Call)

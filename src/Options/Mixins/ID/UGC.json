@@ -12,7 +12,7 @@
                     "Method": "Get",
                     "Call":
                     {
-                        "Mode": "GUID"
+                        "Mode": "UGC"
                     }
                 }
             }

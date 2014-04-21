@@ -27,6 +27,7 @@
                     $Values[$Element[$Call['Key']]] = F::Run('Entity', 'Count', $Call,
                         [
                             'Entity' => $Call['Entity'],
+                            'RTTL'   => $Call['Entity RTTL'],
                             'Where' =>
                             [
                                 $Call['Key'] => $Element[$Call['Key']]

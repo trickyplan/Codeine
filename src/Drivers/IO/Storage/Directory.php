@@ -31,7 +31,16 @@
             $Call['Where']['ID'] = (array) $Call['Where']['ID'];
 
             foreach ($Call['Where']['ID'] as &$ID)
+            {
+                if (isset($Call['Directory Hashing']['Enabled']) && $Call['Directory Hashing']['Enabled'])
+                {
+                    $Hash = sha1($ID);
+                    for ($IX = 0; $IX < $Call['Directory Hashing']['Levels']; $IX++)
+                        $Prefix .= mb_substr($Hash, $IX, $Call['Directory Hashing']['Size']).DS;
+                }
+
                 $ID = $Path.$Prefix.$ID.$Postfix;
+            }
 
             $Filenames = F::findFiles($Call['Where']['ID']);
 
@@ -97,8 +106,18 @@
         $Postfix   = isset($Call['Suffix']) ? $Call['Suffix'] : '';
         $Prefix   = isset($Call['Prefix']) ? $Call['Prefix'] : '';
 
-        $Filename = $DirName. $Prefix . (isset($Call['Where']['ID'])? $Call['Where']['ID']: $Call['ID']) .
-        $Postfix;
+        $ID = isset($Call['Where']['ID'])? $Call['Where']['ID']: $Call['ID'];
+
+        if (isset($Call['Directory Hashing']['Enabled']) && $Call['Directory Hashing']['Enabled'])
+        {
+            $Hash = sha1($ID);
+            for ($IX = 0; $IX < $Call['Directory Hashing']['Levels']; $IX++)
+                $Prefix .= mb_substr($Hash, $IX, $Call['Directory Hashing']['Size']).DS;
+        }
+
+        $Filename = $DirName.$Prefix.$ID.$Postfix;
+
+        $DirName = dirname($Filename);
 
         if (!is_dir($DirName))
         {

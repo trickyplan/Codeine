@@ -30,6 +30,16 @@
         {
             "Service": "Security.UID.Integer",
             "Method": "Get"
+        },
+        "Sequence":
+        {
+            "Service": "Security.UID.Sequence",
+            "Method": "Get"
+        },
+        "UGC":
+        {
+            "Service": "Security.UID.UGC",
+            "Method": "Get"
         }
     }
 }

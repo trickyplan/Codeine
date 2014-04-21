@@ -4,7 +4,15 @@
         "Balance":
         {
             "Type": "Numeral.Float",
-            "Default": 0
+            "Default": 0,
+            "Scope": "Control",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
         }
     }
 }

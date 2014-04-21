@@ -33,8 +33,9 @@
 
         $Call['Value'] = F::Run('IO', 'Read',
             [
-                  'Scope' => $Call['Scope'],
+                  'Scope'   => $Call['Scope'],
                   'Storage' => 'Layout',
+                  'RTTL'    => $Call['View']['Load RTTL'],
                   'Where'   =>
                   [
                       'ID' => $IDs

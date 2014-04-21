@@ -48,17 +48,15 @@
             "Format": "Formats.JSON",
             "Suffix":".json"
         },
-        "SOAP Cache":
-        {
-            "Driver":"IO.Storage.Directory",
-            "Directory":"/tmp/codeine",
-            "Format": "Formats.JSON",
-            "Suffix":".json"
-        },
         "Run Cache":
         {
             "Driver":"IO.Storage.Directory",
             "Directory":"/tmp/codeine/run",
+            "Directory Hashing":
+            {
+                "Enabled": true,
+                "Levels": 4
+            },
             "Format": "Formats.JSON",
             "Suffix":".json"
         },

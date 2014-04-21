@@ -8,10 +8,11 @@
             "User Override": true,
             "Hooks":
             {
-                "beforeEntityCreate":
+                "Service": "Security.UID",
+                "Method": "Get",
+                "Call":
                 {
-                    "Service": "Security.UID.Sequence",
-                    "Method": "Get"
+                    "Mode": "Sequence"
                 }
             }
         }
