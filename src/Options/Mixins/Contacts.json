@@ -1,19 +1,6 @@
 {
     "Nodes":
     {
-        "Contacts.Preferred":
-        {
-            "Type": "List.Enum",
-            "Options": ["EMail", "Phone", "Skype", "ICQ"],
-            "Localized": true,
-            "Widgets":
-            {
-                "Write":
-                {
-                    "Type": "Form.Select"
-                }
-            }
-        },
         "Phone":
         {
             "Type": "Literal.String",
