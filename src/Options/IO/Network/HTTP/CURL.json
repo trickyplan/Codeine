@@ -1,6 +1,6 @@
 {
     "Connect Timeout": 15,
-    "Cookie File": "cookie.txt",
+    "Cookie Directory": "/tmp/codeine",
     "Follow": true,
     "Password": "",
     "Return Header": false,

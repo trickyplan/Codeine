@@ -57,7 +57,7 @@
                   [
                        CURLOPT_HEADER           => $Call['Return Header'],
                        CURLOPT_RETURNTRANSFER   => true,
-                       CURLOPT_COOKIEJAR        => $Call['Cookie File'],
+                       CURLOPT_COOKIEJAR        => $Call['Cookie Directory'].DS.parse_url($Call['Where']['ID'], PHP_URL_HOST),
                        CURLOPT_FOLLOWLOCATION   => $Call['Follow'],
                        CURLOPT_CONNECTTIMEOUT   => $Call['Connect Timeout'],
                        CURLOPT_PROXY            => $Call['Proxy']['Host'],
@@ -106,7 +106,7 @@
                 [
                    CURLOPT_HEADER           => $Call['Return Header'],
                    CURLOPT_RETURNTRANSFER   => true,
-                   CURLOPT_COOKIEJAR        => $Call['Cookie File'],
+                   CURLOPT_COOKIEJAR        => $Call['Cookie Directory'].DS.parse_url($Call['Where']['ID'], PHP_URL_HOST),
                    CURLOPT_FOLLOWLOCATION   => $Call['Follow'],
                    CURLOPT_CONNECTTIMEOUT   => $Call['Connect Timeout'],
                    CURLOPT_PROXY            => $Call['Proxy']['Host'],
@@ -149,7 +149,7 @@
             [
                 CURLOPT_HEADER           => $Call['Return Header'],
                 CURLOPT_RETURNTRANSFER   => true,
-                CURLOPT_COOKIEJAR        => $Call['Cookie File'],
+                CURLOPT_COOKIEJAR        => $Call['Cookie Directory'].DS.parse_url($Call['Where']['ID'], PHP_URL_HOST),
                 CURLOPT_FOLLOWLOCATION   => $Call['Follow'],
                 CURLOPT_CONNECTTIMEOUT   => $Call['Connect Timeout'],
                 CURLOPT_PROXY            => $Call['Proxy']['Host'],
@@ -201,7 +201,7 @@
                 [
                     CURLOPT_HEADER => true,
                     CURLOPT_RETURNTRANSFER => true,
-                    CURLOPT_COOKIEJAR => $Call['CookieFile'],
+                    CURLOPT_COOKIEJAR => $Call['Cookie Directory'].DS.parse_url($Call['Where']['ID'], PHP_URL_HOST),
                     CURLOPT_FILETIME => true,
                     CURLOPT_NOBODY => true,
                     CURLOPT_FOLLOWLOCATION => $Call['Follow'],
