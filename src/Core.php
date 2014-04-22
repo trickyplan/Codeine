@@ -542,7 +542,7 @@
                     $Message = json_encode($Message,
                         JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 
-                $Time = date('d.m.Y H:i:s').' '.sprintf('%.4f', microtime(true)-Started).' ';
+                $Time = sprintf('%.4f', microtime(true)-Started).' ';
 
                 if (PHP_SAPI == 'cli')
                 {
