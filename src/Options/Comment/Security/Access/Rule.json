@@ -39,13 +39,12 @@
                 "Call":
                 {
                     "Entity": "Comment"
-                }
-            },
-            "Current":
-            [{
-                "Editable": true,
-                "User": "$Session.User.ID"
-            }]
+                },
+                "Current":
+                [{
+                    "Editable": true
+                }]
+            }
         },
         "Комментировать могут зарегистрированные":
         {
