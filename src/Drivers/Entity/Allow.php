@@ -16,7 +16,10 @@
 
         $Call = F::Hook('beforeAllowDo', $Call);
 
+        if ($Call['Allow']['Mode'] == 'Confirmation')
             $Call = F::Run(null, $Call['HTTP']['Method'], $Call);
+        elseif ($Call['Allow']['Mode'] == 'Direct')
+            $Call = F::Run(null, 'POST', $Call);
 
         $Call = F::Hook('afterAllowDo', $Call);
 

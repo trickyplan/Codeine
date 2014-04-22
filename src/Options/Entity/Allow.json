@@ -1,4 +1,8 @@
 {
+    "Allow":
+    {
+        "Mode": "Direct"
+    },
     "Hooks":
     {
         "beforeAllowDo":
