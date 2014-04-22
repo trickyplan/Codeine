@@ -180,12 +180,16 @@
 
             if ($Decision)
             {
-                $Subroot = dirname($Call['Filename']);
+                F::Run('IO', 'Write',
+                [
+                    'Storage' => 'Scraped',
+                    'Where' =>
+                    [
+                        'ID' => $Call['Filename']
+                    ],
+                    'Data'  => $Call['Body']
+                ]);
 
-                if(!is_dir($Subroot))
-                    mkdir ($Subroot, 0777, true);
-
-                file_put_contents($Call['Filename'], $Call['Body']);
                 F::Log($Call['Filename'].' writed', LOG_WARNING);
             }
 
