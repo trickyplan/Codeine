@@ -47,6 +47,8 @@
 
         $Call['Output']['Content'] = [];
 
+        $Total = 0;
+
         foreach ($Providers as $Provider)
         {
             $Call['Output'][$Provider] = [];
@@ -68,7 +70,17 @@
                 $Call['Output']['Content'] = F::Merge($Call['Output']['Content'], $Results['SERP']);
                 $Call['Output'][$Provider] = F::Merge($Call['Output'][$Provider], $Results['SERP']);
             }
+
+            $Total += $Results['Meta']['Hits'][$Provider];
         }
+
+        if ($Total == 0)
+        $Call['Output']['Content'][] =
+        [
+            'Type'  => 'Template',
+            'Scope' => 'Search',
+            'ID'    => 'Empty'
+        ];
 
         return $Call;
     });
