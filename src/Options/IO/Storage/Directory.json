@@ -2,7 +2,7 @@
     "Directory Hashing":
     {
         "Enabled": false,
-        "Levels": 2,
+        "Levels": 3,
         "Size": 1
     }
 }
