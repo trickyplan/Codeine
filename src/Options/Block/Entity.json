@@ -18,5 +18,28 @@
                 }
             }
         }
+    },
+    "Hooks":
+    {
+        "beforeUpdateGet":
+        {
+            "Store URL":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "StoreURL"
+            }
+        },
+        "afterUpdatePost":
+        {
+            "Redirect URL":
+            {
+                "Service": "System.Interface.Web",
+                "Method": "Redirect",
+                "Call":
+                {
+                    "Location": "/control/$Entity/Show/$Data.0.ID"
+                }
+            }
+        }
     }
 }
