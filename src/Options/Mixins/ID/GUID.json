@@ -4,6 +4,7 @@
         "ID":
         {
             "Type": "Literal.String",
+            "Unique": true,
             "Hooks":
             {
                 "beforeEntityCreate":

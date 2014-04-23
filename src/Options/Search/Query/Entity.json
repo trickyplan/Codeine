@@ -1,0 +1,19 @@
+{
+    "Storage": "Primary",
+    "Mixins":
+    [
+        "Mixins.ID.Sequence"
+    ],
+    "Nodes":
+    {
+        "Title":
+        {
+            "Type": "Literal.String"
+        },
+        "Count":
+        {
+            "Type": "Numeral.Integer",
+            "Default": 0
+        }
+    }
+}
