@@ -63,10 +63,10 @@
                     'Data'   =>
                     [
                         'Facebook' =>
-                            [
-                                'ID' => $Facebook['id'],
-                                'Auth'  => $Result['access_token']
-                            ]
+                        [
+                            'ID' => $Facebook['id'],
+                            'Auth'  => $Result['access_token']
+                        ]
                     ]
                 ]);
             else
@@ -74,6 +74,10 @@
                 [
                     'Entity' => 'User',
                     'One'    => true,
+                    'Sort'   =>
+                    [
+                        'ID' => SORT_ASC
+                    ],
                     'Where'  =>
                     [
                         'Facebook.ID' => $Facebook['id']

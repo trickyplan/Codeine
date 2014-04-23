@@ -1,5 +1,9 @@
 {
-    "Mixins": ["Mixins.CRUD"],
+    "Mixins":
+    [
+        "Mixins.Titled",
+        "Mixins.Text"
+    ],
     "Storage": "Primary",
     "Nodes":
     {
@@ -11,28 +15,6 @@
                 "Write":
                 {
                     "Type": "Form.Textfield"
-                }
-            }
-        },
-        "Title":
-        {
-            "Type": "Literal.String",
-            "Widgets":
-            {
-                "Write":
-                {
-                    "Type": "Form.Textfield"
-                }
-            }
-        },
-        "Body":
-        {
-            "Type": "Literal.HTML",
-            "Widgets":
-            {
-                "Write":
-                {
-                    "Type": "Form.WYSIWYG"
                 }
             }
         }

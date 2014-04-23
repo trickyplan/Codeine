@@ -4,7 +4,7 @@
     {
          "Upsert Enabled": true,
          "Multiple Updates": true,
-         "Multiple Deletes": true,
+         "Just One": true,
          "Write Concerns": 0
     },
     "Hooks":

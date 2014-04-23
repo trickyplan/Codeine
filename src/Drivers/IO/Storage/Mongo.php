@@ -180,7 +180,7 @@
                     $Request = 'db.*'.$Call['Scope'].'*.remove('.j($Call['Where']).')';
                     $Result = $Call['Link']->$Call['Scope']->remove ($Call['Where'],
                     [
-                        'multiple' => $Call['Mongo']['Multiple Deletes'],
+                        'justOne'  => !$Call['Mongo']['Just One'],
                         'w'        => $Call['Mongo']['Write Concerns']
                     ]);
 
@@ -213,7 +213,7 @@
                     $Request = 'db.*'.$Call['Scope'].'*.remove()';
                     $Result = $Call['Link']->$Call['Scope']->remove([],
                     [
-                        'multiple' => $Call['Mongo']['Multiple Deletes'],
+                        'justOne' => $Call['Mongo']['Just One'],
                         'w'        => $Call['Mongo']['Write Concerns']
                     ]);
 

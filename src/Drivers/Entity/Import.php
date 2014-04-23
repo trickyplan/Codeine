@@ -30,13 +30,14 @@
 
     setFn('Input', function ($Call)
     {
-        F::Run('Entity', 'Delete', $Call);
+        F::Run('Entity', 'Delete', $Call, ['Mongo' => ['Just One' => false]]);
 
         $Call['Data'] = json_decode(file_get_contents('php://stdin'), true);
 
-        F::Log(count($Call['Data']).' objects loaded from stdin', LOG_WARNING, 'Developer');
+        F::Log($Call['Entity'].' '.count($Call['Data']).' objects loaded from stdin', LOG_WARNING, 'Developer');
 
-        F::Run('Entity', 'Create', $Call, ['Skip Live' => true]);
+        foreach ($Call['Data'] as $Data)
+            F::Run('Entity', 'Create', $Call, ['Skip Live' => true, 'Data!' => $Data]);
 
         return $Call;
     });

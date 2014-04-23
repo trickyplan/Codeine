@@ -9,8 +9,9 @@
 
     setFn('Do', function ($Call)
     {
-        $Call = F::Apply($Call['Run']['Service'], 'Before', $Call,
-            isset($Call['Run']['Call'])? $Call['Run']['Call']: []);
+        if (isset($Call['Run']['Service']))
+            $Call = F::Apply($Call['Run']['Service'], 'Before', $Call,
+                isset($Call['Run']['Call'])? $Call['Run']['Call']: []);
 
         return $Call;
     });

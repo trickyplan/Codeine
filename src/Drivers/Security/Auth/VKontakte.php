@@ -65,6 +65,10 @@
                 [
                     'Entity' => 'User',
                     'One'    => true,
+                    'Sort'   =>
+                    [
+                        'ID' => SORT_ASC
+                    ],
                     'Where'  =>
                     [
                         'VKontakte.ID' => $Result['user_id']
