@@ -11,5 +11,6 @@
     {
         if (isset($Call['Current']))
             $Call['Data'] = F::Merge($Call['Current'], $Call['Data']);
+
         return $Call;
     });

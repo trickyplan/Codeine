@@ -28,5 +28,6 @@
 
         if (!empty($Call['Errors']))
             $Call['Failure'] = true;
+
         return $Call;
     });

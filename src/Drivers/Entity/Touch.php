@@ -13,13 +13,13 @@
 
         $Call = F::Hook('beforeTouch', $Call);
 
-        $Results = F::Run('Entity', 'Update', $Call, ['One' => false]);
+            $Results = F::Run('Entity', 'Update', $Call, ['One' => false]);
 
-        $Call['Output']['Content'][] =
-            [
-                'Type' => 'Block',
-                'Value' => count($Results).' touched'
-            ];
+            $Call['Output']['Content'][] =
+                [
+                    'Type' => 'Block',
+                    'Value' => count($Results).' touched'
+                ];
 
         $Call = F::Hook('afterTouch', $Call);
 

@@ -62,11 +62,6 @@
             {
                 "Service":"Entity.Hooks.Updated",
                 "Method":"Process"
-            },
-            "Make variables alive":
-            {
-                "Service":"Entity.Hooks.Live",
-                "Method":"Process"
             }
         },
         "beforeEntityCreate":
