@@ -49,6 +49,7 @@
 
             $Call['Output']['Content'] = [];
 
+
             foreach ($Providers as $Provider)
             {
                 $Call['Output'][$Provider] = [];

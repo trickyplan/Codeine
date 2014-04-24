@@ -294,8 +294,6 @@
         else
             $Cursor = $Call['Link']->$Call['Scope']->find()->sort(['ID' => -1]);
 
-        $Cursor->limit(1);
-
         $IDs = iterator_to_array($Cursor);
 
         $ID = array_shift($IDs);
