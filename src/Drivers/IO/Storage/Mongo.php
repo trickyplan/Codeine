@@ -294,6 +294,8 @@
         else
             $Cursor = $Call['Link']->$Call['Scope']->find()->sort(['ID' => -1]);
 
+        $Cursor->limit(1);
+
         $IDs = iterator_to_array($Cursor);
 
         $ID = array_shift($IDs);
@@ -301,7 +303,7 @@
         if (!isset($ID['ID']))
             $ID['ID'] = 0;
 
-        return ((int) $ID['ID']+1);
+        return ((int) $ID['ID'])+1;
     });
 
     setFn('Size', function ($Call)
