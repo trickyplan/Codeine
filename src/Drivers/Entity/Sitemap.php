@@ -49,21 +49,27 @@
 
         $Call['Limit'] = ['From' => ($Call['Page']-1)*$Call['Sitemap']['URLs'], 'To' => $Call['Sitemap']['URLs']];
 
-        $Elements = F::Run('Entity', 'Read', $Call, ['Fields' => ['Slug'], 'Partial' => true]);
+        $Elements = F::Run('Entity', 'Read', $Call, ['Fields' => ['Slug', 'ID'], 'Partial' => true]);
 
         if (count($Elements) > 0)
             foreach ($Elements as $Element)
+            {
                 if (isset($Element['Slug']))
-                    $Call['Output']['Content'][] =
+                    ;
+                else
+                    $Element['Slug'] = $Element['ID'];
+
+                $Call['Output']['Content'][] =
+                [
+                    'url' =>
                     [
-                        'url' =>
-                        [
-                            'loc' => $Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/'.$Call['Scope'].'/'.$Element['Slug'],
-                            'lastmod' => date(DATE_W3C),
-                            'changefreq' => $Call['Frequency'],
-                            'priority'   => 1
-                        ]
-                    ]; // FIXME!
+                        'loc' => $Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/'.$Call['Scope'].'/'.$Element['Slug'],
+                        'lastmod' => date(DATE_W3C),
+                        'changefreq' => $Call['Frequency'],
+                        'priority'   => $Call['Priority']
+                    ]
+                ]; // FIXME!
+            }
 
         return $Call;
     });

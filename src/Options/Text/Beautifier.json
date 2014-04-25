@@ -1,3 +1,13 @@
 {
-    "Beautifiers": ["Copyright", "Hellip", "MDash", "Quotes", "Registered", "RedundantSpaces", "RedundantNewlines","Trim"]
+    "Beautifiers":
+    [
+        "Copyright",
+        "Hellip",
+        "MDash",
+        "Quotes",
+        "Registered",
+        "RedundantSpaces",
+        "RedundantNewlines",
+        "Trim"
+    ]
 }
