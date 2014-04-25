@@ -11,7 +11,7 @@
     {
         $Call['Scope'] = $Call['Entity'].'/'.$Call['Name'];
 
-        if (is_uploaded_file($Call['Value']) or preg_match('/^http:\/\//', $Call['Value']))
+        if (is_uploaded_file($Call['Value']) or preg_match('/^https?:\/\//', $Call['Value']))
         {
             $Call['ID'] = F::Run('Security.UID', 'Get', $Call);
 
