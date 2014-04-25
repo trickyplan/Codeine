@@ -132,7 +132,7 @@
 
     setFn('Annulate', function ($Call)
     {
-        F::Run('Entity', 'Update',
+        F::Run('Entity', 'Update', $Call,
         [
             'Entity' => 'User',
             'Where'  => $Call['Session']['User']['ID'],
