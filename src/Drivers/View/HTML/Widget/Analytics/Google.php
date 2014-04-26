@@ -54,6 +54,7 @@
       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
       ga('create', 'UA-".$Call['ID']."', '".$Call['HTTP']['Host']."');
       ga('require', 'linkid', 'linkid.js');
+      ga('require', 'displayfeatures');
       ga('send', 'pageview');
     </script>";
         }
