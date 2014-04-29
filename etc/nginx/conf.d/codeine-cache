@@ -13,6 +13,12 @@
 		try_files $uri $uri/ /index.php?$uri&$args;
 	}
 
+    location ~* \.(woff|ttf|eot)$
+    {
+        expires max;
+        log_not_found off;
+    }
+
     location ~ ^/cache/(.*)
     {
         access_log        off;
