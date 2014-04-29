@@ -8,6 +8,13 @@
     error_log /var/log/nginx/error.log warn;
     access_log /var/log/nginx/$host.access.log codeine;
 
+    gzip on;
+    gzip_comp_level 9;
+    gzip_disable "msie6";
+    gzip_min_length 1024;
+    gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript application/javascript;
+    gzip_vary on;
+
 	location /
 	{
 		try_files $uri $uri/ /index.php?$uri&$args;
