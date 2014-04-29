@@ -440,7 +440,7 @@
                 foreach ($Variable as &$cVariable)
                     $cVariable = self::Variable($cVariable, $Call);
             else
-                if (preg_match_all('@\$([\w\.]+)@Ssu', $Variable, $Pockets))
+                if (is_string($Variable) && preg_match_all('@\$([\w\.]+)@Ssu', $Variable, $Pockets))
                 {
                     foreach ($Pockets[1] as $IX => $Match)
                     {

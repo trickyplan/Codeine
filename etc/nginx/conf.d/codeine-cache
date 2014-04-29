@@ -21,25 +21,12 @@
 		try_files $uri $uri/ /index.php?$uri&$args;
 	}
 
-    location ~* \.(woff|ttf|eot)$
-    {
-        expires max;
-        log_not_found off;
-    }
-
     location ~ ^/cache/(.*)
     {
         access_log        off;
         alias /tmp/codeine/$host/$1;
         expires           max;
     }
-
-    location ~* \.(jpg|jpeg|gif|css|png|js|ico|woff|ttf)$
-	{
-		access_log        off;
-		expires           max;
-		add_header        Cache-Control  public;
-	}
 
 	location ~ index.php$
 	{
@@ -102,4 +89,11 @@
         fastcgi_buffers 4 1m;
         fastcgi_busy_buffers_size 1m;
         fastcgi_temp_file_write_size 1m;
+	}
+
+	location ~* \.(jpg|jpeg|gif|css|png|js|ico|woff|ttf|eot)$
+	{
+		access_log        off;
+		expires           max;
+		add_header        Cache-Control  public;
 	}
