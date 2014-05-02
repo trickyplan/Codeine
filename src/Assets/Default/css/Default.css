@@ -11,7 +11,7 @@
     padding: 4px 16px 4px 16px;
     background-color: white;
     color: black;
-    width: 80% !important;
+    width: auto;
     white-space: pre;
     clear: both;
     border-radius: 6px;
@@ -70,7 +70,7 @@ tr.Important, td.Important
 {
     opacity: 1;
     background-color: #333333 !important;
-    color: white;
+    color: white !important;
 }
 
 .age-restricted

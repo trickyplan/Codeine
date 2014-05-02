@@ -168,6 +168,7 @@
 
                     $Call['Data'] = F::Merge($Call['Current'], $Call['Updates']);
 
+
                     $Call = F::Hook('beforeEntityWrite', $Call);
                         $Call = F::Hook('beforeEntityUpdate', $Call);
 
