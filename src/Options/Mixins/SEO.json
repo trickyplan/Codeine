@@ -5,7 +5,7 @@
         {
             "Type": "Literal.String",
             "Index": true,
-            "Weight": -40,
+            "Weight": 100,
             "Widgets":
             {
                 "Write":
@@ -18,7 +18,7 @@
         {
             "Type": "Literal.Tags",
             "Index": true,
-            "Weight": -40,
+            "Weight": 100,
             "Widgets":
             {
                 "Write":
@@ -31,7 +31,7 @@
         {
             "Type": "Literal.String",
             "Index": true,
-            "Weight": -40,
+            "Weight": 100,
             "Widgets":
             {
                 "Write":
@@ -43,7 +43,7 @@
         "Slug":
         {
             "Type": "Literal.String",
-            "Weight": -40,
+            "Weight": 40,
             "Widgets":
             {
                 "Write":

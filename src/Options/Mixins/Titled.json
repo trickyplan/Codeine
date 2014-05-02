@@ -5,7 +5,7 @@
         {
             "Index": true,
             "Type": "Literal.String",
-            "Weight": 100,
+            "Weight": -100,
             "Required": true,
             "Widgets":
             {

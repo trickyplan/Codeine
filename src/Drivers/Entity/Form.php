@@ -122,8 +122,6 @@
                     if (!isset($Widget['Weight']))
                         $Widget['Weight'] = count($Call['Nodes'])-$IC; // Magic
 
-                    $Widget['Weight'] = sprintf('X%02dW%04d',$Call['IX'], $Widget['Weight']);
-
                     //$Widget['Label'] .=$Widget['Weight'];
                     // Помещаем виджет в поток
 
@@ -139,7 +137,7 @@
         }
 
         if (isset($Call['Output']['Form']))
-            $Call['Output']['Form'] = F::Sort($Call['Output']['Form'], 'Weight', SORT_DESC);
+            $Call['Output']['Form'] = F::Sort($Call['Output']['Form'], 'Weight', SORT_ASC);
 
         return $Call;
     });

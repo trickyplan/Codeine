@@ -11,6 +11,8 @@
     {
         $Call = F::Apply('Entity', 'Load', $Call);
 
+        $Call['Nodes'] = F::Sort($Call['Nodes'], 'Weight');
+
         foreach ($Call['Nodes'] as $Name => $Node)
             $Rows[] = '<block><tr><th><l2>'.$Call['Entity'].'.Entity:'.$Name.'</l2></th><td><k>'.$Name.'</k></td></tr></block>';
 

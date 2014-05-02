@@ -4,6 +4,7 @@
         "ID":
         {
             "Type": "Literal.String",
+            "Weight": -1000,
             "Unique": true,
             "Hooks":
             {
