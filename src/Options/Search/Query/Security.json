@@ -1,0 +1,18 @@
+{
+    "Rules":
+    {
+        "Search Queries":
+        {
+            "Decision": true,
+            "Weight": 100,
+            "Run":
+            {
+                "Service": "Entity.List",
+                "Call":
+                {
+                    "Entity": "Search.Query"
+                }
+            }
+        }
+    }
+}

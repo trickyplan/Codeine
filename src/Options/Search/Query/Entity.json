@@ -6,7 +6,7 @@
     ],
     "Nodes":
     {
-        "Title":
+        "Query":
         {
             "Type": "Literal.String"
         },
@@ -14,6 +14,18 @@
         {
             "Type": "Numeral.Integer",
             "Default": 0
+        },
+        "Modified":
+        {
+            "Type": "Numeral.Integer",
+            "Hooks":
+            {
+                "beforeEntityWrite":
+                {
+                    "Service": "System.Time",
+                    "Method": "Get"
+                }
+            }
         }
     }
 }
