@@ -338,7 +338,7 @@
 
                     if (!isset($Memo) || ($Result = F::Get($Memo)) == null)
                     {
-                        if (isset($Call['RTTL']))
+                        if (isset($Call['RTTL']) and isset($Memo))
                         {
                             $RTTL = $Call['RTTL'];
                             unset($Call['RTTL']);
@@ -350,6 +350,7 @@
                                             'Service' => self::$_Service,
                                             'Method'  => self::$_Method,
                                             'Call'    => $Call,
+                                            'CacheID' => $Memo,
                                             'RTTL'    => $RTTL
                                         ]
                                 ]);
@@ -463,15 +464,20 @@
                  if (count($Hooks) > 0)
                  {
                      $Hooks = F::Sort($Hooks, 'Weight', SORT_DESC);
+
                      foreach ($Hooks as $HookName => $Hook)
                      {
-                         if (substr($HookName,0,1) != '-')
+                         if (substr($HookName,0,1) == '-')
+                             ;
+                         else
                          {
                              F::Log($On.':'.$HookName, LOG_DEBUG);
 
                              if (F::isCall($Hook))
                              {
-                                 if (!isset($Hook['Method']))
+                                 if (isset($Hook['Method']))
+                                     ;
+                                 else
                                      $Hook['Method'] = 'Do';
 
                                  $Call = F::Apply($Hook['Service'],$Hook['Method'], isset($Hook['Call'])? $Hook['Call']: [], $Call, ['On' => $On]);

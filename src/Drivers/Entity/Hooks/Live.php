@@ -39,7 +39,8 @@
                             $Call['Data'] =
                                 F::Dot($Call['Data'], $Name, $LiveValue);
 
-                            F::Log('Node *'.$Name.'* executed by '.j($Node['Hooks'][$Call['On']]).' as '.j($LiveValue), LOG_INFO);
+                            F::Log('Node *'.$Name.'* executed as '.j($LiveValue), LOG_INFO);
+                            F::Log('by '.j($Node['Hooks'][$Call['On']]), LOG_DEBUG);
                         }
                     }
                 }

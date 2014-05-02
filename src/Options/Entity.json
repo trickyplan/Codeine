@@ -3,9 +3,9 @@
     {
         "Entity":
         {
-            "Read":
+            "Count":
             {
-                "Memo": ["Entity", "Where", "One" , "Time", "Fields", "Partial", "Limit", "Count", "Key"]
+                "Memo": ["Entity", "Where", "Time"]
             }
         }
     },

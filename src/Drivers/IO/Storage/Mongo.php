@@ -159,15 +159,10 @@
             {
                 if (isset($Call['Data'])) // Update Where
                 {
-                    $Request = 'db.*'.$Call['Scope'].'*.update('.j($Call['Where']).','.j(['$set' => $Call['Data']]).')';
+                    $Request = 'db.*'.$Call['Scope'].'*.update('.j($Call['Where']).','.j($Call['Data']).')';
                     $Result = $Call['Link']->$Call['Scope']->update(
                         $Call['Where'],
-                        ['$set' => $Call['Data']],
-                        [
-                            'upsert' => $Call['Mongo']['Upsert Enabled'],
-                            'multiple' => $Call['Mongo']['Multiple Updates'],
-                            'w'         => $Call['Mongo']['Write Concerns']
-                        ]);
+                        $Call['Data']);
 
                     if ($Result)
                         F::Log($Request, LOG_INFO, 'Administrator');

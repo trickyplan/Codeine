@@ -1,15 +1,5 @@
 {
     "Mixins": ["IO.Mixins.Logs2File"],
-    "Contract":
-    {
-        "IO":
-        {
-            "Read":
-            {
-                "Memo": ["Storage", "Scope", "Where", "Time", "Fields", "Limit", "Sort"]
-            }
-        }
-    },
     "Verbosity":
     {
         "Not found": 6

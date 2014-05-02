@@ -11,17 +11,23 @@
     {
         $InternalCode = F::Run('Code.Run.SOAP', 'Run',
           [
-              'Service' => $Call['CBR']['WSDL']['Credit'],
-              'Method' => 'BicToIntCode',
-              'Call' => ['BicCode' => $Call['Value']]
+              'Run' =>
+              [
+                  'Service' => $Call['CBR']['WSDL']['Credit'],
+                  'Method' => 'BicToIntCode',
+                  'Call' => ['BicCode' => $Call['Value']]
+              ]
           ])['BicToIntCodeResult'];
 
         $Info = simplexml_load_string(F::Run('Code.Run.SOAP', 'Run',
          [
-             'RTTL'   => 86400,
-             'Service' => $Call['CBR']['WSDL']['Credit'],
-             'Method' => 'CreditInfoByIntCodeXML',
-             'Call' => ['InternalCode' => $InternalCode]
+             'Run' =>
+             [
+                 'RTTL'   => 86400,
+                 'Service' => $Call['CBR']['WSDL']['Credit'],
+                 'Method' => 'CreditInfoByIntCodeXML',
+                 'Call' => ['InternalCode' => $InternalCode]
+             ]
          ])['CreditInfoByIntCodeXMLResult']['any']);
 
         return $Info->CO->OrgFullName;

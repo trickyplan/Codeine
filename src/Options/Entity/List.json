@@ -1,5 +1,15 @@
 {
     "Primary": "ID",
+    "Contract":
+    {
+        "Entity.List":
+        {
+            "Do":
+            {
+                "Memo": ["Entity", "Where", "Template", "Count", "Page", "Time"]
+            }
+        }
+    },
     "Hooks":
     {
         "beforeList":

@@ -7,9 +7,14 @@
 
     include 'Core.php';
 
+    $Opts = [];
+
     foreach ($argv as $arg)
-        if (preg_match('/^--(\w+)\=(.+)$/Ssu', $arg, $Pockets))
-            $Opts[$Pockets[1]] = $Pockets[2];
+        if (preg_match('/^--(.+)\=(.+)$/Ssu', $arg, $Pockets))
+        {
+            $Opts = F::Dot($Opts, $Pockets[1], $Pockets[2]);
+            F::Log($Pockets[1].' = '.$Pockets[2], LOG_INFO, 'Developer');
+        }
         else
             $Opts[] = $arg;
 
@@ -28,7 +33,6 @@
                 ;
             else
                 $Opts['Method'] = 'Do';
-
 
             try
             {

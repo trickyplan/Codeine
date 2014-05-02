@@ -74,7 +74,7 @@
 
                     $Widget['Entity'] = $Call['Entity'];
                     $Widget['Node'] = $Name;
-                    $Widget['Name'] = 'Data'.'['.$Call['IX'].']';
+                    $Widget['Name'] = 'Data';
                     $Widget['Key'] = $Name;
                     $Widget['ID'] = strtr($Name, '.','_');
                     $Widget['Context'] = $Call['Context'];

@@ -12,24 +12,27 @@
         $Result = null;
         $Run = true;
 
-        if (isset($Call['Run']['RTTL']) && isset($Call['Run Cache Enabled']) && $Call['Run Cache Enabled'])
+        if (isset ($Call['Run']['CacheID'])
+            && isset($Call['Run']['RTTL'])
+            && $Call['Run']['RTTL'] > 0
+            && isset($Call['Run Cache Enabled'])
+            && $Call['Run Cache Enabled'])
         {
             $RTTL = $Call['Run']['RTTL'];
             unset($Call['Run']['RTTL']);
 
-            $CacheID = sha1(json_encode($Call['Run']));
             $Scope = $Call['Run']['Service'].DS.$Call['Run']['Method'];
 
             $Envelope = F::Run('IO', 'Read',
                 [
                     'Storage' => 'Run Cache',
                     'Scope'   => $Scope,
-                    'Where' => ['ID' => $CacheID]
+                    'Where' => ['ID' => $Call['Run']['CacheID']]
                 ]);
 
             if ($Envelope !== null && $Envelope[0]['Expire'] > time())
             {
-                F::Log('Found good cache for '.$CacheID, LOG_INFO, 'Developer');
+                F::Log('Found good cache for '.$Call['Run']['Service'].':'.$Call['Run']['Method'].'('.$Call['Run']['CacheID'].')', LOG_INFO, 'Developer');
 
                 $Run = false;
                 $Result = $Envelope[0]['Result'];
@@ -46,7 +49,7 @@
                     [
                         'Storage' => 'Run Cache',
                         'Scope'   => $Scope,
-                        'Where'   => ['ID' => $CacheID],
+                        'Where'   => ['ID' => $Call['Run']['CacheID']],
                         'Data'    =>
                         [
                             'Result' => $Result,

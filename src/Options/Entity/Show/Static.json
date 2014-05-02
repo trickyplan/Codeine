@@ -1,4 +1,14 @@
 {
+    "Contract":
+    {
+        "Entity.Show.Static":
+        {
+            "Do":
+            {
+                "Memo": ["Entity", "Where", "Template", "Time"]
+            }
+        }
+    },
     "Hooks":
     {
         "beforeShow":

@@ -40,13 +40,12 @@
 
         // Для каждой ноды в модели
 
-        if (!isset($Call['Data']))
-            $Call['Data'] = [[]];
+        if (isset($Call['Data']))
+            ;
+        else
+            $Call['Data'] = [];
 
-        if (!isset($Call['Data'][0]))
-            $Call['Data'] = [$Call['Data']];
-
-        $Call = F::Apply('Entity.Form', 'Generate', $Call, ['IX' => 0, 'Data!' => $Call['Data'][0]]);
+        $Call = F::Apply('Entity.Form', 'Generate', $Call, ['IX' => 0, 'Data!' => $Call['Data']]);
 
         // Вывести
         $Call = F::Hook('afterCreateGet', $Call);
@@ -65,12 +64,7 @@
         if (isset($Call['Request']['Data']))
         {
             if (isset($Call['Data']))
-            {
-                if (!isset($Call['Data'][0]))
-                    $Call['Data'] = [$Call['Data']];
-
                 $Call['Data'] = F::Merge($Call['Request']['Data'], $Call['Data']);
-            }
             else
                 $Call['Data'] = $Call['Request']['Data'];
         }
@@ -92,12 +86,7 @@
         if (isset($Call['Request']['Data']))
         {
             if (isset($Call['Data']))
-            {
-                if (!isset($Call['Data'][0]))
-                    $Call['Data'] = [$Call['Data']];
-
                 $Call['Data'] = F::Merge($Call['Request']['Data'], $Call['Data']);
-            }
             else
                 $Call['Data'] = $Call['Request']['Data'];
         }
