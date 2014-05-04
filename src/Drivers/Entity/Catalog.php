@@ -11,7 +11,7 @@
     {
         $Call = F::Merge(F::loadOptions('Entity.'.$Call['Entity']), $Call); // FIXME
 
-        $Call['Layouts'][] = ['Scope' => $Call['Entity'], 'ID' => 'Catalog'];
+        $Call['Layouts'][] = ['Scope' => $Call['Entity'], 'ID' => 'Catalog', 'Context' => $Call['Context']];
         $Call['Fields'] = [$Call['Key']];
         $Call['Distinct'] = true;
 
@@ -40,6 +40,7 @@
                     [
                         'Type'    => 'TagCloud',
                         'Value'   => $Values,
+                        'Context' => $Call['Context'],
                         'Minimal' => $Call['Minimal'],
                         'Entity'  => $Call['Entity'],
                         'Key'     => $Call['Key']

@@ -744,7 +744,10 @@
             if (is_array($Array))
                 foreach ($Keys as $Key)
                     if (is_scalar($Key))
+                    {
                         $Data[$Key] = array_column($Array, $Key, $ID);
+                        sort($Data[$Key]);
+                    }
 
             return $Data;
         }

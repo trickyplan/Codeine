@@ -18,6 +18,7 @@
                         [
                             'Scope' => $Call['Entity'],
                             'ID' => 'Catalog/'.$Call['Key'],
+                            'Context'   => $Call['Context'],
                             'Data' =>
                                 [
                                     'Count' => $Count,
