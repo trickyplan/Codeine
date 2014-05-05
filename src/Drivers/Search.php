@@ -39,7 +39,7 @@
 
             if (isset($Call['Query']))
             {
-                if (isset($Call['Provider']))
+                if (isset($Call['Provider']) && isset($Providers[$Call['Provider']]))
                 {
                     if (is_array($Call['Provider']))
                         $Providers = $Call['Provider'];
