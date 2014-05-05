@@ -37,42 +37,44 @@
             if (isset($Call['Request']['Query']))
                 $Call['Query'] = $Call['Request']['Query'];
 
-            if (isset($Call['Provider']))
+            if (isset($Call['Query']))
             {
-                if (is_array($Call['Provider']))
-                    $Providers = $Call['Provider'];
-                else
-                    $Providers = [$Call['Provider']];
-            }
-            else
-                $Providers = array_keys($Call['Providers']);
-
-            $Call['Output']['Content'] = [];
-
-
-            foreach ($Providers as $Provider)
-            {
-                $Call['Output'][$Provider] = [];
-
-                $ProviderCall = $Call['Providers'][$Provider];
-
-                if (isset($ProviderCall['Non-vertical']) && $ProviderCall['Non-vertical'] && !isset($Call['Provider']))
-                    continue;
-
-                $ProviderCall['Method'] = 'Query';
-
-                $Results = F::Live($ProviderCall, $Call);
-
-                if (isset($Results['Meta']))
-                    $Call = F::Merge($Call, $Results['Meta']);
-
-                if (isset($Results['SERP']))
+                if (isset($Call['Provider']))
                 {
-                    $Call['Output']['Content'] = F::Merge($Call['Output']['Content'], $Results['SERP']);
-                    $Call['Output'][$Provider] = F::Merge($Call['Output'][$Provider], $Results['SERP']);
+                    if (is_array($Call['Provider']))
+                        $Providers = $Call['Provider'];
+                    else
+                        $Providers = [$Call['Provider']];
                 }
+                else
+                    $Providers = array_keys($Call['Providers']);
 
-                $Call['Hits']['All'] += $Results['Meta']['Hits'][$Provider];
+                $Call['Output']['Content'] = [];
+
+                foreach ($Providers as $Provider)
+                {
+                    $Call['Output'][$Provider] = [];
+
+                    $ProviderCall = $Call['Providers'][$Provider];
+
+                    if (isset($ProviderCall['Non-vertical']) && $ProviderCall['Non-vertical'] && !isset($Call['Provider']))
+                        continue;
+
+                    $ProviderCall['Method'] = 'Query';
+
+                    $Results = F::Live($ProviderCall, $Call);
+
+                    if (isset($Results['Meta']))
+                        $Call = F::Merge($Call, $Results['Meta']);
+
+                    if (isset($Results['SERP']))
+                    {
+                        $Call['Output']['Content'] = F::Merge($Call['Output']['Content'], $Results['SERP']);
+                        $Call['Output'][$Provider] = F::Merge($Call['Output'][$Provider], $Results['SERP']);
+                    }
+
+                    $Call['Hits']['All'] += $Results['Meta']['Hits'][$Provider];
+                }
             }
 
             if ($Call['Hits']['All'] == 0)

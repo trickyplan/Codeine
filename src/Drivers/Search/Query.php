@@ -9,42 +9,45 @@
 
     setFn('Store', function ($Call)
     {
-        $Query = F::Run('Entity', 'Read',
-        [
-            'Entity' => 'Search.Query',
-            'Where'  =>
-            [
-                'Query' => $Call['Query']
-            ],
-            'One'    => true
-        ]);
-
-        if (empty($Query))
+        if (isset($Call['Query']))
         {
-            F::Run('Entity', 'Create',
-            [
-                'Entity' => 'Search.Query',
-                'Data'  =>
-                [
-                    'Query' => $Call['Query'],
-                    'Count' => 1
-                ]
-            ]);
-        }
-        else
-        {
-            F::Run('Entity', 'Update',
+            $Query = F::Run('Entity', 'Read',
             [
                 'Entity' => 'Search.Query',
                 'Where'  =>
                 [
                     'Query' => $Call['Query']
                 ],
-                'Data'  =>
-                [
-                    'Count' => $Query['Count']+1
-                ]
+                'One'    => true
             ]);
+
+            if (empty($Query))
+            {
+                F::Run('Entity', 'Create',
+                [
+                    'Entity' => 'Search.Query',
+                    'Data'  =>
+                    [
+                        'Query' => $Call['Query'],
+                        'Count' => 1
+                    ]
+                ]);
+            }
+            else
+            {
+                F::Run('Entity', 'Update',
+                [
+                    'Entity' => 'Search.Query',
+                    'Where'  =>
+                    [
+                        'Query' => $Call['Query']
+                    ],
+                    'Data'  =>
+                    [
+                        'Count' => $Query['Count']+1
+                    ]
+                ]);
+            }
         }
 
         return $Call;
