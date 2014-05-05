@@ -2,7 +2,7 @@
     "VKontakte":
     {
         "Entry Point": "https://api.vk.com/method",
-        "Version": 5,
+        "Version": "5.21",
         "AppID": 0,
         "Secret": "SECRET",
         "Rights": "friends,offline"

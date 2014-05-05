@@ -9,11 +9,9 @@
 
     setFn('Run', function ($Call)
     {
-        if (isset($Call['Call']))
-            $Query = '?'.http_build_query($Call['Call']);
-        else
-            $Query = '';
+        $Call['Call']['param_v'] = $Call['VKontakte']['Version'];
 
+        $Query = '?'.http_build_query($Call['Call']);
         $Result = F::Run('IO', 'Read',
                [
                    'Storage' => 'Web',
