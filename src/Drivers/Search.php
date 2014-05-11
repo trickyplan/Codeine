@@ -59,7 +59,7 @@
 
                     if (isset($ProviderCall['Non-vertical']) && $ProviderCall['Non-vertical'])
                     {
-                        if (isset($Call['Provider']) && $Call['Provider'] != $Provider)
+                        if (isset($Call['Provider']) && $Call['Provider'] == $Provider)
                             ;
                         else
                             continue;
