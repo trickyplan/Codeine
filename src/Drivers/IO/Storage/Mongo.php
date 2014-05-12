@@ -122,7 +122,7 @@
                     $Cursor->fields($Fields);
                 }
 
-                if (isset($Call['Sort']))
+                if (isset($Call['Sort']) && $Cursor->count() > 1)
                     foreach($Call['Sort'] as $Key => $Direction)
                     {
                         $Direction = (int)(($Direction == SORT_ASC) or ($Direction == 1))? MongoCollection::ASCENDING: MongoCollection::DESCENDING;
