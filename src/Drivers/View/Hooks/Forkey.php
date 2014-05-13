@@ -21,14 +21,17 @@
 
                 $Data = F::Dot($Call['Data'], $Key);
 
-                foreach ($Call['Data'][$Key] as $KeyIndex => $Value)
+                foreach ($Data as $KeyIndex => $Value)
                 {
                     $Output[$KeyIndex] = $Call['Parsed'][2][$IX];
 
-                    $Value['#'] = $KeyIndex;
+                    // $Value['#'] = $KeyIndex;
 
                     if (preg_match_all('@<subvalue/>@SsUu', $Output[$KeyIndex], $Pockets))
-                        $Output[$KeyIndex] = str_replace($Pockets[0][1], $Value, $Output[$KeyIndex]);
+                        $Output[$KeyIndex] = str_replace($Pockets[0], $Value, $Output[$KeyIndex]);
+
+                    if (preg_match_all('@<subk/>@SsUu', $Output[$KeyIndex], $Pockets))
+                        $Output[$KeyIndex] = str_replace($Pockets[0], $KeyIndex, $Output[$KeyIndex]);
 
                     if (preg_match_all('@<block>(.*)<subk>(.*)<\/subk>(.*)<\/block>@SsUu', $Output[$KeyIndex], $Pockets))
                     {

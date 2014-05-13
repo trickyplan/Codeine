@@ -833,6 +833,7 @@
                 $Tail = $Array;
 
                 foreach ($Keys as $iKey)
+                {
                     if (isset($Tail[$iKey]))
                         $Tail = $Tail[$iKey];
                     else
@@ -842,6 +843,7 @@
                         else
                             return null;
                     }
+                }
             }
             else
                 $Tail = isset($Array[$Key])? $Array[$Key]: null;

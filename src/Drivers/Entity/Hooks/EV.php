@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    setFn('Mark', function ($Call)
+    setFn('beforeOperation', function ($Call)
     {
         $Call['Data']['EV'] = $Call['EV'];
 

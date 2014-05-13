@@ -62,6 +62,11 @@
             {
                 "Service":"Entity.Hooks.Live",
                 "Method":"Process"
+            },
+            "EV":
+            {
+                "Service":"Entity.Hooks.EV",
+                "Method":"beforeOperation"
             }
         },
         "beforeEntityCreate":
