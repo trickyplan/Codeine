@@ -201,7 +201,9 @@
 
     setFn('Delete', function ($Call)
     {
-        if (!isset($Call['Entity']))
+        if (isset($Call['Entity']))
+            ;
+        else
         {
             F::Log('Entity not defined.', LOG_ERR);
             return null;
@@ -209,7 +211,7 @@
 
         $Call = F::Hook('beforeOperation', $Call);
 
-        $Current = F::Run('Entity', 'Read', $Call, ['One' => false]);
+        $Current = F::Run('Entity', 'Read', $Call);
 
         if ($Current)
         {
@@ -219,13 +221,13 @@
 
                 if (isset($Call['Current']['ID']))
                 {
-                    $Call['Where'] = ['ID' => $Call['Current']['ID']];
+                    $Call['Where'] = $Call['Current']['ID'];
 
                         $Call = F::Hook('beforeEntityDelete', $Call);
 
-                    unset($Call['Data']);
+                        unset($Call['Data']);
 
-                            F::Run('IO', 'Write', $Call);
+                        F::Run('IO', 'Write', $Call);
 
                         $Call = F::Hook('afterEntityDelete', $Call);
                 }

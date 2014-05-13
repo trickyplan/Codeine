@@ -20,6 +20,5 @@
                 foreach ($Call['Request']['Filter'] as $Key => $Value)
                     $Call['Where'][$Key] = $Value;
         }
-
         return $Call;
     });
