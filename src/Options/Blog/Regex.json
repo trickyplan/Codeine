@@ -19,7 +19,7 @@
         "Blog, Category, Page":
         {
             "Match":"^/blog/category/(.+)/page(\\d+)$",
-            "Service":"System.Interface.Web",
+            "Service":"System.Interface.HTTP",
             "Method":"Redirect",
             "Call":
             {
@@ -29,7 +29,7 @@
         "Blog, Category":
         {
             "Match":"^/blog/category/(.*)$",
-            "Service":"System.Interface.Web",
+            "Service":"System.Interface.HTTP",
             "Method":"Redirect",
             "Call":
             {
@@ -78,7 +78,7 @@
         "Blogs, Tags":
         {
             "Match":"^/blogs/tag/(.*)$",
-            "Service":"System.Interface.Web",
+            "Service":"System.Interface.HTTP",
             "Method":"Redirect",
             "Weight": 30,
             "Call":

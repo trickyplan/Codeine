@@ -1,11 +1,14 @@
 {
     "Return Code": 0,
-    "IP":
+    "HTTP":
     {
-        "Service": "System.Interface.CLI.IP",
-        "Method": "Get"
+        "User Agent": "Shell",
+        "IP":
+        {
+            "Service": "System.Interface.CLI.IP",
+            "Method": "Get"
+        }
     },
-    "UA": "Shell",
     "Locale":
     {
         "Service": "Locale",

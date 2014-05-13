@@ -2,8 +2,6 @@
     "Type": "XML",
     "Inherited":
     [
-        "IP",
-        "UA",
         "Locale",
         "Session",
         "HTTP",

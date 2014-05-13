@@ -1,5 +1,8 @@
 {
-    "Force SSL": false,
+    "HTTP":
+    {
+        "Force SSL": false
+    },
     "Hooks":
     {
         "afterInterfaceRun!":
@@ -21,7 +24,7 @@
             },
             "Output Buffering":
             {
-                "Service": "System.Interface.Web.OB",
+                "Service": "System.Interface.HTTP.OB",
                 "Method": "Finish"
             }
         }

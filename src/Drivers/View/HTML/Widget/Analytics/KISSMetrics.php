@@ -12,7 +12,7 @@
         // FIXME Templatize
         // FIXME Options
 
-        if (isset($Call['DNT Support']) && F::Run('System.Interface.Web.DNT', 'Detect', $Call))
+        if (isset($Call['DNT Support']) && F::Run('System.Interface.HTTP.DNT', 'Detect', $Call))
             $Code = '<!-- Do Not Track enabled. Kissmetrics supressed. -->';
         else
             $Code = "<script type=\"text/javascript\">

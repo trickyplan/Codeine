@@ -1,19 +1,21 @@
 {
     "Security":
     {
-        "UA":
+        "User Agent":
         {
+            "Good": [],
             "Bad":
             [
                 "phantomjs|nmap|nikto|wikto|sqlmap|bsqlbf|w3af|acunetix|havij|appscan"
-            ]
+            ],
+            "Ugly": []
         }
     },
     "Hooks":
     {
         "Security":
         {
-            "UA":
+            "User Agent":
             {
                 "Denied":
                 {
@@ -24,7 +26,7 @@
                         "Call":
                         {
 
-                            "Reason": "UA"
+                            "Reason": "User Agent"
                         }
                     }
                 },

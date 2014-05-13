@@ -16,8 +16,8 @@
             'Data' =>
             [
                 'blog' => $Call['HTTP']['Host'],
-                'user_ip' => F::Live($Call['IP']),
-                'user_agent' => $Call['UA'],
+                'user_ip' => F::Live($Call['HTTP']['IP']),
+                'user_agent' => $Call['HTTP']['User Agent'],
                 'referrer' => '',
                 'permalink' => $Call['HTTP']['URL'],
                 'comment_type' => 'comment',

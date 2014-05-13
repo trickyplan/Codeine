@@ -5,7 +5,7 @@
         {
             "Store URL":
             {
-                "Service": "System.Interface.Web",
+                "Service": "System.Interface.HTTP",
                 "Method": "StoreURL"
             }
         },
@@ -13,7 +13,7 @@
         {
             "Redirect":
             {
-                "Service": "System.Interface.Web",
+                "Service": "System.Interface.HTTP",
                 "Method": "Redirect",
                 "Call":
                 {
@@ -25,7 +25,7 @@
         {
             "Store URL":
             {
-                "Service": "System.Interface.Web",
+                "Service": "System.Interface.HTTP",
                 "Method": "StoreURL"
             }
         },
@@ -33,7 +33,7 @@
         {
             "Restore URL":
             {
-                "Service": "System.Interface.Web",
+                "Service": "System.Interface.HTTP",
                 "Method": "RestoreURL"
             }
         },
@@ -41,7 +41,7 @@
         {
             "Store URL":
             {
-                "Service": "System.Interface.Web",
+                "Service": "System.Interface.HTTP",
                 "Method": "StoreURL"
             }
         },
@@ -49,7 +49,7 @@
         {
             "Restore URL":
             {
-                "Service": "System.Interface.Web",
+                "Service": "System.Interface.HTTP",
                 "Method": "RestoreURL"
             }
         },
@@ -57,7 +57,7 @@
         {
             "Store URL":
             {
-                "Service": "System.Interface.Web",
+                "Service": "System.Interface.HTTP",
                 "Method": "StoreURL"
             }
         },
@@ -65,7 +65,7 @@
         {
             "Restore URL":
             {
-                "Service": "System.Interface.Web",
+                "Service": "System.Interface.HTTP",
                 "Method": "RestoreURL"
             }
         }

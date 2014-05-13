@@ -12,7 +12,7 @@
         // FIXME Templatize
         // GA FIXME Options
 
-        if (isset($Call['Analytics']['Google']['DNT Support']) && F::Run('System.Interface.Web.DNT', 'Detect', $Call))
+        if (isset($Call['Analytics']['Google']['DNT Support']) && F::Run('System.Interface.HTTP.DNT', 'Detect', $Call))
             $Code = '<!-- Do Not Track enabled. Google Analytics supressed. -->';
         else
         {
@@ -40,7 +40,7 @@
     {
         // FIXME Templatize
         // GA FIXME Options
-        if (isset($Call['Analytics']['Google']['DNT Support']) && F::Run('System.Interface.Web.DNT', 'Detect', $Call))
+        if (isset($Call['Analytics']['Google']['DNT Support']) && F::Run('System.Interface.HTTP.DNT', 'Detect', $Call))
             $Code = '<!-- Do Not Track enabled. Google Analytics supressed. -->';
         else
         {

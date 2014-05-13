@@ -136,7 +136,7 @@
             "Weight": 50,
             "Run":
             {
-                "Service": "System.Interface.Web",
+                "Service": "System.Interface.HTTP",
                 "Method": "Redirect"
             }
         },
@@ -146,7 +146,7 @@
             "Weight": 50,
             "Run":
             {
-                "Service": "System.Interface.Web",
+                "Service": "System.Interface.HTTP",
                 "Method": "Remote Redirect"
             }
         },

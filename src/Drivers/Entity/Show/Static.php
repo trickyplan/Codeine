@@ -23,7 +23,7 @@
         $Call = F::Hook('beforeShowDo', $Call);
 
         if (isset($Call['Data']['Redirect']) && !empty($Call['Data']['Redirect']))
-            $Call = F::Apply('System.Interface.Web','Redirect', $Call, ['Location' => $Call['Data']['Redirect']]);
+            $Call = F::Apply('System.Interface.HTTP','Redirect', $Call, ['Location' => $Call['Data']['Redirect']]);
         else
         {
             $Call['Layouts'][] = ['Scope' => $Call['Entity'],'ID' => 'Show','Context' => $Call['Context']];

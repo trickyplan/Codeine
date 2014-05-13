@@ -70,12 +70,13 @@
 
         $Call = F::Apply(null, 'Protocol', $Call);
 
-        $Call['UA'] = F::Live($Call['UA'], $Call);
-        $Call['IP'] = F::Live($Call['IP'], $Call);
+        $Call['HTTP']['User Agent'] = F::Live($Call['HTTP']['User Agent'], $Call);
+        $Call['HTTP']['IP'] = F::Live($Call['HTTP']['IP'], $Call);
         $Call['Locale'] = F::Live($Call['Locale'], $Call);
 
         $Call = F::Hook('beforeRequestRun', $Call);
 
+        d(__FILE__, __LINE__, $Call);
         try
         {
             $Call = F::Apply($Call['Service'], $Call['Method'], $Call);
@@ -179,9 +180,9 @@
     setFn('RestoreURL', function ($Call)
     {
         if (isset($Call['Request']['BackURL']) && !empty($Call['Request']['BackURL']))
-            $Call = F::Apply('System.Interface.Web', 'Redirect', $Call, ['Location' => $Call['Request']['BackURL']]);
+            $Call = F::Apply('System.Interface.HTTP', 'Redirect', $Call, ['Location' => $Call['Request']['BackURL']]);
         elseif (isset($_SERVER['HTTP_REFERER']))
-            $Call = F::Apply('System.Interface.Web', 'Redirect', $Call, ['Location' => $_SERVER['HTTP_REFERER']]);
+            $Call = F::Apply('System.Interface.HTTP', 'Redirect', $Call, ['Location' => $_SERVER['HTTP_REFERER']]);
 
         return $Call;
     });
@@ -218,7 +219,7 @@
                 $Call['HTTP']['Host'] = strtolower($_SERVER['HTTP_HOST']);
             }
 
-        if (isset($Call['Force SSL']) && $Call['Force SSL'] && $Call['HTTP']['Proto'] == 'http://')
+        if (isset($Call['HTTP']['Force SSL']) && $Call['HTTP']['Force SSL'] && $Call['HTTP']['Proto'] == 'http://')
             $Call = F::Run(null, 'Redirect', $Call, ['Location' => 'https://'.$Call['HTTP']['Host'].$Call['HTTP']['URI']]);
 
         F::Log('Protocol is *'.$Call['HTTP']['Proto'].'*', LOG_INFO);

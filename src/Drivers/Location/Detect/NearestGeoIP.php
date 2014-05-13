@@ -9,7 +9,7 @@
 
     setFn('Detect', function ($Call)
     {
-        $GeoIP = F::Run('System.GeoIP', 'LatLon', ['Value' => F::Run('System.Interface.Web.IP', 'Get')]);
+        $GeoIP = F::Run('System.GeoIP', 'LatLon', ['Value' => F::Run('System.Interface.HTTP.IP', 'Get')]);
 
         if (isset($GeoIP['Lat']))
         {

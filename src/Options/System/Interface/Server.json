@@ -9,21 +9,21 @@
     },
     "HTTP":
     {
+        "IP":
+        {
+            "Service": "System.Interface.HTTP.IP",
+            "Method": "Get"
+        },
+        "User Agent":
+        {
+            "Service": "System.Interface.HTTP.User Agent",
+            "Method": "Get"
+        },
         "Methods":
         {
             "Allowed": ["GET", "POST"],
             "Default": "GET"
         }
-    },
-    "IP":
-    {
-        "Service": "System.Interface.Web.IP",
-        "Method": "Get"
-    },
-    "UA":
-    {
-        "Service": "System.Interface.Web.UA",
-        "Method": "Get"
     },
     "Locale":
     {
@@ -62,9 +62,9 @@
     {
         "beforeInterfaceRun":
         {
-            "Filter UA":
+            "Filter User Agent":
             {
-                "Service": "Security.UA",
+                "Service": "Security.User Agent",
                 "Method": "Filter"
             },
             "Filter Request":
@@ -79,7 +79,7 @@
             },
             "Output Buffering":
             {
-                "Service": "System.Interface.Web.OB",
+                "Service": "System.Interface.HTTP.OB",
                 "Method": "Start"
             }
         },
@@ -92,7 +92,7 @@
             },
             "Output Buffering":
             {
-                "Service": "System.Interface.Web.OB",
+                "Service": "System.Interface.HTTP.OB",
                 "Method": "Finish"
             }
         }

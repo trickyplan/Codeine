@@ -13,7 +13,7 @@
 
         $Call['Options']['id'] = $Call['ID'];
 
-        if (isset($Call['DNT Support']) && F::Run('System.Interface.Web.DNT', 'Detect', $Call))
+        if (isset($Call['DNT Support']) && F::Run('System.Interface.HTTP.DNT', 'Detect', $Call))
             $Code = '<!-- Do Not Track enabled. Yandex Metrics supressed. -->';
         else
             $Code = '

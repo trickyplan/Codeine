@@ -40,7 +40,7 @@
         {
             "Store URL":
             {
-                "Service": "System.Interface.Web",
+                "Service": "System.Interface.HTTP",
                 "Method": "StoreURL"
             }
         },

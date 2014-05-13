@@ -17,7 +17,7 @@
         if (!isset($Call['CAPTCHA']['Bypass']))
             if (!F::Run($Call['Modes'][$Call['Mode']], 'Check', $Call))
             {
-                F::Log('CAPTCHA Failed from IP '.F::Live($Call['IP']), LOG_ERR, 'Security');
+                F::Log('CAPTCHA Failed from IP '.F::Live($Call['HTTP']['IP']), LOG_ERR, 'Security');
                 $Call['Failure'] = true;
                 $Call = F::Hook('CAPTCHA.Failed', $Call);
             }

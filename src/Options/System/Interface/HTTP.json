@@ -7,9 +7,19 @@
             "Method": "Render"
         }
     },
-    "Force SSL": false,
     "HTTP":
     {
+        "Force SSL": false,
+        "IP":
+        {
+            "Service": "System.Interface.HTTP.IP",
+            "Method": "Get"
+        },
+        "User Agent":
+        {
+            "Service": "System.Interface.HTTP.User Agent",
+            "Method": "Get"
+        },
         "Methods":
         {
             "Allowed": ["GET", "POST"],
@@ -23,16 +33,6 @@
             "X-Content-Type-Options:": "nosniff",
             "X-XSS-Protection:": " 1; mode=block"
         }
-    },
-    "IP":
-    {
-        "Service": "System.Interface.Web.IP",
-        "Method": "Get"
-    },
-    "UA":
-    {
-        "Service": "System.Interface.Web.UA",
-        "Method": "Get"
     },
     "Locale":
     {
@@ -56,15 +56,15 @@
         {
             "Output Buffering":
             {
-                "Service": "System.Interface.Web.OB",
+                "Service": "System.Interface.HTTP.OB",
                 "Method": "Start"
             }
         },
         "beforeRequestRun":
         {
-            "Filter by UA":
+            "Filter by User Agent":
             {
-                "Service": "Security.UA",
+                "Service": "Security.User Agent",
                 "Method": "Filter"
             },
             "Filter Request":
@@ -82,7 +82,7 @@
         {
             "FastCGI Finish Request":
             {
-                "Service": "System.Interface.Web",
+                "Service": "System.Interface.HTTP",
                 "Method": "Finish"
             },
             "IO Shutdown":
@@ -102,7 +102,7 @@
             },
             "Output Buffering":
             {
-                "Service": "System.Interface.Web.OB",
+                "Service": "System.Interface.HTTP.OB",
                 "Method": "Finish"
             }
         }

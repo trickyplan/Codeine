@@ -15,7 +15,7 @@
 
         $Call = F::Hook('beforeInterfaceRun', $Call);
 
-        $Call['IP'] = F::Live($Call['IP'], $Call);
+        $Call['HTTP']['IP'] = F::Live($Call['HTTP']['IP'], $Call);
 
         if (isset($Call['Project']['Hosts'][F::Environment()]))
             $Call['HTTP']['Host'] = $Call['Project']['Hosts'][F::Environment()];

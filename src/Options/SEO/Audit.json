@@ -1,5 +1,5 @@
 {
-    "No SEO Audit": ["Control.Panel", "System.Interface.Web"],
+    "No SEO Audit": ["Control.Panel", "System.Interface.HTTP"],
     "Auditors":
     {
         "Check title length":

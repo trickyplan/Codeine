@@ -9,7 +9,7 @@
 
     setFn('Get', function ($Call)
     {
-        $Call = F::Apply('System.Interface.Web', 'Protocol', $Call);
+        $Call = F::Apply('System.Interface.HTTP', 'Protocol', $Call);
         return
             $Call['HTTP']['Proto']
             .$Call['Gravatar']['URL']

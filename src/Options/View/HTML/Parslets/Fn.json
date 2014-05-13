@@ -3,8 +3,6 @@
     "Inherited":
     [
         "Hooks",
-        "IP",
-        "UA",
         "Locale",
         "Session",
         "HTTP",

@@ -20,7 +20,7 @@
         $Call = F::Bootstrap
         ([
             'Paths' => [Root],
-            'Service' => 'System.Interface.Web',
+            'Service' => 'System.Interface.HTTP',
             'Method' => 'Do',
             'Call' =>
             [

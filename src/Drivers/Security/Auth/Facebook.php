@@ -21,7 +21,7 @@
 
     setFn('Identificate', function ($Call)
     {
-        return F::Run('System.Interface.Web', 'Redirect', $Call,
+        return F::Run('System.Interface.HTTP', 'Redirect', $Call,
             [
                 'Location' => 'https://www.facebook.com/dialog/oauth?client_id='.$Call['Facebook']['AppID'].'&scope='
             .$Call['Facebook']['Rights'].'&redirect_uri='.urlencode($Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/authenticate/Facebook').'&response_type=code'
