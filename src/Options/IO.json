@@ -141,6 +141,13 @@
             "Directory":"/tmp/codeine/",
             "Suffix": ".json",
             "Format": "Formats.JSON"
+        },
+        "HTTP Journal":
+        {
+            "Driver":"IO.Storage.Directory",
+            "Directory":"/var/log/codeine/",
+            "Suffix": ".json",
+            "Format": "Formats.JSON"
         }
     },
     "Hooks":

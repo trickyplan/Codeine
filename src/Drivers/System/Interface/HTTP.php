@@ -76,7 +76,6 @@
 
         $Call = F::Hook('beforeRequestRun', $Call);
 
-        d(__FILE__, __LINE__, $Call);
         try
         {
             $Call = F::Apply($Call['Service'], $Call['Method'], $Call);

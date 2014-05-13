@@ -39,17 +39,6 @@
         "Service": "Locale",
         "Method": "Detect"
     },
-    "Subdomains":
-    {
-        "iframe":
-        {
-            "Context": "iframe",
-            "Headers":
-            {
-                "X-Frame-Options:": null
-            }
-        }
-    },
     "Hooks":
     {
         "beforeInterfaceRun":
@@ -62,6 +51,10 @@
         },
         "beforeRequestRun":
         {
+            "-Journal":
+            {
+                "Service": "System.Interface.HTTP.Journal"
+            },
             "Filter by User Agent":
             {
                 "Service": "Security.User Agent",
