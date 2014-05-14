@@ -47,7 +47,10 @@
                         $Providers = [$Call['Provider']];
                 }
                 else
+                {
                     $Providers = array_keys($Call['Providers']);
+                    $Call['Provider'] = [];
+                }
 
                 $Call['Output']['Content'] = [];
 
