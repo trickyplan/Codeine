@@ -140,8 +140,8 @@
             [
                 'Facebook' =>
                 [
-                    'ID' => 0,
-                    'Auth' => 0
+                    'ID' => null,
+                    'Auth' => null
                 ]
             ]
         ]);

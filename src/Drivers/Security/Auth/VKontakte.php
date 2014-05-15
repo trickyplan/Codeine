@@ -139,7 +139,11 @@
             'Where'  => $Call['Session']['User']['ID'],
             'Data'   =>
             [
-                'VKontakte' => null
+                'VKontakte' =>
+                [
+                    'ID'   => null,
+                    'Auth' => null
+                ]
             ]
         ]);
 
