@@ -35,13 +35,13 @@
                             {
                                 foreach ($Value as $Relation => $cValue)
                                     if (!is_array($cValue))
-                                        $Value[$Relation]
-                                            = F::Run('Data.Type.'.$Node['Type'], 'Where',
+                                        $Value
+                                            = F::Dot($Value, $Relation, F::Run('Data.Type.'.$Node['Type'], 'Where',
                                                [
                                                    'Name' => $Name,
                                                    'Node' => $Node,
                                                    'Value' => $cValue
-                                               ]);
+                                               ]));
                                     else
                                     {
                                         foreach($cValue as $ccKey => $ccValue)
@@ -66,7 +66,7 @@
                             }
                         }
 
-                        $Where[$Name] = $Value;
+                        $Where = F::Dot($Where, $Name, $Value);
                     }
 
             if (empty($Where))

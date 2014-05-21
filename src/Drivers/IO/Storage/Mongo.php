@@ -54,6 +54,7 @@
             }
 
         $Call['Where'] = $Where;
+
         return $Call;
     });
 
