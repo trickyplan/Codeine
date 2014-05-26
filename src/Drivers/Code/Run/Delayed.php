@@ -22,7 +22,7 @@
             return F::Run('IO', 'Write',
                 [
                     'Storage' => 'Delayed',
-                    'Data' => $Call['Run']
+                    'Data' => F::Variable($Call['Run'], $Call)
                 ]);
         }
         else
