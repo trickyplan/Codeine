@@ -87,6 +87,10 @@
             if (isset($_REQUEST['Performance']))
                 self::$_Performance = true;
 
+            if (isset($_SERVER['Verbose']))
+                foreach (self::$_Verbose as &$Level)
+                    $Level = $_SERVER['Verbose'];
+
             if (isset($_REQUEST['Debug']))
             {
                 self::$_Debug = true;

@@ -30,7 +30,7 @@
 
     setFn('Input', function ($Call)
     {
-        F::Run('Entity', 'Delete', $Call, ['Mongo' => ['Just One' => false]]);
+        F::Run('Entity', 'Delete', $Call);
 
         $Call['Data'] = json_decode(file_get_contents('php://stdin'), true);
 

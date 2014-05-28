@@ -9,7 +9,7 @@
 
     setFn('Run', function ($Call)
     {
-        if (F::Run('Code.Flow.Daemon', 'Running?',
+        if (true || F::Run('Code.Flow.Daemon', 'Running?',
                 [
                     'Execute' =>
                     [
@@ -22,7 +22,7 @@
             return F::Run('IO', 'Write',
                 [
                     'Storage' => 'Delayed',
-                    'Data' => F::Variable($Call['Run'], $Call)
+                    'Data' => $Call['Run']
                 ]);
         }
         else
