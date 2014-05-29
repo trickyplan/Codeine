@@ -24,6 +24,7 @@
         // Merge FILES to REQUEST.
         if (isset($_FILES['Data']))
             foreach ($_FILES['Data']['tmp_name'] as $IX => $Value)
+                if (is_array($Value) && count($Value) > 0)
                 foreach ($Value as $K2 => $V2)
                     if (!empty($V2))
                         $_REQUEST['Data'][$IX][$K2] = $V2;
