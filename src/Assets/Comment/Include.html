@@ -10,10 +10,10 @@
             <Service>Entity.Create</Service>
             <Method>Do</Method>
             <Call>
-                <Action>/comment/<call>Entity</call>/<k>ID</k></Action>
+                <Action>/comment/<call>Type</call>/<k>ID</k></Action>
                 <Entity>Comment</Entity>
                 <Data>
-                    <Entity><call>Entity</call></Entity>
+                    <Entity><call>Type</call></Entity>
                     <Object><k>ID</k></Object>
                 </Data>
             </Call>
@@ -28,11 +28,11 @@
     <Service>Entity.List</Service>
     <Method>Do</Method>
     <Call>
-        <PageURL>/comments/<call>Entity</call>/<k>ID</k>/page</PageURL>
+        <PageURL>/comments/<call>Type</call>/<k>ID</k>/page</PageURL>
         <Entity>Comment</Entity>
         <Template>Include</Template>
         <Where>
-            <Entity><call>Entity</call></Entity>
+            <Entity><call>Type</call></Entity>
             <Object><k>ID</k></Object>
         </Where>
     </Call>

@@ -39,6 +39,9 @@
 
             if (isset($Call['Query']))
             {
+                if (isset($Call['Search']['Query']['Max']) && mb_strlen($Call['Query']) > $Call['Search']['Query']['Max'])
+                    $Call['Query'] = mb_substr($Call['Query'], 0, $Call['Search']['Query']['Max']);
+
                 if (isset($Call['Provider']))
                 {
                     if (is_array($Call['Provider']))

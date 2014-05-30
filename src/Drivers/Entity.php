@@ -19,7 +19,7 @@
 
         $Call = F::Hook('beforeEntityLoad', $Call);
 
-            $Model = F::loadOptions($Call['Entity'].'.Entity');
+            $Model = F::loadOptions($Call['Entity'].'.Entity'); // FIX Validate
 
             if (!empty($Model))
             {

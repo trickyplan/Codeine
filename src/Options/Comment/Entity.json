@@ -33,7 +33,7 @@
                 }
             }
         },
-        "Entity":
+        "Type":
         {
             "Type": "Literal.String"
         },

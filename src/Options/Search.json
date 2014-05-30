@@ -1,4 +1,12 @@
 {
+    "Search":
+    {
+        "Query":
+        {
+            "Max": 64,
+            "Min": 3
+        }
+    },
     "Hits":
     {
         "All": 0
