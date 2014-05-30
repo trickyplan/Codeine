@@ -29,8 +29,11 @@
                     if (!empty($V2))
                         $_REQUEST['Data'][$IX][$K2] = $V2;
 
-        // Request reading
-        $Call['Request'] = $_REQUEST;
+        foreach ($_SERVER as &$Request)
+            $Request = str_replace(chr(0), '', rawurldecode($Request));
+
+        foreach ($_REQUEST as $Key => $Value)
+            $Call['Request'][$Key] = str_replace(chr(0), '', $Value);
 
         if (empty($Call['Request']))
             ;
@@ -53,7 +56,7 @@
         // Merge slashes
         $_SERVER['REQUEST_URI'] = preg_replace('/^(\/+)/Ssu', '/', $_SERVER['REQUEST_URI']);
 
-        $Call['HTTP']['URI'] = rawurldecode($_SERVER['REQUEST_URI']).(empty($Call['HTTP']['URL Query'])? '' : '');
+        $Call['HTTP']['URI'] = $_SERVER['REQUEST_URI'].(empty($Call['HTTP']['URL Query'])? '' : '');
 
         F::Log('URI: *'.$Call['HTTP']['URI'].'*', LOG_INFO);
 
