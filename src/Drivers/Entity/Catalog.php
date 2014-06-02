@@ -24,10 +24,9 @@
             if (count($Elements) > 0)
             {
                 foreach ($Elements as $Element)
-                    $Values[$Element[$Call['Key']]] = F::Run('Entity', 'Count', $Call,
+                    $Values[$Element[$Call['Key']]] = F::Run('Entity', 'Count',
                         [
                             'Entity' => $Call['Entity'],
-                            'RTTL'   => $Call['Entity RTTL'],
                             'Where' =>
                             [
                                 $Call['Key'] => $Element[$Call['Key']]
