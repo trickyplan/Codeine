@@ -37,8 +37,8 @@
                     'One'    => true
                 ]);
 
-                if (isset($Call['Voting']['Can feel myself'])
-                    || !$Call['Voting']['Can feel myself']
+                if ((isset($Call['Voting']['Can feel myself'])
+                    || !$Call['Voting']['Can feel myself'])
                     && $UID == $Entity['User'])
                     $Decision = false;
 
