@@ -15,6 +15,8 @@
             {
                 $UID = $Call['Session']['User']['ID'];
 
+                $Decision = true;
+
                 if (F::Run('Entity', 'Count',
                         [
                             'Entity' => 'Vote',
@@ -24,8 +26,23 @@
                                 'Object' => $Call['Object'],
                                 'User'   => $UID
                             ]
-                        ]) == 0
+                        ]) > 0
                 )
+                    $Decision = false;
+
+                $Entity = F::Run('Entity', 'Read',
+                [
+                    'Entity' => $Call['Type'],
+                    'Where'  => $Call['Object'],
+                    'One'    => true
+                ]);
+
+                if (isset($Call['Voting']['Can feel myself'])
+                    || !$Call['Voting']['Can feel myself']
+                    && $UID == $Entity['User'])
+                    $Decision = false;
+
+                if ($Decision)
                 {
                     F::Run('Entity', 'Create', $Call,
                         [
