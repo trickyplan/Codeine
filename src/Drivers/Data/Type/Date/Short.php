@@ -11,13 +11,13 @@
     {
         if (isset($Call['Value']) && !empty($Call['Value']) && $Call['Value']>0)
         {
-            if (!is_numeric($Call['Value']))
+            if (is_numeric($Call['Value']))
+                return $Call['Value'];
+            else
             {
-                $Date = date_parse_from_format('d.m.Y', $Call['Value']);
+                $Date = date_parse_from_format($Call['Date Format'], $Call['Value']);
                 return mktime(3,0,0, $Date['month'], $Date['day'], $Date['year']);
             }
-            else
-                return $Call['Value'];
         }
         else
             return null;
