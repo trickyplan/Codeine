@@ -30,7 +30,7 @@
                 },
                 "Where":
                 {
-                    "Entity": "$1",
+                    "Type": "$1",
                     "Object": "$2"
                 },
                 "Sort":
