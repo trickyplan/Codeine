@@ -516,7 +516,7 @@
                 die();
             }
 
-            F::Log(F::Stack().PHP_EOL.$errno.' '.$errstr.' '.$errfile.'@'.$errline, LOG_CRIT);
+            F::Log('<pre>'.F::Stack().'</pre>'.PHP_EOL.'Err '.$errno.':'.$errstr.PHP_EOL.$errfile.'@'.$errline, LOG_CRIT);
         }
 
         public static function setLive($Live)
