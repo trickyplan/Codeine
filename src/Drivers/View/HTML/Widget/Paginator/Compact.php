@@ -4,12 +4,24 @@
      * @author BreathLess
      * @description
      * @package Codeine
-     * @version 7.x
+     * @version $Call['Paginator Pages'].x
      */
 
     setFn('Make', function ($Call)
     {
         $Call['Value'] = '';
+
+        if ($Call['Page'] > $Call['Paginator Pages'])
+            $Call['Value'] .= F::Run('View', 'Load',
+                [
+                    'Scope' => $Call['View']['HTML']['Widget Set'].'/Widgets',
+                    'ID' => 'Paginator/Start',
+                    'Data' =>
+                    [
+                        'Num' => 1,
+                        'URL' => $Call['FirstURL']
+                    ]
+                ]);
 
         if ($Call['Page'] > 1)
             $Call['Value'] .= F::Run('View', 'Load',
@@ -23,7 +35,7 @@
                     ]
                 ]);
 
-        for ($ic = $Call['Page'] - 7; $ic <= $Call['Page'] + 7; $ic++)
+        for ($ic = $Call['Page'] - $Call['Paginator Pages']; $ic <= $Call['Page'] + $Call['Paginator Pages']; $ic++)
             if ($ic > 0 && $ic <= $Call['PageCount'])
             {
                 if ($ic == 1)
@@ -61,6 +73,18 @@
                     [
                         'Num' => $Call['Page'] + 1,
                         'URL' => $Call['PageURL'] . ($Call['Page'] + 1) . $Call['PageURLPostfix']
+                    ]
+                ]);
+
+        if ($Call['Page'] < $Call['PageCount'] - $Call['Paginator Pages'])
+            $Call['Value'] .= F::Run('View', 'Load',
+                [
+                    'Scope' => $Call['View']['HTML']['Widget Set'].'/Widgets',
+                    'ID' => 'Paginator/End',
+                    'Data' =>
+                    [
+                        'Num' => $Call['PageCount'],
+                        'URL' => $Call['PageURL'] . $Call['PageCount']. $Call['PageURLPostfix']
                     ]
                 ]);
 
