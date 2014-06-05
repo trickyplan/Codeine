@@ -27,7 +27,7 @@
             {
                 "Write":
                 {
-                    "Type": "Form.Radiogroup",
+                    "Type": "Form.Select",
                     "RadioClass": "list-group-item",
                     "Values Locale": "Project.Terms:Rule"
                 }
