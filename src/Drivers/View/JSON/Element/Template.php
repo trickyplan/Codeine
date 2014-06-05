@@ -11,6 +11,4 @@
      {
          if (isset($Call['Data']))
             return $Call['Data'];
-         else
-            return null;
      });

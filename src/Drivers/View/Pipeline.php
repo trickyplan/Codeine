@@ -19,14 +19,18 @@
                         {
                             foreach ($Widgets as $Key => $Widget)
                                 if (isset($Widget['Type']))
-                                $Call['Output'][$Place][$Key] =
-                                    F::Run($Call['View']['Renderer']['Service'] . '.Element.' . $Widget['Type'], 'Make', $Widget);
-                        }
+                                {
+                                    $Widget =
+                                        F::Run($Call['View']['Renderer']['Service'] . '.Element.' . $Widget['Type'], 'Make', $Widget);
 
+                                    if (empty($Widget))
+                                        unset($Call['Output'][$Place][$Key]);
+                                    else
+                                        $Call['Output'][$Place][$Key] = $Widget;
+                                }
+                        }
                 // TODO Normal caching
             }
-            else
-                $Call['Output']['Content'] = null; // FIXME Add Hook
         }
 
         return $Call;

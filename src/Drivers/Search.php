@@ -74,7 +74,6 @@
                         }
 
                         $ProviderCall['Method'] = 'Query';
-
                         $Results = F::Live($ProviderCall, $Call);
 
                         if (isset($Results['Meta']))
