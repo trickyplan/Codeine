@@ -1,0 +1,42 @@
+<!-- Include the Quill library -->
+<js>quill</js>
+<css>quill:snow</css>
+<!-- Initialize Quill editor -->
+<jsrun>
+    // Initialize editor with custom theme and modules
+    var fullEditor = new Quill('#full-editor', {
+    modules: {
+        'toolbar': { container: '#full-toolbar' },
+        'link-tooltip': true
+    },
+    formats: ['bold', 'italic', 'strike', 'underline', 'link', 'bullet', 'list'],
+    theme: 'snow'
+    });
+</jsrun>
+
+<div class="quill-wrapper">
+    <div id="full-toolbar" class="toolbar ql-toolbar-container">
+        <span class="ql-format-group">
+                <span title="<l>quill.Editor:Bold</l>" class="ql-format-button ql-bold"></span>
+            <span class="ql-format-separator"></span>
+                <span title="<l>quill.Editor:Italic</l>" class="ql-format-button ql-italic"></span>
+            <span class="ql-format-separator"></span>
+                <span title="<l>quill.Editor:Underline</l>" class="ql-format-button ql-underline"></span>
+            <span class="ql-format-separator"></span>
+                <span title="<l>quill.Editor:Strike</l>" class="ql-format-button ql-strike"></span>
+        </span>
+        <span class="ql-format-group">
+            <span title="<l>quill.Editor:Numbered</l>" class="ql-format-button ql-list"></span>
+            <span class="ql-format-separator"></span>
+            <span title="<l>quill.Editor:Bullet</l>" class="ql-format-button ql-bullet"></span>
+        </span>
+        <span class="ql-format-group">
+            <span title="<l>quill.Editor:Link</l>" class="ql-format-button ql-link"></span>
+        </span>
+    </div>
+
+    <!-- Create the editor container -->
+    <div id="full-editor" class="editor ql-container">
+        <iframe frameborder="0" height="100%" width="100%" role="presentation"></iframe>
+    </div>
+</div>

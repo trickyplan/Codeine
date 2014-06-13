@@ -4,10 +4,12 @@
         "Detectors": ["System", "Accept", "Hosts"],
         "Hosts":
         {
-            "\\.ru": "ru",
-            "\\.com": "en",
-            "\\.net": "en",
-            "\\.org": "en"
+            ".ru": "ru",
+            ".com": "en",
+            ".net": "en",
+            ".org": "en",
+            ".co.nz": "en",
+            ".co.uk": "en"
         },
         "Allowed": ["ru", "en"],
         "Default": "ru"
