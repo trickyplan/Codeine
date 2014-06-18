@@ -97,6 +97,10 @@
                     'Scope' => 'Search',
                     'ID'    => 'Empty'
                 ];
+            else
+            {
+                sort($Call['Output']['Content']);
+            }
 
         $Call = F::Hook('afterSearchQuery', $Call);
 
