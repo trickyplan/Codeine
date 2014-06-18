@@ -10,6 +10,7 @@
     setFn('Write', function ($Call)
     {
         $Call['Value'] = strip_tags($Call['Value'], $Call['Allowed Tags']);
+
         return htmlspecialchars_decode($Call['Value'], ENT_HTML5 | ENT_QUOTES);
     });
 
