@@ -50,7 +50,7 @@
 
         $Call = F::Run(null, 'Load User', $Call);
 
-        F::Log($Call['Session'], LOG_INFO, 'Security');
+        F::Log($Call['Session'], LOG_DEBUG, 'Security');
 
         return $Call;
     });

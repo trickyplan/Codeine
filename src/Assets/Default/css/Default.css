@@ -26,7 +26,8 @@
 {
     padding: 10px;
     margin: 2px;
-    border-bottom: 1px gray solid;
+    border-bottom: 1px #999 solid;
+    border-left: 1px #999 solid;
 }
 
 tr.Good, td.Good
@@ -37,9 +38,10 @@ tr.Good, td.Good
 
 tr.Info, td.Info
 {
-    color: #295c75;
-    background-color: #d9edf7;
+    color: #333;
+    background-color: #fefefe;
     border-color: #bce8f1;
+    opacity: 0.9;
 }
 
 tr.Debug, td.Debug
@@ -61,12 +63,11 @@ td.Error, td.Bad, td.Apocalypse, td.Critical, td.Emergency
 
 tr.Important, td.Important
 {
-    background-color: #333333;
-    color: #ffffff;
-    font-size: 24px;
+    background-color: #333;
+    color: #fff;
 }
 
-.console tr:hover, .console tr:hover td
+.console tr:hover, .console tr:hover td:hover
 {
     opacity: 1;
     background-color: #333333 !important;
@@ -134,3 +135,19 @@ tr.Important, td.Important
 {
     cursor: pointer;
 }
+
+td.indent-1 {padding-left: 1em;}
+td.indent-2 {padding-left: 2em;}
+td.indent-3 {padding-left: 3em;}
+td.indent-4 {padding-left: 4em;}
+td.indent-5 {padding-left: 5em;}
+td.indent-6 {padding-left: 6em;}
+td.indent-7 {padding-left: 7em;}
+td.indent-8 {padding-left: 8em;}
+td.indent-9 {padding-left: 9em;}
+td.indent-10 {padding-left: 10em;}
+td.indent-11 {padding-left: 11em;}
+td.indent-12 {padding-left: 12em;}
+td.indent-13 {padding-left: 13em;}
+td.indent-14 {padding-left: 14em;}
+td.indent-15 {padding-left: 15em;}

@@ -602,7 +602,9 @@
                         $Verbose,
                         round(microtime(true) - Started, 3),
                         $Message,
-                        self::$_Service.':'.self::$_Method];
+                        self::$_Service.':'.self::$_Method,
+                        F::$_Stack->count()
+                    ];
                 }
             }
 
