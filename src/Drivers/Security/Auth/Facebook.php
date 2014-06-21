@@ -64,8 +64,9 @@
                     [
                         'Facebook' =>
                         [
-                            'ID' => $Facebook['id'],
-                            'Auth'  => $Result['access_token']
+                            'ID'     => $Facebook['id'],
+                            'Auth'   => $Result['access_token'],
+                            'Expire' => time()+$Result['expires']
                         ]
                     ]
                 ]);

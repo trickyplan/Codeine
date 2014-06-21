@@ -10,6 +10,9 @@
     setFn('Process', function ($Call)
     {
         // Если модель определена
+        if (isset($Call['Data']['ID']))
+            F::Log('Processing nodes for *'.$Call['Entity'].':'.$Call['Data']['ID'].'*', LOG_INFO);
+
         if (isset($Call['Nodes']) and !isset($Call['Skip Live']))
             foreach ($Call['Nodes'] as $Name => $Node)
             {

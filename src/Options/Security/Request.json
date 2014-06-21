@@ -1,0 +1,49 @@
+{
+    "Request Filters":
+    [
+        {
+            "Match":
+            [
+                {
+                    "*": "/proc/self/environ"
+                }
+            ],
+            "Decision": false
+        },
+        {
+            "Match":
+            [
+                {
+                    "/pma/": ""
+                },
+                {
+                    "/phpmyadmin2/": ""
+                },
+                {
+                    "/phpMyAdmin/": ""
+                },
+                {
+                    "/mysql/": ""
+                },
+                {
+                    "/myadmin/": ""
+                }
+            ]
+        }
+    ],
+    "Hooks":
+    {
+        "onRequestBlocked":
+        {
+            "ErrorPage":
+            {
+                "Service": "Error.403",
+                "Method": "Page",
+                "Call":
+                {
+                    "Reason": "Kiddie"
+                }
+            }
+        }
+    }
+}

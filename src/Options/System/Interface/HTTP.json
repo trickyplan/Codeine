@@ -65,6 +65,11 @@
                 "Service": "Security.Request",
                 "Method": "Filter"
             },
+            "IDS":
+            {
+                "Service": "Security.IDS",
+                "Method": "Check"
+            },
             "Project":
             {
                 "Service": "Project.Preload",

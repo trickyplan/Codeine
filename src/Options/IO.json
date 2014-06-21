@@ -4,6 +4,16 @@
     {
         "Not found": 6
     },
+    "Contract":
+    {
+        "IO":
+        {
+            "Read":
+            {
+                "Memo": ["Storage", "Scope", "Where", "Time", "Key"]
+            }
+        }
+    },
     "Storages":
     {
         "Output":

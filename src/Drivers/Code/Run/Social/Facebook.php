@@ -29,3 +29,45 @@
 
         return $Result;
     });
+
+    setFn('Access Token', function ($Call)
+    {
+        if (isset($Call['Session']['User']['Facebook']['Auth']))
+            $Result = $Call['Session']['User']['Facebook'];
+        else
+        {
+            $Result = $Call['Data']['Facebook'] =
+                F::Run ('Entity', 'Read',
+                    [
+                        'Entity' => 'User',
+                        'Where'  =>
+                            [
+                                'Facebook.Auth' =>
+                                    [
+                                        '$exists' => true
+                                    ]
+                            ],
+                        'One' => true
+                    ])['Facebook'];
+        }
+
+        if (isset($Result['Expire']) > time())
+            ;
+        else
+        {
+            $URL = 'https://graph.facebook.com/oauth/access_token?client_id='.$Call['Facebook']['AppID']
+                .'&client_secret='.$Call['Facebook']['Secret']
+                .'grant_type=fb_exchange_token&'
+                .'fb_exchange_token='.$Result['Auth'];
+
+            $Result = F::Run('IO', 'Read',
+                 [
+                     'Storage'  => 'Web',
+                     'Where'    => $URL
+                 ]);
+            $Result = array_pop($Result);
+            parse_str($Result, $Result);
+        }
+
+        return $Result;
+    });

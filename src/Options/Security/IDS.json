@@ -1,0 +1,38 @@
+{
+    "IDS":
+    {
+        "Impact Levels":
+        {
+            "Red": 10,
+            "Yellow": 5
+        },
+        "Filters URL": "https://raw.githubusercontent.com/PHPIDS/PHPIDS/master/lib/IDS/default_filter.json"
+    },
+    "Hooks":
+    {
+        "onRedImpactLevel":
+        {
+            "ErrorPage":
+            {
+                "Service": "Error.403",
+                "Method": "Page",
+                "Call":
+                {
+                    "Reason": "Kiddie"
+                }
+            }
+        },
+        "onYellowImpactLevel":
+        {
+            "ErrorPage":
+            {
+                "Service": "Error.403",
+                "Method": "Page",
+                "Call":
+                {
+                    "Reason": "Kiddie"
+                }
+            }
+        }
+    }
+}
