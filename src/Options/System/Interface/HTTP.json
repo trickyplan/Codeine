@@ -65,7 +65,7 @@
                 "Service": "Security.Request",
                 "Method": "Filter"
             },
-            "IDS":
+            "-IDS":
             {
                 "Service": "Security.IDS",
                 "Method": "Check"
