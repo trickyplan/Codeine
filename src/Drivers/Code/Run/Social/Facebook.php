@@ -57,8 +57,8 @@
         {
             $URL = 'https://graph.facebook.com/oauth/access_token?client_id='.$Call['Facebook']['AppID']
                 .'&client_secret='.$Call['Facebook']['Secret']
-                .'grant_type=fb_exchange_token&'
-                .'fb_exchange_token='.$Result['Auth'];
+                .'&grant_type=fb_exchange_token'
+                .'&fb_exchange_token='.$Result['Auth'];
 
             $Result = F::Run('IO', 'Read',
                  [
