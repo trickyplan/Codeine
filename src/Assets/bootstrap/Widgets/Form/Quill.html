@@ -12,6 +12,8 @@
     formats: ['bold', 'italic', 'strike', 'underline', 'link', 'bullet', 'list'],
     theme: 'snow'
     });
+
+    fullEditor.setHTML('<k>Value</k>');
     fullEditor.on('text-change', function(delta, source) {
        $('#<k>ID</k>').val(fullEditor.getHTML());
     });
@@ -42,5 +44,5 @@
     <div id="full-editor" class="editor ql-container">
         <iframe frameborder="0" height="100%" width="100%" role="presentation"></iframe>
     </div>
-    <input name="<k>Name</k>" id="<k>ID</k>" type="hidden" />
+    <input name="<k>Name</k>" id="<k>ID</k>" type="hidden"/>
 </div>
