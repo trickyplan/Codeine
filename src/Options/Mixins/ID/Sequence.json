@@ -7,7 +7,6 @@
             "Weight": -1000,
             "Index": true,
             "Unique": true,
-            "User Override": true,
             "Hooks":
             {
                 "beforeEntityCreate":
