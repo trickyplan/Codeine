@@ -4,23 +4,24 @@
 <!-- Initialize Quill editor -->
 <jsrun>
     // Initialize editor with custom theme and modules
-    var fullEditor = new Quill('#full-editor', {
-    modules: {
-        'toolbar': { container: '#full-toolbar' },
-        'link-tooltip': true
-    },
-    formats: ['bold', 'italic', 'strike', 'underline', 'link', 'bullet', 'list'],
-    theme: 'snow'
+    var fullEditor<k>ID</k> = new Quill('#full-editor<k>ID</k>', {
+        modules: {
+            'toolbar': { container: '#full-toolbar<k>ID</k>' },
+            'link-tooltip': true
+        },
+        formats: ['bold', 'italic', 'strike', 'underline', 'link', 'bullet', 'list'],
+        theme: 'snow'
     });
 
-    fullEditor.setHTML('<k>Value</k>');
-    fullEditor.on('text-change', function(delta, source) {
-       $('#<k>ID</k>').val(fullEditor.getHTML());
+    fullEditor<k>ID</k>.setHTML('<k>Value</k>');
+    fullEditor<k>ID</k>.on('text-change', function(delta, source) {
+       $('#<k>ID</k>').val(fullEditor<k>ID</k>.getHTML());
     });
 </jsrun>
 
+<label for="<k>ID</k>"> <l><k>Label</k></l>:</label>
 <div class="quill-wrapper">
-    <div id="full-toolbar" class="toolbar ql-toolbar-container">
+    <div id="full-toolbar<k>ID</k>" class="toolbar ql-toolbar-container">
         <span class="ql-format-group">
                 <span title="<l>quill.Editor:Bold</l>" class="ql-format-button ql-bold"></span>
             <span class="ql-format-separator"></span>
@@ -41,7 +42,7 @@
     </div>
 
     <!-- Create the editor container -->
-    <div id="full-editor" class="editor ql-container">
+    <div id="full-editor<k>ID</k>" class="editor ql-container">
         <iframe frameborder="0" height="100%" width="100%" role="presentation"></iframe>
     </div>
     <input name="<k>Name</k>" id="<k>ID</k>" type="hidden"/>
