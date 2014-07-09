@@ -5,6 +5,7 @@
         {
             "Type": "Literal.HTML",
             "Index": true,
+            "Required": true,
             "Widgets":
             {
                 "Write":

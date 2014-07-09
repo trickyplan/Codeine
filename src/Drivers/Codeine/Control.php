@@ -36,6 +36,8 @@
 
     setFn('Menu', function ($Call)
     {
+        $Call['Version'] = F::loadOptions('Version');
+
         if (isset($Call['Version']['Codeine']))
             return ['Count' => $Call['Version']['Codeine']['Major'].'.'.$Call['Version']['Codeine']['Minor']];
     });
