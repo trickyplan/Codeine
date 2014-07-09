@@ -32,6 +32,8 @@
 
     setFn('Access Token', function ($Call)
     {
+        $Result = null;
+
         if (isset($Call['Session']['User']['Facebook']['Auth']))
             $Result = $Call['Session']['User']['Facebook'];
         else
@@ -49,25 +51,33 @@
                             ],
                         'One' => true
                     ])['Facebook'];
+
+            if (isset($Result['Expire']) > time())
+                ;
+            else
+            {
+                $URL = 'https://graph.facebook.com/oauth/access_token';
+
+                $Result = F::Run('IO', 'Read',
+                     [
+                         'Storage'  => 'Web',
+                         'Where'    => $URL,
+                         'Data'     =>
+                         [
+                             'client_id' => $Call['Facebook']['AppID'],
+                             'client_secret' => $Call['Facebook']['Secret'],
+                             'grant_type' => 'fb_exchange_token',
+                             'fb_exchange_token' => $Result['Auth']
+                         ]
+                     ]);
+
+                $Result = array_pop($Result);
+                parse_str($Result, $Result);
+            }
         }
 
-        if (isset($Result['Expire']) > time())
-            ;
-        else
-        {
-            $URL = 'https://graph.facebook.com/oauth/access_token?client_id='.$Call['Facebook']['AppID']
-                .'&client_secret='.$Call['Facebook']['Secret']
-                .'&grant_type=fb_exchange_token'
-                .'&fb_exchange_token='.$Result['Auth'];
 
-            $Result = F::Run('IO', 'Read',
-                 [
-                     'Storage'  => 'Web',
-                     'Where'    => $URL
-                 ]);
-            $Result = array_pop($Result);
-            parse_str($Result, $Result);
-        }
+
 
         return $Result;
     });

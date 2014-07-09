@@ -92,8 +92,9 @@
                                 F::Log($DaemonName.' daemon waked up', LOG_INFO);
 
                                 $Result = F::Live($Daemon['Execute']);
+
                                 if ($Result !== null)
-                                    F::Log(getmypid().': '.json_encode($Result), LOG_INFO);
+                                    F::Log($DaemonName.'> '.getmypid().': '.json_encode($Result), LOG_WARNING);
                             }
 
                         exit(4);

@@ -11,7 +11,7 @@
     {
         "Tic Tac":
         {
-            "Precision": 1,
+            "Precision": 60,
             "Execute":
             {
                 "Service": "System.Time",

@@ -129,12 +129,16 @@
 
         $Call = F::Hook('afterOperation', $Call);
 
-        F::Log('*'.count($Call['Data']).'* '.$Call['Entity'].' readed', LOG_INFO, 'Administrator');
-
         if (isset($Call['One']) && $Call['One'] && is_array($Call['Data']))
+        {
+            F::Log('One of *'.count($Call['Data']).'* '.$Call['Entity'].' readed', LOG_INFO, 'Administrator');
             return array_shift($Call['Data']);
+        }
         else
+        {
+            F::Log('*'.count($Call['Data']).'* '.$Call['Entity'].' readed', LOG_INFO, 'Administrator');
             return $Call['Data'];
+        }
     });
 
     setFn('Update', function ($Call)

@@ -9,13 +9,18 @@
 
     setFn('Run', function ($Call)
     {
-        if (true || F::Run('Code.Flow.Daemon', 'Running?',
+        $Running = F::Run('Code.Flow.Daemon', 'Running?',
                 [
                     'Execute' =>
                     [
                         'Service' => 'Code.Run.Delayed'
                     ]
-                ]) || $Call['Delayed Mode'] == 'Dirty')
+                ]);
+
+        if ($Running)
+            F::Log('Daemon running', LOG_INFO, 'Developer');
+
+        if ($Running or $Call['Delayed Mode'] == 'Dirty')
         {
             F::Log('Delayed Run '.$Call['Run']['Service'].' queued', LOG_INFO);
 
@@ -35,7 +40,10 @@
     setFn('Execute', function ($Call)
     {
         if ($Call['Run'] = F::Run('IO', 'Read', ['Time' => microtime(true), 'Storage' => 'Delayed']))
+        {
+            F::Log('Running delayed task', LOG_WARNING, 'Developer');
             return F::Live($Call['Run']);
+        }
 
         return null;
     });

@@ -51,6 +51,9 @@
 
             foreach ($Call['Where']['ID'] as $cID)
             {
+                if (isset($Call['Data']))
+                    $cID.= '?'.http_build_query($Call['Data']);
+
                 $Links[$cID] = curl_init($cID);
 
                 curl_setopt_array($Links[$cID],
@@ -100,6 +103,9 @@
         }
         else
         {
+            if (isset($Call['Data']))
+                $Call['Where']['ID'].= '?'.http_build_query($Call['Data']);
+
             $Call['Link'] = curl_init($Call['Where']['ID']);
 
             curl_setopt_array($Call['Link'],
