@@ -13,7 +13,7 @@
 
         if (is_uploaded_file($Call['Value']) or preg_match('/^https?:\/\//', $Call['Value']))
         {
-            $Call['ID'] = F::Run('Security.UID', 'Get', $Call);
+            $Call['ID'] = F::Run('Security.UID', 'Get', ['Mode' => 'Secure'], $Call);
 
             $Call['Data'] = file_get_contents($Call['Value']);
             $Call['Name'] = F::Live($Call['Node']['Naming'], $Call);
