@@ -98,9 +98,7 @@
                     'ID'    => 'Empty'
                 ];
             else
-            {
-                sort($Call['Output']['Content']);
-            }
+                $Call['Output']['Content'] = F::Sort($Call['Output']['Content'], 'Score', SORT_DESC);
 
         $Call = F::Hook('afterSearchQuery', $Call);
 
