@@ -11,20 +11,33 @@
     {
         $Data = [];
 
+        if (isset($Call['Data']))
+            ;
+        else
+            $Call['Data'] = F::Run('Entity', 'Read', $Call);
+
         foreach ($Call['Nodes'] as $Name => $Node)
             if (isset($Node['Index']) && $Node['Index'])
             {
-                $Data[$Name] = F::Dot($Call['Data'], $Name);
+                $Value = F::Dot($Call['Data'], $Name);
 
-                if (is_array($Data[$Name]))
-                    $Data[$Name] = implode (' ', $Data[$Name]);
+                if (empty($Value))
+                    ;
+                else
+                {
+                    if (is_array($Value))
+                        $Data[$Name] = implode (' ', $Value);
+                    else
+                        $Data[$Name] = $Value;
+                }
             }
 
-        F::Run('Search', 'Add', $Call,
+        if (F::Run('Search', 'Add', $Call,
         [
             'Provider' => $Call['Entity'],
-            'Data!'     => $Data
-        ]);
+            'Data!'    => $Data
+        ]))
+            F::Log($Call['Entity'].' '.$Data['ID'].' indexed', LOG_INFO);
 
         return $Call;
     });
@@ -116,6 +129,17 @@
             $Call['Request']['Query'],
             $Suggestions
         ];
+
+        return $Call;
+    });
+
+    setFn('Reindex', function ($Call)
+    {
+        $Call = F::Run('Entity', 'Load', $Call);
+        $Entities = F::Run('Entity', 'Read', $Call);
+
+        foreach ($Entities as $Data)
+            F::Run(null, 'Add', $Call, ['Data' => $Data]);
 
         return $Call;
     });
