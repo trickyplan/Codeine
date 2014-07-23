@@ -20,7 +20,7 @@
             $Call['Limit']['From']= ($Call['Page']-1)*$Call['EPP'];
             $Call['Limit']['To'] = $Call['EPP'];
 
-            $Call['PageCount'] = ceil($Call['Hits']['All']/$Call['EPP']);
+            $Call['PageCount'] = ceil($Call['Hits']['All']/$Call['EPP'])-1;
         }
         else
         {

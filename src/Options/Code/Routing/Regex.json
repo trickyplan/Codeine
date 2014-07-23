@@ -46,7 +46,7 @@
         },
         "Vertical Search":
         {
-            "Match": "^/search/(.+)$",
+            "Match": "^/search/(.*)$",
             "Weight": 20,
             "Service": "Search",
             "Method": "Query",
