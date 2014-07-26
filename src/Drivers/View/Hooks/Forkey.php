@@ -62,7 +62,10 @@
                     }
                 }
 
-                $Call['Value'] = str_replace($Match, implode('',$Output), $Call['Value']);
+                if (is_array($Output))
+                    $Call['Value'] = str_replace($Match, implode('',$Output), $Call['Value']);
+                else
+                    $Call['Value'] = str_replace($Match, $Output, $Call['Value']);
             }
         }
 
