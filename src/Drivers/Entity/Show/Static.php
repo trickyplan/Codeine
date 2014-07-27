@@ -22,6 +22,15 @@
 
         $Call = F::Hook('beforeShowDo', $Call);
 
+
+        /*foreach ($Call['Data'] as $Node => $Value)
+        {
+            if (isset($Call['Nodes'][$Node]['Widgets']))
+                ;
+            else
+                unset ($Call['Data'][$Node]);
+        }*/
+
         if (isset($Call['Data']['Redirect']) && !empty($Call['Data']['Redirect']))
             $Call = F::Apply('System.Interface.HTTP','Redirect', $Call, ['Location' => $Call['Data']['Redirect']]);
         else

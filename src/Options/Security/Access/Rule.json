@@ -150,22 +150,6 @@
                 "Method": "Remote Redirect"
             }
         },
-        "Словари — авторизованным":
-        {
-            "Decision": true,
-            "Weight": 50,
-            "Run":
-            {
-                "Service": "Entity.Dict",
-                "Session":
-                {
-                    "User":
-                    {
-                        "ID": "*"
-                    }
-                }
-            }
-        },
         "Жалоба — всем":
         {
             "Decision": true,

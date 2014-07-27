@@ -45,10 +45,11 @@
                         'Where'  =>
                             [
                                 'Facebook.Auth' =>
-                                    [
-                                        '$exists' => true
-                                    ]
+                                [
+                                    '$exists' => true
+                                ]
                             ],
+                        'Sort' => ['Modified' => false],
                         'One' => true
                     ])['Facebook'];
 

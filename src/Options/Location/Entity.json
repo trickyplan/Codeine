@@ -37,7 +37,6 @@
         },
         "Lat":
         {
-            "Required": true,
             "Type": "Numeral.Float",
             "Widgets":
             {
@@ -49,7 +48,6 @@
         },
         "Long":
         {
-            "Required": true,
             "Type": "Numeral.Float",
             "Widgets":
             {

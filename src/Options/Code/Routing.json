@@ -1,3 +1,22 @@
 {
-    "Routers": ["Rewrite", "Static", "Regex"]
+    "Routers": ["Rewrite", "Static", "Regex"],
+    "Hooks":
+    {
+        "beforeRoute":
+        {
+            "-Extension":
+            {
+                "Service": "Code.Routing.Hooks.Extension",
+                "Method": "beforeRoute"
+            }
+        },
+        "afterRoute":
+        {
+            "-Extension":
+            {
+                "Service": "Code.Routing.Hooks.Extension",
+                "Method": "afterRoute"
+            }
+        }
+    }
 }

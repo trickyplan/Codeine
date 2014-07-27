@@ -173,3 +173,23 @@
     {
         return F::Apply('Entity.Renumerate', 'Do', $Call, ['Entity' => $Call['Bundle']]);
     });
+
+    setFn('Dict', function ($Call)
+    {
+        $Rows = F::Run ('Entity', 'Read',
+        [
+            'Entity' => $Call['Bundle'],
+            'Fields' => ['Location']
+        ]);
+
+        if (!empty($Rows))
+        {
+            foreach($Rows as &$Row)
+                if (isset($Row['Location']))
+                    $Call['Output']['Content'][] = $Row['Location'];
+
+            $Call['Output']['Content'] = array_unique($Call['Output']['Content']);
+        }
+
+        return $Call;
+    });

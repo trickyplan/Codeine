@@ -1,0 +1,30 @@
+{
+    "Routing":
+    {
+        "Extension":
+        {
+            "json":
+            {
+                "View":
+                {
+                    "Renderer":
+                    {
+                        "Service": "View.JSON",
+                        "Method": "Render"
+                    }
+                }
+            },
+            "txt":
+            {
+                "View":
+                {
+                    "Renderer":
+                    {
+                        "Service": "View.Plaintext",
+                        "Method": "Render"
+                    }
+                }
+            }
+        }
+    }
+}

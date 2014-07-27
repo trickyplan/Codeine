@@ -3,6 +3,7 @@
     "Inherited":
     [
         "Locale",
+        "Location",
         "Session",
         "HTTP",
         "Request",

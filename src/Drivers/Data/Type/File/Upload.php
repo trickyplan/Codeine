@@ -9,13 +9,23 @@
 
     setFn('Write', function ($Call)
     {
+        $Call['Data'] = false;
         $Call['Scope'] = $Call['Entity'].'/'.$Call['Name'];
 
-        if (is_uploaded_file($Call['Value']) or preg_match('/^https?:\/\//', $Call['Value']))
-        {
-            $Call['ID'] = F::Run('Security.UID', 'Get', ['Mode' => 'Secure'], $Call);
+        $Call['ID'] = F::Run('Security.UID', 'Get', ['Mode' => 'Secure'], $Call);
 
+        if (is_uploaded_file($Call['Value']))
             $Call['Data'] = file_get_contents($Call['Value']);
+        elseif (preg_match('/^https?:\/\//', $Call['Value']))
+        {
+            $Web = F::Run('IO', 'Read', ['Storage' => 'Web', 'Where' => ['ID' => $Call['Value']]]);
+            $Call['Data'] = array_pop($Web);
+        }
+
+        if (empty($Call['Data']))
+            ;
+        else
+        {
             $Call['Name'] = F::Live($Call['Node']['Naming'], $Call);
 
             F::Run('IO', 'Write', $Call,

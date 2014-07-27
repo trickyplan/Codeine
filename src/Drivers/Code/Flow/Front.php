@@ -26,8 +26,8 @@
                     = [$Call['Run']['Service'], $Call['Run']['Method']];
 
 
-                if (isset($Call['Call']))
-                    F::Log($Call['Call'], LOG_INFO);
+                if (isset($Call['Run']['Call']))
+                    F::Log($Call['Run']['Call'], LOG_INFO);
 
                 $Call = F::Live($Call['Run'], $Call);
             }

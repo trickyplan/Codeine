@@ -1,0 +1,18 @@
+{
+    "Rules":
+    {
+        "Список мест могут просматривать все":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Entity.List",
+                "Call":
+                {
+                    "Entity": "Location"
+                }
+            }
+        }
+    }
+}
