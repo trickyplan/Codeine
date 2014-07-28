@@ -88,6 +88,7 @@
                         $Call['Hits']['All'] += $Results['Meta']['Hits'][$Provider];
                     }
                 }
+                $Call['Output']['Content'] = F::Sort($Call['Output']['Content'], 'Score', SORT_DESC);
             }
 
             if ($Call['Hits']['All'] == 0)
