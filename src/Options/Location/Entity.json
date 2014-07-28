@@ -1,40 +1,13 @@
 {
-    "Mixins": ["Mixins.Priority"],
+    "Mixins": [
+        "Mixins.Priority",
+        "Mixins.ID.Sequence",
+        "Mixins.Titled"
+    ],
     "Storage": "Primary",
     "EPP": 10,
     "Nodes":
     {
-        "ID":
-        {
-            "Type": "Numeral.Integer",
-            "Hooks":
-            {
-                "beforeEntityCreate":
-                {
-                    "Service": "IO",
-                    "Method": "Execute",
-                    "Call":
-                    {
-                        "Storage": "Primary",
-                        "Execute": "ID",
-                        "Scope": "Location",
-                        "Increment": 1
-                    }
-                }
-            }
-        },
-        "Title":
-        {
-            "Required": true,
-            "Type": "Literal.String",
-            "Widgets":
-            {
-                "Write":
-                {
-                    "Type": "Form.Textfield"
-                }
-            }
-        },
         "Lat":
         {
             "Type": "Numeral.Float",
