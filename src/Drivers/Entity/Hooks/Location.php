@@ -9,7 +9,7 @@
 
     setFn('beforeOperation', function ($Call)
     {
-        if (isset($Call['Location']))
+        if (isset($Call['Location']['ID']))
             $Call['Where']['Location'] = $Call['Location']['ID'];
 
         return $Call;
