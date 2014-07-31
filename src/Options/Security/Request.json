@@ -28,7 +28,8 @@
                 {
                     "/myadmin/": ""
                 }
-            ]
+            ],
+            "Decision": false
         }
     ],
     "Hooks":
