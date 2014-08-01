@@ -103,7 +103,7 @@
                             [
                                 'uids'  => $Result['user_id'],
                                 'access_token'  => $Result['access_token'],
-                                'fields'=> 'uid, first_name, last_name, nickname, screen_name, sex, bdate (birthdate), city, country, timezone, photo, photo_medium, photo_big, has_mobile, rate, contacts, education, online, counters'
+                                'fields'=> 'uid, first_name, last_name, nickname, screen_name, sex, bdate, city, country, timezone, photo, photo_medium, photo_big, has_mobile, rate, contacts, education, online, counters'
                             ]
                         ])[0];
 
