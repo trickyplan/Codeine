@@ -20,7 +20,7 @@
         "suggestedGender": "",
         "suggestedMinAge": 18,
         "suggestedMaxAge": 60,
-        "childMinAge": 18,
-        "childMaxAge": 18
+        "requiredMinAge": 18,
+        "requiredMaxAge": 60
     }
 }
