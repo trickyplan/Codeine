@@ -337,12 +337,12 @@
                                 $Memo[] = $Key;
                         }
 
-                        $Memo = sha1(serialize($Memo));
+                        $CacheID = sha1(serialize($Memo));
                     }
 
-                    if (!isset($Memo) || ($Result = F::Get($Memo)) == null)
+                    if (!isset($CacheID) || ($Result = F::Get($CacheID)) == null)
                     {
-                        if (isset($Call['RTTL']) and isset($Memo))
+                        if (isset($Call['RTTL']) and isset($CacheID))
                         {
                             $RTTL = $Call['RTTL'];
                             unset($Call['RTTL']);
@@ -354,8 +354,9 @@
                                             'Service' => self::$_Service,
                                             'Method'  => self::$_Method,
                                             'Call'    => $Call,
-                                            'CacheID' => $Memo,
-                                            'RTTL'    => $RTTL
+                                            'CacheID' => $CacheID,
+                                            'RTTL'    => $RTTL,
+                                            'Memo'    => $Memo
                                         ]
                                 ]);
                         }
@@ -367,8 +368,8 @@
                     else
                         F::Log(self::$_Service.':'.self::$_Method.' memoized', LOG_DEBUG, 'Administrator');
 
-                    if (!isset($Call['No Memo']) && isset($Memo))
-                        F::Set($Memo, $Result);
+                    if (!isset($Call['No Memo']) && isset($CacheID))
+                        F::Set($CacheID, $Result);
                 }
                 else
                     $Result = isset($Call['Fallback']) ? $Call['Fallback'] : null;

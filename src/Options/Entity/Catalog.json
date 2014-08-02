@@ -2,6 +2,16 @@
     "EPP": 20,
     "Minimal": 0,
     "Entity RTTL": 60,
+    "Contract":
+    {
+        "Entity.Catalog":
+        {
+            "Do":
+            {
+                "Memo": ["Entity", "Where", "Template", "Count", "Minimal", "Time", "Key"]
+            }
+        }
+    },
     "Hooks":
     {
         "beforeCatalog":

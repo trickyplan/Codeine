@@ -1,4 +1,14 @@
 {
+    "Contract":
+    {
+        "Code.Flow.Application":
+        {
+            "Run":
+            {
+                "Memo": ["Run", "Time", "Session"]
+            }
+        }
+    },
     "View":
     {
         "Renderer":

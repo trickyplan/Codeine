@@ -1,4 +1,14 @@
 {
+    "Contract":
+    {
+        "Entity.Create":
+        {
+            "Do":
+            {
+                "Memo": ["Entity", "Data", "Template", "Time", "Scope"]
+            }
+        }
+    },
     "Purpose": "Create",
     "FormLayout": "Full",
     "OnlyRequired": false,
