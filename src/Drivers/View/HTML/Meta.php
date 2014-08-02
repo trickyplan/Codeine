@@ -40,7 +40,7 @@
 
             $Call['Output'] = preg_replace(
                         $Call['Meta']['Pattern']['Title'],
-                        '<title>'.$Call['View']['HTML']['Title'].'</title>',
+                        '<title itemprop="name">'.$Call['View']['HTML']['Title'].'</title>',
                         $Call['Output']);
         }
 
@@ -83,7 +83,7 @@
 
             $Call['Output'] = preg_replace(
                         $Call['Meta']['Pattern']['Description'],
-                        '<meta name="description" content="'.strip_tags($Call['View']['HTML']['Description'], '<l><k>').'" />',
+                        '<meta name="description" itemprop="description" content="'.strip_tags($Call['View']['HTML']['Description'], '<l><k>').'" />',
                         $Call['Output']);
         }
 
