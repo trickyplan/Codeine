@@ -48,7 +48,7 @@
         # В случае если клиент загружает контент на сайт (no_cache = 1), делаем так, чтобы отдаваемые ему данные не кешировались в течение двух секунд и он смог увидеть результат загрузки
 
         if ($no_cache = "1") {
-            add_header Set-Cookie "_mcnc=1; Max-Age=2; Path=/";
+            add_header Set-Cookie "_mcnc=1; Max-Age=60; Path=/";
             add_header X-Microcachable "0";
         }
         if ($http_cookie ~* "_mcnc") {
@@ -62,7 +62,7 @@
         fastcgi_cache_bypass $no_cache;
 
         fastcgi_cache_key $scheme$host$request_method$request_uri;
-        fastcgi_cache_valid 200 10m;
+        fastcgi_cache_valid 200 5m;
         fastcgi_cache_use_stale updating;
 
         fastcgi_keep_conn on;
