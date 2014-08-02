@@ -14,5 +14,13 @@
         "Development":"project.local",
         "Production": "project.ru"
     },
-    "Currency": "RUR"
+    "Currency": "RUR",
+    "Audience":
+    {
+        "suggestedGender": "",
+        "suggestedMinAge": 18,
+        "suggestedMaxAge": 60,
+        "childMinAge": 18,
+        "childMaxAge": 18
+    }
 }

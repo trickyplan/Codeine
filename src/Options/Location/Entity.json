@@ -4,6 +4,10 @@
         "Mixins.ID.Sequence",
         "Mixins.Titled"
     ],
+    "Sort":
+    {
+        "Title": true
+    },
     "Storage": "Primary",
     "EPP": 10,
     "Nodes":
