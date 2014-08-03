@@ -55,6 +55,10 @@
             set $no_cache "1";
         }
 
+        if ($http_cookie ~* "SSID") {
+            set $no_cache "1";
+        }
+
         add_header X-No-Cached $no_cache;
 
         # Включаем/отключаем кеш в зависимости от состояния переменной no_cache
