@@ -103,6 +103,7 @@
                     else
                         readfile(Codeine.'/down.html');
 
+                    header('X-Exception: '.$e->getMessage());
                     die();
                 break;
             }
