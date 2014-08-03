@@ -102,6 +102,8 @@
                         readfile(Root.'/Public/down.html');
                     else
                         readfile(Codeine.'/down.html');
+
+                    die();
                 break;
             }
         }
