@@ -55,20 +55,11 @@
                     ]);
 
             if (isset($Call['Session']['User']['ID']))
-                $Call['User'] = F::Run('Entity', 'Update', $Call,
+                $Call['User'] = F::Run('Entity', 'Read', $Call,
                 [
                     'Entity' => 'User',
                     'One'    => true,
-                    'Where'  => $Call['Session']['User']['ID'],
-                    'Data'   =>
-                    [
-                        'Facebook' =>
-                        [
-                            'ID'     => $Facebook['id'],
-                            'Auth'   => $Result['access_token'],
-                            'Expire' => time()+$Result['expires']
-                        ]
-                    ]
+                    'Where'  => $Call['Session']['User']['ID']
                 ]);
             else
                 $Call['User'] = F::Run('Entity', 'Read', $Call,
@@ -107,20 +98,21 @@
             [
                 'Facebook' =>
                 [
-                    'Auth'  => $Result['access_token']
+                    'Auth'   => $Result['access_token'],
+                    'Expire' => time()+$Result['expires']
                 ]
             ];
 
             foreach ($Call['Facebook']['Mapping'] as $FacebookField => $CodeineField)
                 if (isset($Facebook[$FacebookField]) && !empty($Facebook[$FacebookField]))
-                    $Updated[$CodeineField] = $Facebook[$FacebookField];
+                    $Updated = F::Dot($Updated, $CodeineField,$Facebook[$FacebookField]);
 
             F::Run('Entity', 'Update', $Call,
                 [
                     'Entity' => 'User',
                     'Where'  =>
                     [
-                        'Facebook.ID' => $Facebook['id']
+                        'ID' => $Call['User']['ID']
                     ],
                     'Data'   => $Updated
                 ]);

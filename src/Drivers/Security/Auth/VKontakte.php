@@ -52,15 +52,11 @@
             if (isset($Result['access_token']))
             {
                 if (isset($Call['Session']['User']['ID']))
-                    $Call['User'] = F::Run('Entity', 'Update', $Call,
+                    $Call['User'] = F::Run('Entity', 'Read',
                     [
                         'Entity' => 'User',
                         'One'    => true,
                         'Where'  => $Call['Session']['User']['ID'],
-                        'Data'   =>
-                        [
-                            'VKontakte.ID' => $Result['user_id']
-                        ]
                     ]);
                 else
                     $Call['User'] = F::Run('Entity', 'Read',
@@ -111,20 +107,20 @@
                 [
                     'VKontakte' =>
                     [
+			'ID' => $Result['user_id'],
                         'Auth'  => $Result['access_token']
                     ]
                 ];
-
                 foreach ($Call['VKontakte']['Mapping'] as $VKontakteField => $CodeineField)
                     if (isset($VKontakte[$VKontakteField]) && !empty($VKontakte[$VKontakteField]))
-                        $Updated[$CodeineField] = $VKontakte[$VKontakteField];
+			$Updated =  F::Dot($Updated, $CodeineField, $VKontakte[$VKontakteField]);
 
                 F::Run('Entity', 'Update', $Call,
                     [
                         'Entity' => 'User',
                         'Where'  =>
                         [
-                            'VKontakte.ID' => $Result['user_id']
+                            'ID' => $Call['User']['ID']
                         ],
                         'Data'   => $Updated
                     ]);
