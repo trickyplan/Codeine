@@ -118,7 +118,7 @@
                     {
                         $tempField = F::Dot($VKontakte, $VKontakteField);
                         if (!empty($tempField))
-                            $Updated = F::Dot($Updated, $CodeineField, F::Dot($VKontakte, $VKontakteField));
+                            $Updated = F::Dot($Updated, $CodeineField, $tempField);
                     }
 
                 F::Run('Entity', 'Update', $Call,
