@@ -99,7 +99,7 @@
                             [
                                 'uids'  => $Result['user_id'],
                                 'access_token'  => $Result['access_token'],
-                                'fields'=> 'uid, first_name, last_name, nickname, screen_name, sex, bdate, city, country, timezone, photo, photo_medium, photo_big, has_mobile, rate, contacts, education, online, counters'
+                                'fields'=> 'uid, first_name, last_name, nickname, screen_name, sex, bdate, city, country, timezone, photo, photo_medium, photo_big, photo_max, has_mobile, rate, contacts, education, online, counters'
                             ]
                         ])[0];
 
@@ -114,6 +114,12 @@
                 foreach ($Call['VKontakte']['Mapping'] as $VKontakteField => $CodeineField)
                     if (isset($VKontakte[$VKontakteField]) && !empty($VKontakte[$VKontakteField]))
 			$Updated =  F::Dot($Updated, $CodeineField, $VKontakte[$VKontakteField]);
+                    else
+                    {
+                        $tempField = F::Dot($VKontakte, $VKontakteField);
+                        if (!empty($tempField))
+                            $Updated = F::Dot($Updated, $CodeineField, F::Dot($VKontakte, $VKontakteField));
+                    }
 
                 F::Run('Entity', 'Update', $Call,
                     [
