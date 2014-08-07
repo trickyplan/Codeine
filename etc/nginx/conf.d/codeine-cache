@@ -65,9 +65,10 @@
 
         fastcgi_cache_bypass $no_cache;
 
-        fastcgi_cache_key $scheme$host$request_method$request_uri;
-        fastcgi_cache_valid 200 60m;
+        fastcgi_cache_key "$request_method|$http_if_modified_since|$http_if_none_match|$host|$request_uri|$cookie_SSID";
+        fastcgi_cache_valid 200 301 302 304 60m;
         fastcgi_cache_use_stale updating;
+        fastcgi_hide_header "Set-Cookie";
 
         fastcgi_keep_conn on;
 
