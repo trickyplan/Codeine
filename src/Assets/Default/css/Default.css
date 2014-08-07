@@ -164,3 +164,8 @@ em.highlight
 {
     background-color: #ffff00 !important;
 }
+
+.exec-cached
+{
+    border: 1px dotted green;
+}

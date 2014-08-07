@@ -11,24 +11,34 @@
     {
         $Locations = F::Run('Entity', 'Read', ['Entity' => 'Location', 'NoPage' => true, 'Sort' => ['Priority' => false, 'Title' => true]]);
 
-        $Here = F::Run('Entity', 'Read', ['Entity' => 'Location', 'Where' => $Call['Location'], 'One' => true]);
-
         if ($Call['HTTP']['URL'] == '/')
             $Call['HTTP']['URL'] = '';
 
         foreach ($Locations as $Location)
         {
-            if (null === $Here['Slug'])
+
+            if (null === $Call['Location']['Slug'])
                 $Location['URL'] = '/'.$Location['Slug'];
             else
             {
-                if (preg_match('@^/'.$Here['Slug'].'@Ssuu', $Call['HTTP']['URL']))
-                    $Location['URL'] = str_replace($Here['Slug'], $Location['Slug'], $Call['HTTP']['URL']);
+                if (preg_match('@^/'.$Call['Location']['Slug'].'@Ssuu', $Call['HTTP']['URL']))
+                    $Location['URL'] = str_replace($Call['Location']['Slug'], $Location['Slug'], $Call['HTTP']['URL']);
                 else
                     $Location['URL'] = '/'.$Location['Slug'];
             }
 
-            $Call['Output']['Content'][] =
+            $Location['URL'] = $Call['HTTP']['Proto'].$Call['HTTP']['Host'].$Location['URL'];
+
+            if ($Location['ID'] == $Call['Location']['ID'])
+                $Call['Output']['Content'][] =
+                [
+                    'Type' => 'Template',
+                    'Scope' => 'Location',
+                    'ID' => 'Show/Widget.Selected',
+                    'Data' => $Location
+                ];
+            else
+                $Call['Output']['Content'][] =
                 [
                     'Type' => 'Template',
                     'Scope' => 'Location',

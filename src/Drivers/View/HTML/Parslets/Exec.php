@@ -28,8 +28,14 @@
                       else
                         $Match[$Key] = null;
 
-                  $Application = F::Run('Code.Flow.Application', 'Run', ['Run' => $Match]);
+                  if (!isset ($Match['ExecTTL']))
+                      $Match['ExecTTL'] = 0;
 
+                  $Application = F::Run('Code.Flow.Application', 'Run', ['Run' => $Match, 'RTTL' => $Match['ExecTTL']]);
+
+                  /*if (F::Environment() == 'Development')
+                      $Application['Output'] = '<div class="exec-cached">'.$Application['Output'].'</div>';
+                  */
                   if (isset($Application['Output']))
                     $Call['Output'] = str_replace(
                             $Call['Parsed'][0][$IX],

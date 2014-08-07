@@ -1,0 +1,15 @@
+{
+    "Links":
+    {
+        "/locations":
+        {
+            "Service": "Entity.List",
+            "Method": "Do",
+            "Call":
+            {
+                "Entity": "Location",
+                "NoPage": true
+            }
+        }
+    }
+}

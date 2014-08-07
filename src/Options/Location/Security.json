@@ -13,6 +13,16 @@
                     "Entity": "Location"
                 }
             }
+        },
+        "Виджет мест могут просматривать все":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Location.Select",
+                "Method": "Widget"
+            }
         }
     }
 }
