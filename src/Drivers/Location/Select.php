@@ -17,7 +17,7 @@
         foreach ($Locations as $Location)
         {
 
-            if (null === $Call['Location']['Slug'])
+            if (!isset($Call['Location']['Slug']) or null === $Call['Location']['Slug'])
                 $Location['URL'] = '/'.$Location['Slug'];
             else
             {
@@ -29,7 +29,7 @@
 
             $Location['URL'] = $Call['HTTP']['Proto'].$Call['HTTP']['Host'].$Location['URL'];
 
-            if ($Location['ID'] == $Call['Location']['ID'])
+            if ((isset($Location['ID']) && isset($Call['Location']['ID'])) && $Location['ID'] == $Call['Location']['ID'])
                 $Call['Output']['Content'][] =
                 [
                     'Type' => 'Template',
