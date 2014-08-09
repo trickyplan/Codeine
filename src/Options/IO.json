@@ -1,5 +1,4 @@
 {
-    "Mixins": ["IO.Mixins.Logs2File"],
     "Verbosity":
     {
         "Not found": 6
