@@ -32,7 +32,7 @@
 
             if ($Envelope !== null && $Envelope[0]['Expire'] > time())
             {
-                F::Log('Found good cache for call '.$Call['Run']['Service'].':'.$Call['Run']['Method'].'('.j($Call['Run']['Memo']).')', LOG_INFO, 'Developer');
+                F::Log('Found good cache for call '.$Call['Run']['Service'].':'.$Call['Run']['Method'].'('.j($Call['Run']['Memo']).')', LOG_INFO, 'Performance');
 
                 $Run = false;
                 $Result = $Envelope[0]['Result'];
