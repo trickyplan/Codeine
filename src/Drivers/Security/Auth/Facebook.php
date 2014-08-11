@@ -98,6 +98,7 @@
             [
                 'Facebook' =>
                 [
+                    'ID'     => $Facebook['id'],
                     'Auth'   => $Result['access_token'],
                     'Expire' => time()+$Result['expires']
                 ]
@@ -107,7 +108,7 @@
                 if (isset($Facebook[$FacebookField]) && !empty($Facebook[$FacebookField]))
                     $Updated = F::Dot($Updated, $CodeineField,$Facebook[$FacebookField]);
 
-            F::Run('Entity', 'Update', $Call,
+            F::Run('Entity', 'Update',
                 [
                     'Entity' => 'User',
                     'Where'  => $Call['User']['ID'],
