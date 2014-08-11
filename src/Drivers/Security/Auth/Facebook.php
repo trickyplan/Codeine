@@ -68,7 +68,7 @@
                     'One'    => true,
                     'Sort'   =>
                     [
-                        'ID' => SORT_ASC
+                        'ID' => true
                     ],
                     'Where'  =>
                     [
@@ -110,10 +110,7 @@
             F::Run('Entity', 'Update', $Call,
                 [
                     'Entity' => 'User',
-                    'Where'  =>
-                    [
-                        'ID' => $Call['User']['ID']
-                    ],
+                    'Where'  => $Call['User']['ID'],
                     'Data'   => $Updated
                 ]);
         }

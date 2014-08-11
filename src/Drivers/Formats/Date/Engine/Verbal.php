@@ -21,4 +21,6 @@
             $Variants = explode(',', $Values[$IX]);
             return mb_strtolower($Variants[array_rand($Variants)]);
         }
+        else
+             return null;
     });

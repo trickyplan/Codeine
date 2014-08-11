@@ -21,4 +21,6 @@
 
             return implode(' ', array_slice($Output,0,$Call['Period']['Format']));
         }
+        else
+             return null;
     });

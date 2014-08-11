@@ -150,7 +150,6 @@
             [
                 'VKontakte' =>
                 [
-                    'ID'   => null,
                     'Auth' => null
                 ]
             ]

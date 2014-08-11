@@ -39,4 +39,6 @@
 
             return $Prefix.implode(' ', array_slice($Output,0,$Call['Period']['Format'])).$Postfix;
         }
+        else
+             return null;
     });

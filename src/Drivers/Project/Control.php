@@ -26,4 +26,6 @@
         $Call['Version'] = F::loadOptions('Version');
         if (isset($Call['Version']))
             return ['Count' => $Call['Version']['Project']['Major'].'.'.$Call['Version']['Project']['Minor']];
+        else
+            return null;
     });

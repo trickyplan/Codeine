@@ -16,4 +16,6 @@
     {
         if (is_string($Call['Value']))
             return (string) htmlspecialchars($Call['Value']);
+        else
+             return null;
     });
