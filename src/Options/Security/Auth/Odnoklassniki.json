@@ -1,0 +1,44 @@
+{
+    "Odnoklassniki":
+    {
+        "AppID": 0,
+        "Secret": "",
+        "Public": "",
+        "Rights": "",
+        "Mapping":
+        {
+            "first_name": "Name",
+            "last_name": "Surname",
+            "sex": "Gender",
+            "photo_big": "Photo",
+            "home_phone": "Phone"
+        }
+    },
+    "Hooks":
+    {
+        "afterOdnoklassnikiAuthenticate":
+        {
+            "Redirect":
+            {
+                "Service": "System.Interface.HTTP",
+                "Method": "Redirect",
+                "Call":
+                {
+                    "Location": "/profile"
+                }
+            }
+        },
+        "afterOdnoklassnikiAnnulate":
+        {
+            "Redirect":
+            {
+                "Service": "System.Interface.HTTP",
+                "Method": "Redirect",
+                "Call":
+                {
+                    "Location": "/profile"
+                }
+            }
+        }
+    }
+}
