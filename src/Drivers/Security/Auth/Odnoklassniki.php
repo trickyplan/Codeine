@@ -129,9 +129,9 @@
                             ],
                             'Data'   => $Updated
                         ]);
-                }
+                }*/
             }
-*/
+
         $Call = F::Hook('afterOdnoklassnikiAuthenticate', $Call);
 
         return $Call;
