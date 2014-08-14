@@ -32,20 +32,38 @@
     setFn('Authenticate', function ($Call)
     {
         $Call = F::Hook('beforeOdnoklassnikiAuthenticate', $Call);
-
+file_put_contents("/home/alex/work/karmon.log",print_r( $Call['Request'], true).PHP_EOL, FILE_APPEND);
             if (isset($Call['Request']['code']))
             {
-                $URL = 'http://api.odnoklassniki.ru/oauth/token.do?client_id='.$Call['Odnoklassniki']['AppID']
+                $URL = 'http://api.odnoklassniki.ru/oauth/token.do';
+
+                $Result = F::Run('IO', 'Write',
+                     [
+                         'Storage'  => 'Web',
+                         'Where'    => $URL,
+                         'Format'   => 'Formats.JSON',
+                         'Data'     =>
+                         [
+                             'client_id' => $Call['Odnoklassniki']['AppID'],
+                             'client_secret' => $Call['Odnoklassniki']['Secret'],
+                             'code' => urlencode($Call['Request']['code']),
+                             'grant_type' => 'authorization_code',
+                             'redirect_uri' => urlencode($Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/authenticate/Odnoklassniki')
+                         ]
+                     ]);
+
+/*
+                $URL = 'http://api.odnoklassniki.ru/oauth/token.do?''client_id='.$Call['Odnoklassniki']['AppID']
                 .'&client_secret='.$Call['Odnoklassniki']['Secret'].'&code='.$Call['Request']['code'].'&grant_type=authorization_code'
                 .'&redirect_uri='.urlencode($Call['HTTP']['Proto'].$Call['HTTP']['Host']).'/authenticate/Odnoklassniki';
-
+file_put_contents("/home/alex/work/karmon.log",print_r($URL, true).PHP_EOL, FILE_APPEND);
                 $Result = F::Run('IO', 'Read',
                     [
                         'Storage' => 'Web',
                         'Format'  => 'Formats.JSON',
                         'Where' => $URL
-                    ]);
-
+                    ]);*/
+file_put_contents("/home/alex/work/karmon.log",print_r($Result, true).PHP_EOL, FILE_APPEND);
 /*                $Result = array_pop($Result);
 
                 if (isset($Result['access_token']))
