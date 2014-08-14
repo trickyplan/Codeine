@@ -6,7 +6,7 @@
      * @package Codeine
      * @version 7.x
      */
-    setFn('Add', function ($Call)
+    setFn('Index', function ($Call)
     {
         if (isset($Call['Provider']))
         {

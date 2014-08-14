@@ -32,12 +32,15 @@
                 }
             }
 
-        if (F::Run('Search', 'Add', $Call,
+        if (F::Run('Search', 'Index', $Call,
         [
             'Provider' => $Call['Entity'],
             'Data!'    => $Data
         ]))
+        {
             F::Log($Call['Entity'].' '.$Data['ID'].' indexed', LOG_INFO);
+            F::Log($Data, LOG_DEBUG);
+        }
 
         return $Call;
     });
