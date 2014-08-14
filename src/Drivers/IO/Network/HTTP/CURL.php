@@ -163,7 +163,6 @@
                 CURLOPT_USERAGENT        => $Call['User Agent'],
                 CURLOPT_FAILONERROR      => true,
                 CURLOPT_POST             => true,
-                CURLOPT_COOKIEJAR        => $Call['Cookie File'],
                 CURLOPT_HTTPHEADER       => $Headers,
                 CURLOPT_USERPWD          => isset($Call['User'])?
                     $Call['User'].':'.$Call['Password']: null, // FIXME
