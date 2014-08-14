@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    setFn('Add', function ($Call)
+    setFn('Index', function ($Call)
     {
         $Data = [];
 
