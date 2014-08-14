@@ -175,9 +175,9 @@
         $Result =  [curl_exec($Call['Link'])];
 
         if (curl_errno($Call['Link']))
-            F::Log('CURL error: '.curl_error($Call['Link']).'*'.$Call['Where']['ID'].'*'.$Post, LOG_ERR);
+            F::Log('CURL error: '.curl_error($Call['Link']).'*'.$Call['Where']['ID'].'* '.$Post, LOG_ERR);
         else
-            F::Log('CURL fetched *'.$Call['Where']['ID'].'*'.$Post, LOG_INFO, 'Administrator');
+            F::Log('CURL fetched *'.$Call['Where']['ID'].'* '.$Post, LOG_INFO, 'Administrator');
 
         curl_close ($Call['Link']);
 
