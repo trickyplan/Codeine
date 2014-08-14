@@ -142,7 +142,7 @@
         $Entities = F::Run('Entity', 'Read', $Call);
 
         foreach ($Entities as $Data)
-            F::Run(null, 'Add', $Call, ['Data' => $Data]);
+            F::Run(null, 'Index', $Call, ['Data' => $Data]);
 
         return $Call;
     });
