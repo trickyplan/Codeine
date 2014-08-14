@@ -151,6 +151,8 @@
         $Headers = isset($Call['HTTP']['Headers'])? $Call['HTTP']['Headers']: [];
         // TODO HTTP DELETE
 
+        $Post = is_string($Call['Data']) ? $Call['Data'] : http_build_query($Call['Data']);
+
         curl_setopt_array($Call['Link'],
             [
                 CURLOPT_HEADER           => $Call['Return Header'],
@@ -167,17 +169,15 @@
                 CURLOPT_USERPWD          => isset($Call['User'])?
                     $Call['User'].':'.$Call['Password']: null, // FIXME
                 CURLOPT_HTTPAUTH         => CURLAUTH_BASIC,
-                CURLOPT_POSTFIELDS       => is_string($Call['Data'])?
-                                            $Call['Data']
-                                            : http_build_query($Call['Data'])
+                CURLOPT_POSTFIELDS       => $Post
             ]);
 
         $Result =  [curl_exec($Call['Link'])];
 
         if (curl_errno($Call['Link']))
-            F::Log('CURL error: '.curl_error($Call['Link']).'*'.$Call['Where']['ID'].'*', LOG_ERR);
+            F::Log('CURL error: '.curl_error($Call['Link']).'*'.$Call['Where']['ID'].'*'.$Post, LOG_ERR);
         else
-            F::Log('CURL fetched *'.$Call['Where']['ID'].'*', LOG_INFO, 'Administrator');
+            F::Log('CURL fetched *'.$Call['Where']['ID'].'*'.$Post, LOG_INFO, 'Administrator');
 
         curl_close ($Call['Link']);
 
