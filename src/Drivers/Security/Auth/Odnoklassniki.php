@@ -35,13 +35,13 @@
         if (isset($Call['Request']['code']))
         {
                 $URL = 'http://api.odnoklassniki.ru/oauth/token.do';
-		$params = array(
+				$params = array(
 	             'code' => $Call['Request']['code'],
                      'redirect_uri' => urlencode($Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/authenticate/Odnoklassniki'),
                      'grant_type' => 'authorization_code',
                      'client_id' => $Call['Odnoklassniki']['AppID'],
                      'client_secret' => $Call['Odnoklassniki']['Secret']
-	        );
+		        );
 
                 $Result = F::Run('IO', 'Write',
                      [
@@ -56,26 +56,26 @@
 
                 if (isset($Result['access_token']))
                 {
-		$URL = "http://api.odnoklassniki.ru/fb.do";
-		$sign = md5("application_key={$Call['Odnoklassniki']['Public']}format=jsonmethod=users.getCurrentUser" . md5("{$Result['access_token']}{$Call['Odnoklassniki']['Secret']}"));
-	 
-	    $params = array(
-	        'method'          => 'users.getCurrentUser',
-	        'access_token'    => $Result['access_token'],
-	        'application_key' => $Call['Odnoklassniki']['Public'],
-	        'format'          => 'json',
-	        'sig'             => $sign
-	    );
-	    $Odnoklassniki = F::Run('IO', 'Read',
-             [
-                 'Storage'  => 'Web',
-                 'Where'    => $URL.'?'.urldecode(http_build_query($params)),
-                 'Output Format'   => 'Formats.JSON'/*,
-                 'Data'     => urldecode(http_build_query($params))*/
-             ]);
+					$URL = "http://api.odnoklassniki.ru/fb.do";
+					$sign = md5("application_key={$Call['Odnoklassniki']['Public']}format=jsonmethod=users.getCurrentUser" . md5("{$Result['access_token']}{$Call['Odnoklassniki']['Secret']}"));
+				 
+					$params = array(
+						'method'          => 'users.getCurrentUser',
+						'access_token'    => $Result['access_token'],
+						'application_key' => $Call['Odnoklassniki']['Public'],
+						'format'          => 'json',
+						'sig'             => $sign
+					);
+				    $Odnoklassniki = F::Run('IO', 'Read',
+				     [
+				         'Storage'  => 'Web',
+				         'Where'    => $URL.'?'.urldecode(http_build_query($params)),
+				         'Output Format'   => 'Formats.JSON'/*,
+				         'Format'   => 'Formats.JSON'/*,
+				         'Data'     => urldecode(http_build_query($params))*/
+				     ])[0];
 
-/*
-                    if (isset($Call['Session']['User']['ID']))
+/*                    if (isset($Call['Session']['User']['ID']))
                         $Call['User'] = F::Run('Entity', 'Read',
                         [
                             'Entity' => 'User',
