@@ -5,7 +5,8 @@
         "Handlers":
         {
 
-        }
+        },
+        "URL Field": "Slug"
     },
     "SearchEngines":
     {

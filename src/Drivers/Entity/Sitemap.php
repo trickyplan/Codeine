@@ -49,21 +49,21 @@
 
         $Call['Limit'] = ['From' => ($Call['Page']-1)*$Call['Sitemap']['URLs'], 'To' => $Call['Sitemap']['URLs']];
 
-        $Elements = F::Run('Entity', 'Read', $Call, ['Fields' => ['Slug', 'ID'], 'Partial' => true]);
+        $Elements = F::Run('Entity', 'Read', $Call, ['Fields' => [$Call['Sitemap']['URL Field'], 'ID'], 'Partial' => true]);
 
         if (count($Elements) > 0)
             foreach ($Elements as $Element)
             {
-                if (isset($Element['Slug']))
+                if (isset($Element[$Call['Sitemap']['URL Field']]))
                     ;
                 else
-                    $Element['Slug'] = $Element['ID'];
+                    $Element[$Call['Sitemap']['URL Field']] = $Element['ID'];
 
                 $Call['Output']['Content'][] =
                 [
                     'url' =>
                     [
-                        'loc' => $Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/'.$Call['Scope'].'/'.$Element['Slug'],
+                        'loc' => $Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/'.$Call['Scope'].'/'.$Element[$Call['Sitemap']['URL Field']],
                         'lastmod' => date(DATE_W3C),
                         'changefreq' => $Call['Frequency'],
                         'priority'   => $Call['Priority']
