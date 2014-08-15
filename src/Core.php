@@ -340,33 +340,28 @@
                         $CacheID = sha1(serialize($Memo));
                     }
 
-                    if (!isset($CacheID) || ($Result = F::Get($CacheID)) == null)
+                    if (isset($Call['RTTL']) and isset($CacheID))
                     {
-                        if (isset($Call['RTTL']) and isset($CacheID))
-                        {
-                            $RTTL = $Call['RTTL'];
-                            unset($Call['RTTL']);
+                        $RTTL = $Call['RTTL'];
+                        unset($Call['RTTL']);
 
-                            $Result = F::Execute('Code.Run.Cached', 'Run',
-                                [
-                                    'Run' =>
-                                        [
-                                            'Service' => self::$_Service,
-                                            'Method'  => self::$_Method,
-                                            'Call'    => $Call,
-                                            'CacheID' => $CacheID,
-                                            'RTTL'    => $RTTL,
-                                            'Memo'    => $Memo
-                                        ]
-                                ]);
-                        }
-                        else
-                            $Result = $F($Call);
-                        // if (self::$_Performance)
-                        self::Counter(self::$_Service.'.'.self::$_Method);
+                        $Result = F::Execute('Code.Run.Cached', 'Run',
+                            [
+                                'Run' =>
+                                    [
+                                        'Service' => self::$_Service,
+                                        'Method'  => self::$_Method,
+                                        'Call'    => $Call,
+                                        'CacheID' => $CacheID,
+                                        'RTTL'    => $RTTL,
+                                        'Memo'    => $Memo
+                                    ]
+                            ]);
                     }
                     else
-                        F::Log(self::$_Service.':'.self::$_Method.' memoized', LOG_DEBUG, 'Administrator');
+                        $Result = $F($Call);
+                    // if (self::$_Performance)
+                    self::Counter(self::$_Service.'.'.self::$_Method);
 
                     if (!isset($Call['No Memo']) && isset($CacheID))
                         F::Set($CacheID, $Result);
