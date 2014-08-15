@@ -32,42 +32,49 @@
     setFn('Authenticate', function ($Call)
     {
         $Call = F::Hook('beforeOdnoklassnikiAuthenticate', $Call);
-file_put_contents("/home/alex/work/karmon.log",print_r( $Call['Request'], true).PHP_EOL, FILE_APPEND);
-            if (isset($Call['Request']['code']))
-            {
+        if (isset($Call['Request']['code']))
+        {
                 $URL = 'http://api.odnoklassniki.ru/oauth/token.do';
+		$params = array(
+	             'code' => $Call['Request']['code'],
+                     'redirect_uri' => urlencode($Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/authenticate/Odnoklassniki'),
+                     'grant_type' => 'authorization_code',
+                     'client_id' => $Call['Odnoklassniki']['AppID'],
+                     'client_secret' => $Call['Odnoklassniki']['Secret']
+	        );
 
                 $Result = F::Run('IO', 'Write',
                      [
                          'Storage'  => 'Web',
                          'Where'    => $URL,
-                         'Format'   => 'Formats.JSON',
-                         'Data'     =>
-                         [
-                             'client_id' => $Call['Odnoklassniki']['AppID'],
-                             'client_secret' => $Call['Odnoklassniki']['Secret'],
-                             'code' => urlencode($Call['Request']['code']),
-                             'grant_type' => 'authorization_code',
-                             'redirect_uri' => urlencode($Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/authenticate/Odnoklassniki')
-                         ]
+                         'Output Format'   => 'Formats.JSON',
+                         'Data'     => urldecode(http_build_query($params))
                      ]);
 
-/*
-                $URL = 'http://api.odnoklassniki.ru/oauth/token.do?''client_id='.$Call['Odnoklassniki']['AppID']
-                .'&client_secret='.$Call['Odnoklassniki']['Secret'].'&code='.$Call['Request']['code'].'&grant_type=authorization_code'
-                .'&redirect_uri='.urlencode($Call['HTTP']['Proto'].$Call['HTTP']['Host']).'/authenticate/Odnoklassniki';
-file_put_contents("/home/alex/work/karmon.log",print_r($URL, true).PHP_EOL, FILE_APPEND);
-                $Result = F::Run('IO', 'Read',
-                    [
-                        'Storage' => 'Web',
-                        'Format'  => 'Formats.JSON',
-                        'Where' => $URL
-                    ]);*/
-file_put_contents("/home/alex/work/karmon.log",print_r($Result, true).PHP_EOL, FILE_APPEND);
-/*                $Result = array_pop($Result);
+
+                $Result = array_pop($Result);
 
                 if (isset($Result['access_token']))
                 {
+		$URL = "http://api.odnoklassniki.ru/fb.do";
+		$sign = md5("application_key={$Call['Odnoklassniki']['Public']}format=jsonmethod=users.getCurrentUser" . md5("{$Result['access_token']}{$Call['Odnoklassniki']['Secret']}"));
+	 
+	    $params = array(
+	        'method'          => 'users.getCurrentUser',
+	        'access_token'    => $Result['access_token'],
+	        'application_key' => $Call['Odnoklassniki']['Public'],
+	        'format'          => 'json',
+	        'sig'             => $sign
+	    );
+	    $Odnoklassniki = F::Run('IO', 'Read',
+             [
+                 'Storage'  => 'Web',
+                 'Where'    => $URL.'?'.urldecode(http_build_query($params)),
+                 'Output Format'   => 'Formats.JSON'/*,
+                 'Data'     => urldecode(http_build_query($params))*/
+             ]);
+
+/*
                     if (isset($Call['Session']['User']['ID']))
                         $Call['User'] = F::Run('Entity', 'Read',
                         [
@@ -86,7 +93,7 @@ file_put_contents("/home/alex/work/karmon.log",print_r($Result, true).PHP_EOL, F
                             ],
                             'Where'  =>
                             [
-                                'VKontakte.ID' => $Result['user_id']
+                                'Odnoklassniki.ID' => $Result['user_id']
                             ]
                         ]);
 
@@ -98,7 +105,7 @@ file_put_contents("/home/alex/work/karmon.log",print_r($Result, true).PHP_EOL, F
                             'One'    => true,
                             'Data'  =>
                             [
-                                'VKontakte' =>
+                                'Odnoklassniki' =>
                                 [
                                     'ID'    => $Result['user_id'],
                                     'Auth'  => $Result['access_token']
@@ -107,18 +114,6 @@ file_put_contents("/home/alex/work/karmon.log",print_r($Result, true).PHP_EOL, F
                             ]
                         ]);
                     }
-
-                    $VKontakte = F::Run('Code.Run.Social.VKontakte', 'Run',
-                            [
-                                'Service'   => 'users',
-                                'Method'    => 'get',
-                                'Call'      =>
-                                [
-                                    'uids'  => $Result['user_id'],
-                                    'access_token'  => $Result['access_token'],
-                                    'fields'=> 'uid, first_name, last_name, nickname, screen_name, sex, bdate, city, country, timezone, photo, photo_medium, photo_big, photo_max, has_mobile, rate, contacts, education, online, counters'
-                                ]
-                            ])[0];
 
                     $Updated =
                     [
@@ -147,7 +142,8 @@ file_put_contents("/home/alex/work/karmon.log",print_r($Result, true).PHP_EOL, F
                             ],
                             'Data'   => $Updated
                         ]);
-                }*/
+*/
+                }
             }
 
         $Call = F::Hook('afterOdnoklassnikiAuthenticate', $Call);
