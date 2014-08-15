@@ -400,6 +400,11 @@
 
         public static function Live($Variable, $Call = [])
         {
+            if (($sz = func_num_args())>3)
+                for($ic = 3; $ic < $sz; $ic++)
+                    if (is_array($Argument = func_get_arg ($ic)))
+                        $Call = F::Merge($Call, $Argument);
+
             if ($Variable instanceof Closure)
                 return $Variable($Call);
 
