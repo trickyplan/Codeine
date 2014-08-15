@@ -420,12 +420,6 @@
                 else
                     $Variable['Method'] = 'Do';
 
-                if (isset($Call['Service']))
-                    $Variable['Service'] = $Call['Service'];
-
-                if (isset($Call['Method']))
-                    $Variable['Method'] = $Call['Method'];
-
                 return F::Run($Variable['Service'], $Variable['Method'],
                     $Call, isset($Variable['Call'])? self::Variable($Variable['Call'], $Call): []);
 
