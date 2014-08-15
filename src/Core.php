@@ -400,11 +400,6 @@
 
         public static function Live($Variable, $Call = [])
         {
-            if (($sz = func_num_args())>3)
-                for($ic = 3; $ic < $sz; $ic++)
-                    if (is_array($Argument = func_get_arg ($ic)))
-                        $Call = F::Merge($Call, $Argument);
-
             if ($Variable instanceof Closure)
                 return $Variable($Call);
 
@@ -420,8 +415,16 @@
                             $Call = F::Merge($Call, $Argument);
                 }
 
-                if (!isset($Variable['Method']))
+                if (isset($Variable['Method']))
+                    ;
+                else
                     $Variable['Method'] = 'Do';
+
+                if (isset($Call['Service']))
+                    $Variable['Service'] = $Call['Service'];
+
+                if (isset($Call['Method']))
+                    $Variable['Method'] = $Call['Method'];
 
                 return F::Run($Variable['Service'], $Variable['Method'],
                     $Call, isset($Variable['Call'])? self::Variable($Variable['Call'], $Call): []);
