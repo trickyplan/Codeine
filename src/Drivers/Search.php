@@ -21,7 +21,7 @@
         foreach ($Providers as $Provider)
         {
             $ProviderCall = $Call['Providers'][$Provider];
-            $ProviderCall['Method'] = 'Add';
+            $ProviderCall['Method'] = 'Index';
             F::Live($ProviderCall, $Call);
         }
 
