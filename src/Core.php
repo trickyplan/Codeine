@@ -420,6 +420,12 @@
                 else
                     $Variable['Method'] = 'Do';
 
+                if (isset($Call['Live Override']['Service']))
+                    $Variable['Service'] = $Call['Live Override']['Service'];
+
+                if (isset($Call['Live Override']['Method']))
+                    $Variable['Method'] = $Call['Live Override']['Method'];
+
                 return F::Run($Variable['Service'], $Variable['Method'],
                     $Call, isset($Variable['Call'])? self::Variable($Variable['Call'], $Call): []);
 
