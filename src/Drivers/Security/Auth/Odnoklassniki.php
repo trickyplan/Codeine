@@ -53,7 +53,6 @@
 
 
                 $Result = array_pop($Result);
-
                 if (isset($Result['access_token']))
                 {
 					$URL = "http://api.odnoklassniki.ru/fb.do";
@@ -75,7 +74,9 @@
 				         'Data'     => urldecode(http_build_query($params))*/
 				     ])[0];
 
-/*                    if (isset($Call['Session']['User']['ID']))
+					$Odnoklassniki = json_decode($Odnoklassniki, true);
+
+                    if (isset($Call['Session']['User']['ID']))
                         $Call['User'] = F::Run('Entity', 'Read',
                         [
                             'Entity' => 'User',
@@ -93,7 +94,7 @@
                             ],
                             'Where'  =>
                             [
-                                'Odnoklassniki.ID' => $Result['user_id']
+                                'Odnoklassniki.ID' => $Odnoklassniki['uid']
                             ]
                         ]);
 
@@ -107,7 +108,7 @@
                             [
                                 'Odnoklassniki' =>
                                 [
-                                    'ID'    => $Result['user_id'],
+                                    'ID'    => $Odnoklassniki['uid'],
                                     'Auth'  => $Result['access_token']
                                 ],
                                 'Status' => 1
@@ -117,18 +118,20 @@
 
                     $Updated =
                     [
-                        'VKontakte' =>
+                        'Odnoklassniki' =>
                         [
-                            'ID' => $Result['user_id'],
-                            'Auth'  => $Result['access_token']
+                            'ID' => $Odnoklassniki['uid'],
+                            'Auth'  => $Result['access_token'],
+                            'token_type' => $Result['token_type'],
+                            'Refresh' => $Result['refresh_token']
                         ]
                     ];
-                    foreach ($Call['VKontakte']['Mapping'] as $VKontakteField => $CodeineField)
-                        if (isset($VKontakte[$VKontakteField]) && !empty($VKontakte[$VKontakteField]))
-                $Updated =  F::Dot($Updated, $CodeineField, $VKontakte[$VKontakteField]);
+                    foreach ($Call['Odnoklassniki']['Mapping'] as $OdnoklassnikiField => $CodeineField)
+                        if (isset($Odnoklassniki[$OdnoklassnikiField]) && !empty($Odnoklassniki[$OdnoklassnikiField]))
+			                $Updated =  F::Dot($Updated, $CodeineField, $Odnoklassniki[$OdnoklassnikiField]);
                         else
                         {
-                            $tempField = F::Dot($VKontakte, $VKontakteField);
+                            $tempField = F::Dot($Odnoklassniki, $OdnoklassnikiField);
                             if (!empty($tempField))
                                 $Updated = F::Dot($Updated, $CodeineField, $tempField);
                         }
@@ -142,7 +145,6 @@
                             ],
                             'Data'   => $Updated
                         ]);
-*/
                 }
             }
 
