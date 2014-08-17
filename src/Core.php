@@ -317,7 +317,10 @@
             $Call = self::Merge($FnOptions, $Call);
 
             if ((null === self::getFn(self::$_Method)) && !self::_loadSource(self::$_Service))
-                $Result = (is_array($Call) && isset($Call['Fallback']))? $Call['Fallback'] : $Call;
+            {
+                F::Log('Service: '.self::$_Service.' not found', LOG_WARNING);
+                $Result = (is_array($Call) && isset($Call['Fallback']))? $Call['Fallback'] : null;
+            }
             else
             {
                 $F = self::getFn(self::$_Method);
