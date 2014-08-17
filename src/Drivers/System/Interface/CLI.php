@@ -25,7 +25,7 @@
             if (!isset($Call['Skip Run']))
                 $Call = F::Apply($Call['Service'], $Call['Method'], $Call);
 
-        if (is_array($Call))
+        if (is_array($Call) && isset($Call['Output']))
         {
             if (!isset($Call['View']['Renderer']))
                 $Call['View']['Renderer'] = $Call['View']['Default']['Renderer'];
