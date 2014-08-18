@@ -7,7 +7,7 @@
      * @version 7.x
      */
 
-    setFn('Add', function ($Call)
+    setFn('Index', function ($Call)
     {
         $Data = [];
 
@@ -32,12 +32,15 @@
                 }
             }
 
-        if (F::Run('Search', 'Add', $Call,
+        if (F::Run('Search', 'Index', $Call,
         [
             'Provider' => $Call['Entity'],
             'Data!'    => $Data
         ]))
+        {
             F::Log($Call['Entity'].' '.$Data['ID'].' indexed', LOG_INFO);
+            F::Log($Data, LOG_DEBUG);
+        }
 
         return $Call;
     });
@@ -139,7 +142,7 @@
         $Entities = F::Run('Entity', 'Read', $Call);
 
         foreach ($Entities as $Data)
-            F::Run(null, 'Add', $Call, ['Data' => $Data]);
+            F::Run(null, 'Index', $Call, ['Data' => $Data]);
 
         return $Call;
     });

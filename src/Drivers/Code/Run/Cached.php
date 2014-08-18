@@ -66,7 +66,12 @@
             }
         }
         else
+        {
+            if (isset($Call['Run']['RTTL']) && !isset ($Call['Run']['CacheID']))
+                F::Log('RTTL defined, but contract is not', LOG_WARNING, 'Performance');
+
             $Result = F::Live($Call['Run']);
+        }
 
         return $Result;
      });

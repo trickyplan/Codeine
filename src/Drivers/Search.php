@@ -6,7 +6,7 @@
      * @package Codeine
      * @version 7.x
      */
-    setFn('Add', function ($Call)
+    setFn('Index', function ($Call)
     {
         if (isset($Call['Provider']))
         {
@@ -21,7 +21,7 @@
         foreach ($Providers as $Provider)
         {
             $ProviderCall = $Call['Providers'][$Provider];
-            $ProviderCall['Method'] = 'Add';
+            $ProviderCall['Method'] = 'Index';
             F::Live($ProviderCall, $Call);
         }
 

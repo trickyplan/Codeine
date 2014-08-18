@@ -317,7 +317,10 @@
             $Call = self::Merge($FnOptions, $Call);
 
             if ((null === self::getFn(self::$_Method)) && !self::_loadSource(self::$_Service))
-                $Result = (is_array($Call) && isset($Call['Fallback']))? $Call['Fallback'] : $Call;
+            {
+                F::Log('Service: '.self::$_Service.' not found', LOG_WARNING);
+                $Result = (is_array($Call) && isset($Call['Fallback']))? $Call['Fallback'] : null;
+            }
             else
             {
                 $F = self::getFn(self::$_Method);
@@ -340,33 +343,28 @@
                         $CacheID = sha1(serialize($Memo));
                     }
 
-                    if (!isset($CacheID) || ($Result = F::Get($CacheID)) == null)
+                    if (isset($Call['RTTL']) and isset($CacheID))
                     {
-                        if (isset($Call['RTTL']) and isset($CacheID))
-                        {
-                            $RTTL = $Call['RTTL'];
-                            unset($Call['RTTL']);
+                        $RTTL = $Call['RTTL'];
+                        unset($Call['RTTL']);
 
-                            $Result = F::Execute('Code.Run.Cached', 'Run',
-                                [
-                                    'Run' =>
-                                        [
-                                            'Service' => self::$_Service,
-                                            'Method'  => self::$_Method,
-                                            'Call'    => $Call,
-                                            'CacheID' => $CacheID,
-                                            'RTTL'    => $RTTL,
-                                            'Memo'    => $Memo
-                                        ]
-                                ]);
-                        }
-                        else
-                            $Result = $F($Call);
-                        // if (self::$_Performance)
-                        self::Counter(self::$_Service.'.'.self::$_Method);
+                        $Result = F::Execute('Code.Run.Cached', 'Run',
+                            [
+                                'Run' =>
+                                    [
+                                        'Service' => self::$_Service,
+                                        'Method'  => self::$_Method,
+                                        'Call'    => $Call,
+                                        'CacheID' => $CacheID,
+                                        'RTTL'    => $RTTL,
+                                        'Memo'    => $Memo
+                                    ]
+                            ]);
                     }
                     else
-                        F::Log(self::$_Service.':'.self::$_Method.' memoized', LOG_DEBUG, 'Administrator');
+                        $Result = $F($Call);
+                    // if (self::$_Performance)
+                    self::Counter(self::$_Service.'.'.self::$_Method);
 
                     if (!isset($Call['No Memo']) && isset($CacheID))
                         F::Set($CacheID, $Result);
@@ -420,8 +418,16 @@
                             $Call = F::Merge($Call, $Argument);
                 }
 
-                if (!isset($Variable['Method']))
+                if (isset($Variable['Method']))
+                    ;
+                else
                     $Variable['Method'] = 'Do';
+
+                if (isset($Call['Live Override']['Service']))
+                    $Variable['Service'] = $Call['Live Override']['Service'];
+
+                if (isset($Call['Live Override']['Method']))
+                    $Variable['Method'] = $Call['Live Override']['Method'];
 
                 return F::Run($Variable['Service'], $Variable['Method'],
                     $Call, isset($Variable['Call'])? self::Variable($Variable['Call'], $Call): []);
