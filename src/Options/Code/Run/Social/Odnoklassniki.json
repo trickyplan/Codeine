@@ -1,0 +1,10 @@
+{
+    "Odnoklassniki":
+    {
+        "Entry Point": "http://api.odnoklassniki.ru/fb.do",
+        "AppID": 0,
+        "Secret": "",
+        "Public": "",
+        "Rights": ""
+    }
+}

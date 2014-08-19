@@ -5,32 +5,5 @@
         "AppID": 0,
         "Secret": "0",
         "Rights": ""
-    },
-    "Hooks":
-    {
-        "afterFacebookAuthenticate":
-        {
-            "Redirect":
-            {
-                "Service": "System.Interface.HTTP",
-                "Method": "Redirect",
-                "Call":
-                {
-                    "Location": "/profile"
-                }
-            }
-        },
-        "afterFacebookAnnulate":
-        {
-            "Redirect":
-            {
-                "Service": "System.Interface.HTTP",
-                "Method": "Redirect",
-                "Call":
-                {
-                    "Location": "/profile"
-                }
-            }
-        }
     }
 }

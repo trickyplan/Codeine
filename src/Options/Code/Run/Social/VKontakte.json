@@ -6,32 +6,5 @@
         "AppID": 0,
         "Secret": "SECRET",
         "Rights": "friends,offline"
-    },
-    "Hooks":
-    {
-        "afterVKontakteAuthenticate":
-        {
-            "Redirect":
-            {
-                "Service": "System.Interface.HTTP",
-                "Method": "Redirect",
-                "Call":
-                {
-                    "Location": "/profile"
-                }
-            }
-        },
-        "afterVKontakteAnnulate":
-        {
-            "Redirect":
-            {
-                "Service": "System.Interface.HTTP",
-                "Method": "Redirect",
-                "Call":
-                {
-                    "Location": "/profile"
-                }
-            }
-        }
     }
 }
