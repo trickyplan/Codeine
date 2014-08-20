@@ -3,43 +3,27 @@
     setFn('Run', function ($Call)
     {
         if (isset($Call['Call']['access_token']))
-            ;
+	{
+            $Call['access_token'] = $Call['Call']['access_token'];
+            unset($Call['Call']['access_token']);
+	}
         else
-            $Call['Call']['access_token'] = F::Run(null, 'Access Token', $Call);
+            $Call['access_token'] = F::Run(null, 'Access Token', $Call);
 
         $Call['Call']['method'] = $Call['Method'];
         $Call['Call']['application_key'] = $Call['Odnoklassniki']['AppID'];
-        if (!ksort($Call['Call']))
-	{
-            F::Log('Sort error', LOG_ERR);
-            return null;
-        } 
-	else
-	{
-            $requestStr = "";
-            foreach($Call['Call'] as $key=>$value){
-                $requestStr .= $key . "=" . $value;
-            }
-            $requestStr .= md5($Call['Call']['access_token'] . self::$app_secret_key);
-            return md5($requestStr);
-        }
+	$Call['Secret'] = $Call['Odnoklassniki']['Secret'];
+	$Call['Call']['sig'] = F::Run(null, 'Calc Signature', $Call);
+	$Call['Call']['access_token'] = $Call['access_token'];
 
+	$Result = F::Run('IO', 'Read',
+	     [
+		 'Storage'  => 'Web',
+		 'Where'    => $Call['Odnoklassniki']['Entry Point'].'?'.urldecode(http_build_query($Call['Call'])),
+		 'Output Format'   => 'Formats.JSON'
+	     ])[0];
 
-        if (isset($Call['Call']))
-            $Query = '?'.urldecode(http_build_query($Call['Call']));
-        else
-            $Query = '';
-
-        $URL = $Call['Odnoklassniki']['Entry Point'].$Call['Method'].$Query;
-
-        $Result = F::Run('IO', 'Read',
-               [
-                   'Storage'    => 'Web',
-                   'Output Format'   => 'Formats.JSON',
-                   'Where'      => $URL
-               ]);
-
-        $Result = array_pop($Result);
+	$Result = json_decode($Odnoklassniki, true);
 
         if (isset($Call['Return Key']) && F::Dot($Result, $Call['Return Key']))
             $Result = F::Dot($Result, $Call['Return Key']);
@@ -74,6 +58,7 @@
                 ;
             else
             {
+                $oldAuth = $Result['Auth'];
                 $URL = 'http://api.odnoklassniki.ru/oauth/token.do';
                 $Result = F::Run('IO', 'Write',
                      [
@@ -97,9 +82,40 @@
 		    $Result = null;
 		else
 		{
-
+		    F::Run ('Entity', 'Write',
+		        [
+		            'Entity' => 'User',
+		            'Where'  =>
+		            [
+		                'Odnoklassniki.Auth' => $oldAuth
+		            ],
+		            'Data' => 
+		            [
+		                'Odnoklassniki.Auth' => $Result['Auth']
+		            ],
+		            'Sort' => ['Modified' => false],
+		            'One'  => true
+		        ]);
 		}
             }
         }
         return $Result;
+    });
+
+    setFn('Calc Signature', function ($Call)
+    {
+        if (!ksort($Call['Call']))
+	{
+            F::Log('Sort error', LOG_ERR);
+            return null;
+        } 
+	else
+	{
+            $requestStr = "";
+            foreach($Call['Call'] as $key=>$value){
+                $requestStr .= $key . "=" . $value;
+            }
+            $requestStr .= md5($Call['access_token'] . $Call['Secret']);
+            return md5($requestStr);
+        }
     });

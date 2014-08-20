@@ -55,7 +55,7 @@
                 $Result = array_pop($Result);
                 if (isset($Result['access_token']))
                 {
-			$URL = "http://api.odnoklassniki.ru/fb.do";
+/*			$URL = "http://api.odnoklassniki.ru/fb.do";
 			$sign = md5("application_key={$Call['Odnoklassniki']['Public']}format=jsonmethod=users.getCurrentUser" . md5("{$Result['access_token']}{$Call['Odnoklassniki']['Secret']}"));
 				 
 			$params = array(
@@ -72,7 +72,16 @@
 			         'Output Format'   => 'Formats.JSON'
 			     ])[0];
 
-			$Odnoklassniki = json_decode($Odnoklassniki, true);
+			$Odnoklassniki = json_decode($Odnoklassniki, true);*/
+			$Odnoklassniki = F::Run('Code.Run.Social.Facebook', 'Run',
+	                    [
+				'Method'    => 'users.getCurrentUser',
+				'Call'      =>
+				[
+				    'access_token'  => $Result['access_token'],
+				    'format'          => 'json'
+				]
+			    ]);
 
                     if (isset($Call['Session']['User']['ID']))
                         $Call['User'] = F::Run('Entity', 'Read',
