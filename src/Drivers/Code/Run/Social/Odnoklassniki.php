@@ -11,18 +11,15 @@
             $Call['access_token'] = F::Run(null, 'Access Token', $Call);
 
         $Call['Call']['method'] = $Call['Method'];
-        $Call['Call']['application_key'] = $Call['Odnoklassniki']['AppID'];
-	$Call['Secret'] = $Call['Odnoklassniki']['Secret'];
+        $Call['Call']['application_key'] = $Call['Odnoklassniki']['Public'];
 	$Call['Call']['sig'] = F::Run(null, 'Calc Signature', $Call);
 	$Call['Call']['access_token'] = $Call['access_token'];
-
 	$Result = F::Run('IO', 'Read',
 	     [
 		 'Storage'  => 'Web',
 		 'Where'    => $Call['Odnoklassniki']['Entry Point'].'?'.urldecode(http_build_query($Call['Call'])),
 		 'Output Format'   => 'Formats.JSON'
 	     ])[0];
-
 	$Result = json_decode($Result, true);
 
         if (isset($Call['Return Key']) && F::Dot($Result, $Call['Return Key']))
@@ -72,9 +69,8 @@
                              'grant_type' => 'refresh_token',
                              'refresh_token' => $Result['Refresh']
                          ]
+			// 'Data'     => urldecode(http_build_query($params))
                      ]);
-
-// 'Data'     => urldecode(http_build_query($params))
 
                 $Result = array_pop($Result);
 		$Result = json_decode($Result, true);
@@ -115,7 +111,7 @@
             foreach($Call['Call'] as $key=>$value){
                 $requestStr .= $key . "=" . $value;
             }
-            $requestStr .= md5($Call['access_token'] . $Call['Secret']);
+            $requestStr .= md5($Call['access_token'] . $Call['Odnoklassniki']['Secret']);
             return md5($requestStr);
         }
     });
