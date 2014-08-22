@@ -73,7 +73,7 @@
 			     ])[0];
 
 			$Odnoklassniki = json_decode($Odnoklassniki, true);*/
-			$Odnoklassniki = F::Run('Code.Run.Social.Facebook', 'Run',
+			$Odnoklassniki = F::Run('Code.Run.Social.Odnoklassniki', 'Run',
 	                    [
 				'Method'    => 'users.getCurrentUser',
 				'Call'      =>

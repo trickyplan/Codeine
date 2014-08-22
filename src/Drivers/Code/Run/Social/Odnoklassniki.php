@@ -23,7 +23,7 @@
 		 'Output Format'   => 'Formats.JSON'
 	     ])[0];
 
-	$Result = json_decode($Odnoklassniki, true);
+	$Result = json_decode($Result, true);
 
         if (isset($Call['Return Key']) && F::Dot($Result, $Call['Return Key']))
             $Result = F::Dot($Result, $Call['Return Key']);
