@@ -39,5 +39,5 @@
         foreach ($Call['Data'] as $Data)
             F::Run('Entity', 'Create', $Call, ['Skip Live' => true, 'Data!' => $Data]);
 
-        return $Call;
+        return [];
     });
