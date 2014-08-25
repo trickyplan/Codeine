@@ -25,7 +25,11 @@
             {
                 foreach ($Elements as $Element)
                 {
-                    $Value = F::Run('Entity', 'Count',
+                    if (empty($Element[$Call['Key']]))
+                        ;
+                    else
+                    {
+                        $Value = F::Run('Entity', 'Count',
                         [
                             'Entity' => $Call['Entity'],
                             'Where' =>
@@ -34,8 +38,9 @@
                             ]
                         ]);
 
-                    if ($Value > 0)
-                        $Values[$Element[$Call['Key']]] = $Value;
+                        if ($Value > 0)
+                            $Values[$Element[$Call['Key']]] = $Value;
+                    }
                 }
 
                 arsort($Values);
