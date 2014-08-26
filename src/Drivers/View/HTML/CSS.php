@@ -76,7 +76,7 @@
 
                 foreach ($Call['CSS']['Styles'] as $CSS => $CSSSource)
                 {
-                    $CSS = sha1($CSSSource).'_'.$CSS;
+                    $CSS = sha1($CSSSource).'_'.strtr($CSS, ":", '_');
 
                     $Write = true;
 
