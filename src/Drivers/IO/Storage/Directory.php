@@ -128,13 +128,15 @@
         }
 
         if (isset($Call['Data']) && ($Call['Data'] != 'null') && ($Call['Data'] != null))
-            if (file_put_contents ($Filename, $Call['Data']))
-                return $Call['Data'];
-            else
+        {
+            if (file_put_contents ($Filename, $Call['Data']) === false)
             {
                 F::Log('Write to *'.$Call['Storage'].'* failed', LOG_ERR, 'Administrator');
                 return null;
             }
+            else
+                return $Call['Data'];
+        }
         else
         {
             if (F::file_exists($Filename))

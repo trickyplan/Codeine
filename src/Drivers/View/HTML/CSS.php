@@ -9,8 +9,10 @@
 
     setFn ('Process', function ($Call)
     {
+
         if (preg_match('/<place>CSS<\/place>/SsUu', $Call['Output']))
         {
+
             $Parsed = F::Run('Text.Regex', 'All',
                 [
                     'Pattern' => $Call['CSS']['Inline Pattern'],
@@ -25,15 +27,16 @@
             else
                 $CSSInline = '';
 
-
             $Parsed = F::Run('Text.Regex', 'All',
                 [
                     'Pattern' => $Call['CSS']['Pattern'],
                     'Value' => $Call['Output']
                 ]);
 
+
             if ($Parsed)
             {
+
                 $Call['CSS']['Input'] = $Parsed[1];
 
                 $Call = F::Hook('beforeCSSInput', $Call);
