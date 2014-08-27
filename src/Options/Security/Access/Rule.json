@@ -19,8 +19,7 @@
             "Weight": 50,
             "Run":
             {
-                "Service": "Project.Frontpage",
-                "Method": "Do"
+                "Service": "Project.Frontpage"
             }
         },
         "Правила всем":
