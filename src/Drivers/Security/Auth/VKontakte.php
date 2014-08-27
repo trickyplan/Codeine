@@ -53,13 +53,92 @@
 
                 if (isset($Result['access_token']))
                 {
+                    $Updated = [];
                     if (isset($Call['Session']['User']['ID']))
+                    {
                         $Call['User'] = F::Run('Entity', 'Read',
                         [
                             'Entity' => 'User',
                             'One'    => true,
                             'Where'  => $Call['Session']['User']['ID'],
                         ]);
+
+                        $Gemini = F::Run('Entity', 'Read',
+                        [
+                            'Entity' => 'User',
+                            'One'    => true,
+                            'Sort'   =>
+                            [
+                                'ID' => SORT_ASC
+                            ],
+                            'Where'  =>
+                            [
+                                'ID' => ['$ne' => $Call['User']['ID']],
+                                'VKontakte.ID' => $Result['user_id']
+                            ]
+                        ]);
+                        if (isset($Gemini))
+                        {
+                            // merge review
+                            F::Run('Entity', 'Update',
+                            [
+                                'Entity' => 'Review',
+                                'Where'  => 
+                                [
+                                    'User'   => $Gemini['ID'],
+                                    'Object' => ['$ne' => $Call['User']['ID']]
+                                ],
+                                'Data'   => ['User' => $Call['User']['ID']]
+                            ],
+                    	    ['One' => false]);
+
+                            F::Run('Entity', 'Update',
+                            [
+                                'Entity' => 'Review',
+                                'Where'  => 
+                                [
+                                    'Object' => $Gemini['ID'],
+                                    'User'   => ['$ne' => $Call['User']['ID']]
+                                ],
+                                'Data'   => ['Object' => $Call['User']['ID']]
+                            ],
+                    	    ['One' => false]);
+
+                            F::Run('Entity', 'Delete',
+                            [
+                                'Entity' => 'Review',
+                                'Where'  =>
+                                [
+                                    '$or' => 
+                                    [
+                                        'User'   => $Gemini['ID'],
+                                        'Object' => $Gemini['ID']
+                                    ]
+                                ]
+                            ]);
+
+
+                            // merge comments
+                            F::Run('Entity', 'Update',
+                            [
+                                'Entity' => 'Comment',
+                                'Where'  => ['User' => $Gemini['ID']],
+                                'Data'   => ['User' => $Call['User']['ID']]
+                            ],
+                            ['One' => false]);
+
+                            // merge user data
+                            foreach ($Call['VKontakte']['MergeMapping'] as $VKontakteField => $CodeineField)
+                                if (isset($Gemini[$VKontakteField]) && !empty($Gemini[$VKontakteField]))  
+                              	    $Updated[$CodeineField] = $Gemini[$VKontakteField];
+
+                            F::Run('Entity', 'Delete',
+                            [
+                                'Entity' => 'User',
+                                'Where'  => $Gemini['ID']
+                            ]);
+                        }
+                    }
                     else
                         $Call['User'] = F::Run('Entity', 'Read',
                         [
@@ -105,17 +184,14 @@
                                 ]
                             ])[0];
 
-                    $Updated =
-                    [
-                        'VKontakte' =>
+                    $Updated['VKontakte'] =
                         [
                             'ID' => $Result['user_id'],
                             'Auth'  => $Result['access_token']
-                        ]
-                    ];
+                        ];
                     foreach ($Call['VKontakte']['Mapping'] as $VKontakteField => $CodeineField)
                         if (isset($VKontakte[$VKontakteField]) && !empty($VKontakte[$VKontakteField]))
-                $Updated =  F::Dot($Updated, $CodeineField, $VKontakte[$VKontakteField]);
+                            $Updated =  F::Dot($Updated, $CodeineField, $VKontakte[$VKontakteField]);
                         else
                         {
                             $tempField = F::Dot($VKontakte, $VKontakteField);

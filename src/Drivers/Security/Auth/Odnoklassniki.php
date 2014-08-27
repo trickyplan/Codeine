@@ -55,22 +55,100 @@
                 $Result = array_pop($Result);
                 if (isset($Result['access_token']))
                 {
-		   $Odnoklassniki = F::Run('Code.Run.Social.Odnoklassniki', 'Run',
-	           [
-			'Method'    => 'users.getCurrentUser',
-			'Call'      =>
-			[
-			    'access_token'  => $Result['access_token'],
-			    'format'          => 'json'
-			]
-		    ]);
+		           $Odnoklassniki = F::Run('Code.Run.Social.Odnoklassniki', 'Run',
+                       [
+			                'Method'    => 'users.getCurrentUser',
+			                'Call'      =>
+			                [
+			                    'access_token'  => $Result['access_token'],
+			                    'format'          => 'json'
+			                ]
+		                ]);
+                    $Updated = [];
                     if (isset($Call['Session']['User']['ID']))
+                    {
                         $Call['User'] = F::Run('Entity', 'Read',
                         [
                             'Entity' => 'User',
                             'One'    => true,
                             'Where'  => $Call['Session']['User']['ID'],
                         ]);
+
+                        $Gemini = F::Run('Entity', 'Read',
+                        [
+                            'Entity' => 'User',
+                            'One'    => true,
+                            'Sort'   =>
+                            [
+                                'ID' => SORT_ASC
+                            ],
+                            'Where'  =>
+                            [
+                                'ID' => ['$ne' => $Call['User']['ID']],
+                                'VKontakte.ID' => $Result['user_id']
+                            ]
+                        ]);
+                        if (isset($Gemini))
+                        {
+                            // merge review
+                            F::Run('Entity', 'Update',
+                            [
+                                'Entity' => 'Review',
+                                'Where'  => 
+                                [
+                                    'User'   => $Gemini['ID'],
+                                    'Object' => ['$ne' => $Call['User']['ID']]
+                                ],
+                                'Data'   => ['User' => $Call['User']['ID']]
+                            ],
+                    	    ['One' => false]);
+
+                            F::Run('Entity', 'Update',
+                            [
+                                'Entity' => 'Review',
+                                'Where'  => 
+                                [
+                                    'Object' => $Gemini['ID'],
+                                    'User'   => ['$ne' => $Call['User']['ID']]
+                                ],
+                                'Data'   => ['Object' => $Call['User']['ID']]
+                            ],
+                    	    ['One' => false]);
+
+                            F::Run('Entity', 'Delete',
+                            [
+                                'Entity' => 'Review',
+                                'Where'  =>
+                                [
+                                    '$or' => 
+                                    [
+                                        'User'   => $Gemini['ID'],
+                                        'Object' => $Gemini['ID']
+                                    ]
+                                ]
+                            ]);
+
+                            // merge comments
+                            F::Run('Entity', 'Update',
+                            [
+                                'Entity' => 'Comment',
+                                'Where'  => ['User' => $Gemini['ID']],
+                                'Data'   => ['User' => $Call['User']['ID']]
+                            ],
+                            ['One' => false]);
+
+                            // merge user data
+                            foreach ($Call['Odnoklassniki']['MergeMapping'] as $OdnoklassnikiField => $CodeineField)
+                                if (isset($Gemini[$OdnoklassnikiField]) && !empty($Gemini[$OdnoklassnikiField]))  
+                              	    $Updated[$CodeineField] = $Gemini[$OdnoklassnikiField];
+
+                            F::Run('Entity', 'Delete',
+                            [
+                                'Entity' => 'User',
+                                'Where'  => $Gemini['ID']
+                            ]);
+                        }
+                    }
                     else
                         $Call['User'] = F::Run('Entity', 'Read',
                         [
@@ -104,16 +182,15 @@
                         ]);
                     }
 
-                    $Updated =
-                    [
-                        'Odnoklassniki' =>
+                    $Updated['Odnoklassniki'] =
                         [
                             'ID' => $Odnoklassniki['uid'],
                             'Auth'  => $Result['access_token'],
                             'token_type' => $Result['token_type'],
-                            'Refresh' => $Result['refresh_token']
-                        ]
-                    ];
+                            'Refresh' => $Result['refresh_token'],
+                            'Expire' => time()+1800
+                        ];
+
                     foreach ($Call['Odnoklassniki']['Mapping'] as $OdnoklassnikiField => $CodeineField)
                         if (isset($Odnoklassniki[$OdnoklassnikiField]) && !empty($Odnoklassniki[$OdnoklassnikiField]))
 			                $Updated =  F::Dot($Updated, $CodeineField, $Odnoklassniki[$OdnoklassnikiField]);

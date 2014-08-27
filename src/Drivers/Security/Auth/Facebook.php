@@ -54,13 +54,91 @@
                         ]
                     ]);
 
+            $Updated = [];
             if (isset($Call['Session']['User']['ID']))
+            {
                 $Call['User'] = F::Run('Entity', 'Read', $Call,
                 [
                     'Entity' => 'User',
                     'One'    => true,
                     'Where'  => $Call['Session']['User']['ID']
                 ]);
+
+                $Gemini = F::Run('Entity', 'Read',
+                [
+                    'Entity' => 'User',
+                    'One'    => true,
+                    'Sort'   =>
+                    [
+                        'ID' => SORT_ASC
+                    ],
+                    'Where'  =>
+                    [
+                        'ID' => ['$ne' => $Call['User']['ID']],
+                        'Facebook.ID' => $Facebook['id']
+                    ]
+                ]);
+                if (isset($Gemini))
+                {
+                    // merge review
+                    F::Run('Entity', 'Update',
+                    [
+                        'Entity' => 'Review',
+                        'Where'  => 
+                        [
+                            'User'   => $Gemini['ID'],
+                            'Object' => ['$ne' => $Call['User']['ID']]
+                        ],
+                        'Data'   => ['User' => $Call['User']['ID']]
+                    ],
+            	    ['One' => false]);
+
+                    F::Run('Entity', 'Update',
+                    [
+                        'Entity' => 'Review',
+                        'Where'  => 
+                        [
+                            'Object' => $Gemini['ID'],
+                            'User'   => ['$ne' => $Call['User']['ID']]
+                        ],
+                        'Data'   => ['Object' => $Call['User']['ID']]
+                    ],
+            	    ['One' => false]);
+
+                    F::Run('Entity', 'Delete',
+                    [
+                        'Entity' => 'Review',
+                        'Where'  =>
+                        [
+                            '$or' => 
+                            [
+                                'User'   => $Gemini['ID'],
+                                'Object' => $Gemini['ID']
+                            ]
+                        ]
+                    ]);
+
+                    // merge comments
+                    F::Run('Entity', 'Update',
+                    [
+                        'Entity' => 'Comment',
+                        'Where'  => ['User' => $Gemini['ID']],
+                        'Data'   => ['User' => $Call['User']['ID']]
+                    ],
+                    ['One' => false]);
+
+                    // merge user data
+                    foreach ($Call['Facebook']['MergeMapping'] as $FacebookField => $CodeineField)
+                        if (isset($Gemini[$FacebookField]) && !empty($Gemini[$FacebookField]))  
+                      	    $Updated[$CodeineField] = $Gemini[$FacebookField];
+
+                    F::Run('Entity', 'Delete',
+                    [
+                        'Entity' => 'User',
+                        'Where'  => $Gemini['ID']
+                    ]);
+                }
+            }
             else
                 $Call['User'] = F::Run('Entity', 'Read', $Call,
                 [
@@ -94,15 +172,12 @@
                 ]);
             }
 
-            $Updated =
-            [
-                'Facebook' =>
+            $Updated['Facebook'] =
                 [
                     'ID'     => $Facebook['id'],
                     'Auth'   => $Result['access_token'],
                     'Expire' => time()+$Result['expires']
-                ]
-            ];
+                ];
 
             foreach ($Call['Facebook']['Mapping'] as $FacebookField => $CodeineField)
                 if (isset($Facebook[$FacebookField]) && !empty($Facebook[$FacebookField]))
