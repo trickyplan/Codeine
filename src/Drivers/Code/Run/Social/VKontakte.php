@@ -42,7 +42,7 @@
 
     setFn('Access Token', function ($Call)
     {
-        if (isset($Call['Session']['User']['VKontakte']['Auth']))
+        if (isset($Call['Session']['User']['VKontakte']['Auth']) && !empty($Call['Session']['User']['VKontakte']['Auth']))
             $Token = $Call['Session']['User']['VKontakte']['Auth'];
         else
             $Token =
