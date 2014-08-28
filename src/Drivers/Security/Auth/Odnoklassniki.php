@@ -118,14 +118,12 @@
                             F::Run('Entity', 'Delete',
                             [
                                 'Entity' => 'Review',
-                                'Where'  =>
-                                [
-                                    '$or' => 
-                                    [
-                                        'User'   => $Gemini['ID'],
-                                        'Object' => $Gemini['ID']
-                                    ]
-                                ]
+                                'Where'  => ['User'   => $Gemini['ID']]
+                            ]);
+                            F::Run('Entity', 'Delete',
+                            [
+                                'Entity' => 'Review',
+                                'Where'  => ['Object'   => $Gemini['ID']]
                             ]);
 
                             // merge comments
@@ -138,9 +136,9 @@
                             ['One' => false]);
 
                             // merge user data
-                            foreach ($Call['Odnoklassniki']['MergeMapping'] as $OdnoklassnikiField => $CodeineField)
-                                if (isset($Gemini[$OdnoklassnikiField]) && !empty($Gemini[$OdnoklassnikiField]))  
-                              	    $Updated[$CodeineField] = $Gemini[$OdnoklassnikiField];
+                            foreach ($Call['VKontakte']['MergeMapping'] as $MergeField => $CodeineField)
+                                if (isset($Gemini[$MergeField]) && !empty($Gemini[$MergeField]) && !isset($Call['User'][$MergeField]['Auth']))  
+                              	    $Updated[$CodeineField] = $Gemini[$MergeField];
 
                             F::Run('Entity', 'Delete',
                             [
