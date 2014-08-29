@@ -29,6 +29,7 @@
             $Call['Value'] = abs($Time-$Call['Value']);
 
             $Output = [];
+
             foreach ($Call['Period']['Units'] as $Period => $Value)
                 if ($Call['Value'] >= $Value)
                 {
@@ -37,7 +38,7 @@
                     $Call['Value'] -= $Units*$Value;
                 }
 
-            return $Prefix.implode(' ', array_slice($Output,0,$Call['Period']['Format'])).$Postfix;
+            return $Prefix.implode(' ', array_slice($Output,0,$Call['Period']['Format']-1)).$Postfix;
         }
         else
              return null;
