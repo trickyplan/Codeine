@@ -1,21 +1,22 @@
 <div class="list-group-item">
     <a href="/blog/<k>Slug</k>">
-        <h4><k>Title</k></h4>
+        <h2><k>Title</k></h2>
     </a>
-    <div>
+    <h4><k>Subtitle</k></h4>
+    <div class="panel-body">
         <k>Description</k>
     </div>
 
-    <div class="pull-right">
-        <block>
-            <a rel="tag" class="label label-tag" href="/blog/tags/<k>Tags</k>"><k>Tags</k></a>
-        </block>
-    </div>
 
     <div class="text-muted">
-        <small>
+        <div class="pull-right">
+            <block>
+                <a rel="tag" class="label label-tag" href="/blog/tags/<k>Tags</k>"><k>Tags</k></a>
+            </block>
+        </div>
+        <div>
             <entity>User:<k>User</k></entity>,
             <datetime><k>Created</k></datetime>
-        </small>
+        </div>
     </div>
 </div>

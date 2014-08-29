@@ -1,0 +1,22 @@
+<subtitle><l><call>Entity</call>.Control:Title</l></subtitle>
+<h1 class="page-header"><header/></h1>
+<div class="row">
+    <div class="col-lg-3">
+        <exec>
+            <Service>Entity.Catalog</Service>
+            <Method>Do</Method>
+            <Call>
+                <Entity>Blog</Entity>
+                <Key>Tags</Key>
+                <Where>
+                    <Created></Created>
+                </Where>
+            </Call>
+        </exec>
+    </div>
+    <div class="col-lg-9">
+        <div class="list-group">
+            <place>Content</place>
+        </div>
+    </div>
+</div>

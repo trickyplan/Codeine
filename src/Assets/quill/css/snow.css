@@ -243,6 +243,7 @@
 .quill-wrapper
 {
     border: 1px solid #dddddd;
+    margin: 0.5em 0;
 }
 
 .ql-toolbar-container
