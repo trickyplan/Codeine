@@ -64,107 +64,107 @@
                     'Where'  => $Call['Session']['User']['ID']
                 ]);
 
-                        $Gemini = F::Run('Entity', 'Read',
+                $Gemini = F::Run('Entity', 'Read',
+                [
+                    'Entity' => 'User',
+                    'One'    => true,
+                    'Sort'   =>
+                    [
+                        'ID' => SORT_ASC
+                    ],
+                    'Where'  =>
+                    [
+                        'ID' => ['$ne' => $Call['User']['ID']],
+                        'VKontakte.ID' => $Result['user_id']
+                    ]
+                ]);
+                if (isset($Gemini))
+                {
+                    // merge review
+                    $IDs = array();
+
+                    F::Run('Entity', 'Update',
+                    [
+                        'Entity' => 'Review',
+                        'Where'  => 
                         [
-                            'Entity' => 'User',
-                            'One'    => true,
-                            'Sort'   =>
-                            [
-                                'ID' => SORT_ASC
-                            ],
-                            'Where'  =>
-                            [
-                                'ID' => ['$ne' => $Call['User']['ID']],
-                                'VKontakte.ID' => $Result['user_id']
-                            ]
+                            'User'   => $Gemini['ID'],
+                            'Object' => ['$ne' => $Call['User']['ID']]
+                        ],
+                        'Data'   => ['User' => $Call['User']['ID']]
+                    ],
+            	    ['One' => false]);
+
+                    $IDsTemp = F::Run('Entity', 'Read',
+                    [
+                        'Entity' => 'Review',
+                        'Where'  => ['User'   => $Gemini['ID']],
+                        'Fields' => ['ID']
+                    ]);
+                    foreach($IDsTemp as $value)
+                        $IDs[] = $value['ID'];
+
+                    F::Run('Entity', 'Delete',
+                    [
+                        'Entity' => 'Review',
+                        'Where'  => ['User'   => $Gemini['ID']]
+                    ]);
+
+                    F::Run('Entity', 'Update',
+                    [
+                        'Entity' => 'Review',
+                        'Where'  => 
+                        [
+                            'Object' => $Gemini['ID'],
+                            'User'   => ['$ne' => $Call['User']['ID']]
+                        ],
+                        'Data'   => ['Object' => $Call['User']['ID']]
+                    ],
+            	    ['One' => false]);
+
+                    $IDsTemp = F::Run('Entity', 'Read',
+                    [
+                        'Entity' => 'Review',
+                        'Where'  => ['Object'   => $Gemini['ID']],
+                        'Fields' => ['ID']
+                    ]);
+                    foreach($IDsTemp as $value)
+                        $IDs[] = $value['ID'];
+
+                    F::Run('Entity', 'Delete',
+                    [
+                        'Entity' => 'Review',
+                        'Where'  => ['Object'   => $Gemini['ID']]
+                    ]);
+
+                    // merge comments
+                    if (!empty($IDs))
+                        F::Run('Entity', 'Delete',
+                        [
+                            'Entity' => 'Comment',
+                            'Where'  => ['Object' => ['$in'=> $IDs]],
                         ]);
-                        if (isset($Gemini))
-                        {
-                            // merge review
-                            $IDs = array();
 
-                            F::Run('Entity', 'Update',
-                            [
-                                'Entity' => 'Review',
-                                'Where'  => 
-                                [
-                                    'User'   => $Gemini['ID'],
-                                    'Object' => ['$ne' => $Call['User']['ID']]
-                                ],
-                                'Data'   => ['User' => $Call['User']['ID']]
-                            ],
-                    	    ['One' => false]);
+                    F::Run('Entity', 'Update',
+                    [
+                        'Entity' => 'Comment',
+                        'Where'  => ['User' => $Gemini['ID']],
+                        'Data'   => ['User' => $Call['User']['ID']]
+                    ],
+                    ['One' => false]);
 
-                            $IDsTemp = F::Run('Entity', 'Read',
-                            [
-                                'Entity' => 'Review',
-                                'Where'  => ['User'   => $Gemini['ID']],
-                                'Fields' => ['ID']
-                            ]);
-                            foreach($IDsTemp as $value)
-                                $IDs[] = $value['ID'];
+                    // merge user data
+                    foreach ($Call['VKontakte']['MergeMapping'] as $MergeField => $CodeineField)
+                        if (isset($Gemini[$MergeField]) && !empty($Gemini[$MergeField]) && !isset($Call['User'][$MergeField]['Auth']))  
+                      	    $Updated[$CodeineField] = $Gemini[$MergeField];
 
-                            F::Run('Entity', 'Delete',
-                            [
-                                'Entity' => 'Review',
-                                'Where'  => ['User'   => $Gemini['ID']]
-                            ]);
-
-                            F::Run('Entity', 'Update',
-                            [
-                                'Entity' => 'Review',
-                                'Where'  => 
-                                [
-                                    'Object' => $Gemini['ID'],
-                                    'User'   => ['$ne' => $Call['User']['ID']]
-                                ],
-                                'Data'   => ['Object' => $Call['User']['ID']]
-                            ],
-                    	    ['One' => false]);
-
-                            $IDsTemp = F::Run('Entity', 'Read',
-                            [
-                                'Entity' => 'Review',
-                                'Where'  => ['Object'   => $Gemini['ID']],
-                                'Fields' => ['ID']
-                            ]);
-                            foreach($IDsTemp as $value)
-                                $IDs[] = $value['ID'];
-
-                            F::Run('Entity', 'Delete',
-                            [
-                                'Entity' => 'Review',
-                                'Where'  => ['Object'   => $Gemini['ID']]
-                            ]);
-
-                            // merge comments
-                            if (!empty($IDs))
-                                F::Run('Entity', 'Delete',
-                                [
-                                    'Entity' => 'Comment',
-                                    'Where'  => ['Object' => ['$in'=> $IDs]],
-                                ]);
-
-                            F::Run('Entity', 'Update',
-                            [
-                                'Entity' => 'Comment',
-                                'Where'  => ['User' => $Gemini['ID']],
-                                'Data'   => ['User' => $Call['User']['ID']]
-                            ],
-                            ['One' => false]);
-
-                            // merge user data
-                            foreach ($Call['VKontakte']['MergeMapping'] as $MergeField => $CodeineField)
-                                if (isset($Gemini[$MergeField]) && !empty($Gemini[$MergeField]) && !isset($Call['User'][$MergeField]['Auth']))  
-                              	    $Updated[$CodeineField] = $Gemini[$MergeField];
-
-                            F::Run('Entity', 'Delete',
-                            [
-                                'Entity' => 'User',
-                                'Where'  => $Gemini['ID']
-                            ]);
-                        }
-                    }
+                    F::Run('Entity', 'Delete',
+                    [
+                        'Entity' => 'User',
+                        'Where'  => $Gemini['ID']
+                    ]);
+                }
+            }
             else
                 $Call['User'] = F::Run('Entity', 'Read', $Call,
                 [

@@ -36,205 +36,212 @@
     {
         $Call = F::Hook('beforeVKontakteAuthenticate', $Call);
 
-            if (isset($Call['Request']['code']))
-            {
-                $URL = 'https://oauth.vk.com/access_token?client_id='.$Call['VKontakte']['AppID']
+        if (isset($Call['Request']['code']))
+        {
+            $URL = 'https://oauth.vk.com/access_token?client_id='.$Call['VKontakte']['AppID']
                 .'&client_secret='.$Call['VKontakte']['Secret'].'&code='.$Call['Request']['code']
                 .'&redirect_uri='.urlencode($Call['HTTP']['Proto'].$Call['HTTP']['Host']).'/authenticate/VKontakte';
 
-                $Result = F::Run('IO', 'Read',
-                    [
-                        'Storage' => 'Web',
-                        'Format'  => 'Formats.JSON',
-                        'Where' => $URL
-                    ]);
+            $Result = F::Run('IO', 'Read',
+                [
+                    'Storage' => 'Web',
+                    'Format'  => 'Formats.JSON',
+                    'Where' => $URL
+                ]);
 
-                $Result = array_pop($Result);
+            $Result = array_pop($Result);
 
-                if (isset($Result['access_token']))
+            if (isset($Result['access_token']))
+            {
+                $Updated = [];
+                if (isset($Call['Session']['User']['ID']))
                 {
-                    $Updated = [];
-                    if (isset($Call['Session']['User']['ID']))
+                    $Call['User'] = F::Run('Entity', 'Read',
+                    [
+                        'Entity' => 'User',
+                        'One'    => true,
+                        'Where'  => $Call['Session']['User']['ID'],
+                    ]);
+                    $Call['Merge']['Social'] = 'VKontakte.ID';
+                    $Call['Merge']['ID'] = $Result['user_id'];
+                    $Call = F::Hook('socialMerge', $Call);
+                    if (isset($Call['Merge']['Updated']))
+                        $Updated = $Call['Merge']['Updated'];
+/*
+//start
+                    $Gemini = F::Run('Entity', 'Read',
+                    [
+                        'Entity' => 'User',
+                        'One'    => true,
+                        'Where'  =>
+                        [
+                            'ID' => ['$ne' => $Call['User']['ID']],
+                            'VKontakte.ID' => $Result['user_id']
+                        ],
+                        'Sort'   =>
+                        [
+                            'ID' => SORT_ASC
+                        ]
+                    ]);
+                    if (isset($Gemini))
                     {
-                        $Call['User'] = F::Run('Entity', 'Read',
+                        // merge review
+                        $IDs = array();
+
+                        F::Run('Entity', 'Update',
                         [
-                            'Entity' => 'User',
-                            'One'    => true,
-                            'Where'  => $Call['Session']['User']['ID'],
+                            'Entity' => 'Review',
+                            'Where'  => 
+                            [
+                                'User'   => $Gemini['ID'],
+                                'Object' => ['$ne' => $Call['User']['ID']]
+                            ],
+                            'Data'   => ['User' => $Call['User']['ID']]
+                        ],
+                	    ['One' => false]);
+
+                        $IDsTemp = F::Run('Entity', 'Read',
+                        [
+                            'Entity' => 'Review',
+                            'Where'  => ['User'   => $Gemini['ID']],
+                            'Fields' => ['ID']
+                        ]);
+                        foreach($IDsTemp as $value)
+                            $IDs[] = $value['ID'];
+
+                        F::Run('Entity', 'Delete',
+                        [
+                            'Entity' => 'Review',
+                            'Where'  => ['User'   => $Gemini['ID']]
                         ]);
 
-                        $Gemini = F::Run('Entity', 'Read',
+                        F::Run('Entity', 'Update',
                         [
-                            'Entity' => 'User',
-                            'One'    => true,
-                            'Sort'   =>
+                            'Entity' => 'Review',
+                            'Where'  => 
                             [
-                                'ID' => SORT_ASC
+                                'Object' => $Gemini['ID'],
+                                'User'   => ['$ne' => $Call['User']['ID']]
                             ],
-                            'Where'  =>
-                            [
-                                'ID' => ['$ne' => $Call['User']['ID']],
-                                'VKontakte.ID' => $Result['user_id']
-                            ]
+                            'Data'   => ['Object' => $Call['User']['ID']]
+                        ],
+                	    ['One' => false]);
+
+                        $IDsTemp = F::Run('Entity', 'Read',
+                        [
+                            'Entity' => 'Review',
+                            'Where'  => ['Object'   => $Gemini['ID']],
+                            'Fields' => ['ID']
                         ]);
-                        if (isset($Gemini))
-                        {
-                            // merge review
-                            $IDs = array();
+                        foreach($IDsTemp as $value)
+                            $IDs[] = $value['ID'];
 
-                            F::Run('Entity', 'Update',
-                            [
-                                'Entity' => 'Review',
-                                'Where'  => 
-                                [
-                                    'User'   => $Gemini['ID'],
-                                    'Object' => ['$ne' => $Call['User']['ID']]
-                                ],
-                                'Data'   => ['User' => $Call['User']['ID']]
-                            ],
-                    	    ['One' => false]);
+                        F::Run('Entity', 'Delete',
+                        [
+                            'Entity' => 'Review',
+                            'Where'  => ['Object'   => $Gemini['ID']]
+                        ]);
 
-                            $IDsTemp = F::Run('Entity', 'Read',
-                            [
-                                'Entity' => 'Review',
-                                'Where'  => ['User'   => $Gemini['ID']],
-                                'Fields' => ['ID']
-                            ]);
-                            foreach($IDsTemp as $value)
-                                $IDs[] = $value['ID'];
-
+                        // merge comments
+                        if (!empty($IDs))
                             F::Run('Entity', 'Delete',
-                            [
-                                'Entity' => 'Review',
-                                'Where'  => ['User'   => $Gemini['ID']]
-                            ]);
-
-                            F::Run('Entity', 'Update',
-                            [
-                                'Entity' => 'Review',
-                                'Where'  => 
-                                [
-                                    'Object' => $Gemini['ID'],
-                                    'User'   => ['$ne' => $Call['User']['ID']]
-                                ],
-                                'Data'   => ['Object' => $Call['User']['ID']]
-                            ],
-                    	    ['One' => false]);
-
-                            $IDsTemp = F::Run('Entity', 'Read',
-                            [
-                                'Entity' => 'Review',
-                                'Where'  => ['Object'   => $Gemini['ID']],
-                                'Fields' => ['ID']
-                            ]);
-                            foreach($IDsTemp as $value)
-                                $IDs[] = $value['ID'];
-
-                            F::Run('Entity', 'Delete',
-                            [
-                                'Entity' => 'Review',
-                                'Where'  => ['Object'   => $Gemini['ID']]
-                            ]);
-
-                            // merge comments
-                            if (!empty($IDs))
-                                F::Run('Entity', 'Delete',
-                                [
-                                    'Entity' => 'Comment',
-                                    'Where'  => ['Object' => ['$in'=> $IDs]],
-                                ]);
-
-                            F::Run('Entity', 'Update',
                             [
                                 'Entity' => 'Comment',
-                                'Where'  => ['User' => $Gemini['ID']],
-                                'Data'   => ['User' => $Call['User']['ID']]
-                            ],
-                            ['One' => false]);
-
-                            // merge user data
-                            foreach ($Call['VKontakte']['MergeMapping'] as $MergeField => $CodeineField)
-                                if (isset($Gemini[$MergeField]) && !empty($Gemini[$MergeField]) && !isset($Call['User'][$MergeField]['Auth']))  
-                              	    $Updated[$CodeineField] = $Gemini[$MergeField];
-
-                            F::Run('Entity', 'Delete',
-                            [
-                                'Entity' => 'User',
-                                'Where'  => $Gemini['ID']
+                                'Where'  => ['Object' => ['$in'=> $IDs]],
                             ]);
-                        }
-                    }
-                    else
-                        $Call['User'] = F::Run('Entity', 'Read',
-                        [
-                            'Entity' => 'User',
-                            'One'    => true,
-                            'Sort'   =>
-                            [
-                                'ID' => SORT_ASC
-                            ],
-                            'Where'  =>
-                            [
-                                'VKontakte.ID' => $Result['user_id']
-                            ]
-                        ]);
 
-                    if (empty($Call['User']))
-                    {
-                        $Call['User'] = F::Run('Entity', 'Create', $Call,
+                        F::Run('Entity', 'Update',
+                        [
+                            'Entity' => 'Comment',
+                            'Where'  => ['User' => $Gemini['ID']],
+                            'Data'   => ['User' => $Call['User']['ID']]
+                        ],
+                        ['One' => false]);
+
+                        // merge user data
+                        foreach ($Call['VKontakte']['MergeMapping'] as $MergeField => $CodeineField)
+                            if (isset($Gemini[$MergeField]) && !empty($Gemini[$MergeField]) && !isset($Call['User'][$MergeField]['Auth']))  
+                          	    $Updated[$CodeineField] = $Gemini[$MergeField];
+
+                        F::Run('Entity', 'Delete',
                         [
                             'Entity' => 'User',
-                            'One'    => true,
-                            'Data'  =>
-                            [
-                                'VKontakte' =>
-                                [
-                                    'ID'    => $Result['user_id'],
-                                    'Auth'  => $Result['access_token']
-                                ],
-                                'Status' => 1
-                            ]
+                            'Where'  => $Gemini['ID']
                         ]);
                     }
-
-                    $VKontakte = F::Run('Code.Run.Social.VKontakte', 'Run',
-                            [
-                                'Service'   => 'users',
-                                'Method'    => 'get',
-                                'Call'      =>
-                                [
-                                    'uids'  => $Result['user_id'],
-                                    'access_token'  => $Result['access_token'],
-                                    'fields'=> 'uid, first_name, last_name, nickname, screen_name, sex, bdate, city, country, timezone, photo, photo_medium, photo_big, photo_max, has_mobile, rate, contacts, education, online, counters'
-                                ]
-                            ])[0];
-
-                    $Updated['VKontakte'] =
-                        [
-                            'ID' => $Result['user_id'],
-                            'Auth'  => $Result['access_token']
-                        ];
-                    foreach ($Call['VKontakte']['Mapping'] as $VKontakteField => $CodeineField)
-                        if (isset($VKontakte[$VKontakteField]) && !empty($VKontakte[$VKontakteField]))
-                            $Updated =  F::Dot($Updated, $CodeineField, $VKontakte[$VKontakteField]);
-                        else
-                        {
-                            $tempField = F::Dot($VKontakte, $VKontakteField);
-                            if (!empty($tempField))
-                                $Updated = F::Dot($Updated, $CodeineField, $tempField);
-                        }
-
-                    F::Run('Entity', 'Update', $Call,
-                        [
-                            'Entity' => 'User',
-                            'Where'  =>
-                            [
-                                'ID' => $Call['User']['ID']
-                            ],
-                            'Data'   => $Updated
-                        ]);
+*/
                 }
+                else
+                    $Call['User'] = F::Run('Entity', 'Read',
+                    [
+                        'Entity' => 'User',
+                        'One'    => true,
+                        'Sort'   =>
+                        [
+                            'ID' => SORT_ASC
+                        ],
+                        'Where'  =>
+                        [
+                            'VKontakte.ID' => $Result['user_id']
+                        ]
+                    ]);
+
+                if (empty($Call['User']))
+                {
+                    $Call['User'] = F::Run('Entity', 'Create', $Call,
+                    [
+                        'Entity' => 'User',
+                        'One'    => true,
+                        'Data'  =>
+                        [
+                            'VKontakte' =>
+                            [
+                                'ID'    => $Result['user_id'],
+                                'Auth'  => $Result['access_token']
+                            ],
+                            'Status' => 1
+                        ]
+                    ]);
+                }
+
+                $VKontakte = F::Run('Code.Run.Social.VKontakte', 'Run',
+                    [
+                        'Service'   => 'users',
+                        'Method'    => 'get',
+                        'Call'      =>
+                        [
+                            'uids'  => $Result['user_id'],
+                            'access_token'  => $Result['access_token'],
+                            'fields'=> 'uid, first_name, last_name, nickname, screen_name, sex, bdate, city, country, timezone, photo, photo_medium, photo_big, photo_max, has_mobile, rate, contacts, education, online, counters'
+                        ]
+                    ])[0];
+
+                $Updated['VKontakte'] =
+                    [
+                        'ID' => $Result['user_id'],
+                        'Auth'  => $Result['access_token']
+                    ];
+                foreach ($Call['VKontakte']['Mapping'] as $VKontakteField => $CodeineField)
+                    if (isset($VKontakte[$VKontakteField]) && !empty($VKontakte[$VKontakteField]))
+                        $Updated =  F::Dot($Updated, $CodeineField, $VKontakte[$VKontakteField]);
+                    else
+                    {
+                        $tempField = F::Dot($VKontakte, $VKontakteField);
+                        if (!empty($tempField))
+                            $Updated = F::Dot($Updated, $CodeineField, $tempField);
+                    }
+
+                F::Run('Entity', 'Update', $Call,
+                    [
+                        'Entity' => 'User',
+                        'Where'  =>
+                        [
+                            'ID' => $Call['User']['ID']
+                        ],
+                        'Data'   => $Updated
+                    ]);
             }
+        }
 
         $Call = F::Hook('afterVKontakteAuthenticate', $Call);
 
