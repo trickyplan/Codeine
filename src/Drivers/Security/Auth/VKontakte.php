@@ -80,6 +80,8 @@
                         if (isset($Gemini))
                         {
                             // merge review
+                            $IDs = array();
+
                             F::Run('Entity', 'Update',
                             [
                                 'Entity' => 'Review',
@@ -91,6 +93,21 @@
                                 'Data'   => ['User' => $Call['User']['ID']]
                             ],
                     	    ['One' => false]);
+
+                            $IDsTemp = F::Run('Entity', 'Read',
+                            [
+                                'Entity' => 'Review',
+                                'Where'  => ['User'   => $Gemini['ID']],
+                                'Fields' => ['ID']
+                            ]);
+                            foreach($IDsTemp as $value)
+                                $IDs[] = $value['ID'];
+
+                            F::Run('Entity', 'Delete',
+                            [
+                                'Entity' => 'Review',
+                                'Where'  => ['User'   => $Gemini['ID']]
+                            ]);
 
                             F::Run('Entity', 'Update',
                             [
@@ -104,11 +121,15 @@
                             ],
                     	    ['One' => false]);
 
-                            F::Run('Entity', 'Delete',
+                            $IDsTemp = F::Run('Entity', 'Read',
                             [
                                 'Entity' => 'Review',
-                                'Where'  => ['User'   => $Gemini['ID']]
+                                'Where'  => ['Object'   => $Gemini['ID']],
+                                'Fields' => ['ID']
                             ]);
+                            foreach($IDsTemp as $value)
+                                $IDs[] = $value['ID'];
+
                             F::Run('Entity', 'Delete',
                             [
                                 'Entity' => 'Review',
@@ -116,6 +137,13 @@
                             ]);
 
                             // merge comments
+                            if (!empty($IDs))
+                                F::Run('Entity', 'Delete',
+                                [
+                                    'Entity' => 'Comment',
+                                    'Where'  => ['Object' => ['$in'=> $IDs]],
+                                ]);
+
                             F::Run('Entity', 'Update',
                             [
                                 'Entity' => 'Comment',
