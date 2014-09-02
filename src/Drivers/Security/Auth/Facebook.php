@@ -24,7 +24,8 @@
         return F::Run('System.Interface.HTTP', 'Redirect', $Call,
             [
                 'Location' => 'https://www.facebook.com/dialog/oauth?client_id='.$Call['Facebook']['AppID'].'&scope='
-            .$Call['Facebook']['Rights'].'&redirect_uri='.urlencode($Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/authenticate/Facebook').'&response_type=code'
+                .$Call['Facebook']['Rights'].'&redirect_uri='.urlencode($Call['HTTP']['Proto'].$Call['HTTP']['Host']
+                .'/authenticate/Facebook').'&response_type=code'
             ]);
     });
 
@@ -64,6 +65,12 @@
                     'Where'  => $Call['Session']['User']['ID']
                 ]);
 
+                $Call['Merge']['Social'] = 'Facebook';
+                $Call['Merge']['ID'] = $Facebook['id'];
+                $Call = F::Hook('socialMerge', $Call);
+                if (isset($Call['Merge']['Updated']))
+                    $Updated = $Call['Merge']['Updated'];
+/*
                 $Gemini = F::Run('Entity', 'Read',
                 [
                     'Entity' => 'User',
@@ -75,7 +82,7 @@
                     'Where'  =>
                     [
                         'ID' => ['$ne' => $Call['User']['ID']],
-                        'VKontakte.ID' => $Result['user_id']
+                        'Facebook.ID' => $Facebook['id']
                     ]
                 ]);
                 if (isset($Gemini))
@@ -164,6 +171,7 @@
                         'Where'  => $Gemini['ID']
                     ]);
                 }
+*/
             }
             else
                 $Call['User'] = F::Run('Entity', 'Read', $Call,

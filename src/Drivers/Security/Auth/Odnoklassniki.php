@@ -74,6 +74,12 @@
                         'Where'  => $Call['Session']['User']['ID'],
                     ]);
 
+                    $Call['Merge']['Social'] = 'Odnoklassniki';
+                    $Call['Merge']['ID'] = $Odnoklassniki['uid'];
+                    $Call = F::Hook('socialMerge', $Call);
+                    if (isset($Call['Merge']['Updated']))
+                        $Updated = $Call['Merge']['Updated'];
+/*
                     $Gemini = F::Run('Entity', 'Read',
                     [
                         'Entity' => 'User',
@@ -85,7 +91,7 @@
                         'Where'  =>
                         [
                             'ID' => ['$ne' => $Call['User']['ID']],
-                            'VKontakte.ID' => $Result['user_id']
+                            'Odnoklassniki.ID' => $Odnoklassniki['uid']
                         ]
                     ]);
                     if (isset($Gemini))
@@ -174,6 +180,7 @@
                             'Where'  => $Gemini['ID']
                         ]);
                     }
+*/
                 }
                 else
                     $Call['User'] = F::Run('Entity', 'Read',

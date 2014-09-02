@@ -62,7 +62,7 @@
                         'One'    => true,
                         'Where'  => $Call['Session']['User']['ID'],
                     ]);
-                    $Call['Merge']['Social'] = 'VKontakte.ID';
+                    $Call['Merge']['Social'] = 'VKontakte';
                     $Call['Merge']['ID'] = $Result['user_id'];
                     $Call = F::Hook('socialMerge', $Call);
                     if (isset($Call['Merge']['Updated']))
