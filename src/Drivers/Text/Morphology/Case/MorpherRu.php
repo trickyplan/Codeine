@@ -51,19 +51,24 @@
 
             break;
             case 'Genitivus':
-                $Result = $WebResult['Р'];
+                if (isset($WebResult['Р']))
+                    $Result = $WebResult['Р'];
             break;
             case 'Dativus':
-                $Result = $WebResult['Д'];
+                if (isset($WebResult['Д']))
+                    $Result = $WebResult['Д'];
             break;
             case 'Accusativus':
-                $Result = $WebResult['В'];
+                if (isset($WebResult['В']))
+                    $Result = $WebResult['В'];
             break;
             case 'Ablativus':
-                $Result = $WebResult['Т'];
+                if (isset($WebResult['Т']))
+                    $Result = $WebResult['Т'];
             break;
             case 'Praepositionalis':
-                $Result = $WebResult['П'];
+                if (isset($WebResult['П']))
+                    $Result = $WebResult['П'];
             break;
 
             default:
