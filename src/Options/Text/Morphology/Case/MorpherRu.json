@@ -1,0 +1,12 @@
+{
+    "Storages":
+    {
+        "Morpher Ru Cache":
+        {
+            "Driver":"IO.Storage.Directory",
+            "Directory":"/tmp/codeine/morpher",
+            "Format": "Formats.JSON",
+            "Suffix":".json"
+        }
+    }
+}

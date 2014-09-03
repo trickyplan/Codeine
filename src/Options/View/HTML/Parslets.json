@@ -22,6 +22,7 @@
                     "Datetime",
                     "Number",
                     "Currency",
+                    "Morpho",
                     "File",
                     "Phone",
                     "Email",

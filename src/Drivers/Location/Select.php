@@ -29,7 +29,7 @@
 
             $Location['URL'] = $Call['HTTP']['Proto'].$Call['HTTP']['Host'].$Location['URL'];
 
-            if ((isset($Location['ID']) && isset($Call['Location']['ID'])) && $Location['ID'] == $Call['Location']['ID'])
+            if (isset($Call['Location']['ID']) && $Location['ID'] == $Call['Location']['ID'])
                 $Call['Output']['Content'][] =
                 [
                     'Type' => 'Template',

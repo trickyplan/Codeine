@@ -5,7 +5,7 @@
         {
             "Widget":
             {
-                "Memo": ["Time"]
+                "Memo": ["Time", "Location"]
             }
         }
     }
