@@ -3,24 +3,25 @@
     setFn('Run', function ($Call)
     {
         if (isset($Call['Call']['access_token']))
-	{
+    	{
             $Call['access_token'] = $Call['Call']['access_token'];
             unset($Call['Call']['access_token']);
-	}
+    	}
         else
             $Call['access_token'] = F::Run(null, 'Access Token', $Call);
 
         $Call['Call']['method'] = $Call['Method'];
         $Call['Call']['application_key'] = $Call['Odnoklassniki']['Public'];
-	$Call['Call']['sig'] = F::Run(null, 'Calc Signature', $Call);
-	$Call['Call']['access_token'] = $Call['access_token'];
-	$Result = F::Run('IO', 'Read',
-	     [
-		 'Storage'  => 'Web',
-		 'Where'    => $Call['Odnoklassniki']['Entry Point'].'?'.urldecode(http_build_query($Call['Call'])),
-		 'Output Format'   => 'Formats.JSON'
-	     ])[0];
-	$Result = json_decode($Result, true);
+    	$Call['Call']['sig'] = F::Run(null, 'Calc Signature', $Call);
+    	$Call['Call']['access_token'] = $Call['access_token'];
+
+    	$Result = F::Run('IO', 'Read',
+             [
+		         'Storage'  => 'Web',
+		         'Where'    => $Call['Odnoklassniki']['Entry Point'].'?'.http_build_query($Call['Call']),
+		         'Output Format'   => 'Formats.JSON'
+	         ])[0];
+	    $Result = json_decode($Result, true);
 
         if (isset($Call['Return Key']) && F::Dot($Result, $Call['Return Key']))
             $Result = F::Dot($Result, $Call['Return Key']);
@@ -101,12 +102,12 @@
     setFn('Calc Signature', function ($Call)
     {
         if (!ksort($Call['Call']))
-	{
+    	{
             F::Log('Sort error', LOG_ERR);
             return null;
         } 
-	else
-	{
+	    else
+    	{
             $requestStr = "";
             foreach($Call['Call'] as $key=>$value){
                 $requestStr .= $key . "=" . $value;

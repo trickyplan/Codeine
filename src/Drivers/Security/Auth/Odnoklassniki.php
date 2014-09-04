@@ -55,15 +55,17 @@
                 $Result = array_pop($Result);
                 if (isset($Result['access_token']))
                 {
-		   $Odnoklassniki = F::Run('Code.Run.Social.Odnoklassniki', 'Run',
-	           [
-			'Method'    => 'users.getCurrentUser',
-			'Call'      =>
-			[
-			    'access_token'  => $Result['access_token'],
-			    'format'          => 'json'
-			]
-		    ]);
+                    $Odnoklassniki = F::Run('Code.Run.Social.Odnoklassniki', 'Run',
+	                   [
+			            'Method'    => 'users.getCurrentUser',
+			            'Call'      =>
+			            [
+			                'access_token'  => $Result['access_token'],
+			                'format'        => 'json',
+			                'fields'        => 'uid, first_name, last_name, name, gender, age, birthday, photo_id, pic1024x768, location'
+			            ]
+		            ]);
+
                     if (isset($Call['Session']['User']['ID']))
                         $Call['User'] = F::Run('Entity', 'Read',
                         [
