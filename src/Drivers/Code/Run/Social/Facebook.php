@@ -19,7 +19,6 @@
             $Query = '';
 
         $URL = $Call['Facebook']['Entry Point'].$Call['Method'].$Query;
-
         $Result = F::Run('IO', 'Read',
                [
                    'Storage'    => 'Web',
@@ -28,7 +27,6 @@
                ]);
 
         $Result = array_pop($Result);
-
         if (isset($Call['Return Key']) && F::Dot($Result, $Call['Return Key']))
             $Result = F::Dot($Result, $Call['Return Key']);
 
@@ -57,14 +55,13 @@
                         'Sort' => ['Modified' => false],
                         'One' => true
                     ])['Facebook'];
-
-            if (isset($Result['Expire']) > time())
+            if (isset($Result['Expire']) && $Result['Expire'] > time())
                 ;
             else
             {
                 $URL = 'https://graph.facebook.com/oauth/access_token';
 
-                $Result = F::Run('IO', 'Read',
+                $ResultFB = F::Run('IO', 'Read',
                      [
                          'Storage'  => 'Web',
                          'Where'    => $URL,
@@ -77,13 +74,26 @@
                          ]
                      ]);
 
-                $Result = array_pop($Result);
-                parse_str($Result, $Result);
+                $ResultFB = array_pop($ResultFB);
+                parse_str($ResultFB, $ResultFB);
+                /* F::Run ('Entity', 'Update',
+                    [
+                        'Entity' => 'User',
+                        'Where'  =>
+                            [
+                                'Facebook.Auth' =>$Result['Auth']
+                            ],
+		                    'Data' => 
+		                    [
+		                        'Facebook.Auth' => $ResultFB['access_token'],
+		                        'Facebook.Expire' => time()+$ResultFB['expires']
+		                    ],
+                        'One' => true
+                    ]); */
+                $Result['Auth'] = $ResultFB['access_token'];
+                $Result['Expire'] = $ResultFB['expires'];
             }
         }
 
-
-
-
-        return $Result;
+        return isset($Result['Auth'])?$Result['Auth']:'';
     });

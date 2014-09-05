@@ -79,7 +79,7 @@
 		    $Result = null;
 		else
 		{
-		    F::Run ('Entity', 'Write',
+		    F::Run ('Entity', 'Update',
 		        [
 		            'Entity' => 'User',
 		            'Where'  =>
@@ -90,7 +90,6 @@
 		            [
 		                'Odnoklassniki.Auth' => $Result['Auth']
 		            ],
-		            'Sort' => ['Modified' => false],
 		            'One'  => true
 		        ]);
 		}
