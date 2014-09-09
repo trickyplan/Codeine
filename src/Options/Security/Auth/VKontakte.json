@@ -13,6 +13,9 @@
             "sex": "Gender",
             "photo_big": "Photo",
             "home_phone": "Phone"
+        },
+        "MergeMapping":
+        {
         }
     },
     "Hooks":

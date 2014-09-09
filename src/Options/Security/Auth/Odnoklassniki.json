@@ -10,6 +10,9 @@
             "first_name": "Name",
             "last_name": "Surname",
             "gender": "Gender"
+        },
+        "MergeMapping":
+        {
         }
     },
     "Hooks":

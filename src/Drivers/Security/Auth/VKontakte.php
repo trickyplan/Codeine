@@ -36,104 +36,109 @@
     {
         $Call = F::Hook('beforeVKontakteAuthenticate', $Call);
 
-            if (isset($Call['Request']['code']))
-            {
-                $URL = 'https://oauth.vk.com/access_token?client_id='.$Call['VKontakte']['AppID']
+        if (isset($Call['Request']['code']))
+        {
+            $URL = 'https://oauth.vk.com/access_token?client_id='.$Call['VKontakte']['AppID']
                 .'&client_secret='.$Call['VKontakte']['Secret'].'&code='.$Call['Request']['code']
                 .'&redirect_uri='.urlencode($Call['HTTP']['Proto'].$Call['HTTP']['Host']).'/authenticate/VKontakte';
 
-                $Result = F::Run('IO', 'Read',
+            $Result = F::Run('IO', 'Read',
+                [
+                    'Storage' => 'Web',
+                    'Format'  => 'Formats.JSON',
+                    'Where' => $URL
+                ]);
+
+            $Result = array_pop($Result);
+
+            if (isset($Result['access_token']))
+            {
+                $Updated = [];
+                if (isset($Call['Session']['User']['ID']))
+                {
+                    $Call['User'] = F::Run('Entity', 'Read',
                     [
-                        'Storage' => 'Web',
-                        'Format'  => 'Formats.JSON',
-                        'Where' => $URL
+                        'Entity' => 'User',
+                        'One'    => true,
+                        'Where'  => $Call['Session']['User']['ID'],
+                    ]);
+                    $Call['Merge']['Social'] = 'VKontakte';
+                    $Call['Merge']['ID'] = $Result['user_id'];
+                    $Call = F::Hook('socialMerge', $Call);
+                    if (isset($Call['Merge']['Updated']))
+                        $Updated = $Call['Merge']['Updated'];
+                }
+                else
+                    $Call['User'] = F::Run('Entity', 'Read',
+                    [
+                        'Entity' => 'User',
+                        'One'    => true,
+                        'Sort'   =>
+                        [
+                            'ID' => SORT_ASC
+                        ],
+                        'Where'  =>
+                        [
+                            'VKontakte.ID' => $Result['user_id']
+                        ]
                     ]);
 
-                $Result = array_pop($Result);
-
-                if (isset($Result['access_token']))
+                if (empty($Call['User']))
                 {
-                    if (isset($Call['Session']['User']['ID']))
-                        $Call['User'] = F::Run('Entity', 'Read',
+                    $Call['User'] = F::Run('Entity', 'Create', $Call,
+                    [
+                        'Entity' => 'User',
+                        'One'    => true,
+                        'Data'  =>
                         [
-                            'Entity' => 'User',
-                            'One'    => true,
-                            'Where'  => $Call['Session']['User']['ID'],
-                        ]);
-                    else
-                        $Call['User'] = F::Run('Entity', 'Read',
-                        [
-                            'Entity' => 'User',
-                            'One'    => true,
-                            'Sort'   =>
+                            'VKontakte' =>
                             [
-                                'ID' => SORT_ASC
+                                'ID'    => $Result['user_id'],
+                                'Auth'  => $Result['access_token']
                             ],
-                            'Where'  =>
-                            [
-                                'VKontakte.ID' => $Result['user_id']
-                            ]
-                        ]);
+                            'Status' => 1
+                        ]
+                    ]);
+                }
 
-                    if (empty($Call['User']))
-                    {
-                        $Call['User'] = F::Run('Entity', 'Create', $Call,
+                $VKontakte = F::Run('Code.Run.Social.VKontakte', 'Run',
+                    [
+                        'Service'   => 'users',
+                        'Method'    => 'get',
+                        'Call'      =>
                         [
-                            'Entity' => 'User',
-                            'One'    => true,
-                            'Data'  =>
-                            [
-                                'VKontakte' =>
-                                [
-                                    'ID'    => $Result['user_id'],
-                                    'Auth'  => $Result['access_token']
-                                ],
-                                'Status' => 1
-                            ]
-                        ]);
+                            'uids'  => $Result['user_id'],
+                            'access_token'  => $Result['access_token'],
+                            'fields'=> 'uid, first_name, last_name, nickname, screen_name, sex, bdate, city, country, timezone, photo, photo_medium, photo_big, photo_max, has_mobile, rate, contacts, education, online, counters'
+                        ]
+                    ])[0];
+
+                $Updated['VKontakte'] =
+                    [
+                        'ID' => $Result['user_id'],
+                        'Auth'  => $Result['access_token']
+                    ];
+                foreach ($Call['VKontakte']['Mapping'] as $VKontakteField => $CodeineField)
+                    if (isset($VKontakte[$VKontakteField]) && !empty($VKontakte[$VKontakteField]))
+                        $Updated =  F::Dot($Updated, $CodeineField, $VKontakte[$VKontakteField]);
+                    else
+                    {
+                        $tempField = F::Dot($VKontakte, $VKontakteField);
+                        if (!empty($tempField))
+                            $Updated = F::Dot($Updated, $CodeineField, $tempField);
                     }
 
-                    $VKontakte = F::Run('Code.Run.Social.VKontakte', 'Run',
-                            [
-                                'Service'   => 'users',
-                                'Method'    => 'get',
-                                'Call'      =>
-                                [
-                                    'uids'  => $Result['user_id'],
-                                    'access_token'  => $Result['access_token'],
-                                    'fields'=> 'uid, first_name, last_name, nickname, screen_name, sex, bdate, city, country, timezone, photo, photo_medium, photo_big, photo_max, has_mobile, rate, contacts, education, online, counters'
-                                ]
-                            ])[0];
-
-                    $Updated =
+                F::Run('Entity', 'Update', $Call,
                     [
-                        'VKontakte' =>
+                        'Entity' => 'User',
+                        'Where'  =>
                         [
-                            'ID' => $Result['user_id'],
-                            'Auth'  => $Result['access_token']
-                        ]
-                    ];
-                    foreach ($Call['VKontakte']['Mapping'] as $VKontakteField => $CodeineField)
-                        if (isset($VKontakte[$VKontakteField]) && !empty($VKontakte[$VKontakteField]))
-                $Updated =  F::Dot($Updated, $CodeineField, $VKontakte[$VKontakteField]);
-                        else
-                        {
-                            $tempField = F::Dot($VKontakte, $VKontakteField);
-                            if (!empty($tempField))
-                                $Updated = F::Dot($Updated, $CodeineField, $tempField);
-                        }
-
-                    F::Run('Entity', 'Update', $Call,
-                        [
-                            'Entity' => 'User',
-                            'Where'  =>
-                            [
-                                'ID' => $Call['User']['ID']
-                            ],
-                            'Data'   => $Updated
-                        ]);
-                }
+                            'ID' => $Call['User']['ID']
+                        ],
+                        'Data'   => $Updated
+                    ]);
             }
+        }
 
         $Call = F::Hook('afterVKontakteAuthenticate', $Call);
 

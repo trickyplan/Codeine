@@ -34,109 +34,115 @@
         $Call = F::Hook('beforeOdnoklassnikiAuthenticate', $Call);
         if (isset($Call['Request']['code']))
         {
-                $URL = 'http://api.odnoklassniki.ru/oauth/token.do';
-				$params = array(
-	             'code' => $Call['Request']['code'],
-                     'redirect_uri' => urlencode($Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/authenticate/Odnoklassniki'),
-                     'grant_type' => 'authorization_code',
-                     'client_id' => $Call['Odnoklassniki']['AppID'],
-                     'client_secret' => $Call['Odnoklassniki']['Secret']
-		        );
+            $URL = 'http://api.odnoklassniki.ru/oauth/token.do';
+			$params = array(
+                'code' => $Call['Request']['code'],
+                'redirect_uri' => urlencode($Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/authenticate/Odnoklassniki'),
+                'grant_type' => 'authorization_code',
+                'client_id' => $Call['Odnoklassniki']['AppID'],
+                'client_secret' => $Call['Odnoklassniki']['Secret']
+	        );
 
-                $Result = F::Run('IO', 'Write',
-                     [
-                         'Storage'  => 'Web',
-                         'Where'    => $URL,
-                         'Output Format'   => 'Formats.JSON',
-                         'Data'     => urldecode(http_build_query($params))
-                     ]);
+            $Result = F::Run('IO', 'Write',
+                 [
+                     'Storage'  => 'Web',
+                     'Where'    => $URL,
+                     'Output Format'   => 'Formats.JSON',
+                     'Data'     => urldecode(http_build_query($params))
+                 ]);
 
 
-                $Result = array_pop($Result);
-                if (isset($Result['access_token']))
+            $Result = array_pop($Result);
+            if (isset($Result['access_token']))
+            {
+                $Odnoklassniki = F::Run('Code.Run.Social.Odnoklassniki', 'Run',
+                    [
+                        'Method' => 'users.getCurrentUser',
+                        'Call'   =>
+                        [
+                            'access_token' => $Result['access_token'],
+                            'format'       => 'json'
+                        ]
+                    ]);
+                $Updated = [];
+                if (isset($Call['Session']['User']['ID']))
                 {
-                    $Odnoklassniki = F::Run('Code.Run.Social.Odnoklassniki', 'Run',
-	                   [
-			            'Method'    => 'users.getCurrentUser',
-			            'Call'      =>
-			            [
-			                'access_token'  => $Result['access_token'],
-			                'format'        => 'json',
-			                'fields'        => 'uid, first_name, last_name, name, gender, age, birthday, photo_id, pic1024x768, location'
-			            ]
-		            ]);
+                    $Call['User'] = F::Run('Entity', 'Read',
+                    [
+                        'Entity' => 'User',
+                        'One'    => true,
+                        'Where'  => $Call['Session']['User']['ID'],
+                    ]);
 
-                    if (isset($Call['Session']['User']['ID']))
-                        $Call['User'] = F::Run('Entity', 'Read',
+                    $Call['Merge']['Social'] = 'Odnoklassniki';
+                    $Call['Merge']['ID'] = $Odnoklassniki['uid'];
+                    $Call = F::Hook('socialMerge', $Call);
+                    if (isset($Call['Merge']['Updated']))
+                        $Updated = $Call['Merge']['Updated'];
+                }
+                else
+                    $Call['User'] = F::Run('Entity', 'Read',
+                    [
+                        'Entity' => 'User',
+                        'One'    => true,
+                        'Sort'   =>
                         [
-                            'Entity' => 'User',
-                            'One'    => true,
-                            'Where'  => $Call['Session']['User']['ID'],
-                        ]);
-                    else
-                        $Call['User'] = F::Run('Entity', 'Read',
+                            'ID' => SORT_ASC
+                        ],
+                        'Where'  =>
                         [
-                            'Entity' => 'User',
-                            'One'    => true,
-                            'Sort'   =>
+                            'Odnoklassniki.ID' => $Odnoklassniki['uid']
+                        ]
+                    ]);
+
+                if (empty($Call['User']))
+                {
+                    $Call['User'] = F::Run('Entity', 'Create', $Call,
+                    [
+                        'Entity' => 'User',
+                        'One'    => true,
+                        'Data'  =>
+                        [
+                            'Odnoklassniki' =>
                             [
-                                'ID' => SORT_ASC
+                                'ID'    => $Odnoklassniki['uid'],
+                                'Auth'  => $Result['access_token']
                             ],
-                            'Where'  =>
-                            [
-                                'Odnoklassniki.ID' => $Odnoklassniki['uid']
-                            ]
-                        ]);
+                            'Status' => 1
+                        ]
+                    ]);
+                }
 
-                    if (empty($Call['User']))
+                $Updated['Odnoklassniki'] =
+                    [
+                        'ID' => $Odnoklassniki['uid'],
+                        'Auth'  => $Result['access_token'],
+                        'token_type' => $Result['token_type'],
+                        'Refresh' => $Result['refresh_token'],
+                        'Expire' => time()+1800
+                    ];
+
+                foreach ($Call['Odnoklassniki']['Mapping'] as $OdnoklassnikiField => $CodeineField)
+                    if (isset($Odnoklassniki[$OdnoklassnikiField]) && !empty($Odnoklassniki[$OdnoklassnikiField]))
+		                $Updated =  F::Dot($Updated, $CodeineField, $Odnoklassniki[$OdnoklassnikiField]);
+                    else
                     {
-                        $Call['User'] = F::Run('Entity', 'Create', $Call,
-                        [
-                            'Entity' => 'User',
-                            'One'    => true,
-                            'Data'  =>
-                            [
-                                'Odnoklassniki' =>
-                                [
-                                    'ID'    => $Odnoklassniki['uid'],
-                                    'Auth'  => $Result['access_token']
-                                ],
-                                'Status' => 1
-                            ]
-                        ]);
+                        $tempField = F::Dot($Odnoklassniki, $OdnoklassnikiField);
+                        if (!empty($tempField))
+                            $Updated = F::Dot($Updated, $CodeineField, $tempField);
                     }
 
-                    $Updated =
+                F::Run('Entity', 'Update', $Call,
                     [
-                        'Odnoklassniki' =>
+                        'Entity' => 'User',
+                        'Where'  =>
                         [
-                            'ID' => $Odnoklassniki['uid'],
-                            'Auth'  => $Result['access_token'],
-                            'token_type' => $Result['token_type'],
-                            'Refresh' => $Result['refresh_token']
-                        ]
-                    ];
-                    foreach ($Call['Odnoklassniki']['Mapping'] as $OdnoklassnikiField => $CodeineField)
-                        if (isset($Odnoklassniki[$OdnoklassnikiField]) && !empty($Odnoklassniki[$OdnoklassnikiField]))
-			                $Updated =  F::Dot($Updated, $CodeineField, $Odnoklassniki[$OdnoklassnikiField]);
-                        else
-                        {
-                            $tempField = F::Dot($Odnoklassniki, $OdnoklassnikiField);
-                            if (!empty($tempField))
-                                $Updated = F::Dot($Updated, $CodeineField, $tempField);
-                        }
-
-                    F::Run('Entity', 'Update', $Call,
-                        [
-                            'Entity' => 'User',
-                            'Where'  =>
-                            [
-                                'ID' => $Call['User']['ID']
-                            ],
-                            'Data'   => $Updated
-                        ]);
-                }
+                            'ID' => $Call['User']['ID']
+                        ],
+                        'Data'   => $Updated
+                    ]);
             }
+        }
 
         $Call = F::Hook('afterOdnoklassnikiAuthenticate', $Call);
 
