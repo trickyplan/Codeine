@@ -6,7 +6,11 @@
             "Redirect":
             {
                 "Service": "System.Interface.HTTP",
-                "Method": "RestoreURL"
+                "Method": "Redirect",
+                "Call":
+                {
+                    "Location": "/"
+                }
             }
         }
     }
