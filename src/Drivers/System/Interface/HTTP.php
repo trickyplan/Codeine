@@ -189,7 +189,6 @@
 
     setFn('RestoreURL', function ($Call)
     {
-        d(__FILE__, __LINE__, $Call['Session']['BackURL']);
         if (isset($Call['Session']['BackURL']) && !empty($Call['Session']['BackURL']))
         {
             F::Run('Session', 'Write', $Call, ['Data' => ['BackURL' => null]]);
