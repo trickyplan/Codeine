@@ -9,12 +9,12 @@
 
     setFn('Do', function ($Call)
     {
-        $Call = F::Hook('beforeDo', $Call);
+        $Call = F::Hook('beforeLoginDo', $Call);
 
             foreach ($Call['Auth Modes'] as $Mode)
                 $Call = F::Apply('Security.Auth.'.$Mode , null, $Call);
 
-        $Call = F::Hook('afterDo', $Call);
+        $Call = F::Hook('afterLoginDo', $Call);
 
         return $Call;
     });

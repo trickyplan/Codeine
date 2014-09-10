@@ -109,21 +109,20 @@
 
         if (empty($Call['Session']))
         {
-            $Call['Session'] = F::Run('Entity', 'Create', $Call,
+            $Call['Data']['ID'] = $Call['SID'];
+            $Call['Session'] = F::Run('Entity', 'Create',
                 [
                     'Entity' => 'Session',
                     'One' => true,
-                    'Data' =>
-                    [
-                        'ID' => $Call['SID']
-                    ]
+                    'Data' => $Call['Data']
                 ]);
 
             F::Log('Session created '.$Call['SID'], LOG_INFO, 'Security');
         }
         else
         {
-            $Call['Session'] = F::Run('Entity', 'Update', $Call,
+            $Call['Data']['ID'] = $Call['SID'];
+            $Call['Session'] = F::Run('Entity', 'Update',
                 [
                     'Entity' => 'Session',
                     'Data' => $Call['Data'],

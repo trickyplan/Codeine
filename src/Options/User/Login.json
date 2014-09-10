@@ -7,7 +7,7 @@
     },
     "Hooks":
     {
-        "beforeDo":
+        "beforeLoginDo":
         {
             "Store URL":
             {
