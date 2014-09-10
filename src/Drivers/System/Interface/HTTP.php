@@ -181,16 +181,20 @@
         else
             $Call['BackURL'] = $Call['HTTP']['URL'];
 
+        $Call = F::Run('Session', 'Write', $Call, ['Data' => ['BackURL' => $Call['BackURL']]]);
         F::Log('Back URL set to *'.$Call['BackURL'].'*', LOG_INFO);
+
         return $Call;
     });
 
     setFn('RestoreURL', function ($Call)
     {
-        if (isset($Call['Request']['BackURL']) && !empty($Call['Request']['BackURL']))
-            $Call = F::Apply('System.Interface.HTTP', 'Redirect', $Call, ['Location' => $Call['Request']['BackURL']]);
-        elseif (isset($_SERVER['HTTP_REFERER']))
-            $Call = F::Apply('System.Interface.HTTP', 'Redirect', $Call, ['Location' => $_SERVER['HTTP_REFERER']]);
+        d(__FILE__, __LINE__, $Call['Session']['BackURL']);
+        if (isset($Call['Session']['BackURL']) && !empty($Call['Session']['BackURL']))
+        {
+            F::Run('Session', 'Write', $Call, ['Data' => ['BackURL' => null]]);
+            $Call = F::Apply('System.Interface.HTTP', 'Redirect', $Call, ['Location' => $Call['Session']['BackURL']]);
+        }
 
         return $Call;
     });

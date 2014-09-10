@@ -17,18 +17,6 @@
     },
     "Hooks":
     {
-        "afterOdnoklassnikiAuthenticate":
-        {
-            "Redirect":
-            {
-                "Service": "System.Interface.HTTP",
-                "Method": "Redirect",
-                "Call":
-                {
-                    "Location": "/profile"
-                }
-            }
-        },
         "afterOdnoklassnikiAnnulate":
         {
             "Redirect":

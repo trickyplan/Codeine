@@ -5,9 +5,9 @@
         "Locale",
         "Location",
         "Session",
+        "SID",
         "HTTP",
         "Request",
-        "Project",
-        "BackURL"
+        "Project"
     ]
 }

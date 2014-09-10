@@ -12,6 +12,10 @@
         {
             "Type": "Literal.String"
         },
+        "BackURL":
+        {
+            "Type": "Literal.String"
+        },
         "IP":
         {
             "Type": "Numeral.IP",
@@ -69,7 +73,7 @@
             "Default": 0
         }
     },
-    "Hooks":
+    "Hooks!":
     {
         "afterDeletePost":
         {

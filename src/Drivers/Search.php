@@ -19,11 +19,12 @@
             $Providers = array_keys($Call['Providers']);
 
         foreach ($Providers as $Provider)
-        {
-            $ProviderCall = $Call['Providers'][$Provider];
-            $ProviderCall['Method'] = 'Index';
-            F::Live($ProviderCall, $Call);
-        }
+            if (isset($Call['Providers'][$Provider]))
+            {
+                $ProviderCall = $Call['Providers'][$Provider];
+                $ProviderCall['Method'] = 'Index';
+                F::Live($ProviderCall, $Call);
+            }
 
         return $Call;
     });

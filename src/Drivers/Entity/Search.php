@@ -9,39 +9,41 @@
 
     setFn('Index', function ($Call)
     {
-        $Data = [];
-
-        if (isset($Call['Data']))
-            ;
-        else
-            $Call['Data'] = F::Run('Entity', 'Read', $Call);
-
-        foreach ($Call['Nodes'] as $Name => $Node)
-            if (isset($Node['Index']) && $Node['Index'])
-            {
-                $Value = F::Dot($Call['Data'], $Name);
-
-                if (empty($Value))
-                    ;
-                else
-                {
-                    if (is_array($Value))
-                        $Data[$Name] = implode (' ', $Value);
-                    else
-                        $Data[$Name] = $Value;
-                }
-            }
-
-        if (F::Run('Search', 'Index', $Call,
-        [
-            'Provider' => $Call['Entity'],
-            'Data!'    => $Data
-        ]))
+        if (isset($Call['Providers'][$Call['Entity']]))
         {
-            F::Log($Call['Entity'].' '.$Data['ID'].' indexed', LOG_INFO);
-            F::Log($Data, LOG_DEBUG);
-        }
+            $Data = [];
 
+            if (isset($Call['Data']))
+                ;
+            else
+                $Call['Data'] = F::Run('Entity', 'Read', $Call);
+
+            foreach ($Call['Nodes'] as $Name => $Node)
+                if (isset($Node['Index']) && $Node['Index'])
+                {
+                    $Value = F::Dot($Call['Data'], $Name);
+
+                    if (empty($Value))
+                        ;
+                    else
+                    {
+                        if (is_array($Value))
+                            $Data[$Name] = implode (' ', $Value);
+                        else
+                            $Data[$Name] = $Value;
+                    }
+                }
+
+            if (F::Run('Search', 'Index', $Call,
+            [
+                'Provider' => $Call['Entity'],
+                'Data!'    => $Data
+            ]))
+            {
+                F::Log($Call['Entity'].' '.$Data['ID'].' indexed', LOG_INFO);
+                F::Log($Data, LOG_DEBUG);
+            }
+        }
         return $Call;
     });
 

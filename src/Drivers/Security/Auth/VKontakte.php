@@ -62,9 +62,12 @@
                         'One'    => true,
                         'Where'  => $Call['Session']['User']['ID'],
                     ]);
+
                     $Call['Merge']['Social'] = 'VKontakte';
                     $Call['Merge']['ID'] = $Result['user_id'];
+
                     $Call = F::Hook('socialMerge', $Call);
+
                     if (isset($Call['Merge']['Updated']))
                         $Updated = $Call['Merge']['Updated'];
                 }
@@ -118,6 +121,7 @@
                         'ID' => $Result['user_id'],
                         'Auth'  => $Result['access_token']
                     ];
+
                 foreach ($Call['VKontakte']['Mapping'] as $VKontakteField => $CodeineField)
                     if (isset($VKontakte[$VKontakteField]) && !empty($VKontakte[$VKontakteField]))
                         $Updated =  F::Dot($Updated, $CodeineField, $VKontakte[$VKontakteField]);

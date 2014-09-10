@@ -20,18 +20,6 @@
     },
     "Hooks":
     {
-        "afterVKontakteAuthenticate":
-        {
-            "Redirect":
-            {
-                "Service": "System.Interface.HTTP",
-                "Method": "Redirect",
-                "Call":
-                {
-                    "Location": "/profile"
-                }
-            }
-        },
         "afterVKontakteAnnulate":
         {
             "Redirect":

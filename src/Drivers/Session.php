@@ -97,13 +97,17 @@
 
     setFn('Write', function ($Call)
     {
-        if (!isset($Call['SID']))
+        if (isset($Call['SID']))
+            ;
+        else
             $Call = F::Apply(null, 'Mark', $Call);
 
-        if (!isset($Call['Session']))
+        if (isset($Call['Session']))
+            ;
+        else
             $Call = F::Apply(null, 'Initialize', $Call);
 
-         if (empty($Call['Session']))
+        if (empty($Call['Session']))
         {
             $Call['Session'] = F::Run('Entity', 'Create', $Call,
                 [
@@ -162,7 +166,10 @@
 
     setFn('Mark', function ($Call)
     {
-        $Call['SID'] = F::Live($Call['SID Generator']);
+        if (isset($Call['SID']))
+            ;
+        else
+            $Call['SID'] = F::Live($Call['SID Generator']);
 
         // Вешаем маркер, если включено автомаркирование
         if (F::Run('Session.Marker.Cookie', 'Write', $Call))

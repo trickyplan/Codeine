@@ -16,18 +16,6 @@
     },
     "Hooks":
     {
-        "afterFacebookAuthenticate":
-        {
-            "Redirect":
-            {
-                "Service": "System.Interface.HTTP",
-                "Method": "Redirect",
-                "Call":
-                {
-                    "Location": "/profile"
-                }
-            }
-        },
         "afterFacebookAnnulate":
         {
             "Redirect":
