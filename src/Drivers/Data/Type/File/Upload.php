@@ -18,6 +18,7 @@
             $Call['Data'] = file_get_contents($Call['Value']);
         elseif (preg_match('/^https?:\/\//', $Call['Value']))
         {
+            $Call['Value'] = html_entity_decode($Call['Value']);
             $Web = F::Run('IO', 'Read', ['Storage' => 'Web', 'Where' => ['ID' => $Call['Value']]]);
             $Call['Data'] = array_pop($Web);
         }
