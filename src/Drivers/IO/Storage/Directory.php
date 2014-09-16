@@ -129,7 +129,10 @@
                     F::Log('Directory '.$DirName.' cannot created', LOG_ERR, 'Administrator');
             }
             else
+            {
                 F::Log('Directory '.$DirName.' not writeable', LOG_ERR, 'Administrator');
+                return null;
+            }
         }
 
         if (isset($Call['Data']) && ($Call['Data'] != 'null') && ($Call['Data'] != null))
