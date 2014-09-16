@@ -9,7 +9,7 @@
 
     setFn('Index', function ($Call)
     {
-        if (isset($Call['Providers'][$Call['Entity']]))
+        // if (isset($Call['Providers'][$Call['Entity']]))
         {
             $Data = [];
 
@@ -44,6 +44,8 @@
                 F::Log($Data, LOG_DEBUG);
             }
         }
+/*        else
+            F::Log('Cannot find provider for '.$Call['Entity'], LOG_ERR);*/
         return $Call;
     });
 
@@ -144,7 +146,7 @@
         $Entities = F::Run('Entity', 'Read', $Call);
 
         foreach ($Entities as $Data)
-            F::Run(null, 'Index', $Call, ['Data' => $Data]);
+            F::Run(null, 'Index', $Call, ['Data!' => $Data]);
 
-        return $Call;
+        return ['Indexed' => count($Entities)];
     });
