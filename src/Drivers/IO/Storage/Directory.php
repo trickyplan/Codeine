@@ -121,18 +121,10 @@
 
         if (!is_dir($DirName))
         {
-            if (is_writable($DirName))
-            {
-                if (mkdir($DirName, 0777, true))
-                    F::Log('Directory '.$DirName.' created', LOG_INFO, 'Administrator');
-                else
-                    F::Log('Directory '.$DirName.' cannot created', LOG_ERR, 'Administrator');
-            }
+            if (mkdir($DirName, 0777, true))
+                F::Log('Directory '.$DirName.' created', LOG_INFO, 'Administrator');
             else
-            {
-                F::Log('Directory '.$DirName.' not writeable', LOG_ERR, 'Administrator');
-                return null;
-            }
+                F::Log('Directory '.$DirName.' cannot created', LOG_ERR, 'Administrator');
         }
 
         if (isset($Call['Data']) && ($Call['Data'] != 'null') && ($Call['Data'] != null))
