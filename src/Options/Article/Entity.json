@@ -21,7 +21,7 @@
             {
                 "Write":
                 {
-                    "Type": "Form.WYSIWYG"
+                    "Type": "Form.Quill"
                 }
             },
             "Hooks":

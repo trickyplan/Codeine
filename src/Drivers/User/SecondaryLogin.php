@@ -11,7 +11,7 @@
     {
         F::Log('User '.$Call['Session']['User']['ID'].' logged in '.$Call['Where'], LOG_INFO, 'Security');
 
-        $Call = F::Apply('Session', 'Write', $Call, ['Data' => ['Secondary' => $Call['Where']]]);
+        $Call = F::Apply('Session', 'Write', $Call, ['Session Data' => ['Secondary' => $Call['Where']]]);
 
         $Call = F::Apply('Entity', 'Load', $Call, ['Entity' => 'User']);
 

@@ -23,6 +23,17 @@
                 }
             }
         },
+        "DUNS":
+        {
+            "Type": "Literal.String",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        },
         "Logo":
         {
             "Type": "File.Upload",
@@ -42,7 +53,7 @@
             {
                 "Write":
                 {
-                    "Type": "Form.WYSIWYG"
+                    "Type": "Form.Quill"
                 }
             }
         },
@@ -53,7 +64,7 @@
             {
                 "Write":
                 {
-                    "Type": "Form.WYSIWYG"
+                    "Type": "Form.Quill"
                 }
             }
         },
@@ -64,7 +75,7 @@
             {
                 "Write":
                 {
-                    "Type": "Form.WYSIWYG"
+                    "Type": "Form.Quill"
                 }
             }
         }

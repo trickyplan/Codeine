@@ -87,7 +87,7 @@
                 ]);
 
             if (isset($Call['EMail Activation']['Auto Login']) && $Call['EMail Activation']['Auto Login'])
-                $Call = F::Apply('Session', 'Write', $Call, ['Data' => ['User' => $Call['ActivationData']['User']]]);
+                $Call = F::Apply('Session', 'Write', $Call, ['Session Data' => ['User' => $Call['ActivationData']['User']]]);
 
             $Call = F::Hook('Activation.Success', $Call);
         }

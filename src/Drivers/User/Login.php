@@ -45,7 +45,7 @@
             if (isset($Call['Request']['Remember']))
                 $Call['TTL'] = $Call['TTLs']['Long'];
 
-            $Call = F::Apply('Session', 'Write', $Call, ['Data' => ['User' => $Call['User']['ID']]]);
+            $Call = F::Apply('Session', 'Write', $Call, ['Session Data' => ['User' => $Call['User']['ID']]]);
 
             if ($Call['Session']['User']['ID'] == $Call['User']['ID'])
             {

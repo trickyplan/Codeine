@@ -37,7 +37,7 @@
         }
 
         if ($Location != $Call['Session']['Location'])
-            F::Run('Session', 'Write', $Call, ['Session' => ['Location' => $Location]]);
+            F::Run('Session', 'Write', $Call, ['Session Data' => ['Location' => $Location]]);
 
         return $Call;
     });

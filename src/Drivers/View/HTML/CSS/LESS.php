@@ -41,7 +41,7 @@
             {
                 // FIXME! Temporary decision.
                 shell_exec('lessc --clean-css '.Root.'/Assets/'.$Asset.'/less/'.$ID.'.less > '.Root.'/Assets/'.$Asset.'/css/'.$ID.'.css');
-                F::Log('LESS processed '.Root.'/Assets/'.$Asset.'/css/'.$ID.'.css', LOG_WARNING, 'Developer');
+                F::Log('LESS processed '.Root.'/Assets/'.$Asset.'/css/'.$ID.'.css', LOG_GOOD, 'Developer');
             }
         }
 

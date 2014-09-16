@@ -1,0 +1,156 @@
+{
+    "Nodes":
+    {
+           "Company.Director.Name":
+        {
+            "Type": "Literal.String",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        },
+        "Company.Director.Position":
+        {
+            "Type": "Literal.String",
+            "Default": "Директор",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        },
+        "Company.Director.Reason":
+        {
+            "Type": "Literal.String",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield",
+                    "Help": true
+                }
+            }
+        },
+        "Company.Director.Genitive.Name":
+        {
+            "Type": "Literal.String",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        },
+        "Company.Director.Genitive.Position":
+        {
+            "Type": "Literal.String",
+            "Default": "Директора",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        },
+        "Company.Director.Genitive.Reason":
+        {
+            "Type": "Literal.String",
+            "Default": "Устава",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        },
+        "Company.Accountant":
+        {
+            "Type": "Literal.String",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield",
+                    "Help": true
+                }
+            }
+        },
+        "Company.Taxes":
+        {
+            "Type": "List.Enum",
+            "Default": 0,
+            "Localized": true,
+            "Options":
+            [
+                "General",
+                "Simplified",
+                "Unified",
+                "Agricultural"
+            ],
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Select"
+                }
+            }
+        },
+        "Company.Bank.Name":
+        {
+            "Type": "Literal.String",
+            "Hooks":
+            {
+                "beforeEntityWrite":
+                {
+                    "Service": "Company.Entity",
+                    "Method": "Company.Bank.Name"
+                }
+            }
+        },
+        "Company.Bank.Code":
+        {
+            "Type": "Literal.String",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield",
+                    "Pattern": "[0-9]{9}",
+                    "Help": true
+                }
+            }
+        },
+        "Company.Bank.Account.Correspondent":
+        {
+            "Type": "Literal.String",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield",
+                    "Pattern": "[0-9]{,20}"
+                }
+            }
+        },
+        "Company.Bank.Account.Current":
+        {
+            "Type": "Literal.String",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield",
+                    "Pattern": "[0-9]{,20}"
+                }
+            }
+        }
+    }
+}

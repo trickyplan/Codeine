@@ -1,6 +1,17 @@
 {
     "Nodes":
     {
+        "URL":
+        {
+            "Type": "Literal.String",
+            "Widgets":
+            {
+                "Create":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        },
         "Phone":
         {
             "Type": "Literal.String",
@@ -16,18 +27,6 @@
         "Skype":
         {
             "Type": "Literal.String",
-            "Index": true,
-            "Widgets":
-            {
-                "Write":
-                {
-                    "Type": "Form.Textfield"
-                }
-            }
-        },
-        "ICQ":
-        {
-            "Type": "Numeral.Integer",
             "Index": true,
             "Widgets":
             {

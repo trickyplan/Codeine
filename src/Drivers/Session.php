@@ -109,12 +109,12 @@
 
         if (empty($Call['Session']))
         {
-            $Call['Data']['ID'] = $Call['SID'];
+            $Call['Session Data']['ID'] = $Call['SID'];
             $Call['Session'] = F::Run('Entity', 'Create',
                 [
                     'Entity' => 'Session',
                     'One' => true,
-                    'Data' => $Call['Data']
+                    'Data' => $Call['Session Data']
                 ]);
 
             F::Log('Session created '.$Call['SID'], LOG_INFO, 'Security');
@@ -125,7 +125,7 @@
             $Call['Session'] = F::Run('Entity', 'Update',
                 [
                     'Entity' => 'Session',
-                    'Data' => $Call['Data'],
+                    'Data' => $Call['Session Data'],
                     'Where' => $Call['SID'],
                     'One' => true
                 ]);
@@ -152,9 +152,9 @@
     setFn('Annulate', function ($Call)
     {
         if (isset($Call['Session']['Secondary']) && $Call['Session']['Secondary'] != 0)
-            $Call = F::Apply('Session', 'Write', $Call, ['Data!' => ['Secondary' => 0]]);
+            $Call = F::Apply('Session', 'Write', $Call, ['Session Data' => ['Secondary' => 0]]);
         else
-            $Call = F::Apply('Session', 'Write', $Call, ['Data!' => ['User' => 0]]);
+            $Call = F::Apply('Session', 'Write', $Call, ['Session Data' => ['User' => 0]]);
 
         $Call = F::Hook('afterAnnulate', $Call);
 

@@ -9,7 +9,7 @@
             {
                 "Write":
                 {
-                    "Type": "Form.WYSIWYG"
+                    "Type": "Form.Quill"
                 }
             }
         },
@@ -21,7 +21,7 @@
             {
                 "Write":
                 {
-                    "Type": "Form.WYSIWYG"
+                    "Type": "Form.Quill"
                 }
             }
         },
@@ -33,7 +33,7 @@
             {
                 "Write":
                 {
-                    "Type": "Form.WYSIWYG"
+                    "Type": "Form.Quill"
                 }
             }
         },
@@ -45,7 +45,7 @@
             {
                 "Write":
                 {
-                    "Type": "Form.WYSIWYG"
+                    "Type": "Form.Quill"
                 }
             }
         }
