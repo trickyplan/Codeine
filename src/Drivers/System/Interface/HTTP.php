@@ -181,7 +181,7 @@
         else
             $Call['BackURL'] = $Call['HTTP']['URL'];
 
-        if ($Call['BackURL'] == $Call['Session']['BackURL'])
+        if (isset($Call['Session']['BackURL']) && ($Call['BackURL'] == $Call['Session']['BackURL']))
             ;
         else
         {
