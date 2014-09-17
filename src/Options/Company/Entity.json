@@ -6,6 +6,7 @@
         "Mixins.CRUD",
         "Mixins.SEO",
         "Mixins.Contacts",
+        "Mixins.Photo",
         "Mixins.Social",
         "Company.Mixins.Russia"
     ],
@@ -31,18 +32,6 @@
                 "Write":
                 {
                     "Type": "Form.Textfield"
-                }
-            }
-        },
-        "Logo":
-        {
-            "Type": "File.Upload",
-            "Storage": "Upload",
-            "Widgets":
-            {
-                "Write":
-                {
-                    "Type": "Form.File"
                 }
             }
         },
