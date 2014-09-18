@@ -25,11 +25,10 @@
             $Call['Data'] = array_pop($Web);
         }
 
-        if (empty($Call['Data']))
-            ;
-        else
+        if ($Call['Data'])
         {
             $Call['Name'] = F::Live($Call['Node']['Naming'], $Call);
+            F::Log('Name Generated '.$Call['Name'], LOG_ERR);
 
             F::Run('IO', 'Write', $Call,
             [
