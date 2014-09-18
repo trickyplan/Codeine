@@ -14,38 +14,39 @@
         if ($Call['HTTP']['URL'] == '/')
             $Call['HTTP']['URL'] = '';
 
-        foreach ($Locations as $Location)
-        {
-
-            if (!isset($Call['Location']['Slug']) or null === $Call['Location']['Slug'])
-                $Location['URL'] = '/'.$Location['Slug'];
-            else
+        if (is_array($Locations) and !empty($Locations))
+            foreach ($Locations as $Location)
             {
-                if (preg_match('@^/'.$Call['Location']['Slug'].'@Ssuu', $Call['HTTP']['URL']))
-                    $Location['URL'] = str_replace($Call['Location']['Slug'], $Location['Slug'], $Call['HTTP']['URL']);
-                else
+
+                if (!isset($Call['Location']['Slug']) or null === $Call['Location']['Slug'])
                     $Location['URL'] = '/'.$Location['Slug'];
+                else
+                {
+                    if (preg_match('@^/'.$Call['Location']['Slug'].'@Ssuu', $Call['HTTP']['URL']))
+                        $Location['URL'] = str_replace($Call['Location']['Slug'], $Location['Slug'], $Call['HTTP']['URL']);
+                    else
+                        $Location['URL'] = '/'.$Location['Slug'];
+                }
+
+                $Location['URL'] = $Call['HTTP']['Proto'].$Call['HTTP']['Host'].$Location['URL'];
+
+                if (isset($Call['Location']['ID']) && $Location['ID'] == $Call['Location']['ID'])
+                    $Call['Output']['Content'][] =
+                    [
+                        'Type' => 'Template',
+                        'Scope' => 'Location',
+                        'ID' => 'Show/Widget.Selected',
+                        'Data' => $Location
+                    ];
+                else
+                    $Call['Output']['Content'][] =
+                    [
+                        'Type' => 'Template',
+                        'Scope' => 'Location',
+                        'ID' => 'Show/Widget',
+                        'Data' => $Location
+                    ];
             }
-
-            $Location['URL'] = $Call['HTTP']['Proto'].$Call['HTTP']['Host'].$Location['URL'];
-
-            if (isset($Call['Location']['ID']) && $Location['ID'] == $Call['Location']['ID'])
-                $Call['Output']['Content'][] =
-                [
-                    'Type' => 'Template',
-                    'Scope' => 'Location',
-                    'ID' => 'Show/Widget.Selected',
-                    'Data' => $Location
-                ];
-            else
-                $Call['Output']['Content'][] =
-                [
-                    'Type' => 'Template',
-                    'Scope' => 'Location',
-                    'ID' => 'Show/Widget',
-                    'Data' => $Location
-                ];
-        }
 
         return $Call;
     });
