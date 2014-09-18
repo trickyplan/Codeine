@@ -125,7 +125,6 @@
                     [
                          'Entity' => $Call['Bundle']
                     ]);
-
         $Call['View']['Renderer'] =
             [
                 'Service' =>  'View.JSON',

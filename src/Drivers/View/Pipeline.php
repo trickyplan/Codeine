@@ -9,6 +9,7 @@
 
     setFn('Do', function ($Call)
     {
+
         //if (preg_match_all('@<place>(.*)<\/place>@SsUu', $Call['Layout'], $Places))
         {
             if (isset($Call['Output']))
@@ -24,7 +25,7 @@
                                         F::Run($Call['View']['Renderer']['Service'] . '.Element.' . $Widget['Type'], 'Make', $Widget);
 
                                     if (empty($Widget))
-                                        unset($Call['Output'][$Place][$Key]);
+                                        ;
                                     else
                                         $Call['Output'][$Place][$Key] = $Widget;
                                 }
