@@ -24,7 +24,7 @@
                 }
             }
         },
-        "DUNS":
+        "Company.DUNS":
         {
             "Type": "Literal.String",
             "Widgets":
@@ -32,6 +32,55 @@
                 "Write":
                 {
                     "Type": "Form.Textfield"
+                }
+            }
+        },
+        "Company.Since":
+        {
+            "Type": "Date.Short",
+            "Default":
+            {
+                "Service": "System.Time",
+                "Method": "Get"
+            },
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Datepicker"
+                }
+            }
+        },
+        "Company.Address.Postal":
+        {
+            "Type": "Literal.Text",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textarea"
+                }
+            }
+        },
+        "Company.Address.Official":
+        {
+            "Type": "Literal.Text",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textarea"
+                }
+            }
+        },
+        "Company.Address.Real":
+        {
+            "Type": "Literal.Text",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textarea"
                 }
             }
         },

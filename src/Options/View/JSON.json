@@ -3,7 +3,7 @@
     {
         "Headers":
         {
-            "Content-type:": "application/json"
+            "Content-type:": "application/json; charset=utf-8"
         }
     },
     "Extension": ".json",

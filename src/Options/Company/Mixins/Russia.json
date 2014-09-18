@@ -1,7 +1,7 @@
 {
     "Nodes":
     {
-        "Company.Type":
+        "Company.Russia.Type":
         {
             "Type": "List.Enum",
             "Localized": true,
@@ -27,7 +27,7 @@
                 }
             }
         },
-        "Company.Title":
+        "Company.Russia.Title":
         {
             "Type": "Literal.String",
             "Widgets":
@@ -38,7 +38,7 @@
                 }
             }
         },
-        "Company.INN":
+        "Company.Russia.INN":
         {
             "Type": "Literal.String",
             "Size": 10,
@@ -51,7 +51,7 @@
                 }
             }
         },
-        "Company.OGRN":
+        "Company.Russia.OGRN":
         {
             "Type": "Literal.String",
             "Size": 13,
@@ -64,7 +64,7 @@
                 }
             }
         },
-        "Company.KPP":
+        "Company.Russia.KPP":
         {
             "Type": "Literal.String",
             "Size": 9,
@@ -77,40 +77,7 @@
                 }
             }
         },
-        "Company.Address.Postal":
-        {
-            "Type": "Literal.Text",
-            "Widgets":
-            {
-                "Write":
-                {
-                    "Type": "Form.Textarea"
-                }
-            }
-        },
-        "Company.Address.Official":
-        {
-            "Type": "Literal.Text",
-            "Widgets":
-            {
-                "Write":
-                {
-                    "Type": "Form.Textarea"
-                }
-            }
-        },
-        "Company.Address.Real":
-        {
-            "Type": "Literal.Text",
-            "Widgets":
-            {
-                "Write":
-                {
-                    "Type": "Form.Textarea"
-                }
-            }
-        },
-        "Company.Industry":
+        "Company.Russia.Industry":
         {
             "Type": "Array.Enum",
             "Options":
@@ -132,22 +99,6 @@
                     "Type": "Form.Select",
                     "Size": 33,
                     "Multiple": true
-                }
-            }
-        },
-        "Company.Since":
-        {
-            "Type": "Date.Short",
-            "Default":
-            {
-                "Service": "System.Time",
-                "Method": "Get"
-            },
-            "Widgets":
-            {
-                "Write":
-                {
-                    "Type": "Form.Datepicker"
                 }
             }
         }
