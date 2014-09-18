@@ -14,8 +14,6 @@
 
         $Call['ID'] = F::Run('Security.UID', 'Get', ['Mode' => 'Secure']);
 
-        F::Log('ID Generated '.$Call['ID'], LOG_ERR);
-
         if (is_uploaded_file($Call['Value']))
             $Call['Data'] = file_get_contents($Call['Value']);
         elseif (preg_match('/^https?:\/\//', $Call['Value']))
@@ -28,7 +26,6 @@
         if ($Call['Data'])
         {
             $Call['Name'] = F::Live($Call['Node']['Naming'], $Call);
-            F::Log('Name Generated '.$Call['Name'], LOG_ERR);
 
             F::Run('IO', 'Write', $Call,
             [
