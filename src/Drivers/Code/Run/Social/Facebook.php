@@ -73,25 +73,27 @@
                              'fb_exchange_token' => $Result['Auth']
                          ]
                      ]);
-
                 $ResultFB = array_pop($ResultFB);
                 parse_str($ResultFB, $ResultFB);
-                /* F::Run ('Entity', 'Update',
-                    [
-                        'Entity' => 'User',
-                        'Where'  =>
-                            [
-                                'Facebook.Auth' =>$Result['Auth']
-                            ],
-		                    'Data' => 
-		                    [
-		                        'Facebook.Auth' => $ResultFB['access_token'],
-		                        'Facebook.Expire' => time()+$ResultFB['expires']
-		                    ],
-                        'One' => true
-                    ]); */
-                $Result['Auth'] = $ResultFB['access_token'];
-                $Result['Expire'] = $ResultFB['expires'];
+                if (isset($ResultFB['access_token']))
+                {
+                    /* F::Run ('Entity', 'Update',
+                        [
+                            'Entity' => 'User',
+                            'Where'  =>
+                                [
+                                    'Facebook.Auth' =>$Result['Auth']
+                                ],
+	                            'Data' => 
+	                            [
+	                                'Facebook.Auth' => $ResultFB['access_token'],
+	                                'Facebook.Expire' => time()+$ResultFB['expires']
+	                            ],
+                            'One' => true
+                        ]); */
+                    $Result['Auth'] = $ResultFB['access_token'];
+                    $Result['Expire'] = $ResultFB['expires'];
+                }
             }
         }
 
