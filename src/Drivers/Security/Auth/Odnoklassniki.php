@@ -60,8 +60,9 @@
                         'Method' => 'users.getCurrentUser',
                         'Call'   =>
                         [
-                            'access_token' => $Result['access_token'],
-                            'format'       => 'json'
+                            'access_token'  => $Result['access_token'],
+                            'format'        => 'json',
+                            'fields'        => 'uid, locale, first_name, last_name, name, gender, birthday, photo_id, pic_1, pic_2, pic1024x768, location'
                         ]
                     ]);
                 $Updated = [];
