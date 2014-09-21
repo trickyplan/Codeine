@@ -12,8 +12,6 @@
         $Call['Data'] = false;
         $Call['Scope'] = $Call['Entity'].'/'.$Call['Name'];
 
-        $Call['ID'] = F::Run('Security.UID', 'Get', ['Mode' => 'Secure']);
-
         if (is_uploaded_file($Call['Value']))
             $Call['Data'] = file_get_contents($Call['Value']);
         elseif (preg_match('/^https?:\/\//', $Call['Value']))
@@ -25,6 +23,7 @@
 
         if ($Call['Data'])
         {
+            $Call['ID'] = F::Run('Security.UID', 'Get', ['Mode' => 'Secure']);
             $Call['Name'] = F::Live($Call['Node']['Naming'], $Call);
 
             F::Run('IO', 'Write', $Call,

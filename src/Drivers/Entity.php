@@ -31,7 +31,10 @@
             else
                 F::Log('Model for '.$Call['Entity'].' not found', LOG_CRIT);
 
-        $Call['Nodes'] = F::Sort($Call['Nodes'], 'Weight', SORT_DESC);
+        if (isset($Call['Nodes']))
+            $Call['Nodes'] = F::Sort($Call['Nodes'], 'Weight', SORT_DESC);
+        else
+            F::Log('Nodes not loaded', LOG_WARNING);
 
         $Call = F::Hook('afterEntityLoad', $Call);
 
