@@ -1,0 +1,49 @@
+{
+    "Nodes":
+    {
+        "Width":
+        {
+            "Type": "Numeral.Float",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        },
+        "Height":
+        {
+            "Type": "Numeral.Float",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        },
+        "Depth":
+        {
+            "Type": "Numeral.Float",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        },
+        "Weight":
+        {
+            "Type": "Numeral.Float",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        }
+    }
+}
