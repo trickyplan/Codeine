@@ -22,7 +22,7 @@
     },
     "View":
     {
-        "Load RTTL": 3600
+        "Load RTTL": 86400
     },
     "Output":
     {

@@ -30,20 +30,22 @@
                     'Where' => ['ID' => $Call['Run']['CacheID']]
                 ]);
 
+            $Memo = j($Call['Run']['Memo']);
+
             if ($Envelope !== null)
             {
                 if ($Envelope[0]['Expire'] > time())
                 {
-                    F::Log('Cache *hit* for call '.$Call['Run']['Service'].':'.$Call['Run']['Method'].'('.j($Call['Run']['Memo']).')', LOG_INFO, 'Performance');
+                    F::Log('Cache *hit* for call '.$Call['Run']['Service'].':'.$Call['Run']['Method'].'('.$Memo.')', LOG_INFO, 'Performance');
 
                     $Run = false;
                     $Result = $Envelope[0]['Result'];
                 }
                 else
-                    F::Log('Cache *expired* for call '.$Call['Run']['Service'].':'.$Call['Run']['Method'].'('.j($Call['Run']['Memo']).')', LOG_INFO, 'Performance');
+                    F::Log('Cache *expired* for call '.$Call['Run']['Service'].':'.$Call['Run']['Method'].'('.$Memo.')', LOG_INFO, 'Performance');
             }
             else
-                F::Log('Cache *miss* for call '.$Call['Run']['Service'].':'.$Call['Run']['Method'].'('.j($Call['Run']['Memo']).')', LOG_DEBUG, 'Performance');
+                F::Log('Cache *miss* for call '.$Call['Run']['Service'].':'.$Call['Run']['Method'].'('.$Memo.')', LOG_DEBUG, 'Performance');
 
             if ($Run)
             {

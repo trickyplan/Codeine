@@ -327,10 +327,10 @@
 
                 if (is_callable($F))
                 {
+                    $Memo = [self::$_Service, self::$_Method];
+
                     if (!isset($Call['No Memo']) && isset($FnOptions['Contract'][self::$_Service][self::$_Method]['Memo']))
                     {
-                        $Memo = [self::$_Service, self::$_Method];
-
                         foreach ($FnOptions['Contract'][self::$_Service][self::$_Method]['Memo'] as $Key)
                         {
                             $Key = F::Dot($Call, $Key);
@@ -342,6 +342,9 @@
 
                         $CacheID = sha1(serialize($Memo));
                     }
+
+                    if (isset($CacheID) && ($Result = F::Get($CacheID)) !== null)
+                        F::Log($CacheID.' fast forwared.', LOG_GOOD, 'Performance');
 
                     if (isset($Call['RTTL']) and isset($CacheID))
                     {

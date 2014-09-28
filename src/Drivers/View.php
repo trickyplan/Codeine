@@ -27,7 +27,6 @@
 
         $IDs = array_reverse($IDs);
 
-
         if (isset($Call['Scope']))
             $Call['Scope'] = strtr($Call['Scope'], '.', '/');
 
