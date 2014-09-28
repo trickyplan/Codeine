@@ -30,7 +30,7 @@
                     'Where' => ['ID' => $Call['Run']['CacheID']]
                 ]);
 
-            $Memo = j($Call['Run']['Memo']);
+            $Memo = serialize($Call['Run']['Memo']);
 
             if ($Envelope !== null)
             {
