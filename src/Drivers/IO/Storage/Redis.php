@@ -10,11 +10,7 @@
     setFn ('Open', function ($Call)
     {
         $Redis = new Redis();
-
-        if (isset($Call['Port']))
-            $Redis->open ($Call['Server'], $Call['Port']);
-        else
-            $Redis->open ($Call['Server']);
+        $Redis->pconnect ($Call['Server'], $Call['Port']);
 
         return $Redis;
     });

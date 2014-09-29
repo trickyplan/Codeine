@@ -5,11 +5,11 @@
         {
             "Count":
             {
-                "Memo": ["Entity", "Scope", "Where", "Time", "Key"]
+                "Memo": ["Entity", "Where", "Time", "Key"]
             },
             "Read":
             {
-                "Memo": ["Entity", "Scope", "Where", "Time", "Key", "Fields", "One", "Sort", "Filter", "Limit"]
+                "Memo": ["Entity", "Where", "Time", "Key", "Fields", "One", "Sort", "Filter", "Limit"]
             }
         }
     },

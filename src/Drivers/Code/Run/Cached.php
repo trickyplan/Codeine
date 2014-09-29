@@ -26,7 +26,6 @@
             $Envelope = F::Run('IO', 'Read',
                 [
                     'Storage' => 'Run Cache',
-                    'No Memo'  => true,
                     'Scope'   => $Scope,
                     'Where' => ['ID' => $Call['Run']['CacheID']]
                 ]);
@@ -37,16 +36,16 @@
             {
                 if ($Envelope[0]['Expire'] > time())
                 {
-                    F::Log('Cache *hit* for call '.$Scope.'('.$Memo.')', LOG_INFO, 'Performance');
+                    F::Log('Cache *hit* for call '.$Call['Run']['Service'].':'.$Call['Run']['Method'].'('.$Memo.')', LOG_INFO, 'Performance');
 
                     $Run = false;
                     $Result = $Envelope[0]['Result'];
                 }
                 else
-                    F::Log('Cache *expired* for call '.$Scope.'('.$Memo.')', LOG_INFO, 'Performance');
+                    F::Log('Cache *expired* for call '.$Call['Run']['Service'].':'.$Call['Run']['Method'].'('.$Memo.')', LOG_INFO, 'Performance');
             }
             else
-                F::Log('Cache *miss* for call '.$Scope.'('.$Memo.')', LOG_BAD, 'Performance');
+                F::Log('Cache *miss* for call '.$Call['Run']['Service'].':'.$Call['Run']['Method'].'('.$Memo.')', LOG_DEBUG, 'Performance');
 
             if ($Run)
             {
@@ -71,7 +70,7 @@
         else
         {
             if (isset($Call['Run']['RTTL']) && !isset ($Call['Run']['CacheID']))
-                F::Log('RTTL defined, but contract is not', LOG_WARNING, 'Developer');
+                F::Log('RTTL defined, but contract is not', LOG_WARNING, 'Performance');
 
             $Result = F::Live($Call['Run']);
         }

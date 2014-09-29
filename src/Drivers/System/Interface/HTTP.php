@@ -189,13 +189,8 @@
             ;
         else
         {
-            if ($Call['BackURL'] == '/')
-                ;
-            else
-            {
-                $Call = F::Run('Session', 'Write', $Call, ['Session Data' => ['BackURL' => $Call['BackURL']]]);
-                F::Log('Back URL set to *'.$Call['BackURL'].'*', LOG_INFO);
-            }
+            $Call = F::Run('Session', 'Write', $Call, ['Session Data' => ['BackURL' => $Call['BackURL']]]);
+            F::Log('Back URL set to *'.$Call['BackURL'].'*', LOG_INFO);
         }
 
         return $Call;

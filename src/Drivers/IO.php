@@ -39,20 +39,8 @@
 
     setFn ('Read', function ($Call)
     {
-        $Result = null;
-
         if (isset($Call['Result']))
             unset($Call['Result']);
-
-        $IOID = $Call['Storage'];
-
-        if (isset($Call['Scope']))
-            $IOID .= DS.j($Call['Scope']);
-
-        if (isset($Call['Where']))
-            $IOID .= DS.j($Call['Where']);
-
-        self::Start('IO: '.$IOID);
 
         if (isset($Call['Storage']))
         {
@@ -83,17 +71,16 @@
                 $Call = F::Hook('afterIORead', $Call);
             }
 
-
             if (isset($Call['Return Key']) && $Call['Result'][$Call['Return Key']])
-                $Result = $Call['Result'][$Call['Return Key']];
+                return $Call['Result'][$Call['Return Key']];
             else
-                $Result = $Call['Result'];
+                return $Call['Result'];
         }
         else
+        {
             F::Log('IO Null Storage: ', LOG_CRIT);
-
-        self::Stop('IO: '.$IOID);
-        return $Result;
+            return null;
+        }
     });
 
     setFn ('Write', function ($Call)
