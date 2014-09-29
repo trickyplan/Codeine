@@ -33,7 +33,7 @@
 
             foreach ($Elements as $Element)
                 foreach ($Element as $Key => $Value)
-                    $Call['Output'] = str_replace('<far>'.$Entity.':'.$Element['ID'].':'.$Key, $Value, $Call['Output']);
+                    $Call['Output'] = str_replace('<far>'.$Entity.':'.$Element['ID'].':'.$Key.'</far>', $Value, $Call['Output']);
         }
 
         // $Call['Output'] = str_replace($Call['Parsed'][0][$Ix], '' . $Match, $Call['Output']);
