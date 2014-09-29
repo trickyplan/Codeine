@@ -34,7 +34,6 @@
             [
                   'Scope'   => $Call['Scope'],
                   'Storage' => 'Layout',
-                  'RTTL'    => $Call['View']['Load RTTL'],
                   'Where'   =>
                   [
                       'ID' => $IDs

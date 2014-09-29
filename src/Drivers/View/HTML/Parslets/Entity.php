@@ -24,11 +24,12 @@
             {
                 list(,$Entity, $ID) = $Slices;
 
+
                 $Element = F::Run('Entity', 'Read',
                     [
                           'Entity' => $Entity,
                           'Where'  => $ID,
-                          'One' => true
+                          'One'    => true
                     ]);
 
                 if (!empty($Element))

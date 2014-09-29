@@ -344,7 +344,7 @@
                     }
 
                     if (isset($CacheID) && ($Result = F::Get($CacheID)) !== null)
-                        F::Log($CacheID.' fast forwared.', LOG_GOOD, 'Performance');
+                        F::Log($CacheID.' fast forwared.', LOG_DEBUG, 'Performance');
 
                     if (isset($Call['RTTL']) and isset($CacheID))
                     {
