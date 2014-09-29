@@ -87,8 +87,8 @@
                 "Call":
                 {
                     "Storage": "Permanent",
-                    "Scope": "Russia",
-                    "Where": "Industry",
+                    "Scope": "Company/Russia",
+                    "Where": "OKVED",
                     "Return Key": 0
                 }
             },
@@ -97,7 +97,7 @@
                 "Write":
                 {
                     "Type": "Form.Select",
-                    "Size": 33,
+                    "Size": 9,
                     "Multiple": true
                 }
             }

@@ -34,6 +34,31 @@
                 }
             }
         },
+        "ISIC":
+        {
+            "Type": "Array.Enum",
+            "Options":
+            {
+                "Service": "IO",
+                "Method": "Read",
+                "Call":
+                {
+                    "Storage": "Permanent",
+                    "Scope": "Company",
+                    "Where": "ISIC",
+                    "Return Key": 0
+                }
+            },
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Select",
+                    "Size": 9,
+                    "Multiple": true
+                }
+            }
+        },
         "Since":
         {
             "Type": "Date.Short",
