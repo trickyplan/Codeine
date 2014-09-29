@@ -1,8 +1,7 @@
 {
     "View":
     {
-        "Debug": true,
-        "Load RTTL": 0
+        "Debug": true
     },
     "Hooks":
     {
