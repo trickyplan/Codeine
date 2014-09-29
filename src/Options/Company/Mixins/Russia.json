@@ -1,7 +1,7 @@
 {
     "Nodes":
     {
-        "Company.Russia.Type":
+        "Russia.Type":
         {
             "Type": "List.Enum",
             "Localized": true,
@@ -27,7 +27,7 @@
                 }
             }
         },
-        "Company.Russia.Title":
+        "Russia.Title":
         {
             "Type": "Literal.String",
             "Widgets":
@@ -38,7 +38,7 @@
                 }
             }
         },
-        "Company.Russia.INN":
+        "Russia.INN":
         {
             "Type": "Literal.String",
             "Size": 10,
@@ -51,7 +51,7 @@
                 }
             }
         },
-        "Company.Russia.OGRN":
+        "Russia.OGRN":
         {
             "Type": "Literal.String",
             "Size": 13,
@@ -64,7 +64,7 @@
                 }
             }
         },
-        "Company.Russia.KPP":
+        "Russia.KPP":
         {
             "Type": "Literal.String",
             "Size": 9,
@@ -77,7 +77,7 @@
                 }
             }
         },
-        "Company.Russia.Industry":
+        "Russia.OKVED":
         {
             "Type": "Array.Enum",
             "Options":

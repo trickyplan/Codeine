@@ -1,7 +1,7 @@
 {
     "Nodes":
     {
-           "Company.Director.Name":
+       "Russia.Director.Name":
         {
             "Type": "Literal.String",
             "Widgets":
@@ -12,7 +12,7 @@
                 }
             }
         },
-        "Company.Director.Position":
+        "Russia.Director.Position":
         {
             "Type": "Literal.String",
             "Default": "Директор",
@@ -24,7 +24,7 @@
                 }
             }
         },
-        "Company.Director.Reason":
+        "Russia.Director.Reason":
         {
             "Type": "Literal.String",
             "Widgets":
@@ -36,7 +36,7 @@
                 }
             }
         },
-        "Company.Director.Genitive.Name":
+        "Russia.Director.Genitive.Name":
         {
             "Type": "Literal.String",
             "Widgets":
@@ -47,7 +47,7 @@
                 }
             }
         },
-        "Company.Director.Genitive.Position":
+        "Russia.Director.Genitive.Position":
         {
             "Type": "Literal.String",
             "Default": "Директора",
@@ -59,7 +59,7 @@
                 }
             }
         },
-        "Company.Director.Genitive.Reason":
+        "Russia.Director.Genitive.Reason":
         {
             "Type": "Literal.String",
             "Default": "Устава",
@@ -71,7 +71,7 @@
                 }
             }
         },
-        "Company.Accountant":
+        "Russia.Accountant":
         {
             "Type": "Literal.String",
             "Widgets":
@@ -83,7 +83,7 @@
                 }
             }
         },
-        "Company.Taxes":
+        "Russia.Taxes":
         {
             "Type": "List.Enum",
             "Default": 0,
@@ -103,19 +103,19 @@
                 }
             }
         },
-        "Company.Bank.Name":
+        "Russia.Bank.Name":
         {
             "Type": "Literal.String",
             "Hooks":
             {
                 "beforeEntityWrite":
                 {
-                    "Service": "Company.Entity",
-                    "Method": "Company.Bank.Name"
+                    "Service": "Russia.Entity",
+                    "Method": "Russia.Bank.Name"
                 }
             }
         },
-        "Company.Bank.Code":
+        "Russia.Bank.Code":
         {
             "Type": "Literal.String",
             "Widgets":
@@ -128,7 +128,7 @@
                 }
             }
         },
-        "Company.Bank.Account.Correspondent":
+        "Russia.Bank.Account.Correspondent":
         {
             "Type": "Literal.String",
             "Widgets":
@@ -140,7 +140,7 @@
                 }
             }
         },
-        "Company.Bank.Account.Current":
+        "Russia.Bank.Account.Current":
         {
             "Type": "Literal.String",
             "Widgets":

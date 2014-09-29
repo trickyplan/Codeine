@@ -23,7 +23,7 @@
                 }
             }
         },
-        "Company.DUNS":
+        "DUNS":
         {
             "Type": "Literal.String",
             "Widgets":
@@ -34,7 +34,7 @@
                 }
             }
         },
-        "Company.Since":
+        "Since":
         {
             "Type": "Date.Short",
             "Default":
@@ -50,7 +50,7 @@
                 }
             }
         },
-        "Company.Address.Postal":
+        "Address.Postal":
         {
             "Type": "Literal.Text",
             "Widgets":
@@ -61,7 +61,7 @@
                 }
             }
         },
-        "Company.Address.Official":
+        "Address.Official":
         {
             "Type": "Literal.Text",
             "Widgets":
@@ -72,7 +72,7 @@
                 }
             }
         },
-        "Company.Address.Real":
+        "Address.Real":
         {
             "Type": "Literal.Text",
             "Widgets":
@@ -90,7 +90,7 @@
             {
                 "Write":
                 {
-                    "Type": "Form.Quill"
+                    "Type": "Form.Textfield"
                 }
             }
         },
