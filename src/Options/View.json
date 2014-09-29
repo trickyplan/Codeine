@@ -20,10 +20,6 @@
             }
         }
     },
-    "View":
-    {
-        "Load RTTL": 86400
-    },
     "Output":
     {
         "Content": []

@@ -18,8 +18,9 @@
 
     setFn('Load', function ($Call)
     {
+        self::Start('ViewBeforeLoad');
         $Call = F::Hook('beforeViewLoad', $Call);
-
+        self::Stop('ViewBeforeLoad');
         $IDs = [$Call['ID']];
 
         if (isset($Call['Context']) && !empty($Call['Context']))
@@ -34,7 +35,6 @@
             [
                   'Scope'   => $Call['Scope'],
                   'Storage' => 'Layout',
-                  'RTTL'    => $Call['View']['Load RTTL'],
                   'Where'   =>
                   [
                       'ID' => $IDs
@@ -44,9 +44,10 @@
         if (isset($Call['Data']) && ($Call['Data'] !== (array) $Call['Data']))
             $Call['Data'] = ['Value' => $Call['Data']];
 
+        self::Start('ViewAfterLoad');
         if ($Call['Value'] !== null)
             $Call = F::Hook('afterViewLoad', $Call);
-
+        self::Stop('ViewAfterLoad');
         return $Call['Value'];
     });
 

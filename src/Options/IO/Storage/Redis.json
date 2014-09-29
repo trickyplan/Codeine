@@ -1,5 +1,5 @@
 {
-    "Server": "127.0.0.1",
-    "Port": 6379,
-    "TTL": 0
+    "Server": "/tmp/redis.sock",
+    "-Port": 6379,
+    "TTL": 86400
 }

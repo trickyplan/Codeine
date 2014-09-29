@@ -9,7 +9,7 @@
 
      setFn('Make', function ($Call)
      {
-         $Call['Value'] = F::Run('View', 'Load', $Call, ['RTTL' => 3600]);
+         $Call['Value'] = F::Run('View', 'Load', $Call);
 
          return $Call;
      });

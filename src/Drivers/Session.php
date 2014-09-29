@@ -18,7 +18,6 @@
         {
             F::Log('Session: Marker not set', LOG_DEBUG, 'Security');
 
-            $Call = F::Apply(null, 'Mark', $Call);
 
             $Call['Session'] = [];
         }
@@ -118,6 +117,7 @@
                 ]);
 
             F::Log('Session created '.$Call['SID'], LOG_INFO, 'Security');
+            F::Log('Session data '.j($Call['Session Data']), LOG_INFO, 'Security');
         }
         else
         {

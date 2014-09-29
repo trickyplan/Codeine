@@ -1,5 +1,5 @@
 {
-    "Server": "127.0.0.1",
+    "Server": "/tmp/mongodb-27017.sock",
     "Mongo":
     {
          "Upsert Enabled": true,
