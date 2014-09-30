@@ -11,10 +11,20 @@
     {
         $Redis = new Redis();
 
-        if (isset($Call['Port']))
-            $Redis->open ($Call['Server'], $Call['Port']);
-        else
-            $Redis->open ($Call['Server']);
+        try
+        {
+            if (isset($Call['Port']))
+                $Redis->open ($Call['Server'], $Call['Port']);
+            else
+                $Redis->open ($Call['Server']);
+        }
+        catch (Exception $E)
+        {
+            self::Error($E->getMessage(), LOG_CRIT);
+
+            $Redis = null;
+        }
+
 
         return $Redis;
     });

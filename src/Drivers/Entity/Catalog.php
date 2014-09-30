@@ -32,7 +32,7 @@
                         $Value = F::Run('Entity', 'Count',
                         [
                             'Entity' => $Call['Entity'],
-                            'RTTL'   => 180,
+                            'RTTL'   => 600,
                             'Where' =>
                             [
                                 $Call['Key'] => $Element[$Call['Key']]

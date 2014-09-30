@@ -366,6 +366,10 @@
                     }
                     else
                         $Result = $F($Call);
+
+                    if (isset($CacheID))
+                        F::Set($CacheID, $Result);
+
                     // if (self::$_Performance)
                     self::Counter(self::$_Service.'.'.self::$_Method);
 
