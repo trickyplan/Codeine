@@ -32,20 +32,10 @@
 
                 if (isset($Call['Location']['ID']) && $Location['ID'] == $Call['Location']['ID'])
                     $Call['Output']['Content'][] =
-                    [
-                        'Type' => 'Template',
-                        'Scope' => 'Location',
-                        'ID' => 'Show/Widget.Selected',
-                        'Data' => $Location
-                    ];
+                        '<option selected value="'.$Location['Slug'].'"><a href="'.$Location['Slug'].'">'.$Location['Title'].'</a></option>';
                 else
                     $Call['Output']['Content'][] =
-                    [
-                        'Type' => 'Template',
-                        'Scope' => 'Location',
-                        'ID' => 'Show/Widget',
-                        'Data' => $Location
-                    ];
+                        '<option value="'.$Location['Slug'].'"><a href="'.$Location['Slug'].'">'.$Location['Title'].'</a></option>';;
             }
 
         return $Call;
