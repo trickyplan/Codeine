@@ -8,7 +8,8 @@
             {
                 "Write":
                 {
-                    "Type": "Form.Textfield"
+                    "Type": "Form.Textfield",
+                    "Postfix": "mm"
                 }
             }
         },
@@ -19,7 +20,8 @@
             {
                 "Write":
                 {
-                    "Type": "Form.Textfield"
+                    "Type": "Form.Textfield",
+                    "Postfix": "mm"
                 }
             }
         },
@@ -30,7 +32,8 @@
             {
                 "Write":
                 {
-                    "Type": "Form.Textfield"
+                    "Type": "Form.Textfield",
+                    "Postfix": "mm"
                 }
             }
         },
@@ -41,7 +44,8 @@
             {
                 "Write":
                 {
-                    "Type": "Form.Textfield"
+                    "Type": "Form.Textfield",
+                    "Postfix": "g"
                 }
             }
         }
