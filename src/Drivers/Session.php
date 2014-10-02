@@ -121,7 +121,7 @@
         }
         else
         {
-            $Call['Data']['ID'] = $Call['SID'];
+            $Call['Session Data']['ID'] = $Call['SID'];
             $Call['Session'] = F::Run('Entity', 'Update',
                 [
                     'Entity' => 'Session',

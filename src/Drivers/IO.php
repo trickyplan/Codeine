@@ -44,7 +44,10 @@
         if (isset($Call['Result']))
             unset($Call['Result']);
 
-        $IOID = $Call['Storage'];
+        if (isset($Call['Storage']))
+            $IOID = $Call['Storage'];
+        else
+            $IOID = '';
 
         if (isset($Call['Scope']))
             $IOID .= DS.j($Call['Scope']);
