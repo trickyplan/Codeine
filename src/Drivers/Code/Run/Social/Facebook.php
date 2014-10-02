@@ -57,7 +57,7 @@
                     ])['Facebook'];
             if (isset($Result['Expire']) && $Result['Expire'] > time())
                 ;
-            else
+            elseif (isset($Result['Auth']))
             {
                 $URL = 'https://graph.facebook.com/oauth/access_token';
 
@@ -94,6 +94,10 @@
                     $Result['Auth'] = $ResultFB['access_token'];
                     $Result['Expire'] = $ResultFB['expires'];
                 }
+            }
+            else
+            {
+                $Result['Auth'] = '';
             }
         }
 

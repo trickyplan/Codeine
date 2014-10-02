@@ -12,8 +12,10 @@
         $Output = [];
 
         foreach ($Call['Keys'] as $Key)
-            $Output[] = F::Dot($Call['Data'], $Key);
-
+        {
+            $OutputTemp = F::Dot($Call['Data'], $Key);
+            $Output[] = is_array($OutputTemp)?implode($Call['Glue'], $OutputTemp):$OutputTemp;
+        }
         $Output = implode($Call['Glue'], $Output);
 
         if (isset($Call['Hash']))
