@@ -82,15 +82,16 @@
                             'Entity' => 'User',
                             'Where'  =>
                                 [
-                                    'Facebook.Auth' =>$Result['Auth']
+                                    'Facebook.ID' =>$Result['ID']
                                 ],
 	                            'Data' => 
 	                            [
 	                                'Facebook.Auth' => $ResultFB['access_token'],
 	                                'Facebook.Expire' => time()+$ResultFB['expires']
 	                            ],
+                            'No'  => ['beforeEntityWrite' => true],
                             'One' => true
-                        ]); */
+                        ]);*/
                     $Result['Auth'] = $ResultFB['access_token'];
                     $Result['Expire'] = $ResultFB['expires'];
                 }
