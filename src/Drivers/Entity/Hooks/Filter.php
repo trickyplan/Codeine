@@ -18,7 +18,8 @@
 
             if (is_array($Call['Where']))
                 foreach ($Call['Request']['Filter'] as $Key => $Value)
-                    $Call['Where'][$Key] = $Value;
+                    if (!empty($Value))
+                        $Call['Where'][$Key] = $Value;
         }
         return $Call;
     });
