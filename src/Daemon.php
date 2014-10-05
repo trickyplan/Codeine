@@ -15,6 +15,9 @@
         if (preg_match('/--(\S+)\=(\S+)/', $arg, $Pockets))
             $Opts = F::Dot($Opts, $Pockets[1], $Pockets[2]);
 
+    if (file_exists('/etc/default/codeine'))
+        $Opts['Path'] = file_get_contents('/etc/default/codeine');
+
     if (isset($Opts['Path']))
         define('Root', $Opts['Path']);
     else
