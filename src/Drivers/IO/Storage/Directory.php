@@ -121,8 +121,8 @@
 
         if (!is_dir($DirName))
         {
-            if (mkdir($DirName, $Call['IO']['Directory']['Create Mode'], true))
-                F::Log('Directory '.$DirName.' created', LOG_INFO, 'Administrator');
+            if (mkdir($DirName, 0777, true)) // Fuck PHP
+                F::Log('Directory '.$DirName.' created with mode '.$Call['IO']['Directory']['Create Mode'], LOG_INFO, 'Administrator');
             else
                 F::Log('Directory '.$DirName.' cannot created', LOG_ERR, 'Administrator');
         }

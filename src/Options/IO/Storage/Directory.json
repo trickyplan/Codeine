@@ -3,7 +3,7 @@
     {
         "Directory":
         {
-            "Create Mode": "0777",
+            "Create Mode": "777",
             "Hashing":
             {
                 "Enabled": false,
