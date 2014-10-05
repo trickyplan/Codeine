@@ -32,11 +32,11 @@
 
             foreach ($Call['Where']['ID'] as &$ID)
             {
-                if (isset($Call['Directory Hashing']['Enabled']) && $Call['Directory Hashing']['Enabled'])
+                if (isset($Call['IO']['Directory']['Hashing']['Enabled']) && $Call['IO']['Directory']['Hashing']['Enabled'])
                 {
                     $Hash = sha1($ID);
-                    for ($IX = 0; $IX < $Call['Directory Hashing']['Levels']; $IX++)
-                        $Prefix .= mb_substr($Hash, $IX, $Call['Directory Hashing']['Size']).DS;
+                    for ($IX = 0; $IX < $Call['IO']['Directory']['Hashing']['Levels']; $IX++)
+                        $Prefix .= mb_substr($Hash, $IX, $Call['IO']['Directory']['Hashing']['Size']).DS;
                 }
 
                 $ID = $Path.$Prefix.$ID.$Postfix;
@@ -108,11 +108,11 @@
 
         $ID = isset($Call['Where']['ID'])? $Call['Where']['ID']: $Call['ID'];
 
-        if (isset($Call['Directory Hashing']['Enabled']) && $Call['Directory Hashing']['Enabled'])
+        if (isset($Call['IO']['Directory']['Hashing']['Enabled']) && $Call['IO']['Directory']['Hashing']['Enabled'])
         {
             $Hash = sha1($ID);
-            for ($IX = 0; $IX < $Call['Directory Hashing']['Levels']; $IX++)
-                $Prefix .= mb_substr($Hash, $IX, $Call['Directory Hashing']['Size']).DS;
+            for ($IX = 0; $IX < $Call['IO']['Directory']['Hashing']['Levels']; $IX++)
+                $Prefix .= mb_substr($Hash, $IX, $Call['IO']['Directory']['Hashing']['Size']).DS;
         }
 
         $Filename = $DirName.$Prefix.$ID.$Postfix;
@@ -121,7 +121,7 @@
 
         if (!is_dir($DirName))
         {
-            if (mkdir($DirName, 0777, true))
+            if (mkdir($DirName, $Call['IO']['Directory']['Create Mode'], true))
                 F::Log('Directory '.$DirName.' created', LOG_INFO, 'Administrator');
             else
                 F::Log('Directory '.$DirName.' cannot created', LOG_ERR, 'Administrator');

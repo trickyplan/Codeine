@@ -1,8 +1,15 @@
 {
-    "Directory Hashing":
+    "IO":
     {
-        "Enabled": false,
-        "Levels": 3,
-        "Size": 1
+        "Directory":
+        {
+            "Create Mode": 0777,
+            "Hashing":
+            {
+                "Enabled": false,
+                "Levels": 3,
+                "Size": 1
+            }
+        }
     }
 }
