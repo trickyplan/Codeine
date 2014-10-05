@@ -27,7 +27,7 @@
                 ]);
         };
 
-        $PID = pcntl_fork();
+       /* $PID = pcntl_fork();
 
         if ($PID == -1)
         {
@@ -39,7 +39,7 @@
                 F::Log('Daemon: Detach success', LOG_INFO);
                 exit;
             }
-        else
+        else*/
         {
             foreach ($Call['Signals'] as $SigID => $Hook)
                 if (!pcntl_signal(constant($SigID), $SH))
@@ -51,8 +51,8 @@
 
             if (F::Run(null, 'Running?', $Call))
             {
-                F::Log('Daemon already active', LOG_CRIT);
-                exit (2);
+                /*F::Log('Daemon already active: '.F::Run(null, 'PIDFile', $Call), LOG_CRIT);
+                exit (2);*/
             }
             else
             {

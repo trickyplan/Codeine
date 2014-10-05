@@ -39,4 +39,4 @@
 
     F::Shutdown($Call);
 
-    exit($Call['Return Code']);
+    exit(0); //$Call['Return Code']);
