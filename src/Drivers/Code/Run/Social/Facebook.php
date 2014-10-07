@@ -55,7 +55,8 @@
                         'Sort' => ['Modified' => false],
                         'One' => true
                     ])['Facebook'];
-            if (isset($Result['Expire']) && $Result['Expire'] > time())
+
+            if (isset($Result['Expire']) && $Result['Expire'] > time() && false)
                 ;
             elseif (isset($Result['Auth']))
             {
@@ -73,25 +74,30 @@
                              'fb_exchange_token' => $Result['Auth']
                          ]
                      ]);
+
                 $ResultFB = array_pop($ResultFB);
                 parse_str($ResultFB, $ResultFB);
+
                 if (isset($ResultFB['access_token']))
                 {
-                    /* F::Run ('Entity', 'Update',
-                        [
-                            'Entity' => 'User',
-                            'Where'  =>
+                    F::Run ('Entity', 'Update',
+                    [
+                        'Entity' => 'User',
+                        'Where'  =>
+                            [
+                                'Facebook.ID' =>$Result['ID']
+                            ],
+                            'Data' =>
+                            [
+                                'Facebook' =>
                                 [
-                                    'Facebook.ID' =>$Result['ID']
-                                ],
-	                            'Data' => 
-	                            [
-	                                'Facebook.Auth' => $ResultFB['access_token'],
-	                                'Facebook.Expire' => time()+$ResultFB['expires']
-	                            ],
-                            'No'  => ['beforeEntityWrite' => true],
-                            'One' => true
-                        ]);*/
+                                    'Auth' => $ResultFB['access_token'],
+                                    'Expire' => time()+$ResultFB['expires']
+                                ]
+                            ],
+                        'No'  => ['beforeEntityWrite' => true],
+                        'One' => true
+                    ]);
                     $Result['Auth'] = $ResultFB['access_token'];
                     $Result['Expire'] = $ResultFB['expires'];
                 }

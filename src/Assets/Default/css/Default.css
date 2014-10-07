@@ -67,7 +67,7 @@ tr.Important, td.Important
     color: #fff;
 }
 
-.console tr:hover, .console tr:hover td:hover
+.console tr:hover, .console td:hover
 {
     opacity: 1;
     background-color: #333333 !important;

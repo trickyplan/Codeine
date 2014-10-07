@@ -477,8 +477,11 @@
              if (isset($Call['Custom Hooks'][$On]))
                  $On = $Call['Custom Hooks'][$On];
 
-             if (isset($Call['Hooks']) && ($Hooks = F::Dot($Call, 'Hooks.' . $On)) && (!isset($Call['No'][$On])))
+             if (isset($Call['Hooks']) && ($Hooks = F::Dot($Call, 'Hooks.' . $On)))
              {
+                 if (isset($Call['No'][$On]) && $Call['No'][$On] === true)
+                     return $Call;
+
                  if (count($Hooks) > 0)
                  {
                      $Hooks = F::Sort($Hooks, 'Weight', SORT_DESC);
