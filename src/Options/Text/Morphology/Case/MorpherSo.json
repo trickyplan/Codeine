@@ -1,0 +1,14 @@
+{
+    "Morpher":
+    {
+        "Cases mapping":
+        {
+            "Nominativus": "И",
+            "Genitivus": "Р",
+            "Dativus": "Д",
+            "Accusativus": "В",
+            "Ablativus": "Т",
+            "Praepositionalis": "П_о"
+        }
+    }
+}
