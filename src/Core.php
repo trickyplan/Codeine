@@ -98,7 +98,7 @@
                     $Level = PHP_INT_MAX;
             }
 
-            F::Log('Codeine started', LOG_IMPORTANT);
+            self::Log('Codeine started', LOG_IMPORTANT);
 
             if (isset(self::$_Options['Codeine']['Overlays']))
                 self::$_Paths =
@@ -108,17 +108,17 @@
                         [Codeine]);
 
             foreach (self::$_Paths as $Path)
-                F::Log('Path registered *'.$Path.'*', LOG_INFO);
+                self::Log('Path registered *'.$Path.'*', LOG_INFO);
 
-            set_error_handler ('F::Error');
+            set_error_handler ('self::Error');
 
-            F::Log('Environment: *'.self::$_Environment.'*', LOG_INFO);
+            self::Log('Environment: *'.self::$_Environment.'*', LOG_INFO);
 
-            $Call = F::Hook('onBootstrap', $Call);
+            $Call = self::Hook('onBootstrap', $Call);
 
             self::$_Perfect = self::$_Options['Codeine']['Perfect'];
 
-            return F::Live($Call);
+            return self::Live($Call);
         }
 
         public static function Shutdown($Call = array())
@@ -163,7 +163,7 @@
             {
                 foreach ($Filenames as $Filename)
                 {
-                    F::Log($Filename, LOG_DEBUG);
+                    self::Log($Filename, LOG_DEBUG);
                     include $Filename;
                 }
 
@@ -171,7 +171,7 @@
             }
             else
             {
-                F::Log('*'.$Service.'* not found', LOG_BAD);
+                self::Log('*'.$Service.'* not found', LOG_BAD);
                 return false;
             }
         }
@@ -202,7 +202,7 @@
                         $Current = json_decode(file_get_contents($Filename), true);
 
                         if ($Current)
-                            F::Log('Options: *'.$Filename.'* loaded', LOG_DEBUG);
+                            self::Log('Options: *'.$Filename.'* loaded', LOG_DEBUG);
                         else
                         {
                             switch (json_last_error()) {
@@ -228,15 +228,15 @@
                                     $JSONError =  ' - Unknown error';
                                 break;
                             }
-                            F::Log('JSON Error: ' . $Filename.':'. $JSONError, LOG_CRIT); //FIXME
+                            self::Log('JSON Error: ' . $Filename.':'. $JSONError, LOG_CRIT); //FIXME
                             $Current = [];
                         }
 
                         if (isset($Current['Mixins']) && is_array($Current['Mixins']))
                             foreach($Current['Mixins'] as $Mixin)
                             {
-                                F::Log('Options *'.$Filename.'* mixed with *'.$Mixin.'*', LOG_DEBUG);
-                                $Current = F::Merge(F::loadOptions($Mixin), $Current);
+                                self::Log('Options *'.$Filename.'* mixed with *'.$Mixin.'*', LOG_DEBUG);
+                                $Current = self::Merge(self::loadOptions($Mixin), $Current);
                             }
 
                         $Options = self::Merge($Options, $Current);
@@ -244,13 +244,13 @@
                 }
                 else
                 {
-                    F::Log('No options for *'.$Service.'*', LOG_DEBUG);
+                    self::Log('No options for *'.$Service.'*', LOG_DEBUG);
                     $Options = [];
                 }
 
                 self::$_Options[$Service] = $Options;
             }
-            return F::Merge(self::$_Options[$Service], $Call);
+            return self::Merge(self::$_Options[$Service], $Call);
         }
 
         public static function saveOptions ($Service, $Options, $Path = 'Options')
@@ -276,9 +276,9 @@
             if (($sz = func_num_args())>3)
                 for($ic = 3; $ic < $sz; $ic++)
                     if (is_array($Argument = func_get_arg ($ic)))
-                        $Call = F::Merge($Call, $Argument);
+                        $Call = self::Merge($Call, $Argument);
 
-            return F::Execute($Service, $Method, $Call);
+            return self::Execute($Service, $Method, $Call);
         }
 
         public static function Apply($Service, $Method = null , $Call = [])
@@ -286,9 +286,9 @@
             if (($sz = func_num_args())>3)
                 for($ic = 3; $ic < $sz; $ic++)
                     if (is_array($Argument = func_get_arg ($ic)))
-                        $Call = F::Merge($Call, $Argument);
+                        $Call = self::Merge($Call, $Argument);
 
-            $Result = F::Execute($Service, $Method, $Call);
+            $Result = self::Execute($Service, $Method, $Call);
 
             if ($Result === null)
                 $Result = $Call;
@@ -318,7 +318,7 @@
 
             if ((null === self::getFn(self::$_Method)) && !self::_loadSource(self::$_Service))
             {
-                F::Log('Service: '.self::$_Service.' not found', LOG_WARNING);
+                self::Log('Service: '.self::$_Service.' not found', LOG_WARNING);
                 $Result = (is_array($Call) && isset($Call['Fallback']))? $Call['Fallback'] : null;
             }
             else
@@ -333,7 +333,7 @@
                     {
                         foreach ($FnOptions['Contract'][self::$_Service][self::$_Method]['Memo'] as $Key)
                         {
-                            $Key = F::Dot($Call, $Key);
+                            $Key = self::Dot($Call, $Key);
                             if (null === $Key)
                                 ;
                             else
@@ -343,15 +343,15 @@
                         $CacheID = sha1(serialize($Memo));
                     }
 
-                    if (isset($CacheID) && ($Result = F::Get($CacheID)) !== null)
-                        F::Log($CacheID.' fast forwared.', LOG_DEBUG, 'Performance');
+                    if (isset($CacheID) && ($Result = self::Get($CacheID)) !== null)
+                        self::Log($CacheID.' fast forwared.', LOG_DEBUG, 'Performance');
 
                     if (isset($Call['RTTL']) and isset($CacheID))
                     {
                         $RTTL = $Call['RTTL'];
                         unset($Call['RTTL']);
 
-                        $Result = F::Execute('Code.Run.Cached', 'Run',
+                        $Result = self::Execute('Code.Run.Cached', 'Run',
                             [
                                 'Run' =>
                                     [
@@ -368,13 +368,13 @@
                         $Result = $F($Call);
 
                     if (isset($CacheID))
-                        F::Set($CacheID, $Result);
+                        self::Set($CacheID, $Result);
 
                     // if (self::$_Performance)
                     self::Counter(self::$_Service.'.'.self::$_Method);
 
                     if (!isset($Call['No Memo']) && isset($CacheID))
-                        F::Set($CacheID, $Result);
+                        self::Set($CacheID, $Result);
                 }
                 else
                     $Result = isset($Call['Fallback']) ? $Call['Fallback'] : null;
@@ -422,7 +422,7 @@
                 {
                     for($ic = 2; $ic<$sz; $ic++)
                         if (is_array($Argument = func_get_arg ($ic)))
-                            $Call = F::Merge($Call, $Argument);
+                            $Call = self::Merge($Call, $Argument);
                 }
 
                 if (isset($Variable['Method']))
@@ -436,7 +436,7 @@
                 if (isset($Call['Live Override']['Method']))
                     $Variable['Method'] = $Call['Live Override']['Method'];
 
-                return F::Run($Variable['Service'], $Variable['Method'],
+                return self::Run($Variable['Service'], $Variable['Method'],
                     $Call, isset($Variable['Call'])? self::Variable($Variable['Call'], $Call): []);
 
                 // FIXME?
@@ -445,7 +445,7 @@
             {
                 if ((array) $Variable === $Variable)
                     foreach ($Variable as $Key => &$cVariable)
-                        $Variable = F::Dot($Variable, $Key, self::Live($cVariable, $Call));
+                        $Variable = self::Dot($Variable, $Key, self::Live($cVariable, $Call));
                 else
                     $Variable = self::Variable($Variable, $Call);
 
@@ -463,7 +463,7 @@
                 {
                     foreach ($Pockets[1] as $IX => $Match)
                     {
-                        $Subvariable = F::Dot($Call, $Match);
+                        $Subvariable = self::Dot($Call, $Match);
                         if ($Subvariable !== null)
                             $Variable = str_replace($Pockets[0][$IX], $Subvariable, $Variable);
                     }
@@ -477,14 +477,14 @@
              if (isset($Call['Custom Hooks'][$On]))
                  $On = $Call['Custom Hooks'][$On];
 
-             if (isset($Call['Hooks']) && ($Hooks = F::Dot($Call, 'Hooks.' . $On)))
+             if (isset($Call['Hooks']) && ($Hooks = self::Dot($Call, 'Hooks.' . $On)))
              {
                  if (isset($Call['No'][$On]) && $Call['No'][$On] === true)
                      return $Call;
 
                  if (count($Hooks) > 0)
                  {
-                     $Hooks = F::Sort($Hooks, 'Weight', SORT_DESC);
+                     $Hooks = self::Sort($Hooks, 'Weight', SORT_DESC);
 
                      foreach ($Hooks as $HookName => $Hook)
                      {
@@ -492,19 +492,19 @@
                              ;
                          else
                          {
-                             F::Log($On.':'.$HookName, LOG_DEBUG);
+                             self::Log($On.':'.$HookName, LOG_DEBUG);
 
-                             if (F::isCall($Hook))
+                             if (self::isCall($Hook))
                              {
                                  if (isset($Hook['Method']))
                                      ;
                                  else
                                      $Hook['Method'] = 'Do';
 
-                                 $Call = F::Apply($Hook['Service'],$Hook['Method'], isset($Hook['Call'])? $Hook['Call']: [], $Call, ['On' => $On]);
+                                 $Call = self::Apply($Hook['Service'],$Hook['Method'], isset($Hook['Call'])? $Hook['Call']: [], $Call, ['On' => $On]);
                              }
                              else
-                                 $Call = F::Merge($Call, $Hook);
+                                 $Call = self::Merge($Call, $Hook);
                          }
                      }
                  }
@@ -517,7 +517,7 @@
         {
             if (self::$_Perfect)
             {
-                $Logs = F::Logs();
+                $Logs = self::Logs();
 
                 echo '<h2>Perfect Mode</h2>';
                 echo '<pre>'.self::Stack().'</pre>'.PHP_EOL;
@@ -533,7 +533,7 @@
                 die();
             }
 
-            F::Log('<pre>'.F::Stack().'</pre>'.PHP_EOL.'Err '.$errno.':'.$errstr.PHP_EOL.$errfile.'@'.$errline, LOG_CRIT);
+            self::Log('<pre>'.self::Stack().'</pre>'.PHP_EOL.'Err '.$errno.':'.$errstr.PHP_EOL.$errfile.'@'.$errline, LOG_CRIT);
         }
 
         public static function setLive($Live)
@@ -549,10 +549,10 @@
         public static function reloadOptions ()
         {
             foreach (self::$_Options as $Service)
-                F::loadOptions($Service);
+                self::loadOptions($Service);
 
             foreach (self::$_Code as $Service)
-                F::_loadSource($Service);
+                self::_loadSource($Service);
 
             return true;
         }
@@ -561,13 +561,16 @@
         {
             if (($Verbose <= self::$_Verbose[$Channel])
                 or
-               ((F::Environment() == 'Development') && $Verbose > 8)
+               ((self::Environment() == 'Development') && $Verbose > 8)
                 or
                 (isset($_SERVER['Verbose']) && $Verbose <= $_SERVER['Verbose']))
             {
                 if (!is_string($Message))
                     $Message = json_encode($Message,
                         JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+
+/*                if ((self::Environment() == 'Development') && (self::$_Perfect === true) && $Verbose < LOG_WARNING)
+                    trigger_error($Message);*/
 
                 $Time = sprintf('%.4f', microtime(true)-Started).' ';
 
@@ -620,7 +623,7 @@
                         round(microtime(true) - Started, 3),
                         $Message,
                         self::$_Service.':'.self::$_Method,
-                        F::$_Stack->count()
+                        self::$_Stack->count()
                     ];
                 }
             }
@@ -741,7 +744,7 @@
                         {
                             if ((array) $Second[$Key] === $Second[$Key])
                             {
-                                $NewDiff = F::Diff($Value, $Second[$Key]);
+                                $NewDiff = self::Diff($Value, $Second[$Key]);
 
                                 if ($NewDiff !== null)
                                     $Diff[$Key] = $NewDiff;
@@ -783,8 +786,8 @@
 
             $IC = 0;
             foreach ($Array as $ID => $Row)
-                if (F::Dot($Row,$Key) !== null)
-                    $Data[$ID] = F::Dot($Row,$Key);
+                if (self::Dot($Row,$Key) !== null)
+                    $Data[$ID] = self::Dot($Row,$Key);
                 else
                     $Data[$ID] = $IC--;
 
@@ -836,7 +839,7 @@
                         if (!isset($Array[$Key]))
                             $Array[$Key] = [];
 
-                        $Array[$Key] = F::Dot($Array[$Key], implode('.', $Keys), $Value);
+                        $Array[$Key] = self::Dot($Array[$Key], implode('.', $Keys), $Value);
                     }
                     else
                     {
@@ -953,11 +956,11 @@
 
            foreach ($Names as $Name)
            {
-               if (mb_substr($Name,0,1) == '/' && F::file_exists($Name))
+               if (mb_substr($Name,0,1) == '/' && self::file_exists($Name))
                    return $Name;
 
                foreach (self::$_Paths as $ic => $Path)
-                   if (F::file_exists($Filenames[$ic] = $Path.'/'.$Name))
+                   if (self::file_exists($Filenames[$ic] = $Path.'/'.$Name))
                        return $Filenames[$ic];
            }
 
@@ -973,10 +976,10 @@
             foreach (self::$_Paths as $ic => $Path)
                 foreach ($Names as $Name)
                 {
-                    if (substr($Name,0,1) == '/' && F::file_exists($Name))
+                    if (substr($Name,0,1) == '/' && self::file_exists($Name))
                         return [$Name];
 
-                    if (F::file_exists($Filenames[$ic] = $Path . '/' . $Name))
+                    if (self::file_exists($Filenames[$ic] = $Path . '/' . $Name))
                         $Results[] = $Filenames[$ic];
                 }
 
