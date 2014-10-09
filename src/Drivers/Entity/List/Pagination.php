@@ -12,7 +12,7 @@
         if (isset($Call['NoPage']) && $Call['NoPage'])
             return $Call;
 
-        if (!isset($Call['Count']) or empty($Call['Count']))
+        if (!isset($Call['Count']) or empty($Call['Count']) && !isset($Call['Limit']))
         {
             if (!isset($Call['Page']) or empty($Call['Page']))
                 $Call['Page'] = 1;
