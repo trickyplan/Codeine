@@ -10,6 +10,8 @@
     {
         if (isset($Call['Call']['access_token']))
             ;
+        elseif (null !== F::Get(REQID))
+            $Call['Call']['access_token'] = F::Get(REQID);
         else
             $Call['Call']['access_token'] = F::Run(null, 'Access Token', $Call);
 
@@ -80,7 +82,8 @@
 
                 if (isset($ResultFB['access_token']))
                 {
-                    F::Run ('Entity', 'Update',
+                    F::Set(REQID, $ResultFB['access_token']);
+/*                    F::Run ('Entity', 'Update',
                     [
                         'Entity' => 'User',
                         'Where'  =>
@@ -97,7 +100,30 @@
                         ],
                         'No'  => ['beforeEntityWrite' => true],
                         'One' => true
-                    ]);
+                    ]);*/
+                    F::Run ('Code.Run.Delayed', 'Run',
+                        [
+                            'Delayed Mode' => 'Dirty',
+                            'Run' =>
+                            [
+                                'Service'=> 'Entity',
+                                'Method'=> 'Update',
+                                'Call'=>
+                                [
+                                    'Entity'=> 'User',
+                                    'Where'=> ['Facebook.ID' => $Result['ID']],
+                                    'Data'=>  [
+                                                'Facebook' =>
+                                                [
+                                                    'Auth' => $ResultFB['access_token'],
+                                                    'Expire' => time()+$ResultFB['expires']
+                                                ]
+                                            ],
+                                    'No'  => ['beforeEntityWrite' => true]
+                                ]
+                            ]
+                        ]);
+
                     $Result['Auth'] = $ResultFB['access_token'];
                     $Result['Expire'] = $ResultFB['expires'];
                 }
