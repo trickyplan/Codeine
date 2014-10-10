@@ -21,7 +21,7 @@
                     'Value' => count($Results).' touched'
                 ];
 
-        $Call = F::Hook('afterTouch', $Call);
+        // $Call = F::Hook('afterTouch', $Call);
 
         return $Call;
     });

@@ -34,25 +34,22 @@
                             if (is_array($Value))
                             {
                                 foreach ($Value as $Relation => $cValue)
-                                    if (!is_array($cValue))
-                                        $Value
-                                            = F::Dot($Value, $Relation, F::Run('Data.Type.'.$Node['Type'], 'Where',
+                                    if (is_array($cValue))
+                                        foreach($cValue as $ccKey => $ccValue)
+                                            $Value[$Relation][$ccKey] =
+                                                F::Run('Data.Type.'.$Node['Type'], 'Where',
+                                                   [
+                                                       'Name' => $Name,
+                                                       'Node' => $Node,
+                                                       'Value' => $ccValue
+                                                   ]);
+                                    else
+                                        $Value = F::Dot($Value, $Relation, F::Run('Data.Type.'.$Node['Type'], 'Where',
                                                [
                                                    'Name' => $Name,
                                                    'Node' => $Node,
                                                    'Value' => $cValue
                                                ]));
-                                    else
-                                    {
-                                        foreach($cValue as $ccKey => $ccValue)
-                                            $Value[$Relation][$ccKey] =
-                                            F::Run('Data.Type.'.$Node['Type'], 'Where',
-                                               [
-                                                   'Name' => $Name,
-                                                   'Node' => $Node,
-                                                   'Value' => $ccValue
-                                               ]);
-                                    }
                                 // FIXME Нативные массивы?
                             }
                             else
@@ -66,7 +63,10 @@
                             }
                         }
 
-                        $Where = F::Dot($Where, $Name, $Value);
+                        if (empty($Value))
+                            ;
+                        else
+                            $Where[$Name] = $Value;
                     }
 
             if (empty($Where))

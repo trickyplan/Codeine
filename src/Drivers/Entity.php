@@ -154,7 +154,7 @@
 
         $Call = F::Hook('beforeOperation', $Call);
 
-            $Entities = F::Run('Entity', 'Read', $Call, ['One' => false, 'Time' => rand()]);
+            $Entities = F::Run('Entity', 'Read', $Call, ['One' => false, 'Time' => time().rand()]);
 
             // Если присутствуют такие объекты
             if (empty($Entities))
@@ -174,7 +174,6 @@
                     $VCall['Where'] = ['ID' => $Call['Current']['ID']];
 
                     $Call['Data'] = F::Merge($Call['Current'], $Call['Updates']);
-
 
                     $Call = F::Hook('beforeEntityWrite', $Call);
                         $Call = F::Hook('beforeEntityUpdate', $Call);

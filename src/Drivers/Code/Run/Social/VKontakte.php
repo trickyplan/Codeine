@@ -33,7 +33,7 @@
                 $Result = $Result['response'];
         }
         else
-            F::Log($Result['error']['error_msg'], LOG_ERR);
+            F::Log($Result['error'], LOG_ERR);
 
         F::Hook('afterVKontakteRun', $Call);
 

@@ -56,7 +56,7 @@
                         'One' => true
                     ])['Facebook'];
 
-            if (isset($Result['Expire']) && $Result['Expire'] > time() && false)
+            if (isset($Result['Expire']) && $Result['Expire'] > time())
                 ;
             elseif (isset($Result['Auth']))
             {
@@ -84,17 +84,17 @@
                     [
                         'Entity' => 'User',
                         'Where'  =>
+                        [
+                            'Facebook.ID' =>$Result['ID']
+                        ],
+                        'Data' =>
+                        [
+                            'Facebook' =>
                             [
-                                'Facebook.ID' =>$Result['ID']
-                            ],
-                            'Data' =>
-                            [
-                                'Facebook' =>
-                                [
-                                    'Auth' => $ResultFB['access_token'],
-                                    'Expire' => time()+$ResultFB['expires']
-                                ]
-                            ],
+                                'Auth' => $ResultFB['access_token'],
+                                'Expire' => time()+$ResultFB['expires']
+                            ]
+                        ],
                         'No'  => ['beforeEntityWrite' => true],
                         'One' => true
                     ]);
