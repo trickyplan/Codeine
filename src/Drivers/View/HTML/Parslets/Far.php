@@ -31,9 +31,12 @@
                                 'Fields' => $KV['Fields']
                             ]);
 
-                foreach ($Elements as $Element)
-                    foreach ($Element as $Key => $Value)
-                        $Call['Output'] = str_replace('<far>'.$Entity.':'.$Element['ID'].':'.$Key.'</far>', $Value, $Call['Output']);
+                if (empty($Elements))
+                    ;
+                else
+                    foreach ($Elements as $Element)
+                        foreach ($Element as $Key => $Value)
+                            $Call['Output'] = str_replace('<far>'.$Entity.':'.$Element['ID'].':'.$Key.'</far>', $Value, $Call['Output']);
             }
         }
 
