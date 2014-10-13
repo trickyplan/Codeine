@@ -21,14 +21,18 @@
             $WebResult = array_pop($CachedResult);
         else
         {
+            $Query = [
+                        's' => $Call['Value']
+                     ];
+
+            if (isset($Call['MorpherRu']['Auth']))
+                $Query = F::Merge($Query, $Call['MorpherRu']['Auth']);
+
             $WebResult = F::Run('IO', 'Read', [
                 'Storage' => 'Web',
                 'Where'   => 'http://api.morpher.ru/WebService.asmx/GetXml',
                 'Format'  => 'Formats.XML',
-                'Data'    =>
-                    [
-                        's' => $Call['Value']
-                    ]
+                'Data'    => $Query
             ]);
 
             F::Run('IO', 'Write',
