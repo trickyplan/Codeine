@@ -12,23 +12,27 @@
         if (isset($Call['NoPage']) && $Call['NoPage'])
             return $Call;
 
-        if (!isset($Call['Count']) or empty($Call['Count']) && !isset($Call['Limit']))
-        {
-            if (!isset($Call['Page']) or empty($Call['Page']))
-                $Call['Page'] = 1;
-
-            $Call['Count'] = F::Run('Entity', 'Count', $Call);
-            $Call['Limit']['From']= ($Call['Page']-1)*$Call['EPP'];
-            $Call['Limit']['To'] = $Call['EPP'];
-
-            $Call['PageCount'] = ceil($Call['Count']/$Call['EPP']);
-        }
+        if (isset($Call['Limit']))
+            ;
         else
         {
-            $Call['Limit']['From']= 0;
-            $Call['Limit']['To'] = $Call['Count'];
-        }
+            if (!isset($Call['Count']) or empty($Call['Count']))
+            {
+                if (!isset($Call['Page']) or empty($Call['Page']))
+                    $Call['Page'] = 1;
 
+                $Call['Count'] = F::Run('Entity', 'Count', $Call);
+                $Call['Limit']['From']= ($Call['Page']-1)*$Call['EPP'];
+                $Call['Limit']['To'] = $Call['EPP'];
+
+                $Call['PageCount'] = ceil($Call['Count']/$Call['EPP']);
+            }
+            else
+            {
+                $Call['Limit']['From']= 0;
+                $Call['Limit']['To'] = $Call['Count'];
+            }
+        }
         return $Call;
     });
 
