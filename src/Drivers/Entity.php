@@ -154,7 +154,7 @@
 
         $Call = F::Hook('beforeOperation', $Call);
 
-            $Entities = F::Run('Entity', 'Read', $Call, ['One' => false, 'Time' => time().rand()]);
+            $Entities = F::Run('Entity', 'Read', $Call, ['One' => false, 'Time' => microtime(true).rand()]);
 
             // Если присутствуют такие объекты
             if (empty($Entities))
@@ -187,7 +187,7 @@
                     $Call = F::Hook('afterEntityWrite', $Call);
                 }
 
-                $Entities = F::Run('Entity', 'Read', $Call, ['Time' => microtime(true), 'One' => false]);
+                $Entities = F::Run('Entity', 'Read', $Call, ['Time' => microtime(true).rand(), 'One' => false]);
 
                 F::Log('*'.count($Entities).'* '.$Call['Entity'].' updated', LOG_INFO, 'Administrator');
 
@@ -217,7 +217,7 @@
 
         $Call = F::Hook('beforeOperation', $Call);
 
-        $Current = F::Run('Entity', 'Read', $Call);
+        $Current = F::Run('Entity', 'Read', $Call, ['Time' => microtime(true).rand()]);
 
         if ($Current)
         {
