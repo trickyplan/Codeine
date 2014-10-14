@@ -64,7 +64,7 @@
                         }
 
                         if (empty($Value))
-                            ;
+                            F::Log('Empty '.$Name.' in where', LOG_INFO);
                         else
                             $Where[$Name] = $Value;
                     }
