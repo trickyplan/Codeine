@@ -346,7 +346,10 @@
                     if (isset($CacheID) && ($Result = self::Get($CacheID)) !== null)
                         self::Log($CacheID.' fast forwared.', LOG_DEBUG, 'Performance');
 
-                    if (isset($Call['RTTL']) and isset($CacheID))
+                    $ST = 0;
+
+                    if (isset($Call['RTTL']) and isset($CacheID)
+                        && isset(self::$_Options['Codeine']['Run Cache Enabled']) && self::$_Options['Codeine']['Run Cache Enabled'] === true)
                     {
                         $RTTL = $Call['RTTL'];
                         unset($Call['RTTL']);
@@ -365,15 +368,16 @@
                             ]);
                     }
                     else
+                    {
+                        $ST = microtime(true);
                         $Result = $F($Call);
-
-                    if (isset($CacheID))
-                        self::Set($CacheID, $Result);
+                        $ST = microtime(true)-$ST;
+                    }
 
                     // if (self::$_Performance)
                     self::Counter(self::$_Service.'.'.self::$_Method);
 
-                    if (!isset($Call['No Memo']) && isset($CacheID))
+                    if (!isset($Call['No Memo']) && isset($CacheID) && $ST > self::$_Options['Codeine']['Memo Threshold'])
                         self::Set($CacheID, $Result);
                 }
                 else

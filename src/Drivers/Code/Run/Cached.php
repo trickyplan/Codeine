@@ -14,9 +14,7 @@
 
         if (isset ($Call['Run']['CacheID'])
             && isset($Call['Run']['RTTL'])
-            && $Call['Run']['RTTL'] > 0
-            && isset($Call['Run Cache Enabled'])
-            && $Call['Run Cache Enabled'])
+            && $Call['Run']['RTTL'] > 0)
         {
             $RTTL = $Call['Run']['RTTL'];
             unset($Call['Run']['RTTL']);
