@@ -80,6 +80,11 @@
         },
         "beforeEntityCreate":
         {
+            "Default values":
+            {
+                "Service":"Entity.Hooks.Default",
+                "Method":"Process"
+            },
             "Process":
             {
                 "Service":"Entity.Hooks.Process",
