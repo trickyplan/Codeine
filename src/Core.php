@@ -327,10 +327,10 @@
 
                 if (is_callable($F))
                 {
-                    $Memo = [self::$_Service, self::$_Method];
-
                     if (!isset($Call['No Memo']) && isset($FnOptions['Contract'][self::$_Service][self::$_Method]['Memo']))
                     {
+                        $Memo = [self::$_Service, self::$_Method];
+
                         foreach ($FnOptions['Contract'][self::$_Service][self::$_Method]['Memo'] as $Key)
                         {
                             $Key = self::Dot($Call, $Key);

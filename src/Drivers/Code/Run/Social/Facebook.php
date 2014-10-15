@@ -54,6 +54,11 @@
                                     '$exists' => true
                                 ]
                             ],
+                        'Limit' =>
+                        [
+                            'From' => 0,
+                            'To'   => 1
+                        ],
                         'Sort' => ['Modified' => false],
                         'One' => true
                     ])['Facebook'];

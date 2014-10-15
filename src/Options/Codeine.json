@@ -1,7 +1,7 @@
 {
     "Timezone": "UTC",
     "Perfect": false,
-    "Core Storage Limit": 16384,
+    "Core Storage Limit": 8192,
     "Memo Threshold": 10,
     "Run Cache Enabled": true,
     "Verbose":
