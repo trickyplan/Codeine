@@ -22,6 +22,6 @@
 
     <target name="folders">
         <mkdir dir="${distribution}" mode="0755"/>
-        <mkdir dir="${reports}"/>
+        <mkdir dir="${reports}" mode="0755"/>
     </target>
 </project>
