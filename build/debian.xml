@@ -18,7 +18,7 @@
     <property name="destination-documents" value="usr/share/doc"/>
 
     <target name="control">
-        <mkdir dir="${package}/DEBIAN"/>
+        <mkdir dir="${package}/DEBIAN" mode="0755"/>
         <copy todir="${package}/DEBIAN">
             <fileset dir="debian">
                 <include name="*/**"/>
