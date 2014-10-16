@@ -119,7 +119,8 @@
                 $Updated['VKontakte'] =
                     [
                         'ID' => $Result['user_id'],
-                        'Auth'  => $Result['access_token']
+                        'Auth'  => $Result['access_token'],
+                        'Logged' => time()
                     ];
 
                 foreach ($Call['VKontakte']['Mapping'] as $VKontakteField => $CodeineField)

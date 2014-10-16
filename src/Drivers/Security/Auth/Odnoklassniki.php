@@ -120,7 +120,8 @@
                         'Auth'  => $Result['access_token'],
                         'token_type' => $Result['token_type'],
                         'Refresh' => $Result['refresh_token'],
-                        'Expire' => time()+1800
+                        'Expire' => time()+1800,
+                        'Logged' => time()
                     ];
 
                 foreach ($Call['Odnoklassniki']['Mapping'] as $OdnoklassnikiField => $CodeineField)
