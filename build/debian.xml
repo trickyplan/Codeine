@@ -18,6 +18,7 @@
     <property name="destination-documents" value="usr/share/doc"/>
 
     <target name="control">
+        <mkdir dir="${package}" mode="0755"/>
         <mkdir dir="${package}/DEBIAN" mode="0755"/>
         <copy todir="${package}/DEBIAN" mode="0755">
             <fileset dir="debian">
@@ -38,7 +39,7 @@
 
     <target name="source">
         <mkdir dir="${package}/${destination-source}" mode="0755"/>
-        <copy todir="${package}/${destination-source}" mode="0644">
+        <copy todir="${package}/${destination-source}" mode="0755">
             <fileset dir="${source-code}">
                 <include name="*/**"/>
             </fileset>
