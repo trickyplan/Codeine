@@ -89,6 +89,6 @@
     </target>
 
     <target name="debian" depends="codeine-test, control, etc, usr, source, version, docs">
-        <exec command="fakeroot dpkg --build '${package}' ${distribution}/ " logoutput="true"/>
+        <exec command="dpkg --build '${package}' ${distribution}/ " logoutput="true"/>
     </target>
 </project>
