@@ -38,7 +38,7 @@
 
     <target name="source">
         <mkdir dir="${package}/${destination-source}" mode="0755"/>
-        <copy todir="${package}/${destination-source}" mode="0755">
+        <copy todir="${package}/${destination-source}" mode="0644">
             <fileset dir="${source-code}">
                 <include name="*/**"/>
             </fileset>
