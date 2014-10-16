@@ -90,11 +90,11 @@
     </target>
 
     <target name="debian" depends="codeine-test, control, etc, usr, source, version, docs">
-        <chmod file="${package}" mode="0775">
+<!--        <chmod file="${package}" mode="0775">
             <fileset dir="${package}/">
                 <include name="*/**"/>
             </fileset>
-        </chmod>
+        </chmod>-->
         <exec command="fakeroot dpkg --build '${package}' ${distribution}/ " logoutput="true"/>
     </target>
 </project>
