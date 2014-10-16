@@ -37,7 +37,7 @@
     </target>
 
     <target name="source">
-        <mkdir dir="${package}/${destination-source}"/>
+        <mkdir dir="${package}/${destination-source}" mode="0755"/>
         <copy todir="${package}/${destination-source}">
             <fileset dir="${source-code}">
                 <include name="*/**"/>
@@ -46,7 +46,7 @@
     </target>
 
     <target name="etc">
-        <mkdir dir="${package}/${destination-etc}"/>
+        <mkdir dir="${package}/${destination-etc}" mode="0755"/>
         <copy todir="${package}/${destination-etc}/">
             <fileset dir="${source-etc}">
                 <include name="*/**"/>
@@ -55,7 +55,7 @@
     </target>
 
     <target name="docs">
-        <mkdir dir="${package}/${destination-documents}/${phing.project.name}/"/>
+        <mkdir dir="${package}/${destination-documents}/${phing.project.name}/" mode="0755"/>
         <copy todir="${package}/${destination-documents}/${phing.project.name}/">
             <fileset dir="${source-docs}">
                 <include name="*/**"/>
@@ -76,7 +76,7 @@
     </target>
 
     <target name="usr" depends="folders">
-        <mkdir dir="${package}/usr/bin"/>
+        <mkdir dir="${package}/usr/bin" mode="0755"/>
         <copy todir="${package}/usr/bin">
             <fileset dir="./usr/bin">
                 <include name="*/**"/>
