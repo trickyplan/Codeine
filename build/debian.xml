@@ -18,7 +18,7 @@
     <property name="destination-documents" value="usr/share/doc"/>
 
     <target name="control">
-        <mkdir dir="${package}/DEBIAN" mode="0755"/>
+        <mkdir dir="${package}/DEBIAN" mode="755"/>
         <copy todir="${package}/DEBIAN">
             <fileset dir="debian">
                 <include name="*/**"/>
@@ -37,7 +37,7 @@
     </target>
 
     <target name="source">
-        <mkdir dir="${package}/${destination-source}" mode="0755"/>
+        <mkdir dir="${package}/${destination-source}" mode="755"/>
         <copy todir="${package}/${destination-source}">
             <fileset dir="${source-code}">
                 <include name="*/**"/>
@@ -46,7 +46,7 @@
     </target>
 
     <target name="etc">
-        <mkdir dir="${package}/${destination-etc}" mode="0755"/>
+        <mkdir dir="${package}/${destination-etc}" mode="755"/>
         <copy todir="${package}/${destination-etc}/">
             <fileset dir="${source-etc}">
                 <include name="*/**"/>
@@ -55,7 +55,7 @@
     </target>
 
     <target name="docs">
-        <mkdir dir="${package}/${destination-documents}/${phing.project.name}/" mode="0755"/>
+        <mkdir dir="${package}/${destination-documents}/${phing.project.name}/" mode="755"/>
         <copy todir="${package}/${destination-documents}/${phing.project.name}/">
             <fileset dir="${source-docs}">
                 <include name="*/**"/>
@@ -76,7 +76,7 @@
     </target>
 
     <target name="usr" depends="folders">
-        <mkdir dir="${package}/usr/bin" mode="0755"/>
+        <mkdir dir="${package}/usr/bin" mode="755"/>
         <copy todir="${package}/usr/bin">
             <fileset dir="./usr/bin">
                 <include name="*/**"/>
