@@ -116,9 +116,14 @@
 /*        if (isset($Call['Output']))
             $Call['HTTP']['Headers']['Content-Length:'] = strlen($Call['Output']);*/
 
-        if (isset($Call['HTTP']['Headers']))
-            foreach ($Call['HTTP']['Headers'] as $Key => $Value)
-                header ($Key . ' ' . $Value);
+        if (headers_sent())
+            ;
+        else
+        {
+            if (isset($Call['HTTP']['Headers']))
+                foreach ($Call['HTTP']['Headers'] as $Key => $Value)
+                    header ($Key . ' ' . $Value);
+        }
 
 
         F::Run('IO', 'Write', $Call,
