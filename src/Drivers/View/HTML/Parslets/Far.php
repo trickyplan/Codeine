@@ -36,7 +36,10 @@
                 else
                     foreach ($Elements as $Element)
                         foreach ($Element as $Key => $Value)
-                            $Call['Output'] = str_replace('<far>'.$Entity.':'.$Element['ID'].':'.$Key.'</far>', $Value, $Call['Output']);
+                            if (is_scalar($Value))
+                                $Call['Output'] = str_replace('<far>'.$Entity.':'.$Element['ID'].':'.$Key.'</far>', $Value, $Call['Output']);
+                            else
+                                $Call['Output'] = str_replace('<far>'.$Entity.':'.$Element['ID'].':'.$Key.'</far>', array_shift($Value), $Call['Output']);
             }
         }
 
