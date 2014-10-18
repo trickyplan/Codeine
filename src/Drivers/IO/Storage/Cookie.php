@@ -37,7 +37,7 @@
                     $Call = F::Hook('Cookie.Set.Failed', $Call);
             }
         else
-            setcookie ($Call['HTTP']['Cookie'][$Call['Where']], '');
+            setcookie ($Call['HTTP']['Cookie'][$Call['Where']['ID']], '');
 
         return $Call;
     });

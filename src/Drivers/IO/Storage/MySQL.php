@@ -50,6 +50,8 @@
     {
         $Query = F::Run('IO.Storage.MySQL.Syntax', 'Read', $Call);
 
+        F::Log($Query, LOG_DEBUG, 'Administrator');
+
         $Call = F::Apply(null, 'Operation', $Call, ['Query' => $Query]);
 
         if ($Call['MySQL Result']->num_rows>0)

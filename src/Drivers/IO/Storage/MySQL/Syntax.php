@@ -129,7 +129,6 @@
 
     setFn ('Where', function ($Call)
     {
-
         if (isset($Call['Where']))
         {
             $WhereString = ' where ';
