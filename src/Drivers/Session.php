@@ -17,7 +17,6 @@
         if (null === $Call['SID'])
         {
             F::Log('Session: Marker not set', LOG_DEBUG, 'Security');
-            $Call = F::Apply(null, 'Mark', $Call);
             $Call['Session'] = [];
         }
         else

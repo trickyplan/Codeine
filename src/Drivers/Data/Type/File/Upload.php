@@ -21,9 +21,14 @@
             $Call['Data'] = array_pop($Web);
         }
 
-        if ($Call['Data'])
+        // Если нет новых данных
+        if ($Call['Data'] === false)
+            ;
+        else
         {
+            // Получить новый ID
             $Call['ID'] = F::Run('Security.UID', 'Get', ['Mode' => 'Secure']);
+            // Получить новое имя
             $Call['Name'] = F::Live($Call['Node']['Naming'], $Call);
 
             F::Run('IO', 'Write', $Call,

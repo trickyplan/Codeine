@@ -17,6 +17,7 @@
               {
                   if (F::file_exists($Filename = Root.'/Data/'.$Match))
                   {
+
                       $Pathinfo = pathinfo($Match);
                       $Filesize = F::Run('Formats.Number.Filesize', 'Do',
                           ['Value' => filesize($Filename)]); // FIXME

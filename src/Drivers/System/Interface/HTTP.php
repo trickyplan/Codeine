@@ -21,17 +21,24 @@
 
         F::Log('Method: *'.$Call['HTTP']['Method'].'*', LOG_INFO);
 
+        F::Log($_REQUEST, LOG_INFO);
+        F::Log($_FILES, LOG_INFO);
+        F::Log($_SERVER, LOG_INFO);
+
         // Merge FILES to REQUEST.
         if (isset($_FILES['Data']))
             foreach ($_FILES['Data']['tmp_name'] as $IX => $Value)
-                if (is_array($Value) && count($Value) > 0 && !empty($Value))
-                    foreach ($Value as $K2 => $V2)
-                    {
-                        if (!empty($V2))
-                            $_REQUEST['Data'][$IX][$K2] = $V2;
-                    }
-                else
-                    $_REQUEST['Data'][$IX] = $Value;
+                if (isset($_FILES['Data']['error'][$IX]) && $_FILES['Data']['error'][$IX] == 0)
+                {
+                    if (is_array($Value) && count($Value) > 0 && !empty($Value))
+                        foreach ($Value as $K2 => $V2)
+                        {
+                            if (!empty($V2))
+                                $_REQUEST['Data'][$IX][$K2] = $V2;
+                        }
+                    else
+                        $_REQUEST['Data'][$IX] = $Value;
+                }
 
         foreach ($_SERVER as &$Request)
             $Request = str_replace(chr(0), '', rawurldecode($Request));
