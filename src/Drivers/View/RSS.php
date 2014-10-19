@@ -57,8 +57,13 @@
                     }
 
                     $XML->startElement('link');
+                    if (isset($Element['Data']['Slug']))
                         $XML->text($Call['HTTP']['Proto'].$Call['HTTP']['Host']
                             .'/'.$Call['Slug'].'/'.$Element['Data']['Slug'].'?Channel=RSS'); // FIXME It's shit!
+                    else
+                        $XML->text($Call['HTTP']['Proto'].$Call['HTTP']['Host']
+                            .'/'.$Call['Slug'].'/'.$Element['Data']['ID'].'?Channel=RSS'); // FIXME It's double shit!
+
                     $XML->endElement(); // title
 
                 $XML->endElement(); // item
