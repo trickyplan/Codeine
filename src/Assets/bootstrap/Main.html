@@ -40,5 +40,26 @@
     <layout>Schema:Audience</layout>
     <place>Content</place>
     <place>JS</place>
+    <access Service="Control.Panel">
+        <div class="well" style="position: fixed; right: 0; top: 100px; z-index: 99">
+            <h4>Для команды</h4>
+            <div><strong>Версия проекта:</strong></div>
+            <call>Version.Project.Major</call>.<call>Version.Project.Minor</call>
+            <div><strong>Версия ядра:</strong></div>
+            <call>Version.Codeine.Major</call>.<call>Version.Codeine.Minor</call>
+            <div><strong>Время сервера</strong></div>
+            <div><datetime format="d.m.Y H:i:s T"></datetime></div>
+            <hr/>
+            <environment neq="Production">
+                    <div><a class="btn btn-xs btn-block btn-primary" href="http://<call>Project.Hosts.Production</call><call>HTTP.URI</call>">Боевой сервер</a></div>
+            </environment>
+            <environment neq="Staging">
+                    <div><a class="btn btn-xs btn-block btn-success" href="http://<call>Project.Hosts.Development</call><call>HTTP.URI</call>">Тестовый сервер</a></div>
+            </environment>
+            <environment neq="Development">
+                    <div><a class="btn btn-xs btn-block btn-danger" href="http://<call>Project.Hosts.Development</call><call>HTTP.URI</call>">Локальный сервер</a></div>
+            </environment>
+        </div>
+    </access>
 </body>
 </html>
