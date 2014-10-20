@@ -103,7 +103,6 @@
                     ]
                 ]);
             }
-file_put_contents("/home/alex/work/karmon.log", 'FB I '.print_r($Updated, true).PHP_EOL, FILE_APPEND);
             $Updated['Facebook'] =
                 [
                     'ID'     => $Facebook['id'],
@@ -111,7 +110,6 @@ file_put_contents("/home/alex/work/karmon.log", 'FB I '.print_r($Updated, true).
                     'Expire' => time()+$Result['expires'],
                     'Logged' => time()
                 ];
-file_put_contents("/home/alex/work/karmon.log", 'FB II '.print_r($Updated, true).PHP_EOL, FILE_APPEND);
             foreach ($Call['Facebook']['Mapping'] as $FacebookField => $CodeineField)
                 if (isset($Facebook[$FacebookField]) && !empty($Facebook[$FacebookField]))
                     $Updated = F::Dot($Updated, $CodeineField,$Facebook[$FacebookField]);
