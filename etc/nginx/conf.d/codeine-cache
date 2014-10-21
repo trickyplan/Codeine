@@ -55,7 +55,7 @@
             set $no_cache "1";
         }
 
-        add_header X-No-Cached $no_cache;
+        add_header X-Cache $upstream_cache_status;
 
         # Включаем/отключаем кеш в зависимости от состояния переменной no_cache
 
