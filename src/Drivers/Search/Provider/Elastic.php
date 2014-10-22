@@ -105,3 +105,24 @@
 //d(__FILE__, __LINE__, $Results);
         return ['Meta' => $Meta, 'SERP' => $SERP];
     });
+
+    setFn('Remove', function ($Call)
+    {
+        $client = new Elasticsearch\Client();
+        try
+        {
+            F::Log($client->delete(
+                 [
+                     'index' => 'project',
+                     'id'    => $Call['Data']['ID'],
+                     'type'  => $Call['Type']
+                 ]
+            ), LOG_INFO);
+        }
+        catch (Exception $e)
+        {
+            F::Log('Exception: '.$e->getMessage().'. Remove data from index', LOG_ERR);
+        }
+        return $Call;
+    });
+

@@ -150,3 +150,42 @@
 
         return ['Indexed' => count($Entities)];
     });
+
+    setFn('Remove', function ($Call)
+    {
+        $Data = [];
+
+        if (isset($Call['Data']))
+            ;
+        else
+            $Call['Data'] = F::Run('Entity', 'Read', $Call);
+
+        foreach ($Call['Nodes'] as $Name => $Node)
+            if (isset($Node['Index']) && $Node['Index'])
+            {
+                $Value = F::Dot($Call['Data'], $Name);
+
+                if (empty($Value))
+                    ;
+                else
+                {
+                    if (is_array($Value))
+                        $Data[$Name] = implode (' ', $Value);
+                    else
+                        $Data[$Name] = $Value;
+                }
+            }
+
+        if (F::Run('Search', 'Remove', $Call,
+        [
+            'Provider' => $Call['Entity'],
+            'Data!'    => $Data
+        ]))
+        {
+            F::Log($Call['Entity'].' '.$Data['ID'].' removed', LOG_INFO);
+            F::Log($Data, LOG_DEBUG);
+        }
+
+        return $Call;
+    });
+

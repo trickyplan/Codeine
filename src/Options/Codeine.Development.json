@@ -3,8 +3,8 @@
     "Run Cache Enabled": false,
     "Verbose":
     {
-        "Developer": 6,
-        "Administrator": 6,
+        "Developer": 10,
+        "Administrator": 10,
         "Security": 6,
         "Marketing": 6,
         "Performance": 6

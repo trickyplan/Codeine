@@ -107,4 +107,26 @@
         return $Call;
     });
 
+    setFn('Remove', function ($Call)
+    {
+        if (isset($Call['Provider']))
+        {
+            if (is_array($Call['Provider']))
+                $Providers = $Call['Provider'];
+            else
+                $Providers = [$Call['Provider']];
+        }
+        else
+            $Providers = array_keys($Call['Providers']);
+
+        foreach ($Providers as $Provider)
+            if (isset($Call['Providers'][$Provider]))
+            {
+                $ProviderCall = $Call['Providers'][$Provider];
+                $ProviderCall['Method'] = 'Remove';
+                F::Live($ProviderCall, $Call);
+            }
+
+        return $Call;
+    });
 
