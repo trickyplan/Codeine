@@ -160,26 +160,10 @@
         else
             $Call['Data'] = F::Run('Entity', 'Read', $Call);
 
-        foreach ($Call['Nodes'] as $Name => $Node)
-            if (isset($Node['Index']) && $Node['Index'])
-            {
-                $Value = F::Dot($Call['Data'], $Name);
-
-                if (empty($Value))
-                    ;
-                else
-                {
-                    if (is_array($Value))
-                        $Data[$Name] = implode (' ', $Value);
-                    else
-                        $Data[$Name] = $Value;
-                }
-            }
-
         if (F::Run('Search', 'Remove', $Call,
         [
             'Provider' => $Call['Entity'],
-            'Data!'    => $Data
+            'Data!'    => ['ID' => $Call['Data']['ID']]
         ]))
         {
             F::Log($Call['Entity'].' '.$Data['ID'].' removed', LOG_INFO);
