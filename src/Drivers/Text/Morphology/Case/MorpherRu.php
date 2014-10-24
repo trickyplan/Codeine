@@ -76,7 +76,7 @@
 
         if (isset($WebResult['error']) && $WebResult['error']['code'] == 1)
         {
-            F::Log('Morpher quota exceeded. Lockfile added.', LOG_WARNING);
+            F::Log('Morpher quota exceeded. Lockfile added.', LOG_INFO);
             touch ($Call['Morpher Lock']);
         }
         else
