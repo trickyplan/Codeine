@@ -17,7 +17,7 @@
          if (isset($Call['Localized']) && $Call['Localized'])
                  $Call['Label'] = $Call['Entity'].'.Entity:'.$Call['Node'].'.Label';
 
-         $Call['Options'] = json_encode(array_map(function($Element){return $Element[1];}, $Call['Options']), JSON_UNESCAPED_UNICODE);
+         $Call['Options'] = j(array_map(function($Element){return $Element[1];}, $Call['Options']), JSON_UNESCAPED_UNICODE);
 
          return $Call;
      });

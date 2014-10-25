@@ -71,7 +71,7 @@
                 ;
             else
                 foreach ($Response as $cResponse)
-                    $Call['Honey'] = F::Merge($Call['Honey'], json_decode($cResponse, true)['Honey']);
+                    $Call['Honey'] = F::Merge($Call['Honey'], jd($cResponse, true)['Honey']);
         }
 
         $Call['Output']['Content']['Honey'] = $Call['Honey'];
@@ -112,7 +112,7 @@
                     ;
                 else
                     foreach ($Response as $cResponse)
-                        $Call['Honey'] = F::Merge($Call['Honey'], json_decode($cResponse, true)['Honey']);
+                        $Call['Honey'] = F::Merge($Call['Honey'], jd($cResponse, true)['Honey']);
             }
 
             // Если нам принесли медок

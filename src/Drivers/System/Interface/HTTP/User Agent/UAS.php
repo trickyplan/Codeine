@@ -9,7 +9,7 @@
 
     setFn('Get', function ($Call)
     {
-        return json_decode (F::Run('IO', 'Read',
+        return jsond_decode (F::Run('IO', 'Read',
             [
                 'Storage' => 'Web',
                 'Where' => $Call['UAS']['Host'].'?'.$Call['UAS']['UA Parameter'].'='.urlencode($Call['HTTP']['User Agent']).'&'.$Call['UAS']['Suffix']

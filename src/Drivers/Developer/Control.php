@@ -22,11 +22,11 @@
             $Developer = F::Run('IO', 'Read', ['Storage' => 'Web','Where' => ['ID' => $Call['Developer']['URL']]]);
 
             if (isset($Developer[0]))
-                $Call['Developer'] = json_decode($Developer[0], true);
+                $Call['Developer'] = jd($Developer[0], true);
         }
 
         if (isset($Call['Project']['License']))
-            $Call['License'] = json_decode(F::Run('IO', 'Read', ['Storage' => 'Web', 'Where' => $Call['Developer']['URL'].'/licenses/'
+            $Call['License'] = jd(F::Run('IO', 'Read', ['Storage' => 'Web', 'Where' => $Call['Developer']['URL'].'/licenses/'
     .$Call['Project']['License']])[0], true); // FIXME
 
         if (isset($Call['License']) && is_array($Call['License']))

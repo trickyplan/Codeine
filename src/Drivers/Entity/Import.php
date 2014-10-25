@@ -24,7 +24,7 @@
 
     setFn('POST', function ($Call)
     {
-        F::Run('Entity','Create', $Call, ['Data' => json_decode($Call['Request']['Data'], true)]);
+        F::Run('Entity','Create', $Call, ['Data' => jd($Call['Request']['Data'], true)]);
         return $Call;
     });
 
@@ -32,7 +32,7 @@
     {
         F::Run('Entity', 'Delete', $Call);
 
-        $Call['Data'] = json_decode(file_get_contents('php://stdin'), true);
+        $Call['Data'] = jd(file_get_contents('php://stdin'), true);
 
         F::Log($Call['Entity'].' '.count($Call['Data']).' objects loaded from stdin', LOG_WARNING, 'Developer');
 

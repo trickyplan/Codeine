@@ -49,7 +49,7 @@
             $Call['Output'] = str_replace($Call['Parsed'][0],
                 '<pre>'
                 .htmlentities(
-                    json_encode($Call,
+                    j($Call,
                         JSON_PRETTY_PRINT
                         | JSON_UNESCAPED_UNICODE
                         | JSON_UNESCAPED_SLASHES))

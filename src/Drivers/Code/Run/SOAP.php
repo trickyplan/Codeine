@@ -9,7 +9,7 @@
 
     setFn('Run', function ($Call)
     {
-        $Hash = sha1(json_encode($Call['Call']));
+        $Hash = sha1(j($Call['Call']));
         $Scope = $Call['Service'].'/'.$Call['Method'];
 
         $Cached = F::Run('IO', 'Execute', ['Storage' => 'SOAP Cache', 'Scope' => $Scope, 'Execute' => 'Version', 'Where' => ['ID' => $Hash]]);
@@ -39,7 +39,7 @@
                 return $Cached;
             }
 
-            $Result = json_decode(json_encode($Result), true);
+            $Result = jd(j($Result), true);
             F::Run('IO', 'Write', ['Storage' => 'SOAP Cache', 'Scope' => $Scope, 'Where' => ['ID' => $Hash], 'Data' => $Result]);
         }
 

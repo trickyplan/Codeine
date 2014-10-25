@@ -72,6 +72,6 @@
          ]);
 
         $Result = array_pop($Result);
-        $Result = json_decode(json_encode(simplexml_load_string($Result)), true);
+        $Result = jd(j(simplexml_load_string($Result)), true);
         return $Result['params'];
     });

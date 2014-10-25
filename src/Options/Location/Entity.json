@@ -2,7 +2,9 @@
     "Mixins": [
         "Mixins.Priority",
         "Mixins.ID.Sequence",
-        "Mixins.Titled"
+        "Mixins.Titled",
+        "Mixins.UGC",
+        "Mixins.Geo"
     ],
     "Sort":
     {

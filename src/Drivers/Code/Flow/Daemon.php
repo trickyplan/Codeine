@@ -94,7 +94,7 @@
                                 $Result = F::Live($Daemon['Execute']);
 
                                 if ($Result !== null)
-                                    F::Log($DaemonName.'> '.getmypid().': '.json_encode($Result), LOG_WARNING);
+                                    F::Log($DaemonName.'> '.getmypid().': '.j($Result), LOG_WARNING);
                             }
 
                         exit(4);

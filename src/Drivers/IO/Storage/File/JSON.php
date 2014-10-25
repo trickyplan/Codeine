@@ -11,7 +11,7 @@
 
     setFn ('Open', function ($Call)
     {
-        return json_decode(file_get_contents(F::findFile($Call['Filename'])), true);
+        return jd(file_get_contents(F::findFile($Call['Filename'])), true);
     });
 
     setFn ('Read', function ($Call)

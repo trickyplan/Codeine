@@ -16,7 +16,7 @@
                 if ($K > 0)
                     $Data[] = [$Call['Name'] => $V];
 
-        $Call['Data'] = json_encode($Data, JSON_UNESCAPED_UNICODE);
+        $Call['Data'] = j($Data, JSON_UNESCAPED_UNICODE);
 
         return $Call;
      });

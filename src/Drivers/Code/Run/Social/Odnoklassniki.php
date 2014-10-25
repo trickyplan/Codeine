@@ -21,7 +21,7 @@
 		         'Where'    => $Call['Odnoklassniki']['Entry Point'].'?'.http_build_query($Call['Call']),
 		         'Output Format'   => 'Formats.JSON'
 	         ])[0];
-	    $Result = json_decode($Result, true);
+	    $Result = jd($Result, true);
 
         if (isset($Call['Return Key']) && F::Dot($Result, $Call['Return Key']))
             $Result = F::Dot($Result, $Call['Return Key']);
@@ -74,7 +74,7 @@
                      ]);
 
                 $Result = array_pop($Result);
-		$Result = json_decode($Result, true);
+		$Result = jd($Result, true);
 		if (empty($Result['access_token']))
 		    $Result = null;
 		else

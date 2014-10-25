@@ -9,7 +9,7 @@
 
     setFn('Run', function ($Call)
     {
-        $Test = json_decode(file_get_contents(F::findFile('Tests/'.$Call['Test'].'.json')), true);
+        $Test = jd(file_get_contents(F::findFile('Tests/'.$Call['Test'].'.json')), true);
 
         $Call['Test'] = str_replace('.json', '', $Call['Test']);
         $Call['Test'] = strtr($Call['Test'], '/', '.');

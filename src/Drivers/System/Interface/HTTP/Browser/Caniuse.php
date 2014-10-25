@@ -9,7 +9,7 @@
 
     setFn('Do', function ($Call)
     {
-        $CanIUse = json_decode(F::Live($Call['Caniuse']['Source'], $Call)[0], true) ;
+        $CanIUse = jd(F::Live($Call['Caniuse']['Source'], $Call)[0], true) ;
 
         foreach ($CanIUse['data'] as $Feature => $Data)
             if (isset($Data['stats'][$Call['Browser']][$Call['Version']]))

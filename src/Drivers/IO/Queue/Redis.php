@@ -19,12 +19,12 @@
     setFn('Read', function ($Call)
     {
         if (($Result = $Call['Link']->lPop($Call['Scope'])) !== false)
-            return [json_decode($Result, true)];
+            return [jd($Result, true)];
         else
             return null;
     });
 
     setFn('Write', function ($Call)
     {
-        return $Call['Link']->rPush($Call['Scope'], json_encode($Call['Data']));
+        return $Call['Link']->rPush($Call['Scope'], j($Call['Data']));
     });

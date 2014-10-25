@@ -12,7 +12,7 @@
     setFn ('Open', function ($Call)
     {
         if (F::file_exists($Call['Directory'].'/'.$Call['Filename']))
-            $Call['Link'] = (array) json_decode(file_get_contents($Call['Directory'].'/'.$Call['Filename']), true);
+            $Call['Link'] = (array) jd(file_get_contents($Call['Directory'].'/'.$Call['Filename']), true);
         else
             $Call['Link'] = [];
 
@@ -24,7 +24,7 @@
         $Result = array_shift($Call['Link']);
 
         file_put_contents($Call['Directory'].'/'.$Call['Filename'],
-            json_encode($Call['Link'], JSON_NUMERIC_CHECK | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+            j($Call['Link'], JSON_NUMERIC_CHECK | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
 
         return $Result;
     });
@@ -34,7 +34,7 @@
         array_push($Call['Link'], $Call['Data']);
 
         return file_put_contents($Call['Directory'].'/'.$Call['Filename'],
-            json_encode($Call['Link'], JSON_NUMERIC_CHECK | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+            j($Call['Link'], JSON_NUMERIC_CHECK | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
     });
 
     setFn ('Close', function ($Call)

@@ -50,7 +50,7 @@
         F::Log('Skel copied', LOG_WARNING);
 
         file_put_contents($Directory.'/src/Options/Project.json',
-            json_encode($Call['Project'],
+            j($Call['Project'],
                 JSON_PRETTY_PRINT
                 | JSON_NUMERIC_CHECK
                 | JSON_UNESCAPED_SLASHES

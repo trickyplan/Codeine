@@ -24,7 +24,7 @@
         else
             $Auth = '';
 
-        $Response = json_decode(F::Run('IO', 'Read',
+        $Response = jd(F::Run('IO', 'Read',
          [
              'Storage' => 'Web',
              'Where'   =>

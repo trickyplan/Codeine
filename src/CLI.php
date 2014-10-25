@@ -19,7 +19,7 @@
             $Opts[] = $arg;
 
     if (isset($Opts[1]) && file_exists($Opts[1]))
-        $Opts = F::Merge(json_decode(file_get_contents($Opts[1]), true), $Opts);
+        $Opts = F::Merge(jd(file_get_contents($Opts[1]), true), $Opts);
 
     !defined('Root')? define('Root', getcwd()): false;
 

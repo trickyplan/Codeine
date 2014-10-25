@@ -33,8 +33,8 @@
             // Чтение тегов
             foreach ($Call['Images'] as &$Image)
                 $Image = F::Merge($Call['Image'],
-                    json_decode(
-                        json_encode(
+                    jd(
+                        j(
                             simplexml_load_string('<image>'.$Image.'</image>'),
                             JSON_NUMERIC_CHECK
                         ), true)

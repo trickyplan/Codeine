@@ -199,7 +199,7 @@
                 {
                     foreach ($Filenames as $Filename)
                     {
-                        $Current = json_decode(file_get_contents($Filename), true);
+                        $Current = jd(file_get_contents($Filename), true);
 
                         if ($Current)
                             self::Log('Options: *'.$Filename.'* loaded', LOG_DEBUG);
@@ -570,7 +570,7 @@
                 (isset($_SERVER['Verbose']) && $Verbose <= $_SERVER['Verbose']))
             {
                 if (!is_string($Message))
-                    $Message = json_encode($Message,
+                    $Message = j($Message,
                         JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 
 /*                if ((self::Environment() == 'Development') && (self::$_Perfect === true) && $Verbose < LOG_WARNING)
@@ -999,6 +999,11 @@
     function j($Call)
     {
         return json_encode($Call, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    }
+
+    function jd($Call)
+    {
+        return json_decode($Call, true);
     }
 
     function d()

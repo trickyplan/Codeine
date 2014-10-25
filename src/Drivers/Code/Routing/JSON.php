@@ -12,7 +12,7 @@
     setFn('Route', function ($Call)
     {
         if (is_string($Call['Run']))
-            $Call['Run'] = json_decode($Call['Run'], true);
+            $Call['Run'] = jd($Call['Run'], true);
 
         return $Call;
     });

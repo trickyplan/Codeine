@@ -81,7 +81,7 @@
             else
             {
                 F::Log('db.*'.$Call['Scope'].'*.find('
-                    .json_encode($Call['Where'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE).')', LOG_INFO, 'Administrator');
+                    .j($Call['Where'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE).')', LOG_INFO, 'Administrator');
 
                 $Cursor = $Call['Link']->$Call['Scope']->find($Call['Where'],['_id' => 0]);
             }
