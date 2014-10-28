@@ -258,7 +258,7 @@
                 $Call['HTTP']['Host'] = strtolower($_SERVER['HTTP_HOST']);
             }
 
-        if (isset($Call['HTTP']['Force SSL']) && $Call['HTTP']['Force SSL'] && $Call['HTTP']['Proto'] == 'http://')
+        if (isset($Call['HTTP']['Force SSL']) && $Call['HTTP']['Force SSL'] && $Call['HTTP']['Proto'] !== 'https://')
             $Call = F::Run(null, 'Redirect', $Call, ['Location' => 'https://'.$Call['HTTP']['Host'].$Call['HTTP']['URI']]);
 
         F::Log('Protocol is *'.$Call['HTTP']['Proto'].'*', LOG_INFO);
