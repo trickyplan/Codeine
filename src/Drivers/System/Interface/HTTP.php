@@ -258,8 +258,14 @@
                 $Call['HTTP']['Host'] = strtolower($_SERVER['HTTP_HOST']);
             }
 
-        if (isset($Call['HTTP']['Force SSL']) && $Call['HTTP']['Force SSL'] && $Call['HTTP']['Proto'] !== 'https://')
-            $Call = F::Run(null, 'Redirect', $Call, ['Location' => 'https://'.$Call['HTTP']['Host'].$Call['HTTP']['URI']]);
+        if (isset($Call['HTTP']['Force SSL']) && $Call['HTTP']['Force SSL'])
+        {
+            if ($Call['HTTP']['Proto'] !== 'https://')
+                $Call = F::Run(null, 'Redirect', $Call, ['Location' => 'https://'.$Call['HTTP']['Host'].$Call['HTTP']['URI']]);
+            elseif (isset($Call['HTTP']['HSTS']['Enabled']) && $Call['HTTP']['HSTS']['Enabled'])
+                $Call['HTTP']['Headers']['Strict-Transport-Security:'] = 'max-age='.$Call['HTTP']['HSTS']['Expire'].'; includeSubdomains';
+        }
+
 
         F::Log('Protocol is *'.$Call['HTTP']['Proto'].'*', LOG_INFO);
         F::Log('Host is *'.$Call['HTTP']['Host'].'*', LOG_INFO);

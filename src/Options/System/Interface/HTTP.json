@@ -10,6 +10,11 @@
     "HTTP":
     {
         "Force SSL": false,
+        "HSTS":
+        {
+            "Enabled": true,
+            "Expire": 31536000
+        },
         "IP":
         {
             "Service": "System.Interface.HTTP.IP",
