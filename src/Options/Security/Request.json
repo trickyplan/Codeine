@@ -38,7 +38,8 @@
         "/plugins/uploadify/uploadify.php",
         "/cms/uploadify/uploadify.php",
         "/includes/uploadify/uploadify.php",
-        "/myadmin/scripts/setup.php"
+        "/myadmin/scripts/setup.php",
+        "/admin/uploadify/uploadify.swf"
     ],
     "Hooks":
     {
