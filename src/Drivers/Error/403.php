@@ -22,7 +22,7 @@
         [
             [
                 'Type' => 'Template',
-                'Scope' => 'Errors/403',
+                'Scope' => 'Error/403',
                 'ID' => $Call['Reason']
             ]
         ];
@@ -36,7 +36,7 @@
         $Call['Output']['Content'] = [
                                         [
                                             'Type'  => 'Template',
-                                            'Scope' => 'Errors/Blocks',
+                                            'Scope' => 'Error/Blocks',
                                             'ID' => '403',
                                             'Data'  => $Call
                                         ]

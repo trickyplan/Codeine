@@ -134,12 +134,12 @@
         },
         "/404":
         {
-            "Service": "Errors.404",
+            "Service": "Error.404",
             "Method": "Page"
         },
         "/403":
         {
-            "Service": "Errors.403",
+            "Service": "Error.403",
             "Method": "Page",
             "Zone": "Default"
         },

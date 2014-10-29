@@ -17,7 +17,7 @@
 
         $Call['Output']['Content'] = [[
                                         'Type'  => 'Template',
-                                        'Scope' => 'Errors',
+                                        'Scope' => 'Error',
                                         'Value' => '500',
                                         'Data' => []
                                     ]];

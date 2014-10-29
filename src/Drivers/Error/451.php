@@ -17,7 +17,7 @@
 
         $Call['Output']['Content'] = [[
                                         'Type'  => 'Template',
-                                        'Scope' => 'Errors',
+                                        'Scope' => 'Error',
                                         'ID' => '451',
                                         'Data' => []
                                     ]];
@@ -26,5 +26,5 @@
 
     setFn('Die', function ($Call)
     {
-        die(str_replace('<place>Message</place>', $Call['On'], file_get_contents(F::findFile('Assets/Errors/451.html'))));
+        die(str_replace('<place>Message</place>', $Call['On'], file_get_contents(F::findFile('Assets/Error/451.html'))));
     });

@@ -164,7 +164,7 @@
             "Weight": 50,
             "Run":
             {
-                "Service": "Errors.404"
+                "Service": "Error.404"
             }
         },
         "IP Flag — всем":

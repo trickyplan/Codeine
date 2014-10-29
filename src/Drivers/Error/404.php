@@ -30,7 +30,7 @@
 
         $Call['Layouts'][] =
             [
-                'Scope' => 'Errors',
+                'Scope' => 'Error',
                 'ID' => '404'
             ];
 
@@ -44,7 +44,7 @@
     {
         $Call['Output']['Content'] = array (array (
                                             'Type'  => 'Template',
-                                            'Scope' => 'Errors/Blocks',
+                                            'Scope' => 'Error/Blocks',
                                             'ID' => '404'
                                         ));
         return $Call;

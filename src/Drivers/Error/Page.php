@@ -17,7 +17,7 @@
 
         $Call['Output']['Content'] = [[
                                         'Type'  => 'Template',
-                                        'Scope' => 'Errors',
+                                        'Scope' => 'Error',
                                         'ID' => $Call['Code']
                                      ]];
         return $Call;
