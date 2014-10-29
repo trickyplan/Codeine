@@ -153,8 +153,6 @@
 
     setFn('Remove', function ($Call)
     {
-        $Data = [];
-
         if (isset($Call['Data']))
             ;
         else
@@ -166,8 +164,8 @@
             'Data!'    => ['ID' => $Call['Data']['ID']]
         ]))
         {
-            F::Log($Call['Entity'].' '.$Data['ID'].' removed', LOG_INFO);
-            F::Log($Data, LOG_DEBUG);
+            F::Log($Call['Entity'].' '.$Call['Data']['ID'].' removed', LOG_INFO);
+            F::Log($Call['Data'], LOG_DEBUG);
         }
 
         return $Call;
