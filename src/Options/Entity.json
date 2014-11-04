@@ -158,7 +158,19 @@
                 }
             }
         },
-        "afterEntityWrite":
+        "afterEntityCreate":
+        {
+            "Datatypes":
+            {
+                "Service":"Entity.Hooks.Type",
+                "Method":"Read",
+                "Call":
+                {
+                    "Purpose": "Create"
+                }
+            }
+        },
+        "afterEntityUpdate":
         {
             "Datatypes":
             {
