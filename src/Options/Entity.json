@@ -168,6 +168,11 @@
                 {
                     "Purpose": "Create"
                 }
+            },
+            "Make variables alive":
+            {
+                "Service":"Entity.Hooks.Live",
+                "Method":"Process"
             }
         },
         "afterEntityUpdate":
@@ -202,14 +207,6 @@
                 {
                     "Purpose": "Read"
                 }
-            }
-        },
-        "afterEntityCreate":
-        {
-            "Make variables alive":
-            {
-                "Service":"Entity.Hooks.Live",
-                "Method":"Process"
             }
         }
     }
