@@ -158,6 +158,18 @@
                 }
             }
         },
+        "afterEntityWrite":
+        {
+            "Datatypes":
+            {
+                "Service":"Entity.Hooks.Type",
+                "Method":"Read",
+                "Call":
+                {
+                    "Purpose": "Update"
+                }
+            }
+        },
         "afterEntityRead":
         {
             "Default values":

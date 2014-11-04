@@ -1,0 +1,2 @@
+#!/bin/sh
+php /usr/share/php/Codeine/CLI.php --Service=Entity.Export --Method=Do --Entity=$1 --Where=$2

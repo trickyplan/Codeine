@@ -237,5 +237,7 @@
 
     setFn('Count', function (array $Call)
     {
-        return 'select count(*) from '.F::Run(null, 'Table', $Call).F::Run(null, 'Where', $Call);
+        $Query = 'select count(*) from '.F::Run(null, 'Table', $Call).F::Run(null, 'Where', $Call);
+        F::Log($Query, LOG_INFO, 'Administrator');
+        return $Query;
     });
