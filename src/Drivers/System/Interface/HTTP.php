@@ -263,7 +263,14 @@
             if ($Call['HTTP']['Proto'] !== 'https://')
                 $Call = F::Run(null, 'Redirect', $Call, ['Location' => 'https://'.$Call['HTTP']['Host'].$Call['HTTP']['URI']]);
             elseif (isset($Call['HTTP']['HSTS']['Enabled']) && $Call['HTTP']['HSTS']['Enabled'])
-                $Call['HTTP']['Headers']['Strict-Transport-Security:'] = 'max-age='.$Call['HTTP']['HSTS']['Expire'].'; includeSubdomains';
+            {
+                $Header = 'max-age='.$Call['HTTP']['HSTS']['Expire'];
+
+                if (isset($Call['HTTP']['HSTS']['Subdomains']) && $Call['HTTP']['HSTS']['Subdomains'])
+                    $Header.= '; includeSubdomains';
+
+                $Call['HTTP']['Headers']['Strict-Transport-Security:'] = $Header;
+            }
         }
 
 

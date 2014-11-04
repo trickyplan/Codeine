@@ -13,7 +13,8 @@
         "HSTS":
         {
             "Enabled": true,
-            "Expire": 31536000
+            "Expire": 31536000,
+            "Subdomains": false
         },
         "IP":
         {
