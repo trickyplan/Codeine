@@ -29,9 +29,7 @@
                       'Where'  => $Call['User']['ID'],
                       'Data' =>
                        [
-                            [
-                                'Password' => $NewPassword
-                            ]
+                            'Password' => $NewPassword
                        ]
                 ]);
 
