@@ -11,8 +11,6 @@
     {
         F::Log('CLI Interface Started', LOG_IMPORTANT);
 
-        $Call['Locale'] = F::Live($Call['Locale'], $Call);
-
         $Call = F::Hook('beforeInterfaceRun', $Call);
 
         $Call['HTTP']['IP'] = F::Live($Call['HTTP']['IP'], $Call);

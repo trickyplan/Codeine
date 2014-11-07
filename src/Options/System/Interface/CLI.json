@@ -9,11 +9,6 @@
             "Method": "Get"
         }
     },
-    "Locale":
-    {
-        "Service": "Locale",
-        "Method": "Detect"
-    },
     "Session":
     {
         "User":
@@ -36,6 +31,11 @@
     {
         "beforeInterfaceRun":
         {
+            "Locale":
+            {
+                "Service": "System.Interface.CLI.Locale",
+                "Method": "Detect"
+            },
             "Project":
             {
                 "Service": "Project.Preload",
