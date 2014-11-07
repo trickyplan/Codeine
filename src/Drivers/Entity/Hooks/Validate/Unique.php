@@ -38,6 +38,7 @@
                           ]) > $Limit)
             {
                 F::Log('Non-unique '.$Call['Name'].' value: '.j($Call['Data'][$Call['Name']]), LOG_ERR);
+                F::Log($Call['Data'], LOG_WARNING);
                 return 'Unique';
             }
         }
