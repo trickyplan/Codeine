@@ -9,5 +9,10 @@
 
     setFn('Convert', function ($Call)
     {
-        return morpher_inflect($Call['Value'], $Call['Morpher']['Cases mapping'][$Call['Case']]);
+        $Value = morpher_inflect($Call['Value'], $Call['Morpher']['Cases mapping'][$Call['Case']]);
+
+        if ($Value{0} == '#')
+            return $Call['Value'];
+        else
+            return $Value;
     });
