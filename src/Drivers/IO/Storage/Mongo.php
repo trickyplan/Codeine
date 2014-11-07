@@ -61,6 +61,7 @@
     setFn ('Read', function ($Call)
     {
         $Call['Scope'] = strtr($Call['Scope'], '.', '_');
+
         $Data = null;
 
         if (isset($Call['Where']) and $Call['Where'] !== null)

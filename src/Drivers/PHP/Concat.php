@@ -11,7 +11,7 @@
     {
         $Result = '';
 
-        Foreach ($Call['Keys'] as $Key)
+        foreach ($Call['Keys'] as $Key)
             $Result.= F::Dot($Call, $Key);
 
         return $Result;

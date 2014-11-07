@@ -405,7 +405,7 @@
 
             $IX = count(self::$_Stack);
             foreach (self::$_Stack as $Element)
-                $Output[] = str_pad(" ", $IX--).$Element;
+                $Output[] = $IX.str_pad(" ", $IX--).$Element;
 
             // $Output = '<pre>'.implode(array_reverse($Output)).'</pre>';
 
@@ -526,8 +526,6 @@
                 echo '<h2>Perfect Mode</h2>';
                 echo '<pre>'.self::Stack().'</pre>'.PHP_EOL;
                 echo $errno.' '.$errstr.' '.$errfile.'@'.$errline.'<pre>';
-
-
 
                 foreach ($Logs as $Channel => $Records)
                     foreach ($Records as $Log)

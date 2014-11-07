@@ -1,0 +1,12 @@
+{
+  "HTTP":
+  {
+      "Force SSL": false,
+      "HSTS":
+      {
+          "Enabled": false,
+          "Expire": 31536000,
+          "Subdomains": false
+      }
+  }
+}

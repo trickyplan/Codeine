@@ -10,6 +10,8 @@
      setFn('Process', function ($Call)
      {
          if (isset($Call['Output']))
+         {
+             F::Log('Start parslets processing', LOG_INFO);
              foreach ($Call['View']['HTML']['Parslets']['Queue'] as $Parslet)
              {
                  $Tag = strtolower($Parslet);
@@ -19,10 +21,10 @@
                  $cTag = $Tag;
 
                  while($Call['Parsed'] = F::Run('Text.Regex', 'All',
-                    [
-                        'Pattern' => '<'.$cTag.' (.*?)>(.*?)</'.$cTag.'>',
-                        'Value'   => $Call['Output']
-                    ]))
+                     [
+                         'Pattern' => '<'.$cTag.' (.*?)>(.*?)</'.$cTag.'>',
+                         'Value'   => $Call['Output']
+                     ]))
                  {
                      $Call = F::Apply('View.HTML.Parslets.'.$Parslet, 'Parse', $Call);
                      $Pass++;
@@ -42,10 +44,10 @@
                  $cTag = $Tag;
 
                  while($Call['Parsed'] = F::Run('Text.Regex', 'All',
-                    [
-                        'Pattern' => '<'.$cTag.'()>(.*?)</'.$cTag.'>',
-                        'Value'   => $Call['Output']
-                    ]))
+                     [
+                         'Pattern' => '<'.$cTag.'()>(.*?)</'.$cTag.'>',
+                         'Value'   => $Call['Output']
+                     ]))
                  {
                      $Call = F::Apply('View.HTML.Parslets.'.$Parslet, 'Parse', $Call);
                      $Pass++;
@@ -60,8 +62,9 @@
                      }
                  }
 
-                 F::Log('Parslet '.$Parslet.' processed', LOG_DEBUG);
+                 F::Log('Parslet *'.$Parslet.'* processed', LOG_DEBUG);
              }
-
+         }
+         F::Log('End parslets processing', LOG_INFO);
          return $Call;
      });

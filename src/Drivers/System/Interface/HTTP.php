@@ -10,137 +10,61 @@
     setFn ('Do', function ($Call)
     {
         $Call = F::Hook('beforeInterfaceRun', $Call);
+            F::Log('Interface *Web* started', LOG_INFO);
 
-        F::Log('Interface *Web* started', LOG_INFO);
+            $Call = F::Apply(null, 'Method', $Call);
+            $Call = F::Apply(null, 'Server', $Call);
+            $Call = F::Apply(null, 'Files', $Call);
+            $Call = F::Apply(null, 'Request', $Call);
+            $Call = F::Apply(null, 'Cookie', $Call);
 
-        // HTTP Method determining
-        $Call['HTTP']['Method'] =
-            in_array($_SERVER['REQUEST_METHOD'], $Call['HTTP']['Methods']['Allowed'])?
-            $_SERVER['REQUEST_METHOD']:
-            $Call['HTTP']['Methods']['Default'];
+            $Call = F::Hook('beforeRequestRun', $Call);
 
-        F::Log('Method: *'.$Call['HTTP']['Method'].'*', LOG_INFO);
 
-        F::Log($_REQUEST, LOG_INFO);
-        F::Log($_FILES, LOG_INFO);
-        F::Log($_SERVER, LOG_INFO);
-
-        // Merge FILES to REQUEST.
-        if (isset($_FILES['Data']))
-            foreach ($_FILES['Data']['tmp_name'] as $IX => $Value)
-                if (isset($_FILES['Data']['error'][$IX]) && $_FILES['Data']['error'][$IX] == 0)
+                try
                 {
-                    if (is_array($Value) && count($Value) > 0 && !empty($Value))
-                        foreach ($Value as $K2 => $V2)
-                        {
-                            if (!empty($V2))
-                                $_REQUEST['Data'][$IX][$K2] = $V2;
-                        }
-                    else
-                        $_REQUEST['Data'][$IX] = $Value;
+
+
+                    $Call = F::Apply($Call['Service'], $Call['Method'], $Call);
+                }
+                catch (Exception $e)
+                {
+                    F::Log($e->getMessage(), LOG_CRIT, 'Developer');
+
+                    switch ($_SERVER['Environment'])
+                    {
+                        case 'Development':
+                            d(__FILE__, __LINE__, $e);
+                        break;
+
+                        default:
+                            header('HTTP/1.1 503 Service Temporarily Unavailable');
+                            header('Status: 503 Service Temporarily Unavailable');
+
+                            if (file_exists(Root.'/Public/down.html'))
+                                readfile(Root.'/Public/down.html');
+                            else
+                                readfile(Codeine.'/down.html');
+
+                            header('X-Exception: '.$e->getMessage());
+                            die();
+                        break;
+                    }
                 }
 
-        foreach ($_SERVER as &$Request)
-            $Request = str_replace(chr(0), '', rawurldecode($Request));
+    /*        if (isset($Call['Output']))
+                $Call['HTTP']['Headers']['Content-Length:'] = strlen($Call['Output']);*/
 
-        foreach ($_REQUEST as $Key => $Value)
-            $Call['Request'][$Key] = str_replace(chr(0), '', $Value);
+            $Call = F::Apply(null, 'Headers', $Call);
 
-        if (empty($Call['Request']))
-            ;
-        else
-            F::Log($Call['Request'], LOG_INFO);
+            F::Run('IO', 'Write', $Call,
+                [
+                    'Storage' => 'Output',
+                    'Where' => $Call['HTTP']['URL'],
+                    'Data' => $Call['Output']
+                ]);
 
-        // Cookie reading
-        $Call['HTTP']['Cookie'] = $_COOKIE;
-
-        if (empty($Call['HTTP']['Cookie']))
-            ;
-        else
-            F::Log($Call['HTTP']['Cookie'], LOG_INFO);
-
-        if (isset($_SERVER['HTTP_REFERER']))
-            $Call['HTTP']['Referer'] = $_SERVER['HTTP_REFERER'];
-
-        // Query string reading
-
-        // Merge slashes
-        $_SERVER['REQUEST_URI'] = preg_replace('/^(\/+)/Ssu', '/', $_SERVER['REQUEST_URI']);
-
-        $Call['HTTP']['URI'] = $_SERVER['REQUEST_URI'].(empty($Call['HTTP']['URL Query'])? '' : '');
-
-        F::Log('URI: *'.$Call['HTTP']['URI'].'*', LOG_INFO);
-
-        $Call['HTTP']['URL'] = parse_url($Call['HTTP']['URI'], PHP_URL_PATH);
-        F::Log('URL: *'.$Call['HTTP']['URI'].'*', LOG_INFO);
-
-        $Call['HTTP']['URL Query'] = parse_url($Call['HTTP']['URI'], PHP_URL_QUERY);
-
-        empty($Call['HTTP']['URL Query'])?
-            F::Log('Empty query string.', LOG_INFO):
-            F::Log('Query string: *'.$Call['HTTP']['URL Query'].'*', LOG_INFO);
-
-        $Call['Run'] = $Call['HTTP']['URI'];
-        F::Log('Run String: '.$Call['Run'], LOG_INFO);
-
-        $Call = F::Apply(null, 'Protocol', $Call);
-
-        $Call['HTTP']['User Agent'] = F::Live($Call['HTTP']['User Agent'], $Call);
-        $Call['HTTP']['IP'] = F::Live($Call['HTTP']['IP'], $Call);
-        $Call['Locale'] = F::Live($Call['Locale'], $Call);
-
-        $Call = F::Hook('beforeRequestRun', $Call);
-
-        try
-        {
-            $Call = F::Apply($Call['Service'], $Call['Method'], $Call);
-        }
-        catch (Exception $e)
-        {
-            F::Log($e->getMessage(), LOG_CRIT, 'Developer');
-
-            switch ($_SERVER['Environment'])
-            {
-                case 'Development':
-                    d(__FILE__, __LINE__, $e);
-                break;
-
-                default:
-                    header('HTTP/1.1 503 Service Temporarily Unavailable');
-                    header('Status: 503 Service Temporarily Unavailable');
-
-                    if (file_exists(Root.'/Public/down.html'))
-                        readfile(Root.'/Public/down.html');
-                    else
-                        readfile(Codeine.'/down.html');
-
-                    header('X-Exception: '.$e->getMessage());
-                    die();
-                break;
-            }
-        }
-
-/*        if (isset($Call['Output']))
-            $Call['HTTP']['Headers']['Content-Length:'] = strlen($Call['Output']);*/
-
-        if (headers_sent())
-            ;
-        else
-        {
-            if (isset($Call['HTTP']['Headers']))
-                foreach ($Call['HTTP']['Headers'] as $Key => $Value)
-                    header ($Key . ' ' . $Value);
-        }
-
-
-        F::Run('IO', 'Write', $Call,
-            [
-                'Storage' => 'Output',
-                'Where' => $Call['HTTP']['URL'],
-                'Data' => $Call['Output']
-            ]);
-
-        F::Log('Interface *Web* finished', LOG_INFO);
+            F::Log('Interface *Web* finished', LOG_INFO);
 
         $Call = F::Hook('afterInterfaceRun', $Call);
 
@@ -226,59 +150,86 @@
         return $Call;
     });
 
-    setFn('Protocol', function ($Call)
+    setFn('Method', function ($Call)
     {
-        if (isset($Call['Project']['Hosts'][F::Environment()]))
+        // HTTP Method determining
+        $Call['HTTP']['Method'] =
+            in_array($_SERVER['REQUEST_METHOD'], $Call['HTTP']['Methods']['Allowed'])?
+            $_SERVER['REQUEST_METHOD']:
+            $Call['HTTP']['Methods']['Default'];
+
+        F::Log('Method: *'.$Call['HTTP']['Method'].'*', LOG_INFO);
+
+        return $Call;
+    });
+
+    setFn('Server', function ($Call)
+    {
+        empty($_SERVER) ? F::Log('Empty $_SERVER', LOG_DEBUG): F::Log($_SERVER, LOG_DEBUG);
+
+        foreach ($_SERVER as &$Request)
+            $Request = str_replace(chr(0), '', rawurldecode($Request));
+
+        return $Call;
+    });
+
+    setFn('Files', function ($Call)
+    {
+        empty($_FILES) ? F::Log('Empty $_FILES', LOG_INFO): F::Log($_FILES, LOG_INFO);
+
+        // Merge FILES to REQUEST.
+        if (isset($_FILES['Data']))
+            foreach ($_FILES['Data']['tmp_name'] as $IX => $Value)
+                if (isset($_FILES['Data']['error'][$IX]) && $_FILES['Data']['error'][$IX] == 0)
+                {
+                    if (is_array($Value) && count($Value) > 0 && !empty($Value))
+                        foreach ($Value as $K2 => $V2)
+                        {
+                            if (!empty($V2))
+                                $_REQUEST['Data'][$IX][$K2] = $V2;
+                        }
+                    else
+                        $_REQUEST['Data'][$IX] = $Value;
+                }
+
+        return $Call;
+    });
+
+    setFn('Request', function ($Call)
+    {
+        empty($_REQUEST) ? F::Log('Empty $_REQUEST', LOG_INFO): F::Log($_REQUEST, LOG_INFO);
+
+        foreach ($_REQUEST as $Key => $Value)
+            $Call['Request'][$Key] = str_replace(chr(0), '', $Value);
+
+        if (empty($Call['Request']))
+            F::Log('Empty Request', LOG_INFO);
+        else
+            F::Log($Call['Request'], LOG_INFO);
+
+
+
+        return $Call;
+    });
+
+    setFn('Cookie', function ($Call)
+    {
+        empty($_COOKIE) ? F::Log('Empty $_COOKIE', LOG_INFO): F::Log($_COOKIE, LOG_INFO);
+        $Call['HTTP']['Cookie'] = $_COOKIE;
+
+        return $Call;
+    });
+
+    setFn('Headers', function ($Call)
+    {
+        if (headers_sent())
+            F::Log('Headers already sent', LOG_INFO);
+        else
         {
-            if (preg_match('/(\S+)\.'.$Call['Project']['Hosts'][F::Environment()].'/', $_SERVER['HTTP_HOST'], $Subdomains)
-            && isset($Call['Subdomains'][$Subdomains[1]]))
-            {
-                $Call = F::Merge($Call, $Call['Subdomains'][$Subdomains[1]]);
-                F::Log('Active Subdomain detected: '.$Subdomains[1], LOG_INFO);
-            }
-
-            $_SERVER['HTTP_HOST'] = $Call['Project']['Hosts'][F::Environment()];
+            if (isset($Call['HTTP']['Headers']))
+                foreach ($Call['HTTP']['Headers'] as $Key => $Value)
+                    header ($Key . ' ' . $Value);
         }
-
-
-        if (preg_match('/:/', $_SERVER['HTTP_HOST']))
-            list ($_SERVER['HTTP_HOST'], $Call['HTTP']['Port']) = explode(':', $_SERVER['HTTP_HOST']);
-
-        if (
-                   (isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']))
-                or (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')
-                or (isset($_SERVER['HTTP_X_HTTPS']) &&$_SERVER['HTTP_X_HTTPS']))
-            {
-                $Call['HTTP']['Proto'] = 'https://';
-                $Call['HTTP']['Host'] = strtolower($_SERVER['HTTP_HOST']);
-            }
-            else
-            {
-                $Call['HTTP']['Proto'] = 'http://';
-                $Call['HTTP']['Host'] = strtolower($_SERVER['HTTP_HOST']);
-            }
-
-        if (isset($Call['HTTP']['Force SSL']) && $Call['HTTP']['Force SSL'])
-        {
-            if ($Call['HTTP']['Proto'] !== 'https://')
-                $Call = F::Run(null, 'Redirect', $Call, ['Location' => 'https://'.$Call['HTTP']['Host'].$Call['HTTP']['URI']]);
-            elseif (isset($Call['HTTP']['HSTS']['Enabled']) && $Call['HTTP']['HSTS']['Enabled'])
-            {
-                $Header = 'max-age='.$Call['HTTP']['HSTS']['Expire'];
-
-                if (isset($Call['HTTP']['HSTS']['Subdomains']) && $Call['HTTP']['HSTS']['Subdomains'])
-                    $Header.= '; includeSubdomains';
-
-                $Call['HTTP']['Headers']['Strict-Transport-Security:'] = $Header;
-            }
-        }
-
-
-        F::Log('Protocol is *'.$Call['HTTP']['Proto'].'*', LOG_INFO);
-        F::Log('Host is *'.$Call['HTTP']['Host'].'*', LOG_INFO);
-
-        $Call = F::loadOptions($Call['HTTP']['Host'], null, $Call);
-
         return $Call;
     });
 

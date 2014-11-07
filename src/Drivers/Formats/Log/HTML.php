@@ -9,10 +9,10 @@
 
     setFn('Write', function ($Call)
     {
-        $Header = $Call['Channel'].' Channel ('.count($Call['Value']).')</td></tr><tr><td colspan="3">'.date(DATE_RSS, round(Started)).' *'.$Call['HTTP']['User Agent'].'* from *'.$Call['HTTP']['IP'].'*';
+        $Header = $Call['Channel'].' Channel ('.count($Call['Value']).')</td></tr><tr><td colspan="3">'.date(DATE_RSS, round(Started)).PHP_EOL.'*'.$Call['HTTP']['User Agent'].'* from *'.$Call['HTTP']['IP'].'*';
 
         if (isset($Call['Session']['User']['ID']))
-            $Header.= 'User: '.$Call['Session']['User']['ID'].' ('.$Call['Session']['User']['Title'].')';
+            $Header.= PHP_EOL.'User: '.$Call['Session']['User']['ID'].(isset($Call['Session']['User']['Title'])? '('.$Call['Session']['User']['Title'].')': '');
 
         if (is_array($Call['Value']))
         {

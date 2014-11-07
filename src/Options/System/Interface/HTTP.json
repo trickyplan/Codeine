@@ -9,23 +9,6 @@
     },
     "HTTP":
     {
-        "Force SSL": false,
-        "HSTS":
-        {
-            "Enabled": true,
-            "Expire": 31536000,
-            "Subdomains": false
-        },
-        "IP":
-        {
-            "Service": "System.Interface.HTTP.IP",
-            "Method": "Get"
-        },
-        "User Agent":
-        {
-            "Service": "System.Interface.HTTP.User Agent",
-            "Method": "Get"
-        },
         "Methods":
         {
             "Allowed": ["GET", "POST"],
@@ -39,11 +22,6 @@
             "X-Content-Type-Options:": "nosniff",
             "X-XSS-Protection:": " 1; mode=block"
         }
-    },
-    "Locale":
-    {
-        "Service": "Locale",
-        "Method": "Detect"
     },
     "Hooks":
     {
@@ -60,6 +38,40 @@
             "-Journal":
             {
                 "Service": "System.Interface.HTTP.Journal"
+            },
+            "Host":
+            {
+                "Service": "System.Interface.HTTP.Host",
+                "Method": "Do"
+            },
+            "Protocol":
+            {
+                "Service": "System.Interface.HTTP.Protocol",
+                "Method": "Do"
+            },
+            "URL":
+            {
+                "Service": "System.Interface.HTTP.URL",
+                "Method": "Do"
+            },
+            "Locale":
+            {
+                "Service": "System.Interface.HTTP.Locale",
+                "Method": "Detect"
+            },
+            "IP":
+            {
+                "Service": "System.Interface.HTTP.IP",
+                "Method": "Do"
+            },
+            "Referrer":
+            {
+                "Service": "System.Interface.HTTP.Referrer",
+                "Method": "Do"
+            },
+            "User Agent":
+            {
+                "Service": "System.Interface.HTTP.UserAgent"
             },
             "Filter by User Agent":
             {
