@@ -178,6 +178,7 @@
                     $Call = F::Hook('beforeEntityWrite', $Call);
                         $Call = F::Hook('beforeEntityUpdate', $Call);
 
+                            $Call['Data']['EV'] = $Call['EV'];
                             if (isset($Call['Dry']))
                                 F::Log('Dry shot for '.$Call['Entity'].' update');
                             else
