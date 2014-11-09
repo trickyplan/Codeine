@@ -17,7 +17,8 @@
     {
         "EV":
         {
-            "Type": "Numeral.Integer"
+            "Type": "Numeral.Integer",
+            "Widgets": {}
         }
     },
     "Hooks":
