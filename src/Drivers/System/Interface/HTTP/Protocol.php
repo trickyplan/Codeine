@@ -25,6 +25,7 @@
         {
             if ($Call['HTTP']['Proto'] !== 'https://')
                 $Call = F::Run(null, 'Redirect', $Call, ['Location' => 'https://'.$Call['HTTP']['Host'].$Call['HTTP']['URI']]);
+
             elseif (isset($Call['HTTP']['HSTS']['Enabled']) && $Call['HTTP']['HSTS']['Enabled'])
             {
                 $Header = 'max-age='.$Call['HTTP']['HSTS']['Expire'];
