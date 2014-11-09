@@ -60,7 +60,7 @@
                         'Execute' => 'Exist'
                     ]))
                     {
-                        F::Log('Image not found. '.$Call['Current Image']['Source']['Storage'].':'.$Call['Current Image']['Source']['Where']['ID'], LOG_INFO);
+                        // F::Log('Image not found.:'.$Call['Current Image']['Source']['Where']['ID'], LOG_INFO);
                         $Call['Current Image']['Storage'] = 'Image';
                         $Call['Current Image']['Scope'] = 'Default';
 
