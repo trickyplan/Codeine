@@ -12,6 +12,7 @@
         foreach ($Call['Parsed'][2] as $IX => $Match)
         {
             $Root = simplexml_load_string('<currency '.$Call['Parsed'][1][$IX].'></currency>');
+            $Outer = '';
 
             if (isset($Root->attributes()->from))
             {
@@ -34,10 +35,7 @@
                             ]), $Call['Currency']['Precision'], ',', ' ');
                 }
                 else
-                {
                     F::Log('Currency convert failed: '.$Match, LOG_ERR);
-                    $Outer = '';
-                }
             }
 
             $Call['Output'] = str_replace ($Call['Parsed'][0][$IX], $Outer, $Call['Output']);
