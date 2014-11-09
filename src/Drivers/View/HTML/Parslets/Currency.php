@@ -23,6 +23,7 @@
                 if (isset($Root->attributes()->precision))
                     $Call['Currency']['Precision'] = (string) $Root->attributes()->precision;
 
+                $Match = strtr($Match, ',', '.');
                 if (is_numeric($Match))
                 {
                     $Outer = number_format(F::Run('Finance.Currency', 'Convert',
@@ -32,6 +33,8 @@
                                 'Value' => $Match
                             ]), $Call['Currency']['Precision'], ',', ' ');
                 }
+                else
+                    $Outer = '';
             }
 
             $Call['Output'] = str_replace ($Call['Parsed'][0][$IX], $Outer, $Call['Output']);
