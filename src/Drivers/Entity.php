@@ -15,7 +15,7 @@
             return null;
         }
 
-        unset($Call['Nodes']);
+        $Call['Nodes'] = $Call['Default Nodes'];
 
         $Call = F::Hook('beforeEntityLoad', $Call);
 
@@ -116,7 +116,6 @@
 
             if ($Call['Data'] !== null)
             {
-                $Call['Data']['EV'] = $Call['EV'];
                 $Data = $Call['Data'];
 
                 $Call['Data'] = null;
