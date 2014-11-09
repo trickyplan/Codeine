@@ -59,7 +59,7 @@
                             'From' => 0,
                             'To'   => 1
                         ],
-                        'Sort' => ['Modified' => false],
+                        'Sort' => ['Facebook.Expire' => false],
                         'One' => true
                     ])['Facebook'];
 
