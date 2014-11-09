@@ -116,6 +116,7 @@
 
             if ($Call['Data'] !== null)
             {
+                $Call['Data']['EV'] = $Call['EV'];
                 $Data = $Call['Data'];
 
                 $Call['Data'] = null;
@@ -175,10 +176,11 @@
 
                     $Call['Data'] = F::Merge($Call['Current'], $Call['Updates']);
 
+                    $Call['Data']['EV'] = $Call['EV'];
+
                     $Call = F::Hook('beforeEntityWrite', $Call);
                         $Call = F::Hook('beforeEntityUpdate', $Call);
 
-                            $Call['Data']['EV'] = $Call['EV'];
                             if (isset($Call['Dry']))
                                 F::Log('Dry shot for '.$Call['Entity'].' update');
                             else
