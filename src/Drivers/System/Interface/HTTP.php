@@ -143,7 +143,7 @@
         if (isset($Call['HTTP']['Cookie']['BackURL']) && !empty($Call['HTTP']['Cookie']['BackURL']))
         {
             // F::Run('Session', 'Write', $Call, ['Session Data' => ['BackURL' => null]]);
-            F::Run('IO', 'Write', $Call, ['Storage' => 'Cookie', 'Where' => ['ID' => 'BackURL'], 'Data' => null]);
+            F::Run('IO', 'Write', $Call, ['Storage' => 'Cookie', 'Where' => ['ID' => 'BackURL'], 'Data' => '']);
             $Call = F::Apply('System.Interface.HTTP', 'Redirect', $Call, ['Location' => $Call['HTTP']['Cookie']['BackURL']]);
         }
 

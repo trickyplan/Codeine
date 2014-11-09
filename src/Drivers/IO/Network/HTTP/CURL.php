@@ -216,6 +216,26 @@
         return curl_getinfo($Call['Link'])['filetime'];
     });
 
+    setFn('Exist', function ($Call)
+    {
+        $Call['Link'] = curl_init($Call['Where']['ID']);
+        $Call = F::Run(null, 'Select User Agent', $Call);
+
+        curl_setopt_array($Call['Link'],
+                [
+                    CURLOPT_HEADER => true,
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_COOKIEJAR => $Call['Cookie Directory'].DS.parse_url($Call['Where']['ID'], PHP_URL_HOST),
+                    CURLOPT_FILETIME => true,
+                    CURLOPT_NOBODY => true,
+                    CURLOPT_FOLLOWLOCATION => $Call['Follow'],
+                    CURLOPT_CONNECTTIMEOUT => $Call['Connect Timeout']
+                ]);
+
+        curl_exec($Call['Link']);
+        return curl_getinfo($Call['Link'])['http_code'] == 200;
+    });
+
     setFn('Size', function ($Call)
     {
         return '∞';

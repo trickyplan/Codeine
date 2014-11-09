@@ -54,11 +54,13 @@
                     else
                         $Call['Current Image']['Source']['Where'] = null;
 
+                    // Если картинка не существует
                     if (!F::Run('IO', 'Execute', $Call['Current Image']['Source'],
                     [
                         'Execute' => 'Exist'
                     ]))
                     {
+                        F::Log('Image not found. '.$Call['Current Image']['Source']['Storage'].':'.$Call['Current Image']['Source']['Where']['ID'], LOG_INFO);
                         $Call['Current Image']['Storage'] = 'Image';
                         $Call['Current Image']['Scope'] = 'Default';
 
@@ -91,7 +93,13 @@
                         (isset($Call['Current Image']['Width'])? $Call['Current Image']['Width']: 0).
                         'x'.
                         (isset($Call['Current Image']['Height'])? $Call['Current Image']['Height']: 0).
-                        strtr($Call['Current Image']['Source']['Scope'].'.'.$Call['Current Image']['Source']['Where']['ID'], '/', '.');
+                        strtr($Call['Current Image']['Source']['Scope'].'.'.basename($Call['Current Image']['Source']['Where']['ID']), '/', '.');
+
+                    $Scope = '';
+
+                    $FullPath = sha1($Call['Image']['Cached']);
+                    for ($IX = 0; $IX < $Call['Image']['Hash Levels']; $IX++)
+                        $Scope.= substr($FullPath, $IX, 1).'/';
 
                     $Write = true;
 
@@ -100,7 +108,7 @@
                         if (F::Run('IO', 'Execute',
                         [
                             'Storage' => 'Image Cache',
-                            'Scope'   => [$Host, 'img'],
+                            'Scope'   => [$Host, 'img', $Scope],
                             'Execute' => 'Exist',
                             'Where'   =>
                             [
@@ -129,7 +137,7 @@
                             F::Run ('IO', 'Write',
                             [
                                  'Storage' => 'Image Cache',
-                                 'Scope'   => [$Host, 'img'],
+                                 'Scope'   => [$Host, 'img', $Scope],
                                  'Where'   => $Call['Image']['Cached'],
                                  'Data' => $Call['Current Image']['Data']
                             ]);
@@ -140,7 +148,7 @@
                     if (empty($Call['Current Image']['Alt']))
                         F::Log('Image: Alt is empty for '.$Call['Image']['Cached'], LOG_INFO);
 
-                    $SRC = $Call['Image']['Pathname'].$Call['Image']['Cached'];
+                    $SRC = $Call['Image']['Pathname'].$Scope.$Call['Image']['Cached'];
 
                     if (isset($Call['Image']['Host']) && !empty($Call['Image']['Host']))
                         $SRC = $Call['HTTP']['Proto']

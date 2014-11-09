@@ -7,6 +7,7 @@
         "Proto": "",
         "Host": "",
         "Caching": true,
+        "Hash Levels": 8,
         "Pattern": "<image>(.+?)<\/image>",
         "Pathname": "/cache/img/",
         "Quality": 100,

@@ -12,7 +12,7 @@
     foreach ($argv as $arg)
         if (preg_match('/^--(.+)\=(.+)$/Ssu', $arg, $Pockets))
         {
-            $Opts = F::Dot($Opts, $Pockets[1], $Pockets[2]);
+            $Opts = F::Dot($Opts, strtr($Pockets[1], '_', ' '), $Pockets[2]);
             F::Log($Pockets[1].' = '.$Pockets[2], LOG_INFO, 'Developer');
         }
         else
