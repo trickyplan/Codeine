@@ -55,7 +55,7 @@
                         $Call['Current Image']['Source']['Where'] = null;
 
                     // Если картинка не существует
-                    if (!F::Run('IO', 'Execute', $Call['Current Image']['Source'],
+                    if (empty($Call['Where']['ID']) || !F::Run('IO', 'Execute', $Call['Current Image']['Source'],
                     [
                         'Execute' => 'Exist'
                     ]))
