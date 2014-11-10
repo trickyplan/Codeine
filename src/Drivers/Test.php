@@ -14,7 +14,7 @@
         $Call['Test'] = str_replace('.json', '', $Call['Test']);
         $Call['Test'] = strtr($Call['Test'], '/', '.');
 
-        if (isset($Test))
+        if (isset($Test) && isset($Test['Suites']))
             foreach ($Test['Suites'] as $SuiteName => $Suite)
             {
                 foreach ($Suite as $CaseName => $Call['Case'])
@@ -38,6 +38,11 @@
                         round($TestTime, 5)*1000,
                         '_Class' => $Call['Return'][0]? 'success' : 'danger'
                     ];
+
+                    $Call['Return'][0]?
+                        F::Log('Test case '.$CaseName.' passed', LOG_INFO):
+                        F::Log('Test case '.$CaseName.' failed', LOG_ERR);
+
                 }
             }
         else
@@ -90,10 +95,6 @@
                 ];
             }
         }
-
-
-
-
 
         return $Call;
     });
