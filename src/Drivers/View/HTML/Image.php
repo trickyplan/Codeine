@@ -48,14 +48,14 @@
 
                 foreach ($Call['Images'] as $Call['Current Image'])
                 {
-                    if (isset($Call['Current Image']['Source']['Where']))
+                    if (isset($Call['Current Image']['Source']['Where']) && !empty($Call['Current Image']['Source']['Where']))
                         $Call['Current Image']['Source']['Where'] =
                             ['ID' => $Call['Current Image']['Source']['Where']];
                     else
                         $Call['Current Image']['Source']['Where'] = null;
 
                     // Если картинка не существует
-                    if (empty($Call['Where']['ID']) || !F::Run('IO', 'Execute', $Call['Current Image']['Source'],
+                    if (null === $Call['Where']['ID'] || !F::Run('IO', 'Execute', $Call['Current Image']['Source'],
                     [
                         'Execute' => 'Exist'
                     ]))
