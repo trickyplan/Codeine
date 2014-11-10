@@ -30,7 +30,7 @@
             ]
         ]);
 
-        F::Log('Akismet response: '.$Response, LOG_INFO);
+        F::Log('Akismet response: '.$Response[0], LOG_INFO);
 
         return !($Response === 'false');
     });

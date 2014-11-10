@@ -1,0 +1,27 @@
+{
+    "Suites":
+    {
+        "Positive":
+        {
+            "Send":
+            {
+                "Run":
+                {
+                    "Service": "IO.Transport.Mail.SMTP",
+                    "Method": "Write",
+                    "Call":
+                    {
+                        "Scope": "bergstein@trickyplan.com",
+                        "ID": "Test Message",
+                        "Data": "From Codeine PEAR/SMTP",
+                        "From": "codeine"
+                    }
+                },
+                "Result":
+                {
+                    "Equal": true
+                }
+            }
+        }
+    }
+}

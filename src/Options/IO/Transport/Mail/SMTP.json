@@ -1,5 +1,6 @@
 {
     "HTML Mail": true,
+    "SMTP Auth": true,
     "Headers":
     {
         "MIME-Version":"1.0",

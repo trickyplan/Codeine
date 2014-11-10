@@ -17,7 +17,7 @@
                    [
                      'host' => $Call['Server'],
                      'port' => isset($Call['Port'])? $Call['Port']: 25,
-                     'auth' => true,
+                     'auth' => $Call['SMTP Auth'],
                      'username' => $Call['Username'],
                      'password' => $Call['Password'],
                    ]);
@@ -25,6 +25,11 @@
 
     setFn('Write', function ($Call)
     {
+        if (isset($Call['Link']))
+            ;
+        else
+            $Call['Link'] = F::Run(null, 'Open', $Call);
+
         self::$_Perfect = false;
 
         if (isset($Call['From']))
@@ -59,10 +64,11 @@
         $Call['Data'] = $mime->get(['text_charset' => 'utf-8']);
         $Call['Headers'] = $mime->headers($Call['Headers']);
 
+        F::Log('Sending mail "'.$Call['ID'].'" to '.$Call['Scope'].' with '.$Call['Server'], LOG_INFO, 'Administrator');
         $Result = $Call['Link']->send($Call['Scope'], $Call['Headers'], $Call['Data']);
 
         if ($Result instanceof PEAR_Error)
-            F::Log($Result->getMessage(), LOG_ERR); // Temp.
+            F::Log($Result->getMessage(), LOG_ERR, 'Administrator'); // Temp.
 
         self::$_Perfect = true;
         return $Call['Data'];
