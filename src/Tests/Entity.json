@@ -66,6 +66,7 @@
                     {
                         "Entity": "Test",
                         "Where": 1,
+                        "One": true,
                         "Data":
                         {
                             "Key": "Another Value"
@@ -75,10 +76,10 @@
                 "Result":
                 {
                     "Equal":
-                    [{
+                    {
                         "ID": 1,
                         "Key": "Another Value"
-                    }]
+                    }
                 }
             },
             "Delete Object(s)":
