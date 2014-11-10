@@ -5,7 +5,11 @@
          "Upsert Enabled": true,
          "Multiple Updates": true,
          "Just One": true,
-         "Write Concerns": 0
+         "Write Concerns": 0,
+         "Connect":
+         {
+             "connectTimeoutMS": 1000
+         }
     },
     "Hooks":
     {
