@@ -23,7 +23,7 @@
     {
         if (isset($Call['Where']['ID']))
             F::Set($Call['Where']['ID'], $Call['Data']);
-        else
+        elseif (isset($Call['Data']['ID']))
             F::Set($Call['Data']['ID'], $Call['Data']);
 
         return $Call['Data'];

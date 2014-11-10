@@ -13,6 +13,7 @@
                     "Call":
                     {
                         "Entity": "Test",
+                        "One": true,
                         "Data":
                         {
                             "ID": 1,
@@ -23,10 +24,10 @@
                 "Result":
                 {
                     "Equal":
-                    [{
+                    {
                         "ID": 1,
                         "Key": "Value"
-                    }]
+                    }
                 }
             },
             "Create Object":
