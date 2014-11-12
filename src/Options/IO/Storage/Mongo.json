@@ -9,6 +9,12 @@
          "Connect":
          {
              "connectTimeoutMS": 1000
+         },
+         "Update":
+         {
+             "upsert": false,
+             "multiple": false,
+             "j": 0
          }
     },
     "Hooks":

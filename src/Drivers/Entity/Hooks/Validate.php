@@ -22,7 +22,7 @@
                 if ($Error !== true)
                 {
                     $Call['Errors'][$Name][] = $Error;
-                    F::Log($Name.' '.$Error, LOG_INFO);
+                    F::Log($Call['Entity'].':'.$Name.' '.$Error, LOG_INFO);
                 }
             }
 

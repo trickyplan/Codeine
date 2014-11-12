@@ -164,7 +164,7 @@
                     $Request = 'db.*'.$Call['Scope'].'*.update('.j($Call['Where']).','.j($Call['Data']).')';
                     $Result = $Call['Link']->$Call['Scope']->update(
                         $Call['Where'],
-                        $Call['Data']);
+                        $Call['Data'], $Call['Mongo']['Update']);
 
                     if ($Result)
                         F::Log($Request, LOG_INFO, 'Administrator');
@@ -286,21 +286,44 @@
     {
         $Call['Scope'] = strtr($Call['Scope'], '.', '_');
 
-        if (isset($Call['Where']))
-            $Cursor = $Call['Link']->$Call['Scope']->find($Call['Where'])->sort(['ID' => -1]);
+        $Counter = F::Run(null, 'Read', $Call, ['Scope' => 'Counters', 'Where' => ['ID' => $Call['Entity']]]);
+
+        if (empty($Counter))
+        {
+            if (isset($Call['Where']))
+                $Cursor = $Call['Link']->$Call['Scope']->find($Call['Where'])->sort(['ID' => -1]);
+            else
+                $Cursor = $Call['Link']->$Call['Scope']->find()->sort(['ID' => -1]);
+
+            $Cursor->limit(1);
+
+            $IDs = iterator_to_array($Cursor);
+
+            $ID = array_shift($IDs);
+
+            if (!isset($ID['ID']))
+                $ID['ID'] = 0;
+
+            $ID = ((int) $ID['ID'])+1;
+        }
         else
-            $Cursor = $Call['Link']->$Call['Scope']->find()->sort(['ID' => -1]);
+            $ID = $Counter[0]['Value']+1;
 
-        $Cursor->limit(1);
+        F::Run(null, 'Write', $Call,
+            [
+                'Scope' => 'Counters',
+                'Where' => ['ID' => $Call['Entity']],
+                'Data!' => ['ID' => $Call['Entity'], 'Value' => $ID],
+                'Mongo' =>
+                [
+                    'Update' =>
+                    [
+                        'upsert' => true
+                    ]
+                ]
+            ]);
 
-        $IDs = iterator_to_array($Cursor);
-
-        $ID = array_shift($IDs);
-
-        if (!isset($ID['ID']))
-            $ID['ID'] = 0;
-
-        return ((int) $ID['ID'])+1;
+        return $ID;
     });
 
     setFn('Size', function ($Call)
