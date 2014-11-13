@@ -11,6 +11,7 @@ $(function () {
             {
                 $(this).addClass('active');
                 $(this).parent().addClass('active');
+                return false;
             }
         }
     });
