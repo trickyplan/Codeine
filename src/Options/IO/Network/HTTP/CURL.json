@@ -1,4 +1,14 @@
 {
+    "Contract":
+    {
+        "IO.Network.HTTP.CURL":
+        {
+            "Read":
+            {
+                "Memo": ["Scope", "Where", "Time", "Data"]
+            }
+        }
+    },
     "Connect Timeout": 15,
     "Cookie Directory": "/tmp/codeine",
     "Follow": true,

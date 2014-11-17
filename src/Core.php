@@ -343,36 +343,39 @@
                         $CacheID = sha1(serialize($Memo));
                     }
 
-                    if (isset($CacheID) && ($Result = self::Get($CacheID)) !== null)
-                        self::Log($CacheID.' fast forwared.', LOG_DEBUG, 'Performance');
-
                     $ST = 0;
 
-                    if (isset($Call['RTTL']) and isset($CacheID)
-                        && isset(self::$_Options['Codeine']['Run Cache Enabled']) && self::$_Options['Codeine']['Run Cache Enabled'] === true)
-                    {
-                        $RTTL = $Call['RTTL'];
-                        unset($Call['RTTL']);
-
-                        $Result = self::Execute('Code.Run.Cached', 'Run',
-                            [
-                                'Run' =>
-                                    [
-                                        'Service' => self::$_Service,
-                                        'Method'  => self::$_Method,
-                                        'Call'    => $Call,
-                                        'CacheID' => $CacheID,
-                                        'RTTL'    => $RTTL,
-                                        'Memo'    => $Memo
-                                    ]
-                            ]);
-                    }
+                    if (isset($CacheID) && ($Result = self::Get($CacheID)) !== null)
+                        self::Log(self::$_Service.':'.self::$_Method.'('.$CacheID.') fast forwarded.', LOG_GOOD, 'Performance');
                     else
                     {
-                        $ST = microtime(true);
-                        $Result = $F($Call);
-                        $ST = microtime(true)-$ST;
+                        if (isset($Call['RTTL']) and isset($CacheID)
+                            && isset(self::$_Options['Codeine']['Run Cache Enabled']) && self::$_Options['Codeine']['Run Cache Enabled'] === true)
+                        {
+                            $RTTL = $Call['RTTL'];
+                            unset($Call['RTTL']);
+
+                            $Result = self::Execute('Code.Run.Cached', 'Run',
+                                [
+                                    'Run' =>
+                                        [
+                                            'Service' => self::$_Service,
+                                            'Method'  => self::$_Method,
+                                            'Call'    => $Call,
+                                            'CacheID' => $CacheID,
+                                            'RTTL'    => $RTTL,
+                                            'Memo'    => $Memo
+                                        ]
+                                ]);
+                        }
+                        else
+                        {
+                            $ST = microtime(true);
+                            $Result = $F($Call);
+                            $ST = microtime(true)-$ST;
+                        }
                     }
+
 
                     // if (self::$_Performance)
                     self::Counter(self::$_Service.'.'.self::$_Method);

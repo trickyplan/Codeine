@@ -28,6 +28,7 @@
     margin: 2px;
     border-bottom: 1px #999 solid;
     border-left: 1px #999 solid;
+    word-wrap:break-word;
 }
 
 tr.Good, td.Good
