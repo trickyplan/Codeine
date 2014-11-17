@@ -93,7 +93,7 @@
                         (isset($Call['Current Image']['Width'])? $Call['Current Image']['Width']: 0).
                         'x'.
                         (isset($Call['Current Image']['Height'])? $Call['Current Image']['Height']: 0).
-                        strtr($Call['Current Image']['Source']['Scope'].'.'.basename($Call['Current Image']['Source']['Where']['ID']), '/', '.');
+                        strtr($Call['Current Image']['Source']['Scope'].'.'.parse_url($Call['Current Image']['Source']['Where']['ID'], PHP_URL_PATH), '/', '.');
 
                     $Scope = '';
 
