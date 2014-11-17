@@ -8,7 +8,7 @@
          "Write Concerns": 0,
          "Connect":
          {
-             "connectTimeoutMS": 1000
+             "connectTimeoutMS": 30000
          },
          "Update":
          {
