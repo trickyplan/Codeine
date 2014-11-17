@@ -40,13 +40,13 @@
             if (isset($Call['Failure']) && $Call['Failure'])
                 $Call['Return Code'] = 1;
         }
-
+/*
         else
             F::Run('IO','Write', $Call,
             [
                 'Storage' => 'Output',
                 'Data' => $Call
-            ]);
+            ]);*/
 
         return $Call;
     });

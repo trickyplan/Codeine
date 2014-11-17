@@ -903,13 +903,13 @@
             return self::$_Counters['C'][$Key];
         }
 
-        private static function Start ($Key)
+        public static function Start ($Key)
         {
             // if (isset(self::$_Performance))
                 return self::$_Ticks['T'][$Key] = microtime(true);
         }
 
-        private static function Stop ($Key)
+        public static function Stop ($Key)
         {
             // if (isset(self::$_Performance))
             {
@@ -925,19 +925,30 @@
             }
         }
 
-        private static function Snapshot ($Call = [])
+        public static function Time($Key)
         {
-            return j($Call);
+            if (isset(self::$_Counters['T'][$Key]))
+                return self::$_Counters['T'][$Key];
+            else
+                return null;
         }
 
-        private static function MStart ($Key)
+        public static function MStart ($Key)
         {
             return self::$_Ticks['M'][$Key] = memory_get_peak_usage(true);
         }
 
-        private static function MStop ($Key)
+        public static function MStop ($Key)
         {
             return self::$_Counters['M'][$Key] += memory_get_peak_usage(true) - self::$_Ticks['M'][$Key];
+        }
+
+        public static function Memory($Key)
+        {
+            if (isset(self::$_Counters['M'][$Key]))
+                return self::$_Counters['M'][$Key];
+            else
+                return null;
         }
 
         public static function getPaths()
