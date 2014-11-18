@@ -14,6 +14,8 @@
             $Call['Call']['access_token'] = F::Get(REQID);
         else
             $Call['Call']['access_token'] = F::Run(null, 'Access Token', $Call);
+        if (!isset($Call['Call']['locale']))
+            $Call['Call']['locale'] = $Call['Facebook']['Default Locale'];
 
         if (isset($Call['Call']))
             $Query = '?'.http_build_query($Call['Call']);
