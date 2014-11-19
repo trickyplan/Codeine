@@ -10,7 +10,7 @@
     setFn('Do', function ($Call)
     {
         if (
-                   (isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']))
+               (isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']))
                 or (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')
                 or (isset($_SERVER['HTTP_X_HTTPS']) &&$_SERVER['HTTP_X_HTTPS']))
             {
@@ -25,7 +25,6 @@
         {
             if ($Call['HTTP']['Proto'] !== 'https://')
                 $Call = F::Run(null, 'Redirect', $Call, ['Location' => 'https://'.$Call['HTTP']['Host'].$Call['HTTP']['URI']]);
-
             elseif (isset($Call['HTTP']['HSTS']['Enabled']) && $Call['HTTP']['HSTS']['Enabled'])
             {
                 $Header = 'max-age='.$Call['HTTP']['HSTS']['Expire'];
@@ -37,9 +36,7 @@
             }
         }
 
-
         F::Log('Protocol is *'.$Call['HTTP']['Proto'].'*', LOG_INFO);
-
 
         return $Call;
     });
