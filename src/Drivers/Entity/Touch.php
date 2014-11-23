@@ -48,7 +48,7 @@
                     'Type' => 'Block',
                     'Value' => count($Results).' touched'
                 ];
-
+            F::Log('Touch Iteration № '.$i, LOG_WARNING);
      //   $Call = F::Hook('afterTouch', $Call);
         }
         return $Call;

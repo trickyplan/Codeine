@@ -8,6 +8,7 @@
 
     error_log /var/log/nginx/error.log warn;
     access_log /var/log/nginx/$host.access.log codeine;
+	error_page 500 502 503 504 /down.html;
 
     gzip on;
     gzip_comp_level 9;
