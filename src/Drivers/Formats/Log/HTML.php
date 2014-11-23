@@ -14,7 +14,11 @@
         else
             $Call['Channel'] = 'Undefined Channel';
 
-        $Header = $Call['Channel'].' Channel ('.count($Call['Value']).')</td></tr><tr><td colspan="3">'.date(DATE_RSS, round(Started)).PHP_EOL.'*'.$Call['HTTP']['User Agent'].'* from *'.$Call['HTTP']['IP'].'*';
+        if (PHP_SAPI == 'cli')
+            $UserString = 'CLI';
+        else
+            $UserString = '*'.$Call['HTTP']['User Agent'].'* from *'.$Call['HTTP']['IP'].'*';
+        $Header = $Call['Channel'].' Channel ('.count($Call['Value']).')</td></tr><tr><td colspan="3">'.date(DATE_RSS, round(Started)).PHP_EOL.$UserString;
 
         if (isset($Call['Session']['User']['ID']))
             $Header.= PHP_EOL.'User: '.$Call['Session']['User']['ID'].(isset($Call['Session']['User']['Title'])? '('.$Call['Session']['User']['Title'].')': '');
