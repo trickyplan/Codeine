@@ -15,7 +15,12 @@
             $Call['Channel'] = 'Undefined Channel';
 
         if (PHP_SAPI == 'cli')
-            $UserString = 'CLI';
+        {
+            $UserString = posix_getpwuid(posix_getuid())['name'].' from CLI ';
+
+            if (isset($_ENV['SSH_CLIENT']))
+                $UserString.= 'SSH from: '.$_ENV['SSH_CLIENT'];
+        }
         else
             $UserString = '*'.$Call['HTTP']['User Agent'].'* from *'.$Call['HTTP']['IP'].'*';
         $Header = $Call['Channel'].' Channel ('.count($Call['Value']).')</td></tr><tr><td colspan="3">'.date(DATE_RSS, round(Started)).PHP_EOL.$UserString;
