@@ -18,8 +18,10 @@
         {
             $UserString = posix_getpwuid(posix_getuid())['name'].' from CLI ';
 
-            if (isset($_ENV['SSH_CLIENT']))
-                $UserString.= 'SSH from: '.$_ENV['SSH_CLIENT'];
+            if (empty($SSH = shell_exec('echo $SSH_CLIENT')))
+                ;
+            else
+                $UserString.= 'SSH from: '.$SSH;
         }
         else
             $UserString = '*'.$Call['HTTP']['User Agent'].'* from *'.$Call['HTTP']['IP'].'*';
