@@ -9,16 +9,14 @@
 
     setFn('Do', function ($Call)
     {
+        $Call['HTTP']['Proto'] = 'http://';
+
         if (
                (isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']))
                 or (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')
                 or (isset($_SERVER['HTTP_X_HTTPS']) &&$_SERVER['HTTP_X_HTTPS']))
             {
                 $Call['HTTP']['Proto'] = 'https://';
-            }
-            else
-            {
-                $Call['HTTP']['Proto'] = 'http://';
             }
 
         if (isset($Call['HTTP']['Force SSL']) && $Call['HTTP']['Force SSL'])
