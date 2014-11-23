@@ -27,7 +27,7 @@
             $UserString = '*'.$Call['HTTP']['User Agent'].'* from *'.$Call['HTTP']['IP'].'*';
         $Header = $Call['Channel'].' Channel ('.count($Call['Value']).')</td></tr><tr><td colspan="3">'.date(DATE_RSS, round(Started)).PHP_EOL.$UserString;
 
-        if (isset($Call['Session']['User']['ID']))
+        if (isset($Call['Session']['User']['ID']) && $Call['Session']['User']['ID']>0)
             $Header.= PHP_EOL.'User: '.$Call['Session']['User']['ID'].(isset($Call['Session']['User']['Title'])? '('.$Call['Session']['User']['Title'].')': '');
 
         if (is_array($Call['Value']))
