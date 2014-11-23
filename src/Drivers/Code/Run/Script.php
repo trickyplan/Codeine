@@ -17,7 +17,7 @@
         foreach ($Script as $Run)
             $VCall = F::Live($Run, $VCall);
 
-        $Call['Output']['Content'] = $VCall;
+        $Call['Output']['Content'] = [$VCall];
 
         return $Call;
     });
