@@ -9,6 +9,11 @@
 
     setFn('Write', function ($Call)
     {
+        if (isset($Call['Channel']))
+            ;
+        else
+            $Call['Channel'] = 'Undefined Channel';
+
         $Header = $Call['Channel'].' Channel ('.count($Call['Value']).')</td></tr><tr><td colspan="3">'.date(DATE_RSS, round(Started)).PHP_EOL.'*'.$Call['HTTP']['User Agent'].'* from *'.$Call['HTTP']['IP'].'*';
 
         if (isset($Call['Session']['User']['ID']))

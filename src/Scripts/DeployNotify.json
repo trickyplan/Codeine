@@ -6,6 +6,7 @@
         "Call":
         {
             "Storage": "Administrator",
+            "Channel": "Administrator",
             "ID": "[Release] $Project.Title $Version.Project.Major/$Version.Project.Minor on Codeine ($Version.Codeine.Major/$Version.Codeine.Minor) deployed on $HTTP.IP",
             "Data": "Successful"
         }
