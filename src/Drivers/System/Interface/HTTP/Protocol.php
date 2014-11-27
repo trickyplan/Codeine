@@ -16,6 +16,8 @@
             {
                 $Call['HTTP']['Proto'] = 'https://';
             }
+        else
+            $Call['HTTP']['Proto'] = 'http://';
 
         if (isset($Call['HTTP']['Force SSL']) && $Call['HTTP']['Force SSL'])
         {
