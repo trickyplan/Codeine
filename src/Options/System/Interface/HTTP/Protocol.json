@@ -1,6 +1,7 @@
 {
   "HTTP":
   {
+      "Proto": "http://",
       "Force SSL": false,
       "HSTS":
       {
