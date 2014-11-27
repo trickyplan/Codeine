@@ -34,7 +34,10 @@
             }
         }
 
-        F::Log('Protocol is *'.$Call['HTTP']['Proto'].'*', LOG_INFO);
+        if (empty($Call['HTTP']['Proto']))
+            F::Log('Protocol is *empty*!', LOG_ERR);
+        else
+            F::Log('Protocol is *'.$Call['HTTP']['Proto'].'*', LOG_INFO);
 
         return $Call;
     });

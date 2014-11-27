@@ -9,6 +9,7 @@
 
     setFn('Do', function ($Call)
     {
+
         $Call['Output']['Content'][] =
         [
             'Type'  => 'Template',
@@ -21,6 +22,9 @@
 
     setFn('Identificate', function ($Call)
     {
+        if (!isset($Call['HTTP']['Proto']))
+            $Call['HTTP']['Proto'] = 'https://';
+        // One day fix
         return F::Run('System.Interface.HTTP', 'Redirect', $Call, ['Location' =>
             'https://oauth.vk.com/authorize?client_id='
             .$Call['VKontakte']['AppID']
@@ -34,6 +38,9 @@
 
     setFn('Authenticate', function ($Call)
     {
+        if (!isset($Call['HTTP']['Proto']))
+            $Call['HTTP']['Proto'] = 'https://';
+        // One day fix
         $Call = F::Hook('beforeVKontakteAuthenticate', $Call);
 
         if (isset($Call['Request']['code']))
