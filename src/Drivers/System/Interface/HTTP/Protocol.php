@@ -32,7 +32,7 @@
             }
         }
 
-        F::Log('Protocol is *'.$Call['HTTP']['Proto'].'*', LOG_ERR);
+        F::Log('Protocol is *'.$Call['HTTP']['Proto'].'*', LOG_INFO);
 
         return $Call;
     });

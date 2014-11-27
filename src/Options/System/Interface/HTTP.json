@@ -39,6 +39,11 @@
             {
                 "Service": "System.Interface.HTTP.Journal"
             },
+            "Protocol":
+            {
+                "Service": "System.Interface.HTTP.Protocol",
+                "Method": "Do"
+            },
             "Host":
             {
                 "Service": "System.Interface.HTTP.Host",
@@ -49,11 +54,7 @@
                 "Service": "System.Interface.HTTP.URL",
                 "Method": "Do"
             },
-            "Protocol":
-            {
-                "Service": "System.Interface.HTTP.Protocol",
-                "Method": "Do"
-            },
+
             "Locale":
             {
                 "Service": "System.Interface.HTTP.Locale",
