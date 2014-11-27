@@ -5,7 +5,7 @@
         {
             "Load":
             {
-                "Memo": ["Scope", "ID", "Context", "Data", "Time"]
+                "Memo": ["Scope", "ID", "Context", "Data"]
             }
         }
     },

@@ -1,4 +1,15 @@
 {
+    "Contract":
+    {
+        "View.HTML.Parslets.Exec":
+        {
+            "Process":
+            {
+                "Memo": ["Service", "Method", "Call"]
+            }
+        }
+    },
+    "RTTL": 60,
     "Type": "XML",
     "Inherited":
     [
