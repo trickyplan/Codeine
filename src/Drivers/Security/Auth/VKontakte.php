@@ -36,6 +36,7 @@
     {
         $Call = F::Hook('beforeVKontakteAuthenticate', $Call);
 
+        F::Log($Call['HTTP'], LOG_ERR);
         if (isset($Call['Request']['code']))
         {
             $URL = 'https://oauth.vk.com/access_token?client_id='.$Call['VKontakte']['AppID']
