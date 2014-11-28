@@ -51,6 +51,9 @@
             <div><strong>Время сервера</strong></div>
             <div><datetime format="d.m.Y H:i:s T"></datetime></div>
             <hr/>
+            <div><strong>Protocol</strong></div>
+            <call>HTTP.Proto</call>
+            <hr/>
             <environment neq="Production">
                     <div><a class="btn btn-xs btn-block btn-primary" href="http://<call>Project.Hosts.Production</call><call>HTTP.URI</call>">Боевой сервер</a></div>
             </environment>
