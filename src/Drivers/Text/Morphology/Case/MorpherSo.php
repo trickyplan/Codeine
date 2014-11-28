@@ -11,7 +11,7 @@
     {
         $Value = morpher_inflect($Call['Value'], $Call['Morpher']['Cases mapping'][$Call['Case']]);
 
-        if ($Value{0} == '#')
+        if (empty($Value) or $Value{0} == '#')
             return $Call['Value'];
         else
             return $Value;

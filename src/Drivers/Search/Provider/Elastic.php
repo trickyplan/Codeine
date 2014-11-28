@@ -35,39 +35,47 @@
     {
         $Call['Query'] = mb_substr($Call['Query'], 0, 32);
 
-        $client = new Elasticsearch\Client();
-        $Results = $client->search(
-             [
-                 'index' => 'project',
-                 'type'  => $Call['Type'],
-                 'size'  => $Call['EPP'],
-                 'from'  => $Call['EPP']*($Call['Page']-1),
-                 'body'  =>
+        try
+        {
+            $client = new Elasticsearch\Client();
+            $Results = $client->search(
                  [
-                      'query' =>
-                      [
-                          'multi_match' =>
+                     'index' => 'project',
+                     'type'  => $Call['Type'],
+                     'size'  => $Call['EPP'],
+                     'from'  => $Call['EPP']*($Call['Page']-1),
+                     'body'  =>
+                     [
+                          'query' =>
                           [
-                              'query' => $Call['Query'],
-                              'fields' => $Call['Search fields'],
-                              'operator' => 'and'
-                          ]
-                      ],
-                      'highlight' =>
-                      [
-                          'fields' =>
-                          [
-                              $Call['Highlight'] =>
+                              'multi_match' =>
                               [
-                                  'pre_tags'  => ['<em class="highlight">'],
-                                  'post_tags' => ['</em>'],
-                                  'fragment_size' => 240, // FIXME
-                                  'number_of_fragments' => 1 // FIXME
+                                  'query' => $Call['Query'],
+                                  'fields' => $Call['Search fields'],
+                                  'operator' => 'and'
+                              ]
+                          ],
+                          'highlight' =>
+                          [
+                              'fields' =>
+                              [
+                                  $Call['Highlight'] =>
+                                  [
+                                      'pre_tags'  => ['<em class="highlight">'],
+                                      'post_tags' => ['</em>'],
+                                      'fragment_size' => 240, // FIXME
+                                      'number_of_fragments' => 1 // FIXME
+                                  ]
                               ]
                           ]
                       ]
-                  ]
-             ]);
+                 ]);
+        }
+        catch (Exception $e)
+        {
+            F::Log($e->getMessage(), LOG_CRIT, 'Developer');
+            $Results = ['hits' => ['total' => 0]];
+        }
 
         $SERP = [];
 
