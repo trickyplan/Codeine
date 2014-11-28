@@ -32,10 +32,12 @@
 
                 $Call['HTTP']['Headers']['Strict-Transport-Security:'] = $Header;
             }
+            else
+                $Call['HTTP']['Proto'] = 'https://';
         }
 
         if (empty($Call['HTTP']['Proto']))
-            F::Log('Protocol is *empty*!', LOG_ERR);
+            F::Log('Protocol is *empty*!', LOG_INFO);
         else
             F::Log('Protocol is *'.$Call['HTTP']['Proto'].'*', LOG_INFO);
 
