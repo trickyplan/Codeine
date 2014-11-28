@@ -21,7 +21,7 @@
         if (isset($Call['HTTP']['Force SSL']) && $Call['HTTP']['Force SSL'])
         {
             if ($Call['HTTP']['Proto'] !== 'https://')
-                $Call = F::Run(null, 'Redirect', $Call,
+                $Call = F::Run('System.Interface.HTTP', 'Remote Redirect', $Call,
                     ['Location' => 'https://'.$Call['HTTP']['Host'].$Call['HTTP']['URI']]);
 
             if (isset($Call['HTTP']['HSTS']['Enabled']) && $Call['HTTP']['HSTS']['Enabled'])
@@ -32,10 +32,8 @@
                     $Header.= '; includeSubdomains';
 
                 $Call['HTTP']['Headers']['Strict-Transport-Security:'] = $Header;
-                $Call['HTTP']['Proto'] = 'https://';
             }
         }
-
         if (empty($Call['HTTP']['Proto']))
             F::Log('Protocol is *empty*!', LOG_INFO);
         else
