@@ -9,6 +9,8 @@
 
     setFn ('Do', function ($Call)
     {
+        $Call['Started'] = Started;
+
         F::Stop('Preheat');
         F::Start('Payload');
 

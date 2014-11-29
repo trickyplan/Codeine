@@ -50,7 +50,7 @@
                 }
 
                 if (!empty($JSInline))
-                    $Call['JS']['Scripts'][] = $JSInline;
+                    $Call['JS']['Scripts']['Inline'] = $JSInline;
 
                 $Call = F::Hook('afterJSInput', $Call);
 
