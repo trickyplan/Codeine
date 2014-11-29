@@ -35,6 +35,10 @@
 
     setFn('string', function ($Call)
     {
+        if (preg_match_all('/<timer>(.*)<\/timer>/SsUu', $Call['Data'], $Timers))
+            foreach ($Timers[1] as $IX => $Key)
+                $Call['Data'] = str_replace($Timers[0][$IX], F::Time($Key), $Call['Data']);
+
         echo $Call['Data'];
         return $Call['Data'];
     });

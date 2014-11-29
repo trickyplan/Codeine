@@ -50,9 +50,16 @@
             <call>Version.Codeine.Major</call>.<call>Version.Codeine.Minor</call>
             <div><strong>Время сервера</strong></div>
             <div><datetime format="d.m.Y H:i:s T"></datetime></div>
-            <hr/>
-            <div><strong>Protocol</strong></div>
-            <call>HTTP.Proto</call>
+            <div><strong>Время разогрева</strong></div>
+            <timer>Preheat</timer> мсек.
+            <div><strong>Время полезной нагрузки</strong></div>
+            <timer>Payload</timer> мсек.
+            <div><strong>Время остывания</strong></div>
+            <timer>Cooldown</timer> мсек.
+            <div><strong>IO</strong></div>
+            <timer>IO</timer> мсек.
+            <div><strong>View</strong></div>
+            <timer>View</timer> мсек.
             <hr/>
             <environment neq="Production">
                     <div><a class="btn btn-xs btn-block btn-primary" href="http://<call>Project.Hosts.Production</call><call>HTTP.URI</call>">Боевой сервер</a></div>

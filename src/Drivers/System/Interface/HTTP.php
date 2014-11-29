@@ -9,6 +9,9 @@
 
     setFn ('Do', function ($Call)
     {
+        F::Stop('Preheat');
+        F::Start('Payload');
+
         $Call = F::Hook('beforeInterfaceRun', $Call);
             F::Log('Interface *Web* started', LOG_INFO);
 
@@ -23,9 +26,8 @@
 
                 try
                 {
+                        $Call = F::Apply($Call['Service'], $Call['Method'], $Call);
 
-
-                    $Call = F::Apply($Call['Service'], $Call['Method'], $Call);
                 }
                 catch (Exception $e)
                 {
@@ -52,11 +54,14 @@
                     }
                 }
 
+            F::Stop('Payload');
+            F::Start('Cooldown');
     /*        if (isset($Call['Output']))
                 $Call['HTTP']['Headers']['Content-Length:'] = strlen($Call['Output']);*/
 
             $Call = F::Apply(null, 'Headers', $Call);
 
+            F::Stop('Cooldown');
             F::Run('IO', 'Write', $Call,
                 [
                     'Storage' => 'Output',

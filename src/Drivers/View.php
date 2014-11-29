@@ -18,9 +18,8 @@
 
     setFn('Load', function ($Call)
     {
-        self::Start('ViewBeforeLoad');
         $Call = F::Hook('beforeViewLoad', $Call);
-        self::Stop('ViewBeforeLoad');
+
         $IDs = [$Call['ID']];
 
         if (isset($Call['Context']) && !empty($Call['Context']))
@@ -44,15 +43,15 @@
         if (isset($Call['Data']) && ($Call['Data'] !== (array) $Call['Data']))
             $Call['Data'] = ['Value' => $Call['Data']];
 
-        self::Start('ViewAfterLoad');
         if ($Call['Value'] !== null)
             $Call = F::Hook('afterViewLoad', $Call);
-        self::Stop('ViewAfterLoad');
+
         return $Call['Value'];
     });
 
     setFn('Render', function ($Call)
     {
+        F::Start('View');
         $Call = F::Hook('beforeRender', $Call);
 
         if (isset($Call['View']['Renderer']))
@@ -62,6 +61,7 @@
             F::Log('Finish '.$Call['View']['Renderer']['Service'].' Rendering', LOG_INFO);
         }
 
+        F::Stop('View');
         return F::Hook('afterRender', $Call);
     });
 

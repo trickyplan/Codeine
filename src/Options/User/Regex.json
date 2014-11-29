@@ -48,7 +48,7 @@
         },
         "Identificate":
         {
-            "Match":"^/identificate/(.+)$",
+            "Match":"^/identificate/(\\w+)$",
             "Service":"User.Login",
             "Method":"Identificate",
             "Call":
@@ -58,7 +58,7 @@
         },
         "Authenticate":
         {
-            "Match":"^/authenticate/(.+)$",
+            "Match":"^/authenticate/(\\w+)$",
             "Service":"User.Login",
             "Method":"Authenticate",
             "Call":

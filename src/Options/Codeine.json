@@ -3,6 +3,7 @@
     "Perfect": false,
     "Core Storage Limit": 8192,
     "Memo Threshold": 0.01,
+    "Timer Resolution": 2,
     "Run Cache Enabled": true,
     "Verbose":
     {

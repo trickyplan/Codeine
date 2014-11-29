@@ -99,6 +99,7 @@
             }
 
             self::Log('Codeine started', LOG_IMPORTANT);
+            F::Start('Preheat');
 
             if (isset(self::$_Options['Codeine']['Overlays']))
                 self::$_Paths =
@@ -917,11 +918,11 @@
             // if (isset(self::$_Performance))
             {
                 if (isset(self::$_Counters['T'][$Key]))
-                    return self::$_Counters['T'][$Key] += round((microtime(true) - self::$_Ticks['T'][$Key])*1000,2);
+                    return self::$_Counters['T'][$Key] += round((microtime(true) - self::$_Ticks['T'][$Key])*1000, self::$_Options['Codeine']['Timer Resolution']);
                 else
                 {
                     if (isset(self::$_Ticks['T'][$Key]))
-                        return self::$_Counters['T'][$Key] = round((microtime(true) - self::$_Ticks['T'][$Key])*1000,2);
+                        return self::$_Counters['T'][$Key] = round((microtime(true) - self::$_Ticks['T'][$Key])*1000, self::$_Options['Codeine']['Timer Resolution']);
                     else
                         return self::$_Counters['T'][$Key] = 0;
                 }
