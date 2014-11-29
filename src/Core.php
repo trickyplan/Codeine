@@ -101,12 +101,24 @@
             self::Log('Codeine started', LOG_IMPORTANT);
             F::Start('Preheat');
 
-            if (isset(self::$_Options['Codeine']['Overlays']))
-                self::$_Paths =
-                    array_merge(
-                        [Root],
-                        self::$_Options['Codeine']['Overlays'],
-                        [Codeine]);
+            if (isset($_REQUEST['Overlay'])
+                && in_array($_REQUEST['Overlay'], self::$_Options['Codeine']['Overlays']))
+            {
+                setcookie('Overlay', $_REQUEST['Overlay'],
+                    4294967296,  '/', $_SERVER['HTTP_HOST']);
+                $Call['Overlay'] = $_REQUEST['Overlay'];
+            }
+
+            if (isset($_COOKIE['Overlay'])
+                && in_array($_COOKIE['Overlay'], self::$_Options['Codeine']['Overlays']))
+                $Call['Overlay'] = $_COOKIE['Overlay'];
+
+            if (isset($Call['Overlay']))
+            {
+                array_unshift(self::$_Paths, Codeine.'/Overlays/'.$Call['Overlay']);
+                array_unshift(self::$_Paths, Root.'/Overlays/'.$Call['Overlay']);
+                self::Log('Overlay enabled: '.$Call['Overlay'], LOG_IMPORTANT);
+            }
 
             foreach (self::$_Paths as $Path)
                 self::Log('Path registered *'.$Path.'*', LOG_INFO);
