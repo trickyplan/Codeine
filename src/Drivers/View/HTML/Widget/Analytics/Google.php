@@ -7,40 +7,12 @@
      * @version 7.x
      */
 
-    setFn('Make', function ($Call)
-    {
-        // FIXME Templatize
-        // GA FIXME Options
-
-        if (isset($Call['Analytics']['Google']['DNT Support']) && F::Run('System.Interface.HTTP.DNT', 'Detect', $Call))
-            $Code = '<!-- Do Not Track enabled. Google Analytics supressed. -->';
-        else
-        {
-            if (isset($Call['Analytics']['Google']['Demography']) && $Call['Analytics']['Google']['Demography'])
-                $Source = "ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js'";
-            else
-                $Source = "ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js'";
-            $Code = "<script type=\"text/javascript\">
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-".$Call['ID']."']);
-  _gaq.push(['_trackPageview']);
-  _gaq.push(['_trackPageLoadTime']);
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    '.$Source.'
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-</script>";
-        }
-
-        return $Code;
-     });
-
     setFn('Universal', function ($Call)
     {
         // FIXME Templatize
         // GA FIXME Options
         $Code = '';
+        $Dimension = '';
 
         if (isset($Call['Analytics']['Google']['DNT Support']) && F::Run('System.Interface.HTTP.DNT', 'Detect', $Call))
             $Code = '<!-- Do Not Track enabled. Google Analytics supressed. -->';
@@ -50,6 +22,9 @@
                 ;
             else
             {
+                if (defined('Overlay'))
+                    $Dimension.= "ga('set', 'dimension1', '".Overlay."');";
+
                 if (F::Environment() == 'Production')
                     $Code = "<script>
           (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -59,6 +34,7 @@
           ga('create', 'UA-".$Call['ID']."', '".$Call['HTTP']['Host']."');
           ga('require', 'linkid', 'linkid.js');
           ga('require', 'displayfeatures');
+          ".$Dimension."
           ga('send', 'pageview');
         </script>";
             }

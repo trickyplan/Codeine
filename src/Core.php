@@ -115,6 +115,7 @@
 
             if (isset($Call['Overlay']))
             {
+                define('Overlay', $Call['Overlay']);
                 array_unshift(self::$_Paths, Codeine.'/Overlays/'.$Call['Overlay']);
                 array_unshift(self::$_Paths, Root.'/Overlays/'.$Call['Overlay']);
                 self::Log('Overlay enabled: '.$Call['Overlay'], LOG_IMPORTANT);
