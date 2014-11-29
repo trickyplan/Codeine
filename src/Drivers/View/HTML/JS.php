@@ -34,23 +34,44 @@
                 // JS Input
                 foreach ($Call['JS']['Input'] as $JS)
                 {
-                    list($Asset, $ID) = F::Run('View', 'Asset.Route', ['Value' => $JS]);
-
-                    $Call['JS']['Scripts'][$JS] = F::Run('IO', 'Read',
+                    if (preg_match('/^http:/SsUu', $JS))
+                    {
+                        $JS2 = parse_url($JS, PHP_URL_HOST).sha1($JS);
+                        $Call['JS']['Scripts'][$JS2] = F::Run('IO', 'Read',
                         [
-                            'Storage' => 'JS',
-                            'Scope'   => [$Asset, 'js'],
-                            'Where'   => $ID
+                            'Storage' => 'Web',
+                            'Where'   =>
+                            [
+                                'ID' => $JS
+                            ]
                         ])[0];
+                        $JS = $JS2;
+                    }
+                    else
+                    {
+                        list($Asset, $ID) = F::Run('View', 'Asset.Route', ['Value' => $JS]);
+
+                        $Call['JS']['Scripts'][$JS] = F::Run('IO', 'Read',
+                            [
+                                'Storage' => 'JS',
+                                'Scope'   => [$Asset, 'js'],
+                                'Where'   => $ID
+                            ])[0];
+                    }
 
                     if ($Call['JS']['Scripts'][$JS])
-                        F::Log('JS loaded: '.$JS, LOG_DEBUG);
+                        F::Log('JS loaded: '.$JS, LOG_INFO);
                     else
                         F::Log('JS cannot loaded: '.$JS, LOG_ERR);
                 }
 
                 if (!empty($JSInline))
-                    $Call['JS']['Scripts']['Inline'] = $JSInline;
+                {
+                    $JSInline = $Call['JS']['Inline']['Prefix'].
+                                $JSInline.
+                                $Call['JS']['Inline']['Postfix'];
+                    $Call['JS']['Scripts']['DomReady'] = $JSInline;
+                }
 
                 $Call = F::Hook('afterJSInput', $Call);
 

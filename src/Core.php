@@ -698,8 +698,8 @@
                     {
                         foreach ($Mixin as $MixinKey => $MixinValue) // Проходим по второму
                         {
-                            if (preg_match('/(.*)!$/Ssu', $MixinKey, $Pockets)) // Если у нас ключ кончается на !
-                                $Array[$Pockets[1]] = $MixinValue;
+                            if ($MixinKey{strlen($MixinKey)-1} === '!') // Если у нас ключ кончается на !
+                                $Array[substr($MixinKey, 0, strlen($MixinKey)-1)] = $MixinValue;
                             // Оверрайд
                             else
                             {
@@ -711,7 +711,9 @@
                                         if ($Array[$MixinKey] === $Mixin[$MixinKey]) // Если значения в первом и втором массивах совпадают, ничего не делаем
                                             ;
                                         else
-                                            $Array[$MixinKey] = self::Merge($Array[$MixinKey], $Mixin[$MixinKey]); // Рекурсируем.
+                                        {
+                                            $Array[$MixinKey] = self::Merge($Array[$MixinKey], $Mixin[$MixinKey]);
+                                        } // Рекурсируем.
                                     }
                                     else
                                         $Array[$MixinKey] = $MixinValue; // Иначе, просто копируем значение
@@ -918,11 +920,11 @@
             // if (isset(self::$_Performance))
             {
                 if (isset(self::$_Counters['T'][$Key]))
-                    return self::$_Counters['T'][$Key] += round((microtime(true) - self::$_Ticks['T'][$Key])*1000, self::$_Options['Codeine']['Timer Resolution']);
+                    return self::$_Counters['T'][$Key] += round((microtime(true) - self::$_Ticks['T'][$Key])*1000, 4);
                 else
                 {
                     if (isset(self::$_Ticks['T'][$Key]))
-                        return self::$_Counters['T'][$Key] = round((microtime(true) - self::$_Ticks['T'][$Key])*1000, self::$_Options['Codeine']['Timer Resolution']);
+                        return self::$_Counters['T'][$Key] = round((microtime(true) - self::$_Ticks['T'][$Key])*1000, 4);
                     else
                         return self::$_Counters['T'][$Key] = 0;
                 }

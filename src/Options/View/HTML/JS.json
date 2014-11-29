@@ -9,7 +9,12 @@
         "Pathname": "/cache/js/",
         "Type": "application/javascript",
         "Caching": true,
-        "Extension": ".js"
+        "Extension": ".js",
+        "Inline":
+        {
+            "Prefix": "$(document).ready(function(){",
+            "Postfix": "});"
+        }
     },
     "Hooks":
     {
