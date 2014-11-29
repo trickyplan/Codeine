@@ -12,7 +12,7 @@
         if (isset($Call['CSS']['Styles']))
         {
             $Call['CSS']['Styles'] = [
-                'Combined' => implode(PHP_EOL, $Call['CSS']['Styles'])
+                'Combined' => implode('', $Call['CSS']['Styles'])
             ];
         }
 
