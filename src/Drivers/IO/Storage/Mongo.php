@@ -9,21 +9,13 @@
 
     setFn ('Open', function ($Call)
     {
-        $Link = new MongoClient('mongodb://'.$Call['Server'], $Call['Mongo']['Connect']);
+        $Link = new MongoClient('mongodb://'.$Call['Server'].'/'.$Call['Database'], $Call['Mongo']['Connect']);
 
         F::Log('Connected to *'.$Call['Server'].'*', LOG_INFO, 'Administrator');
 
         $Link = $Link->selectDB($Call['Database']);
 
         F::Log('Database *'.$Call['Database'].'* selected', LOG_INFO, 'Administrator');
-
-        if (isset($Call['Auth']))
-        {
-            if ($Link->authenticate($Call['Auth']['Username'], $Call['Auth']['Password']))
-                F::Log('Authenticated as '.$Call['Auth']['Username'], LOG_INFO, 'Administrator');
-            else
-                F::Log('Authentication as '.$Call['Auth']['Username'].' failed', LOG_ERR, 'Administrator');
-        }
 
         return $Link;
     });
