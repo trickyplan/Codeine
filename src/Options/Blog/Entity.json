@@ -8,7 +8,8 @@
             "Mixins.UGC",
             "Mixins.Tags",
             "Mixins.SEO",
-            "Mixins.Votable"
+            "Mixins.Votable",
+            "Mixins.Published"
         ],
     "Storage": "Primary",
     "EPP": 7,

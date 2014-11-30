@@ -1,0 +1,16 @@
+{
+  "Nodes":
+  {
+      "Published":
+      {
+          "Type": "Date.Short",
+          "Widgets":
+          {
+            "Write":
+            {
+              "Type": "Form.Datepicker"
+            }
+          }
+      }
+  }
+}

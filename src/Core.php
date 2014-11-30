@@ -101,6 +101,10 @@
             self::Log('Codeine started', LOG_IMPORTANT);
             F::Start('Preheat');
 
+            if (isset($_COOKIE['Overlay'])
+                && in_array($_COOKIE['Overlay'], self::$_Options['Codeine']['Overlays']))
+                $Call['Overlay'] = $_COOKIE['Overlay'];
+
             if (isset($_REQUEST['Overlay'])
                 && in_array($_REQUEST['Overlay'], self::$_Options['Codeine']['Overlays']))
             {
@@ -108,10 +112,6 @@
                     4294967296,  '/', $_SERVER['HTTP_HOST']);
                 $Call['Overlay'] = $_REQUEST['Overlay'];
             }
-
-            if (isset($_COOKIE['Overlay'])
-                && in_array($_COOKIE['Overlay'], self::$_Options['Codeine']['Overlays']))
-                $Call['Overlay'] = $_COOKIE['Overlay'];
 
             if (isset($Call['Overlay']))
             {
