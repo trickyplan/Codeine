@@ -78,7 +78,7 @@
                 "Service":"Error.Page"
             }
         },
-        "Страница доступна всем":
+        "Allow show page to all":
         {
             "Decision": true,
             "Weight": 50,
@@ -92,7 +92,7 @@
                 }
             }
         },
-        "Блок доступен всем":
+        "Allow show block to all":
         {
             "Decision": true,
             "Weight": 50,

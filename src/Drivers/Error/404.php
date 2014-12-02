@@ -28,6 +28,13 @@
             ]
         ];
 
+        if (isset($Call['Entity']))
+            $Call['Layouts'][] =
+                [
+                    'Scope' => $Call['Entity'],
+                    'ID' => '404'
+                ];
+
         $Call['Layouts'][] =
             [
                 'Scope' => 'Error',
@@ -42,10 +49,11 @@
 
     setFn('Block', function ($Call)
     {
-        $Call['Output']['Content'] = array (array (
-                                            'Type'  => 'Template',
-                                            'Scope' => 'Error/Blocks',
-                                            'ID' => '404'
-                                        ));
+        $Call['Output']['Content'] = [
+            [
+                'Type'  => 'Template',
+                'Scope' => 'Error/Blocks',
+                'ID' => '404'
+            ]];
         return $Call;
     });

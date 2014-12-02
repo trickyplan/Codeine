@@ -1,0 +1,54 @@
+{
+    "Rules":
+    {
+        "List wiki for all":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Entity.List",
+                "Method": "Do",
+                "Call":
+                {
+                    "Entity": "Wiki"
+                }
+            }
+        },
+        "Show wiki for all":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Entity.Show.Static",
+                "Method": "Do",
+                "Call":
+                {
+                    "Entity": "Wiki"
+                }
+            }
+        },
+        "Create/update wiki for registered":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Entity.UpdateOrCreate",
+                "Method": "Do",
+                "Call":
+                {
+                    "Entity": "Wiki"
+                },
+                "Session":
+                {
+                    "User":
+                    {
+                        "ID": "*"
+                    }
+                }
+            }
+        }
+    }
+}

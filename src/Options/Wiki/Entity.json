@@ -1,0 +1,18 @@
+{
+  "Storage": "Primary",
+  "Mixins": [
+    "Mixins.ID.Sequence",
+    "Mixins.Titled",
+    "Mixins.UGC",
+    "Mixins.SEO",
+    "Mixins.Text",
+    "Mixins.CRUDSlug"
+  ],
+  "Nodes":
+  {
+      "Slug":
+      {
+        "Widgets": null
+      }
+  }
+}

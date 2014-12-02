@@ -1,0 +1,46 @@
+{
+    "Regex":
+    {
+        "List Wiki":
+        {
+            "Match": "^/wiki/all$",
+            "Weight": 100,
+            "Service": "Entity.List",
+            "Method": "Do",
+            "Call":
+            {
+                "Entity": "Wiki"
+            }
+        },
+        "Create or update wiki":
+        {
+            "Match": "/wiki/edit/(.*)",
+            "Weight": 100,
+            "Service": "Entity.UpdateOrCreate",
+            "Method": "Do",
+            "Call":
+            {
+                "Entity": "Wiki",
+                "Where":
+                {
+                    "Slug": "$1"
+                }
+            }
+        },
+        "Show Wiki":
+        {
+            "Match": "^/wiki/(.*)$",
+            "Weight": 100,
+            "Service": "Entity.Show.Static",
+            "Method": "Do",
+            "Call":
+            {
+                "Entity": "Wiki",
+                "Where":
+                {
+                    "Slug": "$1"
+                }
+            }
+        }
+    }
+}

@@ -24,8 +24,8 @@
                 {
                     if (mb_strpos($Call['Layout'], '<place>Content</place>') !== false)
                         $Call['Layout'] = preg_replace('/<place>Content<\/place>/', $Sublayout, $Call['Layout']);
-                    else
-                        $Call['Layout'] = $Call['Layout'].$Sublayout;
+                    /*else
+                        $Call['Layout'] = $Call['Layout'].$Sublayout;*/
                 }
             }
         }
