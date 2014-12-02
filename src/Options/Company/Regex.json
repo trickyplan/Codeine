@@ -15,7 +15,7 @@
                 }
             }
         },
-        "Companies w/pages":
+         "Companies w/pages":
         {
             "Match": "/companies/page(\\d+)$",
             "Service": "Entity.List",
@@ -24,6 +24,16 @@
             {
                 "Entity": "Company",
                 "Page": "$1"
+            }
+        },
+        "Companies":
+        {
+            "Match": "/companies$",
+            "Service": "Entity.List",
+            "Method": "Do",
+            "Call":
+            {
+                "Entity": "Company"
             }
         },
         "Show company":
