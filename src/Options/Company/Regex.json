@@ -15,14 +15,15 @@
                 }
             }
         },
-        "Companies":
+        "Companies w/pages":
         {
-            "Match": "/companies$",
+            "Match": "/companies/page(\\d+)$",
             "Service": "Entity.List",
             "Method": "Do",
             "Call":
             {
-                "Entity": "Company"
+                "Entity": "Company",
+                "Page": "$1"
             }
         },
         "Show company":
