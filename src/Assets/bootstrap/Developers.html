@@ -1,5 +1,5 @@
  <access Service="Control.Panel">
-        <div class="alert alert-info" style="position: fixed; right: 0; top: 100px; z-index: 99;">
+        <div id="devpanel" class="alert alert-info" style="display: none; position: fixed; right: 0; top: 100px; z-index: 99;">
             <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
             <h4>Developers</h4>
             <div><strong>Project Version:</strong></div>
@@ -38,4 +38,6 @@
     $('#overall-profiling').html(
         time.toFixed(0) + ' msec.'
     ).show();
+
+    $(document).on('keydown', null, '~', function() { $('#devpanel').toggle()} );
 </jsrun>
