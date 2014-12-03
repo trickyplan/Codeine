@@ -52,10 +52,7 @@
                             'Entity' => 'User',
                             'Where'  =>
                             [
-                                'VKontakte.Auth' =>
-                                [
-                                    '$exists' => true
-                                ]
+                                'VKontakte.Active' => true
                             ],
                             'Sort' =>
                             [

@@ -121,6 +121,7 @@
 
                 $Updated['VKontakte'] =
                     [
+                        'Active' => true,
                         'ID' => $Result['user_id'],
                         'Auth'  => $Result['access_token'],
                         'Logged' => time()
@@ -163,6 +164,7 @@
             [
                 'VKontakte' =>
                 [
+                    'Active' => false,
                     'Auth' => null
                 ]
             ]
