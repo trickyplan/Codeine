@@ -1,0 +1,9 @@
+{
+    "Options": {
+        "Update": "Редактировать Wiki-страницу",
+        "Do": "Обзор",
+        "Delete": "Удалить"
+    },
+    "Options.Create": "Создать Wiki-страницу",
+    "Title": "Wiki"
+}
