@@ -112,6 +112,7 @@
                             'Status' => 1
                         ]
                     ]);
+                    $Call = F::Hook('afterOdnoklassnikiCreate', $Call);
                 }
 
                 $Updated['Odnoklassniki'] =

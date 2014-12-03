@@ -102,6 +102,7 @@
                         'Status' => 1
                     ]
                 ]);
+                $Call = F::Hook('afterFacebookCreate', $Call);
             }
             $Updated['Facebook'] =
                 [
