@@ -1,0 +1,19 @@
+{
+    "Versionable": true,
+    "Nodes":
+    {
+        "Version":
+        {
+            "Type": "Numeral.Integer",
+            "Hooks":
+            {
+                "beforeEntityCreate": 1,
+                "beforeEntityUpdate":
+                {
+                    "Service": "Entity.Hooks.Version",
+                    "Method": "Generate"
+                }
+            }
+        }
+    }
+}

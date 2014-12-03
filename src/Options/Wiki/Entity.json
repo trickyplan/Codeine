@@ -6,7 +6,8 @@
     "Mixins.UGC",
     "Mixins.SEO",
     "Mixins.Text",
-    "Mixins.CRUDSlug"
+    "Mixins.CRUDSlug",
+    "Mixins.Versionable"
   ],
   "Nodes":
   {
