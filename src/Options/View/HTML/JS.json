@@ -10,6 +10,10 @@
         "Type": "application/javascript",
         "Caching": true,
         "Extension": ".js",
+        "Remote":
+        {
+            "TTL": 86400
+        },
         "Inline":
         {
             "Prefix": "$(document).ready(function(){",

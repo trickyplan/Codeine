@@ -43,7 +43,8 @@
                             'Where'   =>
                             [
                                 'ID' => $JS
-                            ]
+                            ],
+                            'RTTL' => $Call['JS']['Remote']['TTL']
                         ])[0];
                         $JS = $JS2;
                     }
