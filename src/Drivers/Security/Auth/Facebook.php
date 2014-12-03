@@ -107,6 +107,7 @@
             }
             $Updated['Facebook'] =
                 [
+                    'Active' => true,
                     'ID'     => $Facebook['id'],
                     'Auth'   => $Result['access_token'],
                     'Expire' => time()+$Result['expires'],
