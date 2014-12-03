@@ -96,8 +96,9 @@
                     [
                         'Facebook' =>
                         [
-                            'ID'    => $Facebook['id'],
-                            'Auth'  => $Result['access_token']
+                            'Active' => true,
+                            'ID'     => $Facebook['id'],
+                            'Auth'   => $Result['access_token']
                         ],
                         'Status' => 1
                     ]
@@ -138,6 +139,7 @@
             [
                 'Facebook' =>
                 [
+                    'Active' => false,
                     'Auth' => null
                 ]
             ]

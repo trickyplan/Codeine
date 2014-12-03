@@ -236,7 +236,7 @@
                 ]);
 
         curl_exec($Call['Link']);
-        $Result = curl_getinfo($Call['Link'])['http_code'] == 200;
+        $Result = (curl_getinfo($Call['Link'])['http_code'] == 200);
 
         F::Stop('IO Curl Exist '.$Call['Where']['ID']);
         return $Result;

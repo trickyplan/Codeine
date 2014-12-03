@@ -52,10 +52,7 @@
                         'Entity' => 'User',
                         'Where'  =>
                             [
-                                'Facebook.Auth' =>
-                                [
-                                    '$exists' => true
-                                ]
+                                'Facebook.Active' => true
                             ],
                         'Limit' =>
                         [
