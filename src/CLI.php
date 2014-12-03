@@ -21,6 +21,9 @@
     if (isset($Opts[1]) && file_exists($Opts[1]))
         $Opts = F::Merge(jd(file_get_contents($Opts[1]), true), $Opts);
 
+    if (file_exists('/etc/default/codeine'))
+        $Opts['Path'] = file_get_contents('/etc/default/codeine');
+
     !defined('Root')? define('Root', getcwd()): false;
 
     if (empty($Opts))
