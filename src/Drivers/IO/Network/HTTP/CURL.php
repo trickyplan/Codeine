@@ -220,6 +220,7 @@
 
     setFn('Exist', function ($Call)
     {
+        F::Start('IO Curl Exist '.$Call['Where']['ID']);
         $Call['Link'] = curl_init($Call['Where']['ID']);
         $Call = F::Run(null, 'Select User Agent', $Call);
 
@@ -235,7 +236,10 @@
                 ]);
 
         curl_exec($Call['Link']);
-        return curl_getinfo($Call['Link'])['http_code'] == 200;
+        $Result = curl_getinfo($Call['Link'])['http_code'] == 200;
+
+        F::Stop('IO Curl Exist '.$Call['Where']['ID']);
+        return $Result;
     });
 
     setFn('Size', function ($Call)
