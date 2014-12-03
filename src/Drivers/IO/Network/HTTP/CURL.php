@@ -199,7 +199,7 @@
 
     setFn('Version', function ($Call)
     {
-        $Call['Link'] = curl_init($Call['Where']['ID']);
+/*        $Call['Link'] = curl_init($Call['Where']['ID']);
         $Call = F::Run(null, 'Select User Agent', $Call);
 
         curl_setopt_array($Call['Link'],
@@ -213,7 +213,9 @@
                     CURLOPT_CONNECTTIMEOUT => $Call['Connect Timeout']
                 ]);
 
-        return curl_getinfo($Call['Link'])['filetime'];
+        return curl_getinfo($Call['Link'])['filetime'];*/
+
+        return 1;
     });
 
     setFn('Exist', function ($Call)

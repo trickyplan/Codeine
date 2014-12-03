@@ -248,8 +248,8 @@
             }
             else
             {
-                F::Log('db.*'.$Call['Scope'].'*.find('.j($Call['Where']).').count()', LOG_INFO, 'Administrator');
-                $Cursor = $Call['Link']->$Call['Scope']->find($Call['Where']);
+                F::Log('db.*'.$Call['Scope'].'*.count('.j($Call['Where']).')', LOG_INFO, 'Administrator');
+                $Cursor = $Call['Link']->$Call['Scope']->count($Call['Where']);
             }
         }
         else
@@ -263,13 +263,13 @@
             }
             else
             {
-                F::Log('db.*'.$Call['Scope'].'*.find().count()', LOG_INFO, 'Administrator');
-                $Cursor = $Call['Link']->$Call['Scope']->find();
+                F::Log('db.*'.$Call['Scope'].'*.count()', LOG_INFO, 'Administrator');
+                $Cursor = $Call['Link']->$Call['Scope']->count();
             }
         }
 
         if ($Cursor)
-            return $Cursor->count();
+            return $Cursor;
         else
             return null;
     });
