@@ -44,7 +44,7 @@
                             [
                                 'ID' => $JS
                             ],
-                            'RTTL' => $Call['JS']['Remote']['TTL']
+                            'IO TTL' => $Call['JS']['Remote']['TTL']
                         ])[0];
                         $JS = $JS2;
                     }

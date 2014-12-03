@@ -73,6 +73,9 @@
                 if (isset($Call['Where']) && is_scalar($Call['Where']))
                     $Call['Where'] = ['ID' => $Call['Where']];
 
+                if (isset($Call['IO TTL']))
+                    $Call['RTTL'] = $Call['IO TTL'];
+
                 if (isset($Call['Driver']))
                     $Call['Result'] = F::Run ($Call['Driver'], 'Read', $Call);
                 else
