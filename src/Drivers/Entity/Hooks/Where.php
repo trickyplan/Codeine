@@ -44,12 +44,12 @@
                                                        'Value' => $ccValue
                                                    ]);
                                     else
-                                        $Value = F::Dot($Value, $Relation, F::Run('Data.Type.'.$Node['Type'], 'Where',
+                                        $Value[$Relation] = F::Run('Data.Type.'.$Node['Type'], 'Where',
                                                [
                                                    'Name' => $Name,
                                                    'Node' => $Node,
                                                    'Value' => $cValue
-                                               ]));
+                                               ]);
                                 // FIXME Нативные массивы?
                             }
                             else

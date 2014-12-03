@@ -26,6 +26,7 @@
         $Result = F::Run('IO', 'Read',
                [
                    'Storage'    => 'Web',
+                   'IO TTL'  => 86400,
                    'Format'     => 'Formats.JSON',
                    'Where'      => $URL
                ]);
