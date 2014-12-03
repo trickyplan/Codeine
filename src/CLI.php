@@ -22,7 +22,7 @@
         $Opts = F::Merge(jd(file_get_contents($Opts[1]), true), $Opts);
 
     if (file_exists('/etc/default/codeine'))
-        $Opts['Path'] = file_get_contents('/etc/default/codeine');
+        define('Root', file_get_contents('/etc/default/codeine'));
 
     !defined('Root')? define('Root', getcwd()): false;
 
