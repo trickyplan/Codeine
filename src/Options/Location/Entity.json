@@ -1,15 +1,10 @@
 {
     "Mixins": [
-        "Mixins.Priority",
         "Mixins.ID.Sequence",
         "Mixins.Titled",
         "Mixins.UGC",
         "Mixins.Geo"
     ],
-    "Sort":
-    {
-        "Title": true
-    },
     "Storage": "Primary",
     "EPP": 10,
     "Nodes":

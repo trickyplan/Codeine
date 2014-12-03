@@ -5,7 +5,7 @@
         "Links": [],
         "Output": [],
         "Host": "",
-        "Caching": false
+        "Caching": true
     },
     "Hooks!":
     {
