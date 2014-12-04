@@ -206,7 +206,29 @@
         },
         "Пост блога":
         {
-            "Match":"/blog/(.*)",
+            "Match":"/blog/(\\d+)",
+            "Service":"Entity.Show.Static",
+            "Method":"Do",
+            "Call":
+            {
+                "Entity": "Blog",
+                "Where":
+                {
+                    "ID":  "$1",
+                    "Published":
+                    {
+                        "$lt":
+                        {
+                            "Service": "System.Time",
+                            "Method": "Get"
+                        }
+                    }
+                }
+            }
+        },
+        "Пост блога по ЧПУ":
+        {
+            "Match":"/blog/(.+)",
             "Service":"Entity.Show.Static",
             "Method":"Do",
             "Call":
