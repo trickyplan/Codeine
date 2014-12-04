@@ -188,6 +188,14 @@
                 }
             }
         },
+        "beforeEntityRead":
+        {
+            "GEC":
+            {
+                "Service":"Entity.Hooks.GEC",
+                "Method":"beforeEntityRead"
+            }
+        },
         "afterEntityRead":
         {
             "Default values":
@@ -208,6 +216,11 @@
                 {
                     "Purpose": "Read"
                 }
+            },
+            "GEC":
+            {
+                "Service":"Entity.Hooks.GEC",
+                "Method":"afterEntityRead"
             }
         }
     }

@@ -48,6 +48,7 @@
 
                 foreach ($Call['Images'] as $Call['Current Image'])
                 {
+                    // Если Where указан
                     if (isset($Call['Current Image']['Source']['Where']) && !empty($Call['Current Image']['Source']['Where']))
                         $Call['Current Image']['Source']['Where'] =
                             ['ID' => $Call['Current Image']['Source']['Where']];
@@ -55,32 +56,6 @@
                         $Call['Current Image']['Source']['Where'] = null;
 
                     // Если картинка не существует
-
-                    if (null === $Call['Current Image']['Source']['Where'] || null === F::Run('IO', 'Read', $Call['Current Image']['Source']))
-                    {
-                        // F::Log('Image not found.:'.$Call['Current Image']['Source']['Where']['ID'], LOG_INFO);
-                        $Call['Current Image']['Storage'] = 'Image';
-                        $Call['Current Image']['Scope'] = 'Default';
-
-                        $Call['Current Image']['Source']['Storage'] = 'Image';
-
-                        if (isset($Call['Current Image']['Default']))
-                        {
-                            list($Asset, $ID) =
-                                F::Run('View', 'Asset.Route',
-                                [
-                                    'Value' => $Call['Current Image']['Default']
-                                ]);
-
-                            $Call['Current Image']['Source']['Scope'] = $Asset;
-                            $Call['Current Image']['Source']['Where'] = ['ID' => $ID];
-                        }
-                        else
-                        {
-                            $Call['Current Image']['Source']['Scope'] = 'Default/img';
-                            $Call['Current Image']['Source']['Where'] = ['ID' => 'Default.png'];
-                        }
-                    }
 
                     $Version = F::Run('IO', 'Execute', $Call['Current Image']['Source'],
                         [
@@ -125,6 +100,32 @@
 
                     if ($Write)
                     {
+                        if (null === $Call['Current Image']['Source']['Where'] || !F::Run('IO', 'Execute', ['Execute' => 'Exist'], $Call['Current Image']['Source']))
+                        {
+                            F::Log('Image not found:'.$Call['Current Image']['Source']['Where']['ID'], LOG_BAD);
+                            $Call['Current Image']['Storage'] = 'Image';
+                            $Call['Current Image']['Scope'] = 'Default';
+
+                            $Call['Current Image']['Source']['Storage'] = 'Image';
+
+                            if (isset($Call['Current Image']['Default']))
+                            {
+                                list($Asset, $ID) =
+                                    F::Run('View', 'Asset.Route',
+                                    [
+                                        'Value' => $Call['Current Image']['Default']
+                                    ]);
+
+                                $Call['Current Image']['Source']['Scope'] = $Asset;
+                                $Call['Current Image']['Source']['Where'] = ['ID' => $ID];
+                            }
+                            else
+                            {
+                                $Call['Current Image']['Source']['Scope'] = 'Default/img';
+                                $Call['Current Image']['Source']['Where'] = ['ID' => 'Default.png'];
+                            }
+                        }
+
                         $Call['Current Image']['Data'] =
                             F::Run('IO', 'Read',
                                 $Call['Current Image']['Source']

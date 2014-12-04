@@ -9,9 +9,9 @@
 
     setFn('Do', function ($Call)
     {
-        if (self::$_Performance)
+        if (self::$_Performance or F::Environment() === 'Development')
         {
-            $Call['Performance']['Summary']['Time'] = array_sum(self::$_Counters['T']);
+            $Call['Performance']['Summary']['Time'] = round((microtime(true)-Started)*1000);
             $Call['Performance']['Summary']['Calls'] = array_sum(self::$_Counters['C']);
 
             arsort(self::$_Counters['T']);

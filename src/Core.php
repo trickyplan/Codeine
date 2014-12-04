@@ -6,6 +6,7 @@
      * @package Codeine Framework
      * @subpackage Core
     */
+    //gc_disable();
     define ('Codeine', __DIR__);
     define ('Started', microtime(true));
     define ('REQID', Started.rand());

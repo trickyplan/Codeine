@@ -112,22 +112,29 @@
 
             $Call = F::Hook('beforeEntityRead', $Call);
 
-            $Call['Data'] = F::Run('IO', 'Read', $Call);
-
-            if ($Call['Data'] !== null)
+            if (isset($Call['Skip Read']))
             {
-                $Data = $Call['Data'];
+                F::Log('Read for '.$Call['Entity'].' fully skipped', LOG_GOOD, 'Performance');
+            }
+            else
+            {
+                $Call['Data'] = F::Run('IO', 'Read', $Call);
 
-                $Call['Data'] = null;
-
-                foreach ($Data as &$cData)
+                if ($Call['Data'] !== null)
                 {
-                    $Call['Data'] = $cData;
-                    $Call = F::Hook('afterEntityRead', $Call);
-                    $cData = $Call['Data'];
-                }
+                    $Data = $Call['Data'];
 
-                $Call['Data'] = $Data;
+                    $Call['Data'] = null;
+
+                    foreach ($Data as &$cData)
+                    {
+                        $Call['Data'] = $cData;
+                        $Call = F::Hook('afterEntityRead', $Call);
+                        $cData = $Call['Data'];
+                    }
+
+                    $Call['Data'] = $Data;
+                }
             }
 
         $Call = F::Hook('afterOperation', $Call);
