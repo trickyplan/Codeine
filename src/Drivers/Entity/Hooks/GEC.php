@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description  
      * @package Codeine
-     * @version 7.x
+     * @version 8.x
      */
 
     setFn('beforeEntityRead', function ($Call)
@@ -37,11 +37,17 @@
 
     setFn('afterEntityRead', function ($Call)
     {
-        if (isset($Call['Data'][0]))
-            foreach ($Call['Data'] as $IX => $Object)
-                F::Set('GEC:'.$Call['Entity'].':'.$Object['ID'], $Object);
+        if (isset($Call['Fields']))
+            ;// Partial load, no save
         else
-            F::Set('GEC:'.$Call['Entity'].':'.$Call['Data']['ID'], $Call['Data']);
+        {
+            if (isset($Call['Data']['ID']))
+                F::Set('GEC:'.$Call['Entity'].':'.$Call['Data']['ID'], $Call['Data']);
+            else
+                foreach ($Call['Data'] as $IX => $Object)
+                    if (isset($Object['ID']))
+                    F::Set('GEC:'.$Call['Entity'].':'.$Object['ID'], $Object);
+        }
 
         return $Call;
     });
