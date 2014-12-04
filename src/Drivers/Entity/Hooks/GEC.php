@@ -51,3 +51,15 @@
 
         return $Call;
     });
+
+    setFn('afterEntityWrite', function ($Call)
+    {
+        if (isset($Call['Data']['ID']))
+                F::Set('GEC:'.$Call['Entity'].':'.$Call['Data']['ID'], $Call['Data']);
+            else
+                foreach ($Call['Data'] as $IX => $Object)
+                    if (isset($Object['ID']))
+                    F::Set('GEC:'.$Call['Entity'].':'.$Object['ID'], $Object);
+
+        return $Call;
+    });

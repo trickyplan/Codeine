@@ -222,6 +222,14 @@
                 "Service":"Entity.Hooks.GEC",
                 "Method":"afterEntityRead"
             }
+        },
+        "afterEntityWrite":
+        {
+            "GEC":
+            {
+                "Service":"Entity.Hooks.GEC",
+                "Method":"afterEntityWrite"
+            }
         }
     }
 }
