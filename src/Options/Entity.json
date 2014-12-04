@@ -223,7 +223,7 @@
                 "Method":"afterEntityRead"
             }
         },
-        "afterEntityWrite":
+        "-afterEntityWrite":
         {
             "GEC":
             {
