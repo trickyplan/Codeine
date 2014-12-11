@@ -8,6 +8,7 @@
                 "Max Passes": 3,
                 "Queue":
                 [
+                    "If",
                     "Far",
                     "Exec",
                     "Layout",
