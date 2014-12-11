@@ -103,8 +103,9 @@
                         'Status' => 1
                     ]
                 ]);
-                $Call = F::Hook('afterFacebookCreate', $Call);
             }
+            $Call = F::Hook('afterFacebookIdentification', $Call);
+
             $Updated['Facebook'] =
                 [
                     'Active' => true,

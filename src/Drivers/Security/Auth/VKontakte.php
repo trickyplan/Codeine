@@ -104,8 +104,8 @@
                             'Status' => 1
                         ]
                     ]);
-                    $Call = F::Hook('afterVKontakteCreate', $Call);
                 }
+                $Call = F::Hook('afterVKontakteIdentification', $Call);
 
                 $VKontakte = F::Run('Code.Run.Social.VKontakte', 'Run',
                     [
