@@ -15,13 +15,16 @@
         {
             foreach ($Logs as $Call['Channel'] => $Call['Logs'])
             {
-                F::Run('IO', 'Write', $Call,
-                [
-                    'Print Log' => true,
-                    'Storage' => $Call['Channel'],
-                    'ID' => '['.$Call['Channel'].'] '.$Call['HTTP']['Proto'].$Call['HTTP']['Host'].$Call['HTTP']['URI'],
-                    'Data!' => $Call['Logs']
-                ]);
+                if (empty($Call['Logs']))
+                    ;
+                else
+                    F::Run('IO', 'Write', $Call,
+                    [
+                        'Print Log' => true,
+                        'Storage' => $Call['Channel'],
+                        'ID' => '['.$Call['Channel'].'] '.$Call['HTTP']['Proto'].$Call['HTTP']['Host'].$Call['HTTP']['URI'],
+                        'Data!' => $Call['Logs']
+                    ]);
 
                 F::Run('IO', 'Close', ['Storage' => $Call['Channel']]);
             }
