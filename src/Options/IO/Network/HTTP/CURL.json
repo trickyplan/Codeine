@@ -12,6 +12,7 @@
     "CURL":
     {
         "Connect Timeout": 15,
+        "Overall Timeout": 30,
         "Cookie Directory": "/tmp/codeine",
         "Follow": true,
         "Password": "",
