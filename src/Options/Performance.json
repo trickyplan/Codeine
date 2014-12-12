@@ -6,7 +6,7 @@
         {
             "ACalls": 200,
             "RCalls": 20,
-            "RTime": 25,
+            "RTime": 33,
             "ATime": 100,
             "TimePerCall": 20
         },
@@ -14,7 +14,7 @@
         {
             "ACalls": 150,
             "RCalls": 10,
-            "RTime": 15,
+            "RTime": 5,
             "ATime": 50,
             "TimePerCall": 10
         }

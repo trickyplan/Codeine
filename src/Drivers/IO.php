@@ -39,7 +39,6 @@
 
     setFn ('Read', function ($Call)
     {
-        F::Start('IO');
         $Result = null;
 
         if (isset($Call['Result']))
@@ -100,13 +99,11 @@
             F::Log('IO Null Storage: ', LOG_CRIT);
 
         F::Stop('IO: '.$IOID);
-        F::Stop('IO');
         return $Result;
     });
 
     setFn ('Write', function ($Call)
     {
-        F::Start('IO');
         if (isset($Call['Storage']))
         {
             $Call = F::Apply('IO', 'Open', $Call);
@@ -139,13 +136,11 @@
                 foreach ($Call['Data'] as $Key => $Data)
                     $Call['Data'][$Key] = F::Run ($Call['Output Format'], 'Read', $Call, ['Value!' => $Data]);
 
-            F::Stop('IO');
             return $Call['Data'];
         }
         else
         {
             F::Log('IO Null Storage: ', LOG_ERR);
-            F::Stop('IO');
             return null;
         }
     });
@@ -170,7 +165,6 @@
 
     setFn ('Execute', function ($Call)
     {
-        F::Start('IO');
         if (isset($Call['Storage']))
         {
             $Call = F::Apply('IO', 'Open', $Call);
@@ -184,12 +178,10 @@
             if (isset($Call['Where']) && is_scalar($Call['Where']))
                 $Call['Where'] = ['ID' => $Call['Where']];
 
-            F::Stop('IO');
             return F::Run ($Call['Driver'], $Call['Execute'], $Call);
         }
         else
         {
-            F::Stop('IO');
             F::Log('IO Null Storage: ', LOG_ERR);
             return null;
         }

@@ -322,8 +322,11 @@
             if ($Method !== null)
                 self::$_Method  = $Method;
 
-            self::Stop($OldService. '.' . $OldMethod);
-            self::Start(self::$_Service . '.' . self::$_Method);
+            self::Stop($OldService);
+            self::Stop($OldService. ':' . $OldMethod);
+
+            self::Start(self::$_Service);
+            self::Start(self::$_Service . ':' . self::$_Method);
 
             self::$_Stack->push(self::$_Service.':'.self::$_Method);
 
@@ -402,8 +405,11 @@
                     $Result = isset($Call['Fallback']) ? $Call['Fallback'] : null;
             }
 
-            self::Stop(self::$_Service . '.' . self::$_Method);
-            self::Start($OldService. '.' . $OldMethod);
+            self::Stop(self::$_Service);
+            self::Stop(self::$_Service . ':' . self::$_Method);
+
+            self::Start($OldService);
+            self::Start($OldService. ':' . $OldMethod);
 
             self::$_Service = $OldService;
             self::$_Method = $OldMethod;
@@ -579,11 +585,11 @@
 
         public static function Log ($Message, $Verbose = 7, $Channel = 'Developer')
         {
-            if (($Verbose <= self::$_Verbose[$Channel])
+            /*if (($Verbose <= self::$_Verbose[$Channel])
                 or
                ((self::Environment() == 'Development') && $Verbose > 8)
                 or
-                (isset($_SERVER['Verbose']) && $Verbose <= $_SERVER['Verbose']))
+                (isset($_SERVER['Verbose']) && $Verbose <= $_SERVER['Verbose']))*/
             {
                 if (!is_string($Message))
                     $Message = j($Message,
@@ -653,7 +659,27 @@
 
         public static function Logs()
         {
-            return self::$_Log;
+            $Output = [];
+
+            foreach (self::$_Log as $Channel => $Logs)
+            {
+                $Output[$Channel] = [];
+
+                foreach ($Logs as $Log)
+                {
+                    if (($Log[0] <= self::$_Verbose[$Channel])
+                        or
+                        ((self::Environment() == 'Development') && $Log[0] > 8)
+                        or
+                        (isset($_SERVER['Verbose']) && $Log[0] <= $_SERVER['Verbose']))
+                        $Output[$Channel][] = $Log;
+
+                    if ($Log[0] <= self::$_Options['Codeine']['Panic Verbose'])
+                        return self::$_Log;
+                }
+            }
+
+            return $Output;
         }
 
         public static function Dump($File, $Line, $Call)
@@ -1027,7 +1053,10 @@
 
     function j($Call)
     {
-        return json_encode($Call, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+        if (F::Environment() === 'Development')
+            return json_encode($Call, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+        else
+            return json_encode($Call, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     }
 
     function jd($Call)

@@ -26,7 +26,7 @@
             break;
 
             case 'Orange':
-                $Verbose = LOG_INFO;
+                $Verbose = LOG_NOTICE;
             break;
 
             case 'Yellow':
@@ -44,7 +44,7 @@
 
         F::Log('Latency level is *'.$Decision.'*, because total page time *'.$Total.'* ms', $Verbose, 'Performance');
 
-        if ($Verbose <= LOG_WARNING)
+        if ($Verbose <= LOG_NOTICE)
             self::$_Performance = true;
 
         $Call = F::Hook('Latency.Audit.'.$Decision, $Call);

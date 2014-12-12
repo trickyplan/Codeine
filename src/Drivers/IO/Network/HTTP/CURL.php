@@ -14,24 +14,24 @@
 
     setFn('Select User Agent', function ($Call)
     {
-        if (isset($Call['Random User Agent']))
+        if (isset($Call['CURL']['Random User Agent']))
         {
-            $Call['User Agent'] = $Call['User Agents'][array_rand($Call['User Agents'])];
-            F::Log('UA: '.$Call['User Agent'].' selected', LOG_INFO, 'Administrator');
+            $Call['CURL']['User Agent'] = $Call['CURL']['User Agents'][array_rand($Call['CURL']['User Agents'])];
+            F::Log('UA: '.$Call['CURL']['User Agent'].' selected', LOG_INFO, 'Administrator');
         }
         return $Call;
     });
 
     setFn('Select Proxy', function ($Call)
     {
-        if (isset($Call['Random Proxy']) && isset($Call['Proxies']))
+        if (isset($Call['CURL']['Random Proxy']) && isset($Call['CURL']['Proxies']))
         {
-            list($Call['Proxy']['Host'], $Call['Proxy']['Port']) =
-                explode(':', $Call['Proxies'][array_rand($Call['Proxies'])]);
+            list($Call['CURL']['Proxy']['Host'], $Call['CURL']['Proxy']['Port']) =
+                explode(':', $Call['CURL']['Proxies'][array_rand($Call['CURL']['Proxies'])]);
         }
 
-        if (isset($Call['Proxy']['Host']))
-            F::Log('Proxy: '.$Call['Proxy']['Host'].':'.$Call['Proxy']['Port'].' selected', LOG_INFO, 'Administrator');
+        if (isset($Call['CURL']['Proxy']['Host']))
+            F::Log('Proxy: '.$Call['CURL']['Proxy']['Host'].':'.$Call['CURL']['Proxy']['Port'].' selected', LOG_INFO, 'Administrator');
 
         return $Call;
     });
@@ -58,19 +58,19 @@
 
                 curl_setopt_array($Links[$cID],
                   [
-                       CURLOPT_HEADER           => $Call['Return Header'],
+                       CURLOPT_HEADER           => $Call['CURL']['Return Header'],
                        CURLOPT_RETURNTRANSFER   => true,
-                       CURLOPT_COOKIEJAR        => $Call['Cookie Directory'].DS.parse_url($Call['Where']['ID'], PHP_URL_HOST),
-                       CURLOPT_FOLLOWLOCATION   => $Call['Follow'],
-                       CURLOPT_CONNECTTIMEOUT   => $Call['Connect Timeout'],
-                       CURLOPT_PROXY            => $Call['Proxy']['Host'],
-                       CURLOPT_PROXYPORT        => $Call['Proxy']['Port'],
-                       CURLOPT_USERAGENT        => $Call['User Agent'],
+                       CURLOPT_COOKIEJAR        => $Call['CURL']['Cookie Directory'].DS.parse_url($Call['Where']['ID'], PHP_URL_HOST),
+                       CURLOPT_FOLLOWLOCATION   => $Call['CURL']['Follow'],
+                       CURLOPT_CONNECTTIMEOUT   => $Call['CURL']['Connect Timeout'],
+                       CURLOPT_PROXY            => $Call['CURL']['Proxy']['Host'],
+                       CURLOPT_PROXYPORT        => $Call['CURL']['Proxy']['Port'],
+                       CURLOPT_USERAGENT        => $Call['CURL']['User Agent'],
                        CURLOPT_FAILONERROR      => true
                   ]);
 
-                if (isset($Call['Proxy']['Auth']))
-                    curl_setopt($Links[$cID], CURLOPT_PROXYUSERPWD, $Call['Proxy']['Auth']);
+                if (isset($Call['CURL']['Proxy']['Auth']))
+                    curl_setopt($Links[$cID], CURLOPT_PROXYUSERPWD, $Call['CURL']['Proxy']['Auth']);
 
                 curl_multi_add_handle($Call['Link'], $Links[$cID]);
             }
@@ -85,7 +85,7 @@
             {
                 $Return[$ID] = curl_multi_getcontent($Link);
 
-                if ($Call['Return Header'] && isset($Call['Only Header']))
+                if ($Call['CURL']['Return Header'] && isset($Call['CURL']['Only Header']))
                 {
                     $Size = curl_getinfo($Link, CURLINFO_HEADER_SIZE);
                     $Return[$ID] = substr($Return[$ID], 0, $Size);
@@ -110,23 +110,23 @@
 
             curl_setopt_array($Call['Link'],
                 [
-                   CURLOPT_HEADER           => $Call['Return Header'],
+                   CURLOPT_HEADER           => $Call['CURL']['Return Header'],
                    CURLOPT_RETURNTRANSFER   => true,
-                   CURLOPT_COOKIEJAR        => $Call['Cookie Directory'].DS.parse_url($Call['Where']['ID'], PHP_URL_HOST),
-                   CURLOPT_FOLLOWLOCATION   => $Call['Follow'],
-                   CURLOPT_CONNECTTIMEOUT   => $Call['Connect Timeout'],
-                   CURLOPT_PROXY            => $Call['Proxy']['Host'],
-                   CURLOPT_PROXYPORT        => $Call['Proxy']['Port'],
-                   CURLOPT_USERAGENT        => $Call['User Agent'],
+                   CURLOPT_COOKIEJAR        => $Call['CURL']['Cookie Directory'].DS.parse_url($Call['Where']['ID'], PHP_URL_HOST),
+                   CURLOPT_FOLLOWLOCATION   => $Call['CURL']['Follow'],
+                   CURLOPT_CONNECTTIMEOUT   => $Call['CURL']['Connect Timeout'],
+                   CURLOPT_PROXY            => $Call['CURL']['Proxy']['Host'],
+                   CURLOPT_PROXYPORT        => $Call['CURL']['Proxy']['Port'],
+                   CURLOPT_USERAGENT        => $Call['CURL']['User Agent'],
                    CURLOPT_FAILONERROR      => true
                 ]);
 
-            if (isset($Call['Proxy']['Auth']))
-                curl_setopt($Call['Link'], CURLOPT_PROXYUSERPWD, $Call['Proxy']['Auth']);
+            if (isset($Call['CURL']['Proxy']['Auth']))
+                curl_setopt($Call['Link'], CURLOPT_PROXYUSERPWD, $Call['CURL']['Proxy']['Auth']);
 
             $Return = [curl_exec($Call['Link'])];
 
-            if ($Call['Return Header'] && isset($Call['Only Header']))
+            if ($Call['CURL']['Return Header'] && isset($Call['CURL']['Only Header']))
             {
                 $Size = curl_getinfo($Call['Link'], CURLINFO_HEADER_SIZE);
                 $Return[0] = substr($Return[0], 0, $Size);
@@ -148,21 +148,22 @@
         $Call['Link'] = curl_init($Call['Where']['ID']);
         $Call = F::Run(null, 'Select User Agent', $Call);
 
-        $Headers = isset($Call['HTTP']['Headers'])? $Call['HTTP']['Headers']: [];
+        $Headers = isset($Call['CURL']['HTTP']['Headers'])? $Call['CURL']['HTTP']['Headers']: [];
         // TODO HTTP DELETE
 
         $Post = is_string($Call['Data']) ? $Call['Data'] : http_build_query($Call['Data']);
 
         curl_setopt_array($Call['Link'],
             [
-                CURLOPT_HEADER           => $Call['Return Header'],
+                CURLOPT_HEADER           => $Call['CURL']['Return Header'],
                 CURLOPT_RETURNTRANSFER   => true,
-                CURLOPT_COOKIEJAR        => $Call['Cookie Directory'].DS.parse_url($Call['Where']['ID'], PHP_URL_HOST),
-                CURLOPT_FOLLOWLOCATION   => $Call['Follow'],
-                CURLOPT_CONNECTTIMEOUT   => $Call['Connect Timeout'],
-                CURLOPT_PROXY            => $Call['Proxy']['Host'],
-                CURLOPT_PROXYPORT        => $Call['Proxy']['Port'],
-                CURLOPT_USERAGENT        => $Call['User Agent'],
+                CURLOPT_COOKIEJAR        => $Call['CURL']['Cookie Directory'].DS.parse_url($Call['Where']['ID'], PHP_URL_HOST),
+                CURLOPT_FOLLOWLOCATION   => $Call['CURL']['Follow'],
+                CURLOPT_CONNECTTIMEOUT   => $Call['CURL']['Connect Timeout'],
+                CURLOPT_TIMEOUT          => $Call['CURL']['Overall Timeout'],
+                CURLOPT_PROXY            => $Call['CURL']['Proxy']['Host'],
+                CURLOPT_PROXYPORT        => $Call['CURL']['Proxy']['Port'],
+                CURLOPT_USERAGENT        => $Call['CURL']['User Agent'],
                 CURLOPT_FAILONERROR      => true,
                 CURLOPT_POST             => true,
                 CURLOPT_HTTPHEADER       => $Headers,
@@ -228,11 +229,11 @@
                 [
                     CURLOPT_HEADER => true,
                     CURLOPT_RETURNTRANSFER => true,
-                    CURLOPT_COOKIEJAR => $Call['Cookie Directory'].DS.parse_url($Call['Where']['ID'], PHP_URL_HOST),
+                    CURLOPT_COOKIEJAR => $Call['CURL']['Cookie Directory'].DS.parse_url($Call['Where']['ID'], PHP_URL_HOST),
                     CURLOPT_FILETIME => true,
                     CURLOPT_NOBODY => true,
-                    CURLOPT_FOLLOWLOCATION => $Call['Follow'],
-                    CURLOPT_CONNECTTIMEOUT => $Call['Connect Timeout']
+                    CURLOPT_FOLLOWLOCATION => $Call['CURL']['Follow'],
+                    CURLOPT_CONNECTTIMEOUT => $Call['CURL']['Connect Timeout']
                 ]);
 
         curl_exec($Call['Link']);

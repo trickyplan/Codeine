@@ -51,7 +51,6 @@
 
     setFn('Render', function ($Call)
     {
-        F::Start('View');
         $Call = F::Hook('beforeRender', $Call);
 
         if (isset($Call['View']['Renderer']))
@@ -61,7 +60,6 @@
             F::Log('Finish '.$Call['View']['Renderer']['Service'].' Rendering', LOG_INFO);
         }
 
-        F::Stop('View');
         return F::Hook('afterRender', $Call);
     });
 
