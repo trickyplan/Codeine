@@ -1,8 +1,4 @@
 {
-    "HTTP":
-    {
-        "Force SSL": false
-    },
     "Hooks":
     {
         "afterInterfaceRun!":
