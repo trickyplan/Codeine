@@ -55,6 +55,17 @@
                     "Type": "Form.Textfield"
                 }
             }
+        },
+        "Social.Odnoklassniki":
+        {
+            "Type": "Literal.String",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
         }
     }
 }
