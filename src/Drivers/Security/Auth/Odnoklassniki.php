@@ -106,8 +106,9 @@
                         [
                             'Odnoklassniki' =>
                             [
-                                'ID'    => $Odnoklassniki['uid'],
-                                'Auth'  => $Result['access_token']
+                                'ID'     => $Odnoklassniki['uid'],
+                                'Auth'   => $Result['access_token'],
+                                'Active' => true
                             ],
                             'Status' => 1
                         ]
@@ -122,7 +123,8 @@
                         'token_type' => $Result['token_type'],
                         'Refresh' => $Result['refresh_token'],
                         'Expire' => time()+1800,
-                        'Logged' => time()
+                        'Logged' => time(),
+                        'Active' => true,
                     ];
 
                 foreach ($Call['Odnoklassniki']['Mapping'] as $OdnoklassnikiField => $CodeineField)

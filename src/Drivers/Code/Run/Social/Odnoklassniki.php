@@ -43,10 +43,7 @@
                         'Entity' => 'User',
                         'Where'  =>
                             [
-                                'Odnoklassniki.Auth' =>
-                                [
-                                    '$exists' => true
-                                ]
+                                'Odnoklassniki.Active' => true,
                             ],
                         'Sort' => ['Modified' => false],
                         'One' => true
