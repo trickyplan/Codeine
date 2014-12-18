@@ -39,7 +39,6 @@
         private static $_Verbose; // can be float
 
         private static $_Stack;
-
         private static $NC = 0;
         private static $_Paths = [];
         public static $_Perfect = false;
@@ -125,7 +124,8 @@
             foreach (self::$_Paths as $Path)
                 self::Log('Path registered *'.$Path.'*', LOG_INFO);
 
-            set_error_handler ('self::Error');
+            set_error_handler ('F::Error');
+            register_shutdown_function('F::Shutdown');
 
             self::Log('Environment: *'.self::$_Environment.'*', LOG_INFO);
 
@@ -136,18 +136,22 @@
             return self::Live($Call);
         }
 
-        public static function Shutdown($Call = array())
+        public static function Shutdown()
         {
             self::Stop(self::$_Service . '.' . self::$_Method);
 
             $E = error_get_last();
 
-            if (!empty($E))
+            if (empty($E))
+                ;
+            else
             {
-                if (self::$_Environment == 'Production')
+                if (self::$_Environment === 'Production')
                 {
                     // header ('HTTP/1.1 500 Internal Server Error');
                     // TODO Real error triggering
+                    F::Run('IO.Log', 'Spit', []);
+                    file_put_contents('/tmp/codeine/fail-'.REQID, j(self::$_Log));
                 }
                 else
                 {

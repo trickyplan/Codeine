@@ -7,6 +7,11 @@
      * @version 7.x
      */
 
+    if (extension_loaded('mongo'))
+        ;
+    else
+        F::Log('Mongo Extension Not Loaded', LOG_CRIT);
+
     setFn ('Open', function ($Call)
     {
         $Link = new MongoClient('mongodb://'.$Call['Server'].'/'.$Call['Database'], $Call['Mongo']['Connect']);
