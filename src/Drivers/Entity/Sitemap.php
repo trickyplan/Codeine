@@ -63,7 +63,7 @@
                 [
                     'url' =>
                     [
-                        'loc' => $Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/'.$Call['Scope'].'/'.$Element[$Call['Sitemap']['URL Field']],
+                        'loc' => $Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/'.$Call['Scope'].'/'.urlencode($Element[$Call['Sitemap']['URL Field']]),
                         'lastmod' => date(DATE_W3C),
                         'changefreq' => $Call['Frequency'],
                         'priority'   => $Call['Priority']
