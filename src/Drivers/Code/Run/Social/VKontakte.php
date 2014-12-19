@@ -13,9 +13,11 @@
 
         $Call = F::Hook('beforeVKontakteRun', $Call);
 
+        $Call['Call']['access_token'] = F::Run(null, 'Access Token', $Call);
         $Call['Call']['param_v'] = $Call['VKontakte']['Version'];
 
         $Query = '?'.http_build_query($Call['Call']);
+
         $Result = F::Run('IO', 'Read',
                [
                    'Storage' => 'Web',
@@ -44,22 +46,28 @@
     setFn('Access Token', function ($Call)
     {
         if (isset($Call['Session']['User']['VKontakte']['Auth']) && !empty($Call['Session']['User']['VKontakte']['Auth']))
+        {
+            F::Log('Used current user VK.Auth', LOG_INFO);
             $Token = $Call['Session']['User']['VKontakte']['Auth'];
+        }
         else
+        {
+            F::Log('Used another user VK.Auth', LOG_INFO);
             $Token =
-                    F::Run ('Entity', 'Read',
-                        [
-                            'Entity' => 'User',
-                            'Where'  =>
+                F::Run ('Entity', 'Read',
+                    [
+                        'Entity' => 'User',
+                        'Where'  =>
                             [
                                 'VKontakte.Active' => true
                             ],
-                            'Sort' =>
+                        'Sort' =>
                             [
                                 'Modified' => true
                             ],
-                            'One' => true
-                        ])['VKontakte']['Auth'];
+                        'One' => true
+                    ])['VKontakte']['Auth'];
+        }
 
         return $Token;
     });
