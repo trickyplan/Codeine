@@ -134,7 +134,6 @@
                             {
                                 $Call['Current Image']['Source']['Scope'] = 'Default/img';
                                 $Call['Current Image']['Source']['Where'] = ['ID' => 'Default.png'];
-                                d(__FILE__, __LINE__, $Call['Image']['Cached'] ); 
                             }
                         }
 
