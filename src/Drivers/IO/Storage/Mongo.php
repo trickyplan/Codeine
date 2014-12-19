@@ -67,7 +67,7 @@
 
             if (isset($Call['Distinct']) && $Call['Distinct'])
             {
-                F::Log('db.*'.$Call['Scope'].'*.distinct()', LOG_INFO, 'Administrator');
+                F::Log('db.*'.$Call['Scope'].'*.distinct("'.$Call['Fields'][0].'")', LOG_INFO, 'Administrator');
                 $Data = $Call['Link']->$Call['Scope']->distinct($Call['Fields'][0], $Call['Where']);
 
                 foreach ($Data as &$Value)
@@ -88,7 +88,7 @@
         {
             if (isset($Call['Distinct']) && $Call['Distinct'])
             {
-                F::Log('db.*'.$Call['Scope'].'*.distinct()', LOG_INFO, 'Administrator');
+                F::Log('db.*'.$Call['Scope'].'*.distinct("'.$Call['Fields'][0].'")', LOG_INFO, 'Administrator');
                 $Data = $Call['Link']->$Call['Scope']->distinct($Call['Fields'][0]);
 
                 foreach ($Data as $Key => &$Value)

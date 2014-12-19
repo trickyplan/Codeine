@@ -625,7 +625,8 @@
                         break;
 
                         case LOG_DEBUG:
-                            fwrite(STDERR, $Time.$Channel.": \033[0;37m ".$Message." \033[0m".PHP_EOL);
+                            if (self::$_Debug)
+                                fwrite(STDERR, $Time.$Channel.": \033[0;37m ".$Message." \033[0m".PHP_EOL);
                         break;
 
                         case LOG_USER:
@@ -647,14 +648,17 @@
                 }
                 else
                 {
-                    self::$_Log[$Channel][]
-                        = [
-                        $Verbose,
-                        round(microtime(true) - Started, 3),
-                        $Message,
-                        self::$_Service.':'.self::$_Method,
-                        self::$_Stack->count()
-                    ];
+                    if ($Verbose == LOG_DEBUG and !self::$_Debug)
+                        ;
+                    else
+                       self::$_Log[$Channel][]
+                            = [
+                            $Verbose,
+                            round(microtime(true) - Started, 3),
+                            $Message,
+                            self::$_Service.':'.self::$_Method,
+                            self::$_Stack->count()
+                        ];
                 }
             }
 

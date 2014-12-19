@@ -13,11 +13,14 @@
 
         $Call['Layouts'][] = ['Scope' => $Call['Entity'], 'ID' => 'Catalog', 'Context' => $Call['Context']];
         $Call['Fields'] = [$Call['Key']];
-        $Call['Distinct'] = true;
 
         $Call = F::Hook('beforeCatalog', $Call);
 
-            $Elements = F::Run('Entity', 'Read', $Call);
+            $Elements = F::Run('Entity', 'Read',
+                [
+                    'Entity' => $Call['Key'],
+                    'Where'  => []
+                ]);
 
             $Values = [];
 
@@ -25,23 +28,18 @@
             {
                 foreach ($Elements as $Element)
                 {
-                    if (empty($Element[$Call['Key']]))
-                        ;
-                    else
-                    {
-                        $Value = F::Run('Entity', 'Count',
+                    $Value = F::Run('Entity', 'Count',
+                    [
+                        'Entity' => $Call['Entity'],
+                        'RTTL'   => 600,
+                        'Where' =>
                         [
-                            'Entity' => $Call['Entity'],
-                            'RTTL'   => 600,
-                            'Where' =>
-                            [
-                                $Call['Key'] => $Element[$Call['Key']]
-                            ]
-                        ]);
+                            $Call['Key'] => $Element['ID']
+                        ]
+                    ]);
 
-                        if ($Value > 0)
-                            $Values[$Element[$Call['Key']]] = $Value;
-                    }
+                    if ($Value > 0)
+                        $Values[$Element['ID']] = $Value;
                 }
 
                 arsort($Values);

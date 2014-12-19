@@ -46,6 +46,8 @@
             // Перед выводом картинок
             $Call = F::Hook('beforeImageOutput', $Call);
 
+            $Expired = time()-$Call['Image']['TTL'];
+
                 foreach ($Call['Images'] as $Call['Current Image'])
                 {
                     // Если Where указан
@@ -87,7 +89,16 @@
                             [
                                 'ID' => $Call['Image']['Cached']
                             ]
-                        ]))
+                        ]) && F::Run('IO', 'Execute',
+                        [
+                            'Storage' => 'Image Cache',
+                            'Scope'   => [$Host, 'img', $Scope],
+                            'Execute' => 'Version',
+                            'Where'   =>
+                            [
+                                'ID' => $Call['Image']['Cached']
+                            ]
+                        ]) > $Expired)
                         {
                             F::Log('Cache *hit* '.$Call['Image']['Cached'], LOG_GOOD);
                             $Write = false;
@@ -123,6 +134,7 @@
                             {
                                 $Call['Current Image']['Source']['Scope'] = 'Default/img';
                                 $Call['Current Image']['Source']['Where'] = ['ID' => 'Default.png'];
+                                d(__FILE__, __LINE__, $Call['Image']['Cached'] ); 
                             }
                         }
 

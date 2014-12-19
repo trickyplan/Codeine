@@ -11,6 +11,7 @@
         "Pattern": "<image>(.+?)<\/image>",
         "Pathname": "/cache/img/",
         "Quality": 100,
+        "TTL": 86400,
         "Source":
         {
             "Storage": "Image"
