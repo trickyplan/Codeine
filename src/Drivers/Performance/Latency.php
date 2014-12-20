@@ -9,45 +9,48 @@
 
     setFn('Audit', function ($Call)
     {
-        $Total = round(microtime(true)-Started, 4)*1000;
-
-        $Decision = 'Green';
-
-        foreach ($Call['Latency']['Audit']['Limits'] as $Limit => $Value)
-            if ($Total >= $Value)
-                $Decision = $Limit;
-
-        $Verbose = LOG_DEBUG;
-
-        switch($Decision)
+        if (isset($Call['Latency']['Audit']['Limits']))
         {
-            case 'Green':
-                $Verbose = LOG_GOOD;
-            break;
+            $Total = round(microtime(true)-Started, 4)*1000;
 
-            case 'Orange':
-                $Verbose = LOG_NOTICE;
-            break;
+            $Decision = 'Green';
 
-            case 'Yellow':
-                $Verbose = LOG_WARNING;
-            break;
+            foreach ($Call['Latency']['Audit']['Limits'] as $Limit => $Value)
+                if ($Total >= $Value)
+                    $Decision = $Limit;
 
-            case 'Red':
-                $Verbose = LOG_ERR;
-            break;
+            $Verbose = LOG_DEBUG;
 
-            case 'Black':
-                $Verbose = LOG_CRIT;
-            break;
+            switch($Decision)
+            {
+                case 'Green':
+                    $Verbose = LOG_GOOD;
+                break;
+
+                case 'Orange':
+                    $Verbose = LOG_NOTICE;
+                break;
+
+                case 'Yellow':
+                    $Verbose = LOG_WARNING;
+                break;
+
+                case 'Red':
+                    $Verbose = LOG_ERR;
+                break;
+
+                case 'Black':
+                    $Verbose = LOG_CRIT;
+                break;
+            }
+
+            F::Log('Latency level is *'.$Decision.'*, because total page time *'.$Total.'* ms', $Verbose, 'Performance');
+
+            if ($Verbose <= LOG_NOTICE)
+                self::$_Performance = true;
+
+            $Call = F::Hook('Latency.Audit.'.$Decision, $Call);
         }
-
-        F::Log('Latency level is *'.$Decision.'*, because total page time *'.$Total.'* ms', $Verbose, 'Performance');
-
-        if ($Verbose <= LOG_NOTICE)
-            self::$_Performance = true;
-
-        $Call = F::Hook('Latency.Audit.'.$Decision, $Call);
 
         return $Call;
     });
