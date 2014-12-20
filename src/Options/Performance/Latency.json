@@ -3,6 +3,7 @@
     {
         "Audit":
         {
+            "Enabled": true,
             "Limits":
             {
                 "Orange": 500,

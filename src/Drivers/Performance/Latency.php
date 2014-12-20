@@ -9,7 +9,7 @@
 
     setFn('Audit', function ($Call)
     {
-        if (isset($Call['Latency']['Audit']['Limits']))
+        if (isset($Call['Latency']['Audit']['Enabled']) && $Call['Latency']['Audit']['Enabled'])
         {
             $Total = round(microtime(true)-Started, 4)*1000;
 
