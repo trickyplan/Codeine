@@ -191,5 +191,8 @@ a.no-border, .no-border a, a:hover.no-border, .no-border a:hover
 .label-default
 {
     color: #222222;
+    background-color: #f5f5f5;
+    border: 1px #f0f0f0 solid;
     margin-right: 2px;
+    padding-top: 4px;
 }
