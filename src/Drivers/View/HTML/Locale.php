@@ -65,7 +65,11 @@
                 else
                 {
                     F::Log('Locale '.$Match, LOG_ERR);
-                    $Match = '<span class="nl">' . $Match . '</span>';
+
+                    if (F::Environment() === 'Development')
+                        $Match = '<span class="nl">' . $Match . '</span>';
+                    else
+                        $Match = '';
                 }
             }
 
