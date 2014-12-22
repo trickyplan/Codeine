@@ -11,7 +11,7 @@
     {
         $Call['Value'] = '';
 
-        if (!isset($Call['Data']['Slug']) or empty($Call['Data']['Slug']))
+        // if (!isset($Call['Data']['Slug']) or empty($Call['Data']['Slug']))
         {
             if (is_array($Call['Key']))
             {
@@ -45,8 +45,8 @@
 
             $Call['Value'] = preg_replace('/([^a-z0-9\-])/', '', $Call['Value']); // FIXME
         }
-        else
-            $Call['Value'] = $Call['Data']['Slug'];
+        /*else
+            $Call['Value'] = $Call['Data']['Slug'];*/
 
         return $Call['Value'];
     });
