@@ -86,17 +86,22 @@
                 $Hit['_source']['Scope'] = $Call['Scope'];
 
                 $Data = F::Run('Entity', 'Read', ['Entity' => $Call['Scope'], 'One' => true, 'Where' => $Hit['_id']]);
-                $Data['Snippet'] = isset($Hit['highlight'][$Call['Highlight']][0])? $Hit['highlight'][$Call['Highlight']][0]: '';
 
-                $SERP[$Hit['_id']] =
-                [
-                    'Score' => $Hit['_score'],
-                    'Type'  => 'Template',
-                    'Scope' => $Call['Scope'].'/Show',
-                    'ID'    => isset($Call['Search Template'])? $Call['Search Template'] : 'Search',
-                    'Data'  => $Data
+                if (empty($Data))
+                    ;
+                else
+                {
+                    $Data['Snippet'] = isset($Hit['highlight'][$Call['Highlight']][0])? $Hit['highlight'][$Call['Highlight']][0]: '';
 
-                ];
+                    $SERP[$Hit['_id']] =
+                    [
+                        'Score' => $Hit['_score'],
+                        'Type'  => 'Template',
+                        'Scope' => $Call['Scope'].'/Show',
+                        'ID'    => isset($Call['Search Template'])? $Call['Search Template'] : 'Search',
+                        'Data'  => $Data
+                    ];
+                }
             }
         }
         else
