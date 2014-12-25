@@ -19,7 +19,10 @@ $(document).ready(function(){
                     success: function (data)
                     {
                         if (data == true)
+                        {
                             el.html(translation);
+                            el.removeClass('nl');
+                        }
                         else
                             el.html('Localization failed');
                     }

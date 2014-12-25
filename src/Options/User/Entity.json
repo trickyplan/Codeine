@@ -13,38 +13,10 @@
     "EPP": 20,
     "Nodes":
     {
-        "Gender":
-        {
-            "Type": "List.Enum",
-            "Default": "U",
-            "Verifiable": true,
-            "Options": ["U", "M", "F"],
-            "Localized": true,
-            "Widgets":
-            {
-                "Write":
-                {
-                    "Type": "Form.Select"
-                }
-            }
-        },
         "Status":
         {
             "Type": "Ternary",
             "Default": 1
-        },
-        "Title":
-        {
-            "Type": "Literal.String",
-            "Verifiable": true,
-            "User Override": true,
-            "Widgets":
-            {
-                "Write":
-                {
-                    "Type": "Form.Textfield"
-                }
-            }
         },
         "Password":
         {
@@ -95,18 +67,6 @@
                 }
             }
         },
-        "Photo":
-        {
-            "Type": "File.Upload",
-            "Storage": "Upload",
-            "Widgets":
-            {
-                "Write":
-                {
-                    "Type": "Form.File"
-                }
-            }
-        },
         "APIKey":
         {
             "Type": "Literal.String",
@@ -120,17 +80,6 @@
                     {
                         "Mode": "Secure+"
                     }
-                }
-            }
-        },
-        "Avatar":
-        {
-            "Hooks":
-            {
-                "beforeEntityWrite":
-                {
-                    "Service": "User.Entity",
-                    "Method": "Photo"
                 }
             }
         },

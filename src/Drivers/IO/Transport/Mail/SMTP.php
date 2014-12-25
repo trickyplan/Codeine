@@ -13,13 +13,20 @@
     {
         $Mail = new Mail;
 
-        return $Mail->factory('smtp',
+        if (isset($Call['SMTP Auth']) && $Call['SMTP Auth'])
+            return $Mail->factory('smtp',
                    [
                      'host' => $Call['Server'],
                      'port' => isset($Call['Port'])? $Call['Port']: 25,
                      'auth' => $Call['SMTP Auth'],
                      'username' => $Call['Username'],
                      'password' => $Call['Password'],
+                   ]);
+        else
+            return $Mail->factory('smtp',
+                   [
+                     'host' => $Call['Server'],
+                     'port' => isset($Call['Port'])? $Call['Port']: 25
                    ]);
     });
 

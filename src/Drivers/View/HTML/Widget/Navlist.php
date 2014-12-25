@@ -11,6 +11,8 @@
      {
          $Options = [];
 
+         $NavlistScope = isset($Call['Scope'])? $Call['Scope']: 'Navlist';
+
          if (isset($Call['Value']))
             $Call['Value'] = F::Live($Call['Value']);
          else
@@ -25,7 +27,7 @@
                  $Options[] = F::Run ('View', 'Load', $Call,
                      [
                          'Scope' => $Call['View']['HTML']['Widget Set'].'/Widgets',
-                         'ID'    => 'Navlist/Element',
+                         'ID'    => $NavlistScope.'/Element',
                          'Data'  => $Value
                      ]);
              }
@@ -33,7 +35,7 @@
                  $Options[] = F::Run ('View', 'Load', $Call,
                      [
                          'Scope' => $Call['View']['HTML']['Widget Set'].'/Widgets',
-                         'ID'    => 'Navlist/Header',
+                         'ID'    => $NavlistScope.'/Header',
                          'Data'  => ['Title' => $Value]
                      ]);
          }

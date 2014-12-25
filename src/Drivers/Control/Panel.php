@@ -66,7 +66,7 @@
 
             if (isset($Call['Sidebar']) && is_array($Call['Sidebar']))
             {
-                $Tabs = [];
+                $Actions = [];
                 foreach ($Call['Sidebar'] as &$Sidebar)
                 {
                     $Call['Run'] = [
@@ -79,17 +79,17 @@
                                 ]
                             ];
 
-                    $Tabs[] =
+                    $Actions[] =
                         [
                             'ID' => $Sidebar,
                             'URL' => '/control/'.$Call['Bundle'].'/'.$Sidebar,
-                            'Title' => $Call['Bundle'].'.Control:Options.'.$Sidebar];
+                            'Title' => '<l>'.$Call['Bundle'].'.Control:Options.'.$Sidebar.'</l>'];
                 }
 
                 $Call['Output']['Sidebar'][] =
                 [
-                    'Type' => 'Tabs',
-                    'Options!' => $Tabs,
+                    'Type' => 'Navlist',
+                    'Options!' => $Actions,
                     'Value' => $Call['Option']
                 ];
             }
@@ -97,6 +97,7 @@
             $Call['Output']['Navigation'][] = [
                 'Type' => 'Navlist',
                 'Options' => $Navigation,
+                'Scope' => 'NavlistWithIcons',
                 'Value' => $Call['Bundle']
             ];
         }

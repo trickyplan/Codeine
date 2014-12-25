@@ -1,8 +1,10 @@
 {
     "HTML Mail": true,
-    "SMTP Auth": true,
+    "SMTP Auth": false,
+    "Server": "localhost",
     "Headers":
     {
+        "From": "Codeine",
         "MIME-Version":"1.0",
         "Content-Type":"text/html; charset=utf-8"
     }
