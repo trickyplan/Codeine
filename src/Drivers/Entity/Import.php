@@ -30,8 +30,6 @@
 
     setFn('Input', function ($Call)
     {
-        F::Run('Entity', 'Delete', $Call);
-
         $Call['Data'] = jd(file_get_contents('php://stdin'), true);
 
         F::Log($Call['Entity'].' '.count($Call['Data']).' objects loaded from stdin', LOG_WARNING, 'Developer');
