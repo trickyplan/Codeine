@@ -11,7 +11,9 @@
     {
         $Logs = F::Logs();
 
-        if (!empty($Logs))
+        if (empty($Logs))
+            ;
+        else
         {
             foreach ($Logs as $Call['Channel'] => $Call['Logs'])
             {
@@ -22,7 +24,7 @@
                     [
                         'Print Log' => true,
                         'Storage' => $Call['Channel'],
-                        'ID' => '['.$Call['Channel'].'] '.$Call['HTTP']['Proto'].$Call['HTTP']['Host'].$Call['HTTP']['URI'],
+                        'Where' => '['.$Call['Channel'].'] '.$Call['HTTP']['Proto'].$Call['HTTP']['Host'].$Call['HTTP']['URI'],
                         'Data!' => $Call['Logs']
                     ]);
 
