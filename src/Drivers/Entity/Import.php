@@ -2,7 +2,7 @@
 
     /* Codeine
      * @author BreathLess
-     * @description  
+     * @description
      * @package Codeine
      * @version 7.x
      */
@@ -18,13 +18,12 @@
 
     setFn('GET', function ($Call)
     {
-
         return $Call;
     });
 
     setFn('POST', function ($Call)
     {
-        F::Run('Entity','Create', $Call, ['Data' => jd($Call['Request']['Data'], true)]);
+        F::Run('Entity', 'Create', $Call, ['Data' => jd($Call['Request']['Data'], true)]);
         return $Call;
     });
 
@@ -32,7 +31,7 @@
     {
         $Call['Data'] = jd(file_get_contents('php://stdin'), true);
 
-        F::Log($Call['Entity'].' '.count($Call['Data']).' objects loaded from stdin', LOG_WARNING, 'Developer');
+        F::Log($Call['Entity'] . ' ' . count($Call['Data']) . ' objects loaded from stdin', LOG_WARNING, 'Developer');
 
         foreach ($Call['Data'] as $Data)
             F::Run('Entity', 'Create', $Call, ['Skip Live' => true, 'Data!' => $Data]);
