@@ -151,22 +151,12 @@
     },
     "Hooks":
     {
-        "Storage":
+        "beforeIOWrite":
         {
-            "Open":
+            "Journaling for writes":
             {
-                "-Failed":
-                {
-                    "Error 500":
-                    {
-                        "Service": "Error.500",
-                        "Method": "Page",
-                        "Call":
-                        {
-                            "Message": "Storage Open Failed"
-                        }
-                    }
-                }
+                "Service": "IO.Hooks.Journal",
+                "Method": "beforeIOWrite"
             }
         }
     }
