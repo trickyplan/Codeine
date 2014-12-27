@@ -142,13 +142,28 @@
 
     setFn('Reindex', function ($Call)
     {
-        $Call = F::Run('Entity', 'Load', $Call);
-        $Entities = F::Run('Entity', 'Read', $Call);
+        $Call   = F::Apply('Entity', 'Load', $Call);
+        $Total  = F::Run('Entity', 'Count', $Call);
+        $Amount = ceil($Total/$Call['All']['Limit']);
 
-        foreach ($Entities as $Data)
-            F::Run(null, 'Index', $Call, ['Data!' => $Data]);
+        for ($i = 0; $i < $Amount; $i++)
+        {
+            $Objects = F::Run('Entity', 'Read', $Call,
+                [
+                    'No Memo' => true,
+                    'One' => false,
+                    'Limit' => ['From' => $i*$Call['All']['Limit'],
+                                'To'   => ($i+1)*$Call['All']['Limit']
+                                ]
+                ]);
 
-        return ['Indexed' => count($Entities)];
+            foreach($Objects as $Data)
+                F::Run(null, 'Index', $Call, ['Data!' => $Data]);
+
+            F::Log('Reindex Iteration № '.$i, LOG_WARNING);
+        }
+
+        return ['Indexed' => $Amount];
     });
 
     setFn('Remove', function ($Call)
