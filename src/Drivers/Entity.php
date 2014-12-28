@@ -161,6 +161,19 @@
 
         $Call = F::Hook('beforeOperation', $Call);
 
+            if (isset($Call['Where']))
+                ;
+            else
+            {
+                if (isset($Call['No Where']))
+                    ;
+                else
+                {
+                    F::Log('No where in Entity Update', LOG_ERR, 'Administrator');
+                    return null;
+                }
+            }
+
             $Entities = F::Run('Entity', 'Read', $Call, ['One' => false, 'Time' => microtime(true).rand()]);
 
             // Если присутствуют такие объекты
@@ -225,6 +238,19 @@
         }
 
         $Call = F::Hook('beforeOperation', $Call);
+
+        if (isset($Call['Where']))
+            ;
+        else
+        {
+            if (isset($Call['No Where']))
+                ;
+            else
+            {
+                F::Log('No where in Entity Delete', LOG_ERR, 'Administrator');
+                return null;
+            }
+        }
 
         $Current = F::Run('Entity', 'Read', $Call, ['Time' => microtime(true).rand()]);
 

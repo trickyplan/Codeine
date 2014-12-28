@@ -110,19 +110,6 @@
 
             $Call = F::Hook('beforeIOWrite', $Call);
 
-            if (isset($Call['Where']))
-                ;
-            else
-            {
-                if (isset($Call['No Where']))
-                    ;
-                else
-                {
-                    F::Log('No where in IO Write', LOG_ERR, 'Administrator');
-                    return null;
-                }
-            }
-
                 if ($Call['Link'] === null)
                     return null;
 
