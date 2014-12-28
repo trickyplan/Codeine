@@ -9,6 +9,16 @@
 
     setFn('Run', function ($Call)
     {
+        $VKTS = microtime(true);
+
+        $LastVKTS = F::Get('Last VK TS');
+        F::Set('Last VK TS', $VKTS);
+
+        if (($LastVKTS === null) or ($VKTS - $LastVKTS > (1/$Call['VKontakte']['Max Frequency'])))
+            ;
+        else
+            usleep($VKTS - $LastVKTS);
+
         $Result = null;
 
         $Call = F::Hook('beforeVKontakteRun', $Call);
