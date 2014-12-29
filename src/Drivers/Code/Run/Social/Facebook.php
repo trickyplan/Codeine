@@ -23,14 +23,22 @@
             $Query = '';
 
         $URL = $Call['Facebook']['Entry Point'].$Call['Method'].$Query;
-        $Result = F::Run('IO', 'Read',
+
+        $Result = F::Run($Call['Backend']['Service'], $Call['Backend']['Method'], 
+                         $Call['Backend']['Options'],
+               [
+                   'Where'      => $URL
+               ]);
+//        file_put_contents("/home/alex/work/karmon.log", print_r($Result, true).PHP_EOL, FILE_APPEND);
+
+/*        $Result = F::Run('IO', 'Read',
                [
                    'Storage'    => 'Web',
-                   'IO TTL'  => 86400,
+                   'IO TTL'     => 86400,
                    'Format'     => 'Formats.JSON',
                    'Where'      => $URL
                ]);
-
+*/
         $Result = array_pop($Result);
         if (isset($Call['Return Key']) && F::Dot($Result, $Call['Return Key']))
             $Result = F::Dot($Result, $Call['Return Key']);
