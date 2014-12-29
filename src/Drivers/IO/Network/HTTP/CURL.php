@@ -118,6 +118,7 @@
                    CURLOPT_PROXY            => $Call['CURL']['Proxy']['Host'],
                    CURLOPT_PROXYPORT        => $Call['CURL']['Proxy']['Port'],
                    CURLOPT_USERAGENT        => $Call['CURL']['User Agent'],
+                   CURLOPT_SSL_VERIFYPEER => false,
                    CURLOPT_FAILONERROR      => true
                 ]);
 
@@ -167,6 +168,7 @@
                 CURLOPT_FAILONERROR      => true,
                 CURLOPT_POST             => true,
                 CURLOPT_HTTPHEADER       => $Headers,
+                CURLOPT_SSL_VERIFYPEER => false,
                 CURLOPT_USERPWD          => isset($Call['User'])?
                     $Call['User'].':'.$Call['Password']: null, // FIXME
                 CURLOPT_HTTPAUTH         => CURLAUTH_BASIC,
@@ -228,16 +230,17 @@
         curl_setopt_array($Call['Link'],
                 [
                     CURLOPT_HEADER => true,
-                    CURLOPT_RETURNTRANSFER => true,
                     CURLOPT_COOKIEJAR => $Call['CURL']['Cookie Directory'].DS.parse_url($Call['Where']['ID'], PHP_URL_HOST),
-                    CURLOPT_FILETIME => true,
                     CURLOPT_NOBODY => true,
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_SSL_VERIFYPEER => false,
                     CURLOPT_FOLLOWLOCATION => $Call['CURL']['Follow'],
-                    CURLOPT_CONNECTTIMEOUT => $Call['CURL']['Connect Timeout']
+                    CURLOPT_CONNECTTIMEOUT => $Call['CURL']['Connect Timeout'],
+                    CURLOPT_USERAGENT        => $Call['CURL']['User Agent']
                 ]);
 
         curl_exec($Call['Link']);
-        $Result = (curl_getinfo($Call['Link'])['http_code'] == 200);
+        $Result = (curl_getinfo($Call['Link'], CURLINFO_HTTP_CODE) == 200);
 
         F::Stop('IO Curl Exist '.$Call['Where']['ID']);
         return $Result;

@@ -63,7 +63,7 @@
                     if ($Call['JS']['Scripts'][$JS])
                         F::Log('JS loaded: '.$JS, LOG_INFO);
                     else
-                        F::Log('JS cannot loaded: '.$JS, LOG_ERR);
+                        F::Log('JS cannot loaded: '.$JS, LOG_WARNING);
                 }
 
                 if (!empty($JSInline))

@@ -45,7 +45,7 @@
             "Images":
             {
                 "Service":"View.HTML.Image",
-                "Method":"Process"
+                "Method":"Process Page"
             },
             "JS":
             {
