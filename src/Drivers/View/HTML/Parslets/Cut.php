@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description Cut Parslet
      * @package Codeine
-     * @version 7.x
+     * @version 8.x
      */
 
     setFn ('Parse', function ($Call)

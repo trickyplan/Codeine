@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description Data.Types.Input
      * @package Codeine
-     * @version 7.x
+     * @version 8.x
      */
 
     setFn('Write', function ($Call)

@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description: Simple HTML Renderer
      * @package Codeine
-     * @version 7.x
+     * @version 8.x
      */
 
     setFn('Render', function ($Call)

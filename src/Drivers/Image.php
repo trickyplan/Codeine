@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description Image API
      * @package Codeine
-     * @version 7.x
+     * @version 8.x
      */
 
 

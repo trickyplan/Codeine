@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description Activation email 
      * @package Codeine
-     * @version 7.x
+     * @version 8.x
      */
 
     setFn('Verify', function ($Call)

@@ -3,7 +3,7 @@
     /* Codeine
      * @author BreathLess
      * @package Codeine
-     * @version 7.x
+     * @version 8.x
      */
 
     setFn ('Open', function ($Call)

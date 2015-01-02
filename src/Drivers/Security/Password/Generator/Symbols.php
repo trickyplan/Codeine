@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description: Password generator
      * @package Codeine
-     * @version 7.x
+     * @version 8.x
      * @date 04.12.10
      * @time 14:56
      */

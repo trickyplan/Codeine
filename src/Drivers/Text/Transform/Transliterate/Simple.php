@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description Транслитерация по правилам загранпаспортов 
      * @package Codeine
-     * @version 7.x
+     * @version 8.x
      */
 
     setFn('Do', function ($Call)

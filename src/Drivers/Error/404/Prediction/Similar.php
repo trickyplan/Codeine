@@ -4,7 +4,7 @@
      * @author BreathLess
      * @description Similar text & Static Links 
      * @package Codeine
-     * @version 7.x
+     * @version 8.x
      */
 
     setFn('Suggest', function ($Call)
