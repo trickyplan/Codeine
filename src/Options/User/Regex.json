@@ -22,7 +22,7 @@
                 "Page": "$1"
             }
         },
-        "Show user":
+        "Show user by ID":
         {
             "Match":"^/user/(\\d+)$",
             "Service":"Entity.Show.Static",

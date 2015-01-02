@@ -53,11 +53,11 @@
                     phpQuery::each(pq($Rule['Selector']),function($Index, $Element) use (&$Data, $Key, $Rule, $Call)
                     {
                         if (isset($Rule['Text']))
-                            $Value = preg_replace ('/\\s{2,}|\\s{2,}$/Ssm', "\n", pq($Element)->text());
+                            $Value = preg_replace ('/\\s{2,}|\\s{2,}$/Ssm', PHP_EOL, pq($Element)->text());
                         elseif (isset($Rule['Attr']))
-                            $Value = preg_replace ('/\\s{2,}|\\s{2,}$/Ssm', "\n", pq($Element)->attr($Rule['Attr']));
+                            $Value = preg_replace ('/\\s{2,}|\\s{2,}$/Ssm', PHP_EOL, pq($Element)->attr($Rule['Attr']));
                         else
-                            $Value = preg_replace ('/\\s{2,}|\\s{2,}$/Ssm', "\n", pq($Element)->html());
+                            $Value = preg_replace ('/\\s{2,}|\\s{2,}$/Ssm', PHP_EOL, pq($Element)->html());
 
                         if (empty($Value))
                             F::Log($Key.' not defined', LOG_INFO);
@@ -108,4 +108,28 @@
         $Call['View']['Renderer'] = ['Service' => 'View.JSON', 'Method' => 'Render'];
         $Call['Output']['Content'][] = $Call['Data'];
         return $Call;
+    });
+
+    setFn('URL', function ($Call)
+    {
+        $Markup = file_get_contents($Call['URL']);
+
+        if ($Call['Schema'] = F::Run(null, 'Discovery', $Call))
+            $Call = F::Run(null, 'Do', $Call, ['Markup' => $Markup]);
+        else
+            $Call['Data'] = null;
+
+        $Call['View']['Renderer'] = ['Service' => 'View.JSON', 'Method' => 'Render'];
+        $Call['Output']['Content'][] = $Call['Data'];
+
+        return $Call;
+    });
+
+    setFn('Discovery', function ($Call)
+    {
+        foreach ($Call['Parser']['Discovery'] as $Rule)
+            if (preg_match($Rule['Match'], $Call['URL']))
+                return $Rule['Schema'];
+
+        return null;
     });

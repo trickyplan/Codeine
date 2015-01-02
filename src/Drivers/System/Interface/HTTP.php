@@ -88,7 +88,11 @@
                 $URL = str_replace($Key, F::Dot($Call,$Vars[1][$IX]) , $URL);
         }
 
-        $Call['HTTP']['Headers']['HTTP/1.1'] = ' 301 Moved Permanently';
+        if (isset($Call['HTTP']['Redirect']) && $Call['HTTP']['Redirect'] == 'Permanent')
+            $Call['HTTP']['Headers']['HTTP/1.1'] = ' 301 Moved Permanently';
+        else
+            $Call['HTTP']['Headers']['HTTP/1.1'] = ' 302 Moved Temporarily';
+
         $Call['HTTP']['Headers']['Location:'] = $URL;
         $Call['HTTP']['Headers']['Cache-Control:'] = 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0';
 
@@ -110,7 +114,11 @@
         else
             $URL = 'http://'.$URL;
 
-        $Call['HTTP']['Headers']['HTTP/1.1'] = ' 301 Moved Permanently';
+        if (isset($Call['HTTP']['Redirect']) && $Call['HTTP']['Redirect'] == 'Permanent')
+            $Call['HTTP']['Headers']['HTTP/1.1'] = ' 301 Moved Permanently';
+        else
+            $Call['HTTP']['Headers']['HTTP/1.1'] = ' 302 Moved Temporarily';
+
         $Call['HTTP']['Headers']['Location:'] = $URL;
         $Call['HTTP']['Headers']['Cache-Control:'] = 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0';
 
