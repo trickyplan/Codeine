@@ -49,21 +49,38 @@
 
         $Call['Limit'] = ['From' => ($Call['Page']-1)*$Call['Sitemap']['URLs'], 'To' => $Call['Sitemap']['URLs']];
 
-        $Elements = F::Run('Entity', 'Read', $Call, ['Fields' => [$Call['Sitemap']['URL Field'], 'ID'], 'Partial' => true]);
+        if (is_array($Call['Sitemap']['URL Field']))
+            $Call['Fields'] = array_merge($Call['Sitemap']['URL Field'], ['ID']);
+        else
+            $Call['Fields'] = [$Call['Sitemap']['URL Field'], 'ID'];
+
+        $Elements = F::Run('Entity', 'Read', $Call, ['Partial' => true]);
 
         if (count($Elements) > 0)
             foreach ($Elements as $Element)
             {
-                if (isset($Element[$Call['Sitemap']['URL Field']]))
-                    ;
+                if (is_array($Call['Sitemap']['URL Field']))
+                {
+                    $Slug = [];
+                    foreach ($Call['Sitemap']['URL Field'] as $Field)
+                        if (isset($Element[$Field]))
+                            $Slug[] = urlencode($Element[$Field]);
+
+                    $Slug = implode('/', $Slug);
+                }
                 else
-                    $Element[$Call['Sitemap']['URL Field']] = $Element['ID'];
+                {
+                    if (isset($Element[$Call['Sitemap']['URL Field']]))
+                        $Slug = urlencode($Element[$Call['Sitemap']['URL Field']]);
+                    else
+                        $Slug = $Element['ID'];
+                }
 
                 $Call['Output']['Content'][] =
                 [
                     'url' =>
                     [
-                        'loc' => $Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/'.$Call['Scope'].'/'.urlencode($Element[$Call['Sitemap']['URL Field']]),
+                        'loc' => $Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/'.$Call['Scope'].'/'.$Slug,
                         'lastmod' => date(DATE_W3C),
                         'changefreq' => $Call['Frequency'],
                         'priority'   => $Call['Priority']

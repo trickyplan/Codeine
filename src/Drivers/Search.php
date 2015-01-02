@@ -43,7 +43,7 @@
                 if (isset($Call['Search']['Query']['Max']) && mb_strlen($Call['Query']) > $Call['Search']['Query']['Max'])
                     $Call['Query'] = mb_substr($Call['Query'], 0, $Call['Search']['Query']['Max']);
 
-                if (isset($Call['Provider']))
+                if (isset($Call['Provider']) and !isset($Call['Search']['Force Vertical']))
                 {
                     if (is_array($Call['Provider']))
                         $Providers = $Call['Provider'];
@@ -91,6 +91,8 @@
                 }
                 $Call['Output']['Content'] = F::Sort($Call['Output']['Content'], 'Score', SORT_DESC);
             }
+
+            $Call['Empty Query'] = empty($Call['Query']);
 
             if ($Call['Hits']['All'] == 0)
                 $Call['Output']['Content'][] =

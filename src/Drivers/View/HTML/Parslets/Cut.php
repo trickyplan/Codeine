@@ -13,7 +13,11 @@
         {
             $Root = simplexml_load_string('<root '.$Call['Parsed'][1][$IX].'></root>');
 
-            $Inner = strip_tags($Call['Parsed'][2][$IX]);
+            $Inner = $Call['Parsed'][2][$IX];
+
+            if (F::Dot($Call ,'View.HTML.Parslet.Cut.StripTags.Enabled'))
+                $Inner = strip_tags($Inner, F::Dot($Call ,'View.HTML.Parslet.Cut.StripTags.Allowed'));
+
             $Outer = $Inner;
 
             if ($Root->attributes()->chars)
@@ -43,7 +47,7 @@
             if ($Root->attributes()->hellip)
                 $Hellip = (string) $Root->attributes()->hellip;
             else
-                $Hellip = $Call['Hellip'];
+                $Hellip = F::Dot($Call ,'View.HTML.Parslet.Cut.Hellip');
 
             if ($Root->attributes()->more)
                 $Hellip = '<a href="'.((string) $Root->attributes()->more).'" class="hellip">'.$Hellip.'</a>';

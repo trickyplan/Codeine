@@ -1,3 +1,17 @@
 {
-    "Hellip": "…"
+    "View":
+    {
+        "HTML":
+        {
+            "Parslet":
+            {
+                "Strip Tags":
+                {
+                    "Enabled": true,
+                    "Allowed": "<br/><em><strong>"
+                },
+                "Hellip": "…"
+            }
+        }
+    }
 }
