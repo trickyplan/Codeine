@@ -53,6 +53,8 @@
     {
         $Call = F::Hook('beforeRender', $Call);
 
+        $Call['Environment'] = self::$_Environment;
+
         if (isset($Call['View']['Renderer']))
         {
             F::Log('Start '.$Call['View']['Renderer']['Service'].' Rendering', LOG_INFO);
