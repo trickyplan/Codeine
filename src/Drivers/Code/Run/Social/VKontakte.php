@@ -63,7 +63,7 @@
         else
         {
             F::Log('Used another user VK.Auth', LOG_INFO);
-            $Token =
+            $TokenUsers =
                 F::Run ('Entity', 'Read',
                     [
                         'Entity' => 'User',
@@ -75,8 +75,14 @@
                             [
                                 'Modified' => true
                             ],
-                        'One' => true
-                    ])['VKontakte']['Auth'];
+                        'Limit' =>
+                        [
+                            'From' => 0,
+                            'To'   => $Call['VKontakte']['Token Users']
+                        ]
+                    ]);
+
+            $Token = $TokenUsers[array_rand($TokenUsers)]['VKontakte']['Auth'];
         }
 
         return $Token;
