@@ -15,7 +15,7 @@
             exit(1);
         else
             foreach ($Call['Daemons'] as $DaemonName => $Daemon)
-                F::Log('Daemon *'.$DaemonName.'* loaded', LOG_WARNING);
+                F::Log('Daemon *'.$DaemonName.'* loaded', LOG_INFO);
 
         declare(ticks = 1);
 
@@ -65,7 +65,7 @@
 
             $Ungrateful = [];
 
-            F::Log('Daemon started', LOG_WARNING);
+            F::Log('Daemon started', LOG_INFO);
 
             $Ticks = 0;
             while (F::Run(null, 'Running?', $Call))
@@ -94,7 +94,7 @@
                                 $Result = F::Live($Daemon['Execute']);
 
                                 if ($Result !== null)
-                                    F::Log($DaemonName.'> '.getmypid().': '.j($Result), LOG_WARNING);
+                                    F::Log($DaemonName.'> '.getmypid().': '.j($Result), LOG_INFO);
                             }
 
                         exit(4);

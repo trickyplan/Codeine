@@ -606,45 +606,46 @@
 
                 if (PHP_SAPI == 'cli')
                 {
-                    switch (round($Verbose))
-                    {
-                        case LOG_EMERG:
-                            fwrite(STDERR, $Time.$Channel.": \033[0;31m ".$Message." \033[0m".PHP_EOL);
-                        break;
+                    if (($Verbose <= self::$_Verbose[$Channel]))
+                        switch (round($Verbose))
+                        {
+                            case LOG_EMERG:
+                                fwrite(STDERR, $Time.$Channel.": \033[0;31m ".$Message." \033[0m".PHP_EOL);
+                            break;
 
-                        case LOG_CRIT:
-                            fwrite(STDERR, $Time.$Channel.": \033[0;31m ".$Message." \033[0m".PHP_EOL);
-                        break;
+                            case LOG_CRIT:
+                                fwrite(STDERR, $Time.$Channel.": \033[0;31m ".$Message." \033[0m".PHP_EOL);
+                            break;
 
-                        case LOG_ERR:
-                            fwrite(STDERR, $Time.$Channel.": \033[0;31m ".$Message." \033[0m".PHP_EOL);
-                        break;
+                            case LOG_ERR:
+                                fwrite(STDERR, $Time.$Channel.": \033[0;31m ".$Message." \033[0m".PHP_EOL);
+                            break;
 
-                        case LOG_WARNING:
-                            fwrite(STDERR, $Time.$Channel.": \033[0;33m ".$Message." \033[0m".PHP_EOL);
-                        break;
+                            case LOG_WARNING:
+                                fwrite(STDERR, $Time.$Channel.": \033[0;33m ".$Message." \033[0m".PHP_EOL);
+                            break;
 
-                        case LOG_DEBUG:
-                            if (self::$_Debug)
+                            case LOG_DEBUG:
+                                if (self::$_Debug)
+                                    fwrite(STDERR, $Time.$Channel.": \033[0;37m ".$Message." \033[0m".PHP_EOL);
+                            break;
+
+                            case LOG_USER:
                                 fwrite(STDERR, $Time.$Channel.": \033[0;37m ".$Message." \033[0m".PHP_EOL);
-                        break;
+                            break;
 
-                        case LOG_USER:
-                            fwrite(STDERR, $Time.$Channel.": \033[0;37m ".$Message." \033[0m".PHP_EOL);
-                        break;
+                            case LOG_INFO:
+                                fwrite(STDERR, $Time.$Channel.": \033[1;34m ".$Message." \033[0m".PHP_EOL);
+                            break;
 
-                        case LOG_INFO:
-                            fwrite(STDERR, $Time.$Channel.": \033[1;34m ".$Message." \033[0m".PHP_EOL);
-                        break;
+                            case LOG_IMPORTANT:
+                                fwrite(STDERR, $Time.$Channel."> \033[0;31m ".$Message." \033[0m".PHP_EOL);
+                            break;
 
-                        case LOG_IMPORTANT:
-                            fwrite(STDERR, $Time.$Channel."> \033[0;31m ".$Message." \033[0m".PHP_EOL);
-                        break;
-
-                        default:
-                            fwrite(STDERR, $Channel.'> '.$Message.PHP_EOL);
-                        break;
-                    }
+                            default:
+                                fwrite(STDERR, $Channel.'> '.$Message.PHP_EOL);
+                            break;
+                        }
                 }
                 else
                 {
