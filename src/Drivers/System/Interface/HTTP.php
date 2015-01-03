@@ -28,8 +28,7 @@
 
                 try
                 {
-                        $Call = F::Apply($Call['Service'], $Call['Method'], $Call);
-
+                    $Call = F::Apply($Call['Service'], $Call['Method'], $Call);
                 }
                 catch (Exception $e)
                 {
@@ -129,38 +128,19 @@
 
     setFn('StoreURL', function ($Call)
     {
-        if (isset($Call['Request']['BackURL']))
+     /*   if (isset($Call['Request']['BackURL']))
             $Call['BackURL'] = $Call['Request']['BackURL'];
         elseif (isset($_SERVER['HTTP_REFERER']))
             $Call['BackURL'] = $_SERVER['HTTP_REFERER'];
-        else
-            $Call['BackURL'] = $Call['HTTP']['URL'];
 
-        if (isset($Call['HTTP']['Cookie']['BackURL']) && ($Call['BackURL'] == $Call['HTTP']['Cookie']['BackURL']))
-            ;
-        else
-        {
-            if ($Call['BackURL'] == '/')
-                ;
-            else
-            {
-                F::Run('IO', 'Write', $Call, ['Storage' => 'Cookie', 'Where' => ['ID' => 'BackURL'], 'Data' => $Call['BackURL']]);
-                // $Call = F::Run('Session', 'Write', $Call, ['Session Data' => ['BackURL' => $Call['BackURL']]]);
-                F::Log('Back URL set to *'.$Call['BackURL'].'*', LOG_INFO);
-            }
-        }
-
+        F::Log('Back URL set to *'.$Call['BackURL'].'*', LOG_INFO);*/
         return $Call;
     });
 
     setFn('RestoreURL', function ($Call)
     {
-        if (isset($Call['HTTP']['Cookie']['BackURL']) && !empty($Call['HTTP']['Cookie']['BackURL']))
-        {
-            // F::Run('Session', 'Write', $Call, ['Session Data' => ['BackURL' => null]]);
-            F::Run('IO', 'Write', $Call, ['Storage' => 'Cookie', 'Where' => ['ID' => 'BackURL'], 'Data' => '']);
-            $Call = F::Apply('System.Interface.HTTP', 'Redirect', $Call, ['Location' => $Call['HTTP']['Cookie']['BackURL']]);
-        }
+        if (isset($Call['Request']['BackURL']) && !empty($Call['Request']['BackURL']))
+            $Call = F::Apply('System.Interface.HTTP', 'Redirect', $Call, ['Location' => $Call['Request']['BackURL']]);
 
         return $Call;
     });

@@ -21,24 +21,33 @@
 
     setFn('Identificate', function ($Call)
     {
+
         return F::Run('System.Interface.HTTP', 'Redirect', $Call,
             [
-                'Location' => 'https://www.facebook.com/dialog/oauth?client_id='.$Call['Facebook']['AppID'].'&scope='
-                .$Call['Facebook']['Rights'].'&redirect_uri='.urlencode($Call['HTTP']['Proto'].$Call['HTTP']['Host']
-                .'/authenticate/Facebook').'&response_type=code'
+                'Location' => 'https://www.facebook.com/dialog/oauth?'
+                .'client_id='.$Call['Facebook']['AppID']
+                .'&scope='.$Call['Facebook']['Rights']
+                .'&response_type=code'
+                .'&redirect_uri='
+                .$Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/authenticate/Facebook?BackURL='.urlencode($Call['Request']['BackURL'])
             ]);
     });
 
     setFn('Authenticate', function ($Call)
     {
-        $URL = 'https://graph.facebook.com/oauth/access_token?client_id='.$Call['Facebook']['AppID']
-            .'&client_secret='.$Call['Facebook']['Secret'].'&code='.$Call['Request']['code']
-            .'&redirect_uri='.urlencode($Call['HTTP']['Proto'].$Call['HTTP']['Host']).'/authenticate/Facebook';
+        $URL = 'https://graph.facebook.com/oauth/access_token';
 
         $Result = F::Run('IO', 'Read',
              [
                  'Storage'  => 'Web',
-                 'Where'    => $URL
+                 'Where'    => $URL,
+                 'Data'     =>
+                 [
+                     'client_id'     => $Call['Facebook']['AppID'],
+                     'client_secret' => $Call['Facebook']['Secret'],
+                     'code'          => $Call['Request']['code'],
+                     'redirect_uri'  => $Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/authenticate/Facebook?BackURL='.urlencode($Call['Request']['BackURL'])
+                 ]
              ]);
 
         $Result = array_pop($Result);
@@ -56,6 +65,7 @@
                     ]);
 
             $Updated = [];
+
             if (isset($Call['Session']['User']['ID']))
             {
                 $Call['User'] = F::Run('Entity', 'Read', $Call,
@@ -114,6 +124,7 @@
                     'Expire' => time()+$Result['expires'],
                     'Logged' => time()
                 ];
+
             foreach ($Call['Facebook']['Mapping'] as $FacebookField => $CodeineField)
                 if (isset($Facebook[$FacebookField]) && !empty($Facebook[$FacebookField]))
                     $Updated = F::Dot($Updated, $CodeineField,$Facebook[$FacebookField]);

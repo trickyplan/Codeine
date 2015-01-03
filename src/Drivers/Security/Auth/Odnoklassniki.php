@@ -24,7 +24,7 @@
             'http://www.odnoklassniki.ru/oauth/authorize?'
             .'client_id='.$Call['Odnoklassniki']['AppID']
             .'&scope='.$Call['Odnoklassniki']['Rights']
-            .'&redirect_uri='.urlencode($Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/authenticate/Odnoklassniki')
+            .'&redirect_uri='.urlencode($Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/authenticate/Odnoklassniki?BackURL='.$Call['Request']['BackURL'])
             .'&response_type=code'
         ]);
     });
@@ -37,7 +37,7 @@
             $URL = 'http://api.odnoklassniki.ru/oauth/token.do';
 			$params = array(
                 'code' => $Call['Request']['code'],
-                'redirect_uri' => urlencode($Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/authenticate/Odnoklassniki'),
+                'redirect_uri' => urlencode($Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/authenticate/Odnoklassniki?BackURL='.$Call['Request']['BackURL']),
                 'grant_type' => 'authorization_code',
                 'client_id' => $Call['Odnoklassniki']['AppID'],
                 'client_secret' => $Call['Odnoklassniki']['Secret']
