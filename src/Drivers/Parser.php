@@ -110,20 +110,6 @@
         return $Call;
     });
 
-    setFn('URL', function ($Call)
-    {
-        $Markup = file_get_contents($Call['URL']);
-
-        if ($Call['Schema'] = F::Run(null, 'Discovery', $Call))
-            $Call = F::Run(null, 'Do', $Call, ['Markup' => $Markup]);
-        else
-            $Call['Data'] = null;
-
-        $Call['View']['Renderer'] = ['Service' => 'View.JSON', 'Method' => 'Render'];
-        $Call['Output']['Content'][] = $Call['Data'];
-
-        return $Call;
-    });
 
     setFn('Discovery', function ($Call)
     {

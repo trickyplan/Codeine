@@ -25,6 +25,25 @@
 
     setFn('POST', function ($Call)
     {
-        d(__FILE__, __LINE__, $Call['Request']);
+        $Call['URL'] = $Call['Request']['Data']['URL'];
+        $Result = F::Run('IO', 'Read',
+        [
+            'Storage' => 'Web',
+            'Where'   =>
+            [
+                'ID' => $Call['URL']
+            ]
+        ]);
+
+        $Result = array_pop($Result);
+
+        if ($Call['Schema'] = F::Run('Parser', 'Discovery', $Call))
+            $Call = F::Run('Parser', 'Do', $Call, ['Markup' => $Result]);
+        else
+            $Call['Data'] = null;
+
+        $Call['View']['Renderer'] = ['Service' => 'View.JSON', 'Method' => 'Render'];
+        $Call['Output']['Content'][] = $Call['Data'];
+
         return $Call;
     });
