@@ -77,6 +77,7 @@
             $Results = ['hits' => ['total' => 0]];
         }
 
+        $IX = 0;
         $SERP = [];
 
         if ($Results['hits']['total'] > 0)
@@ -91,6 +92,7 @@
                     ;
                 else
                 {
+                    $IX++;
                     $Data['Snippet'] = isset($Hit['highlight'][$Call['Highlight']][0])? $Hit['highlight'][$Call['Highlight']][0]: '';
 
                     $SERP[$Hit['_id']] =
@@ -103,6 +105,8 @@
                     ];
                 }
             }
+
+            $Results['hits']['total'] = $IX;
         }
         else
         {
