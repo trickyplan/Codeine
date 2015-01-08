@@ -36,35 +36,45 @@
 
     setFn('Parse', function ($Call)
     {
+        $IDs = null;
+
         for ($Call['IX'] = $Call['From']; $Call['IX'] < $Call['To']; $Call['IX'] ++)
-        {
-            $Call['Data'] = [];
-            $Call['URL'] = F::Live($Call['Pattern'], $Call);
+            $IDs[] = $Call['IX'];
 
-            $Result = F::Live($Call['Parser']['Numbered']['Backend'],
-            [
-                'Where' =>
-                [
-                    'ID' => $Call['URL']
-                ]
-            ]);
+        if (isset($Call['Randomize']))
+            shuffle($IDs);
 
-            $Result = array_pop($Result);
-
-            if ($Call['Schema'] = F::Run('Parser', 'Discovery', $Call))
+        if (is_array($IDs))
+            foreach ($IDs as $ID)
             {
-                $Call = F::Run('Parser', 'Do', $Call, ['Markup' => $Result]);
-                $Slices = explode(DS, $Call['Schema']);
-                $Call['Entity'] = array_pop($Slices);
+                $Call['IX'] = $ID;
+                $Call['Data'] = [];
+                $Call['URL'] = F::Live($Call['Pattern'], $Call);
 
-                if ($Call['Data']['Percent'] == 0)
-                    ;
+                $Result = F::Live($Call['Parser']['Numbered']['Backend'],
+                [
+                    'Where' =>
+                    [
+                        'ID' => $Call['URL']
+                    ]
+                ]);
+
+                $Result = array_pop($Result);
+
+                if ($Call['Schema'] = F::Run('Parser', 'Discovery', $Call))
+                {
+                    $Call = F::Run('Parser', 'Do', $Call, ['Markup' => $Result]);
+                    $Slices = explode(DS, $Call['Schema']);
+                    $Call['Entity'] = array_pop($Slices);
+
+                    if ($Call['Data']['Percent'] == 0)
+                        ;
+                    else
+                        $Call['Data'] = F::Run('Entity', 'Create', $Call, ['One' => true]);
+                }
                 else
-                    $Call['Data'] = F::Run('Entity', 'Create', $Call, ['One' => true]);
+                    $Call['Data'] = null;
             }
-            else
-                $Call['Data'] = null;
-        }
 
         return $Call;
     });
