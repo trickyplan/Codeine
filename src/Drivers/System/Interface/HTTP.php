@@ -203,8 +203,6 @@
         else
             F::Log($Call['Request'], LOG_INFO);
 
-
-
         return $Call;
     });
 
