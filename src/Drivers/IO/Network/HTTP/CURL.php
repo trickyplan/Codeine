@@ -49,6 +49,7 @@
     {
         $Return = null;
 
+        $Call = F::Run(null, 'Delay', $Call);
         $Call = F::Run(null, 'Select User Agent', $Call);
         $Call = F::Run(null, 'Select Proxy', $Call);
 
@@ -267,4 +268,15 @@
     setFn('Size', function ($Call)
     {
         return '∞';
+    });
+
+    setFn('Delay', function ($Call)
+    {
+        if (isset($Call['Random Delay']))
+            $Call['Delay'] = rand(0, $Call['Random Delay']);
+
+        if (isset($Call['Delay']))
+            usleep($Call['Delay']);
+
+        return $Call;
     });
