@@ -44,8 +44,16 @@
             if(count($Call['URLs']) == 0 or count($Links) > 200)
                 break;
 
+            F::Run('IO', 'Write',
+                [
+                    'Storage' => 'Scraped',
+                    'Where' =>
+                    [
+                        'ID' => strtr($Call['URL'], '/', '_')
+                    ],
+                    'Data' => $Call['Body']
+                ]);
 
-            file_put_contents('/var/scrape/'.$Call['URL'], $Call['Body']);
             $Call['IX']++;
         }
         return $Call;
@@ -69,48 +77,4 @@
 
         return $Call;
 
-    });
-
-
-
-    setFn('Select Proxy', function ($Call)
-    {
-        if ($Call['IX']%$Call['RPP'] == 0)
-        {
-            $Call['Proxy'] = [];
-
-            list($Call['Proxy']['Host'], $Call['Proxy']['Port']) =
-                explode(':', $Call['Proxies'][array_rand($Call['Proxies'])]);
-
-            F::Log('Proxy: '.$Call['Proxy']['Host'].' selected', LOG_WARNING);
-        }
-
-        return $Call;
-    });
-
-    setFn('Select User Agent', function ($Call)
-    {
-        if ($Call['IX']%$Call['RPP'] == 0)
-        {
-            $Call['User Agent'] = $Call['User Agents'][array_rand($Call['User Agents'])];
-            F::Log('UA: '.$Call['User Agent'].' selected', LOG_WARNING);
-        }
-
-        return $Call;
-    });
-
-    setFn('Load Proxy List', function ($Call)
-    {
-        if (file_exists(Root.'/proxy_http_ip.txt'))
-        {
-            F::Log(Root.'/proxy_http_ip.txt detected ', LOG_WARNING);
-            $List = file(Root.'/proxy_http_ip.txt');
-
-            foreach ($List as $Line)
-                if (!empty($Line))
-                    $Call['Proxies'][] = trim($Line);
-        }
-
-        F::Log(count($Call['Proxies']).' proxies loaded', LOG_WARNING);
-        return $Call;
     });

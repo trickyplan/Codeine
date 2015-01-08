@@ -15,5 +15,15 @@
 
     setFn('URL', function ($Call)
     {
-       return F::Run('Parser.Control.URL', 'Do', $Call);
+       return F::Run('Parser.URL', 'Do', $Call);
+    });
+
+    setFn('Numbered', function ($Call)
+    {
+       return F::Run('Parser.Numbered', 'Do', $Call);
+    });
+
+    setFn('Spider', function ($Call)
+    {
+       return F::Run('Parser.Spider', 'Do', $Call);
     });

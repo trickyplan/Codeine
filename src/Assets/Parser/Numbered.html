@@ -1,0 +1,30 @@
+<form class="form-vertical" action="" method="post">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Сформировать нумерованный список
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                <div class="input-group">
+                    <input id="Pattern" class="form-control input-lg" name="Data[Pattern]" type="url" placeholder="Паттерн URL" value="<call>Data.Pattern</call>"/>
+                    <div class="help-block">
+                        Вставьте $IX на место индекса
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <input id="From" class="form-control input-lg" name="Data[From]" type="number" placeholder="Стартовый индекс" value="<call>Data.From</call>"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <input id="To" class="form-control input-lg" name="Data[To]" type="number" placeholder="Конечный индекс" value="<call>Data.To</call>"/>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <input class="btn btn-default" type="submit"/>
+        </div>
+    </div>
+</form>

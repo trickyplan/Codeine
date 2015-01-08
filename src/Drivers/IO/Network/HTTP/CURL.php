@@ -26,6 +26,7 @@
     {
         if (isset($Call['CURL']['Random Proxy']) && isset($Call['CURL']['Proxies']))
         {
+            $Call['CURL']['Proxies'] = F::Live($Call['CURL']['Proxies']);
             list($Call['CURL']['Proxy']['Host'], $Call['CURL']['Proxy']['Port']) =
                 explode(':', $Call['CURL']['Proxies'][array_rand($Call['CURL']['Proxies'])]);
         }

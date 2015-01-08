@@ -16,7 +16,7 @@
     {
         $Call['Layouts'][] =
         [
-            'Scope' => 'Parser/Control',
+            'Scope' => 'Parser',
             'ID' => 'URL'
         ];
 
@@ -26,24 +26,33 @@
     setFn('POST', function ($Call)
     {
         $Call['URL'] = $Call['Request']['Data']['URL'];
-        $Result = F::Run('IO', 'Read',
-        [
-            'Storage' => 'Web',
-            'Where'   =>
+
+        $Result = F::Live($Call['Parser']['URL']['Backend'],
             [
-                'ID' => $Call['URL']
-            ]
-        ]);
+                'Where' =>
+                [
+                    'ID' => $Call['URL']
+                ]
+            ]);
 
         $Result = array_pop($Result);
 
         if ($Call['Schema'] = F::Run('Parser', 'Discovery', $Call))
+        {
             $Call = F::Run('Parser', 'Do', $Call, ['Markup' => $Result]);
+            $Slices = explode(DS, $Call['Schema']);
+            $Call['Entity'] = array_pop($Slices);
+
+            $Call['Data'] = F::Run('Entity', 'Create', $Call, ['One' => true]);
+        }
         else
             $Call['Data'] = null;
 
-        $Call['View']['Renderer'] = ['Service' => 'View.JSON', 'Method' => 'Render'];
-        $Call['Output']['Content'][] = $Call['Data'];
+        $Call['Output']['Content'][] =
+        [
+            'Type' => 'Block',
+            'Value' => j($Call['Data'])
+        ];
 
         return $Call;
     });

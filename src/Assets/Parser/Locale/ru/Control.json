@@ -1,9 +1,16 @@
 {
     "Options": {
         "Do": "Дашборд",
-        "URL": "Разобрать URL",
-        "URL List": "Разобрать список URL",
-        "Spider": "Разобрать домен"
+        "URL": "Одиночный URL",
+        "Numbered": "N-List",
+        "Spider": "Паук"
+    },
+    "Spider": {
+        "Options":
+        {
+            "Label": "Настройки обхода",
+            "Start": "Стартовый URL"
+        }
     },
     "Title": "Парсер"
 }

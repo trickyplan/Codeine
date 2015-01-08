@@ -1,0 +1,21 @@
+{
+    "Contract":
+    {
+        "Providers.Internet.Proxy.Fineproxy":
+        {
+            "List":
+            {
+                "RTTL": 86400,
+                "Memo": ["Format", "Type", "Login", "Password"]
+            }
+        }
+    },
+    "Fineproxy":
+    {
+        "List URL": "http://account.fineproxy.org/api/getproxy/",
+        "Format": "txt",
+        "Type": "httpip",
+        "Login": "YOUR_LOGIN",
+        "Password": "YOUR_PASS"
+    }
+}

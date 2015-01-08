@@ -1,0 +1,26 @@
+{
+    "Parser":
+    {
+        "Numbered":
+        {
+            "Backend":
+            {
+                "Service": "IO",
+                "Method": "Read",
+                "Call":
+                {
+                    "Storage": "Web",
+                    "CURL":
+                    {
+                        "Random Proxy": true,
+                        "Proxies":
+                        {
+                            "Service": "Providers.Internet.Proxy.Fineproxy",
+                            "Method": "List"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

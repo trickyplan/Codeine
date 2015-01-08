@@ -48,7 +48,7 @@
 
             if ($Run)
             {
-                $Result = F::Live($Call['Run']);
+                $Result = F::Live($Call['Run'], ['No Memo' => true]);
 
                 if ($Result === null)
                     $Result = $Envelope[0]['Result'];

@@ -371,6 +371,9 @@
                         self::Log(self::$_Service.':'.self::$_Method.'('.$CacheID.') fast forwarded.', LOG_GOOD, 'Performance');
                     else
                     {
+                        if (isset($FnOptions['Contract'][self::$_Service][self::$_Method]['RTTL']) && !isset($Call['RTTL']))
+                            $Call['RTTL'] = $FnOptions['Contract'][self::$_Service][self::$_Method]['RTTL'];
+
                         if (isset($Call['RTTL']) and isset($CacheID)
                             && isset(self::$_Options['Codeine']['Run Cache Enabled']) && self::$_Options['Codeine']['Run Cache Enabled'] === true)
                         {

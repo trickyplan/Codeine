@@ -49,6 +49,17 @@
             "Format": "Formats.JSON",
             "Suffix":".json"
         },
+        "Scraped":
+        {
+            "Driver":"IO.Storage.Directory",
+            "Directory":"/tmp/codeine/scraped",
+            "Directory Hashing":
+            {
+                "Enabled": true,
+                "Levels": 4
+            },
+            "Suffix":".html"
+        },
         "Layout":
         {
             "Driver":"IO.Storage.Directory",
