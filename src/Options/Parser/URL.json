@@ -12,6 +12,7 @@
                     "Storage": "Web",
                     "CURL":
                     {
+                        "Random User Agent": true,
                         "Random Proxy": true,
                         "Proxies":
                         {
