@@ -25,10 +25,21 @@
 
     setFn('POST', function ($Call)
     {
-        for ($Call['IX'] = $Call['Request']['Data']['From']; $Call['IX'] < $Call['Request']['Data']['To']; $Call['IX'] ++)
+        $Call['Pattern'] = $Call['Request']['Data']['Pattern'];
+        $Call['To'] = $Call['Request']['Data']['To'];
+        $Call['From'] = $Call['Request']['Data']['From'];
+
+        F::Run(null, 'Parse', $Call);
+
+        return $Call;
+    });
+
+    setFn('Parse', function ($Call)
+    {
+        for ($Call['IX'] = $Call['From']; $Call['IX'] < $Call['To']; $Call['IX'] ++)
         {
             $Call['Data'] = [];
-            $Call['URL'] = F::Live($Call['Request']['Data']['Pattern'], $Call);
+            $Call['URL'] = F::Live($Call['Pattern'], $Call);
 
             $Result = F::Live($Call['Parser']['Numbered']['Backend'],
             [
@@ -46,18 +57,12 @@
                 $Slices = explode(DS, $Call['Schema']);
                 $Call['Entity'] = array_pop($Slices);
 
-                $Call['Data'] = F::Run('Entity', 'Create', $Call, ['One' => true]);
+                if ($Call['Data']['Percent'] == 100)
+                    $Call['Data'] = F::Run('Entity', 'Create', $Call, ['One' => true]);
             }
             else
                 $Call['Data'] = null;
-
-            $Call['Output']['Content'][] =
-            [
-                'Type' => 'Block',
-                'Value' => j($Call['Data'])
-            ];
         }
-
 
         return $Call;
     });
