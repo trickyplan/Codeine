@@ -57,7 +57,9 @@
                 $Slices = explode(DS, $Call['Schema']);
                 $Call['Entity'] = array_pop($Slices);
 
-                if ($Call['Data']['Percent'] == 100)
+                if ($Call['Data']['Percent'] == 0)
+                    ;
+                else
                     $Call['Data'] = F::Run('Entity', 'Create', $Call, ['One' => true]);
             }
             else

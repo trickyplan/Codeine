@@ -27,8 +27,16 @@
         if (isset($Call['CURL']['Random Proxy']) && isset($Call['CURL']['Proxies']))
         {
             $Call['CURL']['Proxies'] = F::Live($Call['CURL']['Proxies']);
-            list($Call['CURL']['Proxy']['Host'], $Call['CURL']['Proxy']['Port']) =
-                explode(':', $Call['CURL']['Proxies'][array_rand($Call['CURL']['Proxies'])]);
+
+            $Random = $Call['CURL']['Proxies'][array_rand($Call['CURL']['Proxies'])];
+
+            if (strpos($Random, ':') === false)
+            {
+                $Call['CURL']['Proxy']['Host'] = $Random;
+                $Call['CURL']['Proxy']['Port'] = 80;
+            }
+            else
+                list($Call['CURL']['Proxy']['Host'], $Call['CURL']['Proxy']['Port']) = explode(':', $Random);
         }
 
         if (isset($Call['CURL']['Proxy']['Host']))
