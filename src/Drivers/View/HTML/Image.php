@@ -67,7 +67,7 @@
                             (isset($Call['Current Image']['Width'])? $Call['Current Image']['Width']: 0),
                             (isset($Call['Current Image']['Height'])? $Call['Current Image']['Height']: 0),
                             $Call['Current Image']['Source']['Scope'],
-                            strtr(parse_url($Call['Current Image']['Source']['Where']['ID'], PHP_URL_PATH), '/', '.')
+                            strtr(parse_url($Call['Current Image']['Source']['Where']['ID'], PHP_URL_PATH).parse_url($Call['Current Image']['Source']['Where']['ID'], PHP_URL_QUERY), '/', '.')
             ]);
 
         return $Call;
