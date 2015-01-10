@@ -37,11 +37,6 @@
         "Since":
         {
             "Type": "Date.Short",
-            "Default":
-            {
-                "Service": "System.Time",
-                "Method": "Get"
-            },
             "Widgets":
             {
                 "Write":
