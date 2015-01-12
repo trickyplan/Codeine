@@ -6,7 +6,7 @@
     {
         "Headers":
         {
-            "Content-type": "application/rss+xml; charset=utf-8"
+            "Content-type:": "application/rss+xml; charset=utf-8"
         }
     },
     "Hooks":
