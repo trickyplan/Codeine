@@ -3,6 +3,7 @@
     {
         "VoteFor":
         {
+            "Weight": 50,
             "Type": "Numeral.Integer",
             "Default": 0,
             "Hooks":
@@ -16,6 +17,7 @@
         },
         "VoteAgainst":
         {
+            "Weight": 50,
             "Type": "Numeral.Integer",
             "Default": 0,
             "Hooks":
@@ -24,6 +26,20 @@
                 {
                     "Service": "Vote.Entity",
                     "Method": "Count"
+                }
+            }
+        },
+        "VoteRatio":
+        {
+            "Weight": 100,
+            "Type": "Numeral.Integer",
+            "Default": 0,
+            "Hooks":
+            {
+                "beforeEntityWrite":
+                {
+                    "Service": "Vote.Entity",
+                    "Method": "Ratio"
                 }
             }
         }

@@ -23,3 +23,12 @@
         else
             return 0;
     });
+
+    setFn('Ratio', function ($Call)
+    {
+        $Sum = $Call['Data']['VoteFor']+$Call['Data']['VoteAgainst'];
+        if ($Sum == 0)
+            return 100;
+        else
+            return ($Call['Data']['VoteFor'] / $Sum);
+    });
