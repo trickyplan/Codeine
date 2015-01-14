@@ -48,7 +48,7 @@
 
         $Call['Headers']['From'] = $Screen;
         $Call['Headers']['To'] = $Call['Scope'];
-        $Call['Headers']['Subject'] = $Call['ID'];
+        $Call['Headers']['Subject'] = $Call['Where']['ID'];
 
         $mime = new Mail_mime();
 
