@@ -96,20 +96,24 @@
     setFn('Remove Token', function ($Call)
     {
         if (isset($Call['Where']['ID']))
+        {
             F::Run('Entity', 'Update',
                 [
                     'Entity' => 'User',
                     'Where'  => $Call['Where']['ID'],
                     'Skip Live' => true,
                     'Data'   =>
-                    [
-                        'VKontakte' =>
                         [
-                            'Active' => false,
-                            'Auth'      => null
+                            'VKontakte' =>
+                                [
+                                    'Active' => false,
+                                    'Auth'      => null
+                                ]
                         ]
-                    ]
                 ]);
+
+            F::Log('Invalid token cleaned', LOG_INFO);
+        }
 
         return $Call;
     });
