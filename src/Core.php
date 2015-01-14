@@ -687,7 +687,10 @@
                         $Output[$Channel][] = $Log;
 
                     if ($Log[0] <= self::$_Options['Codeine']['Panic Verbose'])
-                        return self::$_Log;
+                    {
+                        $Output[$Channel] = self::$_Log[$Channel];
+                        break;
+                    }
                 }
             }
 
