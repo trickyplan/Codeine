@@ -7,6 +7,70 @@
         "AppID": 0,
         "Secret": "SECRET",
         "Rights": "friends,offline",
-        "Token Users": 128
+        "Token Users": 128,
+        "Error":
+        {
+            "Codes":
+            {
+                "1" : "Unknown",
+                "2" : "Application.Disabled",
+                "3" : "Method.Unknown",
+                "4" : "Signature.Invalid",
+                "5" : "Auth.Failed",
+                "6" : "Request.Limited",
+                "7" : "Rights.Insufficient",
+                "8" : "Syntax.Incorrect",
+                "9" : "Request.TooManySame",
+                "10": "Server.Internal",
+                "11": "Application.TestMode",
+                "14": "CAPTCHA.Needed",
+                "15": "Forbidden",
+                "16": "HTTPS.Forced",
+                "17": "User.Unvalidated",
+                "20": "Access.RestrictedForStandalone",
+                "21": "Access.RestrictedForStandaloneAndAPI",
+                "23": "Method.Disabled",
+                "24": "User.ConfirmNeeded",
+                "100": "Parameter.Invalid",
+                "101": "APIID.Invalid",
+                "113": "User.InvalidID",
+                "150": "Timestamp.Invalid",
+                "200": "Photo.Forbidden",
+                "201": "Audio.Forbidden",
+                "203": "Group.Forbidden",
+                "300": "Photo.Full",
+                "500": "Payment.Restricted",
+                "600": "Advertisement.Access.Denied",
+                "603": "Advertisement.Internal"
+            }
+        }
+    },
+    "Hooks":
+    {
+        "VKontakte":
+        {
+            "Auth":
+            {
+                "Failed":
+                {
+                    "Remove expired token":
+                    {
+                        "Service": "Code.Run.Social.VKontakte",
+                        "Method": "Remove Token"
+                    }
+                }
+            },
+            "Server":
+            {
+                "Internal":
+                {
+                    "Remove expired token":
+                    {
+                        "Service": "Code.Run.Social.VKontakte",
+                        "Method": "Remove Token"
+                    }
+                }
+            }
+        }
     }
 }

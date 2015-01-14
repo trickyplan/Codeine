@@ -46,7 +46,12 @@
                 $Result = $Result['response'];
         }
         else
-            F::Log($Result['error'], LOG_ERR);
+        {
+            F::Hook('VKontakte.'.$Call['VKontakte']['Error']['Codes'][$Result['error']['error_code']], $Call);
+            F::Log($Result['error']['error_msg'], LOG_ERR);
+
+            $Result = null;
+        }
 
         F::Hook('afterVKontakteRun', $Call);
 
@@ -86,4 +91,25 @@
         }
 
         return $Token;
+    });
+
+    setFn('Remove Token', function ($Call)
+    {
+        if (isset($Call['Where']['ID']))
+            F::Run('Entity', 'Update',
+                [
+                    'Entity' => 'User',
+                    'Where'  => $Call['Where']['ID'],
+                    'Skip Live' => true,
+                    'Data'   =>
+                    [
+                        'VKontakte' =>
+                        [
+                            'Active' => false,
+                            'Auth'      => null
+                        ]
+                    ]
+                ]);
+
+        return $Call;
     });
