@@ -32,7 +32,7 @@
         "VoteRatio":
         {
             "Weight": 100,
-            "Type": "Numeral.Integer",
+            "Type": "Numeral.Float",
             "Default": 0,
             "Hooks":
             {
