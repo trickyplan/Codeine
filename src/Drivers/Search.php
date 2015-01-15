@@ -94,7 +94,7 @@
 
             $Call['Empty Query'] = empty($Call['Query']);
 
-            if ($Call['Hits']['All'] == 0)
+            if ($Call['Hits']['All'] == 0 && $Call['Context'] == 'Web')
                 $Call['Output']['Content'][] =
                 [
                     'Type'  => 'Template',
