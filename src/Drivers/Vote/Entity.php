@@ -38,6 +38,12 @@
 
         $Sum = $Call['Data']['VoteFor']+$Call['Data']['VoteAgainst'];
 
+        if ($Sum < 0.25)
+            $Sum = 0.25;
+
+        if ($Sum > 1)
+            $Sum = 1;
+
         if ($Sum == 0)
             return 1;
         else
