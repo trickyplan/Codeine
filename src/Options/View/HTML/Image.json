@@ -1,6 +1,7 @@
 {
     "Image":
     {
+        "Tag Format": "XML",
         "Class": "img",
         "Tags": [],
         "Alt": "",
@@ -9,7 +10,7 @@
         "Host": "",
         "Caching": true,
         "Hash Levels": 8,
-        "Pattern": "<image>(.+?)<\/image>",
+        "Pattern": "<image([^>]*)>(.+?)<\/image>",
         "Pathname": "/cache/img/",
         "Quality": 100,
         "TTL": 86400,

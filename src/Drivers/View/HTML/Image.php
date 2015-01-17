@@ -22,21 +22,24 @@
             else
                 $Call['Image']['Host'] = $Call['HTTP']['Host'];
 
-            $Call['Images'] = $Parsed[1];
+            $Call['Images'] = $Parsed[2];
 
             // Перед вводом картинок
             $Call = F::Hook('beforeImageInput', $Call);
 
                 // Чтение тегов
-                foreach ($Call['Images'] as &$Image)
-                    $Image = F::Merge($Call['Image'],
-                        jd(
-                            j(
-                                simplexml_load_string('<image>'.$Image.'</image>'),
-                                JSON_NUMERIC_CHECK
-                            ), true)
-                    );
+                foreach ($Call['Images'] as $IX => &$Image)
+                {
+                    $Format = $Call['Image']['Tag Format'];
 
+                    $Root = simplexml_load_string('<image'.$Parsed[1][$IX].'></image>');
+                    if (isset($Root->attributes()->type))
+                        $Format = (string) $Root->attributes()->type;
+
+                    $Image = F::Merge($Call['Image'],
+                        F::Run('Formats.'.$Format, 'Read', ['Value' => $Image])
+                    );
+                }
             // После ввода картинок
             $Call = F::Hook('afterImageInput', $Call);
 
