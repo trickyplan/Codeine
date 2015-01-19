@@ -41,10 +41,19 @@
     {
         $Result = null;
 
-        if (isset($Call['Session']['User']['Facebook']['Auth']))
-            $Result = $Call['Session']['User']['Facebook'];
+        if (isset($Call['Data']['Facebook']['Auth']))
+        {
+            F::Log('Used FB Token from Data', LOG_INFO);
+            $Result = $Call['Data']['Facebook']['Auth'];
+        }
+        elseif (isset($Call['Session']['User']['Facebook']['Auth']))
+        {
+            F::Log('Used FB Token from Session', LOG_INFO);
+            $Result = $Call['Session']['User']['Facebook']['Auth'];
+        }
         else
         {
+            F::Log('Used FB Token from random users', LOG_INFO);
             $Result = $Call['Data']['Facebook'] =
                 F::Run ('Entity', 'Read',
                     [

@@ -60,14 +60,19 @@
 
     setFn('Access Token', function ($Call)
     {
-        if (isset($Call['Session']['User']['VKontakte']['Auth']) && !empty($Call['Session']['User']['VKontakte']['Auth']))
+        if (isset($Call['Data']['VKontakte']['Auth']))
         {
-            F::Log('Used current user VK.Auth', LOG_INFO);
-            $Token = $Call['Session']['User']['VKontakte']['Auth'];
+            F::Log('Used VK Token from Data', LOG_INFO);
+            $Result = $Call['Data']['VKontakte']['Auth'];
+        }
+        elseif (isset($Call['Session']['User']['VKontakte']['Auth']))
+        {
+            F::Log('Used VK Token from Session', LOG_INFO);
+            $Result = $Call['Session']['User']['VKontakte']['Auth'];
         }
         else
         {
-            F::Log('Used another user VK.Auth', LOG_INFO);
+            F::Log('Used VK Token from random users', LOG_INFO);
             $TokenUsers =
                 F::Run ('Entity', 'Read',
                     [
