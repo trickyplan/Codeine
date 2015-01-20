@@ -92,10 +92,10 @@
                         ]
                     ]);
 
-            $Token = $TokenUsers[array_rand($TokenUsers)]['VKontakte']['Auth'];
+            $Result = $TokenUsers[array_rand($TokenUsers)]['VKontakte']['Auth'];
         }
 
-        return $Token;
+        return $Result;
     });
 
     setFn('Remove Token', function ($Call)
