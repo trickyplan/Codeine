@@ -1,6 +1,6 @@
 {
     "MaxChilds":32,
-    "RT": 5,
+    "RT": 1,
     "PID":
     {
         "Name": "codeined",
@@ -9,18 +9,18 @@
     },
     "Daemons":
     {
-        "Tic Tac":
+        "Timetable":
         {
-            "Precision": 60,
+            "Precision": 1,
             "Execute":
             {
-                "Service": "System.Time",
-                "Method": "Get"
+                "Service": "Code.Flow.Timetable",
+                "Method": "Run"
             }
         },
         "Delayed":
         {
-            "Precision": 1,
+            "Precision": 30,
             "Execute":
             {
                 "Service": "Code.Run.Delayed",

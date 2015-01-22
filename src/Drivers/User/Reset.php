@@ -15,7 +15,7 @@
 
     setFn('ByID', function ($Call)
     {
-        $Call['User'] = F::Run('Entity', 'Read', $Call,  ['Entity' => 'User', 'One' => true]);
+        $Call['User'] = F::Run('Entity', 'Read', $Call, ['Entity' => 'User', 'One' => true]);
 
         if (!empty($Call['User']))
         {
@@ -52,11 +52,12 @@
 
             $VCall = F::Run('View', 'Render', $VCall, ['Context' => 'mail']);
 
-            F::Run('IO', 'Write', $VCall, [
-                'Storage' => $Call['Reset']['Send To'],
-                'ID' => 'Восстановление пароля',
-                'Scope' => $Call['User']['EMail'],
-                'Data' => $VCall['Output']
+            F::Run('IO', 'Write', $VCall,
+                [
+                    'Storage' => $Call['Reset']['Send To'],
+                    'Where' => 'Восстановление пароля',
+                    'Scope' => $Call['User']['EMail'],
+                    'Data' => $VCall['Output']
                 ]
             );
 

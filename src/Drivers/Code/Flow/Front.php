@@ -30,7 +30,6 @@
                     F::Log($Call['Run']['Call'], LOG_INFO);
 
                     $Call = F::Live($Call['Run'], $Call);
-
             }
 
         // А здесь - рендеринг

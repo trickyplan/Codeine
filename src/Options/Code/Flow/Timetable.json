@@ -1,0 +1,24 @@
+{
+    "Timetable":
+    {
+        "Rules":
+        {
+            "Every Hour":
+            {
+                "Minute": 0,
+                "Second": 0,
+                "Run":
+                {
+                    "Service": "IO",
+                    "Method": "Write",
+                    "Call":
+                    {
+                        "Storage": "Output",
+                        "Where": true,
+                        "Data": "Cookoo"
+                    }
+                }
+            }
+        }
+    }
+}

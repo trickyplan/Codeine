@@ -96,6 +96,8 @@
 
     setFn('Delete', function ($Call)
     {
+        $Call['No Where'] = true;
+
         $Call['Layouts'][] = ['Scope' => 'Entity', 'ID' => 'Delete'];
         $Call = F::Apply('Entity.Delete', 'Before', $Call, ['Entity' => $Call['Bundle'],
             'Scope' => 'Control']);
