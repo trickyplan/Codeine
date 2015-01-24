@@ -26,8 +26,12 @@
         $Components = array_keys($Time);
 
         F::Log(count($Call['Timetable']['Rules']).' timetable rules loaded', LOG_INFO);
+
         foreach ($Call['Timetable']['Rules'] as $Name => $Rule)
         {
+            if (substr($Name, 0, 1) == '-')
+                continue;
+
             $Decision = true;
 
             foreach ($Components as $Component)

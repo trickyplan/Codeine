@@ -44,6 +44,8 @@
             F::Log('Running delayed task', LOG_WARNING, 'Developer');
             return F::Live($Call['Run']);
         }
+        else
+            F::Log('No tasks', LOG_INFO, 'Developer');
 
         return null;
     });

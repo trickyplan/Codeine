@@ -108,6 +108,9 @@
                     $Conditions[] = $Call['Link']->real_escape_string($Key)
                         .(is_numeric($Call['Nodes'][$Key])? '+0': '')
                         .' '.($Direction? 'ASC': 'DESC');
+                else
+                    $Conditions[] = $Call['Link']->real_escape_string($Key)
+                        .' '.($Direction? 'ASC': 'DESC');
 
             if (sizeof($Conditions)>0)
                 $SortString = ' order by ' . implode(',', $Conditions);

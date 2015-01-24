@@ -14,8 +14,12 @@
         if (!isset($Call['Daemons']))
             exit(1);
         else
+        {
             foreach ($Call['Daemons'] as $DaemonName => $Daemon)
-                F::Log('Daemon *'.$DaemonName.'* loaded', LOG_INFO);
+                F::Log('Daemon *'.$DaemonName.'* loaded with 1/'.$Daemon['Frequency'].' frequency', LOG_INFO);
+
+            F::Log(count($Call['Daemons']).' daemons found');
+        }
 
         declare(ticks = 1);
 
@@ -68,8 +72,16 @@
             F::Log('Daemon started', LOG_INFO);
 
             $Ticks = 0;
+
             while (F::Run(null, 'Running?', $Call))
             {
+                $Ticks++;
+
+                if ($Ticks == PHP_INT_MAX)
+                    $Ticks = 0;
+
+                F::Log('Tick '.$Ticks, LOG_DEBUG);
+
                 if ((count($Ungrateful) < $Call['MaxChilds']))
                 {
                     $PID = pcntl_fork();
@@ -87,7 +99,7 @@
                     else
                     {
                         foreach ($Call['Daemons'] as $DaemonName => $Daemon)
-                            if (($Ticks++ % $Daemon['Precision']) == 0)
+                            if (($Ticks % $Daemon['Frequency']) == 0)
                             {
                                 F::Log($DaemonName.' daemon waked up', LOG_INFO);
 

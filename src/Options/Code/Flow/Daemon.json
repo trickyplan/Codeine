@@ -11,7 +11,7 @@
     {
         "Timetable":
         {
-            "Precision": 1,
+            "Frequency": 1,
             "Execute":
             {
                 "Service": "Code.Flow.Timetable",
@@ -20,7 +20,7 @@
         },
         "Delayed":
         {
-            "Precision": 30,
+            "Frequency": 10,
             "Execute":
             {
                 "Service": "Code.Run.Delayed",
