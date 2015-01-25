@@ -107,10 +107,10 @@
                                 'ID' => $Call['Image']['Fullpath']
                             ]
                         ]))
-            F::Log('Image *hit* '.$Call['Image']['Fullpath'], LOG_GOOD);
+            F::Log('Image Cache *hit* '.$Call['Image']['Fullpath'], LOG_GOOD);
         else
         {
-            F::Log('Image *miss* *'.$Call['Image']['Fullpath'].'*', LOG_BAD);
+            F::Log('Image Cache *miss* *'.$Call['Image']['Fullpath'].'*', LOG_BAD);
 
             if (F::Run(null, 'Write', $Call))
             {
@@ -196,5 +196,5 @@
 
         $Call = F::Hook('afterImageWrite', $Call);
 
-        return true;
+        return $Call;
     });

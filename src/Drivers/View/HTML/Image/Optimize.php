@@ -10,7 +10,7 @@
     setFn('Do', function ($Call)
     {
         $Cache = F::Run('IO', 'Open', ['Storage' => 'Image Cache']);
-        $Call['Image']['Cached Filename'] = $Cache['Directory'].DS.$Call['HTTP']['Host'].DS.'img'.DS.$Call['Image']['Cached'];
+        $Call['Image']['Cached Filename'] = $Cache['Directory'].DS.$Call['HTTP']['Host'].DS.'img'.DS.$Call['Image']['Scope'].DS.$Call['Image']['Fullpath'];
         $Type = mime_content_type($Call['Image']['Cached Filename']);
 
         if (isset($Call['Image Optimizers'][$Type]))
