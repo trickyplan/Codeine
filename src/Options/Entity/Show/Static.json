@@ -17,6 +17,11 @@
             {
                 "Service":"Entity",
                 "Method":"Load"
+            },
+            "No Cache Check":
+            {
+                "Service": "Entity.Hooks.NoCache",
+                "Method": "Check"
             }
         }
     }

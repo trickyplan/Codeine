@@ -22,6 +22,7 @@
             $Call = F::Apply(null, 'Files', $Call);
             $Call = F::Apply(null, 'Request', $Call);
             $Call = F::Apply(null, 'Cookie', $Call);
+            $Call = F::Apply(null, 'Request Headers', $Call);
 
             $Call = F::Hook('beforeRequestRun', $Call);
 
@@ -60,7 +61,7 @@
     /*        if (isset($Call['Output']))
                 $Call['HTTP']['Headers']['Content-Length:'] = strlen($Call['Output']);*/
 
-            $Call = F::Apply(null, 'Headers', $Call);
+            $Call = F::Apply(null, 'Response Headers', $Call);
 
             F::Stop('Cooldown');
             F::Run('IO', 'Write', $Call,
@@ -214,7 +215,16 @@
         return $Call;
     });
 
-    setFn('Headers', function ($Call)
+    setFn('Request Headers', function ($Call)
+    {
+        foreach ($_SERVER as $Key => $Value)
+            if (preg_match('/HTTP_(.*)/', $Key, $Pockets))
+                $Call['HTTP']['Request']['Headers'][strtr(ucfirst(strtolower($Pockets[1])), '_', '-')] = $Value;
+
+        return $Call;
+    });
+
+    setFn('Response Headers', function ($Call)
     {
         if (headers_sent())
             F::Log('Headers already sent', LOG_INFO);
