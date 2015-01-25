@@ -262,10 +262,6 @@
         F::Log('CURL HEAD fetched *'.$Call['Where']['ID'].'* '.$Head, LOG_INFO, 'Administrator');
         $Result = (curl_getinfo($Call['Link'])['http_code'] == 200);
 
-        if ($Result)
-            ;
-        else
-            d(__FILE__, __LINE__, F::Stack());
         F::Stop('IO Curl Exist '.$Call['Where']['ID']);
         return $Result;
     });
