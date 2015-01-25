@@ -8,13 +8,19 @@
      */
     require Root.'/vendor/autoload.php';
 
+    setFn('Open', function ($Call)
+    {
+        $Call['Link'] = new Elasticsearch\Client($Call['Elastic Search']['Options']);
+        return $Call;
+    });
+
     setFn('Index', function ($Call)
     {
-        $client = new Elasticsearch\Client();
+        $Call = F::Run(null, 'Open', $Call);
 
         try
         {
-            F::Log($client->index(
+            F::Log($Call['Link']->index(
                  [
                      'index' => 'project',
                      'id'    => $Call['Data']['ID'],
@@ -33,12 +39,12 @@
 
     setFn('Query', function ($Call)
     {
-        $Call['Query'] = mb_substr($Call['Query'], 0, 32);
-
         try
         {
-            $client = new Elasticsearch\Client();
-            $Results = $client->search(
+            $Call = F::Run(null, 'Open', $Call);
+            $Call['Query'] = mb_substr($Call['Query'], 0, 32);
+
+            $Results = $Call['Link']->search(
                  [
                      'index' => 'project',
                      'type'  => $Call['Type'],
@@ -125,10 +131,11 @@
 
     setFn('Remove', function ($Call)
     {
-        $client = new Elasticsearch\Client();
+        $Call['Query'] = mb_substr($Call['Query'], 0, 32);
+        
         try
         {
-            F::Log($client->delete(
+            F::Log($Call['Link']->delete(
                  [
                      'index' => 'project',
                      'id'    => $Call['Data']['ID'],
