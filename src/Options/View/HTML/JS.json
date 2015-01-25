@@ -6,6 +6,7 @@
         "Links": [],
         "Output": [],
         "Host": "",
+        "Scope": "",
         "Pathname": "/cache/js/",
         "Type": "application/javascript",
         "Caching": true,
@@ -22,6 +23,14 @@
     },
     "Hooks":
     {
+        "afterJSWrite":
+        {
+            "YUI Compressor":
+            {
+                "Service":"View.HTML.JS.YUICompressor",
+                "Method": "Do"
+            }
+        },
         "beforeJSOutput":
         {
             "Combine":

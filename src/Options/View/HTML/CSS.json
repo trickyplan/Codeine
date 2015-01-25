@@ -2,6 +2,7 @@
     "CSS":
     {
         "Proto": "",
+        "Scope": "",
         "Pattern": "<css>(.*?)<\/css>",
         "Inline Pattern": "<cssrun>(.*?)<\/cssrun>",
         "Links": [],
@@ -14,6 +15,14 @@
     },
     "Hooks":
     {
+        "-afterCSSWrite":
+        {
+            "YUI Compressor":
+            {
+                "Service":"View.HTML.CSS.YUICompressor",
+                "Method": "Do"
+            }
+        },
         "beforeCSSOutput":
         {
             "Combine":

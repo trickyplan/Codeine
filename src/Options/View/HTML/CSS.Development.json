@@ -7,7 +7,7 @@
         "Host": "",
         "Caching": false
     },
-    "Hooks!":
+    "Hooks":
     {
         "beforeCSSLoad":
         {

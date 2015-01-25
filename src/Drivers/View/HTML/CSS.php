@@ -9,6 +9,7 @@
 
     setFn ('Process', function ($Call)
     {
+        $Cache = F::Run('IO', 'Open', ['Storage' => 'CSS Cache']);
 
         if (preg_match('/<place>CSS<\/place>/SsUu', $Call['Output']))
         {
@@ -77,9 +78,10 @@
                 else
                     $Host = $Call['HTTP']['Host'];
 
-                foreach ($Call['CSS']['Styles'] as $CSS => $CSSSource)
+                foreach ($Call['CSS']['Styles'] as $Call['CSS']['Fullpath'] => $CSSSource)
                 {
-                    $CSS = sha1($CSSSource).'_'.strtr($CSS, ":", '_');
+                    $Call['CSS']['Fullpath'] = sha1($CSSSource).'_'.strtr($Call['CSS']['Fullpath'], ":", '_') .$Call['CSS']['Extension'];
+                    $Call['CSS']['Cached Filename'] = $Cache['Directory'].DS.$Call['HTTP']['Host'].DS.'css'.DS.$Call['CSS']['Scope'].DS.$Call['CSS']['Fullpath'];
 
                     $Write = true;
 
@@ -92,11 +94,11 @@
                             'Execute' => 'Exist',
                             'Where'   =>
                             [
-                                'ID' => $CSS
+                                'ID' => $Call['CSS']['Fullpath']
                             ]
                         ]))
                         {
-                            F::Log('Cache *hit* '.$CSS, LOG_GOOD);
+                            F::Log('Cache *hit* '.$Call['CSS']['Fullpath'], LOG_GOOD);
                             $Write = false;
                         }
                         else
@@ -113,7 +115,7 @@
                             [
                                  'Storage' => 'CSS Cache',
                                  'Scope'   => [$Host, 'css'],
-                                 'Where'   => $CSS,
+                                 'Where'   => $Call['CSS']['Fullpath'],
                                  'Data' => $CSSSource
                             ]);
 
@@ -126,11 +128,10 @@
                             .$Call['HTTP']['Proto']
                             .$Call['CSS']['Host']
                             .$Call['CSS']['Pathname']
-                            .$CSS
-                            .$Call['CSS']['Extension'].'" rel="stylesheet" type="'.$Call['CSS']['Type'].'"/>';
+                            .$Call['CSS']['Fullpath'].'" rel="stylesheet" type="'.$Call['CSS']['Type'].'"/>';
                     else
                         $Call['CSS']['Links'][]
-                            = '<link href="'.$Call['CSS']['Pathname'].$CSS.$Call['CSS']['Extension'].'" rel="stylesheet" type="'.$Call['CSS']['Type'].'" />';
+                            = '<link href="'.$Call['CSS']['Pathname'].$Call['CSS']['Fullpath'].'" rel="stylesheet" type="'.$Call['CSS']['Type'].'" />';
 
                 }
 

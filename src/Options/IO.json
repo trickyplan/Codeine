@@ -98,8 +98,7 @@
             "CSS Cache":
             {
                 "Driver":"IO.Storage.Directory",
-                "Directory":"/tmp/codeine",
-                "Suffix":".css"
+                "Directory":"/tmp/codeine"
             },
             "JS":
             {
@@ -110,8 +109,7 @@
             "JS Cache":
             {
                 "Driver":"IO.Storage.Directory",
-                "Directory":"/tmp/codeine",
-                "Suffix":".js"
+                "Directory":"/tmp/codeine"
             },
         "EMail":
         {
