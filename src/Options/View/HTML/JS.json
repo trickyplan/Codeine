@@ -23,7 +23,7 @@
     },
     "Hooks":
     {
-        "afterJSWrite":
+        "-afterJSWrite":
         {
             "YUI Compressor":
             {
