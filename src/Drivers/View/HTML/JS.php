@@ -93,7 +93,7 @@
                     $Call['JS']['Cached Filename'] = $Cache['Directory'].DS.$Call['HTTP']['Host'].DS.'js'.DS.$Call['JS']['Scope'].DS.$Call['JS']['Fullpath'];
                     $Write = true;
 
-                    if (false && $Call['JS']['Caching'])
+                    if ($Call['JS']['Caching'])
                     {
                         if (F::Run('IO', 'Execute',
                         [
