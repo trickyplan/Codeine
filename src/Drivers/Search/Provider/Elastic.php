@@ -131,10 +131,10 @@
 
     setFn('Remove', function ($Call)
     {
-        $Call['Query'] = mb_substr($Call['Query'], 0, 32);
-        
         try
         {
+            $Call['Query'] = mb_substr($Call['Query'], 0, 32);
+            $Call = F::Run(null, 'Open', $Call);
             F::Log($Call['Link']->delete(
                  [
                      'index' => 'project',
