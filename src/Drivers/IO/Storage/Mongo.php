@@ -334,7 +334,5 @@
         $Command = 'db.'.$Call['Entity'].'.ensureIndex({"'.$Call['Node'].'": 1})';
         F::Log($Command, LOG_INFO, 'Administrator');
         $Call['Link']->execute($Command);
-
-
         return $Call;
     });
