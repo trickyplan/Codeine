@@ -328,3 +328,13 @@
     {
         return ($Call['Link']->execute('db.stats(1024)')['retval']['dataSize']).'K';
     });
+
+    setFn('Create Index', function ($Call)
+    {
+        $Command = 'db.'.$Call['Entity'].'.ensureIndex({"'.$Call['Node'].'": 1})';
+        F::Log($Command, LOG_INFO, 'Administrator');
+        $Call['Link']->execute($Command);
+
+
+        return $Call;
+    });
