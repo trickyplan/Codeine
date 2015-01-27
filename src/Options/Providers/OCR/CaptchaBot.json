@@ -1,0 +1,8 @@
+{
+    "CaptchaBot":
+    {
+        "Endpoint": "http://captchabot.com/rpc/xml.php",
+        "User": "",
+        "Password": ""
+    }
+}

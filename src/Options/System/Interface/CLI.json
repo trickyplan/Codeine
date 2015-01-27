@@ -2,6 +2,7 @@
     "Return Code": 0,
     "HTTP":
     {
+        "Proto": "http://",
         "User Agent": "Shell",
         "IP":
         {

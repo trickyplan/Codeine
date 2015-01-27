@@ -46,7 +46,7 @@
         if (mkdir($Call['Project']['Name']))
             F::Log('Directory '.$Directory.' created', LOG_WARNING);
 
-        passthru('cp -vr '.Root.'/skel/* '.$Directory);
+        passthru('cp -vr '.Codeine.'/skel/* '.$Directory);
         F::Log('Skel copied', LOG_WARNING);
 
         file_put_contents($Directory.'/src/Options/Project.json',
@@ -77,11 +77,8 @@
             }
         }
 
-        exec ('mv '.$Directory.'/etc/nginx/sites-enabled/-development.conf '
-            .$Directory.'/etc/nginx/sites-enabled/'.$Call['Project']['Name'].'-development.conf');
-
-        exec ('mv '.$Directory.'/etc/nginx/sites-enabled/-production.conf '
-            .$Directory.'/etc/nginx/sites-enabled/'.$Call['Project']['Name'].'-production.conf');
+//        exec ('mv '.$Directory.'/etc/nginx/sites-available/development.conf '
+//            .$Directory.'/etc/nginx/sites-enabled/'.$Call['Project']['Name'].'-development.conf');
 
         return $Call;
     });
