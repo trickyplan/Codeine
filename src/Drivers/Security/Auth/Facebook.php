@@ -124,6 +124,16 @@
                     'Expire' => time()+$Result['expires'],
                     'Logged' => time()
                 ];
+            
+            if (isset($Call['User']['Facebook']['LoginCount']))
+                    $Call['User']['Facebook']['LoginCount']++;
+                else
+                    $Call['User']['Facebook']['LoginCount'] = 1;
+
+                $Updated['Facebook']['LoginCount'] = $Call['User']['Facebook']['LoginCount'];
+
+                if ($Updated['Facebook']['LoginCount'] == 1)
+                    $Call = F::Hook('Facebook.FirstLogin', $Call);
 
             foreach ($Call['Facebook']['Mapping'] as $FacebookField => $CodeineField)
                 if (isset($Facebook[$FacebookField]) && !empty($Facebook[$FacebookField]))

@@ -12,6 +12,10 @@
         "beforeJSOutput":
         {
             "Combine": null
+        },
+        "afterJSOutput":
+        {
+            "Async": null
         }
     }
 }

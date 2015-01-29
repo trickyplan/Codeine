@@ -10,10 +10,9 @@
     {
         if (isset($Call['Call']['access_token']))
             ;
-        elseif (null !== F::Get(REQID))
-            $Call['Call']['access_token'] = F::Get(REQID);
         else
             $Call['Call']['access_token'] = F::Run(null, 'Access Token', $Call);
+
         if (!isset($Call['Call']['locale']))
             $Call['Call']['locale'] = $Call['Facebook']['Default Locale'];
 
@@ -44,12 +43,12 @@
         if (isset($Call['Data']['Facebook']['Auth']))
         {
             F::Log('Used FB Token from Data', LOG_INFO);
-            $Result = $Call['Data']['Facebook']['Auth'];
+            $Result['Auth'] = $Call['Data']['Facebook']['Auth'];
         }
         elseif (isset($Call['Session']['User']['Facebook']['Auth']))
         {
             F::Log('Used FB Token from Session', LOG_INFO);
-            $Result = $Call['Session']['User']['Facebook']['Auth'];
+            $Result['Auth'] = $Call['Session']['User']['Facebook']['Auth'];
         }
         else
         {
@@ -147,5 +146,5 @@
             }
         }
 
-        return isset($Result['Auth'])?$Result['Auth']:'';
+        return isset($Result['Auth'])? $Result['Auth']: '';
     });
