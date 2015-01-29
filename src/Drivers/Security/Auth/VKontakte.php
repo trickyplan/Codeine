@@ -1,7 +1,7 @@
 <?php
 
     /* Codeine
-     * @author BreathLess
+     * @author bergstein@trickyplan.com
      * @description  
      * @package Codeine
      * @version 8.x
@@ -56,6 +56,7 @@
             if (isset($Result['access_token']))
             {
                 $Updated = [];
+
                 if (isset($Call['Session']['User']['ID']))
                 {
                     $Call['User'] = F::Run('Entity', 'Read',
@@ -105,6 +106,7 @@
                         ]
                     ]);
                 }
+
                 $Call = F::Hook('afterVKontakteIdentification', $Call);
 
                 $VKontakte = F::Run('Code.Run.Social.VKontakte', 'Run',
@@ -127,9 +129,19 @@
                         'Logged' => time()
                     ];
 
+                if (isset($Call['User']['VKontakte']['LoginCount']))
+                    $Call['User']['VKontakte']['LoginCount']++;
+                else
+                    $Call['User']['VKontakte']['LoginCount'] = 1;
+
+                $Updated['VKontakte']['LoginCount'] = $Call['User']['VKontakte']['LoginCount'];
+
+                if ($Updated['VKontakte']['LoginCount'] == 1)
+                    $Call = F::Hook('VKontakte.FirstLogin', $Call);
+
                 foreach ($Call['VKontakte']['Mapping'] as $VKontakteField => $CodeineField)
                     if (isset($VKontakte[$VKontakteField]) && !empty($VKontakte[$VKontakteField]))
-                        $Updated =  F::Dot($Updated, $CodeineField, $VKontakte[$VKontakteField]);
+                        $Updated = F::Dot($Updated, $CodeineField, $VKontakte[$VKontakteField]);
                     else
                     {
                         $tempField = F::Dot($VKontakte, $VKontakteField);

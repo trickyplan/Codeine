@@ -1,7 +1,7 @@
 <?php
 
     /* Codeine
-     * @author BreathLess
+     * @author bergstein@trickyplan.com
      * @description
      * @package Codeine
      * @version $Call['Paginator Pages'].x

@@ -1,7 +1,7 @@
 <?php
 
     /* Codeine
-     * @author BreathLess
+     * @author bergstein@trickyplan.com
      * @description Web Interface 
      * @package Codeine
      * @version 7.1
@@ -80,23 +80,28 @@
 
     setFn('Redirect', function ($Call)
     {
-        $URL = $Call['Location'];
-
-        if (preg_match_all('@\$([\.\w]+)@', $URL, $Vars))
-        {
-            foreach ($Vars[0] as $IX => $Key)
-                $URL = str_replace($Key, F::Dot($Call,$Vars[1][$IX]) , $URL);
-        }
-
-        if (isset($Call['HTTP']['Redirect']) && $Call['HTTP']['Redirect'] == 'Permanent')
-            $Call['HTTP']['Headers']['HTTP/1.1'] = ' 301 Moved Permanently';
+        if (isset($Call['HTTP']['Headers']['Location:']))
+            F::Log('Already was redirected to '.$Call['HTTP']['Headers']['Location:'].', skipping redirect to '.$Call['Location'], LOG_INFO);
         else
-            $Call['HTTP']['Headers']['HTTP/1.1'] = ' 302 Moved Temporarily';
+        {
+            $URL = $Call['Location'];
 
-        $Call['HTTP']['Headers']['Location:'] = $URL;
-        $Call['HTTP']['Headers']['Cache-Control:'] = 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0';
+            if (preg_match_all('@\$([\.\w]+)@', $URL, $Vars))
+            {
+                foreach ($Vars[0] as $IX => $Key)
+                    $URL = str_replace($Key, F::Dot($Call,$Vars[1][$IX]) , $URL);
+            }
 
-        F::Log('Redirected to '.$URL, LOG_INFO);
+            if (isset($Call['HTTP']['Redirect']) && $Call['HTTP']['Redirect'] == 'Permanent')
+                $Call['HTTP']['Headers']['HTTP/1.1'] = ' 301 Moved Permanently';
+            else
+                $Call['HTTP']['Headers']['HTTP/1.1'] = ' 302 Moved Temporarily';
+
+            $Call['HTTP']['Headers']['Location:'] = $URL;
+            $Call['HTTP']['Headers']['Cache-Control:'] = 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0';
+
+            F::Log('Redirected to '.$URL, LOG_INFO);
+        }
 
         return $Call;
     });

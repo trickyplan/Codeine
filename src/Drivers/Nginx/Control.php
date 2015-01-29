@@ -1,7 +1,7 @@
 <?php
 
     /* Sphinx
-     * @author BreathLess
+     * @author bergstein@trickyplan.com
      * @description  
      * @package Sphinx
      * @version 8.x

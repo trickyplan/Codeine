@@ -1,7 +1,7 @@
 <?php
 
     /* Codeine
-     * @author BreathLess
+     * @author bergstein@trickyplan.com
      * @description Cut Parslet
      * @package Codeine
      * @version 8.x

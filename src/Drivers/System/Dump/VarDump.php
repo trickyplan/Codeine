@@ -1,7 +1,7 @@
 <?php
 
     /* Codeine
-     * @author BreathLess
+     * @author bergstein@trickyplan.com
      * @description: var_dump wrapper
      * @package Codeine
      * @version 8.x

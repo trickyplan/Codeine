@@ -1,7 +1,7 @@
 <?php
 
     /* Codeine
-     * @author BreathLess
+     * @author bergstein@trickyplan.com
      * @description: Фронт контроллер
      * @package Codeine
      * @version 8.x

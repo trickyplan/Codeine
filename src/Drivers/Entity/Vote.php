@@ -1,7 +1,7 @@
 <?php
 
     /*
-     * @author BreathLess
+     * @author bergstein@trickyplan.com
      * @description Create Entity
      * @package Winebase
      * @version 7.0

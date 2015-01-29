@@ -1,6 +1,6 @@
 <?php
     /*
-     * @author BreathLess
+     * @author bergstein@trickyplan.com
      * @description: F Class
      * @package Codeine Framework
      * @subpackage Core

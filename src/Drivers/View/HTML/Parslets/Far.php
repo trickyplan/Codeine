@@ -1,7 +1,7 @@
 <?php
 
     /* Codeine
-     * @author BreathLess
+     * @author bergstein@trickyplan.com
      * @description  
      * @package Codeine
      * @version 7.0
@@ -19,28 +19,42 @@
                 $Queries[$Entity]['IDs'][$ID] = $ID;
                 $Queries[$Entity]['Fields'][$Field] = $Field;
             }
+        }
+
+
+        if (empty($Queries))
+            ;
+        else
+        {
+            $Elements = [];
 
             foreach($Queries as $Entity => $KV)
             {
                 $KV['Fields']['ID'] = 'ID';
 
-                $Elements = F::Run('Entity', 'Read',
+                $Loaded = F::Run('Entity', 'Read',
                             [
                                 'Entity' => $Entity,
-                                'Where'  => ['ID' => $KV['IDs']],
+                                'Where'  => ['ID' => ['$in' => $KV['IDs']]],
                                 'Fields' => $KV['Fields']
                             ]);
 
-                if (empty($Elements))
+                if (empty($Loaded))
                     ;
                 else
-                    foreach ($Elements as $Element)
-                        foreach ($Element as $Key => $Value)
-                            if (is_scalar($Value))
-                                $Call['Output'] = str_replace('<far>'.$Entity.':'.$Element['ID'].':'.$Key.'</far>', $Value, $Call['Output']);
-                            else
-                                $Call['Output'] = str_replace('<far>'.$Entity.':'.$Element['ID'].':'.$Key.'</far>', array_shift($Value), $Call['Output']);
+                    foreach ($Loaded as $Element)
+                        $Elements[$Entity][$Element['ID']] = $Element;
             }
+
+            if (empty($Elements))
+                ;
+            else
+                foreach ($Call['Parsed'][2] as $IX => $Match)
+                    if (preg_match('@^(.+)\:(.+)\:(.+)$@SsUu', $Match, $Slices))
+                    {
+                        unset($Slices[0]);
+                        $Call['Output'] = str_replace($Call['Parsed'][0][$IX], F::Dot($Elements, implode('.', $Slices)), $Call['Output']);
+                    }
         }
 
         return $Call;

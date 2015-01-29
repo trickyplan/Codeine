@@ -1,7 +1,7 @@
 <?php
 
     /**
-     * @author BreathLess
+     * @author bergstein@trickyplan.com
      * @date 27.08.11
      * @time 5:17
      */

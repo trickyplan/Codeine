@@ -1,7 +1,7 @@
 <?php
 
     /* Codeine
-     * @author BreathLess
+     * @author bergstein@trickyplan.com
      * @description  
      * @package Codeine
      * @version 8.x
@@ -13,12 +13,12 @@
         {
             if (is_array($Call['Where']['ID']))
             {
-                foreach($Call['Where']['ID'] as $CID => $ID)
+                /*foreach($Call['Where']['ID'] as $CID => $ID)
                     if (($Call['Data'][$ID] = F::Get('GEC:'.$Call['Entity'].':'.$ID)) !== null)
                     {
                         F::Log('GEC optimizes '.$Call['Entity'].':'.$CID, LOG_GOOD);
                         unset($Call['Where']['ID'][$CID]);
-                    }
+                    }*/
             }
             else
                 if (($Call['Data'][$Call['Where']['ID']]

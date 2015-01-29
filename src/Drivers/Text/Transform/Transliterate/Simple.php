@@ -1,7 +1,7 @@
 <?php
 
     /* Codeine
-     * @author BreathLess
+     * @author bergstein@trickyplan.com
      * @description Транслитерация по правилам загранпаспортов 
      * @package Codeine
      * @version 8.x

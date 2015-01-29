@@ -166,11 +166,7 @@
             {
                 "Service":"Entity.Hooks.Type",
                 "Method":"Read",
-                "Weight":1000,
-                "Call":
-                {
-                    "Purpose": "Create"
-                }
+                "Weight": 1000
             },
             "Make variables alive":
             {
@@ -184,11 +180,7 @@
             {
                 "Service":"Entity.Hooks.Type",
                 "Method":"Read",
-                "Weight":1000,
-                "Call":
-                {
-                    "Purpose": "Update"
-                }
+                "Weight": 1000
             }
         },
         "beforeEntityRead":

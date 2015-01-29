@@ -6,5 +6,12 @@
         "Output": [],
         "Host": "",
         "Caching": true
+    },
+    "Hooks":
+    {
+        "beforeJSOutput":
+        {
+            "Combine": null
+        }
     }
 }

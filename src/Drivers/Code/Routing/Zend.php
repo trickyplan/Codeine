@@ -1,7 +1,7 @@
 <?php
 
     /* Codeine
-     * @author BreathLess
+     * @author bergstein@trickyplan.com
      * @description: Zend Style Routing
      * @package Codeine
      * @version 8.x

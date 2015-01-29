@@ -1,7 +1,7 @@
 <?php
 
     /*
-     * @author BreathLess
+     * @author bergstein@trickyplan.com
      * @description Sitemap generator 
      * @package Winebase
      * @version 7.0
