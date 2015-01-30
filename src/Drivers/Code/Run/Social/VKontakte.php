@@ -47,7 +47,9 @@
         }
         else
         {
-            F::Hook('VKontakte.'.$Call['VKontakte']['Error']['Codes'][$Result['error']['error_code']], $Call);
+            if (isset($Call['VKontakte']['Error']['Codes'][$Result['error']['error_code']]))
+                F::Hook('VKontakte.'.$Call['VKontakte']['Error']['Codes'][$Result['error']['error_code']], $Call);
+
             F::Log($Result['error']['error_msg'], LOG_INFO);
 
             $Result = null;
