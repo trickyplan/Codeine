@@ -32,12 +32,14 @@
             {
                 $KV['Fields']['ID'] = 'ID';
 
+                sort($KV['IDs']);
+
                 $Loaded = F::Run('Entity', 'Read',
-                            [
-                                'Entity' => $Entity,
-                                'Where'  => ['ID' => ['$in' => $KV['IDs']]],
-                                'Fields' => $KV['Fields']
-                            ]);
+                [
+                    'Entity' => $Entity,
+                    'Where'  => ['ID' => ['$in' => $KV['IDs']]],
+                    'Fields' => $KV['Fields']
+                ]);
 
                 if (empty($Loaded))
                     ;
