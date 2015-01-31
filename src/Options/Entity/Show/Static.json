@@ -17,7 +17,10 @@
             {
                 "Service":"Entity",
                 "Method":"Load"
-            },
+            }
+        },
+        "beforeShowBefore":
+        {
             "No Cache Check":
             {
                 "Service": "Entity.Hooks.NoCache",

@@ -9,10 +9,13 @@
 
     setFn('Before', function ($Call)
     {
-        $Call['Where'] = F::Live($Call['Where']);
+        $Call = F::Hook('beforeShowBefore', $Call);
 
-        $Call['Data'] = F::Run('Entity', 'Read', $Call, ['One' => true, 'Limit' => ['From' => 0, 'To' => 1]]);
+            $Call['Where'] = F::Live($Call['Where']);
 
+            $Call['Data'] = F::Run('Entity', 'Read', $Call, ['One' => true, 'Limit' => ['From' => 0, 'To' => 1]]);
+
+        $Call = F::Hook('afterShowBefore', $Call);
         return $Call;
     });
 
