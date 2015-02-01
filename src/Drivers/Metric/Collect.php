@@ -16,10 +16,10 @@
         else
             foreach ($Call['Metrics'] as $MetricName => $MetricCall)
             {
-                $Call['Dot']['Value']  = F::Live($MetricCall['Generator'], $Call);
-                $Call['Dot']['Created']   = F::Live($Call['Timer'], $Call);
-                $Call['Dot']['Domain'] = F::Live($MetricCall['Domain'], $Call);
-                $Call['Dot']['Key']    = F::Live($MetricCall['Key'], $Call);
+                $Call['Dot']['Value']       = F::Live($MetricCall['Generator'], $Call);
+                $Call['Dot']['Created']     = F::Live($Call['Timer'], $Call);
+                $Call['Dot']['Domain']      = F::Live($MetricCall['Domain'], $Call);
+                $Call['Dot']['Key']         = F::Live($MetricCall['Key'], $Call);
 
                 $Last = F::Run('Entity', 'Read',
                     [

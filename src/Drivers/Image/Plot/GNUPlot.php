@@ -28,7 +28,7 @@
         $Command[] = 'set mxtics (10)';
         $Command[] = 'set output "'.$Call['Image Filename'].'"';
         $Command[] = 'set grid xtics ytics';
-        $Command[] = 'plot "'.$Call['Data Filename'].'" using 1:2 with lines ti "Количество"';
+        $Command[] = 'plot "'.$Call['Data Filename'].'" using 1:2 with filledcurve x1 ti "Количество"';
         $Command[] = 'quit';
 
         $Command = implode(PHP_EOL, $Command);
