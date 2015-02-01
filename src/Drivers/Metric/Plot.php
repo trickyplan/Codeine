@@ -32,8 +32,8 @@
                 [
                     'Where' =>
                     [
-                        'Domain'    => $SelectedMetric['Domain'],
-                        'Key'       => $SelectedMetric['Key']
+                        'Domain'    => F::Live($SelectedMetric['Domain'], $Call),
+                        'Key'       => F::Live($SelectedMetric['Key'], $Call)
                     ],
                     'Limit' =>
                     [
