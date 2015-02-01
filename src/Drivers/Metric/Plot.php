@@ -55,7 +55,7 @@
 
                 $Call = F::loadOptions('IO', null, $Call);
 
-                $Hash = sha1(j($Call['Request']));
+                $Hash = sha1(j($SelectedMetric));
 
                 $Call['Image URL'] = '/cache/img/'.$Hash.'.png';
                 $Call['Image Filename'] =
