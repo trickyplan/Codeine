@@ -1,5 +1,7 @@
 {
     "Mode": "Normal",
+    "Min": 0,
+    "Max": 1,
     "Modes":
     {
         "Hard":

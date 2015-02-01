@@ -1,0 +1,37 @@
+{
+    "Dot":
+    {
+
+    },
+    "Timer":
+    {
+        "Service": "System.Time",
+        "Method": "Get",
+        "Call":
+        {
+            "Mode": "Precise"
+        }
+    },
+    "-Metrics":
+    {
+        "Random":
+        {
+            "Domain":
+            {
+                "Service": "System.Hostname",
+                "Method": "Get"
+            },
+            "Key": "Random",
+            "Generator":
+            {
+                "Service": "Security.Entropy",
+                "Method": "Get",
+                "Call":
+                {
+                    "Min": 0,
+                    "Max": 100
+                }
+            }
+        }
+    }
+}

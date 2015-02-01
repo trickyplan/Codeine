@@ -18,6 +18,16 @@
                         "Data": "Cookoo"
                     }
                 }
+            },
+            "Collect Metrics":
+            {
+                "Minute": [5,10,16,20,25,30,40,45,55,60],
+                "Second": 0,
+                "Run":
+                {
+                    "Service": "Metric.Collect",
+                    "Method": "Do"
+                }
             }
         }
     }

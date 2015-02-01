@@ -51,6 +51,11 @@
                 "Service": "Entity.Hooks.Sort",
                 "Method": "beforeOperation"
             },
+            "Date":
+            {
+                "Service": "Entity.Hooks.Date",
+                "Method": "beforeOperation"
+            },
             "Where":
             {
                 "Service": "Entity.Hooks.Where",

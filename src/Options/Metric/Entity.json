@@ -1,0 +1,22 @@
+{
+    "Storage": "Primary",
+    "Nodes":
+    {
+        "Domain":
+        {
+            "Type": "Literal.String"
+        },
+        "Key":
+        {
+            "Type": "Literal.String"
+        },
+        "Value":
+        {
+            "Type": "Auto"
+        },
+        "Created":
+        {
+            "Type": "Numeral.Float"
+        }
+    }
+}

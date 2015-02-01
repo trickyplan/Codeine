@@ -56,7 +56,6 @@
             self::Start(self::$_Service . '.' . self::$_Method);
 
             mb_internal_encoding('UTF-8'); // FIXME
-            setlocale(LC_ALL, "ru_RU.UTF-8"); // FIXME
 
             libxml_use_internal_errors(true);
 
@@ -79,6 +78,7 @@
             self::loadOptions('Codeine');
 
             date_default_timezone_set(self::$_Options['Codeine']['Timezone']);
+            setlocale(LC_ALL, self::$_Options['Codeine']['Locale']);
 
             if (isset(self::$_Options['Codeine']['Verbose']))
                 self::$_Verbose = self::$_Options['Codeine']['Verbose'];
@@ -132,6 +132,7 @@
 
             self::$_Perfect = self::$_Options['Codeine']['Perfect'];
 
+            $Call['Call']['Hostname'] = gethostname();
             return self::Live($Call);
         }
 
@@ -604,40 +605,43 @@
 /*                if ((self::Environment() == 'Development') && (self::$_Perfect === true) && $Verbose < LOG_WARNING)
                     trigger_error($Message);*/
 
+                $Message = self::$_Service.': '.$Message;
                 $Time = sprintf('%.4f', microtime(true)-Started).' ';
 
                 if (PHP_SAPI == 'cli')
                 {
+                    $Head = $Time."\t".$Channel.":\t";
+                    
                     if (($Verbose <= self::$_Verbose[$Channel]))
                         switch (round($Verbose))
                         {
                             case LOG_EMERG:
-                                fwrite(STDERR, $Time.$Channel.": \033[0;31m ".$Message." \033[0m".PHP_EOL);
+                                fwrite(STDERR, $Head."\033[0;31m ".$Message." \033[0m".PHP_EOL);
                             break;
 
                             case LOG_CRIT:
-                                fwrite(STDERR, $Time.$Channel.": \033[0;31m ".$Message." \033[0m".PHP_EOL);
+                                fwrite(STDERR, $Head."\033[0;31m ".$Message." \033[0m".PHP_EOL);
                             break;
 
                             case LOG_ERR:
-                                fwrite(STDERR, $Time.$Channel.": \033[0;31m ".$Message." \033[0m".PHP_EOL);
+                                fwrite(STDERR, $Head."\033[0;31m ".$Message." \033[0m".PHP_EOL);
                             break;
 
                             case LOG_WARNING:
-                                fwrite(STDERR, $Time.$Channel.": \033[0;33m ".$Message." \033[0m".PHP_EOL);
+                                fwrite(STDERR, $Head."\033[0;33m ".$Message." \033[0m".PHP_EOL);
                             break;
 
                             case LOG_DEBUG:
                                 if (self::$_Debug)
-                                    fwrite(STDERR, $Time.$Channel.": \033[0;37m ".$Message." \033[0m".PHP_EOL);
+                                    fwrite(STDERR, $Head."\033[0;37m ".$Message." \033[0m".PHP_EOL);
                             break;
 
                             case LOG_USER:
-                                fwrite(STDERR, $Time.$Channel.": \033[0;37m ".$Message." \033[0m".PHP_EOL);
+                                fwrite(STDERR, $Head."\033[0;37m ".$Message." \033[0m".PHP_EOL);
                             break;
 
                             case LOG_INFO:
-                                fwrite(STDERR, $Time.$Channel.": \033[1;34m ".$Message." \033[0m".PHP_EOL);
+                                fwrite(STDERR, $Head."\033[0;34m ".$Message." \033[0m".PHP_EOL);
                             break;
 
                             case LOG_IMPORTANT:
