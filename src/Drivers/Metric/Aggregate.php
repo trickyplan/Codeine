@@ -16,8 +16,11 @@
 
         $Data = [];
 
-        foreach ($Dots as $Dot)
-            $Data[] = [$Dot['Created'], $Dot['Value']];
+        if (empty($Dots))
+            ;
+        else
+            foreach ($Dots as $Dot)
+                $Data[] = [$Dot['Created'], $Dot['Value']];
 
         return $Data;
     });

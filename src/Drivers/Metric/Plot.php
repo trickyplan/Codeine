@@ -42,25 +42,30 @@
                     ]
                 ]);
 
-            foreach ($Data as &$Row)
-                $Row[0] = strftime('%d.%m.%y/%T', $Row[0]);
+            if (empty($Data))
+                ;
+            else
+            {
+                foreach ($Data as &$Row)
+                    $Row[0] = strftime('%d.%m.%y/%T', $Row[0]);
 
-            $Call = F::loadOptions('IO', null, $Call);
+                $Call = F::loadOptions('IO', null, $Call);
 
-            $Hash = sha1(j($Call['Request']));
+                $Hash = sha1(j($Call['Request']));
 
-            $Call['Image URL'] = '/cache/img/'.$Hash.'.png';
-            $Call['Image Filename'] =
-                $Call['Storages']['Image Cache']['Directory'].DS.$Call['HTTP']['Host'].DS.'img'.DS.$Hash.'.png';
+                $Call['Image URL'] = '/cache/img/'.$Hash.'.png';
+                $Call['Image Filename'] =
+                    $Call['Storages']['Image Cache']['Directory'].DS.$Call['HTTP']['Host'].DS.'img'.DS.$Hash.'.png';
 
-            $Call['Data Filename'] =
-               $Call['Storages']['Image Cache']['Directory'].DS.$Call['HTTP']['Host'].DS.'img'.DS.$Hash.'.txt';
+                $Call['Data Filename'] =
+                   $Call['Storages']['Image Cache']['Directory'].DS.$Call['HTTP']['Host'].DS.'img'.DS.$Hash.'.txt';
 
-                $Call['Plot']['Title'] = $Call['Request']['Metric'];
-                F::Run('Image.Plot.GNUPlot', 'Do', $Call,
-                    [
-                        'Data' => $Data
-                    ]);
+                    $Call['Plot']['Title'] = $Call['Request']['Metric'];
+                    F::Run('Image.Plot.GNUPlot', 'Do', $Call,
+                        [
+                            'Data' => $Data
+                        ]);
+                }
             }
 
         return $Call;
