@@ -139,7 +139,7 @@
                             $Updated = F::Dot($Updated, $CodeineField, $tempField);
                     }
 
-                // $Updated['Odnoklassniki']['Photo'] = htmlentities($Updated['Odnoklassniki']['Photo']);
+                $Updated['Odnoklassniki']['Photo'] = html_entity_decode($Updated['Odnoklassniki']['Photo']);
 
                 F::Run('Entity', 'Update', $Call,
                     [
