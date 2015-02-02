@@ -72,6 +72,7 @@
                        CURLOPT_RETURNTRANSFER   => true,
                        CURLOPT_COOKIEJAR        => $Call['CURL']['Cookie Directory'].DS.parse_url($Call['Where']['ID'], PHP_URL_HOST),
                        CURLOPT_FOLLOWLOCATION   => $Call['CURL']['Follow'],
+                       CURLOPT_REFERER          => $Call['CURL']['Referer'],
                        CURLOPT_CONNECTTIMEOUT   => $Call['CURL']['Connect Timeout'],
                        CURLOPT_PROXY            => $Call['CURL']['Proxy']['Host'],
                        CURLOPT_PROXYPORT        => $Call['CURL']['Proxy']['Port'],
@@ -123,16 +124,17 @@
 
             curl_setopt_array($Call['Link'],
                 [
-                   CURLOPT_HEADER           => $Call['CURL']['Return Header'],
-                   CURLOPT_RETURNTRANSFER   => true,
-                   CURLOPT_COOKIEJAR        => $Call['CURL']['Cookie Directory'].DS.parse_url($Call['Where']['ID'], PHP_URL_HOST),
-                   CURLOPT_FOLLOWLOCATION   => $Call['CURL']['Follow'],
-                   CURLOPT_CONNECTTIMEOUT   => $Call['CURL']['Connect Timeout'],
-                   CURLOPT_PROXY            => $Call['CURL']['Proxy']['Host'],
-                   CURLOPT_PROXYPORT        => $Call['CURL']['Proxy']['Port'],
-                   CURLOPT_USERAGENT        => $Call['CURL']['User Agent'],
-                   CURLOPT_SSL_VERIFYPEER => false,
-                   CURLOPT_FAILONERROR      => true
+                    CURLOPT_HEADER           => $Call['CURL']['Return Header'],
+                    CURLOPT_RETURNTRANSFER   => true,
+                    CURLOPT_COOKIEJAR        => $Call['CURL']['Cookie Directory'].DS.parse_url($Call['Where']['ID'], PHP_URL_HOST),
+                    CURLOPT_FOLLOWLOCATION   => $Call['CURL']['Follow'],
+                    CURLOPT_REFERER          => $Call['CURL']['Referer'],
+                    CURLOPT_CONNECTTIMEOUT   => $Call['CURL']['Connect Timeout'],
+                    CURLOPT_PROXY            => $Call['CURL']['Proxy']['Host'],
+                    CURLOPT_PROXYPORT        => $Call['CURL']['Proxy']['Port'],
+                    CURLOPT_USERAGENT        => $Call['CURL']['User Agent'],
+                    CURLOPT_SSL_VERIFYPEER => false,
+                    CURLOPT_FAILONERROR      => true
                 ]);
 
             if (isset($Call['CURL']['Proxy']['Auth']))
@@ -176,6 +178,7 @@
                 CURLOPT_RETURNTRANSFER   => true,
                 CURLOPT_COOKIEJAR        => $Call['CURL']['Cookie Directory'].DS.parse_url($Call['Where']['ID'], PHP_URL_HOST),
                 CURLOPT_FOLLOWLOCATION   => $Call['CURL']['Follow'],
+                CURLOPT_REFERER          => $Call['CURL']['Referer'],
                 CURLOPT_CONNECTTIMEOUT   => $Call['CURL']['Connect Timeout'],
                 CURLOPT_TIMEOUT          => $Call['CURL']['Overall Timeout'],
                 CURLOPT_PROXY            => $Call['CURL']['Proxy']['Host'],
@@ -253,6 +256,7 @@
                     CURLOPT_NOBODY => true,
                     CURLOPT_RETURNTRANSFER => true,
                     CURLOPT_SSL_VERIFYPEER => false,
+                    CURLOPT_REFERER          => $Call['CURL']['Referer'],
                     CURLOPT_FOLLOWLOCATION => $Call['CURL']['Follow'],
                     CURLOPT_CONNECTTIMEOUT => $Call['CURL']['Connect Timeout'],
                     CURLOPT_USERAGENT        => $Call['CURL']['User Agent']

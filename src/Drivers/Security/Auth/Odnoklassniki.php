@@ -62,10 +62,12 @@
                         [
                             'access_token'  => $Result['access_token'],
                             'format'        => 'json',
-                            'fields'        => 'uid, locale, first_name, last_name, name, gender, birthday, photo_id, pic_1, pic_2, pic1024x768, location'
+                            'fields'        => 'uid, locale, first_name, last_name, name, gender, birthday, pic1024x768, pic640x480, location'
                         ]
                     ]);
+
                 $Updated = [];
+
                 if (isset($Call['Session']['User']['ID']))
                 {
                     $Call['User'] = F::Run('Entity', 'Read',
@@ -137,7 +139,7 @@
                             $Updated = F::Dot($Updated, $CodeineField, $tempField);
                     }
 
-                $Updated['Odnoklassniki']['Photo'] = htmlentities($Updated['Odnoklassniki']['Photo']);
+                // $Updated['Odnoklassniki']['Photo'] = htmlentities($Updated['Odnoklassniki']['Photo']);
 
                 F::Run('Entity', 'Update', $Call,
                     [
