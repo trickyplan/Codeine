@@ -32,7 +32,7 @@
                 $Call['Limit']['From']= 0;
                 $Call['Limit']['To'] = $Call['Count'];
             }
-
+/*
             if (isset($Call['Sort']))
             {
                 $ReducedLimit = round($Call['Limit']['From']/2);
@@ -67,7 +67,7 @@
                     }
 
                 $Call['Limit']['From'] -= $ReducedLimit;
-            }
+            }*/
         }
 
         return $Call;
