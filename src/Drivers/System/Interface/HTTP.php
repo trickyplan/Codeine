@@ -88,7 +88,12 @@
             if (preg_match_all('@\$([\.\w]+)@', $URL, $Vars))
             {
                 foreach ($Vars[0] as $IX => $Key)
-                    $URL = str_replace($Key, F::Dot($Call,$Vars[1][$IX]) , $URL);
+                {
+                    $Value = F::Dot($Call,$Vars[1][$IX]);
+
+                    if (is_scalar($Value))
+                        $URL = str_replace($Key, $Value , $URL);
+                }
             }
 
             if (isset($Call['HTTP']['Redirect']) && $Call['HTTP']['Redirect'] == 'Permanent')
