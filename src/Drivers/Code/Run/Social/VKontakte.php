@@ -49,8 +49,8 @@
         {
             if (isset($Call['VKontakte']['Error']['Codes'][$Result['error']['error_code']]))
                 F::Hook('VKontakte.'.$Call['VKontakte']['Error']['Codes'][$Result['error']['error_code']], $Call);
-
-            F::Log($Result['error']['error_msg'], LOG_INFO);
+            else
+                F::Log($Result['error']['error_msg'], LOG_WARNING);
 
             $Result = null;
         }
@@ -74,7 +74,6 @@
         }
         else
         {
-            F::Log('Used VK Token from random users', LOG_INFO);
             $TokenUsers =
                 F::Run ('Entity', 'Read',
                     [
@@ -94,6 +93,7 @@
                         ]
                     ]);
 
+            F::Log('Used VK Token from '.count($TokenUsers).' random users', LOG_INFO);
             $Result = $TokenUsers[array_rand($TokenUsers)]['VKontakte']['Auth'];
         }
 
@@ -102,24 +102,28 @@
 
     setFn('Remove Token', function ($Call)
     {
-        if (isset($Call['Where']['ID']))
+        if (isset($Call['Call']['access_token']))
         {
             F::Run('Entity', 'Update',
                 [
                     'Entity' => 'User',
-                    'Where'  => $Call['Where']['ID'],
+                    'Where'  =>
+                    [
+                        'VKontakte.Active' => true,
+                        'VKontakte.Auth'   => $Call['Call']['access_token']
+                    ],
                     'Skip Live' => true,
                     'Data'   =>
                         [
                             'VKontakte' =>
                                 [
-                                    'Active' => false,
+                                    'Active'    => false,
                                     'Auth'      => null
                                 ]
                         ]
                 ]);
 
-            F::Log('Invalid token cleaned', LOG_INFO);
+            F::Log('Invalid token cleaned '.$Call['Call']['access_token'], LOG_INFO);
         }
 
         return $Call;
