@@ -16,7 +16,11 @@
         ];
 
         $Call['Output']['Content'][] = 'Host: '.$Call['HTTP']['Proto'].$Call['HTTP']['Host'];
-        $Call['Output']['Content'][] = 'Sitemap: '.$Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/sitemap.xml';
+        $Sitemaps = F::Run('SEO.Sitemap', 'List Sitemap Indexes', $Call);
+
+
+        foreach ($Sitemaps['Sitemap Indexes'] as $Sitemap)
+            $Call['Output']['Content'][] = 'Sitemap: '.$Sitemap;
 
         if (isset($Call['Robots']['Crawl-delay']))
             $Call['Output']['Content'][] = 'Crawl-delay: '.$Call['Robots']['Crawl-delay'];

@@ -10,6 +10,7 @@
     setFn('List Sitemap Indexes', function ($Call)
     {
         $Call['Output'] =  ['Root' => 'sitemapindex', 'Content' => []];
+        $Call['Sitemap Indexes'] = [];
 
         foreach ($Call['Sitemap']['Handlers'] as $Name => $Handler)
         {
@@ -17,6 +18,8 @@
             $IndexesCount = ceil($SitemapsCount/$Call['Sitemap']['Limits']['Sitemap Per Index']);
 
             for ($SI = 1; $SI <= $IndexesCount; $SI++)
+            {
+                $Call['Sitemap Indexes'][] = $Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/sitemap/'.$Name.'-'.$SI.'.xml';
                 $Call['Output']['Content'][] =
                     [
                         'sitemap' =>
@@ -24,6 +27,7 @@
                                 'loc' => $Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/sitemap/'.$Name.'-'.$SI.'.xml'
                             ]
                     ];
+            }
         }
 
         return $Call;
