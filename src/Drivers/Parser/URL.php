@@ -27,18 +27,22 @@
     {
         $Call['URL'] = $Call['Request']['Data']['URL'];
 
-        $Result = F::Live($Call['Parser']['URL']['Backend'],
+        if ($Call['Schema'] = F::Run('Parser', 'Discovery', $Call))
+        {
+            $Schema = F::loadOptions('Parser/'.$Call['Schema']);
+            $Call = F::Merge($Call, $Schema);
+
+            $Result = F::Live($Call['Parser']['URL']['Backend'],
             [
-                'Where' =>
+                 'Where' =>
                 [
                     'ID' => $Call['URL']
                 ]
             ]);
 
-        $Result = array_pop($Result);
+            d(__FILE__, __LINE__, $Result);
+            $Result = array_pop($Result);
 
-        if ($Call['Schema'] = F::Run('Parser', 'Discovery', $Call))
-        {
             $Call = F::Run('Parser', 'Do', $Call, ['Markup' => $Result]);
             $Slices = explode(DS, $Call['Schema']);
             $Call['Entity'] = array_pop($Slices);

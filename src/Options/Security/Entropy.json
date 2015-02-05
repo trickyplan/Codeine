@@ -2,6 +2,7 @@
     "Mode": "Normal",
     "Min": 0,
     "Max": 1,
+    "Size": 6,
     "Modes":
     {
         "Hard":

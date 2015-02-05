@@ -12,7 +12,7 @@
     {
         phpQuery::newDocumentHTML($Call['Markup']);
 
-            $Call['Nodes'] = F::loadOptions('Parser/'.$Call['Schema'])['Nodes'];
+            $Call = F::loadOptions('Parser/'.$Call['Schema'], null, $Call);
 
             $Data = [];
 

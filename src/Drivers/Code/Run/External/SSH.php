@@ -36,8 +36,6 @@
 
     setFn('Run', function ($Call)
     {
-        $Result = [];
-
         $Server = F::Run(null, 'Open', $Call);
 
             $Call['Service'] = (array) $Call['Service'];

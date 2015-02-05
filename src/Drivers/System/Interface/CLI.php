@@ -27,9 +27,6 @@
 
         if (is_array($Call) && isset($Call['Output']))
         {
-            if (!isset($Call['View']['Renderer']))
-                $Call['View']['Renderer'] = $Call['View']['Default']['Renderer'];
-
             $Call = F::Hook('afterInterfaceRun', $Call);
 
             F::Run('IO','Write', $Call,
