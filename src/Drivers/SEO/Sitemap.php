@@ -1,62 +1,58 @@
 <?php
 
     /* Codeine
-     * @author bergstein@trickyplan.com
+     * @author BreathLess
      * @description  
      * @package Codeine
-     * @version 8.x
+     * @version 7.x
      */
 
-    setFn('Index', function ($Call)
+    setFn('List Sitemap Indexes', function ($Call)
     {
-        $Call = F::Hook('beforeSitemap', $Call);
+        $Call['Output'] =  ['Root' => 'sitemapindex', 'Content' => []];
+
+        foreach ($Call['Sitemap']['Handlers'] as $Name => $Handler)
+        {
+            $SitemapsCount = F::Run($Handler['Driver'], 'Sitemaps Count', $Call, $Handler);
+            $IndexesCount = ceil($SitemapsCount/$Call['Sitemap']['Limits']['Sitemap Per Index']);
+
+            for ($SI = 1; $SI <= $IndexesCount; $SI++)
+                $Call['Output']['Content'][] =
+                    [
+                        'sitemap' =>
+                            [
+                                'loc' => $Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/sitemap/'.$Name.'-'.$SI.'.xml'
+                            ]
+                    ];
+        }
+
+        return $Call;
+    });
+
+    setFn('Show Sitemap Index', function ($Call)
+    {
+        $Call = F::Hook('beforeSitemapIndexShow', $Call);
 
             $Call['Output'] =  ['Root' => 'sitemapindex', 'Content' => []];
 
-            foreach ($Call['Sitemap']['Handlers'] as $HandlerCall)
-            {
-                $HandlerCall['Method'] = 'Index';
-                $Call = F::Live($HandlerCall, $Call);
-            }
+            $Handler = $Call['Sitemap']['Handlers'][$Call['Index']];
+            $Call = F::Apply($Handler['Driver'], null, $Call, $Handler);
 
-        $Call = F::Hook('afterSitemap', $Call);
+        $Call = F::Hook('afterSitemapIndexShow', $Call);
 
         return $Call;
     });
 
-    setFn('One', function ($Call)
+    setFn('Sitemap', function ($Call)
     {
-        $Call = F::Hook('beforeSitemap', $Call);
+        $Call = F::Hook('beforeSitemapShow', $Call);
 
-        $Call['Output'] =  ['Root' => 'urlset', 'Content' => []];
+            $Call['Output'] = ['Root' => 'urlset', 'Content' => []];
 
-        $HandlerCall = $Call['Sitemap']['Handlers'][$Call['Entity']];
-        $HandlerCall['Method'] = 'One';
-        $Call = F::Live($HandlerCall, $Call);
+            $Handler = $Call['Sitemap']['Handlers'][$Call['Index']];
+            $Call = F::Apply($Handler['Driver'], null, $Call, $Handler);
 
-        $Call = F::Hook('afterSitemap', $Call);
-
-        return $Call;
-    });
-
-    setFn('Ping', function ($Call)
-    {
-        $SitemapURL = '/ping?sitemap='.urlencode($Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/sitemap.xml');
-
-        $Pings = [];
-
-        foreach($Call['SearchEngines'] as $Name => $URL)
-            $Pings[$Name] = $URL.$SitemapURL;
-
-        F::Run('IO', 'Read',
-        [
-             'Storage' => 'Web',
-             'Where' =>
-             [
-                 'ID' => $Pings
-             ]
-        ]);
-
+        $Call = F::Hook('afterSitemapShow', $Call);
 
         return $Call;
     });

@@ -137,11 +137,11 @@
             "Service": "Test",
             "Method": "Do"
         },
-        "One Sitemap w/pages":
+        "Show Sitemap":
         {
-            "Match": "/sitemap/(.+)/(\\d+).xml",
+            "Match": "/sitemap/(.+)/(.+).xml",
             "Service": "SEO.Sitemap",
-            "Method": "One",
+            "Method": "Sitemap",
             "View":
             {
                 "Renderer":
@@ -152,15 +152,15 @@
             },
             "Call":
             {
-                "Entity": "$1",
+                "Index": "$1",
                 "Page": "$2"
             }
         },
-        "One Sitemap":
+        "Show Sitemap Index":
         {
-            "Match": "/sitemap/(.+).xml",
+            "Match": "/sitemap/(.+)-(\\d).xml",
             "Service": "SEO.Sitemap",
-            "Method": "One",
+            "Method": "Show Sitemap Index",
             "View":
             {
                 "Renderer":
@@ -171,7 +171,8 @@
             },
             "Call":
             {
-                "Entity": "$1"
+                "Index": "$1",
+                "Index Page": "$2"
             }
         },
         "To":

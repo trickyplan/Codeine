@@ -1,7 +1,19 @@
 {
+    "View":
+    {
+        "Renderer":
+        {
+            "Service": "View.XML",
+            "Method": "Render"
+        }
+    },
     "Sitemap":
     {
-        "URLs": 1000,
+        "Limits":
+        {
+            "Sitemap Per Index": 1000,
+            "URLs Per Sitemap": 5000
+        },
         "Handlers":
         {
 

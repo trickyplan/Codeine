@@ -1,92 +1,63 @@
 <?php
 
     /* Codeine
-     * @author bergstein@trickyplan.com
+     * @author BreathLess
      * @description  
      * @package Codeine
-     * @version 8.x
+     * @version 7.x
      */
 
-    setFn('Index', function ($Call)
+    setFn('Sitemaps Count', function ($Call)
     {
-        $Call = F::Run('Entity', 'Load', $Call);
-        $ElementsCount = F::Run('Entity', 'Count', $Call);
+        $Overall = F::Run('Entity', 'Count', $Call);
 
-        $PC = ceil($ElementsCount/$Call['Sitemap']['URLs']);
+        return ceil($Overall / $Call['Sitemap']['Limits']['URLs Per Sitemap']);
+    });
 
-        if ($PC > 1)
-            for($A = 1; $A <= $PC; $A++)
-                $Call['Output']['Content'][] =
-                [
-                    'sitemap' =>
-                    [
-                        'loc' => $Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/sitemap/'.$Call['Entity'].'/'.$A.'.xml'
-                    ]
-                ]; // FIXME!
-        else
+    setFn('Show Sitemap Index', function ($Call)
+    {
+        $SitemapsCount = F::Run(null, 'Sitemaps Count', $Call);
+
+        $From = 1+($Call['Index Page']-1)*$Call['Sitemap']['Limits']['Sitemap Per Index'];
+        $To = $Call['Index Page']*$Call['Sitemap']['Limits']['Sitemap Per Index'];
+
+        if ($To > $SitemapsCount)
+            $To = $SitemapsCount;
+
+        for ($IX = $From; $IX <= $To; $IX++)
             $Call['Output']['Content'][] =
+            [
+                'sitemap' =>
                 [
-                    'sitemap' =>
-                    [
-                        'loc' => $Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/sitemap/'.$Call['Entity'].'.xml'
-                    ]
-                ];
+                    'loc' => $Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/sitemap/'.$Call['Entity'].'/'.$IX.'.xml'
+                ]
+            ];
 
         return $Call;
     });
 
-    setFn('One', function ($Call)
+    setFn('Sitemap', function ($Call)
     {
-        if (isset($Call['Scope']))
-            ;
-        else
-            $Call['Scope'] = strtolower($Call['Entity']);
+        $Objects = F::Run('Entity', 'Read', $Call,
+        [
+            'Limit' =>
+            [
+                'From' => ($Call['Page']-1)*$Call['Sitemap']['Limits']['URLs Per Sitemap'],
+                'To'   => $Call['Sitemap']['Limits']['URLs Per Sitemap']
+            ]
+        ]);
 
-        if (isset($Call['Page']))
-            ;
-        else
-            $Call['Page'] = 1;
-
-        $Call['Limit'] = ['From' => ($Call['Page']-1)*$Call['Sitemap']['URLs'], 'To' => $Call['Sitemap']['URLs']];
-
-        if (is_array($Call['Sitemap']['URL Field']))
-            $Call['Fields'] = array_merge($Call['Sitemap']['URL Field'], ['ID']);
-        else
-            $Call['Fields'] = [$Call['Sitemap']['URL Field'], 'ID'];
-
-        $Elements = F::Run('Entity', 'Read', $Call, ['Partial' => true]);
-
-        if (count($Elements) > 0)
-            foreach ($Elements as $Element)
-            {
-                if (is_array($Call['Sitemap']['URL Field']))
-                {
-                    $Slug = [];
-                    foreach ($Call['Sitemap']['URL Field'] as $Field)
-                        if (isset($Element[$Field]))
-                            $Slug[] = urlencode($Element[$Field]);
-
-                    $Slug = implode('/', $Slug);
-                }
-                else
-                {
-                    if (isset($Element[$Call['Sitemap']['URL Field']]))
-                        $Slug = urlencode($Element[$Call['Sitemap']['URL Field']]);
-                    else
-                        $Slug = $Element['ID'];
-                }
-
-                $Call['Output']['Content'][] =
+        foreach ($Objects as $Object)
+            $Call['Output']['Content'][] =
+            [
+                'url' =>
                 [
-                    'url' =>
-                    [
-                        'loc' => $Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/'.$Call['Scope'].'/'.$Slug,
-                        'lastmod' => date(DATE_W3C),
-                        'changefreq' => $Call['Frequency'],
-                        'priority'   => $Call['Priority']
-                    ]
-                ]; // FIXME!
-            }
+                    'loc' => $Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/'.$Call['Scope'].'/'.$Object['ID'],
+                    'lastmod' => date(DATE_W3C),
+                    'changefreq' => $Call['Frequency'],
+                    'priority'   => $Call['Priority']
+                ]
+            ];
 
         return $Call;
     });

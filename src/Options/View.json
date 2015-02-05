@@ -9,15 +9,12 @@
             }
         }
     },
-    "Default":
+    "View":
     {
-        "View":
+        "Renderer":
         {
-            "Renderer":
-            {
-                "Service": "View.Plaintext",
-                "Method": "Render"
-            }
+            "Service": "View.Plaintext",
+            "Method": "Render"
         }
     },
     "Output":
