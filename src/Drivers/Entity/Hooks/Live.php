@@ -30,7 +30,7 @@
                             && $Node['User Override']
                             && null != (F::Dot($Call['Data'], $Name))
                         )
-                            F::Log('Node *'.$Name.'* overriden by user with *'.F::Dot($Call['Data'], $Name).'*', LOG_INFO);
+                            F::Log('Node *'.$Name.'* overriden by user with *'.j(F::Dot($Call['Data'], $Name)).'*', LOG_INFO);
                         else
                         {
                             $LiveValue = F::Live($Node['Hooks'][$Call['On']],
