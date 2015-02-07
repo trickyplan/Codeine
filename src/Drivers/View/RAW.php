@@ -10,7 +10,9 @@
     setFn('Render', function ($Call)
     {
         $finfo = new finfo(FILEINFO_MIME);
-        $Call['Output'] = implode($Call['Output']['Content']);
+        if (is_array($Call['Output']['Content']))
+            $Call['Output']['Content'] = implode('', $Call['Output']['Content']);
+        $Call['Output'] = $Call['Output']['Content'];
         $Call['HTTP']['Headers']['Content-type:'] = $finfo->buffer($Call['Output']);
 
         return $Call;
