@@ -27,6 +27,7 @@
                 "15": "Forbidden",
                 "16": "HTTPS.Forced",
                 "17": "User.Unvalidated",
+                "18": "User.Banned",
                 "20": "Access.RestrictedForStandalone",
                 "21": "Access.RestrictedForStandaloneAndAPI",
                 "23": "Method.Disabled",
