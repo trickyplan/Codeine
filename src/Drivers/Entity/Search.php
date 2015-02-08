@@ -75,12 +75,11 @@
                 ]);
 
                 $Call['Output']['Content'][] =
-                        [
-                            'Type' => 'Template',
-                            'Scope' => $Entity,
-                            'ID' => 'Search',
-                            'Context' => $Call['Context']
-                        ];
+                [
+                    'Type' => 'Template',
+                    'Scope' => $Entity,
+                    'ID' => 'Search'
+                ];
 
             }
         }

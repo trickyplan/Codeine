@@ -38,8 +38,14 @@
 
     setFn('Sitemap', function ($Call)
     {
+        if (is_array($Call['Sitemap']['URL Field']))
+            ;
+        else
+            $Call['Sitemap']['URL Field'] = (array) $Call['Sitemap']['URL Field'];
+
         $Objects = F::Run('Entity', 'Read', $Call,
         [
+            'Fields' => $Call['Sitemap']['URL Field'],
             'Limit' =>
             [
                 'From' => ($Call['Page']-1)*$Call['Sitemap']['Limits']['URLs Per Sitemap'],
@@ -48,16 +54,24 @@
         ]);
 
         foreach ($Objects as $Object)
+        {
+            $Slug = [];
+
+            foreach ($Call['Sitemap']['URL Field'] as $Slice)
+                if (isset($Object[$Slice]))
+                    $Slug[] = urlencode($Object[$Slice]);
+
             $Call['Output']['Content'][] =
-            [
-                'url' =>
                 [
-                    'loc' => $Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/'.$Call['Scope'].'/'.$Object['ID'],
-                    'lastmod' => date(DATE_W3C),
-                    'changefreq' => $Call['Frequency'],
-                    'priority'   => $Call['Priority']
-                ]
-            ];
+                    'url' =>
+                        [
+                            'loc' => $Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/'.$Call['Scope'].'/'.implode('/', $Slug),
+                            'lastmod' => date(DATE_W3C),
+                            'changefreq' => $Call['Frequency'],
+                            'priority'   => $Call['Priority']
+                        ]
+                ];
+        }
 
         return $Call;
     });
