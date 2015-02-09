@@ -22,7 +22,7 @@
         foreach ($Sitemaps['Sitemap Indexes'] as $Sitemap)
             $Call['Output']['Content'][] = 'Sitemap: '.$Sitemap;
 
-        if (isset($Call['Robots']['Crawl-delay']))
+        if (isset($Call['Robots']['Crawl-delay']) && $Call['Robots']['Crawl-delay']>0)
             $Call['Output']['Content'][] = 'Crawl-delay: '.$Call['Robots']['Crawl-delay'];
 
         foreach ($Call['Robots']['Crawlers'] as $Crawler => $URL)
