@@ -29,6 +29,8 @@
         $XML->writeElement('link', $Call['HTTP']['Proto'].$Call['HTTP']['Host'].$Call['Link']);
         if (isset($Call['Page']['Description']))
             $XML->writeElement('description', $Call['Page']['Description']);
+        else
+            $XML->writeElement('description', '');
         $XML->writeElement('generator', 'Codeine '.$Call['Version']['Codeine']['Major']);
         $XML->writeElement('pubDate', date(DATE_RSS, time()));
         $XML->writeElement('lastBuildDate', date(DATE_RSS, time()));
