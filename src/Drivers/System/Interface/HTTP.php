@@ -45,12 +45,12 @@
                             header('HTTP/1.1 503 Service Temporarily Unavailable');
                             header('Status: 503 Service Temporarily Unavailable');
 
+                            header('X-Reason: '.$e->getMessage());
                             if (file_exists(Root.'/Public/down.html'))
                                 readfile(Root.'/Public/down.html');
                             else
                                 readfile(Codeine.'/down.html');
 
-                            header('X-Exception: '.$e->getMessage());
                         break;
                     }
                 }

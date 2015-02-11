@@ -9,6 +9,7 @@
             header('HTTP/1.1 503 Service Temporarily Unavailable');
             header('Status: 503 Service Temporarily Unavailable');
 
+            header('X-Reason: Locked');
             if (file_exists(Root.'/Public/down.html'))
                 readfile(Root.'/Public/down.html');
             else
