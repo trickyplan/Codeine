@@ -64,7 +64,7 @@
 
     setFn('Output Name', function ($Call)
     {
-        $Call['Image']['Fullpath'] = implode('_',
+        $Call['Image']['Fullpath'] = $Call['Image']['Path Separator'].implode($Call['Image']['Path Separator'],
             [
                 F::Run('IO', 'Execute', $Call['Current Image']['Source'],['Execute' => 'Version']),
                             (isset($Call['Current Image']['Width'])? $Call['Current Image']['Width']: 0),
