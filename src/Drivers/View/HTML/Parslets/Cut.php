@@ -15,7 +15,7 @@
 
             $Inner = $Call['Parsed'][2][$IX];
 
-            if (F::Dot($Call ,'View.HTML.Parslet.Cut.StripTags.Enabled'))
+            if (F::Dot($Call ,'View.HTML.Parslet.Cut.StripTags.Enabled') or $Root->attributes()->strip)
                 $Inner = strip_tags($Inner, F::Dot($Call ,'View.HTML.Parslet.Cut.StripTags.Allowed'));
 
             $Outer = $Inner;
@@ -53,7 +53,7 @@
                 $Hellip = '<a href="'.((string) $Root->attributes()->more).'" class="hellip">'.$Hellip.'</a>';
 
             if (strlen($Outer) < strlen($Inner))
-                $Outer.= $Hellip;
+                $Outer.= strtr($Hellip, ['\n' => '<br/>']); // nl2br is unusable here
 
             $Call['Output'] = str_replace ($Call['Parsed'][0][$IX], $Outer, $Call['Output']);
         }

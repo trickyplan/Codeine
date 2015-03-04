@@ -9,11 +9,12 @@
 
     setFn('Do', function ($Call)
     {
-
         //if (preg_match_all('@<place>(.*)<\/place>@SsUu', $Call['Layout'], $Places))
         {
             if (isset($Call['Output']))
             {
+                $Output = [];
+
                 if (is_array($Call['Output']))
                     foreach ($Call['Output'] as $Place => $Widgets)
                         if (is_array($Widgets))
@@ -24,15 +25,13 @@
                                     $Widget =
                                         F::Run($Call['View']['Renderer']['Service'] . '.Element.' . $Widget['Type'], 'Make', $Widget);
 
-                                    if (empty($Widget))
-                                        ;
-                                    else
-                                        $Call['Output'][$Place][$Key] = $Widget;
+                                    $Call['Output'][$Place][$Key] = $Widget;
                                 }
                         }
                 // TODO Normal caching
             }
         }
+
 
         return $Call;
     });

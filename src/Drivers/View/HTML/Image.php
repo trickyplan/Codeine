@@ -94,7 +94,7 @@
         for ($IX = 0; $IX < $Call['Image']['Hash Levels']; $IX++)
             $Call['Image']['Scope'].= substr($FullPath, $IX, 1).'/';
 
-        /*if (F::Run('IO', 'Execute',
+        if (F::Run('IO', 'Execute',
                         [
                             'Storage' => 'Image Cache',
                             'Scope'   => [
@@ -108,7 +108,7 @@
                             ]
                         ]))
             F::Log('Image Cache *hit* '.$Call['Image']['Fullpath'], LOG_GOOD);
-        else*/
+        else
         {
             F::Log('Image Cache *miss* *'.$Call['Image']['Fullpath'].'*', LOG_BAD);
 

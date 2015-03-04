@@ -103,7 +103,7 @@
                         }
                         else
                         {
-                            F::Log('Cache *miss*', LOG_BAD);
+                            F::Log('Cache *miss* '.$Call['CSS']['Fullpath'], LOG_BAD);
                         }
                     }
 

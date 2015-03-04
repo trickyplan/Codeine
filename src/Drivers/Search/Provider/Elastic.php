@@ -92,7 +92,14 @@
             {
                 $Hit['_source']['Scope'] = $Call['Scope'];
 
-                $Data = F::Run('Entity', 'Read', ['Entity' => $Call['Scope'], 'One' => true, 'Where' => $Hit['_id']]);
+                $Data = F::Run('Entity', 'Read',
+                               [
+                                   'Entity' => $Call['Scope'],
+                                   'One' => true,
+                                   'Fields' => $Call['Search fields'],
+                                   'Where' => $Hit['_id']
+                               ]
+                );
 
                 if (empty($Data))
                     ;

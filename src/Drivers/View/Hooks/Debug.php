@@ -13,10 +13,7 @@
         {
             $ID = $Call['Scope'].':'.$Call['ID'].(isset($Call['Context'])? ':'.$Call['Context']: '');
 
-            $Call['Value'] =
-                "\n".'<!-- '.$ID.' started -->'
-                ."\n".$Call['Value']."\n"
-                .'<!-- '.$ID.' ended -->';
+            $Call['Value'] = '<!-- '.$ID.' started -->'.$Call['Value'].'<!-- '.$ID.' ended -->';
         }
 
         return $Call;

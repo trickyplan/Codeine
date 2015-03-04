@@ -35,7 +35,9 @@
                     }
                     else
                         if (isset($Rule['Debug']))
+                        {
                             F::Log('Diff '.$Name.' (Rule, Call)'.j(F::Diff($Rule['Run'], $Call)), LOG_INFO, 'Security');
+                        }
 
                     if (isset($Call['Service'])
                         && isset($Rule['Run']['Service'])

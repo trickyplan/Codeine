@@ -14,13 +14,25 @@
          if (isset($Call['Multiple']) && $Call['Multiple'])
              $Call['Name'] .= '[]';
 
-         if ($Call['Options'] !== null)
+         if ($Call['Options'] === null)
+             ;
+         else
+         {
+             if (isset($Call['Nullable']) && $Call['Nullable'])
+                 $Call['Options'][] = [null, null];
+
+             if (isset($Call['Flip Keys']))
+                 $Call['Options'] = array_flip($Call['Options']);
+
              foreach ($Call['Options'] as $Key => $Option)
              {
                  if (is_array($Option))
-                    list ($Key, $Value) = $Option;
+                 {
+                     $Key = array_pop($Option);
+                     $Value = array_pop($Option);
+                 }
                  else
-                    $Value = $Option;
+                     $Value = $Option;
 
                  if (isset($Call['Localized']) && $Call['Localized'])
                  {
@@ -30,19 +42,17 @@
                      $lValue = '<l>'.$Call['Values Locale'].'.'.$Value.'</l>';
                  }
                  else
-                    $lValue = $Value;
+                     $lValue = $Value;
 
                  if (isset($Call['Keys as values']) && $Call['Keys as values'])
-                    {
-                         $lValue = $Value;
-                         $Option = $Key;
-                    }
+                     $lValue = $Value;
 
                  if (($Value == $Call['Value']) || ($Key == $Call['Value']) || ((is_array($Call['Value']) && in_array ($Value, $Call['Value']))))
-                     $Options[] = '<option value="'.$Option.'" selected>'.$lValue.'</option>';
+                     $Options[] = '<option value="'.$Key.'" selected>'.$lValue.'</option>';
                  else
-                     $Options[] = '<option value="'.$Option.'">' . $lValue . '</option>';
+                     $Options[] = '<option value="'.$Key.'">' . $lValue . '</option>';
              }
+         }
 
          $Call ['Options'] = implode('', $Options);
 

@@ -16,11 +16,28 @@
 
         $Call = F::Hook('beforeCatalog', $Call);
 
-            $Elements = F::Run('Entity', 'Read',
+        if (isset($Call['No Catalog Entity']))
+        {
+            $Elements = F::Run('Entity', 'Read', $Call,
                 [
-                    'Entity' => $Call['Key'],
-                    'Where'  => []
+                    'Entity'    => $Call['Entity'],
+                    'Fields'    => [$Call['Key']],
+                    'Distinct'  => true,
+                    'Where'     => []
                 ]);
+
+            $Elements = F::Extract($Elements, $Call['Key']);
+        }
+        else
+        {
+            $Elements = F::Run('Entity', 'Read',
+                               [
+                                   'Entity' => $Call['Key'],
+                                   'Where'  => []
+                               ]);
+
+            $Elements = F::Extract($Elements, 'ID');
+        }
 
             $Values = [];
 
@@ -34,12 +51,12 @@
                         'RTTL'   => 600,
                         'Where' =>
                         [
-                            $Call['Key'] => $Element['ID']
+                            $Call['Key'] => $Element
                         ]
                     ]);
 
                     if ($Value > 0)
-                        $Values[$Element['ID']] = $Value;
+                        $Values[$Element] = $Value;
                 }
 
                 arsort($Values);

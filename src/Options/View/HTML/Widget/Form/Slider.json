@@ -1,0 +1,23 @@
+{
+    "Subtype": "range",
+    "Attributes":
+    {
+        "String":
+        {
+            "Type": "",
+            "ID": "",
+            "Name": "",
+            "Class": "",
+            "Value": "",
+            "Step": "",
+            "Min": "",
+            "Max": ""
+        },
+        "Boolean":
+        {
+            "Autofocus": false,
+            "Required": false,
+            "Disabled": false
+        }
+    }
+}

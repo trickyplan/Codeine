@@ -10,6 +10,11 @@
     setFn('Do', function ($Call)
     {
 
+        if (isset($Call['Data']))
+            $Data = $Call['Data'];
+        else
+            $Data = [];
+
         if (!isset($Call['Context'])) $Call['Context'] = '';
 
         $Call = F::Merge($Call, F::loadOptions($Call['Entity'].'.Entity')); // FIXME
@@ -92,6 +97,7 @@
                         else
                             $Selected = '';
 
+
                         $Call['Output']['Content'][] =
                             [
                                 'Type'  => 'Template',
@@ -100,7 +106,7 @@
                                     .$Call['Template']
                                     .$Selected,
                                 // FIXME Strategy of selecting templates
-                                'Data'  => $Element
+                                'Data'  => F::Merge($Data, $Element)
                             ];
                     }
                 }

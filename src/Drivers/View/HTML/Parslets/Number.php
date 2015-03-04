@@ -16,6 +16,8 @@
             $Format = isset($Root->attributes()->format)? (string) $Root->attributes()->format: 'French';
             $Digits = isset($Root->attributes()->digits)? (int) $Root->attributes()->digits: 0;
 
+            $Match = trim($Match);
+
             if (is_numeric($Match) && isset($Format))
                 switch($Format)
                 {

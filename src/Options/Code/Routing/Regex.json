@@ -1,5 +1,5 @@
 {
-    "Mixins": ["Control.Regex", "User.Regex"],
+    "Mixins": ["Control.Regex", "User.Regex", "Search.Regex"],
     "Regex Pattern":
     {
         "Prefix": "@",
@@ -7,54 +7,6 @@
     },
     "Regex":
     {
-        "Search w/pages":
-        {
-            "Match": "^/search/(.+)/(.+)/page(\\d+)$",
-            "Weight": 20,
-            "Service": "Search",
-            "Method": "Query",
-            "Call":
-            {
-                "Provider": "$1",
-                "Query": "$2",
-                "Page": "$3"
-            }
-        },
-        "Vertical Search w/pages":
-        {
-            "Match": "^/search/(.+)/page(\\d+)$",
-            "Weight": 20,
-            "Service": "Search",
-            "Method": "Query",
-            "Call":
-            {
-                "Query": "$1",
-                "Page": "$2"
-            }
-        },
-        "Search":
-        {
-            "Match": "^/search/(.+)/(.+)$",
-            "Weight": 20,
-            "Service": "Search",
-            "Method": "Query",
-            "Call":
-            {
-                "Provider": "$1",
-                "Query": "$2"
-            }
-        },
-        "Vertical Search":
-        {
-            "Match": "^/search/(.*)$",
-            "Weight": 20,
-            "Service": "Search",
-            "Method": "Query",
-            "Call":
-            {
-                "Query": "$1"
-            }
-        },
         "Error":
         {
             "Match": "/error/(.*)",

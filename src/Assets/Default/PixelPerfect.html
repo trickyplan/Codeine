@@ -1,0 +1,16 @@
+<div id="pixel-perfect" style="display: none; top: 0; left: 270px; width: 1366px; height: 1585px; position: absolute; z-index: 999;">
+    <!-- <call>HTTP.URL</call>/layout.png -->
+    <image>
+        <Source>
+            <Storage>Image</Storage>
+            <Scope>Project/Design</Scope>
+            <Where><call>HTTP.URL</call>/layout.png</Where>
+        </Source>
+        <Width>1366</Width>
+        <Thumb/>
+        <Class>img img-responsive</Class>
+    </image>
+</div>
+<jsrun>
+    $(document).bind('keydown', '5', function (evt){$('#pixel-perfect').toggle(); return false; });
+</jsrun>

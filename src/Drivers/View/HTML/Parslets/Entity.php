@@ -19,7 +19,6 @@
             else
                 $Template = 'Tag';
 
-
             if (preg_match('@^(.+)\:(.+)$@SsUu', $Call['Parsed'][2][$Ix], $Slices))
             {
                 list(,$Entity, $ID) = $Slices;

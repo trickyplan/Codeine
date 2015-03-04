@@ -14,6 +14,7 @@
         else
             $Call['Scope'] = $Call['Entity'];
 
+
         $Call['Query'] = preg_split('/\s/', mb_strtolower($Call['Query']));
         $Results = [];
 
@@ -55,6 +56,6 @@
                     ];
 
             }
-
-        return ['SERP' => $SERP, 'Meta' => ['Total' => count($Results)]];
+        $Meta = ['Hits' => [$Call['Scope'] => count($Results)]];
+        return ['SERP' => $SERP, 'Meta' => $Meta];
     });

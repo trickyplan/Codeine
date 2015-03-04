@@ -37,12 +37,14 @@
                     'Where'   => $ID
                 ]);
 
-            if ($LESSVersion != $CSSVersion)
+            if ($LESSVersion != $CSSVersion or F::Environment() == 'Development')
             {
                 // FIXME! Temporary decision.
                 shell_exec('lessc --clean-css '.Root.'/Assets/'.$Asset.'/less/'.$ID.'.less > '.Root.'/Assets/'.$Asset.'/css/'.$ID.'.css');
-                F::Log('LESS processed '.Root.'/Assets/'.$Asset.'/css/'.$ID.'.css', LOG_GOOD, 'Developer');
+                F::Log('LESS processed '.Root.'/Assets/'.$Asset.'/css/'.$ID.'.css', LOG_INFO, 'Developer');
             }
+            else
+                F::Log('LESS skipped '.Root.'/Assets/'.$Asset.'/css/'.$ID.'.css', LOG_INFO, 'Developer');
         }
 
         return $Call;

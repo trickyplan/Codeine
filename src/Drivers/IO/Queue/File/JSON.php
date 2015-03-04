@@ -37,6 +37,11 @@
             j($Call['Link'], JSON_NUMERIC_CHECK | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
     });
 
+    setFn ('Count', function ($Call)
+    {
+        return count($Call['Link']);
+    });
+
     setFn ('Close', function ($Call)
     {
         return true;

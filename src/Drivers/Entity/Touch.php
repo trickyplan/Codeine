@@ -13,12 +13,36 @@
 
         $Call = F::Hook('beforeTouch', $Call);
 
-        $Results = F::Run('Entity', 'Update', $Call, ['One' => false]);
+        $Old = F::Run('Entity', 'Read', $Call, ['One' => false]);
+        $New = F::Run('Entity', 'Update', $Call, ['One' => false]);
+
+        foreach ($Old as $IX => $Object)
+        {
+            $Table = [['ID', $Object['ID']]];
+
+            foreach ($Call['Nodes'] as $Name => $Node)
+            {
+                $NewValue = F::Dot($New[$IX], $Name);
+                $OldValue = F::Dot($Old[$IX], $Name);
+
+                if ($OldValue === $NewValue)
+                    ;
+                else
+                    $Table[] = ['<l>'.$Call['Entity'].'.Entity:'.$Name.'</l>', $OldValue, $NewValue];
+            }
+
+            $Call['Output']['Content'][] =
+            [
+                'Type' => 'Table',
+                'Value' => $Table
+            ];
+        }
 
         $Call['Output']['Content'][] =
             [
-                'Type' => 'Block',
-                'Value' => count($Results).' touched'
+                'Type'  => 'Block',
+                'Class' => 'alert alert-success',
+                'Value' => count($New).' object touched'
             ];
 
         $Call = F::Hook('afterTouch', $Call);

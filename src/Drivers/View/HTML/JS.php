@@ -36,7 +36,7 @@
                 // JS Input
                 foreach ($Call['JS']['Input'] as $Call['JS']['Fullpath'])
                 {
-                    if (preg_match('/^http:/SsUu', $Call['JS']['Fullpath']))
+                    if (preg_match('/^https?/SsUu', $Call['JS']['Fullpath']))
                     {
                         $JS2 = parse_url($Call['JS']['Fullpath'], PHP_URL_HOST).sha1($Call['JS']['Fullpath']);
                         $Call['JS']['Scripts'][$JS2] = F::Run('IO', 'Read',
@@ -45,9 +45,10 @@
                             'Where'   =>
                             [
                                 'ID' => $Call['JS']['Fullpath']
-                            ],
-                            'IO TTL' => $Call['JS']['Remote']['TTL']
+                            ]
                         ])[0];
+
+                        $JS2 = strtr($JS2, '/', '-');
                         $Call['JS']['Fullpath'] = $JS2;
                     }
                     else

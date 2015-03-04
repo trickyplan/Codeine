@@ -285,6 +285,14 @@
             self::$_Options[$Service] = $Options;
         }
 
+        public static function hashCall($Call)
+        {
+            if (isset($Call['Call']))
+                return $Call['Service'].':'.$Call['Method'].'('.sha1(j($Call['Call'])).')';
+            else
+                return $Call['Service'].':'.$Call['Method'].'()';
+        }
+
         public static function isCall($Call)
         {
             return (((array) $Call === $Call) && isset($Call['Service']));
@@ -832,15 +840,22 @@
         public static function Extract($Array, $Keys, $ID = 'ID')
         {
             $Data = [];
-            $Keys = (array) $Keys;
 
-            if (is_array($Array))
-                foreach ($Keys as $Key)
-                    if (is_scalar($Key))
-                    {
-                        $Data[$Key] = array_column($Array, $Key, $ID);
-                        sort($Data[$Key]);
-                    }
+            if (is_array($Keys))
+            {
+                if (is_array($Array))
+                    foreach ($Keys as $Key)
+                        if (is_scalar($Key))
+                        {
+                            $Data[$Key] = array_column($Array, $Key, $ID);
+                            sort($Data[$Key]);
+                        }
+            }
+            else
+            {
+                $Data = array_column($Array, $Keys, $ID);
+                sort($Data);
+            }
 
             return $Data;
         }
@@ -1022,9 +1037,12 @@
 
         public static function file_exists($Filename)
         {
-            return
-                (isset(self::$_Storage['FE'][$Filename]) ?
-                self::$_Storage['FE'][$Filename]: self::$_Storage['FE'][$Filename] = file_exists($Filename) && is_file($Filename));
+            if (is_scalar($Filename))
+                return
+                    (isset(self::$_Storage['FE'][$Filename]) ?
+                    self::$_Storage['FE'][$Filename]: self::$_Storage['FE'][$Filename] = file_exists($Filename) && is_file($Filename));
+            else
+                return null;
         }
 
         public static function findFile($Names)

@@ -17,6 +17,7 @@
 
         F::Log($Call['Bundle'].' '.$Call['Option'].' started', LOG_IMPORTANT);
 
+        $Call = F::loadOptions($Call['Bundle'].'.Control', null, $Call);
         $Call = F::Apply($Call['Bundle'].'.Control', $Call['Option'], $Call);
 
         $Call['Layouts'][] = [
@@ -67,6 +68,7 @@
             if (isset($Call['Sidebar']) && is_array($Call['Sidebar']))
             {
                 $Actions = [];
+
                 foreach ($Call['Sidebar'] as &$Sidebar)
                 {
                     $Call['Run'] = [
@@ -89,6 +91,7 @@
                 $Call['Output']['Sidebar'][] =
                 [
                     'Type' => 'Navlist',
+                    'Scope' => 'Navlist',
                     'Options!' => $Actions,
                     'Value' => $Call['Option']
                 ];

@@ -19,13 +19,14 @@
 
     <keywords/>
 
-    <css>bootstrap:min</css>
+    <css>bootstrap</css>
     <css>bootstrap:addons</css>
 
     <css>Default</css>
 
     <js>jquery:min</js>
     <js>bootstrap:min</js>
+    <js>jquery.hotkeys</js>
 
     <environment eq="Development">
         <js>Locale:live</js>
@@ -36,6 +37,9 @@
     <js>Default:ajaxlink</js>
     <css>print</css>
     <place>CSS</place>
+    <jsrun>
+          $('[data-toggle="tooltip"]').tooltip()
+    </jsrun>
 </head>
 
 <body>

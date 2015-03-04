@@ -1,5 +1,3 @@
-<js>typeahead</js>
-<css>typeahead</css>
 <div class="form-group">
     <label for="<k>Name</k>"> <l><k>Label</k></l>: <if value="<k>Required</k>" eq="1"><span class="required-star">*</span></if></label>
     <div class="input-group">
@@ -15,19 +13,3 @@
         <div class="help-block"><l><k>Entity</k>.Help:<k>Key</k></l></div>
     </if>
 </div>
-
-<jsrun>
-    var dataset<k>ID</k> = new Bloodhound({
-      datumTokenizer: Bloodhound.tokenizers.obj.whitespace('Title'),
-      queryTokenizer: Bloodhound.tokenizers.whitespace,
-      remote: '<k>Typeahead.Remote</k>%QUERY'
-    });
-
-    dataset<k>ID</k>.initialize();
-
-    $('#<k>ID</k>').typeahead(null, {
-      name: 'dataset<k>ID</k>',
-      displayKey: 'Title',
-      source: dataset<k>ID</k>.ttAdapter()
-    });
-</jsrun>
