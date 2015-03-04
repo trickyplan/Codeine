@@ -1,12 +1,23 @@
 {
     "Nodes":
     {
+        "EMail":
+        {
+            "Type": "Literal.String",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        },
         "URL":
         {
             "Type": "Literal.String",
             "Widgets":
             {
-                "Create":
+                "Write":
                 {
                     "Type": "Form.Textfield"
                 }
@@ -18,7 +29,7 @@
             "Index": true,
             "Widgets":
             {
-                "Update":
+                "Write":
                 {
                     "Type": "Form.Textfield"
                 }
