@@ -28,7 +28,7 @@
                 $NewValue = F::Dot($New[$IX], $Name);
                 $OldValue = F::Dot($Old[$IX], $Name);
 
-                if ($OldValue === $NewValue)
+                if ($OldValue == $NewValue)
                     ;
                 else
                     $Table[] = ['<l>'.$Call['Entity'].'.Entity:'.$Name.'</l>', $OldValue, $NewValue];
