@@ -69,11 +69,6 @@
                 "Service":"Entity.Hooks.Strict",
                 "Method":"Process"
             },
-            "Nullable":
-            {
-                "Service":"Entity.Hooks.Nullable",
-                "Method":"Process"
-            },
             "Make variables alive":
             {
                 "Service":"Entity.Hooks.Live",

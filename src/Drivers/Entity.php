@@ -193,7 +193,21 @@
                     // Поиск по всем полям
                     $VCall['Where'] = ['ID' => $Call['Current']['ID']];
 
-                    $Call['Data'] = F::Merge($Call['Current'], $Call['Updates']);
+                    foreach ($Call['Nodes'] as $Name => $Node)
+                    {
+                        if (isset($Call['Updates'][$Name]))
+                            $Call['Data'] = F::Dot($Call['Data'], $Name, $Call['Updates'][$Name]);
+                        else
+                        {
+                            if (isset($Node['Nullable']) && $Node['Nullable'])
+                                ;
+                            else
+                            {
+                                if (isset($Call['Current'][$Name]))
+                                    $Call['Data'] = F::Dot($Call['Data'], $Name, $Call['Current'][$Name]);
+                            }
+                        }
+                    }
 
                     $Call['Data']['EV'] = $Call['EV'];
 

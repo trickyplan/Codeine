@@ -10,6 +10,7 @@
     setFn('Before', function ($Call)
     {
         $Call['Current'] = F::Run('Entity', 'Read', $Call);
+
         return $Call;
     });
 
