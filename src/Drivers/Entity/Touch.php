@@ -18,7 +18,10 @@
 
         foreach ($Old as $IX => $Object)
         {
-            $Table = [['ID', $Object['ID']]];
+            if (isset($Object['ID']))
+                $Table = [['ID', $Object['ID']]];
+            else
+                $Table = [];
 
             foreach ($Call['Nodes'] as $Name => $Node)
             {
