@@ -43,12 +43,25 @@
         else
             $Call['Sitemap']['URL Field'] = (array) $Call['Sitemap']['URL Field'];
 
+        $From = ($Call['Page']-1)*$Call['Sitemap']['Limits']['URLs Per Sitemap'];
+
         $Objects = F::Run('Entity', 'Read', $Call,
         [
             'Fields' => $Call['Sitemap']['URL Field'],
-            'Limit' =>
+            'Where'  =>
             [
-                'From' => ($Call['Page']-1)*$Call['Sitemap']['Limits']['URLs Per Sitemap'],
+                'ID' =>
+                [
+                    '$gt' => $From
+                ]
+            ],
+            'Sort'   =>
+            [
+                'ID' => true
+            ],
+            'Limit'  =>
+            [
+                'From' => 0,
                 'To'   => $Call['Sitemap']['Limits']['URLs Per Sitemap']
             ]
         ]);
