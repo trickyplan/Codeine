@@ -42,6 +42,7 @@
                         $Call['JS']['Scripts'][$JS2] = F::Run('IO', 'Read',
                         [
                             'Storage' => 'Web',
+                            'RTTL'    => $Call['JS']['Remote']['TTL'],
                             'Where'   =>
                             [
                                 'ID' => $Call['JS']['Fullpath']

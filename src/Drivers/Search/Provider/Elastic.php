@@ -44,6 +44,8 @@
             $Call = F::Run(null, 'Open', $Call);
             $Call['Query'] = mb_substr($Call['Query'], 0, 32);
 
+            F::Log('Start search on query: '.$Call['Query'], LOG_IMPORTANT);
+
             $Results = $Call['Link']->search(
                  [
                      'index' => 'project',
@@ -86,6 +88,7 @@
         $IX = 0;
         $SERP = [];
 
+        F::Log('Total hits: '.$Results['hits']['total'], LOG_INFO);
         if ($Results['hits']['total'] > 0)
         {
             foreach ($Results['hits']['hits'] as $Hit)
@@ -126,13 +129,13 @@
             $SERP[$Call['Scope']] =
                 [
                     'Type'  => 'Template',
-                    'Scope' => $Call['Scope'].'/Search',
+                    'Scope' => 'Search',
                     'ID'    => 'Empty'
                 ];
         }
 
         $Meta = ['Hits' => [$Call['Scope'] => $Results['hits']['total']]];
-//d(__FILE__, __LINE__, $Results);
+
         return ['Meta' => $Meta, 'SERP' => $SERP];
     });
 

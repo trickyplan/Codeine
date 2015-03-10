@@ -41,8 +41,7 @@
             {
                 // FIXME! Temporary decision.
                 $Command = 'lessc --clean-css '.Root.'/Assets/'.$Asset.'/less/'.$ID.'.less > '.Root.'/Assets/'.$Asset.'/css/'.$ID.'.css';
-                $Output = shell_exec($Command);
-                F::Log($Command, LOG_WARNING);
+                shell_exec($Command);
                 F::Log('LESS processed '.Root.'/Assets/'.$Asset.'/css/'.$ID.'.css', LOG_INFO, 'Developer');
             }
             else

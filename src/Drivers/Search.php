@@ -94,13 +94,15 @@
 
             $Call['Empty Query'] = empty($Call['Query']);
 
-            if ($Call['Hits']['All'] == 0 && $Call['Context'] == 'Web')
-                $Call['Output']['Content'][] =
-                [
-                    'Type'  => 'Template',
-                    'Scope' => 'Search',
-                    'ID'    => 'Empty'
-                ];
+            if ($Call['Hits']['All'] == 0)
+            {
+                $Call['Output']['Content'] =
+                    [[
+                        'Type'  => 'Template',
+                        'Scope' => 'Search',
+                        'ID'    => 'Empty'
+                    ]];
+            }
             else
                 $Call['Output']['Content'] = F::Sort($Call['Output']['Content'], 'Score', SORT_DESC);
 

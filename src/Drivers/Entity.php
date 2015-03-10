@@ -188,6 +188,9 @@
 
                 $VCall = [];
 
+                if (!isset($Call['Data']))
+                    $Call['Data'] = [];
+
                 foreach ($Entities as $Call['Current'])
                 {
                     // Поиск по всем полям
