@@ -188,9 +188,6 @@
 
                 $VCall = [];
 
-                if (!isset($Call['Data']))
-                    $Call['Data'] = [];
-
                 foreach ($Entities as $Call['Current'])
                 {
                     // Поиск по всем полям
@@ -198,18 +195,25 @@
 
                     foreach ($Call['Nodes'] as $Name => $Node)
                     {
-                        if (isset($Call['Updates'][$Name]))
-                            $Call['Data'] = F::Dot($Call['Data'], $Name, $Call['Updates'][$Name]);
-                        else
+                        if (null === F::Dot($Call['Updates'], $Name))
                         {
                             if (isset($Node['Nullable']) && $Node['Nullable'])
                                 ;
                             else
                             {
-                                if (isset($Call['Current'][$Name]))
-                                    $Call['Data'] = F::Dot($Call['Data'], $Name, $Call['Current'][$Name]);
+                                if (isset($Call['Data']))
+                                    ;
+                                else
+                                    $Call['Data'] = [];
+
+                                if (null === F::Dot($Call['Current'], $Name))
+                                    ;
+                                else
+                                    $Call['Data'] = F::Dot($Call['Data'], $Name, F::Dot($Call['Current'], $Name));
                             }
                         }
+                        else
+                            $Call['Data'] = F::Dot($Call['Data'], $Name, F::Dot($Call['Updates'], $Name));
                     }
 
                     $Call['Data']['EV'] = $Call['EV'];

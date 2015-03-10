@@ -3,13 +3,11 @@
         <div class="panel-heading">
             <l>Entity.Delete:Confirm</l>
         </div>
-        <div class="panel-body">
-            <place>Content</place>
-        </div>
+        <place>Content</place>
         <div class="panel-footer">
-            <input type="hidden" name="BackURL" value="<call>BackURL</call>" />
             <button type="submit" class="btn btn-danger">Удалить</button>
             <a href="<call>BackURL</call>" class="btn btn-success">Я передумал</a>
+            <input type="hidden" name="BackURL" value="<call>Request.BackURL</call>" />
         </div>
     </div>
 </form>
