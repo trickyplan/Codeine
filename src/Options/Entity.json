@@ -206,11 +206,7 @@
             "Make variables alive":
             {
                 "Service":"Entity.Hooks.Live",
-                "Method":"Process",
-                "Call":
-                {
-                    "Purpose": "Read"
-                }
+                "Method": "Process"
             },
             "-GEC":
             {

@@ -2,6 +2,7 @@
     "VKontakte":
     {
         "Max Frequency": 4,
+        "Lang": "ru",
         "Entry Point": "https://api.vk.com/method",
         "Version": "5.21",
         "AppID": 0,

@@ -1,0 +1,10 @@
+{
+    "Parallel":
+    {
+        "Threads":
+        {
+            "Service": "System.Hardware.CPU.Count",
+            "Method": "Get"
+        }
+    }
+}

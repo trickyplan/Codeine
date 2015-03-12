@@ -80,7 +80,7 @@
                         if (isset($Results['Meta']))
                             $Call = F::Merge($Call, $Results['Meta']);
 
-                        if (isset($Results['SERP']))
+                        if (isset($Results['SERP']) && !empty($Results['SERP']))
                         {
                             $Call['Output']['Content'] = F::Merge($Call['Output']['Content'], $Results['SERP']);
                             $Call['Output'][$Provider] = F::Merge($Call['Output'][$Provider], $Results['SERP']);

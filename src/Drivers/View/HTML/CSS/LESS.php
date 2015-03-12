@@ -37,7 +37,7 @@
                     'Where'   => $ID
                 ]);
 
-            if ($LESSVersion != $CSSVersion or F::Environment() == 'Development')
+            if ($LESSVersion != $CSSVersion or (isset($Call['HTTP']['Request']['Headers']['Pragma']) && $Call['HTTP']['Request']['Headers']['Pragma'] == 'no-cache'))
             {
                 // FIXME! Temporary decision.
                 $Command = 'lessc --clean-css '.Root.'/Assets/'.$Asset.'/less/'.$ID.'.less > '.Root.'/Assets/'.$Asset.'/css/'.$ID.'.css';

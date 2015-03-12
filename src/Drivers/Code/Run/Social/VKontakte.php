@@ -25,6 +25,7 @@
 
         $Call['Call']['access_token'] = F::Run(null, 'Access Token', $Call);
         $Call['Call']['param_v'] = $Call['VKontakte']['Version'];
+        $Call['Call']['lang'] = $Call['VKontakte']['Lang'];
 
         $Query = '?'.http_build_query($Call['Call']);
 

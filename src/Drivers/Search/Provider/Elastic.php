@@ -89,6 +89,7 @@
         $SERP = [];
 
         F::Log('Total hits: '.$Results['hits']['total'], LOG_INFO);
+
         if ($Results['hits']['total'] > 0)
         {
             foreach ($Results['hits']['hits'] as $Hit)
@@ -99,7 +100,7 @@
                                [
                                    'Entity' => $Call['Scope'],
                                    'One' => true,
-                                   'Fields' => $Call['Search fields'],
+                                   'Fields' => $Call['Show fields'],
                                    'Where' => $Hit['_id']
                                ]
                 );
@@ -109,7 +110,13 @@
                 else
                 {
                     $IX++;
+
+                    if (isset($Call['Default']))
+                        $Data = F::Merge($Call['Default'], $Data);
+
                     $Data['Snippet'] = isset($Hit['highlight'][$Call['Highlight']][0])? $Hit['highlight'][$Call['Highlight']][0]: '';
+                    $Data['Entity'] = '<l>'.$Call['Scope'].'.Control:Title</l>';
+                    // FIXME
 
                     $SERP[$Hit['_id']] =
                     [
@@ -126,12 +133,7 @@
         }
         else
         {
-            $SERP[$Call['Scope']] =
-                [
-                    'Type'  => 'Template',
-                    'Scope' => 'Search',
-                    'ID'    => 'Empty'
-                ];
+            $SERP = null;
         }
 
         $Meta = ['Hits' => [$Call['Scope'] => $Results['hits']['total']]];

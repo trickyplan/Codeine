@@ -139,30 +139,62 @@
         return $Call;
     });
 
-    setFn('Reindex', function ($Call)
+    setFn('Reindex.All', function ($Call)
     {
         $Call   = F::Apply('Entity', 'Load', $Call);
         $Total  = F::Run('Entity', 'Count', $Call);
-        $Amount = ceil($Total/$Call['All']['Limit']);
+        $Amount = ceil($Total/$Call['Reindex']['Objects Per Page']);
 
-        for ($i = 0; $i < $Amount; $i++)
+        F::Log('Total objects: '.$Total, LOG_INFO);
+        F::Log('Limit per page: '.$Call['Reindex']['Objects Per Page'], LOG_INFO);
+        F::Log('Pages: '.$Amount, LOG_INFO);
+
+        F::Run('Code.Run.Parallel', 'Run', $Call,
+            [
+                'Run' =>
+                [
+                    'Service' => 'Entity.Search',
+                    'Method'  => 'Reindex.Page'
+                ],
+                'Data'  => range(0, $Amount),
+                'Key'   => 'Page'
+            ]);
+
+        return ['Indexed' => $Amount];
+    });
+
+    setFn('Reindex.Page', function ($Call)
+    {
+        foreach ($Call['Page'] as $Page)
         {
             $Objects = F::Run('Entity', 'Read', $Call,
                 [
                     'No Memo' => true,
                     'One' => false,
-                    'Limit' => ['From' => $i*$Call['All']['Limit'],
-                                'To'   => ($i+1)*$Call['All']['Limit']
-                                ]
+                    'Sort' =>
+                    [
+                        'ID' => true
+                    ],
+                    'Where' =>
+                    [
+                        'ID' =>
+                        [
+                            '$gt' => $Page*$Call['Reindex']['Objects Per Page']
+                        ]
+                    ],
+                    'Limit' =>
+                    [
+                        'From' => 0,
+                        'To'   => $Call['Reindex']['Objects Per Page']
+                    ]
                 ]);
 
             foreach($Objects as $Data)
                 F::Run(null, 'Index', $Call, ['Data!' => $Data]);
 
-            F::Log('Reindex Iteration № '.$i, LOG_WARNING);
+            F::Log('Reindex Page № '.$Page, LOG_WARNING);
         }
-
-        return ['Indexed' => $Amount];
+        return $Call;
     });
 
     setFn('Remove', function ($Call)

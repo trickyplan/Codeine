@@ -1,7 +1,8 @@
 {
-    "All":
+    "Reindex":
     {
-        "Limit": 5
+        "Objects Per Page": 250,
+        "Pages Per Thread": 100
     },
     "Entities": ["Page"],
     "Custom Templates":
