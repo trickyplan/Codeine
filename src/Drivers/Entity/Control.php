@@ -127,13 +127,21 @@
                     [
                          'Entity' => $Call['Bundle']
                     ]);
+
         $Call['View']['Renderer'] =
             [
                 'Service' =>  'View.JSON',
                 'Method' =>  'Render'
             ];
 
-        $Call['Output']['Content'] = $Elements;
+        foreach ($Elements as $Element)
+        $Call['Output']['Content'][] =
+        [
+            'Type'  => 'Template',
+            'Scope' => $Call['Bundle'],
+            'ID'    => 'Export',
+            'Data'  => $Element
+        ];
 
         return $Call;
     });

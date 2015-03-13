@@ -5,7 +5,6 @@
         {
             "Type": "File.Upload",
             "Storage": "Upload",
-            "Nullable": true,
             "Widgets":
             {
                 "Write":
