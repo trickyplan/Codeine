@@ -8,7 +8,7 @@
           {
             "Write":
             {
-              "Type": "Form.Datepicker"
+                "Type": "Form.Datepicker"
             }
           }
       }
