@@ -22,6 +22,8 @@
 
               if ($Match)
               {
+                  F::Log($Match, LOG_INFO);
+
                   foreach ($Call['Inherited'] as $Key)
                       if (isset($Call[$Key]))
                         $Match[$Key] = $Call[$Key];

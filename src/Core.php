@@ -348,6 +348,7 @@
 
             if ((null === self::getFn(self::$_Method)) && !self::_loadSource(self::$_Service))
             {
+                # trigger_error('Service: '.self::$_Service.' not found');
                 self::Log('Service: '.self::$_Service.' not found', LOG_WARNING);
                 $Result = (is_array($Call) && isset($Call['Fallback']))? $Call['Fallback'] : null;
             }

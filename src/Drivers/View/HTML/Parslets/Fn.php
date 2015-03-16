@@ -20,6 +20,8 @@
 
               $Match = F::Run('Formats.'.$Type, 'Read', ['Value' => trim($Call['Parsed'][2][$IX])]);
 
+              F::Log($Match, LOG_INFO);
+
               foreach ($Call['Inherited'] as $Key)
                   if (isset($Call[$Key]))
                     $Match['Call'][$Key] = $Call[$Key];

@@ -6,7 +6,7 @@
         {
             "Count":
             {
-                "Memo": ["Entity", "Scope", "Where", "Time", "Key"]
+                "Memo": ["Entity", "Scope", "Where", "Time", "Key", "LocationID"]
             },
             "Read":
             {

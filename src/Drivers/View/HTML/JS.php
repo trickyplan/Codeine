@@ -90,7 +90,7 @@
 
                 foreach ($Call['JS']['Scripts'] as $Call['JS']['Fullpath'] => $Call['JS']['Source'])
                 {
-                    $Call['JS']['Fullpath'] = sha1($Call['JS']['Source']).'_'.strtr($Call['JS']['Fullpath'], ':', '_').$Call['JS']['Extension'];
+                    $Call['JS']['Fullpath'] = strtr($Call['JS']['Fullpath'], ':', '_').'_'.sha1($Call['JS']['Source']).'_'.$Call['JS']['Extension'];
 
                     $Call['JS']['Cached Filename'] = $Cache['Directory'].DS.$Call['HTTP']['Host'].DS.'js'.DS.$Call['JS']['Scope'].DS.$Call['JS']['Fullpath'];
                     $Write = true;

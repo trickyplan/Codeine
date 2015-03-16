@@ -112,3 +112,15 @@
             return md5($requestStr);
         }
     });
+
+
+    setFn('WidgetMediatopicPost.GetURL', function ($Call)
+    {
+        $Call['Attachment'] = base64_encode(json_encode([
+            'media' => $Call['Attachment']
+        ]));
+        $Call['Signature'] = md5('st.attachment='.$Call['Attachment'].$Call['Odnoklassniki']['Secret']);
+
+        $URL = 'http://connect.ok.ru/dk?st.cmd=WidgetMediatopicPost&st.app='.$Call['Odnoklassniki']['AppID'].'&st.attachment='.$Call['Attachment'].'&st.signature='.$Call['Signature'].'&st.utext='.$Call['Text'];
+        return $URL;
+    });

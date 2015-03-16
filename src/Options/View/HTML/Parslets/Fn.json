@@ -4,6 +4,7 @@
     [
         "Hooks",
         "Locale",
+        "Location",
         "Session",
         "HTTP",
         "Request",
