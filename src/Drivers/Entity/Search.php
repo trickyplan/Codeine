@@ -189,8 +189,11 @@
                     ]
                 ]);
 
-            foreach($Objects as $Data)
-                F::Run(null, 'Index', $Call, ['Data!' => $Data]);
+            if (empty($Objects))
+                ;
+            else
+                foreach($Objects as $Data)
+                    F::Run(null, 'Index', $Call, ['Data!' => $Data]);
 
             F::Log('Reindex Page № '.$Page, LOG_WARNING);
         }
