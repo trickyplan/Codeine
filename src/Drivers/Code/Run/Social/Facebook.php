@@ -29,7 +29,9 @@
                    'Where'      => $URL
                ]);
 
+
         $Result = array_pop($Result);
+
         if (isset($Call['Return Key']) && F::Dot($Result, $Call['Return Key']))
             $Result = F::Dot($Result, $Call['Return Key']);
 
@@ -66,7 +68,7 @@
                             'From' => 0,
                             'To'   => 1
                         ],
-                        'Sort' => ['Facebook.Expire' => false],
+                        'Sort' => ['Modified' => false],
                         'One' => true
                     ])['Facebook'];
 
