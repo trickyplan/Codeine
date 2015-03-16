@@ -30,7 +30,7 @@
                     $Call['Value'] = implode($Call['Delimiter'], $Call['Value']);
             }
             else
-                if (isset($Call['Key']))
+                if (isset($Call['Data'][$Call['Key']]))
                     $Call['Value'] = trim($Call['Data'][$Call['Key']]);
 
             if (empty($Call['Value']))
