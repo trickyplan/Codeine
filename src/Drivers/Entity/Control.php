@@ -96,6 +96,9 @@
 
     setFn('Delete', function ($Call)
     {
+        if (isset($Call['Request']['Where']))
+            $Call['Where'] = $Call['Request']['Where'];
+
         $Call['No Where'] = true;
 
         $Call['Layouts'][] = ['Scope' => 'Entity', 'ID' => 'Delete'];
