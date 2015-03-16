@@ -693,7 +693,7 @@
                 {
                     if (($Log[0] <= self::$_Verbose[$Channel])
                         or
-                        ((self::Environment() == 'Development') && $Log[0] > 8)
+                        ((self::Environment() != 'Development') && $Log[0] > 8)
                         or
                         (isset($_SERVER['Verbose']) && $Log[0] <= $_SERVER['Verbose']))
                         $Output[$Channel][] = $Log;
@@ -705,7 +705,6 @@
                     }
                 }
             }
-
             return $Output;
         }
 
