@@ -8,6 +8,10 @@
     },
     "Hooks":
     {
+        "beforeCSSOutput":
+        {
+            "Combine": null
+        },
         "beforeCSSLoad":
         {
             "Less Check":
