@@ -13,6 +13,15 @@
                 "Service": "Codeine.Beacon"
             }
         },
+        "ЦУП Роутер доступен всем":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Control.Only"
+            }
+        },
         "Главная страница доступна всем":
         {
             "Decision": true,

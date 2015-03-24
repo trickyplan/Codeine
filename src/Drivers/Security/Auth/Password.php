@@ -59,7 +59,10 @@
             unset($Call['User']);
         }
         else
+        {
             F::Log('Passwords match', LOG_GOOD, 'Security');
+            $Call = F::Apply('System.Interface.HTTP', 'Redirect', $Call, ['Location' => '/']);
+        }
 
         return $Call;
     });
