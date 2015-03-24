@@ -54,10 +54,11 @@
             $Call['Data']['Source'] = $Call['URL'];
 
             $Call['Data'] = F::Run('Entity', 'Create', $Call, ['One' => true]);
-            $Call = F::Run('System.Interface.HTTP', 'Redirect', $Call,
-                [
-                    'Location' => '/control/'.$Call['Entity'].'/Show/'.$Call['Data']['ID']
-                ]);
+            if (isset($Call['Data']['ID']))
+                $Call = F::Run('System.Interface.HTTP', 'Redirect', $Call,
+                    [
+                        'Location' => '/control/'.$Call['Entity'].'/Show/'.$Call['Data']['ID']
+                    ]);
         }
         else
             $Call['Data'] = null;

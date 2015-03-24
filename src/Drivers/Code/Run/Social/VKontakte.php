@@ -63,6 +63,8 @@
 
     setFn('Access Token', function ($Call)
     {
+        $Result = null;
+
         if (isset($Call['Data']['VKontakte']['Auth']))
         {
             F::Log('Used VK Token from Data', LOG_INFO);
@@ -95,7 +97,13 @@
                     ]);
 
             F::Log('Used VK Token from '.count($TokenUsers).' random users', LOG_INFO);
-            $Result = $TokenUsers[array_rand($TokenUsers)]['VKontakte']['Auth'];
+
+            if (is_array($TokenUsers))
+            {
+                $RandomUser = $TokenUsers[array_rand($TokenUsers)];
+                if (isset($RandomUser['VKontakte']['Auth']))
+                    $Result = $RandomUser['VKontakte']['Auth'];
+            }
         }
 
         return $Result;
