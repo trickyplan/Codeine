@@ -16,7 +16,7 @@
             ;
         else
         {
-            if (isset($Call['Count']) && empty($Call['Count']))
+            if (isset($Call['Count']) && !empty($Call['Count']))
             {
                 $Call['Limit']['From']= 0;
                 $Call['Limit']['To'] = $Call['Count'];
