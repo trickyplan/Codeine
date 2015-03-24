@@ -10,6 +10,7 @@
 
     setFn('Do', function ($Call)
     {
+    //    $Call['Markup'] = mb_convert_encoding($Call['Markup'], 'utf-8', 'cp1251');
         phpQuery::newDocumentHTML($Call['Markup']);
 
             $Call = F::loadOptions('Parser/'.$Call['Schema'], null, $Call);
@@ -39,7 +40,13 @@
                         if (isset($Rule['Regex']))
                         {
                             if (preg_match($Rule['Regex'], $Value, $Pockets))
-                                $Value = $Pockets[1];
+                            {
+                                if (isset($Pockets[1]))
+                                    $Value = $Pockets[1];
+                                else
+                                    if (isset($Rule['Value']))
+                                        $Value = $Rule['Value'];
+                            }
                             else
                                 $Value = null;
                         }
@@ -52,6 +59,7 @@
                 {
                     phpQuery::each(pq($Rule['Selector']),function($Index, $Element) use (&$Data, $Key, $Rule, $Call)
                     {
+                        F::Log('Selector fired '.$Rule['Selector'], LOG_GOOD);
                         if (isset($Rule['Text']))
                             $Value = preg_replace ('/\\s{2,}|\\s{2,}$/Ssm', PHP_EOL, pq($Element)->text());
                         elseif (isset($Rule['Attr']))
@@ -68,10 +76,14 @@
                             if (isset($Rule['Regex']))
                             {
                                 if (preg_match($Rule['Regex'], $Value, $Pockets))
-                                    $Value = $Pockets[1];
+                                {
+                                    if (isset($Pockets[1]))
+                                        $Value = $Pockets[1];
+                                }
                                 else
                                     $Value = null;
                             }
+
                             $Value = trim($Value);
 
                             if (!empty($Value))

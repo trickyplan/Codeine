@@ -6,20 +6,26 @@
      */
 
     include 'Core.php';
-
+    
     $Opts = [];
 
     foreach ($argv as $arg)
         if (preg_match('/^--([^=]+)\=(.+)$/Ssu', $arg, $Pockets))
         {
             $Opts = F::Dot($Opts, strtr($Pockets[1], '_', ' '), $Pockets[2]);
-            F::Log($Pockets[1].' = '.$Pockets[2], LOG_INFO, 'Developer');
+            F::Log($Pockets[1].' = '.$Pockets[2], LOG_INFO);
         }
         else
+        {
             $Opts[] = $arg;
+            F::Log('Empty CLI parameters', LOG_INFO);
+        }
 
     if (isset($Opts[1]) && file_exists($Opts[1]))
-        $Opts = F::Merge(jd(file_get_contents($Opts[1]), true), $Opts);
+    {
+        if ($Opts = F::Merge(jd(file_get_contents($Opts[1]), true), $Opts))
+            F::Log('JSON CLI parameters loaded from '.$Opts[1], LOG_INFO);
+    }
 
     if (file_exists('/etc/default/codeine'))
         define('Root', file_get_contents('/etc/default/codeine'));

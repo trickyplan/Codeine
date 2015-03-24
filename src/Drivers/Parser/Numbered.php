@@ -64,10 +64,11 @@
                 if ($Call['Schema'] = F::Run('Parser', 'Discovery', $Call))
                 {
                     $Call = F::Run('Parser', 'Do', $Call, ['Markup' => $Result]);
-                    $Slices = explode(DS, $Call['Schema']);
+                    $Slices = explode('.', $Call['Schema']);
                     $Call['Entity'] = array_pop($Slices);
+                    $Call['Data']['Source'] = $Call['URL'];
 
-                    if ($Call['Data']['Percent'] == 0)
+                    if ($Call['Data']['Percent'] < 50)
                         ;
                     else
                         $Call['Data'] = F::Run('Entity', 'Create', $Call, ['One' => true]);

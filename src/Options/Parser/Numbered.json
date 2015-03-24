@@ -10,7 +10,7 @@
                 "Call":
                 {
                     "Storage": "Web",
-                    "CURL":
+                    "-CURL":
                     {
                         "Random User Agent": true,
                         "Random Proxy": true,

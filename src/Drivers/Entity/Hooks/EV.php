@@ -9,7 +9,10 @@
 
     setFn('beforeOperation', function ($Call)
     {
-        $Call['Data']['EV'] = $Call['EV'];
+        if (isset($Call['EV']))
+            $Call['Data']['EV'] = $Call['EV'];
+        else
+            $Call['Data']['EV'] = 0;
 
         return $Call;
     });

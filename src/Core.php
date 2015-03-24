@@ -619,9 +619,9 @@
 
                 if (PHP_SAPI == 'cli')
                 {
-                    $Head = $Time."\t".$Channel.":\t";
+                    $Head = "\033[0;90m".$Time."\033[0m"."\t".$Channel.":\t";
                     
-                    if (($Verbose <= self::$_Verbose[$Channel]))
+                    if (($Verbose <= self::$_Verbose[$Channel]) or !self::$_Live)
                         switch (round($Verbose))
                         {
                             case LOG_EMERG:
@@ -642,15 +642,15 @@
 
                             case LOG_DEBUG:
                                 if (self::$_Debug)
-                                    fwrite(STDERR, $Head."\033[0;37m ".$Message." \033[0m".PHP_EOL);
+                                    fwrite(STDERR, $Head."\033[0;90m ".$Message." \033[0m".PHP_EOL);
                             break;
 
                             case LOG_USER:
-                                fwrite(STDERR, $Head."\033[0;37m ".$Message." \033[0m".PHP_EOL);
+                                fwrite(STDERR, $Head."\033[0;96m ".$Message." \033[0m".PHP_EOL);
                             break;
 
                             case LOG_INFO:
-                                fwrite(STDERR, $Head."\033[0;34m ".$Message." \033[0m".PHP_EOL);
+                                fwrite(STDERR, $Head."\033[0;37m ".$Message." \033[0m".PHP_EOL);
                             break;
 
                             case LOG_IMPORTANT:

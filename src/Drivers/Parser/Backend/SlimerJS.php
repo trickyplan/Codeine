@@ -11,7 +11,8 @@
     {
         $Command = 'xvfb-run slimerjs --ssl-protocol=any '.$Call['Script'].' '.$Call['Where']['ID'];
         F::Log($Command, LOG_INFO);
-        exec($Command, $Result, $Return);
-        F::Log($Return, LOG_INFO);
-        return $Result;
+        // exec($Command, $Result, $Return);
+        $Result = shell_exec($Command);
+        // F::Log($Return, LOG_INFO);
+        return [$Result];
     });

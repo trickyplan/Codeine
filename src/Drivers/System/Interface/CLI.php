@@ -21,9 +21,11 @@
         $Call['HTTP']['URL'] = '/';
 
             if (isset($Call['Skip Run']))
-                F::Log('Run Skipped, because '.$Call['Skip Run']);
+                F::Log('Run Skipped, because '.$Call['Skip Run'], LOG_INFO);
             else
+            {
                 $Call = F::Apply($Call['Service'], $Call['Method'], $Call);
+            }
 
         if (is_array($Call) && isset($Call['Output']))
         {
