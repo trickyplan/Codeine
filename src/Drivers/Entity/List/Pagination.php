@@ -35,10 +35,16 @@
                 }
                 else
                 {
-                    $Call['Where']['ID']['$lt'] = $Call['Count'] - ($Call['Page']-1)*$Call['EPP'];
-                    $Call['Limit']['From']  = 0;
-                    $Call['Limit']['To']    = $Call['EPP'];
-                    $Call['Sort'] = ['ID' => false];
+                    if (isset($Call['Where']['ID']))
+                        ;
+                    else
+                    {
+                        $Call['Where']['ID']['$lt'] = $Call['Count'] - ($Call['Page']-1)*$Call['EPP'];
+                        $Call['Limit']['From']  = 0;
+                        $Call['Limit']['To']    = $Call['EPP'];
+                        $Call['Sort'] = ['ID' => false];
+                    }
+
                 }
 
                 $Call['PageCount'] = ceil($Call['Count']/$Call['EPP']);
