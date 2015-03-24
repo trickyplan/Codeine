@@ -163,7 +163,7 @@
                 'Facebook' =>
                 [
                     'Active' => false,
-                    'Auth' => null
+                    'Auth' => ''
                 ]
             ]
         ]);

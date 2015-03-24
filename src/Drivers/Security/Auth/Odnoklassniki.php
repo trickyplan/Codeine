@@ -168,7 +168,8 @@
             [
                 'Odnoklassniki' =>
                 [
-                    'Auth' => null
+                    'Active' => false,
+                    'Auth' => ''
                 ]
             ]
         ]);

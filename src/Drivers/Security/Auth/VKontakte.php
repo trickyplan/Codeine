@@ -164,7 +164,7 @@
                 'VKontakte' =>
                 [
                     'Active' => false,
-                    'Auth' => null
+                    'Auth' => ''
                 ]
             ]
         ]);
