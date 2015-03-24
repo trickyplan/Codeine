@@ -16,58 +16,34 @@
             ;
         else
         {
-            if (!isset($Call['Count']) or empty($Call['Count']))
+            if (isset($Call['Count']) && empty($Call['Count']))
+            {
+                $Call['Limit']['From']= 0;
+                $Call['Limit']['To'] = $Call['Count'];
+            }
+            else
             {
                 if (!isset($Call['Page']) or empty($Call['Page']))
                     $Call['Page'] = 1;
 
                 $Call['Count'] = F::Run('Entity', 'Count', $Call);
-                $Call['Limit']['From']= ($Call['Page']-1)*$Call['EPP'];
-                $Call['Limit']['To'] = $Call['EPP'];
+
+                if (isset($Call['Sort']))
+                {
+                    $Call['Limit']['From']= ($Call['Page']-1)*$Call['EPP'];
+                    $Call['Limit']['To'] = $Call['EPP'];
+                }
+                else
+                {
+                    $Call['Where']['ID']['$lt'] = $Call['Count'] - ($Call['Page']-1)*$Call['EPP'];
+                    $Call['Limit']['From']  = 0;
+                    $Call['Limit']['To']    = $Call['EPP'];
+                    $Call['Sort'] = ['ID' => false];
+                }
 
                 $Call['PageCount'] = ceil($Call['Count']/$Call['EPP']);
             }
-            else
-            {
-                $Call['Limit']['From']= 0;
-                $Call['Limit']['To'] = $Call['Count'];
-            }
-/*
-            if (isset($Call['Sort']))
-            {
-                $ReducedLimit = round($Call['Limit']['From']/2);
-                $MarkerCall =
-                    [
-                        'Entity' => $Call['Entity'],
-                        'Sort'   => $Call['Sort'],
-                        'Limit'  =>
-                        [
-                            'From' => $ReducedLimit,
-                            'To'   => 1
-                        ],
-                        'One'      => true
-                    ];
 
-                if (isset($Call['Where']))
-                    $MarkerCall['Where'] = $Call['Where'];
-
-                $Marker = F::Run('Entity', 'Read', $MarkerCall);
-
-                foreach ($Call['Sort'] as $Key => $Direction)
-                    if (isset($Marker[$Key]))
-                    {
-                        if ($Direction) // ASC
-                        {
-                            $Call['Where'][$Key] = ['$gte' => $Marker[$Key]];
-                        }
-                        else // DESC
-                        {
-                            $Call['Where'][$Key] = ['$lte' => $Marker[$Key]];
-                        }
-                    }
-
-                $Call['Limit']['From'] -= $ReducedLimit;
-            }*/
         }
 
         return $Call;
