@@ -5,15 +5,15 @@
     <div class="panel-body">
         <if value="<call>Developer.Title</call>" neq="0">
                 <div class="row">
-                    <div class="col-lg-8">
-                        <h2>
+                    <div class="col-md-2">
+                        <img class="img img-responsive pull-right" src="<call>Developer.Logo</call>" width="200" height="200"/>
+                    </div>
+                    <div class="col-md-10">
+                        <h2 class="page-header">
                             <a href="<call>Developer.URL</call>"><call>Developer.Title</call></a>
                         </h2>
-                        <a href="mailto:<call>Developer.EMail</call>">Написать</a> &nbsp;
-                        <a href="tel:<call>Developer.Phone</call>">Позвонить</a> &nbsp;
-                    </div>
-                    <div class="col-lg-4">
-                        <img class="img img-responsive pull-right" src="<call>Developer.Logo</call>" />
+                        <a class="btn btn-default btn-success" href="mailto:<call>Developer.EMail</call>">Написать</a> &nbsp;
+                        <a class="btn btn-default btn-danger" href="tel:<call>Developer.Phone</call>">Позвонить</a> &nbsp;
                     </div>
                 </div>
         </if>
@@ -28,7 +28,7 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        Лицензии
+        Гарантии
     </div>
     <div class="panel-body">
         <place>Licenses</place>

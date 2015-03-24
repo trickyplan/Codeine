@@ -25,25 +25,22 @@
                 $Call['Developer'] = jd($Developer[0], true);
         }
 
-        if (isset($Call['Project']['License']))
-            $Call['License'] = jd(F::Run('IO', 'Read', ['Storage' => 'Web', 'Where' => $Call['Developer']['URL'].'/licenses/'
-    .$Call['Project']['License']])[0], true); // FIXME
+        if (isset($Call['Project']['ID']))
+            $Call['License'] = jd(F::Run('IO', 'Read',
+                [
+                    'Storage' => 'Web',
+                    'Where' => $Call['Developer']['URL'].'/licenses/'.$Call['Project']['ID'].'.json'
+                ]
+            )[0]); // FIXME
 
         if (isset($Call['License']) && is_array($Call['License']))
             foreach ($Call['License'] as $Product => $License)
             {
                 $Call['Output']['Licenses'][] =
                     [
-                        'Type' => 'Heading',
-                        'Level' => 3,
-                        'Value' => $Product
-                    ];
-
-                $Call['Output']['Licenses'][] =
-                    [
                         'Type' => 'Block',
                         'Class' => $License['Expire']>time()? 'alert alert-success': 'alert alert-danger',
-                        'Value' => 'Действует до: <strong><datetime>'.$License['Expire'].'</datetime></strong>'
+                        'Value' => '<h2>'.$Product.'</h2>'.'Действует до: <strong><datetime>'.$License['Expire'].'</datetime></strong>'
                     ];
             }
         else
