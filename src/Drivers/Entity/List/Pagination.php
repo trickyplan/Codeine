@@ -35,7 +35,7 @@
                 }
                 else
                 {
-                    if (isset($Call['Where']['ID']))
+                    if (isset($Call['Where']))
                         ;
                     else
                     {
