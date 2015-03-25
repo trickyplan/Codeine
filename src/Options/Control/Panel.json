@@ -3,7 +3,7 @@
     "Bundles":
     {
         "Project": ["User", "Page", "Block"],
-        "Platform": ["Project","Codeine", "PHP", "IO", "Security", "Session", "SEO", "Server"],
+        "Platform": ["Project","Codeine", "PHP", "IO", "Security", "Session", "Server"],
         "Developer": ["Developer"]
     },
     "Sidebar": ["Do"]

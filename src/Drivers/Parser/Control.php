@@ -9,6 +9,11 @@
 
     setFn('Do', function ($Call)
     {
+        $Call['Layouts'][] =
+            [
+                'Scope' => 'Parser',
+                'ID' => 'Control'
+            ];
 
         return $Call;
     });
