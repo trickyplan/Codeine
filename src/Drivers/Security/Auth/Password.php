@@ -35,8 +35,9 @@
                           ],
                           'One' => true
                      ]);
+        d(__FILE__, __LINE__, $Call['Request']['Password']);
 
-        $Challenge = F::Run('Security.Hash', 'Get',
+        $Challenge = F::Run('Security.Hash', 'Get', $Call,
                                      [
                                           'Mode' => 'Password',
                                           'Value' => $Call['Request']['Password'],

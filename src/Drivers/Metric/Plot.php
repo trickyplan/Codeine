@@ -66,9 +66,9 @@
 
                     $Call['Plot']['Title'] = $Call['Request']['Metric'];
                     F::Run('Image.Plot.GNUPlot', 'Do', $Call,
-                        [
-                            'Data' => $Data
-                        ]);
+                         [
+                             'Data' => $Data
+                         ]);
                 }
             }
 
