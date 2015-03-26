@@ -5,6 +5,121 @@
         "AppID": 0,
         "Secret": "",
         "Public": "",
-        "Rights": ""
+        "Rights": "",
+        "Error":
+        {
+            "Codes":
+            {
+                "1" : "Unknown",
+                "2" : "Server.NotAvailable",
+                "3" : "Method.Unknown",
+                "4" : "Syntax.Incorrect",
+                "7" : "Request.BlockedTemp",
+                "8" : "Request.BlockedFlood",
+                "9" : "Request.BlockedIP",
+                "10": "PermissionDenied",
+                "11": "Method.Limit",
+                "12": "Request.Cancelled",
+
+                "21": "Photo.NotMultipart",
+                "22": "User.AccountNotActivated",
+                "23": "User.NotInvolved",
+                "24": "User.NotOwner",
+                "25": "Mailing.NotActive",
+                "26": "Mailing.Limit",
+
+                "100": "Parameter.Invalid",
+                "101": "APIID.Invalid",
+                "102": "Session.Expired",
+                "103": "Session.Invalid",
+                "104": "Signature.Invalid",
+                "105": "Resignature.Invalid",
+                "106": "EntityID.Invalid",
+                "110": "User.InvalidID",
+                "120": "Album.InvalidID",
+                "121": "Photo.InvalidID",
+                "130": "Widget.Invalid",
+                "140": "Message.InvalidID",
+                "141": "Comment.InvalidID",
+                "150": "Happening.InvalidID",
+                "151": "Happening.InvalidPhotoID",
+                "160": "Group.InvalidID",
+
+                "200": "Param.Permission",
+                "210": "APP.Disabled",
+                "211": "Param.Decision",
+                "212": "Param.BadgeID",
+                "213": "Param.PresentID",
+                "214": "Param.RelationType",
+
+                "300": "Request.NotFound",
+                "324": "Photo.EditFile",
+
+                "401": "Auth.Login",
+                "402": "Auth.CAPTCHA.Needed",
+                "403": "Auth.LoginWebHumanCheck",
+
+                "451": "Session.NotMethod",
+                "453": "Session.Required",
+
+                "454": "CensorMahch",
+                "455": "Restriction.Friend",
+                "456": "Restriction.Group",
+                "457": "Restriction.Unauthorized",
+                "458": "Restriction.Privacy",
+ 
+                "500": "Photo.Size.Limit",
+                "501": "Photo.Size.Small",
+                "502": "Photo.Size.Big",
+                "503": "Photo.InvalidFormat",
+                "504": "Photo.ImageCorrupted",
+                "505": "Photo.NoImage",
+                "508": "Photo.MuchPin",
+
+                "511": "IDSBlocked",
+                "512": "Photo.Album.NotBelongsToUser",
+                "513": "Photo.Album.NotBelongsToGroup",
+
+                "600": "Media.Topic.BlockLimit",
+                "601": "Media.Topic.TextLimit",
+                "602": "Media.Topic.Access.Denied",
+                "603": "Media.Topic.Poll.Limit",
+                "604": "Media.Topic.Poll.TextLimit",
+                "605": "Media.Topic.Friends.Limit",
+                "606": "Media.Topic.Friends.UserLimit",
+
+                "610": "Group.DuplicateJoinRequest",
+
+                "700": "Comment.NotFound",
+                "701": "Comment.InvalidAuthor",
+                "702": "Comment.NotActive",
+                "704": "Message.TimeoutExceeded",
+                "705": "Chat.NotFound",
+                "706": "Message.NotActive",
+
+                "900": "APP.NoSuchApp",
+
+                "1001": "Payment.InvalidCallback",
+                "1002": "Payment.RequiredPayment",
+                "1003": "Payment.Invalid",
+                "1004": "Payment.Duplicate",
+                "1005": "Payment.NotEnoughMoney",
+
+                "1101": "Vchat.Disabled",
+                "1102": "Vchat.UserUnavailable",
+                "1103": "Vchat.FriendshipRequired",
+
+                "1200": "Batch",
+
+                "1300": "APP.NoPlatformAllowed",
+                "1301": "APP.DeviceNotAllowed",
+                "1302": "APP.DeviceNotSpecified",
+
+                "1400": "Search.EmptyParams",
+                "1401": "Search.ScenarioDoesNotExist",
+
+                "9999": "System.Critical"
+            }
+        }
     }
 }

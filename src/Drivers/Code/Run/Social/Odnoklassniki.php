@@ -23,9 +23,20 @@
 	         ])[0];
 	    $Result = jd($Result, true);
 
-        if (isset($Call['Return Key']) && F::Dot($Result, $Call['Return Key']))
-            $Result = F::Dot($Result, $Call['Return Key']);
+        if (isset($Result['error_code']))
+        {
+            // http://apiok.ru/wiki/pages/viewpage.action?pageId=77824003
+            if (isset($Call['Odnoklassniki']['Error']['Codes'][$Result['error_code']]))
+                F::Hook('Odnoklassniki.'.$Call['Odnoklassniki']['Error']['Codes'][$Result['error_code']], $Call);
 
+            F::Log($Result['error_code'].': '.$Result['error_msg'], LOG_WARNING);
+            $Result = null;
+        }
+        else
+        {
+            if (isset($Call['Return Key']) && F::Dot($Result, $Call['Return Key']))
+                $Result = F::Dot($Result, $Call['Return Key']);
+        }
         return $Result;
     });
 
