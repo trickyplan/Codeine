@@ -16,7 +16,7 @@
                 if (isset($Node['Type']) && F::Dot($Call['Data'], $Name))
                     $Call['Data'] = F::Dot($Call['Data'], $Name,
                         F::Run ('Data.Type.'.$Node['Type'],
-                            'Write',
+                            'Write', $Call,
                             [
                                 'Entity' => $Call['Entity'],
                                 'Name' => $Name,
@@ -34,7 +34,7 @@
         foreach ($Call['Nodes'] as $Name => $Node)
             if (isset($Node['Type']) && F::Dot($Call['Data'], $Name) !== null or isset($Node['External']))
                 $Call['Data'] = F::Dot($Call['Data'], $Name, F::Run ('Data.Type.'.$Node['Type'],
-                        'Read',
+                        'Read', $Call,
                         [
                             'Entity' => $Call['Entity'],
                             'Name' => $Name,

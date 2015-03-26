@@ -122,7 +122,7 @@
 
         $Call = F::Hook('beforeRAWList', $Call);
 
-        $Elements = F::Run('Entity', 'Read', $Call);
+        $Elements = F::Run('Entity', 'Read', $Call, ['Skip Enum Live' => true]);
 
         if ($Elements !== null)
             foreach ($Elements as $Element)

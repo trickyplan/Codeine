@@ -76,33 +76,40 @@
             $Call['Parsed'][0] = array_unique($Call['Parsed'][0]);
             $Call['Parsed'][2] = array_unique($Call['Parsed'][2]);
 
-            foreach ($Call['Parsed'][2] as $IX => &$Match)
+            foreach ($Call['Parsed'][2] as $IX => $Match)
             {
-                if (isset($Call['Data']) && ($Matched = F::Live(F::Dot($Call['Data'], $Match))) !== null)
-                {
-                    $Output = '';
-
-                    if ($DotMatched = F::Live(F::Dot($Call['Data'], $Match)))
-                    {
-                        if (is_array($DotMatched))
-                        {
-                            sort($DotMatched);
-                            foreach($DotMatched as $ICV => $cMatch)
-                                if (!is_array($cMatch))
-                                    $Output.= str_replace('<#/>',
-                                    $ICV,
-                                    str_replace('<k>'.$Match.'</k>', $cMatch,$Call['Parsed'][1][$IX]).
-                                    ($cMatch)
-                                    .str_replace('<k>'.$Match.'</k>', $cMatch,$Call['Parsed'][3][$IX]));
-                        }
-                        else
-                            $Output = str_replace('<#/>', '', $Call['Parsed'][1][$IX].($DotMatched).$Call['Parsed'][3][$IX]);
-                    }
-
-                    $Match = $Output;
-                }
+                if (mb_strpos($Match, ',') !== false)
+                    $Keys = explode(',', $Match);
                 else
-                    $Match = '';
+                    $Keys = [$Match];
+
+                $Output = '';
+
+                if (isset($Call['Data']))
+                    foreach ($Keys as $Key)
+                        if ($Matched = F::Live(F::Dot($Call['Data'], $Key)) !== null)
+                        {
+                            if ($DotMatched = F::Live(F::Dot($Call['Data'], $Key)))
+                            {
+                                if (is_array($DotMatched))
+                                {
+                                    sort($DotMatched);
+                                    foreach($DotMatched as $ICV => $cData)
+                                        if (!is_array($Key))
+                                            $Output.= str_replace('<#/>',
+                                            $ICV,
+                                            str_replace('<k>'.$Match.'</k>', $cData, $Call['Parsed'][1][$IX]).
+                                            ($cData)
+                                            .str_replace('<k>'.$Match.'</k>', $cData, $Call['Parsed'][3][$IX]));
+                                }
+                                else
+                                    $Output = str_replace('<#/>', '', $Call['Parsed'][1][$IX].($DotMatched).$Call['Parsed'][3][$IX]);
+
+                                break;
+                            }
+                        }
+
+                $Call['Parsed'][2][$IX] = $Output;
             }
 
             $Call['Value'] = str_replace($Call['Parsed'][0], $Call['Parsed'][2], $Call['Value']);

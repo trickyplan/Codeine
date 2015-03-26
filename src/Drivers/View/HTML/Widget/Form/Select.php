@@ -14,6 +14,9 @@
          if (isset($Call['Multiple']) && $Call['Multiple'])
              $Call['Name'] .= '[]';
 
+         $Call['Options'] = F::Live($Call['Options'], $Call);
+
+
          if ($Call['Options'] === null)
              ;
          else
@@ -23,6 +26,16 @@
 
              if (isset($Call['Flip Keys']))
                  $Call['Options'] = array_flip($Call['Options']);
+
+             if (isset($Call['Values as Keys']))
+             {
+                 $Flushed = [];
+
+                 foreach ($Call['Options'] as $Option)
+                     $Flushed[$Option] = $Option;
+
+                 $Call['Options'] = $Flushed;
+             }
 
              foreach ($Call['Options'] as $Key => $Option)
              {

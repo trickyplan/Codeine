@@ -10,6 +10,7 @@
       <block>
           <span class="input-group-addon"><k>Postfix</k></span>
       </block>
+        <input type="hidden" name="<k>Name</k>" id="<k>ID</k>_hidden" value="<k>Value</k>"/>
     </div>
     <if value="<k>Help</k>" eq="1">
         <div class="help-block"><l><k>Entity</k>.Help:<k>Key</k></l></div>
@@ -17,10 +18,11 @@
 </div>
 
 <jsrun>
-    var dataset<k>ID</k> = new Bloodhound({
-      datumTokenizer: Bloodhound.tokenizers.obj.whitespace('Title'),
-      queryTokenizer: Bloodhound.tokenizers.whitespace,
-      remote: '<k>Typeahead.Remote</k>%QUERY'
+    var dataset<k>ID</k> = new Bloodhound(
+    {
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('Title'),
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        remote: '<k>Typeahead.Remote</k>%QUERY'
     });
 
     dataset<k>ID</k>.initialize();
@@ -29,5 +31,13 @@
       name: 'dataset<k>ID</k>',
       displayKey: 'Title',
       source: dataset<k>ID</k>.ttAdapter()
+    }).on('typeahead:selected', function($e, datum)
+    {
+        $('#<k>ID</k>_hidden').val(datum.ID);
     });
+
+    $('#<k>ID</k>').change(function()
+    {
+        $("#<k>ID</k>_hidden").val($("#<k>ID</k>").val());
+    })
 </jsrun>
