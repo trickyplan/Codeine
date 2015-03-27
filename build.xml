@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="codeine-beta" default="final" basedir=".">
+<project name="codeine-${branch}" default="final" basedir=".">
 
     <import file="build/initialize.xml"/>
 
@@ -9,7 +9,7 @@
     <property name="homepage" value="http://trickyplan.ru/projects/Codeine"/>
     <property name="maintainer" value="Johnny Funt"/>
     <property name="destination-source" value="/usr/share/php/Codeine"/>
-    <property name="depends" value="php5-fpm (>=5.5.0) | php5-cli (>=5.5.0) | php5-cgi (>=5.5.0)"/>
+    <property name="depends" value="php5-fpm (>=5.6.0) | php5-cli (>=5.6.0) | php5-cgi (>=5.6.0)"/>
 
     <target name="phase1" depends="properties"></target>
 
