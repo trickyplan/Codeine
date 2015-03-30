@@ -841,20 +841,22 @@
         {
             $Data = [];
 
-            if (is_array($Keys))
+            if (is_array($Array))
             {
-                if (is_array($Array))
+                if (is_array($Keys))
+                {
                     foreach ($Keys as $Key)
                         if (is_scalar($Key))
                         {
                             $Data[$Key] = array_column($Array, $Key, $ID);
-                            sort($Data[$Key]);
+                            // sort($Data[$Key]);
                         }
-            }
-            else
-            {
-                $Data = array_column($Array, $Keys, $ID);
-                sort($Data);
+                }
+                else
+                {
+                    $Data = array_column($Array, $Keys, $ID);
+                    // sort($Data);
+                }
             }
 
             return $Data;

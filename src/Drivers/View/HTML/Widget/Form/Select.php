@@ -16,7 +16,6 @@
 
          $Call['Options'] = F::Live($Call['Options'], $Call);
 
-
          if ($Call['Options'] === null)
              ;
          else
