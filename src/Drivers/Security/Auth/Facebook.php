@@ -160,11 +160,7 @@
             'Where'  => $Call['Session']['User']['ID'],
             'Data'   =>
             [
-                'Facebook' =>
-                [
-                    'Active' => false,
-                    'Auth' => ''
-                ]
+                'Facebook' => -1
             ]
         ]);
 

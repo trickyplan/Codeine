@@ -166,11 +166,7 @@
             'Where'  => $Call['Session']['User']['ID'],
             'Data'   =>
             [
-                'Odnoklassniki' =>
-                [
-                    'Active' => false,
-                    'Auth' => ''
-                ]
+                'Odnoklassniki' => -1
             ]
         ]);
 
