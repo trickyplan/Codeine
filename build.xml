@@ -20,8 +20,8 @@
 <property name="maintainer" value="Johnny Funt"/>
 <property name="destination-source" value="/usr/share/php/Codeine"/>
 <property name="depends" value="php5-fpm (>=5.6.0) | php5-cli (>=5.6.0) | php5-cgi (>=5.6.0)"/>
-<property name="provides" value=", codeine, codeine-beta"/>
-<property name="replaces" value="codeine-beta"/>
+<property name="provides" value=", codeine, codeine-production"/>
+<property name="replaces" value="codeine-production"/>
 
 <target name="phase1" depends="properties, folders"></target>
 
