@@ -117,8 +117,17 @@
 
     setFn('Menu', function ($Call)
     {
-        $Count = F::Run('Entity', 'Count', $Call, ['Entity' => $Call['Bundle'], 'Scope' => 'Control']);
-        return ['Count' => $Count];
+        return [
+            'Count' =>
+                F::Run('Formats.Number.French', 'Do',
+                [
+                    'Value' => F::Run('Entity', 'Count',
+                        [
+                            'Entity' => $Call['Bundle'],
+                            'Scope' => 'Control'
+                        ])
+                ])
+        ];
     });
 
     setFn('Export', function ($Call)

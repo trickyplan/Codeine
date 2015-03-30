@@ -22,7 +22,7 @@
                 switch($Format)
                 {
                     case 'French':
-                        $Outer = number_format($Match, $Digits , ',', ' ');
+                        $Outer =  F::Run('Formats.Number.French', 'Do', ['Value' => $Match, 'Digits' => $Digits]);
                     break;
 
                     case 'English':

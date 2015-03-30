@@ -16,6 +16,11 @@
         ];
 
         $Version = phpversion();
+        if (($Tilda = mb_strpos($Version, '~')) === false)
+            ;
+        else
+            $Version = mb_substr($Version, $Tilda);
+
         $Version = isset($Call['Versions'][$Version])? $Call['Versions'][$Version]: 'Untested';
 
         $Call['Output']['Content'] = array (

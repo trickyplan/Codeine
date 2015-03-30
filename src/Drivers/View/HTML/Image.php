@@ -39,6 +39,8 @@
                     $Image = F::Merge($Call['Image'],
                         F::Run('Formats.'.$Format, 'Read', ['Value' => $Image])
                     );
+
+                    $Image['Source']['Scope'] = strtr($Image['Source']['Scope'], '.', DS);
                 }
             // После ввода картинок
             $Call = F::Hook('afterImageInput', $Call);
