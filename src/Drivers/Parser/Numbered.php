@@ -51,6 +51,12 @@
                     ]);
             }
 
+        $Call['Output']['Content'][] =
+            [
+                'Type'  => 'Block',
+                'Class' => 'alert alert-success',
+                'Value' => 'Задание в очереди'
+            ];
 
         return $Call;
     });
