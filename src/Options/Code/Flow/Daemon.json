@@ -20,7 +20,7 @@
         },
         "Delayed":
         {
-            "Frequency": 10,
+            "Frequency": 1,
             "Execute":
             {
                 "Service": "Code.Run.Delayed",

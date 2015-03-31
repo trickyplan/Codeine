@@ -158,6 +158,29 @@
         return $Call;
     });
 
+    setFn('Export.CSV', function ($Call)
+    {
+        if (isset($Call['Request']['Fields']))
+            $Call['Fields'] = $Call['Request']['Fields'];
+
+        $Elements = F::Run('Entity', 'Read', $Call,
+            [
+                'Entity' => $Call['Bundle']
+            ]);
+
+        $Call['View']['Renderer'] =
+            [
+                'Service' =>  'View.CSV',
+                'Method' =>  'Render'
+            ];
+
+        foreach ($Elements as $Element)
+            $Call['Output']['Content'][] =
+                $Element;
+
+        return $Call;
+    });
+
     setFn('Search', function ($Call)
     {
         return F::Apply('Entity.Search', 'Do', $Call, ['Entity' => $Call['Bundle'], 'Scope' => 'Control']);

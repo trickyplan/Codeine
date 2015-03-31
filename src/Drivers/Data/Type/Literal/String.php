@@ -9,7 +9,10 @@
 
     setFn('Write', function ($Call)
     {
-        return (string) $Call['Value'];
+        if (is_scalar($Call['Value']))
+            return (string) $Call['Value'];
+        else
+            F::Log('Value not a string: '.j($Call['Value']), LOG_WARNING);
     });
 
     setFn('Where', function ($Call)
