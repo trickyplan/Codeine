@@ -5,22 +5,6 @@
     <div class="panel-body">
         <table class="table table-striped">
             <tr>
-                <th>Доступность</th>
-                <td>
-                    <if value="<fn><Service>Condition.Lock</Service><Method>Check</Method><Call><ID>down</ID></Call></fn>" neq="1">
-                        <l>Project.Entity:Open.1</l>
-                    </if>
-
-                    <if value="<fn><Service>Condition.Lock</Service><Method>Check</Method><Call><ID>down</ID></Call></fn>" eq="1">
-                        <l>Project.Entity:Open.0</l>
-                    </if>
-                </td>
-            </tr>
-            <tr>
-                <th>Версия проекта</th>
-                <td><call>Version.<call>Project.ID</call>.Major</call>.<call>Version.<call>Project.ID</call>.Minor</call></td>
-            </tr>
-            <tr>
                 <th>Последнее обновление</th>
                 <td>
                     <datetime format="d.m.Y H:i"><fn>
