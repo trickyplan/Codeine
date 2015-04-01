@@ -16,16 +16,17 @@
         ];
 
         if (F::file_exists(Root.'/Options/Version.json'))
-            $Call['Project']['MTime'] = filemtime(Root.'/Options/Version.json');
+            $Call[$Call['Project']['ID']]['MTime'] = filemtime(Root.'/Options/Version.json');
 
         return $Call;
     });
 
     setFn('Menu', function ($Call)
     {
+        $Call['Project'] = F::Live(F::loadOptions('Project'));
         $Call['Version'] = F::loadOptions('Version');
         if (isset($Call['Version']))
-            return ['Count' => $Call['Version']['Project']['Major'].'.'.$Call['Version']['Project']['Minor']];
+            return ['Count' => $Call['Version'][$Call['Project']['ID']]['Major'].'.'.$Call['Version'][$Call['Project']['ID']]['Minor']];
         else
             return null;
     });
