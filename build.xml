@@ -15,7 +15,7 @@
 <import file="build/debian.xml"/>
 <import file="build/tarball.xml"/>
 
-<property name="id" value="Codeine"/>
+<property name="project-id" value="Codeine"/>
 <property name="description" value="Codeine functional PHP Framework"/>
 <property name="homepage" value="http://codeine-framework.ru"/>
 <property name="maintainer" value="Johnny Funt"/>
