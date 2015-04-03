@@ -52,7 +52,8 @@
 
     setFn('Count', function ($Call)
     {
-        F::Log('Queued tasks: '.F::Run('IO', 'Execute', ['Execute' => 'Count', 'Time' => microtime(true), 'Storage' => 'Delayed']), LOG_WARNING);
+        $Queued = F::Run('IO', 'Execute', ['Execute' => 'Count', 'Time' => microtime(true), 'Storage' => 'Delayed']);
+        F::Log('Queued tasks: '.$Queued, LOG_WARNING);
 
-        return null;
+        return $Queued;
     });

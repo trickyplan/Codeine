@@ -1,0 +1,12 @@
+{
+    "Options": {
+        "Status": "Статус",
+        "Log":
+        {
+            "Error": "Error Log",
+            "Access": "Access Log"
+        }
+    },
+    "Options.Do": "Обзор",
+    "Title": "Nginx"
+}

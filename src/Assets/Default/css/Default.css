@@ -5,16 +5,33 @@
 
 .console
 {
-    font: 14px monospace;
+    font: 12px monospace;
     margin: auto;
     margin-top: 20px;
     padding: 4px 16px 4px 16px;
     background-color: white;
     color: black;
-    width: 85%;
     white-space: pre;
     clear: both;
     border-radius: 6px;
+}
+
+.console-inverse
+{
+    font: 12px monospace;
+    margin: auto;
+    margin-top: 20px;
+    padding: 4px 16px 4px 16px;
+    background-color: #333333;
+    color: #eeeeee;
+    white-space: pre;
+    clear: both;
+    border-radius: 6px;
+}
+
+table.console
+{
+    width: 85%;
 }
 
 .console th
