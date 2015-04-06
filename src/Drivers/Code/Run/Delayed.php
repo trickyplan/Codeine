@@ -9,32 +9,13 @@
 
     setFn('Run', function ($Call)
     {
-        $Running = F::Run('Code.Flow.Daemon', 'Running?',
-                [
-                    'Execute' =>
-                    [
-                        'Service' => 'Code.Run.Delayed'
-                    ]
-                ]);
+        F::Log('Delayed Run '.$Call['Run']['Service'].' queued', LOG_INFO);
 
-        if ($Running)
-            F::Log('Daemon running', LOG_INFO, 'Developer');
-
-        if ($Running or $Call['Delayed Mode'] == 'Dirty')
-        {
-            F::Log('Delayed Run '.$Call['Run']['Service'].' queued', LOG_INFO);
-
-            return F::Run('IO', 'Write',
-                [
-                    'Storage' => 'Delayed',
-                    'Data' => $Call['Run']
-                ]);
-        }
-        else
-        {
-            F::Log('Delayed Run '.$Call['Run']['Service'].' executed', LOG_INFO);
-            return F::Live($Call['Run']);
-        }
+        return F::Run('IO', 'Write',
+            [
+                'Storage' => 'Delayed',
+                'Data' => $Call['Run']
+            ]);
      });
 
     setFn('Execute', function ($Call)
@@ -45,13 +26,14 @@
             return F::Live($Call['Run']);
         }
         else
-            F::Log('No tasks', LOG_INFO, 'Developer');
+            F::Log('No tasks', LOG_DEBUG, 'Developer');
 
         return null;
     });
 
     setFn('Count', function ($Call)
     {
+
         $Queued = F::Run('IO', 'Execute', ['Execute' => 'Count', 'Time' => microtime(true), 'Storage' => 'Delayed']);
         F::Log('Queued tasks: '.$Queued, LOG_WARNING);
 

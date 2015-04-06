@@ -28,3 +28,8 @@
     {
         return $Call['Link']->rPush($Call['Scope'], j($Call['Data']));
     });
+
+    setFn('Count', function ($Call)
+    {
+        return $Call['Link']->lLen($Call['Scope']);
+    });

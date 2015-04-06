@@ -31,6 +31,7 @@
                 ]);
         };
 
+        $Call['Daemon']['Childs']['Max'] = F::Live($Call['Daemon']['Childs']['Max']);
        /* $PID = pcntl_fork();
 
         if ($PID == -1)
@@ -82,7 +83,7 @@
 
                 F::Log('Tick '.$Ticks, LOG_DEBUG);
 
-                if ((count($Ungrateful) < $Call['MaxChilds']))
+                if ((count($Ungrateful) < $Call['Daemon']['Childs']['Max']))
                 {
                     $PID = pcntl_fork();
 
@@ -94,14 +95,14 @@
                     elseif ($PID)
                     {
                         $Ungrateful[$PID] = true;
-                        F::Log('Child forked '.$PID, LOG_INFO);
+                        F::Log('Child forked '.$PID, LOG_DEBUG);
                     }
                     else
                     {
                         foreach ($Call['Daemons'] as $DaemonName => $Daemon)
                             if (($Ticks % $Daemon['Frequency']) == 0)
                             {
-                                F::Log($DaemonName.' daemon waked up', LOG_INFO);
+                                F::Log($DaemonName.' daemon waked up', LOG_DEBUG);
 
                                 $Result = F::Live($Daemon['Execute']);
 
@@ -123,11 +124,11 @@
                     else
                     {
                         unset($Ungrateful[$Signaled]);
-                        F::Log('Child dead '.$Signaled, LOG_INFO);
+                        F::Log('Child dead '.$Signaled, LOG_DEBUG);
                     }
                 }
 
-                sleep($Call['RT']);
+                usleep($Call['RT']);
             }
 
             F::Log('Daemon stopped', LOG_WARNING);
@@ -162,7 +163,7 @@
 
     setFn('PIDFile', function ($Call)
     {
-        return $Call['PID']['Prefix'].$Call['PID']['Name'].$Call['PID']['Postfix'];
+        return Root.DS.$Call['PID']['Prefix'].$Call['PID']['Name'].$Call['PID']['Postfix'];
     });
 
     setFn('Stop', function ($Call)

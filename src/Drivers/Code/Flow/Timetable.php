@@ -12,7 +12,7 @@
         $Call = F::Hook('beforeTimetableRun', $Call);
 
         $Time = time();
-        F::Log('Time: '.date('d.m.Y H:i:s', $Time), LOG_INFO);
+        F::Log('Time: '.date('d.m.Y H:i:s', $Time), LOG_DEBUG);
 
         $Time = [
             'Year' => date('Y', $Time),
@@ -25,7 +25,7 @@
 
         $Components = array_keys($Time);
 
-        F::Log(count($Call['Timetable']['Rules']).' timetable rules loaded', LOG_INFO);
+        F::Log(count($Call['Timetable']['Rules']).' timetable rules loaded', LOG_DEBUG);
 
         foreach ($Call['Timetable']['Rules'] as $Name => $Rule)
         {
@@ -63,7 +63,7 @@
                 elseif ($PID)
                 {
                     $Ungrateful[$PID] = true;
-                    F::Log('Child forked '.$PID, LOG_INFO);
+                    F::Log('Child forked '.$PID, LOG_DEBUG);
                 }
                 else
                 {
@@ -76,5 +76,5 @@
 
         $Call = F::Hook('afterTimetableRun', $Call);
 
-        return $Call;
+        return null;
     });

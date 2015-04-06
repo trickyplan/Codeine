@@ -6,6 +6,7 @@
      * @package Codeine
      * @version 7.x
      */
+    include_once 'phpQuery.php';
 
     setFn('Do', function ($Call)
     {
@@ -25,35 +26,39 @@
 
     setFn('POST', function ($Call)
     {
-        F::Run('Spider', 'Do', $Call,
-            [
-                'Start' => $Call['Request']['Data']['Start'],
-                'Scrape' =>
-                [
-                    'Whitelist' => ['http://market.yandex.ru/model.xml?modelid=7800733&hid=294661']
-                ],
-                'Spider' =>
-                [
-                    'Whitelist' => []
-                ]
-            ]);
-
-        if ($Call['Schema'] = F::Run('Parser', 'Discovery', $Call))
+        foreach ($Call['Spider']['Tasks'] as $Name => $Task)
         {
-            $Call = F::Run('Parser', 'Do', $Call, ['Markup' => $Result]);
-            $Slices = explode(DS, $Call['Schema']);
-            $Call['Entity'] = array_pop($Slices);
+            $Result = F::Live($Task['Backend'],
+                [
+                    'Where' =>
+                        [
+                            'ID' => $Task['URL']
+                        ]
+                ]);
 
-            $Call['Data'] = F::Run('Entity', 'Create', $Call, ['One' => true]);
+            $Data = [];
+            $Result = array_pop($Result);
+
+            phpQuery::newDocumentHTML($Result);
+
+            phpQuery::each(pq($Task['Selector']),function($Index, $Element) use (&$Data)
+            {
+                $Data[$Index] = pq($Element)->attr('href');
+            });
+
+            foreach ($Data as $Row)
+                F::Run('Code.Run.Delayed', 'Run',
+                    [
+                        'Run' =>
+                            [
+                                'Service' => 'Parser.URL',
+                                'Method' => 'Parse',
+                                'Call' =>
+                                [
+                                    'URL' => $Task['Host'].$Row
+                                ]
+                            ]
+                    ]);
         }
-        else
-            $Call['Data'] = null;
-
-        $Call['Output']['Content'][] =
-        [
-            'Type' => 'Block',
-            'Value' => j($Call['Data'])
-        ];
-
         return $Call;
     });

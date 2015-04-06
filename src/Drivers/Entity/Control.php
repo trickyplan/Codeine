@@ -9,6 +9,8 @@
 
     setFn('Do', function ($Call)
     {
+        $Time = time();
+
         $Call['Output']['Content'][]
         =
             [
@@ -28,11 +30,55 @@
                             [
                                 'Created' =>
                                 [
-                                    '$lt' => time(),
-                                    '$gt' => time()-86400
+                                    '$lt' => $Time,
+                                    '$gt' => $Time-86400
                                 ]
                             ]
                         ])
+                    ],
+                    [
+                        '<l>'.$Call['Bundle'].'.Control:Hour</l>',
+                        F::Run('Entity', 'Count',
+                            [
+                                'Entity' => $Call['Bundle'],
+                                'Where'  =>
+                                    [
+                                        'Created' =>
+                                            [
+                                                '$lt' => $Time,
+                                                '$gt' => $Time-3600
+                                            ]
+                                    ]
+                            ])
+                    ],
+                    [
+                        '<l>'.$Call['Bundle'].'.Control:Minute</l>',
+                        F::Run('Entity', 'Count',
+                            [
+                                'Entity' => $Call['Bundle'],
+                                'Where'  =>
+                                    [
+                                        'Created' =>
+                                            [
+                                                '$lt' => $Time,
+                                                '$gt' => $Time-60
+                                            ]
+                                    ]
+                            ])
+                    ],
+                    [
+                        '<l>'.$Call['Bundle'].'.Control:Second</l>',
+                        F::Run('Entity', 'Count',
+                            [
+                                'Entity' => $Call['Bundle'],
+                                'Where'  =>
+                                    [
+                                        'Created' =>
+                                            [
+                                                '$eq' => $Time
+                                            ]
+                                    ]
+                            ])
                     ]
                 ]
             ];
@@ -160,12 +206,22 @@
 
     setFn('Export.CSV', function ($Call)
     {
-        if (isset($Call['Request']['Fields']))
-            $Call['Fields'] = $Call['Request']['Fields'];
+        $Call = F::loadOptions($Call['Bundle'].'.Entity', null, $Call);
+
+        $Call['Fields'] = [];
+
+        foreach ($Call['Nodes'] as $Name => $Node)
+            if (isset($Node['CSV']) && $Node['CSV'])
+                $Call['Fields'][] = $Name;
 
         $Elements = F::Run('Entity', 'Read', $Call,
             [
-                'Entity' => $Call['Bundle']
+                'Entity' => $Call['Bundle'],
+                'Limit'  =>
+                [
+                    'From' => 0,
+                    'To'   => 1000
+                ]
             ]);
 
         $Call['View']['Renderer'] =

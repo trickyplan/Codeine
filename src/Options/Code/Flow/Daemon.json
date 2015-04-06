@@ -1,10 +1,20 @@
 {
-    "MaxChilds":32,
-    "RT": 1,
+    "Daemon":
+    {
+        "Childs":
+        {
+            "Max":
+            {
+                "Service": "System.Hardware.CPU.Count",
+                "Method": "Get"
+            }
+        }
+    },
+    "RT": 400000,
     "PID":
     {
         "Name": "codeined",
-        "Prefix": "/var/run/",
+        "Prefix": "locks/",
         "Postfix": ".pid"
     },
     "Daemons":

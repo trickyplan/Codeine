@@ -5,7 +5,7 @@
         {
             "Read":
             {
-                "Memo": ["Scope", "Where.ID", "Time", "Data"]
+                "Memo": ["Scope", "Where.ID", "Time", "Data", "CURL"]
             }
         }
     },
