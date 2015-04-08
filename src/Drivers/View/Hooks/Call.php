@@ -10,10 +10,10 @@
     setFn('Parse', function ($Call)
     {
         $Call['Parsed'] = F::Run('Text.Regex', 'All',
-        [
-            'Pattern' => $Call['Call Pattern'],
-            'Value' => $Call['Output']
-        ]);
+            [
+                'Pattern' => $Call['Call Pattern'],
+                'Value' => $Call['Output']
+            ]);
 
         if ($Call['Parsed'] && isset($Call['Data']))
         {
@@ -55,6 +55,36 @@
                         | JSON_UNESCAPED_SLASHES))
                 .'</pre>',
                 $Call['Output']);
+
+        return $Call;
+    });
+
+    setFn('Parse.Template', function ($Call)
+    {
+        $Call['Parsed'] = F::Run('Text.Regex', 'All',
+        [
+            'Pattern' => $Call['Call Pattern'],
+            'Value' => $Call['Value']
+        ]);
+
+        if ($Call['Parsed'] && isset($Call['Data']))
+        {
+            foreach ($Call['Parsed'][1] as $IX => $Match)
+            {
+                if (($Matched = F::Dot($Call, $Match)) !== null)
+                {
+                    if (is_array($Matched))
+                        $Matched = j($Matched);
+
+                    if (($Matched === false) || ($Matched === 0))
+                        $Matched = '0';
+
+                    $Call['Parsed'][1][$IX] = F::Live($Matched);
+                }
+            }
+            $Call['Value'] = str_replace($Call['Parsed'][0], $Call['Parsed'][1], $Call['Value']);
+        }
+
 
         return $Call;
     });

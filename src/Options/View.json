@@ -25,6 +25,11 @@
     {
         "afterViewLoad":
         {
+            "Call":
+            {
+                "Service": "View.Hooks.Call",
+                "Method": "Parse.Template"
+            },
             "Block 1":
             {
                 "Service": "View.Hooks.Block",

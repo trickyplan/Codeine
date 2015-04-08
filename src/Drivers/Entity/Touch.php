@@ -14,10 +14,11 @@
         $Call = F::Hook('beforeTouch', $Call);
 
         $Old = F::Run('Entity', 'Read', $Call, ['One' => false]);
-        $New = F::Run('Entity', 'Update', $Call, ['One' => false]);
 
         foreach ($Old as $IX => $Object)
         {
+            $New = F::Run('Entity', 'Update', $Call, ['Data' => $Object, 'Where' => $Object['ID']]);
+
             if (isset($Object['ID']))
                 $Table = [['ID', $Object['ID']]];
             else
