@@ -17,7 +17,7 @@
 
         foreach ($Old as $IX => $Object)
         {
-            $New = F::Run('Entity', 'Update', $Call, ['Data' => $Object, 'Where' => $Object['ID']]);
+            $New = F::Run('Entity', 'Update', $Call, ['Data' => $Object, 'Where' => $Object['ID'], 'One' => false]);
 
             if (isset($Object['ID']))
                 $Table = [['ID', $Object['ID']]];
@@ -26,7 +26,7 @@
 
             foreach ($Call['Nodes'] as $Name => $Node)
             {
-                $NewValue = F::Dot($New[$IX], $Name);
+                $NewValue = F::Dot($New, $Name);
                 $OldValue = F::Dot($Old[$IX], $Name);
 
                 if ($OldValue == $NewValue)
