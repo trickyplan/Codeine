@@ -61,6 +61,8 @@
 
     setFn('Parse.Template', function ($Call)
     {
+        $Replace = [[],[]];
+
         $Call['Parsed'] = F::Run('Text.Regex', 'All',
         [
             'Pattern' => $Call['Call Pattern'],
@@ -79,10 +81,12 @@
                     if (($Matched === false) || ($Matched === 0))
                         $Matched = '0';
 
-                    $Call['Parsed'][1][$IX] = F::Live($Matched);
+                    $Replace[0][$IX] = $Call['Parsed'][0][$IX];
+                    $Replace[1][$IX] = F::Live($Matched);
                 }
             }
-            $Call['Value'] = str_replace($Call['Parsed'][0], $Call['Parsed'][1], $Call['Value']);
+
+            $Call['Value'] = str_replace($Replace[0], $Replace[1], $Call['Value']);
         }
 
 
