@@ -10,6 +10,9 @@
     setFn('Write', function ($Call)
     {
         // Грузим модель связанной сущности
+        if (isset($Call['Node']['Override Entity']))
+            $Call['Name'] = $Call['Node']['Override Entity'];
+
         $Call = F::Apply('Entity', 'Load', $Call, ['Entity' => $Call['Name']]);
 
         // Приводим значение к типу данных ID связанной сущности
@@ -34,6 +37,10 @@
 
     setFn(['Read', 'Where'], function ($Call)
     {
+        // Грузим модель связанной сущности
+        if (isset($Call['Node']['Override Entity']))
+            $Call['Name'] = $Call['Node']['Override Entity'];
+
         $Call = F::Apply('Entity', 'Load', $Call, ['Entity' => $Call['Name']]);
 
         $Call['Value'] = F::Run('Data.Type.'.$Call['Nodes']['ID']['Type'], 'Write', ['Value' => $Call['Value']]);

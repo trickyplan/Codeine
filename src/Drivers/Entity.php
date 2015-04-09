@@ -336,6 +336,21 @@
 
     setFn('Far', function ($Call)
     {
-        $Element = F::Run(null, 'Read', $Call, ['One' => true]);
-        return isset($Element[$Call['Key']])? $Element[$Call['Key']]: false;
+        $Result = null;
+
+        $Element = F::Run(null, 'Read', $Call);
+
+        if (count($Element) == 1)
+        {
+            $Element = array_pop($Element);
+            $Result = isset($Element[$Call['Key']])? $Element[$Call['Key']]: false;
+        }
+        elseif (count($Element) > 1)
+        {
+            $Result = [];
+            foreach ($Element as $cElement)
+                $Result[$cElement['ID']] = isset($cElement[$Call['Key']])? $cElement[$Call['Key']]: false;
+        }
+
+        return $Result;
     });

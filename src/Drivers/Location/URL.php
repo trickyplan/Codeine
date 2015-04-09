@@ -33,7 +33,7 @@
         else
         {
             $Call['Session']['Location'] = 0;
-            $Call['Session']['LocationURL'] = '';
+            $Call['Session']['LocationURL'] = '/';
         }
 
         if ($Location != $Call['Session']['Location'])

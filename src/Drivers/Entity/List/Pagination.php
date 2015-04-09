@@ -36,7 +36,10 @@
                 else
                 {
                     if (isset($Call['Where']))
-                        ;
+                    {
+                        $Call['Limit']['From']= ($Call['Page']-1)*$Call['EPP'];
+                        $Call['Limit']['To'] = $Call['EPP'];
+                    }
                     else
                     {
                         $Call['Where']['ID']['$lt'] = $Call['Count'] - ($Call['Page']-1)*$Call['EPP'];
