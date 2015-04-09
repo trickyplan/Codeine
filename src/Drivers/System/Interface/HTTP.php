@@ -51,6 +51,7 @@
                             else
                                 readfile(Codeine.'/down.html');
 
+                            $NoOutput = true;
                         break;
                     }
                 }
@@ -63,12 +64,16 @@
             $Call = F::Apply(null, 'Response Headers', $Call);
 
             F::Stop('Cooldown');
-            F::Run('IO', 'Write', $Call,
-                [
-                    'Storage' => 'Output',
-                    'Where' => $Call['HTTP']['URL'],
-                    'Data' => $Call['Output']
-                ]);
+
+            if (isset($NoOutput))
+                ;
+            else
+                F::Run('IO', 'Write', $Call,
+                    [
+                        'Storage' => 'Output',
+                        'Where' => $Call['HTTP']['URL'],
+                        'Data' => $Call['Output']
+                    ]);
 
             F::Log('Interface *Web* finished', LOG_INFO);
 
