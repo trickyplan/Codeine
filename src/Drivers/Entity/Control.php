@@ -227,9 +227,17 @@
                     'Entity' => $Call['Bundle'],
                     'Limit'  =>
                         [
-                            'From' => $Call['Page']*$Call['EPP'],
+                            'From' => 0,
                             'To'   => $Call['EPP']
+                        ],
+                    'Where'  =>
+                    [
+                        'ID' =>
+                        [
+                            '$gt' => $Call['Page']*$Call['EPP']
                         ]
+                    ],
+                    'Sort' => ['ID' => true]
                 ]);
 
             foreach ($Elements as $Element)
