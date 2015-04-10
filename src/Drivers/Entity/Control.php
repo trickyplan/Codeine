@@ -220,7 +220,7 @@
             ]);
         $PageCount = $ElementsCount / $Call['EPP'];
 
-        for ($Call['Page'] = 0; $Call['Page']; $Call['Page']++)
+        for ($Call['Page'] = 0; $Call['Page'] < $PageCount; $Call['Page']++)
         {
             $Elements = F::Run('Entity', 'Read', $Call,
                 [
