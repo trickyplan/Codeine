@@ -216,12 +216,7 @@
 
         $Elements = F::Run('Entity', 'Read', $Call,
             [
-                'Entity' => $Call['Bundle'],
-                'Limit'  =>
-                [
-                    'From' => 0,
-                    'To'   => 1000
-                ]
+                'Entity' => $Call['Bundle']
             ]);
 
         $Call['View']['Renderer'] =
