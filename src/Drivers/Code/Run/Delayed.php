@@ -35,7 +35,7 @@
     {
 
         $Queued = F::Run('IO', 'Execute', ['Execute' => 'Count', 'Time' => microtime(true), 'Storage' => 'Delayed']);
-        F::Log('Queued tasks: '.$Queued, LOG_WARNING);
+        F::Log('Queued tasks: '.$Queued, LOG_INFO);
 
         return $Queued;
     });
