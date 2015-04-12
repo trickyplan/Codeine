@@ -85,6 +85,19 @@
         return $Call;
     });
 
+    setFn('Set', function ($Call)
+    {
+        F::Run('Entity', 'Update', $Call,
+        [
+            'Entity' => $Call['Bundle'],
+            'Data' => $Call['Request']
+        ]);
+
+        $Call = F::Run('System.Interface.HTTP', 'RestoreURL', $Call);
+
+        return $Call;
+    });
+
     setFn('List', function ($Call)
     {
         $Call['Layouts'][] = [
