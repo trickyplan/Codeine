@@ -564,7 +564,7 @@
                 $Logs = self::Logs();
 
                 echo '<h2>Perfect Mode</h2>';
-                echo '<pre>'.self::Stack().'</pre>'.PHP_EOL;
+                echo '<pre class="console">'.self::Stack().'</pre>'.PHP_EOL;
                 echo $errno.' '.$errstr.' '.$errfile.'@'.$errline.'<pre>';
 
                 foreach ($Logs as $Channel => $Records)
@@ -614,7 +614,7 @@
 /*                if ((self::Environment() == 'Development') && (self::$_Perfect === true) && $Verbose < LOG_WARNING)
                     trigger_error($Message);*/
 
-                $Message = self::$_Service.': '.$Message;
+                // $Message = self::$_Service.': '.$Message;
                 $Time = sprintf('%.4f', microtime(true)-Started).' ';
 
                 if (PHP_SAPI == 'cli')

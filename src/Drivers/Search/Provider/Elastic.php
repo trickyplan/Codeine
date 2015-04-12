@@ -46,12 +46,11 @@
 
             F::Log('Start search on query: '.$Call['Query'], LOG_IMPORTANT);
 
-            $Results = $Call['Link']->search(
-                 [
+            $Query = [
                      'index' => 'project',
                      'type'  => $Call['Type'],
-                     'size'  => $Call['EPP'],
-                     'from'  => $Call['EPP']*($Call['Page']-1),
+/*                     'from'  => $Call['EPP']*($Call['Page']-1),
+                     'size'  => $Call['EPP'],*/
                      'body'  =>
                      [
                           'query' =>
@@ -77,7 +76,10 @@
                               ]
                           ]
                       ]
-                 ]);
+                 ];
+            F::Log($Query, LOG_INFO, 'Administrator');
+            $Results = $Call['Link']->search($Query);
+
         }
         catch (Exception $e)
         {

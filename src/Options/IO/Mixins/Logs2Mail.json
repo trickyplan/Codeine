@@ -9,7 +9,7 @@
         },
         "Performance":
         {
-            "Scope": "Performance@trickyplan.com",
+            "Scope": "performance@trickyplan.com",
             "Driver": "IO.Transport.Mail.SMTP",
             "Format": "Formats.Log.HTML"
         },

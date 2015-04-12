@@ -4,7 +4,7 @@
         "ID":
         {
             "Type": "Numeral.Integer",
-            "Weight": -1000,
+            "Weight": 9999,
             "Index": true,
             "Unique": true,
             "Hooks":

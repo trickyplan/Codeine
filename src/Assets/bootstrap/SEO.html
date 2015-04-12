@@ -1,0 +1,11 @@
+ <access Service="Control.Panel">
+        <div id="seopanel" class="alert alert-info" style="display: none; position: fixed; top: 15px; left: 25%; z-index: 99;">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4>SEO</h4>
+            <div><strong>Title</strong></div>
+
+        </div>
+    </access>
+<jsrun>
+    $(document).bind('keydown', '9', function() { $('#seopanel').toggle()} );
+</jsrun>

@@ -22,8 +22,8 @@
 
             // Режим «только обязательные поля»
 
-            if (isset($Call['OnlyRequired']) &&
-                $Call['OnlyRequired'] == true && (!isset($Node['Required']) or !$Node['Required']))
+            if (isset($Call['Only Required']) &&
+                $Call['Only Required'] == true && (!isset($Node['Required']) or !$Node['Required']))
                 continue;
 
             // Если виджеты вообще определены
