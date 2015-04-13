@@ -116,6 +116,8 @@
                     else
                         $Widget['Value'] = F::Live($Widget['Value']);
 
+                    $Widget['Value'] = htmlspecialchars($Widget['Value']);
+
                     // Упростить
 
                     if (!isset($Widget['Weight']))

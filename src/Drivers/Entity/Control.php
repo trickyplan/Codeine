@@ -237,8 +237,9 @@
         {
             $Elements = F::Run('Entity', 'Read', $Call,
                 [
-                    'Entity' => $Call['Bundle'],
-                    'Limit'  =>
+                    'Entity'  => $Call['Bundle'],
+                    'No Memo' => true,
+                    'Limit'   =>
                         [
                             'From' => 0,
                             'To'   => $Call['EPP']
@@ -263,8 +264,6 @@
                 'Service' =>  'View.CSV',
                 'Method' =>  'Render'
             ];
-
-
 
         return $Call;
     });
