@@ -39,8 +39,8 @@
                             $Call['Output'][$Place][$Key] = F::Run ('View', 'Load',
                                 [
                                     'Scope' => (isset($Widget['Widget Set'])? $Widget['Widget Set']: $Call['View']['HTML']['Widget Set']).'/Widgets',
-                                    'ID'    => (isset($Call['Widget Template'])?
-                                                $Call['Widget Template']
+                                    'ID'    => (isset($Widget['Widget Template'])?
+                                                $Widget['Widget Template']
                                                 : strtr($Widget['Type'],'.', '/')),
                                     'Data'  =>
                                         F::Run(

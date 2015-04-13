@@ -116,7 +116,8 @@
                     else
                         $Widget['Value'] = F::Live($Widget['Value']);
 
-                    $Widget['Value'] = htmlspecialchars($Widget['Value']);
+                    if (is_scalar($Widget['Value']))
+                        $Widget['Value'] = htmlspecialchars($Widget['Value']);
 
                     // Упростить
 
