@@ -20,6 +20,14 @@
 
         try
         {
+            F::Log($Call['Link']->delete(
+                 [
+                     'index' => 'project',
+                     'id'    => $Call['Data']['ID'],
+                     'type'  => $Call['Type']
+                 ]
+            ), LOG_INFO);
+
             F::Log($Call['Link']->index(
                  [
                      'index' => 'project',
