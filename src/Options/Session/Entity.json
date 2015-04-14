@@ -83,7 +83,7 @@
                 "Method": "Redirect",
                 "Call":
                 {
-                    "Location": "/control/Session"
+                    "Redirect": "/control/Session"
                 }
             }
         }

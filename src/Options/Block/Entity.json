@@ -37,7 +37,7 @@
                 "Method": "Redirect",
                 "Call":
                 {
-                    "Location": "/control/$Entity/Show/$Data.0.ID"
+                    "Redirect": "/control/$Entity/Show/$Data.0.ID"
                 }
             }
         }

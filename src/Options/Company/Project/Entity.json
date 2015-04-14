@@ -119,7 +119,7 @@
                 "Method": "Redirect",
                 "Call":
                 {
-                    "Location": "/control/$Entity"
+                    "Redirect": "/control/$Entity"
                 }
             }
         },
@@ -131,7 +131,7 @@
                 "Method": "Redirect",
                 "Call":
                 {
-                    "Location": "/control/$Entity"
+                    "Redirect": "/control/$Entity"
                 }
             }
         }

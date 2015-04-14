@@ -20,7 +20,7 @@
 
     setFn('Identificate', function ($Call)
     {
-        return F::Run('System.Interface.HTTP', 'Redirect', $Call, ['Location' => 
+        return F::Run('System.Interface.HTTP', 'Redirect', $Call, ['Redirect' =>
             'http://www.odnoklassniki.ru/oauth/authorize?'
             .'client_id='.$Call['Odnoklassniki']['AppID']
             .'&scope='.$Call['Odnoklassniki']['Rights']

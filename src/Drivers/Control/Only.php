@@ -10,9 +10,9 @@
      setFn('Redirect', function ($Call)
      {
          if (isset($Call['Session']['User']['ID']))
-             $Call['Location'] = '/control';
+             $Call['Redirect'] = '/control';
          else
-             $Call['Location'] = '/login';
+             $Call['Redirect'] = '/login';
 
          return F::Run('System.Interface.HTTP', 'Redirect', $Call);
      });

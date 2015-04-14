@@ -84,13 +84,13 @@
 
     setFn('Redirect', function ($Call)
     {
-        if (is_string($Call['Location']))
+        if (is_string($Call['Redirect']))
         {
             if (isset($Call['HTTP']['Headers']['Location:']))
-                F::Log('Already was redirected to '.$Call['HTTP']['Headers']['Location:'].', skipping redirect to '.$Call['Location'], LOG_INFO);
+                F::Log('Already was redirected to '.$Call['HTTP']['Headers']['Location:'].', skipping redirect to '.$Call['Redirect'], LOG_INFO);
             else
             {
-                $URL = $Call['Location'];
+                $URL = $Call['Redirect'];
 
                 if (preg_match_all('@\$([\.\w]+)@', $URL, $Vars))
                 {
@@ -120,7 +120,7 @@
 
     setFn('Remote Redirect', function ($Call)
     {
-        $URL = $Call['Location'];
+        $URL = $Call['Redirect'];
 
         if (preg_match_all('@\$([\.\w]+)@', $URL, $Vars))
             foreach ($Vars[0] as $IX => $Key)
@@ -158,7 +158,7 @@
     setFn('RestoreURL', function ($Call)
     {
         if (isset($Call['Request']['BackURL']) && !empty($Call['Request']['BackURL']))
-            $Call = F::Apply('System.Interface.HTTP', 'Redirect', $Call, ['Location' => $Call['Request']['BackURL']]);
+            $Call = F::Apply('System.Interface.HTTP', 'Redirect', $Call, ['Redirect' => $Call['Request']['BackURL']]);
 
         return $Call;
     });

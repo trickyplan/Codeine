@@ -66,7 +66,7 @@
             if (isset($Call['Data']['ID']))
                 $Call = F::Run('System.Interface.HTTP', 'Redirect', $Call,
                     [
-                        'Location' => '/control/'.$Call['Entity'].'/Show/'.$Call['Data']['ID']
+                        'Redirect' => '/control/'.$Call['Entity'].'/Show/'.$Call['Data']['ID']
                     ]);
         }
         else

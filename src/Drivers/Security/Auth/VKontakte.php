@@ -23,7 +23,7 @@
     setFn('Identificate', function ($Call)
     {
         // One day fix
-        return F::Run('System.Interface.HTTP', 'Redirect', $Call, ['Location' =>
+        return F::Run('System.Interface.HTTP', 'Redirect', $Call, ['Redirect' =>
             'https://oauth.vk.com/authorize?client_id='
             .$Call['VKontakte']['AppID']
             .'&scope='.$Call['VKontakte']['Rights']

@@ -119,7 +119,7 @@
                 "Method": "Redirect",
                 "Call":
                 {
-                    "Location": "/"
+                    "Redirect": "/"
                 }
             }
         },
@@ -150,7 +150,7 @@
                 "Method": "Redirect",
                 "Call":
                 {
-                    "Location": "/"
+                    "Redirect": "/"
                 }
             }
         },

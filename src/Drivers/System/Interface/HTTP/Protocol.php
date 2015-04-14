@@ -22,7 +22,7 @@
         {
             if ($Call['HTTP']['Proto'] !== 'https://')
                 $Call = F::Run('System.Interface.HTTP', 'Remote Redirect', $Call,
-                    ['Location' => 'https://'.$Call['HTTP']['Host'].$Call['HTTP']['URI']]);
+                    ['Redirect' => 'https://'.$Call['HTTP']['Host'].$Call['HTTP']['URI']]);
 
             if (isset($Call['HTTP']['HSTS']['Enabled']) && $Call['HTTP']['HSTS']['Enabled'])
             {

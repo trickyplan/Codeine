@@ -16,7 +16,7 @@
                     "Method": "Redirect",
                     "Call":
                     {
-                        "Location": "$ActivationData.BackURL"
+                        "Redirect": "$ActivationData.BackURL"
                     }
                 }
             },

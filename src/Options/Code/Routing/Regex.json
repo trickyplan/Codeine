@@ -134,7 +134,7 @@
             "Method": "Redirect",
             "Call":
             {
-                "Location": "$1"
+                "Redirect": "$1"
             }
         },
         "Go":
@@ -144,7 +144,7 @@
             "Method": "Remote Redirect",
             "Call":
             {
-                "Location": "$1"
+                "Redirect": "$1"
             }
         },
         "Deposit":

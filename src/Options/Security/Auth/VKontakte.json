@@ -28,7 +28,7 @@
                 "Method": "Redirect",
                 "Call":
                 {
-                    "Location": "/profile"
+                    "Redirect": "/profile"
                 }
             }
         }

@@ -9,7 +9,7 @@
                 "Method": "Redirect",
                 "Call":
                 {
-                    "Location": "/"
+                    "Redirect": "/"
                 }
             }
         }

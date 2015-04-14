@@ -35,7 +35,7 @@
         }*/
 
         if (isset($Call['Data']['Redirect']) && !empty($Call['Data']['Redirect']))
-            $Call = F::Apply('System.Interface.HTTP','Redirect', $Call, ['Location' => $Call['Data']['Redirect']]);
+            $Call = F::Apply('System.Interface.HTTP','Redirect', $Call, ['Redirect' => $Call['Data']['Redirect']]);
         else
         {
             $Call['Layouts'][] = ['Scope' => $Call['Entity'],'ID' => 'Show','Context' => $Call['Context']];

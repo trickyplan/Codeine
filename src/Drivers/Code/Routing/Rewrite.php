@@ -24,7 +24,7 @@
                         'Method' => 'Redirect',
                         'Call' =>
                             [
-                                'Location' => $Call['Rewrite'][$Call['Run']]
+                                'Redirect' => $Call['Rewrite'][$Call['Run']]
                             ]
                     ];
             }

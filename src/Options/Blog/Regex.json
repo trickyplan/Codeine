@@ -34,7 +34,7 @@
             "Method":"Redirect",
             "Call":
             {
-                "Location": "/blog/tags/$1/page$2"
+                "Redirect": "/blog/tags/$1/page$2"
             }
         },
         "Blog, Category":
@@ -44,7 +44,7 @@
             "Method":"Redirect",
             "Call":
             {
-                "Location": "/blog/tags/$1"
+                "Redirect": "/blog/tags/$1"
             }
         },
         "Blog, Tags, Page":
@@ -110,7 +110,7 @@
             "Weight": 30,
             "Call":
             {
-                "Location": "/blog/tags/$1"
+                "Redirect": "/blog/tags/$1"
             }
         },
         "Blog, Author":

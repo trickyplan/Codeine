@@ -91,7 +91,7 @@
                 "Method": "Redirect",
                 "Call":
                 {
-                    "Location": "/messages"
+                    "Redirect": "/messages"
                 }
             }
         }

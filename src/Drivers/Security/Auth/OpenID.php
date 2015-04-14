@@ -49,7 +49,7 @@
             ];
 
 
-        $Call = F::Run('System.Interface.HTTP', 'Redirect', $Call, ['Location' => $Provider.'?'.http_build_query($Query)]);
+        $Call = F::Run('System.Interface.HTTP', 'Redirect', $Call, ['Redirect' => $Provider.'?'.http_build_query($Query)]);
 
         return $Call;
     });

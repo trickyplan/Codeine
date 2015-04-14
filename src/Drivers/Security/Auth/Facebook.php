@@ -24,7 +24,7 @@
 
         return F::Run('System.Interface.HTTP', 'Redirect', $Call,
             [
-                'Location' => 'https://www.facebook.com/dialog/oauth?'
+                'Redirect' => 'https://www.facebook.com/dialog/oauth?'
                 .'client_id='.$Call['Facebook']['AppID']
                 .'&scope='.$Call['Facebook']['Rights']
                 .'&response_type=code'

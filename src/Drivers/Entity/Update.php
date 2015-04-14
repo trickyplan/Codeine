@@ -67,6 +67,7 @@
             $Call['Data'] = $Call['Current'];
 
            // Выводим результат
+
             if (empty($Call['Errors']))
                 $Call = F::Hook('afterUpdatePost', $Call);
             else
