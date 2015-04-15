@@ -27,7 +27,7 @@
             }
             else
             {
-                F::Log('SEO Title length is optimal ', LOG_GOOD, 'Marketing');
+                F::Log('SEO Title length is optimal ', LOG_NOTICE, 'Marketing');
             }
         }
         return $Call;

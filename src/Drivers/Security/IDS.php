@@ -30,7 +30,7 @@
         foreach ($Filters['filters']['filter'] as $Filter)
             if (preg_match('/'.$Filter['rule'].'/Ssu', $Call['HTTP']['URI']))
             {
-                F::Log('IDS-'.$Filter['id'].': '.$Filter['description'].' with impact '.$Filter['impact'], LOG_IMPORTANT - $Filter['impact'], 'Security');
+                F::Log('IDS-'.$Filter['id'].': '.$Filter['description'].' with impact '.$Filter['impact'], LOG_NOTICE - $Filter['impact'], 'Security');
                 $Score += $Filter['impact'];
             }
 

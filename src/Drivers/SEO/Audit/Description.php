@@ -27,7 +27,7 @@
             }
             else
             {
-                F::Log('SEO Description length is optimal ', LOG_GOOD, 'Marketing');
+                F::Log('SEO Description length is optimal ', LOG_NOTICE, 'Marketing');
             }
         }
 

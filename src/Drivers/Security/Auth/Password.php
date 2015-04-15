@@ -60,7 +60,7 @@
         }
         else
         {
-            F::Log('Passwords match', LOG_GOOD, 'Security');
+            F::Log('Passwords match', LOG_NOTICE, 'Security');
             $Call = F::Apply('System.Interface.HTTP', 'Redirect', $Call, ['Redirect' => '/']);
         }
 

@@ -15,7 +15,7 @@
         $Call = F::Hook('beforeFrontRun', $Call);
 
             // Если передан нормальный вызов, совершаем его
-            F::Log('Front Controlled *'.$Call['Service'].':'.$Call['Method'].'* started', LOG_IMPORTANT);
+            F::Log('Front Controlled *'.$Call['Service'].':'.$Call['Method'].'* started', LOG_NOTICE);
 
             if (F::isCall($Call['Run']))
             {

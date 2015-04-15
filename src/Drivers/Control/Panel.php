@@ -15,7 +15,7 @@
         if (!isset($Call['Option']))
             $Call['Option'] = 'Do';
 
-        F::Log($Call['Bundle'].' '.$Call['Option'].' started', LOG_IMPORTANT);
+        F::Log($Call['Bundle'].' '.$Call['Option'].' started', LOG_NOTICE);
 
         $Call = F::loadOptions($Call['Bundle'].'.Control', null, $Call);
         $Call = F::Apply($Call['Bundle'].'.Control', $Call['Option'], $Call);
@@ -27,7 +27,7 @@
 
         $Navigation = [];
 
-        F::Log('Control Panel Navigation', LOG_IMPORTANT);
+        F::Log('Control Panel Navigation', LOG_NOTICE);
 
         if (isset($Call['Bundles']))
         {

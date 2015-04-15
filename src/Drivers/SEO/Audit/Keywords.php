@@ -27,7 +27,7 @@
             }
             else
             {
-                F::Log('SEO Keywords length is optimal ', LOG_GOOD, 'Marketing');
+                F::Log('SEO Keywords length is optimal ', LOG_NOTICE, 'Marketing');
             }
         }
         

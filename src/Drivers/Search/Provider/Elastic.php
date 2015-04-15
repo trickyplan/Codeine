@@ -44,7 +44,7 @@
             $Call = F::Run(null, 'Open', $Call);
             $Call['Query'] = mb_substr($Call['Query'], 0, 32);
 
-            F::Log('Start search on query: '.$Call['Query'], LOG_IMPORTANT);
+            F::Log('Start search on query: '.$Call['Query'], LOG_NOTICE);
 
             $Query = [
                      'index' => 'project',

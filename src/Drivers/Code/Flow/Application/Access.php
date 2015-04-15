@@ -17,12 +17,12 @@
          switch (F::Run('Security.Access', 'Check', $Call))
          {
              case true:
-                 F::Log('Access to Application '.self::hashCall($Call['Run']).' allowed', LOG_GOOD, 'Security');
+                 F::Log('Access to Application '.self::hashCall($Call['Run']).' allowed', LOG_NOTICE, 'Security');
                  $Call = F::Hook('Access.Allowed', $Call);
              break;
 
              default:
-                 F::Log('Access to Application '.self::hashCall($Call['Run']).' denied', LOG_BAD, 'Security');
+                 F::Log('Access to Application '.self::hashCall($Call['Run']).' denied', LOG_NOTICE, 'Security');
                  $Call = F::Hook('Access.Denied', $Call);
              break;
          }

@@ -16,7 +16,7 @@
                 /*foreach($Call['Where']['ID'] as $CID => $ID)
                     if (($Call['Data'][$ID] = F::Get('GEC:'.$Call['Entity'].':'.$ID)) !== null)
                     {
-                        F::Log('GEC optimizes '.$Call['Entity'].':'.$CID, LOG_GOOD);
+                        F::Log('GEC optimizes '.$Call['Entity'].':'.$CID, LOG_NOTICE);
                         unset($Call['Where']['ID'][$CID]);
                     }*/
             }
@@ -24,7 +24,7 @@
                 if (($Call['Data'][$Call['Where']['ID']]
                     = F::Get('GEC:'.$Call['Entity'].':'.$Call['Where']['ID'])) !== null)
                 {
-                    F::Log('GEC optimizes '.$Call['Entity'].':'.$Call['Where']['ID'], LOG_GOOD);
+                    F::Log('GEC optimizes '.$Call['Entity'].':'.$Call['Where']['ID'], LOG_NOTICE);
                     unset($Call['Where']['ID']);
                 }
 

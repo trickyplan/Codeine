@@ -24,7 +24,7 @@
             switch($Decision)
             {
                 case 'Green':
-                    $Verbose = LOG_GOOD;
+                    $Verbose = LOG_NOTICE;
                 break;
 
                 case 'Orange':

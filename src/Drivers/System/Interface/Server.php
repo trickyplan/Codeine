@@ -17,7 +17,7 @@
 
         if ($Server)
         {
-            F::Log('Server created', LOG_GOOD);
+            F::Log('Server created', LOG_NOTICE);
 
             while(true)
             {

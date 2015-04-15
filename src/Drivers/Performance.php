@@ -16,14 +16,14 @@
 
             arsort(self::$_Counters['T']);
 
-            F::Log('Total time: '.round($Call['Performance']['Summary']['Time']).' ms', LOG_IMPORTANT, 'Performance');
-            F::Log('Total calls: '.$Call['Performance']['Summary']['Calls'], LOG_IMPORTANT, 'Performance');
+            F::Log('Total time: '.round($Call['Performance']['Summary']['Time']).' ms', LOG_NOTICE, 'Performance');
+            F::Log('Total calls: '.$Call['Performance']['Summary']['Calls'], LOG_NOTICE, 'Performance');
             F::Log('Total time per call: '
                 .round($Call['Performance']['Summary']['Time'] / $Call['Performance']['Summary']['Calls'], 2).' ms'
-                , LOG_IMPORTANT, 'Performance');
+                , LOG_NOTICE, 'Performance');
 
-            F::Log('Memory: '.(memory_get_usage(true)/1024).'Kb ', LOG_IMPORTANT, 'Performance');
-            F::Log('Peak memory: '.(memory_get_peak_usage(true)/1024).'Kb', LOG_IMPORTANT, 'Performance');
+            F::Log('Memory: '.(memory_get_usage(true)/1024).'Kb ', LOG_NOTICE, 'Performance');
+            F::Log('Peak memory: '.(memory_get_peak_usage(true)/1024).'Kb', LOG_NOTICE, 'Performance');
 
             foreach (self::$_Counters['T'] as $Key => $Value)
             {
@@ -48,12 +48,12 @@
                 if (isset($Call['Alerts']['Yellow']))
                     foreach ($Call['Alerts']['Yellow'] as $Metric => $Limit)
                         if ($Call[$Metric] > $Limit)
-                            $Class[$Metric] = LOG_BAD;
+                            $Class[$Metric] = LOG_NOTICE;
 
                 if (isset($Call['Alerts']['Red']))
                     foreach ($Call['Alerts']['Red'] as $Metric => $Limit)
                         if ($Call[$Metric] > $Limit)
-                            $Class[$Metric] = LOG_BAD;
+                            $Class[$Metric] = LOG_NOTICE;
 
                 F::Log('*'.$Key.'* time is *'.$Call['ATime'].'* ms', $Class['ATime'], 'Performance');
                 F::Log('*'.$Key.'* time is *'.$Call['RTime'].'%*', $Class['RTime'], 'Performance');

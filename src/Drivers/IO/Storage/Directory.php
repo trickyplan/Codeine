@@ -59,7 +59,7 @@
             }
             else
             {
-                F::Log('Not found file: *'.$Call['Where']['ID'][0].'*', LOG_BAD, 'Administrator');
+                F::Log('Not found file: *'.$Call['Where']['ID'][0].'*', LOG_NOTICE, 'Administrator');
                 return null;
             }
         }

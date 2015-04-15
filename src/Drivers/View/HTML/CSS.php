@@ -98,12 +98,12 @@
                             ]
                         ]))
                         {
-                            F::Log('Cache *hit* '.$Call['CSS']['Fullpath'], LOG_GOOD);
+                            F::Log('Cache *hit* '.$Call['CSS']['Fullpath'], LOG_NOTICE);
                             $Write = false;
                         }
                         else
                         {
-                            F::Log('Cache *miss* '.$Call['CSS']['Fullpath'], LOG_BAD);
+                            F::Log('Cache *miss* '.$Call['CSS']['Fullpath'], LOG_NOTICE);
                         }
                     }
 

@@ -9,7 +9,7 @@
 
     setFn ('Do', function ($Call)
     {
-        F::Log('CLI Interface Started', LOG_IMPORTANT);
+        F::Log('CLI Interface Started', LOG_NOTICE);
 
         $Call = F::Hook('beforeInterfaceRun', $Call);
 

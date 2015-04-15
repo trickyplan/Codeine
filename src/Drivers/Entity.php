@@ -114,7 +114,7 @@
 
             if (isset($Call['Skip Read']))
             {
-                F::Log('Read for '.$Call['Entity'].' fully skipped', LOG_GOOD, 'Performance');
+                F::Log('Read for '.$Call['Entity'].' fully skipped', LOG_NOTICE, 'Performance');
             }
             else
             {

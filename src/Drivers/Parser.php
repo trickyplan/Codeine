@@ -59,7 +59,7 @@
                 {
                     phpQuery::each(pq($Rule['Selector']),function($Index, $Element) use (&$Data, $Key, $Rule, $Call)
                     {
-                        F::Log('Selector fired '.$Rule['Selector'], LOG_GOOD);
+                        F::Log('Selector fired '.$Rule['Selector'], LOG_NOTICE);
                         if (isset($Rule['Text']))
                             $Value = preg_replace ('/\\s{2,}|\\s{2,}$/Ssm', PHP_EOL, pq($Element)->text());
                         elseif (isset($Rule['Attr']))

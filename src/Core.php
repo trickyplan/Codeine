@@ -12,10 +12,6 @@
 
     defined('DS')? null: define('DS', DIRECTORY_SEPARATOR);
 
-    define ('LOG_GOOD', 9);
-    define ('LOG_BAD', 10);
-    define ('LOG_IMPORTANT', 11);
-
     final class F
     {
         private static $_Environment = 'Production';
@@ -97,7 +93,7 @@
                     $Level = PHP_INT_MAX;
             }
 
-            self::Log('Codeine started', LOG_IMPORTANT);
+            self::Log('Codeine started', LOG_NOTICE);
             F::Start('Preheat');
 
             if (isset($_COOKIE['Overlay'])
@@ -117,7 +113,7 @@
                 define('Overlay', $Call['Overlay']);
                 array_unshift(self::$_Paths, Codeine.'/Overlays/'.$Call['Overlay']);
                 array_unshift(self::$_Paths, Root.'/Overlays/'.$Call['Overlay']);
-                self::Log('Overlay enabled: '.$Call['Overlay'], LOG_IMPORTANT);
+                self::Log('Overlay enabled: '.$Call['Overlay'], LOG_NOTICE);
             }
 
             foreach (self::$_Paths as $Path)
@@ -190,7 +186,7 @@
             }
             else
             {
-                self::Log('*'.$Service.'* not found', LOG_BAD);
+                self::Log('*'.$Service.'* not found', LOG_NOTICE);
                 return false;
             }
         }
@@ -377,7 +373,7 @@
                     $ST = 0;
 
                     if (isset($CacheID) && ($Result = self::Get($CacheID)) !== null)
-                        self::Log(self::$_Service.':'.self::$_Method.'('.$CacheID.') fast forwarded.', LOG_GOOD, 'Performance');
+                        self::Log(self::$_Service.':'.self::$_Method.'('.$CacheID.') fast forwarded.', LOG_NOTICE, 'Performance');
                     else
                     {
                         if (isset($FnOptions['Contract'][self::$_Service][self::$_Method]['RTTL']) && !isset($Call['RTTL']))
@@ -653,7 +649,7 @@
                                 fwrite(STDERR, $Head."\033[0;37m ".$Message." \033[0m".PHP_EOL);
                             break;
 
-                            case LOG_IMPORTANT:
+                            case LOG_NOTICE:
                                 fwrite(STDERR, $Time.$Channel."> \033[0;31m ".$Message." \033[0m".PHP_EOL);
                             break;
 
@@ -696,7 +692,7 @@
                         ((self::Environment() == 'Development') && $Log[0] > 8)
                         or
                         (isset($_SERVER['Verbose']) && $Log[0] <= $_SERVER['Verbose']))
-                        $Output[$Channel][] = $Log;
+                            $Output[$Channel][] = $Log;
 
                     if ($Log[0] <= self::$_Options['Codeine']['Panic Verbose'])
                     {

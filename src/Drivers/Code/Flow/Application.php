@@ -13,7 +13,7 @@
     {
         list($Call['Service'], $Call['Method']) = array ($Call['Run']['Service'], $Call['Run']['Method']);
 
-        F::Log('Application *'.$Call['Service'].':'.$Call['Method'].'* started', LOG_IMPORTANT);
+        F::Log('Application *'.$Call['Service'].':'.$Call['Method'].'* started', LOG_NOTICE);
 
         $Call = F::Hook('beforeApplicationRun', $Call); // В этом месте, практически всегда, происходит роутинг.
 
@@ -21,7 +21,7 @@
 
         $Call = F::Hook('afterApplicationRun', $Call); // А здесь - рендеринг
 
-        // F::Log('Application *'.$Call['Service'].':'.$Call['Method'].'* finished', LOG_IMPORTANT);
+        // F::Log('Application *'.$Call['Service'].':'.$Call['Method'].'* finished', LOG_NOTICE);
 
         if (is_array($Call))
             $Call['Context'] = '';
