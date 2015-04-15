@@ -179,7 +179,7 @@
         if (null === $Call['Current Image']['Source']['Where'] ||
             !F::Run('IO', 'Execute', ['Execute' => 'Exist'], $Call['Current Image']['Source']))
         {
-            F::Log('Image not found:'.$Call['Current Image']['Source']['Where']['ID'], LOG_BAD);
+            F::Log('Image not found:'.$Call['Current Image']['Source']['Where']['ID'], LOG_INFO);
             return null;
         }
 
