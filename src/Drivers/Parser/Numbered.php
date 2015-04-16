@@ -76,20 +76,23 @@
 
         $Result = array_pop($Result);
 
-        if ($Call['Schema'] = F::Run('Parser', 'Discovery', $Call))
-        {
-            $Call = F::Run('Parser', 'Do', $Call, ['Markup' => $Result]);
-            $Slices = explode('.', $Call['Schema']);
-            $Call['Entity'] = array_pop($Slices);
-            $Call['Data']['Source'] = $Call['URL'];
-
-            if ($Call['Data']['Percent'] < 50)
-                ;
-            else
-                $Call['Data'] = F::Run('Entity', 'Create', $Call, ['One' => true]);
-        }
+        if (empty($Result))
+            ;
         else
-            $Call['Data'] = null;
+        {
+            if ($Call['Schema'] = F::Run('Parser', 'Discovery', $Call))
+            {
+                $Call = F::Run('Parser', 'Do', $Call, ['Markup' => $Result]);
+                $Slices = explode('.', $Call['Schema']);
+                $Call['Entity'] = array_pop($Slices);
+                $Call['Data']['Source'] = $Call['URL'];
+
+                if ($Call['Data']['Percent'] < 50)
+                    ;
+                else
+                    $Call['Data'] = F::Run('Entity', 'Create', $Call, ['One' => true]);
+            }
+        }
 
         return $Call;
     });
