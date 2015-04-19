@@ -28,6 +28,7 @@
         if (isset($Call['Request']['Metric']) && isset($Metrics[$Call['Request']['Metric']]))
         {
             $SelectedMetric = $Metrics[$Call['Request']['Metric']];
+
             $Data = F::Run('Metric.Aggregate', 'Do', $Call,
                 [
                     'Where' =>
