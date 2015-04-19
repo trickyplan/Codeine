@@ -615,7 +615,7 @@
 
                 if (PHP_SAPI == 'cli')
                 {
-                    $Head = "\033[0;90m".$Time."\033[0m"."\t".$Channel.":\t";
+                    $Head = "\033[0;90m".$Time."\033[0m"."\t[".$Channel."]\t".self::$_Service.":\t";
                     
                     if (($Verbose <= self::$_Verbose[$Channel]) or !self::$_Live)
                         switch (round($Verbose))

@@ -9,6 +9,7 @@
 
     setFn ('Open', function ($Call)
     {
+        F::Log('Connecting to '.$Call['Server'].' via '.$Call['User'], LOG_INFO);
         $Link = new mysqli($Call['Server'], $Call['User'], F::Live($Call['Password']));
 
         if (!$Link->ping())
