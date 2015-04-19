@@ -22,7 +22,8 @@
                 'Name'      => 'Metric',
                 'Label'     => 'Metric.Plot:Select',
                 'Value'     => isset($Call['Request']['Metric'])? $Call['Request']['Metric']: null,
-                'Options'   => array_keys($Metrics)
+                'Options'   => array_keys($Metrics),
+                'Values as Keys' => true
             ];
 
         if (isset($Call['Request']['Metric']) && isset($Metrics[$Call['Request']['Metric']]))
