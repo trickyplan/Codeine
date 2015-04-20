@@ -32,7 +32,6 @@
         $Result = F::Run('IO', 'Read',
                [
                    'Storage' => 'Web',
-                   'IO TTL'  => 86400,
                    'Format'  => 'Formats.JSON',
                    'Where'   => $Call['VKontakte']['Entry Point'].'/'.$Call['Service'].'.'.$Call['Method'].$Query
                ]);
