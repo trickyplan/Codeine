@@ -650,11 +650,11 @@
                             break;
 
                             case LOG_NOTICE:
-                                fwrite(STDERR, $Time.$Channel."> \033[0;31m ".$Message." \033[0m".PHP_EOL);
+                                fwrite(STDERR, $Head."\033[0;31m ".$Message." \033[0m".PHP_EOL);
                             break;
 
                             default:
-                                fwrite(STDERR, $Channel.'> '.$Message.PHP_EOL);
+                                fwrite(STDERR, $Head.$Message.PHP_EOL);
                             break;
                         }
                 }

@@ -42,7 +42,7 @@
                     }
                     else
                     {
-                        $Call['Where']['ID']['$lt'] = $Call['Count'] - ($Call['Page']-1)*$Call['EPP'];
+                        $Call['Where']['ID']['$lt'] = $Call['Count'] - ($Call['Page']-1)*$Call['EPP'] + 1;
                         $Call['Limit']['From']  = 0;
                         $Call['Limit']['To']    = $Call['EPP'];
                         $Call['Sort'] = ['ID' => false];

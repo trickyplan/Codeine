@@ -24,13 +24,12 @@
                 F::Log('Run Skipped, because '.$Call['Skip Run'], LOG_INFO);
             else
             {
+                F::Log($Call['Service'].':'.$Call['Method'].' started', LOG_NOTICE);
                 $Call = F::Apply($Call['Service'], $Call['Method'], $Call);
             }
 
         if (is_array($Call) && isset($Call['Output']))
         {
-            $Call = F::Hook('afterInterfaceRun', $Call);
-
             F::Run('IO','Write', $Call,
                 [
                     'Storage' => 'Output',
@@ -41,13 +40,9 @@
             if (isset($Call['Failure']) && $Call['Failure'])
                 $Call['Return Code'] = 1;
         }
-/*
-        else
-            F::Run('IO','Write', $Call,
-            [
-                'Storage' => 'Output',
-                'Data' => $Call
-            ]);*/
+        $Call = F::Hook('afterInterfaceRun', $Call);
+
+        F::Log('CLI Finished', LOG_NOTICE);
 
         return $Call;
     });

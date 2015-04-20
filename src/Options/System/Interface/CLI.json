@@ -34,6 +34,11 @@
         },
         "afterInterfaceRun":
         {
+            "Performance":
+            {
+                "Service": "Performance",
+                "Method": "Do"
+            },
             "Rendering":
             {
                 "Service":"View",
