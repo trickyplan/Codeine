@@ -28,6 +28,8 @@
                 $Call = F::Apply($Call['Service'], $Call['Method'], $Call);
             }
 
+        $Call = F::Hook('afterInterfaceRun', $Call);
+
         if (is_array($Call) && isset($Call['Output']))
         {
             F::Run('IO','Write', $Call,
@@ -40,7 +42,7 @@
             if (isset($Call['Failure']) && $Call['Failure'])
                 $Call['Return Code'] = 1;
         }
-        $Call = F::Hook('afterInterfaceRun', $Call);
+
 
         F::Log('CLI Finished', LOG_NOTICE);
 

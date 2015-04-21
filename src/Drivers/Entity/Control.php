@@ -255,8 +255,10 @@
                 ]);
 
             foreach ($Elements as $Element)
+            {
                 $Call['Output']['Content'][] =
                     $Element;
+            }
         }
 
         $Call['View']['Renderer'] =

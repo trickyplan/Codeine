@@ -32,11 +32,11 @@
 
                 $Class =
                     [
-                        'ATime' => LOG_INFO,
-                        'RTime' => LOG_INFO,
-                        'ACalls' => LOG_INFO,
-                        'RCalls' => LOG_INFO,
-                        'TimePerCall' => LOG_INFO
+                        'ATime' => LOG_DEBUG,
+                        'RTime' => LOG_DEBUG,
+                        'ACalls' => LOG_DEBUG,
+                        'RCalls' => LOG_DEBUG,
+                        'TimePerCall' => LOG_DEBUG
                     ];
 
                 $Call['RTime'] = round(($Value / $Call['Performance']['Summary']['Time']) * 100, 2);

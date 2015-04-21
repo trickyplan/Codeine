@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="project-${branch}" default="final" basedir=".">
+
+<import file="build/initialize.xml"/>
+<import file="build/phplint.xml"/>
+<import file="build/phpcs.xml"/>
+<import file="build/phploc.xml"/>
+<import file="build/phpcpd.xml"/>
+<import file="build/pmd.xml"/>
+<import file="build/phpunit.xml"/>
+<import file="build/pdepend.xml"/>
+
+<import file="build/phpdoc.xml"/>
+
+<import file="build/debian.xml"/>
+<import file="build/tarball.xml"/>
+
+<property name="project-id" value="Project"/>
+<property name="description" value="Project Description"/>
+<property name="homepage" value="http://project.ru"/>
+<property name="maintainer" value="Johnny Funt"/>
+<property name="destination-source" value="/var/www/project"/>
+<property name="depends" value="codeine-${branch}, php5-fpm (>=5.6.0) | php5-cli (>=5.6.0) | php5-cgi (>=5.6.0)"/>
+
+<target name="phase1" depends="properties, folders"></target>
+
+<!-- Source code checks -->
+<target name="phase2" depends="phase1, phplint.check"></target>
+
+<!-- Tests & docs -->
+<target name="phase3" depends="phase2"></target>
+
+<!-- Metrics -->
+<target name="phase4" depends="phase3, phploc.analyze"></target>
+
+<!-- Packaging -->
+<target name="phase5" depends="phase4, tarball.make, debian"></target>
+
+
+<target name="final" depends="phase5"></target>
+
+</project>

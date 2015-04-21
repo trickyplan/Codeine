@@ -7,7 +7,7 @@
      * @version 8.x
      */
 
-    setFn('Skeleton', function ($Call)
+    setFn('Do', function ($Call)
     {
         $Readlines =
             [
