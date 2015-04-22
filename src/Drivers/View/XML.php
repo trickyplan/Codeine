@@ -18,7 +18,7 @@
         {
             $XML->startElement($Call['Output']['Root']);
 
-            if ($Call['Namespace'])
+            if (isset($Call['Namespace']))
             {
                 $XML->startAttribute('xmlns');
                     $XML->text($Call['Namespace']);
@@ -26,10 +26,20 @@
             }
 
             if (isset($Call['Attributes']))
-                foreach ($Call['Attributes'] as $Namespace)
+                foreach ($Call['Attributes'] as $Key => $Value)
                 {
-                    $XML->startAttributeNs($Namespace['Prefix'], $Namespace['Key'], null);
-                        $XML->text($Namespace['Value']);
+                    if (is_array($Value))
+                    {
+                        $XML->startAttributeNs($Value['Prefix'], $Value['Key'], null);
+                        $XML->text($Value['Value']);
+                    }
+                    else
+                    {
+                        $XML->startAttribute($Key);
+                        $XML->text($Value);
+                    }
+
+
                     $XML->endAttribute();
                 }
 

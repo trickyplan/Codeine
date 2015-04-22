@@ -1,0 +1,23 @@
+{
+    "Project":
+    {
+        "Create":
+        {
+            "Buildfile":
+            {
+                "Imports": ["build/initialize.xml", "build/debian.xml", "build/tarball.xml"],
+                "Properties":
+                {
+                    "project-id": "Task.ID",
+                    "description": "Task.Description.Short",
+                    "homepage": "Task.Hosts.Production",
+                    "maintainer": "Task.Team.Maintainer.Name"
+                }
+            }
+        }
+    },
+    "Hooks":
+    {
+
+    }
+}

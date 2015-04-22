@@ -1,3 +1,9 @@
 {
-    "Tree": true
+    "Project":
+    {
+        "Create":
+        {
+            "Handlers": ["Directory", "Buildfile"]
+        }
+    }
 }

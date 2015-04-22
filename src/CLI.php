@@ -16,10 +16,7 @@
             F::Log($Pockets[1].' = '.$Pockets[2], LOG_INFO);
         }
         else
-        {
             $Opts[] = $arg;
-            F::Log('Empty CLI parameters', LOG_INFO);
-        }
 
     if (isset($Opts[1]) && file_exists($Opts[1]))
     {
@@ -33,7 +30,7 @@
     !defined('Root')? define('Root', getcwd()): false;
 
     if (empty($Opts))
-        ;
+        F::Log('Empty CLI parameters', LOG_INFO);
     else
     {
         if (isset($Opts['Service']))

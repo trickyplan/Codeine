@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="project-${branch}" default="final" basedir=".">
+<project name="{$Task.ID}-${branch}" default="final" basedir="src">
 
 <import file="build/initialize.xml"/>
 <import file="build/phplint.xml"/>
@@ -9,7 +9,6 @@
 <import file="build/pmd.xml"/>
 <import file="build/phpunit.xml"/>
 <import file="build/pdepend.xml"/>
-
 <import file="build/phpdoc.xml"/>
 
 <import file="build/debian.xml"/>
@@ -18,9 +17,9 @@
 <property name="project-id" value="Project"/>
 <property name="description" value="Project Description"/>
 <property name="homepage" value="http://project.ru"/>
-<property name="maintainer" value="Johnny Funt"/>
-<property name="destination-source" value="/var/www/project"/>
-<property name="depends" value="codeine-${branch}, php5-fpm (>=5.6.0) | php5-cli (>=5.6.0) | php5-cgi (>=5.6.0)"/>
+<property name="maintainer" value="{$Task.ID}"/>
+<property name="destination-source" value="/var/www/{$Task.ID}"/>
+<property name="depends" value="codeine-${branch}"/>
 
 <target name="phase1" depends="properties, folders"></target>
 
