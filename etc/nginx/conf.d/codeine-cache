@@ -7,7 +7,7 @@
     log_not_found on;
 
     error_log /var/log/nginx/error.log warn;
-    access_log /var/log/nginx/$host.access.log codeine;
+    access_log off;
 	error_page 502 503 504 /down.html;
 
     gzip on;
@@ -40,11 +40,6 @@
 	location ~ index.php$
 	{
 	    include fastcgi_params;
-
-        if ($http_user_agent ~* (bot|crawl|\+http:))
-        {
-            access_log /var/log/nginx/$host.bots.log;
-        }
 
         set $no_cache 0;
 
