@@ -34,11 +34,10 @@
 
              $VCall = F::Hook('afterAddBuildfileProperties', $VCall);
 
-
              $VCall['Output']['Content'][] = ['target' => ['@name' => 'final', '@depends' => 'debian']];
 
              $VCall = F::Run('View', 'Render', $VCall);
-             d(__FILE__, __LINE__, $VCall['Output']);die();
+             file_put_contents('build.xml', $VCall['Output']);
 
          return $Call;
      });

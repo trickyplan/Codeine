@@ -29,7 +29,10 @@
                 $Call = F::Merge($Call, $Model);
             }
             else
+            {
                 F::Log('Model for '.$Call['Entity'].' not found', LOG_CRIT);
+                d(__FILE__, __LINE__, F::Stack());
+            }
 
         if (isset($Call['Nodes']))
             $Call['Nodes'] = F::Sort($Call['Nodes'], 'Weight', SORT_DESC);
