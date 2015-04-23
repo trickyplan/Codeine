@@ -1,0 +1,10 @@
+{
+    "Nodes":
+    {
+        "Results":
+        {
+            "Selector": ".input__found input__found_visibility_visible",
+            "Regex": "/([\\d,]+)/"
+        }
+    }
+}

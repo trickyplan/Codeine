@@ -1,0 +1,10 @@
+{
+    "Nodes":
+    {
+        "Results":
+        {
+            "Selector": "#resultStats",
+            "Regex": "/([\\d,]+)/"
+        }
+    }
+}

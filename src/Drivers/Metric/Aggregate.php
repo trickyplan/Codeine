@@ -20,6 +20,7 @@
             ;
         else
             foreach ($Dots as $Dot)
+                if (isset($Dot['Value']))
                 $Data[] = [$Dot['Created'], $Dot['Value']];
 
         return $Data;

@@ -16,7 +16,7 @@
             if (isset($Call['Data']))
                 ;
             else
-                $Call['Data'] = F::Run('Entity', 'Read', $Call);
+                $Call['Data'] = F::Run('Entity', 'Read', $Call, ['One' => true]);
 
             foreach ($Call['Nodes'] as $Name => $Node)
                 if (isset($Node['Index']) && $Node['Index'])

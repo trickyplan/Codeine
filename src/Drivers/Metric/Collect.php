@@ -37,7 +37,7 @@
                     ]);
 
                 // Check last dot
-                if ($Last['Value'] == $Call['Dot']['Value'])
+                if ((isset($Last['Value'])) && $Last['Value'] == $Call['Dot']['Value'])
                 {
                     F::Log('Value not changed, write skipping', LOG_INFO);
                     $Call = F::Hook('Metric.Stalled', $Call);
