@@ -21,7 +21,6 @@
             },
             "Collect Metrics":
             {
-                "Minute": [0,5,10,15,20,25,30,40,45,55],
                 "Second": 0,
                 "Run":
                 {
