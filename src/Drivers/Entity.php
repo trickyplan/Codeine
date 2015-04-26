@@ -326,6 +326,9 @@
             $Call = F::Hook('afterEntityCount', $Call);
         $Call = F::Hook('afterOperation', $Call);
 
+        if (empty($Call['Data']))
+            $Call['Data'] = 0;
+
         F::Log('*'.$Call['Data'].'* '.$Call['Entity'].' counted.', LOG_INFO, 'Administrator');
 
         return $Call['Data'];
