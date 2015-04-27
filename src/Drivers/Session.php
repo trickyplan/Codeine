@@ -31,7 +31,8 @@
 
                 if ($Call['Session'] !== null)
                 {
-                    F::Log('Session: Channel *'.$Call['Session']['Channel'].'*', LOG_INFO, 'Security');
+                    if (isset($Call['Session']['Channel']))
+                        F::Log('Session: Channel *'.$Call['Session']['Channel'].'*', LOG_INFO, 'Security');
                 /*
                     if (isset($Call['Session']['User']['Locale']))
                     {

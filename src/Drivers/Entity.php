@@ -191,6 +191,14 @@
 
                 $VCall = [];
 
+                if (isset($Call['One']) && $Call['One'])
+                {
+                    unset($Call['One']);
+                    $One = true;
+                }
+                else
+                    $One = false;
+
                 foreach ($Entities as $Call['Current'])
                 {
                     // Поиск по всем полям
@@ -237,13 +245,8 @@
 
                 F::Log('*'.count($Entities).'* '.$Call['Entity'].' updated', LOG_INFO, 'Administrator');
 
-                if (isset($Call['One']) && $Call['One'])
-                {
-                    unset($Call['One']);
-
-                    if (is_array($Entities))
-                        $Entities = array_shift($Entities);
-                }
+                if ($One && is_array($Entities))
+                    $Entities = array_shift($Entities);
             }
 
         F::Hook('afterOperation', $Call);

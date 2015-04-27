@@ -94,6 +94,9 @@
                 $Result = $Call['Result'][$Call['Return Key']];
             else
                 $Result = $Call['Result'];
+
+            if (isset($Call['One']) && $Call['One'] && is_array($Result))
+                $Result = array_pop($Result);
         }
         else
             F::Log('IO Null Storage: ', LOG_CRIT);
