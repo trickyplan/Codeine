@@ -44,7 +44,7 @@
                     F::Log('Cache *expired* for call '.$Scope.'('.$Memo.')', LOG_INFO, 'Performance');
             }
             else
-                F::Log('Cache *miss* for call '.$Scope.'('.$Memo.')', LOG_NOTICE, 'Performance');
+                F::Log('Cache *miss* for call '.$Scope.'('.$Memo.')', LOG_INFO, 'Performance');
 
             if ($Run)
             {
