@@ -162,6 +162,14 @@
             return null;
         }
 
+        if (isset($Call['One']) && $Call['One'])
+        {
+            unset($Call['One']);
+            $One = true;
+        }
+        else
+            $One = false;
+
         $Call = F::Hook('beforeOperation', $Call);
 
             if (isset($Call['Where']))
@@ -190,14 +198,6 @@
                     $Call['Updates'] = [];
 
                 $VCall = [];
-
-                if (isset($Call['One']) && $Call['One'])
-                {
-                    unset($Call['One']);
-                    $One = true;
-                }
-                else
-                    $One = false;
 
                 foreach ($Entities as $Call['Current'])
                 {

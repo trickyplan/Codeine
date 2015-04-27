@@ -95,8 +95,11 @@
             else
                 $Result = $Call['Result'];
 
-            if (isset($Call['One']) && $Call['One'] && is_array($Result))
+            if (isset($Call['IO One']) && $Call['IO One'] && is_array($Result))
+            {
                 $Result = array_pop($Result);
+                unset($Call['IO One']);
+            }
         }
         else
             F::Log('IO Null Storage: ', LOG_CRIT);
