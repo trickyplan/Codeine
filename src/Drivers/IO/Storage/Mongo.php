@@ -234,6 +234,7 @@
 
     setFn ('Execute', function ($Call)
     {
+        F::Log($Call['Command'], LOG_INFO);
         return $Call['Link']->execute($Call['Command']);
     });
 
