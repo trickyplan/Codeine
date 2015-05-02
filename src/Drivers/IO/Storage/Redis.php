@@ -9,24 +9,28 @@
 
     setFn ('Open', function ($Call)
     {
+        $Result = false;
         $Redis = new Redis();
 
-        try
+        if (isset($Call['Socket']))
         {
-            if (isset($Call['Port']))
-                $Redis->open ($Call['Server'], $Call['Port']);
+            if ($Result = $Redis->open ($Call['Socket']))
+                F::Log('Connect to socket '.$Call['Socket'], LOG_INFO, 'Administrator');
             else
-                $Redis->open ($Call['Server']);
+                F::Log('No connection to socket '.$Call['Socket'], LOG_ERR, 'Administrator');
         }
-        catch (Exception $E)
+        else
         {
-            self::Error($E->getMessage(), LOG_CRIT);
-
-            $Redis = null;
+            if ($Result = $Redis->open ($Call['Server'], $Call['Port']))
+                F::Log('Connect to '.$Call['Server'].':'.$Call['Port'], LOG_INFO, 'Administrator');
+            else
+                F::Log('No connection to '.$Call['Server'].':'.$Call['Port'], LOG_ERR, 'Administrator');
         }
 
-
-        return $Redis;
+        if ($Result)
+            return $Redis;
+        else
+            return null;
     });
 
     setFn ('Read', function ($Call)
@@ -91,9 +95,10 @@
 
     setFn('Status', function ($Call)
     {
-       $Info = $Call['Link']->info();
-       foreach ($Info as $Key => &$Value)
-           $Value = [$Key, $Value];
+       return $Call['Link']->info();
+    });
 
-       return $Info;
+    setFn('DBSize', function ($Call)
+    {
+        return $Call['Link']->dbSize();
     });

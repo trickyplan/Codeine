@@ -7,6 +7,11 @@
      * @version 8.x
      */
 
+    setFn('Open', function ($Call)
+    {
+        return true;
+    });
+
     setFn('Write', function ($Call)
     {
         if (isset($Call['View']['Renderer']['Service']) && $Call['View']['Renderer']['Service'] != 'View.HTML' && isset($Call['Print Log']))

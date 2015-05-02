@@ -66,12 +66,12 @@
 
         if (isset($Call['Data']['VKontakte']['Auth']))
         {
-            F::Log('Used VK Token from Data', LOG_INFO);
+            F::Log('Used VK Token '.$Call['Data']['VKontakte']['Auth'].' from Data', LOG_INFO);
             $Result = $Call['Data']['VKontakte']['Auth'];
         }
         elseif (isset($Call['Session']['User']['VKontakte']['Auth']))
         {
-            F::Log('Used VK Token from Session', LOG_INFO);
+            F::Log('Used VK Token '.$Call['Session']['User']['VKontakte']['Auth'].' from Session', LOG_INFO);
             $Result = $Call['Session']['User']['VKontakte']['Auth'];
         }
         else
@@ -95,14 +95,14 @@
                         ]
                     ]);
 
-            F::Log('Used VK Token from '.count($TokenUsers).' random users', LOG_INFO);
-
             if (is_array($TokenUsers))
             {
                 $RandomUser = $TokenUsers[array_rand($TokenUsers)];
                 if (isset($RandomUser['VKontakte']['Auth']))
                     $Result = $RandomUser['VKontakte']['Auth'];
             }
+
+            F::Log('Used VK Token '.$RandomUser['VKontakte']['Auth'].' from '.count($TokenUsers).' random users', LOG_INFO);
         }
 
         return $Result;

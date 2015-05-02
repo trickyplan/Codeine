@@ -1,0 +1,10 @@
+{
+    "Sidebar": ["Do", "Status"],
+    "Redis":
+    {
+        "Status":
+        {
+            "Keys": ["redis_version", "redis_mode", "process_id", "tcp_port", "uptime_in_seconds", "uptime_in_days", "hz", "used_memory_human", "used_memory_peak_human", "mem_fragmentation_ratio", "total_net_input_bytes", "total_net_output_bytes", "role", "cluster_enabled"]
+        }
+    }
+}

@@ -19,9 +19,9 @@
                 {
                    if (is_string($Call['Storages'][$Call['Storage']])
                         && isset($Call['Storages'][$Call['Storages'][$Call['Storage']]]))
+                            $Call['Storages'][$Call['Storage']] = $Call['Storages'][$Call['Storages'][$Call['Storage']]];
 
-                    $Call['Storages'][$Call['Storage']] = $Call['Storages'][$Call['Storages'][$Call['Storage']]];
-                    $Call['Link'] = F::Set($Call['Storage'], F::Apply($Call['Driver'], 'Open', $Call));
+                    $Call['Link'] = F::Set($Call['Storage'], F::Run($Call['Driver'], 'Open', $Call));
                 }
 
                 return $Call;
@@ -30,9 +30,7 @@
                 F::Log($Call['Storage'].' not found', LOG_CRIT, 'Administrator'); // FIXME
         }
         else
-        {
             F::Log('Storage not defined', LOG_CRIT, 'Administrator');
-        }
 
         return null;
      });
@@ -114,10 +112,10 @@
         {
             $Call = F::Apply('IO', 'Open', $Call);
 
-            $Call = F::Hook('beforeIOWrite', $Call);
+            if ($Call['Link'] === null)
+                return null;
 
-                if ($Call['Link'] === null)
-                    return null;
+            $Call = F::Hook('beforeIOWrite', $Call);
 
                 // Если в Where простая переменная - это ID.
                 if (isset($Call['Where']) && is_scalar($Call['Where']))
@@ -157,7 +155,7 @@
         {
             $Call = F::Apply('IO', 'Open', $Call);
 
-            if ($Call['Link'] === null or !$Call['Link'])
+            if ($Call['Link'] === null)
                 return null;
 
             return F::Run ($Call['Driver'], 'Close', $Call);

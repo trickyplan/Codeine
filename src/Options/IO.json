@@ -156,6 +156,10 @@
             "Directory":"/var/log/codeine/",
             "Suffix": ".json",
             "Format": "Formats.JSON"
+        },
+        "Redis":
+        {
+            "Driver": "IO.Storage.Redis"
         }
     },
     "Hooks":

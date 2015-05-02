@@ -9,11 +9,7 @@
 
     setFn('Open', function ($Call)
     {
-        $Redis = new Redis();
-        $Redis->connect ($Call['Server'], $Call['Port']);
-        // $Redis->setOption (Redis::OPT_SERIALIZER, Redis::SERIALIZER_IGBINARY); // FIXME
-
-        return $Redis;
+        return F::Run('IO.Storage.Redis', 'Open', $Call);
     });
 
     setFn('Read', function ($Call)

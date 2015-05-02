@@ -217,58 +217,7 @@
         return $Call;
     });
 
-    setFn('Export.CSV', function ($Call)
-    {
-        $Call = F::loadOptions($Call['Bundle'].'.Entity', null, $Call);
 
-        $Call['Fields'] = [];
-
-        foreach ($Call['Nodes'] as $Name => $Node)
-            if (isset($Node['CSV']) && $Node['CSV'])
-                $Call['Fields'][] = $Name;
-
-        $ElementsCount = F::Run('Entity', 'Count', $Call,
-            [
-                'Entity' => $Call['Bundle']
-            ]);
-        $PageCount = $ElementsCount / $Call['EPP'];
-
-        for ($Call['Page'] = 0; $Call['Page'] < $PageCount; $Call['Page']++)
-        {
-            $Elements = F::Run('Entity', 'Read', $Call,
-                [
-                    'Entity'  => $Call['Bundle'],
-                    'No Memo' => true,
-                    'Limit'   =>
-                        [
-                            'From' => 0,
-                            'To'   => $Call['EPP']
-                        ],
-                    'Where'  =>
-                    [
-                        'ID' =>
-                        [
-                            '$gt' => $Call['Page']*$Call['EPP']
-                        ]
-                    ],
-                    'Sort' => ['ID' => true]
-                ]);
-
-            foreach ($Elements as $Element)
-            {
-                $Call['Output']['Content'][] =
-                    $Element;
-            }
-        }
-
-        $Call['View']['Renderer'] =
-            [
-                'Service' =>  'View.CSV',
-                'Method' =>  'Render'
-            ];
-
-        return $Call;
-    });
 
     setFn('Search', function ($Call)
     {

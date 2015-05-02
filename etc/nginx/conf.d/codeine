@@ -60,8 +60,8 @@
         fastcgi_param  CONTENT_TYPE     $content_type;
         fastcgi_param  CONTENT_LENGTH   $content_length;
 
-        fastcgi_intercept_errors        off;
-        fastcgi_ignore_client_abort     off;
+        fastcgi_intercept_errors        on;
+        fastcgi_ignore_client_abort     on;
         fastcgi_connect_timeout 60;
         fastcgi_send_timeout 180;
         fastcgi_read_timeout 180;
