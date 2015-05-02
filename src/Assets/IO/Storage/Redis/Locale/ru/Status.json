@@ -1,0 +1,66 @@
+{
+    "arch": {
+        "bits": "Разрядность архитектуры"
+    },
+    "cluster": {
+        "enabled": "Кластеризация"
+    },
+    "gcc": {
+        "version": "Версия GCC"
+    },
+    "hz": "Hz",
+    "mem": {
+        "fragmentation": {
+            "ratio": "Фрагментация"
+        }
+    },
+    "multiplexing": {
+        "api": "API мультиплексирования"
+    },
+    "os": "Операционная система",
+    "process": {
+        "id": "PID"
+    },
+    "redis": {
+        "git": {
+            "sha1": "Git SHA1",
+            "dirty": "Git Dirty"
+        },
+        "build": {
+            "id": "Сборка"
+        },
+        "mode": "Режим"
+    },
+    "redis.version": "Версия",
+    "role": "Роль",
+    "run": {
+        "id": "Run ID"
+    },
+    "tcp": {
+        "port": "Порт TCP"
+    },
+    "total": {
+        "net": {
+            "output": {
+                "bytes": "Исходящий трафик, байт"
+            },
+            "input": {
+                "bytes": "Входящий трафик, байт"
+            }
+        }
+    },
+    "uptime": {
+        "in": {
+            "days": "Аптайм, дней",
+            "seconds": "Аптайм, секунд"
+        }
+    },
+    "used": {
+        "memory": {
+            "human": "Использовано памяти",
+            "peak": {
+                "human": "Использовано памяти в пике"
+            }
+        }
+    }
+}
