@@ -17,7 +17,6 @@
 
         $Sitemaps = F::Run('SEO.Sitemap', 'List Sitemap Indexes', $Call);
 
-
         foreach ($Sitemaps['Sitemap Indexes'] as $Sitemap)
             $Call['Output']['Content'][] = 'Sitemap: '.$Sitemap;
 
