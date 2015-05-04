@@ -1,4 +1,5 @@
 {
+    "Sequence ID": true,
     "Mixins":
     [
         "Mixins.Titled",

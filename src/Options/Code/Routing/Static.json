@@ -1,6 +1,6 @@
 {
     "Mixins": ["User.Static","Control.Static"],
-    "Links":
+    "Static":
     {
         "/about/project":
         {

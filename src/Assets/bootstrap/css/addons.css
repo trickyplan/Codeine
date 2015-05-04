@@ -8,6 +8,11 @@
     margin: 4px 8px;
 }
 
+.img-center
+{
+    margin: auto;
+}
+
 .navbar
 {
     border-radius: 0;

@@ -35,7 +35,7 @@
                 }
                 else
                 {
-                    if (isset($Call['Where']))
+                    if (isset($Call['Where']) or isset($Call['Sequence ID']))
                     {
                         $Call['Limit']['From']= ($Call['Page']-1)*$Call['EPP'];
                         $Call['Limit']['To'] = $Call['EPP'];

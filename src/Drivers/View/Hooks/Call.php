@@ -22,6 +22,13 @@
 
             foreach ($Call['Parsed'][1] as $IX => $Match)
             {
+                if (mb_strpos($Match, ':') !== false)
+                {
+                    list ($Options, $Key) = explode(':', $Match);
+                    $Call = F::Dot($Call, $Options, F::loadOptions($Options));
+                    $Match = $Options.'.'.$Key;
+                }
+
                 if (($Matched = F::Dot($Call, $Match)) !== null)
                 {
                     if (is_array($Matched))
@@ -69,10 +76,17 @@
             'Value' => $Call['Value']
         ]);
 
-        if ($Call['Parsed'] && isset($Call['Data']))
+        if ($Call['Parsed'])
         {
             foreach ($Call['Parsed'][1] as $IX => $Match)
             {
+                if (mb_strpos($Match, ':') !== false)
+                {
+                    list ($Options, $Key) = explode(':', $Match);
+                    $Call = F::Dot($Call, $Options, F::loadOptions($Options));
+                    $Match = $Options.'.'.$Key;
+                }
+
                 if (($Matched = F::Dot($Call, $Match)) !== null)
                 {
                     if (is_array($Matched))

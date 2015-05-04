@@ -1,25 +1,25 @@
 <div class="btn-toolbar btn-group-sm hidden-print">
 <if value="<k>Status</k>" neq="1">
     <a class="btn btn-default" href="/control/<call>Entity</call>/Allow/<k>ID</k>">
-        <i class="glyphicon glyphicon-ok" data-toggle="tooltip" title="Одобрить"></i>
+        <i class="fa fa-check" data-toggle="tooltip" title="Одобрить"></i>
     </a>
 </if>
 <if value="<k>Status</k>" neq="-1">
     <a class="btn btn-default" href="/control/<call>Entity</call>/Disallow/<k>ID</k>">
-        <i class="glyphicon glyphicon-minus" data-toggle="tooltip" title="Отклонить"></i>
+        <i class="fa fa-times" data-toggle="tooltip" title="Отклонить"></i>
     </a>
 </if>
     <a class="btn btn-default"
        href="/control/<call>Entity</call>/Touch/<k>ID</k>">
-        <i class="icon glyphicon glyphicon-refresh" data-toggle="tooltip" title="Обновить"></i>
+        <i class="fa fa-refresh" data-toggle="tooltip" title="Обновить"></i>
     </a>
     <a class="btn btn-default" href="/control/<call>Entity</call>/Show/<k>ID</k>">
-        <i class="icon glyphicon glyphicon-eye-open" data-toggle="tooltip" title="Просмотреть"></i>
+        <i class="fa fa-eye" data-toggle="tooltip" title="Просмотреть"></i>
     </a>
     <a class="btn btn-default" href="/control/<call>Entity</call>/Update/<k>ID</k>">
-        <i class="icon glyphicon glyphicon-pencil" data-toggle="tooltip" title="Редактировать"></i>
+        <i class="fa fa-pencil" data-toggle="tooltip" title="Редактировать"></i>
     </a>
     <a class="btn btn-danger" href="/control/<call>Entity</call>/Delete/<k>ID</k>">
-        <i class="icon glyphicon glyphicon-trash" data-toggle="tooltip" title="Удалить"></i>
+        <i class="fa fa-trash" data-toggle="tooltip" title="Удалить"></i>
     </a>
 </div>
