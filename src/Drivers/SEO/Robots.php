@@ -15,7 +15,6 @@
             'ID' => 'Robots'
         ];
 
-        $Call['Output']['Content'][] = 'Host: '.$Call['HTTP']['Proto'].$Call['HTTP']['Host'];
         $Sitemaps = F::Run('SEO.Sitemap', 'List Sitemap Indexes', $Call);
 
 
@@ -30,6 +29,9 @@
             $Call['Output']['Content'][] = 'User-agent: '.$Crawler;
             $Call['Output']['Content'][] = 'Disallow: '.$URL;
         }
+
+        $Call['Output']['Content'][] = 'User-agent: Yandex';
+        $Call['Output']['Content'][] = 'Host: '.$Call['HTTP']['Proto'].$Call['HTTP']['Host'];
 
         $Call['Output']['Content'] = [implode(PHP_EOL, $Call['Output']['Content'])];
         return $Call;
