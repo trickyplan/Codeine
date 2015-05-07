@@ -127,7 +127,7 @@
                 F::Log('Directory '.$DirName.' cannot created', LOG_ERR, 'Administrator');
         }
         else
-            F::Log('Directory '.$DirName.' already exists', LOG_WARNING, 'Administrator');
+            F::Log('Directory '.$DirName.' already exists', LOG_INFO, 'Administrator');
 
         if (isset($Call['Data']) && ($Call['Data'] != 'null') && ($Call['Data'] != null))
         {
