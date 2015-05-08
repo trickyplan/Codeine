@@ -1,0 +1,10 @@
+{
+    "Progress":
+    {
+        "Now": 0,
+        "Min": 0,
+        "Max": 100,
+        "Precision": 2,
+        "Logs": 10
+    }
+}
