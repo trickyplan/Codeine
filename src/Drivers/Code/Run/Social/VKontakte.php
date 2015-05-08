@@ -99,10 +99,11 @@
             {
                 $RandomUser = $TokenUsers[array_rand($TokenUsers)];
                 if (isset($RandomUser['VKontakte']['Auth']))
+                {
                     $Result = $RandomUser['VKontakte']['Auth'];
+                    F::Log('Used VK Token '.$RandomUser['VKontakte']['Auth'].' from '.count($TokenUsers).' random users', LOG_INFO);
+                }
             }
-
-            F::Log('Used VK Token '.$RandomUser['VKontakte']['Auth'].' from '.count($TokenUsers).' random users', LOG_INFO);
         }
 
         return $Result;

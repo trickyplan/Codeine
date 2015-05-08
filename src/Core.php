@@ -373,7 +373,7 @@
                     $ST = 0;
 
                     if (isset($CacheID) && ($Result = self::Get($CacheID)) !== null)
-                        self::Log(self::$_Service.':'.self::$_Method.'('.$CacheID.') fast forwarded.', LOG_NOTICE, 'Performance');
+                        self::Log(self::$_Service.':'.self::$_Method.'('.$CacheID.') fast forwarded.', LOG_INFO, 'Performance');
                     else
                     {
                         if (isset($FnOptions['Contract'][self::$_Service][self::$_Method]['RTTL']) && !isset($Call['RTTL']))
