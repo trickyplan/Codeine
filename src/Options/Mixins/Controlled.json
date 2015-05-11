@@ -11,10 +11,14 @@
         },
         "afterCreatePost":
         {
-            "Restore URL":
+            "Redirect":
             {
                 "Service": "System.Interface.HTTP",
-                "Method": "RestoreURL"
+                "Method": "Redirect",
+                "Call":
+                {
+                    "Redirect": "/control/$Entity"
+                }
             }
         },
         "beforeUpdateGet":
