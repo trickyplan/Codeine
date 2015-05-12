@@ -142,10 +142,23 @@
     setFn('Reindex.All', function ($Call)
     {
         $Call   = F::Apply('Entity', 'Load', $Call);
-        $Total  = F::Run('Entity', 'Count', $Call);
-        $Amount = ceil($Total/$Call['Reindex']['Objects Per Page']);
+        $Max  = F::Run('Entity', 'Read', $Call,
+            [
+                'One'  => true,
+                'Limit' =>
+                [
+                    'From' => 0,
+                    'To'   => 1
+                ],
+                'Sort' =>
+                [
+                    'ID' => false
+                ]
+            ])['ID'];
 
-        F::Log('Total objects: '.$Total, LOG_INFO);
+        $Amount = ceil($Max / $Call['Reindex']['Objects Per Page']);
+
+        F::Log('Total objects: '.$Max, LOG_INFO);
         F::Log('Limit per page: '.$Call['Reindex']['Objects Per Page'], LOG_INFO);
         F::Log('Pages: '.$Amount, LOG_INFO);
 
