@@ -1,35 +1,10 @@
 {
-    "Widgets":
+    "Literal":
     {
-        "Normal":
+        "String":
         {
-            "Write":
-            {
-                "Type": "Form.Textfield"
-            },
-            "Filter":
-            {
-                "Type": "Form.Textfield"
-            },
-            "Show":
-            {
-                "Type": "Text"
-            }
-        },
-        "Long":
-        {
-            "Write":
-            {
-                "Type": "Form.Textarea"
-            },
-            "Filter":
-            {
-                "Type": "Form.Textarea"
-            },
-            "Show":
-            {
-                "Type": "Text"
-            }
+            "Write Size": 256,
+            "Read Size": 256
         }
     }
 }
