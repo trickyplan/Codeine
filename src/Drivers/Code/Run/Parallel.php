@@ -9,13 +9,13 @@
      
      setFn('Run', function ($Call)
      {
-         $Call['Parallel']['Threads'] = F::Live($Call['Parallel']['Threads'], $Call);
-         F::Log('Threads Count: '.$Call['Parallel']['Threads'], LOG_INFO);
+         $Call['Parallel']['Threads'] = F::Live($Call['Parallel']['Threads']);
+         F::Log('Threads Count: '.$Call['Parallel']['Threads'], LOG_NOTICE);
 
          $Call['Data Size'] = count($Call['Data']);
-         F::Log('Data size: '.$Call['Data Size'], LOG_INFO);
+         F::Log('Data size: '.$Call['Data Size'], LOG_NOTICE);
          $Call['Chunk Size'] = ceil($Call['Data Size'] / $Call['Parallel']['Threads']);
-         F::Log('Chunk size: '.$Call['Chunk Size'], LOG_INFO);
+         F::Log('Chunk size: '.$Call['Chunk Size'], LOG_NOTICE);
          $Call['Data'] = array_chunk($Call['Data'], $Call['Chunk Size'], true);
 
          foreach ($Call['Data'] as $Index => $Chunk)

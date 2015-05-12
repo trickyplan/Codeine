@@ -34,7 +34,7 @@
                  {
                      $Table[] = ['Status', 'Online'];
 
-                     $Table[] = ['Total', $Stats[0]['_all']['total']['docs']['count']];
+                     $Table[] = ['Total', F::Run('Formats.Number.French', 'Do', ['Value' => $Stats[0]['_all']['total']['docs']['count']])];
 
                      foreach ($SearchOptions['Providers'] as $Mount)
                          if ($Mount['Service'] == 'Search.Provider.Elastic')
