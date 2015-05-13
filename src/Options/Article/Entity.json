@@ -6,36 +6,15 @@
         "Mixins.Tags",
         "Mixins.UGC",
         "Mixins.SEO",
+        "Mixins.Photo",
         "Mixins.Text",
         "Mixins.CRUDSlug"
     ],
+    "EntitySlug": "article",
     "Storage": "Primary",
     "EPP": 20,
     "Nodes":
     {
-        "Summary":
-        {
-            "Type": "Literal.HTML",
-            "Index": true,
-            "Widgets":
-            {
-                "Write":
-                {
-                    "Type": "Form.Quill"
-                }
-            },
-            "Hooks":
-            {
-                "beforeEntityWrite":
-                {
-                    "Service": "Text.Summary",
-                    "Method": "Get",
-                    "Call":
-                    {
-                        "Value": "$Data.Body"
-                    }
-                }
-            }
-        }
+
     }
 }

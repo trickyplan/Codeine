@@ -1,20 +1,7 @@
 {
     "Static":
     {
-        "/articles":
-        {
-            "Service":"Entity.List",
-            "Method":"Do",
-            "Call":
-            {
-                "Entity": "Article",
-                "PageURL": "/articles/page/",
-                "Sort":
-                {
-                    "Created": false
-                }
-            }
-        },
+
         "/articles.rss":
         {
             "Service":"Entity.List",

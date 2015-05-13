@@ -1,6 +1,21 @@
 {
     "Regex":
     {
+        "Articles list":
+        {
+            "Match": "/articles$",
+            "Service":"Entity.List",
+            "Method":"Do",
+            "Call":
+            {
+                "Entity": "Article",
+                "PageURL": "/articles/page/",
+                "Sort":
+                {
+                    "Created": false
+                }
+            }
+        },
         "Articles w/pagess":
         {
             "Match":"/articles/page/(.*)",

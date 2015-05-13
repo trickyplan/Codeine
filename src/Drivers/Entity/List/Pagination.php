@@ -37,13 +37,8 @@
                 {
                     if ((isset($Call['Sequence ID']) and $Call['Sequence ID']) && !isset($Call['Where']))
                     {
-                        $Max = F::Run('IO', 'Read',
-                        [
-                            'Storage' => 'Primary',
-                            'Scope' => 'Counters',
-                            'Where' => ['ID' => $Call['Entity']]
-                        ]);
-                        $Call['Where']['ID']['$lt'] = $Max[0]['Value'] - ($Call['Page']-1)*$Call['EPP'] + 1;
+                        $Max = F::Run('Entity', 'Count', $Call);
+                        $Call['Where']['ID']['$lt'] = $Max - ($Call['Page']-1)*$Call['EPP'] + 1;
                         $Call['Limit']['From']  = 0;
                         $Call['Limit']['To']    = $Call['EPP'];
                         $Call['Sort'] = ['ID' => false];
