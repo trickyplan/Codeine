@@ -1,4 +1,5 @@
 {
+    "Block Call Pattern": "<block>(.*?)<call>(.+?)<\/call>(.*?)<\/block>",
     "Call Pattern": "<call>(.*?)</call>",
     "Verbosity":
     {

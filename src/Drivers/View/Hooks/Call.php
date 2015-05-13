@@ -68,6 +68,48 @@
 
     setFn('Parse.Template', function ($Call)
     {
+        $Call['Parsed'] = F::Run('Text.Regex', 'All',
+        [
+            'Pattern' => $Call['Block Call Pattern'],
+            'Value' => $Call['Value']
+        ]);
+
+        if ($Call['Parsed'])
+        {
+            $Call['Parsed'][0] = array_unique($Call['Parsed'][0]);
+            $Call['Parsed'][2] = array_unique($Call['Parsed'][2]);
+
+            foreach ($Call['Parsed'][2] as $IX => &$Match)
+            {
+                if (($Matched = F::Live(F::Dot($Call, $Match))) !== null)
+                {
+                    $Output = '';
+
+                    if ($DotMatched = F::Live(F::Dot($Call, $Match)))
+                    {
+                        if (is_array($DotMatched))
+                        {
+                            sort($DotMatched);
+                            foreach($DotMatched as $ICV => $cMatch)
+                                $Output.= str_replace('<#/>',
+                                    $ICV,
+                                    str_replace('<call>'.$Match.'</call>', $cMatch,$Call['Parsed'][1][$IX]).
+                                    ($cMatch)
+                                    .str_replace('<call>'.$Match.'</call>', $cMatch,$Call['Parsed'][3][$IX]));
+                        }
+                        else
+                            $Output = str_replace('<#/>', '', $Call['Parsed'][1][$IX].($DotMatched).$Call['Parsed'][3][$IX]);
+                    }
+
+                    $Match = $Output;
+                }
+                else
+                    $Match = '';
+            }
+
+            $Call['Value'] = str_replace($Call['Parsed'][0], $Call['Parsed'][2], $Call['Value']);
+        }
+
         $Replace = [[],[]];
 
         $Call['Parsed'] = F::Run('Text.Regex', 'All',
