@@ -29,7 +29,7 @@
               $Output = F::Live($Match);
 
               if (is_array($Output))
-                  $Output = '{}';
+                  $Output = array_pop($Output);
 
               if (is_float($Output))
                   $Output = str_replace(',', '.', $Output);

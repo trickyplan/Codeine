@@ -47,7 +47,7 @@
                 }
 
                 if (is_array($Matched))
-                    $Match = '{}';
+                    $Match = array_pop($Matched);
                 else
                     $Match = $Matched;
             }
