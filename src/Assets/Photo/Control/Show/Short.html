@@ -1,17 +1,37 @@
 <li class="list-group-item">
-    <div class="pull-right">
-        <layout>Control:Pills/RUD</layout>
+    <div class="row">
+        <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1">
+            <image type="JSON">
+            {
+                "Source":
+                {
+                    "Storage": "Upload",
+                    "Scope": "Photo/Photo",
+                    "Where": "<k>Photo</k>"
+                },
+                "Thumb": true,
+                "Height": 64,
+                "Width": 64,
+                "Class": "img pull-left"
+            }
+            </image>
+
+        </div>
+        <div class="col-md-11 col-lg-11 col-sm-11 col-xs-11">
+            <div class="pull-right">
+                <layout>Control:Pills/RUD</layout>
+            </div>
+            <a href="/<k>Slug</k>"><h4><k>Title</k></h4></a>
+
+            <if value="<k>Menu</k>" eq="1">
+                <div class="label label-danger pull-right">Меню</div>
+            </if>
+
+            <if value="<k>Priority</k>" gt="0">
+                <l>Page.Entity:Priority</l>: <k>Priority</k>
+            </if>
+
+            <div><k>Words</k> слов, <k>Chars</k> знаков без пробелов, <k>Sickness</k>% тошноты.</div>
+        </div>
     </div>
-
-    <a href="/<k>Slug</k>"><h4><k>Title</k></h4></a>
-
-    <if value="<k>Menu</k>" eq="1">
-        <div class="label label-danger pull-right">Меню</div>
-    </if>
-
-    <if value="<k>Priority</k>" gt="0">
-        <l>Page.Entity:Priority</l>: <k>Priority</k>
-    </if>
-
-    <div><k>Words</k> слов, <k>Chars</k> знаков без пробелов, <k>Sickness</k>% тошноты.</div>
 </li>

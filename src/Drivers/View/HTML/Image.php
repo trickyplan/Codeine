@@ -166,7 +166,10 @@
         if (empty($Call['Current Image']['Alt']))
             F::Log('Image: Alt is empty for '.$Call['Image']['Fullpath'], LOG_INFO);
 
-        return '<img src="'
+        if (isset($Call['Current Image']['Return Image Path']) && $Call['Current Image']['Return Image Path'])
+            return $SRC;
+        else
+            return '<img src="'
                 .$SRC.'"
                 alt="'.$Call['Image']['Alt'].'"
                 class="'.$Call['Current Image']['Class'].'" '
