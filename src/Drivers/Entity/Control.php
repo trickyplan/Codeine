@@ -11,19 +11,9 @@
     {
         $Time = time();
 
-        $Call['Output']['Content'][]
-        =
-            [
-                'Type'  => 'Table',
-                'Value' =>
-                [
-                    [
-                    '<l>'.$Call['Bundle'].'.Control:Total</l>',
-                    F::Run('Entity', 'Count', ['Entity' => $Call['Bundle']])
-                    ],
-                    [
-                    '<l>'.$Call['Bundle'].'.Control:Today</l>',
-                    F::Run('Entity', 'Count',
+        $Totals = [];
+        $Totals['Total'] = F::Run('Entity', 'Count', ['Entity' => $Call['Bundle']]);
+        $Totals['Today'] = F::Run('Entity', 'Count',
                         [
                             'Entity' => $Call['Bundle'],
                             'Where'  =>
@@ -34,11 +24,8 @@
                                     '$gt' => $Time-86400
                                 ]
                             ]
-                        ])
-                    ],
-                    [
-                        '<l>'.$Call['Bundle'].'.Control:Hour</l>',
-                        F::Run('Entity', 'Count',
+                        ]);
+        $Totals['Hour'] = F::Run('Entity', 'Count',
                             [
                                 'Entity' => $Call['Bundle'],
                                 'Where'  =>
@@ -49,11 +36,8 @@
                                                 '$gt' => $Time-3600
                                             ]
                                     ]
-                            ])
-                    ],
-                    [
-                        '<l>'.$Call['Bundle'].'.Control:Minute</l>',
-                        F::Run('Entity', 'Count',
+                            ]);
+        $Totals['Minute'] = F::Run('Entity', 'Count',
                             [
                                 'Entity' => $Call['Bundle'],
                                 'Where'  =>
@@ -64,11 +48,9 @@
                                                 '$gt' => $Time-60
                                             ]
                                     ]
-                            ])
-                    ],
-                    [
-                        '<l>'.$Call['Bundle'].'.Control:Second</l>',
-                        F::Run('Entity', 'Count',
+                            ]);
+
+        $Totals['Second'] = F::Run('Entity', 'Count',
                             [
                                 'Entity' => $Call['Bundle'],
                                 'Where'  =>
@@ -78,10 +60,31 @@
                                                 '$eq' => $Time
                                             ]
                                     ]
-                            ])
+                            ]);
+
+        $Table = [
+                    'Total' =>
+                    [
+                        '<l>'.$Call['Bundle'].'.Control:Total</l>',
+                        $Totals['Total']
                     ]
-                ]
+                ];
+
+        foreach ($Totals as $Key => $Total)
+            if ($Total > 0)
+                $Table[$Key] =
+                    [
+                        '<l>'.$Call['Bundle'].'.Control:'.$Key.'</l>',
+                        $Totals[$Key]
+                    ];
+
+
+        $Call['Output']['Content'][] =
+            [
+                'Type'  => 'Table',
+                'Value' => $Table
             ];
+
         return $Call;
     });
 

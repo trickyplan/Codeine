@@ -1,10 +1,13 @@
 <a href="/photo/<k>ID</k>">
-    <image>
-        <Source>
-            <Scope>Photo/Image</Scope>
-            <Where><k>Image</k></Where>
-        </Source>
-        <Width>100</Width>
-        <Class>img img-responsive</Class>
+    <image type="JSON">
+    {
+        "Source":
+        {
+            "Storage": "Upload",
+            "Scope": "Photo/Photo",
+            "Where": "<k>Photo</k>"
+        },
+        "Class": "img img-thumbnail img-responsive"
+    }
     </image>
 </a>

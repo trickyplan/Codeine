@@ -1,32 +1,16 @@
 {
     "Storage": "Primary",
-    "Mixins": ["Mixins.UGC", "Mixins.CRUD"],
+    "Mixins":
+    [
+        "Mixins.ID.Sequence",
+        "Mixins.Titled",
+        "Mixins.Photo",
+        "Mixins.Tags",
+        "Mixins.UGC",
+        "Mixins.CRUD"
+    ],
     "Nodes":
     {
-        "ID":
-        {
-            "Type": "Numeral.Integer",
-            "Hooks":
-            {
-                "beforeEntityCreate":
-                {
-                    "Service": "Security.UID",
-                    "Method": "Get"
-                }
-            }
-        },
-        "Title":
-        {
-            "Type": "Literal.String",
-            "Required": true,
-            "Widgets":
-            {
-                "Write":
-                {
-                    "Type": "Form.Textfield"
-                }
-            }
-        },
         "Description":
         {
             "Type": "Literal.Text",
@@ -34,36 +18,7 @@
             {
                 "Write":
                 {
-                    "Type": "Form.Textfield"
-                }
-            }
-        },
-        "Image":
-        {
-            "Type": "File.Upload",
-            "Storage": "File",
-            "Scope": "photo",
-            "Naming":
-            {
-                "Service": "Data.Type.File.Upload.Naming.MIME",
-                "Method": "Get"
-            },
-            "Widgets":
-            {
-                "Write":
-                {
-                    "Type": "Form.File"
-                }
-            }
-        },
-        "Tags":
-        {
-            "Type": "Literal.Tags",
-            "Widgets":
-            {
-                "Write":
-                {
-                    "Type": "Form.Textfield"
+                    "Type": "Form.Textarea"
                 }
             }
         },

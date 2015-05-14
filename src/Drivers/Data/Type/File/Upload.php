@@ -10,7 +10,7 @@
     setFn('Write', function ($Call)
     {
         $Call['Data'] = false;
-        $Call['Scope'] = $Call['Entity'].'/'.$Call['Name'];
+        $Call['Scope'] = strtr($Call['Entity'], '.', '/').'/'.$Call['Name'];
 
         if (is_uploaded_file($Call['Value']))
             $Call['Data'] = file_get_contents($Call['Value']);
@@ -20,6 +20,8 @@
             $Web = F::Run('IO', 'Read', ['Storage' => 'Web', 'Where' => ['ID' => $Call['Value']]]);
             $Call['Data'] = array_pop($Web);
         }
+        else
+            F::Log('Unknown file data for '.$Call['Name'], LOG_ERR);
 
         // Если нет новых данных
         if ($Call['Data'] === false)

@@ -24,7 +24,7 @@
 
         $Call = F::Hook('beforeList', $Call);
 
-        $Call['Scope'] = isset($Call['Scope'])? $Call['Entity'].'/'.$Call['Scope'] : $Call['Entity'];
+        $Call['Scope'] = isset($Call['Scope'])? strtr($Call['Entity'], '.', '/').'/'.$Call['Scope'] : strtr($Call['Entity'], '.', '/');
 
         $Call['Layouts'][] =
             [

@@ -1,11 +1,20 @@
-<js>jquery.colorbox</js>
-<css>jquery.colorbox</css>
 <breadcrumb href="/photo/<k>ID</k>"><k>Title</k></breadcrumb>
+<subtitle><k>Title</k></subtitle>
 
-<h1><k>Title</k></h1>
-<a class="lightbox" href="/uploads/photo/<k>Image</k>" title="<k>Title</k>">
-    <img src="/uploads/photo/<k>Image</k>" class="img img-rounded" style="width: 100%;" alt="<k>Title</k>" />
-</a>
+<div class="">
+<h4 class="page-header"><k>Title</k></h4>
+    <image type="JSON">
+    {
+        "Source":
+        {
+            "Storage": "Upload",
+            "Scope": "Photo/Photo",
+            "Where": "<k>Photo</k>"
+        },
+        "Class": "img img-thumbnail img-responsive center-block"
+    }
+</image>
+</div>
 
 <div>
     <k>Description</k>

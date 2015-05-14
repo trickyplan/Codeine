@@ -69,6 +69,8 @@
         fastcgi_buffers 4 1m;
         fastcgi_busy_buffers_size 1m;
         fastcgi_temp_file_write_size 1m;
+
+        client_max_body_size 8m;
 	}
 
     location ~* \.(jpg|jpeg|gif|css|png|js|ico|woff|ttf|eot)$

@@ -27,6 +27,7 @@
         "Slug":
         {
             "Type": "Literal.String",
+            "User Override": true,
             "Widgets":
             {
                 "Write":
