@@ -35,7 +35,7 @@
                 }
                 else
                 {
-                    if ((isset($Call['Sequence ID']) and $Call['Sequence ID']) && !isset($Call['Where']))
+/*                    if ((isset($Call['Sequence ID']) and $Call['Sequence ID']) && !isset($Call['Where']))
                     {
                         $Max = F::Run('Entity', 'Count', $Call);
                         $Call['Where']['ID']['$lt'] = $Max - ($Call['Page']-1)*$Call['EPP'] + 1;
@@ -43,7 +43,7 @@
                         $Call['Limit']['To']    = $Call['EPP'];
                         $Call['Sort'] = ['ID' => false];
                     }
-                    else
+                    else*/
                     {
                         $Call['Limit']['From']= ($Call['Page']-1)*$Call['EPP'];
                         $Call['Limit']['To'] = $Call['EPP'];
