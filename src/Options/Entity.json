@@ -190,7 +190,7 @@
         },
         "beforeEntityRead":
         {
-            "GEC":
+            "-GEC":
             {
                 "Service":"Entity.Hooks.GEC",
                 "Method":"beforeEntityRead"
