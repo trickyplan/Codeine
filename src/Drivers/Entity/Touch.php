@@ -60,10 +60,13 @@
         $Total  = F::Run('Entity', 'Count', $Call);
         $Amount = ceil($Total/$Call['All']['Limit']);
 
+        $Call = F::Apply('Code.Progress', 'Start', $Call);
+
+        $Call['Progress']['Max'] = $Amount;
+
         for ($i = 0; $i < $Amount; $i++)
         {
-            $Call = F::Hook('beforeTouch', $Call);
-            $Results = F::Run('Entity', 'Update', $Call, 
+            F::Run('Entity', 'Update', $Call,
                         [
                         'One' => false,
                         'Limit' => ['From' => $i*$Call['All']['Limit'],
@@ -71,14 +74,12 @@
                                     ]
                         ]);
 
-            $Call['Output']['Content'][] =
-                [
-                    'Type' => 'Block',
-                    'Value' => count($Results).' touched'
-                ];
+            $Call['Progress']['Now']++;
+            $Call = F::Apply('Code.Progress', 'Log', $Call);
             F::Log('Touch Iteration № '.$i, LOG_WARNING);
-           $Call = F::Hook('afterTouch', $Call);
         }
+
+         $Call = F::Apply('Code.Progress', 'Finish', $Call);
         return $Call;
     });
 

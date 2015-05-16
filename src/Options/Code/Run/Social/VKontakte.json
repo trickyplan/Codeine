@@ -1,4 +1,14 @@
 {
+    "Contract":
+    {
+        "Code.Run.Social.VKontakte":
+        {
+            "Run":
+            {
+                "Memo": ["Service", "Method", "Call", "Return Key", "Time"]
+            }
+        }
+    },
     "VKontakte":
     {
         "Max Frequency": 4,

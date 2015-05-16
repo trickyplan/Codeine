@@ -96,7 +96,7 @@
             'Data' => $Call['Request']
         ]);
 
-        $Call = F::Run('System.Interface.HTTP', 'RestoreURL', $Call);
+        // $Call = F::Run('System.Interface.HTTP', 'RestoreURL', $Call);
 
         return $Call;
     });
@@ -209,13 +209,13 @@
             ];
 
         foreach ($Elements as $Element)
-        $Call['Output']['Content'][] =
-        [
-            'Type'  => 'Template',
-            'Scope' => $Call['Bundle'],
-            'ID'    => 'Export',
-            'Data'  => $Element
-        ];
+            $Call['Output']['Content'][] =
+            [
+                'Type'  => 'Template',
+                'Scope' => $Call['Bundle'],
+                'ID'    => 'Export',
+                'Data'  => $Element
+            ];
 
         return $Call;
     });

@@ -9,7 +9,7 @@
 
     setFn('Run', function ($Call)
     {
-        $VKTS = microtime(true);
+        /*$VKTS = microtime(true);
 
         $LastVKTS = F::Get('Last VK TS');
         F::Set('Last VK TS', $VKTS);
@@ -17,7 +17,7 @@
         if (($LastVKTS === null) or ($VKTS - $LastVKTS > (1/$Call['VKontakte']['Max Frequency'])))
             ;
         else
-            usleep($VKTS - $LastVKTS);
+            usleep($VKTS - $LastVKTS);*/
 
         $Result = null;
 
@@ -75,8 +75,15 @@
             $Result = $Call['Session']['User']['VKontakte']['Auth'];
         }
         else
-        {
-            $TokenUsers =
+            $Result = F::Run(null, 'Random Token', $Call, ['RTTL' => 1]);
+
+        return $Result;
+    });
+
+    setFn('Random Token', function ($Call)
+    {
+        $Result = null;
+        $TokenUsers =
                 F::Run ('Entity', 'Read',
                     [
                         'Entity' => 'User',
@@ -104,7 +111,6 @@
                     F::Log('Used VK Token '.$RandomUser['VKontakte']['Auth'].' from '.count($TokenUsers).' random users', LOG_INFO);
                 }
             }
-        }
 
         return $Result;
     });
