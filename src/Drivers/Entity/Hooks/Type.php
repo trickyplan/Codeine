@@ -13,7 +13,7 @@
             ;
         else
             foreach ($Call['Nodes'] as $Name => $Node)
-                if (isset($Node['Type']) && F::Dot($Call['Data'], $Name))
+                if (isset($Node['Type']) && F::Dot($Call['Data'], $Name) !== null)
                     $Call['Data'] = F::Dot($Call['Data'], $Name,
                         F::Run ('Data.Type.'.$Node['Type'],
                             'Write', $Call, $Node, 

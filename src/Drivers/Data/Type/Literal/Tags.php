@@ -17,9 +17,8 @@
                 $Tag = trim($Tag);
 
             $Call['Value'] = $Tags;
+            $Call['Value'] = array_unique($Call['Value']);
         }
-
-        $Call['Value'] = array_unique($Call['Value']);
 
         return $Call['Value'];
     });
