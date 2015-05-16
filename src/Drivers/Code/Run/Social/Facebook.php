@@ -8,10 +8,18 @@
      */
     setFn('Run', function ($Call)
     {
-        if (isset($Call['Call']['access_token']))
-            ;
+        if (isset($Call['Public']))
+            F::Log('Facebook Public Method '.$Call['Method'].' called ', LOG_INFO);
         else
-            $Call['Call']['access_token'] = F::Run(null, 'Access Token', $Call);
+        {
+            if (isset($Call['Call']['access_token']))
+                F::Log('Facebook Private Method '.$Call['Method'].' called with implicit token '.$Call['Call']['access_token'], LOG_INFO);
+            else
+            {
+                $Call['Call']['access_token'] = F::Run(null, 'Access Token', $Call);
+                F::Log('Facebook Private Method '.$Call['Method'].' called with automatic token '.$Call['Call']['access_token'], LOG_INFO);
+            }
+        }
 
         if (!isset($Call['Call']['locale']))
             $Call['Call']['locale'] = $Call['Facebook']['Default Locale'];
@@ -97,7 +105,7 @@
                 if (isset($ResultFB['access_token']))
                 {
                     F::Set(REQID, $ResultFB['access_token']);
-/*                    F::Run ('Entity', 'Update',
+                    F::Run ('Entity', 'Update',
                     [
                         'Entity' => 'User',
                         'Where'  =>
@@ -114,7 +122,8 @@
                         ],
                         'No'  => ['beforeEntityWrite' => true],
                         'One' => true
-                    ]);*/
+                    ]);
+
                     F::Run ('Code.Run.Delayed', 'Run',
                         [
                             'Delayed Mode' => 'Dirty',
@@ -125,8 +134,8 @@
                                 'Call'=>
                                 [
                                     'Entity'=> 'User',
-                                    'Where'=> ['Facebook.ID' => $Result['ID']],
-                                    'Data'=>  [
+                                    'Where' => ['Facebook.ID' => $Result['ID']],
+                                    'Data' =>  [
                                                 'Facebook' =>
                                                 [
                                                     'Auth' => $ResultFB['access_token'],
@@ -140,6 +149,22 @@
 
                     $Result['Auth'] = $ResultFB['access_token'];
                     $Result['Expire'] = $ResultFB['expires'];
+                }
+                else
+                {
+                    F::Run('Entity', 'Update',
+                        [
+                            'Entity' => 'User',
+                            'Where' => ['Facebook.ID' => $Result['ID']],
+                            'Data' =>
+                            [
+                                'Facebook' =>
+                                [
+                                    'Auth' => '',
+                                    'Active' => false
+                                ]
+                            ]
+                        ]);
                 }
             }
             else
