@@ -64,12 +64,7 @@
     {
         $Result = null;
 
-        if (isset($Call['Data']['VKontakte']['Auth']))
-        {
-            F::Log('Used VK Token '.$Call['Data']['VKontakte']['Auth'].' from Data', LOG_INFO);
-            $Result = $Call['Data']['VKontakte']['Auth'];
-        }
-        elseif (isset($Call['Session']['User']['VKontakte']['Auth']))
+        if (isset($Call['Session']['User']['VKontakte']['Auth']))
         {
             F::Log('Used VK Token '.$Call['Session']['User']['VKontakte']['Auth'].' from Session', LOG_INFO);
             $Result = $Call['Session']['User']['VKontakte']['Auth'];
@@ -124,17 +119,13 @@
                     'Entity' => 'User',
                     'Where'  =>
                     [
-                        'VKontakte.Active' => true,
                         'VKontakte.Auth'   => $Call['Call']['access_token']
                     ],
                     'Skip Live' => true,
                     'Data'   =>
                         [
-                            'VKontakte' =>
-                                [
-                                    'Active'    => false,
-                                    'Auth'      => null
-                                ]
+                            'VKontakte.Auth'    => false,
+                            'VKontakte.Active'  => false
                         ]
                 ]);
 
