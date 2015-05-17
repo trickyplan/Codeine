@@ -48,7 +48,7 @@
                 if (isset($Call['Alerts']['Yellow']))
                     foreach ($Call['Alerts']['Yellow'] as $Metric => $Limit)
                         if ($Call[$Metric] > $Limit)
-                            $Class[$Metric] = LOG_NOTICE;
+                            $Class[$Metric] = LOG_INFO;
 
                 if (isset($Call['Alerts']['Red']))
                     foreach ($Call['Alerts']['Red'] as $Metric => $Limit)

@@ -65,9 +65,9 @@
                     }
 
                     if ($Call['JS']['Scripts'][$Call['JS']['Fullpath']])
-                        F::Log('JS loaded: '.$Call['JS']['Fullpath'], LOG_INFO);
-                    // else
-                    // F::Log('JS cannot loaded: '.$Call['JS']['Fullpath'], LOG_WARNING);
+                        F::Log('JS *loaded*: '.$Call['JS']['Fullpath'], LOG_DEBUG);
+                    else
+                        F::Log('JS *not loaded*: '.$Call['JS']['Fullpath'], LOG_WARNING);
                 }
 
                 if (!empty($JSInline))
@@ -108,7 +108,7 @@
                             ]
                         ]))
                         {
-                            F::Log('Cache *hit* '.$Call['JS']['Fullpath'], LOG_NOTICE);
+                            F::Log('Cache *hit* '.$Call['JS']['Fullpath'], LOG_DEBUG);
                             $Write = false;
                         }
                         else

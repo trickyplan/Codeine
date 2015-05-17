@@ -205,10 +205,10 @@
 
                     foreach ($Call['Nodes'] as $Name => $Node)
                     {
-                        if (null === F::Dot($Call['Updates'], $Name))
+                        if (empty(F::Dot($Call['Updates'], $Name)))
                         {
                             if (isset($Node['Nullable']) && $Node['Nullable'])
-                                ;
+                                F::Log($Name.' is nullable and not set', LOG_INFO);
                             else
                             {
                                 if (isset($Call['Data']))

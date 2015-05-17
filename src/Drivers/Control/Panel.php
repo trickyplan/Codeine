@@ -41,11 +41,12 @@
                 foreach ($Bundles as $Bundle)
                 {
                     $Options = [
-                        'ID' => $Bundle,
-                        'URL' => '/control/'.$Bundle,
-                        'Title' => '<l>'.$Bundle.'.Control:Title</l>',
-                        'Group' => $Group,
-                        'Status' => 'default'
+                        'ID'        => $Bundle,
+                        'Bundle'    => strtr($Bundle, '.', '/'),
+                        'URL'       => '/control/'.$Bundle,
+                        'Title'     => '<l>'.$Bundle.'.Control:Title</l>',
+                        'Group'     => $Group,
+                        'Status'    => 'default'
                     ];
 
                     if (isset($Call['Icons'][$Bundle]))

@@ -35,7 +35,7 @@
             {
                 if ($Envelope[0]['Expire'] > time())
                 {
-                    F::Log('Cache *hit* for call '.$Scope.'('.$Memo.')', LOG_INFO, 'Performance');
+                    F::Log('Cache *hit* for call '.$Scope.'('.$Memo.')', LOG_DEBUG, 'Performance');
 
                     $Run = false;
                     $Result = $Envelope[0]['Result'];

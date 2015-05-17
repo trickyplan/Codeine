@@ -117,7 +117,7 @@
             }
 
             foreach (self::$_Paths as $Path)
-                self::Log('Path registered *'.$Path.'*', LOG_INFO);
+                self::Log('Path registered *'.$Path.'*', LOG_DEBUG);
 
             set_error_handler ('F::Error');
             register_shutdown_function('F::Shutdown');

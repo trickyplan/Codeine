@@ -46,12 +46,12 @@
                     shell_exec($Command);
                     $Command = 'lessc --clean-css '.Root.'/Assets/'.$Asset.'/less/'.$ID.'.less > '.Root.'/Assets/'.$Asset.'/css/min.css';
                     shell_exec($Command);
-                    F::Log('LESS processed '.Root.'/Assets/'.$Asset.'/css/'.$ID.'.css', LOG_INFO, 'Developer');
+                    F::Log('LESS *processed* '.Root.'/Assets/'.$Asset.'/css/'.$ID.'.css', LOG_INFO, 'Developer');
 
                 }
             }
             else
-                F::Log('LESS skipped '.Root.'/Assets/'.$Asset.'/css/'.$ID.'.css', LOG_INFO, 'Developer');
+                F::Log('LESS *skipped* '.Root.'/Assets/'.$Asset.'/css/'.$ID.'.css', LOG_DEBUG, 'Developer');
         }
 
         return $Call;

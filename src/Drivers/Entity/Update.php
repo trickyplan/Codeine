@@ -49,7 +49,7 @@
 
         $Call['Output']['Content']['Form Widget']['Action'] = isset($Call['Action'])? $Call['Action']: '';
 
-        $Call = F::Hook('afterUpdateGet', $Call);
+      //  $Call = F::Hook('afterUpdateGet', $Call);
 
         return $Call;
     });
@@ -63,7 +63,10 @@
 
             // Отправляем в Entity.Update
 
+
+
             $Call['Current'] = F::Run('Entity', 'Update', $Call);
+
             $Call['Data'] = $Call['Current'];
 
            // Выводим результат
