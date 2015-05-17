@@ -21,7 +21,8 @@
                 if (isset($Call['Live Fields']) && !in_array($Name, $Call['Live Fields']))
                     continue;
 
-                F::Log('Processing node '.$Name.' for *'.$Call['Entity'].':'.$Call['Data']['ID'].'*', LOG_DEBUG);
+                if (isset($Call['Data']['ID']))
+                    F::Log('Processing node '.$Name.' for *'.$Call['Entity'].':'.$Call['Data']['ID'].'*', LOG_DEBUG);
 
                 // Если у ноды определён нужный хук
                 if (isset($Node['Hooks']) && isset($Node['Hooks'][$Call['On']]))
