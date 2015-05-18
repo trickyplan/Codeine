@@ -597,11 +597,11 @@
 
         public static function Log ($Message, $Verbose = 7, $Channel = 'Developer')
         {
-            /*if (($Verbose <= self::$_Verbose[$Channel])
+            if (($Verbose <= self::$_Verbose[$Channel])
                 or
                ((self::Environment() == 'Development') && $Verbose > 8)
                 or
-                (isset($_SERVER['Verbose']) && $Verbose <= $_SERVER['Verbose']))*/
+                (isset($_SERVER['Verbose']) && $Verbose <= $_SERVER['Verbose']))
             {
                 if (!is_string($Message))
                     $Message = j($Message,

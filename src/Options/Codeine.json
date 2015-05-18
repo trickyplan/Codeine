@@ -3,7 +3,7 @@
     "Timezone": "UTC",
     "Perfect": false,
     "Core Storage Limit": 4096,
-    "Memo Threshold": 0.01,
+    "Memo Threshold": 0.1,
     "Timer Resolution": 2,
     "Run Cache Enabled": true,
     "Overlays": [],
