@@ -659,19 +659,14 @@
                         }
                 }
                 else
-                {
-                    if ($Verbose == LOG_DEBUG and !self::$_Debug)
-                        ;
-                    else
-                       self::$_Log[$Channel][]
-                            = [
-                            $Verbose,
-                            round(microtime(true) - Started, 3),
-                            $Message,
-                            self::$_Service.':'.self::$_Method,
-                            self::$_Stack->count()
-                        ];
-                }
+                   self::$_Log[$Channel][]
+                        = [
+                        $Verbose,
+                        round(microtime(true) - Started, 3),
+                        $Message,
+                        self::$_Service.':'.self::$_Method,
+                        self::$_Stack->count()
+                    ];
             }
 
             return $Message;

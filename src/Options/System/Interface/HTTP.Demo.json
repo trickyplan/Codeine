@@ -1,0 +1,28 @@
+{
+    "Hooks":
+    {
+        "afterInterfaceRun!":
+        {
+            "Performance":
+            {
+                "Service": "Performance",
+                "Method": "Do"
+            },
+            "Spit log":
+            {
+                "Service": "IO.Log",
+                "Method": "Spit"
+            },
+            "IO Shutdown":
+            {
+                "Service": "IO",
+                "Method": "Shutdown"
+            },
+            "Output Buffering":
+            {
+                "Service": "System.Interface.HTTP.OB",
+                "Method": "Finish"
+            }
+        }
+    }
+}

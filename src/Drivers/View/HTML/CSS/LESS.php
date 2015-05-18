@@ -37,7 +37,7 @@
                     'Where'   => $ID
                 ]);
 
-            if ($LESSVersion != $CSSVersion or (isset($Call['HTTP']['Request']['Headers']['Pragma']) && $Call['HTTP']['Request']['Headers']['Pragma'] == 'no-cache'))
+            if ($LESSVersion > $CSSVersion or (isset($Call['HTTP']['Request']['Headers']['Pragma']) && $Call['HTTP']['Request']['Headers']['Pragma'] == 'no-cache'))
             {
                 // FIXME! Temporary decision.
                 if (file_exists(Root.'/Assets/'.$Asset.'/less/'.$ID.'.less'))

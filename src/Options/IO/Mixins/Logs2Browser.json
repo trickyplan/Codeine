@@ -18,12 +18,12 @@
         },
         "Performance":
         {
-            "Driver": "IO.Log.Print",
+            "Driver": "IO.Print",
             "Format": "Formats.Log.HTML"
         },
         "Marketing":
         {
-            "Driver": "IO.Log.Print",
+            "Driver": "IO.Print",
             "Format": "Formats.Log.HTML"
         }
     }
