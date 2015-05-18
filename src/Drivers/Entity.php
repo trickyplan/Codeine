@@ -200,6 +200,7 @@
 
                 foreach ($Entities as $Call['Current'])
                 {
+                    $Call['Data'] = [];
                     // Поиск по всем полям
                     $VCall['Where'] = ['ID' => $Call['Current']['ID']];
 

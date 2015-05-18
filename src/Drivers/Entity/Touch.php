@@ -17,7 +17,7 @@
 
         foreach ($Old as $IX => $Object)
         {
-            $New = F::Run('Entity', 'Update', $Call, ['Data' => $Object, 'Where' => $Object['ID'], 'One' => false]);
+            $New = F::Run('Entity', 'Update', ['Entity' => $Call['Entity'], 'Data' => $Object, 'Where' => $Object['ID'], 'One' => false]);
 
             if (isset($Object['ID']))
                 $Table = [['ID', $Object['ID']]];
@@ -66,13 +66,18 @@
 
         for ($i = 0; $i < $Amount; $i++)
         {
-            F::Run('Entity', 'Update', $Call,
-                        [
-                        'One' => false,
-                        'Limit' => ['From' => $i*$Call['All']['Limit'],
-                                    'To'   => ($i+1)*$Call['All']['Limit']
-                                    ]
-                        ]);
+            F::Run('Entity', 'Update',
+                [
+                    'Entity'    => $Call['Entity'],
+                    'Where'     => $Call['Where'],
+                    'Data'      => [],
+                    'One'       => false,
+                    'Limit'     =>
+                    [
+                        'From' => $i*$Call['All']['Limit'],
+                        'To'   => ($i+1)*$Call['All']['Limit']
+                    ]
+                ]);
 
             $Call['Progress']['Now']++;
             $Call = F::Apply('Code.Progress', 'Log', $Call);
