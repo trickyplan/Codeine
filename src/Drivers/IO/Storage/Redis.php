@@ -14,14 +14,14 @@
 
         if (isset($Call['Socket']))
         {
-            if ($Result = $Redis->open ($Call['Socket']))
+            if ($Result = $Redis->popen ($Call['Socket']))
                 F::Log('Connect to socket '.$Call['Socket'], LOG_INFO, 'Administrator');
             else
                 F::Log('No connection to socket '.$Call['Socket'], LOG_ERR, 'Administrator');
         }
         else
         {
-            if ($Result = $Redis->open ($Call['Server'], $Call['Port']))
+            if ($Result = $Redis->popen ($Call['Server'], $Call['Port']))
                 F::Log('Connect to '.$Call['Server'].':'.$Call['Port'], LOG_INFO, 'Administrator');
             else
                 F::Log('No connection to '.$Call['Server'].':'.$Call['Port'], LOG_ERR, 'Administrator');
