@@ -17,7 +17,7 @@
             $Call = F::Apply('Session', 'Annulate', $Call);
         }
 
-        $Call = F::Hook('afterUserLogout', $Call);
+/*        $Call = F::Hook('afterUserLogout', $Call);*/
 
         return $Call;
     });
