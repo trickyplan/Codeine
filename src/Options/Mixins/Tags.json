@@ -5,6 +5,7 @@
         {
             "Index": true,
             "Type": "Literal.Tags",
+            "Help": true,
             "Widgets":
             {
                 "Write":
