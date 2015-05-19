@@ -53,6 +53,7 @@
 
 
             $Result = array_pop($Result);
+
             if (isset($Result['access_token']))
             {
                 $Odnoklassniki = F::Run('Code.Run.Social.Odnoklassniki', 'Run',
@@ -140,6 +141,16 @@
                     }
 
                 $Updated['Odnoklassniki']['Photo'] = html_entity_decode($Updated['Odnoklassniki']['Photo']);
+
+                if (isset($Call['User']['Odnoklassniki']['LoginCount']))
+                    $Call['User']['Odnoklassniki']['LoginCount']++;
+                else
+                    $Call['User']['Odnoklassniki']['LoginCount'] = 1;
+
+                $Updated['Odnoklassniki']['LoginCount'] = $Call['User']['Odnoklassniki']['LoginCount'];
+
+                if ($Updated['Odnoklassniki']['LoginCount'] == 1)
+                    $Call = F::Hook('Odnoklassniki.FirstLogin', $Call);
 
                 F::Run('Entity', 'Update', $Call,
                     [
