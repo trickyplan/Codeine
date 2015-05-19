@@ -9,10 +9,29 @@
 
     setFn('Open', function ($Call)
     {
-        if (file_exists($Call['Directory'].DS.$Call['Scope'].$Call['Log']['File']['Extension']))
-            return fopen($Call['Directory'].DS.$Call['Scope'].$Call['Log']['File']['Extension'], $Call['Log']['File']['Mode']);
+        $Filename = $Call['Directory'].DS.$Call['Scope'].$Call['Log']['File']['Extension'];
+
+        if (file_exists($Filename))
+            return fopen($Filename, $Call['Log']['File']['Mode']);
         else
-            return null;
+        {
+            $DirName = dirname($Filename);
+
+            if (!file_exists($DirName) || !is_dir($DirName))
+            {
+                if (mkdir($DirName, 0777, true)) // Fuck PHP
+                    F::Log('Directory '.$DirName.' created with mode '.$Call['IO']['Directory']['Create Mode'], LOG_INFO, 'Administrator');
+                else
+                {
+                    F::Log('Directory '.$DirName.' cannot created', LOG_ERR, 'Administrator');
+                    return null;
+                }
+            }
+            else
+                F::Log('Directory '.$DirName.' already exists', LOG_INFO, 'Administrator');
+
+            return fopen($Filename, d(__FILE__, __LINE__, $Call['Log']['File']['Mode']));
+        }
     });
 
     setFn('Write', function ($Call)

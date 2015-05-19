@@ -4,7 +4,7 @@
         "File":
         {
             "Extension": ".log",
-            "Mode": "a+"
+            "Mode": "a"
         }
     }
 }
