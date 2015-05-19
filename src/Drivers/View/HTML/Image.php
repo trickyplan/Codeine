@@ -165,16 +165,26 @@
 
         if (empty($Call['Current Image']['Alt']))
             F::Log('Image: Alt is empty for '.$Call['Image']['Fullpath'], LOG_INFO);
+        else
+            if (is_string($Call['Current Image']['Alt']))
+                ;
+            else
+            {
+                F::Log('Incorrect image alt at '.j($Call['Current Image']).', erased', LOG_WARNING);
+                $Call['Current Image']['Alt'] = '';
+            }
 
         if (isset($Call['Current Image']['Return Image Path']) && $Call['Current Image']['Return Image Path'])
             return $SRC;
         else
+        {
             return '<img src="'
-                .$SRC.'"
-                alt="'.strtr($Call['Current Image']['Alt'], "\n", '').'"
+            .$SRC.'"
+                alt="'.$Call['Current Image']['Alt'].'"
                 class="'.$Call['Current Image']['Class'].'" '
-                .(isset($Call['Current Image']['Height'])? ' height="'.$Call['Current Image']['Height'].'"': ' ')
-                .(isset($Call['Current Image']['Width'])? ' width="'.$Call['Current Image']['Width'].'"': ' ').'/>';
+            .(isset($Call['Current Image']['Height'])? ' height="'.$Call['Current Image']['Height'].'"': ' ')
+            .(isset($Call['Current Image']['Width'])? ' width="'.$Call['Current Image']['Width'].'"': ' ').'/>';
+        }
     });
 
     setFn('Write', function ($Call)
