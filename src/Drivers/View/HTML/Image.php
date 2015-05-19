@@ -171,7 +171,7 @@
         else
             return '<img src="'
                 .$SRC.'"
-                alt="'.$Call['Image']['Alt'].'"
+                alt="'.strtr($Call['Current Image']['Alt'], "\n", '').'"
                 class="'.$Call['Current Image']['Class'].'" '
                 .(isset($Call['Current Image']['Height'])? ' height="'.$Call['Current Image']['Height'].'"': ' ')
                 .(isset($Call['Current Image']['Width'])? ' width="'.$Call['Current Image']['Width'].'"': ' ').'/>';
