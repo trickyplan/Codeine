@@ -35,7 +35,7 @@
         return $Call['Value'];
     });
 
-    setFn(['Read', 'Where'], function ($Call)
+    setFn('Read', function ($Call)
     {
         // Грузим модель связанной сущности
         if (isset($Call['Node']['Override Entity']))
@@ -43,9 +43,12 @@
 
         $Call = F::Apply('Entity', 'Load', $Call, ['Entity' => $Call['Name']]);
 
-        $Call['Value'] = F::Run('Data.Type.'.$Call['Nodes']['ID']['Type'], 'Write', ['Value' => $Call['Value']]);
+        return F::Run('Data.Type.'.$Call['Nodes']['ID']['Type'], 'Write', ['Value' => $Call['Value']]);
+    });
 
-        return $Call['Value'];
+    setFn('Where', function ($Call)
+    {
+        return (int) $Call['Value'];
     });
 
     setFn('Populate', function ($Call)

@@ -9,7 +9,6 @@
 
     setFn('Do', function ($Call)
     {
-
         if (isset($Call['Data']))
             $Data = $Call['Data'];
         else

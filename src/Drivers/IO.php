@@ -169,15 +169,13 @@
 
     setFn ('Execute', function ($Call)
     {
+
         if (isset($Call['Storage']))
         {
             $Call = F::Apply('IO', 'Open', $Call);
 
             if ($Call['Link'] === null)
                 return null;
-
-            if (isset($Call['Where']))
-                $Call['Where'] = F::Live($Call['Where']);
 
             if (isset($Call['Where']) && is_scalar($Call['Where']))
                 $Call['Where'] = ['ID' => $Call['Where']];

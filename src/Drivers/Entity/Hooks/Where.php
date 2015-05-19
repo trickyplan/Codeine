@@ -27,6 +27,7 @@
 
             if (isset($Call['Nodes']))
                 foreach ($Call['Nodes'] as $Name => $Node)
+                {
                     if (($Value = F::Dot($Call['Where'], $Name)) !== null)
                     {
                         if (isset($Node['Type']))
@@ -38,18 +39,18 @@
                                         foreach($cValue as $ccKey => $ccValue)
                                             $Value[$Relation][$ccKey] =
                                                 F::Run('Data.Type.'.$Node['Type'], 'Where',
-                                                   [
-                                                       'Name' => $Name,
-                                                       'Node' => $Node,
-                                                       'Value' => $ccValue
-                                                   ]);
+                                                    [
+                                                        'Name' => $Name,
+                                                        'Node' => $Node,
+                                                        'Value' => $ccValue
+                                                    ]);
                                     else
                                         $Value[$Relation] = F::Run('Data.Type.'.$Node['Type'], 'Where',
-                                               [
-                                                   'Name' => $Name,
-                                                   'Node' => $Node,
-                                                   'Value' => $cValue
-                                               ]);
+                                            [
+                                                'Name' => $Name,
+                                                'Node' => $Node,
+                                                'Value' => $cValue
+                                            ]);
                                 // FIXME Нативные массивы?
                             }
                             else
@@ -68,6 +69,7 @@
                         else
                             $Where[$Name] = $Value;
                     }
+                }
 
             if (empty($Where))
                 $Call['Where'] = null;

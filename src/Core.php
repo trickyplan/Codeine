@@ -187,6 +187,7 @@
             else
             {
                 self::Log('*'.$Service.'* not found', LOG_NOTICE);
+                self::Log(self::Stack(), LOG_NOTICE);
                 return false;
             }
         }
