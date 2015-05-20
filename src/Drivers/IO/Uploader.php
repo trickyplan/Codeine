@@ -17,12 +17,12 @@
 
         F::Run('IO', 'Write', $Call,
             [
-                 'Storage' => 'Upload',
-                 'Scope'   => 'WYSIWYG',
+                 'Storage' => 'Uploader',
+                 'Scope'   => 'wysiwyg',
                  'Where'   => $Call['Name']
             ]);
 
-        $Call['Output']['Content']['filelink'] = '/uploads/'.$Call['Name']; // FIXME Scope support
+        $Call['Output']['Content']['filelink'] = '/uploads/wysiwyg/'.$Call['Name']; // FIXME Scope support
 
         return $Call;
     });

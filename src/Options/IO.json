@@ -124,6 +124,15 @@
                 "Not found": 5
             }
         },
+        "Uploader":
+        {
+            "Driver": "IO.Storage.Directory",
+            "Directory": "Public/uploads",
+            "Verbosity":
+            {
+                "Not found": 5
+            }
+        },
         "Web":
         {
             "Driver": "IO.Network.HTTP.CURL",
