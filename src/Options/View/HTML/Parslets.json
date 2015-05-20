@@ -30,6 +30,7 @@
                     "Email",
                     "URLEncode",
                     "HTMLEntities",
+                    "Striptags",
                     "Cut",
                     "Fn",
                     "Access",
