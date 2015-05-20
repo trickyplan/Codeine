@@ -96,7 +96,7 @@
             'Data' => $Call['Request']
         ]);
 
-        // $Call = F::Run('System.Interface.HTTP', 'RestoreURL', $Call);
+        $Call = F::Run('System.Interface.HTTP', 'RestoreURL', $Call);
 
         return $Call;
     });

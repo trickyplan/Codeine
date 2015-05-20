@@ -14,6 +14,7 @@
          $Call = F::Apply('Code.Progress', 'Start', $Call);
 
          $Call['Progress']['Max'] = count($Entities);
+
          foreach ($Entities as $Entity)
          {
              $Call['Progress']['Now']++;
