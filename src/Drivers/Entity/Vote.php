@@ -63,7 +63,8 @@
         F::Run('Entity', 'Update', $Call,
             [
                 'Entity' => $Call['Type'],
-                'Where'  => $Call['Object']
+                'Where'  => $Call['Object'],
+                'Data'   => []
             ]);
 
         $Call['Output']['Content'][] =

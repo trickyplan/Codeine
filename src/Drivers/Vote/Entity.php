@@ -51,3 +51,30 @@
 
         return $Ratio;
     });
+
+    setFn('Observer', function ($Call)
+    {
+        $Result = null;
+
+        if (isset($Call['Session']['User']['ID']))
+        {
+            $Vote =  F::Run('Entity', 'Read',
+                         [
+                               'Entity' => 'Vote',
+                               'Where'  =>
+                               [
+                                   'Type'   => $Call['Entity'],
+                                   'Object' => $Call['Data']['ID'],
+                                   'User'   => $Call['Session']['User']['ID']
+                               ],
+                               'One' => true
+                         ]);
+
+            if (empty($Vote))
+                ;
+            else
+                $Result = $Vote['Direction'];
+        }
+
+        return $Result;
+    });

@@ -42,6 +42,18 @@
                     "Method": "Ratio"
                 }
             }
+        },
+        "Vote.Observer":
+        {
+            "Type": "Ternary",
+            "Hooks":
+            {
+                "afterEntityRead":
+                {
+                    "Service": "Vote.Entity",
+                    "Method": "Observer"
+                }
+            }
         }
     },
     "Hooks":
