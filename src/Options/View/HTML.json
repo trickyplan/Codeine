@@ -30,13 +30,20 @@
                 "Method":"Do"
             }
         },
-        "afterHTMLRender":
+        "afterHTMLPipeline":
         {
-            "Call 1":
+            "Call":
             {
                 "Service": "View.Hooks.Call",
-                "Method": "Parse"
-            },
+                "Method": "Parse",
+                "Call":
+                {
+                    "Remove empty": true
+                }
+            }
+        },
+        "afterHTMLRender":
+        {
             "Parslets":
             {
                 "Service":"View.HTML.Parslets",

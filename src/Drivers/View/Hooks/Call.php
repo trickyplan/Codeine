@@ -15,7 +15,9 @@
                 'Value' => $Call['Output']
             ]);
 
-        if ($Call['Parsed'] && isset($Call['Data']))
+        if (empty($Call['Parsed']))
+            ;
+        else
         {
             $Call['Parsed'][0] = array_unique($Call['Parsed'][0]);
             $Call['Parsed'][1] = array_unique($Call['Parsed'][1]);
@@ -37,18 +39,23 @@
                     if (($Matched === false) || ($Matched === 0))
                         $Matched = '0';
 
-                    $Call['Parsed'][1][$IX] = F::Live($Matched);
+                    $Call['Parsed'][1][$IX] = $Matched;
+                    F::Log(
+                        'Call to *'.$Match.'* resolved as '.$Call['Parsed'][1][$IX],
+                        LOG_DEBUG);
                 }
                 else
                 {
                     F::Log(
-                        'Call to *'.$Match.'* cannot resolved at '.$Call['Scope'].':'.$Call['ID'],
+                        'Call to *'.$Match.'* cannot resolved',
                         $Call['Verbosity']['Calltag']['Unresolved']);
 
-                    $Call['Parsed'][1][$IX] = '';
+                    if (isset($Call['Remove empty']))
+                        $Call['Parsed'][1][$IX] = '';
+                    else
+                        unset($Call['Parsed'][0][$IX], $Call['Parsed'][1][$IX]);
                 }
             }
-
             $Call['Output'] = str_replace($Call['Parsed'][0], $Call['Parsed'][1], $Call['Output']);
         }
 
@@ -62,89 +69,6 @@
                         | JSON_UNESCAPED_SLASHES))
                 .'</pre>',
                 $Call['Output']);
-
-        return $Call;
-    });
-
-    setFn('Parse.Template', function ($Call)
-    {
-        $Call['Parsed'] = F::Run('Text.Regex', 'All',
-        [
-            'Pattern' => $Call['Block Call Pattern'],
-            'Value' => $Call['Value']
-        ]);
-
-        if ($Call['Parsed'])
-        {
-            $Call['Parsed'][0] = array_unique($Call['Parsed'][0]);
-            $Call['Parsed'][2] = array_unique($Call['Parsed'][2]);
-
-            foreach ($Call['Parsed'][2] as $IX => &$Match)
-            {
-                if (($Matched = F::Live(F::Dot($Call, $Match))) !== null)
-                {
-                    $Output = '';
-
-                    if ($DotMatched = F::Live(F::Dot($Call, $Match)))
-                    {
-                        if (is_array($DotMatched))
-                        {
-                            sort($DotMatched);
-                            foreach($DotMatched as $ICV => $cMatch)
-                                $Output.= str_replace('<#/>',
-                                    $ICV,
-                                    str_replace('<call>'.$Match.'</call>', $cMatch,$Call['Parsed'][1][$IX]).
-                                    ($cMatch)
-                                    .str_replace('<call>'.$Match.'</call>', $cMatch,$Call['Parsed'][3][$IX]));
-                        }
-                        else
-                            $Output = str_replace('<#/>', '', $Call['Parsed'][1][$IX].($DotMatched).$Call['Parsed'][3][$IX]);
-                    }
-
-                    $Match = $Output;
-                }
-                else
-                    $Match = '';
-            }
-
-            $Call['Value'] = str_replace($Call['Parsed'][0], $Call['Parsed'][2], $Call['Value']);
-        }
-
-        $Replace = [[],[]];
-
-        $Call['Parsed'] = F::Run('Text.Regex', 'All',
-        [
-            'Pattern' => $Call['Call Pattern'],
-            'Value' => $Call['Value']
-        ]);
-
-        if ($Call['Parsed'])
-        {
-            foreach ($Call['Parsed'][1] as $IX => $Match)
-            {
-                if (mb_strpos($Match, ':') !== false)
-                {
-                    list ($Options, $Key) = explode(':', $Match);
-                    $Call = F::Dot($Call, $Options, F::loadOptions($Options));
-                    $Match = $Options.'.'.$Key;
-                }
-
-                if (($Matched = F::Dot($Call, $Match)) !== null)
-                {
-                    if (is_array($Matched))
-                        $Matched = j($Matched);
-
-                    if (($Matched === false) || ($Matched === 0))
-                        $Matched = '0';
-
-                    $Replace[0][$IX] = $Call['Parsed'][0][$IX];
-                    $Replace[1][$IX] = F::Live($Matched);
-                }
-            }
-
-            $Call['Value'] = str_replace($Replace[0], $Replace[1], $Call['Value']);
-        }
-
 
         return $Call;
     });

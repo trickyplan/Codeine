@@ -62,31 +62,10 @@
                         implode(PHP_EOL, $Widgets), $Call['Layout']);
         }
 
-        $Call = F::Apply(null, 'Parse Call', $Call);
-
         $Call['Output'] = $Call['Layout'];
 
         unset($Call['Layout']);
         $Call = F::Hook('afterHTMLPipeline', $Call);
-
-        return $Call;
-    });
-
-    setFn('Parse Call', function ($Call)
-    {
-        if (preg_match_all('@<call>(.*)<\/call>@SsUu', $Call['Layout'], $Places))
-            foreach ($Places[0] as $IX => $Match)
-            {
-                $Places[1][$IX] = F::Live(F::Dot($Call, $Places[1][$IX]));
-
-                if (($Places[1][$IX] === false) || ($Places[1][$IX]=== 0))
-                    $Places[1][$IX] = '0';
-
-                if (is_array($Places[1][$IX]))
-                    $Places[1][$IX] = implode('', $Places[1][$IX]);
-            }
-
-        $Call['Layout'] = str_replace($Places[0], $Places[1], $Call['Layout']);
 
         return $Call;
     });

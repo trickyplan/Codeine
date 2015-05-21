@@ -8,7 +8,8 @@
     "Summary": "Сводка",
     "Tags": "Теги",
     "Empty": "Статей нет",
-    "SEO": {
+    "SEO":
+    {
         "Keywords": "Ключевые слова",
         "Title": "SEO Заголовок",
         "Description": "SEO Описание"
