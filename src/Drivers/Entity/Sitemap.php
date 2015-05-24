@@ -9,9 +9,21 @@
 
     setFn('Sitemaps Count', function ($Call)
     {
-        $Overall = F::Run('Entity', 'Count', $Call);
+        $Overall = F::Run('Entity', 'Read', $Call,
+            [
+                'Sort' =>
+                [
+                    'ID' => false
+                ],
+                'Limit' =>
+                [
+                    'From'  => 0,
+                    'To'    => 1
+                ],
+                'One'   => true
+            ]);
 
-        return ceil($Overall / $Call['Sitemap']['Limits']['URLs Per Sitemap']);
+        return ceil($Overall['ID'] / $Call['Sitemap']['Limits']['URLs Per Sitemap']);
     });
 
     setFn('Show Sitemap Index', function ($Call)
@@ -85,6 +97,51 @@
                         ]
                 ];
         }
+
+        return $Call;
+    });
+
+    setFn('Sitemaps.Generate', function ($Call)
+    {
+        $Amount = F::Run(null, 'Sitemaps Count', $Call);
+
+        $Call = F::Apply('Code.Progress', 'Start', $Call);
+        $Call['Progress']['Max'] = $Amount;
+
+        for ($IX = 1; $IX <= $Amount; $IX++)
+        {
+            $VCall = F::Run('Entity.Sitemap', 'Sitemap', $Call,
+            [
+                'Entity' => $Call['Index'],
+                'Page'   => $IX
+            ]);
+
+            $VCall = F::Run('View', 'Render', $VCall,
+                [
+                    'View' =>
+                    [
+                        'Renderer' =>
+                        [
+                            'Service'   => 'View.XML',
+                            'Method'    => 'Render'
+                        ]
+                    ]
+                ]
+            );
+
+            $Call['Progress']['Now'] = $IX;
+
+            $Call = F::Apply('Code.Progress', 'Log', $Call);
+
+            F::Run('IO', 'Write',
+                [
+                    'Storage'   => 'Static Sitemaps',
+                    'Scope'     => $Call['Entity'],
+                    'Where'     => $IX,
+                    'Data'      => $VCall['Output']
+                ]);
+        }
+        $Call = F::Apply('Code.Progress', 'Finish', $Call);
 
         return $Call;
     });

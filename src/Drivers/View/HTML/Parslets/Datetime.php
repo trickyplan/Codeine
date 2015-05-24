@@ -24,7 +24,7 @@
             if (isset($Root->attributes()->format))
                 $Outer['Format'] = (string) $Root->attributes()->format;
 
-            $Outer = F::Run('Formats.Date.Engine.'.$Engine, 'Format', $Outer);
+            $Outer = F::Run('Formats.Date.'.$Engine, 'Format', $Outer);
 
             $Call['Output'] = str_replace ($Call['Parsed'][0][$IX], $Outer, $Call['Output']);
         }

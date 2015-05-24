@@ -3,6 +3,6 @@
     {
         "Host": "http://www.useragentstring.com/",
         "UA Parameter": "uas",
-        "Suffix": "getJSON=all"
+        "Postfix": "getJSON=all"
     }
 }

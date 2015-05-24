@@ -22,7 +22,7 @@
             if (is_array($Call['Scope']))
                 $Call['Scope'] = implode(DS, $Call['Scope']);
 
-        $Postfix = isset($Call['Suffix']) ? $Call['Suffix'] : '';
+        $Postfix = isset($Call['Postfix']) ? $Call['Postfix'] : '';
         $Prefix = isset($Call['Prefix']) ? $Call['Prefix'] : '';
         $Path = $Call['Link'].'/'.$Call['Scope'].'/';
 
@@ -103,7 +103,7 @@
         else
             $DirName = Root.'/'.$Call['Link'] . '/' . $Call['Scope'] . '/';
 
-        $Postfix   = isset($Call['Suffix']) ? $Call['Suffix'] : '';
+        $Postfix   = isset($Call['Postfix']) ? $Call['Postfix'] : '';
         $Prefix   = isset($Call['Prefix']) ? $Call['Prefix'] : '';
 
         $ID = isset($Call['Where']['ID'])? $Call['Where']['ID']: $Call['ID'];
@@ -127,7 +127,7 @@
                 F::Log('Directory '.$DirName.' cannot created', LOG_ERR, 'Administrator');
         }
         else
-            F::Log('Directory '.$DirName.' already exists', LOG_INFO, 'Administrator');
+            F::Log('Directory '.$DirName.' already exists', LOG_DEBUG, 'Administrator');
 
         if (isset($Call['Data']) && ($Call['Data'] != 'null') && ($Call['Data'] != null))
         {
@@ -161,7 +161,7 @@
             if (is_array($Call['Scope']))
                 $Call['Scope'] = implode(DS, $Call['Scope']);
 
-        $Postfix   = isset($Call['Suffix']) ? $Call['Suffix'] : '';
+        $Postfix   = isset($Call['Postfix']) ? $Call['Postfix'] : '';
         $Prefix   = isset($Call['Prefix']) ? $Call['Prefix'] : '';
 
         $Filename = F::findFile ($Call['Link'] .'/'. $Call['Scope'] . '/' . $Prefix . $Call['Where']['ID'] . $Postfix);
@@ -180,7 +180,7 @@
             if (is_array($Call['Scope']))
                 $Call['Scope'] = implode(DS, $Call['Scope']);
 
-        $Postfix  = isset($Call['Suffix']) ? $Call['Suffix'] : '';
+        $Postfix  = isset($Call['Postfix']) ? $Call['Postfix'] : '';
         $Prefix   = isset($Call['Prefix']) ? $Call['Prefix'] : '';
 
         if (!empty($Call['Where']['ID']))
@@ -201,7 +201,7 @@
             if (is_array($Call['Scope']))
                 $Call['Scope'] = implode(DS, $Call['Scope']);
 
-        $Postfix = isset($Call['Suffix']) ? $Call['Suffix'] : '';
+        $Postfix = isset($Call['Postfix']) ? $Call['Postfix'] : '';
         $Prefix = isset($Call['Prefix']) ? $Call['Prefix'] : '';
         $Path = $Call['Link'].'/'.$Call['Scope'].'/';
 

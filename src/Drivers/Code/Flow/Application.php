@@ -21,7 +21,7 @@
 
         $Call = F::Hook('afterApplicationRun', $Call); // А здесь - рендеринг
 
-        // F::Log('Application *'.$Call['Service'].':'.$Call['Method'].'* finished', LOG_NOTICE);
+        F::Log('Application *'.$Call['Service'].':'.$Call['Method'].'* finished', LOG_INFO);
 
         if (is_array($Call))
             $Call['Context'] = '';

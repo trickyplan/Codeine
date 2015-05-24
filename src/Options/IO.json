@@ -20,7 +20,7 @@
             "Driver":"IO.Storage.Directory",
             "Directory":"Data",
             "Format": "Formats.JSON",
-            "Suffix":".json"
+            "Postfix":".json"
         },
         "Cookie":
         {
@@ -35,7 +35,7 @@
             "Driver":"IO.Storage.Directory",
             "Directory":"Options",
             "Format": "Formats.JSON",
-            "Suffix":".json"
+            "Postfix":".json"
         },
         "Run Cache":
         {
@@ -47,7 +47,7 @@
                 "Levels": 4
             },
             "Format": "Formats.JSON",
-            "Suffix":".json"
+            "Postfix":".json"
         },
         "Scraped":
         {
@@ -58,20 +58,20 @@
                 "Enabled": true,
                 "Levels": 4
             },
-            "Suffix":".html"
+            "Postfix":".html"
         },
         "Layout":
         {
             "Driver":"IO.Storage.Directory",
             "Directory":"Assets",
-            "Suffix": ".html"
+            "Postfix": ".html"
         },
         "Locale":
         {
             "Driver":"IO.Storage.Directory",
             "Directory":"Assets",
             "Format": "Formats.JSON",
-            "Suffix":".json"
+            "Postfix":".json"
         },
             "Image":
             {
@@ -87,13 +87,13 @@
             {
                 "Driver":"IO.Storage.Directory",
                 "Directory":"Assets",
-                "Suffix":".less"
+                "Postfix":".less"
             },
             "CSS":
             {
                 "Driver":"IO.Storage.Directory",
                 "Directory":"Assets",
-                "Suffix":".css"
+                "Postfix":".css"
             },
             "CSS Cache":
             {
@@ -104,7 +104,7 @@
             {
                 "Driver":"IO.Storage.Directory",
                 "Directory":"Assets",
-                "Suffix":".js"
+                "Postfix":".js"
             },
             "JS Cache":
             {
@@ -123,6 +123,12 @@
             {
                 "Not found": 5
             }
+        },
+        "Static Sitemaps":
+        {
+            "Driver": "IO.Storage.Directory",
+            "Directory": "Public/sitemap",
+            "Postfix": ".xml"
         },
         "Uploader":
         {
@@ -156,14 +162,14 @@
         {
             "Driver":"IO.Storage.Directory",
             "Directory":"/tmp/codeine/",
-            "Suffix": ".json",
+            "Postfix": ".json",
             "Format": "Formats.JSON"
         },
         "HTTP Journal":
         {
             "Driver":"IO.Storage.Directory",
             "Directory":"/var/log/codeine/",
-            "Suffix": ".json",
+            "Postfix": ".json",
             "Format": "Formats.JSON"
         },
         "Redis":

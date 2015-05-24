@@ -60,6 +60,15 @@
                 "Service":"SEO.Sitemap"
             }
         },
+        "Entity Sitemap доступен всем":
+        {
+            "Decision": true,
+            "Weight": 200,
+            "Run":
+            {
+                "Service":"Entity.Sitemap"
+            }
+        },
         "Opensearch доступен всем":
         {
             "Decision": true,

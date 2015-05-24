@@ -28,8 +28,18 @@
             if (PHP_SAPI == 'cli')
             {
                 F::Log('Progress: '.(round($Call['Progress']['Percent'], $Call['Progress']['Precision'])*100).'% '.($Call['Progress']['Now'].'/'.($Call['Progress']['Max']-$Call['Progress']['Min'])), LOG_NOTICE, 'Developer');
-                F::Log('Elapsed: '.round($Call['Progress']['Elapsed'], $Call['Progress']['Precision']).' sec.', LOG_NOTICE, 'Developer');
-                F::Log('Estimated: '.round($Call['Progress']['Estimated'], $Call['Progress']['Precision']).' sec.', LOG_NOTICE, 'Developer');
+
+                F::Log('Elapsed: '.
+                    F::Run('Formats.Date.Term', 'Format',
+                        [
+                            'Value' => round($Call['Progress']['Elapsed'], $Call['Progress']['Precision'])
+                        ]), LOG_NOTICE, 'Developer');
+
+                F::Log('Estimated: '.
+                    F::Run('Formats.Date.Term', 'Format',
+                        [
+                            'Value' => round($Call['Progress']['Estimated'], $Call['Progress']['Precision'])
+                        ]), LOG_NOTICE, 'Developer');
             }
         }
 

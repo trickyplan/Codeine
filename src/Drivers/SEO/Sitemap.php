@@ -60,3 +60,17 @@
 
         return $Call;
     });
+
+    setFn('Sitemaps.Generate', function ($Call)
+    {
+        $Call = F::Hook('beforeSitemapShow', $Call);
+
+            $Call['Output'] = ['Root' => 'urlset', 'Content' => []];
+
+            $Handler = $Call['Sitemap']['Handlers'][$Call['Index']];
+            $Call = F::Apply($Handler['Driver'], null, $Call, $Handler);
+
+        $Call = F::Hook('afterSitemapShow', $Call);
+
+        return $Call;
+    });
