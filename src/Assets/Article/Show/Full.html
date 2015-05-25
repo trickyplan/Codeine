@@ -23,13 +23,17 @@
 </h1>
 <div class="row">
     <div class="col-lg-3">
-        <exec>
-            <Service>Entity.Catalog</Service>
-            <Method>Do</Method>
-            <Call>
-                <Entity>Article</Entity>
-                <Key>Tags</Key>
-            </Call>
+        <exec type="JSON">
+            {
+                "Service": "Entity.Catalog",
+                "Method": "Do",
+                "Call":
+                {
+                    "Entity": "Article",
+                    "No Catalog Entity": true,
+                    "Key": "Tags"
+                }
+            }
         </exec>
     </div>
     <div class="col-lg-9">
