@@ -24,6 +24,9 @@
 
     setFn('Query', function ($Call)
     {
+        if (isset($Call['Request']['Query']))
+            $Call['Query'] = $Call['Request']['Query']; // FIXME
+
         $Call = F::Hook('beforeQuery', $Call);
 
         $Call['Layouts'][] = ['Scope' => '','ID' => 'Search'];
