@@ -192,3 +192,8 @@
 .ql-editor.ql-ie-10 br {
   display: none;
 }
+
+.quill-widget
+{
+    border: 1px solid #cccccc;
+}
