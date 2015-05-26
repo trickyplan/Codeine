@@ -23,6 +23,8 @@
 
         declare(ticks = 1);
 
+        $RT = $Call['RT'];
+
         $SH = function ($Signal) use ($Call)
         {
             return F::Run('Code.Flow.Daemon', 'Signal', $Call,
@@ -128,7 +130,7 @@
                     }
                 }
 
-                usleep($Call['RT']);
+                usleep($RT);
             }
 
             F::Log('Daemon stopped', LOG_WARNING);
