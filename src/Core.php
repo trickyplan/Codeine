@@ -339,6 +339,11 @@
 
             self::$_Stack->push(self::$_Service.':'.self::$_Method);
 
+            $Count = self::$_Stack->count();
+
+            if ($Count > F::Get('MSS')) // Max Stack Size
+                F::Set('MSS', $Count);
+
             $FnOptions = self::loadOptions();
 
             $Call = self::Merge($FnOptions, $Call);

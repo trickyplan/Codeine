@@ -16,6 +16,8 @@
 
             arsort(self::$_Counters['T']);
 
+
+            F::Log('Max stack size: '.F::Get('MSS'), LOG_NOTICE, 'Performance');
             F::Log('Total time: '.round($Call['Performance']['Summary']['Time']).' ms', LOG_NOTICE, 'Performance');
             F::Log('Total calls: '.$Call['Performance']['Summary']['Calls'], LOG_NOTICE, 'Performance');
             F::Log('Total time per call: '
