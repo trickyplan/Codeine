@@ -1,6 +1,6 @@
 $(function () {
     // show current menu object highlighted
-    var url = window.location.pathname;
+    var url = decodeURI(window.location.pathname);
     var checkString;
 
     // now grab every link from the navigation
@@ -15,5 +15,4 @@ $(function () {
             }
         }
     });
-
 });

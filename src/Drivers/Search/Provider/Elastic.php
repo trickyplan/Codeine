@@ -14,7 +14,7 @@
         return $Call;
     });
 
-    setFn('Index', function ($Call)
+    setFn('Add', function ($Call)
     {
         $Call = F::Run(null, 'Open', $Call);
 
