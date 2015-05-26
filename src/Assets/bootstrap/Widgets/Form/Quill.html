@@ -1,5 +1,6 @@
 <!-- Include the Quill library -->
 <js>quill</js>
+<css>quill</css>
 <css>quill:snow</css>
 <!-- Initialize Quill editor -->
 <jsrun>
@@ -13,7 +14,7 @@
         theme: 'snow'
     });
 
-    fullEditor<k>ID</k>.setHTML($('#<k>ID</k>_Data').html());
+    fullEditor<k>ID</k>.setHTML($('#<k>ID</k>_Data').text());
     fullEditor<k>ID</k>.on('text-change', function(delta, source) {
        $('#<k>ID</k>').val(fullEditor<k>ID</k>.getHTML());
     });
@@ -21,9 +22,7 @@
 
 <label for="<k>ID</k>"><l><k>Label</k></l>:</label>
 <div class="form-group">
-    <div class="hidden" id="<k>ID</k>_Data">
-        <k>Value</k>
-    </div>
+    <div class="hidden" id="<k>ID</k>_Data"><k>Value</k></div>
     <div id="full-toolbar<k>ID</k>" class="toolbar ql-toolbar-container">
         <span class="ql-format-group">
                 <span title="<l>quill.Editor:Bold</l>" class="ql-format-button ql-bold"></span>
@@ -48,5 +47,5 @@
     <div id="full-editor<k>ID</k>" class="editor ql-container">
         <iframe frameborder="0" height="100%" width="100%" role="presentation"></iframe>
     </div>
-    <input name="<k>Name</k>" required id="<k>ID</k>" type="hidden" value="<htmlentities><k>Value</k></htmlentities>"/>
+    <input name="<k>Name</k>" required id="<k>ID</k>" type="hidden" value="<k>Value</k>"/>
 </div>
