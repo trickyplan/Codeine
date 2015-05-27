@@ -10,7 +10,11 @@
         "Mixins.Text",
         "Mixins.CRUDSlug"
     ],
-    "Entity Slug": "article",
+    "Slug":
+    {
+        "Entity": "article",
+        "Entities": "articles"
+    },
     "Storage": "Primary",
     "EPP": 20,
     "Nodes":

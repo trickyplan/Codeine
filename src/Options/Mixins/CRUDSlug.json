@@ -17,7 +17,7 @@
                 "Method": "Redirect",
                 "Call":
                 {
-                    "Redirect": "/$Entity Slug/$Data.0.Slug"
+                    "Redirect": "/$Slug.Entity/$Data.0.Slug"
                 }
             }
         },
