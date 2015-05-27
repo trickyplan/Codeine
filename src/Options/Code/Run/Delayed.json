@@ -1,4 +1,6 @@
 {
     "DaemonID": "codeine-delayed",
-    "Delayed Mode": "Clean"
+    "Delayed Mode": "Clean",
+    "Priority": "Normal",
+    "Priorities": ["High", "Normal", "Low"]
 }
