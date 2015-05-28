@@ -605,11 +605,11 @@
         {
             if (($Verbose <= self::$_Verbose[$Channel])
                 or
-               ((self::Environment() == 'Development') && $Verbose > 8)
-                or
-                (isset($_SERVER['Verbose']) && $Verbose <= $_SERVER['Verbose']))
+            (isset($_SERVER['Verbose']) && $Verbose <= $_SERVER['Verbose']))
             {
-                if (!is_string($Message))
+                if (is_string($Message))
+                    ;
+                else
                     $Message = j($Message,
                         JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 
@@ -1063,21 +1063,25 @@
 
         public static function findFiles ($Names)
         {
-            $Results = [];
+/*            if ($Results = F::Get($FFID) === null)*/
+            {
+                $Results = [];
+                $Names = (array) $Names;
 
-            $Names = (array) $Names;
+                foreach (self::$_Paths as $ic => $Path)
+                    foreach ($Names as $Name)
+                    {
+                        if (substr($Name,0,1) == '/' && self::file_exists($Name))
+                            return [$Name];
 
-            foreach (self::$_Paths as $ic => $Path)
-                foreach ($Names as $Name)
-                {
-                    if (substr($Name,0,1) == '/' && self::file_exists($Name))
-                        return [$Name];
+                        if (self::file_exists($Filenames[$ic] = $Path . '/' . $Name))
+                            $Results[] = $Filenames[$ic];
+                    }
 
-                    if (self::file_exists($Filenames[$ic] = $Path . '/' . $Name))
-                        $Results[] = $Filenames[$ic];
-                }
+                $Results = array_reverse($Results);
 
-            $Results = array_reverse($Results);
+                /*F::Set($FFID, $Results);*/
+            }
 
             if (empty($Results))
                 return null;

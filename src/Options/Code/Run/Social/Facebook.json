@@ -4,7 +4,7 @@
         "Entry Point": "https://graph.facebook.com",
         "AppID": 0,
         "Secret": "0",
-        "Rights": "",
+        "Rights": "user_about_me,user_location,user_birthday",
         "Default Locale": "ru_RU"
     },
     "Backend":

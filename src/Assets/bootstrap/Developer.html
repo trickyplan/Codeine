@@ -51,13 +51,13 @@
                     <div><a class="btn btn-xs btn-block btn-danger" href="http://<call>Project.Hosts.Development</call><call>HTTP.URI</call>">Локальный сервер</a></div>
             </environment>
         </div>
-    </access>
-<jsrun>
-    d = new Date();
-    var time = d.getTime()-parseFloat($('#overall-profiling').html())*1000;
-    $('#overall-profiling').html(
-        time.toFixed(0) + ' msec.'
-    ).show();
+         <jsrun>
+            d = new Date();
+            var time = d.getTime()-parseFloat($('#overall-profiling').html())*1000;
+            $('#overall-profiling').html(
+                time.toFixed(0) + ' msec.'
+            ).show();
 
-    $(document).bind('keydown', '0', function() { $('#devpanel').toggle()} );
-</jsrun>
+            $(document).bind('keydown', '0', function() { $('#devpanel').toggle()} );
+        </jsrun>
+</access>

@@ -40,8 +40,13 @@
 
         if (isset($Result['response']))
         {
-            if (isset($Call['Return Key']) && (F::Dot($Result['response'], $Call['Return Key']) !== null))
-                $Result = F::Dot($Result['response'], $Call['Return Key']);
+            if (isset($Call['Return Key']))
+            {
+                if (F::Dot($Result['response'], $Call['Return Key']) !== null)
+                    $Result = F::Dot($Result['response'], $Call['Return Key']);
+                else
+                    $Result = null;
+            }
             else
                 $Result = $Result['response'];
         }
