@@ -1,5 +1,5 @@
     charset utf-8;
-	index  index.php;
+    index  index.php;
 
     merge_slashes on;
     server_tokens off;
@@ -8,7 +8,7 @@
 
     error_log /var/log/nginx/error.log warn;
     access_log off;
-	error_page 502 503 504 /down.html;
+    error_page 502 503 504 /down.html;
 
     gzip on;
     gzip_comp_level 9;
@@ -16,11 +16,12 @@
     gzip_min_length 1024;
     gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript application/javascript;
     gzip_vary on;
+    client_max_body_size 16m;
 
-	location /
-	{
-		try_files $uri /index.php?$uri&$args;
-	}
+    location /
+    {
+        try_files $uri /index.php?$uri&$args;
+    }
 
     location /nginx_status
     {
@@ -37,9 +38,9 @@
         expires           max;
     }
 
-	location ~ index.php$
-	{
-	    include fastcgi_params;
+    location ~ index.php$
+    {
+        include fastcgi_params;
 
         set $no_cache 0;
 
@@ -74,8 +75,8 @@
         fastcgi_keep_conn on;
 
         fastcgi_param  Environment $Environment;
-		fastcgi_pass   $Backend;
-		fastcgi_index  index.php;
+        fastcgi_pass   $Backend;
+        fastcgi_index  index.php;
 
         fastcgi_param  DOCUMENT_ROOT    $document_root;
         fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
@@ -95,11 +96,11 @@
         fastcgi_buffers 4 1m;
         fastcgi_busy_buffers_size 1m;
         fastcgi_temp_file_write_size 1m;
-	}
+    }
 
-	location ~* \.(jpg|jpeg|gif|css|png|js|ico|woff|ttf|eot)$
-	{
-		access_log        off;
-		expires           max;
-		add_header        Cache-Control  public;
-	}
+    location ~* \.(jpg|jpeg|gif|css|png|js|ico|woff|ttf|eot)$
+    {
+        access_log        off;
+        expires           max;
+        add_header        Cache-Control  public;
+    }
