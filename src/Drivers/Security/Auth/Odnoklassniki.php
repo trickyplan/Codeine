@@ -67,8 +67,6 @@
                         ]
                     ]);
 
-                $Updated = [];
-
                 if (isset($Call['Session']['User']['ID']))
                 {
                     $Call['User'] = F::Run('Entity', 'Read',
@@ -119,6 +117,7 @@
                 }
                 $Call = F::Hook('afterOdnoklassnikiIdentification', $Call);
 
+                $Updated = $Call['User'];
                 $Updated['Odnoklassniki'] =
                     [
                         'ID' => $Odnoklassniki['uid'],

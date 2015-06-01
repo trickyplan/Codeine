@@ -64,8 +64,6 @@
                         ]
                     ]);
 
-            $Updated = [];
-
             if (isset($Call['Session']['User']['ID']))
             {
                 $Call['User'] = F::Run('Entity', 'Read', $Call,
@@ -114,8 +112,10 @@
                     ]
                 ]);
             }
+
             $Call = F::Hook('afterFacebookIdentification', $Call);
 
+            $Updated = $Call['User'];
             $Updated['Facebook'] =
                 [
                     'Active' => true,
@@ -126,9 +126,9 @@
                 ];
             
             if (isset($Call['User']['Facebook']['LoginCount']))
-                    $Call['User']['Facebook']['LoginCount']++;
-                else
-                    $Call['User']['Facebook']['LoginCount'] = 1;
+                $Call['User']['Facebook']['LoginCount']++;
+            else
+                $Call['User']['Facebook']['LoginCount'] = 1;
 
                 $Updated['Facebook']['LoginCount'] = $Call['User']['Facebook']['LoginCount'];
 

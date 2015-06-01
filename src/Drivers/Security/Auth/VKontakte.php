@@ -55,8 +55,6 @@
 
             if (isset($Result['access_token']))
             {
-                $Updated = [];
-
                 if (isset($Call['Session']['User']['ID']))
                 {
                     $Call['User'] = F::Run('Entity', 'Read',
@@ -109,6 +107,7 @@
 
                 $Call = F::Hook('afterVKontakteIdentification', $Call);
 
+                $Updated = $Call['User'];
                 $Updated['VKontakte'] =
                     [
                         'Active' => true,
