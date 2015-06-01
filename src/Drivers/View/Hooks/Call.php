@@ -31,6 +31,17 @@
                     $Match = $Options.'.'.$Key;
                 }
 
+                if (mb_strpos($Match, ',') !== false)
+                {
+                    $Submatches = explode(',', $Match);
+                    foreach ($Submatches as $Submatch)
+                        if (($Matched = F::Dot($Call, $Submatch)) !== null)
+                        {
+                            $Match = $Submatch;
+                            break;
+                        }
+                }
+
                 if (($Matched = F::Dot($Call, $Match)) !== null)
                 {
                     if (is_array($Matched))
