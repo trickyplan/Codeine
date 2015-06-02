@@ -1,0 +1,15 @@
+{
+    "Storage": "Primary",
+    "Mixins":
+    [
+        "Mixins.ID.Sequence",
+        "Mixins.UGC"
+    ],
+    "Nodes":
+    {
+        "Award":
+        {
+            "Type": "Literal.String"
+        }
+    }
+}

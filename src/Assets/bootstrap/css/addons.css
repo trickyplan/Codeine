@@ -5,7 +5,17 @@
 
 .img-spaced
 {
-    margin: 4px 8px;
+    margin: 0.5em;
+}
+
+.img-hspaced
+{
+    margin: 0 0.5em;
+}
+
+.img-vspaced
+{
+    margin: 0.5em 0;
 }
 
 .img-center
