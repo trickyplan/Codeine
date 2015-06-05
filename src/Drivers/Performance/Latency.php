@@ -24,19 +24,19 @@
             switch($Decision)
             {
                 case 'Green':
-                    $Verbose = LOG_NOTICE;
+                    $Verbose = LOG_DEBUG;
                 break;
 
                 case 'Orange':
-                    $Verbose = LOG_NOTICE;
+                    $Verbose = LOG_INFO;
                 break;
 
                 case 'Yellow':
-                    $Verbose = LOG_WARNING;
+                    $Verbose = LOG_NOTICE;
                 break;
 
                 case 'Red':
-                    $Verbose = LOG_ERR;
+                    $Verbose = LOG_WARNING;
                 break;
 
                 case 'Black':
