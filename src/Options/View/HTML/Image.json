@@ -24,6 +24,10 @@
     {
         "beforeImageWrite":
         {
+            "Resample":
+            {
+                "Service": "View.HTML.Image.Resample"
+            },
             "Thumbs":
             {
                 "Service": "View.HTML.Image.Thumb"
