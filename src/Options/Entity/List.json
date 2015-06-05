@@ -6,7 +6,7 @@
         {
             "Do":
             {
-                "Memo": ["Entity", "Where", "Template", "Count", "Page", "Time", "Selected", "Sort"]
+                "Memo": ["Entity", "Where", "Template", "Count", "Page", "Time", "Selected", "Sort", "Location.ID"]
             }
         }
     },
