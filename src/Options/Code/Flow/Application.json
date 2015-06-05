@@ -5,7 +5,7 @@
         {
             "Run":
             {
-                "Memo": ["Run.Service", "Run.Method", "Run.Call", "Time", "Session.ID"]
+                "Memo": ["Run.Service", "Run.Method", "Run.Call", "Time", "UID"]
             }
         }
     },
@@ -47,7 +47,7 @@
             "Rendering":
             {
                 "Service":"View.HTML",
-                "Method":"Pipeline"
+                "Method":"Render"
             }
         },
         "NotFound":

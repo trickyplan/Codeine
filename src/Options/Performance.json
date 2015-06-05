@@ -4,7 +4,7 @@
     {
         "Red":
         {
-            "ACalls": 200,
+            "ACalls": 50,
             "RCalls": 20,
             "RTime": 33,
             "ATime": 100,
@@ -12,7 +12,7 @@
         },
         "Yellow":
         {
-            "ACalls": 150,
+            "ACalls": 25,
             "RCalls": 10,
             "RTime": 5,
             "ATime": 50,

@@ -16,7 +16,6 @@
 
             arsort(self::$_Counters['T']);
 
-
             F::Log('Max stack size: '.F::Get('MSS'), LOG_NOTICE, 'Performance');
             F::Log('Total time: '.round($Call['Performance']['Summary']['Time']).' ms', LOG_NOTICE, 'Performance');
             F::Log('Total calls: '.$Call['Performance']['Summary']['Calls'], LOG_NOTICE, 'Performance');
@@ -50,12 +49,12 @@
                 if (isset($Call['Alerts']['Yellow']))
                     foreach ($Call['Alerts']['Yellow'] as $Metric => $Limit)
                         if ($Call[$Metric] > $Limit)
-                            $Class[$Metric] = LOG_INFO;
+                            $Class[$Metric] = LOG_NOTICE;
 
                 if (isset($Call['Alerts']['Red']))
                     foreach ($Call['Alerts']['Red'] as $Metric => $Limit)
                         if ($Call[$Metric] > $Limit)
-                            $Class[$Metric] = LOG_NOTICE;
+                            $Class[$Metric] = LOG_WARNING;
 
                 F::Log('*'.$Key.'* time is *'.$Call['ATime'].'* ms', $Class['ATime'], 'Performance');
                 F::Log('*'.$Key.'* time is *'.$Call['RTime'].'%*', $Class['RTime'], 'Performance');

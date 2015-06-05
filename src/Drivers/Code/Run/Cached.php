@@ -35,7 +35,7 @@
             {
                 if ($Envelope[0]['Expire'] > time())
                 {
-                    F::Log('Cache *hit* for call '.$Scope.'('.$Memo.')', LOG_DEBUG, 'Performance');
+                    F::Log('Cache *hit* for call '.$Scope.'('.$Memo.')', LOG_INFO, 'Performance');
 
                     $Run = false;
                     $Result = $Envelope[0]['Result'];
@@ -53,17 +53,20 @@
                 if ($Result === null)
                     $Result = $Envelope[0]['Result'];
                 else
+                {
+                    F::Log('Cache *stored* for call '.$Scope.'('.$Memo.')', LOG_INFO, 'Performance');
                     F::Run('IO', 'Write',
-                    [
-                        'Storage' => 'Run Cache',
-                        'Scope'   => $Scope,
-                        'Where'   => ['ID' => $Call['Run']['CacheID']],
-                        'Data'    =>
                         [
-                            'Result' => $Result,
-                            'Expire' => time()+$RTTL
-                        ]
-                    ]);
+                            'Storage' => 'Run Cache',
+                            'Scope'   => $Scope,
+                            'Where'   => ['ID' => $Call['Run']['CacheID']],
+                            'Data'    =>
+                                [
+                                    'Result' => $Result,
+                                    'Expire' => time()+$RTTL
+                                ]
+                        ]);
+                }
             }
         }
         else

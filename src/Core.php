@@ -309,8 +309,11 @@
         {
             if (($sz = func_num_args())>3)
                 for($ic = 3; $ic < $sz; $ic++)
-                    if (is_array($Argument = func_get_arg ($ic)))
+                {
+                    $Argument = func_get_arg ($ic);
+                    if ($Argument === (array) $Argument)
                         $Call = self::Merge($Call, $Argument);
+                }
 
             $Result = self::Execute($Service, $Method, $Call);
 
@@ -528,7 +531,9 @@
                  if (isset($Call['No'][$On]) && $Call['No'][$On] === true)
                      return $Call;
 
-                 if (count($Hooks) > 0)
+                 if (empty($Hooks))
+                     ;
+                 else
                  {
                      $Hooks = self::Sort($Hooks, 'Weight', SORT_DESC);
 
@@ -761,8 +766,8 @@
                     {
                         foreach ($Mixin as $MixinKey => $MixinValue) // Проходим по второму
                         {
-                            if ($MixinKey{strlen($MixinKey)-1} === '!') // Если у нас ключ кончается на !
-                                $Array[substr($MixinKey, 0, strlen($MixinKey)-1)] = $MixinValue;
+                            if (substr($MixinKey, -1, 1) === '!') // Если у нас ключ кончается на !
+                                $Array[substr($MixinKey, 0, -1)] = $MixinValue;
                             // Оверрайд
                             else
                             {
@@ -902,13 +907,13 @@
 
         public static function Dot ($Array, $Key)
         {
-            if (func_num_args() == 3)
+            if (func_num_args() === 3)
             {
                 $Value = func_get_arg(2);
 
-                if (is_array($Array))
+                if ($Array === (array) $Array)
                 {
-                    if (is_numeric($Key))
+                    if ($Key === (int) $Key)
                         $Key = (int) $Key;
 
                     if (strpos($Key, '.') !== false)
@@ -932,6 +937,9 @@
 
                 return $Array;
             }
+
+            if (isset($Array[$Key]))
+                return $Array[$Key];
 
             if (strpos($Key, '.') !== false)
             {

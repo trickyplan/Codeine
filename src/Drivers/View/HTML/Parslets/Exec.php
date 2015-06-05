@@ -31,9 +31,11 @@
                         $Match[$Key] = null;
 
                   if (isset($Match['Exec TTL']))
-                        $Match['RTTL'] = $Match['Exec TTL'];
+                      $RTTL = $Match['Exec TTL'];
+                  else
+                      $RTTL = 0;
 
-                  $Application = F::Run('Code.Flow.Application', 'Run', ['Run' => $Match]);
+                  $Application = F::Run('Code.Flow.Application', 'Run', ['RTTL' => $RTTL, 'Run' => $Match]);
 
                   /*if (F::Environment() == 'Development')
                       $Application['Output'] = '<div class="exec-cached">'.$Application['Output'].'</div>';
