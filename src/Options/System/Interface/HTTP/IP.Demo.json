@@ -1,0 +1,11 @@
+{
+    "IP":
+    {
+        "Pingback 0": "http://ip.appspot.com",
+        "Pingback 1": "http://checkip.dyndns.org",
+        "Substitute":
+        {
+            "127.0.0.1": "31.131.251.102"
+        }
+    }
+}
