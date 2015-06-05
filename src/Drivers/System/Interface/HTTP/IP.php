@@ -24,8 +24,12 @@
         {
             if (($IP = F::Run('IO', 'Read', $Call, ['Storage' => 'Cookie', 'Where' => 'DeveloperIP'])) == null)
             {
-                $Pingback = file_get_contents($Call['Pingback']);
-
+                $Pingback = F::Run('IO', 'Read',
+                [
+                    'Storage'   => 'Web',
+                    'Where'     => $Call['IP']['Pingback'],
+                    'IO One'    => true
+                ]);
                 preg_match($Call['IP']['Regex'], $Pingback, $Pockets);
                 $IP = $Pockets[0];
 
