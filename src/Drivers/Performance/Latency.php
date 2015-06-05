@@ -24,23 +24,23 @@
             switch($Decision)
             {
                 case 'Green':
-                    $Verbose = LOG_DEBUG;
+                    $Verbose = PHP_INT_MAX;
                 break;
 
                 case 'Orange':
-                    $Verbose = LOG_INFO;
+                    $Verbose = LOG_DEBUG;
                 break;
 
                 case 'Yellow':
-                    $Verbose = LOG_NOTICE;
+                    $Verbose = LOG_INFO;
                 break;
 
                 case 'Red':
-                    $Verbose = LOG_WARNING;
+                    $Verbose = LOG_NOTICE;
                 break;
 
                 case 'Black':
-                    $Verbose = LOG_CRIT;
+                    $Verbose = LOG_ERR;
                 break;
             }
 
