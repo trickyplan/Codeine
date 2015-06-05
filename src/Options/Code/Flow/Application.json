@@ -47,7 +47,7 @@
             "Rendering":
             {
                 "Service":"View.HTML",
-                "Method":"Render"
+                "Method":"Pipeline"
             }
         },
         "NotFound":
