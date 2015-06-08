@@ -1,0 +1,19 @@
+{
+    "Rules":
+    {
+        "Subscribe allow to all":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Entity.Create",
+                "Method": "Do",
+                "Call":
+                {
+                    "Entity": "Subscribe"
+                }
+            }
+        }
+    }
+}
