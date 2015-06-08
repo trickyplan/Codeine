@@ -1,0 +1,48 @@
+{
+    "Storage": "Primary",
+    "Mixins":
+    [
+        "Mixins.ID.Sequence"
+    ],
+    "Nodes":
+    {
+        "Event":
+        {
+            "Type": "Literal.String",
+            "Required": true
+        },
+        "Target":
+        {
+            "Type": "Literal.String",
+            "Required": true,
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        },
+        "Transport":
+        {
+            "Type": "Literal.String",
+            "Required": true
+        },
+        "Message":
+        {
+            "Type": "Auto"
+        },
+        "Last":
+        {
+            "Type": "Numeral.Integer",
+            "Required": true,
+            "Default": 0
+        },
+        "Count":
+        {
+            "Type": "Numeral.Integer",
+            "Required": true,
+            "Default": 0
+        }
+    }
+}
