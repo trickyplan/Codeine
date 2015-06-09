@@ -11,6 +11,7 @@
     {
         if (isset($Call['Search']['Provider'][$Call['Provider']]))
             $Call = F::Apply($Call['Search']['Provider'][$Call['Provider']]['Driver'], null, $Call['Search']['Provider'][$Call['Provider']], $Call);
+
         return $Call;
     });
 

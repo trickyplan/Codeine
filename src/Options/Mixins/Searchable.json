@@ -13,5 +13,24 @@
                 }
             }
         }
+    },
+    "Hooks":
+    {
+        "afterEntityWrite":
+        {
+            "Add to index":
+            {
+                "Service": "Entity.Search",
+                "Method": "Add"
+            }
+        },
+         "beforeEntityDelete":
+         {
+             "Remove from index":
+             {
+                 "Service": "Entity.Search",
+                 "Method":  "Remove"
+             }
+         }
     }
 }
