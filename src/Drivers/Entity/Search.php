@@ -7,7 +7,7 @@
      * @version 8.x
      */
 
-    setFn('Index', function ($Call)
+    setFn('Add', function ($Call)
     {
         // if (isset($Call['Providers'][$Call['Entity']]))
         {
@@ -34,7 +34,7 @@
                     }
                 }
 
-            if (F::Run('Search', 'Index', $Call,
+            if (F::Run('Search', 'Add', $Call,
             [
                 'Provider' => $Call['Entity'],
                 'Data!'    => $Data
@@ -206,7 +206,7 @@
                 ;
             else
                 foreach($Objects as $Data)
-                    F::Run(null, 'Index', $Call, ['Data!' => $Data]);
+                    F::Run(null, 'Add', $Call, ['Data!' => $Data]);
 
             F::Log('Reindex Page № '.$Page, LOG_WARNING);
         }
