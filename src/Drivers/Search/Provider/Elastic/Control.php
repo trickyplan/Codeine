@@ -13,7 +13,7 @@
          $ElasticOptions = F::loadOptions('Search.Provider.Elastic');
          $Hosts = $ElasticOptions['Elastic Search']['Options']['hosts'];
 
-         if (isset($SearchOptions['Providers']))
+         if (isset($SearchOptions['Search']['Provider']))
              foreach ($Hosts as $Host)
              {
                  $Table = [
@@ -36,18 +36,18 @@
 
                      $Table[] = ['Total', F::Run('Formats.Number.French', 'Do', ['Value' => $Stats[0]['_all']['total']['docs']['count']])];
 
-                     foreach ($SearchOptions['Providers'] as $Mount)
-                         if ($Mount['Service'] == 'Search.Provider.Elastic')
+                     foreach ($SearchOptions['Search']['Provider'] as $Mount)
+                         if ($Mount['Driver'] == 'Search.Provider.Elastic')
                          {
                              $Result = F::Run('IO', 'Read',
                                  [
                                      'Storage' => 'Web',
                                      'Format' => 'Formats.JSON',
-                                     'Where'   => $Host.'/project/_search/?type='.$Mount['Call']['Type'].'&search_type=count'
+                                     'Where'   => $Host.'/project/_search/?type='.$Mount['Type'].'&search_type=count'
                                  ]);
 
                              $Table[] = [
-                                 '<l>'.$Mount['Call']['Scope'].'.Control:Title</l>',
+                                 '<l>'.$Mount['Scope'].'.Control:Title</l>',
                                  F::Run('Formats.Number.French', 'Do',
                                      [
                                          'Value' => $Result[0]['hits']['total']
