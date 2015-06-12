@@ -14,10 +14,7 @@
 
     setFn('Write', function ($Call)
     {
-        if (isset($Call['View']['Renderer']['Service']) && $Call['View']['Renderer']['Service'] != 'View.HTML' && isset($Call['Print Log']))
-            return null;
-        else
-            return F::Apply(null, gettype($Call['Data']), $Call);
+        return F::Apply(null, gettype($Call['Data']), $Call);
     });
 
     setFn('boolean', function ($Call)
@@ -68,8 +65,7 @@
 
     setFn('NULL', function ($Call)
     {
-        echo 'null';
-        return $Call['Data'];
+        return '';
     });
 
     setFn('unknown type', function ($Call)
