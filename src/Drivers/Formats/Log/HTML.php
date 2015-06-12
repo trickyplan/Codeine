@@ -9,6 +9,11 @@
 
     setFn('Write', function ($Call)
     {
+        if ($Call['View']['Renderer']['Service'] == 'View.HTML' && empty($Call['Context']))
+            ;
+        else
+            return null;
+
         if (isset($Call['Channel']))
             ;
         else
