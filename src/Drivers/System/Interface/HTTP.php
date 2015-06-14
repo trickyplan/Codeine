@@ -146,12 +146,12 @@
 
     setFn('StoreURL', function ($Call)
     {
-     /*   if (isset($Call['Request']['BackURL']))
+        if (isset($Call['Request']['BackURL']))
             $Call['BackURL'] = $Call['Request']['BackURL'];
         elseif (isset($_SERVER['HTTP_REFERER']))
             $Call['BackURL'] = $_SERVER['HTTP_REFERER'];
 
-        F::Log('Back URL set to *'.$Call['BackURL'].'*', LOG_INFO);*/
+        F::Log('Back URL set to *'.$Call['BackURL'].'*', LOG_INFO);
         return $Call;
     });
 
