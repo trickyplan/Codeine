@@ -10,10 +10,11 @@
     setFn('LatLon', function ($Call)
     {
         $Record = geoip_record_by_name($Call['HTTP']['IP']);
+
         return [
-            'lat' => $Record['latitude'],
-            'lon' => $Record['longitude']
-        ];
+                   'lat' => $Record['latitude'],
+                   'lon' => $Record['longitude']
+               ];
     });
 
     setFn('Country', function ($Call)
