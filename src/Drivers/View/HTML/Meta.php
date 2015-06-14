@@ -40,7 +40,8 @@
 
             $Call['Output'] = preg_replace(
                         $Call['Meta']['Pattern']['Title'],
-                        '<title itemprop="name">'.$Call['View']['HTML']['Title'].'</title>',
+                        '<title itemprop="name">'.$Call['View']['HTML']['Title'].'</title>'
+                        .'<meta property="og:title" content="'.$Call['View']['HTML']['Title'].'"/>',
                         $Call['Output']);
         }
 
