@@ -16,11 +16,9 @@
               if ($Root->attributes()->type !== null)
                   $Type = (string) $Root->attributes()->type;
               else
-                  $Type = $Call['Type'];
+                  $Type = 'XML';
 
               $Match = F::Run('Formats.'.$Type, 'Read', ['Value' => trim($Call['Parsed'][2][$IX])]);
-
-              F::Log($Match, LOG_INFO);
 
               foreach ($Call['Inherited'] as $Key)
                   if (isset($Call[$Key]))
@@ -30,7 +28,7 @@
 
               // FIXME Add Return Key
               if (is_array($Output))
-                  $Output = array_pop($Output);
+                  $Output = '{}';
 
               if (is_float($Output))
                   $Output = str_replace(',', '.', $Output);

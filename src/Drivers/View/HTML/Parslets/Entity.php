@@ -22,8 +22,6 @@
             if (preg_match('@^(.+)\:(.+)$@SsUu', $Call['Parsed'][2][$Ix], $Slices))
             {
                 list(,$Entity, $ID) = $Slices;
-
-
                 $Element = F::Run('Entity', 'Read',
                     [
                           'Entity' => $Entity,
