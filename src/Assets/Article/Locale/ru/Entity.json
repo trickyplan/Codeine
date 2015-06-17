@@ -10,8 +10,9 @@
     "Empty": "Статей нет",
     "SEO":
     {
-        "Keywords": "Ключевые слова",
-        "Title": "SEO Заголовок",
-        "Description": "SEO Описание"
+        "Slug": "SEO: ЧПУ",
+        "Keywords": "SEO: Ключевые слова",
+        "Title": "SEO: Заголовок",
+        "Description": "SEO: Описание"
     }
 }
