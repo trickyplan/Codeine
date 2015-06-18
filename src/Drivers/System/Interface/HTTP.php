@@ -26,7 +26,6 @@
 
             $Call = F::Hook('beforeRequestRun', $Call);
 
-
                 try
                 {
                     $Call = F::Apply($Call['Service'], $Call['Method'], $Call);
@@ -184,6 +183,9 @@
 
         foreach ($_SERVER as &$Request)
             $Request = str_replace(chr(0), '', rawurldecode($Request));
+
+        if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')
+            $Call['Context'] = 'app';
 
         return $Call;
     });
