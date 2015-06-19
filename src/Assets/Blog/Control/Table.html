@@ -1,3 +1,31 @@
-<table class="table table-striped">
+<ul class="nav nav-tabs">
+    <li>
+        <a href="<call>HTTP.URL</call>?rsort=Modified">
+            <span class="fa fa-sort-amount-desc"></span>
+            <l><call>Entity</call>.Entity:Modified</l>
+        </a>
+    </li>
+    <li>
+        <a href="<call>HTTP.URL</call>?sort=Modified">
+            <span class="fa fa-sort-amount-asc"></span>
+            <l><call>Entity</call>.Entity:Modified</l>
+        </a>
+    </li>
+    <li>
+        <a href="<call>HTTP.URL</call>?rsort=Created">
+            <span class="fa fa-sort-amount-desc"></span>
+            <l><call>Entity</call>.Entity:Created</l>
+        </a>
+    </li>
+    <li>
+        <a href="<call>HTTP.URL</call>?sort=Created">
+            <span class="fa fa-sort-amount-asc"></span>
+            <l><call>Entity</call>.Entity:Created</l>
+        </a>
+    </li>
+</ul>
+<place>Pagination</place>
+<div class="list-group">
     <place>Content</place>
-</table>
+</div>
+<place>Pagination</place>
