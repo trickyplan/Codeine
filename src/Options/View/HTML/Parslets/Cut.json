@@ -5,12 +5,15 @@
         {
             "Parslet":
             {
-                "Strip Tags":
+                "Cut":
                 {
-                    "Enabled": true,
-                    "Allowed": "<br/><em><strong>"
-                },
-                "Hellip": "…"
+                    "StripTags":
+                    {
+                        "Enabled": true,
+                        "Allowed": "<br><em><strong>"
+                    },
+                    "Hellip": "…"
+                }
             }
         }
     }
