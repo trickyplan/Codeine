@@ -12,7 +12,12 @@
         return strip_tags($Call['Value']); // FIXME
     });
 
-    setFn(['Read', 'Where'], function ($Call)
+    setFn('Read', function ($Call)
     {
-        return ($Call['Value']);
+        return nl2br($Call['Value']);
+    });
+
+    setFn('Where', function ($Call)
+    {
+        return $Call['Value'];
     });
