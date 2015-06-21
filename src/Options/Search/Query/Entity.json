@@ -20,6 +20,10 @@
             "Type": "Numeral.Integer",
             "Default": 0
         },
+        "Hits.All":
+        {
+            "Type": "Numeral.Integer"
+        },
         "Hits":
         {
             "Type": "Complex.Array"
