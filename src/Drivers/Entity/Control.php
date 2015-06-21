@@ -75,7 +75,7 @@
                 $Table[$Key] =
                     [
                         '<l>'.$Call['Bundle'].'.Control:'.$Key.'</l>',
-                        $Totals[$Key]
+                        '<number>'.$Totals[$Key].'</number>'
                     ];
 
 
