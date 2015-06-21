@@ -29,6 +29,7 @@
                     'Data'  =>
                     [
                         'Query' => $Call['Query'],
+                        'Hits' => $Call['Hits'],
                         'Count' => 1
                     ]
                 ]);
@@ -44,6 +45,7 @@
                     ],
                     'Data'  =>
                     [
+                        'Hits' => $Call['Hits'],
                         'Count' => $Query['Count']+1
                     ]
                 ]);

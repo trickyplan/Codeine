@@ -28,6 +28,7 @@
         if (isset($Call['Request']['Query']))
             $Call['Query'] = $Call['Request']['Query']; // FIXME
 
+        $Call['Vertical'] = false;
         $Call = F::Hook('beforeQuery', $Call);
 
         $Call['Layouts'][] = ['Scope' => '','ID' => 'Search'];
@@ -42,11 +43,14 @@
                 $Call['Provider'] = (array) $Call['Provider'];
         }
         else
-            $Call['Provider'] = array_keys($Call['Search']['Provider']); // Vertical
+        {
+            $Call['Vertical'] = true;
+            $Call['Provider'] = array_keys($Call['Search']['Provider']);
+        } // Vertical
 
         foreach ($Call['Search']['Provider'] as $Provider => $ProviderCall)
         {
-            if (isset($ProviderCall['Non-vertical']))
+            if (isset($ProviderCall['Non-vertical']) && $Call['Vertical'])
                 ;
             else
             {
