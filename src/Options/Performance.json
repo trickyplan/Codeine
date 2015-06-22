@@ -5,7 +5,7 @@
         "Red":
         {
             "ACalls": 50,
-            "RCalls": 20,
+            "RCalls": 10,
             "RTime": 33,
             "ATime": 100,
             "TimePerCall": 20
@@ -13,7 +13,7 @@
         "Yellow":
         {
             "ACalls": 25,
-            "RCalls": 10,
+            "RCalls": 5,
             "RTime": 5,
             "ATime": 50,
             "TimePerCall": 10

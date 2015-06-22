@@ -61,6 +61,7 @@
             if (isset($Call['Environment']) and null !== $Call['Environment'])
                 self::$_Environment = $Call['Environment'];
 
+            define('Environment', self::$_Environment);
             if (isset($Call['Paths']))
             {
                 if ((array) $Call['Paths'] === $Call['Paths'])
@@ -376,13 +377,13 @@
                                 $Memo[] = $Key;
                         }
 
-                        $CacheID = sha1(serialize($Memo));
+                        $CacheID = j($Memo);
                     }
 
                     $ST = 0;
 
                     if (isset($CacheID) && ($Result = self::Get($CacheID)) !== null)
-                        self::Log(self::$_Service.':'.self::$_Method.'('.$CacheID.') fast forwarded.', LOG_INFO, 'Performance');
+                        self::Log(self::$_Service.':'.self::$_Method.'('.$CacheID.') memoized.', LOG_DEBUG, 'Performance');
                     else
                     {
                         if (isset($FnOptions['Contract'][self::$_Service][self::$_Method]['RTTL']) && !isset($Call['RTTL']))
@@ -612,7 +613,7 @@
                 or
             (isset($_SERVER['Verbose']) && $Verbose <= $_SERVER['Verbose']))
             {
-                if (is_string($Message))
+                if (is_scalar($Message))
                     ;
                 else
                     $Message = j($Message,
@@ -622,9 +623,9 @@
                     trigger_error($Message);*/
 
                 // $Message = self::$_Service.': '.$Message;
-                $Time = sprintf('%.4f', microtime(true)-Started).' ';
+                $Time = microtime(true)-Started;
 
-                if (PHP_SAPI == 'cli')
+                if (PHP_SAPI === 'cli')
                 {
                     $Head = "\033[0;90m".$Time."\033[0m"."\t[".$Channel."]\t".self::$_Service.":\t";
                     
@@ -672,12 +673,12 @@
                 else
                    self::$_Log[$Channel][]
                         = [
-                        $Verbose,
-                        round(microtime(true) - Started, 3),
-                        $Message,
-                        self::$_Service.':'.self::$_Method,
-                        self::$_Stack->count()
-                    ];
+                            $Verbose,
+                            $Time,
+                            $Message,
+                            self::$_Service.':'.self::$_Method,
+                            self::$_Stack->count()
+                        ];
             }
 
             return $Message;
@@ -1100,7 +1101,7 @@
 
     function j($Call)
     {
-        if (F::Environment() === 'Development')
+        if (Environment === 'Development')
             return json_encode($Call, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
         else
             return json_encode($Call, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
