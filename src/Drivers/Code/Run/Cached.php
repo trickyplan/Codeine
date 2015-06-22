@@ -29,7 +29,7 @@
                     'Where' => ['ID' => $Call['Run']['CacheID']]
                 ]);
 
-            $Memo = serialize($Call['Run']['Memo']);
+            $Memo = j($Call['Run']['Memo']);
 
             if ($Envelope !== null)
             {
@@ -44,7 +44,7 @@
                     F::Log('Cache *expired* for call '.$Scope.'('.$Memo.')', LOG_INFO, 'Performance');
             }
             else
-                F::Log('Cache *miss* for call '.$Scope.'('.$Memo.')', LOG_INFO, 'Performance');
+                F::Log('Cache *miss* for call '.$Scope.'('.$Memo.')', LOG_NOTICE, 'Performance');
 
             if ($Run)
             {

@@ -9,6 +9,7 @@
             }
         }
     },
+    "RTTL": 300,
     "View":
     {
         "Renderer":
