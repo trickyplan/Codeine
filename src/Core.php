@@ -411,7 +411,7 @@
                         else
                         {
                             $ST = microtime(true);
-                            $Result = $F($Call);
+                            $Result = $F($Call); // Real Run Here
                             $ST = microtime(true)-$ST;
                         }
                     }
