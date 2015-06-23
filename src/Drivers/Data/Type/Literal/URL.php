@@ -9,7 +9,7 @@
 
     setFn('Write', function ($Call)
     {
-        if (isset($Call['Value']) && !empty($Call['Value']))
+        if (isset($Call['Value']) && !empty($Call['Value']) && filter_var($Call['Value'], FILTER_VALIDATE_URL))
         {
             $Parts = parse_url($Call['Value']);
 
@@ -27,7 +27,8 @@
 
             return $Parts['scheme'].'://'.$Parts['host'].$Parts['path'].$Parts['query'].$Parts['fragment'];
         }
-        else return '';
+        else
+            return null;
     });
 
     setFn(['Read', 'Where'], function ($Call)
