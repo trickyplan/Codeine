@@ -117,7 +117,7 @@
                         $Data = F::Merge($Call['Default'], $Data);
 
                     $Data['Snippet'] = isset($Hit['highlight'][$Call['Highlight']][0])? $Hit['highlight'][$Call['Highlight']][0]: '';
-                    $Data['Entity'] = '<l>'.$Call['Scope'].'.Control:Title</l>';
+                    $Data['Provider'] = '<l>'.$Call['Scope'].'.Control:Title</l>';
                     // FIXME
 
                     $SERP[$Hit['_id']] =
