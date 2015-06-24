@@ -9,15 +9,15 @@
                 "Method": "StoreURL"
             }
         },
-        "afterCreatePost":
+        "afterCreatePost!":
         {
-            "Redirect":
+            "Restore URL":
             {
                 "Service": "System.Interface.HTTP",
-                "Method": "Redirect",
+                "Method": "RestoreURL",
                 "Call":
                 {
-                    "Redirect": "/$Slug.Entity/$Data.0.Slug"
+                    "BackURL": "/$Slug.Entity/$Data.0.Slug"
                 }
             }
         },
