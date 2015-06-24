@@ -24,7 +24,6 @@
             $Parts['query'] = isset($Parts['query'])? $Parts['query']:'';
             $Parts['fragment'] = isset($Parts['fragment'])? $Parts['fragment']:'';
 
-
             return $Parts['scheme'].'://'.$Parts['host'].$Parts['path'].$Parts['query'].$Parts['fragment'];
         }
         else
