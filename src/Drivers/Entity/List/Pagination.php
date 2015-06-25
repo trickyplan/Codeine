@@ -52,6 +52,9 @@
                 }
 
                 $Call['PageCount'] = ceil($Call['Count']/$Call['EPP']);
+
+                if ($Call['PageCount'] > 100)
+                    $Call['PageCount'] = 100;
             }
 
         }
@@ -70,7 +73,6 @@
 
         if (!isset($Call['FirstURL']) && isset($Call['HTTP']['URL']))
             $Call['FirstURL'] = preg_replace('@/page(\d+)@', '', $Call['HTTP']['URL']);
-
 
         if (isset($Call['PageCount']) && $Call['PageCount']>1)
             $Call['Output']['Pagination'][] =
