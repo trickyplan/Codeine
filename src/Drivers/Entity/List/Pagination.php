@@ -25,6 +25,9 @@
             {
                 if (!isset($Call['Page']) or empty($Call['Page']))
                     $Call['Page'] = 1;
+                else
+                    if ($Call['Page'] > 100)
+                        $Call['Page'] = 100;
 
                 $Call['Count'] = F::Run('Entity', 'Count', $Call);
 
