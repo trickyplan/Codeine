@@ -22,7 +22,7 @@
         {
             F::Log($Call['Link']->index(
                  [
-                     'index' => 'project',
+                     'index' => $Call['Index'],
                      'id'    => $Call['Data']['ID'],
                      'type'  => $Call['Type'],
                      'body'  => $Call['Data']
@@ -47,7 +47,7 @@
             F::Log('Start search on query: '.$Call['Query'], LOG_NOTICE);
 
             $Query = [
-                     'index' => 'project',
+                     'index' => $Call['Index'],
                      'type'  => $Call['Type'],
 /*                     'from'  => $Call['EPP']*($Call['Page']-1),
                      'size'  => $Call['EPP'],*/
@@ -150,7 +150,7 @@
             $Call = F::Run(null, 'Open', $Call);
             F::Log($Call['Link']->delete(
                  [
-                     'index' => 'project',
+                     'index' => $Call['Index'],
                      'id'    => $Call['Data']['ID'],
                      'type'  => $Call['Type']
                  ]

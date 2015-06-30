@@ -11,13 +11,13 @@
         },
         "afterCreatePost!":
         {
-            "Restore URL":
+            "Redirect to created":
             {
                 "Service": "System.Interface.HTTP",
-                "Method": "RestoreURL",
+                "Method": "Redirect",
                 "Call":
                 {
-                    "BackURL": "/$Slug.Entity/$Data.0.Slug"
+                    "Redirect": "/$Slug.Entity/$Data.0.Slug"
                 }
             }
         },
