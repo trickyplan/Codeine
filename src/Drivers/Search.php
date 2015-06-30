@@ -28,7 +28,6 @@
         if (isset($Call['Request']['Query']))
             $Call['Query'] = $Call['Request']['Query']; // FIXME
 
-        $Call['Vertical'] = false;
         $Call = F::Hook('beforeQuery', $Call);
 
         $Call['Layouts'][] = ['Scope' => '','ID' => 'Search'];
