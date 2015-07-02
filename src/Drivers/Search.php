@@ -65,7 +65,7 @@
         if (count($Call['Provider']) > 1)
             $Call['Hits']['Selected'] = $Call['Hits']['All'];
         else
-            $Call['Hits']['Selected'] = $Call['Hits'][$Call['Provider'][0]];
+            $Call['Hits']['Selected'] = F::Dot($Call['Hits'], $Call['Provider'][0]);
 
         $Call = F::Hook('afterQuery', $Call);
 
