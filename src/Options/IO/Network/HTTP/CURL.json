@@ -12,7 +12,7 @@
     "CURL":
     {
         "Referer": "",
-        "Connect Timeout": 15,
+        "Connect Timeout": 7,
         "Overall Timeout": 30,
         "Cookie Directory": "/tmp/codeine",
         "Follow": true,

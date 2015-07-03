@@ -18,6 +18,11 @@
             {
                 "Service": "Entity.List.Pagination",
                 "Method": "beforeList"
+            },
+            "Random":
+            {
+                "Service": "Entity.List.Random",
+                "Method": "beforeList"
             }
         },
         "afterList":
