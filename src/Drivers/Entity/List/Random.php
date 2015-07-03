@@ -12,7 +12,11 @@
         if (isset($Call['Random']))
         {
             $Call['Elements'] = F::Run('Entity', 'Read', $Call);
-            shuffle($Call['Elements']);
+
+            if (empty($Call['Elements']))
+                ;
+            else
+                shuffle($Call['Elements']);
         }
 
         return $Call;
