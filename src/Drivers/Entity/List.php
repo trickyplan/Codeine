@@ -14,7 +14,8 @@
         else
             $Data = [];
 
-        if (!isset($Call['Context'])) $Call['Context'] = '';
+        if (!isset($Call['Context']))
+            $Call['Context'] = '';
 
         $Call = F::Merge($Call, F::loadOptions($Call['Entity'].'.Entity')); // FIXME
 
