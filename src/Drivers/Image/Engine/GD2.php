@@ -23,7 +23,7 @@
 
     setFn('Load', function ($Call)
     {
-        list ($Call['Image']['Widht'], $Call['Image']['Height'], $Call['Image']['Type']) = getimagesize($Call['ID']);
+        list ($Call['Image']['Width'], $Call['Image']['Height'], $Call['Image']['Type']) = getimagesize($Call['ID']);
 
         switch ($Call['Image']['Type'])
         {
