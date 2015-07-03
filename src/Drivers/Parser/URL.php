@@ -26,15 +26,12 @@
     setFn('POST', function ($Call)
     {
         $Call['URL'] = $Call['Request']['Data']['URL'];
-        F::Run('Code.Run.Delayed', 'Run',
+        $Call['Data'] = F::Run('Parser.URL', 'Parse', $Call);
+        $Call['Output']['Content'][] =
             [
-                'Run' =>
-                    [
-                        'Service' => 'Parser.URL',
-                        'Method' => 'Parse',
-                        'Call' => $Call
-                    ]
-            ]);
+                'Type' => 'Block',
+                'Value' => j($Call['Data'])
+            ];
 
         return $Call;
     });
@@ -58,7 +55,7 @@
             $Result = array_pop($Result);
 
             $Call = F::Run('Parser', 'Do', $Call, ['Markup' => $Result]);
-            $Slices = explode('.', $Call['Schema']);
+            $Slices = explode('/', $Call['Schema']);
             $Call['Entity'] = array_pop($Slices);
             $Call['Data']['Source'] = $Call['URL'];
             $Call['Data'] = F::Run('Entity', 'Create', $Call, ['One' => true]);
@@ -71,12 +68,6 @@
         }
         else
             $Call['Data'] = null;
-
-        $Call['Output']['Content'][] =
-            [
-                'Type' => 'Block',
-                'Value' => j($Call['Data'])
-            ];
 
         return $Call['Data'];
     });
