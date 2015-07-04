@@ -51,7 +51,7 @@
         {
             if (isset($ProviderCall['Non-vertical']) && $Call['Vertical'])
                 ;
-            else
+            elseif (in_array($Provider, $Call['Provider']))
             {
                 $Result = F::Run($ProviderCall['Driver'], 'Query', $ProviderCall, $Call);
                 $Call['Hits'] = F::Dot($Call['Hits'], $Provider, $Result['Meta']['Hits'][$Provider]);

@@ -25,7 +25,10 @@
                     'Entity' => $Call['Entity'],
                     'Where' =>
                     [
-                        'Keywords' => $Keyword // FIXME SOON
+                        'Keywords' =>
+                        [
+                            '$regex' => $Keyword
+                        ]// FIXME SOON
                     ]
                 ]);
 
