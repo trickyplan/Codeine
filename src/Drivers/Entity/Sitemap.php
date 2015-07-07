@@ -74,25 +74,28 @@
             ]
         ]);
 
-        foreach ($Objects as $Object)
-        {
-            $Slug = [];
+        if (empty($Objects))
+            ;
+        else
+            foreach ($Objects as $Object)
+            {
+                $Slug = [];
 
-            foreach ($Call['Sitemap']['URL Field'] as $Slice)
-                if (isset($Object[$Slice]))
-                    $Slug[] = urlencode($Object[$Slice]);
+                foreach ($Call['Sitemap']['URL Field'] as $Slice)
+                    if (isset($Object[$Slice]))
+                        $Slug[] = urlencode($Object[$Slice]);
 
-            $Call['Output']['Content'][] =
-                [
-                    'url' =>
-                        [
-                            'loc' => $Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/'.$Call['Scope'].'/'.implode('/', $Slug),
-                            'lastmod' => date(DATE_W3C),
-                            'changefreq' => $Call['Frequency'],
-                            'priority'   => $Call['Priority']
-                        ]
-                ];
-        }
+                $Call['Output']['Content'][] =
+                    [
+                        'url' =>
+                            [
+                                'loc' => $Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/'.$Call['Scope'].'/'.implode('/', $Slug),
+                                'lastmod' => date(DATE_W3C),
+                                'changefreq' => $Call['Frequency'],
+                                'priority'   => $Call['Priority']
+                            ]
+                    ];
+            }
 
         return $Call;
     });
