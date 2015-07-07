@@ -64,17 +64,13 @@
             [
                 'ID' =>
                 [
-                    '$gt' => $From
+                    '$gt' => $From,
+                    '$lt' => $From + $Call['Sitemap']['Limits']['URLs Per Sitemap']
                 ]
             ],
             'Sort'   =>
             [
                 'ID' => false
-            ],
-            'Limit'  =>
-            [
-                'From' => 0,
-                'To'   => $Call['Sitemap']['Limits']['URLs Per Sitemap']
             ]
         ]);
 

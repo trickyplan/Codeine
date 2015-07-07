@@ -110,7 +110,7 @@
         },
         "Show Sitemap Index":
         {
-            "Match": "/sitemap/(.+)-(\\d).xml",
+            "Match": "/sitemap/(.+)-(\\d+).xml",
             "Service": "SEO.Sitemap",
             "Method": "Show Sitemap Index",
             "View":
