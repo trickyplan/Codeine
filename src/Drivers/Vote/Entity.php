@@ -26,28 +26,33 @@
 
     setFn('Ratio', function ($Call)
     {
-        if (isset($Call['Data']['VoteFor']))
-            ;
-        else
-            $Call['Data']['VoteFor'] = 0;
+        $Ratio = 1;
 
-        if (isset($Call['Data']['VoteAgainst']))
-            ;
-        else
-            $Call['Data']['VoteAgainst'] = 0;
+        if (isset($Call['Data']['ID']))
+        {
+            if (isset($Call['Data']['VoteFor']))
+                ;
+            else
+                $Call['Data']['VoteFor'] = 0;
 
-        $Sum = $Call['Data']['VoteFor']+$Call['Data']['VoteAgainst'];
+            if (isset($Call['Data']['VoteAgainst']))
+                ;
+            else
+                $Call['Data']['VoteAgainst'] = 0;
 
-        if ($Sum == 0)
-            $Ratio = 1;
-        else
-            $Ratio = ($Call['Data']['VoteFor'] / $Sum);
+            $Sum = $Call['Data']['VoteFor']+$Call['Data']['VoteAgainst'];
 
-        if ($Ratio < 0.25)
-            $Ratio = 0.25;
+            if ($Sum == 0)
+                $Ratio = 1;
+            else
+                $Ratio = ($Call['Data']['VoteFor'] / $Sum);
 
-        if ($Ratio > 1)
-            $Ratio = 1;
+            if ($Ratio < 0.25)
+                $Ratio = 0.25;
+
+            if ($Ratio > 1)
+                $Ratio = 1;
+        }
 
         return $Ratio;
     });
@@ -56,7 +61,7 @@
     {
         $Result = null;
 
-        if (isset($Call['Session']['User']['ID']))
+        if (isset($Call['Session']['User']['ID']) && isset($Call['Data']['ID']))
         {
             $Vote =  F::Run('Entity', 'Read',
                          [
