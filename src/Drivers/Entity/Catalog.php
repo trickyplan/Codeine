@@ -16,28 +16,28 @@
 
         $Call = F::Hook('beforeCatalog', $Call);
 
-        if (isset($Call['No Catalog Entity']))
-        {
-            $Elements = F::Run('Entity', 'Read', $Call,
-                [
-                    'Entity'    => $Call['Entity'],
-                    'Fields'    => [$Call['Key']],
-                    'Distinct'  => true,
-                    'Where'     => []
-                ]);
+            if (isset($Call['No Catalog Entity']))
+            {
+                $Elements = F::Run('Entity', 'Read', $Call,
+                    [
+                        'Entity'    => $Call['Entity'],
+                        'Fields'    => [$Call['Key']],
+                        'Distinct'  => true,
+                        'Where'     => []
+                    ]);
 
-            $Elements = F::Extract($Elements, $Call['Key']);
-        }
-        else
-        {
-            $Elements = F::Run('Entity', 'Read',
-                               [
-                                   'Entity' => $Call['Key'],
-                                   'Where'  => []
-                               ]);
+                $Elements = F::Extract($Elements, $Call['Key']);
+            }
+            else
+            {
+                $Elements = F::Run('Entity', 'Read',
+                                   [
+                                       'Entity' => $Call['Key'],
+                                       'Where'  => []
+                                   ]);
 
-            $Elements = F::Extract($Elements, 'ID');
-        }
+                $Elements = F::Extract($Elements, 'ID');
+            }
 
             $Values = [];
 
@@ -48,7 +48,6 @@
                     $Value = F::Run('Entity', 'Count',
                     [
                         'Entity' => $Call['Entity'],
-                        'RTTL'   => 600,
                         'Where' =>
                         [
                             $Call['Key'] => $Element
