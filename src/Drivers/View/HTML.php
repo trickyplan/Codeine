@@ -37,16 +37,12 @@
                         if (is_array($Widget))
                         {
                             if (isset($Widget['Type']))
-                                ;
-                            else
-                                $Widget['Type'] = '';
-
                                 $Call['Output'][$Place][$Key] = F::Run ('View', 'Load',
                                     [
                                         'Scope' => (isset($Widget['Widget Set'])? $Widget['Widget Set']: $Call['View']['HTML']['Widget Set']).'/Widgets',
                                         'ID'    => (isset($Widget['Widget Template'])?
-                                                    $Widget['Widget Template']
-                                                    : strtr($Widget['Type'],'.', '/')),
+                                            $Widget['Widget Template']
+                                            : strtr($Widget['Type'],'.', '/')),
                                         'Data'  =>
                                             F::Run(
                                                 $Call['View']['Renderer']['Service']

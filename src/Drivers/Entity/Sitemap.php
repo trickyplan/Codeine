@@ -59,6 +59,7 @@
 
         $Objects = F::Run('Entity', 'Read', $Call,
         [
+            'Skip Live' => true,
             'Fields' => $Call['Sitemap']['URL Field'],
             'Where'  =>
             [
