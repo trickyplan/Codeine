@@ -12,7 +12,7 @@
         "Hash Levels": 8,
         "Pattern": "<image([^>]*)>(.+?)<\/image>",
         "Pathname": "/cache/img/",
-        "Quality": 100,
+        "Quality": 85,
         "TTL": 86400,
         "Path Separator": "-",
         "Source":
