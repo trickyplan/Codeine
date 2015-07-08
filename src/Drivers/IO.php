@@ -169,7 +169,6 @@
 
     setFn ('Execute', function ($Call)
     {
-
         if (isset($Call['Storage']))
         {
             $Call = F::Apply('IO', 'Open', $Call);
