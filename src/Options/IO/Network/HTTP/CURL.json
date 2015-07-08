@@ -6,6 +6,11 @@
             "Read":
             {
                 "Memo": ["Scope", "Where.ID", "Time", "Data", "CURL"]
+            },
+            "Exist":
+            {
+                "RTTL": 3600,
+                "Memo": ["Scope", "Where.ID", "Time", "CURL"]
             }
         }
     },
