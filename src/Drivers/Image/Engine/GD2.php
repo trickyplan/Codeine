@@ -23,7 +23,9 @@
 
     setFn('Load', function ($Call)
     {
-        if (F::file_exists($Call['ID']))
+        if (empty($Call['ID']))
+            ;
+        else
         {
             list ($Call['Image']['Width'], $Call['Image']['Height'], $Call['Image']['Type']) = getimagesize($Call['ID']);
 
@@ -108,8 +110,8 @@
 
             return $Call['Image'];
         }
-        else
-            return null;
+
+        return null;
     });
 
     setFn('Save', function ($Call)
