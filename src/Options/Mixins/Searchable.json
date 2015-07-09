@@ -3,7 +3,7 @@
     {
         "Keywords":
         {
-            "Type": "Auto",
+            "Type": "Array.String",
             "Hooks":
             {
                 "beforeEntityWrite":
