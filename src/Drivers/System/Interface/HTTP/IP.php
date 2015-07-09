@@ -30,8 +30,11 @@
                     'Where'     => $Call['IP']['Pingback'],
                     'IO One'    => true
                 ]);
-                preg_match($Call['IP']['Regex'], $Pingback, $Pockets);
-                $IP = $Pockets[0];
+
+                if (preg_match($Call['IP']['Regex'], $Pingback, $Pockets))
+                    $IP = $Pockets[0];
+                else
+                    $IP = '127.0.0.1';
 
                 F::Run('IO', 'Write', $Call, ['Storage' => 'Cookie', 'Where' => 'DeveloperIP', 'Data' => $IP]);
 
