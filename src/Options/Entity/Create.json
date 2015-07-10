@@ -24,6 +24,11 @@
         },
         "beforeCreateGet":
         {
+            "Load model (essential)":
+            {
+                "Service": "Entity",
+                "Method": "Load"
+            },
             "Add form widget":
             {
                 "Output":
@@ -37,7 +42,6 @@
                         }
                     }
                 }
-
             }
         },
         "afterCreatePost":
