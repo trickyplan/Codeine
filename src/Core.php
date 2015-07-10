@@ -607,7 +607,7 @@
             return true;
         }
 
-        public static function Log ($Message, $Verbose = 7, $Channel = 'Developer')
+        public static function Log ($Message, $Verbose = 7, $Channel = 'Developer', $AppendStack = true)
         {
             if (($Verbose <= self::$_Verbose[$Channel])
                 or
@@ -679,6 +679,9 @@
                             self::$_Service.':'.self::$_Method,
                             self::$_Stack->count()
                         ];
+
+                if ($Verbose < LOG_NOTICE and $AppendStack)
+                    F::Log(F::Stack(), $Verbose, $Channel, false);
             }
 
             return $Message;

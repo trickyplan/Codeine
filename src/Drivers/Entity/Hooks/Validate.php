@@ -12,17 +12,17 @@
         foreach ($Call['Nodes'] as $Name => $Node)
             foreach ($Call['Validators'] as $Validator)
             {
-                $Error = F::Run('Entity.Hooks.Validate.'.$Validator, 'Process', $Call,
+                $isValid = F::Run('Entity.Hooks.Validate.'.$Validator, 'Process', $Call,
                     [
                         'Name' => $Name,
                         'Node' => $Node,
                         'Data' => $Call['Data']
                     ]);
 
-                if ($Error !== true)
+                if ($isValid !== true)
                 {
-                    $Call['Errors'][$Name][] = $Error;
-                    F::Log($Call['Entity'].':'.$Name.' '.$Error, LOG_INFO);
+                    $Call['Errors'][$Name][] = $isValid;
+                    F::Log($Call['Entity'].':'.$Name.' '.$isValid, LOG_INFO);
                 }
             }
 

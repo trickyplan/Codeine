@@ -16,7 +16,7 @@
               if ($Root->attributes()->type !== null)
                   $Type = (string) $Root->attributes()->type;
               else
-                  $Type = $Call['Type'];
+                  $Type = $Call['Parslet']['Exec']['Type'];
 
               $Match = F::Run('Formats.'.$Type, 'Read', ['Value' => trim($Call['Parsed'][2][$IX])]);
 
@@ -24,7 +24,7 @@
               {
                   F::Log($Match, LOG_INFO);
 
-                  foreach ($Call['Inherited'] as $Key)
+                  foreach ($Call['Parslet']['Exec']['Inherited'] as $Key)
                       if (isset($Call[$Key]))
                         $Match[$Key] = $Call[$Key];
                       else
