@@ -118,7 +118,11 @@
             "Validate":
             {
                 "Service":"Entity.Hooks.Validate",
-                "Method":"Process"
+                "Method":"Process",
+                "Call":
+                {
+                    "Purpose": "Create"
+                }
             }
         },
         "beforeEntityUpdate":
@@ -145,7 +149,11 @@
             "Validate":
             {
                 "Service":"Entity.Hooks.Validate",
-                "Method":"Process"
+                "Method":"Process",
+                "Call":
+                {
+                    "Purpose": "Update"
+                }
             }
         },
         "beforeEntityDelete":
@@ -167,25 +175,10 @@
         },
         "afterEntityCreate":
         {
-            "Datatypes":
-            {
-                "Service":"Entity.Hooks.Type",
-                "Method":"Read",
-                "Weight": 1000
-            },
             "Make variables alive":
             {
                 "Service":"Entity.Hooks.Live",
                 "Method":"Process"
-            }
-        },
-        "afterEntityUpdate":
-        {
-            "Datatypes":
-            {
-                "Service":"Entity.Hooks.Type",
-                "Method":"Read",
-                "Weight": 1000
             }
         },
         "beforeEntityRead":
@@ -219,12 +212,13 @@
                 "Method":"afterEntityRead"
             }
         },
-        "-afterEntityWrite":
+        "afterEntityWrite":
         {
-            "GEC":
+            "Datatypes":
             {
-                "Service":"Entity.Hooks.GEC",
-                "Method":"afterEntityWrite"
+                "Service":"Entity.Hooks.Type",
+                "Method":"Read",
+                "Weight": 1000
             }
         }
     }

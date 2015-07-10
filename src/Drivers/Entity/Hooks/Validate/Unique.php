@@ -31,14 +31,17 @@
                 ];
             }
 
-            if (F::Run('Entity', 'Count',
+            F::Log('Checking unique *'.$Call['Name'].'* value *'.$Call['Data'][$Call['Name']].'* ('.$Call['Purpose'].')', LOG_INFO);
+
+            $Count = F::Run('Entity', 'Count',
                           [
                                'Entity' => $Call['Entity'],
                                'Where' => $Where
-                          ]) > $Limit)
+                          ]);
+
+            if ($Count > $Limit)
             {
-                F::Log('Non-unique '.$Call['Name'].' value: '.j($Call['Data'][$Call['Name']]), LOG_ERR);
-                F::Log($Call['Data'], LOG_WARNING);
+                F::Log('Non-unique ('.$Count.'/'.$Limit.') '.$Call['Name'].' value: '.j($Call['Data'][$Call['Name']]).' ', LOG_ERR);
                 return 'Unique';
             }
         }

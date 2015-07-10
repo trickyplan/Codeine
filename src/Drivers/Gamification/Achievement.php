@@ -17,7 +17,7 @@
 
             if ($Check)
             {
-                F::Log('Achievement '.$Achievement.' processed', LOG_INFO);
+                F::Log('Achievement *'.$Achievement.'* processed', LOG_INFO);
                 $Already = F::Run('Entity', 'Read',
                 [
                     'Entity' => 'Gamification.Achievement',
@@ -30,7 +30,7 @@
 
                 if (empty($Already))
                 {
-                    F::Log('Achievement '.$Achievement.' unlocked!', LOG_INFO);
+                    F::Log('Achievement *'.$Achievement.'* unlocked!', LOG_INFO);
                     F::Run('Entity', 'Create',
                     [
                         'Entity' => 'Gamification.Achievement',
@@ -45,7 +45,7 @@
                     F::Log('Achievement already unlocked', LOG_INFO);
             }
             else
-                F::Log('Achievement '.$Achievement.' skipped', LOG_INFO);
+                F::Log('Achievement *'.$Achievement.'* skipped', LOG_INFO);
         }
 
         return $Call;

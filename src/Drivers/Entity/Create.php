@@ -16,10 +16,7 @@
         if (isset($Call['Data']))
             $Call['Data'] = F::Live($Call['Data'], $Call);
 
-        if (isset($Call['Request']['Prepare']))
-            $Call = F::Apply(null, 'PREPARE', $Call);
-        else
-            $Call = F::Apply(null, $Call['HTTP']['Method'], $Call);
+        $Call = F::Apply(null, $Call['HTTP']['Method'], $Call);
 
         return $Call;
     });
@@ -55,29 +52,6 @@
         return $Call;
     });
 
-    setFn('PREPARE', function ($Call)
-    {
-        $Call['View']['Renderer'] = ['Service' => 'View.JSON', 'Method' => 'Render'];
-        $Call = F::Hook('beforeCreatePost', $Call);
-        // Берём данные из запроса
-
-        if (isset($Call['Request']['Data']))
-        {
-            if (isset($Call['Data']))
-                $Call['Data'] = F::Merge($Call['Request']['Data'], $Call['Data']);
-            else
-                $Call['Data'] = $Call['Request']['Data'];
-        }
-
-        // Отправляем в Entity.Create
-
-        $Result = F::Run('Entity', 'Create', $Call, ['Dry' => true]);
-
-        $Call['Output']['Content'] = F::Diff($Result, $Call['Data']);
-
-        return $Call;
-    });
-
     setFn('POST', function ($Call)
     {
         $Call = F::Hook('beforeCreatePost', $Call);
@@ -96,8 +70,8 @@
 
         if (!isset($Result['Errors']) or empty($Result['Errors']))
         {
-            $Call['Data'] = $Result;
-            $Call = F::Hook('afterCreatePost', $Call);
+           $Call['Data'] = $Result;
+           $Call = F::Hook('afterCreatePost', $Call);
         }
         else
         {

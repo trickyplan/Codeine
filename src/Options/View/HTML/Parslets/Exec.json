@@ -9,16 +9,21 @@
             }
         }
     },
-    "RTTL": 60,
-    "Type": "XML",
-    "Inherited":
-    [
-        "Locale",
-        "Location",
-        "Session",
-        "SID",
-        "HTTP",
-        "Request",
-        "Project"
-    ]
+    "Parslet":
+    {
+        "Exec":
+        {
+            "Type": "XML",
+            "Inherited":
+            [
+                "Locale",
+                "Location",
+                "Session",
+                "SID",
+                "HTTP",
+                "Request",
+                "Project"
+            ]
+        }
+    }
 }

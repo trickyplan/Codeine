@@ -68,6 +68,7 @@
         $Call = F::Hook('beforeOperation', $Call);
 
         $NewData = $Call['Data'];
+        unset($Call['Data']);
 
             foreach ($NewData as $IX => $Call['Data'])
             {
@@ -75,36 +76,37 @@
 
                     $Call = F::Hook('beforeEntityCreate', $Call);
 
-                    if (isset($Call['Failure']) and $Call['Failure']) // FIXME Shit
-                        $Data[$IX] = null;
+                    if (isset($Call['Failure']) and $Call['Failure'])
+                        $Call['Data'] = null;
                     else
                     {
                         if (isset($Call['Dry']))
                         {
-                            $Data[$IX] = $Call['Data'];
                             F::Log('Dry shot for '.$Call['Entity'].' create');
                         }
                         else
                         {
-                            $Data[$IX] = F::Run('IO', 'Write', $Call);
+                            F::Run('IO', 'Write', $Call);
                             $Call = F::Hook('afterEntityCreate', $Call);
+                            $Call = F::Hook('afterEntityWrite', $Call);
                         }
                     }
 
-                $Call = F::Hook('afterEntityWrite', $Call);
+
+                $NewData[$IX] = $Call['Data'];
             }
 
         $Call = F::Hook('afterOperation', $Call);
 
-        F::Log('*'.count($Data).'* '.$Call['Entity'].' created', LOG_INFO, 'Administrator');
+        F::Log('*'.count($NewData).'* '.$Call['Entity'].' created', LOG_INFO, 'Administrator');
 
         if (isset($Call['One']))
-            $Data = array_shift($Data);
+            $NewData = array_shift($NewData);
 
         if (isset($Call['Errors']))
             return ['Errors' => $Call['Errors']];
         else
-            return $Data;
+            return $NewData;
     });
 
     setFn('Read', function ($Call)
