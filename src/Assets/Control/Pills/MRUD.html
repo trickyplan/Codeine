@@ -1,25 +1,25 @@
 <div class="btn-toolbar btn-group-sm hidden-print">
-<if value="<k>Status</k>" neq="1">
-    <a class="btn btn-default" href="/control/<call>Entity</call>/Allow/<k>ID</k>">
-        <i class="fa fa-check" data-toggle="tooltip" title="Одобрить"></i>
+<spanf value="<k>Status</k>" neq="1">
+    <a class="btn btn-default" href="/control/<call>Entity</call>/Allow/<k>ID</k>?BackURL=<call>HTTP.URL</call>">
+        <span class="fa fa-check" data-toggle="tooltip" title="Одобрить"></span>
     </a>
-</if>
-<if value="<k>Status</k>" neq="-1">
-    <a class="btn btn-default" href="/control/<call>Entity</call>/Disallow/<k>ID</k>">
-        <i class="fa fa-times" data-toggle="tooltip" title="Отклонить"></i>
+</spanf>
+<spanf value="<k>Status</k>" neq="-1">
+    <a class="btn btn-default" href="/control/<call>Entity</call>/Disallow/<k>ID</k>?BackURL=<call>HTTP.URL</call>">
+        <span class="fa fa-times" data-toggle="tooltip" title="Отклонить"></span>
     </a>
-</if>
+</spanf>
     <a class="btn btn-default"
-       href="/control/<call>Entity</call>/Touch/<k>ID</k>">
-        <i class="fa fa-refresh" data-toggle="tooltip" title="Обновить"></i>
+       href="/control/<call>Entity</call>/Touch/<k>ID</k>?BackURL=<call>HTTP.URL</call>">
+        <span class="fa fa-refresh" data-toggle="tooltip" title="Обновить"></span>
     </a>
     <a class="btn btn-default" href="/control/<call>Entity</call>/Show/<k>ID</k>">
-        <i class="fa fa-eye" data-toggle="tooltip" title="Просмотреть"></i>
+        <span class="fa fa-eye" data-toggle="tooltip" title="Просмотреть"></span>
     </a>
-    <a class="btn btn-default" href="/control/<call>Entity</call>/Update/<k>ID</k>">
-        <i class="fa fa-pencil" data-toggle="tooltip" title="Редактировать"></i>
+    <a class="btn btn-default" href="/control/<call>Entity</call>/Update/<k>ID</k>?BackURL=<call>HTTP.URL</call>">
+        <span class="fa fa-pencil" data-toggle="tooltip" title="Редактировать"></span>
     </a>
-    <a class="btn btn-danger" href="/control/<call>Entity</call>/Delete/<k>ID</k>">
-        <i class="fa fa-trash" data-toggle="tooltip" title="Удалить"></i>
+    <a class="btn btn-danger" href="/control/<call>Entity</call>/Delete/<k>ID</k>?BackURL=<call>HTTP.URL</call>">
+        <span class="fa fa-trash" data-toggle="tooltip" title="Удалить"></span>
     </a>
 </div>
