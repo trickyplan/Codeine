@@ -90,11 +90,22 @@
 
     setFn('Set', function ($Call)
     {
-        F::Run('Entity', 'Update', $Call,
+        $Call['Object'] = F::Run('Entity', 'Update', $Call,
         [
             'Entity' => $Call['Bundle'],
-            'Data' => $Call['Request']
+            'Data' => $Call['Request'],
+            'One'  => true
         ]);
+
+        $Call['Scope'] = isset($Call['Scope'])? $Call['Bundle'].'/'.$Call['Scope'] : $Call['Bundle'];
+
+        $Call['Output']['Content'][] =
+            [
+                'Type' => 'Template',
+                'Scope' => $Call['Scope'],
+                'ID' => 'Show/'.(isset($Call['Template'])? $Call['Template']: 'Full'),
+                'Data' => $Call['Object']
+            ];
 
         $Call = F::Run('System.Interface.HTTP', 'RestoreURL', $Call);
 
