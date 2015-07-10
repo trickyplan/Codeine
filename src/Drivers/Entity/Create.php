@@ -11,8 +11,6 @@
     {
         $Call = F::Hook('beforeCreateDo', $Call);
 
-        $Call['Scope'] = isset($Call['Scope'])? $Call['Entity'].'/'.$Call['Scope'] : $Call['Entity'];
-
         if (isset($Call['Data']))
             $Call['Data'] = F::Live($Call['Data'], $Call);
 
