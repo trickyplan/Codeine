@@ -36,6 +36,9 @@
                  $Call['Options'] = $Flushed;
              }
 
+             if (isset($Call['Localized']) && $Call['Localized'])
+                 $Call['Label'] .= '.Label';
+
              foreach ($Call['Options'] as $Key => $Option)
              {
                  if (is_array($Option))
