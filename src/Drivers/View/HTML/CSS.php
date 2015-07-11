@@ -98,7 +98,7 @@
                             ]
                         ]))
                         {
-                            F::Log('Cache *hit* '.$Call['CSS']['Fullpath'], LOG_DEBUG);
+                            F::Log('Cache *hit* '.$Call['CSS']['Fullpath'], LOG_INFO);
                             $Write = false;
                         }
                         else

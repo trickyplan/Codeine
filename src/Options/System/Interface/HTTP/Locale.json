@@ -3,5 +3,8 @@
     {
         "ru": "ru"
     },
-    "Locale": "ru"
+    "Default":
+    {
+        "Locale": "ru"
+    }
 }

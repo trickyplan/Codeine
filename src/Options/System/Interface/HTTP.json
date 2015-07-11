@@ -36,6 +36,17 @@
         },
         "beforeRequestRun":
         {
+            "Project":
+            {
+                "Service": "Project.Preload",
+                "Method": "Do",
+                "Must be first": true
+            },
+            "Locale":
+            {
+                "Service": "System.Interface.HTTP.Locale",
+                "Method": "Detect"
+            },
             "-Journal":
             {
                 "Service": "System.Interface.HTTP.Journal"
@@ -54,11 +65,6 @@
             {
                 "Service": "System.Interface.HTTP.Protocol",
                 "Method": "Do"
-            },
-            "Locale":
-            {
-                "Service": "System.Interface.HTTP.Locale",
-                "Method": "Detect"
             },
             "IP":
             {
@@ -88,11 +94,6 @@
             {
                 "Service": "Security.IDS",
                 "Method": "Check"
-            },
-            "Project":
-            {
-                "Service": "Project.Preload",
-                "Method": "Do"
             }
         },
         "afterInterfaceRun":

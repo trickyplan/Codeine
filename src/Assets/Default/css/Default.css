@@ -79,7 +79,7 @@ td.Error, td.Bad, td.Apocalypse, td.Critical, td.Emergency
     background-color: #f2dede;
 }
 
-tr.Important, td.Important
+tr.Notice, td.Notice
 {
     background-color: #333;
     color: #fff;
