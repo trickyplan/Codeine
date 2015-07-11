@@ -11,5 +11,11 @@
     },
     "Language": "Language",
     "Phone": "Phone number",
-    "Photo": "Photo"
+    "Photo": "Photo",
+    "Password":
+    {
+        "First": "Password",
+        "Second": "Again",
+        "Equal": "Passwords must match"
+    }
 }

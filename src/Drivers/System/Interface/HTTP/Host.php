@@ -15,16 +15,22 @@
         if (isset($Call['Project']['Hosts'][F::Environment()]))
         {
             if (preg_match('/(\S+)\.'.$Call['Project']['Hosts'][F::Environment()].'/', $_SERVER['HTTP_HOST'], $Subdomains)
-            && isset($Call['Subdomains'][$Subdomains[1]]))
+            && isset($Call['Project']['Subdomains'][$Subdomains[1]]))
             {
-                $Call = F::Merge($Call, $Call['Subdomains'][$Subdomains[1]]);
-                F::Log('Active Subdomain detected: '.$Subdomains[1], LOG_INFO);
+                $Call = F::Merge($Call, $Call['Project']['Subdomains'][$Subdomains[1]]);
+                F::Log('Active Subdomain detected: *'.$Subdomains[1].'*', LOG_INFO);
+                $Call['HTTP']['Domain'] = str_replace($Subdomains[1].'.', '', $Subdomains[0]);
             }
 
-            $_SERVER['HTTP_HOST'] = $Call['Project']['Hosts'][F::Environment()];
+            $_SERVER['HTTP_HOST'] = $Subdomains[1].'.'.$Call['Project']['Hosts'][F::Environment()];
         }
 
         $Call['HTTP']['Host'] = $_SERVER['HTTP_HOST'];
+
+        if (isset($Call['HTTP']['Domain']))
+            ;
+        else
+            $Call['HTTP']['Domain'] = $Call['HTTP']['Host'];
 
         F::Log('Host is *'.$Call['HTTP']['Host'].'*', LOG_INFO);
         $Call = F::loadOptions($Call['HTTP']['Host'], null, $Call);

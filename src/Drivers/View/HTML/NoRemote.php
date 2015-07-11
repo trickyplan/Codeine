@@ -14,10 +14,24 @@
             && preg_match_all('@a href="(https?://.*)"@SsUu',$Call['Output'], $Links))
         {
             foreach ($Links[1] as $IX => $Link)
-                if (!in_array($Link, $Call['No Remote']['Excluded'])
-                    &&
-                    !in_array(parse_url($Link, PHP_URL_HOST), $Call['Project']['Hosts']))
+            {
+                $NoRemote = true;
+
+                $LinkHost = parse_url($Link, PHP_URL_HOST);
+
+                if (in_array($Link, $Call['No Remote']['Excluded']))
+                    $NoRemote = false;
+
+                foreach ($Call['Project']['Hosts'] as $Host)
+                    if (preg_match('/'.$Host.'$/', $LinkHost))
+                    {
+                        $NoRemote = false;
+                        break;
+                    }
+
+                if ($NoRemote)
                     $Call['Output'] = str_replace($Links[0][$IX], 'a href="/go/'.$Link.'"',$Call['Output']);
+            }
         }
 
         return $Call;
