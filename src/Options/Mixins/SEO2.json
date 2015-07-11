@@ -1,0 +1,64 @@
+{
+    "Nodes":
+    {
+        "SEO.Title":
+        {
+            "Type": "Literal.String",
+            "Index": true,
+            "Weight": 100,
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        },
+        "SEO.Keywords":
+        {
+            "Type": "Literal.Tags",
+            "Index": true,
+            "Weight": 100,
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textarea"
+                }
+            }
+        },
+        "SEO.Description":
+        {
+            "Type": "Literal.String",
+            "Index": true,
+            "Weight": 100,
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textarea"
+                }
+            }
+        },
+        "SEO.Slug":
+        {
+            "Type": "Literal.String",
+            "Weight": 40,
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            },
+            "Hooks":
+            {
+                "beforeEntityWrite":
+                {
+                    "Service": "SEO.Slug",
+                    "Method": "Generate"
+                }
+            }
+        }
+    }
+}
