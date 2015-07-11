@@ -22,7 +22,10 @@
                 $Call['HTTP']['Domain'] = str_replace($Subdomains[1].'.', '', $Subdomains[0]);
             }
 
-            $_SERVER['HTTP_HOST'] = $Subdomains[1].'.'.$Call['Project']['Hosts'][F::Environment()];
+            if (isset($Subdomains[1]))
+                $_SERVER['HTTP_HOST'] = $Subdomains[1].'.'.$Call['Project']['Hosts'][F::Environment()];
+            else
+                $_SERVER['HTTP_HOST'] = $Call['Project']['Hosts'][F::Environment()];
         }
 
         $Call['HTTP']['Host'] = $_SERVER['HTTP_HOST'];
