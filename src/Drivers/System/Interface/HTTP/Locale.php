@@ -13,6 +13,8 @@
             ;
         else
         {
+            $Call['Locale'] = $Call['Default']['Locale'];
+
             if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE']))
             {
                 preg_match_all (
