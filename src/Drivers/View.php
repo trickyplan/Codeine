@@ -32,7 +32,7 @@
 
         $Call['Value'] = F::Run('IO', 'Read',
             [
-                  'Scope'   => $Call['Scope'],
+                  'Scope'   => isset($Call['Scope'])? $Call['Scope']: null,
                   'Storage' => 'Layout',
                   'Where'   =>
                   [
