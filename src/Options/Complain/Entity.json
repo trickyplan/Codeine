@@ -19,9 +19,7 @@
         "Rule":
         {
             "Type": "List.Enum",
-            "Nullable": true,
             "Required": true,
-            "Localized": true,
             "Options":
             {
                 "Service": "Project.Terms",
@@ -31,6 +29,7 @@
             {
                 "Write":
                 {
+                    "Localized": true,
                     "Type": "Form.Select",
                     "RadioClass": "list-group-item",
                     "Values Locale": "Project.Terms:Rule"
