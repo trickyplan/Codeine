@@ -58,7 +58,10 @@
             $Slices = explode('/', $Call['Schema']);
             $Call['Entity'] = array_pop($Slices);
             $Call['Data']['Source'] = $Call['URL'];
-            $Call['Data'] = F::Run('Entity', 'Create', $Call, ['One' => true]);
+            d(__FILE__, __LINE__, $Call['Data']);
+
+            if (isset($Call['Parser']['Create']['Auto']) && $Call['Parser']['Create']['Auto'])
+                $Call['Data'] = F::Run('Entity', 'Create', $Call, ['One' => true]);
 
             if (isset($Call['Data']['ID']))
                 $Call = F::Run('System.Interface.HTTP', 'Redirect', $Call,
