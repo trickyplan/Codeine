@@ -12,7 +12,7 @@
     },
     "Hooks":
     {
-        "beforeList":
+        "beforeEntityList":
         {
             "Pagination":
             {
@@ -25,7 +25,7 @@
                 "Method": "beforeList"
             }
         },
-        "afterList":
+        "afterEntityList":
         {
             "Pagination":
             {
