@@ -33,6 +33,6 @@
         // exec($Command, $Result, $Return);
         $Result = shell_exec($Command);
         F::Log('Size of Slimer output: '.mb_strlen($Result), LOG_INFO);
-        // F::Log($Return, LOG_INFO);
+        F::Log($Result, LOG_INFO);
         return [$Result];
     });
