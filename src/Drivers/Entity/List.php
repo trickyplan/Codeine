@@ -22,7 +22,7 @@
         if (isset($Call['Where']))
             $Call['Where'] = F::Live($Call['Where'], $Call);
 
-        $Call = F::Hook('beforeList', $Call);
+        $Call = F::Hook('beforeEntityList', $Call);
 
         $Call['Scope'] = isset($Call['Scope'])? strtr($Call['Entity'], '.', '/').'/'.$Call['Scope'] : strtr($Call['Entity'], '.', '/');
 
@@ -66,6 +66,8 @@
 
             $Call['Output']['Content'][]
                 = ['Type' => 'Template', 'Scope' => $Call['Scope'], 'Entity' => $Call['Entity'],  'ID' => $Empty];
+
+            $Call = F::Hook('Empty', $Call);
         }
         else
         {
@@ -111,7 +113,8 @@
                     }
                 }
         }
-        $Call = F::Hook('afterList', $Call);
+        $Call = F::Hook('afterEntityList', $Call);
+
         return $Call;
     });
 
