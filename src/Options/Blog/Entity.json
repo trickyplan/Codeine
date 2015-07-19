@@ -1,17 +1,22 @@
 {
     "Mixins":
-        [
-            "Mixins.ID.Sequence",
-            "Mixins.Titled",
-            "Mixins.Text",
-            "Mixins.CRUDSlug",
-            "Mixins.UGC",
-            "Mixins.Tags",
-            "Mixins.Photo",
-            "Mixins.SEO",
-            "Mixins.Votable",
-            "Mixins.Published"
-        ],
+    [
+        "Mixins.ID.Sequence",
+        "Mixins.Titled",
+        "Mixins.Text",
+        "Mixins.CRUDSlug",
+        "Mixins.UGC",
+        "Mixins.Tags",
+        "Mixins.Photo",
+        "Mixins.SEO",
+        "Mixins.Votable",
+        "Mixins.Published"
+    ],
+    "Slug":
+    {
+        "Entity": "blog",
+        "Entities": "blogs"
+    },
     "Storage": "Primary",
     "EPP": 7,
     "Sort":
