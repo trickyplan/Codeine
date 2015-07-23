@@ -79,7 +79,7 @@
                         'One'    => true,
                         'Sort'   =>
                         [
-                            'ID' => SORT_ASC
+                            'ID' => true
                         ],
                         'Where'  =>
                         [
@@ -97,10 +97,10 @@
                         [
                             'VKontakte' =>
                             [
-                                'ID'    => $Result['user_id'],
-                                'Auth'  => $Result['access_token']
-                            ],
-                            'Status' => 1
+                                'ID'     => $Result['user_id'],
+                                'Auth'   => $Result['access_token'],
+                                'Active' => true
+                            ]
                         ]
                     ]);
                 }
@@ -113,7 +113,8 @@
                         'Active' => true,
                         'ID' => $Result['user_id'],
                         'Auth'  => $Result['access_token'],
-                        'Logged' => time()
+                        'Logged' => time(),
+                        'Expired' => time() + $Result['expires_in']
                     ];
 
                 if (isset($Call['User']['VKontakte']['LoginCount']))
@@ -126,24 +127,13 @@
                 if ($Updated['VKontakte']['LoginCount'] == 1)
                     $Call = F::Hook('VKontakte.FirstLogin', $Call);
 
-                F::Run('Code.Run.Delayed', 'Run',
+                F::Run('Entity', 'Update',
                     [
-                        'Run' =>
-                            [
-                                'Service' => 'Entity',
-                                'Method' => 'Update',
-                                'Call' =>
-                                    [
-                                        'Entity' => 'User',
-                                        'Where' =>
-                                            [
-                                                'ID' => $Call['User']['ID']
-                                            ],
-                                        'Data' => $Updated
-                                    ]
-                            ]
-                    ]
-                );;
+                        'Entity'        => 'User',
+                        'Where'         => $Call['User']['ID'],
+                        'Live Fields'   => ['VKontakte.ID'],
+                        'Data'          => $Updated
+                    ]);
             }
         }
 
