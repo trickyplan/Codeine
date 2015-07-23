@@ -46,7 +46,6 @@
         public static function Bootstrap ($Call = [])
         {
             self::$_Live = true;
-
             self::$_Stack = new SplStack();
 
             self::Start(self::$_Service . '.' . self::$_Method);
@@ -84,8 +83,11 @@
                 self::$_Performance = true;
 
             if (isset($_SERVER['Verbose']))
-                foreach (self::$_Verbose as &$Level)
+                foreach (self::$_Verbose as $Channel => &$Level)
+                {
                     $Level = $_SERVER['Verbose'];
+                    self::$_Log[$Channel] = new SplFixedArray(1000);
+                }
 
             if (isset($_REQUEST['Debug']))
             {
@@ -383,7 +385,7 @@
                     $ST = 0;
 
                     if (isset($CacheID) && ($Result = self::Get($CacheID)) !== null)
-                        self::Log(self::$_Service.':'.self::$_Method.'('.$CacheID.') memoized.', LOG_DEBUG, 'Performance');
+                        self::Log(self::$_Service.':'.self::$_Method.'('.$CacheID.') memoized.', LOG_INFO, 'Performance');
                     else
                     {
                         if (isset($FnOptions['Contract'][self::$_Service][self::$_Method]['RTTL']) && !isset($Call['RTTL']))
@@ -689,29 +691,32 @@
 
         public static function Logs()
         {
-            $Output = [];
-
-            foreach (self::$_Log as $Channel => $Logs)
-            {
-                $Output[$Channel] = [];
-
-                foreach ($Logs as $Log)
+            /*
+                $Output = [];
+                foreach (self::$_Log as $Channel => $Logs)
                 {
-                    if (($Log[0] <= self::$_Verbose[$Channel])
-                        or
-                        ((self::Environment() == 'Development') && $Log[0] > 8)
-                        or
-                        (isset($_SERVER['Verbose']) && $Log[0] <= $_SERVER['Verbose']))
-                            $Output[$Channel][] = $Log;
+                    $Output[$Channel] = [];
 
-                    if ($Log[0] <= self::$_Options['Codeine']['Panic Verbose'])
+                    foreach ($Logs as $Log)
                     {
-                        $Output[$Channel] = self::$_Log[$Channel];
-                        break;
+                        if (($Log[0] <= self::$_Verbose[$Channel])
+                            or
+                            ((self::Environment() == 'Development') && $Log[0] > 8)
+                            or
+                            (isset($_SERVER['Verbose']) && $Log[0] <= $_SERVER['Verbose']))
+                                $Output[$Channel][] = $Log;
+
+                        if ($Log[0] <= self::$_Options['Codeine']['Panic Verbose'])
+                        {
+                            $Output[$Channel] = self::$_Log[$Channel];
+                            break;
+                        }
                     }
                 }
-            }
-            return $Output;
+                return $Output;
+            */
+
+            return self::$_Log;
         }
 
         public static function Dump($File, $Line, $Call)

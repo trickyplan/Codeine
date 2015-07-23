@@ -7,7 +7,7 @@
     log_not_found on;
 
     error_log /var/log/nginx/error.log warn;
-    access_log off;
+    access_log /var/log/nginx/$host.access.log codeine;
     error_page 502 503 504 /down.html;
 
     gzip on;
