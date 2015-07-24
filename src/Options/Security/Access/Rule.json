@@ -1,4 +1,14 @@
 {
+    "Contract":
+    {
+        "Security.Access.Rule":
+        {
+            "Check":
+            {
+                "Memo": ["Rules", "Service", "Method", "Call", "Session"]
+            }
+        }
+    },
     "Mixins": ["User.Security.Access.Rule", "Control.Security.Access.UserNo1"],
     "Weight": 0,
     "Decision": false,
