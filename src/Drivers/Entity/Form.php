@@ -122,7 +122,7 @@
                     // Упростить
 
                     if (!isset($Widget['Weight']))
-                        $Widget['Weight'] = count($Call['Nodes'])-$IC; // Magic
+                        $Widget['Weight'] = $IC; // Magic
 
                     //$Widget['Label'] .=$Widget['Weight'];
                     // Помещаем виджет в поток
