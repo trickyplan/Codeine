@@ -16,6 +16,10 @@
              "upsert": false,
              "multiple": false,
              "j": 0
+         },
+         "Read":
+         {
+             "maxTimeMS": 5000
          }
     },
     "Hooks":

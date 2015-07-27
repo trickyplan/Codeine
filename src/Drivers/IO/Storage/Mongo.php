@@ -141,7 +141,9 @@
                     F::Log('Sliced *'.$Call['Limit']['To'].'* from *'.$Call['Limit']['From'].'*', LOG_INFO, 'Administrator');
                 }
 
-                $Cursor->maxTimeMS(2000); // Temporary test
+                if (isset($Call['Mongo']['Read']['maxTimeMS']))
+                    $Cursor->maxTimeMS($Call['Mongo']['Read']['maxTimeMS']);
+
                 if ($Cursor->count()>0)
                     $Data = iterator_to_array($Cursor, false);
             }
