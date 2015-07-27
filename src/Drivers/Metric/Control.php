@@ -28,7 +28,7 @@
                     'Created' => false
                 ]
             ]);
-            $Data[] = [$MetricName, $LastDot['Value'], date(DATE_RFC2822, $LastDot['Created'])];
+            $Data[] = [$MetricName, '<number>'.$LastDot['Value'].'</number>', date(DATE_RFC2822, $LastDot['Created'])];
         }
 
         $Call['Output']['Content'][] =
