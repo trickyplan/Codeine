@@ -28,6 +28,8 @@
         if (isset($Call['Request']['Query']))
             $Call['Query'] = $Call['Request']['Query']; // FIXME
 
+        // FIXME
+        $Call['Query'] = filter_var($Call['Query'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $Call = F::Hook('beforeQuery', $Call);
 
         $Call['Layouts'][] = ['Scope' => '','ID' => 'Search'];

@@ -11,7 +11,7 @@
     {
         $Dots = F::Run('Entity', 'Read', $Call,
         [
-            'Entity'    => 'Metric',
+            'Entity'    => 'Metric'
         ]);
 
         $Data = [];

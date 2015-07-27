@@ -11,6 +11,8 @@
     {
         F::Log('Start metric collecting', LOG_INFO);
 
+        $Call = F::loadOptions('Metric', null, $Call);
+
         if (!isset($Call['Metrics']) or empty($Call['Metrics']))
             ;
         else
