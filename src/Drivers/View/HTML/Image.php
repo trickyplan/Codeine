@@ -72,7 +72,8 @@
                             (isset($Call['Current Image']['Width'])? $Call['Current Image']['Width']: 0),
                             (isset($Call['Current Image']['Height'])? $Call['Current Image']['Height']: 0),
                             isset($Call['Current Image']['Source']['Scope'])? $Call['Current Image']['Source']['Scope']: '',
-                            sha1(parse_url($Call['Current Image']['Source']['Where']['ID'], PHP_URL_QUERY)).strtr(parse_url($Call['Current Image']['Source']['Where']['ID'], PHP_URL_PATH), '/', '.')
+                            sha1($Call['Current Image']['Source']['Where']['ID'])
+                            .'.'.pathinfo($Call['Current Image']['Source']['Where']['ID'], PATHINFO_EXTENSION)
             ]);
 
         return $Call;
