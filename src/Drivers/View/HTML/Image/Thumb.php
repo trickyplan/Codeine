@@ -33,6 +33,7 @@
             catch (Exception $e)
             {
                 F::Log($e->getMessage(), LOG_ERR);
+                F::Log($Call['Current Image'], LOG_ERR);
             }
 
         }
