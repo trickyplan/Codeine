@@ -8,8 +8,8 @@
          "Write Concerns": 0,
          "Connect":
          {
-             "connectTimeoutMS": 30000,
-             "socketTimeoutMS": 30000
+             "connectTimeoutMS": 20000,
+             "socketTimeoutMS": 20000
          },
          "Update":
          {
@@ -19,7 +19,7 @@
          },
          "Read":
          {
-             "maxTimeMS": 5000
+             "maxTimeMS": 10000
          }
     },
     "Hooks":
