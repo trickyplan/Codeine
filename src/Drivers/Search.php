@@ -29,7 +29,8 @@
             $Call['Query'] = $Call['Request']['Query']; // FIXME
 
         // FIXME
-        $Call['Query'] = filter_var($Call['Query'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $Call['Query'] = preg_replace('/[^\W]+/', '', $Call['Query']);
+
         $Call = F::Hook('beforeQuery', $Call);
 
         $Call['Layouts'][] = ['Scope' => '','ID' => 'Search'];
