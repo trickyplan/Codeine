@@ -21,7 +21,7 @@
             $Call['Data'] = array_pop($Web);
         }
         else
-            F::Log('Unknown file data for '.$Call['Name'], LOG_ERR);
+            F::Log('Unknown file data for '.$Call['Name'], LOG_INFO);
 
         // Если нет новых данных
         if ($Call['Data'] === false)
