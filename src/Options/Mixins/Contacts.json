@@ -14,7 +14,7 @@
         },
         "URL":
         {
-            "Type": "Literal.String",
+            "Type": "Literal.URL",
             "Widgets":
             {
                 "Write":

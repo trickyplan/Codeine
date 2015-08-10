@@ -12,17 +12,6 @@
     "Storage": "Primary",
     "Nodes":
     {
-        "URL":
-        {
-            "Type": "Literal.String",
-            "Widgets":
-            {
-                "Write":
-                {
-                    "Type": "Form.Textfield"
-                }
-            }
-        },
         "DUNS":
         {
             "Type": "Literal.String",
