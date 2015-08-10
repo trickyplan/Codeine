@@ -10,7 +10,7 @@
         },
         "URL":
         {
-            "Type": "Literal.String"
+            "Type": "Literal.URL"
         },
         "BackURL":
         {

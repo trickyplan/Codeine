@@ -50,7 +50,7 @@
         },
         "URL":
         {
-            "Type": "Literal.String",
+            "Type": "Literal.URL",
             "Widgets":
             {
                 "Write":
@@ -86,7 +86,7 @@
         },
         "Lead.URL":
         {
-            "Type": "Literal.String",
+            "Type": "Literal.URL",
             "Widgets":
             {
                 "Write":
