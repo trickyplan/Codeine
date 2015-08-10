@@ -178,6 +178,7 @@
 
     setFn('Reindex.Page', function ($Call)
     {
+
         foreach ($Call['Page'] as $Page)
         {
             $Objects = F::Run('Entity', 'Read', $Call,
@@ -210,6 +211,7 @@
 
             F::Log('Reindex Page № '.$Page, LOG_WARNING);
         }
+
         return $Call;
     });
 
