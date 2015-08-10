@@ -9,7 +9,7 @@
 
     setFn('Write', function ($Call)
     {
-        if (isset($Call['Value']) && !empty($Call['Value']) && filter_var($Call['Value'], FILTER_VALIDATE_URL))
+        if (isset($Call['Value']) && !empty($Call['Value']))
         {
             $Parts = parse_url($Call['Value']);
 
