@@ -45,7 +45,7 @@
                     ;
                 else
                     foreach ($Loaded as $Element)
-                        $Elements[$Entity][$Element['ID']] = $Element;
+                        $Elements = F::Dot($Elements, $Entity.'.'.$Element['ID'], $Element);
             }
 
             if (empty($Elements))
