@@ -1,0 +1,21 @@
+{
+    "Nodes":
+    {
+        "Role":
+        {
+            "Type": "List.Enum",
+            "Default": 0,
+            "Options": ["User", "Moderator", "Administrator"],
+            "Scope": ["Control"],
+            "Localized": true,
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Select",
+                    "Values as Keys": true
+                }
+            }
+        }
+    }
+}
