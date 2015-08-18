@@ -24,6 +24,12 @@
     "Created": "Зарегистрировался",
     "Skype": "Skype",
     "ICQ": "ICQ",
+    "Role": {
+        "Label": "Роль",
+        "Moderator": "Модератор",
+        "Administrator": "Администратор",
+        "User": "Пользователь"
+    },
     "Password":
     {
         "First": "Пароль",
