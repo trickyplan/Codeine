@@ -28,7 +28,7 @@
                 $Proxy = '';
         }
 
-        $Command = 'xvfb-run --auto-servernum --server-num=100 slimerjs '.$Proxy.' --ssl-protocol=any '.$Call['Script'].' '.$Call['Where']['ID'];
+        $Command = 'xvfb-run --auto-servernum --server-num=100 '.Root.'/slimerjs/slimerjs '.$Proxy.' --ssl-protocol=any '.$Call['Script'].' '.$Call['Where']['ID'];
         F::Log($Command, LOG_INFO);
         // exec($Command, $Result, $Return);
         $Result = shell_exec($Command);
