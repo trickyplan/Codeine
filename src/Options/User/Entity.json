@@ -3,6 +3,7 @@
     "Mixins":
     [
         "Mixins.ID.Sequence",
+        "Mixins.Titled",
         "Mixins.UGC",
         "Mixins.Filled",
         "Mixins.Verifiable",
@@ -38,20 +39,6 @@
                 "Write":
                 {
                     "Type": "Form.Password"
-                }
-            }
-        },
-        "DOB":
-        {
-            "Default": null,
-            "Nullable": true,
-            "Type": "Date.Short",
-            "Verifiable": true,
-            "Widgets":
-            {
-                "Update":
-                {
-                    "Type": "Form.Datepicker"
                 }
             }
         },
