@@ -24,7 +24,9 @@
                     F::Log('Parser Nodes are *empty*', LOG_ERR);
                 else
                 {
+                    F::Log('Loaded *'.count($Call['Nodes']).'* Parser Nodes', LOG_INFO);
                     phpQuery::newDocumentHTML($Call['Markup']);
+                    F::Log('Loaded *'.strlen($Call['Markup']).'* bytes of markup', LOG_INFO);
 
                     foreach ($Call['Nodes'] as $Key => $Rule)
                     {
@@ -62,11 +64,12 @@
 
                             }
                         }
-                        else
+                        elseif (isset($Rule['Selector']))
                         {
                             phpQuery::each(pq($Rule['Selector']),function($Index, $Element) use (&$Data, $Key, $Rule, $Call)
                             {
                                 F::Log('Selector fired '.$Rule['Selector'], LOG_NOTICE);
+
                                 if (isset($Rule['Text']))
                                     $Value = preg_replace ('/\\s{2,}|\\s{2,}$/Ssm', PHP_EOL, pq($Element)->text());
                                 elseif (isset($Rule['Attr']))
@@ -98,6 +101,19 @@
                                 }
                             });
                         }
+                        elseif (isset($Rule['Regex']))
+                        {
+                            if (preg_match($Rule['Regex'], $Call['Markup'], $Pockets))
+                            {
+                                if (isset($Pockets[1]))
+                                    $Value = [$Pockets[1]];
+                            }
+                            else
+                                $Value = null;
+
+                            $Data = F::Dot($Data, $Key, $Value);
+                        }
+
 
                         $Value = F::Dot($Data, $Key);
 

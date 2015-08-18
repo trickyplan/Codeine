@@ -58,7 +58,6 @@
             $Slices = explode('/', $Call['Schema']);
             $Call['Entity'] = array_pop($Slices);
             $Call['Data']['Source'] = $Call['URL'];
-            d(__FILE__, __LINE__, $Call['Data']);
 
             if (isset($Call['Parser']['Create']['Auto']) && $Call['Parser']['Create']['Auto'])
                 $Call['Data'] = F::Run('Entity', 'Create', $Call, ['One' => true]);
