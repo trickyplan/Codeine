@@ -12,7 +12,7 @@
          foreach ($Call['Parsed'][2] as $Ix => $Match)
          {
              $Call['Output'] = str_replace ($Call['Parsed'][0][$Ix],
-                 urlencode($Match)
+                 rawurlencode($Match)
                  ,$Call['Output']);
          }
 
