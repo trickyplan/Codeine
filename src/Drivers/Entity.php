@@ -273,7 +273,7 @@
 
         $Call = F::Hook('beforeOperation', $Call);
 
-        if (isset($Call['Where']))
+        if (isset($Call['Where']) && !empty($Call['Where']))
             ;
         else
         {
