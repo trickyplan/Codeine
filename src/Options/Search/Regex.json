@@ -22,6 +22,7 @@
             "Method": "Query",
             "Call":
             {
+                "Vertical": true,
                 "Query": "$1",
                 "Page": "$2"
             }
@@ -53,6 +54,7 @@
             "Method": "Query",
             "Call":
             {
+                "Vertical": true,
                 "Provider": "$1",
                 "Query": "$2"
             }
@@ -65,6 +67,7 @@
             "Method": "Query",
             "Call":
             {
+                "Vertical": true,
                 "Query": "$1"
             }
         }
