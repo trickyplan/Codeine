@@ -11,7 +11,6 @@
     setFn('Open', function ($Call)
     {
         $Call['Link'] = new Elasticsearch\Client($Call['Elastic Search']['Options']);
-        $Call['Project'] = F::loadOptions('Project');
         return $Call;
     });
 
