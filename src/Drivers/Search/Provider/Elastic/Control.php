@@ -24,7 +24,7 @@
                      [
                          'Storage' => 'Web',
                          'Format' => 'Formats.JSON',
-                         'Where'   => $Host.'/project/_stats'
+                         'Where'   => $Host.'/'.$Call['Project']['id'].'/_stats'
                      ]);
 
                  if ($Stats[0] === null)
