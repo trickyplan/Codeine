@@ -31,7 +31,7 @@
         }
         catch (Exception $e)
         {
-            
+            F::Log($e->getMessage(), LOG_ERR);
         }
 
         return $Call;
