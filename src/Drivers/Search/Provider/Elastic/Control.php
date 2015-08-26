@@ -43,7 +43,7 @@
                                  [
                                      'Storage' => 'Web',
                                      'Format' => 'Formats.JSON',
-                                     'Where'   => $Host.'/project/_search/?type='.$Mount['Type'].'&search_type=count'
+                                     'Where'   => $Host.'/'.$Call['Project']['id'].'/_search/?type='.$Mount['Type'].'&search_type=count'
                                  ]);
 
                              $Table[] = [
@@ -79,7 +79,7 @@
                 [
                     'Storage' => 'Web',
                     'Format' => 'Formats.JSON',
-                    'Where'   => $Host.'/project/_stats'
+                    'Where'   => $Host.'/'.$Call['Project']['id'].'/_stats'
                 ]);
 
             if ($Stats[0] === null)
