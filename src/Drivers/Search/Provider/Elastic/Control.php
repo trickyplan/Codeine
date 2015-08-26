@@ -9,6 +9,7 @@
      
      setFn('Do', function ($Call)
      {
+         $Call['Project'] = F::loadOptions('Project');
          $SearchOptions = F::loadOptions('Search');
          $ElasticOptions = F::loadOptions('Search.Provider.Elastic');
          $Hosts = $ElasticOptions['Elastic Search']['Options']['hosts'];
@@ -68,6 +69,7 @@
 
     setFn('Menu', function ($Call)
     {
+        $Call['Project'] = F::loadOptions('Project');
         $ElasticOptions = F::loadOptions('Search.Provider.Elastic');
         $Hosts = $ElasticOptions['Elastic Search']['Options']['hosts'];
 
