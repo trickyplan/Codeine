@@ -11,7 +11,6 @@
     setFn('Open', function ($Call)
     {
         $Call['Link'] = new Elasticsearch\Client($Call['Elastic Search']['Options']);
-        $Call['Project'] = F::loadOptions('Project');
         return $Call;
     });
 
@@ -23,7 +22,7 @@
         {
             F::Log($Call['Link']->index(
                  [
-                     'index' => $Call['Index'],
+                     'index' => $Call['Search']['Index'],
                      'id'    => $Call['Data']['ID'],
                      'type'  => $Call['Type'],
                      'body'  => $Call['Data']
@@ -48,7 +47,7 @@
             F::Log('Start search on query: '.$Call['Query'], LOG_NOTICE);
 
             $Query = [
-                     'index' => $Call['Index'],
+                     'index' => $Call['Search']['Index'],
                      'type'  => $Call['Type'],
 /*                     'from'  => $Call['EPP']*($Call['Page']-1),
                      'size'  => $Call['EPP'],*/
@@ -151,7 +150,7 @@
             $Call = F::Run(null, 'Open', $Call);
             F::Log($Call['Link']->delete(
                  [
-                     'index' => $Call['Index'],
+                     'index' => $Call['Search']['Index'],
                      'id'    => $Call['Data']['ID'],
                      'type'  => $Call['Type']
                  ]
