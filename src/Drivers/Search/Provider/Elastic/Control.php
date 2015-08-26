@@ -9,7 +9,6 @@
      
      setFn('Do', function ($Call)
      {
-         $Call['Project'] = F::loadOptions('Project');
          $SearchOptions = F::loadOptions('Search');
          $ElasticOptions = F::loadOptions('Search.Provider.Elastic');
          $Hosts = $ElasticOptions['Elastic Search']['Options']['hosts'];
@@ -25,7 +24,7 @@
                      [
                          'Storage' => 'Web',
                          'Format' => 'Formats.JSON',
-                         'Where'   => $Host.'/'.$Call['Project']['id'].'/_stats'
+                         'Where'   => $Host.'/'.$SearchOptions['Search']['Index'].'/_stats'
                      ]);
 
                  if ($Stats[0] === null)
@@ -44,7 +43,7 @@
                                  [
                                      'Storage' => 'Web',
                                      'Format' => 'Formats.JSON',
-                                     'Where'   => $Host.'/'.$Call['Project']['id'].'/_search/?type='.$Mount['Type'].'&search_type=count'
+                                     'Where'   => $Host.'/'.$SearchOptions['Search']['Index'].'/_search/?type='.$Mount['Type'].'&search_type=count'
                                  ]);
 
                              $Table[] = [
@@ -69,7 +68,7 @@
 
     setFn('Menu', function ($Call)
     {
-        $Call['Project'] = F::loadOptions('Project');
+        $SearchOptions = F::loadOptions('Search');
         $ElasticOptions = F::loadOptions('Search.Provider.Elastic');
         $Hosts = $ElasticOptions['Elastic Search']['Options']['hosts'];
 
@@ -81,7 +80,7 @@
                 [
                     'Storage' => 'Web',
                     'Format' => 'Formats.JSON',
-                    'Where'   => $Host.'/'.$Call['Project']['id'].'/_stats'
+                    'Where'   => $Host.'/'.$SearchOptions['Search']['Index'].'/_stats'
                 ]);
 
             if ($Stats[0] === null)
