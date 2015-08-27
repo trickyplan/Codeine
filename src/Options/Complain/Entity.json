@@ -19,17 +19,16 @@
         "Rule":
         {
             "Type": "List.Enum",
-            "Required": true,
             "Options":
             {
                 "Service": "Project.Terms",
                 "Method": "RAW"
             },
+            "Localized": true,
             "Widgets":
             {
                 "Write":
                 {
-                    "Localized": true,
                     "Type": "Form.Select",
                     "RadioClass": "list-group-item",
                     "Values Locale": "Project.Terms:Rule"

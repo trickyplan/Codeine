@@ -9,10 +9,10 @@
             {
                 "Entity": "Complain",
                 "Data":
-                [{
+                {
                     "Type": "$1",
                     "Object": "$2"
-                }]
+                }
             }
         }
     }
