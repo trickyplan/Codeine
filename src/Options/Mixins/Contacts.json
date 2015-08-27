@@ -4,6 +4,7 @@
         "EMail":
         {
             "Type": "Literal.String",
+            "Nullable": true,
             "Widgets":
             {
                 "Write":
@@ -15,6 +16,7 @@
         "URL":
         {
             "Type": "Literal.URL",
+            "Nullable": true,
             "Widgets":
             {
                 "Write":
@@ -26,6 +28,7 @@
         "Phone":
         {
             "Type": "Literal.String",
+            "Nullable": true,
             "Index": true,
             "Widgets":
             {
@@ -38,6 +41,7 @@
         "Skype":
         {
             "Type": "Literal.String",
+            "Nullable": true,
             "Index": true,
             "Widgets":
             {
