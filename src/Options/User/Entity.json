@@ -74,6 +74,7 @@
             "Type": "Literal.EMail",
             "Verifiable": true,
             "Unique": true,
+            "Nullable": true,
             "Widgets":
             {
                 "Write":
