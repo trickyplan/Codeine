@@ -157,6 +157,7 @@
             }
         }
 
+        $Call['Current Image']['Widget'] = [];
         $SRC = $Call['Image']['Pathname'].$Call['Image']['Scope'].$Call['Image']['Fullpath'];
 
         if (isset($Call['Image']['Host']) && !empty($Call['Image']['Host']))
@@ -179,13 +180,18 @@
             return $SRC;
         else
         {
-            return '<img src="'
-            .$SRC.'"
-                alt="'.$Call['Current Image']['Alt'].'"
-                itemprop="image"
-                class="'.$Call['Current Image']['Class'].'" '
-            .(isset($Call['Current Image']['Height'])? ' height="'.$Call['Current Image']['Height'].'"': ' ')
-            .(isset($Call['Current Image']['Width'])? ' width="'.$Call['Current Image']['Width'].'"': ' ').'/>';
+            $Call['Current Image']['Widget']['src'] = $SRC;
+            $Call['Current Image']['Widget']['alt'] = $Call['Current Image']['Alt'];
+            $Call['Current Image']['Widget']['class'] = $Call['Current Image']['Class'];
+
+            if (isset($Call['Current Image']['Height']))
+                $Call['Current Image']['Widget']['height'] = $Call['Current Image']['Height'];
+
+            if (isset($Call['Current Image']['Width']))
+                $Call['Current Image']['Widget']['width'] = $Call['Current Image']['Width'];
+
+            $Call = F::Hook('beforeWidgetMake', $Call);
+            return F::Run('View.HTML.Widget.Image', 'Make', $Call['Current Image']['Widget']);
         }
     });
 
