@@ -14,6 +14,7 @@
         "Pathname": "/cache/img/",
         "Quality": 85,
         "TTL": 86400,
+        "Lazy": false,
         "Path Separator": "-",
         "Source":
         {
@@ -31,6 +32,13 @@
             "Thumbs":
             {
                 "Service": "View.HTML.Image.Thumb"
+            }
+        },
+        "beforeWidgetMake":
+        {
+            "Lazy":
+            {
+                "Service": "View.HTML.Image.Lazy"
             }
         },
         "-afterImageWrite":

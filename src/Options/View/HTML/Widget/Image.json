@@ -1,7 +1,17 @@
 {
-    "Image":
+    "Tag": "img",
+    "Attributes":
     {
-        "Proto": "http://",
-        "Host": ""
+        "String":
+        {
+            "class": "img",
+            "itemprop": "image",
+            "src": "",
+            "width": "",
+            "height": "",
+            "alt": "",
+            "title": "",
+            "data-original": ""
+        }
     }
 }
