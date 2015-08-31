@@ -10,6 +10,13 @@
     setFn('Add', function ($Call)
     {
         // if (isset($Call['Providers'][$Call['Entity']]))
+
+        if (isset($Call['Data']['Published']) && $Call['Data']['Published'] == false)
+        {
+            F::Log('Add to search skipped, non-published entity', LOG_INFO);
+            return $Call;
+        }
+
         {
             $Data = [];
 
