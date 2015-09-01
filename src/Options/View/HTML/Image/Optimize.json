@@ -2,6 +2,6 @@
     "Image Optimizers":
     {
         "image/png": ["PNGCrush"],
-        "image/jpeg": ["JPEGOptim"]
+        "image/jpeg": ["JPEGTran"]
     }
 }
