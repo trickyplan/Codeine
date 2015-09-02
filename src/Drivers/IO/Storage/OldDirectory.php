@@ -32,11 +32,11 @@
 
             foreach ($Call['Where']['ID'] as &$ID)
             {
-                if (isset($Call['IO']['Directory']['Hashing']['Enabled']) && $Call['IO']['Directory']['Hashing']['Enabled'])
+                if (isset($Call['IO']['FileSystem']['Hashing']['Enabled']) && $Call['IO']['FileSystem']['Hashing']['Enabled'])
                 {
                     $Hash = sha1($ID);
-                    for ($IX = 0; $IX < $Call['IO']['Directory']['Hashing']['Levels']; $IX++)
-                        $Prefix .= mb_substr($Hash, $IX, $Call['IO']['Directory']['Hashing']['Size']).DS;
+                    for ($IX = 0; $IX < $Call['IO']['FileSystem']['Hashing']['Levels']; $IX++)
+                        $Prefix .= mb_substr($Hash, $IX, $Call['IO']['FileSystem']['Hashing']['Size']).DS;
                 }
 
                 $ID = $Path.$Prefix.$ID.$Postfix;
@@ -108,11 +108,11 @@
 
         $ID = isset($Call['Where']['ID'])? $Call['Where']['ID']: $Call['ID'];
 
-        if (isset($Call['IO']['Directory']['Hashing']['Enabled']) && $Call['IO']['Directory']['Hashing']['Enabled'])
+        if (isset($Call['IO']['FileSystem']['Hashing']['Enabled']) && $Call['IO']['FileSystem']['Hashing']['Enabled'])
         {
             $Hash = sha1($ID);
-            for ($IX = 0; $IX < $Call['IO']['Directory']['Hashing']['Levels']; $IX++)
-                $Prefix .= mb_substr($Hash, $IX, $Call['IO']['Directory']['Hashing']['Size']).DS;
+            for ($IX = 0; $IX < $Call['IO']['FileSystem']['Hashing']['Levels']; $IX++)
+                $Prefix .= mb_substr($Hash, $IX, $Call['IO']['FileSystem']['Hashing']['Size']).DS;
         }
 
         $Filename = $DirName.$Prefix.$ID.$Postfix;
@@ -138,7 +138,7 @@
         if ($MakeDirectory)
         {
             if (mkdir($DirName, 0777, true)) // Fuck PHP
-                F::Log('Directory '.$DirName.' created with mode '.$Call['IO']['Directory']['Create Mode'], LOG_INFO, 'Administrator');
+                F::Log('Directory '.$DirName.' created with mode '.$Call['IO']['FileSystem']['Create Mode'], LOG_INFO, 'Administrator');
             else
                 F::Log('Directory '.$DirName.' cannot created', LOG_ERR, 'Administrator');
         }

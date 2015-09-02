@@ -1,0 +1,35 @@
+{
+    "Hooks":
+    {
+        "beforeFileSystemOperation":
+        {
+            "IDs":
+            {
+                "Service": "IO.Storage.FileSystem.IDs"
+            },
+            "Prefix":
+            {
+                "Service": "IO.Storage.FileSystem.Prefix"
+            },
+            "Hash":
+            {
+                "Service": "IO.Storage.FileSystem.Hash"
+            },
+            "Postfix":
+            {
+                "Service": "IO.Storage.FileSystem.Postfix"
+            },
+            "Path":
+            {
+                "Service": "IO.Storage.FileSystem.Path"
+            }
+        },
+        "beforeFileSystemWrite":
+        {
+            "Make Directory":
+            {
+                "Service": "IO.Storage.FileSystem.MakeDirectory"
+            }
+        }
+    }
+}

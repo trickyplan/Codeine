@@ -9,11 +9,8 @@
 
     setFn ('Process', function ($Call)
     {
-        $Cache = F::Run('IO', 'Open', ['Storage' => 'CSS Cache']);
-
         if (preg_match('/<place>CSS<\/place>/SsUu', $Call['Output']))
         {
-
             $Parsed = F::Run('Text.Regex', 'All',
                 [
                     'Pattern' => $Call['CSS']['Inline Pattern'],
@@ -73,24 +70,17 @@
 
                 // CSS Output
 
-                if (isset($Call['CSS']['Host']) && !empty($Call['CSS']['Host']))
-                    $Host = $Call['CSS']['Host'];
-                else
-                    $Host = $Call['HTTP']['Host'];
-
                 foreach ($Call['CSS']['Styles'] as $Call['CSS']['Fullpath'] => $CSSSource)
                 {
-                    $Call['CSS']['Fullpath'] = sha1($CSSSource).'_'.strtr($Call['CSS']['Fullpath'], ":", '_') .$Call['CSS']['Extension'];
-                    $Call['CSS']['Cached Filename'] = $Cache['Directory'].DS.$Call['HTTP']['Host'].DS.'css'.DS.$Call['CSS']['Scope'].DS.$Call['CSS']['Fullpath'];
+                    $Call['CSS']['Fullpath'] = strtr($Call['CSS']['Fullpath'], ":", '_').'_'.sha1($CSSSource).$Call['CSS']['Extension'];
 
                     $Write = true;
 
                     if ($Call['CSS']['Caching'])
                     {
-                        if (F::Run('IO', 'Execute',
+                        if (F::Run('IO', 'Execute', $Call,
                         [
                             'Storage' => 'CSS Cache',
-                            'Scope'   => [$Host, 'css'],
                             'Execute' => 'Exist',
                             'Where'   =>
                             [
@@ -111,10 +101,9 @@
                     {
                         $Call = F::Hook('beforeCSSWrite', $Call);
 
-                            F::Run ('IO', 'Write',
+                            F::Run ('IO', 'Write', $Call,
                             [
                                  'Storage' => 'CSS Cache',
-                                 'Scope'   => [$Host, 'css'],
                                  'Where'   => $Call['CSS']['Fullpath'],
                                  'Data' => $CSSSource
                             ]);
@@ -122,16 +111,17 @@
                         $Call = F::Hook('afterCSSWrite', $Call);
                     }
 
+                    $SRC = F::Run('IO', 'Execute', $Call,
+                    [
+                        'Storage' => 'CSS Cache',
+                        'Execute' => 'Filename',
+                        'Where'   => $Call['CSS']['Fullpath']
+                    ]);
 
                     if (isset($Call['CSS']['Host']) && !empty($Call['CSS']['Host']))
-                        $Call['CSS']['Links'][] = '<link href="'
-                            .$Call['HTTP']['Proto']
-                            .$Call['CSS']['Host']
-                            .$Call['CSS']['Pathname']
-                            .$Call['CSS']['Fullpath'].'" rel="stylesheet" type="'.$Call['CSS']['Type'].'"/>';
+                        $Call['CSS']['Links'][] = '<link href="'.$Call['CSS']['Host'].$SRC.'" rel="stylesheet" type="'.$Call['CSS']['Type'].'"/>';
                     else
-                        $Call['CSS']['Links'][]
-                            = '<link href="'.$Call['CSS']['Pathname'].$Call['CSS']['Fullpath'].'" rel="stylesheet" type="'.$Call['CSS']['Type'].'" />';
+                        $Call['CSS']['Links'][] = '<link href="'.$SRC.'" rel="stylesheet" type="'.$Call['CSS']['Type'].'" />';
 
                 }
 
@@ -142,9 +132,9 @@
             }
 
             $Call['Output'] = str_replace($Parsed[0], '', $Call['Output']);
-        }
 
-        unset ($Call['CSS']);
+            unset ($Call['CSS']);
+        }
 
         return $Call;
     });

@@ -17,7 +17,7 @@
         "Permanent":
         {
             "Description": "Storage for source-based data",
-            "Driver":"IO.Storage.Directory",
+            "Driver":"IO.Storage.FileSystem",
             "Directory":"Data",
             "Format": "Formats.JSON",
             "Postfix":".json"
@@ -32,84 +32,135 @@
         },
         "Options":
         {
-            "Driver":"IO.Storage.Directory",
+            "Driver":"IO.Storage.FileSystem",
             "Directory":"Options",
             "Format": "Formats.JSON",
             "Postfix":".json"
         },
         "Run Cache":
         {
-            "Driver":"IO.Storage.Directory",
+            "Driver":"IO.Storage.FileSystem",
             "Directory":"/tmp/codeine/run",
-            "Directory Hashing":
+            "IO":
             {
-                "Enabled": true,
-                "Levels": 4
+                "FileSystem":
+                {
+                    "Hashing":
+                    {
+                        "Enabled": true,
+                        "Levels": 4
+                    }
+                }
             },
             "Format": "Formats.JSON",
             "Postfix":".json"
         },
         "Scraped":
         {
-            "Driver":"IO.Storage.Directory",
+            "Driver":"IO.Storage.FileSystem",
             "Directory":"/tmp/codeine/scraped",
-            "Directory Hashing":
+            "IO":
             {
-                "Enabled": true,
-                "Levels": 4
+                "FileSystem":
+                {
+                    "Hashing":
+                    {
+                        "Enabled": true,
+                        "Levels": 4
+                    }
+                }
             },
             "Postfix":".html"
         },
         "Layout":
         {
-            "Driver":"IO.Storage.Directory",
+            "Driver":"IO.Storage.FileSystem",
             "Directory":"Assets",
             "Postfix": ".html"
         },
         "Locale":
         {
-            "Driver":"IO.Storage.Directory",
+            "Driver":"IO.Storage.FileSystem",
             "Directory":"Assets",
             "Format": "Formats.JSON",
             "Postfix":".json"
         },
             "Image":
             {
-                "Driver":"IO.Storage.Directory",
+                "Driver":"IO.Storage.FileSystem",
                 "Directory":"Assets"
             },
             "Image Cache":
             {
-                "Driver":"IO.Storage.Directory",
-                "Directory":"/tmp/codeine"
+                "Driver":"IO.Storage.FileSystem",
+                "Directory":"/tmp/codeine",
+                "Scope": "cache/img",
+                "IO":
+                {
+                    "FileSystem":
+                    {
+                        "Append Host": true,
+                        "Hashing":
+                        {
+                            "Enabled": true,
+                            "Levels": 4
+                        }
+                    }
+                }
             },
             "LESS":
             {
-                "Driver":"IO.Storage.Directory",
+                "Driver":"IO.Storage.FileSystem",
                 "Directory":"Assets",
                 "Postfix":".less"
             },
             "CSS":
             {
-                "Driver":"IO.Storage.Directory",
+                "Driver":"IO.Storage.FileSystem",
                 "Directory":"Assets",
                 "Postfix":".css"
             },
             "CSS Cache":
             {
-                "Driver":"IO.Storage.Directory",
-                "Directory":"/tmp/codeine"
+                "Driver":"IO.Storage.FileSystem",
+                "Directory":"/tmp/codeine",
+                "Scope": "cache/css",
+                "IO":
+                {
+                    "FileSystem":
+                    {
+                        "Append Host": true,
+                        "Hashing":
+                        {
+                            "Enabled": true,
+                            "Levels": 4
+                        }
+                    }
+                }
             },
             "JS":
             {
-                "Driver":"IO.Storage.Directory",
+                "Driver":"IO.Storage.FileSystem",
                 "Directory":"Assets",
                 "Postfix":".js"
             },
             "JS Cache":
             {
-                "Driver":"IO.Storage.Directory",
-                "Directory":"/tmp/codeine"
+                "Driver":"IO.Storage.FileSystem",
+                "Directory":"/tmp/codeine",
+                "Scope": "cache/js",
+                "IO":
+                {
+                    "FileSystem":
+                    {
+                        "Append Host": true,
+                        "Hashing":
+                        {
+                            "Enabled": true,
+                            "Levels": 4
+                        }
+                    }
+                }
             },
         "EMail":
         {
@@ -117,7 +168,7 @@
         },
         "Upload":
         {
-            "Driver": "IO.Storage.Directory",
+            "Driver": "IO.Storage.FileSystem",
             "Directory": "Data",
             "Verbosity":
             {
@@ -126,13 +177,13 @@
         },
         "Static Sitemaps":
         {
-            "Driver": "IO.Storage.Directory",
+            "Driver": "IO.Storage.FileSystem",
             "Directory": "Public/sitemap",
             "Postfix": ".xml"
         },
         "Uploader":
         {
-            "Driver": "IO.Storage.Directory",
+            "Driver": "IO.Storage.FileSystem",
             "Directory": "Public/uploads",
             "Verbosity":
             {
@@ -160,14 +211,14 @@
         },
         "Swarm":
         {
-            "Driver":"IO.Storage.Directory",
+            "Driver":"IO.Storage.FileSystem",
             "Directory":"/tmp/codeine/",
             "Postfix": ".json",
             "Format": "Formats.JSON"
         },
         "HTTP Journal":
         {
-            "Driver":"IO.Storage.Directory",
+            "Driver":"IO.Storage.FileSystem",
             "Directory":"/var/log/codeine/",
             "Postfix": ".json",
             "Format": "Formats.JSON"

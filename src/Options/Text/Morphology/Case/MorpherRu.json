@@ -11,7 +11,7 @@
     {
         "Morpher Ru Cache":
         {
-            "Driver":"IO.Storage.Directory",
+            "Driver":"IO.Storage.FileSystem",
             "Directory":"/tmp/codeine/morpher",
             "Format": "Formats.JSON",
             "Postfix":".json"
