@@ -6,7 +6,7 @@
      * @package Codeine
      * @version 7.x
      */
-    include_once 'phpQuery.php';
+    include_once 'phpQuery/phpQuery.php';
 
     setFn('Do', function ($Call)
     {
