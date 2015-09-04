@@ -15,39 +15,44 @@
 
         $Old = F::Run('Entity', 'Read', $Call, ['One' => false]);
 
-        foreach ($Old as $IX => $Object)
+        if (empty($Old))
+            ;
+        else
         {
-            $New = F::Run('Entity', 'Update', ['Entity' => $Call['Entity'], 'Data' => $Object, 'Where' => $Object['ID'], 'One' => false]);
-
-            if (isset($Object['ID']))
-                $Table = [['ID', $Object['ID']]];
-            else
-                $Table = [];
-
-            foreach ($Call['Nodes'] as $Name => $Node)
+            foreach ($Old as $IX => $Object)
             {
-                $NewValue = F::Dot($New, $Name);
-                $OldValue = F::Dot($Old[$IX], $Name);
+                $New = F::Run('Entity', 'Update', ['Entity' => $Call['Entity'], 'Data' => $Object, 'Where' => $Object['ID'], 'One' => false]);
 
-                if ($OldValue == $NewValue || $Name == 'ID')
-                    ;
+                if (isset($Object['ID']))
+                    $Table = [['ID', $Object['ID']]];
                 else
-                    $Table[] = ['<l>'.$Call['Entity'].'.Entity:'.$Name.'</l>', $OldValue, $NewValue];
+                    $Table = [];
+
+                foreach ($Call['Nodes'] as $Name => $Node)
+                {
+                    $NewValue = F::Dot($New, $Name);
+                    $OldValue = F::Dot($Old[$IX], $Name);
+
+                    if ($OldValue == $NewValue || $Name == 'ID')
+                        ;
+                    else
+                        $Table[] = ['<l>'.$Call['Entity'].'.Entity:'.$Name.'</l>', $OldValue, $NewValue];
+                }
+
+                $Call['Output']['Content'][] =
+                    [
+                        'Type' => 'Table',
+                        'Value' => $Table
+                    ];
             }
 
             $Call['Output']['Content'][] =
-            [
-                'Type' => 'Table',
-                'Value' => $Table
-            ];
-        }
-
-        $Call['Output']['Content'][] =
             [
                 'Type'  => 'Block',
                 'Class' => 'alert alert-success',
                 'Value' => count($New).' object touched'
             ];
+        }
 
         $Call = F::Hook('afterTouch', $Call);
 

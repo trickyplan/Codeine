@@ -11,7 +11,6 @@
         "Caching": true,
         "Hash Levels": 8,
         "Pattern": "<image([^>]*)>(.+?)<\/image>",
-        "Pathname": "/cache/img/",
         "Quality": 85,
         "TTL": 86400,
         "Lazy": false,
@@ -41,7 +40,7 @@
                 "Service": "View.HTML.Image.Lazy"
             }
         },
-        "-afterImageWrite":
+        "afterImageWrite":
         {
             "Optimize":
             {

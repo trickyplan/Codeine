@@ -61,10 +61,10 @@
 
                 $Call['Image URL'] = '/cache/img/'.$Hash.'.png';
                 $Call['Image Filename'] =
-                    $Call['Storages']['Image Cache']['Directory'].DS.$Call['HTTP']['Host'].DS.'img'.DS.$Hash.'.png';
+                    $Call['Storages']['Image Cache']['FileSystem'].DS.$Call['HTTP']['Host'].DS.'img'.DS.$Hash.'.png';
 
                 $Call['Data Filename'] =
-                   $Call['Storages']['Image Cache']['Directory'].DS.$Call['HTTP']['Host'].DS.'img'.DS.$Hash.'.txt';
+                   $Call['Storages']['Image Cache']['FileSystem'].DS.$Call['HTTP']['Host'].DS.'img'.DS.$Hash.'.txt';
 
                     $Call['Plot']['Title'] = $Call['Request']['Metric'];
                     F::Run('Image.Plot.GNUPlot', 'Do', $Call,

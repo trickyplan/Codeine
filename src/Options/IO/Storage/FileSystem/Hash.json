@@ -1,9 +1,8 @@
 {
     "IO":
     {
-        "Directory":
+        "FileSystem":
         {
-            "Create Mode": "777",
             "Hashing":
             {
                 "Enabled": false,

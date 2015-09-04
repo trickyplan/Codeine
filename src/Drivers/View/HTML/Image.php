@@ -40,7 +40,8 @@
                         F::Run('Formats.'.$Format, 'Read', ['Value' => $Image])
                     );
 
-                    $Image['Source']['Scope'] = strtr($Image['Source']['Scope'], '.', DS);
+                    if (isset($Image['Source']['Scope']))
+                        $Image['Source']['Scope'] = strtr($Image['Source']['Scope'], '.', DS);
                 }
             // После ввода картинок
             $Call = F::Hook('afterImageInput', $Call);
@@ -66,15 +67,13 @@
 
     setFn('Output Name', function ($Call)
     {
-        $Call['Image']['Fullpath'] = $Call['Image']['Path Separator'].implode($Call['Image']['Path Separator'],
+        $Call['Current Image']['Fullpath'] = sha1(implode($Call['Image']['Path Separator'],
             [
                 F::Run('IO', 'Execute', $Call['Current Image']['Source'],['Execute' => 'Version']),
                             (isset($Call['Current Image']['Width'])? $Call['Current Image']['Width']: 0),
                             (isset($Call['Current Image']['Height'])? $Call['Current Image']['Height']: 0),
-                            isset($Call['Current Image']['Source']['Scope'])? $Call['Current Image']['Source']['Scope']: '',
-                            sha1($Call['Current Image']['Source']['Where']['ID'])
-                            .'.'.pathinfo(parse_url($Call['Current Image']['Source']['Where']['ID'], PHP_URL_PATH), PATHINFO_EXTENSION)
-            ]);
+                            $Call['Current Image']['Source']['Where']['ID']
+            ])).'.'.pathinfo(parse_url($Call['Current Image']['Source']['Where']['ID'], PHP_URL_PATH), PATHINFO_EXTENSION);
 
         return $Call;
     });
@@ -91,29 +90,19 @@
         // Generate Output Name
         $Call = F::Apply(null, 'Output Name', $Call);
 
-        $Call['Image']['Scope'] = '';
-
-        $FullPath = sha1($Call['Image']['Fullpath']);
-        for ($IX = 0; $IX < $Call['Image']['Hash Levels']; $IX++)
-            $Call['Image']['Scope'].= substr($FullPath, $IX, 1).'/';
-
-        if (F::Run('IO', 'Execute',
+        if (F::Run('IO', 'Execute', $Call,
                         [
                             'Storage' => 'Image Cache',
-                            'Scope'   => [
-                                $Call['Image']['Host'],
-                                $Call['Image']['Directory'],
-                                $Call['Image']['Scope']],
                             'Execute' => 'Exist',
                             'Where'   =>
                             [
-                                'ID' => $Call['Image']['Fullpath']
+                                'ID' => $Call['Current Image']['Fullpath']
                             ]
                         ]))
-            F::Log('Image Cache *hit* '.$Call['Image']['Fullpath'], LOG_DEBUG);
+            F::Log('Image Cache *hit* '.$Call['Current Image']['Fullpath'], LOG_INFO);
         else
         {
-            F::Log('Image Cache *miss* *'.$Call['Image']['Fullpath'].'*', LOG_NOTICE);
+            F::Log('Image Cache *miss* *'.$Call['Current Image']['Fullpath'].'*', LOG_NOTICE);
 
             if (F::Run(null, 'Write', $Call))
             {
@@ -144,6 +133,7 @@
                 }
 
                 $Call = F::Apply(null, 'Output Name', $Call);
+
                 if (F::Run(null, 'Write', $Call))
                     ;
                 else
@@ -158,15 +148,21 @@
         }
 
         $Call['Current Image']['Widget'] = [];
-        $SRC = $Call['Image']['Pathname'].$Call['Image']['Scope'].$Call['Image']['Fullpath'];
 
-        if (isset($Call['Image']['Host']) && !empty($Call['Image']['Host']))
+        $SRC = F::Run('IO', 'Execute', $Call,
+                        [
+                            'Storage' => 'Image Cache',
+                            'Execute' => 'Filename',
+                            'Where'   => $Call['Current Image']['Fullpath']
+                        ]);
+
+        if (isset($Call['Image']['Host']) && !empty($Call['Image']['Host']) && $Call['Image']['Host'] != $Call['HTTP']['Host'])
             $SRC = $Call['HTTP']['Proto']
                 .$Call['Image']['Host']
                 .$SRC;
 
         if (empty($Call['Current Image']['Alt']))
-            F::Log('Image: Alt is empty for '.$Call['Image']['Fullpath'], LOG_INFO);
+            F::Log('Image: Alt is empty for '.$Call['Current Image']['Fullpath'], LOG_INFO);
         else
             if (is_string($Call['Current Image']['Alt']))
                 ;
@@ -200,7 +196,7 @@
         if (null === $Call['Current Image']['Source']['Where'] ||
             !F::Run('IO', 'Execute', ['Execute' => 'Exist'], $Call['Current Image']['Source']))
         {
-            F::Log('Image not found:'.$Call['Current Image']['Source']['Where']['ID'], LOG_INFO);
+            F::Log('Image not found:'.$Call['Current Image']['Source']['Where']['ID'], LOG_WARNING);
             return null;
         }
 
@@ -209,13 +205,23 @@
 
         $Call = F::Hook('beforeImageWrite', $Call);
 
-            F::Run ('IO', 'Write',
+            F::Run ('IO', 'Write', $Call,
             [
                  'Storage' => 'Image Cache',
-                 'Scope'   => [$Call['Image']['Host'], $Call['Image']['Directory'], $Call['Image']['Scope']],
-                 'Where'   => $Call['Image']['Fullpath'],
+                 'Where'   => $Call['Current Image']['Fullpath'],
                  'Data'    => $Call['Current Image']['Data']
             ]);
+
+            $Call['Image']['Cached Filename']
+                = F::Run('IO', 'Execute', $Call,
+                        [
+                            'Storage' => 'Image Cache',
+                            'Execute' => 'Filename',
+                            'Where'   =>
+                            [
+                                'ID' => $Call['Current Image']['Fullpath']
+                            ]
+                        ]);
 
         $Call = F::Hook('afterImageWrite', $Call);
 
