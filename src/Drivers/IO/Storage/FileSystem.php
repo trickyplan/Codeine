@@ -119,7 +119,8 @@
                 }
                 else
                     foreach ($Call['Where']['ID'] as $Call['Filename'])
-                        $Call['Result'][] = unlink ($Call['Filename']);
+                        if (file_exists($Call['Link'].DS.$Call['Filename']))
+                            $Call['Result'][] = unlink ($Call['Link'].DS.$Call['Filename']);
 
         $Call = F::Hook('afterFileSystemOperation', $Call);
 
