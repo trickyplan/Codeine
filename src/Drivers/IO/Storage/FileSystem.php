@@ -13,7 +13,6 @@
     {
         if (isset($Call['IO']['FileSystem']['Append Host']) && $Call['IO']['FileSystem']['Append Host'])
             $Call['Directory'].= DS.$Call['HTTP']['Host'];
-
         return $Call['Directory'];
     });
 
@@ -88,6 +87,11 @@
     setFn ('Write', function ($Call)
     {
         $Call['Result'] = [];
+
+        if (mb_substr($Call['Link'], 0, 1) === '/')
+            ;
+        else
+            $Call['Link'] = Root.DS.$Call['Link'];
 
         $Call = F::Hook('beforeFileSystemOperation', $Call);
 
