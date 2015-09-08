@@ -2,7 +2,6 @@
     "Type": "XML",
     "Inherited":
     [
-        "Hooks",
         "Locale",
         "Location",
         "Session",
