@@ -1,6 +1,6 @@
 {
     "Perfect": true,
-    "Run Cache Enabled": false,
+    "Run Cache Enabled": true,
     "Verbose":
     {
         "Developer": 6,
