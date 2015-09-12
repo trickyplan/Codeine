@@ -17,25 +17,25 @@
 
     setFn('boolean', function ($Call)
     {
-        echo $Call['Data']? 'true': 'false';
+        print $Call['Data']? 'true': 'false';
         return $Call['Data'];
     });
 
     setFn('integer', function ($Call)
     {
-        echo $Call['Data'];
+        print $Call['Data'];
         return $Call['Data'];
     });
 
     setFn('double', function ($Call)
     {
-        echo $Call['Data'];
+        print $Call['Data'];
         return $Call['Data'];
     });
 
     setFn('string', function ($Call)
     {
-        echo $Call['Data'];
+        print $Call['Data'];
         return $Call['Data'];
     });
 
@@ -59,12 +59,12 @@
 
     setFn('NULL', function ($Call)
     {
-        echo 'null';
+        print 'null';
         return $Call['Data'];
     });
 
     setFn('unknown type', function ($Call)
     {
-        echo 'Unknown type';
+        print 'Unknown type';
         return $Call['Data'];
     });
