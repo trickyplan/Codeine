@@ -9,6 +9,13 @@
 
     setFn('Convert', function ($Call)
     {
+        if (preg_match_all('/\"(.*)\"/Ssu', $Call['Value'], $Pockets))
+        {
+            foreach ($Pockets[0] as $IX => $Match)
+                $Call['Value'] = str_replace($Match, '$'.$IX.'$', $Call['Value']);
+
+        }
+
         $Value = morpher_inflect($Call['Value'], $Call['Morpher']['Cases mapping'][$Call['Case']]);
 
         if (empty($Value) or $Value{0} == '#')
@@ -20,8 +27,22 @@
                 break;
             }
 
-            return $Call['Value'];
+            if (preg_match_all('/\"(.*)\"/Ssu', $Call['Value'], $Pockets))
+            {
+                foreach ($Pockets[0] as $IX => $Match)
+                    $Call['Value'] = str_replace($Match, '$'.$IX.'$', $Call['Value']);
+
+            }
         }
         else
-            return $Value;
+            $Call['Value'] = $Value;
+
+        if (preg_match_all('/\$(.*)\$/Ssu', $Call['Value'], $Restore))
+        {
+            foreach ($Restore[0] as $IX => $Match)
+                $Call['Value'] = str_replace($Match, $Pockets[0][$IX], $Call['Value']);
+
+        }
+
+        return $Call['Value'];
     });
