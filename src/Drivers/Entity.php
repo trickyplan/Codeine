@@ -215,9 +215,9 @@
                     {
                         if (empty(F::Dot($Call['Updates'], $Name)))
                         {
-/*                          if (isset($Node['Nullable']) && $Node['Nullable'])
+                            if (isset($Node['Nullable']) && $Node['Nullable'])
                                F::Log($Name.' is nullable and not set', LOG_INFO);
-                            else*/
+                            else
                             {
                                 if (isset($Call['Data']))
                                     ;

@@ -63,8 +63,6 @@
 
             // Отправляем в Entity.Update
 
-
-
             $Call['Current'] = F::Run('Entity', 'Update', $Call);
 
             $Call['Data'] = $Call['Current'];
