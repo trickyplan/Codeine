@@ -245,6 +245,7 @@
 
     setFn('Exist', function ($Call)
     {
+        return true;
         F::Start('IO Curl Exist '.$Call['Where']['ID']);
         $Call['Link'] = curl_init($Call['Where']['ID']);
         $Call = F::Run(null, 'Select User Agent', $Call);
