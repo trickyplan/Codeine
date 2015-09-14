@@ -15,15 +15,15 @@
             $Language = isset($Root->attributes()->lang)? (string) $Root->attributes()->lang: 'ru';
             $Case = isset($Root->attributes()->case)? (string) $Root->attributes()->case: 'Genitivus';
 
-            if ((mb_substr($Match, 0, 1) !== '"') && (mb_substr($Match, -1, 1) !== '"'))
-                $Outer = F::Run('Text.Morphology.Case', 'Convert',
-                    [
-                        'Value' => $Match,
-                        'Case'  => $Case,
-                        'Language' => $Language
-                    ]);
+            if (empty($Match))
+                $Outer = '';
             else
-                $Outer = $Match;
+                $Outer = F::Run('Text.Morphology.Case', 'Convert',
+                        [
+                            'Value' => $Match,
+                            'Case'  => $Case,
+                            'Language' => $Language
+                        ]);
 
             $Call['Output'] = str_replace ($Call['Parsed'][0][$IX], $Outer, $Call['Output']);
         }
