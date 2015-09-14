@@ -21,7 +21,6 @@
             }
         }
 
-
         if (empty($Queries))
             ;
         else
