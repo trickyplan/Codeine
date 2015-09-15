@@ -40,7 +40,8 @@
         if (preg_match_all('/\$(.*)\$/Ssu', $Call['Value'], $Restore))
         {
             foreach ($Restore[0] as $IX => $Match)
-                $Call['Value'] = str_replace($Match, $Pockets[0][$IX], $Call['Value']);
+                if (isset($Pockets[0][$IX]))
+                    $Call['Value'] = str_replace($Match, $Pockets[0][$IX], $Call['Value']);
 
         }
 
