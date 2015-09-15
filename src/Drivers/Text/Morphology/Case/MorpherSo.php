@@ -9,9 +9,9 @@
 
     setFn('Convert', function ($Call)
     {
-        if (preg_match_all('/\"(.*)\"/Ssu', $Call['Value'], $Pockets))
+        if (preg_match_all('/\"(.*)\"/Ssu', $Call['Value'], $Saved))
         {
-            foreach ($Pockets[0] as $IX => $Match)
+            foreach ($Saved[0] as $IX => $Match)
                 $Call['Value'] = str_replace($Match, '$'.$IX.'$', $Call['Value']);
 
         }
@@ -40,8 +40,8 @@
         if (preg_match_all('/\$(.*)\$/Ssu', $Call['Value'], $Restore))
         {
             foreach ($Restore[0] as $IX => $Match)
-                if (isset($Pockets[0][$IX]))
-                    $Call['Value'] = str_replace($Match, $Pockets[0][$IX], $Call['Value']);
+                if (isset($Saved[0][$IX]))
+                    $Call['Value'] = str_replace($Match, $Saved[0][$IX], $Call['Value']);
 
         }
 
