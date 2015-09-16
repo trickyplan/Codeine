@@ -211,28 +211,31 @@
                     // Поиск по всем полям
                     $VCall['Where'] = ['ID' => $Call['Current']['ID']];
 
-                    foreach ($Call['Nodes'] as $Name => $Node)
-                    {
-                        if (empty(F::Dot($Call['Updates'], $Name)))
+                    if (empty($Call['Updates']))
+                        $Call['Data'] = $Call['Current'];
+                    else
+                        foreach ($Call['Nodes'] as $Name => $Node)
                         {
-                            if (isset($Node['Nullable']) && $Node['Nullable'])
-                               F::Log($Name.' is nullable and not set', LOG_INFO);
-                            else
+                            if (empty(F::Dot($Call['Updates'], $Name)))
                             {
-                                if (isset($Call['Data']))
-                                    ;
+                                if (isset($Node['Nullable']) && $Node['Nullable'])
+                                   F::Log($Name.' is nullable and not set', LOG_INFO);
                                 else
-                                    $Call['Data'] = [];
+                                {
+                                    if (isset($Call['Data']))
+                                        ;
+                                    else
+                                        $Call['Data'] = [];
 
-                                if (null === F::Dot($Call['Current'], $Name))
-                                    ;
-                                else
-                                    $Call['Data'] = F::Dot($Call['Data'], $Name, F::Dot($Call['Current'], $Name));
+                                    if (null === F::Dot($Call['Current'], $Name))
+                                        ;
+                                    else
+                                        $Call['Data'] = F::Dot($Call['Data'], $Name, F::Dot($Call['Current'], $Name));
+                                }
                             }
+                            else
+                                $Call['Data'] = F::Dot($Call['Data'], $Name, F::Dot($Call['Updates'], $Name));
                         }
-                        else
-                            $Call['Data'] = F::Dot($Call['Data'], $Name, F::Dot($Call['Updates'], $Name));
-                    }
 
                     $Call['Data']['EV'] = $Call['EV'];
 
