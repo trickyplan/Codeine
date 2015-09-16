@@ -3,7 +3,6 @@
     {
         "Photo":
         {
-            "Nullable": true,
             "Type": "File.Upload",
             "Storage": "Upload",
             "Widgets":
