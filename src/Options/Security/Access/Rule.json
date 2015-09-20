@@ -229,6 +229,20 @@
             {
                 "Service": "Swarm"
             }
+        },
+        "Error Catcher":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Entity.Create",
+                "Method": "Do",
+                "Call":
+                {
+                    "Entity": "Error"
+                }
+            }
         }
     }
 }

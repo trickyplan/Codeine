@@ -152,6 +152,23 @@
         {
             "Service": "Code.Flow.API",
             "Method": "Run"
+        },
+        "/error-catcher.json":
+        {
+            "Service": "Entity.Create",
+            "Method": "Do",
+            "Call":
+            {
+                "Entity": "Error"
+            },
+            "View":
+            {
+                "Renderer":
+                {
+                    "Service": "View.JSON",
+                    "Method": "Render"
+                }
+            }
         }
     }
 }

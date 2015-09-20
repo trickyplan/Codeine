@@ -1,5 +1,10 @@
 {
     "Storage": "Primary",
+    "Mixins":
+    [
+        "Mixins.Titled",
+        "Mixins.Text"
+    ],
     "Nodes":
     {
         "ID":
@@ -14,14 +19,19 @@
                 }
             }
         },
-        "Title":
+        "URL":
         {
-            "Type": "Literal.String",
-            "Widgets":
+            "Type": "Literal.String"
+        },
+        "Time":
+        {
+            "Type": "Numeral.Integer",
+            "Hooks":
             {
-                "Write":
+                "beforeEntityCreate":
                 {
-                    "Type": "Form.Textfield"
+                    "Service": "System.Time",
+                    "Method": "Get"
                 }
             }
         }

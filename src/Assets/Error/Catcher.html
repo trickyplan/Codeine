@@ -1,0 +1,36 @@
+<js>bootbox</js>
+<jsrun>
+    $(document).bind('keydown', function(e)
+    {
+        if (e.ctrlKey && e.keyCode == 13)
+        {
+            var selected = "";
+            if (window.getSelection) {
+                selected = window.getSelection().toString();
+            } else if (document.selection && document.selection.type != "Control") {
+                selected = document.selection.createRange().text;
+            }
+
+            bootbox.prompt('Укажите, в чём ошибка<br/>«' + selected + "»", function(result)
+            {
+                if (result === null)
+                    ;
+                else
+                    $.ajax('/error-catcher.json',
+                    {
+                        method: 'post',
+                        data:
+                        {
+                            Data:
+                            {
+                                Title: selected,
+                                URL: document.documentURI,
+                                Body: result
+                            }
+                        }
+                    })
+            });
+
+        }
+    });
+</jsrun>
