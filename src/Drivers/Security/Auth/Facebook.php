@@ -106,7 +106,8 @@
                         [
                             'Active' => true,
                             'ID'     => $Facebook['id'],
-                            'Auth'   => $Result['access_token']
+                            'Auth'   => $Result['access_token'],
+                            'Expire' => time()+$Result['expires']
                         ],
                         'Status' => 1
                     ]
