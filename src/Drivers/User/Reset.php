@@ -17,11 +17,20 @@
     {
         $Call['User'] = F::Run('Entity', 'Read', $Call, ['Entity' => 'User', 'One' => true]);
 
-        if (!empty($Call['User']))
+        if (empty($Call['User']))
+        {
+                $Call['Output']['Content'][] =
+                [
+                    'Type' => 'Template',
+                    'Scope' => 'User',
+                    'ID' => 'Reset/404'
+                ];
+        }
+        else
         {
             $NewPassword = F::Live($Call['Reset']['Generator']);
 
-            $Call['User'] = F::Run('Entity', 'Update',
+            F::Run('Entity', 'Update',
                 [
                       'Entity' => 'User',
                       'Purpose' => 'Reset',
@@ -70,13 +79,6 @@
                 'ID' => 'Reset/Success'
             ];
         }
-        else
-            $Call['Output']['Content'][] =
-                [
-                    'Type' => 'Template',
-                    'Scope' => 'User',
-                    'ID' => 'Reset/404'
-                ];
 
         return $Call;
     });

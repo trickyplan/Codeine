@@ -14,6 +14,7 @@
         else
             $Call['Scope'] = $Call['Entity'];
 
+        $Call['Query'] = preg_replace('/[^\w \d]+/SsUu', ' ', $Call['Query']);
 
         $Call['Query'] = preg_split('/\s/', mb_strtolower($Call['Query']));
         $Results = [];
@@ -25,10 +26,7 @@
                     'Entity' => $Call['Entity'],
                     'Where' =>
                     [
-                        'Keywords' =>
-                        [
-                            '$regex' => $Keyword
-                        ]// FIXME SOON
+                        'Keywords' => $Keyword // FIXME SOON
                     ]
                 ]);
 

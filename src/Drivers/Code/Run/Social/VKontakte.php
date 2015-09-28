@@ -74,6 +74,11 @@
             F::Log('Used VK Token '.$Call['Session']['User']['VKontakte']['Auth'].' from Session', LOG_INFO);
             $Result = $Call['Session']['User']['VKontakte']['Auth'];
         }
+        elseif (isset($Call['Data']['VKontakte']['Auth']))
+        {
+            F::Log('Used VK Token from VKontakte', LOG_INFO);
+            $Result['Auth'] = $Call['Data']['VKontakte']['Auth'];
+        }
         else
             $Result = F::Run(null, 'Random Token', $Call, ['RTTL' => 1]);
 

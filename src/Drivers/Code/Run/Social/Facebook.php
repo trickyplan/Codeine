@@ -57,18 +57,19 @@
 
         if (isset($Call['Data']['Facebook']['Auth']))
         {
-            F::Log('Used FB Token from Data', LOG_INFO);
+            F::Log('Using FB Token from Data', LOG_INFO);
             $Result['Auth'] = $Call['Data']['Facebook']['Auth'];
         }
         elseif (isset($Call['Session']['User']['Facebook']['Auth']))
         {
-            F::Log('Used FB Token from Session', LOG_INFO);
+            F::Log('Using FB Token from Session', LOG_INFO);
             $Result['Auth'] = $Call['Session']['User']['Facebook']['Auth'];
         }
         else
         {
-            F::Log('Used FB Token from random users', LOG_INFO);
-            $Result = $Call['Data']['Facebook'] =
+            F::Log('Using FB Token from random users', LOG_INFO);
+
+            $Donor =
                 F::Run ('Entity', 'Read',
                     [
                         'Entity' => 'User',
@@ -83,7 +84,9 @@
                         ],
                         'Sort' => ['Modified' => false],
                         'One' => true
-                    ])['Facebook'];
+                    ]);
+
+            $Result = $Donor['Facebook'];
 
             if (isset($Result['Expire']) && $Result['Expire'] > time())
                 ;
@@ -104,12 +107,14 @@
                          ]
                      ]);
 
-                $ResultFB = array_pop($ResultFB);
-                parse_str($ResultFB, $ResultFB);
+                if ((array) $ResultFB === $ResultFB)
+                {
+                    $ResultFB = array_pop($ResultFB);
+                    parse_str($ResultFB, $ResultFB);
+                }
 
                 if (isset($ResultFB['access_token']))
                 {
-                    F::Set(REQID, $ResultFB['access_token']);
                     F::Run ('Entity', 'Update',
                     [
                         'Entity' => 'User',
@@ -160,15 +165,17 @@
                     F::Run('Entity', 'Update',
                         [
                             'Entity' => 'User',
-                            'Where' => ['Facebook.ID' => $Result['ID']],
+                            'Where' => $Donor['ID'],
+                            'Skip Live' => true,
                             'Data' =>
                             [
                                 'Facebook' =>
                                 [
-                                    'Auth' => '',
+                                    'Auth' => null,
                                     'Active' => false
                                 ]
-                            ]
+                            ],
+                            'No'  => ['beforeEntityWrite' => true]
                         ]);
                 }
             }
