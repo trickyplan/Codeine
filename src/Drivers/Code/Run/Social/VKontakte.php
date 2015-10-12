@@ -77,7 +77,7 @@
         elseif (isset($Call['Data']['VKontakte']['Auth']))
         {
             F::Log('Used VK Token from VKontakte', LOG_INFO);
-            $Result['Auth'] = $Call['Data']['VKontakte']['Auth'];
+            $Result = $Call['Data']['VKontakte']['Auth'];
         }
         else
             $Result = F::Run(null, 'Random Token', $Call, ['RTTL' => 1]);
