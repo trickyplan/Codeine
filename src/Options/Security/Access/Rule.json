@@ -250,7 +250,16 @@
             "Weight": 50,
             "Run":
             {
-                "Service": "Providers.WOT"
+                "Service": "Providers.Webmaster.WOT"
+            }
+        },
+        "GWM":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Providers.Webmaster.Google"
             }
         }
     }
