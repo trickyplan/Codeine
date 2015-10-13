@@ -1,0 +1,11 @@
+{
+    "Google":
+    {
+        "Webmaster":
+        {
+            "ID": "Please specify ID",
+            "Prefix": "google-site-verification: google",
+            "Postfix": ".html"
+        }
+    }
+}

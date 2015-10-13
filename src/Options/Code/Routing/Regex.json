@@ -161,7 +161,25 @@
         "WOT":
         {
             "Match": "/mywot(.+).html",
-            "Service": "Providers.WOT",
+            "Service": "Providers.Webmaster.WOT",
+            "Method": "Auth",
+            "View":
+            {
+                "Renderer":
+                {
+                    "Service": "View.Plaintext",
+                    "Method": "Render"
+                }
+            },
+            "Call":
+            {
+                "ID": "$1"
+            }
+        },
+        "GWM":
+        {
+            "Match": "/google(.+).html",
+            "Service": "Providers.Webmaster.Google",
             "Method": "Auth",
             "View":
             {
