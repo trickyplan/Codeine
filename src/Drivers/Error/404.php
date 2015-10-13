@@ -41,6 +41,8 @@
                 'ID' => '404'
             ];
 
+        $Call['Output']['Content'][] = 404;
+
         $Call['Failure'] = true;
         unset ($Call['Service'], $Call['Method']);
 

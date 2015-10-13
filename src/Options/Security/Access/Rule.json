@@ -243,6 +243,15 @@
                     "Entity": "Error"
                 }
             }
+        },
+        "WOT":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Providers.WOT"
+            }
         }
     }
 }

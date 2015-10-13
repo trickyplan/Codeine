@@ -157,6 +157,24 @@
                 "Entity": "$1",
                 "Where": "$2"
             }
+        },
+        "WOT":
+        {
+            "Match": "/mywot(.+).html",
+            "Service": "Providers.WOT",
+            "Method": "Auth",
+            "View":
+            {
+                "Renderer":
+                {
+                    "Service": "View.Plaintext",
+                    "Method": "Render"
+                }
+            },
+            "Call":
+            {
+                "ID": "$1"
+            }
         }
     }
 }
