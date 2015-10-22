@@ -81,9 +81,7 @@
                     else
                     {
                         if (isset($Call['Dry']))
-                        {
                             F::Log('Dry shot for '.$Call['Entity'].' create');
-                        }
                         else
                         {
                             F::Run('IO', 'Write', $Call);
@@ -214,28 +212,22 @@
                     if (empty($Call['Updates']))
                         $Call['Data'] = $Call['Current'];
                     else
+                    {
+                        if (isset($Call['Data']))
+                            ;
+                        else
+                            $Call['Data'] = [];
+
                         foreach ($Call['Nodes'] as $Name => $Node)
                         {
-                            if (empty(F::Dot($Call['Updates'], $Name)))
-                            {
-                                if (isset($Node['Nullable']) && $Node['Nullable'])
-                                   F::Log($Name.' is nullable and not set', LOG_INFO);
-                                else
-                                {
-                                    if (isset($Call['Data']))
-                                        ;
-                                    else
-                                        $Call['Data'] = [];
+                            $UpdatedValue = F::Dot($Call['Updates'], $Name);
 
-                                    if (null === F::Dot($Call['Current'], $Name))
-                                        ;
-                                    else
-                                        $Call['Data'] = F::Dot($Call['Data'], $Name, F::Dot($Call['Current'], $Name));
-                                }
-                            }
+                            if (null === $UpdatedValue)
+                                $Call['Data'] = F::Dot($Call['Data'], $Name, F::Dot($Call['Current'], $Name));
                             else
                                 $Call['Data'] = F::Dot($Call['Data'], $Name, F::Dot($Call['Updates'], $Name));
                         }
+                    }
 
                     $Call['Data']['EV'] = $Call['EV'];
 

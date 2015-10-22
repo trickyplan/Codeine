@@ -22,9 +22,7 @@
     setFn('Do', function ($Call)
     {
         $Call = F::Hook('beforeShow', $Call);
-
         $Call = F::Hook('beforeShowDo', $Call);
-
 
         /*foreach ($Call['Data'] as $Node => $Value)
         {
