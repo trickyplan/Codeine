@@ -25,7 +25,7 @@
         {
             if ($Call['Run'] = F::Run('IO', 'Read', ['Time' => microtime(true), 'Queue' => $Call['Priority'], 'Storage' => 'Delayed']))
             {
-                F::Log('Running delayed task', LOG_WARNING, 'Developer');
+                F::Log('Running delayed task', LOG_INFO, 'Developer');
                 return F::Live($Call['Run']);
             }
             else
