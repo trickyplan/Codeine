@@ -1,11 +1,4 @@
 {
-    "Title": "PHP",
-    "Options":
-    {
-        "Extensions": "Расширения",
-        "Settings": "Настройки",
-        "Do": "Обзор"
-    },
     "Extension": {
         "Core": "Ядро"
     },
@@ -14,6 +7,15 @@
             "timezone": "Временная зона"
         }
     },
+    "Options": {
+        "Extensions": "Расширения",
+        "Settings": "Настройки",
+        "Do": "Обзор",
+        "Realpath": {
+            "Cache": "Realpath Cache"
+        }
+    },
+    "Title": "PHP",
     "Version": {
         "Verdict": {
             "Stable": "Стабильная версия",

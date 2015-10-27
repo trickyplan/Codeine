@@ -86,3 +86,44 @@
 
         return ['Count' => $VersionNumber, 'Status' => ('Stable' == $Version? 'success': 'warning')];
     });
+
+    setFn('Realpath.Cache', function ($Call)
+    {
+        // Thanks to samdark
+        $Used = realpath_cache_size();
+        $Available = ini_get('realpath_cache_size');
+
+        $Char = strtolower(substr($Available, -1, 1));
+        $Available = substr($Available, 0, strlen($Available)-1);
+
+        switch ($Char)
+        {
+            case 'k':
+                $Available *= 1024;
+            break;
+
+            case 'm':
+                $Available *= 1024*1024;
+            break;
+
+            case 'g':
+                $Available *= 1024*1024*1024;
+            break;
+        }
+
+        $TTL = ini_get('realpath_cache_ttl');
+        $Ratio = round(($Used / $Available) * 100);
+
+        $Call['Output']['Content'][] =
+                    [
+                        'Type'  => 'Table',
+                        'Value' =>
+                        [
+                            ['Used, bytes', $Used],
+                            ['Available, bytes', $Available],
+                            ['TTL, sec', $TTL],
+                            ['Ratio, %', $Ratio]
+                        ]
+                    ];
+        return $Call;
+    });
