@@ -5,7 +5,7 @@ $(document).ready(function ()
             {
                 var el = $(this);
                 $.ajax({
-                    type: 'POST',
+                    type: 'GET',
                     url: el.attr('data-url'),
                     success: function(data)
                     {
