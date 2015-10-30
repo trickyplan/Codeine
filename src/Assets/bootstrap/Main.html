@@ -9,7 +9,18 @@
     <title/>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <link rel="shortcut icon" href="<call>HTTP.Proto</call><call>HTTP.Host</call>/favicon.ico" type="image/x-icon">
+
+    <environment eq="Production">
+        <link rel="shortcut icon" href="<call>HTTP.Proto</call><call>HTTP.Host</call>/favicon.ico" type="image/x-icon">
+    </environment>
+
+    <environment eq="Development">
+        <link rel="shortcut icon" href="<call>HTTP.Proto</call><call>HTTP.Host</call>/favicon-development.ico" type="image/x-icon">
+    </environment>
+
+    <environment eq="Staging">
+        <link rel="shortcut icon" href="<call>HTTP.Proto</call><call>HTTP.Host</call>/favicon-staging.ico" type="image/x-icon">
+    </environment>
 
     <place>CSS</place>
 
