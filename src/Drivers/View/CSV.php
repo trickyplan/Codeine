@@ -9,11 +9,17 @@
      
      setFn('Render', function ($Call)
      {
-         $CSV = [];
-         foreach ($Call['Output']['Content'][0] as $Key => $Value)
-             $CSV[] = '"'.$Key.'"';
+         if (isset($Call['CSV']['No Header']) && $Call['CSV']['No Header'])
+             $CSV = '';
+         else
+         {
+             foreach ($Call['Output']['Content'][0] as $Key => $Value)
+                 $CSV[] = '"'.$Key.'"';
 
-         $CSV = implode(',', $CSV).PHP_EOL;
+             $CSV = implode(',', $CSV).PHP_EOL;
+         }
+
+
          foreach ($Call['Output']['Content'] as $Data)
          {
              $Line = [];
