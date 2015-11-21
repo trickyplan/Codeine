@@ -63,7 +63,7 @@
             define('Environment', self::$_Environment);
             if (isset($Call['Paths']))
             {
-                if ((array) $Call['Paths'] === $Call['Paths'])
+                if (is_array($Call['Paths']))
                     self::$_Paths = array_merge($Call['Paths'], [Codeine]);
                 else
                     self::$_Paths = [$Call['Paths'], Codeine];
@@ -295,7 +295,7 @@
 
         public static function isCall($Call)
         {
-            return (((array) $Call === $Call) && isset($Call['Service']));
+            return (is_array($Call) && isset($Call['Service']));
         }
 
         public static function Run($Service, $Method = null , $Call = [])
@@ -314,7 +314,7 @@
                 for($ic = 3; $ic < $sz; $ic++)
                 {
                     $Argument = func_get_arg ($ic);
-                    if ($Argument === (array) $Argument)
+                    if (is_array($Argument))
                         $Call = self::Merge($Call, $Argument);
                 }
 
@@ -497,7 +497,7 @@
                     }
                     else
                     {
-                        if ((array) $Variable === $Variable)
+                        if (is_array($Variable))
                             foreach ($Variable as $Key => &$cVariable)
                                 $Variable = self::Dot($Variable, $Key, self::Live($cVariable, $Call));
                         else
@@ -774,51 +774,31 @@
         {
             F::Start('Merge');
 
-            if ((array) $Mixin === $Mixin) // Если второй аргумент — массив
-            {
-                if (empty($Mixin))
-                    ;
-                else
-                {
-                    if ($Array === $Mixin)
-                        ;
-                    else // Если аргументы не равны
-                    {
-                        if ((array) $Array === $Array) // Если первый аргумент массив
-                        {
-                            foreach ($Mixin as $MixinKey => $MixinValue) // Проходим по второму
-                            {
-                                if (substr($MixinKey, -1, 1) === '!') // Если у нас ключ кончается на !
-                                    $Array[substr($MixinKey, 0, -1)] = $MixinValue;
-                                // Оверрайд
-                                else
-                                {
-                                    // Иначе, обычная замена
-                                    if (isset($Array[$MixinKey])) // Если ключ из второго массива присутствует в первом
-                                    {
-                                        if ((array) $MixinValue === $MixinValue) // Если значение из второго массива — массив
-                                        {
-                                            if ($Array[$MixinKey] === $Mixin[$MixinKey]) // Если значения в первом и втором массивах совпадают, ничего не делаем
-                                                ;
-                                            else
-                                                $Array[$MixinKey] = self::Merge($Array[$MixinKey], $Mixin[$MixinKey]);
-                                            // Рекурсируем.
-                                        }
-                                        else
-                                            $Array[$MixinKey] = $MixinValue; // Иначе, просто копируем значение
-                                        // Строчки повторены, для читаемости
-                                    }
-                                    else
-                                        $Array[$MixinKey] = $MixinValue; // Иначе, просто копируем значение
-                                }
-                            }
-
-                        }
+            // Вернем первый аргумент, если второй аргумент:
+            // не массив или он пуст или он совпадает с первым.
+            if ( !is_array($Mixin) || empty($Mixin) || ($Array === $Mixin))
+                ;
+            else if (is_array($Array))
+                // Если со вторым аргументом все ок и первый является
+                // массивом, тогда пройдемся по второму аргументу.
+                foreach ($Mixin as $MixinKey => $MixinValue)
+                    // Если у нас ключ кончается на !, тогда Оверрайд аля css
+                    if ( $MixinKey[strlen($MixinKey)-1] === '!')
+                        $Array[rtrim($MixinKey, '!')] = $MixinValue;
+                    // Если ключ из второго массива присутствует в первом
+                    // и если значение под этим ключем массив то..
+                    else if (isset($Array[$MixinKey]) && is_array($MixinValue))
+                        // Если значения в первом и втором массиве
+                        // совпадают, ничего не делаем
+                        if ($Array[$MixinKey] === $Mixin[$MixinKey])
+                            ;
                         else
-                            $Array = $Mixin; // Если первый аргумент не массив, то мерджить смысла нет.
-                    }
-                }
-            }
+                            // Рекурсируем.
+                            $Array[$MixinKey] = self::Merge($Array[$MixinKey], $Mixin[$MixinKey]);
+                    else
+                        $Array[$MixinKey] = $MixinValue; // Иначе, просто копируем значение
+            else
+                $Array = $Mixin; // Если первый аргумент не массив, то мерджить смысла нет.
 
             F::Stop('Merge');
             return $Array;
@@ -826,7 +806,7 @@
 
         public static function Diff ($First, $Second)
         {
-            if (((array) $First === $First) && ((array) $Second === $Second))
+            if (is_array($First) && is_array($Second))
                 foreach ($First as $Key => $Value)
                 {
 /*                    if (isset($Second[$Key]) && $Second[$Key] === $Value)
@@ -840,7 +820,7 @@
                             $Diff[$Key] = $Value;
                         else
                         {
-                            if ((array) $Second[$Key] === $Second[$Key])
+                            if (is_array($Second[$Key]))
                             {
                                 $NewDiff = self::Diff($Value, $Second[$Key]);
 
@@ -933,7 +913,7 @@
             {
                 $Value = func_get_arg(2);
 
-                if ($Array === (array) $Array)
+                if (is_array($Array))
                 {
                     if ($Key === (int) $Key)
                         $Key = (int) $Key;
