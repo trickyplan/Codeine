@@ -144,13 +144,13 @@
 
     setFn('Annulate', function ($Call)
     {
-        F::Run('Entity', 'Update', $Call,
+        F::Run('Entity', 'Update',
         [
             'Entity' => 'User',
             'Where'  => $Call['Session']['User']['ID'],
             'Data'   =>
             [
-                'VKontakte' => -1
+                'VKontakte' => []
             ]
         ]);
 

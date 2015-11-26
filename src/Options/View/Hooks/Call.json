@@ -1,6 +1,6 @@
 {
-    "Block Call Pattern": "<block>(.*?)<call>(.+?)<\/call>(.*?)<\/block>",
-    "Call Pattern": "<call>(.*?)</call>",
+    "Block Call Pattern": "<block>(.*?)<call>([\\w\\.]+?)<\/call>(.*?)<\/block>",
+    "Call Pattern": "<call>([\\w\\.]*?)</call>",
     "Verbosity":
     {
         "Calltag":

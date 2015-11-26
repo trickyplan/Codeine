@@ -1,6 +1,6 @@
 $(document).ready(function ()
     {
-        $('.ajax').each(
+        $('div.ajax, ul.ajax, span.ajax').each(
             function ()
             {
                 var el = $(this);
