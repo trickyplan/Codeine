@@ -772,6 +772,7 @@
 
         public static function Merge($Array, $Mixin)
         {
+            F::Start('Merge');
             if (is_array($Mixin)) // Если второй аргумент — массив
             {
                 if ($Array === $Mixin)
@@ -814,7 +815,7 @@
                         $Array = $Mixin; // Если первый аргумент не массив, то мерджить смысла нет.
                 }
             }
-
+            F::Stop('Merge');
             return $Array;
         }
 
