@@ -772,35 +772,49 @@
 
         public static function Merge($Array, $Mixin)
         {
-            F::Start('Merge');
+            if (is_array($Mixin)) // Если второй аргумент — массив
+            {
+                if ($Array === $Mixin)
+                    ;
+                else // Если аргументы не равны
+                {
+                    if (is_array($Array)) // Если первый аргумент массив
+                    {
+                        foreach ($Mixin as $MixinKey => $MixinValue) // Проходим по второму
+                        {
+                            if (substr($MixinKey, -1, 1) === '!') // Если у нас ключ кончается на !
+                                $Array[substr($MixinKey, 0, -1)] = $MixinValue;
+                            // Оверрайд
+                            else
+                            {
+                                // Иначе, обычная замена
+                                if (isset($Array[$MixinKey])) // Если ключ из второго массива присутствует в первом
+                                {
+                                    if (is_array($MixinValue)) // Если значение из второго массива — массив
+                                    {
+                                        if ($Array[$MixinKey] === $Mixin[$MixinKey]) // Если значения в первом и втором массивах совпадают, ничего не делаем
+                                            ;
+                                        else
+                                        {
+                                            $Array[$MixinKey] = self::Merge($Array[$MixinKey], $Mixin[$MixinKey]);
+                                        } // Рекурсируем.
+                                    }
+                                    else
+                                        $Array[$MixinKey] = $MixinValue; // Иначе, просто копируем значение
 
-            // Вернем первый аргумент, если второй аргумент:
-            // не массив или он пуст или он совпадает с первым.
-            if ( !is_array($Mixin) || empty($Mixin) || ($Array === $Mixin))
-                ;
-            else if (is_array($Array))
-                // Если со вторым аргументом все ок и первый является
-                // массивом, тогда пройдемся по второму аргументу.
-                foreach ($Mixin as $MixinKey => $MixinValue)
-                    // Если у нас ключ кончается на !, тогда Оверрайд аля css
-                    if ( $MixinKey[strlen($MixinKey)-1] === '!')
-                        $Array[rtrim($MixinKey, '!')] = $MixinValue;
-                    // Если ключ из второго массива присутствует в первом
-                    // и если значение под этим ключем массив то..
-                    else if (isset($Array[$MixinKey]) && is_array($MixinValue))
-                        // Если значения в первом и втором массиве
-                        // совпадают, ничего не делаем
-                        if ($Array[$MixinKey] === $Mixin[$MixinKey])
-                            ;
-                        else
-                            // Рекурсируем.
-                            $Array[$MixinKey] = self::Merge($Array[$MixinKey], $Mixin[$MixinKey]);
+                                    // Строчки повторены, для читаемости
+                                }
+                                else
+                                    $Array[$MixinKey] = $MixinValue; // Иначе, просто копируем значение
+                            }
+                        }
+
+                    }
                     else
-                        $Array[$MixinKey] = $MixinValue; // Иначе, просто копируем значение
-            else
-                $Array = $Mixin; // Если первый аргумент не массив, то мерджить смысла нет.
+                        $Array = $Mixin; // Если первый аргумент не массив, то мерджить смысла нет.
+                }
+            }
 
-            F::Stop('Merge');
             return $Array;
         }
 
