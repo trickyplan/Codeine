@@ -783,8 +783,8 @@
                     {
                         foreach ($Mixin as $MixinKey => $MixinValue) // Проходим по второму
                         {
-                            if (substr($MixinKey, -1, 1) === '!') // Если у нас ключ кончается на !
-                                $Array[substr($MixinKey, 0, -1)] = $MixinValue;
+                            if ($MixinKey[strlen($MixinKey)-1]  === '!') // Если у нас ключ кончается на !
+                                $Array[rtrim($MixinKey, '!')] = $MixinValue;
                             // Оверрайд
                             else
                             {
