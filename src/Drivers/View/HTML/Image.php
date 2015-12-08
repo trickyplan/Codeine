@@ -73,7 +73,7 @@
                             (isset($Call['Current Image']['Width'])? $Call['Current Image']['Width']: 0),
                             (isset($Call['Current Image']['Height'])? $Call['Current Image']['Height']: 0),
                             $Call['Current Image']['Source']['Where']['ID']
-            ])).'.'.pathinfo($Call['Current Image']['Source']['Where']['ID'], PATHINFO_EXTENSION);
+            ])).'.'.pathinfo(parse_url($Call['Current Image']['Source']['Where']['ID'], PHP_URL_PATH), PATHINFO_EXTENSION);
 
         return $Call;
     });
