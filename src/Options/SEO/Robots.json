@@ -4,7 +4,7 @@
         "Crawl-delay": 0,
         "Crawlers":
         {
-            "*": "",
+            "*": "/go/",
             "AhrefsBot": "/"
         }
     }
