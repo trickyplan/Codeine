@@ -58,7 +58,7 @@
         "Scraped":
         {
             "Driver":"IO.Storage.FileSystem",
-            "Directory":"/tmp/codeine/scraped",
+            "Directory":"/var/tmp/codeine/scraped",
             "IO":
             {
                 "FileSystem":
@@ -93,7 +93,7 @@
             "Image Cache":
             {
                 "Driver":"IO.Storage.FileSystem",
-                "Directory":"/tmp/codeine",
+                "Directory":"/var/tmp/codeine",
                 "Scope": "cache/img",
                 "IO":
                 {
@@ -123,7 +123,7 @@
             "CSS Cache":
             {
                 "Driver":"IO.Storage.FileSystem",
-                "Directory":"/tmp/codeine",
+                "Directory":"/var/tmp/codeine",
                 "Scope": "cache/css",
                 "IO":
                 {
@@ -147,7 +147,7 @@
             "JS Cache":
             {
                 "Driver":"IO.Storage.FileSystem",
-                "Directory":"/tmp/codeine",
+                "Directory":"/var/tmp/codeine",
                 "Scope": "cache/js",
                 "IO":
                 {
