@@ -223,7 +223,12 @@
                             $UpdatedValue = F::Dot($Call['Updates'], $Name);
 
                             if (null === $UpdatedValue)
-                                $Call['Data'] = F::Dot($Call['Data'], $Name, F::Dot($Call['Current'], $Name));
+                            {
+                                if (isset($Node['Nullable']) && $Node['Nullable'])
+                                    $Call['Data'] = F::Dot($Call['Data'], $Name, null);
+                                else
+                                    $Call['Data'] = F::Dot($Call['Data'], $Name, F::Dot($Call['Current'], $Name));
+                            }
                             else
                                 $Call['Data'] = F::Dot($Call['Data'], $Name, F::Dot($Call['Updates'], $Name));
                         }

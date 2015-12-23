@@ -7,64 +7,73 @@
      * @version 8.x
      */
 
-     setFn('Process', function ($Call)
-     {
-         if (isset($Call['Output']))
-         {
-             F::Log('Start parslets processing', LOG_INFO);
-             foreach ($Call['View']['HTML']['Parslets']['Queue'] as $Parslet)
-             {
-                 $Tag = strtolower($Parslet);
+    setFn('Process', function ($Call)
+    {
+        if (isset($Call['Output']))
+        {
+            F::Log('Start parslets processing', LOG_INFO);
+            // Собираем паттерны
+            $Pass = 1;
+            $Patterns = [];
+            $MaxPass = $Call['View']['HTML']['Parslets']['Max Passes'];
+            $Queue = $Call['View']['HTML']['Parslets']['Queue'];
 
-                 $Pass = 1;
+            while($Pass <= $MaxPass)
+            {
+                $tags = [];
+                foreach ($Queue as $Parser)
+                {
+                    $tags[strtolower($Parser)] = strtolower($Parser).($Pass > 1? $Pass : '');
+                }
 
-                 $cTag = $Tag;
+                $tags = implode('|', $tags);
+                $Patterns[$Pass][] = '<(' . $tags . ') (.*?)>(.*?)</(\1)>';
+                $Patterns[$Pass][] = '<(' . $tags . ')()>(.*?)</(\1)>';
+                $Pass++;
+            }
+            // Парсим в глубину
+            $Pass = 1;
+            while( true )
+            {
+                $Variants = $Patterns[$Pass];
+                $Assoc = [];
 
-                 while($Call['Parsed'] = F::Run('Text.Regex', 'All',
-                     [
-                         'Pattern' => '<'.$cTag.' (.*?)>(.*?)</'.$cTag.'>',
-                         'Value'   => $Call['Output']
-                     ]))
-                 {
-                     $Call = F::Apply('View.HTML.Parslets.'.$Parslet, 'Parse', $Call);
-                     $Pass++;
+                foreach ($Variants as $Pattern) {
+                    $Parsed = F::Run('Text.Regex', 'All',
+                        [
+                            'Pattern' => $Pattern,
+                            'Value' => $Call['Output']
+                        ]);
+                    $Parsed = is_array($Parsed) ? $Parsed : [0, []];
 
-                     if ($Pass > 1)
-                         $cTag = $Tag.$Pass;
+                    foreach ($Parsed[1] as $key => $Parser) {
+                        $ind = strtolower(
+                            $Pass > 1 ? substr($Parser, 0, -strlen($Pass)) : $Parser
+                        );
+                        $Assoc[$ind][0][] = $Parsed[0][$key];
+                        $Assoc[$ind][1][] = $Parsed[2][$key];
+                        $Assoc[$ind][2][] = $Parsed[3][$key];
+                    }
+                }
 
-                     if ($Pass > $Call['View']['HTML']['Parslets']['Max Passes'])
-                     {
-                         F::Log($Parslet.' Parslet raised max passes limit.', LOG_ERR);
-                         break;
-                     }
-                 }
+                if ($Assoc === [] && $Pass == $MaxPass)
+                    break;
 
-                 $Pass = 1;
+                foreach ($Queue as $Parser) {
+                    $ind = strtolower($Parser);
+                    if (!isset($Assoc[$ind]))
+                        continue;
+                    $Call['Parsed'] = $Assoc[$ind];
+                    $Call = F::Apply('View.HTML.Parslets.' . $Parser, 'Parse', $Call);
+                    F::Log('Parslet *' . $Parser . '* processed', LOG_DEBUG);
+                }
 
-                 $cTag = $Tag;
+                $Pass++;
 
-                 while($Call['Parsed'] = F::Run('Text.Regex', 'All',
-                     [
-                         'Pattern' => '<'.$cTag.'()>(.*?)</'.$cTag.'>',
-                         'Value'   => $Call['Output']
-                     ]))
-                 {
-                     $Call = F::Apply('View.HTML.Parslets.'.$Parslet, 'Parse', $Call);
-                     $Pass++;
-
-                     if ($Pass > 1)
-                         $cTag = $Tag.$Pass;
-
-                     if ($Pass > $Call['View']['HTML']['Parslets']['Max Passes'])
-                     {
-                         F::Log($Parslet.' Parslet raised max passes limit.', LOG_ERR);
-                         break;
-                     }
-                 }
-
-                 F::Log('Parslet *'.$Parslet.'* processed', LOG_DEBUG);
-             }
-         }
-         F::Log('End parslets processing', LOG_INFO);
-         return $Call;
-     });
+                if ($Assoc !== [] && $Pass > 1)
+                    $Pass = 1;
+            }
+        }
+        F::Log('End parslets processing', LOG_INFO);
+        return $Call;
+    });

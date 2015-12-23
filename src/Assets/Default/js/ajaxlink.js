@@ -4,14 +4,14 @@ $(document).ready(function ()
             function ()
             {
                 var el = $(this);
-                $('#'+el.attr('target')).addClass('text-muted');
+                $('#'+el.attr('data-target')).addClass('text-muted');
                 $.ajax({
-                    type: 'POST',
+                    type: 'GET',
                     url: el.attr('href'),
                     success: function(data)
                     {
-                        $('#'+el.attr('target')).html(data)
-                        $('#'+el.attr('target')).removeClass('text-muted');
+                        $('#'+el.attr('data-target')).html(data)
+                        $('#'+el.attr('data-target')).removeClass('text-muted');
                     }
 
                 });

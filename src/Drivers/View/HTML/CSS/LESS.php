@@ -43,11 +43,11 @@
                 if (file_exists(Root.'/Assets/'.$Asset.'/less/'.$ID.'.less'))
                 {
                     $Command = 'lessc '.Root.'/Assets/'.$Asset.'/less/'.$ID.'.less > '.Root.'/Assets/'.$Asset.'/css/'.$ID.'.css';
-                    shell_exec($Command);
-                    $Command = 'lessc --clean-css '.Root.'/Assets/'.$Asset.'/less/'.$ID.'.less > '.Root.'/Assets/'.$Asset.'/css/min.css';
-                    shell_exec($Command);
+                    // $Command = 'lessc --clean-css '.Root.'/Assets/'.$Asset.'/less/'.$ID.'.less > '.Root.'/Assets/'.$Asset.'/css/'.$ID.'.min.css';
+                    // shell_exec($Command);
                     F::Log('LESS *processed* '.Root.'/Assets/'.$Asset.'/less/'.$ID.'.less', LOG_INFO, 'Developer');
-
+                    F::Log($Command, LOG_INFO, 'Developer');
+                    F::Log(shell_exec($Command), LOG_INFO, 'Developer');
                 }
             }
             else

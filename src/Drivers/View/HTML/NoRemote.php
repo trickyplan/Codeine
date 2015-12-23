@@ -30,7 +30,7 @@
                     }
 
                 if ($NoRemote)
-                    $Call['Output'] = str_replace($Links[0][$IX], 'a href="/go/'.$Link.'"',$Call['Output']);
+                    $Call['Output'] = str_replace($Links[0][$IX], 'a rel="nofollow" href="/go/'.$Link.'"',$Call['Output']);
             }
         }
 
