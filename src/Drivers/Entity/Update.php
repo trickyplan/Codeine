@@ -62,18 +62,17 @@
                 $Call['Data'] = $Call['Request']['Data'];
 
             // Отправляем в Entity.Update
+            $Result = F::Run('Entity', 'Update', $Call);
 
-            $Call['Current'] = F::Run('Entity', 'Update', $Call);
-
-            $Call['Data'] = $Call['Current'];
-
-           // Выводим результат
-
-            if (empty($Call['Errors']))
+            // Выводим результат
+            if (!isset($Result['Errors']) or empty($Result['Errors']))
+            {
+                $Call['Data'] = $Result;
                 $Call = F::Hook('afterUpdatePost', $Call);
+            }
             else
             {
-                foreach ($Call['Errors'] as $Name =>$Node)
+                foreach ($Result['Errors'] as $Name =>$Node)
                     foreach ($Node as $Error)
                         $Call['Output']['Message'][] =
                             [
