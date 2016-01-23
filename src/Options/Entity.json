@@ -67,22 +67,26 @@
             "Strict":
             {
                 "Service":"Entity.Hooks.Strict",
-                "Method":"Process"
+                "Method":"Process",
+                "Weight": 100
             },
             "Null":
             {
                 "Service":"Entity.Hooks.Null",
-                "Method":"Process"
+                "Method":"Process",
+                "Weight": 200
             },
             "Make variables alive":
             {
                 "Service":"Entity.Hooks.Live",
-                "Method":"Process"
+                "Method":"Process",
+                "Weight": 300
             },
             "EV":
             {
                 "Service":"Entity.Hooks.EV",
-                "Method":"beforeOperation"
+                "Method":"beforeOperation",
+                "Weight": 400
             }
         },
         "beforeEntityCreate":

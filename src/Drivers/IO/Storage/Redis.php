@@ -9,7 +9,6 @@
 
     setFn ('Open', function ($Call)
     {
-        $Result = false;
         $Redis = new Redis();
 
         if (isset($Call['Socket']))
