@@ -203,33 +203,28 @@
 
                 $VCall = [];
 
-                foreach ($Entities as $Call['Current'])
-                {
+                foreach ($Entities as $Call['Current']) {
                     $Call['Data'] = [];
                     // Поиск по всем полям
                     $VCall['Where'] = ['ID' => $Call['Current']['ID']];
 
                     if (empty($Call['Updates']))
                         $Call['Data'] = $Call['Current'];
-                    else
-                    {
+                    else {
                         if (isset($Call['Data']))
                             ;
                         else
                             $Call['Data'] = [];
 
-                        foreach ($Call['Nodes'] as $Name => $Node)
-                        {
+                        foreach ($Call['Nodes'] as $Name => $Node) {
                             $UpdatedValue = F::Dot($Call['Updates'], $Name);
 
-                            if (null === $UpdatedValue)
-                            {
+                            if (null === $UpdatedValue) {
                                 if (isset($Node['Nullable']) && $Node['Nullable'])
                                     $Call['Data'] = F::Dot($Call['Data'], $Name, null);
                                 else
                                     $Call['Data'] = F::Dot($Call['Data'], $Name, F::Dot($Call['Current'], $Name));
-                            }
-                            else
+                            } else
                                 $Call['Data'] = F::Dot($Call['Data'], $Name, F::Dot($Call['Updates'], $Name));
                         }
                     }
@@ -237,16 +232,24 @@
                     $Call['Data']['EV'] = $Call['EV'];
 
                     $Call = F::Hook('beforeEntityWrite', $Call);
-                        $Call = F::Hook('beforeEntityUpdate', $Call);
+                    $Call = F::Hook('beforeEntityUpdate', $Call);
 
+            /*
+            TODO: необходимо щипитильно проверить обновлялку
+            */
+                    if (isset($Call['Failure']) and $Call['Failure'])
+                        $Call['Data'] = null;
+                    else {
                             if (isset($Call['Dry']))
-                                F::Log('Dry shot for '.$Call['Entity'].' update');
-                            else
+                                F::Log('Dry shot for ' . $Call['Entity'] . ' update');
+                            else {
                                 F::Run('IO', 'Write', $Call, $VCall);
 
-                        $Call = F::Hook('afterEntityUpdate', $Call);
-                    $Call = F::Hook('afterEntityWrite', $Call);
-                }
+                                $Call = F::Hook('afterEntityUpdate', $Call);
+                                $Call = F::Hook('afterEntityWrite', $Call);
+                            }
+                        }
+                    }
 
                 $Entities = F::Run('Entity', 'Read', $Call, ['Time' => microtime(true).rand(), 'One' => false]);
 
@@ -258,7 +261,10 @@
 
         F::Hook('afterOperation', $Call);
 
-        return $Entities;
+        if (isset($Call['Errors']))
+            return ['Errors' => $Call['Errors']];
+        else
+            return $Entities;
     });
 
     setFn('Delete', function ($Call)
