@@ -1,0 +1,26 @@
+{
+    "Subtype": "text",
+    "Attributes":
+    {
+        "String":
+        {
+            "Type": "",
+            "ID": "",
+            "Name": "",
+            "Class": "",
+            "Pattern": "",
+            "Placeholder": "",
+            "Value": "",
+            "Size": "",
+            "Maxlength": "",
+            "Min": "",
+            "Max": ""
+        },
+        "Boolean":
+        {
+            "Autofocus": false,
+            "Required": false,
+            "Disabled": false
+        }
+    }
+}
