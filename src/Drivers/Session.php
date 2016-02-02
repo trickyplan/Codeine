@@ -20,8 +20,6 @@
 
             if (isset($Call['Session']['Auto Create']) && $Call['Session']['Auto Create'])
                 $Call = F::Run(null, 'Mark', $Call);
-            else
-                $Call['Session'] = [];
         }
         else
         {
@@ -52,7 +50,7 @@
 
         $Call = F::Run(null, 'Load User', $Call);
 
-        $Call['Session']['UID'] = isset($Call['Session']['User']['ID'])? 'U:'.$Call['Session']['User']['ID']: 'S:'. $Call['SID'];
+        $Call['Session UID'] = isset($Call['Session']['User']['ID'])? 'U:'.$Call['Session']['User']['ID']: 'S:'. $Call['SID'];
         F::Log($Call['Session'], LOG_DEBUG, 'Security');
 
         return $Call;
