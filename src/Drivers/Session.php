@@ -51,7 +51,9 @@
         $Call = F::Run(null, 'Load User', $Call);
 
         $Call['Session UID'] = isset($Call['Session']['User']['ID'])? 'U:'.$Call['Session']['User']['ID']: 'S:'. $Call['SID'];
-        F::Log($Call['Session'], LOG_DEBUG, 'Security');
+
+        if (isset($Call['Session']))
+            F::Log($Call['Session'], LOG_DEBUG, 'Security');
 
         return $Call;
     });
