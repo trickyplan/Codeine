@@ -9,6 +9,11 @@
 
     setFn('Do', function ($Call)
     {
+        if (isset($_SERVER['HTTP_HOST']))
+            ;
+        else
+            $_SERVER['HTTP_HOST'] = $Call['Project']['Hosts'][F::Environment()];
+
         if (preg_match('/:/', $_SERVER['HTTP_HOST']))
             list ($_SERVER['HTTP_HOST'], $Call['HTTP']['Port']) = explode(':', $_SERVER['HTTP_HOST']);
 
