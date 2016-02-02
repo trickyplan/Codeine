@@ -84,7 +84,7 @@
                             F::Log('Dry shot for '.$Call['Entity'].' create');
                         else
                         {
-                            F::Run('IO', 'Write', $Call);
+                            $Call['Data'] = F::Run('IO', 'Write', $Call);
                             $Call = F::Hook('afterEntityCreate', $Call);
                             $Call = F::Hook('afterEntityWrite', $Call);
                         }
