@@ -54,6 +54,8 @@
 
         if (isset($Call['Session']))
             F::Log($Call['Session'], LOG_DEBUG, 'Security');
+        else
+            $Call['Session'] = [];
 
         return $Call;
     });
