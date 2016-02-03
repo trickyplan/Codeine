@@ -23,6 +23,15 @@
                 "Service": "Codeine.Beacon"
             }
         },
+        "Версия":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Project.Version"
+            }
+        },
         "ЦУП Роутер доступен всем":
         {
             "Decision": true,
