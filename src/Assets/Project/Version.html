@@ -1,0 +1,51 @@
+<div class="alert alert-info">
+    <h4>Developers</h4>
+    <div><strong>URI:</strong></div>
+    <call>HTTP.Proto</call><call>HTTP.Host</call><call>HTTP.URI</call>
+    <div><strong>Environment:</strong></div>
+    <call>Environment</call>
+    <div><strong>Project Version</strong></div>
+    <call>Version.Project.Major</call>.<call>Version.Project.Minor</call>
+    <div><strong>Codeine Version</strong></div>
+    <call>Version.Codeine.Major</call><call>Version.Codeine.Minor</call>
+    <div><strong>Server Time</strong></div>
+    <div><datetime format="d.m.Y H:i:s T"></datetime></div>
+    <div><strong>Heat time</strong></div>
+    <timer>Preheat</timer> msec.
+    <div><strong>Payload time</strong></div>
+    <timer>Payload</timer> msec.
+    <div><strong>Cooldown time</strong></div>
+    <timer>Cooldown</timer> msec.
+    <div><strong>IO</strong></div>
+    <timer>IO</timer> msec.
+    <div><strong>Rendering</strong></div>
+    <timer>View</timer> msec.
+    <div><strong>From &alpha; to &omega;</strong></div>
+    <div id="overall-profiling" style="display: none;"><call>Started</call></div>
+    <div><strong>Browser</strong></div>
+    <div>
+        <call>HTTP.User Agent</call>
+    </div>
+    <div><strong>IP</strong></div>
+    <div>
+        <call>HTTP.IP</call>
+    </div>
+    <block>
+        <div><strong>User</strong></div>
+        <div>
+            <call>Session.User.ID</call>
+        </div>
+    </block>
+</div>
+<hr/>
+<div class="btn-group-justified">
+    <environment neq="Production">
+        <a class="btn btn-lg btn-block btn-primary" href="http://<call>Project.Hosts.Production</call><call>HTTP.URI</call>">Боевой сервер</a>
+    </environment>
+    <environment neq="Staging">
+        <a class="btn btn-lg btn-block btn-success" href="http://<call>Project.Hosts.Staging</call><call>HTTP.URI</call>">Тестовый сервер</a>
+    </environment>
+    <environment neq="Development">
+        <a class="btn btn-lg btn-block btn-danger" href="http://<call>Project.Hosts.Development</call><call>HTTP.URI</call>">Локальный сервер</a>
+    </environment>
+</div>

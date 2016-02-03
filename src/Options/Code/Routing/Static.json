@@ -169,6 +169,11 @@
                     "Method": "Render"
                 }
             }
+        },
+        "/version":
+        {
+            "Service": "Project.Version",
+            "Method": "Do"
         }
     }
 }
