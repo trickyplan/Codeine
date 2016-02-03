@@ -7,40 +7,40 @@
      * @version 8.x
      */
 
-    setFn('Widget', function ($Call)
+    setFn('Prepare', function ($Call)
     {
-
+        $Call['Output']['Form'][] = '<js>https://www.google.com/recaptcha/api.js</js>'.
+        '<div class="g-recaptcha" data-sitekey="'.$Call['ReCAPTCHA']['Public'].'"></div>';
 
         return $Call;
     });
 
     setFn('Check', function ($Call)
     {
-        $CAPTCHA = curl_init();
-        $Data =
+        $Result = F::Run('IO', 'Write',
             [
-                'privatekey' => $Call['ReCAPTCHA']['Private'],
-                'remoteip' => $_SERVER['REMOTE_ADDR'],
-                'challenge' => $Call['Request']['recaptcha.challenge.field'],
-                'response' => $Call['Request']['recaptcha.response.field']
-            ];
-
-        curl_setopt_array($CAPTCHA,
-            [
-                CURLOPT_URL => 'http://www.google.com/recaptcha/api/verify',
-                CURLOPT_POST => true,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_CONNECTTIMEOUT => 10,
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_POSTFIELDS => $Data // FIXME IO
+                'Storage'       => 'Web',
+                'Where'         => $Call['ReCAPTCHA']['Endpoint'],
+                'Output Format' => 'Formats.JSON',
+                'Data'          =>
+                [
+                    'secret'    => $Call['ReCAPTCHA']['Private'],
+                    'response'  => $Call['Request']['g-recaptcha-response'],
+                    'remoteip'  => $Call['HTTP']['IP']
+                ]
             ]);
 
-        list($Result) = explode("\n", curl_exec($CAPTCHA));
+        $Result = array_pop($Result);
 
-        if ($Result == 'false')
+        if (isset($Result['success']))
         {
-            $Call['Failure'] = true;
-            $Call = F::Hook('CAPTCHA.Failed', $Call);
+            if ($Result['success'])
+                ;
+            else
+            {
+                $Call = F::Hook('CAPTCHA.Failed', $Call);
+                $Call['Errors'][] = ['CAPTCHA' => 'Failed'];
+            }
         }
 
         return $Call;
