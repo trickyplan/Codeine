@@ -18,7 +18,7 @@
         {
             F::Log('Session: Marker does not exist', LOG_INFO, 'Security');
 
-            if (isset($Call['Session']['Auto Create']) && $Call['Session']['Auto Create'])
+            if (isset($Call['Session Auto']) && $Call['Session Auto'])
                 $Call = F::Run(null, 'Mark', $Call);
         }
         else
