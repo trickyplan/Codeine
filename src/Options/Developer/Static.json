@@ -1,0 +1,14 @@
+{
+    "Static":
+    {
+        "/dev/theme":
+        {
+            "Service": "Developer.Theme",
+            "Method": "Do"
+        },
+        "/dev/translate":
+        {
+            "Service": "Locale.Live"
+        }
+    }
+}

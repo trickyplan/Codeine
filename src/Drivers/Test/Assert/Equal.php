@@ -15,6 +15,7 @@
         {
             $Call['Failure'] = true;
             $Decision = false;
+            F::Log(j($Call['Return']).' is not equal '.j($Call['Case']['Result']['Equal']), LOG_WARNING, 'Developer');
         }
 
         return [$Decision, print_r($Call['Return'], true)];

@@ -1,0 +1,40 @@
+{
+    "Static":
+    {
+        "/search":
+        {
+            "Service": "Search",
+            "Method": "Query"
+        },
+        "/search.rss":
+        {
+            "Service": "Search",
+            "Method": "Query",
+            "Call":
+            {
+                "Link": "/search"
+            },
+            "View":
+            {
+                "Renderer":
+                {
+                    "Service": "View.RSS",
+                    "Method": "Render"
+                }
+            }
+        },
+        "/search.json":
+        {
+            "Service": "Search",
+            "Method": "Query",
+            "View":
+            {
+                "Renderer":
+                {
+                    "Service": "View.JSON",
+                    "Method": "Render"
+                }
+            }
+        }
+    }
+}

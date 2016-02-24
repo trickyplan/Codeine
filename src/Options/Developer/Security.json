@@ -1,0 +1,24 @@
+{
+    "Rules":
+    {
+        "Dev Theme / All":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Developer.Theme",
+                "Method": "Do"
+            }
+        },
+        "Dev Translate / All":
+        {
+            "Decision": true,
+            "Weight": 150,
+            "Run":
+            {
+                "Service": "Locale.Live"
+            }
+        }
+    }
+}

@@ -31,7 +31,7 @@
                         $TestTime = microtime(true)-$TestTime;
                     }
 
-                    $Call['Report'][] = [
+                    $Call['Report'][$Call['Test'].$SuiteName.$CaseName] = [
                         $Call['Test'],
                         $SuiteName,
                         $CaseName,
@@ -84,16 +84,19 @@
             }
 
             sort($Options);
+            $Report = [];
+
             foreach ($Options as $Option)
             {
                 $VCall = F::Apply(null, 'Run', $Call, ['Test' => $Option[1]]);
 
-                $Call['Output']['Content'][] =
-                [
-                    'Type' => 'Table',
-                    'Value' => $VCall['Report']
-                ];
+                $Report = F::Merge($Report, $VCall['Report']);
             }
+            $Call['Output']['Content'][] =
+            [
+                'Type' => 'Table',
+                'Value' => $Report
+            ];
         }
 
         return $Call;

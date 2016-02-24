@@ -1,179 +1,30 @@
 {
-    "Mixins": ["User.Static","Control.Static"],
-    "Static":
-    {
-        "/about/project":
-        {
-            "Service": "Project.About",
-            "Method": "Do"
-        },
-        "/test/theme":
-        {
-            "Service": "Project.Theme",
-            "Method": "Do"
-        },
-        "/payment":
-        {
-            "Service": "Payment.PaysIO",
-            "Method": "Do"
-        },
-        "/":
-        {
-            "Service":"Project.Frontpage",
-            "Method":"Do"
-        },
-        "/search":
-        {
-            "Service": "Search",
-            "Method": "Query"
-        },
-        "/search.rss":
-        {
-            "Service": "Search",
-            "Method": "Query",
-            "Call":
-            {
-                "Link": "/search"
-            },
-            "View":
-            {
-                "Renderer":
-                {
-                    "Service": "View.RSS",
-                    "Method": "Render"
-                }
+    "Mixins":    [
+        "Control.Static",
+        "User.Static",
+        "Search.Static",
+        "Developer.Static",
+        "SEO.Static",
+        "Project.Static"
+    ],
+    "Static":    {
+        "/": {
+            "Service": "Project.Frontpage",
+            "Method":  "Do"
+        }
+    },
+    "/uploader": {
+        "Service": "IO.Uploader",
+        "Method":  "Write",
+        "View":    {
+            "Renderer": {
+                "Service": "View.JSON",
+                "Method":  "Render"
             }
         },
-        "/search.json":
-        {
-            "Service": "Search",
-            "Method": "Query",
-            "View":
-            {
-                "Renderer":
-                {
-                    "Service": "View.JSON",
-                    "Method": "Render"
-                }
-            }
-        },
-        "/translate":
-        {
-            "Service": "Locale.Add",
-            "Method": "Do",
-            "View":
-            {
-                "Renderer":
-                {
-                    "Service": "View.JSON",
-                    "Method": "Render"
-                }
-            }
-        },
-        "/sitemap.xml":
-        {
-            "Service": "SEO.Sitemap",
-            "Method": "List Sitemap Indexes",
-            "View":
-            {
-                "Renderer":
-                {
-                    "Service": "View.XML",
-                    "Method": "Render"
-                }
-            }
-        },
-        "/uploader":
-        {
-            "Service": "IO.Uploader",
-            "Method": "Write",
-            "View":
-            {
-                "Renderer":
-                {
-                    "Service": "View.JSON",
-                    "Method": "Render"
-                }
-            }
-        },
-        "/beacon":
-        {
-            "Service": "Codeine.Beacon",
-            "View":
-            {
-                "Renderer":
-                {
-                    "Service": "View.File"
-                }
-            }
-        },
-        "/robots.txt":
-        {
-            "Service": "SEO.Robots",
-            "Method": "Do",
-            "View":
-            {
-                "Renderer":
-                {
-                    "Service": "View.Plaintext",
-                    "Method": "Render"
-                }
-            }
-        },
-        "/opensearch.xml":
-        {
-            "Service": "Project.OpenSearch",
-            "View":
-            {
-                "Renderer":
-                {
-                    "Service": "View.XML",
-                    "Method": "Render"
-                }
-            }
-        },
-        "/404":
-        {
-            "Service": "Error.404",
-            "Method": "Page"
-        },
-        "/403":
-        {
-            "Service": "Error.403",
-            "Method": "Page",
-            "Zone": "Default"
-        },
-        "/terms":
-        {
-            "Service": "Project.Terms",
-            "Method": "Do"
-        },
-        "/api":
-        {
+        "/api":    {
             "Service": "Code.Flow.API",
-            "Method": "Run"
-        },
-        "/error-catcher.json":
-        {
-            "Service": "Entity.Create",
-            "Method": "Do",
-            "Call":
-            {
-                "Entity": "Error"
-            },
-            "View":
-            {
-                "Renderer":
-                {
-                    "Service": "View.JSON",
-                    "Method": "Render"
-                }
-            }
-        },
-        "/version":
-        {
-            "Service": "Project.Version",
-            "Method": "Do"
+            "Method":  "Do"
         }
     }
 }

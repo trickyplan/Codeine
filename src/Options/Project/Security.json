@@ -1,0 +1,64 @@
+{
+    "Rules":
+    {
+        "Beacon / All":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Project.Beacon"
+            }
+        },
+        "Terms / All":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Project.Terms",
+                "Method": "Do"
+            }
+        },
+        "Copyright / All":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Project.Copyright",
+                "Method": "Do"
+            }
+        },
+        "About / All":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Project.About",
+                "Method": "Do"
+            }
+        },
+        "Status / All":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Project.Status",
+                "Method": "Do"
+            }
+        },
+        "Test / All":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Test",
+                "Method": "Do"
+            }
+        }
+    }
+}

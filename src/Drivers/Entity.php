@@ -235,7 +235,7 @@
                     $Call = F::Hook('beforeEntityUpdate', $Call);
 
             /*
-            TODO: необходимо щипитильно проверить обновлялку
+            TODO: необходимо щепитильно проверить обновлялку
             */
                     if (isset($Call['Failure']) and $Call['Failure'])
                         $Call['Data'] = null;

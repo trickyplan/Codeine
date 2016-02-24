@@ -3,7 +3,6 @@
     {
         "Positive":
         {
-
             "Create Object(s)":
             {
                 "Run":
@@ -25,6 +24,7 @@
                 {
                     "Equal":
                     {
+                        "EV": 1,
                         "ID": 1,
                         "Key": "Value"
                     }
@@ -51,6 +51,7 @@
                 {
                     "Equal":
                     {
+                        "EV": 1,
                         "ID": 2,
                         "Key": "Value 2"
                     }

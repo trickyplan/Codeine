@@ -1,0 +1,63 @@
+{
+    "Static":
+    {
+        "/about/project":
+        {
+            "Service": "Project.About",
+            "Method": "Do"
+        },
+        "/about/terms":
+        {
+            "Service": "Project.Terms",
+            "Method": "Do"
+        },
+        "/about/copyright":
+        {
+            "Service": "Project.Copyright",
+            "Method": "Do"
+        },
+        "/system/beacon":
+        {
+            "Service": "Project.Beacon",
+            "View":
+            {
+                "Renderer":
+                {
+                    "Service": "View.File"
+                }
+            }
+        },
+        "/system/status":
+        {
+            "Service": "Project.Status",
+            "Method": "Do"
+        },
+        "/system/test":
+        {
+            "Service": "Test",
+            "Method": "Do"
+        },
+        "/system/version":
+        {
+            "Service": "Project.Version",
+            "Method": "Do"
+        },
+        "/system/error":
+        {
+            "Service": "Entity.Create",
+            "Method": "Do",
+            "Call":
+            {
+                "Entity": "Error"
+            },
+            "View":
+            {
+                "Renderer":
+                {
+                    "Service": "View.JSON",
+                    "Method": "Render"
+                }
+            }
+        }
+    }
+}

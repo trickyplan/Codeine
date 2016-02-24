@@ -1,0 +1,59 @@
+{
+    "Rules":
+    {
+        "Sitemap / All":
+        {
+            "Decision": true,
+            "Weight": 200,
+            "Run":
+            {
+                "Service":"SEO.Sitemap"
+            }
+        },
+        "Entity Sitemap / All":
+        {
+            "Decision": true,
+            "Weight": 200,
+            "Run":
+            {
+                "Service":"Entity.Sitemap"
+            }
+        },
+        "Opensearch / All":
+        {
+            "Decision": true,
+            "Weight": 200,
+            "Run":
+            {
+                "Service":"Project.OpenSearch"
+            }
+        },
+        "Robots / All":
+        {
+            "Decision": true,
+            "Weight": 200,
+            "Run":
+            {
+                "Service":"SEO.Robots"
+            }
+        },
+        "WOT / All":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Providers.Webmaster.WOT"
+            }
+        },
+        "GWM / All":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Providers.Webmaster.Google"
+            }
+        }
+    }
+}
