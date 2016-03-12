@@ -1,0 +1,43 @@
+{
+    "Static":
+    {
+        "/sitemap.xml":
+        {
+            "Service": "SEO.Sitemap",
+            "Method": "List Sitemap Indexes",
+            "View":
+            {
+                "Renderer":
+                {
+                    "Service": "View.XML",
+                    "Method": "Render"
+                }
+            }
+        },
+        "/robots.txt":
+        {
+            "Service": "SEO.Robots",
+            "Method": "Do",
+            "View":
+            {
+                "Renderer":
+                {
+                    "Service": "View.Plaintext",
+                    "Method": "Render"
+                }
+            }
+        },
+        "/opensearch.xml":
+        {
+            "Service": "Project.OpenSearch",
+            "View":
+            {
+                "Renderer":
+                {
+                    "Service": "View.XML",
+                    "Method": "Render"
+                }
+            }
+        }
+    }
+}

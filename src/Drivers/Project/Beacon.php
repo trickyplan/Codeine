@@ -9,7 +9,6 @@
 
     setFn('Do', function ($Call)
     {
-        $Call['Output']['Content'] = F::findFile('Assets/Default/img/Default.png');
-
+        $Call['Output']['Content'] = F::findFile($Call['Project']['Beacon']['URL']);
         return $Call;
     });

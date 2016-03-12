@@ -1,37 +1,16 @@
 {
-    "Contract":
-    {
-        "Security.Access.Rule":
-        {
-            "Check":
-            {
-                "Memo": ["Rules", "Service", "Method", "Call", "Session"]
-            }
-        }
-    },
-    "Mixins": ["User.Security.Access.Rule", "Control.Security.Access.UserNo1"],
+    "Mixins":
+    [
+        "Control.Security.Access.UserNo1",
+        "User.Security",
+        "Project.Security",
+        "SEO.Security",
+        "Developer.Security"
+    ],
     "Weight": 0,
     "Decision": false,
     "Rules":
     {
-        "Маяк доступен всем":
-        {
-            "Decision": true,
-            "Weight": 50,
-            "Run":
-            {
-                "Service": "Codeine.Beacon"
-            }
-        },
-        "Версия":
-        {
-            "Decision": true,
-            "Weight": 50,
-            "Run":
-            {
-                "Service": "Project.Version"
-            }
-        },
         "ЦУП Роутер доступен всем":
         {
             "Decision": true,
@@ -48,62 +27,6 @@
             "Run":
             {
                 "Service": "Project.Frontpage"
-            }
-        },
-        "Правила всем":
-        {
-            "Decision": true,
-            "Weight": 50,
-            "Run":
-            {
-                "Service": "Project.Terms",
-                "Method": "Do"
-            }
-        },
-        "Страница о сервисе доступна всем":
-        {
-            "Decision": true,
-            "Weight": 50,
-            "Run":
-            {
-                "Service": "Project.About",
-                "Method": "Do"
-            }
-        },
-        "Sitemap доступен всем":
-        {
-            "Decision": true,
-            "Weight": 200,
-            "Run":
-            {
-                "Service":"SEO.Sitemap"
-            }
-        },
-        "Entity Sitemap доступен всем":
-        {
-            "Decision": true,
-            "Weight": 200,
-            "Run":
-            {
-                "Service":"Entity.Sitemap"
-            }
-        },
-        "Opensearch доступен всем":
-        {
-            "Decision": true,
-            "Weight": 200,
-            "Run":
-            {
-                "Service":"Project.OpenSearch"
-            }
-        },
-        "Robots доступен всем":
-        {
-            "Decision": true,
-            "Weight": 200,
-            "Run":
-            {
-                "Service":"SEO.Robots"
             }
         },
         "Страницы ошибок доступны всем":
@@ -141,15 +64,6 @@
                 {
                     "Entity": "Block"
                 }
-            }
-        },
-        "Перевод доступен всем":
-        {
-            "Decision": true,
-            "Weight": 150,
-            "Run":
-            {
-                "Service": "Locale.Add"
             }
         },
         "Меню видно всем":
@@ -213,23 +127,6 @@
                 "Service": "Country.FlagByIP"
             }
         },
-        "Deposit 2 all":
-        {
-            "Decision": true,
-            "Weight": 100,
-            "Run":
-            {
-                "Service": "Entity.Balance.Deposit"
-            }
-        },
-        "Test theme 2 all":
-        {
-            "Decision": true,
-            "Run":
-            {
-                "Service": "Project.Theme"
-            }
-        },
         "Swarm":
         {
             "Decision": true,
@@ -237,38 +134,6 @@
             "Run":
             {
                 "Service": "Swarm"
-            }
-        },
-        "Error Catcher":
-        {
-            "Decision": true,
-            "Weight": 50,
-            "Run":
-            {
-                "Service": "Entity.Create",
-                "Method": "Do",
-                "Call":
-                {
-                    "Entity": "Error"
-                }
-            }
-        },
-        "WOT":
-        {
-            "Decision": true,
-            "Weight": 50,
-            "Run":
-            {
-                "Service": "Providers.Webmaster.WOT"
-            }
-        },
-        "GWM":
-        {
-            "Decision": true,
-            "Weight": 50,
-            "Run":
-            {
-                "Service": "Providers.Webmaster.Google"
             }
         }
     }
