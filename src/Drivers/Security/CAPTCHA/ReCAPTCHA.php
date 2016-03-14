@@ -17,7 +17,9 @@
 
     setFn('Check', function ($Call)
     {
-        $Result = F::Run('IO', 'Write',
+        if (isset($Call['Request']['g-recaptcha-response']))
+        {
+            $Result = F::Run('IO', 'Write',
             [
                 'Storage'       => 'Web',
                 'Where'         => $Call['ReCAPTCHA']['Endpoint'],
@@ -30,7 +32,10 @@
                 ]
             ]);
 
-        $Result = array_pop($Result);
+            $Result = array_pop($Result);
+        }
+        else
+            $Result = ['success' => false];
 
         if (isset($Result['success']))
         {
