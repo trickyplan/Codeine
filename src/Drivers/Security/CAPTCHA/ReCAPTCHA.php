@@ -9,8 +9,11 @@
 
     setFn('Prepare', function ($Call)
     {
-        $Call['Output']['Form'][] = '<js>https://www.google.com/recaptcha/api.js</js>'.
+        $Call['Output']['Form'][] =
+            '<js>https://www.google.com/recaptcha/api.js?onload=CaptchaCallback&render=explicit</js>'.
+            '<js>Security/CAPTCHA:ReCAPTCHA</js>'.
         '<div class="g-recaptcha" data-sitekey="'.$Call['ReCAPTCHA']['Public'].'"></div>';
+
 
         return $Call;
     });
