@@ -8,6 +8,7 @@
         {
             header('HTTP/1.1 503 Service Temporarily Unavailable');
             header('Status: 503 Service Temporarily Unavailable');
+            header('Retry-After: 3600');
 
             header('X-Reason: Locked');
             if (file_exists(Root.'/Public/down.html'))
