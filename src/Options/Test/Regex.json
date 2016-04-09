@@ -1,0 +1,26 @@
+{
+    "Regex":
+    {
+        "Test":
+        {
+            "Match": "^/test/(.+)$",
+            "Weight": 5,
+            "Service": "Test",
+            "Method": "Do",
+            "Call":
+            {
+                "Test":
+                {
+                    "Name": "$1"
+                }
+            }
+        },
+        "All Tests":
+        {
+            "Match": "^/test$",
+            "Weight": 5,
+            "Service": "Test",
+            "Method": "Do"
+        }
+    }
+}

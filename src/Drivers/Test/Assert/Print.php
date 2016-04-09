@@ -9,5 +9,5 @@
 
     setFn('Do', function ($Call)
     {
-        return [true, $Call['Return']];
+        return $Call['Case']['Result']['Actual'];
     });

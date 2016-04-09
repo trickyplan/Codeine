@@ -9,14 +9,14 @@
 
     setFn('Do', function ($Call)
     {
-        if ($Call['Return'] == $Call['Case']['Result']['Equal'])
+        if ($Call['Case']['Result']['Actual'] == $Call['Case']['Assert']['Equal'])
             $Decision = true;
         else
         {
             $Call['Failure'] = true;
             $Decision = false;
-            F::Log(j($Call['Return']).' is not equal '.j($Call['Case']['Result']['Equal']), LOG_WARNING, 'Developer');
+            F::Log(j($Call['Case']['Result']['Actual']).' is not equal '.j($Call['Case']['Assert']['Equal']), LOG_WARNING, 'Developer');
         }
 
-        return [$Decision, print_r($Call['Return'], true)];
+        return $Decision;
     });

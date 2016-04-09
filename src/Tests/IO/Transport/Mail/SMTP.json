@@ -17,7 +17,7 @@
                         "From": "codeine"
                     }
                 },
-                "Result":
+                "Assert":
                 {
                     "Equal": true
                 }

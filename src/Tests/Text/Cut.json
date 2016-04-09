@@ -16,7 +16,7 @@
                             "Chars": 10
                         }
                     },
-                    "Result":
+                    "Assert":
                     {
                         "Equal": "Lorem ipsu"
                     }
@@ -34,7 +34,7 @@
                             "Words": 4
                         }
                     },
-                    "Result":
+                    "Assert":
                     {
                         "Equal": "Lorem ipsum dolor sit"
                     }
@@ -52,7 +52,7 @@
                             "Sentences": 1
                         }
                     },
-                    "Result":
+                    "Assert":
                     {
                         "Equal": "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
                     }

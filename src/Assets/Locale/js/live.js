@@ -9,7 +9,7 @@ $(document).ready(function(){
 
             $.ajax(
             {
-                    url: '/dev/translate',
+                    url: '/dev/translate.json',
                     type: 'post',
                     data:
                     {

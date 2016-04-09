@@ -1,0 +1,13 @@
+{
+    "Test":
+    {
+        "Report":
+        [
+            ["<l>Test.Headers:Title</l>",
+            "<l>Test.Headers:Suite</l>",
+            "<l>Test.Headers:Case</l>",
+            "<l>Test.Headers:Result</l>",
+            "<l>Test.Headers:Time</l>"]
+        ]
+    }
+}

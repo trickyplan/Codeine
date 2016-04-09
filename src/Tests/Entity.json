@@ -20,7 +20,7 @@
                         }
                     }
                 },
-                "Result":
+                "Assert":
                 {
                     "Equal":
                     {
@@ -47,7 +47,7 @@
                         }
                     }
                 },
-                "Result":
+                "Assert":
                 {
                     "Equal":
                     {
@@ -74,7 +74,7 @@
                         }
                     }
                 },
-                "Result":
+                "Assert":
                 {
                     "Equal":
                     {
@@ -94,7 +94,7 @@
                         "Entity": "Test"
                     }
                 },
-                "Result":
+                "Assert":
                 {
                     "Equal":
                     [

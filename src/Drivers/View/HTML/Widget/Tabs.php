@@ -18,12 +18,15 @@
 
          foreach ($Call['Options'] as $Key => $Value)
              if (is_array($Value))
+             {
+                 $Value['ID'] = $Key;
                  $Options[] = F::Run ('View', 'Load', $Call,
-                    [
+                     [
                          'Scope' => $Call['View']['HTML']['Widget Set'].'/Widgets',
-                         'ID'    => 'Tabs/'.($Value['ID'] == $Call['Value'] ? 'Active' : 'Passive'),
+                         'ID'    => 'Tabs/'.($Key == $Call['ID'] ? 'Active' : 'Passive'),
                          'Data'  => $Value
-                    ]);
+                     ]);
+             }
 
          $Call['Value'] = implode('', $Options);
 

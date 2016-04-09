@@ -1,5 +1,5 @@
 {
-    "Mixins": ["Control.Regex", "User.Regex", "Search.Regex"],
+    "Mixins": ["Control.Regex", "User.Regex", "Search.Regex", "Test.Regex"],
     "Regex Pattern":
     {
         "Prefix": "@",
@@ -70,24 +70,6 @@
                     "Slug": "$1"
                 }
             }
-        },
-        "Test":
-        {
-            "Match": "^/test/(.+)$",
-            "Weight": 5,
-            "Service": "Test",
-            "Method": "Do",
-            "Call":
-            {
-                "Test": "$1"
-            }
-        },
-        "All Tests":
-        {
-            "Match": "^/test$",
-            "Weight": 5,
-            "Service": "Test",
-            "Method": "Do"
         },
         "Show Sitemap":
         {

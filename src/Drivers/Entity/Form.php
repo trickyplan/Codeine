@@ -14,6 +14,8 @@
         if (!isset($Call['Data']))
             $Call['Data'] = [];
 
+        $Call = F::Apply('Entity.Form.Layout.'.$Call['FormLayout'], 'Start', $Call);
+
         // Для каждой ноды в модели
         foreach ($Call['Nodes'] as $Name => $Node)
         {
@@ -137,6 +139,8 @@
                 }
             }
         }
+
+        $Call = F::Apply('Entity.Form.Layout.'.$Call['FormLayout'], 'Finish', $Call);
 
         if (isset($Call['Output']['Form']))
             $Call['Output']['Form'] = F::Sort($Call['Output']['Form'], 'Weight', SORT_ASC);

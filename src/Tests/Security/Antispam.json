@@ -17,7 +17,7 @@
                         }
                     }
                 },
-                "Result":
+                "Assert":
                 {
                     "Equal": false
                 }
@@ -40,7 +40,7 @@
                         }
                     }
                 },
-                "Result":
+                "Assert":
                 {
                     "Equal": true
                 }

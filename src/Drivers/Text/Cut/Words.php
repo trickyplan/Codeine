@@ -10,7 +10,7 @@
     setFn('Do', function ($Call)
     {
         if (preg_match('/((?:\w+(?:\W+|$)){'.$Call['Words'].'})/Ssu', $Call['Value'], $Words))
-            return $Words[1];
+            return trim($Words[1]);
         else
-            return $Call['Value'];
+            return trim($Call['Value']);
     });
