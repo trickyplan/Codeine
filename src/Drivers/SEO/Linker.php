@@ -133,8 +133,8 @@
     {
         if ($Call['IX']%$Call['RPP'] == 0)
         {
-            $Call['User Agent'] = $Call['User Agents'][array_rand($Call['User Agents'])];
-            F::Log('UA: '.$Call['User Agent'].' selected', LOG_WARNING);
+            $Call['Agent'] = $Call['Agents'][array_rand($Call['Agents'])];
+            F::Log('UA: '.$Call['Agent'].' selected', LOG_WARNING);
         }
 
         return $Call;

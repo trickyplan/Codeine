@@ -29,7 +29,7 @@
                 $UserString.= 'SSH from: '.$SSH;
         }
         else
-            $UserString = '*'.$Call['HTTP']['User Agent'].'* from *'.$Call['HTTP']['IP'].'*';
+            $UserString = '*'.$Call['HTTP']['Agent'].'* from *'.$Call['HTTP']['IP'].'*';
 
         $Header = $Call['Channel'].' Channel ('.count($Call['Value']).')</td></tr><tr><td colspan="3">'.date(DATE_RSS, round(Started)).PHP_EOL.$UserString;
 

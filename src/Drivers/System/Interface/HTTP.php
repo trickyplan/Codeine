@@ -225,6 +225,9 @@
         else
             F::Log($Call['Request'], LOG_INFO);
 
+        if ($Call['HTTP']['Method'] == 'POST')
+            $Call['HTTP']['RAW'] = file_get_contents("php://input");
+
         return $Call;
     });
 

@@ -14,7 +14,7 @@
             "Service": "System.Interface.HTTP.IP",
             "Method": "Get"
         },
-        "User Agent":
+        "Agent":
         {
             "Service": "System.Interface.HTTP.User Agent",
             "Method": "Get"

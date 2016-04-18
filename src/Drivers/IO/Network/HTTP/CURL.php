@@ -16,8 +16,8 @@
     {
         if (isset($Call['CURL']['Random User Agent']))
         {
-            $Call['CURL']['User Agent'] = $Call['CURL']['User Agents'][array_rand($Call['CURL']['User Agents'])];
-            F::Log('UA: '.$Call['CURL']['User Agent'].' selected', LOG_INFO, 'Administrator');
+            $Call['CURL']['Agent'] = $Call['CURL']['Agents'][array_rand($Call['CURL']['Agents'])];
+            F::Log('UA: '.$Call['CURL']['Agent'].' selected', LOG_INFO, 'Administrator');
         }
         return $Call;
     });
@@ -76,7 +76,7 @@
                        CURLOPT_CONNECTTIMEOUT   => $Call['CURL']['Connect Timeout'],
                        CURLOPT_PROXY            => $Call['CURL']['Proxy']['Host'],
                        CURLOPT_PROXYPORT        => $Call['CURL']['Proxy']['Port'],
-                       CURLOPT_USERAGENT        => $Call['CURL']['User Agent'],
+                       CURLOPT_USERAGENT        => $Call['CURL']['Agent'],
                        CURLOPT_FAILONERROR      => true
                   ]);
 
@@ -132,7 +132,8 @@
                     CURLOPT_CONNECTTIMEOUT   => $Call['CURL']['Connect Timeout'],
                     CURLOPT_PROXY            => $Call['CURL']['Proxy']['Host'],
                     CURLOPT_PROXYPORT        => $Call['CURL']['Proxy']['Port'],
-                    CURLOPT_USERAGENT        => $Call['CURL']['User Agent'],
+                    CURLOPT_HTTPHEADER       => $Call['CURL']['Headers'],
+                    CURLOPT_USERAGENT        => $Call['CURL']['Agent'],
                     CURLOPT_SSL_VERIFYPEER => false,
                     CURLOPT_FAILONERROR      => true
                 ]);
@@ -167,9 +168,6 @@
         $Call['Link'] = curl_init($Call['Where']['ID']);
         $Call = F::Run(null, 'Select User Agent', $Call);
 
-        $Headers = isset($Call['CURL']['HTTP']['Headers'])? $Call['CURL']['HTTP']['Headers']: [];
-        // TODO HTTP DELETE
-
         $Post = is_string($Call['Data']) ? $Call['Data'] : http_build_query($Call['Data']);
 
         curl_setopt_array($Call['Link'],
@@ -183,10 +181,10 @@
                 CURLOPT_TIMEOUT          => $Call['CURL']['Overall Timeout'],
                 CURLOPT_PROXY            => $Call['CURL']['Proxy']['Host'],
                 CURLOPT_PROXYPORT        => $Call['CURL']['Proxy']['Port'],
-                CURLOPT_USERAGENT        => $Call['CURL']['User Agent'],
+                CURLOPT_USERAGENT        => $Call['CURL']['Agent'],
+                CURLOPT_HTTPHEADER       => $Call['CURL']['Headers'],
                 CURLOPT_FAILONERROR      => true,
                 CURLOPT_POST             => true,
-                CURLOPT_HTTPHEADER       => $Headers,
                 CURLOPT_SSL_VERIFYPEER => false,
                 CURLOPT_USERPWD          => isset($Call['User'])?
                     $Call['User'].':'.$Call['Password']: null, // FIXME
@@ -260,7 +258,7 @@
                     CURLOPT_REFERER          => $Call['CURL']['Referer'],
                     CURLOPT_FOLLOWLOCATION => $Call['CURL']['Follow'],
                     CURLOPT_CONNECTTIMEOUT => $Call['CURL']['Connect Timeout'],
-                    CURLOPT_USERAGENT        => $Call['CURL']['User Agent']
+                    CURLOPT_USERAGENT        => $Call['CURL']['Agent']
                 ]);
 
         $Head = curl_exec($Call['Link']);

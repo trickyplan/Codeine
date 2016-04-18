@@ -3,7 +3,7 @@
     "HTTP":
     {
         "Proto": "http://",
-        "User Agent": "Shell",
+        "Agent": "Shell",
         "IP":
         {
             "Service": "System.Interface.CLI.IP",

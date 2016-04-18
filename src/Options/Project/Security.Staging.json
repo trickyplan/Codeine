@@ -1,0 +1,15 @@
+{
+    "Rules":
+    {
+        "Version / All @ Staging":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Project.Version",
+                "Method": "Do"
+            }
+        }
+    }
+}

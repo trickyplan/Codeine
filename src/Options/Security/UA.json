@@ -1,7 +1,7 @@
 {
     "Security":
     {
-        "User Agent":
+        "Agent":
         {
             "Good": [],
             "Bad":
@@ -15,7 +15,7 @@
     {
         "Security":
         {
-            "User Agent":
+            "Agent":
             {
                 "Denied":
                 {
@@ -26,7 +26,7 @@
                         "Call":
                         {
 
-                            "Reason": "User Agent"
+                            "Reason": "Agent"
                         }
                     }
                 },

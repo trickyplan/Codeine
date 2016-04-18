@@ -53,8 +53,8 @@
             list($Call['Proxy']['Host'], $Call['Proxy']['Port']) =
                 explode(':', $Proxy);
 
-            $Call['User Agent'] = $Call['User Agents'][array_rand($Call['User Agents'])];
-            F::Log('UA: '.$Call['User Agent'].' selected', LOG_WARNING);
+            $Call['Agent'] = $Call['User Agents'][array_rand($Call['User Agents'])];
+            F::Log('UA: '.$Call['Agent'].' selected', LOG_WARNING);
 
             F::Log($Call['URL'].' fetching', LOG_WARNING);
             $MT = microtime(true);

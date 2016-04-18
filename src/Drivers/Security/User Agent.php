@@ -11,12 +11,12 @@
     {
         $Decision = true;
 
-        if (isset($Call['Security']['User Agent']['Bad']))
-            foreach ($Call['Security']['User Agent']['Bad'] as $Bad)
+        if (isset($Call['Security']['Agent']['Bad']))
+            foreach ($Call['Security']['Agent']['Bad'] as $Bad)
             {
-                if (preg_match('/'.$Bad.'/SsUui', $Call['HTTP']['User Agent']))
+                if (preg_match('/'.$Bad.'/SsUui', $Call['HTTP']['Agent']))
                 {
-                    F::Log('Bad User Agent Detected: '.$Call['HTTP']['User Agent'].' from IP '.F::Live($Call['HTTP']['IP']), LOG_WARNING, 'Security');
+                    F::Log('Bad User Agent Detected: '.$Call['HTTP']['Agent'].' from IP '.F::Live($Call['HTTP']['IP']), LOG_WARNING, 'Security');
                     $Decision = false;
                 }
             }

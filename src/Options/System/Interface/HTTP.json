@@ -76,7 +76,7 @@
                 "Service": "System.Interface.HTTP.Referrer",
                 "Method": "Do"
             },
-            "User Agent":
+            "Agent":
             {
                 "Service": "System.Interface.HTTP.UserAgent"
             },

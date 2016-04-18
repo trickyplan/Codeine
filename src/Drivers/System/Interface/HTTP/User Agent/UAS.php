@@ -12,6 +12,6 @@
         return jsond_decode (F::Run('IO', 'Read',
             [
                 'Storage' => 'Web',
-                'Where' => $Call['UAS']['Host'].'?'.$Call['UAS']['UA Parameter'].'='.urlencode($Call['HTTP']['User Agent']).'&'.$Call['UAS']['Postfix']
+                'Where' => $Call['UAS']['Host'].'?'.$Call['UAS']['UA Parameter'].'='.urlencode($Call['HTTP']['Agent']).'&'.$Call['UAS']['Postfix']
             ])[0],true) ;
     });

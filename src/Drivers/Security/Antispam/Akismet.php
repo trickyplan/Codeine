@@ -12,12 +12,12 @@
         $Response = F::Run('IO', 'Write', [
             'Storage' => 'Web',
             'Where' => 'http://'.$Call['Akismet']['Key'].'.rest.akismet.com/1.1/comment-check',
-            'User Agent' => 'Codeine/7.x | Akismet/1.0',
+            'Agent' => 'Codeine/7.x | Akismet/1.0',
             'Data' =>
             [
                 'blog' => $Call['HTTP']['Host'],
                 'user_ip' => F::Live($Call['HTTP']['IP']),
-                'user_agent' => $Call['HTTP']['User Agent'],
+                'user_agent' => $Call['HTTP']['Agent'],
                 'referrer' => '',
                 'permalink' => $Call['HTTP']['URL'],
                 'comment_type' => 'comment',

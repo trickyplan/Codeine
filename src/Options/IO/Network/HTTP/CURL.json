@@ -24,7 +24,8 @@
         "Follow": true,
         "Password": "",
         "Return Header": false,
-        "User Agent": "Mozilla/5.0 (compatible; Codeine/7.x)",
+        "Headers": ["Content-type: text/plain"],
+        "Agent": "Mozilla/5.0 (compatible; Codeine/9.x)",
         "Proxy":
         {
             "Host": null,

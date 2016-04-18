@@ -12,7 +12,7 @@
         $Output =
             $Call['Channel'].' Channel ('.count($Call['Value']).')'.PHP_EOL.
             $Call['Where']['ID'].PHP_EOL.
-            date(DATE_RSS, round(Started)).' *'.$Call['HTTP']['User Agent'].'* from *'.$Call['HTTP']['IP'].'*'.PHP_EOL;
+            date(DATE_RSS, round(Started)).' *'.$Call['HTTP']['Agent'].'* from *'.$Call['HTTP']['IP'].'*'.PHP_EOL;
 
         if (isset($Call['Session']['User']['ID']) && $Call['Session']['User']['ID']>0)
             $Output.= PHP_EOL.'User: '.$Call['Session']['User']['ID'].(isset($Call['Session']['User']['Title'])? '('.$Call['Session']['User']['Title'].')': '');
