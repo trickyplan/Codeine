@@ -13,6 +13,7 @@
     {
         if (isset($Call['IO']['FileSystem']['Append Host']) && $Call['IO']['FileSystem']['Append Host'])
             $Call['Directory'].= DS.$Call['HTTP']['Host'];
+
         return $Call['Directory'];
     });
 
@@ -136,12 +137,20 @@
     setFn ('Version', function ($Call)
     {
         $Call = F::Hook('beforeFileSystemOperation', $Call);
-        $Filename = F::findFile ($Call['Where']['ID']);
 
-        if (F::file_exists ($Filename))
-            return filemtime($Filename);
+        if (empty($Call['Where']['ID']))
+            $Call['Result'] = false;
         else
-            return null;
+        {
+            foreach ($Call['Where']['ID'] as $ID)
+            {
+                $Filename = F::findFile($Call['Link'].DS.$ID);
+                if (F::file_exists ($Filename))
+                    return filemtime($Filename);
+            }
+        }
+
+        return null;
     });
 
     setFn ('Filename', function ($Call)

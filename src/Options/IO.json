@@ -55,23 +55,6 @@
             "Format": "Formats.JSON",
             "Postfix":".json"
         },
-        "Scraped":
-        {
-            "Driver":"IO.Storage.FileSystem",
-            "Directory":"/var/tmp/codeine/scraped",
-            "IO":
-            {
-                "FileSystem":
-                {
-                    "Hashing":
-                    {
-                        "Enabled": true,
-                        "Levels": 4
-                    }
-                }
-            },
-            "Postfix":".html"
-        },
         "Layout":
         {
             "Driver":"IO.Storage.FileSystem",
@@ -113,6 +96,12 @@
                 "Driver":"IO.Storage.FileSystem",
                 "Directory":"Assets",
                 "Postfix":".less"
+            },
+            "SASS":
+            {
+                "Driver":"IO.Storage.FileSystem",
+                "Directory":"Assets",
+                "Postfix":".scss"
             },
             "CSS":
             {
