@@ -7,7 +7,7 @@
     server_tokens off;
 
     log_not_found on;
-    error_log /var/log/nginx/$host.error.log warn;
+    error_log /var/log/nginx/codeine.error.log warn;
     access_log /var/log/nginx/$host.access.log codeine;
     error_page 500 502 503 504 /down.html;
     client_max_body_size 16m;
