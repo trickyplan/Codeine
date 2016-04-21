@@ -13,7 +13,7 @@
     client_max_body_size 16m;
 
     gzip on;
-    gzip_comp_level 9;
+    gzip_comp_level 6;
     gzip_disable "msie6";
     gzip_min_length 1024;
     gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript application/javascript;
@@ -65,12 +65,12 @@
         fastcgi_intercept_errors        on;
         fastcgi_ignore_client_abort     on;
         fastcgi_connect_timeout 60;
-        fastcgi_send_timeout 180;
-        fastcgi_read_timeout 180;
-        fastcgi_buffer_size 1m;
-        fastcgi_buffers 4 1m;
-        fastcgi_busy_buffers_size 1m;
-        fastcgi_temp_file_write_size 1m;
+        fastcgi_send_timeout 60;
+        fastcgi_read_timeout 60;
+        fastcgi_buffer_size 512k;
+        fastcgi_buffers 4 512k;
+        fastcgi_busy_buffers_size 512k;
+        fastcgi_temp_file_write_size 512k;
     }
 
     location ~* \.(jpg|jpeg|gif|css|png|js|ico|woff|ttf|eot)$
