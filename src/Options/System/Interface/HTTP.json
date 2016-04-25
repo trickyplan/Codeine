@@ -78,7 +78,7 @@
             },
             "Agent":
             {
-                "Service": "System.Interface.HTTP.UserAgent"
+                "Service": "System.Interface.HTTP.Agent"
             },
             "Filter by User Agent":
             {

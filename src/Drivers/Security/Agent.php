@@ -22,8 +22,8 @@
             }
 
         $Call = $Decision?
-            F::Hook('Security.User Agent.Allowed', $Call):
-            F::Hook('Security.User Agent.Denied', $Call);
+            F::Hook('Security.Agent.Allowed', $Call):
+            F::Hook('Security.Agent.Denied', $Call);
 
         return $Call;
     });
