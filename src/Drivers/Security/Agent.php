@@ -16,7 +16,7 @@
             {
                 if (preg_match('/'.$Bad.'/SsUui', $Call['HTTP']['Agent']))
                 {
-                    F::Log('Bad User Agent Detected: '.$Call['HTTP']['Agent'].' from IP '.F::Live($Call['HTTP']['IP']), LOG_WARNING, 'Security');
+                    F::Log('Bad Agent Detected: '.$Call['HTTP']['Agent'].' from IP '.F::Live($Call['HTTP']['IP']), LOG_WARNING, 'Security');
                     $Decision = false;
                 }
             }

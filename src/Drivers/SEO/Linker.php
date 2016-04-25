@@ -129,7 +129,7 @@
         return $Call;
     });
 
-    setFn('Select User Agent', function ($Call)
+    setFn('Select Agent', function ($Call)
     {
         if ($Call['IX']%$Call['RPP'] == 0)
         {
