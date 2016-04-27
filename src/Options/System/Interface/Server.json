@@ -16,7 +16,7 @@
         },
         "Agent":
         {
-            "Service": "System.Interface.HTTP.User Agent",
+            "Service": "System.Interface.HTTP.Agent",
             "Method": "Get"
         },
         "Methods":
@@ -64,7 +64,7 @@
         {
             "Filter User Agent":
             {
-                "Service": "Security.User Agent",
+                "Service": "Security.Agent",
                 "Method": "Filter"
             },
             "Filter Request":

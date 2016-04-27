@@ -82,7 +82,7 @@
             },
             "Filter by User Agent":
             {
-                "Service": "Security.User Agent",
+                "Service": "Security.Agent",
                 "Method": "Filter"
             },
             "Filter Request":
