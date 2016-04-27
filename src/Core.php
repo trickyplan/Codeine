@@ -464,15 +464,15 @@
         {
             F::Start('Live');
 
-                if ($Variable instanceof Closure)
-                    $Result = $Variable($Call);
+            if ($Variable instanceof Closure)
+                $Result = $Variable($Call);
+            else
+            {
+                if (isset($Variable['NoLive']))
+                    $Result = $Variable;
                 else
                 {
-                    if (isset($Variable['NoLive']))
-                        $Result = $Variable;
-                    else
-                    {
-                        if (self::isCall($Variable))
+                    if (self::isCall($Variable))
                     {
                         if (($sz = func_num_args()) > 2)
                         {
