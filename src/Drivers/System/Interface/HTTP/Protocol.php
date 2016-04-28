@@ -31,6 +31,9 @@
                 if (isset($Call['HTTP']['HSTS']['Subdomains']) && $Call['HTTP']['HSTS']['Subdomains'])
                     $Header.= '; includeSubdomains';
 
+                if (isset($Call['HTTP']['HSTS']['Preload']) && $Call['HTTP']['HSTS']['Preload'])
+                    $Header.= '; preload';
+
                 $Call['HTTP']['Headers']['Strict-Transport-Security:'] = $Header;
             }
         }
