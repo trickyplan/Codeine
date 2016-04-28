@@ -5,9 +5,10 @@
       "Force SSL": false,
       "HSTS":
       {
-          "Enabled": false,
-          "Expire": 31536000,
-          "Subdomains": false
+            "Enabled": false,
+            "Expire": 10886400,
+            "Subdomains": false,
+            "Preload": true
       }
   }
 }
