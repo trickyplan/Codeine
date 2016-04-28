@@ -24,7 +24,7 @@
     setFn('Write', function ($Call)
     {
         F::Log('Push: '.$Call['Scope'].$Call['Queue'], LOG_INFO, 'Administrator');
-        return $Call['Link']->rPush($Call['Scope'].$Call['Queue'], j($Call['Data']));
+        return $Call['Link']->lPush($Call['Scope'].$Call['Queue'], j($Call['Data']));
     });
 
     setFn('Count', function ($Call)
