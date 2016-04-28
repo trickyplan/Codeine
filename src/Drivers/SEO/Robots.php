@@ -26,7 +26,7 @@
         foreach ($Call['Robots']['Crawlers'] as $Crawler => $URL)
         {
             $Call['Output']['Content'][] = 'User-agent: '.$Crawler;
-            $Call['Output']['Content'][] = 'Disallow: '.$URL;
+            $Call['Output']['Content'][] = 'Disallow: '.$URL.PHP_EOL;
         }
 
         $Call['Output']['Content'][] = 'User-agent: Yandex';
