@@ -26,6 +26,11 @@
             {
                 "Precision": 6
             }
+        },
+        "Day":
+        {
+            "Service": "System.Time.Day",
+            "Method": "Get"
         }
     }
 }

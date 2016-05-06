@@ -1,0 +1,17 @@
+{
+  "Nodes":
+  {
+      "Active":
+      {
+          "Type": "Boolean",
+          "Weight": 1000,
+          "Widgets":
+          {
+            "Write":
+            {
+                "Type": "Form.Checkbox"
+            }
+          }
+      }
+  }
+}
