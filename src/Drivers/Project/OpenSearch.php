@@ -28,10 +28,10 @@
 
         $Call['Output']['Content']['Url'] =
             [
-                [
+/*                [
                     '@type' => 'application/x-suggestions+json',
                     '@template' => $Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/search.json?Query={searchTerms}'
-                ],
+                ],*/
                 [
                     '@type' => 'text/html',
                     '@rel'  => 'results',

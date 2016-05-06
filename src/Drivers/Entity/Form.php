@@ -16,6 +16,7 @@
 
         $Call = F::Apply('Entity.Form.Layout.'.$Call['FormLayout'], 'Start', $Call);
 
+        $Call['FID'] = F::Live($Call['FID']);
         // Для каждой ноды в модели
         foreach ($Call['Nodes'] as $Name => $Node)
         {
@@ -77,7 +78,7 @@
                     $Widget['Node'] = $Name;
                     $Widget['Name'] = 'Data';
                     $Widget['Key'] = $Name;
-                    $Widget['ID'] = strtr($Name, '.','_');
+                    $Widget['ID'] = $Call['FID'].'_'.strtr($Name, '.','_');
                     $Widget['Context'] = $Call['Context'];
 
                     if($IC == 0)

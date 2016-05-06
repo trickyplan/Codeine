@@ -11,7 +11,7 @@
     setFn('Get', function ($Call)
     {
         if (isset($Call['Modes'][$Call['Mode']]))
-            return F::Live($Call['Modes'][$Call['Mode']], $Call);
+            return $Call['Prefix'].F::Live($Call['Modes'][$Call['Mode']], $Call);
         else
             return null;
     });
