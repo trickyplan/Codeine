@@ -99,7 +99,7 @@
                                 'ID' => $Call['Current Image']['Fullpath']
                             ]
                         ]))
-            F::Log('Image Cache *hit* '.$Call['Current Image']['Fullpath'], LOG_INFO);
+            F::Log('Image Cache *hit* '.$Call['Current Image']['Fullpath'], LOG_DEBUG);
         else
         {
             F::Log('Image Cache *miss* *'.$Call['Current Image']['Fullpath'].'*', LOG_NOTICE);

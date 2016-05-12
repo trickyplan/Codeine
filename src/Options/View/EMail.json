@@ -30,12 +30,7 @@
             },
             "CSS":
             {
-                "Service":"View.HTML.CSSTag",
-                "Method":"Process"
-            },
-            "JS":
-            {
-                "Service":"View.HTML.JSTag",
+                "Service":"View.CSSTag",
                 "Method":"Process"
             },
             "Meta":

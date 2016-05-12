@@ -1,0 +1,21 @@
+{
+    "CSS":
+    {
+        "Compress":
+        {
+            "YUI":
+            {
+                "Enabled": true,
+                "Disable On Error": true,
+                "Expose": true,
+                "Command": "yui-compressor --type css",
+                "Descriptors":
+                [
+                    ["pipe", "r"],
+                    ["pipe", "w"],
+                    ["pipe", "w"]
+                ]
+            }
+        }
+    }
+}

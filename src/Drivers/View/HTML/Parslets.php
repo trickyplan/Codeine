@@ -11,7 +11,7 @@
     {
         if (isset($Call['Output']))
         {
-            F::Log('Start parslets processing', LOG_INFO);
+            F::Log('*Start* parslets processing', LOG_INFO);
             // Собираем паттерны
             $Pass = 1;
             $Patterns = [];
@@ -74,6 +74,6 @@
                     $Pass = 1;
             }
         }
-        F::Log('End parslets processing', LOG_INFO);
+        F::Log('*End* parslets processing', LOG_INFO);
         return $Call;
     });

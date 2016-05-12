@@ -5,13 +5,18 @@
         "Links": [],
         "Output": [],
         "Host": "",
-        "Caching": true
+        "Caching": false
     },
     "Hooks":
     {
         "beforeJSOutput":
         {
             "Combine": null
+        },
+        "beforeJSWrite":
+        {
+            "Obfuscator": null,
+            "Compressor": null
         },
         "afterJSOutput":
         {

@@ -74,11 +74,9 @@
                            $XML->text($Value);
                            $XML->endElement();
                        }
-
                    }
                }
            );
-
             $XML->endElement();
         }
 

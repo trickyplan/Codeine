@@ -1,0 +1,21 @@
+{
+    "JS":
+    {
+        "Compress":
+        {
+            "JSMin":
+            {
+                "Enabled": true,
+                "Disable On Error": true,
+                "Expose": false,
+                "Command": "jsmin",
+                "Descriptors":
+                [
+                    ["pipe", "r"],
+                    ["pipe", "w"],
+                    ["pipe", "w"]
+                ]
+            }
+        }
+    }
+}

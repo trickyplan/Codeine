@@ -1,0 +1,9 @@
+{
+    "CSS":
+    {
+        "Compress":
+        {
+            "Modes": ["YUI"]
+        }
+    }
+}

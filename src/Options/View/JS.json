@@ -23,19 +23,24 @@
     },
     "Hooks":
     {
-        "-afterJSWrite":
-        {
-            "YUI Compressor":
-            {
-                "Service":"View.HTML.JS.YUICompressor",
-                "Method": "Do"
-            }
-        },
         "beforeJSOutput":
         {
             "Combine":
             {
-                "Service":"View.HTML.JS.Combine",
+                "Service":"View.JS.Combine",
+                "Method": "Do"
+            }
+        },
+        "beforeJSWrite":
+        {
+            "-Obfuscator":
+            {
+                "Service":"View.JS.Obfuscate",
+                "Method": "Do"
+            },
+            "Compressor":
+            {
+                "Service":"View.JS.Compress",
                 "Method": "Do"
             }
         },
@@ -43,7 +48,7 @@
         {
             "Async":
             {
-                "Service":"View.HTML.JS.Async",
+                "Service":"View.JS.MakeAsync",
                 "Method": "Do"
             }
         }

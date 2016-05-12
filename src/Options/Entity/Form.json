@@ -1,0 +1,13 @@
+{
+    "FID":
+    {
+        "Service": "Security.Entropy",
+        "Method": "Get",
+        "Call":
+        {
+            "Prefix": "F",
+            "Min": 10000,
+            "Max": 99999
+        }
+    }
+}

@@ -56,13 +56,13 @@
             },
             "JS":
             {
-                "Service":"View.HTML.JS",
-                "Method":"Process"
+                "Service":"View.JS",
+                "Method":"Do"
             },
             "CSS":
             {
-                "Service":"View.HTML.CSS",
-                "Method":"Process"
+                "Service":"View.CSS",
+                "Method":"Do"
             },
             "Meta":
             {

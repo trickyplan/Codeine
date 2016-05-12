@@ -57,9 +57,9 @@
 
         if (isset($Call['View']['Renderer']))
         {
-            F::Log('Start '.$Call['View']['Renderer']['Service'].' Rendering', LOG_INFO);
+            F::Log('Start '.$Call['View']['Renderer']['Service'].' Rendering', LOG_NOTICE);
                 $Call = F::Live ($Call['View']['Renderer'], $Call);
-            F::Log('Finish '.$Call['View']['Renderer']['Service'].' Rendering', LOG_INFO);
+            F::Log('Finish '.$Call['View']['Renderer']['Service'].' Rendering', LOG_NOTICE);
         }
 
         return F::Hook('afterRender', $Call);
@@ -70,7 +70,7 @@
         if (strpos($Call['Value'], ':') !== false)
             return explode(':', $Call['Value']);
         else
-            return array ($Call['Value'], $Call['Value']);
+            return [$Call['Value'], $Call['Value']];
     });
 
     setFn('Add', function ($Call)

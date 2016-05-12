@@ -1,0 +1,43 @@
+{
+    "Regex":
+    {
+        "Show Sitemap":
+        {
+            "Match": "/sitemap/(.+)/(.+).xml",
+            "Service": "SEO.Sitemap",
+            "Method": "Sitemap",
+            "View":
+            {
+                "Renderer":
+                {
+                    "Service": "View.XML",
+                    "Method": "Render"
+                }
+            },
+            "Call":
+            {
+                "Index": "$1",
+                "Page": "$2"
+            }
+        },
+        "Show Sitemap Index":
+        {
+            "Match": "/sitemap/(.+)-(\\d+).xml",
+            "Service": "SEO.Sitemap",
+            "Method": "Show Sitemap Index",
+            "View":
+            {
+                "Renderer":
+                {
+                    "Service": "View.XML",
+                    "Method": "Render"
+                }
+            },
+            "Call":
+            {
+                "Index": "$1",
+                "Index Page": "$2"
+            }
+        }
+    }
+}

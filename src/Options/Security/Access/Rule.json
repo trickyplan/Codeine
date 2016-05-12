@@ -127,13 +127,13 @@
                 "Service": "Country.FlagByIP"
             }
         },
-        "Swarm":
+        "Direct Assets to all":
         {
             "Decision": true,
-            "Weight": 1000,
+            "Weight": 50,
             "Run":
             {
-                "Service": "Swarm"
+                "Service": "View.Asset"
             }
         }
     }
