@@ -10,32 +10,24 @@
         "Host": "",
         "Pathname": "/cache/css/",
         "Type": "text/css",
-        "Caching": true,
+        "Caching": false,
         "Extension": ".css"
     },
     "Hooks":
     {
-        "-afterCSSWrite":
-        {
-            "YUI Compressor":
-            {
-                "Service":"View.HTML.CSS.YUICompressor",
-                "Method": "Do"
-            }
-        },
         "beforeCSSOutput":
         {
             "Combine":
             {
-                "Service":"View.HTML.CSS.Combine",
+                "Service":"View.CSS.Combine",
                 "Method": "Do"
             }
         },
         "beforeCSSWrite":
         {
-            "Minify":
+            "Compressor":
             {
-                "Service":"View.HTML.CSS.Minify",
+                "Service":"View.CSS.Compress",
                 "Method": "Do"
             }
         }

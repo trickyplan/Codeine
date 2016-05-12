@@ -7,7 +7,7 @@
      * @version 8.x
      */
 
-    setFn ('Process', function ($Call)
+    setFn ('Do', function ($Call)
     {
         if (preg_match('/<place>CSS<\/place>/SsUu', $Call['Output']))
         {
@@ -70,9 +70,9 @@
 
                 // CSS Output
 
-                foreach ($Call['CSS']['Styles'] as $Call['CSS']['Fullpath'] => $CSSSource)
+                foreach ($Call['CSS']['Styles'] as $Call['CSS']['Fullpath'] => $Call['CSS']['Source'])
                 {
-                    $Call['CSS']['Fullpath'] = strtr($Call['CSS']['Fullpath'], ":", '_').'_'.sha1($CSSSource).$Call['CSS']['Extension'];
+                    $Call['CSS']['Fullpath'] = strtr($Call['CSS']['Fullpath'], ":", '_').'_'.sha1($Call['CSS']['Source']).$Call['CSS']['Extension'];
 
                     $Write = true;
 
@@ -88,7 +88,7 @@
                             ]
                         ]))
                         {
-                            F::Log('Cache *hit* '.$Call['CSS']['Fullpath'], LOG_INFO);
+                            F::Log('Cache *hit* '.$Call['CSS']['Fullpath'], LOG_DEBUG);
                             $Write = false;
                         }
                         else
@@ -105,7 +105,7 @@
                             [
                                  'Storage' => 'CSS Cache',
                                  'Where'   => $Call['CSS']['Fullpath'],
-                                 'Data' => $CSSSource
+                                 'Data' => $Call['CSS']['Source']
                             ]);
 
                         $Call = F::Hook('afterCSSWrite', $Call);

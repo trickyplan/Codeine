@@ -7,7 +7,7 @@
      * @version 8.x
      */
 
-    setFn('Process', function ($Call)
+    setFn('Do', function ($Call)
     {
         if (preg_match('/<place>JS<\/place>/SsUu', $Call['Output']))
         {

@@ -16,12 +16,12 @@
         {
             "Less Check":
             {
-                "Service": "View.HTML.CSS.LESS",
+                "Service": "View.CSS.LESS",
                 "Method": "Check"
             },
             "Sass Check":
             {
-                "Service": "View.HTML.CSS.SASS",
+                "Service": "View.CSS.SASS",
                 "Method": "Check"
             }
         }
