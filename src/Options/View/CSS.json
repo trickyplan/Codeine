@@ -10,7 +10,7 @@
         "Host": "",
         "Pathname": "/cache/css/",
         "Type": "text/css",
-        "Caching": false,
+        "Caching": true,
         "Extension": ".css"
     },
     "Hooks":

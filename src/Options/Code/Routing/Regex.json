@@ -1,5 +1,11 @@
 {
-    "Mixins": ["Control.Regex", "User.Regex", "Search.Regex", "Test.Regex"],
+    "Mixins": [
+        "Control.Regex",
+        "User.Regex",
+        "Search.Regex",
+        "Test.Regex",
+        "SEO.Sitemap.Regex"
+    ],
     "Regex Pattern":
     {
         "Prefix": "@",
@@ -56,59 +62,6 @@
                 }
             }
         },
-        "Page":
-        {
-            "Match": "/(.*)",
-            "Weight": -5,
-            "Service": "Entity.Show.Static",
-            "Method": "Do",
-            "Call":
-            {
-                "Entity": "Page",
-                "Where":
-                {
-                    "Slug": "$1"
-                }
-            }
-        },
-        "Show Sitemap":
-        {
-            "Match": "/sitemap/(.+)/(.+).xml",
-            "Service": "SEO.Sitemap",
-            "Method": "Sitemap",
-            "View":
-            {
-                "Renderer":
-                {
-                    "Service": "View.XML",
-                    "Method": "Render"
-                }
-            },
-            "Call":
-            {
-                "Index": "$1",
-                "Page": "$2"
-            }
-        },
-        "Show Sitemap Index":
-        {
-            "Match": "/sitemap/(.+)-(\\d+).xml",
-            "Service": "SEO.Sitemap",
-            "Method": "Show Sitemap Index",
-            "View":
-            {
-                "Renderer":
-                {
-                    "Service": "View.XML",
-                    "Method": "Render"
-                }
-            },
-            "Call":
-            {
-                "Index": "$1",
-                "Index Page": "$2"
-            }
-        },
         "To":
         {
             "Match": "/to/(.+)",
@@ -127,17 +80,6 @@
             "Call":
             {
                 "Redirect": "$1"
-            }
-        },
-        "Deposit":
-        {
-            "Match": "/deposit/(.*)/(.+)",
-            "Service": "Entity.Balance.Deposit",
-            "Method": "Do",
-            "Call":
-            {
-                "Entity": "$1",
-                "Where": "$2"
             }
         },
         "WOT":
@@ -174,6 +116,63 @@
             "Call":
             {
                 "ID": "$1"
+            }
+        },
+        "Fonts":
+        {
+            "Match": "/fonts/(.+)/(.+).(woff|woff2|ttf|otf)$",
+            "Service": "View.Asset",
+            "Method": "Get",
+            "View":
+            {
+                "Renderer":
+                {
+                    "Service": "View.File",
+                    "Method": "Render"
+                }
+            },
+            "Call":
+            {
+                "Scope": "fonts",
+                "Asset": "$1",
+                "ID": "$2",
+                "Extension": "$3"
+            }
+        },
+        "Image":
+        {
+            "Match": "/img/(.+)/(.+).(png|jpg|jpeg|gif|webp)$",
+            "Service": "View.Asset",
+            "Method": "Get",
+            "View":
+            {
+                "Renderer":
+                {
+                    "Service": "View.File",
+                    "Method": "Render"
+                }
+            },
+            "Call":
+            {
+                "Scope": "img",
+                "Asset": "$1",
+                "ID": "$2",
+                "Extension": "$3"
+            }
+        },
+        "Page":
+        {
+            "Match": "/(.*)",
+            "Weight": -100,
+            "Service": "Entity.Show.Static",
+            "Method": "Do",
+            "Call":
+            {
+                "Entity": "Page",
+                "Where":
+                {
+                    "Slug": "$1"
+                }
             }
         }
     }
