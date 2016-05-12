@@ -20,6 +20,19 @@
         {
             "Service": "Security.Entropy.Rand",
             "Method": "Get"
+        },
+        "Variable":
+        {
+            "Service": "Security.Entropy.Variable",
+            "Method": "Get",
+            "Call":
+            {
+                "Size":
+                {
+                    "Min": 6,
+                    "Max": 12
+                }
+            }
         }
     }
 }
