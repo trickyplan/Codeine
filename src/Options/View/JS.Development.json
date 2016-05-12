@@ -13,6 +13,11 @@
         {
             "Combine": null
         },
+        "beforeJSWrite":
+        {
+            "Obfuscator": null,
+            "Compressor": null
+        },
         "afterJSOutput":
         {
             "Async": null
