@@ -19,19 +19,29 @@
 
         if (isset($Call['Developer']['URL']))
         {
-            $Developer = F::Run('IO', 'Read', ['Storage' => 'Web','Where' => ['ID' => $Call['Developer']['URL']]]);
+            $Call['Developer']['Meta'] =
+                F::Run('IO', 'Read',
+                    [
+                        'Storage'       => 'Web',
+                        'Format'        => 'Formats.JSON',
+                        'Where'         =>
+                        [
+                            'ID' => $Call['Developer']['URL']
+                        ]
+                    ]);
 
-            if (isset($Developer[0]))
-                $Call['Developer'] = jd($Developer[0], true);
+            $Call['Developer']['Meta'] = array_pop($Call['Developer']['Meta']);
         }
 
-        if (isset($Call['Project']['ID']))
-            $Call['License'] = jd(F::Run('IO', 'Read',
+        if (isset($Call['Project']['License']))
+            $Call['License'] = F::Run('IO', 'Read',
                 [
-                    'Storage' => 'Web',
-                    'Where' => $Call['Developer']['URL'].'/licenses/'.$Call['Project']['ID'].'.json'
+                    'Storage'   => 'Web',
+                    'Format'    => 'Formats.JSON',
+                    'IO One'    => true,
+                    'Where'     => $Call['Developer']['URL'].'/license/'.$Call['Project']['License'].'.json'
                 ]
-            )[0]); // FIXME
+            );
 
         if (isset($Call['License']) && is_array($Call['License']))
             foreach ($Call['License'] as $Product => $License)
@@ -39,8 +49,8 @@
                 $Call['Output']['Licenses'][] =
                     [
                         'Type' => 'Block',
-                        'Class' => $License['Expire']>time()? 'alert alert-success': 'alert alert-danger',
-                        'Value' => '<h2>'.$Product.'</h2>'.'Действует до: <strong><datetime>'.$License['Expire'].'</datetime></strong>'
+                        'Class' => $License['Expire'] > time()? 'alert alert-success': 'alert alert-danger',
+                        'Value' => '<h2>'.$License['Host'].'</h2>'.'Действует до: <strong><datetime>'.$License['Expire'].'</datetime></strong>'
                     ];
             }
         else
