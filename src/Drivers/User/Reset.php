@@ -28,18 +28,14 @@
         }
         else
         {
-            $NewPassword = F::Live($Call['Reset']['Generator']);
-
-            F::Run('Entity', 'Update',
+            $Call['User']['Password'] = F::Live($Call['Reset']['Generator']);
+            $Call['User'] = F::Run('Entity', 'Update',
                 [
-                      'Entity' => 'User',
-                      'Purpose' => 'Reset',
-                      'One' => true,
-                      'Where'  => $Call['User']['ID'],
-                      'Data' =>
-                       [
-                            'Password' => $NewPassword
-                       ]
+                    'Entity'  => 'User',
+                    'Purpose' => 'Reset',
+                    'One'     => true,
+                    'Where'   => $Call['User']['ID'],
+                    'Data'    => $Call['User']
                 ]);
 
             $VCall = $Call;

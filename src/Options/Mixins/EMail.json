@@ -1,0 +1,17 @@
+{
+    "Nodes":
+    {
+        "EMail":
+        {
+            "Type": "Literal.String",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield",
+                    "Subtype": "email"
+                }
+            }
+        }
+    }
+}

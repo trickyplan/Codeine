@@ -6,14 +6,14 @@
         <if value="<call>Developer.Title</call>" neq="0">
                 <div class="row">
                     <div class="col-md-2">
-                        <img class="img img-responsive pull-right" src="<call>Developer.Logo</call>" width="200" height="200"/>
+                        <img class="img img-responsive pull-right" src="<call>Developer.Meta.Logo</call>" width="200" height="200"/>
                     </div>
                     <div class="col-md-10">
                         <h2 class="page-header">
-                            <a href="<call>Developer.URL</call>"><call>Developer.Title</call></a>
+                            <a href="<call>Developer.Meta.URL</call>"><call>Developer.Meta.Title</call></a>
                         </h2>
-                        <a class="btn btn-default btn-success" href="mailto:<call>Developer.EMail</call>">Написать</a> &nbsp;
-                        <a class="btn btn-default btn-danger" href="tel:<call>Developer.Phone</call>">Позвонить</a> &nbsp;
+                        <a class="btn btn-default btn-success" href="mailto:<call>Developer.Meta.EMail</call>">Написать</a> &nbsp;
+                        <a class="btn btn-default btn-danger" href="tel:<call>Developer.Meta.Phone</call>">Позвонить</a> &nbsp;
                     </div>
                 </div>
         </if>
