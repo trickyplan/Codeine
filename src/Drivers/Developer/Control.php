@@ -26,7 +26,7 @@
                         'Format'        => 'Formats.JSON',
                         'Where'         =>
                         [
-                            'ID' => $Call['Developer']['URL']
+                            'ID' => $Call['Developer']['Host'].$Call['Developer']['Endpoint']
                         ]
                     ]);
 
@@ -39,7 +39,7 @@
                     'Storage'   => 'Web',
                     'Format'    => 'Formats.JSON',
                     'IO One'    => true,
-                    'Where'     => $Call['Developer']['URL'].'/license/'.$Call['Project']['License'].'.json'
+                    'Where'     => $Call['Developer']['Host'].'/license/'.$Call['Project']['License'].'.json'
                 ]
             );
 
