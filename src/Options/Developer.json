@@ -1,3 +1,7 @@
 {
-    "URL": ""
+    "Developer":
+    {
+        "Host": "",
+        "Endpoint": "/codeine-developer.json"
+    }
 }
