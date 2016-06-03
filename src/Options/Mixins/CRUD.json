@@ -37,6 +37,22 @@
                 "Method": "RestoreURL"
             }
         },
+        "beforeSetDo":
+        {
+            "Store URL":
+            {
+                "Service": "System.Interface.HTTP",
+                "Method": "StoreURL"
+            }
+        },
+        "afterSetDo":
+        {
+            "Restore URL":
+            {
+                "Service": "System.Interface.HTTP",
+                "Method": "RestoreURL"
+            }
+        },
         "beforeDeleteGet":
         {
             "Store URL":

@@ -1,0 +1,40 @@
+{
+    "Mixins":
+        [
+            "Mixins.ID.GUID",
+            "Mixins.UGC"
+        ],
+    "Nodes":
+    {
+        "Placement.Media":
+        {
+            "Type": "Literal.String",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Typeahead",
+                    "Typeahead":
+                    {
+                        "Remote": "/control/Ad.Media/Search/"
+                    }
+                }
+            }
+        },
+        "Placement.Slot":
+        {
+            "Type": "Literal.String",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Typeahead",
+                    "Typeahead":
+                    {
+                        "Remote": "/search/json/Slot/"
+                    }
+                }
+            }
+        }
+    }
+}

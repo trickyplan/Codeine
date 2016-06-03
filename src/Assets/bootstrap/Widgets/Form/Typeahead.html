@@ -1,4 +1,5 @@
 <js>typeahead</js>
+<js>handlebars</js>
 <css>typeahead</css>
 <div class="form-group">
     <label for="<k>Name</k>"> <l><k>Label</k></l>: <if value="<k>Required</k>" eq="1"><span class="required-star">*</span></if></label>
@@ -20,9 +21,12 @@
 <jsrun>
     var dataset<k>ID</k> = new Bloodhound(
     {
-        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('Title'),
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('ID'),
         queryTokenizer: Bloodhound.tokenizers.whitespace,
-        remote: '<k>Typeahead.Remote</k>%QUERY'
+        remote: {
+            url: '<k>Typeahead.Remote</k>%QUERY',
+            wildcard: '%QUERY'
+        }
     });
 
     dataset<k>ID</k>.initialize();
@@ -30,10 +34,34 @@
     $('#<k>ID</k>').typeahead(null, {
       name: 'dataset<k>ID</k>',
       displayKey: 'Title',
+      templates:
+      {
+            empty:
+            [
+                '<div class="alert alert-warning">',
+                'Пока ничего не найдено',
+                '</div>'
+            ].join('\n'),
+            suggestion: Handlebars.compile(
+                         '<div class="media">'
+                        +'<div class="media-body">'
+                        +'<div class="media-heading">{{Title}}</div>'
+                        +'</div>'),
+      },
       source: dataset<k>ID</k>.ttAdapter()
-    }).on('typeahead:selected', function($e, datum)
+    }).on('typeahead:selected', function(e, datum)
     {
         $('#<k>ID</k>_hidden').val(datum.ID);
+    }).on('typeahead:autocomplete', function (e)
+    {
+        $('#<k>ID</k>_hidden').val(datum.ID);
+    }).on('typeahead:asyncrequest', function ($e, datum)
+    {
+        $('#<k>ID</k>_hidden').addClass('input-loading');
+    })
+    .on('typeahead:asyncreceive', function ($e, datum)
+    {
+        $('#<k>ID</k>_hidden').removeClass('input-loading');
     });
 
     $('#<k>ID</k>').change(function()

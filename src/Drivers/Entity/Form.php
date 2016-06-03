@@ -14,7 +14,7 @@
         if (!isset($Call['Data']))
             $Call['Data'] = [];
 
-        $Call = F::Apply('Entity.Form.Layout.'.$Call['FormLayout'], 'Start', $Call);
+        $Call = F::Apply('Entity.Form.Layout.'.$Call['FormLayout'], 'Start', $Call); // FIXME FormLayout -> Form Layout
 
         $Call['FID'] = F::Live($Call['FID']);
         // Для каждой ноды в модели
@@ -62,10 +62,8 @@
                     if (isset($Node['Scope']) && !in_array($Call['Tag'], (array) $Node['Scope']))
                         continue;
 
-                // Костыль.
-
-                if ($Call['Purpose'] == 'Create' && !empty(F::Dot($Call['Data'], $Name)))
-                    continue;
+                /*if ($Call['Purpose'] == 'Create' && !empty(F::Dot($Call['Data'], $Name)))
+                    continue;*/
 
                 if (null !== $Widget)
                 {

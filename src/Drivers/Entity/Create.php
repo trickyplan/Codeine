@@ -34,12 +34,23 @@
                 'Context' => $Call['Context']
             ];
 
-        // Для каждой ноды в модели
-
         if (isset($Call['Data']))
             ;
         else
             $Call['Data'] = [];
+
+        if (isset($Call['Request']['Data']))
+        {
+            // Для каждой ноды в модели
+            foreach ($Call['Nodes'] as $Node => $NodeOptions)
+                if (isset($NodeOptions['Widgets']['Write']) or isset($NodeOptions['Create']))
+                {
+                    if (F::Dot($Call['Request']['Data'], $Node) === null or F::Dot($Call['Data'], $Node) !== null) // Data > Request
+                        ;
+                    else
+                        $Call['Data'] = F::Dot($Call['Data'], $Node, F::Dot($Call['Request']['Data'], $Node));
+                }
+        }
 
         $Call = F::Apply('Entity.Form', 'Generate', $Call, ['IX' => 0, 'Data!' => $Call['Data']]);
 

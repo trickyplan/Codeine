@@ -11,14 +11,14 @@
     {
         $Call = F::Apply('Entity', 'Load', $Call);
 
-        if (isset($Call['Where']))
-            $Call['Where'] = F::Live($Call['Where'], $Call);
+        if (isset($Call['Selector']))
+            $Call['Where'] = F::Merge($Call['Where'], F::Live($Call['Selector']));
 
         $Call = F::Hook('beforeCount', $Call);
 
-            $Call['Data'] = F::Run('Entity', 'Count', $Call);
+            $Call['Count'] = F::Run('Entity', 'Count', $Call);
 
         $Call = F::Hook('afterCount', $Call);
 
-        return $Call['Data'];
+        return $Call['Count'];
     });

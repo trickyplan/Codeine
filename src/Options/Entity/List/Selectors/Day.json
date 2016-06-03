@@ -1,0 +1,10 @@
+{
+    "Selector":
+    {
+        "Day":
+        {
+            "Key": "Created",
+            "Increment": 0
+        }
+    }
+}

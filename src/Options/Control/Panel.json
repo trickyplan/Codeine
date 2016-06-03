@@ -3,7 +3,8 @@
     "Bundles":
     {
         "Project": ["User", "Page", "Block"],
-        "Platform": ["Project","Codeine", "PHP", "Nginx", "IO", "Security", "Session", "Server", "Code.Flow.Daemon"],
+        "Ad": ["Ad.Slot", "Ad.Media", "Ad.Placement"],
+        "Platform": ["Project", "Codeine", "PHP", "Nginx", "IO", "Security", "Session", "Server", "Code.Flow.Daemon"],
         "Developer": ["Developer"]
     },
     "Sidebar": ["Do"]

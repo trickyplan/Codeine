@@ -33,8 +33,15 @@
                 'Context' => $Call['Context']
             ];
 
-        if (!isset($Call['Elements']))
+        if (isset($Call['Elements']))
+            ;
+        else
+        {
+            if (isset($Call['Selector']))
+                $Call['Where'] = F::Merge($Call['Where'], F::Live($Call['Selector']));
+
             $Call['Elements'] = F::Run('Entity', 'Read', $Call);
+        }
 
         if (!isset($Call['Selected']))
         {
@@ -118,7 +125,7 @@
         return $Call;
     });
 
-    setFn('RAW', function ($Call)
+    setFn('RAW', function ($Call) // FIXME
     {
         $Output = [];
         $Call = F::Merge($Call, F::loadOptions($Call['Entity'].'.Entity')); // FIXME

@@ -42,11 +42,6 @@
                 "Method": "Do",
                 "Must be first": true
             },
-            "Locale":
-            {
-                "Service": "System.Interface.HTTP.Locale",
-                "Method": "Detect"
-            },
             "-Journal":
             {
                 "Service": "System.Interface.HTTP.Journal"
@@ -55,6 +50,11 @@
             {
                 "Service": "System.Interface.HTTP.Host",
                 "Method": "Do"
+            },
+            "Locale":
+            {
+                "Service": "System.Interface.HTTP.Locale",
+                "Method": "Detect"
             },
             "URL":
             {

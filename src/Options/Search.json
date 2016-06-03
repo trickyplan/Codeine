@@ -7,6 +7,24 @@
         {
             "Max": 64,
             "Min": 3
+        },
+        "Provider":
+        {
+            "Ad.Media":
+            {
+                "Driver": "Search.Provider.Entity",
+                "Entity": "Ad.Media",
+                "EPP": 25,
+                "-Search Template": "Search",
+                "Search fields": ["ID", "Title"],
+                "Show fields": ["ID", "Title"],
+                "Default":
+                {
+                    "Photo": "/img/DefaultSQ.png"
+                },
+                "Highlight": "Title",
+                "Non-vertical": true
+            }
         }
     },
     "Hits":

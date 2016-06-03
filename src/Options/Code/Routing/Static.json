@@ -1,5 +1,6 @@
 {
-    "Mixins":    [
+    "Mixins":
+    [
         "Control.Static",
         "User.Static",
         "Search.Static",
@@ -9,23 +10,41 @@
     ],
     "Static":
     {
-        "/": {
+        "/":
+        {
             "Service": "Project.Frontpage",
             "Method":  "Do"
-        }
-    },
-    "/uploader": {
-        "Service": "IO.Uploader",
-        "Method":  "Write",
-        "View":    {
-            "Renderer": {
-                "Service": "View.JSON",
-                "Method":  "Render"
+        },
+        "/uploader":
+        {
+            "Service": "IO.Uploader",
+            "Method":  "Write",
+            "View":
+            {
+                "Renderer":
+                {
+                    "Service": "View.JSON",
+                    "Method":  "Render"
+                }
             }
         },
-        "/api":    {
+        "/api":
+        {
             "Service": "Code.Flow.API",
             "Method":  "Do"
+        },
+        "/humans.txt":
+        {
+            "Service": "Project.Humans",
+            "Method": "Do",
+            "View":
+            {
+                "Renderer":
+                {
+                    "Service": "View.Plaintext",
+                    "Method": "Render"
+                }
+            }
         }
     }
 }

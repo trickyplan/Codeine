@@ -9,28 +9,35 @@
 
     setFn('Do', function ($Call)
     {
-        if (isset($_SERVER['HTTP_HOST']))
-            ;
+        if (is_array($Call['Project']['Hosts'][F::Environment()]))
+            $Hosts = $Call['Project']['Hosts'][F::Environment()];
         else
-            $_SERVER['HTTP_HOST'] = $Call['Project']['Hosts'][F::Environment()];
+            $Hosts = [$Call['Project']['Hosts'][F::Environment()]];
+
+        if (isset($_SERVER['HTTP_HOST']))
+            $Host = $_SERVER['HTTP_HOST'];
+        else
+        {
+            $Host = $Hosts[0];
+            F::Log('Host not specified, default selected', LOG_WARNING);
+        }
 
         if (preg_match('/:/', $_SERVER['HTTP_HOST']))
             list ($_SERVER['HTTP_HOST'], $Call['HTTP']['Port']) = explode(':', $_SERVER['HTTP_HOST']);
 
-        if (isset($Call['Project']['Hosts'][F::Environment()]))
+        if (in_array($Host, $Hosts))
         {
-            if (preg_match('/(\S+)\.'.$Call['Project']['Hosts'][F::Environment()].'/', $_SERVER['HTTP_HOST'], $Subdomains)
-            && isset($Call['Project']['Subdomains'][$Subdomains[1]]))
+            if (isset($Call['Project']['Active Hosts'][$Host]))
             {
-                $Call = F::Merge($Call, $Call['Project']['Subdomains'][$Subdomains[1]]);
-                F::Log('Active Subdomain detected: *'.$Subdomains[1].'*', LOG_INFO);
-                $Call['HTTP']['Domain'] = str_replace($Subdomains[1].'.', '', $Subdomains[0]);
-            }
+                $Call = F::Merge($Call, $Call['Project']['Active Hosts'][$Host]);
+                F::Log('Active Host selected: *'.$Host.'*', LOG_INFO);
 
-            if (isset($Subdomains[1]))
-                $_SERVER['HTTP_HOST'] = $Subdomains[1].'.'.$Call['Project']['Hosts'][F::Environment()];
-            else
-                $_SERVER['HTTP_HOST'] = $Call['Project']['Hosts'][F::Environment()];
+            }
+        }
+        else
+        {
+            $_SERVER['HTTP_HOST'] = $Call['Project']['Hosts'][F::Environment()][0];
+            F::Log('Default domain selected *'.$_SERVER['HTTP_HOST'].'*');
         }
 
         $Call['HTTP']['Host'] = $_SERVER['HTTP_HOST'];

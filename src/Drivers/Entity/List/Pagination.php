@@ -9,7 +9,7 @@
 
     setFn('beforeList', function ($Call)
     {
-        if (isset($Call['NoPage']) && $Call['NoPage'])
+        if (isset($Call['No Page']) && $Call['No Page'])
             return $Call;
 
         if (isset($Call['Limit']))
@@ -67,7 +67,7 @@
 
     setFn('afterList', function ($Call)
     {
-        if (isset($Call['NoPage']) && $Call['NoPage'])
+        if (isset($Call['No Page']) && $Call['No Page'])
             return $Call;
 
         $Call['PageURLPostfix'] = isset($Call['PageURLPostfix'])? $Call['PageURLPostfix']: '';

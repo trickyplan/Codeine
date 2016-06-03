@@ -1,0 +1,15 @@
+{
+    "Ad":
+    {
+        "Banner":
+        {
+            "Image":
+            {
+                "Width": 468,
+                "Height": 60,
+                "Class": "img",
+                "Alt": "Ad"
+            }
+        }
+    }
+}

@@ -10,7 +10,7 @@
     setFn('Detect', function ($Call)
     {
         if (isset($Call['Locale']))
-            ;
+            F::Log('Locale selected: *'.$Call['Locale'].'*', LOG_INFO);
         else
         {
             $Call['Locale'] = $Call['Default']['Locale'];
@@ -40,17 +40,6 @@
                 if (isset($Call['Locale']))
                     F::Log('Accept-Language suggest locale *'.$Call['Locale'].'*', LOG_INFO + 0.5);
             }
-
-            if (isset($Call['HTTP']['Host']) && isset($Call['Locales']['Hosts']))
-                foreach ($Call['Locales']['Hosts'] as $Host => $Locale)
-                    if (preg_match('/'.$Host.'/', $Call['HTTP']['Host']))
-                    {
-                        $Call['Locale'] = $Locale;
-                        F::Log('Hosts suggest locale *'
-                            .$Call['Locale']
-                            .'* by regex *'.$Host.'*', LOG_INFO + 0.5);
-                        break;
-                    }
         }
 
         return $Call;

@@ -71,7 +71,7 @@
                 ];
 
         foreach ($Totals as $Key => $Total)
-            if ($Total > 0)
+            //if ($Total > 0)
                 $Table[$Key] =
                     [
                         '<l>'.$Call['Bundle'].'.Control:'.$Key.'</l>',
@@ -272,22 +272,7 @@
         return F::Apply('Entity.Renumerate', 'Do', $Call, ['Entity' => $Call['Bundle']]);
     });
 
-    setFn('Dict', function ($Call)
+    setFn('Search', function ($Call)
     {
-        $Rows = F::Run ('Entity', 'Read',
-        [
-            'Entity' => $Call['Bundle'],
-            'Fields' => ['Location']
-        ]);
-
-        if (!empty($Rows))
-        {
-            foreach($Rows as &$Row)
-                if (isset($Row['Location']))
-                    $Call['Output']['Content'][] = $Row['Location'];
-
-            $Call['Output']['Content'] = array_unique($Call['Output']['Content']);
-        }
-
-        return $Call;
+        return F::Apply('Entity.Search', 'Do', $Call, ['Provider' => $Call['Bundle'], 'Query' => $Call['Where']]);
     });

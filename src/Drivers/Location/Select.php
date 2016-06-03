@@ -9,7 +9,7 @@
 
     setFn('Widget', function ($Call)
     {
-        $Locations = F::Run('Entity', 'Read', ['Entity' => 'Location', 'NoPage' => true, 'Sort' => ['Priority' => false, 'Title' => true]]);
+        $Locations = F::Run('Entity', 'Read', ['Entity' => 'Location', 'No Page' => true, 'Sort' => ['Priority' => false, 'Title' => true]]);
 
         if ($Call['HTTP']['URL'] == '/')
             $Call['HTTP']['URL'] = '';

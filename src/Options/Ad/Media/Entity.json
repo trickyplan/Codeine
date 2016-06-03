@@ -1,0 +1,38 @@
+{
+    "Mixins":
+        [
+            "Mixins.ID.GUID",
+            "Mixins.Titled",
+            "Mixins.UGC"
+        ],
+    "Nodes":
+    {
+        "Media.Type":
+        {
+            "Type": "List.Enum",
+            "Options": ["Banner"]
+        },
+        "Media.Source":
+        {
+            "Type": "Literal.Text",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textarea"
+                }
+            }
+        },
+        "Media.URL":
+        {
+            "Type": "Literal.String",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        }
+    }
+}

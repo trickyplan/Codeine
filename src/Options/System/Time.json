@@ -31,6 +31,16 @@
         {
             "Service": "System.Time.Day",
             "Method": "Get"
+        },
+        "SecondsSinceMidnight":
+        {
+            "Service": "System.Time.SecondsSinceMidnight",
+            "Method": "Get"
+        },
+        "SecondsSinceMonday":
+        {
+            "Service": "System.Time.SecondsSinceMonday",
+            "Method": "Get"
         }
     }
 }

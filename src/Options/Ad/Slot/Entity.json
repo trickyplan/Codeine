@@ -1,0 +1,33 @@
+{
+    "Mixins":
+    [
+        "Mixins.ID.GUID",
+        "Mixins.Titled"
+    ],
+    "Nodes":
+    {
+        "Slot.Name":
+        {
+            "Type": "Literal.String",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        },
+        "Slot.Type":
+        {
+            "Type": "List.Enum",
+            "Options": ["Any", "Banner"],
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Select"
+                }
+            }
+        }
+    }
+}

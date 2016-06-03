@@ -9,7 +9,7 @@
 
     setFn('afterSearchQuery', function ($Call)
     {
-        if (isset($Call['NoPage']) && $Call['NoPage'])
+        if (isset($Call['No Page']) && $Call['No Page'])
             return $Call;
 
         if (!isset($Call['Count']) or empty($Call['Count']))

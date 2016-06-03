@@ -55,7 +55,8 @@
             else
             {
                 $Result = F::Run($ProviderCall['Driver'], 'Query', $ProviderCall, $Call);
-                $Call['Hits'] = F::Dot($Call['Hits'], $Provider, $Result['Meta']['Hits'][$Provider]);
+
+                $Call['Hits'][$Provider] = $Result['Meta']['Hits'][$Provider];
                 $Call['Hits']['All'] += $Result['Meta']['Hits'][$Provider];
 
                 if (in_array($Provider, $Call['Provider']))
