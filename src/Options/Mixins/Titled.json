@@ -7,6 +7,10 @@
             "Type": "Literal.String",
             "Weight": -100,
             "Required": true,
+            "Visible":
+            {
+                "JSON": true
+            },
             "Widgets":
             {
                 "Write":

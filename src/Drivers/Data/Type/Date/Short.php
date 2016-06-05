@@ -16,7 +16,7 @@
             else
             {
                 $Date = date_parse_from_format($Call['Date Format'], $Call['Value']);
-                return mktime(3,0,0, $Date['month'], $Date['day'], $Date['year']);
+                return mktime(0,0,0, $Date['month'], $Date['day'], $Date['year']);
             }
         }
         else

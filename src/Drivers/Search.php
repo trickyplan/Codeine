@@ -28,6 +28,8 @@
         if (isset($Call['Request']['Query']))
             $Call['Query'] = $Call['Request']['Query']; // FIXME
 
+        $Call['Query'] = mb_strtolower($Call['Query']);
+        
         // FIXME
         $Call = F::Hook('beforeQuery', $Call);
 
@@ -54,13 +56,16 @@
                 ;
             else
             {
-                $Result = F::Run($ProviderCall['Driver'], 'Query', $ProviderCall, $Call);
-
-                $Call['Hits'][$Provider] = $Result['Meta']['Hits'][$Provider];
-                $Call['Hits']['All'] += $Result['Meta']['Hits'][$Provider];
-
                 if (in_array($Provider, $Call['Provider']))
-                    $Call['Output']['Content'] = F::Merge($Call['Output']['Content'], $Result['SERP']);
+                {
+                    $Result = F::Run($ProviderCall['Driver'], 'Query', $ProviderCall, $Call);
+
+                    $Call['Hits'][$Provider] = $Result['Meta']['Hits'][$Provider];
+                    $Call['Hits']['All'] += $Result['Meta']['Hits'][$Provider];
+
+                    if (in_array($Provider, $Call['Provider']))
+                        $Call['Output']['Content'] = F::Merge($Call['Output']['Content'], $Result['SERP']);
+                }
             }
         }
 

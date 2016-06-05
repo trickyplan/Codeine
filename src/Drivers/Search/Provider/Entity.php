@@ -21,20 +21,31 @@
 
         $Call = F::Apply('Entity', 'Load', $Call, ['Entity' => $Call['Entity']]);
 
+        $Relevance = [];
+
         foreach($Call['Query'] as $Keyword)
         {
             $KeywordResults = F::Run('Entity', 'Read',
                 [
                     'Entity' => $Call['Entity'],
-                    'Where' =>
+                    'Fields' => $Call['Show fields'],
+                    'Where'  =>
                     [
                         'Keywords' => $Keyword // FIXME SOON
                     ]
                 ]);
 
             if (is_array($KeywordResults))
-                $Results = array_merge($Results, $KeywordResults);
+                foreach ($KeywordResults as $KeywordResult)
+                    $Results[$KeywordResult['ID']] = $KeywordResult;
+
+            $IDs = F::Extract($KeywordResults, 'ID');
+            sort($IDs);
+            $Relevance = array_merge($Relevance, $IDs);
         }
+        $Relevance = array_count_values($Relevance);
+        arsort($Relevance);
+        $Relevance = array_keys($Relevance); // FIXMEEEEE
 
         $SERP = [];
 
@@ -46,15 +57,16 @@
                     'ID'    => 'Empty'
                 ];
         else
-            foreach ($Results as &$Result)
+            foreach ($Relevance as $RankedID)
             {
+                $Result = $Results[$RankedID];
                 $Result['From'] = $Call['HTTP']['Host'];
                 $Result['URL']  = $Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/'.$Call['Slug']['Entity'].'/'.$Result['ID'];
                 $SERP[$Result['URL']] =
                     [
                         'Type'  => 'Template',
-                        'Scope' => $Call['Scope'].'/Show',
-                        'ID'    => 'Search',
+                        'Scope' => $Call['Scope'],
+                        'ID'    => 'Show/Search',
                         'Data'  => $Result
                     ];
 

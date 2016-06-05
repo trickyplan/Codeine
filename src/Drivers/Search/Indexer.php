@@ -20,7 +20,7 @@
                 if (is_scalar($Call['Value']))
                 {
                     $Call = F::Hook('beforeTokenize', $Call);
-                        $Call['Words'] = preg_split('/[\s\.\?\!\,\:\;\/\-]/', $Call['Value']);
+                        $Call['Words'] = preg_split('/[\W]+/', $Call['Value']);
                     $Call = F::Hook('afterTokenize', $Call);
 
                     $Index = array_merge($Index, $Call['Words']);

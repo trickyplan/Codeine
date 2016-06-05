@@ -1,14 +1,24 @@
-<js>bootstrap-datepicker</js>
-<css>bootstrap-datepicker</css>
+<js>:bower/moment/min/moment.min</js>
+<js>:bower/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min</js>
+<css>:bower/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min</css>
 
 <div class="form-group">
     <label for="<k>Name</k>"><l><k>Label</k></l>:</label>
-
-       <div class="input-append date">
-          <input id="<k>ID</k>" name="<k>Name</k>" class="datepicker form-control" size="16" type="text" value="<k>Value</k>" <block>required="<k>Required</k>"</block> />
-        </div>
+    <div class='input-group date' id='<k>ID</k>'>
+        <input id="<k>ID</k>" name="<k>Name</k>" class="datepicker form-control" size="16" type="text" value="<k>Value</k>" <block>required="<k>Required</k>"</block> />
+        <span class="input-group-addon">
+            <span class="fa fa-calendar">
+            </span>
+        </span>
+    </div>
 </div>
 
 <jsrun>
-    $('.datepicker').datepicker({format: 'dd.mm.yyyy'});
+    $(function ()
+    {
+        $('#<k>ID</k>').datetimepicker(
+        {
+            format: 'DD.MM.YYYY HH:mm:ss'
+        });
+    });
 </jsrun>

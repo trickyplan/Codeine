@@ -52,12 +52,17 @@
                     }
                     else
                     {
-                        list($Asset, $ID) = F::Run('View', 'Asset.Route', ['Value' => $Call['JS']['Fullpath']]);
+                        list($Asset, $ID) = F::Run('View', 'Asset.Route',
+                            [
+                                'Value' => $Call['JS']['Fullpath'],
+                                'Scope' => 'js'
+                            ]
+                        );
 
                         $Call['JS']['Scripts'][$Call['JS']['Fullpath']] = F::Run('IO', 'Read',
                             [
                                 'Storage' => 'JS',
-                                'Scope'   => [$Asset, 'js'],
+                                'Scope'   => $Asset,
                                 'Where'   => $ID
                             ])[0];
                     }

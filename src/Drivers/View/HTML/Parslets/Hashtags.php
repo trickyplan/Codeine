@@ -18,7 +18,7 @@
             else
                 $Href = '/search/';
 
-            if (preg_match_all('/#([\w\.\+\-\#_]+)/', $Match, $Hashtags))
+            if (preg_match_all('/#([\w\.\+\-\#_\']+)/', $Match, $Hashtags))
             {
                 foreach ($Hashtags[1] as $HashIndex => $Hashtag)
                     $Call['Parsed'][2][$IX] =

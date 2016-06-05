@@ -67,10 +67,22 @@
 
     setFn('Asset.Route', function ($Call)
     {
-        if (strpos($Call['Value'], ':') !== false)
-            return explode(':', $Call['Value']);
+        if (strpos($Call['Value'], ':') !== false) // FIXME New unified package routing
+        {
+            list($Scope, $ID) = explode(':', $Call['Value']);
+
+            if (isset($Call['Scope']) && $Scope != '')
+                $Scope .= '/'.$Call['Scope'];
+        }
         else
-            return [$Call['Value'], $Call['Value']];
+        {
+            $Scope = $Call['Value'];
+            $ID = $Scope;
+            if (isset($Call['Scope']) && $Scope != '')
+                $Scope .= '/'.$Call['Scope'];
+        }
+
+        return [$Scope, $ID];
     });
 
     setFn('Add', function ($Call)

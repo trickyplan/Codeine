@@ -205,33 +205,8 @@
 
     setFn('Export', function ($Call)
     {
-        if (isset($Call['Request']['Fields']))
-            $Call['Fields'] = $Call['Request']['Fields'];
-
-        $Elements = F::Run('Entity', 'Read', $Call,
-                    [
-                         'Entity' => $Call['Bundle']
-                    ]);
-
-        $Call['View']['Renderer'] =
-            [
-                'Service' =>  'View.JSON',
-                'Method' =>  'Render'
-            ];
-
-        foreach ($Elements as $Element)
-            $Call['Output']['Content'][] =
-            [
-                'Type'  => 'Template',
-                'Scope' => $Call['Bundle'],
-                'ID'    => 'Export',
-                'Data'  => $Element
-            ];
-
-        return $Call;
+        return F::Apply('Entity.Export', 'Do', $Call, ['Entity' => $Call['Bundle']]);
     });
-
-
 
     setFn('Search', function ($Call)
     {

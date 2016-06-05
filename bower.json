@@ -1,0 +1,21 @@
+{
+  "name": "codeine",
+  "authors": [
+    "Dmitry Bergstein <bergstein@trickyplan.com>"
+  ],
+  "description": "Codeine Framework",
+  "main": "",
+  "license": "BSD",
+  "homepage": "https://codeine-framework.ru",
+  "ignore": [
+    "**/.*",
+    "src",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "eonasdan-bootstrap-datetimepicker": "^4.17.37"
+  }
+}

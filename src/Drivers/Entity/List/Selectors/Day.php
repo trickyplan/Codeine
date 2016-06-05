@@ -15,7 +15,7 @@
         return  [
                     $Call['Selector']['Day']['Key'] =>
                     [
-                        '$gt' => $DayStart->getTimestamp() + ($Call['Selector']['Day']['Increment']*86400),
+                        '$gte' => $DayStart->getTimestamp() + ($Call['Selector']['Day']['Increment']*86400),
                         '$lt' => $DayFinish->getTimestamp() + ($Call['Selector']['Day']['Increment']*86400)
                     ]
                 ];

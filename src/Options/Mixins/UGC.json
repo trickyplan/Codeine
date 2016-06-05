@@ -6,6 +6,10 @@
             "Type": "Numeral.Integer",
             "Default": 0,
             "User Override": true,
+            "Visible":
+            {
+                "JSON": true
+            },
             "Scope": "Control",
             "Hooks":
             {
@@ -16,6 +20,10 @@
         {
             "Type": "Numeral.Integer",
             "User Override": true,
+            "Visible":
+            {
+                "JSON": true
+            },
             "Hooks":
             {
                 "beforeEntityCreate":

@@ -1,3 +1,6 @@
 {
-    "Format": "d.m.Y"
+    "Datepicker":
+    {
+        "Format": "d.m.Y H:i:s"
+    }
 }

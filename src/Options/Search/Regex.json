@@ -54,7 +54,6 @@
             "Method": "Query",
             "Call":
             {
-                "Vertical": true,
                 "Provider": "$1",
                 "Query": "$2"
             }

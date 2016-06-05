@@ -19,7 +19,7 @@
             $Format = '%B, %d';
 
         if ($Now['tm_year'] != $Value['tm_year'])
-            $Format .= '%G';
+            $Format .= ', %G';
 
         $Format.= ', %l:%M';
 

@@ -22,12 +22,11 @@
                 if (in_array($Link, $Call['No Remote']['Excluded']))
                     $NoRemote = false;
 
-                foreach ($Call['Project']['Hosts'] as $Host)
-                    if (preg_match('/'.$Host.'$/', $LinkHost))
-                    {
-                        $NoRemote = false;
-                        break;
-                    }
+                if (preg_match('/'.$Call['HTTP']['Host'].'$/', $LinkHost))
+                {
+                    $NoRemote = false;
+                    break;
+                }
 
                 if ($NoRemote)
                     $Call['Output'] = str_replace($Links[0][$IX], 'a rel="nofollow" href="/go/'.$Link.'"',$Call['Output']);

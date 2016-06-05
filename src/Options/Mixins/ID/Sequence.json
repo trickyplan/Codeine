@@ -8,6 +8,10 @@
             "Weight": 9999,
             "Index": true,
             "Unique": true,
+            "Visible":
+            {
+                "JSON": true
+            },
             "Hooks":
             {
                 "beforeEntityCreate":

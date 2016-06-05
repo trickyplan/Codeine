@@ -9,13 +9,18 @@
 
     setFn('Check', function ($Call)
     {
-        list($Asset, $ID) = F::Run('View', 'Asset.Route', ['Value' => $Call['CSS Filename']]);
+        list($Asset, $ID) = F::Run('View', 'Asset.Route',
+            [
+                'Value' => $Call['CSS Name'],
+                'Scope' => 'less'
+            ])
+        ;
 
         $LESS = F::Run('IO', 'Execute',
             [
                 'Execute' => 'Exist',
                 'Storage' => 'LESS',
-                'Scope'   => [$Asset, 'less'],
+                'Scope'   => $Asset,
                 'Where'   => $ID
             ]);
 
