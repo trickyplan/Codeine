@@ -9,5 +9,6 @@
     
     setFn('Get', function ($Call)
     {
-        return DS.$Call['Slug']['Entity'].DS.$Call['Data']['ID'];
+        if (isset($Call['Data']['ID']))
+            return DS.$Call['Slug']['Entity'].DS.$Call['Data']['ID'];
     });

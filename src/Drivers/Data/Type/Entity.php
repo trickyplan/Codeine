@@ -48,7 +48,7 @@
 
     setFn('Where', function ($Call)
     {
-        return (int) $Call['Value'];
+        return $Call['Value'];
     });
 
     setFn('Populate', function ($Call)
