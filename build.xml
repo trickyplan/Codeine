@@ -28,7 +28,7 @@
 <target name="phase1" depends="properties, folders"></target>
 
 <!-- Source code checks -->
-<target name="phase2" depends="phase1, phplint.check"></target>
+<target name="phase2" depends="phase1"></target>
 
 <!-- Tests & docs -->
 <target name="phase3" depends="phase2"></target>
