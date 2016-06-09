@@ -11,8 +11,7 @@
     {
         list($Asset, $ID) = F::Run('View', 'Asset.Route',
             [
-                'Value' => $Call['CSS Name'],
-                'Scope' => 'sass'
+                'Value' => $Call['CSS Name']
             ]);
 
         $SASS = F::Run('IO', 'Execute',

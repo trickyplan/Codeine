@@ -9,17 +9,6 @@
 
     setFn ('Page', function ($Call)
     {
-        $Call['Layouts'] = [
-            [
-                'Scope' => 'Default',
-                'ID' => 'Main'
-            ],
-            [
-                'Scope' => 'Project',
-                'ID' => 'Zone'
-            ]
-        ];
-
         if (isset($Call['Entity']))
             $Call['Layouts'][] =
                 [

@@ -11,8 +11,7 @@
     {
         list($Asset, $ID) = F::Run('View', 'Asset.Route',
             [
-                'Value' => $Call['CSS Name'],
-                'Scope' => 'less'
+                'Value' => $Call['CSS Name']
             ])
         ;
 
@@ -20,7 +19,7 @@
             [
                 'Execute' => 'Exist',
                 'Storage' => 'LESS',
-                'Scope'   => $Asset,
+                'Scope'   => [$Asset, 'less'],
                 'Where'   => $ID
             ]);
 

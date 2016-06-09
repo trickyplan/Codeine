@@ -12,11 +12,11 @@
         $DayStart =  new DateTime ('midnight today');
         $DayFinish= new DateTIme ('midnight tomorrow');
 
-        return  [
+        return  F::Merge($Call['Where'], [
                     $Call['Selector']['Day']['Key'] =>
                     [
                         '$gte' => $DayStart->getTimestamp() + ($Call['Selector']['Day']['Increment']*86400),
                         '$lt' => $DayFinish->getTimestamp() + ($Call['Selector']['Day']['Increment']*86400)
                     ]
-                ];
+                ]);
     });

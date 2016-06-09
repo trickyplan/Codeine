@@ -11,8 +11,8 @@
     {
         $Call = F::Apply('Entity', 'Load', $Call);
 
-        if (isset($Call['Selector']))
-            $Call['Where'] = F::Merge($Call['Where'], F::Live($Call['Selector']));
+        if (isset($Call['Where']))
+            $Call['Where'] = F::Live($Call['Where'], $Call);
 
         $Call = F::Hook('beforeCount', $Call);
 

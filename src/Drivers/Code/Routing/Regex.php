@@ -21,26 +21,26 @@
         if (isset($Call['Regex']))
             {
                 $ix = 0;
-                foreach ($Call['Regex'] as $Name => $Rule)
+                foreach ($Call['Regex'] as $Name => $Call['Routing']['Rule'])
                 {
                     // «Оживляем» переменную
-                    $Rule['Match'] = F::Live($Rule['Match']);
+                    // $Call['Routing']['Rule']['Match'] = F::Live($Call['Routing']['Rule']['Match']);
 
                     $ix++;
 
-                    $Rule['Match'] = $Call['Regex Pattern']['Prefix'].$Rule['Match'].$Call['Regex Pattern']['Postfix'];
+                    $Call['Routing']['Rule']['Match'] = $Call['Regex Pattern']['Prefix'].$Call['Routing']['Rule']['Match'].$Call['Regex Pattern']['Postfix'];
 
-                    if (!isset($Rule['Weight']))
-                        $Rule['Weight'] = 0;
+                    if (!isset($Call['Routing']['Rule']['Weight']))
+                        $Call['Routing']['Rule']['Weight'] = 0;
 
-                    if ($Rule['Weight'] > $Weight)
+                    if ($Call['Routing']['Rule']['Weight'] > $Weight)
                     {
-                        F::Log($Rule['Match'], LOG_DEBUG);
+                        F::Log($Call['Routing']['Rule']['Match'], LOG_DEBUG);
                         $Matches = [];
 
-                        if (preg_match($Rule['Match'], $Call['Run'], $Matches))
+                        if (preg_match($Call['Routing']['Rule']['Match'], $Call['Run'], $Matches))
                         {
-                            $Rule = F::Map($Rule, function (&$Key, &$Value, $Data, $FullKey, &$Array) use ($Matches)
+                            $Call['Routing']['Rule'] = F::Map($Call['Routing']['Rule'], function (&$Key, &$Value, $Data, $FullKey, &$Array) use ($Matches)
                             {
                                 if (preg_match_all('/\$(\d+)/', $Key , $Pockets))
                                     foreach ($Pockets[1] as $IX => $Matcher)
@@ -56,35 +56,40 @@
                                             $Value = str_replace($Pockets[0][$IX], $Matches[$Matcher], $Value);
                             });
 
-                            F::Log('Regex router rule *'.$Name.'* matched', LOG_DEBUG);
+                            F::Log('Rule *'.$Name.'* matched', LOG_DEBUG);
 
-                            $Weight = $Rule['Weight'];
-                            $Decision = $Rule;
-                            $Selected = $Name;
-
-                            /*if (isset($Rule['Last']) && $Rule['Last'])
+                            if (isset($Call['Routing']['Rule']['Mixin']) && $Call['Routing']['Rule']['Mixin'])
+                            {
+                                $Call['Mixin'] = $Call['Routing']['Rule'];
+                                $Call['Run'] = str_replace($Matches[0], '', $Call['Run']);
+                                F::Log('Regex *mixin* *'.$Name.'* applied', LOG_INFO);
+                            }
+                            else
+                            {
+                                $Weight = $Call['Routing']['Rule']['Weight'];
+                                $Decision = $Call['Routing']['Rule'];
+                                $Selected = $Name;
+                            }
+                            /*if (isset($Call['Routing']['Rule']['Last']) && $Call['Routing']['Rule']['Last'])
                                 break;*/
                         }
                     }
                 }
             }
         else
-            F::Log('Regex routes table corrupted', LOG_CRIT); // FIXME
+            F::Log('Routes table corrupted', LOG_CRIT); // FIXME
 
         if (isset($Selected))
-            F::Log('Regex router rule *'.$Selected.'* selected after '.($ix.' of '.sizeof($Call['Regex'])), LOG_INFO);
+            F::Log('Rule *'.$Selected.'* selected after '.($ix.' of '.sizeof($Call['Regex'])), LOG_INFO);
         else
-            F::Log('No one regex rule selected', LOG_INFO);
+            F::Log('Rule not selected', LOG_INFO);
 
         $Call['Run'] = $Decision;
 
+        if (isset($Call['Mixin']))
+            $Call['Run'] = F::Merge($Call['Run'], $Call['Mixin']);
+
         unset($Call['Regex']);
 
-        return $Call;
-    });
-
-
-    setFn('Reverse', function ($Call)
-    {
         return $Call;
     });

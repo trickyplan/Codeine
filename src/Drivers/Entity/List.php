@@ -36,12 +36,7 @@
         if (isset($Call['Elements']))
             ;
         else
-        {
-            if (isset($Call['Selector']))
-                $Call['Where'] = F::Merge($Call['Where'], F::Live($Call['Selector']));
-
             $Call['Elements'] = F::Run('Entity', 'Read', $Call);
-        }
 
         if (!isset($Call['Selected']))
         {

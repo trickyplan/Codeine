@@ -13,6 +13,15 @@
     },
     "Regex":
     {
+        "Pagination":
+        {
+            "Match": "/page(\\d+)",
+            "Mixin": true,
+            "Call":
+            {
+                "Page": "$1"
+            }
+        },
         "Error":
         {
             "Match": "/error/(.*)",
