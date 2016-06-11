@@ -34,12 +34,14 @@
                 {
                     $Matched = F::Live(F::Dot($Call['Data'], $CMatch));
 
-                    if (!empty($Matched))
+                    if (empty($Matched))
+                        ;
+                    else
                     {
                         if ((array) $Matched === $Matched)
                             $Matched = array_shift($Matched);
 
-                        if (($Matched === false) or ($Matched === 0) )
+                        if (($Matched === false) or ($Matched === 0))
                             $Matched = '0';
 
                         break;

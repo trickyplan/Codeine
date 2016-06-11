@@ -1,5 +1,10 @@
 {
     "EV": 6,
+    "Slug":
+    {
+        "Entity": "user/",
+        "Entities": "users"
+    },
     "Mixins":
     [
         "Mixins.ID.Sequence",
@@ -100,7 +105,6 @@
                             "Value": "Профиль обновлён"
                         }
                     }
-
                 }
             }
         },
