@@ -15,7 +15,6 @@
 
             $Engine = isset($Root->attributes()->engine)? (string) $Root->attributes()->engine: 'Date';
 
-            if (empty($Match)) $Match = time();
             // TODO Due bug 13744 at w3c validator, time tag temporary diabled.
             // $Outer = '<time datetime="'.date(DATE_ISO8601, $Match).'">'.date($Format, $Inner).'</time>';
 

@@ -9,7 +9,7 @@
 
     setFn('Format', function ($Call)
     {
-        if (isset($Call['Value']))
+        if (isset($Call['Value']) && !empty($Call['Value']))
         {
             if ($Call['Format'] == 'ISO8601')
                 $Call['Format'] = DATE_ISO8601;

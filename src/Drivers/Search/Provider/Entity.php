@@ -23,16 +23,15 @@
 
         $Relevance = [];
 
+        $Call['Where'] = F::Live($Call['Where'], $Call);
         foreach($Call['Query'] as $Keyword)
         {
+            $Call['Where']['Keywords'] = $Keyword;
             $KeywordResults = F::Run('Entity', 'Read',
                 [
                     'Entity' => $Call['Entity'],
                     'Fields' => $Call['Show fields'],
-                    'Where'  =>
-                    [
-                        'Keywords' => $Keyword // FIXME SOON
-                    ]
+                    'Where'  => $Call['Where']
                 ]);
 
             if (is_array($KeywordResults))

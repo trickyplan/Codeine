@@ -131,6 +131,18 @@
                 "Service": "System.Interface.HTTP",
                 "Method": "RestoreURL"
             }
+        },
+        "afterCreatePost":
+        {
+            "Redirect":
+            {
+                "Service": "System.Interface.HTTP",
+                "Method": "Redirect",
+                "Call":
+                {
+                    "Redirect": "/"
+                }
+            }
         }
     }
 }

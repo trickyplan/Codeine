@@ -9,6 +9,8 @@
 
     setFn('Format', function ($Call)
     {
+        $Output = [];
+
         if (isset($Call['Value']))
         {
             foreach ($Call['Period']['Units'] as $Period => $Value)
@@ -19,8 +21,13 @@
                     $Call['Value'] -= $Units*$Value;
                 }
 
-            return implode(' ', array_slice($Output,0,$Call['Period']['Format']));
+            if (empty($Output))
+                $Result = '0 <l>Formats.Period:Seconds.10</l>';
+            else
+                $Result = implode(' ', array_slice($Output,0,$Call['Period']['Format']));
         }
         else
-             return null;
+            $Result = null;
+
+        return $Result;
     });

@@ -632,7 +632,7 @@
                     trigger_error($Message);*/
 
                 // $Message = self::$_Service.': '.$Message;
-                $Time = microtime(true)-Started;
+                $Time = sprintf('%.3F', microtime(true)-Started);
 
                 if (PHP_SAPI === 'cli')
                 {

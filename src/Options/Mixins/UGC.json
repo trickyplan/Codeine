@@ -5,7 +5,6 @@
         {
             "Type": "Numeral.Integer",
             "Default": 0,
-            "User Override": true,
             "Visible":
             {
                 "JSON": true

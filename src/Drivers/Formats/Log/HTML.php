@@ -42,7 +42,7 @@
 
             foreach ($Call['Value'] as $IX => $Row)
                 $Output .= '<tr class="'.$Call['Levels'][$Row[0]].'">
-                        <td class="col-md-1">['.$Row[0].'] '.sprintf('%.3f', $Row[1]).'</td>
+                        <td class="col-md-1">['.$Row[0].'] '.$Row[1].'</td>
                         <td class="col-md-4">'.($Row[3] == (isset($Call['Value'][$IX-1][3])? $Call['Value'][$IX-1][3]: false)? '': $Row[3]).'</td>
                         <td class="col-md-7">'.stripslashes(htmlentities($Row[2])).'</td>
                         </tr>';
