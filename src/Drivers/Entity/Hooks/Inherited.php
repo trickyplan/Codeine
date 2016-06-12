@@ -14,24 +14,30 @@
             if (isset($Call['Fields']) && !in_array($Name, $Call['Fields']))
                 continue;
 
-            if (F::Dot($Call['Data'], $Name) === null)
+            if (F::Dot($Call['Data'], $Name) == null)
             {
                 if (isset($Node['Inherited']))
                 {
-                    if (F::Dot($Call['Data'], $Node['Inherited']) == null)
-                        F::Log('Empty Ancestor', LOG_INFO);
+                    $Parent = F::Dot($Call['Data'], $Node['Inherited']);
+                    if ($Parent == null)
+                        F::Log('Empty Inherited Field', LOG_INFO);
                     else
                     {
-                        $Parent = F::Run('Entity', 'Read',
-                        [
-                            'Entity'    => $Call['Entity'],
-                            'Where'     => F::Dot($Call['Data'], $Node['Inherited']),
-                            'One'       => true,
-                            'Fields'    => ['ID', $Name]
-                        ]);
+                        if ($Parent == $Call['Data']['ID'])
+                            F::Log('Inheritance Loop Protected', LOG_INFO); // FIXME Make Tracer
+                        else
+                        {
+                            $Parent = F::Run('Entity', 'Read',
+                            [
+                                'Entity'    => $Call['Entity'],
+                                'Where'     => F::Dot($Call['Data'], $Node['Inherited']),
+                                'One'       => true,
+                                'Fields'    => ['ID', $Name, $Node['Inherited']]
+                            ]);
 
-                        $Call['Data'] = F::Dot($Call['Data'], $Name, F::Dot($Parent, $Name)); // FIXME Add flag
-                        F::Log($Name.' inherited from '.$Parent['ID'].' as '.j(F::Dot($Parent, $Name)), LOG_INFO);
+                            $Call['Data'] = F::Dot($Call['Data'], $Name, F::Dot($Parent, $Name)); // FIXME Add flag
+                            F::Log('*'.$Name.'* node inherited from *'.$Parent['ID'].'* as '.j(F::Dot($Parent, $Name)), LOG_INFO);
+                        }
                     }
                 }
             }
