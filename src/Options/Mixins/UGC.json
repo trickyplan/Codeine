@@ -4,6 +4,7 @@
         "User":
         {
             "Type": "Numeral.Integer",
+            "Weight": 1000,
             "Default": 0,
             "Visible":
             {
@@ -18,7 +19,7 @@
         "Created":
         {
             "Type": "Numeral.Integer",
-            "User Override": true,
+            "Weight": 1000,
             "Visible":
             {
                 "JSON": true
@@ -35,6 +36,7 @@
         "Modified":
         {
             "Type": "Numeral.Integer",
+            "Weight": 1000,
             "Hooks":
             {
                 "beforeEntityWrite":
@@ -47,6 +49,7 @@
         "Editor":
         {
             "Type": "Numeral.Integer",
+            "Weight": 1000,
             "Hooks":
             {
                 "beforeEntityUpdate": "$Session.User.ID"

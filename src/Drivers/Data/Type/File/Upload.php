@@ -20,6 +20,8 @@
             $Web = F::Run('IO', 'Read', ['Storage' => 'Web', 'Where' => ['ID' => $Call['Value']]]);
             $Call['Data'] = array_pop($Web);
         }
+        elseif (F::Run('IO', 'Execute', $Call, ['Execute' => 'Exist', 'Storage' => 'Upload', 'Where' => ['ID' => $Call['Value']]]))
+            F::Log('Uploaded file found for '.$Call['Name'], LOG_INFO);
         else
             F::Log('Unknown file data for '.$Call['Name'], LOG_INFO);
 

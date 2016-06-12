@@ -153,7 +153,8 @@
             },
         "EMail":
         {
-            "Driver": "IO.Transport.Mail.SMTP"
+            "Driver": "IO.Transport.Mail.SMTP",
+            "From": "Unconfigured Codeine Framework <noreply@codeine-framework.ru>"
         },
         "Upload":
         {

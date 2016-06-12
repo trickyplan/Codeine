@@ -233,13 +233,16 @@
 
                     $Call = F::Hook('beforeEntityWrite', $Call);
                     $Call = F::Hook('beforeEntityUpdate', $Call);
-
-            /*
-            TODO: необходимо щепитильно проверить обновлялку
-            */
+                    /*
+                    TODO: необходимо щепитильно проверить обновлялку
+                    */
                     if (isset($Call['Failure']) and $Call['Failure'])
+                    {
+                        F::Log('Update Skipped due Failure Flag', LOG_WARNING, 'Administrator');
                         $Call['Data'] = null;
-                    else {
+                    }
+                    else
+                    {
                             if (isset($Call['Dry']))
                                 F::Log('Dry shot for ' . $Call['Entity'] . ' update');
                             else {
@@ -248,8 +251,8 @@
                                 $Call = F::Hook('afterEntityUpdate', $Call);
                                 $Call = F::Hook('afterEntityWrite', $Call);
                             }
-                        }
                     }
+                }
 
                 $Entities = F::Run('Entity', 'Read', $Call, ['Time' => microtime(true).rand(), 'One' => false]);
 

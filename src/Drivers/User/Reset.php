@@ -29,6 +29,7 @@
         else
         {
             $Call['User']['Password'] = F::Live($Call['Reset']['Generator']);
+            $Password = $Call['User']['Password'];
             $Call['User'] = F::Run('Entity', 'Update',
                 [
                     'Entity'  => 'User',
@@ -52,7 +53,7 @@
                     'Type'  => 'Template',
                     'Scope' => 'User/Reset',
                     'ID'    => 'EMail',
-                    'Data'  => F::Merge($Call['User'], ['Password' => $NewPassword])
+                    'Data'  => F::Merge($Call['User'], ['Password' => $Password])
                 ];
 
             $VCall = F::Run('View', 'Render', $VCall, ['Context' => 'mail']);
