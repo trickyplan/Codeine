@@ -148,6 +148,27 @@
                 "Extension": "$3"
             }
         },
+        "Audio":
+        {
+            "Match": "/audio/(.+)/(.+).(mp3|ogg)$",
+            "Service": "View.Asset",
+            "Method": "Get",
+            "View":
+            {
+                "Renderer":
+                {
+                    "Service": "View.File",
+                    "Method": "Render"
+                }
+            },
+            "Call":
+            {
+                "Scope": "$3",
+                "Asset": "$1",
+                "ID": "$2",
+                "Extension": "$3"
+            }
+        },
         "Image":
         {
             "Match": "/img/(.+)/(.+).(png|jpg|jpeg|gif|webp)$",
