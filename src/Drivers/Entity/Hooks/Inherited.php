@@ -20,7 +20,7 @@
                 {
                     $Parent = F::Dot($Call['Data'], $Node['Inherited']);
                     if ($Parent == null)
-                        F::Log('Empty Inherited Field', LOG_INFO);
+                        F::Log('Empty Inherited Field', LOG_DEBUG);
                     else
                     {
                         if ($Parent == $Call['Data']['ID'])
@@ -36,7 +36,7 @@
                             ]);
 
                             $Call['Data'] = F::Dot($Call['Data'], $Name, F::Dot($Parent, $Name)); // FIXME Add flag
-                            F::Log('*'.$Name.'* node inherited from *'.$Parent['ID'].'* as '.j(F::Dot($Parent, $Name)), LOG_INFO);
+                            F::Log('*'.$Name.'* node inherited from *'.$Parent['ID'].'* as '.j(F::Dot($Parent, $Name)), LOG_DEBUG);
                         }
                     }
                 }
