@@ -11,7 +11,7 @@
                     "m": "F, d, ",
                     "d": "l, d, "
                 },
-                "Postfix": "H:m"
+                "Postfix": "H:i"
             }
         }
     }
