@@ -9,19 +9,20 @@
 
     setFn('Format', function ($Call)
     {
-        $Value = strptime($Call['Value'],'%s');
+        $Call['Now'] = time();
+        $Output = '';
+        
+        foreach ($Call['Formats']['Date']['Adaptive']['Segments'] as $Segment => $Format)
+        {
+            $ValueSegment = date($Segment, $Call['Value']);
+            if (date($Segment, $Call['Now']) != $ValueSegment)
+            {
+                $Output = date($Format, $Call['Value']);
+                break;
+            }
+        }
 
-        $Now = strptime(time(),'%s');
+        $Output .= date($Call['Formats']['Date']['Adaptive']['Postfix'], $Call['Value']);
 
-        if (strftime('%U', $Call['Value']) == strftime('%U', time()))
-            $Format = '%A';
-        else
-            $Format = '%B, %d';
-
-        if ($Now['tm_year'] != $Value['tm_year'])
-            $Format .= ', %G';
-
-        $Format.= ', %l:%M';
-
-        return mb_strtolower(strftime($Format, $Call['Value']));
+        return $Output;
      });

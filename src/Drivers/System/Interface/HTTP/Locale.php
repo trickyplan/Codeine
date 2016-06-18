@@ -42,5 +42,6 @@
             }
         }
 
+        setlocale(LC_ALL, $Call['Locales']['PHP'][$Call['Locale']]);
         return $Call;
     });

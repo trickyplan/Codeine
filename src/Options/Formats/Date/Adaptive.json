@@ -1,0 +1,18 @@
+{
+    "Formats":
+    {
+        "Date":
+        {
+            "Adaptive":
+            {
+                "Segments":
+                {
+                    "Y": "Y.m.d, ",
+                    "m": "F, d, ",
+                    "d": "l, d, "
+                },
+                "Postfix": "h:m"
+            }
+        }
+    }
+}

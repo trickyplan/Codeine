@@ -6,5 +6,13 @@
     "Default":
     {
         "Locale": "ru"
+    },
+    "Locales":
+    {
+        "PHP":
+        {
+            "ru": "ru_RU.UTF-8",
+            "en": "en_US.UTF-8"
+        }
     }
 }
