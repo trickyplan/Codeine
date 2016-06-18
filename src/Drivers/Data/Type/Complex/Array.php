@@ -19,5 +19,5 @@
 
     setFn('Where', function ($Call)
     {
-        return null;
+        return $Call['Value'];
     });

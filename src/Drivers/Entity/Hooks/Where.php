@@ -52,6 +52,8 @@
                                                 'Value' => $cValue
                                             ]);
                                 // FIXME Нативные массивы?
+                                if (isset($Node['Array Like']) && $Node['Array Like'])
+                                    $Value = ['$elemMatch' => $Value]; // FIXME: Mongo, fuck you!
                             }
                             else
                             {
