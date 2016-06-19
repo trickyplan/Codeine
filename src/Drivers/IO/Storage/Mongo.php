@@ -123,17 +123,20 @@
                 }
 
                 if (isset($Call['Sort']) && $Cursor->count() > 1)
+                {
+                    $Sort = [];
                     foreach($Call['Sort'] as $Key => $Direction)
                     {
                         $Direction = (int)(($Direction == SORT_ASC) or ($Direction == 1))? MongoCollection::ASCENDING: MongoCollection::DESCENDING;
-
-                        $Cursor->sort([$Key => $Direction]);
-
                         if ($Direction == 1)
                             F::Log('Sorted by *'.$Key.'* ascending', LOG_INFO, 'Administrator');
                         else
                             F::Log('Sorted by *'.$Key.'* descending', LOG_INFO, 'Administrator');
+                        
+                        $Sort[$Key] = $Direction;
                     }
+                    $Cursor->sort($Sort);
+                }
 
                 if (isset($Call['Limit']))
                 {
