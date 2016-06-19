@@ -9,6 +9,6 @@
     
     setFn('Get', function ($Call)
     {
-        $WeekStart =  new DateTime ('midnight Monday this week');
+        $WeekStart =  new DateTime ('midnight next Monday -1 week'); // Fuck you, PHP egocentric WASPs
         return time() - $WeekStart->getTimestamp();
     });
