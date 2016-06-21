@@ -16,7 +16,7 @@
                 [
                     'Node'  => $Call['Node'],
                     'Name'  => $Call['Name'],
-                    'Data'  => $Call['Data']
+                    'Data'  => isset($Call['Data'])? $Call['Data']: []
                 ]);
 
         return $Call;
