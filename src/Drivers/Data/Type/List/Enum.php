@@ -12,7 +12,12 @@
         if (isset($Call['Skip Enum Live']))
             ;
         else
-            $Call['Node']['Options'] = F::Live($Call['Node']['Options']);
+            $Call['Node']['Options'] = F::Live($Call['Node']['Options'],
+                [
+                    'Node'  => $Call['Node'],
+                    'Name'  => $Call['Name'],
+                    'Data'  => $Call['Data']
+                ]);
 
         return $Call;
     });
