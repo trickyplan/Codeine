@@ -28,8 +28,8 @@
         "Agent": "Mozilla/5.0 (compatible; Codeine/9.x)",
         "Proxy":
         {
-            "Host": null,
-            "Port": null
+            "Host": "",
+            "Port": ""
         },
         "User Agents":
         [
