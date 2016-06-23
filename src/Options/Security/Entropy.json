@@ -33,6 +33,11 @@
                     "Max": 12
                 }
             }
+        },
+        "Hex":
+        {
+            "Service": "Security.Entropy.Hex",
+            "Method": "Get"
         }
     }
 }
