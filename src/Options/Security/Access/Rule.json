@@ -135,6 +135,16 @@
             {
                 "Service": "View.Asset"
             }
+        },
+        "Error Test to all":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Error.Test",
+                "Method": "Do"
+            }
         }
     }
 }
