@@ -1,7 +1,8 @@
 {
     "Levels":
     {
-        "1": "Emergency",
+        "0": "Emergency",
+        "1": "Alert",
         "2": "Critical",
         "3": "Error",
         "4": "Warning",
