@@ -29,6 +29,11 @@
                         $Outer = number_format($Match, $Digits);
                     break;
 
+                    case 'Sprintf':
+                        $Sprintf = isset($Root->attributes()->sprintf)? (string) $Root->attributes()->sprintf: '%d';
+                        $Outer = F::Run('Formats.Number.Sprintf', 'Do', ['Value' => $Match, 'Format' => $Sprintf]);
+                    break;
+
                     default:
                         $Outer = sprintf($Format, $Match);
                     break;
