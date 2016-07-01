@@ -17,14 +17,14 @@
                 if ($Call['Value'] >= $Value)
                 {
                     $Units = floor($Call['Value']/$Value);
-                    $Output[] = sprintf('%02d', $Units);
+                    $Output[] = $Units.' <l>Formats.Period:'.$Period.'.'.($Units%20).'</l>';
                     $Call['Value'] -= $Units*$Value;
                 }
 
             if (empty($Output))
-                $Result = 0;
+                $Result = '0 <l>Formats.Period:Seconds.10</l>';
             else
-                $Result = implode(':', array_slice($Output,0,$Call['Period']['Format']));
+                $Result = implode(' ', array_slice($Output,0,$Call['Period']['Format']));
         }
         else
             $Result = null;
