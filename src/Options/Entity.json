@@ -91,6 +91,11 @@
         },
         "beforeEntityCreate":
         {
+            "Inherited values":
+            {
+                "Service":"Entity.Hooks.Inherited",
+                "Method":"Process"
+            },
             "Default values":
             {
                 "Service":"Entity.Hooks.Default",
@@ -131,6 +136,11 @@
         },
         "beforeEntityUpdate":
         {
+            "Inherited values":
+            {
+                "Service":"Entity.Hooks.Inherited",
+                "Method":"Process"
+            },
             "Datatypes":
             {
                 "Service":"Entity.Hooks.Type",
@@ -195,11 +205,6 @@
         },
         "afterEntityRead":
         {
-            "Inherited values":
-            {
-                "Service":"Entity.Hooks.Inherited",
-                "Method":"Process"
-            },
             "Default values":
             {
                 "Service":"Entity.Hooks.Default",

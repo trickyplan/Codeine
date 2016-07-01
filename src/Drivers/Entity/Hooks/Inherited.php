@@ -24,7 +24,7 @@
                     else
                     {
                         if ($Parent == $Call['Data']['ID'])
-                            F::Log('Inheritance Loop Protected', LOG_INFO); // FIXME Make Tracer
+                            F::Log('Inheritance Loop Protected', LOG_DEBUG); // FIXME Make Tracer
                         else
                         {
                             $Parent = F::Run('Entity', 'Read',
