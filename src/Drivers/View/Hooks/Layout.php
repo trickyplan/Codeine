@@ -20,7 +20,7 @@
             foreach ($Call['Parsed'][1] as $IX => &$Match)
             {
                 list($Asset, $ID) = F::Run('View', 'Asset.Route', ['Value' => $Match]); // FIXME
-                $Match = F::Run ('View', 'Load', $Call, ['Scope' => $Asset, 'ID' => $ID, 'Context' => $Call['Context']]);
+                $Match = F::Run ('View', 'Load', $Call, ['Scope' => $Asset, 'ID' => $ID, 'Context' => isset($Call['Context'])? $Call['Context']: '']);
             }
 
             $Call['Value'] = str_replace ($Call['Parsed'][0], $Call['Parsed'][1], $Call['Value']);
