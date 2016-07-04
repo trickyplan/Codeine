@@ -89,14 +89,6 @@
                 "Weight": 400
             }
         },
-        "beforeEntityCreateOrUpdate":
-        {
-            "Make variables alive":
-            {
-                "Service":"Entity.Hooks.Live",
-                "Method":"Process"
-            }
-        },
         "beforeEntityCreate":
         {
             "Inherited values":
@@ -122,24 +114,6 @@
             {
                 "Service":"Entity.Hooks.Live",
                 "Method":"Process"
-            },
-            "Datatypes":
-            {
-                "Service":"Entity.Hooks.Type",
-                "Method":"Write",
-                "Call":
-                {
-                    "Purpose": "Create"
-                }
-            },
-            "Validate":
-            {
-                "Service":"Entity.Hooks.Validate",
-                "Method":"Process",
-                "Call":
-                {
-                    "Purpose": "Create"
-                }
             }
         },
         "beforeEntityUpdate":
@@ -148,15 +122,6 @@
             {
                 "Service":"Entity.Hooks.Inherited",
                 "Method":"Process"
-            },
-            "Datatypes":
-            {
-                "Service":"Entity.Hooks.Type",
-                "Method":"Write",
-                "Call":
-                {
-                    "Purpose": "Update"
-                }
             },
             "Filter":
             {
@@ -167,11 +132,28 @@
             {
                 "Service":"Entity.Hooks.Live",
                 "Method":"Process"
-            },
+            }
+        },
+        "beforeEntityCreateOrUpdate":
+        {
             "Validate":
             {
                 "Service":"Entity.Hooks.Validate",
                 "Method":"Process",
+                "Call":
+                {
+                    "Purpose": "Update"
+                }
+            },
+            "Make variables alive":
+            {
+                "Service":"Entity.Hooks.Live",
+                "Method":"Process"
+            },
+            "Datatypes":
+            {
+                "Service":"Entity.Hooks.Type",
+                "Method":"Write",
                 "Call":
                 {
                     "Purpose": "Update"
