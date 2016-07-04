@@ -9,13 +9,18 @@
 
      setFn('Make', function ($Call)
      {
-         if (is_array($Call['Value']))
-             $Call['Value'] = implode(',', $Call['Value']);
-
-         $Call['HValue'] = $Call['Value'];
-
          if (isset($Call['Value']))
-            $Call['Value'] = '<far>'.$Call['Entity'].':'.$Call['Value'].':Title</far>';
+         {
+             if (is_array($Call['Value']))
+                 $Call['Value'] = implode(',', $Call['Value']);
+
+             $Call['HValue'] = $Call['Value'];
+
+             $Call['Value'] = '<far>'.$Call['Entity'].':'.$Call['Value'].':Title</far>';
+         }
+         else
+             $Call['Value'] = '';
+
 
          return F::Run('View.HTML.Widget.Base', 'Make',
              $Call,

@@ -23,7 +23,9 @@
 
         $Relevance = [];
 
-        $Call['Where'] = F::Live($Call['Where'], $Call);
+        if (isset($Call['Where']))
+            $Call['Where'] = F::Live($Call['Where'], $Call);
+        
         foreach($Call['Query'] as $Keyword)
         {
             $Call['Where']['Keywords'] = $Keyword;

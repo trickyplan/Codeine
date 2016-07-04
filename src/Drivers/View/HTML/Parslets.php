@@ -20,25 +20,25 @@
 
             while($Pass <= $MaxPass)
             {
-                $tags = [];
-                foreach ($Queue as $Parser)
-                {
-                    $tags[strtolower($Parser)] = strtolower($Parser).($Pass > 1? $Pass : '');
-                }
+                $Tags = [];
+                foreach ($Queue as $Parslet)
+                    $Tags[strtolower($Parslet)] = strtolower($Parslet).($Pass > 1? $Pass : '');
 
-                $tags = implode('|', $tags);
-                $Patterns[$Pass][] = '<(' . $tags . ') (.*?)>(.*?)</(\1)>';
-                $Patterns[$Pass][] = '<(' . $tags . ')()>(.*?)</(\1)>';
+                $Tags = implode('|', $Tags);
+                $Patterns[$Pass][] = '<(' . $Tags . ') (.*?)>(.*?)</(\1)>';
+                $Patterns[$Pass][] = '<(' . $Tags . ')()>(.*?)</(\1)>';
                 $Pass++;
             }
             // Парсим в глубину
             $Pass = 1;
-            while( true )
+
+            while(true)
             {
                 $Variants = $Patterns[$Pass];
                 $Assoc = [];
 
-                foreach ($Variants as $Pattern) {
+                foreach ($Variants as $Pattern)
+                {
                     $Parsed = F::Run('Text.Regex', 'All',
                         [
                             'Pattern' => $Pattern,
@@ -46,26 +46,30 @@
                         ]);
                     $Parsed = is_array($Parsed) ? $Parsed : [0, []];
 
-                    foreach ($Parsed[1] as $key => $Parser) {
-                        $ind = strtolower(
-                            $Pass > 1 ? substr($Parser, 0, -strlen($Pass)) : $Parser
+                    foreach ($Parsed[1] as $Key => $Parslet)
+                    {
+                        $Tag = strtolower(
+                            $Pass > 1 ? substr($Parslet, 0, -strlen($Pass)) : $Parslet
                         );
-                        $Assoc[$ind][0][] = $Parsed[0][$key];
-                        $Assoc[$ind][1][] = $Parsed[2][$key];
-                        $Assoc[$ind][2][] = $Parsed[3][$key];
+                        $Assoc[$Tag][0][] = $Parsed[0][$Key];
+                        $Assoc[$Tag][1][] = $Parsed[2][$Key];
+                        $Assoc[$Tag][2][] = $Parsed[3][$Key];
                     }
                 }
 
                 if ($Assoc === [] && $Pass == $MaxPass)
                     break;
 
-                foreach ($Queue as $Parser) {
-                    $ind = strtolower($Parser);
-                    if (!isset($Assoc[$ind]))
+                foreach ($Queue as $Parslet)
+                {
+                    $Tag = strtolower($Parslet);
+
+                    if (!isset($Assoc[$Tag]))
                         continue;
-                    $Call['Parsed'] = $Assoc[$ind];
-                    $Call = F::Apply('View.HTML.Parslets.' . $Parser, 'Parse', $Call);
-                    F::Log('Parslet *' . $Parser . '* processed', LOG_DEBUG);
+
+                    $Call['Parsed'] = $Assoc[$Tag];
+                    $Call = F::Apply('View.HTML.Parslets.' . $Parslet, 'Parse', $Call);
+                    F::Log('Parslet *' . $Parslet . '* processed', LOG_DEBUG);
                 }
 
                 $Pass++;

@@ -156,7 +156,7 @@
                 {
                     echo $E['message'];
                     echo '<pre>';
-                    print_r(self::$_Log);
+                    echo j(self::$_Log);
                 }
 
             }
