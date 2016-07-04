@@ -4,6 +4,10 @@
         "Keywords":
         {
             "Type": "Array.String",
+            "Visible":
+            {
+                "JSON": true
+            },
             "Hooks":
             {
                 "beforeEntityWrite":
