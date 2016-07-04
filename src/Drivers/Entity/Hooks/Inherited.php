@@ -23,7 +23,7 @@
                         F::Log('Empty Inherited Field', LOG_DEBUG);
                     else
                     {
-                        if ($Parent == $Call['Data']['ID'])
+                        if (isset($Call['Data']['ID']) && $Parent == $Call['Data']['ID'])
                             F::Log('Inheritance Loop Protected', LOG_DEBUG); // FIXME Make Tracer
                         else
                         {

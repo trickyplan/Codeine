@@ -73,24 +73,23 @@
             foreach ($NewData as $IX => $Call['Data'])
             {
                 $Call = F::Hook('beforeEntityWrite', $Call);
+                $Call = F::Hook('beforeEntityCreate', $Call);
+                $Call = F::Hook('beforeEntityCreateOrUpdate', $Call);
 
-                    $Call = F::Hook('beforeEntityCreate', $Call);
-
-                    if (isset($Call['Failure']) and $Call['Failure'])
-                        $Call['Data'] = null;
+                if (isset($Call['Failure']) and $Call['Failure'])
+                    $Call['Data'] = null;
+                else
+                {
+                    if (isset($Call['Dry']))
+                        F::Log('Dry shot for '.$Call['Entity'].' create');
                     else
                     {
-                        if (isset($Call['Dry']))
-                            F::Log('Dry shot for '.$Call['Entity'].' create');
-                        else
-                        {
-                            $Call['Data'] = F::Run('IO', 'Write', $Call);
-                            $Call = F::Hook('afterEntityCreate', $Call);
-                            $Call = F::Hook('afterEntityWrite', $Call);
-                        }
+                        $Call['Data'] = F::Run('IO', 'Write', $Call);
+                        $Call = F::Hook('afterEntityCreate', $Call); // FIXME All block?
+                        $Call = F::Hook('afterEntityCreateOrUpdate', $Call);
+                        $Call = F::Hook('afterEntityWrite', $Call);
                     }
-
-
+                }
                 $NewData[$IX] = $Call['Data'];
             }
 
@@ -233,6 +232,7 @@
 
                     $Call = F::Hook('beforeEntityWrite', $Call);
                     $Call = F::Hook('beforeEntityUpdate', $Call);
+                    $Call = F::Hook('beforeEntityCreateOrUpdate', $Call);
                     /*
                     TODO: необходимо щепитильно проверить обновлялку
                     */
@@ -249,6 +249,7 @@
                                 F::Run('IO', 'Write', $Call, $VCall);
 
                                 $Call = F::Hook('afterEntityUpdate', $Call);
+                                $Call = F::Hook('afterEntityCreateOrUpdate', $Call);
                                 $Call = F::Hook('afterEntityWrite', $Call);
                             }
                     }
