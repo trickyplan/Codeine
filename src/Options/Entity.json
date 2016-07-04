@@ -89,6 +89,14 @@
                 "Weight": 400
             }
         },
+        "beforeEntityCreateOrUpdate":
+        {
+            "Make variables alive":
+            {
+                "Service":"Entity.Hooks.Live",
+                "Method":"Process"
+            }
+        },
         "beforeEntityCreate":
         {
             "Inherited values":
