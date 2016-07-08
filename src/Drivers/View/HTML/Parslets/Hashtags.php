@@ -20,11 +20,18 @@
 
             if (preg_match_all('/#([\w\.\+\-\#_\']+)/', $Match, $Hashtags))
             {
-                foreach ($Hashtags[1] as $HashIndex => $Hashtag)
-                    $Call['Parsed'][2][$IX] =
-                        str_replace($Hashtags[0][$HashIndex],
-                                    '<a class="hashtag" href="'.$Href.$Hashtag.'">'.$Hashtag.'</a>',
-                                    $Call['Parsed'][2][$IX]);
+                if (isset($Root->attributes()->nohref))
+                    foreach ($Hashtags[1] as $HashIndex => $Hashtag)
+                        $Call['Parsed'][2][$IX] =
+                            str_replace($Hashtags[0][$HashIndex],
+                                        $Hashtag,
+                                        $Call['Parsed'][2][$IX]);
+                else
+                    foreach ($Hashtags[1] as $HashIndex => $Hashtag)
+                        $Call['Parsed'][2][$IX] =
+                            str_replace($Hashtags[0][$HashIndex],
+                                        '<a class="hashtag" href="'.$Href.$Hashtag.'">'.$Hashtag.'</a>',
+                                        $Call['Parsed'][2][$IX]);
             }
         }
 

@@ -7,12 +7,17 @@
      * @version 8.x
      */
 
-    setFn('GetRates', function ($Call)
+    setFn('Rate.List', function ($Call)
+    {
+        return F::Live($Call['Currencies']);
+    });
+
+    setFn('Rate.Get', function ($Call)
     {
         return F::Live($Call['Currencies'][$Call['From']][$Call['To']]['Rate']);
     });
 
-    setFn('Convert', function ($Call)
+    setFn('Rate.Convert', function ($Call)
     {
         return $Call['Value']*F::Live($Call['Currencies'][$Call['From']][$Call['To']]['Rate']);
     });

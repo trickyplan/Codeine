@@ -379,7 +379,7 @@
                                 $Memo[] = $Key;
                         }
 
-                        $CacheID = j($Memo);
+                        $CacheID = sha1(j($Memo));
                     }
 
                     $ST = 0;
