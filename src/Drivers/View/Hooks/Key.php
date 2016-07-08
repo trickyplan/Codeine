@@ -55,6 +55,10 @@
             }
 
             $Call['Value'] = str_replace($Call['Parsed'][0], $Call['Parsed'][1], $Call['Value']);
+
+            $Call['Value'] = str_replace('<k2>', '<k>', $Call['Value']); // FIXME
+            $Call['Value'] = str_replace('</k2>', '</k>', $Call['Value']); // FIXME
+
         }
 
         return $Call;

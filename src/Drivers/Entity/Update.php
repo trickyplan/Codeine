@@ -67,7 +67,7 @@
             // Выводим результат
             if (!isset($Result['Errors']) or empty($Result['Errors']))
             {
-                $Call['Data'] = $Result;
+                $Call['Current'] = $Result;
                 $Call = F::Hook('afterUpdatePost', $Call);
             }
             else

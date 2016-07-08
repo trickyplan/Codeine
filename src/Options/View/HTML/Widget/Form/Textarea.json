@@ -1,4 +1,8 @@
 {
+    "Textarea":
+    {
+        "Delimiter": ","
+    },
     "Block": true,
     "Attributes":
     {

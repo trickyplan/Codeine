@@ -21,7 +21,7 @@
         {
             foreach ($Old as $IX => $Object)
             {
-                $New = F::Run('Entity', 'Update', ['Entity' => $Call['Entity'], 'Data' => $Object, 'Where' => $Object['ID'], 'One' => false]);
+                $New = F::Run('Entity', 'Update', $Call, ['Entity' => $Call['Entity'], 'Data' => $Object, 'Where' => $Object['ID'], 'One' => false]);
 
                 if (isset($Object['ID']))
                     $Table = [['ID', $Object['ID']]];
@@ -54,7 +54,7 @@
             ];
         }
 
-//        $Call = F::Hook('afterTouch', $Call);
+        $Call = F::Hook('afterTouch', $Call);
 
         return $Call;
     });
