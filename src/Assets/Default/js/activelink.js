@@ -1,18 +1,17 @@
-$(function () {
-    // show current menu object highlighted
-    var url = decodeURI(window.location.pathname);
-    var checkString;
+// show current menu object highlighted
+var url = decodeURI(window.location.pathname+window.location.search);
 
-    // now grab every link from the navigation
-    $('.nav a').each(function () {
+console.info(url);
+// now grab every link from the navigation
+$('.nav a').each(function () {
         // and test its href against the url pathname
-        checkString = url.match($(this).attr('href'));
-        if ((checkString != null && $(this).attr('href') != '/') || (url == $(this).attr('href'))) {
-            {
-                $(this).addClass('active');
-                $(this).parent().addClass('active');
-                return false;
-            }
+        console.info(url);
+        console.info($(this).attr('href'));
+        if (($(this).attr('href') != '/') && (url == $(this).attr('href')))
+        {
+            console.log('Active link');
+            $(this).addClass('active');
+            $(this).parent().addClass('active');
+            return false;
         }
-    });
 });
