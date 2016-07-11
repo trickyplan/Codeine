@@ -3,6 +3,7 @@
     "Mixins":
     [
         "Mixins.Titled",
+        "Mixins.Controlled",
         "Mixins.Text"
     ],
     "Storage": "Primary",
