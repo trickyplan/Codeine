@@ -8,7 +8,7 @@
                 "Segments":
                 {
                     "Y": "Y.m.d, ",
-                    "m": "F, d, ",
+                    "m": "M, d, ",
                     "d": "D, d, "
                 },
                 "Postfix": "H:i"
