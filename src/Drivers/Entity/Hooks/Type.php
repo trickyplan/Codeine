@@ -23,8 +23,8 @@
                                 'Node' => $Node,
                                 'Data' => $Call['Data'],
                                 'Purpose' => isset($Call['Purpose'])? $Call['Purpose']: '',
-                                'Value' => F::Dot($Call['Data'], $Name),
-                                'Old' => F::Dot($Call['Current'], $Name)
+                                'Value' => F::Dot($Call, 'Data.'.$Name),
+                                'Old' => F::Dot($Call, 'Current.'.$Name)
                             ]));
 
         return $Call;
