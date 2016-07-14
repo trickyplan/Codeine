@@ -10,7 +10,7 @@
     setFn('Process', function ($Call)
     {
         foreach ($Call['Nodes'] as $Name => $Node)
-            if (empty(F::Dot($Call['Data'], $Name)))
+            if (empty(F::Dot($Call['Data'], $Name)) && F::Dot($Node, 'Nullable'))
                 $Call['Data'] = F::Dot($Call['Data'], $Name, null);
 
         return $Call;

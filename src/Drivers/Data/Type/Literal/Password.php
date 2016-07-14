@@ -9,14 +9,21 @@
 
     setFn('Write', function ($Call)
     {
-        if (!empty($Call['Value']) && $Call['Purpose'] != 'Update')
-            return F::Run('Security.Hash', 'Get',
-                            [
-                                'Mode' => 'Password',
-                                'Value' => $Call['Value']
-                            ]);
+        if (empty($Call['Value']))
+            $Call['Value'] = $Call['Old'];
         else
-            return $Call['Value'];
+        {
+            if ($Call['Value'] == $Call['Old'])
+                ;
+            else
+                $Call['Value'] = F::Run('Security.Hash', 'Get',
+                [
+                    'Mode' => 'Password',
+                    'Value' => $Call['Value']
+                ]);
+        }
+        
+        return $Call['Value'];
     });
 
     setFn(['Read', 'Where'], function ($Call)

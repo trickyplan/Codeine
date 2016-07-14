@@ -25,14 +25,14 @@
                 if (isset($Call['Fields']) && !in_array($Name, $Call['Fields']))
                     continue;
 
-                if (isset($Call['Data']['ID']))
-                    F::Log('Processing node '.$Name.' for *'.$Call['Entity'].':'.$Call['Data']['ID'].'*', LOG_DEBUG);
-
                 // Если у ноды определён нужный хук
                 if (isset($Node['Hooks']) && isset($Node['Hooks'][$Call['On']]))
                 {
                     if (isset($Call['Data']) && ((array) $Call['Data'] === $Call['Data']))
                     {
+                        if (isset($Call['Data']['ID']))
+                            F::Log('Processing node '.$Name.' for *'.$Call['Entity'].':'.$Call['Data']['ID'].'*', LOG_DEBUG);
+                    
                         if (isset($Node['User Override'])
                             && $Node['User Override']
                             && null != (F::Dot($Call['Data'], $Name))
