@@ -1,7 +1,0 @@
-Format-Specification: http://svn.debian.org/wsvn/dep/web/deps/dep5.mdwn?op=file&rev=135
-Name: $Porject.Name
-Maintainer: $Project.Team.Maintainer.Name <$Project.Team.Maintainer.Mail>
-Source: $Project.Source
-
-Copyright: $Project.Copyright.Year $Project.Copyright.Name <$Project.Copyright.Mail>
-License: $Project.Copyright.License

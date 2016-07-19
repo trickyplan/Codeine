@@ -70,7 +70,7 @@
                 F::Run('IO', 'Write', $Call,
                     [
                         'Storage' => 'Output',
-                        'Where' => $Call['HTTP']['URL'],
+                        'Where' => isset($Call['HTTP']['URL'])? $Call['HTTP']['URL']: '',
                         'Data' => $Call['Output']
                     ]);
 

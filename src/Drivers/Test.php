@@ -39,7 +39,7 @@
                         $Call['Test']['Name'],
                         $SuiteName,
                         $CaseName,
-                        j($Call['Case']['Result']['Actual']),
+                        '<pre>'.chunk_split(j($Call['Case']['Result']['Actual']), 40).'</pre>',
                         round($TestTime, 5)*1000,
                         '_Class' => $Call['Decision']? 'success' : 'danger'
                     ];

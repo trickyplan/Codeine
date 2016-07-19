@@ -1,6 +1,0 @@
-#!/bin/sh
-
-apt-get update > /dev/null
-apt-get upgrade --yes --force-yes
-cd /var/www/{$Task.ID}
-codeine Code.Run.Script Run "--Run=DeployNotify"

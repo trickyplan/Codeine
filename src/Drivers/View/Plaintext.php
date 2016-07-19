@@ -14,7 +14,7 @@
             $Call = F::Hook('beforePipeline', $Call);
 
                 foreach ($Call['Output']['Content'] as $Key => $Widget)
-                    if(is_array($Widget))
+                    if (is_array($Widget))
                     {
                         if (isset($Widget['Type']))
                             $Call['Output']['Content'][$Key] =
@@ -22,7 +22,6 @@
                         else
                             $Call['Output']['Content'][$Key] = implode("\t", $Widget);
                     }
-
                     else
                         $Call['Output']['Content'][$Key] = $Widget;
 

@@ -213,9 +213,11 @@
             "Postfix": ".json",
             "Format": "Formats.JSON"
         },
-        "Redis":
+        "Keys":
         {
-            "Driver": "IO.Storage.Redis"
+            "Driver": "IO.Storage.FileSystem",
+            "Directory": "Keys",
+            "Postfix": ".pem"
         }
     },
     "Hooks":
