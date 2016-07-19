@@ -28,6 +28,7 @@
         private static $_Log = [];
 
         private static $_Live = false;
+        private static $_Staring = false;
 
         private static $_Performance = false;  // Internal Performance
         private static $_Debug = false;  // Internal Debugger
@@ -620,7 +621,7 @@
         {
             if (($Verbose <= self::$_Verbose[$Channel])
                 or
-            (isset($_SERVER['Verbose']) && $Verbose <= $_SERVER['Verbose']))
+            (isset($_SERVER['Verbose']) && $Verbose <= $_SERVER['Verbose']) or self::$_Staring)
             {
                 if (is_scalar($Message))
                     ;
@@ -744,6 +745,16 @@
             return $Call;
         }
 
+        public static function startStaring ()
+        {
+            self::$_Staring = true;
+        }
+        
+        public static function stopStaring ()
+        {
+            return self::$_Staring = false;
+        }
+        
         public static function setFn($Function, $Code = null)
         {
             if (self::$_Service == 'Codeine')
