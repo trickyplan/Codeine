@@ -61,6 +61,7 @@
 
     setFn('All', function ($Call)
     {
+        set_time_limit(600);
         $Call   = F::Apply('Entity', 'Load', $Call);
         $Total  = F::Run('Entity', 'Count', $Call);
         $Amount = ceil($Total/$Call['All']['Limit']);
@@ -86,10 +87,11 @@
 
             $Call['Progress']['Now']++;
             $Call = F::Apply('Code.Progress', 'Log', $Call);
-            F::Log('Touch Iteration № '.$i, LOG_WARNING);
+            F::Log('Touch Iteration № '.($i+1)/$Amount, LOG_NOTICE);
         }
 
          $Call = F::Apply('Code.Progress', 'Finish', $Call);
+        $Call['Output']['Content'][] = $Total.' elements processed';
         return $Call;
     });
 

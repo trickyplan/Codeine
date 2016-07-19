@@ -16,6 +16,8 @@
             else
                 return (string) $Call['Value'];
         }
+        elseif (is_null($Call['Value']))
+            return null;
         else
         {
             F::Log('Value not a string: '.j($Call['Value']), LOG_WARNING);

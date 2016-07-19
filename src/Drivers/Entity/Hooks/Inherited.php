@@ -21,7 +21,16 @@
             $Value = F::Dot($Call['Data'], $Name);
             
             if (isset($Node['Type']))
-                $Value = F::Run('Data.Type.'.$Node['Type'], 'Write', ['Name' => $Name, 'Node' => $Node, 'Value' => $Value]);
+                $Value = F::Run('Data.Type.'.$Node['Type'], 'Write',
+                    [
+                        'Entity'    => $Call['Entity'],
+                        'Name'      => $Name,
+                        'Node'      => $Node,
+                        'Data'      => $Call['Data'],
+                        'Old'       => $Value,
+                        'Value'     => $Value
+                    ]
+                );
             
             if (empty($Value))
             {
