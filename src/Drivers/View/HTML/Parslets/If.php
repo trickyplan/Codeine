@@ -45,6 +45,12 @@
                     if (isset($Options['gt']))
                         $Decision = ((float) preg_replace('/,/','.',$Value) > (float) $Options['gt']);
 
+                    if (isset($Options['lte']))
+                        $Decision = ((float) preg_replace('/,/','.',$Value) <= (float) $Options['lte']);
+
+                    if (isset($Options['gte']))
+                        $Decision = ((float) preg_replace('/,/','.',$Value) >= (float) $Options['gte']);
+                    
                     if (isset($Options['gt']) && isset($Options['lt']))
                     {
                         $Decision =
