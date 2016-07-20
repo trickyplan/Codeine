@@ -58,6 +58,14 @@
                             &&
                             ((float) preg_replace('/,/','.',$Value) > (float) $Options['gt']);
                     }
+                    
+                    if (isset($Options['gte']) && isset($Options['lte']))
+                    {
+                        $Decision =
+                            ((float) preg_replace('/,/','.',$Value) <= (float) $Options['lte'])
+                            &&
+                            ((float) preg_replace('/,/','.',$Value) >= (float) $Options['gte']);
+                    }
 
                     if ($Decision)
                         $Outer = $Call['Parsed'][2][$IX];
