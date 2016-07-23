@@ -1,42 +1,6 @@
 {
     "Regex":
     {
-        "Страница списка блога":
-        {
-            "Match":"^/blog/page(\\d+)$",
-            "Service":"Entity.List",
-            "Method":"Do",
-            "Call":
-            {
-                "Entity": "Blog",
-                "Page":  "$1",
-                "Sort":
-                {
-                    "Created": "DESC"
-                },
-                "Where":
-                {
-                    "Published":
-                    {
-                        "$lt":
-                        {
-                            "Service": "System.Time",
-                            "Method": "Get"
-                        }
-                    }
-                }
-            }
-        },
-        "Blog, Category, Page":
-        {
-            "Match":"^/blog/category/(.+)/page(\\d+)$",
-            "Service":"System.Interface.HTTP",
-            "Method":"Redirect",
-            "Call":
-            {
-                "Redirect": "/blog/tags/$1/page$2"
-            }
-        },
         "Blog, Category":
         {
             "Match":"^/blog/category/(.*)$",
@@ -45,34 +9,6 @@
             "Call":
             {
                 "Redirect": "/blog/tags/$1"
-            }
-        },
-        "Blog, Tags, Page":
-        {
-            "Match":"^/blog/tags/(.+)/page(\\d+)$",
-            "Service":"Entity.List",
-            "Method":"Do",
-            "Weight": 30,
-            "Call":
-            {
-                "Entity": "Blog",
-                "Page": "$2",
-                "Custom Templates":
-                {
-                    "List": "List/Tags"
-                },
-                "Where":
-                {
-                    "Tags":  "$1",
-                    "Published":
-                    {
-                        "$lt":
-                        {
-                            "Service": "System.Time",
-                            "Method": "Get"
-                        }
-                    }
-                }
             }
         },
         "Blog, Tags":
@@ -122,34 +58,6 @@
             "Call":
             {
                 "Entity": "Blog",
-                "Custom Templates":
-                {
-                    "List": "Author"
-                },
-                "Where":
-                {
-                    "User":  "$1",
-                    "Published":
-                    {
-                        "$lt":
-                        {
-                            "Service": "System.Time",
-                            "Method": "Get"
-                        }
-                    }
-                }
-            }
-        },
-        "Blog, Author, Page":
-        {
-            "Match":"^/blog/author/(.+)/page(\\d+)$",
-            "Service":"Entity.List",
-            "Method":"Do",
-            "Weight": 30,
-            "Call":
-            {
-                "Entity": "Blog",
-                "Page": "$2",
                 "Custom Templates":
                 {
                     "List": "Author"
@@ -316,34 +224,6 @@
             "Call":
             {
                 "Entity": "Blog",
-                "Custom Templates":
-                {
-                    "List": "List/Tag"
-                },
-                "Where":
-                {
-                    "Tags":  "$1",
-                    "Published":
-                    {
-                        "$lt":
-                        {
-                            "Service": "System.Time",
-                            "Method": "Get"
-                        }
-                    }
-                }
-            }
-        },
-        "Тег  блога, страницы":
-        {
-            "Match":"^/blog/tag/(.+)/page(\\d+)$",
-            "Service":"Entity.List",
-            "Method":"Do",
-            "Weight": 30,
-            "Call":
-            {
-                "Entity": "Blog",
-                "Page": "$2",
                 "Custom Templates":
                 {
                     "List": "List/Tag"

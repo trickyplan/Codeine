@@ -1,17 +1,6 @@
 {
     "Regex":
     {
-        "Список услуг, страница":
-        {
-            "Match":"^/services/page(\\d+)$",
-            "Service":"Entity.List",
-            "Method":"Do",
-            "Call":
-            {
-                "Entity": "Company.Service",
-                "Page":  "$1"
-            }
-        },
         "Список услуг":
         {
             "Match": "^/services$",
@@ -20,25 +9,6 @@
             "Call":
             {
                 "Entity": "Company.Service"
-            }
-        },
-        "Список услуг по тегу, страница":
-        {
-            "Match":"^/services/tag/(.+)/page(\\d+)$",
-            "Service":"Entity.List",
-            "Method":"Do",
-            "Call":
-            {
-                "Entity": "Company.Service",
-                "Custom Templates":
-                {
-                    "List": "List/Tags"
-                },
-                "Where":
-                {
-                    "Tags": "$1"
-                },
-                "Page":  "$2"
             }
         },
         "Список услуг по тегу":

@@ -1,32 +1,6 @@
 {
     "Regex":
     {
-        "Search w/pages":
-        {
-            "Match": "^/search/(.+)/(.+)/page(\\d+)$",
-            "Weight": 20,
-            "Service": "Search",
-            "Method": "Query",
-            "Call":
-            {
-                "Provider": "$1",
-                "Query": "$2",
-                "Page": "$3"
-            }
-        },
-        "Vertical Search w/pages":
-        {
-            "Match": "^/search/(.+)/page(\\d+)$",
-            "Weight": 20,
-            "Service": "Search",
-            "Method": "Query",
-            "Call":
-            {
-                "Vertical": true,
-                "Query": "$1",
-                "Page": "$2"
-            }
-        },
         "Search JSON":
         {
             "Match": "^/search/json/(.+)/(.+)$",

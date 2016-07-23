@@ -1,17 +1,6 @@
 {
     "Regex":
     {
-        "Список проектов, страница":
-        {
-            "Match":"^/projects/page(\\d+)$",
-            "Service":"Entity.List",
-            "Method":"Do",
-            "Call":
-            {
-                "Entity": "Company.Project",
-                "Page":  "$1"
-            }
-        },
         "Список проектов":
         {
             "Match": "^/projects$",
@@ -20,25 +9,6 @@
             "Call":
             {
                 "Entity": "Company.Project"
-            }
-        },
-        "Список проектов категории, страница":
-        {
-            "Match":"^/projects/category/(.+)/page(\\d+)$",
-            "Service":"Entity.List",
-            "Method":"Do",
-            "Call":
-            {
-                "Entity": "Company.Project",
-                "Custom Templates":
-                {
-                    "List": "Category"
-                },
-                "Where":
-                {
-                    "Category": "$1"
-                },
-                "Page":  "$2"
             }
         },
         "Список проектов категории":

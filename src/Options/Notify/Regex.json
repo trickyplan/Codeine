@@ -19,33 +19,6 @@
                 }
             }
         },
-        "Уведомления / Страницы ":
-        {
-            "Match":"^/notifies/page([\\d]+)$",
-            "Service":"Entity.List",
-            "Method":"Do",
-            "Call":
-            {
-                "Entity": "Notify",
-                "Page": "$1",
-                "Where":
-                {
-                    "User":
-                    {
-                        "Service": "Session",
-                        "Method": "Read",
-                        "Call":
-                        {
-                            "Key": "User.ID"
-                        }
-                    }
-                },
-                "Sort":
-                {
-                    "Created": false
-                }
-            }
-        },
         "Слушаем":
         {
             "Match":"^/notify/subscribe$",

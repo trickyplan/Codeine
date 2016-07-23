@@ -28,21 +28,6 @@
                     "Title.en": true
                 }
             }
-        },
-        "Show Countries with pages":
-        {
-            "Match": "^/countries/page(\\d+)$",
-            "Service": "Entity.List",
-            "Method": "Do",
-            "Call":
-            {
-                "Entity": "Country",
-                "Page": "$1",
-                "Sort":
-                {
-                    "Title.en": true
-                }
-            }
         }
     }
 }

@@ -16,41 +16,6 @@
                 }
             }
         },
-        "Articles w/pagess":
-        {
-            "Match":"/articles/page(.*)",
-            "Service":"Entity.List",
-            "Method":"Do",
-            "Call":
-            {
-                "Entity": "Article",
-                "Page":  "$1",
-                "Sort":
-                {
-                    "Created": "DESC"
-                }
-            }
-        },
-        "Articles Tags w/pages":
-        {
-            "Match":"^/articles/tags/(.+)/page(\\d+)$",
-            "Service":"Entity.List",
-            "Method":"Do",
-            "Weight": 30,
-            "Call":
-            {
-                "Entity": "Article",
-                "Page": "$2",
-                "Custom Templates":
-                {
-                    "List": "Tags"
-                },
-                "Where":
-                {
-                    "Tags":  "$1"
-                }
-            }
-        },
         "Articles Tags":
         {
             "Match":"^/articles/tags/(.*)$",
@@ -67,26 +32,6 @@
                 "Where":
                 {
                     "Tags":  "$1"
-                }
-            }
-        },
-        "Articles by author w/pages":
-        {
-            "Match":"^/articles/author/(.+)/page(\\d+)$",
-            "Service":"Entity.List",
-            "Method":"Do",
-            "Weight": 30,
-            "Call":
-            {
-                "Entity": "Article",
-                "Page": "$2",
-                "Custom Templates":
-                {
-                    "List": "Author"
-                },
-                "Where":
-                {
-                    "User":  "$1"
                 }
             }
         },

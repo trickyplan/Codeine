@@ -15,17 +15,6 @@
                 }
             }
         },
-         "Companies w/pages":
-        {
-            "Match": "/companies/page(\\d+)$",
-            "Service": "Entity.List",
-            "Method": "Do",
-            "Call":
-            {
-                "Entity": "Company",
-                "Page": "$1"
-            }
-        },
         "Companies":
         {
             "Match": "/companies$",

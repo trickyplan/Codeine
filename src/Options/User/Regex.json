@@ -11,17 +11,6 @@
                 "Entity": "User"
             }
         },
-        "Users with pages":
-        {
-            "Match": "^/users/page(\\d+)$",
-            "Service": "Entity.List",
-            "Method": "Do",
-            "Call":
-            {
-                "Entity": "User",
-                "Page": "$1"
-            }
-        },
         "Show user by ID":
         {
             "Match":"^/user/(\\d+)$",

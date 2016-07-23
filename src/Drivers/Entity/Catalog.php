@@ -22,8 +22,7 @@
                     [
                         'Entity'    => $Call['Entity'],
                         'Fields'    => [$Call['Key']],
-                        'Distinct'  => true,
-                        'Where'     => []
+                        'Distinct'  => true
                     ]);
 
                 $Elements = F::Extract($Elements, $Call['Key']);

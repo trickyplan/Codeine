@@ -1,16 +1,6 @@
 {
     "Regex":
     {
-        "Location List w/page":
-        {
-            "Match":"^/locations/page(\\d+)$",
-            "Service":"Entity.List",
-            "Method":"Do",
-            "Call":
-            {
-                "Entity": "Location",
-                "Page":  "$1"
-            }
-        }
+        
     }
 }
