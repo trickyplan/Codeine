@@ -1,0 +1,32 @@
+{
+    "Security":
+    {
+        "Cipher":
+        {
+            "MCrypt":
+            {
+                "Algorithm": "rijndael-128",
+                "Mode": "cbc"
+            }
+        }
+    },
+    "Hooks":
+    {
+        "afterEncode":
+        {
+            "BASE64":
+            {
+                "Service": "Security.Cipher.Hooks.BASE64",
+                "Method": "afterEncode"
+            }
+        },
+        "beforeDecode":
+        {
+            "BASE64":
+            {
+                "Service": "Security.Cipher.Hooks.BASE64",
+                "Method": "beforeDecode"
+            }
+        }
+    }
+}

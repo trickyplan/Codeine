@@ -7,7 +7,7 @@
      * @version 8.x
      */
     
-    setFn('Encode', function ($Call)
+    setFn('Initialize', function ($Call)
     {
         $Call['Key'] = F::Run('IO', 'Read',
             [
@@ -15,7 +15,14 @@
                 'Where'     => $Call['KeyID'],
                 'IO One'    => true
             ]);
-       
+        
+        return $Call;
+    });
+    
+    setFn('Encode', function ($Call)
+    {
+        $Call = F::Run(null, 'Initialize', $Call);
+        
         $PublicKey  = openssl_get_publickey($Call['Key']);
         
         if (openssl_public_encrypt($Call['Opentext'], $Call['Ciphertext'], $PublicKey))
@@ -28,12 +35,7 @@
     
     setFn('Decode', function ($Call)
     {
-        $Call['Key'] = F::Run('IO', 'Read',
-            [
-                'Storage'   => 'Keys',
-                'Where'     => $Call['KeyID'],
-                'IO One'    => true
-            ]);
+        $Call = F::Run(null, 'Initialize', $Call);
        
         $PrivateKey  = openssl_get_privatekey($Call['Key']);
         

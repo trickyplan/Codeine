@@ -216,15 +216,14 @@
         "Keys":
         {
             "Driver": "IO.Storage.FileSystem",
-            "Directory": "Keys",
-            "Postfix": ".pem"
+            "Directory": "Keys"
         }
     },
     "Hooks":
     {
         "beforeIOWrite":
         {
-            "Journaling for writes":
+            "-Journaling for writes":
             {
                 "Service": "IO.Hooks.Journal",
                 "Method": "beforeIOWrite"

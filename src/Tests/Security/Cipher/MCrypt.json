@@ -3,15 +3,15 @@
     {
         "Positive":
         {
-            "Encrypt":
+            "MCrypt Encrypt":
             {
                 "Run":
                 {
-                    "Service": "Security.Cipher.RSA.OpenSSL",
+                    "Service": "Security.Cipher.MCrypt",
                     "Method": "Encode",
                     "Call":
                     {
-                        "KeyID": "2048.test.public.pem",
+                        "KeyID": "mcrypt.key",
                         "Opentext": "Lorem ipsum dolor sit amet"
                     }
                 },
@@ -20,16 +20,16 @@
                     "Print": true
                 }
             },
-            "Decrypt":
+            "MCrypt Decrypt":
             {
                 "Run":
                 {
-                    "Service": "Security.Cipher.RSA.OpenSSL",
+                    "Service": "Security.Cipher.MCrypt",
                     "Method": "Decode",
                     "Call":
                     {
-                        "KeyID": "2048.test.private.pem",
-                        "Ciphertext": "rSDxk2fkFUsPl/9HksS/se8AQkmAZSXytYbrAqkv8VATdwK0+Qau5hLB+/2Ns3Iy396yl9Txmnxu0x6qK9EjTqptpdxqmITDqMB0ktPDBeOUKCEzo83LP69iR9OaLzv6Vy2VgjqBvx+eoCZ9xvtJt/tMGezdNPgo//eBy0SiQcxWMpLqDIV3bqavOtng2LrwV2zlG12fx+pPkaSsdSi/6iHGkhZGXbIRr1abSNbjF+DXgh5yl91JGUUtoLKtRBbz2BrvRqO2oBT9dXjfHz9750pnTz52mlVoJL8gVmML958R6KjexL56qXeFUPQhffqf0W5ArYi87XmaaCe3C4TWkg=="
+                        "KeyID": "mcrypt.key",
+                        "Ciphertext": "VGVzdElWMDEyMzQ1Njc4OSDrYGW+g56a/osV5RkisFM808gtadNmX6lUaJXGeWql"
                     }
                 },
                 "Assert":
