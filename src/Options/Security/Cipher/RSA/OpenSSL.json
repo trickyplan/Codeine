@@ -1,0 +1,21 @@
+{
+    "Hooks":
+    {
+        "afterEncode":
+        {
+            "BASE64":
+            {
+                "Service": "Security.Cipher.Hooks.BASE64",
+                "Method": "afterEncode"
+            }
+        },
+        "beforeDecode":
+        {
+            "BASE64":
+            {
+                "Service": "Security.Cipher.Hooks.BASE64",
+                "Method": "beforeDecode"
+            }
+        }
+    }
+}
