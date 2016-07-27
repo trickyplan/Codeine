@@ -1,7 +1,7 @@
-![Codeine](http://codeine-framework.ru/cache/images/Project.logo.png "Codeine")
+![Codeine](https://codeine-framework.org/cache/images/Project.logo.png "Codeine")
 
 Codeine is PHP-framework (not yet another), with microcore architecture, and ultimate functional/code volume ratio.
 
-![Built with Navicat](http://codeine-framework.ru/navicat.jpg "Navicat")
+![Built with Navicat](https://codeine-framework.org/navicat.jpg "Navicat")
 
-![Built with PHPStorm](http://codeine-framework.ru/phpstorm.gif "PHP Storm")
+![Built with PHPStorm](https://codeine-framework.org/phpstorm.gif "PHP Storm")

@@ -6,7 +6,7 @@
   "description": "Codeine Framework",
   "main": "",
   "license": "BSD",
-  "homepage": "https://codeine-framework.ru",
+  "homepage": "https://codeine-framework.org",
   "ignore": [
     "**/.*",
     "src",

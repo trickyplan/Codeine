@@ -140,6 +140,12 @@
                 foreach ($Call['Data'] as $Key => $Data)
                     $Call['Data'][$Key] = F::Run ($Call['Output Format'], 'Read', $Call, ['Value!' => $Data]);
 
+            if (isset($Call['IO One']) && $Call['IO One'] && is_array($Call['Data']))
+            {
+                $Call['Data'] = array_pop($Call['Data']);
+                unset($Call['IO One']);
+            }
+            
             return $Call['Data'];
         }
         else

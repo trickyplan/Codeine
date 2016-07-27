@@ -17,7 +17,7 @@
 
 <property name="project-id" value="Codeine"/>
 <property name="description" value="Codeine functional PHP Framework"/>
-<property name="homepage" value="http://codeine-framework.ru"/>
+<property name="homepage" value="https://codeine-framework.org"/>
 <property name="maintainer" value="Johnny Funt"/>
 <property name="destination-source" value="/usr/share/php/Codeine"/>
 <property name="depends" value="php5-fpm (>=5.6.0) | php5-cli (>=5.6.0) | php5-cgi (>=5.6.0)"/>

@@ -195,7 +195,7 @@
 
         if (curl_errno($Call['Link']))
         {
-            F::Log('CURL POST error: '.curl_error($Call['Link']).'*'.$Call['Where']['ID'].'* '.$Post, LOG_ERR);
+            F::Log('CURL POST error: '.curl_error($Call['Link']).'*'.$Call['Where']['ID'].'* '.$Post, LOG_ERR, 'Administrator');
             F::Log($Result, LOG_WARNING, 'Administrator');
         }
         else

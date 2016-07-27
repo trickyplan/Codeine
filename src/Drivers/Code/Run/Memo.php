@@ -23,7 +23,7 @@
 
         if ($Result === null)
         {
-            $Result = F::Execute($Call['Run']['Service'], $Call['Run']['Method'], $Call['Run']['Call']);
+            $Result = self::Execute($Call['Run']['Service'], $Call['Run']['Method'], $Call['Run']['Call']);
             F::Set($Hash, $Result);
         }
 

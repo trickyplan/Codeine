@@ -4,14 +4,22 @@
 <div class="form-group">
     <label for="<k>Name</k>"> <l><k>Label</k></l>: <if value="<k>Required</k>" eq="1"><span class="required-star">*</span></if></label>
     <div class="input-group">
-      <block>
-          <span class="input-group-addon"><k>Prefix</k></span>
-      </block>
-      <k>HTML</k>
-      <block>
-          <span class="input-group-addon"><k>Postfix</k></span>
-      </block>
-        <input type="hidden" name="<k>Name</k>" id="<k>ID</k>_hidden" value="<k>HValue</k>"/>
+        <block>
+            <span class="input-group-addon"><k>Prefix</k></span>
+        </block>
+        <k>HTML</k>
+        <div id="#<k>ID</k>_Status" class="hidden">
+            <div class="progress">
+              <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                <span class="sr-only">100%</span>
+              </div>
+            </div>
+        </div>
+        <block>
+            <span class="input-group-addon"><k>Postfix</k></span>
+        </block>
+        <input type="text" name="<k>Name</k>" id="<k>ID</k>_hidden" value="<k>HValue</k>"/>
+
     </div>
     <if value="<k>Help</k>" eq="1">
         <div class="help-block"><l><k>Entity</k>.Help:<k>Key</k></l></div>
@@ -39,8 +47,8 @@
       {
             empty:
             [
-                '<div class="alert alert-warning">',
-                'Пока ничего не найдено',
+                '<div class="text-warning">',
+                    'Пока ничего не найдено',
                 '</div>'
             ].join('\n'),
             suggestion: Handlebars.compile(
@@ -58,15 +66,10 @@
         $('#<k>ID</k>_hidden').val(datum.ID);
     }).on('typeahead:asyncrequest', function ($e, datum)
     {
-        $('#<k>ID</k>_hidden').addClass('input-loading');
+        $('#<k>ID</k>_Status').show();
     })
     .on('typeahead:asyncreceive', function ($e, datum)
     {
-        $('#<k>ID</k>_hidden').removeClass('input-loading');
+        $('#<k>ID</k>_Status').hide();
     });
-
-    $('#<k>ID</k>').change(function()
-    {
-        $("#<k>ID</k>_hidden").val($("#<k>ID</k>").val());
-    })
 </jsrun>

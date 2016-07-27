@@ -46,7 +46,7 @@
                 'Output Format'  => 'Formats.JSON',
                 'Where' =>
                 [
-                    'ID' => 'http://codeine-framework.ru/benchmarks'
+                    'ID' => 'https://codeine-framework.org/benchmarks'
                 ],
                 'Data' =>
                 [
