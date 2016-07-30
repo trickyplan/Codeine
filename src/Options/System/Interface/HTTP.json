@@ -51,15 +51,15 @@
                 "Service": "System.Interface.HTTP.Host",
                 "Method": "Do"
             },
-            "Locale":
-            {
-                "Service": "System.Interface.HTTP.Locale",
-                "Method": "Detect"
-            },
             "URL":
             {
                 "Service": "System.Interface.HTTP.URL",
                 "Method": "Do"
+            },
+            "Locale":
+            {
+                "Service": "System.Interface.HTTP.Locale",
+                "Method": "Detect"
             },
             "Protocol":
             {

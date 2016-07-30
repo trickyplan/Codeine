@@ -10,11 +10,6 @@
     ],
     "Static":
     {
-        "/":
-        {
-            "Service": "Project.Frontpage",
-            "Method":  "Do"
-        },
         "/uploader":
         {
             "Service": "IO.Uploader",

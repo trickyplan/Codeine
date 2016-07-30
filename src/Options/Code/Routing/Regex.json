@@ -22,6 +22,12 @@
                 "Page": "$1"
             }
         },
+        "Frontpage":
+        {
+            "Match": "/$",
+            "Service": "Project.Frontpage",
+            "Method":  "Do"
+        },
         "Error":
         {
             "Match": "/error/(.*)",
@@ -202,6 +208,18 @@
                 "Where":
                 {
                     "Slug": "$1"
+                }
+            }
+        },
+        "Live Translate":
+        {
+            "Match": "/dev/translate.json$",
+            "Service": "Locale.Live",
+            "View":
+            {
+                "Renderer":
+                {
+                    "Service": "View.JSON"
                 }
             }
         }
