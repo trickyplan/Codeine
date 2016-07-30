@@ -25,7 +25,6 @@
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         remote: {
             url: '<k>Typeahead.Remote</k>%QUERY',
-            limit: 25,
             wildcard: '%QUERY'
         }
     });
@@ -34,6 +33,7 @@
 
     $('#<k>ID</k>').typeahead(null, {
       name: 'dataset<k>ID</k>',
+      limit: 25,
       displayKey: 'Title',
       templates:
       {
