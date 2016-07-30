@@ -1,4 +1,4 @@
-$(document).ready(function(){
+<jsrun>
     $('.nl').on('click', function()
     {
         var translation = prompt('Перевести как');
@@ -9,7 +9,7 @@ $(document).ready(function(){
 
             $.ajax(
             {
-                    url: '/dev/translate.json',
+                    url: '<call>LocaleURL</call>/dev/translate.json',
                     type: 'post',
                     data:
                     {
@@ -32,4 +32,4 @@ $(document).ready(function(){
             return false;
 
     });
-});
+</jsrun>

@@ -62,7 +62,7 @@
                             {
                                 $Call['Mixin'] = $Call['Routing']['Rule'];
                                 $Call['Run'] = str_replace($Matches[0], '', $Call['Run']);
-                                F::Log('Regex *mixin* *'.$Name.'* applied', LOG_INFO);
+                                F::Log('Regex *mixin* *'.$Name.'* applied *'.$Call['Run'].'*', LOG_INFO);
                             }
                             else
                             {

@@ -5,17 +5,6 @@
         {
             "Service": "Developer.Theme",
             "Method": "Do"
-        },
-        "/dev/translate.json":
-        {
-            "Service": "Locale.Live",
-            "View":
-            {
-                "Renderer":
-                {
-                    "Service": "View.JSON"
-                }
-            }
         }
     }
 }

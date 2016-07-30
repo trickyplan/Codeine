@@ -17,6 +17,7 @@
             "Inherited":
             [
                 "Locale",
+                "LocaleURL",
                 "Location",
                 "Session",
                 "SID",
