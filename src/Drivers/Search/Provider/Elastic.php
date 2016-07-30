@@ -91,19 +91,24 @@
         $SERP = [];
 
         F::Log('Total hits: '.$Results['hits']['total'], LOG_INFO);
-
+        
+        if (isset($Call['Where']))
+            $Call['Where'] = F::Live($Call['Where'], $Call);
+        else
+            $Call['Where'] = [];
+        
         if ($Results['hits']['total'] > 0)
         {
             foreach ($Results['hits']['hits'] as $Hit)
             {
                 $Hit['_source']['Scope'] = $Call['Scope'];
-
+                $Call['Where']['ID'] = $Hit['_id'];
                 $Data = F::Run('Entity', 'Read',
                                [
                                    'Entity' => $Call['Scope'],
                                    'One' => true,
                                    'Fields' => $Call['Show fields'],
-                                   'Where' => $Hit['_id']
+                                   'Where' => $Call['Where']
                                ]
                 );
 
