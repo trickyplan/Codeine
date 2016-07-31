@@ -96,7 +96,7 @@
             $Call['Where'] = F::Live($Call['Where'], $Call);
         else
             $Call['Where'] = [];
-        
+        // FIXME User Faceting
         if ($Results['hits']['total'] > 0)
         {
             foreach ($Results['hits']['hits'] as $Hit)
