@@ -53,3 +53,8 @@ span.twitter-typeahead
 {
     margin : 2px 0;
 }
+
+.tt-dataset .alert
+{
+    margin: 0;
+}
