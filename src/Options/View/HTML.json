@@ -79,6 +79,11 @@
                 "Service":"View.HTML.NoRemote",
                 "Method":"Process"
             },
+            "Locale URLs":
+            {
+                "Service":"View.HTML.LocalizedURLs",
+                "Method":"Process"
+            },
             "Places":
             {
                 "Service":"View.HTML.Places",
