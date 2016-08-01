@@ -10,6 +10,10 @@
     },
     "Locales":
     {
+        "Detect":
+        {
+            "Accept-language": true
+        },
         "Available": ["ru", "en"],
         "PHP":
         {
