@@ -13,7 +13,7 @@
         if (isset($Call['Attributes']['String']))
             foreach ($Call['Attributes']['String'] as $Attribute => $Value)
             {
-                 if (isset($Call[$Attribute]))
+                 if (isset($Call[$Attribute]) && $Call[$Attribute])
                      $Attributes[] = strtolower($Attribute).'="'.$Call[$Attribute].'"';
                  else
                      if (!empty($Value))
