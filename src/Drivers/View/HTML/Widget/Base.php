@@ -23,13 +23,13 @@
         if (isset($Call['Attributes']['Boolean']))
             foreach ($Call['Attributes']['Boolean'] as $Attribute => $Value)
             {
-                 if (isset($Call[$Attribute]))
+                 if (isset($Call[$Attribute]) && $Call[$Attribute])
                      $Attributes[] = strtolower($Attribute);
                  else
                      if (!empty($Value) && $Value)
                          $Attributes[] = strtolower($Attribute);
             }
-
+         
         if (isset($Call['Block']) && $Call['Block'])
             $Call['HTML'] = '<'.$Call['Tag'].' '.implode(' ', $Attributes).'>'.$Call['Value'].'</'.$Call['Tag'].'>';
         else
