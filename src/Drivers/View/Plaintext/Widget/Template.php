@@ -9,7 +9,6 @@
 
     setFn('Make', function ($Call)
     {
-        $Call['Value'] = $Call['Scope'].':'.$Call['Data']['ID'];
-
+        $Call['Value'] = F::Run('View', 'Load', $Call, ['Context' => 'txt']);
         return $Call;
     });
