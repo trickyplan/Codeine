@@ -22,7 +22,7 @@
                     if (in_array($Link, F::Dot($Call, 'LocalizedURLs.Excluded')))
                         $Localize = false;
     
-                    if (preg_match('@^/'.$Call['Locale'].'@', $Link))
+                    if (preg_match('@^/'.$Call['Locale'].'/@', $Link))
                         $Localize = false;
                     
                     if ($Link == '/')

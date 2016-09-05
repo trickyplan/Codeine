@@ -14,6 +14,11 @@
     {
         "beforeEntityList":
         {
+            "Filter":
+            {
+                "Service": "Entity.List.Filter",
+                "Method": "beforeList"
+            },
             "Pagination":
             {
                 "Service": "Entity.List.Pagination",
