@@ -18,7 +18,7 @@
 
             $Match = trim($Match);
 
-            if (is_numeric($Match) && isset($Format))
+            if (is_scalar($Match) && isset($Format))
                 switch($Format)
                 {
                     case 'French':
@@ -26,6 +26,7 @@
                     break;
 
                     case 'English':
+                        $Match = strtr($Match, ',', '.');
                         $Outer = number_format($Match, $Digits);
                     break;
 
