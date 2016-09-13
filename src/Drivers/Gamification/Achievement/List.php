@@ -11,13 +11,6 @@
      {
          $Achievements = F::loadOptions('Gamification.Achievement')['Achievements'];
 
-         $Call['User'] = F::Run('Entity', 'Read',
-             [
-                 'Entity' => 'User',
-                 'Where' => $Call['User'],
-                 'One'  => true
-             ]);
-
          foreach ($Achievements as $Achievement)
              if ($Check = F::Run('Gamification.Achievement.'.$Achievement, 'Check', $Call))
              {

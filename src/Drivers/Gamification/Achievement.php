@@ -9,13 +9,11 @@
      
     setFn('Check', function ($Call)
     {
-        $Call['User'] = isset($Call['Session']['User']['ID'])? $Call['Session']['User']['ID']: $Call['Data']['ID'];
+        $Call['User'] = $Call['Data']['ID'];
 
         foreach ($Call['Achievements'] as $Achievement)
         {
-            $Check = F::Run('Gamification.Achievement.'.$Achievement, 'Check', $Call);
-
-            if ($Check)
+            if ($Check = F::Run('Gamification.Achievement.'.$Achievement, 'Check', $Call))
             {
                 F::Log('Achievement *'.$Achievement.'* processed', LOG_INFO);
                 $Already = F::Run('Entity', 'Read',
