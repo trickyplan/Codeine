@@ -72,6 +72,7 @@
 
             foreach ($NewData as $IX => $Call['Data'])
             {
+                
                 $Call = F::Hook('beforeEntityWrite', $Call);
                 $Call = F::Hook('beforeEntityCreate', $Call);
                 $Call = F::Hook('beforeEntityCreateOrUpdate', $Call);
@@ -85,6 +86,7 @@
                     else
                     {
                         $Call['Data'] = F::Run('IO', 'Write', $Call);
+                        
                         $Call = F::Hook('afterEntityCreate', $Call); // FIXME All block?
                         $Call = F::Hook('afterEntityCreateOrUpdate', $Call);
                         $Call = F::Hook('afterEntityWrite', $Call);
@@ -124,6 +126,8 @@
             }
             else
             {
+                F::Log('Start reading from *'.$Call['Entity'].'*', LOG_INFO, 'Administrator');
+                
                 $Call['Data'] = F::Run('IO', 'Read', $Call);
 
                 if ($Call['Data'] !== null)
@@ -147,12 +151,12 @@
 
         if (isset($Call['One']) && $Call['One'] && is_array($Call['Data']))
         {
-            F::Log('One of *'.count($Call['Data']).'* '.$Call['Entity'].' readed', LOG_INFO, 'Administrator');
+            F::Log('One of *'.count($Call['Data']).'* '.$Call['Entity'].' read', LOG_INFO, 'Administrator');
             return array_shift($Call['Data']);
         }
         else
         {
-            F::Log('*'.count($Call['Data']).'* '.$Call['Entity'].' readed', LOG_INFO, 'Administrator');
+            F::Log('*'.count($Call['Data']).'* '.$Call['Entity'].' read', LOG_INFO, 'Administrator');
             return $Call['Data'];
         }
     });

@@ -19,6 +19,10 @@
     "EPP": 20,
     "Nodes":
     {
+        "EMail":
+        {
+            "Required": true
+        },
         "Status":
         {
             "Type": "Ternary",

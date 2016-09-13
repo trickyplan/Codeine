@@ -47,7 +47,7 @@
                 'Data!'    => $Data
             ]))
             {
-                F::Log($Call['Entity'].' '.$Data['ID'].' indexed', LOG_INFO);
+                // F::Log($Call['Entity'].' '.$Data['ID'].' indexed', LOG_INFO);
                 F::Log($Data, LOG_DEBUG);
             }
         }

@@ -68,7 +68,7 @@
                 }
             }
         },
-        "Readed":
+        "Read":
         {
             "Default": 0,
             "Type": "Numeral.Integer"

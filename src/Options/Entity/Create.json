@@ -1,7 +1,7 @@
 {
     "Contract":
     {
-        "Entity.Create":
+        "-Entity.Create":
         {
             "Do":
             {
@@ -11,7 +11,7 @@
     },
     "Purpose": "Create",
     "FormLayout": "Full",
-    "OnlyRequired": false,
+    "Only Required": false,
     "Hooks":
     {
         "beforeCreateDo":

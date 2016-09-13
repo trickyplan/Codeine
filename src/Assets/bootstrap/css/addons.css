@@ -192,7 +192,7 @@ a.no-border, .no-border a, a:hover.no-border, .no-border a:hover
 
 .control-bar
 {
-    top: 40%;
+    bottom: 0;
     right: 0;
     position: fixed !important;
     z-index: 99;

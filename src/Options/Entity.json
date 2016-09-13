@@ -8,7 +8,7 @@
             {
                 "Memo": ["Entity", "Where", "Time", "Key", "Location.ID"]
             },
-            "Read":
+            "-Read":
             {
                 "Memo": ["Entity", "Where", "Time", "Key", "Fields", "One", "Sort", "Filter", "Limit"]
             }

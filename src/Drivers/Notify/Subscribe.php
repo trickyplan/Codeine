@@ -17,7 +17,7 @@
                         'User' =>
                         (isset($Call['Session']['User']['ID'])?
                             $Call['Session']['User']['ID']: $Call['SID']),
-                        'Readed' => 0
+                        'read' => 0
                     ]
                 ]);
 
@@ -29,7 +29,7 @@
                     [
                         'Entity'    => 'Notify',
                         'Where'     => $Element['ID'],
-                        'Data'      => ['Readed' => time()]
+                        'Data'      => ['Read' => time()]
                     ]);
             }
 

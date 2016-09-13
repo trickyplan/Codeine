@@ -77,6 +77,7 @@
 
         // Отправляем в Entity.Create
         $Result = F::Run('Entity', 'Create', $Call);
+d(__FILE__, __LINE__, $Result);
 
         if (!isset($Result['Errors']) or empty($Result['Errors']))
         {
