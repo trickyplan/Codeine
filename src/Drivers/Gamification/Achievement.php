@@ -9,7 +9,7 @@
      
     setFn('Check', function ($Call)
     {
-        $Call['User'] = isset($Call['Session']['User']['ID'])? $Call['Session']['User']['ID']: $Call['Data'];
+        $Call['User'] = isset($Call['Session']['User']['ID'])? $Call['Session']['User']['ID']: $Call['Data']['ID'];
 
         foreach ($Call['Achievements'] as $Achievement)
         {
