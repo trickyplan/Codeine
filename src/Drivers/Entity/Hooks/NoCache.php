@@ -10,7 +10,7 @@
     setFn('Check', function ($Call)
     {
         if (isset($Call['HTTP']['Request']['Headers']['Pragma']) && $Call['HTTP']['Request']['Headers']['Pragma'] == 'no-cache')
-            F::Run('Entity', 'Update', [
+            F::Run('Entity', 'Update', $Call, [
                 'Entity' => $Call['Entity'],
                 'Where'  => $Call['Where']
             ]);

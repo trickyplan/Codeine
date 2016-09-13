@@ -9,11 +9,10 @@
 
     setFn('Get', function ($Call)
     {
-        $Call = F::Apply('System.Interface.HTTP', 'Protocol', $Call);
         return
             $Call['HTTP']['Proto']
             .$Call['Gravatar']['URL']
-            .md5(strtolower(trim($Call['EMail'])))
+            .md5(strtolower(trim($Call['Data']['EMail'])))
             .'?s='
             .$Call['Gravatar']['Size']
             .urlencode('&d='.$Call['HTTP']['Host'].'/img/no.jpg');
