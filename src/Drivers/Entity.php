@@ -118,6 +118,16 @@
 
             $Call = F::Hook('beforeEntityRead', $Call);
 
+            if (isset($Call['Where']))
+                ;
+            else
+            {
+                if (isset($Call['No Where']))
+                    ;
+                else
+                    F::Log('No where in Entity Read (bad idea)', LOG_WARNING, 'Administrator');
+            }
+            
             if (isset($Call['Skip Read']))
             {
                 F::Log('Read for '.$Call['Entity'].' fully skipped', LOG_NOTICE, 'Performance');

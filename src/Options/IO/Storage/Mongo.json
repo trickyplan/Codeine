@@ -21,33 +21,5 @@
          {
              "maxTimeMS": 10000
          }
-    },
-    "Hooks":
-    {
-        "IO":
-        {
-            "Storage":
-            {
-                "-Mongo":
-                {
-                    "Update":
-                    {
-                        "Failed":
-                        {
-                            "Error Page":
-                            {
-                                "Service": "Error.500",
-                                "Method": "Die",
-                                "Call":
-                                {
-                                    "Message": "Update Failed"
-                                }
-                            }
-                        }
-                    }
-                }
-
-            }
-        }
     }
 }

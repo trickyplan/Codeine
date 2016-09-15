@@ -18,7 +18,7 @@
 
             $Match = trim($Match);
 
-            $Match = strtr($Match, ',', '.');
+/*            $Match = strtr($Match, ',', '.');*/
             
             if (is_numeric($Match) && isset($Format))
                 switch($Format)
