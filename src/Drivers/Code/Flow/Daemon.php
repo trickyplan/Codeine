@@ -106,7 +106,7 @@
                             {
                                 F::Log($DaemonName.' daemon waked up', LOG_DEBUG);
 
-                                $Result = F::Live($Daemon['Execute']);
+                                $Result = F::Live($Daemon['Execute'], $Call);
 
                                 if ($Result !== null)
                                     F::Log($DaemonName.'> '.getmypid().': '.j($Result), LOG_INFO);
