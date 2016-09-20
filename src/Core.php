@@ -506,8 +506,8 @@
 
                         $Result = $Variable;
                     }
-                    }
                 }
+            }
 
             F::Stop('Live');
             return $Result;

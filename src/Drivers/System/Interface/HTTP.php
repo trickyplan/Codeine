@@ -37,7 +37,7 @@
                     switch ($_SERVER['Environment'])
                     {
                         case 'Development':
-                            d(__FILE__, __LINE__, $e);
+                            d(__FILE__, __LINE__, $e->getMessage());
                         break;
 
                         default:
@@ -45,6 +45,7 @@
                             header('Status: 503 Service Temporarily Unavailable');
 
                             header('X-Reason: '.$e->getMessage());
+
                             if (file_exists(Root.'/Public/down.html'))
                                 readfile(Root.'/Public/down.html');
                             else

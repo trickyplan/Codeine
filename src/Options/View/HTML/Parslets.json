@@ -22,7 +22,6 @@
                     "Far",
                     "If",
                     "Datetime",
-                    "Number",
                     "Currency",
                     "Morpho",
                     "File",
@@ -33,6 +32,7 @@
                     "Striptags",
                     "Cut",
                     "Fn",
+                    "Number",
                     "Hashtags",
                     "Access",
                     "Environment"
