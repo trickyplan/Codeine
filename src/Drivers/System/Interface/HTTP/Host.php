@@ -31,12 +31,15 @@
             {
                 $Call = F::Merge($Call, $Call['Project']['Active Hosts'][$Host]);
                 F::Log('Active Host selected: *'.$Host.'*', LOG_INFO);
-
             }
         }
         else
         {
-            $_SERVER['HTTP_HOST'] = $Call['Project']['Hosts'][F::Environment()][0];
+            if (is_array($Call['Project']['Hosts'][F::Environment()]))
+                $_SERVER['HTTP_HOST'] = $Call['Project']['Hosts'][F::Environment()][0];
+            else
+                $_SERVER['HTTP_HOST'] = $Call['Project']['Hosts'][F::Environment()];
+            
             F::Log('Default domain selected *'.$_SERVER['HTTP_HOST'].'*');
         }
 
