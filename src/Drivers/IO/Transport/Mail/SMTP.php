@@ -77,7 +77,5 @@
         if ($Result instanceof PEAR_Error)
             F::Log($Result->getMessage(), LOG_ERR, 'Administrator'); // Temp.
 
-
-        self::$_Perfect = true;
         return $Call['Data'];
     });
