@@ -12,11 +12,15 @@
         if (is_array($Call['Value']))
             ;
         else
-        {
             $Call['Value'] = explode(PHP_EOL, $Call['Value']);
-            foreach ($Call['Value'] as &$Value)
-                $Value = trim($Value);
+        
+        foreach ($Call['Value'] as $IX => &$Value)
+        {
+            $Value = trim($Value);
+            if (empty($Value))
+                unset($Call['Value'][$IX]);
         }
+        
         return $Call['Value'];
     });
 

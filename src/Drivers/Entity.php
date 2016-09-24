@@ -72,11 +72,6 @@
 
             foreach ($NewData as $IX => $Call['Data'])
             {
-                
-                $Call = F::Hook('beforeEntityWrite', $Call);
-                $Call = F::Hook('beforeEntityCreate', $Call);
-                $Call = F::Hook('beforeEntityCreateOrUpdate', $Call);
-
                 if (isset($Call['Failure']) and $Call['Failure'])
                     $Call['Data'] = null;
                 else
@@ -85,11 +80,15 @@
                         F::Log('Dry shot for '.$Call['Entity'].' create');
                     else
                     {
-                        $Call['Data'] = F::Run('IO', 'Write', $Call);
+                        $Call = F::Hook('beforeEntityCreate', $Call);
+                        $Call = F::Hook('beforeEntityCreateOrUpdate', $Call);
+                        $Call = F::Hook('beforeEntityWrite', $Call);
                         
-                        $Call = F::Hook('afterEntityCreate', $Call); // FIXME All block?
-                        $Call = F::Hook('afterEntityCreateOrUpdate', $Call);
+                            $Call['Data'] = F::Run('IO', 'Write', $Call);
+
                         $Call = F::Hook('afterEntityWrite', $Call);
+                        $Call = F::Hook('afterEntityCreateOrUpdate', $Call);
+                        $Call = F::Hook('afterEntityCreate', $Call); // FIXME All block?
                     }
                 }
                 $NewData[$IX] = $Call['Data'];
@@ -117,27 +116,15 @@
         }
 
         $Call = F::Hook('beforeOperation', $Call);
-
-            $Call = F::Hook('beforeEntityRead', $Call);
-
-            if (isset($Call['Where']))
-                ;
-            else
-            {
-                if (isset($Call['No Where']))
-                    ;
-                else
-                    F::Log('No where in Entity Read (bad idea)', LOG_WARNING, 'Administrator');
-            }
-            
+         
             if (isset($Call['Skip Read']))
-            {
                 F::Log('Read for '.$Call['Entity'].' fully skipped', LOG_NOTICE, 'Performance');
-            }
             else
             {
                 F::Log('Start reading from *'.$Call['Entity'].'*', LOG_INFO, 'Administrator');
-                
+
+                $Call = F::Hook('beforeEntityRead', $Call);
+                    
                 $Call['Data'] = F::Run('IO', 'Read', $Call);
 
                 if ($Call['Data'] !== null)
@@ -189,19 +176,6 @@
 
         $Call = F::Hook('beforeOperation', $Call);
 
-            if (isset($Call['Where']))
-                ;
-            else
-            {
-                if (isset($Call['No Where']))
-                    ;
-                else
-                {
-                    F::Log('No where in Entity Update', LOG_ERR, 'Administrator');
-                    return null;
-                }
-            }
-
             $Entities = F::Run('Entity', 'Read', $Call, ['One' => false, 'Time' => microtime(true).rand()]);
 
             // Если присутствуют такие объекты
@@ -244,9 +218,9 @@
 
                     $Call['Data']['EV'] = $Call['EV'];
 
-                    $Call = F::Hook('beforeEntityWrite', $Call);
                     $Call = F::Hook('beforeEntityUpdate', $Call);
                     $Call = F::Hook('beforeEntityCreateOrUpdate', $Call);
+                    $Call = F::Hook('beforeEntityWrite', $Call);
                     /*
                     TODO: необходимо щепитильно проверить обновлялку
                     */
@@ -262,9 +236,9 @@
                             else {
                                 F::Run('IO', 'Write', $Call, $VCall);
 
-                                $Call = F::Hook('afterEntityUpdate', $Call);
-                                $Call = F::Hook('afterEntityCreateOrUpdate', $Call);
                                 $Call = F::Hook('afterEntityWrite', $Call);
+                                $Call = F::Hook('afterEntityCreateOrUpdate', $Call);
+                                $Call = F::Hook('afterEntityUpdate', $Call);
                             }
                     }
                 }
@@ -297,19 +271,6 @@
 
         $Call = F::Hook('beforeOperation', $Call);
 
-        if (isset($Call['Where']) && !empty($Call['Where']))
-            ;
-        else
-        {
-            if (isset($Call['No Where']))
-                ;
-            else
-            {
-                F::Log('No where in Entity Delete', LOG_ERR, 'Administrator');
-                return null;
-            }
-        }
-
         $Current = F::Run('Entity', 'Read', $Call, ['Time' => microtime(true).rand()]);
 
         if ($Current)
@@ -321,13 +282,14 @@
                 if (isset($Call['Current']['ID']))
                 {
                     $Call['Where'] = $Call['Current']['ID'];
-
+                    
                         $Call = F::Hook('beforeEntityDelete', $Call);
-
-                        unset($Call['Data']);
-
-                        F::Run('IO', 'Write', $Call);
-
+                            $Call = F::Hook('beforeEntityWrite', $Call);
+                        
+                            unset($Call['Data']);
+                            F::Run('IO', 'Write', $Call);
+    
+                            $Call = F::Hook('afterEntityWrite', $Call);
                         $Call = F::Hook('afterEntityDelete', $Call);
                 }
             }

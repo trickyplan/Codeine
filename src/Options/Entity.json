@@ -60,33 +60,11 @@
             {
                 "Service": "Entity.Hooks.Where",
                 "Method": "beforeOperation"
-            }
-        },
-        "beforeEntityWrite":
-        {
-            "Strict":
-            {
-                "Service":"Entity.Hooks.Strict",
-                "Method":"Process",
-                "Weight": 100
             },
-            "Null":
+            "Convert empty to null":
             {
-                "Service":"Entity.Hooks.Null",
-                "Method":"Process",
-                "Weight": 200
-            },
-            "Make variables alive":
-            {
-                "Service":"Entity.Hooks.Live",
-                "Method":"Process",
-                "Weight": 300
-            },
-            "EV":
-            {
-                "Service":"Entity.Hooks.EV",
-                "Method":"beforeOperation",
-                "Weight": 400
+                "Service":"Entity.Hooks.ConvertEmptyToNull",
+                "Method":"Process"
             }
         },
         "beforeEntityCreate":
@@ -96,18 +74,9 @@
                 "Service":"Entity.Hooks.Default",
                 "Method":"Process"
             },
-            "Process":
-            {
-                "Service":"Entity.Hooks.Process",
-                "Method":"Process",
-                "Call":
-                {
-                    "Purpose": "Create"
-                }
-            },
             "Make variables alive":
             {
-                "Service":"Entity.Hooks.Live",
+                "Service":"Entity.Hooks.LiveNodes",
                 "Method":"Process"
             }
         },
@@ -120,7 +89,7 @@
             },
             "Make variables alive":
             {
-                "Service":"Entity.Hooks.Live",
+                "Service":"Entity.Hooks.LiveNodes",
                 "Method":"Process"
             }
         },
@@ -137,22 +106,13 @@
             },
             "Make variables alive":
             {
-                "Service":"Entity.Hooks.Live",
+                "Service":"Entity.Hooks.LiveNodes",
                 "Method":"Process"
             },
             "Inherited values":
             {
                 "Service":"Entity.Hooks.Inherited",
                 "Method":"Process"
-            },
-            "Datatypes":
-            {
-                "Service":"Entity.Hooks.Type",
-                "Method":"Write",
-                "Call":
-                {
-                    "Purpose": "Update"
-                }
             }
         },
         "beforeEntityDelete":
@@ -172,11 +132,41 @@
                 }
             }
         },
+        "beforeEntityWrite":
+        {
+            "Strict":
+            {
+                "Service":"Entity.Hooks.Strict",
+                "Method":"Process",
+                "Weight": 100
+            },
+            "Make variables alive":
+            {
+                "Service":"Entity.Hooks.LiveNodes",
+                "Method":"Process",
+                "Weight": 300
+            },
+            "EV":
+            {
+                "Service":"Entity.Hooks.EV",
+                "Method":"beforeOperation",
+                "Weight": 400
+            },
+            "Datatypes":
+            {
+                "Service":"Entity.Hooks.Type",
+                "Method":"Write",
+                "Call":
+                {
+                    "Purpose": "Update"
+                }
+            }
+        },
         "afterEntityCreate":
         {
             "Make variables alive":
             {
-                "Service":"Entity.Hooks.Live",
+                "Service":"Entity.Hooks.LiveNodes",
                 "Method":"Process"
             }
         },
@@ -202,7 +192,7 @@
             },
             "Make variables alive":
             {
-                "Service":"Entity.Hooks.Live",
+                "Service":"Entity.Hooks.LiveNodes",
                 "Method": "Process"
             },
             "-GEC":

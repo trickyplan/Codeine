@@ -14,9 +14,9 @@
             if (isset($Call['Fields']) && !in_array($Name, $Call['Fields']))
                 continue;
 
-            F::Log('Checking inheritance for *'.$Name.'*', LOG_INFO);
-            F::Log('Value is *'.j(F::Dot($Call['Data'], $Name)).'*', LOG_INFO);
-            F::Log('Is empty: *'.j(empty(F::Dot($Call['Data'], $Name))).'*', LOG_INFO);
+            F::Log('Checking inheritance for *'.$Name.'*', LOG_DEBUG);
+            F::Log('Value is *'.j(F::Dot($Call['Data'], $Name)).'*', LOG_DEBUG);
+            F::Log('Is empty: *'.j(empty(F::Dot($Call['Data'], $Name))).'*', LOG_DEBUG);
            
             $Value = F::Dot($Call['Data'], $Name);
             

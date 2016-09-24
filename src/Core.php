@@ -155,9 +155,15 @@
                 }
                 else
                 {
-                    echo $E['message'];
                     echo '<pre>';
-                    echo j(self::$_Log);
+                    echo $E['message'];
+                    echo self::Stack();
+                    foreach (self::$_Log as $Channel)
+                    {
+                        foreach ($Channel as $Log)
+                            echo implode("\t", $Log);
+                    }
+                    echo '</pre>';
                 }
 
             }

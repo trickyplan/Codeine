@@ -10,7 +10,6 @@
     setFn('beforeOperation', function ($Call)
     {
         // Если в Where скалярная переменная - это ID.
-
         if (isset($Call['Where']))
         {
             $Call['Where'] = F::Live($Call['Where'], $Call);
@@ -77,6 +76,17 @@
                 $Call['Where'] = null;
             else
                 $Call['Where'] = $Where;
+        }
+        else
+        {
+            if (isset($Call['No Where']))
+                ;
+            else
+            {
+                F::Log('No where (bad idea)', LOG_ERR, 'Administrator');
+                return null;
+            }
+            
         }
 
         return $Call;
