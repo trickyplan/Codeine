@@ -14,11 +14,12 @@
 
         if (is_uploaded_file($Call['Value']))
         {
-            F::Log('New uploaded file for '.$Call['Name'].' found: '.$Call['Value']);
+            F::Log('New uploaded file for '.$Call['Name'].' found: '.$Call['Value'], LOG_INFO);
             $Call['Data'] = file_get_contents($Call['Value']);
         }
         elseif (preg_match('/^https?:\/\//', $Call['Value']))
         {
+            F::Log('URL found for '.$Call['Name'], LOG_INFO);
             $Call['Value'] = html_entity_decode($Call['Value']);
             $Web = F::Run('IO', 'Read', ['Storage' => 'Web', 'Where' => ['ID' => $Call['Value']]]);
             $Call['Data'] = array_pop($Web);
