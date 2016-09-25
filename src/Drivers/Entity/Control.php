@@ -12,7 +12,7 @@
         $Time = time();
 
         $Totals = [];
-        $Totals['Total'] = F::Run('Entity', 'Count', ['Entity' => $Call['Bundle']]);
+        $Totals['Total'] = F::Run('Entity', 'Count', ['Entity' => $Call['Bundle'], 'No Where' => true]);
         $Totals['Today'] = F::Run('Entity', 'Count',
                         [
                             'Entity' => $Call['Bundle'],
@@ -197,7 +197,8 @@
                     'Value' => F::Run('Entity', 'Count',
                         [
                             'Entity' => $Call['Bundle'],
-                            'Scope' => 'Control'
+                            'Scope' => 'Control',
+                            'No Where' => true
                         ])
                 ])
         ];
