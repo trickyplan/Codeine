@@ -155,11 +155,7 @@
             "Datatypes":
             {
                 "Service":"Entity.Hooks.Type",
-                "Method":"Write",
-                "Call":
-                {
-                    "Purpose": "Update"
-                }
+                "Method":"Write"
             }
         },
         "afterEntityCreate":
