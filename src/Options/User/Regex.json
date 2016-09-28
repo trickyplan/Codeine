@@ -8,7 +8,8 @@
             "Method": "Do",
             "Call":
             {
-                "Entity": "User"
+                "Entity": "User",
+                "No Where": true
             }
         },
         "Show user by ID":
