@@ -87,7 +87,7 @@
         if (is_string($Call['Redirect']))
         {
             if (isset($Call['HTTP']['Headers']['Location:']))
-                F::Log('Already was redirected to '.$Call['HTTP']['Headers']['Location:'].', skipping redirect to '.$Call['Redirect'], LOG_INFO);
+                F::Log('Already was redirected to '.$Call['HTTP']['Headers']['Location:'].', skipping redirect to '.$Call['Redirect'], LOG_WARNING);
             else
             {
                 $URL = $Call['Redirect'];
