@@ -34,7 +34,10 @@
                         $Call['Decision'] = F::Run('Test.Assert.'.$Assert, 'Do', $Call);
                         $TestTime = microtime(true)-$TestTime;
                     }
-
+                    
+                    if (isset($Call['Case']['Result Key']))
+                        $Call['Case']['Result']['Actual'] = F::Dot($Call['Case']['Result']['Actual'], $Call['Case']['Result Key']);
+                    
                     $Call['Test']['Report'][$Call['Test']['Name'].$SuiteName.$CaseName] = [
                         $Call['Test']['Name'],
                         $SuiteName,

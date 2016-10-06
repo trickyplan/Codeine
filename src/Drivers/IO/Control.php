@@ -30,8 +30,8 @@
 
         foreach ($IO['Storages'] as $Name => $Storage)
         {
-            $Storage['Status'] = (F::Run('IO', 'Open', ['Storage' => $Name]) !== null);
-            $Storage['Size'] = F::Run('IO', 'Execute', ['Execute' => 'Size', 'Storage' => $Name]);
+            $Storage['Status'] = (F::Run('IO', 'Open', $Call, ['Storage' => $Name]) !== null);
+            $Storage['Size'] = F::Run('IO', 'Execute', $Call, ['Execute' => 'Size', 'Storage' => $Name]);
 
             $Call['Output']['Content'][] =
                 [
