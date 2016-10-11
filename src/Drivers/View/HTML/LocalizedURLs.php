@@ -28,9 +28,10 @@
                         $Localize = false;
     
                     if ($Localize)
-                        $Pair[$Link] = '/'.$Call['Locale'].$Link;
+                        $Pair['href="'.$Link] = 'href="/'.$Call['Locale'].$Link;
 
                 }
+                
                 $Call['Output'] = strtr($Call['Output'], $Pair);
             }
 
