@@ -18,7 +18,7 @@
 
             $Match = trim($Match);
 
-            if (is_scalar($Match) && isset($Format))
+            if (is_scalar($Match) && isset($Format) && !empty($Match))
                 switch($Format)
                 {
                     case 'French':
