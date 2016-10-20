@@ -42,7 +42,7 @@
             $Call['Data'] = F::Run('Entity', 'Read', $Call, ['Time' => microtime(true)]);
 
             if (null === $Call['Data'])
-                $Call = F::Hook('NotFound', $Call);
+                $Call = F::Hook('onEntityVerifyNotFound', $Call);
             else
                 foreach ($Call['Data'] as $IX => $cData)
                 {

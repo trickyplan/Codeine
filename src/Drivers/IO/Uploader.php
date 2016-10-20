@@ -36,7 +36,7 @@
             ]);
 
         if (empty($Call['Output']['Content']))
-            $Call = F::Hook('NotFound', $Call);
+            $Call = F::Hook('onUploaderNotFound', $Call);
 
         return $Call;
     });

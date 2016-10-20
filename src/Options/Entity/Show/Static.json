@@ -26,6 +26,14 @@
                 "Service": "Entity.Hooks.NoCache",
                 "Method": "Check"
             }
+        },
+        "onShowNotFound":
+        {
+            "404 Error":
+            {
+                "Service": "Error.404",
+                "Method": "Do"
+            }
         }
     }
 }

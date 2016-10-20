@@ -50,14 +50,6 @@
                 "Method":"Pipeline"
             }
         },
-        "NotFound":
-        {
-            "Error":
-            {
-                "Service":"Error.404",
-                "Method":"Block"
-            }
-        },
         "Access":
         {
             "Denied":

@@ -7,7 +7,7 @@
      * @version 8.x
      */
 
-    setFn ('Page', function ($Call)
+    setFn ('Do', function ($Call)
     {
         if (isset($Call['Entity']))
             $Call['Layouts'][] =
@@ -18,8 +18,9 @@
 
         $Call['Layouts'][] =
             [
-                'Scope' => 'Error',
-                'ID' => '404E'
+                'Context'   => $Call['Context'],
+                'Scope'     => 'Error',
+                'ID'        => '404E'
             ];
 
         $Call['Failure'] = true;
@@ -27,14 +28,3 @@
 
         return $Call;
      });
-
-    setFn('Block', function ($Call)
-    {
-        $Call['Output']['Content'] = [
-            [
-                'Type'  => 'Template',
-                'Scope' => 'Error/Blocks',
-                'ID' => '404'
-            ]];
-        return $Call;
-    });

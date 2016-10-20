@@ -63,22 +63,6 @@
                 "Method": "Audit"
             }
         },
-        "NotFound":
-        {
-            "Error":
-            {
-                "Service": "Error.404",
-                "Method": "Page"
-            }
-        },
-        "Empty":
-        {
-            "Error":
-            {
-                "Service": "Error.404E",
-                "Method": "Page"
-            }
-        },
         "Access":
         {
             "Denied":

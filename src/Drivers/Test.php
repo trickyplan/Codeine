@@ -54,7 +54,7 @@
             }
         }
         else
-            $Call = F::Hook('NotFound', $Call);
+            $Call = F::Hook('onTestNotFound', $Call);
 
         return $Call;
     });

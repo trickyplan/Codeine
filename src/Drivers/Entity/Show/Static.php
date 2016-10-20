@@ -41,7 +41,7 @@
             $Call['Scope'] = isset($Call['Scope'])? $Call['Entity'].'/'.$Call['Scope'] : $Call['Entity'];
 
             if (empty($Call['Data']))
-                $Call = F::Hook('NotFound', $Call);
+                $Call = F::Hook('onShowNotFound', $Call);
             else
             {
                 $Call['Output']['Content'][] = array (
