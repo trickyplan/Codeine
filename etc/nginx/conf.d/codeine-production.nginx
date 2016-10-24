@@ -41,7 +41,7 @@
     location ~ index.php$
     {
         include fastcgi_params;
-        set $no_cache 0;
+        set $no_cache 1;
         if ($request_method !~ ^(GET|HEAD)$) {
             set $no_cache "1";
         }
@@ -59,7 +59,7 @@
         fastcgi_cache_bypass $no_cache $cookie_SSID;
         fastcgi_cache_valid 200 304 60m;
         fastcgi_cache_use_stale updating error timeout invalid_header http_500;
-        fastcgi_hide_header "Set-Cookie";
+        #fastcgi_hide_header "Set-Cookie";
 
         add_header X-Cache $upstream_cache_status;
 
