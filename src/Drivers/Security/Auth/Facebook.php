@@ -29,7 +29,7 @@
                 .'&scope='.$Call['Facebook']['Rights']
                 .'&response_type=code'
                 .'&redirect_uri='
-                .$Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/authenticate/Facebook?BackURL='.urlencode($Call['Request']['BackURL'])
+                .$Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/auth/Facebook?BackURL='.urlencode($Call['Request']['BackURL'])
             ]);
     });
 
@@ -46,7 +46,7 @@
                      'client_id'     => $Call['Facebook']['AppID'],
                      'client_secret' => $Call['Facebook']['Secret'],
                      'code'          => $Call['Request']['code'],
-                     'redirect_uri'  => $Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/authenticate/Facebook?BackURL='.urlencode($Call['Request']['BackURL'])
+                     'redirect_uri'  => $Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/auth/Facebook?BackURL='.urlencode($Call['Request']['BackURL'])
                  ]
              ]);
 

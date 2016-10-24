@@ -28,7 +28,7 @@
             .$Call['VKontakte']['AppID']
             .'&scope='.$Call['VKontakte']['Rights']
             .'&display=popup'
-            .'&redirect_uri='.urlencode($Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/authenticate/VKontakte?BackURL='.$Call['Request']['BackURL'])
+            .'&redirect_uri='.urlencode($Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/auth/VKontakte?BackURL='.$Call['Request']['BackURL'])
             .'&response_type=code'
             .'&v='.$Call['VKontakte']['Version']
         ]);
@@ -42,7 +42,7 @@
         {
             $URL = 'https://oauth.vk.com/access_token?client_id='.$Call['VKontakte']['AppID']
                 .'&client_secret='.$Call['VKontakte']['Secret'].'&code='.$Call['Request']['code']
-                .'&redirect_uri='.urlencode($Call['HTTP']['Proto'].$Call['HTTP']['Host']).'/authenticate/VKontakte?BackURL='.$Call['Request']['BackURL'];
+                .'&redirect_uri='.urlencode($Call['HTTP']['Proto'].$Call['HTTP']['Host']).'/auth/VKontakte?BackURL='.$Call['Request']['BackURL'];
 
             $Result = F::Run('IO', 'Read',
                 [
