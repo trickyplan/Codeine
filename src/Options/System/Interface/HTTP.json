@@ -9,7 +9,7 @@
     },
     "HTTP":
     {
-        "Redirect": "Permanent",
+        "Redirect": "Temporarily",
         "Methods":
         {
             "Allowed": ["GET", "POST"],
