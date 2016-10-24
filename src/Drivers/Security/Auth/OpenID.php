@@ -45,7 +45,7 @@
                 'openid.sreg.optional' => 'nickname,fullname',
                 'openid.identity'   => $Call['Request']['Identity'],
                 'openid.assoc_handle' => $Call['Session']['ID'],
-                'openid.return_to'  => $Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/authenticate/OpenID'
+                'openid.return_to'  => $Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/auth/OpenID'
             ];
 
 

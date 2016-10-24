@@ -1,5 +1,5 @@
  <access Service="Control.Panel">
-        <div id="devpanel" class="alert alert-info" style="display: none; position: fixed; top: 15px; left: 25%; z-index: 99;">
+        <div id="devpanel" class="alert alert-info" style="display: none; width: 50%; position: fixed; top: 15%; left: 25%; z-index: 99;">
             <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
             <h4>Developers</h4>
             <div><strong>URI:</strong></div>
@@ -56,6 +56,6 @@
                 time.toFixed(0) + ' msec.'
             ).show();
 
-            $(document).bind('keydown', '`', function() { $('#devpanel').toggle()} );
+            $(document).bind('keydown', 'ctrl+0', function() { $('#devpanel').toggle()} );
         </jsrun>
 </access>
