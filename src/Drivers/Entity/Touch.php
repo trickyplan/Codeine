@@ -61,10 +61,10 @@
 
     setFn('All', function ($Call)
     {
-        set_time_limit(600);
         $Call   = F::Apply('Entity', 'Load', $Call);
         $Total  = F::Run('Entity', 'Count', $Call);
         $Amount = ceil($Total/$Call['All']['Limit']);
+        set_time_limit(10*$Total);
 
         $Call = F::Apply('Code.Progress', 'Start', $Call);
 
