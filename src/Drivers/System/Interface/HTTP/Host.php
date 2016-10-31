@@ -9,41 +9,12 @@
 
     setFn('Do', function ($Call)
     {
-        if (is_array($Call['Project']['Hosts'][F::Environment()]))
-            $Hosts = $Call['Project']['Hosts'][F::Environment()];
-        else
-            $Hosts = [$Call['Project']['Hosts'][F::Environment()]];
-
-        if (isset($_SERVER['HTTP_HOST']))
-            $Host = $_SERVER['HTTP_HOST'];
-        else
-        {
-            $Host = $Hosts[0];
-            F::Log('Host not specified, default selected', LOG_WARNING);
-        }
-
-        if (preg_match('/:/', $_SERVER['HTTP_HOST']))
-            list ($_SERVER['HTTP_HOST'], $Call['HTTP']['Port']) = explode(':', $_SERVER['HTTP_HOST']);
-
-        if (in_array($Host, $Hosts))
-        {
-            if (isset($Call['Project']['Active Hosts'][$Host]))
-            {
-                $Call = F::Merge($Call, $Call['Project']['Active Hosts'][$Host]);
-                F::Log('Active Host selected: *'.$Host.'*', LOG_INFO);
-            }
-        }
-        else
-        {
-            if (is_array($Call['Project']['Hosts'][F::Environment()]))
-                $_SERVER['HTTP_HOST'] = $Call['Project']['Hosts'][F::Environment()][0];
-            else
-                $_SERVER['HTTP_HOST'] = $Call['Project']['Hosts'][F::Environment()];
-            
-            F::Log('Default domain selected *'.$_SERVER['HTTP_HOST'].'*');
-        }
-
-        $Call['HTTP']['Host'] = $_SERVER['HTTP_HOST'];
+        // Check port present? Why i'm doing this?
+        /* if (preg_match('/:/', $_SERVER['HTTP_HOST']))
+            list ($_SERVER['HTTP_HOST'], $Call['HTTP']['Port']) = explode(':', $_SERVER['HTTP_HOST']);*/
+        
+        F::Log('Host Strategy *'.$Call['HTTP']['Host Strategy'].'* selected', LOG_INFO);
+        $Call = F::Apply($Call['HTTP']['Host Strategy'], 'Do', $Call);
 
         if (isset($Call['HTTP']['Domain']))
             ;

@@ -1,0 +1,6 @@
+{
+    "HTTP":
+    {
+        "Host Strategy": "System.Interface.HTTP.Host.ProjectBased"
+    }
+}
