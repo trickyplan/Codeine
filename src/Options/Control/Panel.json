@@ -5,7 +5,7 @@
         "Project": ["User", "Page", "Block"],
         "Ad": ["Ad.Slot", "Ad.Media", "Ad.Placement"],
         "Platform": ["Project", "Codeine", "PHP", "Nginx", "IO", "Security", "Session", "Server", "Code.Flow.Daemon"],
-        "Developer": ["Developer"]
+        "Developer": ["Developer", "Error"]
     },
     "Sidebar": ["Do"]
 }

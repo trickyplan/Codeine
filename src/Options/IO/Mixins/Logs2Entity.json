@@ -1,0 +1,28 @@
+{
+    "Storages":
+    {
+        "Developer":
+        {
+            "Driver": "IO.Log.Error",
+            "Format": "Formats.Log.Dummy"
+        },
+        "Performance":
+        {
+            "Driver": "IO.Log.Error",
+            "Format": "Formats.Log.Dummy"
+        },
+        "Administrator":
+        {
+            "Driver": "IO.Log.Error",
+            "Format": "Formats.Log.Dummy"
+        },
+        "Security": {
+            "Driver": "IO.Log.Error",
+            "Format": "Formats.Log.Dummy"
+        },
+        "Marketing": {
+            "Driver": "IO.Log.Error",
+            "Format": "Formats.Log.Dummy"
+        }
+    }
+}

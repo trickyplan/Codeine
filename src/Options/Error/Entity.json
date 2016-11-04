@@ -1,39 +1,41 @@
 {
+    "Sort":
+    {
+        "Time": false
+    },
     "Storage": "Primary",
     "Mixins":
     [
-        "Mixins.Titled",
-        "Mixins.Text"
+        "Mixins.ID.GUID",
+        "Mixins.Titled"
     ],
     "Nodes":
     {
-        "ID":
+        "Channel":
         {
-            "Type": "Literal.String",
-            "Hooks":
-            {
-                "beforeEntityCreate":
-                {
-                    "Service": "Security.UID",
-                    "Method": "Get"
-                }
-            }
+            "Type": "List.Enum",
+            "Options": ["Developer", "Administrator", "Security", "Performance", "Marketing"]
+        },
+        "Severity":
+        {
+            "Type": "List.Enum",
+            "Options": ["Emergency", "Alert", "Critical", "Error", "Warning", "Notice", "Info", "Debug"]
         },
         "URL":
         {
             "Type": "Literal.String"
         },
+        "Stack":
+        {
+            "Type": "Literal.String"
+        },
+        "Location":
+        {
+            "Type": "Literal.String"
+        },
         "Time":
         {
-            "Type": "Numeral.Integer",
-            "Hooks":
-            {
-                "beforeEntityCreate":
-                {
-                    "Service": "System.Time",
-                    "Method": "Get"
-                }
-            }
+            "Type": "Numeral.Float"
         }
     }
 }
