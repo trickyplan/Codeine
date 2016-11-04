@@ -21,8 +21,9 @@
                     if (in_array($Link, F::Dot($Call, 'LocalizedURLs.Excluded')))
                         $Localize = false;
     
-                    if (preg_match('@^/'.$Call['Locale'].'/@Ssu', $Link))
-                        $Localize = false;
+                    foreach ($Call['Locales']['Available'] as $Locale)
+                        if (preg_match('@^/'.$Locale.'/@Ssu', $Link))
+                            $Localize = false;
                     
                     if ($Link == '/')
                         $Localize = false;
