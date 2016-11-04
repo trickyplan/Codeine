@@ -651,6 +651,10 @@
                             case LOG_EMERG:
                                 fwrite(STDERR, $Head."\033[0;31m ".$Message." \033[0m".PHP_EOL);
                             break;
+                            
+                            case LOG_ALERT:
+                                fwrite(STDERR, $Head."\033[0;31m ".$Message." \033[0m".PHP_EOL);
+                            break;
 
                             case LOG_CRIT:
                                 fwrite(STDERR, $Head."\033[0;31m ".$Message." \033[0m".PHP_EOL);
@@ -687,17 +691,29 @@
                         }
                 }
                 else
-                   self::$_Log[$Channel][]
-                        = [
+                {
+                    if ($Verbose < LOG_NOTICE and $AppendStack)
+                        self::$_Log[$Channel][]
+                            = [
+                            $Verbose,
+                            $Time,
+                            $Message,
+                            self::$_Service.':'.self::$_Method,
+                            self::$_Stack->count(),
+                            F::Stack()
+                        ];
+                    else
+                        self::$_Log[$Channel][]
+                            = [
                             $Verbose,
                             $Time,
                             $Message,
                             self::$_Service.':'.self::$_Method,
                             self::$_Stack->count()
                         ];
+                }
 
-                if ($Verbose < LOG_NOTICE and $AppendStack)
-                    F::Log(F::Stack(), $Verbose, $Channel, false);
+                
             }
 
             return $Message;

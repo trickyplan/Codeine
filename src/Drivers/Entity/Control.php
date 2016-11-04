@@ -120,7 +120,7 @@
             'Context' => ''
         ];
 
-        return F::Apply('Entity.List', 'Do', $Call, ['Entity' => $Call['Bundle'], 'Scope' => 'Control']);
+        return F::Apply('Entity.List', 'Do', $Call, ['Entity' => $Call['Bundle'], 'No Where' => true, 'Scope' => 'Control']);
     });
 
     setFn('Show', function ($Call)

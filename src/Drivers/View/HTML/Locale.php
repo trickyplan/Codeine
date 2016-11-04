@@ -64,7 +64,7 @@
                 }
                 else
                 {
-                    F::Log('Locale '.$Match, LOG_ERR);
+                    F::Log('Unresolved locale *'.$Match.'*', LOG_WARNING);
 
                     if (F::Environment() === 'Development')
                         $Match = '<span class="nl">' . $Match . '</span>';
