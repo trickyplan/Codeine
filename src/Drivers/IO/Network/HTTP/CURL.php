@@ -143,6 +143,16 @@
 
             $Return = [curl_exec($Call['Link'])];
 
+            if ($Call['CURL']['Return Header'])
+            {
+                $Size = curl_getinfo($Call['Link'], CURLINFO_HEADER_SIZE);
+                $Headers = mb_substr($Return[0], 0, $Size);
+                $Body = mb_substr($Return[0], $Size);
+                
+                $Return = [$Body, '_0' => $Headers];
+            }
+            
+            
             if ($Call['CURL']['Return Header'] && isset($Call['CURL']['Only Header']))
             {
                 $Size = curl_getinfo($Call['Link'], CURLINFO_HEADER_SIZE);
