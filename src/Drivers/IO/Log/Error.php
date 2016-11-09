@@ -30,8 +30,6 @@
                         'Stack'     => $Row[5]
                     ]
                 ]);
-            d(__FILE__, __LINE__, $Error);
-die();
         }
 
         return true;
