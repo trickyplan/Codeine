@@ -530,8 +530,14 @@
                     foreach ($Pockets[1] as $IX => $Match)
                     {
                         $Subvariable = self::Dot($Call, $Match);
-                        if ($Subvariable !== null)
-                            $Variable = str_replace($Pockets[0][$IX], $Subvariable, $Variable);
+                        if (is_scalar($Subvariable))
+                        {
+                            if ($Subvariable !== null)
+                                $Variable = str_replace($Pockets[0][$IX], $Subvariable, $Variable);
+                        }
+                        else
+                            F::Log('Subvariable *'.$Match.'* is non-scalar ', LOG_WARNING);
+                        
                     }
                 }
 
@@ -590,7 +596,10 @@
                 echo '<h2>Perfect Mode</h2>';
                 echo '<pre class="console">'.self::Stack().'</pre>'.PHP_EOL;
                 echo $errno.' '.$errstr.' '.$errfile.'@'.$errline.'<pre>';
-
+                
+                if (function_exists('xdebug_print_function_stack'))
+                    xdebug_print_function_stack();
+                
                 foreach ($Logs as $Channel => $Records)
                     foreach ($Records as $Log)
                         echo $Channel."\t".$Log[1]."\t".$Log[2]."\t".PHP_EOL;

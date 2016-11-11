@@ -26,7 +26,10 @@
     {
         $Call = F::Apply(null, 'Live Enum', $Call);
 
-        return array_search($Call['Value'], F::Live($Call['Node']['Options']));
+        if (empty($Call['Node']['Options']))
+            return null;
+        else
+            return array_search($Call['Value'], $Call['Node']['Options']);
     });
 
     setFn('Read', function ($Call)
