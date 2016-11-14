@@ -1,0 +1,25 @@
+{
+    "HTTP":
+    {
+        "Filter":
+        {
+            "Methods": ["Request", "URL", "Agent"]
+        }
+    },
+    "Hooks":
+    {
+        "onHTTPFiltered":
+        {
+            "Error Page":
+            {
+                "Service": "Error.Page",
+                "Method": "Catch",
+                "Call":
+                {
+                    "Code": 403,
+                    "Reason": "Kiddie"
+                }
+            }
+        }
+    }
+}

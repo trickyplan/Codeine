@@ -63,32 +63,23 @@
             },
             "Protocol":
             {
-                "Service": "System.Interface.HTTP.Protocol",
-                "Method": "Do"
+                "Service": "System.Interface.HTTP.Protocol"
             },
             "IP":
             {
-                "Service": "System.Interface.HTTP.IP",
-                "Method": "Do"
+                "Service": "System.Interface.HTTP.IP"
             },
             "Referrer":
             {
-                "Service": "System.Interface.HTTP.Referrer",
-                "Method": "Do"
+                "Service": "System.Interface.HTTP.Referrer"
             },
             "Agent":
             {
                 "Service": "System.Interface.HTTP.Agent"
             },
-            "Filter by User Agent":
+            "Filter":
             {
-                "Service": "Security.Agent",
-                "Method": "Filter"
-            },
-            "Filter Request":
-            {
-                "Service": "Security.Request",
-                "Method": "Filter"
+                "Service": "System.Interface.HTTP.Filter"
             },
             "-IDS":
             {

@@ -16,7 +16,11 @@
 
             // Если передан нормальный вызов, совершаем его
             F::Log('Front Controlled *'.$Call['Service'].':'.$Call['Method'].'* started', LOG_NOTICE);
-
+        
+        if (F::Dot($Call, 'Skip Front'))
+            F::Log('Front Skip Enabled', LOG_NOTICE);
+        else
+        {
             if (F::isCall($Call['Run']))
             {
                 if (!isset($Call['Run']['Method']))
@@ -29,8 +33,9 @@
                 if (isset($Call['Run']['Call']))
                     F::Log($Call['Run']['Call'], LOG_INFO);
 
-                    $Call = F::Live($Call['Run'], $Call);
+                $Call = F::Live($Call['Run'], $Call);
             }
+        }
 
         // А здесь - рендеринг
         $Call = F::Hook('afterFrontRun', $Call);

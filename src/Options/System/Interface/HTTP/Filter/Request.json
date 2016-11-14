@@ -1,0 +1,25 @@
+{
+    "HTTP":
+    {
+        "Filter":
+        {
+            "Request":
+            {
+                "Enabled": true,
+                "Rules":
+                {
+                    "Try to access /proc/self/environ":
+                    {
+                        "Match":
+                        [
+                            {
+                                "*": "/proc/self/environ"
+                            }
+                        ],
+                        "Decision": false
+                    }
+                }
+            }
+        }
+    }
+}
