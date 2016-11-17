@@ -29,7 +29,10 @@
                     if ($Call['Page'] > 100)
                         $Call['Page'] = 100;
 
-                $Call['Count'] = F::Run('Entity', 'Count', $Call);
+                if (isset($Call['Elements']))
+                    $Call['Count'] = count($Call['Elements']);
+                else
+                    $Call['Count'] = F::Run('Entity', 'Count', $Call);
 
                 if (isset($Call['Sort']))
                 {

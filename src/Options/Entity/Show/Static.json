@@ -29,10 +29,14 @@
         },
         "onShowNotFound":
         {
-            "404 Error":
+            "Show Error Page":
             {
-                "Service": "Error.404",
-                "Method": "Do"
+                "Service": "Error.Page",
+                "Method": "Do",
+                "Call":
+                {
+                    "Code": 404
+                }
             }
         }
     }

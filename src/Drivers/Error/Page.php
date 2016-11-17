@@ -9,7 +9,15 @@
 
     setFn('Catch', function ($Call)
     {
-        $Call['Run'] = '/error/'.$Call['Code'];
+        $Call['Run'] =
+        [
+            'Service'   => 'Error.Page',
+            'Method'    => 'Do',
+            'Call'      =>
+            [
+                'Code'  => 403
+            ]
+        ];
         return $Call;
     });
     
@@ -39,8 +47,6 @@
                     'ID' => $Call['Code']
                  ]
             ];
-        
-        $Call['Skip Front'] = true;
         
         return $Call;
      });

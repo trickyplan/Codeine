@@ -1,0 +1,89 @@
+{
+    "Hooks":
+    {
+        "beforeCreateGet":
+        {
+            "Store URL":
+            {
+                "Service": "System.Interface.HTTP",
+                "Method": "StoreURL"
+            }
+        },
+        "afterCreatePost!":
+        {
+            "Redirect to created":
+            {
+                "Service": "System.Interface.HTTP",
+                "Method": "Redirect",
+                "Call":
+                {
+                    "Redirect": "/$Slug.Entity/$Data.0.SEO.Slug"
+                }
+            }
+        },
+        "beforeUpdateGet":
+        {
+            "Store URL":
+            {
+                "Service": "System.Interface.HTTP",
+                "Method": "StoreURL"
+            }
+        },
+        "afterUpdatePost":
+        {
+            "Restore URL":
+            {
+                "Service": "System.Interface.HTTP",
+                "Method": "RestoreURL"
+            }
+        },
+        "beforeDeleteGet":
+        {
+            "Store URL":
+            {
+                "Service": "System.Interface.HTTP",
+                "Method": "StoreURL"
+            }
+        },
+        "afterDeletePost":
+        {
+            "Restore URL":
+            {
+                "Service": "System.Interface.HTTP",
+                "Method": "RestoreURL"
+            }
+        },
+        "beforeTouch":
+        {
+            "Store URL":
+            {
+                "Service": "System.Interface.HTTP",
+                "Method": "StoreURL"
+            }
+        },
+        "afterTouch":
+        {
+            "Restore URL":
+            {
+                "Service": "System.Interface.HTTP",
+                "Method": "RestoreURL"
+            }
+        },
+                "beforeIncreaseDo":
+        {
+            "Store URL":
+            {
+                "Service": "System.Interface.HTTP",
+                "Method": "StoreURL"
+            }
+        },
+        "afterIncreaseDo":
+        {
+            "Restore URL":
+            {
+                "Service": "System.Interface.HTTP",
+                "Method": "RestoreURL"
+            }
+        }
+    }
+}

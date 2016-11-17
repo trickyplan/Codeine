@@ -63,14 +63,15 @@
                 "Method": "Audit"
             }
         },
-        "Access":
+        "onFrontAccessDenied":
         {
-            "Denied":
+            "Show Error Page":
             {
-                "ErrorPage":
+                "Service": "Error.Page",
+                "Method": "Catch",
+                "Call":
                 {
-                    "Service": "Error.403",
-                    "Method": "Page"
+                    "Code": 403
                 }
             }
         }

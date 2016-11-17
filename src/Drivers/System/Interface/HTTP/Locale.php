@@ -22,11 +22,6 @@
             }
     
             setlocale(LC_ALL, $Call['Locales']['PHP'][$Call['Locale']]);
-    
-            if ($Call['Locale'] == $Call['Default']['Locale'])
-                $Call['LocaleURL'] = '';
-            else
-                $Call['LocaleURL'] = '/'.$Call['Locale']; // FIXME Not elegant
         
         $Call = F::Hook('afterLocaleDetect', $Call);
                 

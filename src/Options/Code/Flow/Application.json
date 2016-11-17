@@ -56,8 +56,12 @@
             {
                 "ErrorBlock":
                 {
-                    "Service": "Error.403",
-                    "Method": "Block"
+                    "Service": "Error.Page",
+                    "Method": "Catch",
+                    "Call":
+                    {
+                        "Code": 403
+                    }
                 }
             }
         }

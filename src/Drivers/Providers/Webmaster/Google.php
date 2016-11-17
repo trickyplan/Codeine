@@ -14,7 +14,7 @@
                 .$Call['Google']['Webmaster']['ID']
                 .$Call['Google']['Webmaster']['Postfix'];
         else
-            $Call = F::Apply('Error.404', 'Page', $Call);
+            $Call = F::Apply('Error.Page', 'Do', $Call, ['Code' => 404]);
 
         return $Call;
     });

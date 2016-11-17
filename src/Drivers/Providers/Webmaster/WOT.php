@@ -12,7 +12,7 @@
         if ($Call['ID'] == $Call['WOT']['ID'])
             $Call['Output']['Content'][] = $Call['WOT']['Hash'];
         else
-            $Call = F::Apply('Error.404', 'Page', $Call);
+            $Call = F::Apply('Error.Page', 'Do', $Call, ['Code' => 404]);
 
         return $Call;
     });

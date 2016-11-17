@@ -530,7 +530,7 @@
                     foreach ($Pockets[1] as $IX => $Match)
                     {
                         $Subvariable = self::Dot($Call, $Match);
-                        if (is_scalar($Subvariable))
+                        if (is_scalar($Subvariable) or $Subvariable === null)
                         {
                             if ($Subvariable !== null)
                                 $Variable = str_replace($Pockets[0][$IX], $Subvariable, $Variable);

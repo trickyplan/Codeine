@@ -109,13 +109,13 @@
                 "Service": "Entity.Complain"
             }
         },
-        "404 — всем":
+        "Error Page to All":
         {
             "Decision": true,
             "Weight": 50,
             "Run":
             {
-                "Service": "Error.404"
+                "Service": "Error.Page"
             }
         },
         "Humans.txt 2 All":

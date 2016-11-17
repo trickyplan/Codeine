@@ -27,9 +27,9 @@
          }
 
          if ($Decision)
-             $Call = F::Hook('Access.Allowed', $Call);
+             $Call = F::Hook('onFrontAccessAllowed', $Call);
          else
-             $Call = F::Hook('Access.Denied', $Call);
+             $Call = F::Hook('onFrontAccessDenied', $Call);
 
          return $Call;
      });

@@ -14,10 +14,11 @@
         {
             "ErrorPage":
             {
-                "Service": "Error.403",
-                "Method": "Page",
+                "Service": "Error.Page",
+                "Method": "Catch",
                 "Call":
                 {
+                    "Code": 403,
                     "Reason": "Kiddie"
                 }
             }
@@ -26,10 +27,11 @@
         {
             "ErrorPage":
             {
-                "Service": "Error.403",
-                "Method": "Page",
+                "Service": "Error.Page",
+                "Method": "Catch",
                 "Call":
                 {
+                    "Code": 403,
                     "Reason": "Kiddie"
                 }
             }
