@@ -89,7 +89,7 @@
         fastcgi_temp_file_write_size 512k;
     }
 
-    location ~* \.(jpg|jpeg|gif|css|png|js|ico|woff|ttf|eot)$
+    location ~* \.(jpg|jpeg|gif|css|png|js|ico|woff|woff2|ttf|eot)$
     {
         try_files $uri $uri/ /index.php?$uri&$args;
         access_log        off;
