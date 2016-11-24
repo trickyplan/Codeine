@@ -123,7 +123,7 @@
                     ]);
 
                     if (isset($Call['CSS']['Host']) && !empty($Call['CSS']['Host']))
-                        $Call['CSS']['Links'][] = '<link href="'.$Call['CSS']['Host'].$SRC.'" rel="stylesheet" type="'.$Call['CSS']['Type'].'"/>';
+                        $Call['CSS']['Links'][] = '<link href="'.$Call['HTTP']['Proto'].$Call['CSS']['Host'].$SRC.'" rel="stylesheet" type="'.$Call['CSS']['Type'].'"/>';
                     else
                         $Call['CSS']['Links'][] = '<link href="'.$SRC.'" rel="stylesheet" type="'.$Call['CSS']['Type'].'" />';
 
