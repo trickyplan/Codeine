@@ -5,7 +5,10 @@
 span.twitter-typeahead
 {
     width : 100%;
-    height: 34px;
+}
+
+.form-inline span.twitter-typeahead
+{
     margin-top: 4px;
 }
 
