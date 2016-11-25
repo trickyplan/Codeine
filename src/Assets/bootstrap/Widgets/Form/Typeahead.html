@@ -2,8 +2,10 @@
 <js>handlebars</js>
 <css>typeahead</css>
 <div class="form-group">
-    <label for="<k>Name</k>"> <l><k>Label</k></l>: <if value="<k>Required</k>" eq="1"><span class="required-star">*</span></if></label>
     <div class="input-group">
+        <if value="<k>NoLabel</k>" neq="1">
+            <label for="<k>Name</k>"> <l><k>Label</k></l>: <if value="<k>Required</k>" eq="1"><span class="required-star">*</span></if></label>
+        </if>
         <block>
             <span class="input-group-addon"><k>Prefix</k></span>
         </block>
@@ -11,7 +13,7 @@
         <block>
             <span class="input-group-addon"><k>Postfix</k></span>
         </block>
-        <input type="hidden" name="<k>Name</k>" id="<k>ID</k>_hidden" value="<k>HValue</k>"/>
+        <input class="form-control" type="hidden" name="<k>Name</k>" id="<k>ID</k>_hidden" value="<k>HValue</k>"/>
 
     </div>
     <if value="<k>Help</k>" eq="1">
