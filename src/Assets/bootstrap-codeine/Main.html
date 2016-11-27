@@ -1,0 +1,70 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="<call>Locale</call>"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="<call>Locale</call>"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="<call>Locale</call>"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="<call>Locale</call>" prefix="og: http://ogp.me/ns#" itemscope itemtype="http://schema.org/WebPage">
+<!--<![endif]-->
+<head>
+    <title/>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <environment eq="Production">
+        <link rel="shortcut icon" href="<call>HTTP.Proto</call><call>HTTP.Host</call>/favicon.ico" type="image/x-icon">
+    </environment>
+
+    <environment eq="Development">
+        <link rel="shortcut icon" href="<call>HTTP.Proto</call><call>HTTP.Host</call>/favicon-development.ico" type="image/x-icon">
+    </environment>
+
+    <environment eq="Staging">
+        <link rel="shortcut icon" href="<call>HTTP.Proto</call><call>HTTP.Host</call>/favicon-staging.ico" type="image/x-icon">
+    </environment>
+
+    <place>CSS</place>
+
+    <js>:jquery/dist/jquery.min</js>
+
+    <css>:bootstrap/dist/css/bootstrap.min</css>
+    <css>:bootstrap/dist/css/bootstrap-theme.min</css>
+    <js>:bootstrap/dist/js/bootstrap.min</js>
+
+    <css>bootstrap-codeine:addons</css>
+    <css>font-awesome</css>
+
+    <css>Default</css>
+    <css>print</css>
+
+
+    <js>jquery.hotkeys</js>
+
+    <environment eq="Development">
+        <layout>Locale:Live</layout>
+    </environment>
+    <js>modernizr</js>
+    <js>Default:activelink</js>
+    <js>Default:ajaxlink</js>
+    <js>Default:ajaxblock</js>
+
+    <layout>Project:OpenGraph</layout>
+    <layout>Project:Head</layout>
+    <layout>Project:OpenSearch</layout>
+
+    <description/>
+    <keywords/>
+
+    <jsrun>
+          $('[data-toggle="tooltip"]').tooltip();
+          $('[data-toggle="popover"]').popover();
+    </jsrun>
+</head>
+<body itemscope itemtype="http://schema.org/WebSite">
+    <layout>Project:Audience</layout>
+    <place>Content</place>
+    <place>JS</place>
+    <layout>bootstrap:Developer</layout>
+    <layout>Error:Catcher</layout>
+    <layout>bootstrap:SEO</layout>
+</body>
+</html>

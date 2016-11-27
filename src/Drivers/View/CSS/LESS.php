@@ -23,7 +23,9 @@
                 'Where'   => $ID
             ]);
 
-        if ($LESS)
+        if ($LESS === null)
+            F::Log('LESS *not found* '.Root.'/Assets/'.$Asset.'/less/'.$ID.'.less', LOG_DEBUG, 'Developer');
+        else
         {
             $LESSVersion = F::Run('IO', 'Execute',
             [
@@ -32,7 +34,7 @@
                 'Scope'   => [$Asset, 'less'],
                 'Where'   => $ID
             ]);
-
+            
             $CSSVersion = F::Run('IO', 'Execute',
                 [
                     'Execute' => 'Version',
@@ -44,18 +46,18 @@
             if ($LESSVersion > $CSSVersion or (isset($Call['HTTP']['Request']['Headers']['Pragma']) && $Call['HTTP']['Request']['Headers']['Pragma'] == 'no-cache'))
             {
                 // FIXME! Temporary decision.
-                if (file_exists(Root.'/Assets/'.$Asset.'/less/'.$ID.'.less'))
+                if ($LessPath = F::findFile('/Assets/'.$Asset.'/less/'.$ID.'.less'))
                 {
-                    $Command = 'lessc '.Root.'/Assets/'.$Asset.'/less/'.$ID.'.less > '.Root.'/Assets/'.$Asset.'/css/'.$ID.'.css';
+                    $Command = 'lessc '.$LessPath;
                     // $Command = 'lessc --clean-css ' .Root.'/Assets/'.$Asset.'/less/'.$ID.'.less > '.Root.'/Assets/'.$Asset.'/css/'.$ID.'.min.css';
                     // shell_exec($Command);
                     F::Log('LESS *processed* '.Root.'/Assets/'.$Asset.'/less/'.$ID.'.less', LOG_INFO, 'Developer');
                     F::Log($Command, LOG_INFO, 'Developer');
-                    F::Log(shell_exec($Command), LOG_INFO, 'Developer');
+                    $Call['CSS']['Styles'][$Call['CSS Name']] = shell_exec($Command);
                 }
             }
             else
-                F::Log('LESS *skipped* '.Root.'/Assets/'.$Asset.'/css/'.$ID.'.css', LOG_DEBUG, 'Developer');
+                F::Log('LESS *skipped* '.Root.'/Assets/'.$Asset.'/css/'.$ID.'.css', LOG_INFO, 'Developer');
         }
 
         return $Call;

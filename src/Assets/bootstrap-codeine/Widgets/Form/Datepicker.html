@@ -1,0 +1,44 @@
+<js>:moment/min/moment.min</js>
+<js>:moment/locale/<call>Locale</call></js>
+<js>:eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min</js>
+<css>:eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min</css>
+
+<div class="form-group">
+    <label for="<k>Name</k>"><l><k>Label</k></l>:</label>
+    <div class='input-group date' id='<k>ID</k>'>
+        <input id="<k>ID</k>" name="<k>Name</k>" class="datepicker form-control" size="16" type="text" value="<k>Value</k>" <block>required="<k>Required</k>"</block> />
+        <span class="input-group-addon">
+            <span class="fa fa-calendar">
+            </span>
+        </span>
+    </div>
+</div>
+
+<jsrun>
+    $(function ()
+    {
+        $('#<k>ID</k>').datetimepicker(
+        {
+            format: 'DD.MM.YYYY HH:mm:ss',
+            sideBySide: true,
+            showTodayButton: true,
+            calendarWeeks: true,
+            toolbarPlacement: 'top',
+            keepOpen: true,
+            showClose: true,
+            icons:
+            {
+                time: 'fa fa-clock-o',
+                date: 'fa fa-calendar-o',
+                up: 'fa fa-plus',
+                down: 'fa fa-minus',
+                previous: 'fa fa-arrow-left',
+                next: 'fa fa-arrow-right',
+                today: 'fa fa-calendar',
+                clear: 'fa fa-trash',
+                close: 'fa fa-close'
+            },
+            locale: "<call>Locale</call>"
+        });
+    });
+</jsrun>

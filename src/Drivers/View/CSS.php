@@ -31,7 +31,6 @@
                     'Value' => $Call['Output']
                 ]);
 
-
             if ($Parsed)
             {
 
@@ -50,12 +49,15 @@
                                 'Scope' => 'css'
                             ]);
 
-                        $Call['CSS']['Styles'][$Call['CSS Name']] = F::Run('IO', 'Read',
-                            [
-                                'Storage' => 'CSS',
-                                'Scope'   => $Asset,
-                                'Where'   => $ID
-                            ])[0];
+                        if (isset($Call['CSS']['Styles'][$Call['CSS Name']]))
+                            ;
+                        else
+                            $Call['CSS']['Styles'][$Call['CSS Name']] = F::Run('IO', 'Read',
+                                [
+                                    'Storage' => 'CSS',
+                                    'Scope'   => $Asset,
+                                    'Where'   => $ID
+                                ])[0];
 
                         if ($Call['CSS']['Styles'][$Call['CSS Name']])
                             F::Log('CSS loaded: '.$Call['CSS Name'], LOG_DEBUG);
