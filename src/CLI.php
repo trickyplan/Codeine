@@ -30,6 +30,8 @@
     !defined('Root')? define('Root', getcwd()): false;
 
     F::Log('Root folder: '.Root, LOG_INFO);
+    include Root.'/vendor/autoload.php';
+    
     if (empty($Opts))
         F::Log('Empty CLI parameters', LOG_INFO);
     else

@@ -1,5 +1,6 @@
 <?php
 
+    include Root.'/vendor/autoload.php';
     include 'Codeine/Core.php';
 
     $Call = [];

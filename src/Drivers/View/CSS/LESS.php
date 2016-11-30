@@ -54,6 +54,14 @@
                     F::Log('LESS *processed* '.Root.'/Assets/'.$Asset.'/less/'.$ID.'.less', LOG_INFO, 'Developer');
                     F::Log($Command, LOG_INFO, 'Developer');
                     $Call['CSS']['Styles'][$Call['CSS Name']] = shell_exec($Command);
+                    
+                    F::Run('IO', 'Write',
+                    [
+                        'Storage'   => 'CSS',
+                        'Scope'     => [$Asset, 'css'],
+                        'Where'     => $ID,
+                        'Data'      => $Call['CSS']['Styles'][$Call['CSS Name']]
+                    ]);
                 }
             }
             else

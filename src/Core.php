@@ -87,7 +87,7 @@
                 foreach (self::$_Verbose as $Channel => &$Level)
                 {
                     $Level = $_SERVER['Verbose'];
-                    self::$_Log[$Channel] = new SplFixedArray(1000);
+                    self::$_Log[$Channel] = [];
                 }
 
             if (isset($_REQUEST['Debug']))
@@ -158,11 +158,16 @@
                     echo '<pre>';
                     echo $E['message'];
                     echo self::Stack();
-                    foreach (self::$_Log as $Channel)
-                    {
-                        foreach ($Channel as $Log)
-                            echo implode("\t", $Log);
-                    }
+      
+                    if (PHP_SAPI === 'cli')
+                        ;
+                    else
+                        foreach (self::$_Log as $Channel)
+                        {
+                            foreach ($Channel as $Log)
+                                echo implode("\t", $Log).PHP_EOL;
+                        }
+                        
                     echo '</pre>';
                 }
 
@@ -452,8 +457,6 @@
             return $Result;
         }
 
-
-
         public static function Stack()
         {
             $Output = [];
@@ -600,9 +603,14 @@
                 if (function_exists('xdebug_print_function_stack'))
                     xdebug_print_function_stack();
                 
-                foreach ($Logs as $Channel => $Records)
-                    foreach ($Records as $Log)
-                        echo $Channel."\t".$Log[1]."\t".$Log[2]."\t".PHP_EOL;
+                if (PHP_SAPI == 'cli')
+                    ;
+                else
+                {
+                    foreach ($Logs as $Channel => $Records)
+                        foreach ($Records as $Log)
+                            echo $Channel.implode("\t", $Log).PHP_EOL;
+                }
 
                 echo '</pre>';
                 die();
@@ -643,91 +651,98 @@
                 else
                     $Message = j($Message,
                         JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-
 /*                if ((self::Environment() == 'Development') && (self::$_Perfect === true) && $Verbose < LOG_WARNING)
                     trigger_error($Message);*/
 
                 // $Message = self::$_Service.': '.$Message;
                 $Time = sprintf('%.3F', microtime(true)-Started);
 
-                if (PHP_SAPI === 'cli')
-                {
-                    $Head = "\033[0;90m".$Time."\033[0m"."\t[".$Channel."]\t".self::$_Service.":\t";
-                    
-                    if (($Verbose <= self::$_Verbose[$Channel]) or !self::$_Live)
-                        switch (round($Verbose))
-                        {
-                            case LOG_EMERG:
-                                fwrite(STDERR, $Head."\033[0;31m ".$Message." \033[0m".PHP_EOL);
-                            break;
-                            
-                            case LOG_ALERT:
-                                fwrite(STDERR, $Head."\033[0;31m ".$Message." \033[0m".PHP_EOL);
-                            break;
-
-                            case LOG_CRIT:
-                                fwrite(STDERR, $Head."\033[0;31m ".$Message." \033[0m".PHP_EOL);
-                            break;
-
-                            case LOG_ERR:
-                                fwrite(STDERR, $Head."\033[0;31m ".$Message." \033[0m".PHP_EOL);
-                            break;
-
-                            case LOG_WARNING:
-                                fwrite(STDERR, $Head."\033[0;33m ".$Message." \033[0m".PHP_EOL);
-                            break;
-
-                            case LOG_DEBUG:
-                                if (self::$_Debug)
-                                    fwrite(STDERR, $Head."\033[0;90m ".$Message." \033[0m".PHP_EOL);
-                            break;
-
-                            case LOG_USER:
-                                fwrite(STDERR, $Head."\033[0;96m ".$Message." \033[0m".PHP_EOL);
-                            break;
-
-                            case LOG_INFO:
-                                fwrite(STDERR, $Head."\033[0;37m ".$Message." \033[0m".PHP_EOL);
-                            break;
-
-                            case LOG_NOTICE:
-                                fwrite(STDERR, $Head."\033[0;31m ".$Message." \033[0m".PHP_EOL);
-                            break;
-
-                            default:
-                                fwrite(STDERR, $Head.$Message.PHP_EOL);
-                            break;
-                        }
-                }
+                if (self::$_Stack instanceof SplStack)
+                    $SC = self::$_Stack->count();
                 else
-                {
-                    if ($Verbose < LOG_NOTICE and $AppendStack)
-                        self::$_Log[$Channel][]
-                            = [
+                    $SC = 0; // FIXME?
+                
+                if ($Verbose < LOG_NOTICE and $AppendStack)
+                    self::$_Log[$Channel][]
+                        = [
                             $Verbose,
                             $Time,
                             $Message,
                             self::$_Service.':'.self::$_Method,
-                            self::$_Stack->count(),
+                            $SC,
                             F::Stack()
                         ];
-                    else
-                        self::$_Log[$Channel][]
-                            = [
-                            $Verbose,
-                            $Time,
-                            $Message,
-                            self::$_Service.':'.self::$_Method,
-                            self::$_Stack->count()
-                        ];
-                }
-
+                else
+                    self::$_Log[$Channel][]
+                        = [
+                        $Verbose,
+                        $Time,
+                        $Message,
+                        self::$_Service.':'.self::$_Method,
+                        $SC
+                    ];
                 
+                if (PHP_SAPI === 'cli')
+                    self::CLILog($Time, $Message, $Verbose, $Channel);
             }
 
             return $Message;
         }
 
+        public static function CLILog ($Time, $Message, $Verbose, $Channel)
+        {
+            $Head = "\033[0;90m".$Time."\033[0m"."\t\e[0;36m[".$Channel."]\e[1;37m\t".self::$_Service.":\t";
+            
+            $Message = str_replace(' *'," \033[0;32m", $Message);
+            $Message = str_replace('* ',"\033[1;37m ", $Message);
+            $Message = preg_replace('@^\*@Ssum',"\033[0;32m", $Message);
+            $Message = preg_replace('@\*$@Ssum',"\033[1;37m ", $Message);
+            if (($Verbose <= self::$_Verbose[$Channel]) or !self::$_Live)
+                switch (round($Verbose))
+                {
+                    case LOG_EMERG:
+                        fwrite(STDERR, $Head."\033[0;31m ".$Message." \033[0m".PHP_EOL);
+                    break;
+                    
+                    case LOG_ALERT:
+                        fwrite(STDERR, $Head."\033[0;31m ".$Message." \033[0m".PHP_EOL);
+                    break;
+
+                    case LOG_CRIT:
+                        fwrite(STDERR, $Head."\033[0;31m ".$Message." \033[0m".PHP_EOL);
+                    break;
+
+                    case LOG_ERR:
+                        fwrite(STDERR, $Head."\033[0;31m ".$Message." \033[0m".PHP_EOL);
+                    break;
+
+                    case LOG_WARNING:
+                        fwrite(STDERR, $Head."\033[0;33m ".$Message." \033[0m".PHP_EOL);
+                    break;
+
+                    case LOG_DEBUG:
+                        if (self::$_Debug)
+                            fwrite(STDERR, $Head."\033[0;90m ".$Message." \033[0m".PHP_EOL);
+                    break;
+
+                    case LOG_USER:
+                        fwrite(STDERR, $Head."\033[0;96m ".$Message." \033[0m".PHP_EOL);
+                    break;
+
+                    case LOG_INFO:
+                        fwrite(STDERR, $Head."\033[0;37m ".$Message." \033[0m".PHP_EOL);
+                    break;
+
+                    case LOG_NOTICE:
+                        fwrite(STDERR, $Head."\033[0;31m ".$Message." \033[0m".PHP_EOL);
+                    break;
+
+                    default:
+                        fwrite(STDERR, $Head.$Message.PHP_EOL);
+                    break;
+                }
+        }
+        
         public static function Logs()
         {
             /*
@@ -760,7 +775,7 @@
 
         public static function Dump($File, $Line, $Call)
         {
-            if (PHP_SAPI == 'cli')
+            if (PHP_SAPI === 'cli')
             {
                 echo PHP_EOL.substr($File, strpos($File, 'Drivers')).'@'.$Line.' '.trim(file($File)[$Line-1]).PHP_EOL;
                 echo var_export($Call).PHP_EOL;

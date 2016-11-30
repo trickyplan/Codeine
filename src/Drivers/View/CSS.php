@@ -49,9 +49,9 @@
                                 'Scope' => 'css'
                             ]);
 
-                        if (isset($Call['CSS']['Styles'][$Call['CSS Name']]))
+                        /*if (isset($Call['CSS']['Styles'][$Call['CSS Name']]))
                             ;
-                        else
+                        else*/
                             $Call['CSS']['Styles'][$Call['CSS Name']] = F::Run('IO', 'Read',
                                 [
                                     'Storage' => 'CSS',
