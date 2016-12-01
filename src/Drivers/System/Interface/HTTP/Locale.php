@@ -24,7 +24,12 @@
             setlocale(LC_ALL, $Call['Locales']['PHP'][$Call['Locale']]);
         
         $Call = F::Hook('afterLocaleDetect', $Call);
-                
+        
+        if ($Call['Locale'] == $Call['Default']['Locale'])
+            $Call['Locale URL'] = '/';
+        else
+            $Call['Locale URL'] = '/'.$Call['Locale'];
+        
         return $Call;
     });
     

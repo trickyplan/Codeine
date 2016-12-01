@@ -23,6 +23,9 @@
     else
         !defined('Root')? define('Root', getcwd()): false;
 
+    F::Log('Root folder: '.Root, LOG_INFO);
+    include Root.'/vendor/autoload.php';
+    
     $Call = F::Bootstrap
     ([
         'Paths' => [Root],

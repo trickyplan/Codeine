@@ -16,7 +16,11 @@
         else
         {
             foreach ($Call['Daemons'] as $DaemonName => $Daemon)
+            {
+                $Call['Daemons'][$DaemonName] = F::Merge($Call['Daemon']['Default'], $Call['Daemons'][$DaemonName]);
                 F::Log('Daemon *'.$DaemonName.'* loaded with 1/'.$Daemon['Frequency'].' frequency', LOG_INFO);
+                F::Log('Daemon *'.$DaemonName.'* loaded with '.$Call['Daemons'][$DaemonName]['Start Delay'].' ticks delay', LOG_INFO);
+            }
 
             F::Log(count($Call['Daemons']).' daemons found');
         }
@@ -50,9 +54,9 @@
         {
             foreach ($Call['Signals'] as $SigID => $Hook)
                 if (!pcntl_signal(constant($SigID), $SH))
-                    F::Log('Signal '.$SigID.' not handled', LOG_ERR);
+                    F::Log('Signal *'.$SigID.'* not handled', LOG_ERR);
                 else
-                    F::Log('Signal '.$SigID.' handling', LOG_INFO);
+                    F::Log('Signal *'.$SigID.'* handled', LOG_INFO);
 
             $PIDFile = F::Run(null, 'PIDFile', $Call);
 
@@ -102,15 +106,17 @@
                     else
                     {
                         foreach ($Call['Daemons'] as $DaemonName => $Daemon)
-                            if (($Ticks % $Daemon['Frequency']) == 0)
+                        {
+                            if (($Ticks % $Daemon['Frequency']) == 0 and $Ticks > $Daemon['Start Delay'])
                             {
                                 F::Log($DaemonName.' daemon waked up', LOG_DEBUG);
-
+        
                                 $Result = F::Live($Daemon['Execute'], $Call);
-
+        
                                 if ($Result !== null)
-                                    F::Log($DaemonName.'> '.getmypid().': '.j($Result), LOG_INFO);
+                                    F::Log($DaemonName.'> '.getmypid(), LOG_INFO);
                             }
+                        }
 
                         exit(4);
                     }

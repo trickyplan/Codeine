@@ -1,6 +1,11 @@
 {
     "Daemon":
     {
+        "Default":
+        {
+            "Frequency": 60,
+            "Start Delay": 0
+        },
         "Childs":
         {
             "Max":

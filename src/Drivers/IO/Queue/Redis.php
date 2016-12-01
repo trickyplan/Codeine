@@ -14,7 +14,7 @@
 
     setFn('Read', function ($Call)
     {
-        F::Log('Pull: '.$Call['Scope'].$Call['Queue'], LOG_INFO, 'Administrator');
+        F::Log('Pull from *'.$Call['Scope'].$Call['Queue'].'* queue', LOG_INFO, 'Administrator');
         if (($Result = $Call['Link']->lPop($Call['Scope'].$Call['Queue'])) !== false)
             return [jd($Result, true)];
         else
@@ -23,7 +23,7 @@
 
     setFn('Write', function ($Call)
     {
-        F::Log('Push: '.$Call['Scope'].$Call['Queue'], LOG_INFO, 'Administrator');
+        F::Log('Push to *'.$Call['Scope'].$Call['Queue'].'* queue', LOG_INFO, 'Administrator');
         return $Call['Link']->rPush($Call['Scope'].$Call['Queue'], j($Call['Data']));
     });
 

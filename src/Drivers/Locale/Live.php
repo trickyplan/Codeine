@@ -38,7 +38,7 @@
                         [
                               'Storage' => 'Locale',
                               'Scope'   => $Asset.'/Locale/'.$Call['Locale'],
-                              'Where'   => ['ID' => $ID],
+                              'Where'   => $ID,
                               'Data' => $Tokens
                         ]))
 

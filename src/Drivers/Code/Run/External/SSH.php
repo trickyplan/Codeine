@@ -9,20 +9,30 @@
 
     setFn('Open', function ($Call)
     {
-        $Call['SSH']['Server']['Link'] = ssh2_connect($Call['SSH']['Server']['Host'], $Call['SSH']['Server']['Port']);
-        if ($Call['SSH']['Server']['Link'] === false)
-        {
-            F::Log('SSH connect to '.$Call['SSH']['Server']['Host'].' '.$Call['SSH']['Server']['Port'].' failed', LOG_ERR);
-            $Result['Errors'][] = 'SSH.Connect.Failed';
-        }
+        $SSHLinkID = 'SSH:'.$Call['SSH']['Server']['Host'].$Call['SSH']['Server']['Port'];
+        
+        if ($Call['SSH']['Server']['Link'] = F::Get($SSHLinkID))
+            ;
         else
         {
-            F::Log('SSH connected to '.$Call['SSH']['Server']['Host'].' '.$Call['SSH']['Server']['Port'], LOG_INFO);
+            $Call['SSH']['Server']['Link'] = ssh2_connect($Call['SSH']['Server']['Host'], $Call['SSH']['Server']['Port']);
             
-            if ($Call['SSH']['Authentication'] == 'KeyPair')
-                $Call = F::Apply(null, 'Authenticate.KeyPair', $Call);
+            if ($Call['SSH']['Server']['Link'] === false)
+            {
+                F::Log('SSH connect to *'.$Call['SSH']['Server']['Host'].':'.$Call['SSH']['Server']['Port'].'* failed', LOG_ERR);
+                $Result['Errors'][] = 'SSH.Connect.Failed';
+            }
             else
-                $Call = F::Apply(null, 'Authenticate.Password', $Call);
+            {
+                F::Log('SSH connected to *'.$Call['SSH']['Server']['Host'].':'.$Call['SSH']['Server']['Port'].'*', LOG_INFO);
+                
+                if ($Call['SSH']['Authentication'] == 'KeyPair')
+                    $Call = F::Apply(null, 'Authenticate.KeyPair', $Call);
+                else
+                    $Call = F::Apply(null, 'Authenticate.Password', $Call);
+            }
+            
+            F::Set($SSHLinkID, $Call['SSH']['Server']['Link']);
         }
 
         return $Call;
@@ -64,6 +74,7 @@
     
     setFn('Authenticate.KeyPair', function ($Call)
     {
+        F::Log('Try to authenticate via private keyfile *'.Root.$Call['SSH']['KeyPair']['Private'].'*', LOG_INFO);
         if (ssh2_auth_pubkey_file(  $Call['SSH']['Server']['Link'],
                                     $Call['SSH']['User'],
                                     Root.$Call['SSH']['KeyPair']['Public'],
