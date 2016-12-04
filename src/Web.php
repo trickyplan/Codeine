@@ -1,6 +1,8 @@
 <?php
 
-    include Root.'/vendor/autoload.php';
+    if (file_exists(Root.'/vendor/autoload.php'))
+        include Root.'/vendor/autoload.php';
+    
     include 'Codeine/Core.php';
 
     $Call = [];
