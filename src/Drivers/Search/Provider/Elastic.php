@@ -6,11 +6,10 @@
      * @package Codeine
      * @version 8.x
      */
-    require Root.'/vendor/autoload.php';
 
     setFn('Open', function ($Call)
     {
-        $Call['Link'] = new Elasticsearch\Client($Call['Elastic Search']['Options']);
+        $Call['Link'] = Elasticsearch\ClientBuilder::create()->build();
         return $Call;
     });
 
