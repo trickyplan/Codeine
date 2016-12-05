@@ -12,9 +12,10 @@
         if (isset($Call['Data']))
         {
             foreach ($Call['Nodes'] as $Name => $Node)
-                foreach ($Call['Data'] as &$Data)
-                if (empty(F::Dot($Data, $Name)))
-                    $Data = F::Dot($Data, $Name, null);
+                if (is_array($Call['Data']))
+                    foreach ($Call['Data'] as &$Data)
+                        if (empty(F::Dot($Data, $Name)))
+                            $Data = F::Dot($Data, $Name, null);
         }
 
         return $Call;

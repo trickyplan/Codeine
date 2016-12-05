@@ -502,12 +502,14 @@
                         if (isset($Call['Live Override']['Method']))
                             $Variable['Method'] = $Call['Live Override']['Method'];
 
+                        F::Start ('Run in Live');
                         $Result = self::Run($Variable['Service'], $Variable['Method'],
                             $Call, isset($Variable['Call'])? self::Variable($Variable['Call'], $Call): []);
+                        F::Stop ('Run in Live');
                     }
                     else
                     {
-                        if (is_array($Variable))
+                        if ($Variable === (array) $Variable)
                             foreach ($Variable as $Key => &$cVariable)
                                 $Variable = self::Dot($Variable, $Key, self::Live($cVariable, $Call));
                         else
@@ -830,13 +832,14 @@
         public static function Merge($Array, $Mixin)
         {
             F::Start('Merge');
-            if (is_array($Mixin)) // Если второй аргумент — массив
+            
+            if ($Mixin === (array) $Mixin) // Если второй аргумент — массив
             {
                 if ($Array === $Mixin)
                     ;
                 else // Если аргументы не равны
                 {
-                    if (is_array($Array)) // Если первый аргумент массив
+                    if ($Array === (array) $Array) // Если первый аргумент массив
                     {
                         foreach ($Mixin as $MixinKey => $MixinValue) // Проходим по второму
                         {
@@ -848,7 +851,7 @@
                                 // Иначе, обычная замена
                                 if (isset($Array[$MixinKey])) // Если ключ из второго массива присутствует в первом
                                 {
-                                    if (is_array($MixinValue)) // Если значение из второго массива — массив
+                                    if ($MixinValue === (array) $MixinValue) // Если значение из второго массива — массив
                                     {
                                         if ($Array[$MixinKey] === $Mixin[$MixinKey]) // Если значения в первом и втором массивах совпадают, ничего не делаем
                                             ;
@@ -866,7 +869,6 @@
                                     $Array[$MixinKey] = $MixinValue; // Иначе, просто копируем значение
                             }
                         }
-
                     }
                     else
                         $Array = $Mixin; // Если первый аргумент не массив, то мерджить смысла нет.
@@ -985,17 +987,16 @@
             {
                 $Value = func_get_arg(2);
 
-                if (is_array($Array))
+                if ($Array === (array) $Array)
                 {
-                    if ($Key === (int) $Key)
-                        $Key = (int) $Key;
-
                     if (strpos($Key, '.') !== false)
                     {
                         $Keys = explode('.', $Key);
                         $Key = array_shift($Keys);
 
-                        if (!isset($Array[$Key]))
+                        if (isset($Array[$Key]))
+                            ;
+                        else
                             $Array[$Key] = [];
 
                         $Array[$Key] = self::Dot($Array[$Key], implode('.', $Keys), $Value);

@@ -21,6 +21,7 @@
         "Connect Timeout": 7,
         "Overall Timeout": 30,
         "Cookie Directory": "/tmp/codeine",
+        "Cookie": "",
         "Follow": true,
         "Password": "",
         "Return Header": false,
