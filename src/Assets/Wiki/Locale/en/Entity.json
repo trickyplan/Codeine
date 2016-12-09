@@ -1,0 +1,14 @@
+{
+    "Body": "Body",
+    "Created": "Created",
+    "Modified": "Modified",
+    "Parent": "Parent",
+    "SEO": {
+        "Description": "SEO: Description",
+        "Title": "SEO: Title",
+        "Keywords": "SEO: Keywords",
+        "Slug": "Slug"
+    },
+    "Slug": "Slug",
+    "Title": "Title"
+}

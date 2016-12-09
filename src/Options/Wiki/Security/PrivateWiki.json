@@ -1,7 +1,7 @@
 {
     "Rules":
     {
-        "List wiki for all":
+        "List wiki for logged":
         {
             "Decision": true,
             "Weight": 50,
@@ -12,10 +12,17 @@
                 "Call":
                 {
                     "Entity": "Wiki"
+                },
+                "Session":
+                {
+                    "User":
+                    {
+                        "ID": "*"
+                    }
                 }
             }
         },
-        "Show wiki for all":
+        "Show wiki for logged":
         {
             "Decision": true,
             "Weight": 50,
@@ -26,10 +33,17 @@
                 "Call":
                 {
                     "Entity": "Wiki"
+                },
+                "Session":
+                {
+                    "User":
+                    {
+                        "ID": "*"
+                    }
                 }
             }
         },
-        "Create/update wiki for registered":
+        "Create/update wiki for logged":
         {
             "Decision": true,
             "Weight": 50,
@@ -40,6 +54,27 @@
                 "Call":
                 {
                     "Entity": "Wiki"
+                },
+                "Session":
+                {
+                    "User":
+                    {
+                        "ID": "*"
+                    }
+                }
+            }
+        },
+        "Search wiki for logged":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Search",
+                "Method": "Query",
+                "Call":
+                {
+                    "Provider": "Wiki"
                 },
                 "Session":
                 {

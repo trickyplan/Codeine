@@ -1,9 +1,29 @@
 {
     "Regex":
     {
+        "Wiki TOC":
+        {
+            "Match": "^/wiki$",
+            "Weight": 100,
+            "Service": "Entity.List",
+            "Method": "Do",
+            "Call":
+            {
+                "Entity": "Wiki",
+                "Template": "Tree",
+                "Where":
+                {
+                    "Level": "0"
+                },
+                "Custom Templates":
+                {
+                    "List": "Tree"
+                }
+            }
+        },
         "List Wiki":
         {
-            "Match": "^/wiki/all$",
+            "Match": "^/wiki/list",
             "Weight": 100,
             "Service": "Entity.List",
             "Method": "Do",
@@ -23,7 +43,11 @@
                 "Entity": "Wiki",
                 "Where":
                 {
-                    "Slug": "$1"
+                    "SEO.Slug": "$1"
+                },
+                "Data":
+                {
+                    "SEO.Slug": "$1"
                 }
             }
         },
@@ -38,7 +62,7 @@
                 "Entity": "Wiki",
                 "Where":
                 {
-                    "Slug": "$1"
+                    "SEO.Slug": "$1"
                 }
             }
         }

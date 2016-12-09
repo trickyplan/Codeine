@@ -1,0 +1,30 @@
+<li>
+    <a data-toggle="collapse" href="#subTree_<k>ID</k>" aria-expanded="false" aria-controls="subTree_<k>ID</k>"><span class="fa fa-folder fa-fw"></span></a>
+    <a href="/wiki/<k>SEO.Slug</k>"><k>Title</k></a>
+    <ul class="tree" id="subTree_<k>ID</k>">
+        <exec type="JSON">
+            {
+                "Service": "Entity.List",
+                "Method": "Do",
+                "Call":
+                {
+                    "Entity": "Wiki",
+                    "Where":
+                    {
+                        "Parent": "<k>ID</k>",
+                        "ID":
+                        {
+                            "$ne": "<k>ID</k>"
+                        }
+                    },
+                    "Template": "Tree",
+                    "No Page": true,
+                    "Custom Templates":
+                    {
+                        "Empty": "Null"
+                    }
+                }
+            }
+        </exec>
+    </ul>
+</li>

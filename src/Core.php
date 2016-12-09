@@ -693,7 +693,7 @@
 
         public static function CLILog ($Time, $Message, $Verbose, $Channel)
         {
-            $Head = "\033[0;90m".$Time."\033[0m"."\t\e[0;36m[".$Channel."]\e[1;37m\t".self::$_Service.":\t";
+            $Head = '['.getmypid()."] \033[0;90m".$Time."\033[0m"."\t\e[0;36m[".$Channel."]\e[1;37m\t".self::$_Service.":\t";
             
             $Message = str_replace(' *'," \033[0;32m", $Message);
             $Message = str_replace('* ',"\033[1;37m ", $Message);

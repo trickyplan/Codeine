@@ -1,12 +1,53 @@
 <subtitle><k>SEO.Title,Title</k></subtitle>
-<breadcrumb href="/<k>Slug</k>"><header/></breadcrumb>
+<if value="<k>Level</k>" neq="0">
+    <breadcrumb href="/wiki/<far>Wiki:<k>Parent</k>:Slug</far>"><far>Wiki:<k>Parent</k>:Title</far></breadcrumb>
+</if>
+<breadcrumb href="/wiki/<k>Slug</k>"><header/></breadcrumb>
 <description><k>SEO.Description</k></description>
 <access Service="Control.Panel">
     <layout>Control.Pills:Top</layout>
 </access>
+<div class="list-group">
+    <if value="<k>Level</k>" neq="0">
+        <if2 value="<k>ID</k>" neq="<k>Parent</k>">
+            <div class="list-group">
+                <entity template="Up">Wiki:<k>Parent</k></entity>
+            </div>
+        </if2>
+    </if>
+</div>
 <h2 class="page-header"><k>Title</k>
-<a class="btn btn-default btn-sm pull-right" href="/wiki/edit/<k>Slug</k>"><l>Wiki.Update:Title</l></a>
+    <a class="btn btn-default btn-sm pull-right" href="/wiki/edit/<k>SEO.Slug</k>"><l>Wiki.Update:Title</l></a>
 </h2>
-<div class="readable">
-    <k>Body</k>
+<div class="panel panel-default">
+    <div class="panel-body readable">
+        <k>Body</k>
+    </div>
+    <div class="panel-footer">
+        <l>Wiki.Entity:Created</l>: <datetime><k>Created</k></datetime>,
+        <l>Wiki.Entity:Modified</l>: <datetime><k>Modified</k></datetime>
+    </div>
+</div>
+
+<div class="list-group">
+    <exec type="JSON">
+        {
+            "Service": "Entity.List",
+            "Method": "Do",
+            "Call":
+            {
+                "Entity": "Wiki",
+                "Where":
+                {
+                    "Parent": "<k>ID</k>",
+                    "ID":
+                    {
+                        "$ne": "<k>ID</k>"
+                    }
+                },
+                "Template": "Down",
+                "No Page": true
+            }
+        }
+    </exec>
 </div>

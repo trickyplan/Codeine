@@ -1,0 +1,20 @@
+{
+    "Search":
+    {
+        "Provider":
+        {
+            "Wiki":
+            {
+                "Driver": "Search.Provider.Elastic",
+                "Index": "wiki",
+                "Scope": "Wiki",
+                "Type": "wiki",
+                "EPP": 25,
+                "Search Template": "Search",
+                "Search fields": ["Title", "Tags", "Body"],
+                "Show fields": ["Title", "ID", "SURL", "Tags", "Body"],
+                "Highlight": "Title"
+            }
+        }
+    }
+}

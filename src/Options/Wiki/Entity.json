@@ -1,19 +1,65 @@
 {
-  "Storage": "Primary",
-  "Mixins": [
-    "Mixins.ID.Sequence",
-    "Mixins.Titled",
-    "Mixins.UGC",
-    "Mixins.SEO",
-    "Mixins.Text",
-    "Mixins.CRUDSlug",
-    "Mixins.Versionable"
-  ],
-  "Nodes":
-  {
-      "Slug":
-      {
-        "Widgets": null
-      }
-  }
+    "Slug":
+    {
+        "Entity": "wiki"
+    },
+    "Storage": "Primary",
+    "Mixins":
+    [
+        "Mixins.ID.GUID",
+        "Mixins.Titled",
+        "Mixins.UGC",
+        "Mixins.SEO2",
+        "Mixins.Text",
+        "Mixins.CRUDSlug2",
+        "Mixins.Versionable",
+        "Mixins.Searchable"
+    ],
+    "Nodes":
+    {
+        "Level":
+        {
+            "Type": "Literal.String",
+            "Visible":
+            {
+                "JSON": true
+            },
+            "Hooks":
+            {
+                "beforeEntityCreateOrUpdate":
+                {
+                    "Service": "Entity.Nodes.Level",
+                    "Method": "Do"
+                }
+            }
+        },
+        "Parent":
+        {
+            "Type": "Entity",
+            "Override Entity": "Wiki",
+            "Nullable": true,
+            "Visible":
+            {
+                "JSON": true
+            },
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type":            "Form.Typeahead",
+                    "Typeahead":
+                    {
+                        "Remote": "/search/json/Wiki/"
+                    }
+                }
+            }
+        },
+        "SEO.Slug":
+        {
+            "Widgets":
+            {
+                "Tag": "Control"
+            }
+        }
+    }
 }
