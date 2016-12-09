@@ -44,6 +44,21 @@
                 "Where": "$1"
             }
         },
+        "Create wiki with parent":
+        {
+            "Match": "/wiki/create/(.+)",
+            "Weight": 100,
+            "Service": "Entity.Create",
+            "Method": "Do",
+            "Call":
+            {
+                "Entity": "Wiki",
+                "Data":
+                {
+                    "Parent": "$1"
+                }
+            }
+        },
         "Create wiki":
         {
             "Match": "/wiki/create",

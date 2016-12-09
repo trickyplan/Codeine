@@ -43,27 +43,22 @@
                 }
             }
         },
-        "Create wiki for logged":
-        {
+        "Create wiki for logged": {
             "Decision": true,
-            "Weight": 50,
-            "Run":
-            {
+            "Weight":   50,
+            "Run":      {
                 "Service": "Entity.Create",
-                "Method": "Do",
-                "Call":
-                {
+                "Method":  "Do",
+                "Call":    {
                     "Entity": "Wiki"
                 },
-                "Session":
-                {
-                    "User":
-                    {
+                "Session": {
+                    "User": {
                         "ID": "*"
                     }
                 }
             }
-        ,
+        },
         "Update wiki for logged":
         {
             "Decision": true,
