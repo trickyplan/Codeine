@@ -32,23 +32,27 @@
                 "Entity": "Wiki"
             }
         },
-        "Create or update wiki":
+        "Update wiki":
         {
-            "Match": "/wiki/edit/(.*)",
+            "Match": "/wiki/update/(.*)",
             "Weight": 100,
-            "Service": "Entity.UpdateOrCreate",
+            "Service": "Entity.Update",
             "Method": "Do",
             "Call":
             {
                 "Entity": "Wiki",
-                "Where":
-                {
-                    "SEO.Slug": "$1"
-                },
-                "Data":
-                {
-                    "SEO.Slug": "$1"
-                }
+                "Where": "$1"
+            }
+        },
+        "Create wiki":
+        {
+            "Match": "/wiki/create",
+            "Weight": 100,
+            "Service": "Entity.Create",
+            "Method": "Do",
+            "Call":
+            {
+                "Entity": "Wiki"
             }
         },
         "Show Wiki":
