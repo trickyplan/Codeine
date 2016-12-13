@@ -23,7 +23,7 @@
         },
         "List Wiki":
         {
-            "Match": "^/wiki/list",
+            "Match": "^/wiki/list$",
             "Weight": 100,
             "Service": "Entity.List",
             "Method": "Do",
