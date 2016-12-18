@@ -21,16 +21,14 @@
 
             $Model = F::loadOptions($Call['Entity'].'.Entity'); // FIX Validate
 
-            if (!empty($Model))
+            if (empty($Model))
+                F::Log('Model for '.$Call['Entity'].' not found', LOG_CRIT);
+            else
             {
                 if (!isset($Model['EV']))
                     $Model['EV'] = 1;
 
                 $Call = F::Merge($Call, $Model);
-            }
-            else
-            {
-                F::Log('Model for '.$Call['Entity'].' not found', LOG_CRIT);
             }
 
         if (isset($Call['Nodes']))

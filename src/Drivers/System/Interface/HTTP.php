@@ -109,6 +109,7 @@
                     $Call['HTTP']['Headers']['HTTP/1.1'] = ' 302 Moved Temporarily';
 
                 $Call['HTTP']['Headers']['Location:'] = $URL;
+                $Call['HTTP']['Headers']['X-Redirected-By:'] = 'Codeine';
                 $Call['HTTP']['Headers']['Cache-Control:'] = 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0';
 
                 F::Log('Redirected to '.$URL, LOG_INFO);
@@ -141,6 +142,7 @@
         else
         {
             $Call['HTTP']['Headers']['Location:'] = $URL;
+            $Call['HTTP']['Headers']['X-Redirected-By:'] = 'Codeine';
             $Call['HTTP']['Headers']['Cache-Control:'] = 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0';
             F::Log('Redirected to '.$URL, LOG_INFO);
         }
