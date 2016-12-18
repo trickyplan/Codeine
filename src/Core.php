@@ -263,13 +263,17 @@
                             $Current = [];
                         }
 
+                        $MixinCall = [];
+                        
                         if (isset($Current['Mixins']) && is_array($Current['Mixins']))
+                        {
                             foreach($Current['Mixins'] as $Mixin)
                             {
                                 self::Log('Options *'.$Filename.'* mixed with *'.$Mixin.'*', LOG_DEBUG);
-                                $Current = self::Merge(self::loadOptions($Mixin), $Current);
+                                $MixinCall = self::Merge(self::loadOptions($Mixin), $MixinCall);
                             }
-
+                            $Current = self::Merge($Current, $MixinCall);
+                        }
                         $Options = self::Merge($Options, $Current);
                     }
                 }
@@ -364,7 +368,10 @@
 
             $FnOptions = self::loadOptions();
 
-            $Call = self::Merge($FnOptions, $Call);
+            if (empty($FnOptions))
+                ;
+            else
+                $Call = self::Merge($FnOptions, $Call);
 
             if ((null === self::getFn(self::$_Method)) && !self::_loadSource(self::$_Service))
             {
@@ -473,7 +480,8 @@
         public static function Live($Variable, $Call = [])
         {
             F::Start('Live');
-
+            F::Counter('Live');
+            
             if ($Variable instanceof Closure)
                 $Result = $Variable($Call);
             else
@@ -484,13 +492,6 @@
                 {
                     if (self::isCall($Variable))
                     {
-                        if (($sz = func_num_args()) > 2)
-                        {
-                            for($ic = 2; $ic<$sz; $ic++)
-                                if (is_array($Argument = func_get_arg ($ic)))
-                                    $Call = self::Merge($Call, $Argument);
-                        }
-
                         if (isset($Variable['Method']))
                             ;
                         else
@@ -502,10 +503,12 @@
                         if (isset($Call['Live Override']['Method']))
                             $Variable['Method'] = $Call['Live Override']['Method'];
 
-                        F::Start ('Run in Live');
+                        F::Start ('LiveRun');
+                        F::Counter('LiveRun');
+                        
                         $Result = self::Run($Variable['Service'], $Variable['Method'],
                             $Call, isset($Variable['Call'])? self::Variable($Variable['Call'], $Call): []);
-                        F::Stop ('Run in Live');
+                        F::Stop ('LiveRun');
                     }
                     else
                     {
@@ -526,7 +529,7 @@
 
         public static function Variable ($Variable, $Call)
         {
-            if (is_array($Variable))
+            if ($Variable === (array) $Variable)
                 foreach ($Variable as &$cVariable)
                     $cVariable = self::Variable($cVariable, $Call);
             else
@@ -832,48 +835,54 @@
         public static function Merge($Array, $Mixin)
         {
             F::Start('Merge');
+            F::Counter('Merge');
             
-            if ($Mixin === (array) $Mixin) // Если второй аргумент — массив
+            if ($Array === $Mixin)
+                ;
+            else
             {
-                if ($Array === $Mixin)
-                    ;
-                else // Если аргументы не равны
+                if ($Mixin === (array) $Mixin) // Если второй аргумент — массив
                 {
-                    if ($Array === (array) $Array) // Если первый аргумент массив
                     {
-                        foreach ($Mixin as $MixinKey => $MixinValue) // Проходим по второму
+                        if ($Array === (array) $Array) // Если первый аргумент массив
                         {
-                            if ($MixinKey[strlen($MixinKey)-1]  === '!') // Если у нас ключ кончается на !
-                                $Array[rtrim($MixinKey, '!')] = $MixinValue;
-                            // Оверрайд
-                            else
+                            //$Keys  = array_keys($Mixin);
+                            //$SizeOfKeys = sizeOf($Keys);
+                            //for ($IX = 0; $IX<$SizeOfKeys; $IX++)
+                            foreach ($Mixin as $MixinKey => $MixinValue) // Проходим по второму
                             {
-                                // Иначе, обычная замена
-                                if (isset($Array[$MixinKey])) // Если ключ из второго массива присутствует в первом
+                                // $MixinKey = $Keys[$IX];
+                                // $MixinValue = $Mixin[$MixinKey];
+                                
+                                if ($MixinKey[strlen($MixinKey)-1]  === '!') // Если у нас ключ кончается на !
+                                    $Array[rtrim($MixinKey, '!')] = $MixinValue;
+                                // Оверрайд
+                                else
                                 {
-                                    if ($MixinValue === (array) $MixinValue) // Если значение из второго массива — массив
+                                    // Иначе, обычная замена
+                                    if (isset($Array[$MixinKey])) // Если ключ из второго массива присутствует в первом
                                     {
-                                        if ($Array[$MixinKey] === $Mixin[$MixinKey]) // Если значения в первом и втором массивах совпадают, ничего не делаем
+                                        if ($Array[$MixinKey] === $MixinValue)
                                             ;
                                         else
                                         {
-                                            $Array[$MixinKey] = self::Merge($Array[$MixinKey], $Mixin[$MixinKey]);
-                                        } // Рекурсируем.
+                                            if ($MixinValue === (array) $MixinValue) // Если значение из второго массива — массив
+                                                $Array[$MixinKey] = self::Merge($Array[$MixinKey], $MixinValue);
+                                            else
+                                                $Array[$MixinKey] = $MixinValue; // Иначе, просто копируем значение
+                                        }
                                     }
                                     else
                                         $Array[$MixinKey] = $MixinValue; // Иначе, просто копируем значение
-
-                                    // Строчки повторены, для читаемости
                                 }
-                                else
-                                    $Array[$MixinKey] = $MixinValue; // Иначе, просто копируем значение
                             }
                         }
+                        else
+                            $Array = $Mixin; // Если первый аргумент не массив, то мерджить смысла нет.
                     }
-                    else
-                        $Array = $Mixin; // Если первый аргумент не массив, то мерджить смысла нет.
                 }
             }
+            
             F::Stop('Merge');
             return $Array;
         }
