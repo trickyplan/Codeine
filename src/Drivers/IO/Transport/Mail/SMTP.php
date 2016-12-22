@@ -56,7 +56,7 @@
         $Call['Headers']['Subject'] = $Call['Where']['ID'];
         
         if (F::Environment() != 'Production')
-            $Call['Headers']['Subject'] .= ' (from '.gethostname().')';
+            $Call['Headers']['Subject'] .= ' ['.gethostname().']';
         
         $mime = new Mail_mime();
 
