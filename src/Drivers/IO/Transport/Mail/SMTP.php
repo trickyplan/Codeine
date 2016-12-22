@@ -49,7 +49,10 @@
                 $Screen = 'Codeine';
         }
         
-        $Screen.= ' <'.$Call['Username'].'>';
+        if (preg_match('/<(.+)>/', $Screen))
+            ;
+        else
+            $Screen.= ' <'.$Call['Username'].'>';
         
         $Call['Headers']['From'] = $Screen;
         $Call['Headers']['To'] = $Call['Scope'];
