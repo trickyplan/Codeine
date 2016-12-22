@@ -12,9 +12,12 @@
                     "Call":
                     {
                         "Scope": "bergstein@trickyplan.com",
-                        "ID": "Test Message",
+                        "Where":
+                        {
+                            "ID": "Test Message"
+                        },
                         "Data": "From Codeine PEAR/SMTP",
-                        "From": "codeine"
+                        "From": "Codeine Test Engine"
                     }
                 },
                 "Assert":

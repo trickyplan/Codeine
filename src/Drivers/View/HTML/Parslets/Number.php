@@ -19,26 +19,28 @@
             $Match = trim($Match);
 
             if (is_scalar($Match) && isset($Format) && !empty($Match))
+            {
+                $Match = strtr($Match, ',', '.');
                 switch($Format)
                 {
                     case 'French':
                         $Outer =  F::Run('Formats.Number.French', 'Do', ['Value' => $Match, 'Digits' => $Digits]);
-                    break;
-
+                        break;
+        
                     case 'English':
-                        $Match = strtr($Match, ',', '.');
                         $Outer = number_format($Match, $Digits);
-                    break;
-
+                        break;
+        
                     case 'Sprintf':
                         $Sprintf = isset($Root->attributes()->sprintf)? (string) $Root->attributes()->sprintf: '%d';
                         $Outer = F::Run('Formats.Number.Sprintf', 'Do', ['Value' => $Match, 'Format' => $Sprintf]);
-                    break;
-
+                        break;
+        
                     default:
                         $Outer = sprintf($Format, $Match);
-                    break;
+                        break;
                 }
+            }
             else
                 $Outer = $Match;
 

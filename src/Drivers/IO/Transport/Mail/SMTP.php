@@ -41,15 +41,23 @@
 
         if (isset($Call['From']))
             $Screen = $Call['From'];
-        elseif ( isset($Call['Project']['Title']))
-            $Screen = $Call['Project']['Title'].' <'.$Call['Username'].'>';
         else
-            $Screen = 'Codeine <'.$Call['Username'].'>';
-
+        {
+            if (isset($Call['Project']['Title']))
+                $Screen = $Call['Project']['Title'].' <'.$Call['Username'].'>';
+            else
+                $Screen = 'Codeine';
+        }
+        
+        $Screen.= ' <'.$Call['Username'].'>';
+        
         $Call['Headers']['From'] = $Screen;
         $Call['Headers']['To'] = $Call['Scope'];
         $Call['Headers']['Subject'] = $Call['Where']['ID'];
-
+        
+        if (F::Environment() != 'Production')
+            $Call['Headers']['Subject'] .= ' (from '.gethostname().')';
+        
         $mime = new Mail_mime();
 
         // Setting the body of the email
