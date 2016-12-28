@@ -1,61 +1,53 @@
- <access Service="Control.Panel">
-        <div id="devpanel" class="alert alert-info" style="display: none; width: 50%; position: fixed; top: 15%; left: 25%; z-index: 99;">
-            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-            <h4>Developers</h4>
-            <div><strong>URI:</strong></div>
-            <call>HTTP.Proto</call><call>HTTP.Host</call><call>HTTP.URI</call>
-            <div><strong>Environment:</strong></div>
-            <call>Environment</call>
-            <div><strong>Project Version</strong></div>
-            <call>Version.Project.Major</call>.<call>Version.Project.Minor</call>
-            <div><strong>Codeine Version</strong></div>
-            <call>Version.Codeine.Major</call><call>Version.Codeine.Minor</call>
-            <div><strong>Server Time</strong></div>
-            <div><datetime format="d.m.Y H:i:s T"></datetime></div>
-            <div><strong>Heat time</strong></div>
-            <timer>Preheat</timer> msec.
-            <div><strong>Payload time</strong></div>
-            <timer>Payload</timer> msec.
-            <div><strong>Cooldown time</strong></div>
-            <timer>Cooldown</timer> msec.
-            <div><strong>IO</strong></div>
-            <timer>IO</timer> msec.
-            <div><strong>Rendering</strong></div>
-            <timer>View</timer> msec.
-            <div><strong>From &alpha; to &omega;</strong></div>
-            <div id="overall-profiling" style="display: none;"><call>Started</call></div>
-            <div><strong>Browser</strong></div>
-            <div>
-                <call>HTTP.User Agent</call>
-            </div>
-            <div><strong>IP</strong></div>
-            <div>
-                <call>HTTP.IP</call>
-            </div>
-            <block>
-                <div><strong>User</strong></div>
-                <div>
-                    <call>Session.User.ID</call>
-                </div>
-            </block>
-            <hr/>
-            <environment neq="Production">
-                    <div><a class="btn btn-xs btn-block btn-primary" href="http://<call>Project.Hosts.Production</call><call>HTTP.URI</call>">Боевой сервер</a></div>
-            </environment>
-            <environment neq="Staging">
-                    <div><a class="btn btn-xs btn-block btn-success" href="http://<call>Project.Hosts.Staging</call><call>HTTP.URI</call>">Тестовый сервер</a></div>
-            </environment>
-            <environment neq="Development">
-                    <div><a class="btn btn-xs btn-block btn-danger" href="http://<call>Project.Hosts.Development</call><call>HTTP.URI</call>">Локальный сервер</a></div>
-            </environment>
+<environment neq="Production">
+    <div id="devpanel" class="alert alert-info" style="display: none; width: 50%; position: fixed; top: 15%; left: 25%; z-index: 99;">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4>Developers</h4>
+        <div><strong>URI:</strong></div>
+        <call>HTTP.Proto</call><call>HTTP.Host</call><call>HTTP.URI</call>
+        <div><strong>Environment:</strong></div>
+        <call>Environment</call>
+        <div><strong>Project Version</strong></div>
+        <call>Version.Project.Major</call>.<call>Version.Project.Minor</call>
+        <div><strong>Codeine Version</strong></div>
+        <call>Version.Codeine.Major</call><call>Version.Codeine.Minor</call>
+        <div><strong>Server Time</strong></div>
+        <div><datetime format="d.m.Y H:i:s T"></datetime></div>
+        <div><strong>Heat time</strong></div>
+        <timer>Preheat</timer> msec.
+        <div><strong>Payload time</strong></div>
+        <timer>Payload</timer> msec.
+        <div><strong>Cooldown time</strong></div>
+        <timer>Cooldown</timer> msec.
+        <div><strong>IO</strong></div>
+        <timer>IO</timer> msec.
+        <div><strong>Rendering</strong></div>
+        <timer>View</timer> msec.
+        <div><strong>From &alpha; to &omega;</strong></div>
+        <div id="overall-profiling" style="display: none;"><call>Started</call></div>
+        <div><strong>Browser</strong></div>
+        <div>
+        <call>HTTP.UserAgent</call>
         </div>
-         <jsrun>
-            d = new Date();
-            var time = d.getTime()-parseFloat($('#overall-profiling').html())*1000;
-            $('#overall-profiling').html(
-                time.toFixed(0) + ' msec.'
-            ).show();
-
-            $(document).bind('keydown', 'ctrl+0', function() { $('#devpanel').toggle()} );
-        </jsrun>
-</access>
+        <div><strong>IP</strong></div>
+        <div>
+        <call>HTTP.IP</call>
+        </div>
+        <block>
+        <div><strong>User</strong></div>
+        <div>
+            <call>Session.User.ID</call>
+        </div>
+        </block>
+        <hr/>
+        <environment neq="Production">
+            <div><a class="btn btn-xs btn-block btn-primary" href="http://<call>Project.Hosts.Production</call><call>HTTP.URI</call>">Боевой сервер</a></div>
+        </environment>
+        <environment neq="Staging">
+            <div><a class="btn btn-xs btn-block btn-success" href="http://<call>Project.Hosts.Staging</call><call>HTTP.URI</call>">Тестовый сервер</a></div>
+        </environment>
+        <environment neq="Development">
+            <div><a class="btn btn-xs btn-block btn-danger" href="http://<call>Project.Hosts.Development</call><call>HTTP.URI</call>">Локальный сервер</a></div>
+        </environment>
+        </div>
+<jsrun>d = new Date();var time = d.getTime()-parseFloat($('#overall-profiling').html())*1000;$('#overall-profiling').html(time.toFixed(0) + ' msec.').show(); $(document).bind('keydown', 'ctrl+0', function() { $('#devpanel').toggle()} );</jsrun>
+</environment>

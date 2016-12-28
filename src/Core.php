@@ -595,30 +595,33 @@
         public static function Error($errno , $errstr , $errfile , $errline , $errcontext)
         {
             if (self::$_Perfect)
+                self::Perfect ($errno.' '.$errstr.' '.$errfile.'@'.$errline);
+            
+            self::Log('<pre>'.self::Stack().'</pre>'.PHP_EOL.'Err '.$errno.':'.$errstr.PHP_EOL.$errfile.'@'.$errline, LOG_CRIT);
+        }
+        
+        public static function Perfect ($Message)
+        {
+            $Logs = self::Logs();
+
+            echo '<h2>Perfect Mode</h2>';
+            echo '<pre class="console">'.self::Stack().'</pre>'.PHP_EOL;
+            echo $Message.'<pre>';
+            
+            if (function_exists('xdebug_print_function_stack'))
+                xdebug_print_function_stack();
+            
+            if (PHP_SAPI == 'cli')
+                ;
+            else
             {
-                $Logs = self::Logs();
-
-                echo '<h2>Perfect Mode</h2>';
-                echo '<pre class="console">'.self::Stack().'</pre>'.PHP_EOL;
-                echo $errno.' '.$errstr.' '.$errfile.'@'.$errline.'<pre>';
-                
-                if (function_exists('xdebug_print_function_stack'))
-                    xdebug_print_function_stack();
-                
-                if (PHP_SAPI == 'cli')
-                    ;
-                else
-                {
-                    foreach ($Logs as $Channel => $Records)
-                        foreach ($Records as $Log)
-                            echo $Channel.implode("\t", $Log).PHP_EOL;
-                }
-
-                echo '</pre>';
-                die();
+                foreach ($Logs as $Channel => $Records)
+                    foreach ($Records as $Log)
+                        echo $Channel.implode("\t", $Log).PHP_EOL;
             }
 
-            self::Log('<pre>'.self::Stack().'</pre>'.PHP_EOL.'Err '.$errno.':'.$errstr.PHP_EOL.$errfile.'@'.$errline, LOG_CRIT);
+            echo '</pre>';
+            exit();
         }
 
         public static function setLive($Live)
@@ -686,6 +689,10 @@
                 
                 if (PHP_SAPI === 'cli')
                     self::CLILog($Time, $Message, $Verbose, $Channel);
+                
+                if (self::$_Perfect && ($Verbose <= self::$_Options['Codeine']['Perfect Verbose'][$Channel]))
+                    self::Perfect ($Message);
+                    
             }
 
             return $Message;
