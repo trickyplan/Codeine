@@ -6,15 +6,30 @@
      */
 
     // 10xs for http://leonid.shevtsov.me/ru/mnogoprocessovye-demony-na-php#ixzz23J4hMu6y
-
+    
     include 'Codeine/Core.php';
 
     $Opts = [];
 
     foreach ($argv as $arg)
+    {
         if (preg_match('/--(\S+)\=(\S+)/', $arg, $Pockets))
             $Opts = F::Dot($Opts, $Pockets[1], $Pockets[2]);
+        elseif (preg_match('/--(\S+)/', $arg, $Pockets))
+            $Opts = F::Dot($Opts, $Pockets[1], true);
+    }
 
+    if (isset($Opts['no-daemonize']))
+        ;
+    else
+    {
+        $ChildPID = pcntl_fork();
+        if ($ChildPID)
+          exit;
+    }
+
+    posix_setsid();
+    
     if (file_exists('/etc/default/codeine'))
         $Opts['Path'] = file_get_contents('/etc/default/codeine');
 
