@@ -1,0 +1,9 @@
+{
+    "Title": "Ошибка 418",
+    "Warning": {
+        "Description": "Вы не прошли тест CAPTCHA."
+    },
+    "Solution": {
+        "Description": "Можно попробовать <a href=\"window.back()\">вернуться.</a>."
+    }
+}
