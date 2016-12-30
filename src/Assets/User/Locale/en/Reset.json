@@ -1,3 +1,6 @@
 {
-    "Title": "Forgot password"
+    "Title": "Forgot password?",
+    "Subtitle": "Password reset",
+    "EMail": "EMail",
+    "Reset": "Reset"
 }
