@@ -6,7 +6,7 @@
     "EMail":
     {
         "Unique": "Почтовый ящик занят",
-        "Required": "EMail обязателен к заполнению"
+        "Required": "Email обязателен к заполнению"
     },
     "Password":
     {
