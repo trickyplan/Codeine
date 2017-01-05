@@ -1,7 +1,7 @@
 {
     "Rules":
     {
-        "Список пользователей доступен всем":
+        "User List to logged":
         {
             "Decision": true,
             "Weight": 100,
@@ -12,10 +12,17 @@
                 "Call":
                 {
                     "Entity": "User"
+                },
+                "Session":
+                {
+                    "User":
+                    {
+                        "ID": "*"
+                    }
                 }
             }
         },
-        "Профиль пользователя доступен всем":
+        "User profile to logged":
         {
             "Decision": true,
             "Weight": 100,
@@ -27,6 +34,13 @@
                 "Call":
                 {
                     "Entity": "User"
+                },
+                "Session":
+                {
+                    "User":
+                    {
+                        "ID": "*"
+                    }
                 }
             }
         },
