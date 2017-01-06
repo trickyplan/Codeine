@@ -1,7 +1,7 @@
 {
     "Created": "Joined",
     "DOB": "Date of birth",
-    "EMail": "EMail",
+    "EMail": "Email",
     "Title": "Full name",
     "Gender": {
         "Label": "Gender",

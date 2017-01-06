@@ -1,6 +1,8 @@
 {
-    "Title": "Forgot password?",
+    "Title":    "Forgot password?",
     "Subtitle": "Password reset",
-    "EMail": "EMail",
-    "Reset": "Reset"
+    "EMail":    "Email",
+    "Reset":    "Reset",
+    "Success":  "The letter with the new password has been sent to your email.",
+    "404":      "A user with this email is not found."
 }
