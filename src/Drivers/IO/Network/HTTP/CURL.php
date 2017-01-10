@@ -150,8 +150,9 @@
                 $Size = curl_getinfo($Call['Link'], CURLINFO_HEADER_SIZE);
                 $Headers = mb_substr($Return[0], 0, $Size);
                 $Body = mb_substr($Return[0], $Size);
-                
-                $Return = [$Body, '_0' => $Headers];
+
+                $HTTPStatus = curl_getinfo($Call['Link'], CURLINFO_HTTP_CODE);
+                $Return = [$Body, '_0' => $Headers, '_Status' => $HTTPStatus];
             }
             
             
@@ -204,7 +205,23 @@
                 CURLOPT_POSTFIELDS       => $Post
             ]);
 
-        $Result =  [curl_exec($Call['Link'])];
+        $Result = [curl_exec($Call['Link'])];
+
+        if ($Call['CURL']['Return Header'])
+        {
+            $Size = curl_getinfo($Call['Link'], CURLINFO_HEADER_SIZE);
+            $Headers = mb_substr($Return[0], 0, $Size);
+            $Body = mb_substr($Return[0], $Size);
+
+            $HTTPStatus = curl_getinfo($Call['Link'], CURLINFO_HTTP_CODE);
+            $Return = [$Body, '_0' => $Headers, '_Status' => $HTTPStatus];
+        }
+
+        if ($Call['CURL']['Return Header'] && isset($Call['CURL']['Only Header']))
+        {
+            $Size = curl_getinfo($Call['Link'], CURLINFO_HEADER_SIZE);
+            $Return[0] = substr($Return[0], 0, $Size);
+        }
 
         if (curl_errno($Call['Link']))
         {
