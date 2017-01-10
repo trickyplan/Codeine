@@ -1,8 +1,8 @@
 {
     "IP":
     {
-        "Pingback": "http://ip.appspot.com",
-        "Pingback 1": "http://checkip.dyndns.org",
+        "-Pingback": "http://ip.appspot.com",
+        "-Pingback 1": "http://checkip.dyndns.org",
         "Substitute":
         {
 
