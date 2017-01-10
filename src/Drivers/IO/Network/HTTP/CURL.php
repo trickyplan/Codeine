@@ -210,17 +210,17 @@
         if ($Call['CURL']['Return Header'])
         {
             $Size = curl_getinfo($Call['Link'], CURLINFO_HEADER_SIZE);
-            $Headers = mb_substr($Return[0], 0, $Size);
-            $Body = mb_substr($Return[0], $Size);
+            $Headers = mb_substr($Result[0], 0, $Size);
+            $Body = mb_substr($Result[0], $Size);
 
             $HTTPStatus = curl_getinfo($Call['Link'], CURLINFO_HTTP_CODE);
-            $Return = [$Body, '_0' => $Headers, '_Status' => $HTTPStatus];
+            $Result = [$Body, '_0' => $Headers, '_Status' => $HTTPStatus];
         }
 
         if ($Call['CURL']['Return Header'] && isset($Call['CURL']['Only Header']))
         {
             $Size = curl_getinfo($Call['Link'], CURLINFO_HEADER_SIZE);
-            $Return[0] = substr($Return[0], 0, $Size);
+            $Result[0] = substr($Result[0], 0, $Size);
         }
 
         if (curl_errno($Call['Link']))
