@@ -152,7 +152,7 @@
                 $Body = mb_substr($Return[0], $Size);
 
                 $HTTPStatus = curl_getinfo($Call['Link'], CURLINFO_HTTP_CODE);
-                $Return = [$Body, '_0' => $Headers, '_Status' => $HTTPStatus];
+                $Return = [$Body, '_Status' => $HTTPStatus, '_0' => $Headers];
             }
             
             
@@ -214,7 +214,7 @@
             $Body = mb_substr($Result[0], $Size);
 
             $HTTPStatus = curl_getinfo($Call['Link'], CURLINFO_HTTP_CODE);
-            $Result = [$Body, '_0' => $Headers, '_Status' => $HTTPStatus];
+            $Result = [$Body, '_Status' => $HTTPStatus, '_0' => $Headers];
         }
 
         if ($Call['CURL']['Return Header'] && isset($Call['CURL']['Only Header']))
