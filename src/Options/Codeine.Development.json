@@ -11,10 +11,10 @@
     },
     "Perfect Verbose":
     {
-        "Developer": 4,
-        "Administrator": 4,
-        "Security": 4,
-        "Marketing": 3,
+        "Developer": 2,
+        "Administrator": 2,
+        "Security": 2,
+        "Marketing": 1,
         "Performance": 1
     }
 }
