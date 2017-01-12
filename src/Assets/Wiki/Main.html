@@ -1,4 +1,12 @@
 <subtitle><l>Wiki.Control:Title</l></subtitle>
 <breadcrumb href="/wiki"><l>Wiki.Control:Title</l></breadcrumb>
+<div class="btn-group">
+    <if value="<call>Data.ID</call>" neq="">
+        <a class="btn btn-success" href="/wiki/create/<call>Data.ID</call>"><l>Wiki.Create:Title</l> (<call>Data.Title</call>)</a>
+    </if>
+    <if value="<call>Data.ID</call>" eq="">
+        <a class="btn btn-success" href="/wiki/create"><l>Wiki.Create:Title</l></a>
+    </if>
+</div>
+<hr>
 <place>Content</place>
-<div class="list-group-item list-group-item-info"></div>

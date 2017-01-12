@@ -80,6 +80,27 @@
                 }
             }
         },
+        "Delete wiki for logged":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Entity.Delete",
+                "Method": "Do",
+                "Call":
+                {
+                    "Entity": "Wiki"
+                },
+                "Session":
+                {
+                    "User":
+                    {
+                        "ID": "*"
+                    }
+                }
+            }
+        },
         "Search wiki for logged":
         {
             "Decision": true,
