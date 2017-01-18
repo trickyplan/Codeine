@@ -22,40 +22,48 @@
 
             foreach ($Call['Parsed'][1] as &$Match)
             {
-                if (strpos($Match, ':') !== false)
-                    list($Locale, $Token) = explode(':', $Match);
+                if (strpos($Match, ',') !== false)
+                    $Matches = explode(',', $Match);
                 else
+                    $Matches = [$Match];
+                    
+                foreach ($Matches as $Match)
                 {
-                    $Locale = 'Locale';
-                    $Token = $Match;
-                }
-
-                if (!isset($Locales[$Locale]))
-                {
-                    $LocaleParts = explode('.', $Locale);
-                    $ID = array_pop($LocaleParts);
-                    $Asset = implode('.', $LocaleParts);
-
-                    $Asset = strtr($Asset, '.', '/');
-
-                    $NewLocales = F::Run('IO', 'Read',
-                        [
-                              'Storage' => 'Locale',
-                              'Scope'   => $Asset.'/Locale/'.$Call['Locale'],
-                              'Where'   => $ID
-                        ]);
-
-                    $Locales[$Locale] = [];
-
-                    if (is_array($NewLocales))
-                    {
-                        $NewLocales = array_reverse($NewLocales);
-                        foreach ($NewLocales as $NewLocale)
-                            $Locales[$Locale] = F::Merge($Locales[$Locale], $NewLocale);
-                    }
+                    if (strpos($Match, ':') !== false)
+                        list($Locale, $Token) = explode(':', $Match);
                     else
-                        F::Log('Locale '.$Locale.' not loaded', LOG_NOTICE);
+                    {
+                        $Locale = 'Locale';
+                        $Token = $Match;
+                    }
+    
+                    if (isset($Locales[$Locale]))
+                        break;
                 }
+                
+                $LocaleParts = explode('.', $Locale);
+                $ID = array_pop($LocaleParts);
+                $Asset = implode('.', $LocaleParts);
+
+                $Asset = strtr($Asset, '.', '/');
+
+                $NewLocales = F::Run('IO', 'Read',
+                    [
+                          'Storage' => 'Locale',
+                          'Scope'   => $Asset.'/Locale/'.$Call['Locale'],
+                          'Where'   => $ID
+                    ]);
+
+                $Locales[$Locale] = [];
+
+                if (is_array($NewLocales))
+                {
+                    $NewLocales = array_reverse($NewLocales);
+                    foreach ($NewLocales as $NewLocale)
+                        $Locales[$Locale] = F::Merge($Locales[$Locale], $NewLocale);
+                }
+                else
+                    F::Log('Locale '.$Locale.' not loaded', LOG_NOTICE);
 
                 if (($Replace = F::Dot($Locales[$Locale], $Token)) !== null)
                 {
