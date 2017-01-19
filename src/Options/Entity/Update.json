@@ -1,6 +1,10 @@
 {
     "Purpose": "Update",
     "FormLayout": "Full",
+    "Form":
+    {
+        "Template": "2B"
+    },
     "Hooks":
     {
         "beforeUpdateDo":

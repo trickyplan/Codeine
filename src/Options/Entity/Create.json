@@ -11,6 +11,10 @@
     },
     "Purpose": "Create",
     "FormLayout": "Full",
+    "Form":
+    {
+        "Template": "1B"
+    },
     "Only Required": false,
     "Hooks":
     {

@@ -30,11 +30,11 @@
     
                     if ($Localize)
                         $Pair['href="'.$Link] = 'href="/'.$Call['Locale'].$Link;
-
                 }
+                $Pair['href="/'.$Call['Default']['Locale']] = 'href="';
                 
                 $Call['Output'] = strtr($Call['Output'], $Pair);
             }
-
+           
         return $Call;
     });

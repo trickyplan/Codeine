@@ -15,7 +15,6 @@
             'Value'   => $Call['Output']
         ]);
 
-
         if ($Call['Parsed'])
         {
             $Locales = [];
