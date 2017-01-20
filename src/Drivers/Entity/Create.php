@@ -33,6 +33,7 @@
                         $Call['Custom Layouts']['Create']: 'Create',
                 'Context' => $Call['Context']
             ];
+        $Call['Output']['Content']['Form Widget'] = ['Type' => 'Form/'.$Call['Form']['Template'], 'ID' => 'Create'];
 
         if (isset($Call['Data']))
             ;

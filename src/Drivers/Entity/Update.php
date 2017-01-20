@@ -27,7 +27,7 @@
 
         $Call = F::Hook('beforeUpdateGet', $Call);
 
-        $Call['Output']['Content']['Form Widget'] = ['Type' => 'Form/'.$Call['Form']['Template'], 'Submit' => 'Update'];
+        $Call['Output']['Content']['Form Widget'] = ['Type' => 'Form/'.$Call['Form']['Template'], 'ID' => 'Update'];
 
         $Call['Tag'] = isset($Call['Scope'])? $Call['Scope']: null;
 
