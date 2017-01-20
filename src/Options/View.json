@@ -25,12 +25,21 @@
     {
         "afterViewLoad":
         {
-            "Block 1":
+            "Call":
+            {
+                "Service": "View.Hooks.Call",
+                "Method": "Parse",
+                "Call":
+                {
+                    "Value Key": "Value"
+                }
+            },
+            "Block":
             {
                 "Service": "View.Hooks.Block",
                 "Method": "Parse"
             },
-            "Key 1":
+            "Key":
             {
                 "Service": "View.Hooks.Key",
                 "Method": "Parse"
@@ -39,21 +48,6 @@
             {
                 "Service": "View.Hooks.Layout",
                 "Method": "Parse"
-            },
-            "Block 2":
-            {
-                "Service": "View.Hooks.Block",
-                "Method": "Parse"
-            },
-            "Key 2":
-            {
-                "Service": "View.Hooks.Key",
-                "Method": "Parse"
-            },
-            "Age":
-            {
-                "Service": "View.Hooks.Age",
-                "Method": "Do"
             }
         }
     }

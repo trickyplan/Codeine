@@ -9,7 +9,7 @@
 
     setFn('Parse', function ($Call)
     {
-        foreach ($Call['Parsed'][2] as $Ix => $Match)
+        foreach ($Call['Parsed']['Value'] as $Ix => $Match)
         {
             if (preg_match('@^(.+)\:(.+)\:(.+)$@SsUu', $Match, $Slices))
             {
@@ -23,12 +23,12 @@
                     ]);
 
                 if (!empty($Element))
-                    $Call['Output'] = str_replace($Call['Parsed'][0][$Ix], $Element[0],$Call['Output']);
+                    $Call['Output'] = str_replace($Call['Parsed']['Match'][$Ix], $Element[0],$Call['Output']);
                 else
-                    $Call['Output'] = str_replace($Call['Parsed'][0][$Ix], '', $Call['Output']);
+                    $Call['Output'] = str_replace($Call['Parsed']['Match'][$Ix], '', $Call['Output']);
             }
             else
-                $Call['Output'] = str_replace($Call['Parsed'][0][$Ix], '' . $Match, $Call['Output']);
+                $Call['Output'] = str_replace($Call['Parsed']['Match'][$Ix], '' . $Match, $Call['Output']);
 
         }
 

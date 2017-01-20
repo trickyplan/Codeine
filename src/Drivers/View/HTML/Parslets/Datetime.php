@@ -9,9 +9,9 @@
 
      setFn('Parse', function ($Call)
      {
-        foreach ($Call['Parsed'][2] as $IX => $Match)
+        foreach ($Call['Parsed']['Value'] as $IX => $Match)
         {
-            $Root = simplexml_load_string('<root '.$Call['Parsed'][1][$IX].'></root>');
+            $Root = simplexml_load_string('<root '.$Call['Parsed']['Options'][$IX].'></root>');
 
             $Engine = isset($Root->attributes()->engine)? (string) $Root->attributes()->engine: 'Date';
 
@@ -25,7 +25,7 @@
 
             $Outer = F::Run('Formats.Date.'.$Engine, 'Format', $Outer);
 
-            $Call['Output'] = str_replace ($Call['Parsed'][0][$IX], $Outer, $Call['Output']);
+            $Call['Output'] = str_replace ($Call['Parsed']['Match'][$IX], $Outer, $Call['Output']);
         }
 
         return $Call;

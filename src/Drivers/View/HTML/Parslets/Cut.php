@@ -9,11 +9,11 @@
 
     setFn ('Parse', function ($Call)
     {
-        foreach ($Call['Parsed'][2] as $IX => $Match)
+        foreach ($Call['Parsed']['Value'] as $IX => $Match)
         {
-            $Root = simplexml_load_string('<root '.$Call['Parsed'][1][$IX].'></root>');
+            $Root = simplexml_load_string('<root '.$Call['Parsed']['Options'][$IX].'></root>');
 
-            $Inner = $Call['Parsed'][2][$IX];
+            $Inner = $Call['Parsed']['Value'][$IX];
 
             if (F::Dot($Call ,'View.HTML.Parslet.Cut.StripTags.Enabled') or $Root->attributes()->strip)
                 $Inner = strip_tags($Inner, F::Dot($Call ,'View.HTML.Parslet.Cut.StripTags.Allowed'));
@@ -55,7 +55,7 @@
             if (strlen($Outer) < strlen($Inner))
                 $Outer.= strtr($Hellip, ['\n' => '<br/>']); // nl2br is unusable here
 
-            $Call['Output'] = str_replace ($Call['Parsed'][0][$IX], $Outer, $Call['Output']);
+            $Call['Output'] = str_replace ($Call['Parsed']['Match'][$IX], $Outer, $Call['Output']);
         }
 
         return $Call;

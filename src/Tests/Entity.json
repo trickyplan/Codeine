@@ -79,7 +79,8 @@
                     "Equal":
                     {
                         "ID": 1,
-                        "Key": "Another Value"
+                        "Key": "Another Value",
+                        "EV": 1
                     }
                 }
             },
@@ -99,12 +100,14 @@
                     "Equal":
                     [
                         {
-                            "ID": 2,
-                            "Key": "Value 2"
+                            "ID": 1,
+                            "EV": 1,
+                            "Key": "Another Value"
                         },
                         {
-                            "ID": 1,
-                            "Key": "Another Value"
+                            "ID": 2,
+                            "EV": 1,
+                            "Key": "Value 2"
                         }
                     ]
                 }

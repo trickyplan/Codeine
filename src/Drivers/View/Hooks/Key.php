@@ -15,7 +15,6 @@
             'Value' => $Call['Value']
         ]);
 
-
         if ($Call['Parsed'] && isset($Call['Data']))
         {
             $Call['Parsed'][0] = array_unique($Call['Parsed'][0]);

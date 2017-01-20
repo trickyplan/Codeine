@@ -9,17 +9,17 @@
 
      setFn('Parse', function ($Call)
      {
-          foreach ($Call['Parsed'][2] as $IX => $Match)
+          foreach ($Call['Parsed']['Value'] as $IX => $Match)
           {
-              $Root = simplexml_load_string('<root '.$Call['Parsed'][1][$IX].'></root>');
+              $Root = simplexml_load_string('<root '.$Call['Parsed']['Options'][$IX].'></root>');
 
               if ($Root->attributes()->type !== null)
                   $Type = (string) $Root->attributes()->type;
               else
                   $Type = $Call['Parslet']['Exec']['Type'];
 
-              $Match = F::Run('Formats.'.$Type, 'Read', ['Value' => trim($Call['Parsed'][2][$IX])]);
-
+              $Match = F::Run('Formats.'.$Type, 'Read', ['Value' => trim($Call['Parsed']['Value'][$IX])]);
+              
               if ($Match)
               {
                   F::Log($Match, LOG_INFO);
@@ -42,18 +42,18 @@
                   */
                   if (isset($Application['Output']))
                     $Call['Output'] = str_replace(
-                            $Call['Parsed'][0][$IX],
+                            $Call['Parsed']['Match'][$IX],
                             $Application['Output'],
                             $Call['Output']);
                   else
                     $Call['Output'] = str_replace(
-                            $Call['Parsed'][0][$IX],
+                            $Call['Parsed']['Match'][$IX],
                             '',
                             $Call['Output']);
 
               }
               else
-                  $Call['Output'] = str_replace($Call['Parsed'][0][$IX], 'Bad Exec.', $Call['Output']);
+                  $Call['Output'] = str_replace($Call['Parsed']['Match'][$IX], 'Bad Exec.', $Call['Output']);
           }
 
           return $Call;

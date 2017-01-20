@@ -9,9 +9,9 @@
 
      setFn('Parse', function ($Call)
      {
-        foreach ($Call['Parsed'][2] as $IX => $Match)
+        foreach ($Call['Parsed']['Value'] as $IX => $Match)
         {
-            $Root = simplexml_load_string('<currency '.$Call['Parsed'][1][$IX].'></currency>');
+            $Root = simplexml_load_string('<currency '.$Call['Parsed']['Options'][$IX].'></currency>');
             $Outer = '';
 
             if (isset($Root->attributes()->from))
@@ -38,7 +38,7 @@
                     F::Log('Currency convert failed: '.$Match, LOG_ERR);
             }
 
-            $Call['Output'] = str_replace ($Call['Parsed'][0][$IX], $Outer, $Call['Output']);
+            $Call['Output'] = str_replace ($Call['Parsed']['Match'][$IX], $Outer, $Call['Output']);
         }
 
         return $Call;

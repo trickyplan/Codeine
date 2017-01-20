@@ -9,9 +9,9 @@
 
     setFn ('Parse', function ($Call)
     {
-        foreach ($Call['Parsed'][2] as $IX => $Match)
+        foreach ($Call['Parsed']['Value'] as $IX => $Match)
         {
-            $Foreach = simplexml_load_string ($Call['Parsed'][0][$IX]);
+            $Foreach = simplexml_load_string ($Call['Parsed']['Match'][$IX]);
 
             $Output = '';
 
@@ -19,7 +19,7 @@
                 $Output.= str_replace('<key/>', $Key, $Foreach->data->asXML());
 
 
-            $Call['Output'] = str_replace ($Call['Parsed'][0][$IX], $Output, $Call['Output']);
+            $Call['Output'] = str_replace ($Call['Parsed']['Match'][$IX], $Output, $Call['Output']);
         }
 
         return $Call;

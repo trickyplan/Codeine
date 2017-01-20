@@ -11,9 +11,9 @@
     {
         d(__FILE__, __LINE__, $Call['Parsed']);
 
-        foreach ($Call['Parsed'][2] as $IX => $Match)
+        foreach ($Call['Parsed']['Value'] as $IX => $Match)
         {
-            $Root = simplexml_load_string($Call['Parsed'][0][$IX]);
+            $Root = simplexml_load_string($Call['Parsed']['Match'][$IX]);
 
             $Inner = (string) $Root;
             $Outer = idn_to_utf8($Inner);
@@ -21,7 +21,7 @@
             d(__FILE__, __LINE__, $Outer);
 
 
-            $Call['Output'] = str_replace ($Call['Parsed'][0][$IX], $Outer, $Call['Output']);
+            $Call['Output'] = str_replace ($Call['Parsed']['Match'][$IX], $Outer, $Call['Output']);
         }
         return $Call;
     });

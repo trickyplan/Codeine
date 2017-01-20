@@ -9,17 +9,17 @@
 
     setFn('Parse', function ($Call)
     {
-        foreach ($Call['Parsed'][2] as $Ix => $Match)
+        foreach ($Call['Parsed']['Value'] as $Ix => $Match)
         {
-            if (!empty($Call['Parsed'][1][$Ix]))
+            if (!empty($Call['Parsed']['Options'][$Ix]))
             {
-                $Root = simplexml_load_string('<root '.$Call['Parsed'][1][$Ix].'></root>');
+                $Root = simplexml_load_string('<root '.$Call['Parsed']['Options'][$Ix].'></root>');
                 $Template = isset($Root->attributes()->template)? (string) $Root->attributes()->template: 'Tag';
             }
             else
                 $Template = 'Tag';
 
-            if (preg_match('@^(.+)\:(.+)$@SsUu', $Call['Parsed'][2][$Ix], $Slices))
+            if (preg_match('@^(.+)\:(.+)$@SsUu', $Call['Parsed']['Value'][$Ix], $Slices))
             {
                 list(,$Entity, $ID) = $Slices;
                 $Element = F::Run('Entity', 'Read',
@@ -28,10 +28,10 @@
                           'Where'  => $ID,
                           'One'    => true
                     ]);
-
+                
                 if (!empty($Element))
-                    $Call['Output'] = str_replace($Call['Parsed'][0][$Ix],
-                        F::Run('View', 'Load',
+                    $Call['Output'] = str_replace($Call['Parsed']['Match'][$Ix],
+                        F::Run('View', 'Load', $Call,
                             [
                                   'Scope'  => $Entity,
                                   'ID'     => 'Show/'.$Template,
@@ -39,10 +39,10 @@
                             ]),
                         $Call['Output']);
                 else
-                    $Call['Output'] = str_replace($Call['Parsed'][0][$Ix], '', $Call['Output']);
+                    $Call['Output'] = str_replace($Call['Parsed']['Match'][$Ix], '', $Call['Output']);
             }
             else
-                $Call['Output'] = str_replace($Call['Parsed'][0][$Ix], '', $Call['Output']);
+                $Call['Output'] = str_replace($Call['Parsed']['Match'][$Ix], '', $Call['Output']);
 
         }
 

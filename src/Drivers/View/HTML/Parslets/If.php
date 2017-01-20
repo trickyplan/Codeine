@@ -9,9 +9,9 @@
 
     setFn ('Parse', function ($Call)
     {
-        foreach ($Call['Parsed'][2] as $IX => $Match)
+        foreach ($Call['Parsed']['Value'] as $IX => $Match)
         {
-            $IfTag = '<if '.$Call['Parsed'][1][$IX].'></if>';
+            $IfTag = '<if '.$Call['Parsed']['Options'][$IX].'></if>';
 
             $Root = simplexml_load_string($IfTag);
 
@@ -68,14 +68,18 @@
                     }
 
                     if ($Decision)
-                        $Outer = $Call['Parsed'][2][$IX];
+                        $Outer = $Call['Parsed']['Value'][$IX];
                     else
                         $Outer = '';
                 }
             else
+            {
                 F::Log($IfTag.' not parsed', LOG_INFO);
+                if (F::Environment() == 'Development')
+                    $Outer = 'IFERROR';
+            }
 
-            $Call['Output'] = str_replace ($Call['Parsed'][0][$IX], $Outer, $Call['Output']);
+            $Call['Output'] = str_replace ($Call['Parsed']['Match'][$IX], $Outer, $Call['Output']);
         }
 
         return $Call;

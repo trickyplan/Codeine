@@ -9,9 +9,9 @@
 
      setFn('Parse', function ($Call)
      {
-         foreach ($Call['Parsed'][2] as $Ix => $Match)
+         foreach ($Call['Parsed']['Value'] as $Ix => $Match)
          {
-             $Call['Output'] = str_replace ($Call['Parsed'][0][$Ix],
+             $Call['Output'] = str_replace ($Call['Parsed']['Match'][$Ix],
                  htmlentities($Match)
                  ,$Call['Output']);
          }
