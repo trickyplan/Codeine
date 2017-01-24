@@ -78,8 +78,11 @@
                         F::Log('Dry shot for '.$Call['Entity'].' create');
                     else
                     {
+                        $Call['Current'] = $Call['Data'];
                         $Call = F::Hook('beforeEntityCreate', $Call);
+                        $Call['Current'] = $Call['Data']; // Hm
                         $Call = F::Hook('beforeEntityCreateOrUpdate', $Call);
+                        $Call['Current'] = $Call['Data'];
                         $Call = F::Hook('beforeEntityWrite', $Call);
                         
                             $Call['Data'] = F::Run('IO', 'Write', $Call);
