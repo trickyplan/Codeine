@@ -37,7 +37,7 @@
                     {
                         F::Log($Call['Routing']['Rule']['Match'], LOG_DEBUG);
                         $Matches = [];
-
+                        
                         if (preg_match($Call['Routing']['Rule']['Match'], $Call['Run'], $Matches))
                         {
                             $Call['Routing']['Rule'] = F::Map($Call['Routing']['Rule'], function (&$Key, &$Value, $Data, $FullKey, &$Array) use ($Matches)
@@ -80,7 +80,7 @@
             F::Log('Routes table corrupted', LOG_CRIT); // FIXME
 
         if (isset($Selected))
-            F::Log('Rule *'.$Selected.'* selected after '.($ix.' of '.sizeof($Call['Regex'])), LOG_INFO);
+            F::Log('Rule *'.$Selected.'* selected with weight *'.$Weight.'* after '.($ix.' of '.sizeof($Call['Regex'])), LOG_INFO);
         else
             F::Log('Rule not selected', LOG_INFO);
 

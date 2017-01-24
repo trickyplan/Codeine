@@ -11,6 +11,7 @@
     {
         $_SERVER['REQUEST_URI'] = preg_replace('/^(\/+)/Ssu', '/', $_SERVER['REQUEST_URI']);
 
+
         $Call['HTTP']['URI'] = $_SERVER['REQUEST_URI'].(empty($Call['HTTP']['URL Query'])? '' : '');
         $Call['HTTP']['URL'] = parse_url($Call['HTTP']['URI'], PHP_URL_PATH);
         $Call['HTTP']['URL Query'] = parse_url($Call['HTTP']['URI'], PHP_URL_QUERY);

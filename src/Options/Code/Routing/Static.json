@@ -40,11 +40,6 @@
                     "Method": "Render"
                 }
             }
-        },
-        "/error/test":
-        {
-            "Service": "Error.Test",
-            "Method":  "Do"
         }
     }
 }

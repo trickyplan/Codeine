@@ -9,7 +9,7 @@
     "Regex Pattern":
     {
         "Prefix": "@",
-        "Postfix": "@su"
+        "Postfix": "@Ssu"
     },
     "Regex":
     {
@@ -24,9 +24,10 @@
         },
         "Frontpage":
         {
-            "Match": "/$",
+            "Match": "^/$",
             "Service": "Project.Frontpage",
-            "Method":  "Do"
+            "Method":  "Do",
+            "Weight": 1
         },
         "Error":
         {
@@ -37,24 +38,6 @@
             {
                 "Code": "$1"
             }
-        },
-        "IP Flag":
-        {
-           "Match": "/utils/ip-flag/(.+)",
-           "Service": "Country.FlagByIP",
-           "Method": "Get",
-           "View":
-           {
-               "Renderer":
-               {
-                   "Service": "View.File",
-                   "Method": "Render"
-               }
-           },
-           "Call":
-           {
-               "IP": "$1"
-           }
         },
         "Uploads":
         {

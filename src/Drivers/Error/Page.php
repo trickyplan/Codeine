@@ -47,6 +47,6 @@
                     'ID' => $Call['Code']
                  ]
             ];
-        
+        $Call['HTTP']['Headers']['HTTP/1.1'] = '404 Not Found';
         return $Call;
      });
