@@ -36,11 +36,6 @@
                 "Service": "Entity.Hooks.Scope",
                 "Method": "beforeOperation"
             },
-            "Filter":
-            {
-                "Service":"Entity.Hooks.Filter",
-                "Method":"beforeOperation"
-            },
             "Location":
             {
                 "Service":"Entity.Hooks.Location",
@@ -82,11 +77,6 @@
         },
         "beforeEntityUpdate":
         {
-            "Filter":
-            {
-                "Service":"Entity.Hooks.Process",
-                "Method":"Process"
-            },
             "Make variables alive":
             {
                 "Service":"Entity.Hooks.LiveNodes",
