@@ -4,7 +4,13 @@
     "Options": {
         "Delete": "Delete all",
         "Truncate": "Truncate expired",
-        "Do": "Dashboard"
+        "Do": "Dashboard",
+        "List": "List sessions"
     },
-    "Title": "Session"
+    "Title":  "Session",
+    "Today":  "Per day",
+    "Hour":   "Per hour",
+    "Minute": "Per minute",
+    "Second": "Per second",
+    "Total":  "Total"
 }
