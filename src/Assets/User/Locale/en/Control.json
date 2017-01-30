@@ -2,6 +2,7 @@
     "Options":
     {
         "Update": "Update profile",
+        "Delete": "Delete",
         "RAW": "RAW View"
     },
     "Title": "User"

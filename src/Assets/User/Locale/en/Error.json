@@ -1,0 +1,25 @@
+{
+    "ID":
+    {
+        "Unique":"ID busy"
+    },
+    "EMail":
+    {
+        "Unique": "This email is not available",
+        "Required": "Email required"
+    },
+    "Password":
+    {
+        "Required": "Password required"
+    },
+    "Invite":
+    {
+        "NonExist": "Invite not exist"
+    },
+    "Surname": {
+        "Required": "Surname required"
+    },
+    "Name": {
+        "Required": "Name required"
+    }
+}
