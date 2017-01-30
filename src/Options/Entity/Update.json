@@ -23,22 +23,6 @@
                 {
                     "HTTP/1.1": "202 Accepted"
                 }
-            },
-            "Add success layout":
-            {
-                "Output":
-                {
-                    "Content":
-                    {
-                        "Success layout":
-                        {
-                            "Type": "Template",
-                            "Scope": "Entity",
-                            "ID": "Updated"
-                        }
-                    }
-                }
-
             }
         }
     }

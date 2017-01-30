@@ -68,6 +68,12 @@
             {
                 $Call['Current'] = $Result;
                 $Call = F::Hook('afterUpdatePost', $Call);
+                $Call['Output']['Message'][] =
+                    [
+                        'Type' => 'Block',
+                        'Class' => 'alert alert-success',
+                        'Value' => '<l>'.$Call['Entity'].'.Update:Success</l>'
+                    ];
             }
             else
             {

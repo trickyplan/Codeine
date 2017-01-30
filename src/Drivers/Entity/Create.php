@@ -81,8 +81,14 @@
 
         if (!isset($Result['Errors']) or empty($Result['Errors']))
         {
-           $Call['Data'] = $Result;
-           $Call = F::Hook('afterCreatePost', $Call);
+            $Call['Data'] = $Result;
+            $Call = F::Hook('afterCreatePost', $Call);
+            $Call['Output']['Message'][] =
+                [
+                    'Type' => 'Block',
+                    'Class' => 'alert alert-success',
+                    'Value' => '<l>'.$Call['Entity'].'.Create:Success</l>'
+                ];
         }
         else
         {
