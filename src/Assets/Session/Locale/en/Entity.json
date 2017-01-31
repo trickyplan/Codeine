@@ -1,0 +1,11 @@
+{
+    "Channel": "Channel",
+    "Subchannel": "Subchannel",
+    "Created": "Created",
+    "Empty": "Empty",
+    "Expire": "Expire",
+    "Heartbeat": "Heartbeat",
+    "ID": "ID",
+    "IP": "IP",
+    "User": "User"
+}

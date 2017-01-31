@@ -1,28 +1,41 @@
-<div class="row">
-    <div class="col-lg-6">
-        <div class="form-group">
-            <label for="<k>Name</k>"> <l><k>Label</k></l>:</label>
-                <input class="form-control"
-                       id="<k>Name</k>"
-                       type="password"
-                       data-minlength="4"
-                       name="<k>Name</k>"
-                       <block>required="<k>Required</k>"</block>
-                        autocomplete="off"
-                        value="<k>Value</k>"
-                        <block>placeholder="<k>Placeholder</k>"</block>
-                        <block>pattern="<k>Regex</k>"</block> />
-        </div>
-    </div>
-    <div class="col-lg-6">
-        <div class="form-group">
-            <label for="<k>Name</k>2"> Повторите пароль:</label>
-                <input data-equals="<k>Name</k>"
-                       class="form-control" type="password" <block>required="<k>Require
-                d</k>"</block>
-                autocomplete="off" value="<k>Value</k>" placeholder="<l>User.Entity:Password.MustEqual</l>" />
-        </div>
+<div class="form-group">
+    <label for="<k>ID</k>"> <l><k>Label</k>.First</l>:</label>
+    <div class="input-group">
+        <input class="form-control"
+               id="<k>ID</k>"
+               type="password"
+               data-minlength="4"
+               name="<k>Name</k>"
+        <block>required="<k>Required</k>"</block>
+        autocomplete="off"
+        value="<k>Value</k>"
+        <block>placeholder="<k>Placeholder</k>"</block>
+        <block>pattern="<k>Regex</k>"</block> />
     </div>
 </div>
-<js>jquery.tools:equals</js>
-<js>jquery.tools:minlen</js>
+
+<div class="form-group">
+    <label for="<k>ID</k>2">
+        <l><k>Label</k>.Second</l>
+    </label>
+    <div class="input-group">
+        <input id="<k>ID</k>2" data-equals="<k>Name</k>"
+               class="form-control" type="password" <block>required="<k>Required</k>"</block>
+        autocomplete="off" value="<k>Value</k>" placeholder="<l>User.Entity:Password.Equal</l>" />
+    </div>
+</div>
+<script type="text/javascript">
+    var password = document.getElementById("<k>ID</k>");
+    var confirm_password = document.getElementById("<k>ID</k>2");
+
+    function validatePassword()
+    {
+        if(password.value != confirm_password.value) {
+            confirm_password.setCustomValidity("<l>User.Entity:Password.Equal</l>");
+        } else {
+            confirm_password.setCustomValidity('');
+        }
+    }
+    password.onchange = validatePassword;
+    confirm_password.onkeyup = validatePassword;
+</script>
