@@ -13,7 +13,7 @@
 
              $Call = F::Run('Entity', 'Load', $Call);
 
-             if (isset($Call['Nodes'][$Call['Key']]['Widgets']['Write']) or isset($Call['Nodes'][$Call['Key']]['Widgets']['Update']))
+             if (isset($Call['Nodes'][$Call['Key']]['Widgets']['Write']) or isset($Call['Nodes'][$Call['Key']]['Widgets']['Update']) or isset($Call['Nodes'][$Call['Key']]['User Writable']))
              {
                  $Data = F::Run('Entity', 'Read', $Call,
                  [

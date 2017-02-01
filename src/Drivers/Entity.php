@@ -45,8 +45,6 @@
 
     setFn('Create', function ($Call)
     {
-        $Data = [];
-
         if (!isset($Call['Entity']))
         {
             F::Log('Entity not defined.', LOG_ERR);
@@ -234,7 +232,8 @@
                     {
                             if (isset($Call['Dry']))
                                 F::Log('Dry shot for ' . $Call['Entity'] . ' update');
-                            else {
+                            else
+                                {
                                 F::Run('IO', 'Write', $Call, $VCall);
 
                                 $Call = F::Hook('afterEntityWrite', $Call);
