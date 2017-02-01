@@ -1,16 +1,16 @@
 {
     "ID":
     {
-        "Unique":"ID занят"
+        "Unique": "ID занят"
     },
     "EMail":
     {
-        "Unique": "Почтовый ящик занят",
+        "Unique":   "Указанный email уже занят",
         "Required": "Email обязателен к заполнению"
     },
     "Password":
     {
-        "Required":"Укажите пароль"
+        "Required": "Укажите пароль"
     },
     "Invite":
     {

@@ -5,7 +5,7 @@
     },
     "EMail":
     {
-        "Unique": "This email is not available",
+        "Unique": "The email address you have entered is already registered.",
         "Required": "Email required"
     },
     "Password":
