@@ -15,14 +15,17 @@
             {
                 $Call = F::Merge($Call, $Call['Storages'][$Call['Storage']]);
 
-                if (($Call['Link'] = F::Get($Call['Storage'])) === null)
+                if (($Call['Link'] = F::Get('Storage.'.$Call['Storage'])) === null)
                 {
                    if (is_string($Call['Storages'][$Call['Storage']])
                         && isset($Call['Storages'][$Call['Storages'][$Call['Storage']]]))
                             $Call['Storages'][$Call['Storage']] = $Call['Storages'][$Call['Storages'][$Call['Storage']]];
 
-                    $Call['Link'] = F::Set($Call['Storage'], F::Run($Call['Driver'], 'Open', $Call));
+                    $Call['Link'] = F::Set('Storage.'.$Call['Storage'], F::Run($Call['Driver'], 'Open', $Call));
+                    F::Log('Storage *'.$Call['Storage'].'* (*'.$Call['Driver'].'*) connected', LOG_INFO, 'Administrator');
                 }
+                else
+                    F::Log('Storage *'.$Call['Storage'].'* (*'.$Call['Driver'].'*) cached', LOG_DEBUG, 'Administrator');
 
                 return $Call;
             }
