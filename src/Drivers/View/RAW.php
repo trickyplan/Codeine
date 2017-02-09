@@ -9,11 +9,18 @@
 
     setFn('Render', function ($Call)
     {
-        $finfo = new finfo(FILEINFO_MIME);
         if (is_array($Call['Output']['Content']))
             $Call['Output']['Content'] = implode('', $Call['Output']['Content']);
+        
         $Call['Output'] = $Call['Output']['Content'];
-        $Call['HTTP']['Headers']['Content-type:'] = $finfo->buffer($Call['Output']);
+        
+        if (isset($Call['HTTP']['Headers']['Content-type:']))
+            ;
+        else
+        {
+            $finfo = new finfo(FILEINFO_MIME);
+            $Call['HTTP']['Headers']['Content-type:'] = $finfo->buffer($Call['Output']);
+        }
 
         return $Call;
     });
