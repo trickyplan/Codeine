@@ -2,7 +2,7 @@
     "Locale": "en_US.UTF-8",
     "Timezone": "UTC",
     "Perfect": false,
-    "Core Storage Limit": 2048,
+    "Core Storage Limit": 256,
     "Memo Threshold": 0.05,
     "Timer Resolution": 2,
     "Run Cache Enabled": true,

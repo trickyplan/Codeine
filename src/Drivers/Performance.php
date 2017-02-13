@@ -13,6 +13,7 @@
         {
             $Call['Performance']['Summary']['Time'] = round((microtime(true)-Started)*1000);
             $Call['Performance']['Summary']['Calls'] = array_sum(self::$_Counters['C']);
+            $Call['Performance']['Summary']['Core Storage'] = count(self::$_Storage);
 
             arsort(self::$_Counters['T']);
 
@@ -23,8 +24,9 @@
                 .round($Call['Performance']['Summary']['Time'] / $Call['Performance']['Summary']['Calls'], 2).' ms'
                 , LOG_NOTICE, 'Performance');
 
-            F::Log('Memory: '.(memory_get_usage(true)/1024).'Kb ', LOG_NOTICE, 'Performance');
-            F::Log('Peak memory: '.(memory_get_peak_usage(true)/1024).'Kb', LOG_NOTICE, 'Performance');
+            F::Log('Memory: *'.(memory_get_usage(true)/1024).'Kb* ', LOG_NOTICE, 'Performance');
+            F::Log('Peak memory: *'.(memory_get_peak_usage(true)/1024).'Kb*', LOG_NOTICE, 'Performance');
+            F::Log('Core Storage: *'.$Call['Performance']['Summary']['Core Storage'].'*', LOG_NOTICE, 'Performance');
 
             foreach (self::$_Counters['T'] as $Key => $Value)
             {
