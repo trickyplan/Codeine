@@ -35,7 +35,7 @@
         $Call = F::Hook('beforeDeleteGet', $Call);
 
         if (isset($Call['Where']))
-            $Call = F::Apply('Entity.List', 'Do', $Call, ['Context' => 'app']);
+            $Call = F::Apply('Entity.List', 'Do', $Call, ['Context' => 'app', 'Template' => 'Delete']);
 
         $Call['Context'] = '';
 

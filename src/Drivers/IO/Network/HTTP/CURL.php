@@ -78,7 +78,8 @@
                        CURLOPT_PROXY            => $Call['CURL']['Proxy']['Host'],
                        CURLOPT_PROXYPORT        => $Call['CURL']['Proxy']['Port'],
                        CURLOPT_USERAGENT        => $Call['CURL']['Agent'],
-                       CURLOPT_FAILONERROR      => true
+                       CURLOPT_HTTPHEADER       => $Call['CURL']['Headers'],
+                       CURLOPT_FAILONERROR      => false
                   ]);
 
                 if (isset($Call['CURL']['Proxy']['Auth']))
@@ -136,8 +137,8 @@
                     CURLOPT_PROXYPORT        => $Call['CURL']['Proxy']['Port'],
                     CURLOPT_HTTPHEADER       => $Call['CURL']['Headers'],
                     CURLOPT_USERAGENT        => $Call['CURL']['Agent'],
-                    CURLOPT_SSL_VERIFYPEER => false,
-                    CURLOPT_FAILONERROR      => true
+                    CURLOPT_SSL_VERIFYPEER   => false,
+                    CURLOPT_FAILONERROR      => false
                 ]);
 
             if (isset($Call['CURL']['Proxy']['Auth']))
@@ -197,7 +198,7 @@
                 CURLOPT_PROXYPORT        => $Call['CURL']['Proxy']['Port'],
                 CURLOPT_USERAGENT        => $Call['CURL']['Agent'],
                 CURLOPT_HTTPHEADER       => $Call['CURL']['Headers'],
-                CURLOPT_FAILONERROR      => true,
+                CURLOPT_FAILONERROR      => false,
                 CURLOPT_POST             => true,
                 CURLOPT_SSL_VERIFYPEER => false,
                 // CURLOPT_USERPWD          => isset($Call['User'])? $Call['User'].':'.$Call['Password']: null, // FIXME
@@ -225,7 +226,7 @@
 
         if (curl_errno($Call['Link']))
         {
-            F::Log('CURL POST error: '.curl_error($Call['Link']).'*'.$Call['Where']['ID'].'* '.$Post, LOG_ERR, 'Administrator');
+            F::Log('CURL POST error: '.curl_error($Call['Link']).' *'.$Call['Where']['ID'].'* '.PHP_EOL.$Post, LOG_ERR, 'Administrator');
             F::Log($Result, LOG_WARNING, 'Administrator');
         }
         else

@@ -9,53 +9,61 @@
 
     setFn('Run', function ($Call)
     {
-        $Test = jd(file_get_contents(F::findFile('Tests/'.$Call['Test']['Name'].'.json')));
-
-        $Call['Test']['Report'] = [];
-        $Call['Test']['Name'] = str_replace('.json', '', $Call['Test']['Name']);
-        $Call['Test']['Name'] = strtr($Call['Test']['Name'], '/', '.');
-
-        if (isset($Test) && isset($Test['Suites']))
+        F::Log('Try to load *'.$Call['Test']['Name'].'*', LOG_INFO);
+        $TestFilename = F::findFile('Tests/'.$Call['Test']['Name'].'.json');
+        
+        if ($TestFilename === null)
+            $Call = F::Hook('onTestNotFound', $Call);
+        else
         {
-            F::Log('Test *'.$Call['Test']['Name'].'* loaded', LOG_INFO);
-
-            foreach ($Test['Suites'] as $SuiteName => $Suite)
+            $Test = jd(file_get_contents($TestFilename));
+            
+            $Call['Test']['Report'] = [];
+            $Call['Test']['Name'] = str_replace('.json', '', $Call['Test']['Name']);
+            $Call['Test']['Name'] = strtr($Call['Test']['Name'], '/', '.');
+            
+            if (isset($Test) && isset($Test['Suites']))
             {
-                foreach ($Suite as $CaseName => $Call['Case'])
+                F::Log('Test *'.$Call['Test']['Name'].'* loaded', LOG_INFO);
+    
+                foreach ($Test['Suites'] as $SuiteName => $Suite)
                 {
-                    $Call['Case']['Result']['Actual'] = F::Live($Call['Case']['Run'], $Call);
-
-                    if (isset($Call['Case']['Output']['Content']))
-                        $Call['Case']['Result']['Actual'] = print_r($Call['Return']['Output']['Content'], true);
-
-                    foreach ($Call['Case']['Assert'] as $Assert => $Call['Checker'])
+                    foreach ($Suite as $CaseName => $Call['Case'])
                     {
-                        $TestTime = microtime(true); // FIXME
-                        $Call['Decision'] = F::Run('Test.Assert.'.$Assert, 'Do', $Call);
-                        $TestTime = microtime(true)-$TestTime;
+                        $Call['Case']['Result']['Actual'] = F::Live($Call['Case']['Run'], $Call);
+    
+                        if (isset($Call['Case']['Output']['Content']))
+                            $Call['Case']['Result']['Actual'] = print_r($Call['Return']['Output']['Content'], true);
+    
+                        foreach ($Call['Case']['Assert'] as $Assert => $Call['Checker'])
+                        {
+                            $TestTime = microtime(true); // FIXME
+                            $Call['Decision'] = F::Run('Test.Assert.'.$Assert, 'Do', $Call);
+                            $TestTime = microtime(true)-$TestTime;
+                        }
+                        
+                        if (isset($Call['Case']['Result Key']))
+                            $Call['Case']['Result']['Actual'] = F::Dot($Call['Case']['Result']['Actual'], $Call['Case']['Result Key']);
+                        
+                        $Call['Test']['Report'][$Call['Test']['Name'].$SuiteName.$CaseName] = [
+                            $Call['Test']['Name'],
+                            $SuiteName,
+                            $CaseName,
+                            '<pre>'.j($Call['Case']['Result']['Actual']).'</pre>',
+                            round($TestTime, 5)*1000,
+                            '_Class' => $Call['Decision']? 'success' : 'danger'
+                        ];
+    
+                        $Call['Decision']?
+                            F::Log('Test case '.$CaseName.' passed', LOG_INFO):
+                            F::Log('Test case '.$CaseName.' failed', LOG_ERR);
                     }
-                    
-                    if (isset($Call['Case']['Result Key']))
-                        $Call['Case']['Result']['Actual'] = F::Dot($Call['Case']['Result']['Actual'], $Call['Case']['Result Key']);
-                    
-                    $Call['Test']['Report'][$Call['Test']['Name'].$SuiteName.$CaseName] = [
-                        $Call['Test']['Name'],
-                        $SuiteName,
-                        $CaseName,
-                        '<pre>'.j($Call['Case']['Result']['Actual']).'</pre>',
-                        round($TestTime, 5)*1000,
-                        '_Class' => $Call['Decision']? 'success' : 'danger'
-                    ];
-
-                    $Call['Decision']?
-                        F::Log('Test case '.$CaseName.' passed', LOG_INFO):
-                        F::Log('Test case '.$CaseName.' failed', LOG_ERR);
                 }
             }
+            else
+                $Call = F::Hook('onTestNotFound', $Call);
         }
-        else
-            $Call = F::Hook('onTestNotFound', $Call);
-
+        
         return $Call;
     });
 

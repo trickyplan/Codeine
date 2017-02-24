@@ -49,16 +49,6 @@
                 "Service": "Project.Status",
                 "Method": "Do"
             }
-        },
-        "Test / All":
-        {
-            "Decision": true,
-            "Weight": 50,
-            "Run":
-            {
-                "Service": "Test",
-                "Method": "Do"
-            }
         }
     }
 }
