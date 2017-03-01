@@ -16,7 +16,11 @@
         
         foreach ($Call['Value'] as $IX => &$Value)
         {
-            $Value = trim($Value);
+            if (is_string($Value))
+                $Value = trim($Value);
+            else
+                unset($Call['Value'][$IX]);
+
             if (empty($Value))
                 unset($Call['Value'][$IX]);
         }
