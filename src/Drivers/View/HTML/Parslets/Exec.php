@@ -40,11 +40,24 @@
                   /*if (F::Environment() == 'Development')
                       $Application['Output'] = '<div class="exec-cached">'.$Application['Output'].'</div>';
                   */
+                  
                   if (isset($Application['Output']))
-                    $Call['Output'] = str_replace(
-                            $Call['Parsed']['Match'][$IX],
-                            $Application['Output'],
-                            $Call['Output']);
+                  {
+                      if (is_scalar($Application['Output']))
+                          $Call['Output'] = str_replace(
+                              $Call['Parsed']['Match'][$IX],
+                              $Application['Output'],
+                              $Call['Output']);
+                      else
+                      {
+                          $Call['Output'] = str_replace(
+                              $Call['Parsed']['Match'][$IX],
+                              '{}',
+                              $Call['Output']);
+                          F::Log('Application Output isn\'t scalar', LOG_ERR);
+                          F::Log($Application['Output'], LOG_WARNING);
+                      }
+                  }
                   else
                     $Call['Output'] = str_replace(
                             $Call['Parsed']['Match'][$IX],
