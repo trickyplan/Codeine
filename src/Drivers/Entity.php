@@ -18,16 +18,16 @@
         $Call['Nodes'] = $Call['Default Nodes'];
 
         $Call = F::Hook('beforeEntityLoad', $Call);
-
+        
             $Model = F::loadOptions($Call['Entity'].'.Entity'); // FIX Validate
-
+            
             if (empty($Model))
                 F::Log('Model for '.$Call['Entity'].' not found', LOG_CRIT);
             else
             {
                 if (!isset($Model['EV']))
                     $Model['EV'] = 1;
-
+                
                 $Call = F::Merge($Call, $Model);
             }
 
@@ -39,6 +39,7 @@
         $Call = F::Hook('afterEntityLoad', $Call);
 
         $Call['entity'] = strtr(strtolower($Call['Entity']), '.', '/'); // Hm.
+        $Call['Flat Entity'] = str_replace('.', '', $Call['Entity']);
 
         return $Call;
     });
@@ -50,7 +51,7 @@
             F::Log('Entity not defined.', LOG_ERR);
             return $Call;
         }
-
+        
         if (isset($Call['Data'][0]))
             ;
         else
@@ -74,10 +75,12 @@
             else
             {
                 $Call = F::Hook('beforeEntityCreate', $Call);
-                $Call['Current'] = $Call['Data']; // Hm
+                $Call = F::Hook('before'.$Call['Flat Entity'].'Create', $Call);
                 $Call = F::Hook('beforeEntityCreateOrUpdate', $Call);
-                $Call['Current'] = $Call['Data'];
+                $Call = F::Hook('before'.$Call['Flat Entity'].'CreateOrUpdate', $Call);
                 $Call = F::Hook('beforeEntityWrite', $Call);
+                $Call = F::Hook('before'.$Call['Flat Entity'].'Write', $Call);
+                
                 if (isset($Call['Failure']) and $Call['Failure'])
                 {
                     $Call['Data'] = null;
@@ -87,8 +90,11 @@
                     $Call['Data'] = F::Run('IO', 'Write', $Call);
                 }
                 $Call = F::Hook('afterEntityWrite', $Call);
+                $Call = F::Hook('after'.$Call['Flat Entity'].'Write', $Call);
                 $Call = F::Hook('afterEntityCreateOrUpdate', $Call);
-                $Call = F::Hook('afterEntityCreate', $Call); // FIXME All block?
+                $Call = F::Hook('after'.$Call['Flat Entity'].'CreateOrUpdate', $Call);
+                $Call = F::Hook('afterEntityCreate', $Call);
+                $Call = F::Hook('after'.$Call['Flat Entity'].'Create', $Call); // FIXME All block?
             }
             $NewData[$IX] = $Call['Data'];
         }
@@ -218,8 +224,11 @@
                     $Call['Data']['EV'] = $Call['EV'];
 
                     $Call = F::Hook('beforeEntityUpdate', $Call);
+                    $Call = F::Hook('before'.$Call['Flat Entity'].'Update', $Call);
                     $Call = F::Hook('beforeEntityCreateOrUpdate', $Call);
+                    $Call = F::Hook('before'.$Call['Flat Entity'].'CreateOrUpdate', $Call);
                     $Call = F::Hook('beforeEntityWrite', $Call);
+                    $Call = F::Hook('before'.$Call['Flat Entity'].'Write', $Call);
                     /*
                     TODO: необходимо щепитильно проверить обновлялку
                     */
@@ -233,12 +242,15 @@
                             if (isset($Call['Dry']))
                                 F::Log('Dry shot for ' . $Call['Entity'] . ' update');
                             else
-                                {
+                            {
                                 F::Run('IO', 'Write', $Call, $VCall);
-
+    
                                 $Call = F::Hook('afterEntityWrite', $Call);
+                                $Call = F::Hook('after'.$Call['Flat Entity'].'Write', $Call);
                                 $Call = F::Hook('afterEntityCreateOrUpdate', $Call);
+                                $Call = F::Hook('after'.$Call['Flat Entity'].'CreateOrUpdate', $Call);
                                 $Call = F::Hook('afterEntityUpdate', $Call);
+                                $Call = F::Hook('after'.$Call['Flat Entity'].'Update', $Call);
                             }
                     }
                 }
