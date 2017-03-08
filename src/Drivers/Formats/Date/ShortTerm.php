@@ -20,11 +20,13 @@
                     $Output[] = sprintf('%02d', $Units);
                     $Call['Value'] -= $Units*$Value;
                 }
+                else
+                    $Output[] = 0;
 
             if (empty($Output))
                 $Result = 0;
             else
-                $Result = implode(':', array_slice($Output,0,$Call['Period']['Format']));
+                $Result = implode(':', $Output);
         }
         else
             $Result = null;

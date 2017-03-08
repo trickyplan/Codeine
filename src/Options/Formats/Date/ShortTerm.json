@@ -4,11 +4,8 @@
         "Format": 2,
         "Units":
         {
-            "Year": 31536000,
-            "Day": 86400,
             "Hour": 3600,
-            "Min": 60,
-            "Seconds": 1
+            "Min": 60
         }
     }
 }
