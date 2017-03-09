@@ -1,4 +1,5 @@
 {
+    "Mixins": ["User.Login.AuthenticatedGoesBack"],
     "Auth Modes": ["Password"],
     "TTLs":
     {
@@ -13,14 +14,6 @@
             {
                 "Service": "System.Interface.HTTP",
                 "Method": "StoreURL"
-            }
-        },
-        "-afterAuthenticate":
-        {
-            "Restore URL":
-            {
-                "Service": "System.Interface.HTTP",
-                "Method": "RestoreURL"
             }
         },
         "afterAnnulate":

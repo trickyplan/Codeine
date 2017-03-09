@@ -1,0 +1,13 @@
+{
+    "Hooks":
+    {
+        "afterAuthenticate":
+        {
+            "Restore URL":
+            {
+                "Service": "System.Interface.HTTP",
+                "Method": "RestoreURL"
+            }
+        }
+    }
+}

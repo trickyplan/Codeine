@@ -49,11 +49,12 @@
 
             if ($Call['Session']['User']['ID'] == $Call['User']['ID'])
             {
-                F::Log('User authorized '.$Call['User']['ID'], LOG_INFO, 'Security');
+                F::Log('User authenticated '.$Call['User']['ID'], LOG_INFO, 'Security');
+                
                 $Call = F::Hook('afterAuthenticate', $Call);
             }
             else
-                F::Log('User is not authorized', LOG_INFO, 'Security');
+                F::Log('User is not authenticated', LOG_INFO, 'Security');
         }
         else
         {

@@ -571,6 +571,7 @@
                              ;
                          else
                          {
+                             self::$_Stack->push('@'.$On.':'.$HookName);
                              self::Log($On.':'.$HookName, LOG_DEBUG);
 
                              if (self::isCall($Hook))
@@ -584,6 +585,8 @@
                              }
                              else
                                  $Call = self::Merge($Call, $Hook);
+                             
+                             self::$_Stack->pop();
                          }
                      }
                  }
