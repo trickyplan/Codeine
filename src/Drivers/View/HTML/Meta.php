@@ -28,7 +28,10 @@
             $Call = F::Live($Call['Meta']['Sources']['Title'], $Call);
 
             if (isset($Call['View']['HTML']['Title'][count($Call['View']['HTML']['Title'])-1]))
+            {
+                $Call['View']['HTML']['Header RAW'] = $Call['View']['HTML']['Title'][count($Call['View']['HTML']['Title'])-1];
                 $Call['View']['HTML']['Header'] = strip_tags($Call['View']['HTML']['Title'][count($Call['View']['HTML']['Title'])-1], '<l><k>');
+            }
 
             if ($Call['Meta']['Title']['Reverse'])
                 $Call['View']['HTML']['Title'] = array_reverse($Call['View']['HTML']['Title']);
@@ -97,6 +100,11 @@
             $Call['Output'] = str_replace('<header/>', $Call['View']['HTML']['Header'], $Call['Output']);
         else
             $Call['Output'] = str_replace('<header/>', '', $Call['Output']);
+        
+        if (isset($Call['View']['HTML']['Header RAW']))
+            $Call['Output'] = str_replace('<headerraw/>', $Call['View']['HTML']['Header RAW'], $Call['Output']);
+        else
+            $Call['Output'] = str_replace('<headerraw/>', '', $Call['Output']);
 
         return $Call;
     });
