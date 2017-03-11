@@ -15,6 +15,7 @@
     final class F
     {
         private static $_Environment = 'Production';
+        private static $_Hostname = 'host';
 
         private static $_Options = [];
         private static $_Code = [];
@@ -46,6 +47,7 @@
 
         public static function Bootstrap ($Call = [])
         {
+            self::$_Hostname = gethostname();
             self::$_Live = true;
             self::$_Stack = new SplStack();
 
@@ -222,7 +224,10 @@
                 $Filenames = [];
 
                 if (self::$_Environment != 'Production')
+                {
+                    $Filenames[] = $Path.DS.$ServicePath.'.'.self::$_Hostname.'.json';
                     $Filenames[] = $Path.DS.$ServicePath.'.'.self::$_Environment.'.json';
+                }
 
                 $Filenames[] = $Path.DS.$ServicePath.'.json';
 
