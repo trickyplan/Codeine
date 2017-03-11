@@ -399,8 +399,8 @@
                                 else
                                     $Memo[] = $Key;
                             }
-    
-                            $CacheID = self::$_Service.':'.self::$_Method.':'.serialize($Memo);
+                            
+                            $CacheID = self::$_Service.':'.self::$_Method.':'.sha1(serialize($Memo));
                         }
                     }
                     
