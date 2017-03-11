@@ -40,6 +40,12 @@
             {
                 "Service": "Code.Flow.Application.Access",
                 "Method": "Check"
+            },
+            "Project":
+            {
+                "Service": "Project.Preload",
+                "Method": "beforeFrontRun",
+                "Must be first": true
             }
         },
         "afterApplicationRun":

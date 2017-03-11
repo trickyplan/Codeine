@@ -10,7 +10,7 @@
             },
             "Read":
             {
-                "Memo": ["Entity", "Where", "Time", "Key", "Fields", "One", "Sort", "Filter", "Limit"]
+                "Memo": ["Entity", "Where", "Key", "Fields", "One", "Sort", "Filter", "Limit"]
             }
         }
     },

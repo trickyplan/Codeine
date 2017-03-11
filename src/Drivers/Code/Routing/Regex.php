@@ -87,7 +87,7 @@
         $Call['Run'] = $Decision;
 
         if (isset($Call['Mixin']))
-            $Call['Run'] = F::Merge($Call['Run'], $Call['Mixin']);
+            $Call['Run'] = F::Merge($Call['Run'], $Call['Mixin']['Run']);
 
         unset($Call['Regex']);
 

@@ -17,9 +17,12 @@
         {
             "Match": "/page(\\d+)",
             "Mixin": true,
-            "Call":
+            "Run":
             {
-                "Page": "$1"
+                "Call":
+                {
+                    "Page": "$1"
+                }
             }
         },
         "Frontpage":

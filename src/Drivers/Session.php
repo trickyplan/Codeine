@@ -23,7 +23,7 @@
         }
         else
         {
-            $Call['Session'] = F::Run('Entity', 'Read',
+            $Call['Session'] = F::Run('Entity', 'Read', $Call,
                 [
                     'Entity' => 'Session',
                     'Where' => $Call['SID'],
@@ -47,7 +47,7 @@
         }
 
         $Call = F::Hook('afterSessionInitialize', $Call);
-
+        
         $Call = F::Run(null, 'Load User', $Call);
 
         $Call['SUID'] = isset($Call['Session']['User']['ID'])? 'U:'.$Call['Session']['User']['ID']: 'S:'. $Call['SID'];
@@ -84,7 +84,7 @@
         }
         elseif (isset($Call['Session']['User']) && $Call['Session']['User'] != 0)
         {
-            $Call['Session']['User'] = F::Run('Entity', 'Read',
+            $Call['Session']['User'] = F::Run('Entity', 'Read', $Call,
                 [
                     'Entity' => 'User',
                     'Where' => $Call['Session']['User'],

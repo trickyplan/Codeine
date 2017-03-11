@@ -3,7 +3,7 @@
     {
         "Text.Regex":
         {
-            "All":
+            "-All":
             {
                 "Memo": ["Pattern", "Value", "Time"]
             }

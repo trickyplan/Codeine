@@ -26,8 +26,8 @@
 
             F::Log('Memory: *'.(memory_get_usage(true)/1024).'Kb* ', LOG_NOTICE, 'Performance');
             F::Log('Peak memory: *'.(memory_get_peak_usage(true)/1024).'Kb*', LOG_NOTICE, 'Performance');
-            F::Log('Core Storage: *'.$Call['Performance']['Summary']['Core Storage'].'*', LOG_NOTICE, 'Performance');
-
+            F::Log('Core Storage: ~*'.(round(mb_strlen(serialize(self::$_Storage))/1024)).'kb*', LOG_NOTICE, 'Performance');
+            
             foreach (self::$_Counters['T'] as $Key => $Value)
             {
                 if (!isset(self::$_Counters['C'][$Key]))
