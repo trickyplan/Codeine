@@ -17,7 +17,8 @@
         // TODO Error: Not found Regex Table
         $Decision = null;
         $Weight = -255;
-
+        $Call['Mixin'] = ['Run' => []];
+        
         if (isset($Call['Regex']))
             {
                 $ix = 0;
@@ -60,7 +61,7 @@
 
                             if (isset($Call['Routing']['Rule']['Mixin']) && $Call['Routing']['Rule']['Mixin'])
                             {
-                                $Call['Mixin'] = $Call['Routing']['Rule'];
+                                $Call['Mixin'] = F::Merge($Call['Mixin'], $Call['Routing']['Rule']);
                                 $Call['Run'] = str_replace($Matches[0], '', $Call['Run']);
                                 F::Log('Regex *mixin* *'.$Name.'* applied *'.$Call['Run'].'*', LOG_INFO);
                             }
@@ -86,8 +87,7 @@
 
         $Call['Run'] = $Decision;
 
-        if (isset($Call['Mixin']))
-            $Call['Run'] = F::Merge($Call['Run'], $Call['Mixin']['Run']);
+        $Call['Run'] = F::Merge($Call['Run'], $Call['Mixin']['Run']);
 
         unset($Call['Regex']);
 
