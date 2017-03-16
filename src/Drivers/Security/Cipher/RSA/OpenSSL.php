@@ -34,7 +34,7 @@
         
         $Call = F::Hook('afterEncode', $Call);
         
-        return chunk_split($Call['Ciphertext']);
+        return $Call['Ciphertext'];
     });
     
     setFn('Decode', function ($Call)

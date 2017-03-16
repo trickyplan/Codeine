@@ -9,10 +9,11 @@
 
     setFn('beforeOperation', function ($Call)
     {
-        // Если в Where скалярная переменная - это ID.
         if (isset($Call['Where']))
         {
             $Call['Where'] = F::Live($Call['Where'], $Call);
+
+            // Если в Where скалярная переменная - это ID.
 
             if (is_scalar($Call['Where']))
             {
@@ -50,9 +51,12 @@
                                                 'Node' => $Node,
                                                 'Value' => $cValue
                                             ]);
+                                
                                 // FIXME Нативные массивы?
                                 if (isset($Node['Array Like']) && $Node['Array Like'])
-                                    $Value = ['$elemMatch' => $Value]; // FIXME: Mongo, fuck you!
+                                    $Value = ['$elemMatch' => $Value];
+
+                                // FIXME: Mongo, fuck you!
                             }
                             else
                             {

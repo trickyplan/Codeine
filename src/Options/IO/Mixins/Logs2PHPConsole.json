@@ -1,0 +1,25 @@
+{
+    "Storages":
+    {
+        "Developer":
+        {
+            "Driver": "IO.Log.PHPConsole"
+        },
+        "Security":
+        {
+            "Driver": "IO.Log.PHPConsole"
+        },
+        "Administrator":
+        {
+            "Driver": "IO.Log.PHPConsole"
+        },
+        "Performance":
+        {
+            "Driver": "IO.Log.PHPConsole"
+        },
+        "Marketing":
+        {
+            "Driver": "IO.Log.PHPConsole"
+        }
+    }
+}

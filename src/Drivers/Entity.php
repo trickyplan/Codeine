@@ -52,6 +52,12 @@
             return $Call;
         }
         
+        if (isset($Call['One']))
+        {
+            $Call['Internal One'] = $Call['One'];
+            unset($Call['One']);
+        }
+        
         if (isset($Call['Data'][0]))
             ;
         else
@@ -103,8 +109,11 @@
 
         F::Log('*'.count($NewData).'* '.$Call['Entity'].' created', LOG_INFO, 'Administrator');
 
-        if (isset($Call['One']))
+        if (isset($Call['Internal One']))
+        {
             $NewData = array_shift($NewData);
+            unset($Call['Internal One']);
+        }
 
         if (isset($Call['Errors']))
             return ['Errors' => $Call['Errors']];
@@ -118,6 +127,12 @@
         {
             F::Log('Entity not defined.', LOG_ERR);
             return null;
+        }
+        
+        if (isset($Call['One']))
+        {
+            $Call['Internal One'] = $Call['One'];
+            unset($Call['One']);
         }
 
         $Call = F::Hook('beforeOperation', $Call);
@@ -151,9 +166,10 @@
 
         $Call = F::Hook('afterOperation', $Call);
 
-        if (isset($Call['One']) && $Call['One'] && is_array($Call['Data']))
+        if (isset($Call['Internal One']) && $Call['Internal One'] && is_array($Call['Data']))
         {
             F::Log('One of *'.count($Call['Data']).'* '.$Call['Entity'].' read', LOG_INFO, 'Administrator');
+            unset($Call['Internal One']);
             return array_shift($Call['Data']);
         }
         else
@@ -171,13 +187,11 @@
             return null;
         }
 
-        if (isset($Call['One']) && $Call['One'])
+        if (isset($Call['One']))
         {
+            $Call['Internal One'] = $Call['One'];
             unset($Call['One']);
-            $One = true;
         }
-        else
-            $One = false;
 
         $Call = F::Hook('beforeOperation', $Call);
 
@@ -259,8 +273,11 @@
 
                 F::Log('*'.count($Entities).'* '.$Call['Entity'].' updated', LOG_INFO, 'Administrator');
 
-                if ($One && is_array($Entities))
+                if (isset($Call['Internal One']) && $Call['Internal One'] && is_array($Entities))
+                {
                     $Entities = array_shift($Entities);
+                    unset($Call['Internal One']);
+                }
             }
 
         F::Hook('afterOperation', $Call);
