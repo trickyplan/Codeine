@@ -44,6 +44,11 @@
                 "Service": "View.Hooks.Key",
                 "Method": "Parse"
             },
+            "For":
+            {
+                "Service": "View.Hooks.For",
+                "Method": "Parse"
+            },
             "Layout":
             {
                 "Service": "View.Hooks.Layout",
