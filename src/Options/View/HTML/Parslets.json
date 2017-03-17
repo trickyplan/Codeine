@@ -31,6 +31,7 @@
                     "HTMLEntities",
                     "Striptags",
                     "Cut",
+                    "Breaks",
                     "Fn",
                     "Number",
                     "Hashtags",
