@@ -16,10 +16,13 @@
     }
     else
     {
-        if (preg_match_all('/--([\w.]+)\=([\w.]+)/Ssu', $argv[1], $Pockets))
+        if (preg_match_all('/--([\w.]+)\=([\S]+)/Ssu', $argv[1], $Pockets))
         {
             foreach ($Pockets[1] as $IX => $Key)
+            {
                 $Opts = F::Dot($Opts, strtr($Key, '_', ' '), $Pockets[2][$IX]);
+                F::Log('Get Opt Style CLI parameter loaded from *'.$Key.'* = *'.$Pockets[2][$IX].'*', LOG_INFO);
+            }
         }
         else
             $Opts[] = $argv;
