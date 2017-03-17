@@ -15,14 +15,15 @@
             F::Log('JSON CLI parameters loaded from '.$argv[1], LOG_INFO);
     }
     else
-        foreach ($argv as $arg)
-            if (preg_match('/^--([^=]+)\=(.+)$/Ssu', $arg, $Pockets))
-            {
-                $Opts = F::Dot($Opts, strtr($Pockets[1], '_', ' '), $Pockets[2]);
-                F::Log($Pockets[1].' = '.$Pockets[2], LOG_INFO);
-            }
-            else
-                $Opts[] = $arg;
+    {
+        if (preg_match_all('/--([\w.]+)\=([\w.]+)/Ssu', $argv[1], $Pockets))
+        {
+            foreach ($Pockets[1] as $IX => $Key)
+                $Opts = F::Dot($Opts, strtr($Key, '_', ' '), $Pockets[2][$IX]);
+        }
+        else
+            $Opts[] = $argv;
+    }
 
     if (file_exists('/etc/default/codeine'))
         define('Root', file_get_contents('/etc/default/codeine'));
