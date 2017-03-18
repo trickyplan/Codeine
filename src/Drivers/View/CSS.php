@@ -60,9 +60,9 @@
                                 ])[0];
 
                         if ($Call['CSS']['Styles'][$Call['CSS Name']])
-                            F::Log('CSS loaded: '.$Call['CSS Name'], LOG_DEBUG);
+                            F::Log('CSS *is* loaded: '.$Call['CSS Name'], LOG_DEBUG);
                         else
-                            F::Log('CSS cannot loaded: '.$Call['CSS Name'], LOG_ERR);
+                            F::Log('CSS *isn\'t* loaded: '.$Call['CSS Name'], LOG_ERR);
 
                     $Call = F::Hook('afterCSSLoad', $Call);
                 }

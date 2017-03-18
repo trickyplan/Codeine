@@ -68,9 +68,9 @@
                     }
 
                     if ($Call['JS']['Scripts'][$Call['JS']['Fullpath']])
-                        F::Log('JS *loaded*: '.$Call['JS']['Fullpath'], LOG_DEBUG);
+                        F::Log('JS is *loaded*: '.$Call['JS']['Fullpath'], LOG_DEBUG);
                     else
-                        F::Log('JS *not loaded*: '.$Call['JS']['Fullpath'], LOG_WARNING);
+                        F::Log('JS *isn\'t* loaded*: '.$Call['JS']['Fullpath'], LOG_WARNING);
                 }
 
                 if (!empty($JSInline))

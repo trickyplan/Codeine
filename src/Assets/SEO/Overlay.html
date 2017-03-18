@@ -1,0 +1,20 @@
+<access Service="Control.Panel">
+    <div id="codeine-overlay-seo" style="display: none; width: 25%; position: fixed; top: 0; left: 25%; z-index: 99;">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                SEO Overlay
+            </div>
+            <div class="panel-body">
+                <h4>Title</h4>
+                <call>View.HTML.Title</call>
+
+                <h4>Keywords</h4>
+                <call>View.HTML.Keywords</call>
+            </div>
+        </div>
+    </div>
+</access>
+<jsrun>
+    key('ctrl+8', function(){$('#codeine-overlay-seo').toggle(); return false });
+</jsrun>

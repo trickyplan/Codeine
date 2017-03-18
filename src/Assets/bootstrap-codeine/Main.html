@@ -24,25 +24,26 @@
 
     <place>CSS</place>
 
-    <js>:jquery/dist/jquery.min</js>
-
-    <css>:bootstrap/dist/css/bootstrap.min</css>
-    <css>:bootstrap/dist/css/bootstrap-theme.min</css>
-    <js>:bootstrap/dist/js/bootstrap.min</js>
+    <css>:bower/normalize-css/normalize</css>
+    <css>:bower/bootstrap/dist/css/bootstrap.min</css>
+    <css>:bower/bootstrap/dist/css/bootstrap-theme.min</css>
+    <css>:bower/font-awesome/css/font-awesome</css>
 
     <css>bootstrap-codeine:addons</css>
-    <css>font-awesome</css>
+
+    <js>:bower/jquery/dist/jquery.min</js>
+    <js>:bower/bootstrap/dist/js/bootstrap.min</js>
 
     <css>Default</css>
     <css>print</css>
 
 
-    <js>jquery.hotkeys</js>
+    <js>:bower/keymaster/keymaster</js>
 
     <environment eq="Development">
         <js>Locale</js>
+        <css>:bower/holmes/holmes</css>
     </environment>
-    <js>modernizr</js>
     <js>Default:activelink</js>
     <js>Default:ajaxlink</js>
     <js>Default:ajaxblock</js>
@@ -64,6 +65,8 @@
     <place>Content</place>
     <place>JS</place>
     <layout>Error:Catcher</layout>
-    <layout>bootstrap-codeine:SEO</layout>
+
+    <layout>SEO:Overlay</layout>
+    <layout>Developer:Overlay</layout>
 </body>
 </html>

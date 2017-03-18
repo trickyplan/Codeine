@@ -1,0 +1,125 @@
+<environment neq="Production">
+    <div id="codeine-overlay-development"
+         style="display: none; width: 25%; position: fixed; top: 0; left: 0; z-index: 99;">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                Development Overlay
+            </div>
+            <div class="panel-body">
+                <table class="table table-condensed table-striped">
+                    <tr>
+                        <th class="col-md-4">
+                            URI:
+                        </th>
+                        <td>
+                            <call>HTTP.Proto</call>
+                            <call>HTTP.Host</call>
+                            <call>HTTP.URI</call>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Environment:</th>
+                        <td>
+                            <call>Environment</call>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Project Version</th>
+                        <td>
+                            <call>Version.Project.Major</call>.<call>Version.Project.Minor</call>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Codeine Version</th>
+                        <td>
+                            <call>Version.Codeine.Major</call>.<call>Version.Codeine.Minor</call>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Server Time</th>
+                        <td>
+                            <datetime format="d.m.Y H:i:s T"></datetime>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Heat time</th>
+                        <td><timer>Preheat</timer>msec.</td>
+                    </tr>
+                    <tr>
+                        <th>Payload time</th>
+                        <td><timer>Payload</timer> msec.</td>
+                    </tr>
+                    <tr>
+                        <th>Cooldown time</th>
+                        <td><timer>Cooldown</timer> msec.</td>
+                    </tr>
+                    <tr>
+                        <th>IO</th>
+                        <td><timer>IO</timer> msec.</td>
+                    </tr>
+                    <tr>
+                        <th>Rendering</th>
+                        <td><timer>View</timer> msec.</td>
+                    </tr>
+                    <tr>
+                        <th>From &alpha; to &omega;</th>
+                        <td>
+                            <div id="overall-profiling" style="display: none;"><call>Started</call></div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>Browser</th>
+                        <td>
+                            <call>HTTP.Agent</call>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>IP</th>
+                        <td>
+                            <call>HTTP.IP</call>
+                        </td>
+                    </tr>
+                    <block>
+                        <tr>
+                            <th>User</th>
+                            <td>
+                                <call>Session.User.ID</call>
+                            </td>
+                        </tr>
+                    </block>
+                </table>
+
+                <environment neq="Production">
+                    <div><a class="btn btn-xs btn-block btn-primary"
+                            href="http://<call>Project.Hosts.Production</call><call>HTTP.URI</call>">Боевой сервер</a>
+                    </div>
+                </environment>
+                <environment neq="Staging">
+                    <div><a class="btn btn-xs btn-block btn-success"
+                            href="http://<call>Project.Hosts.Staging</call><call>HTTP.URI</call>">Тестовый сервер</a>
+                    </div>
+                </environment>
+                <environment neq="Development">
+                    <div><a class="btn btn-xs btn-block btn-danger"
+                            href="http://<call>Project.Hosts.Development</call><call>HTTP.URI</call>">Локальный
+                        сервер</a></div>
+                </environment>
+            </div>
+        </div>
+    </div>
+
+    <jsrun>
+        d = new Date();
+        var time = d.getTime() - parseFloat($('#overall-profiling').html()) * 1000;
+        $('#overall-profiling').html(time.toFixed(0) + ' msec.').show();
+        key('ctrl+7', function ()
+        {
+            $('#codeine-overlay-development').toggle();
+            return false
+        });
+    </jsrun>
+</environment>

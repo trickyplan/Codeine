@@ -9,7 +9,7 @@
     
     setFn('Get', function ($Call)
     {
-        $Call['HTTP']['Headers']['Access-Control-Allow-Origin:'] = '*'; // FIXME
+        $Call['HTTP']['Headers']['Access-Control-Allow-Origin:'] = $Call['HTTP']['Proto'].$Call['HTTP']['Host'];
         $Call['Output']['Content'] = F::findFile('/Assets/'.strtr($Call['Asset'], '.', DS).DS.$Call['Scope'].DS.$Call['ID'].'.'.$Call['Extension']);
         return $Call;
     });
