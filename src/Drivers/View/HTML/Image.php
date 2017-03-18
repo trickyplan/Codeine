@@ -178,6 +178,7 @@
         {
             $Call['Current Image']['Widget']['src'] = $SRC;
             $Call['Current Image']['Widget']['alt'] = $Call['Current Image']['Alt'];
+            $Call['Current Image']['Widget']['id'] = $Call['Current Image']['ID'];
             $Call['Current Image']['Widget']['class'] = $Call['Current Image']['Class'];
 
             if (isset($Call['Current Image']['Height']))

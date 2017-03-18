@@ -53,13 +53,16 @@
                 }
         }
 
+        if (empty($Call['Action']))
+            $Call['Action'] =$Call['HTTP']['URI'];
+        
+        $Call['Output']['Content']['Form Widget']['Action'] = $Call['Action'];
+        
         $Call = F::Apply('Entity.Form', 'Generate', $Call, ['IX' => 0, 'Data!' => $Call['Data']]);
 
         // Вывести
         $Call = F::Hook('afterCreateGet', $Call);
-
-        $Call['Output']['Content']['Form Widget']['Action'] = isset($Call['Action'])? $Call['Action']: '';
-
+        
         return $Call;
     });
 

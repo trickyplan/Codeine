@@ -40,13 +40,16 @@
                         $Call['Custom Layouts']['Update']: 'Update',
                 'Context' => $Call['Context']
             ];
+        
+        if (empty($Call['Action']))
+            $Call['Action'] =$Call['HTTP']['URI'];
+        
+        $Call['Output']['Content']['Form Widget']['Action'] = $Call['Action'];
 
         foreach ($Call['Current'] as $IX => $cData)
             $Call = F::Apply('Entity.Form', 'Generate', $Call, ['IX' => $IX, 'Data!' => $cData]);
 
         // Вывести
-
-        $Call['Output']['Content']['Form Widget']['Action'] = isset($Call['Action'])? $Call['Action']: '';
 
       //  $Call = F::Hook('afterUpdateGet', $Call);
 
