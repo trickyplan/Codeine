@@ -1,5 +1,68 @@
 <js>:bower/typeahead.js/dist/typeahead.bundle</js>
 <js>:bower/handlebars/handlebars.min</js>
+<cssrun>
+span.twitter-typeahead
+{
+    margin-top: 4px;
+    width : 100%;
+}
+
+.form-inline span.twitter-typeahead
+{
+    margin-top: 4px;
+}
+
+/* dropdown suggestion menu */
+.tt-menu
+{
+    width              : 300px;
+    max-height         : 340px;
+    overflow-x         : hidden;
+    overflow-y         : auto;
+
+    margin-top         : 0;
+    padding            : 0;
+
+    background-color   : #ffffff;
+    border             : 1px solid #cccccc;
+    border-top         : none;
+    -webkit-box-shadow : 0 5px 10px rgba(0, 0, 0, .1);
+    -moz-box-shadow    : 0 5px 10px rgba(0, 0, 0, .1);
+    box-shadow         : 0 5px 10px rgba(0, 0, 0, .1);
+}
+
+/* individual suggestions */
+.tt-suggestion
+{
+    margin  : 0;
+    padding : 5px 10px;
+    cursor  : pointer;
+}
+
+/* active/:hover suggestion */
+.tt-suggestion:hover
+{
+    cursor           : pointer;
+    background-color : #333333;
+    color            : white;
+}
+
+.tt-hint
+{
+    display : none;
+    color   : #999999;
+}
+
+.tt-suggestion p
+{
+    margin : 2px 0;
+}
+
+.tt-dataset .alert
+{
+    margin: 0;
+}
+</cssrun>
 <div class="form-group">
     <div class="input-group">
         <if value="<k>NoLabel</k>" neq="1">
