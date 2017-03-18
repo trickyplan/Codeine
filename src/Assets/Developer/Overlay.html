@@ -1,4 +1,4 @@
-<environment neq="Production">
+<access Service="Control.Panel">
     <div id="codeine-overlay-development"
          style="display: none; width: 25%; position: fixed; top: 0; left: 0; z-index: 99;">
         <div class="panel panel-default">
@@ -92,24 +92,23 @@
                         </tr>
                     </block>
                 </table>
-
-                <environment neq="Production">
-                    <div><a class="btn btn-xs btn-block btn-primary"
-                            href="http://<call>Project.Hosts.Production</call><call>HTTP.URI</call>">Боевой сервер</a>
-                    </div>
-                </environment>
-                <environment neq="Staging">
-                    <div><a class="btn btn-xs btn-block btn-success"
-                            href="http://<call>Project.Hosts.Staging</call><call>HTTP.URI</call>">Тестовый сервер</a>
-                    </div>
-                </environment>
-                <environment neq="Development">
-                    <div><a class="btn btn-xs btn-block btn-danger"
-                            href="http://<call>Project.Hosts.Development</call><call>HTTP.URI</call>">Локальный
-                        сервер</a></div>
-                </environment>
             </div>
         </div>
+        <environment neq="Production">
+            <div><a class="btn btn-xs btn-block btn-primary"
+                    href="http://<call>Project.Hosts.Production</call><call>HTTP.URI</call>">Боевой сервер</a>
+            </div>
+        </environment>
+        <environment neq="Staging">
+            <div><a class="btn btn-xs btn-block btn-success"
+                    href="http://<call>Project.Hosts.Staging</call><call>HTTP.URI</call>">Тестовый сервер</a>
+            </div>
+        </environment>
+        <environment neq="Development">
+            <div><a class="btn btn-xs btn-block btn-danger"
+                    href="http://<call>Project.Hosts.Development</call><call>HTTP.URI</call>">Локальный
+                сервер</a></div>
+        </environment>
     </div>
 
     <jsrun>
@@ -122,4 +121,4 @@
             return false
         });
     </jsrun>
-</environment>
+</access>
