@@ -263,7 +263,7 @@
         {
             if (isset($Call['HTTP']['Headers']))
                 foreach ($Call['HTTP']['Headers'] as $Key => $Value)
-                    header ($Key . ' ' . $Value);
+                    header (preg_replace('/\s+/', ' ', $Key . ' ' . $Value));
         }
         return $Call;
     });
