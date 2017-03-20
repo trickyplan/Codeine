@@ -124,7 +124,10 @@
                         $Widget['Value'] = F::Live($Widget['Value']);
 
                     if (is_scalar($Widget['Value']))
+                    {
+                        $Widget['RAWValue'] = $Widget['Value'];
                         $Widget['Value'] = htmlspecialchars($Widget['Value']);
+                    }
 
                     // Упростить
 

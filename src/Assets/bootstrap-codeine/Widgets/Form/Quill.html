@@ -4,31 +4,23 @@
 
 <!-- Theme included stylesheets -->
 <link href="//cdn.quilljs.com/1.2.2/quill.snow.css" rel="stylesheet">
+<!-- Include the Quill library -->
+<script src="https://cdn.quilljs.com/1.2.2/quill.js"></script>
+
+<!-- Initialize Quill editor -->
 
 <!-- Initialize Quill editor -->
 <jsrun>
-    // Initialize editor with custom theme and modules
-    var fullEditor<k>ID</k> = new Quill('#full-editor<k>ID</k>', {
-        modules: {
-            'toolbar': { container: '#full-toolbar<k>ID</k>' },
-            'link-tooltip': true
-        },
-        formats: ['bold', 'italic', 'strike', 'underline', 'link', 'bullet', 'list'],
+   var quill = new Quill('#<k>ID</k>_Quill', {
         theme: 'snow'
     });
-
-    fullEditor<k>ID</k>.setHTML($('#<k>ID</k>_Data').text());
-    fullEditor<k>ID</k>.on('text-change', function(delta, source) {
-       $('#<k>ID</k>').val(fullEditor<k>ID</k>.getHTML());
+    quill.on('text-change', function()
+    {
+        $("#<k>ID</k>_Hidden").val($('#<k>ID</k>_Quill .ql-editor').html());
     });
 </jsrun>
-
-<label for="<k>ID</k>"> <l><k>Label</k></l>: <if value="<k>Required</k>" eq="1"><span class="required-star">*</span></if></label>
+<label for="<k>ID</k>_Hidden"> <l><k>Label</k></l>: <if value="<k>Required</k>" eq="1"><span class="required-star">*</span></if></label>
 <div class="quill-widget form-group">
-    <div class="hidden" id="<k>ID</k>_Data"><k>Value</k></div>
-    <!-- Create the editor container -->
-    <div id="full-editor<k>ID</k>" class="editor ql-container">
-        <iframe frameborder="0" height="100%" width="100%" role="presentation"></iframe>
-    </div>
-    <input name="<k>Name</k>" required id="<k>ID</k>" type="hidden" value="<k>Value</k>"/>
+    <div id="<k>ID</k>_Quill"><k>RAWValue</k></div>
+    <input name="<k>Name</k>" id="<k>ID</k>_Hidden" required type="hidden" value=""/>
 </div>
