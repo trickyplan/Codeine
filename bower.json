@@ -28,7 +28,6 @@
     "keymaster": "^1.6.3",
     "pnotify": "^3.0.0",
     "jquery-colorbox": "^1.6.4",
-    "quill": "^1.2.2",
     "holmes": "https://github.com/redroot/holmes.git#^1.0.46"
   }
 }

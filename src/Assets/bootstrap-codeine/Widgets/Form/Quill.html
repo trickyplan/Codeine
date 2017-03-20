@@ -1,7 +1,10 @@
 <!-- Include the Quill library -->
-<js>quill</js>
-<css>quill</css>
-<css>quill:snow</css>
+<script src="//cdn.quilljs.com/1.2.2/quill.js"></script>
+<script src="//cdn.quilljs.com/1.2.2/quill.min.js"></script>
+
+<!-- Theme included stylesheets -->
+<link href="//cdn.quilljs.com/1.2.2/quill.snow.css" rel="stylesheet">
+
 <!-- Initialize Quill editor -->
 <jsrun>
     // Initialize editor with custom theme and modules
@@ -23,26 +26,6 @@
 <label for="<k>ID</k>"> <l><k>Label</k></l>: <if value="<k>Required</k>" eq="1"><span class="required-star">*</span></if></label>
 <div class="quill-widget form-group">
     <div class="hidden" id="<k>ID</k>_Data"><k>Value</k></div>
-    <div id="full-toolbar<k>ID</k>" class="toolbar ql-toolbar-container">
-        <span class="ql-format-group">
-                <span title="<l>quill.Editor:Bold</l>" class="ql-format-button ql-bold"></span>
-            <span class="ql-format-separator"></span>
-                <span title="<l>quill.Editor:Italic</l>" class="ql-format-button ql-italic"></span>
-            <span class="ql-format-separator"></span>
-                <span title="<l>quill.Editor:Underline</l>" class="ql-format-button ql-underline"></span>
-            <span class="ql-format-separator"></span>
-                <span title="<l>quill.Editor:Strike</l>" class="ql-format-button ql-strike"></span>
-        </span>
-        <span class="ql-format-group">
-            <span title="<l>quill.Editor:Numbered</l>" class="ql-format-button ql-list"></span>
-            <span class="ql-format-separator"></span>
-            <span title="<l>quill.Editor:Bullet</l>" class="ql-format-button ql-bullet"></span>
-        </span>
-        <span class="ql-format-group">
-            <span title="<l>quill.Editor:Link</l>" class="ql-format-button ql-link"></span>
-        </span>
-    </div>
-
     <!-- Create the editor container -->
     <div id="full-editor<k>ID</k>" class="editor ql-container">
         <iframe frameborder="0" height="100%" width="100%" role="presentation"></iframe>
