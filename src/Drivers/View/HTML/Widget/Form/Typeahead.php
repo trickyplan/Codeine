@@ -16,12 +16,19 @@
 
              $Call['HValue'] = $Call['Value'];
 
-             $Call['Value'] = '<far>'.$Call['Entity'].':'.$Call['Value'].':Title</far>';
+             $Entity = F::Run('Entity', 'Read', $Call,
+                 [
+                    'Entity' => $Call['Entity'],
+                    'Fields' => ['Title'],
+                    'Where' => $Call['Value'],
+                    'One' => true
+                 ]);
+             
+             $Call['Value'] = htmlspecialchars($Entity['Title']);
          }
          else
              $Call['Value'] = '';
-
-
+         
          return F::Run('View.HTML.Widget.Base', 'Make',
              $Call,
              [
