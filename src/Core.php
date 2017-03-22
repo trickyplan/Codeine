@@ -8,7 +8,7 @@
     //gc_disable();
     define ('Codeine', __DIR__);
     define ('Started', microtime(true));
-    define ('REQID', Started.rand());
+    define ('REQID', Started.mb_substr(sha1(mt_rand(0,PHP_INT_MAX)), -6));
 
     defined('DS')? null: define('DS', DIRECTORY_SEPARATOR);
 
