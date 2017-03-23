@@ -135,6 +135,8 @@
             self::$_Perfect = self::$_Options['Codeine']['Perfect'];
 
             $Call['Call']['Hostname'] = gethostname();
+            $Call['Call']['Environment'] = F::Environment();
+
             return self::Live($Call);
         }
 

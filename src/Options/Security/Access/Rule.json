@@ -5,7 +5,8 @@
         "User.Security",
         "Project.Security",
         "SEO.Security",
-        "Developer.Security"
+        "Developer.Security",
+        "Test.Security"
     ],
     "Weight": 0,
     "Decision": false,

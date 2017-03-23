@@ -1,0 +1,15 @@
+{
+    "Rules":
+    {
+        "Tests allowed to all if environment development":
+        {
+            "Decision": true,
+            "Weight": 100,
+            "Run":
+            {
+                "Environment": "Development",
+                "Service": "Test"
+            }
+        }
+    }
+}

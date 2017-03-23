@@ -1,0 +1,40 @@
+{
+    "Suites":
+    {
+        "Positive":
+        {
+            "Encode":
+            {
+                "Run":
+                {
+                    "Service": "Formats.BASE64URLSafe",
+                    "Method": "Encode",
+                    "Call":
+                    {
+                        "Value": "Lorem ipsum"
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            },
+            "Decode":
+            {
+                "Run":
+                {
+                    "Service": "Formats.BASE64URLSafe",
+                    "Method": "Decode",
+                    "Call":
+                    {
+                        "Value": "TG9yZW0gaXBzdW0gZG9sb3Igc2l0IGFtZXQuY2hhbmdlLWRlZmF1bHQtc2FsdA~~"
+                    }
+                },
+                "Assert":
+                {
+                    "Equal": "Lorem ipsum dolor sit amet"
+                }
+            }
+        }
+    }
+}
