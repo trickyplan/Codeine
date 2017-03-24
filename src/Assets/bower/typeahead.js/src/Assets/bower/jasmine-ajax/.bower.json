@@ -1,0 +1,14 @@
+{
+  "name": "jasmine-ajax",
+  "homepage": "https://github.com/jasmine/jasmine-ajax",
+  "version": "1.3.1",
+  "_release": "1.3.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.3.1",
+    "commit": "e9fb578903cedd90235a7227b24f46a14be80671"
+  },
+  "_source": "https://github.com/jasmine/jasmine-ajax.git",
+  "_target": "~1.3.1",
+  "_originalSource": "jasmine-ajax"
+}
