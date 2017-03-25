@@ -18,7 +18,6 @@
         if (isset($Call['Project']['Hosts'][F::Environment()]))
             $Call['HTTP']['Host'] = $Call['Project']['Hosts'][F::Environment()];
 
-        $Call['HTTP']['Proto'] = 'https';
         $Call['HTTP']['URL'] = '/';
 
             if (isset($Call['Skip Run']))
