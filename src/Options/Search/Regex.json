@@ -4,7 +4,7 @@
         "Search JSON":
         {
             "Match": "^/search/json/(.+)/(.+)$",
-            "Weight": 20,
+            "Weight": 100,
             "Service": "Search",
             "Method": "Query",
             "Call":
@@ -23,7 +23,7 @@
         "Search":
         {
             "Match": "^/search/(.+)/(.+)$",
-            "Weight": 20,
+            "Weight": 80,
             "Service": "Search",
             "Method": "Query",
             "Call":
@@ -35,7 +35,7 @@
         "Vertical Search":
         {
             "Match": "^/search/(.*)$",
-            "Weight": 20,
+            "Weight": 60,
             "Service": "Search",
             "Method": "Query",
             "Call":
