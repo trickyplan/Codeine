@@ -66,6 +66,7 @@
 
                 $Links[$cID] = curl_init($cID);
 
+                F::Log('CURL GET Request Headers: *'.j($Call['CURL']['Headers']).'*', LOG_INFO, 'Administrator');
                 curl_setopt_array($Links[$cID],
                   [
                        CURLOPT_HEADER           => $Call['CURL']['Return Header'],
@@ -104,7 +105,6 @@
                     $Return[$ID] = substr($Return[$ID], 0, $Size);
                 }
 
-                F::Log('CURL GET headers: '.j($Call['CURL']['Headers']), LOG_INFO, 'Administrator');
                 if (curl_errno($Link))
                 {
                     F::Log('CURL GET error: '.curl_error($Link).'*'.$ID.'*', LOG_WARNING, 'Administrator');
@@ -126,6 +126,7 @@
 
             $Call['Link'] = curl_init($Call['Where']['ID']);
 
+            F::Log('CURL GET Request Headers: *'.j($Call['CURL']['Headers']).'*', LOG_INFO, 'Administrator');
             curl_setopt_array($Call['Link'],
                 [
                     CURLOPT_HEADER           => $Call['CURL']['Return Header'],
@@ -156,6 +157,7 @@
 
                 $HTTPStatus = curl_getinfo($Call['Link'], CURLINFO_HTTP_CODE);
                 $Return = [$Body, '_Status' => $HTTPStatus, '_0' => $Headers];
+                F::Log('CURL GET Response Headers: '.j(explode("\r\n", $Headers)), LOG_INFO, 'Administrator');
             }
             
             
@@ -164,8 +166,6 @@
                 $Size = curl_getinfo($Call['Link'], CURLINFO_HEADER_SIZE);
                 $Return[0] = substr($Return[0], 0, $Size);
             }
-
-            F::Log('CURL GET headers: '.j($Call['CURL']['Headers']), LOG_INFO, 'Administrator');
             
             if (curl_errno($Call['Link']))
             {
@@ -188,6 +188,7 @@
 
         $Post = is_string($Call['Data']) ? $Call['Data'] : http_build_query($Call['Data']);
 
+        F::Log('CURL POST Request Headers: *'.j($Call['CURL']['Headers']).'*', LOG_INFO, 'Administrator');
         curl_setopt_array($Call['Link'],
             [
                 CURLOPT_HEADER           => $Call['CURL']['Return Header'],
@@ -220,6 +221,8 @@
 
             $HTTPStatus = curl_getinfo($Call['Link'], CURLINFO_HTTP_CODE);
             $Result = [$Body, '_Status' => $HTTPStatus, '_0' => $Headers];
+            
+            F::Log('CURL GET Response Headers: '.j(explode("\r\n", $Headers)), LOG_INFO, 'Administrator');
         }
 
         if ($Call['CURL']['Return Header'] && isset($Call['CURL']['Only Header']))
@@ -227,8 +230,6 @@
             $Size = curl_getinfo($Call['Link'], CURLINFO_HEADER_SIZE);
             $Result[0] = substr($Result[0], 0, $Size);
         }
-
-        F::Log('CURL POST headers: '.j($Call['CURL']['Headers']), LOG_INFO, 'Administrator');
         
         if (curl_errno($Call['Link']))
         {
