@@ -30,7 +30,7 @@
             else
                 F::Log('Directory '.$DirName.' already exists', LOG_INFO, 'Administrator');
 
-            return fopen($Filename, d(__FILE__, __LINE__, $Call['Log']['File']['Mode']));
+            return fopen($Filename, $Call['Log']['File']['Mode']);
         }
     });
 
