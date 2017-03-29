@@ -1,3 +1,10 @@
 {
-    "EPP": 10
+    "Pagination":
+    {
+        "ElementsPerPage": 10,
+        "Limits":
+        {
+            "CountOfPages": 100
+        }
+    }
 }

@@ -16,6 +16,11 @@
             ;
         else
         {
+            if (isset($Call['Pagination']['ElementsPerPage']))
+                ;
+            else
+                $Call['Pagination']['ElementsPerPage'] = $Call['EPP'];
+            
             if (isset($Call['Count']) && !empty($Call['Count']))
             {
                 $Call['Limit']['From']= 0;
@@ -23,44 +28,49 @@
             }
             else
             {
-                if (!isset($Call['Page']) or empty($Call['Page']))
-                    $Call['Page'] = 1;
-                else
-                    if ($Call['Page'] > 100)
-                        $Call['Page'] = 100;
-
                 if (isset($Call['Elements']))
                     $Call['Count'] = count($Call['Elements']);
                 else
                     $Call['Count'] = F::Run('Entity', 'Count', $Call);
-
-                if (isset($Call['Sort']))
+                
+                $Call['CountOfPages'] = ceil($Call['Count'] / $Call['Pagination']['ElementsPerPage']);
+                F::Log('Count of elements: *'.$Call['Count'].'*', LOG_INFO);
+                F::Log('Elements per page: *'.$Call['Pagination']['ElementsPerPage'].'*', LOG_INFO);
+                F::Log('Count of pages: *'.$Call['CountOfPages'].'*', LOG_INFO);
+                
+                if (isset($Call['Page']))
                 {
-                    $Call['Limit']['From']= ($Call['Page']-1)*$Call['EPP'];
-                    $Call['Limit']['To'] = $Call['EPP'];
+                    if (empty($Call['Page']))
+                    {
+                        F::Log('Page # is set but empty', LOG_INFO, 'Developer');
+                        $Call['Page'] = 1;
+                    }
+                    else
+                    {
+                        if ($Call['Page'] > $Call['Pagination']['Limits']['CountOfPages'])
+                        {
+                            $Call['Page'] = $Call['Pagination']['Limits']['CountOfPages'];
+                            F::Log('Page number (*'.$Call['Page'].'*) *capped* to *'.$Call['Pagination']['Limits']['CountOfPages'].'*', LOG_INFO, 'Performance');
+                        }
+                        
+                        if ($Call['Page'] > $Call['CountOfPages'])
+                            F::Log('Page number (*'.$Call['Page'].'*) is more than count of pages (*'.$Call['CountOfPages'].'*)', LOG_INFO, 'Performance');
+                    }
                 }
                 else
-                {
-/*                    if ((isset($Call['Sequence ID']) and $Call['Sequence ID']) && !isset($Call['Where']))
-                    {
-                        $Max = F::Run('Entity', 'Count', $Call);
-                        $Call['Where']['ID']['$lt'] = $Max - ($Call['Page']-1)*$Call['EPP'] + 1;
-                        $Call['Limit']['From']  = 0;
-                        $Call['Limit']['To']    = $Call['EPP'];
-                        $Call['Sort'] = ['ID' => false];
-                    }
-                    else*/
-                    {
-                        $Call['Limit']['From']= ($Call['Page']-1)*$Call['EPP'];
-                        $Call['Limit']['To'] = $Call['EPP'];
-                    }
+                    $Call['Page'] = 1;
+                
+                $Call['Limit']['From'] = ($Call['Page']-1) * $Call['Pagination']['ElementsPerPage'];
+                $Call['Limit']['To'] = $Call['Pagination']['ElementsPerPage'];
+                $Call['Pagination']['Elements']['From'] = $Call['Limit']['From'];
+                $Call['Pagination']['Elements']['To'] = $Call['Limit']['From'] + $Call['Limit']['To'];
+                F::Log('Elements *'.$Call['Pagination']['Elements']['From'].'-'
+                    .($Call['Pagination']['Elements']['To'] > $Call['Count']? $Call['Count']: $Call['Pagination']['Elements']['To'])
+                    .'* selected', LOG_INFO);
 
-                }
 
-                $Call['PageCount'] = ceil($Call['Count']/$Call['EPP']);
-
-                if ($Call['PageCount'] > 100)
-                    $Call['PageCount'] = 100;
+                if ($Call['CountOfPages'] > 100)
+                    $Call['CountOfPages'] = 100;
             }
 
         }
@@ -80,16 +90,19 @@
         if (!isset($Call['FirstURL']) && isset($Call['HTTP']['URL']))
             $Call['FirstURL'] = preg_replace('@/page(\d+)@', '', $Call['HTTP']['URL']);
 
-        if (isset($Call['PageCount']) && $Call['PageCount']>1)
+        if (isset($Call['CountOfPages']) && $Call['CountOfPages']>1)
             $Call['Output']['Pagination'][] =
             [
                 'Type'  => 'Paginator',
                 'Total' => $Call['Count'],
-                'EPP' => $Call['EPP'],
+                'Pagination' => // FIX Other fields
+                [
+                    'ElementsPerPage' => $Call['Pagination']['ElementsPerPage']
+                ],
                 'Page' => $Call['Page'],
                 'FirstURL' => isset($Call['FirstURL'])? $Call['FirstURL']: '',
                 'PageURL' => isset($Call['PageURL'])? $Call['PageURL']: '',
-                'PageCount' => $Call['PageCount'],
+                'CountOfPages' => $Call['CountOfPages'],
                 'PageURLPostfix' => $Call['PageURLPostfix']
            ];
 
