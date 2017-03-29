@@ -333,7 +333,7 @@
         $CURLInfo = curl_getinfo($Call['Link']);
         $CURLInfo['request_header'] = explode("\r\n", $CURLInfo['request_header']);
         foreach ($CURLInfo as $Key => $Value)
-            F::Log('CURL Info: '.$Key.' = '.j($Value), LOG_INFO, 'Administrator');
+            F::Log($Key.' = '.j($Value), LOG_INFO, 'Administrator');
         
         return $Call;
     });
