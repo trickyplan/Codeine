@@ -36,7 +36,7 @@
                 ]);
 
         for ($ic = $Call['Page'] - $Call['Paginator Pages']; $ic <= $Call['Page'] + $Call['Paginator Pages']; $ic++)
-            if ($ic > 0 && $ic <= $Call['PageCount'])
+            if ($ic > 0 && $ic <= $Call['CountOfPages'])
             {
                 if ($ic == 1)
                     $Call['Value'] .= F::Run('View', 'Load',
@@ -64,7 +64,7 @@
 
             }
 
-        if ($Call['Page'] < $Call['PageCount'])
+        if ($Call['Page'] < $Call['CountOfPages'])
             $Call['Value'] .= F::Run('View', 'Load',
                 [
                     'Scope' => $Call['View']['HTML']['Widget Set'].'/Widgets',
@@ -76,15 +76,15 @@
                     ]
                 ]);
 
-        if ($Call['Page'] < $Call['PageCount'] - $Call['Paginator Pages'])
+        if ($Call['Page'] < $Call['CountOfPages'] - $Call['Paginator Pages'])
             $Call['Value'] .= F::Run('View', 'Load',
                 [
                     'Scope' => $Call['View']['HTML']['Widget Set'].'/Widgets',
                     'ID' => 'Paginator/End',
                     'Data' =>
                     [
-                        'Num' => $Call['PageCount'],
-                        'URL' => $Call['PageURL'] . $Call['PageCount']. $Call['PageURLPostfix']
+                        'Num' => $Call['CountOfPages'],
+                        'URL' => $Call['PageURL'] . $Call['CountOfPages']. $Call['PageURLPostfix']
                     ]
                 ]);
 

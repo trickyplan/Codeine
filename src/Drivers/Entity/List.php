@@ -16,8 +16,8 @@
 
         if (!isset($Call['Context']))
             $Call['Context'] = '';
-
-        $Call = F::Merge($Call, F::loadOptions($Call['Entity'].'.Entity')); // FIXME
+    
+        $Call = F::loadOptions($Call['Entity'].'.Entity', null, $Call);
 
         if (isset($Call['Where']))
             $Call['Where'] = F::Live($Call['Where'], $Call);
@@ -49,6 +49,7 @@
         $Empty = false;
 
         $Call['Template'] = (isset($Call['Template'])? $Call['Template']: 'Short');
+        F::Log('List template is *'.$Call['Template'].'*', LOG_INFO);
 
         if (sizeof($Call['Elements']) == 0)
             $Empty = true;
