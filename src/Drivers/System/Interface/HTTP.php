@@ -263,7 +263,15 @@
         {
             if (isset($Call['HTTP']['Headers']))
                 foreach ($Call['HTTP']['Headers'] as $Key => $Value)
-                    header (preg_replace('/\s+/', ' ', $Key . ' ' . $Value));
+                {
+                    if (is_array($Value))
+                        ;
+                    else
+                        $Value = (array) $Value;
+                    
+                    foreach ($Value as $cValue)
+                        header(preg_replace('/\s+/', ' ', $Key . ' ' . $cValue));
+                }
         }
         return $Call;
     });

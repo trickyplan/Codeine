@@ -79,6 +79,7 @@
                        CURLOPT_PROXY            => $Call['CURL']['Proxy']['Host'],
                        CURLOPT_PROXYPORT        => $Call['CURL']['Proxy']['Port'],
                        CURLOPT_USERAGENT        => $Call['CURL']['Agent'],
+                       CURLINFO_HEADER_OUT      => true,
                        CURLOPT_HTTPHEADER       => $Call['CURL']['Headers'],
                        CURLOPT_FAILONERROR      => false
                   ]);
@@ -140,6 +141,7 @@
                     CURLOPT_PROXYPORT        => $Call['CURL']['Proxy']['Port'],
                     CURLOPT_HTTPHEADER       => $Call['CURL']['Headers'],
                     CURLOPT_USERAGENT        => $Call['CURL']['Agent'],
+                    CURLINFO_HEADER_OUT      => true,
                     CURLOPT_SSL_VERIFYPEER   => false,
                     CURLOPT_FAILONERROR      => false
                 ]);
@@ -148,7 +150,8 @@
                 curl_setopt($Call['Link'], CURLOPT_PROXYUSERPWD, $Call['CURL']['Proxy']['Auth']);
 
             $Return = [curl_exec($Call['Link'])];
-
+            $Call = F::Apply(null, 'Info', $Call);
+            
             if ($Call['CURL']['Return Header'])
             {
                 $Size = curl_getinfo($Call['Link'], CURLINFO_HEADER_SIZE);
@@ -203,6 +206,7 @@
                 CURLOPT_PROXYPORT        => $Call['CURL']['Proxy']['Port'],
                 CURLOPT_USERAGENT        => $Call['CURL']['Agent'],
                 CURLOPT_HTTPHEADER       => $Call['CURL']['Headers'],
+                CURLINFO_HEADER_OUT      => true,
                 CURLOPT_FAILONERROR      => false,
                 CURLOPT_POST             => true,
                 CURLOPT_SSL_VERIFYPEER => false,
@@ -213,6 +217,8 @@
 
         $Result = [curl_exec($Call['Link'])];
 
+        $Call = F::Apply(null, 'Info', $Call);
+        
         if ($Call['CURL']['Return Header'])
         {
             $Size = curl_getinfo($Call['Link'], CURLINFO_HEADER_SIZE);
@@ -319,5 +325,15 @@
         if (isset($Call['Delay']))
             usleep($Call['Delay']);
 
+        return $Call;
+    });
+    
+    setFn('Info', function ($Call)
+    {
+        $CURLInfo = curl_getinfo($Call['Link']);
+        $CURLInfo['request_header'] = explode("\r\n", $CURLInfo['request_header']);
+        foreach ($CURLInfo as $Key => $Value)
+            F::Log('CURL Info: '.$Key.' = '.j($Value), LOG_INFO, 'Administrator');
+        
         return $Call;
     });
