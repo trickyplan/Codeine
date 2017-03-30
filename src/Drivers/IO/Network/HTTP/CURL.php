@@ -123,7 +123,12 @@
         else
         {
             if (isset($Call['Data']))
-                $Call['Where']['ID'].= '?'.http_build_query($Call['Data']);
+            {
+                if (empty($Call['Data']))
+                    ;
+                else
+                    $Call['Where']['ID'].= '?'.http_build_query($Call['Data']);
+            }
 
             $Call['Link'] = curl_init($Call['Where']['ID']);
 
