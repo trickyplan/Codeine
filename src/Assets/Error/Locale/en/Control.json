@@ -1,0 +1,14 @@
+{
+    "Options": {
+        "List": "List errors",
+        "Delete": "Clear",
+        "Do": "Overview",
+        "Show": "Show"
+    },
+    "Title":  "Errors",
+    "Today":  "Per day",
+    "Hour":   "Per hour",
+    "Minute": "Per minute",
+    "Second": "Per second",
+    "Total":  "Total"
+}
