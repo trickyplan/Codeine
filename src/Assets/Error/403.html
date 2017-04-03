@@ -3,13 +3,13 @@
 
 <h2 class="page-header"><l>Error.403:Title</l></h2>
 <div class="alert alert-danger">
-    <h4><l>Error:Warning.Title</l></h4>
+    <h4><l>Error.403:Warning.Title</l></h4>
     <l>Error.403:Warning.Description</l>
 </div>
 <div class="alert alert-success">
-    <h4><l>Error:Solution.Title</l></h4>
+    <h4><l>Error.403:Solution.Title</l></h4>
     <l>Error.403:Solution.Description</l>
 </div>
-<div class="label label-warning pull-right">
-    <l>Error:Notification</l>
-</div>
+<if value="<call>Session.User.ID</call>" eq="">
+    <a href="/login">Forgot login?</a>
+</if>
