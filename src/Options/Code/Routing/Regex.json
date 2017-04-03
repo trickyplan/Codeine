@@ -138,9 +138,10 @@
         },
         "Fonts":
         {
-            "Match": "/fonts/(.+)/(.+).(woff|woff2|ttf|otf)$",
+            "Match": "/fonts/(.+)/(.+)\\.(woff|woff2|ttf|otf|eot)$",
             "Service": "View.Asset",
             "Method": "Get",
+            "Weight": 100,
             "View":
             {
                 "Renderer":
