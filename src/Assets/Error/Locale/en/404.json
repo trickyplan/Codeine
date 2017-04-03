@@ -1,0 +1,12 @@
+{
+    "Title":    "Error 404",
+    "Subtitle": "404: Page not found",
+    "Keyword":  "error, error 404, page not found",
+    "Description":  "This 404 error page. You have come to a page that doesn`t exist.<br/> Perhaps you mistyped or page has been deleted.",
+    "Warning": {
+        "Description": "You have come to a page that doesn`t exist.<br/> Perhaps you mistyped or page has been deleted."
+    },
+    "Solution": {
+        "Description": "You can try to start from <a href=\"/\">the home page</a>."
+    }
+}
