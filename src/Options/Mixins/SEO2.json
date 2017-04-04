@@ -44,6 +44,7 @@
         {
             "Type": "Literal.String",
             "Weight": 40,
+            "User Override": true,
             "Widgets":
             {
                 "Write":
