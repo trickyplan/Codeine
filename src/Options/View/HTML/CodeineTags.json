@@ -1,0 +1,13 @@
+{
+    "View":
+    {
+        "HTML":
+        {
+            "CodeineTags":
+            {
+                "Max Passes": 3,
+                "Tags": ["If"]
+            }
+        }
+    }
+}
