@@ -22,24 +22,31 @@
             if (preg_match('@^(.+)\:(.+)$@SsUu', $Call['Parsed']['Value'][$Ix], $Slices))
             {
                 list(,$Entity, $ID) = $Slices;
-                $Element = F::Run('Entity', 'Read',
+                
+                if (empty($ID))
+                    $Call['Output'] = str_replace($Call['Parsed']['Match'][$Ix], '', $Call['Output']);
+                else
+                {
+                    $Element = F::Run('Entity', 'Read',
                     [
                           'Entity' => $Entity,
                           'Where'  => $ID,
                           'One'    => true
                     ]);
                 
-                if (!empty($Element))
-                    $Call['Output'] = str_replace($Call['Parsed']['Match'][$Ix],
-                        F::Run('View', 'Load', $Call,
-                            [
-                                  'Scope'  => $Entity,
-                                  'ID'     => 'Show/'.$Template,
-                                  'Data'   => $Element
-                            ]),
-                        $Call['Output']);
-                else
-                    $Call['Output'] = str_replace($Call['Parsed']['Match'][$Ix], '', $Call['Output']);
+                    if (!empty($Element))
+                        $Call['Output'] = str_replace($Call['Parsed']['Match'][$Ix],
+                            F::Run('View', 'Load', $Call,
+                                [
+                                      'Scope'  => $Entity,
+                                      'ID'     => 'Show/'.$Template,
+                                      'Data'   => $Element
+                                ]),
+                            $Call['Output']);
+                    else
+                        $Call['Output'] = str_replace($Call['Parsed']['Match'][$Ix], '', $Call['Output']);
+                }
+                
             }
             else
                 $Call['Output'] = str_replace($Call['Parsed']['Match'][$Ix], '', $Call['Output']);

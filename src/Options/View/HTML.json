@@ -45,6 +45,11 @@
         },
         "afterHTMLRender":
         {
+            "-CodeineTags":
+            {
+                "Service":"View.HTML.CodeineTags",
+                "Method":"Do"
+            },
             "Parslets":
             {
                 "Service":"View.HTML.Parslets",

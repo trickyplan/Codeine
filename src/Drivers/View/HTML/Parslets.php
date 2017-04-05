@@ -40,7 +40,7 @@
                                 'Pattern' => $Pattern,
                                 'Value'   => $Call['Output']
                             ]);
-                        
+      
                         if ($Parsed === false)
                             ;
                         else
@@ -59,7 +59,7 @@
                                         $Matched[$Parslet]['Options'][] = $Parsed[2][$IX];
                                         $Matched[$Parslet]['Value'][] = $Parsed[3][$IX];
                                     }
-                                    
+                                
                                 if (empty($Matched[$Parslet]))
                                     ;
                                 else
