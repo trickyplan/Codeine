@@ -598,7 +598,7 @@
             if (self::$_Perfect)
                 self::Perfect ($errno.' '.$errstr.' '.$errfile.'@'.$errline);
             
-            self::Log('<pre>'.self::Stack().'</pre>'.PHP_EOL.'Err '.$errno.':'.$errstr.PHP_EOL.$errfile.'@'.$errline, LOG_CRIT);
+            self::Log(j(self::Stack()).PHP_EOL.'Err '.$errno.':'.$errstr.PHP_EOL.$errfile.'@'.$errline, LOG_CRIT);
         }
         
         public static function Perfect ($Message)
