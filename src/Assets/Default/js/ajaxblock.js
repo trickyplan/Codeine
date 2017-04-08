@@ -32,7 +32,7 @@ $(document).ready(function ()
             }
         );
 
-        $('.ajax-delayed').on('ajax-load', function ()
+        $(document).on ('ajax-load', '.ajax-delayed', function ()
             {
                 var el = $(this);
                 if (el.attr('loaded') == true)
@@ -49,6 +49,8 @@ $(document).ready(function ()
                         }
                     });
                 }
+                event.stopPropagation();
+                return true;
             });
         return true;
     }
