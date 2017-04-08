@@ -35,7 +35,7 @@
                             'Attributes' => $Attributes
                         ] );
                    
-                    $Fragment = $Call['DOM']->createDocumentFragment();
+                    $Fragment = $Call['DOM<pre>']->createDocumentFragment();
                     $Fragment->appendXML($Replace);
                     
                     $Node->parentNode->replaceChild($Fragment, $Node);
