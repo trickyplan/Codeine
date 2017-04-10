@@ -168,7 +168,7 @@
 
         if (isset($Call['Internal One']) && $Call['Internal One'] && is_array($Call['Data']))
         {
-            F::Log('One of *'.count($Call['Data']).'* '.$Call['Entity'].' read', LOG_INFO, 'Administrator');
+            F::Log('One of *'.count($Call['Data']).'* '.$Call['Entity'].' read.', LOG_INFO, 'Administrator');
             unset($Call['Internal One']);
             return array_shift($Call['Data']);
         }
