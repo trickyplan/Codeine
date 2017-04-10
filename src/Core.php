@@ -668,13 +668,20 @@
                 else
                     $SC = 0; // FIXME?
                 
+                if (self::$_Stack->offsetExists(1))
+                    $Initiator = self::$_Stack->offsetGet(1);
+                else
+                    $Initiator = 'Core';
+                
+                $From = '*'.self::$_Service.':'.self::$_Method.'*'.' from *'.$Initiator.'*';
+                
                 if ($Verbose < LOG_NOTICE and $AppendStack)
                     self::$_Log[$Channel][]
                         = [
                             $Verbose,
                             $Time,
                             $Message,
-                            self::$_Service.':'.self::$_Method,
+                            $From,
                             $SC,
                             F::Stack()
                         ];
@@ -684,7 +691,7 @@
                         $Verbose,
                         $Time,
                         $Message,
-                        self::$_Service.':'.self::$_Method,
+                        $From,
                         $SC
                     ];
                 
