@@ -648,61 +648,67 @@
 
         public static function Log ($Message, $Verbose = 7, $Channel = 'Developer', $AppendStack = true)
         {
-            if (($Verbose <= self::$_Verbose[$Channel])
-                or
-            (isset($_SERVER['Verbose']) && $Verbose <= $_SERVER['Verbose']) or self::$_Staring)
+            if ($Channel == 'All')
+                foreach (self::$_Verbose as $Channel => $V)
+                    self::Log($Message, $Verbose, $Channel, $AppendStack);
+            else
             {
-                if (is_scalar($Message))
-                    ;
-                else
-                    $Message = j($Message,
-                        JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-/*                if ((self::Environment() == 'Development') && (self::$_Perfect === true) && $Verbose < LOG_WARNING)
-                    trigger_error($Message);*/
-
-                // $Message = self::$_Service.': '.$Message;
-                $Time = sprintf('%.3F', microtime(true)-Started);
-
-                if (self::$_Stack instanceof SplStack)
-                    $SC = self::$_Stack->count();
-                else
-                    $SC = 0; // FIXME?
-                
-                if (self::$_Stack->offsetExists(1))
-                    $Initiator = self::$_Stack->offsetGet(1);
-                else
-                    $Initiator = 'Core';
-                
-                $From = '*'.self::$_Service.':'.self::$_Method.'*'.' from *'.$Initiator.'*';
-                
-                if ($Verbose < LOG_NOTICE and $AppendStack)
-                    self::$_Log[$Channel][]
-                        = [
+                if (($Verbose <= self::$_Verbose[$Channel])
+                or
+                (isset($_SERVER['Verbose']) && $Verbose <= $_SERVER['Verbose']) or self::$_Staring)
+                {
+                    if (is_scalar($Message))
+                        ;
+                    else
+                        $Message = j($Message,
+                            JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    /*                if ((self::Environment() == 'Development') && (self::$_Perfect === true) && $Verbose < LOG_WARNING)
+                        trigger_error($Message);*/
+    
+                    // $Message = self::$_Service.': '.$Message;
+                    $Time = sprintf('%.3F', microtime(true)-Started);
+    
+                    if (self::$_Stack instanceof SplStack)
+                        $SC = self::$_Stack->count();
+                    else
+                        $SC = 0; // FIXME?
+                    
+                    if (self::$_Stack->offsetExists(1))
+                        $Initiator = self::$_Stack->offsetGet(1);
+                    else
+                        $Initiator = 'Core';
+                    
+                    $From = '*'.self::$_Service.':'.self::$_Method.'*'.' from *'.$Initiator.'*';
+                    
+                    if ($Verbose < LOG_NOTICE and $AppendStack)
+                        self::$_Log[$Channel][]
+                            = [
+                                $Verbose,
+                                $Time,
+                                $Message,
+                                $From,
+                                $SC,
+                                F::Stack()
+                            ];
+                    else
+                        self::$_Log[$Channel][]
+                            = [
                             $Verbose,
                             $Time,
                             $Message,
                             $From,
-                            $SC,
-                            F::Stack()
+                            $SC
                         ];
-                else
-                    self::$_Log[$Channel][]
-                        = [
-                        $Verbose,
-                        $Time,
-                        $Message,
-                        $From,
-                        $SC
-                    ];
-                
-                if (PHP_SAPI === 'cli')
-                    self::CLILog($Time, $Message, $Verbose, $Channel);
-                
-                if (self::$_Perfect && ($Verbose <= self::$_Options['Codeine']['Perfect Verbose'][$Channel]))
-                    self::Perfect ($Message);
                     
+                    if (PHP_SAPI === 'cli')
+                        self::CLILog($Time, $Message, $Verbose, $Channel);
+                    
+                    if (self::$_Perfect && ($Verbose <= self::$_Options['Codeine']['Perfect Verbose'][$Channel]))
+                        self::Perfect ($Message);
+                        
+                }
             }
-
+            
             return $Message;
         }
 
