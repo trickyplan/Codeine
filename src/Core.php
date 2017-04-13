@@ -323,7 +323,7 @@
                 for($ic = 3; $ic < $sz; $ic++)
                     if (is_array($Argument = func_get_arg ($ic)))
                         $Call = self::Merge($Call, $Argument);
-
+             
             return self::Execute($Service, $Method, $Call);
         }
 
@@ -347,6 +347,27 @@
 
         private static function Execute($Service, $Method, $Call)
         {
+            if (isset(self::$_Options['Codeine']['Watch']) && F::Environment() == 'Development')
+                foreach (self::$_Options['Codeine']['Watch'] as $Watch)
+                {
+                    $WatchValue = F::Dot($Call, $Watch);
+                    if ($WatchValue === null)
+                        ;
+                    else
+                    {
+                        if (F::Get('Watch.'.$Watch) == $WatchValue)
+                            ;
+                        else
+                        {
+                            F::Log('Watch *' . $Watch . '* was *'.j(F::Get('Watch.'.$Watch)).'*, now *' . j($WatchValue). '* (' . $Service . ':' . $Method . '*)',
+                                LOG_NOTICE,
+                                'Developer',
+                                true);
+                            F::Set('Watch.'.$Watch, $WatchValue);
+                        }
+                    }
+                }
+            
             $OldService = self::$_Service;
             $OldMethod = self::$_Method;
 
@@ -604,24 +625,31 @@
         public static function Perfect ($Message)
         {
             $Logs = self::Logs();
-
-            echo '<h2>Perfect Mode</h2>';
-            echo '<pre class="console">'.self::Stack().'</pre>'.PHP_EOL;
-            echo $Message.'<pre>';
-            
-            if (function_exists('xdebug_print_function_stack'))
-                xdebug_print_function_stack();
+            foreach ($Logs as $Channel => $Records)
+                foreach ($Records as $Record)
+                    $JSONLogs[] = [
+                        'Channel'   => $Channel,
+                        'Verbose'   => $Record[0],
+                        'Time'      => $Record[1],
+                        'Message'   => $Record[2],
+                        'From'      => $Record[3],
+                        'Depth'     => $Record[4],
+                        'Stack'     => $Record[5]
+                    ];
             
             if (PHP_SAPI == 'cli')
                 ;
             else
             {
-                foreach ($Logs as $Channel => $Records)
-                    foreach ($Records as $Log)
-                        echo $Channel.implode("\t", $Log).PHP_EOL;
+                $Output = file_get_contents(Codeine.'/Assets/Perfect.html');
+                $Output = str_replace('<perfect:message/>', $Message, $Output);
+                $Output = str_replace('<perfect:stack/>',self::Stack(), $Output);
+                $Output = str_replace('<perfect:logs/>', j($JSONLogs), $Output);
             }
 
-            echo '</pre>';
+            echo $Output;
+            /*if (function_exists('xdebug_print_function_stack'))
+                xdebug_print_function_stack();*/
             exit();
         }
 
@@ -646,7 +674,7 @@
             return true;
         }
 
-        public static function Log ($Message, $Verbose = 7, $Channel = 'Developer', $AppendStack = true)
+        public static function Log ($Message, $Verbose = 7, $Channel = 'Developer', $AppendStack = false)
         {
             if ($Channel == 'All')
                 foreach (self::$_Verbose as $Channel => $V)
@@ -669,9 +697,9 @@
                     $Time = sprintf('%.3F', microtime(true)-Started);
     
                     if (self::$_Stack instanceof SplStack)
-                        $SC = self::$_Stack->count();
+                        $StackDepth = self::$_Stack->count();
                     else
-                        $SC = 0; // FIXME?
+                        $StackDepth = 0; // FIXME?
                     
                     if (self::$_Stack->offsetExists(1))
                         $Initiator = self::$_Stack->offsetGet(1);
@@ -680,14 +708,14 @@
                     
                     $From = '*'.self::$_Service.':'.self::$_Method.'*'.' from *'.$Initiator.'*';
                     
-                    if ($Verbose < LOG_NOTICE and $AppendStack)
+                    if ($Verbose < LOG_NOTICE or $AppendStack)
                         self::$_Log[$Channel][]
                             = [
                                 $Verbose,
                                 $Time,
                                 $Message,
                                 $From,
-                                $SC,
+                                $StackDepth,
                                 F::Stack()
                             ];
                     else
@@ -697,7 +725,8 @@
                             $Time,
                             $Message,
                             $From,
-                            $SC
+                            $StackDepth,
+                            null
                         ];
                     
                     if (PHP_SAPI === 'cli')

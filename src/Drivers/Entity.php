@@ -76,6 +76,7 @@
         foreach ($NewData as $IX => $Call['Data'])
         {
             $Call['Current'] = $Call['Data'];
+           
             if (isset($Call['Dry']))
                 F::Log('Dry shot for '.$Call['Entity'].' create');
             else
@@ -170,13 +171,14 @@
         {
             F::Log('One of *'.count($Call['Data']).'* '.$Call['Entity'].' read.', LOG_INFO, 'Administrator');
             unset($Call['Internal One']);
-            return array_shift($Call['Data']);
+            $Call['Data'] = array_shift($Call['Data']);
         }
         else
-        {
             F::Log('*'.count($Call['Data']).'* '.$Call['Entity'].' read', LOG_INFO, 'Administrator');
-            return $Call['Data'];
-        }
+        
+        F::Log(j(F::Dot($Call['Data'], 'Tags')), LOG_NOTICE);
+        
+        return $Call['Data'];
     });
 
     setFn('Update', function ($Call)
@@ -209,7 +211,8 @@
 
                 $VCall = [];
 
-                foreach ($Entities as $Call['Current']) {
+                foreach ($Entities as $Call['Current'])
+                {
                     $Call['Data'] = [];
                     // Поиск по всем полям
                     $VCall['Where'] = ['ID' => $Call['Current']['ID']];

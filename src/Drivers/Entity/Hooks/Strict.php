@@ -17,8 +17,9 @@
                 if ($Node === null)
                     ;
                 else
-                    $Data = F::Dot($Data, $Name, F::Dot($Call['Data'], $Name));            }
-
+                    $Data = F::Dot($Data, $Name, F::Dot($Call['Data'], $Name));
+            }
+        
         $Call['Data'] = $Data;
 
         return $Call;
