@@ -55,11 +55,6 @@
             {
                 "Service": "Entity.Hooks.Where",
                 "Method": "beforeOperation"
-            },
-            "Convert empty to null":
-            {
-                "Service":"Entity.Hooks.ConvertEmptyToNull",
-                "Method":"Process"
             }
         },
         "beforeEntityCreate":
@@ -102,6 +97,11 @@
             "Inherited values":
             {
                 "Service":"Entity.Hooks.Inherited",
+                "Method":"Process"
+            },
+            "Convert empty to null":
+            {
+                "Service":"Entity.Hooks.ConvertEmptyToNull",
                 "Method":"Process"
             }
         },
