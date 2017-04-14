@@ -9,22 +9,23 @@
 
     setFn('Parse', function ($Call)
     {
-        foreach ($Call['Parsed']['Value'] as $Ix => $Match)
+        $Replaces = [];
+       
+        foreach ($Call['Parsed']['Value'] as $IX => $Match)
         {
-            if (!empty($Call['Parsed']['Options'][$Ix]))
+            if (!empty($Call['Parsed']['Options'][$IX]))
             {
-                $Root = simplexml_load_string('<root '.$Call['Parsed']['Options'][$Ix].'></root>');
-                $Template = isset($Root->attributes()->template)? (string) $Root->attributes()->template: 'Tag';
+                $Template = F::Dot($Call['Parsed'],'Options.'.$IX.'.template') ? F::Dot($Call['Parsed'],'Options.'.$IX.'.template'): 'Tag';
             }
             else
                 $Template = 'Tag';
 
-            if (preg_match('@^(.+)\:(.+)$@SsUu', $Call['Parsed']['Value'][$Ix], $Slices))
+            if (preg_match('@^(.+)\:(.+)$@SsUu', $Call['Parsed']['Value'][$IX], $Slices))
             {
                 list(,$Entity, $ID) = $Slices;
                 
                 if (empty($ID))
-                    $Call['Output'] = str_replace($Call['Parsed']['Match'][$Ix], '', $Call['Output']);
+                    $Replaces[$IX] = '';
                 else
                 {
                     $Element = F::Run('Entity', 'Read',
@@ -34,24 +35,22 @@
                           'One'    => true
                     ]);
                 
-                    if (!empty($Element))
-                        $Call['Output'] = str_replace($Call['Parsed']['Match'][$Ix],
-                            F::Run('View', 'Load', $Call,
+                    if (empty($Element))
+                        $Replaces[$IX] = '';
+                    else
+                        $Replaces[$IX] = F::Run('View', 'Load', $Call,
                                 [
                                       'Scope'  => $Entity,
                                       'ID'     => 'Show/'.$Template,
                                       'Data'   => $Element
-                                ]),
-                            $Call['Output']);
-                    else
-                        $Call['Output'] = str_replace($Call['Parsed']['Match'][$Ix], '', $Call['Output']);
+                                ]);
+                    
                 }
                 
             }
             else
-                $Call['Output'] = str_replace($Call['Parsed']['Match'][$Ix], '', $Call['Output']);
-
+                $Replaces[$IX] = '';
         }
 
-        return $Call;
+        return $Replaces;
      });

@@ -9,78 +9,66 @@
 
     setFn ('Parse', function ($Call)
     {
+        $Replaces = [];
+
         foreach ($Call['Parsed']['Value'] as $IX => $Match)
         {
-            $IfTag = '<if '.$Call['Parsed']['Options'][$IX].'></if>';
-
-            $Root = simplexml_load_string($IfTag);
-
-            $Outer = '';
-
-            if ($Root !== false)
-                {
-                    $Options = iterator_to_array($Root->attributes());
-
-                    $Value = (string) $Options['value'];
-
-                    $Decision = false;
-
-                    if (isset($Options['null']))
-                    {
-                        if ($Options['null'] == 1)
-                            $Decision = (null == $Value);
-                        else
-                            $Decision = !(null == $Value);
-                    }
-
-                    if (isset($Options['eq']))
-                        $Decision = ($Value == (string) $Options['eq']);
-
-                    if (isset($Options['neq']))
-                        $Decision = ($Value != (string) $Options['neq']);
-
-                    if (isset($Options['lt']))
-                        $Decision = ((float) preg_replace('/,/','.',$Value) < (float) $Options['lt']);
-
-                    if (isset($Options['gt']))
-                        $Decision = ((float) preg_replace('/,/','.',$Value) > (float) $Options['gt']);
-
-                    if (isset($Options['lte']))
-                        $Decision = ((float) preg_replace('/,/','.',$Value) <= (float) $Options['lte']);
-
-                    if (isset($Options['gte']))
-                        $Decision = ((float) preg_replace('/,/','.',$Value) >= (float) $Options['gte']);
-                    
-                    if (isset($Options['gt']) && isset($Options['lt']))
-                    {
-                        $Decision =
-                            ((float) preg_replace('/,/','.',$Value) < (float) $Options['lt'])
-                            &&
-                            ((float) preg_replace('/,/','.',$Value) > (float) $Options['gt']);
-                    }
-                    
-                    if (isset($Options['gte']) && isset($Options['lte']))
-                    {
-                        $Decision =
-                            ((float) preg_replace('/,/','.',$Value) <= (float) $Options['lte'])
-                            &&
-                            ((float) preg_replace('/,/','.',$Value) >= (float) $Options['gte']);
-                    }
-
-                    if ($Decision)
-                        $Outer = $Call['Parsed']['Value'][$IX];
-                    else
-                        $Outer = '';
-                }
+            if (empty($Call['Parsed']['Options'][$IX]))
+                ;
             else
             {
-                F::Log($IfTag.' not parsed', LOG_INFO);
-                if (F::Environment() == 'Development')
-                    $Outer = 'IFERROR';
-            }
+                $Value = (string) $Call['Parsed']['Options'][$IX]['value'];
 
-            $Call['Output'] = str_replace ($Call['Parsed']['Match'][$IX], $Outer, $Call['Output']);
+                $Decision = false;
+
+                if (isset($Call['Parsed']['Options'][$IX]['null']))
+                {
+                    if ($Call['Parsed']['Options'][$IX]['null'] == 1)
+                        $Decision = (null == $Value);
+                    else
+                        $Decision = !(null == $Value);
+                }
+
+                if (isset($Call['Parsed']['Options'][$IX]['eq']))
+                    $Decision = ($Value == (string) $Call['Parsed']['Options'][$IX]['eq']);
+
+                if (isset($Call['Parsed']['Options'][$IX]['neq']))
+                    $Decision = ($Value != (string) $Call['Parsed']['Options'][$IX]['neq']);
+
+                if (isset($Call['Parsed']['Options'][$IX]['lt']))
+                    $Decision = ((float) preg_replace('/,/','.',$Value) < (float) $Call['Parsed']['Options'][$IX]['lt']);
+
+                if (isset($Call['Parsed']['Options'][$IX]['gt']))
+                    $Decision = ((float) preg_replace('/,/','.',$Value) > (float) $Call['Parsed']['Options'][$IX]['gt']);
+
+                if (isset($Call['Parsed']['Options'][$IX]['lte']))
+                    $Decision = ((float) preg_replace('/,/','.',$Value) <= (float) $Call['Parsed']['Options'][$IX]['lte']);
+
+                if (isset($Call['Parsed']['Options'][$IX]['gte']))
+                    $Decision = ((float) preg_replace('/,/','.',$Value) >= (float) $Call['Parsed']['Options'][$IX]['gte']);
+                
+                if (isset($Call['Parsed']['Options'][$IX]['gt']) && isset($Call['Parsed']['Options'][$IX]['lt']))
+                {
+                    $Decision =
+                        ((float) preg_replace('/,/','.',$Value) < (float) $Call['Parsed']['Options'][$IX]['lt'])
+                        &&
+                        ((float) preg_replace('/,/','.',$Value) > (float) $Call['Parsed']['Options'][$IX]['gt']);
+                }
+                
+                if (isset($Call['Parsed']['Options'][$IX]['gte']) && isset($Call['Parsed']['Options'][$IX]['lte']))
+                {
+                    $Decision =
+                        ((float) preg_replace('/,/','.',$Value) <= (float) $Call['Parsed']['Options'][$IX]['lte'])
+                        &&
+                        ((float) preg_replace('/,/','.',$Value) >= (float) $Call['Parsed']['Options'][$IX]['gte']);
+                }
+
+                if ($Decision)
+                    $Replaces[$IX] = $Match;
+                else
+                    $Replaces[$IX] = '';
+            }
         }
 
-        return $Call;
+        return $Replaces;
     });

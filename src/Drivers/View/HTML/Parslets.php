@@ -27,7 +27,7 @@
                 $Tags = implode('|', $Tags);
                 $Patterns[] = '<('.$Tags.') (.*?)>(.*?)</(\1)>';
                 $Patterns[] = '<('.$Tags.')()>(.*?)</(\1)>';
-                
+               
                 do
                 {
                     $Pass = 0;
@@ -40,6 +40,8 @@
                                 'Pattern' => $Pattern,
                                 'Value'   => $Call['Output']
                             ]);
+                        
+                        F::Log('*'.count($Parsed[0]).'* total parslets found', LOG_INFO);
       
                         if ($Parsed === false)
                             ;
@@ -59,7 +61,10 @@
                                         $Matched[$Parslet]['Options'][] = $Parsed[2][$IX];
                                         $Matched[$Parslet]['Value'][] = $Parsed[3][$IX];
                                     }
-                                
+
+                                if (isset($Matched[$Parslet]['Match']))
+                                    F::Log('*'.count($Matched[$Parslet]['Match']).'* *'.$Parslet.'* parslets found', LOG_INFO);
+
                                 if (empty($Matched[$Parslet]))
                                     ;
                                 else
@@ -75,9 +80,8 @@
                         }
                         F::Log('*' . $Found. '* parslet used', LOG_DEBUG);
                     }
-                    $Pass++;
                 }
-                while ($Found > 0 and $Pass < $MaxPass);
+                while ($Found > 0);
             }
         }
         

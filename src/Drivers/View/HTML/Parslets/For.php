@@ -9,21 +9,22 @@
 
     setFn ('Parse', function ($Call)
     {
+        $Replaces = [];
         foreach ($Call['Parsed']['Value'] as $IX => $Match)
         {
             $Root = simplexml_load_string($Call['Parsed']['Match'][$IX]);
 
-            $Outer = '';
+            $For = '';
             $Inner = (string) $Root;
 
             $From = (int) $Root->attributes()->from;
             $To = (int) $Root->attributes()->to;
 
             for($i = $From; $i <= $To; $i++)
-                $Outer.= str_replace('<num/>', $i, $Inner);
+                $For.= str_replace('<num/>', $i, $Inner);
 
-            $Call['Output'] = str_replace ($Call['Parsed']['Match'][$IX], $Outer, $Call['Output']);
+            $Replaces[$IX] = $For;
         }
 
-        return $Call;
+        return $Replaces;
     });

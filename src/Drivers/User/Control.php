@@ -18,3 +18,15 @@
     {
         return F::Run('User.Rights', 'Do', $Call);
     });
+    
+    setFn('Impersonate', function ($Call)
+    {
+        $Call = F::Apply('Entity', 'Load', $Call, ['Entity' => 'User']);
+
+        $Call = F::Apply('Session', 'Write', $Call, ['Session Data' => ['Secondary' => $Call['Where']]]);
+        F::Log('User '.$Call['Session']['User']['ID'].' logged in '.$Call['Where'], LOG_INFO, 'Security');
+        
+        $Call = F::Hook('afterUserLoginDo', $Call);
+
+        return $Call;
+    });

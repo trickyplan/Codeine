@@ -9,14 +9,16 @@
 
     setFn('Start', function ($Call)
     {
-        ob_start();
+        if (F::Environment() == 'Production')
+            ob_start();
         return $Call;
     });
 
     setFn('Finish', function ($Call)
     {
-        if (ob_get_level() > 0)
-            ob_end_flush();
+        if (F::Environment() == 'Production')
+            if (ob_get_level() > 0)
+                ob_end_flush();
 
         return $Call;
     });
