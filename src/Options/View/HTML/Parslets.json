@@ -5,7 +5,7 @@
         {
             "Parslets":
             {
-                "Max Passes": 3,
+                "Max Passes": 4,
                 "Queue":
                 [
                     "Far",
