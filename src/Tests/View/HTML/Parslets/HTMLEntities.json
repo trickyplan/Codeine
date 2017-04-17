@@ -1,0 +1,29 @@
+{
+    "Suites":
+    {
+        "Positive": {
+            "Simple":
+            {
+                "Run":
+                {
+                    "Service": "View.HTML.Parslets.HTMLEntities",
+                    "Method":  "Parse",
+                    "Call":
+                    {
+                        "Parsed":
+                        {
+                            "Value": ["<tag>\"Lorem ipsum\"</tag>"]
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Equal":
+                        [
+                            "&lt;tag&gt;&quot;Lorem ipsum&quot;&lt;/tag&gt;"
+                        ]
+                }
+            }
+        }
+    }
+}

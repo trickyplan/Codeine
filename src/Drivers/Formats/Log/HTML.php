@@ -31,28 +31,36 @@
         else
             $UserString = '*'.$Call['HTTP']['Agent'].'* from *'.$Call['HTTP']['IP'].'*';
 
-        $Header = $Call['Channel'].' Channel ('.count($Call['Value']).')</td></tr><tr><td colspan="3">'.date(DATE_RSS, round(Started)).PHP_EOL.$UserString;
+        $Header = $Call['Channel'].' Channel ('.count($Call['Value']).' messages)'
+            .PHP_EOL
+            .'Request ID: '.REQID
+            .PHP_EOL
+            .date(DATE_RSS, round(Started))
+            .PHP_EOL
+            .$UserString;
 
         if (isset($Call['Session']['User']['ID']) && $Call['Session']['User']['ID']>0)
-            $Header.= PHP_EOL.'User: '.$Call['Session']['User']['ID'].(isset($Call['Session']['User']['Title'])? '('.$Call['Session']['User']['Title'].')': '');
+            $Header.= PHP_EOL.'User: '.$Call['Session']['User']['ID']
+                .(isset($Call['Session']['User']['Title'])? '('.$Call['Session']['User']['Title'].')': '');
 
         if (is_array($Call['Value']))
         {
-            $Output = '<table class="console"><tr class="'.$Call['Levels'][11].'"><td colspan="3">'.$Header.'</td></tr>';
+            $Output = '<table class="console"><thead><tr class="'.$Call['Levels'][11].'">
+<td colspan="4" style="border-left: 10px solid #ffffff;">'.$Header.'</td></tr></thead>';
 
             $LastTS = 0;
             foreach ($Call['Value'] as $IX => $Row)
             {
-                $Output .= '<tr class="'.$Call['Levels'][$Row[0]].'" style="border-left: 10px solid #'.$Row[6].'">
-                        <td class="col-md-1">['.$Row[0].'] '.$Row[1].' (+'.round($Row[1]-$LastTS, 3).')</td>
-                        <td class="col-md-4">'.($Row[3] == (isset($Call['Value'][$IX-1][3])? $Call['Value'][$IX-1][3]: false)? '': $Row[3]).'</td>
-                        <td class="col-md-7">'.stripslashes(htmlentities($Row[2])).'</td>
+                $Output .= '<tr class="'.$Call['Levels'][$Row[0]].'" style="border-left: 10px solid #'.$Row[6].';">
+                        <td>['.$Row[0].'] '.$Row[1].' (+'.round($Row[1]-$LastTS, 3).')</td>
+                        <td>'.($Row[3] == (isset($Call['Value'][$IX-1][3])? $Call['Value'][$IX-1][3]: false)? '': $Row[3]).'</td>
+                        <td>'.stripslashes(htmlentities($Row[2])).'</td>
                         </tr>';
                 if (isset($Row[5]))
                     $Output .= '<tr class="'.$Call['Levels'][$Row[0]].'">
-                        <td class="col-md-1"></td>
-                        <td class="col-md-4"></td>
-                        <td class="col-md-7">'.$Row[5].'</td>
+                        <td></td>
+                        <td></td>
+                        <td>'.$Row[5].'</td>
                         </tr>';
                 $LastTS = $Row[1];
             }
