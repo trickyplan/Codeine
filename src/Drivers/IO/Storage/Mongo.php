@@ -83,8 +83,8 @@
 
         if (isset($Call['Limit']))
         {
-            $Call['Mongo']['Options']['limit'] = $Call['Limit']['To'];
-            $Call['Mongo']['Options']['skip'] = $Call['Limit']['From'];
+            $Call['Mongo']['Options']['limit'] = (int) $Call['Limit']['To'];
+            $Call['Mongo']['Options']['skip'] = (int) $Call['Limit']['From'];
             F::Log('Sliced *'.$Call['Limit']['To'].'* from *'.$Call['Limit']['From'].'*', LOG_INFO, 'Administrator');
         }
         
