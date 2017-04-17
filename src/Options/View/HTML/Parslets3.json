@@ -20,7 +20,8 @@
                         "Hashtags",
                         "Entity",
                         "Datetime",
-                        "URLEncode"
+                        "URLEncode",
+                        "HTMLEntities"
                     ]
                 },
                 "afterViewLoad":
