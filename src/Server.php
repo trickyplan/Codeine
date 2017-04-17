@@ -5,7 +5,8 @@
      * @time 5:17
      */
 
-    include 'Core.php';
+    require 'Core.php';
+    require 'Codeine/vendor/autoload.php';
 
     foreach ($argv as $arg)
         if (preg_match('/--(\S+)\=(\S+)/', $arg, $Pockets))

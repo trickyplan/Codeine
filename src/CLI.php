@@ -5,8 +5,9 @@
      * @time 5:17
      */
 
-    include 'Core.php';
-    
+    require 'Core.php';
+    require 'Codeine/vendor/autoload.php';
+
     $Opts = [];
 
     if (isset($argv[1]) && file_exists($argv[1]))
