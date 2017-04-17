@@ -36,12 +36,6 @@
         },
         "beforeRequestRun":
         {
-            "Project (obsolete)":
-            {
-                "Service": "Project.Preload",
-                "Method": "Do",
-                "Must be first": true
-            },
             "Project":
             {
                 "Service": "Project.Preload",

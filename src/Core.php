@@ -22,6 +22,7 @@
 
         private static $_Service = 'Codeine';
         private static $_Method = 'Do';
+        private static $_Color = false;
 
         private static $_Storage = [];
         private static $_Ticks = [];
@@ -50,6 +51,7 @@
             self::$_Hostname = gethostname();
             self::$_Live = true;
             self::$_Stack = new SplStack();
+            self::$_Color = new SplStack();
 
             self::Start(self::$_Service . '.' . self::$_Method);
 
@@ -515,7 +517,7 @@
                     else
                     {
                         if ($Variable === (array) $Variable)
-                            foreach ($Variable as $Key => &$cVariable)
+                            foreach ($Variable as $Key => $cVariable)
                                 $Variable = self::Dot($Variable, $Key, self::Live($cVariable, $Call));
                         else
                             $Variable = self::Variable($Variable, $Call);
@@ -660,6 +662,25 @@
             return true;
         }
 
+        public static function startColor ($Color) // Colorize code sections
+        {
+            self::$_Color->push($Color);
+            return $Color;
+        }
+        
+        public static function stopColor () // Colorize code sections
+        {
+            return self::$_Color->pop();
+        }
+        
+        public static function getColor () // Colorize code sections
+        {
+            if (self::$_Color->offsetExists(0))
+                return self::$_Color->offsetGet(0);
+            else
+                return "ffffff";
+        }
+        
         public static function Log ($Message, $Verbose = 7, $Channel = 'Developer', $AppendStack = false)
         {
             if ($Channel == 'All')
@@ -702,7 +723,8 @@
                                 $Message,
                                 $From,
                                 $StackDepth,
-                                F::Stack()
+                                F::Stack(),
+                                self::getColor()
                             ];
                     else
                         self::$_Log[$Channel][]
@@ -712,7 +734,8 @@
                             $Message,
                             $From,
                             $StackDepth,
-                            null
+                            null,
+                            self::getColor()
                         ];
                     
                     if (PHP_SAPI === 'cli')

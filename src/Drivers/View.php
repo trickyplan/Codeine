@@ -43,8 +43,7 @@
         if (isset($Call['Data']) && ($Call['Data'] !== (array) $Call['Data']))
             $Call['Data'] = ['Value' => $Call['Data']];
 
-        if ($Call['Value'] !== null)
-            $Call = F::Hook('afterViewLoad', $Call);
+        $Call = F::Hook('afterViewLoad', $Call);
 
         return $Call['Value'];
     });
