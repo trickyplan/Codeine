@@ -3,8 +3,9 @@
     {
         "HTML":
         {
-            "CodeineTags":
+            "Parslets":
             {
+                "Max Passes": 7,
                 "Enabled":
                 [
                     "Access",

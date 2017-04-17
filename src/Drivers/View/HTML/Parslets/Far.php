@@ -9,6 +9,7 @@
 
     setFn('Parse', function ($Call)
     {
+        $Replaces = [];
         $Queries = [];
         
         foreach ($Call['Parsed']['Value'] as $Ix => $Match)
@@ -55,9 +56,9 @@
                     if (preg_match('@^(.+)\:(.+)\:(.+)$@SsUu', $Match, $Slices))
                     {
                         unset($Slices[0]);
-                        $Call['Output'] = str_replace($Call['Parsed']['Match'][$IX], F::Dot($Elements, implode('.', $Slices)), $Call['Output']);
+                        $Replaces[$IX] = F::Dot($Elements, implode('.', $Slices));
                     }
         }
 
-        return $Call;
+        return $Replaces;
      });

@@ -159,22 +159,8 @@
                 }
                 else
                 {
-                    echo '<pre>';
-                    echo $E['message'];
-                    echo self::Stack();
-      
-                    if (PHP_SAPI === 'cli')
-                        ;
-                    else
-                        foreach (self::$_Log as $Channel)
-                        {
-                            foreach ($Channel as $Log)
-                                echo implode("\t", $Log).PHP_EOL;
-                        }
-                        
-                    echo '</pre>';
+                    self::Finish(implode("\t", $E));
                 }
-
             }
 
             if (self::$_Debug)
@@ -617,12 +603,12 @@
         public static function Error($errno , $errstr , $errfile , $errline , $errcontext)
         {
             if (self::$_Perfect)
-                self::Perfect ($errno.' '.$errstr.' '.$errfile.'@'.$errline);
+                self::Finish ($errno.' '.$errstr.' '.$errfile.'@'.$errline);
             
             self::Log(j(self::Stack()).PHP_EOL.'Err '.$errno.':'.$errstr.PHP_EOL.$errfile.'@'.$errline, LOG_CRIT);
         }
         
-        public static function Perfect ($Message)
+        public static function Finish ($Message)
         {
             $Logs = self::Logs();
             foreach ($Logs as $Channel => $Records)
@@ -641,10 +627,10 @@
                 ;
             else
             {
-                $Output = file_get_contents(Codeine.'/Assets/Perfect.html');
-                $Output = str_replace('<perfect:message/>', $Message, $Output);
-                $Output = str_replace('<perfect:stack/>',self::Stack(), $Output);
-                $Output = str_replace('<perfect:logs/>', j($JSONLogs), $Output);
+                $Output = file_get_contents(Codeine.'/Assets/Finish.html');
+                $Output = str_replace('<finish:message/>', $Message, $Output);
+                $Output = str_replace('<finish:stack/>',self::Stack(), $Output);
+                $Output = str_replace('<finish:logs/>', j($JSONLogs), $Output);
             }
 
             echo $Output;
@@ -733,7 +719,7 @@
                         self::CLILog($Time, $Message, $Verbose, $Channel);
                     
                     if (self::$_Perfect && ($Verbose <= self::$_Options['Codeine']['Perfect Verbose'][$Channel]))
-                        self::Perfect ($Message);
+                        self::Finish ($Message);
                         
                 }
             }

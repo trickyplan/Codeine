@@ -50,10 +50,10 @@
                 "Service":"View.HTML.CodeineTags",
                 "Method":"Do"
             },
-            "Parslets":
+            "Parslets3":
             {
-                "Service":"View.HTML.Parslets",
-                "Method":"Process"
+                "Service":"View.HTML.Parslets3",
+                "Method":"Do"
             },
             "Images":
             {

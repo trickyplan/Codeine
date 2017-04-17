@@ -9,26 +9,21 @@
 
     setFn('Parse', function ($Call)
     {
+        $Replaces = [];
         foreach ($Call['Parsed']['Match'] as $IX => $Match)
         {
             $Call['Run'] = [];
 
             unset($Call['Weight'], $Call['Decision']);
 
-            $Root = simplexml_load_string('<access '.$Call['Parsed']['Options'][$IX].'></access>');
-
-            $Attr = (array) $Root->attributes();
-
-            foreach ($Attr['@attributes'] as $Key => $Value)
+            foreach ($Call['Parsed']['Options'][$IX] as $Key => $Value)
                 $Call['Run'] = F::Dot($Call['Run'], $Key, $Value);
 
             if (F::Run('Security.Access', 'Check', $Call, $Call['Run']))
-                $Outer = $Call['Parsed']['Value'][$IX];
+                $Replaces[$IX] = $Call['Parsed']['Value'][$IX];
             else
-                $Outer = '';
-
-            $Call['Output'] = str_replace ($Call['Parsed']['Match'][$IX], $Outer, $Call['Output']);
+                $Replaces[$IX] = '';
         }
 
-        return $Call;
+        return $Replaces;
     });

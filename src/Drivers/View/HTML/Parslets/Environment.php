@@ -1,38 +1,35 @@
 <?php
-
+    
     /* Codeine
      * @author bergstein@trickyplan.com
      * @description Exec Parslet 
      * @package Codeine
      * @version 6.0
      */
-
-     setFn('Parse', function ($Call)
-     {
-         
+    
+    setFn('Parse', function ($Call)
+    {
+        $Replaces = [];
         foreach ($Call['Parsed']['Value'] as $IX => $Match)
         {
-            $Root = simplexml_load_string('<root '.$Call['Parsed']['Options'][$IX].'></root>');
-
-            $Environment = isset($Root->attributes()->eq)? (string) $Root->attributes()->eq: null;
-
-            if ($Environment == F::Environment())
-                $Outer = $Match;
-            else
-                $Outer = '';
-
-            $NotEnvironment = isset($Root->attributes()->neq)? (string) $Root->attributes()->neq: null;
-
+            if (isset($Call['Parsed']['Options'][$IX]['eq'] ))
+            {
+                if ($Call['Parsed']['Options'][$IX]['eq'] == F::Environment())
+                    $Replaces[$IX] = $Match;
+                else
+                    $Replaces[$IX] = '';
+            }
+            
+            $NotEnvironment = isset($Call['Parsed']['Options'][$IX]['neq']) ? $Call['Parsed']['Options'][$IX]['neq'] : null;
+            
             if ($NotEnvironment !== null)
             {
                 if ($NotEnvironment == F::Environment())
-                    $Outer = '';
+                    $Replaces[$IX] = '';
                 else
-                    $Outer = $Match;
+                    $Replaces[$IX] = $Match;
             }
-
-            $Call['Output'] = str_replace ($Call['Parsed']['Match'][$IX], $Outer, $Call['Output']);
         }
-
-        return $Call;
-     });
+        
+        return $Replaces;
+    });

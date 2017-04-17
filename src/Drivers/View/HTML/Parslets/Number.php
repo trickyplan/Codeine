@@ -1,51 +1,48 @@
 <?php
-
+    
     /* Codeine
      * @author bergstein@trickyplan.com
      * @description Exec Parslet 
      * @package Codeine
      * @version 6.0
      */
-
-     setFn('Parse', function ($Call)
-     {
+    
+    setFn('Parse', function ($Call)
+    {
+        $Replaces = [];
+        
         foreach ($Call['Parsed']['Value'] as $IX => $Match)
         {
-            $Root = simplexml_load_string('<number '.$Call['Parsed']['Options'][$IX].'></number>');
-
-            $Format = isset($Root->attributes()->format)? (string) $Root->attributes()->format: 'French';
-            $Digits = isset($Root->attributes()->digits)? (int) $Root->attributes()->digits: 0;
-
+            $Format = F::Dot($Call['Parsed'], 'Options.'.$IX.'.format') ? F::Dot($Call['Parsed'], 'Options.'.$IX.'.format'): 'French';
+            $Digits = F::Dot($Call['Parsed'], 'Options.'.$IX.'.digits') ? F::Dot($Call['Parsed'], 'Options.'.$IX.'.digits') : 0;
+            
             $Match = trim($Match);
-
+            
             if (is_scalar($Match) && isset($Format) && !empty($Match))
             {
                 $Match = strtr($Match, ',', '.');
-                switch($Format)
+                switch ($Format)
                 {
                     case 'French':
-                        $Outer =  F::Run('Formats.Number.French', 'Do', ['Value' => $Match, 'Digits' => $Digits]);
+                        $Replaces[$IX] = F::Run('Formats.Number.French', 'Do', ['Value' => $Match, 'Digits' => $Digits]);
                         break;
-        
+                    
                     case 'English':
-                        $Outer = number_format($Match, $Digits);
+                        $Replaces[$IX] = number_format($Match, $Digits);
                         break;
-        
+                    
                     case 'Sprintf':
-                        $Sprintf = isset($Root->attributes()->sprintf)? (string) $Root->attributes()->sprintf: '%d';
-                        $Outer = F::Run('Formats.Number.Sprintf', 'Do', ['Value' => $Match, 'Format' => $Sprintf]);
+                        $Sprintf = F::Dot($Call['Parsed'], 'Options.'.$IX.'.sprintf') ? F::Dot($Call['Parsed'], 'Options.'.$IX.'.sprintf') : '%d';
+                        $Replaces[$IX] = F::Run('Formats.Number.Sprintf', 'Do', ['Value' => $Match, 'Format' => $Sprintf]);
                         break;
-        
+                    
                     default:
-                        $Outer = sprintf($Format, $Match);
+                        $Replaces[$IX] = sprintf($Format, $Match);
                         break;
                 }
-            }
-            else
-                $Outer = $Match;
-
-            $Call['Output'] = str_replace ($Call['Parsed']['Match'][$IX], $Outer, $Call['Output']);
+            } else
+                $Replaces[$IX] = $Match;
         }
-
-        return $Call;
-     });
+        
+        return $Replaces;
+    });

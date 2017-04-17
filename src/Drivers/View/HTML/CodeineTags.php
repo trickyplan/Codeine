@@ -9,40 +9,66 @@
     
     setFn('Do', function ($Call)
     {
-        $Call['DOM'] = new DOMDocument('1.0', 'UTF-8');
+        $Imploder = function ($Node) {
+                            return implode(array_map([$Node->ownerDocument, "saveHTML"],iterator_to_array($Node->childNodes)));};
+        $Call['DOM'] = new DOMDocument();
         $Call['DOM']->loadHTML('<?xml encoding="UTF-8">'.$Call['Output']);
+        $Call['DOM']->validateOnParse = false;
+        $Call['DOM']->formatOutput = true;
         
-        foreach ($Call['View']['HTML']['CodeineTags']['Tags'] as $Tag)
+        do
         {
-            $Nodes = $Call['DOM']->getElementsByTagName('codeine-'.strtolower($Tag));
-           
-            if ($Nodes->length == 0)
-                ;
-            else
+            $FoundPassNodes = 0;
+            // Find
+            foreach ($Call['View']['HTML']['CodeineTags']['Enabled'] as $Tag)
             {
-                foreach ($Nodes as $Node)
+                $Nodes = $Call['DOM']->getElementsByTagName(strtolower($Tag));
+                
+                $FoundTagNodes = $Nodes->length;
+               
+                $FoundPassNodes += $FoundTagNodes;
+                
+                if ($Nodes->length == 0)
+                    ;
+                else
                 {
-                    $Inner = $Call['DOM']->saveHTML($Node);
-                    
-                    $Attributes = [];
-                    foreach ($Node->attributes as $Key => $Value)
-                        $Attributes[$Key] = $Value->nodeValue;
-                   
-                    $Replace = F::Run('View.HTML.CodeineTags.' . $Tag, null, $Call,
-                        [
-                            'Node'       => $Node,
-                            'Inner'      => $Inner,
-                            'Attributes' => $Attributes
-                        ] );
-                   
-                    $Fragment = $Call['DOM<pre>']->createDocumentFragment();
-                    $Fragment->appendXML($Replace);
-                    
-                    $Node->parentNode->replaceChild($Fragment, $Node);
+                    foreach ($Nodes as $IX => $Node)
+                    {
+                        $Matched[$Tag]['Node'][$IX] = $Node;
+                        $Matched[$Tag]['Match'][$IX] = $Call['DOM']->saveHTML($Node);
+                        $Matched[$Tag]['Value'][$IX] = $Imploder ($Node);
+        
+                        foreach ($Node->attributes as $Key => $Value)
+                            $Matched[$Tag]['Options'][$IX][$Key] = $Value->nodeValue;
+                    }
+                    $Matched[$Tag]['Replace'] =
+                        F::Apply('View.HTML.Parslets.' . $Tag, 'Parse', $Call,
+                            [
+                                'Parsed!' => $Matched[$Tag]
+                            ]);
                 }
             }
-        }
-        $Call['Output'] = $Call['DOM']->saveHTML();
+            
+            // Replace
+            if (empty($Matched))
+                ;
+            else
+                foreach ($Matched as $Tag => $TagMatched)
+                {
+                    foreach ($TagMatched['Node'] as $IX => $CNode)
+                    {
+                        $Fragment = $Call['DOM']->createDocumentFragment();
+                        $Fragment->appendXML($TagMatched['Replace'][$IX]);
+        
+                        if ($CNode->parentNode === null)
+                            ;
+                        else
+                            $CNode->parentNode->replaceChild($Fragment, $CNode);
+                    }
+                }
+        } while ($FoundPassNodes > 0);
+            
+        $Call['Output'] = html_entity_decode($Call['DOM']->saveHTML());
         
         return $Call;
     });
