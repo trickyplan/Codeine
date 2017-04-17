@@ -9,10 +9,10 @@
 
      setFn('Parse', function ($Call)
      {
-          foreach ($Call['Parsed']['Value'] as $Ix => $Match)
+          foreach ($Call['Parsed']['Value'] as $IX => $Match)
           {
               if (empty($Match))
-                  $Match = '';
+                  $File = '';
               else
               {
                   if (F::file_exists($Filename = Root.'/Data/'.$Match))
@@ -29,7 +29,7 @@
                               'Extension' => $Pathinfo['extension']
                           ];
 
-                      $Match = F::Run('View', 'Load', $Call,
+                      $File = F::Run('View', 'Load', $Call,
                       [
                           'Scope' => 'View/HTML/Parslets',
                           'ID' => 'File',
@@ -37,12 +37,12 @@
                       ]);
                   }
                   else
-                      $Match = '';
+                      $File = '';
               }
 
 
-              $Call['Output'] = str_replace($Call['Parsed']['Match'][$Ix], $Match, $Call['Output']);
+              $Replaces[$IX] = $File;
           }
 
-          return $Call;
+          return $Replaces;
      });

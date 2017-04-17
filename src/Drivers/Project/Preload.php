@@ -7,7 +7,7 @@
      * @version 8.x
      */
 
-    setFn('Do', function ($Call)
+    setFn('beforeRequestRun', function ($Call)
     {
         $Call['Project'] = F::Live(F::loadOptions('Project'));
         $Call['Version'] = F::loadOptions('Version');

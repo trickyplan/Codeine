@@ -12,7 +12,7 @@
         $Replaces = [];
         $Queries = [];
         
-        foreach ($Call['Parsed']['Value'] as $Ix => $Match)
+        foreach ($Call['Parsed']['Value'] as $IX => $Match)
         {
             if (preg_match('@^(.+)\:(.+)\:(.+)$@SsUu', $Match, $Slices))
             {

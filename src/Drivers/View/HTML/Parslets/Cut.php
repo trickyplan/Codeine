@@ -9,54 +9,48 @@
 
     setFn ('Parse', function ($Call)
     {
+        $Replaces = [];
+        
         foreach ($Call['Parsed']['Value'] as $IX => $Match)
         {
-            $Root = simplexml_load_string('<root '.$Call['Parsed']['Options'][$IX].'></root>');
+            if (F::Dot($Call ,'View.HTML.Parslet.Cut.StripTags.Enabled') or F::Dot($Call['Parsed'], 'Options.'.$IX.'.strip'))
+                $Cut = strip_tags($Match, F::Dot($Call ,'View.HTML.Parslet.Cut.StripTags.Allowed'));
 
-            $Inner = $Call['Parsed']['Value'][$IX];
-
-            if (F::Dot($Call ,'View.HTML.Parslet.Cut.StripTags.Enabled') or $Root->attributes()->strip)
-                $Inner = strip_tags($Inner, F::Dot($Call ,'View.HTML.Parslet.Cut.StripTags.Allowed'));
-
-            $Outer = $Inner;
-
-            if ($Root->attributes()->chars)
-                $Outer = F::Run('Text.Cut', 'Do',
+            if (F::Dot($Call['Parsed'], 'Options.'.$IX.'.chars'))
+                $Cut = F::Run('Text.Cut', 'Do',
                     [
                         'Cut'   => 'Chars',
-                        'Value' => $Inner,
-                        'Chars' => (int) $Root->attributes()->chars
+                        'Value' => $Match,
+                        'Chars' => F::Dot($Call['Parsed'], 'Options.'.$IX.'.chars')
                     ]);
-
-            if ($Root->attributes()->words)
-                $Outer = F::Run('Text.Cut', 'Do',
+            elseif (F::Dot($Call['Parsed'], 'Options.'.$IX.'.words'))
+                $Cut = F::Run('Text.Cut', 'Do',
                     [
                         'Cut'   => 'Words',
-                        'Value' => $Inner,
-                        'Words' => (int) $Root->attributes()->words
+                        'Value' => $Match,
+                        'Words' => F::Dot($Call['Parsed'], 'Options.'.$IX.'.words')
                     ]);
-
-            if ($Root->attributes()->sentences)
-                $Outer = F::Run('Text.Cut', 'Do',
+            elseif (F::Dot($Call['Parsed'], 'Options.'.$IX.'.sentences'))
+                $Cut = F::Run('Text.Cut', 'Do',
                     [
                         'Cut'   => 'Sentences',
-                        'Value' => $Inner,
-                        'Sentences' => (int) $Root->attributes()->sentences
+                        'Value' => $Match,
+                        'Sentences' => F::Dot($Call['Parsed'], 'Options.'.$IX.'.sentences')
                     ]);
 
-            if ($Root->attributes()->hellip)
-                $Hellip = (string) $Root->attributes()->hellip;
+            if (F::Dot($Call['Parsed'], 'Options.'.$IX.'.hellip'))
+                $Hellip = F::Dot($Call['Parsed'], 'Options.'.$IX.'.hellip');
             else
                 $Hellip = F::Dot($Call ,'View.HTML.Parslet.Cut.Hellip');
 
-            if ($Root->attributes()->more)
-                $Hellip = '<a href="'.((string) $Root->attributes()->more).'" class="hellip">'.$Hellip.'</a>';
+            if (F::Dot($Call['Parsed'], 'Options.'.$IX.'.more'))
+                $Hellip = '<a href="'.F::Dot($Call['Parsed'], 'Options.'.$IX.'.more').'" class="hellip">'.$Hellip.'</a>';
 
-            if (strlen($Outer) < strlen($Inner))
-                $Outer.= strtr($Hellip, ['\n' => '<br/>']); // nl2br is unusable here
+            if (strlen($Cut) < strlen($Match))
+                $Cut.= strtr($Hellip, ['\n' => '<br/>']); // nl2br is unusable here
 
-            $Call['Output'] = str_replace ($Call['Parsed']['Match'][$IX], $Outer, $Call['Output']);
+            $Replaces[$IX] = $Cut;
         }
 
-        return $Call;
+        return $Replaces;
     });

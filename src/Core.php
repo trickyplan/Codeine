@@ -693,11 +693,6 @@
                 or
                 (isset($_SERVER['Verbose']) && $Verbose <= $_SERVER['Verbose']) or self::$_Staring)
                 {
-                    if (is_scalar($Message))
-                        ;
-                    else
-                        $Message = j($Message,
-                            JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     /*                if ((self::Environment() == 'Development') && (self::$_Perfect === true) && $Verbose < LOG_WARNING)
                         trigger_error($Message);*/
     
