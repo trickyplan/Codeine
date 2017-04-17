@@ -1,19 +1,21 @@
 <?php
-
+    
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description Skype Parslet
      * @package Codeine
-     * @version 7.0
+     * @version 6.0
      */
-
+    
     setFn('Parse', function ($Call)
     {
-        foreach ($Call['Parsed']['Match'] as $Ix => $Match)
-        {
-            $Round = simplexml_load_string($Match); // FIXME Абстрагировать этот пиздец
-            $Call['Output'] = str_replace($Call['Parsed']['Match'][$Ix],round((float) $Round, (int) $Round->attributes()->precision), $Call['Output']);
-        }
-
-        return $Call;
-     });
+        $Replaces = [];
+        foreach ($Call['Parsed']['Value'] as $IX => $Match)
+            if (isset($Call['Parsed']['Options'][$IX]['precision']))
+                $Replaces[$IX] = round((float) $Match, $Call['Parsed']['Options'][$IX]['precision']);
+            else
+                $Replaces[$IX] = round((float) $Match);
+        
+        return $Replaces;
+    });
+    

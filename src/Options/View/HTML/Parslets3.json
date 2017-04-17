@@ -21,13 +21,15 @@
                         "Entity",
                         "Datetime",
                         "URLEncode",
-                        "HTMLEntities"
+                        "HTMLEntities",
+                        "Lower"
                     ]
                 },
                 "afterViewLoad":
                 {
                     "Enabled":
                     [
+                        "Key",
                         "If",
                         "Layout"
                     ]

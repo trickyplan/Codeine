@@ -31,9 +31,23 @@
         else
             $UserString = '*'.$Call['HTTP']['Agent'].'* from *'.$Call['HTTP']['IP'].'*';
 
-        $Header = $Call['Channel'].' Channel ('.count($Call['Value']).' messages)'
+        $BySeverity = [];
+        foreach ($Call['Value'] as $IX => $Row)
+            if (isset($BySeverity[$Row[0]]))
+                $BySeverity[$Row[0]]++;
+            else
+                $BySeverity[$Row[0]] = 1;
+        
+        $SeverityStatistics = [];
+        foreach ($Call['Levels'] as $Severity => $Label)
+        {
+            if (isset($BySeverity[$Severity]))
+                $SeverityStatistics[$Severity] = $Label.': *'.$BySeverity[$Severity].'*';
+        }
+            
+        $Header = $Call['Channel'].' Channel ('.count($Call['Value']).' messages, '.implode(', ', $SeverityStatistics).')'
             .PHP_EOL
-            .'Request ID: '.REQID
+            .'Request ID: *'.REQID.'*'
             .PHP_EOL
             .date(DATE_RSS, round(Started))
             .PHP_EOL

@@ -9,8 +9,10 @@
 
      setFn('Parse', function ($Call)
      {
-          foreach ($Call['Parsed']['Value'] as $Ix => $Match)
-              $Call['Output'] = str_replace($Call['Parsed']['Match'][$Ix], '<a class="email" href="mailto:'. $Match.'">'. $Match.'</a>', $Call['Output']);
+         $Replaces = [];
 
-          return $Call;
+         foreach ($Call['Parsed']['Value'] as $IX => $Match)
+              $Replaces[$IX] = '<a class="email" href="mailto:'. $Match.'">'. $Match.'</a>';
+
+         return $Replaces;
      });

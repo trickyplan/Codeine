@@ -9,17 +9,10 @@
 
     setFn ('Parse', function ($Call)
     {
+        $Replaces = [];
+        
         foreach ($Call['Parsed']['Value'] as $IX => $Match)
-        {
-            $Root = simplexml_load_string('<root '.$Call['Parsed']['Options'][$IX].'></root>');
+            $Replaces[$IX] = F::Run('Text.Beautifier', 'Do', $Call,['Value' => $Match]);
 
-            $Inner = $Call['Parsed']['Value'][$IX];
-            $Outer = F::Run('Text.Beautifier', 'Do', $Call,
-                [
-                    'Value' => $Inner
-                ]);
-            $Call['Output'] = str_replace ($Call['Parsed']['Match'][$IX], $Outer, $Call['Output']);
-        }
-
-        return $Call;
+        return $Replaces;
     });
