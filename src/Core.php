@@ -139,6 +139,7 @@
             $Call['Call']['Hostname'] = gethostname();
             $Call['Call']['Environment'] = F::Environment();
 
+            F::Log('PHP '.PHP_SAPI.' '.phpversion(), LOG_INFO);
             return self::Live($Call);
         }
 

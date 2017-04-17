@@ -7,7 +7,8 @@
 
     // 10xs for http://leonid.shevtsov.me/ru/mnogoprocessovye-demony-na-php#ixzz23J4hMu6y
     
-    include 'Codeine/Core.php';
+    require 'Core.php';
+    require 'Codeine/vendor/autoload.php';
 
     $Opts = [];
 
