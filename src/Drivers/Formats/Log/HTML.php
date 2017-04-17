@@ -43,7 +43,7 @@
             $LastTS = 0;
             foreach ($Call['Value'] as $IX => $Row)
             {
-                $Output .= '<tr class="'.$Call['Levels'][$Row[0]].'">
+                $Output .= '<tr class="'.$Call['Levels'][$Row[0]].'" style="border-left: 10px solid #'.$Row[6].'">
                         <td class="col-md-1">['.$Row[0].'] '.$Row[1].' (+'.round($Row[1]-$LastTS, 3).')</td>
                         <td class="col-md-4">'.($Row[3] == (isset($Call['Value'][$IX-1][3])? $Call['Value'][$IX-1][3]: false)? '': $Row[3]).'</td>
                         <td class="col-md-7">'.stripslashes(htmlentities($Row[2])).'</td>

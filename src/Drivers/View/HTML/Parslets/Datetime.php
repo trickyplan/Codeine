@@ -1,32 +1,31 @@
 <?php
-
+    
     /* Codeine
      * @author bergstein@trickyplan.com
      * @description Exec Parslet 
      * @package Codeine
      * @version 6.0
      */
-
-     setFn('Parse', function ($Call)
-     {
+    
+    setFn('Parse', function ($Call)
+    {
+        $Replaces = [];
         foreach ($Call['Parsed']['Value'] as $IX => $Match)
         {
-            $Root = simplexml_load_string('<root '.$Call['Parsed']['Options'][$IX].'></root>');
-
-            $Engine = isset($Root->attributes()->engine)? (string) $Root->attributes()->engine: 'Date';
-
+            $Engine = F::Dot($Call['Parsed'],'Options.'.$IX.'.engine') ? F::Dot($Call['Parsed'],'Options.'.$IX.'.'.'engine'): 'Date';
+            
             // TODO Due bug 13744 at w3c validator, time tag temporary diabled.
             // $Outer = '<time datetime="'.date(DATE_ISO8601, $Match).'">'.date($Format, $Inner).'</time>';
-
-            $Outer = [ 'Value' => $Match ];
-
-            if (isset($Root->attributes()->format))
-                $Outer['Format'] = (string) $Root->attributes()->format;
-
-            $Outer = F::Run('Formats.Date.'.$Engine, 'Format', $Outer);
-
-            $Call['Output'] = str_replace ($Call['Parsed']['Match'][$IX], $Outer, $Call['Output']);
+            
+            $Date = ['Value' => $Match];
+            
+            if (F::Dot($Call['Parsed'],'Options.'.$IX.'.format'))
+                $Date['Format'] = F::Dot($Call['Parsed'],'Options.'.$IX.'.format');
+            
+            $Date = F::Run('Formats.Date.' . $Engine, 'Format', $Date);
+            
+            $Replaces[$IX] = $Date;
         }
-
-        return $Call;
-     });
+        
+        return $Replaces;
+    });

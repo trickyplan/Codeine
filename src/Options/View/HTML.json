@@ -45,15 +45,10 @@
         },
         "afterHTMLRender":
         {
-            "-CodeineTags":
+            "Parslets3":
             {
-                "Service":"View.HTML.CodeineTags",
-                "Method":"Do"
-            },
-            "Parslets":
-            {
-                "Service":"View.HTML.Parslets",
-                "Method":"Process"
+                "Service":"View.HTML.Parslets3",
+                "Method":"afterHTMLRender"
             },
             "Images":
             {

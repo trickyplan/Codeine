@@ -22,6 +22,7 @@
 
         private static $_Service = 'Codeine';
         private static $_Method = 'Do';
+        private static $_Color = false;
 
         private static $_Storage = [];
         private static $_Ticks = [];
@@ -50,6 +51,7 @@
             self::$_Hostname = gethostname();
             self::$_Live = true;
             self::$_Stack = new SplStack();
+            self::$_Color = new SplStack();
 
             self::Start(self::$_Service . '.' . self::$_Method);
 
@@ -159,22 +161,8 @@
                 }
                 else
                 {
-                    echo '<pre>';
-                    echo $E['message'];
-                    echo self::Stack();
-      
-                    if (PHP_SAPI === 'cli')
-                        ;
-                    else
-                        foreach (self::$_Log as $Channel)
-                        {
-                            foreach ($Channel as $Log)
-                                echo implode("\t", $Log).PHP_EOL;
-                        }
-                        
-                    echo '</pre>';
+                    self::Finish(implode("\t", $E));
                 }
-
             }
 
             if (self::$_Debug)
@@ -529,7 +517,7 @@
                     else
                     {
                         if ($Variable === (array) $Variable)
-                            foreach ($Variable as $Key => &$cVariable)
+                            foreach ($Variable as $Key => $cVariable)
                                 $Variable = self::Dot($Variable, $Key, self::Live($cVariable, $Call));
                         else
                             $Variable = self::Variable($Variable, $Call);
@@ -617,12 +605,12 @@
         public static function Error($errno , $errstr , $errfile , $errline , $errcontext)
         {
             if (self::$_Perfect)
-                self::Perfect ($errno.' '.$errstr.' '.$errfile.'@'.$errline);
+                self::Finish ($errno.' '.$errstr.' '.$errfile.'@'.$errline);
             
             self::Log(j(self::Stack()).PHP_EOL.'Err '.$errno.':'.$errstr.PHP_EOL.$errfile.'@'.$errline, LOG_CRIT);
         }
         
-        public static function Perfect ($Message)
+        public static function Finish ($Message)
         {
             $Logs = self::Logs();
             foreach ($Logs as $Channel => $Records)
@@ -641,10 +629,10 @@
                 ;
             else
             {
-                $Output = file_get_contents(Codeine.'/Assets/Perfect.html');
-                $Output = str_replace('<perfect:message/>', $Message, $Output);
-                $Output = str_replace('<perfect:stack/>',self::Stack(), $Output);
-                $Output = str_replace('<perfect:logs/>', j($JSONLogs), $Output);
+                $Output = file_get_contents(Codeine.'/Assets/Finish.html');
+                $Output = str_replace('<finish:message/>', $Message, $Output);
+                $Output = str_replace('<finish:stack/>',self::Stack(), $Output);
+                $Output = str_replace('<finish:logs/>', j($JSONLogs), $Output);
             }
 
             echo $Output;
@@ -674,6 +662,25 @@
             return true;
         }
 
+        public static function startColor ($Color) // Colorize code sections
+        {
+            self::$_Color->push($Color);
+            return $Color;
+        }
+        
+        public static function stopColor () // Colorize code sections
+        {
+            return self::$_Color->pop();
+        }
+        
+        public static function getColor () // Colorize code sections
+        {
+            if (self::$_Color->offsetExists(0))
+                return self::$_Color->offsetGet(0);
+            else
+                return "ffffff";
+        }
+        
         public static function Log ($Message, $Verbose = 7, $Channel = 'Developer', $AppendStack = false)
         {
             if ($Channel == 'All')
@@ -716,7 +723,8 @@
                                 $Message,
                                 $From,
                                 $StackDepth,
-                                F::Stack()
+                                F::Stack(),
+                                self::getColor()
                             ];
                     else
                         self::$_Log[$Channel][]
@@ -726,14 +734,15 @@
                             $Message,
                             $From,
                             $StackDepth,
-                            null
+                            null,
+                            self::getColor()
                         ];
                     
                     if (PHP_SAPI === 'cli')
                         self::CLILog($Time, $Message, $Verbose, $Channel);
                     
                     if (self::$_Perfect && ($Verbose <= self::$_Options['Codeine']['Perfect Verbose'][$Channel]))
-                        self::Perfect ($Message);
+                        self::Finish ($Message);
                         
                 }
             }

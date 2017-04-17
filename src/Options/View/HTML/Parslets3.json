@@ -1,0 +1,37 @@
+{
+    "View":
+    {
+        "HTML":
+        {
+            "Parslets":
+            {
+                "afterHTMLRender":
+                {
+                    "Enabled":
+                    [
+                        "Access",
+                        "Far",
+                        "For",
+                        "Foreach",
+                        "Environment",
+                        "Fn",
+                        "Exec",
+                        "Number",
+                        "Hashtags",
+                        "Entity",
+                        "Datetime",
+                        "URLEncode"
+                    ]
+                },
+                "afterViewLoad":
+                {
+                    "Enabled":
+                    [
+                        "If",
+                        "Layout"
+                    ]
+                }
+            }
+        }
+    }
+}

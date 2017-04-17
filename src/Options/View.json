@@ -49,10 +49,10 @@
                 "Service": "View.Hooks.For",
                 "Method": "Parse"
             },
-            "Layout":
+            "Parslets3":
             {
-                "Service": "View.Hooks.Layout",
-                "Method": "Parse"
+                "Service":"View.HTML.Parslets3",
+                "Method":"afterViewLoad"
             }
         }
     }
