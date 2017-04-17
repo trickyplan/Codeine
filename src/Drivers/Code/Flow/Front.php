@@ -14,6 +14,7 @@
         // В этом месте, практически всегда, происходит роутинг.
         $Call = F::Hook('beforeFrontRun', $Call);
 
+        F::startColor('aed581');
             // Если передан нормальный вызов, совершаем его
         F::Log('Front Controlled *'.$Call['Service'].':'.$Call['Method'].'* started', LOG_NOTICE, 'All');
         
@@ -37,7 +38,7 @@
         }
         
         F::Log('Front Controlled *'.$Call['Service'].':'.$Call['Method'].'* finished', LOG_NOTICE, 'All');
-
+        F::stopColor();
         // А здесь - рендеринг
         $Call = F::Hook('afterFrontRun', $Call);
         return $Call;

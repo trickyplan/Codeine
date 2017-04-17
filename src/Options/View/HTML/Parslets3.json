@@ -5,24 +5,32 @@
         {
             "Parslets":
             {
-                "Max Passes": 7,
-                "Enabled":
-                [
-                    "Access",
-                    "Far",
-                    "If",
-                    "For",
-                    "Foreach",
-                    "Environment",
-                    "Fn",
-                    "Exec",
-                    "Number",
-                    "Hashtags",
-                    "Entity",
-                    "Datetime",
-                    "URLEncode",
-                    "Layout"
-                ]
+                "afterHTMLRender":
+                {
+                    "Enabled":
+                    [
+                        "Access",
+                        "Far",
+                        "For",
+                        "Foreach",
+                        "Environment",
+                        "Fn",
+                        "Exec",
+                        "Number",
+                        "Hashtags",
+                        "Entity",
+                        "Datetime",
+                        "URLEncode"
+                    ]
+                },
+                "afterViewLoad":
+                {
+                    "Enabled":
+                    [
+                        "If",
+                        "Layout"
+                    ]
+                }
             }
         }
     }

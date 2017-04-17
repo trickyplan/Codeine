@@ -11,6 +11,7 @@
 
     setFn('Run', function ($Call)
     {
+        F::startColor('26c6da');
         if (isset($Call['Run']['Service']))
         {
             if (isset($Call['Run']['Method']))
@@ -41,5 +42,6 @@
         else
             F::Log('Service not specified, skip', LOG_WARNING);
         
+        F::stopColor();
         return $Call;
     });

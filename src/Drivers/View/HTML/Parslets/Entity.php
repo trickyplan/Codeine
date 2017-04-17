@@ -13,12 +13,10 @@
        
         foreach ($Call['Parsed']['Value'] as $IX => $Match)
         {
-            if (!empty($Call['Parsed']['Options'][$IX]))
-            {
-                $Template = F::Dot($Call['Parsed'],'Options.'.$IX.'.template') ? F::Dot($Call['Parsed'],'Options.'.$IX.'.template'): 'Tag';
-            }
-            else
+            if (empty($Call['Parsed']['Options'][$IX]))
                 $Template = 'Tag';
+            else
+                $Template = F::Dot($Call['Parsed'],'Options.'.$IX.'.template') ? F::Dot($Call['Parsed'],'Options.'.$IX.'.template'): 'Tag';
 
             if (preg_match('@^(.+)\:(.+)$@SsUu', $Call['Parsed']['Value'][$IX], $Slices))
             {
