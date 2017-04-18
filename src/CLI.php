@@ -38,7 +38,7 @@
     include Root.'/vendor/autoload.php';
     
     if (empty($Opts))
-        F::Log('Empty CLI parameters', LOG_INFO);
+        ;//F::Log('Empty CLI parameters', LOG_INFO);
     else
     {
         if (isset($Opts['Service']))
