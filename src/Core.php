@@ -627,7 +627,7 @@
                     ];
             
             if (PHP_SAPI == 'cli')
-                ;
+                $Output = $Message;
             else
             {
                 $Output = file_get_contents(Codeine.'/Assets/Finish.html');
@@ -750,10 +750,16 @@
         {
             $Head = '['.getmypid()."] \033[0;90m".$Time."\033[0m"."\t\e[0;36m[".$Channel."]\e[1;37m\t".self::$_Service.":\t";
             
+            if (is_scalar($Message))
+                ;
+            else
+                $Message = j($Message);
+            
             $Message = str_replace(' *'," \033[0;32m", $Message);
             $Message = str_replace('* ',"\033[1;37m ", $Message);
             $Message = preg_replace('@^\*@Ssum',"\033[0;32m", $Message);
             $Message = preg_replace('@\*$@Ssum',"\033[1;37m ", $Message);
+            
             if (($Verbose <= self::$_Verbose[$Channel]) or !self::$_Live)
                 switch (round($Verbose))
                 {
