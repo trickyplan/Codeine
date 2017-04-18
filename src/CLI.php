@@ -13,7 +13,7 @@
     if (isset($argv[1]) && file_exists($argv[1]))
     {
         if ($Opts = F::Merge(jd(file_get_contents($argv[1]), true), $Opts))
-            F::Log('JSON CLI parameters loaded from '.$argv[1], LOG_INFO);
+            ;//F::Log('JSON CLI parameters loaded from '.$argv[1], LOG_INFO);
     }
     else
     {
@@ -22,7 +22,7 @@
             foreach ($Pockets[1] as $IX => $Key)
             {
                 $Opts = F::Dot($Opts, strtr($Key, '_', ' '), $Pockets[2][$IX]);
-                F::Log('Get Opt Style CLI parameter loaded from *'.$Key.'* = *'.$Pockets[2][$IX].'*', LOG_INFO);
+                ;//F::Log('Get Opt Style CLI parameter loaded from *'.$Key.'* = *'.$Pockets[2][$IX].'*', LOG_INFO);
             }
         }
         else
@@ -34,7 +34,7 @@
 
     !defined('Root')? define('Root', getcwd()): false;
 
-    F::Log('Root folder: '.Root, LOG_INFO);
+    //F::Log('Root folder: '.Root, LOG_INFO);
     include Root.'/vendor/autoload.php';
     
     if (empty($Opts))
