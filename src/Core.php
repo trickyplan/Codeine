@@ -841,13 +841,21 @@
             if (PHP_SAPI === 'cli')
             {
                 echo PHP_EOL.substr($File, strpos($File, 'Drivers')).'@'.$Line.' '.trim(file($File)[$Line-1]).PHP_EOL;
-                echo var_export($Call).PHP_EOL;
+                echo j($Call).PHP_EOL;
             }
             else
             {
-                echo '<div class="console"><h5>'.
-                    substr($File, strpos($File, 'Drivers')).'@'.$Line.'&nbsp; '.trim(file($File)[$Line-1]).'</h5>';
-                var_dump($Call);
+                echo
+                    '<div class="console"><h5>'
+                    .substr($File, strpos($File, 'Drivers'))
+                    .'@'
+                    .$Line
+                    .'&nbsp; '
+                    .trim(file($File)[$Line-1])
+                    .'</h5>'
+                    .'<pre><code class="json">'
+                    .htmlspecialchars(j($Call))
+                    .'</code></pre>';
                 echo '</div>';
             }
 
