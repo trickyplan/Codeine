@@ -246,9 +246,7 @@
                     $Call = F::Hook('before'.$Call['Flat Entity'].'CreateOrUpdate', $Call);
                     $Call = F::Hook('beforeEntityWrite', $Call);
                     $Call = F::Hook('before'.$Call['Flat Entity'].'Write', $Call);
-                    /*
-                    TODO: необходимо щепитильно проверить обновлялку
-                    */
+
                     if (isset($Call['Failure']) and $Call['Failure'])
                     {
                         F::Log('Update Skipped due Failure Flag', LOG_WARNING, 'Administrator');

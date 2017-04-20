@@ -1,0 +1,27 @@
+{
+    "Regex":
+    {
+        "User Journal":
+        {
+            "Match":"^/journal$",
+            "Service":"Entity.List",
+            "Method":"Do",
+            "Call":
+            {
+                "Entity": "Journal",
+                "Sort":
+                {
+                    "Created": false
+                },
+                "Where":
+                {
+                    "Source":
+                    {
+                        "Type": "User",
+                        "ID": "$Session.User.ID"
+                    }
+                }
+            }
+        }
+    }
+}

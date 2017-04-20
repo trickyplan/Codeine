@@ -9,82 +9,61 @@
 
     setFn('Do', function ($Call)
     {
-        $Time = time();
-
-        $Totals = [];
-        $Totals['Total'] = F::Run('Entity', 'Count', ['Entity' => $Call['Bundle'], 'No Where' => true]);
-        $Totals['Today'] = F::Run('Entity', 'Count',
+        $Call = F::loadOptions($Call['Bundle'].'.Entity', null, $Call);
+        
+        $Call['Metrics']['Time'] = time();
+        $Call['Layouts'][] = ['Scope' => $Call['Bundle'].'/Control', 'ID' => 'Do'];
+        $Call['Layouts'][] = ['Scope' => 'Entity/Control', 'ID' => 'Do'];
+        
+        $Call['Metrics']['Created']['Total'] = F::Run('Entity', 'Count', ['Entity' => $Call['Bundle'], 'No Where' => true]);
+        $Call['Metrics']['Created']['Today'] = F::Run('Entity', 'Count',
                         [
                             'Entity' => $Call['Bundle'],
                             'Where'  =>
                             [
                                 'Created' =>
                                 [
-                                    '$lt' => $Time,
-                                    '$gt' => $Time-86400
+                                    '$lt' => $Call['Metrics']['Time'],
+                                    '$gt' => $Call['Metrics']['Time']-86400
                                 ]
                             ]
                         ]);
-        $Totals['Hour'] = F::Run('Entity', 'Count',
+        $Call['Metrics']['Created']['Hour'] = F::Run('Entity', 'Count',
                             [
                                 'Entity' => $Call['Bundle'],
                                 'Where'  =>
                                     [
                                         'Created' =>
                                             [
-                                                '$lt' => $Time,
-                                                '$gt' => $Time-3600
+                                                '$lt' => $Call['Metrics']['Time'],
+                                                '$gt' => $Call['Metrics']['Time']-3600
                                             ]
                                     ]
                             ]);
-        $Totals['Minute'] = F::Run('Entity', 'Count',
+        $Call['Metrics']['Created']['Minute'] = F::Run('Entity', 'Count',
                             [
                                 'Entity' => $Call['Bundle'],
                                 'Where'  =>
                                     [
                                         'Created' =>
                                             [
-                                                '$lt' => $Time,
-                                                '$gt' => $Time-60
+                                                '$lt' => $Call['Metrics']['Time'],
+                                                '$gt' => $Call['Metrics']['Time']-60
                                             ]
                                     ]
                             ]);
 
-        $Totals['Second'] = F::Run('Entity', 'Count',
+        $Call['Metrics']['Created']['Second'] = F::Run('Entity', 'Count',
                             [
                                 'Entity' => $Call['Bundle'],
                                 'Where'  =>
                                     [
                                         'Created' =>
                                             [
-                                                '$eq' => $Time
+                                                '$eq' => $Call['Metrics']['Time']
                                             ]
                                     ]
                             ]);
-
-        $Table = [
-                    'Total' =>
-                    [
-                        '<l>'.$Call['Bundle'].'.Control:Total</l>',
-                        $Totals['Total']
-                    ]
-                ];
-
-        foreach ($Totals as $Key => $Total)
-            //if ($Total > 0)
-                $Table[$Key] =
-                    [
-                        '<l>'.$Call['Bundle'].'.Control:'.$Key.'</l>',
-                        '<number>'.$Totals[$Key].'</number>'
-                    ];
-
-
-        $Call['Output']['Content'][] =
-            [
-                'Type'  => 'Table',
-                'Value' => $Table
-            ];
-
         return $Call;
     });
 

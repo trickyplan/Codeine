@@ -1,0 +1,55 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <l><call>Bundle</call>.Control:Title,Entity.Control:Title</l>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-lg-6 col-md-6">
+                <table class="table table-striped">
+                    <thead>
+                        <th colspan="2">
+                            <l><call>Bundle</call>.Control:Meta.Title,Entity.Control:Meta.Title</l>
+                        </th>
+                    </thead>
+                    <tr>
+                        <td><l><call>Bundle</call>.Control:Meta.Storage,Entity.Control:Meta.Storage</l></td>
+                        <td><call>Storage</call></td>
+                    </tr>
+                    <tr>
+                        <td><l><call>Bundle</call>.Control:Meta.EV,Entity.Control:Meta.EV</l></td>
+                        <td><call>EV</call></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <table class="table table-striped">
+                    <thead>
+                        <th colspan="2">
+                            <l><call>Bundle</call>.Control:Metrics.Created.Title,Entity.Control:Metrics.Created.Title</l>
+                        </th>
+                    </thead>
+                    <tr>
+                        <td><l><call>Bundle</call>.Control:Metrics.Created.Total,Entity.Control:Metrics.Created.Total</l></td>
+                        <td><number><call>Metrics.Created.Total</call></number></td>
+                    </tr>
+                    <tr>
+                        <td><l><call>Bundle</call>.Control:Metrics.Created.Hour,Entity.Control:Metrics.Created.Hour</l></td>
+                        <td><number><call>Metrics.Created.Hour</call></number></td>
+                    </tr>
+                    <tr>
+                        <td><l><call>Bundle</call>.Control:Metric.Minute,Entity.Control:Metrics.Created.Minute</l></td>
+                        <td><number><call>Metrics.Created.Minute</call></number></td>
+                    </tr>
+                    <tr>
+                        <td><l><call>Bundle</call>.Control:Metric.Second,Entity.Control:Metrics.Created.Second</l></td>
+                        <td><number><call>Metrics.Created.Second</call></number></td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="panel-footer">
+        <datetime><call>Metrics.Created.Time</call></datetime>
+    </div>
+</div>

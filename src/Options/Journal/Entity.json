@@ -1,34 +1,64 @@
 {
     "Storage": "Primary",
     "Mixins": [
-        "Mixins.ID.Sequence",
-        "Mixins.UGC"
+        "Mixins.ID.GUID"
     ],
     "Nodes":
     {
-        "Class":
+        "Created":
         {
-            "Type": "List.Enum",
-            "Options": ["info", "warning", "danger", "success"]
-        },
-        "Message":
-        {
-            "Type": "Literal.String"
-        },
-        "User":
-        {
+            "Type": "Numeral.Integer",
+            "Weight": 1000,
+            "Visible":
+            {
+                "JSON": true
+            },
             "Hooks":
             {
                 "beforeEntityCreate":
                 {
-                    "Service": "Session",
-                    "Method": "Read",
-                    "Call":
-                    {
-                        "Key": "User.ID"
-                    }
+                    "Service": "System.Time",
+                    "Method": "Get"
                 }
             }
+        },
+        "Class":
+        {
+            "Type": "List.Enum",
+            "Options": ["Info", "Warning", "Error", "Good", "Bad"],
+            "Default": "Info"
+        },
+        "Action":
+        {
+            "Type": "Literal.String"
+        },
+        "Message":
+        {
+            "Type": "Literal.String",
+            "Hooks":
+            {
+                "beforeEntityCreate":
+                {
+                    "Service": "Journal.Message",
+                    "Method": "Get"
+                }
+            }
+        },
+        "Source.Type":
+        {
+            "Type": "Literal.String"
+        },
+        "Source.ID":
+        {
+            "Type": "Literal.String"
+        },
+        "Target.Type":
+        {
+            "Type": "Literal.String"
+        },
+        "Target.ID":
+        {
+            "Type": "Literal.String"
         }
     }
 }
