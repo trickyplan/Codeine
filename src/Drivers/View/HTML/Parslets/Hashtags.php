@@ -15,7 +15,7 @@
         {
             {
                 if (F::Dot($Call['Parsed'],'Options.'.$IX.'.href') !== null)
-                    $Href = F::Dot($Call['Parsed'],'Options.'.$IX.'.type');
+                    $Href = F::Dot($Call['Parsed'],'Options.'.$IX.'.href');
                 else
                     $Href = '/search/';
     
