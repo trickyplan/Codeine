@@ -27,6 +27,7 @@
         "Return Header": false,
         "Headers": [],
         "Agent": "Mozilla/5.0 (compatible; Codeine/9.x)",
+        "Encoding": "",
         "Proxy":
         {
             "Host": "",

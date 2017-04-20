@@ -1,0 +1,26 @@
+{
+    "Rules":
+    {
+        "Journal allowed to logged":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Entity.List",
+                "Method": "Do",
+                "Call":
+                {
+                    "Entity": "Journal"
+                },
+                "Session":
+                {
+                    "User":
+                    {
+                        "ID": "*"
+                    }
+                }
+            }
+        }
+    }
+}

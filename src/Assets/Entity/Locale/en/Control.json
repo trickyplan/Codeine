@@ -1,0 +1,20 @@
+{
+    "Meta":
+    {
+        "EV": "Entity Version",
+        "Storage": "Storage",
+        "Title": "Meta"
+    },
+    "Metrics":
+    {
+        "Created":
+        {
+            "Title": "Created",
+            "Hour": "Per hour",
+            "Minute": "Per minute",
+            "Today": "Per 24h",
+            "Total": "Total",
+            "Second": "Per second"
+        }
+    }
+}
