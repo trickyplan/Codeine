@@ -146,6 +146,7 @@
                     CURLOPT_PROXYPORT        => $Call['CURL']['Proxy']['Port'],
                     CURLOPT_HTTPHEADER       => $Call['CURL']['Headers'],
                     CURLOPT_USERAGENT        => $Call['CURL']['Agent'],
+                    CURLOPT_ENCODING         => $Call['CURL']['Encoding'],
                     CURLINFO_HEADER_OUT      => true,
                     CURLOPT_SSL_VERIFYPEER   => false,
                     CURLOPT_FAILONERROR      => false
@@ -167,8 +168,7 @@
                 $Return = [$Body, '_Status' => $HTTPStatus, '_0' => $Headers];
                 F::Log('CURL GET Response Headers: '.j(explode("\r\n", $Headers)), LOG_INFO, 'Administrator');
             }
-            
-            
+
             if ($Call['CURL']['Return Header'] && isset($Call['CURL']['Only Header']))
             {
                 $Size = curl_getinfo($Call['Link'], CURLINFO_HEADER_SIZE);
@@ -211,10 +211,11 @@
                 CURLOPT_PROXYPORT        => $Call['CURL']['Proxy']['Port'],
                 CURLOPT_USERAGENT        => $Call['CURL']['Agent'],
                 CURLOPT_HTTPHEADER       => $Call['CURL']['Headers'],
+                CURLOPT_ENCODING         => $Call['CURL']['Encoding'],
                 CURLINFO_HEADER_OUT      => true,
                 CURLOPT_FAILONERROR      => false,
                 CURLOPT_POST             => true,
-                CURLOPT_SSL_VERIFYPEER => false,
+                CURLOPT_SSL_VERIFYPEER   => false,
                 // CURLOPT_USERPWD          => isset($Call['User'])? $Call['User'].':'.$Call['Password']: null, // FIXME
                 CURLOPT_HTTPAUTH         => CURLAUTH_BASIC,
                 CURLOPT_POSTFIELDS       => $Post
