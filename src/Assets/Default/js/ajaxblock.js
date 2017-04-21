@@ -32,7 +32,7 @@ $(document).ready(function ()
             }
         );
 
-        $(document).on ('ajax-load', '.ajax-delayed', function ()
+        $(document).on ('ajax-load', '.ajax-delayed', function (event)
             {
                 var el = $(this);
                 if (el.attr('loaded') == true)
