@@ -11,11 +11,11 @@
     {
         $Call = F::Hook('beforeUserLogout', $Call);
 
-        if (isset($Call['Session']['User']['ID']))
-        {
-            F::Log('User '.$Call['Session']['User']['ID'].' logged off', LOG_INFO, 'Security');
-            $Call = F::Apply('Session', 'Annulate', $Call);
-        }
+            if (isset($Call['Session']['User']['ID']))
+            {
+                F::Log('User '.$Call['Session']['User']['ID'].' going to logout', LOG_INFO, 'Security');
+                $Call = F::Apply('Session', 'Annulate', $Call);
+            }
 
         $Call = F::Hook('afterUserLogout', $Call);
 

@@ -88,6 +88,7 @@
                 [
                     'Entity' => 'User',
                     'Where' => $Call['Session']['User'],
+                    'Time' => microtime(true),
                     'One' => true
                 ]);
 
@@ -128,11 +129,14 @@
         else
         {
             $Call['Session Data']['ID'] = $Call['SID'];
+            d(__FILE__, __LINE__, $Call['Session Data']);
+            
             $Call['Session'] = F::Run('Entity', 'Update',
                 [
                     'Entity' => 'Session',
                     'Data' => $Call['Session Data'],
                     'Where' => $Call['SID'],
+                    'Time' => microtime(true),
                     'One' => true
                 ]);
 
@@ -157,10 +161,18 @@
 
     setFn('Annulate', function ($Call)
     {
+        $Call = F::Hook('beforeAnnulate', $Call);
+        
         if (isset($Call['Session']['Secondary']) && $Call['Session']['Secondary'] != 0)
+        {
             $Call = F::Apply('Session', 'Write', $Call, ['Session Data' => ['Secondary' => 0]]);
+            F::Log('Detached secondary user: '.$Call['Session']['Secondary'], LOG_INFO, 'Security');
+        }
         else
+        {
             $Call = F::Apply('Session', 'Write', $Call, ['Session Data' => ['User' => 0]]);
+            F::Log('Detached primary user: '.$Call['Session']['User']['ID'], LOG_INFO, 'Security');
+        }
 
         $Call = F::Hook('afterAnnulate', $Call);
 

@@ -176,7 +176,7 @@
         else
             F::Log('*'.count($Call['Data']).'* '.$Call['Entity'].' read', LOG_INFO, 'Administrator');
         
-        F::Log(j(F::Dot($Call['Data'], 'Tags')), LOG_NOTICE);
+        // F::Log(j(F::Dot($Call['Data'], 'Tags')), LOG_NOTICE);
         
         return $Call['Data'];
     });

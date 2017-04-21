@@ -30,7 +30,8 @@
         {
             $Call['User']['Password'] = F::Live($Call['Reset']['Generator']);
             $Password = $Call['User']['Password'];
-            $Call['User'] = F::Run('Entity', 'Update',
+            
+            F::Run('Entity', 'Update',
                 [
                     'Entity'  => 'User',
                     'Purpose' => 'Reset',
@@ -38,7 +39,7 @@
                     'Where'   => $Call['User']['ID'],
                     'Data'    => $Call['User']
                 ]);
-
+            
             $VCall = $Call;
 
             $VCall['Layouts'] =
