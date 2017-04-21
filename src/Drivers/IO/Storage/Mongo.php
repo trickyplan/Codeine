@@ -174,9 +174,9 @@
                 if (isset($Call['Data'])) // Update Where
                 {
                     $Request = 'db.*'.$Call['Scope'].'*.update('.j($Call['Where']).','.j($Call['Data']).')';
-                    $Result = $Call['Link']->selectCollection($Call['Scope'])->updateMany(
+                    $Result = $Call['Link']->selectCollection($Call['Scope'])->replaceOne(
                         $Call['Where'],
-                        ['$set' => $Call['Data']], $Call['Mongo']['Options']);
+                        $Call['Data'], $Call['Mongo']['Options']);
 
                     if ($Result)
                         F::Log($Request, LOG_INFO, 'Administrator');

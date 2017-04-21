@@ -30,15 +30,15 @@
         },
         "User":
         {
-            "Default": 0,
+            "Type": "Numeral.Integer",
             "Nullable": true,
-            "Type": "Numeral.Integer"
+            "Default": 0
         },
         "Secondary":
         {
             "Type": "Numeral.Integer",
-            "Default": null,
-            "Nullable": true
+            "Nullable": true,
+            "Default": 0
         },
         "Expire":
         {
