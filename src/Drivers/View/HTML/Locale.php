@@ -32,7 +32,7 @@
                 {
                     if (F::Environment() === 'Development')
                     {
-                        $Match = '<span class="nl" lang="'.$Call['Locale'].'">' . $Match . '</span>';
+                        $Match = '<span class="nl" lang="'.$Call['Locale'].'">' . array_shift($Matches) . '</span>';
                         echo $Match.PHP_EOL;
                     }
                     else
