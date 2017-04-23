@@ -1,0 +1,10 @@
+{
+    "Confirm": "Confirm delete",
+    "Warning": {
+        "All": "Delete all entities?",
+        "Message": "Are you sure you want to delete this?"
+    },
+    "Ok": "Delete",
+    "Cancel" : "Cancel",
+    "Title" : "Delete"
+}
