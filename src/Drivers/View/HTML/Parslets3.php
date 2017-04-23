@@ -81,7 +81,7 @@
                 
                 if ($ParsletFound > 0)
                     F::Log('Found *'.$ParsletFound.'* of '.$Parslet, LOG_DEBUG);
-                
+    
                 if (empty($Parsed))
                     ;
                 else
@@ -134,7 +134,11 @@
 
             foreach ($Matched as $Parslet => $cMatched)
                 if (isset($cMatched['Match']))
-                    $Call['Parslets']['Source'] = str_replace($cMatched['Match'], $cMatched['Replace'], $Call['Parslets']['Source']);
+                {
+                    $Count = 0;
+                    $Call['Parslets']['Source'] = str_replace($cMatched['Match'], $cMatched['Replace'], $Call['Parslets']['Source'], $Count);
+                    F::Log('Parslet '.$Parslet.', *'.count($cMatched['Match']).'* matched , *'.count($cMatched['Replace']).'* replaces prepared, *'.$Count.'* replaced', LOG_INFO);
+                }
             
             if ($PassFound > 0)
                 F::Log('*'.$PassFound.'* parslets found on pass №'.$Pass, LOG_DEBUG);

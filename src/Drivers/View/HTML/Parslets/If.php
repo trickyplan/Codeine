@@ -13,13 +13,13 @@
 
         foreach ($Call['Parsed']['Value'] as $IX => $Match)
         {
+            $Decision = false;
+            
             if (empty($Call['Parsed']['Options'][$IX]))
                 ;
             else
             {
                 $Value = (string) $Call['Parsed']['Options'][$IX]['value'];
-
-                $Decision = false;
 
                 if (isset($Call['Parsed']['Options'][$IX]['null']))
                 {
@@ -62,12 +62,12 @@
                         &&
                         ((float) preg_replace('/,/','.',$Value) >= (float) $Call['Parsed']['Options'][$IX]['gte']);
                 }
-
-                if ($Decision)
-                    $Replaces[$IX] = $Match;
-                else
-                    $Replaces[$IX] = '';
             }
+            
+            if ($Decision)
+                $Replaces[$IX] = $Match;
+            else
+                $Replaces[$IX] = '';
         }
 
         return $Replaces;
