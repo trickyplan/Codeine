@@ -19,6 +19,15 @@
             {
                 "Service": "Locale.Live"
             }
+        },
+        "Features / List":
+        {
+            "Decision": true,
+            "Weight": 150,
+            "Run":
+            {
+                "Service": "Developer.Feature.List"
+            }
         }
     }
 }

@@ -20,7 +20,7 @@
 <property name="homepage" value="https://codeine-framework.org"/>
 <property name="maintainer" value="Johnny Funt"/>
 <property name="destination-source" value="/usr/share/php/Codeine"/>
-<property name="depends" value="php7.0-fpm (>=7.0.16) | php7.0-cli (>=7.0.16) | php7.0-cgi (>=7.0.16)"/>
+<property name="depends" value="php7.0-fpm (>=7.0.16) | php7.0-cli (>=7.0.16) | php7.0-cgi (>=7.0.16), php7.0-mbstring (>=7.0.16), php7.0-xml (>=7.0.16)"/>
 <property name="provides" value=", codeine, codeine-production"/>
 <property name="replaces" value="codeine-production"/>
 <property name="key" value=""/>

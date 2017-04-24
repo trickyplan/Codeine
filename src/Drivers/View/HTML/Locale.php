@@ -39,9 +39,12 @@
                         $Match = '';
                 }
                 else
-                    $Match = $Translation;
+                    if (is_scalar($Translation))
+                        $Match = $Translation;
+                    else
+                        $Match = '{}';
             }
-
+            
             $Call['Output'] = str_replace($Call['Parsed'][0], $Call['Parsed'][1], $Call['Output']);
         }
 

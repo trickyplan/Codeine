@@ -1,0 +1,44 @@
+{
+    "Developer":
+    {
+        "Feature":
+        {
+            "Template":
+            {
+                "Feature":
+                {
+                    "Status": "Ready",
+                    "Title": "$Title",
+                    "Description":
+                    {
+                        "Short": "",
+                        "Full": ""
+                    },
+                    "User":
+                    {
+                        "Required": false
+                    },
+                    "Development":
+                    {
+                        "PHP":
+                        {
+                            "Required": true
+                        },
+                        "JS":
+                        {
+                            "Required": false
+                        }
+                    },
+                    "SysOps":
+                    {
+                        "Required": false
+                    },
+                    "UX":
+                    {
+                        "Required": false
+                    }
+                }
+            }
+        }
+    }
+}
