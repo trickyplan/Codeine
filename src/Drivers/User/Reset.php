@@ -61,10 +61,10 @@
 
             F::Run('IO', 'Write', $VCall,
                 [
-                    'Storage' => $Call['Reset']['Send To'],
-                    'Where' => 'Восстановление пароля',
-                    'Scope' => $Call['User']['EMail'],
-                    'Data' => $VCall['Output']
+                    'Storage'   => $Call['Reset']['Send To'],
+                    'Where'     => F::Run('Locale', 'Get', $Call, ['Message' => 'User.Reset:PasswordRecovery']),
+                    'Scope'     => $Call['User']['EMail'],
+                    'Data'      => $VCall['Output']
                 ]
             );
 
