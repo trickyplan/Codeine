@@ -31,7 +31,8 @@
                         "Foreach",
                         "Key",
                         "If",
-                        "Layout"
+                        "Layout",
+                        "Locale"
                     ]
                 }
             }
