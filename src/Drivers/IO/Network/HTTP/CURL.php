@@ -68,21 +68,22 @@
 
                 F::Log('CURL GET Request Headers: *'.j($Call['CURL']['Headers']).'*', LOG_INFO, 'Administrator');
                 curl_setopt_array($Links[$cID],
-                  [
-                       CURLOPT_HEADER           => $Call['CURL']['Return Header'],
-                       CURLOPT_RETURNTRANSFER   => true,
-                       CURLOPT_COOKIEJAR        => $Call['CURL']['Cookie Directory'].DS.parse_url($Call['Where']['ID'], PHP_URL_HOST),
-                       CURLOPT_COOKIE           => $Call['CURL']['Cookie'],
-                       CURLOPT_FOLLOWLOCATION   => $Call['CURL']['Follow'],
-                       CURLOPT_REFERER          => $Call['CURL']['Referer'],
-                       CURLOPT_CONNECTTIMEOUT   => $Call['CURL']['Connect Timeout'],
-                       CURLOPT_PROXY            => $Call['CURL']['Proxy']['Host'],
-                       CURLOPT_PROXYPORT        => $Call['CURL']['Proxy']['Port'],
-                       CURLOPT_USERAGENT        => $Call['CURL']['Agent'],
-                       CURLINFO_HEADER_OUT      => true,
-                       CURLOPT_HTTPHEADER       => $Call['CURL']['Headers'],
-                       CURLOPT_FAILONERROR      => false
-                  ]);
+                    [
+                        CURLOPT_HEADER           => $Call['CURL']['Return Header'],
+                        CURLOPT_RETURNTRANSFER   => true,
+                        CURLOPT_COOKIEJAR        => $Call['CURL']['Cookie Directory'].DS.parse_url($Call['Where']['ID'], PHP_URL_HOST),
+                        CURLOPT_COOKIE           => $Call['CURL']['Cookie'],
+                        CURLOPT_FOLLOWLOCATION   => $Call['CURL']['Follow'],
+                        CURLOPT_REFERER          => $Call['CURL']['Referer'],
+                        CURLOPT_CONNECTTIMEOUT   => $Call['CURL']['Connect Timeout'],
+                        CURLOPT_PROXY            => $Call['CURL']['Proxy']['Host'],
+                        CURLOPT_PROXYPORT        => $Call['CURL']['Proxy']['Port'],
+                        CURLOPT_USERAGENT        => $Call['CURL']['Agent'],
+                        CURLOPT_HTTPHEADER       => $Call['CURL']['Headers'],
+                        CURLOPT_ENCODING         => $Call['CURL']['Encoding'],
+                        CURLINFO_HEADER_OUT      => true,
+                        CURLOPT_FAILONERROR      => false
+                    ]);
 
                 if (isset($Call['CURL']['Proxy']['Auth']))
                     curl_setopt($Links[$cID], CURLOPT_PROXYUSERPWD, $Call['CURL']['Proxy']['Auth']);
