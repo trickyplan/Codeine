@@ -135,7 +135,7 @@
         if (isset($Call['HTTP']['Redirect']) && $Call['HTTP']['Redirect'] == 'Permanent')
             $Call['HTTP']['Headers']['HTTP/1.1'] = ' 301 Moved Permanently';
         else
-            $Call['HTTP']['Headers']['HTTP/1.1'] = ' 302 Moved Temporarily';
+            $Call['HTTP']['Headers']['HTTP/1.1'] = ' 302 Found';
 
         if ($URL === $Call['HTTP']['URL'])
             F::Log('Infinite redirect loop supressed', LOG_WARNING);
