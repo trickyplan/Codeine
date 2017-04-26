@@ -250,7 +250,7 @@
     {
         foreach ($_SERVER as $Key => $Value)
             if (preg_match('/HTTP_(.*)/', $Key, $Pockets))
-                $Call['HTTP']['Request']['Headers'][strtr(ucfirst(strtolower($Pockets[1])), '_', '-')] = $Value;
+                $Call['HTTP']['Request']['Headers'][strtr(ucwords(mb_strtolower(strtr($Pockets[1], '_', ' ' ))), ' ', '-')] = $Value;
 
         return $Call;
     });
