@@ -29,6 +29,7 @@
                     "Enabled":
                     [
                         "Foreach",
+                        "Variable",
                         "Key",
                         "If",
                         "Layout",
