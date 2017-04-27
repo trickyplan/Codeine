@@ -16,12 +16,12 @@
                         "Fn",
                         "Exec",
                         "Number",
-                        "Hashtags",
                         "Entity",
                         "Datetime",
                         "URLEncode",
                         "HTMLEntities",
-                        "Lower"
+                        "Lower",
+                        "Hashtags"
                     ]
                 },
                 "afterViewLoad":
