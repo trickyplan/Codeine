@@ -10,17 +10,18 @@
     setFn('Parse', function ($Call)
     {
         $Replaces = [];
+        // FIXME Combine with Key
         
-        foreach ($Call['Parsed']['Value'] as $IX => $Key)
+        foreach ($Call['Parsed']['Value'] as $IX => $Variable)
         {
-            if (mb_strpos($Key, ',') !== false)
-                $Key = explode(',', $Key);
+            if (mb_strpos($Variable, ',') !== false)
+                $Variable = explode(',', $Variable);
             else
-                $Key = [$Key];
+                $Variable = [$Variable];
 
             $Value = '';
 
-            foreach ($Key as $CMatch)
+            foreach ($Variable as $CMatch)
             {
                 $Value = F::Live(F::Dot($Call, $CMatch));
 
