@@ -268,9 +268,9 @@
                         ;
                     else
                         $Value = (array) $Value;
-                    
+
                     foreach ($Value as $cValue)
-                        header(preg_replace('/\s+/', ' ', $Key . ' ' . $cValue));
+                        header(preg_replace('/\s+/', ' ', $Key . ' ' . $cValue), false);
                 }
         }
         return $Call;
