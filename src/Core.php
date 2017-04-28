@@ -559,6 +559,7 @@
 
         public static function Hook($On, $Call)
         {
+             F::startColor('f84000');
              if (isset($Call['Custom Hooks'][$On]))
                  $On = $Call['Custom Hooks'][$On];
 
@@ -599,7 +600,8 @@
                      }
                  }
              }
-
+            
+            F::stopColor();
             return $Call;
         }
 

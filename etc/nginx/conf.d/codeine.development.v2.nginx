@@ -18,7 +18,7 @@
         fastcgi_keep_conn on;
 
         fastcgi_param  Environment $Environment;
-        fastcgi_pass   backend;
+        fastcgi_pass   $backend;
         fastcgi_index  index.php;
 
         fastcgi_param  DOCUMENT_ROOT    $document_root;

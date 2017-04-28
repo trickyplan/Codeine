@@ -15,6 +15,7 @@
             {
                 $Output = [];
 
+                $AllowedWidgets = F::Dot($Call, 'Renderer.Widgets.Allowed');
                 if (is_array($Call['Output']))
                     foreach ($Call['Output'] as $Place => $Widgets)
                         if (is_array($Widgets))
@@ -22,8 +23,10 @@
                             foreach ($Widgets as $Key => $Widget)
                                 if (isset($Widget['Type']))
                                 {
-                                    $Widget =
-                                        F::Run($Call['View']['Renderer']['Service'] . '.Element.' . $Widget['Type'], 'Make', $Widget);
+                                    if ($AllowedWidgets === null or in_array($Widget['Type'], $AllowedWidgets))
+                                        $Widget = F::Run($Call['View']['Renderer']['Service']
+                                            .'.Element.'
+                                            .$Widget['Type'], 'Make', $Widget);
 
                                     $Call['Output'][$Place][$Key] = $Widget;
                                 }
