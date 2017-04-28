@@ -13,9 +13,10 @@
         
         F::Run('Entity', 'Create', $Call,
             [
-                'Entity' => 'Journal',
-                'Where!'  => null,
-                'Data'   => $Journal
+                'Entity'    => 'Journal',
+                'No Where'  => true,
+                'Where!'    => null,
+                'Data'      => $Journal
             ]);
         
         return $Call;
