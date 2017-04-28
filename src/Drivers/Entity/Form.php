@@ -11,9 +11,11 @@
     {
         $IC = 0;
 
-        if (!isset($Call['Data']))
+        if (isset($Call['Data']))
+            ;
+        else
             $Call['Data'] = [];
-
+        
         $Call = F::Apply('Entity.Form.Layout.'.$Call['FormLayout'], 'Start', $Call); // FIXME FormLayout -> Form Layout
 
         $Call['FID'] = F::Live($Call['FID']);
