@@ -1,4 +1,11 @@
 {
+    "Renderer":
+    {
+        "Widgets":
+        {
+            "Allowed": ["Template"]
+        }
+    },
     "HTTP":
     {
         "Headers":
