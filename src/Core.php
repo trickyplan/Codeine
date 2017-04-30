@@ -143,7 +143,7 @@
             
             $Call['Version'] = F::loadOptions('Version');
             
-            F::Log('Codeine Version: '.$Call['Version']['Codeine']['Major'], LOG_INFO);
+            F::Log('Codeine Version: *'.$Call['Version']['Codeine']['Major'].'*', LOG_INFO);
             return self::Live($Call);
         }
 
