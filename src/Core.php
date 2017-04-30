@@ -145,10 +145,13 @@
             
             F::Log('Codeine Version: *'.$Call['Version']['Codeine']['Major'].'*', LOG_INFO);
             
-            if ($Call['Watch'] === null)
-                ;
-            else
-                self::$_Options['Codeine']['Watch'][] = $Call['Watch'];
+            if (isset($Call['Watch']))
+            {
+                if ($Call['Watch'] === null)
+                    ;
+                else
+                    self::$_Options['Codeine']['Watch'][] = $Call['Watch'];
+            }
             
             return self::Live($Call);
         }
