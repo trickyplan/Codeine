@@ -56,6 +56,11 @@
                 "Service": "System.Interface.HTTP.URL",
                 "Method": "Do"
             },
+            "Session":
+            {
+                "Service": "Session",
+                "Method": "Initialize"
+            },
             "Locale":
             {
                 "Service": "System.Interface.HTTP.Locale",

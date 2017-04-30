@@ -19,11 +19,6 @@
                 "Service": "Project.Preload",
                 "Method": "beforeFrontRun"
             },
-            "Session":
-            {
-                "Service": "Session",
-                "Method": "Initialize"
-            },
             "Prepare":
             {
                 "Service": "Code.Flow.Front.Before",
