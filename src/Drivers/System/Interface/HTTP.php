@@ -179,20 +179,23 @@
             $_SERVER['REQUEST_METHOD']:
             $Call['HTTP']['Methods']['Default'];
 
-        F::Log('Method: *'.$Call['HTTP']['Method'].'*', LOG_INFO);
+        F::Log('HTTP Method: *'.$Call['HTTP']['Method'].'*', LOG_INFO);
 
         return $Call;
     });
 
     setFn('Server', function ($Call)
     {
-        empty($_SERVER) ? F::Log('Empty $_SERVER', LOG_DEBUG): F::Log($_SERVER, LOG_DEBUG);
+        empty($_SERVER) ? F::Log('Empty $_SERVER', LOG_DEBUG): F::Log('Server: '.j($_SERVER), LOG_INFO);
 
         foreach ($_SERVER as &$Request)
             $Request = str_replace(chr(0), '', rawurldecode($Request));
 
         if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')
+        {
+            F::Log('XMLHttpRequest detected, enabling App Context', LOG_INFO);
             $Call['Context'] = 'app';
+        }
 
         return $Call;
     });
@@ -222,15 +225,10 @@
 
     setFn('Request', function ($Call)
     {
-        empty($_REQUEST) ? F::Log('Empty $_REQUEST', LOG_INFO): F::Log($_REQUEST, LOG_INFO);
-
         foreach ($_REQUEST as $Key => $Value)
             $Call['Request'][$Key] = str_replace(chr(0), '', $Value);
 
-        if (empty($Call['Request']))
-            F::Log('Empty Request', LOG_INFO);
-        else
-            F::Log($Call['Request'], LOG_INFO);
+        empty($_REQUEST) ? F::Log('Empty $_REQUEST', LOG_INFO): F::Log('Request: '.j($_REQUEST), LOG_INFO);
 
         if ($Call['HTTP']['Method'] == 'POST')
             $Call['HTTP']['RAW'] = file_get_contents("php://input");
@@ -240,7 +238,7 @@
 
     setFn('Cookie', function ($Call)
     {
-        empty($_COOKIE) ? F::Log('Empty $_COOKIE', LOG_INFO): F::Log($_COOKIE, LOG_INFO);
+        empty($_COOKIE) ? F::Log('Empty $_COOKIE', LOG_INFO): F::Log('Cookie: '.j($_COOKIE), LOG_INFO);
         $Call['HTTP']['Cookie'] = $_COOKIE;
 
         return $Call;
