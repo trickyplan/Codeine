@@ -22,7 +22,7 @@
 
             die();
         }
-
+    
         $Call = F::Bootstrap
         ([
             'Paths' => [Root],
@@ -32,7 +32,8 @@
             [
                 'Service' => 'Code.Flow.Front',
                 'Method'  => 'Run'
-            ]
+            ],
+            'Watch' => isset($_REQUEST['WATCH'])? $_REQUEST['WATCH']: null
         ]);
 
 

@@ -335,7 +335,9 @@
 
     setFn('Count', function ($Call)
     {
-        if (!isset($Call['Entity']))
+        if (isset($Call['Entity']))
+            ;
+        else
         {
             F::Log('Entity not defined.', LOG_ERR);
             return null;
