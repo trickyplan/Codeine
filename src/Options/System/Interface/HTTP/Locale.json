@@ -25,6 +25,11 @@
     {
         "beforeLocaleDetect":
         {
+            "Locale by User":
+            {
+                "Service": "System.Interface.HTTP.Locale.User",
+                "Method": "beforeLocaleDetect"
+            },
             "Locale in URL":
             {
                 "Service": "System.Interface.HTTP.Locale.URL",

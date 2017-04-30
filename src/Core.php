@@ -140,6 +140,10 @@
             $Call['Call']['Environment'] = F::Environment();
 
             F::Log('PHP '.PHP_SAPI.' '.phpversion(), LOG_INFO);
+            
+            $Call['Version'] = F::loadOptions('Version');
+            
+            F::Log('Codeine Version: *'.$Call['Version']['Codeine']['Major'].'*', LOG_INFO);
             return self::Live($Call);
         }
 

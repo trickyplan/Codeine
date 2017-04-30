@@ -69,7 +69,7 @@
                 .PHP_EOL
                 .'ID is *'.$ID.'*.'
                 .PHP_EOL
-                .'Token is *'.$Token.'*', LOG_WARNING);
+                .'Token is *'.$Token.'*', LOG_NOTICE);
         }
 
         return $Translation;
