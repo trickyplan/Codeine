@@ -362,6 +362,36 @@
 
         return $Call['Data'];
     });
+    
+    setFn('Distinct', function ($Call)
+    {
+        if (isset($Call['Entity']))
+            ;
+        else
+        {
+            F::Log('Entity not defined.', LOG_ERR);
+            return null;
+        }
+
+        $Call = F::Hook('beforeOperation', $Call);
+            $Call = F::Hook('beforeEntityDistinct', $Call);
+
+            $Call['Data'] = F::Run('IO', 'Execute', $Call,
+            [
+                  'Execute' => 'Distinct',
+                  'Scope'   => $Call['Entity']
+            ]);
+
+            $Call = F::Hook('afterEntityDistinct', $Call);
+        $Call = F::Hook('afterOperation', $Call);
+
+        if (empty($Call['Data']))
+            $Call['Data'] = 0;
+
+        F::Log('*'.count($Call['Data']).'* '.$Call['Entity'].' read distinction.', LOG_INFO, 'Administrator');
+
+        return $Call['Data'];
+    });
 
     setFn('Exist', function ($Call)
     {

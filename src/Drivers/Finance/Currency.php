@@ -14,7 +14,7 @@
 
     setFn('Rate.Get', function ($Call)
     {
-        return F::Live($Call['Currencies'][$Call['From']][$Call['To']]['Rate']);
+        return F::Live($Call['Currencies'])[$Call['From']][$Call['To']]['Rate'];
     });
 
     setFn('Rate.Convert', function ($Call)

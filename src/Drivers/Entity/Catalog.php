@@ -16,53 +16,37 @@
 
         $Call = F::Hook('beforeCatalog', $Call);
 
-            if (isset($Call['No Catalog Entity']))
+            $Values = F::Run('Entity', 'Distinct', $Call,
+                [
+                    'Entity'    => $Call['Entity'],
+                    'Fields'    => [$Call['Key']]
+                ]);
+         
+            if (count($Values) > 0)
             {
-                $Elements = F::Run('Entity', 'Read', $Call,
-                    [
-                        'Entity'    => $Call['Entity'],
-                        'Fields'    => [$Call['Key']],
-                        'Distinct'  => true
-                    ]);
+                $Values = $Values[$Call['Key']];
 
-                $Elements = F::Extract($Elements, $Call['Key']);
-            }
-            else
-            {
-                $Elements = F::Run('Entity', 'Read',
-                                   [
-                                       'Entity' => $Call['Key'],
-                                       'Where'  => []
-                                   ]);
-
-                $Elements = F::Extract($Elements, 'ID');
-            }
-
-            $Values = [];
-
-            if (count($Elements) > 0)
-            {
-                foreach ($Elements as $Element)
+                foreach ($Values as $Value)
                 {
-                    $Value = F::Run('Entity', 'Count',
+                    $Categories[$Value] = F::Run('Entity', 'Count',
                     [
                         'Entity' => $Call['Entity'],
                         'Where' =>
                         [
-                            $Call['Key'] => $Element
+                            $Call['Key'] => $Value
                         ]
                     ]);
 
-                    if ($Value > 0)
-                        $Values[$Element] = $Value;
+                    if ($Categories[$Value] == 0)
+                        unset($Categories[$Value]);
                 }
 
-                arsort($Values);
+                arsort($Categories);
 
                 $Call['Output']['Content'][] =
                     [
                         'Type'    => 'TagCloud',
-                        'Value'   => $Values,
+                        'Value'   => $Categories,
                         'Context' => $Call['Context'],
                         'Minimal' => $Call['Minimal'],
                         'Entity'  => $Call['Entity'],

@@ -15,13 +15,14 @@
                         "Environment",
                         "Fn",
                         "Exec",
-                        "Number",
                         "Entity",
                         "Datetime",
                         "URLEncode",
                         "HTMLEntities",
                         "Lower",
-                        "Hashtags"
+                        "Hashtags",
+                        "Currency",
+                        "Number"
                     ]
                 },
                 "afterViewLoad":

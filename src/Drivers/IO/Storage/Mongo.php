@@ -50,6 +50,7 @@
 
     setFn('Options', function ($Call)
     {
+        $Call['Scope'] = strtr($Call['Scope'], '.', '_');
         $Call['Mongo']['Options'] = [];
         
         if (isset($Call['Fields']))
@@ -93,7 +94,6 @@
     
     setFn ('Read', function ($Call)
     {
-        $Call['Scope'] = strtr($Call['Scope'], '.', '_');
         $Data = null;
         $Call = F::Apply(null, 'Options', $Call);
         
@@ -101,44 +101,15 @@
         {
             $Call = F::Apply(null, 'Where', $Call);
 
-            if (isset($Call['Distinct']) && $Call['Distinct'])
-            {
-                F::Log('db.*'.$Call['Scope'].'*.distinct("'.$Call['Fields'][0].'")', LOG_INFO, 'Administrator');
-                $Data = $Call['Link']->$Call['Scope']->distinct($Call['Fields'][0], $Call['Where']);
+            F::Log('db.*'.$Call['Scope'].'*.find('
+                .j($Call['Where'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE).')', LOG_INFO, 'Administrator');
 
-                foreach ($Data as &$Value)
-                    $Value = [$Call['Fields'][0] => $Value];
-
-                /*if (isset($Call['Limit']))
-                    $Data = array_slice($Data, $Call['Limit']['From'], $Call['Limit']['To']);*/
-            }
-            else
-            {
-                F::Log('db.*'.$Call['Scope'].'*.find('
-                    .j($Call['Where'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE).')', LOG_INFO, 'Administrator');
-
-                $Cursor = $Call['Link']->selectCollection($Call['Scope'])->find($Call['Where'], $Call['Mongo']['Options']);
-            }
+            $Cursor = $Call['Link']->selectCollection($Call['Scope'])->find($Call['Where'], $Call['Mongo']['Options']);
         }
         else
         {
-            if (isset($Call['Distinct']) && $Call['Distinct'])
-            {
-                F::Log('db.*'.$Call['Scope'].'*.distinct("'.$Call['Fields'][0].'")', LOG_INFO, 'Administrator');
-                $Data = $Call['Link']->$Call['Scope']->distinct($Call['Fields'][0]);
-
-                foreach ($Data as $Key => &$Value)
-                    $Value = [$Call['Fields'][0] => $Value];
-
-                if (isset($Call['Limit']))
-                    $Data = array_slice($Data, $Call['Limit']['From'], $Call['Limit']['To']);
-            }
-            else
-            {
-                F::Log('db.*'.$Call['Scope'].'*.find()', LOG_INFO, 'Administrator');
-
-                $Cursor = $Call['Link']->selectCollection($Call['Scope'])->find([],$Call['Mongo']['Options']);
-            }
+            F::Log('db.*'.$Call['Scope'].'*.find()', LOG_INFO, 'Administrator');
+            $Cursor = $Call['Link']->selectCollection($Call['Scope'])->find([],$Call['Mongo']['Options']);
         }
 
         if (isset($Cursor))
@@ -164,8 +135,8 @@
 
     setFn ('Write', function ($Call)
     {
-        $Call['Scope'] = strtr($Call['Scope'], '.', '_');
         $Call = F::Apply(null, 'Options', $Call);
+        
         unset($Call['Data']['_id']);
         try
         {
@@ -241,7 +212,6 @@
     setFn ('Count', function ($Call)
     {
         $Call = F::Apply(null, 'Options', $Call);
-        $Call['Scope'] = strtr($Call['Scope'], '.', '_');
 
         if (isset($Call['Where']) and $Call['Where'] !== null)
         {
@@ -267,7 +237,7 @@
                 F::Log('db.*'.$Call['Scope'].'*.distinct()', LOG_INFO, 'Administrator');
                 $Data = $Call['Link']->selectCollection($Call['Scope'])->distinct($Call['Fields'][0]);
 
-                return count($Data);
+                $Cursor = $Call['Link']->selectCollection($Call['Scope'])->count();
             }
             else
             {
@@ -284,20 +254,20 @@
 
     setFn ('ID', function ($Call)
     {
-        $Call['Scope'] = strtr($Call['Scope'], '.', '_');
+        $Call = F::Apply(null, 'Options', $Call);
 
         $Counter = F::Run(null, 'Read', $Call, ['Scope' => 'Counters', 'Where' => ['ID' => $Call['Entity']]]);
 
         if (empty($Counter))
         {
             if (isset($Call['Where']))
-                $Cursor = $Call['Link']->$Call['Scope']->find($Call['Where'])->sort(['ID' => -1]);
+                $Cursor = $Call['Link']->selectCollection($Call['Scope'])->find($Call['Where'])->sort(['ID' => -1]);
             else
-                $Cursor = $Call['Link']->$Call['Scope']->find()->sort(['ID' => -1]);
+                $Cursor = $Call['Link']->selectCollection($Call['Scope'])->find()->sort(['ID' => -1]);
 
             $Cursor->limit(1);
 
-            $IDs = iterator_to_array($Cursor);
+            $IDs = $Cursor->toArray();
 
             $ID = array_shift($IDs);
 
@@ -337,4 +307,33 @@
         F::Log($Command, LOG_INFO, 'Administrator');
         $Call['Link']->execute($Command);
         return $Call;
+    });
+    
+    setFn('Distinct', function ($Call)
+    {
+        $Call = F::Apply(null, 'Options', $Call);
+        
+        $Data = [];
+        if (isset($Call['Where']))
+            ;
+        else
+            $Call['Where'] = [];
+            
+        foreach ($Call['Fields'] as $Field)
+        {
+            $Command = 'db.'.$Call['Scope'].'.distinct("'.$Field.'", '.j($Call['Where']).')';
+            F::Log($Command, LOG_INFO, 'Administrator');
+            $Data[$Field] = $Call['Link']->selectCollection($Call['Scope'])->distinct($Field, $Call['Where']);
+            
+            $Values = [];
+            
+            foreach ($Data[$Field] as $WrongMongoReturn)
+                foreach ($WrongMongoReturn as $Value)
+                    if (is_scalar($Value))
+                        $Values[$Value] = $Value;
+            sort($Values);
+            $Data[$Field] = $Values;
+        }
+        
+        return $Data;
     });

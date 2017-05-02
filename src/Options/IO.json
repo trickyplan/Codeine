@@ -14,6 +14,14 @@
             "Driver": "IO.Storage.Memory",
             "Description": "Default storage for all important data"
         },
+        "Secondary":
+        {
+            "Driver":"IO.Storage.FileSystem",
+            "Directory":"Data",
+            "Format": "Formats.JSON",
+            "Postfix":".json",
+            "Description": "Default storage for all immutable important data"
+        },
         "Permanent":
         {
             "Description": "Storage for source-based data",

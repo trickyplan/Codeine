@@ -35,7 +35,7 @@
                     else
                     {
                         if (is_array($Value))
-                            $Data[$Name] = implode (' ', $Value);
+                            $Data[$Name] = j($Value);
                         else
                             $Data[$Name] = $Value;
                     }
