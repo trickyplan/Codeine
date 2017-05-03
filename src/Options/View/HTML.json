@@ -45,9 +45,9 @@
         },
         "afterHTMLRender":
         {
-            "Parslets3":
+            "Parslets":
             {
-                "Service":"View.HTML.Parslets3",
+                "Service":"View.HTML.Parslets",
                 "Method":"afterHTMLRender"
             },
             "Images":
