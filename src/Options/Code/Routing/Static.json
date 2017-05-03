@@ -3,7 +3,6 @@
     [
         "Control.Static",
         "User.Static",
-        "Search.Static",
         "Developer.Static",
         "SEO.Static",
         "Project.Static"

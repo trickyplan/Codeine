@@ -5,11 +5,11 @@
         {
             "Match": "^/search/json/(.+)/(.+)$",
             "Weight": 100,
-            "Service": "Search",
-            "Method": "Query",
+            "Service": "Entity.Search",
+            "Method": "Do",
             "Call":
             {
-                "Provider": "$1",
+                "Entity": "$1",
                 "Query": "$2",
                 "View":
                 {
@@ -24,11 +24,11 @@
         {
             "Match": "^/search/(.+)/(.+)$",
             "Weight": 80,
-            "Service": "Search",
-            "Method": "Query",
+            "Service": "Entity.Search",
+            "Method": "Do",
             "Call":
             {
-                "Provider": "$1",
+                "Entity": "$1",
                 "Query": "$2"
             }
         },
@@ -36,8 +36,8 @@
         {
             "Match": "^/search/(.*)$",
             "Weight": 60,
-            "Service": "Search",
-            "Method": "Query",
+            "Service": "Entity.Search",
+            "Method": "Do",
             "Call":
             {
                 "Vertical": true,

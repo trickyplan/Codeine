@@ -22,18 +22,19 @@
     {
         "afterEntityWrite":
         {
-            "Add to index":
+            "Add Entity to Index":
             {
-                "Service": "Entity.Search",
-                "Method": "Add"
+                "Service": "Entity.Hooks.Search",
+                "Method": "Add Entity to Index"
             }
         },
          "beforeEntityDelete":
          {
              "Remove from index":
              {
-                 "Service": "Entity.Search",
-                 "Method":  "Remove"
+                 "Service": "Entity.Hooks.Search",
+                 "Method": "Remove Entity from Index",
+                 "Method":  "Remove Entity from Index"
              }
          }
     }
