@@ -11,8 +11,11 @@
     {
         if (isset($Call['Data']))
             foreach ($Call['Nodes'] as $Name => $Node)
-                if (empty(F::Dot($Call['Data'], $Name)))
+            {
+                $Value = F::Dot($Call['Data'], $Name);
+                if (empty($Value) and $Value !== false)
                     $Call['Data'] = F::Dot($Call['Data'], $Name, null);
+            }
 
         return $Call;
     });
