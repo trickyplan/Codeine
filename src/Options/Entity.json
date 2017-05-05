@@ -59,6 +59,15 @@
         },
         "beforeEntityCreate":
         {
+            "Validate":
+            {
+                "Service":"Entity.Hooks.Validate",
+                "Method":"Process",
+                "Call":
+                {
+                    "Purpose": "Create"
+                }
+            },
             "Default values":
             {
                 "Service":"Entity.Hooks.Default",
@@ -71,14 +80,6 @@
             }
         },
         "beforeEntityUpdate":
-        {
-            "Make variables alive":
-            {
-                "Service":"Entity.Hooks.LiveNodes",
-                "Method":"Process"
-            }
-        },
-        "beforeEntityCreateOrUpdate":
         {
             "Validate":
             {
@@ -93,15 +94,23 @@
             {
                 "Service":"Entity.Hooks.LiveNodes",
                 "Method":"Process"
+            }
+        },
+        "beforeEntityCreateOrUpdate":
+        {
+            "Make variables alive":
+            {
+                "Service":"Entity.Hooks.LiveNodes",
+                "Method":"Process"
             },
             "Inherited values":
             {
                 "Service":"Entity.Hooks.Inherited",
                 "Method":"Process"
             },
-            "Convert empty to null":
+            "Empty":
             {
-                "Service":"Entity.Hooks.ConvertEmptyToNull",
+                "Service":"Entity.Hooks.Empty",
                 "Method":"Process"
             }
         },

@@ -31,7 +31,6 @@
         "Password":
         {
             "Type": "Literal.Password",
-            "User Override": true,
             "Hooks":
             {
                 "beforeEntityCreate":
@@ -48,7 +47,7 @@
             {
                 "Write":
                 {
-                    "Type": "Form.Password"
+                    "Type": "Form.Password.Two"
                 }
             }
         },

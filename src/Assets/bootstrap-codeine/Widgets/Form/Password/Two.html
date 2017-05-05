@@ -8,25 +8,25 @@
                name="<k>Name</k>"
         <block>required="<k>Required</k>"</block>
         autocomplete="off"
-        value="<k>Value</k>"
-        <block>placeholder="<k>Placeholder</k>"</block>
+        placeholder="<l>User.Entity:Password.Equal</l>"
         <block>pattern="<k>Regex</k>"</block> />
     </div>
 </div>
 
 <div class="form-group">
-    <label for="<k>ID</k>2">
+    <label for="<k>ID</k>_Repeat">
         <l><k>Label</k>.Second</l>
     </label>
     <div class="input-group">
-        <input id="<k>ID</k>2" data-equals="<k>Name</k>"
+        <input id="<k>ID</k>_Repeat" data-equals="<k>Name</k>"
                class="form-control" type="password" <block>required="<k>Required</k>"</block>
-        autocomplete="off" value="<k>Value</k>" placeholder="<l>User.Entity:Password.Equal</l>" />
+        autocomplete="off"
+        placeholder="<l>User.Entity:Password.Equal</l>" />
     </div>
 </div>
 <script type="text/javascript">
     var password = document.getElementById("<k>ID</k>");
-    var confirm_password = document.getElementById("<k>ID</k>2");
+    var confirm_password = document.getElementById("<k>ID</k>_Repeat");
 
     function validatePassword()
     {
