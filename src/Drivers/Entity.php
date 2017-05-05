@@ -68,6 +68,7 @@
                 $Call['Data'] = [];
         }
 
+        $Call['No Where'] = true;
         $Call = F::Hook('beforeOperation', $Call);
 
         $NewData = $Call['Data'];
