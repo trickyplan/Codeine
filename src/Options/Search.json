@@ -5,25 +5,35 @@
     {
         "Query":
         {
-            "Max": 64,
-            "Min": 3
+            "Length":
+            {
+                "Max": 64,
+                "Min": 3
+            },
+            "Limit":
+            {
+                "From": 0,
+                "To": 25
+            }
         },
         "Provider":
         {
-            "Ad.Media":
+            "Available":
             {
-                "Driver": "Search.Provider.Entity",
-                "Entity": "Ad.Media",
-                "EPP": 25,
-                "-Search Template": "Search",
-                "Search fields": ["ID", "Title"],
-                "Show fields": ["ID", "Title"],
-                "Default":
+                "-Example":
                 {
-                    "Photo": "/img/DefaultSQ.png"
-                },
-                "Highlight": "Title",
-                "Non-vertical": true
+                    "Driver": "Search.Provider.Entity",
+                    "Entity": "Example",
+                    "Search":
+                    {
+                        "Fields": ["ID", "Title"]
+                    },
+                    "Highlight": "Title",
+                    "Vertical":
+                    {
+                        "Allowed": true
+                    }
+                }
             }
         }
     },

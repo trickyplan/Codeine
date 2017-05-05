@@ -4,241 +4,135 @@
      * @author bergstein@trickyplan.com
      * @description  
      * @package Codeine
-     * @version 8.x
+     * @version 7.4
      */
-
-    setFn('Add', function ($Call)
-    {
-        // if (isset($Call['Providers'][$Call['Entity']]))
-
-        if (isset($Call['Data']['Published']) && $Call['Data']['Published'] == false)
-        {
-            F::Log('Add to search skipped, non-published entity', LOG_INFO);
-            return $Call;
-        }
-
-        {
-            $Data = [];
-
-            if (isset($Call['Data']))
-                ;
-            else
-                $Call['Data'] = F::Run('Entity', 'Read', $Call, ['One' => true]);
-            
-            foreach ($Call['Nodes'] as $Name => $Node)
-                if (isset($Node['Index']) && $Node['Index'])
-                {
-                    $Value = F::Dot($Call['Data'], $Name);
-
-                    if (empty($Value))
-                        ;
-                    else
-                    {
-                        if (is_array($Value))
-                            $Data[$Name] = j($Value);
-                        else
-                            $Data[$Name] = $Value;
-                    }
-                }
-
-            if (F::Run('Search', 'Add', $Call,
-            [
-                'Provider' => $Call['Entity'],
-                'Data!'    => $Data
-            ]))
-            {
-                // F::Log($Call['Entity'].' '.$Data['ID'].' indexed', LOG_INFO);
-                F::Log($Data, LOG_DEBUG);
-            }
-        }
-/*        else
-            F::Log('Cannot find provider for '.$Call['Entity'], LOG_ERR);*/
-        return $Call;
-    });
 
     setFn('Do', function ($Call)
     {
-        if (!isset($Call['Entity']))
-            $Entities = $Call['Entities'];
-        else
-            $Entities = [$Call['Entity']];
+        $Call = F::loadOptions($Call['Entity'].'.Entity', null, $Call);
 
-        if (isset($Call['Request']['Query']) && !isset($Call['Query']))
-            $Call['Query'] = $Call['Request']['Query'];
+        $Call['Provider'] = $Call['Entity'];
+        
+        $Call = F::Hook('beforeEntitySearch', $Call);
 
-        if (isset($Call['Query']) && !empty($Call['Query']))
+        $Call = F::Apply( 'Search', 'Query', $Call);
+        
+        $Call['Elements'] = F::Run('Entity', 'Read', $Call,
+            [
+                'Where' =>
+                [
+                    'ID' =>
+                    [
+                        '$in' => array_keys($Call['IDs'])
+                    ]
+                ]
+            ]
+        );
+        
+        $Call['Scope'] = isset($Call['Scope'])? strtr($Call['Entity'], '.', '/').'/'.$Call['Scope'] : strtr($Call['Entity'], '.', '/');
+        
+        $Call['Layouts'][] =
+            [
+                'Scope' => $Call['Scope'],
+                'ID' => isset($Call['Custom Templates']['List'])? $Call['Custom Templates']['List'] :'List',
+                'Context' => $Call['Context']
+            ];
+
+        $Empty = false;
+
+        $Call['Template'] = (isset($Call['Template'])? $Call['Template']: 'Short');
+        F::Log('List template is *'.$Call['Template'].'*', LOG_INFO);
+
+        if (sizeof($Call['Elements']) == 0)
+            $Empty = true;
+
+        if (isset($Call['Where']) && $Call['Where'] === [])
+            $Empty = true;
+
+        if (null === $Call['Elements'])
+            $Empty = true;
+
+        if (isset($Call['NoEmpty']))
+            $Empty = false;
+
+        if ($Empty)
         {
-            $Call['View']['Highlight'] = $Call['Query'];
+            $Empty = isset($Call['Custom Templates']['Empty'])? $Call['Custom Templates']['Empty']: 'Empty';
 
-            foreach ($Entities as $Entity)
-            {
-                $Call['Where'] = [];
+            $Call['Output']['Content'][]
+                = ['Type' => 'Template', 'Scope' => $Call['Scope'], 'Entity' => $Call['Entity'],  'ID' => $Empty];
 
-                $Call['Entity'] = $Entity;
-
-                $Call = F::Run('Search', 'Query', $Call,
+            $Call = F::Hook('Empty', $Call);
+        }
+        else
+        {
+            $Call['Layouts'][] =
                 [
-                      'Provider' => $Call['Entity']
-                ]);
-
-                $Call['Output']['Content'][] =
-                [
-                    'Type' => 'Template',
-                    'Scope' => $Entity,
-                    'ID' => 'Search'
+                    'Scope' => $Call['Scope'],
+                    'ID' => (isset($Call['Custom Templates']['Table'])? $Call['Custom Templates']['Table']: 'Table'),
+                    'Context' => $Call['Context']
                 ];
 
-            }
-        }
+            if (isset($Call['Reverse']))
+                $Call['Elements'] = array_reverse($Call['Elements'], true);
 
-        return $Call;
-     });
-
-    setFn('Suggestions', function ($Call)
-    {
-        $Call['Headers']['Content-type:'] = 'application/x-suggestions+json';
-        $Suggestions = [];
-
-        if (!isset($Call['Entity']))
-            $Entities = $Call['Entities'];
-        else
-            $Entities = [$Call['Entity']];
-
-        foreach ($Entities as $Entity)
-        {
-            $IDs = F::Run('Search', 'Query', $Call,
-            [
-                'Entity' => $Entity,
-                'Engine' => 'Primary',
-                'Query'  => $Call['Request']['Query']
-            ]);
-
-            if (null === $IDs)
-                ;
-            else
-            {
-                $Results = F::Run('Entity', 'Read',
-                [
-                    'Entity' => $Entity,
-                    'Fields' => ['Title'],
-                    'Where' =>
-                    [
-                        'ID' =>
-                        [
-                            '$in' => array_keys($IDs)
-                        ]
-                    ]
-                ]);
-
-                foreach ($Results as $Result)
+            if (is_array($Call['Elements']))
+                foreach ($Call['Elements'] as $IX => $Element)
                 {
-                    $Suggestions[] = $Result['Title'];
+                    if (!isset($Element['ID']))
+                        $Element['ID'] = $IX;
+
+                    if (isset($Call['Page']) && isset($Call['EPP']))
+                        $Element['IX'] = $Call['EPP']*($Call['Page']-1)+$IX+1;
+                    else
+                        $Element['IX'] = $IX+1;
+
+                    if (isset($Call['Show Redirects']) or !isset($Element['Redirect']) or empty($Element['Redirect']))
+                    {
+                        $Call['Output']['Content'][] =
+                            [
+                                'Type'  => 'Template',
+                                'Scope' => $Call['Scope'],
+                                'ID' => 'Show/'
+                                    .$Call['Template'],
+                                // FIXME Strategy of selecting templates
+                                'Data'  => F::Merge($Element, $Element)
+                            ];
+                    }
                 }
-            }
         }
-
-        $Call['Output']['Content'] =
-        [
-            $Call['Request']['Query'],
-            $Suggestions
-        ];
+        $Call = F::Hook('afterEntityList', $Call);
 
         return $Call;
     });
 
-    setFn('Reindex.All', function ($Call)
+    setFn('RAW', function ($Call) // FIXME
     {
-        $Call   = F::Apply('Entity', 'Load', $Call);
-        $Max  = F::Run('Entity', 'Read', $Call,
-            [
-                'One'  => true,
-                'Limit' =>
-                [
-                    'From' => 0,
-                    'To'   => 1
-                ],
-                'Sort' =>
-                [
-                    'ID' => false
-                ]
-            ])['ID'];
+        $Output = [];
+        $Call = F::Merge($Call, F::loadOptions($Call['Entity'].'.Entity')); // FIXME
 
-        $Amount = ceil($Max / $Call['Reindex']['Objects Per Page']);
+        $Call = F::Hook('beforeRAWList', $Call);
 
-        F::Log('Total objects: '.$Max, LOG_INFO);
-        F::Log('Limit per page: '.$Call['Reindex']['Objects Per Page'], LOG_INFO);
-        F::Log('Pages: '.$Amount, LOG_INFO);
+        $Elements = F::Run('Entity', 'Read', $Call, ['Skip Enum Live' => true]);
 
-        F::Run('Code.Run.Parallel', 'Run', $Call,
-            [
-                'Run' =>
-                [
-                    'Service' => 'Entity.Search',
-                    'Method'  => 'Reindex.Page'
-                ],
-                'Data'  => range(0, $Amount),
-                'Key'   => 'Page'
-            ]);
+        if ($Elements !== null)
+            foreach ($Elements as $Element)
+                if (isset($Element[$Call['Primary']]))
+                    $Output[$Element[$Call['Primary']]] = F::Dot($Element, $Call['Key']);
 
-        return ['Indexed' => $Amount];
+        return $Output;
     });
 
-    setFn('Reindex.Page', function ($Call)
+    setFn('RAW2', function ($Call) // FIXME
     {
+        $Call = F::Merge($Call, F::loadOptions($Call['Entity'].'.Entity')); // FIXME
 
-        foreach ($Call['Page'] as $Page)
-        {
-            $Objects = F::Run('Entity', 'Read', $Call,
-                [
-                    'No Memo' => true,
-                    'One' => false,
-                    'Sort' =>
-                    [
-                        'ID' => true
-                    ],
-                    'Where' =>
-                    [
-                        'ID' =>
-                        [
-                            '$gt' => $Page*$Call['Reindex']['Objects Per Page']
-                        ]
-                    ],
-                    'Limit' =>
-                    [
-                        'From' => 0,
-                        'To'   => $Call['Reindex']['Objects Per Page']
-                    ]
-                ]);
+        $Call = F::Hook('beforeRAWList', $Call);
 
-            if (empty($Objects))
-                ;
-            else
-                foreach($Objects as $Data)
-                    F::Run(null, 'Add', $Call, ['Data!' => $Data]);
+        $Elements = F::Run('Entity', 'Read', $Call);
 
-            F::Log('Reindex Page № '.$Page, LOG_WARNING);
-        }
+        foreach ($Elements as $Element)
+            $Call['Output']['Content'][] = [$Element['ID'], F::Dot($Element, $Call['Key'])];
 
         return $Call;
     });
-
-    setFn('Remove', function ($Call)
-    {
-        if (isset($Call['Data']))
-            ;
-        else
-            $Call['Data'] = F::Run('Entity', 'Read', $Call);
-
-        if (F::Run('Search', 'Remove', $Call,
-        [
-            'Provider' => $Call['Entity'],
-            'Data!'    => ['ID' => $Call['Data']['ID']]
-        ]))
-        {
-            F::Log($Call['Entity'].' '.$Call['Data']['ID'].' removed', LOG_INFO);
-            F::Log($Call['Data'], LOG_DEBUG);
-        }
-
-        return $Call;
-    });
-
