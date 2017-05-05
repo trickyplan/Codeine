@@ -9,12 +9,12 @@
 
     setFn('Make', function ($Call)
     {
-        $Output = '';
+        $Output = [];
 
         foreach ($Call['Value'] as $Value => $Count)
             {
-                if ($Count > $Call['Minimal'])
-                    $Output .= F::Run('View', 'Load',
+                if ($Count >= $Call['Minimal'])
+                    $Output[] = F::Run('View', 'Load',
                         [
                             'Scope' => $Call['Entity'],
                             'ID' => 'Catalog/'.$Call['Key'],
@@ -27,7 +27,7 @@
                         ]);
             }
 
-        $Call['Value'] = $Output;
+        $Call['Value'] = implode(PHP_EOL, $Output);
 
         return $Call;
     });

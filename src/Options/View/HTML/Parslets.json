@@ -5,34 +5,38 @@
         {
             "Parslets":
             {
-                "Max Passes": 4,
-                "Queue":
-                [
-                    "Far",
-                    "Io",
-                    "If",
-                    "Exec",
-                    "Fn",
-                    "Layout",
-                    "Lower",
-                    "Wiki",
-                    "Entity",
-                    "Datetime",
-                    "Currency",
-                    "Morpho",
-                    "File",
-                    "Phone",
-                    "Email",
-                    "URLEncode",
-                    "HTMLEntities",
-                    "Striptags",
-                    "Cut",
-                    "Breaks",
-                    "Number",
-                    "Hashtags",
-                    "Access",
-                    "Environment"
-                ]
+                "afterHTMLRender":
+                {
+                    "Enabled":
+                    [
+                        "Access",
+                        "Far",
+                        "For",
+                        "Environment",
+                        "Fn",
+                        "Exec",
+                        "Entity",
+                        "Datetime",
+                        "URLEncode",
+                        "HTMLEntities",
+                        "Lower",
+                        "Hashtags",
+                        "Currency",
+                        "Number"
+                    ]
+                },
+                "afterViewLoad":
+                {
+                    "Enabled":
+                    [
+                        "Foreach",
+                        "Variable",
+                        "Key",
+                        "If",
+                        "Layout",
+                        "Locale"
+                    ]
+                }
             }
         }
     }

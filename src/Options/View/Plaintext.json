@@ -15,7 +15,7 @@
             "Parslets":
             {
                 "Service":"View.HTML.Parslets",
-                "Method":"Process"
+                "Method":"afterHTMLRender"
             },
             "I18N":
             {

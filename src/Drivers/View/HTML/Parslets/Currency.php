@@ -10,6 +10,7 @@
     setFn('Parse', function ($Call)
     {
         $Replaces = [];
+        
         foreach ($Call['Parsed']['Value'] as $IX => $Match)
         {
             $Currency = '';
@@ -25,14 +26,16 @@
                     $Call['Currency']['Precision'] = F::Dot($Call['Parsed'], 'Options.' . $IX . '.precision');
                 
                 $Match = strtr($Match, ',', '.');
+                
                 if (is_numeric($Match))
                 {
-                    $Currency = number_format(F::Run('Finance.Currency', 'Convert',
+                    $Currency = F::Run('Finance.Currency', 'Rate.Convert',
                         [
                             'From'  => $Call['From'],
                             'To'    => $Call['Currency']['To'],
                             'Value' => $Match
-                        ]), $Call['Currency']['Precision'], ',', ' ');
+                        ]);
+                    
                 } else
                     F::Log('Currency convert failed: ' . $Match, LOG_ERR);
             }

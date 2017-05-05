@@ -95,12 +95,19 @@
                                 {
                                     sort($DotMatched);
                                     foreach($DotMatched as $ICV => $cData)
-                                        if (!is_array($Key))
-                                            $Output.= str_replace('<#/>',
-                                            $ICV,
-                                            str_replace('<k>'.$Match.'</k>', $cData, $Call['Parsed'][1][$IX]).
-                                            ($cData)
-                                            .str_replace('<k>'.$Match.'</k>', $cData, $Call['Parsed'][3][$IX]));
+                                        if (is_array($Key))
+                                            ;
+                                        else
+                                        {
+                                            if (is_array($cData))
+                                                $cData = '{}';
+                                            
+                                            $Output .= str_replace('<#/>',
+                                                $ICV,
+                                                str_replace('<k>'.$Match.'</k>', $cData, $Call['Parsed'][1][$IX]).
+                                                ($cData)
+                                                .str_replace('<k>'.$Match.'</k>', $cData, $Call['Parsed'][3][$IX]));
+                                        }
                                 }
                                 else
                                     $Output = str_replace('<#/>', '', $Call['Parsed'][1][$IX].($DotMatched).$Call['Parsed'][3][$IX]);
