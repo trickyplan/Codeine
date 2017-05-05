@@ -87,7 +87,7 @@
                 ;
             else
             {
-                F::Log('No where (bad idea)', LOG_ERR, 'Administrator');
+                F::Log('No where (bad idea). Entity *'.$Call['Entity'].'*', LOG_ERR, 'Administrator');
                 return null;
             }
             
