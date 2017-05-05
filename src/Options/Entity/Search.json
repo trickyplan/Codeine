@@ -1,12 +1,25 @@
 {
-    "Reindex":
-    {
-        "Objects Per Page": 250,
-        "Pages Per Thread": 100
-    },
-    "Entities": ["Page"],
     "Custom Templates":
     {
         "Empty": "Search/Empty"
+    },
+    "Hooks":
+    {
+        "beforeEntitySearch":
+        {
+            "Pagination":
+            {
+                "Service": "Entity.Search.Pagination",
+                "Method": "beforeSearch"
+            }
+        },
+        "afterEntitySearch":
+        {
+            "Pagination":
+            {
+                "Service": "Entity.Search.Pagination",
+                "Method": "afterSearch"
+            }
+        }
     }
 }

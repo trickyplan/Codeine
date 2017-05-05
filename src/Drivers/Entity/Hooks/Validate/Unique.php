@@ -9,29 +9,36 @@
 
     setFn('Process', function ($Call)
     {
-        if (isset($Call['Node']['Unique']) && $Call['Node']['Unique'] && isset($Call['Data'][$Call['Name']]))
+        if (isset($Call['Node']['Unique']) && $Call['Node']['Unique'] && F::Dot($Call['Data'], $Call['Name']))
         {
+            if ($Call['Purpose'] == 'Create')
+                $Limit = 0;
+            else
+                $Limit = 1;
+                
             if ($Call['Name'] !== 'ID')
             {
                 $Where = [
                     $Call['Name'] => $Call['Data'][$Call['Name']],
-                    'ID' => ['$ne' => $Call['Data']['ID']]
+                    'ID' =>
+                    [
+                        '$ne' => $Call['Data']['ID']
+                    ]
                 ];
                 $Limit = 0;
             }
             else
             {
-                if ($Call['Purpose'] == 'Create')
-                    $Limit = 0;
-                else
-                    $Limit = 1;
-
-                $Where = [
+                $Where =
+                [
                     'ID' => $Call['Data']['ID']
                 ];
             }
 
-            F::Log('Checking unique *'.$Call['Name'].'* value *'.$Call['Data'][$Call['Name']].'* ('.$Call['Purpose'].')', LOG_INFO);
+            F::Log('Checking unique *'.$Call['Name']
+                .'* value *'
+                .$Call['Data'][$Call['Name']]
+                .'* ('.$Call['Purpose'].')', LOG_INFO);
 
             $Count = F::Run('Entity', 'Count',
                           [

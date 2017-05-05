@@ -13,31 +13,65 @@
         return $Call;
     });
 
-    setFn('Add', function ($Call)
+    setFn('Document.Create', function ($Call)
     {
         $Call = F::Run(null, 'Open', $Call);
 
         try
         {
-            F::Log($Call['Link']->index(
+            $Result = $Call['Link']->index(
                  [
-                     'index' => $Call['Index'],
+                     'index' => $Call['Elastic Search']['Index'],
+                     'type'  => $Call['Elastic Search']['Type'],
                      'id'    => $Call['Data']['ID'],
-                     'type'  => $Call['Type'],
-                     'body'  => $Call['Data']
-                 ]
-            ), LOG_INFO);
+                     'body'  => $Call['Index']
+                 ]);
+            F::Log(j($Result), LOG_INFO);
         }
         catch (Exception $e)
         {
             F::Log($e->getMessage(), LOG_ERR);
         }
 
-        return $Call;
+        return $Result;
     });
 
+    setFn('Count', function ($Call)
+    {
+        $IDs = [];
+        try
+        {
+            $Call = F::Run(null, 'Open', $Call);
+            $Call['Query'] = mb_substr($Call['Query'], 0, 32);
+
+            F::Log('Start Count on query: '.$Call['Query'], LOG_NOTICE);
+
+            $Query = [
+                     'index' => $Call['Elastic Search']['Index'],
+                     'type'  => $Call['Elastic Search']['Type'],
+                     'body'  =>
+                     [
+                          'query' => F::Live($Call['Search']['Query']['Default'], $Call)
+                      ]
+                 ];
+            
+            F::Log($Query, LOG_INFO, 'Administrator');
+            $Results = $Call['Link']->count($Query);
+            
+            $Total = $Results['count'];
+        }
+        catch (Exception $e)
+        {
+            F::Log($e->getMessage(), LOG_CRIT, 'Developer');
+            $Total = 0;
+        }
+        
+        return $Total;
+    });
+    
     setFn('Query', function ($Call)
     {
+        $IDs = [];
         try
         {
             $Call = F::Run(null, 'Open', $Call);
@@ -46,21 +80,13 @@
             F::Log('Start search on query: '.$Call['Query'], LOG_NOTICE);
 
             $Query = [
-                     'index' => $Call['Index'],
-                     'type'  => $Call['Type'],
-/*                     'from'  => $Call['EPP']*($Call['Page']-1),
-                     'size'  => $Call['EPP'],*/
+                     'index' => $Call['Elastic Search']['Index'],
+                     'type'  => $Call['Elastic Search']['Type'],
+                     'from'  => $Call['Limit']['From'],
+                     'size'  => $Call['Limit']['To'],
                      'body'  =>
                      [
-                          'query' =>
-                          [
-                              'multi_match' =>
-                              [
-                                  'query' => $Call['Query'],
-                                  'fields' => $Call['Search fields'],
-                                  'operator' => 'and'
-                              ]
-                          ],
+                          'query' => F::Live($Call['Search']['Query']['Default'], $Call),
                           'highlight' =>
                           [
                               'fields' =>
@@ -78,7 +104,9 @@
                  ];
             F::Log($Query, LOG_INFO, 'Administrator');
             $Results = $Call['Link']->search($Query);
-
+    
+            foreach ($Results['hits']['hits'] as $Hit)
+                $IDs[$Hit['_id']] = $Hit;
         }
         catch (Exception $e)
         {
@@ -86,68 +114,13 @@
             $Results = ['hits' => ['total' => 0]];
         }
 
-        $IX = 0;
-        $SERP = [];
-
         F::Log('Total hits: '.$Results['hits']['total'], LOG_INFO);
-        
-        if (isset($Call['Where']))
-            $Call['Where'] = F::Live($Call['Where'], $Call);
-        else
-            $Call['Where'] = [];
-        // FIXME User Faceting
-        if ($Results['hits']['total'] > 0)
-        {
-            foreach ($Results['hits']['hits'] as $Hit)
-            {
-                $Hit['_source']['Scope'] = $Call['Scope'];
-                $Call['Where']['ID'] = $Hit['_id'];
-                $Data = F::Run('Entity', 'Read',
-                               [
-                                   'Entity' => $Call['Scope'],
-                                   'One' => true,
-                                   'Fields' => $Call['Show fields'],
-                                   'Where' => $Call['Where']
-                               ]
-                );
-
-                if (empty($Data))
-                    ;
-                else
-                {
-                    $IX++;
-
-                    if (isset($Call['Default']))
-                        $Data = F::Merge($Call['Default'], $Data);
-
-                    $Data['Snippet'] = isset($Hit['highlight'][$Call['Highlight']][0])? $Hit['highlight'][$Call['Highlight']][0]: '';
-                    $Data['Provider'] = '<l>'.$Call['Scope'].'.Control:Title</l>';
-                    // FIXME
-
-                    $SERP[$Hit['_id']] =
-                    [
-                        'Score' => $Hit['_score'],
-                        'Type'  => 'Template',
-                        'Scope' => $Call['Scope'],
-                        'ID'    => 'Show/Search',
-                        'Data'  => $Data
-                    ];
-                }
-            }
-
-            $Results['hits']['total'] = $IX;
-        }
-        else
-        {
-            $SERP = null;
-        }
-
         $Meta = ['Hits' => [$Call['Scope'] => $Results['hits']['total']]];
-
-        return ['Meta' => $Meta, 'SERP' => $SERP];
+        
+        return ['Meta' => $Meta, 'IDs' => $IDs];
     });
 
-    setFn('Remove', function ($Call)
+    setFn('Document.Delete', function ($Call)
     {
         try
         {

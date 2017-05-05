@@ -46,6 +46,14 @@
                 'ID' => (isset($Call['Template'])? $Call['Template']: 'Delete'),
                 'Data' => $Call['Data']
             );
+            
+            $Call['Layouts'][] =
+            [
+                'Scope' => $Call['Scope'],
+                'ID' => isset($Call['Custom Layouts']['Delete'])?
+                        $Call['Custom Layouts']['Delete']: 'Delete',
+                'Context' => $Call['Context']
+            ];
 
             $Call = F::Hook('afterDelete', $Call);
         }

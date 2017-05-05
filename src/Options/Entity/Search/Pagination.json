@@ -1,0 +1,10 @@
+{
+    "Pagination":
+    {
+        "ElementsPerPage": 10,
+        "Limits":
+        {
+            "CountOfPages": 100
+        }
+    }
+}
