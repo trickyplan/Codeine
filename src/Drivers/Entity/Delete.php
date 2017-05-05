@@ -9,16 +9,16 @@
 
     setFn('Before', function ($Call)
     {
-        if (isset($Call['Where']))
-            $Call['Where'] = F::Live($Call['Where'], $Call);
-        else
-            $Call = F::Hook('beforeDeleteAll', $Call);
+        $Call = F::Hook('beforeDeleteBefore', $Call);
 
-        $Call['Current'] = F::Run('Entity', 'Read', $Call, ['Time' => microtime(true)]);
+            $Call['Where'] = F::Live($Call['Where']);
 
+            $Call['Data'] = F::Run('Entity', 'Read', $Call, ['One' => true, 'Limit' => ['From' => 0, 'To' => 1]]);
+
+        $Call = F::Hook('afterDeleteBefore', $Call);
         return $Call;
     });
-
+    
     setFn('Do', function ($Call)
     {
         $Call = F::Hook('beforeDeleteDo', $Call);
@@ -29,20 +29,34 @@
 
         return $Call;
     });
-
+    
     setFn('GET', function ($Call)
     {
         $Call = F::Hook('beforeDeleteGet', $Call);
+        
+        $Call['Scope'] = isset($Call['Scope'])? $Call['Entity'].'/'.$Call['Scope'] : $Call['Entity'];
 
-        if (isset($Call['Where']))
-            $Call = F::Apply('Entity.List', 'Do', $Call, ['Context' => 'app', 'Template' => 'Delete']);
+        if (empty($Call['Data']))
+            $Call = F::Hook('onDeleteNotFound', $Call);
+        else
+        {
+            $Call['Output']['Content'][] = array (
+                'Type'  => 'Template',
+                'Scope' => $Call['Scope'],
+                'ID' => (isset($Call['Template'])? $Call['Template']: 'Delete'),
+                'Data' => $Call['Data']
+            );
 
-        $Call['Context'] = '';
-
+            $Call = F::Hook('afterDelete', $Call);
+        }
+    
+        F::Log($Call['Data'], LOG_DEBUG);
+        
         $Call = F::Hook('afterDeleteGet', $Call);
 
         return $Call;
     });
+
 
     setFn('POST', function ($Call)
     {
