@@ -9,21 +9,22 @@
 
     setFn('Do', function ($Call)
     {
+        $Call['Provider'] = $Call['Entity'];
+
         $Call = F::loadOptions($Call['Entity'].'.Entity', null, $Call);
 
-        $Call['Provider'] = $Call['Entity'];
-        
         $Call = F::Hook('beforeEntitySearch', $Call);
 
         $Call = F::Apply( 'Search', 'Query', $Call);
         
         $Call['Elements'] = F::Run('Entity', 'Read', $Call,
             [
-                'Where' =>
+                'Limit!'  => null,
+                'Where!' =>
                 [
                     'ID' =>
                     [
-                        '$in' => array_keys($Call['IDs'])
+                        '$in' => array_keys($Call['Elements'])
                     ]
                 ]
             ]
@@ -41,7 +42,8 @@
         $Empty = false;
 
         $Call['Template'] = (isset($Call['Template'])? $Call['Template']: 'Short');
-        F::Log('List template is *'.$Call['Template'].'*', LOG_INFO);
+        
+        F::Log('Search template is *'.$Call['Template'].'*', LOG_INFO);
 
         if (sizeof($Call['Elements']) == 0)
             $Empty = true;
@@ -101,7 +103,7 @@
                     }
                 }
         }
-        $Call = F::Hook('afterEntityList', $Call);
+        $Call = F::Hook('afterEntitySearch', $Call);
 
         return $Call;
     });

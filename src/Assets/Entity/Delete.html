@@ -1,0 +1,25 @@
+<subtitle><l><variable>Entity</variable>.Delete:Title</l></subtitle>
+<breadcrumb href="/delete/<k>ID</k>"><l><variable>Entity</variable>.Delete:Title</l></breadcrumb>
+
+<subtitle><l>Entity.Delete:Title</l> <k>Title</k></subtitle>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="panel panel-entity">
+            <div class="panel-heading">
+                <div class="panel-title"><l><variable>Entity</variable>.Delete:Confirm</l></div>
+            </div>
+            <div class="panel-body">
+                <p><l><variable>Entity</variable>.Delete:Warning.Message</l></p>
+            </div>
+            <div class="panel-footer">
+                <form role="form" method="post" enctype="multipart/form-data" autocomplete="on">
+                    <place>Content</place>
+
+                    <button type="submit" class="btn btn-danger btn-ws"><l><variable>Entity</variable>.Delete:Submit</l></button>
+                    <a href="<call>BackURL</call>" class="btn btn-default"><l><variable>Entity</variable>.Delete:Cancel</l></a>
+                    <input type="hidden" name="BackURL" value="<call>BackURL</call>" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

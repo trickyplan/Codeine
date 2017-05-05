@@ -36,6 +36,39 @@
         return $Result;
     });
 
+    setFn('Count', function ($Call)
+    {
+        $IDs = [];
+        try
+        {
+            $Call = F::Run(null, 'Open', $Call);
+            $Call['Query'] = mb_substr($Call['Query'], 0, 32);
+
+            F::Log('Start Count on query: '.$Call['Query'], LOG_NOTICE);
+
+            $Query = [
+                     'index' => $Call['Elastic Search']['Index'],
+                     'type'  => $Call['Elastic Search']['Type'],
+                     'body'  =>
+                     [
+                          'query' => F::Live($Call['Search']['Query']['Default'], $Call)
+                      ]
+                 ];
+            
+            F::Log($Query, LOG_INFO, 'Administrator');
+            $Results = $Call['Link']->count($Query);
+            
+            $Total = $Results['count'];
+        }
+        catch (Exception $e)
+        {
+            F::Log($e->getMessage(), LOG_CRIT, 'Developer');
+            $Total = 0;
+        }
+        
+        return $Total;
+    });
+    
     setFn('Query', function ($Call)
     {
         $IDs = [];
@@ -49,8 +82,8 @@
             $Query = [
                      'index' => $Call['Elastic Search']['Index'],
                      'type'  => $Call['Elastic Search']['Type'],
-                     'from'  => $Call['Search']['Query']['Limit']['From'],
-                     'size'  => $Call['Search']['Query']['Limit']['To'],
+                     'from'  => $Call['Limit']['From'],
+                     'size'  => $Call['Limit']['To'],
                      'body'  =>
                      [
                           'query' => F::Live($Call['Search']['Query']['Default'], $Call),
