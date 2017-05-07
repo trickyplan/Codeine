@@ -39,7 +39,7 @@
 
              $Call['Rows'].= F::Run ('View', 'Load', $Call,
                      [
-                         'Scope' => $Call['View']['HTML']['Widget Set'].'/Widgets',
+                          'Scope' => $Call['View']['HTML']['Widget Set'].'/Widgets',
                           'ID'    => 'Table/Row',
                           'Data'  =>
                           [

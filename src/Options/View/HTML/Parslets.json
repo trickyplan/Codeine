@@ -30,6 +30,7 @@
                     "Enabled":
                     [
                         "Foreach",
+                        "Repeat",
                         "Variable",
                         "Key",
                         "If",
