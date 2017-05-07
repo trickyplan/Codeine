@@ -44,11 +44,6 @@
                 "Service": "View.Hooks.Key",
                 "Method": "Parse"
             },
-            "For":
-            {
-                "Service": "View.Hooks.For",
-                "Method": "Parse"
-            },
             "Parslets":
             {
                 "Service":"View.HTML.Parslets",
