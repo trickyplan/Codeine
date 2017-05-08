@@ -14,21 +14,44 @@
        
         foreach ($Call['Parsed']['Value'] as $IX => $Cludge)
         {
-            $Key = $Call['Parsed']['Options'][$IX]['key'];
-            
-            if (mb_strpos($Key, ',') !== false)
-                $Key = explode(',', $Key);
-            else
-                $Key = [$Key];
-
-            foreach ($Key as $CMatch)
+            if (isset($Call['Parsed']['Options'][$IX]['key']))
             {
-                $Value = F::Live(F::Dot($Call['Data'], $CMatch));
-                
-                if ($Value === null)
-                    ;
+                $Key = $Call['Parsed']['Options'][$IX]['key'];
+            
+                if (mb_strpos($Key, ',') !== false)
+                    $Key = explode(',', $Key);
                 else
-                    break;
+                    $Key = [$Key];
+
+                foreach ($Key as $CMatch)
+                {
+                    $Value = F::Live(F::Dot($Call['Data'], $CMatch));
+                    
+                    if ($Value === null)
+                        ;
+                    else
+                        break;
+                }
+            }
+            
+            if (isset($Call['Parsed']['Options'][$IX]['call']))
+            {
+                $Key = $Call['Parsed']['Options'][$IX]['call'];
+            
+                if (mb_strpos($Key, ',') !== false)
+                    $Key = explode(',', $Key);
+                else
+                    $Key = [$Key];
+
+                foreach ($Key as $CMatch)
+                {
+                    $Value = F::Live(F::Dot($Call, $CMatch)); // FIXME?
+                    
+                    if ($Value === null)
+                        ;
+                    else
+                        break;
+                }
             }
             
             if (is_array($Value))
