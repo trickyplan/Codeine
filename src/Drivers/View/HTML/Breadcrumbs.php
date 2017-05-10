@@ -10,8 +10,8 @@
     setFn('Scan', function ($Call)
     {
         $Breadcrumbs = '';
-
-        if (preg_match_all('@<breadcrumb (.+)>(.+)<\/breadcrumb>@SsUu', $Call['Output'], $Pockets))
+        
+        if (preg_match_all('@<breadcrumb (.+)>(.*)<\/breadcrumb>@SsUu', $Call['Output'], $Pockets))
         {
             foreach ($Pockets[0] as $IX => $Match)
             {

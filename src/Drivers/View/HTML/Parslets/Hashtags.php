@@ -44,7 +44,7 @@
                     foreach ($Hashtags[1] as $HashIndex => $Hashtag)
                         $Replaces[$IX] =
                             str_replace($Hashtags[0][$HashIndex],
-                                        '<a class="hashtag" href="'.$Href.$Hashtag.'">'.$Hashtag.'</a>',
+                                        '<a class="hashtag" href="'.$Href.urlencode($Hashtag).'">'.$Hashtag.'</a>',
                                         $Replaces[$IX]);
             }
         }
