@@ -40,13 +40,6 @@
             $Call = F::Hook('onDeleteNotFound', $Call);
         else
         {
-            $Call['Output']['Content'][] = array (
-                'Type'  => 'Template',
-                'Scope' => $Call['Scope'],
-                'ID' => (isset($Call['Template'])? $Call['Template']: 'Delete'),
-                'Data' => $Call['Data']
-            );
-            
             $Call['Layouts'][] =
             [
                 'Scope' => $Call['Scope'],
@@ -54,6 +47,15 @@
                         $Call['Custom Layouts']['Delete']: 'Delete',
                 'Context' => $Call['Context']
             ];
+            
+            $Call['Layouts'][] =
+            [
+                'Scope' => 'Entity',
+                'ID' => isset($Call['Custom Layouts']['Delete'])?
+                        $Call['Custom Layouts']['Delete']: '-Delete',
+                'Context' => $Call['Context']
+            ];
+            
 
             $Call = F::Hook('afterDelete', $Call);
         }
