@@ -20,9 +20,9 @@
             $Call = F::Apply(null, 'Method', $Call);
             $Call = F::Apply(null, 'Server', $Call);
             $Call = F::Apply(null, 'Files', $Call);
+            $Call = F::Apply(null, 'Request Headers', $Call);
             $Call = F::Apply(null, 'Request', $Call);
             $Call = F::Apply(null, 'Cookie', $Call);
-            $Call = F::Apply(null, 'Request Headers', $Call);
 
             $Call = F::Hook('beforeRequestRun', $Call);
 
@@ -233,6 +233,18 @@
         if ($Call['HTTP']['Method'] == 'POST')
             $Call['HTTP']['RAW'] = file_get_contents("php://input");
 
+        if (isset($Call['HTTP']['Request']['Headers']['Content-Type']))
+        {
+            switch ($Call['HTTP']['Request']['Headers']['Content-Type'])
+            {
+                case 'application/json':
+                    $RAW = jd($Call['HTTP']['RAW']);
+                    
+                    if (is_array($RAW))
+                        $Call['Request'] = F::Merge($Call['Request'], $RAW);
+                break;
+            }
+        }
         return $Call;
     });
 

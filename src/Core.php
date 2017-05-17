@@ -226,6 +226,11 @@
                 $Options = [];
                 $ServicePath = strtr($Service, '.', '/');
                 $Filenames = [];
+                
+                if ($Method === null)
+                    ;
+                else
+                    $ServicePath.= '.'.$Method;
 
                 if (self::$_Environment != 'Production')
                 {

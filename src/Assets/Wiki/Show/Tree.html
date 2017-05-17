@@ -1,5 +1,12 @@
 <li>
-    <a data-toggle="collapse" href="#subTree_<k>ID</k>" aria-expanded="false" aria-controls="subTree_<k>ID</k>"><span class="fa fa-folder fa-fw"></span></a>
+    <a data-toggle="collapse" href="#subTree_<k>ID</k>" aria-expanded="false" aria-controls="subTree_<k>ID</k>">
+        <if value="<key>Counters.Children</key>" gt="0">
+            <span class="fa fa-folder fa-fw"></span>
+        </if>
+        <if value="<key>Counters.Children</key>" eq="0">
+            <span class="fa fa-file-o fa-fw"></span>
+        </if>
+    </a>
     <a href="/wiki/<k>SEO.Slug</k>"><k>Title</k></a>
     <ul class="tree" id="subTree_<k>ID</k>">
         <exec type="JSON">

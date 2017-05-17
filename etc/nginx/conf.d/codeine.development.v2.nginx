@@ -9,34 +9,24 @@
 
     set $Environment Development;
 
-    include /etc/nginx/conf.d/codeine.v2.nginx;
+    include conf.d/codeine.v2.nginx;
 
     location ~ index.php$
     {
         include fastcgi_params;
-
-        fastcgi_keep_conn on;
+        include conf.d/codeine.fastcgi.v2.nginx;
 
         fastcgi_param  Environment $Environment;
         fastcgi_pass   $backend;
         fastcgi_index  index.php;
+    }
 
-        fastcgi_param  DOCUMENT_ROOT    $document_root;
-        fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
-        fastcgi_param  PATH_TRANSLATED  $document_root$fastcgi_script_name;
+    location ~ api.php$
+    {
+        include fastcgi_params;
+        include conf.d/codeine.fastcgi.v2.nginx;
 
-        fastcgi_param  QUERY_STRING     $query_string;
-        fastcgi_param  REQUEST_METHOD   $request_method;
-        fastcgi_param  CONTENT_TYPE     $content_type;
-        fastcgi_param  CONTENT_LENGTH   $content_length;
-
-        fastcgi_intercept_errors        off;
-        fastcgi_ignore_client_abort     off;
-        fastcgi_connect_timeout 60;
-        fastcgi_send_timeout 60;
-        fastcgi_read_timeout 60;
-        fastcgi_buffer_size 512k;
-        fastcgi_buffers 4 512k;
-        fastcgi_busy_buffers_size 512k;
-        fastcgi_temp_file_write_size 512k;
+        fastcgi_param  Environment $Environment;
+        fastcgi_pass   $backend;
+        fastcgi_index  api.php;
     }

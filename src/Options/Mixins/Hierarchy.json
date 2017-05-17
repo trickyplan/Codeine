@@ -1,0 +1,67 @@
+{
+    "Nodes":
+    {
+        "Level":
+        {
+            "Type": "Numeral.Integer",
+            "Visible":
+            {
+                "JSON": true
+            },
+            "Hooks":
+            {
+                "beforeEntityCreateOrUpdate":
+                {
+                    "Service": "Entity.Nodes.Level",
+                    "Method": "Do"
+                }
+            }
+        },
+        "Parent":
+        {
+            "Type": "Entity",
+            "Nullable": true,
+            "Visible":
+            {
+                "JSON": true
+            }
+        },
+        "Ancestors":
+        {
+            "Type": "Complex.Array",
+            "Visible":
+            {
+                "JSON": true
+            },
+            "Hooks":
+            {
+                "beforeEntityCreateOrUpdate":
+                {
+                    "Service": "Entity.Hierarchy",
+                    "Method": "Get Ancestors",
+                    "Call":
+                    {
+                        "Parent Key": "Parent"
+                    }
+                }
+            }
+        },
+        "Counters.Children":
+        {
+            "Type": "Numeral.Integer",
+            "Default": 0,
+            "Visible":
+            {
+                "JSON": true
+            },
+            "Hooks":
+            {
+                "beforeEntityCreateOrUpdate":
+                {
+                    "Service": "Entity.Hierarchy",
+                    "Method": "Counters.Children"
+                }
+            }
+        }
+    }
+}

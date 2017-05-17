@@ -1,50 +1,55 @@
-aio threads;
+    aio threads;
 
-charset utf-8;
-index  index.php;
+    charset utf-8;
+    index  index.php;
 
-merge_slashes on;
-server_tokens off;
+    merge_slashes on;
+    server_tokens off;
 
-log_not_found on;
+    log_not_found on;
 
-error_log /var/log/nginx/codeine.error.log warn;
-access_log /var/log/nginx/$host.access.log codeine-access;
-error_page 502 503 504 /down.html;
+    error_log /var/log/nginx/codeine.error.log warn;
+    access_log /var/log/nginx/$host.access.log codeine-access;
+    error_page 502 503 504 /down.html;
 
-gzip on;
-gzip_comp_level 6;
-gzip_disable "msie6";
-gzip_min_length 1024;
-gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript application/javascript;
-gzip_vary on;
-client_max_body_size 16m;
+    gzip on;
+    gzip_comp_level 6;
+    gzip_disable "msie6";
+    gzip_min_length 1024;
+    gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript application/javascript;
+    gzip_vary on;
+    client_max_body_size 16m;
 
-location /
-{
-    try_files $uri $uri/ /index.php?$uri&$args;
-}
+    location /api
+    {
+        try_files $uri $uri/ /api.php?$uri&$args;
+    }
 
-location /nginx_status
-{
-      stub_status on;
-      access_log   off;
-      allow 127.0.0.1;
-      deny all;
-}
+    location /
+    {
+        try_files $uri $uri/ /index.php?$uri&$args;
+    }
 
-location ~ ^/cache/(.*)
-{
-    alias /var/tmp/codeine/$host/cache/$1;
-    access_log        off;
-    expires           max;
-}
+    location /nginx_status
+    {
+          stub_status on;
+          access_log   off;
+          allow 127.0.0.1;
+          deny all;
+    }
 
-location ~* \.(jpg|jpeg|gif|css|png|js|ico|woff|woff2|ttf|eot)$
-{
-    try_files $uri $uri/ /index.php?$uri&$args;
-    access_log        off;
-    expires           max;
-    log_not_found     off;
-    add_header        Cache-Control  public;
-}
+    location ~ ^/cache/(.*)
+    {
+        alias /var/tmp/codeine/$host/cache/$1;
+        access_log        off;
+        expires           max;
+    }
+
+    location ~* \.(jpg|jpeg|gif|css|png|js|ico|woff|woff2|ttf|eot)$
+    {
+        try_files $uri $uri/ /index.php?$uri&$args;
+        access_log        off;
+        expires           max;
+        log_not_found     off;
+        add_header        Cache-Control  public;
+    }

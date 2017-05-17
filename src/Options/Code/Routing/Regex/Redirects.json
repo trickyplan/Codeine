@@ -1,0 +1,25 @@
+{
+    "Regex":
+    {
+        "To":
+        {
+            "Match": "/to/(.+)",
+            "Service": "System.Interface.HTTP",
+            "Method": "Redirect",
+            "Call":
+            {
+                "Redirect": "$1"
+            }
+        },
+        "Go":
+        {
+            "Match": "/go/(.+)",
+            "Service": "System.Interface.HTTP",
+            "Method": "Remote Redirect",
+            "Call":
+            {
+                "Redirect": "$1"
+            }
+        }
+    }
+}

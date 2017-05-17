@@ -7,28 +7,25 @@
 <access Service="Control.Panel">
     <layout>Control.Pills:Top</layout>
 </access>
-<div class="list-group muted">
-    <if value="<k>Level</k>" neq="0">
-        <if2 value="<k>ID</k>" neq="<k>Parent</k>">
-            <div class="list-group">
-                <entity template="Up">Wiki:<k>Parent</k></entity>
-            </div>
-        </if2>
-    </if>
-</div>
-<div class="btn-group pull-right">
+<div class="btn-group">
+    <a class="btn btn-success" href="/wiki/create/<call>Data.ID</call>"><l>Wiki.Append:Title</l> (<call>Data.Title</call>)</a>
     <a class="btn btn-default" href="/wiki/update/<k>ID</k>?BackURL=<call>HTTP.URL</call>"><l>Wiki.Update:Title</l></a>
     <a class="btn btn-default" href="/wiki/delete/<k>ID</k>?BackURL=<call>HTTP.URL</call>"><l>Wiki.Delete:Title</l></a>
 </div>
-<h2 class="page-header"><k>Title</k></h2>
-
-<div class="panel panel-default">
-    <div class="panel-body readable">
-        <k>Body</k>
+<div class="spacer">
+    <div class="list-group muted">
+        <foreach key="Ancestors">
+            <entity template="Up">Wiki:<fe-value/></entity>
+        </foreach>
     </div>
-    <div class="panel-footer">
-        <l>Wiki.Entity:Created</l>: <datetime><k>Created</k></datetime>,
-        <l>Wiki.Entity:Modified</l>: <datetime><k>Modified</k></datetime>
+    <div class="panel panel-default">
+        <div class="panel-body readable">
+            <k>Body</k>
+        </div>
+        <div class="panel-footer">
+            <l>Wiki.Entity:Created</l>: <datetime><k>Created</k></datetime>,
+            <l>Wiki.Entity:Modified</l>: <datetime><k>Modified</k></datetime>
+        </div>
     </div>
 </div>
 

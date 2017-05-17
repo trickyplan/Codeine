@@ -24,12 +24,13 @@
         "List Wiki":
         {
             "Match": "^/wiki/list$",
-            "Weight": 100,
+            "Weight": 150,
             "Service": "Entity.List",
             "Method": "Do",
             "Call":
             {
-                "Entity": "Wiki"
+                "Entity": "Wiki",
+                "No Where": true
             }
         },
         "Update wiki":

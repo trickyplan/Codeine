@@ -1,0 +1,34 @@
+{
+    "Regex":
+    {
+        "Custom Elements Per Page":
+        {
+            "Weight": 700,
+            "Match": "/list-by-(\\d+)",
+            "Mixin": true,
+            "Run":
+            {
+                "Call":
+                {
+                    "Pagination":
+                    {
+                        "ElementsPerPage": "$1"
+                    }
+                }
+            }
+        },
+        "Pagination":
+        {
+            "Match": "/page(\\d+)",
+            "Mixin": true,
+            "Weight": 500,
+            "Run":
+            {
+                "Call":
+                {
+                    "Page": "$1"
+                }
+            }
+        }
+    }
+}
