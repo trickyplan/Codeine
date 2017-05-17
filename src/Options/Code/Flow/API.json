@@ -1,0 +1,48 @@
+{
+    "API":
+    {
+        "Formats":
+        {
+            "json":
+            {
+                "View":
+                {
+                    "Renderer":
+                    {
+                        "Service": "View.JSON",
+                        "Method": "Render"
+                    }
+                }
+            }
+        }
+    },
+    "Hooks":
+    {
+        "beforeAPIRun":
+        {
+            "Project":
+            {
+                "Service": "Project.Preload",
+                "Method": "beforeFrontRun"
+            },
+            "QoS":
+            {
+                "Service": "System.QoS",
+                "Method": "Start"
+            }
+        },
+        "afterAPIRun":
+        {
+            "Rendering":
+            {
+                "Service":"View",
+                "Method":"Render"
+            },
+            "Latency Audit":
+            {
+                "Service": "Performance.Latency",
+                "Method": "Audit"
+            }
+        }
+    }
+}

@@ -1,0 +1,22 @@
+<css>:bower/summernote/dist/summernote</css>
+<js>:bower/summernote/dist/summernote</js>
+
+<label for="<k>ID</k>_Hidden"> <l><k>Label</k></l>: <if value="<k>Required</k>" eq="1"><span class="required-star">*</span></if></label>
+<div class="form-group">
+    <div id="<k>ID</k>" class="readable"><k>RAWValue</k></div>
+    <input name="<k>Name</k>" id="<k>ID</k>_Hidden" required type="hidden" value=""/>
+</div>
+
+<jsrun>
+    $('#<k>ID</k>').summernote(
+    {
+        callbacks:
+        {
+            onChange: function(contents, $editable)
+            {
+                $("#<k>ID</k>_Hidden").val($('#<k>ID</k>').summernote('code'));
+            }
+        }
+    }
+);
+</jsrun>

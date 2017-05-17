@@ -284,3 +284,9 @@ span.twitter-typeahead
 {
     margin: 0;
 }
+
+.readable
+{
+    font-size: 16px;
+    line-height: 1.7em;
+}

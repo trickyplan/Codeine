@@ -10,7 +10,7 @@
             {
                 "Write":
                 {
-                    "Type": "Form.Quill"
+                    "Type": "Form.WYSIWYG.Summernote"
                 }
             },
             "Hooks":

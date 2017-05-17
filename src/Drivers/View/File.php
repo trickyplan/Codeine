@@ -9,9 +9,14 @@
 
     setFn('Render', function ($Call)
     {
-        $Call['HTTP']['Headers']['Content-type:'] = mime_content_type($Call['Output']['Content']);
-
-        readfile($Call['Output']['Content']);
+        if ($Call['Output']['Content'] === null)
+            $Call['Output'] = 'Not found';
+        else
+        {
+            $Call['HTTP']['Headers']['Content-type:'] = mime_content_type($Call['Output']['Content']);
+            readfile($Call['Output']['Content']);
+        }
+        
         $Call['Output'] = '';
 
         return $Call;

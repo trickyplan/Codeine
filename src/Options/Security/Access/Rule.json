@@ -12,22 +12,22 @@
     "Decision": false,
     "Rules":
     {
-        "ЦУП Роутер доступен всем":
-        {
-            "Decision": true,
-            "Weight": 50,
-            "Run":
-            {
-                "Service": "Control.Only"
-            }
-        },
-        "Главная страница доступна всем":
+        "Frontpage is public":
         {
             "Decision": true,
             "Weight": 50,
             "Run":
             {
                 "Service": "Project.Frontpage"
+            }
+        },
+        "API is public":
+        {
+            "Decision": true,
+            "Weight": 600,
+            "Run":
+            {
+                "Service": "Code.Flow.API"
             }
         },
         "Страницы ошибок доступны всем":

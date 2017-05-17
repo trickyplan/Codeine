@@ -47,8 +47,6 @@
             access_log /var/log/nginx/$host.bots.log;
         }
 
-        fastcgi_keep_conn on;
-
         fastcgi_param  Environment $Environment;
         fastcgi_pass   $Backend;
         fastcgi_index  index.php;
@@ -61,16 +59,6 @@
         fastcgi_param  REQUEST_METHOD   $request_method;
         fastcgi_param  CONTENT_TYPE     $content_type;
         fastcgi_param  CONTENT_LENGTH   $content_length;
-
-        fastcgi_intercept_errors        off;
-        fastcgi_ignore_client_abort     on;
-        fastcgi_connect_timeout 60;
-        fastcgi_send_timeout 60;
-        fastcgi_read_timeout 60;
-        fastcgi_buffer_size 512k;
-        fastcgi_buffers 4 512k;
-        fastcgi_busy_buffers_size 512k;
-        fastcgi_temp_file_write_size 512k;
     }
 
     location ~* \.(jpg|jpeg|gif|css|png|js|ico|woff|ttf|eot)$

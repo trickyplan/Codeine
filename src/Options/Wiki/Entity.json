@@ -11,28 +11,13 @@
         "Mixins.UGC",
         "Mixins.SEO2",
         "Mixins.Text",
+        "Mixins.Hierarchy",
         "Mixins.CRUDSlug2",
         "Mixins.Versionable",
         "Mixins.Searchable"
     ],
     "Nodes":
     {
-        "Level":
-        {
-            "Type": "Literal.String",
-            "Visible":
-            {
-                "JSON": true
-            },
-            "Hooks":
-            {
-                "beforeEntityCreateOrUpdate":
-                {
-                    "Service": "Entity.Nodes.Level",
-                    "Method": "Do"
-                }
-            }
-        },
         "Parent":
         {
             "Type": "Entity",
