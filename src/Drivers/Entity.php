@@ -200,42 +200,30 @@
 
             $Entities = F::Run('Entity', 'Read', $Call, ['One' => false, 'Time' => microtime(true).rand()]);
 
-            // Если присутствуют такие объекты
             if (empty($Entities))
                 ;
             else
             {
-                if (isset($Call['Data']))
-                    $Call['Updates'] = $Call['Data'];
-                else
-                    $Call['Updates'] = [];
-
                 $VCall = [];
 
                 foreach ($Entities as $Call['Current'])
                 {
-                    $Call['Data'] = [];
                     // Поиск по всем полям
                     $VCall['Where'] = ['ID' => $Call['Current']['ID']];
 
-                    if (empty($Call['Updates']))
+                    if (F::Dot($Call, 'Data') === null)
                         $Call['Data'] = $Call['Current'];
-                    else {
-                        if (isset($Call['Data']))
-                            ;
-                        else
-                            $Call['Data'] = [];
+                    else
+                    {
+                        foreach ($Call['Nodes'] as $Name => $Node)
+                        {
+                            $UpdatedValue = F::Dot($Call['Data'], $Name);
 
-                        foreach ($Call['Nodes'] as $Name => $Node) {
-                            $UpdatedValue = F::Dot($Call['Updates'], $Name);
-
-                            if (null === $UpdatedValue) {
+                            if (null === $UpdatedValue)
                                 if (isset($Node['Nullable']) && $Node['Nullable'])
                                     $Call['Data'] = F::Dot($Call['Data'], $Name, null);
                                 else
                                     $Call['Data'] = F::Dot($Call['Data'], $Name, F::Dot($Call['Current'], $Name));
-                            } else
-                                $Call['Data'] = F::Dot($Call['Data'], $Name, F::Dot($Call['Updates'], $Name));
                         }
                     }
 
