@@ -29,7 +29,7 @@
             "Project":
             {
                 "Service": "Project.Preload",
-                "Method": "Do"
+                "Method": "beforeCLIRequestRun"
             }
         },
         "afterInterfaceRun":
