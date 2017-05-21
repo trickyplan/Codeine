@@ -45,7 +45,7 @@
         expires           max;
     }
 
-    location ~* \.(jpg|jpeg|gif|css|png|js|ico|woff|woff2|ttf|eot)$
+    location ~* \.(jpg|jpeg|gif|css|png|js|ico|woff|woff2|ttf|eot|svg)$
     {
         try_files $uri $uri/ /index.php?$uri&$args;
         access_log        off;
