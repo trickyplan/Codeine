@@ -10,7 +10,7 @@
             {
                 "Write":
                 {
-                    "Type": "Form.WYSIWYG.Summernote"
+                    "Type": "Form.WYSIWYG.Trumbowyg"
                 }
             },
             "Hooks":
