@@ -10,14 +10,15 @@
     setFn('Parse', function ($Call)
     {
         $Replaces = [];
+        
         foreach ($Call['Parsed']['Value'] as $IX => $Match)
         {
             if (isset($Call['Parsed']['Options'][$IX]['eq'] ))
             {
                 if ($Call['Parsed']['Options'][$IX]['eq'] == F::Environment())
-                    $Replaces[$IX] = $Match;
+                    $Result = $Match;
                 else
-                    $Replaces[$IX] = '';
+                    $Result = '';
             }
             
             $NotEnvironment = isset($Call['Parsed']['Options'][$IX]['neq']) ? $Call['Parsed']['Options'][$IX]['neq'] : null;
@@ -25,10 +26,15 @@
             if ($NotEnvironment !== null)
             {
                 if ($NotEnvironment == F::Environment())
-                    $Replaces[$IX] = '';
+                    $Result = '';
                 else
-                    $Replaces[$IX] = $Match;
+                    $Result = $Match;
             }
+            
+            if (F::Environment() == 'Development')
+                $Result = '<!-- Environment: '.j($Call['Parsed']['Options'][$IX]).'-->'.$Result.'<!-- Environment End -->';
+            
+            $Replaces[$IX] = $Result;
         }
         
         return $Replaces;

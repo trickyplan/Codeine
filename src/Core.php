@@ -528,10 +528,8 @@
                         if (isset($Call['Live Override']['Method']))
                             $Variable['Method'] = $Call['Live Override']['Method'];
 
-                        F::Start ('Run in Live');
                         $Result = self::Run($Variable['Service'], $Variable['Method'],
                             $Call, isset($Variable['Call'])? self::Variable($Variable['Call'], $Call): []);
-                        F::Stop ('Run in Live');
                     }
                     else
                     {
