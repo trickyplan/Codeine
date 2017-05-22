@@ -1,0 +1,124 @@
+{
+    "Suites":
+    {
+        "Positive":
+        {
+            "Open":
+            {
+                "Run":
+                {
+                    "Service": "IO.Storage.Mongo",
+                    "Method": "Open",
+                    "Call":
+                    {
+                        "Scope": "Test",
+                        "Database": "localhost"
+                    }
+                },
+                "Store Result": "Link",
+                "Assert":
+                {
+                    "Print": true
+                }
+            },
+            "Create":
+            {
+                "Run":
+                {
+                    "Service": "IO.Storage.Mongo",
+                    "Method": "Write",
+                    "Call":
+                    {
+                        "Storage": "Primary",
+                        "Scope": "Test",
+                        "Data": {
+                            "ID": "Test",
+                            "Key 1": "Value A",
+                            "Key 2": "Value B",
+                            "Key 3":
+                            {
+                                "Sub key 3.1": 7,
+                                "Sub key 3.2": null
+                            }
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Equal":
+                    {
+                        "ID": "Test",
+                        "Key 1": "Value A",
+                        "Key 2": "Value B",
+                        "Key 3": {
+                            "Sub key 3.1": 7,
+                            "Sub key 3.2": null
+                        }
+                    }
+                }
+            },
+            "Read":
+            {
+                "Run":
+                {
+                    "Service": "IO.Storage.Mongo",
+                    "Method": "Read",
+                    "Call":
+                    {
+                        "Scope": "Test",
+                        "Where": {
+                            "ID": "Test"
+                        },
+                        "Limit":
+                        {
+                            "From": 0,
+                            "To": 1
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Equal":
+                    [{
+                        "ID": "Test",
+                        "Key 1": "Value A",
+                        "Key 2": "Value B",
+                        "Key 3": {
+                            "Sub key 3.1": 7,
+                            "Sub key 3.2": null
+                        }
+                    }]
+                }
+            },
+            "Read one field":
+            {
+                "Run":
+                {
+                    "Service": "IO.Storage.Mongo",
+                    "Method": "Read",
+                    "Call":
+                    {
+                        "Scope": "Test",
+                        "Fields": ["Key 1"],
+                        "Where":
+                        {
+                            "ID": "Test"
+                        },
+                        "Limit":
+                        {
+                            "From": 0,
+                            "To": 1
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Equal":
+                    [{
+                        "Key 1": "Value A"
+                    }]
+                }
+            }
+        }
+    }
+}

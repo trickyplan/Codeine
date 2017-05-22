@@ -57,10 +57,11 @@
         {
             F::Log('*'.implode(',', $Call['Fields']).'* fields selected', LOG_INFO, 'Administrator');
 
+            $Fields = ['_id' => 0];
+            
             foreach ($Call['Fields'] as $Field)
                 $Fields[$Field] = 1;
-
-            $Fields = ['_id' => 0];
+            
             $Call['Mongo']['Options']['projection'] = $Fields;
         }
         

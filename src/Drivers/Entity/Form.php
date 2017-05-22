@@ -77,6 +77,9 @@
                     $Widget['Entity'] = $Call['Entity'];
                     $Widget['Node'] = $Name;
                     $Widget['Name'] = 'Data';
+                    
+                    $Widget['Class']['Node'] = strtolower('Widget_'.str_replace('.', '_', $Widget['Entity'].'.'.$Name));
+                    
                     $Widget['Key'] = $Name;
                     $Widget['ID'] = $Call['FID'].'_'.strtr($Name, '.','_');
                     $Widget['Context'] = $Call['Context'];

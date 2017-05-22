@@ -2,9 +2,15 @@
     <if value="<k>NoLabel</k>" neq="1">
         <label for="<k>Name</k>"> <l><k>Label</k></l>:</label>
     </if>
-    <select id="<k>ID</k>"  <block>multiple=<k>Multiple</k></block> name="<k>Name</k>" <block>required="<k>Required</k>" </block> size="<k>Size</k>" class="form-control">
-        <k>Options</k>
-    </select>
+    <div class="input-group">
+      <block>
+          <span class="input-group-addon"><k>Prefix</k></span>
+      </block>
+      <k>HTML</k>
+      <block>
+          <span class="input-group-addon"><k>Postfix</k></span>
+      </block>
+    </div>
     <if value="<k>Help</k>" eq="1">
         <div class="help-block"><l><k>Entity</k>.Help:<k>Key</k></l></div>
     </if>
