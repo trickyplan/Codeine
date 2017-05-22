@@ -83,26 +83,28 @@
             else
             {
                 $Call = F::Hook('beforeEntityCreate', $Call);
-                $Call = F::Hook('before'.$Call['Flat Entity'].'Create', $Call);
-                $Call = F::Hook('beforeEntityCreateOrUpdate', $Call);
-                $Call = F::Hook('before'.$Call['Flat Entity'].'CreateOrUpdate', $Call);
-                $Call = F::Hook('beforeEntityWrite', $Call);
-                $Call = F::Hook('before'.$Call['Flat Entity'].'Write', $Call);
-                
-                if (isset($Call['Failure']) and $Call['Failure'])
-                {
-                    $Call['Data'] = null;
-                }
-                else
-                {
-                    $Call['Data'] = F::Run('IO', 'Write', $Call);
-                }
-                $Call = F::Hook('afterEntityWrite', $Call);
-                $Call = F::Hook('after'.$Call['Flat Entity'].'Write', $Call);
-                $Call = F::Hook('afterEntityCreateOrUpdate', $Call);
-                $Call = F::Hook('after'.$Call['Flat Entity'].'CreateOrUpdate', $Call);
-                $Call = F::Hook('afterEntityCreate', $Call);
-                $Call = F::Hook('after'.$Call['Flat Entity'].'Create', $Call); // FIXME All block?
+                    $Call = F::Hook('before'.$Call['Flat Entity'].'Create', $Call);
+                        $Call = F::Hook('beforeEntityCreateOrUpdate', $Call);
+                            $Call = F::Hook('before'.$Call['Flat Entity'].'CreateOrUpdate', $Call);
+                                $Call = F::Hook('beforeEntityWrite', $Call);
+                                    $Call = F::Hook('before'.$Call['Flat Entity'].'Write', $Call);
+                                    
+                                    if (isset($Call['Failure']) and $Call['Failure'])
+                                        $Call['Data'] = null;
+                                    else
+                                    {
+                                        $Call['Data'] = F::Run('IO', 'Write', $Call);
+                                        
+                                        //FIXME Separate successful and failed
+                                                            $Call = F::Hook('afterEntityWrite', $Call);
+                                                        $Call = F::Hook('after'.$Call['Flat Entity'].'Write', $Call);
+                                                    $Call = F::Hook('afterEntityCreateOrUpdate', $Call);
+                                                $Call = F::Hook('after'.$Call['Flat Entity'].'CreateOrUpdate', $Call);
+                                            $Call = F::Hook('afterEntityCreate', $Call);
+                                        $Call = F::Hook('after'.$Call['Flat Entity'].'Create', $Call); // FIXME All block?
+                                    }
+                    
+                                    
             }
             $NewData[$IX] = $Call['Data'];
         }
