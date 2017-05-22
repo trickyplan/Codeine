@@ -13,18 +13,15 @@
         {
             F::Log('Filter String is *detected*', LOG_INFO);
             foreach ($Call['Request']['Filter'] as $Key => $Value)
-                if (empty($Value))
-                    ;
-                else
+            {
+                if (isset($Call['Nodes'][$Key]['Filterable']) && $Call['Nodes'][$Key]['Filterable'])
                 {
-                    if (isset($Call['Nodes'][$Key]['Filterable']) && $Call['Nodes'][$Key]['Filterable'])
-                    {
-                        $Call['Where'][$Key] = $Value;
-                        F::Log('Filter by *'.$Key.'* is *enabled*', LOG_INFO);
-                    }
-                    else
-                        F::Log('Filter by *'.$Key.'* is *not allowed*', LOG_WARNING);
+                    $Call['Where'][$Key] = F::Run('Data.Type.'.$Call['Nodes'][$Key]['Type'], 'Write', ['Value' => $Value]);
+                    F::Log('Filter by *'.$Key.'* is *enabled*', LOG_INFO);
                 }
+                else
+                    F::Log('Filter by *'.$Key.'* is *not allowed*', LOG_WARNING);
+            }
         }
                 
         return $Call;
