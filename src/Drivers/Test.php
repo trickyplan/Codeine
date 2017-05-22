@@ -68,7 +68,7 @@
         
                             $Call['Decision']?
                                 F::Log('Test case '.$CaseName.' passed', LOG_INFO):
-                                F::Log('Test case '.$CaseName.' failed', LOG_ERR);
+                                F::Log('Test case '.$CaseName.' failed', LOG_WARNING);
                         }
                     }
                 }

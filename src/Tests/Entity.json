@@ -92,7 +92,8 @@
                     "Method": "Delete",
                     "Call":
                     {
-                        "Entity": "Test"
+                        "Entity": "Test",
+                        "No Where": true
                     }
                 },
                 "Assert":
