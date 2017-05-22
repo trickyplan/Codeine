@@ -1,3 +1,20 @@
 {
-    "Size": 1
+    "Block": true,
+    "Attributes":
+    {
+        "String":
+        {
+            "Type": "",
+            "ID": "",
+            "Name": "",
+            "Class": ["form-control"],
+            "Size": "1"
+        },
+        "Boolean":
+        {
+            "Autofocus": false,
+            "Required": false,
+            "Disabled": false
+        }
+    }
 }

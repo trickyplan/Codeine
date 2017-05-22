@@ -10,7 +10,7 @@
         {
             "ID": "",
             "Name": "",
-            "Class": "form-control",
+            "Class": ["form-control"],
             "Placeholder": "",
             "Rows": 5
         },

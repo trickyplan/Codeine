@@ -14,10 +14,26 @@
             foreach ($Call['Attributes']['String'] as $Attribute => $Value)
             {
                  if (isset($Call[$Attribute]) && $Call[$Attribute])
+                 {
+                     if (is_array($Call[$Attribute]))
+                     {
+                         $Call[$Attribute] = implode(' ', F::Merge($Value, $Call[$Attribute]));
+                     }
+                     
                      $Attributes[] = strtolower($Attribute).'="'.$Call[$Attribute].'"';
+                 }
                  else
-                     if (!empty($Value))
+                 {
+                     if (empty($Value))
+                         ;
+                     else
+                     {
+                         if (is_array($Value))
+                            $Value = implode(' ', $Value);
+                         
                          $Attributes[] = strtolower($Attribute).'="'.$Value.'"';
+                     }
+                 }
             }
 
         if (isset($Call['Attributes']['Boolean']))

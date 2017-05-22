@@ -66,7 +66,11 @@
              }
          }
 
-         $Call ['Options'] = implode('', $Options);
+         $Call ['Value'] = implode('', $Options);
 
-         return $Call;
+         return F::Run('View.HTML.Widget.Base', 'Make',
+             $Call,
+             [
+                 'Tag' => 'select'
+             ]);
      });

@@ -7,7 +7,7 @@
             "Type": "",
             "ID": "",
             "Name": "",
-            "Class": "form-control typeahead",
+            "Class": ["form-control", "typeahead"],
             "Pattern": "",
             "Placeholder": "",
             "Value": "",
