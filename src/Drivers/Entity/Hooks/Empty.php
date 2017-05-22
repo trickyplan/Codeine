@@ -13,7 +13,7 @@
             foreach ($Call['Nodes'] as $Name => $Node)
             {
                 $Value = F::Dot($Call['Data'], $Name);
-                if (empty($Value) and F::Dot($Node, 'Nullable') == true)
+                if ($Value === null and F::Dot($Node, 'Nullable') == true)
                     $Call['Data'] = F::Dot($Call['Data'], $Name, null);
             }
 

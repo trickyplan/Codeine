@@ -10,7 +10,7 @@
     setFn('Write', function ($Call)
     {
         if (isset($Call['Value']))
-            return (bool) $Call['Value'];
+            return filter_var($Call['Value'], FILTER_VALIDATE_BOOLEAN);
         else
             return false;
     });
