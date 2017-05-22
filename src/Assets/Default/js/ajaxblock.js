@@ -4,7 +4,7 @@ $(document).ready(function ()
             function ()
             {
                 var el = $(this);
-                var interval = setInterval(function(){
+                Visibility.every(el.attr('data-interval'), function(){
                     $.ajax({
                         type: 'GET',
                         url: el.attr('data-url'),
@@ -13,7 +13,7 @@ $(document).ready(function ()
                             $(el).html(data)
                         }
                     });
-                }, el.attr('data-interval'));
+                });
             }
         );
 
