@@ -59,53 +59,50 @@
         },
         "beforeEntityCreate":
         {
-            "Validate":
+            "Default values":
             {
-                "Service":"Entity.Hooks.Validate",
-                "Method":"Process",
-                "Call":
-                {
-                    "Purpose": "Create"
-                }
+                "Service":"Entity.Hooks.Default",
+                "Method":"Process"
             },
             "Make variables alive":
             {
                 "Service":"Entity.Hooks.LiveNodes",
+                "Method":"Process"
+            },
+            "Validate":
+            {
+                "Service":"Entity.Hooks.Validate",
                 "Method":"Process"
             }
         },
         "beforeEntityUpdate":
         {
-            "Validate":
+            "Default values":
             {
-                "Service":"Entity.Hooks.Validate",
-                "Method":"Process",
-                "Call":
-                {
-                    "Purpose": "Update"
-                }
+                "Service":"Entity.Hooks.Default",
+                "Method":"Process"
             },
             "Make variables alive":
             {
                 "Service":"Entity.Hooks.LiveNodes",
+                "Method":"Process"
+            },
+            "Validate":
+            {
+                "Service":"Entity.Hooks.Validate",
                 "Method":"Process"
             }
         },
         "beforeEntityCreateOrUpdate":
         {
-            "Make variables alive":
-            {
-                "Service":"Entity.Hooks.LiveNodes",
-                "Method":"Process"
-            },
             "Inherited values":
             {
                 "Service":"Entity.Hooks.Inherited",
                 "Method":"Process"
             },
-            "Default values":
+            "Make variables alive":
             {
-                "Service":"Entity.Hooks.Default",
+                "Service":"Entity.Hooks.LiveNodes",
                 "Method":"Process"
             },
             "Empty":
