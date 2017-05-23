@@ -38,7 +38,7 @@
             F::Log('Checking unique *'.$Call['Name']
                 .'* value *'
                 .$Call['Data'][$Call['Name']]
-                .'* ('.$Call['Purpose'].')', LOG_INFO);
+                .'* ('.$Limit.')', LOG_INFO);
 
             $Count = F::Run('Entity', 'Count',
                           [
