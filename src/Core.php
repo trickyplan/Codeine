@@ -729,6 +729,9 @@
                     
                     $From = '*'.self::$_Service.':'.self::$_Method.'*'.' from *'.$Initiator.'*';
                     
+                    if ($Message instanceof Closure)
+                        $Message = $Message();
+                    
                     if ($Verbose < LOG_NOTICE or $AppendStack)
                         self::$_Log[$Channel][]
                             = [

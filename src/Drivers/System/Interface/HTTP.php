@@ -186,7 +186,7 @@
 
     setFn('Server', function ($Call)
     {
-        empty($_SERVER) ? F::Log('Empty $_SERVER', LOG_DEBUG): F::Log('Server: '.j($_SERVER), LOG_INFO);
+        empty($_SERVER) ? F::Log('Empty $_SERVER', LOG_DEBUG): F::Log(function () use ($Call) { return 'Server: '.j($_SERVER) ;}, LOG_INFO);
 
         foreach ($_SERVER as &$Request)
             $Request = str_replace(chr(0), '', rawurldecode($Request));
