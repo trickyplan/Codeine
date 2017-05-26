@@ -11,6 +11,7 @@
 
     setFn('Run', function ($Call)
     {
+        $Call['Flow'] = 'Front';
         // В этом месте, практически всегда, происходит роутинг.
         $Call = F::Hook('beforeFrontRun', $Call);
 

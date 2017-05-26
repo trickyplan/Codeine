@@ -55,6 +55,6 @@
 
         if (isset($Call['Rule']))
             F::Log('Rule *'.$Call['Rule'].'* decision *'.$Call['Decision'].'* with weight '.$Call['Weight'], LOG_INFO, 'Security');
-
+        
         return $Call;
      });

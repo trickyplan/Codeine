@@ -13,7 +13,7 @@
             return number_format($Call['Value'], $Call['Digits'], ',', ' ');
          else
          {
-             F::Log('Bad number format: *'.$Call['Value'].'*', LOG_WARNING);
+             F::Log('Bad number format: *'.$Call['Value'].'*', LOG_NOTICE);
              return $Call['Value'];
          }
      });
