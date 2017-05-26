@@ -25,6 +25,21 @@
                 "Service": "Project.Preload",
                 "Method": "beforeFrontRun"
             },
+            "Routing":
+            {
+                "Service": "Code.Flow.API.Routing",
+                "Method": "beforeAPIRun"
+            },
+            "APIKey":
+            {
+                "Service": "Code.Flow.API.APIKey",
+                "Method": "beforeAPIRun"
+            },
+            "Access":
+            {
+                "Service": "Code.Flow.API.Access",
+                "Method": "beforeAPIRun"
+            },
             "QoS":
             {
                 "Service": "System.QoS",

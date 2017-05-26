@@ -8,7 +8,7 @@
     //gc_disable();
     define ('Codeine', __DIR__);
     define ('Started', microtime(true));
-    define ('REQID', Started.mb_substr(sha1(mt_rand(0,PHP_INT_MAX)), -6));
+    define ('REQID', 'REQ'.base_convert(Started, 10, 16).'.'.sha1(mt_rand(4294967295, PHP_INT_MAX)));
 
     defined('DS')? null: define('DS', DIRECTORY_SEPARATOR);
 
@@ -216,16 +216,15 @@
         public static function loadOptions($Service = null, $Method = null, $Call = [], $Path = 'Options')
         {
             $Service = ($Service == null)? self::$_Service: $Service;
-/*            $Method = ($Method == null)? self::$_Method: $Method;*/
-
+            
             // Если контракт уже не загружен
-            if (isset(self::$_Options[$Service]))
+            if (isset(self::$_Options[$Service.$Method]))
                 ;
             else
             {
                 $Options = [];
-                $ServicePath = strtr($Service, '.', '/');
                 $Filenames = [];
+                $ServicePath = strtr($Service, '.', '/');
                 
                 if ($Method === null)
                     ;
@@ -289,13 +288,14 @@
                 }
                 else
                 {
-                    self::Log('No options for *'.$Service.'*', LOG_DEBUG);
+                    self::Log('No options for *'.$Service.':'.$Method.'*', LOG_DEBUG);
                     $Options = [];
                 }
 
-                self::$_Options[$Service] = $Options;
+                self::$_Options[$Service.$Method] = $Options;
             }
-            return self::Merge(self::$_Options[$Service], $Call);
+            
+            return self::Merge(self::$_Options[$Service.$Method], $Call);
         }
 
         public static function saveOptions ($Service, $Options, $Path = 'Options')

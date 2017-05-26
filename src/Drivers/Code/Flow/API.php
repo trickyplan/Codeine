@@ -11,18 +11,14 @@
 
     setFn('Run', function ($Call)
     {
+        $Call['API']['Request']['Flow'] = 'API';
+        $Call['API']['Response'] = [];
         // В этом месте, практически всегда, происходит роутинг.
         $Call = F::Hook('beforeAPIRun', $Call);
-        
-        if (preg_match('@/api/(?P<Version>.+)/(?P<Format>.+)/(?P<Service>.+)/(?P<Method>.+)@Ssu', $Call['HTTP']['URL'], $Pockets))
-        {
-            $Call['API']['Format'] = $Pockets['Format'];
-            $Call['API']['Version'] = $Pockets['Version'];
-            $Call['API']['Service'] = $Pockets['Service'];
-            $Call['API']['Method'] = $Pockets['Method'];
-            $Call['Output']['Content']['Request'] = $Call['API'];
             
-            $Call = F::loadOptions($Call['API']['Service'], 'API', $Call);
+            $Call['Output']['Content']['Request'] = $Call['API']['Request'];
+
+            $Call = F::loadOptions($Call['API']['Request']['Service'], 'API', $Call);
 
             F::startColor('aed581');
             // Если передан нормальный вызов, совершаем его
@@ -31,30 +27,31 @@
                 F::Log('API Skipped', LOG_NOTICE);
             else
             {
-                if (F::isCall($Call['API']))
+                if (F::isCall($Call['API']['Request']))
                 {
                     if (F::Dot($Call, 'API.Enabled'))
                     {
-                        if (!isset($Call['API']['Method']) or empty($Call['API']['Method']))
-                            $Call['API']['Method'] = 'Do';
-        
-                        list($Call['API']['Service'], $Call['API']['Method'])
-                            = [$Call['API']['Service'], $Call['API']['Method']];
-        
-                        F::Log('API *'.$Call['API']['Service'].':'.$Call['API']['Method'].'* started', LOG_NOTICE, 'All');
-                       
-                        $Call['Output']['Content']['Response']['Data'] = F::Live($Call['API'], $Call, $Call['Request']);
+                        if ($Call['API']['Response']['Access'])
+                        {
+                            if (!isset($Call['API']['Request']['Method']) or empty($Call['API']['Request']['Method']))
+                                $Call['API']['Request']['Method'] = 'Do';
+                        
+                            F::Log('API *'.$Call['API']['Request']['Service'].':'.$Call['API']['Request']['Method'].'* started', LOG_NOTICE, 'All');
+                           
+                            $Call['API']['Response']['Data'] =
+                                F::Run($Call['API']['Request']['Service'], $Call['API']['Request']['Method'], $Call, $Call['Request']);
+                        }
                     }
                     else
-                        $Call['Output']['Content']['Response']['Data'] = 'Unknown API Service or Method';
+                        $Call['API']['Response']['Data'] = 'Unknown API Service or Method';
                 }
             }
            
-            F::Log('API *'.$Call['API']['Service'].':'.$Call['API']['Method'].'* finished', LOG_NOTICE, 'All');
+            F::Log('API *'.$Call['API']['Request']['Service'].':'.$Call['API']['Request']['Method'].'* finished', LOG_NOTICE, 'All');
             F::stopColor();
             
-            $Call = F::Merge($Call, $Call['API']['Formats'][$Call['API']['Format']]);
-        }
+            $Call = F::Merge($Call, $Call['API']['Formats'][$Call['API']['Request']['Format']]);
+        $Call['Output']['Content']['Response'] = $Call['API']['Response'];
         
         $Call = F::Hook('afterAPIRun', $Call);
         return $Call;

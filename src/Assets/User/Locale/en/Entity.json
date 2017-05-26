@@ -3,6 +3,7 @@
     "DOB": "Date of birth",
     "EMail": "Email",
     "Title": "Full name",
+    "APIKey": "API Key",
     "Gender": {
         "Label": "Gender",
         "U": "Unspecified",
