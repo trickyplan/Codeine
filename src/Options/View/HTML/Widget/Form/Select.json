@@ -4,7 +4,6 @@
     {
         "String":
         {
-            "Type": "",
             "ID": "",
             "Name": "",
             "Class": ["form-control"],
@@ -13,6 +12,7 @@
         "Boolean":
         {
             "Autofocus": false,
+            "Multiple": false,
             "Required": false,
             "Disabled": false
         }
