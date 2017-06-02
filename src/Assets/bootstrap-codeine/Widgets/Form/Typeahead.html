@@ -26,6 +26,15 @@
 
     dataset<k>ID</k>.initialize();
 
+    updateHidden = function (e, datum)
+    {
+        console.info(datum);
+        if (datum == undefined)
+            $('#<k>ID</k>_hidden').val('');
+        else
+            $('#<k>ID</k>_hidden').val(datum.ID);
+    }
+
     $('#<k>ID</k>').typeahead(null, {
       name: 'dataset<k>ID</k>',
       limit: 25,
@@ -45,16 +54,9 @@
                         +'</div>'),
       },
       source: dataset<k>ID</k>.ttAdapter()
-    }).on('typeahead:selected', function(e, datum)
-    {
-        $('#<k>ID</k>_hidden').val(datum.ID);
-    }).on('typeahead:autocomplete', function (e)
-    {
-        $('#<k>ID</k>_hidden').val(datum.ID);
-    }).on('typeahead:asyncrequest', function ($e, datum)
-    {
-    })
-    .on('typeahead:asyncreceive', function ($e, datum)
-    {
-    });
+    })  .on('typeahead:selected', updateHidden)
+        .on('typeahead:autocomplete', updateHidden)
+        .on('typeahead:asyncrequest', updateHidden);
+
+
 </jsrun>

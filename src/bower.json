@@ -29,7 +29,6 @@
     "pnotify": "^3.0.0",
     "jquery-colorbox": "^1.6.4",
     "holmes": "https://github.com/redroot/holmes.git#^1.0.46",
-    "summernote": "^0.8.3",
     "trumbowyg": "^2.5.1",
     "visibilityjs": "^1.2.4"
   }
