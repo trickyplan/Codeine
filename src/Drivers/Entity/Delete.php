@@ -59,8 +59,6 @@
 
             $Call = F::Hook('afterDelete', $Call);
         }
-    
-        F::Log($Call['Data'], LOG_DEBUG);
         
         $Call = F::Hook('afterDeleteGet', $Call);
 

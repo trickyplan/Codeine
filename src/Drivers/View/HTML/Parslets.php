@@ -137,7 +137,16 @@
                 {
                     $Count = 0;
                     $Call['Parslets']['Source'] = str_replace($cMatched['Match'], $cMatched['Replace'], $Call['Parslets']['Source'], $Count);
-                    F::Log('Parslet '.$Parslet.', *'.count($cMatched['Match']).'* matched , *'.count($cMatched['Replace']).'* replaces prepared, *'.$Count.'* replaced', LOG_DEBUG);
+                    F::Log(function () use ($Parslet, $cMatched, $Count)
+                    {
+                        return 'Parslet '.$Parslet.', *'
+                            .count($cMatched['Match'])
+                            .'* matched , *'
+                            .count($cMatched['Replace'])
+                            .'* replaces prepared, *'
+                            .$Count
+                            .'* replaced';
+                    } , LOG_DEBUG);
                 }
             
             if ($PassFound > 0)

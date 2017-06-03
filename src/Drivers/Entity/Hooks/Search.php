@@ -40,7 +40,7 @@
                 ]);
 
             if ($Result)
-                F::Log('Indexed: '.j($Result), LOG_DEBUG);
+                F::Log(function () use ($Result) {return 'Indexed: '.j($Result);} , LOG_DEBUG);
             else
                 F::Log('Not indexed: '.j($Result), LOG_WARNING);
         }
@@ -62,7 +62,7 @@
         ]))
         {
             F::Log($Call['Entity'].' '.$Call['Data']['ID'].' removed', LOG_INFO);
-            F::Log($Call['Data'], LOG_DEBUG);
+            F::Log(function () use ($Call) {return $Call['Data'];} , LOG_DEBUG);
         }
 
         return $Call;

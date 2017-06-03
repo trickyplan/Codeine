@@ -1077,33 +1077,15 @@
             if (func_num_args() === 3)
             {
                 $Value = func_get_arg(2);
-
-                if ($Array === (array) $Array)
-                {
-                    if (strpos($Key, '.') !== false)
-                    {
-                        $Keys = explode('.', $Key);
-                        $Key = array_shift($Keys);
-
-                        if (isset($Array[$Key]))
-                            ;
-                        else
-                            $Array[$Key] = [];
-
-                        $Array[$Key] = self::Dot($Array[$Key], implode('.', $Keys), $Value);
-                    }
-                    else
-                    {
-                        if ($Value === null)
-                            unset($Array[$Key]);
-                        else
-                            $Array[$Key] = $Value;
-                    }
-                }
-
-                return $Array;
+                
+                return self::writeDot($Array, $Key, $Value);
             }
+            else
+                return self::readDot($Array, $Key);
+        }
 
+        private static function readDot($Array, $Key)
+        {
             if (isset($Array[$Key]))
                 return $Array[$Key];
 
@@ -1130,6 +1112,34 @@
                 $Tail = isset($Array[$Key])? $Array[$Key]: null;
 
             return $Tail;
+        }
+        
+        private static function writeDot($Array, $Key, $Value)
+        {
+            if ($Array === (array) $Array)
+            {
+                if (strpos($Key, '.') !== false)
+                {
+                    $Keys = explode('.', $Key);
+                    $Key = array_shift($Keys);
+
+                    if (isset($Array[$Key]))
+                        ;
+                    else
+                        $Array[$Key] = [];
+
+                    $Array[$Key] = self::writeDot($Array[$Key], implode('.', $Keys), $Value);
+                }
+                else
+                {
+                    if ($Value === null)
+                        unset($Array[$Key]);
+                    else
+                        $Array[$Key] = $Value;
+                }
+            }
+
+            return $Array;
         }
 
         public static function Set ($Key, $Value)
