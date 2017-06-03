@@ -37,7 +37,7 @@
                             && $Node['User Override']
                             && null != (F::Dot($Call['Data'], $Name))
                         )
-                            F::Log('Node *'.$Name.'* overriden by user with *'.j(F::Dot($Call['Data'], $Name)).'*', LOG_DEBUG);
+                            F::Log(function () use ($Call, $Name) {return 'Node *'.$Name.'* overriden by user with *'.j(F::Dot($Call['Data'], $Name)).'*';}, LOG_DEBUG);
                         else
                         {
                             $LiveValue = F::Live($Node['Hooks'][$Call['On']],
@@ -51,8 +51,8 @@
                             $Call['Data'] =
                                 F::Dot($Call['Data'], $Name, $LiveValue);
 
-                            F::Log('Node *'.$Name.'* executed as '.j($LiveValue), LOG_DEBUG);
-                            F::Log('by '.j($Node['Hooks'][$Call['On']]), LOG_DEBUG);
+                            F::Log(function () use ($Name, $LiveValue) {return 'Node *'.$Name.'* executed as '.j($LiveValue);} , LOG_DEBUG);
+                            F::Log(function () use ($Node) {return 'by '.j($Node['Hooks'][$Call['On']]);} , LOG_DEBUG);
                         }
                     }
                 }

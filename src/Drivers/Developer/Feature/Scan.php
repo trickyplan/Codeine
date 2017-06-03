@@ -23,7 +23,7 @@
                 $Drivers[] = str_replace($Path.DS, '', $Result[1]);
         }
 
-        F::Log($Drivers, LOG_DEBUG);
+        F::Log(function () use ($Drivers) {return $Drivers;}, LOG_DEBUG);
 
         return $Drivers;
     });

@@ -15,8 +15,8 @@
                 continue;
 
             F::Log('Checking inheritance for *'.$Name.'*', LOG_DEBUG);
-            F::Log('Value is *'.j(F::Dot($Call['Data'], $Name)).'*', LOG_DEBUG);
-            F::Log('Is empty: *'.j(empty(F::Dot($Call['Data'], $Name))).'*', LOG_DEBUG);
+            F::Log(function () use ($Call, $Name) {'Value is *'.j(F::Dot($Call['Data'], $Name)).'*';}, LOG_DEBUG);
+            F::Log(function () use ($Call, $Name) {return 'Is empty: *'.j(empty(F::Dot($Call['Data'], $Name))).'*';} , LOG_DEBUG);
            
             $Value = F::Dot($Call['Data'], $Name);
             
@@ -44,7 +44,7 @@
                             ]);
 
                             $Call['Data'] = F::Dot($Call['Data'], $Name, F::Dot($Parent, $Name)); // FIXME Add flag
-                            F::Log('*'.$Name.'* node inherited from *'.$Parent['ID'].'* as '.j(F::Dot($Parent, $Name)), LOG_DEBUG);
+                            F::Log(function () use ($Name, $Parent) {return '*'.$Name.'* node inherited from *'.$Parent['ID'].'* as '.j(F::Dot($Parent, $Name));} , LOG_DEBUG);
                         }
                     }
                 }

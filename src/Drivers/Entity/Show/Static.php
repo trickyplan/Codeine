@@ -60,7 +60,7 @@
         else
             $Call['HTTP']['Headers']['Last-Modified:'] = date(DATE_RFC2822, $Call['Data']['Created']);*/
 
-        F::Log($Call['Data'], LOG_DEBUG);
+        F::Log(function () use ($Call) {return $Call['Data'];} , LOG_DEBUG);
 
         return $Call;
     });
