@@ -129,7 +129,6 @@
         else
         {
             $Call['Session Data']['ID'] = $Call['SID'];
-            d(__FILE__, __LINE__, $Call['Session Data']);
             
             $Call['Session'] = F::Run('Entity', 'Update',
                 [
