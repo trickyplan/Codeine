@@ -1,0 +1,9 @@
+#!/bin/sh
+cd `cat /etc/codeine/default`
+
+if [ ! -f release.lock ]; then
+    apt-get update > /dev/null
+    apt-get upgrade --yes --force-yes
+    codeine Code.Run.Script Run "--Run=DeployNotify"
+    service nginx restart
+fi
