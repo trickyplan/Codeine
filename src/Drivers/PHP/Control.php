@@ -16,6 +16,7 @@
         ];
 
         $Version = phpversion();
+        
         if (($Tilda = mb_strpos($Version, '~')) === false)
             ;
         else
@@ -81,7 +82,7 @@
 
     setFn('Menu', function ($Call)
     {
-        $VersionNumber = phpversion();
+        $VersionNumber = PHP_VERSION_ID;
         $Version = isset($Call['Versions'][$VersionNumber])? $Call['Versions'][$VersionNumber]: 'Untested';
 
         return ['Count' => $VersionNumber, 'Status' => ('Stable' == $Version? 'success': 'warning')];
