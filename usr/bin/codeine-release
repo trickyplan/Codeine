@@ -1,5 +1,5 @@
 #!/bin/sh
-cd `cat /etc/codeine/default`
+cd `cat /etc/default/codeine`
 
 if [ ! -f release.lock ]; then
     apt-get update > /dev/null
