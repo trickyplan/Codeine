@@ -52,7 +52,7 @@
                                 F::Dot($Call['Data'], $Name, $LiveValue);
 
                             F::Log(function () use ($Name, $LiveValue) {return 'Node *'.$Name.'* executed as '.j($LiveValue);} , LOG_DEBUG);
-                            F::Log(function () use ($Node) {return 'by '.j($Node['Hooks'][$Call['On']]);} , LOG_DEBUG);
+                            F::Log(function () use ($Node, $Call) {return 'by '.j($Node['Hooks'][$Call['On']]);} , LOG_DEBUG);
                         }
                     }
                 }

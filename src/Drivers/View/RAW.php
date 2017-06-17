@@ -9,17 +9,27 @@
 
     setFn('Render', function ($Call)
     {
-        if (is_array($Call['Output']['Content']))
-            $Call['Output']['Content'] = implode('', $Call['Output']['Content']);
+        $RAWKey = F::Dot($Call,'View.RAW.Key');
         
-        $Call['Output'] = $Call['Output']['Content'];
+        if ($RAWData = F::Dot($Call['Output'], $RAWKey))
+        {
+            if (is_scalar($RAWData))
+                $Call['Output'] = $RAWData;
+            else
+                $Call['Output'] = j($RAWData);
+        }
+        else
+            $Call['Output'] = null;
         
-        if (isset($Call['HTTP']['Headers']['Content-type:']))
+        if (F::Dot($Call, 'HTTP.Headers.Content-type:'))
             ;
         else
         {
-            $finfo = new finfo(FILEINFO_MIME);
-            $Call['HTTP']['Headers']['Content-type:'] = $finfo->buffer($Call['Output']);
+            if (is_scalar($Call['Output']))
+            {
+                $finfo = new finfo(FILEINFO_MIME);
+                $Call = F::Dot($Call, 'HTTP.Headers.Content-type:', $finfo->buffer($Call['Output']));
+            }
         }
 
         return $Call;

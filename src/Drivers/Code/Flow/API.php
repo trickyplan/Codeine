@@ -51,6 +51,7 @@
             F::stopColor();
             
             $Call = F::Merge($Call, $Call['API']['Formats'][$Call['API']['Request']['Format']]);
+            
         $Call['Output']['Content']['Response'] = $Call['API']['Response'];
         
         $Call = F::Hook('afterAPIRun', $Call);
