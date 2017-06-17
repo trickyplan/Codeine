@@ -13,6 +13,27 @@
                         "Method": "Render"
                     }
                 }
+            },
+            "raw":
+            {
+                "View":
+                {
+                    "Renderer":
+                    {
+                        "Service": "View.RAW",
+                        "Method": "Render",
+                        "Call":
+                        {
+                            "View":
+                            {
+                                "RAW":
+                                {
+                                    "Key": "Content.Response.Data"
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     },
@@ -52,11 +73,6 @@
             {
                 "Service":"View",
                 "Method":"Render"
-            },
-            "Latency Audit":
-            {
-                "Service": "Performance.Latency",
-                "Method": "Audit"
             }
         }
     }

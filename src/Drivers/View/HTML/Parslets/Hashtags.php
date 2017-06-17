@@ -30,22 +30,22 @@
                     if (isset($CSS))
                         foreach ($Hashtags[1] as $HashIndex => $Hashtag)
                             $Replaces[$IX] =
-                                str_replace($Hashtags[0][$HashIndex],
+                                preg_replace('@'.$Hashtags[0][$HashIndex].'@SsUu',
                                     '<span class="'.$CSS.'">'.$Hashtag.'</span>',
-                                    $Replaces[$IX]);
+                                    $Replaces[$IX], 1);
                     else
                         foreach ($Hashtags[1] as $HashIndex => $Hashtag)
                             $Replaces[$IX] =
-                                str_replace($Hashtags[0][$HashIndex],
+                                preg_replace('@'.$Hashtags[0][$HashIndex].'@SsUu',
                                     $Hashtag,
-                                    $Replaces[$IX]);
+                                    $Replaces[$IX], 1);
                 }
                 else
                     foreach ($Hashtags[1] as $HashIndex => $Hashtag)
                         $Replaces[$IX] =
-                            str_replace($Hashtags[0][$HashIndex],
+                            preg_replace('@'.$Hashtags[0][$HashIndex].'@SsUu',
                                         '<a class="hashtag" href="'.$Href.urlencode($Hashtag).'">'.$Hashtag.'</a>',
-                                        $Replaces[$IX]);
+                                        $Replaces[$IX], 1);
             }
         }
         

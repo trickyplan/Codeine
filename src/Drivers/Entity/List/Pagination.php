@@ -54,7 +54,13 @@
                         }
                         
                         if ($Call['Page'] > $Call['CountOfPages'])
+                        {
                             F::Log('Page number (*'.$Call['Page'].'*) is more than count of pages (*'.$Call['CountOfPages'].'*)', LOG_INFO, 'Performance');
+                            $Call = F::Apply('System.Interface.HTTP', 'Redirect', $Call, 
+                                [
+                                    'Redirect' =>  preg_replace('@/page(\d+)@', '/page'.$Call['CountOfPages'], $Call['HTTP']['URL'])
+                                ]);
+                        }
                     }
                 }
                 else
