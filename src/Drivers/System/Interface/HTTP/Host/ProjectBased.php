@@ -26,7 +26,7 @@
         else
         {
             $Call['HTTP']['Host'] = $Hosts[0];
-            F::Log('Host is not determined, default selected', LOG_WARNING);
+            F::Log('Host is not determined, default selected', LOG_INFO);
         }
                 
         if (isset($Call['Project']['Active Hosts'][$Call['HTTP']['Host']]))
