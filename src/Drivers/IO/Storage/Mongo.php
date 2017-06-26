@@ -207,7 +207,9 @@
     setFn ('Execute', function ($Call)
     {
         F::Log($Call['Command'], LOG_INFO);
-        return $Call['Link']->execute($Call['Command']);
+        $cursor = $Call['Link']->command($Call['Command']);
+        $cursor->setTypeMap(['root' => 'array', 'document' => 'array', 'array' => 'array']);
+        return $cursor->toArray();
     });
 
     setFn ('Count', function ($Call)

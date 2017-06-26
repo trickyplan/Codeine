@@ -19,5 +19,9 @@
         foreach ($Slice as $Value)
             $Sum *= $Value;
         
-        return $Sum ** (1/count($Slice));
+        $Count = count($Slice);
+        if ($Count > 0)
+            return $Sum ** (1/$Count);
+        else
+            return null;
     });
