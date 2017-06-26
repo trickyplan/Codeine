@@ -19,5 +19,9 @@
         foreach ($Slice as $Value)
             $Sum += $Value ** 2;
         
-        return sqrt($Sum / count($Slice));
+        $Count = count($Slice);
+        if ($Count > 0)
+            return sqrt($Sum / $Count);
+        else
+            return null;
     });

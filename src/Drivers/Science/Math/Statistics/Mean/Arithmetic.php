@@ -13,6 +13,11 @@
             $Slice = array_slice($Call['Values'], -$Call['Window'], $Call['Window']);
         else
             $Slice = $Call['Values'];
+            
+        $Count = count($Slice);
+        if ($Count > 0)
+            return array_sum($Slice) / $Count;
+        else
+            return null;
         
-        return array_sum($Slice) / count($Slice);
     });
