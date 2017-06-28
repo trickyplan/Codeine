@@ -207,9 +207,9 @@
     setFn ('Execute', function ($Call)
     {
         F::Log($Call['Command'], LOG_INFO);
-        $cursor = $Call['Link']->command($Call['Command']);
-        $cursor->setTypeMap(['root' => 'array', 'document' => 'array', 'array' => 'array']);
-        return $cursor->toArray();
+        $Cursor = $Call['Link']->command($Call['Command']);
+        $Cursor->setTypeMap(['root' => 'array', 'document' => 'array', 'array' => 'array']);
+        return $Cursor->toArray();
     });
 
     setFn ('Count', function ($Call)
@@ -301,17 +301,11 @@
 
     setFn('Size', function ($Call)
     {
-        return ($Call['Link']->execute('db.stats(1024)')['retval']['dataSize']).'K';
+        $Cursor = $Call['Link']->command(['dbStats' => 1024]);
+        $Cursor->setTypeMap(['root' => 'array', 'document' => 'array', 'array' => 'array']);
+        return ($Cursor->toArray()[0]['dataSize']).'K';
     });
 
-    setFn('Create Index', function ($Call)
-    {
-        $Command = 'db.'.$Call['Entity'].'.ensureIndex({"'.$Call['Node'].'": 1})';
-        F::Log($Command, LOG_INFO, 'Administrator');
-        $Call['Link']->execute($Command);
-        return $Call;
-    });
-    
     setFn('Distinct', function ($Call)
     {
         $Call = F::Apply(null, 'Options', $Call);

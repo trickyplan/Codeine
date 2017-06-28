@@ -16,8 +16,6 @@
         // В этом месте, практически всегда, происходит роутинг.
         $Call = F::Hook('beforeAPIRun', $Call);
             
-            $Call['Output']['Content']['Request'] = $Call['API']['Request'];
-
             $Call = F::loadOptions($Call['API']['Request']['Service'], 'API', $Call);
 
             F::startColor('aed581');
@@ -29,17 +27,29 @@
             {
                 if (F::isCall($Call['API']['Request']))
                 {
-                    if (F::Dot($Call, 'API.Enabled'))
+                    if (!isset($Call['API']['Request']['Method']) or empty($Call['API']['Request']['Method']))
+                        $Call['API']['Request']['Method'] = 'Do';
+                    
+                    if (F::Dot($Call, 'API.'.$Call['API']['Request']['Service'].'.'.$Call['API']['Request']['Method'].'.Enabled'))
                     {
                         if ($Call['API']['Response']['Access'])
                         {
-                            if (!isset($Call['API']['Request']['Method']) or empty($Call['API']['Request']['Method']))
-                                $Call['API']['Request']['Method'] = 'Do';
-                        
                             F::Log('API *'.$Call['API']['Request']['Service'].':'.$Call['API']['Request']['Method'].'* started', LOG_NOTICE, 'All');
                            
+                            $Parameters = F::Dot($Call, 'API.'.$Call['API']['Request']['Service'].'.'.$Call['API']['Request']['Method'].'.Parameters');
+                            $Request = [];
+                            if (empty($Parameters))
+                                ;
+                            else
+                                foreach ($Parameters as $Parameter)
+                                    $Request = F::Dot($Request, $Parameter, F::Dot($Call['Request'], $Parameter));
+
+                            $Call['Output']['Content']['Parameters'] = $Parameters;
+                            $Call['Output']['Content']['Request'] = $Request;
+
                             $Call['API']['Response']['Data'] =
-                                F::Run($Call['API']['Request']['Service'], $Call['API']['Request']['Method'], $Call, $Call['Request']);
+                                F::Run($Call['API']['Request']['Service'], $Call['API']['Request']['Method'], $Call, $Request);
+                            
                         }
                     }
                     else

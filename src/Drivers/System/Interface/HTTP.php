@@ -225,8 +225,9 @@
 
     setFn('Request', function ($Call)
     {
+        $Call['Request'] = [];
         foreach ($_REQUEST as $Key => $Value)
-            $Call['Request'][$Key] = str_replace(chr(0), '', $Value);
+            $Call['Request'] = F::Dot($Call['Request'], strtr($Key, '_', '.'), str_replace(chr(0), '', $Value));
 
         empty($_REQUEST) ? F::Log('Empty $_REQUEST', LOG_INFO): F::Log('Request: '.j($_REQUEST), LOG_INFO);
 
@@ -238,10 +239,12 @@
             switch ($Call['HTTP']['Request']['Headers']['Content-Type'])
             {
                 case 'application/json':
-                    $RAW = jd($Call['HTTP']['RAW']);
-                    
-                    if (is_array($RAW))
-                        $Call['Request'] = F::Merge($Call['Request'], $RAW);
+                    if (isset($Call['HTTP']['RAW']))
+                    {
+                        $RAW = jd($Call['HTTP']['RAW']);
+                        if (is_array($RAW))
+                            $Call['Request'] = F::Merge($Call['Request'], $RAW);
+                    }
                 break;
             }
         }
