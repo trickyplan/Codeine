@@ -29,14 +29,15 @@
                 {
                     if (!isset($Call['API']['Request']['Method']) or empty($Call['API']['Request']['Method']))
                         $Call['API']['Request']['Method'] = 'Do';
-                    
-                    if (F::Dot($Call, 'API.'.$Call['API']['Request']['Service'].'.'.$Call['API']['Request']['Method'].'.Enabled'))
+
+                    $Enabled = $Call['API'][$Call['API']['Request']['Service']][$Call['API']['Request']['Method']]['Enabled'] ?? false;
+                    if ($Enabled)
                     {
                         if ($Call['API']['Response']['Access'])
                         {
                             F::Log('API *'.$Call['API']['Request']['Service'].':'.$Call['API']['Request']['Method'].'* started', LOG_NOTICE, 'All');
                            
-                            $Parameters = F::Dot($Call, 'API.'.$Call['API']['Request']['Service'].'.'.$Call['API']['Request']['Method'].'.Parameters');
+                            $Parameters = $Call['API'][$Call['API']['Request']['Service']][$Call['API']['Request']['Method']]['Parameters'] ?? null;
                             $Request = [];
                             if (empty($Parameters))
                                 ;
