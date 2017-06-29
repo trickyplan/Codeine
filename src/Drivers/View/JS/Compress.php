@@ -16,5 +16,5 @@
                 $Call = F::Apply('View.JS.Compress.'.$Compressor, null, $Call);
         }
 
-        return $Call['JS']['Source'];
+        return $Call;
     });
