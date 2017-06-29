@@ -20,7 +20,7 @@ NAME=codeined
 DAEMON=/usr/bin/$NAME
 PIDFILE=/var/run/$NAME.pid
 SCRIPTNAME=/etc/init.d/$NAME
-LOG=/var/log/codeined.log
+LOG=/var/log/codeine/daemon.log
 
 # Exit if the package is not installed
 [ -x "$DAEMON" ] || exit 0
