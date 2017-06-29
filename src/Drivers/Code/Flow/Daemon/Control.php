@@ -60,7 +60,7 @@
         [
             'Type'  => 'Block',
             'Class' => 'console-inverse',
-            'Value' => shell_exec('tail -n50 /var/log/codeined.log')
+            'Value' => shell_exec('tail -n50 /var/log/codeine/daemon.log')
         ];
         
         return $Call;

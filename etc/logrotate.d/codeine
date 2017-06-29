@@ -1,83 +1,12 @@
-"/var/log/codeined.log"
-{
+"/var/log/codeine/*.log" {
    rotate 10
    size=16M
    missingok
    nocopytruncate
    nocreate
+   compress
    nodelaycompress
    nomail
    notifempty
    noolddir
-   compress
-}
-
-"/var/log/codeine/developer.log"
-{
-   rotate 10
-   size=16M
-   missingok
-   nocopytruncate
-   nocreate
-   nodelaycompress
-   nomail
-   notifempty
-   noolddir
-   compress
-}
-
-"/var/log/codeine/administrator.log"
-{
-   rotate 10
-   size=16M
-   missingok
-   nocopytruncate
-   nocreate
-   nodelaycompress
-   nomail
-   notifempty
-   noolddir
-   compress
-}
-
-"/var/log/codeine/performance.log"
-{
-   rotate 10
-   size=16M
-   missingok
-   nocopytruncate
-   nocreate
-   nodelaycompress
-   nomail
-   notifempty
-   noolddir
-   compress
-}
-
-"/var/log/codeine/marketing.log"
-{
-   rotate 10
-   size=16M
-   missingok
-   nocopytruncate
-   nocreate
-   nodelaycompress
-   nomail
-   notifempty
-   noolddir
-   compress
-}
-
-"/var/log/codeine/security.log"
-{
-   rotate 10
-   size=16M
-   missingok
-   nocopytruncate
-   nocreate
-   nodelaycompress
-   nomail
-   notifempty
-   noolddir
-   compress
 }
