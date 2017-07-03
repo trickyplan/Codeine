@@ -9,7 +9,7 @@
 
     setFn('Generate', function ($Call)
     {
-        $Call['Value'] = '';
+        $Call['Value'] = [];
 
         // if (!isset($Call['Data']['Slug']) or empty($Call['Data']['Slug']))
         {

@@ -157,8 +157,10 @@
         $Call = F::Apply('Entity.Delete', 'Before', $Call, ['Entity' => $Call['Bundle'],
             'Scope' => 'Control']);
         
-        return F::Apply('Entity.Delete', 'Do', $Call, ['Entity' => $Call['Bundle'],
+        $Call =  F::Apply('Entity.Delete', 'Do', $Call, ['Entity' => $Call['Bundle'],
             'Scope' => 'Control']);
+        
+        return $Call;
     });
 
     setFn('Truncate', function ($Call)
