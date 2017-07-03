@@ -73,6 +73,5 @@
             $Call['Data'] = F::Apply('Entity', 'Delete', $Call);
 
         $Call = F::Hook('afterDeletePost', $Call);
-
         return $Call;
     });

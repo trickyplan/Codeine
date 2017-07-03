@@ -226,6 +226,7 @@
     setFn('Request', function ($Call)
     {
         $Call['Request'] = [];
+        
         foreach ($_REQUEST as $Key => $Value)
             $Call['Request'] = F::Dot($Call['Request'], strtr($Key, '_', '.'), str_replace(chr(0), '', $Value));
 
