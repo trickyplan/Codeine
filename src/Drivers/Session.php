@@ -82,7 +82,7 @@
 
             F::Log('Session: Secondary user '.$Call['Session']['User']['ID'].' authenticated', LOG_INFO, 'Security');
         }
-        elseif (isset($Call['Session']['User']) && $Call['Session']['User'] != 0)
+        elseif (isset($Call['Session']['User']) && !empty($Call['Session']['User']))
         {
             $Call['Session']['User'] = F::Run('Entity', 'Read', $Call,
                 [
@@ -138,7 +138,7 @@
                     'Time' => microtime(true),
                     'One' => true
                 ]);
-
+            
             F::Log('Session updated '.$Call['SID'], LOG_INFO, 'Security');
         }
 
@@ -164,13 +164,13 @@
         
         if (isset($Call['Session']['Secondary']) && $Call['Session']['Secondary'] != 0)
         {
-            $Call = F::Apply('Session', 'Write', $Call, ['Session Data' => ['Secondary' => 0]]);
+            $Call = F::Apply('Session', 'Write', $Call, ['Session Data' => ['Secondary' => null]]);
             F::Log('Detached secondary user: '.$Call['Session']['Secondary'], LOG_INFO, 'Security');
         }
         else
         {
-            $Call = F::Apply('Session', 'Write', $Call, ['Session Data' => ['User' => 0]]);
-            F::Log('Detached primary user: '.$Call['Session']['User']['ID'], LOG_INFO, 'Security');
+            $Call = F::Apply('Session', 'Write', $Call, ['Session Data' => ['User' => null]]);
+            // F::Log('Detached primary user: '.$Call['Session']['User']['ID'], LOG_INFO, 'Security');
         }
 
         $Call = F::Hook('afterAnnulate', $Call);

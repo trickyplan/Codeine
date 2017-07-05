@@ -46,7 +46,7 @@
                 $Call['TTL'] = $Call['TTLs']['Long'];
 
             $Call = F::Apply('Session', 'Write', $Call, ['Session Data' => ['User' => $Call['User']['ID']]]);
-
+            
             if ($Call['Session']['User']['ID'] == $Call['User']['ID'])
             {
                 F::Log('User authenticated '.$Call['User']['ID'], LOG_INFO, 'Security');
