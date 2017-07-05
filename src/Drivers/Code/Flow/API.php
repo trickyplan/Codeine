@@ -12,6 +12,7 @@
     setFn('Run', function ($Call)
     {
         $Call['API']['Request']['Flow'] = 'API';
+        $Request = ['Started' => Started];
         $Call['API']['Response'] = [];
         // В этом месте, практически всегда, происходит роутинг.
         $Call = F::Hook('beforeAPIRun', $Call);
@@ -38,7 +39,7 @@
                             F::Log('API *'.$Call['API']['Request']['Service'].':'.$Call['API']['Request']['Method'].'* started', LOG_NOTICE, 'All');
                            
                             $Parameters = $Call['API'][$Call['API']['Request']['Service']][$Call['API']['Request']['Method']]['Parameters'] ?? null;
-                            $Request = [];
+
                             if (empty($Parameters))
                                 ;
                             else
@@ -63,6 +64,8 @@
             
             $Call = F::Merge($Call, $Call['API']['Formats'][$Call['API']['Request']['Format']]);
             
+        $Call['API']['Response']['Generated'] = microtime(true);
+        $Call['API']['Response']['Time'] = $Call['API']['Response']['Generated'] - $Request['Started'];
         $Call['Output']['Content']['Response'] = $Call['API']['Response'];
         
         $Call = F::Hook('afterAPIRun', $Call);
