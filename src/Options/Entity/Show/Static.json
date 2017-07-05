@@ -27,7 +27,7 @@
                 "Method": "Check"
             }
         },
-        "onShowNotFound":
+        "onEntityShowNotFound":
         {
             "Show Error Page":
             {

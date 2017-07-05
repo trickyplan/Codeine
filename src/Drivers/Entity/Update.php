@@ -9,7 +9,7 @@
 
     setFn('Before', function ($Call)
     {
-        $Call['Current'] = F::Run('Entity', 'Read', $Call);
+        $Call['Current'] = F::Run('Entity', 'Read', $Call, ['One' => true]);
         return $Call;
     });
 
@@ -23,35 +23,37 @@
     setFn('GET', function ($Call)
     {
         // Загрузить предопределённые данные и умолчания
-        $Call['Data'] = $Call['Current'][0];
+        if (empty($Call['Current']))
+            $Call = F::Hook('onEntityUpdateNotFound', $Call);
+        else
+        {
+            $Call['Data'] = $Call['Current'];
 
-        $Call = F::Hook('beforeUpdateGet', $Call);
-
-        $Call['Output']['Content']['Form Widget'] = ['Type' => 'Form/'.$Call['Form']['Template'], 'ID' => 'Update'];
-
-        $Call['Tag'] = isset($Call['Scope'])? $Call['Scope']: null;
-
-        $Call['Scope'] = isset($Call['Scope'])? $Call['Entity'].'/'.$Call['Scope'] : $Call['Entity'];
-
-        $Call['Layouts'][] =
-            [
-                'Scope' => $Call['Entity'],
-                'ID' => isset($Call['Custom Layouts']['Update'])?
-                        $Call['Custom Layouts']['Update']: 'Update',
-                'Context' => $Call['Context']
-            ];
-        
-        if (empty($Call['Action']))
-            $Call['Action'] =$Call['HTTP']['URI'];
-        
-        $Call['Output']['Content']['Form Widget']['Action'] = $Call['Action'];
-
-        foreach ($Call['Current'] as $IX => $cData)
-            $Call = F::Apply('Entity.Form', 'Generate', $Call, ['IX' => $IX, 'Data!' => $cData]);
-
-        // Вывести
-
-      //  $Call = F::Hook('afterUpdateGet', $Call);
+            $Call = F::Hook('beforeUpdateGet', $Call);
+    
+            $Call['Output']['Content']['Form Widget'] = ['Type' => 'Form/'.$Call['Form']['Template'], 'ID' => 'Update'];
+    
+            $Call['Tag'] = isset($Call['Scope'])? $Call['Scope']: null;
+    
+            $Call['Scope'] = isset($Call['Scope'])? $Call['Entity'].'/'.$Call['Scope'] : $Call['Entity'];
+    
+            $Call['Layouts'][] =
+                [
+                    'Scope' => $Call['Entity'],
+                    'ID' => isset($Call['Custom Layouts']['Update'])?
+                            $Call['Custom Layouts']['Update']: 'Update',
+                    'Context' => $Call['Context']
+                ];
+            
+            if (empty($Call['Action']))
+                $Call['Action'] =$Call['HTTP']['URI'];
+            
+            $Call['Output']['Content']['Form Widget']['Action'] = $Call['Action'];
+    
+            $Call = F::Apply('Entity.Form', 'Generate', $Call);
+            
+            $Call = F::Hook('afterUpdateGet', $Call);
+        }
 
         return $Call;
     });
@@ -64,7 +66,7 @@
                 $Call['Data'] = $Call['Request']['Data'];
 
             // Отправляем в Entity.Update
-            $Result = F::Run('Entity', 'Update', $Call);
+            $Result = F::Run('Entity', 'Update', $Call, ['One' => true]);
 
             // Выводим результат
             if (!isset($Result['Errors']) or empty($Result['Errors']))
