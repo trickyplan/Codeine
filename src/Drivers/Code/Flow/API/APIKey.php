@@ -13,7 +13,7 @@
         
         if (isset($Call['Request']['APIKey']))
         {
-            $Call['API']['User'] = F::Run('Entity', 'Read',
+            $Call['Session']['User'] = F::Run('Entity', 'Read',
                 [
                     'Entity'    => 'User',
                     'Where'     =>
@@ -23,12 +23,12 @@
                     'One'       => true
                 ]);
             
-            if (empty($Call['API']['User']))
+            if (empty($Call['Session']['User']))
                 ;
             else
             {
                 $Call['API']['Request']['Valid Key'] = true;
-                $Call['API']['Request']['User'] = $Call['API']['User']['ID'];
+                $Call['API']['Request']['User'] = $Call['Session']['User']['ID'];
             }
         }
         

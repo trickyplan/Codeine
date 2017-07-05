@@ -43,6 +43,8 @@
             if (isset($Call['Failure']) && $Call['Failure'])
                 $Call['Return Code'] = 1;
         }
+        else
+            echo $Call;
 
 
         F::Log('CLI Finished', LOG_NOTICE);
