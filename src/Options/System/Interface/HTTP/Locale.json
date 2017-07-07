@@ -12,7 +12,8 @@
     {
         "Detect":
         {
-            "Accept-language": true
+            "Accept-language": true,
+            "Request": false
         },
         "Available": ["ru", "en"],
         "PHP":
