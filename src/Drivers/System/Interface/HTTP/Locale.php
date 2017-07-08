@@ -19,6 +19,11 @@
                 
                 if (F::Dot($Call, 'Locales.Detect.Accept-language'))
                     $Call = F::Apply(null, 'Check Accept-language', $Call);
+                
+                if (F::Dot($Call, 'Locales.Detect.Request')
+                    && isset($Call['Request']['Locale'])
+                    && in_array($Call['Request']['Locale'], $Call['Locales']['Available']))
+                        $Call['Locale'] = $Call['Request']['Locale'];
             }
     
             setlocale(LC_ALL, $Call['Locales']['PHP'][$Call['Locale']]);

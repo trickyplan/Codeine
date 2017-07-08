@@ -13,12 +13,12 @@
     {
         $Call['API']['Request']['Flow'] = 'API';
         $Request = ['Started' => Started];
-        $Call['API']['Response'] = [];
+        $Call['API']['Response'] = ['Locale' => $Call['Locale']];
         // В этом месте, практически всегда, происходит роутинг.
         $Call = F::Hook('beforeAPIRun', $Call);
             
             $Call = F::loadOptions($Call['API']['Request']['Service'], 'API', $Call);
-
+        
             F::startColor('aed581');
             // Если передан нормальный вызов, совершаем его
         
