@@ -4,7 +4,11 @@ $(document).ready(function ()
             function ()
             {
                 var el = $(this);
-                Visibility.every(el.attr('data-interval'), function(){
+                secondInterval = el.attr('data-second-interval');
+                if (secondInterval == undefined)
+                    secondInterval = el.attr('data-interval')*2;
+
+                Visibility.every(el.attr('data-interval'), secondInterval, function(){
                     el.addClass('codeine-ajax-interval-loading');
                         $.ajax({
                             type: 'GET',
