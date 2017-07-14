@@ -38,6 +38,7 @@
 
         private static $_Stack;
         private static $NC = 0;
+        private static $_Bubble = '';
         private static $_Paths = [];
         public static $_Perfect = false;
 
@@ -153,16 +154,19 @@
                     self::$_Options['Codeine']['Watch'][] = $Call['Watch'];
             }
             
+            if (F::Environment() == 'Development')
+                self::$_Bubble = str_repeat('*', 1024 * 1024);
+            
             return self::Live($Call);
         }
 
         public static function Shutdown()
         {
+            self::$_Bubble = '';
             self::Stop(self::$_Service . '.' . self::$_Method);
 
             $E = error_get_last();
-
-            if (empty($E))
+            if ($E === null)
                 ;
             else
             {
