@@ -4,7 +4,7 @@
         "Wiki TOC":
         {
             "Match": "^/wiki$",
-            "Weight": 100,
+            "Weight": 200,
             "Service": "Entity.List",
             "Method": "Do",
             "Call":
@@ -13,7 +13,7 @@
                 "Template": "Tree",
                 "Where":
                 {
-                    "Level": 0
+                    "Level": 1
                 },
                 "Custom Templates":
                 {
@@ -35,20 +35,21 @@
         },
         "Update wiki":
         {
-            "Match": "/wiki/update/(.*)",
-            "Weight": 100,
+            "Match": "/wiki/update/(.+)",
+            "Weight": 150,
             "Service": "Entity.Update",
             "Method": "Do",
             "Call":
             {
                 "Entity": "Wiki",
+                "FormLayout": "Field",
                 "Where": "$1"
             }
         },
         "Delete wiki":
         {
-            "Match": "/wiki/delete/(.*)",
-            "Weight": 100,
+            "Match": "/wiki/delete/(.+)",
+            "Weight": 150,
             "Service": "Entity.Delete",
             "Method": "Do",
             "Call":
@@ -60,7 +61,7 @@
         "Create wiki with parent":
         {
             "Match": "/wiki/create/(.+)",
-            "Weight": 100,
+            "Weight": 150,
             "Service": "Entity.Create",
             "Method": "Do",
             "Call":
@@ -75,7 +76,7 @@
         "Create wiki":
         {
             "Match": "/wiki/create",
-            "Weight": 100,
+            "Weight": 150,
             "Service": "Entity.Create",
             "Method": "Do",
             "Call":
@@ -85,7 +86,7 @@
         },
         "Show Wiki":
         {
-            "Match": "^/wiki/(.*)$",
+            "Match": "^/wiki/(.+)$",
             "Weight": 100,
             "Service": "Entity.Show.Static",
             "Method": "Do",
