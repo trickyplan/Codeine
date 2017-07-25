@@ -12,6 +12,7 @@
     <a class="btn btn-default" href="/wiki/update/<k>ID</k>?BackURL=<call>HTTP.URL</call>"><l>Wiki.Update:Title</l></a>
     <a class="btn btn-default" href="/wiki/delete/<k>ID</k>?BackURL=<call>HTTP.URL</call>"><l>Wiki.Delete:Title</l></a>
 </div>
+<h1 class="page-header"><header/></h1>
 <div class="spacer">
     <div class="list-group muted">
         <foreach key="Ancestors">
@@ -19,8 +20,15 @@
         </foreach>
     </div>
     <div class="panel panel-default">
-        <div class="panel-body readable">
-            <k>Body</k>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-lg-10 col-md-2 readable">
+                    <k>Body</k>
+                </div>
+                <div class="col-lg-2 col-md-2">
+                    LVL: <k>Level</k>
+                </div>
+            </div>
         </div>
         <div class="panel-footer">
             <l>Wiki.Entity:Created</l>: <datetime><k>Created</k></datetime>,

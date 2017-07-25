@@ -1,5 +1,4 @@
     fastcgi_keep_conn on;
-    fastcgi_intercept_errors        off;
     fastcgi_ignore_client_abort     on;
     fastcgi_connect_timeout 60;
     fastcgi_send_timeout 60;

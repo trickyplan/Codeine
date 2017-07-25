@@ -15,6 +15,7 @@
     {
         include fastcgi_params;
         include conf.d/codeine.fastcgi.v2.nginx;
+        fastcgi_intercept_errors        off;
 
         fastcgi_param  Environment $Environment;
         fastcgi_pass   $backend;
@@ -25,6 +26,7 @@
     {
         include fastcgi_params;
         include conf.d/codeine.fastcgi.v2.nginx;
+        fastcgi_intercept_errors        off;
 
         fastcgi_param  Environment $Environment;
         fastcgi_pass   $backend;

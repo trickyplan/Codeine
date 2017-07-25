@@ -6,7 +6,7 @@
      */
 
     // 10xs for http://leonid.shevtsov.me/ru/mnogoprocessovye-demony-na-php#ixzz23J4hMu6y
-    
+
     require 'Core.php';
     require 'Codeine/vendor/autoload.php';
 
@@ -20,7 +20,7 @@
             $Opts = F::Dot($Opts, $Pockets[1], true);
     }
 
-    if (isset($Opts['no-daemonize']))
+    if (isset($Opts['no-daemonize']) or getenv('Environment') == 'Development')
         ;
     else
     {

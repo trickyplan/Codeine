@@ -1,6 +1,6 @@
 {
   "name": "trumbowyg",
-  "version": "2.6.0",
+  "version": "2.7.0",
   "homepage": "https://github.com/Alex-D/Trumbowyg",
   "authors": [
     {
@@ -33,11 +33,11 @@
   "dependencies": {
     "jquery": ">=1.7"
   },
-  "_release": "2.6.0",
+  "_release": "2.7.0",
   "_resolution": {
     "type": "version",
-    "tag": "v2.6.0",
-    "commit": "231f6189ff28d3e8455234caeddab370866f6e31"
+    "tag": "v2.7.0",
+    "commit": "ea9b813396dfcd45c93156bbdce28364fd62974a"
   },
   "_source": "https://github.com/Alex-D/Trumbowyg.git",
   "_target": "^2.5.1",
