@@ -25,8 +25,6 @@
             F::Log(count($Call['Daemons']).' daemons found');
         }
 
-        declare(ticks = 1);
-
         $RT = $Call['RT'];
 
         $SH = function ($Signal) use ($Call)
@@ -80,9 +78,10 @@
 
             $Ticks = 0;
 
-            while (F::Run(null, 'Running?', $Call))
+            while (F::getLive())
             {
                 $Ticks++;
+                pcntl_signal_dispatch();
 
                 if ($Ticks == PHP_INT_MAX)
                     $Ticks = 0;
@@ -177,7 +176,7 @@
     setFn('Stop', function ($Call)
     {
         $PIDFile = F::Run(null, 'PIDFile', $Call);
-
+        
         if (file_exists($PIDFile))
             unlink($PIDFile);
 
@@ -188,7 +187,7 @@
     {
         if ($Call['Signal'] > 1)
         {
-            F::Log('Caught signal '.$Call['Signal'], LOG_INFO);
+            F::Log('Caught signal '.$Call['Signal'].' in '.getmypid(), LOG_INFO);
 
             if (isset($Call['Codes'][$Call['Signal']]))
             {
