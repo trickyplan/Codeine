@@ -17,7 +17,7 @@
 
     setFn('Read', function ($Call)
     {
-        return (bool) $Call['Value'];
+        return filter_var($Call['Value'], FILTER_VALIDATE_BOOLEAN);
     });
 
     setFn('Where', function ($Call)
