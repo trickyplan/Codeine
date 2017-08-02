@@ -9,7 +9,8 @@
 
     setFn('Read', function ($Call)
     {
-        $Result = jd($Call['Value'], true);
+        $Result = json_decode($Call['Value'], true);
+        jd('');
         if (json_last_error() > 0)
         {
             F::Log('JSON: '.json_last_error_msg(), LOG_ERR);
