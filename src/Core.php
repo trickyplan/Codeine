@@ -1286,6 +1286,15 @@
             return json_encode($Call, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     }
 
+    /**
+     * Aliace for json_decode($Value, true)
+     * @param string $Call
+     * @return mixed the value encoded in <i>json</i> in appropriate
+     * PHP type. Values true, false and
+     * null (case-insensitive) are returned as <b>TRUE</b>, <b>FALSE</b>
+     * and <b>NULL</b> respectively. <b>NULL</b> is returned if the
+     * <i>json</i> cannot be decoded.
+     */
     function jd($Call)
     {
         return json_decode($Call, true);
