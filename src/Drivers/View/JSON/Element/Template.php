@@ -18,6 +18,8 @@
                  if (isset($Node['Visible']['JSON']) && $Node['Visible']['JSON'])
                      $Data = F::Dot($Data, $Key, F::Dot($Call['Data'], $Key));
 
+             if (isset($Call['Dot']) and $Call['Dot'] !== null)
+                 $Data = F::Dot($Data, $Call['Dot']);
              return $Data;
          }
          else

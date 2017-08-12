@@ -35,12 +35,12 @@
     "jquery": ">=1.6"
   },
   "homepage": "https://github.com/sciactive/pnotify",
-  "version": "3.2.0",
-  "_release": "3.2.0",
+  "version": "3.2.1",
+  "_release": "3.2.1",
   "_resolution": {
     "type": "version",
-    "tag": "3.2.0",
-    "commit": "ffb47b2b4f1ed4aaf6c60db0b84d6218a05dfd22"
+    "tag": "3.2.1",
+    "commit": "56d7a345485d3af0195069e2ebdce97c349064b4"
   },
   "_source": "https://github.com/sciactive/pnotify.git",
   "_target": "^3.0.0",
