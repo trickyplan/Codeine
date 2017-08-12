@@ -25,12 +25,13 @@
 
         foreach ($Elements as $Element)
             $Call['Output']['Content'][] =
-            [
-                'Type'  => 'Template',
-                'Scope' => $Call['Entity'],
-                'ID'    => 'Export',
-                'Data'  => $Element
-            ];
+                [
+                    'Type'  => 'Template',
+                    'Scope' => $Call['Entity'],
+                    'ID'    => 'Export',
+                    'Data'  => $Element,
+                    'Dot'   => isset($Call['Request']['Dot'])? $Call['Request']['Dot']: null
+                ];
 
         return $Call;
     });
