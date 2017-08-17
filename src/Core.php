@@ -760,7 +760,7 @@
                         ];
                     
                     if (PHP_SAPI === 'cli')
-                        self::CLILog($Time, $Message, $Verbose, $Channel);
+                        self::CLILog($Time, $Message, $Verbose, $Channel, $AppendStack);
                     
                     if (self::$_Perfect && ($Verbose <= self::$_Options['Codeine']['Perfect Verbose'][$Channel]))
                         self::Finish ($Message);
@@ -771,7 +771,7 @@
             return $Message;
         }
 
-        public static function CLILog ($Time, $Message, $Verbose, $Channel)
+        public static function CLILog ($Time, $Message, $Verbose, $Channel, $AppendStack = false)
         {
             $Head = '['.getmypid()."] \033[0;90m".$Time."\033[0m"."\t\e[0;36m[".$Channel."]\e[1;37m\t".self::$_Service.":\t";
             
@@ -784,6 +784,9 @@
             $Message = str_replace('* ',"\033[1;37m ", $Message);
             $Message = preg_replace('@^\*@Ssum',"\033[0;32m", $Message);
             $Message = preg_replace('@\*$@Ssum',"\033[1;37m ", $Message);
+            
+            if ($AppendStack)
+                $Message.= j(F::Stack());
             
             if (($Verbose <= self::$_Verbose[$Channel]) or !self::$_Live)
                 switch (round($Verbose))
