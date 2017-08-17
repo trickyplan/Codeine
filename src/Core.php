@@ -1151,8 +1151,8 @@
 
         public static function Set ($Key, $Value)
         {
-            /*if (count(self::$_Storage) > self::$_Options['Codeine']['Core Storage Limit'])
-                array_shift(self::$_Storage);*/
+            if (count(self::$_Storage) > self::$_Options['Codeine']['Core Storage Limit'])
+                array_shift(self::$_Storage);
             
             return self::$_Storage[$Key] = $Value;
         }
