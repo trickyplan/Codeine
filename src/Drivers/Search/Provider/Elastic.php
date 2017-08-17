@@ -87,6 +87,7 @@
                      'body'  =>
                      [
                           'query' => F::Live($Call['Search']['Query']['Default'], $Call),
+                          'sort' => $Call['Search']['Sort'],
                           'highlight' =>
                           [
                               'fields' =>

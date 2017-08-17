@@ -119,6 +119,25 @@
                 ;
             else
             {
+                if (F::Environment() == 'Development')
+                {
+                    if (isset($Call['Where']))
+                    {
+                        $Explain = $Call['Link']->command(
+                            [
+                                'explain'   =>
+                                    [
+                                        'find'  => $Call['Scope'],
+                                        'filter' => $Call['Where']
+                                    ],
+                                'verbosity' => 'queryPlanner'
+                            ]
+                        );
+                        $Explain = $Explain->toArray();
+                        F::Log('Mongo explained: '.j($Explain), LOG_INFO, 'Administrator');
+                    }
+                }
+                
                 /*if (isset($Call['Mongo']['Read']['maxTimeMS']))
                     $Cursor->maxTimeMS($Call['Mongo']['Read']['maxTimeMS']);*/
                 $Cursor->setTypeMap(['root' => 'array', 'document' => 'array', 'array' => 'array']);

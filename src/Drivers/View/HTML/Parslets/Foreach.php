@@ -10,10 +10,10 @@
     setFn('Parse', function ($Call)
     {
         $Replaces = [];
-        $Output = [];
        
         foreach ($Call['Parsed']['Value'] as $IX => $Cludge)
         {
+            $Output = [];
             if (isset($Call['Parsed']['Options'][$IX]['key']))
             {
                 $Key = $Call['Parsed']['Options'][$IX]['key'];
@@ -77,11 +77,11 @@
                    
                     $Output[$CKey] = str_replace(['<fe-key/>', '<fe-value/>'], [$CKey, $CValue], $Cludge);
                 }
-                
-                $Output = implode('', $Output);
             }
             else
-                $Output = '';
+                $Output = [];
+            
+            $Output = implode('', $Output);
             
             $Replaces[$IX] = $Output;
         }
