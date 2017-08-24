@@ -1,0 +1,34 @@
+<if value="<k>Status</k>" neq="1">
+    <li>
+        <a href="/control/<call>Entity</call>/Allow/<k>ID</k>?BackURL=<call>HTTP.URL</call>">
+            <span class="fa fa-check" data-toggle="tooltip" title="Одобрить"></span>
+        </a>
+    </li>
+</if>
+<if value="<k>Status</k>" neq="-1">
+    <li>
+        <a href="/control/<call>Entity</call>/Disallow/<k>ID</k>?BackURL=<call>HTTP.URL</call>">
+            <span class="fa fa-times" data-toggle="tooltip" title="Отклонить"></span>
+        </a>
+    </li>
+</if>
+<li>
+    <a href="/control/<call>Entity</call>/Touch/<k>ID</k>?BackURL=<call>HTTP.URL</call>">
+        <span class="fa fa-refresh" data-toggle="tooltip" title="Обновить"></span>
+    </a>
+</li>
+<li>
+    <a href="/control/<call>Entity</call>/Show/<k>ID</k>">
+       <span class="fa fa-eye" data-toggle="tooltip" title="Просмотреть"></span>
+    </a>
+</li>
+<li>
+    <a href="/control/<call>Entity</call>/Update/<k>ID</k>?BackURL=<call>HTTP.URL</call>">
+        <span class="fa fa-pencil" data-toggle="tooltip" title="Редактировать"></span>
+    </a>
+</li>
+<li>
+    <a href="/control/<call>Entity</call>/Delete/<k>ID</k>?BackURL=<call>HTTP.URL</call>">
+        <span class="fa fa-trash" data-toggle="tooltip" title="Удалить"></span>
+    </a>
+</li>
