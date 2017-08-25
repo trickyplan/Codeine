@@ -625,12 +625,15 @@
             return $Call;
         }
 
-        public static function Error($errno , $errstr , $errfile , $errline , $errcontext)
+        public static function Error($errno , $errstr , $errfile , $errline)
         {
-            if (self::$_Perfect)
-                self::Finish ($errno.' '.$errstr.' '.$errfile.'@'.$errline);
+            $ErrHash = strtoupper(substr(sha1($errno.$errstr.$errfile.$errline), -8, 8));
+            $Message = 'EH: '.$ErrHash.PHP_EOL.' E'.$errno.':'.$errstr.PHP_EOL.$errfile.'@'.$errline;
             
-            self::Log(j(self::Stack()).PHP_EOL.'Err '.$errno.':'.$errstr.PHP_EOL.$errfile.'@'.$errline, LOG_CRIT);
+            if (self::$_Perfect)
+                self::Finish ($Message);
+            
+            self::Log($Message, LOG_CRIT, 'Developer', true);
         }
         
         public static function Finish ($Message)
