@@ -16,11 +16,11 @@
         if (isset($Call['SMTP Auth']) && $Call['SMTP Auth'])
             return $Mail->factory('smtp',
                    [
-                     'host' => $Call['Server'],
-                     'port' => isset($Call['Port'])? $Call['Port']: 25,
-                     'auth' => $Call['SMTP Auth'],
-                     'username' => $Call['Username'],
-                     'password' => $Call['Password'],
+                        'host' => $Call['Server'],
+                        'port' => isset($Call['Port'])? $Call['Port']: 25,
+                        'auth' => $Call['SMTP Auth'],
+                        'username' => $Call['Username'],
+                        'password' => $Call['Password']
                    ]);
         else
             return $Mail->factory('smtp',
@@ -83,10 +83,11 @@
         $Call['Headers'] = $mime->headers($Call['Headers']);
 
         F::Log('Sending mail "'.$Call['Where']['ID'].'" to '.$Call['Scope'].' with '.$Call['Server'], LOG_INFO, 'Administrator');
-        $Result = $Call['Link']->send($Call['Scope'], $Call['Headers'], $Call['Data']);
 
+        $Result = $Call['Link']->send($Call['Scope'], $Call['Headers'], $Call['Data']);
+       
         if ($Result instanceof PEAR_Error)
-            F::Log($Result->getMessage(), LOG_ERR, 'Administrator'); // Temp.
+           F::Log($Result->getMessage(), LOG_ERR, 'Administrator'); // Temp.
 
         return $Call['Data'];
     });
