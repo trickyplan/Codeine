@@ -16,7 +16,6 @@
         }
 
         $Call['Nodes'] = $Call['Default Nodes'];
-        $Call['Nodes'] = $Call['Default Nodes'];
 
         $Call = F::Hook('beforeEntityLoad', $Call);
         
