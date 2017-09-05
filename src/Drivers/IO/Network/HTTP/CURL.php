@@ -39,7 +39,7 @@
                 list($Call['CURL']['Proxy']['Host'], $Call['CURL']['Proxy']['Port']) = explode(':', $Random);
         }
 
-        if (isset($Call['CURL']['Proxy']['Host']))
+        if (isset($Call['CURL']['Proxy']['Host']) && !empty($Call['CURL']['Proxy']['Host']))
             F::Log('Proxy: '.$Call['CURL']['Proxy']['Host'].':'.$Call['CURL']['Proxy']['Port'].' selected', LOG_INFO, 'Administrator');
 
         return $Call;
@@ -148,8 +148,8 @@
                     CURLOPT_HTTPHEADER       => $Call['CURL']['Headers'],
                     CURLOPT_USERAGENT        => $Call['CURL']['Agent'],
                     CURLOPT_ENCODING         => $Call['CURL']['Encoding'],
+                    CURLOPT_SSL_VERIFYPEER   => $Call['CURL']['SSL Verify Peer'],
                     CURLINFO_HEADER_OUT      => true,
-                    CURLOPT_SSL_VERIFYPEER   => false,
                     CURLOPT_FAILONERROR      => false
                 ]);
 
