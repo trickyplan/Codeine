@@ -13,7 +13,8 @@
         "Do": "Обзор",
         "Realpath": {
             "Cache": "Realpath Cache"
-        }
+        },
+        "Globals": "_SERVERS"
     },
     "Title": "PHP",
     "Version": {

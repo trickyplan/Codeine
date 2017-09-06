@@ -1,3 +1,28 @@
 {
-    "Title": "PHP"
+    "Extension": {
+        "Core": "Core"
+    },
+    "Ini": {
+        "date": {
+            "timezone": "Time zone"
+        }
+    },
+    "Options": {
+        "Extensions": "Extensions",
+        "Settings": "Settings",
+        "Do": "Overview",
+        "Realpath": {
+            "Cache": "Realpath Cache"
+        },
+        "Globals": "_SERVERS"
+    },
+    "Title": "PHP",
+    "Version": {
+        "Verdict": {
+            "Stable": "Stable verision",
+            "Unstable": "Unstable verision",
+            "Outdated": "Outdated verision",
+            "Untested": "Untested"
+        }
+    }
 }

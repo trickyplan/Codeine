@@ -1,5 +1,5 @@
 {
-    "Sidebar": ["Do", "Extensions", "Settings"],
+    "Sidebar": ["Do", "Extensions", "Settings", "Globals"],
     "Requirements":
     {
         "display_errors": "",
