@@ -128,3 +128,22 @@
                     ];
         return $Call;
     });
+
+    setFn('Globals', function ($Call)
+    {
+
+        foreach ($_SERVER as $Key => $Value)
+            $Rows[] = [
+                '$_SERVER['.$Key.']',
+                $Value
+            ];
+
+
+        $Call['Output']['Content'][] =
+            array (
+                'Type'  => 'Table',
+                'Value' => $Rows
+            );
+
+        return $Call;
+    });

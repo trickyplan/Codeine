@@ -62,6 +62,14 @@
                         &&
                         ((float) preg_replace('/,/','.',$Value) >= (float) $Call['Parsed']['Options'][$IX]['gte']);
                 }
+
+                if (isset($Call['Parsed']['Options'][$IX]['in']))
+                {
+                    $Data = F::Dot($Call, $Call['Parsed']['Options'][$IX]['in']);
+                    if (is_array($Data)) {
+                        $Decision = in_array($Value, $Data);
+                    }
+                }
             }
             
             if ($Decision)
