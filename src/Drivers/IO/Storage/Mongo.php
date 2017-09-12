@@ -32,8 +32,8 @@
                         $Where[$Key.'.'.$Subkey] = new MongoRegex(substr($Subvalue, 1));
                     elseif (substr($Subkey, 0, 1) == '$')
                         $Where[$Key][$Subkey] = $Subvalue;
-/*                    else
-                        $Where[$Key.'.'.$Subkey] = $Subvalue;*/
+                    else
+                        $Where[$Key.'.'.$Subkey] = $Subvalue;
             }
             else
             {
