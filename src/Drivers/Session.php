@@ -62,7 +62,7 @@
 
     setFn('Load User', function ($Call)
     {
-        if (isset($Call['Session']['Secondary']) && $Call['Session']['Secondary'] != 0)
+        if (isset($Call['Session']['Secondary']) && !empty($Call['Session']['Secondary']))
         {
             $Call['Session']['Primary'] = F::Run('Entity', 'Read', $Call,
                 [
