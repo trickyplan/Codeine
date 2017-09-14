@@ -1,0 +1,19 @@
+{
+    "Mattermosst":
+    {
+        "Levels":
+        {
+            "Emergency": ":anger:",
+            "Alert": ":exclamation:",
+            "Critical": ":boom:",
+            "Error": ":x:",
+            "Warning": ":warning:",
+            "Notice": ":grey_exclamation:",
+            "Info": ":speech_balloon:",
+            "Debug": ":crystal_ball:",
+            "Good": "+1",
+            "Bad": ":-1:",
+            "Important": ":bangbang:"
+        }
+    }
+}
