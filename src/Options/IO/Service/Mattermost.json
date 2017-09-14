@@ -1,0 +1,8 @@
+{
+    "Webhook URL": "http://{your-mattermost-site}/hooks/xxx-generatedkey-xxx",
+    "Default":
+    {
+        "Channel": "Fill channel name",
+        "Username": "Bot name"
+    }
+}
