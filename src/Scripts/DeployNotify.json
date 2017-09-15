@@ -8,7 +8,7 @@
             "Storage": "Administrator",
             "Channel": "Administrator",
             "Where": "[Release] $Project.Title $Version.Project.Major/$Version.Project.Minor on Codeine ($Version.Codeine.Major/$Version.Codeine.Minor) deployed on $HTTP.IP",
-            "Data": "Successful"
+            "Data": ["Successful"]
         }
     }
 }

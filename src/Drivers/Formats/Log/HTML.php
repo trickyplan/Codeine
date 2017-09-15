@@ -9,7 +9,7 @@
 
     setFn('Write', function ($Call)
     {
-        if ($Call['View']['Renderer']['Service'] == 'View.HTML' && empty($Call['Context']))
+        if (F::Dot($Call, 'View.Renderer.Service') == 'View.HTML' && empty($Call['Context']))
             ;
         else
             return null;

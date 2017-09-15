@@ -9,10 +9,12 @@
 
     setFn('Write', function ($Call)
     {
-        if ($Call['View']['Renderer']['Service'] == 'View.HTML')
+        if (in_array($Call['View']['Renderer']['Service'], $Call['IO']['Log']['Print']['Allowed Renderers'])
+            &&
+            in_array($Call['Context'], $Call['IO']['Log']['Print']['Allowed Context']))
             return F::Apply(null, gettype($Call['Data']), $Call);
         else
-            return $Call;
+            return null;
     });
 
     setFn('boolean', function ($Call)
