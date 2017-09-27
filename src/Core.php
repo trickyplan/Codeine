@@ -155,7 +155,7 @@
             }
             
             if (F::Environment() == 'Development')
-                self::$_Bubble = str_repeat('*', 1024 * 1024);
+                self::$_Bubble = str_repeat('*', 4096 * 1024);
             
             return self::Live($Call);
         }
@@ -456,8 +456,8 @@
                                 self::Set($CacheID, $Result);
                                 self::Log('Memo: *('.$CacheID.')* is *stored*.', LOG_INFO, 'Performance');
                             }
-                            else
-                                self::Log('Memo: *('.$CacheID.')* is below threshold.', LOG_DEBUG, 'Performance');
+                            /*else
+                                self::Log('Memo: *('.$CacheID.')* is below threshold.', LOG_DEBUG, 'Performance');*/
                         }
                     }
                     else

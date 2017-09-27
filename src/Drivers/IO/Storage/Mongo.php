@@ -141,10 +141,8 @@
                 /*if (isset($Call['Mongo']['Read']['maxTimeMS']))
                     $Cursor->maxTimeMS($Call['Mongo']['Read']['maxTimeMS']);*/
                 $Cursor->setTypeMap(['root' => 'array', 'document' => 'array', 'array' => 'array']);
+                $Data = $Cursor->toArray();
 
-                if (count($Cursor) > 0)
-                    $Data = $Cursor->toArray();
-                
                 foreach ($Data as $IX => $Object)
                     unset($Data[$IX]['_id']);
             }
