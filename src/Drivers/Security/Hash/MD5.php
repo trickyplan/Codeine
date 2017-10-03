@@ -11,5 +11,5 @@
 
     setFn('Get', function ($Call)
     {
-        return md5($Call['Value'], $Call['Salt']);
+        return md5($Call['Value'] . $Call['Salt']);
     });
