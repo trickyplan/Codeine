@@ -1,6 +1,6 @@
 {
   "name": "corejs-typeahead",
-  "version": "1.1.1",
+  "version": "1.2.1",
   "main": "dist/typeahead.bundle.js",
   "dependencies": {
     "jquery": ">=1.11"
@@ -14,14 +14,13 @@
     "jquery": "1.11.3"
   },
   "homepage": "https://github.com/corejavascript/typeahead.js",
-  "_release": "1.1.1",
+  "_release": "1.2.1",
   "_resolution": {
     "type": "version",
-    "tag": "v1.1.1",
-    "commit": "47d46b40cb834d8285ac9328c4b436e5eccf7197"
+    "tag": "v1.2.1",
+    "commit": "bad1af5b930dcfc708ae50b399051623970485fb"
   },
   "_source": "https://github.com/corejavascript/typeahead.js.git",
   "_target": "^1.1.1",
-  "_originalSource": "corejs-typeahead",
-  "_direct": true
+  "_originalSource": "corejs-typeahead"
 }

@@ -1,5 +1,5 @@
 /*!
- * typeahead.js 1.1.1
+ * typeahead.js 1.2.0
  * https://github.com/twitter/typeahead.js
  * Copyright 2013-2017 Twitter, Inc. and other contributors; Licensed MIT
  */
@@ -158,7 +158,7 @@
             noop: function() {}
         };
     }();
-    var VERSION = "1.1.1";
+    var VERSION = "1.2.0";
     var tokenizers = function() {
         "use strict";
         return {
@@ -774,7 +774,7 @@
             } else if (o.wildcard) {
                 prepare = prepareByWildcard;
             } else {
-                prepare = idenityPrepare;
+                prepare = identityPrepare;
             }
             return prepare;
             function prepareByReplace(query, settings) {
@@ -785,7 +785,7 @@
                 settings.url = settings.url.replace(wildcard, encodeURIComponent(query));
                 return settings;
             }
-            function idenityPrepare(query, settings) {
+            function identityPrepare(query, settings) {
                 return settings;
             }
         }
@@ -2113,6 +2113,7 @@
             this.input = o.input;
             this.menu = o.menu;
             this.enabled = true;
+            this.autoselect = !!o.autoselect;
             this.active = false;
             this.input.hasFocus() && this.activate();
             this.dir = this.input.getLangDir();
@@ -2161,6 +2162,10 @@
             },
             _onDatasetRendered: function onDatasetRendered(type, suggestions, async, dataset) {
                 this._updateHint();
+                if (this.autoselect) {
+                    var cursorClass = this.selectors.cursor.substr(1);
+                    this.menu.$node.find(this.selectors.suggestion).first().addClass(cursorClass);
+                }
                 this.eventBus.trigger("render", suggestions, async, dataset);
             },
             _onAsyncRequested: function onAsyncRequested(type, dataset, query) {
@@ -2184,6 +2189,11 @@
                 var $selectable;
                 if ($selectable = this.menu.getActiveSelectable()) {
                     if (this.select($selectable)) {
+                        $e.preventDefault();
+                        $e.stopPropagation();
+                    }
+                } else if (this.autoselect) {
+                    if (this.select(this.menu.getTopSelectable())) {
                         $e.preventDefault();
                         $e.stopPropagation();
                     }
@@ -2428,7 +2438,8 @@
                         input: input,
                         menu: menu,
                         eventBus: eventBus,
-                        minLength: o.minLength
+                        minLength: o.minLength,
+                        autoselect: o.autoselect
                     }, www);
                     $input.data(keys.www, www);
                     $input.data(keys.typeahead, typeahead);
@@ -2552,7 +2563,10 @@
             });
         }
         function buildHintFromInput($input, www) {
-            return $input.clone().addClass(www.classes.hint).removeData().css(www.css.hint).css(getBackgroundStyles($input)).prop("readonly", true).removeAttr("id name placeholder required").attr({
+            return $input.clone().addClass(www.classes.hint).removeData().css(www.css.hint).css(getBackgroundStyles($input)).prop({
+                readonly: true,
+                required: false
+            }).removeAttr("id name placeholder").removeClass("required").attr({
                 spellcheck: "false",
                 tabindex: -1
             });

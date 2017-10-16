@@ -117,6 +117,8 @@ When initializing a typeahead, there are a number of options you can configure.
 
 * `hint` – If `false`, the typeahead will not show a hint. Defaults to `true`.
 
+* `autoselect` – If `true`, the first suggestion will be selected when pressing the Enter key.
+
 * `minLength` – The minimum character length needed before suggestions start 
   getting rendered. Defaults to `1`.
 
@@ -155,7 +157,7 @@ Datasets can be configured using the following options.
 
 * `limit` – The max number of suggestions to be displayed. Defaults to `5`.
 
-* `display` – For a given suggestion, determines the string representation 
+* `display` | `displayKey` – For a given suggestion, determines the string representation 
   of it. This will be used when setting the value of the input control after a 
   suggestion is selected. Can be either a key string or a function that 
   transforms a suggestion object into a string. Defaults to stringifying the 
@@ -243,7 +245,7 @@ Example usage:
 
 ```
 $('.typeahead').bind('typeahead:select', function(ev, suggestion) {
-  console.log('Selection: ' + suggestion);
+  console.log('Selection: ', suggestion);
 });
 ```
 
