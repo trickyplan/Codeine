@@ -43,6 +43,7 @@
                                         'ID'    => (isset($Widget['Widget Template'])?
                                             $Widget['Widget Template']
                                             : strtr($Widget['Type'],'.', '/')),
+                                        'Context' => $Call['Context'],
                                         'Data'  =>
                                             F::Run(
                                                 $Call['View']['Renderer']['Service']
