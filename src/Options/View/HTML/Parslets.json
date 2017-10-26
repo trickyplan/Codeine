@@ -19,6 +19,7 @@
                         "URLEncode",
                         "HTMLEntities",
                         "Lower",
+                        "Cut",
                         "Hashtags",
                         "Currency",
                         "Number"

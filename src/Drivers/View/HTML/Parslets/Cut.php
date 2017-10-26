@@ -14,8 +14,12 @@
         foreach ($Call['Parsed']['Value'] as $IX => $Match)
         {
             if (F::Dot($Call ,'View.HTML.Parslet.Cut.StripTags.Enabled') or F::Dot($Call['Parsed'], 'Options.'.$IX.'.strip'))
-                $Cut = strip_tags($Match, F::Dot($Call ,'View.HTML.Parslet.Cut.StripTags.Allowed'));
+                $Original = strip_tags($Match, F::Dot($Call ,'View.HTML.Parslet.Cut.StripTags.Allowed'));
+            else
+                $Original = $Match;
 
+            $Cut = $Original;
+            
             if (F::Dot($Call['Parsed'], 'Options.'.$IX.'.chars'))
                 $Cut = F::Run('Text.Cut', 'Do',
                     [
@@ -45,10 +49,18 @@
 
             if (F::Dot($Call['Parsed'], 'Options.'.$IX.'.more'))
                 $Hellip = '<a href="'.F::Dot($Call['Parsed'], 'Options.'.$IX.'.more').'" class="hellip">'.$Hellip.'</a>';
-
+            
             if (strlen($Cut) < strlen($Match))
+            {
                 $Cut.= strtr($Hellip, ['\n' => '<br/>']); // nl2br is unusable here
+                
+                if (F::Dot($Call['Parsed'], 'Options.'.$IX.'.tooltip'))
+                    $Cut = '<span data-title="'.htmlspecialchars($Original).'" data-toggle="tooltip">'.$Cut.'</span>';
+            }
+            
+            
 
+            $Cut = str_replace('#', '', $Cut);
             $Replaces[$IX] = $Cut;
         }
 
