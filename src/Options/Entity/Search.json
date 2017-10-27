@@ -20,6 +20,19 @@
                 "Service": "Entity.Search.Pagination",
                 "Method": "afterSearch"
             }
+        },
+        "Empty":
+        {
+            "404 Headers":
+            {
+                "HTTP":
+                {
+                    "Headers":
+                    {
+                        "HTTP/1.1": "404 Not Found"
+                    }
+                }
+            }
         }
     }
 }
