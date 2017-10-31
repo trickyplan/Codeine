@@ -17,7 +17,7 @@
             if (!isset($Call['Page']) or empty($Call['Page']))
                 $Call['Page'] = 1;
 
-            $Call['Count'] = F::Run('Entity', 'Count', $Call);
+            $Call['Count'] = F::Run('Entity', 'Count', $Call, ['No Where' => true]);
 
             $Call['Limit']['From']= ($Call['Page']-1)*$Call['EPP'];
             $Call['Limit']['To'] = $Call['EPP'];

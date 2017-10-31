@@ -19,7 +19,8 @@
             $Values = F::Run('Entity', 'Distinct', $Call,
                 [
                     'Entity'    => $Call['Entity'],
-                    'Fields'    => [$Call['Key']]
+                    'Fields'    => [$Call['Key']],
+                    'No Where'  => true
                 ]);
          
             if (count($Values) > 0)
