@@ -328,6 +328,7 @@
         $Call = F::Apply(null, 'Options', $Call);
         
         $Data = [];
+        
         if (isset($Call['Where']))
             ;
         else
@@ -341,10 +342,10 @@
             
             $Values = [];
             
-            foreach ($Data[$Field] as $WrongMongoReturn)
-                foreach ($WrongMongoReturn as $Value)
-                    if (is_scalar($Value))
-                        $Values[$Value] = $Value;
+            foreach ($Data[$Field] as $Value)
+                if (is_scalar($Value))
+                    $Values[$Value] = $Value;
+            
             sort($Values);
             $Data[$Field] = $Values;
         }
