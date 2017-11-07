@@ -188,10 +188,12 @@
             $Call['SID'] = F::Live($Call['SID Generator']);
 
         // Вешаем маркер, если включено автомаркирование
-        if (F::Run('Session.Marker.Cookie', 'Write', $Call))
-            F::Log('Session Marker added', LOG_INFO, 'Security');
+        $Call = F::Apply('Session.Marker.Cookie', 'Write', $Call);
+        
+        if (isset($Call['Session']['Marker']) && $Call['Session']['Marker'])
+            F::Log('Session Marker created', LOG_INFO, 'Security');
         else
-            F::Log('Session Marker add failed', LOG_INFO, 'Security');
+            F::Log('Session Marker failed to create', LOG_WARNING, 'Security');
 
         return $Call;
     });
