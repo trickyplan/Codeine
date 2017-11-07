@@ -11,7 +11,8 @@
      {
          $Call['API']['Response']['Access'] = 'XXX';
 
-         $Call['API']['Response']['Access'] = F::Run('Security.Access', 'Check', $Call['API']['Request']);
+         $Call['API']['Response']['Access'] = F::Run('Security.Access', 'Check', $Call['API']['Request'],
+                                                        ['Session' => isset($Call['Session'])?$Call['Session']:[]]);
 
          if ($Call['API']['Response']['Access'] === 401)
          {
