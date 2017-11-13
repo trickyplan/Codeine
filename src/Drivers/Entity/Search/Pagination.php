@@ -33,7 +33,7 @@
                 else
                 {
                     $Counts = F::Run('Search', 'Count', $Call);
-                    $Call['Count'] = $Counts[$Call['Provider']];
+                    $Call['Count'] = F::Dot($Counts, $Call['Provider']);
                 }
                 
                 $Call['CountOfPages'] = ceil($Call['Count'] / $Call['Pagination']['ElementsPerPage']);
