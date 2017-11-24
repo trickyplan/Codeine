@@ -1,20 +1,25 @@
-### 1.2.5 “Explorer 7, solar x-ray”
+# Change Log
+
+## 1.2.6 “Discoverer 7, powerless”
+* Fix type definitions for TypeScript 2.6 by @marayfirth.
+
+## 1.2.5 “Explorer 7, solar x-ray”
 * Add TypeScript definitions by Joel Hernández.
 
-### 1.2.4 “Luna 3, Dark side of the Moon”
+## 1.2.4 “Luna 3, Dark side of the Moon”
 * Fix race condition by Mikhail Vazhnov.
 
-### 1.2.3 “Vanguard 3, 300 years”
+## 1.2.3 “Vanguard 3, 300 years”
 * Fix Rails support by @dimko.
 
-### 1.2.2 “Luna 2, impact”
+## 1.2.2 “Luna 2, impact”
 * Fix Sprockets 3 support by Waseem Sadiq.
 * Add Component support by Mitchel Kelonye.
 
-### 1.2.1 “Discoverer 6, again”
+## 1.2.1 “Discoverer 6, again”
 * Fix Bower config by Misha Ponizil.
 
-### 1.2.0 “Discoverer 5, spy”
+## 1.2.0 “Discoverer 5, spy”
 * Allow to use in CommonJS.
 * Release npm package.
 * Reduce library size to 10 %.
