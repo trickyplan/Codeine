@@ -26,7 +26,12 @@
                 $Value = F::Live(F::Dot($Call, $CMatch));
 
                 if ($Value === null)
-                    $Value = 'null';
+                {
+                    if (isset($Call['Parsed']['Options'][$IX]['null']))
+                        $Value = $Call['Parsed']['Options'][$IX]['null'];
+                    else
+                        $Value = 'null';
+                }
                 else
                 {
                     if ((array) $Value === $Value)
