@@ -3,7 +3,8 @@
         "List": "List errors",
         "Delete": "Clear",
         "Do": "Overview",
-        "Show": "Show"
+        "Show": "Show",
+        "Test": "Test"
     },
     "Title":  "Errors",
     "Today":  "Per day",
