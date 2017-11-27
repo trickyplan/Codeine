@@ -23,8 +23,8 @@
         else
             F::Log('No CLI Pseudohost', LOG_WARNING);
 
-        $Data[] = $Call['Service'];
-        $Data[] = $Call['Method'];
+        $Data['Service'] = $Call['Service'];
+        $Data['Method'] = $Call['Method'];
 
         $Call['HTTP']['URI'] = j($Data);
         $Call['HTTP']['URL'] = '/';
