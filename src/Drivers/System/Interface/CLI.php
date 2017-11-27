@@ -23,7 +23,10 @@
         else
             F::Log('No CLI Pseudohost', LOG_WARNING);
 
-        $Call['HTTP']['URI'] = j($Call);
+        $Data[] = $Call['Service'];
+        $Data[] = $Call['Method'];
+
+        $Call['HTTP']['URI'] = j($Data);
         $Call['HTTP']['URL'] = '/';
 
             if (isset($Call['Skip Run']))
