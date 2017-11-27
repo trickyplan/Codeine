@@ -44,6 +44,11 @@
                 "Service":"View",
                 "Method":"Render"
             },
+            "Spit log":
+            {
+                "Service": "IO.Log",
+                "Method": "Spit"
+            },
             "IO Shutdown":
             {
                 "Service": "IO",
