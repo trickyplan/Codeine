@@ -1,0 +1,14 @@
+{
+    "Body": "Body",
+    "Menu": "Show in menu",
+    "Priority": "Priority",
+    "Redirect": "Redirect",
+    "SEO": {
+        "Slug": "SEO: Human-readable URL",
+        "Title": "SEO: Title",
+        "Keywords": "SEO: Keywords",
+        "Description": "SEO: Description"
+    },
+    "Slug": "Human-readable URL (deprecated)",
+    "Title": "Title"
+}

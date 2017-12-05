@@ -3,15 +3,20 @@
         <layout>Control:Pills/RUD</layout>
     </div>
 
-    <a href="/<k>Slug</k>"><h4><k>Title</k></h4></a>
-
+    <a href="/<key>SEO.Slug,Slug</key>"><h4><k>Title</k></h4></a>
+    <blockquote><cut chars="160"><key>Body</key></cut></blockquote>
     <if value="<k>Menu</k>" eq="1">
         <div class="label label-danger pull-right">Меню</div>
     </if>
 
-    <if value="<k>Priority</k>" gt="0">
-        <l>Page.Entity:Priority</l>: <k>Priority</k>
-    </if>
-
-    <div><k>Words</k> слов, <k>Chars</k> знаков без пробелов, <k>Sickness</k>% тошноты.</div>
+    <ul class="list-inline">
+        <li class="label label-default">
+            <if value="<k>Priority</k>" gt="0">
+                <l>Page.Entity:Priority</l>: <k>Priority</k>
+            </if>
+        </li>
+        <li class="label label-default"><number><k>Words</k></number>W</li>
+        <li class="label label-default"><number><k>Chars</k></number>C</li>
+        <li class="label label-default"><k>Sickness</k>% sickness</li>
+    </ul>
 </li>

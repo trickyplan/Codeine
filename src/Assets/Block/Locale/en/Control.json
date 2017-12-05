@@ -1,3 +1,13 @@
 {
-    "Title": "Block"
+    "Hour": "Per hour",
+    "Minute": "Per minute",
+    "Options": {
+        "Do": "Overview",
+        "List": "List",
+        "Create": "Create"
+    },
+    "Second": "Per second",
+    "Title": "Block",
+    "Today": "Per day",
+    "Total": "Total"
 }

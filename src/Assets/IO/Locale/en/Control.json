@@ -1,3 +1,7 @@
 {
+    "Options": {
+        "Do": "Overview",
+        "Storages": "Storages"
+    },
     "Title": "IO"
 }

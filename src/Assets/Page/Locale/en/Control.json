@@ -1,3 +1,18 @@
 {
-    "Title": "Page"
+    "Hour": "Per hour",
+    "Minute": "Per minute",
+    "Options": {
+        "Do": "Overview",
+        "List": "List pages",
+        "Create": "Create page",
+        "Delete": "Delete all pages",
+        "Import": "Import pages",
+        "Export": "Export pages",
+        "Update": "Update page",
+        "Show": "Show page"
+    },
+    "Second": "Per second",
+    "Title": "Page",
+    "Today": "Per day",
+    "Total": "Total"
 }
