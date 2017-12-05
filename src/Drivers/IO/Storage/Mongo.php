@@ -281,29 +281,32 @@
         if (empty($Counter))
         {
             if (isset($Call['Where']))
-                $Cursor = $Call['Link']->selectCollection($Call['Scope'])->find($Call['Where'])->sort(['ID' => -1]);
+                $Cursor = $Call['Link']->selectCollection($Call['Scope'])->find($Call['Where'],
+                    ['sort' => ['ID' => -1]]);
             else
-                $Cursor = $Call['Link']->selectCollection($Call['Scope'])->find()->sort(['ID' => -1]);
+                $Cursor = $Call['Link']->selectCollection($Call['Scope'])->find([],
+                    ['sort' => ['ID' => -1]]);
 
-            $Cursor->limit(1);
+            $Cursor->setTypeMap(['root' => 'array', 'document' => 'array', 'array' => 'array']);
+            $Data = $Cursor->toArray();
 
-            $IDs = $Cursor->toArray();
+            $Last = array_shift($Data);
 
-            $ID = array_shift($IDs);
+            if (isset($Last['ID']))
+                ;
+            else
+                $Last['ID'] = 0;
 
-            if (!isset($ID['ID']))
-                $ID['ID'] = 0;
-
-            $ID = ((int) $ID['ID'])+1;
+            $Last = ((int) $Last['ID'])+1;
         }
         else
-            $ID = $Counter[0]['Value']+1;
+            $Last = $Counter[0]['Value']+1;
 
         F::Run(null, 'Write', $Call,
             [
                 'Scope' => 'Counters',
                 'Where' => ['ID' => $Call['Entity']],
-                'Data!' => ['ID' => $Call['Entity'], 'Value' => $ID],
+                'Data!' => ['ID' => $Call['Entity'], 'Value' => $Last],
                 'Mongo' =>
                 [
                     'Update' =>
@@ -313,7 +316,7 @@
                 ]
             ]);
 
-        return $ID;
+        return $Last;
     });
 
     setFn('Size', function ($Call)
