@@ -3,8 +3,14 @@
     {
         "Google":
         {
-            "DNT Support": true,
+            "DoNotTrack": true,
             "Demography": false,
+            "Environment":
+            {
+                "Production": true,
+                "Staging": false,
+                "Development": false
+            },
             "URLs":
             {
                 "Disabled": ["/park"]
