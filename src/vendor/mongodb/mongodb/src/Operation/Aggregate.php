@@ -62,8 +62,8 @@ class Aggregate implements Executable
      *
      *  * batchSize (integer): The number of documents to return per batch.
      *
-     *  * bypassDocumentValidation (boolean): If true, allows the write to opt
-     *    out of document level validation. This only applies when the $out
+     *  * bypassDocumentValidation (boolean): If true, allows the write to
+     *    circumvent document level validation. This only applies when the $out
      *    stage is specified.
      *
      *    For servers < 3.2, this option is ignored as document level validation
@@ -111,10 +111,6 @@ class Aggregate implements Executable
      */
     public function __construct($databaseName, $collectionName, array $pipeline, array $options = [])
     {
-        if (empty($pipeline)) {
-            throw new InvalidArgumentException('$pipeline is empty');
-        }
-
         $expectedIndex = 0;
 
         foreach ($pipeline as $i => $operation) {
@@ -180,6 +176,14 @@ class Aggregate implements Executable
 
         if (isset($options['typeMap']) && ! $options['useCursor']) {
             throw new InvalidArgumentException('"typeMap" option should not be used if "useCursor" is false');
+        }
+
+        if (isset($options['readConcern']) && $options['readConcern']->isDefault()) {
+            unset($options['readConcern']);
+        }
+
+        if (isset($options['writeConcern']) && $options['writeConcern']->isDefault()) {
+            unset($options['writeConcern']);
         }
 
         $this->databaseName = (string) $databaseName;

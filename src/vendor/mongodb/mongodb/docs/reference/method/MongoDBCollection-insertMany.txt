@@ -54,13 +54,13 @@ Example
 .. start-crud-include
 
 The following operation inserts two documents into the ``users`` collection
-in the ``example`` database:
+in the ``test`` database:
 
 .. code-block:: php
 
    <?php
 
-   $collection = (new MongoDB\Client)->example->users;
+   $collection = (new MongoDB\Client)->test->users;
 
    $insertManyResult = $collection->insertMany([
        [
@@ -84,12 +84,12 @@ The output would then resemble::
    Inserted 2 document(s)
    array(2) {
      [0]=>
-     object(MongoDB\BSON\ObjectID)#11 (1) {
+     object(MongoDB\BSON\ObjectId)#11 (1) {
        ["oid"]=>
        string(24) "579a25921f417dd1e5518141"
      }
      [1]=>
-     object(MongoDB\BSON\ObjectID)#12 (1) {
+     object(MongoDB\BSON\ObjectId)#12 (1) {
        ["oid"]=>
        string(24) "579a25921f417dd1e5518142"
      }

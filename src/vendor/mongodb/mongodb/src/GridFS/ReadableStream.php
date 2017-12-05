@@ -114,10 +114,10 @@ class ReadableStream
     }
 
     /**
-    * Return whether the current read position is at the end of the stream.
-    *
-    * @return boolean
-    */
+     * Return whether the current read position is at the end of the stream.
+     *
+     * @return boolean
+     */
     public function isEOF()
     {
         if ($this->chunkOffset === $this->numChunks - 1) {
@@ -164,6 +164,44 @@ class ReadableStream
         }
 
         return $data;
+    }
+
+    /**
+     * Seeks the chunk and buffer offsets for the next read operation.
+     *
+     * @param integer $offset
+     * @throws InvalidArgumentException if $offset is out of range
+     */
+    public function seek($offset)
+    {
+        if ($offset < 0 || $offset > $this->file->length) {
+            throw new InvalidArgumentException(sprintf('$offset must be >= 0 and <= %d; given: %d', $length, $offset));
+        }
+
+        /* Compute the offsets for the chunk and buffer (i.e. chunk data) from
+         * which we will expect to read after seeking. If the chunk offset
+         * changed, we'll also need to reset the buffer.
+         */
+        $lastChunkOffset = $this->chunkOffset;
+        $this->chunkOffset = (integer) floor($offset / $this->chunkSize);
+        $this->bufferOffset = $offset % $this->chunkSize;
+
+        if ($lastChunkOffset !== $this->chunkOffset) {
+            $this->buffer = null;
+            $this->chunksIterator = null;
+        }
+    }
+
+    /**
+     * Return the current position of the stream.
+     *
+     * This is the offset within the stream where the next byte would be read.
+     *
+     * @return integer
+     */
+    public function tell()
+    {
+        return ($this->chunkOffset * $this->chunkSize) + $this->bufferOffset;
     }
 
     /**

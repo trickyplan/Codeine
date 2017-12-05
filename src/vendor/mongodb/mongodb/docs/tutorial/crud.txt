@@ -53,7 +53,7 @@ The following example inserts a document while specifying the value for the
 
    <?php
 
-   $collection = (new MongoDB\Client)->demo->users;
+   $collection = (new MongoDB\Client)->test->users;
 
    $insertOneResult = $collection->insertOne(['_id' => 1, 'name' => 'Alice']);
 
@@ -107,7 +107,7 @@ The following example searches for the document with ``_id`` of ``"94301"``:
 
    <?php
 
-   $collection = (new MongoDB\Client)->demo->zips;
+   $collection = (new MongoDB\Client)->test->zips;
 
    $document = $collection->findOne(['_id' => '94301']);
 
@@ -145,11 +145,13 @@ The output would then resemble::
    ``"94301"``. The same criteria would not have matched a document with an
    integer value of ``94301`` due to MongoDB's :manual:`comparison rules for
    BSON types </reference/bson-type-comparison-order>`. Similarly, users should
-   use a :php:`MongoDB\\BSON\\ObjectID <class.mongodb-bson-objectid>` object
+   use a :php:`MongoDB\\BSON\\ObjectId <class.mongodb-bson-objectid>` object
    when matching an ``_id`` with an :manual:`ObjectId </reference/object-id/>`
    value, as strings and ObjectIds are not directly comparable.
 
 .. seealso:: :phpmethod:`MongoDB\\Collection::findOne()`
+
+.. _php-find-many-documents:
 
 Find Many Documents
 ~~~~~~~~~~~~~~~~~~~
@@ -165,7 +167,7 @@ specified city and state values:
 
    <?php
 
-   $collection = (new MongoDB\Client)->demo->zips;
+   $collection = (new MongoDB\Client)->test->zips;
 
    $cursor = $collection->find(['city' => 'JERSEY CITY', 'state' => 'NJ']);
 
@@ -208,7 +210,7 @@ returned. It also limits the results to 5 documents.
 
    <?php
 
-   $collection = (new MongoDB\Client)->example->restaurants;
+   $collection = (new MongoDB\Client)->test->restaurants;
 
    $cursor = $collection->find(
        [
@@ -235,7 +237,7 @@ The output would then resemble::
      ["storage":"ArrayObject":private]=>
      array(4) {
        ["_id"]=>
-       object(MongoDB\BSON\ObjectID)#8 (1) {
+       object(MongoDB\BSON\ObjectId)#8 (1) {
          ["oid"]=>
          string(24) "576023c6b02fa9281da3f983"
        }
@@ -251,7 +253,7 @@ The output would then resemble::
      ["storage":"ArrayObject":private]=>
      array(4) {
        ["_id"]=>
-       object(MongoDB\BSON\ObjectID)#12 (1) {
+       object(MongoDB\BSON\ObjectId)#12 (1) {
          ["oid"]=>
          string(24) "576023c6b02fa9281da3f98d"
        }
@@ -267,7 +269,7 @@ The output would then resemble::
      ["storage":"ArrayObject":private]=>
      array(4) {
        ["_id"]=>
-       object(MongoDB\BSON\ObjectID)#10 (1) {
+       object(MongoDB\BSON\ObjectId)#10 (1) {
          ["oid"]=>
          string(24) "576023c6b02fa9281da3f99b"
        }
@@ -283,7 +285,7 @@ The output would then resemble::
      ["storage":"ArrayObject":private]=>
      array(4) {
        ["_id"]=>
-       object(MongoDB\BSON\ObjectID)#13 (1) {
+       object(MongoDB\BSON\ObjectId)#13 (1) {
          ["oid"]=>
          string(24) "576023c6b02fa9281da3f9a8"
        }
@@ -309,7 +311,7 @@ five most populous zip codes in the United States:
 
    <?php
 
-   $collection = (new MongoDB\Client)->demo->zips;
+   $collection = (new MongoDB\Client)->test->zips;
 
    $cursor = $collection->find(
        [],
@@ -345,7 +347,7 @@ name starts with "garden" and the state is Texas:
 
    <?php
 
-   $collection = (new MongoDB\Client)->demo->zips;
+   $collection = (new MongoDB\Client)->test->zips;
 
    $cursor = $collection->find([
        'city' => new MongoDB\BSON\Regex('^garden', 'i'),
@@ -373,6 +375,23 @@ An equivalent filter could be constructed using the :query:`$regex` operator:
 
 .. seealso:: :manual:`$regex </reference/operator/query/regex>` in the MongoDB manual
 
+Although MongoDB's regular expression syntax is not exactly the same as PHP's
+:php:`PCRE <manual/en/book.pcre.php>` syntax, :php:`preg_quote() <preg_quote>`
+may be used to escape special characters that should be matched as-is. The
+following example finds restaurants whose name starts with "(Library)":
+
+.. code-block:: php
+
+   <?php
+
+   $collection = (new MongoDB\Client)->test->restaurants;
+
+   $cursor = $collection->find([
+       'name' => new MongoDB\BSON\Regex('^' . preg_quote('(Library)')),
+   ]);
+
+.. _php-aggregation:
+
 Complex Queries with Aggregation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -391,7 +410,7 @@ with them:
 
    <?php
 
-   $collection = (new MongoDB\Client)->demo->zips;
+   $collection = (new MongoDB\Client)->test->zips;
 
    $cursor = $collection->aggregate([
        ['$group' => ['_id' => '$state', 'count' => ['$sum' => 1]]],
@@ -430,7 +449,7 @@ updates to perform. The :phpmethod:`MongoDB\\Collection::updateOne()` reference
 describes each parameter in detail.
 
 The following example inserts two documents into an empty ``users`` collection
-in the ``demo`` database using the :phpmethod:`MongoDB\\Collection::insertOne()`
+in the ``test`` database using the :phpmethod:`MongoDB\\Collection::insertOne()`
 method, and then updates the documents where the value for the ``state`` field
 is ``"ny"`` to include a ``country`` field set to ``"us"``:
 
@@ -438,7 +457,7 @@ is ``"ny"`` to include a ``country`` field set to ``"us"``:
 
    <?php
 
-   $collection = (new MongoDB\Client)->demo->users;
+   $collection = (new MongoDB\Client)->test->users;
    $collection->drop();
 
    $collection->insertOne(['name' => 'Bob', 'state' => 'ny']);
@@ -466,7 +485,7 @@ value, as in this example:
 
    <?php
 
-   $collection = (new MongoDB\Client)->demo->users;
+   $collection = (new MongoDB\Client)->test->users;
    $collection->drop();
 
    $collection->insertOne(['name' => 'Bob', 'state' => 'ny']);
@@ -502,7 +521,7 @@ updates to perform. The :phpmethod:`MongoDB\\Collection::updateMany()` reference
 describes each parameter in detail.
 
 The following example inserts three documents into an empty ``users`` collection
-in the ``demo`` database and then uses the :query:`$set` operator to update the
+in the ``test`` database and then uses the :query:`$set` operator to update the
 documents matching the filter criteria to include the ``country`` field with
 value ``"us"``:
 
@@ -510,7 +529,7 @@ value ``"us"``:
 
    <?php
 
-   $collection = (new MongoDB\Client)->demo->users;
+   $collection = (new MongoDB\Client)->test->users;
    $collection->drop();
 
    $collection->insertOne(['name' => 'Bob', 'state' => 'ny', 'country' => 'us']);
@@ -563,13 +582,13 @@ parameter in detail.
    fields in a document rather than replacing the entire document.
 
 The following example inserts one document into an empty ``users`` collection in
-the ``demo`` database, and then replaces that document with a new one:
+the ``test`` database, and then replaces that document with a new one:
 
 .. code-block:: php
 
    <?php
 
-   $collection = (new MongoDB\Client)->demo->users;
+   $collection = (new MongoDB\Client)->test->users;
    $collection->drop();
 
    $collection->insertOne(['name' => 'Bob', 'state' => 'ny']);
@@ -605,13 +624,13 @@ When a document is upserted, the ID is accessible via
 
 The following example uses :phpmethod:`MongoDB\\Collection::updateOne()` with
 the ``upsert`` option set to ``true`` and an empty ``users`` collection in the
-``demo`` database, therefore inserting the document into the database:
+``test`` database, therefore inserting the document into the database:
 
 .. code-block:: php
 
    <?php
 
-   $collection = (new MongoDB\Client)->demo->users;
+   $collection = (new MongoDB\Client)->test->users;
    $collection->drop();
 
    $updateResult = $collection->updateOne(
@@ -639,7 +658,7 @@ The output would then resemble::
      ["storage":"ArrayObject":private]=>
      array(3) {
        ["_id"]=>
-       object(MongoDB\BSON\ObjectID)#15 (1) {
+       object(MongoDB\BSON\ObjectId)#15 (1) {
          ["oid"]=>
          string(24) "57509c4406d7241dad86e7c3"
        }
@@ -677,7 +696,7 @@ value is ``"ny"``:
 
    <?php
 
-   $collection = (new MongoDB\Client)->demo->users;
+   $collection = (new MongoDB\Client)->test->users;
    $collection->drop();
 
    $collection->insertOne(['name' => 'Bob', 'state' => 'ny']);
@@ -711,7 +730,7 @@ value is ``"ny"``:
 
    <?php
 
-   $collection = (new MongoDB\Client)->demo->users;
+   $collection = (new MongoDB\Client)->test->users;
    $collection->drop();
 
    $collection->insertOne(['name' => 'Bob', 'state' => 'ny']);

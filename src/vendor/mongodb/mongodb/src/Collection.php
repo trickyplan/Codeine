@@ -17,6 +17,7 @@
 
 namespace MongoDB;
 
+use MongoDB\BSON\JavascriptInterface;
 use MongoDB\Driver\Cursor;
 use MongoDB\Driver\Manager;
 use MongoDB\Driver\ReadConcern;
@@ -44,6 +45,7 @@ use MongoDB\Operation\FindOneAndUpdate;
 use MongoDB\Operation\InsertMany;
 use MongoDB\Operation\InsertOne;
 use MongoDB\Operation\ListIndexes;
+use MongoDB\Operation\MapReduce;
 use MongoDB\Operation\ReplaceOne;
 use MongoDB\Operation\UpdateMany;
 use MongoDB\Operation\UpdateOne;
@@ -706,6 +708,48 @@ class Collection
     }
 
     /**
+     * Return the read concern for this collection.
+     *
+     * @see http://php.net/manual/en/mongodb-driver-readconcern.isdefault.php
+     * @return ReadConcern
+     */
+    public function getReadConcern()
+    {
+        return $this->readConcern;
+    }
+
+    /**
+     * Return the read preference for this collection.
+     *
+     * @return ReadPreference
+     */
+    public function getReadPreference()
+    {
+        return $this->readPreference;
+    }
+
+    /**
+     * Return the type map for this collection.
+     *
+     * @return array
+     */
+    public function getTypeMap()
+    {
+        return $this->typeMap;
+    }
+
+    /**
+     * Return the write concern for this collection.
+     *
+     * @see http://php.net/manual/en/mongodb-driver-writeconcern.isdefault.php
+     * @return WriteConcern
+     */
+    public function getWriteConcern()
+    {
+        return $this->writeConcern;
+    }
+
+    /**
      * Inserts multiple documents.
      *
      * @see InsertMany::__construct() for supported options
@@ -763,6 +807,56 @@ class Collection
     {
         $operation = new ListIndexes($this->databaseName, $this->collectionName, $options);
         $server = $this->manager->selectServer(new ReadPreference(ReadPreference::RP_PRIMARY));
+
+        return $operation->execute($server);
+    }
+
+    /**
+     * Executes a map-reduce aggregation on the collection.
+     *
+     * @see MapReduce::__construct() for supported options
+     * @see http://docs.mongodb.org/manual/reference/command/mapReduce/
+     * @param JavascriptInterface $map            Map function
+     * @param JavascriptInterface $reduce         Reduce function
+     * @param string|array|object $out            Output specification
+     * @param array               $options        Command options
+     * @return MapReduceResult
+     * @throws UnsupportedException if options are not supported by the selected server
+     * @throws InvalidArgumentException for parameter/option parsing errors
+     * @throws DriverRuntimeException for other driver errors (e.g. connection errors)
+     * @throws UnexpectedValueException if the command response was malformed
+     */
+    public function mapReduce(JavascriptInterface $map, JavascriptInterface $reduce, $out, array $options = [])
+    {
+        $hasOutputCollection = ! $this->isOutInline($out);
+
+        if ( ! isset($options['readPreference'])) {
+            $options['readPreference'] = $this->readPreference;
+        }
+
+        // Check if the out option is inline because we will want to coerce a primary read preference if not
+        if ($hasOutputCollection) {
+            $options['readPreference'] = new ReadPreference(ReadPreference::RP_PRIMARY);
+        }
+
+        $server = $this->manager->selectServer($options['readPreference']);
+
+        /* A "majority" read concern is not compatible with inline output, so
+         * avoid providing the Collection's read concern if it would conflict.
+         */
+        if ( ! isset($options['readConcern']) && ! ($hasOutputCollection && $this->readConcern->getLevel() === ReadConcern::MAJORITY) && \MongoDB\server_supports_feature($server, self::$wireVersionForReadConcern)) {
+            $options['readConcern'] = $this->readConcern;
+        }
+
+        if ( ! isset($options['typeMap'])) {
+            $options['typeMap'] = $this->typeMap;
+        }
+
+        if (! isset($options['writeConcern']) && \MongoDB\server_supports_feature($server, self::$wireVersionForWritableCommandWriteConcern)) {
+            $options['writeConcern'] = $this->writeConcern;
+        }
+
+        $operation = new MapReduce($this->databaseName, $this->collectionName, $map, $reduce, $out, $options);
 
         return $operation->execute($server);
     }
@@ -860,5 +954,20 @@ class Collection
         ];
 
         return new Collection($this->manager, $this->databaseName, $this->collectionName, $options);
+    }
+
+    private function isOutInline($out)
+    {
+        if ( ! is_array($out) && ! is_object($out)) {
+            return false;
+        }
+
+        $out = (array) $out;
+
+        if (key($out) === 'inline') {
+            return true;
+        }
+
+        return false;
     }
 }

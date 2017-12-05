@@ -54,8 +54,11 @@ class FindAndModify implements Executable
      *    This is not supported for server versions < 3.4 and will result in an
      *    exception at execution time if used.
      *
-     *  * bypassDocumentValidation (boolean): If true, allows the write to opt
-     *    out of document level validation.
+     *  * bypassDocumentValidation (boolean): If true, allows the write to
+     *    circumvent document level validation.
+     *
+     *    For servers < 3.2, this option is ignored as document level validation
+     *    is not available.
      *
      *  * fields (document): Limits the fields to return for the matching
      *    document.
@@ -152,6 +155,10 @@ class FindAndModify implements Executable
 
         if ( ! (isset($options['update']) xor $options['remove'])) {
             throw new InvalidArgumentException('The "remove" option must be true or an "update" document must be specified, but not both');
+        }
+
+        if (isset($options['writeConcern']) && $options['writeConcern']->isDefault()) {
+            unset($options['writeConcern']);
         }
 
         $this->databaseName = (string) $databaseName;

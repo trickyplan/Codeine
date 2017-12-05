@@ -45,8 +45,11 @@ class InsertMany implements Executable
      *
      * Supported options:
      *
-     *  * bypassDocumentValidation (boolean): If true, allows the write to opt
-     *    out of document level validation.
+     *  * bypassDocumentValidation (boolean): If true, allows the write to
+     *    circumvent document level validation.
+     *
+     *    For servers < 3.2, this option is ignored as document level validation
+     *    is not available.
      *
      *  * ordered (boolean): If true, when an insert fails, return without
      *    performing the remaining writes. If false, when a write fails,
@@ -94,6 +97,10 @@ class InsertMany implements Executable
             throw InvalidArgumentException::invalidType('"writeConcern" option', $options['writeConcern'], 'MongoDB\Driver\WriteConcern');
         }
 
+        if (isset($options['writeConcern']) && $options['writeConcern']->isDefault()) {
+            unset($options['writeConcern']);
+        }
+
         $this->databaseName = (string) $databaseName;
         $this->collectionName = (string) $collectionName;
         $this->documents = $documents;
@@ -120,13 +127,7 @@ class InsertMany implements Executable
         $insertedIds = [];
 
         foreach ($this->documents as $i => $document) {
-            $insertedId = $bulk->insert($document);
-
-            if ($insertedId !== null) {
-                $insertedIds[$i] = $insertedId;
-            } else {
-                $insertedIds[$i] = \MongoDB\extract_id_from_inserted_document($document);
-            }
+            $insertedIds[$i] = $bulk->insert($document);
         }
 
         $writeConcern = isset($this->options['writeConcern']) ? $this->options['writeConcern'] : null;

@@ -22,7 +22,6 @@ use MongoDB\BSON\ObjectId;
 use MongoDB\BSON\UTCDateTime;
 use MongoDB\Driver\Exception\RuntimeException as DriverRuntimeException;
 use MongoDB\Exception\InvalidArgumentException;
-use MongoDB\Exception\RuntimeException;
 
 /**
  * WritableStream abstracts the process of writing a GridFS file.
@@ -159,6 +158,21 @@ class WritableStream
     public function getSize()
     {
         return $this->length + strlen($this->buffer);
+    }
+
+    /**
+     * Return the current position of the stream.
+     *
+     * This is the offset within the stream where the next byte would be
+     * written. Since seeking is not supported and writes are appended, this is
+     * always the end of the stream.
+     *
+     * @see WriteableStream::getSize()
+     * @return integer
+     */
+    public function tell()
+    {
+        return $this->getSize();
     }
 
     /**
