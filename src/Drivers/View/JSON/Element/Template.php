@@ -15,8 +15,11 @@
          if (isset($Call['Data']))
          {
              foreach ($Call['Nodes'] as $Key => $Node)
-                 if (isset($Node['Visible']['JSON']) && $Node['Visible']['JSON'])
-                     $Data = F::Dot($Data, $Key, F::Dot($Call['Data'], $Key));
+             {
+                 $Value = F::Dot($Call['Data'], $Key);
+                 if (isset($Node['Visible']['JSON']) && $Node['Visible']['JSON'] && $Value !== null)
+                     $Data = F::Dot($Data, $Key, $Value);
+             }
 
              if (isset($Call['Dot']) and $Call['Dot'] !== null)
                  $Data = F::Dot($Data, $Call['Dot']);

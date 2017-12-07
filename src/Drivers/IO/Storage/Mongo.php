@@ -123,7 +123,8 @@
                 {
                     if (isset($Call['Where']))
                     {
-                        $Explain = $Call['Link']->command(
+                        F::Log(function () use ($Call) {
+                            $Explain = $Call['Link']->command(
                             [
                                 'explain'   =>
                                     [
@@ -132,9 +133,10 @@
                                     ],
                                 'verbosity' => 'queryPlanner'
                             ]
-                        );
-                        $Explain = $Explain->toArray();
-                        F::Log('Mongo explained: '.j($Explain), LOG_INFO, 'Administrator');
+                            );
+                            $Explain = $Explain->toArray();
+                            return 'Mongo explained: '.j($Explain);
+                    }, LOG_INFO, 'Administrator');
                     }
                 }
                 

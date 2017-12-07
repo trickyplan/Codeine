@@ -16,13 +16,11 @@
                 F::Log('Processing nodes for *'.$Call['Entity'].':'.$Call['Data']['ID'].'*', LOG_DEBUG);
 
             $Call['Nodes'] = F::Sort($Call['Nodes'], 'Weight', SORT_ASC);
+            
             foreach ($Call['Nodes'] as $Name => $Node)
             {
                 // Если частичная загрузка, то нужно проверить, нужен ли нам этот хук.
                 if (isset($Call['Live Fields']) && !in_array($Name, $Call['Live Fields']))
-                    continue;
-
-                if (isset($Call['Fields']) && !in_array($Name, $Call['Fields']))
                     continue;
 
                 // Если у ноды определён нужный хук

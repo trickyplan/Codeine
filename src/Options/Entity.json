@@ -172,6 +172,11 @@
         },
         "afterEntityRead":
         {
+            "Select fields":
+            {
+                "Service":"Entity.Hooks.Fields",
+                "Method": "Process"
+            },
             "Default values":
             {
                 "Service":"Entity.Hooks.Default",
@@ -186,11 +191,6 @@
             {
                 "Service":"Entity.Hooks.LiveNodes",
                 "Method": "Process"
-            },
-            "-GEC":
-            {
-                "Service":"Entity.Hooks.GEC",
-                "Method":"afterEntityRead"
             }
         },
         "afterEntityWrite":

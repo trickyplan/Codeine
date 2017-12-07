@@ -17,10 +17,16 @@
 
         $Call = F::Apply( 'Search', 'Query', $Call);
         
+        if (isset($Call['Search']['Provider']['Available'][$Call['Entity']]['Nodes']))
+            $Fields = $Call['Search']['Provider']['Available'][$Call['Entity']]['Nodes'];
+        else
+            $Fields = ['ID', 'Title'];
+        
         $Call['Elements'] = F::Run('Entity', 'Read', $Call,
             [
                 'Limit!'  => null,
-                'Where!' =>
+                'Fields'  => $Fields,
+                'Where!'  =>
                 [
                     'ID' =>
                     [
