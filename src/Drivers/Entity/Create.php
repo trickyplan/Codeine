@@ -13,9 +13,12 @@
 
         if (isset($Call['Data']))
             $Call['Data'] = F::Live($Call['Data'], $Call);
-
-        $Call = F::Apply(null, $Call['HTTP']['Method'], $Call);
-
+        
+        if (F::Dot($Call, 'Create.Blind'))
+            $Call = F::Apply(null, 'POST', $Call);
+        else
+            $Call = F::Apply(null, $Call['HTTP']['Method'], $Call);
+        
         return $Call;
     });
 
