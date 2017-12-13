@@ -21,7 +21,8 @@
         {
             foreach ($Pockets[1] as $IX => $Key)
             {
-                $Opts = F::Dot($Opts, strtr($Key, '_', ' '), $Pockets[2][$IX]);
+                $Key = strtr($Key, '_', ' ');
+                $Opts = F::Dot($Opts, $Key, $Pockets[2][$IX]);
                 ;//F::Log('Get Opt Style CLI parameter loaded from *'.$Key.'* = *'.$Pockets[2][$IX].'*', LOG_INFO);
             }
         }
