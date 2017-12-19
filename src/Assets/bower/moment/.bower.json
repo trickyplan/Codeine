@@ -24,12 +24,12 @@
     "min/tests.js"
   ],
   "homepage": "https://github.com/moment/moment",
-  "version": "2.19.4",
-  "_release": "2.19.4",
+  "version": "2.20.1",
+  "_release": "2.20.1",
   "_resolution": {
     "type": "version",
-    "tag": "2.19.4",
-    "commit": "8dfe335e2c7881a08bf1d22ffa112e938dc349bc"
+    "tag": "2.20.1",
+    "commit": "1bef83c699e577b29d5c775647cef3f43309a8f9"
   },
   "_source": "https://github.com/moment/moment.git",
   "_target": ">=2.10.5",
