@@ -1,5 +1,9 @@
 {
-    "Mixins": ["Mixins.Channel"],
+    "Mixins":
+    [
+        "Mixins.Channel",
+        "Session.Mixins.UTM"
+    ],
     "Storage": "Primary",
     "EPP": 50,
     "Nodes":

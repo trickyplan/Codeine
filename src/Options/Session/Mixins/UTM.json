@@ -1,0 +1,127 @@
+{
+    "Nodes":
+    {
+        "UTM.First": {},
+        "UTM.First.Source":
+        {
+            "Type": "Literal.String",
+            "Hooks":
+            {
+                "beforeEntityCreate":
+                {
+                    "Service": "Session.Hooks.UTM",
+                    "Method": "Get Source"
+                }
+            }
+        },
+        "UTM.First.Medium":
+        {
+            "Type": "Literal.String",
+            "Hooks":
+            {
+                "beforeEntityCreate":
+                {
+                    "Service": "Session.Hooks.UTM",
+                    "Method": "Get Medium"
+                }
+            }
+        },
+        "UTM.First.Campaign":
+        {
+            "Type": "Literal.String",
+            "Hooks":
+            {
+                "beforeEntityCreate":
+                {
+                    "Service": "Session.Hooks.UTM",
+                    "Method": "Get Campaign"
+                }
+            }
+        },
+        "UTM.First.Term":
+        {
+            "Type": "Literal.String",
+            "Hooks":
+            {
+                "beforeEntityCreate":
+                {
+                    "Service": "Session.Hooks.UTM",
+                    "Method": "Get Term"
+                }
+            }
+        },
+        "UTM.First.Content":
+        {
+            "Type": "Literal.String",
+            "Hooks":
+            {
+                "beforeEntityCreate":
+                {
+                    "Service": "Session.Hooks.UTM",
+                    "Method": "Get Content"
+                }
+            }
+        },
+        "UTM.Last": {},
+        "UTM.Last.Source":
+        {
+            "Type": "Literal.String",
+            "Hooks":
+            {
+                "beforeEntityWrite":
+                {
+                    "Service": "Session.Hooks.UTM",
+                    "Method": "Get Source"
+                }
+            }
+        },
+        "UTM.Last.Medium":
+        {
+            "Type": "Literal.String",
+            "Hooks":
+            {
+                "beforeEntityWrite":
+                {
+                    "Service": "Session.Hooks.UTM",
+                    "Method": "Get Medium"
+                }
+            }
+        },
+        "UTM.Last.Campaign":
+        {
+            "Type": "Literal.String",
+            "Hooks":
+            {
+                "beforeEntityWrite":
+                {
+                    "Service": "Session.Hooks.UTM",
+                    "Method": "Get Campaign"
+                }
+            }
+        },
+        "UTM.Last.Term":
+        {
+            "Type": "Literal.String",
+            "Hooks":
+            {
+                "beforeEntityWrite":
+                {
+                    "Service": "Session.Hooks.UTM",
+                    "Method": "Get Term"
+                }
+            }
+        },
+        "UTM.Last.Content":
+        {
+            "Type": "Literal.String",
+            "Hooks":
+            {
+                "beforeEntityWrite":
+                {
+                    "Service": "Session.Hooks.UTM",
+                    "Method": "Get Content"
+                }
+            }
+        }
+    }
+}

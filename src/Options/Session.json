@@ -17,6 +17,11 @@
             {
                 "Service": "Session.Hooks.API",
                 "Method": "afterSessionInitialize"
+            },
+            "Check UTM":
+            {
+                "Service": "Session.Hooks.UTM",
+                "Method": "afterSessionInitialize"
             }
         },
         "ActivationNeeded":

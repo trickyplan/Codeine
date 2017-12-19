@@ -53,7 +53,7 @@
         $Call['SUID'] = isset($Call['Session']['User']['ID'])? 'U:'.$Call['Session']['User']['ID']: 'S:'. $Call['SID'];
 
         if (isset($Call['Session']))
-            F::Log(function() use ($Call) {return $Call['Session'];}, LOG_DEBUG, 'Security');
+            F::Log(function() use ($Call) {return $Call['Session'];}, LOG_INFO, 'Security');
         else
             $Call['Session'] = [];
 
@@ -116,13 +116,13 @@
         if (empty($Call['Session']))
         {
             $Call['Session Data']['ID'] = $Call['SID'];
-            $Call['Session'] = F::Run('Entity', 'Create',
+            $Call['Session'] = F::Run('Entity', 'Create', $Call,
                 [
                     'Entity' => 'Session',
                     'One' => true,
                     'Data' => $Call['Session Data']
                 ]);
-
+            
             F::Log('Session created '.$Call['SID'], LOG_INFO, 'Security');
             F::Log('Session data '.j($Call['Session Data']), LOG_INFO, 'Security');
         }
@@ -130,7 +130,7 @@
         {
             $Call['Session Data']['ID'] = $Call['SID'];
             
-            $Call['Session'] = F::Run('Entity', 'Update',
+            $Call['Session'] = F::Run('Entity', 'Update', $Call,
                 [
                     'Entity' => 'Session',
                     'Data' => $Call['Session Data'],
@@ -138,7 +138,7 @@
                     'Time' => microtime(true),
                     'One' => true
                 ]);
-            
+
             F::Log('Session updated '.$Call['SID'], LOG_INFO, 'Security');
         }
 
@@ -191,9 +191,9 @@
         $Call = F::Apply('Session.Marker.Cookie', 'Write', $Call);
         
         if (isset($Call['Session']['Marker']) && $Call['Session']['Marker'])
-            F::Log('Session Marker created', LOG_INFO, 'Security');
+            F::Log('Session: Marker created', LOG_INFO, 'Security');
         else
-            F::Log('Session Marker failed to create', LOG_WARNING, 'Security');
+            F::Log('Session: Marker failed to create', LOG_WARNING, 'Security');
 
         return $Call;
     });
