@@ -136,7 +136,7 @@
                             );
                             $Explain = $Explain->toArray();
                             return 'Mongo explained: '.j($Explain);
-                    }, LOG_INFO, 'Administrator');
+                    }, LOG_INFO+0.5, 'Administrator');
                     }
                 }
                 
