@@ -53,7 +53,7 @@
         $Call['SUID'] = isset($Call['Session']['User']['ID'])? 'U:'.$Call['Session']['User']['ID']: 'S:'. $Call['SID'];
 
         if (isset($Call['Session']))
-            F::Log(function() use ($Call) {return $Call['Session'];}, LOG_INFO, 'Security');
+            ;// F::Log(function() use ($Call) {return $Call['Session'];}, LOG_INFO, 'Security');
         else
             $Call['Session'] = [];
 
