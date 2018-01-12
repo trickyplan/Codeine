@@ -1,0 +1,112 @@
+{
+    "Rules":
+    {
+        "List wiki for All":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Entity.List",
+                "Method": "Do",
+                "Call":
+                {
+                    "Entity": "Wiki"
+                }
+            }
+        },
+        "Show wiki for all":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Entity.Show.Static",
+                "Method": "Do",
+                "Call":
+                {
+                    "Entity": "Wiki"
+                }
+            }
+        },
+        "Create wiki for logged": {
+            "Decision": true,
+            "Weight":   50,
+            "Run":      {
+                "Service": "Entity.Create",
+                "Method":  "Do",
+                "Call":    {
+                    "Entity": "Wiki"
+                },
+                "Session": {
+                    "User": {
+                        "ID": "*"
+                    }
+                }
+            }
+        },
+        "Update wiki for logged":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Entity.Update",
+                "Method": "Do",
+                "Call":
+                {
+                    "Entity": "Wiki"
+                },
+                "Session":
+                {
+                    "User":
+                    {
+                        "ID": "*"
+                    }
+                }
+            }
+        },
+        "Delete wiki for logged":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Entity.Delete",
+                "Method": "Do",
+                "Call":
+                {
+                    "Entity": "Wiki"
+                },
+                "Session":
+                {
+                    "User":
+                    {
+                        "ID": "*"
+                    }
+                }
+            }
+        },
+        "Search wiki for logged":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Search",
+                "Method": "Query",
+                "Call":
+                {
+                    "Provider": "Wiki"
+                },
+                "Session":
+                {
+                    "User":
+                    {
+                        "ID": "*"
+                    }
+                }
+            }
+        }
+    }
+}

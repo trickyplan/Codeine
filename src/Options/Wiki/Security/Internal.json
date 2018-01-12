@@ -1,0 +1,132 @@
+{
+    "Rules":
+    {
+        "List wiki for staff":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Entity.List",
+                "Method": "Do",
+                "Call":
+                {
+                    "Entity": "Wiki"
+                },
+                "Session":
+                {
+                    "User":
+                    {
+                        "ID": "*",
+                        "Rights.Wiki": true
+                    }
+                }
+            }
+        },
+        "Show wiki for staff":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Entity.Show.Static",
+                "Method": "Do",
+                "Call":
+                {
+                    "Entity": "Wiki"
+                },
+                "Session":
+                {
+                    "User":
+                    {
+                        "ID": "*",
+                        "Rights.Wiki": true
+                    }
+                }
+            }
+        },
+        "Create wiki for staff": {
+            "Decision": true,
+            "Weight":   50,
+            "Run":      {
+                "Service": "Entity.Create",
+                "Method":  "Do",
+                "Call":    {
+                    "Entity": "Wiki"
+                },
+                "Session": {
+                    "User": {
+                        "ID": "*",
+                        "Rights.Wiki": true
+                    }
+                }
+            }
+        },
+        "Update wiki for staff":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Entity.Update",
+                "Method": "Do",
+                "Call":
+                {
+                    "Entity": "Wiki"
+                },
+                "Session":
+                {
+                    "User":
+                    {
+                        "ID": "*",
+                        "Rights.Wiki": true
+                    }
+                }
+            }
+        },
+        "Delete wiki for staff":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Entity.Delete",
+                "Method": "Do",
+                "Call":
+                {
+                    "Entity": "Wiki"
+                },
+                "Session":
+                {
+                    "User":
+                    {
+                        "ID": "*",
+                        "Rights.Wiki": true
+                    }
+                }
+            }
+        },
+        "Search wiki for staff":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Search",
+                "Method": "Query",
+                "Call":
+                {
+                    "Provider": "Wiki"
+                },
+                "Session":
+                {
+                    "User":
+                    {
+                        "ID": "*",
+                        "Rights.Wiki": true
+                    }
+                }
+            }
+        }
+    }
+}
