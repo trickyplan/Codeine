@@ -1,6 +1,6 @@
 {
   "name": "trumbowyg",
-  "version": "2.9.2",
+  "version": "2.9.4",
   "homepage": "https://github.com/Alex-D/Trumbowyg",
   "authors": [
     {
@@ -28,6 +28,7 @@
     "tests",
     "src",
     "docs",
+    "sponsors",
     "banner.jpg",
     "gulpfile.js",
     "package.json"
@@ -35,11 +36,11 @@
   "dependencies": {
     "jquery": ">=1.8"
   },
-  "_release": "2.9.2",
+  "_release": "2.9.4",
   "_resolution": {
     "type": "version",
-    "tag": "v2.9.2",
-    "commit": "effcc0f508ffd83370afa45b343199d033068e24"
+    "tag": "v2.9.4",
+    "commit": "52b3abc10b35e5559c5b50ae24d1ab8fb0b24a1a"
   },
   "_source": "https://github.com/Alex-D/Trumbowyg.git",
   "_target": "^2.5.1",

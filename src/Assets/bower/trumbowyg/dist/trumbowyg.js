@@ -1,5 +1,5 @@
 /**
- * Trumbowyg v2.9.2 - A lightweight WYSIWYG editor
+ * Trumbowyg v2.9.4 - A lightweight WYSIWYG editor
  * Trumbowyg core file
  * ------------------------
  * @link http://alex-d.github.io/Trumbowyg
@@ -551,7 +551,7 @@ Object.defineProperty(jQuery.trumbowyg, 'defaultOptions', {
             var ctrl = false,
                 composition = false,
                 debounceButtonPaneStatus,
-                updateEventName = t.isIE ? 'keyup' : 'input';
+                updateEventName = 'keyup';
 
             t.$ed
                 .on('dblclick', 'img', t.o.imgDblClickHandler)
@@ -586,7 +586,8 @@ Object.defineProperty(jQuery.trumbowyg, 'defaultOptions', {
                     if ((e.ctrlKey || e.metaKey) && (keyCode === 89 || keyCode === 90)) {
                         t.$c.trigger('tbwchange');
                     } else if (!ctrl && keyCode !== 17) {
-                        t.semanticCode(false, e.type === 'compositionend' && keyCode === 13);
+                        var compositionend_ie = t.isIE ? e.type === 'compositionend' : true;
+                        t.semanticCode(false, compositionend_ie && keyCode === 13);
                         t.$c.trigger('tbwchange');
                     } else if (typeof e.which === 'undefined') {
                         t.semanticCode(false, false, true);
@@ -594,13 +595,13 @@ Object.defineProperty(jQuery.trumbowyg, 'defaultOptions', {
 
                     setTimeout(function () {
                         ctrl = false;
-                    }, 200);
+                    }, 50);
                 })
                 .on('mouseup keydown keyup', function (e) {
                     if ((!e.ctrlKey && !e.metaKey) || e.altKey) {
-                        setTimeout(function () { // "hold on" to the ctrl key for 200ms
+                        setTimeout(function () { // "hold on" to the ctrl key for 50ms
                             ctrl = false;
-                        }, 200);
+                        }, 50);
                     }
                     clearTimeout(debounceButtonPaneStatus);
                     debounceButtonPaneStatus = setTimeout(function () {
@@ -1032,8 +1033,8 @@ Object.defineProperty(jQuery.trumbowyg, 'defaultOptions', {
 
                 $('body', d).on('mousedown.' + t.eventNamespace, function (e) {
                     if (!$dropdown.is(e.target)) {
-                        $('.' + prefix + 'dropdown', d).hide();
-                        $('.' + prefix + 'active', d).removeClass(prefix + 'active');
+                        $('.' + prefix + 'dropdown', t.$box).hide();
+                        $('.' + prefix + 'active', t.$btnPane).removeClass(prefix + 'active');
                         $('body', d).off('mousedown.' + t.eventNamespace);
                     }
                 });
@@ -1568,7 +1569,7 @@ Object.defineProperty(jQuery.trumbowyg, 'defaultOptions', {
                 t.openModalInsert(t.lang.insertImage, options, function (v) {
                     if (v.src !== base64) {
                         $img.attr({
-                            src: v.src
+                            src: v.url
                         });
                     }
                     $img.attr({
