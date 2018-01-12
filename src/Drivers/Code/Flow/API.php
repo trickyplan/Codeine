@@ -16,7 +16,9 @@
         $Call['API']['Response'] = ['Locale' => $Call['Locale']];
         // В этом месте, практически всегда, происходит роутинг.
         $Call = F::Hook('beforeAPIRun', $Call);
-            
+        
+        if (isset($Call['API']['Request']['Service']))
+        {
             $Call = F::loadOptions($Call['API']['Request']['Service'], 'API', $Call);
         
             F::startColor('aed581');
@@ -63,7 +65,13 @@
             F::stopColor();
             
             $Call = F::Merge($Call, $Call['API']['Formats'][$Call['API']['Request']['Format']]);
-            
+        }
+        else
+        {
+            $Call['API']['Response']['Error'] = 'Service isn\'t specified'; // TODO Show registered services
+            F::Log($Call['API']['Response']['Error'], LOG_WARNING);
+        }
+        
         $Call['API']['Response']['Generated'] = microtime(true);
         $Call['API']['Response']['Time'] = $Call['API']['Response']['Generated'] - $Request['Started'];
         $Call['Output']['Content']['Response'] = $Call['API']['Response'];

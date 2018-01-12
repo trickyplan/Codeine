@@ -42,20 +42,19 @@
                         if (isset($Call['Case']['Run']))
                         {
                             $Call['Case']['Result']['Actual'] = F::Live($Call['Case']['Run'], $VirtualCall);
+                            
                             if (isset($Call['Case']['Store Result']))
                                 $VirtualCall[$Call['Case']['Store Result']] = $Call['Case']['Result']['Actual'];
-                            if (isset($Call['Case']['Output']['Content']))
-                                $Call['Case']['Result']['Actual'] = print_r($Call['Return']['Output']['Content'], true);
-        
+                            
+                            if (isset($Call['Case']['Result Key']))
+                                $Call['Case']['Result']['Actual'] = F::Dot($Call['Case']['Result']['Actual'], $Call['Case']['Result Key']);
+                            
                             foreach ($Call['Case']['Assert'] as $Assert => $Call['Checker'])
                             {
                                 $TestTime = microtime(true); // FIXME
                                 $Call['Decision'] = F::Run('Test.Assert.'.$Assert, 'Do', $Call);
                                 $TestTime = microtime(true)-$TestTime;
                             }
-                            
-                            if (isset($Call['Case']['Result Key']))
-                                $Call['Case']['Result']['Actual'] = F::Dot($Call['Case']['Result']['Actual'], $Call['Case']['Result Key']);
                             
                             $Call['Test']['Report'][$Call['Test']['Name'].$SuiteName.$CaseName] = [
                                 $Call['Test']['Name'],
