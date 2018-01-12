@@ -60,8 +60,15 @@
 
             foreach ($Call['Output'] as $Place => $Widgets)
                 if (is_array($Widgets))
+                {
+                    $WidgetOutput = [];
+                    foreach ($Widgets as $cWidget)
+                        if (is_scalar($cWidget))
+                            $WidgetOutput[] = $cWidget;
+                    
                     $Call['Layout'] = str_replace('<place>' . $Place . '</place>',
-                        implode(PHP_EOL, $Widgets), $Call['Layout']);
+                        implode(PHP_EOL, $WidgetOutput), $Call['Layout']);
+                }
         }
 
         $Call['Output'] = $Call['Layout'];
