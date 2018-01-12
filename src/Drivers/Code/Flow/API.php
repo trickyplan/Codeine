@@ -65,13 +65,7 @@
             F::stopColor();
             
             $Call = F::Merge($Call, $Call['API']['Formats'][$Call['API']['Request']['Format']]);
-        }
-        else
-        {
-            $Call['API']['Response']['Error'] = 'Service isn\'t specified';
-            F::Log($Call['API']['Response']['Error'], LOG_WARNING);
-        }
-        
+            
         $Call['API']['Response']['Generated'] = microtime(true);
         $Call['API']['Response']['Time'] = $Call['API']['Response']['Generated'] - $Request['Started'];
         $Call['Output']['Content']['Response'] = $Call['API']['Response'];
