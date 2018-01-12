@@ -25,7 +25,6 @@
         $Call['Elements'] = F::Run('Entity', 'Read', $Call,
             [
                 'Limit!'  => null,
-                'Fields'  => $Fields,
                 'Where!'  =>
                 [
                     'ID' =>
@@ -104,7 +103,7 @@
                                 'ID' => 'Show/'
                                     .$Call['Template'],
                                 // FIXME Strategy of selecting templates
-                                'Data'  => F::Merge($Element, $Element)
+                                'Data'  => $Element
                             ];
                     }
                 }
