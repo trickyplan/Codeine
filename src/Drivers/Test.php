@@ -60,7 +60,7 @@
                                 $Call['Test']['Name'],
                                 $SuiteName,
                                 $CaseName,
-                                '<pre>'.j($Call['Case']['Result']['Actual']).'</pre>',
+                                '<pre><code class="json hljs">'.j($Call['Case']['Result']['Actual']).'</code></pre>',
                                 round($TestTime, 5)*1000,
                                 '_Class' => $Call['Decision']? 'success' : 'danger'
                             ];
