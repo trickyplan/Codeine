@@ -1,7 +1,7 @@
 {
     "User":
     {
-        "Reset":
+        "Compromised":
         {
             "Generator":
             {
@@ -9,10 +9,9 @@
                 "Method": "Get",
                 "Call":
                 {
-                    "Length": 8
+                    "Length": 12
                 }
-            },
-            "Send To": "EMail"
+            }
         }
     }
 }

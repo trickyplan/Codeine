@@ -26,40 +26,51 @@
 
     setFn('Authenticate', function ($Call)
     {
-        $Call['User'] = F::Run('Entity', 'Read',
-                     [
-                          'Entity' => 'User',
-                          'Where' =>
-                          [
-                              $Call['Determinant'] => $Call['Request'][$Call['Determinant']]
-                          ],
-                          'One' => true
-                     ]);
-
-        $Challenge = F::Run('Security.Hash', 'Get', $Call,
-                                     [
-                                          'Mode' => 'Password',
-                                          'Value' => $Call['Request']['Password'],
-                                          'Salt' => isset($Call['User']['Salt'])? $Call['User']['Salt']: ''
-                                     ]);
-
-        if ($Call['User']['Password'] != $Challenge)
+        if (isset($Call['Request'][$Call['Determinant']]))
         {
-            F::Log('Passwords don\'t match', LOG_INFO, 'Security');
-            F::Log('User password hash is '.$Call['User']['Password'], LOG_INFO, 'Security');
-            F::Log('Request password hash is '.$Challenge, LOG_INFO, 'Security');
-
-            $Call['Output']['Content'][]
-                = [
-                        'Type' => 'Template',
-                        'Scope' => 'User/Authenticate',
-                        'ID' => 'Incorrect'
-                  ];
-
-            unset($Call['User']);
+            if (isset($Call['Request']['Password']))
+            {
+                $Call['User'] =
+                    F::Run('Entity', 'Read',
+                        [
+                            'Entity' => 'User',
+                            'Where' =>
+                            [
+                                $Call['Determinant'] => $Call['Request'][$Call['Determinant']]
+                            ],
+                            'One' => true
+                        ]);
+                        
+                    $Challenge = F::Run('Security.Hash', 'Get', $Call,
+                         [
+                              'Mode' => 'Password',
+                              'Value' => $Call['Request']['Password'],
+                              'Salt' => isset($Call['User']['Salt'])? $Call['User']['Salt']: ''
+                         ]);
+                         
+                    if ($Call['User']['Password'] != $Challenge)
+                    {
+                        F::Log('Passwords don\'t match', LOG_INFO, 'Security');
+                        F::Log('User password hash is '.$Call['User']['Password'], LOG_INFO, 'Security');
+                        F::Log('Request password hash is '.$Challenge, LOG_INFO, 'Security');
+                        
+                        $Call['Output']['Content'][] =
+                            [
+                                'Type' => 'Template',
+                                'Scope' => 'User/Authenticate',
+                                'ID' => 'Incorrect'
+                            ];
+                            
+                        unset($Call['User']);
+                    }
+                    else
+                        F::Log('Passwords match', LOG_NOTICE, 'Security');
+            }
+            else
+                F::Log('Password isn\'t set', LOG_WARNING+0.5, 'Security');
         }
-        else
-            F::Log('Passwords match', LOG_NOTICE, 'Security');
+            else
+                F::Log('User isn\'t set', LOG_WARNING+0.5, 'Security');
 
         return $Call;
     });

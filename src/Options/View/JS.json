@@ -17,7 +17,7 @@
         },
         "Inline":
         {
-            "Prefix": "$(document).ready(function(){",
+            "Prefix": "document.addEventListener('DOMContentLoaded',function(){",
             "Postfix": "});"
         }
     },
