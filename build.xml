@@ -28,7 +28,7 @@
 <target name="phase1" depends="properties, folders"></target>
 
 <!-- Source code checks -->
-<target name="phase2" depends="phase1"></target>
+<target name="phase2" depends="phase1, bower-update"></target>
 
 <!-- Tests & docs -->
 <target name="phase3" depends="phase2"></target>
@@ -37,7 +37,7 @@
 <target name="phase4" depends="phase3"></target>
 
 <!-- Packaging -->
-<target name="phase5" depends="phase4, tarball.make, debian"></target>
+<target name="phase5" depends="phase4, debian"></target>
 
 
 <target name="final" depends="phase5"></target>

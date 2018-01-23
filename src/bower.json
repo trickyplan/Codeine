@@ -17,7 +17,7 @@
   ],
   "dependencies": {
     "eonasdan-bootstrap-datetimepicker": "^4.17.37",
-    "bootstrap": "^3.3.7",
+    "bootstrap": "=3.3.7",
     "font-awesome": "^4.7.0",
     "bootbox.js": "^4.4.0",
     "select2": "^4.0.3",
