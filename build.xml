@@ -2,15 +2,7 @@
 <project name="codeine-${branch}" default="final" basedir=".">
 
 <import file="build/initialize.xml"/>
-<import file="build/phplint.xml"/>
-<import file="build/phpcs.xml"/>
-<import file="build/phploc.xml"/>
-<import file="build/phpcpd.xml"/>
-<import file="build/pmd.xml"/>
-<import file="build/phpunit.xml"/>
-<import file="build/pdepend.xml"/>
-
-<import file="build/phpdoc.xml"/>
+<import file="build/bower.xml"/>
 
 <import file="build/debian.xml"/>
 <import file="build/tarball.xml"/>
