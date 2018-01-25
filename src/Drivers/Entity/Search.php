@@ -17,10 +17,10 @@
 
         $Call = F::Apply( 'Search', 'Query', $Call);
         
-        if (isset($Call['Search']['Provider']['Available'][$Call['Entity']]['Nodes']))
+/*        if (isset($Call['Search']['Provider']['Available'][$Call['Entity']]['Nodes']))
             $Fields = $Call['Search']['Provider']['Available'][$Call['Entity']]['Nodes'];
         else
-            $Fields = ['ID', 'Title'];
+            $Fields = ['ID', 'Title'];*/
         
         $Call['Elements'] = F::Run('Entity', 'Read', $Call,
             [
@@ -31,7 +31,8 @@
                     [
                         '$in' => array_keys($Call['Elements'])
                     ]
-                ]
+                ],
+                'Sort'  => F::Dot($Call['Search']['Provider']['Available'][$Call['Entity']], 'List.Sort')
             ]
         );
         
@@ -109,37 +110,6 @@
                 }
         }
         $Call = F::Hook('afterEntitySearch', $Call);
-
-        return $Call;
-    });
-
-    setFn('RAW', function ($Call) // FIXME
-    {
-        $Output = [];
-        $Call = F::Merge($Call, F::loadOptions($Call['Entity'].'.Entity')); // FIXME
-
-        $Call = F::Hook('beforeRAWList', $Call);
-
-        $Elements = F::Run('Entity', 'Read', $Call, ['Skip Enum Live' => true]);
-
-        if ($Elements !== null)
-            foreach ($Elements as $Element)
-                if (isset($Element[$Call['Primary']]))
-                    $Output[$Element[$Call['Primary']]] = F::Dot($Element, $Call['Key']);
-
-        return $Output;
-    });
-
-    setFn('RAW2', function ($Call) // FIXME
-    {
-        $Call = F::Merge($Call, F::loadOptions($Call['Entity'].'.Entity')); // FIXME
-
-        $Call = F::Hook('beforeRAWList', $Call);
-
-        $Elements = F::Run('Entity', 'Read', $Call);
-
-        foreach ($Elements as $Element)
-            $Call['Output']['Content'][] = [$Element['ID'], F::Dot($Element, $Call['Key'])];
 
         return $Call;
     });
