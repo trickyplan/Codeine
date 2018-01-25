@@ -17,7 +17,7 @@
             {
                 $NoRemote = true;
 
-                $LinkHost = parse_url($Link, PHP_URL_HOST);
+                $LinkHost = parse_url($Call['HTTP']['Proto'].$Link, PHP_URL_HOST);
 
                 if (in_array($Link, $Call['No Remote']['Excluded']))
                     $NoRemote = false;
