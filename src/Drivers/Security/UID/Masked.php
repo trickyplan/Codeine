@@ -11,33 +11,20 @@
 
     setFn('Get', function ($Call)
     {
-        $LowW = 'abcdefghijklmnopqrstuvxwyz';
-        $HighW = 'ABCDEFGHIJKLMNOPQRSTUVXYZ';
-
         $Output = '';
 
-        foreach ($Call['Mask'] as $IX => $Value)
-            if ($Value == '\\')
+        $Call['Mask'] = str_split($Call['Mask'], 1);
+        $SZ = count($Call['Mask']);
+        
+        for ($IX = 0; $IX < $SZ; $IX++)
+            if ($Call['Mask'][$IX] == '\\')
             {
-                switch($Call['Mask'][$IX+1])
-                {
-                    case 'd':
-                        $Output.= rand(0,9);
-                    break;
-
-                    case 'w':
-                        $Output.= $LowW[rand(0,26)];
-                    break;
-
-                    case 'W':
-                        $Output.= $HighW[rand(0,26)];
-                    break;
-                }
-
-                next($Call['Mask']);
+                $Subset = F::Dot($Call, 'UID.Masked.Subset.'.$Call['Mask'][$IX+1]);
+                $Output.= substr($Subset, rand(0, strlen($Subset)), 1);
+                $IX++;
             }
             else
-                $Output.= $Value;
+                $Output.= $Call['Mask'][$IX];
 
         return $Output;
     });

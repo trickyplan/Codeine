@@ -14,11 +14,11 @@
         $Output = '';
 
         $SZ = strlen($Call['UID']['Alphabet']);
-
-        for($IC = 0; $IC<$Call['Size']; $IC++)
+        $Call['UID']['Alphabet'] = str_split($Call['UID']['Alphabet'], 1);
+        for($IC = 0; $IC < $Call['UID']['Size']; $IC++)
             $Output.= $Call['UID']['Alphabet'][rand(0, $SZ)];
 
-        switch ($Call['Case'])
+        switch ($Call['UID']['Case'])
         {
             case 'Lower':
                 $Output = strtolower($Output);

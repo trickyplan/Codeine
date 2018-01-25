@@ -1,0 +1,15 @@
+{
+    "UID":
+    {
+        "Masked":
+        {
+            "Subset":
+            {
+                "w": "abcdefghijklmnopqrstuvxwyz",
+                "W": "ABCDEFGHIJKLMNOPQRSTUVXYZ",
+                "d": "0123456789",
+                "a": "0123456789abcdefghijklmnopqrstuvxwyz"
+            }
+        }
+    }
+}

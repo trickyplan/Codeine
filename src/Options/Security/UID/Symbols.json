@@ -1,6 +1,8 @@
 {
     "UID":
     {
-        "Alphabet": "abcdefghijklmnopqrstuvxwyzABCDEFGHIJKLMNOPQRSTUVXYZ1234567890"
+        "Alphabet": "abcdefghijklmnopqrstuvxwyzABCDEFGHIJKLMNOPQRSTUVXYZ",
+        "Size": 16,
+        "Case": "Mixed"
     }
 }
