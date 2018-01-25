@@ -1,18 +1,15 @@
 {
-    "User":
+    "Reset":
     {
-        "Reset":
+        "Generator":
         {
-            "Generator":
+            "Service": "Security.Password.Generator",
+            "Method": "Get",
+            "Call":
             {
-                "Service": "Security.Password.Generator",
-                "Method": "Get",
-                "Call":
-                {
-                    "Length": 8
-                }
-            },
-            "Send To": "EMail"
-        }
+                "Length": 8
+            }
+        },
+        "Send To": "EMail"
     }
 }

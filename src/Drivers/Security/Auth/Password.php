@@ -50,9 +50,9 @@
                          
                     if ($Call['User']['Password'] != $Challenge)
                     {
-                        F::Log('Passwords don\'t match', LOG_INFO, 'Security');
-                        F::Log('User password hash is '.$Call['User']['Password'], LOG_INFO, 'Security');
-                        F::Log('Request password hash is '.$Challenge, LOG_INFO, 'Security');
+                        F::Log('Passwords don\'t match', LOG_WARNING, 'Security');
+                        F::Log('User password hash is '.$Call['User']['Password'], LOG_WARNING, 'Security');
+                        F::Log('Request password hash is '.$Challenge, LOG_WARNING, 'Security');
                         
                         $Call['Output']['Content'][] =
                             [
@@ -67,10 +67,10 @@
                         F::Log('Passwords match', LOG_NOTICE, 'Security');
             }
             else
-                F::Log('Password isn\'t set', LOG_WARNING+0.5, 'Security');
+                F::Log('Password isn\'t set', LOG_WARNING, 'Security');
         }
             else
-                F::Log('User isn\'t set', LOG_WARNING+0.5, 'Security');
+                F::Log('User isn\'t set', LOG_WARNING, 'Security');
 
         return $Call;
     });
