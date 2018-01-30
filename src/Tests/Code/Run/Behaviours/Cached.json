@@ -1,0 +1,42 @@
+{
+    "Suites":
+    {
+        "Basic":
+        {
+            "Microtime":
+            {
+                "Run":
+                {
+                    "Service": "System.Time.Microtime",
+                    "Method": "Get"
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            },
+            "Microtime w/cache":
+            {
+                "Run":
+                {
+                    "Service": "System.Time.Microtime",
+                    "Method": "Get",
+                    "Call":
+                    {
+                        "Behaviours":
+                        {
+                            "Cached":
+                            {
+                                "Enabled": true
+                            }
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            }
+        }
+    }
+}

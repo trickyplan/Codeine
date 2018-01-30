@@ -1,5 +1,9 @@
 {
-    "Mixins": ["IO.Mixins.Logs2Browser"],
+    "Mixins":
+    {
+        "Logs": "IO.Mixins.Logs2Browser",
+        "Behaviours": "IO.Mixins.Behaviours2File"
+    },
     "Storages":
     {
         "Layout":

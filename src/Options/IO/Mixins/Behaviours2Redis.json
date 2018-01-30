@@ -1,0 +1,23 @@
+{
+    "Storages":
+    {
+        "Run Cache":
+        {
+            "Driver": "IO.Storage.Redis",
+            "Scope": "Run Cache",
+            "Format": "Formats.JSON"
+        },
+        "Delayed Inbox":
+        {
+            "Driver": "IO.Queue.Redis",
+            "Queue": "Delayed",
+            "Scope": "Delayed"
+        },
+        "Delayed Outbox":
+        {
+            "Driver": "IO.Storage.Redis",
+            "Format": "Formats.JSON",
+            "Scope": "Delayed"
+        }
+    }
+}

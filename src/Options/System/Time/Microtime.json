@@ -1,0 +1,15 @@
+{
+    "Behaviours":
+    {
+        "Cached":
+        {
+            "Keys": ["DC"],
+            "TTL": 60
+        },
+        "Delayed":
+        {
+            "Keys": ["DC"],
+            "Priority": 1
+        }
+    }
+}

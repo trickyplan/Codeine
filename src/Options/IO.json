@@ -3,6 +3,11 @@
     {
         "Not found": 6
     },
+    "Mixins":
+    {
+        "Logs": "IO.Mixins.Logs2File",
+        "Behaviours": "IO.Mixins.Behaviours2Redis"
+    },
     "Storages":
     {
         "Output":
@@ -42,24 +47,6 @@
         {
             "Driver":"IO.Storage.FileSystem",
             "Directory":"Options",
-            "Format": "Formats.JSON",
-            "Postfix":".json"
-        },
-        "Run Cache":
-        {
-            "Driver":"IO.Storage.FileSystem",
-            "Directory":"/tmp/codeine/run",
-            "IO":
-            {
-                "FileSystem":
-                {
-                    "Hashing":
-                    {
-                        "Enabled": true,
-                        "Levels": 4
-                    }
-                }
-            },
             "Format": "Formats.JSON",
             "Postfix":".json"
         },
@@ -192,27 +179,6 @@
         {
             "Driver": "IO.Network.HTTP.CURL",
             "Scope": ""
-        },
-        "Delayed":
-        {
-            "Driver":"IO.Queue.File.JSON",
-            "Directory":"/var/spool/codeine",
-            "Scope": "Delayed",
-            "Filename": "delayed.json"
-        },
-        "Bus":
-        {
-            "Driver":"IO.Queue.File.JSON",
-            "Directory":"/tmp/codeine/bus",
-            "Scope": "Codeine",
-            "Filename": ".json"
-        },
-        "Swarm":
-        {
-            "Driver":"IO.Storage.FileSystem",
-            "Directory":"/tmp/codeine/",
-            "Postfix": ".json",
-            "Format": "Formats.JSON"
         },
         "HTTP Journal":
         {

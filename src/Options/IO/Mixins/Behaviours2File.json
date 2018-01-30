@@ -1,0 +1,40 @@
+{
+    "Storages":
+    {
+        "Run Cache":
+        {
+            "Driver":"IO.Storage.FileSystem",
+            "Scope": "rc",
+            "Directory":"/tmp/codeine/run",
+            "IO":
+            {
+                "FileSystem":
+                {
+                    "Hashing":
+                    {
+                        "Enabled": true,
+                        "Levels": 4
+                    }
+                }
+            },
+            "Format": "Formats.JSON",
+            "Postfix":".json"
+        },
+        "Delayed Inbox":
+        {
+            "Driver":"IO.Queue.File.JSON",
+            "Directory":"/var/spool/codeine",
+            "Filename": "inbox",
+            "Format": "Formats.JSON",
+            "Postfix":".json"
+        },
+        "Delayed Outbox":
+        {
+            "Driver":"IO.Storage.FileSystem",
+            "Directory":"/var/spool/codeine",
+            "Scope": "outbox",
+            "Format": "Formats.JSON",
+            "Postfix":".json"
+        }
+    }
+}
