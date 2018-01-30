@@ -1,0 +1,82 @@
+{
+    "Suites":
+    {
+        "Basic":
+        {
+            "Microtime":
+            {
+                "Run":
+                {
+                    "Service": "System.Time.Microtime",
+                    "Method": "Get"
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            },
+            "Microtime w/delayed":
+            {
+                "Run":
+                {
+                    "Service": "System.Time.Microtime",
+                    "Method": "Get",
+                    "Call":
+                    {
+                        "Behaviours":
+                        {
+                            "Delayed":
+                            {
+                                "Enabled": true,
+                                "Priority": 3
+                            }
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            },
+            "5 seconds sleep":
+            {
+                "Run":
+                {
+                    "Service": "System.Sleep",
+                    "Method": "Do",
+                    "Call":
+                    {
+                        "Seconds": 5
+                    }
+                },
+                "Result Key": "Mode",
+                "Assert":
+                {
+                    "Print": true
+                }
+            },
+            "Microtime w/delayed - run from queue":
+            {
+                "Run":
+                {
+                    "Service": "Code.Run.Behaviours.Delayed",
+                    "Method": "Run from Queue",
+                    "Call":
+                    {
+                        "Behaviours":
+                        {
+                            "Delayed":
+                            {
+                                "Priority": 3
+                            }
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            }
+        }
+    }
+}

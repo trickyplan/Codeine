@@ -417,58 +417,41 @@
 
                 if (is_callable($F))
                 {
-                    if (isset($Call['No Memo']))
-                        ;
-                    else
+                    if ($Behaviours = F::Dot($Call, 'Behaviours') and self::$_Method !== 'Run')
                     {
-                        if (isset($FnOptions['Contract'][self::$_Service][self::$_Method]['Memo']))
+                        foreach ($Behaviours as $Behaviour => $Options)
                         {
-                            $Memo = [];
-    
-                            foreach ($FnOptions['Contract'][self::$_Service][self::$_Method]['Memo'] as $Key)
+                            if (F::Dot($Options, 'Enabled') === true)
                             {
-                                $Key = self::Dot($Call, $Key);
-                                if (null === $Key)
-                                    ;
-                                else
-                                    $Memo[] = $Key;
+                                F::Log('Behaviour active *'.$Behaviour.'*', LOG_INFO);
+                                $Call = F::Dot($Call, 'Behaviours.'.$Behaviour.'.Enabled', -1);
+                                $Call = F::Apply('Code.Run.Behaviours.'.$Behaviour, 'Run',
+                                    [
+                                        'Behaviours' => F::Dot($Call, 'Behaviours'),
+                                        'Run' =>
+                                            [
+                                                'Service'   => self::$_Service,
+                                                'Method'    => self::$_Method,
+                                                'Call'      => $Call
+                                            ]
+                                    ]);
                             }
-                            
-                            $CacheID = self::$_Service.':'.self::$_Method.':'.sha1(serialize($Memo));
                         }
                     }
                     
-                    if (isset($CacheID))
-                        $Result = self::Get($CacheID); // Prefetch
-                    else
-                        $Result = null;
-                        
-                    if ($Result === null)
+                    if (isset($Call['Run']['Result']) or isset($Call['Run']['Skip']))
                     {
-                        $ST = microtime(true);
-                        $Result = $F($Call); // Real Run Here
-                        $ST = microtime(true)-$ST;
-                        
-                        if (isset($CacheID))
-                        {
-                            if ($ST > self::$_Options['Codeine']['Memo Threshold'])
-                            {
-                                self::Set($CacheID, $Result);
-                                self::Log('Memo: *('.$CacheID.')* is *stored*.', LOG_INFO, 'Performance');
-                            }
-                            /*else
-                                self::Log('Memo: *('.$CacheID.')* is below threshold.', LOG_DEBUG, 'Performance');*/
-                        }
+                        $Result = $Call['Run']['Result'];
+                        F::Log('Behaviours active for '.self::$_Service.':'.self::$_Method.', skip Real Run', LOG_NOTICE);
                     }
                     else
-                        self::Log('Memo: *('.$CacheID.')* is *fast-forwared*.', LOG_INFO, 'Performance');
+                        $Result = $F($Call); // Real Run Here
                     
                     // if (self::$_Performance)
                     self::Counter(self::$_Service.'.'.self::$_Method);
                 }
                 else
                     $Result = isset($Call['Fallback']) ? $Call['Fallback'] : null;
-                
             }
 
             self::Stop(self::$_Service);
