@@ -1,0 +1,68 @@
+{
+    "Suites":
+    {
+        "Basic":
+        {
+            "Enumerate Drivers":
+            {
+                "Run":
+                {
+                    "Service": "Code.Reflection.Drivers",
+                    "Method": "Enumerate"
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            },
+            "Enumerate Options":
+            {
+                "Run":
+                {
+                    "Service": "Code.Reflection.Options",
+                    "Method": "Enumerate"
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            },
+            "Enumerate Tests":
+            {
+                "Run":
+                {
+                    "Service": "Code.Reflection.Tests",
+                    "Method": "Enumerate"
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            },
+            "Calculate Test Coverage":
+            {
+                "Run":
+                {
+                    "Service": "Code.Reflection.Tests",
+                    "Method": "Calculate Coverage"
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            },
+            "Get Drivers without Tests":
+            {
+                "Run":
+                {
+                    "Service": "Code.Reflection.Drivers",
+                    "Method": "Get Drivers without Tests"
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            }
+        }
+    }
+}
