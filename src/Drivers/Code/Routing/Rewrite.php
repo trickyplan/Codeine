@@ -11,22 +11,25 @@
 
     setFn('Route', function ($Call)
     {
-        if (strpos($Call['Run'], '?'))
-            list($Call['Run']) = explode('?', $Call['Run']);
-
-        if (isset($Call['Rewrite']))
+        if (is_string($Call['Run']))
         {
-            if (is_string($Call['Run']) && isset($Call['Rewrite'][$Call['Run']]))
+            if (strpos($Call['Run'], '?'))
+                list($Call['Run']) = explode('?', $Call['Run']);
+    
+            if (isset($Call['Rewrite']))
             {
-                $Call['Run'] =
-                    [
-                        'Service' => 'System.Interface.HTTP',
-                        'Method' => 'Redirect',
-                        'Call' =>
-                            [
-                                'Redirect' => $Call['Rewrite'][$Call['Run']]
-                            ]
-                    ];
+                if (is_string($Call['Run']) && isset($Call['Rewrite'][$Call['Run']]))
+                {
+                    $Call['Run'] =
+                        [
+                            'Service' => 'System.Interface.HTTP',
+                            'Method' => 'Redirect',
+                            'Call' =>
+                                [
+                                    'Redirect' => $Call['Rewrite'][$Call['Run']]
+                                ]
+                        ];
+                }
             }
         }
 
