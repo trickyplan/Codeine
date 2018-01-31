@@ -611,7 +611,8 @@
         public static function Error($errno , $errstr , $errfile , $errline)
         {
             $ErrHash = strtoupper(substr(sha1($errno.$errstr.$errfile.$errline), -8, 8));
-            $Message = 'EH: '.$ErrHash.PHP_EOL.' E'.$errno.':'.$errstr.PHP_EOL.$errfile.'@'.$errline;
+            $Message = 'EH: '.$ErrHash.PHP_EOL.' E'.$errno.':'.$errstr.PHP_EOL.
+            '<a href="'.'ide://'.$errfile.':'.$errline.'">'.$errfile.'@'.$errline.'</a>';
             
             if (self::$_Perfect)
                 self::Finish ($Message);
