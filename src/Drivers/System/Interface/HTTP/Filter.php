@@ -14,7 +14,7 @@
                 ;
             else
             {
-                F::Log('Filtered by '.$Filter, LOG_WARNING, 'Security');
+                F::Log('Filtered by '.$Filter, LOG_NOTICE, 'Security');
                 $Call = F::Hook('onHTTPFiltered', $Call);
             }
         
