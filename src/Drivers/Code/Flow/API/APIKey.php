@@ -10,15 +10,21 @@
     setFn('beforeAPIRun', function ($Call)
     {
         $Call['API']['Request']['Valid Key'] = false;
+        $APIKey = null;
         
-        if (isset($Call['Request']['APIKey']))
+        if (F::Dot($Call, 'HTTP.Request.Headers.X-Apikey'))
+            $APIKey = F::Dot($Call, 'HTTP.Request.Headers.X-Apikey');
+        else
+            $APIKey = F::Dot($Call, 'Request.APIKey');
+        
+        if ($APIKey !== null)
         {
             $Call['Session']['User'] = F::Run('Entity', 'Read',
                 [
                     'Entity'    => 'User',
                     'Where'     =>
                     [
-                        'APIKey' => $Call['Request']['APIKey']
+                        'APIKey' => $APIKey
                     ],
                     'One'       => true
                 ]);
