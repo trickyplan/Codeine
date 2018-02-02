@@ -1,3 +1,3 @@
 [submodule "build"]
 	path = build
-	url = http://git.trickyplan.ru/open-source/build.git
+	url = http://git.trickyplan.com/open-source/build.git
