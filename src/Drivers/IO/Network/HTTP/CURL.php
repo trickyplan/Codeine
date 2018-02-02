@@ -109,12 +109,11 @@
 
                 if (curl_errno($Link))
                 {
-                    F::Log('CURL GET error: '.curl_error($Link).'*'.$ID.'*', LOG_WARNING, 'Administrator');
-                    F::Log($Return, LOG_WARNING, 'Administrator');
+                    F::Log('CURL GET error: '.curl_error($Link).'*'.$ID.'*', LOG_NOTICE, 'Administrator');
+                    F::Log($Return, LOG_NOTICE, 'Administrator');
                 }
                 else
                     F::Log('CURL GET fetched *'.$ID.'*', LOG_INFO, 'Administrator');
-                
 
                 curl_multi_remove_handle($Call['Link'], $Link);
             }
@@ -178,8 +177,8 @@
             
             if (curl_errno($Call['Link']))
             {
-                F::Log('CURL GET error: '.curl_error($Call['Link']).' *'.$Call['Where']['ID'].'*', LOG_WARNING, 'Administrator');
-                F::Log($Return, LOG_WARNING, 'Administrator');
+                F::Log('CURL GET error: '.curl_error($Call['Link']).' *'.$Call['Where']['ID'].'*', LOG_NOTICE, 'Administrator');
+                F::Log($Return, LOG_NOTICE, 'Administrator');
             }
             else
                 F::Log('CURL GET fetched '.$Call['Where']['ID'], LOG_INFO, 'Administrator');
@@ -246,8 +245,8 @@
         
         if (curl_errno($Call['Link']))
         {
-            F::Log('CURL POST error: '.curl_error($Call['Link']).' *'.$Call['Where']['ID'].'* '.PHP_EOL.$Post, LOG_ERR, 'Administrator');
-            F::Log($Result, LOG_WARNING, 'Administrator');
+            F::Log('CURL POST error: '.curl_error($Call['Link']).' *'.$Call['Where']['ID'].'* '.PHP_EOL.$Post, LOG_NOTICE, 'Administrator');
+            F::Log($Result, LOG_NOTICE, 'Administrator');
         }
         else
             F::Log('CURL POST fetched *'.$Call['Where']['ID'].'* '.$Post, LOG_INFO, 'Administrator');
