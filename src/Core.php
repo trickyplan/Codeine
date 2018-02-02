@@ -861,13 +861,14 @@
             else
             {
                 echo
-                    '<div class="console"><h5>'
+                    '<div class="console"><div>'
                     .substr($File, strpos($File, 'Drivers'))
                     .'@'
                     .$Line
-                    .'&nbsp; '
+                    .'</div>'
+                    .'<code class="php">'
                     .trim(file($File)[$Line-1])
-                    .'</h5>'
+                    .'</code>'
                     .'<pre><code class="json">'
                     .htmlspecialchars(j($Call))
                     .'</code></pre>';
