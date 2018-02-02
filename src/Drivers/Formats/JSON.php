@@ -22,8 +22,7 @@
 
     setFn('Write', function ($Call)
     {
-        return j($Call['Value'],
-            JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+        return j($Call['Value']);
     });
 
     setFn('Write.Call', function ($Call)
