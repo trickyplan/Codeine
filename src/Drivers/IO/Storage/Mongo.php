@@ -31,7 +31,12 @@
                     elseif (is_scalar($Subvalue) && substr($Subvalue, 0, 1) == '~')
                         $Where[$Key.'.'.$Subkey] = new MongoRegex(substr($Subvalue, 1));
                     elseif (substr($Subkey, 0, 1) == '$')
+                    {
+                        // FIXME Temporarily fixed
+                        if ($Subkey == '$in')
+                            sort($Subvalue);
                         $Where[$Key][$Subkey] = $Subvalue;
+                    }
                     else
                         $Where[$Key.'.'.$Subkey] = $Subvalue;
             }
@@ -103,7 +108,7 @@
             $Call = F::Apply(null, 'Where', $Call);
 
             F::Log('db.*'.$Call['Scope'].'*.find('
-                .j($Call['Where'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE).')', LOG_INFO, 'Administrator');
+                .j($Call['Where']).')', LOG_INFO, 'Administrator');
 
             $Cursor = $Call['Link']->selectCollection($Call['Scope'])->find($Call['Where'], $Call['Mongo']['Options']);
         }
