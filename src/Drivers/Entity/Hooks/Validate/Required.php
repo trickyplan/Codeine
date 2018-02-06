@@ -18,7 +18,7 @@
 
             if (F::Dot($Produced, $Call['Name']) === null)
             {
-                F::Log('Required key '.$Call['Entity'].'.'.$Call['Name'].' not defined', LOG_ERR);
+                F::Log('Required key '.$Call['Entity'].'.'.$Call['Name'].' not defined', LOG_NOTICE);
                 return 'Required';
             }
         }
