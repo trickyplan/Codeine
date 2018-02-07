@@ -64,6 +64,27 @@
                 "ID": "$2",
                 "Extension": "$3"
             }
+        },
+        "JS Bower":
+        {
+            "Match": "/js/bower/(.+)/(.+).(js)$",
+            "Service": "View.Asset",
+            "Method": "Get",
+            "View":
+            {
+                "Renderer":
+                {
+                    "Service": "View.File",
+                    "Method": "Render"
+                }
+            },
+            "Call":
+            {
+                "Asset": "bower",
+                "Scope": "$1",
+                "ID": "$2",
+                "Extension": "$3"
+            }
         }
     }
 }
