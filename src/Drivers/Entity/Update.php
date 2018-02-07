@@ -39,7 +39,7 @@
     
             $Call['Layouts'][] =
                 [
-                    'Scope' => $Call['Entity'],
+                    'Scope' => $Call['Scope'],
                     'ID' => isset($Call['Custom Layouts']['Update'])?
                             $Call['Custom Layouts']['Update']: 'Update',
                     'Context' => $Call['Context']
