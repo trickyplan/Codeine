@@ -9,6 +9,11 @@
 
     setFn('Write', function ($Call)
     {
+        if (F::Dot($Call, 'View.Renderer.Service') == 'View.HTML' && empty($Call['Context']))
+            ;
+        else
+            return null;
+
         if (isset($Call['Channel']))
             ;
         else
@@ -87,7 +92,6 @@
         $OutputLog = preg_replace('/\*(.*)\*/SsUu', '<strong class="strong">$1</strong>', $OutputLog);
 
         $Output = file_get_contents(Codeine.'/Assets/Formats/Log/HTML.html');
-        
         $Output = str_replace('<output:logs/>', $OutputLog, $Output);
         
         return $Output;
