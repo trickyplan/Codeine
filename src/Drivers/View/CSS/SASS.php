@@ -42,19 +42,28 @@
 
             if (($SASSVersion > $CSSVersion) or (isset($Call['HTTP']['Request']['Headers']['Pragma']) && $Call['HTTP']['Request']['Headers']['Pragma'] == 'no-cache'))
             {
+                $Call = F::Dot($Call, 'View.CSS.SASS.Filename', Root.'/Assets/'.$Asset.'/sass/'.$ID.'.scss');
+                $Call = F::Dot($Call, 'View.CSS.SASS.Command',
+                    'sass --style '.F::Dot($Call, 'View.CSS.SASS.Style')
+                    .' '
+                    .F::Dot($Call, 'View.CSS.SASS.Filename').' > '.Root.'/Assets/'.$Asset.'/css/'.$ID.'.css');
+                
                 // FIXME! Temporary decision.
-                if (file_exists(Root.'/Assets/'.$Asset.'/sass/'.$ID.'.scss'))
+                if (file_exists(F::Dot($Call, 'View.CSS.SASS.Filename')))
                 {
-                    $Command = 'sass '.Root.'/Assets/'.$Asset.'/sass/'.$ID.'.scss > '.Root.'/Assets/'.$Asset.'/css/'.$ID.'.css';
-                    F::Log('SASS *processed* '.Root.'/Assets/'.$Asset.'/sass/'.$ID.'.scss', LOG_DEBUG, 'Developer');
-                    F::Log($Command, LOG_INFO, 'Developer');
-                    exec($Command, $ExecOutput, $ExecReturn);
-                    F::Log('Output: '.implode(PHP_EOL, $ExecOutput), LOG_INFO, 'Developer');
-                    F::Log('Error Code:'.$ExecReturn, LOG_INFO, 'Developer');
+                    $Exec = F::Run('Code.Run.External.Exec', 'Run', $Call,
+                        [
+                            'Command' => F::Dot($Call, 'View.CSS.SASS.Command')
+                        ]);
+                    
+                    if ($Exec['Code'] == 0)
+                        F::Log('SASS *processed* '.F::Dot($Call, 'View.CSS.SASS.Filename'), LOG_INFO, 'Developer');
+                    else
+                        F::Log('SASS *failed* '.F::Dot($Call, 'View.CSS.SASS.Filename'), LOG_WARNING, 'Developer');
                 }
             }
             else
-                F::Log('SASS *skipped* '.Root.'/Assets/'.$Asset.'/css/'.$ID.'.css', LOG_DEBUG, 'Developer');
+                F::Log('SASS *skipped* '.F::Dot($Call, 'View.CSS.SASS.Filename'), LOG_INFO, 'Developer');
         }
 
         return $Call;
