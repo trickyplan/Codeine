@@ -37,8 +37,8 @@
                             "Key 2": "Value B",
                             "Key 3":
                             {
-                                "Sub key 3.1": 7,
-                                "Sub key 3.2": null
+                                "Sub key 31": 7,
+                                "Sub key 32": null
                             }
                         }
                     }
@@ -51,8 +51,8 @@
                         "Key 1": "Value A",
                         "Key 2": "Value B",
                         "Key 3": {
-                            "Sub key 3.1": 7,
-                            "Sub key 3.2": null
+                            "Sub key 31": 7,
+                            "Sub key 32": null
                         }
                     }
                 }
@@ -84,8 +84,8 @@
                         "Key 1": "Value A",
                         "Key 2": "Value B",
                         "Key 3": {
-                            "Sub key 3.1": 7,
-                            "Sub key 3.2": null
+                            "Sub key 31": 7,
+                            "Sub key 32": null
                         }
                     }]
                 }

@@ -81,6 +81,7 @@
 
     setFn('Do', function ($Call)
     {
+        self::$_Perfect = false;
         $Paths = F::getPaths();
 
         $Options = [];
@@ -113,7 +114,6 @@
             foreach ($Options as $Option)
             {
                 $VCall = F::Apply(null, 'Run', $Call, ['Test' => ['Name' => $Option[1]]]);
-
                 $Call['Test']['Report'] = F::Merge($Call['Test']['Report'], $VCall['Test']['Report']);
             }
         }
@@ -123,6 +123,7 @@
             'Type' => 'Table',
             'Value' => $Call['Test']['Report']
         ];
-
+        
+        self::$_Perfect = true;
         return $Call;
     });

@@ -7,11 +7,18 @@
      * @version 8.x
      */
 
+    setFn('Open', function ($Call)
+    {
+        return true;
+    });
+    
     setFn('Write', function ($Call)
     {
-        if (in_array($Call['View']['Renderer']['Service'], $Call['IO']['Log']['Print']['Allowed Renderers'])
+        $Allowed = (in_array($Call['View']['Renderer']['Service'], $Call['IO']['Log']['Print']['Allowed Renderers'])
             &&
-            in_array($Call['Context'], $Call['IO']['Log']['Print']['Allowed Context']))
+            in_array($Call['Context'], $Call['IO']['Log']['Print']['Allowed Context']));
+        
+        if (F::Dot($Call, 'IO.Log.Print.Force') || $Allowed)
             return F::Apply(null, gettype($Call['Data']), $Call);
         else
             return null;

@@ -51,7 +51,7 @@
                             else
                                 readfile(Codeine.'/down.html');
 
-                            $NoOutput = true;
+                            $Call = F::Dot($Call, 'HTTP.Output.Suppress', true);
                         break;
                     }
                 }
@@ -64,8 +64,8 @@
             $Call = F::Apply(null, 'Response Headers', $Call);
 
             F::Stop('Cooldown');
-
-            if (isset($NoOutput))
+            
+            if (F::Dot($Call, 'HTTP.Output.Suppress') === true)
                 ;
             else
                 F::Run('IO', 'Write', $Call,
