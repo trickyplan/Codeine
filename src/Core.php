@@ -1278,7 +1278,7 @@
     }
 
     /**
-     * Aliace for json_decode($Value, true)
+     * Alias for json_decode($Value, true)
      * @param string $Call
      * @return mixed the value encoded in <i>json</i> in appropriate
      * PHP type. Values true, false and
