@@ -89,7 +89,8 @@
         else
             $OutputLog = $Header.PHP_EOL.$Call['Value'];
 
-        $OutputLog = preg_replace('/\*(.*)\*/SsUu', '<strong class="strong">$1</strong>', $OutputLog);
+        if (F::Dot($Call, 'Log.Asterisk'))
+            $OutputLog = preg_replace('/\*(.*)\*/SsUu', '<strong class="strong">$1</strong>', $OutputLog);
 
         $Output = file_get_contents(Codeine.'/Assets/Formats/Log/HTML.html');
         $Output = str_replace('<output:logs/>', $OutputLog, $Output);

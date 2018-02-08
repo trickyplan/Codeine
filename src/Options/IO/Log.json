@@ -1,4 +1,9 @@
 {
+    "Log":
+    {
+        "Sorted": false,
+        "Asterisk": true
+    },
     "Levels":
     {
         "0": "Emergency",
@@ -13,6 +18,5 @@
         "9": "Good",
         "10": "Bad",
         "11": "Important"
-    },
-    "Asterisk Support": true
+    }
 }

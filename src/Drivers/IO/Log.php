@@ -21,6 +21,9 @@
                     ;
                 else
                 {
+                    if (F::Dot($Call, 'Log.Sorted') === true)
+                        $Call['Logs'] = F::Sort($Call['Logs'], 0);
+                        
                     F::Run('IO', 'Write', $Call,
                         [
                             'Storage'   => $Call['Channel'],

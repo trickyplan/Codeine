@@ -28,7 +28,8 @@
         }
 
         $Output = implode(PHP_EOL, $Output);
-//        $Output = preg_replace('/\*(.*)\*/SsUu', '$1', $Output);
+        
+        // $Output = preg_replace('/\*(.*)\*/SsUu', '$1', $Output);
 
         return $Output;
     });
