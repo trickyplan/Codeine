@@ -9,12 +9,18 @@
 
     setFn('Read', function ($Call)
     {
-        $Result = json_decode($Call['Value'], true);
-
-        if (json_last_error() > 0)
+        $Result = null;
+        if (empty($Call['Value']))
+            F::Log('JSON: Empty', LOG_NOTICE);
+        else
         {
-            F::Log('JSON: '.json_last_error_msg(), LOG_ERR);
-            F::Log($Call['Value'], LOG_ERR);
+            $Result = json_decode($Call['Value'], true);
+
+            if (json_last_error() > 0)
+            {
+                F::Log('JSON: '.json_last_error_msg(), LOG_ERR);
+                F::Log($Call['Value'], LOG_ERR);
+            }
         }
 
         return $Result;
