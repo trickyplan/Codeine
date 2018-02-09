@@ -10,7 +10,7 @@
     setFn('Write', function ($Call)
     {
         $Output =
-            [$Call['Channel'].' Channel ('.count($Call['Value']).')'.PHP_EOL.
+            [PHP_EOL.$Call['Channel'].' Channel ('.count($Call['Value']).')'.PHP_EOL.
             $Call['Where']['ID'].PHP_EOL.
             date(DATE_RSS, round(Started)).' *'.$Call['HTTP']['Agent'].'* from *'.$Call['HTTP']['IP'].'*'];
 
