@@ -17,7 +17,7 @@
 
         F::startColor('aed581');
             // Если передан нормальный вызов, совершаем его
-        F::Log('Front Controlled *'.$Call['Service'].':'.$Call['Method'].'* started', LOG_NOTICE, 'All');
+        F::Log('Front Controlled *'.$Call['Service'].':'.$Call['Method'].'* started', LOG_NOTICE, 'Developer');
         
         if (F::Dot($Call, 'Skip Front'))
             F::Log('Front Skip Enabled', LOG_NOTICE);
@@ -38,7 +38,7 @@
             }
         }
         
-        F::Log('Front Controlled *'.$Call['Service'].':'.$Call['Method'].'* finished', LOG_NOTICE, 'All');
+        F::Log('Front Controlled *'.$Call['Service'].':'.$Call['Method'].'* finished', LOG_NOTICE, 'Developer');
         F::stopColor();
         // А здесь - рендеринг
         $Call = F::Hook('afterFrontRun', $Call);
