@@ -13,7 +13,7 @@
             foreach ($Filter as $Match)
                 if (preg_match('/'.$Match.'/Ssu', $Call['HTTP']['Agent']))
                 {
-                    F::Log('HTTP Agent Filter *'.$FilterName.'* matched', LOG_WARNING, 'Security');
+                    F::Log('HTTP Agent Filter *'.$FilterName.'* matched', LOG_NOTICE, 'Security');
                     return false;
                 }
         return true;

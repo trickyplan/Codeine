@@ -18,7 +18,7 @@
                             ;
                         else
                         {
-                            F::Log('HTTP Request Filter *'.$FilterName.'* matched', LOG_WARNING, 'Security');
+                            F::Log('HTTP Request Filter *'.$FilterName.'* matched', LOG_NOTICE, 'Security');
                             return false;
                         }
                     }
