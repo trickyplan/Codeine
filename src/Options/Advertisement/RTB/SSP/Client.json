@@ -1,0 +1,43 @@
+{
+    "RTB":
+    {
+        "Client":
+        {
+            "Version": "2.5"
+        }
+    },
+    "Hooks":
+    {
+        "beforeRTBRequest":
+        {
+            "Generate ID":
+            {
+                "Service": "Advertisement.RTB.SSP.Hooks.ID"
+            },
+            "Setup Impression":
+            {
+                "Service": "Advertisement.RTB.SSP.Hooks.Impression"
+            },
+            "Setup Device":
+            {
+                "Service": "Advertisement.RTB.SSP.Hooks.Device"
+            },
+            "Setup Site":
+            {
+                "Service": "Advertisement.RTB.SSP.Hooks.Site"
+            },
+            "Setup User":
+            {
+                "Service": "Advertisement.RTB.SSP.Hooks.User"
+            },
+            "Merge Bid":
+            {
+                "Service": "Advertisement.RTB.SSP.Hooks.Bid"
+            }
+        },
+        "afterRTBRequest":
+        {
+
+        }
+    }
+}

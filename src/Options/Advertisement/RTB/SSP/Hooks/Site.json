@@ -1,0 +1,13 @@
+{
+    "RTB":
+    {
+        "SSP":
+        {
+            "Site":
+            {
+                "id": 0,
+                "domain":"unconfigured-rtb-site.com"
+            }
+        }
+    }
+}

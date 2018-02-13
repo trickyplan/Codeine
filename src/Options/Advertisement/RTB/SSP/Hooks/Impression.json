@@ -1,0 +1,25 @@
+{
+    "RTB":
+    {
+        "Impression":
+        {
+            "ID":
+            {
+                "Mode": "Secure+"
+            }
+        },
+        "DSP":
+        {
+            "Impression":
+            {
+                "banner":
+                {
+                    "w": 0,
+                    "h": 0
+                },
+                "bidfloor": 0,
+                "bidfloorcur": "USD"
+            }
+        }
+    }
+}

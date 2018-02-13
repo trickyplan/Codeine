@@ -1,0 +1,12 @@
+{
+    "RTB":
+    {
+        "Request":
+        {
+            "ID":
+            {
+                "Mode": "Secure"
+            }
+        }
+    }
+}
