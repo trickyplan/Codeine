@@ -1073,13 +1073,18 @@
             {
                 $Value = func_get_arg(2);
                 
-                return self::writeDot($Array, $Key, $Value);
+                return self::WriteDot($Array, $Key, $Value);
             }
             else
-                return self::readDot($Array, $Key);
+                return self::ReadDot($Array, $Key);
+        }
+        
+        public static function CopyDot ($Array, $From, $To)
+        {
+            return self::WriteDot($Array, $To, self::ReadDot($Array, $From));
         }
 
-        private static function readDot($Array, $Key)
+        private static function ReadDot($Array, $Key)
         {
             if (isset($Array[$Key]))
                 return $Array[$Key];
@@ -1109,7 +1114,7 @@
             return $Tail;
         }
         
-        private static function writeDot($Array, $Key, $Value)
+        private static function WriteDot($Array, $Key, $Value)
         {
             if ($Array === (array) $Array)
             {
@@ -1123,7 +1128,7 @@
                     else
                         $Array[$Key] = [];
 
-                    $Array[$Key] = self::writeDot($Array[$Key], implode('.', $Keys), $Value);
+                    $Array[$Key] = self::WriteDot($Array[$Key], implode('.', $Keys), $Value);
                 }
                 else
                 {
