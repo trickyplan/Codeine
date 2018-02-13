@@ -11,6 +11,7 @@
     {
         $Call['Radios'] = '';
 
+        $IX = 0;
         foreach($Call['Options'] as $Key => $Value)
         {
              if (isset($Call['Localized']) && $Call['Localized'])
@@ -36,12 +37,14 @@
                     'Data' =>
                     F::Merge ($Call,
                         [
+                            'IX' => $IX,
                             'Label' => $lValue,
                             'Value' => $Value,
                             'Checked' => ($Value == $Call['Value'] ? 'checked': '')
                         ])
                 ]
             );
+            $IX++;
         }
 
         return $Call;
