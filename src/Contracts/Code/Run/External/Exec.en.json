@@ -1,0 +1,45 @@
+{
+    "Driver":
+    {
+        "Description":
+        {
+            "Short": "Execute shell command",
+            "Full": "This method wraps PHP exec command and provide additional logging and Codeine-compatible interface"
+        }
+    },
+    "Methods":
+    {
+        "Run":
+        {
+            "Input":
+            {
+                "Required":
+                {
+                    "Command":
+                    {
+                        "Description": "Shell command to execute",
+                        "Type": "Literal.String"
+                    }
+                }
+            },
+            "Output":
+            {
+                "Mode": "Call",
+                "Keys":
+                {
+                    "Code":
+                    {
+                        "Description": "Return code from executed command",
+                        "Type": "Numeral.Integer"
+                    },
+                    "Result":
+                    {
+                        "Description": "Stdout of executed command",
+                        "Type": "Literal.String"
+                    }
+                }
+            },
+            "Fallback": null
+        }
+    }
+}
