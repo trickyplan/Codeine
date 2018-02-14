@@ -43,23 +43,25 @@
             if (($SASSVersion > $CSSVersion) or (isset($Call['HTTP']['Request']['Headers']['Pragma']) && $Call['HTTP']['Request']['Headers']['Pragma'] == 'no-cache'))
             {
                 $Call = F::Dot($Call, 'View.CSS.SASS.Filename', Root.'/Assets/'.$Asset.'/sass/'.$ID.'.scss');
-                $Call = F::Dot($Call, 'View.CSS.SASS.Command',
-                    'sass --style '.F::Dot($Call, 'View.CSS.SASS.Style')
-                    .' '
-                    .F::Dot($Call, 'View.CSS.SASS.Filename').' > '.Root.'/Assets/'.$Asset.'/css/'.$ID.'.css');
                 
                 // FIXME! Temporary decision.
                 if (file_exists(F::Dot($Call, 'View.CSS.SASS.Filename')))
                 {
                     $Exec = F::Run('Code.Run.External.Exec', 'Run', $Call,
                         [
-                            'Command' => F::Dot($Call, 'View.CSS.SASS.Command')
+                            'Command' => F::Dot($Call, 'View.CSS.SASS.Command').' "'.F::Dot($Call, 'View.CSS.SASS.Filename').'"'
                         ]);
                     
                     if ($Exec['Code'] == 0)
-                        F::Log('SASS *processed* '.F::Dot($Call, 'View.CSS.SASS.Filename'), LOG_INFO, 'Developer');
+                    {
+                        $Call['CSS']['Styles'][$Call['CSS Name']] = $Exec['Result'];
+                        F::Log('SASS *processed* '.F::Dot($Call, 'View.CSS.SASS.Filename'), LOG_INFO);
+                    }
                     else
-                        F::Log('SASS *failed* '.F::Dot($Call, 'View.CSS.SASS.Filename'), LOG_WARNING, 'Developer');
+                    {
+                        $Call['CSS']['Styles'][$Call['CSS Name']] = '';
+                        F::Log('SASS *failed* '.F::Dot($Call, 'View.CSS.SASS.Filename'), LOG_WARNING);
+                    }
                 }
             }
             else

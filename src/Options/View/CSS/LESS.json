@@ -3,9 +3,9 @@
     {
         "CSS":
         {
-            "SASS":
+            "LESS":
             {
-                "Command": "sass --style compressed"
+                "Command": "lessc --compress --clean-css"
             }
         }
     }

@@ -46,18 +46,23 @@
             if ($LESSVersion > $CSSVersion or (isset($Call['HTTP']['Request']['Headers']['Pragma']) && $Call['HTTP']['Request']['Headers']['Pragma'] == 'no-cache'))
             {
                 // FIXME! Temporary decision.
-                if ($LessPath = F::findFile('Assets/'.$Asset.'/less/'.$ID.'.less'))
+                if (F::Dot($Call, 'View.CSS.LESS.Filename',F::findFile('Assets/'.$Asset.'/less/'.$ID.'.less')))
                 {
-                    $Command = 'lessc "'.$LessPath.'"';
-                    // $Command = 'lessc --clean-css ' .Root.'/Assets/'.$Asset.'/less/'.$ID.'.less > '.Root.'/Assets/'.$Asset.'/css/'.$ID.'.min.css';
-                    // shell_exec($Command);
-                    F::Log($Command, LOG_INFO, 'Developer');
-                    $Call['CSS']['Styles'][$Call['CSS Name']] = shell_exec($Command);
+                    $Exec = F::Run('Code.Run.External.Exec', 'Run', $Call,
+                        [
+                            'Command' => F::Dot($Call, 'View.CSS.LESS.Command').' "'.F::Dot($Call, 'View.CSS.LESS.Filename').'"'
+                        ]);
                     
-                    if (null === $Call['CSS']['Styles'][$Call['CSS Name']])
-                        F::Log('LESS *failed* '.Root.'/Assets/'.$Asset.'/less/'.$ID.'.less', LOG_ERR, 'Developer');
+                    if ($Exec['Code'] == 0)
+                    {
+                        $Call['CSS']['Styles'][$Call['CSS Name']] = $Exec['Result'];
+                        F::Log('LESS *processed* '.F::Dot($Call, 'View.CSS.LESS.Filename'), LOG_INFO);
+                    }
                     else
-                        F::Log('LESS *processed* '.Root.'/Assets/'.$Asset.'/less/'.$ID.'.less', LOG_INFO, 'Developer');
+                    {
+                        $Call['CSS']['Styles'][$Call['CSS Name']] = '';
+                        F::Log('LESS *failed* '.F::Dot($Call, 'View.CSS.LESS.Filename'), LOG_WARNING);
+                    }
                     
                     F::Run('IO', 'Write',
                     [
