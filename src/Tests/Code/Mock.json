@@ -1,0 +1,20 @@
+{
+    "Suites":
+    {
+        "Basic":
+        {
+            "Simple Mock":
+            {
+                "Run":
+                {
+                    "Service": "Code.Mock",
+                    "Method": "Do"
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            }
+        }
+    }
+}
