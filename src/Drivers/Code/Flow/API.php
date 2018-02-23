@@ -40,14 +40,17 @@
                         {
                             F::Log('API *' . $Call['API']['Request']['Service'] . ':' . $Call['API']['Request']['Method'] . '* started', LOG_NOTICE, 'All');
                     
-                            $Parameters = $Call['API'][$Call['API']['Request']['Service']][$Call['API']['Request']['Method']]['Parameters'] ?? null;
-                    
+                            $Parameters = F::Dot($Call, 'API.'.$Call['API']['Request']['Service'].'.'.$Call['API']['Request']['Method'].'.Parameters');
+                            
                             if (empty($Parameters))
                                 ;
                             else
                                 foreach ($Parameters as $Parameter)
                                     $Request = F::Dot($Request, $Parameter, F::Dot($Call['Request'], $Parameter));
-                    
+
+                            if ($Behaviours = F::Dot($Call, 'API.'.$Call['API']['Request']['Service'].'.'.$Call['API']['Request']['Method'].'.Behaviours') !== null)
+                                $Request = F::Merge($Request, $Behaviours);
+                            
                             $Call['Output']['Content']['Parameters'] = $Parameters;
                             $Call['Output']['Content']['Request'] = $Request;
                     

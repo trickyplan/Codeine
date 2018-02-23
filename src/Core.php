@@ -419,6 +419,13 @@
                 {
                     if ($Behaviours = F::Dot($Call, 'Behaviours') and self::$_Method !== 'Run')
                     {
+                        $ContractBehaviour = F::Dot($Call, 'Contract.Methods.'.self::$_Method.'.Behaviours');
+                        
+                        if ($ContractBehaviour === null)
+                            ;
+                        else
+                            $Behaviours = F::Merge($ContractBehaviour, $Behaviours);
+                        
                         foreach ($Behaviours as $Behaviour => $Options)
                         {
                             if (F::Dot($Options, 'Enabled') === true)
@@ -427,7 +434,7 @@
                                 $Call = F::Dot($Call, 'Behaviours.'.$Behaviour.'.Enabled', -1);
                                 $Call = F::Apply('Code.Run.Behaviours.'.$Behaviour, 'Run',
                                     [
-                                        'Behaviours' => F::Dot($Call, 'Behaviours'),
+                                        'Behaviours' => $Behaviours,
                                         'Run' =>
                                             [
                                                 'Service'   => self::$_Service,

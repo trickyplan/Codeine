@@ -1,4 +1,66 @@
 {
+    "Contract!":
+    {
+        "Methods":
+        {
+            "Read":
+            {
+                "Behaviours":
+                {
+                    "Cached":
+                    {
+                        "Enabled": false,
+                        "TTL": 60,
+                        "Keys": ["Storage", "Scope", "Where", "Time"]
+                    }
+                },
+                "Input":
+                {
+                    "Required":
+                    {
+                        "Storage":
+                        {
+                            "Description": "",
+                            "Type": "Literal.String"
+                        }
+                    }
+                },
+                "Output":
+                {
+                    "Mode": "Result"
+                },
+                "Fallback": null
+            },
+            "Count":
+            {
+                "Behaviours":
+                {
+                    "Cached":
+                    {
+                        "Enabled": false,
+                        "TTL": 60,
+                        "Keys": ["Storage", "Scope", "Where", "Time"]
+                    }
+                },
+                "Input":
+                {
+                    "Required":
+                    {
+                        "Storage":
+                        {
+                            "Description": "",
+                            "Type": "Literal.String"
+                        }
+                    }
+                },
+                "Output":
+                {
+                    "Mode": "Result"
+                },
+                "Fallback": null
+            }
+        }
+    },
     "Verbosity":
     {
         "Not found": 6
