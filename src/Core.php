@@ -417,31 +417,41 @@
 
                 if (is_callable($F))
                 {
-                    if ($Behaviours = F::Dot($Call, 'Behaviours') and self::$_Method !== 'Run')
+                    if (self::$_Method !== 'Run')
                     {
                         $ContractBehaviour = F::Dot($Call, 'Contract.Methods.'.self::$_Method.'.Behaviours');
+                        $Behaviours = F::Dot($Call, 'Behaviours');
                         
                         if ($ContractBehaviour === null)
                             ;
                         else
-                            $Behaviours = F::Merge($ContractBehaviour, $Behaviours);
-                        
-                        foreach ($Behaviours as $Behaviour => $Options)
                         {
-                            if (F::Dot($Options, 'Enabled') === true)
+                            if ($Behaviours === null)
+                                $Behaviours = $ContractBehaviour;
+                            else
+                                $Behaviours = F::Merge($Behaviours, $ContractBehaviour);
+                        }
+                        
+                        if ($Behaviours !== null)
+                        {
+                            foreach ($Behaviours as $Behaviour => $Options)
                             {
-                                F::Log('Behaviour active *'.$Behaviour.'*', LOG_INFO);
-                                $Call = F::Dot($Call, 'Behaviours.'.$Behaviour.'.Enabled', -1);
-                                $Call = F::Apply('Code.Run.Behaviours.'.$Behaviour, 'Run',
-                                    [
-                                        'Behaviours' => $Behaviours,
-                                        'Run' =>
-                                            [
-                                                'Service'   => self::$_Service,
-                                                'Method'    => self::$_Method,
-                                                'Call'      => $Call
-                                            ]
-                                    ]);
+                                if (F::Dot($Options, 'Enabled') === true)
+                                {
+                                    F::Log('Behaviour active *'.$Behaviour.'*', LOG_INFO);
+                                    $Call = F::Dot($Call, 'Behaviours.'.$Behaviour.'.Enabled', -1);
+                                    $Call = F::Dot($Call, 'Contract.Methods.'.self::$_Method.'.Behaviours.'.$Behaviour.'.Enabled', -1);
+                                    $Call = F::Apply('Code.Run.Behaviours.'.$Behaviour, 'Run',
+                                        [
+                                            'Behaviours' => $Behaviours,
+                                            'Run' =>
+                                                [
+                                                    'Service'   => self::$_Service,
+                                                    'Method'    => self::$_Method,
+                                                    'Call'      => $Call
+                                                ]
+                                        ]);
+                                }
                             }
                         }
                     }
