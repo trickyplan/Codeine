@@ -3,6 +3,7 @@
 
 <import file="build/initialize.xml"/>
 <import file="build/bower.xml"/>
+<import file="build/composer.xml"/>
 
 <import file="build/debian.xml"/>
 <import file="build/tarball.xml"/>
@@ -20,7 +21,7 @@
 <target name="phase1" depends="properties, folders"></target>
 
 <!-- Source code checks -->
-<target name="phase2" depends="phase1, bower-update"></target>
+<target name="phase2" depends="phase1, bower-update, composer-install"></target>
 
 <!-- Tests & docs -->
 <target name="phase3" depends="phase2"></target>
