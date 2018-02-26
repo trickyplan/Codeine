@@ -1,5 +1,5 @@
-/vendor/
-!/vendor/.gitkeep
+src/vendor/
+!src/vendor/.gitkeep
 
 ### SublimeText template
 # Cache files for Sublime Text
