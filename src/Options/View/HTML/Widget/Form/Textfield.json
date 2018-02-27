@@ -21,7 +21,8 @@
         {
             "Autofocus": false,
             "Required": false,
-            "Disabled": false
+            "Disabled": false,
+            "ReadOnly": false
         }
     }
 }
