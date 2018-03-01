@@ -45,12 +45,12 @@
                         {
                             F::Log('API *' . $Call['API']['Request']['Service'] . ':' . $Call['API']['Request']['Method'] . '* started', LOG_NOTICE, 'All');
 
-                            $Parameters = F::Dot($Call, implode('.', [
+                            $Parameters = F::Dot($Call, [
                                 'API',
                                 $Call['API']['Request']['Service'],
                                 $Call['API']['Request']['Method'],
                                 'Parameters'
-                            ]));
+                            ]);
 
                             if (empty($Parameters))
                                 ;

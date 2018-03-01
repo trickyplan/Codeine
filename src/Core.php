@@ -1086,6 +1086,9 @@
 
         public static function Dot ($Array, $Key)
         {
+            if (is_array($Key))
+                $Key = implode('.', $Key);
+            
             if (func_num_args() === 3)
             {
                 $Value = func_get_arg(2);
