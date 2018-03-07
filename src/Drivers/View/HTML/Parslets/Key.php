@@ -22,7 +22,7 @@
 
             foreach ($Key as $CMatch)
             {
-                $Value = F::Live(F::Dot($Call['Data'], $CMatch));
+                $Value = F::Live(F::Dot($Call, 'Data.'.$CMatch));
 
                 if ($Value === null)
                 {

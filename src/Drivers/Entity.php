@@ -290,9 +290,9 @@
             return null;
         }
 
-        $Call = F::Hook('beforeOperation', $Call);
-
         $Current = F::Run('Entity', 'Read', $Call, ['Time' => microtime(true).rand()]);
+        
+        $Call = F::Hook('beforeOperation', $Call);
 
         if ($Current)
         {
@@ -320,6 +320,8 @@
 
             F::Log('*'.count($Current).'* '.$Call['Entity'].' removed', LOG_INFO, 'Administrator');
         }
+        else
+            F::Log('*0* '.$Call['Entity'].' to delete', LOG_INFO, 'Administrator');
 
         return $Current;
     });

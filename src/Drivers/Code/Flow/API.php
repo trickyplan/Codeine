@@ -13,7 +13,7 @@
     {
         $Call['API']['Request']['Flow'] = 'API';
         $Request = ['Started' => Started];
-        $Call['API']['Response'] = ['Locale' => $Call['Locale']];
+        $Call['API']['Request']['Locale'] = ['Locale' => $Call['Locale']];
         // В этом месте, практически всегда, происходит роутинг.
         $Call = F::Hook('beforeAPIRun', $Call);
         
