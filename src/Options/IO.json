@@ -1,4 +1,11 @@
 {
+    "Mixins":
+    {
+        "Logs": "IO.Mixins.Logs2File",
+        "Behaviours": "IO.Mixins.Behaviours2Redis",
+        "View": "View.IO",
+        "Metric": "Metric.IO.MongoRedis"
+    },
     "Contract!":
     {
         "Methods":
@@ -65,11 +72,6 @@
     {
         "Not found": 6
     },
-    "Mixins":
-    {
-        "Logs": "IO.Mixins.Logs2File",
-        "Behaviours": "IO.Mixins.Behaviours2Redis"
-    },
     "Storages":
     {
         "Output":
@@ -112,102 +114,6 @@
             "Format": "Formats.JSON",
             "Postfix":".json"
         },
-        "Layout":
-        {
-            "Driver":"IO.Storage.FileSystem",
-            "Directory":"Assets",
-            "Postfix": ".html"
-        },
-        "Locale":
-        {
-            "Driver":"IO.Storage.FileSystem",
-            "Directory":"Assets",
-            "Format": "Formats.JSON",
-            "Postfix":".json"
-        },
-            "Image":
-            {
-                "Driver":"IO.Storage.FileSystem",
-                "Directory":"Assets"
-            },
-            "Image Cache":
-            {
-                "Driver":"IO.Storage.FileSystem",
-                "Directory":"/var/tmp/codeine",
-                "Scope": "cache/img",
-                "IO":
-                {
-                    "FileSystem":
-                    {
-                        "Append Host": true,
-                        "Hashing":
-                        {
-                            "Enabled": true,
-                            "Levels": 4
-                        }
-                    }
-                }
-            },
-            "LESS":
-            {
-                "Driver":"IO.Storage.FileSystem",
-                "Directory":"Assets",
-                "Postfix":".less"
-            },
-            "SASS":
-            {
-                "Driver":"IO.Storage.FileSystem",
-                "Directory":"Assets",
-                "Postfix":".scss"
-            },
-            "CSS":
-            {
-                "Driver":"IO.Storage.FileSystem",
-                "Directory":"Assets",
-                "Postfix":".css"
-            },
-            "CSS Cache":
-            {
-                "Driver":"IO.Storage.FileSystem",
-                "Directory":"/var/tmp/codeine",
-                "Scope": "cache/css",
-                "IO":
-                {
-                    "FileSystem":
-                    {
-                        "Append Host": true,
-                        "Hashing":
-                        {
-                            "Enabled": true,
-                            "Levels": 4
-                        }
-                    }
-                }
-            },
-            "JS":
-            {
-                "Driver":"IO.Storage.FileSystem",
-                "Directory":"Assets",
-                "Postfix":".js"
-            },
-            "JS Cache":
-            {
-                "Driver":"IO.Storage.FileSystem",
-                "Directory":"/var/tmp/codeine",
-                "Scope": "cache/js",
-                "IO":
-                {
-                    "FileSystem":
-                    {
-                        "Append Host": true,
-                        "Hashing":
-                        {
-                            "Enabled": true,
-                            "Levels": 4
-                        }
-                    }
-                }
-            },
         "EMail":
         {
             "Driver": "IO.Transport.Mail.SMTP",
