@@ -1,0 +1,19 @@
+{
+    "Storages":
+    {
+        "Metric Queue":
+        {
+            "Driver":"IO.Queue.File.JSON",
+            "Directory":"/var/spool/codeine",
+            "Filename": "Metric",
+            "Postfix":".json"
+        },
+        "Metric":
+        {
+            "Driver":"IO.Storage.FileSystem",
+            "Directory":"Data/Metric",
+            "Format": "Formats.JSON",
+            "Postfix":".json"
+        }
+    }
+}

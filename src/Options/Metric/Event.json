@@ -1,0 +1,14 @@
+{
+    "Metric":
+    {
+        "Event":
+        {
+            "Type": "Default",
+            "Value": 1
+        },
+        "Aggregate":
+        {
+            "Batch Size": 100
+        }
+    }
+}

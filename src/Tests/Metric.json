@@ -1,0 +1,68 @@
+{
+    "Suites":
+    {
+        "Positive Suite":
+        {
+            "Set Random Value for Test Metric":
+            {
+                "Run":
+                {
+                    "Service": "Metric",
+                    "Method": "Set",
+                    "Call":
+                    {
+                        "Metric":
+                        {
+                            "Type": "Test.Metric",
+                            "Dimensions":
+                            {
+                                "A": 1,
+                                "B": "X"
+                            },
+                            "Resolutions": [3600, 86400],
+                            "Value":
+                            {
+                                "Service": "Security.Entropy",
+                                "Method": "Get",
+                                "Call":
+                                {
+                                    "Min": 100,
+                                    "Max": 1000
+                                }
+                            }
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            },
+            "Get Value for Test.Metric.A1.BX with R86400":
+            {
+                "Run":
+                {
+                    "Service": "Metric",
+                    "Method": "Get",
+                    "Call":
+                    {
+                        "Metric":
+                        {
+                            "Type": "Test.Metric",
+                            "Dimensions":
+                            {
+                                "A": 1,
+                                "B": "X"
+                            },
+                            "Resolutions": [86400]
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            }
+        }
+    }
+}
