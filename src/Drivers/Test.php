@@ -41,6 +41,8 @@
                        
                         if (isset($Call['Case']['Run']))
                         {
+                            $Call['Case']['Run']['Call'] = F::Live($Call['Case']['Run']['Call']);
+                            
                             $Call['Case']['Result']['Actual'] = F::Live($Call['Case']['Run'], $VirtualCall);
                             
                             if (isset($Call['Case']['Store Result']))
