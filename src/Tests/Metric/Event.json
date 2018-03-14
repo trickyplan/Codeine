@@ -1,0 +1,139 @@
+{
+    "Suites":
+    {
+        "Positive Suite":
+        {
+            "Add Event Hit.A1.BX":
+            {
+                "Run":
+                {
+                    "Service": "Metric.Event",
+                    "Method": "Add",
+                    "Call":
+                    {
+                        "Metric":
+                        {
+                            "Event":
+                            {
+                                "Type": "Test.Event",
+                                "Dimensions":
+                                {
+                                    "A": 1,
+                                    "B": "X"
+                                }
+                            }
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            },
+            "Add Event Hit.A2.BX":
+            {
+                "Run":
+                {
+                    "Service": "Metric.Event",
+                    "Method": "Add",
+                    "Call":
+                    {
+                        "Metric":
+                        {
+                            "Event":
+                            {
+                                "Type": "Test.Event",
+                                "Dimensions":
+                                {
+                                    "A": 2,
+                                    "B": "X"
+                                }
+                            }
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            },
+            "Add Event Hit.A1.BY":
+            {
+                "Run":
+                {
+                    "Service": "Metric.Event",
+                    "Method": "Add",
+                    "Call":
+                    {
+                        "Metric":
+                        {
+                            "Event":
+                            {
+                                "Type": "Test.Event",
+                                "Dimensions":
+                                {
+                                    "A": 1,
+                                    "B": "Y"
+                                }
+                            }
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            },
+            "Add Second Event Hit.A1.BX":
+            {
+                "Run":
+                {
+                    "Service": "Metric.Event",
+                    "Method": "Add",
+                    "Call":
+                    {
+                        "Metric":
+                        {
+                            "Event":
+                            {
+                                "Type": "Test.Event",
+                                "Dimensions":
+                                {
+                                    "A": 1,
+                                    "B": "X"
+                                }
+                            }
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            },
+            "Aggregate Events":
+            {
+                "Run":
+                {
+                    "Service": "Metric.Event",
+                    "Method": "Aggregate",
+                    "Call":
+                    {
+                        "Metric":
+                        {
+                            "Event":
+                            {
+                                "Type": "Test.Event",
+                                "Resolutions": [3600, 86400]
+                            }
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            }
+        }
+    }
+}

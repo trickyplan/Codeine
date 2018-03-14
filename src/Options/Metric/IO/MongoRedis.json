@@ -1,0 +1,17 @@
+{
+    "Storages":
+    {
+        "Metric Queue":
+        {
+            "Driver": "IO.Queue.Redis",
+            "Queue": "Metric",
+            "Format": "Formats.JSON"
+        },
+        "Metric":
+        {
+            "Driver":"IO.Storage.Mongo",
+            "Server":"localhost",
+            "Database": "Metric"
+        }
+    }
+}

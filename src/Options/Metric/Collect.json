@@ -1,15 +1,24 @@
 {
-    "Dot":
+    "Metric":
     {
-
-    },
-    "Timer":
-    {
-        "Service": "System.Time",
-        "Method": "Get",
-        "Call":
+        "Collect":
         {
-            "Mode": "Precise"
+            "Collectors":
+            {
+                "Users, total":
+                {
+                    "Type": "User.Total",
+                    "Run":
+                    {
+                        "Service": "Entity",
+                        "Method": "Count",
+                        "Call":
+                        {
+                            "Entity": "User"
+                        }
+                    }
+                }
+            }
         }
     }
 }

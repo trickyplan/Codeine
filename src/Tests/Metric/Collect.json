@@ -1,0 +1,20 @@
+{
+    "Suites":
+    {
+        "Positive Suite":
+        {
+            "Simple Collect":
+            {
+                "Run":
+                {
+                    "Service": "Metric.Collect",
+                    "Method": "Do"
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            }
+        }
+    }
+}
