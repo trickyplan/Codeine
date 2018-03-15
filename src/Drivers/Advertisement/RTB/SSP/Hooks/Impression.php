@@ -23,7 +23,7 @@
         
         $Call = F::Hook('afterBannerAdd', $Call);
 
-        $Call['RTB']['DSP']['Request']['imp'][] = $Call['RTB']['DSP']['Impression'];
+        $Call['RTB']['DSP']['Request']['Impression'][] = $Call['RTB']['DSP']['Impression'];
 
         return $Call;
     });
