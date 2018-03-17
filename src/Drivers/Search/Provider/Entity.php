@@ -32,7 +32,6 @@
             $KeywordResults = F::Run('Entity', 'Read',
                 [
                     'Entity' => $Call['Entity'],
-                    'Fields' => $Call['Show fields'],
                     'Where'  => $Call['Where']
                 ]);
 
@@ -48,31 +47,16 @@
         arsort($Relevance);
         $Relevance = array_keys($Relevance); // FIXMEEEEE
 
-        $SERP = [];
+        $IDs = [];
 
-        if (empty($Results))
-            $SERP[$Call['Scope']] =
-                [
-                    'Type'  => 'Template',
-                    'Scope' => $Call['Scope'],
-                    'ID'    => 'Empty'
-                ];
-        else
-            foreach ($Relevance as $RankedID)
-            {
-                $Result = $Results[$RankedID];
-                $Result['From'] = $Call['HTTP']['Host'];
-                $Result['URL']  = $Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/'.$Call['Slug']['Entity'].'/'.$Result['ID'];
-                $SERP[$Result['URL']] =
-                    [
-                        'Type'  => 'Template',
-                        'Scope' => $Call['Scope'],
-                        'ID'    => 'Show/Search',
-                        'Data'  => $Result
-                    ];
-
-            }
+        foreach ($Relevance as $RankedID)
+        {
+            $Result = $Results[$RankedID];
+            $Result['From'] = $Call['HTTP']['Host'];
+            $Result['URL']  = $Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/'.$Call['Slug']['Entity'].'/'.$Result['ID'];
+            $IDs[$Result['ID']] = $Result['ID'];
+        }
 
         $Meta = ['Hits' => [$Call['Scope'] => count($Results)]];
-        return ['SERP' => $SERP, 'Meta' => $Meta];
+        return ['IDs' => $IDs, 'Meta' => $Meta];
     });

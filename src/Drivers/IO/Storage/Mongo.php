@@ -60,7 +60,7 @@
         
         if (isset($Call['Fields']))
         {
-            F::Log('*'.implode(',', $Call['Fields']).'* fields selected', LOG_INFO, 'Administrator');
+            F::Log('*'.j($Call['Fields']).'* fields selected', LOG_INFO, 'Administrator');
 
             $Fields = ['_id' => 0];
             
