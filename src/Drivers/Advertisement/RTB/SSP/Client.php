@@ -46,11 +46,11 @@
 
         $Call = F::Hook('afterRTBRequest', $Call);
         
-        F::Log('Request: '.j(F::Dot($Call, 'RTB.DSP.Request')), LOG_INFO, 'RTB');
+        F::Log(function () use ($Call) {return 'Request: '.j(F::Dot($Call, 'RTB.DSP.Request'));}, LOG_INFO, 'RTB');
         
         if (F::Dot($Call, 'RTB.DSP.Debug.LogEmptyResponse') == true)
             if (F::Dot($Call, 'RTB.DSP.Result') == [null])
-                F::Log('Zero Response: '.j(F::Dot($Call, 'RTB.DSP.Request')), LOG_WARNING, 'RTB');
+                F::Log(function () use ($Call) {return 'Zero Response: '.j(F::Dot($Call, 'RTB.DSP.Request'));} , LOG_WARNING, 'RTB');
 
         return $Call;
     });
