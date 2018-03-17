@@ -9,7 +9,7 @@
 
     setFn('Process', function ($Call)
     {
-        if ($Call['Locale'] !== $Call['Default']['Locale'])
+        if ($Call['Locale'] !== F::Dot($Call, 'Default.Locale'))
             if (F::Dot($Call, 'LocalizedURLs.Enabled') && preg_match_all('@a href="(/.*)"@SsUu',$Call['Output'], $Links))
             {
                 $Pair = [];
