@@ -19,8 +19,9 @@
     {
         if (setcookie ($Call['Marker']['Cookie']['Name'],
             $Call['SID'],
-            time() +
-            $Call['Marker']['Cookie']['TTL'],
+            $Call['Marker']['Cookie']['TTL']
+                ? time() + $Call['Marker']['Cookie']['TTL']
+                : $Call['Marker']['Cookie']['TTL'],
             $Call['Marker']['Cookie']['Path'],
             $Call['Marker']['Cookie']['Domain'],
             $Call['Marker']['Cookie']['Secure'],
