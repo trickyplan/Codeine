@@ -41,6 +41,6 @@
 
     setFn('Autotest', function ($Call)
     {
-        F::Log('Autotest. I\'m alive.', LOG_WARNING);
+        F::Log('Autotest. I\'m alive.', LOG_WARNING, 'All');
         return $Call;
     });
