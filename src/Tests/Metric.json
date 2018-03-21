@@ -7,8 +7,8 @@
             {
                 "Run":
                 {
-                    "Service": "Metric",
-                    "Method": "Set",
+                    "Service": "Metric.Set",
+                    "Method": "Do",
                     "Call":
                     {
                         "Metric":
@@ -19,7 +19,7 @@
                                 "A": 1,
                                 "B": "X"
                             },
-                            "Resolutions": [3600, 86400],
+                            "Resolutions": [60, 3600, 86400],
                             "Value":
                             {
                                 "Service": "Security.Entropy",
@@ -38,12 +38,12 @@
                     "Print": true
                 }
             },
-            "Get Value for Test.Metric.A1.BX with R86400":
+            "Get Values for Test.Metric.A1.BX with R3600":
             {
                 "Run":
                 {
-                    "Service": "Metric",
-                    "Method": "Get",
+                    "Service": "Metric.Get",
+                    "Method": "Row",
                     "Call":
                     {
                         "Metric":
@@ -54,7 +54,32 @@
                                 "A": 1,
                                 "B": "X"
                             },
-                            "Resolutions": [86400]
+                            "Resolutions": [60]
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            },
+            "Get Sum for Test.Metric.A1.BX with R3600":
+            {
+                "Run":
+                {
+                    "Service": "Metric.Get",
+                    "Method": "Sum",
+                    "Call":
+                    {
+                        "Metric":
+                        {
+                            "Type": "Test.Metric",
+                            "Dimensions":
+                            {
+                                "A": 1,
+                                "B": "X"
+                            },
+                            "Resolutions": [60]
                         }
                     }
                 },
