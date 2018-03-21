@@ -4,7 +4,8 @@
         "Event":
         {
             "Type": "Default",
-            "Value": 1
+            "Value": 1,
+            "Resolutions": [3600, 86400]
         },
         "Aggregate":
         {

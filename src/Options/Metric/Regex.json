@@ -1,0 +1,20 @@
+{
+    "Regex":
+    {
+        "Metric Event":
+        {
+            "Match": "/metric/event",
+            "Weight": 100,
+            "Service": "Metric.Event",
+            "Method": "Add.Front",
+            "View":
+            {
+                "Renderer":
+                {
+                    "Service": "View.RAW",
+                    "Method": "Render"
+                }
+            }
+        }
+    }
+}

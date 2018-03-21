@@ -16,15 +16,15 @@
             [
                 'Storage'   => 'Metric Queue',
                 'Scope'     => F::Dot($Call, 'Metric.Event.Type'),
-                'Data'      => F::Dot($Call, 'Metric.Event')
+                'Data'      => F::Live(F::Dot($Call, 'Metric.Event'), $Call)
             ]);
-        
-        return true;
+
+        return $Call;
     });
     
     setFn('Aggregate', function ($Call)
     {
-        $Result = [];
+        $Call['Result'] = [];
         $Type = F::Dot($Call, 'Metric.Event.Type');
         
         // Read Event from Queue
@@ -100,9 +100,29 @@
                     ]);
                 }
                 
-                $Result[] = $Call['Data'];
+                $Call['Result'][] = $Call['Data'];
             }
         }
         
-        return $Result;
+        return $Call;
+    });
+    
+    setFn('Add.Front', function ($Call)
+    {
+        $Event['Type'] = F::Dot($Call, 'Request.Type');
+        $Event['Dimensions'] = F::Dot($Call, 'Request.Dimensions');
+        
+        if (empty($Event['Type']))
+            ;
+        else
+            F::Run(null, 'Add', $Call,
+                [
+                    'Metric'    =>
+                    [
+                        'Event' => $Event
+                    ]
+                ]);
+        
+        $Call['Output']['Content'] = 'OK';
+        return $Call;
     });
