@@ -23,7 +23,7 @@
                 else
                     $Call['Run']['Call'] = [];
                 
-                F::Log('Application *'.$Call['Service'].':'.$Call['Method'].'('.j($Call['Run']['Call']).')* started', LOG_NOTICE, 'All');
+                F::Log('Application *'.$Call['Service'].':'.$Call['Method'].'('.j($Call['Run']['Call']).')* started', LOG_INFO, 'All');
         
                 $Call = F::Hook('beforeApplicationRun', $Call); // В этом месте, практически всегда, происходит роутинг.
         
@@ -31,7 +31,7 @@
         
                 $Call = F::Hook('afterApplicationRun', $Call); // А здесь - рендеринг
         
-                F::Log('Application *'.$Call['Service'].':'.$Call['Method'].'('.j($Call['Run']['Call']).')* finished', LOG_NOTICE, 'All');
+                F::Log('Application *'.$Call['Service'].':'.$Call['Method'].'('.j($Call['Run']['Call']).')* finished', LOG_INFO, 'All');
         
                 if (is_array($Call))
                     $Call['Context'] = '';

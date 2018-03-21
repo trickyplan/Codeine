@@ -43,7 +43,7 @@
                     {
                         if ($Call['API']['Response']['Access'])
                         {
-                            F::Log('API *' . $Call['API']['Request']['Service'] . ':' . $Call['API']['Request']['Method'] . '* started', LOG_NOTICE, 'All');
+                            F::Log('API *' . $Call['API']['Request']['Service'] . ':' . $Call['API']['Request']['Method'] . '* started', LOG_INFO, 'All');
 
                             $Parameters = F::Dot($Call, [
                                 'API',
@@ -73,7 +73,7 @@
                 }
             }
     
-            F::Log('API *' . $Call['API']['Request']['Service'] . ':' . $Call['API']['Request']['Method'] . '* finished', LOG_NOTICE, 'All');
+            F::Log('API *' . $Call['API']['Request']['Service'] . ':' . $Call['API']['Request']['Method'] . '* finished', LOG_INFO, 'All');
             F::stopColor();
     
             $Call = F::Merge($Call, $Call['API']['Formats'][$Call['API']['Request']['Format']]);
