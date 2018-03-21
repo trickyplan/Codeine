@@ -1,7 +1,7 @@
 {
     "Rules":
     {
-        "ЦУП доступен всем пользователям":
+        "Control allowed to all registered (staff-model)":
         {
             "Decision": true,
             "Weight": 100,

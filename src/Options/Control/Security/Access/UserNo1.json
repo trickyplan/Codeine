@@ -1,7 +1,7 @@
 {
     "Rules":
     {
-        "ЦУП доступен пользователю номер 1":
+        "Control allowed to User 1":
         {
             "Decision": true,
             "Weight": 100,
