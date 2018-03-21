@@ -1,0 +1,17 @@
+{
+    "Mixins":
+    {
+        "Logs": "IO.Mixins.Logs2File",
+        "Behaviours": "IO.Mixins.Behaviours2File"
+    },
+    "Storages":
+    {
+        "Layout":
+        {
+            "Verbosity":
+            {
+                "Not found": 5
+            }
+        }
+    }
+}

@@ -1,0 +1,34 @@
+#    Site config must define "backend" upstream
+#    upstream backend
+#    {
+#        server 127.0.0.1:9000;
+#        server unix:/run/php/php7.0-fpm.sock;
+#        server backup.example.com:8080 backup;
+#        server down.example.com:8080 down;
+#    }
+
+    set $Environment Demo;
+
+    include conf.d/codeine.v2.nginx;
+
+    location ~ index.php$
+    {
+        include fastcgi_params;
+        include conf.d/codeine.fastcgi.v2.nginx;
+        fastcgi_intercept_errors        on;
+
+        fastcgi_param  Environment $Environment;
+        fastcgi_pass   $backend;
+        fastcgi_index  index.php;
+    }
+
+    location ~ api.php$
+    {
+        include fastcgi_params;
+        include conf.d/codeine.fastcgi.v2.nginx;
+        fastcgi_intercept_errors        on;
+
+        fastcgi_param  Environment $Environment;
+        fastcgi_pass   $backend;
+        fastcgi_index  api.php;
+    }
