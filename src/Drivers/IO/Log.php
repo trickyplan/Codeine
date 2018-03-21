@@ -44,3 +44,9 @@
         F::Log('Autotest. I\'m alive.', LOG_WARNING, 'All');
         return $Call;
     });
+
+    setFn('Hook', function ($Call)
+    {
+        F::Log(F::Live($Call['Message'], $Call), $Call['Verbose'], $Call['Channel']);
+        return $Call;
+    });
