@@ -10,9 +10,9 @@
     setFn('Do', function ($Call)
     {
         $Call = F::Apply (null, 'Make Request', $Call);
-        $Result = F::Run (null, 'Select Bid', $Call);
+        $Call = F::Run (null, 'Select Bid', $Call);
 
-        return $Result;
+        return F::Dot($Call, 'RTB.Result.Seats.0.adm');
     });
     
     setFn('Make Request', function ($Call)
@@ -44,14 +44,15 @@
                          'Data'     => F::Dot($Call, 'RTB.DSP.Request')
                      ]));
 
-        $Call = F::Hook('afterRTBRequest', $Call);
+        $Call = F::Hook('RTB.SSP.Request.Created', $Call); // New Hook Convention
+        $Call = F::Hook('afterRTBRequest', $Call); // Old Convention
         
         F::Log(function () use ($Call) {return 'Request: '.j(F::Dot($Call, 'RTB.DSP.Request'));}, LOG_INFO, 'RTB');
         
         if (F::Dot($Call, 'RTB.DSP.Debug.LogEmptyResponse') == true)
             if (F::Dot($Call, 'RTB.DSP.Result') == [null])
                 F::Log(function () use ($Call) {return 'Zero Response: '.j(F::Dot($Call, 'RTB.DSP.Request'));} , LOG_WARNING, 'RTB');
-
+        
         return $Call;
     });
 
@@ -88,13 +89,17 @@
                                 ]);
                             
                             F::Log('Bid processed '.j($Bid), LOG_INFO, 'RTB');
+                            // Shitcode
                             $Currency = isset($cResult['cur'])? $cResult['cur']: 'USD';
                             $Bid['adm'] = str_replace($Searches, [$Bid['id'], $Bid['impid'], $Bid['price'], $Currency ], $Bid['adm']);
                             $Call = F::Dot($Call, 'RTB.Result.Seats.'.$SeatID, $Bid);
+                            
+                            $Call = F::Hook('RTB.SSP.BidWon', $Call);
+                            break;
                         }
                     }
                 }
             }
             
-        return F::Dot($Call, 'RTB.Result.Seats.0.adm'); // ?
+        return $Call;
     });
