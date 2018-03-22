@@ -92,8 +92,9 @@
                             // Shitcode
                             $Currency = isset($cResult['cur'])? $cResult['cur']: 'USD';
                             $Bid['adm'] = str_replace($Searches, [$Bid['id'], $Bid['impid'], $Bid['price'], $Currency ], $Bid['adm']);
-                            $Call = F::Dot($Call, 'RTB.Result.Seats.'.$SeatID, $Bid);
+                            $Bid['price'] /= 1000; // CPM
                             
+                            $Call = F::Dot($Call, 'RTB.Result.Seats.'.$SeatID, $Bid);
                             $Call = F::Hook('RTB.SSP.BidWon', $Call);
                             break;
                         }
