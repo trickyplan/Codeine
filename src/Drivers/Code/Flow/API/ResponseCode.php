@@ -2,9 +2,9 @@
 
 setFn('afterAPIRun', function ($Call)
 {
-    if (isset($Call['Output']['Content']['Response']['Data']['Status']) &&
-        $Call['Output']['Content']['Response']['Data']['Status']['Code'] === 1) {
-        $Call['HTTP']['Headers']['HTTP/1.1'] = '204 Not Found';
+    if (F::Dot($Call, 'Output.Content.Response.Data.HTTPCode')) {
+        $Call['HTTP']['Headers']['HTTP/1.1'] = F::Dot($Call,'Output.Content.Response.Data.HTTPCode');
+        unset($Call['Output']['Content']['Response']['Data']['HTTPCode']);
     }
 
     return $Call;
