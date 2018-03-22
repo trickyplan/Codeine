@@ -20,7 +20,7 @@
                 'Data'      => F::Live(F::Dot($Call, 'Metric.Event'), $Call)
             ]);
 
-        $Call = F::Dot($Call, 'Metric', null);
+        $Call = F::Dot($Call, 'Metric.Event', null);
         
         return $Call;
     });
