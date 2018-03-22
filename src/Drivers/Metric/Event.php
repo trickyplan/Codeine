@@ -10,7 +10,8 @@
     setFn('Add', function ($Call)
     {
         // Add Event to Metric Queue
-        $Call = F::Dot($Call, 'Metric.Event.Time', F::Run('System.Time', 'Get', $Call));
+        if (empty(F::Dot($Call, 'Metric.Event.Time')))
+            $Call = F::Dot($Call, 'Metric.Event.Time', F::Run('System.Time', 'Get', $Call));
         
         F::Run('IO', 'Write', $Call,
             [
@@ -19,6 +20,8 @@
                 'Data'      => F::Live(F::Dot($Call, 'Metric.Event'), $Call)
             ]);
 
+        $Call = F::Dot($Call, 'Metric', null);
+        
         return $Call;
     });
     
@@ -57,6 +60,11 @@
                     
                     $HashedWhere = hash('sha256', serialize($Where));
         
+                    if (isset($Event['Value']))
+                        ;
+                    else
+                        $Event['Value'] = 1;
+                    
                     if (isset($Aggregate[$HashedWhere]))
                         $Aggregate[$HashedWhere]['Value'] += $Event['Value'];
                     else
