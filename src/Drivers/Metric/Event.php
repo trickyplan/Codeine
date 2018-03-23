@@ -50,7 +50,11 @@
         {
             foreach ($Events as $Event)
             {
-                $Where = $Event['Dimensions'];
+                if (isset($Event['Dimensions']))
+                    $Where = $Event['Dimensions'];
+                else
+                    $Where = [];
+                
                 $Where ['Type'] = $Type;
                 
                 foreach ($Call['Metric']['Event']['Resolutions'] as $Call['Metric']['Event']['Resolution'])
