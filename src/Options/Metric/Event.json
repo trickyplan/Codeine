@@ -9,7 +9,11 @@
         },
         "Aggregate":
         {
-            "Batch Size": 100
+            "Batch":
+            {
+                "AutoSize": false,
+                "Size": 100
+            }
         }
     }
 }
