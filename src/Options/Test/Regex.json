@@ -6,13 +6,33 @@
             "Match": "^/test/(.+)$",
             "Weight": 5,
             "Service": "Test",
-            "Method": "Do",
+            "Method": "Run.Test",
             "Call":
             {
-                "Test":
+                "ID": "$1"
+            }
+        },
+        "Test / JSON":
+        {
+            "Match": "^/test/(.+).json$",
+            "Weight": 5,
+            "Service": "Test",
+            "Method": "Run.Test",
+            "View":
+            {
+                "Renderer":
                 {
-                    "Name": "$1"
+                    "Service": "View.JSON",
+                    "Method": "Render"
+                },
+                "JSON":
+                {
+                    "RAW": true
                 }
+            },
+            "Call":
+            {
+                "ID": "$1"
             }
         },
         "All Tests":
@@ -20,7 +40,7 @@
             "Match": "^/test$",
             "Weight": 5,
             "Service": "Test",
-            "Method": "Do"
+            "Method": "Run.All"
         }
     }
 }

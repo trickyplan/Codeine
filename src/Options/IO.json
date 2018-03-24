@@ -4,6 +4,7 @@
         "Logs": "IO.Mixins.Logs2File",
         "Behaviours": "IO.Mixins.Behaviours2Redis",
         "View": "View.IO",
+        "Test": "Test.IO",
         "Metric": "Metric.IO.MongoRedis"
     },
     "Contract!":

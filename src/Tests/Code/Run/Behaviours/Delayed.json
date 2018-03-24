@@ -49,7 +49,10 @@
                         "Seconds": 5
                     }
                 },
-                "Result Key": "Mode",
+                "Result":
+                {
+                    "Extract": "Mode"
+                },
                 "Assert":
                 {
                     "Print": true

@@ -1,0 +1,30 @@
+<tr>
+    <td>
+        <if key="Status" eq="Passed">
+            <div class="label label-success">Passed</div>
+        </if>
+        <if key="Status" eq="Failed">
+            <div class="label label-danger">Failed</div>
+        </if>
+    </td>
+    <td>
+        <key>ID</key>
+    </td>
+    <td>
+        <key>Suite</key>
+    </td>
+    <td>
+        <key>Name</key>
+    </td>
+    <td>
+        <key>Time.Run</key> ms.
+    </td>
+    <td>
+        <a data-toggle="collapse" href="#ResultActual_<key>ID</key>" aria-expanded="false" aria-controls="collapseExample">
+          Result
+        </a>
+    </td>
+</tr>
+<tr class="collapse" id="ResultActual_<key>ID</key>">
+  <td colspan="6"><pre><key>Result.Actual</key></pre></td>
+</tr>
