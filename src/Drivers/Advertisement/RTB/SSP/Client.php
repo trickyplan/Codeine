@@ -12,7 +12,7 @@
         $Call = F::Apply (null, 'Make Request', $Call);
         $Call = F::Run (null, 'Select Bid', $Call);
 
-        return F::Dot($Call, 'RTB.Result.Seats.0.adm');
+        return F::Dot($Call, 'RTB.Result.Seats');
     });
     
     setFn('Make Request', function ($Call)
