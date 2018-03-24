@@ -19,8 +19,22 @@
                 ;
             else
             {
-                $Value = (string) $Call['Parsed']['Options'][$IX]['value'];
-
+                $Key = (string) F::Dot($Call['Parsed'], 'Options.'.$IX.'.key');
+                
+                if (empty($Key))
+                    $Value = (string) F::Dot($Call['Parsed'], 'Options.'.$IX.'.value');
+                else
+                {
+                    $Value = (string) F::Dot($Call['Data'], $Key);
+                    if (empty($Value))
+                    {
+                        if ($Null = (string) F::Dot($Call['Parsed'], 'Options.'.$IX.'.null'))
+                            $Value = $Null;
+                        else
+                            $Value = 'null'; // TODO Externalize
+                    }
+                }
+                
                 if (isset($Call['Parsed']['Options'][$IX]['null']))
                 {
                     if ($Call['Parsed']['Options'][$IX]['null'] == 1)
