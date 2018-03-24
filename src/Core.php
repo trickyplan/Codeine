@@ -640,17 +640,20 @@
         public static function Finish ($Message)
         {
             $Logs = self::Logs();
+            $FinalLogs = '';
             foreach ($Logs as $Channel => $Records)
                 foreach ($Records as $Record)
-                    $JSONLogs[] = [
-                        'Channel'   => $Channel,
-                        'Verbose'   => $Record[0],
-                        'Time'      => $Record[1],
-                        'Message'   => $Record[2],
-                        'From'      => $Record[3],
-                        'Depth'     => $Record[4],
-                        'Stack'     => $Record[5]
-                    ];
+                    $FinalLogs.= implode("\t",
+                        [
+                            'Channel'   => $Channel,
+                            'Verbose'   => $Record[0],
+                            'Time'      => $Record[1],
+                            'Message'   => $Record[2],
+                            'From'      => $Record[3],
+                            'Depth'     => $Record[4],
+                            'Stack'     => $Record[5]
+                        ]).PHP_EOL;
+            
             
             if (PHP_SAPI == 'cli')
                 $Output = $Message;
@@ -659,7 +662,7 @@
                 $Output = file_get_contents(Codeine.'/Assets/Finish.html');
                 $Output = str_replace('<finish:message/>', $Message, $Output);
                 $Output = str_replace('<finish:stack/>',self::Stack(), $Output);
-                $Output = str_replace('<finish:logs/>', j($JSONLogs), $Output);
+                $Output = str_replace('<finish:logs/>', $FinalLogs, $Output);
             }
 
             echo $Output;
