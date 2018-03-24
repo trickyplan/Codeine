@@ -7,7 +7,7 @@
             "Weight": 100,
             "Run":
             {
-                "Environment": "-Development",
+                "Environment": "Development",
                 "Service": "Test"
             }
         }
