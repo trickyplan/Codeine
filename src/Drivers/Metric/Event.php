@@ -147,6 +147,6 @@
                     ]
                 ]);
         
-        $Call['Output']['Content'] = 'OK';
+        $Call['Output']['Content'] = j($Event);
         return $Call;
     });
