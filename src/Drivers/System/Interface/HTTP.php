@@ -237,9 +237,10 @@
 
         if (isset($Call['HTTP']['Request']['Headers']['Content-Type']))
         {
-            switch ($Call['HTTP']['Request']['Headers']['Content-Type'])
+            $ContentType = strtolower($Call['HTTP']['Request']['Headers']['Content-Type']);
+            switch ($ContentType)
             {
-                case 'application/json':
+                case 'application/json; charset=utf-8':
                     if (isset($Call['HTTP']['RAW']))
                     {
                         $RAW = jd($Call['HTTP']['RAW']);
