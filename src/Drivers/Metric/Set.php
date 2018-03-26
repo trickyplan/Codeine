@@ -14,8 +14,13 @@
             $Call['Result'] = [];
             $Time = F::Run('System.Time', 'Get', $Call);
             
-            $Call['Where'] = $Call['Metric']['Dimensions'];
-            F::Log(function () use ($Call) {return 'Metric Dimensions: '.j($Call['Where']);} , LOG_INFO);
+            if (isset($Call['Metric']['Dimensions']))
+            {
+                $Call['Where'] = $Call['Metric']['Dimensions'];
+                F::Log(function () use ($Call) {return 'Metric Dimensions: '.j($Call['Where']);} , LOG_INFO);
+            }
+            else
+                $Call['Where'] = [];
             
             $Call['Where']['Type'] = $Call['Metric']['Type'];
             
@@ -47,11 +52,11 @@
                     $Call['Data'] = $Call['Where'];
                     $Call['Data']['Value'] = $Call['Metric']['Value'];
     
-                    unset ($Call['Where']);
                     $Call['Result']['R'.$Call['Metric']['Resolution']] = F::Run('IO', 'Write', $Call,
                     [
                         'Storage'   => 'Primary',
                         'Scope'     => 'Metric',
+                        'Where'     => null,
                         'Data'      => $Call['Data']
                     ]);
                 }

@@ -30,6 +30,18 @@
         $Call['Result'] = [];
         $Type = F::Dot($Call, 'Metric.Event.Type');
         
+        $Count = F::Run('IO', 'Execute', $Call,
+            [
+                'Execute'   => 'Count',
+                'Storage'   => 'Metric Queue',
+                'Scope'     => $Type
+            ]);
+        
+        F::Log('Queue Size: '.$Count, LOG_NOTICE);
+        
+        if (F::Dot($Call, 'Metric.Aggregate.Batch.AutoSize'))
+            $Call = F::Dot($Call, 'Metric.Aggregate.Batch.Size', $Count);
+        
         // Read Event from Queue
         $Events = F::Run('IO', 'Read', $Call,
             [
@@ -38,7 +50,7 @@
                 'Limit'     =>
                 [
                     'From'  => 0,
-                    'To'    => F::Dot($Call, 'Metric.Aggregate.Batch Size')
+                    'To'    => F::Dot($Call, 'Metric.Aggregate.Batch.Size')
                 ]
             ]);
         
@@ -50,7 +62,11 @@
         {
             foreach ($Events as $Event)
             {
-                $Where = $Event['Dimensions'];
+                if (isset($Event['Dimensions']))
+                    $Where = $Event['Dimensions'];
+                else
+                    $Where = [];
+                
                 $Where ['Type'] = $Type;
                 
                 foreach ($Call['Metric']['Event']['Resolutions'] as $Call['Metric']['Event']['Resolution'])
@@ -131,6 +147,6 @@
                     ]
                 ]);
         
-        $Call['Output']['Content'] = 'OK';
+        $Call['Output']['Content'] = j($Event);
         return $Call;
     });

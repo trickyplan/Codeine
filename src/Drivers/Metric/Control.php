@@ -18,25 +18,44 @@
                              'No Where'  => true
                          ]);
         
-        $Rows = [];
+        $Resolutions = F::Run('IO', 'Execute',
+                         [
+                             'Execute'   => 'Distinct',
+                             'Storage'   => 'Primary',
+                             'Scope'     => 'Metric',
+                             'Fields'    => ['Resolution'],
+                             'No Where'  => true
+                         ]);
+        
+        $Headers = ['Type', 'Count'];
+        foreach ($Resolutions['Resolution'] as $Resolution)
+            $Headers [] = 'Sum R'.$Resolution;
+
+        $Rows = [$Headers];
+        
         foreach ($Types['Type'] as $Type)
-            $Rows[] = [
-                $Type,
-                F::Run('Metric.Get', 'Count', $Call,
-                [
-                    'Metric' =>
+        {
+            $Row = [$Type,  F::Run('Metric.Get', 'Count', $Call,
                     [
-                        'Type' => $Type
-                    ]
-                ]),
-                F::Run('Metric.Get', 'Sum', $Call,
-                [
-                    'Metric' =>
+                        'Metric' =>
+                            [
+                                'Type' => $Type
+                            ]
+                    ])];
+            
+            foreach ($Resolutions['Resolution'] as $Resolution)
+                $Row[$Resolution] =
+                    F::Run('Metric.Get', 'Sum', $Call,
                     [
-                        'Type' => $Type
-                    ]
-                ])
-            ];
+                        'Metric' =>
+                        [
+                            'Type' => $Type,
+                            'Resolutions' => [$Resolution]
+                        ]
+                    ]);
+            
+            $Rows[] = $Row;
+        }
 
         $Call['Output']['Content'][] =
             [

@@ -8,9 +8,14 @@
      */
     setFn('Where', function ($Call)
     {
+        if (isset($Call['Where']))
+            ;
+        else
+            $Call['Where'] = [];
+        
         if (isset($Call['Metric']['Dimensions']))
         {
-            $Call['Where'] = $Call['Metric']['Dimensions'];
+            $Call['Where'] = F::Merge($Call['Where'], $Call['Metric']['Dimensions']);
             F::Log(function () use ($Call) {return 'Metric Dimensions: *'.j($Call['Where']).'*';} , LOG_INFO);
         }
         
@@ -73,7 +78,7 @@
         
             $Rows = F::Run(null, 'Row', $Call);
             $Values = array_column($Rows, 'Value');
-            
+           
             $Call['Result'] = array_sum($Values);
             
         $Call = F::Hook('afterMetricGetCount', $Call);

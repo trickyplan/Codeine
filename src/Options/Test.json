@@ -1,13 +1,38 @@
 {
-    "Test":
+    "Hooks":
     {
-        "Report":
-        [
-            ["<l>Test.Headers:Title</l>",
-            "<l>Test.Headers:Suite</l>",
-            "<l>Test.Headers:Case</l>",
-            "<l>Test.Headers:Result</l>",
-            "<l>Test.Headers:Time</l>"]
-        ]
+        "Test":
+        {
+            "Case":
+            {
+                "Run":
+                {
+                    "Execute":
+                    {
+                        "Before":
+                        {
+                            "Live Call":
+                            {
+                                "Service": "Test.Hooks.LiveCall",
+                                "Method": "Test.Case.Run.Execute.Before"
+                            }
+                        },
+                        "After":
+                        {
+                            "Extract Result Key":
+                            {
+                                "Service": "Test.Hooks.Result.Extract",
+                                "Method": "Test.Case.Run.Execute.After"
+                            },
+                            "Store Result Key":
+                            {
+                                "Service": "Test.Hooks.Result.Store",
+                                "Method": "Test.Case.Run.Execute.After"
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }

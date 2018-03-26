@@ -56,14 +56,16 @@
                                 ;
                             else
                                 foreach ($Parameters as $Parameter)
-                                    $Request = F::Dot($Request, $Parameter, F::Dot($Call['Request'], $Parameter));
+                                    $Request = $Call['HTTP']['Method'] === 'GET'
+                                        ? F::Dot($Request, $Parameter, F::Dot($Call['Request'], $Parameter))
+                                        : F::Dot($Request, $Parameter, F::Dot(jd(F::Dot($Call, 'HTTP.RAW')), $Parameter));
 
                             if ($Behaviours = F::Dot($Call, 'API.'.$Call['API']['Request']['Service'].'.'.$Call['API']['Request']['Method'].'.Behaviours') !== null)
                                 $Request = F::Merge($Request, $Behaviours);
                             
                             $Call['Output']['Content']['Parameters'] = $Parameters;
                             $Call['Output']['Content']['Request'] = $Request;
-                    
+
                             $Call['API']['Response']['Data'] =
                                 F::Run($Call['API']['Request']['Service'], $Call['API']['Request']['Method'], $Call, $Request);
                     

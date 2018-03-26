@@ -15,7 +15,10 @@
                         "Database": "localhost"
                     }
                 },
-                "Store Result": "Link",
+                "Result":
+                {
+                    "Store": "Link"
+                },
                 "Assert":
                 {
                     "Print": true
@@ -117,6 +120,22 @@
                     [{
                         "Key 1": "Value A"
                     }]
+                }
+            },
+            "Delete":
+            {
+                "Run":
+                {
+                    "Service": "IO.Storage.Mongo",
+                    "Method": "Write",
+                    "Call":
+                    {
+                        "Scope": "Test",
+                        "Where": {
+                            "ID": "Test"
+                        },
+                        "Data": null
+                    }
                 }
             }
         }

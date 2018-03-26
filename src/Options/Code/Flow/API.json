@@ -69,6 +69,11 @@
         },
         "afterAPIRun":
         {
+            "Set response code":
+            {
+                "Service": "Code.Flow.API.ResponseCode",
+                "Method":  "afterAPIRun"
+            },
             "Rendering":
             {
                 "Service":"View",
