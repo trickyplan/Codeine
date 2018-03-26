@@ -2,7 +2,6 @@
 
 setFn('Do', function ($Call) 
 {
-    
     if (preg_match(F::Dot($Call, 'Test.Case.Result.Match.Expected'), F::Dot($Call, 'Test.Case.Result.Actual')))
         $Decision = true;
     else
