@@ -33,7 +33,7 @@
                 F::Log($Call['Storage'].' not found', LOG_CRIT, 'Administrator'); // FIXME
         }
         else
-            F::Log('Storage not defined', LOG_CRIT, 'Administrator');
+            F::Log('IO.Open.Storage.Undefined', LOG_CRIT, 'Administrator');
 
         return null;
      });
@@ -41,25 +41,22 @@
     setFn ('Read', function ($Call)
     {
         $Result = null;
-
-        if (isset($Call['Result']))
-            unset($Call['Result']);
-
-        if (isset($Call['Storage']))
-            $IOID = $Call['Storage'];
-        else
-            $IOID = '';
-
-        if (isset($Call['Scope']))
-            $IOID .= DS.j($Call['Scope']);
-
-        if (isset($Call['Where']))
-            $IOID .= DS.j($Call['Where']);
-
-        self::Start('IO: '.$IOID);
-
+        
         if (isset($Call['Storage']))
         {
+            if (isset($Call['Result']))
+                unset($Call['Result']);
+
+            $IOID = $Call['Storage'];
+    
+            if (isset($Call['Scope']))
+                $IOID .= DS.j($Call['Scope']);
+    
+            if (isset($Call['Where']))
+                $IOID .= DS.j($Call['Where']);
+    
+            self::Start('IO: '.$IOID);
+            
             $Call = F::Apply('IO', 'Open', $Call);
 
             if ($Call['Link'] === null)
@@ -67,7 +64,9 @@
 
             $Call = F::Hook('beforeIORead', $Call);
 
-            if (!isset($Call['Result']))
+            if (isset($Call['Result']))
+                ;
+            else
             {
                 // Если в Where простая переменная - это ID.
                 if (isset($Call['Where']) && is_scalar($Call['Where']))
@@ -101,11 +100,12 @@
                 $Result = array_pop($Result);
                 unset($Call['IO One']);
             }
+            
+            F::Stop('IO: '.$IOID);
         }
         else
-            F::Log('IO Null Storage: ', LOG_CRIT);
+            F::Log('IO.Read.Storage.Undefined', LOG_CRIT);
 
-        F::Stop('IO: '.$IOID);
         return $Result;
     });
 

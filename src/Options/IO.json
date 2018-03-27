@@ -7,7 +7,7 @@
         "Test": "Test.IO",
         "Metric": "Metric.IO.MongoRedis"
     },
-    "Contract!":
+    "Contract":
     {
         "Methods":
         {
@@ -19,7 +19,7 @@
                     {
                         "Enabled": false,
                         "TTL": 60,
-                        "Keys": ["Storage", "Scope", "Where", "Time"]
+                        "Keys": ["Storage", "Scope", "Where", "Time", "IO One"]
                     }
                 },
                 "Input":
