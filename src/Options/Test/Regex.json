@@ -1,17 +1,6 @@
 {
     "Regex":
     {
-        "Test":
-        {
-            "Match": "^/test/(.+)$",
-            "Weight": 5,
-            "Service": "Test",
-            "Method": "Run.Test",
-            "Call":
-            {
-                "ID": "$1"
-            }
-        },
         "Test / JSON":
         {
             "Match": "^/test/(.+).json$",
@@ -30,6 +19,17 @@
                     "RAW": true
                 }
             },
+            "Call":
+            {
+                "ID": "$1"
+            }
+        },
+        "Test":
+        {
+            "Match": "^/test/(.+)$",
+            "Weight": 5,
+            "Service": "Test",
+            "Method": "Run.Test",
             "Call":
             {
                 "ID": "$1"
