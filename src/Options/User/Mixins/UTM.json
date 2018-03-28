@@ -1,0 +1,45 @@
+{
+    "Nodes":
+    {
+        "UTM.Source":
+        {
+            "Type": "Literal.String",
+            "Hooks":
+            {
+                "beforeEntityCreate": "$Session.UTM.Last.Source"
+            }
+        },
+        "UTM.Medium":
+        {
+            "Type": "Literal.String",
+            "Hooks":
+            {
+                "beforeEntityCreate": "$Session.UTM.Last.Medium"
+            }
+        },
+        "UTM.Campaign":
+        {
+            "Type": "Literal.String",
+            "Hooks":
+            {
+                "beforeEntityCreate": "$Session.UTM.Last.Campaign"
+            }
+        },
+        "UTM.Term":
+        {
+            "Type": "Literal.String",
+            "Hooks":
+            {
+                "beforeEntityCreate": "$Session.UTM.Last.Term"
+            }
+        },
+        "UTM.Content":
+        {
+            "Type": "Literal.String",
+            "Hooks":
+            {
+                "beforeEntityCreate": "$Session.UTM.Last.Content"
+            }
+        }
+    }
+}
