@@ -41,7 +41,7 @@
         $Call['entity'] = strtr(strtolower($Call['Entity']), '.', '/'); // Hm.
         $Call['Flat Entity'] = str_replace('.', '', $Call['Entity']);
 
-        F::Log('Entity '.$Call['Entity'].' Nodes: '.count($Call['Nodes']), LOG_INFO);
+        F::Log('Entity '.$Call['Entity'].' Nodes: '.count($Call['Nodes']), LOG_DEBUG);
         
         return $Call;
     });

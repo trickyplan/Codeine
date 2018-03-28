@@ -67,8 +67,11 @@
     setFn('All', function ($Call)
     {
         $Call   = F::Apply('Entity', 'Load', $Call);
-        $Total  = F::Run('Entity', 'Count', $Call);
+        $Total  = F::Run('Entity', 'Count', $Call, ['No Where'  => true]);
         $Amount = ceil($Total/$Call['All']['Limit']);
+        F::Log('Total objects: '.$Total, LOG_NOTICE);
+        F::Log('Groups: '.$Amount, LOG_NOTICE);
+        
         set_time_limit(10*$Total);
 
         $Call = F::Apply('Code.Progress', 'Start', $Call);
@@ -77,22 +80,29 @@
 
         for ($i = 0; $i < $Amount; $i++)
         {
-            F::Run('Entity', 'Update',
+            $Entities = F::Run('Entity', 'Read',
                 [
-                    'Entity'    => $Call['Entity'],
-                    'Where'     => $Call['Where'],
-                    'Data'      => [],
                     'One'       => false,
+                    'Entity'    => $Call['Entity'],
+                    'No Where'  => true,
                     'Limit'     =>
                     [
                         'From' => $i*$Call['All']['Limit'],
                         'To'   => ($i+1)*$Call['All']['Limit']
                     ]
                 ]);
+            
+            foreach ($Entities as $Entity)
+                F::Run('Entity', 'Update',
+                [
+                    'Entity'    => $Call['Entity'],
+                    'Where'     => $Entity['ID'],
+                    'One'       => false
+                ]);
 
             $Call['Progress']['Now']++;
             $Call = F::Apply('Code.Progress', 'Log', $Call);
-            F::Log('Touch Iteration № '.($i+1)/$Amount, LOG_NOTICE);
+            F::Log('Touch Iteration № '.($i+1).'/'.$Amount, LOG_NOTICE);
         }
 
          $Call = F::Apply('Code.Progress', 'Finish', $Call);
