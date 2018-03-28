@@ -9,16 +9,16 @@
     "packages": [
         {
             "name": "mongodb/mongodb",
-            "version": "1.3.0",
+            "version": "1.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mongodb/mongo-php-library.git",
-                "reference": "07ffd2438658342b776803323cfaa7c156a6099a"
+                "reference": "7417ecf1ca5aef263d3e2fdc4ace214f7fd1b750"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mongodb/mongo-php-library/zipball/07ffd2438658342b776803323cfaa7c156a6099a",
-                "reference": "07ffd2438658342b776803323cfaa7c156a6099a",
+                "url": "https://api.github.com/repos/mongodb/mongo-php-library/zipball/7417ecf1ca5aef263d3e2fdc4ace214f7fd1b750",
+                "reference": "7417ecf1ca5aef263d3e2fdc4ace214f7fd1b750",
                 "shasum": ""
             },
             "require": {
@@ -28,7 +28,7 @@
                 "php": ">=5.5"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.8.36"
+                "phpunit/phpunit": "^4.8.36 || ^6.4"
             },
             "type": "library",
             "extra": {
@@ -70,7 +70,7 @@
                 "mongodb",
                 "persistence"
             ],
-            "time": "2018-02-08 16:30:23"
+            "time": "2018-03-19 18:40:25"
         }
     ],
     "packages-dev": [],

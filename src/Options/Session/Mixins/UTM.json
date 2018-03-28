@@ -5,6 +5,7 @@
         "UTM.First.Source":
         {
             "Type": "Literal.String",
+            "Default": "",
             "Hooks":
             {
                 "beforeEntityCreate":
@@ -17,6 +18,7 @@
         "UTM.First.Medium":
         {
             "Type": "Literal.String",
+            "Default": "",
             "Hooks":
             {
                 "beforeEntityCreate":
@@ -29,6 +31,7 @@
         "UTM.First.Campaign":
         {
             "Type": "Literal.String",
+            "Default": "",
             "Hooks":
             {
                 "beforeEntityCreate":
@@ -41,6 +44,7 @@
         "UTM.First.Term":
         {
             "Type": "Literal.String",
+            "Default": "",
             "Hooks":
             {
                 "beforeEntityCreate":
@@ -53,6 +57,7 @@
         "UTM.First.Content":
         {
             "Type": "Literal.String",
+            "Default": "",
             "Hooks":
             {
                 "beforeEntityCreate":
@@ -66,6 +71,7 @@
         "UTM.Last.Source":
         {
             "Type": "Literal.String",
+            "Default": "",
             "Hooks":
             {
                 "beforeEntityWrite":
@@ -78,6 +84,7 @@
         "UTM.Last.Medium":
         {
             "Type": "Literal.String",
+            "Default": "",
             "Hooks":
             {
                 "beforeEntityWrite":
@@ -90,6 +97,7 @@
         "UTM.Last.Campaign":
         {
             "Type": "Literal.String",
+            "Default": "",
             "Hooks":
             {
                 "beforeEntityWrite":
@@ -102,6 +110,7 @@
         "UTM.Last.Term":
         {
             "Type": "Literal.String",
+            "Default": "",
             "Hooks":
             {
                 "beforeEntityWrite":
@@ -114,6 +123,7 @@
         "UTM.Last.Content":
         {
             "Type": "Literal.String",
+            "Default": "",
             "Hooks":
             {
                 "beforeEntityWrite":
