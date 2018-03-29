@@ -31,6 +31,20 @@
                 "Method": "StoreURL"
             }
         },
+        "afterCreatePost":
+        {
+            "Log Creation":
+            {
+                "Service": "IO.Log",
+                "Method": "Hook",
+                "Call":
+                {
+                    "Message": "Block «$Data.0.Title» ID: $Data.0.ID created by User «$Session.User.Title»",
+                    "Channel": "Management",
+                    "Verbose": 4
+                }
+            }
+        },
         "afterUpdatePost":
         {
             "Redirect URL":
@@ -40,6 +54,31 @@
                 "Call":
                 {
                     "Redirect": "/control/$Entity/Show/$Data.0.ID"
+                }
+            },
+            "Log Updation":
+            {
+                "Service": "IO.Log",
+                "Method": "Hook",
+                "Call":
+                {
+                    "Message": "Block «$Current.Title» ID: $Current.ID  updated by User «$Session.User.Title»",
+                    "Channel": "Management",
+                    "Verbose": 4
+                }
+            }
+        },
+        "afterDeletePost":
+        {
+            "Log Deletion":
+            {
+                "Service": "IO.Log",
+                "Method": "Hook",
+                "Call":
+                {
+                    "Message": "Block «$Data.0.Title» ID: $Data.0.ID deleted by User «$Session.User.Title»",
+                    "Channel": "Management",
+                    "Verbose": 4
                 }
             }
         }

@@ -11,6 +11,17 @@
         },
         "afterCreatePost":
         {
+            "Log Creation":
+            {
+                "Service": "IO.Log",
+                "Method": "Hook",
+                "Call":
+                {
+                    "Message": "$Entity $Data.0.ID ($Data.0.Title) created by User $Session.User.ID ($Session.User.EMail)",
+                    "Channel": "Management",
+                    "Verbose": 5
+                }
+            },
             "Redirect":
             {
                 "Service": "System.Interface.HTTP",
@@ -79,6 +90,17 @@
         },
         "afterDeletePost":
         {
+            "Log Deletion":
+            {
+                "Service": "IO.Log",
+                "Method": "Hook",
+                "Call":
+                {
+                    "Message": "$Entity $Data.0.ID ($Data.0.Title) deleted by User $Session.User.ID ($Session.User.EMail)",
+                    "Channel": "Management",
+                    "Verbose": 5
+                }
+            },
             "Restore URL":
             {
                 "Service": "System.Interface.HTTP",
