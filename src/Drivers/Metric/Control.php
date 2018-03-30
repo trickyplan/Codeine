@@ -35,7 +35,7 @@
         
         foreach ($Types['Type'] as $Type)
         {
-            $Row = [$Type,  F::Run('Metric.Get', 'Count', $Call,
+            $Row = [$Type,  F::Run('Metric.Calc', 'Count', $Call,
                     [
                         'Metric' =>
                             [
@@ -45,7 +45,7 @@
             
             foreach ($Resolutions['Resolution'] as $Resolution)
                 $Row[$Resolution] =
-                    F::Run('Metric.Get', 'Sum', $Call,
+                    F::Run('Metric.Calc', 'Sum', $Call,
                     [
                         'Metric' =>
                         [

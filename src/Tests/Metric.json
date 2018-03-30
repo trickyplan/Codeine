@@ -67,7 +67,7 @@
             {
                 "Run":
                 {
-                    "Service": "Metric.Get",
+                    "Service": "Metric.Calc",
                     "Method": "Sum",
                     "Call":
                     {
