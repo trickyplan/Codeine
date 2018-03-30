@@ -104,3 +104,48 @@
         
         return $Call['Result'];
     });
+
+    setFn('Average', function ($Call)
+    {
+        $Call = F::Hook('beforeMetricGetCount', $Call);
+
+            $Rows = F::Run(null, 'Row', $Call);
+
+            $Call['Result'] = F::Run(
+                'Science.Math.Statistics.Mean.Arithmetic',
+                'Calculate',
+                $Call,
+                [
+                    'Values' => array_column($Rows, 'Value')
+                ]
+            );
+
+        $Call = F::Hook('afterMetricGetCount', $Call);
+
+        return $Call['Result'];
+    });
+
+    setFn('Min', function ($Call)
+    {
+        $Call = F::Hook('beforeMetricGetCount', $Call);
+
+            $Rows = F::Run(null, 'Row', $Call);
+            $Call['Result'] = min(array_column($Rows, 'Value'));
+
+        $Call = F::Hook('afterMetricGetCount', $Call);
+
+        return $Call['Result'];
+    });
+
+    setFn('Max', function ($Call)
+    {
+        $Call = F::Hook('beforeMetricGetCount', $Call);
+
+            $Rows = F::Run(null, 'Row', $Call);
+            $Call['Result'] = max(array_column($Rows, 'Value'));
+
+        $Call = F::Hook('afterMetricGetCount', $Call);
+
+        return $Call['Result'];
+    });
+

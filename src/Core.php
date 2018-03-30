@@ -1327,6 +1327,21 @@
         return func_get_arg(2);
     }
 
+    function vd($array)
+    {
+        echo '<pre>';
+        var_dump($array);
+        die();
+    }
+
+    function vv($array)
+    {
+        echo '<pre>';
+        var_dump($array);
+        echo '</pre>';
+        echo '---------------------------------';
+    }
+
     function setFn($Name, $Function)
     {
         return F::setFn($Name, $Function);
