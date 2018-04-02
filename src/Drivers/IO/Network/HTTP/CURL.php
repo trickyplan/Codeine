@@ -92,7 +92,6 @@
             }
 
             $Running = null;
-
             do
                 curl_multi_exec($Call['Link'], $Running);
             while ($Running > 0);
@@ -191,67 +190,137 @@
 
     setFn('Write', function ($Call)
     {
-        $Call['Link'] = curl_init($Call['Where']['ID']);
         $Call = F::Run(null, 'Select User Agent', $Call);
 
-        $Post = is_string($Call['Data']) ? $Call['Data'] : http_build_query($Call['Data']);
+        if (is_array($Call['Where']['ID'])) {
+            $Call['Link'] = curl_multi_init();
 
-        F::Log('CURL POST Request Headers: *'.j($Call['CURL']['Headers']).'*', LOG_INFO, 'Administrator');
-        curl_setopt_array($Call['Link'],
-            [
-                CURLOPT_HEADER           => $Call['CURL']['Return Header'],
-                CURLOPT_RETURNTRANSFER   => true,
-                CURLOPT_COOKIEJAR        => $Call['CURL']['Cookie Directory'].DS.parse_url($Call['Where']['ID'], PHP_URL_HOST),
-                CURLOPT_COOKIE           => $Call['CURL']['Cookie'],
-                CURLOPT_FOLLOWLOCATION   => $Call['CURL']['Follow'],
-                CURLOPT_REFERER          => $Call['CURL']['Referer'],
-                CURLOPT_CONNECTTIMEOUT   => $Call['CURL']['Connect Timeout'],
-                CURLOPT_TIMEOUT          => $Call['CURL']['Overall Timeout'],
-                CURLOPT_PROXY            => $Call['CURL']['Proxy']['Host'],
-                CURLOPT_PROXYPORT        => $Call['CURL']['Proxy']['Port'],
-                CURLOPT_USERAGENT        => $Call['CURL']['Agent'],
-                CURLOPT_HTTPHEADER       => $Call['CURL']['Headers'],
-                CURLOPT_ENCODING         => $Call['CURL']['Encoding'],
-                CURLINFO_HEADER_OUT      => true,
-                CURLOPT_FAILONERROR      => false,
-                CURLOPT_POST             => true,
-                CURLOPT_SSL_VERIFYPEER   => false,
-                // CURLOPT_USERPWD          => isset($Call['User'])? $Call['User'].':'.$Call['Password']: null, // FIXME
-                CURLOPT_HTTPAUTH         => CURLAUTH_BASIC,
-                CURLOPT_POSTFIELDS       => $Post
-            ]);
+            $Links = [];
 
-        $Result = [curl_exec($Call['Link'])];
+            foreach($Call['Where']['ID'] as $cIndex => $cID) {
+                $Post = '';
+                if (isset($Call['Data'][$cIndex]))
+                    $Post = is_string($Call['Data'][$cIndex]) ? $Call['Data'][$cIndex] : http_build_query($Call['Data'][$cIndex]);
 
-        $Call = F::Apply(null, 'Info', $Call);
-        
-        if ($Call['CURL']['Return Header'])
-        {
-            $Size = curl_getinfo($Call['Link'], CURLINFO_HEADER_SIZE);
-            $Headers = mb_substr($Result[0], 0, $Size);
-            $Body = mb_substr($Result[0], $Size);
+                $Links[$cID] = curl_init($cID);
 
-            $HTTPStatus = curl_getinfo($Call['Link'], CURLINFO_HTTP_CODE);
-            $Result = [$Body, '_Status' => $HTTPStatus, '_0' => $Headers];
+                F::Log('CURL POST Request Headers: *'.j($Call['CURL']['Headers']).'*', LOG_INFO, 'Administrator');
+                F::Log('CURL POST Request Parameters: *'.j($Call['Data'][$cIndex]).'*', LOG_INFO, 'Administrator');
+                F::Log('CURL POST Request URL: *'.$cID.'*', LOG_INFO, 'Administrator');
+                curl_setopt_array($Links[$cID], [
+                        CURLOPT_HEADER           => $Call['CURL']['Return Header'],
+                        CURLOPT_RETURNTRANSFER   => true,
+                        CURLOPT_COOKIEJAR        => $Call['CURL']['Cookie Directory'].DS.parse_url($cID, PHP_URL_HOST),
+                        CURLOPT_COOKIE           => $Call['CURL']['Cookie'],
+                        CURLOPT_FOLLOWLOCATION   => $Call['CURL']['Follow'],
+                        CURLOPT_REFERER          => $Call['CURL']['Referer'],
+                        CURLOPT_CONNECTTIMEOUT   => $Call['CURL']['Connect Timeout'],
+                        CURLOPT_TIMEOUT          => $Call['CURL']['Overall Timeout'],
+                        CURLOPT_PROXY            => $Call['CURL']['Proxy']['Host'],
+                        CURLOPT_PROXYPORT        => $Call['CURL']['Proxy']['Port'],
+                        CURLOPT_USERAGENT        => $Call['CURL']['Agent'],
+                        CURLOPT_HTTPHEADER       => $Call['CURL']['Headers'],
+                        CURLOPT_ENCODING         => $Call['CURL']['Encoding'],
+                        CURLINFO_HEADER_OUT      => true,
+                        CURLOPT_FAILONERROR      => false,
+                        CURLOPT_POST             => true,
+                        CURLOPT_SSL_VERIFYPEER   => false,
+                        CURLOPT_HTTPAUTH         => CURLAUTH_BASIC,
+                        CURLOPT_POSTFIELDS       => $Post
+                    ]);
+
+                curl_multi_add_handle($Call['Link'], $Links[$cID]);
+            }
+
+            $Running = null;
+            do {
+                curl_multi_exec($Call['Link'], $Running);
+            } while ($Running > 0);
+
+            foreach ($Links as $ID => $Link)
+            {
+                $Result[$ID] = curl_multi_getcontent($Link);
+
+                if ($Call['CURL']['Return Header'] && isset($Call['CURL']['Only Header'])) 
+                {
+                    $Size = curl_getinfo($Link, CURLINFO_HEADER_SIZE);
+                    $Result[$ID] = substr($Result[$ID], 0, $Size);
+                }
+
+                F::Log('CURL POST Response: '.j($Result[$ID]), LOG_INFO, 'Administrator');
+                if (curl_multi_errno($Link)) 
+                {
+                    F::Log('CURL POST error: '.curl_error($Link).'*'.$ID.'*', LOG_NOTICE, 'Administrator');
+                    F::Log($Return, LOG_NOTICE, 'Administrator');
+                }
+                else
+                    F::Log('CURL POST fetched *'.$ID.'*', LOG_INFO, 'Administrator');
+
+                curl_multi_remove_handle($Call['Link'], $Link);
+            }
+
+            curl_multi_close($Call['Link']);
+        } else {
+            $Call['Link'] = curl_init($Call['Where']['ID']);
+            $Post = is_string($Call['Data']) ? $Call['Data'] : http_build_query($Call['Data']);
+
+            F::Log('CURL POST Request Headers: *'.j($Call['CURL']['Headers']).'*', LOG_INFO, 'Administrator');
+            curl_setopt_array($Call['Link'],
+                [
+                    CURLOPT_HEADER           => $Call['CURL']['Return Header'],
+                    CURLOPT_RETURNTRANSFER   => true,
+                    CURLOPT_COOKIEJAR        => $Call['CURL']['Cookie Directory'].DS.parse_url($Call['Where']['ID'], PHP_URL_HOST),
+                    CURLOPT_COOKIE           => $Call['CURL']['Cookie'],
+                    CURLOPT_FOLLOWLOCATION   => $Call['CURL']['Follow'],
+                    CURLOPT_REFERER          => $Call['CURL']['Referer'],
+                    CURLOPT_CONNECTTIMEOUT   => $Call['CURL']['Connect Timeout'],
+                    CURLOPT_TIMEOUT          => $Call['CURL']['Overall Timeout'],
+                    CURLOPT_PROXY            => $Call['CURL']['Proxy']['Host'],
+                    CURLOPT_PROXYPORT        => $Call['CURL']['Proxy']['Port'],
+                    CURLOPT_USERAGENT        => $Call['CURL']['Agent'],
+                    CURLOPT_HTTPHEADER       => $Call['CURL']['Headers'],
+                    CURLOPT_ENCODING         => $Call['CURL']['Encoding'],
+                    CURLINFO_HEADER_OUT      => true,
+                    CURLOPT_FAILONERROR      => false,
+                    CURLOPT_POST             => true,
+                    CURLOPT_SSL_VERIFYPEER   => false,
+                    // CURLOPT_USERPWD          => isset($Call['User'])? $Call['User'].':'.$Call['Password']: null, // FIXME
+                    CURLOPT_HTTPAUTH         => CURLAUTH_BASIC,
+                    CURLOPT_POSTFIELDS       => $Post
+                ]);
+
+            $Result = [curl_exec($Call['Link'])];
+
+            $Call = F::Apply(null, 'Info', $Call);
             
-            F::Log('CURL GET Response Headers: '.j(explode("\r\n", $Headers)), LOG_INFO, 'Administrator');
-        }
+            if ($Call['CURL']['Return Header'])
+            {
+                $Size = curl_getinfo($Call['Link'], CURLINFO_HEADER_SIZE);
+                $Headers = mb_substr($Result[0], 0, $Size);
+                $Body = mb_substr($Result[0], $Size);
 
-        if ($Call['CURL']['Return Header'] && isset($Call['CURL']['Only Header']))
-        {
-            $Size = curl_getinfo($Call['Link'], CURLINFO_HEADER_SIZE);
-            $Result[0] = substr($Result[0], 0, $Size);
-        }
-        
-        if (curl_errno($Call['Link']))
-        {
-            F::Log('CURL POST error: '.curl_error($Call['Link']).' *'.$Call['Where']['ID'].'* '.PHP_EOL.$Post, LOG_NOTICE, 'Administrator');
-            F::Log($Result, LOG_NOTICE, 'Administrator');
-        }
-        else
-            F::Log('CURL POST fetched *'.$Call['Where']['ID'].'* '.$Post, LOG_INFO, 'Administrator');
+                $HTTPStatus = curl_getinfo($Call['Link'], CURLINFO_HTTP_CODE);
+                $Result = [$Body, '_Status' => $HTTPStatus, '_0' => $Headers];
+                
+                F::Log('CURL GET Response Headers: '.j(explode("\r\n", $Headers)), LOG_INFO, 'Administrator');
+            }
 
-        curl_close ($Call['Link']);
+            if ($Call['CURL']['Return Header'] && isset($Call['CURL']['Only Header']))
+            {
+                $Size = curl_getinfo($Call['Link'], CURLINFO_HEADER_SIZE);
+                $Result[0] = substr($Result[0], 0, $Size);
+            }
+            
+            if (curl_errno($Call['Link']))
+            {
+                F::Log('CURL POST error: '.curl_error($Call['Link']).' *'.$Call['Where']['ID'].'* '.PHP_EOL.$Post, LOG_NOTICE, 'Administrator');
+                F::Log($Result, LOG_NOTICE, 'Administrator');
+            }
+            else
+                F::Log('CURL POST fetched *'.$Call['Where']['ID'].'* '.$Post, LOG_INFO, 'Administrator');
+
+            curl_close ($Call['Link']);
+        }
 
         return $Result;
     });

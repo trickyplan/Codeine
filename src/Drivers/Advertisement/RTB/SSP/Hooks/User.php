@@ -9,8 +9,10 @@
     
     setFn('Do', function ($Call)
     {
-        if ($ID = F::Dot($Call, 'Request.VID') === null)
-            $ID = REQID;
-        $Call = F::Dot($Call, 'RTB.DSP.Request.user.id', $ID);
-        return $Call;
+        $ID = F::Dot($Call, 'Request.VID') ?: REQID;
+
+        return F::Dot($Call, 'RTB.DSP.Items', array_map(function ($DSP) use ($ID) {
+            $DSP['Request']['user']['id'] = $ID;
+            return $DSP;
+        }, F::Dot($Call, 'RTB.DSP.Items')));
     });

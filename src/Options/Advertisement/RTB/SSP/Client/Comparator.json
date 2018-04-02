@@ -1,0 +1,25 @@
+{
+    "RTB":
+    {
+        "SSP":
+        {
+            "Client":
+            {
+                "Comparator":
+                {
+                    "Strategy": "Valuable"
+                }
+            }
+        }
+    },
+    "Hooks":
+    {
+        "beforeSSPClientComparator": 
+        {
+
+        },
+        "afterSSPClientComparator":
+        {
+        }
+    }
+}

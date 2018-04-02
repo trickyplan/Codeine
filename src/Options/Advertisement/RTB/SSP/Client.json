@@ -33,11 +33,38 @@
             "Merge Bid":
             {
                 "Service": "Advertisement.RTB.SSP.Hooks.Bid"
+            },
+            "Convert Request Data to JSON":
+            {
+                "Service": "Advertisement.RTB.SSP.Hooks.DataToJSON"
             }
         },
         "afterRTBRequest":
         {
-
+            "Select Bids": 
+            {
+                "Service": "Advertisement.RTB.SSP.Client.Comparator",
+                "Call": 
+                {
+                    "RTB":
+                    {
+                        "SSP":
+                        {
+                            "Client":
+                            {
+                                "Comparator":
+                                {
+                                    "Strategy": "Valuable"    
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "Send RTB Win Notice":
+            {
+                "Service": "Advertisement.RTB.SSP.Hooks.WinNotice"
+            }
         }
     }
 }
