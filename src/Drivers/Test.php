@@ -20,7 +20,16 @@
                     'Where'     => $Call['ID'],
                     'IO One'    => true
                 ]);
-            
+
+            if (isset($Call['Test']['Mixins']) && is_array($Call['Test']['Mixins']))
+            {
+                foreach($Call['Test']['Mixins'] as $Mixin)
+                {
+                    $Call['Test'] = F::Merge(F::loadOptions($Mixin), $Call['Test']);
+                }
+                unset($Call['Test']['Mixins']);
+            }
+
             if (isset($Call['Test']['Suites']))
                 foreach($Call['Test']['Suites'] as
                         $Call['Test']['Suite']['Name'] => $Call['Test']['Suite']['Cases'])

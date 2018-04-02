@@ -44,7 +44,5 @@
         
         $Call = F::Hook('afterMetricGetLast', $Call);
 
-        vd($Call['Result']['Value']);
-        
         return F::Dot($Call, 'Result.Value');
     });

@@ -1,4 +1,8 @@
 {
+    "Mixins":
+    [
+        "Metric.Mixins.Clear"
+    ],
     "Suites":
     {
         "Positive Suite":
