@@ -71,7 +71,7 @@
                     [
                         CURLOPT_HEADER           => $Call['CURL']['Return Header'],
                         CURLOPT_RETURNTRANSFER   => true,
-                        CURLOPT_COOKIEJAR        => $Call['CURL']['Cookie Directory'].DS.parse_url($Call['Where']['ID'], PHP_URL_HOST),
+                        CURLOPT_COOKIEJAR        => $Call['CURL']['Cookie Directory'].DS.parse_url($cID, PHP_URL_HOST),
                         CURLOPT_COOKIE           => $Call['CURL']['Cookie'],
                         CURLOPT_FOLLOWLOCATION   => $Call['CURL']['Follow'],
                         CURLOPT_REFERER          => $Call['CURL']['Referer'],
@@ -248,7 +248,7 @@
                 }
 
                 F::Log('CURL POST Response: '.j($Result[$ID]), LOG_INFO, 'Administrator');
-                if (curl_multi_errno($Link)) 
+                if (curl_multi_errno($Call['Link'])) 
                 {
                     F::Log('CURL POST error: '.curl_error($Link).'*'.$ID.'*', LOG_NOTICE, 'Administrator');
                     F::Log($Return, LOG_NOTICE, 'Administrator');
