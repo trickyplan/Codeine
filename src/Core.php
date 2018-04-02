@@ -648,7 +648,7 @@
                             'Channel'   => $Channel,
                             'Verbose'   => $Record[0],
                             'Time'      => $Record[1],
-                            'Message'   => $Record[2],
+                            'Message'   => is_string($Record[2])? $Record[2]: j($Record[2]),
                             'From'      => $Record[3],
                             'Depth'     => $Record[4],
                             'Stack'     => $Record[5]

@@ -49,7 +49,7 @@
             if ($Run)
             {
                 $Result = F::Live($Call['Run']);
-                
+
                 $Envelope = [
                         'Time'      => $Time,
                         'Result'    => $Result
@@ -66,7 +66,8 @@
                 F::Log('Run cache *stored* for '.$Scope.':'.$CacheID, LOG_INFO, 'Performance');
             }
         }
-        
+    
         $Call['Run']['Result'] = $Result;
+        
         return $Call;
     });
