@@ -56,5 +56,50 @@
                 }
             }
         }
+    },
+    "Hooks":
+    {
+        "afterCreatePost":
+        {
+            "Log Creation":
+            {
+                "Service": "IO.Log",
+                "Method": "Hook",
+                "Call":
+                {
+                    "Message": "Page «$Data.0.Title» ID: $Data.0.ID  created by User «$Session.User.Title»",
+                    "Channel": "Management",
+                    "Verbose": 4
+                }
+            }
+        },
+        "afterUpdatePost":
+        {
+            "Log Updation":
+            {
+                "Service": "IO.Log",
+                "Method": "Hook",
+                "Call":
+                {
+                    "Message": "Page «$Current.Title» ID: $Current.ID  updated by User «$Session.User.Title»",
+                    "Channel": "Management",
+                    "Verbose": 4
+                }
+            }
+        },
+        "afterDeletePost":
+        {
+            "Log Deletion":
+            {
+                "Service": "IO.Log",
+                "Method": "Hook",
+                "Call":
+                {
+                    "Message": "Page «$Data.0.Title» ID: $Data.0.ID deleted by User «$Session.User.Title»",
+                    "Channel": "Management",
+                    "Verbose": 4
+                }
+            }
+        }
     }
 }
