@@ -9,9 +9,7 @@
     setFn('Row', function ($Call)
     {
         $Call = F::Hook('beforeMetricGet', $Call);
-            
-            $Call = F::Apply('Metric.Calc', 'Where', $Call);
-            
+
             $Call['Result'] = F::Run('IO', 'Read', $Call,
             [
                 'Storage'   => 'Primary',
@@ -28,8 +26,6 @@
     {
         $Call = F::Hook('beforeMetricGetLast', $Call);
             
-            $Call = F::Apply('Metric.Calc', 'Where', $Call);
-
             $Call['Result'] = F::Run('IO', 'Read', $Call,
             [
                 'Storage'   => 'Primary',

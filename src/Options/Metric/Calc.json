@@ -1,0 +1,12 @@
+{
+    "Hooks":
+    {
+        "beforeMetricCalcCount":
+        {
+            "Apply Condition":
+            {
+                "Service": "Metric.Hooks.Where"
+            }
+        }
+    }
+}

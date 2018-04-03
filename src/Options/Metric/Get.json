@@ -1,0 +1,19 @@
+{
+    "Hooks":
+    {
+        "beforeMetricGet":
+        {
+            "Apply Condition":
+            {
+                "Service": "Metric.Hooks.Where"
+            }
+        },
+        "beforeMetricGetLast":
+        {
+            "Apply Condition":
+            {
+                "Service": "Metric.Hooks.Where"
+            }
+        }
+    }
+}

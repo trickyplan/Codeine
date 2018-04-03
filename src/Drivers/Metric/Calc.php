@@ -2,7 +2,7 @@
 
     setFn('Average', function ($Call)
     {
-        $Call = F::Hook('beforeMetricGetCount', $Call);
+        $Call = F::Hook('beforeMetricCalcAverage', $Call);
 
         $Rows = F::Run('Metric.Get', 'Row', $Call);
 
@@ -15,16 +15,14 @@
             ]
         );
 
-        $Call = F::Hook('afterMetricGetCount', $Call);
+        $Call = F::Hook('afterMetricCalcAverage', $Call);
 
         return $Call['Result'];
     });
 
     setFn('Count', function ($Call)
     {
-        $Call = F::Hook('beforeMetricGetCount', $Call);
-
-        $Call = F::Apply(null, 'Where', $Call);
+        $Call = F::Hook('beforeMetricCalcCount', $Call);
 
         $Call['Result'] = F::Run('IO', 'Execute', $Call,
             [
@@ -34,38 +32,38 @@
                 'Where'     => $Call['Where']
             ]);
 
-        $Call = F::Hook('afterMetricGetCount', $Call);
+        $Call = F::Hook('afterMetricCalcCount', $Call);
 
         return $Call['Result'];
     });
 
     setFn('Max', function ($Call)
     {
-        $Call = F::Hook('beforeMetricGetCount', $Call);
+        $Call = F::Hook('beforeMetricCalcMax', $Call);
 
         $Rows = F::Run('Metric.Get', 'Row', $Call);
         $Call['Result'] = max(array_column($Rows, 'Value'));
 
-        $Call = F::Hook('afterMetricGetCount', $Call);
+        $Call = F::Hook('afterMetricCalcMax', $Call);
 
         return $Call['Result'];
     });
 
     setFn('Min', function ($Call)
     {
-        $Call = F::Hook('beforeMetricGetCount', $Call);
+        $Call = F::Hook('beforeMetricCalcMin', $Call);
 
         $Rows = F::Run('Metric.Get', 'Row', $Call);
         $Call['Result'] = min(array_column($Rows, 'Value'));
 
-        $Call = F::Hook('afterMetricGetCount', $Call);
+        $Call = F::Hook('afterMetricCalcMin', $Call);
 
         return $Call['Result'];
     });
 
     setFn('Sum', function ($Call)
     {
-        $Call = F::Hook('beforeMetricGetCount', $Call);
+        $Call = F::Hook('beforeMetricCalcSum', $Call);
 
         $Rows = F::Run('Metric.Get', 'Row', $Call);
 
@@ -73,32 +71,7 @@
 
         $Call['Result'] = array_sum($Values);
 
-        $Call = F::Hook('afterMetricGetCount', $Call);
+        $Call = F::Hook('afterMetricCalcSum', $Call);
 
         return $Call['Result'];
-    });
-
-    setFn('Where', function ($Call)
-    {
-        if (isset($Call['Where']))
-            ;
-        else
-            $Call['Where'] = [];
-
-        if (isset($Call['Metric']['Dimensions']))
-        {
-            $Call['Where'] = F::Merge($Call['Where'], $Call['Metric']['Dimensions']);
-            F::Log(function () use ($Call) {return 'Metric Dimensions: *'.j($Call['Where']).'*';} , LOG_INFO);
-        }
-
-        if (isset($Call['Metric']['Resolutions']))
-        {
-            $Call['Where']['Resolution'] = $Call['Metric']['Resolutions'];
-            F::Log(function () use ($Call) {return 'Resolutions: *'.j($Call['Metric']['Resolutions']).'*';} , LOG_INFO);
-        }
-
-        $Call['Where']['Type'] = $Call['Metric']['Type'];
-        F::Log(function () use ($Call) {return 'Metric Type: *'.$Call['Where']['Type'].'*';} , LOG_INFO);
-
-        return $Call;
     });
