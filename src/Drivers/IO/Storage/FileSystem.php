@@ -108,6 +108,11 @@
                         {
                             F::Log('Write to *'.$Call['Storage'].'* failed', LOG_ERR, 'Administrator');
                             $Call['Result'][] = $Call['Data'];
+                            
+                            if (is_writable($Call['Filename']))
+                                ;
+                            else
+                                F::Log('File *'.$Call['Filename'].'* is not writable', LOG_ERR, 'Administrator');
                         }
                         else
                         {
