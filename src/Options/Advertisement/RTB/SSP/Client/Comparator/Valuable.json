@@ -1,0 +1,13 @@
+{
+    "Hooks":
+    {
+        "beforeSSPClientComparatorValuable":
+        {
+            "Update Currencies":
+            {
+                "Service": "Advertisement.RTB.SSP.Client.Comparator.Hooks.CurrencyRate",
+                "Method": "Update"
+            }
+        }
+    }
+}

@@ -1,0 +1,95 @@
+{
+    "Suites":
+    {
+        "Comparator Tests":
+        {
+            "Valuable Comparator Check":
+            {
+                "Run": 
+                {
+                    "Service": "Advertisement.RTB.SSP.Client.Comparator.Valuable",
+                    "Method": "Do",
+                    "Call":
+                    {
+                        "RTB":
+                        {
+                            "DSP":
+                            {
+                                "Result":
+                                [
+                                    {
+                                        "cur": "",
+                                        "seatbid":
+                                        [
+                                            {
+                                                "bid": 
+                                                [
+                                                    {
+                                                        "id": 1,
+                                                        "impid": 1,
+                                                        "price": 1,
+                                                        "nurl": "http://adram.local?price=${AUCTION_PRICE}",
+                                                        "adm": "bidid=${AUCTION_BID_ID}&impid=${AUCTION_IMP_ID}&aprice=${AUCTION_PRICE}&cur=${AUCTION_CURRENCY}"
+                                                    },
+                                                    {
+                                                        "id": 2,
+                                                        "impid": 2,
+                                                        "price": 2,
+                                                        "nurl": "http://adram.local?price=${AUCTION_PRICE}",
+                                                        "adm": "bidid=${AUCTION_BID_ID}&impid=${AUCTION_IMP_ID}&aprice=${AUCTION_PRICE}&cur=${AUCTION_CURRENCY}"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "cur": "RUB",
+                                        "seatbid":
+                                        [
+                                            {
+                                                "bid": 
+                                                [
+                                                    {
+                                                        "id": 5,
+                                                        "impid": 5,
+                                                        "price": 5,
+                                                        "nurl": "http://adram.local?price=${AUCTION_PRICE}",
+                                                        "adm": "bidid=${AUCTION_BID_ID}&impid=${AUCTION_IMP_ID}&aprice=${AUCTION_PRICE}&cur=${AUCTION_CURRENCY}"
+                                                    },
+                                                    {
+                                                        "id": 6,
+                                                        "impid": 6,
+                                                        "price": 6,
+                                                        "nurl": "http://adram.local?price=${AUCTION_PRICE}",
+                                                        "adm": "bidid=${AUCTION_BID_ID}&impid=${AUCTION_IMP_ID}&aprice=${AUCTION_PRICE}&cur=${AUCTION_CURRENCY}"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                "Result": 
+                {
+                    "Extract": "RTB.Result.Seats"
+                },
+                "Assert":
+                {
+                    "Equal": 
+                    [
+                        {
+                            "id": 2,
+                            "impid": 2,
+                            "price": 0.002,
+                            "nurl": "http://adram.local?price=2",
+                            "adm": "bidid=2&impid=2&aprice=2&cur=USD"
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}
