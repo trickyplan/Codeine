@@ -1,0 +1,21 @@
+{
+    "Suites":
+    {
+        "Timezone":
+        {
+            "Get Offsets":
+            {
+                "Run":
+                {
+                    "Service": "System.Timezone",
+                    "Method": "Get Offsets"
+                },
+                "Assert":
+                {
+                    "Empty": false,
+                    "Print": true
+                }
+            }
+        }
+    }
+}

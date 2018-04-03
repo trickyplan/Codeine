@@ -18,5 +18,10 @@
         "First": "Password",
         "Second": "Again",
         "Equal": "Passwords must match"
+    },
+    "Timezone":
+    {
+        "Identifier": "Timezone",
+        "Offset": "UTC Offset"
     }
 }

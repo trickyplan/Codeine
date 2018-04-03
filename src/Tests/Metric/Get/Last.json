@@ -1,0 +1,79 @@
+{
+    "Mixins":
+    [
+        "Metric.Mixins.Set",
+        "Metric.Mixins.Clear"
+    ],
+    "Suites":
+    {
+        "Metric":
+        {
+            "Set Value 500":
+            {
+                "Run":
+                {
+                    "Service": "Metric.Set",
+                    "Method": "Do",
+                    "Call":
+                    {
+                        "Metric":
+                        {
+                            "Type": "Test.Metric",
+                            "Time": 1522671000,
+                            "Dimensions":
+                            {
+                                "A": 1,
+                                "B": "X"
+                            },
+                            "Resolutions":
+                            [
+                                1
+                            ],
+                            "Value": 500
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Equal":
+                    {
+                        "R1":
+                        {
+                            "A": 1,
+                            "B": "X",
+                            "Type": "Test.Metric",
+                            "Time": 1522671000,
+                            "Resolution": 1,
+                            "Value": 500
+                        }
+                    }
+                }
+            },
+            "Last Value from Row":
+            {
+                "Run":
+                {
+                    "Service": "Metric.Get",
+                    "Method": "Last",
+                    "Call":
+                    {
+                        "Metric":
+                        {
+                            "Type": "Test.Metric",
+                            "Dimensions":
+                            {
+                                "A": 1,
+                                "B": "X"
+                            },
+                            "Resolutions": [1]
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Equal": 500
+                }
+            }
+        }
+    }
+}

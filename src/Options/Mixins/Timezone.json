@@ -1,0 +1,47 @@
+{
+    "Nodes":
+    {
+        "Timezone.Identifier":
+        {
+            "Type": "Literal.String",
+            "Default": "UTC",
+            "Options":
+            {
+                "Service": "System.Timezone",
+                "Method": "Get Zones"
+            },
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.SelectNG",
+                    "Key Mode": "Value"
+                }
+            }
+        },
+        "Timezone.Offset":
+        {
+            "Type": "Numeral.Integer",
+            "Default": 0,
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Static"
+                }
+            },
+            "Hooks":
+            {
+                "beforeEntityWrite":
+                {
+                    "Service": "System.Timezone",
+                    "Method": "Get Offset By Identifier",
+                    "Call":
+                    {
+                        "Identifier": "$Data.Timezone.Identifier"
+                    }
+                }
+            }
+        }
+    }
+}

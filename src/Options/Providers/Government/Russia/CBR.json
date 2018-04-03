@@ -1,0 +1,41 @@
+{
+    "Contract!":
+    {
+        "Methods":
+        {
+            "GetRates":
+            {
+                "Behaviours":
+                {
+                    "Cached":
+                    {
+                        "Enabled": true,
+                        "Keys": ["DC"],
+                        "TTL": 34200
+                    }
+                },
+                "Input":
+                {
+
+                },
+                "Output":
+                {
+                    "Mode": "Result"
+                },
+                "Fallback": null
+            }
+        }
+    },
+    "CBR":
+    {
+        "WSDL":
+        {
+            "Credit": "http://cbr.ru/CreditInfoWebServ/CreditOrgInfo.asmx?WSDL",
+            "Rates": "http://cbr.ru/DailyInfoWebServ/DailyInfo.asmx?WSDL"
+        },
+        "XML":
+        {
+            "Rates": "http://www.cbr.ru/scripts/XML_daily.asp"
+        }
+    }
+}

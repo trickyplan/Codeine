@@ -1,0 +1,167 @@
+{
+    "Suites":
+    {
+        "RTB SSP Hooks":
+        {
+            "Check Device Hook":
+            {
+                "Run": 
+                {
+                    "Service": "Advertisement.RTB.SSP.Hooks.Device",
+                    "Method": "Do",
+                    "Call": 
+                    {
+                        "HTTP":
+                        {
+                            "Cookie":
+                            {
+                                "SSID": "SSID123"
+                            },
+                            "Agent": "Browser-agent",
+                            "IP": "1.1.1.1"
+                        },
+                        "RTB":
+                        {
+                            "DSP": 
+                            {
+                                "Items":
+                                [
+                                    {
+                                        "Request":
+                                        {
+                                            "device":
+                                            {
+                                                "id": 1
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                "Result":
+                {
+                    "Extract": "RTB.DSP.Items"
+                },
+                "Assert":
+                {
+                    "Equal": 
+                    [
+                        {
+                            "Request": 
+                            {
+                                "device":
+                                {
+                                    "id": 1,
+                                    "ip": "1.1.1.1",
+                                    "ua": "Browser-agent",
+                                    "dpidsha1": "b6af0de70e04a2dcf1101ec03a0c6d44abca5b15"
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            "Check Site Hook":
+            {
+                "Run":
+                {
+                    "Service": "Advertisement.RTB.SSP.Hooks.Site",
+                    "Method": "Do",
+                    "Call": 
+                    {
+                        "HTTP":
+                        {
+                            "URL": "/test"
+                        },
+                        "Request": 
+                        {
+                            "Referrer": "/referrer"
+                        },
+                        "RTB": 
+                        {
+                            "DSP": 
+                            {
+                                "Items": 
+                                [
+                                    {
+                                        "ID": 1
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                "Result":
+                {
+                    "Extract": "RTB.DSP.Items"
+                },
+                "Assert":
+                {
+                    "Equal": 
+                    [
+                        {
+                            "ID": 1,
+                            "Request": 
+                            {
+                                "site": 
+                                {
+                                    "page": "/test",
+                                    "ref": "/referrer"
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            "Check User Hook": 
+            {
+                "Run": 
+                {
+                    "Service": "Advertisement.RTB.SSP.Hooks.User",
+                    "Method": "Do",
+                    "Call": 
+                    {
+                        "Request": 
+                        {
+                            "VID": "VID"
+                        },
+                        "RTB": 
+                        {
+                            "DSP": 
+                            {
+                                "Items": 
+                                [
+                                    {
+                                        "ID": 1
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                "Result": 
+                {
+                    "Extract": "RTB.DSP.Items"
+                },
+                "Assert": 
+                {
+                    "Equal": 
+                    [
+                        {
+                            "ID": 1,
+                            "Request": 
+                            {
+                                "user": 
+                                {
+                                    "id": "VID"
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}

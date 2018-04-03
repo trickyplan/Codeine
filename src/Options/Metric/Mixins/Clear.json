@@ -1,0 +1,27 @@
+{
+    "Suites":
+    {
+        "Metric":
+        {
+            "Clear Test.Metric":
+            {
+                "Run":
+                {
+                    "Service": "Metric.Remove",
+                    "Method": "Do",
+                    "Call":
+                    {
+                        "Where":
+                        {
+                            "Type": "Test.Metric"
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            }
+        }
+    }
+}

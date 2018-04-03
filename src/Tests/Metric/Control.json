@@ -1,0 +1,27 @@
+{
+    "Suites":
+    {
+        "Positive Suite":
+        {
+            "Control":
+            {
+                "Run":
+                {
+                    "Service": "Metric.Control",
+                    "Method": "Do",
+                    "Call":
+                    {
+                    }
+                },
+                "Result":
+                {
+                    "Extract": "Output.Content"
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            }
+        }
+    }
+}

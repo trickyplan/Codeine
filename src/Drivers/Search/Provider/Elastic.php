@@ -17,6 +17,8 @@
     {
         $Call = F::Run(null, 'Open', $Call);
 
+        $Result = null;
+
         try
         {
             $Result = $Call['Link']->index(

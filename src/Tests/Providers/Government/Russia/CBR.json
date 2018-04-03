@@ -7,7 +7,7 @@
             {
                 "Run":
                 {
-                    "Service": "Government.Russia.CBR",
+                    "Service": "Providers.Government.Russia.CBR",
                     "Method": "Code2Name",
                     "Call":
                     {
@@ -23,7 +23,7 @@
             {
                 "Run":
                 {
-                    "Service": "Government.Russia.CBR",
+                    "Service": "Providers.Government.Russia.CBR",
                     "Method": "GetRates",
                     "Call":
                     {
