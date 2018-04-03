@@ -11,8 +11,17 @@
     {
         /*$Call = F::Dot($Call, 'RTB.DSP.Request.site', F::Dot($Call, 'RTB.SSP.Site'));*/
         //$Call = F::Dot($Call, 'RTB.DSP.Request.site.name', F::Dot($Call, 'AdRam.Site.Title'));
-        $Call = F::Dot($Call, 'RTB.DSP.Request.site.page', F::Dot($Call, 'HTTP.URL'));
-        $Call = F::Dot($Call, 'RTB.DSP.Request.site.ref', F::Dot($Call, 'Request.Referrer'));
+
+        $page = F::Dot($Call, 'HTTP.URL');
+        $ref = F::Dot($Call, 'Request.Referrer');
+        $Call = F::Dot($Call, 'RTB.DSP.Items', array_map(function ($DSP) use ($page, $ref) {
+            $DSP['Request']['site']['page'] = $page;
+
+            if ($ref)
+                $DSP['Request']['site']['ref'] = $ref;
+
+            return $DSP; 
+        }, F::Dot($Call, 'RTB.DSP.Items')));
 
         /*$Domain = F::Dot($Call, 'AdRam.Site.URL');
         $Domain = parse_url($Domain, PHP_URL_HOST);*/
