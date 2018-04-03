@@ -10,14 +10,22 @@
     setFn('Add', function ($Call)
     {
         // Add Event to Metric Queue
-        if (empty(F::Dot($Call, 'Metric.Event.Time')))
-            $Call = F::Dot($Call, 'Metric.Event.Time', F::Run('System.Time', 'Get', $Call));
+        $Call['Metric'] = F::Live($Call['Metric'], $Call);
+      
+        if (empty(F::Dot($Call, 'Metric.Event.Time.Exact')))
+            $Call = F::Dot($Call, 'Metric.Event.Time', F::Run('System.Time', 'Get', $Call,
+                [
+                    'Time' =>
+                    [
+                        'Offset' => F::Dot($Call, 'Metric.Event.Time.Offset')
+                    ]
+                ]));
         
         F::Run('IO', 'Write', $Call,
             [
                 'Storage'   => 'Metric Queue',
                 'Scope'     => F::Dot($Call, 'Metric.Event.Type'),
-                'Data'      => F::Live(F::Dot($Call, 'Metric.Event'), $Call)
+                'Data'      => F::Dot($Call, 'Metric.Event')
             ]);
 
         $Call = F::Dot($Call, 'Metric.Event', null);
@@ -114,7 +122,8 @@
                 }
                 else
                 {
-                    $Call['Data']['Value'] += $Row['Value'];
+                    if (is_numeric($Row['Value']))
+                        $Call['Data']['Value'] += $Row['Value'];
                     
                     F::Run('IO', 'Write', $Call,
                     [
