@@ -1,4 +1,11 @@
 {
+    "Metric":
+    {
+        "Average":
+        {
+            "Algorithm": "Arithmetic"
+        }
+    },
     "Hooks":
     {
         "beforeMetricCalcCount":

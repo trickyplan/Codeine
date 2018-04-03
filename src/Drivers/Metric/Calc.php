@@ -7,7 +7,7 @@
         $Rows = F::Run('Metric.Get', 'Row', $Call);
 
         $Call['Result'] = F::Run(
-            'Science.Math.Statistics.Mean.Arithmetic',
+            'Science.Math.Statistics.Mean.'.F::Dot($Call, 'Metric.Average.Algorithm'),
             'Calculate',
             $Call,
             [
