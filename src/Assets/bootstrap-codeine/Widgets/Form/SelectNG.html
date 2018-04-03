@@ -1,0 +1,17 @@
+<div class="form-group">
+    <if value="<k>NoLabel</k>" neq="1">
+        <label for="<k>Name</k>"> <l><k>Label</k></l>:</label>
+    </if>
+    <div class="input-group">
+      <block>
+          <span class="input-group-addon"><k>Prefix</k></span>
+      </block>
+      <k>HTML</k>
+      <block>
+          <span class="input-group-addon"><k>Postfix</k></span>
+      </block>
+    </div>
+    <if value="<k>Help</k>" eq="1">
+        <div class="help-block"><l><k>Entity</k>.Help:<k>Key</k></l></div>
+    </if>
+</div>
