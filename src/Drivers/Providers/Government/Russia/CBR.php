@@ -39,9 +39,10 @@
 
         $Result = simplexml_load_string(F::Run('IO', 'Read',
             [
-                'Storage' => 'Web',
-                'Where' => ['ID' => $Call['CBR']['XML']['Rates']]
-            ])[0]);
+                'Storage'   => 'Web',
+                'Where'     => ['ID' => $Call['CBR']['XML']['Rates']],
+                'IO One'    => true
+            ]));
 
         foreach ($Result as $Currency)
             $Rates[(string) $Currency->CharCode] =

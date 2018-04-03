@@ -1,4 +1,31 @@
 {
+    "Contract!":
+    {
+        "Methods":
+        {
+            "GetRates":
+            {
+                "Behaviours":
+                {
+                    "Cached":
+                    {
+                        "Enabled": true,
+                        "Keys": ["DC"],
+                        "TTL": 34200
+                    }
+                },
+                "Input":
+                {
+
+                },
+                "Output":
+                {
+                    "Mode": "Result"
+                },
+                "Fallback": null
+            }
+        }
+    },
     "CBR":
     {
         "WSDL":
