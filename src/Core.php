@@ -81,7 +81,8 @@
 
             date_default_timezone_set(self::$_Options['Codeine']['Timezone']);
             setlocale(LC_ALL, self::$_Options['Codeine']['Locale']);
-
+            setlocale(LC_NUMERIC, 'C');
+            
             if (isset(self::$_Options['Codeine']['Verbose']))
                 self::$_Verbose = self::$_Options['Codeine']['Verbose'];
 
