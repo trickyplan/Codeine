@@ -43,7 +43,12 @@
                     {
                         if ($Call['API']['Response']['Access'])
                         {
-                            F::Log('API *' . $Call['API']['Request']['Service'] . ':' . $Call['API']['Request']['Method'] . '* started', LOG_INFO, 'All');
+                            F::Log(
+                                'API *' . $Call['API']['Request']['Service'] . ':' .
+                                        $Call['API']['Request']['Method'] . '* started',
+                                LOG_INFO,
+                                'All'
+                            );
 
                             $Parameters = F::Dot($Call, [
                                 'API',
@@ -69,6 +74,8 @@
                             $Call['API']['Response']['Data'] =
                                 F::Run($Call['API']['Request']['Service'], $Call['API']['Request']['Method'], $Call, $Request);
                     
+                        } else {
+                            $Call['HTTP']['Headers']['HTTP/1.1'] = '403 Forbidden';
                         }
                     } else
                         $Call['API']['Response']['Data'] = 'Unknown API Service or Method';
