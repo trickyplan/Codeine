@@ -12,8 +12,8 @@
         $Call = F::Hook('beforeMetricSet', $Call);
         
             $Call['Result'] = [];
-            $Time = F::Run('System.Time', 'Get', $Call);
-            
+            $Time = $Call['Metric']['Time'] ?? F::Run('System.Time', 'Get', $Call);
+
             if (isset($Call['Metric']['Dimensions']))
             {
                 $Call['Where'] = $Call['Metric']['Dimensions'];

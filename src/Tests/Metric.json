@@ -1,4 +1,8 @@
 {
+    "Mixins":
+    [
+        "Metric.Mixins.Clear"
+    ],
     "Suites":
     {
         "Positive Suite":
@@ -67,7 +71,7 @@
             {
                 "Run":
                 {
-                    "Service": "Metric.Get",
+                    "Service": "Metric.Calc",
                     "Method": "Sum",
                     "Call":
                     {

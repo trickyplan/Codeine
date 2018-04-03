@@ -1,0 +1,131 @@
+{
+    "Suites":
+    {
+        "Metric":
+        {
+            "Set Value 100":
+            {
+                "Run":
+                {
+                    "Service": "Metric.Set",
+                    "Method": "Do",
+                    "Call":
+                    {
+                        "Metric":
+                        {
+                            "Type": "Test.Metric",
+                            "Time": 1522668000,
+                            "Dimensions":
+                            {
+                                "A": 1,
+                                "B": "X"
+                            },
+                            "Resolutions":
+                            [
+                                1
+                            ],
+                            "Value": 100
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Equal":
+                    {
+                        "R1":
+                        {
+                            "A": 1,
+                            "B": "X",
+                            "Type": "Test.Metric",
+                            "Time": 1522668000,
+                            "Resolution": 1,
+                            "Value": 100
+                        }
+                    }
+                }
+            },
+            "Set Value 200":
+            {
+                "Run":
+                {
+                    "Service": "Metric.Set",
+                    "Method": "Do",
+                    "Call":
+                    {
+                        "Metric":
+                        {
+                            "Type": "Test.Metric",
+                            "Time": 1522669000,
+                            "Dimensions":
+                            {
+                                "A": 1,
+                                "B": "X"
+                            },
+                            "Resolutions":
+                            [
+                                1
+                            ],
+                            "Value": 200
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Equal":
+                    {
+                        "R1":
+                        {
+                            "A": 1,
+                            "B": "X",
+                            "Type": "Test.Metric",
+                            "Time": 1522669000,
+                            "Resolution": 1,
+                            "Value": 200
+                        }
+                    }
+                }
+            },
+            "Set Value 300":
+            {
+                "Run":
+                {
+                    "Service": "Metric.Set",
+                    "Method": "Do",
+                    "Call":
+                    {
+                        "Metric":
+                        {
+                            "Type": "Test.Metric",
+                            "Time": 1522670000,
+                            "Dimensions":
+                            {
+                                "A": 1,
+                                "B": "X"
+                            },
+                            "Resolutions":
+                            [
+                                1
+                            ],
+                            "Value": 300
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Equal":
+                    {
+                        "R1":
+                        {
+                            "A": 1,
+                            "B": "X",
+                            "Type": "Test.Metric",
+                            "Time": 1522670000,
+                            "Resolution": 1,
+                            "Value": 300
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

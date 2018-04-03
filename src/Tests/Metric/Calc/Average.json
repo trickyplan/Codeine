@@ -1,0 +1,38 @@
+{
+    "Mixins":
+    [
+        "Metric.Mixins.Set",
+        "Metric.Mixins.Clear"
+    ],
+    "Suites":
+    {
+        "Metric":
+        {
+            "Average Value in Row":
+            {
+                "Run":
+                {
+                    "Service": "Metric.Calc",
+                    "Method": "Average",
+                    "Call":
+                    {
+                        "Metric":
+                        {
+                            "Type": "Test.Metric",
+                            "Dimensions":
+                            {
+                                "A": 1,
+                                "B": "X"
+                            },
+                            "Resolutions": [1]
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Equal": 200
+                }
+            }
+        }
+    }
+}

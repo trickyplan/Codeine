@@ -1,0 +1,63 @@
+{
+    "Mixins":
+    [
+        "Metric.Mixins.Set",
+        "Metric.Mixins.Clear"
+    ],
+    "Suites":
+    {
+        "Metric":
+        {
+            "Get Row":
+            {
+                "Run":
+                {
+                    "Service": "Metric.Get",
+                    "Method": "Row",
+                    "Call":
+                    {
+                        "Metric":
+                        {
+                            "Type": "Test.Metric",
+                            "Dimensions":
+                            {
+                                "A": 1,
+                                "B": "X"
+                            },
+                            "Resolutions": [1]
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Equal": [
+                        {
+                            "A": 1,
+                            "B": "X",
+                            "Type": "Test.Metric",
+                            "Time": 1522668000,
+                            "Resolution": 1,
+                            "Value": 100
+                        },
+                        {
+                            "A": 1,
+                            "B": "X",
+                            "Type": "Test.Metric",
+                            "Time": 1522669000,
+                            "Resolution": 1,
+                            "Value": 200
+                        },
+                        {
+                            "A": 1,
+                            "B": "X",
+                            "Type": "Test.Metric",
+                            "Time": 1522670000,
+                            "Resolution": 1,
+                            "Value": 300
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}
