@@ -1,0 +1,37 @@
+{
+    "Suites":
+    {
+        "Metric Period Hook":
+        {
+            "Check Period Hook":
+            {
+                "Run": 
+                {
+                    "Service": "Metric.Hooks.Period",
+                    "Method": "Do",
+                    "Call": 
+                    {
+                        "Since": 1521645204,
+                        "Till": 1522854738
+                    }
+                },
+                "Result":
+                {
+                    "Extract": "Where"
+                },
+                "Assert":
+                {
+                    "Equal": 
+                    {
+                        "Time":
+                        {
+                            "$gte": 17611.634305555555,
+                            "$lte": 17625.633541666666
+                        },
+                        "Resolution": 86400
+                    }
+                }
+            }
+        }
+    }
+}

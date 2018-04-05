@@ -6,6 +6,10 @@
             "Apply Condition":
             {
                 "Service": "Metric.Hooks.Where"
+            },
+            "Apply Period Condition":
+            {
+                "Service": "Metric.Hooks.Period"
             }
         },
         "beforeMetricGetLast":
