@@ -1298,12 +1298,17 @@
         }
     }
 
-    function j($Call)
+    function j($Call, $Flags = null)
     {
-        if (Environment === 'Development')
-            return json_encode($Call, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK);
-        else
-            return json_encode($Call, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK);
+        if ($Flags == null)
+        {
+            if (Environment === 'Development')
+                $Flags = JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK;
+            else
+                $Flags = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK;
+        }
+        
+        return json_encode($Call, $Flags);
     }
 
     /**

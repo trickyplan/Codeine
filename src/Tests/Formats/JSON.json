@@ -1,0 +1,55 @@
+{
+    "Suites":
+    {
+        "JSON":
+        {
+            "Simple Encode":
+            {
+                "Run":
+                {
+                    "Service": "Formats.JSON",
+                    "Method":  "Write",
+                    "Call":
+                    {
+                        "Value":
+                        {
+                            "A": 1,
+                            "B": "X",
+                            "C": [0, 1, 2]
+                        },
+                        "Flags": 352
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true,
+                    "Empty": false,
+                    "Equal": "{\"A\":1,\"B\":\"X\",\"C\":[0,1,2]}"
+                }
+            },
+            "Simple Decode":
+            {
+                "Run":
+                {
+                    "Service": "Formats.JSON",
+                    "Method":  "Read",
+                    "Call":
+                    {
+                        "Value": "{\"A\":1,\"B\":\"X\",\"C\":[0,1,2]}"
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true,
+                    "Empty": false,
+                    "Equal":
+                    {
+                        "A": 1,
+                        "B": "X",
+                        "C": [0, 1, 2]
+                    }
+                }
+            }
+        }
+    }
+}

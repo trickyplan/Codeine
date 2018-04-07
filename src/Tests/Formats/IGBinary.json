@@ -1,0 +1,49 @@
+{
+    "Suites":
+    {
+        "IGBinary":
+        {
+            "Simple Encode":
+            {
+                "Run":
+                {
+                    "Service": "Formats.IGBinary",
+                    "Method":  "Write",
+                    "Call":
+                    {
+                        "Base64": true,
+                        "Value":
+                        {
+                            "A": 1,
+                            "B": "X",
+                            "C": [0, 1, 2]
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true,
+                    "Empty": false
+                }
+            },
+            "Simple Decode":
+            {
+                "Run":
+                {
+                    "Service": "Formats.IGBinary",
+                    "Method":  "Read",
+                    "Call":
+                    {
+                        "Base64": true,
+                        "Value": "AAAAAhQDEQFBJQYBEQFCJREBWBEBQyUUAwYAJQYABgElBgEGAiUGAg=="
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true,
+                    "Empty": false
+                }
+            }
+        }
+    }
+}
