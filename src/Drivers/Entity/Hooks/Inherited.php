@@ -32,7 +32,7 @@
                     else
                     {
                         if (isset($Call['Data']['ID']) && $Parent == $Call['Data']['ID'])
-                            F::Log('Inheritance Loop Protected', LOG_DEBUG); // FIXME Make Tracer
+                            F::Log('Inheritance Loop Protected', LOG_DEBUG);
                         else
                         {
                             $Parent = F::Run('Entity', 'Read',
@@ -43,7 +43,7 @@
                                 'Fields'    => ['ID', $Name, $Node['Inherited']]
                             ]);
 
-                            $Call['Data'] = F::Dot($Call['Data'], $Name, F::Dot($Parent, $Name)); // FIXME Add flag
+                            $Call['Data'] = F::Dot($Call['Data'], $Name, F::Dot($Parent, $Name));
                             F::Log(function () use ($Name, $Parent) {return '*'.$Name.'* node inherited from *'.$Parent['ID'].'* as '.j(F::Dot($Parent, $Name));} , LOG_DEBUG);
                         }
                     }

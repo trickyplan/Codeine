@@ -22,7 +22,7 @@
                  'Where'   => $Call['Name']
             ]);
 
-        $Call['Output']['Content']['filelink'] = '/uploads/wysiwyg/'.$Call['Name']; // FIXME Scope support
+        $Call['Output']['Content']['filelink'] = '/uploads/wysiwyg/'.$Call['Name'];
 
         return $Call;
     });

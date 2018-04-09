@@ -59,10 +59,10 @@
                 {
                     F::Log('Daemon: Fork failed', LOG_CRIT);
                     return -1;
-                } //TODO: ошибка - не смогли создать процесс
+                }
                 elseif ($PID)
                 {
-                    $Ungrateful[$PID] = true;
+                    $Children[$PID] = true;
                     F::Log('Child forked '.$PID, LOG_DEBUG);
                 }
                 else

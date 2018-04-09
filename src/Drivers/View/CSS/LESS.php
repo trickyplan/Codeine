@@ -45,7 +45,6 @@
 
             if ($LESSVersion > $CSSVersion or (isset($Call['HTTP']['Request']['Headers']['Pragma']) && $Call['HTTP']['Request']['Headers']['Pragma'] == 'no-cache'))
             {
-                // FIXME! Temporary decision.
                 $Call = F::Dot($Call, 'View.CSS.LESS.Filename', F::findFile('Assets/'.$Asset.'/less/'.$ID.'.less'));
                 
                 if (F::Dot($Call, 'View.CSS.LESS.Filename'))

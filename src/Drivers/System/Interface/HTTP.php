@@ -214,7 +214,6 @@
                         {
                             if (!empty($V2))
                                 $_REQUEST['Data'][$IX][$K2] = $V2;
-                            // FIXME basenamed paths
                         }
                     else
                         $_REQUEST['Data'][$IX] = $Value;

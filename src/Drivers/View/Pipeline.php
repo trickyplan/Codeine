@@ -31,7 +31,6 @@
                                     $Call['Output'][$Place][$Key] = $Widget;
                                 }
                         }
-                // TODO Normal caching
             }
         }
 

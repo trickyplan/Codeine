@@ -121,10 +121,10 @@
         return $Call;
     });
 
-    setFn('RAW', function ($Call) // FIXME
+    setFn('RAW', function ($Call)
     {
         $Output = [];
-        $Call = F::Merge($Call, F::loadOptions($Call['Entity'].'.Entity')); // FIXME
+        $Call = F::Merge($Call, F::loadOptions($Call['Entity'].'.Entity'));
 
         $Call = F::Hook('beforeRAWList', $Call);
 
@@ -138,9 +138,9 @@
         return $Output;
     });
 
-    setFn('RAW2', function ($Call) // FIXME
+    setFn('RAW2', function ($Call)
     {
-        $Call = F::Merge($Call, F::loadOptions($Call['Entity'].'.Entity')); // FIXME
+        $Call = F::Merge($Call, F::loadOptions($Call['Entity'].'.Entity'));
 
         $Call = F::Hook('beforeRAWList', $Call);
 

@@ -9,7 +9,7 @@
 
     setFn('Write', function ($Call)
     {
-        return strip_tags($Call['Value']); // FIXME
+        return strip_tags($Call['Value']);
     });
 
     setFn('Read', function ($Call)

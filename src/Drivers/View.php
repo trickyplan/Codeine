@@ -66,7 +66,7 @@
 
     setFn('Asset.Route', function ($Call)
     {
-        if (strpos($Call['Value'], ':') !== false) // FIXME New unified package routing
+        if (strpos($Call['Value'], ':') !== false)
         {
             list($Scope, $ID) = explode(':', $Call['Value']);
 

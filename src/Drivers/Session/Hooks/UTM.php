@@ -27,8 +27,6 @@
     
     setFn('Get Source', function ($Call)
     {
-        // FIXME Whitelist/Blacklist
-        
         if (isset($Call['Request']['utm']['source']))
             $Source = $Call['Request']['utm']['source'];
         else
@@ -39,7 +37,6 @@
     
     setFn('Get Medium', function ($Call)
     {
-        // FIXME Whitelist/Blacklist
         if (isset($Call['Request']['utm']['medium']))
             $Medium = $Call['Request']['utm']['medium'];
         else
@@ -50,7 +47,6 @@
     
     setFn('Get Campaign', function ($Call)
     {
-        // FIXME Whitelist/Blacklist
         if (isset($Call['Request']['utm']['campaign']))
             $Campaign = $Call['Request']['utm']['campaign'];
         else
@@ -61,7 +57,6 @@
     
     setFn('Get Term', function ($Call)
     {
-        // FIXME Whitelist/Blacklist
         if (isset($Call['Request']['utm']['term']))
             $Term = $Call['Request']['utm']['term'];
         else
@@ -72,7 +67,6 @@
     
     setFn('Get Content', function ($Call)
     {
-        // FIXME Whitelist/Blacklist
         if (isset($Call['Request']['utm']['content']))
             $Content = $Call['Request']['utm']['content'];
         else
