@@ -1,0 +1,25 @@
+{
+    "Suites":
+    {
+        "- Suite Name":
+        {
+            "- Case Name":
+            {
+                "Run":
+                {
+                    "Service": "-ServiceName",
+                    "Method":  "-MethodName",
+                    "Call":
+                    {
+
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true,
+                    "Empty": false
+                }
+            }
+        }
+    }
+}

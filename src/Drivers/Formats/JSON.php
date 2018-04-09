@@ -28,11 +28,11 @@
 
     setFn('Write', function ($Call)
     {
-        return j($Call['Value']);
+        return j($Call['Value'], $Call['Flags']);
     });
 
     setFn('Write.Call', function ($Call)
     {
-        $Call['Value'] = j($Call['Value']);
+        $Call['Value'] = j($Call['Value'], $Call['Flags']);
         return $Call;
     });
