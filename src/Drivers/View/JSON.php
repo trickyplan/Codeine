@@ -12,7 +12,8 @@
         $Call = F::Hook('beforeJSONRender', $Call);
 
             $Call = F::Run('View.Pipeline', 'Do', $Call);
-
+        
+            $Call = F::Dot($Call, 'HTTP.Headers.Content-type:', 'application/json');
             $Call['Output'] = j($Call['Output']['Content']);
 
         $Call = F::Hook('afterJSONRender', $Call);
