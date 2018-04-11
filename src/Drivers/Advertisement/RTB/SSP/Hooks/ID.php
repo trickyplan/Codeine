@@ -7,7 +7,7 @@
      * @version 8.x
      */
 
-    setFn('Do', function ($Call)
+    setFn('beforeRTBRequest', function ($Call)
     {
         $ID = F::Run('Security.UID', 'Get', $Call, ['Mode' => F::Dot($Call, 'RTB.Request.ID.Mode')]);
 

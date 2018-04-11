@@ -7,7 +7,7 @@
      * Time: 17:21
      */
     
-    setFn('Do', function ($Call)
+    setFn('beforeRTBRequest', function ($Call)
     {
         $Call = F::Hook('beforeFillBidRequest', $Call);
 

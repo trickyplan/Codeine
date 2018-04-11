@@ -7,7 +7,7 @@
      * @version 8.x
      */
     
-    setFn('Do', function ($Call)
+    setFn('beforeRTBRequest', function ($Call)
     {
         $URL = F::Dot($Call, 'RTB.URL');
         $Referrer = F::Dot($Call, 'Request.Referrer');

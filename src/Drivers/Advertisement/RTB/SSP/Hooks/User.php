@@ -7,7 +7,7 @@
      * @version 8.x
      */
     
-    setFn('Do', function ($Call)
+    setFn('beforeRTBRequest', function ($Call)
     {
         $ID = F::Dot($Call, 'Request.VID') ?: REQID;
 
