@@ -9,8 +9,5 @@
 
     setFn('Info', function ($Call)
     {
-        // TODO Realize "Info" function
-
-
          return $Call;
     });

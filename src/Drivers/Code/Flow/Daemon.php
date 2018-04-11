@@ -72,7 +72,7 @@
 
             }
 
-            $Ungrateful = [];
+            $Children = [];
 
             F::Log('Daemon started', LOG_INFO);
 
@@ -88,7 +88,7 @@
 
                 F::Log('Tick '.$Ticks, LOG_DEBUG);
 
-                if ((count($Ungrateful) < $Call['Daemon']['Childs']['Max']))
+                if ((count($Children) < $Call['Daemon']['Childs']['Max']))
                 {
                     $PID = pcntl_fork();
 
@@ -96,10 +96,10 @@
                     {
                         F::Log('Daemon: Fork failed', LOG_CRIT);
                         return -1;
-                    } //TODO: ошибка - не смогли создать процесс
+                    }
                     elseif ($PID)
                     {
-                        $Ungrateful[$PID] = true;
+                        $Children[$PID] = true;
                         F::Log('Child forked '.$PID, LOG_DEBUG);
                     }
                     else
@@ -125,12 +125,12 @@
                 {
                     if ($Signaled == -1)
                     {
-                        $Ungrateful = [];
+                        $Children = [];
                         break;
                     }
                     else
                     {
-                        unset($Ungrateful[$Signaled]);
+                        unset($Children[$Signaled]);
                         F::Log('Child dead '.$Signaled, LOG_DEBUG);
                     }
                 }

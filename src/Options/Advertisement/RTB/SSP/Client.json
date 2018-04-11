@@ -12,31 +12,38 @@
         {
             "Generate ID":
             {
-                "Service": "Advertisement.RTB.SSP.Hooks.ID"
+                "Service": "Advertisement.RTB.SSP.Hooks.ID",
+                "Method": "beforeRTBRequest"
             },
             "Setup Impression":
             {
-                "Service": "Advertisement.RTB.SSP.Hooks.Impression"
+                "Service": "Advertisement.RTB.SSP.Hooks.Impression",
+                "Method": "beforeRTBRequest"
             },
             "Setup Device":
             {
-                "Service": "Advertisement.RTB.SSP.Hooks.Device"
+                "Service": "Advertisement.RTB.SSP.Hooks.Device",
+                "Method": "beforeRTBRequest"
             },
             "Setup Site":
             {
-                "Service": "Advertisement.RTB.SSP.Hooks.Site"
+                "Service": "Advertisement.RTB.SSP.Hooks.Site",
+                "Method": "beforeRTBRequest"
             },
             "Setup User":
             {
-                "Service": "Advertisement.RTB.SSP.Hooks.User"
+                "Service": "Advertisement.RTB.SSP.Hooks.User",
+                "Method": "beforeRTBRequest"
             },
             "Merge Bid":
             {
-                "Service": "Advertisement.RTB.SSP.Hooks.Bid"
+                "Service": "Advertisement.RTB.SSP.Hooks.Bid",
+                "Method": "beforeRTBRequest"
             },
             "Convert Request Data to JSON":
             {
-                "Service": "Advertisement.RTB.SSP.Hooks.DataToJSON"
+                "Service": "Advertisement.RTB.SSP.Hooks.DataToJSON",
+                "Method": "beforeRTBRequest"
             }
         },
         "afterRTBRequest":
@@ -63,7 +70,8 @@
             },
             "Send RTB Win Notice":
             {
-                "Service": "Advertisement.RTB.SSP.Hooks.WinNotice"
+                "Service": "Advertisement.RTB.SSP.Hooks.WinNotice",
+                "Method": "afterRTBRequest"
             }
         }
     }

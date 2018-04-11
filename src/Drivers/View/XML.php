@@ -58,7 +58,7 @@
                    {
                        if (is_numeric($Key))
                        {
-                           if ($Key > 0) // FIXME Костыль!
+                           if ($Key > 0) // FIXME Crutch
                                $XML->endElement();
                        }
                        else

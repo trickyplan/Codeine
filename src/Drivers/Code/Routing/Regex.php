@@ -14,7 +14,6 @@
         if (strpos($Call['Run'], '?'))
             list($Call['Run']) = explode('?', $Call['Run']);
 
-        // TODO Error: Not found Regex Table
         $Decision = null;
         $Weight = -255;
         $Call['Mixin'] = ['Run' => []];
@@ -87,7 +86,7 @@
             }
         }
         else
-            F::Log('Routes table corrupted', LOG_CRIT); // FIXME
+            F::Log('Routes table corrupted', LOG_CRIT);
 
         if (isset($Selected))
             F::Log('Rule *'.$Selected.'* selected with weight *'.$Weight.'* after '.($Call['Routing']['Rules Checked'].' of '.sizeof($Call['Regex'])), LOG_INFO);

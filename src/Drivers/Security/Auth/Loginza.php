@@ -12,7 +12,7 @@
         /*if ($Call['Loginza']['ID'] == 0)
             $Call = F::Hook('Loginza.NotConfigured', $Call);*/
 
-        $Call['LoginzaURL'] = urlencode($Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/auth/social'); // FIXME
+        $Call['LoginzaURL'] = urlencode($Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/auth/social');
         return $Call;
     });
 
@@ -52,7 +52,6 @@
                         'Status' => 1,
                         'Password' => sha1(rand()),
                         'Title' => $Title];
-            // FIXME
 
             foreach ($Call['Loginza']['Map'] as $Own => $Their)
                 $UserData[$Own] = F::Dot($Response, $Their);

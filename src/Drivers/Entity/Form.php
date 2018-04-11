@@ -16,25 +16,21 @@
         else
             $Call['Data'] = [];
         
-        $Call = F::Apply('Entity.Form.Layout.'.$Call['FormLayout'], 'Start', $Call); // FIXME FormLayout -> Form Layout
+        $Call = F::Apply('Entity.Form.Layout.'.$Call['FormLayout'], 'Start', $Call);
 
         $Call['FID'] = F::Live($Call['FID']);
-        // Для каждой ноды в модели
+
         foreach ($Call['Nodes'] as $Name => $Node)
         {
             $IC++;
             $Widget = null;
 
-            // Режим «только обязательные поля»
-
             if (isset($Call['Only Required']) &&
                 $Call['Only Required'] == true && (!isset($Node['Required']) or !$Node['Required']))
                 continue;
 
-            // Если виджеты вообще определены
             if (isset($Node['Widgets']))
             {
-                // Определяем, какие именно используем
                 if (isset($Node['Widgets'][$Call['Purpose']])) // Для нашего случая
                     $Widget = $Node['Widgets'][$Call['Purpose']];
                 elseif (isset($Node['Widgets']['Write'])) // Для записи как таковой
@@ -70,7 +66,6 @@
                 if (null !== $Widget)
                 {
                     F::Log('Widget for *'.$Name.'* processing', LOG_DEBUG);
-                    // Передаём имя сущности
 
                     $Widget = F::Merge($Node, $Widget);
 
@@ -94,7 +89,7 @@
                             'Name'      => $Name,
                             'Action'    => $Call['Action'],
                             'Data'      => $Call['Data']
-                        ]); // FIXME
+                        ]);
                     else
                         $Widget['Options'] = [];
 
@@ -115,9 +110,7 @@
 
                     if (isset($Call['Data']))
                         $Widget['Data'] = $Call['Data'];
-
-                    // Если есть значение, добавляем
-
+                    
                     if (($Widget['Value'] = F::Dot($Call['Data'], $Name)) === null)
                     {
                         if (isset($Node['Default']))
@@ -133,14 +126,9 @@
                         $Widget['RAWValue'] = $Widget['Value'];
                         $Widget['Value'] = htmlspecialchars($Widget['Value']);
                     }
-
-                    // Упростить
-
+                    
                     if (!isset($Widget['Weight']))
                         $Widget['Weight'] = $IC; // Magic
-
-                    //$Widget['Label'] .=$Widget['Weight'];
-                    // Помещаем виджет в поток
 
                     $Call = F::Apply('Entity.Form.Layout.'.$Call['FormLayout'], 'Add', $Call,
                         [

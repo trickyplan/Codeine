@@ -44,7 +44,7 @@
     setFn('Destroy', function ($Call)
     {
         if (isset($Call['HTTP']['Cookie'][$Call['Marker']['Cookie']['Name']]))
-            setcookie ($Call['Marker']['Cookie']['Name'], ''); // OPTME!
+            setcookie ($Call['Marker']['Cookie']['Name'], '');
 
         return $Call;
     });

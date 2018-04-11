@@ -42,7 +42,6 @@
 
             if (($SASSVersion > $CSSVersion) or (isset($Call['HTTP']['Request']['Headers']['Pragma']) && $Call['HTTP']['Request']['Headers']['Pragma'] == 'no-cache'))
             {
-                // FIXME! Temporary decision.
                 $Call = F::Dot($Call, 'View.CSS.SASS.Filename', F::findFile('Assets/'.$Asset.'/sass/'.$ID.'.scss'));
                 
                 if (F::Dot($Call, 'View.CSS.SASS.Filename'))

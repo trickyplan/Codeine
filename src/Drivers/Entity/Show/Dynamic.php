@@ -21,7 +21,7 @@
 
         }
 
-        $Call['Front']['Entity'] = $Call['Entity']; //FIXME
+        $Call['Front']['Entity'] = $Call['Entity'];
 
         return $Call;
     });

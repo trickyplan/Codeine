@@ -7,7 +7,7 @@
      * @version 8.x
      */
     
-    setFn('Do', function ($Call)
+    setFn('beforeRTBRequest', function ($Call)
     {
         $dpidsha1 = sha1(F::Dot($Call, 'HTTP.Cookie.SSID'));
         $ua = F::Dot($Call, 'HTTP.Agent');

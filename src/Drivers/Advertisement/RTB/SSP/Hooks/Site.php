@@ -7,27 +7,26 @@
      * @version 8.x
      */
     
-    setFn('Do', function ($Call)
+    setFn('beforeRTBRequest', function ($Call)
     {
-        /*$Call = F::Dot($Call, 'RTB.DSP.Request.site', F::Dot($Call, 'RTB.SSP.Site'));*/
-        //$Call = F::Dot($Call, 'RTB.DSP.Request.site.name', F::Dot($Call, 'AdRam.Site.Title'));
+        $URL = F::Dot($Call, 'RTB.URL');
+        $Referrer = F::Dot($Call, 'Request.Referrer');
+        $Domain = parse_url($URL, PHP_URL_HOST);
 
-        $page = F::Dot($Call, 'HTTP.URL');
-        $ref = F::Dot($Call, 'Request.Referrer');
-        $Call = F::Dot($Call, 'RTB.DSP.Items', array_map(function ($DSP) use ($page, $ref) {
-            $DSP['Request']['site']['page'] = $page;
+        $Call = F::Dot($Call, 'RTB.DSP.Items', array_map(function ($DSP) use ($URL, $Referrer, $Domain)
+        {
+            if (empty($Domain))
+                ;
+            else
+                $DSP['Request']['site']['domain'] = $Domain;
+            
+            $DSP['Request']['site']['page'] = $URL;
 
-            if ($ref)
-                $DSP['Request']['site']['ref'] = $ref;
+            if ($Referrer)
+                $DSP['Request']['site']['ref'] = $Referrer;
 
             return $DSP; 
         }, F::Dot($Call, 'RTB.DSP.Items')));
-
-        /*$Domain = F::Dot($Call, 'AdRam.Site.URL');
-        $Domain = parse_url($Domain, PHP_URL_HOST);*/
-
-        if (!empty($Domain))
-            $Call = F::Dot($Call, 'RTB.DSP.Request.site.domain', $Domain);
 
         return $Call;
     });

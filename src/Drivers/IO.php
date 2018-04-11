@@ -30,7 +30,7 @@
                 return $Call;
             }
             else
-                F::Log($Call['Storage'].' not found', LOG_CRIT, 'Administrator'); // FIXME
+                F::Log($Call['Storage'].' not found', LOG_CRIT, 'Administrator');
         }
         else
             F::Log('IO.Open.Storage.Undefined', LOG_CRIT, 'Administrator');

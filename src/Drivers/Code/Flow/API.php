@@ -16,14 +16,14 @@
         $Call['API']['Request']['Locale'] = ['Locale' => $Call['Locale']];
         // В этом месте, практически всегда, происходит роутинг.
         $Call = F::Hook('beforeAPIRun', $Call);
-        
+      
         if (isset($Call['API']['Request']['Service']))
         {
             $Call = F::loadOptions($Call['API']['Request']['Service'], 'API', $Call);
     
             F::startColor('aed581');
             // Если передан нормальный вызов, совершаем его
-    
+      
             if (F::Dot($Call, 'Skip API'))
                 F::Log('API Skipped', LOG_NOTICE);
             else
@@ -33,12 +33,14 @@
                     if (!isset($Call['API']['Request']['Method']) or empty($Call['API']['Request']['Method']))
                         $Call['API']['Request']['Method'] = 'Do';
 
-                    $Enabled = F::Dot($Call, implode('.', [
-                            'API',
-                            $Call['API']['Request']['Service'],
-                            $Call['API']['Request']['Method'],
-                            'Enabled'
-                        ])) ?? false;
+                    $Enabled = F::Dot($Call,
+                            [
+                                'API',
+                                $Call['API']['Request']['Service'],
+                                $Call['API']['Request']['Method'],
+                                'Enabled'
+                            ]) ?? false;
+                    
                     if ($Enabled)
                     {
                         if ($Call['API']['Response']['Access'])
@@ -73,11 +75,11 @@
 
                             $Call['API']['Response']['Data'] =
                                 F::Run($Call['API']['Request']['Service'], $Call['API']['Request']['Method'], $Call, $Request);
-                    
-                        } else {
-                            $Call['HTTP']['Headers']['HTTP/1.1'] = '403 Forbidden';
                         }
-                    } else
+                        else
+                            $Call = F::Dot($Call, 'HTTP.Headers.HTTP/1.1', '403 Forbidden');
+                    }
+                    else
                         $Call['API']['Response']['Data'] = 'Unknown API Service or Method';
                 }
             }

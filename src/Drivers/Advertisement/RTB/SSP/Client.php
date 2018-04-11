@@ -25,7 +25,7 @@
         );
 
         $Call = F::Hook('beforeRTBRequest', $Call);
-
+        
         $Call = F::Dot($Call, 'RTB.DSP.Result', F::Run('IO', 'Write', [
             'Storage'          => 'Web',
             'Output Format'    => 'Formats.JSON',
@@ -37,10 +37,12 @@
                     'x-openrtb-version: '.F::Dot($Call, 'RTB.Client.Version')
                 ]
             ],
-        ], array_reduce(F::Dot($Call, 'RTB.DSP.Items'), function ($Request, $DSP) {
+        ], array_reduce(F::Dot($Call, 'RTB.DSP.Items'), function ($Request, $DSP)
+        {
             $UniqID = uniqid('',true);
             $Request['Where']['ID'][$UniqID] = $DSP['Endpoint'].'&dc='.time().$UniqID;
             $Request['Data'][$UniqID] = $DSP['Request'];
+            
             return $Request;
         }, [])));
 

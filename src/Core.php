@@ -56,7 +56,7 @@
 
             self::Start(self::$_Service . '.' . self::$_Method);
 
-            mb_internal_encoding('UTF-8'); // FIXME
+            mb_internal_encoding('UTF-8');
 
             libxml_use_internal_errors(true);
 
@@ -732,7 +732,7 @@
                     if (self::$_Stack instanceof SplStack)
                         $StackDepth = self::$_Stack->count();
                     else
-                        $StackDepth = 0; // FIXME?
+                        $StackDepth = 0;
                     
                     if (self::$_Stack->offsetExists(1))
                         $Initiator = self::$_Stack->offsetGet(1);

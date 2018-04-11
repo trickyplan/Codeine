@@ -97,13 +97,12 @@
                                     {
                                         $Call['Data'] = F::Run('IO', 'Write', $Call);
                                         
-                                        //FIXME Separate successful and failed
                                                             $Call = F::Hook('afterEntityWrite', $Call);
                                                         $Call = F::Hook('after'.$Call['Flat Entity'].'Write', $Call);
                                                     $Call = F::Hook('afterEntityCreateOrUpdate', $Call);
                                                 $Call = F::Hook('after'.$Call['Flat Entity'].'CreateOrUpdate', $Call);
                                             $Call = F::Hook('afterEntityCreate', $Call);
-                                        $Call = F::Hook('after'.$Call['Flat Entity'].'Create', $Call); // FIXME All block?
+                                        $Call = F::Hook('after'.$Call['Flat Entity'].'Create', $Call);
                                     }
                     
                                     

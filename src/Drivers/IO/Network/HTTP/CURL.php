@@ -284,7 +284,7 @@
                     CURLOPT_FAILONERROR      => false,
                     CURLOPT_POST             => true,
                     CURLOPT_SSL_VERIFYPEER   => false,
-                    // CURLOPT_USERPWD          => isset($Call['User'])? $Call['User'].':'.$Call['Password']: null, // FIXME
+                    // CURLOPT_USERPWD          => isset($Call['User'])? $Call['User'].':'.$Call['Password']: null,
                     CURLOPT_HTTPAUTH         => CURLAUTH_BASIC,
                     CURLOPT_POSTFIELDS       => $Post
                 ]);

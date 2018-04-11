@@ -15,7 +15,7 @@
             ;
         else
         {
-            $Call['Static'] = $Call['Links']; // FIXME
+            $Call['Static'] = $Call['Links'];
             F::Log('«Links» now «Static», please replace', LOG_WARNING);
         }
         
