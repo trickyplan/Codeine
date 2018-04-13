@@ -1,0 +1,42 @@
+{
+    "Suites":
+    {
+        "XOR Encoding/Decoding":
+        {
+            "XOR Encoding":
+            {
+                "Run":
+                {
+                    "Service": "Security.XOR",
+                    "Method": "Encode",
+                    "Call": 
+                    {
+                        "Key": 88,
+                        "Value": "Some Text To Check Encrypting"
+                    }
+                },
+                "Assert":
+                {
+                    "Equal": "0b37353d780c3d202c780c37781b303d3b33781d363b2a21282c31363f"
+                }
+            },
+            "XOR Decoding":
+            {
+                "Run":
+                {
+                    "Service": "Security.XOR",
+                    "Method": "Decode",
+                    "Call": 
+                    {
+                        "Key": 88,
+                        "Value": "0b37353d780c3d202c780c37781b303d3b33781d363b2a21282c31363f"
+                    }
+                },
+                "Assert":
+                {
+                   "Equal": "Some Text To Check Encrypting" 
+                }
+            }
+        }
+    }
+}
