@@ -33,16 +33,15 @@
             [
                 'Headers'  =>
                 [
-                    'Content-Type: application/json',
-                    'x-openrtb-version: '.F::Dot($Call, 'RTB.Client.Version')
+                    'Content-Type: application/json'
                 ]
             ],
         ], array_reduce(F::Dot($Call, 'RTB.DSP.Items'), function ($Request, $DSP)
         {
             $UniqID = uniqid('',true);
-            $Request['Where']['ID'][$UniqID] = $DSP['Endpoint'].'&dc='.time().$UniqID;
+            $Request['Where']['ID'][$UniqID] = $DSP['Endpoint'].'?dc='.time().$UniqID;
             $Request['Data'][$UniqID] = $DSP['Request'];
-            
+            $Request['CURL']['Headers']['X-OpenRTB-Version:'] = $DSP['Version'];
             return $Request;
         }, [])));
 
@@ -54,6 +53,5 @@
         if (F::Dot($Call, 'RTB.DSP.Debug.LogEmptyResponse') == true)
             if (F::Dot($Call, 'RTB.DSP.Result') == [null])
                 F::Log(function () use ($Call) {return 'Zero Response: '.j(F::Dot($Call, 'RTB.DSP.Request'));} , LOG_WARNING, 'RTB');
-        
         return $Call;
     });
