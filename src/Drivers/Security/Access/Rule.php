@@ -14,12 +14,16 @@
             foreach ($Call['Rules'] as $Name => $Rule)
             {
                 if (isset($Rule['Run']))
-                    foreach ($Rule['Run'] as &$Node)
+                    foreach ($Rule['Run'] as $Name => &$Node)
+                    {
                         $Node = F::Live($Node, $Call);
+                        if (isset($Call[$Name]))
+                            $Call[$Name] = F::Live($Call[$Name], $Call);
+                    }
 
                 if (!isset($Rule['Weight']))
                     $Rule['Weight'] = $Call['Weight'];
-
+                
                 if ($Rule['Weight'] >= $Call['Weight'])
                 {
                     if (isset($Rule['Run']) && (F::Diff($Rule['Run'], $Call) === null))
@@ -37,6 +41,8 @@
                         if (isset($Rule['Debug']))
                         {
                             F::Log('Diff '.$Name.' (Rule, Call)'.j(F::Diff($Rule['Run'], $Call)), LOG_INFO, 'Security');
+                            F::Log('Rule '.$Name.' '.j($Rule['Run']), LOG_INFO, 'Security');
+/*                            F::Log('Rule '.$Name.' '.j($Call), LOG_INFO, 'Security');*/
                         }
 
                     if (isset($Call['Service'])
