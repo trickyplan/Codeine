@@ -2,5 +2,14 @@
     "name": "trickyplan/codeine",
     "require": {
         "mongodb/mongodb": "^1.1"
+    },
+    "scripts": {
+        "post-package-install": [
+            "echo \"************************ LINK *******************\"\\n",
+            "mkdir -p /usr/share/php",
+            "ln -s `pwd`/src /usr/share/php/Codeine",
+            "ls /usr/share/php/",
+            "echo \"************************* /LINK *****************\"\\n"
+        ]
     }
 }
