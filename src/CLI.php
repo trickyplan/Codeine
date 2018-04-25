@@ -6,7 +6,7 @@
      */
 
     require 'Core.php';
-    require 'Codeine/vendor/autoload.php';
+    // require 'Codeine/vendor/autoload.php';
 
     $Opts = [];
 
