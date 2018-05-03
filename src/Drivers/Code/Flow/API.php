@@ -73,8 +73,11 @@
                             $Call['Output']['Content']['Parameters'] = $Parameters;
                             $Call['Output']['Content']['Request'] = $Request;
 
-                            $Call['API']['Response']['Data'] =
-                                F::Run($Call['API']['Request']['Service'], $Call['API']['Request']['Method'], $Call, $Request);
+                            $Result = F::Apply($Call['API']['Request']['Service'], $Call['API']['Request']['Method'], $Call, $Request);
+                            if (F::Dot($Result, 'Output.Response'))
+                                $Call = F::CopyDot($Result, 'Output.Response', 'API.Response.Data');
+                            else 
+                                $Call = F::Dot($Call, 'API.Response.Data', $Result);
                         }
                         else
                             $Call = F::Dot($Call, 'HTTP.Headers.HTTP/1.1', '403 Forbidden');
