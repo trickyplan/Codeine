@@ -74,7 +74,7 @@
                             $Call['Output']['Content']['Request'] = $Request;
 
                             $Result = F::Apply($Call['API']['Request']['Service'], $Call['API']['Request']['Method'], $Call, $Request);
-                            if (F::Dot($Result, 'Output.Response'))
+                            if (!is_null(F::Dot($Result, 'Output.Response')))
                                 $Call = F::CopyDot($Result, 'Output.Response', 'API.Response.Data');
                             else 
                                 $Call = F::Dot($Call, 'API.Response.Data', $Result);
@@ -95,8 +95,12 @@
         
         $Call['API']['Response']['Generated'] = microtime(true);
         $Call['API']['Response']['Time'] = $Call['API']['Response']['Generated'] - $Request['Started'];
-        $Call['Output']['Content']['Response'] = $Call['API']['Response'];
-        
+
+        $Call['Output']['Content']['Response'] = F::Merge(
+            F::Dot($Call, 'Output.Content.Response'), 
+            F::Dot($Call, 'API.Response'));
+
         $Call = F::Hook('afterAPIRun', $Call);
+        
         return $Call;
     });
