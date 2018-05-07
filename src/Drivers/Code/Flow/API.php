@@ -82,8 +82,10 @@
                         else
                             $Call = F::Dot($Call, 'HTTP.Headers.HTTP/1.1', '403 Forbidden');
                     }
-                    else
+                    else {
                         $Call['API']['Response']['Data'] = 'Unknown API Service or Method';
+                        $Call = F::Dot($Call, 'HTTP.Headers.HTTP/1.1', '400 Bad Request');
+                    }
                 }
             }
     
