@@ -25,7 +25,16 @@
         );
 
         $Call = F::Hook('beforeRTBRequest', $Call);
-        
+
+        $DSPItems = F::Dot($Call, 'RTB.DSP.Items');
+        $RequestData = [];
+        foreach ($DSPItems as $Item) {
+            $UniqID = uniqid('',true);
+            $RequestData['Where']['ID'][$UniqID] = $Item['Endpoint'].'?dc='.time().$UniqID;
+            $RequestData['Data'][$UniqID] = $Item['Request'];
+            $RequestData['CURL']['Headers']['X-OpenRTB-Version:'] = $Item['Version'];
+        }
+
         $Call = F::Dot($Call, 'RTB.DSP.Result', F::Run('IO', 'Write', [
             'Storage'          => 'Web',
             'Output Format'    => 'Formats.JSON',
@@ -36,14 +45,7 @@
                     'Content-Type: application/json'
                 ]
             ],
-        ], array_reduce(F::Dot($Call, 'RTB.DSP.Items'), function ($Request, $DSP)
-        {
-            $UniqID = uniqid('',true);
-            $Request['Where']['ID'][$UniqID] = $DSP['Endpoint'].'?dc='.time().$UniqID;
-            $Request['Data'][$UniqID] = $DSP['Request'];
-            $Request['CURL']['Headers']['X-OpenRTB-Version:'] = $DSP['Version'];
-            return $Request;
-        }, [])));
+        ], $RequestData));
 
         $Call = F::Hook('RTB.SSP.Request.Created', $Call); // New Hook Convention
         $Call = F::Hook('afterRTBRequest', $Call); // Old Convention
