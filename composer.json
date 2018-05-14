@@ -1,4 +1,5 @@
 {
+    "name": "trickyplan/codeine",
     "require": {
         "mongodb/mongodb": "^1.1"
     }
