@@ -13,23 +13,14 @@
 
         $Call = F::Hook('beforeBannerAdd', $Call);
         
-            $ImpressionDefaults = F::Dot($Call, 'RTB.DSP.Impression Defaults');
-            
-            $Call = F::Dot($Call, 'RTB.DSP.Items', array_map(function ($DSP) use ($ImpressionDefaults) {
-                if (F::Dot($DSP, 'Banner') == null)
-                    ;
-                else
-                    $DSP['Impression']['banner'] = array_merge($DSP['Impression']['banner'] ?? $ImpressionDefaults['banner'], $DSP['Banner']);
-    
-                return $DSP;
-            }, F::Dot($Call, 'RTB.DSP.Items')));
+            if (($Banner = F::Dot($Call, 'RTB.DSP.Banner')) == null)
+                ;
+            else
+                $Call['RTB']['DSP']['Impression']['banner'] = array_merge($Call['RTB']['DSP']['Impression']['banner'], $Banner);
         
         $Call = F::Hook('afterBannerAdd', $Call);
 
-        $Call = F::Dot($Call, 'RTB.DSP.Items', array_map(function ($DSP) {
-            $DSP['Request']['imp'][] = $DSP['Impression'];
-            return $DSP;
-        }, F::Dot($Call, 'RTB.DSP.Items')));
+        $Call['RTB']['DSP']['Request']['Impression'][] = $Call['RTB']['DSP']['Impression'];
 
         return $Call;
     });
