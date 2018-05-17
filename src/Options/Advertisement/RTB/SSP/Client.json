@@ -3,75 +3,89 @@
     {
         "Client":
         {
-            "Version": "2.5"
+            "Version": "2.5",
+            "Impression":
+            {
+                "ID":
+                {
+                    "Mode": "Secure"
+                }
+            },
+            "Request":
+            {
+                "ID":
+                {
+                    "Mode": "Secure"
+                }
+            }
         }
     },
     "Hooks":
     {
         "beforeRTBRequest":
         {
-            "Generate ID":
+            "Generate Request ID":
             {
-                "Service": "Advertisement.RTB.SSP.Hooks.ID",
+                "Service": "Advertisement.RTB.SSP.Hooks.GenerateRequestID",
                 "Method": "beforeRTBRequest"
             },
-            "Setup Impression":
+            "Generate Impression ID":
             {
-                "Service": "Advertisement.RTB.SSP.Hooks.Impression",
+                "Service": "Advertisement.RTB.SSP.Hooks.GenerateImpressionID",
                 "Method": "beforeRTBRequest"
             },
-            "Setup Device":
+            "Fill Device Section":
             {
-                "Service": "Advertisement.RTB.SSP.Hooks.Device",
+                "Service": "Advertisement.RTB.SSP.Hooks.FillDeviceSection",
                 "Method": "beforeRTBRequest"
             },
-            "Setup Site":
+            "Fill Site Section":
             {
-                "Service": "Advertisement.RTB.SSP.Hooks.Site",
+                "Service": "Advertisement.RTB.SSP.Hooks.FillSiteSection",
                 "Method": "beforeRTBRequest"
             },
-            "Setup User":
+            "Fill User Section":
             {
-                "Service": "Advertisement.RTB.SSP.Hooks.User",
-                "Method": "beforeRTBRequest"
-            },
-            "Merge Bid":
-            {
-                "Service": "Advertisement.RTB.SSP.Hooks.Bid",
-                "Method": "beforeRTBRequest"
-            },
-            "Convert Request Data to JSON":
-            {
-                "Service": "Advertisement.RTB.SSP.Hooks.DataToJSON",
+                "Service": "Advertisement.RTB.SSP.Hooks.FillUserSection",
                 "Method": "beforeRTBRequest"
             }
         },
-        "afterRTBRequest":
+        "RTB":
         {
-            "Select Bids": 
+            "SSP":
             {
-                "Service": "Advertisement.RTB.SSP.Client.Comparator",
-                "Call": 
+                "Request":
                 {
-                    "RTB":
+                    "Executed":
                     {
-                        "SSP":
+                        "Select Bids":
                         {
-                            "Client":
+                            "Service": "Advertisement.RTB.SSP.Client.Comparator",
+                            "Method": "RTB.SSP.Request.Executed",
+                            "Call":
                             {
-                                "Comparator":
+                                "RTB":
                                 {
-                                    "Strategy": "Valuable"    
+                                    "SSP":
+                                    {
+                                        "Client":
+                                        {
+                                            "Comparator":
+                                            {
+                                                "Strategy": "Valuable"
+                                            }
+                                        }
+                                    }
                                 }
                             }
+                        },
+                        "Send RTB Win Notice":
+                        {
+                            "Service": "Advertisement.RTB.SSP.Hooks.WinNotice",
+                            "Method": "RTB.SSP.Request.Executed"
                         }
                     }
                 }
-            },
-            "Send RTB Win Notice":
-            {
-                "Service": "Advertisement.RTB.SSP.Hooks.WinNotice",
-                "Method": "afterRTBRequest"
             }
         }
     }

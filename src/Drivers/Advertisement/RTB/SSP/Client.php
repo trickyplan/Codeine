@@ -11,7 +11,7 @@
     {
         $Call = F::Apply (null, 'Make Request', $Call);
 
-        return F::Dot($Call, 'RTB.Result.Seats');
+        return $Call;
     });
     
     setFn('Make Request', function ($Call)
@@ -26,16 +26,26 @@
 
         $Call = F::Hook('beforeRTBRequest', $Call);
 
-        $DSPItems = F::Dot($Call, 'RTB.DSP.Items');
-        $RequestData = [];
-        foreach ($DSPItems as $Item) {
-            $UniqID = uniqid('',true);
-            $RequestData['Where']['ID'][$UniqID] = $Item['Endpoint'].'?dc='.time().$UniqID;
-            $RequestData['Data'][$UniqID] = $Item['Request'];
-            $RequestData['CURL']['Headers']['X-OpenRTB-Version:'] = $Item['Version'];
-        }
+        $DSPs = F::Dot($Call, 'RTB.DSP.Items');
+        $MultiRequest = [];
+        
+        foreach ($DSPs as $Name => $DSP)
+        {
+            $DSP['Request'] = F::Merge($DSP['Request'], $Call['RTB']['Request']);
+            $DSP['Request']['imp'][0] = $DSP['Impression'];
+            $DSP['Request']['imp'][0]['id'] = F::Dot($Call, 'RTB.Impression.ID');
+            $DSP['Request']['imp'][0]['banner'] = $DSP['Banner'];
+            
+            $MultiRequest['Where']['ID'][$Name] = $DSP['Endpoint'];
+            $MultiRequest['Data'][$Name] = j($DSP['Request']);
+            $MultiRequest['CURL']['Headers']['X-OpenRTB-Version:'] = $DSP['Version'];
 
-        $Call = F::Dot($Call, 'RTB.DSP.Result', F::Run('IO', 'Write', [
+            F::Log(function () use ($DSP) {return 'Request to '.$DSP['Endpoint'].': '.j($DSP['Request']);}, LOG_INFO, 'RTB');
+            
+            $Call = F::Hook('RTB.SSP.Request.Created', $Call); // New Hook Convention
+        }
+        
+        $Call = F::Dot($Call, 'RTB.Result', F::Run('IO', 'Write', [
             'Storage'          => 'Web',
             'Output Format'    => 'Formats.JSON',
             'CURL'             =>
@@ -45,15 +55,10 @@
                     'Content-Type: application/json'
                 ]
             ],
-        ], $RequestData));
-
-        $Call = F::Hook('RTB.SSP.Request.Created', $Call); // New Hook Convention
-        $Call = F::Hook('afterRTBRequest', $Call); // Old Convention
+        ], $MultiRequest));
         
-        F::Log(function () use ($Call) {return 'Request: '.j(F::Dot($Call, 'RTB.DSP.Request'));}, LOG_INFO, 'RTB');
+        $Call = F::Hook('RTB.SSP.Request.Executed', $Call); // New Hook Convention
+        //$Call = F::Hook('afterRTBRequest', $Call); // Old Convention
         
-        if (F::Dot($Call, 'RTB.DSP.Debug.LogEmptyResponse') == true)
-            if (F::Dot($Call, 'RTB.DSP.Result') == [null])
-                F::Log(function () use ($Call) {return 'Zero Response: '.j(F::Dot($Call, 'RTB.DSP.Request'));} , LOG_WARNING, 'RTB');
         return $Call;
     });

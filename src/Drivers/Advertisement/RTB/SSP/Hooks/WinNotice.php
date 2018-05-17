@@ -1,7 +1,8 @@
 <?php
 
-    setFn('afterRTBRequest', function ($Call)
+    setFn('RTB.SSP.Request.Executed', function ($Call)
     {
+        return $Call;
         return F::Dot($Call, 'RTB.SSP.Client.WinNotice.Result', F::Run('IO', 'Read', [
             'Storage' => 'Web',
             'Time' => uniqid(true),
