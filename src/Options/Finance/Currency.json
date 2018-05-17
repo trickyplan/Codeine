@@ -1,48 +1,50 @@
 {
-    "Currency TTL": 86400,
-    "Currencies":
+    "Currency":
     {
-        "USD":
+        "Available":
         {
-            "RUR":
+            "USD":
             {
-                "Rate":
+                "RUR":
                 {
-                    "Service": "Providers.Government.Russia.CBR",
-                    "Method": "GetRates",
-                    "Call":
+                    "Rate":
                     {
-                        "Currency": "USD"
+                        "Service": "Providers.Government.Russia.CBR",
+                        "Method": "GetRates",
+                        "Call":
+                        {
+                            "Currency": "USD"
+                        }
                     }
                 }
-            }
-        },
-        "EUR":
-        {
-            "RUR":
+            },
+            "EUR":
             {
-                "Rate":
+                "RUR":
                 {
-                    "Service": "Providers.Government.Russia.CBR",
-                    "Method": "GetRates",
-                    "Call":
+                    "Rate":
                     {
-                        "Currency": "EUR"
+                        "Service": "Providers.Government.Russia.CBR",
+                        "Method": "GetRates",
+                        "Call":
+                        {
+                            "Currency": "EUR"
+                        }
                     }
                 }
-            }
-        },
-        "GBP":
-        {
-            "RUR":
+            },
+            "GBP":
             {
-                "Rate":
+                "RUR":
                 {
-                    "Service": "Providers.Government.Russia.CBR",
-                    "Method": "GetRates",
-                    "Call":
+                    "Rate":
                     {
-                        "Currency": "GBP"
+                        "Service": "Providers.Government.Russia.CBR",
+                        "Method": "GetRates",
+                        "Call":
+                        {
+                            "Currency": "GBP"
+                        }
                     }
                 }
             }

@@ -11,96 +11,105 @@
 
     setFn('Run', function ($Call)
     {
-        $Call['API']['Request']['Flow'] = 'API';
-        $Request = ['Started' => Started];
-        $Call['API']['Request']['Locale'] = ['Locale' => $Call['Locale']];
-        // В этом месте, практически всегда, происходит роутинг.
-        $Call = F::Hook('beforeAPIRun', $Call);
+        $Call['API']['Request'] = ['Started' => Started];
+        
+        $Call = F::Hook('beforeAPIRun', $Call); // Routing here
       
-        if (isset($Call['API']['Request']['Service']))
-        {
-            $Call = F::loadOptions($Call['API']['Request']['Service'], 'API', $Call);
-    
-            F::startColor('aed581');
-            // Если передан нормальный вызов, совершаем его
-      
-            if (F::Dot($Call, 'Skip API'))
-                F::Log('API Skipped', LOG_NOTICE);
-            else
+            if (isset($Call['API']['Request']['Service']))
             {
-                if (F::isCall($Call['API']['Request']))
+                $Call = F::loadOptions($Call['API']['Request']['Service'], 'API', $Call);
+        
+                F::startColor('aed581');
+         
+                if (F::Dot($Call, 'Skip API'))
+                    F::Log('API Skipped', LOG_NOTICE);
+                else
                 {
-                    if (!isset($Call['API']['Request']['Method']) or empty($Call['API']['Request']['Method']))
-                        $Call['API']['Request']['Method'] = 'Do';
-
-                    $Enabled = F::Dot($Call,
-                            [
-                                'API',
-                                $Call['API']['Request']['Service'],
-                                $Call['API']['Request']['Method'],
-                                'Enabled'
-                            ]) ?? false;
-                    
-                    if ($Enabled)
+                    if (F::isCall($Call['API']['Request']))
                     {
-                        if ($Call['API']['Response']['Access'])
+                        $Exists = F::Dot($Call,
+                                [
+                                    'API',
+                                    $Call['API']['Request']['Service'],
+                                    $Call['API']['Request']['Method']
+                                ]) ?? false;
+                        
+                        $Enabled = F::Dot($Call,
+                                [
+                                    'API',
+                                    $Call['API']['Request']['Service'],
+                                    $Call['API']['Request']['Method'],
+                                    'Enabled'
+                                ]) ?? false;
+                        
+                        if ($Exists)
                         {
-                            F::Log(
-                                'API *' . $Call['API']['Request']['Service'] . ':' .
-                                        $Call['API']['Request']['Method'] . '* started',
-                                LOG_INFO,
-                                'All'
-                            );
-
-                            $Parameters = F::Dot($Call, [
-                                'API',
-                                $Call['API']['Request']['Service'],
-                                $Call['API']['Request']['Method'],
-                                'Parameters'
-                            ]);
-
-                            if (empty($Parameters))
-                                ;
+                            if ($Enabled)
+                            {
+                                if ($Call['API']['Response']['Access'])
+                                {
+                                    F::Log(
+                                        'API *' . $Call['API']['Request']['Service'] . ':'
+                                        .$Call['API']['Request']['Method'] . '* started',
+                                        LOG_INFO,
+                                        'All'
+                                    );
+        
+                                    $CanOverride = F::Dot($Call, [
+                                        'API',
+                                        $Call['API']['Request']['Service'],
+                                        $Call['API']['Request']['Method'],
+                                        'CanOverride'
+                                    ]);
+                                    
+                                    if (empty($CanOverride))
+                                        ;
+                                    else
+                                        foreach ($CanOverride as $Overridden)
+                                        {
+                                            if (($ParameterFromRequest = F::Dot($Call['Request'], $Overridden)) === null)
+                                                ;
+                                            else
+                                                $Call = F::CopyDot($Call, 'Request.'.$Overridden, 'API.Request.Call.'.$Overridden);
+                                        }
+                                        
+                                    if ($Behaviours = F::Dot($Call, 'API.'.$Call['API']['Request']['Service'].'.'.$Call['API']['Request']['Method'].'.Behaviours') !== null)
+                                        $Call['API']['Request']['Call'] = F::Merge($Call['API']['Request']['Call'], $Behaviours);
+                                    
+                                    $Result = F::Apply($Call['API']['Request']['Service'], $Call['API']['Request']['Method'], $Call, $Call['API']['Request']['Call'], ['Return' => 'Output']);
+                                    
+                                    $Call = F::Dot($Call, 'API.Response.Data', F::Dot($Result, 'Response'));
+                                    $Call = F::Dot($Call, 'API.Response.Status', F::Dot($Result, 'Status'));
+                                    
+                                }
+                                else
+                                    $Call = F::Dot($Call, 'HTTP.Headers.HTTP/1.1', '403 Forbidden');
+                            }
                             else
-                                foreach ($Parameters as $Parameter)
-                                    $Request = $Call['HTTP']['Method'] === 'GET'
-                                        ? F::Dot($Request, $Parameter, F::Dot($Call['Request'], $Parameter))
-                                        : F::Dot($Request, $Parameter, F::Dot(jd(F::Dot($Call, 'HTTP.RAW')), $Parameter));
-
-                            if ($Behaviours = F::Dot($Call, 'API.'.$Call['API']['Request']['Service'].'.'.$Call['API']['Request']['Method'].'.Behaviours') !== null)
-                                $Request = F::Merge($Request, $Behaviours);
-                            
-                            $Call['Output']['Content']['Parameters'] = $Parameters;
-                            $Call['Output']['Content']['Request'] = $Request;
-
-                            $Result = F::Apply($Call['API']['Request']['Service'], $Call['API']['Request']['Method'], $Call, $Request);
-                            if (!is_null(F::Dot($Result, 'Output.Response')))
-                                $Call = F::CopyDot($Result, 'Output.Response', 'API.Response.Data');
-                            else 
-                                $Call = F::Dot($Call, 'API.Response.Data', $Result);
+                            {
+                                $Call['API']['Response']['Data'] = 'API Service or Method is disabled';
+                                $Call = F::Dot($Call, 'HTTP.Headers.HTTP/1.1', '400 Bad Request');
+                            }
                         }
                         else
-                            $Call = F::Dot($Call, 'HTTP.Headers.HTTP/1.1', '403 Forbidden');
-                    }
-                    else {
-                        $Call['API']['Response']['Data'] = 'Unknown API Service or Method';
-                        $Call = F::Dot($Call, 'HTTP.Headers.HTTP/1.1', '400 Bad Request');
+                        {
+                            $Call['API']['Response']['Data'] = 'Unknown API Service or Method';
+                            $Call = F::Dot($Call, 'HTTP.Headers.HTTP/1.1', '404 Not Found');
+                        }
                     }
                 }
-            }
-    
-            F::Log('API *' . $Call['API']['Request']['Service'] . ':' . $Call['API']['Request']['Method'] . '* finished', LOG_INFO, 'All');
-            F::stopColor();
-    
-            $Call = F::Merge($Call, $Call['API']['Formats'][$Call['API']['Request']['Format']]);
-        }
         
-        $Call['API']['Response']['Generated'] = microtime(true);
-        $Call['API']['Response']['Time'] = $Call['API']['Response']['Generated'] - $Request['Started'];
-
-        $Call['Output']['Content']['Response'] = F::Merge(
-            F::Dot($Call, 'Output.Content.Response'), 
-            F::Dot($Call, 'API.Response'));
+                F::Log('API *' . $Call['API']['Request']['Service'] . ':' . $Call['API']['Request']['Method'] . '* finished', LOG_INFO, 'All');
+                F::stopColor();
+        
+                $Call = F::Merge($Call, $Call['API']['Formats'][$Call['API']['Request']['Format']]);
+            }
+        
+            $Call['API']['Response']['Generated'] = microtime(true);
+            $Call['API']['Response']['Time'] = $Call['API']['Response']['Generated'] - $Call['API']['Request']['Started'];
+            
+            $Call['Output']['Content']['Request'] = $Call['API']['Request']; // Move API Request to Rendering
+            $Call['Output']['Content']['Response'] = $Call['API']['Response']; // Move API Response to Rendering
 
         $Call = F::Hook('afterAPIRun', $Call);
         

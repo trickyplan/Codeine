@@ -15,11 +15,7 @@
             {
                 if (isset($Rule['Run']))
                     foreach ($Rule['Run'] as $Name => &$Node)
-                    {
                         $Node = F::Live($Node, $Call);
-                        if (isset($Call[$Name]))
-                            $Call[$Name] = F::Live($Call[$Name], $Call);
-                    }
 
                 if (!isset($Rule['Weight']))
                     $Rule['Weight'] = $Call['Weight'];

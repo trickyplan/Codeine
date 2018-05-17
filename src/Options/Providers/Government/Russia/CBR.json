@@ -10,7 +10,7 @@
                     "Cached":
                     {
                         "Enabled": true,
-                        "Keys": ["DC"],
+                        "Keys": ["DC", "Currency"],
                         "TTL": 34200
                     }
                 },

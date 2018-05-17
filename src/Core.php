@@ -6,6 +6,8 @@
      * @subpackage Core
     */
     //gc_disable();
+    require 'Codeine/vendor/autoload.php';
+
     define ('Codeine', __DIR__);
     define ('Started', microtime(true));
     define ('REQID', 'REQ'.base_convert(Started, 10, 16).'.'.sha1(mt_rand(4294967295, PHP_INT_MAX)));
@@ -415,6 +417,12 @@
             else
             {
                 $F = self::getFn(self::$_Method);
+                
+                if (isset($Call['Return']))
+                {
+                    $Return = $Call['Return'];
+                    unset($Call['Return']);
+                }
 
                 if (is_callable($F))
                 {
@@ -484,6 +492,9 @@
             self::$NC++;
 
             self::$_Stack->pop();
+            
+            if (isset($Return))
+                $Result = F::Dot($Result, $Return);
 
             return $Result;
         }

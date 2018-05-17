@@ -4,7 +4,6 @@
         include Root.'/vendor/autoload.php';
     
     require 'Codeine/Core.php';
-    // require 'Codeine/vendor/autoload.php';
 
     $Call = [];
 

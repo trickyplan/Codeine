@@ -10,7 +10,7 @@
     setFn('Render', function ($Call)
     {
         $RAWKey = F::Dot($Call,'View.RAW.Key');
-        
+      
         if ($RAWData = F::Dot($Call['Output'], $RAWKey))
         {
             if (is_scalar($RAWData))

@@ -21,5 +21,5 @@
     
     setFn('Impersonate', function ($Call)
     {
-        return F::Run('User.Impersonate', 'Do', $Call);
+        return F::Run('User.Impersonate', 'Do', $Call, ['ID' => $Call['Where']]);
     });

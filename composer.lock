@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "92e4d93e6d045f2ef518281c2088a839",
-    "content-hash": "023c76bd3315105bc8c3382d234ac1b3",
+    "hash": "fdbcb931b846a33251c3d74831397466",
+    "content-hash": "2c67cbc0e46bf1f5874d0acc56a550d2",
     "packages": [
         {
             "name": "mongodb/mongodb",

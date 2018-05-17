@@ -203,9 +203,9 @@
                     $Post = is_string($Call['Data'][$cIndex]) ? $Call['Data'][$cIndex] : http_build_query($Call['Data'][$cIndex]);
 
                 $Links[$cID] = curl_init($cID);
-
+                
                 F::Log('CURL POST Request Headers: *'.j($Call['CURL']['Headers']).'*', LOG_INFO, 'Administrator');
-                F::Log('CURL POST Request Parameters: *'.j($Call['Data'][$cIndex]).'*', LOG_INFO, 'Administrator');
+                // F::Log('CURL POST Request Parameters: *'.j($Call['Data'][$cIndex]).'*', LOG_INFO, 'Administrator');
                 F::Log('CURL POST Request URL: *'.$cID.'*', LOG_INFO, 'Administrator');
                 curl_setopt_array($Links[$cID], [
                         CURLOPT_HEADER           => $Call['CURL']['Return Header'],
@@ -248,10 +248,11 @@
                 }
 
                 F::Log('CURL POST Response: '.j($Result[$ID]), LOG_INFO, 'Administrator');
+                
                 if (curl_multi_errno($Call['Link'])) 
                 {
                     F::Log('CURL POST error: '.curl_error($Link).'*'.$ID.'*', LOG_NOTICE, 'Administrator');
-                    F::Log($Return, LOG_NOTICE, 'Administrator');
+                    F::Log($Result, LOG_NOTICE, 'Administrator');
                 }
                 else
                     F::Log('CURL POST fetched *'.$ID.'*', LOG_INFO, 'Administrator');

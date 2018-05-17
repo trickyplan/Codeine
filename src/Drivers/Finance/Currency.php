@@ -9,7 +9,13 @@
 
     setFn('Rate.List', function ($Call)
     {
-        return F::Live($Call['Currencies']);
+        $Currencies = [];
+        
+        foreach ($Call['Currency']['Available'] as $FirstCurrency => $SecondCurrencies)
+            foreach ($SecondCurrencies as $SecondCurrency => $Run)
+                $Currencies[$FirstCurrency][$SecondCurrency] = F::Live($Run['Rate']);
+
+        return $Currencies;
     });
 
     setFn('Rate.Get', function ($Call)

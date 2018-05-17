@@ -20,7 +20,7 @@
                 $Hash[] = F::Dot($Call, $Key);
             
             $Scope = $Call['Run']['Service'].'_'.$Call['Run']['Method'];
-            $CacheID = 'CID'.hash('sha256', j($Hash));
+            $CacheID = 'CID'.hash('sha256', $Scope.j($Hash));
             
             // Try to get cached
             

@@ -26,16 +26,20 @@
                 }
                 else
                     F::Log('Storage *'.$Call['Storage'].'* (*'.$Call['Driver'].'*) cached', LOG_DEBUG, 'Administrator');
-
-                return $Call;
             }
             else
+            {
                 F::Log($Call['Storage'].' not found', LOG_CRIT, 'Administrator');
+                $Call['Link'] = null;
+            }
         }
         else
+        {
             F::Log('IO.Open.Storage.Undefined', LOG_CRIT, 'Administrator');
+            $Call['Link'] = null;
+        }
 
-        return null;
+        return $Call;
      });
 
     setFn ('Read', function ($Call)

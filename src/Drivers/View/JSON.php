@@ -14,7 +14,11 @@
             $Call = F::Run('View.Pipeline', 'Do', $Call);
         
             $Call = F::Dot($Call, 'HTTP.Headers.Content-type:', 'application/json');
-            $Call['Output'] = j($Call['Output']['Content']);
+            
+            if ($Key = F::Dot($Call, 'View.JSON.Key'))
+                $Call['Output'] = j(F::Dot($Call['Output'], $Key));
+            else
+                $Call['Output'] = j(F::Dot($Call['Output'], 'Content'));
 
         $Call = F::Hook('afterJSONRender', $Call);
 

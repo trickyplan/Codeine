@@ -1,6 +1,11 @@
 {
     "API":
     {
+        "Request":
+        {
+            "Flow": "API",
+            "Method": "Do"
+        },
         "Formats":
         {
             "json":
@@ -10,7 +15,17 @@
                     "Renderer":
                     {
                         "Service": "View.JSON",
-                        "Method": "Render"
+                        "Method": "Render",
+                        "Call":
+                        {
+                            "View":
+                            {
+                                "JSON":
+                                {
+                                    "Key": "Content"
+                                }
+                            }
+                        }
                     }
                 }
             },
