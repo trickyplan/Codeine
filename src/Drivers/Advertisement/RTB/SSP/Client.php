@@ -27,6 +27,7 @@
         $Call = F::Hook('beforeRTBRequest', $Call);
 
         $DSPs = F::Dot($Call, 'RTB.DSP.Items');
+        
         $MultiRequest = [];
         
         foreach ($DSPs as $Name => $DSP)
@@ -34,17 +35,16 @@
             $DSP['Request'] = F::Merge($DSP['Request'], $Call['RTB']['Request']);
             $DSP['Request']['imp'][0] = $DSP['Impression'];
             $DSP['Request']['imp'][0]['id'] = F::Dot($Call, 'RTB.Impression.ID');
-            $DSP['Request']['imp'][0]['banner'] = $DSP['Banner'];
+            $DSP['Request']['imp'][0]['banner'] = F::Dot($DSP, 'Banner');
             
             $MultiRequest['Where']['ID'][$Name] = $DSP['Endpoint'];
             $MultiRequest['Data'][$Name] = j($DSP['Request']);
             $MultiRequest['CURL']['Headers']['X-OpenRTB-Version:'] = $DSP['Version'];
-
-            F::Log(function () use ($DSP) {return 'Request to '.$DSP['Endpoint'].': '.j($DSP['Request']);}, LOG_INFO, 'RTB');
             
+            F::Log(function () use ($DSP) {return 'Request to '.$DSP['Endpoint'].': '.j($DSP['Request']);}, LOG_INFO, 'RTB');
             $Call = F::Hook('RTB.SSP.Request.Created', $Call); // New Hook Convention
         }
-        
+
         $Call = F::Dot($Call, 'RTB.Result', F::Run('IO', 'Write', [
             'Storage'          => 'Web',
             'Output Format'    => 'Formats.JSON',
@@ -58,7 +58,11 @@
         ], $MultiRequest));
         
         $Call = F::Hook('RTB.SSP.Request.Executed', $Call); // New Hook Convention
-        //$Call = F::Hook('afterRTBRequest', $Call); // Old Convention
+        
+        if (F::Dot($Call, 'RTB.Winner.Bid') === null)
+            $Call = F::Hook('RTB.SSP.Winner.None', $Call);
+        else
+            $Call = F::Hook('RTB.SSP.Winner.Exists', $Call);
         
         return $Call;
     });

@@ -58,7 +58,17 @@
                 {
                     "Executed":
                     {
-                        "Select Bids":
+                        "Clean Empty Results":
+                        {
+                            "Service": "Advertisement.RTB.SSP.Hooks.CleanEmptyResults",
+                            "Method": "RTB.SSP.Request.Executed"
+                        },
+                        "Convert Endpoints To Names":
+                        {
+                            "Service": "Advertisement.RTB.SSP.Hooks.ConvertEndpointsToNames",
+                            "Method": "RTB.SSP.Request.Executed"
+                        },
+                        "Compare Bids":
                         {
                             "Service": "Advertisement.RTB.SSP.Client.Comparator",
                             "Method": "RTB.SSP.Request.Executed",
@@ -78,11 +88,22 @@
                                     }
                                 }
                             }
+                        }
+                    }
+                },
+                "Winner":
+                {
+                    "Exists":
+                    {
+                        "Substitute Macroses":
+                        {
+                            "Service": "Advertisement.RTB.SSP.Hooks.SubstituteMacroses",
+                            "Method": "RTB.SSP.Request.Executed"
                         },
                         "Send RTB Win Notice":
                         {
                             "Service": "Advertisement.RTB.SSP.Hooks.WinNotice",
-                            "Method": "RTB.SSP.Request.Executed"
+                            "Method": "RTB.SSP.Winner.Exists"
                         }
                     }
                 }
