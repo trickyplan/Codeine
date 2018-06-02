@@ -1,7 +1,7 @@
 {
     "Hooks":
     {
-        "beforeSSPClientComparatorValuable":
+        "RTB.SSP.Client.Comparator.Price.Started":
         {
             "Update Currencies":
             {

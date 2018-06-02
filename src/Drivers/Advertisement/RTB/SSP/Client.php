@@ -30,18 +30,18 @@
         
         $MultiRequest = [];
         
-        foreach ($DSPs as $Name => $DSP)
+        foreach ($DSPs as $Name => $Call['DSP'])
         {
-            $DSP['Request'] = F::Merge($DSP['Request'], $Call['RTB']['Request']);
-            $DSP['Request']['imp'][0] = $DSP['Impression'];
-            $DSP['Request']['imp'][0]['id'] = F::Dot($Call, 'RTB.Impression.ID');
-            $DSP['Request']['imp'][0]['banner'] = F::Dot($DSP, 'Banner');
+            $Call['DSP']['Request'] = F::Merge($Call['DSP']['Request'], $Call['RTB']['Request']);
+            $Call['DSP']['Request']['imp'][0] = $Call['DSP']['Impression'];
+            $Call['DSP']['Request']['imp'][0]['id'] = F::Dot($Call, 'RTB.Impression.ID');
+            $Call['DSP']['Request']['imp'][0]['banner'] = F::Dot($Call['DSP'], 'Banner');
             
-            $MultiRequest['Where']['ID'][$Name] = $DSP['Endpoint'];
-            $MultiRequest['Data'][$Name] = j($DSP['Request']);
-            $MultiRequest['CURL']['Headers']['X-OpenRTB-Version:'] = $DSP['Version'];
-            
-            F::Log(function () use ($DSP) {return 'Request to '.$DSP['Endpoint'].': '.j($DSP['Request']);}, LOG_INFO, 'RTB');
+            $MultiRequest['Where']['ID'][$Name] = $Call['DSP']['Endpoint'];
+            $MultiRequest['Data'][$Name] = j($Call['DSP']['Request']);
+            $MultiRequest['CURL']['Headers']['X-OpenRTB-Version:'] = $Call['DSP']['Version'];
+           
+            F::Log(function () use ($Call) {return 'Request to '.$Call['DSP']['Endpoint'].': '.j($Call['DSP']['Request']);}, LOG_INFO, 'RTB');
             $Call = F::Hook('RTB.SSP.Request.Created', $Call); // New Hook Convention
         }
 
@@ -56,13 +56,13 @@
                 ]
             ],
         ], $MultiRequest));
-        
-        $Call = F::Hook('RTB.SSP.Request.Executed', $Call); // New Hook Convention
+
+        $Call = F::Hook('RTB.SSP.RequestGroup.Executed', $Call); // New Hook Convention
         
         if (F::Dot($Call, 'RTB.Winner.Bid') === null)
             $Call = F::Hook('RTB.SSP.Winner.None', $Call);
         else
             $Call = F::Hook('RTB.SSP.Winner.Exists', $Call);
-        
+
         return $Call;
     });

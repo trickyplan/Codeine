@@ -54,40 +54,24 @@
         {
             "SSP":
             {
-                "Request":
+                "RequestGroup":
                 {
                     "Executed":
                     {
-                        "Clean Empty Results":
-                        {
-                            "Service": "Advertisement.RTB.SSP.Hooks.CleanEmptyResults",
-                            "Method": "RTB.SSP.Request.Executed"
-                        },
                         "Convert Endpoints To Names":
                         {
                             "Service": "Advertisement.RTB.SSP.Hooks.ConvertEndpointsToNames",
                             "Method": "RTB.SSP.Request.Executed"
                         },
+                        "Clean Empty Results":
+                        {
+                            "Service": "Advertisement.RTB.SSP.Hooks.CleanEmptyResults",
+                            "Method": "RTB.SSP.Request.Executed"
+                        },
                         "Compare Bids":
                         {
                             "Service": "Advertisement.RTB.SSP.Client.Comparator",
-                            "Method": "RTB.SSP.Request.Executed",
-                            "Call":
-                            {
-                                "RTB":
-                                {
-                                    "SSP":
-                                    {
-                                        "Client":
-                                        {
-                                            "Comparator":
-                                            {
-                                                "Strategy": "Valuable"
-                                            }
-                                        }
-                                    }
-                                }
-                            }
+                            "Method": "RTB.SSP.Request.Executed"
                         }
                     }
                 },

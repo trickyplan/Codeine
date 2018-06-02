@@ -7,7 +7,7 @@
             {
                 "Comparator":
                 {
-                    "Strategy": "Valuable"
+                    "Strategy": "Price"
                 }
             }
         }

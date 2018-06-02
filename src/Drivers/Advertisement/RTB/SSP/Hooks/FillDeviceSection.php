@@ -9,7 +9,11 @@
     
     setFn('beforeRTBRequest', function ($Call)
     {
-        $Call = F::Dot($Call, 'RTB.Request.device.ip', F::Dot($Call, 'HTTP.IP'));
+        if (F::Dot($Call, 'RTB.User.IP'))
+            $Call = F::Dot($Call, 'RTB.Request.device.ip', F::Dot($Call, 'RTB.User.IP'));
+        else
+            $Call = F::Dot($Call, 'RTB.Request.device.ip', F::Dot($Call, 'HTTP.IP'));
+        
         $Call = F::Dot($Call, 'RTB.Request.device.ua', F::Dot($Call, 'HTTP.Agent'));
         $Call = F::Dot($Call, 'RTB.Request.device.dnt', (int) F::Run('System.Interface.HTTP.DNT', 'Detect', $Call));
         $Call = F::Dot($Call, 'RTB.Request.device.language', F::Dot($Call, 'Locale'));

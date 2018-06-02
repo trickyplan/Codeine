@@ -2,9 +2,9 @@
     
     setFn('Do', function ($Call)
     {
-        $Call = F::Hook('beforeSSPClientComparatorValuable', $Call);
+        $Call = F::Hook('RTB.SSP.Client.Comparator.Price.Started', $Call);
         $Results = F::Dot($Call, 'RTB.Result');
-    
+        
         F::Dot($Call, 'RTB.Winner.Price', 0);
         
         if (empty($Results))
@@ -21,28 +21,28 @@
         
                     foreach ($Seat['bid'] as $Bid)
                     {
-                        $RURPrice = ($Currency == 'RUB')
+                        $USDPrice = ($Currency == 'USD')
                             ? $Bid['price']
-                            : F::Dot($Call, 'Finance.Currency.'.$Currency.'.RUR') * $Bid['price'];
+                            : F::Dot($Call, 'Finance.Currency.'.$Currency.'.USD') * $Bid['price'];
 
-                        if (F::Dot($Call, 'RTB.Winner.Price') <= $RURPrice)
+                        if (F::Dot($Call, 'RTB.Winner.Price') <= $USDPrice)
                         {
                             $Bid['price']   /= 1000; // CPM
 
                             $Call = F::Dot($Call, 'RTB.Winner.Bid', $Bid);
                             $Call = F::Dot($Call, 'RTB.Winner.Currency', $Currency);
-                            $Call = F::Dot($Call, 'RTB.Winner.Price', $RURPrice);
+                            $Call = F::Dot($Call, 'RTB.Winner.Price', $Bid['price']);
                             $Call = F::Dot($Call, 'RTB.Winner.DSP', F::Dot($Call, 'RTB.DSP.Items.'.$ResultFrom));
                             
                         }
         
-                        F::Log('Bid is compared '.j($Bid), LOG_INFO, 'RTB');
+                        F::Log(function () use ($Bid) {return 'Bid is compared '.j($Bid);} , LOG_INFO, 'RTB');
                     }
                 }
             }
         }
-    
-        $Call = F::Hook('afterSSPClientComparatorValuable', $Call);
+        
+        $Call = F::Hook('RTB.SSP.Client.Comparator.Price.Finished', $Call);
     
         return $Call;
     });
