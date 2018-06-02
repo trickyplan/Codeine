@@ -35,6 +35,13 @@
             "Directory":"/var/log/codeine",
             "Scope": "marketing",
             "Format": "Formats.Log.Plain"
+        },
+        "Metric":
+        {
+            "Driver":"IO.Log.File",
+            "Directory":"/var/log/codeine",
+            "Scope": "metric",
+            "Format": "Formats.Log.Plain"
         }
     }
 }

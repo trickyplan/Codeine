@@ -27,7 +27,10 @@
                 'Scope'     => F::Dot($Call, 'Metric.Event.Type'),
                 'Data'      => F::Dot($Call, 'Metric.Event')
             ]);
-
+        
+        
+        F::Log(function () use ($Call) {return 'Metric Event: '.F::Dot($Call, 'Metric.Event.Type').' '.j(F::Dot($Call, 'Metric.Event'));} , LOG_INFO, 'Metric');
+        
         $Call = F::Dot($Call, 'Metric.Event', null);
         
         return $Call;
@@ -148,13 +151,16 @@
         if (empty($Event['Type']))
             ;
         else
+        {
+            if (in_array($Event['Type'], F::Dot($Call, 'Metric.Front.Types.Allowed')))
             F::Run(null, 'Add', $Call,
                 [
                     'Metric'    =>
-                    [
-                        'Event' => $Event
-                    ]
+                        [
+                            'Event' => $Event
+                        ]
                 ]);
+        }
         
         $Call['Output']['Content'] = j($Event);
         return $Call;

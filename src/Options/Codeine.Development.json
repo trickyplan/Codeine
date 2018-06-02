@@ -7,7 +7,8 @@
         "Administrator": 6,
         "Security": 6,
         "Marketing": 6,
-        "Performance": 6
+        "Performance": 6,
+        "Metric": 6
     },
     "Perfect Verbose":
     {
@@ -15,6 +16,7 @@
         "Administrator": 2,
         "Security": 2,
         "Marketing": 1,
-        "Performance": 1
+        "Performance": 1,
+        "Metric": 1
     }
 }

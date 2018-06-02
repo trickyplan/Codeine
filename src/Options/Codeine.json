@@ -14,7 +14,8 @@
         "Administrator": 4,
         "Security": 4,
         "Marketing": 4,
-        "Performance": 4
+        "Performance": 4,
+        "Metric": 4
     },
     "Perfect Verbose":
     {
@@ -22,7 +23,8 @@
         "Administrator": 0,
         "Security": 0,
         "Marketing": 0,
-        "Performance": 0
+        "Performance": 0,
+        "Metric": 0
     },
     "Driver":
     {

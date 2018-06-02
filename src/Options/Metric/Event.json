@@ -14,6 +14,13 @@
                 "AutoSize": false,
                 "Size": 100
             }
+        },
+        "Front":
+        {
+            "Types":
+            {
+                "Allowed": []
+            }
         }
     }
 }
