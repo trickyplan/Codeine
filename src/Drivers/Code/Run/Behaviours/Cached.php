@@ -17,7 +17,7 @@
         {
             $Hash = [];
             foreach ($Keys as $Key)
-                $Hash[] = F::Dot($Call, $Key);
+                $Hash[] = F::Dot($Call['Run']['Call'], $Key);
             
             $Scope = $Call['Run']['Service'].'_'.$Call['Run']['Method'];
             $CacheID = 'CID'.hash('sha256', $Scope.j($Hash));
