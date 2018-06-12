@@ -9,39 +9,47 @@
     
     setFn('Add', function ($Call)
     {
-        // Add Event to Metric Queue
         $Call['Metric'] = F::Live($Call['Metric'], $Call);
-      
-        if (empty(F::Dot($Call, 'Metric.Event.Time.Exact')))
-            $Call = F::Dot($Call, 'Metric.Event.Time', F::Run('System.Time', 'Get', $Call,
-                [
-                    'Time' =>
+
+        if (F::Dot($Call, 'Metric.DryRun'))
+            ;
+        else
+        {
+            // Add Event to Metric Queue
+          
+            if (empty(F::Dot($Call, 'Metric.Event.Time.Exact')))
+                $Call = F::Dot($Call, 'Metric.Event.Time', F::Run('System.Time', 'Get', $Call,
                     [
-                        'Offset' => F::Dot($Call, 'Metric.Event.Time.Offset')
-                    ]
-                ]));
-        
-        F::Run('IO', 'Write', $Call,
-            [
-                'Storage'   => 'Metric Queue',
-                'Scope'     => F::Dot($Call, 'Metric.Event.Type'),
-                'Data'      => F::Dot($Call, 'Metric.Event')
-            ]);
-        
-        
-        F::Log(function () use ($Call) {return 'Metric Event: '.F::Dot($Call, 'Metric.Event.Type').' '.j(F::Dot($Call, 'Metric.Event'));} , LOG_INFO, 'Metric');
-        
-        $Call = F::Dot($Call, 'Metric.Event', null);
+                        'Time' =>
+                        [
+                            'Offset' => F::Dot($Call, 'Metric.Event.Time.Offset')
+                        ]
+                    ]));
+            
+            F::Run('IO', 'Write', $Call,
+                [
+                    'Storage'   => 'Metric Queue',
+                    'Scope'     => F::Dot($Call, 'Metric.Event.Type'),
+                    'Data'      => F::Dot($Call, 'Metric.Event')
+                ]);
+            
+            
+            F::Log(function () use ($Call) {return 'Metric Event: '.F::Dot($Call, 'Metric.Event.Type').' '.j(F::Dot($Call, 'Metric.Event'));} , LOG_INFO, 'Metric');
+            
+            $Call = F::Dot($Call, 'Metric.Event', null);
+        }
         
         return $Call;
     });
     
     setFn('Aggregate', function ($Call)
     {
-        $Call['Result'] = [];
-        $Type = F::Dot($Call, 'Metric.Event.Type');
+        $VCall = $Call;
         
-        $Count = F::Run('IO', 'Execute', $Call,
+        $VCall['Result'] = [];
+        $Type = F::Dot($VCall, 'Metric.Event.Type');
+        
+        $Count = F::Run('IO', 'Execute', $VCall,
             [
                 'Execute'   => 'Count',
                 'Storage'   => 'Metric Queue',
@@ -50,93 +58,103 @@
         
         F::Log('Queue Size: '.$Count, LOG_NOTICE);
         
-        if (F::Dot($Call, 'Metric.Aggregate.Batch.AutoSize'))
-            $Call = F::Dot($Call, 'Metric.Aggregate.Batch.Size', $Count);
+        if (F::Dot($VCall, 'Metric.Aggregate.Batch.AutoSize'))
+            $VCall = F::Dot($VCall, 'Metric.Aggregate.Batch.Size', $Count);
         
         // Read Event from Queue
-        $Events = F::Run('IO', 'Read', $Call,
-            [
-                'Storage'   => 'Metric Queue',
-                'Scope'     => $Type,
-                'Limit'     =>
-                [
-                    'From'  => 0,
-                    'To'    => F::Dot($Call, 'Metric.Aggregate.Batch.Size')
-                ]
-            ]);
         
-        $Aggregate = [];
-        
-        if (empty($Events))
-            ;
-        else
+        if ($Count > 0)
         {
-            foreach ($Events as $Event)
+            $Events = F::Run('IO', 'Read', $VCall,
+                [
+                    'Storage'   => 'Metric Queue',
+                    'Scope'     => $Type,
+                    'Where!'     => null,
+                    'Limit'     =>
+                    [
+                        'From'  => 0,
+                        'To'    => F::Dot($VCall, 'Metric.Aggregate.Batch.Size')
+                    ]
+                ]);
+
+            $Aggregate = [];
+            
+            if (empty($Events))
+                ;
+            else
             {
-                if (isset($Event['Dimensions']))
-                    $Where = $Event['Dimensions'];
-                else
-                    $Where = [];
-                
-                $Where ['Type'] = $Type;
-                
-                foreach ($Call['Metric']['Event']['Resolutions'] as $Call['Metric']['Event']['Resolution'])
+                foreach ($Events as $Event)
                 {
-                    $Where ['Time'] = floor($Event['Time'] / $Call['Metric']['Event']['Resolution']);
-                    $Where ['Resolution'] = $Call['Metric']['Event']['Resolution'];
-                    
-                    $HashedWhere = hash('sha256', serialize($Where));
-        
-                    if (isset($Event['Value']))
-                        ;
+                    if (isset($Event['Dimensions']))
+                        $Where = $Event['Dimensions'];
                     else
-                        $Event['Value'] = 1;
+                        $Where = [];
                     
-                    if (isset($Aggregate[$HashedWhere]))
-                        $Aggregate[$HashedWhere]['Value'] += $Event['Value'];
-                    else
+                    $Where ['Type'] = $Type;
+                    
+                    foreach ($VCall['Metric']['Event']['Resolutions'] as $VCall['Metric']['Event']['Resolution'])
                     {
-                        $Aggregate[$HashedWhere]['Value'] = $Event['Value'];
-                        $Aggregate[$HashedWhere]['Where'] = $Where;
+                        $Where ['Time'] = floor($Event['Time'] / $VCall['Metric']['Event']['Resolution']);
+                        $Where ['Resolution'] = $VCall['Metric']['Event']['Resolution'];
+                        
+                        $HashedWhere = hash('sha256', serialize($Where));
+            
+                        if (isset($Event['Value']))
+                        {
+                            if (is_numeric($Event['Value']))
+                                ;
+                            else
+                                $Event['Value'] = 1;
+                        }
+                        else
+                            $Event['Value'] = 1;
+                        
+                        if (isset($Aggregate[$HashedWhere]))
+                            $Aggregate[$HashedWhere]['Value'] += $Event['Value'];
+                        else
+                        {
+                            $Aggregate[$HashedWhere]['Value'] = $Event['Value'];
+                            $Aggregate[$HashedWhere]['Where'] = $Where;
+                        }
                     }
                 }
-            }
-            
-            foreach ($Aggregate as $Row)
-            {
-                $Call['Data'] = F::Run('IO', 'Read', $Call,
-                    [
-                        'Storage'   => 'Primary',
-                        'Scope'     => 'Metric',
-                        'Where'     => $Row['Where'],
-                        'IO One'    => true
-                    ]);
                 
-                if (empty($Call['Data']))
+                foreach ($Aggregate as $Row)
                 {
-                    $Call['Data'] = $Row['Where'];
-                    $Call['Data']['Value'] = $Row['Value'];
+                    $VCall['Data'] = F::Run('IO', 'Read', $VCall,
+                        [
+                            'Storage'   => 'Primary',
+                            'Scope'     => 'Metric',
+                            'Where'     => $Row['Where'],
+                            'IO One'    => true
+                        ]);
                     
-                    F::Run('IO', 'Write', $Call,
-                    [
-                        'Storage'   => 'Primary',
-                        'Scope'     => 'Metric',
-                    ]);
-                }
-                else
-                {
-                    if (is_numeric($Row['Value']))
-                        $Call['Data']['Value'] += $Row['Value'];
+                    if (empty($VCall['Data']))
+                    {
+                        $VCall['Data'] = $Row['Where'];
+                        $VCall['Data']['Value'] = $Row['Value'];
+                        
+                        F::Run('IO', 'Write', $VCall,
+                        [
+                            'Storage'   => 'Primary',
+                            'Scope'     => 'Metric',
+                        ]);
+                    }
+                    else
+                    {
+                        if (is_numeric($Row['Value']))
+                            $VCall['Data']['Value'] += $Row['Value'];
+                        
+                        F::Run('IO', 'Write', $VCall,
+                        [
+                            'Storage'   => 'Primary',
+                            'Scope'     => 'Metric',
+                            'Where'     => $Row['Where'] // Data implied
+                        ]);
+                    }
                     
-                    F::Run('IO', 'Write', $Call,
-                    [
-                        'Storage'   => 'Primary',
-                        'Scope'     => 'Metric',
-                        'Where'     => $Row['Where'] // Data implied
-                    ]);
+                    // $VCall['Event Result'][] = $VCall['Data'];
                 }
-                
-                $Call['Result'][] = $Call['Data'];
             }
         }
         
@@ -145,23 +163,28 @@
     
     setFn('Add.Front', function ($Call)
     {
-        $Event['Type'] = F::Dot($Call, 'Request.Type');
-        $Event['Dimensions'] = F::Dot($Call, 'Request.Dimensions');
-        
-        if (empty($Event['Type']))
+        if (F::Dot($Call, 'Metric.DryRun'))
             ;
         else
         {
-            if (in_array($Event['Type'], F::Dot($Call, 'Metric.Front.Types.Allowed')))
-            F::Run(null, 'Add', $Call,
-                [
-                    'Metric'    =>
+            $Event['Type'] = F::Dot($Call, 'Request.Type');
+            $Event['Dimensions'] = F::Dot($Call, 'Request.Dimensions');
+    
+            if (empty($Event['Type']))
+                ;
+            else
+            {
+                if (in_array($Event['Type'], F::Dot($Call, 'Metric.Front.Types.Allowed')))
+                    F::Run(null, 'Add', $Call,
                         [
-                            'Event' => $Event
-                        ]
-                ]);
+                            'Metric' =>
+                                [
+                                    'Event' => $Event
+                                ]
+                        ]);
+            }
+    
+            $Call['Output']['Content'] = j($Event);
         }
-        
-        $Call['Output']['Content'] = j($Event);
         return $Call;
     });
