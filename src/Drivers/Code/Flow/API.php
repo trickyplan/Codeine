@@ -78,6 +78,8 @@
                                     
                                     $Result = F::Apply($Call['API']['Request']['Service'], $Call['API']['Request']['Method'], $Call, F::Dot($Call, 'API.Request.Call'), ['Return' => 'Output']);
                                     
+                                    $Call = F::Hook('afterAPIMethodRun', F::Merge($Call, $Result));
+                                    
                                     $Call = F::Dot($Call, 'API.Response.Data', F::Dot($Result, 'Response'));
                                     $Call = F::Dot($Call, 'API.Response.Status', F::Dot($Result, 'Status'));
                                     
