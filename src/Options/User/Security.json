@@ -121,16 +121,21 @@
                 "Service":"User.Reset"
             }
         },
-        "Редактирование профиля доступно зарегистрированным":
+        "Allow user update his profile":
         {
             "Decision": true,
             "Weight": 100,
+            "Debug": true,
             "Run":
             {
                 "Service":"Entity.Update",
                 "Call":
                 {
                     "Entity": "User"
+                },
+                "Current":
+                {
+                    "ID": "$Session.User.ID"
                 },
                 "Session":
                 {
