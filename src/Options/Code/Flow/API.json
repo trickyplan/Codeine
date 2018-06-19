@@ -82,13 +82,21 @@
                 "Method": "Start"
             }
         },
-        "afterAPIRun":
+        "afterAPIMethodRun":
         {
             "Set response code":
             {
                 "Service": "Code.Flow.API.ResponseCode",
-                "Method":  "afterAPIRun"
+                "Method":  "Set HTTP Code"
             },
+            "Set status message":
+            {
+                "Service": "Code.Flow.API.StatusMessage",
+                "Method": "Set Status Message"
+            }
+        },
+        "afterAPIRun":
+        {
             "Rendering":
             {
                 "Service":"View",
