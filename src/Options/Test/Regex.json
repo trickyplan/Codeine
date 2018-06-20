@@ -3,8 +3,8 @@
     {
         "Test / JSON":
         {
-            "Match": "^/test/(.+).json$",
-            "Weight": 5,
+            "Match": "^/test/(.+)\\.json$",
+            "Weight": 10,
             "Service": "Test",
             "Method": "Run.Test",
             "View":
