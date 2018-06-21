@@ -39,6 +39,7 @@
             
             $MultiRequest['Where']['ID'][$Name] = $Call['DSP']['Endpoint'];
             $MultiRequest['Data'][$Name] = j($Call['DSP']['Request']);
+            
             $MultiRequest['CURL']['Headers']['X-OpenRTB-Version:'] = $Call['DSP']['Version'];
            
             F::Log(function () use ($Call) {return 'Request to '.$Call['DSP']['Endpoint'].': '.j($Call['DSP']['Request']);}, LOG_INFO, 'RTB');
@@ -56,7 +57,14 @@
                 ]
             ],
         ], $MultiRequest));
-
+        
+        foreach ($MultiRequest['Where']['ID'] as $IX => $DSP)
+            $Call['RTB']['Debug'][$DSP]['Request'] = json_decode($MultiRequest['Data'][$IX]);
+        
+        $Results = F::Dot($Call, 'RTB.Result');
+        foreach ($Results as $DSP => $Result)
+            $Call['RTB']['Debug'][$DSP]['Response'] = $Result;
+        
         $Call = F::Hook('RTB.SSP.RequestGroup.Executed', $Call); // New Hook Convention
         
         if (F::Dot($Call, 'RTB.Winner.Bid') === null)
