@@ -185,6 +185,8 @@
             }
     
             $Call['Output']['Content'] = j($Event);
+
+            $Call['HTTP']['Headers']['Access-Control-Allow-Origin:'] = '*';
         }
         return $Call;
     });
