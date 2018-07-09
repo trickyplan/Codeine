@@ -11,7 +11,7 @@
     {
         $Call['Metric'] = F::Live($Call['Metric'], $Call);
 
-        if (F::Dot($Call, 'Metric.DryRun'))
+        if (F::Dot($Call, 'Metric.DryRun') == true)
             ;
         else
         {
@@ -167,24 +167,26 @@
             ;
         else
         {
-            $Event['Type'] = F::Dot($Call, 'Request.Type');
-            $Event['Dimensions'] = F::Dot($Call, 'Request.Dimensions');
-    
-            if (empty($Event['Type']))
+            $Call['Event']['Type'] = F::Dot($Call, 'Request.Type');
+            $Call['Event']['Dimensions'] = F::Dot($Call, 'Request.Dimensions');
+            
+            $Call = F::Hook($Call['Event']['Type'], $Call);
+            
+            if (empty($Call['Event']['Type']))
                 ;
             else
             {
-                if (in_array($Event['Type'], F::Dot($Call, 'Metric.Front.Types.Allowed')))
+                if (in_array($Call['Event']['Type'], F::Dot($Call, 'Metric.Front.Types.Allowed')))
                     F::Run(null, 'Add', $Call,
                         [
                             'Metric' =>
                                 [
-                                    'Event' => $Event
+                                    'Event' => $Call['Event']
                                 ]
                         ]);
             }
     
-            $Call['Output']['Content'] = j($Event);
+            $Call['Output']['Content'] = j($Call['Event']);
 
             $Call['HTTP']['Headers']['Access-Control-Allow-Origin:'] = '*';
         }
