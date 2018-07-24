@@ -65,6 +65,8 @@
         
         if ($Count > 0)
         {
+            $Call = F::Hook($Type.'.Event.Aggregate.Before', $Call);
+           
             $Events = F::Run('IO', 'Read', $VCall,
                 [
                     'Storage'   => 'Metric Queue',
@@ -77,7 +79,7 @@
                     ]
                 ]);
 
-            $Aggregate = [];
+            $Call['Aggregate'] = [];
             
             if (empty($Events))
                 ;
@@ -109,17 +111,17 @@
                         else
                             $Event['Value'] = 1;
                         
-                        if (isset($Aggregate[$HashedWhere]))
-                            $Aggregate[$HashedWhere]['Value'] += $Event['Value'];
+                        if (isset($Call['Aggregate'][$HashedWhere]))
+                            $Call['Aggregate'][$HashedWhere]['Value'] += $Event['Value'];
                         else
                         {
-                            $Aggregate[$HashedWhere]['Value'] = $Event['Value'];
-                            $Aggregate[$HashedWhere]['Where'] = $Where;
+                            $Call['Aggregate'][$HashedWhere]['Value'] = $Event['Value'];
+                            $Call['Aggregate'][$HashedWhere]['Where'] = $Where;
                         }
                     }
                 }
                 
-                foreach ($Aggregate as $Row)
+                foreach ($Call['Aggregate'] as $Row)
                 {
                     $VCall['Data'] = F::Run('IO', 'Read', $VCall,
                         [
@@ -155,6 +157,8 @@
                     
                     // $VCall['Event Result'][] = $VCall['Data'];
                 }
+                
+                $Call = F::Hook($Type.'.Event.Aggregate.After', $Call);
             }
         }
         
@@ -170,7 +174,7 @@
             $Call['Event']['Type'] = F::Dot($Call, 'Request.Type');
             $Call['Event']['Dimensions'] = F::Dot($Call, 'Request.Dimensions');
             
-            $Call = F::Hook($Call['Event']['Type'], $Call);
+            $Call = F::Hook($Call['Event']['Type'].'.Event.AddFront.Before', $Call);
             
             if (empty($Call['Event']['Type']))
                 ;
