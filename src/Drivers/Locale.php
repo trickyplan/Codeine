@@ -58,7 +58,9 @@
         }
        
         if ($Localized)
-            ;
+        {
+            $Translation = F::Variable($Translation, $Call); // TODO Analyze Performance Impact
+        }
         else
         {
             F::Log('Unresolved locale *'.$Message.'*'
