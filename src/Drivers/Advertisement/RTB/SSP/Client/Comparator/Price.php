@@ -25,7 +25,7 @@
                         $Bid['price'] = ($Currency == 'USD')
                             ? $Bid['price']
                             : F::Dot($Call, 'Finance.Currency.'.$Currency.'.USD') * $Bid['price'];
-                        $Bid['price']   /= 1000; // CPM
+                        // $Bid['price']   /= 1000; // CPM
                         
                         if (F::Dot($Call, 'RTB.Winner.Price') <= $Bid['price'])
                         {
