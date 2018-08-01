@@ -1,0 +1,116 @@
+{
+    "Suites":
+    {
+        "Filter types":
+        {
+            "Float":
+            {
+                "Run":
+                {
+                    "Service": "Security.Filter",
+                    "Call": 
+                    {
+                        "Data":
+                        {
+                            "Value": " klmn 90,33asd"
+                        },
+                        "Filter":
+                        {
+                            "Name": "Value",
+                            "Type": "Float"
+                        }
+                    }
+                },
+                "Result":
+                {
+                    "Extract": "Data.Value"
+                },
+                "Assert":
+                {
+                    "Equal": "90,33"
+                }
+            },
+            "Integer":
+            {
+                "Run":
+                {
+                    "Service": "Security.Filter",
+                    "Call": 
+                    {
+                        "Data":
+                        {
+                            "Value": " klmn 90,33asd"
+                        },
+                        "Filter":
+                        {
+                            "Name": "Value",
+                            "Type": "Integer"
+                        }
+                    }
+                },
+                "Result":
+                {
+                    "Extract": "Data.Value"
+                },
+                "Assert":
+                {
+                    "Equal": "9033"
+                }
+            },
+            "String":
+            {
+                "Run":
+                {
+                    "Service": "Security.Filter",
+                    "Call": 
+                    {
+                        "Data":
+                        {
+                            "Value": "<script>alert('test')</script>"
+                        },
+                        "Filter":
+                        {
+                            "Name": "Value",
+                            "Type": "String"
+                        }
+                    }
+                },
+                "Result":
+                {
+                    "Extract": "Data.Value"
+                },
+                "Assert":
+                {
+                    "Equal": "alert('test')"
+                }
+            },
+            "URL":
+            {
+                "Run":
+                {
+                    "Service": "Security.Filter",
+                    "Call": 
+                    {
+                        "Data":
+                        {
+                            "Value": "https://some site .com/path/abc.json?p1=22,23&p2=33"
+                        },
+                        "Filter":
+                        {
+                            "Name": "Value",
+                            "Type": "URL"
+                        }
+                    }
+                },
+                "Result":
+                {
+                    "Extract": "Data.Value"
+                },
+                "Assert":
+                {
+                    "Equal": "https://somesite.com/path/abc.json?p1=22,23&p2=33"
+                }
+            }
+        }
+    }
+}

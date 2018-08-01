@@ -192,7 +192,10 @@
     
             $Call['Output']['Content'] = j($Call['Event']);
 
-            $Call['HTTP']['Headers']['Access-Control-Allow-Origin:'] = '*';
+            $Origin = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : '*';
+
+            $Call['HTTP']['Headers']['Access-Control-Allow-Origin: '] = $Origin;
+            $Call['HTTP']['Headers']['Access-Control-Allow-Credentials:'] = 'true';
         }
         return $Call;
     });

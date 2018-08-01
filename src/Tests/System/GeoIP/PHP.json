@@ -1,0 +1,92 @@
+{
+    "Suites":
+    {
+        "PHP":
+        {
+            "LatLon":
+            {
+                "Run":
+                {
+                    "Service": "System.GeoIP",
+                    "Method": "LatLon",
+                    "Call":
+                    {
+                        "Mode": "Fast",
+                        "HTTP":
+                        {
+                            "IP": "92.255.207.167"
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true,
+                    "Empty": false
+                }
+            },
+            "Country":
+            {
+                "Run":
+                {
+                    "Service": "System.GeoIP",
+                    "Method": "Country",
+                    "Call":
+                    {
+                        "Mode": "Fast",
+                        "HTTP":
+                        {
+                            "IP": "92.255.207.167"
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true,
+                    "Empty": false
+                }
+            },
+            "Region":
+            {
+                "Run":
+                {
+                    "Service": "System.GeoIP",
+                    "Method": "Region",
+                    "Call":
+                    {
+                        "Mode": "Fast",
+                        "HTTP":
+                        {
+                            "IP": "92.255.207.167"
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true,
+                    "Empty": false
+                }
+            },
+            "City":
+            {
+                "Run":
+                {
+                    "Service": "System.GeoIP",
+                    "Method": "City",
+                    "Call":
+                    {
+                        "Mode": "Fast",
+                        "HTTP":
+                        {
+                            "IP": "92.255.207.167"
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true,
+                    "Empty": false
+                }
+            }
+        }
+    }
+}
