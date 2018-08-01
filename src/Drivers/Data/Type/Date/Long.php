@@ -12,7 +12,7 @@
         if (isset($Call['Value']) && !empty($Call['Value']) && $Call['Value']>0)
         {
             if (is_numeric($Call['Value']))
-                return $Call['Value'];
+                return (int) $Call['Value'];
             else
             {
                 $Date = date_parse_from_format($Call['Date Format'], $Call['Value']);
@@ -27,7 +27,7 @@
 
     setFn(['Read', 'Where'], function ($Call)
     {
-        return $Call['Value']; // Separate Where?
+        return (int) $Call['Value']; // Separate Where?
     });
 
     setFn('Populate', function ($Call)

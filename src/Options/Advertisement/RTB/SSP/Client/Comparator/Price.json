@@ -1,12 +1,27 @@
 {
     "Hooks":
     {
-        "RTB.SSP.Client.Comparator.Price.Started":
+        "RTB":
         {
-            "Update Currencies":
+            "SSP":
             {
-                "Service": "Advertisement.RTB.SSP.Client.Comparator.Hooks.CurrencyRate",
-                "Method": "Update"
+                "Client":
+                {
+                    "Comparator":
+                    {
+                        "Price":
+                        {
+                            "Started":
+                            {
+                                "Update Currencies":
+                                {
+                                    "Service": "Advertisement.RTB.SSP.Client.Comparator.Hooks.CurrencyRate",
+                                    "Method": "Update"
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }

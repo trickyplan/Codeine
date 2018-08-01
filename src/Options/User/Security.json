@@ -1,27 +1,6 @@
 {
     "Rules":
     {
-        "User List to logged":
-        {
-            "Decision": true,
-            "Weight": 100,
-            "Run":
-            {
-                "Service": "Entity.List",
-                "Method": "Do",
-                "Call":
-                {
-                    "Entity": "User"
-                },
-                "Session":
-                {
-                    "User":
-                    {
-                        "ID": "*"
-                    }
-                }
-            }
-        },
         "User profile to logged":
         {
             "Decision": true,
@@ -34,6 +13,10 @@
                 "Call":
                 {
                     "Entity": "User"
+                },
+                "Current":
+                {
+                    "ID": "$Session.User.ID"
                 },
                 "Session":
                 {
@@ -125,7 +108,6 @@
         {
             "Decision": true,
             "Weight": 100,
-            "Debug": true,
             "Run":
             {
                 "Service":"Entity.Update",

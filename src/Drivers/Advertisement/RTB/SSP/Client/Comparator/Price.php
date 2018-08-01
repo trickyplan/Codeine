@@ -3,6 +3,7 @@
     setFn('Do', function ($Call)
     {
         $Call = F::Hook('RTB.SSP.Client.Comparator.Price.Started', $Call);
+
         $Results = F::Dot($Call, 'RTB.Result');
         
         F::Dot($Call, 'RTB.Winner.Price', 0);
@@ -19,15 +20,15 @@
                 {
                     F::Log('*'.count($Seat).'* bids loaded', LOG_INFO, 'RTB');
         
-                    foreach ($Seat['bid'] as $Bid)
+                    foreach ($Seat['bid'] as &$Bid)
                     {
-                        $USDPrice = ($Currency == 'USD')
+                        $Bid['price'] = ($Currency == 'USD')
                             ? $Bid['price']
                             : F::Dot($Call, 'Finance.Currency.'.$Currency.'.USD') * $Bid['price'];
-
-                        if (F::Dot($Call, 'RTB.Winner.Price') <= $USDPrice)
+                        // $Bid['price']   /= 1000; // CPM
+                        
+                        if (F::Dot($Call, 'RTB.Winner.Price') <= $Bid['price'])
                         {
-                            $Bid['price']   /= 1000; // CPM
 
                             $Call = F::Dot($Call, 'RTB.Winner.Bid', $Bid);
                             $Call = F::Dot($Call, 'RTB.Winner.Currency', $Currency);
