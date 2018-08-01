@@ -1,0 +1,92 @@
+{
+    "Suites": 
+    {
+        "IPGeobaseRu":
+        {
+            "LatLon":
+            {
+                "Run":
+                {
+                    "Service": "System.GeoIP",
+                    "Method": "LatLon",
+                    "Call":
+                    {
+                        "Mode": "Normal",
+                        "HTTP":
+                        {
+                            "IP": "92.255.207.167"
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Equal": 
+                    {
+                        "Lat": "55.796539",
+                        "Lon": "49.108200"
+                    }
+                }
+            },
+            "Country":
+            {
+                "Run":
+                {
+                    "Service": "System.GeoIP",
+                    "Method": "Country",
+                    "Call":
+                    {
+                        "Mode": "Normal",
+                        "HTTP":
+                        {
+                            "IP": "92.255.207.167"
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Equal": "RU"
+                }
+            },
+            "Region":
+            {
+                "Run":
+                {
+                    "Service": "System.GeoIP",
+                    "Method": "Region",
+                    "Call":
+                    {
+                        "Mode": "Normal",
+                        "HTTP":
+                        {
+                            "IP": "92.255.207.167"
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Equal": "Республика Татарстан"
+                }
+            },
+            "City":
+            {
+                "Run":
+                {
+                    "Service": "System.GeoIP",
+                    "Method": "City",
+                    "Call":
+                    {
+                        "Mode": "Normal",
+                        "HTTP":
+                        {
+                            "IP": "92.255.207.167"
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Equal": "Казань"
+                }
+            }
+        }
+    }
+}
