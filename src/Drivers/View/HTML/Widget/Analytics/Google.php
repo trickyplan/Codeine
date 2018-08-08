@@ -11,6 +11,8 @@
     {
         // FIXME GA Options
         $Code = '';
+        
+        $Call['ID'] = isset($Call['ID'])? $Call['ID']: F::Dot($Call, 'Analytics.Google.ID');
 
         if (F::Dot($Call, 'Analytics.Google.DoNotTrack') && F::Run('System.Interface.HTTP.DNT', 'Detect', $Call))
         {
