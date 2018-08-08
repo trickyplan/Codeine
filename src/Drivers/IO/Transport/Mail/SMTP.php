@@ -58,8 +58,8 @@
         $Call['Headers']['To'] = $Call['Scope'];
         $Call['Headers']['Subject'] = $Call['Where']['ID'];
         
-        if (F::Environment() != 'Production')
-            $Call['Headers']['Subject'] .= ' ['.gethostname().']';
+        /*if (F::Environment() != 'Production')
+            $Call['Headers']['Subject'] .= ' ['.gethostname().']';*/ // FIXME Options
         
         $mime = new Mail_mime();
 
