@@ -13,13 +13,13 @@
             if (!isset($Call['Where']['Resolution'])) {
                 switch (true) {
                     case $Period > 86400:
-                        $Call['Where']['Resolution'] = 86400;
+                        $Call['Where']['Resolution'] = [86400];
                         break;
                     case $Period > 3600;
-                        $Call['Where']['Resolution'] = 3600;
+                        $Call['Where']['Resolution'] = [3600];
                         break;
                     default:
-                        $Call['Where']['Resolution'] = 60;
+                        $Call['Where']['Resolution'] = [60];
                 }
             }
             $Resolution = array_pop($Call['Where']['Resolution']);
