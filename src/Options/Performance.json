@@ -1,22 +1,26 @@
 {
-    "Performance Format": "HTML",
-    "Alerts":
+    "Performance":
     {
-        "Red":
+        "Format": "HTML",
+        "Excluded": ["Core:Merge"],
+        "Limits":
         {
-            "ACalls": 50,
-            "RCalls": 10,
-            "RTime": 33,
-            "ATime": 100,
-            "TimePerCall": 20
-        },
-        "Yellow":
-        {
-            "ACalls": 25,
-            "RCalls": 5,
-            "RTime": 5,
-            "ATime": 50,
-            "TimePerCall": 10
+            "Red":
+            {
+                "ACalls": 50,
+                "RCalls": 10,
+                "RTime": 25,
+                "ATime": 100,
+                "TimePerCall": 100
+            },
+            "Yellow":
+            {
+                "ACalls": 25,
+                "RCalls": 5,
+                "RTime": 10,
+                "ATime": 50,
+                "TimePerCall": 50
+            }
         }
     }
 }

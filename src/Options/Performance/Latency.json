@@ -1,13 +1,13 @@
 {
-    "Latency":
+    "Performance":
     {
-        "Audit":
+        "Latency":
         {
             "Enabled": true,
             "Limits":
             {
-                "Orange": 500,
-                "Yellow": 1000,
+                "Yellow": 500,
+                "Orange": 1000,
                 "Red": 1500,
                 "Black": 2000
             }

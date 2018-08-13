@@ -28,6 +28,7 @@
             F::Log('Peak memory: *'.(memory_get_peak_usage(true)/1024).'Kb*', LOG_NOTICE, 'Performance');
             F::Log('Core Storage: ~*'.(round(mb_strlen(j(self::$_Storage))/1024)).'kb*', LOG_NOTICE, 'Performance');
             
+            $ExcludedFromLimiting = F::Dot($Call, 'Performance.Excluded');
             foreach (self::$_Counters['T'] as $Key => $Value)
             {
                 if (!isset(self::$_Counters['C'][$Key]))
@@ -48,15 +49,27 @@
                 $Call['ACalls'] = self::$_Counters['C'][$Key];
                 $Call['TimePerCall'] = round($Value / self::$_Counters['C'][$Key], 2);
 
-                if (isset($Call['Alerts']['Yellow']))
-                    foreach ($Call['Alerts']['Yellow'] as $Metric => $Limit)
-                        if ($Call[$Metric] > $Limit)
-                            $Class[$Metric] = LOG_INFO;
-
-                if (isset($Call['Alerts']['Red']))
-                    foreach ($Call['Alerts']['Red'] as $Metric => $Limit)
-                        if ($Call[$Metric] > $Limit)
-                            $Class[$Metric] = LOG_NOTICE;
+                $Yellow = F::Dot($Call, 'Performance.Limits.Yellow');
+                
+                if (in_array($Key, $ExcludedFromLimiting))
+                    ;
+                else
+                {
+                    if (empty($Yellow))
+                        ;
+                    else
+                        foreach ($Yellow as $Metric => $Limit)
+                            if ($Call[$Metric] > $Limit)
+                                $Class[$Metric] = LOG_WARNING;
+    
+                    $Red = F::Dot($Call, 'Performance.Limits.Yellow');
+                    if (empty($Red))
+                        ;
+                    else
+                        foreach ($Red as $Metric => $Limit)
+                            if ($Call[$Metric] > $Limit)
+                                $Class[$Metric] = LOG_ERR;
+                }
 
                 F::Log('*'.$Key.'* time is *'.$Call['ATime'].'* ms', $Class['ATime'], 'Performance');
                 F::Log('*'.$Key.'* time is *'.$Call['RTime'].'%*', $Class['RTime'], 'Performance');
