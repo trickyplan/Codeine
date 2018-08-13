@@ -1,0 +1,20 @@
+{
+    "Suites":
+    {
+        "Tests Info":
+        {
+            "Tests List":
+            {
+                "Run":
+                {
+                    "Service": "Test.Utils",
+                    "Method": "Tests List"
+                },
+                "Result":
+                {
+                    "Extract": "Output.Content"
+                }
+            }
+        }
+    }
+}
