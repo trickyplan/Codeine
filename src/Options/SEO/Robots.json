@@ -7,5 +7,16 @@
             "*": "/go/",
             "AhrefsBot": "/"
         }
+    },
+    "Hooks":
+    {
+        "beforeSEORobotsGenerate":
+        {
+            "Check Domain Is Proxy":
+            {
+                "Service": "SEO.Robots.Hooks.CheckDomain",
+                "Method": "Do"
+            }
+        }
     }
 }
