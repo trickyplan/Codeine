@@ -52,7 +52,7 @@
                                         'API *' . $Call['API']['Request']['Service'] . ':'
                                         .$Call['API']['Request']['Method'] . '* started',
                                         LOG_INFO,
-                                        'All'
+                                        'Developer'
                                     );
         
                                     $CanOverride = F::Dot($Call, [
@@ -101,7 +101,7 @@
                     }
                 }
         
-                F::Log('API *' . $Call['API']['Request']['Service'] . ':' . $Call['API']['Request']['Method'] . '* finished', LOG_INFO, 'All');
+                F::Log('API *' . $Call['API']['Request']['Service'] . ':' . $Call['API']['Request']['Method'] . '* finished', LOG_INFO, 'Developer');
                 F::stopColor();
         
                 $Call = F::Merge($Call, $Call['API']['Formats'][$Call['API']['Request']['Format']]);
