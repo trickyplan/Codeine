@@ -1,0 +1,8 @@
+<project name="composer" default="composer-install">
+    <target name="composer-install">
+        <exec dir="${source-code}/" command="composer install --optimize-autoloader --no-dev" logoutput="true" checkreturn="true"/>
+    </target>
+    <target name="composer-update">
+        <exec dir="${source-code}/" command="composer update --optimize-autoloader --no-dev" logoutput="true" checkreturn="true"/>
+    </target>
+</project>

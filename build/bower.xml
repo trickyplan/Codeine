@@ -1,0 +1,5 @@
+<project name="bower" default="bower-update">
+    <target name="bower-update">
+        <exec dir="${source-code}/" command="bower update --allow-root --production" logoutput="true" checkreturn="true"/>
+    </target>
+</project>

@@ -1,0 +1,12 @@
+<project name="phpcpd" default="check">
+
+    <!-- Default values -->
+    <property name="reports" value="reports"/>
+    <property name="source-code" value="src"/>
+
+    <target name="check">
+        <phpcpd file="${source-code}">
+            <formatter type="pmd" outfile="${reports}/pmd-cpd.xml"/>
+        </phpcpd>
+    </target>
+</project>

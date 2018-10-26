@@ -1,0 +1,19 @@
+<project name="phpdoc" default="make">
+
+    <!-- Default values -->
+    <property name="reports" value="reports"/>
+    <property name="source-code" value="src"/>
+    <property name="source-docs" value="docs"/>
+
+    <target name="make">
+        <phpdoc title="API Documentation"
+                destdir="${source-docs}"
+                defaultpackagename="StartPage"
+                output="HTML:Smarty:PHP">
+            <fileset dir="${source-code}">
+                <include name="**/*.php"/>
+                <include name="*.php"/>
+            </fileset>
+        </phpdoc>
+    </target>
+</project>
