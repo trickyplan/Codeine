@@ -13,7 +13,7 @@
 <property name="homepage" value="https://codeine-framework.org"/>
 <property name="maintainer" value="Johnny Funt"/>
 <property name="destination-source" value="/usr/share/php/Codeine"/>
-<property name="depends" value="php7.1-fpm (>=7.1) | php7.1-cli (>=7.1) | php7.1-cgi (>=7.1), php7.1-mbstring (>=7.1), php7.1-xml (>=7.1), php7.1-curl (>=7.1)"/>
+<property name="depends" value="php7.2-fpm (>=7.2) | php7.2-cli (>=7.2) | php7.2-cgi (>=7.2), php7.2-mbstring (>=7.2), php7.2-xml (>=7.2), php7.2-curl (>=7.2)"/>
 <property name="provides" value=", codeine, codeine-production"/>
 <property name="replaces" value="codeine-production"/>
 <property name="key" value=""/>
