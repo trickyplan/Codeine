@@ -46,7 +46,7 @@
             $Call = F::Hook('RTB.SSP.Request.Created', $Call); // New Hook Convention
         }
 
-        $Call = F::Dot($Call, 'RTB.Result', F::Run('IO', 'Write', [
+        $Call = F::Dot($Call, 'RTB.Result', F::Run('IO', 'Write', $Call, [
             'Storage'          => 'Web',
             'Output Format'    => 'Formats.JSON',
             'CURL'             =>

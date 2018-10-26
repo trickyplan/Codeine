@@ -1,4 +1,9 @@
 {
+    "CURL":
+    {
+        "Connect Timeout": 4,
+        "Overall Timeout": 8
+    },
     "RTB":
     {
         "Client":
