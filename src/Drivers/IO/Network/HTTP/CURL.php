@@ -155,6 +155,7 @@
                 curl_setopt($Call['Link'], CURLOPT_PROXYUSERPWD, $Call['CURL']['Proxy']['Auth']);
 
             $Return = [curl_exec($Call['Link'])];
+
             $Call = F::Apply(null, 'Info', $Call);
             
             if ($Call['CURL']['Return Header'])
