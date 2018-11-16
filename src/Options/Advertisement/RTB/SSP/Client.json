@@ -53,6 +53,11 @@
             {
                 "Service": "Advertisement.RTB.SSP.Hooks.FillUserSection",
                 "Method": "beforeRTBRequest"
+            },
+            "Set Preferred Categories":
+            {
+                "Service": "Advertisement.RTB.SSP.Hooks.PreferredCategories",
+                "Method": "beforeRTBRequest"
             }
         },
         "RTB":
