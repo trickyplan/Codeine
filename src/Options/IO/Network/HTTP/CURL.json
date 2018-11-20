@@ -32,7 +32,8 @@
         "Proxy":
         {
             "Host": "",
-            "Port": ""
+            "Port": "",
+            "Type": "HTTP"
         },
         "User Agents":
         [

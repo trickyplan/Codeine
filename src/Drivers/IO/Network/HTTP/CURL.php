@@ -16,7 +16,7 @@
     {
         if (isset($Call['CURL']['Random User Agent']))
         {
-            $Call['CURL']['Agent'] = $Call['CURL']['Agents'][array_rand($Call['CURL']['Agents'])];
+            $Call['CURL']['Agent'] = $Call['CURL']['User Agents'][array_rand($Call['CURL']['User Agents'])];
             F::Log('UA: '.$Call['CURL']['Agent'].' selected', LOG_INFO, 'Administrator');
         }
         return $Call;
@@ -132,6 +132,13 @@
             $Call['Link'] = curl_init($Call['Where']['ID']);
 
             F::Log('CURL GET Request Headers: *'.j($Call['CURL']['Headers']).'*', LOG_INFO, 'Administrator');
+            
+            if ($Call['CURL']['Proxy']['Type'] === 'SOCKS5')
+                $ProxyType = CURLPROXY_SOCKS5;
+            
+            if ($Call['CURL']['Proxy']['Type'] === 'HTTP')
+                $ProxyType = CURLPROXY_HTTP;
+            
             curl_setopt_array($Call['Link'],
                 [
                     CURLOPT_HEADER           => $Call['CURL']['Return Header'],
@@ -143,6 +150,7 @@
                     CURLOPT_CONNECTTIMEOUT   => $Call['CURL']['Connect Timeout'],
                     CURLOPT_PROXY            => $Call['CURL']['Proxy']['Host'],
                     CURLOPT_PROXYPORT        => $Call['CURL']['Proxy']['Port'],
+                    CURLOPT_PROXYTYPE        => $ProxyType,
                     CURLOPT_HTTPHEADER       => $Call['CURL']['Headers'],
                     CURLOPT_USERAGENT        => $Call['CURL']['Agent'],
                     CURLOPT_ENCODING         => $Call['CURL']['Encoding'],
