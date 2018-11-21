@@ -237,16 +237,14 @@
         if (isset($Call['HTTP']['Request']['Headers']['Content-Type']))
         {
             $ContentType = strtolower($Call['HTTP']['Request']['Headers']['Content-Type']);
-            switch ($ContentType)
+            if (mb_strpos($ContentType, 'application/json') !== false)
             {
-                case 'application/json; charset=utf-8':
-                    if (isset($Call['HTTP']['RAW']))
-                    {
-                        $RAW = jd($Call['HTTP']['RAW']);
-                        if (is_array($RAW))
-                            $Call['Request'] = F::Merge($Call['Request'], $RAW);
-                    }
-                break;
+                if (isset($Call['HTTP']['RAW']))
+                {
+                    $RAW = jd($Call['HTTP']['RAW']);
+                    if (is_array($RAW))
+                        $Call['Request'] = F::Merge($Call['Request'], $RAW);
+                }
             }
         }
         
