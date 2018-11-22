@@ -31,7 +31,8 @@
                         {
 
                             $Call = F::Dot($Call, 'RTB.Winner.Bid', $Bid);
-                            $Call = F::Dot($Call, 'RTB.Winner.Currency', $Currency);
+                            $Call = F::Dot($Call, 'RTB.Winner.NativeCurrency', $Currency);
+                            $Call = F::Dot($Call, 'RTB.Winner.Currency', 'USD');
                             $Call = F::Dot($Call, 'RTB.Winner.Price', $Bid['price']);
                             $Call = F::Dot($Call, 'RTB.Winner.DSP', F::Dot($Call, 'RTB.DSP.Items.'.$ResultFrom));
                             
