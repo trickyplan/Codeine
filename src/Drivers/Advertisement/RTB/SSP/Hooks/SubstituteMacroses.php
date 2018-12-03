@@ -16,23 +16,23 @@
                 'To' => F::Dot($Call, 'RTB.Winner.NativeCurrency')
             ]);
 
-            $Call = F::CopyDot($Call, 'RTB.Winner.NativeCurrency', 'RTB.Winner.Currency');
-            $Call = F::Dot($Call, 'RTB.Winner.Bid.price', $Price);
+        } else {
+            $Price = F::Run('RTB.Winner.Bid.price');
         }
 
-        return $Call;
+        return $Price;
     });
     
     setFn('RTB.SSP.Request.Executed', function ($Call)
     {
-        $Call = F::Run(null, 'Convert price', $Call);
+        $Price = F::Run(null, 'Convert price', $Call);
 
         $Map =
         [
             '${AUCTION_BID_ID}' => F::Dot($Call, 'RTB.Winner.Bid.id'),
             '${AUCTION_IMP_ID}' => F::Dot($Call, 'RTB.Winner.Bid.impid'),
-            '${AUCTION_PRICE}'  => F::Dot($Call, 'RTB.Winner.Bid.price'),
-            '${AUCTION_CURRENCY}'   => F::Dot($Call, 'RTB.Winner.Currency')
+            '${AUCTION_PRICE}'  => $Price,
+            '${AUCTION_CURRENCY}'   => F::Dot($Call, 'RTB.Winner.NativeCurrency')
         ];
        
         $Call = F::Dot($Call, 'RTB.Winner.Bid.nurl', strtr(F::Dot($Call, 'RTB.Winner.Bid.nurl'), $Map));
