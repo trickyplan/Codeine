@@ -17,7 +17,7 @@
             ]);
 
         } else {
-            $Price = F::Run('RTB.Winner.Bid.price');
+            $Price = F::Dot($Call, 'RTB.Winner.Bid.price');
         }
 
         return $Price;
