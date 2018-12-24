@@ -1,19 +1,5 @@
 {
     "Storage": "Primary",
-    "Contract":
-    {
-        "Entity":
-        {
-            "Count":
-            {
-                "Memo": ["Entity", "Where", "Time", "Key", "Location.ID"]
-            },
-            "Read":
-            {
-                "Memo": ["Entity", "Where", "Time", "Key", "Fields", "One", "Sort", "Filter", "Limit"]
-            }
-        }
-    },
     "Default Nodes":
     {
         "EV":
