@@ -16,21 +16,18 @@
     "tests"
   ],
   "dependencies": {
-    "eonasdan-bootstrap-datetimepicker": "^4.17.37",
+    "eonasdan-bootstrap-datetimepicker": ">=4.17.37",
     "bootstrap": "=3.3.7",
-    "font-awesome": "^4.7.0",
-    "bootbox.js": "^4.4.0",
-    "select2": "^4.0.3",
-    "animate.css": "^3.5.2",
-    "typeahead.js": "^0.11.1",
-    "handlebars": "^4.0.5",
-    "normalize-css": "^5.0.0",
-    "keymaster": "^1.6.3",
-    "pnotify": "^3.0.0",
-    "jquery-colorbox": "^1.6.4",
-    "holmes": "https://github.com/redroot/holmes.git#^1.0.46",
-    "trumbowyg": "^2.5.1",
-    "visibilityjs": "^1.2.4",
-    "corejs-typeahead": "^1.1.1"
+    "Font-Awesome": ">=5.6.3",
+    "bootbox.js": ">=4.4.0",
+    "select2": ">=4.0.3",
+    "animate.css": ">=3.5.2",
+    "handlebars": ">=4.0.5",
+    "normalize-css": ">=5.0.0",
+    "keymaster": ">=1.6.3",
+    "pnotify": ">=3.0.0",
+    "trumbowyg": ">=2.5.1",
+    "visibilityjs": ">=1.2.4",
+    "corejs-typeahead": ">=1.1.1"
   }
 }
