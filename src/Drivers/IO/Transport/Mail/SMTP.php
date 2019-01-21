@@ -82,7 +82,9 @@
         $Call['Data'] = $mime->get(['text_charset' => 'utf-8']);
         $Call['Headers'] = $mime->headers($Call['Headers']);
 
-        $Call = F::Run('Security.Mail.DKIM', 'Do', $Call);
+        if ($Call['Use DKIM']) {
+            $Call = F::Run('Security.Mail.DKIM', 'Do', $Call);
+        }
 
         F::Log('Sending mail "'.$Call['Where']['ID'].'" to '.$Call['Scope'].' with '.$Call['Server'], LOG_INFO, 'Administrator');
 
