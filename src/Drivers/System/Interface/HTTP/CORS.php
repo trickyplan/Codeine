@@ -2,7 +2,6 @@
 
     setFn('Do', function ($Call) {
 
-        $Call['HTTP']['Headers']['Access-Control-Allow-Origin:'] = F::Dot($Call, 'CORS.Origin');
         $Call['HTTP']['Headers']['Access-Control-Allow-Credentials:'] = F::Dot($Call, 'CORS.Credentials');
 
         if (F::Dot($Call, 'HTTP.Method') == 'OPTIONS') 
@@ -18,6 +17,8 @@
 
             $Call['HTTP']['Headers']['Access-Control-Allow-Methods:'] = implode(', ', F::Dot($Call, 'CORS.Methods'));
             $Call['HTTP']['Headers']['Access-Control-Max-Age:'] = F::Dot($Call, 'CORS.Max-Age');
+        } else {
+            $Call['HTTP']['Headers']['Access-Control-Allow-Origin:'] = F::Dot($Call, 'CORS.Origin');
         }
 
         return $Call;
