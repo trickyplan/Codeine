@@ -1,0 +1,6 @@
+{
+    "CORS":
+    {
+        "Credentials": "true"
+    }
+}
