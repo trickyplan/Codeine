@@ -7,9 +7,16 @@
         if (F::Dot($Call, 'HTTP.Method') == 'OPTIONS') 
             ;
         else {
-            if ($Origin = F::Dot($Call, 'HTTP.Request.Headers.Origin')) {
-                $Call['HTTP']['Headers']['Access-Control-Allow-Origin:'] = $Origin;
+            $Call['HTTP']['Headers']['Access-Control-Allow-Headers: '] = 'X-Requested-With,Content-Type';
+
+            $Origin = F::Dot($Call, 'HTTP.Request.Headers.Origin');
+
+            if (empty($Origin)) 
+            {
+                $Origin = (isset($_SERVER['HTTP_ORIGIN'])) ? $_SERVER['HTTP_ORIGIN'] : '*';
             }
+
+            $Call['HTTP']['Headers']['Access-Control-Allow-Origin:'] = $Origin;
         }
 
         return $Call;
