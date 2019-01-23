@@ -1,0 +1,10 @@
+{
+    "CORS":
+    {
+        "Origin": "*",
+        "Credentials": "true",
+        "Max-Age": 86400,
+        "Methods": ["OPTIONS", "GET", "POST"],
+        "Headers": []
+    }
+}
