@@ -279,11 +279,6 @@
 
     setFn('Response Headers', function ($Call)
     {
-        $Origin = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : '*';
-
-        $Call['HTTP']['Headers']['Access-Control-Allow-Origin: '] = $Origin;
-        $Call['HTTP']['Headers']['Access-Control-Allow-Headers: '] = 'X-Requested-With,Content-Type';
-        $Call['HTTP']['Headers']['Access-Control-Allow-Credentials:'] = 'true';
 
         if (headers_sent())
             F::Log('Headers already sent', LOG_INFO);
