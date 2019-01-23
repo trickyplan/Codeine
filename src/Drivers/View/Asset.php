@@ -9,8 +9,7 @@
     
     setFn('Get', function ($Call)
     {
-
-        $Filename = '/Assets/'.strtr($Call['Asset'], '.', DS).DS.$Call['Scope'].DS.$Call['ID'].'.'.$Call['Extension'];
+        $Filename = '/Assets/'.strtr($Call['Asset'], '.', DS).DS.$Call['ID'].'.'.$Call['Extension'];
         $Call['Output']['Content'] = F::findFile($Filename);
         
         if ($Call['Output']['Content'] === null)
