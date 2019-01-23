@@ -5,20 +5,11 @@
         $Call['HTTP']['Headers']['Access-Control-Allow-Credentials:'] = F::Dot($Call, 'CORS.Credentials');
 
         if (F::Dot($Call, 'HTTP.Method') == 'OPTIONS') 
-        {
-            $AllowedHeaders = array_merge(
-                F::Dot($Call, 'HTTP.Request.Headers.Access-Control-Request-Headers'),
-                F::Dot($Call, 'CORS.Headers')
-            );
-            if (!empty($AllowedHeaders)) 
-            {
-                $Call['HTTP']['Headers']['Access-Control-Allow-Headers:'] = implode(', ', $AllowedHeaders);
+            ;
+        else {
+            if ($Origin = F::Dot($Call, 'HTTP.Request.Headers.Origin')) {
+                $Call['HTTP']['Headers']['Access-Control-Allow-Origin:'] = $Origin;
             }
-
-            $Call['HTTP']['Headers']['Access-Control-Allow-Methods:'] = implode(', ', F::Dot($Call, 'CORS.Methods'));
-            $Call['HTTP']['Headers']['Access-Control-Max-Age:'] = F::Dot($Call, 'CORS.Max-Age');
-        } else {
-            $Call['HTTP']['Headers']['Access-Control-Allow-Origin:'] = F::Dot($Call, 'CORS.Origin');
         }
 
         return $Call;
