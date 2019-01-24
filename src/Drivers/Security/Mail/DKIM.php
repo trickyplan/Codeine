@@ -289,7 +289,7 @@
             $dkim_header =
                 'DKIM-Signature: '.
                     'v=1;'."\r\n\t".
-                    'a=rsa-sha1;'."\r\n\t".
+                    'a=rsa-sha256;'."\r\n\t".
                     'q=dns/txt;'."\r\n\t".
                     's='.$this -> selector.';'."\r\n\t".
                     't='.time().';'."\r\n\t".
