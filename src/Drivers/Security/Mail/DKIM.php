@@ -280,7 +280,7 @@
                 $this -> _dkim_canonicalize_body_relaxed($body);
             
             // Base64 of packed binary SHA-1 hash of body
-            $bh = rtrim(chunk_split(base64_encode(sha1($body)), 64, "\r\n\t"));
+            $bh = rtrim(chunk_split(base64_encode(pack("H*", sha1($body))), 64, "\r\n\t"));
             $i_part =
                 ($this -> options['identity'] == null) ?
                 '' :
@@ -412,10 +412,6 @@
         }
 
         $Call['Data'] = str_replace("\r\r\n", "\r\n", str_replace("\n", "\r\n", $Call['Data']));
-
-        // Debug
-        $Call['Data'] = '<div>test</div>';
-        // /Debug
 
         $Call['Headers']['DKIM-Signature'] = $Signature->get_signed_headers(
             $Call['Scope'], F::Dot($Call, 'Headers.Subject'), $Call['Data'], $Headers);
