@@ -412,7 +412,7 @@
                 $Headers .= $Key . ': ' . $Value . "\r\n";
         }
 
-        $Call['Headers']['DKIM-Signature'] = str_replace('DomainKey-Signature:', '', 
+        $Call['Headers']['DKIM-Signature'] = str_replace('DKIM-Signature:', '', 
             $Signature->get_signed_headers($Call['Scope'], F::Dot($Call, 'Headers.Subject'), $Call['Data'], $Headers)
         );
 
