@@ -279,8 +279,7 @@
                 $this -> _dkim_canonicalize_body_simple($body) :
                 $this -> _dkim_canonicalize_body_relaxed($body);
             
-            // Base64 of packed binary SHA-1 hash of body
-            $bh = rtrim(chunk_split(base64_encode(pack("H*", sha1($body))), 64, "\r\n\t"));
+            $bh = rtrim(chunk_split(base64_encode(hash('sha256', $body, true)), 64, "\r\n\t"));
             $i_part =
                 ($this -> options['identity'] == null) ?
                 '' :
