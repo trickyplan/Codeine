@@ -307,7 +307,7 @@
             
             // $signature is sent by reference in this function
             $signature = '';
-            if(openssl_sign($to_be_signed, $signature, $this -> private_key)){
+            if(openssl_sign($to_be_signed, $signature, $this -> private_key, OPENSSL_ALGO_SHA256)){
                 $dkim_header .= rtrim(chunk_split(base64_encode($signature), 64, "\r\n\t"))."\r\n";
             }
             else {
