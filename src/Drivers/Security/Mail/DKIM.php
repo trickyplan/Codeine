@@ -280,16 +280,15 @@
                 $this -> _dkim_canonicalize_body_relaxed($body);
             
             // Base64 of packed binary SHA-1 hash of body
-            $bh = rtrim(chunk_split(base64_encode(pack("H*", sha1($body))), 64, "\r\n\t"));
+            $bh = rtrim(chunk_split(base64_encode(sha1($body)), 64, "\r\n\t"));
             $i_part =
                 ($this -> options['identity'] == null) ?
                 '' :
                 ' i='.$this -> options['identity'].';'."\r\n\t";
             
             $dkim_header =
-                'DKIM-Signature: '.
                     'v=1;'."\r\n\t".
-                    'a=rsa-sha256;'."\r\n\t".
+                    'a=rsa-sha1;'."\r\n\t".
                     'q=dns/txt;'."\r\n\t".
                     's='.$this -> selector.';'."\r\n\t".
                     't='.time().';'."\r\n\t".
@@ -412,9 +411,14 @@
                 $Headers .= $Key . ': ' . $Value . "\r\n";
         }
 
-        $Call['Headers']['DKIM-Signature'] = str_replace('DKIM-Signature:', '', 
-            $Signature->get_signed_headers($Call['Scope'], F::Dot($Call, 'Headers.Subject'), $Call['Data'], $Headers)
-        );
+        $Call['Data'] = str_replace("\r\r\n", "\r\n", str_replace("\n", "\r\n", $Call['Data']));
+
+        // Debug
+        $Call['Data'] = '<div>test</div>';
+        // /Debug
+
+        $Call['Headers']['DKIM-Signature'] = $Signature->get_signed_headers(
+            $Call['Scope'], F::Dot($Call, 'Headers.Subject'), $Call['Data'], $Headers);
 
         return $Call;
     });
