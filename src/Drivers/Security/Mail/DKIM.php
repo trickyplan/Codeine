@@ -300,7 +300,7 @@
             
             // now for the signature we need the canonicalized version of the $dkim_header
             // we've just made
-            $canonicalized_dkim_header = $this -> _dkim_canonicalize_headers_relaxed($dkim_header);
+            $canonicalized_dkim_header = $this -> _dkim_canonicalize_headers_relaxed('dkim-signature: '.$dkim_header);
             
             // we sign the canonicalized signature headers
             $to_be_signed = implode("\r\n", $this -> canonicalized_headers_relaxed)."\r\n".$canonicalized_dkim_header['dkim-signature'];
