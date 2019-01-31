@@ -56,6 +56,8 @@
                     }
                 }
 
+            $Call = F::Hook('afterRequestRun', $Call);
+
             F::Stop('Payload');
             F::Start('Cooldown');
     /*        if (isset($Call['Output']))
