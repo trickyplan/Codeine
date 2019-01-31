@@ -11,5 +11,12 @@
                 }
             }
         }
+    },
+    "HTTP":
+    {
+        "CORS":
+        {
+            "Enabled": true
+        }
     }
 }
