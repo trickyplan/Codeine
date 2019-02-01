@@ -101,7 +101,7 @@
             "Weight": 100,
             "Run":
             {
-                "Service":"User.Reset"
+                "Service":"User.Reset.Password"
             }
         },
         "Allow user update his profile":

@@ -22,8 +22,8 @@
                 $Call['Output']['Content'][] =
                 [
                     'Type' => 'Template',
-                    'Scope' => 'User',
-                    'ID' => 'Reset/404'
+                    'Scope' => 'User/Reset/Password',
+                    'ID' => '404'
                 ];
         }
         else
@@ -52,7 +52,7 @@
             $VCall['Output']['Content'][] =
                 [
                     'Type'  => 'Template',
-                    'Scope' => 'User/Reset',
+                    'Scope' => 'User/Reset/Password',
                     'ID'    => 'EMail',
                     'Data'  => F::Merge($Call['User'], ['Password' => $Password])
                 ];
@@ -73,8 +73,8 @@
             $Call['Output']['Content'][] =
             [
                 'Type' => 'Template',
-                'Scope' => 'User',
-                'ID' => 'Reset/Success'
+                'Scope' => 'User/Reset/Password',
+                'ID' => 'Success'
             ];
         }
 
@@ -97,8 +97,8 @@
         $Call['Output']['Content'][] =
             [
                 'Type' => 'Template',
-                'Scope' => 'User',
-                'ID' => 'Reset/Form'
+                'Scope' => 'User/Reset/Password',
+                'ID' => 'Form'
             ];
 
         return $Call;
