@@ -1,0 +1,12 @@
+{
+    "Behaviours":
+    {
+        "Cached":
+        {
+            "Hash":
+            {
+                "Algo": "sha1"
+            }
+        }
+    }
+}
