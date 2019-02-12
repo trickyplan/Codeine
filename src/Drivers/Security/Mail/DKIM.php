@@ -279,17 +279,15 @@
                 $this -> _dkim_canonicalize_body_simple($body) :
                 $this -> _dkim_canonicalize_body_relaxed($body);
             
-            // Base64 of packed binary SHA-1 hash of body
-            $bh = rtrim(chunk_split(base64_encode(pack("H*", sha1($body))), 64, "\r\n\t"));
+            $bh = rtrim(chunk_split(base64_encode(hash('sha256', $body, true)), 64, "\r\n\t"));
             $i_part =
                 ($this -> options['identity'] == null) ?
                 '' :
                 ' i='.$this -> options['identity'].';'."\r\n\t";
             
             $dkim_header =
-                'DKIM-Signature: '.
                     'v=1;'."\r\n\t".
-                    'a=rsa-sha1;'."\r\n\t".
+                    'a=rsa-sha256;'."\r\n\t".
                     'q=dns/txt;'."\r\n\t".
                     's='.$this -> selector.';'."\r\n\t".
                     't='.time().';'."\r\n\t".
@@ -302,14 +300,14 @@
             
             // now for the signature we need the canonicalized version of the $dkim_header
             // we've just made
-            $canonicalized_dkim_header = $this -> _dkim_canonicalize_headers_relaxed($dkim_header);
+            $canonicalized_dkim_header = $this -> _dkim_canonicalize_headers_relaxed('dkim-signature: '.$dkim_header);
             
             // we sign the canonicalized signature headers
             $to_be_signed = implode("\r\n", $this -> canonicalized_headers_relaxed)."\r\n".$canonicalized_dkim_header['dkim-signature'];
             
             // $signature is sent by reference in this function
             $signature = '';
-            if(openssl_sign($to_be_signed, $signature, $this -> private_key)){
+            if(openssl_sign($to_be_signed, $signature, $this -> private_key, OPENSSL_ALGO_SHA256)){
                 $dkim_header .= rtrim(chunk_split(base64_encode($signature), 64, "\r\n\t"))."\r\n";
             }
             else {
@@ -412,9 +410,10 @@
                 $Headers .= $Key . ': ' . $Value . "\r\n";
         }
 
-        $Call['Headers']['DKIM-Signature'] = str_replace('DomainKey-Signature:', '', 
-            $Signature->get_signed_headers($Call['Scope'], F::Dot($Call, 'Headers.Subject'), $Call['Data'], $Headers)
-        );
+        $Call['Data'] = str_replace("\r\r\n", "\r\n", str_replace("\n", "\r\n", $Call['Data']));
+
+        $Call['Headers']['DKIM-Signature'] = $Signature->get_signed_headers(
+            $Call['Scope'], F::Dot($Call, 'Headers.Subject'), $Call['Data'], $Headers);
 
         return $Call;
     });

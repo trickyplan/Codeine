@@ -75,6 +75,7 @@
         {
             $mime->setHTMLBody($Call['Data']);
             $Call['Headers']['Content-Type'] = 'text/html; charset=utf-8';
+            $Call['Headers']['Content-Transfer-Encoding'] = 'base64';
         }
         else
             $mime->setTXTBody(strip_tags($Call['Data']));

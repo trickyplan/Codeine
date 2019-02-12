@@ -22,5 +22,12 @@
                 "Allowed": []
             }
         }
+    },
+    "HTTP":
+    {
+        "CORS":
+        {
+            "Enabled": true
+        }
     }
 }
