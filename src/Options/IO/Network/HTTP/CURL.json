@@ -28,7 +28,11 @@
         "Headers": [],
         "Agent": "Mozilla/5.0 (compatible; Codeine/12.x)",
         "Encoding": "",
-        "SSL Verify Peer": true,
+        "SSL":
+        {
+            "Verify Peer": true,
+            "Version": 0
+        },
         "Proxy":
         {
             "Host": "",

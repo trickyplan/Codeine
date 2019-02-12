@@ -86,7 +86,10 @@
             {
                 "Service": "Security.IDS",
                 "Method": "Check"
-            },
+            }
+        },
+        "afterRequestRun":
+        {
             "Set Default CORS-headers":
             {
                 "Service": "System.Interface.HTTP.CORS",
