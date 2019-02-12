@@ -10,7 +10,7 @@
     setFn('Render', function ($Call)
     {
         if ($Call['Output']['Content'] === null)
-            $Call['Output'] = 'Not found';
+            ;
         else
         {
             $Call['HTTP']['Headers']['Content-type:'] = mime_content_type($Call['Output']['Content']);
