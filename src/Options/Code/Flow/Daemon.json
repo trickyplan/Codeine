@@ -32,15 +32,6 @@
                 "Service": "Code.Flow.Timetable",
                 "Method": "Run"
             }
-        },
-        "Delayed":
-        {
-            "Frequency": 1,
-            "Execute":
-            {
-                "Service": "Code.Run.Delayed",
-                "Method": "Execute"
-            }
         }
     },
     "Signals":

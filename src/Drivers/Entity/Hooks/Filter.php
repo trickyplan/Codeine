@@ -23,7 +23,7 @@
                         ;
                     else
                     {
-                        if (F::Dot($Call, 'Nodes.'.$Key.'.Filterable'))
+                        if (F::Dot($Call, 'Nodes.'.$Key.'.Filter.Enabled'))
                             $Call['Where'][$Key] = $Value;
                     }
         }
