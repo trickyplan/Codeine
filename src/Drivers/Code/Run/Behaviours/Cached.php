@@ -20,7 +20,8 @@
                 $Hash[] = F::Dot($Call['Run']['Call'], $Key);
             
             $Scope = $Call['Run']['Service'].'_'.$Call['Run']['Method'];
-            $CacheID = 'CID'.hash('sha256', $Scope.j($Hash));
+            $sHash = serialize($Hash);
+            $CacheID = F::Dot($Call, 'Behaviours.Cached.Hash.Algo').'.'.hash(F::Dot($Call, 'Behaviours.Cached.Hash.Algo'), $Scope.$sHash);
             
             // Try to get cached
             
@@ -33,21 +34,22 @@
             ]);
             
             if ($Envelope === null) // No cached
-                F::Log('Run cache *miss* for '.$Scope.':'.$CacheID, LOG_INFO, 'Performance');
+                F::Log('Run cache *miss* for '.$Scope.':'.$sHash, LOG_INFO, 'Performance');
             else
             {
                 if (F::Dot($Envelope, 'Time')+F::Dot($Call, 'Behaviours.Cached.TTL') > $Time) // Not expired
                 {
                     $Result = F::Dot($Envelope, 'Result');
                     $Run = false; // Hit
-                    F::Log('Run cache *hit* for '.$Scope.':'.$CacheID, LOG_INFO, 'Performance');
+                    F::Log('Run cache *hit* for '.$Scope.':'.$sHash, LOG_INFO, 'Performance');
                 }
                 else
-                    F::Log('Run cache *expired* for '.$Scope.':'.$CacheID, LOG_INFO, 'Performance');
+                    F::Log('Run cache *expired* for '.$Scope.':'.$sHash, LOG_INFO, 'Performance');
             }
             
             if ($Run)
             {
+                unset($Call['Behaviours']);
                 $Result = F::Live($Call['Run']);
 
                 $Envelope = [
@@ -63,7 +65,7 @@
                     'Data'      => $Envelope
                 ]);
                 
-                F::Log('Run cache *stored* for '.$Scope.':'.$CacheID, LOG_INFO, 'Performance');
+                F::Log('Run cache *stored* for '.$Scope.':'.$sHash, LOG_INFO, 'Performance');
             }
         }
     

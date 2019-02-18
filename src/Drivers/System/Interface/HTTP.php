@@ -281,6 +281,7 @@
 
     setFn('Response Headers', function ($Call)
     {
+
         if (headers_sent())
             F::Log('Headers already sent', LOG_INFO);
         else

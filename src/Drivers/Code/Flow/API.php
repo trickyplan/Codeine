@@ -46,6 +46,7 @@
                         {
                             if ($Enabled)
                             {
+                                $Call = F::Hook('beforeAPIMethodRun', $Call);
                                 if ($Call['API']['Response']['Access'])
                                 {
                                     F::Log(

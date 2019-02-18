@@ -42,10 +42,6 @@
                 "Method": "beforeRequestRun",
                 "Must be first": true
             },
-            "-Journal":
-            {
-                "Service": "System.Interface.HTTP.Journal"
-            },
             "Host":
             {
                 "Service": "System.Interface.HTTP.Host",

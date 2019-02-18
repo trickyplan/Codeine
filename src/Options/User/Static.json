@@ -21,9 +21,9 @@
             "Service":"User.Logout",
             "Method":"Do"
         },
-        "/forgot":
+        "/user/reset/password":
         {
-            "Service":"User.Reset",
+            "Service":"User.Reset.Password",
             "Method":"Do"
         },
         "/changepwd":

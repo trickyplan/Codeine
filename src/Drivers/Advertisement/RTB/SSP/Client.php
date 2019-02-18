@@ -58,8 +58,12 @@
             ],
         ], $MultiRequest));
         
-        foreach ($MultiRequest['Where']['ID'] as $IX => $DSP)
-            $Call['RTB']['Debug'][$DSP]['Request'] = json_decode($MultiRequest['Data'][$IX]);
+        foreach ($MultiRequest['Where']['ID'] as $IX => $DSP) {
+            $RequestData = json_decode($MultiRequest['Data'][$IX]);
+            $Call['RTB']['Debug'][$DSP]['Request'] = $RequestData;
+            $Call['RTB']['Debug'][$DSP]['CURL'] = 'curl -H "Content-Type: application/json" -H "x-openrtb-version: 2.0" -d '
+                . '\'' . $MultiRequest['Data'][$IX] . '\' ' . $DSP;
+        }
         
         $Results = F::Dot($Call, 'RTB.Result');
         foreach ($Results as $DSP => $Result)

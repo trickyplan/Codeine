@@ -14,7 +14,7 @@
         
         if ($Call['Output']['Content'] === null)
         {
-            $Call['HTTP']['Headers']['HTTP/1.1'] = '404 Not Found';
+            $Call['HTTP']['Headers']['HTTP/1.0'] = '404 Not Found';
             F::Log('Asset not found: '. $Filename, LOG_INFO);
             $Call['HTTP']['Headers']['Filename:'] = $Filename;
         }
