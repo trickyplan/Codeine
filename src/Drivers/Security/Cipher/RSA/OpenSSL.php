@@ -57,34 +57,3 @@
         
         return $Call['Opentext'];
     });
-    
-    setFn('Symmetrical Encode', function ($Call)
-    {
-        $Call = F::Hook('beforeSymmetricalEncode', $Call);
-        
-        if ($Call['Ciphertext'] = openssl_encrypt($Call['Opentext'], 'aes-256-ecb', $Call['Key']))
-            F::Log('OpenSSL: No errors', LOG_INFO);
-        else
-            F::Log('OpenSSL: '.openssl_error_string(), LOG_ERR);
-        
-        $Call = F::Hook('afterSymmetricalEncode', $Call);
-        
-        return $Call['Ciphertext'];
-    });
-    
-    setFn('Symmetrical Decode', function ($Call)
-    {
-        $Call = F::Hook('beforeSymmetricalDecode', $Call);
-         
-            if ($Call['Opentext'] = openssl_decrypt($Call['Ciphertext'], 'aes-256-ecb', $Call['Key']))
-                F::Log('OpenSSL: No errors', LOG_INFO);
-            else
-            {
-                while ($Message = openssl_error_string())
-                    F::Log('OpenSSL: '.$Message, LOG_ERR);
-            }
-            
-        $Call = F::Hook('afterSymmetricalDecode', $Call);
-        
-        return $Call['Opentext'];
-    });

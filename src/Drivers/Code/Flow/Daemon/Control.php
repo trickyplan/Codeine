@@ -49,9 +49,7 @@
 
     setFn('Menu', function ($Call)
     {
-        return [
-                'Count' => F::Run('Code.Run.Delayed', 'Count', $Call)
-            ];
+        return 0;
     });
 
     setFn('Log', function ($Call)
