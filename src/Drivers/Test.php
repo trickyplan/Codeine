@@ -68,6 +68,9 @@
     {
         $Call = F::Hook('Test.Case.Run.Before', $Call);
             
+            if (mb_substr($Call['Test']['Case']['Name'], 0, 1) == '-')
+                return $Call;
+        
             if (isset($Call['Test']['Case']['Apply']))
                 $Call['Virtual'] = F::Live($Call['Test']['Case']['Apply'], $Call['Virtual']);
             
