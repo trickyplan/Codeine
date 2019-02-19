@@ -1,0 +1,61 @@
+{
+    "Suites":
+    {
+        "CORS":
+        {
+            "OPTIONS":
+            {
+                "Run":
+                {
+                    "Service": "System.Interface.HTTP.CORS",
+                    "Method": "Do",
+                    "Call":
+                    {
+                        "HTTP":
+                        {
+                            "Method": "OPTIONS",
+                            "Request":
+                            {
+                                "Headers":
+                                {
+                                    "Access-Control-Request-Headers": ["X-CUSTOM-Header"]
+                                }
+                            }
+                        }
+                    }
+                },
+                "Result":
+                {
+                    "Extract": "HTTP.Headers"
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            },
+            "GET":
+            {
+                "Run":
+                {
+                    "Service": "System.Interface.HTTP.CORS",
+                    "Method": "Do",
+                    "Call": 
+                    {
+                        "HTTP":
+                        {
+                            "Method": "GET"
+                        }
+                    }
+                },
+                "Result":
+                {
+                    "Extract": "HTTP.Headers"
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            }
+        }
+    }
+}

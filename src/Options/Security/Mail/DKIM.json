@@ -1,0 +1,25 @@
+{
+    "DKIM":
+    {
+        "Private Key": "",
+        "Passphrase": "",
+        "Domain": "",
+        "Selector": "",
+        "Options": 
+        {
+            "use_dkim": true,
+            "use_domainKeys": true,
+            "identity": null,
+            "dkim_body_canonicalization": "relaxed",
+            "dk_canonicalization": "nofws",
+            "signed_headers":
+            [
+                "mime-version",
+                "from",
+                "to",
+                "subject",
+                "reply-to"
+            ]
+        }
+    }
+}

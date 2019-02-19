@@ -56,6 +56,8 @@
                     }
                 }
 
+            $Call = F::Hook('afterRequestRun', $Call);
+
             F::Stop('Payload');
             F::Start('Cooldown');
     /*        if (isset($Call['Output']))
@@ -279,6 +281,7 @@
 
     setFn('Response Headers', function ($Call)
     {
+
         if (headers_sent())
             F::Log('Headers already sent', LOG_INFO);
         else

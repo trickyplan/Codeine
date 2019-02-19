@@ -75,12 +75,17 @@
         {
             $mime->setHTMLBody($Call['Data']);
             $Call['Headers']['Content-Type'] = 'text/html; charset=utf-8';
+            $Call['Headers']['Content-Transfer-Encoding'] = 'base64';
         }
         else
             $mime->setTXTBody(strip_tags($Call['Data']));
 
         $Call['Data'] = $mime->get(['text_charset' => 'utf-8']);
         $Call['Headers'] = $mime->headers($Call['Headers']);
+
+        if ($Call['Use DKIM']) {
+            $Call = F::Run('Security.Mail.DKIM', 'Do', $Call);
+        }
 
         F::Log('Sending mail "'.$Call['Where']['ID'].'" to '.$Call['Scope'].' with '.$Call['Server'], LOG_INFO, 'Administrator');
 
