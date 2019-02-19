@@ -1,0 +1,79 @@
+{
+    "Suites":
+    {
+        "Informational":
+        {
+            "List Cipher Methods":
+            {
+                "Run":
+                {
+                    "Service": "Security.Cipher.OpenSSL",
+                    "Method": "List.Cipher.Methods"
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            },
+            "-Performance Test of Cipher Methods":
+            {
+                "Run":
+                {
+                    "Service": "Security.Cipher.OpenSSL",
+                    "Method": "Test.Cipher.Methods"
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            }
+        },
+        "Positive":
+        {
+            "Encrypt":
+            {
+                "Run":
+                {
+                    "Service": "Security.Cipher.OpenSSL",
+                    "Method": "Encode",
+                    "Call":
+                    {
+                        "Cipher":
+                        {
+                            "Algorithm": "aes-128-ofb",
+                            "IV": "xkx3nbqwaMUwXsM3"
+                        },
+                        "KeyID": "2048.test.public.pem",
+                        "Opentext": "Lorem ipsum dolor sit amet"
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            },
+            "Decrypt":
+            {
+                "Run":
+                {
+                    "Service": "Security.Cipher.OpenSSL",
+                    "Method": "Decode",
+                    "Call":
+                    {
+                        "Cipher":
+                        {
+                            "Algorithm": "aes-128-ofb",
+                            "IV": "xkx3nbqwaMUwXsM3"
+                        },
+                        "KeyID": "2048.test.public.pem",
+                        "Ciphertext": "qKie8H7gOmK6gfTDO04mbYnhLQfHZWtdjXU="
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            }
+        }
+    }
+}
