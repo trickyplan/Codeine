@@ -77,6 +77,22 @@
                         ((float) preg_replace('/,/','.',$Value) >= (float) $Call['Parsed']['Options'][$IX]['gte']);
                 }
 
+                if (isset($Call['Parsed']['Options'][$IX]['gt']) && isset($Call['Parsed']['Options'][$IX]['lte']))
+                {
+                    $Decision =
+                        ((float) preg_replace('/,/','.',$Value) < (float) $Call['Parsed']['Options'][$IX]['lte'])
+                        &&
+                        ((float) preg_replace('/,/','.',$Value) >= (float) $Call['Parsed']['Options'][$IX]['gt']);
+                }
+                
+                if (isset($Call['Parsed']['Options'][$IX]['gte']) && isset($Call['Parsed']['Options'][$IX]['lt']))
+                {
+                    $Decision =
+                        ((float) preg_replace('/,/','.',$Value) <= (float) $Call['Parsed']['Options'][$IX]['lt'])
+                        &&
+                        ((float) preg_replace('/,/','.',$Value) > (float) $Call['Parsed']['Options'][$IX]['gte']);
+                }
+                
                 if (isset($Call['Parsed']['Options'][$IX]['in']))
                 {
                     $Data = F::Dot($Call, $Call['Parsed']['Options'][$IX]['in']);
