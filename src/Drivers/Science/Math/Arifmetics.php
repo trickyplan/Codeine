@@ -33,8 +33,12 @@
 
     setFn('Divide', function ($Call)
     {
-        if (isset($Call['Modes'][$Call['Mode']]))
-            return F::Run($Call['Modes'][$Call['Mode']], null, F::Live($Call));
+        if (isset($Call['Modes'][$Call['Mode']])) {
+            return F::Run($Call['Modes'][$Call['Mode']], null, F::Live([
+                'A' => $Call['A'],
+                'B' => $Call['B']
+            ], $Call));
+        }
         else
             return null;
     });

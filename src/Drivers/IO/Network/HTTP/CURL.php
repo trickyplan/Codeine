@@ -96,6 +96,12 @@
                 
                 curl_setopt_array($Links[$cID], $CURLOpts);
 
+                if (isset($Call['CURL']['Connect Timeout ms']))
+                    curl_setopt($Links[$cID], CURLOPT_CONNECTTIMEOUT_MS, $Call['CURL']['Connect Timeout ms']);
+
+                if (isset($Call['CURL']['Overall Timeout ms']))
+                    curl_setopt($Links[$cID], CURLOPT_TIMEOUT_MS, $Call['CURL']['Overall Timeout ms']);
+
                 if (isset($Call['CURL']['Proxy']['Auth']))
                     curl_setopt($Links[$cID], CURLOPT_PROXYUSERPWD, $Call['CURL']['Proxy']['Auth']);
 
@@ -148,6 +154,12 @@
             $CURLOpts[CURLOPT_COOKIEJAR] = $Call['CURL']['Cookie Directory'].DS.parse_url($Call['Where']['ID'], PHP_URL_HOST);
 
             curl_setopt_array($Call['Link'], $CURLOpts);
+
+            if (isset($Call['CURL']['Connect Timeout ms']))
+                curl_setopt($Call['Link'], CURLOPT_CONNECTTIMEOUT_MS, $Call['CURL']['Connect Timeout ms']);
+
+            if (isset($Call['CURL']['Overall Timeout ms']))
+                curl_setopt($Call['Link'], CURLOPT_TIMEOUT_MS, $Call['CURL']['Overall Timeout ms']);
 
             if (isset($Call['CURL']['Proxy']['Auth']))
                 curl_setopt($Call['Link'], CURLOPT_PROXYUSERPWD, $Call['CURL']['Proxy']['Auth']);
@@ -228,6 +240,12 @@
                         CURLOPT_POSTFIELDS       => $Post
                     ]);
 
+                if (isset($Call['CURL']['Connect Timeout ms']))
+                    curl_setopt($Links[$cID], CURLOPT_CONNECTTIMEOUT_MS, $Call['CURL']['Connect Timeout ms']);
+
+                if (isset($Call['CURL']['Overall Timeout ms']))
+                    curl_setopt($Links[$cID], CURLOPT_TIMEOUT_MS, $Call['CURL']['Overall Timeout ms']);
+
                 curl_multi_add_handle($Call['Link'], $Links[$cID]);
             }
 
@@ -288,6 +306,12 @@
                     CURLOPT_HTTPAUTH         => CURLAUTH_BASIC,
                     CURLOPT_POSTFIELDS       => $Post
                 ]);
+
+            if (isset($Call['CURL']['Connect Timeout ms']))
+                curl_setopt($Call['Link'], CURLOPT_CONNECTTIMEOUT_MS, $Call['CURL']['Connect Timeout ms']);
+
+            if (isset($Call['CURL']['Overall Timeout ms']))
+                curl_setopt($Call['Link'], CURLOPT_TIMEOUT_MS, $Call['CURL']['Overall Timeout ms']);
 
             $Result = [curl_exec($Call['Link'])];
 
@@ -378,6 +402,12 @@
                     CURLOPT_CONNECTTIMEOUT => $Call['CURL']['Connect Timeout'],
                     CURLOPT_USERAGENT        => $Call['CURL']['Agent']
                 ]);
+
+        if (isset($Call['CURL']['Connect Timeout ms']))
+            curl_setopt($Call['Link'], CURLOPT_CONNECTTIMEOUT_MS, $Call['CURL']['Connect Timeout ms']);
+
+        if (isset($Call['CURL']['Overall Timeout ms']))
+            curl_setopt($Call['Link'], CURLOPT_TIMEOUT_MS, $Call['CURL']['Overall Timeout ms']);
 
         $Head = curl_exec($Call['Link']);
         F::Log('CURL HEAD fetched *'.$Call['Where']['ID'].'* '.$Head, LOG_INFO, 'Administrator');
