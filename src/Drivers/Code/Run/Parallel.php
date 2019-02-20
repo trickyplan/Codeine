@@ -9,7 +9,9 @@
      
     setFn('Run', function ($Call)
     {
-        $Call['Parallel']['Threads'] = F::Live($Call['Parallel']['Threads'], $Call);
+        if (!is_numeric($Call['Parallel']['Threads']))
+            $Call['Parallel']['Threads'] = F::Live($Call['Parallel']['Threads'], $Call);
+
         F::Log('Threads Count: '.$Call['Parallel']['Threads'], LOG_INFO);
 
         $Call['Data Size'] = count($Call['Data']);
