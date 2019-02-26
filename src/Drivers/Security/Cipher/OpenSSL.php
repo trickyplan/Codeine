@@ -24,7 +24,7 @@
                 $IV = openssl_random_pseudo_bytes($IVLength);
                 $Key = openssl_random_pseudo_bytes($IVLength*2);
                 for ($IX = 0; $IX < 1000; $IX++)
-                    $Ciphered = base64_encode(openssl_encrypt(sha1(rand(0,PHP_INT_MAX)), $CipherAlgorithm, $Key, 0, $IV));
+                    $Ciphered = openssl_encrypt(sha1(rand(0,PHP_INT_MAX)), $CipherAlgorithm, $Key, 0, $IV);
             }
                 
             F::Stop($CipherAlgorithm);
@@ -37,12 +37,15 @@
     
     setFn('Initialize', function ($Call)
     {
-        $Call['Key'] = F::Run('IO', 'Read',
-            [
-                'Storage'   => 'Keys',
-                'Where'     => $Call['KeyID'],
-                'IO One'    => true
-            ]);
+        if (isset($Call['Key']))
+            ;
+        else
+            $Call['Key'] = F::Run('IO', 'Read',
+                [
+                    'Storage'   => 'Keys',
+                    'Where'     => $Call['KeyID'],
+                    'IO One'    => true
+                ]);
         
         return $Call;
     });
@@ -62,7 +65,7 @@
                 $Call['Cipher']['IV'] = openssl_random_pseudo_bytes($IVLength);
             }
             
-            if ($Call['Ciphertext'] = openssl_encrypt($Call['Opentext'], $Call['Cipher']['Algorithm'], $Call['Key'], 0, $Call['Cipher']['IV']))
+            if ($Call['Ciphertext'] = openssl_encrypt($Call['Opentext'], $Call['Cipher']['Algorithm'], $Call['Key'], OPENSSL_RAW_DATA, $Call['Cipher']['IV']))
                 F::Log('OpenSSL: No errors', LOG_INFO);
             else
                 F::Log('OpenSSL: '.openssl_error_string(), LOG_ERR);
@@ -78,7 +81,7 @@
         
         $Call = F::Hook('beforeDecode', $Call);
          
-            if ($Call['Opentext'] = openssl_decrypt($Call['Ciphertext'], $Call['Cipher']['Algorithm'], $Call['Key'], 0, $Call['Cipher']['IV']))
+            if ($Call['Opentext'] = openssl_decrypt($Call['Ciphertext'], $Call['Cipher']['Algorithm'], $Call['Key'], OPENSSL_RAW_DATA, $Call['Cipher']['IV']))
                 F::Log('OpenSSL: No errors', LOG_INFO);
             else
             {
