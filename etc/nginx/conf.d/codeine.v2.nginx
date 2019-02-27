@@ -19,6 +19,7 @@
     gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript application/javascript;
     gzip_vary on;
     client_max_body_size 16m;
+    http2_max_field_size 8k;
 
     location /api
     {
