@@ -49,6 +49,8 @@
             
             if ($Run)
             {
+                $TTL = F::Dot($Call, 'Behaviours.Cached.TTL');
+                
                 unset($Call['Behaviours']);
                 $Result = F::Live($Call['Run']);
 
@@ -62,6 +64,7 @@
                     'Storage'   => 'Run Cache',
                     'Scope'     => $Scope,
                     'Where'     => ['ID' => $CacheID],
+                    'TTL'       => $TTL,
                     'Data'      => $Envelope
                 ]);
                 
