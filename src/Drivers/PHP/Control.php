@@ -147,3 +147,8 @@
 
         return $Call;
     });
+    
+    setFn('Opcache', function ($Call)
+    {
+        return F::Run('PHP.Control.Opcache', 'Do', $Call);
+    });
