@@ -62,6 +62,7 @@
                     'Storage'   => 'Run Cache',
                     'Scope'     => $Scope,
                     'Where'     => ['ID' => $CacheID],
+                    'TTL'       => F::Dot($Call, 'Behaviours.Cached.TTL'),
                     'Data'      => $Envelope
                 ]);
                 
