@@ -1,0 +1,20 @@
+{
+    "Parallel":
+    {
+        "Threads":
+        {
+            "Service": "Science.Math.Arifmetics",
+            "Method": "Divide",
+            "Call":
+            {
+                "A":
+                {
+                    "Service": "System.Hardware.CPU.Count",
+                    "Method": "Get"
+                },
+                "B": 2
+            }
+        },
+        "Results Storage": "Tertiary"
+    }
+}
