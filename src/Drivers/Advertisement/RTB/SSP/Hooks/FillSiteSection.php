@@ -9,8 +9,8 @@
     
     setFn('beforeRTBRequest', function ($Call)
     {
-        $URL = F::Dot($Call, 'HTTP.Referer') 
-            ?? F::Dot($Call, 'HTTP.Request.Headers.Referer') 
+        $URL = F::Dot($Call, 'HTTP.Request.Headers.Origin') 
+            ?? F::Dot($Call, 'HTTP.Proto').F::Dot($Call, 'Domain').'/'
             ?? 'https://adram.media/';
         
         $Call = F::Dot($Call, 'RTB.Request.site.id', F::Dot($Call, 'RTB.Site.ID'));
