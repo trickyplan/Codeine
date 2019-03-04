@@ -65,7 +65,6 @@
                         CURLOPT_COOKIE           => $Call['CURL']['Cookie'],
                         CURLOPT_FOLLOWLOCATION   => $Call['CURL']['Follow'],
                         CURLOPT_REFERER          => $Call['CURL']['Referer'],
-                        CURLOPT_CONNECTTIMEOUT   => $Call['CURL']['Connect Timeout'],
                         CURLOPT_PROXYTYPE        => $Call['CURL']['Proxy']['Type'],
                         CURLOPT_PROXY            => $Call['CURL']['Proxy']['Host'],
                         CURLOPT_PROXYPORT        => $Call['CURL']['Proxy']['Port'],
@@ -77,6 +76,18 @@
                         CURLINFO_HEADER_OUT      => true,
                         CURLOPT_FAILONERROR      => false
                     ];
+
+        if (is_float($Call['CURL']['Connect Timeout']))
+            $CURLOpts[CURLOPT_CONNECTTIMEOUT_MS] = $Call['CURL']['Connect Timeout'] * 1000;
+        else 
+            $CURLOpts[CURLOPT_CONNECTTIMEOUT] = $Call['CURL']['Connect Timeout'];
+
+        if (is_float($Call['CURL']['Overall Timeout']))
+            $CURLOpts[CURLOPT_TIMEOUT_MS] = $Call['CURL']['Overall Timeout'] * 1000;
+        else
+            $CURLOpts[CURLOPT_TIMEOUT] = $Call['CURL']['Overall Timeout'];
+
+
         if (is_array($Call['Where']['ID']))
         {
             $Call['Link'] = curl_multi_init();
@@ -206,15 +217,13 @@
                 F::Log('CURL POST Request Headers: *'.j($Call['CURL']['Headers']).'*', LOG_INFO, 'Administrator');
                 // F::Log('CURL POST Request Parameters: *'.j($Call['Data'][$cIndex]).'*', LOG_INFO, 'Administrator');
                 F::Log('CURL POST Request URL: *'.$cID.'*', LOG_INFO, 'Administrator');
-                curl_setopt_array($Links[$cID], [
+                    $CURLOpts = [
                         CURLOPT_HEADER           => $Call['CURL']['Return Header'],
                         CURLOPT_RETURNTRANSFER   => true,
                         CURLOPT_COOKIEJAR        => $Call['CURL']['Cookie Directory'].DS.parse_url($cID, PHP_URL_HOST),
                         CURLOPT_COOKIE           => $Call['CURL']['Cookie'],
                         CURLOPT_FOLLOWLOCATION   => $Call['CURL']['Follow'],
                         CURLOPT_REFERER          => $Call['CURL']['Referer'],
-                        CURLOPT_CONNECTTIMEOUT   => $Call['CURL']['Connect Timeout'],
-                        CURLOPT_TIMEOUT          => $Call['CURL']['Overall Timeout'],
                         CURLOPT_PROXY            => $Call['CURL']['Proxy']['Host'],
                         CURLOPT_PROXYPORT        => $Call['CURL']['Proxy']['Port'],
                         CURLOPT_USERAGENT        => $Call['CURL']['Agent'],
@@ -226,8 +235,20 @@
                         CURLOPT_SSL_VERIFYPEER   => false,
                         CURLOPT_HTTPAUTH         => CURLAUTH_BASIC,
                         CURLOPT_POSTFIELDS       => $Post
-                    ]);
+                    ];
 
+                    if (is_float($Call['CURL']['Connect Timeout']))
+                        $CURLOpts[CURLOPT_CONNECTTIMEOUT_MS] = $Call['CURL']['Connect Timeout'] * 1000;
+                    else
+                        $CURLOpts[CURLOPT_CONNECTTIMEOUT] = $Call['CURL']['Connect Timeout'];
+
+                    if (is_float($Call['CURL']['Overall Timeout']))
+                        $CURLOpts[CURLOPT_TIMEOUT_MS] = $Call['CURL']['Overall Timeout'] * 1000;
+                    else 
+                        $CURLOpts[CURLOPT_TIMEOUT] = $Call['CURL']['Overall Timeout'];
+
+
+                curl_setopt_array($Links[$cID], $CURLOpts);
                 curl_multi_add_handle($Call['Link'], $Links[$cID]);
             }
 
@@ -265,16 +286,13 @@
             $Post = is_string($Call['Data']) ? $Call['Data'] : http_build_query($Call['Data']);
 
             F::Log('CURL POST Request Headers: *'.j($Call['CURL']['Headers']).'*', LOG_INFO, 'Administrator');
-            curl_setopt_array($Call['Link'],
-                [
+                $CURLOpts = [
                     CURLOPT_HEADER           => $Call['CURL']['Return Header'],
                     CURLOPT_RETURNTRANSFER   => true,
                     CURLOPT_COOKIEJAR        => $Call['CURL']['Cookie Directory'].DS.parse_url($Call['Where']['ID'], PHP_URL_HOST),
                     CURLOPT_COOKIE           => $Call['CURL']['Cookie'],
                     CURLOPT_FOLLOWLOCATION   => $Call['CURL']['Follow'],
                     CURLOPT_REFERER          => $Call['CURL']['Referer'],
-                    CURLOPT_CONNECTTIMEOUT   => $Call['CURL']['Connect Timeout'],
-                    CURLOPT_TIMEOUT          => $Call['CURL']['Overall Timeout'],
                     CURLOPT_PROXY            => $Call['CURL']['Proxy']['Host'],
                     CURLOPT_PROXYPORT        => $Call['CURL']['Proxy']['Port'],
                     CURLOPT_USERAGENT        => $Call['CURL']['Agent'],
@@ -287,8 +305,19 @@
                     // CURLOPT_USERPWD          => isset($Call['User'])? $Call['User'].':'.$Call['Password']: null,
                     CURLOPT_HTTPAUTH         => CURLAUTH_BASIC,
                     CURLOPT_POSTFIELDS       => $Post
-                ]);
+                ];
 
+            if (is_float($Call['CURL']['Connect Timeout']))
+                $CURLOpts[CURLOPT_CONNECTTIMEOUT_MS] = $Call['CURL']['Connect Timeout'] * 1000;
+            else
+                $CURLOpts[CURLOPT_CONNECTTIMEOUT] = $Call['CURL']['Connect Timeout'];
+
+            if (is_float($Call['CURL']['Overall Timeout']))
+                $CURLOpts[CURLOPT_TIMEOUT_MS] = $Call['CURL']['Overall Timeout'] * 1000;
+            else
+                $CURLOpts[CURLOPT_TIMEOUT] = $Call['CURL']['Overall Timeout'];
+
+            curl_setopt_array($Call['Link'], $CURLOpts);
             $Result = [curl_exec($Call['Link'])];
 
             $Call = F::Apply(null, 'Info', $Call);
@@ -366,19 +395,28 @@
         $Call['Link'] = curl_init($Call['Where']['ID']);
         $Call = F::Run(null, 'Select User Agent', $Call);
 
-        curl_setopt_array($Call['Link'],
-                [
-                    CURLOPT_HEADER => true,
-                    CURLOPT_COOKIEJAR => $Call['CURL']['Cookie Directory'].DS.parse_url($Call['Where']['ID'], PHP_URL_HOST),
-                    CURLOPT_NOBODY => true,
-                    CURLOPT_RETURNTRANSFER => true,
-                    CURLOPT_SSL_VERIFYPEER => false,
-                    CURLOPT_REFERER          => $Call['CURL']['Referer'],
-                    CURLOPT_FOLLOWLOCATION => $Call['CURL']['Follow'],
-                    CURLOPT_CONNECTTIMEOUT => $Call['CURL']['Connect Timeout'],
-                    CURLOPT_USERAGENT        => $Call['CURL']['Agent']
-                ]);
+        $CURLOpts = [
+            CURLOPT_HEADER => true,
+            CURLOPT_COOKIEJAR => $Call['CURL']['Cookie Directory'].DS.parse_url($Call['Where']['ID'], PHP_URL_HOST),
+            CURLOPT_NOBODY => true,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_SSL_VERIFYPEER => false,
+            CURLOPT_REFERER          => $Call['CURL']['Referer'],
+            CURLOPT_FOLLOWLOCATION => $Call['CURL']['Follow'],
+            CURLOPT_USERAGENT        => $Call['CURL']['Agent']
+        ];
 
+        if (is_float($Call['CURL']['Connect Timeout']))
+            $CURLOpts[CURLOPT_CONNECTTIMEOUT_MS] = $Call['CURL']['Connect Timeout'] * 1000;
+        else
+            $CURLOpts[CURLOPT_CONNECTTIMEOUT] = $Call['CURL']['Connect Timeout'];
+
+        if (is_float($Call['CURL']['Overall Timeout']))
+            $CURLOpts[CURLOPT_TIMEOUT_MS] = $Call['CURL']['Overall Timeout'] * 1000;
+        else
+            $CURLOpts[CURLOPT_TIMEOUT] = $Call['CURL']['Overall Timeout'];
+
+        curl_setopt_array($Call['Link'], $CURLOpts);
         $Head = curl_exec($Call['Link']);
         F::Log('CURL HEAD fetched *'.$Call['Where']['ID'].'* '.$Head, LOG_INFO, 'Administrator');
         $Result = (curl_getinfo($Call['Link'])['http_code'] == 200);
