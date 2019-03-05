@@ -1,0 +1,106 @@
+.codeine-log
+{
+    font: 10px monospace;
+    margin: auto;
+    margin-top: 20px;
+    padding: 4px 16px 4px 16px;
+    background-color: white;
+    color: black;
+    white-space: pre;
+    clear: both;
+    border-radius: 6px;
+    max-width: 95vw;
+    word-break: break-all;
+}
+.codeine-log strong
+{
+    color : #990000;
+}
+
+.codeine-log pre
+{
+    font: 10px monospace;
+}
+
+.codeine-log tr
+{
+    border-left: 12px solid #444444;
+    border-bottom : 1px solid #444444;
+    word-wrap: break-word;
+}
+
+.codeine-log tr td:nth-child(1)
+{
+    width: 5%;
+}
+
+.codeine-log tr td:nth-child(2)
+{
+    width: 25%;
+}
+
+.codeine-log tr td:nth-child(3)
+{
+    width: 75%;
+}
+
+.codeine-log td
+{
+    padding: 10px;
+    margin: 2px;
+    vertical-align: top;
+}
+
+.codeine-log tr:hover
+{
+    opacity: 1;
+    background-color: #333333 !important;
+    color: white !important;
+}
+
+.codeine-log tr:nth-child(odd)
+{
+    background-color: #fefefe;
+}
+
+.codeine-log tr:nth-child(even)
+{
+    background-color: #efefef;
+}
+
+.codeine-log tr.Debug
+{
+    color: #555555;
+}
+
+.codeine-log tr.Info td
+{
+    border-left: 4px solid #cccccc;
+}
+
+.codeine-log tr.Notice td
+{
+    border-left: 4px solid #b3b300;
+}
+
+.codeine-log tr.Warning td
+{
+    border-left: 4px solid #ff8000;
+}
+
+.codeine-log tr.Error td
+{
+    border-left: 4px solid #cc0000;
+}
+.codeine-log tr.Critical td
+{
+    border-left: 4px solid #910000;
+}
+.codeine-log tr.Alert td
+{
+    border-left: 4px solid #560000;
+}
+.codeine-log tr.Emergency td
+{
+    border-left: 4px solid #1b0000;
+}

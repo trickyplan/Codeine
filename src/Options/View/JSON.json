@@ -1,4 +1,14 @@
 {
+    "View":
+    {
+        "JSON":
+        {
+            "Pipeline":
+            {
+                "Enabled": true
+            }
+        }
+    },
     "Renderer":
     {
         "Widgets":

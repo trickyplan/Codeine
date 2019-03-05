@@ -63,6 +63,7 @@
                                 $Class[$Metric] = LOG_WARNING;
     
                     $Red = F::Dot($Call, 'Performance.Limits.Yellow');
+                    
                     if (empty($Red))
                         ;
                     else
@@ -71,12 +72,6 @@
                                 $Class[$Metric] = LOG_ERR;
                 }
                 
-                if (self::$_Performance)
-                {
-                    foreach ($Red as $Metric => $Limit)
-                        $Class[$Metric] = LOG_INFO;
-                }
-                    
                 F::Log('*'.$Key.'* time is *'.$Call['ATime'].'* ms', $Class['ATime'], 'Performance');
                 F::Log('*'.$Key.'* time is *'.$Call['RTime'].'%*', $Class['RTime'], 'Performance');
                 F::Log('*'.$Key.'* calls is *'.$Call['ACalls'].'*', $Class['ACalls'], 'Performance');
