@@ -9,9 +9,11 @@
     
     setFn('beforeRTBRequest', function ($Call)
     {
-        $URL = F::Dot($Call, 'HTTP.Referer') 
-            ?? F::Dot($Call, 'HTTP.Request.Headers.Referer') 
-            ?? 'https://adram.media/';
+        $URL = F::Dot($Call, 'AdRam.Visitor.Origin');
+        if (empty($URL)) {
+            $Domain = F::Dot($Call, 'Request.Domain');
+            $URL = F::Dot($Call, 'HTTP.Proto') . ($Domain ?? 'adram.media') . '/';
+        }
         
         $Call = F::Dot($Call, 'RTB.Request.site.id', F::Dot($Call, 'RTB.Site.ID'));
         $Call = F::Dot($Call, 'RTB.Request.site.name', F::Dot($Call, 'RTB.Site.Title'));
