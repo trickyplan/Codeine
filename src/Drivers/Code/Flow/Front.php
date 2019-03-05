@@ -31,9 +31,7 @@
                 list($Call['Service'], $Call['Method'])
                     = [$Call['Run']['Service'], $Call['Run']['Method']];
 
-                if (isset($Call['Run']['Call']))
-                    F::Log($Call['Run']['Call'], LOG_INFO);
-
+                F::Log('[Front] '.$Call['Run']['Service'].':'.$Call['Run']['Method'].'('.serialize(F::Dot($Call, 'Run.Call')).')', LOG_INFO, 'Access');
                 $Call = F::Live($Call['Run'], $Call);
             }
         }

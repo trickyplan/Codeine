@@ -26,6 +26,7 @@
                 F::Log('Application *'.$Call['Service'].':'.$Call['Method'].'('.j($Call['Run']['Call']).')* started', LOG_INFO, 'Developer');
         
                 $Call = F::Hook('beforeApplicationRun', $Call); // В этом месте, практически всегда, происходит роутинг.
+                F::Log('[Application] '.$Call['Run']['Service'].':'.$Call['Run']['Method'].'('.serialize(F::Dot($Call, 'Run.Call')).')', LOG_INFO, 'Access');
         
                     $Call = F::Live($Call['Run'], $Call);
         

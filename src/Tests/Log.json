@@ -1,0 +1,260 @@
+{
+    "Suites":
+    {
+        "Positive":
+        {
+            "Log Info":
+            {
+                "Run":
+                {
+                    "Service": "IO.Log",
+                    "Method": "Hook",
+                    "Call":
+                    {
+                        "Message": "[Test] Log Info Message",
+                        "Channel": "Developer",
+                        "Verbose": 6
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            },
+            "Log Info 2":
+            {
+                "Run":
+                {
+                    "Service": "IO.Log",
+                    "Method": "Hook",
+                    "Call":
+                    {
+                        "Message": "[Test] Another Log Info Message",
+                        "Channel": "Developer",
+                        "Verbose": 6
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            },
+            "Log Notice":
+            {
+                "Run":
+                {
+                    "Service": "IO.Log",
+                    "Method": "Hook",
+                    "Call":
+                    {
+                        "Message": "[Test] Log Notice Message",
+                        "Channel": "Developer",
+                        "Verbose": 5
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            },
+            "Log Notice 2":
+            {
+                "Run":
+                {
+                    "Service": "IO.Log",
+                    "Method": "Hook",
+                    "Call":
+                    {
+                        "Message": "[Test] Another Log Notice Message",
+                        "Channel": "Developer",
+                        "Verbose": 5
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            },
+            "Log Warning":
+            {
+                "Run":
+                {
+                    "Service": "IO.Log",
+                    "Method": "Hook",
+                    "Call":
+                    {
+                        "Message": "[Test] Log Warning Message",
+                        "Channel": "Developer",
+                        "Verbose": 4
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            },
+            "Log Warning 2":
+            {
+                "Run":
+                {
+                    "Service": "IO.Log",
+                    "Method": "Hook",
+                    "Call":
+                    {
+                        "Message": "[Test] Another Log Warning Message",
+                        "Channel": "Developer",
+                        "Verbose": 4
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            },
+            "Log Error":
+            {
+                "Run":
+                {
+                    "Service": "IO.Log",
+                    "Method": "Hook",
+                    "Call":
+                    {
+                        "Message": "[Test] Log Error Message",
+                        "Channel": "Developer",
+                        "Verbose": 3
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            },
+            "Log Error 2":
+            {
+                "Run":
+                {
+                    "Service": "IO.Log",
+                    "Method": "Hook",
+                    "Call":
+                    {
+                        "Message": "[Test] Another Log Error Message",
+                        "Channel": "Developer",
+                        "Verbose": 3
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            },
+            "Log Critical":
+            {
+                "Run":
+                {
+                    "Service": "IO.Log",
+                    "Method": "Hook",
+                    "Call":
+                    {
+                        "Message": "[Test] Log Critical Message",
+                        "Channel": "Developer",
+                        "Verbose": 2
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            },
+            "Log Critical 2":
+            {
+                "Run":
+                {
+                    "Service": "IO.Log",
+                    "Method": "Hook",
+                    "Call":
+                    {
+                        "Message": "[Test] Another Log Critical Message",
+                        "Channel": "Developer",
+                        "Verbose": 2
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            },
+            "Log Alert":
+            {
+                "Run":
+                {
+                    "Service": "IO.Log",
+                    "Method": "Hook",
+                    "Call":
+                    {
+                        "Message": "[Test] Log Alert Message",
+                        "Channel": "Developer",
+                        "Verbose": 1
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            },
+            "Log Alert 2":
+            {
+                "Run":
+                {
+                    "Service": "IO.Log",
+                    "Method": "Hook",
+                    "Call":
+                    {
+                        "Message": "[Test] Another Log Alert Message",
+                        "Channel": "Developer",
+                        "Verbose": 1
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            },
+            "Log Emergency":
+            {
+                "Run":
+                {
+                    "Service": "IO.Log",
+                    "Method": "Hook",
+                    "Call":
+                    {
+                        "Message": "[Test] Log Emergency Message",
+                        "Channel": "Developer",
+                        "Verbose": 0
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            },
+            "Log Emergency 2":
+            {
+                "Run":
+                {
+                    "Service": "IO.Log",
+                    "Method": "Hook",
+                    "Call":
+                    {
+                        "Message": "[Test] Another Log Emergency Message",
+                        "Channel": "Developer",
+                        "Verbose": 0
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            }
+        }
+    }
+}

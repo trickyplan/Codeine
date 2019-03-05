@@ -20,6 +20,10 @@
         "Marketing":
         {
             "Driver": "IO.Log.PHPConsole"
+        },
+        "Access":
+        {
+            "Driver": "IO.Log.PHPConsole"
         }
     }
 }

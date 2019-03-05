@@ -20,7 +20,7 @@
                 $Call = F::loadOptions($Call['API']['Request']['Service'], 'API', $Call);
         
                 F::startColor('aed581');
-         
+                
                 if (F::Dot($Call, 'Skip API'))
                     F::Log('API Skipped', LOG_NOTICE);
                 else
@@ -84,6 +84,7 @@
                                     $Call = F::Dot($Call, 'API.Response.Data', F::Dot($Result, 'Response'));
                                     $Call = F::Dot($Call, 'API.Response.Status', F::Dot($Result, 'Status'));
                                     
+                                    F::Log('[API] ['.$Call['API']['Request']['Format'].'] [S:'.F::Dot($Result, 'Status.Code').'] '.$Call['API']['Request']['Service'].':'.$Call['API']['Request']['Method'].'('.serialize(F::Dot($Call, 'API.Request.Call')).')', LOG_INFO, 'Access');
                                 }
                                 else
                                     $Call = F::Dot($Call, 'HTTP.Headers.HTTP/1.1', '403 Forbidden');
