@@ -29,69 +29,6 @@
     border-radius: 6px;
 }
 
-table.console
-{
-    width: 85%;
-}
-
-.console th
-{
-    text-align: center;
-}
-
-.console td, .console tr
-{
-    padding: 10px;
-    margin: 2px;
-    border-bottom: 1px #999 solid;
-    border-left: 1px #999 solid;
-    word-wrap:break-word;
-}
-
-tr.Good, td.Good
-{
-    color: #468847;
-    background-color: #dff0d8;
-}
-
-tr.Info, td.Info
-{
-    color: #333;
-    background-color: #fefefe;
-    border-color: #bce8f1;
-    opacity: 0.9;
-}
-
-tr.Debug, td.Debug
-{
-    opacity: 0.8;
-}
-
-tr.Warning, td.Warning
-{
-    background-color: #fcf8e3;
-}
-
-tr.Error, tr.Bad, tr.Apocalypse, tr.Critical, tr.Emergency,
-td.Error, td.Bad, td.Apocalypse, td.Critical, td.Emergency
-{
-    color: darkred;
-    background-color: #f2dede;
-}
-
-tr.Notice, td.Notice
-{
-    background-color: #333;
-    color: #fff;
-}
-
-.console tr:hover, .console td:hover
-{
-    opacity: 1;
-    background-color: #333333 !important;
-    color: white !important;
-}
-
 .age-restricted
 {
     padding: 30px;

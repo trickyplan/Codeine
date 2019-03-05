@@ -28,6 +28,13 @@
             "Scope": "marketing@trickyplan.com",
             "Driver": "IO.Transport.Mail.SMTP",
             "Format": "Formats.Log.HTML"
+        },
+        "-Access":
+        {
+            "Really Bad Idea": true,
+            "Scope": "access@trickyplan.com",
+            "Driver": "IO.Transport.Mail.SMTP",
+            "Format": "Formats.Log.HTML"
         }
     }
 }

@@ -13,10 +13,19 @@
         "4": "Warning",
         "5": "Notice",
         "6": "Info",
-        "7": "Debug",
-        "8": "Important",
-        "9": "Good",
-        "10": "Bad",
-        "11": "Important"
+        "7": "Debug"
+    },
+    "Channels":
+    {
+        "Access":
+        {
+            "Log":
+            {
+                "Timestamps":
+                {
+                    "Absolute": true
+                }
+            }
+        }
     }
 }

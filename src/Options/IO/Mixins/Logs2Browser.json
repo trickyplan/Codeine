@@ -30,6 +30,11 @@
         {
             "Driver": "IO.Print",
             "Format": "Formats.Log.HTML"
+        },
+        "Access":
+        {
+            "Driver": "IO.Print",
+            "Format": "Formats.Log.HTML"
         }
     }
 }

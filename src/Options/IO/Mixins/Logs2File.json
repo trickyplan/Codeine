@@ -42,6 +42,13 @@
             "Directory":"/var/log/codeine",
             "Scope": "metric",
             "Format": "Formats.Log.Plain"
+        },
+        "Access":
+        {
+            "Driver":"IO.Log.File",
+            "Directory":"/var/log/codeine",
+            "Scope": "access",
+            "Format": "Formats.Log.Plain"
         }
     }
 }

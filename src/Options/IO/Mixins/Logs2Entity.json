@@ -23,6 +23,10 @@
         "Marketing": {
             "Driver": "IO.Log.Error",
             "Format": "Formats.Log.Dummy"
+        },
+        "Access": {
+            "Driver": "IO.Log.Error",
+            "Format": "Formats.Log.Dummy"
         }
     }
 }
