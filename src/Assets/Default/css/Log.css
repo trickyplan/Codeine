@@ -41,7 +41,12 @@
 
 .codeine-log tr td:nth-child(3)
 {
-    width: 75%;
+    width: 5%;
+}
+
+.codeine-log tr td:nth-child(4)
+{
+    width: 65%;
 }
 
 .codeine-log td

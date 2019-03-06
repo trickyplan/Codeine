@@ -639,7 +639,7 @@
 
         public static function Error($errno , $errstr , $errfile , $errline)
         {
-            $ErrHash = strtoupper(substr(sha1($errno.$errstr.$errfile.$errline), -8, 8));
+            $ErrHash = mb_strtoupper(mb_substr(sha1($errno.$errstr.$errfile.$errline), -8, 8));
             $Message = 'EH: '.$ErrHash.PHP_EOL.' E'.$errno.':'.$errstr.PHP_EOL.
             '<a href="'.'ide://'.$errfile.':'.$errline.'">'.$errfile.'@'.$errline.'</a>';
             
@@ -663,7 +663,8 @@
                             'Message'   => is_string($Record[2])? $Record[2]: j($Record[2]),
                             'From'      => $Record[3],
                             'Depth'     => $Record[4],
-                            'Stack'     => $Record[5]
+                            'Stack'     => $Record[5],
+                            'Stack'     => $Record[6]
                         ]).PHP_EOL;
             
             
@@ -755,11 +756,17 @@
                     if ($Message instanceof Closure)
                         $Message = $Message();
                     
+                    if (is_scalar($Message))
+                        $Hash = mb_strtoupper(mb_substr(sha1(self::$_Service.':'.self::$_Method.':'.$Message), -12));
+                    else
+                        $Hash = null;
+                    
                     if ($Verbose < LOG_NOTICE or $AppendStack)
                         self::$_Log[$Channel][]
                             = [
                                 $Verbose,
                                 $Time,
+                                $Hash,
                                 $Message,
                                 $From,
                                 $StackDepth,
@@ -771,6 +778,7 @@
                             = [
                             $Verbose,
                             $Time,
+                            $Hash,
                             $Message,
                             $From,
                             $StackDepth,
@@ -779,7 +787,7 @@
                         ];
                     
                     if (PHP_SAPI === 'cli')
-                        self::CLILog($Time, $Message, $Verbose, $Channel, $AppendStack);
+                        self::CLILog($Time, $Hash, $Message, $Verbose, $Channel, $AppendStack);
                     
                     if (self::$_Perfect && ($Verbose <= self::$_Options['Codeine']['Perfect Verbose'][$Channel]))
                         self::Finish ($Message);

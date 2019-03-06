@@ -11,14 +11,25 @@
     {
         $Output = [];
 
+        /*
+            0 $Verbose,
+            1 $Time,
+            2 $Hash,
+            3 $Message,
+            4 $From,
+            5 $StackDepth,
+            6 F::Stack(),
+            7 self::getColor()
+        */
+        
         foreach ($Call['Data'] as $IX => $Row)
         {
-            if (is_scalar($Row[2]))
+            if (is_scalar($Row[3]))
                 ;
             else
-                $Row[2] = j($Row[2]);
+                $Row[3] = j($Row[3]);
             
-            $Output[] = implode("\t", ['['.REQID.']', 'V'.$Row[0], $Row[1], $Row[3], stripslashes($Row[2])]);
+            $Output[] = implode("\t", ['['.REQID.']', 'V'.$Row[0], $Row[1], $Row[2], stripslashes($Row[3])]);
         }
 
         $Output = implode(PHP_EOL, $Output).PHP_EOL;

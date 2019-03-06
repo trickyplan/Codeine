@@ -1,5 +1,5 @@
 {
-    "Mattermosst":
+    "Mattermost":
     {
         "Levels":
         {
@@ -15,6 +15,6 @@
             "Bad": ":-1:",
             "Important": ":bangbang:"
         },
-        "Max Lenthgs": 4000
+        "Max Length": 4000
     }
 }
