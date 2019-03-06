@@ -660,10 +660,10 @@
                             'Channel'   => $Channel,
                             'Verbose'   => $Record[0],
                             'Time'      => $Record[1],
-                            'Message'   => is_string($Record[2])? $Record[2]: j($Record[2]),
-                            'From'      => $Record[3],
-                            'Depth'     => $Record[4],
-                            'Stack'     => $Record[5],
+                            'Hash'      => $Record[2],
+                            'Message'   => is_scalar($Record[3])? $Record[3]: j($Record[3]),
+                            'From'      => $Record[4],
+                            'Depth'     => $Record[5],
                             'Stack'     => $Record[6]
                         ]).PHP_EOL;
             
