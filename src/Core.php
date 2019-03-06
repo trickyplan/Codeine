@@ -805,11 +805,6 @@
             else
                 $Message = j($Message);
             
-            $Message = str_replace(' *'," \033[0;32m", $Message);
-            $Message = str_replace('* ',"\033[1;37m ", $Message);
-            $Message = preg_replace('@^\*@Ssum',"\033[0;32m", $Message);
-            $Message = preg_replace('@\*$@Ssum',"\033[1;37m ", $Message);
-            
             if ($AppendStack)
                 $Message.= j(F::Stack());
             
