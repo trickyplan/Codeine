@@ -18,7 +18,7 @@
             else
                 $Row[2] = j($Row[2]);
             
-            $Output[] = '['.REQID.'] V'.$Row[0]."\t".$Row[1]."\t".$Row[3]."\t".stripslashes($Row[2]);
+            $Output[] = implode("\t", ['['.REQID.']', 'V'.$Row[0], $Row[1], $Row[3], stripslashes($Row[2])]);
         }
 
         $Output = implode(PHP_EOL, $Output).PHP_EOL;
