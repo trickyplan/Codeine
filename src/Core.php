@@ -570,11 +570,31 @@
                 foreach ($Variable as &$cVariable)
                     $cVariable = self::Variable($cVariable, $Call);
             else
-                if (is_string($Variable) && mb_strpos($Variable, '$') !== false && preg_match_all('@\$([\w\.]+)@Ssu', $Variable, $Pockets))
+                if (is_string($Variable) && mb_strpos($Variable, '$') !== false && preg_match_all('@\$([\w\:\.]+)@Ssu', $Variable, $Pockets))
                 {
                     foreach ($Pockets[1] as $IX => $Match)
                     {
+                        $Typecast = null;
+                        
+                        if (mb_strpos($Match, ':') !== false)
+                            list($Typecast, $Match) = explode(':', $Match);
+                        
                         $Subvariable = self::Dot($Call, $Match);
+                        if ($Typecast === null)
+                            ;
+                        else
+                        {
+                            switch ($Typecast)
+                            {
+                                case 'boolean':
+                                    if ($Subvariable)
+                                        $Subvariable = 'true';
+                                    else
+                                        $Subvariable = 'false';
+                                break;
+                            }
+                        }
+                        
                         if (is_scalar($Subvariable) or $Subvariable === null)
                         {
                             if ($Subvariable !== null)
