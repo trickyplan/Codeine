@@ -14,7 +14,7 @@
             $Action.' Count' => 0,
         ];
 
-        $Actions[$Action.' Count']++;
+        $Actions[$Action.' Count'] = intval(F::Dot($Actions, $Action.' Count')) + 1;
         $Actions[$Action.' Last Fail'] = time();
 
         F::Run('IO', 'Write', [
@@ -45,6 +45,15 @@
     });
 
     setFn('Reset', function ($Call) {
-        
+        $ID = F::Live(F::Dot($Call, 'Counter.ID'), $Call);
+
+        F::Run('IO', 'Write', [
+            'Storage' => 'ActionsCounter',
+            'Where' => [
+                'ID' => $ID
+            ],
+            'Data' => null
+        ]);
+
         return $Call;
     });
