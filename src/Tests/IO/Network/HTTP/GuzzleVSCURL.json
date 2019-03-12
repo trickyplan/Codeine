@@ -1,0 +1,261 @@
+{
+    "Suites":
+    {
+        "Guzzle VS CURL":
+        {
+            "Guzzle (stream backend): Single GET":
+            {
+                "Run":
+                {
+                    "Service": "IO.Network.HTTP.Guzzle",
+                    "Method": "Read",
+                    "Call": 
+                    {
+                        "Where":
+                        {
+                            "ID": "$HTTP.Proto$HTTP.Host/api/3.0/json/AdRam/GetProtectedURLByURL"
+                        },
+                        "Data": 
+                        {
+                            "URL": "$HTTP.Proto$HTTP.Host"
+                        },
+                        "Guzzle":
+                        {
+                            "Client":
+                            {
+                                "Backend": "Stream"
+                            }
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            },
+            "Guzzle (stream backend): Multiple GET":
+            {
+                "Run":
+                {
+                    "Service": "IO.Network.HTTP.Guzzle",
+                    "Method": "Read",
+                    "Call": 
+                    {
+                        "Where":
+                        {
+                            "ID": [
+                                "$HTTP.Proto$HTTP.Host/api/3.0/json/AdRam/GetProtectedURLByURL",
+                                "$HTTP.Proto$HTTP.Host/api/3.0/json/AdRam/GetProtectedURLByURL",
+                                "$HTTP.Proto$HTTP.Host/api/3.0/json/AdRam/GetProtectedURLByURL"
+                            ]
+                        },
+                        "Data": 
+                        [
+                            {"URL": "$HTTP.Proto$HTTP.Host"},
+                            {"URL": "$HTTP.Proto$HTTP.Host"},
+                            {"URL": "$HTTP.Proto$HTTP.Host"}
+                        ],
+                        "Guzzle":
+                        {
+                            "Client":
+                            {
+                                "Backend": "Stream"
+                            }
+                        }
+
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            },
+            "Guzzle (curl backend): Single GET":
+            {
+                "Run":
+                {
+                    "Service": "IO.Network.HTTP.Guzzle",
+                    "Method": "Read",
+                    "Call": 
+                    {
+                        "Where":
+                        {
+                            "ID": "$HTTP.Proto$HTTP.Host/api/3.0/json/AdRam/GetProtectedURLByURL"
+                        },
+                        "Data": 
+                        {
+                            "URL": "$HTTP.Proto$HTTP.Host"
+                        },
+                        "Guzzle":
+                        {
+                            "Client":
+                            {
+                                "Backend": "Curl"
+                            }
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            },
+            "Guzzle (curl backend): Multiple GET":
+            {
+                "Run":
+                {
+                    "Service": "IO.Network.HTTP.Guzzle",
+                    "Method": "Read",
+                    "Call": 
+                    {
+                        "Where":
+                        {
+                            "ID": [
+                                "$HTTP.Proto$HTTP.Host/api/3.0/json/AdRam/GetProtectedURLByURL",
+                                "$HTTP.Proto$HTTP.Host/api/3.0/json/AdRam/GetProtectedURLByURL",
+                                "$HTTP.Proto$HTTP.Host/api/3.0/json/AdRam/GetProtectedURLByURL"
+                            ]
+                        },
+                        "Data": 
+                        [
+                            {"URL": "$HTTP.Proto$HTTP.Host"},
+                            {"URL": "$HTTP.Proto$HTTP.Host"},
+                            {"URL": "$HTTP.Proto$HTTP.Host"}
+                        ],
+                        "Guzzle":
+                        {
+                            "Client":
+                            {
+                                "Backend": "Curl"
+                            }
+                        }
+
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            },
+            "Guzzle (curl multi backend): Single GET":
+            {
+                "Run":
+                {
+                    "Service": "IO.Network.HTTP.Guzzle",
+                    "Method": "Read",
+                    "Call": 
+                    {
+                        "Where":
+                        {
+                            "ID": "$HTTP.Proto$HTTP.Host/api/3.0/json/AdRam/GetProtectedURLByURL"
+                        },
+                        "Data": 
+                        {
+                            "URL": "$HTTP.Proto$HTTP.Host"
+                        },
+                        "Guzzle":
+                        {
+                            "Client":
+                            {
+                                "Backend": "CurlMulti"
+                            }
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            },
+            "Guzzle (curl multi backend): Multiple GET":
+            {
+                "Run":
+                {
+                    "Service": "IO.Network.HTTP.Guzzle",
+                    "Method": "Read",
+                    "Call": 
+                    {
+                        "Where":
+                        {
+                            "ID": [
+                                "$HTTP.Proto$HTTP.Host/api/3.0/json/AdRam/GetProtectedURLByURL",
+                                "$HTTP.Proto$HTTP.Host/api/3.0/json/AdRam/GetProtectedURLByURL",
+                                "$HTTP.Proto$HTTP.Host/api/3.0/json/AdRam/GetProtectedURLByURL"
+                            ]
+                        },
+                        "Data": 
+                        [
+                            {"URL": "$HTTP.Proto$HTTP.Host"},
+                            {"URL": "$HTTP.Proto$HTTP.Host"},
+                            {"URL": "$HTTP.Proto$HTTP.Host"}
+                        ],
+                        "Guzzle":
+                        {
+                            "Client":
+                            {
+                                "Backend": "CurlMulti"
+                            }
+                        }
+
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            },
+            "Codeine: Single GET":
+            {
+                "Run":
+                {
+                    "Service": "IO.Network.HTTP.CURL",
+                    "Method": "Read",
+                    "Call": 
+                    {
+                        "Where":
+                        {
+                            "ID": "$HTTP.Proto$HTTP.Host/api/3.0/json/AdRam/GetProtectedURLByURL"
+                        },
+                        "Data": 
+                        {
+                            "URL": "$HTTP.Proto$HTTP.Host"
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            },
+            "Codeine: Multiple GET":
+            {
+                "Run":
+                {
+                    "Service": "IO.Network.HTTP.CURL",
+                    "Method": "Read",
+                    "Call": 
+                    {
+                        "Where":
+                        {
+                            "ID": [
+                                "$HTTP.Proto$HTTP.Host/api/3.0/json/AdRam/GetProtectedURLByURL",
+                                "$HTTP.Proto$HTTP.Host/api/3.0/json/AdRam/GetProtectedURLByURL",
+                                "$HTTP.Proto$HTTP.Host/api/3.0/json/AdRam/GetProtectedURLByURL"
+                            ]
+                        },
+                        "Data": 
+                        [
+                            {"URL": "$HTTP.Proto$HTTP.Host"},
+                            {"URL": "$HTTP.Proto$HTTP.Host"},
+                            {"URL": "$HTTP.Proto$HTTP.Host"}
+                        ]
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            }
+        }
+    }
+}

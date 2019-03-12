@@ -2,7 +2,11 @@
 
     use GuzzleHttp\Client;
     use GuzzleHttp\Promise;
+    use GuzzleHttp\HandlerStack;
     use GuzzleHttp\Psr7\Request;
+    use GuzzleHttp\Handler\StreamHandler;
+    use GuzzleHttp\Handler\CurlHandler;
+    use GuzzleHttp\Handler\CurlMultiHandler;
 
     setFn('Read', function ($Call) {
         $Call = F::Hook('Guzzle.BeforeRead', $Call);
@@ -41,10 +45,25 @@
             'User-Agent' => $UA
         ]);
 
+        switch (F::Dot($Call, 'Guzzle.Client.Backend')) {
+            case 'Stream':
+                $Hanlder = new StreamHandler();
+                break;
+            case 'CurlMulti':
+                $Handler = new CurlMultiHandler();
+                break;
+            case 'Curl':
+            default:
+                $Handler = new CurlHandler();
+        }
+
+        $Stack = HandlerStack::create($Handler);
+
         $Client = new Client([
             'timeout' => $ClientOpts['Timeout'],
             'headers' => $Headers,
-            'verify' => $ClientOpts['SSL Verify Peer']
+            'verify' => $ClientOpts['SSL Verify Peer'],
+            'handler' => $Stack
         ]);
 
         return $Client;

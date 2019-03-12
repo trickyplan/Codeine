@@ -17,13 +17,12 @@
                         },
                         "Data": 
                         {
-                            "URL": "adram-wp.local"
+                            "URL": "$HTTP.Proto$HTTP.Host"
                         }
                     }
                 },
                 "Assert":
                 {
-                    "Equal": true,
                     "Print": true
                 }
             },
@@ -45,15 +44,14 @@
                         },
                         "Data": 
                         [
-                            {"URL": "adram-wp.local"},
-                            {"URL": "adram-wp.local"},
-                            {"URL": "adram-wp.local"}
+                            {"URL": "$HTTP.Proto$HTTP.Host"},
+                            {"URL": "$HTTP.Proto$HTTP.Host"},
+                            {"URL": "$HTTP.Proto$HTTP.Host"}
                         ]
                     }
                 },
                 "Assert":
                 {
-                    "Equal": true,
                     "Print": true
                 }
             }
