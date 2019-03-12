@@ -5,36 +5,78 @@
         {
             "Scope": "developer@trickyplan.com",
             "Driver": "IO.Transport.Mail.SMTP",
-            "Format": "Formats.Log.HTML"
+            "Format": "Formats.Log.HTML",
+            "Log":
+            {
+                "Timestamps":
+                {
+                    "Absolute": true
+                }
+            }
         },
         "Performance":
         {
             "Scope": "performance@trickyplan.com",
             "Driver": "IO.Transport.Mail.SMTP",
-            "Format": "Formats.Log.HTML"
+            "Format": "Formats.Log.HTML",
+            "Log":
+            {
+                "Timestamps":
+                {
+                    "Absolute": true
+                }
+            }
         },
         "Administrator":
         {
             "Scope": "administrator@trickyplan.com",
             "Driver": "IO.Transport.Mail.SMTP",
-            "Format": "Formats.Log.HTML"
+            "Format": "Formats.Log.HTML",
+            "Log":
+            {
+                "Timestamps":
+                {
+                    "Absolute": true
+                }
+            }
         },
         "Security": {
             "Scope": "security@trickyplan.com",
             "Driver": "IO.Transport.Mail.SMTP",
-            "Format": "Formats.Log.HTML"
+            "Format": "Formats.Log.HTML",
+            "Log":
+            {
+                "Timestamps":
+                {
+                    "Absolute": true
+                }
+            }
         },
         "Marketing": {
             "Scope": "marketing@trickyplan.com",
             "Driver": "IO.Transport.Mail.SMTP",
-            "Format": "Formats.Log.HTML"
+            "Format": "Formats.Log.HTML",
+            "Log":
+            {
+                "Timestamps":
+                {
+                    "Absolute": true
+                }
+            }
         },
         "-Access":
         {
             "Really Bad Idea": true,
             "Scope": "access@trickyplan.com",
             "Driver": "IO.Transport.Mail.SMTP",
-            "Format": "Formats.Log.HTML"
+            "Format": "Formats.Log.HTML",
+            "Log":
+            {
+                "Timestamps":
+                {
+                    "Absolute": true
+                }
+            }
         }
     }
 }

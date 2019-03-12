@@ -6,49 +6,98 @@
             "Driver":"IO.Log.File",
             "Directory":"/var/log/codeine",
             "Scope": "developer",
-            "Format": "Formats.Log.Plain"
+            "Format": "Formats.Log.Plain",
+            "Log":
+            {
+                "Timestamps":
+                {
+                    "Absolute": true
+                }
+            }
         },
         "Performance":
         {
             "Driver":"IO.Log.File",
             "Directory":"/var/log/codeine",
             "Scope": "performance",
-            "Format": "Formats.Log.Plain"
+            "Format": "Formats.Log.Plain",
+            "Log":
+            {
+                "Timestamps":
+                {
+                    "Absolute": true
+                }
+            }
         },
         "Security":
         {
             "Driver":"IO.Log.File",
             "Directory":"/var/log/codeine",
             "Scope": "security",
-            "Format": "Formats.Log.Plain"
+            "Format": "Formats.Log.Plain",
+            "Log":
+            {
+                "Timestamps":
+                {
+                    "Absolute": true
+                }
+            }
         },
         "Administrator":
         {
             "Driver":"IO.Log.File",
             "Directory":"/var/log/codeine",
             "Scope": "administrator",
-            "Format": "Formats.Log.Plain"
+            "Format": "Formats.Log.Plain",
+            "Log":
+            {
+                "Timestamps":
+                {
+                    "Absolute": true
+                }
+            }
         },
         "Marketing":
         {
             "Driver":"IO.Log.File",
             "Directory":"/var/log/codeine",
             "Scope": "marketing",
-            "Format": "Formats.Log.Plain"
+            "Format": "Formats.Log.Plain",
+            "Log":
+            {
+                "Timestamps":
+                {
+                    "Absolute": true
+                }
+            }
         },
         "Metric":
         {
             "Driver":"IO.Log.File",
             "Directory":"/var/log/codeine",
             "Scope": "metric",
-            "Format": "Formats.Log.Plain"
+            "Format": "Formats.Log.Plain",
+            "Log":
+            {
+                "Timestamps":
+                {
+                    "Absolute": true
+                }
+            }
         },
         "Access":
         {
             "Driver":"IO.Log.File",
             "Directory":"/var/log/codeine",
             "Scope": "access",
-            "Format": "Formats.Log.Plain"
+            "Format": "Formats.Log.Plain",
+            "Log":
+            {
+                "Timestamps":
+                {
+                    "Absolute": true
+                }
+            }
         }
     }
 }

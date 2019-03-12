@@ -52,7 +52,9 @@
     
     setFn('Convert.Timestamps', function ($Call)
     {
-        if (F::Dot($Call, 'Channels.'.$Call['Channel'].'.Log.Timestamps.Absolute'))
+        $Call = F::Apply('IO', 'Open', $Call, ['Storage' => $Call['Channel']]);
+
+        if (F::Dot($Call, 'Storages.'.$Call['Channel'].'.Log.Timestamps.Absolute'))
             foreach ($Call['Logs'] as &$Row)
                 $Row[1] = date(DATE_W3C, floor(Started)).'(+'.$Row[1].')';
         
