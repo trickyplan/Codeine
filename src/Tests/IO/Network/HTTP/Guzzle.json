@@ -1,0 +1,62 @@
+{
+    "Suites":
+    {
+        "Guzzle":
+        {
+            "Single GET":
+            {
+                "Run":
+                {
+                    "Service": "IO.Network.HTTP.Guzzle",
+                    "Method": "Read",
+                    "Call": 
+                    {
+                        "Where":
+                        {
+                            "ID": "$HTTP.Proto$HTTP.Host/api/3.0/json/AdRam/GetProtectedURLByURL"
+                        },
+                        "Data": 
+                        {
+                            "URL": "adram-wp.local"
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Equal": true,
+                    "Print": true
+                }
+            },
+            "Multiple GET":
+            {
+                "Run":
+                {
+                    "Service": "IO.Network.HTTP.Guzzle",
+                    "Method": "Read",
+                    "Call": 
+                    {
+                        "Where":
+                        {
+                            "ID": [
+                                "$HTTP.Proto$HTTP.Host/api/3.0/json/AdRam/GetProtectedURLByURL",
+                                "$HTTP.Proto$HTTP.Host/api/3.0/json/AdRam/GetProtectedURLByURL",
+                                "$HTTP.Proto$HTTP.Host/api/3.0/json/AdRam/GetProtectedURLByURL"
+                            ]
+                        },
+                        "Data": 
+                        [
+                            {"URL": "adram-wp.local"},
+                            {"URL": "adram-wp.local"},
+                            {"URL": "adram-wp.local"}
+                        ]
+                    }
+                },
+                "Assert":
+                {
+                    "Equal": true,
+                    "Print": true
+                }
+            }
+        }
+    }
+}
