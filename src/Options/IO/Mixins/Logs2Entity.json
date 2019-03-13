@@ -4,29 +4,71 @@
         "Developer":
         {
             "Driver": "IO.Log.Error",
-            "Format": "Formats.Log.Dummy"
+            "Format": "Formats.Log.Dummy",
+            "Log":
+            {
+                "Timestamps":
+                {
+                    "Absolute": true
+                }
+            }
         },
         "Performance":
         {
             "Driver": "IO.Log.Error",
-            "Format": "Formats.Log.Dummy"
+            "Format": "Formats.Log.Dummy",
+            "Log":
+            {
+                "Timestamps":
+                {
+                    "Absolute": true
+                }
+            }
         },
         "Administrator":
         {
             "Driver": "IO.Log.Error",
-            "Format": "Formats.Log.Dummy"
+            "Format": "Formats.Log.Dummy",
+            "Log":
+            {
+                "Timestamps":
+                {
+                    "Absolute": true
+                }
+            }
         },
         "Security": {
             "Driver": "IO.Log.Error",
-            "Format": "Formats.Log.Dummy"
+            "Format": "Formats.Log.Dummy",
+            "Log":
+            {
+                "Timestamps":
+                {
+                    "Absolute": true
+                }
+            }
         },
         "Marketing": {
             "Driver": "IO.Log.Error",
-            "Format": "Formats.Log.Dummy"
+            "Format": "Formats.Log.Dummy",
+            "Log":
+            {
+                "Timestamps":
+                {
+                    "Absolute": true
+                }
+            }
         },
         "Access": {
             "Driver": "IO.Log.Error",
-            "Format": "Formats.Log.Dummy"
+            "Format": "Formats.Log.Dummy",
+            "Log":
+            {
+                "Timestamps":
+                {
+                    "Absolute": true
+                }
+            }
         }
     }
 }

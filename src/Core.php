@@ -570,11 +570,31 @@
                 foreach ($Variable as &$cVariable)
                     $cVariable = self::Variable($cVariable, $Call);
             else
-                if (is_string($Variable) && mb_strpos($Variable, '$') !== false && preg_match_all('@\$([\w\.]+)@Ssu', $Variable, $Pockets))
+                if (is_string($Variable) && mb_strpos($Variable, '$') !== false && preg_match_all('@\$([\w\:\.]+)@Ssu', $Variable, $Pockets))
                 {
                     foreach ($Pockets[1] as $IX => $Match)
                     {
+                        $Typecast = null;
+                        
+                        if (mb_strpos($Match, ':') !== false)
+                            list($Typecast, $Match) = explode(':', $Match);
+                        
                         $Subvariable = self::Dot($Call, $Match);
+                        if ($Typecast === null)
+                            ;
+                        else
+                        {
+                            switch ($Typecast)
+                            {
+                                case 'boolean':
+                                    if ($Subvariable)
+                                        $Subvariable = 'true';
+                                    else
+                                        $Subvariable = 'false';
+                                break;
+                            }
+                        }
+                        
                         if (is_scalar($Subvariable) or $Subvariable === null)
                         {
                             if ($Subvariable !== null)
@@ -639,7 +659,7 @@
 
         public static function Error($errno , $errstr , $errfile , $errline)
         {
-            $ErrHash = strtoupper(substr(sha1($errno.$errstr.$errfile.$errline), -8, 8));
+            $ErrHash = mb_strtoupper(mb_substr(sha1($errno.$errstr.$errfile.$errline), -8, 8));
             $Message = 'EH: '.$ErrHash.PHP_EOL.' E'.$errno.':'.$errstr.PHP_EOL.
             '<a href="'.'ide://'.$errfile.':'.$errline.'">'.$errfile.'@'.$errline.'</a>';
             
@@ -660,10 +680,11 @@
                             'Channel'   => $Channel,
                             'Verbose'   => $Record[0],
                             'Time'      => $Record[1],
-                            'Message'   => is_string($Record[2])? $Record[2]: j($Record[2]),
-                            'From'      => $Record[3],
-                            'Depth'     => $Record[4],
-                            'Stack'     => $Record[5]
+                            'Hash'      => $Record[2],
+                            'Message'   => is_scalar($Record[3])? $Record[3]: j($Record[3]),
+                            'From'      => $Record[4],
+                            'Depth'     => $Record[5],
+                            'Stack'     => $Record[6]
                         ]).PHP_EOL;
             
             
@@ -755,11 +776,17 @@
                     if ($Message instanceof Closure)
                         $Message = $Message();
                     
+                    if (is_scalar($Message))
+                        $Hash = mb_strtoupper(mb_substr(sha1(self::$_Service.':'.self::$_Method.':'.$Message), -12));
+                    else
+                        $Hash = null;
+                    
                     if ($Verbose < LOG_NOTICE or $AppendStack)
                         self::$_Log[$Channel][]
                             = [
                                 $Verbose,
                                 $Time,
+                                $Hash,
                                 $Message,
                                 $From,
                                 $StackDepth,
@@ -771,6 +798,7 @@
                             = [
                             $Verbose,
                             $Time,
+                            $Hash,
                             $Message,
                             $From,
                             $StackDepth,
@@ -779,7 +807,7 @@
                         ];
                     
                     if (PHP_SAPI === 'cli')
-                        self::CLILog($Time, $Message, $Verbose, $Channel, $AppendStack);
+                        self::CLILog($Time, $Hash, $Message, $Verbose, $Channel, $AppendStack);
                     
                     if (self::$_Perfect && ($Verbose <= self::$_Options['Codeine']['Perfect Verbose'][$Channel]))
                         self::Finish ($Message);
@@ -790,67 +818,18 @@
             return $Message;
         }
 
-        public static function CLILog ($Time, $Message, $Verbose, $Channel, $AppendStack = false)
+        public static function CLILog ($Time, $Hash, $Message, $Verbose, $Channel, $AppendStack = false)
         {
-            $Head = '['.getmypid()."] \033[0;90m".$Time."\033[0m"."\t\e[0;36m[".$Channel."]\e[1;37m\t".self::$_Service.":\t";
-            
             if (is_scalar($Message))
                 ;
             else
                 $Message = j($Message);
             
-            $Message = str_replace(' *'," \033[0;32m", $Message);
-            $Message = str_replace('* ',"\033[1;37m ", $Message);
-            $Message = preg_replace('@^\*@Ssum',"\033[0;32m", $Message);
-            $Message = preg_replace('@\*$@Ssum',"\033[1;37m ", $Message);
-            
             if ($AppendStack)
                 $Message.= j(F::Stack());
             
             if (($Verbose <= self::$_Verbose[$Channel]) or !self::$_Live)
-                switch (round($Verbose))
-                {
-                    case LOG_EMERG:
-                        fwrite(STDERR, $Head."\033[0;31m ".$Message." \033[0m".PHP_EOL);
-                    break;
-                    
-                    case LOG_ALERT:
-                        fwrite(STDERR, $Head."\033[0;31m ".$Message." \033[0m".PHP_EOL);
-                    break;
-
-                    case LOG_CRIT:
-                        fwrite(STDERR, $Head."\033[0;31m ".$Message." \033[0m".PHP_EOL);
-                    break;
-
-                    case LOG_ERR:
-                        fwrite(STDERR, $Head."\033[0;31m ".$Message." \033[0m".PHP_EOL);
-                    break;
-
-                    case LOG_WARNING:
-                        fwrite(STDERR, $Head."\033[0;33m ".$Message." \033[0m".PHP_EOL);
-                    break;
-
-                    case LOG_DEBUG:
-                        if (self::$_Debug)
-                            fwrite(STDERR, $Head."\033[0;90m ".$Message." \033[0m".PHP_EOL);
-                    break;
-
-                    case LOG_USER:
-                        fwrite(STDERR, $Head."\033[0;96m ".$Message." \033[0m".PHP_EOL);
-                    break;
-
-                    case LOG_INFO:
-                        fwrite(STDERR, $Head."\033[0;37m ".$Message." \033[0m".PHP_EOL);
-                    break;
-
-                    case LOG_NOTICE:
-                        fwrite(STDERR, $Head."\033[0;31m ".$Message." \033[0m".PHP_EOL);
-                    break;
-
-                    default:
-                        fwrite(STDERR, $Head.$Message.PHP_EOL);
-                    break;
-                }
+                fwrite(STDERR, implode("\t", [getmypid(), $Time, $Channel, self::$_Service, self::$_Method, $Hash, $Message]).PHP_EOL);
         }
         
         public static function Logs()
