@@ -29,7 +29,7 @@
     });
 
     setFn('React', function ($Call) {
-        $Action = F::Dot($Call, "Counter.Action");
+        $Action = F::Dot($Call, 'Counter.Action');
         if (!empty($Action)) 
         {
             $ID = F::Live(F::Dot($Call, 'Counter.ID'), $Call);
