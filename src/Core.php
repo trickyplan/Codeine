@@ -777,9 +777,11 @@
                         $Message = $Message();
                     
                     if (is_scalar($Message))
-                        $Hash = mb_strtoupper(mb_substr(sha1(self::$_Service.':'.self::$_Method.':'.$Message), -12));
+                        $Hash = self::$_Service.':'.self::$_Method.':'.$Message;
                     else
-                        $Hash = null;
+                        $Hash = self::$_Service.':'.self::$_Method.':'.j($Message);
+                    
+                    $Hash = mb_strtoupper(mb_substr(sha1($Hash), -12));
                     
                     if ($Verbose < LOG_NOTICE or $AppendStack)
                         self::$_Log[$Channel][]
