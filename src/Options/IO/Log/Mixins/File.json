@@ -1,7 +1,7 @@
 {
     "Hooks":
     {
-        "beforeLogSpit!":
+        "beforeLogSpit":
         {
             "Add Timestamp":
             {

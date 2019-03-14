@@ -10,7 +10,7 @@
     setFn('Spit', function ($Call)
     {
         $Call['All Logs'] = F::Logs();
-
+        
         if (empty($Call['All Logs']))
             ;
         else
@@ -21,8 +21,6 @@
                     ;
                 else
                 {
-                    $Call = F::Apply('IO', 'Open', $Call, ['Storage' => $Call['Channel']]);
-                    
                     $Call = F::Hook('beforeLogSpit', $Call);
                         
                             F::Run('IO', 'Write', $Call,
@@ -41,16 +39,6 @@
                 
         return $Call;
     });
-    
-    /*
-            0 $Verbose,
-            1 $Time,
-            2 $Message,
-            3 $From,
-            4 $StackDepth,
-            5 F::Stack(),
-            6 self::getColor()
-        */
     
     
     setFn('Autotest', function ($Call)

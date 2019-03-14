@@ -223,6 +223,7 @@
         public static function loadOptions($Service = null, $Method = null, $Call = [], $Path = 'Options')
         {
             $Service = ($Service == null)? self::$_Service: $Service;
+            unset($Call['Mixins']);
             
             // Если контракт уже не загружен
             if (isset(self::$_Options[$Service.$Method]))
@@ -404,9 +405,7 @@
             if ($Count > F::Get('MSS')) // Max Stack Size
                 F::Set('MSS', $Count);
 
-            $FnOptions = self::loadOptions();
-
-            $Call = self::Merge($FnOptions, $Call);
+            $Call = self::loadOptions(null, null, $Call);
 
             if ((null === self::getFn(self::$_Method)) && !self::_loadSource(self::$_Service))
             {

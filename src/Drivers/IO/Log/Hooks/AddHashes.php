@@ -11,12 +11,18 @@
     {
         foreach ($Call['Channel Logs'] as &$Row)
         {
-            if (is_scalar($Row['X']))
-                $Hash = $Row['X'];
+            if (isset($Row['X']))
+            {
+                if (is_scalar($Row['X']))
+                    $Hash = $Row['X'];
+                else
+                    $Hash = serialize($Row['X']);
+                
+                $Row['H'] = mb_strtoupper(mb_substr(sha1($Row['I'].$Row['R'].$Hash), -12));
+            }
             else
-                $Hash = serialize($Row['X']);
-            
-            $Row['H'] = mb_strtoupper(mb_substr(sha1($Row['I'].$Row['R'].$Hash), -12));
+                d(__FILE__, __LINE__, $Row);
+                
         }
         
         return $Call;
