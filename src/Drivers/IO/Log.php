@@ -9,106 +9,49 @@
 
     setFn('Spit', function ($Call)
     {
-        $Logs = F::Logs();
+        $Call['All Logs'] = F::Logs();
 
-        if (empty($Logs))
+        if (empty($Call['All Logs']))
             ;
         else
         {
-            foreach ($Logs as $Call['Channel'] => $Call['Logs'])
+            foreach ($Call['All Logs'] as $Call['Channel'] => $Call['Channel Logs'])
             {
-                if (empty($Call['Logs']))
+                if (empty($Call['Channel Logs']))
                     ;
                 else
                 {
-                    $Call = F::Apply(null, 'Add.Timestamp', $Call);
-                    $Call = F::Apply(null, 'Add.Statistics', $Call);
-                    $Call = F::Apply(null, 'Add.UserString', $Call);
+                    $Call = F::Apply('IO', 'Open', $Call, ['Storage' => $Call['Channel']]);
+                    
+                    $Call = F::Hook('beforeLogSpit', $Call);
+                        
+                            F::Run('IO', 'Write', $Call,
+                                [
+                                    'Storage' => $Call['Channel'],
+                                    'Where!'  => '[' . $Call['Channel'] . '] ' . $Call['HTTP']['Proto'] . $Call['HTTP']['Host'] . $Call['HTTP']['URI'],
+                                    'Data!'   => $Call['Channel Logs']
+                                ]);
+                            
+                            F::Run('IO', 'Close', ['Storage' => $Call['Channel']]);
+                        
+                    $Call = F::Hook('afterLogSpit', $Call);
                 }
-            }
-            
-            $Logs = F::Logs();
-        
-            foreach ($Logs as $Call['Channel'] => $Call['Logs'])
-            {
-                $Call = F::Apply(null, 'Convert.Timestamps', $Call);
-
-                if (F::Dot($Call, 'Log.Sorted') === true)
-                    $Call['Logs'] = F::Sort($Call['Logs'], 0);
-        
-                F::Run('IO', 'Write', $Call,
-                    [
-                        'Storage' => $Call['Channel'],
-                        'Where!'  => '[' . $Call['Channel'] . '] ' . $Call['HTTP']['Proto'] . $Call['HTTP']['Host'] . $Call['HTTP']['URI'],
-                        'Data!'   => $Call['Logs']
-                    ]);
-        
-                F::Run('IO', 'Close', ['Storage' => $Call['Channel']]);
             }
         }
                 
         return $Call;
     });
     
-    setFn('Convert.Timestamps', function ($Call)
-    {
-        $Call = F::Apply('IO', 'Open', $Call, ['Storage' => $Call['Channel']]);
-
-        if (F::Dot($Call, 'Storages.'.$Call['Channel'].'.Log.Timestamps.Absolute'))
-            foreach ($Call['Logs'] as &$Row)
-                $Row[1] = date(DATE_W3C, floor(Started)).'(+'.$Row[1].')';
-        
-        return $Call;
-    });
+    /*
+            0 $Verbose,
+            1 $Time,
+            2 $Message,
+            3 $From,
+            4 $StackDepth,
+            5 F::Stack(),
+            6 self::getColor()
+        */
     
-    setFn('Add.Statistics', function ($Call)
-    {
-        $BySeverity = [];
-        
-        foreach ($Call['Logs'] as $IX => $Row)
-            if (isset($BySeverity[$Row[0]]))
-                $BySeverity[$Row[0]]++;
-            else
-                $BySeverity[$Row[0]] = 1;
-
-        $SeverityStatistics = [];
-
-        foreach ($Call['Levels'] as $Severity => $Label)
-        {
-            if (isset($BySeverity[$Severity]))
-                $SeverityStatistics[$Severity] = $Label . ': *' . $BySeverity[$Severity] . '*';
-        }
-
-        F::Log($Call['Channel'] . ' Channel (' . count($Call['Logs']) . ' messages)', LOG_DEBUG, $Call['Channel']);
-        
-        return $Call;
-    });
-    
-    setFn('Add.Timestamp', function ($Call)
-    {
-        F::Log(date(DATE_W3C, Started), LOG_DEBUG, $Call['Channel']);
-
-        return $Call;
-    });
-    
-    setFn('Add.UserString', function ($Call)
-    {
-        if (PHP_SAPI == 'cli')
-        {
-            $Call['Log']['User String'] = posix_getpwuid(posix_getuid())['name'].' from CLI ';
-
-            if (empty($SSH = shell_exec('echo $SSH_CLIENT')))
-                ;
-            else
-                $Call['Log']['User String'].= 'SSH from: '.$SSH;
-        }
-        else
-            $Call['Log']['User String'] = '*'.$Call['HTTP']['Agent'].'* from *'.$Call['HTTP']['IP'].'*';
-        
-        F::Log($Call['Log']['User String'], LOG_DEBUG, $Call['Channel']);
-
-        return $Call;
-    });
     
     setFn('Autotest', function ($Call)
     {
