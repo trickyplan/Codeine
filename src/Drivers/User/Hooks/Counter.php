@@ -15,7 +15,7 @@
         ];
 
         $Actions[$Action.' Count'] = intval(F::Dot($Actions, $Action.' Count')) + 1;
-        $Actions[$Action.' Last Fail'] = time();
+        $Actions[$Action.' Last'] = time();
 
         F::Run('IO', 'Write', [
             'Storage' => 'ActionsCounter',
@@ -34,7 +34,7 @@
         {
             $ID = F::Live(F::Dot($Call, 'Counter.ID'), $Call);
             $Actions = F::Run('IO', 'Read', ['Storage' => 'ActionsCounter', 'Where' => $ID, 'IO One' => true]);
-            $ActionsCount = intval($Actions[$Action . ' Count']);
+            $ActionsCount = intval(F::Dot($Actions, $Action . ' Count'));
             $MaxActionsCount = intval(F::Dot($Call, 'Counter.Max'));
             $Condition = F::Live(F::Dot($Call, 'Counter.Actions.'.$Action.'.Condition'), ['A' => $MaxActionsCount, 'B' => $ActionsCount]);
             if ($Condition)

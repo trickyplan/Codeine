@@ -1,0 +1,16 @@
+
+<breadcrumb href="<call>HTTP.URL</call>"><l>Error.403-Blocked:Title</l></breadcrumb>
+<subtitle><l>Error.403-Blocked:Title</l></subtitle>
+
+<h2 class="page-header"><l>Error.403-Blocked:Title</l></h2>
+<div class="alert alert-danger">
+    <h4><l>Error.403-Blocked:Warning.Title</l></h4>
+    <l>Error.403-Blocked:Warning.Description</l>
+</div>
+<div class="alert alert-success">
+    <h4><l>Error.403-Blocked:Solution.Title</l></h4>
+    <l>Error.403-Blocked:Solution.Description</l>
+</div>
+<if value="<call>Session.User.ID</call>" eq="">
+    <a href="/login">Forgot login?</a>
+</if>
