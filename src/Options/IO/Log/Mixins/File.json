@@ -1,0 +1,53 @@
+{
+    "Hooks":
+    {
+        "beforeLogSpit!":
+        {
+            "Add Timestamp":
+            {
+                "Service": "IO.Log.Hooks.AddTimestamp",
+                "Method": "beforeLogSpit"
+            },
+            "Add Statistics":
+            {
+                "Service": "IO.Log.Hooks.AddStatistics",
+                "Method": "beforeLogSpit"
+            },
+            "Add User String":
+            {
+                "Service": "IO.Log.Hooks.AddUserString",
+                "Method": "beforeLogSpit"
+            },
+            "Reload Logs":
+            {
+                "Service": "IO.Log.Hooks.ReloadLogs",
+                "Method": "beforeLogSpit"
+            },
+            "Convert Timestamps to Absolute":
+            {
+                "Service": "IO.Log.Hooks.ConvertTimestampsToAbsolute",
+                "Method": "beforeLogSpit"
+            },
+            "Add Hashes":
+            {
+                "Service": "IO.Log.Hooks.AddHashes",
+                "Method": "beforeLogSpit"
+            },
+            "Mark Scalars":
+            {
+                "Service": "IO.Log.Hooks.MarkScalars",
+                "Method": "beforeLogSpit"
+            },
+            "Serialize Messages":
+            {
+                "Service": "IO.Log.Hooks.SerializeMessages",
+                "Method": "beforeLogSpit"
+            },
+            "Remove Newlines":
+            {
+                "Service": "IO.Log.Hooks.RemoveNewlines",
+                "Method": "beforeLogSpit"
+            }
+        }
+    }
+}

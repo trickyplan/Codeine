@@ -1,4 +1,5 @@
 {
+    "Mixins": ["IO.Log.Mixins.File"],
     "Log":
     {
         "Sorted": false,
@@ -14,18 +15,5 @@
         "5": "Notice",
         "6": "Info",
         "7": "Debug"
-    },
-    "Channels":
-    {
-        "Access":
-        {
-            "Log":
-            {
-                "Timestamps":
-                {
-                    "Absolute": true
-                }
-            }
-        }
     }
 }
