@@ -1,0 +1,50 @@
+{
+    "Suites":
+    {
+        "Guzzle":
+        {
+            "Single GET":
+            {
+                "Run":
+                {
+                    "Service": "IO.Network.HTTP.Guzzle",
+                    "Method": "Read",
+                    "Call": 
+                    {
+                        "Where":
+                        {
+                            "ID": "https://google.com"
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            },
+            "Multiple GET":
+            {
+                "Run":
+                {
+                    "Service": "IO.Network.HTTP.Guzzle",
+                    "Method": "Read",
+                    "Call": 
+                    {
+                        "Where":
+                        {
+                            "ID": [
+                                "https://google.com",
+                                "https://google.com",
+                                "https://google.com"
+                            ]
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            }
+        }
+    }
+}

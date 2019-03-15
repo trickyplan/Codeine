@@ -223,6 +223,7 @@
         public static function loadOptions($Service = null, $Method = null, $Call = [], $Path = 'Options')
         {
             $Service = ($Service == null)? self::$_Service: $Service;
+            unset($Call['Mixins']);
             
             // Если контракт уже не загружен
             if (isset(self::$_Options[$Service.$Method]))
@@ -404,9 +405,7 @@
             if ($Count > F::Get('MSS')) // Max Stack Size
                 F::Set('MSS', $Count);
 
-            $FnOptions = self::loadOptions();
-
-            $Call = self::Merge($FnOptions, $Call);
+            $Call = self::loadOptions(null, null, $Call);
 
             if ((null === self::getFn(self::$_Method)) && !self::_loadSource(self::$_Service))
             {
@@ -678,13 +677,12 @@
                     $FinalLogs.= implode("\t",
                         [
                             'Channel'   => $Channel,
-                            'Verbose'   => $Record[0],
-                            'Time'      => $Record[1],
-                            'Hash'      => $Record[2],
-                            'Message'   => is_scalar($Record[3])? $Record[3]: j($Record[3]),
-                            'From'      => $Record[4],
-                            'Depth'     => $Record[5],
-                            'Stack'     => $Record[6]
+                            'Verbose'   => $Record['V'],
+                            'Time'      => $Record['T'],
+                            'Message'   => is_scalar($Record['X'])? $Record['X']: j($Record['X']),
+                            'From'      => $Record['R'],
+                            'Depth'     => $Record['D'],
+                            'Stack'     => $Record['K']
                         ]).PHP_EOL;
             
             
@@ -770,44 +768,29 @@
                         $Initiator = self::$_Stack->offsetGet(1);
                     else
                         $Initiator = 'Core';
-                    
-                    $From = '*'.self::$_Service.':'.self::$_Method.'*'.' from *'.$Initiator.'*';
-                    
+                   
                     if ($Message instanceof Closure)
                         $Message = $Message();
                     
-                    if (is_scalar($Message))
-                        $Hash = mb_strtoupper(mb_substr(sha1(self::$_Service.':'.self::$_Method.':'.$Message), -12));
-                    else
-                        $Hash = null;
-                    
                     if ($Verbose < LOG_NOTICE or $AppendStack)
-                        self::$_Log[$Channel][]
-                            = [
-                                $Verbose,
-                                $Time,
-                                $Hash,
-                                $Message,
-                                $From,
-                                $StackDepth,
-                                F::Stack(),
-                                self::getColor()
-                            ];
+                        $Stack = F::Stack();
                     else
-                        self::$_Log[$Channel][]
+                        $Stack = null;
+                    
+                    self::$_Log[$Channel][]
                             = [
-                            $Verbose,
-                            $Time,
-                            $Hash,
-                            $Message,
-                            $From,
-                            $StackDepth,
-                            null,
-                            self::getColor()
-                        ];
+                                'V' => $Verbose,
+                                'T' => $Time,
+                                'I' => $Initiator,
+                                'R' => self::$_Service.':'.self::$_Method,
+                                'X' => $Message,
+                                'D' => $StackDepth,
+                                'K' => $Stack,
+                                'C' => self::getColor()
+                            ];
                     
                     if (PHP_SAPI === 'cli')
-                        self::CLILog($Time, $Hash, $Message, $Verbose, $Channel, $AppendStack);
+                        self::CLILog($Time, $Message, $Verbose, $Channel, $AppendStack);
                     
                     if (self::$_Perfect && ($Verbose <= self::$_Options['Codeine']['Perfect Verbose'][$Channel]))
                         self::Finish ($Message);
@@ -818,7 +801,7 @@
             return $Message;
         }
 
-        public static function CLILog ($Time, $Hash, $Message, $Verbose, $Channel, $AppendStack = false)
+        public static function CLILog ($Time, $Message, $Verbose, $Channel, $AppendStack = false)
         {
             if (is_scalar($Message))
                 ;
@@ -829,37 +812,15 @@
                 $Message.= j(F::Stack());
             
             if (($Verbose <= self::$_Verbose[$Channel]) or !self::$_Live)
-                fwrite(STDERR, implode("\t", [getmypid(), $Time, $Channel, self::$_Service, self::$_Method, $Hash, $Message]).PHP_EOL);
+                fwrite(STDERR, implode("\t", [getmypid(), $Time, $Channel, self::$_Service, self::$_Method, $Message]).PHP_EOL);
         }
         
-        public static function Logs()
+        public static function Logs($Channel = 'All')
         {
-            /*
-                $Output = [];
-                foreach (self::$_Log as $Channel => $Logs)
-                {
-                    $Output[$Channel] = [];
-
-                    foreach ($Logs as $Log)
-                    {
-                        if (($Log[0] <= self::$_Verbose[$Channel])
-                            or
-                            ((self::Environment() == 'Development') && $Log[0] > 8)
-                            or
-                            (isset($_SERVER['Verbose']) && $Log[0] <= $_SERVER['Verbose']))
-                                $Output[$Channel][] = $Log;
-
-                        if ($Log[0] <= self::$_Options['Codeine']['Panic Verbose'])
-                        {
-                            $Output[$Channel] = self::$_Log[$Channel];
-                            break;
-                        }
-                    }
-                }
-                return $Output;
-            */
-
-            return self::$_Log;
+            if ($Channel === 'All')
+                return self::$_Log;
+            else
+                return self::$_Log[$Channel];
         }
 
         public static function Dump($File, $Line, $Call)

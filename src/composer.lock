@@ -1,10 +1,9 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "hash": "8f8deaac4d9b96bbdb457ce368dcfb51",
     "content-hash": "b683cb99e82e3132767d8087ac1dca0c",
     "packages": [
         {
@@ -70,7 +69,7 @@
                 "mongodb",
                 "persistence"
             ],
-            "time": "2018-07-18 14:33:41"
+            "time": "2018-07-18T14:33:41+00:00"
         }
     ],
     "packages-dev": [],
