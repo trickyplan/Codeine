@@ -28,7 +28,7 @@
                 "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/4.0; GTB7.4; InfoPath.1; SV1; .NET CLR 2.8.52393; WOW64; en-US)",
                 "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.0; Trident/5.0; chromeframe/11.0.696.57)"
             ],
-            "SSL Verify Peer": true,
+            "SSL Verify Peer": false,
             "Backend": "Curl"
         },
         "Request":

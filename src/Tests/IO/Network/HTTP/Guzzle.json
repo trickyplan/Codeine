@@ -13,11 +13,7 @@
                     {
                         "Where":
                         {
-                            "ID": "$HTTP.Proto$HTTP.Host/api/3.0/json/AdRam/GetProtectedURLByURL"
-                        },
-                        "Data": 
-                        {
-                            "URL": "$HTTP.Proto$HTTP.Host"
+                            "ID": "https://google.com"
                         }
                     }
                 },
@@ -37,17 +33,11 @@
                         "Where":
                         {
                             "ID": [
-                                "$HTTP.Proto$HTTP.Host/api/3.0/json/AdRam/GetProtectedURLByURL",
-                                "$HTTP.Proto$HTTP.Host/api/3.0/json/AdRam/GetProtectedURLByURL",
-                                "$HTTP.Proto$HTTP.Host/api/3.0/json/AdRam/GetProtectedURLByURL"
+                                "https://google.com",
+                                "https://google.com",
+                                "https://google.com"
                             ]
-                        },
-                        "Data": 
-                        [
-                            {"URL": "$HTTP.Proto$HTTP.Host"},
-                            {"URL": "$HTTP.Proto$HTTP.Host"},
-                            {"URL": "$HTTP.Proto$HTTP.Host"}
-                        ]
+                        }
                     }
                 },
                 "Assert":
