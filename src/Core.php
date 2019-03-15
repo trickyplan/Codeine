@@ -677,13 +677,12 @@
                     $FinalLogs.= implode("\t",
                         [
                             'Channel'   => $Channel,
-                            'Verbose'   => $Record[0],
-                            'Time'      => $Record[1],
-                            'Hash'      => $Record[2],
-                            'Message'   => is_scalar($Record[3])? $Record[3]: j($Record[3]),
-                            'From'      => $Record[4],
-                            'Depth'     => $Record[5],
-                            'Stack'     => $Record[6]
+                            'Verbose'   => $Record['V'],
+                            'Time'      => $Record['T'],
+                            'Message'   => is_scalar($Record['X'])? $Record['X']: j($Record['X']),
+                            'From'      => $Record['R'],
+                            'Depth'     => $Record['D'],
+                            'Stack'     => $Record['K']
                         ]).PHP_EOL;
             
             
@@ -802,7 +801,7 @@
             return $Message;
         }
 
-        public static function CLILog ($Time, $Hash, $Message, $Verbose, $Channel, $AppendStack = false)
+        public static function CLILog ($Time, $Message, $Verbose, $Channel, $AppendStack = false)
         {
             if (is_scalar($Message))
                 ;
@@ -813,7 +812,7 @@
                 $Message.= j(F::Stack());
             
             if (($Verbose <= self::$_Verbose[$Channel]) or !self::$_Live)
-                fwrite(STDERR, implode("\t", [getmypid(), $Time, $Channel, self::$_Service, self::$_Method, $Hash, $Message]).PHP_EOL);
+                fwrite(STDERR, implode("\t", [getmypid(), $Time, $Channel, self::$_Service, self::$_Method, $Message]).PHP_EOL);
         }
         
         public static function Logs($Channel = 'All')
