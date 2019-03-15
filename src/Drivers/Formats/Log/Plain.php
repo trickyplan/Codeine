@@ -22,15 +22,16 @@
             7 self::getColor()
         */
         
-        foreach ($Call['Data'] as $IX => $Row)
-        {
-            if (is_scalar($Row[3]))
-                ;
-            else
-                $Row[3] = j($Row[3]);
-            
-            $Output[] = implode("\t", ['['.REQID.']', 'V'.$Row[0], $Row[1], $Row[2], stripslashes($Row[3])]);
-        }
+        if (!empty($Call['Data']))
+            foreach ($Call['Data'] as $IX => $Row)
+            {
+                if (is_scalar($Row[3]))
+                    ;
+                else
+                    $Row[3] = j($Row[3]);
+                
+                $Output[] = implode("\t", ['['.REQID.']', 'V'.$Row[0], $Row[1], $Row[2], stripslashes($Row[3])]);
+            }
 
         $Output = implode(PHP_EOL, $Output).PHP_EOL;
         
