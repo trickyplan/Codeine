@@ -11,6 +11,7 @@
     {
         $Output = [];
 
+        if (!empty($Call['Data']))
         foreach ($Call['Data'] as $IX => $Row)
             $Output[] = implode("\t", ['['.RequestID.']', 'V'.$Row['V'], $Row['T'], $Row['H'], $Row['R'], $Row['X']]);
 
