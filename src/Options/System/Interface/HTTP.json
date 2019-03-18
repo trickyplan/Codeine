@@ -90,6 +90,11 @@
         },
         "afterRequestRun":
         {
+            "Add Request ID Headers":
+            {
+                "Service": "System.Interface.HTTP.Headers.RequestID",
+                "Method": "Do"
+            },
             "Set Default CORS-headers":
             {
                 "Service": "System.Interface.HTTP.CORS",

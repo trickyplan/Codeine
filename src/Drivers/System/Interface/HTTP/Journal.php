@@ -20,7 +20,7 @@
                     .DS.date('i')
                     .DS.date('s')
                     .DS.$Call['HTTP']['IP']
-                    .DS.REQID,
+                    .DS.RequestID,
                 'Data'      => $Call
             ]);
 

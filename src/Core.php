@@ -10,7 +10,11 @@
 
     define ('Codeine', __DIR__);
     define ('Started', microtime(true));
-    define ('REQID', 'REQ'.base_convert(Started, 10, 16).'.'.sha1(mt_rand(4294967295, PHP_INT_MAX)));
+    define ('RequestID', 'rq-'
+        .mb_substr(sha1(gethostname()),-8)
+        .'-'.base_convert(Started, 10, 16)
+        .'-'.mb_substr(sha1(mt_rand(0, PHP_INT_MAX)), -8)
+        .'-'.mb_substr(sha1(mt_rand(0, PHP_INT_MAX)), -8));
 
     defined('DS')? null: define('DS', DIRECTORY_SEPARATOR);
 
@@ -178,7 +182,7 @@
                     // header ('HTTP/1.1 500 Internal Server Error');
                     // TODO Real error triggering
                     F::Run('IO.Log', 'Spit', []);
-                    file_put_contents('/tmp/codeine/fail-'.REQID, j(self::$_Log));
+                    file_put_contents('/tmp/codeine/fail-'.RequestID, j(self::$_Log));
                 }
                 else
                 {
