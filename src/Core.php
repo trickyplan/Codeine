@@ -642,7 +642,7 @@
                                  else
                                      $Hook['Method'] = 'Do';
 
-                                 $Call = self::Apply($Hook['Service'],$Hook['Method'], isset($Hook['Call'])? $Hook['Call']: [], $Call, ['On' => $On]);
+                                 $Call = self::Apply($Hook['Service'],$Hook['Method'], $Call, isset($Hook['Call'])? $Hook['Call']: [], ['On' => $On]);
                              }
                              else
                                  $Call = self::Merge($Call, $Hook);

@@ -3,7 +3,7 @@
     "Warning":
     {
         "Title": "User blocked",
-        "Description": "Your account is temporarry locked. Contact to administrator. --set contact email and phone--"
+        "Description": "Your account is temporarry locked. Contact to administrator. $Project.Support.EMail"
     },
     "Solution": {
         "Title": "Login again to proceed or go back to Home page",

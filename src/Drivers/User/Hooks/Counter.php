@@ -33,7 +33,7 @@
         if (!empty($Action)) 
         {
             $ID = F::Live(F::Dot($Call, 'Counter.ID'), $Call);
-            $Actions = F::Run('IO', 'Read', ['Storage' => 'ActionsCounter', 'Where' => $ID, 'IO One' => true]);
+            $Actions = F::Run('IO', 'Read', ['Storage' => 'ActionsCounter', 'Where' => ['ID' => $ID], 'IO One' => true]);
             $ActionsCount = intval(F::Dot($Actions, $Action . ' Count'));
             $MaxActionsCount = intval(F::Dot($Call, 'Counter.Max'));
             $Condition = F::Live(F::Dot($Call, 'Counter.Actions.'.$Action.'.Condition'), ['A' => $MaxActionsCount, 'B' => $ActionsCount]);

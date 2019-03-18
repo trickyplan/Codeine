@@ -19,7 +19,6 @@
 
     setFn('Check', function ($Call)
     {
-        return $Call;
         if (isset($Call['Request']['g-recaptcha-response']))
         {
             $Result = F::Run('IO', 'Write',
