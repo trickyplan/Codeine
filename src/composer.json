@@ -1,6 +1,9 @@
 {
     "name": "trickyplan/codeine",
     "require": {
-        "mongodb/mongodb": "^1.4.2"
+        "mongodb/mongodb": "^1.4.2",
+        "pear/mail": "^1.4",
+        "pear/mail_mime": "^1.10",
+        "pear/net_smtp": "^1.8"
     }
 }
