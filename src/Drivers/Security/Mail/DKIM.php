@@ -139,7 +139,7 @@
          * Apply RFC 4871 requirements before body signature. Do not modify
         */
         private function _dkim_canonicalize_body_relaxed($body){
-            
+            $body = preg_replace('/(?<!\r)\n/', "\r\n", $body);
             $lines = explode("\r\n", $body);
             
             foreach($lines as $key => $value){
@@ -355,6 +355,7 @@
         public function get_signed_headers($to, $subject, $body, $headers){
             
             $signed_headers = '';
+            $headers = preg_replace('/(?<!\r)\n/', "\r\n", $headers);
             
             if(!empty($to) or !empty($subject)){
                 
@@ -411,8 +412,6 @@
         }
 
         // $Call['Data'] = str_replace("\r\r\n", "\r\n", str_replace("\n", "\r\n", $Call['Data']));
-        $Call['Data'] = preg_replace('/(?<!\r)\n/', "\r\n", $Call['Data']);
-        $Headers = preg_replace('/(?<!\r)\n/', "\r\n", $Headers);
 
         $Call['Headers']['DKIM-Signature'] = $Signature->get_signed_headers(
             $Call['Scope'], F::Dot($Call, 'Headers.Subject'), $Call['Data'], $Headers);
