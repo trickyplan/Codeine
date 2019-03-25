@@ -46,7 +46,7 @@
             $Call = F::Hook('RTB.SSP.Request.Created', $Call); // New Hook Convention
         }
 
-        $Call = F::Dot($Call, 'RTB.Result', F::Run('IO', 'Write', $Call, [
+        $RTBResult =  F::Run('IO', 'Write', $Call, [
             'Storage'          => 'Web',
             'Output Format'    => 'Formats.JSON',
             'CURL'             =>
@@ -56,7 +56,9 @@
                     'Content-Type: application/json'
                 ]
             ],
-        ], $MultiRequest));
+        ], $MultiRequest);
+        
+        $Call = F::Dot($Call, 'RTB.Result', $RTBResult);
         
         foreach ($MultiRequest['Where']['ID'] as $IX => $DSP) {
             $RequestData = json_decode($MultiRequest['Data'][$IX]);
@@ -66,8 +68,12 @@
         }
         
         $Results = F::Dot($Call, 'RTB.Result');
-        foreach ($Results as $DSP => $Result)
-            $Call['RTB']['Debug'][$DSP]['Response'] = $Result;
+        
+        if (empty($Results))
+            ;
+        else
+            foreach ($Results as $DSP => $Result)
+                $Call['RTB']['Debug'][$DSP]['Response'] = $Result;
         
         $Call = F::Hook('RTB.SSP.RequestGroup.Executed', $Call); // New Hook Convention
         
