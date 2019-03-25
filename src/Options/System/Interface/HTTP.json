@@ -81,11 +81,6 @@
             "Filter":
             {
                 "Service": "System.Interface.HTTP.Filter"
-            },
-            "-IDS":
-            {
-                "Service": "Security.IDS",
-                "Method": "Check"
             }
         },
         "afterRequestRun":

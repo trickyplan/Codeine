@@ -9,10 +9,10 @@
     
     setFn('Do', function ($Call)
     {
-        if (isset($Call['Project']['Team']))
+        if (isset($Call['Humans']['Team']))
         {
             $Call['Output']['Content'][] = '/* TEAM */';
-            foreach ($Call['Project']['Team'] as $Role => $Humans)
+            foreach ($Call['Humans']['Team'] as $Role => $Humans)
                 foreach ($Humans as $Name => $Human)
                 {
                     $Call['Output']['Content'][] = $Role.': '.$Name;
@@ -22,10 +22,10 @@
                 }
         }
 
-        if (isset($Call['Project']['Thanks']))
+        if (isset($Call['Humans']['Thanks']))
         {
             $Call['Output']['Content'][] = '/* TEAM */';
-            foreach ($Call['Project']['Thanks'] as $Role => $Humans)
+            foreach ($Call['Humans']['Thanks'] as $Role => $Humans)
                 foreach ($Humans as $Name => $Human)
                 {
                     $Call['Output']['Content'][] = $Role.': '.$Name;
@@ -40,11 +40,11 @@
         $Call['Output']['Content'][] = 'Doctype: HTML5';
         $Call['Output']['Content'][] = 'Engine: Codeine Framework';
 
-        if (isset($Call['Project']['Languages']))
-            $Call['Output']['Content'][] = 'Language: '.implode('/', $Call['Project']['Languages']);
+        if (isset($Call['Humans']['Languages']))
+            $Call['Output']['Content'][] = 'Language: '.implode('/', $Call['Humans']['Languages']);
 
-        if (isset($Call['Project']['Tools']))
-            $Call['Output']['Content'][] = 'Tools: '.implode('/', $Call['Project']['Tools']);
+        if (isset($Call['Humans']['Tools']))
+            $Call['Output']['Content'][] = 'Tools: '.implode('/', $Call['Humans']['Tools']);
 
         return $Call;
     });

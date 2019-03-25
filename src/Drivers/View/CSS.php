@@ -67,13 +67,14 @@
                     $Call = F::Hook('afterCSSLoad', $Call);
                 }
 
-                if (!empty($CSSInline))
+                if (empty($CSSInline))
+                    ;
+                else
                     $Call['CSS']['Styles'][] = $CSSInline;
 
                 $Call = F::Hook('afterCSSInput', $Call);
 
                 $Call = F::Hook('beforeCSSOutput', $Call);
-
                 // CSS Output
 
                 foreach ($Call['CSS']['Styles'] as $Call['CSS']['Fullpath'] => $Call['CSS']['Source'])
@@ -124,7 +125,7 @@
                         'Where'   => $Call['CSS']['Fullpath']
                     ]);
 
-                    if (isset($Call['CSS']['Host']) && !empty($Call['CSS']['Host']))
+                    if (F::Dot($Call, 'CSS.Host'))
                         $Call['CSS']['Links'][] = '<link href="'.$Call['HTTP']['Proto'].$Call['CSS']['Host'].$SRC.'" rel="stylesheet" type="'.$Call['CSS']['Type'].'"/>';
                     else
                         $Call['CSS']['Links'][] = '<link href="'.$SRC.'" rel="stylesheet" type="'.$Call['CSS']['Type'].'" />';
