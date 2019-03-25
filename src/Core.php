@@ -60,7 +60,7 @@
             self::$_Stack = new SplStack();
             self::$_Color = new SplStack();
 
-            self::Start(self::$_Service . '.' . self::$_Method);
+            self::Start(self::$_Service . ':' . self::$_Method);
 
             mb_internal_encoding('UTF-8');
 
@@ -110,7 +110,7 @@
             }
 
             self::Log('Codeine started', LOG_NOTICE);
-            F::Start('Preheat');
+            self::Start('Preheat');
 
             if (isset($_COOKIE['Overlay'])
                 && in_array($_COOKIE['Overlay'], self::$_Options['Codeine']['Overlays']))
@@ -145,13 +145,13 @@
             self::$_Perfect = self::$_Options['Codeine']['Perfect'];
 
             $Call['Call']['Hostname'] = gethostname();
-            $Call['Call']['Environment'] = F::Environment();
+            $Call['Call']['Environment'] = self::Environment();
 
-            F::Log('PHP '.PHP_SAPI.' '.phpversion(), LOG_INFO);
+            self::Log('PHP '.PHP_SAPI.' '.phpversion(), LOG_INFO);
             
-            $Call['Version'] = F::loadOptions('Version');
+            $Call['Version'] = self::loadOptions('Version');
             
-            F::Log('Codeine Version: *'.$Call['Version']['Codeine']['Major'].'*', LOG_INFO);
+            self::Log('Codeine Version: *'.$Call['Version']['Codeine']['Major'].'*', LOG_INFO);
             
             if (isset($Call['Watch']))
             {
@@ -161,7 +161,7 @@
                     self::$_Options['Codeine']['Watch'][] = $Call['Watch'];
             }
             
-            if (F::Environment() == 'Development')
+            if (self::Environment() == 'Development')
                 self::$_Bubble = str_repeat('*', 4096 * 1024);
             
             return self::Live($Call);
@@ -170,7 +170,7 @@
         public static function Shutdown()
         {
             self::$_Bubble = '';
-            self::Stop(self::$_Service . '.' . self::$_Method);
+            self::Stop(self::$_Service . ':' . self::$_Method);
 
             $E = error_get_last();
             if ($E === null)
@@ -181,7 +181,7 @@
                 {
                     // header ('HTTP/1.1 500 Internal Server Error');
                     // TODO Real error triggering
-                    F::Run('IO.Log', 'Spit', []);
+                    self::Run('IO.Log', 'Spit', []);
                     file_put_contents('/tmp/codeine/fail-'.RequestID, j(self::$_Log));
                 }
                 else
@@ -219,7 +219,7 @@
             else
             {
                 self::Log('*'.$Service.'* not found', LOG_NOTICE);
-                self::Log(self::Stack(), LOG_NOTICE);
+                self::Log(self::printStack(), LOG_NOTICE);
                 return false;
             }
         }
@@ -366,23 +366,23 @@
 
         private static function Execute($Service, $Method, $Call)
         {
-            if (isset(self::$_Options['Codeine']['Watch']) && F::Environment() == 'Development')
+            if (isset(self::$_Options['Codeine']['Watch']) && self::Environment() == 'Development')
                 foreach (self::$_Options['Codeine']['Watch'] as $Watch)
                 {
-                    $WatchValue = F::Dot($Call, $Watch);
+                    $WatchValue = self::Dot($Call, $Watch);
                     if ($WatchValue === null)
                         ;
                     else
                     {
-                        if (F::Get('Watch.'.$Watch) == $WatchValue)
+                        if (self::Get('Watch.'.$Watch) == $WatchValue)
                             ;
                         else
                         {
-                            F::Log('Watch *' . $Watch . '* was *'.j(F::Get('Watch.'.$Watch)).'*, now *' . j($WatchValue). '* (' . $Service . ':' . $Method . '*)',
+                            self::Log('Watch *' . $Watch . '* was *'.j(self::Get('Watch.'.$Watch)).'*, now *' . j($WatchValue). '* (' . $Service . ':' . $Method . '*)',
                                 LOG_NOTICE,
                                 'Developer',
                                 true);
-                            F::Set('Watch.'.$Watch, $WatchValue);
+                            self::Set('Watch.'.$Watch, $WatchValue);
                         }
                     }
                 }
@@ -406,8 +406,8 @@
 
             $Count = self::$_Stack->count();
 
-            if ($Count > F::Get('MSS')) // Max Stack Size
-                F::Set('MSS', $Count);
+            if ($Count > self::Get('MSS')) // Max Stack Size
+                self::Set('MSS', $Count);
 
             $Call = self::loadOptions(null, null, $Call);
 
@@ -431,8 +431,8 @@
                 {
                     if (self::$_Method !== 'Run')
                     {
-                        $ContractBehaviour = F::Dot($Call, 'Contract.Methods.'.self::$_Method.'.Behaviours');
-                        $Behaviours = F::Dot($Call, 'Behaviours');
+                        $ContractBehaviour = self::Dot($Call, 'Contract.Methods.'.self::$_Method.'.Behaviours');
+                        $Behaviours = self::Dot($Call, 'Behaviours');
                         
                         if ($ContractBehaviour === null)
                             ;
@@ -441,19 +441,19 @@
                             if ($Behaviours === null)
                                 $Behaviours = $ContractBehaviour;
                             else
-                                $Behaviours = F::Merge($Behaviours, $ContractBehaviour);
+                                $Behaviours = self::Merge($Behaviours, $ContractBehaviour);
                         }
                         
                         if ($Behaviours !== null)
                         {
                             foreach ($Behaviours as $Behaviour => $Options)
                             {
-                                if (F::Dot($Options, 'Enabled') === true)
+                                if (self::Dot($Options, 'Enabled') === true)
                                 {
-                                    F::Log('Behaviour active *'.$Behaviour.'*', LOG_INFO);
-                                    $Call = F::Dot($Call, 'Behaviours.'.$Behaviour.'.Enabled', -1);
-                                    $Call = F::Dot($Call, 'Contract.Methods.'.self::$_Method.'.Behaviours.'.$Behaviour.'.Enabled', -1);
-                                    $Call = F::Apply('Code.Run.Behaviours.'.$Behaviour, 'Run',
+                                    self::Log('Behaviour active *'.$Behaviour.'*', LOG_INFO);
+                                    $Call = self::Dot($Call, 'Behaviours.'.$Behaviour.'.Enabled', -1);
+                                    $Call = self::Dot($Call, 'Contract.Methods.'.self::$_Method.'.Behaviours.'.$Behaviour.'.Enabled', -1);
+                                    $Call = self::Apply('Code.Run.Behaviours.'.$Behaviour, 'Run',
                                         [
                                             'Behaviours' => $Behaviours,
                                             'Run' =>
@@ -471,13 +471,12 @@
                     if (isset($Call['Run']['Result']) or isset($Call['Run']['Skip']))
                     {
                         $Result = $Call['Run']['Result'];
-                        F::Log('Behaviours active for '.self::$_Service.':'.self::$_Method.', skip Real Run', LOG_NOTICE);
+                        self::Log('Behaviours active for '.self::$_Service.':'.self::$_Method.', skip Real Run', LOG_NOTICE);
                     }
                     else
                         $Result = $F($Call); // Real Run Here
                     
-                    // if (self::$_Performance)
-                    self::Counter(self::$_Service.'.'.self::$_Method);
+                    self::Counter(self::$_Service.':'.self::$_Method);
                 }
                 else
                     $Result = isset($Call['Fallback']) ? $Call['Fallback'] : null;
@@ -497,12 +496,17 @@
             self::$_Stack->pop();
             
             if (isset($Return))
-                $Result = F::Dot($Result, $Return);
+                $Result = self::Dot($Result, $Return);
 
             return $Result;
         }
 
         public static function Stack()
+        {
+            return self::$_Stack;
+        }
+        
+        public static function printStack()
         {
             $Output = [];
 
@@ -517,7 +521,7 @@
 
         public static function Live($Variable, $Call = [])
         {
-            F::Start('Live');
+            self::Start('Live');
 
             if ($Variable instanceof Closure)
                 $Result = $Variable($Call);
@@ -563,7 +567,7 @@
                 }
             }
 
-            F::Stop('Live');
+            self::Stop('Live');
             return $Result;
         }
 
@@ -604,7 +608,7 @@
                                 $Variable = str_replace($Pockets[0][$IX], $Subvariable, $Variable);
                         }
                         else
-                            F::Log('Subvariable *'.$Match.'* is non-scalar ', LOG_WARNING);
+                            self::Log('Subvariable *'.$Match.'* is non-scalar ', LOG_WARNING);
                         
                     }
                 }
@@ -614,7 +618,7 @@
 
         public static function Hook($On, $Call)
         {
-             F::startColor('f84000');
+             self::startColor('f84000');
              if (isset($Call['Custom Hooks'][$On]))
                  $On = $Call['Custom Hooks'][$On];
 
@@ -656,7 +660,7 @@
                  }
              }
             
-            F::stopColor();
+            self::stopColor();
             return $Call;
         }
 
@@ -696,7 +700,7 @@
             {
                 $Output = file_get_contents(Codeine.'/Assets/Finish.html');
                 $Output = str_replace('<finish:message/>', $Message, $Output);
-                $Output = str_replace('<finish:stack/>',self::Stack(), $Output);
+                $Output = str_replace('<finish:stack/>',self::printStack(), $Output);
                 $Output = str_replace('<finish:logs/>', $FinalLogs, $Output);
             }
 
@@ -777,7 +781,7 @@
                         $Message = $Message();
                     
                     if ($Verbose < LOG_NOTICE or $AppendStack)
-                        $Stack = F::Stack();
+                        $Stack = self::printStack();
                     else
                         $Stack = null;
                     
@@ -813,7 +817,7 @@
                 $Message = j($Message);
             
             if ($AppendStack)
-                $Message.= j(F::Stack());
+                $Message.= j(self::printStack());
             
             if (($Verbose <= self::$_Verbose[$Channel]) or !self::$_Live)
                 fwrite(STDERR, implode("\t", [getmypid(), $Time, $Channel, self::$_Service, self::$_Method, $Message]).PHP_EOL);
@@ -892,8 +896,8 @@
 
         public static function Merge($Array, $Mixin)
         {
-            F::Counter('Core:Merge');
-            F::Start('Core:Merge');
+            self::Counter('Core:Merge');
+            self::Start('Core:Merge');
             
             if ($Mixin === (array) $Mixin) // Если второй аргумент — массив
             {
@@ -936,7 +940,7 @@
                         $Array = $Mixin; // Если первый аргумент не массив, то мерджить смысла нет.
                 }
             }
-            F::Stop('Core:Merge');
+            self::Stop('Core:Merge');
             return $Array;
         }
 
@@ -1226,7 +1230,7 @@
 
         public static function findFiles ($Names)
         {
-/*            if ($Results = F::Get($FFID) === null)*/
+/*            if ($Results = self::Get($FFID) === null)*/
             {
                 $Results = [];
                 $Names = (array) $Names;
@@ -1243,7 +1247,7 @@
 
                 $Results = array_reverse($Results);
 
-                /*F::Set($FFID, $Results);*/
+                /*self::Set($FFID, $Results);*/
             }
 
             if (empty($Results))

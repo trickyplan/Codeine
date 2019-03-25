@@ -32,7 +32,7 @@
             3 $Message,
             4 $From,
             5 $StackDepth,
-            6 F::Stack(),
+            6 F::printStack(),
             7 self::getColor()
         */
         if (is_array($Call['Value']))
@@ -47,7 +47,7 @@
                     $Row['X'] = '<pre><code class="json">'.wordwrap($Row['X'], 80).'</code></pre>';
                     
                 $OutputLog .=
-                    '<tr class="'.$Call['Levels'][$Row['V']].'" style="border-left-color: #'.$Row['C'].';">
+                    '<tr class="'.$Call['Levels'][ceil($Row['V'])].'" style="border-left-color: #'.$Row['C'].';">
                         <td>'.$Row['T'].'</td>
                         <td>'.($Row['R'] == (isset($Call['Value'][$IX-1]['R'])? $Call['Value'][$IX-1]['R']: false)? '': $Row['R'].' from '.$Row['I']).'</td>
                         <td>'.$Row['H'].'</td>
