@@ -63,7 +63,7 @@
     /*        if (isset($Call['Output']))
                 $Call['HTTP']['Headers']['Content-Length:'] = strlen($Call['Output']);*/
 
-            $Call = F::Apply(null, 'Response Headers', $Call);
+            $Call = F::Apply(null, 'Send.Response.Headers', $Call);
 
             F::Stop('Cooldown');
             
@@ -279,11 +279,10 @@
         return $Call;
     });
 
-    setFn('Response Headers', function ($Call)
+    setFn('Send.Response.Headers', function ($Call)
     {
-
         if (headers_sent())
-            F::Log('Headers already sent', LOG_INFO);
+            F::Log('Headers already sent', LOG_WARNING);
         else
         {
             if (isset($Call['HTTP']['Headers']))
