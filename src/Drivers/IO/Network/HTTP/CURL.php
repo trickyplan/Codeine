@@ -214,12 +214,14 @@
     {
         $Call = F::Run(null, 'Select User Agent', $Call);
 
-        if (is_array($Call['Where']['ID'])) {
+        if (is_array($Call['Where']['ID']))
+        {
             $Call['Link'] = curl_multi_init();
 
             $Links = [];
 
-            foreach($Call['Where']['ID'] as $cIndex => $cID) {
+            foreach($Call['Where']['ID'] as $cIndex => $cID)
+            {
                 $Post = '';
                 if (isset($Call['Data'][$cIndex]))
                     $Post = is_string($Call['Data'][$cIndex]) ? $Call['Data'][$cIndex] : http_build_query($Call['Data'][$cIndex]);
@@ -265,9 +267,15 @@
             }
 
             $Running = null;
-            do {
-                curl_multi_exec($Call['Link'], $Running);
-            } while ($Running > 0);
+            $Wait = 0;
+
+            do
+            {
+                $Status = curl_multi_exec($Call['Link'], $Running);
+                if ($Running)
+                    curl_multi_select($Call['Link'], 0.01);
+                $Wait++;
+            } while ($Running && $Status == CURLM_OK);
 
             foreach ($Links as $ID => $Link)
             {
