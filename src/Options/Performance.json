@@ -7,19 +7,19 @@
         {
             "Red":
             {
-                "ACalls": 50,
-                "RCalls": 10,
-                "RTime": 25,
-                "ATime": 100,
-                "TimePerCall": 100
+                "ACalls": 16,
+                "RCalls": 8,
+                "RTime": 8,
+                "ATime": 128,
+                "TimePerCall": 128
             },
             "Yellow":
             {
-                "ACalls": 25,
-                "RCalls": 5,
-                "RTime": 10,
-                "ATime": 50,
-                "TimePerCall": 50
+                "ACalls": 32,
+                "RCalls": 4,
+                "RTime": 4,
+                "ATime": 64,
+                "TimePerCall": 64
             }
         }
     }
