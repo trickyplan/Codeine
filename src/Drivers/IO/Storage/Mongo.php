@@ -95,6 +95,13 @@
             F::Log('Sliced *'.$Call['Limit']['To'].'* from *'.$Call['Limit']['From'].'*', LOG_INFO, 'Administrator');
         }
         
+        if (F::Dot($Call, 'IO One') or F::Dot($Call, 'One'))
+        {
+            $Call['Mongo']['Options']['limit'] = 1;
+            $Call['Mongo']['Options']['skip'] = 0;
+            F::Log('Sliced by «One» option', LOG_INFO, 'Administrator');
+        }
+        
         return $Call;
     });
     
@@ -128,6 +135,20 @@
                 {
                     if (isset($Call['Where']))
                     {
+                        F::Log(function () use ($Call) {
+                            $Explain = $Call['Link']->command(
+                            [
+                                'explain'   =>
+                                    [
+                                        'find'  => $Call['Scope'],
+                                        'filter' => $Call['Where']
+                                    ],
+                                'verbosity' => 'queryPlanner'
+                            ]
+                            );
+                            $Explain = $Explain->toArray();
+                            return 'Mongo explained: '.j($Explain);
+                    }, LOG_INFO, 'Administrator');
                         F::Log(function () use ($Call) {
                             $Explain = $Call['Link']->command(
                             [
