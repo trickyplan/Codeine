@@ -222,10 +222,6 @@
 
             foreach($Call['Where']['ID'] as $cIndex => $cID)
             {
-                $Post = '';
-                if (isset($Call['Data'][$cIndex]))
-                    $Post = is_string($Call['Data'][$cIndex]) ? $Call['Data'][$cIndex] : http_build_query($Call['Data'][$cIndex]);
-
                 $Links[$cID] = curl_init($cID);
                 
                 F::Log('CURL POST Request Headers: *'.j($Call['CURL']['Headers']).'*', LOG_INFO, 'Administrator');
@@ -247,9 +243,11 @@
                         CURLOPT_FAILONERROR      => false,
                         CURLOPT_POST             => true,
                         CURLOPT_SSL_VERIFYPEER   => false,
-                        CURLOPT_HTTPAUTH         => CURLAUTH_BASIC,
-                        CURLOPT_POSTFIELDS       => $Post
+                        CURLOPT_HTTPAUTH         => CURLAUTH_BASIC
                     ];
+                    
+                    if (F::Dot($Call, 'Data.'.$cIndex))
+                        $CURLOpts[CURLOPT_POSTFIELDS] = is_string($Call['Data'][$cIndex]) ? $Call['Data'][$cIndex] : http_build_query($Call['Data'][$cIndex]);
 
                     if (is_float($Call['CURL']['Connect Timeout']))
                         $CURLOpts[CURLOPT_CONNECTTIMEOUT_MS] = $Call['CURL']['Connect Timeout'] * 1000;
@@ -303,8 +301,7 @@
             curl_multi_close($Call['Link']);
         } else {
             $Call['Link'] = curl_init($Call['Where']['ID']);
-            $Post = is_string($Call['Data']) ? $Call['Data'] : http_build_query($Call['Data']);
-
+            
             F::Log('CURL POST Request Headers: *'.j($Call['CURL']['Headers']).'*', LOG_INFO, 'Administrator');
                 $CURLOpts = [
                     CURLOPT_HEADER           => $Call['CURL']['Return Header'],
@@ -323,9 +320,11 @@
                     CURLOPT_POST             => true,
                     CURLOPT_SSL_VERIFYPEER   => false,
                     // CURLOPT_USERPWD          => isset($Call['User'])? $Call['User'].':'.$Call['Password']: null,
-                    CURLOPT_HTTPAUTH         => CURLAUTH_BASIC,
-                    CURLOPT_POSTFIELDS       => $Post
+                    CURLOPT_HTTPAUTH         => CURLAUTH_BASIC
                 ];
+                
+            if (F::Dot($Call, 'Data'))
+                $CURLOpts[CURLOPT_POSTFIELDS] = is_string($Call['Data']) ? $Call['Data'] : http_build_query($Call['Data']);
 
             if (is_float($Call['CURL']['Connect Timeout']))
                 $CURLOpts[CURLOPT_CONNECTTIMEOUT_MS] = $Call['CURL']['Connect Timeout'] * 1000;
@@ -362,11 +361,11 @@
             
             if (curl_errno($Call['Link']))
             {
-                F::Log('CURL POST error: '.curl_error($Call['Link']).' *'.$Call['Where']['ID'].'* '.PHP_EOL.$Post, LOG_NOTICE, 'Administrator');
+                F::Log('CURL POST error: '.curl_error($Call['Link']).' *'.$Call['Where']['ID'].'* '.PHP_EOL, LOG_NOTICE, 'Administrator');
                 F::Log($Result, LOG_NOTICE, 'Administrator');
             }
             else
-                F::Log('CURL POST fetched *'.$Call['Where']['ID'].'* '.$Post, LOG_INFO, 'Administrator');
+                F::Log('CURL POST fetched *'.$Call['Where']['ID'].'* ', LOG_INFO, 'Administrator');
 
             curl_close ($Call['Link']);
         }
