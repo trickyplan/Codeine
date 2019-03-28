@@ -2,8 +2,8 @@
     "ReCAPTCHA":
     {
         "Endpoint": "https://www.google.com/recaptcha/api/siteverify",
-        "Public": "74a84cc-5c5b-c2f6-303c-ac60eea1a5da",
-        "Private": ""
+        "Public": "6Lfev5UUAAAAAABWTKpejQYGlvsTfdXZdG7KqJ06",
+        "Private": "6Lfev5UUAAAAAGtAu41Szszh6JUEiaN4Uk-ji-Ss"
     },
     "Hooks":
     {
