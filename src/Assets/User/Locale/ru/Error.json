@@ -21,5 +21,8 @@
     },
     "Name": {
         "Required": "Укажите имя"
+    },
+    "CAPTCHA": {
+        "Failed": "Вы не прошли проверку CAPTCHA"
     }
 }

@@ -10,7 +10,7 @@
     setFn('Prepare', function ($Call)
     {
         $Call['Output']['ReCAPTCHA'][] =
-            '<js>https://www.google.com/recaptcha/api.js?onload=CaptchaCallback&render=explicit&hl='.$Call['Locale'].'</js>'.
+            '<js>https://www.google.com/recaptcha/api.js?onload=CaptchaCallback&render='.$Call['ReCAPTCHA']['Public'].'&hl='.$Call['Locale'].'</js>'.
             '<js>Security/CAPTCHA:ReCAPTCHA</js>'.
         '<div class="g-recaptcha" data-sitekey="'.$Call['ReCAPTCHA']['Public'].'"></div>';
 
@@ -46,7 +46,7 @@
             else
             {
                 $Call = F::Hook('CAPTCHA.Failed', $Call);
-                $Call['Errors'][] = ['CAPTCHA' => 'Failed'];
+                $Call['Errors']['CAPTCHA'][] = 'Failed';
             }
         }
 

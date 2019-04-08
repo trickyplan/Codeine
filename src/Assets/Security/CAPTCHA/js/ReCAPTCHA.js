@@ -1,6 +1,8 @@
-var CaptchaCallback = function()
+window.CaptchaCallback = function()
 {
     $('.g-recaptcha').each(function (index, el) {
-        grecaptcha.render(el, {sitekey: $(el).attr('data-sitekey')});
+        grecaptcha.execute($(el).attr('data-sitekey'), {action: 'login'}).then(function (token) {
+            $('<input type="hidden" />').attr({name: 'g-recaptcha-response', value: token}).appendTo(el);
+        });
     });
 }

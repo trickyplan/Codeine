@@ -40,7 +40,7 @@
 
         $Call = F::Apply('Security.Auth.'.$Call['Mode'], null, $Call);
 
-        if (!empty($Call['User']))
+        if (!empty($Call['User']) && empty($Call['Errors']))
         {
             if (isset($Call['Request']['Remember']))
                 $Call['TTL'] = $Call['TTLs']['Long'];
