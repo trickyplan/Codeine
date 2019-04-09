@@ -10,6 +10,7 @@
     setFn('Do', function ($Call)
     {
         $Call = F::Hook('beforeCreateDo', $Call);
+        $Call = F::Hook('before'.F::Dot($Call, 'Entity').'CreateDo', $Call);
 
         if (isset($Call['Data']))
             $Call['Data'] = F::Live($Call['Data'], $Call);
@@ -25,6 +26,7 @@
     setFn('GET', function ($Call)
     {
         $Call = F::Hook('beforeCreateGet', $Call);
+        $Call = F::Hook('before'.F::Dot($Call, 'Entity').'CreateGet', $Call);
 
         $Call['Scope'] = isset($Call['Scope'])? $Call['Entity'].'/'.$Call['Scope'] : $Call['Entity'];
         $Call['Tag'] = isset($Call['Scope'])? $Call['Scope']: null;
@@ -66,6 +68,7 @@
 
         // Вывести
         $Call = F::Hook('afterCreateGet', $Call);
+        $Call = F::Hook('after'.F::Dot($Call, 'Entity').'CreateGet', $Call);
         
         return $Call;
     });
@@ -73,6 +76,7 @@
     setFn('POST', function ($Call)
     {
         $Call = F::Hook('beforeCreatePost', $Call);
+        $Call = F::Hook('before'.F::Dot($Call, 'Entity').'CreatePost', $Call);
         // Берём данные из запроса
 
         if (isset($Call['Request']['Data']))
@@ -90,6 +94,7 @@
         {
             $Call['Data'] = $Result;
             $Call = F::Hook('afterCreatePost', $Call);
+            $Call = F::Hook('after'.F::Dot($Call, 'Entity').'CreatePost', $Call);
             $Call['Output']['Message'][] =
                 [
                     'Type' => 'Block',
