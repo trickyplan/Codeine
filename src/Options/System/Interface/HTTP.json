@@ -94,6 +94,11 @@
             {
                 "Service": "System.Interface.HTTP.CORS",
                 "Method": "Do"
+            },
+            "Timing":
+            {
+                "Service": "Security.Timing",
+                "Method": "Do"
             }
         },
         "afterInterfaceRun":
