@@ -21,5 +21,8 @@
     },
     "Name": {
         "Required": "Name required"
+    },
+    "CAPTCHA": {
+        "Failed": "You didn't pass CAPTCHA test" 
     }
 }

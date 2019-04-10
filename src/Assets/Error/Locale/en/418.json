@@ -1,0 +1,9 @@
+{
+    "Title": "Error 418",
+    "Warning": {
+        "Description": "You did not pass captcha test"
+    },
+    "Solution": {
+        "Description": "You may try to <a href=\"#\" onclick=\"window.history.back()\">get back</a>."
+    }
+}

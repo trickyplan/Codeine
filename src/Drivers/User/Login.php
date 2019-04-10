@@ -40,14 +40,14 @@
 
         $Call = F::Apply('Security.Auth.'.$Call['Mode'], null, $Call);
 
-        if (!empty($Call['User']))
+        if (!empty($Call['User']) && empty($Call['Errors']))
         {
             if (isset($Call['Request']['Remember']))
                 $Call['TTL'] = $Call['TTLs']['Long'];
 
             $Call = F::Apply('Session', 'Write', $Call, ['Session Data' => ['User' => $Call['User']['ID']]]);
             
-            if ($Call['Session']['User']['ID'] == $Call['User']['ID'])
+            if (F::Dot($Call, 'Session.User.ID') == $Call['User']['ID'])
             {
                 F::Log('User authenticated '.$Call['User']['ID'], LOG_INFO, 'Security');
                 

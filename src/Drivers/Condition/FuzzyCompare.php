@@ -24,5 +24,5 @@
 
     setFn('Gt', function ($Call)
     {
-        return !$Call['A'] > $Call['B'];
+        return !($Call['A'] > $Call['B']);
     });

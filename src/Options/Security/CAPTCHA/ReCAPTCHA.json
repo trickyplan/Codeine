@@ -2,8 +2,9 @@
     "ReCAPTCHA":
     {
         "Endpoint": "https://www.google.com/recaptcha/api/siteverify",
-        "Public": "",
-        "Private": ""
+        "Public": "6LcITpsUAAAAABrQ826c0WG8ij6G3NPpr1AFsLF1",
+        "Private": "6LcITpsUAAAAACbiMExyGNn8SQcPcOZJSJyCfk_G",
+        "Action": "page"
     },
     "Hooks":
     {
