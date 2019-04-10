@@ -10,9 +10,11 @@
     setFn('Prepare', function ($Call)
     {
         $Call['Output']['ReCAPTCHA'][] =
-            '<js>https://www.google.com/recaptcha/api.js?onload=CaptchaCallback&render='.$Call['ReCAPTCHA']['Public'].'&hl='.$Call['Locale'].'</js>'.
-            '<js>Security/CAPTCHA:ReCAPTCHA</js>'.
-        '<div class="g-recaptcha" data-sitekey="'.$Call['ReCAPTCHA']['Public'].'"></div>';
+            '<script src="https://www.google.com/recaptcha/api.js?render='.$Call['ReCAPTCHA']['Public'].'&hl='.$Call['Locale'].'" ></script>'.
+            '<div class="g-recaptcha" data-sitekey="'.$Call['ReCAPTCHA']['Public'].'"'.
+            ' data-action='.$Call['ReCAPTCHA']['Action'].'></div>'.
+            '<input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response" />'.
+            '<js>Security/CAPTCHA:ReCAPTCHA</js>';
 
         return $Call;
     });
@@ -39,9 +41,9 @@
         else
             $Result = ['success' => false];
 
-        if (isset($Result['success']))
+        if (isset($Result['success']) && isset($Result['score']))
         {
-            if ($Result['success'])
+            if ($Result['success'] && intval($Result['score']) > 0.5)
                 ;
             else
             {
