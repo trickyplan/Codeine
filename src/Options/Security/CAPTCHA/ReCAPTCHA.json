@@ -3,7 +3,8 @@
     {
         "Endpoint": "https://www.google.com/recaptcha/api/siteverify",
         "Public": "6LcITpsUAAAAABrQ826c0WG8ij6G3NPpr1AFsLF1",
-        "Private": "6LcITpsUAAAAACbiMExyGNn8SQcPcOZJSJyCfk_G"
+        "Private": "6LcITpsUAAAAACbiMExyGNn8SQcPcOZJSJyCfk_G",
+        "Action": "login"
     },
     "Hooks":
     {
