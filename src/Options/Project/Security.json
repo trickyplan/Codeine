@@ -1,13 +1,13 @@
 {
     "Rules":
     {
-        "Beacon / All":
+        "Online Status / All":
         {
             "Decision": true,
             "Weight": 50,
             "Run":
             {
-                "Service": "Project.Beacon"
+                "Service": "Project.Online.Status"
             }
         },
         "Terms / All":

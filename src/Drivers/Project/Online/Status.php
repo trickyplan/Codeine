@@ -9,6 +9,6 @@
 
     setFn('Do', function ($Call)
     {
-        $Call['Output']['Content'] = F::findFile($Call['Project']['Beacon']['URL']);
+        $Call['Output']['Content'] = F::findFile(F::Dot($Call, 'Project.Online.Status.URL'));
         return $Call;
     });
