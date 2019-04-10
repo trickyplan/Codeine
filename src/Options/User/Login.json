@@ -1,4 +1,11 @@
 {
+    "Security":
+    {
+        "Timing":
+        {
+            "Driver": "Delay"
+        }
+    },
     "Mixins": ["User.Login.AuthenticatedGoesBack"],
     "Auth Modes": ["Password"],
     "TTLs":
