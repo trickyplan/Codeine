@@ -43,7 +43,7 @@
 
         if (isset($Result['success']) && isset($Result['score']))
         {
-            if ($Result['success'] && intval($Result['score']) > 0.5)
+            if ($Result['success'] && floatval($Result['score']) > 0.5)
                 ;
             else
             {
