@@ -98,6 +98,10 @@
         {
             "Driver": "IO.Storage.FileSystem",
             "Directory": "Keys"
+        },
+        "DNS":
+        {
+            "Driver": "IO.DNS"
         }
     },
     "Hooks":
