@@ -5,12 +5,16 @@
      * @package Codeine Framework
      * @subpackage Core
     */
-    //gc_disable();
+
     require 'Codeine/vendor/autoload.php';
 
     define ('Codeine', __DIR__);
     define ('Started', microtime(true));
-    define ('RequestID', 'rq-'
+    
+    if (isset($_SERVER['REQUEST_ID']))
+        define('RequestID', 'rq-'.$_SERVER['REQUEST_ID']);
+    else
+        define ('RequestID', 'rq-'
         .mb_substr(sha1(gethostname()),-8)
         .'-'.base_convert(Started, 10, 16)
         .'-'.mb_substr(sha1(mt_rand(0, PHP_INT_MAX)), -8)
