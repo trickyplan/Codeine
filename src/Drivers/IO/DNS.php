@@ -1,7 +1,7 @@
 <?php
 
     setFn('Exists', function ($Call) {
-        return checkdnsrr(F::Dot($Call, 'Where.ID'), 'A');
+        return checkdnsrr(F::Dot($Call, 'Where.ID'), $Call['Record Type']);
     });
 
     setFn('Read', function ($Call) {
