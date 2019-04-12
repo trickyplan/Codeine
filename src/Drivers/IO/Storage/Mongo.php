@@ -131,41 +131,7 @@
                 ;
             else
             {
-                if (F::Environment() == 'Development')
-                {
-                    if (isset($Call['Where']))
-                    {
-                        F::Log(function () use ($Call) {
-                            $Explain = $Call['Link']->command(
-                            [
-                                'explain'   =>
-                                    [
-                                        'find'  => $Call['Scope'],
-                                        'filter' => $Call['Where']
-                                    ],
-                                'verbosity' => 'queryPlanner'
-                            ]
-                            );
-                            $Explain = $Explain->toArray();
-                            return 'Mongo explained: '.j($Explain);
-                    }, LOG_INFO, 'Administrator');
-                        F::Log(function () use ($Call) {
-                            $Explain = $Call['Link']->command(
-                            [
-                                'explain'   =>
-                                    [
-                                        'find'  => $Call['Scope'],
-                                        'filter' => $Call['Where']
-                                    ],
-                                'verbosity' => 'queryPlanner'
-                            ]
-                            );
-                            $Explain = $Explain->toArray();
-                            return 'Mongo explained: '.j($Explain);
-                    }, LOG_INFO+0.5, 'Administrator');
-                    }
-                }
-                
+                F::Run(null, 'Explain', $Call);
                 /*if (isset($Call['Mongo']['Read']['maxTimeMS']))
                     $Cursor->maxTimeMS($Call['Mongo']['Read']['maxTimeMS']);*/
                 $Cursor->setTypeMap(['root' => 'array', 'document' => 'array', 'array' => 'array']);
@@ -265,11 +231,13 @@
         {
             $Call = F::Apply(null, 'Where', $Call);
 
+            F::Run(null, 'Explain', $Call);
+            
             if (isset($Call['Distinct']) && $Call['Distinct'])
             {
                 F::Log('db.*'.$Call['Scope'].'*.distinct('.j($Call['Where']).')', LOG_INFO, 'Administrator');
                 $Data = $Call['Link']->selectCollection($Call['Scope'])->distinct($Call['Fields'][0], $Call['Where'], $Call['Mongo']['Options']);
-
+                
                 return count($Data);
             }
             else
@@ -382,4 +350,30 @@
         }
         
         return $Data;
+    });
+    
+    setFn('Explain', function ($Call)
+    {
+        if (F::Environment() == 'Development')
+        {
+            if (isset($Call['Where']))
+            {
+                F::Log(function () use ($Call)
+                {
+                    $Explain = $Call['Link']->command(
+                        [
+                            'explain'   =>
+                                [
+                                    'find'  => $Call['Scope'],
+                                    'filter' => $Call['Where']
+                                ],
+                            'verbosity' => 'queryPlanner'
+                        ]
+                    );
+                    $Explain = $Explain->toArray();
+                    return 'Mongo explained: '.j($Explain);
+                }, LOG_INFO, 'Administrator');
+            }
+        }
+        return $Call;
     });
