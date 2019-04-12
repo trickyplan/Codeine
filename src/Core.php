@@ -113,7 +113,7 @@
                     $Level = PHP_INT_MAX;
             }
 
-            self::Log('Codeine started', LOG_NOTICE);
+            self::Log('Codeine started: *'.RequestID.'*', LOG_NOTICE);
             self::Start('Preheat');
 
             if (isset($_COOKIE['Overlay'])
@@ -151,7 +151,7 @@
             $Call['Call']['Hostname'] = gethostname();
             $Call['Call']['Environment'] = self::Environment();
 
-            self::Log('PHP '.PHP_SAPI.' '.phpversion(), LOG_INFO);
+            self::Log('PHP *'.PHP_SAPI.'* *'.phpversion().'*', LOG_INFO);
             
             $Call['Version'] = self::loadOptions('Version');
             
