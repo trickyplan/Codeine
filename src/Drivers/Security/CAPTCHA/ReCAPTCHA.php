@@ -39,11 +39,11 @@
             $Result = array_pop($Result);
         }
         else
-            $Result = ['success' => false];
+            $Result = ['success' => false, 'score' => 0];
 
         if (isset($Result['success']) && isset($Result['score']))
         {
-            if ($Result['success'] && intval($Result['score']) > 0.5)
+            if ($Result['success'] && floatval($Result['score']) > 0.5)
                 ;
             else
             {
