@@ -14,6 +14,6 @@
 
     setFn('Render', function ($Call)
     {
-        $Call['HTTP']['Headers']['Content-type:'] = 'text/plain';
+        $Call['HTTP']['Headers']['Content-Type:'] = 'text/plain';
         return var_export($Call['Value'], true);
     });

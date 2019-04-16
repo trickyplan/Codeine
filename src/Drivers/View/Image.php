@@ -9,7 +9,7 @@
 
     setFn ('Process', function ($Call)
     {
-        $Call['HTTP']['Headers']['Content-type:'] = 'image/png';
+        $Call['HTTP']['Headers']['Content-Type:'] = 'image/png';
         $Call['Output'] = $Call['Image'];
 
         return $Call;

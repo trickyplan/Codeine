@@ -19,7 +19,7 @@
                 F::Log('JSON Pipeline is disabled', LOG_INFO);
             }
         
-            $Call = F::Dot($Call, 'HTTP.Headers.Content-type:', 'application/json');
+            $Call = F::Dot($Call, 'HTTP.Headers.Content-Type:', 'application/json');
 
             if ($Key = F::Dot($Call, 'View.JSON.Key'))
                 $Call['Output'] = j(F::Dot($Call['Output'], $Key));

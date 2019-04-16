@@ -21,14 +21,14 @@
         else
             $Call['Output'] = null;
         
-        if (F::Dot($Call, 'HTTP.Headers.Content-type:'))
+        if (F::Dot($Call, 'HTTP.Headers.Content-Type:'))
             ;
         else
         {
             if (is_scalar($Call['Output']))
             {
                 $finfo = new finfo(FILEINFO_MIME);
-                $Call = F::Dot($Call, 'HTTP.Headers.Content-type:', $finfo->buffer($Call['Output']));
+                $Call = F::Dot($Call, 'HTTP.Headers.Content-Type:', $finfo->buffer($Call['Output']));
             }
         }
 

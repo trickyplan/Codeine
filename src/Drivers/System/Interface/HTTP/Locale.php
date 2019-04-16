@@ -35,7 +35,7 @@
         else
             $Call['Locale URL'] = '/'.$Call['Locale'];
 
-        F::Log('Locale is '.$Call['Locale'], LOG_INFO);
+        F::Log('Locale is *'.$Call['Locale'].'*', LOG_INFO);
         
         setlocale(LC_ALL, $Call['Locales']['PHP'][$Call['Locale']]);
         
