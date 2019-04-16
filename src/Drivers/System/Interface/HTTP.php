@@ -294,7 +294,10 @@
                         $Value = (array) $Value;
 
                     foreach ($Value as $cValue)
-                        header(preg_replace('/\s+/', ' ', $Key . ' ' . $cValue), false);
+                    {
+                        $Header = preg_replace('/\s+/', ' ', $Key . ' ' . $cValue);
+                        header ($Header, true);
+                    }
                 }
         }
         return $Call;

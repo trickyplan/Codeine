@@ -4,7 +4,7 @@
     {
         "Headers":
         {
-            "Content-type:": "text/plain"
+            "Content-Type:": "text/plain"
         }
     },
     "Extension": ".txt",
