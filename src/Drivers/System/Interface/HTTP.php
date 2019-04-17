@@ -15,7 +15,7 @@
         F::Start('Payload');
         
         $Call = F::Hook('beforeInterfaceRun', $Call);
-            F::Log('Interface *Web* started', LOG_INFO);
+            F::Log('Interface *HTTP* started', LOG_INFO);
 
             $Call = F::Apply(null, 'Method', $Call);
             $Call = F::Apply(null, 'Server', $Call);
