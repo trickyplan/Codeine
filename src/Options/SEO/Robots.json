@@ -4,18 +4,17 @@
         "Crawl-delay": 0,
         "Crawlers":
         {
-            "*": "/go/",
-            "AhrefsBot": "/"
-        }
-    },
-    "Hooks":
-    {
-        "beforeSEORobotsGenerate":
-        {
-            "Check Domain Is Proxy":
+            "Allow * for everybody":
             {
-                "Service": "SEO.Robots.Hooks.CheckDomain",
-                "Method": "Do"
+                "User Agent": "*",
+                "Path": "/",
+                "Allow": true
+            },
+            "Disallow /go for everybody":
+            {
+                "User Agent": "*",
+                "Path": "/go/",
+                "Allow": false
             }
         }
     }
