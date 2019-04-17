@@ -22,7 +22,7 @@
         fastcgi_index  index.php;
     }
 
-    location ~ api.php$
+    location  api.php$
     {
         include fastcgi_params;
         include conf.d/codeine.fastcgi.v2.nginx;

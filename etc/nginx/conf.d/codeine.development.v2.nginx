@@ -10,25 +10,3 @@
     set $Environment Development;
 
     include conf.d/codeine.v2.nginx;
-
-    location ~ index.php$
-    {
-        include fastcgi_params;
-        include conf.d/codeine.fastcgi.v2.nginx;
-        fastcgi_intercept_errors        off;
-
-        fastcgi_param  Environment $Environment;
-        fastcgi_pass   $backend;
-        fastcgi_index  index.php;
-    }
-
-    location ~ api.php$
-    {
-        include fastcgi_params;
-        include conf.d/codeine.fastcgi.v2.nginx;
-        fastcgi_intercept_errors        off;
-
-        fastcgi_param  Environment $Environment;
-        fastcgi_pass   $backend;
-        fastcgi_index  api.php;
-    }
