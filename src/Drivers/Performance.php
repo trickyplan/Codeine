@@ -15,6 +15,7 @@
             $Call['Performance']['Summary']['Calls'] = array_sum(self::$_Counters['C']);
             $Call['Performance']['Summary']['Core Storage'] = count(self::$_Storage);
 
+            
             arsort(self::$_Counters['T']);
 
             F::Log('Max stack size: '.F::Get('MSS'), LOG_NOTICE, 'Performance');
@@ -36,18 +37,18 @@
 
                 $Class =
                     [
-                        'ATime' => LOG_DEBUG,
-                        'RTime' => LOG_DEBUG,
-                        'ACalls' => LOG_DEBUG,
-                        'RCalls' => LOG_DEBUG,
-                        'TimePerCall' => LOG_DEBUG
+                        'ATime'         => LOG_INFO,
+                        'RTime'         => LOG_INFO,
+                        'ACalls'        => LOG_INFO,
+                        'RCalls'        => LOG_INFO,
+                        'TimePerCall'   => LOG_INFO
                     ];
 
                 $Call['RTime'] = round(($Value / $Call['Performance']['Summary']['Time']) * 100, 2);
                 $Call['RCalls'] = round((self::$_Counters['C'][$Key] / $Call['Performance']['Summary']['Calls']) * 100, 2);
                 $Call['ATime'] = round($Value);
                 $Call['ACalls'] = self::$_Counters['C'][$Key];
-                $Call['TimePerCall'] = round($Value / self::$_Counters['C'][$Key], 2);
+                $Call['TimePerCall'] = round($Value / $Call['ACalls'], 2);
 
                 $Yellow = F::Dot($Call, 'Performance.Limits.Yellow');
                 
@@ -72,10 +73,10 @@
                                 $Class[$Metric] = LOG_ERR;
                 }
                 
-                F::Log('*'.$Key.'* time is *'.$Call['ATime'].'* ms', $Class['ATime'], 'Performance');
-                F::Log('*'.$Key.'* time is *'.$Call['RTime'].'%*', $Class['RTime'], 'Performance');
-                F::Log('*'.$Key.'* calls is *'.$Call['ACalls'].'*', $Class['ACalls'], 'Performance');
-                F::Log('*'.$Key.'* calls is *'.$Call['RCalls'].'%*', $Class['RCalls'], 'Performance');
+                F::Log('*'.$Key.'* time is *'.$Call['ATime'].'* ms',                $Class['ATime'], 'Performance');
+                F::Log('*'.$Key.'* time is *'.$Call['RTime'].'%*',                  $Class['RTime'], 'Performance');
+                F::Log('*'.$Key.'* calls is *'.$Call['ACalls'].'*',                 $Class['ACalls'], 'Performance');
+                F::Log('*'.$Key.'* calls is *'.$Call['RCalls'].'%*',                $Class['RCalls'], 'Performance');
                 F::Log('*'.$Key.'* time per call is *'.$Call['TimePerCall'].'* ms', $Class['TimePerCall'], 'Performance');
             }
         }

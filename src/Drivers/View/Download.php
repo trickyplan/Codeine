@@ -9,7 +9,7 @@
 
     setFn('Render', function ($Call)
     {
-        $Call['HTTP']['Headers']['Content-type:'] = mime_content_type($Call['Output']['Content']);
+        $Call['HTTP']['Headers']['Content-Type:'] = mime_content_type($Call['Output']['Content']);
 
         $pi = pathinfo($Call['Output']['Content']);
 

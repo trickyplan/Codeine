@@ -3,7 +3,7 @@
     {
         "Headers":
         {
-            "Content-type:": "application/octet-stream",
+            "Content-Type:": "application/octet-stream",
             "Accept-Ranges:": "bytes",
             "Connection:": "keep-alive"
         }

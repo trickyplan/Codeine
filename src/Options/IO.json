@@ -2,7 +2,7 @@
     "Mixins":
     {
         "Logs": "IO.Mixins.Logs2File",
-        "Behaviours": "IO.Mixins.Behaviours2Redis",
+        "Behaviours": "IO.Mixins.Behaviours2File",
         "View": "View.IO",
         "Test": "Test.IO",
         "Metric": "Metric.IO.MongoRedis"

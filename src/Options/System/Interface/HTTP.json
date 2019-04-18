@@ -81,18 +81,23 @@
             "Filter":
             {
                 "Service": "System.Interface.HTTP.Filter"
-            },
-            "-IDS":
-            {
-                "Service": "Security.IDS",
-                "Method": "Check"
             }
         },
         "afterRequestRun":
         {
+            "Add Request ID Headers":
+            {
+                "Service": "System.Interface.HTTP.Headers.RequestID",
+                "Method": "Do"
+            },
             "Set Default CORS-headers":
             {
                 "Service": "System.Interface.HTTP.CORS",
+                "Method": "Do"
+            },
+            "Timing":
+            {
+                "Service": "Security.Timing",
                 "Method": "Do"
             }
         },

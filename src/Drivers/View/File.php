@@ -13,11 +13,9 @@
             ;
         else
         {
-            $Call['HTTP']['Headers']['Content-type:'] = mime_content_type($Call['Output']['Content']);
-            readfile($Call['Output']['Content']);
+            $Call['HTTP']['Headers']['Content-Type:'] = mime_content_type($Call['Output']['Content']);
+            $Call['Output'] = file_get_contents($Call['Output']['Content']);
         }
         
-        $Call['Output'] = '';
-
         return $Call;
     });

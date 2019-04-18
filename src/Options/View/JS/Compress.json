@@ -1,4 +1,22 @@
 {
+    "Contract":
+    {
+        "Methods":
+        {
+            "Do":
+            {
+                "Behaviours":
+                {
+                    "Cached":
+                    {
+                        "Enabled": true,
+                        "TTL": 86400,
+                        "Keys": ["JS.Source"]
+                    }
+                }
+            }
+        }
+    },
     "JS":
     {
         "Compress":

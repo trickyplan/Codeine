@@ -1,0 +1,221 @@
+{
+    "Suites":
+    {
+        "Guzzle VS CURL":
+        {
+            "Guzzle (stream backend): Single GET":
+            {
+                "Run":
+                {
+                    "Service": "IO.Network.HTTP.Guzzle",
+                    "Method": "Read",
+                    "Call": 
+                    {
+                        "Where":
+                        {
+                            "ID": "https://google.com"
+                        },
+                        "Guzzle":
+                        {
+                            "Client":
+                            {
+                                "Backend": "Stream"
+                            }
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            },
+            "Guzzle (stream backend): Multiple GET":
+            {
+                "Run":
+                {
+                    "Service": "IO.Network.HTTP.Guzzle",
+                    "Method": "Read",
+                    "Call": 
+                    {
+                        "Where":
+                        {
+                            "ID": [
+                                "https://google.com",
+                                "https://google.com",
+                                "https://google.com"
+                            ]
+                        },
+                        "Guzzle":
+                        {
+                            "Client":
+                            {
+                                "Backend": "Stream"
+                            }
+                        }
+
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            },
+            "Guzzle (curl backend): Single GET":
+            {
+                "Run":
+                {
+                    "Service": "IO.Network.HTTP.Guzzle",
+                    "Method": "Read",
+                    "Call": 
+                    {
+                        "Where":
+                        {
+                            "ID": "https://google.com"
+                        },
+                        "Guzzle":
+                        {
+                            "Client":
+                            {
+                                "Backend": "Curl"
+                            }
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            },
+            "Guzzle (curl backend): Multiple GET":
+            {
+                "Run":
+                {
+                    "Service": "IO.Network.HTTP.Guzzle",
+                    "Method": "Read",
+                    "Call": 
+                    {
+                        "Where":
+                        {
+                            "ID": [
+                                "https://google.com",
+                                "https://google.com",
+                                "https://google.com"
+                            ]
+                        },
+                        "Guzzle":
+                        {
+                            "Client":
+                            {
+                                "Backend": "Curl"
+                            }
+                        }
+
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            },
+            "Guzzle (curl multi backend): Single GET":
+            {
+                "Run":
+                {
+                    "Service": "IO.Network.HTTP.Guzzle",
+                    "Method": "Read",
+                    "Call": 
+                    {
+                        "Where":
+                        {
+                            "ID": "https://google.com"
+                        },
+                        "Guzzle":
+                        {
+                            "Client":
+                            {
+                                "Backend": "CurlMulti"
+                            }
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            },
+            "Guzzle (curl multi backend): Multiple GET":
+            {
+                "Run":
+                {
+                    "Service": "IO.Network.HTTP.Guzzle",
+                    "Method": "Read",
+                    "Call": 
+                    {
+                        "Where":
+                        {
+                            "ID": [
+                                "https://google.com",
+                                "https://google.com",
+                                "https://google.com"
+                            ]
+                        },
+                        "Guzzle":
+                        {
+                            "Client":
+                            {
+                                "Backend": "CurlMulti"
+                            }
+                        }
+
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            },
+            "Codeine: Single GET":
+            {
+                "Run":
+                {
+                    "Service": "IO.Network.HTTP.CURL",
+                    "Method": "Read",
+                    "Call": 
+                    {
+                        "Where":
+                        {
+                            "ID": "https://google.com"
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            },
+            "Codeine: Multiple GET":
+            {
+                "Run":
+                {
+                    "Service": "IO.Network.HTTP.CURL",
+                    "Method": "Read",
+                    "Call": 
+                    {
+                        "Where":
+                        {
+                            "ID": [
+                                "https://google.com",
+                                "https://google.com",
+                                "https://google.com"
+                            ]
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            }
+        }
+    }
+}

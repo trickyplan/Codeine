@@ -9,7 +9,7 @@
 
     setFn('Open', function ($Call)
     {
-        return openlog($Call['Scope'].REQID, LOG_ODELAY, LOG_USER);
+        return openlog($Call['Scope'].RequestID, LOG_ODELAY, LOG_USER);
     });
 
     setFn('Write', function ($Call)

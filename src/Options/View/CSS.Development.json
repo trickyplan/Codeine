@@ -14,12 +14,12 @@
         },
         "beforeCSSLoad":
         {
-            "Less Check":
+            "LESS Check":
             {
                 "Service": "View.CSS.LESS",
                 "Method": "Check"
             },
-            "Sass Check":
+            "SASS Check":
             {
                 "Service": "View.CSS.SASS",
                 "Method": "Check"

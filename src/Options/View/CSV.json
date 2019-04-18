@@ -3,7 +3,7 @@
     {
         "Headers":
         {
-            "Content-type:": "text/csv; charset=utf-8"
+            "Content-Type:": "text/csv; charset=utf-8"
         }
     },
     "Extension": ".csv"

@@ -6,7 +6,7 @@
     {
         "Headers":
         {
-            "Content-type:": "text/xml; charset=utf-8"
+            "Content-Type:": "text/xml; charset=utf-8"
         }
     },
     "Hooks":

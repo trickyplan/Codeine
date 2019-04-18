@@ -32,7 +32,7 @@
             3 $Message,
             4 $From,
             5 $StackDepth,
-            6 F::Stack(),
+            6 F::printStack(),
             7 self::getColor()
         */
         if (is_array($Call['Value']))
@@ -41,23 +41,24 @@
 
             foreach ($Call['Value'] as $IX => $Row)
             {
-                if (is_scalar($Row[3]))
-                    $Row[3] = stripslashes(htmlentities($Row[3]));
+                if ($Row['Z'])
+                    $Row['X'] = stripslashes(htmlentities($Row['X']));
                 else
-                    $Row[3] = '<pre><code class="json">'.wordwrap(j($Row[3],JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES), 80).'</code></pre>';
+                    $Row['X'] = '<pre><code class="json">'.wordwrap($Row['X'], 80).'</code></pre>';
                     
-                $OutputLog .= '<tr class="'.$Call['Levels'][$Row[0]].'" style="border-left-color: #'.$Row[7].';">
-                        <td>'.$Row[1].'</td>
-                        <td>'.($Row[4] == (isset($Call['Value'][$IX-1][4])? $Call['Value'][$IX-1][4]: false)? '': $Row[4]).'</td>
-                        <td>'.$Row[2].'</td>
-                        <td>'.$Row[3].'</td>
+                $OutputLog .=
+                    '<tr class="'.$Call['Levels'][ceil($Row['V'])].'" style="border-left-color: #'.$Row['C'].';">
+                        <td>'.$Row['T'].'</td>
+                        <td>'.($Row['R'] == (isset($Call['Value'][$IX-1]['R'])? $Call['Value'][$IX-1]['R']: false)? '': $Row['R'].' from '.$Row['I']).'</td>
+                        <td>'.$Row['H'].'</td>
+                        <td>'.$Row['X'].'</td>
                         </tr>';
-                if (isset($Row[6]))
-                    $OutputLog .= '<tr class="'.$Call['Levels'][$Row[0]].'">
+                if (isset($Row['K']))
+                    $OutputLog .= '<tr class="'.$Call['Levels'][$Row['V']].'">
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td>'.$Row[6].'</td>
+                        <td>'.$Row['K'].'</td>
                         </tr>';
             }
             $OutputLog .= '</table>';
