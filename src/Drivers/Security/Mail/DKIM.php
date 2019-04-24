@@ -128,9 +128,9 @@
             }
             
             // must end with CRLF anyway
-            if(mb_substr($body, mb_strlen($body, 'UTF-8')-2, 2, 'UTF-8') != "\r\n"){
-                $body .= "\r\n";
-            }
+            // if(mb_substr($body, mb_strlen($body, 'UTF-8')-2, 2, 'UTF-8') != "\r\n"){
+            //     $body .= "\r\n";
+            // }
             
             return $body;
         }
@@ -416,9 +416,9 @@
         $Call['Headers']['DKIM-Signature'] = $Signature->get_signed_headers(
             $Call['Scope'], F::Dot($Call, 'Headers.Subject'), $Call['Data'], $Headers);
 
-        if(mb_substr($Call['Data'], mb_strlen($Call['Data'], 'UTF-8')-2, 2, 'UTF-8') != "\r\n"){
-            $Call['Data'] .= "\r\n";
-        }
+        // if(mb_substr($Call['Data'], mb_strlen($Call['Data'], 'UTF-8')-2, 2, 'UTF-8') != "\r\n"){
+        //     $Call['Data'] .= "\r\n";
+        // }
 
         return $Call;
     });
