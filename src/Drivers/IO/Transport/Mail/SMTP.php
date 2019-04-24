@@ -88,6 +88,7 @@
         }
 
         F::Log('Sending mail "'.$Call['Where']['ID'].'" to '.$Call['Scope'].' with '.$Call['Server'], LOG_INFO, 'Administrator');
+        F::Log('Email message: "'.$Call['Data'], LOG_DEBUG, 'Developer');
 
         $Result = $Call['Link']->send($Call['Scope'], $Call['Headers'], $Call['Data']);
        
