@@ -337,7 +337,7 @@
                 $this -> _dk_canonicalize_nofws($body, $sHeaders);
             
             $signature = '';
-            if(openssl_sign($to_be_signed, $signature, $this -> private_key, OPENSSL_ALGO_SHA1)){
+            if(openssl_sign($to_be_signed, $signature, $this -> private_key, OPENSSL_ALGO_SHA256)){
                 
                 $domainkeys_header .= rtrim(chunk_split(base64_encode($signature), 64, "\r\n\t"))."\r\n";
             }
@@ -404,6 +404,8 @@
             F::Dot($Call, 'DKIM.Selector'),
             F::Dot($Call, 'DKIM.Options')
         );
+
+        $Call['Data'] .= "\r\n";
 
         $Headers = '';
         foreach ($Call['Headers'] as $Key => $Value) {
