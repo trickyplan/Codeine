@@ -416,7 +416,5 @@
         $Call['Headers']['DKIM-Signature'] = $Signature->get_signed_headers(
             $Call['Scope'], F::Dot($Call, 'Headers.Subject'), $Call['Data'], $Headers);
 
-        $Call['Data'] .= "\r\n";
-
         return $Call;
     });
