@@ -138,7 +138,7 @@
         /**
          * Apply RFC 4871 requirements before body signature. Do not modify
         */
-        public function _dkim_canonicalize_body_relaxed($body){
+        private function _dkim_canonicalize_body_relaxed($body){
             $body = preg_replace('/(?<!\r)\n/', "\r\n", $body);
             $lines = explode("\r\n", $body);
             
