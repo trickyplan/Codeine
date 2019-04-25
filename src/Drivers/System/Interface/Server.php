@@ -34,12 +34,12 @@
                         $Call['Run'] = rawurldecode($Call['HTTP']['URI']);
 
                         $Call['HTTP']['URL'] = parse_url($Call['Run'], PHP_URL_PATH);
-                        $Call['HTTP']['URL Query'] = parse_url($Call['Run'], PHP_URL_QUERY);
+                        $Call['HTTP']['Query'] = parse_url($Call['Run'], PHP_URL_QUERY);
 
-                        if (empty($Call['HTTP']['URL Query']))
+                        if (empty($Call['HTTP']['Query']))
                             F::Log('Empty query string', LOG_INFO);
                         else
-                            F::Log('Query string: *'.$Call['HTTP']['URL Query'].'*', LOG_INFO);
+                            F::Log('Query string: *'.$Call['HTTP']['Query'].'*', LOG_INFO);
 
                         F::Log('Run String: '.$Call['Run'], LOG_INFO);
 
