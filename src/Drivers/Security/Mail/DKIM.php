@@ -128,9 +128,9 @@
             }
             
             // must end with CRLF anyway
-            if(mb_substr($body, mb_strlen($body, 'UTF-8')-2, 2, 'UTF-8') != "\r\n"){
-                $body .= "\r\n";
-            }
+            // if(mb_substr($body, mb_strlen($body, 'UTF-8')-2, 2, 'UTF-8') != "\r\n"){
+            //     $body .= "\r\n";
+            // }
             
             return $body;
         }
@@ -337,7 +337,7 @@
                 $this -> _dk_canonicalize_nofws($body, $sHeaders);
             
             $signature = '';
-            if(openssl_sign($to_be_signed, $signature, $this -> private_key, OPENSSL_ALGO_SHA1)){
+            if(openssl_sign($to_be_signed, $signature, $this -> private_key, OPENSSL_ALGO_SHA256)){
                 
                 $domainkeys_header .= rtrim(chunk_split(base64_encode($signature), 64, "\r\n\t"))."\r\n";
             }
@@ -411,10 +411,14 @@
                 $Headers .= $Key . ': ' . $Value . "\r\n";
         }
 
-        // $Call['Data'] = str_replace("\r\r\n", "\r\n", str_replace("\n", "\r\n", $Call['Data']));
+        $Call['Data'] = str_replace("\r\r\n", "\r\n", str_replace("\n", "\r\n", $Call['Data']));
 
         $Call['Headers']['DKIM-Signature'] = $Signature->get_signed_headers(
             $Call['Scope'], F::Dot($Call, 'Headers.Subject'), $Call['Data'], $Headers);
+
+        // if(mb_substr($Call['Data'], mb_strlen($Call['Data'], 'UTF-8')-2, 2, 'UTF-8') != "\r\n"){
+        //     $Call['Data'] .= "\r\n";
+        // }
 
         return $Call;
     });
