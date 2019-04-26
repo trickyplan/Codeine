@@ -849,9 +849,10 @@
 
         // Create Email Data, First Headers was DKIM and DomainKey
         list($k, $v) = explode(': ', $dkim_sign);
-        $Call['Headers'][$k] = $v;
+        $Keys[$k] = $v;
         list($k, $v) = explode(': ', $domainkey_sign);
-        $Call['Headers'][$k] = $v;
+        $Keys[$k] = $v;
+        $Call['Headers'] = $Keys + $Call['Headers'];
 
         return $Call;
     });
