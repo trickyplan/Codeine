@@ -12,8 +12,14 @@
         foreach ($Call['Nodes'] as $Name => $Node)
             if (isset($Node['Default']))
             {
-                $Node['Default'] = F::Live($Node['Default']);
-                
+                $LiveDefault = F::Live($Node['Default'], $Call);
+
+                if ($LiveDefault !== $Node['Default'])
+                {
+                    $Node['Default'] = $LiveDefault;
+                    F::Log('Live Default is processed: *'.$Name.'* = *'.$LiveDefault.'*', LOG_INFO);
+                }
+
                 if (F::Dot($Node, 'Empty as Default'))
                 {
                     if (F::Dot($Call['Data'], $Name) == null)

@@ -114,7 +114,7 @@
                     if (($Widget['Value'] = F::Dot($Call['Data'], $Name)) === null)
                     {
                         if (isset($Node['Default']))
-                            $Widget['Value'] = F::Live($Node['Default']);
+                            $Widget['Value'] = F::Live($Node['Default'], $Call);
                         else
                             $Widget['Value'] = null;
                     }
