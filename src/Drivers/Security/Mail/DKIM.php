@@ -443,18 +443,22 @@
         $mds = new mailDomainSigner(F::Dot($Call, 'DKIM.Private Key'), F::Dot($Call, 'DKIM.Domain'), F::Dot($Call, 'DKIM.Selector'));
 
         $HeadersList = strtolower(implode(':', array_keys($Headers)));
+        $HeadersStringList = [];
+        foreach ($Headers as $Header => $Value) {
+            $HeadersStringList[] = $Header . ': ' . $Value;
+        }
 
         // Create DKIM-Signature Header
         $dkim_sign = $mds->getDKIM(
             $HeadersList,
-            $Headers,
+            $HeadersStringList,
             $Call['Data']
         );
 
         // Create DomainKey-Signature Header
         $domainkey_sign = $mds->getDomainKey(
             $HeadersList,
-            $Headers,
+            $HeadersStringList,
             $Call['Data']
         );
 
