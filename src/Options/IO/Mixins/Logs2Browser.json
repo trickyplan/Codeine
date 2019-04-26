@@ -26,6 +26,11 @@
             "Driver": "IO.Print",
             "Format": "Formats.Log.HTML"
         },
+        "Management":
+        {
+            "Driver": "IO.Print",
+            "Format": "Formats.Log.HTML"
+        },
         "Metric":
         {
             "Driver": "IO.Print",
