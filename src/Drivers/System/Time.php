@@ -15,5 +15,5 @@
         else
             $Call['Mode'] = 'Normal';
 
-        return F::Live($Call['Modes'][$Call['Mode']], $Call)+$Call['Time']['Offset'];
+        return F::Live($Call['Modes'][$Call['Mode']], $Call)+F::Dot($Call, 'Time.Offset');
     });
