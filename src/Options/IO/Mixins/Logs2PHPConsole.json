@@ -21,6 +21,10 @@
         {
             "Driver": "IO.Log.PHPConsole"
         },
+        "Management":
+        {
+            "Driver": "IO.Log.PHPConsole"
+        },
         "Access":
         {
             "Driver": "IO.Log.PHPConsole"

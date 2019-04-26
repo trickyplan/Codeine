@@ -48,6 +48,18 @@
                 }
             }
         },
+        "Management":
+        {
+            "Driver": "IO.Log.Error",
+            "Format": "Formats.Log.Dummy",
+            "Log":
+                      {
+                          "Timestamps":
+                          {
+                              "Absolute": true
+                          }
+                      }
+        },
         "Marketing": {
             "Driver": "IO.Log.Error",
             "Format": "Formats.Log.Dummy",
