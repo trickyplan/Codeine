@@ -828,10 +828,8 @@
         $Call['Headers']['Date'] = date('r');
         $Call['Headers']['Message-ID'] = "<".sha1(microtime(true))."@".F::Dot($Call, 'DKIM.Domain');
 
-        $PrivateKey = openssl_get_privatekey(F::Dot($Call, 'DKIM.Private Key'), F::Dot($Call, 'DKIM.Passphrase'));
-
         // Create mailDomainSigner Object
-        $mds = new mailDomainSigner($PrivateKey, F::Dot($Call, 'DKIM.Domain'), F::Dot($Call, 'DKIM.Selector'));
+        $mds = new mailDomainSigner(file_get_contents(F::Dot($Call, 'DKIM.Private Key')), F::Dot($Call, 'DKIM.Domain'), F::Dot($Call, 'DKIM.Selector'));
 
         // Create DKIM-Signature Header
         $dkim_sign = $mds->getDKIM(
@@ -849,9 +847,10 @@
 
         // Create Email Data, First Headers was DKIM and DomainKey
         list($k, $v) = explode(': ', $dkim_sign);
-        $Call['Headers'][$k] = $v;
+        $Keys[$k] = $v;
         list($k, $v) = explode(': ', $domainkey_sign);
-        $Call['Headers'][$k] = $v;
+        $Keys[$k] = $v;
+        $Call['Headers'] = $Keys + $Call['Headers'];
 
         return $Call;
     });
