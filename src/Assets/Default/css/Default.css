@@ -5,7 +5,7 @@
 
 .console
 {
-    font: 12px monospace;
+    font: 1rem monospace;
     margin: auto;
     margin-top: 20px;
     padding: 4px 16px 4px 16px;
@@ -18,7 +18,7 @@
 
 .console-inverse
 {
-    font: 12px monospace;
+    font: 1rem monospace;
     margin: auto;
     margin-top: 20px;
     padding: 4px 16px 4px 16px;
