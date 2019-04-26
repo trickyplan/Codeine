@@ -428,24 +428,33 @@
     setFn('Do', function ($Call) {
         // QP the Body
         $Call['Data'] = quoted_printable_encode($Call['Data']);
-
-        $Call['Headers']['Date'] = date('r');
-        $Call['Headers']['Message-ID'] = "<".sha1(microtime(true))."@".F::Dot($Call, 'DKIM.Domain').">";
+        $Headers = [
+            'From' => F::Dot($Call, 'Headers.From'),
+            'To' => F::Dot($Call, 'Headers.To'),
+            'Subject' => F::Dot($Call, 'Headers.Subject'),
+            'MIME-Version' => F::Dot($Call, 'Headers.MIME-Version'),
+            'Date' => date('r'),
+            'Message-ID' => "<".sha1(microtime(true))."@".F::Dot($Call, 'DKIM.Domain').">",
+            'Content-Type' => F::Dot($Call, 'Headers.Content-Type'),
+            'Content-Transfer-Encoding' => F::Dot($Call, 'Headers.Content-Transfer-Encoding')
+        ];
 
         // Create mailDomainSigner Object
         $mds = new mailDomainSigner(F::Dot($Call, 'DKIM.Private Key'), F::Dot($Call, 'DKIM.Domain'), F::Dot($Call, 'DKIM.Selector'));
 
+        $HeadersList = strtolower(implode(':', array_keys($Headers)));
+
         // Create DKIM-Signature Header
         $dkim_sign = $mds->getDKIM(
-            "from:to:subject:mime-version:date:message-id:content-type:content-transfer-encoding",
-            $Call['Headers'],
+            $HeadersList,
+            $Headers,
             $Call['Data']
         );
 
         // Create DomainKey-Signature Header
         $domainkey_sign = $mds->getDomainKey(
-            "from:to:subject:mime-version:date:message-id:content-type:content-transfer-encoding",
-            $Call['Headers'],
+            $HeadersList,
+            $Headers,
             $Call['Data']
         );
 
@@ -453,7 +462,7 @@
         $Keys[$k] = $v;
         list($k, $v) = explode(': ', $domainkey_sign);
         $Keys[$k] = $v;
-        $Call['Headers'] = $Keys + $Call['Headers'];
+        $Call['Headers'] = $Keys + $Headers;
 
         return $Call;
     });
