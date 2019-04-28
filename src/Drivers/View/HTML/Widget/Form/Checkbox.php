@@ -9,7 +9,6 @@
 
     setFn('Make', function ($Call)
     {
-
         if (isset($Call['Value']))
             ;
         else
@@ -17,10 +16,13 @@
 
         $Call['Checked'] = $Call['Value'];
 
-        if (isset($Call['Localized']) && $Call['Localized'])
-            $Call['Label'] = '<l>' . $Call['Entity'] . '.Entity:' . $Call['Key'] . '.' . $Call['Value'] . '</l>';
-        else
-            $Call['Label'] = '<l>' . $Call['Entity'] . '.Entity:' . $Call['Key'] . '</l>';
+        if (isset($Call['Entity']))
+        {
+            if (isset($Call['Localized']) && $Call['Localized'])
+                $Call['Label'] = $Call['Entity'] . '.Entity:' . $Call['Key'] . '.' . $Call['Value'];
+            else
+                $Call['Label'] = $Call['Entity'] . '.Entity:' . $Call['Key'];
+        }
 
         return $Call;
     });
