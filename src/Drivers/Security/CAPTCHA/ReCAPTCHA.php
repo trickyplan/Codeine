@@ -7,6 +7,8 @@
      * @version 8.x
      */
 
+    /* Look at ./src/Options/Security/CAPTCHA/ReCAPTCHA.json for keys*/
+
     setFn('Prepare', function ($Call)
     {
         $Call['Output']['Form'][] =
