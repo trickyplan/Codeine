@@ -427,7 +427,6 @@
 
     setFn('Do', function ($Call) {
         // QP the Body
-        // $Call['Data'] = quoted_printable_encode($Call['Data']);
         $Headers = [
             'From' => F::Dot($Call, 'Headers.From'),
             'To' => F::Dot($Call, 'Headers.To'),
