@@ -89,7 +89,6 @@
 
         F::Log('Sending mail "'.$Call['Where']['ID'].'" to '.$Call['Scope'].' with '.$Call['Server'], LOG_INFO, 'Administrator');
         F::Log('Email message: *'.$Call['Data'].'*', LOG_DEBUG);
-        F::Log('sha256: '. base64_encode(hash('sha256', $Call['Data'], true)), LOG_DEBUG);
 
         $Result = $Call['Link']->send($Call['Scope'], $Call['Headers'], $Call['Data']);
        
