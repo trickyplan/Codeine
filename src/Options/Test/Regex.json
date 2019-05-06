@@ -30,6 +30,7 @@
             "Weight": 5,
             "Service": "Test",
             "Method": "Run.Test",
+            "Zone": "Test",
             "Call":
             {
                 "ID": "$1"
@@ -40,7 +41,8 @@
             "Match": "^/test$",
             "Weight": 5,
             "Service": "Test",
-            "Method": "Run.All"
+            "Method": "Run.All",
+            "Zone": "Test"
         }
     }
 }
