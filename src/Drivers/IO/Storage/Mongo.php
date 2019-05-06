@@ -139,6 +139,8 @@
 
                 foreach ($Data as $IX => $Object)
                     unset($Data[$IX]['_id']);
+
+                F::Log(count($Data).' documents loaded from *'.$Call['Scope'].'*', LOG_INFO,'Administrator');
             }
         }
 
