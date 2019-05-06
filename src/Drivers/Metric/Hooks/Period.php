@@ -3,30 +3,33 @@
     
     setFn('Do', function ($Call)
     {
-        if (isset($Call['Since']) || isset($Call['Till']))
+        if (isset($Call['Metric']['Since']) || isset($Call['Metric']['Till']))
         {
-            $Call['Since'] = $Call['Since'] ?? 0;
-            $Call['Till'] = $Call['Till'] ?? time();
-            
-            $Period = $Call['Till'] - $Call['Since'];
+            $Call['Metric']['Since'] = $Call['Metric']['Since'] ?? 0;
+            $Call['Metric']['Till'] = $Call['Metric']['Till'] ?? time();
+
+            $Call['Metric']['Since'] = F::Variable($Call['Metric']['Since'], $Call);
+            $Call['Metric']['Till'] = F::Variable($Call['Metric']['Till'], $Call);
+
+            $Period = $Call['Metric']['Till'] - $Call['Metric']['Since'];
     
-            if (!isset($Call['Where']['Resolution'])) {
+            if (!isset($Call['Metric']['Resolutions'])) {
                 switch (true) {
                     case $Period > 86400:
-                        $Call['Where']['Resolution'] = [86400];
+                        $Call['Metric']['Resolutions'] = [86400];
                         break;
                     case $Period > 3600;
-                        $Call['Where']['Resolution'] = [3600];
+                        $Call['Metric']['Resolutions'] = [3600];
                         break;
                     default:
-                        $Call['Where']['Resolution'] = [60];
+                        $Call['Metric']['Resolutions'] = [60];
                 }
             }
-            $Resolution = array_pop($Call['Where']['Resolution']);
+            $Resolution = array_pop($Call['Metric']['Resolutions']);
             
-            $Call['Where']['Time']['$gte'] = floor($Call['Since'] / $Resolution);
-            $Call['Where']['Time']['$lte'] = floor($Call['Till'] / $Resolution);
+            $Call['Metric']['Where']['Time']['$gte'] = floor($Call['Metric']['Since'] / $Resolution);
+            $Call['Metric']['Where']['Time']['$lt'] = floor($Call['Metric']['Till'] / $Resolution);
         }
-    
+
         return $Call;
     });

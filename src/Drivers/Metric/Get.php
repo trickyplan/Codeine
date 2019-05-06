@@ -8,16 +8,16 @@
      */
     setFn('Row', function ($Call)
     {
-        $Call = F::Hook('beforeMetricGet', $Call);
+        $Call = F::Hook('beforeMetricGetRow', $Call);
 
-            $Call['Result'] = F::Run('IO', 'Read', $Call,
+            $Call['Result'] = F::Run('IO', 'Read',
             [
                 'Storage'   => 'Primary',
                 'Scope'     => 'Metric',
-                'Where'     => $Call['Where']
+                'Where!'    => $Call['Metric']['Where']
             ]);
-        
-        $Call = F::Hook('afterMetricGet', $Call);
+
+        $Call = F::Hook('afterMetricGetRow', $Call);
         
         return $Call['Result'];
     });
@@ -30,7 +30,7 @@
             [
                 'Storage'   => 'Primary',
                 'Scope'     => 'Metric',
-                'Where'     => $Call['Where'],
+                'Where!'     => $Call['Metric']['Where'],
                 'Sort'      =>
                 [
                     'Metric.Time' => false
