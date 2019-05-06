@@ -29,7 +29,7 @@
                 'Execute'   => 'Count',
                 'Storage'   => 'Primary',
                 'Scope'     => 'Metric',
-                'Where'     => $Call['Where']
+                'Where!'     => $Call['Metric']['Where']
             ]);
 
         $Call = F::Hook('afterMetricCalcCount', $Call);
@@ -54,6 +54,7 @@
         $Call = F::Hook('beforeMetricCalcMin', $Call);
 
         $Rows = F::Run('Metric.Get', 'Row', $Call);
+
         $Call['Result'] = min(array_column($Rows, 'Value'));
 
         $Call = F::Hook('afterMetricCalcMin', $Call);
@@ -65,11 +66,9 @@
     {
         $Call = F::Hook('beforeMetricCalcSum', $Call);
 
-        $Rows = F::Run('Metric.Get', 'Row', $Call);
-
-        $Values = array_column($Rows, 'Value');
-
-        $Call['Result'] = array_sum($Values);
+            $Rows = F::Run('Metric.Get', 'Row', $Call);
+            $Values = array_column($Rows, 'Value');
+            $Call['Result'] = array_sum($Values);
 
         $Call = F::Hook('afterMetricCalcSum', $Call);
 
