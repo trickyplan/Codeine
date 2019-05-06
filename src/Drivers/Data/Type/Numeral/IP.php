@@ -9,18 +9,18 @@
 
     setFn('Write', function ($Call)
     {
-        return ip2long($Call['Value']);
+        return inet_pton($Call['Value']);
     });
 
     setFn(['Read', 'Where'], function ($Call)
     {
         if (is_int($Call['Value']))
-            return long2ip($Call['Value']);
+            return inet_ntop($Call['Value']);
         else
             return null;
     });
 
     setFn('Populate', function ($Call)
     {
-        return long2ip(rand());
+        return inet_ntop(rand());
     });

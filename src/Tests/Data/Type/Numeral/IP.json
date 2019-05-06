@@ -1,0 +1,91 @@
+{
+    "Suites":
+    {
+        "IPv4":
+        {
+            "Write Localhost IPv4":
+            {
+                "Run":
+                {
+                    "Service": "Data.Type.Numeral.IP",
+                    "Method":  "Write",
+                    "Call":
+                               {
+                                   "Value": "127.0.0.1"
+                               }
+                },
+                "Result":
+                {
+                    "Base64": true
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            },
+            "Write Google DNS IPv4":
+            {
+                "Run":
+                {
+                    "Service": "Data.Type.Numeral.IP",
+                    "Method":  "Write",
+                    "Call":
+                               {
+                                   "Value": "8.8.8.8"
+                               }
+                },
+                "Result":
+                {
+                    "Base64": true
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            }
+        },
+        "IPv6":
+        {
+            "Write Localhost IPv6":
+            {
+                "Run":
+                {
+                    "Service": "Data.Type.Numeral.IP",
+                    "Method":  "Write",
+                    "Call":
+                               {
+                                   "Value": "::1"
+                               }
+                },
+                "Result":
+                {
+                    "Base64": true
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            },
+            "Write Google DNS IPv6":
+            {
+                "Run":
+                {
+                    "Service": "Data.Type.Numeral.IP",
+                    "Method":  "Write",
+                    "Call":
+                               {
+                                   "Value": "2001:4860:4860::8888"
+                               }
+                },
+                "Result":
+                {
+                    "Base64": true
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            }
+        }
+    }
+}
