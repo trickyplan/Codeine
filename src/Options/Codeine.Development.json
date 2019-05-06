@@ -1,6 +1,7 @@
 {
     "Perfect": true,
     "Run Cache Enabled": true,
+    "Monitor Memory": true,
     "Verbose":
     {
         "Developer": 6,

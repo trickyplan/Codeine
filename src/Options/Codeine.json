@@ -6,6 +6,7 @@
     "Memo Threshold": 0.2,
     "Timer Resolution": 2,
     "Run Cache Enabled": true,
+    "Monitor Memory": false,
     "Overlays": [],
     "Panic Verbose": 3,
     "Verbose":
