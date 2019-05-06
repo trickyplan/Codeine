@@ -13,8 +13,6 @@
             ;
         else
             return null;
-
-        
             
         $CSS = F::Run('IO', 'Read', [
             'Storage'   => 'CSS',
@@ -24,20 +22,12 @@
         ]);
         
         $OutputLog = '<style type="text/css">'.$CSS.'</style>';
-        
-        /*
-            0 $Verbose,
-            1 $Time,
-            2 $Hash,
-            3 $Message,
-            4 $From,
-            5 $StackDepth,
-            6 F::printStack(),
-            7 self::getColor()
-        */
+
         if (is_array($Call['Value']))
         {
             $OutputLog .= '<table class="codeine-log" style="width: 100%;">';
+
+            $LastRow = ['M' => 0];
 
             foreach ($Call['Value'] as $IX => $Row)
             {
@@ -45,10 +35,17 @@
                     $Row['X'] = stripslashes(htmlentities($Row['X']));
                 else
                     $Row['X'] = '<pre><code class="json">'.wordwrap($Row['X'], 80).'</code></pre>';
-                    
+
+                $Row['M'] = round($Row['M']/1024);
+                $MemoryDiff = $Row['M'] - $LastRow['M'];
+
+                if ($MemoryDiff > 0)
+                    $MemoryDiff = '+'.$MemoryDiff;
+
                 $OutputLog .=
                     '<tr class="'.$Call['Levels'][ceil($Row['V'])].'" style="border-left-color: #'.$Row['C'].';">
                         <td>'.$Row['T'].'</td>
+                        <td>'.$Row['M'].' ('.$MemoryDiff.')'.'</td>
                         <td>'.($Row['R'] == (isset($Call['Value'][$IX-1]['R'])? $Call['Value'][$IX-1]['R']: false)? '': $Row['R'].' from '.$Row['I']).'</td>
                         <td>'.$Row['H'].'</td>
                         <td>'.$Row['X'].'</td>
@@ -60,6 +57,8 @@
                         <td></td>
                         <td>'.$Row['K'].'</td>
                         </tr>';
+
+                $LastRow = $Row;
             }
             $OutputLog .= '</table>';
         }

@@ -691,6 +691,7 @@
                             'Channel'   => $Channel,
                             'Verbose'   => $Record['V'],
                             'Time'      => $Record['T'],
+                            'Memory'    => $Record['M'],
                             'Message'   => is_scalar($Record['X'])? $Record['X']: j($Record['X']),
                             'From'      => $Record['R'],
                             'Depth'     => $Record['D'],
@@ -798,7 +799,8 @@
                                 'X' => $Message,
                                 'D' => $StackDepth,
                                 'K' => $Stack,
-                                'C' => self::getColor()
+                                'C' => self::getColor(),
+                                'M' => self::$_Options['Codeine']['Monitor Memory']? memory_get_usage(false): 0,
                             ];
                     
                     if (PHP_SAPI === 'cli')
