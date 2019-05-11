@@ -108,9 +108,14 @@
     {
         "beforeIOWrite":
         {
-            "-Journaling for writes":
+            "Check Journal flag":
             {
                 "Service": "IO.Hooks.Journal",
+                "Method": "beforeIOWrite"
+            },
+            "Check ReadOnly flag":
+            {
+                "Service": "IO.Hooks.ReadOnly",
                 "Method": "beforeIOWrite"
             }
         }
