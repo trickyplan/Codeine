@@ -15,7 +15,7 @@
             'ID' => 'Version'
         ];
 
-        $Version = phpversion();
+        $Version = PHP_VERSION_ID;
         
         if (($Tilda = mb_strpos($Version, '~')) === false)
             ;
@@ -39,17 +39,17 @@
         $Extensions = get_loaded_extensions();
 
         foreach ($Extensions as $Extension)
-            $ExtensionsRows[] = [
-                $Extension,
-                phpversion($Extension),
-                '<l>PHP.Extension:'.$Extension.'</l>'];
+            $ExtensionsRows[$Extension] = [
+                '<locale>PHP.Extension:'.$Extension.'</locale> ('.$Extension.')',
+                phpversion($Extension)];
 
+        ksort($ExtensionsRows);
 
         $Call['Output']['Content'][] =
-            array (
+            [
                 'Type'  => 'Table',
                 'Value' => $ExtensionsRows
-            );
+            ];
 
         return $Call;
     });
