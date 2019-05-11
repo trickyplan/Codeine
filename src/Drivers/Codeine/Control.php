@@ -39,7 +39,7 @@
         $Call['Version'] = F::loadOptions('Version');
 
         if (isset($Call['Version']['Codeine']))
-            return ['Count' => $Call['Version']['Codeine']['Major'].$Call['Version']['Codeine']['Minor']];
+            return ['Count' => $Call['Version']['Codeine']['Major']];
         else
              return null;
     });
