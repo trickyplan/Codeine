@@ -21,6 +21,7 @@
     "gmp": "GMP",
     "hash": "Hash",
     "iconv": "Iconv",
+    "igbinary": "IGBinary",
     "imagick": "Imagick",
     "json": "JSON",
     "libxml": "XML",

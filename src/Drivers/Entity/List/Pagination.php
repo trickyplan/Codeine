@@ -91,7 +91,7 @@
 
         $Call['PageURLPostfix'] = isset($Call['PageURLPostfix'])? $Call['PageURLPostfix']: '';
 
-        $Call['PageURLPostfix'].= isset($Call['HTTP']['URL Query'])? '?'.$Call['HTTP']['URL Query']: '';
+        $Call['PageURLPostfix'].= isset($Call['HTTP']['Query'])? '?'.$Call['HTTP']['Query']: '';
 
         if (!isset($Call['FirstURL']) && isset($Call['HTTP']['URL']))
             $Call['FirstURL'] = preg_replace('@/page(\d+)@', '', $Call['HTTP']['URL']);

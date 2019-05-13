@@ -124,22 +124,27 @@
 
             $Call = F::Hook('beforeIOWrite', $Call);
 
-                // Если в Where простая переменная - это ID.
-                if (isset($Call['Where']) && is_scalar($Call['Where']))
-                    $Call['Where'] = ['ID' => $Call['Where']];
-
-                if (isset($Call['Format']))
-                {
-                    if (isset($Call['Data']) && is_array($Call['Data']) && isset($Call['Data']['ID']))
-                        $Call['ID'] = $Call['Data']['ID'];
-
-                    $Call['Data'] = F::Run ($Call['Format'], null, $Call, ['Value!' => $Call['Data']]);
-                }
-
-                if (isset($Call['Driver']))
-                    $Call['Data'] = F::Run ($Call['Driver'], null, $Call);
+                if (F::Dot($Call, 'IO.Skip'))
+                    F::Log('Write skipped', LOG_INFO, 'Administrator');
                 else
-                    F::Log('IO Driver not set.', LOG_CRIT);
+                {
+                    // Если в Where простая переменная - это ID.
+                    if (isset($Call['Where']) && is_scalar($Call['Where']))
+                        $Call['Where'] = ['ID' => $Call['Where']];
+
+                    if (isset($Call['Format']))
+                    {
+                        if (isset($Call['Data']) && is_array($Call['Data']) && isset($Call['Data']['ID']))
+                            $Call['ID'] = $Call['Data']['ID'];
+
+                        $Call['Data'] = F::Run ($Call['Format'], null, $Call, ['Value!' => $Call['Data']]);
+                    }
+
+                    if (isset($Call['Driver']))
+                        $Call['Data'] = F::Run ($Call['Driver'], null, $Call);
+                    else
+                        F::Log('IO Driver not set.', LOG_CRIT);
+                }
 
             $Call = F::Hook('afterIOWrite', $Call);
 

@@ -31,11 +31,9 @@
             $Call['User']['Password'] = F::Live($Call['Reset']['Generator']);
             $Password = $Call['User']['Password'];
             
-            F::Run('Entity', 'Update',
+            F::Run('Entity', 'Update', $Call,
                 [
                     'Entity'  => 'User',
-                    'Purpose' => 'Reset',
-                    'One'     => true,
                     'Where'   => $Call['User']['ID'],
                     'Data'    => $Call['User']
                 ]);
@@ -62,13 +60,13 @@
             F::Run('IO', 'Write', $VCall,
                 [
                     'Storage'   => $Call['Reset']['Send To'],
-                    'Where'     => F::Run('Locale', 'Get', $Call, ['Message' => 'User.Reset:PasswordRecovery']),
+                    'Where'     => F::Run('Locale', 'Get', $Call, ['Message' => 'User.Reset.Password:Subtitle']),
                     'Scope'     => $Call['User']['EMail'],
                     'Data'      => $VCall['Output']
                 ]
             );
 
-            F::Log('User reset password '.$Call['User']['ID'], LOG_INFO, 'Security');
+            F::Log('User *'.$Call['User']['ID'].'* reset password', LOG_NOTICE, 'Security');
 
             $Call['Output']['Content'][] =
             [

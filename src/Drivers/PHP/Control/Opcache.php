@@ -14,8 +14,7 @@
         $Call['Output']['Content'][] =
             [
                 'Type'  => 'Block',
-                'Class' => 'console',
-                'Value' => j($Status)
+                'Value' => '<pre><code class="json">'.j($Status).'</code></pre>'
             ];
 
         return $Call;

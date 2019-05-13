@@ -18,7 +18,7 @@
         },
         "/system/beacon":
         {
-            "Service": "Project.Beacon",
+            "Service": "Project.Online.Status",
             "View":
             {
                 "Renderer":

@@ -1,7 +1,7 @@
 {
     "Hooks":
     {
-        "beforeMetricGet":
+        "beforeMetricGetRow":
         {
             "Apply Condition":
             {

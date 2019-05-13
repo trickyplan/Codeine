@@ -79,9 +79,12 @@
             
                 F::Start($Call['Test']['Case']['Name']);
 
-                $Call = F::Dot($Call,
-                    'Test.Case.Result.Actual',
-                    F::Live(F::Dot($Call, 'Test.Case.Run'), $Call['Virtual']));
+                $Result = F::Live(F::Dot($Call, 'Test.Case.Run'), $Call['Virtual']);
+
+                if (F::Dot($Call, 'Test.Case.Result.Drop'))
+                    $Call = F::Dot($Call, 'Test.Case.Result.Actual', '[Dropped]');
+                else
+                    $Call = F::Dot($Call, 'Test.Case.Result.Actual', $Result);
             
                 F::Stop($Call['Test']['Case']['Name']);
                 $Call = F::Dot($Call, 'Test.Case.Time.Run',
@@ -118,7 +121,11 @@
         else
             $Call = F::Dot($Call, 'Test.Case.Result.Actual',
                 j(F::Dot($Call, 'Test.Case.Result.Actual')));
-        
+
+        if (F::Dot($Call, 'Test.Case.Result.Base64'))
+            $Call = F::Dot($Call, 'Test.Case.Result.Actual',
+                base64_encode(F::Dot($Call, 'Test.Case.Result.Actual')));
+
         $Call['Test']['Case']['ID'] = $Call['ID'];
         $Call['Test']['Case']['CID'] = uniqid();
         $Call['Test']['Case']['Suite'] = $Call['Test']['Suite']['Name'];

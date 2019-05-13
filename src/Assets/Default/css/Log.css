@@ -1,6 +1,6 @@
 .codeine-log
 {
-    font: 10px monospace;
+    font: 1rem monospace;
     margin: auto;
     margin-top: 20px;
     padding: 4px 16px 4px 16px;
@@ -19,7 +19,7 @@
 
 .codeine-log pre
 {
-    font: 10px monospace;
+    font: 1rem monospace;
 }
 
 .codeine-log tr

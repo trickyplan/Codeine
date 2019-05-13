@@ -12,12 +12,6 @@
     access_log /var/log/nginx/$host.access.log codeine-access;
     error_page 502 503 504 /down.html;
 
-    gzip on;
-    gzip_comp_level 6;
-    gzip_disable "msie6";
-    gzip_min_length 1024;
-    gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript application/javascript;
-    gzip_vary on;
     client_max_body_size 16m;
     http2_max_field_size 8k;
 
@@ -53,4 +47,26 @@
         expires           max;
         log_not_found     off;
         add_header        Cache-Control  public;
+    }
+
+    location ~ index.php$
+    {
+        include fastcgi_params;
+        include conf.d/codeine.fastcgi.v2.nginx;
+        fastcgi_intercept_errors        off;
+
+        fastcgi_param  Environment $Environment;
+        fastcgi_pass   $backend;
+        fastcgi_index  index.php;
+    }
+
+    location ~ api.php$
+    {
+        include fastcgi_params;
+        include conf.d/codeine.fastcgi.v2.nginx;
+        fastcgi_intercept_errors        off;
+
+        fastcgi_param  Environment $Environment;
+        fastcgi_pass   $backend;
+        fastcgi_index  api.php;
     }

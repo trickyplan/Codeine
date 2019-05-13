@@ -9,7 +9,7 @@
 
      setFn('Make', function ($Call)
      {
-         if (is_array($Call['Value']))
+         if (isset($Call['Value']) && is_array($Call['Value']))
              $Call['Value'] = implode(',',$Call['Value']);
 
          return F::Run('View.HTML.Widget.Base', 'Make',

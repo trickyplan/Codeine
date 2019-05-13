@@ -13,24 +13,55 @@
                     {
                         "HTTP":
                         {
-                            "Method": "OPTIONS",
-                            "Request":
+                            "CORS":
                             {
-                                "Headers":
-                                {
-                                    "Access-Control-Request-Headers": ["X-CUSTOM-Header"]
-                                }
-                            }
+                                "Enabled": true
+                            },
+                            "Method": "OPTIONS"
                         }
                     }
                 },
                 "Result":
                 {
-                    "Extract": "HTTP.Headers"
+                    "Extract": "HTTP.Headers.Access-Control-Allow-Credentials:"
                 },
                 "Assert":
                 {
-                    "Print": true
+                    "Equal": "true"
+                }
+            },
+            "GET: Origin header passed":
+            {
+                "Run":
+                {
+                    "Service": "System.Interface.HTTP.CORS",
+                    "Method": "Do",
+                    "Call": 
+                    {
+                        "HTTP":
+                        {
+                            "Request":
+                            {
+                                "Headers":
+                                {
+                                    "Origin": "example.com"
+                                }
+                            },
+                            "CORS":
+                            {
+                                "Enabled": true
+                            },
+                            "Method": "GET"
+                        }
+                    }
+                },
+                "Result":
+                {
+                    "Extract": "HTTP.Headers.Access-Control-Allow-Origin:"
+                },
+                "Assert":
+                {
+                    "Equal": "example.com"
                 }
             },
             "GET":
@@ -43,17 +74,21 @@
                     {
                         "HTTP":
                         {
+                            "CORS":
+                            {
+                                "Enabled": true
+                            },
                             "Method": "GET"
                         }
                     }
                 },
                 "Result":
                 {
-                    "Extract": "HTTP.Headers"
+                    "Extract": "HTTP.Headers.Access-Control-Allow-Origin:"
                 },
                 "Assert":
                 {
-                    "Print": true
+                    "Equal": "*"
                 }
             }
         }

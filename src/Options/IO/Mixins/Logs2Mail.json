@@ -52,6 +52,18 @@
                 }
             }
         },
+        "Management": {
+            "Scope": "management@trickyplan.com",
+            "Driver": "IO.Transport.Mail.SMTP",
+            "Format": "Formats.Log.HTML",
+            "Log":
+            {
+                "Timestamps":
+                {
+                    "Absolute": true
+                }
+            }
+        },
         "Marketing": {
             "Scope": "marketing@trickyplan.com",
             "Driver": "IO.Transport.Mail.SMTP",

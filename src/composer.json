@@ -1,6 +1,7 @@
 {
     "name": "trickyplan/codeine",
     "require": {
-        "mongodb/mongodb": "^1.4"
+        "mongodb/mongodb": "^1.4",
+        "guzzlehttp/guzzle": "^6.3"
     }
 }

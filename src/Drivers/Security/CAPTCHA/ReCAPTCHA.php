@@ -7,9 +7,11 @@
      * @version 8.x
      */
 
+    /* Look at ./src/Options/Security/CAPTCHA/ReCAPTCHA.json for keys*/
+
     setFn('Prepare', function ($Call)
     {
-        $Call['Output']['ReCAPTCHA'][] =
+        $Call['Output']['Form'][] =
             '<script src="https://www.google.com/recaptcha/api.js?render='.$Call['ReCAPTCHA']['Public'].'&hl='.$Call['Locale'].'" ></script>'.
             '<div class="g-recaptcha" data-sitekey="'.$Call['ReCAPTCHA']['Public'].'"'.
             ' data-action='.$Call['ReCAPTCHA']['Action'].'></div>'.
@@ -28,6 +30,7 @@
                 'Storage'       => 'Web',
                 'Where'         => $Call['ReCAPTCHA']['Endpoint'],
                 'Output Format' => 'Formats.JSON',
+                'IO One'        => true,
                 'Data'          =>
                 [
                     'secret'    => $Call['ReCAPTCHA']['Private'],
@@ -35,15 +38,13 @@
                     'remoteip'  => $Call['HTTP']['IP']
                 ]
             ]);
-
-            $Result = array_pop($Result);
         }
         else
             $Result = ['success' => false, 'score' => 0];
 
-        if (isset($Result['success']) && isset($Result['score']))
+        if (isset($Result['success']))
         {
-            if ($Result['success'] && floatval($Result['score']) > 0.5)
+            if ($Result['success'])
                 ;
             else
             {

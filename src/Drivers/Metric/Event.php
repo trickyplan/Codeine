@@ -30,7 +30,7 @@
                 [
                     'Storage'   => 'Metric Queue',
                     'Scope'     => F::Dot($Call, 'Metric.Event.Type'),
-                    'Data'      => F::Dot($Call, 'Metric.Event')
+                    'Data!'      => F::Dot($Call, 'Metric.Event')
                 ]);
             
             
@@ -120,7 +120,7 @@
                         }
                     }
                 }
-                
+
                 foreach ($Call['Aggregate'] as $Row)
                 {
                     $VCall['Data'] = F::Run('IO', 'Read', $VCall,
@@ -130,12 +130,13 @@
                             'Where'     => $Row['Where'],
                             'IO One'    => true
                         ]);
-                    
+
                     if (empty($VCall['Data']))
                     {
                         $VCall['Data'] = $Row['Where'];
                         $VCall['Data']['Value'] = $Row['Value'];
-                        
+
+                        unset($VCall['Where']);
                         F::Run('IO', 'Write', $VCall,
                         [
                             'Storage'   => 'Primary',
