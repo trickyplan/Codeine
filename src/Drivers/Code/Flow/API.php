@@ -47,6 +47,7 @@
                             if ($Enabled)
                             {
                                 $Call = F::Hook('beforeAPIMethodRun', $Call);
+
                                 if ($Call['API']['Response']['Access'])
                                 {
                                     F::Log(
@@ -82,7 +83,9 @@
                                     $Call = F::Hook('afterAPIMethodRun', F::Merge($Call, $Result));
                                     
                                     $Call = F::Dot($Call, 'API.Response.Data', F::Dot($Result, 'Response'));
-                                    $Call = F::Dot($Call, 'API.Response.Status', F::Dot($Result, 'Status'));
+
+                                    if ($Status = F::Dot($Result, 'Status'))
+                                        $Call = F::Dot($Call, 'API.Response.Status', $Status);
                                     
                                     F::Log('[API] ['.$Call['API']['Request']['Format'].'] [S:'.F::Dot($Result, 'Status.Code').'] '.$Call['API']['Request']['Service'].':'.$Call['API']['Request']['Method'].'('.serialize(F::Dot($Call, 'API.Request.Call')).')', LOG_INFO, 'Access');
                                 }
