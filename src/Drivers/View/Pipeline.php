@@ -25,7 +25,8 @@
                                         $Widget = F::Run($Call['View']['Renderer']['Service']
                                             .'.Element.'
                                             .$Widget['Type'], 'Make', $Widget, [
-                                                'View' => $Call['View']
+                                                'View'      => $Call['View'],
+                                                'Locale'    => $Call['Locale']
                                         ]);
 
                                     $Call['Output'][$Place][$Key] = $Widget;
