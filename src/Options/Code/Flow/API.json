@@ -6,6 +6,14 @@
             "Flow": "API",
             "Method": "Do"
         },
+        "Response":
+        {
+            "Status":
+            {
+                "Code": 0,
+                "Message": "OK"
+            }
+        },
         "Formats":
         {
             "json":
