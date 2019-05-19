@@ -20,8 +20,6 @@
                 
                 $Row['H'] = mb_strtoupper(mb_substr(sha1($Row['I'].$Row['R'].$Hash), -12));
             }
-            else
-                d(__FILE__, __LINE__, $Row);
                 
         }
         
