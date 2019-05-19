@@ -11,7 +11,7 @@
 
     setFn('Prepare', function ($Call)
     {
-        $Call['Output']['Form'][] =
+        $Call['Output']['ReCAPTCHA'][] =
             '<script src="https://www.google.com/recaptcha/api.js?render='.$Call['ReCAPTCHA']['Public'].'&hl='.$Call['Locale'].'" ></script>'.
             '<div class="g-recaptcha" data-sitekey="'.$Call['ReCAPTCHA']['Public'].'"'.
             ' data-action='.$Call['ReCAPTCHA']['Action'].'></div>'.
@@ -42,9 +42,9 @@
         else
             $Result = ['success' => false, 'score' => 0];
 
-        if (isset($Result['success']))
+        if (isset($Result['success']) && isset($Result['score']))
         {
-            if ($Result['success'])
+            if ($Result['success'] && $Result['score'] > 0.5)
                 ;
             else
             {
