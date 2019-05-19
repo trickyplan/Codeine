@@ -29,14 +29,14 @@
             else
             {
                 if (isset($Call['Elements']))
-                    $Call['Count'] = count($Call['Elements']);
+                    $Call['Pagination']['Count'] = count($Call['Elements']);
                 else
-                    $Call['Count'] = F::Run('Entity', 'Count', $Call);
-                
-                $Call['CountOfPages'] = ceil($Call['Count'] / $Call['Pagination']['ElementsPerPage']);
-                F::Log('Count of elements: *'.$Call['Count'].'*', LOG_INFO);
+                    $Call['Pagination']['Count'] = F::Run('Entity', 'Count', $Call);
+
+                $Call['Pagination']['CountOfPages'] = ceil($Call['Pagination']['Count'] / $Call['Pagination']['ElementsPerPage']);
+                F::Log('Count of elements: *'.$Call['Pagination']['Count'].'*', LOG_INFO);
                 F::Log('Elements per page: *'.$Call['Pagination']['ElementsPerPage'].'*', LOG_INFO);
-                F::Log('Count of pages: *'.$Call['CountOfPages'].'*', LOG_INFO);
+                F::Log('Count of pages: *'.$Call['Pagination']['CountOfPages'].'*', LOG_INFO);
                 
                 if (isset($Call['Page']))
                 {
@@ -53,12 +53,12 @@
                             F::Log('Page number (*'.$Call['Page'].'*) *capped* to *'.$Call['Pagination']['Limits']['CountOfPages'].'*', LOG_INFO, 'Performance');
                         }
                         
-                        if ($Call['Page'] > $Call['CountOfPages'])
+                        if ($Call['Page'] > $Call['Pagination']['CountOfPages'])
                         {
-                            F::Log('Page number (*'.$Call['Page'].'*) is more than count of pages (*'.$Call['CountOfPages'].'*)', LOG_INFO, 'Performance');
+                            F::Log('Page number (*'.$Call['Page'].'*) is more than count of pages (*'.$Call['Pagination']['CountOfPages'].'*)', LOG_INFO, 'Performance');
                             $Call = F::Apply('System.Interface.HTTP', 'Redirect', $Call, 
                                 [
-                                    'Redirect' =>  preg_replace('@/page(\d+)@', '/page'.$Call['CountOfPages'], $Call['HTTP']['URL'])
+                                    'Redirect' =>  preg_replace('@/page(\d+)@', '/page'.$Call['Pagination']['CountOfPages'], $Call['HTTP']['URL'])
                                 ]);
                         }
                     }
@@ -70,13 +70,17 @@
                 $Call['Limit']['To'] = $Call['Pagination']['ElementsPerPage'];
                 $Call['Pagination']['Elements']['From'] = $Call['Limit']['From'];
                 $Call['Pagination']['Elements']['To'] = $Call['Limit']['From'] + $Call['Limit']['To'];
+
+                $Call['Pagination']['Labels']['From'] = $Call['Pagination']['Elements']['From']+1;
+                $Call['Pagination']['Labels']['To'] = $Call['Pagination']['Elements']['To'];
+
                 F::Log('Elements *'.$Call['Pagination']['Elements']['From'].'-'
-                    .($Call['Pagination']['Elements']['To'] > $Call['Count']? $Call['Count']: $Call['Pagination']['Elements']['To'])
+                    .($Call['Pagination']['Elements']['To'] > $Call['Pagination']['Count']? $Call['Pagination']['Count']: $Call['Pagination']['Elements']['To'])
                     .'* selected', LOG_INFO);
 
 
-                if ($Call['CountOfPages'] > 100)
-                    $Call['CountOfPages'] = 100;
+                if ($Call['Pagination']['CountOfPages'] > 100)
+                    $Call['Pagination']['CountOfPages'] = 100; // FIXME
             }
 
         }
@@ -96,11 +100,11 @@
         if (!isset($Call['FirstURL']) && isset($Call['HTTP']['URL']))
             $Call['FirstURL'] = preg_replace('@/page(\d+)@', '', $Call['HTTP']['URL']);
 
-        if (isset($Call['CountOfPages']) && $Call['CountOfPages']>1)
+        if (isset($Call['Pagination']['CountOfPages']) && $Call['Pagination']['CountOfPages']>1)
             $Call['Output']['Pagination'][] =
             [
                 'Type'  => 'Paginator',
-                'Total' => $Call['Count'],
+                'Total' => $Call['Pagination']['Count'],
                 'Pagination' => // FIX Other fields
                 [
                     'ElementsPerPage' => $Call['Pagination']['ElementsPerPage']
@@ -108,8 +112,9 @@
                 'Page' => $Call['Page'],
                 'FirstURL' => isset($Call['FirstURL'])? $Call['FirstURL']: '',
                 'PageURL' => isset($Call['PageURL'])? $Call['PageURL']: '',
-                'CountOfPages' => $Call['CountOfPages'],
-                'PageURLPostfix' => $Call['PageURLPostfix']
+                'CountOfPages' => $Call['Pagination']['CountOfPages'],
+                'PageURLPostfix' => $Call['PageURLPostfix'],
+                'Locale'    => $Call['Locale']
            ];
 
         return $Call;

@@ -10,7 +10,7 @@
     setFn ('Parse', function ($Call)
     {
         $Replaces = [];
-        
+
         foreach ($Call['Parsed']['Value'] as $IX => $Match)
         {
             if (strpos($Match, ',') !== false)
