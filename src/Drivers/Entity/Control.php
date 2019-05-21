@@ -9,6 +9,11 @@
 
     setFn('Do', function ($Call)
     {
+        return F::Apply(null, 'List', $Call);
+    });
+
+    setFn('Overview', function ($Call)
+    {
         $Call = F::loadOptions($Call['Bundle'].'.Entity', null, $Call);
         
         $Call['Metrics']['Time'] = time();
@@ -72,7 +77,7 @@
         $Call['Object'] = F::Run('Entity', 'Update', $Call,
         [
             'Entity' => $Call['Bundle'],
-            'Data' => $Call['Request'],
+            'Data' => $Call['Request']['Data'],
             'One'  => true
         ]);
 
