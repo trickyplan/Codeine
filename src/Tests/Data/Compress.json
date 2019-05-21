@@ -95,6 +95,53 @@
                 }
             }
         },
+        "Deflate with AAAA…":
+        {
+            "Deflate Encode":
+            {
+                "Run":
+                {
+                    "Service": "Data.Compress",
+                    "Method":  "Write",
+                    "Call":
+                    {
+                        "Driver": "Deflate",
+                        "Data": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                    }
+                },
+                "Result":
+                {
+                    "Base64": true
+                },
+                "Assert":
+                {
+                    "Equal": "c3QcSQAA",
+                    "Print": true
+                }
+            },
+            "Deflate Decode":
+            {
+                "Run":
+                {
+                    "Service": "Data.Compress",
+                    "Method":  "Read",
+                    "Call":
+                    {
+                        "Driver": "Deflate",
+                        "Data": "c3QcSQAA"
+                    }
+                },
+                "Preprocess":
+                {
+                    "Base64": ["Run.Call.Data"]
+                },
+                "Assert":
+                {
+                    "Print": true,
+                    "Equal": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                }
+            }
+        },
         "Deflate with Lorem Ipsum":
         {
             "Deflate Encode":
@@ -128,7 +175,7 @@
                     "Call":
                     {
                         "Driver": "Deflate",
-                        "Data": "H4sIAAAAAAAAAzWQwXFDMQhEW9kCPL+K5JZrCiCI7zAjCVkCj8sPyk9uQsCy+z5sSoOOFQ3Fqk0sdVATv4GtL2EXjwkqOnSx9jukajaXlFyAaKxmBS5t5LJ21qIluiMclb5SHuKXtKDRvROo6iPowKdDurbURtP9eGZJ7YZH6EK35TMK5CWT1cnVOqJWamyX8h7SpfvSr6SOHIZQGm/pya4AecoPvG1JChfojHRyZdWOKWPKt/QiM4Pnx9NqjDwnaSeTQtYSsNb6TygDBc64Kzn6NoRBM4uYB95fLMMlNsZkYMwknHMcQwv53sgUY5oW6ZviJpVHOeqgnRt2nspKKLJk7m6zum3QBqSJY/1xjXb8AL3Fspi9AQAA"
+                        "Data": "NZDBcUMxCERb2QI8v4rklmsKIIjvMCMJWQKPyw/KT25CwLL7PmxKg44VDcWqTSx1UBO/ga0vYRePCSo6dLH2O6RqNpeUXIBorGYFLm3ksnbWoiW6IxyVvlIe4pe0oNG9E6jqI+jAp0O6ttRG0/14ZknthkfoQrflMwrkJZPVydU6olZqbJfyHtKl+9KvpI4chlAab+nJrgB5yg+8bUkKF+iMdHJl1Y4pY8q39CIzg+fH02qMPCdpJ5NC1hKw1vpPKAMFzrgrOfo2hEEzi5gH3l8swyU2xmRgzCSccxxDC/neyBRjmhbpm+ImlUc56qCdG3aeykoosmTubrO6bdAGpIlj/XGNdvwA\n"
                     }
                 },
                 "Preprocess":
