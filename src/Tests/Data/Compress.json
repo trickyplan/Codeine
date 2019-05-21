@@ -1,0 +1,224 @@
+{
+    "Suites":
+    {
+        "GZIP with AAAA…":
+        {
+            "GZIP Encode":
+            {
+                "Run":
+                {
+                    "Service": "Data.Compress",
+                    "Method":  "Write",
+                    "Call":
+                    {
+                        "Driver": "GZIP",
+                        "Data": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                    }
+                },
+                "Result":
+                {
+                    "Base64": true
+                },
+                "Assert":
+                {
+                    "Equal": "H4sIAAAAAAAAA3N0HEkAALHMS/TuAAAA",
+                    "Print": true
+                }
+            },
+            "GZIP Decode":
+            {
+                "Run":
+                {
+                    "Service": "Data.Compress",
+                    "Method":  "Read",
+                    "Call":
+                    {
+                        "Driver": "GZIP",
+                        "Data": "H4sIAAAAAAAAA3N0HEkAALHMS/TuAAAA"
+                    }
+                },
+                "Preprocess":
+                {
+                    "Base64": ["Run.Call.Data"]
+                },
+                "Assert":
+                {
+                    "Print": true,
+                    "Equal": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                }
+            }
+        },
+        "GZIP with Lorem Ipsum":
+        {
+            "GZIP Encode":
+            {
+                "Run":
+                {
+                    "Service": "Data.Compress",
+                    "Method":  "Write",
+                    "Call":
+                    {
+                        "Driver": "GZIP",
+                        "Data": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                    }
+                },
+                "Result":
+                {
+                    "Base64": true
+                },
+                "Assert":
+                {
+                    "Print": true,
+                    "Empty": false
+                }
+            },
+            "GZIP Decode":
+            {
+                "Run":
+                {
+                    "Service": "Data.Compress",
+                    "Method":  "Read",
+                    "Call":
+                    {
+                        "Driver": "GZIP",
+                        "Data": "H4sIAAAAAAAAAzWQwXFDMQhEW9kCPL+K5JZrCiCI7zAjCVkCj8sPyk9uQsCy+z5sSoOOFQ3Fqk0sdVATv4GtL2EXjwkqOnSx9jukajaXlFyAaKxmBS5t5LJ21qIluiMclb5SHuKXtKDRvROo6iPowKdDurbURtP9eGZJ7YZH6EK35TMK5CWT1cnVOqJWamyX8h7SpfvSr6SOHIZQGm/pya4AecoPvG1JChfojHRyZdWOKWPKt/QiM4Pnx9NqjDwnaSeTQtYSsNb6TygDBc64Kzn6NoRBM4uYB95fLMMlNsZkYMwknHMcQwv53sgUY5oW6ZviJpVHOeqgnRt2nspKKLJk7m6zum3QBqSJY/1xjXb8AL3Fspi9AQAA"
+                    }
+                },
+                "Preprocess":
+                {
+                    "Base64": ["Run.Call.Data"]
+                },
+                "Assert":
+                {
+                    "Print": true,
+                    "Equal": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                }
+            }
+        },
+        "Deflate with Lorem Ipsum":
+        {
+            "Deflate Encode":
+            {
+                "Run":
+                {
+                    "Service": "Data.Compress",
+                    "Method":  "Write",
+                    "Call":
+                    {
+                        "Driver": "Deflate",
+                        "Data": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                    }
+                },
+                "Result":
+                {
+                    "Base64": true
+                },
+                "Assert":
+                {
+                    "Print": true,
+                    "Empty": false
+                }
+            },
+            "Deflate Decode":
+            {
+                "Run":
+                {
+                    "Service": "Data.Compress",
+                    "Method":  "Read",
+                    "Call":
+                    {
+                        "Driver": "Deflate",
+                        "Data": "H4sIAAAAAAAAAzWQwXFDMQhEW9kCPL+K5JZrCiCI7zAjCVkCj8sPyk9uQsCy+z5sSoOOFQ3Fqk0sdVATv4GtL2EXjwkqOnSx9jukajaXlFyAaKxmBS5t5LJ21qIluiMclb5SHuKXtKDRvROo6iPowKdDurbURtP9eGZJ7YZH6EK35TMK5CWT1cnVOqJWamyX8h7SpfvSr6SOHIZQGm/pya4AecoPvG1JChfojHRyZdWOKWPKt/QiM4Pnx9NqjDwnaSeTQtYSsNb6TygDBc64Kzn6NoRBM4uYB95fLMMlNsZkYMwknHMcQwv53sgUY5oW6ZviJpVHOeqgnRt2nspKKLJk7m6zum3QBqSJY/1xjXb8AL3Fspi9AQAA"
+                    }
+                },
+                "Preprocess":
+                {
+                    "Base64": ["Run.Call.Data"]
+                },
+                "Assert":
+                {
+                    "Print": true,
+                    "Equal": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                }
+            }
+        },
+        "Modes with Lorem Ipsum":
+        {
+            "Normal Encode":
+            {
+                "Run":
+                {
+                    "Service": "Data.Compress",
+                    "Method":  "Write",
+                    "Call":
+                    {
+                        "Compress":
+                        {
+                            "Mode": "Normal"
+                        },
+                        "Data": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                    }
+                },
+                "Result":
+                {
+                    "Base64": true
+                },
+                "Assert":
+                {
+                    "Print": true,
+                    "Empty": false
+                }
+            },
+            "Strong Encode":
+            {
+                "Run":
+                {
+                    "Service": "Data.Compress",
+                    "Method":  "Write",
+                    "Call":
+                    {
+                        "Compress":
+                        {
+                            "Mode": "Strong"
+                        },
+                        "Data": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                    }
+                },
+                "Result":
+                {
+                    "Base64": true
+                },
+                "Assert":
+                {
+                    "Print": true,
+                    "Empty": false
+                }
+            },
+            "Fast Encode":
+            {
+                "Run":
+                {
+                    "Service": "Data.Compress",
+                    "Method":  "Write",
+                    "Call":
+                    {
+                        "Compress":
+                        {
+                            "Mode": "Fast"
+                        },
+                        "Data": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                    }
+                },
+                "Result":
+                {
+                    "Base64": true
+                },
+                "Assert":
+                {
+                    "Print": true,
+                    "Empty": false
+                }
+            }
+        }
+    }
+}
