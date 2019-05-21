@@ -1,0 +1,56 @@
+{
+    "Compress":
+    {
+        "Ratio":
+        {
+            "Analyze": true,
+            "Min": 50
+        },
+        "Mode": "Normal",
+        "Modes":
+        {
+            "Normal":
+            {
+                "Service": "Data.Compress.GZIP",
+                "Call":
+                {
+                    "Compress":
+                    {
+                        "GZIP":
+                        {
+                            "Level": 6
+                        }
+                    }
+                }
+            },
+            "Strong":
+            {
+                "Service": "Data.Compress.GZIP",
+                "Call":
+                {
+                    "Compress":
+                    {
+                        "GZIP":
+                        {
+                            "Level": 9
+                        }
+                    }
+                }
+            },
+            "Fast":
+            {
+                "Service": "Data.Compress.GZIP",
+                "Call":
+                {
+                    "Compress":
+                    {
+                        "GZIP":
+                        {
+                            "Level": 1
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
