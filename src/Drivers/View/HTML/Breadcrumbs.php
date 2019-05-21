@@ -10,7 +10,7 @@
     setFn('Scan', function ($Call)
     {
         $Breadcrumbs = '';
-        
+
         if (preg_match_all('@<breadcrumb (.+)>(.*)<\/breadcrumb>@SsUu', $Call['Output'], $Pockets))
         {
             foreach ($Pockets[0] as $IX => $Match)
@@ -26,7 +26,19 @@
                 }
             }
 
+            $First = array_shift($Call['Breadcrumbs']);
+
+            if (F::Dot($Call, 'View.HTML.Breadcrumbs.Max'))
+                $Call['Breadcrumbs'] = array_slice($Call['Breadcrumbs'], -F::Dot($Call, 'View.HTML.Breadcrumbs.Max'));
+
             $Last = array_pop($Call['Breadcrumbs']);
+
+            $Breadcrumbs = F::Run('View', 'Load',
+                [
+                    'Scope' => $Call['View']['HTML']['Widget Set'].'/Widgets',
+                    'ID' => 'Breadcrumb/Active',
+                    'Data' => $First
+                ]);
 
             foreach ($Call['Breadcrumbs'] as $Breadcrumb)
             {
