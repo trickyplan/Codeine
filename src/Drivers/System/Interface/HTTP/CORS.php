@@ -8,6 +8,8 @@
 
             $Call['HTTP']['Headers']['Access-Control-Allow-Headers: '] = 'X-Requested-With,Content-Type';
 
+            $Call['HTTP']['Headers']['Access-Control-Allow-Methods: '] = implode(',', F::Dot($Call, 'HTTP.Methods.Allowed') ?? []);
+
             $Origin = F::Dot($Call, 'HTTP.Request.Headers.Origin');
 
             if (empty($Origin))
