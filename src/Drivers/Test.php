@@ -127,6 +127,8 @@
             $Call = F::Dot($Call, 'Test.Case.Result.Actual',
                 j(F::Dot($Call, 'Test.Case.Result.Actual')));
 
+        $Call = F::Dot($Call, 'Test.Case.Result.Size', mb_strlen(F::Dot($Call, 'Test.Case.Result.Actual')));
+
         $Call['Test']['Case']['ID'] = $Call['ID'];
         $Call['Test']['Case']['CID'] = uniqid();
         $Call['Test']['Case']['Suite'] = $Call['Test']['Suite']['Name'];

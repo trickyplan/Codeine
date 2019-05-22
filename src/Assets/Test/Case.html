@@ -1,32 +1,35 @@
-<tr>
-    <td>
-        <if key="Status" eq="Passed">
-            <div class="label label-success">Passed</div>
-        </if>
-        <if key="Status" eq="Failed">
-            <div class="label label-danger">Failed</div>
-        </if>
-    </td>
-    <td>
-        <key>ID</key>
-    </td>
-    <td>
-        <key>Suite</key>
-    </td>
-    <td>
-        <key>Name</key>
-    </td>
-    <td>
-        <key>Time.Run</key> ms.
-    </td>
-    <td>
-        <a data-toggle="collapse" href="#ResultActual_<key>CID</key>" aria-expanded="false" aria-controls="collapseExample">
-          Result
-        </a>
-    </td>
-</tr>
-<tr class="collapse" id="ResultActual_<key>CID</key>">
-    <td colspan="6">
-        <pre><code class="json"><htmlentities><key>Result.Actual</key></htmlentities></code></pre>
-    </td>
-</tr>
+<li class="list-group-item">
+    <div data-toggle="collapse" href="#ResultActual_<key>CID</key>" aria-expanded="false" aria-controls="collapseExample">
+        <div class="row">
+            <div class="col-md-1">
+                <if key="Status" eq="Passed">
+                    <div class="label label-success">Passed</div>
+                </if>
+                <if key="Status" eq="Failed">
+                    <div class="label label-danger">Failed</div>
+                </if>
+            </div>
+            <div class="col-md-1">
+                <key>ID</key>
+            </div>
+            <div class="col-md-3">
+                <key>Suite</key>
+            </div>
+            <div class="col-md-3">
+                <key>Name</key>
+            </div>
+            <div class="col-md-1">
+                <key>Time.Run</key> ms.
+            </div>
+            <div class="col-md-1">
+                <key>Result.Size</key> bytes
+            </div>
+        </div>
+        <div class="collapse" id="ResultActual_<key>CID</key>">
+            <hr>
+            <pre><code class="json"><htmlentities><key>Result.Actual</key></htmlentities></code></pre>
+        </div>
+    </div>
+
+</li>
+
