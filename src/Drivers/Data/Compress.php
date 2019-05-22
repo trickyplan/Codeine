@@ -9,8 +9,8 @@
 
     setFn('Read', function ($Call)
     {
-        if (isset($Call['Driver']))
-            $Result = F::Run('Data.Compress.'.$Call['Driver'], null, $Call);
+        if (isset($Call['Compress']['Driver']))
+            $Result = F::Run('Data.Compress.'.$Call['Compress']['Driver'], null, $Call);
         else
         {
             $Live = F::Dot($Call, 'Compress.Modes.'.$Call['Compress']['Mode']);
@@ -29,8 +29,8 @@
     {
         $OriginalSize = mb_strlen($Call['Data']);
 
-        if (isset($Call['Driver']))
-            $Result = F::Run('Data.Compress.'.$Call['Driver'], null, $Call);
+        if (isset($Call['Compress']['Driver']))
+            $Result = F::Run('Data.Compress.'.$Call['Compress']['Driver'], null, $Call);
         else
         {
             $Live = F::Dot($Call, 'Compress.Modes.'.$Call['Compress']['Mode']);
@@ -49,7 +49,7 @@
             if ($Ratio < F::Dot($Call, 'Compress.Ratio.Min'))
             {
                 F::Log('Inefficient compression: '.$Ratio.'%', LOG_NOTICE);
-                F::Log((isset($Call['Driver'])? 'Driver is *'.$Call['Driver'].'*': 'Mode is *'.$Call['Compress']['Mode']).'*', LOG_NOTICE);
+                F::Log((isset($Call['Compress']['Driver'])? 'Driver is *'.$Call['Compress']['Driver'].'*': 'Mode is *'.$Call['Compress']['Mode']).'*', LOG_NOTICE);
                 F::Log('Data is *'.mb_substr($Call['Data'], 0, 16).'…*', LOG_INFO);
             }
             else
