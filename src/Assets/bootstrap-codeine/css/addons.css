@@ -142,6 +142,11 @@ a.no-border, .no-border a, a:hover.no-border, .no-border a:hover
     line-height: normal;
 }
 
+.text-monospaced
+{
+    font-family: monospace;
+}
+
 .label-xl
 {
     font-size: 200%;

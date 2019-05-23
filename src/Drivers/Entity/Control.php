@@ -9,7 +9,7 @@
 
     setFn('Do', function ($Call)
     {
-        return F::Apply(null, 'List', $Call);
+        return F::Run(null, 'List', $Call);
     });
 
     setFn('Overview', function ($Call)

@@ -24,19 +24,30 @@
 
         </div>
     </nav>
-
-<div class="container liquid">
-    <breadcrumbs/>
+<breadcrumbs/>
+<div class="container-fluid">
     <div class="row">
-        <div class="col-lg-2">
-            <div class="hidden-print"><place>Navigation</place></div>
+        <div class="col-md-3 col-lg-2">
+            <div class="panel panel-primary">
+                <div class="panel-heading"><locale>Control.Panel:Navigation</locale></div>
+                <div class="panel-body">
+                    <div class="hidden-print"><place>Navigation</place></div>
+                </div>
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading"><locale>Control.Panel:Actions</locale></div>
+                <div class="panel-body">
+                    <place>Sidebar</place>
+                </div>
+            </div>
         </div>
-        <div class="col-lg-8">
-            <h4><header/></h4>
-            <place>Content</place>
-        </div>
-        <div class="col-lg-2">
-            <place>Sidebar</place>
+        <div class="col-md-9 col-lg-10">
+            <div class="panel panel-default">
+                <div class="panel-heading"><header/></div>
+                <div class="panel-body">
+                    <place>Content</place>
+                </div>
+            </div>
         </div>
     </div>
 </div>
