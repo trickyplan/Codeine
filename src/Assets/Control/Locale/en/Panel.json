@@ -5,5 +5,7 @@
         "Developer": "Developer",
         "Company": "Company"
     },
-    "Title": "Control panel"
+    "Title": "Control panel",
+    "Navigation": "Navigation",
+    "Actions": "Actions"
 }

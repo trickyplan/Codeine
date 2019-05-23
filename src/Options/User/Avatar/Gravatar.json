@@ -1,7 +1,8 @@
 {
     "Gravatar":
     {
-        "Size": 200,
-        "URL": "www.gravatar.com/avatar/"
+        "Size": 128,
+        "URL": "www.gravatar.com/avatar/",
+        "Default": "identicon"
     }
 }

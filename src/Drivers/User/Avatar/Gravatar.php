@@ -9,11 +9,19 @@
 
     setFn('Get', function ($Call)
     {
-        return
-            $Call['HTTP']['Proto']
-            .$Call['Gravatar']['URL']
-            .md5(strtolower(trim($Call['Data']['EMail'])))
-            .'?s='
-            .$Call['Gravatar']['Size']
-            .urlencode('&d='.$Call['HTTP']['Host'].'/img/no.jpg');
+        $EMail = trim($Call['Data']['EMail']);
+        $EMail = mb_convert_case($EMail, MB_CASE_LOWER);
+        $Default = urlencode($Call['Gravatar']['Default']);
+
+        $URL = '//'
+                .$Call['Gravatar']['URL']
+                .md5($EMail)
+                .'?'
+                .http_build_query(
+                    [
+                        's' => $Call['Gravatar']['Size'],
+                        'd' => $Default
+                    ]);
+
+        return $URL;
     });
