@@ -28,6 +28,9 @@
   src: url("/fonts/bower/Font-Awesome/webfonts/fa-solid-900.eot?#iefix") format("embedded-opentype"), url("/fonts/bower/Font-Awesome/webfonts/fa-solid-900.woff2") format("woff2"), url("/fonts/bower/Font-Awesome/webfonts/fa-solid-900.woff") format("woff"), url("/fonts/bower/Font-Awesome/webfonts/fa-solid-900.ttf") format("truetype"), url("/fonts/bower/Font-Awesome/webfonts/fa-solid-900.svg#fontawesome") format("svg"); }
 
 .fa,
-.fas {
+.fas
+{
   font-family: 'Font Awesome 5 Free';
-  font-weight: 900; }
+  font-display: auto;
+  font-weight: 900;
+}

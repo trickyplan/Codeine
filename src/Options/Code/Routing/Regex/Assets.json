@@ -15,6 +15,13 @@
                     "Method": "Render"
                 }
             },
+            "HTTP":
+            {
+                "Headers":
+                {
+                    "Cache-Control:": "public, max-age=31536000"
+                }
+            },
             "Call":
             {
                 "Scope": "fonts",
@@ -34,6 +41,13 @@
                 {
                     "Service": "View.File",
                     "Method": "Render"
+                }
+            },
+            "HTTP":
+            {
+                "Headers":
+                {
+                    "Cache-Control:": "public, max-age=31536000"
                 }
             },
             "Call":
@@ -57,6 +71,13 @@
                     "Method": "Render"
                 }
             },
+            "HTTP":
+            {
+                "Headers":
+                {
+                    "Cache-Control:": "public, max-age=31536000"
+                }
+            },
             "Call":
             {
                 "Asset": "$1",
@@ -76,6 +97,13 @@
                 {
                     "Service": "View.File",
                     "Method": "Render"
+                }
+            },
+            "HTTP":
+            {
+                "Headers":
+                {
+                    "Cache-Control:": "public, max-age=31536000"
                 }
             },
             "Call":
