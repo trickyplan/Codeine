@@ -21,7 +21,7 @@
     {
         "Compress":
         {
-            "Modes": ["YUI"]
+            "Modes": []
         }
     }
 }

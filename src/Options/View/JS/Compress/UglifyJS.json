@@ -1,0 +1,21 @@
+{
+    "JS":
+    {
+        "Compress":
+        {
+            "UglifyJS":
+            {
+                "Enabled": true,
+                "Disable On Error": true,
+                "Expose": true,
+                "Command": "uglifyjs --compress --mangle",
+                "Descriptors":
+                [
+                    ["pipe", "r"],
+                    ["pipe", "w"],
+                    ["pipe", "w"]
+                ]
+            }
+        }
+    }
+}
