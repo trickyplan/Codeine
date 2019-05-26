@@ -1,0 +1,21 @@
+{
+    "JS":
+    {
+        "Compress":
+        {
+            "Closure":
+            {
+                "Enabled": true,
+                "Disable On Error": true,
+                "Expose": true,
+                "Command": "google-closure-compiler --compilation_level WHITESPACE_ONLY",
+                "Descriptors":
+                [
+                    ["pipe", "r"],
+                    ["pipe", "w"],
+                    ["pipe", "w"]
+                ]
+            }
+        }
+    }
+}
