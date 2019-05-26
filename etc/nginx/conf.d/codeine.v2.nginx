@@ -40,16 +40,6 @@
         expires           max;
     }
 
-    location ~* \.(jpg|jpeg|gif|css|png|js|ico|woff|woff2|ttf|eot|svg)$
-    {
-        try_files $uri $uri/ /index.php?$uri&$args;
-        access_log        off;
-        expires           max;
-        log_not_found     off;
-        add_header        Cache-Control  public;
-        add_header        Access-Control-Allow-Origin *;
-    }
-
     location ~ index.php$
     {
         include fastcgi_params;
