@@ -11,7 +11,9 @@
 
     setFn('Prepare', function ($Call)
     {
-        $Call['Output']['ReCAPTCHA'][] =
+        $Call['ReCAPTCHA']['Place'] = isset($Call['ReCAPTCHA']['Place'])? $Call['ReCAPTCHA']['Place']: 'ReCAPTCHA';
+
+        $Call['Output'][$Call['ReCAPTCHA']['Place']][] =
             '<script src="https://www.google.com/recaptcha/api.js?render='.$Call['ReCAPTCHA']['Public'].'&hl='.$Call['Locale'].'" ></script>'.
             '<div class="g-recaptcha" data-sitekey="'.$Call['ReCAPTCHA']['Public'].'"'.
             ' data-action='.$Call['ReCAPTCHA']['Action'].'></div>'.
