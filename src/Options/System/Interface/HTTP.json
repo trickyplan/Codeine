@@ -85,6 +85,11 @@
         },
         "afterRequestRun":
         {
+            "Remove Content-type header when method is OPTIONS":
+            {
+                "Service": "System.Interface.HTTP.Headers.ContentType",
+                "Method": "Do"
+            },
             "Add Request ID Headers":
             {
                 "Service": "System.Interface.HTTP.Headers.RequestID",
