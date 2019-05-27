@@ -12,13 +12,28 @@
         return true;
     });
 
+    setFn('Process.Headers', function ($Call)
+    {
+        $Headers = [];
+        foreach ($Call['CURL']['Headers'] as $Key => $Value)
+            $Headers[] = $Key.': '.$Value;
+
+        $Call['CURL']['Headers'] = $Headers;
+
+        return $Call;
+    });
+
     setFn('Select User Agent', function ($Call)
     {
-        if (isset($Call['CURL']['Random User Agent']))
-        {
-            $Call['CURL']['Agent'] = $Call['CURL']['User Agents'][array_rand($Call['CURL']['User Agents'])];
-            F::Log('UA: '.$Call['CURL']['Agent'].' selected', LOG_INFO, 'Administrator');
-        }
+        if (isset($Call['CURL']['Agent']))
+            ;
+        else
+            if (isset($Call['CURL']['Random User Agent']))
+            {
+                $Call['CURL']['Agent'] = $Call['CURL']['User Agents'][array_rand($Call['CURL']['User Agents'])];
+                F::Log('UA: '.$Call['CURL']['Agent'].' selected', LOG_INFO, 'Administrator');
+            }
+
         return $Call;
     });
 
@@ -58,6 +73,7 @@
         $Call = F::Run(null, 'Delay', $Call);
         $Call = F::Run(null, 'Select User Agent', $Call);
         $Call = F::Run(null, 'Select Proxy', $Call);
+        $Call = F::Run(null, 'Process.Headers', $Call);
         
         $CURLOpts = [
                         CURLOPT_HEADER           => $Call['CURL']['Return Header'],
@@ -212,7 +228,10 @@
 
     setFn('Write', function ($Call)
     {
+        $Call = F::Run(null, 'Delay', $Call);
         $Call = F::Run(null, 'Select User Agent', $Call);
+        $Call = F::Run(null, 'Select Proxy', $Call);
+        $Call = F::Run(null, 'Process.Headers', $Call);
 
         if (is_array($Call['Where']['ID']))
         {
