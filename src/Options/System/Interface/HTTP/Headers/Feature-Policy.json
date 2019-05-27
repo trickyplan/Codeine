@@ -1,0 +1,29 @@
+{
+    "System":
+    {
+        "Interface":
+        {
+            "HTTP":
+            {
+                "Headers":
+                {
+                    "Feature-Policy":
+                    {
+                        "autoplay" :"none",
+                        "camera":"none",
+                        "display-capture" :"none",
+                        "vibrate":"none",
+                        "geolocation":"none",
+                        "microphone":"none",
+                        "midi": "none",
+                        "payment" :"none",
+                        "fullscreen" :"none",
+                        "encrypted-media" :"none",
+                        "document-domain" :"none",
+                        "vr" :"none"
+                    }
+                }
+            }
+        }
+    }
+}

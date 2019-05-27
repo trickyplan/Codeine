@@ -374,7 +374,7 @@
                     );
                     $Explain = $Explain->toArray();
                     return 'Mongo explained: '.j($Explain);
-                }, LOG_INFO, 'Administrator');
+                }, LOG_DEBUG, 'Administrator');
             }
         }
         return $Call;

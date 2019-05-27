@@ -18,10 +18,12 @@
         "Headers":
         {
             "HTTP/1.1": "200 OK",
-            "Content-Language:": "ru",
+            "Content-Language:": "en",
             "X-Frame-Options:": "SAMEORIGIN",
             "X-Content-Type-Options:": "nosniff",
-            "X-XSS-Protection:": " 1; mode=block"
+            "X-XSS-Protection:": " 1; mode=block",
+            "Referrer-Policy:": "origin",
+            "Upgrade-Insecure-Requests:": "1"
         }
     },
     "Hooks":
@@ -73,6 +75,11 @@
             "Referrer":
             {
                 "Service": "System.Interface.HTTP.Referrer"
+            },
+            "Feature-Policy":
+            {
+                "Service": "System.Interface.HTTP.Headers.Feature-Policy",
+                "Method": "Do"
             },
             "Agent":
             {

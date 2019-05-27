@@ -1,3 +1,10 @@
 {
-    "System": "Rule"
+    "Decision": false,
+    "Security":
+    {
+        "Access":
+        {
+            "System": ["Rule"]
+        }
+    }
 }

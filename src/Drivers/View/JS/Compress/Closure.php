@@ -43,13 +43,13 @@
                 }
                 else
                 {
-                    F::Log('JS Code is not compressed by Closure', LOG_INFO);
+                    F::Log('JS Code is not compressed by Closure', LOG_INFO, 'Performance');
                     F::Log('Return code for '.$Call['JS']['Compress']['Closure']['Command'].': '.$Code, LOG_INFO, 'Performance');
 
                     if ($Call['JS']['Compress']['Closure']['Disable On Error'])
                     {
                         $Call['JS']['Compress']['Closure']['Enabled'] = false; // Codeine Magic: Dynamic Reconfiguration FGJ
-                        F::Log('Disabled by error', LOG_INFO, 'Performance');
+                        F::Log('Disabled by error', LOG_WARNING, 'Performance');
                         if (F::Dot($Call, 'JS.Compress.Closure.Expose'))
                             $Call['JS']['Source'] = '/* Closure Disabled By Error */'.PHP_EOL.$Call['JS']['Source'];
                     }
