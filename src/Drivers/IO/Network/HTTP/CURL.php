@@ -39,15 +39,15 @@
                 list($Call['CURL']['Proxy']['Host'], $Call['CURL']['Proxy']['Port']) = explode(':', $Random);
         }
 
-        if (isset($Call['CURL']['Proxy']['Host']) && !empty($Call['CURL']['Proxy']['Host']))
-            F::Log('Proxy: '.$Call['CURL']['Proxy']['Host'].':'.$Call['CURL']['Proxy']['Port'].' selected', LOG_INFO, 'Administrator');
-
         if ($Call['CURL']['Proxy']['Type'] === 'SOCKS5')
             $Call['CURL']['Proxy']['Type'] = CURLPROXY_SOCKS5;
-        
+
         if ($Call['CURL']['Proxy']['Type'] === 'HTTP')
             $Call['CURL']['Proxy']['Type'] = CURLPROXY_HTTP;
-        
+
+        if (isset($Call['CURL']['Proxy']['Host']) && !empty($Call['CURL']['Proxy']['Host']))
+            F::Log('Proxy: '.$Call['CURL']['Proxy']['Host'].':'.$Call['CURL']['Proxy']['Port'].' ('.$Call['CURL']['Proxy']['Type'].') selected', LOG_INFO, 'Administrator');
+
         return $Call;
     });
 
