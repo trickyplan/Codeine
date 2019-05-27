@@ -235,6 +235,8 @@
 
         if ($Call['HTTP']['Method'] == 'POST')
             $Call['HTTP']['RAW'] = file_get_contents("php://input");
+        else if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') 
+            $Call = F::Dot($Call, 'HTTP.Output.Suppress', true);
 
         if (isset($Call['HTTP']['Request']['Headers']['Content-Type']))
         {
