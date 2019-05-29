@@ -4,9 +4,14 @@
     {
         "beforeRoute":
         {
+            "Remove Trailing Slashes":
+            {
+                "Service": "Code.Routing.Hooks.RemoveTrailingSlashes",
+                "Method": "beforeRoute"
+            },
             "-Extension":
             {
-                "Service": "Code.Routing.Hooks.Extension",
+                "Service": "Code.Routing.Hooks.ParseExtension",
                 "Method": "beforeRoute"
             }
         },
@@ -14,7 +19,7 @@
         {
             "-Extension":
             {
-                "Service": "Code.Routing.Hooks.Extension",
+                "Service": "Code.Routing.Hooks.ParseExtension",
                 "Method": "afterRoute"
             }
         }
