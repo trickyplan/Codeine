@@ -1127,6 +1127,8 @@
                         $Array[$Key] = $Value;
                 }
             }
+            else
+                $Array = [$Key => $Value];
 
             return $Array;
         }
