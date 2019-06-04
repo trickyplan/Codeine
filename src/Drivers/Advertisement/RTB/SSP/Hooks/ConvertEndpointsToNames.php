@@ -12,7 +12,7 @@
         $Converted = [];
         $Results = F::Dot($Call, 'RTB.Result');
         
-        $DSPs = F::Dot($Call, 'AdRam.Fetch.RTB.DSP.Selected');
+        $DSPs = F::Dot($Call, 'Fetch.RTB.DSP.Selected');
         
         foreach ($DSPs as $Name => $DSP)
             if (null !== ($CC = F::Dot($Results, $DSP['Endpoint'])))
