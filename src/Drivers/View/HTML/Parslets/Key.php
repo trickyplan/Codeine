@@ -24,7 +24,7 @@
             {
                 $Value = F::Live(F::Dot($Call, 'Data.'.$CMatch));
 
-                if ($Value === null)
+                if ($Value === null or $Value === '')
                 {
                     if (isset($Call['Parsed']['Options'][$IX]['null']))
                         $Value = $Call['Parsed']['Options'][$IX]['null'];

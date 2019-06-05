@@ -154,6 +154,7 @@
                 {
                     F::Log('CURL GET error: '.curl_error($Link).'*'.$ID.'*', LOG_NOTICE, 'Administrator');
                     F::Log($Return, LOG_DEBUG, 'Administrator');
+                    F::Log(curl_getinfo($Call['Link']), LOG_WARNING, 'Administrator');
                 }
                 else
                     F::Log('CURL GET fetched *'.$ID.'*', LOG_INFO, 'Administrator');
@@ -177,7 +178,6 @@
 
             F::Log('CURL GET Request Headers: *'.j($Call['CURL']['Headers']).'*', LOG_INFO, 'Administrator');
             
-           
             $CURLOpts[CURLOPT_COOKIEJAR] = $Call['CURL']['Cookie Directory'].DS.parse_url($Call['Where']['ID'], PHP_URL_HOST);
 
             curl_setopt_array($Call['Link'], $CURLOpts);
@@ -215,6 +215,7 @@
             if (curl_errno($Call['Link']))
             {
                 F::Log('CURL GET error: '.curl_error($Call['Link']).' *'.$Call['Where']['ID'].'*', LOG_NOTICE, 'Administrator');
+                F::Log(curl_getinfo($Call['Link']), LOG_WARNING, 'Administrator');
                 F::Log($Return, LOG_DEBUG, 'Administrator');
             }
             else
