@@ -1,0 +1,26 @@
+{
+    "Suites":
+    {
+        "HTTP":
+        {
+            "Reflection":
+            {
+                "Run":
+                {
+                    "Service": "System.Interface.HTTP.Reflection",
+                    "Method":  "Do"
+                },
+                "Result":
+                {
+                    "Extract": "Output.Content",
+                    "JSONDecoded": true
+                },
+                "Assert":
+                {
+                    "Print": true,
+                    "Empty": false
+                }
+            }
+        }
+    }
+}

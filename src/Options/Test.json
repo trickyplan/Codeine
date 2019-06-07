@@ -19,15 +19,20 @@
                         },
                         "After":
                         {
+                            "Drop Result Key":
+                            {
+                                "Service": "Test.Hooks.Result.Dop",
+                                "Method": "Do"
+                            },
                             "Extract Result Key":
                             {
                                 "Service": "Test.Hooks.Result.Extract",
-                                "Method": "Test.Case.Run.Execute.After"
+                                "Method": "Do"
                             },
                             "Store Result Key":
                             {
                                 "Service": "Test.Hooks.Result.Store",
-                                "Method": "Test.Case.Run.Execute.After"
+                                "Method": "Do"
                             }
                         }
                     }

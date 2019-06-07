@@ -1,0 +1,29 @@
+{
+    "Suites":
+    {
+        "HTTP":
+        {
+            "Get Requested Code":
+            {
+                "Run":
+                {
+                    "Service": "System.Interface.HTTP.Code",
+                    "Method":  "Test",
+                    "Call":
+                    {
+                        "HTTP Code": "$Request.Code"
+                    }
+                },
+                "Result":
+                {
+                    "Store": "HTTP.Headers",
+                    "Extract": "HTTP.Headers"
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            }
+        }
+    }
+}
