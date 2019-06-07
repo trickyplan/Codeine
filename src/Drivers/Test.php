@@ -43,7 +43,7 @@
                         ];
 
         $Call = F::Hook('Test.Run.After', $Call);
-        
+
         return $Call;
     });
     
@@ -82,12 +82,8 @@
                 F::Start($SCID);
 
                 $Result = F::Live(F::Dot($Call, 'Test.Case.Run'), $Call['Virtual']);
+                $Call = F::Dot($Call, 'Test.Case.Result.Actual', $Result);
 
-                if (F::Dot($Call, 'Test.Case.Result.Drop'))
-                    $Call = F::Dot($Call, 'Test.Case.Result.Actual', '[Dropped]');
-                else
-                    $Call = F::Dot($Call, 'Test.Case.Result.Actual', $Result);
-            
                 F::Stop($SCID);
                 $Call = F::Dot($Call, 'Test.Case.Time.Run', F::Time($SCID));
                 
@@ -119,13 +115,18 @@
                 }
         
         $Call['Test']['Case']['Status'] = $Status;
+
         $Call = F::Hook('Test.Case.Run.After', $Call);
         
         if (is_scalar(F::Dot($Call, 'Test.Case.Result.Actual')))
             ;
         else
-            $Call = F::Dot($Call, 'Test.Case.Result.Actual',
-                j(F::Dot($Call, 'Test.Case.Result.Actual')));
+        {
+            if (F::Dot($Call, 'Test.Case.Result.JSONDecoded'))
+                ;
+            else
+                $Call = F::Dot($Call, 'Test.Case.Result.Actual', j(F::Dot($Call, 'Test.Case.Result.Actual')));
+        }
 
         $Call = F::Dot($Call, 'Test.Case.Result.Size', mb_strlen(F::Dot($Call, 'Test.Case.Result.Actual')));
 

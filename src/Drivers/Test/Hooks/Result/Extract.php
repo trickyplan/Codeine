@@ -7,7 +7,7 @@
      * @version 8.x
      */
     
-    setFn('Test.Case.Run.Execute.After', function ($Call)
+    setFn('Do', function ($Call)
     {
         // Fetch Key
         if ($Extract = F::Dot($Call, 'Test.Case.Result.Extract'))
