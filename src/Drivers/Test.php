@@ -89,10 +89,6 @@
                 
             $Call = F::Hook('Test.Case.Run.Execute.After', $Call);
 
-            if (F::Dot($Call, 'Test.Case.Result.Base64'))
-                $Call = F::Dot($Call, 'Test.Case.Result.Actual',
-                    base64_encode(F::Dot($Call, 'Test.Case.Result.Actual')));
-
             // Assert
             $Status = 'Passed';
             
@@ -117,18 +113,6 @@
         $Call['Test']['Case']['Status'] = $Status;
 
         $Call = F::Hook('Test.Case.Run.After', $Call);
-        
-        if (is_scalar(F::Dot($Call, 'Test.Case.Result.Actual')))
-            ;
-        else
-        {
-            if (F::Dot($Call, 'Test.Case.Result.JSONDecoded'))
-                ;
-            else
-                $Call = F::Dot($Call, 'Test.Case.Result.Actual', j(F::Dot($Call, 'Test.Case.Result.Actual')));
-        }
-
-        $Call = F::Dot($Call, 'Test.Case.Result.Size', mb_strlen(F::Dot($Call, 'Test.Case.Result.Actual')));
 
         $Call['Test']['Case']['ID'] = $Call['ID'];
         $Call['Test']['Case']['CID'] = uniqid();

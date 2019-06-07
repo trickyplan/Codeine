@@ -19,9 +19,14 @@
                         },
                         "After":
                         {
+                            "Base64 Encode Result":
+                            {
+                                "Service": "Test.Hooks.Result.Base64Encode",
+                                "Method": "Do"
+                            },
                             "Drop Result Key":
                             {
-                                "Service": "Test.Hooks.Result.Dop",
+                                "Service": "Test.Hooks.Result.Drop",
                                 "Method": "Do"
                             },
                             "Extract Result Key":
@@ -32,6 +37,16 @@
                             "Store Result Key":
                             {
                                 "Service": "Test.Hooks.Result.Store",
+                                "Method": "Do"
+                            },
+                            "JSON Encode Result":
+                            {
+                                "Service": "Test.Hooks.Result.JSONEncode",
+                                "Method": "Do"
+                            },
+                            "Add Size of Result":
+                            {
+                                "Service": "Test.Hooks.Result.AddSize",
                                 "Method": "Do"
                             }
                         }
