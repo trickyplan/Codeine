@@ -24,21 +24,21 @@
                 $Cut = F::Run('Text.Cut', 'Do',
                     [
                         'Cut'   => 'Chars',
-                        'Value' => $Match,
+                        'Value' => $Cut,
                         'Chars' => F::Dot($Call['Parsed'], 'Options.'.$IX.'.chars')
                     ]);
             elseif (F::Dot($Call['Parsed'], 'Options.'.$IX.'.words'))
                 $Cut = F::Run('Text.Cut', 'Do',
                     [
                         'Cut'   => 'Words',
-                        'Value' => $Match,
+                        'Value' => $Cut,
                         'Words' => F::Dot($Call['Parsed'], 'Options.'.$IX.'.words')
                     ]);
             elseif (F::Dot($Call['Parsed'], 'Options.'.$IX.'.sentences'))
                 $Cut = F::Run('Text.Cut', 'Do',
                     [
                         'Cut'   => 'Sentences',
-                        'Value' => $Match,
+                        'Value' => $Cut,
                         'Sentences' => F::Dot($Call['Parsed'], 'Options.'.$IX.'.sentences')
                     ]);
 
@@ -57,8 +57,6 @@
                 if (F::Dot($Call['Parsed'], 'Options.'.$IX.'.tooltip'))
                     $Cut = '<span data-title="'.htmlspecialchars($Original).'" data-toggle="tooltip">'.$Cut.'</span>';
             }
-            
-            
 
             $Cut = str_replace('#', '', $Cut);
             $Replaces[$IX] = $Cut;
