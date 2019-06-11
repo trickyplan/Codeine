@@ -27,44 +27,6 @@
     },
     "Hooks":
     {
-        "beforeRTBRequest":
-        {
-            "Generate Request ID":
-            {
-                "Service": "Advertisement.RTB.SSP.Hooks.GenerateRequestID",
-                "Method": "beforeRTBRequest"
-            },
-            "Generate Impression ID":
-            {
-                "Service": "Advertisement.RTB.SSP.Hooks.GenerateImpressionID",
-                "Method": "beforeRTBRequest"
-            },
-            "Set Prohibited Categories":
-            {
-                "Service": "Advertisement.RTB.SSP.Hooks.ProhibitedCategories",
-                "Method": "beforeRTBRequest"
-            },
-            "Fill Device Section":
-            {
-                "Service": "Advertisement.RTB.SSP.Hooks.FillDeviceSection",
-                "Method": "beforeRTBRequest"
-            },
-            "Fill Site Section":
-            {
-                "Service": "Advertisement.RTB.SSP.Hooks.FillSiteSection",
-                "Method": "beforeRTBRequest"
-            },
-            "Fill User Section":
-            {
-                "Service": "Advertisement.RTB.SSP.Hooks.FillUserSection",
-                "Method": "beforeRTBRequest"
-            },
-            "Set Preferred Categories":
-            {
-                "Service": "Advertisement.RTB.SSP.Hooks.PreferredCategories",
-                "Method": "beforeRTBRequest"
-            }
-        },
         "RTB":
         {
             "SSP":
