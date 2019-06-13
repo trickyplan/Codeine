@@ -50,6 +50,16 @@
         </copy>
     </target>
 
+    <target name="logrotate">
+        <mkdir dir="${package}/${destination-etc}/logrotate.d/"/>
+        <copy todir="${package}/${destination-etc}/logrotate.d/">
+            <fileset dir="${source-etc}/logrotate.d/">
+                <include name="*/**"/>
+            </fileset>
+        </copy>
+        <chmod file="${package}/${destination-etc}/logrotate.d/codeine" mode="0644" />
+    </target>
+
     <target name="docs">
         <mkdir dir="${package}/${destination-documents}/${phing.project.name}/"/>
         <copy todir="${package}/${destination-documents}/${phing.project.name}/">
@@ -80,7 +90,7 @@
         </copy>
     </target>
 
-    <target name="debian" depends="control, etc, usr, source, version, docs">
+    <target name="debian" depends="control, etc, logrotate, usr, source, version, docs">
 <!--        <chmod file="${package}" mode="0755">
             <fileset dir="${package}/">
                 <include name="*/**"/>
