@@ -242,7 +242,7 @@
 
             foreach($Call['Where']['ID'] as $cIndex => $cID)
             {
-                $Links[$cID] = curl_init($cID);
+                $Links[$cID.'_'.$cIndex] = curl_init($cID);
                 
                 F::Log('CURL POST Request Headers: *'.j($Call['CURL']['Headers']).'*', LOG_INFO, 'Administrator');
                 // F::Log('CURL POST Request Parameters: *'.j($Call['Data'][$cIndex]).'*', LOG_INFO, 'Administrator');
@@ -265,6 +265,9 @@
                         CURLOPT_SSL_VERIFYPEER   => false,
                         CURLOPT_HTTPAUTH         => CURLAUTH_BASIC
                     ];
+
+                    if (F::Dot($Call, 'Headers.'.$cIndex))
+                        $CURLOpts[CURLOPT_HTTPHEADER] = F::Merge($Call['CURL']['Headers'], $Call['Headers'][$cIndex]);
                     
                     if (F::Dot($Call, 'Data.'.$cIndex))
                         $CURLOpts[CURLOPT_POSTFIELDS] = is_string($Call['Data'][$cIndex]) ? $Call['Data'][$cIndex] : http_build_query($Call['Data'][$cIndex]);
