@@ -1,4 +1,5 @@
 "/var/log/codeine/*.log" {
+   su root www-data
    rotate 10
    size=16M
    missingok
