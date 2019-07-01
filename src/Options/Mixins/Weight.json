@@ -1,0 +1,18 @@
+{
+    "Nodes":
+    {
+        "Weight":
+        {
+            "Type": "Numeral.Integer",
+            "Weight": -10,
+            "Default": 500,
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        }
+    }
+}
