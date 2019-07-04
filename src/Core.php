@@ -12,9 +12,9 @@
     define ('Started', microtime(true));
     
     if (isset($_SERVER['REQUEST_ID']))
-        define('RequestID', 'rq-'.$_SERVER['REQUEST_ID']);
+        define('RequestID', 'rqx-'.$_SERVER['REQUEST_ID']);
     else
-        define ('RequestID', 'rq-'
+        define ('RequestID', 'rqi-'
         .mb_substr(sha1(gethostname()),-8)
         .'-'.base_convert(Started, 10, 16)
         .'-'.mb_substr(sha1(mt_rand(0, PHP_INT_MAX)), -8)
