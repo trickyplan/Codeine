@@ -1,0 +1,28 @@
+{
+    "Suites":
+    {
+        "Whois":
+        {
+            "Get google.com":
+            {
+                "Run":
+                {
+                    "Service": "System.Network.Whois",
+                    "Method": "Lookup",
+                    "Call":
+                    {
+                        "Whois":
+                        {
+                            "Domain": "google.com"
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Empty": false,
+                    "Print": true
+                }
+            }
+        }
+    }
+}
