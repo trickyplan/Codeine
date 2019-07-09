@@ -1,0 +1,35 @@
+{
+    "Whois":
+    {
+        "Command": "whois",
+        "Keys":
+            [
+                "Domain Name",
+                "Registry Domain ID",
+                "Registrar WHOIS Server",
+                "Registrar URL",
+                "Updated Date",
+                "Creation Date",
+                "Registry Expiry Date",
+                "Registrar",
+                "Registrar IANA ID",
+                "Registrar Abuse Contact Email",
+                "Registrar Abuse Contact Phone",
+                "Domain Status",
+                "Name Server",
+                "DNSSEC",
+                "URL of the ICANN Whois Inaccuracy Complaint Form",
+                "Registrar Registration Expiration Date",
+                "Registrant Organization",
+                "Registrant State/Province",
+                "Registrant Country",
+                "Admin Organization",
+                "Admin State/Province",
+                "Admin Country",
+                "Tech Organization",
+                "Tech State/Province",
+                "Tech Country",
+                "URL of the ICANN WHOIS Data Problem Reporting System"
+            ]
+    }
+}
