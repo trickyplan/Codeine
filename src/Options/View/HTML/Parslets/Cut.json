@@ -10,7 +10,7 @@
                     "StripTags":
                     {
                         "Enabled": true,
-                        "Allowed": "<br><em><strong>"
+                        "Allowed": "<br>"
                     },
                     "Hellip": "…"
                 }
