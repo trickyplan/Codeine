@@ -22,7 +22,9 @@
                 'Where'   => $ID
             ]);
 
-        if ($SASS)
+        if ($SASS === null)
+            F::Log('SASS *not found* '.Root.'/Assets/'.$Asset.'/sass/'.$ID.'.sass', LOG_NOTICE, 'Developer');
+        else
         {
             $SASSVersion = F::Run('IO', 'Execute',
             [

@@ -24,7 +24,7 @@
             ]);
 
         if ($LESS === null)
-            F::Log('LESS *not found* '.Root.'/Assets/'.$Asset.'/less/'.$ID.'.less', LOG_DEBUG, 'Developer');
+            F::Log('LESS *not found* '.Root.'/Assets/'.$Asset.'/less/'.$ID.'.less', LOG_NOTICE, 'Developer');
         else
         {
             $LESSVersion = F::Run('IO', 'Execute',
