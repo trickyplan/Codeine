@@ -241,7 +241,7 @@
 
                     if (isset($Call['Failure']) and $Call['Failure'])
                     {
-                        F::Log('Update skipped due Failure Flag: '.j($Call['Errors']), LOG_NOTICE, 'Administrator');
+                        F::Log('Update skipped due Failure Flag: '.j($Call['Errors']), LOG_WARNING, 'Administrator');
                         $Call['Data'] = null;
                     }
                     else
