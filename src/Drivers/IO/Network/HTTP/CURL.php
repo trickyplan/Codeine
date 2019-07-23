@@ -25,14 +25,11 @@
 
     setFn('Select User Agent', function ($Call)
     {
-        if (isset($Call['CURL']['Agent']))
-            ;
-        else
-            if (isset($Call['CURL']['Random User Agent']))
-            {
-                $Call['CURL']['Agent'] = $Call['CURL']['User Agents'][array_rand($Call['CURL']['User Agents'])];
-                F::Log('UA: '.$Call['CURL']['Agent'].' selected', LOG_INFO, 'Administrator');
-            }
+        if (isset($Call['CURL']['Random User Agent']))
+        {
+            $Call['CURL']['Agent'] = $Call['CURL']['User Agents'][array_rand($Call['CURL']['User Agents'])];
+            F::Log('UA: '.$Call['CURL']['Agent'].' selected', LOG_INFO, 'Administrator');
+        }
 
         return $Call;
     });
