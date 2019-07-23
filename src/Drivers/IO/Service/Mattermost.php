@@ -10,16 +10,17 @@
     {
         $Data =
             [
-                'channel'  => empty($Call['MattermostChannel'])?$Call['Default']['MattermostChannel']:$Call['MattermostChannel'],
-                'username' => empty($Call['Username'])?$Call['Default']['Username']:$Call['Username'],
+                'channel'  => $Call['Mattermost']['Channel'],
+                'username' => $Call['Mattermost']['Username'],
                 'text'     => $Call['Data']
             ];
+
         $Data = ['payload' => j($Data)];
 
         return $Result = F::Run('IO', 'Write',
             [
                 'Storage' => 'Web',
-                'Where'   => $Call['Webhook URL'],
+                'Where'   => $Call['Mattermost']['Webhook URL'].'/'.$Call['Mattermost']['Key'],
                 'Data'    => $Data
             ]);
 

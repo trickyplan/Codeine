@@ -1,0 +1,34 @@
+{
+    "Suites":
+    {
+        "Mattermost Log":
+        {
+            "Simple Log":
+            {
+                "Run":
+                {
+                    "Service": "Formats.Log.Mattermost",
+                    "Method":  "Write",
+                    "Call":
+                    {
+                        "Value":
+                        [
+                            {
+                                "T": "0.11",
+                                "H": "0A61430789DC",
+                                "X": "Test",
+                                "M": 102400,
+                                "R": "Some Code",
+                                "I": "Some Initiator"
+                            }
+                        ]
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            }
+        }
+    }
+}
