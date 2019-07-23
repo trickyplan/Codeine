@@ -81,10 +81,15 @@
 
                 F::Start($SCID);
 
-                $Result = F::Live(F::Dot($Call, 'Test.Case.Run'), $Call['Virtual']);
-                $Call = F::Dot($Call, 'Test.Case.Result.Actual', $Result);
+                    // Run test
+                    $Result = F::Live(F::Dot($Call, 'Test.Case.Run'), $Call['Virtual']);
+
+                    // Save result
+                    $Call = F::Dot($Call, 'Test.Case.Result.Actual', $Result);
 
                 F::Stop($SCID);
+
+                // Store execution time
                 $Call = F::Dot($Call, 'Test.Case.Time.Run', F::Time($SCID));
                 
             $Call = F::Hook('Test.Case.Run.Execute.After', $Call);

@@ -24,6 +24,11 @@
                                 "Service": "Test.Hooks.Result.Base64Encode",
                                 "Method": "Do"
                             },
+                            "Slice Result Key":
+                            {
+                                "Service": "Test.Hooks.Result.Slice",
+                                "Method": "Do"
+                            },
                             "Drop Result Key":
                             {
                                 "Service": "Test.Hooks.Result.Drop",
