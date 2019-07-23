@@ -16,9 +16,9 @@
                         "Verbose": 6
                     }
                 },
-                "Assert":
+                "Result": 
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Info 2":
@@ -34,9 +34,9 @@
                         "Verbose": 6
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Notice":
@@ -52,9 +52,9 @@
                         "Verbose": 5
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Notice 2":
@@ -70,9 +70,9 @@
                         "Verbose": 5
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Warning":
@@ -88,9 +88,9 @@
                         "Verbose": 4
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Warning 2":
@@ -106,9 +106,9 @@
                         "Verbose": 4
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Error":
@@ -124,9 +124,9 @@
                         "Verbose": 3
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Error 2":
@@ -142,9 +142,9 @@
                         "Verbose": 3
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Critical":
@@ -160,9 +160,9 @@
                         "Verbose": 2
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Critical 2":
@@ -178,9 +178,9 @@
                         "Verbose": 2
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Alert":
@@ -196,9 +196,9 @@
                         "Verbose": 1
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Alert 2":
@@ -214,9 +214,9 @@
                         "Verbose": 1
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Emergency":
@@ -232,9 +232,9 @@
                         "Verbose": 0
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Emergency 2":
@@ -250,9 +250,9 @@
                         "Verbose": 0
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             }
         },
@@ -271,9 +271,9 @@
                         "Verbose": 6
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Info 2":
@@ -289,9 +289,9 @@
                         "Verbose": 6
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Notice":
@@ -307,9 +307,9 @@
                         "Verbose": 5
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Notice 2":
@@ -325,9 +325,9 @@
                         "Verbose": 5
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Warning":
@@ -343,9 +343,9 @@
                         "Verbose": 4
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Warning 2":
@@ -361,9 +361,9 @@
                         "Verbose": 4
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Error":
@@ -379,9 +379,9 @@
                         "Verbose": 3
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Error 2":
@@ -397,9 +397,9 @@
                         "Verbose": 3
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Critical":
@@ -415,9 +415,9 @@
                         "Verbose": 2
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Critical 2":
@@ -433,9 +433,9 @@
                         "Verbose": 2
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Alert":
@@ -451,9 +451,9 @@
                         "Verbose": 1
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Alert 2":
@@ -469,9 +469,9 @@
                         "Verbose": 1
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Emergency":
@@ -487,9 +487,9 @@
                         "Verbose": 0
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Emergency 2":
@@ -505,9 +505,9 @@
                         "Verbose": 0
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             }
         },
@@ -526,9 +526,9 @@
                         "Verbose": 6
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Info 2":
@@ -544,9 +544,9 @@
                         "Verbose": 6
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Notice":
@@ -562,9 +562,9 @@
                         "Verbose": 5
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Notice 2":
@@ -580,9 +580,9 @@
                         "Verbose": 5
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Warning":
@@ -598,9 +598,9 @@
                         "Verbose": 4
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Warning 2":
@@ -616,9 +616,9 @@
                         "Verbose": 4
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Error":
@@ -634,9 +634,9 @@
                         "Verbose": 3
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Error 2":
@@ -652,9 +652,9 @@
                         "Verbose": 3
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Critical":
@@ -670,9 +670,9 @@
                         "Verbose": 2
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Critical 2":
@@ -688,9 +688,9 @@
                         "Verbose": 2
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Alert":
@@ -706,9 +706,9 @@
                         "Verbose": 1
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Alert 2":
@@ -724,9 +724,9 @@
                         "Verbose": 1
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Emergency":
@@ -742,9 +742,9 @@
                         "Verbose": 0
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Emergency 2":
@@ -760,9 +760,9 @@
                         "Verbose": 0
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             }
         },
@@ -781,9 +781,9 @@
                         "Verbose": 6
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Info 2":
@@ -799,9 +799,9 @@
                         "Verbose": 6
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Notice":
@@ -817,9 +817,9 @@
                         "Verbose": 5
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Notice 2":
@@ -835,9 +835,9 @@
                         "Verbose": 5
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Warning":
@@ -853,9 +853,9 @@
                         "Verbose": 4
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Warning 2":
@@ -871,9 +871,9 @@
                         "Verbose": 4
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Error":
@@ -889,9 +889,9 @@
                         "Verbose": 3
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Error 2":
@@ -907,9 +907,9 @@
                         "Verbose": 3
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Critical":
@@ -925,9 +925,9 @@
                         "Verbose": 2
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Critical 2":
@@ -943,9 +943,9 @@
                         "Verbose": 2
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Alert":
@@ -961,9 +961,9 @@
                         "Verbose": 1
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Alert 2":
@@ -979,9 +979,9 @@
                         "Verbose": 1
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Emergency":
@@ -997,9 +997,9 @@
                         "Verbose": 0
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Emergency 2":
@@ -1015,9 +1015,9 @@
                         "Verbose": 0
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             }
         },
@@ -1036,9 +1036,9 @@
                         "Verbose": 6
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Info 2":
@@ -1054,9 +1054,9 @@
                         "Verbose": 6
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Notice":
@@ -1072,9 +1072,9 @@
                         "Verbose": 5
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Notice 2":
@@ -1090,9 +1090,9 @@
                         "Verbose": 5
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Warning":
@@ -1108,9 +1108,9 @@
                         "Verbose": 4
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Warning 2":
@@ -1126,9 +1126,9 @@
                         "Verbose": 4
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Error":
@@ -1144,9 +1144,9 @@
                         "Verbose": 3
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Error 2":
@@ -1162,9 +1162,9 @@
                         "Verbose": 3
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Critical":
@@ -1180,9 +1180,9 @@
                         "Verbose": 2
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Critical 2":
@@ -1198,9 +1198,9 @@
                         "Verbose": 2
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Alert":
@@ -1216,9 +1216,9 @@
                         "Verbose": 1
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Alert 2":
@@ -1234,9 +1234,9 @@
                         "Verbose": 1
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Emergency":
@@ -1252,9 +1252,9 @@
                         "Verbose": 0
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Emergency 2":
@@ -1270,9 +1270,9 @@
                         "Verbose": 0
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             }
         },
@@ -1291,9 +1291,9 @@
                         "Verbose": 6
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Info 2":
@@ -1309,9 +1309,9 @@
                         "Verbose": 6
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Notice":
@@ -1327,9 +1327,9 @@
                         "Verbose": 5
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Notice 2":
@@ -1345,9 +1345,9 @@
                         "Verbose": 5
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Warning":
@@ -1363,9 +1363,9 @@
                         "Verbose": 4
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Warning 2":
@@ -1381,9 +1381,9 @@
                         "Verbose": 4
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Error":
@@ -1399,9 +1399,9 @@
                         "Verbose": 3
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Error 2":
@@ -1417,9 +1417,9 @@
                         "Verbose": 3
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Critical":
@@ -1435,9 +1435,9 @@
                         "Verbose": 2
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Critical 2":
@@ -1453,9 +1453,9 @@
                         "Verbose": 2
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Alert":
@@ -1471,9 +1471,9 @@
                         "Verbose": 1
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Alert 2":
@@ -1489,9 +1489,9 @@
                         "Verbose": 1
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Emergency":
@@ -1507,9 +1507,9 @@
                         "Verbose": 0
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Emergency 2":
@@ -1525,9 +1525,9 @@
                         "Verbose": 0
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             }
         },
@@ -1546,9 +1546,9 @@
                         "Verbose": 6
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Info 2":
@@ -1564,9 +1564,9 @@
                         "Verbose": 6
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Notice":
@@ -1582,9 +1582,9 @@
                         "Verbose": 5
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Notice 2":
@@ -1600,9 +1600,9 @@
                         "Verbose": 5
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Warning":
@@ -1618,9 +1618,9 @@
                         "Verbose": 4
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Warning 2":
@@ -1636,9 +1636,9 @@
                         "Verbose": 4
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Error":
@@ -1654,9 +1654,9 @@
                         "Verbose": 3
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Error 2":
@@ -1672,9 +1672,9 @@
                         "Verbose": 3
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Critical":
@@ -1690,9 +1690,9 @@
                         "Verbose": 2
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Critical 2":
@@ -1708,9 +1708,9 @@
                         "Verbose": 2
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Alert":
@@ -1726,9 +1726,9 @@
                         "Verbose": 1
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Alert 2":
@@ -1744,9 +1744,9 @@
                         "Verbose": 1
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Emergency":
@@ -1762,9 +1762,9 @@
                         "Verbose": 0
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             },
             "Log Emergency 2":
@@ -1780,9 +1780,9 @@
                         "Verbose": 0
                     }
                 },
-                "Assert":
+                "Result":
                 {
-                    "Print": true
+                    "Drop": true
                 }
             }
         }
