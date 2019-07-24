@@ -57,11 +57,11 @@
                         $Row['X']
                     ]).'|'.PHP_EOL;
 
-                if (isset($Row['K']))
+/*                if (isset($Row['K']))
                 {
                     $OutputLog .= PHP_EOL.'```json '.PHP_EOL.$Row['K'].PHP_EOL.'```'.PHP_EOL;
                     $HeaderRequired = true;
-                }
+                }*/
 
                 $LastRow = $Row;
             }
