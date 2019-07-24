@@ -26,7 +26,7 @@
         $Data['Service'] = $Call['Service'];
         $Data['Method'] = $Call['Method'];
 
-        $Call['HTTP']['URI'] = j($Data);
+        $Call['HTTP']['URI'] = ' '.json_encode($Data);
         $Call['HTTP']['URL'] = '/';
 
             if (isset($Call['Skip Run']))
@@ -52,7 +52,7 @@
                 $Call['Return Code'] = 1;
         }
         else
-            echo $Call;
+            echo j($Call);
 
 
         F::Log('CLI Finished', LOG_NOTICE);
