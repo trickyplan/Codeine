@@ -581,7 +581,7 @@
                 foreach ($Variable as &$cVariable)
                     $cVariable = self::Variable($cVariable, $Call);
             else
-                if (is_string($Variable) && mb_strpos($Variable, '$') !== false && preg_match_all('@\$([\w\-\:\.]+)@Ssu', $Variable, $Pockets))
+                if (is_string($Variable) && mb_strpos($Variable, '$') !== false && preg_match_all('@\$([\w]+[\w\-\:\.]+)@Ssu', $Variable, $Pockets))
                 {
                     foreach ($Pockets[1] as $IX => $Match)
                     {
