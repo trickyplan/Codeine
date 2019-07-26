@@ -563,6 +563,8 @@
                         if ($Variable === (array) $Variable)
                             foreach ($Variable as $Key => $cVariable)
                                 $Variable = self::Dot($Variable, $Key, self::Live($cVariable, $Call));
+                        else
+                            $Variable = self::Variable($Variable, $Call);
 
                         $Result = $Variable;
                     }
@@ -608,8 +610,6 @@
                         {
                             if ($Subvariable !== null)
                                 $Variable = str_replace($Pockets[0][$IX], $Subvariable, $Variable);
-                            else
-                                $Variable = str_replace($Pockets[0][$IX], 'null', $Variable);
                         }
                         else
                             self::Log('Subvariable *'.$Match.'* is non-scalar ', LOG_WARNING);
