@@ -1,0 +1,59 @@
+{
+    "Return Code": 0,
+    "HTTP":
+    {
+        "Proto": "http://",
+        "Agent": "Mail",
+        "IP":
+        {
+            "Service": "System.Interface.CLI.IP",
+            "Method": "Get"
+        }
+    },
+    "Session":
+    {
+        "User":
+        {
+            "ID": 0
+        }
+    },
+    "Hooks":
+    {
+        "beforeInterfaceRun":
+        {
+            "Locale":
+            {
+                "Service": "System.Interface.CLI.Locale",
+                "Method": "Detect"
+            },
+            "Project":
+            {
+                "Service": "Project.Preload",
+                "Method": "beforeMailRequestRun"
+            }
+        },
+        "afterInterfaceRun":
+        {
+            "Performance":
+            {
+                "Service": "Performance",
+                "Method": "Do"
+            },
+            "Rendering":
+            {
+                "Service":"View",
+                "Method":"Render"
+            },
+            "Spit log":
+            {
+                "Service": "IO.Log",
+                "Method": "Spit"
+            },
+            "IO Shutdown":
+            {
+                "Service": "IO",
+                "Method": "Shutdown"
+            }
+        }
+    }
+}
