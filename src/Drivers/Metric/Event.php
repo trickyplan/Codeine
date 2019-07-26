@@ -11,12 +11,11 @@
     {
         $Call['Metric'] = F::Live($Call['Metric'], $Call);
 
-        if (F::Dot($Call, 'Metric.DryRun') == true)
+        if (F::Dot($Call, 'Metric.DryRun') === true)
             ;
         else
         {
             // Add Event to Metric Queue
-          
             if (empty(F::Dot($Call, 'Metric.Event.Time.Exact')))
                 $Call = F::Dot($Call, 'Metric.Event.Time', F::Run('System.Time', 'Get', $Call,
                     [
@@ -56,7 +55,7 @@
                 'Scope'     => $Type
             ]);
         
-        F::Log('Queue Size: '.$Count, LOG_NOTICE);
+        F::Log('Metric Queue '.$Type.' has *'.$Count.'* elements', LOG_WARNING);
         
         if (F::Dot($VCall, 'Metric.Aggregate.Batch.AutoSize'))
             $VCall = F::Dot($VCall, 'Metric.Aggregate.Batch.Size', $Count);
@@ -93,7 +92,13 @@
                         $Where = [];
                     
                     $Where ['Type'] = $Type;
-                    
+
+                    $Time = F::Dot($Event, 'Time') ?? F::Run('System.Time', 'Get', $Call, [
+                        'Time' =>
+                        [
+                            'Offset' => F::Dot($Call, 'Metric.Event.Time.Offset')
+                        ]
+                    ]);
                     foreach ($VCall['Metric']['Event']['Resolutions'] as $VCall['Metric']['Event']['Resolution'])
                     {
                         $Where ['Time'] = floor($Event['Time'] / $VCall['Metric']['Event']['Resolution']);
@@ -172,26 +177,29 @@
             ;
         else
         {
-            $Call['Event']['Type'] = F::Dot($Call, 'Request.Type');
-            $Call['Event']['Dimensions'] = F::Dot($Call, 'Request.Dimensions');
-            
-            $Call = F::Hook($Call['Event']['Type'].'.Event.AddFront.Before', $Call);
-            
-            if (empty($Call['Event']['Type']))
-                ;
-            else
+            if (F::Dot($Call, 'HTTP.Method') == 'POST')
             {
-                if (in_array($Call['Event']['Type'], F::Dot($Call, 'Metric.Front.Types.Allowed')))
-                    F::Run(null, 'Add', $Call,
-                        [
-                            'Metric' =>
-                                [
-                                    'Event' => $Call['Event']
-                                ]
-                        ]);
+                $Call['Event']['Type'] = F::Dot($Call, 'Request.Type');
+                $Call['Event']['Dimensions'] = F::Dot($Call, 'Request.Dimensions');
+
+                $Call = F::Hook($Call['Event']['Type'].'.Event.AddFront.Before', $Call);
+
+                if (empty($Call['Event']['Type']))
+                    ;
+                else
+                {
+                    if (in_array($Call['Event']['Type'], F::Dot($Call, 'Metric.Front.Types.Allowed')))
+                        F::Run(null, 'Add', $Call,
+                            [
+                                'Metric' =>
+                                    [
+                                        'Event' => $Call['Event']
+                                    ]
+                            ]);
+                }
+
+                $Call['Output']['Content'] = j($Call['Event']);
             }
-    
-            $Call['Output']['Content'] = j($Call['Event']);
         }
         return $Call;
     });
