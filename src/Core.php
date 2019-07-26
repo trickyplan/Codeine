@@ -581,7 +581,7 @@
                 foreach ($Variable as &$cVariable)
                     $cVariable = self::Variable($cVariable, $Call);
             else
-                if (is_string($Variable) && mb_strpos($Variable, '$') !== false && preg_match_all('@\$([\w\:\.]+)@Ssu', $Variable, $Pockets))
+                if (is_string($Variable) && mb_strpos($Variable, '$') !== false && preg_match_all('@\$([\w\-\:\.]+)@Ssu', $Variable, $Pockets))
                 {
                     foreach ($Pockets[1] as $IX => $Match)
                     {
@@ -610,6 +610,8 @@
                         {
                             if ($Subvariable !== null)
                                 $Variable = str_replace($Pockets[0][$IX], $Subvariable, $Variable);
+                            else
+                                $Variable = str_replace($Pockets[0][$IX], 'null', $Variable);
                         }
                         else
                             self::Log('Subvariable *'.$Match.'* is non-scalar ', LOG_WARNING);
@@ -755,7 +757,7 @@
                 return "ffffff";
         }
         
-        public static function Log ($Message, $Verbose = 7, $Channel = 'Developer', $AppendStack = false)
+        public static function Log ($Message, $Verbose = 7, $Channel = 'Developer', $AppendStack = false, $Prepend = false)
         {
             if ($Channel == 'All')
                 foreach (self::$_Verbose as $Channel => $V)
@@ -789,9 +791,8 @@
                         $Stack = self::printStack();
                     else
                         $Stack = null;
-                    
-                    self::$_Log[$Channel][]
-                            = [
+
+                    $Log = [
                                 'V' => $Verbose,
                                 'T' => $Time,
                                 'I' => $Initiator,
@@ -802,6 +803,11 @@
                                 'C' => self::getColor(),
                                 'M' => self::$_Options['Codeine']['Monitor Memory']? memory_get_usage(false): 0,
                             ];
+
+                    if ($Prepend)
+                        array_unshift(self::$_Log[$Channel], $Log);
+                    else
+                        self::$_Log[$Channel][] = $Log;
                     
                     if (PHP_SAPI === 'cli')
                         self::CLILog($Time, $Message, $Verbose, $Channel, $AppendStack);
@@ -826,7 +832,7 @@
                 $Message.= j(self::printStack());
             
             if (($Verbose <= self::$_Verbose[$Channel]) or !self::$_Live)
-                fwrite(STDERR, implode("\t", [getmypid(), $Time, $Channel, self::$_Service, self::$_Method, $Message]).PHP_EOL);
+                fwrite(STDERR, implode("\t", [getmypid(), 'V'.$Verbose, $Time, $Channel, self::$_Service, self::$_Method, $Message]).PHP_EOL);
         }
         
         public static function Logs($Channel = 'All')
