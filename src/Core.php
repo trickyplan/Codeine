@@ -563,8 +563,6 @@
                         if ($Variable === (array) $Variable)
                             foreach ($Variable as $Key => $cVariable)
                                 $Variable = self::Dot($Variable, $Key, self::Live($cVariable, $Call));
-                        else
-                            $Variable = self::Variable($Variable, $Call);
 
                         $Result = $Variable;
                     }
