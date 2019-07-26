@@ -1,6 +1,7 @@
 {
     "Performance":
     {
+        "Enabled": false,
         "Format": "HTML",
         "Excluded": ["Core:Merge"],
         "Limits":
@@ -8,17 +9,17 @@
             "Red":
             {
                 "ACalls": 16,
-                "RCalls": 8,
-                "RTime": 8,
                 "ATime": 128,
+                "RCalls": 50,
+                "RTime": 50,
                 "TimePerCall": 128
             },
             "Yellow":
             {
                 "ACalls": 32,
-                "RCalls": 4,
-                "RTime": 4,
                 "ATime": 64,
+                "RCalls": 25,
+                "RTime": 25,
                 "TimePerCall": 64
             }
         }

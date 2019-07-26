@@ -9,13 +9,12 @@
 
     setFn('Do', function ($Call)
     {
-        if (self::$_Performance or F::Environment() === 'Development')
+        if (F::Dot($Call, 'Performance.Enabled'))
         {
             $Call['Performance']['Summary']['Time'] = round((microtime(true)-Started)*1000);
             $Call['Performance']['Summary']['Calls'] = array_sum(self::$_Counters['C']);
             $Call['Performance']['Summary']['Core Storage'] = count(self::$_Storage);
 
-            
             arsort(self::$_Counters['T']);
 
             F::Log('Max stack size: '.F::Get('MSS'), LOG_NOTICE, 'Performance');
