@@ -52,7 +52,7 @@
                         'V'.$Row['V'],
                         $Row['T'],
                         $MemoryDiff,
-                        $Row['H'],
+                        $Row['H']?? '',
                         ($Row['R'] == (isset($Call['Value'][$IX-1]['R'])? $Call['Value'][$IX-1]['R']: false)? '': $Row['R'].' from '.$Row['I']),
                         $Row['X']
                     ]).'|'.PHP_EOL;
