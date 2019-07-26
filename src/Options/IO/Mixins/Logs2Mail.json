@@ -8,10 +8,7 @@
             "Format": "Formats.Log.HTML",
             "Log":
             {
-                "Timestamps":
-                {
-                    "Absolute": true
-                }
+                "ConvertTimestampsToAbsolute": true
             }
         },
         "Performance":
@@ -21,10 +18,7 @@
             "Format": "Formats.Log.HTML",
             "Log":
             {
-                "Timestamps":
-                {
-                    "Absolute": true
-                }
+                "ConvertTimestampsToAbsolute": true
             }
         },
         "Administrator":
@@ -34,10 +28,7 @@
             "Format": "Formats.Log.HTML",
             "Log":
             {
-                "Timestamps":
-                {
-                    "Absolute": true
-                }
+                "ConvertTimestampsToAbsolute": true
             }
         },
         "Security": {
@@ -46,10 +37,7 @@
             "Format": "Formats.Log.HTML",
             "Log":
             {
-                "Timestamps":
-                {
-                    "Absolute": true
-                }
+                "ConvertTimestampsToAbsolute": true
             }
         },
         "Management": {
@@ -58,10 +46,7 @@
             "Format": "Formats.Log.HTML",
             "Log":
             {
-                "Timestamps":
-                {
-                    "Absolute": true
-                }
+                "ConvertTimestampsToAbsolute": true
             }
         },
         "Marketing": {
@@ -70,10 +55,7 @@
             "Format": "Formats.Log.HTML",
             "Log":
             {
-                "Timestamps":
-                {
-                    "Absolute": true
-                }
+                "ConvertTimestampsToAbsolute": true
             }
         },
         "-Access":
@@ -84,10 +66,7 @@
             "Format": "Formats.Log.HTML",
             "Log":
             {
-                "Timestamps":
-                {
-                    "Absolute": true
-                }
+                "ConvertTimestampsToAbsolute": true
             }
         }
     }

@@ -7,7 +7,7 @@
      * @version 8.x
      */
     
-    setFn('beforeLogSpit', function ($Call)
+    setFn('Log.Spit.Channel.Before', function ($Call)
     {
         foreach ($Call['Channel Logs'] as &$Row)
             if ($Row['Z'])

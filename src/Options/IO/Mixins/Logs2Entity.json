@@ -7,10 +7,7 @@
             "Format": "Formats.Log.Dummy",
             "Log":
             {
-                "Timestamps":
-                {
-                    "Absolute": true
-                }
+                "ConvertTimestampsToAbsolute": true
             }
         },
         "Performance":
@@ -19,10 +16,7 @@
             "Format": "Formats.Log.Dummy",
             "Log":
             {
-                "Timestamps":
-                {
-                    "Absolute": true
-                }
+                "ConvertTimestampsToAbsolute": true
             }
         },
         "Administrator":
@@ -31,10 +25,7 @@
             "Format": "Formats.Log.Dummy",
             "Log":
             {
-                "Timestamps":
-                {
-                    "Absolute": true
-                }
+                "ConvertTimestampsToAbsolute": true
             }
         },
         "Security": {
@@ -42,10 +33,7 @@
             "Format": "Formats.Log.Dummy",
             "Log":
             {
-                "Timestamps":
-                {
-                    "Absolute": true
-                }
+                "ConvertTimestampsToAbsolute": true
             }
         },
         "Management":
@@ -53,22 +41,16 @@
             "Driver": "IO.Log.Error",
             "Format": "Formats.Log.Dummy",
             "Log":
-                      {
-                          "Timestamps":
-                          {
-                              "Absolute": true
-                          }
-                      }
+            {
+                "ConvertTimestampsToAbsolute": true
+            }
         },
         "Marketing": {
             "Driver": "IO.Log.Error",
             "Format": "Formats.Log.Dummy",
             "Log":
             {
-                "Timestamps":
-                {
-                    "Absolute": true
-                }
+                "ConvertTimestampsToAbsolute": true
             }
         },
         "Access": {
@@ -76,10 +58,7 @@
             "Format": "Formats.Log.Dummy",
             "Log":
             {
-                "Timestamps":
-                {
-                    "Absolute": true
-                }
+                "ConvertTimestampsToAbsolute": true
             }
         }
     }

@@ -4,42 +4,90 @@
         "Developer":
         {
             "Driver": "IO.Print",
-            "Format": "Formats.Log.HTML"
+            "Format": "Formats.Log.HTML",
+            "Log":
+            {
+                "AddStatistics": true,
+                "AddTimestamp": true,
+                "AddUserString": true
+            }
         },
         "Security":
         {
             "Driver": "IO.Print",
-            "Format": "Formats.Log.HTML"
+            "Format": "Formats.Log.HTML",
+            "Log":
+            {
+                "AddStatistics": true,
+                "AddTimestamp": true,
+                "AddUserString": true
+            }
         },
         "Administrator":
         {
             "Driver": "IO.Print",
-            "Format": "Formats.Log.HTML"
+            "Format": "Formats.Log.HTML",
+            "Log":
+            {
+                "AddStatistics": true,
+                "AddTimestamp": true,
+                "AddUserString": true
+            }
         },
         "Performance":
         {
             "Driver": "IO.Print",
-            "Format": "Formats.Log.HTML"
+            "Format": "Formats.Log.HTML",
+            "Log":
+            {
+                "AddStatistics": true,
+                "AddTimestamp": true,
+                "AddUserString": true
+            }
         },
         "Marketing":
         {
             "Driver": "IO.Print",
-            "Format": "Formats.Log.HTML"
+            "Format": "Formats.Log.HTML",
+            "Log":
+            {
+                "AddStatistics": true,
+                "AddTimestamp": true,
+                "AddUserString": true
+            }
         },
         "Management":
         {
             "Driver": "IO.Print",
-            "Format": "Formats.Log.HTML"
+            "Format": "Formats.Log.HTML",
+            "Log":
+            {
+                "AddStatistics": true,
+                "AddTimestamp": true,
+                "AddUserString": true
+            }
         },
         "Metric":
         {
             "Driver": "IO.Print",
-            "Format": "Formats.Log.HTML"
+            "Format": "Formats.Log.HTML",
+            "Log":
+            {
+                "AddStatistics": true,
+                "AddTimestamp": true,
+                "AddUserString": true
+            }
         },
         "Access":
         {
             "Driver": "IO.Print",
-            "Format": "Formats.Log.HTML"
+            "Format": "Formats.Log.HTML",
+            "Log":
+            {
+                "AddStatistics": true,
+                "AddTimestamp": true,
+                "AddUserString": true
+            }
         }
     }
 }

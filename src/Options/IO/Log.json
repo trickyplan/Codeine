@@ -2,7 +2,6 @@
     "Mixins": ["IO.Log.Mixins.File"],
     "Log":
     {
-        "Sorted": false,
         "Asterisk": true
     },
     "Levels":
@@ -15,5 +14,69 @@
         "5": "Notice",
         "6": "Info",
         "7": "Debug"
+    },
+    "Hooks":
+    {
+        "Log":
+        {
+            "Spit":
+            {
+                "Before":
+                {
+
+                },
+                "Channel":
+                {
+                    "Before":
+                    {
+                        "Add User String":
+                        {
+                            "Service": "IO.Log.Hooks.AddUserString",
+                            "Method": "Log.Spit.Channel.Before"
+                        },
+                        "Add Timestamp":
+                        {
+                            "Service": "IO.Log.Hooks.AddTimestamp",
+                            "Method": "Log.Spit.Channel.Before"
+                        },
+                        "Add Statistics":
+                        {
+                            "Service": "IO.Log.Hooks.AddStatistics",
+                            "Method": "Log.Spit.Channel.Before"
+                        },
+                        "Reload Logs":
+                        {
+                            "Service": "IO.Log.Hooks.ReloadLogs",
+                            "Method": "Log.Spit.Channel.Before"
+                        },
+                        "Mark Scalars":
+                        {
+                            "Service": "IO.Log.Hooks.MarkScalars",
+                            "Method": "Log.Spit.Channel.Before"
+                        },
+                        "Add Hashes":
+                        {
+                            "Service": "IO.Log.Hooks.AddHashes",
+                            "Method": "Log.Spit.Channel.Before"
+                        },
+                        "Convert Timestamps to Absolute":
+                        {
+                            "Service": "IO.Log.Hooks.ConvertTimestampsToAbsolute",
+                            "Method": "Log.Spit.Channel.Before"
+                        },
+                        "Serialize Messages":
+                        {
+                            "Service": "IO.Log.Hooks.SerializeMessages",
+                            "Method": "Log.Spit.Channel.Before"
+                        },
+                        "Remove Newlines":
+                        {
+                            "Service": "IO.Log.Hooks.RemoveNewlines",
+                            "Method": "Log.Spit.Channel.Before"
+                        }
+                    }
+                }
+            }
+        }
     }
 }

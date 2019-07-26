@@ -6,56 +6,96 @@
             "Driver":"IO.Log.File",
             "Directory":"/var/log/codeine",
             "Scope": "developer",
-            "Format": "Formats.Log.Plain"
+            "Format": "Formats.Log.Plain",
+            "Log":
+            {
+                "ConvertTimestampsToAbsolute": true,
+                "RemoveNewlines": true
+            }
         },
         "Performance":
         {
             "Driver":"IO.Log.File",
             "Directory":"/var/log/codeine",
             "Scope": "performance",
-            "Format": "Formats.Log.Plain"
+            "Format": "Formats.Log.Plain",
+            "Log":
+            {
+                "ConvertTimestampsToAbsolute": true,
+                "RemoveNewlines": true
+            }
         },
         "Security":
         {
             "Driver":"IO.Log.File",
             "Directory":"/var/log/codeine",
             "Scope": "security",
-            "Format": "Formats.Log.Plain"
+            "Format": "Formats.Log.Plain",
+            "Log":
+            {
+                "ConvertTimestampsToAbsolute": true,
+                "RemoveNewlines": true
+            }
         },
         "Administrator":
         {
             "Driver":"IO.Log.File",
             "Directory":"/var/log/codeine",
             "Scope": "administrator",
-            "Format": "Formats.Log.Plain"
+            "Format": "Formats.Log.Plain",
+            "Log":
+            {
+                "ConvertTimestampsToAbsolute": true,
+                "RemoveNewlines": true
+            }
         },
         "Marketing":
         {
             "Driver":"IO.Log.File",
             "Directory":"/var/log/codeine",
             "Scope": "marketing",
-            "Format": "Formats.Log.Plain"
+            "Format": "Formats.Log.Plain",
+            "Log":
+            {
+                "ConvertTimestampsToAbsolute": true,
+                "RemoveNewlines": true
+            }
         },
         "Management":
         {
             "Driver":"IO.Log.File",
             "Directory":"/var/log/codeine",
             "Scope": "management",
-            "Format": "Formats.Log.Plain"
+            "Format": "Formats.Log.Plain",
+            "Log":
+            {
+                "ConvertTimestampsToAbsolute": true,
+                "RemoveNewlines": true
+            }
         },
         "Metric":
         {
             "Driver":"IO.Log.File",
             "Directory":"/var/log/codeine",
             "Scope": "metric",
-            "Format": "Formats.Log.Plain"
+            "Format": "Formats.Log.Plain",
+            "Log":
+            {
+                "ConvertTimestampsToAbsolute": true,
+                "RemoveNewlines": true
+            }
         },
         "Access":
         {
             "Driver":"IO.Log.File",
             "Directory":"/var/log/codeine",
             "Scope": "access",
-            "Format": "Formats.Log.Plain"
+            "Format": "Formats.Log.Plain",
+            "Log":
+            {
+                "ConvertTimestampsToAbsolute": true,
+                "RemoveNewlines": true
+            }
         }
     }
 }

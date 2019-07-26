@@ -7,10 +7,11 @@
      * @version 8.x
      */
     
-    setFn('beforeLogSpit', function ($Call)
+    setFn('Log.Spit.Channel.Before', function ($Call)
     {
-        foreach ($Call['Channel Logs'] as &$Row)
-            $Row['X'] = strtr($Row['X'], [PHP_EOL => '/']);
+        if (F::Dot($Call, 'Storages.'.$Call['Channel'].'.RemoveNewlines'))
+            foreach ($Call['Channel Logs'] as &$Row)
+                $Row['X'] = strtr($Row['X'], [PHP_EOL => '/']);
         
         return $Call;
     });

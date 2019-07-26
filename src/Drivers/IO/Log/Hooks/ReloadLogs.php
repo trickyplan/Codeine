@@ -7,7 +7,7 @@
      * @version 8.x
      */
     
-    setFn('beforeLogSpit', function ($Call)
+    setFn('Log.Spit.Channel.Before', function ($Call)
     {
         $Call['Channel Logs'] = F::Logs($Call['Channel']);
         return $Call;
