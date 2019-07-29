@@ -20,28 +20,32 @@
             }
         }
 
-        if ($IP == '127.0.0.1' && isset($Call['IP']['Pingback']))
+        if ($IP == '127.0.0.1')
         {
-            if (($IP = F::Run('IO', 'Read', $Call, ['Storage' => 'Cookie', 'Where' => 'DeveloperIP'])) == null)
+            if (isset($Call['HTTP']['Request']['Headers']['Developer-Ip']))
             {
-                $Pingback = F::Run('IO', 'Read',
-                [
-                    'Storage'   => 'Web',
-                    'Where'     => $Call['IP']['Pingback'],
-                    'IO One'    => true
-                ]);
-
-                if (preg_match($Call['IP']['Regex'], $Pingback, $Pockets))
-                    $IP = $Pockets[0];
-                else
-                    $IP = '127.0.0.1';
-
-                F::Run('IO', 'Write', $Call, ['Storage' => 'Cookie', 'Where' => 'DeveloperIP', 'Data' => $IP]);
-
-                F::Log('Pingback IP: *'.$IP.'* from *'.$Call['IP']['Pingback'].'*', LOG_INFO);
+                $IP = $Call['HTTP']['Request']['Headers']['Developer-Ip'];
+                F::Log('IP: *'.$IP.'* from *Headers*', LOG_INFO);
             }
             else
-                F::Log('Pingback IP: *'.$IP.'* from *Cookie*', LOG_INFO);
+            {
+                if (isset($Call['IP']['Pingback']))
+                {
+                    $Pingback = F::Run('IO', 'Read',
+                    [
+                        'Storage'   => 'Web',
+                        'Where'     => $Call['IP']['Pingback'],
+                        'IO One'    => true
+                    ]);
+
+                    if (preg_match($Call['IP']['Regex'], $Pingback, $Pockets))
+                        $IP = $Pockets[0];
+                    else
+                        $IP = '127.0.0.1';
+
+                    F::Log('Pingback IP: *'.$IP.'* from *'.$Call['IP']['Pingback'].'*', LOG_INFO);
+                }
+            }
         }
         else
             if (isset($Call['IP']['Substitute'][$IP]))

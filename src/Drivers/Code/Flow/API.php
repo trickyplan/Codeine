@@ -78,16 +78,23 @@
                                     if ($Behaviours = F::Dot($Call, 'API.'.$Call['API']['Request']['Service'].'.'.$Call['API']['Request']['Method'].'.Behaviours') !== null)
                                         $Call['API']['Request']['Call'] = F::Merge($Call['API']['Request']['Call'], $Behaviours);
                                     
-                                    $Result = F::Apply($Call['API']['Request']['Service'], $Call['API']['Request']['Method'], $Call, F::Dot($Call, 'API.Request.Call'), ['Return' => 'Output']);
-                                    
-                                    $Call = F::Hook('afterAPIMethodRun', F::Merge($Call, $Result));
-                                    
-                                    $Call = F::Dot($Call, 'API.Response.Data', F::Dot($Result, 'Response'));
+                                    $Call = F::Apply($Call['API']['Request']['Service'], $Call['API']['Request']['Method'], $Call, F::Dot($Call, 'API.Request.Call'));
 
-                                    if ($Status = F::Dot($Result, 'Status'))
+                                    $Call = F::Hook('afterAPIMethodRun', F::Merge($Call, $Call['Output']));
+                                    
+                                    $Call = F::Dot($Call, 'API.Response.Data', F::Dot($Call['Output'], 'Response'));
+
+                                    if ($Status = F::Dot($Call['Output'], 'Status'))
                                         $Call = F::Dot($Call, 'API.Response.Status', $Status);
                                     
-                                    F::Log('[API] ['.$Call['API']['Request']['Format'].'] [S:'.F::Dot($Result, 'Status.Code').'] '.$Call['API']['Request']['Service'].':'.$Call['API']['Request']['Method'].'('.serialize(F::Dot($Call, 'API.Request.Call')).')', LOG_INFO, 'Access');
+                                    F::Log('[API] ['.$Call['API']['Request']['Format']
+                                        .'] [S:'
+                                        .F::Dot($Call['Output'], 'Status.Code').'] '
+                                        .$Call['API']['Request']['Service']
+                                        .':'
+                                        .$Call['API']['Request']['Method']
+                                        .'('.serialize(F::Dot($Call, 'API.Request.Call'))
+                                        .')', LOG_INFO, 'Access');
                                 }
                                 else
                                     $Call = F::Dot($Call, 'HTTP.Headers.HTTP/1.1', '403 Forbidden');
@@ -111,7 +118,7 @@
         
                 $Call = F::Merge($Call, $Call['API']['Formats'][$Call['API']['Request']['Format']]);
             }
-        
+
             $Call['API']['Response']['Generated'] = microtime(true);
             $Call['API']['Response']['Time'] = $Call['API']['Response']['Generated'] - $Call['API']['Request']['Started'];
             
