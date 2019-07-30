@@ -9,13 +9,22 @@
 
     setFn('Process', function ($Call)
     {
-        if (isset($Call['Node']['Unique']) && $Call['Node']['Unique'] && F::Dot($Call['Data'], $Call['Name']))
+        if (F::Dot($Call, 'Node.Unique') && F::Dot($Call['Data'], $Call['Name']))
         {
-            if (isset($Call['Where']['ID']))
-                $Limit = 1;
-            else
-                $Limit = 0;
-            
+            switch ($Mode = F::Dot($Call, 'Validation.Unique.Mode'))
+            {
+                case 'Create':
+                    $Limit = 0;
+                break;
+
+                case 'Update':
+                    $Limit = 1;
+                break;
+                default:
+                    $Limit = 0;
+                    F::Log('Incorrect Validation Unique Mode: '.$Mode, LOG_WARNING);
+            }
+
             if ($Call['Name'] !== 'ID')
             {
                 $Where = [
@@ -48,7 +57,7 @@
 
             if ($Count > $Limit)
             {
-                F::Log('Non-unique ('.$Count.'/'.$Limit.') '.$Call['Name'].' value: '.j($Call['Data'][$Call['Name']]).' ', LOG_NOTICE);
+                F::Log('Non-unique ('.$Count.'>'.$Limit.') '.$Call['Name'].' value: '.j($Call['Data'][$Call['Name']]).' ', LOG_NOTICE);
                 return 'Unique';
             }
         }

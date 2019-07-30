@@ -58,7 +58,17 @@
             "Validate":
             {
                 "Service":"Entity.Hooks.Validate",
-                "Method":"Process"
+                "Method":"Process",
+                "Call":
+                {
+                    "Validation":
+                    {
+                        "Unique":
+                        {
+                            "Mode": "Create"
+                        }
+                    }
+                }
             }
         },
         "beforeEntityUpdate":
@@ -76,7 +86,17 @@
             "Validate":
             {
                 "Service":"Entity.Hooks.Validate",
-                "Method":"Process"
+                "Method":"Process",
+                "Call":
+                {
+                    "Validation":
+                    {
+                        "Unique":
+                        {
+                            "Mode": "Update"
+                        }
+                    }
+                }
             }
         },
         "beforeEntityCreateOrUpdate":
