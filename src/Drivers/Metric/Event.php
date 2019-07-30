@@ -55,7 +55,7 @@
                 'Scope'     => $Type
             ]);
         
-        F::Log('Metric Queue '.$Type.' has *'.$Count.'* elements', LOG_WARNING);
+        F::Log('Metric Queue '.$Type.' has *'.$Count.'* elements', LOG_NOTICE);
         
         if (F::Dot($VCall, 'Metric.Aggregate.Batch.AutoSize'))
             $VCall = F::Dot($VCall, 'Metric.Aggregate.Batch.Size', $Count);
