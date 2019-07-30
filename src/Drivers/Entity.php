@@ -199,6 +199,8 @@
             unset($Call['One']);
         }
 
+        $Call['Updates'] = F::Dot($Call, 'Data');
+
         $Call = F::Hook('beforeOperation', $Call);
 
             $Entities = F::Run('Entity', 'Read', $Call, ['One' => false, 'Time' => microtime(true).rand()]);
@@ -207,30 +209,9 @@
                 ;
             else
             {
-                $VCall = [];
-
                 foreach ($Entities as $Call['Current'])
                 {
-                    // Поиск по всем полям
-                    $VCall['Where'] = ['ID' => $Call['Current']['ID']];
-
-                    if (F::Dot($Call, 'Data') === null)
-                        $Call['Data'] = $Call['Current'];
-                    else
-                    {
-                        foreach ($Call['Nodes'] as $Name => $Node)
-                        {
-                            $UpdatedValue = F::Dot($Call['Data'], $Name);
-
-                            if (null === $UpdatedValue)
-                                if (isset($Node['Nullable']) && $Node['Nullable'])
-                                    $Call['Data'] = F::Dot($Call['Data'], $Name, null);
-                                else
-                                    $Call['Data'] = F::Dot($Call['Data'], $Name, F::Dot($Call['Current'], $Name));
-                        }
-                    }
-
-                    $Call['Data']['EV'] = $Call['EV'];
+                    $VCall['Where'] = $Call['Current']['ID'];
 
                     $Call = F::Hook('beforeEntityUpdate', $Call);
                     $Call = F::Hook('before'.$Call['Flat Entity'].'Update', $Call);
@@ -239,14 +220,13 @@
                     $Call = F::Hook('beforeEntityWrite', $Call);
                     $Call = F::Hook('before'.$Call['Flat Entity'].'Write', $Call);
 
-                    if (isset($Call['Failure']) and $Call['Failure'])
-                    {
+                    $Call['Data']['EV'] = $Call['EV'];
+
+                    if (F::Dot($Call, 'Failure'))
                         F::Log('Update skipped due Failure Flag: '.j($Call['Errors']), LOG_WARNING, 'Administrator');
-                        $Call['Data'] = null;
-                    }
                     else
                     {
-                            if (isset($Call['Dry']))
+                            if (F::Dot($Call, 'Dry'))
                                 F::Log('Dry shot for ' . $Call['Entity'] . ' update');
                             else
                             {

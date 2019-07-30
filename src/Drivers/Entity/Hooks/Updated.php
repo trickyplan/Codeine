@@ -10,7 +10,30 @@
     setFn('Process', function ($Call)
     {
         if (isset($Call['Current']))
-            $Call['Data'] = F::Merge($Call['Current'], $Call['Data']);
+        {
+            if ($Call['Updates'] === null)
+            {
+                F::Log('Data is null, imaginary update for '.$Call['Current']['ID'], LOG_WARNING, 'Developer');
+                $Call['Data'] = $Call['Current'];
+            }
+            else
+            {
+                foreach ($Call['Nodes'] as $Name => $Node)
+                {
+                    $UpdatedValue = F::Dot($Call['Updates'], $Name);
+
+                    if (null === $UpdatedValue)
+                    {
+                        if (F::Dot($Node, 'Nullable'))
+                            $Call['Data'] = F::Dot($Call['Data'], $Name, null);
+                        else
+                            $Call['Data'] = F::Dot($Call['Data'], $Name, F::Dot($Call['Current'], $Name));
+                    }
+                    else
+                        $Call['Data'] = F::Dot($Call['Data'], $Name, $UpdatedValue);
+                }
+            }
+        }
 
         return $Call;
     });

@@ -73,6 +73,11 @@
         },
         "beforeEntityUpdate":
         {
+            "Updated":
+            {
+                "Service":"Entity.Hooks.Updated",
+                "Method":"Process"
+            },
             "Default values":
             {
                 "Service":"Entity.Hooks.Default",
