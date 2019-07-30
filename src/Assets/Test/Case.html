@@ -1,13 +1,14 @@
-<li class="list-group-item">
+<if key="Status" eq="Passed">
+    <li class="list-group-item list-group-item-success">
+</if>
+<if key="Status" eq="Failed">
+    <li class="list-group-item list-group-item-danger">
+</if>
+
     <div data-toggle="collapse" href="#ResultActual_<key>CID</key>" aria-expanded="false" aria-controls="collapseExample">
         <div class="row">
             <div class="col-md-1">
-                <if key="Status" eq="Passed">
-                    <div class="label label-success">Passed</div>
-                </if>
-                <if key="Status" eq="Failed">
-                    <div class="label label-danger">Failed</div>
-                </if>
+                <k>Status</k>
             </div>
             <div class="col-md-2">
                 <key>ID</key>

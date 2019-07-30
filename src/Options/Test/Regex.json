@@ -1,6 +1,19 @@
 {
     "Regex":
     {
+        "Test App":
+        {
+            "Match": "^/test/(.+).ajax$",
+            "Weight": 5,
+            "Service": "Test",
+            "Method": "Run.Test",
+            "Zone": "Test",
+            "Call":
+            {
+                "Context": "app",
+                "ID": "$1"
+            }
+        },
         "Test / JSON":
         {
             "Match": "^/test/(.+)\\.json$",
@@ -41,7 +54,7 @@
             "Match": "^/test$",
             "Weight": 5,
             "Service": "Test",
-            "Method": "Run.All",
+            "Method": "List.All",
             "Zone": "Test"
         }
     }

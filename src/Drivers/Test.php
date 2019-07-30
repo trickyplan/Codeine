@@ -92,8 +92,6 @@
                 // Store execution time
                 $Call = F::Dot($Call, 'Test.Case.Time.Run', F::Time($SCID));
                 
-            $Call = F::Hook('Test.Case.Run.Execute.After', $Call);
-
             // Assert
             $Status = 'Passed';
             
@@ -114,7 +112,9 @@
                     $Call = F::Dot($Call, 'Test.Case.Time.'.$Assert,
                         F::Time($SCID.'.'.$Assert));
                 }
-        
+
+        $Call = F::Hook('Test.Case.Run.Execute.After', $Call);
+
         $Call['Test']['Case']['Status'] = $Status;
 
         $Call = F::Hook('Test.Case.Run.After', $Call);
@@ -127,12 +127,21 @@
         return $Call;
     });
     
-    setFn('Run.All', function ($Call)
+    setFn('List.All', function ($Call)
     {
         $Tests = F::Run(null, 'Enumerate', $Call);
-        
-        foreach ($Tests as $Call['ID'])
-            $Call = F::Apply(null, 'Run.Test', $Call);
+        $Call['Layouts'][] = ['Scope' => 'Test/All', 'ID' => 'Main'];
+        foreach ($Tests as $Test)
+        {
+            $Test = ['ID' => $Test];
+            $Call['Output']['Content'][] =
+                [
+                    'Type'  => 'Template',
+                    'Scope' => 'Test/All',
+                    'ID'    => 'Test',
+                    'Data'  => $Test
+                ];
+        }
         
         return $Call;
     });

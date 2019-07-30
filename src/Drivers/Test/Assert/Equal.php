@@ -15,11 +15,10 @@
         {
             $Call['Failure'] = true;
             $Decision = false;
-            F::Log(
-                j(F::Dot($Call, 'Test.Case.Result.Actual'))
-                .' is not equal to '
-                .j(F::Dot($Call, 'Test.Case.Result.Equal'))
-                , LOG_WARNING, 'Developer');
+            F::Log('Result is not equal to Assert', LOG_WARNING, 'Developer');
+            F::Log(F::Dot($Call, 'Test.Case.Result.Actual'), LOG_WARNING);
+            F::Log(F::Dot($Call, 'Test.Case.Result.Equal.Expected'), LOG_WARNING);
+
         }
 
         return $Decision;
