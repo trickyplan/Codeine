@@ -1,0 +1,24 @@
+{
+    "Suites":
+    {
+        "Simple":
+        {
+            "GeoCode 1":
+            {
+                "Run":
+                {
+                    "Service": "Location.Geocoding.Google",
+                    "Method": "Decode",
+                    "Call":
+                    {
+                        "Address": "London Tower Bridge"
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            }
+        }
+    }
+}
