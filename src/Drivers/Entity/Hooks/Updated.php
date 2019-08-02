@@ -13,7 +13,7 @@
         {
             if ($Call['Updates'] === null)
             {
-                F::Log('Data is null, imaginary update for '.$Call['Current']['ID'], LOG_WARNING, 'Developer');
+                F::Log('Data is null, imaginary update for '.$Call['Current']['ID'], LOG_NOTICE, 'Developer');
                 $Call['Data'] = $Call['Current'];
             }
             else
