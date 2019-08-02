@@ -9,7 +9,7 @@
             },
             "Apply Period Condition":
             {
-                "Service": "Metric.Hooks.Period"
+                "Service": "Metric.Hooks.AddPeriodToWhere"
             }
         },
         "beforeMetricGetLast":

@@ -10,7 +10,7 @@
     {
         $Call = F::Hook('beforeMetricGetRow', $Call);
 
-            $Call['Result'] = F::Run('IO', 'Read',
+           $Call['Result'] = F::Run('IO', 'Read',
             [
                 'Storage'   => 'Primary',
                 'Scope'     => 'Metric',

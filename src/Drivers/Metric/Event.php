@@ -16,15 +16,21 @@
         else
         {
             // Add Event to Metric Queue
-            if (empty(F::Dot($Call, 'Metric.Event.Time.Exact')))
-                $Call = F::Dot($Call, 'Metric.Event.Time', F::Run('System.Time', 'Get', $Call,
+
+            if ($MetricTime = F::Dot($Call, 'Metric.Event.Time.Exact') == null)
+            {
+                $MetricTime = F::Run('System.Time', 'Get', $Call,
                     [
                         'Time' =>
                         [
                             'Offset' => F::Dot($Call, 'Metric.Event.Time.Offset')
                         ]
-                    ]));
-            
+                    ]);
+                $Call = F::Dot($Call, 'Metric.Event.Time', $MetricTime);
+            }
+
+            F::Log('Event Time: '.date(DATE_W3C, $MetricTime), LOG_INFO);
+
             F::Run('IO', 'Write', $Call,
                 [
                     'Storage'   => 'Metric Queue',
@@ -33,7 +39,7 @@
                 ]);
             
             
-            F::Log(function () use ($Call) {return 'Metric Event: '.F::Dot($Call, 'Metric.Event.Type').' '.j(F::Dot($Call, 'Metric.Event'));} , LOG_INFO, 'Metric');
+            F::Log(function () use ($Call) {return 'Metric Event: '.F::Dot($Call, 'Metric.Event.Type').' '.j(F::Dot($Call, 'Metric.Event'));} , LOG_INFO, 'Administrator');
             
             $Call = F::Dot($Call, 'Metric.Event', null);
         }
@@ -84,6 +90,7 @@
                 ;
             else
             {
+                $DT = new DateTime();
                 foreach ($Events as $Event)
                 {
                     if (isset($Event['Dimensions']))
@@ -92,15 +99,18 @@
                         $Where = [];
                     
                     $Where ['Type'] = $Type;
+                    $TZ = new DateTimeZone(F::Dot($Call, 'Metric.Aggregate.Timezone'));
 
-                    $Time = F::Dot($Event, 'Time') ?? F::Run('System.Time', 'Get', $Call, [
-                        'Time' =>
-                        [
-                            'Offset' => F::Dot($Call, 'Metric.Event.Time.Offset')
-                        ]
-                    ]);
+                    $DT->setTimestamp($Event['Time']);
+                    $DT->setTimezone($TZ);
+
                     foreach ($VCall['Metric']['Event']['Resolutions'] as $VCall['Metric']['Event']['Resolution'])
                     {
+                        $Event['Time'] += $DT->getOffset()-1;
+
+                        F::Log(function () use ($DT) {$DT->format('Y.m.d H:i:s');}, LOG_DEBUG);
+                        F::Log($Event['Time'], LOG_DEBUG);
+
                         $Where ['Time'] = floor($Event['Time'] / $VCall['Metric']['Event']['Resolution']);
                         $Where ['Resolution'] = $VCall['Metric']['Event']['Resolution'];
                         
