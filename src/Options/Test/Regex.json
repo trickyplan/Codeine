@@ -1,13 +1,14 @@
 {
     "Regex":
     {
-        "Test App":
+        "Test / Ajax":
         {
             "Match": "^/test/(.+).ajax$",
-            "Weight": 5,
+            "Weight": 25,
             "Service": "Test",
             "Method": "Run.Test",
             "Zone": "Test",
+            "Last": true,
             "Call":
             {
                 "Context": "app",
@@ -17,9 +18,10 @@
         "Test / JSON":
         {
             "Match": "^/test/(.+)\\.json$",
-            "Weight": 10,
+            "Weight": 25,
             "Service": "Test",
             "Method": "Run.Test",
+            "Last": true,
             "View":
             {
                 "Renderer":
@@ -40,7 +42,7 @@
         "Test":
         {
             "Match": "^/test/(.+)$",
-            "Weight": 5,
+            "Weight": 10,
             "Service": "Test",
             "Method": "Run.Test",
             "Zone": "Test",
