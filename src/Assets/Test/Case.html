@@ -1,36 +1,32 @@
-<if key="Status" eq="Passed">
-    <li class="list-group-item list-group-item-success">
-</if>
-<if key="Status" eq="Failed">
-    <li class="list-group-item list-group-item-danger">
-</if>
-
-    <div data-toggle="collapse" href="#ResultActual_<key>CID</key>" aria-expanded="false" aria-controls="collapseExample">
-        <div class="row">
-            <div class="col-md-1">
-                <k>Status</k>
-            </div>
-            <div class="col-md-2">
-                <key>ID</key>
-            </div>
-            <div class="col-md-2">
-                <key>Suite</key>
-            </div>
-            <div class="col-md-3">
-                <key>Name</key>
-            </div>
-            <div class="col-md-1">
-                <key>Time.Run</key> ms.
-            </div>
-            <div class="col-md-1">
-                <key>Result.Size</key> bytes
-            </div>
+<div class="list-group-item" data-toggle="collapse" href="#ResultActual_<key>CID</key>" aria-expanded="false">
+    <div class="row">
+        <div class="col-md-1">
+            <if value="<k>Status</k>" eq="Passed">
+                <span class="fas fa-check text-success"></span>
+            </if>
+            <if value="<k>Status</k>" eq="Failed">
+                <span class="fas fa-times text-danger"></span>
+            </if>
+            <k>Status</k>
         </div>
-        <div class="collapse" id="ResultActual_<key>CID</key>">
-            <hr>
-            <pre><code class="json"><htmlentities><key>Result.Actual</key></htmlentities></code></pre>
+        <div class="col-md-2">
+            <key>ID</key>
+        </div>
+        <div class="col-md-2">
+            <key>Suite</key>
+        </div>
+        <div class="col-md-3">
+            <key>Name</key>
+        </div>
+        <div class="col-md-1">
+            <key>Time.Run</key> ms.
+        </div>
+        <div class="col-md-1">
+            <key>Result.Size</key> bytes
         </div>
     </div>
+</div>
 
-</li>
-
+    <div class="collapse" id="ResultActual_<key>CID</key>">
+        <pre><code class="json"><htmlentities><key>Result.Actual</key></htmlentities></code></pre>
+    </div>
