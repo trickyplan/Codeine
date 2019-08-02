@@ -51,7 +51,7 @@
             {
                 $TTL = F::Dot($Call, 'Behaviours.Cached.TTL');
                 
-                unset($Call['Behaviours']);
+                $Call = F::Dot($Call, 'Behaviours.Cached', null);
                 $Result = F::Live($Call['Run']);
 
                 $Envelope = [

@@ -28,7 +28,9 @@
                 'Where'     => ['ID' => $ResultID],
                 'IO One'    => true
             ]);
-            
+
+            $Call = F::Dot($Call, 'Behaviours.Delayed', null);
+
             if ($Result === null)
             {
                 F::Run('IO', 'Write',

@@ -30,6 +30,14 @@
             "Postfix":".json",
             "Description": "Default storage for all immutable important data"
         },
+        "Locks":
+        {
+            "Driver":"IO.Storage.FileSystem",
+            "Directory":"Locks",
+            "Format": "Formats.JSON",
+            "Postfix":".lock.json",
+            "Description": "Default storage for locks"
+        },
         "Permanent":
         {
             "Description": "Storage for source-based data",

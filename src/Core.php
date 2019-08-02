@@ -423,6 +423,9 @@
             }
             else
             {
+                if (F::Environment() == 'Development')
+                    self::Log('TRACE', LOG_DEBUG+1);
+
                 $F = self::getFn(self::$_Method);
                 
                 if (isset($Call['Return']))
@@ -435,31 +438,29 @@
                 {
                     if (self::$_Method !== 'Run')
                     {
-                        $ContractBehaviour = self::Dot($Call, 'Contract.Methods.'.self::$_Method.'.Behaviours');
-                        $Behaviours = self::Dot($Call, 'Behaviours');
-                        
-                        if ($ContractBehaviour === null)
-                            ;
+                        $RuntimeBehaviours = self::Dot($Call, 'Behaviours');
+
+                        $BehavioursByContract = self::Dot($Call, 'Contract.Methods.'.self::$_Method.'.Behaviours');
+
+                        if ($RuntimeBehaviours === null)
+                            $RuntimeBehaviours = $BehavioursByContract;
                         else
+                            $RuntimeBehaviours = self::Merge($BehavioursByContract, $RuntimeBehaviours);
+
+                        if ($RuntimeBehaviours !== null)
                         {
-                            if ($Behaviours === null)
-                                $Behaviours = $ContractBehaviour;
-                            else
-                                $Behaviours = self::Merge($Behaviours, $ContractBehaviour);
-                        }
-                        
-                        if ($Behaviours !== null)
-                        {
-                            foreach ($Behaviours as $Behaviour => $Options)
+                            $Call = self::Dot($Call, 'Behaviours', $RuntimeBehaviours);
+
+                            foreach ($Call['Behaviours'] as $Behaviour => $Options)
                             {
-                                if (self::Dot($Options, 'Enabled') === true)
+                                if (self::Dot($Call, 'Behaviours.'.$Behaviour.'.Enabled') === true)
                                 {
-                                    self::Log('Behaviour active *'.$Behaviour.'*', LOG_INFO);
-                                    $Call = self::Dot($Call, 'Behaviours.'.$Behaviour.'.Enabled', -1);
-                                    $Call = self::Dot($Call, 'Contract.Methods.'.self::$_Method.'.Behaviours.'.$Behaviour.'.Enabled', -1);
+                                    self::Log('Behaviour is active *'.$Behaviour.'*', LOG_INFO);
+                                    $Call = self::Dot($Call, 'Behaviours.'.$Behaviour.'.Enabled', false);
+
                                     $Call = self::Apply('Code.Run.Behaviours.'.$Behaviour, 'Run',
                                         [
-                                            'Behaviours' => $Behaviours,
+                                            'Behaviours' => $Call['Behaviours'],
                                             'Run' =>
                                                 [
                                                     'Service'   => self::$_Service,
@@ -467,6 +468,8 @@
                                                     'Call'      => $Call
                                                 ]
                                         ]);
+                                    $Call = self::Dot($Call, 'Behaviours.'.$Behaviour.'.Executed', true);
+                                    break;
                                 }
                             }
                         }
@@ -808,7 +811,7 @@
                         self::$_Log[$Channel][] = $Log;
                     
                     if (PHP_SAPI === 'cli')
-                        self::CLILog($Time, $Message, $Verbose, $Channel, $AppendStack);
+                        self::CLILog($Channel, $Log, $AppendStack);
                     
                     if (self::$_Perfect && ($Verbose <= self::$_Options['Codeine']['Perfect Verbose'][$Channel]))
                         self::Finish ($Message);
@@ -819,18 +822,12 @@
             return $Message;
         }
 
-        public static function CLILog ($Time, $Message, $Verbose, $Channel, $AppendStack = false)
+        public static function CLILog ($Channel, $Log)
         {
-            if (is_scalar($Message))
-                ;
-            else
-                $Message = j($Message);
-            
-            if ($AppendStack)
-                $Message.= j(self::printStack());
-            
-            if (($Verbose <= self::$_Verbose[$Channel]) or !self::$_Live)
-                fwrite(STDERR, implode("\t", [getmypid(), 'V'.$Verbose, $Time, $Channel, self::$_Service, self::$_Method, $Message]).PHP_EOL);
+            if (($Log['V'] <= self::$_Verbose[$Channel]) or !self::$_Live)
+            {
+                fwrite(STDERR, implode("\t", [getmypid(), $Log['V'], $Log['T'], str_pad('', $Log['D'], '-').$Log['R'].' from '.$Log['I'], $Log['X'], $Log['M']]).PHP_EOL);
+            }
         }
         
         public static function Logs($Channel = 'All')

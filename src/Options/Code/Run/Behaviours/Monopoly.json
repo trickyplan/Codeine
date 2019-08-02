@@ -1,0 +1,14 @@
+{
+    "Behaviours":
+    {
+        "Monopoly":
+        {
+            "IfLocked": "Wait",
+            "WaitForMicroseconds": 10000000,
+            "Hash":
+            {
+                "Algo": "sha1"
+            }
+        }
+    }
+}

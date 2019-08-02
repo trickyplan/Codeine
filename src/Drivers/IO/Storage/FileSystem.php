@@ -46,10 +46,11 @@
             $Call['Result'] = [];
 
             foreach ($Filenames as $Filename)
-            {
-                $Call['Result'][] = file_get_contents($Filename);
-                F::Log('File *'.$Filename.' loaded ', LOG_DEBUG, 'Administrator');
-            }
+                if (file_exists($Filename))
+                {
+                    $Call['Result'][] = file_get_contents($Filename);
+                    F::Log('File *'.$Filename.' loaded ', LOG_DEBUG, 'Administrator');
+                }
         }
         else
         {

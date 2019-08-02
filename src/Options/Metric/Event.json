@@ -1,4 +1,20 @@
 {
+    "Contract":
+    {
+        "Methods":
+        {
+            "Aggregate":
+            {
+                "Behaviours":
+                {
+                    "Monopoly":
+                    {
+                        "Enabled": true
+                    }
+                }
+            }
+        }
+    },
     "Metric":
     {
         "Event":

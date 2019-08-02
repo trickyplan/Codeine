@@ -50,7 +50,7 @@
     setFn('Aggregate', function ($Call)
     {
         $VCall = $Call;
-        
+
         $VCall['Result'] = [];
         $Type = F::Dot($VCall, 'Metric.Event.Type');
         
