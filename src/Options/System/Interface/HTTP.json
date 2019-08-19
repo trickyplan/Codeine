@@ -12,7 +12,7 @@
         "Redirect": "Temporarily",
         "Methods":
         {
-            "Allowed": ["GET", "POST"],
+            "Allowed": ["GET", "POST", "OPTIONS"],
             "Default": "GET"
         },
         "Headers":

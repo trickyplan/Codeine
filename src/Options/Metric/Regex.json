@@ -3,7 +3,7 @@
     {
         "Metric Event":
         {
-            "Match": "/metric/event",
+            "Match": "/metric/event$",
             "Weight": 100,
             "Service": "Metric.Event",
             "Method": "Add.Front",
@@ -11,7 +11,7 @@
             {
                 "Renderer":
                 {
-                    "Service": "View.RAW",
+                    "Service": "View.JSON",
                     "Method": "Render"
                 }
             }

@@ -187,18 +187,20 @@
             ;
         else
         {
-            if (F::Dot($Call, 'HTTP.Method') == 'POST')
+            $Call['Event']['Type'] = F::Dot($Call, 'Request.Type');
+
+            if (in_array($Call['Event']['Type'], F::Dot($Call, 'Metric.Front.Types.Allowed')))
             {
-                $Call['Event']['Type'] = F::Dot($Call, 'Request.Type');
-                $Call['Event']['Dimensions'] = F::Dot($Call, 'Request.Dimensions');
-
-                $Call = F::Hook($Call['Event']['Type'].'.Event.AddFront.Before', $Call);
-
-                if (empty($Call['Event']['Type']))
-                    ;
-                else
+                if (in_array(F::Dot($Call, 'HTTP.Method'), F::Dot($Call, 'Metric.Front.Methods.Allowed')))
                 {
-                    if (in_array($Call['Event']['Type'], F::Dot($Call, 'Metric.Front.Types.Allowed')))
+                    $Call['Event']['Dimensions'] = F::Dot($Call, 'Request.Dimensions');
+
+                    $Call = F::Hook($Call['Event']['Type'].'.Event.AddFront.Before', $Call);
+
+                    if (empty($Call['Event']['Type']))
+                        ;
+                    else
+                    {
                         F::Run(null, 'Add', $Call,
                             [
                                 'Metric' =>
@@ -206,10 +208,15 @@
                                         'Event' => $Call['Event']
                                     ]
                             ]);
-                }
+                    }
 
-                $Call['Output']['Content'] = j($Call['Event']);
+                    $Call['Output']['Content'] = $Call['Event'];
+                }
+                else
+                    $Call['Output']['Content'] = F::Log('Incorrect HTTP Method', LOG_NOTICE);
             }
+            else
+                $Call['Output']['Content'] = F::Log('Incorrect Metric Type', LOG_NOTICE);
         }
         return $Call;
     });

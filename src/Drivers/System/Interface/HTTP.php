@@ -240,7 +240,7 @@
 
         if (isset($Call['HTTP']['Request']['Headers']['Content-Type']))
         {
-            $ContentType = strtolower($Call['HTTP']['Request']['Headers']['Content-Type']);
+            $ContentType = mb_strtolower($Call['HTTP']['Request']['Headers']['Content-Type']);
             if (mb_strpos($ContentType, 'application/json') !== false)
             {
                 if (isset($Call['HTTP']['RAW']))
@@ -248,6 +248,8 @@
                     $RAW = jd($Call['HTTP']['RAW']);
                     if (is_array($RAW))
                         $Call['Request'] = F::Merge($Call['Request'], $RAW);
+                    else
+                        F::Log('Incorrect JSON Request', LOG_WARNING);
                 }
             }
         }
