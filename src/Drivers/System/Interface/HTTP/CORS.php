@@ -5,9 +5,7 @@
         if (F::Dot($Call, 'HTTP.CORS.Enabled'))
         {
             $Call['HTTP']['Headers']['Access-Control-Allow-Credentials:'] = F::Dot($Call, 'CORS.Credentials');
-
             $Call['HTTP']['Headers']['Access-Control-Allow-Headers: '] = 'X-Requested-With,Content-Type';
-
             $Call['HTTP']['Headers']['Access-Control-Allow-Methods: '] = implode(',', F::Dot($Call, 'HTTP.Methods.Allowed') ?? []);
 
             $Origin = F::Dot($Call, 'HTTP.Request.Headers.Origin');

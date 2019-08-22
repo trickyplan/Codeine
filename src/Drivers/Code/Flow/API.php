@@ -41,7 +41,7 @@
                                     $Call['API']['Request']['Method'],
                                     'Enabled'
                                 ]) ?? false;
-                        
+
                         if ($Exists)
                         {
                             if ($Enabled)
@@ -63,7 +63,7 @@
                                         $Call['API']['Request']['Method'],
                                         'CanOverride'
                                     ]);
-                                    
+
                                     if (empty($CanOverride))
                                         ;
                                     else

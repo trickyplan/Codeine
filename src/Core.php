@@ -840,6 +840,7 @@
 
         public static function Dump($File, $Line, $Call)
         {
+
             if (PHP_SAPI === 'cli')
             {
                 echo PHP_EOL.substr($File, strpos($File, 'Drivers')).'@'.$Line.' '.trim(file($File)[$Line-1]).PHP_EOL;
