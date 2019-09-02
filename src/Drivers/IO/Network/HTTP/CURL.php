@@ -63,6 +63,26 @@
         return $Call;
     });
 
+    setFn('Prepare.Cookies', function ($Call)
+    {
+        if (empty($Call['CURL']['Cookie']))
+            $Call['CURL']['Cookie'] = '';
+        else
+        {
+            if (is_array($Call['CURL']['Cookie']))
+            {
+
+                $Pairs = [];
+                foreach ($Call['CURL']['Cookie'] as $Key => $Value)
+                    $Pairs[] = $Key.'='.$Value;
+
+                    $Call['CURL']['Cookie'] = implode(';', $Pairs);
+            }
+        }
+
+        return $Call;
+    });
+
     setFn('Read', function ($Call)
     {
         $Return = null;
@@ -71,6 +91,7 @@
         $Call = F::Run(null, 'Select User Agent', $Call);
         $Call = F::Run(null, 'Select Proxy', $Call);
         $Call = F::Run(null, 'Process.Headers', $Call);
+        $Call = F::Run(null, 'Prepare.Cookies', $Call);
         
         $CURLOpts = [
                         CURLOPT_HEADER           => $Call['CURL']['Return Header'],
@@ -174,8 +195,11 @@
             $Call['Link'] = curl_init($Call['Where']['ID']);
 
             F::Log('CURL GET Request Headers: *'.j($Call['CURL']['Headers']).'*', LOG_INFO, 'Administrator');
-            
-            $CURLOpts[CURLOPT_COOKIEJAR] = $Call['CURL']['Cookie Directory'].DS.parse_url($Call['Where']['ID'], PHP_URL_HOST);
+
+            if (isset($CURLOpts[CURLOPT_COOKIEJAR]))
+                ;
+            else
+                $CURLOpts[CURLOPT_COOKIEJAR] = $Call['CURL']['Cookie Directory'].DS.parse_url($Call['Where']['ID'], PHP_URL_HOST);
 
             curl_setopt_array($Call['Link'], $CURLOpts);
 
