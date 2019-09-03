@@ -254,6 +254,7 @@
         $Call = F::Run(null, 'Select User Agent', $Call);
         $Call = F::Run(null, 'Select Proxy', $Call);
         $Call = F::Run(null, 'Process.Headers', $Call);
+        $Call = F::Run(null, 'Prepare.Cookies', $Call);
 
         if (is_array($Call['Where']['ID']))
         {
@@ -343,7 +344,9 @@
             }
 
             curl_multi_close($Call['Link']);
-        } else {
+        }
+        else
+        {
             $Call['Link'] = curl_init($Call['Where']['ID']);
             
             F::Log('CURL POST Request Headers: *'.j($Call['CURL']['Headers']).'*', LOG_INFO, 'Administrator');
