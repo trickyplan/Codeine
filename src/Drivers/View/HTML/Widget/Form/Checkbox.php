@@ -19,7 +19,7 @@
         if (isset($Call['Entity']))
         {
             if (isset($Call['Localized']) && $Call['Localized'])
-                $Call['Label'] = $Call['Entity'] . '.Entity:' . $Call['Key'] . '.' . $Call['Value'];
+                $Call['Label'] = $Call['Entity'] . '.Entity:' . $Call['Key'] . '.Label';
             else
                 $Call['Label'] = $Call['Entity'] . '.Entity:' . $Call['Key'];
         }
