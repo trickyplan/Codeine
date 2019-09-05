@@ -171,7 +171,7 @@
                         ]);
                     }
 
-                    F::Log('Event: *'.$Row['Where']['Type'].'*. Resolution: *'.$Row['Where']['Resolution'].'*. Value: *'.$VCall['Data']['Value'].'*', LOG_WARNING);
+                    F::Log('Event: *'.$Row['Where']['Type'].'*. Resolution: *'.$Row['Where']['Resolution'].'*. Value: *'.$VCall['Data']['Value'].'*', LOG_NOTICE);
                     // $VCall['Event Result'][] = $VCall['Data'];
                 }
                 
