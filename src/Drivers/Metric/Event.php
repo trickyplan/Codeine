@@ -61,7 +61,7 @@
                 'Scope'     => $Type
             ]);
         
-        F::Log('Metric Queue '.$Type.' has *'.$Count.'* elements', LOG_NOTICE);
+        F::Log('Metric Queue *'.$Type.'* has *'.$Count.'* elements', LOG_NOTICE);
         
         if (F::Dot($VCall, 'Metric.Aggregate.Batch.AutoSize'))
             $VCall = F::Dot($VCall, 'Metric.Aggregate.Batch.Size', $Count);
@@ -170,7 +170,8 @@
                             'Where'     => $Row['Where'] // Data implied
                         ]);
                     }
-                    
+
+                    F::Log('Event: *'.$Row['Where']['Type'].'*. Resolution: *'.$Row['Where']['Resolution'].'*. Value: *'.$VCall['Data']['Value'].'*', LOG_WARNING);
                     // $VCall['Event Result'][] = $VCall['Data'];
                 }
                 

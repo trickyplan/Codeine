@@ -51,6 +51,7 @@
         private static $_Bubble = '';
         private static $_Paths = [];
         public static $_Perfect = false;
+        private static $_IsTerminal = false;
 
         public static function Environment()
         {
@@ -69,6 +70,7 @@
             // mb_internal_encoding('UTF-8');
 
             libxml_use_internal_errors(true);
+            self::$_IsTerminal = posix_isatty('php://stdout');
 
             if (isset($_SERVER['Environment']))
                 self::$_Environment = $_SERVER['Environment'];
@@ -826,7 +828,22 @@
         {
             if (($Log['V'] <= self::$_Verbose[$Channel]) or !self::$_Live)
             {
-                fwrite(STDERR, implode("\t", [getmypid(), $Log['V'], $Log['T'], str_pad('', $Log['D'], '-').$Log['R'].' from '.$Log['I'], $Log['X'], $Log['M']]).PHP_EOL);
+                if (self::$_IsTerminal)
+                {
+                    $Message = implode("\t",
+                            [
+                                "\033[1;33m".getmypid()."\033[0m",
+                                $Log['V'],
+                                "\033[1;35m".$Log['T']."\033[0m",
+                                "\033[0;34m".str_pad('', $Log['D'], '-').$Log['R']."\033[0m".' from '."\033[0;34m".$Log['I']."\033[0m",
+                                $Log['X'],
+                                "\033[0;33m".$Log['M']."\033[0m"]).PHP_EOL;
+                    $Message = preg_replace('/\*(.+)\*/SsUu',"\033[1;31m[\\1]\033[0m", $Message);
+                }
+                else
+                   $Message = implode("\t", [getmypid(), $Log['V'], $Log['T'], str_pad('', $Log['D'], '-').$Log['R'].' from '.$Log['I'], $Log['X'], $Log['M']]).PHP_EOL;
+
+                fwrite(STDERR, $Message);
             }
         }
         

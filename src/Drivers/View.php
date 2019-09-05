@@ -57,9 +57,9 @@
         if (isset($Call['View']['Renderer']))
         {
             $Renderer = $Call['View']['Renderer']['Service'];
-            F::Log('Start '.$Renderer.' Rendering', LOG_NOTICE);
+            F::Log('Start '.$Renderer.' Rendering', LOG_INFO);
                 $Call = F::Live ($Call['View']['Renderer'], $Call);
-            F::Log('Finish '.$Renderer.' Rendering', LOG_NOTICE);
+            F::Log('Finish '.$Renderer.' Rendering', LOG_INFO);
         }
 
         return F::Hook('afterRender', $Call);
