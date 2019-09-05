@@ -828,6 +828,11 @@
         {
             if (($Log['V'] <= self::$_Verbose[$Channel]) or !self::$_Live)
             {
+                if (is_scalar($Log['X']))
+                    ;
+                else
+                    $Log['X'] = j($Log['X']);
+
                 if (self::$_IsTerminal)
                 {
                     $Message = implode("\t",
@@ -837,7 +842,7 @@
                                 "\033[1;35m".$Log['T']."\033[0m",
                                 "\033[0;34m".str_pad('', $Log['D'], '-').$Log['R']."\033[0m"
                                 .' from '."\033[0;34m".$Log['I']."\033[0m",
-                                j($Log['X']),
+                                $Log['X'],
                                 "\033[0;33m".$Log['M']."\033[0m".PHP_EOL]);
 
                     $Message = preg_replace('/\*(.+)\*/SsUu',"\033[1;31m[\\1]\033[0m", $Message);
