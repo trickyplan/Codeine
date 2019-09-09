@@ -99,7 +99,7 @@
                 self::$_Verbose = self::$_Options['Codeine']['Verbose'];
 
             if (isset($_REQUEST['Performance']))
-                self::$_Performance = true;
+                self::$_Performance = 'Request';
 
             if (isset($_SERVER['Verbose']))
                 foreach (self::$_Verbose as $Channel => &$Level)
@@ -485,7 +485,7 @@
                     else
                         $Result = $F($Call); // Real Run Here
                     
-                    self::Counter(self::$_Service.':'.self::$_Method);
+                    self::Counter('Call:'.self::$_Service.':'.self::$_Method);
                 }
                 else
                     $Result = isset($Call['Fallback']) ? $Call['Fallback'] : null;
@@ -789,11 +789,11 @@
                    
                     if ($Message instanceof Closure)
                         $Message = $Message();
-                    
-                    if ($Verbose < LOG_NOTICE or $AppendStack)
+
+                    $Stack = null;
+
+                    if (($Verbose < LOG_NOTICE or $AppendStack == true) and $AppendStack != -1)
                         $Stack = self::printStack();
-                    else
-                        $Stack = null;
 
                     $Log = [
                                 'V' => $Verbose,
@@ -1175,7 +1175,7 @@
         public static function Counter ($Key, $Value = 1)
         {
             if (isset(self::$_Counters['C'][$Key]))
-                self::$_Counters['C'][$Key]+= $Value;
+                self::$_Counters['C'][$Key] += $Value;
             else
                 self::$_Counters['C'][$Key] = $Value;
 

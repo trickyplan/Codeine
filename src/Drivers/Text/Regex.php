@@ -21,7 +21,7 @@
             $Result = F::Run('Text.Regex.'.$Call['Regex Engine'], null, $Call);
 
         if ($Result === false)
-            self::Counter('Unused regex');
+            self::Counter('Text.Regex.Unused');
 
         self::Stop($Pattern);
 

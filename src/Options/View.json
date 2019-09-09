@@ -1,11 +1,19 @@
 {
     "Contract":
     {
-        "View":
+        "Methods":
         {
             "Load":
             {
-                "Memo": ["Scope", "ID", "Context", "Data"]
+                "Behaviours":
+                {
+                    "Cached":
+                    {
+                        "Enabled": true,
+                        "TTL": 86400,
+                        "Keys": ["Scope", "ID", "Context", "Data"]
+                    }
+                }
             }
         }
     },

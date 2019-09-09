@@ -50,12 +50,16 @@
                     break;
                 }
     
-                F::Log('Latency level is *'.$Decision.'*, because total page time *'.$Total.'* ms', $Verbose, 'Performance');
+                F::Log('Latency level is *'.$Decision.'*, because total page time *'.$Total.'* ms', $Verbose, 'Performance', -1);
     
                 if ($Verbose <= LOG_NOTICE)
                 {
-                    self::$_Performance = true;
+                    if (self::$_Performance)
+                        ;
+                    else
+                        self::$_Performance = 'Latency';
                     F::Log('Limits: '.j($Limits), LOG_INFO, 'Performance');
+                    F::Log('Performance Analysis is enabled', LOG_INFO, 'Performance', -1);
                 }
     
                 $Call = F::Hook('Latency.Audit.'.$Decision, $Call);

@@ -9,10 +9,12 @@
 
     setFn('Do', function ($Call)
     {
-        if (isset($Call['View']['Debug']) && $Call['View']['Debug'] && !isset($Call['No View Debug']) && !empty($Call['Value']))
+        if (isset($Call['View']['Debug']) && $Call['View']['Debug'] && !isset($Call['No View Debug']))
         {
             $ID = $Call['Scope'].':'.$Call['ID'].(isset($Call['Context'])? ':'.$Call['Context']: '');
-
+            /*if (empty($Call['Value']))
+                $Call['Value'] = '<!-- '.$ID.' not found --><place>Content</place>';
+            else*/
             $Call['Value'] = '<!-- '.$ID.' started -->'.$Call['Value'].'<!-- '.$ID.' ended -->';
         }
 

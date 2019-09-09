@@ -17,6 +17,8 @@
 
                 if (($Call['Link'] = F::Get('Storage.'.$Call['Storage'])) === null)
                 {
+                   F::Counter('IO.'.$Call['Storage'].'.Opens',1);
+
                    if (is_string($Call['Storages'][$Call['Storage']])
                         && isset($Call['Storages'][$Call['Storages'][$Call['Storage']]]))
                             $Call['Storages'][$Call['Storage']] = $Call['Storages'][$Call['Storages'][$Call['Storage']]];
@@ -51,15 +53,17 @@
             if (isset($Call['Result']))
                 unset($Call['Result']);
 
+            F::Counter('IO.'.$Call['Storage'].'.Reads',1);
+
             $IOID = $Call['Storage'];
     
             if (isset($Call['Scope']))
-                $IOID .= DS.j($Call['Scope']);
+                $IOID .= '.'.$Call['Scope'];
     
             if (isset($Call['Where']))
-                $IOID .= DS.j($Call['Where']);
+                $IOID .= '('.j($Call['Where'], !JSON_PRETTY_PRINT).')';
     
-            self::Start('IO: '.$IOID);
+            self::Start('IO:'.$IOID);
             
             $Call = F::Apply('IO', 'Open', $Call);
 
@@ -105,7 +109,7 @@
                 unset($Call['IO One']);
             }
             
-            F::Stop('IO: '.$IOID);
+            F::Stop('IO:'.$IOID);
         }
         else
             F::Log('IO.Read.Storage.Undefined', LOG_CRIT);
@@ -121,6 +125,8 @@
 
             if ($Call['Link'] === null)
                 return null;
+
+            F::Counter('IO.'.$Call['Storage'].'.Writes',1);
 
             $Call = F::Hook('beforeIOWrite', $Call);
 
@@ -189,6 +195,7 @@
     {
         if (isset($Call['Storage']))
         {
+            F::Counter('IO.'.$Call['Storage'].'.Executes',1);
             $Call = F::Apply('IO', 'Open', $Call);
 
             if ($Call['Link'] === null)
@@ -245,8 +252,10 @@
     setFn('Shutdown', function ($Call)
     {
         foreach ($Call['Storages'] as $StorageName => $Storage)
+        {
             if (null !== F::Get($StorageName))
                 F::Run('IO', 'Close', $Call, ['Storage' => $StorageName]);
+        }
 
         return $Call;
     });

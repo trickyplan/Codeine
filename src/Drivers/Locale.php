@@ -35,7 +35,19 @@
             [
                   'Storage' => 'Locale',
                   'Scope'   => $Asset.'/Locale/'.$Call['Locale'],
-                  'Where'   => $ID
+                  'Where'   => $ID,
+                  'Behaviours' =>
+                  [
+                      'Cached' =>
+                      [
+                          'Enabled' => true,
+                          'TTL'     => 60,
+                          'Keys'    =>
+                          [
+                              'Storage', 'Scope', 'Where'
+                          ]
+                      ]
+                  ]
             ]);
             
             if (empty($LocaleFile))

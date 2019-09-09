@@ -9,7 +9,9 @@
 
     setFn('Do', function ($Call)
     {
-        if (F::Dot($Call, 'Performance.Enabled'))
+        F::Log('Performance: '.self::$_Performance, LOG_NOTICE, 'Performance');
+
+        if (self::$_Performance == 'Request' or (F::Dot($Call, 'Performance.Enabled') and self::$_Performance == 'Latency'))
         {
             $Call['Performance']['Summary']['Time'] = round((microtime(true)-Started)*1000);
             $Call['Performance']['Summary']['Calls'] = array_sum(self::$_Counters['C']);
@@ -31,8 +33,8 @@
             $ExcludedFromLimiting = F::Dot($Call, 'Performance.Excluded');
             foreach (self::$_Counters['T'] as $Key => $Value)
             {
-                if (!isset(self::$_Counters['C'][$Key]))
-                    self::$_Counters['C'][$Key] = 1;
+                if (!isset(self::$_Counters['C']['Call:'.$Key]))
+                    self::$_Counters['C']['Call:'.$Key] = 1;
 
                 $Class =
                     [
@@ -44,9 +46,9 @@
                     ];
 
                 $Call['RTime'] = round(($Value / $Call['Performance']['Summary']['Time']) * 100, 2);
-                $Call['RCalls'] = round((self::$_Counters['C'][$Key] / $Call['Performance']['Summary']['Calls']) * 100, 2);
+                $Call['RCalls'] = round((self::$_Counters['C']['Call:'.$Key] / $Call['Performance']['Summary']['Calls']) * 100, 2);
                 $Call['ATime'] = round($Value);
-                $Call['ACalls'] = self::$_Counters['C'][$Key];
+                $Call['ACalls'] = self::$_Counters['C']['Call:'.$Key];
                 $Call['TimePerCall'] = round($Value / $Call['ACalls'], 2);
 
                 $Yellow = F::Dot($Call, 'Performance.Limits.Yellow');
@@ -60,7 +62,7 @@
                     else
                         foreach ($Yellow as $Metric => $Limit)
                             if ($Call[$Metric] > $Limit)
-                                $Class[$Metric] = LOG_WARNING;
+                                $Class[$Metric] = LOG_NOTICE;
     
                     $Red = F::Dot($Call, 'Performance.Limits.Yellow');
                     
@@ -69,15 +71,20 @@
                     else
                         foreach ($Red as $Metric => $Limit)
                             if ($Call[$Metric] > $Limit)
-                                $Class[$Metric] = LOG_ERR;
+                                $Class[$Metric] = LOG_WARNING;
                 }
                 
-                F::Log('*'.$Key.'* time is *'.$Call['ATime'].'* ms',                $Class['ATime'], 'Performance');
-                F::Log('*'.$Key.'* time is *'.$Call['RTime'].'%*',                  $Class['RTime'], 'Performance');
-                F::Log('*'.$Key.'* calls is *'.$Call['ACalls'].'*',                 $Class['ACalls'], 'Performance');
-                F::Log('*'.$Key.'* calls is *'.$Call['RCalls'].'%*',                $Class['RCalls'], 'Performance');
-                F::Log('*'.$Key.'* time per call is *'.$Call['TimePerCall'].'* ms', $Class['TimePerCall'], 'Performance');
+                F::Log('*'.$Key.'* time is *'.$Call['ATime'].'* ms',                $Class['ATime'], 'Performance', -1);
+                F::Log('*'.$Key.'* time is *'.$Call['RTime'].'%*',                  $Class['RTime'], 'Performance', -1);
+                F::Log('*'.$Key.'* calls is *'.$Call['ACalls'].'*',                 $Class['ACalls'], 'Performance', -1);
+                F::Log('*'.$Key.'* calls is *'.$Call['RCalls'].'%*',                $Class['RCalls'], 'Performance', -1);
+                F::Log('*'.$Key.'* time per call is *'.$Call['TimePerCall'].'* ms', $Class['TimePerCall'], 'Performance', -1);
             }
+
+            arsort(self::$_Counters['C']);
+            foreach (self::$_Counters['C'] as $Key => $Value)
+                if (mb_substr($Key, 0, 5) != 'Call:')
+                    F::Log('Counter *'.$Key.'* is *'.$Value.'*',                LOG_NOTICE, 'Performance', -1);
         }
         return $Call;
     });
