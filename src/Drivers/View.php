@@ -20,30 +20,35 @@
     {
         $Call = F::Hook('beforeViewLoad', $Call);
 
-        $IDs = [$Call['ID']];
+        if (isset($Call['ID']))
+        {
+            $IDs = [$Call['ID']];
 
-        if (isset($Call['Context']) && !empty($Call['Context']))
-            $IDs[] =  $Call['ID'].'.'.$Call['Context'];
+            if (isset($Call['Context']) && !empty($Call['Context']))
+                $IDs[] =  $Call['ID'].'.'.$Call['Context'];
 
-        $IDs = array_reverse($IDs);
+            $IDs = array_reverse($IDs);
 
-        if (isset($Call['Scope']))
-            $Call['Scope'] = strtr($Call['Scope'], '.', '/');
+            if (isset($Call['Scope']))
+                $Call['Scope'] = strtr($Call['Scope'], '.', '/');
 
-        $Call['Value'] = F::Run('IO', 'Read',
-            [
-                  'Scope'   => isset($Call['Scope'])? $Call['Scope']: null,
-                  'Storage' => 'Layout',
-                  'Where'   =>
-                  [
-                      'ID' => $IDs
-                  ]
-            ])[0];
+            $Call['Value'] = F::Run('IO', 'Read',
+                [
+                      'Scope'   => isset($Call['Scope'])? $Call['Scope']: null,
+                      'Storage' => 'Layout',
+                      'Where'   =>
+                      [
+                          'ID' => $IDs
+                      ]
+                ])[0];
 
-        if (isset($Call['Data']) && ($Call['Data'] !== (array) $Call['Data']))
-            $Call['Data'] = ['Value' => $Call['Data']];
+            if (isset($Call['Data']) && ($Call['Data'] !== (array) $Call['Data']))
+                $Call['Data'] = ['Value' => $Call['Data']];
 
-        $Call = F::Hook('afterViewLoad', $Call);
+            $Call = F::Hook('afterViewLoad', $Call);
+        }
+        else
+            $Call['Value'] = 'NO ID';
 
         return $Call['Value'];
     });

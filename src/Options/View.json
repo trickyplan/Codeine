@@ -3,13 +3,13 @@
     {
         "Methods":
         {
-            "Load":
+            "-Load":
             {
                 "Behaviours":
                 {
                     "Cached":
                     {
-                        "Enabled": true,
+                        "Enabled": false,
                         "TTL": 86400,
                         "Keys": ["Scope", "ID", "Context", "Data"]
                     }
