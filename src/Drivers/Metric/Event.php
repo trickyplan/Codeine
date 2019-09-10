@@ -101,39 +101,45 @@
                     $Where ['Type'] = $Type;
                     $TZ = new DateTimeZone(F::Dot($Call, 'Metric.Aggregate.Timezone'));
 
-                    $DT->setTimestamp($Event['Time']);
-                    $DT->setTimezone($TZ);
-
-                    foreach ($VCall['Metric']['Event']['Resolutions'] as $VCall['Metric']['Event']['Resolution'])
+                    if (isset($Event['Time']))
                     {
-                        $Event['Time'] += $DT->getOffset()-1;
+                        $DT->setTimestamp($Event['Time']);
+                        $DT->setTimezone($TZ);
 
-                        F::Log(function () use ($DT) {$DT->format('Y.m.d H:i:s');}, LOG_DEBUG);
-                        F::Log($Event['Time'], LOG_DEBUG);
-
-                        $Where ['Time'] = floor($Event['Time'] / $VCall['Metric']['Event']['Resolution']);
-                        $Where ['Resolution'] = $VCall['Metric']['Event']['Resolution'];
-                        
-                        $HashedWhere = hash('sha256', serialize($Where));
-            
-                        if (isset($Event['Value']))
+                        foreach ($VCall['Metric']['Event']['Resolutions'] as $VCall['Metric']['Event']['Resolution'])
                         {
-                            if (is_numeric($Event['Value']))
-                                ;
+                            $Event['Time'] += $DT->getOffset()-1;
+
+                            F::Log(function () use ($DT) {$DT->format('Y.m.d H:i:s');}, LOG_DEBUG);
+                            F::Log($Event['Time'], LOG_DEBUG);
+
+                            $Where ['Time'] = floor($Event['Time'] / $VCall['Metric']['Event']['Resolution']);
+                            $Where ['Resolution'] = $VCall['Metric']['Event']['Resolution'];
+
+                            $HashedWhere = hash('sha256', serialize($Where));
+
+                            if (isset($Event['Value']))
+                            {
+                                if (is_numeric($Event['Value']))
+                                    ;
+                                else
+                                    $Event['Value'] = 1;
+                            }
                             else
                                 $Event['Value'] = 1;
-                        }
-                        else
-                            $Event['Value'] = 1;
-                        
-                        if (isset($Call['Aggregate'][$HashedWhere]))
-                            $Call['Aggregate'][$HashedWhere]['Value'] += $Event['Value'];
-                        else
-                        {
-                            $Call['Aggregate'][$HashedWhere]['Value'] = $Event['Value'];
-                            $Call['Aggregate'][$HashedWhere]['Where'] = $Where;
+
+                            if (isset($Call['Aggregate'][$HashedWhere]))
+                                $Call['Aggregate'][$HashedWhere]['Value'] += $Event['Value'];
+                            else
+                            {
+                                $Call['Aggregate'][$HashedWhere]['Value'] = $Event['Value'];
+                                $Call['Aggregate'][$HashedWhere]['Where'] = $Where;
+                            }
                         }
                     }
+                    else
+                        F::Log('No time set for Event:'.j($Event), LOG_WARNING);
+
                 }
 
                 foreach ($Call['Aggregate'] as $Row)
