@@ -190,8 +190,10 @@
     {
         empty($_SERVER) ? F::Log('Empty $_SERVER', LOG_DEBUG): F::Log(function () use ($Call) { return $_SERVER;}, LOG_INFO);
 
+        $Call['HTTP']['RAW']['Server'] = $_SERVER;
+
         foreach ($_SERVER as &$Request)
-            $Request = str_replace(chr(0), '', rawurldecode($Request));
+            $Request = str_replace(chr(0), '', $Request);
 
         if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')
         {
