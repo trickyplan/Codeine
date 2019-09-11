@@ -457,7 +457,7 @@
                             {
                                 if (self::Dot($Call, 'Behaviours.'.$Behaviour.'.Enabled') === true)
                                 {
-                                    self::Log('Behaviour is active *'.$Behaviour.'*', LOG_INFO);
+                                    self::Log('Behaviour *'.$Behaviour.'* is active for '.self::$_Service.':'.self::$_Method, LOG_INFO);
                                     $Call = self::Dot($Call, 'Behaviours.'.$Behaviour.'.Enabled', false);
 
                                     $Call = self::Apply('Code.Run.Behaviours.'.$Behaviour, 'Run',
@@ -762,65 +762,72 @@
         
         public static function Log ($Message, $Verbose = 7, $Channel = 'Developer', $AppendStack = false, $Prepend = false)
         {
-            if ($Channel == 'All')
-                foreach (self::$_Verbose as $Channel => $V)
-                    self::Log($Message, $Verbose, $Channel, $AppendStack);
+            if (is_array($Channel))
+            {
+                foreach ($Channel as $cChannel)
+                    self::Log($Message, $Verbose, $cChannel, $AppendStack, $Prepend);
+            }
             else
             {
-                if (($Verbose <= self::$_Verbose[$Channel])
-                or
-                (isset($_SERVER['Verbose']) && $Verbose <= $_SERVER['Verbose']) or self::$_Staring)
+                if ($Channel == 'All')
+                    foreach (self::$_Verbose as $Channel => $V)
+                        self::Log($Message, $Verbose, $Channel, $AppendStack);
+                else
                 {
-    /*                if ((self::Environment() == 'Development') && (self::$_Perfect === true) && $Verbose < LOG_WARNING)
-                        trigger_error($Message);*/
-    
-                    // $Message = self::$_Service.': '.$Message;
-                    $Time = sprintf('%.3F', microtime(true)-Started);
-    
-                    if (self::$_Stack instanceof SplStack)
-                        $StackDepth = self::$_Stack->count();
-                    else
-                        $StackDepth = 0;
-                    
-                    if (self::$_Stack->offsetExists(1))
-                        $Initiator = self::$_Stack->offsetGet(1);
-                    else
-                        $Initiator = 'Core';
-                   
-                    if ($Message instanceof Closure)
-                        $Message = $Message();
+                    if (isset(self::$_Verbose[$Channel]))
+                    {
+                        if (($Verbose <= self::$_Verbose[$Channel])
+                            or
+                        (isset($_SERVER['Verbose']) && $Verbose <= $_SERVER['Verbose']) or self::$_Staring)
+                        {
+                            $Time = sprintf('%.3F', microtime(true)-Started);
 
-                    $Stack = null;
+                            if (self::$_Stack instanceof SplStack)
+                                $StackDepth = self::$_Stack->count();
+                            else
+                                $StackDepth = 0;
 
-                    if (($Verbose < LOG_NOTICE or $AppendStack == true) and $AppendStack != -1)
-                        $Stack = self::printStack();
+                            if (self::$_Stack->offsetExists(1))
+                                $Initiator = self::$_Stack->offsetGet(1);
+                            else
+                                $Initiator = 'Core';
 
-                    $Log = [
-                                'V' => $Verbose,
-                                'T' => $Time,
-                                'I' => $Initiator,
-                                'R' => self::$_Service.':'.self::$_Method,
-                                'X' => $Message,
-                                'D' => $StackDepth,
-                                'K' => $Stack,
-                                'C' => self::getColor(),
-                                'M' => self::$_Options['Codeine']['Monitor Memory']? memory_get_usage(false): 0,
-                            ];
+                            if ($Message instanceof Closure)
+                                $Message = $Message();
 
-                    if ($Prepend)
-                        array_unshift(self::$_Log[$Channel], $Log);
-                    else
-                        self::$_Log[$Channel][] = $Log;
-                    
-                    if (PHP_SAPI === 'cli')
-                        self::CLILog($Channel, $Log, $AppendStack);
-                    
-                    if (self::$_Perfect && ($Verbose <= self::$_Options['Codeine']['Perfect Verbose'][$Channel]))
-                        self::Finish ($Message);
-                        
+                            $Stack = null;
+
+                            if (($Verbose < LOG_NOTICE or $AppendStack == true) and $AppendStack != -1)
+                                $Stack = self::printStack();
+
+                            $Log = [
+                                        'V' => $Verbose,
+                                        'T' => $Time,
+                                        'I' => $Initiator,
+                                        'R' => self::$_Service.':'.self::$_Method,
+                                        'X' => $Message,
+                                        'D' => $StackDepth,
+                                        'K' => $Stack,
+                                        'C' => self::getColor(),
+                                        'M' => self::$_Options['Codeine']['Monitor Memory']? memory_get_usage(false): 0
+                                    ];
+
+                            if ($Prepend)
+                                array_unshift(self::$_Log[$Channel], $Log);
+                            else
+                                self::$_Log[$Channel][] = $Log;
+
+                            if (PHP_SAPI === 'cli')
+                                self::CLILog($Channel, $Log, $AppendStack);
+
+                            if (self::$_Perfect && ($Verbose <= F::Dot(self::$_Options, 'Codeine.Perfect Verbose.'.$Channel)))
+                                self::Finish ($Message);
+
+                        }
+                    }
                 }
             }
-            
+
             return $Message;
         }
 

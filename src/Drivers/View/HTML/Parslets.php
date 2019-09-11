@@ -49,18 +49,19 @@
     
     setFn('Process', function ($Call)
     {
-        F::Log('*Start* Parslets3 processing', LOG_DEBUG);
-            
         $TotalFound = 0;
         $Pass = 0;
+        $ReplaceCount = [];
+
         do
         {
             $Pass++;
             $Matched = [];
             $PassFound = 0;
+
             F::Log('Start Pass *№'.$Pass.'*', LOG_DEBUG);
             
-            foreach ($Call['Parslets']['Queue'] as $Parslet)
+            foreach ($Call['Parslets']['Queue'] as $PRSID => $Parslet)
             {
                 $Tag = strtolower($Parslet);
                 $Pattern = '<('.$Tag.')(\d*)(.*?)>(.*?)</(\1)(\2)>';
@@ -72,15 +73,18 @@
                     ]);
 
                 if ($Parsed === false)
+                {
                     $ParsletFound = 0;
+                    unset($Call['Parslets']['Queue'][$PRSID]);
+                }
                 else
                 {
                     $ParsletFound = count($Parsed);
                     $PassFound += $ParsletFound;
                 }
-                
+
                 if ($ParsletFound > 0)
-                    F::Log('Found *'.$ParsletFound.'* of '.$Parslet, LOG_DEBUG);
+                    F::Log('Found *'.$ParsletFound.'* of *'.$Parslet.'*', LOG_INFO+0.5);
     
                 if (empty($Parsed))
                     ;
@@ -136,27 +140,36 @@
                 if (isset($cMatched['Match']))
                 {
                     $Count = 0;
+
                     $Call['Parslets']['Source'] = str_replace($cMatched['Match'], $cMatched['Replace'], $Call['Parslets']['Source'], $Count);
-                    F::Log(function () use ($Parslet, $cMatched, $Count)
+                    F::Log(function () use ($Parslet, $cMatched, $Count, $Pass)
                     {
-                        return 'Parslet '.$Parslet.', *'
-                            .count($cMatched['Match'])
-                            .'* matched , *'
-                            .count($cMatched['Replace'])
-                            .'* replaces prepared, *'
-                            .$Count
-                            .'* replaced';
-                    } , LOG_DEBUG);
+                        return 'Pass: *'.$Pass.'*'
+                            .', Parslet: *'.$Parslet.'*'
+                            .', Matched: *'.count($cMatched['Match']).'*'
+                            .', Prepared:*'.count($cMatched['Replace']).'*'
+                            .', Replaced: *'.$Count.'*';
+                    }, LOG_INFO+0.5);
+
+                    if (isset($ReplaceCount[$Parslet]))
+                        $ReplaceCount[$Parslet] += $Count;
+                    else
+                        $ReplaceCount[$Parslet] = $Count;
                 }
             
             if ($PassFound > 0)
-                F::Log('*'.$PassFound.'* parslets found on pass №'.$Pass, LOG_DEBUG);
+                F::Log('*'.$PassFound.'* parslets found on pass №'.$Pass, LOG_INFO+0.5);
             
             $TotalFound += $PassFound;
         }
         while ($PassFound > 0);
-        
-        F::Log('Total *'.$PassFound.'* parslets found', LOG_DEBUG);
+
+        if ($TotalFound > 0)
+        {
+            F::Log('Total *'.$TotalFound.'* parslets found', LOG_INFO+0.5);
+            F::Log($ReplaceCount, LOG_INFO+0.5);
+        }
+
             
         return $Call;
     });

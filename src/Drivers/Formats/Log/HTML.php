@@ -26,6 +26,7 @@
         if (is_array($Call['Value']))
         {
             $OutputLog .= '<table class="codeine-log" style="width: 100%;">';
+            $OutputLog .= '<thead><tr><td colspan="7">'.$Call['Channel'].'</td></tr></thead>';
 
             $LastRow = ['M' => 0];
 

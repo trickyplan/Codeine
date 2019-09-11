@@ -10,10 +10,10 @@
     setFn ('Open', function ($Call)
     {
         $Client = new MongoDB\Client('mongodb://'.$Call['Server'].'/'.$Call['Database'], $Call['Mongo']['Connect']);
-        F::Log('Connected to *'.$Call['Server'].'*', LOG_INFO, 'Administrator');
+        F::Log('Connected to *'.$Call['Server'].'*', LOG_INFO, ['Administrator', 'Mongo']);
         
         $Link = $Client->selectDatabase($Call['Database']);
-        F::Log('Database *'.$Call['Database'].'* selected', LOG_INFO, 'Administrator');
+        F::Log('Database *'.$Call['Database'].'* selected', LOG_INFO, ['Administrator', 'Mongo']);
 
         return $Link;
     });
@@ -60,7 +60,7 @@
         
         if (isset($Call['Fields']))
         {
-            F::Log('*'.j($Call['Fields']).'* fields selected', LOG_INFO, 'Administrator');
+            F::Log('*'.j($Call['Fields']).'* fields selected', LOG_INFO, ['Administrator', 'Mongo']);
 
             $Fields = ['_id' => 0];
             
@@ -78,9 +78,9 @@
                 $Direction = (int)(($Direction == SORT_ASC) or ($Direction == 1))? +1: -1;
                 
                 if ($Direction == 1)
-                    F::Log('Sorted by *'.$Key.'* ascending', LOG_INFO, 'Administrator');
+                    F::Log('Sorted by *'.$Key.'* ascending', LOG_INFO, ['Administrator', 'Mongo']);
                 else
-                    F::Log('Sorted by *'.$Key.'* descending', LOG_INFO, 'Administrator');
+                    F::Log('Sorted by *'.$Key.'* descending', LOG_INFO, ['Administrator', 'Mongo']);
                 
                 $Sort[$Key] = $Direction;
             }
@@ -92,14 +92,14 @@
         {
             $Call['Mongo']['Options']['limit'] = (int) $Call['Limit']['To'];
             $Call['Mongo']['Options']['skip'] = (int) $Call['Limit']['From'];
-            F::Log('Sliced *'.$Call['Limit']['To'].'* from *'.$Call['Limit']['From'].'*', LOG_INFO, 'Administrator');
+            F::Log('Sliced *'.$Call['Limit']['To'].'* from *'.$Call['Limit']['From'].'*', LOG_INFO, ['Administrator', 'Mongo']);
         }
         
         if (F::Dot($Call, 'IO One') or F::Dot($Call, 'One'))
         {
             $Call['Mongo']['Options']['limit'] = 1;
             $Call['Mongo']['Options']['skip'] = 0;
-            F::Log('Sliced by «One» option', LOG_INFO, 'Administrator');
+            F::Log('Sliced by «One» option', LOG_INFO, ['Administrator', 'Mongo']);
         }
         
         return $Call;
@@ -115,13 +115,13 @@
             $Call = F::Apply(null, 'Where', $Call);
 
             F::Log('db.*'.$Call['Scope'].'*.find('
-                .j($Call['Where']).')', LOG_INFO, 'Administrator');
+                .j($Call['Where']).')', LOG_INFO, ['Administrator', 'Mongo']);
 
             $Cursor = $Call['Link']->selectCollection($Call['Scope'])->find($Call['Where'], $Call['Mongo']['Options']);
         }
         else
         {
-            F::Log('db.*'.$Call['Scope'].'*.find()', LOG_INFO, 'Administrator');
+            F::Log('db.*'.$Call['Scope'].'*.find()', LOG_INFO, ['Administrator', 'Mongo']);
             $Cursor = $Call['Link']->selectCollection($Call['Scope'])->find([],$Call['Mongo']['Options']);
         }
 
@@ -140,7 +140,7 @@
                 foreach ($Data as $IX => $Object)
                     unset($Data[$IX]['_id']);
 
-                F::Log(count($Data).' documents loaded from *'.$Call['Scope'].'*', LOG_INFO,'Administrator');
+                F::Log(count($Data).' documents loaded from *'.$Call['Scope'].'*', LOG_INFO,['Administrator', 'Mongo']);
             }
         }
 
@@ -164,9 +164,9 @@
                         $Call['Data'], $Call['Mongo']['Options']);
 
                     if ($Result)
-                        F::Log($Request, LOG_INFO, 'Administrator');
+                        F::Log($Request, LOG_INFO, ['Administrator', 'Mongo']);
                     else
-                        F::Log($Request.j($Result), LOG_ERR, 'Administrator');
+                        F::Log($Request.j($Result), LOG_ERR, ['Administrator', 'Mongo']);
 
                 }
                 else // Delete Where
@@ -175,9 +175,9 @@
                     $Result = $Call['Link']->selectCollection($Call['Scope'])->deleteMany($Call['Where'], $Call['Mongo']['Options']);
 
                     if ($Result)
-                        F::Log($Request, LOG_INFO, 'Administrator');
+                        F::Log($Request, LOG_INFO, ['Administrator', 'Mongo']);
                     else
-                        F::Log($Request.j($Result), LOG_ERR, 'Administrator');
+                        F::Log($Request.j($Result), LOG_ERR, ['Administrator', 'Mongo']);
                 }
             }
             else
@@ -189,9 +189,9 @@
                     $Result = $Call['Link']->selectCollection($Call['Scope'])->insertOne($Call['Data'], $Call['Mongo']['Options']);
 
                     if ($Result)
-                        F::Log($Request, LOG_INFO, 'Administrator');
+                        F::Log($Request, LOG_INFO, ['Administrator', 'Mongo']);
                     else
-                        F::Log($Request.j($Result), LOG_ERR, 'Administrator');
+                        F::Log($Request.j($Result), LOG_ERR, ['Administrator', 'Mongo']);
                 }
                 else // Delete All
                 {
@@ -199,9 +199,9 @@
                     $Result = $Call['Link']->selectCollection($Call['Scope'])->deleteMany([], $Call['Mongo']['Options']);
 
                     if ($Result)
-                        F::Log($Request, LOG_INFO, 'Administrator');
+                        F::Log($Request, LOG_INFO, ['Administrator', 'Mongo']);
                     else
-                        F::Log($Request.j($Result), LOG_ERR, 'Administrator');
+                        F::Log($Request.j($Result), LOG_ERR, ['Administrator', 'Mongo']);
                 }
             }
         }
@@ -237,14 +237,14 @@
             
             if (isset($Call['Distinct']) && $Call['Distinct'])
             {
-                F::Log('db.*'.$Call['Scope'].'*.distinct('.j($Call['Where']).')', LOG_INFO, 'Administrator');
+                F::Log('db.*'.$Call['Scope'].'*.distinct('.j($Call['Where']).')', LOG_INFO, ['Administrator', 'Mongo']);
                 $Data = $Call['Link']->selectCollection($Call['Scope'])->distinct($Call['Fields'][0], $Call['Where'], $Call['Mongo']['Options']);
                 
                 return count($Data);
             }
             else
             {
-                F::Log('db.*'.$Call['Scope'].'*.count('.j($Call['Where']).')', LOG_INFO, 'Administrator');
+                F::Log('db.*'.$Call['Scope'].'*.count('.j($Call['Where']).')', LOG_INFO, ['Administrator', 'Mongo']);
                 $Cursor = $Call['Link']->selectCollection($Call['Scope'])->count($Call['Where'], $Call['Mongo']['Options']);
             }
         }
@@ -252,14 +252,14 @@
         {
             if (isset($Call['Distinct']) && $Call['Distinct'])
             {
-                F::Log('db.*'.$Call['Scope'].'*.distinct()', LOG_INFO, 'Administrator');
+                F::Log('db.*'.$Call['Scope'].'*.distinct()', LOG_INFO, ['Administrator', 'Mongo']);
                 $Data = $Call['Link']->selectCollection($Call['Scope'])->distinct($Call['Fields'][0]);
 
                 $Cursor = $Call['Link']->selectCollection($Call['Scope'])->count();
             }
             else
             {
-                F::Log('db.*'.$Call['Scope'].'*.count()', LOG_INFO, 'Administrator');
+                F::Log('db.*'.$Call['Scope'].'*.count()', LOG_INFO, ['Administrator', 'Mongo']);
                 $Cursor = $Call['Link']->selectCollection($Call['Scope'])->count();
             }
         }
@@ -338,7 +338,7 @@
         foreach ($Call['Fields'] as $Field)
         {
             $Command = 'db.'.$Call['Scope'].'.distinct("'.$Field.'", '.j($Call['Where']).')';
-            F::Log($Command, LOG_INFO, 'Administrator');
+            F::Log($Command, LOG_INFO, ['Administrator', 'Mongo']);
             $Data[$Field] = $Call['Link']->selectCollection($Call['Scope'])->distinct($Field, $Call['Where']);
             
             $Values = [];
@@ -374,7 +374,7 @@
                     );
                     $Explain = $Explain->toArray();
                     return 'Mongo explained: '.j($Explain);
-                }, LOG_DEBUG, 'Administrator');
+                }, LOG_DEBUG, ['Administrator', 'Mongo']);
             }
         }
         return $Call;
