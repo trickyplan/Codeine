@@ -75,7 +75,8 @@
                 if ($Parsed === false)
                 {
                     $ParsletFound = 0;
-                    unset($Call['Parslets']['Queue'][$PRSID]);
+                    // unset($Call['Parslets']['Queue'][$PRSID]);
+                    // Premature fix
                 }
                 else
                 {
