@@ -153,11 +153,16 @@
                 "Method":"Process",
                 "Weight": 300
             },
-            "EV":
+            "Entity Version":
             {
                 "Service":"Entity.Hooks.EV",
-                "Method":"beforeOperation",
+                "Method":"beforeEntityWrite",
                 "Weight": 400
+            },
+            "Entity Hash":
+            {
+                "Service": "Entity.Hooks.EH",
+                "Method": "beforeEntityWrite"
             },
             "Datatypes":
             {
@@ -211,6 +216,15 @@
                 "Service":"Entity.Hooks.Type",
                 "Method":"Read",
                 "Weight": 1000
+            }
+        },
+        "afterEntityLoad":
+        {
+            "Entity Version":
+            {
+                "Service":"Entity.Hooks.EV",
+                "Method":"afterEntityLoad",
+                "Weight": 400
             }
         }
     }

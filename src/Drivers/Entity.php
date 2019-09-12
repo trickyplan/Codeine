@@ -19,17 +19,12 @@
 
         $Call = F::Hook('beforeEntityLoad', $Call);
         
-            $Model = F::loadOptions($Call['Entity'].'.Entity'); // FIX Validate
+            $Call['Model'] = F::loadOptions($Call['Entity'].'.Entity'); // FIX Validate
             
-            if (empty($Model))
+            if (empty($Call['Model']))
                 F::Log('Model for '.$Call['Entity'].' not found', LOG_CRIT);
             else
-            {
-                if (!isset($Model['EV']))
-                    $Model['EV'] = 1;
-                
-                $Call = F::Merge($Call, $Model);
-            }
+                $Call = F::Merge($Call, $Call['Model']);
 
         if (isset($Call['Nodes']))
             $Call['Nodes'] = F::Sort($Call['Nodes'], 'Weight', SORT_DESC);
