@@ -2,6 +2,7 @@
     "name": "trickyplan/codeine",
     "require": {
         "mongodb/mongodb": "^1.4",
-        "guzzlehttp/guzzle": "^6.3"
+        "guzzlehttp/guzzle": "^6.3",
+        "bacon/bacon-qr-code": "^2.0"
     }
 }

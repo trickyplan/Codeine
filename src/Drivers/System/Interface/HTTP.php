@@ -169,6 +169,8 @@
     {
         if (isset($Call['Request']['BackURL']) && !empty($Call['Request']['BackURL']))
             $Call = F::Apply('System.Interface.HTTP', 'Redirect', $Call, ['Redirect' => $Call['Request']['BackURL']]);
+        elseif (isset($Call['BackURL']) && !empty($Call['BackURL']))
+            $Call = F::Apply('System.Interface.HTTP', 'Redirect', $Call, ['Redirect' => $Call['BackURL']]);
 
         return $Call;
     });
