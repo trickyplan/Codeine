@@ -233,7 +233,7 @@
         $Call['Request'] = [];
         
         foreach ($_REQUEST as $Key => $Value)
-            $Call['Request'] = F::Dot($Call['Request'], strtr($Key, '_', '.'), str_replace(chr(0), '', $Value));
+            $Call['Request'] = F::Dot($Call['Request'], strtr($Key, '_', '.'), urldecode(str_replace(chr(0), '', $Value)));
 
         empty($_REQUEST) ? F::Log('Empty $_REQUEST', LOG_INFO): F::Log('Request: '.j($_REQUEST), LOG_INFO);
 
