@@ -28,7 +28,7 @@
                     echo $Replaces[$IX].PHP_EOL;
                 }
                 else
-                    $Replaces[$IX] = '';
+                    $Replaces[$IX] = '{'.array_shift($Matches).'}';
             }
             else
                 if (is_scalar($Translation))

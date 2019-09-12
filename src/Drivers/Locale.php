@@ -16,6 +16,7 @@
         
         $Localized = false;
         $Translation = null;
+
         foreach ($Call['Message'] as $Message)
         {
             if (strpos($Message, ':') !== false)
@@ -40,11 +41,11 @@
                   [
                       'Cached' =>
                       [
-                          'Enabled' => true,
+                          'Enabled' => false,
                           'TTL'     => 60,
                           'Keys'    =>
                           [
-                              'Storage', 'Scope', 'Where'
+                              'Storage', 'Scope', 'Where', 'Locale'
                           ]
                       ]
                   ]

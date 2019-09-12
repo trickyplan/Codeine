@@ -22,7 +22,7 @@
                 if ($isValid !== true)
                 {
                     $Call['Errors'][$Name][] = $isValid;
-                    F::Log($Call['Entity'].':'.$Name.' '.$isValid, LOG_INFO);
+                    F::Log($Call['Entity'].':'.$Name.' '.j($isValid), LOG_INFO);
                 }
             }
 
