@@ -7,7 +7,7 @@
             {
                 "hosts": ["localhost:9200"]
             },
-            "Fuzziness": 6
+            "Fuzziness": 3
         }
     }
 }

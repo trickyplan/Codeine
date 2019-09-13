@@ -23,7 +23,7 @@
                                         "default": {
                                             "type": "ngram",
                                             "min_gram": 2,
-                                            "max_gram": 5,
+                                            "max_gram": 3,
                                             "token_chars": [
                                                 "letter",
                                                 "digit"
@@ -41,6 +41,13 @@
                             }
                         }
                     }
+                },
+                "Mapping":
+                {
+                    "Literal.String": "text",
+                    "Literal.HTML": "text",
+                    "Literal.Text": "text",
+                    "Numeral.Integer": "integer"
                 }
             }
         }

@@ -47,11 +47,22 @@
         {
             if (F::Dot($Node, 'Search.Allowed'))
             {
+                $Name = strtr($Name, '.', '_');
+
+                if (isset($Node['Type']))
+                    ;
+                else
+                    F::Log('No type specified for *'.$Name.'*', LOG_ERR);
+
+                $Type = $Call['Search']['Elastic']['Index']['Mapping'][$Node['Type']];
+
                 $Call['Search']['Properties'][$Name] =
                     [
-                        'type' => 'text',
-                        'analyzer' => 'english'
+                        'type' => $Type
                     ];
+
+                if ($Type == 'text')
+                    $Call['Search']['Properties'][$Name]['analyzer'] = 'default';
             }
         }
         F::Run(null, 'Delete', $Call);

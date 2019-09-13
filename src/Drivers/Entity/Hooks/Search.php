@@ -21,7 +21,7 @@
                 if (F::Dot($Node, 'Search.Allowed'))
                 {
                     $Value = F::Dot($Call['Data'], $Name);
-                    
+                    $Name = strtr($Name, '.', '_');
                     if (empty($Value))
                         ;
                     else

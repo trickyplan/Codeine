@@ -27,14 +27,7 @@
             "Method": "Do",
             "Call":
             {
-                "Entity": "$1",
-                "View":
-                {
-                    "Renderer":
-                    {
-                        "Service": "View.JSON"
-                    }
-                }
+                "Entity": "$1"
             }
         },
         "Vertical Search":
