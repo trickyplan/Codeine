@@ -62,7 +62,7 @@
                     ];
 
                 if ($Type == 'text')
-                    $Call['Search']['Properties'][$Name]['analyzer'] = 'default';
+                    $Call['Search']['Properties'][$Name]['analyzer'] = 'standard';
             }
         }
         F::Run(null, 'Delete', $Call);

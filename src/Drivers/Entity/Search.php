@@ -83,20 +83,23 @@
             if (isset($Call['Reverse']))
                 $Call['Entities'] = array_reverse($Call['Entities'], true);
 
-            if (is_array($Call['Entities']))
-                foreach ($Call['Entities'] as $IX => $Element)
-                {
-                    $Element['Search']['Score'] = $Call['Elements'][$Element['ID']]['_score'];
+            foreach ($Call['Entities'] as $IX => &$Entity)
+                $Entity['Search']['Score'] = (float) $Call['Elements'][$Entity['ID']]['_score'];
 
-                    if (!isset($Element['ID']))
-                        $Element['ID'] = $IX;
+            $Call['Entities'] = F::Sort($Call['Entities'], 'Search.Score', SORT_DESC);
+
+            if (is_array($Call['Entities']))
+                foreach ($Call['Entities'] as $IX => $Entity)
+                {
+                    if (!isset($Entity['ID']))
+                        $Entity['ID'] = $IX;
 
                     if (isset($Call['Page']) && isset($Call['EPP']))
-                        $Element['IX'] = $Call['EPP']*($Call['Page']-1)+$IX+1;
+                        $Entity['IX'] = $Call['EPP']*($Call['Page']-1)+$IX+1;
                     else
-                        $Element['IX'] = $IX+1;
+                        $Entity['IX'] = $IX+1;
 
-                    if (isset($Call['Show Redirects']) or !isset($Element['Redirect']) or empty($Element['Redirect']))
+                    if (isset($Call['Show Redirects']) or !isset($Entity['Redirect']) or empty($Entity['Redirect']))
                     {
                         $Call['Output']['Content'][] =
                             [
@@ -105,7 +108,7 @@
                                 'ID' => 'Show/'
                                     .$Call['Template'],
                                 // FIXME Strategy of selecting templates
-                                'Data'  => $Element
+                                'Data'  => $Entity
                             ];
                     }
                 }
