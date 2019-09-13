@@ -3,6 +3,7 @@
     "require": {
         "mongodb/mongodb": "^1.4",
         "guzzlehttp/guzzle": "^6.3",
-        "bacon/bacon-qr-code": "^2.0"
+        "bacon/bacon-qr-code": "^2.0",
+        "elasticsearch/elasticsearch": "^7.2"
     }
 }
