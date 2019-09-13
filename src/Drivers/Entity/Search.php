@@ -21,8 +21,8 @@
             $Fields = $Call['Search']['Provider']['Available'][$Call['Entity']]['Nodes'];
         else
             $Fields = ['ID', 'Title'];*/
-        
-        $Call['Elements'] = F::Run('Entity', 'Read', $Call,
+
+        $Call['Entities'] = F::Run('Entity', 'Read', $Call,
             [
                 'Limit!'  => null,
                 'Where!'  =>
@@ -31,11 +31,10 @@
                     [
                         '$in' => array_keys($Call['Elements'])
                     ]
-                ],
-                'Sort'  => F::Dot($Call['Search']['Provider']['Available'][$Call['Entity']], 'List.Sort')
+                ]
             ]
         );
-        
+
         $Call['Scope'] = isset($Call['Scope'])? strtr($Call['Entity'], '.', '/').'/'.$Call['Scope'] : strtr($Call['Entity'], '.', '/');
         
         $Call['Layouts'][] =
@@ -51,13 +50,13 @@
         
         F::Log('Search template is *'.$Call['Template'].'*', LOG_INFO);
 
-        if (sizeof($Call['Elements']) == 0)
+        if (sizeof($Call['Entities']) == 0)
             $Empty = true;
 
         if (isset($Call['Where']) && $Call['Where'] === [])
             $Empty = true;
 
-        if (null === $Call['Elements'])
+        if (null === $Call['Entities'])
             $Empty = true;
 
         if (isset($Call['NoEmpty']))
@@ -82,11 +81,13 @@
                 ];
 
             if (isset($Call['Reverse']))
-                $Call['Elements'] = array_reverse($Call['Elements'], true);
+                $Call['Entities'] = array_reverse($Call['Entities'], true);
 
-            if (is_array($Call['Elements']))
-                foreach ($Call['Elements'] as $IX => $Element)
+            if (is_array($Call['Entities']))
+                foreach ($Call['Entities'] as $IX => $Element)
                 {
+                    $Element['Search']['Score'] = $Call['Elements'][$Element['ID']]['_score'];
+
                     if (!isset($Element['ID']))
                         $Element['ID'] = $IX;
 
