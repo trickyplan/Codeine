@@ -10,9 +10,9 @@
     setFn('Do', function ($Call)
     {
         $Call['Provider'] = $Call['Entity'];
+        $Call = F::Dot($Call,'Search.Index', $Call['Entity']);
 
         $Call = F::loadOptions($Call['Entity'].'.Entity', null, $Call);
-
         $Call = F::Hook('beforeEntitySearch', $Call);
 
         $Call = F::Apply( 'Search', 'Query', $Call);

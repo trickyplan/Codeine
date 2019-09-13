@@ -31,6 +31,11 @@
 
     setFn('Count', function ($Call)
     {
+        if (isset($Call['Query']))
+            ;
+        elseif (isset($Call['Request']['Query']))
+            $Call['Query'] = $Call['Request']['Query'];
+
         $Call['Query'] = mb_strtolower($Call['Query']);
         
         $Call = F::Hook('beforeQuery', $Call);
@@ -78,6 +83,11 @@
     
     setFn('Query', function ($Call)
     {
+        if (isset($Call['Query']))
+            ;
+        elseif (isset($Call['Request']['Query']))
+            $Call['Query'] = $Call['Request']['Query'];
+
         $Call['Query'] = mb_strtolower($Call['Query']);
         
         $Call = F::Hook('beforeQuery', $Call);
@@ -100,7 +110,7 @@
         } // Vertical
 
         $Call['Elements'] = [];
-       
+
         foreach ($Call['Search']['Provider']['Selected'] as $ProviderName)
         {
             if (mb_substr($ProviderName, 0, 1) == '-')

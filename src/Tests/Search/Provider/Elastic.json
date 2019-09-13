@@ -1,0 +1,59 @@
+{
+    "Suites":
+    {
+        "Positive":
+        {
+            "Document Create":
+            {
+                "Run":
+                {
+                    "Service": "Search.Provider.Elastic",
+                    "Method": "Document.Create",
+                    "Call":
+                    {
+                        "Search":
+                        {
+                            "Index": "test",
+                            "Type": "Type"
+                        },
+                        "Data":
+                        {
+                            "ID": 1,
+                            "Key": "Value"
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            },
+            "Query":
+            {
+                "Run":
+                {
+                    "Service": "Search.Provider.Elastic",
+                    "Method": "Query",
+                    "Call":
+                    {
+                        "Search":
+                        {
+                            "Index": "test",
+                            "Type": "Type"
+                        },
+                        "Query": "Value",
+                        "Limit":
+                        {
+                            "From": 0,
+                            "To": 10
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            }
+        }
+    }
+}

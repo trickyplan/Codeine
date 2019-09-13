@@ -1,9 +1,13 @@
 {
-    "Elastic Search":
+    "Search":
     {
-        "Options":
+        "Elastic":
         {
-            "hosts": ["localhost:9200"]
+            "Options":
+            {
+                "hosts": ["localhost:9200"]
+            },
+            "Fuzziness": 6
         }
     }
 }

@@ -3,14 +3,13 @@
     {
         "Search JSON":
         {
-            "Match": "^/search/json/(.+)/(.+)$",
+            "Match": "^/search/json/(.+)$",
             "Weight": 100,
             "Service": "Entity.Search",
             "Method": "Do",
             "Call":
             {
                 "Entity": "$1",
-                "Query": "$2",
                 "View":
                 {
                     "Renderer":
@@ -22,26 +21,31 @@
         },
         "Search":
         {
-            "Match": "^/search/(.+)/(.+)$",
+            "Match": "^/search/(.+)$",
             "Weight": 80,
             "Service": "Entity.Search",
             "Method": "Do",
             "Call":
             {
                 "Entity": "$1",
-                "Query": "$2"
+                "View":
+                {
+                    "Renderer":
+                    {
+                        "Service": "View.JSON"
+                    }
+                }
             }
         },
         "Vertical Search":
         {
-            "Match": "^/search/(.*)$",
+            "Match": "^/search$",
             "Weight": 60,
             "Service": "Entity.Search",
             "Method": "Do",
             "Call":
             {
-                "Vertical": true,
-                "Query": "$1"
+                "Vertical": true
             }
         }
     }

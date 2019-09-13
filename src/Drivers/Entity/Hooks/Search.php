@@ -15,7 +15,7 @@
         {
             // Remove $Call['Data']['Indexable']
             
-            $Index = ['ID' => $Call['Data']['ID']];
+            $Data = ['ID' => $Call['Data']['ID']];
             
             foreach ($Call['Nodes'] as $Name => $Node)
                 if (F::Dot($Node, 'Search.Allowed'))
@@ -27,24 +27,27 @@
                     else
                     {
                         if (is_array($Value))
-                            $Index[$Name] = j($Value);
+                            $Data[$Name] = j($Value);
                         else
-                            $Index[$Name] = $Value;
+                            $Data[$Name] = $Value;
                     }
                 }
-                
+
              $Result = F::Run('Search', 'Document.Create', $Call,
                  [
-                    'Provider' => $Call['Entity'],
-                    'Index'    => $Index
+                    'Provider'  => $Call['Entity'],
+                    'Search'    =>
+                    [
+                        'Index'    => $Call['Entity']
+                    ],
+                    'Data!'      => $Data
                 ]);
 
             if ($Result)
-                F::Log(function () use ($Result) {return 'Indexed: '.j($Result);} , LOG_DEBUG);
+                F::Log(function () use ($Result) {return 'Indexed: '.j($Result);} , LOG_DEBUG, ['Developer', 'Search']);
             else
-                F::Log('Not indexed: '.j($Result), LOG_WARNING);
+                F::Log('Not indexed: '.j($Result), LOG_WARNING, ['Developer', 'Search']);
         }
-
         return $Call;
     });
 
@@ -58,7 +61,11 @@
         if (F::Run('Search', 'Remove', $Call,
         [
             'Provider' => $Call['Entity'],
-            'Data!'    => ['ID' => $Call['Data']['ID']]
+            'Data!'    => ['ID' => $Call['Data']['ID']],
+            'Search'    =>
+            [
+                'Index'    => $Call['Entity']
+            ]
         ]))
         {
             F::Log($Call['Entity'].' '.$Call['Data']['ID'].' removed', LOG_INFO);

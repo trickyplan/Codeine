@@ -10,6 +10,7 @@
     setFn('Open', function ($Call)
     {
         $Call['Link'] = Elasticsearch\ClientBuilder::create()->build();
+        $Call['Search']['Index'] = mb_strtolower($Call['Search']['Index']);
         return $Call;
     });
 
@@ -22,19 +23,19 @@
         try
         {
             $Result = $Call['Link']->index(
-                 [
-                     'index' => $Call['Elastic Search']['Index'],
-                     'type'  => $Call['Elastic Search']['Type'],
-                     'id'    => $Call['Data']['ID'],
-                     'body'  => $Call['Index']
-                 ]);
+                    [
+                        'index' => $Call['Search']['Index'],
+                        'id'    => $Call['Data']['ID'],
+                        'body'  => $Call['Data'],
+                        'type'  => '_doc'
+                    ]);
+
             F::Log(j($Result), LOG_INFO);
         }
         catch (Exception $e)
         {
             F::Log($e->getMessage(), LOG_ERR);
         }
-
         return $Result;
     });
 
@@ -49,14 +50,20 @@
             F::Log('Start Count on query: '.$Call['Query'], LOG_NOTICE);
 
             $Query = [
-                     'index' => $Call['Elastic Search']['Index'],
-                     'type'  => $Call['Elastic Search']['Type'],
+                     'index' => $Call['Search']['Index'],
                      'body'  =>
                      [
-                          'query' => F::Live($Call['Search']['Query']['Default'], $Call)
-                      ]
+                          'query' =>
+                          [
+                              'multi_match' =>
+                              [
+                                  'query'  => $Call['Query'],
+                                  'fields' => ['*']
+                              ]
+                          ]
+                     ]
                  ];
-            
+
             F::Log($Query, LOG_INFO, 'Administrator');
             $Results = $Call['Link']->count($Query);
             
@@ -82,28 +89,21 @@
             F::Log('Start search on query: '.$Call['Query'], LOG_NOTICE);
 
             $Query = [
-                     'index' => $Call['Elastic Search']['Index'],
-                     'type'  => $Call['Elastic Search']['Type'],
+                     'index' => $Call['Search']['Index'],
                      'from'  => $Call['Limit']['From'],
                      'size'  => $Call['Limit']['To'],
                      'body'  =>
                      [
-                          'query' => F::Live($Call['Search']['Query']['Default'], $Call),
-                          'sort' => $Call['Search']['Sort'],
-                          'highlight' =>
+                          'query' =>
                           [
-                              'fields' =>
+                              'multi_match' =>
                               [
-                                  $Call['Highlight'] =>
-                                  [
-                                      'pre_tags'  => ['<em class="highlight">'],
-                                      'post_tags' => ['</em>'],
-                                      'fragment_size' => 240, // FIXME
-                                      'number_of_fragments' => 1 // FIXME
-                                  ]
+                                  'query'  => $Call['Query'],
+                                  'fuzziness' => $Call['Search']['Elastic']['Fuzziness'],
+                                  'fields' => ['*']
                               ]
                           ]
-                      ]
+                     ]
                  ];
            
             F::Log($Query, LOG_INFO, 'Administrator');
@@ -118,8 +118,8 @@
             $Results = ['hits' => ['total' => 0]];
         }
 
-        F::Log('Total hits: '.$Results['hits']['total'], LOG_INFO);
-        $Meta = ['Hits' => [$Call['Scope'] => $Results['hits']['total']]];
+        F::Log('Total hits: '.$Results['hits']['total']['value'], LOG_INFO);
+        $Meta = ['Hits' => [$Call['Scope'] => $Results['hits']['total']['value']]];
         
         return ['Meta' => $Meta, 'IDs' => $IDs];
     });
@@ -131,9 +131,8 @@
             $Call = F::Run(null, 'Open', $Call);
             F::Log($Call['Link']->delete(
                  [
-                     'index' => $Call['Index'],
-                     'id'    => $Call['Data']['ID'],
-                     'type'  => $Call['Type']
+                     'index' => $Call['Search']['Index'],
+                     'id'    => $Call['Data']['ID']
                  ]
             ), LOG_INFO);
         }
