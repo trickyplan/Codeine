@@ -33,12 +33,12 @@
             foreach ($Call['Period']['Units'] as $Period => $Value)
                 if ($Call['Value'] >= $Value)
                 {
-                    $Units = floor($Call['Value']/$Value);
+                    $Units = floor($Call['Value'] / $Value);
                     $Output[] = $Units.' <l>Formats.Period:'.$Period.'.'.($Units%20).'</l>';
                     $Call['Value'] -= $Units*$Value;
                 }
 
-            return $Prefix.implode(' ', array_slice($Output,0,$Call['Period']['Format']-1)).$Postfix;
+            return $Prefix.implode(' ', array_slice($Output,0,$Call['Period']['Format'])).$Postfix;
         }
         else
              return null;
