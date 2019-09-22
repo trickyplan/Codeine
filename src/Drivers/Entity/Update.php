@@ -82,13 +82,14 @@
             }
             else
             {
-                foreach ($Result['Errors'] as $Name =>$Node)
-                    foreach ($Node as $Error)
+                foreach ($Result['Errors'] as $Name => $Errors)
+                    foreach ($Errors as $Error)
                         $Call['Output']['Message'][] =
                             [
-                                'Type' => 'Block',
-                                'Class' => 'alert alert-danger',
-                                'Value' => '<l>'.$Call['Entity'].'.Error:'.$Name.'.'.$Error.'</l>'
+                                'Type'  => 'Template',
+                                'Scope' => 'Entity/Validate',
+                                'ID'    => $Error['Validator'],
+                                'Data'  => $Error
                             ];
             }
 
