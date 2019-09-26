@@ -197,6 +197,9 @@
         foreach ($_SERVER as &$Request)
             $Request = str_replace(chr(0), '', $Request);
 
+        // Routing purposes
+        $_SERVER['REQUEST_URI'] = urldecode($_SERVER['REQUEST_URI']);
+
         if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')
         {
             F::Log('XMLHttpRequest detected, enabling App Context', LOG_INFO);

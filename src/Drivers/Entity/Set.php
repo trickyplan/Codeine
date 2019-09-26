@@ -27,6 +27,8 @@
                          'Data'   => $Data
                      ]);
 
+                 $Call['Output']['Content'][] = $Call['Key'].' = '.$Call['Value'];
+
                  $Call['Output']['Content'][] = 'OK';
              }
 
