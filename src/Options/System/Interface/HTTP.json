@@ -111,6 +111,11 @@
             {
                 "Service": "Security.Timing",
                 "Method": "Do"
+            },
+            "Compression":
+            {
+                "Service": "System.Interface.HTTP.Compression",
+                "Method": "Do"
             }
         },
         "afterInterfaceRun":
