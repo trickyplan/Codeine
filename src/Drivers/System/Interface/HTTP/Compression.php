@@ -11,6 +11,7 @@
     {
         if (F::Dot($Call, 'System.Interface.HTTP.Compression.Enabled'))
         {
+            $Call['Output'] = ob_get_clean().$Call['Output'];
             $ContentType = F::Dot($Call, 'HTTP.Headers.Content-Type:');
             if (($Pos = mb_strpos($ContentType, ';')) == false)
                 $ContentType = F::Dot($Call, 'HTTP.Headers.Content-Type:');
