@@ -112,6 +112,11 @@
                 "Service": "Security.Timing",
                 "Method": "Do"
             },
+            "Caching":
+            {
+                "Service": "System.Interface.HTTP.Caching",
+                "Method": "Do"
+            },
             "Compression":
             {
                 "Service": "System.Interface.HTTP.Compression",
