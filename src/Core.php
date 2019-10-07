@@ -46,6 +46,8 @@
         private static $_Debug = false;  // Internal Debugger
         private static $_Verbose; // can be float
 
+        private static $_Deadline = 0;
+
         private static $_Stack;
         private static $NC = 0;
         private static $_Bubble = '';
@@ -100,6 +102,9 @@
 
             if (isset($_REQUEST['Performance']))
                 self::$_Performance = 'Request';
+
+            if (isset($_REQUEST['Deadline']))
+                self::$_Deadline = $_REQUEST['Deadline']/1000; // MS
 
             if (isset($_SERVER['Verbose']))
                 foreach (self::$_Verbose as $Channel => &$Level)
@@ -372,6 +377,9 @@
 
         private static function Execute($Service, $Method, $Call)
         {
+            if (self::$_Deadline > 0)
+                self::checkSLA();
+
             if (isset(self::$_Options['Codeine']['Watch']) && self::Environment() == 'Development')
                 foreach (self::$_Options['Codeine']['Watch'] as $Watch)
                 {
@@ -1287,14 +1295,27 @@
                     }
 
                 $Results = array_reverse($Results);
-
-                /*self::Set($FFID, $Results);*/
             }
 
             if (empty($Results))
                 return null;
             else
                 return $Results;
+        }
+
+        public static function checkSLA()
+        {
+            $Spent = microtime(true) - Started;
+            if ($Spent >= self::$_Deadline)
+            {
+                header('HTTP/1.1 504 Gateway Timout');
+                header('X-Reason: Deadline met');
+                header('X-Deadline: '.self::$_Deadline);
+                header('X-Spent: '.$Spent);
+                die();
+            }
+            else
+                return true;
         }
     }
 
