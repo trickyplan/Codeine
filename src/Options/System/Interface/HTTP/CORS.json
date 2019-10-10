@@ -1,6 +1,15 @@
 {
-    "CORS":
+    "HTTP":
     {
-        "Credentials": "true"
+        "CORS":
+        {
+            "Credentials": "true",
+            "Caching":
+            {
+                "Enabled": true,
+                "TTL": 86400,
+                "Private": false
+            }
+        }
     }
 }
