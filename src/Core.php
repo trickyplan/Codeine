@@ -103,7 +103,7 @@
             if (isset($_REQUEST['Performance']))
                 self::$_Performance = 'Request';
 
-            if (isset($_REQUEST['Deadline']))
+            if (isset($_REQUEST['Deadline']) && is_numeric($_REQUEST['Deadline']))
                 self::$_Deadline = $_REQUEST['Deadline']/1000; // MS
 
             if (isset($_SERVER['Verbose']))
