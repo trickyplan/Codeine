@@ -17,7 +17,7 @@
                 if ($LiveDefault !== $Node['Default'])
                 {
                     $Node['Default'] = $LiveDefault;
-                    F::Log('Live Default is processed: *'.$Name.'* = *'.$LiveDefault.'*', LOG_INFO);
+                    F::Log('Live Default is processed: *'.$Name.'* = *'.$LiveDefault.'*', LOG_DEBUG);
                 }
 
                 if (F::Dot($Node, 'Empty as Default'))

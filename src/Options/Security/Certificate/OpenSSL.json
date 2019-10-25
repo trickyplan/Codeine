@@ -1,0 +1,20 @@
+{
+    "Certificate":
+    {
+        "Key":
+        {
+            "Authority Key Identifier": [
+                "keyid",
+                "issuer"
+            ],
+            "Basic Constraints": "CA:FALSE",
+            "Usage": [
+                "digitalSignature",
+                "nonRepudiation",
+                "keyEncipherment",
+                "dataEncipherment"
+            ]
+        },
+        "Validity Period": 365
+    }
+}

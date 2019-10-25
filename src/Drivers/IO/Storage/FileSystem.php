@@ -64,24 +64,25 @@
     setFn('Read.Directory', function ($Call)
     {
         $Directory = new RecursiveDirectoryIterator(Root.'/'.$Call['Path']);
-            $Iterator  = new RecursiveIteratorIterator($Directory);
-            $Regex     = new RegexIterator($Iterator, '/'.$Call['Prefix'].'(.+)'.$Call['Postfix'].'$/i', RecursiveRegexIterator::GET_MATCH);
+        $Iterator  = new RecursiveIteratorIterator($Directory);
+        $Regex     = new RegexIterator($Iterator, '/'.$Call['Prefix'].'(.+)'.$Call['Postfix'].'$/i', RecursiveRegexIterator::GET_MATCH);
 
-            $DirSz = strlen(Root.'/'.$Call['Path']);
+        $DirSz = strlen(Root.'/'.$Call['Path']);
 
-            $Call['Result'] = [];
+        $Call['Result'] = [];
 
-            foreach($Regex as $File)
+        F::Log('Directory *'.Root.'/'.$Call['Path'].' is loading ', LOG_DEBUG, 'Administrator');
+        foreach ($Regex as $File)
+        {
+            $Pathinfo = pathinfo($File[0]);
+
+            if (($Pathinfo['filename'] != '') && ($Pathinfo['filename'] != '.'))
             {
-                $Pathinfo = pathinfo($File[0]);
-
-                if (($Pathinfo['filename'] != '') && ($Pathinfo['filename'] != '.'))
-                {
-                    $Call['Path'] = substr($Pathinfo['dirname'], $DirSz);
-
-                    $Call['Result'][$Pathinfo['filename']] = file_get_contents($File[0]);
-                }
+                $Call['Path'] = substr($Pathinfo['dirname'], $DirSz);
+                F::Log('File *'.$File[0].'* from  *'.Root.'/'.$Call['Path'].' is loading ', LOG_DEBUG, 'Administrator');
+                $Call['Result'][$Pathinfo['filename']] = file_get_contents($File[0]);
             }
+        }
 
         return $Call;
     });
@@ -99,30 +100,33 @@
 
                 if (isset($Call['Data']) && ($Call['Data'] != 'null') && ($Call['Data'] != null))
                 {
-                    foreach ($Call['Where']['ID'] as $Call['Filename'])
-                    {
-                        $Call['Filename'] = $Call['Link'].DS.$Call['Filename'];
-
-                        $Call = F::Hook('beforeFileSystemWrite', $Call);
-
-                        if (file_put_contents ($Call['Filename'], $Call['Data']) === false)
+                    if (empty($Call['Where']['ID']))
+                        F::Log('Empty where in write', LOG_ERR, 'Administrator');
+                    else
+                        foreach ($Call['Where']['ID'] as $Call['Filename'])
                         {
-                            F::Log('Write to *'.$Call['Storage'].'* failed', LOG_ERR, 'Administrator');
-                            $Call['Result'][] = $Call['Data'];
-                            
-                            if (is_writable($Call['Filename']))
-                                ;
+                            $Call['Filename'] = $Call['Link'].DS.$Call['Filename'];
+
+                            $Call = F::Hook('beforeFileSystemWrite', $Call);
+
+                            if (file_put_contents ($Call['Filename'], $Call['Data']) === false)
+                            {
+                                F::Log('Write to *'.$Call['Storage'].'* failed', LOG_ERR, 'Administrator');
+                                $Call['Result'][] = $Call['Data'];
+
+                                if (is_writable($Call['Filename']))
+                                    ;
+                                else
+                                    F::Log('File *'.$Call['Filename'].'* is not writable', LOG_ERR, 'Administrator');
+                            }
                             else
-                                F::Log('File *'.$Call['Filename'].'* is not writable', LOG_ERR, 'Administrator');
-                        }
-                        else
-                        {
-                            F::Log('File *'.$Call['Filename'].' writed', LOG_INFO, 'Administrator');
-                            $Call['Result'][] = null;
-                        }
+                            {
+                                F::Log('File *'.$Call['Filename'].' writed', LOG_INFO, 'Administrator');
+                                $Call['Result'][] = null;
+                            }
 
-                        $Call = F::Hook('afterFileSystemWrite', $Call);
-                    }
+                            $Call = F::Hook('afterFileSystemWrite', $Call);
+                        }
                 }
                 else
                     foreach ($Call['Where']['ID'] as $Call['Filename'])
