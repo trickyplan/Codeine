@@ -243,7 +243,7 @@
         empty($_REQUEST) ? F::Log('Empty $_REQUEST', LOG_INFO): F::Log('Request: '.j($_REQUEST), LOG_INFO);
 
         if ($Call['HTTP']['Method'] == 'POST')
-            $Call['HTTP']['RAW'] = file_get_contents("php://input");
+            $Call['HTTP']['RAW'] = file_get_contents('php://input');
         else if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') 
             $Call = F::Dot($Call, 'HTTP.Output.Suppress', true);
 
@@ -258,7 +258,7 @@
                     if (is_array($RAW))
                         $Call['Request'] = F::Merge($Call['Request'], $RAW);
                     else
-                        F::Log('Incorrect JSON Request', LOG_WARNING);
+                        F::Log('Incorrect JSON Request: '.j($Call['HTTP']['RAW']), LOG_INFO);
                 }
             }
         }
