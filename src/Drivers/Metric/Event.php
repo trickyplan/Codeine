@@ -71,7 +71,8 @@
         if ($Count > 0)
         {
             $Call = F::Hook($Type.'.Event.Aggregate.Before', $Call);
-           
+
+            F::Log('Getting *'.F::Dot($VCall, 'Metric.Aggregate.Batch.Size').'* elements from *'.$Type.'*', LOG_NOTICE);
             $Events = F::Run('IO', 'Read', $VCall,
                 [
                     'Storage'   => 'Metric Queue',
@@ -141,6 +142,8 @@
                         F::Log('No time set for Event:'.j($Event), LOG_WARNING);
 
                 }
+
+            F::Log('Aggregating *'.count($Call['Aggregate']).'* rows from *'.$Type.'*', LOG_NOTICE);
 
                 foreach ($Call['Aggregate'] as $Row)
                 {
