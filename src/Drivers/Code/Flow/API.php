@@ -95,6 +95,9 @@
                                         .$Call['API']['Request']['Method']
                                         .'('.serialize(F::Dot($Call, 'API.Request.Call'))
                                         .')', LOG_INFO, 'Access');
+
+                                    if (F::Environment() == 'Development')
+                                        $Call = F::Dot($Call, 'HTTP.Headers.X-Codeine-API:', $Call['API']['Request']['Service'].':'.$Call['API']['Request']['Method']);
                                 }
                                 else
                                     $Call = F::Dot($Call, 'HTTP.Headers.HTTP/1.1', '403 Forbidden');
@@ -120,7 +123,7 @@
             }
 
             $Call['API']['Response']['Generated'] = microtime(true);
-            $Call['API']['Response']['Time'] = $Call['API']['Response']['Generated'] - $Call['API']['Request']['Started'];
+            $Call['API']['Response']['Time'] = $Call['API']['Response']['Generated'] - Started;
             
             $Call['Output']['Content']['Request'] = $Call['API']['Request']; // Move API Request to Rendering
             $Call['Output']['Content']['Response'] = $Call['API']['Response']; // Move API Response to Rendering

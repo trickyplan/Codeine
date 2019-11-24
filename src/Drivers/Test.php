@@ -94,7 +94,9 @@
                 
             // Assert
             $Status = 'Passed';
-            
+
+            $Call = F::Hook('Test.Case.Run.Execute.After', $Call);
+
             if (isset($Call['Test']['Case']['Assert']))
                 foreach ($Call['Test']['Case']['Assert'] as $Assert => $Expected)
                 {
@@ -112,8 +114,6 @@
                     $Call = F::Dot($Call, 'Test.Case.Time.'.$Assert,
                         F::Time($SCID.'.'.$Assert));
                 }
-
-        $Call = F::Hook('Test.Case.Run.Execute.After', $Call);
 
         $Call['Test']['Case']['Status'] = $Status;
 
