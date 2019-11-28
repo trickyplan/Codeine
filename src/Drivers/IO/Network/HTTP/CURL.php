@@ -172,7 +172,7 @@
                 {
                     F::Log('CURL GET error: '.curl_error($Link).'*'.$ID.'*', LOG_NOTICE, 'Administrator');
                     F::Log($Return, LOG_DEBUG, 'Administrator');
-                    F::Log(curl_getinfo($Call['Link']), LOG_WARNING, 'Administrator');
+                    F::Log(curl_getinfo($Call['Link']), LOG_INFO, 'Administrator');
                 }
                 else
                     F::Log('CURL GET fetched *'.$ID.'*', LOG_INFO, 'Administrator');
@@ -236,7 +236,7 @@
             if (curl_errno($Call['Link']))
             {
                 F::Log('CURL GET error: '.curl_error($Call['Link']).' *'.$Call['Where']['ID'].'*', LOG_NOTICE, 'Administrator');
-                F::Log(curl_getinfo($Call['Link']), LOG_WARNING, 'Administrator');
+                F::Log(curl_getinfo($Call['Link']), LOG_INFO, 'Administrator');
                 F::Log($Return, LOG_DEBUG, 'Administrator');
             }
             else
