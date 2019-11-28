@@ -254,11 +254,14 @@
             {
                 if (isset($Call['HTTP']['RAW']))
                 {
-                    $RAW = jd($Call['HTTP']['RAW']);
-                    if (is_array($RAW))
-                        $Call['Request'] = F::Merge($Call['Request'], $RAW);
-                    else
-                        F::Log('Incorrect JSON Request: '.j($Call['HTTP']['RAW']), LOG_INFO);
+                    if (is_string($Call['HTTP']['RAW']))
+                    {
+                        $RAW = jd($Call['HTTP']['RAW']);
+                        if (is_array($RAW))
+                            $Call['Request'] = F::Merge($Call['Request'], $RAW);
+                        else
+                            F::Log('Incorrect JSON Request: '.j($Call['HTTP']['RAW']), LOG_INFO);
+                    }
                 }
             }
         }
