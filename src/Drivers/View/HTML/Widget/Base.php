@@ -11,7 +11,7 @@
         if (isset($Call['Attributes']['String']))
             foreach ($Call['Attributes']['String'] as $Attribute => $Value)
             {
-                 if (isset($Call[$Attribute]) && $Call[$Attribute])
+                 if (isset($Call[$Attribute]) && $Call[$Attribute] !== null)
                  {
                      if (is_array($Call[$Attribute]))
                          $Call[$Attribute] = implode(' ', F::Merge($Value, $Call[$Attribute]));

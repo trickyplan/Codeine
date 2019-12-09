@@ -44,15 +44,18 @@
         else
             $Result = ['success' => false, 'score' => 0];
 
-        if (isset($Result['success']) && isset($Result['score']))
+        if (isset($Result['success']) && isset($Result['score']) && $Result['success'] && $Result['score'] > 0.5)
+            ;
+        else
         {
-            if ($Result['success'] && $Result['score'] > 0.5)
-                ;
-            else
-            {
-                $Call = F::Hook('CAPTCHA.Failed', $Call);
-                $Call['Errors']['CAPTCHA'][] = 'Failed';
-            }
+            $Call = F::Hook('CAPTCHA.Failed', $Call);
+            $Call['Errors']['CAPTCHA'][] =
+                [
+                    'Validator'     => 'ReCAPTCHA',
+                    'Entity'        => $Call['Entity'],
+                    'Name'          => 'ReCAPTCHA',
+                    'ID'            => null
+                ];
         }
 
         return $Call;
