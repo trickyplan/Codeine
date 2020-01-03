@@ -52,7 +52,7 @@
             $Call['Errors']['CAPTCHA'][] =
                 [
                     'Validator'     => 'ReCAPTCHA',
-                    'Entity'        => $Call['Entity'],
+                    'Entity'        => isset($Call['Entity'])? $Call['Entity']: '',
                     'Name'          => 'ReCAPTCHA',
                     'ID'            => null
                 ];

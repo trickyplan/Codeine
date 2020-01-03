@@ -1,19 +1,19 @@
 {
     "Suites":
     {
-        "Guzzle":
+        "CURL":
         {
-            "Single GET":
+            "Simple Read":
             {
                 "Run":
                 {
-                    "Service": "IO.Network.HTTP.Guzzle",
+                    "Service": "IO.Network.HTTP.CURL",
                     "Method": "Read",
-                    "Call": 
+                    "Call":
                     {
                         "Where":
                         {
-                            "ID": "https://google.com"
+                            "ID": "https://httpbin.org/headers"
                         }
                     }
                 },
@@ -22,21 +22,17 @@
                     "Print": true
                 }
             },
-            "Multiple GET":
+            "Simple Write":
             {
                 "Run":
                 {
-                    "Service": "IO.Network.HTTP.Guzzle",
-                    "Method": "Read",
-                    "Call": 
+                    "Service": "IO.Network.HTTP.CURL",
+                    "Method": "Write",
+                    "Call":
                     {
                         "Where":
                         {
-                            "ID": [
-                                "https://google.com",
-                                "https://google.com",
-                                "https://google.com"
-                            ]
+                            "ID": "https://httpbin.org/post"
                         }
                     }
                 },
