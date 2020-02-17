@@ -278,8 +278,8 @@
                     if (F::Dot($Call, 'Data.'.$cIndex))
                         $Call['CURL']['Options'][CURLOPT_POSTFIELDS] = is_string($Call['Data'][$cIndex]) ? $Call['Data'][$cIndex] : http_build_query($Call['Data'][$cIndex]);
 
-                curl_setopt_array($Links[$cID], $Call['CURL']['Options']);
-                curl_multi_add_handle($Call['Link'], $Links[$cID]);
+                curl_setopt_array($Links[$cID.'_'.$cIndex], $Call['CURL']['Options']);
+                curl_multi_add_handle($Call['Link'], $Links[$cID.'_'.$cIndex]);
             }
 
             $Running = null;
