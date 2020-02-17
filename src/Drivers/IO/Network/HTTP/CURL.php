@@ -115,10 +115,10 @@
         else
             $Call['CURL']['Options'][CURLOPT_TIMEOUT] = $Call['CURL']['Overall Timeout'];
 
-        if (isset($Call['CURL']['Options'][CURLOPT_COOKIEJAR]))
+        /*if (isset($Call['CURL']['Options'][CURLOPT_COOKIEJAR]))
             ;
         else
-            $Call['CURL']['Options'][CURLOPT_COOKIEJAR] = $Call['CURL']['Cookie Directory'].DS.parse_url($Call['Where']['ID'], PHP_URL_HOST);
+            $Call['CURL']['Options'][CURLOPT_COOKIEJAR] = $Call['CURL']['Cookie Directory'].DS.parse_url($Call['Where']['ID'], PHP_URL_HOST);*/
 
         if (isset($Call['CURL']['Connect Timeout ms']))
             $Call['CURL']['Options'][CURLOPT_CONNECTTIMEOUT_MS] = $Call['CURL']['Connect Timeout ms'];
