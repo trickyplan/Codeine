@@ -22,13 +22,12 @@
         "Image Cache":
         {
             "Driver":"IO.Storage.FileSystem",
-            "Directory":"/var/tmp/codeine",
+            "Directory":"/var/tmp/codeine/$Project.id",
             "Scope": "cache/img",
             "IO":
             {
                 "FileSystem":
                 {
-                    "Append Host": true,
                     "Hashing":
                     {
                         "Enabled": true,
