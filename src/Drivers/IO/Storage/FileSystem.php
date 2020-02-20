@@ -11,10 +11,7 @@
 
     setFn ('Open', function ($Call)
     {
-        if (isset($Call['IO']['FileSystem']['Append Host']) && $Call['IO']['FileSystem']['Append Host'])
-            $Call['Directory'].= DS.$Call['HTTP']['Host'];
-
-        return $Call['Directory'];
+        return F::Variable($Call['Directory'], $Call);
     });
 
     setFn ('Read', function ($Call)
