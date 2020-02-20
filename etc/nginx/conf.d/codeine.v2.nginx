@@ -35,7 +35,7 @@
 
     location ~ ^/cache/(.*)
     {
-        alias /var/tmp/codeine/$host/cache/$1;
+        alias /var/tmp/codeine/$project/cache/$1;
         access_log        off;
         expires           max;
     }
