@@ -1,0 +1,120 @@
+{
+    "Suites":
+    {
+        "Positive":
+        {
+            "Open":
+            {
+                "Run":
+                {
+                    "Service": "IO.Storage.Redis",
+                    "Method": "Open",
+                    "Call":
+                    {
+                        "Scope": "Test",
+                        "Database": "127.0.0.1"
+                    }
+                },
+                "Result":
+                {
+                    "Store": "Link"
+                },
+                "Assert":
+                {
+                    "Print": true
+                }
+            },
+            "Create":
+            {
+                "Run":
+                {
+                    "Service": "IO.Storage.Redis",
+                    "Method": "Write",
+                    "Call":
+                    {
+                        "Storage": "Primary",
+                        "Scope": "Test",
+                        "Data": {
+                            "ID": "Test",
+                            "Key 1": "Value A",
+                            "Key 2": "Value B",
+                            "Key 3":
+                            {
+                                "Sub key 31": 7,
+                                "Sub key 32": null
+                            }
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Equal":
+                    {
+                        "Expected":
+                        {
+                            "ID": "Test",
+                            "Key 1": "Value A",
+                            "Key 2": "Value B",
+                            "Key 3": {
+                                "Sub key 31": 7
+                            }
+                        }
+                    }
+                }
+            },
+            "Read":
+            {
+                "Run":
+                {
+                    "Service": "IO.Storage.Redis",
+                    "Method": "Read",
+                    "Call":
+                    {
+                        "Scope": "Test",
+                        "Where": {
+                            "ID": "Test"
+                        },
+                        "Limit":
+                        {
+                            "From": 0,
+                            "To": 1
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Equal":
+                    {
+                        "Expected":
+                        [
+                            {
+                                "ID": "Test",
+                                "Key 1": "Value A",
+                                "Key 2": "Value B",
+                                "Key 3": {
+                                    "Sub key 31": 7
+                                }
+                            }
+                        ]
+                    }
+                }
+            },
+            "Delete":
+            {
+                "Run":
+                {
+                    "Service": "IO.Storage.Redis",
+                    "Method": "Write",
+                    "Call":
+                    {
+                        "Scope": "Test",
+                        "Where": {
+                            "ID": "Test"
+                        },
+                        "Data": null
+                    }
+                }
+            }
+        }
+    }
+}

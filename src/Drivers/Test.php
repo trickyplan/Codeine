@@ -51,8 +51,6 @@
     {
         $Call = F::Hook('Test.Suite.Run.Before', $Call);
         
-            $Call['Virtual'] = $Call;
-
             foreach ($Call['Test']['Suite']['Cases'] as $Call['Test']['Case']['Name'] => $Call['Test']['Case'])
                 $Call = F::Apply(null, 'Run.Case', $Call);
 
@@ -64,7 +62,7 @@
     {
         $Call = F::Hook('Test.Case.Run.Before', $Call);
 
-            $SCID = $Call['Test']['Suite']['Name'].':'.$Call['Test']['Case']['Name'];
+            $Call['SCID'] = $Call['Test']['Suite']['Name'].':'.$Call['Test']['Case']['Name'];
 
             if (mb_substr($Call['Test']['Case']['Name'], 0, 1) == '-')
                 return $Call;
@@ -74,48 +72,25 @@
                     $Call['Test']['Case'] = F::Dot($Call['Test']['Case'], $Parameter, base64_decode(F::Dot($Call['Test']['Case'], $Parameter)));
 
             if (isset($Call['Test']['Case']['Apply']))
-                $Call['Virtual'] = F::Live($Call['Test']['Case']['Apply'], $Call['Virtual']);
+                $Call = F::Live($Call['Test']['Case']['Apply'], $Call);
             
             // Run
             $Call = F::Hook('Test.Case.Run.Execute.Before', $Call);
 
-                F::Start($SCID);
+                F::Start($Call['SCID']);
 
                     // Run test
-                    $Result = F::Live(F::Dot($Call, 'Test.Case.Run'), $Call['Virtual']);
+                    $Result = F::Live(F::Dot($Call, 'Test.Case.Run'), $Call);
 
                     // Save result
                     $Call = F::Dot($Call, 'Test.Case.Result.Actual', $Result);
 
-                F::Stop($SCID);
+                F::Stop($Call['SCID']);
 
                 // Store execution time
-                $Call = F::Dot($Call, 'Test.Case.Time.Run', F::Time($SCID));
-                
-            // Assert
-            $Status = 'Passed';
+                $Call = F::Dot($Call, 'Test.Case.Time.Run', F::Time($Call['SCID']));
 
-            $Call = F::Hook('Test.Case.Run.Execute.After', $Call);
-
-            if (isset($Call['Test']['Case']['Assert']))
-                foreach ($Call['Test']['Case']['Assert'] as $Assert => $Expected)
-                {
-                    $Call = F::Dot($Call, 'Test.Case.Result.'.$Assert.'.Expected', $Expected);
-                    F::Start($SCID.'.'.$Assert);
-                    
-                    $Decision = F::Run('Test.Assert.'.$Assert, 'Do', $Call);
-                    $Call = F::Dot ($Call, 'Test.Case.Assert.'.$Assert.'.Decision', $Decision);
-                    
-                    if ($Decision == false)
-                        $Status = 'Failed';
-                    
-                    F::Stop($SCID.'.'.$Assert);
-                    
-                    $Call = F::Dot($Call, 'Test.Case.Time.'.$Assert,
-                        F::Time($SCID.'.'.$Assert));
-                }
-
-        $Call['Test']['Case']['Status'] = $Status;
+        $Call = F::Hook('Test.Case.Run.Execute.After', $Call);
 
         $Call = F::Hook('Test.Case.Run.After', $Call);
 

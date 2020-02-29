@@ -44,6 +44,11 @@
                                 "Service": "Test.Hooks.Result.Store",
                                 "Method": "Do"
                             },
+                            "Assert Result":
+                            {
+                                "Service": "Test.Hooks.Result.Assert",
+                                "Method": "Do"
+                            },
                             "JSON Encode Result":
                             {
                                 "Service": "Test.Hooks.Result.JSONEncode",

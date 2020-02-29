@@ -27,7 +27,10 @@
         }
 
         if ($Result)
+        {
+            $Redis->setOption(Redis::OPT_SERIALIZER, Redis::SERIALIZER_IGBINARY);
             return $Redis;
+        }
         else
             return null;
     });
@@ -44,9 +47,11 @@
         }
         else
         {
-            F::Log('Redis Read: '.$Call['Where']['ID'], LOG_INFO, 'Administrator');
+            $ID = $Call['Scope'].'.'.$Call['Where']['ID'];
 
-            if (($Result = $Call['Link']->get($Call['Scope'].'.'.$Call['Where']['ID']))  !== false)
+            F::Log('Redis Read: '.$ID, LOG_INFO, 'Administrator');
+
+            if (($Result = $Call['Link']->get($ID))  !== false)
                 return [$Result];
             else
                 return null;
@@ -60,21 +65,25 @@
             if (null === $Call['Data'])
             {
                 F::Log('Redis Delete: '.$Call['Where']['ID'], LOG_INFO, 'Administrator');
-                $Call['Link']->del($Call['Scope'].'.'.$Call['Where']['ID']);
+                $Result = $Call['Link']->del($Call['Scope'].'.'.$Call['Where']['ID']);
             }
             else
             {
                 F::Log('Redis Update: '.$Call['Where']['ID'], LOG_INFO, 'Administrator');
-                $Call['Link']->set($Call['Scope'].'.'.$Call['Where']['ID'], $Call['Data'], $Call['TTL']);
+                $Result = $Call['Link']->set($Call['Scope'].'.'.$Call['Where']['ID'], $Call['Data'], $Call['TTL']);
             }
         }
         else
         {
+            $ID = $Call['Scope'].'.'.$Call['Data']['ID'];
             F::Log('Redis Create: '.j($Call['Data']), LOG_INFO, 'Administrator');
-            $Call['Link']->set($Call['Scope'].$Call['ID'], $Call['Data'], $Call['TTL']);
+            $Result = $Call['Link']->set($ID, $Call['Data'], $Call['TTL']);
         }
 
-        return $Call['Data'];
+        if ($Result)
+            return $Call['Data'];
+        else
+            return null;
     });
 
     setFn ('Close', function ($Call)

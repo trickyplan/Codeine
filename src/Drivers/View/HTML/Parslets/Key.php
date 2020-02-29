@@ -35,7 +35,12 @@
                 else
                 {
                     if ((array) $Value === $Value)
-                        $Value = array_shift($Value);
+                    {
+                        if (isset($Call['Parsed']['Options'][$IX]['json']))
+                            $Value = j($Value);
+                        else
+                            $Value = array_shift($Value);
+                    }
 
                     if ($Value === 0)
                         $Value = '0';
