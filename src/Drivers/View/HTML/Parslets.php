@@ -38,7 +38,8 @@
                         [
                             'Queue'  => $Call['View']['HTML']['Parslets']['afterHTMLRender']['Enabled'],
                             'Source' => $Call['Output']
-                        ]
+                        ],
+                    'Data!' => []
                 ]);
             
             $Call['Output'] = $Call['Parslets']['Source'];
@@ -115,25 +116,10 @@
                     if (empty($Matched[$Parslet]))
                         ;
                     else
-                    {
                         $Matched[$Parslet]['Replace'] = F::Apply('View.HTML.Parslets.' . $Parslet, 'Parse', $Call,
                             [
                                 'Parsed!' => $Matched[$Parslet]
                             ]);
-                        
-                        if (false && F::Environment() == 'Development')
-                            foreach ($Matched[$Parslet]['Replace'] as $IX => $Replace)
-                                $Matched[$Parslet]['Replace'][$IX] =
-                                    '<!--['
-                                    .$Parslet
-                                    .j($Matched[$Parslet]['Options'][$IX])
-                                    .']-->'
-                                    .PHP_EOL
-                                    .$Matched[$Parslet]['Replace'][$IX]
-                                    .PHP_EOL
-                                    .'<!--[/'
-                                    .$Parslet.j($Matched[$Parslet]['Options'][$IX]).']-->';
-                    }
                 }
             }
 
@@ -171,6 +157,5 @@
             F::Log($ReplaceCount, LOG_INFO+0.5);
         }
 
-            
         return $Call;
     });
