@@ -1,6 +1,7 @@
 {
     "ReCAPTCHA":
     {
+        "Enabled": false,
         "Place": "ReCAPTCHA",
         "Endpoint": "https://www.google.com/recaptcha/api/siteverify",
         "Public": "",
