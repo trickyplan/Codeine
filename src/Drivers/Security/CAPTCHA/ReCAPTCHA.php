@@ -16,10 +16,11 @@
             $Call['ReCAPTCHA']['Place'] = isset($Call['ReCAPTCHA']['Place'])? $Call['ReCAPTCHA']['Place']: 'ReCAPTCHA';
 
             $Call['Output'][$Call['ReCAPTCHA']['Place']][] =
-                '<script src="https://www.google.com/recaptcha/api.js?render='.$Call['ReCAPTCHA']['Public'].'&hl=en" ></script>'.
-                '<div class="g-recaptcha" data-sitekey="'.$Call['ReCAPTCHA']['Public'].'"'.
-                ' data-action='.$Call['ReCAPTCHA']['Action'].'></div>'.
-                '<input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response" />'.
+                '<script src="https://www.google.com/recaptcha/api.js?render='.$Call['ReCAPTCHA']['Public'].'&hl=en" async defer></script>'.
+                '<div class="g-recaptcha"
+                data-sitekey="'.$Call['ReCAPTCHA']['Public'].'"
+                data-size="compact"'.
+                '></div>'.
                 '<js>Security/CAPTCHA:ReCAPTCHA</js>';
         }
 
@@ -49,7 +50,7 @@
             else
                 $Result = ['success' => false, 'score' => 0];
 
-            if (isset($Result['success']) && isset($Result['score']) && $Result['success'] && $Result['score'] > 0.5)
+            if (isset($Result['success']) && $Result['success'])
                 ;
             else
             {
