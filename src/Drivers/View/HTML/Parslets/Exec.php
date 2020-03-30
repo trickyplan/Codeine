@@ -35,7 +35,7 @@
                 else
                     $RTTL = 0;
                 
-                $Application = F::Run('Code.Flow.Application', 'Run', ['RTTL' => $RTTL, 'Run' => $Match]);
+                $Application = F::Run('Code.Flow.Application', 'Run', ['RTTL' => $RTTL, 'Run' => $Match, 'Started' => Started]);
                 
                 /*if (F::Environment() == 'Development')
                     $Application['Output'] = '<div class="exec-cached">'.$Application['Output'].'</div>';
