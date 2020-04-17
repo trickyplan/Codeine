@@ -132,8 +132,11 @@
         if (isset($Call['One']))
         {
             $Call['Internal One'] = $Call['One'];
+            $Call['IO One'] = $Call['One'];
             unset($Call['One']);
         }
+        else
+            $Call['Internal One'] = false;
 
         $Call = F::Hook('beforeOperation', $Call);
          
@@ -152,6 +155,9 @@
                     $Data = $Call['Data'];
 
                     $Call['Data'] = null;
+
+                    if ($Call['Internal One'])
+                        $Data = [$Data];
 
                     foreach ($Data as &$cData)
                     {

@@ -10,7 +10,7 @@
     setFn('Process', function ($Call)
     {
         foreach ($Call['Nodes'] as $Name => $Node)
-            if (isset($Node['Default']))
+            if (F::Dot($Node, 'Default'))
             {
                 $LiveDefault = F::Live($Node['Default'], $Call);
 

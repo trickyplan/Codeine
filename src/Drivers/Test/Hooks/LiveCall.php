@@ -9,6 +9,7 @@
     
     setFn('Test.Case.Run.Execute.Before', function ($Call)
     {
+        $Call['Virtual'] = $Call;
         // Vitalize Call
         $Call = F::Dot($Call, 'Test.Case.Run.Call',
             F::Live(
