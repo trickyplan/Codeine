@@ -10,13 +10,13 @@
 
     define ('Codeine', __DIR__);
     define ('Started', microtime(true));
-    
+
     if (isset($_SERVER['REQUEST_ID']))
         define('RequestID', 'rqx-'.$_SERVER['REQUEST_ID']);
     else
         define ('RequestID', 'rqi-'
         .mb_substr(sha1(gethostname()),-8)
-        .'-'.base_convert(Started, 10, 16)
+        .'-'.base_convert(round(Started), 10, 16)
         .'-'.mb_substr(sha1(mt_rand(0, PHP_INT_MAX)), -8)
         .'-'.mb_substr(sha1(mt_rand(0, PHP_INT_MAX)), -8));
 
@@ -722,7 +722,7 @@
                 $Output = str_replace('<finish:logs/>', $FinalLogs, $Output);
             }
 
-            echo $Output;
+            echo $Output.PHP_EOL;
             /*if (function_exists('xdebug_print_function_stack'))
                 xdebug_print_function_stack();*/
             exit();
@@ -957,7 +957,7 @@
                     {
                         foreach ($Mixin as $MixinKey => $MixinValue) // Проходим по второму
                         {
-                            if ($MixinKey[strlen($MixinKey)-1]  === '!') // Если у нас ключ кончается на !
+                            if (mb_substr($MixinKey, -1, 1) === '!') // Если у нас ключ кончается на !
                                 $Array[rtrim($MixinKey, '!')] = $MixinValue;
                             // Оверрайд
                             else

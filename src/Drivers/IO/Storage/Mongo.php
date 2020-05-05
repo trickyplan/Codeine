@@ -227,6 +227,8 @@
 
     setFn ('Count', function ($Call)
     {
+        unset($Call['Internal One'], $Call['One'], $Call['IO One']);
+
         $Call = F::Apply(null, 'Options', $Call);
 
         if (isset($Call['Where']) and $Call['Where'] !== null)

@@ -435,9 +435,13 @@
     setFn('Info', function ($Call)
     {
         $CURLInfo = curl_getinfo($Call['Link']);
-        if (isset($CURLInfo['request_header']))
-            $CURLInfo['request_header'] = explode("\r\n", $CURLInfo['request_header']);
-        F::Log($CURLInfo, LOG_INFO, 'Administrator');
-        
+
+        if (is_array($CURLInfo))
+        {
+            if (isset($CURLInfo['request_header']))
+                $CURLInfo['request_header'] = explode("\r\n", $CURLInfo['request_header']);
+            F::Log($CURLInfo, LOG_INFO, 'Administrator');
+        }
+
         return $Call;
     });

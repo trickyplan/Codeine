@@ -63,7 +63,7 @@
             }
             catch (Exception $e)
             {
-               F::Log($e->getMessage(), LOG_CRIT, 'Developer');
+               F::Log('CLI Exception: '.$e->getMessage(), LOG_CRIT, 'Developer');
             }
         }
 
