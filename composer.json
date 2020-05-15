@@ -1,0 +1,28 @@
+{
+    "name": "trickyplan/codeine",
+    "description": "Esoteric framework: one class, shitload of anonymous functions, zero documentation. Still good though",
+    "keywords": ["framework", "closure", "causes ptsd"],
+    "homepage": "https://github.com/Bergstein/Codeine",
+    "type": "library",
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Dmitry Bergstein",
+            "email": "bergstein@trickyplan.com"
+        }
+    ],
+    "version": "2020.05.15",
+    "config":
+    {
+        "vendor-dir": "src/vendor"
+    },
+    "require":
+    {
+        "php": "^7.4",
+        "mongodb/mongodb": "^1.6",
+        "bacon/bacon-qr-code": "^2.0",
+        "elasticsearch/elasticsearch": "^7.6.1",
+        "ext-mongodb": "1.7.*",
+        "ext-gmagick": "*"
+    }
+}
