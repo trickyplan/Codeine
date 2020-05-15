@@ -35,7 +35,6 @@
             $Call['Value'] = F::Run('IO', 'Read',
                 [
                     'Scope'   => isset($Call['Scope'])? $Call['Scope']: null,
-                    'IO One'  => true,
                     'Storage' => 'Layout',
                     'Where'   =>
                         [
@@ -45,6 +44,13 @@
 
             if (isset($Call['Data']) && ($Call['Data'] !== (array) $Call['Data']))
                 $Call['Data'] = ['Value' => $Call['Data']];
+
+
+            // Different logic from IO One
+            if ($Call['Value'] === null)
+                ;
+            else
+                $Call['Value'] = array_shift($Call['Value']);
 
             $Call = F::Hook('afterViewLoad', $Call);
         }
