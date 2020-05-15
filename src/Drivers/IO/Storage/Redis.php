@@ -28,7 +28,29 @@
 
         if ($Result)
         {
-            $Redis->setOption(Redis::OPT_SERIALIZER, Redis::SERIALIZER_IGBINARY);
+            switch ($Call['Redis']['Serializer'])
+            {
+                case 'JSON':
+                    $Redis->setOption(Redis::OPT_SERIALIZER, Redis::SERIALIZER_JSON);
+                break;
+
+                case 'IGBINARY':
+                    $Redis->setOption(Redis::OPT_SERIALIZER, Redis::SERIALIZER_IGBINARY);
+                break;
+
+                case 'MSGPACK':
+                    $Redis->setOption(Redis::OPT_SERIALIZER, Redis::SERIALIZER_MSGPACK);
+                break;
+
+                case 'PHP':
+                    $Redis->setOption(Redis::OPT_SERIALIZER, Redis::SERIALIZER_PHP);
+                break;
+
+                case 'NONE':
+                    $Redis->setOption(Redis::OPT_SERIALIZER, Redis::SERIALIZER_NONE);
+                break;
+            }
+            $Redis->setOption(Redis::OPT_SERIALIZER, Redis::SERIALIZER_JSON);
             return $Redis;
         }
         else
