@@ -34,13 +34,14 @@
 
             $Call['Value'] = F::Run('IO', 'Read',
                 [
-                      'Scope'   => isset($Call['Scope'])? $Call['Scope']: null,
-                      'Storage' => 'Layout',
-                      'Where'   =>
-                      [
-                          'ID' => $IDs
-                      ]
-                ])[0];
+                    'Scope'   => isset($Call['Scope'])? $Call['Scope']: null,
+                    'IO One'  => true,
+                    'Storage' => 'Layout',
+                    'Where'   =>
+                        [
+                            'ID' => $IDs
+                        ]
+                ]);
 
             if (isset($Call['Data']) && ($Call['Data'] !== (array) $Call['Data']))
                 $Call['Data'] = ['Value' => $Call['Data']];

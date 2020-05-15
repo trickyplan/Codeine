@@ -74,12 +74,16 @@
 
     setFn('Set', function ($Call)
     {
+        $Call = F::loadOptions($Call['Bundle'].'.Entity', null, $Call);
+
+        $Call = F::Hook('beforeSetDo', $Call);
+
         $Call['Object'] = F::Run('Entity', 'Update', $Call,
-        [
-            'Entity' => $Call['Bundle'],
-            'Data' => $Call['Request']['Data'],
-            'One'  => true
-        ]);
+            [
+                'Entity' => $Call['Bundle'],
+                'Data' => $Call['Request']['Data'],
+                'One'  => true
+            ]);
 
         $Call['Scope'] = isset($Call['Scope'])? $Call['Bundle'].'/'.$Call['Scope'] : $Call['Bundle'];
 
@@ -91,7 +95,7 @@
                 'Data' => $Call['Object']
             ];
 
-        $Call = F::Run('System.Interface.HTTP', 'RestoreURL', $Call);
+        $Call = F::Hook('afterSetDo', $Call);
 
         return $Call;
     });

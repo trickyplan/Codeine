@@ -73,7 +73,7 @@
 
         foreach ($NewData as $IX => $Call['Data'])
         {
-            $Call['Current'] = $Call['Data'];
+            $Call['Current'] = []; // $Call['Data'];
            
             if (isset($Call['Dry']))
                 F::Log('Dry shot for '.$Call['Entity'].' create');
@@ -172,14 +172,20 @@
 
         $Call = F::Hook('afterOperation', $Call);
 
-        if (isset($Call['Internal One']) && $Call['Internal One'] && is_array($Call['Data']))
+        if (isset($Call['Internal One']) && $Call['Internal One'])
         {
-            F::Log('One of *'.count($Call['Data']).'* '.$Call['Entity'].' read.', LOG_INFO, 'Administrator');
-            unset($Call['Internal One']);
-            $Call['Data'] = array_shift($Call['Data']);
+            if (is_array($Call['Data']))
+            {
+                F::Log('One of *'.count($Call['Data']).'* '.$Call['Entity'].' read.', LOG_INFO, 'Administrator');
+                unset($Call['Internal One']);
+                $Call['Data'] = array_shift($Call['Data']);
+            }
         }
         else
-            F::Log('*'.count($Call['Data']).'* '.$Call['Entity'].' read', LOG_INFO, 'Administrator');
+        {
+            if (is_array($Call['Data']))
+                F::Log('*'.count($Call['Data']).'* '.$Call['Entity'].' read', LOG_INFO, 'Administrator');
+        }
         
         // F::Log(j(F::Dot($Call['Data'], 'Tags')), LOG_NOTICE);
         

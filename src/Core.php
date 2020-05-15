@@ -6,7 +6,7 @@
      * @subpackage Core
     */
 
-    require 'Codeine/vendor/autoload.php';
+    require __DIR__.'/vendor/autoload.php';
 
     define ('Codeine', __DIR__);
     define ('Started', microtime(true));
@@ -159,7 +159,8 @@
             $Call['Call']['Environment'] = self::Environment();
 
             self::Log('PHP *'.PHP_SAPI.'* *'.phpversion().'*', LOG_INFO);
-            
+            self::Log('PHP Extensions: *'.implode(',', get_loaded_extensions()).'*', LOG_INFO);
+
             $Call['Version'] = self::loadOptions('Version');
             
             self::Log('Codeine Version: *'.$Call['Version']['Codeine']['Major'].'*', LOG_INFO);

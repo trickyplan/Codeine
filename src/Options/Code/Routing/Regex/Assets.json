@@ -113,6 +113,89 @@
                 "ID": "$2",
                 "Extension": "$3"
             }
+        },
+        "Cached CSS":
+        {
+            "Match": "/cache/css/(.+).(css)$",
+            "Service": "View.Asset",
+            "Method": "Get.Cached",
+            "View":
+            {
+                "Renderer":
+                {
+                    "Service": "View.File",
+                    "Method": "Render"
+                }
+            },
+            "HTTP":
+            {
+                "Headers":
+                {
+                    "Content-Type:" : "text/css",
+                    "Cache-Control:": "public, max-age=31536000"
+                }
+            },
+            "Call":
+            {
+                "ID": "$1",
+                "Scope": "cache/css",
+                "Extension": "$2"
+            }
+        },
+        "Cached JS":
+        {
+            "Match": "/cache/js/(.+).(js)$",
+            "Service": "View.Asset",
+            "Method": "Get.Cached",
+            "View":
+            {
+                "Renderer":
+                {
+                    "Service": "View.File",
+                    "Method": "Render"
+                }
+            },
+            "HTTP":
+            {
+                "Headers":
+                {
+                    "Content-Type:": "application/javascript",
+                    "Cache-Control:": "public, max-age=31536000"
+                }
+            },
+            "Call":
+            {
+                "ID": "$1",
+                "Scope": "cache/js",
+                "Extension": "$2"
+            }
+        },
+        "Cached Image":
+        {
+            "Match": "/cache/img/(.+).(png|jpg|gif)$",
+            "Service": "View.Asset",
+            "Method": "Get.Cached",
+            "View":
+            {
+                "Renderer":
+                {
+                    "Service": "View.File",
+                    "Method": "Render"
+                }
+            },
+            "HTTP":
+            {
+                "Headers":
+                {
+                    "Cache-Control:": "public, max-age=31536000"
+                }
+            },
+            "Call":
+            {
+                "ID": "$1",
+                "Scope": "cache/img",
+                "Extension": "$2"
+            }
         }
     }
 }

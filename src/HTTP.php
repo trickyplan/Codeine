@@ -3,7 +3,7 @@
     if (file_exists(Root.'/vendor/autoload.php'))
         include Root.'/vendor/autoload.php';
     
-    require 'Codeine/Core.php';
+    require __DIR__.'/Core.php';
 
     $Call = [];
 

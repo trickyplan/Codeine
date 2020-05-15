@@ -26,3 +26,22 @@
         
         return $Call;
     });
+
+    setFn('Get.Cached', function ($Call)
+    {
+        $Filename = '/var/tmp/codeine/'.$Call['Project']['id'].'/'.$Call['Scope'].'/'.$Call['ID'].'.'.$Call['Extension'];
+
+        $Call['Output']['Content'] = $Filename;
+
+        if ($Call['Output']['Content'] === null)
+        {
+            $Call['HTTP']['Headers']['HTTP/1.0'] = '404 Not Found';
+            F::Log('Asset not found: '. $Filename, LOG_INFO);
+        }
+
+        $Call = F::Dot($Call, 'HTTP.CORS.Enabled', true);
+
+        if ('Development' === F::Environment())
+            $Call['HTTP']['Headers']['X-Codeine-Filename:'] = $Filename;
+        return $Call;
+    });

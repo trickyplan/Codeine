@@ -11,7 +11,6 @@
     {
         $Replaces = [];
         $Queries = [];
-        
         foreach ($Call['Parsed']['Value'] as $IX => $Match)
         {
             if (preg_match('@^(.+)\:(.+)\:(.+)$@SsUu', $Match, $Slices))
@@ -34,30 +33,31 @@
 
                 sort($KV['IDs']);
                 $KV['IDs'] = array_unique($KV['IDs']);
+
+                $Loaded = F::Run('Entity', 'Read',
+                    [
+                        'Entity' => $Entity,
+                        'Where'  => ['ID' => ['$in' => $KV['IDs']]],
+                        'Fields' => $KV['Fields']
+                    ]);
+
+
+                if (empty($Loaded))
+                    ;
+                else
+                    foreach ($Loaded as $Element)
+                        $Elements = F::Dot($Elements, $Entity.'.'.$Element['ID'], $Element);
+
+                if (empty($Elements))
+                    ;
+                else
+                    foreach ($Call['Parsed']['Value'] as $IX => $Match)
+                        if (preg_match('@^(.+)\:(.+)\:(.+)$@SsUu', $Match, $Slices))
+                        {
+                            unset($Slices[0]);
+                            $Replaces[$IX] = F::Dot($Elements, implode('.', $Slices));
+                        }
             }
-            
-            $Loaded = F::Run('Entity', 'Read',
-            [
-                'Entity' => $Entity,
-                'Where'  => ['ID' => ['$in' => $KV['IDs']]],
-                'Fields' => $KV['Fields']
-            ]);
-
-            if (empty($Loaded))
-                ;
-            else
-                foreach ($Loaded as $Element)
-                    $Elements = F::Dot($Elements, $Entity.'.'.$Element['ID'], $Element);
-
-            if (empty($Elements))
-                ;
-            else
-                foreach ($Call['Parsed']['Value'] as $IX => $Match)
-                    if (preg_match('@^(.+)\:(.+)\:(.+)$@SsUu', $Match, $Slices))
-                    {
-                        unset($Slices[0]);
-                        $Replaces[$IX] = F::Dot($Elements, implode('.', $Slices));
-                    }
         }
 
         return $Replaces;

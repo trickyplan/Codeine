@@ -31,18 +31,7 @@
         "Password":
         {
             "Type": "Literal.Password",
-            "Hooks":
-            {
-                "beforeEntityCreate":
-                {
-                    "Service": "Security.Password.Generator",
-                    "Method": "Get",
-                    "Call":
-                    {
-                        "Length": 8
-                    }
-                }
-            },
+            "Required": true,
             "Widgets":
             {
                 "Write":

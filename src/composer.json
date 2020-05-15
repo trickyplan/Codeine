@@ -1,9 +1,9 @@
 {
     "name": "trickyplan/codeine",
+    "version": "2020.05.01",
     "require": {
-        "mongodb/mongodb": "^1.4",
-        "guzzlehttp/guzzle": "^6.3",
+        "mongodb/mongodb": "^1.6",
         "bacon/bacon-qr-code": "^2.0",
-        "elasticsearch/elasticsearch": "^7.2"
+        "elasticsearch/elasticsearch": "^7.6.1"
     }
 }
