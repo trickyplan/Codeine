@@ -1,5 +1,8 @@
 {
-    "Serializer": "JSON",
+    "Redis":
+    {
+        "Serializer": "JSON"
+    },
     "Server": "127.0.0.1",
     "Port": 6379,
     "TTL": 86400
