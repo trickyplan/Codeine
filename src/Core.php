@@ -6,8 +6,6 @@
      * @subpackage Core
     */
 
-    require __DIR__.'/vendor/autoload.php';
-
     define ('Codeine', __DIR__);
     define ('Started', microtime(true));
 
