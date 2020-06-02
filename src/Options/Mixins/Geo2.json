@@ -1,0 +1,29 @@
+{
+    "Nodes":
+    {
+        "Geo.Lattitude":
+        {
+            "Type": "Numeral.Float",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield",
+                    "Subtype": "number"
+                }
+            }
+        },
+        "Geo.Longitude":
+        {
+            "Type": "Numeral.Float",
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield",
+                    "Subtype": "number"
+                }
+            }
+        }
+    }
+}
