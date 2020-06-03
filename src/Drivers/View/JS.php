@@ -44,8 +44,9 @@
                             'Where'   =>
                             [
                                 'ID' => $Call['JS']['Fullpath']
-                            ]
-                        ])[0];
+                            ],
+                            'IO One'  => true
+                        ]);
 
                         $JS2 = strtr($JS2, '/', '-');
                         $Call['JS']['Fullpath'] = $JS2;
@@ -63,8 +64,9 @@
                             [
                                 'Storage' => 'JS',
                                 'Scope'   => $Asset,
-                                'Where'   => $ID
-                            ])[0];
+                                'Where'   => $ID,
+                                'IO One'  => true
+                            ]);
                     }
 
                     if ($Call['JS']['Scripts'][$Call['JS']['Fullpath']])

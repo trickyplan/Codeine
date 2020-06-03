@@ -56,8 +56,9 @@
                                 [
                                     'Storage' => 'CSS',
                                     'Scope'   => $Asset,
-                                    'Where'   => $ID
-                                ])[0];
+                                    'Where'   => $ID,
+                                    'IO One'  => true
+                                ]);
 
                         if ($Call['CSS']['Styles'][$Call['CSS Name']])
                             F::Log('CSS *is* loaded: '.$Call['CSS Name'], LOG_DEBUG);
