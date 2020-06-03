@@ -3,7 +3,7 @@
     {
         "Fonts":
         {
-            "Match": "/fonts/(.+)/(.+)\\.(woff|woff2|ttf|otf|eot)$",
+            "Match": "^/fonts/(.+)/(.+)\\.(woff|woff2|ttf|otf|eot)$",
             "Service": "View.Asset",
             "Method": "Get",
             "Weight": 100,
@@ -32,7 +32,7 @@
         },
         "Audio":
         {
-            "Match": "/audio/(.+)/(.+).(mp3|ogg)$",
+            "Match": "^/audio/(.+)/(.+).(mp3|ogg)$",
             "Service": "View.Asset",
             "Method": "Get",
             "View":
@@ -88,7 +88,7 @@
         },
         "JS Bower":
         {
-            "Match": "/js/bower/(.+)/(.+).(js)$",
+            "Match": "^/js/bower/(.+)/(.+).(js)$",
             "Service": "View.Asset",
             "Method": "Get",
             "View":
@@ -116,7 +116,7 @@
         },
         "Cached CSS":
         {
-            "Match": "/cache/css/(.+).(css)$",
+            "Match": "^/cache/css/(.+).(css)$",
             "Service": "View.Asset",
             "Method": "Get.Cached",
             "View":
@@ -144,7 +144,7 @@
         },
         "Cached JS":
         {
-            "Match": "/cache/js/(.+).(js)$",
+            "Match": "^/cache/js/(.+).(js)$",
             "Service": "View.Asset",
             "Method": "Get.Cached",
             "View":
@@ -172,7 +172,7 @@
         },
         "Cached Image":
         {
-            "Match": "/cache/img/(.+).(png|jpg|gif)$",
+            "Match": "^/cache/img/(.+).(png|jpg|gif)$",
             "Service": "View.Asset",
             "Method": "Get.Cached",
             "View":
