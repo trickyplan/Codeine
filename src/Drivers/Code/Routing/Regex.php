@@ -89,7 +89,11 @@
             F::Log('Routes table corrupted', LOG_CRIT);
 
         if (isset($Selected))
+        {
             F::Log('Rule *'.$Selected.'* selected with weight *'.$Weight.'* after '.($Call['Routing']['Rules Checked'].' of '.sizeof($Call['Regex'])), LOG_INFO);
+            if ('Development' === F::Environment())
+                $Call['HTTP']['Headers']['X-Codeine-Routing-Regex:'] = $Selected;
+        }
         else
             F::Log('Rule not selected', LOG_INFO);
 
