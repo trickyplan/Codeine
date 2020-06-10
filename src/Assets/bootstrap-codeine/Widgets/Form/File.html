@@ -1,18 +1,29 @@
 <div class="form-group">
-    <label for="<k>Name</k>"> <l><k>Label</k></l> :</label>
-        <input type="file" name="<k>Name</k>"
-            <block>required="<k>Required</k>"</block>
-            class="form-control"
-            <block>pattern="<k>Regex</k>"</block>
-            <block>placeholder="<k>Placeholder</k>"</block> />
-            <block>Максимальный размер: <k>MaxSize</k></block>
-            <block><br/>Разрешённые типы: <k>TypeHint</k></block>
-        <if value="<k>Value</k>" null="0">
-            <label class="checkbox text-right">
-                <input type="checkbox" name="<k>Name</k>" value="null" /> Удалить
+    <label for="<key>Name</key>"> <l><key>Label</key></l> :</label>
+        <k>HTML</k>
+        <if value="<key>Value</key>" null="0">
+            <label class="checkbox pull-right">
+                <input type="checkbox" name="<key>Name</key>" value="null" /> <l>View.HTML.Widget.Form.File:Clear</l>
             </label>
         </if>
-</div><!--
-<div class="form-group">
-    <input type="text" name="<k>Name</k>_URL"  class="form-control" placeholder="Или введите URL"/>
-</div>-->
+        <div class="help-block">
+            <if value="<key>Size.Maximum</key>" neq="null">
+                <div>
+                    <l>View.HTML.Widget.Form.File:Size.Maximum.Value</l>:
+                    <key>Size.Maximum.Value</key> <l>View.HTML.Widget.Form.File:Size.Maximum.Unit.<key>Size.Maximum.Unit</key></l>
+                    (<key>Size.Maximum.Value10</key> <l>View.HTML.Widget.Form.File:Size.Maximum.Unit.<key>Size.Maximum.Unit</key>10</l>)
+                </div>
+            </if>
+            <if value="<key>Filetypes.Allowed</key>" neq="null">
+                <div>
+                    <l>View.HTML.Widget.Form.File:Filetypes.Allowed</l>:
+                    <ul class="list-inline">
+                        <foreach key="Filetypes.Allowed">
+                            <li><fe-value/></li>
+                        </foreach>
+                    </ul>
+                </div>
+            </if>
+        </div>
+    <div class="clearfix"></div>
+</div>

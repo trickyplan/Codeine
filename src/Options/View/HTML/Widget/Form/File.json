@@ -1,0 +1,30 @@
+{
+    "Size":
+    {
+        "Maximum":
+        {
+            "Precision": 3
+        }
+    },
+    "Subtype": "text",
+    "Attributes":
+    {
+        "String":
+        {
+            "Type": "",
+            "ID": "",
+            "Name": "",
+            "Class": ["form-control"],
+            "Pattern": "",
+            "Placeholder": "",
+            "Value": ""
+        },
+        "Boolean":
+        {
+            "Autofocus": false,
+            "Required": false,
+            "Disabled": false,
+            "ReadOnly": false
+        }
+    }
+}

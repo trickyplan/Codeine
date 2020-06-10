@@ -9,7 +9,11 @@
             {
                 "Write":
                 {
-                    "Type": "Form.File"
+                    "Type": "Form.File",
+                    "Filetypes":
+                    {
+                        "Allowed": ["JPEG", "PNG", "GIF", "WEBP"]
+                    }
                 }
             }
         }

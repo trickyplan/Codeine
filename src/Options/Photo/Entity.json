@@ -30,7 +30,7 @@
             {
                 "beforeEntityWrite":
                 {
-                    "Service": "Formats.EXIF",
+                    "Service": "Photo.EXIF",
                     "Do": "Decode"
                 }
             }
