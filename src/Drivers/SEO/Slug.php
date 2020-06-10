@@ -45,6 +45,8 @@
                     F::Live($Call['Transliteration'],['Value' => $Call['Value']]);
 
             $Call['Value'] = preg_replace('/([^a-z0-9\-])/', '', $Call['Value']); // FIXME
+
+            $Call['Value'] = preg_replace('/([\\'.$Call['Delimiter'].']{2,})/', $Call['Delimiter'], $Call['Value']); // Remove double delimiters
         }
         /*else
             $Call['Value'] = $Call['Data']['Slug'];*/
