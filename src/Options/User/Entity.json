@@ -30,6 +30,7 @@
         },
         "Password":
         {
+            "Tag": "Password",
             "Type": "Literal.Password",
             "Required": true,
             "Widgets":

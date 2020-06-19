@@ -1,0 +1,18 @@
+{
+    "Nodes":
+    {
+        "Phone":
+        {
+            "Type": "Literal.String",
+            "Nullable": true,
+            "Index": true,
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        }
+    }
+}

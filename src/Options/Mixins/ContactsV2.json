@@ -1,0 +1,9 @@
+{
+    "Mixins":
+    [
+        "Mixins.ContactsV2.EMail",
+        "Mixins.ContactsV2.Phone",
+        "Mixins.ContactsV2.Skype",
+        "Mixins.ContactsV2.URL"
+    ]
+}
