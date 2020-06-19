@@ -51,7 +51,7 @@
                 }
             }
         },
-a        "Gravatar":
+        "Gravatar":
         {
             "Type": "Literal.String",
             "Hooks":

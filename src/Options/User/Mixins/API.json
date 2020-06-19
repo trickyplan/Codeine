@@ -15,30 +15,6 @@
                 }
             }
         },
-        "API.Key":
-        {
-            "Type": "Literal.String",
-            "Weight": 2000,
-            "Widgets":
-            {
-                "Write":
-                {
-                    "Type": "Form.Static"
-                }
-            },
-            "Hooks":
-            {
-                "beforeEntityCreate":
-                {
-                    "Service": "Security.UID",
-                    "Method": "Get",
-                    "Call":
-                    {
-                        "Mode": "Secure+"
-                    }
-                }
-            }
-        },
         "API.Balance":
         {
             "Tag": "Control",
@@ -51,6 +27,32 @@
                     "Type": "Form.Textfield",
                     "Subtype": "number",
                     "Step": 0.01
+                }
+            }
+        },
+        "API.Key":
+        {
+            "Type": "Literal.String",
+            "Hooks":
+            {
+                "beforeEntityCreate":
+                {
+                    "Service": "Security.UID",
+                    "Method": "Get",
+                    "Call":
+                    {
+                        "Mode": "Secure+"
+                    }
+                }
+            },
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Widget Template": "Form/Textfield/APIKey",
+                    "Type": "Form.Textfield",
+                    "Postfix": "copy",
+                    "ReadOnly": true
                 }
             }
         }
