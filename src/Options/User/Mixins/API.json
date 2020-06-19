@@ -1,0 +1,58 @@
+{
+    "Nodes":
+    {
+        "API.Allowed":
+        {
+            "Tag": "Control",
+            "Type": "Boolean",
+            "Default": false,
+            "Weight": 2000,
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Checkbox"
+                }
+            }
+        },
+        "API.Key":
+        {
+            "Type": "Literal.String",
+            "Weight": 2000,
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Static"
+                }
+            },
+            "Hooks":
+            {
+                "beforeEntityCreate":
+                {
+                    "Service": "Security.UID",
+                    "Method": "Get",
+                    "Call":
+                    {
+                        "Mode": "Secure+"
+                    }
+                }
+            }
+        },
+        "API.Balance":
+        {
+            "Tag": "Control",
+            "Type": "Numeral.Float",
+            "Weight": 2000,
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield",
+                    "Subtype": "number",
+                    "Step": 0.01
+                }
+            }
+        }
+    }
+}

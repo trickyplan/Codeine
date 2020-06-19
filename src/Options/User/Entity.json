@@ -51,31 +51,7 @@
                 }
             }
         },
-        "APIKey":
-        {
-            "Type": "Literal.String",
-            "Weight": 2000,
-            "Widgets":
-            {
-                "Write":
-                {
-                    "Type": "Form.Static"
-                }
-            },
-            "Hooks":
-            {
-                "beforeEntityCreate":
-                {
-                    "Service": "Security.UID",
-                    "Method": "Get",
-                    "Call":
-                    {
-                        "Mode": "Secure+"
-                    }
-                }
-            }
-        },
-        "Gravatar":
+a        "Gravatar":
         {
             "Type": "Literal.String",
             "Hooks":
