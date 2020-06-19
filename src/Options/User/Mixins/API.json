@@ -33,6 +33,7 @@
         "API.Key":
         {
             "Type": "Literal.String",
+            "Weight": 2000,
             "Hooks":
             {
                 "beforeEntityCreate":
