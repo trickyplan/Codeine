@@ -26,8 +26,7 @@
                 [
                     'index' => $Call['Search']['Index'],
                     'id'    => $Call['Data']['ID'],
-                    'body'  => $Call['Data'],
-                    'type'  => '_doc'
+                    'body'  => $Call['Data']
                 ]);
 
             F::Log(j($Result), LOG_INFO);
