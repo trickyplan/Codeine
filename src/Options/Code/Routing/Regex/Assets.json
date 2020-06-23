@@ -60,7 +60,7 @@
         },
         "Image":
         {
-            "Match": "^/img/(.+)/(.+).(png|jpg|jpeg|gif|webp)$",
+            "Match": "^/img/(.+)/(.+).(png|jpg|jpeg|gif|webp|ico)$",
             "Service": "View.Asset",
             "Method": "Get",
             "View":

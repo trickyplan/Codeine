@@ -13,18 +13,6 @@
 -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-    <environment eq="Production">
-        <link rel="shortcut icon" href="<call>HTTP.Proto</call><call>HTTP.Host</call>/favicon.ico" type="image/x-icon">
-    </environment>
-
-    <environment eq="Development">
-        <link rel="shortcut icon" href="<call>HTTP.Proto</call><call>HTTP.Host</call>/favicon-development.ico" type="image/x-icon">
-    </environment>
-
-    <environment eq="Staging">
-        <link rel="shortcut icon" href="<call>HTTP.Proto</call><call>HTTP.Host</call>/favicon-staging.ico" type="image/x-icon">
-    </environment>
-
     <place>CSS</place>
 
     <css>:bower/normalize-css/normalize</css>
@@ -40,18 +28,15 @@
     <css>Default</css>
     <css>print</css>
 
-    <js>:bower/keymaster/keymaster</js>
-
     <environment eq="Development">
         <js>Locale</js>
     </environment>
-    <js>:bower/visibilityjs/lib/visibility.core</js>
-    <js>:bower/visibilityjs/lib/visibility.timers</js>
 
     <js>Default:activelink</js>
     <js>Default:ajaxlink</js>
     <js>Default:ajaxblock</js>
 
+    <layout>Project:Head</layout>
     <layout>Project:OpenGraph</layout>
     <layout>Project:OpenSearch</layout>
 
