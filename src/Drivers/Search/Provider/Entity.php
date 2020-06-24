@@ -28,7 +28,7 @@
         
         foreach($Call['Query'] as $Keyword)
         {
-            $Call['Where']['Keywords'] = $Keyword;
+            $Call['Where']['Keywords'] = '~'.$Keyword;
             $KeywordResults = F::Run('Entity', 'Read',
                 [
                     'Entity' => $Call['Entity'],
