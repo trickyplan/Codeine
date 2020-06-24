@@ -64,10 +64,16 @@
 
         if ($Empty)
         {
-            $Empty = isset($Call['Custom Templates']['Empty'])? $Call['Custom Templates']['Empty']: 'Empty';
-
-            $Call['Output']['Content'][]
-                = ['Type' => 'Template', 'Scope' => $Call['Scope'], 'Entity' => $Call['Entity'],  'ID' => $Empty];
+            if (F::Dot($Call, 'Search.EmptyAsEmptyArray'))
+            {
+                $Empty = isset($Call['Custom Templates']['Empty'])? $Call['Custom Templates']['Empty']: 'Empty';
+                $Call['Output']['Content'][]
+                    = ['Type' => 'Template', 'Scope' => $Call['Scope'], 'Entity' => $Call['Entity'],  'ID' => $Empty];
+            }
+            else
+            {
+                $Call['Output']['Content'] = [];
+            }
 
             $Call = F::Hook('Empty', $Call);
         }
