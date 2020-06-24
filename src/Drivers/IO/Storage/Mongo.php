@@ -29,7 +29,7 @@
                     if (is_numeric($Subkey))
                         $Where[$Key] = $Subvalue;
                     elseif (is_scalar($Subvalue) && substr($Subvalue, 0, 1) == '~')
-                        $Where[$Key.'.'.$Subkey] = new MongoRegex(substr($Subvalue, 1));
+                        $Where[$Key.'.'.$Subkey] = new MongoDB\BSON\Regex(substr($Subvalue, 1));
                     elseif (substr($Subkey, 0, 1) == '$')
                     {
                         // FIXME Temporarily fixed
@@ -43,7 +43,7 @@
             else
             {
                 if (substr($Value, 0, 1) == '~')
-                    $Where[$Key] = new MongoRegex(substr($Value, 1));
+                    $Where[$Key] = new MongoDB\BSON\Regex(substr($Value, 1));
                 else
                     $Where[$Key] = $Value;
             }
