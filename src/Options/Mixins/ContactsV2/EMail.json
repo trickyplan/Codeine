@@ -1,7 +1,7 @@
 {
     "Nodes":
     {
-        "Phone":
+        "Contacts.EMail":
         {
             "Type": "Literal.String",
             "Nullable": true,
@@ -10,7 +10,9 @@
             {
                 "Write":
                 {
-                    "Type": "Form.Textfield"
+                    "Type": "Form.Textfield",
+                    "Subtype": "email",
+                    "Autocomplete": "email"
                 }
             }
         }

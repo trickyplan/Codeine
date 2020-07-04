@@ -9,7 +9,8 @@
             {
                 "Write":
                 {
-                    "Type": "Form.Textfield"
+                    "Type": "Form.Textfield",
+                    "Subtype": "url"
                 }
             }
         }
