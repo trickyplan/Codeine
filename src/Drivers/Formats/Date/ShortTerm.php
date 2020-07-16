@@ -21,7 +21,7 @@
                     $Call['Value'] -= $Units*$Value;
                 }
                 else
-                    $Output[] = 0;
+                    $Output[] = '00';
 
             if (empty($Output))
                 $Result = 0;
