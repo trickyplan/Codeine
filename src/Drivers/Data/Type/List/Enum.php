@@ -45,8 +45,12 @@
     setFn('Where', function ($Call)
     {
         $Call = F::Apply(null, 'Live Enum', $Call);
+        $Key = array_search($Call['Value'], $Call['Node']['Options']);
+        if ($Key === false)
+            if (isset($Call['Node']['Options'][$Call['Value']]))
+                $Key = $Call['Value'];
 
-        return array_search($Call['Value'], $Call['Node']['Options']);
+        return $Key;
     });
 
     setFn('Populate', function ($Call)

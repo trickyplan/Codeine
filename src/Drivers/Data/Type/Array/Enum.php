@@ -41,7 +41,14 @@
         $Data = [];
 
         foreach ($Call['Value'] as &$Value)
-            $Data[] = (int) array_search($Value, $Call['Node']['Options']);
+        {
+            $Key = array_search($Value, $Call['Node']['Options']);
+            if ($Key === false)
+                if (isset($Call['Node']['Options'][$Value]))
+                    $Key = $Value;
+
+            $Data[] = $Key;
+        }
 
         return $Data;
     });
