@@ -7,12 +7,12 @@
      * @version 8.x
      */
     
-    setFn('Get Zones', function ($Call)
+    setFn('Zones.Get', function ($Call)
     {
         return timezone_identifiers_list();
     });
     
-    setFn('Get Offsets', function ($Call)
+    setFn('Offsets.Get', function ($Call)
     {
         $Offsets = [];
         $Abbreviations = timezone_abbreviations_list();
@@ -25,7 +25,7 @@
         return $Offsets;
     });
     
-    setFn('Get Offset By Identifier', function ($Call)
+    setFn('Offset.GetByIdentifier', function ($Call)
     {
         $Zone = new DateTimeZone($Call['Identifier']);
         return $Zone->getOffset(new DateTime());
