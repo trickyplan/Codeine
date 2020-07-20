@@ -9,14 +9,26 @@
 
     setFn('Do', function ($Call)
     {
-        if (!isset($Call['Time']))
+        $Output = [];
+
+        if (isset($Call['Time']))
+            ;
+        else
             $Call['Time'] = F::Run('System.Time', 'Get');
 
-        $Output = date_sun_info($Call['Time'], $Call['Lattitude'], $Call['Longitude']);
+        if (F::Dot($Call, 'Latitude') && F::Dot($Call, 'Longitude'))
+        {
+            $Data = date_sun_info(time()
+                , F::Dot($Call, 'Latitude')
+                , F::Dot($Call, 'Longitude')
+            );
 
-        $Output['daylight'] = $Output ['sunset'] - $Output ['sunrise'];
-        if (isset($Call['Sun Key']))
-            $Output = $Output[$Call['Sun Key']];
+            $Map = F::Dot($Call, 'Science.Astronomy.Sun.Map');
 
+            foreach ($Map as $From => $To)
+                $Output = F::Dot($Output, $To, $Data[$From]);
+
+            $Output = F::Dot($Output, 'Daylight', $Data['sunset']-$Data['sunrise']);
+        }
         return $Output;
     });
