@@ -27,6 +27,6 @@
     
     setFn('Offset.GetByIdentifier', function ($Call)
     {
-        $Zone = new DateTimeZone($Call['Identifier']);
+        $Zone = new DateTimeZone($Call['Value']);
         return $Zone->getOffset(new DateTime());
     });
