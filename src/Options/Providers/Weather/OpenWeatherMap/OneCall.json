@@ -1,0 +1,68 @@
+{
+    "Providers":
+    {
+        "Weather":
+        {
+            "OpenWeatherMap":
+            {
+                "OneCall":
+                {
+                    "Endpoint": "https://api.openweathermap.org/data/2.5/onecall",
+                    "APIKey": "api-key-goes-here",
+                    "Map":
+                    {
+                        "Now":
+                        {
+                            "temp": "Temperature.Actual",
+                            "feels_like": "Temperature.Feel",
+                            "pressure": "Pressure",
+                            "humidity": "Humidity",
+                            "dew_point": "DewPoint",
+                            "uvi": "UV.Index",
+                            "clouds": "Clouds",
+                            "visibility": "Visibility",
+                            "wind_speed": "Wind.Speed",
+                            "wind_deg": "Wind.Direction",
+                            "weather.0.main": "Weather.Main"
+                        },
+                        "Hourly":
+                        {
+                            "temp": "Temperature.Actual",
+                            "feels_like": "Temperature.Feel",
+                            "pressure": "Pressure",
+                            "humidity": "Humidity",
+                            "dew_point": "DewPoint",
+                            "clouds": "Clouds",
+                            "visibility": "Visibility",
+                            "wind_speed": "Wind.Speed",
+                            "wind_deg": "Wind.Direction",
+                            "weather.0.main": "Weather.Main"
+                        },
+                        "Daily":
+                        {
+                            "temp.min":     "Temperature.Minimum",
+                            "temp.max":     "Temperature.Maximum",
+                            "temp.night":   "Temperature.Actual.Night",
+                            "temp.day":     "Temperature.Actual.Day",
+                            "temp.morn":    "Temperature.Actual.Morning",
+                            "temp.eve":     "Temperature.Actual.Evening",
+                            "feels_like.night":   "Temperature.Feel.Night",
+                            "feels_like.day":     "Temperature.Feel.Day",
+                            "feels_like.morn":    "Temperature.Feel.Morning",
+                            "feels_like.eve":     "Temperature.Feel.Evening",
+                            "pressure": "Pressure",
+                            "humidity": "Humidity",
+                            "dew_point": "DewPoint",
+                            "uvi": "UV.Index",
+                            "clouds": "Clouds",
+                            "visibility": "Visibility",
+                            "wind_speed": "Wind.Speed",
+                            "wind_deg": "Wind.Direction",
+                            "weather.0.main": "Weather.Main"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
