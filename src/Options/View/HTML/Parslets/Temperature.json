@@ -1,0 +1,20 @@
+{
+    "View":
+    {
+        "HTML":
+        {
+            "Parslets":
+            {
+                "Temperature":
+                {
+                    "Unit":
+                    {
+                        "Celsius": "°C",
+                        "Fahrenheit": "°F",
+                        "Kelvin": "°K"
+                    }
+                }
+            }
+        }
+    }
+}
