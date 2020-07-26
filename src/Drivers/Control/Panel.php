@@ -83,7 +83,7 @@
                     $Actions[] =
                         [
                             'ID' => $Sidebar,
-                            'URL' => '/control/'.$Call['Bundle'].'/'.$Sidebar,
+                            'URL' => '/control/'.$Call['Bundle'].'/'.$Sidebar.'?BackURL=/control/'.$Call['Bundle'],
                             'Title' => '<l>'.$Call['Bundle'].'.Control:Options.'.$Sidebar.'</l>'];
                 }
 
@@ -99,7 +99,7 @@
             $Call['Output']['Navigation'][] = [
                 'Type' => 'Navlist',
                 'Options' => $Navigation,
-                'Scope' => 'NavlistWithIcons',
+                'Scope' => 'Navlist',
                 'Value' => $Call['Bundle']
             ];
         }

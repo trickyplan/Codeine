@@ -82,17 +82,19 @@
 
     setFn ('Write', function ($Call)
     {
+        $Call['Where']['ID'] = $Call['Scope'].'.'.$Call['Where']['ID'];
+
         if (isset($Call['Where']))
         {
             if (null === $Call['Data'])
             {
                 F::Log('Redis Delete: '.$Call['Where']['ID'], LOG_INFO, 'Administrator');
-                $Result = $Call['Link']->del($Call['Scope'].'.'.$Call['Where']['ID']);
+                $Result = $Call['Link']->del($Call['Where']['ID']);
             }
             else
             {
                 F::Log('Redis Update: '.$Call['Where']['ID'], LOG_INFO, 'Administrator');
-                $Result = $Call['Link']->set($Call['Scope'].'.'.$Call['Where']['ID'], $Call['Data'], $Call['TTL']);
+                $Result = $Call['Link']->set($Call['Where']['ID'], $Call['Data'], $Call['TTL']);
             }
         }
         else

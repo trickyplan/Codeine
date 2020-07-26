@@ -7,7 +7,7 @@
      * @version 8.x
      */
 
-    setFn('Do', function ($Call)
+    setFn('Info', function ($Call)
     {
         $Output = [];
 

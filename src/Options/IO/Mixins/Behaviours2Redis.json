@@ -4,8 +4,7 @@
         "Run Cache":
         {
             "Driver": "IO.Storage.Redis",
-            "Scope": "RC",
-            "Format": "Formats.IGBinary"
+            "Scope": "RC"
         },
         "Delayed Inbox":
         {
@@ -16,7 +15,6 @@
         "Delayed Outbox":
         {
             "Driver": "IO.Storage.Redis",
-            "Format": "Formats.IGBinary",
             "Scope": "Delayed"
         }
     }
