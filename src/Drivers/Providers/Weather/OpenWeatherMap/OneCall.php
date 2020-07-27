@@ -38,7 +38,7 @@
 
         $Map = F::Dot($Call, 'Providers.Weather.OpenWeatherMap.OneCall.Map');
         $Output['Now'] = [
-            'Time' => ['Time' => date(DATE_W3C, $Response['current']['dt'])]
+            'Time' => $Response['current']['dt']
         ];
 
         foreach ($Map['Now'] as $From => $To)
