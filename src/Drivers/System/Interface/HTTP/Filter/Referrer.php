@@ -11,13 +11,13 @@
     {
         $Decision = true;
 
-        if ($Rules = F::Dot($Call, 'HTTP.Filter.Agent.Rules') and isset($Call['HTTP']['Agent']))
+        if ($Rules = F::Dot($Call, 'HTTP.Filter.Referrer.Rules') and isset($Call['HTTP']['Referrer']))
         {
             foreach ($Rules as $FilterName => $Filter)
                 foreach ($Filter as $Match)
-                    if (preg_match('/'.$Match.'/Ssu', $Call['HTTP']['Agent']))
+                    if (preg_match('/'.$Match.'/Ssu', $Call['HTTP']['Referrer']))
                     {
-                        F::Log('HTTP Agent Filter *'.$FilterName.'* matched', LOG_NOTICE, 'Security');
+                        F::Log('HTTP Referrer Filter *'.$FilterName.'* matched', LOG_NOTICE, 'Security');
                         $Decision = false;
                     }
         }

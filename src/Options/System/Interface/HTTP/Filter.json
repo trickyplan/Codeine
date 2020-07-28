@@ -3,7 +3,7 @@
     {
         "Filter":
         {
-            "Methods": ["Request", "URL", "Agent"]
+            "Methods": ["Referrer", "Request", "URL", "Agent"]
         }
     },
     "Hooks":

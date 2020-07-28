@@ -1,0 +1,15 @@
+{
+    "HTTP":
+    {
+        "Filter":
+        {
+            "Referrer":
+            {
+                "Rules":
+                {
+
+                }
+            }
+        }
+    }
+}
