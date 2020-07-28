@@ -1,8 +1,6 @@
 {
     "UAS":
     {
-        "Host": "http://www.useragentstring.com/",
-        "UA Parameter": "uas",
-        "Postfix": "getJSON=all"
+        "Host": "http://www.useragentstring.com/"
     }
 }

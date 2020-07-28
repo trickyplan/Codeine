@@ -1,8 +1,8 @@
 {
     "Purpose": "Update",
-    "FormLayout": "Full",
     "Form":
     {
+        "Layout": "Full",
         "Template": "2B"
     },
     "Hooks":

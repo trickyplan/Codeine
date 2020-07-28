@@ -1,6 +1,9 @@
 {
     "Purpose": "Filter",
-    "FormLayout": "Full",
+    "Form":
+    {
+        "Layout": "Full"
+    },
     "Hooks":
     {
         "beforeFilterDo":

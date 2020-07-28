@@ -1,6 +1,9 @@
 {
     "Purpose": "Verify",
-    "FormLayout": "Full",
+    "Form":
+    {
+        "Layout": "Full"
+    },
     "Hooks":
     {
         "beforeVerifyDo":

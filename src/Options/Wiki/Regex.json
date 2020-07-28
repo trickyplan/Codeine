@@ -42,7 +42,10 @@
             "Call":
             {
                 "Entity": "Wiki",
-                "FormLayout": "Field",
+                "Form":
+                {
+                    "Layout": "Field"
+                },
                 "Where": "$1"
             }
         },

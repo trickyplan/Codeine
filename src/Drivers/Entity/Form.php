@@ -15,8 +15,14 @@
             ;
         else
             $Call['Data'] = [];
-        
-        $Call = F::Apply('Entity.Form.Layout.'.$Call['FormLayout'], 'Start', $Call);
+
+        if (isset($Call['FormLayout']))
+        {
+            F::Log('FormLayout is deprecated. Use Form.Layout instead', LOG_WARNING);
+            $Call['Form']['Layout'] = $Call['FormLayout'];
+        }
+
+        $Call = F::Apply('Entity.Form.Layout.'.$Call['Form']['Layout'], 'Start', $Call);
 
         $Call['FID'] = F::Live($Call['FID']);
 
@@ -130,7 +136,7 @@
                     if (!isset($Widget['Weight']))
                         $Widget['Weight'] = $IC; // Magic
 
-                    $Call = F::Apply('Entity.Form.Layout.'.$Call['FormLayout'], 'Add', $Call,
+                    $Call = F::Apply('Entity.Form.Layout.'.$Call['Form']['Layout'], 'Add', $Call,
                         [
                             'Name' => $Name,
                             'Widget' => $Widget
@@ -141,7 +147,7 @@
             }
         }
 
-        $Call = F::Apply('Entity.Form.Layout.'.$Call['FormLayout'], 'Finish', $Call);
+        $Call = F::Apply('Entity.Form.Layout.'.$Call['Form']['Layout'], 'Finish', $Call);
 
         if (isset($Call['Output']['Form']))
             $Call['Output']['Form'] = F::Sort($Call['Output']['Form'], 'Weight', SORT_ASC);
