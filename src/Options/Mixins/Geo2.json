@@ -4,6 +4,10 @@
         "Geo.Latitude":
         {
             "Type": "Numeral.Float",
+            "Visible":
+            {
+                "JSON": true
+            },
             "Widgets":
             {
                 "Write":
@@ -17,6 +21,10 @@
         "Geo.Longitude":
         {
             "Type": "Numeral.Float",
+            "Visible":
+            {
+                "JSON": true
+            },
             "Widgets":
             {
                 "Write":
