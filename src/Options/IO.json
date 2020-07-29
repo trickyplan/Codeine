@@ -42,9 +42,7 @@
         {
             "Description": "Storage for source-based data",
             "Driver":"IO.Storage.FileSystem",
-            "Directory":"Data",
-            "Format": "Formats.JSON",
-            "Postfix":".json"
+            "Directory":"Data"
         },
         "Cookie":
         {
