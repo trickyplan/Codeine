@@ -27,6 +27,13 @@
     
     setFn('Offset.GetByIdentifier', function ($Call)
     {
-        $Zone = new DateTimeZone($Call['Value']);
-        return $Zone->getOffset(new DateTime());
+        $Offset = null;
+        $Zones = timezone_identifiers_list();
+
+        if (isset($Call['Value']) && in_array($Call['Value'], $Zones))
+        {
+            $Zone = new DateTimeZone($Call['Value']);
+            $Offset =  $Zone->getOffset(new DateTime());
+        }
+        return $Offset;
     });

@@ -12,7 +12,8 @@
             "Name": "",
             "Class": ["form-control"],
             "Placeholder": "",
-            "Rows": 5
+            "Rows": 5,
+            "AutoComplete":""
         },
         "Boolean":
         {

@@ -15,7 +15,8 @@
             "Step": "",
             "Maxlength": "",
             "Min": "",
-            "Max": ""
+            "Max": "",
+            "AutoComplete":""
         },
         "Boolean":
         {
