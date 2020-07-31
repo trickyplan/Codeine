@@ -47,15 +47,6 @@
             "Service":"User.Cabinet",
             "Method":"Do"
         },
-        "/profile":
-        {
-            "Service":"Entity.Update",
-            "Call":
-            {
-                "Entity": "User",
-                "Where": "$Session.User.ID"
-            }
-        },
         "/user/services":
         {
             "Service":"User.Services",

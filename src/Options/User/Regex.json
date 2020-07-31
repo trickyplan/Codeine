@@ -88,6 +88,32 @@
                     "ID": "$1"
                 }
             }
+        },
+        "User / Dashboard":
+        {
+            "Match": "^/user/dashboard$",
+            "Service": "Entity.Show.Static",
+            "Method": "Do",
+            "Call":
+            {
+                "Entity": "User",
+                "Where": "$Session.User.ID",
+                "Template": "Dashboard"
+            }
+        },
+        "User / Profile":
+        {
+            "Match": "^/profile$",
+            "Service":"Entity.Update",
+            "Call":
+            {
+                "Form":
+                {
+                    "Layout": "Field"
+                },
+                "Entity": "User",
+                "Where": "$Session.User.ID"
+            }
         }
     }
 }
