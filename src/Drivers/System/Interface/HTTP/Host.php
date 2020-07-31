@@ -19,7 +19,12 @@
                 if (isset($Call['HTTP']['Domain']))
                     ;
                 else
-                    $Call['HTTP']['Domain'] = $Host;
+                {
+                    if (mb_strpos($Host, ':') !== false)
+                        list ($Call['HTTP']['Domain'], $Call['HTTP']['Port']) = explode(':', $Host);
+                    else
+                        $Call['HTTP']['Domain'] = $Host;
+                }
         
                 F::Log('Host is *'.$Host.'*', LOG_INFO);
                 $Call = F::loadOptions($Host, null, $Call);
