@@ -20,8 +20,9 @@
             }
         }
 
-        if ($IP == '127.0.0.1')
+        if (preg_match($Call['IP']['Regex']['Local'], $IP))
         {
+            F::Log('Private IP *'.$IP.' *detected*', LOG_INFO);
             if (isset($Call['HTTP']['Request']['Headers']['Developer-Ip']))
             {
                 $IP = $Call['HTTP']['Request']['Headers']['Developer-Ip'];
@@ -35,10 +36,19 @@
                     [
                         'Storage'   => 'Web',
                         'Where'     => $Call['IP']['Pingback'],
-                        'IO One'    => true
+                        'IO One'    => true,
+                        'Behaviours'    =>
+                        [
+                            'Cached'    =>
+                            [
+                                'Enabled'   => true,
+                                'Keys'      => $Call['HTTP']['IP'],
+                                'TTL'       => 3600
+                            ]
+                        ]
                     ]);
 
-                    if (preg_match($Call['IP']['Regex'], $Pingback, $Pockets))
+                    if (preg_match($Call['IP']['Regex']['All'], $Pingback, $Pockets))
                         $IP = $Pockets[0];
                     else
                         $IP = '127.0.0.1';
