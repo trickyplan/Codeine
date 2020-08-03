@@ -42,7 +42,7 @@
                             'Cached'    =>
                             [
                                 'Enabled'   => true,
-                                'Keys'      => $Call['HTTP']['IP'],
+                                'Keys'      => ['Storage', 'Where'],
                                 'TTL'       => 3600
                             ]
                         ]
