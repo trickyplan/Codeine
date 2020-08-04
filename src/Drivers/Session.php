@@ -128,6 +128,7 @@
         }
         else
         {
+            $Call['Session Data'] = F::Merge($Call['Session'], $Call['Session Data']);
             $Call['Session Data']['ID'] = $Call['SID'];
       
             $Call['Session'] = F::Run('Entity', 'Update', $Call,

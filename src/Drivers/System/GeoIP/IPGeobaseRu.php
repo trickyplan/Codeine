@@ -20,7 +20,7 @@
     {
         $Response = F::Run(null, 'Load', $Call);
         if ($Response)
-            return ['Lat' => $Response->ip->lat, 'Lon' => $Response->ip->lng];
+            return ['Lat' => (float)$Response->ip->lat, 'Lon' => (float)$Response->ip->lng];
         else
             return null;
     });
