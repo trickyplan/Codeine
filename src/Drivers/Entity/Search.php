@@ -88,7 +88,10 @@
                 $Call['Entities'] = array_reverse($Call['Entities'], true);
 
             foreach ($Call['Entities'] as $IX => &$Entity)
-                $Entity['Search']['Score'] = (float) $Call['Elements'][$Entity['ID']]['_score'];
+                if (isset($Call['Elements'][$Entity['ID']]['_score']))
+                    $Entity['Search']['Score'] = (float) $Call['Elements'][$Entity['ID']]['_score'];
+                else
+                    $Entity['Search']['Score'] = $IX;
 
             $Call['Entities'] = F::Sort($Call['Entities'], 'Search.Score', SORT_DESC);
 
