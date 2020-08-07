@@ -140,7 +140,7 @@
                     'One' => true
                 ]);
 
-            F::Log('Session updated '.$Call['SID'], LOG_INFO, 'Security');
+            F::Log('Session *'.$Call['SID'].'* updated ('.j($Call['Session Data']).')', LOG_INFO, 'Security');
         }
 
         $Call = F::Run(null, 'Load User', $Call);

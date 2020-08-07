@@ -25,12 +25,14 @@
             {
                 if (setcookie ($Call['Where']['ID'],
                     $Call['Data'],
-                    time() +
-                    $Call['TTL'],
-                    $Call['Path'],
-                    $Call['HTTP']['Host'],
-                    $Call['Secure'],
-                    $Call['HTTP Only']))
+                    [
+                        'expires'   => time() + $Call['TTL'],
+                        'path'      => $Call['Path'],
+                        'domain'    => $Call['HTTP']['Host'],
+                        'secure'    => $Call['Secure'],
+                        'httponly'  => $Call['HTTP Only'],
+                        'samesite'  => $Call['Same Site']
+                    ]))
 
                     $Call['HTTP']['Cookie'][$Call['Where']['ID']] = $Call['Data'];
                 else
