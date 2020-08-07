@@ -19,7 +19,7 @@
         }
         else
         {
-            if (in_array($Call['HTTP']['URL'], F::Dot($Call, 'Analytics.Yandex.URLs.Disabled')))
+            if (F::Dot($Call, 'Analytics.Yandex.URLs.Disabled') !== null && in_array($Call['HTTP']['URL'], F::Dot($Call, 'Analytics.Yandex.URLs.Disabled')))
                 F::Log('YM Suppressed by URLs: '.$Call['ID'], LOG_INFO, 'Marketing');
             else
             {
