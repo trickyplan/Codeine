@@ -20,9 +20,33 @@
         try_files $uri $uri/ /api.php?$uri&$args;
     }
 
+    location ~ ^/assets/js/(.*)
+    {
+        alias /var/tmp/codeine/js/$1;
+        expires           max;
+    }
+
+    location ~ ^/assets/css/(.*)
+    {
+        alias /var/tmp/codeine/css/$1;
+        expires           max;
+    }
+
+    location ~ ^/assets/img/(.*)
+    {
+        alias /var/tmp/codeine/img/$1;
+        expires           max;
+    }
+
     location /
     {
-        try_files $uri $uri/ /index.php?$uri&$args;
+        include fastcgi_params;
+        include conf.d/codeine.fastcgi.v2.nginx;
+        fastcgi_intercept_errors        on;
+
+        fastcgi_param  Environment $Environment;
+        fastcgi_pass   $backend;
+        fastcgi_index  Public/index.php;
     }
 
     location /nginx_status
@@ -31,13 +55,6 @@
           access_log   off;
           allow 127.0.0.1;
           deny all;
-    }
-
-    location ~ ^/cache/(.*)
-    {
-        alias /var/tmp/codeine/$project/cache/$1;
-        access_log        off;
-        expires           max;
     }
 
     location ~ index.php$

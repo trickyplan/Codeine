@@ -119,12 +119,7 @@
                         $Call = F::Hook('afterCSSWrite', $Call);
                     }
 
-                    $SRC = F::Run('IO', 'Execute', $Call,
-                    [
-                        'Storage' => 'CSS Cache',
-                        'Execute' => 'Filename',
-                        'Where'   => $Call['CSS']['Fullpath']
-                    ]);
+                    $SRC = '/assets/css/'.$Call['CSS']['Fullpath'];
 
                     if (F::Dot($Call, 'CSS.Host'))
                         $Call['CSS']['Links'][] = '<link href="'.$Call['HTTP']['Proto'].$Call['CSS']['Host'].$SRC.'" rel="stylesheet" type="'.$Call['CSS']['Type'].'"/>';

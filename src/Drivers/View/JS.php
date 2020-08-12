@@ -126,12 +126,7 @@
                         $Call = F::Hook('afterJSWrite', $Call);
                     }
 
-                    $SRC = F::Run('IO', 'Execute', $Call,
-                    [
-                        'Storage' => 'JS Cache',
-                        'Execute' => 'Filename',
-                        'Where'   => $Call['JS']['Fullpath']
-                    ]);
+                    $SRC = '/assets/js/'.$Call['CSS']['Fullpath'];
 
                     if (isset($Call['JS']['Host']) && !empty($Call['JS']['Host']))
                         $JSFilename = $Call['HTTP']['Proto']

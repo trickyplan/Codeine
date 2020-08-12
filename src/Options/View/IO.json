@@ -19,23 +19,6 @@
             "Driver":"IO.Storage.FileSystem",
             "Directory":"Assets"
         },
-        "Image Cache":
-        {
-            "Driver":"IO.Storage.FileSystem",
-            "Directory":"/var/tmp/codeine/$Project.id",
-            "Scope": "cache/img",
-            "IO":
-            {
-                "FileSystem":
-                {
-                    "Hashing":
-                    {
-                        "Enabled": true,
-                        "Levels": 4
-                    }
-                }
-            }
-        },
         "LESS":
         {
             "Driver":"IO.Storage.FileSystem",
@@ -54,46 +37,29 @@
             "Directory":"Assets",
             "Postfix":".css"
         },
-        "CSS Cache":
-        {
-            "Driver":"IO.Storage.FileSystem",
-            "Directory":"/var/tmp/codeine/$Project.id",
-            "Scope": ["cache/css"],
-            "IO":
-            {
-                "FileSystem":
-                {
-                    "Hashing":
-                    {
-                        "Enabled": true,
-                        "Levels": 4
-                    }
-                }
-            }
-        },
         "JS":
         {
             "Driver":"IO.Storage.FileSystem",
             "Directory":"Assets",
             "Postfix":".js"
         },
+        "Image Cache":
+        {
+            "Driver":"IO.Storage.FileSystem",
+            "Directory":"/var/tmp/codeine",
+            "Scope": "img"
+        },
+        "CSS Cache":
+        {
+            "Driver":"IO.Storage.FileSystem",
+            "Directory":"/var/tmp/codeine",
+            "Scope": "css"
+        },
         "JS Cache":
         {
             "Driver":"IO.Storage.FileSystem",
-            "Directory":"/var/tmp/codeine/$Project.id",
-            "Scope": "cache/js",
-            "IO":
-            {
-                "FileSystem":
-                {
-                    "Append Host": true,
-                    "Hashing":
-                    {
-                        "Enabled": true,
-                        "Levels": 4
-                    }
-                }
-            }
+            "Directory":"/var/tmp/codeine",
+            "Scope": "js"
         }
     }
 }

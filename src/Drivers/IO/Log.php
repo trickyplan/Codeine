@@ -19,6 +19,11 @@
         {
             $Call = F::Hook('Log.Spit.Before', $Call);
 
+            if (isset($Call['HTTP']))
+                $App = $Call['HTTP']['Proto'] . $Call['HTTP']['Host'] . $Call['HTTP']['URI'];
+            else
+                $App = $Call['Service'].':'.$Call['Method'];
+
                 foreach ($Call['All Logs'] as $Call['Channel'] => $Call['Channel Logs'])
                 {
                     if (empty($Call['Channel Logs']))
@@ -30,7 +35,7 @@
                             F::Run('IO', 'Write', $Call,
                                 [
                                     'Storage' => $Call['Channel'],
-                                    'Where!'  => '[' . $Call['Channel'] . '] ' . $Call['HTTP']['Proto'] . $Call['HTTP']['Host'] . $Call['HTTP']['URI'],
+                                    'Where!'  => '[' . $Call['Channel'] . '] ' . $App,
                                     'Data!'   => $Call['Channel Logs']
                                 ]);
 
