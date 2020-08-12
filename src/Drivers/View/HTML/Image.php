@@ -157,7 +157,11 @@
                         ]);
 
         if (isset($Call['Image']['Host']) && !empty($Call['Image']['Host']) && $Call['Image']['Host'] != $Call['HTTP']['Host'])
-            $SRC = '/assets/img/'.$Call['CSS']['Fullpath'];
+            $SRC = $Call['HTTP']['Proto']
+                .$Call['Image']['Host']
+                .$SRC;
+
+        $SRC = '/assets'.$SRC;
 
         if (empty($Call['Current Image']['Alt']))
             F::Log('Image: Alt is empty for '.$Call['Current Image']['Fullpath'], LOG_INFO);
