@@ -52,13 +52,39 @@
                         if (isset($Call['CSS']['Styles'][$Call['CSS Name']]))
                             ;
                         else
-                            $Call['CSS']['Styles'][$Call['CSS Name']] = F::Run('IO', 'Read',
-                                [
-                                    'Storage' => 'CSS',
-                                    'Scope'   => $Asset,
-                                    'Where'   => $ID,
-                                    'IO One'  => true
-                                ]);
+                        {
+                            $Loaded = false;
+
+                            if (F::Environment() == 'Production')
+                            {
+                                $Minified = F::Run('IO', 'Read',
+                                    [
+                                        'Storage' => 'CSS',
+                                        'Scope'   => $Asset,
+                                        'Where'   => $ID.'.min',
+                                        'IO One'  => true
+                                    ]);
+
+                                if ($Minified === null)
+                                    ;
+                                else
+                                {
+                                    $Call['CSS']['Styles'][$Call['CSS Name']] = $Minified;
+                                    $Loaded = true;
+                                }
+                            }
+
+                            if ($Loaded)
+                                ;
+                            else
+                                $Call['CSS']['Styles'][$Call['CSS Name']] = F::Run('IO', 'Read',
+                                    [
+                                        'Storage' => 'CSS',
+                                        'Scope'   => $Asset,
+                                        'Where'   => $ID,
+                                        'IO One'  => true
+                                    ]);
+                        }
 
                         if ($Call['CSS']['Styles'][$Call['CSS Name']])
                             F::Log('CSS *is* loaded: '.$Call['CSS Name'], LOG_DEBUG);
