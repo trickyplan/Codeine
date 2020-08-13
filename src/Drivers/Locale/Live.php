@@ -22,10 +22,11 @@
 
             $Tokens = F::Run('IO', 'Read',
                         [
-                              'Storage' => 'Locale',
-                              'Scope'   => $Asset.'/Locale/'.$Call['Locale'],
-                              'Where'   => $ID
-                        ])[0];
+                            'Storage'   => 'Locale',
+                            'Scope'     => $Asset.'/Locale/'.$Call['Locale'],
+                            'Where'     => $ID,
+                            'IO One'    => true
+                        ]);
 
             if ($Tokens === null)
                 $Tokens = [$Token => $Call['Request']['Translation']];
