@@ -48,7 +48,7 @@
                               'Salt' => isset($Call['User']['Salt'])? $Call['User']['Salt']: ''
                          ]);
                          
-                    if ($Call['User']['Password'] != $Challenge)
+                    if (F::Dot($Call, 'User.Password') != $Challenge && $Call['Request']['Password'] !== '')
                     {
                         F::Log('Passwords don\'t match', LOG_WARNING, 'Security');
                         F::Log('User password hash is '.$Call['User']['Password'], LOG_WARNING, 'Security');
