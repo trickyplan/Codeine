@@ -11,6 +11,7 @@
     {
         $Call = F::Hook('beforeDeleteBefore', $Call);
 
+        if (isset($Call['Where']))
             $Call['Where'] = F::Live($Call['Where']);
 
             $Call['Data'] = F::Run('Entity', 'Read', $Call, ['One' => true, 'Limit' => ['From' => 0, 'To' => 1]]);
