@@ -16,19 +16,23 @@
         if (file_exists($DirName))
         {
             if (is_dir($DirName))
-                F::Log('Directory '.$DirName.' already exists', LOG_DEBUG, 'Administrator');
+                F::Log('Directory '.$DirName.' already exists', LOG_INFO, 'Administrator');
             else
             {
-                F::Log('File '.$DirName.' already exists, removing', LOG_DEBUG, 'Administrator');
+                F::Log('File '.$DirName.' already exists, removing', LOG_INFO, 'Administrator');
                 unlink($DirName);
                 $MakeDirectory = true;
             }
         }
         else
+        {
+            F::Log('Directory '.$DirName.' doesn\'t exists', LOG_INFO, 'Administrator');
             $MakeDirectory = true;
+        }
 
         if ($MakeDirectory)
         {
+            F::Log('Directory '.$DirName.' will be created with mode '.$Call['IO']['FileSystem']['Create Mode'], LOG_INFO, 'Administrator');
             if (mkdir($DirName, 0777, true)) // Fuck PHP
                 F::Log('Directory '.$DirName.' created with mode '.$Call['IO']['FileSystem']['Create Mode'], LOG_INFO, 'Administrator');
             else
