@@ -1,9 +1,13 @@
 {
-    "Storage": "Primary",
+    "Storage": "TestMongoStorage",
     "Nodes":
     {
         "ID": {},
         "Key": {},
-        "Common": {}
+        "Common": {},
+        "NoAutoLoad":
+        {
+            "Auto": false
+        }
     }
 }

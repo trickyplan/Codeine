@@ -1,4 +1,24 @@
 {
+    "Apply":
+    {
+        "Storages":
+        {
+            "TestMongoStorage":
+            {
+                "Driver": "IO.Storage.Mongo",
+                "Mongo":
+                {
+                    "Server": "codeine-mongo",
+                    "Database": "codeine",
+                    "Connect":
+                    {
+                        "username": "codeine",
+                        "password": "test-password"
+                    }
+                }
+            }
+        }
+    },
     "Suites":
     {
         "Positive":
@@ -7,35 +27,31 @@
             {
                 "Run":
                 {
-                    "Service": "IO.Storage.Mongo",
+                    "Service": "IO",
                     "Method": "Open",
                     "Call":
                     {
-                        "Scope": "Test",
-                        "Database": "localhost"
+                        "Storage": "TestMongoStorage"
                     }
                 },
-                "Result":
+                "-Assert":
                 {
-                    "Store": "Link"
-                },
-                "Assert":
-                {
-                    "Print": true
+                    "InstanceOf": "Mongo"
                 }
             },
             "Create":
             {
                 "Run":
                 {
-                    "Service": "IO.Storage.Mongo",
+                    "Service": "IO",
                     "Method": "Write",
                     "Call":
                     {
-                        "Storage": "Primary",
-                        "Scope": "Test",
-                        "Data": {
-                            "ID": "Test",
+                        "Storage": "TestMongoStorage",
+                        "Scope": "TestScope",
+                        "Data":
+                        {
+                            "ID": "TestID",
                             "Key 1": "Value A",
                             "Key 2": "Value B",
                             "Key 3":
@@ -50,12 +66,14 @@
                 {
                     "Equal":
                     {
-                        "ID": "Test",
-                        "Key 1": "Value A",
-                        "Key 2": "Value B",
-                        "Key 3": {
-                            "Sub key 31": 7,
-                            "Sub key 32": null
+                        "Expected":
+                        {
+                            "ID": "TestID",
+                            "Key 1": "Value A",
+                            "Key 2": "Value B",
+                            "Key 3": {
+                                "Sub key 31": 7
+                            }
                         }
                     }
                 }
@@ -64,13 +82,15 @@
             {
                 "Run":
                 {
-                    "Service": "IO.Storage.Mongo",
+                    "Service": "IO",
                     "Method": "Read",
                     "Call":
                     {
-                        "Scope": "Test",
-                        "Where": {
-                            "ID": "Test"
+                        "Storage": "TestMongoStorage",
+                        "Scope": "TestScope",
+                        "Where":
+                        {
+                            "ID": "TestID"
                         },
                         "Limit":
                         {
@@ -82,30 +102,35 @@
                 "Assert":
                 {
                     "Equal":
-                    [{
-                        "ID": "Test",
-                        "Key 1": "Value A",
-                        "Key 2": "Value B",
-                        "Key 3": {
-                            "Sub key 31": 7,
-                            "Sub key 32": null
-                        }
-                    }]
+                    {
+                        "Expected":
+                        [
+                            {
+                                "ID": "TestID",
+                                "Key 1": "Value A",
+                                "Key 2": "Value B",
+                                "Key 3": {
+                                    "Sub key 31": 7
+                                }
+                            }
+                        ]
+                    }
                 }
             },
             "Read one field":
             {
                 "Run":
                 {
-                    "Service": "IO.Storage.Mongo",
+                    "Service": "IO",
                     "Method": "Read",
                     "Call":
                     {
-                        "Scope": "Test",
+                        "Storage": "TestMongoStorage",
+                        "Scope": "TestScope",
                         "Fields": ["Key 1"],
                         "Where":
                         {
-                            "ID": "Test"
+                            "ID": "TestID"
                         },
                         "Limit":
                         {
@@ -117,22 +142,28 @@
                 "Assert":
                 {
                     "Equal":
-                    [{
-                        "Key 1": "Value A"
-                    }]
+                    {
+                        "Expected":
+                        [
+                            {
+                                "Key 1": "Value A"
+                            }
+                        ]
+                    }
                 }
             },
             "Delete":
             {
                 "Run":
                 {
-                    "Service": "IO.Storage.Mongo",
+                    "Service": "IO",
                     "Method": "Write",
                     "Call":
                     {
-                        "Scope": "Test",
+                        "Storage": "TestMongoStorage",
+                        "Scope": "TestScope",
                         "Where": {
-                            "ID": "Test"
+                            "ID": "TestID"
                         },
                         "Data": null
                     }

@@ -1,4 +1,24 @@
 {
+    "Apply":
+    {
+        "Storages":
+        {
+            "TestMongoStorage":
+            {
+                "Driver": "IO.Storage.Mongo",
+                "Mongo":
+                {
+                    "Server": "codeine-mongo",
+                    "Database": "codeine",
+                    "Connect":
+                    {
+                        "username": "codeine",
+                        "password": "test-password"
+                    }
+                }
+            }
+        }
+    },
     "Suites":
     {
         "Positive":
@@ -16,7 +36,8 @@
                         "Data":
                         {
                             "ID": 1,
-                            "Key": "Value"
+                            "Key": "Value",
+                            "NoAutoLoad": "NoAutoLoad"
                         }
                     }
                 },
@@ -24,9 +45,14 @@
                 {
                     "Equal":
                     {
-                        "Key": "Value",
-                        "ID": 1,
-                        "EV": 1
+                        "Expected":
+                        {
+                            "Key": "Value",
+                            "ID": 1,
+                            "EV": 1,
+                            "EH": "f2039a20",
+                            "NoAutoLoad": "NoAutoLoad"
+                        }
                     }
                 }
             },
@@ -51,9 +77,81 @@
                 {
                     "Equal":
                     {
-                        "EV": 1,
-                        "ID": 2,
-                        "Key": "Value 2"
+                        "Expected":
+                        {
+                            "EV": 1,
+                            "ID": 2,
+                            "Key": "Value 2",
+                            "EH": "f2039a20"
+                        }
+                    }
+                }
+            },
+            "Read Object 1":
+            {
+                "Run":
+                {
+                    "Service": "Entity",
+                    "Method": "Read",
+                    "Call":
+                    {
+                        "Entity": "Test",
+                        "One": true,
+                        "Where":
+                        {
+                            "ID": 1
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Equal":
+                    {
+                        "Expected":
+                        {
+                            "EV": 1,
+                            "ID": 1,
+                            "Key": "Value",
+                            "_NodesDefined": 5,
+                            "_NodesLoaded": 4,
+                            "_Partial": true
+                        }
+                    }
+                }
+            },
+            "Read Object with NoAutoLoad":
+            {
+                "Run":
+                {
+                    "Service": "Entity",
+                    "Method": "Read",
+                    "Call":
+                    {
+                        "Entity": "Test",
+                        "One": true,
+                        "Load": {
+                            "Fields": ["NoAutoLoad"]
+                        },
+                        "Where":
+                        {
+                            "ID": 1
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Equal":
+                    {
+                        "Expected":
+                        {
+                            "EV": 1,
+                            "ID": 1,
+                            "Key": "Value",
+                            "NoAutoLoad": "NoAutoLoad",
+                            "_NodesDefined": 5,
+                            "_NodesLoaded": 5,
+                            "_Partial": false
+                        }
                     }
                 }
             },
@@ -78,9 +176,15 @@
                 {
                     "Equal":
                     {
-                        "ID": 1,
-                        "Key": "Another Value",
-                        "EV": 1
+                        "Expected":
+                        {
+                            "EV": 1,
+                            "ID": 1,
+                            "Key": "Another Value",
+                            "_NodesDefined": 5,
+                            "_NodesLoaded": 4,
+                            "_Partial": true
+                        }
                     }
                 }
             },
@@ -103,20 +207,29 @@
                 "Assert":
                 {
                     "Equal":
-                    [
-                        {
-                            "Common": "Common Value",
-                            "Key": "Another Value",
-                            "ID": 1,
-                            "EV": 1
-                        },
-                        {
-                            "EV": 1,
-                            "ID": 2,
-                            "Key": "Value 2",
-                            "Common": "Common Value"
-                        }
-                    ]
+                    {
+                        "Expected":
+                        [
+                            {
+                                "EV": 1,
+                                "ID": 1,
+                                "Key": "Another Value",
+                                "Common": "Common Value",
+                                "_NodesDefined": 5,
+                                "_NodesLoaded": 4,
+                                "_Partial": true
+                            },
+                            {
+                                "Common": "Common Value",
+                                "Key": "Value 2",
+                                "ID": 2,
+                                "EV": 1,
+                                "_NodesDefined": 4,
+                                "_NodesLoaded": 4,
+                                "_Partial": false
+                            }
+                        ]
+                    }
                 }
             },
             "Delete Object(s)":
@@ -134,20 +247,29 @@
                 "Assert":
                 {
                     "Equal":
-                    [
-                        {
-                            "Common": "Common Value",
-                            "Key": "Another Value",
-                            "ID": 1,
-                            "EV": 1
-                        },
-                        {
-                            "EV": 1,
-                            "ID": 2,
-                            "Key": "Value 2",
-                            "Common": "Common Value"
-                        }
-                    ]
+                    {
+                        "Expected":
+                        [
+                            {
+                                "EV": 1,
+                                "ID": 1,
+                                "Key": "Another Value",
+                                "Common": "Common Value",
+                                "_NodesDefined": 5,
+                                "_NodesLoaded": 4,
+                                "_Partial": true
+                            },
+                            {
+                                "Common": "Common Value",
+                                "Key": "Value 2",
+                                "ID": 2,
+                                "EV": 1,
+                                "_NodesDefined": 4,
+                                "_NodesLoaded": 4,
+                                "_Partial": false
+                            }
+                        ]
+                    }
                 }
             }
         }
