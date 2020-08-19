@@ -221,7 +221,7 @@
                 foreach ($Filenames as $Filename)
                 {
                     self::Log($Filename, LOG_DEBUG);
-                    include $Filename;
+                    include_once $Filename;
                 }
 
                 return true;
@@ -543,11 +543,11 @@
                 $Result = $Variable($Call);
             else
             {
-                if (isset($Variable['NoLive']))
-                    $Result = $Variable;
-                else
+                if (self::isCall($Variable))
                 {
-                    if (self::isCall($Variable))
+                    if (isset($Variable['NoLive']))
+                        $Result = $Variable;
+                    else
                     {
                         if (($sz = func_num_args()) > 2)
                         {
@@ -570,16 +570,16 @@
                         $Result = self::Run($Variable['Service'], $Variable['Method'],
                             $Call, isset($Variable['Call'])? self::Variable($Variable['Call'], $Call): []);
                     }
+                }
+                else
+                {
+                    if ($Variable === (array) $Variable)
+                        foreach ($Variable as $Key => $cVariable)
+                            $Variable = self::Dot($Variable, $Key, self::Live($cVariable, $Call));
                     else
-                    {
-                        if ($Variable === (array) $Variable)
-                            foreach ($Variable as $Key => $cVariable)
-                                $Variable = self::Dot($Variable, $Key, self::Live($cVariable, $Call));
-                        else
-                            $Variable = self::Variable($Variable, $Call);
+                        $Variable = self::Variable($Variable, $Call);
 
-                        $Result = $Variable;
-                    }
+                    $Result = $Variable;
                 }
             }
 

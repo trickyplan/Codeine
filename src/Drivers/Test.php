@@ -9,7 +9,6 @@
     
     setFn('Run.Test', function ($Call)
     {
-        self::$_Perfect = false;
         $Call = F::Hook('Test.Run.Before', $Call);
         
             F::Log('Try to load *'.$Call['ID'].'*', LOG_INFO);
@@ -27,6 +26,9 @@
                     $Call['Test'] = F::Merge(F::loadOptions($Mixin), $Call['Test']);
                 unset($Call['Test']['Mixins']);
             }
+
+            if (isset($Call['Test']['Apply']))
+                $Call['Apply'] = $Call['Test']['Apply'];
 
             if (isset($Call['Test']['Suites']))
                 foreach($Call['Test']['Suites'] as $Call['Test']['Suite']['Name'] => $Call['Test']['Suite']['Cases'])
@@ -62,6 +64,7 @@
     {
         $Call = F::Hook('Test.Case.Run.Before', $Call);
 
+        F::Log('Test started: *'.$Call['Test']['Suite']['Name'].':'.$Call['Test']['Case']['Name'].'*', LOG_NOTICE);
             $Call['SCID'] = $Call['Test']['Suite']['Name'].':'.$Call['Test']['Case']['Name'];
 
             if (mb_substr($Call['Test']['Case']['Name'], 0, 1) == '-')
@@ -70,6 +73,9 @@
             if ($BaseEncodedParameters = F::Dot($Call, 'Test.Case.Preprocess.Base64'))
                 foreach ($BaseEncodedParameters as $Parameter)
                     $Call['Test']['Case'] = F::Dot($Call['Test']['Case'], $Parameter, base64_decode(F::Dot($Call['Test']['Case'], $Parameter)));
+
+            if (isset($Call['Apply']))
+                $Call = F::Merge($Call, $Call['Apply']);
 
             if (isset($Call['Test']['Case']['Apply']))
                 $Call = F::Live($Call['Test']['Case']['Apply'], $Call);

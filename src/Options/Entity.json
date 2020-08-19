@@ -180,10 +180,10 @@
         },
         "beforeEntityRead":
         {
-            "-GEC":
+            "Where":
             {
-                "Service":"Entity.Hooks.GEC",
-                "Method":"beforeEntityRead"
+                "Service": "Entity.Hooks.AutoLoadFields",
+                "Method": "beforeEntityRead"
             }
         },
         "afterEntityRead":

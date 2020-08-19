@@ -9,7 +9,7 @@
 
     setFn('beforeIOWrite', function ($Call)
     {
-        if (F::Dot($Call, 'Storages.'.$Call['Storage'].'.Journal'))
+        if (F::Dot($Call, 'Storages.'.(isset($Call['Storage'])? $Call['Storage']: 'Default').'.Journal'))
             F::Log([
                 F::Dot($Call, 'Storage'),
                 F::Dot($Call, 'Where'),

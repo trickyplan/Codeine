@@ -9,11 +9,42 @@
 
     setFn ('Open', function ($Call)
     {
-        $Client = new MongoDB\Client('mongodb://'.$Call['Server'].'/'.$Call['Database'], $Call['Mongo']['Connect']);
-        F::Log('Connected to *'.$Call['Server'].'*', LOG_INFO, ['Administrator', 'Mongo']);
-        
-        $Link = $Client->selectDatabase($Call['Database']);
-        F::Log('Database *'.$Call['Database'].'* selected', LOG_INFO, ['Administrator', 'Mongo']);
+        $Link = null;
+
+        $Server = F::Dot($Call, 'Mongo.Server'); // BC Parameters
+
+        if ($Server === null)
+        {
+            $Server = F::Dot($Call, 'Server');
+
+            if ($Server !== null)
+                F::Log('"Server" key is deprecated. Use "Mongo.Server" instead', LOG_WARNING);
+        }
+
+        $Database = F::Dot($Call, 'Mongo.Database'); // BC Parameters
+        if ($Database === null)
+        {
+            $Database = F::Dot($Call, 'Database');
+
+            if ($Database !== null)
+                F::Log('"Database" key is deprecated. Use "Mongo.Database" instead', LOG_WARNING);
+        }
+
+        if ($Server !== null)
+        {
+            if ($Database !== null)
+            {
+                $Client = new MongoDB\Client('mongodb://'.$Server.'/'.$Database, F::Dot($Call, 'Mongo.Connect'));
+                F::Log('Connected to *'.$Server.'*', LOG_INFO, ['Administrator', 'Mongo']);
+                
+                $Link = $Client->selectDatabase($Database);
+                F::Log('Database *'.$Database.'* selected', LOG_INFO, ['Administrator', 'Mongo']);
+            }
+            else
+                F::Log('Database is not specified', LOG_ALERT, ['Administrator', 'Mongo']);
+        }
+        else
+            F::Log('Server is not specified', LOG_ALERT, ['Administrator', 'Mongo']);
 
         return $Link;
     });
@@ -116,12 +147,14 @@
 
             F::Log('db.*'.$Call['Scope'].'*.find('
                 .j($Call['Where']).')', LOG_INFO, ['Administrator', 'Mongo']);
+            F::Log('Options: ('.j($Call['Mongo']['Options']), LOG_INFO, ['Administrator', 'Mongo']);
 
             $Cursor = $Call['Link']->selectCollection($Call['Scope'])->find($Call['Where'], $Call['Mongo']['Options']);
         }
         else
         {
             F::Log('db.*'.$Call['Scope'].'*.find()', LOG_INFO, ['Administrator', 'Mongo']);
+            F::Log('Options: ('.j($Call['Mongo']['Options']), LOG_INFO, ['Administrator', 'Mongo']);
             $Cursor = $Call['Link']->selectCollection($Call['Scope'])->find([],$Call['Mongo']['Options']);
         }
 
@@ -163,21 +196,21 @@
                         $Call['Where'],
                         $Call['Data'], $Call['Mongo']['Options']);
 
-                    if ($Result)
-                        F::Log($Request, LOG_INFO, ['Administrator', 'Mongo']);
-                    else
-                        F::Log($Request.j($Result), LOG_ERR, ['Administrator', 'Mongo']);
+                    $ModifiedCount = $Result->getModifiedCount();
+                    $Level = ($ModifiedCount === 1 ? LOG_INFO: LOG_ERR);
+                    F::Log($ModifiedCount.' objects updated. ', $Level, ['Administrator', 'Mongo']);
 
+                    F::Log($Request, $Level, ['Administrator', 'Mongo']);
                 }
                 else // Delete Where
                 {
                     $Request = 'db.*'.$Call['Scope'].'*.remove('.j($Call['Where']).')';
                     $Result = $Call['Link']->selectCollection($Call['Scope'])->deleteMany($Call['Where'], $Call['Mongo']['Options']);
 
-                    if ($Result)
-                        F::Log($Request, LOG_INFO, ['Administrator', 'Mongo']);
-                    else
-                        F::Log($Request.j($Result), LOG_ERR, ['Administrator', 'Mongo']);
+                    $DeletedCount = $Result->getDeletedCount();
+                    $Level = ($DeletedCount === 1 ? LOG_INFO: LOG_ERR);
+                    F::Log($DeletedCount.' objects deleted. ', $Level, ['Administrator', 'Mongo']);
+                    F::Log($Request, $Level, ['Administrator', 'Mongo']);
                 }
             }
             else
@@ -188,27 +221,33 @@
 
                     $Result = $Call['Link']->selectCollection($Call['Scope'])->insertOne($Call['Data'], $Call['Mongo']['Options']);
 
-                    if ($Result)
-                        F::Log($Request, LOG_INFO, ['Administrator', 'Mongo']);
-                    else
-                        F::Log($Request.j($Result), LOG_ERR, ['Administrator', 'Mongo']);
+                    $InsertedCount = $Result->getInsertedCount();
+                    $Level = ($InsertedCount === 1 ? LOG_INFO: LOG_ERR);
+                    F::Log($InsertedCount.' objects inserted. ', $Level, ['Administrator', 'Mongo']);
+                    F::Log($Request, $Level, ['Administrator', 'Mongo']);
                 }
                 else // Delete All
                 {
                     $Request = 'db.*'.$Call['Scope'].'*.remove()';
                     $Result = $Call['Link']->selectCollection($Call['Scope'])->deleteMany([], $Call['Mongo']['Options']);
 
-                    if ($Result)
-                        F::Log($Request, LOG_INFO, ['Administrator', 'Mongo']);
-                    else
-                        F::Log($Request.j($Result), LOG_ERR, ['Administrator', 'Mongo']);
+                    $DeletedCount = $Result->getDeletedCount();
+                    $Level = ($DeletedCount === 1 ? LOG_INFO: LOG_ERR);
+                    F::Log($DeletedCount.' objects deleted. ', $Level, ['Administrator', 'Mongo']);
+
+                    F::Log($Request, $Level, ['Administrator', 'Mongo']);
+                    F::Log('Options: ('.j($Call['Mongo']['Options']), LOG_INFO, ['Administrator', 'Mongo']);
                 }
             }
+
+            F::Log('Options: '.j($Call['Mongo']['Options']).'', LOG_INFO, ['Administrator', 'Mongo']);
         }
         catch (MongoException $e)
         {
+            F::Log('Mongo Exception: '.$e->getMessage(), LOG_ERR, ['Administrator', 'Mongo']);
             return F::Hook('IO.Mongo.Write.Failed', $Call);
         }
+
         return isset($Call['Data'])? $Call['Data']: null;
     });
 
