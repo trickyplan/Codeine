@@ -1,0 +1,93 @@
+version: '3'
+services:
+  # PHP Service
+  codeine-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: codeine-app
+    restart: unless-stopped
+    tty: true
+    environment:
+      SERVICE_NAME: codeine
+      SERVICE_TAGS: dev
+    working_dir: /var/www/codeine
+    volumes:
+      - ./src:/var/www/codeine
+      - codeine-data:/var/www/codeine/Data
+      - codeine-assets:/var/tmp/codeine
+      - codeine-logs:/var/log/codeine
+    networks:
+      - codeine-network
+
+  # Nginx Service
+  codeine-nginx:
+    image: nginx:alpine
+    container_name: codeine-nginx
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "9080:80"
+      - "9443:443"
+    networks:
+      - codeine-network
+    volumes:
+      - codeine-data:/var/www/codeine/Data
+      - codeine-assets:/var/tmp/codeine
+      - ./docker/nginx/conf.d/:/etc/nginx/conf.d
+      - ./docker/nginx/ssl/:/etc/nginx/ssl
+
+  # MongoDB Service
+  codeine-mongo:
+    container_name: codeine-mongo
+    image: mongo:latest
+    environment:
+      - MONGO_DATA_DIR=/data/db
+      - MONGO_LOG_DIR=/dev/null
+      - MONGO_INITDB_DATABASE=codeine
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=gxjk4WWHNcEChiwevC
+    restart: unless-stopped
+    tty: true
+    networks:
+      - codeine-network
+    volumes:
+      - codeine-mongo:/data/db
+      - ./docker/mongo/init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+
+
+  # Redis Service
+  codeine-redis:
+    image: redis:latest
+    container_name: codeine-redis
+    restart: unless-stopped
+    tty: true
+    networks:
+      - codeine-network
+
+  codeine-fake-smtp:
+    image: reachfive/fake-smtp-server
+    container_name: codeine-fake-smtp
+    tty: true
+    networks:
+      - codeine-network
+    ports:
+      - "9180:1080"
+      - "9125:1025"
+
+# Docker Networks
+
+networks:
+  codeine-network:
+    driver: bridge
+
+# Docker Volumes
+volumes:
+  codeine-mongo:
+    driver: local
+  codeine-data:
+    driver: local
+  codeine-assets:
+    driver: local
+  codeine-logs:
+    driver: local
