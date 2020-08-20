@@ -25,13 +25,19 @@
                             'Storage'   => 'Locale',
                             'Scope'     => $Asset.'/Locale/'.$Call['Locale'],
                             'Where'     => $ID,
-                            'IO One'    => true
+                            'Time'      => microtime(true),
+                            'One'    => true
                         ]);
 
-            if ($Tokens === null)
-                $Tokens = [$Token => $Call['Request']['Translation']];
+            if (empty($Tokens))
+                ;
             else
-                $Tokens = F::Dot($Tokens, $Token, $Call['Request']['Translation']);
+                $Tokens = array_shift($Tokens);
+
+            if ($Tokens === null)
+                $Tokens = [];
+
+            $Tokens = F::Dot($Tokens, $Token, $Call['Request']['Translation']);
 
             ksort($Tokens);
 

@@ -91,8 +91,6 @@
         
         if (isset($Call['Fields']))
         {
-            F::Log('*'.j($Call['Fields']).'* fields selected', LOG_INFO, ['Administrator', 'Mongo']);
-
             $Fields = ['_id' => 0];
             
             foreach ($Call['Fields'] as $Field)

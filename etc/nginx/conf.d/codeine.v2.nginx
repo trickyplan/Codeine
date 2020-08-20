@@ -25,11 +25,6 @@
         include fastcgi_params;
         include conf.d/codeine.fastcgi.v2.nginx;
         try_files $uri $uri/ /index.php?$uri&$args;
-
-        fastcgi_intercept_errors        on;
-        fastcgi_param  Environment $Environment;
-        fastcgi_pass   $backend;
-        fastcgi_index  Public/index.php;
     }
 
     location ~ ^/assets/js/(.*)

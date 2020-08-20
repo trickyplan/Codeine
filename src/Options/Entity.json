@@ -180,7 +180,7 @@
         },
         "beforeEntityRead":
         {
-            "Where":
+            "-AutoLoadFields":
             {
                 "Service": "Entity.Hooks.AutoLoadFields",
                 "Method": "beforeEntityRead"

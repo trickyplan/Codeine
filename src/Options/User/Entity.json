@@ -10,7 +10,7 @@
         "Mixins.ID.Sequence",
         "Mixins.Titled",
         "Mixins.EMail",
-        "Mixins.UGC",
+        "Mixins.Controlled",
         "Mixins.Filled",
         "Mixins.Verifiable",
         "Mixins.Channel"
@@ -30,7 +30,7 @@
         },
         "Password":
         {
-            "Tag": "Password",
+            "Scope": "Password",
             "Type": "Literal.Password",
             "Required": true,
             "Widgets":
