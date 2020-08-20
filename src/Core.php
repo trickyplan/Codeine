@@ -221,7 +221,7 @@
                 foreach ($Filenames as $Filename)
                 {
                     self::Log($Filename, LOG_DEBUG);
-                    include_once $Filename;
+                    include $Filename;
                 }
 
                 return true;
