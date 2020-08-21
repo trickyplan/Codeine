@@ -10,9 +10,13 @@
     setFn('Render', function ($Call)
     {
         if ($Call['Output']['Content'] === null)
-            ;
+        {
+            $Call = F::Dot($Call, 'HTTP.Headers.Content-Type:', null);
+            $Call = F::Dot($Call, 'HTTP.Headers.Content-Length:', 0);
+        }
         else
         {
+
             $finfo = new finfo(FILEINFO_MIME);
 
             if (F::Dot($Call, 'HTTP.Headers.Content-Type:') === null)

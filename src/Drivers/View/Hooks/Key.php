@@ -62,7 +62,12 @@
                 if (is_scalar($Replace))
                     ;
                 else
-                    $Replace = j($Replace);
+                {
+                    if (null === $Replace)
+                        $Replace = '';
+                    else
+                        $Replace = j($Replace);
+                }
 
             $Call['Value'] = str_replace($Call['Parsed'][0], $Call['Parsed'][1], $Call['Value']);
 

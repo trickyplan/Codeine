@@ -16,8 +16,7 @@
                         "midi": "none",
                         "payment" :"none",
                         "fullscreen" :"none",
-                        "encrypted-media" :"none",
-                        "vr" :"none"
+                        "encrypted-media" :"none"
                     }
                 }
             }

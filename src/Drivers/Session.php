@@ -93,7 +93,7 @@
                 ]);
 
             if ($Call['Session']['User'] == null)
-                F::Run(null, 'Annulate', $Call);
+                ; //F::Run(null, 'Annulate', $Call);
             else
                 F::Log('Session: Primary user '.$Call['Session']['User']['ID'].' authenticated', LOG_INFO, 'Security');
         }
