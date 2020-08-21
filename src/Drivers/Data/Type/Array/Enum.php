@@ -13,11 +13,12 @@
 
         $Data = [];
 
-        foreach ($Call['Value'] as $Value)
-        {
-            if (($Value = array_search($Value, $Call['Node']['Options'])) !== false)
-                $Data[] = $Value;
-        }
+        if (is_array($Call['Value']))
+            foreach ($Call['Value'] as $Value)
+            {
+                if (($Value = array_search($Value, $Call['Node']['Options'])) !== false)
+                    $Data[] = $Value;
+            }
 
         return $Data;
     });
@@ -26,7 +27,7 @@
     {
         $Call['Node']['Options'] = F::Live($Call['Node']['Options']);
 
-        if(is_array($Call['Value']))
+        if (is_array($Call['Value']))
             foreach ($Call['Value'] as &$Value)
                 if (isset($Call['Node']['Options'][$Value]))
                     $Value = $Call['Node']['Options'][$Value];

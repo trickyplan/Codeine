@@ -110,7 +110,7 @@
                         [
                             'Type'  => 'Template',
                             'Scope' => 'Entity/Validate',
-                            'ID'    => isset($Error['Validator'])? $Error['Validator']: '',
+                            'ID'    => $Error['Validator'],
                             'Data'  => $Error
                         ];
 

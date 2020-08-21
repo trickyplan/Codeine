@@ -21,7 +21,14 @@
 
                 if ($isValid !== true)
                 {
-                    $Call['Errors'][$Name][] = $isValid;
+                    $Call['Errors'][$Name][] =
+                        [
+                            'Message'   => $isValid,
+                            'Validator' => $Validator,
+                            'Name'      => $Name,
+                            'Node'      => $Node,
+                            'Entity'    => $Call['Entity']
+                        ];
                     F::Log($Call['Entity'].':'.$Name.' '.j($isValid), LOG_INFO);
                 }
             }
