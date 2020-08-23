@@ -9,12 +9,14 @@
 
     setFn('Before', function ($Call)
     {
+        $Call['Where'] = F::Live($Call['Where'], $Call);
         $Call['Current'] = F::Run('Entity', 'Read', $Call, ['One' => true]);
         return $Call;
     });
 
     setFn('Do', function ($Call)
     {
+        $Call['Where'] = F::Live($Call['Where'], $Call);
         return F::Hook('afterUpdateDo',
                     F::Run(null, $Call['HTTP']['Method'],
                         F::Hook('beforeUpdateDo', $Call)));

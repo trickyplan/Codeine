@@ -19,13 +19,8 @@
     "EPP": 20,
     "Nodes":
     {
-        "Title":
-        {
-            "Scope": "Create"
-        },
         "EMail":
         {
-            "Scope": "Create",
             "Required": true
         },
         "Status":
@@ -35,7 +30,6 @@
         },
         "Password":
         {
-            "Scope": "Create",
             "Type": "Literal.Password",
             "Required": true,
             "Widgets":

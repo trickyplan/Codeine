@@ -8,7 +8,7 @@
             "Call":
             {
                 "Entity": "User",
-                "OnlyTag": ["Create"]
+                "OnlyRequired": true
             }
         },
         "/login":
