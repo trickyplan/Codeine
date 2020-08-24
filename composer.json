@@ -22,7 +22,6 @@
         "php": "^7.4",
         "mongodb/mongodb": "^1.8",
         "bacon/bacon-qr-code": "^2.0",
-        "elasticsearch/elasticsearch": "^7.6.1",
         "ext-mongodb": "^1.8",
         "ext-imagick": "^3.4.4"
     }
