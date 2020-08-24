@@ -7,7 +7,9 @@
      * @version 8.x
      */
 
-    function array_slice_recursive($Array, $Length)
+    setFn('Do', function ($Call)
+    {
+        $array_slice_recursive = function ($Array, $Length)
         {
             if (is_array($Array))
             {
@@ -17,16 +19,14 @@
             }
 
             return $Array;
-        }
+        };
 
-    setFn('Do', function ($Call)
-    {
         if ($Length = F::Dot($Call, 'Test.Case.Result.Slice'))
         {
             $Cut = F::Dot($Call, 'Test.Case.Result.Actual');
 
             if (is_array($Cut))
-                $Cut = array_slice_recursive($Cut, $Length);
+                $Cut = $array_slice_recursive($Cut, $Length);
 
             $Call = F::Dot($Call, 'Test.Case.Result.Actual', $Cut);
         }

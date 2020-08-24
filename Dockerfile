@@ -1,35 +1,31 @@
 FROM php:7.4-fpm as codeine-builder
+LABEL maintainer="bergstein@trickyplan.com"
 
 USER root
 
+ENV MAKEFLAGS="-j$[$(nproc) + 1]"
+
 # Install dependencies
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    libpng-dev \
-    libzip-dev \
-    libonig-dev \
-    libjpeg62-turbo-dev \
-    libfreetype6-dev \
-    locales \
-    zip \
-    unzip \
-    git \
-    curl \
-    libcurl4-openssl-dev pkg-config libssl-dev \
-    libgraphicsmagick1-dev
+RUN apt-get update
+RUN apt-get install -y build-essential libonig-dev locales
+RUN apt-get install -y libzip-dev zip unzip git curl
+RUN apt-get install -y libcurl4-openssl-dev pkg-config libssl-dev
+RUN apt-get install -y libpng-dev libfreetype6-dev libmagickwand-dev libjpeg62-turbo-dev
+RUN apt-get install -y libyaml-dev
 
-RUN export MAKEFLAGS="-j $(grep -c ^processor /proc/cpuinfo)"
+RUN docker-php-ext-install opcache
+RUN docker-php-ext-install mbstring
+RUN docker-php-ext-install zip
+RUN docker-php-ext-install exif
+RUN docker-php-ext-install pcntl
 
-#RUN docker-php-ext-install mbstring zip exif pcntl
-RUN docker-php-ext-install opcache      \
-                            mbstring    \
-                            zip         \
-                            exif        \
-                            pcntl
-RUN pecl install mongodb-1.7.4      \
-                 gmagick-beta       \
-                 igbinary-stable    \
-                 redis-stable
+RUN pecl install yaml-stable
+RUN pecl install mongodb-stable
+RUN pecl install imagick-stable
+RUN pecl install igbinary-stable
+RUN pecl install redis-stable
+
+RUN ls -lah /usr/local/lib/php/extensions/no-debug-non-zts-20190902/
 
 FROM php:7.4-fpm as codeine-app
 USER root
@@ -51,8 +47,7 @@ RUN apt-get update && apt-get install -y \
     jpegoptim optipng pngquant gifsicle \
     unzip \
     git \
-    curl \
-    libgraphicsmagick-q16-3
+    curl libgraphicsmagick-q16-3 libmagickwand-6.q16-6 libyaml-0-2
 
 # Set locale
 RUN sed -i -e 's/# ru_RU.UTF-8 UTF-8/ru_RU.UTF-8 UTF-8/' /etc/locale.gen && \

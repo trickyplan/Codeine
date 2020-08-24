@@ -35,7 +35,7 @@
             if ($Database !== null)
             {
                 $Client = new MongoDB\Client('mongodb://'.$Server.'/'.$Database, F::Dot($Call, 'Mongo.Connect'));
-                F::Log('Connected to *'.$Server.'*', LOG_INFO, ['Administrator', 'Mongo']);
+                F::Log('Connected to *'.$Server.'* with options: '.j(F::Dot($Call, 'Mongo.Connect')), LOG_INFO, ['Administrator', 'Mongo']);
                 
                 $Link = $Client->selectDatabase($Database);
                 F::Log('Database *'.$Database.'* selected', LOG_INFO, ['Administrator', 'Mongo']);

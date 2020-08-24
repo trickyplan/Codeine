@@ -13,7 +13,8 @@
                     "Connect":
                     {
                         "username": "codeine",
-                        "password": "test-password"
+                        "password": "test-password",
+                        "compressors": "zstd,snappy,zlib"
                     }
                 }
             }
