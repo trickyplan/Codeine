@@ -8,7 +8,7 @@
                 "Run":
                 {
                     "Service": "System.Timezone",
-                    "Method": "Get Offsets"
+                    "Method": "Offsets.Get"
                 },
                 "Assert":
                 {

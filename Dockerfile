@@ -11,7 +11,7 @@ RUN apt-get install -y build-essential libonig-dev locales
 RUN apt-get install -y libzip-dev zip unzip git curl
 RUN apt-get install -y libcurl4-openssl-dev pkg-config libssl-dev
 RUN apt-get install -y libpng-dev libfreetype6-dev libmagickwand-dev libjpeg62-turbo-dev
-RUN apt-get install -y libyaml-dev
+RUN apt-get install -y libyaml-dev libzstd-dev
 
 RUN docker-php-ext-install opcache
 RUN docker-php-ext-install mbstring
@@ -24,6 +24,8 @@ RUN pecl install mongodb-stable
 RUN pecl install imagick-stable
 RUN pecl install igbinary-stable
 RUN pecl install redis-stable
+RUN pecl install zstd-stable
+
 
 RUN ls -lah /usr/local/lib/php/extensions/no-debug-non-zts-20190902/
 
@@ -42,12 +44,10 @@ ENV PHP_OPCACHE_REVALIDATE_FREQ="0"             \
 
 COPY --from=codeine-builder /usr/local/lib/php/extensions/no-debug-non-zts-20190902/*.so  /usr/local/lib/php/extensions/no-debug-non-zts-20190902/
 
-RUN apt-get update && apt-get install -y \
-    locales \
-    jpegoptim optipng pngquant gifsicle \
-    unzip \
-    git \
-    curl libgraphicsmagick-q16-3 libmagickwand-6.q16-6 libyaml-0-2
+RUN apt-get update
+RUN apt-get install -y locales git
+RUN apt-get install -y jpegoptim optipng pngquant gifsicle libgraphicsmagick-q16-3 libmagickwand-6.q16-6
+RUN apt-get install -y unzip curl libyaml-0-2
 
 # Set locale
 RUN sed -i -e 's/# ru_RU.UTF-8 UTF-8/ru_RU.UTF-8 UTF-8/' /etc/locale.gen && \

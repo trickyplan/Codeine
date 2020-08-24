@@ -1,0 +1,120 @@
+{
+    "Suites":
+    {
+        "Deflate with AAAA…":
+        {
+            "Deflate Encode":
+            {
+                "Run":
+                {
+                    "Service": "Data.Compress",
+                    "Method":  "Write",
+                    "Call":
+                    {
+                        "Compress":
+                        {
+                            "Driver": "Deflate"
+                        },
+                        "Data": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                    }
+                },
+                "Result":
+                {
+                    "Base64": true
+                },
+                "Assert":
+                {
+                    "Equal":
+                    {
+                        "Expected": "c3QcSQAA"
+                    },
+                    "Print": true
+                }
+            },
+            "Deflate Decode":
+            {
+                "Run":
+                {
+                    "Service": "Data.Compress",
+                    "Method":  "Read",
+                    "Call":
+                    {
+                        "Compress":
+                        {
+                            "Driver": "Deflate"
+                        },
+                        "Data": "c3QcSQAA"
+                    }
+                },
+                "Preprocess":
+                {
+                    "Base64": ["Run.Call.Data"]
+                },
+                "Assert":
+                {
+                    "Print": true,
+                    "Equal":
+                    {
+                        "Expected": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                    }
+                }
+            }
+        },
+        "Deflate with Lorem Ipsum":
+        {
+            "Deflate Encode":
+            {
+                "Run":
+                {
+                    "Service": "Data.Compress",
+                    "Method":  "Write",
+                    "Call":
+                    {
+                        "Compress":
+                        {
+                            "Driver": "Deflate"
+                        },
+                        "Data": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                    }
+                },
+                "Result":
+                {
+                    "Base64": true
+                },
+                "Assert":
+                {
+                    "Print": true,
+                    "Empty": false
+                }
+            },
+            "Deflate Decode":
+            {
+                "Run":
+                {
+                    "Service": "Data.Compress",
+                    "Method":  "Read",
+                    "Call":
+                    {
+                        "Compress":
+                        {
+                            "Driver": "Deflate"
+                        },
+                        "Data": "NZDBcUMxCERb2QI8v4rklmsKIIjvMCMJWQKPyw/KT25CwLL7PmxKg44VDcWqTSx1UBO/ga0vYRePCSo6dLH2O6RqNpeUXIBorGYFLm3ksnbWoiW6IxyVvlIe4pe0oNG9E6jqI+jAp0O6ttRG0/14ZknthkfoQrflMwrkJZPVydU6olZqbJfyHtKl+9KvpI4chlAab+nJrgB5yg+8bUkKF+iMdHJl1Y4pY8q39CIzg+fH02qMPCdpJ5NC1hKw1vpPKAMFzrgrOfo2hEEzi5gH3l8swyU2xmRgzCSccxxDC/neyBRjmhbpm+ImlUc56qCdG3aeykoosmTubrO6bdAGpIlj/XGNdvwA\n"
+                    }
+                },
+                "Preprocess":
+                {
+                    "Base64": ["Run.Call.Data"]
+                },
+                "Assert":
+                {
+                    "Print": true,
+                    "Equal":
+                    {
+                        "Expected": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                    }
+                }
+            }
+        }
+    }
+}

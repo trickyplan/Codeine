@@ -112,6 +112,7 @@
     {
         $Tests = F::Run(null, 'Enumerate', $Call);
         $Call['Layouts'][] = ['Scope' => 'Test/All', 'ID' => 'Main'];
+
         foreach ($Tests as $Test)
         {
             $Test = ['ID' => $Test];
@@ -136,6 +137,7 @@
         {
             if (is_dir($Path.'/Tests'))
             {
+                // FIXME I don't remember what's going on here
                 $Directory = new RecursiveDirectoryIterator($Path.'/Tests');
                 $Iterator = new RecursiveIteratorIterator($Directory);
                 $Regex = new RegexIterator($Iterator,
@@ -146,6 +148,7 @@
             }
         }
 
+        $Options = array_unique($Options);
         sort($Options);
         
         return $Options;

@@ -18,7 +18,10 @@
                     },
                     "Assert":
                     {
-                        "Equal": "Lorem ipsu"
+                        "Equal":
+                        {
+                            "Expected": "Lorem ipsu"
+                        }
                     }
                 },
                 "Many Words":
@@ -36,7 +39,10 @@
                     },
                     "Assert":
                     {
-                        "Equal": "Lorem ipsum dolor sit"
+                        "Equal":
+                        {
+                            "Expected": "Lorem ipsum dolor sit"
+                        }
                     }
                 },
                 "One Sentence":
@@ -54,7 +60,10 @@
                     },
                     "Assert":
                     {
-                        "Equal": "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+                        "Equal":
+                        {
+                            "Expected": "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+                        }
                     }
                 }
             }

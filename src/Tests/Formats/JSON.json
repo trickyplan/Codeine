@@ -24,7 +24,10 @@
                 {
                     "Print": true,
                     "Empty": false,
-                    "Equal": "{\"A\":1,\"B\":\"X\",\"C\":[0,1,2]}"
+                    "Equal":
+                    {
+                        "Expected": "{\"A\":1,\"B\":\"X\",\"C\":[0,1,2]}"
+                    }
                 }
             },
             "Simple Decode":
@@ -44,9 +47,12 @@
                     "Empty": false,
                     "Equal":
                     {
-                        "A": 1,
-                        "B": "X",
-                        "C": [0, 1, 2]
+                        "Expected":
+                        {
+                            "A": 1,
+                            "B": "X",
+                            "C": [0, 1, 2]
+                        }
                     }
                 }
             }

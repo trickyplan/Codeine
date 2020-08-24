@@ -19,9 +19,9 @@
                 "Assert":
                 {
                     "Equal":
-                        [
-                            "&lt;tag&gt;&quot;Lorem ipsum&quot;&lt;/tag&gt;"
-                        ]
+                    {
+                        "Expected": ["&lt;tag&gt;&quot;Lorem ipsum&quot;&lt;/tag&gt;"]
+                    }
                 }
             }
         }

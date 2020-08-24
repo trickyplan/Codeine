@@ -32,7 +32,10 @@
                 },
                 "Assert":
                 {
-                    "Equal": "Lorem ipsum dolor sit amet"
+                    "Equal":
+                    {
+                        "Expected": "Lorem ipsum dolor sit amet"
+                    }
                 }
             }
         }

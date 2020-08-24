@@ -27,7 +27,10 @@
                 },
                 "Assert":
                 {
-                    "Equal": "true"
+                    "Equal":
+                    {
+                        "Expected": true
+                    }
                 }
             },
             "GET: Origin header passed":
@@ -61,7 +64,10 @@
                 },
                 "Assert":
                 {
-                    "Equal": "example.com"
+                    "Equal":
+                    {
+                        "Expected": "example.com"
+                    }
                 }
             },
             "GET":
@@ -88,7 +94,10 @@
                 },
                 "Assert":
                 {
-                    "Equal": "*"
+                    "Equal":
+                    {
+                        "Expected": "*"
+                    }
                 }
             }
         }

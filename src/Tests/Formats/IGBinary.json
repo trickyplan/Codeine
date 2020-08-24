@@ -23,7 +23,10 @@
                 "Assert":
                 {
                     "Print": true,
-                    "Empty": false
+                    "Equal":
+                    {
+                        "Expected": "AAAAAhQDEQFBBgERAUIRAVgRAUMUAwYABgAGAQYBBgIGAg=="
+                    }
                 }
             },
             "Simple Decode":
@@ -41,7 +44,19 @@
                 "Assert":
                 {
                     "Print": true,
-                    "Empty": false
+                    "Equal":
+                    {
+                        "Expected":
+                        {
+                            "A": 1,
+                            "B": "X",
+                            "C": [
+                                0,
+                                1,
+                                2
+                            ]
+                        }
+                    }
                 }
             }
         }
