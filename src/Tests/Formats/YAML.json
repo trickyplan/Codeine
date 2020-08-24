@@ -1,7 +1,7 @@
 {
     "Suites":
     {
-        "JSON":
+        "YAML":
         {
             "Simple Encode":
             {
@@ -16,15 +16,17 @@
                             "A": 1,
                             "B": "X",
                             "C": [0, 1, 2]
-                        },
-                        "Flags": 352
+                        }
                     }
                 },
                 "Assert":
                 {
                     "Print": true,
                     "Empty": false,
-                    "Equal": "{\"A\":1,\"B\":\"X\",\"C\":[0,1,2]}"
+                    "Equal":
+                    {
+                        "Expected": "---\nA: 1\nB: X\nC:\n- 0\n- 1\n- 2\n...\n"
+                    }
                 }
             },
             "Simple Decode":
@@ -35,7 +37,7 @@
                     "Method":  "Read",
                     "Call":
                     {
-                        "Value": "{\"A\":1,\"B\":\"X\",\"C\":[0,1,2]}"
+                        "Value": "\nA: 1\nB: X\nC:\n- 0\n- 1\n- 2\n"
                     }
                 },
                 "Assert":
@@ -44,9 +46,12 @@
                     "Empty": false,
                     "Equal":
                     {
-                        "A": 1,
-                        "B": "X",
-                        "C": [0, 1, 2]
+                        "Expected":
+                        {
+                            "A": 1,
+                            "B": "X",
+                            "C": [0, 1, 2]
+                        }
                     }
                 }
             }
