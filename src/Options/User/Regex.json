@@ -107,10 +107,6 @@
             "Service":"Entity.Update",
             "Call":
             {
-                "Form":
-                {
-                    "Layout": "Field"
-                },
                 "Entity": "User",
                 "Where": "$Session.User.ID"
             }

@@ -33,7 +33,7 @@
 
             $Call = F::Hook('beforeUpdateGet', $Call);
     
-            $Call['Output']['Content']['Form Widget'] = ['Type' => 'Form/'.$Call['Form']['Template'], 'ID' => 'Update'];
+            $Call['Output']['Content']['Form Widget'] = ['Type' => 'Form', 'ID' => 'Update', 'Widget Template' => 'Form/'.$Call['Form']['Template']];
     
             $Call['Tag'] = isset($Call['Scope'])? $Call['Scope']: null;
     
@@ -48,12 +48,13 @@
                 ];
             
             if (empty($Call['Action']))
-                $Call['Action'] =$Call['HTTP']['URI'];
+                $Call['Action'] = $Call['HTTP']['URI'];
             
             $Call['Output']['Content']['Form Widget']['Action'] = $Call['Action'];
+            $Call['Output']['Content']['Form Widget']['Data']   = $Call['Data'];
     
             $Call = F::Apply('Entity.Form', 'Generate', $Call);
-            
+
             $Call = F::Hook('afterUpdateGet', $Call);
         }
 

@@ -21,5 +21,6 @@
 
     setFn('Finish', function ($Call)
     {
+        $Call['Output']['Form']['Data'] = $Call['Data'];
         return $Call;
     });

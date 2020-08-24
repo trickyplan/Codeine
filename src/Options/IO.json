@@ -19,7 +19,18 @@
         },
         "Primary":
         {
-            "Driver": "IO.Storage.Memory",
+            "Driver": "IO.Storage.Mongo",
+            "Mongo":
+            {
+                "Server": "codeine-mongo",
+                "Database": "codeine",
+                "Connect":
+                {
+                    "username": "codeine",
+                    "password": "test-password",
+                    "compressors": "zstd,snappy,zlib"
+                }
+            },
             "Description": "Default storage for all important data"
         },
         "Secondary":

@@ -13,7 +13,7 @@
     "Form":
     {
         "Layout": "Full",
-        "Template": "1B"
+        "Template": "Template/Create"
     },
     "Only Required": false,
     "Hooks":

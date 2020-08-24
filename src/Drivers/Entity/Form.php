@@ -114,9 +114,6 @@
                     else
                         $Widget['Name'] .= '['.$Name.']';
 
-                    if (isset($Call['Data']))
-                        $Widget['Data'] = $Call['Data'];
-                    
                     if (($Widget['Value'] = F::Dot($Call['Data'], $Name)) === null)
                     {
                         if (isset($Node['Default']))

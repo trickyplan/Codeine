@@ -9,7 +9,7 @@
 
     setFn('Format', function ($Call)
     {
-        if (isset($Call['Value']))
+        if (isset($Call['Value']) && is_numeric($Call['Value']))
         {
             $Time = time();
 

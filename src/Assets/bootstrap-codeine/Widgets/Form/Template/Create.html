@@ -1,0 +1,19 @@
+<form method="post" action="<variable>Action</variable>" enctype="multipart/form-data" autocomplete="on" class="panel panel-default">
+    <if value="<variable>Form.Title</variable>" neq="null">
+        <div class="panel-heading">
+            <variable>Form.Title</variable>
+        </div>
+    </if>
+    <place>Message</place>
+    <div class="panel-body">
+        <place>Form</place>
+    </div>
+    <div class="panel-footer text-center">
+        <button type="submit" class="btn btn-lg btn-primary">
+            <l><variable>Entity</variable>.<variable>Purpose</variable>:Submit,<variable>Entity</variable>.<variable>Purpose</variable>:Title</l>
+        </button>
+        <a href="<variable>Request.BackURL</variable>" class="btn btn-lg btn-danger">
+            <l><variable>Entity</variable>.<variable>Purpose</variable>:Cancel</l>
+        </a>
+    </div>
+</form>

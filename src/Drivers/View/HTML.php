@@ -37,7 +37,7 @@
                         if (is_array($Widget))
                         {
                             if (isset($Widget['Type']))
-                                $Call['Output'][$Place][$Key] = F::Run ('View', 'Load',
+                                $Call['Output'][$Place][$Key] = F::Run ('View', 'Load', $Call,
                                     [
                                         'Scope' => (isset($Widget['Widget Set'])? $Widget['Widget Set']: $Call['View']['HTML']['Widget Set']).'/Widgets',
                                         'ID'    => (isset($Widget['Widget Template'])?

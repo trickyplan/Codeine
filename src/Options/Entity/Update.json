@@ -3,7 +3,7 @@
     "Form":
     {
         "Layout": "Full",
-        "Template": "2B"
+        "Template": "Template/Update"
     },
     "Hooks":
     {

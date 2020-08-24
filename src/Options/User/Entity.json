@@ -19,6 +19,16 @@
     "EPP": 20,
     "Nodes":
     {
+        "Title":
+        {
+            "Widgets":
+            {
+                "Write":
+                {
+                    "AutoComplete": "name"
+                }
+            }
+        },
         "EMail":
         {
             "Required": true
