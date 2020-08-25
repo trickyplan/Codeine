@@ -13,19 +13,17 @@
        
         foreach ($Call['Parsed']['Value'] as $IX => $Match)
         {
-            if (empty($Call['Parsed']['Options'][$IX]))
-                $Template = 'Tag';
-            else
-                $Template = F::Dot($Call['Parsed'],'Options.'.$IX.'.template') ? F::Dot($Call['Parsed'],'Options.'.$IX.'.template'): 'Tag';
-
             if (preg_match('@^(.+)\:(.+)$@SsUu', $Call['Parsed']['Value'][$IX], $Slices))
             {
                 list(,$Entity, $ID) = $Slices;
-                
+
                 if (empty($ID))
                     $Replaces[$IX] = '';
                 else
                 {
+                    $Scope      = $Entity.'/'.(F::Dot($Call['Parsed'],'Options.'.$IX.'.scope') ? F::Dot($Call['Parsed'],'Options.'.$IX.'.scope'): 'Show');
+                    $Template   = F::Dot($Call['Parsed'],'Options.'.$IX.'.template') ? F::Dot($Call['Parsed'],'Options.'.$IX.'.template'): 'Tag';
+
                     $Element = F::Run('Entity', 'Read',
                     [
                           'Entity' => $Entity,
@@ -38,8 +36,8 @@
                     else
                         $Replaces[$IX] = F::Run('View', 'Load', $Call,
                                 [
-                                      'Scope'  => $Entity,
-                                      'ID'     => 'Show/'.$Template,
+                                      'Scope'  => $Scope,
+                                      'ID'     => $Template,
                                       'Data'   => $Element
                                 ]);
                     

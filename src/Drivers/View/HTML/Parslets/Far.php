@@ -11,6 +11,7 @@
     {
         $Replaces = [];
         $Queries = [];
+
         foreach ($Call['Parsed']['Value'] as $IX => $Match)
         {
             if (preg_match('@^(.+)\:(.+)\:(.+)$@SsUu', $Match, $Slices))
@@ -20,6 +21,7 @@
                 $Queries[$Entity]['Fields'][$Field] = $Field;
             }
         }
+        // FIXME Return fields later
 
         if (empty($Queries))
             ;
@@ -37,10 +39,8 @@
                 $Loaded = F::Run('Entity', 'Read',
                     [
                         'Entity' => $Entity,
-                        'Where'  => ['ID' => ['$in' => $KV['IDs']]],
-                        'Fields' => $KV['Fields']
+                        'Where'  => ['ID' => ['$in' => $KV['IDs']]]
                     ]);
-
 
                 if (empty($Loaded))
                     ;

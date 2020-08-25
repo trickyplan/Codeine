@@ -13,22 +13,22 @@
         {
             try
             {
-                $GImage = new Gmagick();
-                $GImage->readimageblob($Call['Current Image']['Data']);
+                $Imagick = new Imagick();
+                $Imagick->readimageblob($Call['Current Image']['Data']);
     /*            $GImage->setCompressionQuality($Call['Image']['Quality']);*/
 
 
                 if (!isset($Call['Current Image']['Height']))
                     $Call['Current Image']['Height'] =
-                        ceil(($Call['Current Image']['Width']/$GImage->getimagewidth())*$GImage->getimageheight());
+                        ceil(($Call['Current Image']['Width']/$Imagick->getimagewidth())*$Imagick->getimageheight());
 
                 if (!isset($Call['Current Image']['Width']))
                     $Call['Current Image']['Width'] =
-                        ceil(($Call['Current Image']['Height']/$GImage->getimageheight())*$GImage->getimagewidth());
+                        ceil(($Call['Current Image']['Height']/$Imagick->getimageheight())*$Imagick->getimagewidth());
 
-                $GImage->cropthumbnailimage($Call['Current Image']['Width'], $Call['Current Image']['Height']);
+                $Imagick->cropthumbnailimage($Call['Current Image']['Width'], $Call['Current Image']['Height']);
 
-                $Call['Current Image']['Data'] = $GImage->getImageBlob();
+                $Call['Current Image']['Data'] = $Imagick->getImageBlob();
             }
             catch (Exception $e)
             {
