@@ -17,7 +17,8 @@
                 if ($Call['Value'] >= $Value)
                 {
                     $Units = floor($Call['Value']/$Value);
-                    $Output[] = sprintf('%02d', $Units);
+                    $Output[] = sprintf('%02d', $Units)
+                        .'<l>Formats.Date.ShortTerm:Abbreviations.'.$Period.'</l>';
                     $Call['Value'] -= $Units*$Value;
                 }
                 else
@@ -26,7 +27,7 @@
             if (empty($Output))
                 $Result = 0;
             else
-                $Result = implode(':', $Output);
+                $Result = implode(' ', $Output);
         }
         else
             $Result = null;
