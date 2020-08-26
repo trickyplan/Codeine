@@ -39,7 +39,7 @@
                 'Context' => $Call['Context']
             ];
         
-        $Call['Output']['Content']['Form Widget'] = ['Type' => 'Form/'.$Call['Form']['Template'], 'ID' => 'Create'];
+        $Call['Output']['Content']['Form Widget'] = ['Type' => 'Form', 'ID' => 'Create', 'Widget Template' => 'Form/'.$Call['Form']['Template']];
 
         if (isset($Call['Data']))
             ;
