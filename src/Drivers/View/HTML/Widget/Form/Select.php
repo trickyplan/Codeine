@@ -11,7 +11,7 @@
      {
          $Options = [];
 
-         if (isset($Call['Multiple']) && $Call['Multiple'])
+         if (F::Dot($Call, 'Multiple'))
              $Call['Name'] .= '[]';
 
          $Call['Options'] = F::Live($Call['Options'], $Call);
@@ -59,7 +59,7 @@
                  if (isset($Call['Keys as values']) && $Call['Keys as values'])
                      $lValue = $Value;
 
-                 if (($Value == $Call['Value']) || ($Key == $Call['Value']) || ((is_array($Call['Value']) && in_array ($Value, $Call['Value']))))
+                 if (($Value == $Call['Value']) || ($Key == $Call['Value']) || ((is_array($Call['Value']) && in_array ($Key, $Call['Value']))))
                      $Options[] = '<option value="'.$Key.'" selected>'.$lValue.'</option>';
                  else
                      $Options[] = '<option value="'.$Key.'">' . $lValue . '</option>';
