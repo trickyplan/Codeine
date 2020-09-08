@@ -13,7 +13,7 @@
 
         $Call = F::Hook('beforeSessionInitialize', $Call);
 
-        // Маркера нет — пользователь чистый гость
+        // No Marker — Fresh User
         if (null === $Call['SID'])
         {
             F::Log('Session: Marker does not exist', LOG_INFO, 'Security');
@@ -47,7 +47,7 @@
         }
 
         $Call = F::Hook('afterSessionInitialize', $Call);
-        
+
         $Call = F::Run(null, 'Load User', $Call);
 
         $Call['SUID'] = isset($Call['Session']['User']['ID'])? 'U:'.$Call['Session']['User']['ID']: 'S:'. $Call['SID'];
@@ -125,7 +125,6 @@
                     'One' => true,
                     'Data' => $Call['Session Data']
                 ]);
-            
             F::Log('Session created '.$Call['SID'], LOG_INFO, 'Security');
             F::Log('Session data '.j($Call['Session Data']), LOG_INFO, 'Security');
         }
@@ -133,7 +132,7 @@
         {
             $Call['Session Data'] = F::Merge($Call['Session'], $Call['Session Data']);
             $Call['Session Data']['ID'] = $Call['SID'];
-      
+
             $Call['Session'] = F::Run('Entity', 'Update', $Call,
                 [
                     'Entity' => 'Session',
@@ -165,7 +164,7 @@
     setFn('Annulate', function ($Call)
     {
         $Call = F::Hook('beforeAnnulate', $Call);
-        
+
         if (F::Dot($Call, 'Session.Secondary'))
         {
             $Call = F::Apply('Session', 'Write', $Call, ['Session Data' => ['User' => $Call['Session']['Primary']['ID'], 'Secondary' => null]]);
@@ -193,9 +192,12 @@
 
         // Вешаем маркер, если включено автомаркирование
         $Call = F::Apply('Session.Marker.Cookie', 'Write', $Call);
-        
+
         if (isset($Call['Session']['Marker']) && $Call['Session']['Marker'])
+        {
             F::Log('Session: Marker created', LOG_INFO, 'Security');
+            unset($Call['Session']['Marker']);
+        }
         else
             F::Log('Session: Marker failed to create', LOG_WARNING, 'Security');
 
