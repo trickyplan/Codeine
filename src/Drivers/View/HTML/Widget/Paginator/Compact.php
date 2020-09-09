@@ -4,14 +4,14 @@
      * @author bergstein@trickyplan.com
      * @description
      * @package Codeine
-     * @version $Call['Paginator Pages'].x
+     * @version $Call['Paginator']['Pages'].x
      */
 
     setFn('Make', function ($Call)
     {
         $Call['Value'] = '';
 
-        if ($Call['Page'] > $Call['Paginator Pages'])
+        if ($Call['Page'] > $Call['Paginator']['Pages'])
             $Call['Value'] .= F::Run('View', 'Load',
                 [
                     'Scope' => $Call['View']['HTML']['Widget Set'].'/Widgets',
@@ -35,7 +35,7 @@
                     ]
                 ]);
 
-        for ($ic = $Call['Page'] - $Call['Paginator Pages']; $ic <= $Call['Page'] + $Call['Paginator Pages']; $ic++)
+        for ($ic = $Call['Page'] - $Call['Paginator']['Pages']; $ic <= $Call['Page'] + $Call['Paginator']['Pages']; $ic++)
             if ($ic > 0 && $ic <= $Call['CountOfPages'])
             {
                 if ($ic == 1)
@@ -76,7 +76,7 @@
                     ]
                 ]);
 
-        if ($Call['Page'] < $Call['CountOfPages'] - $Call['Paginator Pages'])
+        if ($Call['Page'] < $Call['CountOfPages'] - $Call['Paginator']['Pages'])
             $Call['Value'] .= F::Run('View', 'Load',
                 [
                     'Scope' => $Call['View']['HTML']['Widget Set'].'/Widgets',

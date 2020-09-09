@@ -1,4 +1,9 @@
 {
-    "Paginator": "Compact",
-    "Paginator Pages": 5
+    "Paginator":
+    {
+        "Driver": "Compact",
+        "Pages": 5,
+        "Total": true,
+        "Keyboard": true
+    }
 }

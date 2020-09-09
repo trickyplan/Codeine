@@ -12,5 +12,5 @@
         if (empty($Call['PageURL']))
             $Call['PageURL'] = $Call['FirstURL'].'/page';
 
-        return F::Run('View.HTML.Widget.Paginator.'.$Call['Paginator'], 'Make', $Call);
+        return F::Run('View.HTML.Widget.Paginator.'.$Call['Paginator']['Driver'], 'Make', $Call);
     });

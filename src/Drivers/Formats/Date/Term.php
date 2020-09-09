@@ -11,7 +11,7 @@
     {
         $Output = [];
 
-        if (isset($Call['Value']))
+        if (isset($Call['Value']) && is_numeric($Call['Value']))
         {
             foreach ($Call['Period']['Units'] as $Period => $Value)
                 if ($Call['Value'] >= $Value)
