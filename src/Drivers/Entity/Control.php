@@ -77,6 +77,7 @@
         $Call = F::loadOptions($Call['Bundle'].'.Entity', null, $Call);
 
         $Call = F::Hook('beforeSetDo', $Call);
+        $Call['RedirectMask'] = '/control/'.$Call['Bundle'].'/Show';
 
         $Call['Object'] = F::Run('Entity', 'Update', $Call,
             [
@@ -128,6 +129,7 @@
             'Scope' => 'Entity',
             'ID' => 'Create'
         ];
+        $Call['RedirectMask'] = '/control/'.$Call['Bundle'].'/Show';
 
         return F::Apply('Entity.Create', 'Do', $Call, ['Entity' => $Call['Bundle'], 'Scope' => 'Control']);
     });
@@ -138,6 +140,7 @@
             'Scope' => 'Entity',
             'ID' => 'Update'
         ];
+        $Call['RedirectMask'] = '/control/'.$Call['Bundle'].'/Show';
 
         $Call = F::Apply('Entity.Update', 'Before', $Call, ['Entity' => $Call['Bundle'], 'Scope' => 'Control']);
         $Call = F::Apply('Entity.Update', 'Do', $Call, ['Entity' => $Call['Bundle'], 'Scope' => 'Control']);
