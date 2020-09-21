@@ -72,8 +72,16 @@
             libxml_use_internal_errors(true);
             self::$_IsTerminal = posix_isatty('php://stdout');
 
-            if (isset($_SERVER['Environment']))
-                self::$_Environment = $_SERVER['Environment'];
+            if (isset($_SERVER['CODEINE_ENVIRONMENT']))
+                self::$_Environment = $_SERVER['CODEINE_ENVIRONMENT'];
+            else
+            {
+                if (isset($_SERVER['Environment']))
+                {
+                    self::$_Environment = $_SERVER['Environment'];
+                    F::Log('$_ENV[Environment] is deprecated. Stop being egoistical hog.', LOG_WARNING);
+                }
+            }
 
             if (isset($Call['Environment']) and null !== $Call['Environment'])
                 self::$_Environment = $Call['Environment'];
