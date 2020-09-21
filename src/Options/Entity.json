@@ -220,6 +220,11 @@
         },
         "afterEntityLoad":
         {
+            "Check Live «Storage» Variable":
+            {
+                "Service":"Entity.Hooks.Load.LiveStorage",
+                "Method":"afterEntityLoad"
+            },
             "Entity Version":
             {
                 "Service":"Entity.Hooks.EV",

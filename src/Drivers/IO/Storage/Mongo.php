@@ -30,10 +30,15 @@
                 F::Log('"Database" key is deprecated. Use "Mongo.Database" instead', LOG_WARNING);
         }
 
+        $Server     = F::Variable($Server, $Call);
+        $Database   = F::Variable($Database, $Call);
+
         if ($Server !== null)
         {
             if ($Database !== null)
             {
+                $Call = F::Dot($Call, 'Mongo.Connect', F::Variable(F::Dot($Call, 'Mongo.Connect'), $Call));
+
                 $Client = new MongoDB\Client('mongodb://'.$Server.'/'.$Database, F::Dot($Call, 'Mongo.Connect'));
                 F::Log('Connected to *'.$Server.'* with options: '.j(F::Dot($Call, 'Mongo.Connect')), LOG_INFO, ['Administrator', 'Mongo']);
                 

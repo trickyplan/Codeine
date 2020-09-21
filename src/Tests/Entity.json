@@ -1,24 +1,4 @@
 {
-    "Apply":
-    {
-        "Storages":
-        {
-            "TestMongoStorage":
-            {
-                "Driver": "IO.Storage.Mongo",
-                "Mongo":
-                {
-                    "Server": "codeine-mongo",
-                    "Database": "codeine",
-                    "Connect":
-                    {
-                        "username": "codeine",
-                        "password": "test-password"
-                    }
-                }
-            }
-        }
-    },
     "Suites":
     {
         "Positive":
@@ -50,7 +30,7 @@
                             "Key": "Value",
                             "ID": 1,
                             "EV": 1,
-                            "EH": "f2039a20",
+                            "EH": "b9bb4af1",
                             "NoAutoLoad": "NoAutoLoad"
                         }
                     }
@@ -82,7 +62,7 @@
                             "EV": 1,
                             "ID": 2,
                             "Key": "Value 2",
-                            "EH": "f2039a20"
+                            "EH": "b9bb4af1"
                         }
                     }
                 }

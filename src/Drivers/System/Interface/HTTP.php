@@ -190,7 +190,7 @@
 
     setFn('Server', function ($Call)
     {
-        empty($_SERVER) ? F::Log('Empty $_SERVER', LOG_DEBUG): F::Log(function () use ($Call) { return $_SERVER;}, LOG_INFO);
+        empty($_SERVER) ? F::Log('Empty $_SERVER', LOG_NOTICE): F::Log(function () use ($Call) { return $_SERVER;}, LOG_INFO);
 
         $Call['HTTP']['RAW']['Server'] = $_SERVER;
 
@@ -206,12 +206,14 @@
             $Call['Context'] = 'app';
         }
 
+        $Call['ENV'] = F::Merge($Call['ENV'], $_SERVER);
+
         return $Call;
     });
 
     setFn('Files', function ($Call)
     {
-        empty($_FILES) ? F::Log('Empty $_FILES', LOG_INFO): F::Log($_FILES, LOG_INFO);
+        empty($_FILES) ? F::Log('Empty $_FILES', LOG_NOTICE): F::Log($_FILES, LOG_INFO);
 
         // Merge FILES to REQUEST.
         if (isset($_FILES['Data']))

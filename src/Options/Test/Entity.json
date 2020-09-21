@@ -1,5 +1,5 @@
 {
-    "Storage": "TestMongoStorage",
+    "Storage": "$ENV.TEST_STORAGE!Secondary",
     "Nodes":
     {
         "ID": {},

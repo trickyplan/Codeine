@@ -22,12 +22,12 @@
             "Driver": "IO.Storage.Mongo",
             "Mongo":
             {
-                "Server": "codeine-mongo",
-                "Database": "codeine",
+                "Server": "$ENV.IO_MONGO_SERVER",
+                "Database": "$ENV.IO_MONGO_DATABASE",
                 "Connect":
                 {
-                    "username": "codeine",
-                    "password": "test-password",
+                    "username": "$ENV.IO_MONGO_USER",
+                    "password": "$ENV.IO_MONGO_PASSWORD",
                     "compressors": "zstd,snappy,zlib"
                 }
             },

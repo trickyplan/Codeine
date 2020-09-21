@@ -8,6 +8,8 @@ services:
     container_name: codeine-app
     restart: unless-stopped
     tty: true
+    env_file:
+      - .env
     environment:
       SERVICE_NAME: codeine
       SERVICE_TAGS: dev

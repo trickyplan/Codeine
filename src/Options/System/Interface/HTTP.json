@@ -1,4 +1,8 @@
 {
+    "ENV":
+    {
+        "Storage": "Primary"
+    },
     "View":
     {
         "Renderer":
