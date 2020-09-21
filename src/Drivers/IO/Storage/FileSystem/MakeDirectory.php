@@ -16,7 +16,7 @@
         if (file_exists($DirName))
         {
             if (is_dir($DirName))
-                F::Log('Directory '.$DirName.' already exists', LOG_INFO, 'Administrator');
+                F::Log('Directory '.$DirName.' already exists', LOG_DEBUG, 'Administrator');
             else
             {
                 F::Log('File '.$DirName.' already exists, removing', LOG_INFO, 'Administrator');
