@@ -33,30 +33,30 @@
                 $Call = F::Hook('beforeJSInput', $Call);
 
                 // JS Input
-                foreach ($Call['JS']['Input'] as $Call['JS']['Fullpath'])
+                foreach ($Call['JS']['Input'] as $Call['JS Name'])
                 {
-                    if (preg_match('/^https?/SsUu', $Call['JS']['Fullpath']))
+                    if (preg_match('/^https?/SsUu', $Call['JS Name']))
                     {
-                        $JS2 = parse_url($Call['JS']['Fullpath'], PHP_URL_HOST).sha1($Call['JS']['Fullpath']);
+                        $JS2 = parse_url($Call['JS Name'], PHP_URL_HOST).sha1($Call['JS Name']);
                         $Call['JS']['Scripts'][$JS2] = F::Run('IO', 'Read',
                         [
                             'Storage' => 'Web',
                             'RTTL'    => $Call['JS']['Remote']['TTL'],
                             'Where'   =>
                             [
-                                'ID' => $Call['JS']['Fullpath']
+                                'ID' => $Call['JS Name']
                             ],
                             'IO One'  => true
                         ]);
 
                         $JS2 = strtr($JS2, '/', '-');
-                        $Call['JS']['Fullpath'] = $JS2;
+                        $Call['JS Name'] = $JS2;
                     }
                     else
                     {
                         list($Asset, $ID) = F::Run('View', 'Asset.Route',
                             [
-                                'Value' => $Call['JS']['Fullpath'],
+                                'Value' => $Call['JS Name'],
                                 'Scope' => 'js'
                             ]
                         );
@@ -99,10 +99,10 @@
                         }
                     }
 
-                    if ($Call['JS']['Scripts'][$Call['JS']['Fullpath']])
-                        F::Log('JS is *loaded*: '.$Call['JS']['Fullpath'], LOG_DEBUG);
+                    if ($Call['JS']['Scripts'][$Call['JS Name']])
+                        F::Log('JS is *loaded*: '.$Call['JS Name'], LOG_DEBUG);
                     else
-                        F::Log('JS *isn\'t* loaded*: '.$Call['JS']['Fullpath'], LOG_WARNING);
+                        F::Log('JS *isn\'t* loaded*: '.$Call['JS Name'], LOG_WARNING);
                 }
 
                 if (!empty($JSInline))
@@ -118,9 +118,9 @@
                 $Call = F::Hook('beforeJSOutput', $Call);
 
                 // JS Output
-                foreach ($Call['JS']['Scripts'] as $Call['JS']['Fullpath'] => $Call['JS']['Source'])
+                foreach ($Call['JS']['Scripts'] as $Call['JS Name'] => $Call['JS']['Source'])
                 {
-                    $Call['JS']['Fullpath'] = strtr($Call['JS']['Fullpath'], ':', '_').'_'.sha1($Call['JS']['Source']).$Call['JS']['Extension'];
+                    $Call['JS Name'] = strtr($Call['JS Name'], ':', '_').'_'.sha1($Call['JS']['Source']).$Call['JS']['Extension'];
                     $Write = true;
 
                     if ($Call['JS']['Caching'])
@@ -131,13 +131,13 @@
                             'Execute' => 'Exist',
                             'Where'   =>
                             [
-                                'ID' => $Call['JS']['Fullpath']
+                                'ID' => $Call['JS Name']
                             ]
                         ]) === null)
-                            F::Log('Cache *miss* *'.$Call['JS']['Fullpath'].'*', LOG_NOTICE);
+                            F::Log('Cache *miss* *'.$Call['JS Name'].'*', LOG_NOTICE);
                         else
                         {
-                            F::Log('Cache *hit* '.$Call['JS']['Fullpath'], LOG_DEBUG);
+                            F::Log('Cache *hit* '.$Call['JS Name'], LOG_DEBUG);
                             $Write = false;
                         }
                     }
@@ -149,14 +149,14 @@
                             F::Run ('IO', 'Write', $Call,
                             [
                                  'Storage' => 'JS Cache',
-                                 'Where'   => $Call['JS']['Fullpath'],
+                                 'Where'   => $Call['JS Name'],
                                  'Data' => $Call['JS']['Source']
                             ]);
 
                         $Call = F::Hook('afterJSWrite', $Call);
                     }
 
-                    $SRC = '/assets/js/'.$Call['JS']['Fullpath'];
+                    $SRC = '/assets/js/'.$Call['JS Name'];
 
                     if (isset($Call['JS']['Host']) && !empty($Call['JS']['Host']))
                         $JSFilename = $Call['HTTP']['Proto']
