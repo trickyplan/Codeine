@@ -22,14 +22,6 @@
                 "Service":"View.CSS.Combine",
                 "Method": "Do"
             }
-        },
-        "beforeCSSWrite":
-        {
-            "Compressor":
-            {
-                "Service":"View.CSS.Compress",
-                "Method": "Do"
-            }
         }
     }
 }

@@ -13,6 +13,7 @@
         {
             if (preg_match_all('/<jsrun>(.*)<\/jsrun>/SsUu', $Call['Output'], $Parsed))
             {
+                $Parsed[1] = array_unique($Parsed[1]);
                 $JSInline = implode(';', $Parsed[1]);
                 $Call['Output'] = str_replace($Parsed[0], '', $Call['Output']);
             }
@@ -60,7 +61,23 @@
                             ]
                         );
 
-                        $Call['JS']['Scripts'][$Call['JS']['Fullpath']] = F::Run('IO', 'Read',
+                        if (F::Run('IO', 'Execute',
+                            [
+                                'Execute' => 'Exists',
+                                'Storage' => 'JS',
+                                'Scope'   => $Asset,
+                                'Where'   => $ID.'.min',
+                                'IO One'  => true
+                            ]))
+                            $Call['JS']['Scripts'][$Call['JS']['Fullpath']] = F::Run('IO', 'Read',
+                                [
+                                    'Storage' => 'JS',
+                                    'Scope'   => $Asset,
+                                    'Where'   => $ID.'.min',
+                                    'IO One'  => true
+                                ]);
+                        else
+                            $Call['JS']['Scripts'][$Call['JS']['Fullpath']] = F::Run('IO', 'Read',
                             [
                                 'Storage' => 'JS',
                                 'Scope'   => $Asset,

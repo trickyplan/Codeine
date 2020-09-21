@@ -31,19 +31,6 @@
                 "Method": "Do"
             }
         },
-        "beforeJSWrite":
-        {
-            "-Obfuscator":
-            {
-                "Service":"View.JS.Obfuscate",
-                "Method": "Do"
-            },
-            "Compressor":
-            {
-                "Service":"View.JS.Compress",
-                "Method": "Do"
-            }
-        },
         "afterJSOutput":
         {
             "Async":

@@ -19,6 +19,7 @@
 
             if ($Parsed)
             {
+                $Parsed[1] = array_unique($Parsed[1]);
                 $CSSInline = implode(';', $Parsed[1]);
                 $Call['Output'] = str_replace($Parsed[0], '', $Call['Output']);
             }
