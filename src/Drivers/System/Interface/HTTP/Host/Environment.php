@@ -12,19 +12,22 @@
         // Select Default Host
         if (isset($_SERVER['HTTP_HOST']))
         {
-            if (isset($_SERVER['CODEINE_DOMAIN']))
+            $Host = parse_url($_SERVER['HTTP_HOST'], PHP_URL_HOST);
+
+            if (isset($_SERVER['CODEINE_HOST']))
             {
-                if ($_SERVER['HTTP_HOST'] == $_SERVER['CODEINE_DOMAIN'])
+                if ($Host == $_SERVER['CODEINE_HOST'])
                 {
-                    $Call['HTTP']['Host'] = $_SERVER['CODEINE_DOMAIN'];
+                    $Call['HTTP']['Host'] = $_SERVER['CODEINE_HOST'];
+
                     if (mb_strpos($Call['HTTP']['Host'], ':') !== false)
-                        list($Domain, $Port) = explode(':', $Call['HTTP']['Host']);
+                        list($Domain, ) = explode(':', $Call['HTTP']['Host']);
                     else
                         $Domain = $Call['HTTP']['Host'];
 
                     $Call['HTTP']['Domain'] = $Domain;
 
-                    F::Log('Host is determined: *'.$_SERVER['CODEINE_DOMAIN'].'*', LOG_INFO);
+                    F::Log('Host is determined: *'.$_SERVER['CODEINE_HOST'].'*', LOG_INFO);
                 }
                 else
                 {
@@ -34,7 +37,7 @@
             }
             else
             {
-                F::Log('CODEINE_DOMAIN is not specified.', LOG_CRIT);
+                F::Log('CODEINE_HOST is not specified.', LOG_CRIT);
                 F::Shutdown(); // FIXME Add Options
             }
         }
