@@ -61,29 +61,42 @@
                             ]
                         );
 
-                        if (F::Run('IO', 'Execute',
-                            [
-                                'Execute' => 'Exists',
-                                'Storage' => 'JS',
-                                'Scope'   => $Asset,
-                                'Where'   => $ID.'.min',
-                                'IO One'  => true
-                            ]))
-                            $Call['JS']['Scripts'][$Call['JS']['Fullpath']] = F::Run('IO', 'Read',
-                                [
-                                    'Storage' => 'JS',
-                                    'Scope'   => $Asset,
-                                    'Where'   => $ID.'.min',
-                                    'IO One'  => true
-                                ]);
+                        if (isset($Call['JS']['Scripts'][$Call['JS Name']]))
+                            ;
                         else
-                            $Call['JS']['Scripts'][$Call['JS']['Fullpath']] = F::Run('IO', 'Read',
-                            [
-                                'Storage' => 'JS',
-                                'Scope'   => $Asset,
-                                'Where'   => $ID,
-                                'IO One'  => true
-                            ]);
+                        {
+                            $Loaded = false;
+
+                            if (F::Environment() == 'Production')
+                            {
+                                $Minified = F::Run('IO', 'Read',
+                                    [
+                                        'Storage' => 'JS',
+                                        'Scope'   => $Asset,
+                                        'Where'   => $ID.'.min',
+                                        'IO One'  => true
+                                    ]);
+
+                                if ($Minified === null)
+                                    ;
+                                else
+                                {
+                                    $Call['JS']['Scripts'][$Call['JS Name']] = $Minified;
+                                    $Loaded = true;
+                                }
+                            }
+
+                            if ($Loaded)
+                                ;
+                            else
+                                $Call['JS']['Scripts'][$Call['JS Name']] = F::Run('IO', 'Read',
+                                    [
+                                        'Storage' => 'JS',
+                                        'Scope'   => $Asset,
+                                        'Where'   => $ID,
+                                        'IO One'  => true
+                                    ]);
+                        }
                     }
 
                     if ($Call['JS']['Scripts'][$Call['JS']['Fullpath']])
