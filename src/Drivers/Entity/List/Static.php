@@ -123,31 +123,6 @@
 
     setFn('RAW', function ($Call)
     {
-        $Output = [];
-        $Call = F::Merge($Call, F::loadOptions($Call['Entity'].'.Entity'));
-
-        $Call = F::Hook('beforeRAWList', $Call);
-
-        $Elements = F::Run('Entity', 'Read', $Call, ['Skip Enum Live' => true]);
-
-        if ($Elements !== null)
-            foreach ($Elements as $Element)
-                if (isset($Element[$Call['Primary']]))
-                    $Output[$Element[$Call['Primary']]] = F::Dot($Element, $Call['Key']);
-
-        return $Output;
-    });
-
-    setFn('RAW2', function ($Call)
-    {
-        $Call = F::Merge($Call, F::loadOptions($Call['Entity'].'.Entity'));
-
-        $Call = F::Hook('beforeRAWList', $Call);
-
-        $Elements = F::Run('Entity', 'Read', $Call);
-
-        foreach ($Elements as $Element)
-            $Call['Output']['Content'][] = [$Element['ID'], F::Dot($Element, $Call['Key'])];
-
-        return $Call;
+        F::Log('Entity.List.Static.RAW is deprecated (renamed). Switch to Entity.List.RAW', LOG_WARNING);
+        return F::Apply('Entity.List.RAW', 'Do', $Call);
     });
