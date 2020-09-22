@@ -88,6 +88,11 @@
                 "Service":"Entity.Hooks.LiveNodes",
                 "Method":"Process"
             },
+            "OnChange":
+            {
+                "Service":"Entity.Hooks.Nodes.OnChange",
+                "Method":"Process"
+            },
             "Validate":
             {
                 "Service":"Entity.Hooks.Validate",

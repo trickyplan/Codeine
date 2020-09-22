@@ -1,0 +1,139 @@
+{
+    "Suites":
+    {
+        "Positive":
+        {
+            "Create Object 1":
+            {
+                "Run":
+                {
+                    "Service": "Entity",
+                    "Method": "Create",
+                    "Call":
+                    {
+                        "Entity": "Test",
+                        "One": true,
+                        "Data":
+                        {
+                            "ID": 1,
+                            "Key": "Value",
+                            "OnChange": 1,
+                            "NoAutoLoad": "NoAutoLoad"
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Equal":
+                    {
+                        "Expected":
+                        {
+                            "Key": "Value",
+                            "ID": 1,
+                            "EV": 1,
+                            "OnChange": 1,
+                            "EH": "3e280346",
+                            "NoAutoLoad": "NoAutoLoad"
+                        }
+                    }
+                }
+            },
+            "Update Object w/o OnChange Node":
+            {
+                "Run":
+                {
+                    "Service": "Entity",
+                    "Method": "Update",
+                    "Call":
+                    {
+                        "Entity": "Test",
+                        "Where": 1,
+                        "One": true,
+                        "Data":
+                        {
+                            "Key": "Another Value"
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Equal":
+                    {
+                        "Expected":
+                        {
+                            "EV": 1,
+                            "ID": 1,
+                            "Key": "Another Value",
+                            "OnChange": 1,
+                            "NoAutoLoad": "NoAutoLoad",
+                            "EH": "3e280346"
+                        }
+                    }
+                }
+            },
+            "Update Object with OnChange Node":
+            {
+                "Run":
+                {
+                    "Service": "Entity",
+                    "Method": "Update",
+                    "Call":
+                    {
+                        "Entity": "Test",
+                        "Where": 1,
+                        "One": true,
+                        "Data":
+                        {
+                            "OnChange": 2
+                        }
+                    }
+                },
+                "Assert":
+                {
+                    "Equal":
+                    {
+                        "Expected":
+                        {
+                            "EV": 1,
+                            "ID": 1,
+                            "Key": "Another Value",
+                            "OnChange": 2,
+                            "NoAutoLoad": "NoAutoLoad",
+                            "EH": "3e280346"
+                        }
+                    }
+                }
+            },
+            "Delete Object(s)":
+            {
+                "Run":
+                {
+                    "Service": "Entity",
+                    "Method": "Delete",
+                    "Call":
+                    {
+                        "Entity": "Test",
+                        "No Where": true
+                    }
+                },
+                "Assert":
+                {
+                    "Equal":
+                    {
+                        "Expected":
+                        [
+                            {
+                                "EV": 1,
+                                "ID": 1,
+                                "Key": "Another Value",
+                                "OnChange": 2,
+                                "NoAutoLoad": "NoAutoLoad",
+                                "EH": "3e280346"
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}

@@ -5,6 +5,24 @@
         "ID": {},
         "Key": {},
         "Common": {},
+        "OnChange":
+        {
+            "Type": "Numeral.Integer",
+            "Hooks":
+            {
+                "OnChange":
+                {
+                    "Service": "IO.Log",
+                    "Method": "Hook",
+                    "Call":
+                    {
+                        "Message": "Node was changed",
+                        "Channel": "Developer",
+                        "Verbose": 5
+                    }
+                }
+            }
+        },
         "NoAutoLoad":
         {
             "Auto": false
