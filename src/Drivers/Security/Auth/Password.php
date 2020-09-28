@@ -4,7 +4,7 @@
      * @author bergstein@trickyplan.com
      * @description  
      * @package Codeine
-     * @version 7.0
+     * @version 43.6.1
      */
 
     setFn('Do', function ($Call)
@@ -31,7 +31,7 @@
             if (isset($Call['Request']['Password']))
             {
                 $Call['User'] =
-                    F::Run('Entity', 'Read',
+                    F::Run('Entity', 'Read', $Call,
                         [
                             'Entity' => 'User',
                             'Where' =>

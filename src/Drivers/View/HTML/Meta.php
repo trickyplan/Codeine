@@ -4,7 +4,7 @@
      * @author bergstein@trickyplan.com
      * @description  
      * @package Codeine
-     * @version 8.x
+     * @version 43.6.1
      */
 
     setFn('Process', function ($Call)
@@ -122,7 +122,7 @@
             if ($Call['HTTP']['URL'] == '/')
                 $Call['HTTP']['URL'] = '//';
 
-            $Page = F::Run('Entity', 'Read',
+            $Page = F::Run('Entity', 'Read', $Call,
                         [
                             'One' => true,
                             'Entity' => 'Page',
