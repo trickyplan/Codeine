@@ -12,8 +12,7 @@
     },
     "Hosts":
     {
-        "Development":"project.local",
-        "Production": "project.ru"
+        "Development":"codeine.local"
     },
     "Currency": "RUR",
     "Audience":

@@ -8,7 +8,7 @@
             "HTTP Only": true,
             "Secure": false,
             "Path": "/",
-            "Domain": null
+            "Same Site": "Strict"
         }
     }
 }

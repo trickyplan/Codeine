@@ -4,7 +4,7 @@
      * @author bergstein@trickyplan.com
      * @description  
      * @package Codeine
-     * @version 8.x
+     * @version 43.6.0
      */
 
     setFn ('Read', function ($Call)
@@ -17,25 +17,28 @@
 
     setFn ('Write', function ($Call)
     {
-        if (setcookie ($Call['Marker']['Cookie']['Name'],
-            $Call['SID'],
-            $Call['Marker']['Cookie']['TTL']
-                ? time() + $Call['Marker']['Cookie']['TTL']
-                : $Call['Marker']['Cookie']['TTL'],
-            $Call['Marker']['Cookie']['Path'],
-            $Call['Marker']['Cookie']['Domain'],
-            $Call['Marker']['Cookie']['Secure'],
-            $Call['Marker']['Cookie']['HTTP Only']))
+        $Cookie = F::Run('IO','Write', $Call,
+        [
+            'Storage'   => 'Cookie',
+            'Where'     =>
+            [
+                'ID'    => $Call['Marker']['Cookie']['Name']
+            ],
+            'Data'      => $Call['SID'],
+            'Cookie'   =>
+            [
+                'TTL'       => $Call['Marker']['Cookie']['TTL'],
+                'Path'      => $Call['Marker']['Cookie']['Path'],
+                'Secure'    => $Call['Marker']['Cookie']['Secure'],
+                'HTTP Only' => $Call['Marker']['Cookie']['HTTP Only'],
+                'Same Site' => $Call['Marker']['Cookie']['Same Site']
+            ]
+        ]);
 
-        {
+        if ($Call['Session']['Marker'] = $Cookie)
             $Call['HTTP']['Cookie'][$Call['Marker']['Cookie']['Name']] = $Call['SID'];
-            $Call['Session']['Marker'] = true;
-        }
         else
-        {
             $Call = F::Hook('Cookie.Set.Failed', $Call);
-            $Call['Session']['Marker'] = false;
-        }
 
         return $Call;
     });

@@ -4,7 +4,7 @@
      * @author bergstein@trickyplan.com
      * @description  
      * @package Codeine
-     * @version 8.x
+     * @version 43.6.0
      */
     setFn('Open', function ($Call)
     {
@@ -23,15 +23,15 @@
     {
         if (null !== $Call['Data'])
             {
-                if (setcookie ($Call['Where']['ID'],
+                if ($Return = setcookie ($Call['Where']['ID'],
                     $Call['Data'],
                     [
-                        'expires'   => time() + $Call['TTL'],
-                        'path'      => $Call['Path'],
-                        'domain'    => $Call['HTTP']['Host'],
-                        'secure'    => $Call['Secure'],
-                        'httponly'  => $Call['HTTP Only'],
-                        'samesite'  => $Call['Same Site']
+                        'expires'   => $Call['Cookie']['TTL'] + time(),
+                        'path'      => $Call['Cookie']['Path'],
+                        'domain'    => $Call['Cookie']['Domain']?? $Call['HTTP']['Domain'],
+                        'secure'    => $Call['Cookie']['Secure'],
+                        'httponly'  => $Call['Cookie']['HTTP Only'],
+                        'samesite'  => $Call['Cookie']['Same Site']
                     ]))
 
                     $Call['HTTP']['Cookie'][$Call['Where']['ID']] = $Call['Data'];
@@ -39,7 +39,7 @@
                     $Call = F::Hook('Cookie.Set.Failed', $Call);
             }
         else
-            setcookie ($Call['HTTP']['Cookie'][$Call['Where']['ID']], '');
+            $Return = setcookie ($Call['HTTP']['Cookie'][$Call['Where']['ID']], '');
 
-        return $Call;
+        return $Return;
     });

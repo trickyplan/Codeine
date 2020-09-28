@@ -57,11 +57,7 @@
         },
         "Cookie":
         {
-            "Driver":"IO.Storage.Cookie",
-            "TTL": 86400,
-            "Path": "/",
-            "Secure": false,
-            "HTTP Only": true
+            "Driver":"IO.Storage.Cookie"
         },
         "Options":
         {
