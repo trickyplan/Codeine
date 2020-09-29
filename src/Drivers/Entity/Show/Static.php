@@ -11,7 +11,7 @@
     {
         $Call = F::Hook('beforeShowBefore', $Call);
 
-            $Call['Where'] = F::Live($Call['Where']);
+            $Call['Where'] = F::Live($Call['Where'], $Call);
 
             $Call['Data'] = F::Run('Entity', 'Read', $Call, ['One' => true, 'Limit' => ['From' => 0, 'To' => 1]]);
 
