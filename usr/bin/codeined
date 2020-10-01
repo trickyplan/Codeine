@@ -1,2 +1,0 @@
-#!/bin/bash
-php /usr/share/php/Codeine/Daemon.php $1

@@ -1,2 +1,0 @@
-#!/bin/sh
-php /usr/share/php/Codeine/CLI.php "$*"

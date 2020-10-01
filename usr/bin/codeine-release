@@ -1,7 +1,0 @@
-#!/bin/sh
-cd `cat /etc/default/codeine`
-
-if [ ! -f release.lock ]; then
-    apt-get update > /dev/null
-    apt-get upgrade --yes --allow-downgrades --allow-change-held-packages -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold'
-fi

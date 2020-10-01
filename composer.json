@@ -1,6 +1,6 @@
 {
     "name": "trickyplan/codeine",
-    "version": "43.7.1",
+    "version": "43.7.2",
     "minimum-stability": "dev",
     "description": "Esoteric framework: one class, shitload of anonymous functions, zero documentation. Still good though.",
     "keywords": [
@@ -17,7 +17,12 @@
             "email": "bergstein@trickyplan.com"
         }
     ],
+    "bin": [
+        "bin/codeine"
+    ],
     "config": {
+        "optimize-autoloader": true,
+        "apcu-autoloader": true,
         "vendor-dir": "src/vendor"
     },
     "require": {
