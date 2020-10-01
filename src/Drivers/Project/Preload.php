@@ -9,20 +9,17 @@
 
     setFn('beforeRequestRun', function ($Call)
     {
-        $Call['Project'] = F::Live(F::loadOptions('Project'));
-        $Call['Version'] = F::loadOptions('Version');
-        $Call['Version']['Project'] = $Call['Version'][$Call['Project']['ID']];
-        F::Log('Project Version: *'.$Call['Version']['Project']['Major'].'*', LOG_INFO);
-
-        return $Call;
+        return F::Apply(null, 'Load.Project.Version', $Call);
      });
      
     setFn('beforeCLIRequestRun', function ($Call)
     {
-        $Call['Project'] = F::Live(F::loadOptions('Project'));
-        $Call['Version'] = F::loadOptions('Version');
-        $Call['Version']['Project'] = $Call['Version'][$Call['Project']['ID']];
-        F::Log('Project Version: *'.$Call['Version']['Project']['Major'].'*', LOG_INFO);
+        return F::Apply(null, 'Load.Project.Version', $Call);
+    });
 
+    setFn('Load.Project.Version', function ($Call)
+    {
+        $Call['Version'] = F::loadOptions('Version');
+        F::Log('Project Version: *'.F::Dot($Call, 'Version.Project.Major').'*', LOG_INFO);
         return $Call;
-     });
+    });
