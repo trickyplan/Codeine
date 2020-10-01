@@ -169,7 +169,7 @@
 
             $Call['Version'] = self::loadOptions('Version');
             
-            self::Log('Codeine Version: *'.$Call['Version']['Codeine']['Major'].'*', LOG_INFO);
+            self::Log('Codeine Version: *'.$Call['Version']['Codeine'].'*', LOG_INFO);
             
             if (isset($Call['Watch']))
             {

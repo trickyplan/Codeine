@@ -17,9 +17,10 @@
         return F::Apply(null, 'Load.Project.Version', $Call);
     });
 
-    setFn('Load.Project.Version', function ($Call)
+    setFn('Load.ProjectAndVersion', function ($Call)
     {
+        $Call['Project'] = F::loadOptions('Project');
         $Call['Version'] = F::loadOptions('Version');
-        F::Log('Project Version: *'.F::Dot($Call, 'Version.Project.Major').'*', LOG_INFO);
+        F::Log('Project Version: *'.F::Dot($Call, 'Version.Project').'*', LOG_INFO);
         return $Call;
     });
