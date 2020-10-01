@@ -7,17 +7,16 @@
             {
                 "Run":
                 {
-                    "Service": "IO.Transport.Mail.SMTP",
+                    "Service": "IO.Transport.Mail.PHPMailer",
                     "Method": "Write",
                     "Call":
                     {
-                        "Scope": "hate.squids@gmail.com",
+                        "Scope": "bergstein@trickyplan.com",
                         "Where":
                         {
                             "ID": "Test Message"
                         },
-                        "Data": "From Codeine PEAR/SMTP",
-                        "From": "Codeine Test Engine"
+                        "Data": "Test message from PHPMailer/Codeine"
                     }
                 },
                 "Assert":

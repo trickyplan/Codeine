@@ -1,0 +1,28 @@
+{
+    "Mail":
+    {
+        "Host": "codeine-fake-smtp",
+        "Port": 1025,
+        "From": "noreply",
+        "HTML":
+        {
+            "Enabled": true
+        },
+        "SMTPAuth":
+        {
+            "Enabled": false
+        },
+        "Secure":
+        {
+            "Enabled": false
+        },
+        "Headers":
+        {
+            "X-Sent-By": "Codeine"
+        },
+        "DKIM":
+        {
+            "Enabled": false
+        }
+    }
+}

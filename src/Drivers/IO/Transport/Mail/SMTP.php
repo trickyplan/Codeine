@@ -11,6 +11,7 @@
 
     setFn ('Open', function ($Call)
     {
+        F::Log('PEAR/Mail is obsolete. Switch to PHPMailer.', LOG_ERR);
         $Mail = new Mail;
 
         if (isset($Call['SMTP Auth']) && $Call['SMTP Auth'])
@@ -32,6 +33,8 @@
 
     setFn('Write', function ($Call)
     {
+        F::Log('PEAR/Mail is obsolete. Switch to PHPMailer.', LOG_ERR);
+
         if (isset($Call['Link']))
             ;
         else
