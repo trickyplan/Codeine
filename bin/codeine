@@ -1,2 +1,2 @@
 #!/bin/sh
-php vendor/trickyplan/codeine/src/CLI.php "$*"
+php ./vendor/trickyplan/codeine/src/CLI.php "$*"
