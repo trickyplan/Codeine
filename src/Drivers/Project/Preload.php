@@ -9,12 +9,12 @@
 
     setFn('beforeRequestRun', function ($Call)
     {
-        return F::Apply(null, 'Load.Project.Version', $Call);
+        return F::Apply(null, 'ProjectAndVersion', $Call);
      });
      
     setFn('beforeCLIRequestRun', function ($Call)
     {
-        return F::Apply(null, 'Load.Project.Version', $Call);
+        return F::Apply(null, 'ProjectAndVersion', $Call);
     });
 
     setFn('Load.ProjectAndVersion', function ($Call)
