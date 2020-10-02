@@ -899,7 +899,7 @@
             if (PHP_SAPI === 'cli')
             {
                 echo PHP_EOL.substr($File, strpos($File, 'Drivers')).'@'.$Line.' '.trim(file($File)[$Line-1]).PHP_EOL;
-                echo j($Call).PHP_EOL;
+                echo j($Call, JSON_PRETTY_PRINT).PHP_EOL;
             }
             else
             {
@@ -913,7 +913,7 @@
                     .trim(file($File)[$Line-1])
                     .'</code>'
                     .'<pre><code class="json">'
-                    .htmlspecialchars(j($Call))
+                    .htmlspecialchars(j($Call,JSON_PRETTY_PRINT))
                     .'</code></pre>';
                 echo '</div>';
             }
@@ -1340,7 +1340,7 @@
         if ($Flags == null)
         {
             if (Environment === 'Development')
-                $Flags = JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK;
+                $Flags = JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK; // FIXME Bad assumption about JSON_NUMERIC_CHECK
             else
                 $Flags = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK;
         }

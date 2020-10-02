@@ -7,7 +7,6 @@
      * @version 8.x
      */
 
-
     setFn('Make', function ($Call)
     {
         return $Call;

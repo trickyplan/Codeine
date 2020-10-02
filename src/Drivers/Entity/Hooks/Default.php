@@ -10,27 +10,26 @@
     setFn('Process', function ($Call)
     {
         foreach ($Call['Nodes'] as $Name => $Node)
-            if (F::Dot($Node, 'Default') !== null)
+        {
+            if (($Default = F::Dot($Node, 'Default')) === null)
+                ; // No Default
+            else
             {
-                $LiveDefault = F::Live($Node['Default'], $Call);
+                if (F::Dot($Call['Data'], $Name) == null)
+                {
+                    if (F::isCall($Default))
+                    {
+                        $LiveDefault = F::Live($Default, $Call);
+                        $Default = $LiveDefault;
+                        F::Log('Live Default is processed: *' . $Name . '* = *' . $LiveDefault . '*', LOG_DEBUG);
+                    }
 
-                if ($LiveDefault !== $Node['Default'])
-                {
-                    $Node['Default'] = $LiveDefault;
-                    F::Log('Live Default is processed: *'.$Name.'* = *'.$LiveDefault.'*', LOG_DEBUG);
-                }
-
-                if (F::Dot($Node, 'Empty as Default'))
-                {
-                    if (F::Dot($Call['Data'], $Name) == null)
-                        $Call['Data'] = F::Dot($Call['Data'], $Name, $Node['Default']);
-                }
-                else
-                {
-                    if (F::Dot($Call['Data'], $Name) === null)
-                        $Call['Data'] = F::Dot($Call['Data'], $Name, $Node['Default']);
+                    if (F::Dot($Node, 'Empty as Default'))
+                        $Call['Data'] = F::Dot($Call['Data'], $Name, null);
+                    else
+                        $Call['Data'] = F::Dot($Call['Data'], $Name, $Default);
                 }
             }
-
+        }
         return $Call;
     });
