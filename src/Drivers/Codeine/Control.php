@@ -27,8 +27,8 @@
         $Call['Output']['Content'][] =
             [
                 'Type'  => 'Block',
-                'Class' => 'alert ' . ($Current > $Call['Version']['Codeine']['Major'] ? 'alert-error' : 'alert-success'),
-                'Value' => '<l>Codeine.Control:Version.Installed</l>: <br/>'.$Call['Version']['Codeine']['Major']
+                'Class' => 'alert ' . ($Current > $Call['Version']['Codeine'] ? 'alert-error' : 'alert-success'),
+                'Value' => '<l>Codeine.Control:Version.Installed</l>: <br/>'.$Call['Version']['Codeine']
             ];
 
         return $Call;
@@ -39,7 +39,7 @@
         $Call['Version'] = F::loadOptions('Version');
 
         if (isset($Call['Version']['Codeine']))
-            return ['Count' => $Call['Version']['Codeine']['Major']];
+            return ['Count' => $Call['Version']['Codeine']];
         else
              return null;
     });

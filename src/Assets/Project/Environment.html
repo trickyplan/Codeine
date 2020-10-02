@@ -1,7 +1,7 @@
 <access Service="Control.Panel">
     <environment eq="Production">
         <div class="alert alert-success">
-            <h4>Боевой сервер. <call>Version.Project.Major</call>.<call>Version.Project.Minor</call></h4>
+            <h4>Боевой сервер. <call>Version.Project</call></h4>
             <a class="label label-warning" href="http://<call>Project.Hosts.Staging</call><call>HTTP.URL</call>">Бета-сервер</a>
             <a class="label label-info" href="http://<call>Project.Hosts.Development</call><call>HTTP.URL</call>">Локальный сервер</a>
         </div>
@@ -15,7 +15,7 @@
     </environment>
     <environment eq="Staging">
         <div class="alert alert-success">
-            <h4>Бета-сервер. <call>Version.Project.Major</call>.<call>Version.Project.Minor</call></h4>
+            <h4>Бета-сервер. <call>Version.Project</call></h4>
             <a class="label label-info" href="http://<call>Project.Hosts.Development</call><call>HTTP.URL</call>">Локальный сервер</a>
             <a class="label label-danger" href="http://<call>Project.Hosts.Production</call><call>HTTP.URL</call>">Боевой сервер</a>
         </div>

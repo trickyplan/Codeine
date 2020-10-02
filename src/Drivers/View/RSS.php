@@ -31,7 +31,7 @@
             $XML->writeElement('description', $Call['Page']['Description']);
         else
             $XML->writeElement('description', '');
-        $XML->writeElement('generator', 'Codeine '.$Call['Version']['Codeine']['Major']);
+        $XML->writeElement('generator', 'Codeine '.$Call['Version']['Codeine']);
         $XML->writeElement('pubDate', date(DATE_RSS, time()));
         $XML->writeElement('lastBuildDate', date(DATE_RSS, time()));
 

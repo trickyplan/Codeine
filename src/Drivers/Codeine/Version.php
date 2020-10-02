@@ -14,12 +14,12 @@
                 [
                     'Type'  => 'Block',
                     'Value' => 'Codeine Version: '
-                        .self::$_Options['Version']['Codeine']['Major'].'.'.self::$_Options['Version']['Codeine']['Minor']
+                        .self::$_Options['Version']['Codeine']
                 ],
                 [
                     'Type'  => 'Block',
                     'Value' => 'Project Version: '
-                        .self::$_Options['Version']['Project']['Major'].'.'.self::$_Options['Version']['Project']['Minor']
+                        .self::$_Options['Version']['Project']
                 ]
             ];
         return $Call;
