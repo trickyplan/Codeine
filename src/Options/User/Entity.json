@@ -19,6 +19,15 @@
     "EPP": 20,
     "Nodes":
     {
+        "Status":
+        {
+            "Type": "Ternary",
+            "Default": 1
+        },
+        "EMail":
+        {
+            "Required": true
+        },
         "Title":
         {
             "Widgets":
@@ -29,15 +38,6 @@
                 }
             }
         },
-        "EMail":
-        {
-            "Required": true
-        },
-        "Status":
-        {
-            "Type": "Ternary",
-            "Default": 1
-        },
         "Password":
         {
             "Type": "Literal.Password",
@@ -47,29 +47,6 @@
                 "Write":
                 {
                     "Type": "Form.Password.Two"
-                }
-            }
-        },
-        "Age":
-        {
-            "Hooks":
-            {
-                "beforeEntityWrite":
-                {
-                    "Service": "User.Entity",
-                    "Method": "Age"
-                }
-            }
-        },
-        "Gravatar":
-        {
-            "Type": "Literal.String",
-            "Hooks":
-            {
-                "afterEntityRead":
-                {
-                    "Service": "User.Avatar.Gravatar",
-                    "Method": "Get"
                 }
             }
         }
