@@ -110,6 +110,61 @@
                 "Entity": "User",
                 "Where": "$Session.User.ID"
             }
+        },
+        "User / Join":
+        {
+            "Match": "^/join$",
+            "Service":"Entity.Create",
+            "Method":"Do",
+            "Call":
+            {
+                "Entity": "User",
+                "OnlyRequired": true
+            }
+        },
+        "User / Login":
+        {
+            "Match": "^/login$",
+            "Service":"User.Login",
+            "Method":"Do"
+        },
+        "User / Logout":
+        {
+            "Match": "^/logout$",
+            "Service":"User.Logout",
+            "Method":"Do"
+        },
+        "User / Reset Password":
+        {
+            "Match": "^/user/reset/password$",
+            "Service":"User.Reset.Password",
+            "Method":"Do"
+        },
+        "User / Cabinet":
+        {
+            "TODO": "Remove cabinet concept",
+            "Match": "^/user/cabinet",
+            "Service":"User.Cabinet",
+            "Method":"Do"
+        },
+        "User / Takeout":
+        {
+            "Match": "^/user/takeout",
+            "Service":"Entity.Delete",
+            "Method":"Do",
+            "Call":
+            {
+                "Entity": "User",
+                "Where":
+                {
+                    "Service": "Session",
+                    "Method": "Read",
+                    "Call":
+                    {
+                        "Key": "User.ID"
+                    }
+                }
+            }
         }
     }
 }

@@ -79,6 +79,7 @@ RUN sed -i 's/pm =.*/pm = \$\{PHP_FPM_PM\}/' /usr/local/etc/php-fpm.d/www.conf &
     sed -i 's/^;pm\.process_idle_timeout =.*/pm\.process_idle_timeout = \$\{PHP_FPM_PM_PROCESS_IDLE_TIMEOUT\}/' /usr/local/etc/php-fpm.d/www.conf  && \
     sed -i 's/^;pm\.max_requests =.*/pm\.max_requests = \$\{PHP_FPM_PM_MAX_REQUESTS\}/' /usr/local/etc/php-fpm.d/www.conf  && \
     sed -i 's/^;pm\.status_path =.*/pm\.status_path = \$\{PHP_FPM_PM_STATUS_PATH\}/' /usr/local/etc/php-fpm.d/www.conf
+RUN echo "catch_workers_output = yes" >> /usr/local/etc/php-fpm.d/www.conf
 
 # Add user for  application
 RUN if [ ! $(getent group www) ]; then groupadd -g 1000 www; fi

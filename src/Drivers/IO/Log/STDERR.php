@@ -15,7 +15,7 @@
     setFn('Write', function ($Call)
     {
         foreach ($Call['Data'] as $Row)
-            fwrite(STDOUT, $Row[2]);
+            fwrite(STDERR, $Row[2]);
 
         return true;
     });

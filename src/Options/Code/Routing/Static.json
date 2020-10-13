@@ -2,7 +2,6 @@
     "Mixins":
     [
         "Control.Static",
-        "User.Static",
         "Developer.Static",
         "SEO.Static",
         "Project.Static"

@@ -3,7 +3,7 @@
     {
         "Developer":
         {
-            "Driver":"IO.Log.STDOUT",
+            "Driver":"IO.Log.STDERR",
             "Format": "Formats.Log.Plain",
             "Log":
             {
@@ -13,7 +13,7 @@
         },
         "Performance":
         {
-            "Driver":"IO.Log.STDOUT",
+            "Driver":"IO.Log.STDERR",
             "Format": "Formats.Log.Plain",
             "Log":
             {
@@ -23,7 +23,7 @@
         },
         "Security":
         {
-            "Driver":"IO.Log.STDOUT",
+            "Driver":"IO.Log.STDERR",
             "Format": "Formats.Log.Plain",
             "Log":
             {
@@ -33,7 +33,7 @@
         },
         "Administrator":
         {
-            "Driver":"IO.Log.STDOUT",
+            "Driver":"IO.Log.STDERR",
             "Format": "Formats.Log.Plain",
             "Log":
             {
@@ -43,7 +43,7 @@
         },
         "Marketing":
         {
-            "Driver":"IO.Log.STDOUT",
+            "Driver":"IO.Log.STDERR",
             "Format": "Formats.Log.Plain",
             "Log":
             {
@@ -53,7 +53,7 @@
         },
         "Management":
         {
-            "Driver":"IO.Log.STDOUT",
+            "Driver":"IO.Log.STDERR",
             "Format": "Formats.Log.Plain",
             "Log":
             {
@@ -63,7 +63,7 @@
         },
         "Metric":
         {
-            "Driver":"IO.Log.STDOUT",
+            "Driver":"IO.Log.STDERR",
             "Format": "Formats.Log.Plain",
             "Log":
             {
@@ -73,7 +73,7 @@
         },
         "Access":
         {
-            "Driver":"IO.Log.STDOUT",
+            "Driver":"IO.Log.STDERR",
             "Format": "Formats.Log.Plain",
             "Log":
             {
