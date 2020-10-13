@@ -10,8 +10,8 @@
             },
             "Lowercase":
             {
-                "Service": "Text.Lower",
-                "Method": "Do"
+                "Service": "Text.Transform.Lower",
+                "Method": "Apply"
             }
         },
         "afterTokenize":

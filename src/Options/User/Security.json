@@ -27,7 +27,7 @@
                 }
             }
         },
-        "Страница регистрации доступна всем":
+        "User Join to All":
         {
             "Decision": true,
             "Weight": 75,

@@ -4,6 +4,14 @@
         "EMail":
         {
             "Type": "Literal.String",
+            "Hooks":
+            {
+                "beforeEntityWrite":
+                {
+                    "Service": "Text.Transform.Lower",
+                    "Method": "Do"
+                }
+            },
             "Widgets":
             {
                 "Write":
