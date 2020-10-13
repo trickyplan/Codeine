@@ -41,9 +41,10 @@
                             $LiveValue = F::Live($Node['Hooks'][$Call['On']],
                                 $Call,
                                 [
-                                    'Name' => $Name,
-                                    'Node' => $Node,
-                                    'Data' => $Call['Data']
+                                    'Name'  => $Name,
+                                    'Node'  => $Node,
+                                    'Data'  => $Call['Data'],
+                                    'Value' => F::Dot($Call, 'Data.'.$Name)
                                 ]);
 
                             $Call['Data'] =
