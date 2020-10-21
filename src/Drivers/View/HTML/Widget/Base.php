@@ -16,9 +16,6 @@
                      if (is_array($Call[$Attribute]))
                          $Call[$Attribute] = implode(' ', F::Merge($Value, $Call[$Attribute]));
                      
-                     if ($Call[$Attribute] == (float) $Call[$Attribute])
-                         $Call[$Attribute] = strtr($Call[$Attribute], [',' => '.']);
-                     
                      $Attributes[] = strtolower($Attribute).'="'.$Call[$Attribute].'"';
                  }
                  else
