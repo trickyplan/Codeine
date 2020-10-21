@@ -4,7 +4,7 @@
         "Developer":
         {
             "Scope": "developer@trickyplan.com",
-            "Driver": "IO.Transport.Mail.SMTP",
+            "Driver": "IO.Transport.Mail.PHPMailer",
             "Format": "Formats.Log.HTML",
             "Log":
             {
@@ -14,7 +14,7 @@
         "Performance":
         {
             "Scope": "performance@trickyplan.com",
-            "Driver": "IO.Transport.Mail.SMTP",
+            "Driver": "IO.Transport.Mail.PHPMailer",
             "Format": "Formats.Log.HTML",
             "Log":
             {
@@ -24,7 +24,7 @@
         "Administrator":
         {
             "Scope": "administrator@trickyplan.com",
-            "Driver": "IO.Transport.Mail.SMTP",
+            "Driver": "IO.Transport.Mail.PHPMailer",
             "Format": "Formats.Log.HTML",
             "Log":
             {
@@ -33,7 +33,7 @@
         },
         "Security": {
             "Scope": "security@trickyplan.com",
-            "Driver": "IO.Transport.Mail.SMTP",
+            "Driver": "IO.Transport.Mail.PHPMailer",
             "Format": "Formats.Log.HTML",
             "Log":
             {
@@ -42,7 +42,7 @@
         },
         "Management": {
             "Scope": "management@trickyplan.com",
-            "Driver": "IO.Transport.Mail.SMTP",
+            "Driver": "IO.Transport.Mail.PHPMailer",
             "Format": "Formats.Log.HTML",
             "Log":
             {
@@ -51,7 +51,7 @@
         },
         "Marketing": {
             "Scope": "marketing@trickyplan.com",
-            "Driver": "IO.Transport.Mail.SMTP",
+            "Driver": "IO.Transport.Mail.PHPMailer",
             "Format": "Formats.Log.HTML",
             "Log":
             {
@@ -62,7 +62,7 @@
         {
             "Really Bad Idea": true,
             "Scope": "access@trickyplan.com",
-            "Driver": "IO.Transport.Mail.SMTP",
+            "Driver": "IO.Transport.Mail.PHPMailer",
             "Format": "Formats.Log.HTML",
             "Log":
             {

@@ -13,8 +13,7 @@
 
     setFn('Open', function ($Call)
     {
-        $Call['Link'] = new PHPMailer(true);
-        return $Call;
+        return new PHPMailer(true);
     });
 
     setFn('Write', function ($Call)
