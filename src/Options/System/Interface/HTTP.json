@@ -80,9 +80,9 @@
             {
                 "Service": "System.Interface.HTTP.Referrer"
             },
-            "Feature-Policy":
+            "Permissions-Policy":
             {
-                "Service": "System.Interface.HTTP.Headers.Feature-Policy",
+                "Service": "System.Interface.HTTP.Headers.Permissions-Policy",
                 "Method": "Do"
             },
             "Agent":

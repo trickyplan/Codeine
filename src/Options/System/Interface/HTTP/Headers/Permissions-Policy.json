@@ -7,7 +7,7 @@
             {
                 "Headers":
                 {
-                    "Feature-Policy":
+                    "Permissions-Policy":
                     {
                         "autoplay" :"none",
                         "camera":"none",
