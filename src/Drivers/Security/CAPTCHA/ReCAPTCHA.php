@@ -16,12 +16,11 @@
             $Call['ReCAPTCHA']['Place'] = isset($Call['ReCAPTCHA']['Place'])? $Call['ReCAPTCHA']['Place']: 'ReCAPTCHA';
 
             $Call['Output'][$Call['ReCAPTCHA']['Place']][] =
-                '<script src="https://www.google.com/recaptcha/api.js?render='.$Call['ReCAPTCHA']['Public'].'&hl=en" async defer></script>'.
+                '<script src="https://www.google.com/recaptcha/api.js?hl='.($Call['Locale']?? 'en').'" async defer></script>'.
                 '<div class="g-recaptcha"
                 data-sitekey="'.$Call['ReCAPTCHA']['Public'].'"
                 data-size="compact"'.
-                '></div>'.
-                '<js>Security/CAPTCHA:ReCAPTCHA</js>';
+                '></div>';
         }
 
         return $Call;
