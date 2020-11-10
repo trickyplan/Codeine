@@ -18,11 +18,11 @@
                 {
                     $Units = floor($Call['Value']/$Value);
                     $Output[] = sprintf('%02d', $Units)
-                        .'<l>Formats.Date.ShortTerm:Abbreviations.'.$Period.'</l>';
+                        .' <l>Formats.Date.ShortTerm:Abbreviations.'.$Period.'</l>';
                     $Call['Value'] -= $Units*$Value;
                 }
                 else
-                    $Output[] = '00';
+                    $Output[] = '';
 
             if (empty($Output))
                 $Result = 0;
