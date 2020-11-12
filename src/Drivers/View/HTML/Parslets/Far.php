@@ -52,7 +52,7 @@
                     ;
                 else
                     foreach ($Call['Parsed']['Value'] as $IX => $Match)
-                        if (preg_match('@^(.+)\:(.+)\:(.+)$@SsUu', $Match, $Slices))
+                        if (preg_match('@^(.+)\:(.*)\:(.+)$@SsUu', $Match, $Slices))
                         {
                             unset($Slices[0]);
                             $Replaces[$IX] = F::Dot($Elements, implode('.', $Slices));

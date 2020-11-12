@@ -60,7 +60,7 @@
         }
 
         if (empty($Call['Action']))
-            $Call['Action'] =$Call['HTTP']['URI'];
+            $Call['Action'] = $Call['HTTP']['URI'];
         
         $Call['Output']['Content']['Form Widget']['Action'] = $Call['Action'];
         
