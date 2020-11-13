@@ -81,6 +81,9 @@
                 ]);
 
             F::Log('Session: Secondary user *'.$Call['Session']['User']['ID'].'* authenticated', LOG_INFO, 'Security');
+
+            $Call = F::Hook('LoadUser.After', $Call);
+
         }
         elseif (isset($Call['Session']['User']) && !empty($Call['Session']['User']))
         {
@@ -95,7 +98,10 @@
             if ($Call['Session']['User'] == null)
                 ; //F::Run(null, 'Annulate', $Call);
             else
+            {
                 F::Log('Session: Primary user '.$Call['Session']['User']['ID'].' authenticated', LOG_INFO, 'Security');
+                $Call = F::Hook('LoadUser.After', $Call);
+            }
         }
 
         if (isset($Call['Session']['User']['Status']) && $Call['Session']['User']['Status'] === 0)

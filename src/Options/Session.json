@@ -40,6 +40,17 @@
                     ]
                 }
             }
+        },
+        "LoadUser":
+        {
+            "After":
+            {
+                "Set User Timezone as Default":
+                {
+                    "Service": "Session.Hooks.SetUserTimezone",
+                    "Method": "LoadUser.After"
+                }
+            }
         }
     }
 }
