@@ -14,7 +14,7 @@
             {
                 "Write":
                 {
-                    "Type": "Form.SelectNG",
+                    "Type": "Form.Select",
                     "Key Mode": "Value"
                 }
             }
