@@ -9,5 +9,16 @@
 
     setFn('Format', function ($Call)
     {
-         return strftime($Call['Format'], $Call['Value']);
+        if (is_numeric($Call['Value']))
+            $Value = strftime($Call['Format'], $Call['Value']);
+        else
+        {
+            if (F::Environment() == 'Production')
+                $Value = '';
+            else
+                $Value = 'INCORRECT-TIMESTAMP';
+            F::Log('Incorrect timestamp: '.j($Call['Value']), LOG_WARNING);
+        }
+
+        return $Value;
      });

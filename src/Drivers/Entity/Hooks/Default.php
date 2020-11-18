@@ -21,7 +21,7 @@
                     {
                         $LiveDefault = F::Live($Default, $Call);
                         $Default = $LiveDefault;
-                        F::Log('Live Default is processed: *' . $Name . '* = *' . $LiveDefault . '*', LOG_DEBUG);
+                        F::Log( (function() use($LiveDefault) {return 'Live Default is processed: *' . $Name . '* = *' .j($LiveDefault). '*';}), LOG_DEBUG);
                     }
 
                     if (F::Dot($Node, 'Empty as Default'))
