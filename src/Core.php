@@ -793,8 +793,8 @@
             else
             {
                 if ($Channel == 'All')
-                    foreach (self::$_Verbose as $Channel => $V)
-                        self::Log($Message, $Verbose, $Channel, $AppendStack);
+                    foreach (self::$_Verbose as $cChannel => $V)
+                        self::Log($Message, $Verbose, $cChannel, $AppendStack);
                 else
                 {
                     if (isset(self::$_Verbose[$Channel]))
