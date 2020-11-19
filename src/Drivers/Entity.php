@@ -293,13 +293,10 @@
                     $Call['Where'] = $Call['Current']['ID'];
                     
                         $Call = F::Hook('beforeEntityDelete', $Call);
-                            $Call = F::Hook('beforeEntityWrite', $Call);
-                        
+                         
                             unset($Call['Data']);
                             F::Run('IO', 'Write', $Call);
-                            $Call['Data'] = $Call['Current'];
-    
-                            $Call = F::Hook('afterEntityWrite', $Call);
+
                         $Call = F::Hook('afterEntityDelete', $Call);
                 }
             }

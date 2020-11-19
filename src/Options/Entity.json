@@ -133,15 +133,6 @@
             {
                 "Service":"Entity",
                 "Method":"Load"
-            },
-            "Datatypes":
-            {
-                "Service":"Entity.Hooks.Type",
-                "Method":"Write",
-                "Call":
-                {
-                    "Purpose": "Delete"
-                }
             }
         },
         "beforeEntityWrite":
@@ -181,6 +172,15 @@
             {
                 "Service":"Entity.Hooks.LiveNodes",
                 "Method":"Process"
+            },
+            "Events":
+            {
+                "Service": "Entity.Hooks.Events",
+                "Method": "Process",
+                "Call":
+                {
+                    "Event": "Create"
+                }
             }
         },
         "beforeEntityRead":
@@ -212,6 +212,51 @@
             {
                 "Service":"Entity.Hooks.LiveNodes",
                 "Method": "Process"
+            }
+        },
+        "afterEntityUpdate":
+        {
+            "Events":
+            {
+                "Service": "Entity.Hooks.Events",
+                "Method": "Process",
+                "Call":
+                {
+                    "Event": "Update"
+                }
+            }
+        },
+        "afterEntityDelete":
+        {
+            "Change Event":
+            {
+                "Service": "Entity.Hooks.Events",
+                "Method": "Process",
+                "Call":
+                {
+                    "Event": "Change"
+                }
+            },
+            "Delete Event":
+            {
+                "Service": "Entity.Hooks.Events",
+                "Method": "Process",
+                "Call":
+                {
+                    "Event": "Delete"
+                }
+            }
+        },
+        "afterEntityCreateOrUpdate":
+        {
+            "Events":
+            {
+                "Service": "Entity.Hooks.Events",
+                "Method": "Process",
+                "Call":
+                {
+                    "Event": "Change"
+                }
             }
         },
         "afterEntityWrite":
