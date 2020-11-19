@@ -29,6 +29,7 @@
         {
             //Server settings
             $Call['Link']->isSMTP();                                            // Send using SMTP
+            $Call['Link']->CharSet = 'UTF-8';
             $Call['Link']->SMTPDebug = self::$_Verbose['Administrator'] - 4;
             $Call['Link']->Debugoutput = function ($Message, $Level) {
                 F::Log($Message, $Level+4, ['Administrator', 'Mail', 'PHPMailer']);
