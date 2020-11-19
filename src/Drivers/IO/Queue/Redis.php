@@ -26,21 +26,21 @@
         if ($Count < $Iterations)
             $Iterations = $Count;
             
-        F::Log('Pull from *'.$Call['Scope'].$Call['Queue'].'* queue', LOG_INFO, 'Administrator');
+        F::Log('Pull from *'.$Call['Scope'].'* queue', LOG_INFO, 'Administrator');
         for ($IX = 0; $IX < $Iterations; $IX++)
-            $Result[$IX] = $Call['Link']->lPop($Call['Scope'].$Call['Queue']);
-        
+            $Result[$IX] = $Call['Link']->lPop($Call['Scope']);
+
         return $Result;
     });
 
     setFn('Write', function ($Call)
     {
-        F::Log('Push to *'.$Call['Scope'].$Call['Queue'].'* queue', LOG_INFO, 'Administrator');
-        return $Call['Link']->rPush($Call['Scope'].$Call['Queue'], $Call['Data']);
+        F::Log('Push to *'.$Call['Scope'].'* queue', LOG_INFO, 'Administrator');
+        return $Call['Link']->rPush($Call['Scope'], $Call['Data']);
     });
 
     setFn('Count', function ($Call)
     {
-        F::Log('Count: '.$Call['Scope'].$Call['Queue'], LOG_INFO, 'Administrator');
-        return $Call['Link']->lLen($Call['Scope'].$Call['Queue']);
+        F::Log('Count: '.$Call['Scope'], LOG_INFO, 'Administrator');
+        return $Call['Link']->lLen($Call['Scope']);
     });
