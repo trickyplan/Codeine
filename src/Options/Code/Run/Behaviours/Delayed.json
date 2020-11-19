@@ -1,0 +1,11 @@
+{
+    "Behaviours":
+    {
+        "Delayed":
+        {
+            "DaemonID": "codeine-delayed",
+            "Mode": "Clean",
+            "Priority": 500
+        }
+    }
+}
