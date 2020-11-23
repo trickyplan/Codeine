@@ -1,6 +1,6 @@
 {
     "name": "trickyplan/codeine",
-    "version": "43.10.2",
+    "version": "43.10.3",
     "minimum-stability": "dev",
     "description": "Esoteric framework: one class, shitload of anonymous functions, zero documentation. Still good though.",
     "keywords": [

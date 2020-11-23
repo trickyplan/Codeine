@@ -4,53 +4,57 @@
      * @author bergstein@trickyplan.com
      * @description
      * @package Codeine
-     * @version 43.10.2
+     * @version 43.10.3
      */
 
     setFn('Make', function ($Call)
     {
         if (isset($Call['Attributes']['String']) && !empty($Call['Attributes']['String']))
-            foreach ($Call['Attributes']['String'] as $Attribute => $Value)
+            foreach ($Call['Attributes']['String'] as $Attribute => $DefaultValue)
             {
                 if (isset($Call[$Attribute]))
                 {
                     $Call[$Attribute] = F::Live($Call[$Attribute], $Call);
 
-                    if ($Call[$Attribute] !== null)
+                    if (empty($Call[$Attribute]))
+                        ;
+                    else
                     {
                         if (is_array($Call[$Attribute]))
-                            $Call[$Attribute] = implode(' ', F::Merge($Value, $Call[$Attribute]));
+                            $Call[$Attribute] = implode(' ', F::Merge($DefaultValue, $Call[$Attribute]));
 
                         $Attributes[] = strtolower($Attribute).'="'.$Call[$Attribute].'"';
                     }
+                }
+                else
+                {
+                    if (empty($DefaultValue))
+                        ;
                     else
                     {
-                        if (empty($Value))
-                            ;
-                        else
-                        {
-                            if (is_array($Value))
-                                $Value = implode(' ', $Value);
+                        if (is_array($DefaultValue))
+                            $DefaultValue = implode(' ', $DefaultValue);
 
-                            $Attributes[] = strtolower($Attribute).'="'.$Value.'"';
-                        }
+                        $Attributes[] = strtolower($Attribute).'="'.$DefaultValue.'"';
                     }
                 }
             }
 
         if (isset($Call['Attributes']['Boolean']) && !empty($Call['Attributes']['Boolean']))
-            foreach ($Call['Attributes']['Boolean'] as $Attribute => $Value)
+            foreach ($Call['Attributes']['Boolean'] as $Attribute => $DefaultValue)
             {
                 if (isset($Call[$Attribute]))
                 {
                     $Call[$Attribute] = F::Live($Call[$Attribute], $Call);
 
-                    if (F::Dot($Call, $Attribute) !== null)
-                        $Attributes[] = strtolower($Attribute);
+                    if (empty(F::Dot($Call, $Attribute)))
+                        ;
                     else
-                        if (!empty($Value) && $Value)
-                            $Attributes[] = strtolower($Attribute);
+                        $Attributes[] = strtolower($Attribute);
                 }
+                else
+                    if (!empty($DefaultValue) && $DefaultValue)
+                        $Attributes[] = strtolower($Attribute);
             }
 
         if (isset($Call['Block']) && $Call['Block'])
