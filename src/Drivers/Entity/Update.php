@@ -36,7 +36,6 @@
             $Call['Output']['Content']['Form Widget'] = ['Type' => 'Form', 'ID' => 'Update', 'Widget Template' => 'Form/'.$Call['Form']['Template']];
     
             $Call['Tag'] = isset($Call['Scope'])? $Call['Scope']: null;
-    
             $Call['Scope'] = isset($Call['Scope'])? $Call['Entity'].'/'.$Call['Scope'] : $Call['Entity'];
     
             $Call['Layouts'][] =

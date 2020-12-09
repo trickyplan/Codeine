@@ -28,8 +28,8 @@
         $Call = F::Hook('beforeCreateGet', $Call);
         $Call = F::Hook('before'.F::Dot($Call, 'Entity').'CreateGet', $Call);
 
-        $Call['Scope'] = isset($Call['Scope'])? $Call['Entity'].'/'.$Call['Scope'] : $Call['Entity'];
         $Call['Tag'] = isset($Call['Scope'])? $Call['Scope']: null;
+        $Call['Scope'] = isset($Call['Scope'])? $Call['Entity'].'/'.$Call['Scope'] : $Call['Entity'];
 
         $Call['Layouts'][] =
             [
