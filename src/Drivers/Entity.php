@@ -27,7 +27,7 @@
                 $Call = F::Merge($Call, $Call['Model']);
 
         if (isset($Call['Nodes']))
-            $Call['Nodes'] = F::Sort($Call['Nodes'], 'Weight', SORT_DESC);
+            $Call['Nodes'] = F::Sort($Call['Nodes'], 'Weight', SORT_ASC);
         else
             F::Log('Nodes not loaded', LOG_WARNING);
 

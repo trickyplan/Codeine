@@ -663,8 +663,7 @@
                      ;
                  else
                  {
-                     $Hooks = self::Sort($Hooks, 'Weight', SORT_DESC);
-
+                     $Hooks = self::Sort($Hooks, 'Weight', SORT_ASC);
                      foreach ($Hooks as $HookName => $Hook)
                      {
                          if (substr($HookName,0,1) == '-')
@@ -685,13 +684,13 @@
                              }
                              else
                                  $Call = self::Merge($Call, $Hook);
-                             
+
                              self::$_Stack->pop();
                          }
                      }
                  }
              }
-            
+
             self::stopColor();
             return $Call;
         }
@@ -701,13 +700,13 @@
             $ErrHash = mb_strtoupper(mb_substr(sha1($errno.$errstr.$errfile.$errline), -8, 8));
             $Message = 'EH: '.$ErrHash.PHP_EOL.' E'.$errno.':'.$errstr.PHP_EOL.
             '<a href="'.'ide://'.$errfile.':'.$errline.'">'.$errfile.'@'.$errline.'</a>';
-            
+
             if (self::$_Perfect)
                 self::Finish ($Message);
-            
+
             self::Log($Message, LOG_CRIT, 'Developer', true);
         }
-        
+
         public static function Finish ($Message)
         {
             $Logs = self::Logs();
@@ -725,8 +724,8 @@
                             'Depth'     => $Record['D'],
                             'Stack'     => $Record['K']
                         ]).PHP_EOL;
-            
-            
+
+
             if (PHP_SAPI == 'cli')
                 $Output = $Message;
             else
@@ -769,12 +768,12 @@
             self::$_Color->push($Color);
             return $Color;
         }
-        
+
         public static function stopColor () // Colorize code sections
         {
             return self::$_Color->pop();
         }
-        
+
         public static function getColor () // Colorize code sections
         {
             if (self::$_Color->offsetExists(0))
@@ -782,7 +781,7 @@
             else
                 return "ffffff";
         }
-        
+
         public static function Log ($Message, $Verbose = 7, $Channel = 'Developer', $AppendStack = false, $Prepend = false)
         {
             if (is_array($Channel))
@@ -884,7 +883,7 @@
                 fwrite(STDERR, $Message);
             }
         }
-        
+
         public static function Logs($Channel = 'All')
         {
             if ($Channel === 'All')
@@ -913,7 +912,7 @@
                     .trim(file($File)[$Line-1])
                     .'</code>'
                     .'<pre><code class="json">'
-                    .htmlspecialchars(j($Call,JSON_PRETTY_PRINT))
+                    .htmlspecialchars(j($Call))
                     .'</code></pre>';
                 echo '</div>';
             }
@@ -925,12 +924,12 @@
         {
             self::$_Staring = true;
         }
-        
+
         public static function stopStaring ()
         {
             return self::$_Staring = false;
         }
-        
+
         public static function setFn($Function, $Code = null)
         {
             if (self::$_Service == 'Codeine')
@@ -961,7 +960,7 @@
         {
             self::Counter('Core:Merge');
             self::Start('Core:Merge');
-            
+
             if ($Mixin === (array) $Mixin) // Если второй аргумент — массив
             {
                 if ($Array === $Mixin)
@@ -1071,23 +1070,16 @@
 
         public static function Sort($Array, $Key, $Direction = SORT_ASC)
         {
-            $Data = [];
-            $Result = [];
-
-            $IC = 0;
-            foreach ($Array as $ID => $Row)
-                if (self::Dot($Row,$Key) !== null)
-                    $Data[$ID] = self::Dot($Row,$Key);
+            uasort($Array, function($A, $B) use ($Direction, $Key) {
+                if ($Direction == SORT_DESC)
+                    return (float)F::Dot($A, $Key) < (float)F::Dot($B, $Key)? 1 : -1;
                 else
-                    $Data[$ID] = $IC--;
+                    return (float)F::Dot($A, $Key) > (float)F::Dot($B, $Key)? 1 : -1;
 
+                return 0;
+            });
 
-            $Direction == SORT_ASC ? asort($Data): arsort($Data);
-
-            foreach ($Data as $Key =>&$Value)
-                $Result[$Key] = $Array[$Key];
-
-            return $Result;
+            return $Array;
         }
 
         public static function Map ($Array, $Fn, $Data = null, $FullKey = '')
