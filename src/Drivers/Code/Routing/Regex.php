@@ -28,7 +28,7 @@
                 else
                     $Rule['Weight'] = 0;
 
-            $Call['Regex'] = F::Sort($Call['Regex'], 'Weight', SORT_ASC);
+            $Call['Regex'] = F::Sort($Call['Regex'], 'Weight', SORT_DESC);
             F::Log(function() use ($Call) {array_keys($Call['Regex']);}, LOG_DEBUG);
                 
             foreach ($Call['Regex'] as $Name => $Call['Routing']['Rule'])
