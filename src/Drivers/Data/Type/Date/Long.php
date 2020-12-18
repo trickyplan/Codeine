@@ -15,9 +15,8 @@
                 return (int) $Call['Value'];
             else
             {
-                $Date = date_parse_from_format($Call['Date Format'], $Call['Value']);
-
-                return mktime($Date['hour'],$Date['minute'],$Date['second'], $Date['month'], $Date['day'], $Date['year']);
+                $DT = DateTime::createFromFormat($Call['Date Format'], $Call['Value']);
+                return $DT->getTimestamp();
             }
         }
         else
