@@ -47,8 +47,11 @@
 
         $Call = F::Apply('Entity', 'Load', $Call, ['Entity' => $Call['Name']]);
 
-        foreach ($Call['Value'] as &$Value)
-            $Value = F::Run('Data.Type.'.$Call['Nodes']['ID']['Type'], 'Write', ['Value' => $Value]);
+        if (empty($Call['Value']) or is_scalar($Call['Value']))
+            ;
+        else
+            foreach ($Call['Value'] as &$Value)
+                $Value = F::Run('Data.Type.'.$Call['Nodes']['ID']['Type'], 'Write', ['Value' => $Value]);
 
         return $Call['Value'];
     });

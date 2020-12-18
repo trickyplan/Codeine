@@ -32,7 +32,7 @@
 
             if ($Call['Name'] !== 'ID')
             {
-                $Where[$Call['Name']] = $Call['Data'][$Call['Name']];
+                $Where[$Call['Name']] = F::Dot($Call['Data'], $Call['Name']);
                 $Where['ID'] =
                     [
                         '$ne' => $Call['Data']['ID']
@@ -46,7 +46,7 @@
 
             F::Log('Checking unique *'.$Call['Name']
                 .'* value *'
-                .$Call['Data'][$Call['Name']]
+                .F::Dot($Call['Data'], $Call['Name'])
                 .'* ('.$Limit.')', LOG_INFO);
 
             $Entity = F::Run('Entity', 'Read',

@@ -41,15 +41,18 @@
 
         $Data = [];
 
-        foreach ($Call['Value'] as &$Value)
-        {
-            $Key = array_search($Value, $Call['Node']['Options']);
-            if ($Key === false)
-                if (isset($Call['Node']['Options'][$Value]))
-                    $Key = $Value;
+        if (empty($Call['Value']) or is_scalar($Call['Value']))
+            ;
+        else
+            foreach ($Call['Value'] as &$Value)
+            {
+                $Key = array_search($Value, $Call['Node']['Options']);
+                if ($Key === false)
+                    if (isset($Call['Node']['Options'][$Value]))
+                        $Key = $Value;
 
-            $Data[] = $Key;
-        }
+                $Data[] = $Key;
+            }
 
         return $Data;
     });
