@@ -1,0 +1,14 @@
+{
+    "Rules":
+    {
+        "Allow Yandex Webmaster to All":
+        {
+            "Decision": true,
+            "Weight": 50,
+            "Run":
+            {
+                "Service": "Providers.Webmaster.Yandex"
+            }
+        }
+    }
+}

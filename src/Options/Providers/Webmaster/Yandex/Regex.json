@@ -1,0 +1,23 @@
+{
+    "Regex":
+    {
+        "Yandex Webmaster Verification File":
+        {
+            "Match": "/yandex_(.+).html",
+            "Service": "Providers.Webmaster.Yandex",
+            "Method": "Auth",
+            "View":
+            {
+                "Renderer":
+                {
+                    "Service": "View.Plaintext",
+                    "Method": "Render"
+                }
+            },
+            "Call":
+            {
+                "ID": "$1"
+            }
+        }
+    }
+}
