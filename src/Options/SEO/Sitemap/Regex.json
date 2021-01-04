@@ -3,28 +3,15 @@
     {
         "Show Sitemap":
         {
-            "Match": "/sitemap/(.+)/(.+).xml",
+            "Weight": 1000,
+            "Match": "^/sitemap/(.+)/(\\d+).xml$",
             "Service": "SEO.Sitemap",
-            "Method": "Sitemap",
-            "View":
-            {
-                "Renderer":
-                {
-                    "Service": "View.XML",
-                    "Method": "Render"
-                }
-            },
+            "Method": "Generate.Sitemap",
             "Call":
             {
-                "Index": "$1",
+                "Handler": "$1",
                 "Page": "$2"
-            }
-        },
-        "Show Sitemap Index":
-        {
-            "Match": "/sitemap/(.+)-(\\d+).xml",
-            "Service": "SEO.Sitemap",
-            "Method": "Show Sitemap Index",
+            },
             "View":
             {
                 "Renderer":
@@ -33,10 +20,42 @@
                     "Method": "Render"
                 }
             },
+            "Last": true
+        },
+        "Show Handler Sitemap Index":
+        {
+            "Weight": 900,
+            "Match": "^/sitemap/(.+).xml$",
+            "Service": "SEO.Sitemap",
+            "Method": "Generate.Sitemap.Handler",
             "Call":
             {
-                "Index": "$1",
-                "Index Page": "$2"
+                "Handler": "$1",
+                "Page": "$2"
+            },
+            "View":
+            {
+                "Renderer":
+                {
+                    "Service": "View.XML",
+                    "Method": "Render"
+                }
+            },
+            "Last": true
+        },
+        "Show Root Sitemap Index":
+        {
+            "Weight": 800,
+            "Match": "^/sitemap.xml$",
+            "Service": "SEO.Sitemap",
+            "Method": "Generate.Sitemap.Root",
+            "View":
+            {
+                "Renderer":
+                {
+                    "Service": "View.XML",
+                    "Method": "Render"
+                }
             }
         }
     }

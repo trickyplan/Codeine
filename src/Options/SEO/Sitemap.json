@@ -1,56 +1,64 @@
 {
-    "View":
-    {
-        "Renderer":
-        {
-            "Service": "View.XML",
-            "Method": "Render"
-        }
-    },
     "Sitemap":
     {
         "Limits":
         {
-            "Sitemap Per Index": 1000,
+            "Sitemaps Per Index": 1000,
             "URLs Per Sitemap": 5000
         },
         "Handlers":
         {
-
-        },
-        "URL Field": "Slug"
-    },
-    "SearchEngines":
-    {
-        "Google":"http://google.com",
-        "Yandex":"http://yandex.ru",
-        "Bing": "http://bing.com",
-        "Yahoo": "http://yahoo.com",
-        "Ask": "http://ask.com"
-    },
-    "Namespace": "http://www.sitemaps.org/schemas/sitemap/0.9",
-    "Attributes": 
-    [
-        {
-            "Prefix":"xmlns",
-            "Key":"xsi",
-            "Value":"http://www.w3.org/2001/XMLSchema-instance"
-        },
-        {
-            "Prefix":"xsi",
-            "Key":"schemaLocation",
-            "Value":"http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
-        }
-    ],
-    "Hooks":
-    {
-        "-afterSitemap":
-        {
-            "Ping":
+            "Page":
             {
-                "Service": "SEO.Sitemap",
-                "Method": "Ping"
+                "Example": true,
+                "Service": "Entity.Sitemap",
+                "Call":
+                {
+                    "Entity": "Page",
+                    "Where":
+                    {
+                        "Enabled": true
+                    },
+                    "Sitemap":
+                    {
+                        "Prefix": "",
+                        "Frequency": "weekly",
+                        "Priority": 1
+                    }
+                }
             }
+        },
+        "Field":
+        {
+            "URL": "SEO.Slug",
+            "Last Modified": "UGC.Date.LastModified"
+        },
+        "Frequency": "never",
+        "Priority": 0,
+        "SearchEngines":
+        {
+            "Google":"http://google.com",
+            "Yandex":"http://yandex.ru",
+            "Bing": "http://bing.com",
+            "Yahoo": "http://yahoo.com",
+            "Ask": "http://ask.com"
+        },
+        "XML":
+        {
+            "Namespace": "http://www.sitemaps.org/schemas/sitemap/0.9",
+            "Attributes":
+            [
+                {
+                    "Prefix":"xmlns",
+                    "Key":"xsi",
+                    "Value":"http://www.w3.org/2001/XMLSchema-instance"
+                },
+                {
+                    "Prefix":"xsi",
+                    "Key":"schemaLocation",
+                    "Value":"http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
+                }
+            ]
         }
     }
 }

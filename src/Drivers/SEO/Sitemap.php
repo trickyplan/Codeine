@@ -1,76 +1,49 @@
 <?php
 
-    /* Codeine
-     * @author BreathLess
-     * @description  
-     * @package Codeine
-     * @version 7.x
-     */
-
-    setFn('List Sitemap Indexes', function ($Call)
+    setFn('Prepare', function ($Call)
     {
+        $Call['Sitemap']['FQDN'] = $Call['HTTP']['Proto'].$Call['HTTP']['Domain']; // FIXME Add Port Support
+        return $Call;
+    });
+
+    setFn('Generate.Sitemap.Root', function ($Call)
+    {
+        $Call = F::Apply(null, 'Prepare', $Call);
         $Call['Output'] =  ['Root' => 'sitemapindex', 'Content' => []];
-        $Call['Sitemap Indexes'] = [];
 
-        foreach ($Call['Sitemap']['Handlers'] as $Name => $Handler)
-        {
-            $SitemapsCount = F::Run($Handler['Driver'], 'Sitemaps Count', $Call, $Handler);
-            $IndexesCount = ceil($SitemapsCount/$Call['Sitemap']['Limits']['Sitemap Per Index']);
-
-            for ($SI = 1; $SI <= $IndexesCount; $SI++)
-            {
-                $Call['Sitemap Indexes'][] = $Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/sitemap/'.$Name.'-'.$SI.'.xml';
-                $Call['Output']['Content'][] =
+        $Handlers = F::Dot($Call, 'Sitemap.Handlers');
+        foreach ($Handlers as $HandlerName => $HandlerConfiguration)
+            $Call['Output']['Content'][] =
                     [
                         'sitemap' =>
                             [
-                                'loc' => $Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/sitemap/'.$Name.'-'.$SI.'.xml'
+                                'loc' => $Call['Sitemap']['FQDN'].'/sitemap/'.$HandlerName.'.xml'
                             ]
                     ];
-            }
-        }
 
         return $Call;
     });
 
-    setFn('Show Sitemap Index', function ($Call)
+    setFn('Generate.Sitemap.Handler', function ($Call)
     {
-        $Call = F::Hook('beforeSitemapIndexShow', $Call);
+        $Call = F::Apply(null, 'Prepare', $Call);
 
-            $Call['Output'] =  ['Root' => 'sitemapindex', 'Content' => []];
+        $Call['Output'] =  ['Root' => 'sitemapindex', 'Content' => []];
 
-            $Handler = $Call['Sitemap']['Handlers'][$Call['Index']];
-            $Call = F::Apply($Handler['Driver'], null, $Call, $Handler);
-
-        $Call = F::Hook('afterSitemapIndexShow', $Call);
+        if ($Handler = F::Dot($Call, 'Sitemap.Handlers.'.$Call['Handler']))
+            $Call = F::Apply($Handler['Service'], null, $Call, $Handler['Call']);
 
         return $Call;
     });
 
-    setFn('Sitemap', function ($Call)
+    setFn('Generate.Sitemap', function ($Call)
     {
-        $Call = F::Hook('beforeSitemapShow', $Call);
+        $Call = F::Apply(null, 'Prepare', $Call);
 
-            $Call['Output'] = ['Root' => 'urlset', 'Content' => []];
+        $Call['Output'] =  ['Root' => 'sitemap', 'Content' => []];
 
-            $Handler = $Call['Sitemap']['Handlers'][$Call['Index']];
-            $Call = F::Apply($Handler['Driver'], null, $Call, $Handler);
-
-        $Call = F::Hook('afterSitemapShow', $Call);
-
-        return $Call;
-    });
-
-    setFn('Sitemaps.Generate', function ($Call)
-    {
-        $Call = F::Hook('beforeSitemapShow', $Call);
-
-            $Call['Output'] = ['Root' => 'urlset', 'Content' => []];
-
-            $Handler = $Call['Sitemap']['Handlers'][$Call['Index']];
-            $Call = F::Apply($Handler['Driver'], null, $Call, $Handler);
-
-        $Call = F::Hook('afterSitemapShow', $Call);
+        if ($Handler = F::Dot($Call, 'Sitemap.Handlers.'.$Call['Handler']))
+            $Call = F::Apply($Handler['Service'], null, $Call, $Handler['Call']);
 
         return $Call;
     });

@@ -1,19 +1,6 @@
 {
     "Static":
     {
-        "/sitemap.xml":
-        {
-            "Service": "SEO.Sitemap",
-            "Method": "List Sitemap Indexes",
-            "View":
-            {
-                "Renderer":
-                {
-                    "Service": "View.XML",
-                    "Method": "Render"
-                }
-            }
-        },
         "/robots.txt":
         {
             "Service": "SEO.Robots",
