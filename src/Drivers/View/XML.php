@@ -18,15 +18,15 @@
         {
             $XML->startElement($Call['Output']['Root']);
 
-            if (isset($Call['Namespace']))
+            if ($NS = F::Dot($Call, 'XML.Namespace'))
             {
                 $XML->startAttribute('xmlns');
-                    $XML->text($Call['Namespace']);
+                    $XML->text($NS);
                 $XML->endAttribute();
             }
 
-            if (isset($Call['Attributes']))
-                foreach ($Call['Attributes'] as $Key => $Value)
+            if ($Attributes = F::Dot($Call, 'XML.Attributes'))
+                foreach ($Attributes as $Key => $Value)
                 {
                     if (is_array($Value))
                     {
