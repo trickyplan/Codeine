@@ -40,7 +40,7 @@
     {
         $Call = F::Apply(null, 'Prepare', $Call);
 
-        $Call['Output'] =  ['Root' => 'sitemap', 'Content' => []];
+        $Call['Output'] =  ['Root' => 'urlset', 'Content' => []];
 
         if ($Handler = F::Dot($Call, 'Sitemap.Handlers.'.$Call['Handler']))
             $Call = F::Apply($Handler['Service'], null, $Call, $Handler['Call']);
