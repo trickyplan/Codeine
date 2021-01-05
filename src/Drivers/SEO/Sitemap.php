@@ -47,3 +47,15 @@
 
         return $Call;
     });
+
+    setFn('List.Sitemaps.RobotsTxt', function ($Call)
+    {
+        $Call = F::Apply(null, 'Prepare', $Call);
+        $Sitemaps = [];
+
+        $Handlers = F::Dot($Call, 'Sitemap.Handlers');
+        foreach ($Handlers as $HandlerName => $HandlerConfiguration)
+            $Sitemaps[] = $Call['Sitemap']['FQDN'].'/sitemap/'.$HandlerName.'.xml';
+
+        return $Sitemaps;
+    });
