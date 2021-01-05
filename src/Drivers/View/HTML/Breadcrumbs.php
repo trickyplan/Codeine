@@ -13,6 +13,7 @@
 
         if (preg_match_all('@<breadcrumb (.+)>(.*)<\/breadcrumb>@SsUu', $Call['Output'], $Pockets))
         {
+            $Position = 0;
             foreach ($Pockets[0] as $IX => $Match)
             {
                 $Match = simplexml_load_string('<breadcrumb '.$Pockets[1][$IX].'></breadcrumb>');
@@ -20,8 +21,14 @@
                 if ($Match)
                 {
                     $URL = (string) $Match->attributes()->href;
+                    $Position++;
+                    $Call['Breadcrumbs'][] =
+                        [
+                            'URL' => $URL,
+                            'Title' => strip_tags($Pockets[2][$IX], '<l>'),
+                            'Position' => $Position
+                        ];
 
-                    $Call['Breadcrumbs'][] = ['URL' => $URL, 'Title' => strip_tags($Pockets[2][$IX], '<l>')];
                     $Call['Output'] = str_replace($Pockets[0][$IX], '', $Call['Output']);
                 }
             }
