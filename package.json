@@ -1,6 +1,6 @@
 {
     "name": "codeine",
-    "version": "45.3.4",
+    "version": "45.3.5",
     "description": "Esoteric framework: one class, shitload of anonymous functions, zero documentation. Still good though.",
     "main": "index.php",
     "scripts": {
