@@ -18,7 +18,7 @@
             $Server = F::Dot($Call, 'Server');
 
             if ($Server !== null)
-                F::Log('"Server" key is deprecated. Use "Mongo.Server" instead', LOG_WARNING);
+                F::Log('[DEPRECATED] "Server" key will be ousted. Use "Mongo.Server" instead', LOG_WARNING, ['Developer', 'Deprecated']);
         }
 
         $Database = F::Dot($Call, 'Mongo.Database'); // BC Parameters
@@ -27,7 +27,7 @@
             $Database = F::Dot($Call, 'Database');
 
             if ($Database !== null)
-                F::Log('"Database" key is deprecated. Use "Mongo.Database" instead', LOG_WARNING);
+                F::Log('[DEPRECATED] "Database" key will be ousted. Use "Mongo.Database" instead', LOG_WARNING, ['Developer', 'Deprecated']);
         }
 
         $Server     = F::Variable($Server, $Call);

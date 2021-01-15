@@ -123,6 +123,6 @@
 
     setFn('RAW', function ($Call)
     {
-        F::Log('Entity.List.Static.RAW is deprecated (renamed). Switch to Entity.List.RAW', LOG_WARNING);
+        F::Log('[DEPRECATED] Entity.List.Static.RAW will be ousted. Use "Entity.List.RAW" instead', LOG_WARNING, ['Developer', 'Deprecated']);
         return F::Apply('Entity.List.RAW', 'Do', $Call);
     });

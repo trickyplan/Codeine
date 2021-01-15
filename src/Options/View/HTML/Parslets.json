@@ -19,6 +19,7 @@
                         "Datetime",
                         "URLEncode",
                         "HTMLEntities",
+                        "Locale",
                         "Lower",
                         "Cut",
                         "Hashtags",
@@ -37,9 +38,9 @@
                         "Repeat",
                         "Variable",
                         "Key",
+                        "Far",
                         "If",
-                        "Layout",
-                        "Locale"
+                        "Layout"
                     ]
                 }
             }

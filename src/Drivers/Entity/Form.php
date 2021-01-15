@@ -18,7 +18,7 @@
 
         if (isset($Call['FormLayout']))
         {
-            F::Log('FormLayout is deprecated. Use Form.Layout instead', LOG_WARNING);
+            F::Log('[DEPRECATED] FormLayout will be ousted. Use "Form.Layout" instead', LOG_WARNING, ['Developer', 'Deprecated']);
             $Call['Form']['Layout'] = $Call['FormLayout'];
         }
 
