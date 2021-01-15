@@ -14,7 +14,7 @@
         foreach ($Call['Parsed']['Value'] as $IX => $Match)
         {
             $Decision = false;
-            
+
             if (empty($Call['Parsed']['Options'][$IX]))
                 ;
             else
@@ -25,7 +25,17 @@
                     $Value = (string) F::Dot($Call['Parsed'], 'Options.'.$IX.'.value');
                 else
                 {
-                    $Value = (string) F::Dot($Call['Data'], $Key);
+                    $Value = F::Dot($Call['Data'], $Key);
+
+                    if ($Value === 0)
+                        $Value = '0';
+
+                    if ($Value === false)
+                        $Value = 'false';
+
+                    if ($Value === true)
+                        $Value = 'true';
+
                     if (empty($Value))
                     {
                         if ($Null = (string) F::Dot($Call['Parsed'], 'Options.'.$IX.'.null'))
