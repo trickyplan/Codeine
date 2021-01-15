@@ -24,6 +24,7 @@
 
             foreach ($Call['Parsed'][1] as $IX => $Match)
             {
+                F::Log('*<call>'.$Match.'</call>* in '.$Call['Scope'].':'.$Call['ID'].' is deprecated and will be ousted soon. Please, replace it to variable/external tag.', LOG_WARNING);
                 if (mb_strpos($Match, ':') !== false)
                 {
                     list ($Options, $Key) = explode(':', $Match);
