@@ -14,6 +14,7 @@
                         "For",
                         "Fn",
                         "Exec",
+                        "External",
                         "Entity",
                         "Datetime",
                         "URLEncode",
