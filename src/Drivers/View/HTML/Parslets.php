@@ -65,61 +65,77 @@
             foreach ($Call['Parslets']['Queue'] as $PRSID => $Parslet)
             {
                 $Tag = strtolower($Parslet);
-                $Pattern = '<('.$Tag.')(\d*)(.*?)>(.*?)</(\1)(\2)>';
+                $Patterns = [
+                    [
+                        'Pattern'       => '<codeine-('.$Tag.')(\d*)(.*?)>(.*?)</codeine-(\1)(\2)>',
+                        'Deprecated'    => false
+                    ],
+                    [
+                        'Pattern'   => '<('.$Tag.')(\d*)(.*?)>(.*?)</(\1)(\2)>',
+                        'Deprecated'    => true
+                    ]
+                ];
 
-                $Parsed = F::Run('Text.Regex', 'All',
+                foreach ($Patterns as $PatternOptions)
+                {
+                    $Pattern = $PatternOptions['Pattern'];
+
+                    $Parsed = F::Run('Text.Regex', 'All',
                     [
                         'Pattern' => $Pattern,
                         'Value'   => $Call['Parslets']['Source']
                     ]);
 
-                if ($Parsed === false)
-                {
-                    $ParsletFound = 0;
-                    // unset($Call['Parslets']['Queue'][$PRSID]);
-                    // Premature fix
-                }
-                else
-                {
-                    $ParsletFound = count($Parsed);
-                    $PassFound += $ParsletFound;
-                }
-
-                if ($ParsletFound > 0)
-                    F::Log('Found *'.$ParsletFound.'* of *'.$Parslet.'*', LOG_INFO+0.5);
-    
-                if (empty($Parsed))
-                    ;
-                else
-                {
-                    $Matched[$Parslet] = [];
-    
-                    foreach ($Parsed[1] as $IX => $Tag)
-                        if ($Tag == strtolower($Parslet))
-                        {
-                            $Attributes = [];
-                            $Root = simplexml_load_string('<root '.$Parsed[3][$IX].'></root>');
-                            
-                            if ($Root)
-                            {
-                                $Attributes = (array) $Root->attributes();
-                            
-                                if (isset($Attributes['@attributes']))
-                                    $Attributes = $Attributes['@attributes'];
-                            }
-                            
-                            $Matched[$Parslet]['Match'][] = $Parsed[0][$IX];
-                            $Matched[$Parslet]['Options'][] = $Attributes;
-                            $Matched[$Parslet]['Value'][] = $Parsed[4][$IX];
-                        }
-                    
-                    if (empty($Matched[$Parslet]))
-                        ;
+                    if ($Parsed === false)
+                    {
+                        $ParsletFound = 0;
+                        // unset($Call['Parslets']['Queue'][$PRSID]);
+                        // Premature fix
+                    }
                     else
-                        $Matched[$Parslet]['Replace'] = F::Apply('View.HTML.Parslets.' . $Parslet, 'Parse', $Call,
-                            [
-                                'Parsed!' => $Matched[$Parslet]
-                            ]);
+                    {
+                        $ParsletFound = count($Parsed);
+                        $PassFound += $ParsletFound;
+
+                        F::Log('Found *'.$ParsletFound.'* of *'.$Parslet.'*', LOG_INFO+0.5);
+
+                        if (empty($Parsed))
+                            ;
+                        else
+                        {
+                            $Matched[$Parslet] = [];
+
+                            foreach ($Parsed[1] as $IX => $Tag)
+                                if ($Tag == strtolower($Parslet))
+                                {
+                                    $Attributes = [];
+                                    $Root = simplexml_load_string('<root '.$Parsed[3][$IX].'></root>');
+
+                                    if ($Root)
+                                    {
+                                        $Attributes = (array) $Root->attributes();
+
+                                        if (isset($Attributes['@attributes']))
+                                            $Attributes = $Attributes['@attributes'];
+                                    }
+
+                                    $Matched[$Parslet]['Match'][] = $Parsed[0][$IX];
+                                    $Matched[$Parslet]['Options'][] = $Attributes;
+                                    $Matched[$Parslet]['Value'][] = $Parsed[4][$IX];
+
+                                    if ($PatternOptions['Deprecated'])
+                                        F::Log('Parslet '.$Parsed[0][$IX].' pattern is deprecated', LOG_NOTICE);
+                                }
+
+                            if (empty($Matched[$Parslet]))
+                                ;
+                            else
+                                $Matched[$Parslet]['Replace'] = F::Apply('View.HTML.Parslets.' . $Parslet, 'Parse', $Call,
+                                    [
+                                        'Parsed!' => $Matched[$Parslet]
+                                    ]);
+                        }
+                    }
                 }
             }
 
