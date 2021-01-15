@@ -72,32 +72,39 @@
                         ;
                     else
                     {
+                        $Replace = ['<fe-key/>' => $CKey];
+
                         if ($CValue === null)
-                            $CValue = 'null';
+                        {
+                            $Replace['<fe-value/>'] = 'null';
+                        }
                         else
                         {
                             if (is_array($CValue))
-                                $CValue = array_shift($CValue);
+                                foreach ($CValue as $SubKey => $SubValue)
+                                    $Replace['<fe-'.$SubKey.'/>'] = $SubValue;
+                            else
+                                $Replace['<fe-value/>'] = $CValue;
 
                             if ($CValue === 0)
-                                $CValue = '0';
+                                $Replace['<fe-value/>'] = '0';
 
                             if ($CValue === false)
-                                $CValue = 'false';
+                                $Replace['<fe-value/>'] = 'false';
 
                             if ($CValue === true)
-                                $CValue = 'true';
+                                $Replace['<fe-value/>'] = 'true';
                         }
 
-                        $Output[$CKey] = str_replace(['<fe-key/>', '<fe-value/>'], [$CKey, $CValue], $Cludge);
+                        $Output[$CKey] = strtr($Cludge, $Replace);
                     }
                 }
             }
             else
                 $Output = [];
-            
+
             $Output = implode('', $Output);
-            
+
             $Replaces[$IX] = $Output;
         }
 
