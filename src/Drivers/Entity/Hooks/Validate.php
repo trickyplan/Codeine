@@ -70,5 +70,5 @@
             }
         }
 
-        return true;
+        return $Call;
     });
