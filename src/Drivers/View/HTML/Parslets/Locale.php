@@ -24,7 +24,7 @@
             {
                 if (F::Environment() === 'Development')
                 {
-                    $Replaces[$IX] = '<span class="nl" lang="'.$Call['Locale'].'">' . array_shift($Matches) . '</span>';
+                    $Replaces[$IX] = '<span class="nl" lang="'.$Call['Locale'].'" source="parslet">' . array_shift($Matches) . '</span>';
                     echo $Replaces[$IX].PHP_EOL;
                 }
                 else

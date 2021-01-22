@@ -13,41 +13,41 @@
         {
             $Call = F::Apply(null, 'Process', $Call,
                 [
-                    'Parslets' =>
+                    'Parslets!' =>
                         [
                             'Queue'  => $Call['View']['HTML']['Parslets']['afterViewLoad']['Enabled'],
                             'Source' => $Call['Value']
                         ]
                 ]);
-            
+
             $Call['Value'] = $Call['Parslets']['Source'];
-            
+
             unset($Call['Parslets']);
         }
-        
+
         return $Call;
     });
-    
+
     setFn('afterHTMLRender', function ($Call)
     {
         if (isset($Call['Output']))
         {
             $Call = F::Apply(null, 'Process', $Call,
                 [
-                    'Parslets' =>
+                    'Parslets!' =>
                         [
                             'Queue'  => $Call['View']['HTML']['Parslets']['afterHTMLRender']['Enabled'],
                             'Source' => $Call['Output']
                         ],
                     'Data!' => []
                 ]);
-            
+
             $Call['Output'] = $Call['Parslets']['Source'];
         }
-        
+
         return $Call;
     });
-    
+
     setFn('Process', function ($Call)
     {
         $TotalFound = 0;
@@ -61,7 +61,7 @@
             $PassFound = 0;
 
             F::Log('Start Pass *№'.$Pass.'*', LOG_DEBUG);
-            
+
             foreach ($Call['Parslets']['Queue'] as $PRSID => $Parslet)
             {
                 $Tag = strtolower($Parslet);
@@ -159,10 +159,10 @@
                     else
                         $ReplaceCount[$Parslet] = $Count;
                 }
-            
+
             if ($PassFound > 0)
                 F::Log('*'.$PassFound.'* parslets found on pass №'.$Pass, LOG_INFO+0.5);
-            
+
             $TotalFound += $PassFound;
         }
         while ($PassFound > 0);
