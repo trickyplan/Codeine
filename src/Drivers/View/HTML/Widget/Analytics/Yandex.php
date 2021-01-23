@@ -9,34 +9,57 @@
 
     setFn('Make', function ($Call)
     {
-        $Call['ID'] = isset($Call['ID'])? $Call['ID']: F::Dot($Call, 'Analytics.Yandex.ID');
-        $Code = '';
+        $Call = F::Hook('Analytics.Yandex.Make.Before', $Call);
 
-        if (F::Dot($Call, 'Analytics.Yandex.DoNotTrack') && F::Run('System.Interface.HTTP.DNT', 'Detect', $Call))
-        {
-            $Code = '<!-- Do Not Track enabled. Yandex Metrika supressed. -->';
-            F::Log('YM Suppressed by DNT: '.$Call['ID'], LOG_INFO, 'Marketing');
-        }
-        else
-        {
-            if (F::Dot($Call, 'Analytics.Yandex.URLs.Disabled') !== null && in_array($Call['HTTP']['URL'], F::Dot($Call, 'Analytics.Yandex.URLs.Disabled')))
-                F::Log('YM Suppressed by URLs: '.$Call['ID'], LOG_INFO, 'Marketing');
-            else
+            if (F::Dot($Call, 'Analytics.Yandex.Enabled'))
             {
-                if (F::Dot($Call, 'Analytics.Yandex.Environment.'.F::Environment()) === true)
+                $Call['ID'] = isset($Call['ID'])? $Call['ID']: F::Dot($Call, 'Analytics.Yandex.ID');
+                $Code = '';
+
+                if (F::Dot($Call, 'Analytics.Yandex.DoNotTrack') && F::Run('System.Interface.HTTP.DNT', 'Detect', $Call))
                 {
-                    $Code = F::Live(F::Run('View', 'Load', $Call,
-                        [
-                            'Scope'     => 'View.HTML.Widget.Analytics',
-                            'ID'        => 'Yandex'
-                        ]), $Call);
-                    
-                    F::Log('YM Registered: '.$Call['ID'], LOG_INFO, 'Marketing');
+                    $Message = 'Yandex.Metrika *'.$Call['ID'].'* Suppressed by *Do Not Track*';
+                    $Code = '<!-- '.$Message.' -->';
+                    F::Log($Message, LOG_INFO, 'Marketing');
                 }
                 else
-                    F::Log('YM Suppressed by Environment: '.$Call['ID'], LOG_INFO, 'Marketing');
+                {
+                    if (F::Dot($Call, 'Analytics.Yandex.URLs.Disabled') !== null && in_array($Call['HTTP']['URL'], F::Dot($Call, 'Analytics.Yandex.URLs.Disabled')))
+                    {
+                        $Message = 'Yandex.Metrika *'.$Call['ID'].'* Suppressed by *URLs*';
+                        $Code = '<!-- '.$Message.' -->';
+                        F::Log($Message, LOG_INFO, 'Marketing');
+                    }
+                    else
+                    {
+                        if (F::Dot($Call, 'Analytics.Yandex.Environment.'.F::Environment()) === true)
+                        {
+                            $Code = F::Live(F::Run('View', 'Load', $Call,
+                                [
+                                    'Scope'     => 'View.HTML.Widget.Analytics',
+                                    'ID'        => 'Yandex'
+                                ]), $Call);
+
+                            $Message = 'Yandex.Metrika *'.$Call['ID'].'* Registered';
+                            F::Log($Message, LOG_INFO, 'Marketing');
+                        }
+                        else
+                        {
+                            $Message = 'Yandex.Metrika *'.$Call['ID'].'* Suppressed by *Environment*';
+                            $Code = '<!-- '.$Message.' -->';
+                            F::Log($Message, LOG_INFO, 'Marketing');
+                        }
+                    }
+                }
             }
-        }
+            else
+            {
+                $Message = 'Yandex.Metrika *'.$Call['ID'].'* Suppressed by *Analytics.Yandex.Enabled option*';
+                $Code = '<!-- '.$Message.' -->';
+                F::Log($Message, LOG_INFO, 'Marketing');
+            }
+
+        $Call = F::Hook('Analytics.Yandex.Make.After', $Call);
 
         return $Code;
      });

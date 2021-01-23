@@ -9,36 +9,56 @@
 
     setFn('Make', function ($Call)
     {
-        // FIXME GA Options
-        $Code = '';
+        $Call = F::Hook('Analytics.Google.Make.Before', $Call);
 
-        $Call['ID'] = isset($Call['ID'])? $Call['ID']: F::Dot($Call, 'Analytics.Google.ID');
-
-        if (F::Dot($Call, 'Analytics.Google.DoNotTrack') && F::Run('System.Interface.HTTP.DNT', 'Detect', $Call))
-        {
-            $Code = '<!-- Do Not Track enabled. Google Analytics supressed. -->';
-            F::Log('GA Suppressed by DNT: '.$Call['ID'], LOG_INFO, 'Marketing');
-        }
-        else
-        {
-            if (in_array($Call['HTTP']['URL'], F::Dot($Call, 'Analytics.Google.URLs.Disabled')))
-                F::Log('GA Suppressed by URLs: '.$Call['ID'], LOG_INFO, 'Marketing');
-            else
+        if (F::Dot($Call, 'Analytics.Google.Enabled'))
             {
-                if (F::Dot($Call, 'Analytics.Google.Environment.'.F::Environment()) === true)
+                $Call['ID'] = isset($Call['ID'])? $Call['ID']: F::Dot($Call, 'Analytics.Google.ID');
+                $Code = '';
+
+                if (F::Dot($Call, 'Analytics.Google.DoNotTrack') && F::Run('System.Interface.HTTP.DNT', 'Detect', $Call))
                 {
-                    $Code = F::Live(F::Run('View', 'Load', $Call,
-                        [
-                            'Scope'     => 'View.HTML.Widget.Analytics',
-                            'ID'        => 'Google'
-                        ]), $Call);
-                    
-                    F::Log('GA Registered: '.$Call['ID'], LOG_INFO, 'Marketing');
+                    $Message = 'Google.Analytics *'.$Call['ID'].'* Suppressed by *Do Not Track*';
+                    $Code = '<!-- '.$Message.' -->';
+                    F::Log($Message, LOG_INFO, 'Marketing');
                 }
                 else
-                    F::Log('GA Suppressed by Environment: '.$Call['ID'], LOG_INFO, 'Marketing');
-            }
-        }
+                {
+                    if (F::Dot($Call, 'Analytics.Google.URLs.Disabled') !== null && in_array($Call['HTTP']['URL'], F::Dot($Call, 'Analytics.Google.URLs.Disabled')))
+                    {
+                        $Message = 'Google.Analytics *'.$Call['ID'].'* Suppressed by *URLs*';
+                        $Code = '<!-- '.$Message.' -->';
+                        F::Log($Message, LOG_INFO, 'Marketing');
+                    }
+                    else
+                    {
+                        if (F::Dot($Call, 'Analytics.Google.Environment.'.F::Environment()) === true)
+                        {
+                            $Code = F::Live(F::Run('View', 'Load', $Call,
+                                [
+                                    'Scope'     => 'View.HTML.Widget.Analytics',
+                                    'ID'        => 'Google'
+                                ]), $Call);
 
+                            $Message = 'Google.Analytics *'.$Call['ID'].'* Registered';
+                            F::Log($Message, LOG_INFO, 'Marketing');
+                        }
+                        else
+                        {
+                            $Message = 'Google.Analytics *'.$Call['ID'].'* Suppressed by *Environment*';
+                            $Code = '<!-- '.$Message.' -->';
+                            F::Log($Message, LOG_INFO, 'Marketing');
+                        }
+                    }
+                }
+            }
+            else
+            {
+                $Message = 'Google.Analytics *'.$Call['ID'].'* Suppressed by *Analytics.Google.Enabled option*';
+                $Code = '<!-- '.$Message.' -->';
+                F::Log($Message, LOG_INFO, 'Marketing');
+            }
+
+        $Call = F::Hook('Analytics.Google.Make.After', $Call);
         return $Code;
-    });
+     });

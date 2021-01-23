@@ -3,6 +3,7 @@
     {
         "Google":
         {
+            "Enabled": false,
             "DoNotTrack": true,
             "Demography": false,
             "Environment":
