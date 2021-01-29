@@ -9,15 +9,53 @@
 
     setFn('Do', function ($Call)
     {
-        if (
-               (isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']))
-                or (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')
-                or (isset($_SERVER['HTTP_X_HTTPS']) &&$_SERVER['HTTP_X_HTTPS'])
-            )
+        $Call = F::Apply(null, 'Detect.HTTPS', $Call);
+        $Call = F::Apply(null, 'Force.HTTPS', $Call);
+        $Call = F::Apply(null, 'Set.FQDN', $Call);
+
+        
+        
+        if (empty($Call['HTTP']['Proto']))
+            F::Log('Protocol is *empty*!', LOG_INFO);
+        else
+            F::Log('Protocol is *'.$Call['HTTP']['Proto'].'*', LOG_INFO);
+
+
+
+        return $Call;
+    });
+    
+    setFn('Detect.HTTPS', function ($Call)
+    {
+        $Secure = false;
+
+        if (isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']))
+        {
+            $Secure = true;
+            F::Log('HTTPS detected by Server.HTTPS', LOG_INFO);
+        }
+
+        if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https')
+        {
+            $Secure = true;
+            F::Log('HTTPS detected by Server.HTTP_X_FORWARDED_PROTO', LOG_INFO);
+        }
+        if (isset($_SERVER['HTTP_X_HTTPS']) &&$_SERVER['HTTP_X_HTTPS'])
+        {
+            $Secure = true;
+            F::Log('HTTPS detected by Server.HTTP_X_HTTPS', LOG_INFO);
+        }
+
+        if ($Secure)
             $Call['HTTP']['Proto'] = 'https://';
         else
             $Call['HTTP']['Proto'] = 'http://';
-
+        
+        return $Call;
+    });
+    
+    setFn('Force.HTTPS', function ($Call)
+    {
         if (isset($Call['HTTP']['Force SSL']) && $Call['HTTP']['Force SSL'])
         {
             if ($Call['HTTP']['Proto'] !== 'https://')
@@ -37,10 +75,16 @@
                 $Call['HTTP']['Headers']['Strict-Transport-Security:'] = $Header;
             }
         }
-        if (empty($Call['HTTP']['Proto']))
-            F::Log('Protocol is *empty*!', LOG_INFO);
-        else
-            F::Log('Protocol is *'.$Call['HTTP']['Proto'].'*', LOG_INFO);
+        return $Call;
+    });
+    
+    setFn('Set.FQDN', function ($Call)
+    {
+        $Call['HTTP']['FQDN'] = $Call['HTTP']['Proto'].$Call['HTTP']['Host'];
+        if ($Call['HTTP']['Proto'] === 'http' && $Call['HTTP']['Port'] != 80)
+            $Call['HTTP']['FQDN'].= ':'.$Call['HTTP']['Port'];
 
+        if ($Call['HTTP']['Proto'] === 'https' && $Call['HTTP']['Port'] != 443)
+            $Call['HTTP']['FQDN'].= ':'.$Call['HTTP']['Port'];
         return $Call;
     });
