@@ -23,8 +23,10 @@
         $Call['Value'] = (array) $Call['Value'];
 
         foreach ($Call['Value'] as &$Value)
-            if (!is_array($Value))
+            if (is_scalar($Value))
                 $Value = (float) $Value;
+            else
+                F::Log('Non-scalar value *'.j($Value).'*, skipped', LOG_NOTICE);
 
         return $Call['Value'];
     });

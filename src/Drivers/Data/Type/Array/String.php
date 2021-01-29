@@ -22,7 +22,10 @@
         $Call['Value'] = (array) $Call['Value'];
 
         foreach ($Call['Value'] as &$Value)
-            $Value = (string) $Value;
+            if (is_scalar($Value))
+                $Value = (string) $Value;
+            else
+                F::Log('Non-scalar value *'.j($Value).'*, skipped', LOG_NOTICE);
 
         return $Call['Value'];
     });
