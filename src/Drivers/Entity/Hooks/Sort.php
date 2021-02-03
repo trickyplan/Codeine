@@ -12,11 +12,14 @@
         if (isset($Call['List']['Sort']))
             $Call['Sort'] = $Call['List']['Sort'];
 
-        if (isset($Call['Request']['sort']) && isset($Call['Nodes'][$Call['Request']['sort']]))
-            $Call['Sort'] = [$Call['Request']['sort'] => true];
-        else
+        if (isset($Call['Request']['sort']))
         {
-            if(isset($Call['Request']['rsort']) && isset($Call['Nodes'][$Call['Request']['rsort']]))
+            if (F::Dot($Call['Nodes'], $Call['Request']['sort']))
+                $Call['Sort'] = [$Call['Request']['sort'] => true];
+        }
+        elseif (isset($Call['Request']['rsort']))
+        {
+            if (F::Dot($Call['Nodes'], $Call['Request']['rsort']))
                 $Call['Sort'] = [$Call['Request']['rsort'] => false];
         }
 
