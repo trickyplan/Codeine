@@ -12,7 +12,7 @@
          $Replaces = [];
          
          foreach ($Call['Parsed']['Value'] as $IX => $Match)
-             $Replaces[$IX] = strip_tags($Match);
+             $Replaces[$Call['Parsed']['Match'][$IX]] = strip_tags($Match);
 
         return $Replaces;
      });

@@ -10,7 +10,7 @@
     setFn('Parse', function ($Call)
     {
         $Replaces = [];
-        
+
         foreach ($Call['Parsed']['Value'] as $IX => $Key)
         {
             if (mb_strpos($Key, ',') !== false)
@@ -58,7 +58,7 @@
             if (is_array($Value))
                 $Value = array_pop($Value);
             
-            $Replaces[$IX] = $Value;
+            $Replaces[$Call['Parsed']['Match'][$IX]] = $Value;
         }
 
         return $Replaces;

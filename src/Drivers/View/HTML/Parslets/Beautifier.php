@@ -12,7 +12,7 @@
         $Replaces = [];
         
         foreach ($Call['Parsed']['Value'] as $IX => $Match)
-            $Replaces[$IX] = F::Run('Text.Beautifier', 'Do', $Call,['Value' => $Match]);
+            $Replaces[$Call['Parsed']['Match'][$IX]] = F::Run('Text.Beautifier', 'Do', $Call,['Value' => $Match]);
 
         return $Replaces;
     });

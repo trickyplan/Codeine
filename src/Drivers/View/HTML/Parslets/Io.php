@@ -25,12 +25,12 @@
                     ]);
 
                 if (empty($Element))
-                    $Replaces[$IX] = '';
+                    $Replaces[$Call['Parsed']['Match'][$IX]] = '';
                 else
-                    $Replaces[$IX] = $Element[0];
+                    $Replaces[$Call['Parsed']['Match'][$IX]] = $Element[0];
             }
             else
-                $Replaces[$IX] = '';
+                $Replaces[$Call['Parsed']['Match'][$IX]] = '';
         }
 
         return $Replaces;

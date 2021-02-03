@@ -113,9 +113,9 @@
             }
             
             if ($Decision)
-                $Replaces[$IX] = $Match;
+                $Replaces[$Call['Parsed']['Match'][$IX]] = $Match;
             else
-                $Replaces[$IX] = '';
+                $Replaces[$Call['Parsed']['Match'][$IX]] = '';
         }
 
         return $Replaces;

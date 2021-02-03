@@ -14,7 +14,7 @@
         foreach ($Call['Parsed']['Value'] as $IX => $Match)
         {
             list($Asset, $ID) = F::Run('View', 'Asset.Route', ['Value' => $Match]);
-            $Replaces[$IX] = F::Run ('View', 'Load', $Call, ['Scope' => $Asset, 'ID' => $ID]);
+            $Replaces[$Call['Parsed']['Match'][$IX]] = F::Run ('View', 'Load', $Call, ['Scope' => $Asset, 'ID' => $ID]);
         }
 
         return $Replaces;

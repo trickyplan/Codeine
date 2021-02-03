@@ -41,7 +41,7 @@
                         'IO One'    => true
                     ]);
 
-                    $Replaces[$IX] = preg_replace_callback('@<codeine-replace-variable>(.*?)</codeine-replace-variable>@Ssu', function ($Matches) use ($Data) {
+                    $Replaces[$Call['Parsed']['Match'][$IX]] = preg_replace_callback('@<codeine-replace-variable>(.*?)</codeine-replace-variable>@Ssu', function ($Matches) use ($Data) {
                         return F::Dot($Data, $Matches[1]);
                         }, $Template);
                 }

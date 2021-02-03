@@ -24,7 +24,7 @@
             
             $Output = implode('', $Output);
             
-            $Replaces[$IX] = $Output;
+            $Replaces[$Call['Parsed']['Match'][$IX]] = $Output;
         }
 
         return $Replaces;

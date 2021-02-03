@@ -10,7 +10,7 @@
                     "Enabled":
                     [
                         "Access",
-                        "Far",
+                        "FastFar",
                         "For",
                         "Fn",
                         "Exec",
@@ -25,7 +25,8 @@
                         "Hashtags",
                         "Currency",
                         "Temperature",
-                        "Number"
+                        "Number",
+                        "Variable"
                     ]
                 },
                 "afterViewLoad":

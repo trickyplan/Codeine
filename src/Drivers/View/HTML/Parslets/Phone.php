@@ -16,9 +16,9 @@
             {
                 $TelForm = implode('', array_slice($Parts, 2, 6));
                 $HumanForm = '+' . $Parts[2] . ' (' . $Parts[3] . ') ' . $Parts[4] . ' ' . $Parts[5] . ' ' . $Parts[6];
-                $Replaces[$IX] = '<a class="tel" href="tel:' . $TelForm . '">' . $HumanForm . '</a>';
+                $Replaces[$Call['Parsed']['Match'][$IX]] = '<a class="tel" href="tel:' . $TelForm . '">' . $HumanForm . '</a>';
             } else
-                $Replaces[$IX] = '<a class="tel" href="tel:' . $Match . '">' . $Match . '</a>';
+                $Replaces[$Call['Parsed']['Match'][$IX]] = '<a class="tel" href="tel:' . $Match . '">' . $Match . '</a>';
         }
         
         return $Replaces;

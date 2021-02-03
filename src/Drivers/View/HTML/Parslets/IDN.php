@@ -16,7 +16,7 @@
             $Root = simplexml_load_string($Call['Parsed']['Match'][$IX]);
 
             $Inner = (string) $Root;
-            $Replaces[$IX] = idn_to_utf8($Inner);
+            $Replaces[$Call['Parsed']['Match'][$IX]] = idn_to_utf8($Inner);
         }
         return $Replaces;
     });

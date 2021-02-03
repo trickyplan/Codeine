@@ -59,7 +59,7 @@
             }
 
             $Cut = str_replace('#', '', $Cut);
-            $Replaces[$IX] = $Cut;
+            $Replaces[$Call['Parsed']['Match'][$IX]] = $Cut;
         }
 
         return $Replaces;

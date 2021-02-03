@@ -12,7 +12,7 @@
         $Replaces = [];
         foreach ($Call['Parsed']['Value'] as $IX => $Match)
         {
-            $Replaces[$IX] = $Match;
+            $Replaces[$Call['Parsed']['Match'][$IX]] = $Match;
         }
         
         return $Replaces;

@@ -40,7 +40,7 @@
                     F::Log('Currency convert failed: ' . $Match, LOG_ERR);
             }
             
-            $Replaces[$IX] = $Currency;
+            $Replaces[$Call['Parsed']['Match'][$IX]] = $Currency;
         }
         
         return $Replaces;

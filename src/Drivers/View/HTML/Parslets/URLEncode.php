@@ -12,7 +12,7 @@
         $Replaces = [];
         
         foreach ($Call['Parsed']['Value'] as $IX => $Match)
-            $Replaces[$IX] = rawurlencode($Match);
+            $Replaces[$Call['Parsed']['Match'][$IX]] = rawurlencode($Match);
         
         return $Replaces;
     });

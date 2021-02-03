@@ -11,7 +11,7 @@
     {
         $Replaces = [];
         foreach ($Call['Parsed']['Value'] as $IX => $Match)
-            $Replaces[$IX] = '<strong>' . $Call['View']['Highlight'] . '</strong>';
+            $Replaces[$Call['Parsed']['Match'][$IX]] = '<strong>' . $Call['View']['Highlight'] . '</strong>';
         
         return $Replaces;
     });

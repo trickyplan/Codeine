@@ -41,7 +41,7 @@
               }
 
 
-              $Replaces[$IX] = $File;
+              $Replaces[$Call['Parsed']['Match'][$IX]] = $File;
           }
 
           return $Replaces;

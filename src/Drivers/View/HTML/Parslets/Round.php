@@ -12,9 +12,9 @@
         $Replaces = [];
         foreach ($Call['Parsed']['Value'] as $IX => $Match)
             if (isset($Call['Parsed']['Options'][$IX]['precision']))
-                $Replaces[$IX] = round((float) $Match, $Call['Parsed']['Options'][$IX]['precision']);
+                $Replaces[$Call['Parsed']['Match'][$IX]] = round((float) $Match, $Call['Parsed']['Options'][$IX]['precision']);
             else
-                $Replaces[$IX] = round((float) $Match);
+                $Replaces[$Call['Parsed']['Match'][$IX]] = round((float) $Match);
         
         return $Replaces;
     });

@@ -20,9 +20,9 @@
                 $Call['Run'] = F::Dot($Call['Run'], $Key, $Value);
 
             if (F::Run('Security.Access', 'Check', $Call, $Call['Run']))
-                $Replaces[$IX] = $Call['Parsed']['Value'][$IX];
+                $Replaces[$Call['Parsed']['Match'][$IX]] = $Call['Parsed']['Value'][$IX];
             else
-                $Replaces[$IX] = '';
+                $Replaces[$Call['Parsed']['Match'][$IX]] = '';
         }
 
         return $Replaces;

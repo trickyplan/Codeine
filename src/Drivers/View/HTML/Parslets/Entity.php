@@ -18,7 +18,7 @@
                 list(,$Entity, $ID) = $Slices;
 
                 if (empty($ID))
-                    $Replaces[$IX] = '';
+                    $Replaces[$Call['Parsed']['Match'][$IX]] = '';
                 else
                 {
                     $Scope      = $Entity.'/'.(F::Dot($Call['Parsed'],'Options.'.$IX.'.scope') ? F::Dot($Call['Parsed'],'Options.'.$IX.'.scope'): 'Show');
@@ -32,9 +32,9 @@
                     ]);
                 
                     if (empty($Element))
-                        $Replaces[$IX] = '';
+                        $Replaces[$Call['Parsed']['Match'][$IX]] = '';
                     else
-                        $Replaces[$IX] = F::Run('View', 'Load', $Call,
+                        $Replaces[$Call['Parsed']['Match'][$IX]] = F::Run('View', 'Load', $Call,
                                 [
                                       'Scope'  => $Scope,
                                       'ID'     => $Template,
@@ -45,7 +45,7 @@
                 
             }
             else
-                $Replaces[$IX] = '';
+                $Replaces[$Call['Parsed']['Match'][$IX]] = '';
         }
 
         return $Replaces;

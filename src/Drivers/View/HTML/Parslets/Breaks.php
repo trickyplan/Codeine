@@ -12,7 +12,7 @@
         $Replaces = [];
         
         foreach ($Call['Parsed']['Value'] as $IX => $Match)
-            $Replaces[$IX] = nl2br($Match);
+            $Replaces[$Call['Parsed']['Match'][$IX]] = nl2br($Match);
         
         return $Replaces;
     });

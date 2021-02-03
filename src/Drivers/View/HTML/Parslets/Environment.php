@@ -34,7 +34,7 @@
             if (F::Environment() == 'Development')
                 $Result = '<!-- Environment: '.j($Call['Parsed']['Options'][$IX]).'-->'.$Result.'<!-- Environment End -->';
             
-            $Replaces[$IX] = $Result;
+            $Replaces[$Call['Parsed']['Match'][$IX]] = $Result;
         }
         
         return $Replaces;

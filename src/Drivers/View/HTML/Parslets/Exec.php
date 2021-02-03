@@ -44,19 +44,19 @@
                 if (isset($Application['Output']))
                 {
                     if (is_scalar($Application['Output']))
-                        $Replaces[$IX] = $Application['Output'];
+                        $Replaces[$Call['Parsed']['Match'][$IX]] = $Application['Output'];
                     else
                     {
-                        $Replaces[$IX] = '{}';
+                        $Replaces[$Call['Parsed']['Match'][$IX]] = '{}';
                         F::Log('Application Output isn\'t scalar', LOG_ERR);
                         F::Log($Application['Output'], LOG_WARNING);
                     }
                 }
                 else
-                    $Replaces[$IX] = '';
+                    $Replaces[$Call['Parsed']['Match'][$IX]] = '';
                 
             } else
-                $Replaces[$IX] = '[Bad Exec]';
+                $Replaces[$Call['Parsed']['Match'][$IX]] = '[Bad Exec]';
         }
         
         return $Replaces;

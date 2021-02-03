@@ -20,7 +20,7 @@
 
             if (is_scalar($Match) && isset($From) && isset($To) && $Match !== 'null')
             {
-                $Replaces[$IX] =
+                $Replaces[$Call['Parsed']['Match'][$IX]] =
                     round(F::Run('Science.Math.Conversion.Temperature', 'Do',
                         [
                             'From'  => $From,
@@ -29,7 +29,7 @@
                         ]
                     )).$Call['View']['HTML']['Parslets']['Temperature']['Unit'][$To];
             } else
-                $Replaces[$IX] = '';
+                $Replaces[$Call['Parsed']['Match'][$IX]] = '';
         }
         
         return $Replaces;

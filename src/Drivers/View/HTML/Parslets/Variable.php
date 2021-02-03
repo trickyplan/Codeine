@@ -11,7 +11,6 @@
     {
         $Replaces = [];
         // FIXME Combine with Key
-        
         foreach ($Call['Parsed']['Value'] as $IX => $Variable)
         {
             if (mb_strpos($Variable, ',') !== false)
@@ -35,25 +34,30 @@
                 else
                 {
                     if ((array) $Value === $Value)
-                        $Value = array_shift($Value);
+                    {
+                        if (isset($Call['Parsed']['Options'][$IX]['json']))
+                            $Value = j($Value);
+                        else
+                            $Value = array_shift($Value);
+                    }
 
                     if ($Value === 0)
                         $Value = '0';
-                    
+
                     if ($Value === false)
                         $Value = 'false';
-                    
+
                     if ($Value === true)
                         $Value = 'true';
-                    
+
                     break;
                 }
             }
 
             if (is_array($Value))
                 $Value = array_pop($Value);
-            
-            $Replaces[$IX] = $Value;
+
+            $Replaces[$Call['Parsed']['Match'][$IX]] = $Value;
         }
 
         return $Replaces;

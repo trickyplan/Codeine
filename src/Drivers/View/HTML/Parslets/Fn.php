@@ -32,7 +32,7 @@
             if (is_float($Output))
                 $Output = str_replace(',', '.', $Output);
             
-            $Replaces[$IX] = $Output;
+            $Replaces[$Call['Parsed']['Match'][$IX]] = $Output;
         }
         
         return $Replaces;

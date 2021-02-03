@@ -24,24 +24,24 @@
                 switch ($Format)
                 {
                     case 'French':
-                        $Replaces[$IX] = F::Run('Formats.Number.French', 'Do', ['Value' => $Match, 'Digits' => $Digits]);
+                        $Replaces[$Call['Parsed']['Match'][$IX]] = F::Run('Formats.Number.French', 'Do', ['Value' => $Match, 'Digits' => $Digits]);
                         break;
                     
                     case 'English':
-                        $Replaces[$IX] = number_format($Match, $Digits);
+                        $Replaces[$Call['Parsed']['Match'][$IX]] = number_format($Match, $Digits);
                         break;
                     
                     case 'Sprintf':
                         $Sprintf = F::Dot($Call['Parsed'], 'Options.'.$IX.'.sprintf') ? F::Dot($Call['Parsed'], 'Options.'.$IX.'.sprintf') : '%d';
-                        $Replaces[$IX] = F::Run('Formats.Number.Sprintf', 'Do', ['Value' => $Match, 'Format' => $Sprintf]);
+                        $Replaces[$Call['Parsed']['Match'][$IX]] = F::Run('Formats.Number.Sprintf', 'Do', ['Value' => $Match, 'Format' => $Sprintf]);
                         break;
                     
                     default:
-                        $Replaces[$IX] = sprintf($Format, $Match);
+                        $Replaces[$Call['Parsed']['Match'][$IX]] = sprintf($Format, $Match);
                         break;
                 }
             } else
-                $Replaces[$IX] = $Match;
+                $Replaces[$Call['Parsed']['Match'][$IX]] = $Match;
         }
         
         return $Replaces;

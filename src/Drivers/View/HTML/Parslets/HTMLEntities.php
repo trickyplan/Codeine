@@ -12,7 +12,7 @@
          $Replaces = [];
          
          foreach ($Call['Parsed']['Value'] as $IX => $Match)
-             $Replaces[$IX] = htmlentities($Match);
+             $Replaces[$Call['Parsed']['Match'][$IX]] = htmlentities($Match);
          
          return $Replaces;
      });

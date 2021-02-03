@@ -36,7 +36,7 @@
             else
                 date_default_timezone_set($LastZone);
             
-            $Replaces[$IX] = $Date;
+            $Replaces[$Call['Parsed']['Match'][$IX]] = $Date;
         }
         
         return $Replaces;

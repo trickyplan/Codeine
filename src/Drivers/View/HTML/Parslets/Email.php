@@ -12,7 +12,7 @@
          $Replaces = [];
 
          foreach ($Call['Parsed']['Value'] as $IX => $Match)
-              $Replaces[$IX] = '<a class="email" href="mailto:'. $Match.'">'. $Match.'</a>';
+              $Replaces[$Call['Parsed']['Match'][$IX]] = '<a class="email" href="mailto:'. $Match.'">'. $Match.'</a>';
 
          return $Replaces;
      });

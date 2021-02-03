@@ -59,7 +59,7 @@
                 }
             }
 
-            $Replaces[$IX] = $Value;
+            $Replaces[$Call['Parsed']['Match'][$IX]] = $Value;
         }
 
         return $Replaces;

@@ -11,7 +11,7 @@
     {
         $Replaces = [];
         foreach ($Call['Parsed']['Value'] as $IX => $Match)
-            $Replaces[$IX] = mb_strtolower($Match);
+            $Replaces[$Call['Parsed']['Match'][$IX]] = mb_strtolower($Match);
         
         return $Replaces;
     });

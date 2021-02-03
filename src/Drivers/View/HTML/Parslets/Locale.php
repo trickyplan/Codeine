@@ -24,17 +24,17 @@
             {
                 if (F::Environment() === 'Development')
                 {
-                    $Replaces[$IX] = '<span class="nl" lang="'.$Call['Locale'].'" source="parslet">' . array_shift($Matches) . '</span>';
-                    echo $Replaces[$IX].PHP_EOL;
+                    $Replaces[$Call['Parsed']['Match'][$IX]] = '<span class="nl" lang="'.$Call['Locale'].'" source="parslet">' . array_shift($Matches) . '</span>';
+                    echo $Replaces[$Call['Parsed']['Match'][$IX]].PHP_EOL;
                 }
                 else
-                    $Replaces[$IX] = '{'.array_shift($Matches).'}';
+                    $Replaces[$Call['Parsed']['Match'][$IX]] = '{'.array_shift($Matches).'}';
             }
             else
                 if (is_scalar($Translation))
-                    $Replaces[$IX] = $Translation;
+                    $Replaces[$Call['Parsed']['Match'][$IX]] = $Translation;
                 else
-                    $Replaces[$IX] = '{}';
+                    $Replaces[$Call['Parsed']['Match'][$IX]] = '{}';
         }
 
         return $Replaces;
