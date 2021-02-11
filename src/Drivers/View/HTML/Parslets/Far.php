@@ -47,18 +47,20 @@
                 else
                     foreach ($Loaded as $Element)
                         $Elements = F::Dot($Elements, $Entity.'.'.$Element['ID'], $Element);
-
-                if (empty($Elements))
-                    ;
-                else
-                    foreach ($Call['Parsed']['Value'] as $IX => $Match)
-                        if (preg_match('@^(.+)\:(.*)\:(.+)$@SsUu', $Match, $Slices))
-                        {
-                            unset($Slices[0]);
-                            $Replaces[$Call['Parsed']['Match'][$IX]] = F::Dot($Elements, implode('.', $Slices));
-                        }
             }
         }
+
+        if (empty($Elements))
+            ;
+        else
+            foreach ($Call['Parsed']['Value'] as $IX => $Match)
+                if (preg_match('@^(.+)\:(.*)\:(.+)$@SsUu', $Match, $Slices))
+                {
+                    unset($Slices[0]);
+                    $Replaces[$Call['Parsed']['Match'][$IX]] = F::Dot($Elements, implode('.', $Slices));
+                }
+                else
+                    $Replaces[$Call['Parsed']['Match'][$IX]] = '';
 
         return $Replaces;
      });
