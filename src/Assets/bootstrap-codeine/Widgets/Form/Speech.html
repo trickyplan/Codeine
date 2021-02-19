@@ -3,10 +3,11 @@
     <div class="controls">
         <input x-webkit-speech type="<codeine-key>Subtype</codeine-key>"
                name="<codeine-key>Name</codeine-key>"
-               <block>required="<codeine-key>Required</codeine-key>"</block>
+                <codeine-if key="Required" neq="null">required</codeine-if>
                 class="form-control"
-               value="<codeine-key>Value</codeine-key>"
-               <block>pattern="<codeine-key>Regex</codeine-key>"</block>
-               <block>placeholder="<codeine-key>Placeholder</codeine-key>"</block> />
+                value="<codeine-key>Value</codeine-key>"
+                <codeine-if key="Regex" neq="null">pattern="<codeine-key>Regex</codeine-key>"</codeine-if>
+                <codeine-if key="Placeholder" neq="null">placeholder="<codeine-key>Placeholder</codeine-key>"</codeine-if>
+                />
     </div>
 </div>

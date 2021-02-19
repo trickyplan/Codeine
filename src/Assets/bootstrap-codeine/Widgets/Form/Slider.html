@@ -1,13 +1,13 @@
 <div class="form-group">
     <label for="<codeine-key>Name</codeine-key>"> <codeine-locale><codeine-key>Label</codeine-key></codeine-locale>: <codeine-if value="<codeine-key>Required</codeine-key>" eq="1"><span class="required-star">*</span></codeine-if></label>
     <div class="input-group">
-      <block>
-          <span class="input-group-addon"><codeine-key>Prefix</codeine-key></span>
-      </block>
-      <codeine-key>HTML</codeine-key>
-      <block>
-          <span class="input-group-addon"><codeine-key>Postfix</codeine-key></span>
-      </block>
+        <codeine-if value="<codeine-key>Prefix</codeine-key>" neq="null">
+            <span class="input-group-addon"><codeine-key>Prefix</codeine-key></span>
+        </codeine-if>
+        <codeine-key>HTML</codeine-key>
+        <codeine-if value="<codeine-key>Postfix</codeine-key>" neq="null">
+            <span class="input-group-addon"><codeine-key>Postfix</codeine-key></span>
+        </codeine-if>
     </div>
     <codeine-if value="<codeine-key>Help</codeine-key>" eq="1">
         <div class="help-block"><codeine-locale><codeine-key>Entity</codeine-key>.Help:<codeine-key>Key</codeine-key></codeine-locale></div>

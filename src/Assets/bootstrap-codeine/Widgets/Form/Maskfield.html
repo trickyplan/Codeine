@@ -2,7 +2,9 @@
     <label class="control-label"><codeine-locale><codeine-key>Label</codeine-key></codeine-locale></label>
 
     <div class="controls">
-        <input type="text" name="<codeine-key>Name</codeine-key>" id="<codeine-key>Name</codeine-key>" value="<codeine-key>Value</codeine-key>" <block>required="<codeine-key>Required</codeine-key>"</block> size="<codeine-key>Size</codeine-key>" />
+        <input type="text" name="<codeine-key>Name</codeine-key>" id="<codeine-key>Name</codeine-key>" value="<codeine-key>Value</codeine-key>"
+        <codeine-if key="Required">required</codeine-if>
+        size="<codeine-key>Size</codeine-key>" />
     </div>
 </div>
 

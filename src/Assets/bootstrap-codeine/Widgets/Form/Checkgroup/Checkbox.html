@@ -1,4 +1,7 @@
 <div class="checkbox">
     <label>
-        <input id="<codeine-key>ID</codeine-key>" type="checkbox" name="<codeine-key>Name</codeine-key>" value="<codeine-key>Value</codeine-key>" <block>checked="<codeine-key>Checked</codeine-key>"</block><block>required="<codeine-key>Required</codeine-key>"</block> /><codeine-key>Label</codeine-key></label>
+        <input id="<codeine-key>ID</codeine-key>" type="checkbox" name="<codeine-key>Name</codeine-key>" value="<codeine-key>Value</codeine-key>"
+        <codeine-if key="Checked" neq="null">checked</codeine-if>
+        <codeine-if key="Required" neq="null">required</codeine-if> />
+        <codeine-key>Label</codeine-key></label>
 </div>

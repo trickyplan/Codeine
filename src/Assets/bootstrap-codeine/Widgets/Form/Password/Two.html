@@ -6,10 +6,11 @@
                type="password"
                data-minlength="4"
                name="<codeine-key>Name</codeine-key>"
-        <block>required="<codeine-key>Required</codeine-key>"</block>
+        <codeine-if key="Required" neq="null">required</codeine-if>
         autocomplete="off"
         placeholder="<codeine-locale>User.Entity:Password.Equal</codeine-locale>"
-        <block>pattern="<codeine-key>Regex</codeine-key>"</block> />
+        <codeine-if key="Regex" neq="null">pattern="<codeine-key>Regex</codeine-key>"</codeine-if>
+        />
     </div>
 </div>
 
@@ -19,7 +20,8 @@
     </label>
     <div class="input-group">
         <input id="<codeine-key>ID</codeine-key>_Repeat" data-equals="<codeine-key>Name</codeine-key>"
-               class="form-control" type="password" <block>required="<codeine-key>Required</codeine-key>"</block>
+               class="form-control" type="password"
+       <codeine-if key="Required" neq="null">required</codeine-if>
         autocomplete="off"
         placeholder="<codeine-locale>User.Entity:Password.Equal</codeine-locale>" />
     </div>

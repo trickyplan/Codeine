@@ -3,8 +3,12 @@
             <codeine-if value="<codeine-key>Required</codeine-key>" eq="1"><span class="required-star">*</span></codeine-if>
 </label>
     <div class="controls">
-        <select id="<codeine-key>ID</codeine-key>" <block>multiple=<codeine-key>Multiple</codeine-key></block> name="<codeine-key>Name</codeine-key>" <block>required="<codeine-key>Required</codeine-key>" </block> class="form-control"         size="<codeine-key>Size</codeine-key>">
-
+        <select id="<codeine-key>ID</codeine-key>"
+        <codeine-if key="Multiple">multiple</codeine-if>
+        <codeine-if key="Required">required</codeine-if>
+        name="<codeine-key>Name</codeine-key>"
+        class="form-control"
+        size="<codeine-key>Size</codeine-key>">
         </select>
     </div>
 </div>

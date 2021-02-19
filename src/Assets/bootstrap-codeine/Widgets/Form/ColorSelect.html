@@ -1,6 +1,11 @@
 <div class="form-group">
     <label for="<codeine-key>Name</codeine-key>"> <codeine-locale><codeine-key>Label</codeine-key></codeine-locale>:</label>
-    <select id="<codeine-key>ID</codeine-key>"  <block>multiple=<codeine-key>Multiple</codeine-key></block> name="<codeine-key>Name</codeine-key>" <block>required="<codeine-key>Required</codeine-key>" </block> size="<codeine-key>Size</codeine-key>" class="form-control">
+    <select id="<codeine-key>ID</codeine-key>"
+        <codeine-if key="Multiple">multiple</codeine-if>
+        <codeine-if key="Required">required</codeine-if>
+        name="<codeine-key>Name</codeine-key>"
+        size="<codeine-key>Size</codeine-key>"
+        class="form-control">
         <codeine-key>Options</codeine-key>
     </select>
     <codeine-if value="<codeine-key>Help</codeine-key>" eq="1">
