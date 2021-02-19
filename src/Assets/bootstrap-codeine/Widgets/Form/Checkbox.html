@@ -1,11 +1,11 @@
 <div class="checkbox">
     <label>
-        <input id="<k>ID</k>" type="checkbox" name="<k>Name</k>" value="true"
-            <block>checked="<k>Checked</k>"</block>
-            <block>required="<k>Required</k>"</block> />
-            <l><k>Label</k></l>
+        <input id="<codeine-key>ID</codeine-key>" type="checkbox" name="<codeine-key>Name</codeine-key>" value="true"
+            <block>checked="<codeine-key>Checked</codeine-key>"</block>
+            <block>required="<codeine-key>Required</codeine-key>"</block> />
+            <codeine-locale><codeine-key>Label</codeine-key></codeine-locale>
     </label>
-    <if value="<k>Help</k>" eq="1">
-        <div class="help-block"><l><k>Entity</k>.Help:<k>Key</k></l></div>
-    </if>
+    <codeine-if value="<codeine-key>Help</codeine-key>" eq="1">
+        <div class="help-block"><codeine-locale><codeine-key>Entity</codeine-key>.Help:<codeine-key>Key</codeine-key></codeine-locale></div>
+    </codeine-if>
 </div>

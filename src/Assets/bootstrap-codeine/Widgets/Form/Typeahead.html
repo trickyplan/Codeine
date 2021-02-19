@@ -2,41 +2,41 @@
 <js>:bower/handlebars/handlebars.min</js>
 <div class="form-group">
     <div class="input-group">
-        <if value="<k>NoLabel</k>" neq="1">
-            <label for="<k>Name</k>"> <l><k>Label</k></l>: <if value="<k>Required</k>" eq="1"><span class="required-star">*</span></if></label>
-        </if>
-        <k>HTML</k>
-        <input type="hidden" name="<k>Name</k>" id="<k>ID</k>_hidden" value="<k>HValue</k>"/>
+        <codeine-if value="<codeine-key>NoLabel</codeine-key>" neq="1">
+            <label for="<codeine-key>Name</codeine-key>"> <codeine-locale><codeine-key>Label</codeine-key></codeine-locale>: <codeine-if value="<codeine-key>Required</codeine-key>" eq="1"><span class="required-star">*</span></codeine-if></label>
+        </codeine-if>
+        <codeine-key>HTML</codeine-key>
+        <input type="hidden" name="<codeine-key>Name</codeine-key>" id="<codeine-key>ID</codeine-key>_hidden" value="<codeine-key>HValue</codeine-key>"/>
     </div>
-    <if value="<k>Help</k>" eq="1">
-        <div class="help-block"><l><k>Entity</k>.Help:<k>Key</k></l></div>
-    </if>
+    <codeine-if value="<codeine-key>Help</codeine-key>" eq="1">
+        <div class="help-block"><codeine-locale><codeine-key>Entity</codeine-key>.Help:<codeine-key>Key</codeine-key></codeine-locale></div>
+    </codeine-if>
 </div>
 
 <jsrun>
-    var dataset<k>ID</k> = new Bloodhound(
+    var dataset<codeine-key>ID</codeine-key> = new Bloodhound(
     {
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('ID'),
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         remote: {
-            url: '<k>Typeahead.Remote</k>%QUERY',
+            url: '<codeine-key>Typeahead.Remote</codeine-key>%QUERY',
             wildcard: '%QUERY'
         }
     });
 
-    dataset<k>ID</k>.initialize();
+    dataset<codeine-key>ID</codeine-key>.initialize();
 
     updateHidden = function (e, datum)
     {
         console.info(datum);
         if (datum == undefined)
-            $('#<k>ID</k>_hidden').val('');
+            $('#<codeine-key>ID</codeine-key>_hidden').val('');
         else
-            $('#<k>ID</k>_hidden').val(datum.ID);
+            $('#<codeine-key>ID</codeine-key>_hidden').val(datum.ID);
     }
 
-    $('#<k>ID</k>').typeahead(null, {
-      name: 'dataset<k>ID</k>',
+    $('#<codeine-key>ID</codeine-key>').typeahead(null, {
+      name: 'dataset<codeine-key>ID</codeine-key>',
       limit: 25,
       displayKey: 'Title',
       templates:
@@ -53,7 +53,7 @@
                         +'<div class="media-heading">{{Title}}</div>'
                         +'</div>'),
       },
-      source: dataset<k>ID</k>.ttAdapter()
+      source: dataset<codeine-key>ID</codeine-key>.ttAdapter()
     })  .on('typeahead:selected', updateHidden)
         .on('typeahead:autocomplete', updateHidden)
         .on('typeahead:asyncrequest', updateHidden);

@@ -2,19 +2,19 @@
 <js>redactor:min</js>
 <js>redactor:ru</js>
 <jsrun>
-    $("#<k>ID</k>").redactor({
+    $("#<codeine-key>ID</codeine-key>").redactor({
         lang: "ru",
         imageUpload: "/uploader",
         wym: true
     });
 </jsrun>
 <div class="form-group">
-    <label for="<k>ID</k>"><l><k>Label</k>:</l>
-        <if value="<k>Required</k>" eq="required"><span class="required-star">*</span></if>
-        <if value="<k>Filled</k>" eq="1"><span class="filled-star" title="Рекомендуемое поле">*</span></if>
+    <label for="<codeine-key>ID</codeine-key>"><codeine-locale><codeine-key>Label</codeine-key>:</codeine-locale>
+        <codeine-if value="<codeine-key>Required</codeine-key>" eq="required"><span class="required-star">*</span></codeine-if>
+        <codeine-if value="<codeine-key>Filled</codeine-key>" eq="1"><span class="filled-star" title="Рекомендуемое поле">*</span></codeine-if>
     </label>
-    <textarea class="form-control" id="<k>ID</k>" <block>required="<k>Required</k>"</block> name="<k>Name</k>"><k>Value</k></textarea>
-    <if value="<k>Help</k>" eq="1">
-        <div class="help-block"><l><k>Entity</k>.Help:<k>Key</k></l></div>
-    </if>
+    <textarea class="form-control" id="<codeine-key>ID</codeine-key>" <block>required="<codeine-key>Required</codeine-key>"</block> name="<codeine-key>Name</codeine-key>"><codeine-key>Value</codeine-key></textarea>
+    <codeine-if value="<codeine-key>Help</codeine-key>" eq="1">
+        <div class="help-block"><codeine-locale><codeine-key>Entity</codeine-key>.Help:<codeine-key>Key</codeine-key></codeine-locale></div>
+    </codeine-if>
 </div>

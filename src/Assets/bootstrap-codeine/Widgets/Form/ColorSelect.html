@@ -1,9 +1,9 @@
 <div class="form-group">
-    <label for="<k>Name</k>"> <l><k>Label</k></l>:</label>
-    <select id="<k>ID</k>"  <block>multiple=<k>Multiple</k></block> name="<k>Name</k>" <block>required="<k>Required</k>" </block> size="<k>Size</k>" class="form-control">
-        <k>Options</k>
+    <label for="<codeine-key>Name</codeine-key>"> <codeine-locale><codeine-key>Label</codeine-key></codeine-locale>:</label>
+    <select id="<codeine-key>ID</codeine-key>"  <block>multiple=<codeine-key>Multiple</codeine-key></block> name="<codeine-key>Name</codeine-key>" <block>required="<codeine-key>Required</codeine-key>" </block> size="<codeine-key>Size</codeine-key>" class="form-control">
+        <codeine-key>Options</codeine-key>
     </select>
-    <if value="<k>Help</k>" eq="1">
-        <div class="help-block"><l><k>Entity</k>.Help:<k>Key</k></l></div>
-    </if>
+    <codeine-if value="<codeine-key>Help</codeine-key>" eq="1">
+        <div class="help-block"><codeine-locale><codeine-key>Entity</codeine-key>.Help:<codeine-key>Key</codeine-key></codeine-locale></div>
+    </codeine-if>
 </div>

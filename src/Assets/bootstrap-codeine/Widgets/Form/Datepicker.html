@@ -4,9 +4,9 @@
 <css>:bower/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min</css>
 
 <div class="form-group">
-    <label for="<k>Name</k>"><l><k>Label</k></l>:</label>
-    <div class='input-group date' id='<k>ID</k>'>
-        <input id="<k>ID</k>" name="<k>Name</k>" class="datepicker form-control" size="16" type="text" value="<k>Value</k>" <block>required="<k>Required</k>"</block> />
+    <label for="<codeine-key>Name</codeine-key>"><codeine-locale><codeine-key>Label</codeine-key></codeine-locale>:</label>
+    <div class='input-group date' id='<codeine-key>ID</codeine-key>'>
+        <input id="<codeine-key>ID</codeine-key>" name="<codeine-key>Name</codeine-key>" class="datepicker form-control" size="16" type="text" value="<codeine-key>Value</codeine-key>" <block>required="<codeine-key>Required</codeine-key>"</block> />
         <span class="input-group-addon">
             <span class="fa fa-calendar">
             </span>
@@ -17,7 +17,7 @@
 <jsrun>
     $(function ()
     {
-        $('#<k>ID</k>').datetimepicker(
+        $('#<codeine-key>ID</codeine-key>').datetimepicker(
         {
             format: 'DD.MM.YYYY HH:mm:ss',
             sideBySide: true,

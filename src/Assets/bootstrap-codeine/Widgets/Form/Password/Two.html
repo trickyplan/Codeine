@@ -1,37 +1,37 @@
 <div class="form-group">
-    <label for="<k>ID</k>"> <l><k>Label</k>.First</l>:</label>
+    <label for="<codeine-key>ID</codeine-key>"> <codeine-locale><codeine-key>Label</codeine-key>.First</codeine-locale>:</label>
     <div class="input-group">
         <input class="form-control"
-               id="<k>ID</k>"
+               id="<codeine-key>ID</codeine-key>"
                type="password"
                data-minlength="4"
-               name="<k>Name</k>"
-        <block>required="<k>Required</k>"</block>
+               name="<codeine-key>Name</codeine-key>"
+        <block>required="<codeine-key>Required</codeine-key>"</block>
         autocomplete="off"
-        placeholder="<l>User.Entity:Password.Equal</l>"
-        <block>pattern="<k>Regex</k>"</block> />
+        placeholder="<codeine-locale>User.Entity:Password.Equal</codeine-locale>"
+        <block>pattern="<codeine-key>Regex</codeine-key>"</block> />
     </div>
 </div>
 
 <div class="form-group">
-    <label for="<k>ID</k>_Repeat">
-        <l><k>Label</k>.Second</l>
+    <label for="<codeine-key>ID</codeine-key>_Repeat">
+        <codeine-locale><codeine-key>Label</codeine-key>.Second</codeine-locale>
     </label>
     <div class="input-group">
-        <input id="<k>ID</k>_Repeat" data-equals="<k>Name</k>"
-               class="form-control" type="password" <block>required="<k>Required</k>"</block>
+        <input id="<codeine-key>ID</codeine-key>_Repeat" data-equals="<codeine-key>Name</codeine-key>"
+               class="form-control" type="password" <block>required="<codeine-key>Required</codeine-key>"</block>
         autocomplete="off"
-        placeholder="<l>User.Entity:Password.Equal</l>" />
+        placeholder="<codeine-locale>User.Entity:Password.Equal</codeine-locale>" />
     </div>
 </div>
 <script type="text/javascript">
-    var password = document.getElementById("<k>ID</k>");
-    var confirm_password = document.getElementById("<k>ID</k>_Repeat");
+    var password = document.getElementById("<codeine-key>ID</codeine-key>");
+    var confirm_password = document.getElementById("<codeine-key>ID</codeine-key>_Repeat");
 
     function validatePassword()
     {
         if(password.value != confirm_password.value) {
-            confirm_password.setCustomValidity("<l>User.Entity:Password.Equal</l>");
+            confirm_password.setCustomValidity("<codeine-locale>User.Entity:Password.Equal</codeine-locale>");
         } else {
             confirm_password.setCustomValidity('');
         }

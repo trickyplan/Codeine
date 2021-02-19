@@ -1,29 +1,29 @@
 <div class="form-group">
-    <label for="<key>Name</key>"> <l><key>Label</key></l> :</label>
-        <k>HTML</k>
-        <if value="<key>Value</key>" null="0">
+    <label for="<codeine-keyey>Name</codeine-keyey>"> <codeine-locale><codeine-keyey>Label</codeine-keyey></codeine-locale> :</label>
+        <codeine-key>HTML</codeine-key>
+        <codeine-if value="<codeine-keyey>Value</codeine-keyey>" null="0">
             <label class="checkbox pull-right">
-                <input type="checkbox" name="<key>Name</key>" value="null" /> <l>View.HTML.Widget.Form.File:Clear</l>
+                <input type="checkbox" name="<codeine-keyey>Name</codeine-keyey>" value="null" /> <codeine-locale>View.HTML.Widget.Form.File:Clear</codeine-locale>
             </label>
-        </if>
+        </codeine-if>
         <div class="help-block">
-            <if value="<key>Size.Maximum</key>" neq="null">
+            <codeine-if value="<codeine-keyey>Size.Maximum</codeine-keyey>" neq="null">
                 <div>
-                    <l>View.HTML.Widget.Form.File:Size.Maximum.Value</l>:
-                    <key>Size.Maximum.Value</key> <l>View.HTML.Widget.Form.File:Size.Maximum.Unit.<key>Size.Maximum.Unit</key></l>
-                    (<key>Size.Maximum.Value10</key> <l>View.HTML.Widget.Form.File:Size.Maximum.Unit.<key>Size.Maximum.Unit</key>10</l>)
+                    <codeine-locale>View.HTML.Widget.Form.File:Size.Maximum.Value</codeine-locale>:
+                    <codeine-keyey>Size.Maximum.Value</codeine-keyey> <codeine-locale>View.HTML.Widget.Form.File:Size.Maximum.Unit.<codeine-keyey>Size.Maximum.Unit</codeine-keyey></codeine-locale>
+                    (<codeine-keyey>Size.Maximum.Value10</codeine-keyey> <codeine-locale>View.HTML.Widget.Form.File:Size.Maximum.Unit.<codeine-keyey>Size.Maximum.Unit</codeine-keyey>10</codeine-locale>)
                 </div>
-            </if>
-            <if value="<key>Filetypes.Allowed</key>" neq="null">
+            </codeine-if>
+            <codeine-if value="<codeine-keyey>Filetypes.Allowed</codeine-keyey>" neq="null">
                 <div>
-                    <l>View.HTML.Widget.Form.File:Filetypes.Allowed</l>:
+                    <codeine-locale>View.HTML.Widget.Form.File:Filetypes.Allowed</codeine-locale>:
                     <ul class="list-inline">
                         <foreach key="Filetypes.Allowed">
                             <li><fe-value/></li>
                         </foreach>
                     </ul>
                 </div>
-            </if>
+            </codeine-if>
         </div>
     <div class="clearfix"></div>
 </div>

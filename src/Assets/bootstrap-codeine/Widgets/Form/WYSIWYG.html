@@ -4,9 +4,9 @@
 <css>font-awesome:min</css>
 
 <div class="form-group">
-    <label for="<k>Name</k>"><l><k>Label</k></l>:</label>
+    <label for="<codeine-key>Name</codeine-key>"><codeine-locale><codeine-key>Label</codeine-key></codeine-locale>:</label>
 
-    <div class="btn-toolbar" data-role="editor-toolbar" data-target="#<k>ID</k>">
+    <div class="btn-toolbar" data-role="editor-toolbar" data-target="#<codeine-key>ID</codeine-key>">
         <div class="btn-group">
             <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" title="" data-original-title="Font"><i
                     class="fa fa-font"></i><b class="caret"></b></a>
@@ -80,14 +80,14 @@
             <a class="btn btn-default" data-edit="redo" title="" data-original-title="Redo (Ctrl/Cmd+Y)"><i class="fa fa-repeat"></i></a>
         </div>
     </div>
-    <div class="editor form-control" id="<k>ID</k>">
-        <k>Value</k>
+    <div class="editor form-control" id="<codeine-key>ID</codeine-key>">
+        <codeine-key>Value</codeine-key>
     </div>
-    <input type="hidden" name="<k>Name</k>" required="required" id="hd<k>ID</k>" value="<k>Value</k>" />
+    <input type="hidden" name="<codeine-key>Name</codeine-key>" required="required" id="hd<codeine-key>ID</codeine-key>" value="<codeine-key>Value</codeine-key>" />
 </div>
 <jsrun>
-    $('#<k>ID</k>').wysiwyg();
+    $('#<codeine-key>ID</codeine-key>').wysiwyg();
     $('form').submit(function() {
-        $('#hd<k>ID</k>').val($('#<k>ID</k>').html())
+        $('#hd<codeine-key>ID</codeine-key>').val($('#<codeine-key>ID</codeine-key>').html())
     });
 </jsrun>

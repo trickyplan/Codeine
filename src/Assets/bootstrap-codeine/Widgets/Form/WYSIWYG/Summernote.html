@@ -1,20 +1,20 @@
 <css>:bower/summernote/dist/summernote</css>
 <js>:bower/summernote/dist/summernote</js>
 
-<label for="<k>ID</k>_Hidden"> <l><k>Label</k></l>: <if value="<k>Required</k>" eq="1"><span class="required-star">*</span></if></label>
+<label for="<codeine-key>ID</codeine-key>_Hidden"> <codeine-locale><codeine-key>Label</codeine-key></codeine-locale>: <codeine-if value="<codeine-key>Required</codeine-key>" eq="1"><span class="required-star">*</span></codeine-if></label>
 <div class="form-group">
-    <div id="<k>ID</k>" class="readable"><k>RAWValue</k></div>
-    <input name="<k>Name</k>" id="<k>ID</k>_Hidden" required type="hidden" value=""/>
+    <div id="<codeine-key>ID</codeine-key>" class="readable"><codeine-key>RAWValue</codeine-key></div>
+    <input name="<codeine-key>Name</codeine-key>" id="<codeine-key>ID</codeine-key>_Hidden" required type="hidden" value=""/>
 </div>
 
 <jsrun>
-    $('#<k>ID</k>').summernote(
+    $('#<codeine-key>ID</codeine-key>').summernote(
     {
         callbacks:
         {
             onChange: function(contents, $editable)
             {
-                $("#<k>ID</k>_Hidden").val($('#<k>ID</k>').summernote('code'));
+                $("#<codeine-key>ID</codeine-key>_Hidden").val($('#<codeine-key>ID</codeine-key>').summernote('code'));
             }
         }
     }

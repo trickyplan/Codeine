@@ -1,19 +1,19 @@
-<form method="post" action="<variable>Action</variable>" enctype="multipart/form-data" autocomplete="on" class="panel panel-default">
-    <if value="<variable>Form.Title</variable>" neq="null">
+<form method="post" action="<codeine-variable>Action</codeine-variable>" enctype="multipart/form-data" autocomplete="on" class="panel panel-default">
+    <codeine-if value="<codeine-variable>Form.Title</codeine-variable>" neq="null">
         <div class="panel-heading">
-            <variable>Form.Title</variable>
+            <codeine-variable>Form.Title</codeine-variable>
         </div>
-    </if>
+    </codeine-if>
     <place>Message</place>
     <div class="panel-body">
         <place>Form</place>
     </div>
     <div class="panel-footer text-center">
         <button type="submit" class="btn btn-lg btn-primary">
-            <l><variable>Entity</variable>.<variable>Purpose</variable>:Submit,<variable>Entity</variable>.<variable>Purpose</variable>:Title</l>
+            <codeine-locale><codeine-variable>Entity</codeine-variable>.<codeine-variable>Purpose</codeine-variable>:Submit,<codeine-variable>Entity</codeine-variable>.<codeine-variable>Purpose</codeine-variable>:Title</codeine-locale>
         </button>
-        <a href="<variable>Request.BackURL</variable>" class="btn btn-lg btn-danger">
-            <l><variable>Entity</variable>.<variable>Purpose</variable>:Cancel</l>
+        <a href="<codeine-variable>Request.BackURL</codeine-variable>" class="btn btn-lg btn-danger">
+            <codeine-locale><codeine-variable>Entity</codeine-variable>.<codeine-variable>Purpose</codeine-variable>:Cancel</codeine-locale>
         </a>
     </div>
 </form>

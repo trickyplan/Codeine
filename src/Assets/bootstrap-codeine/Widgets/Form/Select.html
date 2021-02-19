@@ -1,17 +1,17 @@
 <div class="form-group">
-    <if value="<k>NoLabel</k>" neq="1">
-        <label for="<k>Name</k>"> <l><k>Label</k></l>:</label>
-    </if>
+    <codeine-if value="<codeine-key>NoLabel</codeine-key>" neq="1">
+        <label for="<codeine-key>Name</codeine-key>"> <codeine-locale><codeine-key>Label</codeine-key></codeine-locale>:</label>
+    </codeine-if>
     <div class="input-group">
       <block>
-          <span class="input-group-addon"><k>Prefix</k></span>
+          <span class="input-group-addon"><codeine-key>Prefix</codeine-key></span>
       </block>
-      <k>HTML</k>
+      <codeine-key>HTML</codeine-key>
       <block>
-          <span class="input-group-addon"><k>Postfix</k></span>
+          <span class="input-group-addon"><codeine-key>Postfix</codeine-key></span>
       </block>
     </div>
-    <if value="<k>Help</k>" eq="1">
-        <div class="help-block"><l><k>Entity</k>.Help:<k>Key</k></l></div>
-    </if>
+    <codeine-if value="<codeine-key>Help</codeine-key>" eq="1">
+        <div class="help-block"><codeine-locale><codeine-key>Entity</codeine-key>.Help:<codeine-key>Key</codeine-key></codeine-locale></div>
+    </codeine-if>
 </div>
