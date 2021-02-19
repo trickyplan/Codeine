@@ -44,9 +44,9 @@
                 }
             }
 
-            if (isset($Call['Parsed']['Options'][$IX]['call']))
+            if (isset($Call['Parsed']['Options'][$IX]['variable']))
             {
-                $Key = $Call['Parsed']['Options'][$IX]['call'];
+                $Key = $Call['Parsed']['Options'][$IX]['variable'];
 
                 if (mb_strpos($Key, ',') !== false)
                     $Key = explode(',', $Key);
