@@ -1,54 +1,109 @@
 {
-    "Session Auto": true,
-    "SID Generator":
+    "Mixins":
+    [
+        "Mixins.Channel",
+        "Session.Mixins.UTM"
+    ],
+    "Storage": "Primary",
+    "EPP": 50,
+    "Nodes":
     {
-        "Service": "Security.UID",
-        "Method": "Get",
-        "Call":
+        "ID":
         {
-            "Mode": "Secure+"
-        }
-    },
-    "Hooks":
-    {
-        "afterSessionInitialize":
-        {
-            "Check API key presents":
-            {
-                "Service": "Session.Hooks.API",
-                "Method": "afterSessionInitialize"
-            },
-            "Check UTM":
-            {
-                "Service": "Session.Hooks.UTM",
-                "Method": "afterSessionInitialize"
-            }
+            "Type": "Literal.String"
         },
-        "ActivationNeeded":
+        "URL":
         {
-            "Show alert":
+            "Type": "Literal.URL"
+        },
+        "BackURL":
+        {
+            "Type": "Literal.String"
+        },
+        "IP":
+        {
+            "Type": "Numeral.IP",
+            "Hooks":
             {
-                "Output":
+                "beforeEntityWrite":
                 {
-                    "Message":
-                    [
-                        {
-                            "Type": "Template",
-                            "Scope": "User/Activation",
-                            "ID": "Needed"
-                        }
-                    ]
+                    "Service": "System.Interface.HTTP.IP",
+                    "Method": "Get"
                 }
             }
         },
-        "LoadUser":
+        "User":
         {
-            "After":
+            "Type": "Numeral.Integer",
+            "Nullable": true,
+            "Default": 0
+        },
+        "Secondary":
+        {
+            "Type": "Numeral.Integer",
+            "Nullable": true,
+            "Default": 0
+        },
+        "Expire":
+        {
+            "Type": "Numeral.Integer",
+            "Hooks":
             {
-                "Set User Timezone as Default":
+                "beforeEntityCreate":
                 {
-                    "Service": "Session.Hooks.SetUserTimezone",
-                    "Method": "LoadUser.After"
+                    "Service": "System.Time",
+                    "Method": "Get",
+                    "Call":
+                    {
+                        "Time":
+                        {
+                            "Offset": 15552000
+                        }
+                    }
+                }
+            }
+        },
+        "Created":
+        {
+            "Type": "Numeral.Integer",
+            "Hooks":
+            {
+                "beforeEntityCreate":
+                {
+                    "Service": "System.Time",
+                    "Method": "Get"
+                }
+            }
+        },
+        "Modified":
+        {
+            "Type": "Numeral.Integer",
+            "Hooks":
+            {
+                "beforeEntityWrite":
+                {
+                    "Service": "System.Time",
+                    "Method": "Get"
+                }
+            }
+        },
+        "Location":
+        {
+            "Type": "Numeral.Integer",
+            "Default": 0
+        }
+    },
+    "Hooks!":
+    {
+        "afterDeletePost":
+        {
+           "Redirect":
+            {
+                "Service": "System.Interface.HTTP",
+                "Method": "Redirect",
+                "Call":
+                {
+                    "Redirect": "/control/Session"
                 }
             }
         }

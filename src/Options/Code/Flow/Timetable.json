@@ -27,6 +27,16 @@
                     "Service": "Metric.Collect",
                     "Method": "Do"
                 }
+            },
+            "Cleanup Sessions":
+            {
+                "Minute": 40,
+                "Second": 30,
+                "Run":
+                {
+                    "Service": "Session.Cleanup",
+                    "Method": "Do"
+                }
             }
         }
     }

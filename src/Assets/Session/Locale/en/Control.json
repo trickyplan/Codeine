@@ -3,7 +3,7 @@
     "Annulate": "Annulate",
     "Options": {
         "Delete": "Delete all",
-        "Truncate": "Truncate expired",
+        "Cleanup": "Cleanup",
         "Do": "Dashboard",
         "List": "List sessions"
     },

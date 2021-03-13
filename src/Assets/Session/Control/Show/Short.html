@@ -1,28 +1,33 @@
 <tr>
     <td>
-        <datetime><k>Created</k></datetime>
+        <codeine-datetime><codeine-key>Created</codeine-key></codeine-datetime>
     </td>
     <td>
-        <datetime><k>Expire</k></datetime>
+        <codeine-datetime><codeine-key>Expire</codeine-key></codeine-datetime>
     </td>
     <td>
-        <k>Channel</k>
+        <codeine-key null="N/A">Channel</codeine-key>
     </td>
     <td>
-        <k>Subchannel</k>
+        <codeine-key null="N/A">Subchannel</codeine-key>
     </td>
     <td>
-        <k>IP</k>
+        <codeine-key null="N/A">IP</codeine-key>
     </td>
     <td>
-        <entity>User:<k>User</k></entity>
+        <codeine-if key="User" neq="null">
+            <codeine-entity>User:<codeine-key>User</codeine-key></codeine-entity>
+        </codeine-if>
+        <codeine-if key="User" eq="null">
+            —
+        </codeine-if>
     </td>
     <td>
-        <if value="<k>ID</k>" eq="<call>SID</call>">
+        <if value="<codeine-key>ID</codeine-key>" eq="<call>SID</call>">
             Ваша сессия
         </if>
-        <if value="<k>ID</k>" neq="<call>SID</call>">
-            <a href="/control/Session/Delete/<k>ID</k>"><l>Session.Control:Annulate</l></a>
+        <if value="<codeine-key>ID</codeine-key>" neq="<call>SID</call>">
+            <a href="/control/Session/Delete/<codeine-key>ID</codeine-key>"><l>Session.Control:Annulate</l></a>
         </if>
     </td>
 </tr>

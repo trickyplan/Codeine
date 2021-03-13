@@ -9,13 +9,7 @@
 
     self::_loadSource('Entity.Control');
 
-    setFn('Delete Others', function ($Call)
+    setFn('Cleanup', function ($Call)
     {
-        $Call['Layouts'][] = ['Scope' => 'Entity', 'ID' => 'Delete'];
-        return F::Apply('Entity.Delete', 'Do', $Call,
-            [
-                'Entity' => $Call['Bundle'],
-                'Scope'  => 'Control',
-                'Where'  => ['ID' => ['$ne' => $Call['Session']['ID']]]
-            ]);
+        return F::Run('Session.Cleanup', 'Do', $Call);
     });

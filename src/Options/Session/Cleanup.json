@@ -1,0 +1,17 @@
+{
+    "Session":
+    {
+        "Cleanup":
+        {
+            "Expired":
+            {
+                "Enabled": true
+            },
+            "Inactive":
+            {
+                "Enabled": true,
+                "TTL": 5256000
+            }
+        }
+    }
+}

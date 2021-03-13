@@ -55,7 +55,10 @@
                     "Method": "Get",
                     "Call":
                     {
-                        "Increment": 15552000
+                        "Time":
+                        {
+                            "Offset": 15552000
+                        }
                     }
                 }
             }

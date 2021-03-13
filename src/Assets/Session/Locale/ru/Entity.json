@@ -2,6 +2,7 @@
     "Channel": "Канал",
     "Subchannel": "Субканал",
     "Created": "Создана",
+    "Modified": "Изменена",
     "Empty": "Сессий нет",
     "Expire": "Срок действия",
     "Heartbeat": "Активность",
