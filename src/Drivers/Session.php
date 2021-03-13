@@ -16,7 +16,7 @@
         // No Marker — Fresh User
         if (null === $Call['SID'])
         {
-            F::Log('Session: Marker does not exist', LOG_INFO, 'Security');
+            F::Log('Session *'.$Call['SID'].'*: Marker does not exist', LOG_INFO, ['Session', 'Security']);
 
             if (F::Dot($Call, 'Session Auto'))
                 $Call = F::Run(null, 'Mark', $Call);
@@ -34,7 +34,7 @@
                 if ($Call['Session'] !== null)
                 {
                     if (isset($Call['Session']['Channel']))
-                        F::Log('Session: Channel *'.$Call['Session']['Channel'].'*', LOG_INFO, 'Security');
+                        F::Log('Session *'.$Call['SID'].'*: Channel *'.$Call['Session']['Channel'].'*', LOG_INFO, ['Session', 'Security']);
                 /*
                     if (isset($Call['Session']['User']['Locale']))
                     {
@@ -80,7 +80,7 @@
                     'One' => true
                 ]);
 
-            F::Log('Session: Secondary user *'.$Call['Session']['User']['ID'].'* authenticated', LOG_INFO, 'Security');
+            F::Log('Session *'.$Call['SID'].'*: Secondary user *'.$Call['Session']['User']['ID'].'* authenticated, primary user is *'.$Call['Session']['Primary']['ID'].'*', LOG_INFO, ['Session', 'Security']);
 
             $Call = F::Hook('LoadUser.After', $Call);
 
@@ -99,7 +99,7 @@
                 ; //F::Run(null, 'Annulate', $Call);
             else
             {
-                F::Log('Session: Primary user '.$Call['Session']['User']['ID'].' authenticated', LOG_INFO, 'Security');
+                F::Log('Session *'.$Call['SID'].'*: Primary user '.$Call['Session']['User']['ID'].' authenticated', LOG_INFO, ['Session', 'Security']);
                 $Call = F::Hook('LoadUser.After', $Call);
             }
         }
@@ -131,8 +131,8 @@
                     'One' => true,
                     'Data' => $Call['Session Data']
                 ]);
-            F::Log('Session created '.$Call['SID'], LOG_INFO, 'Security');
-            F::Log('Session data '.j($Call['Session Data']), LOG_INFO, 'Security');
+            F::Log('Session *'.$Call['SID'].'*:  created ', LOG_INFO, ['Session', 'Security']);
+            F::Log('Session *'.$Call['SID'].'*:  data: '.j($Call['Session Data']), LOG_INFO, ['Session', 'Security']);
         }
         else
         {
@@ -148,7 +148,7 @@
                     'One' => true
                 ]);
 
-            F::Log('Session *'.$Call['SID'].'* updated ('.j($Call['Session Data']).')', LOG_INFO, 'Security');
+            F::Log('Session *'.$Call['SID'].'* updated ('.j($Call['Session Data']).')', LOG_INFO, ['Session', 'Security']);
         }
 
         $Call = F::Run(null, 'Load User', $Call);
@@ -173,13 +173,16 @@
 
         if (F::Dot($Call, 'Session.Secondary'))
         {
+            $PrimaryID = $Call['Session']['Primary']['ID'];
+            $SecondaryID = $Call['Session']['Secondary'];
             $Call = F::Apply('Session', 'Write', $Call, ['Session Data' => ['User' => $Call['Session']['Primary']['ID'], 'Secondary' => null]]);
-            F::Log('Detached secondary user: '.$Call['Session']['Secondary'], LOG_INFO, 'Security');
+            F::Log('Session *'.$Call['SID'].'*: Detached secondary user: '.$SecondaryID.', primary user is *'.$PrimaryID.'*', LOG_NOTICE, ['Session', 'Security']);
         }
         else
         {
+            $PrimaryID = $Call['Session']['User']['ID'];
             $Call = F::Apply('Session', 'Write', $Call, ['Session Data' => ['User' => null]]);
-            // F::Log('Detached primary user: '.$Call['Session']['User']['ID'], LOG_INFO, 'Security');
+            F::Log('Session *'.$Call['SID'].'*: Detached primary user: '.$PrimaryID, LOG_NOTICE, ['Session', 'Security']);
         }
 
         $Call = F::Hook('afterAnnulate', $Call);
@@ -201,11 +204,11 @@
 
         if (isset($Call['Session']['Marker']) && $Call['Session']['Marker'])
         {
-            F::Log('Session: Marker created', LOG_INFO, 'Security');
+            F::Log('Session *'.$Call['SID'].'*: Marker created', LOG_INFO, ['Session', 'Security']);
             unset($Call['Session']['Marker']);
         }
         else
-            F::Log('Session: Marker failed to create', LOG_WARNING, 'Security');
+            F::Log('Session *'.$Call['SID'].'*: Marker failed to create', LOG_WARNING, ['Session', 'Security']);
 
         return $Call;
     });

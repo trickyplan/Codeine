@@ -22,7 +22,7 @@
         },
         "IP":
         {
-            "Type": "Numeral.IP",
+            "Type": "Literal.String",
             "Hooks":
             {
                 "beforeEntityWrite":
@@ -69,6 +69,18 @@
             "Hooks":
             {
                 "beforeEntityCreate":
+                {
+                    "Service": "System.Time",
+                    "Method": "Get"
+                }
+            }
+        },
+        "Modified":
+        {
+            "Type": "Numeral.Integer",
+            "Hooks":
+            {
+                "beforeEntityWrite":
                 {
                     "Service": "System.Time",
                     "Method": "Get"

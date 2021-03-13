@@ -11,6 +11,7 @@
     {
         $Call = F::Apply('Entity', 'Load', $Call, ['Entity' => 'User']);
 
+        $PrimaryID = $Call['Session']['User']['ID'];
         $Call = F::Apply('Session', 'Write', $Call,
             [
                 'Session Data' =>
@@ -19,9 +20,9 @@
                     'User' => $Call['Session']['User']['ID']
                 ]
             ]);
-        
-        F::Log('User '.$Call['Session']['User']['ID'].' impersonated himself as '.$Call['ID'], LOG_WARNING, 'Security');
-        
+
+        F::Log('User *#'.$PrimaryID.'* impersonated himself as '.$Call['ID'], LOG_WARNING, ['Session', 'Security']);
+
         $Call = F::Hook('afterUserLoginDo', $Call);
 
         return $Call;

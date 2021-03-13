@@ -9,6 +9,14 @@
 
     setFn('Do', function ($Call)
     {
+        $Call['HTTP']['IP'] = F::Run(null, 'Get', $Call);
+        F::Log('User IP: '.$Call['HTTP']['IP'],  LOG_INFO);
+
+        return $Call;
+    });
+
+    setFn('Get', function ($Call)
+    {
         $IP = $_SERVER['REMOTE_ADDR'];
 
         foreach ($Call['IP']['Headers'] as $Header)
@@ -64,8 +72,5 @@
                 $IP = $Call['IP']['Substitute'][$IP];
             }
 
-        $Call['HTTP']['IP'] = $IP;
-        F::Log('User IP: '.$IP,  LOG_INFO);
-
-        return $Call;
+        return $IP;
     });

@@ -13,7 +13,7 @@
 
             if (isset($Call['Session']['User']['ID']))
             {
-                F::Log('User '.$Call['Session']['User']['ID'].' going to logout', LOG_INFO, 'Security');
+                F::Log('User '.$Call['Session']['User']['ID'].' going to logout', LOG_NOTICE, ['Session', 'Security']);
                 $Call = F::Apply('Session', 'Annulate', $Call);
             }
 
