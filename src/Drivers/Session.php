@@ -18,7 +18,7 @@
         {
             F::Log('Session *'.$Call['SID'].'*: Marker does not exist', LOG_INFO, ['Session', 'Security']);
 
-            if (F::Dot($Call, 'Session Auto'))
+            if (F::Dot($Call, 'Security.Session.Auto'))
                 $Call = F::Run(null, 'Mark', $Call);
         }
         else
@@ -87,10 +87,10 @@
         }
         elseif (isset($Call['Session']['User']) && !empty($Call['Session']['User']))
         {
-            $Call['Session']['User'] = F::Run('Entity', 'Read', $Call,
+            $Call['Session']['User'] = F::Run('Entity', 'Read',
                 [
                     'Entity' => 'User',
-                    'Where' => $Call['Session']['User'],
+                    'Where' => isset($Call['Session']['User']['ID'])? $Call['Session']['User']['ID']: $Call['Session']['User'],
                     'Time' => microtime(true),
                     'One' => true
                 ]);
@@ -139,7 +139,11 @@
             $Call['Session Data'] = F::Merge($Call['Session'], $Call['Session Data']);
             $Call['Session Data']['ID'] = $Call['SID'];
 
-            $Call['Session'] = F::Run('Entity', 'Update', $Call,
+            if (isset($Call['Session Data']['User']['ID'])) // FIXME ASAP
+                $Call['Session Data']['User'] = $Call['Session Data']['User']['ID'];
+
+
+            $Call['Session'] = F::Run('Entity', 'Update',
                 [
                     'Entity' => 'Session',
                     'Data' => $Call['Session Data'],
@@ -197,7 +201,7 @@
         if (isset($Call['SID']))
             ;
         else
-            $Call['SID'] = F::Live($Call['SID Generator']);
+            $Call['SID'] = F::Live(F::Dot($Call, 'Security.Session.Generator'));
 
         // Вешаем маркер, если включено автомаркирование
         $Call = F::Apply('Session.Marker.Cookie', 'Write', $Call);
