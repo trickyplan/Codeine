@@ -60,6 +60,16 @@
         {
             $Call = F::Hook('Authenticating.Failed', $Call);
             F::Log('Authentification failed', LOG_NOTICE, ['Session', 'Security']);
+
+            if (isset($Call['Errors']))
+                foreach ($Call['Errors'] as $Error)
+                {
+                    $Call['Output']['Content'][] =
+                        [
+                            'Type'  => 'Block',
+                            'Value' => $Error
+                        ];
+                }
         }
 
         return $Call;

@@ -26,9 +26,9 @@
 
     setFn('Authenticate', function ($Call)
     {
-        if (isset($Call['Request'][$Call['Determinant']]))
+        if (F::Dot($Call, 'Request.Determinant'))
         {
-            if (isset($Call['Request']['Password']))
+            if (F::Dot($Call, 'Request.Password'))
             {
                 $Call['User'] =
                     F::Run('Entity', 'Read', $Call,
@@ -40,39 +40,45 @@
                             ],
                             'One' => true
                         ]);
-                        
+
                     $Challenge = F::Run('Security.Hash', 'Get', $Call,
                          [
                               'Mode' => 'Password',
-                              'Value' => $Call['Request']['Password'],
-                              'Salt' => isset($Call['User']['Salt'])? $Call['User']['Salt']: ''
+                              'Value' => F::Dot($Call, 'Request.Password'),
+                              'Salt' => F::Dot($Call, 'User.Salt')
                          ]);
 
                     $Password = F::Dot($Call, 'User.Password');
 
-                    if ($Password != $Challenge && $Call['Request']['Password'] !== '')
+                    if ($Password != $Challenge)
                     {
                         F::Log('Passwords don\'t match', LOG_WARNING, 'Security');
                         F::Log('User password hash is '.$Password, LOG_WARNING, 'Security');
                         F::Log('Request password hash is '.$Challenge, LOG_WARNING, 'Security');
-                        
+
                         $Call['Output']['Content'][] =
                             [
                                 'Type' => 'Template',
                                 'Scope' => 'User/Authenticate',
                                 'ID' => 'Incorrect'
                             ];
-                            
+
                         unset($Call['User']);
                     }
                     else
                         F::Log('Passwords match', LOG_NOTICE, 'Security');
             }
             else
+            {
                 F::Log('Password isn\'t set', LOG_WARNING, 'Security');
+                $Call['Errors'][] = 'Password isn\'t set';
+            }
         }
-            else
-                F::Log('User isn\'t set', LOG_WARNING, 'Security');
+        else
+        {
+            F::Log('User isn\'t set', LOG_WARNING, 'Security');
+            $Call['Errors'][] = 'User isn\'t set';
+        }
 
         return $Call;
     });
