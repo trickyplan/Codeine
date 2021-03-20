@@ -26,7 +26,7 @@
 
     setFn('Authenticate', function ($Call)
     {
-        if (F::Dot($Call, 'Request.Determinant'))
+        if (F::Dot($Call, 'Request.'.$Call['Determinant']))
         {
             if (F::Dot($Call, 'Request.Password'))
             {
