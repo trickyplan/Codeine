@@ -40,23 +40,7 @@
 
         $Call = F::Apply('Security.Auth.'.$Call['Mode'], null, $Call);
 
-        if (!empty($Call['User']) && empty($Call['Errors']))
-        {
-            if (isset($Call['Request']['Remember']))
-                $Call['TTL'] = $Call['TTLs']['Long'];
-
-            $Call = F::Apply('Session', 'Write', $Call, ['Session Data' => ['User' => $Call['User']['ID']]]);
-            
-            if (F::Dot($Call, 'Session.User.ID') == $Call['User']['ID'])
-            {
-                F::Log('User authenticated '.$Call['User']['ID'], LOG_NOTICE, ['Session', 'Security']);
-
-                $Call = F::Hook('afterAuthenticate', $Call);
-            }
-            else
-                F::Log('User is not authenticated', LOG_NOTICE, ['Session', 'Security']);
-        }
-        else
+        if (empty($Call['User']))
         {
             $Call = F::Hook('Authenticating.Failed', $Call);
             F::Log('Authentification failed', LOG_NOTICE, ['Session', 'Security']);
@@ -70,6 +54,22 @@
                             'Value' => $Error
                         ];
                 }
+        }
+        else
+        {
+            if (isset($Call['Request']['Remember']))
+                $Call['TTL'] = $Call['TTLs']['Long'];
+
+            $Call = F::Apply('Session', 'Write', $Call, ['Session Data' => ['User' => $Call['User']['ID']]]);
+
+            if (F::Dot($Call, 'Session.User.ID') == $Call['User']['ID'])
+            {
+                F::Log('User authenticated '.$Call['User']['ID'], LOG_NOTICE, ['Session', 'Security']);
+
+                $Call = F::Hook('afterAuthenticate', $Call);
+            }
+            else
+                F::Log('User is not authenticated', LOG_NOTICE, ['Session', 'Security']);
         }
 
         return $Call;
