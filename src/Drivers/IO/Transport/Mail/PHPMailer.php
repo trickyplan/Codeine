@@ -23,7 +23,7 @@
         if (isset($Call['Link']))
             ;
         else
-            $Call = F::Apply(null, 'Open', $Call);
+            $Call['Link'] = F::Run(null, 'Open', $Call);
 
         try
         {
@@ -54,7 +54,7 @@
             }
 
             //Recipients
-            $Call['Link']->setFrom(F::Dot($Call, 'Mail.From').'@'.$Call['HTTP']['Host'], $Call['Project']['Title'] ?? 'Codeine');
+            $Call['Link']->setFrom(F::Dot($Call, 'Mail.From').'@'.$Call['HTTP']['Domain'], $Call['Project']['Title'] ?? 'Codeine');
             $Call['Link']->addAddress(F::Dot($Call, 'Scope'));            // Name is optional
 
             foreach ($Call['Mail']['Headers'] as $Key => $Value)
