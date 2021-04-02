@@ -23,5 +23,18 @@
                 $Call['Sort'] = [$Call['Request']['rsort'] => false];
         }
 
+        if (isset($Call['Request']['Sort']))
+        {
+            $Call['Sort'] = [];
+                foreach ($Call['Request']['Sort'] as $Key => $Direction)
+                {
+                    if ($Direction === 'true')
+                        $Direction = true;
+                    else
+                        $Direction = false;
+
+                    $Call['Sort'][$Key] = $Direction;
+                }
+        }
         return $Call;
     });
