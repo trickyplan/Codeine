@@ -10,7 +10,7 @@
     setFn('Make', function ($Call)
     {
         if (isset($Call['Value']))
-            ;
+            $Call['Value'] = (bool)$Call['Value'];
         else
             $Call['Value'] = false;
 
