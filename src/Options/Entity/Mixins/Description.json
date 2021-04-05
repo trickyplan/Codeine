@@ -6,8 +6,6 @@
             "Index": true,
             "Type": "Literal.String",
             "Nullable": true,
-            "Filterable": true,
-            "Help": true,
             "Widgets":
             {
                 "Write":
@@ -19,15 +17,13 @@
         "Description.Long":
         {
             "Index": true,
-            "Type": "Literal.String",
+            "Type": "Literal.Text",
             "Nullable": true,
-            "Filterable": true,
-            "Help": true,
             "Widgets":
             {
                 "Write":
                 {
-                    "Type": "Form.Textfield"
+                    "Type": "Form.Textarea"
                 }
             }
         }
