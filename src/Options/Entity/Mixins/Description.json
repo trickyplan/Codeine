@@ -1,0 +1,35 @@
+{
+    "Nodes":
+    {
+        "Description.Short":
+        {
+            "Index": true,
+            "Type": "Literal.String",
+            "Nullable": true,
+            "Filterable": true,
+            "Help": true,
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        },
+        "Description.Long":
+        {
+            "Index": true,
+            "Type": "Literal.String",
+            "Nullable": true,
+            "Filterable": true,
+            "Help": true,
+            "Widgets":
+            {
+                "Write":
+                {
+                    "Type": "Form.Textfield"
+                }
+            }
+        }
+    }
+}
