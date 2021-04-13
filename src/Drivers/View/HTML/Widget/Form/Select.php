@@ -34,7 +34,7 @@
              }
 
              if (isset($Call['Nullable']) && $Call['Nullable'])
-                 $Call['Options'][] = [null, null];
+                 array_unshift($Call['Options'], [null, null]);
 
              foreach ($Call['Options'] as $Key => $Option)
              {
@@ -51,7 +51,10 @@
                      if (!isset($Call['Values Locale']))
                          $Call['Values Locale'] = $Call['Entity'].'.Entity:'.$Call['Key'];
 
-                     $lValue = '<l>'.$Call['Values Locale'].'.'.$Value.'</l>';
+                     if (empty($Value))
+                         $lValue = '';
+                     else
+                        $lValue = '<l>'.$Call['Values Locale'].'.'.$Value.'</l>';
                  }
                  else
                      $lValue = $Value;
