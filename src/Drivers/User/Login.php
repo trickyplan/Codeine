@@ -40,7 +40,7 @@
 
         $Call = F::Apply('Security.Auth.'.$Call['Mode'], null, $Call);
 
-        if (empty($Call['User']))
+        if (empty($Call['User']) or isset($Call['Errors']))
         {
             $Call = F::Hook('Authenticating.Failed', $Call);
             F::Log('Authentification failed', LOG_NOTICE, ['Session', 'Security']);
@@ -48,7 +48,7 @@
             if (isset($Call['Errors']))
                 foreach ($Call['Errors'] as $Error)
                 {
-                    $Call['Output']['Content'][] =
+                    $Call['Output']['Message'][] =
                         [
                             'Type'  => 'Block',
                             'Value' => $Error
