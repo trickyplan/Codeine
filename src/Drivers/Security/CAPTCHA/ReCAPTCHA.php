@@ -22,7 +22,6 @@
                 data-size="compact"'.
                 '></div>';
         }
-
         return $Call;
     });
 
@@ -53,6 +52,7 @@
                 ;
             else
             {
+                F::Log('ReCAPTCHA Response: '.j($Result), LOG_WARNING, ['Security', 'CAPTCHA', 'ReCAPTCHA']);
                 $Call = F::Hook('CAPTCHA.Failed', $Call);
                 $Call['Errors']['CAPTCHA'][] =
                     [
