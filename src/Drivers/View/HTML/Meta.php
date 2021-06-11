@@ -126,7 +126,7 @@
                         [
                             'One' => true,
                             'Entity' => 'Page',
-                            'Where' => ['Slug' => substr($Call['HTTP']['URL'], 1)]
+                            'Where!' => ['Slug' => substr($Call['HTTP']['URL'], 1)]
                         ]);
 
             if ($Page !== null)
