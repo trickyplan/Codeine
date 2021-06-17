@@ -33,7 +33,7 @@
                           'Data'  =>
                           [
                               'Key' => $Key,
-                              'Value' => $Value
+                              'Value' => is_scalar($Value)? $Value: j($Value)
                           ]
                      ]);
 
