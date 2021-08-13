@@ -238,7 +238,7 @@
         $Call['Request'] = [];
 
         foreach ($_REQUEST as $Key => $Value)
-            $Call['Request'] = F::Dot($Call['Request'], strtr($Key, '_', '.'), str_replace(chr(0), '', $Value));
+            $Call['Request'] = F::Dot($Call['Request'], strtr($Key, '_', '.'), $Value);
 
         array_walk_recursive($Call['Request'], function ($Item, $Key) { return urldecode($Item);});
 
