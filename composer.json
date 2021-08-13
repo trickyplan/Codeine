@@ -1,6 +1,6 @@
 {
     "name": "trickyplan/codeine",
-    "version": "45.7.22.0",
+    "version": "46.0.0.0",
     "minimum-stability": "dev",
     "description": "Esoteric framework: one class, shitload of anonymous functions, zero documentation. Still good though.",
     "keywords": [
@@ -26,7 +26,7 @@
         "vendor-dir": "src/vendor"
     },
     "require": {
-        "php": "^7.4",
+        "php": "^8.0",
         "mongodb/mongodb": "^1.7",
         "ext-mongodb": "^1.8",
         "ext-imagick": "^3.4.4",
