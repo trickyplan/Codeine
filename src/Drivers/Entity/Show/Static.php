@@ -44,12 +44,12 @@
                 $Call = F::Hook('onEntityShowNotFound', $Call);
             else
             {
-                $Call['Output']['Content'][] = array (
-                    'Type'  => 'Template',
-                    'Scope' => $Call['Scope'],
-                    'ID' => 'Show/'.(isset($Call['Template'])? $Call['Template']: 'Full'),
-                    'Data' => $Call['Data']
-                );
+                $Call['Output']['Content'][] = [
+                    'Type'      => 'Template',
+                    'Scope'     => $Call['Scope'],
+                    'ID'        => 'Show/'.(isset($Call['Template'])? $Call['Template']: 'Full'),
+                    'Data'      => $Call['Data']
+                ];
 
                 $Call = F::Hook('afterShow', $Call);
             }

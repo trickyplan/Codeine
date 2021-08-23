@@ -19,30 +19,40 @@
                 ;
             else
             {
-                $Key = (string) F::Dot($Call['Parsed'], 'Options.'.$IX.'.key');
-                
-                if (empty($Key))
-                    $Value = (string) F::Dot($Call['Parsed'], 'Options.'.$IX.'.value');
+                $Variable = (string) F::Dot($Call['Parsed'], 'Options.'.$IX.'.variable');
+
+                if (empty($Variable))
+                    ;
                 else
+                    $Value = F::Dot($Call, $Variable);
+
+                if (empty($Value))
                 {
-                    $Value = F::Dot($Call['Data'], $Key);
+                    $Key = (string) F::Dot($Call['Parsed'], 'Options.'.$IX.'.key');
+                    if (empty($Key))
+                        ;
+                    else
+                        $Value = F::Dot($Call['Data'], $Key);
+                }
 
-                    if ($Value === 0)
-                        $Value = '0';
+                if (empty($Value))
+                    $Value = (string) F::Dot($Call['Parsed'], 'Options.'.$IX.'.value');
 
-                    if ($Value === false)
-                        $Value = 'false';
+                if ($Value === 0)
+                    $Value = '0';
 
-                    if ($Value === true)
-                        $Value = 'true';
+                if ($Value === false)
+                    $Value = 'false';
 
-                    if (empty($Value))
-                    {
-                        if ($Null = (string) F::Dot($Call['Parsed'], 'Options.'.$IX.'.null'))
-                            $Value = $Null;
-                        else
-                            $Value = 'null'; // TODO Externalize
-                    }
+                if ($Value === true)
+                    $Value = 'true';
+
+                if (empty($Value))
+                {
+                    if ($Null = (string) F::Dot($Call['Parsed'], 'Options.'.$IX.'.null'))
+                        $Value = $Null;
+                    else
+                        $Value = 'null'; // TODO Externalize
                 }
                 
                 if (isset($Call['Parsed']['Options'][$IX]['null']))
