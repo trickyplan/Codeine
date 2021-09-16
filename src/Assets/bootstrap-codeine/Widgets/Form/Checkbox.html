@@ -1,12 +1,12 @@
 <div class="checkbox">
     <label>
         <input id="<codeine-key>ID</codeine-key>" type="checkbox" name="<codeine-key>Name</codeine-key>" value="true"
-            <codeine-if key="Checked" eq="true">checked</codeine-if>
-            <codeine-if key="Required" eq="true">required</codeine-if>
+            <codeine-if variable="Checked" eq="true">checked</codeine-if>
+            <codeine-if variable="Required" eq="true">required</codeine-if>
             /> <!-- FIXME -->
             <codeine-locale><codeine-key>Label</codeine-key></codeine-locale>
     </label>
-    <codeine-if key="Help" eq="true">
+    <codeine-if variable="Help" eq="true">
         <div class="help-block"><codeine-locale><codeine-key>Entity</codeine-key>.Help:<codeine-key>Key</codeine-key></codeine-locale></div>
     </codeine-if>
 </div>

@@ -3,15 +3,15 @@
         <codeine-if key="Required" eq="true"><span class="required-star">*</span></codeine-if>
     </label>
     <div class="input-group">
-        <codeine-if value="<codeine-key>Prefix</codeine-key>" neq="null">
+        <codeine-if variable="Prefix" neq="null">
             <span class="input-group-addon"><codeine-key>Prefix</codeine-key></span>
         </codeine-if>
-            <codeine-key>HTML</codeine-key>
-        <codeine-if value="<codeine-key>Postfix</codeine-key>" neq="null">
+        <codeine-key>HTML</codeine-key>
+        <codeine-if variable="Postfix" neq="null">
             <span class="input-group-addon"><codeine-key>Postfix</codeine-key></span>
         </codeine-if>
     </div>
-    <codeine-if key="Help" eq="true">
+    <codeine-if variable="Help" eq="true">
         <div class="help-block"><codeine-locale><codeine-key>Entity</codeine-key>.Help:<codeine-key>Key</codeine-key></codeine-locale></div>
     </codeine-if>
 </div>
