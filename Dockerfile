@@ -42,7 +42,7 @@ ENV PHP_OPCACHE_REVALIDATE_FREQ="0"             \
     PHP_OPCACHE_MEMORY_CONSUMPTION="256"        \
     PHP_OPCACHE_MAX_WASTED_PERCENTAGE="10"
 
-COPY --from=codeine-builder /usr/local/lib/php/extensions/no-debug-non-zts-20190902/*.so  /usr/local/lib/php/extensions/no-debug-non-zts-20190902/
+COPY --from=codeine-builder /usr/local/lib/php/extensions/no-debug-non-zts-20200930/*.so  /usr/local/lib/php/extensions/no-debug-non-zts-20200930/
 
 RUN apt-get update
 RUN apt-get install -y locales git
