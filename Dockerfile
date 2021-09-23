@@ -29,7 +29,7 @@ RUN pecl install zstd-stable
 
 RUN ls -lah /usr/local/lib/php/extensions/no-debug-non-zts-20190902/
 
-FROM php:7.4-fpm as codeine-app
+FROM php:8.0.9-fpm as codeine-app
 USER root
 
 ENV LANG="ru_RU.UTF-8"        \
