@@ -1,4 +1,4 @@
-FROM php:7.4-fpm as codeine-builder
+FROM php:8.0.9-fpm as codeine-builder
 LABEL maintainer="bergstein@trickyplan.com"
 
 USER root
