@@ -27,7 +27,7 @@ RUN pecl install redis-stable
 RUN pecl install zstd-stable
 
 
-RUN ls -lah /usr/local/lib/php/extensions/no-debug-non-zts-20190902/
+RUN ls -lah /usr/local/lib/php/extensions/no-debug-non-zts-20200930/
 
 FROM php:8.0.9-fpm as codeine-app
 USER root
