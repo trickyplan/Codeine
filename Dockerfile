@@ -13,11 +13,11 @@ RUN apt-get install -y libcurl4-openssl-dev pkg-config libssl-dev
 RUN apt-get install -y libpng-dev libfreetype6-dev libmagickwand-dev libjpeg62-turbo-dev
 RUN apt-get install -y libyaml-dev libzstd-dev
 
-RUN docker-php-ext-install opcache
-RUN docker-php-ext-install mbstring
-RUN docker-php-ext-install zip
-RUN docker-php-ext-install exif
-RUN docker-php-ext-install pcntl
+RUN docker-php-ext-install -j$(nproc) opcache
+RUN docker-php-ext-install -j$(nproc) mbstring
+RUN docker-php-ext-install -j$(nproc) zip
+RUN docker-php-ext-install -j$(nproc) pcntl
+RUN docker-php-ext-install -j$(nproc) exif
 
 RUN pecl install yaml-stable
 RUN pecl install mongodb-stable
@@ -25,9 +25,6 @@ RUN pecl install imagick-stable
 RUN pecl install igbinary-stable
 RUN pecl install redis-stable
 RUN pecl install zstd-stable
-
-
-RUN ls -lah /usr/local/lib/php/extensions/no-debug-non-zts-20200930/
 
 FROM php:8.0.9-fpm as codeine-app
 USER root
@@ -45,9 +42,9 @@ ENV PHP_OPCACHE_REVALIDATE_FREQ="0"             \
 COPY --from=codeine-builder /usr/local/lib/php/extensions/no-debug-non-zts-20200930/*.so  /usr/local/lib/php/extensions/no-debug-non-zts-20200930/
 
 RUN apt-get update
-RUN apt-get install -y locales git
+RUN apt-get install -y locales
 RUN apt-get install -y jpegoptim optipng pngquant gifsicle libgraphicsmagick-q16-3 libmagickwand-6.q16-6
-RUN apt-get install -y unzip curl libyaml-0-2
+RUN apt-get install -y unzip curl libyaml-0-2 git
 
 # Set locale
 RUN sed -i -e 's/# ru_RU.UTF-8 UTF-8/ru_RU.UTF-8 UTF-8/' /etc/locale.gen && \
@@ -85,12 +82,12 @@ RUN echo "catch_workers_output = yes" >> /usr/local/etc/php-fpm.d/www.conf
 RUN if [ ! $(getent group www) ]; then groupadd -g 1000 www; fi
 RUN if [ ! $(getent passwd www) ]; then useradd -u 1000 -ms /bin/bash -g www www; fi
 
-# Install composer
+# Composer Prepare
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Composer
-COPY --chown=www:www ./composer.json /var/www/codeine/
+COPY --chown=www:www ./src /var/www/codeine/
 
+# Composer Install
 WORKDIR /var/www/codeine
 RUN composer install
 

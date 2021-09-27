@@ -1,6 +1,6 @@
 {
     "name": "trickyplan/codeine",
-    "version": "46.0.6.0",
+    "version": "46.0.7.0",
     "minimum-stability": "dev",
     "description": "Esoteric framework: one class, shitload of anonymous functions, zero documentation. Still good though.",
     "keywords": [
@@ -22,13 +22,12 @@
     ],
     "config": {
         "optimize-autoloader": true,
-        "apcu-autoloader": true,
-        "vendor-dir": "src/vendor"
+        "apcu-autoloader": true
     },
     "require": {
         "php": "^8.0",
-        "mongodb/mongodb": "^1.9.0",
-        "ext-mongodb": "^1.9",
+        "mongodb/mongodb": "^1.9",
+        "ext-mongodb": "^1.10",
         "ext-imagick": "^3.4.4",
         "phpmailer/phpmailer": "^6.1"
     }
