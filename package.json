@@ -1,6 +1,6 @@
 {
     "name": "codeine",
-    "version": "46.0.7.0",
+    "version": "46.1.0.0",
     "description": "Esoteric framework: one class, shitload of anonymous functions, zero documentation. Still good though.",
     "main": "index.php",
     "scripts": {
@@ -9,6 +9,36 @@
     "repository": {
         "type": "git",
         "url": "git@github.com:Bergstein/Codeine.git"
+    },
+    "dependencies": {
+        "@fortawesome/fontawesome-free": "^5.15.4",
+        "@trevoreyre/autocomplete-vue": "^2.2.0",
+        "animate.css": "^4.1.1",
+        "bootstrap": "^3.4.1",
+        "clipboard": "^2.0.8",
+        "eonasdan-bootstrap-datetimepicker": "^4.17.49",
+        "gulp-cli": "^2.3.0",
+        "jquery": "^3.5.1",
+        "keymaster": "^1.6.2",
+        "moment": "^2.29.1",
+        "popper.js": "^1.16.1"
+    },
+    "devDependencies": {
+        "gulp": "^4.0.2",
+        "gulp-clean-css": "^4.3.0",
+        "gulp-htmlmin": "^5.0.1",
+        "gulp-less": "^5.0.0",
+        "gulp-rename": "^2.0.0",
+        "gulp-sass": "^5.0.0",
+        "gulp-terser": "^2.0.1",
+        "gulp-uglify": "^3.0.2",
+        "html-minifier": "^4.0.0",
+        "less": "^4.1.1",
+        "sass": "^1.42.1",
+        "node-sass": "^6.0.1",
+        "node-less": "^1.0.0",
+        "webpack-cli": "^4.8.0",
+        "webpack-stream": "^7.0.0"
     },
     "keywords": [
         "php",
