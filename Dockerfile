@@ -86,13 +86,11 @@ RUN if [ ! $(getent passwd www) ]; then useradd -u 1000 -ms /bin/bash -g www www
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 COPY --chown=www:www ./src /var/www/codeine/
+COPY --chown=www:www ./composer.json /var/www/codeine/composer.json
 
 # Composer Install
 WORKDIR /var/www/codeine
 RUN composer install
-
-# Copy src to /var/www/
-COPY --chown=www:www ./src /var/www/codeine
 
 RUN if [ ! -d /var/www/codeine/Data ]; then mkdir /var/www/codeine/Data; fi
 RUN chmod -R 777 /var/www/codeine/Data
