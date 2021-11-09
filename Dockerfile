@@ -82,15 +82,17 @@ RUN echo "catch_workers_output = yes" >> /usr/local/etc/php-fpm.d/www.conf
 RUN if [ ! $(getent group www) ]; then groupadd -g 1000 www; fi
 RUN if [ ! $(getent passwd www) ]; then useradd -u 1000 -ms /bin/bash -g www www; fi
 
-# Composer Prepare
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+# Composer
 
 COPY --chown=www:www ./src /var/www/codeine/
-COPY --chown=www:www ./composer.json /var/www/codeine/composer.json
+COPY --chown=www:www ./composer.json /var/www/codeine/
 
-# Composer Install
 WORKDIR /var/www/codeine
+
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 RUN composer install
+
+# Permissions
 
 RUN if [ ! -d /var/www/codeine/Data ]; then mkdir /var/www/codeine/Data; fi
 RUN chmod -R 777 /var/www/codeine/Data

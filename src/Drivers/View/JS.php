@@ -94,7 +94,7 @@
                                         'Storage' => 'JS',
                                         'Scope'   => $Asset,
                                         'Where'   => $ID,
-                                        'IO One'  => true
+                                        'Get Last'  => true
                                     ]);
                         }
                     }

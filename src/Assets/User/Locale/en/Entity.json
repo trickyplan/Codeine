@@ -21,7 +21,10 @@
     },
     "Timezone":
     {
-        "Identifier": "Timezone",
+        "Identifier":
+        {
+            "Label": "Timezone"
+        },
         "Offset": "UTC Offset"
     }
 }

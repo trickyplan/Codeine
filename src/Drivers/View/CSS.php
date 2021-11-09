@@ -83,7 +83,7 @@
                                         'Storage' => 'CSS',
                                         'Scope'   => $Asset,
                                         'Where'   => $ID,
-                                        'IO One'  => true
+                                        'Get Last'  => true
                                     ]);
                         }
 

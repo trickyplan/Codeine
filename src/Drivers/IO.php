@@ -108,6 +108,18 @@
                 $Result = array_pop($Result);
                 unset($Call['IO One']);
             }
+
+            if (isset($Call['Get Last']) && $Call['Get Last'] && is_array($Result))
+            {
+                $Result = array_shift($Result);
+                unset($Call['Get Last']);
+            }
+
+            if (isset($Call['Get First']) && $Call['Get First'] && is_array($Result))
+            {
+                $Result = array_pop($Result);
+                unset($Call['Get First']);
+            }
             
             F::Stop('IO:'.$IOID);
         }

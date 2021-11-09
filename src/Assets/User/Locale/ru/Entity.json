@@ -43,7 +43,10 @@
 		"-1": "Бан"
 	},
 	"Timezone": {
-		"Identifier": "Часовой пояс",
+		"Identifier":
+		{
+			"Label": "Часовой пояс"
+		},
 		"Offset": "Смещение от UTC"
 	},
 	"Title": "Имя"

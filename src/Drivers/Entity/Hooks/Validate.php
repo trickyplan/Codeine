@@ -1,74 +1,40 @@
 <?php
 
-    /* Codeine
-     * @author bergstein@trickyplan.com
-     * @description  
-     * @package Codeine
-     * @version 8.x
-     */
+/* Codeine
+ * @author bergstein@trickyplan.com
+ * @description
+ * @package Codeine
+ * @version 8.x
+ */
 
     setFn('Process', function ($Call)
     {
-        if (F::Dot($Call, 'Node.Unique') && F::Dot($Call['Data'], $Call['Name']))
-        {
-            if (($Where = F::Dot($Call, 'Node.Unique.Where')) === null)
-                $Where = [];
-            else
-                $Where = F::Live($Where, $Call);
-
-            switch ($Mode = F::Dot($Call, 'Validation.Unique.Mode'))
+        foreach ($Call['Nodes'] as $Name => $Node)
+            foreach ($Call['Validators'] as $Validator)
             {
-                case 'Create':
-                    $Limit = 0;
-                break;
-
-                case 'Update':
-                    $Limit = 1;
-                break;
-                default:
-                    $Limit = 0;
-                    F::Log('Incorrect Validation Unique Mode: '.$Mode, LOG_WARNING);
-            }
-
-            if ($Call['Name'] !== 'ID')
-            {
-                $Where[$Call['Name']] = F::Dot($Call['Data'], $Call['Name']);
-                $Where['ID'] =
+                $isValid = F::Run('Entity.Hooks.Validate.'.$Validator, 'Process', $Call,
                     [
-                        '$ne' => $Call['Data']['ID']
-                    ];
-                $Limit = 0;
+                        'Name' => $Name,
+                        'Node' => $Node,
+                        'Data' => $Call['Data']
+                    ]);
+
+                if ($isValid !== true)
+                {
+                    $Call['Errors'][$Name][] =
+                        [
+                            'Message'   => $isValid,
+                            'Validator' => $Validator,
+                            'Name'      => $Name,
+                            'Node'      => $Node,
+                            'Entity'    => $Call['Entity']
+                        ];
+                    F::Log($Call['Entity'].':'.$Name.' '.j($isValid), LOG_INFO);
+                }
             }
-            else
-            {
-                $Where['ID'] = $Call['Data']['ID'];
-            }
 
-            F::Log('Checking unique *'.$Call['Name']
-                .'* value *'
-                .F::Dot($Call['Data'], $Call['Name'])
-                .'* ('.$Limit.')', LOG_INFO);
-
-            $Entity = F::Run('Entity', 'Read',
-                          [
-                              'Entity'  => $Call['Entity'],
-                              'Where'   => $Where
-                          ]);
-
-            $Count = count($Entity);
-
-            if ($Count > $Limit)
-            {
-                F::Log('Non-unique ('.$Count.'>'.$Limit.') '.$Call['Name'].' value: '.j($Call['Data'][$Call['Name']]).' ', LOG_NOTICE);
-                return
-                [
-                    'Validator'     => 'Unique',
-                    'Entity'        => $Call['Entity'],
-                    'Name'          => $Call['Name'],
-                    'Duplicate'     => $Entity[0]['ID']
-                ];
-            }
-        }
+        if (!empty($Call['Errors']))
+            $Call['Failure'] = true;
 
         return $Call;
     });
