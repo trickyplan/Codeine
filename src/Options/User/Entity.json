@@ -13,8 +13,7 @@
         "Mixins.Controlled",
         "Mixins.Filled",
         "Mixins.Verifiable",
-        "Mixins.Channel",
-        "Entity.Mixins.Timezone"
+        "Mixins.Channel"
     ],
     "Storage": "Primary",
     "EPP": 20,
