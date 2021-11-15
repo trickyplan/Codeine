@@ -9,14 +9,14 @@
                 {
                     "Permissions-Policy":
                     {
-                        "autoplay" :"none",
-                        "camera":"none",
-                        "geolocation":"none",
-                        "microphone":"none",
-                        "midi": "none",
-                        "payment" :"none",
-                        "fullscreen" :"none",
-                        "encrypted-media" :"none"
+                        "autoplay" :"()",
+                        "camera":"()",
+                        "geolocation":"()",
+                        "microphone":"()",
+                        "midi": "()",
+                        "payment" :"()",
+                        "fullscreen" :"()",
+                        "encrypted-media" :"()"
                     }
                 }
             }
