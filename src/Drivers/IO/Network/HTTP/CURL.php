@@ -28,6 +28,7 @@
         if (isset($Call['CURL']['Random User Agent']))
         {
             $Call['CURL']['Agent'] = $Call['CURL']['User Agents'][array_rand($Call['CURL']['User Agents'])];
+            $Call['CURL']['Agent'] = F::Variable($Call['CURL']['Agent'], $Call);
             F::Log('UA: '.$Call['CURL']['Agent'].' selected', LOG_INFO, 'Administrator');
         }
 
