@@ -129,6 +129,9 @@
                         $Widget['RAWValue'] = $Widget['Value'];
                         $Widget['Value'] = htmlspecialchars($Widget['Value']);
                     }
+
+                    if ($Postprocess = F::Dot($Widget, 'Postprocess'))
+                        $Widget['Value'] = F::Live($Postprocess, ['Value' => $Widget['Value']]);
                     
                     if (!isset($Widget['Weight']))
                         $Widget['Weight'] = $IC; // Magic

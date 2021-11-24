@@ -82,116 +82,118 @@
     {
         if (isset($Call['Current Image']['Source']['Where'])
             && !empty($Call['Current Image']['Source']['Where']))
-                $Call['Current Image']['Source']['Where'] =
-                        ['ID' => $Call['Current Image']['Source']['Where']];
-                else
-                    $Call['Current Image']['Source']['Where'] = null;
-
-        // Generate Output Name
-        $Call = F::Apply(null, 'Output Name', $Call);
-
-        if (F::Run('IO', 'Execute', $Call,
-                        [
-                            'Storage' => 'Image Cache',
-                            'Execute' => 'Exist',
-                            'Where'   =>
-                            [
-                                'ID' => $Call['Current Image']['Fullpath']
-                            ]
-                        ]))
-            F::Log('Image Cache *hit* '.$Call['Current Image']['Fullpath'], LOG_DEBUG);
-        else
         {
-            F::Log('Image Cache *miss* *'.$Call['Current Image']['Fullpath'].'*', LOG_NOTICE);
+            $Call['Current Image']['Source']['Where'] =
+                        ['ID' => $Call['Current Image']['Source']['Where']];
 
-            if (F::Run(null, 'Write', $Call))
-            {
+            // Generate Output Name
+            $Call = F::Apply(null, 'Output Name', $Call);
 
-            }
+            if (F::Run('IO', 'Execute', $Call,
+                            [
+                                'Storage' => 'Image Cache',
+                                'Execute' => 'Exist',
+                                'Where'   =>
+                                [
+                                    'ID' => $Call['Current Image']['Fullpath']
+                                ]
+                            ]))
+                F::Log('Image Cache *hit* '.$Call['Current Image']['Fullpath'], LOG_DEBUG);
             else
             {
-                $Call['Current Image']['Storage'] = 'Image';
-                $Call['Current Image']['Scope'] = 'Default';
+                F::Log('Image Cache *miss* *'.$Call['Current Image']['Fullpath'].'*', LOG_NOTICE);
 
-                $Call['Current Image']['Source']['Storage'] = 'Image';
-
-                if (isset($Call['Current Image']['Default']))
+                if (F::Run(null, 'Write', $Call))
                 {
-                    list($Asset, $ID) =
-                        F::Run('View', 'Asset.Route',
-                        [
-                            'Value' => $Call['Current Image']['Default']
-                        ]);
 
-                    $Call['Current Image']['Source']['Scope'] = $Asset;
-                    $Call['Current Image']['Source']['Where'] = ['ID' => $ID];
                 }
                 else
                 {
-                    $Call['Current Image']['Source']['Scope'] = 'Default/'.$Call['Image']['Directory'];
-                    $Call['Current Image']['Source']['Where'] = ['ID' => 'Default.png'];
+                    $Call['Current Image']['Storage'] = 'Image';
+                    $Call['Current Image']['Scope'] = 'Default';
+
+                    $Call['Current Image']['Source']['Storage'] = 'Image';
+
+                    if (isset($Call['Current Image']['Default']))
+                    {
+                        list($Asset, $ID) =
+                            F::Run('View', 'Asset.Route',
+                            [
+                                'Value' => $Call['Current Image']['Default']
+                            ]);
+
+                        $Call['Current Image']['Source']['Scope'] = $Asset;
+                        $Call['Current Image']['Source']['Where'] = ['ID' => $ID];
+                    }
+                    else
+                    {
+                        $Call['Current Image']['Source']['Scope'] = 'Default/'.$Call['Image']['Directory'];
+                        $Call['Current Image']['Source']['Where'] = ['ID' => 'Default.png'];
+                    }
+
+                    $Call = F::Apply(null, 'Output Name', $Call);
+
+                    if (F::Run(null, 'Write', $Call))
+                        ;
+                    else
+                    {
+                        $Call['Current Image']['Source']['Scope'] = 'Default/'.$Call['Image']['Directory'];
+                        $Call['Current Image']['Source']['Where'] = ['ID' => 'Default.png'];
+
+                        $Call = F::Apply(null, 'Output Name', $Call);
+                        F::Run(null, 'Write', $Call);
+                    }
                 }
+            }
 
-                $Call = F::Apply(null, 'Output Name', $Call);
+            $Call['Current Image']['Widget'] = [];
 
-                if (F::Run(null, 'Write', $Call))
+            $SRC = F::Run('IO', 'Execute', $Call,
+                            [
+                                'Storage' => 'Image Cache',
+                                'Execute' => 'Filename',
+                                'Where'   => $Call['Current Image']['Fullpath']
+                            ]);
+
+            if (isset($Call['Image']['Host']) && !empty($Call['Image']['Host']) && $Call['Image']['Host'] != $Call['HTTP']['Host'])
+                $SRC = $Call['HTTP']['Proto']
+                    .$Call['Image']['Host']
+                    .$SRC;
+
+            $SRC = '/assets'.$SRC;
+
+            if (empty($Call['Current Image']['Alt']))
+                F::Log('Image: Alt is empty for '.$Call['Current Image']['Fullpath'], LOG_INFO);
+            else
+                if (is_string($Call['Current Image']['Alt']))
                     ;
                 else
                 {
-                    $Call['Current Image']['Source']['Scope'] = 'Default/'.$Call['Image']['Directory'];
-                    $Call['Current Image']['Source']['Where'] = ['ID' => 'Default.png'];
-
-                    $Call = F::Apply(null, 'Output Name', $Call);
-                    F::Run(null, 'Write', $Call);
+                    F::Log('Incorrect image alt at '.j($Call['Current Image']).', erased', LOG_WARNING);
+                    $Call['Current Image']['Alt'] = '';
                 }
-            }
-        }
 
-        $Call['Current Image']['Widget'] = [];
-
-        $SRC = F::Run('IO', 'Execute', $Call,
-                        [
-                            'Storage' => 'Image Cache',
-                            'Execute' => 'Filename',
-                            'Where'   => $Call['Current Image']['Fullpath']
-                        ]);
-
-        if (isset($Call['Image']['Host']) && !empty($Call['Image']['Host']) && $Call['Image']['Host'] != $Call['HTTP']['Host'])
-            $SRC = $Call['HTTP']['Proto']
-                .$Call['Image']['Host']
-                .$SRC;
-
-        $SRC = '/assets'.$SRC;
-
-        if (empty($Call['Current Image']['Alt']))
-            F::Log('Image: Alt is empty for '.$Call['Current Image']['Fullpath'], LOG_INFO);
-        else
-            if (is_string($Call['Current Image']['Alt']))
-                ;
+            if (isset($Call['Current Image']['Return Image Path']) && $Call['Current Image']['Return Image Path'])
+                return $SRC;
             else
             {
-                F::Log('Incorrect image alt at '.j($Call['Current Image']).', erased', LOG_WARNING);
-                $Call['Current Image']['Alt'] = '';
+                $Call['Current Image']['Widget']['src'] = $SRC;
+                $Call['Current Image']['Widget']['alt'] = $Call['Current Image']['Alt'];
+                $Call['Current Image']['Widget']['id'] = $Call['Current Image']['ID'];
+                $Call['Current Image']['Widget']['class'] = $Call['Current Image']['Class'];
+
+                if (isset($Call['Current Image']['Height']))
+                    $Call['Current Image']['Widget']['height'] = $Call['Current Image']['Height'];
+
+                if (isset($Call['Current Image']['Width']))
+                    $Call['Current Image']['Widget']['width'] = $Call['Current Image']['Width'];
+
+                $Call = F::Hook('beforeWidgetMake', $Call);
+                return F::Run('View.HTML.Widget.Image', 'Make', $Call['Current Image']['Widget']);
             }
-
-        if (isset($Call['Current Image']['Return Image Path']) && $Call['Current Image']['Return Image Path'])
-            return $SRC;
-        else
-        {
-            $Call['Current Image']['Widget']['src'] = $SRC;
-            $Call['Current Image']['Widget']['alt'] = $Call['Current Image']['Alt'];
-            $Call['Current Image']['Widget']['id'] = $Call['Current Image']['ID'];
-            $Call['Current Image']['Widget']['class'] = $Call['Current Image']['Class'];
-
-            if (isset($Call['Current Image']['Height']))
-                $Call['Current Image']['Widget']['height'] = $Call['Current Image']['Height'];
-
-            if (isset($Call['Current Image']['Width']))
-                $Call['Current Image']['Widget']['width'] = $Call['Current Image']['Width'];
-
-            $Call = F::Hook('beforeWidgetMake', $Call);
-            return F::Run('View.HTML.Widget.Image', 'Make', $Call['Current Image']['Widget']);
         }
+        else
+            $Call['Current Image']['Source']['Where'] = null;
     });
 
     setFn('Write', function ($Call)

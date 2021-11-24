@@ -11,9 +11,11 @@
     {
         $Call = F::Hook('Analytics.Yandex.Make.Before', $Call);
 
+
+        $Call['ID'] = isset($Call['ID'])? $Call['ID']: F::Dot($Call, 'Analytics.Yandex.ID');
+
             if (F::Dot($Call, 'Analytics.Yandex.Enabled'))
             {
-                $Call['ID'] = isset($Call['ID'])? $Call['ID']: F::Dot($Call, 'Analytics.Yandex.ID');
                 $Code = '';
 
                 if (F::Dot($Call, 'Analytics.Yandex.DoNotTrack') && F::Run('System.Interface.HTTP.DNT', 'Detect', $Call))

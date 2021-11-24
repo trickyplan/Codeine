@@ -1,28 +1,5 @@
 $(document).ready(function ()
     {
-        $('.ajax-interval').each(
-            function ()
-            {
-                var el = $(this);
-                secondInterval = el.attr('data-second-interval');
-                if (secondInterval == undefined)
-                    secondInterval = el.attr('data-interval')*2;
-
-                Visibility.every(el.attr('data-interval'), secondInterval, function(){
-                    el.addClass('codeine-ajax-interval-loading');
-                        $.ajax({
-                            type: 'GET',
-                            url: el.attr('data-url'),
-                            success: function(data)
-                            {
-                                $(el).html(data)
-                                el.removeClass('codeine-ajax-interval-loading');
-                            }
-                        });
-                });
-            }
-        );
-
         $('.ajax').each(
             function ()
             {

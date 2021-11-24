@@ -1,16 +1,16 @@
 .codeine-log
 {
-    font: 1rem monospace;
+    font: 0.8rem monospace;
     margin: auto;
     margin-top: 20px;
-    padding: 4px 16px 4px 16px;
+    padding: 2px 16px 2px 16px;
     background-color: white;
     color: black;
     white-space: pre;
     clear: both;
     border-radius: 6px;
-    max-width: 95vw;
-    word-break: break-all;
+    width: 95%;
+    word-wrap: break-word;
 }
 .codeine-log strong
 {

@@ -14,7 +14,6 @@
         if (F::Dot($Call, 'ReCAPTCHA.Enabled'))
         {
             $Call['ReCAPTCHA']['Place'] = isset($Call['ReCAPTCHA']['Place'])? $Call['ReCAPTCHA']['Place']: 'ReCAPTCHA';
-
             $Call['Output'][$Call['ReCAPTCHA']['Place']][] =
                 '<script src="https://www.google.com/recaptcha/api.js?hl='.($Call['Locale']?? 'en').'" async defer></script>'.
                 '<div class="g-recaptcha"

@@ -9,7 +9,7 @@
 
     setFn('Open', function ($Call)
     {
-        $Call['Link'] = Elasticsearch\ClientBuilder::create()->build();
+        $Call['Link'] = Elasticsearch\ClientBuilder::create()->setHosts(F::Dot($Call, 'Search.Elastic.Options.Hosts'))->build();
         $Call['Search']['Index'] = mb_strtolower($Call['Search']['Index']);
         return $Call;
     });

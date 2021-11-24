@@ -45,14 +45,14 @@
 
                 $OutputLog .=
                     '<tr class="'.$Call['Levels'][ceil($Row['V'])].'" style="border-left-color: #'.$Row['C'].';">
-                        <td>'.$Row['T'].'</td>
-                        <td>'.$Row['M'].' ('.$MemoryDiff.')'.'</td>
-                        <td>'.($Row['R'] == (isset($Call['Value'][$IX-1]['R'])? $Call['Value'][$IX-1]['R']: false)? '': $Row['R'].' from '.$Row['I']).'</td>
+                        <td>'.$Row['T'].'<br/>'.$Row['M'].'('.$MemoryDiff.')Kb'.'</td>
+                        <td>*'.($Row['R'] == (isset($Call['Value'][$IX-1]['R'])? $Call['Value'][$IX-1]['R']: false)? '': $Row['R'].'*<br/>from *'.$Row['I']).'*</td>
                         <td>'.$Row['H'].'</td>
                         <td>'.$Row['X'].'</td>
                         </tr>';
                 if (isset($Row['K']))
                     $OutputLog .= '<tr class="'.$Call['Levels'][$Row['V']].'">
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>

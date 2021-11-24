@@ -26,15 +26,14 @@
              if (isset($Call['Values as Keys']))
              {
                  $Flushed = [];
-
                  foreach ($Call['Options'] as $Option)
-                     $Flushed[$Option] = $Option;
+                     $Flushed[ (string) $Option] = $Option;
 
                  $Call['Options'] = $Flushed;
              }
 
              if (isset($Call['Nullable']) && $Call['Nullable'])
-                 array_unshift($Call['Options'], [null, null]);
+                 $Call['Options'][null] = null;
 
              foreach ($Call['Options'] as $Key => $Option)
              {

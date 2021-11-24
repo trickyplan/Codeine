@@ -125,7 +125,7 @@
                                     $Matched[$Parslet]['Value'][] = $Parsed[4][$IX];
 
                                     if ($PatternOptions['Deprecated'])
-                                        F::Log('[DEPRECATED] Parslet "<tags>" will be ousted. Use "<codeine-tags>" instead ('.$Parsed[0][$IX].')', LOG_NOTICE, ['Developer', 'Deprecated']);
+                                        F::Log('[DEPRECATED] Parslet "<'.$Tag.'>" will be ousted. Use "<codeine-'.$Tag.'>" instead ('.$Parsed[0][$IX].')', LOG_NOTICE, ['Developer', 'Deprecated']);
                                 }
 
                             if (empty($Matched[$Parslet]))
