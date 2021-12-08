@@ -9,18 +9,15 @@
 
     setFn('Open', function ($Call)
     {
-        return;
+        return fopen('php://stderr', 'a+');
     });
 
     setFn('Write', function ($Call)
     {
-        foreach ($Call['Data'] as $Row)
-            fwrite(STDERR, $Row[2]);
-
-        return true;
+        return fwrite($Call['Link'], $Call['Data']);
     });
 
     setFn('Close', function ($Call)
     {
-        return;
+        return fclose($Call['Link']);
     });

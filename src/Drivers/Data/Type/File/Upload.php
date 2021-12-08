@@ -27,7 +27,7 @@
         elseif (F::Run('IO', 'Execute', $Call, ['Execute' => 'Exist', 'Storage' => 'Upload', 'Where' => ['ID' => $Call['Value']]]))
             F::Log('Existing uploaded file found for '.$Call['Name'], LOG_INFO);
         else
-            F::Log('Unknown file data for '.$Call['Name'], LOG_INFO);
+            F::Log('Unknown file data for '.$Call['Name']. '('.$Call['Value'].')', LOG_INFO);
 
         // Если нет новых данных
         if ($Call['Data'] === false)
