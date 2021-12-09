@@ -74,7 +74,7 @@
                                         'Storage' => 'JS',
                                         'Scope'   => $Asset,
                                         'Where'   => $ID.'.min',
-                                        'IO One'  => true
+                                        'Get Last'  => true
                                     ]);
 
                                 if ($Minified === null)
