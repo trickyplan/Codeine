@@ -86,16 +86,16 @@
                 "Extension": "$3"
             }
         },
-        "JS Bower":
+        "Video":
         {
-            "Match": "^/js/bower/(.+)/(.+).(js)$",
+            "Match": "^/video/(.+)/(.+)\\.(mp4|avi|webm)$",
             "Service": "View.Asset",
             "Method": "Get",
             "View":
             {
                 "Renderer":
                 {
-                    "Service": "View.File",
+                    "Service": "View.Download",
                     "Method": "Render"
                 }
             },
@@ -108,8 +108,8 @@
             },
             "Call":
             {
-                "Asset": "bower",
-                "Scope": "$1",
+                "Asset": "$1",
+                "Scope": "video",
                 "ID": "$2",
                 "Extension": "$3"
             }
