@@ -52,15 +52,6 @@
                 'Data'    => $Call['Data']
             ];
 
-            $Call['Layouts'][] =
-            [
-                'Scope' => 'Entity',
-                'ID' => isset($Call['Custom Layouts']['Delete'])?
-                        $Call['Custom Layouts']['Delete']: '-Delete',
-                'Context' => $Call['Context'],
-                'Data'    => $Call['Data']
-            ];
-
             if ($Call['Delete']['Count'] > 1)
                 $Call['Output']['Content'][]  =
                     [
