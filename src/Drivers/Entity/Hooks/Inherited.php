@@ -25,8 +25,17 @@
                 if (isset($Node['Inherited']))
                 {
                     F::Log('Inheritance enabled for *'.$Name.'* from *'.$Node['Inherited'].'*', LOG_DEBUG);
-                    $Parent = F::Dot($Call['Data'], $Node['Inherited']);
-                    
+
+                    if (preg_match('@(.+)\:(.+)@Ssu', $Node['Inherited']))
+                        list($InheritedEntity, $InheritedField) = explode(':', $Node['Inherited']);
+                    else
+                    {
+                        $InheritedEntity = $Call['Entity'];
+                        $InheritedField = $Node['Inherited'];
+                    }
+
+                    $Parent = F::Dot($Call['Data'], $InheritedField);
+
                     if (empty($Parent))
                         F::Log('Empty Inherited Field', LOG_DEBUG);
                     else
@@ -37,7 +46,7 @@
                         {
                             $Parent = F::Run('Entity', 'Read',
                             [
-                                'Entity'    => $Call['Entity'],
+                                'Entity'    => $InheritedEntity,
                                 'Where'     => F::Dot($Call['Data'], $Node['Inherited']),
                                 'One'       => true,
                                 'Fields'    => ['ID', $Name, $Node['Inherited']]
