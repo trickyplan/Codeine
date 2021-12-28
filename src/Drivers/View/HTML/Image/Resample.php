@@ -19,16 +19,14 @@
                 if (isset($Call['Current Image']['Height']))
                     ;
                 else
-                    $Call['Current Image']['Height'] =
-                        ceil(($Call['Current Image']['Width']/$Imagick->getimagewidth())*$Imagick->getimageheight());
+                    $Call['Current Image']['Height'] = 0;
 
                 if (isset($Call['Current Image']['Width']))
                     ;
                 else
-                    $Call['Current Image']['Width'] =
-                        ceil(($Call['Current Image']['Height']/$Imagick->getimageheight())*$Imagick->getimagewidth());
+                    $Call['Current Image']['Width'] = 0;
 
-                $Imagick->resizeImage($Call['Current Image']['Width'], $Call['Current Image']['Height'], Imagick::FILTER_LANCZOS, 1);
+                $Imagick->resizeImage($Call['Current Image']['Width'], $Call['Current Image']['Height'], Imagick::FILTER_BESSEL, 0.5, true);
 
                 $Call['Current Image']['Data'] = $Imagick->getImageBlob();
             }

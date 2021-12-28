@@ -64,7 +64,7 @@
                     });
 
 
-                    if (isset($Call['Routing']['Rule']['Mixin']) && $Call['Routing']['Rule']['Mixin'])
+                    if (F::Dot($Call, 'Routing.Rule.Mixin'))
                     {
                         $Call['Mixin'] = F::Merge($Call['Mixin'], $Call['Routing']['Rule']);
                         F::Log('Routing URL: *'.$Call['Routing']['URL'].'*', LOG_INFO);

@@ -3,7 +3,7 @@
     {
         "Custom Elements Per Page":
         {
-            "Weight": 700,
+            "Weight": 65536,
             "Match": "/list-by-(\\d+)",
             "Mixin": true,
             "Run":
@@ -21,7 +21,7 @@
         {
             "Match": "/page(\\d+)",
             "Mixin": true,
-            "Weight": 500,
+            "Weight": 65536,
             "Run":
             {
                 "Call":

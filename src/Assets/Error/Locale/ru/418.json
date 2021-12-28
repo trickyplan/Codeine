@@ -4,6 +4,6 @@
         "Description": "Вы не прошли тест CAPTCHA."
     },
     "Solution": {
-        "Description": "Можно попробовать <a href=\"window.back()\">вернуться.</a>."
+        "Description": "Можно попробовать <a href=\"#\" onclick=\"history.back()\">вернуться.</a>"
     }
 }
