@@ -3,8 +3,8 @@
         <codeine-layout>Control:Pills/RUD</codeine-layout>
     </div>
 
-    <a href="/<key>SEO.Slug,Slug</key>"><h4><k>Title</k></h4></a>
-    <blockquote><cut chars="160"><key>Body</key></cut></blockquote>
+    <a href="/<codeine-key>SEO.Slug,Slug</codeine-key>"><h4><k>Title</k></h4></a>
+    <blockquote><cut chars="160"><codeine-key>Body</codeine-key></cut></blockquote>
     <if value="<k>Menu</k>" eq="1">
         <div class="label label-danger pull-right">Меню</div>
     </if>
@@ -12,7 +12,7 @@
     <ul class="list-inline">
         <li class="label label-default">
             <if value="<k>Priority</k>" gt="0">
-                <l>Page.Entity:Priority</l>: <k>Priority</k>
+                <codeine-locale>Page.Entity:Priority</codeine-locale>: <k>Priority</k>
             </if>
         </li>
         <li class="label label-default"><number><k>Words</k></number>W</li>
