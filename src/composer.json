@@ -34,6 +34,6 @@
         "mongodb/mongodb": "^1.9",
         "ext-mongodb": "^1.10",
         "ext-imagick": "^3.4.4",
-        "phpmailer/phpmailer": "^6.1"
+        "phpmailer/phpmailer": "^6.5.3"
     }
 }
