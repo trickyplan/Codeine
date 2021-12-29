@@ -1,6 +1,6 @@
 {
     "name": "trickyplan/codeine",
-    "version": "46.5.1",
+    "version": "46.5.2",
     "minimum-stability": "dev",
     "description": "Esoteric framework: one class, shitload of anonymous functions, zero documentation. Still good though.",
     "keywords": [
@@ -10,7 +10,7 @@
     ],
     "homepage": "https://github.com/Bergstein/Codeine",
     "type": "library",
-    "time": "2021-12-28 09:12:29",
+    "time": "2021-12-29 03:12:01",
     "license": "BSD-3-Clause",
     "authors": [
         {
