@@ -6,7 +6,7 @@
         {
             "id": "",
             "class": "img",
-            "itemprop": "image",
+            "itemprop": "contentUrl",
             "src": "",
             "width": "",
             "height": "",

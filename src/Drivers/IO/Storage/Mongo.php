@@ -66,7 +66,7 @@
                         $Where[$Key] = $Subvalue;
                     elseif (is_scalar($Subvalue) && substr($Subvalue, 0, 1) == '~')
                         $Where[$Key.'.'.$Subkey] = new MongoDB\BSON\Regex(substr($Subvalue, 1));
-                    elseif (substr($Subkey, 0, 1) == '$')
+                    elseif (str_starts_with($Subkey, '$'))
                     {
                         // FIXME Temporarily fixed
                         if ($Subkey == '$in')
