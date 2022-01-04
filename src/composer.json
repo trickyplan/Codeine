@@ -1,17 +1,4 @@
 {
-    "name": "trickyplan/codeine",
-    "version": "46.5.5",
-    "minimum-stability": "dev",
-    "description": "Esoteric framework: one class, shitload of anonymous functions, zero documentation. Still good though.",
-    "keywords": [
-        "framework",
-        "closure",
-        "causes ptsd"
-    ],
-    "homepage": "https://github.com/Bergstein/Codeine",
-    "type": "library",
-    "time": "2022-01-04 12:01:46",
-    "license": "BSD-3-Clause",
     "authors": [
         {
             "name": "Dmitry Bergstein",
@@ -19,9 +6,6 @@
             "role": "Developer"
         }
     ],
-    "support": {
-        "email": "bergstein+codeine@trickyplan.com"
-    },
     "bin": [
         "bin/codeine"
     ],
@@ -29,11 +13,27 @@
         "optimize-autoloader": true,
         "apcu-autoloader": true
     },
+    "description": "Esoteric framework: one class, shitload of anonymous functions, zero documentation. Still good though.",
+    "homepage": "https://github.com/TrickyPlan/Codeine",
+    "keywords": [
+        "framework",
+        "closure",
+        "causes ptsd"
+    ],
+    "license": "BSD-3-Clause",
+    "minimum-stability": "dev",
+    "name": "trickyplan/codeine",
     "require": {
         "php": "^8.0",
         "mongodb/mongodb": "^1.9",
         "ext-mongodb": "^1.10",
         "ext-imagick": "^3.4.4",
-        "phpmailer/phpmailer": "^6.5.3"
-    }
+        "phpmailer/phpmailer": "^6.1"
+    },
+    "support": {
+        "email": "bergstein+codeine@trickyplan.com"
+    },
+    "time": "2022-01-05 12:01:34",
+    "type": "library",
+    "version": "46.5.6"
 }

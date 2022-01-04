@@ -67,7 +67,7 @@
 
     setFn('Output Name', function ($Call)
     {
-        $Call['Current Image']['Fullpath'] = sha1(implode($Call['Image']['Path Separator'],
+        $Call['Current Image']['Fullpath'] = hash('sha256', implode($Call['Image']['Path Separator'],
             [
                 F::Run('IO', 'Execute', $Call['Current Image']['Source'],['Execute' => 'Version']),
                             (isset($Call['Current Image']['Width'])? $Call['Current Image']['Width']: 0),
@@ -141,7 +141,7 @@
                         $Call['Current Image']['Source']['Where'] = ['ID' => 'Default.png'];
 
                         $Call = F::Apply(null, 'Output Name', $Call);
-                        F::Run(null, 'Write', $Call);
+                        $Call = F::Apply(null, 'Write', $Call);
                     }
                 }
             }

@@ -29,7 +29,11 @@
             {
                 "Service": "View.HTML.Image.Resample"
             },
-            "Thumbs":
+            "Resize":
+            {
+                "Service": "View.HTML.Image.Resize"
+            },
+            "Thumb":
             {
                 "Service": "View.HTML.Image.Thumb"
             }

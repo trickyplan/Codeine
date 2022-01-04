@@ -9,8 +9,7 @@
 
     setFn('Do', function ($Call)
     {
-        F::Log('Resample is incorrect name and will be *deprecated*, please use Resize', LOG_WARNING);
-        if (isset($Call['Current Image']['Resample']) && !empty($Call['Current Image']['Data']))
+        if (isset($Call['Current Image']['Resize']) && !empty($Call['Current Image']['Data']))
         {
             try
             {
