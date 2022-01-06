@@ -10,7 +10,7 @@
     setFn('Parse', function ($Call)
     {
         $Replaces = [];
-       
+
         foreach ($Call['Parsed']['Value'] as $IX => $Match)
         {
             if (preg_match('@^(.+)\:(.+)$@SsUu', $Call['Parsed']['Value'][$IX], $Slices))
@@ -25,28 +25,29 @@
                     $Template   = F::Dot($Call['Parsed'],'Options.'.$IX.'.template') ? F::Dot($Call['Parsed'],'Options.'.$IX.'.template'): 'Tag';
 
                     $Element = F::Run('Entity', 'Read',
-                    [
-                          'Entity' => $Entity,
-                          'Where'  => $ID,
-                          'One'    => true
-                    ]);
-                
+                        [
+                            'Entity' => $Entity,
+                            'Where'  => $ID,
+                            'One'    => true
+                        ]);
+
                     if (empty($Element))
                         $Replaces[$Call['Parsed']['Match'][$IX]] = '';
                     else
                         $Replaces[$Call['Parsed']['Match'][$IX]] = F::Run('View', 'Load', $Call,
-                                [
-                                      'Scope'  => $Scope,
-                                      'ID'     => $Template,
-                                      'Data'   => $Element
-                                ]);
-                    
+                            [
+                                'Scope'   => $Scope,
+                                'ID'      => $Template,
+                                'Data'    => $Element,
+                                'Options' => F::Dot($Call['Parsed'],'Options.'.$IX)
+                            ]);
+
                 }
-                
+
             }
             else
                 $Replaces[$Call['Parsed']['Match'][$IX]] = '';
         }
 
         return $Replaces;
-     });
+    });

@@ -63,7 +63,7 @@
                 $Call['Output']['Content'][]  =
                     [
                         'Type'  => 'Template',
-                        'Scope' => $Call['Entity'].'/Show',
+                        'Scope' => $Call['Scope'].'/Show',
                         'ID'    => 'Delete',
                         'Data'  => $Call['Data']
                     ];

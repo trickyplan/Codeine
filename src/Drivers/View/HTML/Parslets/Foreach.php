@@ -66,6 +66,7 @@
 
             if (is_array($Value))
             {
+                $IC = 0;
                 foreach ($Value as $CKey => $CValue)
                 {
                     if (in_array($CKey, $Except))
@@ -95,9 +96,11 @@
                             if ($CValue === true)
                                 $Replace['<fe-value/>'] = 'true';
                         }
+                        $Replace['<fe-index/>'] = $IC;
 
                         $Output[$CKey] = strtr($Cludge, $Replace);
                     }
+                    $IC++;
                 }
             }
             else
