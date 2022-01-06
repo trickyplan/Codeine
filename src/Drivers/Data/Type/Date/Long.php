@@ -15,7 +15,7 @@
                 return (int) $Call['Value'];
             else
             {
-                $DT = DateTime::createFromFormat($Call['Date Format'], $Call['Value']);
+                $DT = new DateTime($Call['Value']);
                 return $DT->getTimestamp();
             }
         }
