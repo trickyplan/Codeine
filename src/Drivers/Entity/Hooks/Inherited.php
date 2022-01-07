@@ -20,7 +20,7 @@
            
             $Value = F::Dot($Call['Data'], $Name);
             
-            if (empty($Value))
+            if (empty($Value) or F::Dot($Node, 'Inherit Always'))
             {
                 if (isset($Node['Inherited']))
                 {
