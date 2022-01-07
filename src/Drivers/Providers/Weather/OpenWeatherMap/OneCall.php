@@ -11,7 +11,7 @@
     {
         $Output = [];
 
-        $Response = F::Run('IO', 'Read',
+        $Response = F::Run('IO', 'Read', $Call,
             [
                 'Storage'   => 'Web',
                 'Where'     =>
