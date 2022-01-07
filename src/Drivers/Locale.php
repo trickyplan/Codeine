@@ -19,7 +19,7 @@
 
         foreach ($Call['Message'] as $Message)
         {
-            if (strpos($Message, ':') !== false)
+            if (str_contains($Message, ':'))
                 list($Locale, $Token) = explode(':', $Message);
             else
             {

@@ -15,7 +15,7 @@
             {
                 $Call['Output'] = ob_get_clean().$Call['Output'];
                 $ContentType = F::Dot($Call, 'HTTP.Headers.Content-Type:');
-                if (($Pos = mb_strpos($ContentType, ';')) == false)
+                if (($Pos = str_contains($ContentType, ';')))
                     $ContentType = F::Dot($Call, 'HTTP.Headers.Content-Type:');
                 else
                     $ContentType = mb_substr($ContentType, 0, $Pos);

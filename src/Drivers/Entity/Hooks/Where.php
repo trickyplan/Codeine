@@ -17,7 +17,7 @@
 
             if (is_scalar($Call['Where']))
             {
-                if (strpos($Call['Where'], ',') !== false)
+                if (str_contains($Call['Where'], ','))
                     $Call['Where'] = ['ID' => explode(',', $Call['Where'])];
                 else
                     $Call['Where'] = ['ID' => $Call['Where']];

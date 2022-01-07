@@ -13,7 +13,7 @@
 
         foreach ($Call['Parsed']['Value'] as $IX => $Key)
         {
-            if (mb_strpos($Key, ',') !== false)
+            if (str_contains($Key, ','))
                 $Key = explode(',', $Key);
             else
                 $Key = [$Key];

@@ -601,18 +601,18 @@
                 foreach ($Variable as &$cVariable)
                     $cVariable = self::Variable($cVariable, $Call);
             else
-                if (is_string($Variable) && mb_strpos($Variable, '$') !== false && preg_match_all('@\$([\w]+[\w\-\:\!\.]+)@Ssu', $Variable, $Pockets))
+                if (is_string($Variable) && str_starts_with($Variable, '$') && preg_match_all('@\$([\w]+[\w\-\:\!\.]+)@Ssu', $Variable, $Pockets))
                 {
                     foreach ($Pockets[1] as $IX => $Match)
                     {
                         $Typecast = null;
 
-                        if (mb_strpos($Match, '!') !== false)
+                        if (str_contains($Match, '!'))
                             list($Match, $Default) = explode('!', $Match);
                         else
                             $Default = null;
 
-                        if (mb_strpos($Match, ':') !== false)
+                        if (str_contains($Match, ':'))
                             list($Typecast, $Match) = explode(':', $Match);
                         
                         $Subvariable = self::Dot($Call, $Match);
@@ -1127,7 +1127,7 @@
             if (isset($Array[$Key]))
                 return $Array[$Key];
 
-            if (strpos($Key, '.') !== false)
+            if (str_contains($Key, '.'))
             {
                 $Keys = explode('.', $Key);
 
@@ -1156,7 +1156,7 @@
         {
             if ($Array === (array) $Array)
             {
-                if (strpos($Key, '.') !== false)
+                if (str_contains($Key, '.'))
                 {
                     $Keys = explode('.', $Key);
                     $Key = array_shift($Keys);

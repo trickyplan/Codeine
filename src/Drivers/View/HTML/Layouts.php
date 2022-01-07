@@ -22,7 +22,7 @@
             {
                 if (($Sublayout = F::Run('View', 'Load', $Call, $Layout)) !== null)
                 {
-                    if (mb_strpos($Call['Layout'], '<place>Content</place>') !== false)
+                    if (str_contains($Call['Layout'], '<place>Content</place>'))
                         $Call['Layout'] = preg_replace('/<place>Content<\/place>/', $Sublayout, $Call['Layout']);
                     /*else
                         $Call['Layout'] = $Call['Layout'].$Sublayout;*/

@@ -13,7 +13,7 @@
         // FIXME Combine with Key
         foreach ($Call['Parsed']['Value'] as $IX => $Variable)
         {
-            if (mb_strpos($Variable, ',') !== false)
+            if (str_contains($Variable, ','))
                 $Variable = explode(',', $Variable);
             else
                 $Variable = [$Variable];

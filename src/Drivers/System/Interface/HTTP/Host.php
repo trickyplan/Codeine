@@ -20,7 +20,7 @@
                     ;
                 else
                 {
-                    if (mb_strpos($Host, ':') !== false)
+                    if (str_contains($Host, ':'))
                         list ($Call['HTTP']['Domain'], $Call['HTTP']['Port']) = explode(':', $Host);
                     else
                         $Call['HTTP']['Domain'] = $Host;

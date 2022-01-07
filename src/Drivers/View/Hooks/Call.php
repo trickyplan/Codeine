@@ -25,14 +25,14 @@
             foreach ($Call['Parsed'][1] as $IX => $Match)
             {
                 F::Log('[DEPRECATED] *<call>'.$Match.'</call>* in '.($Call['Scope']?? '?').':'.($Call['ID']?? '?').' will be ousted soon. Use "variable/external" tag instead', LOG_WARNING, ['Developer', 'Deprecated']);
-                if (mb_strpos($Match, ':') !== false)
+                if (str_contains($Match, ':'))
                 {
                     list ($Options, $Key) = explode(':', $Match);
                     $Call = F::Dot($Call, $Options, F::loadOptions($Options));
                     $Match = $Options.'.'.$Key;
                 }
 
-                if (mb_strpos($Match, ',') !== false)
+                if (str_contains($Match, ','))
                 {
                     $Submatches = explode(',', $Match);
                     foreach ($Submatches as $Submatch)

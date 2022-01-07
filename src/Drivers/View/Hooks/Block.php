@@ -78,7 +78,7 @@
 
             foreach ($Call['Parsed'][2] as $IX => $Match)
             {
-                if (mb_strpos($Match, ',') !== false)
+                if (str_contains($Match, ','))
                     $Keys = explode(',', $Match);
                 else
                     $Keys = [$Match];

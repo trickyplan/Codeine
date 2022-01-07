@@ -20,7 +20,7 @@
                 {
                     $Call['HTTP']['Host'] = $_SERVER['CODEINE_HOST'];
 
-                    if (mb_strpos($Call['HTTP']['Host'], ':') !== false)
+                    if (str_contains($Call['HTTP']['Host'], ':') !== false)
                         list($Domain, ) = explode(':', $Call['HTTP']['Host']);
                     else
                         $Domain = $Call['HTTP']['Host'];

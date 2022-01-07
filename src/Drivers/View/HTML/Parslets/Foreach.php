@@ -17,7 +17,7 @@
                 $Except = [];
             else
             {
-                if (mb_strpos($Except, ',') !== false)
+                if (str_contains($Except, ','))
                     $Except = explode(',', $Except);
                 else
                     $Except = [$Except];
@@ -28,7 +28,7 @@
             {
                 $Key = $Call['Parsed']['Options'][$IX]['key'];
 
-                if (mb_strpos($Key, ',') !== false)
+                if (str_contains($Key, ','))
                     $Key = explode(',', $Key);
                 else
                     $Key = [$Key];
@@ -48,7 +48,7 @@
             {
                 $Key = $Call['Parsed']['Options'][$IX]['variable'];
 
-                if (mb_strpos($Key, ',') !== false)
+                if (str_contains($Key, ','))
                     $Key = explode(',', $Key);
                 else
                     $Key = [$Key];

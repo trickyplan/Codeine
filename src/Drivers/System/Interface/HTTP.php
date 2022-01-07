@@ -252,7 +252,7 @@
         if (isset($Call['HTTP']['Request']['Headers']['Content-Type']))
         {
             $ContentType = mb_strtolower($Call['HTTP']['Request']['Headers']['Content-Type']);
-            if (mb_strpos($ContentType, 'application/json') !== false)
+            if (str_contains($ContentType, 'application/json'))
             {
                 if (isset($Call['HTTP']['RAW']))
                 {

@@ -43,7 +43,7 @@
 
             $Random = $Call['CURL']['Proxies'][array_rand($Call['CURL']['Proxies'])];
 
-            if (strpos($Random, ':') === false)
+            if (str_contains($Random, ':'))
             {
                 $Call['CURL']['Proxy']['Host'] = $Random;
                 $Call['CURL']['Proxy']['Port'] = 80;

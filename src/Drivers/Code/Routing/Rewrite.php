@@ -13,7 +13,7 @@
     {
         if (is_string($Call['Run']))
         {
-            if (mb_strpos($Call['Run'], '?'))
+            if (str_contains($Call['Run'], '?'))
                 list($Call['Run']) = explode('?', $Call['Run']);
     
             if (isset($Call['Rewrite']))

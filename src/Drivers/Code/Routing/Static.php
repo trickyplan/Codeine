@@ -19,7 +19,7 @@
             F::Log('«Links» now «Static», please replace', LOG_WARNING);
         }
         
-        if (strpos($Call['Run'], '?'))
+        if (str_contains($Call['Run'], '?'))
             list($Call['Run']) = explode('?', $Call['Run']);
 
         if (isset($Call['Static']))

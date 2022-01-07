@@ -79,7 +79,7 @@
 
     setFn('Asset.Route', function ($Call)
     {
-        if (strpos($Call['Value'], ':') !== false)
+        if (str_contains($Call['Value'], ':'))
         {
             list($Scope, $ID) = explode(':', $Call['Value']);
 

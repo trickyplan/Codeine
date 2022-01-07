@@ -22,7 +22,7 @@
 
             foreach ($Call['Parsed'][1] as $IX => &$Match)
             {
-                if (mb_strpos($Match, ',') !== false)
+                if (str_contains($Match, ','))
                     $Match = explode(',', $Match);
                 else
                     $Match = [$Match];

@@ -104,7 +104,7 @@
                     else
                         $Widget['Label']  = $Call['Entity'].'.Entity:'.$Name;
 
-                    if (strpos($Name, '.') !== false)
+                    if (str_contains($Name, '.'))
                     {
                         $Slices = explode('.', $Name);
 

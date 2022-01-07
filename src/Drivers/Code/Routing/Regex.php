@@ -11,7 +11,7 @@
 
     setFn('Route', function ($Call)
     {
-        if (strpos($Call['Run'], '?'))
+        if (str_contains($Call['Run'], '?'))
             list($Call['Run']) = explode('?', $Call['Run']);
 
         $Decision = null;

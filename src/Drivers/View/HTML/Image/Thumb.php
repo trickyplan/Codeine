@@ -26,7 +26,7 @@
                     $Call['Current Image']['Width'] =
                         ceil(($Call['Current Image']['Height']/$Imagick->getimageheight())*$Imagick->getimagewidth());
 
-                $Imagick->cropthumbnailimage($Call['Current Image']['Width'], $Call['Current Image']['Height']);
+                $Imagick->cropThumbnailImage($Call['Current Image']['Width'], $Call['Current Image']['Height']);
 
                 $Call['Current Image']['Data'] = $Imagick->getImageBlob();
             }

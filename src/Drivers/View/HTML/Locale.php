@@ -21,7 +21,7 @@
 
             foreach ($Call['Parsed'][1] as &$Match)
             {
-                if (strpos($Match, ',') !== false)
+                if (str_contains($Match, ','))
                     $Matches = explode(',', $Match);
                 else
                     $Matches = [$Match];

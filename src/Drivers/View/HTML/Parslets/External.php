@@ -13,7 +13,7 @@
 
         foreach ($Call['Parsed']['Value'] as $IX => $Key)
         {
-            if (mb_strpos($Key, ',') !== false)
+            if (str_contains($Key, ',') !== false)
                 $Key = explode(',', $Key);
             else
                 $Key = [$Key];
@@ -22,7 +22,7 @@
 
             foreach ($Key as $CMatch)
             {
-                if (mb_strpos($CMatch, ':') !== false)
+                if (str_contains($CMatch, ':'))
                 {
                     list ($Options, $Key) = explode(':', $CMatch);
                     $Options = F::loadOptions($Options);
