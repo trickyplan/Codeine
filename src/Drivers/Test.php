@@ -67,7 +67,7 @@
         F::Log('Test started: *'.$Call['Test']['Suite']['Name'].':'.$Call['Test']['Case']['Name'].'*', LOG_NOTICE);
             $Call['SCID'] = $Call['Test']['Suite']['Name'].':'.$Call['Test']['Case']['Name'];
 
-            if (mb_substr($Call['Test']['Case']['Name'], 0, 1) == '-')
+            if (str_starts_with($Call['Test']['Case']['Name'], '-'))
                 return $Call;
 
             if ($BaseEncodedParameters = F::Dot($Call, 'Test.Case.Preprocess.Base64'))

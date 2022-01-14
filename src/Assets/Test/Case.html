@@ -1,13 +1,13 @@
 <div class="list-group-item" data-toggle="collapse" href="#ResultActual_<codeine-key>CID</codeine-key>" aria-expanded="false">
     <div class="row">
         <div class="col-md-1">
-            <if value="<k>Status</k>" eq="Passed">
+            <codeine-if value="<k>Status</k>" eq="Passed">
                 <span class="fas fa-check text-success"></span>
-            </if>
-            <if value="<k>Status</k>" eq="Failed">
+            </codeine-if>
+            <codeine-if value="<k>Status</k>" eq="Failed">
                 <span class="fas fa-times text-danger"></span>
-            </if>
-            <k>Status</k>
+            </codeine-if>
+            <codeine-key>Status</codeine-key>
         </div>
         <div class="col-md-2">
             <codeine-key>ID</codeine-key>
@@ -36,7 +36,7 @@
                 </div>
                 <div class="col-md-6">
                     <h6>EXP</h6>
-                    <pre><code class="json"><key json="true">Assert.Equal.Expected</key></code></pre>
+                    <pre><code class="json"><codeine-key>Assert.Equal.Expected</codeine-key></code></pre>
                 </div>
             </div>
         </div>
