@@ -6,7 +6,7 @@
      * @subpackage Core
     */
 
-    define ('Codeine', __DIR__);
+    const Codeine = __DIR__;
     define ('Started', microtime(true));
 
     if (isset($_SERVER['REQUEST_ID']))
@@ -22,27 +22,27 @@
 
     final class F
     {
-        private static $_Environment = 'Production';
-        private static $_Hostname = 'host';
+        private static string $_Environment = 'Production';
+        private static string $_Hostname = 'host';
 
-        private static $_Options = [];
-        private static $_Code = [];
+        private static array $_Options = [];
+        private static array $_Code = [];
 
-        private static $_Service = 'Codeine';
-        private static $_Method = 'Do';
+        private static string $_Service = 'Codeine';
+        private static string $_Method = 'Do';
         private static $_Color = false;
 
-        private static $_Storage = [];
-        private static $_Ticks = [];
-        private static $_Counters = [];
-        private static $_Log = [];
+        private static array $_Storage = [];
+        private static array $_Ticks = [];
+        private static array $_Counters = [];
+        private static array $_Log = [];
 
-        private static $_Live = false;
-        private static $_Staring = false;
+        private static bool $_Live = false;
+        private static bool $_Staring = false;
 
-        private static $_Performance = false;  // Internal Performance
-        private static $_Debug = false;  // Internal Debugger
-        private static $_Verbose; // can be float
+        private static bool $_Performance = false;  // Internal Performance
+        private static bool $_Debug = false;  // Internal Debugger
+        private static float $_Verbose; // can be float
 
         private static $_Deadline = 0;
 
@@ -666,7 +666,7 @@
                      $Hooks = self::Sort($Hooks, 'Weight', SORT_ASC);
                      foreach ($Hooks as $HookName => $Hook)
                      {
-                         if (substr($HookName,0,1) == '-')
+                         if (str_starts_with($HookName, '-'))
                              ;
                          else
                          {
@@ -897,14 +897,14 @@
 
             if (PHP_SAPI === 'cli')
             {
-                echo PHP_EOL.substr($File, strpos($File, 'Drivers')).'@'.$Line.' '.trim(file($File)[$Line-1]).PHP_EOL;
+                echo PHP_EOL.mb_substr($File, strpos($File, 'Drivers')).'@'.$Line.' '.trim(file($File)[$Line-1]).PHP_EOL;
                 echo j($Call, JSON_PRETTY_PRINT).PHP_EOL;
             }
             else
             {
                 echo
                     '<div class="console"><div>'
-                    .substr($File, strpos($File, 'Drivers'))
+                    .mb_substr($File, strpos($File, 'Drivers'))
                     .'@'
                     .$Line
                     .'</div>'
@@ -971,7 +971,7 @@
                     {
                         foreach ($Mixin as $MixinKey => $MixinValue) // Проходим по второму
                         {
-                            if (mb_substr($MixinKey, -1, 1) === '!') // Если у нас ключ кончается на !
+                            if (str_ends_with($MixinKey, '!')) // Если у нас ключ кончается на !
                                 $Array[rtrim($MixinKey, '!')] = $MixinValue;
                             // Оверрайд
                             else
@@ -1274,7 +1274,7 @@
 
            foreach ($Names as $Name)
            {
-               if (mb_substr($Name,0,1) == '/' && self::file_exists($Name))
+               if (str_starts_with($Name, '/') && self::file_exists($Name))
                    return $Name;
 
                foreach (self::$_Paths as $ic => $Path)
@@ -1295,7 +1295,7 @@
                 foreach (self::$_Paths as $ic => $Path)
                     foreach ($Names as $Name)
                     {
-                        if (substr($Name,0,1) == '/' && self::file_exists($Name))
+                        if (str_starts_with($Name, '/') && self::file_exists($Name))
                             return [$Name];
 
                         if (self::file_exists($Filenames[$ic] = $Path . '/' . $Name))
