@@ -31,7 +31,7 @@
             }
             else
             {
-                F::Log($Call['Storage'].' not found', LOG_CRIT, 'Administrator');
+                F::Log('Storage *'.$Call['Storage'].'*'.' not found', LOG_CRIT, 'Administrator');
                 $Call['Link'] = null;
             }
         }

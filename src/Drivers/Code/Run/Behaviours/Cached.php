@@ -80,7 +80,7 @@
 
                     F::Run('IO', 'Write',
                     [
-                        'Storage'   => 'Cache',
+                        'Storage'   => F::Dot($Call, 'Behaviours.Cached.Result.Storage'),
                         'Where'     => ['ID' => $CacheID],
                         'Data'      => $Envelope
                     ]);
