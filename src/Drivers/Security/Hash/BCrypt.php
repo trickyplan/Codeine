@@ -11,5 +11,5 @@
 
     setFn('Get', function ($Call)
     {
-        return crypt($Call['Value'], $Call['Salt']);
+        return crypt($Call['Value'], F::Dot($Call, 'Security.Hash.Salt'));
     });

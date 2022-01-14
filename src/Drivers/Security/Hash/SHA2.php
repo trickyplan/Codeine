@@ -11,6 +11,6 @@
 
     setFn('Get', function ($Call)
     {
-        return hash('sha512', $Call['Value'].$Call['Salt']);
+        return hash('sha512', $Call['Value'].F::Dot($Call, 'Security.Hash.Salt'));
     });
 

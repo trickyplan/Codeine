@@ -11,7 +11,7 @@
 
     setFn('Get', function ($Call)
     {
-        return hash($Call['Algorithm'], $Call['Value'] . $Call['Salt']);
+        return hash(F::Dot($Call, 'Security.Hash.PHP.Algo'), $Call['Value'] . F::Dot($Call, 'Security.Hash.Salt'));
     });
     
     setFn('Test', function ($Call)

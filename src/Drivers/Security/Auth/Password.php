@@ -15,7 +15,7 @@
                 'Scope' => 'Security.Auth',
                 'ID'    => 'Password'
             ];
-        
+
         return $Call;
     });
 
@@ -35,38 +35,43 @@
                         [
                             'Entity' => 'User',
                             'Where' =>
-                            [
-                                $Call['Determinant'] => $Call['Request'][$Call['Determinant']]
-                            ],
+                                [
+                                    $Call['Determinant'] => $Call['Request'][$Call['Determinant']]
+                                ],
                             'One' => true
                         ]);
 
-                    $Challenge = F::Run('Security.Hash', 'Get', $Call,
-                         [
-                              'Mode' => 'Password',
-                              'Value' => F::Dot($Call, 'Request.Password'),
-                              'Salt' => F::Dot($Call, 'User.Salt')
-                         ]);
-
-                    $Password = F::Dot($Call, 'User.Password');
-
-                    if ($Password != $Challenge)
-                    {
-                        F::Log('Passwords don\'t match', LOG_WARNING, 'Security');
-                        F::Log('User password hash is '.$Password, LOG_WARNING, 'Security');
-                        F::Log('Request password hash is '.$Challenge, LOG_WARNING, 'Security');
-
-                        $Call['Output']['Content'][] =
+                $Challenge = F::Run('Security.Hash', 'Get', $Call,
+                    [
+                        'Security' =>
                             [
-                                'Type' => 'Template',
-                                'Scope' => 'User/Authenticate',
-                                'ID' => 'Incorrect'
-                            ];
+                                'Hash' =>
+                                    [
+                                        'Mode' => 'Password' // FIXME Salt
+                                    ]
+                            ],
+                        'Value' => F::Dot($Call, 'Request.Password')
+                    ]);
 
-                        unset($Call['User']);
-                    }
-                    else
-                        F::Log('Passwords match', LOG_NOTICE, 'Security');
+                $Password = F::Dot($Call, 'User.Password');
+
+                if ($Password != $Challenge)
+                {
+                    F::Log('Passwords don\'t match', LOG_WARNING, 'Security');
+                    F::Log('User password hash is '.$Password, LOG_WARNING, 'Security');
+                    F::Log('Request password hash is '.$Challenge, LOG_WARNING, 'Security');
+
+                    $Call['Output']['Content'][] =
+                        [
+                            'Type' => 'Template',
+                            'Scope' => 'User/Authenticate',
+                            'ID' => 'Incorrect'
+                        ];
+
+                    unset($Call['User']);
+                }
+                else
+                    F::Log('Passwords match', LOG_NOTICE, 'Security');
             }
             else
             {

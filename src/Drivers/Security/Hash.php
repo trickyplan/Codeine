@@ -11,8 +11,26 @@
 
     setFn('Get', function ($Call)
     {
-        if (isset($Call['Modes'][$Call['Mode']]))
-            return F::Live($Call['Modes'][$Call['Mode']], $Call);
+        $Hash = null;
+
+        if ($HashMode = F::Dot($Call, 'Security.Hash.Mode'))
+        {
+            if ($HashModeCall = F::Dot($Call, 'Security.Hash.Modes.'.$HashMode))
+                $Hash = F::Live($HashModeCall, $Call);
+            else
+                F::Log('Unknown Security.Hash.Mode *'.$HashMode.'*', LOG_ERR);
+        }
+        elseif ($HashMode = F::Dot($Call, 'Security.Hash.Mode'))
+        {
+            F::Log('*Mode* is *deprecated*, please use Security.Hash.Mode && Security.Hash.Modes', LOG_WARNING);
+
+            if ($HashModeCall = F::Dot($Call, 'Modes.'.$HashMode))
+                $Hash = F::Live($HashModeCall, $Call);
+            else
+                F::Log('Unknown Security.Hash.Mode *'.$HashMode.'*', LOG_ERR);
+        }
         else
-            return null;
+            F::Log('Please specify Security.Hash.Mode', LOG_ERR);
+
+        return $Hash;
     });

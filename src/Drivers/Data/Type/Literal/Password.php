@@ -18,7 +18,13 @@
             else
                 $Call['Value'] = F::Run('Security.Hash', 'Get',
                 [
-                    'Mode' => 'Password',
+                    'Security' =>
+                    [
+                        'Hash' =>
+                        [
+                            'Mode' => 'Password'
+                        ]
+                    ],
                     'Value' => $Call['Value']
                 ]);
         }

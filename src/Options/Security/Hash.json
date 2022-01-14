@@ -1,37 +1,43 @@
 {
-    "Salt": "",
-    "Mode": "Normal",
-    "Modes":
+    "Security":
     {
-        "Password":
+        "Hash":
         {
-            "Service": "Security.Hash.SHA2",
-            "Method": "Get"
-        },
-        "Secure+":
-        {
-            "Service": "Security.Hash.BCrypt",
-            "Method": "Get"
-        },
-        "Secure":
-        {
-            "Service": "Security.Hash.SHA2",
-            "Method": "Get"
-        },
-        "Normal":
-        {
-            "Service": "Security.Hash.SHA1",
-            "Method": "Get"
-        },
-        "Fast":
-        {
-            "Service": "Security.Hash.MD5",
-            "Method": "Get"
-        },
-        "Fast+":
-        {
-            "Service": "Security.Hash.CRC32",
-            "Method": "Get"
+            "Salt": "",
+            "Mode": "Normal",
+            "Modes":
+            {
+                "Password":
+                {
+                    "Service": "Security.Hash.SHA2",
+                    "Method": "Get"
+                },
+                "Secure+":
+                {
+                    "Service": "Security.Hash.BCrypt",
+                    "Method": "Get"
+                },
+                "Secure":
+                {
+                    "Service": "Security.Hash.SHA2",
+                    "Method": "Get"
+                },
+                "Normal":
+                {
+                    "Service": "Security.Hash.SHA1",
+                    "Method": "Get"
+                },
+                "Fast":
+                {
+                    "Service": "Security.Hash.MD5",
+                    "Method": "Get"
+                },
+                "Fast+":
+                {
+                    "Service": "Security.Hash.CRC32",
+                    "Method": "Get"
+                }
+            }
         }
     }
 }
