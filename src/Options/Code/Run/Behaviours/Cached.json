@@ -3,11 +3,15 @@
     {
         "Cached":
         {
-            "Hash":
+            "ID":
             {
-                "Algo": "sha1"
+                "Separator": "_"
+            },
+            "Result":
+            {
+                "Storage": "Behaviours Cached",
+                "Allow Storing Empty": true
             }
-        },
-        "Results Storage": "Tertiary"
+        }
     }
 }

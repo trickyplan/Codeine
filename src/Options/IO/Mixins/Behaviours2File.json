@@ -1,7 +1,7 @@
 {
     "Storages":
     {
-        "Run Cache":
+        "Behaviours Cached":
         {
             "Driver":"IO.Storage.FileSystem",
             "Scope": "rc",
@@ -20,7 +20,7 @@
             "Format": "Formats.JSON",
             "Postfix":".json"
         },
-        "Delayed Inbox":
+        "Behaviours Delayed Inbox":
         {
             "Driver":"IO.Queue.File.JSON",
             "Directory":"/var/spool/codeine",
@@ -28,7 +28,7 @@
             "Format": "Formats.JSON",
             "Postfix":".json"
         },
-        "Delayed Outbox":
+        "Behaviours Delayed Outbox":
         {
             "Driver":"IO.Storage.FileSystem",
             "Directory":"/var/spool/codeine",

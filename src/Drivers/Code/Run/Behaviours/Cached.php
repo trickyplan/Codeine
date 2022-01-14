@@ -11,40 +11,55 @@
     {
         $Result = null;
         $Run = true;
-        $Time = microtime(true); // Fix for stability
+        $Time = microtime(true); // Fixed for stability
         
         if ($Keys = F::Dot($Call, 'Behaviours.Cached.Keys'))
         {
-            $Hash = [];
+            $Hash = [$Call['Run']['Service'], $Call['Run']['Method']];
             foreach ($Keys as $Key)
                 $Hash[] = F::Dot($Call['Run']['Call'], $Key);
             
-            $Scope = $Call['Run']['Service'].'_'.$Call['Run']['Method'];
             $sHash = serialize($Hash);
-            $CacheID = F::Dot($Call, 'Behaviours.Cached.Hash.Algo').'.'.hash(F::Dot($Call, 'Behaviours.Cached.Hash.Algo'), $Scope.$sHash);
+            $jHash = j($Hash);
+            $cHash = F::Run('Security.Hash', 'Get', $Call,
+                [
+                    'Security' =>
+                    [
+                        'Hash' =>
+                        [
+                            'Mode'  => 'Secure'
+                        ]
+                    ],
+                    'Value' => $sHash
+                ]);
+
+            $CacheID = implode('.',
+                [
+                    F::Dot($Call, 'Behaviours.Cached.Hash.Algo'),
+                    $cHash
+                ]);
             
             // Try to get cached
 
             $Envelope = F::Run('IO', 'Read',
             [
-                'Storage'   => 'Run Cache',
-                'Scope'     => $Scope,
+                'Storage'   => F::Dot($Call, 'Behaviours.Cached.Result.Storage'),
                 'Where'     => ['ID' => $CacheID],
                 'IO One'    => true
             ]);
 
-            if ($Envelope === null) // No cached
-                F::Log('Run cache *miss* for '.$Scope.':'.$CacheID, LOG_NOTICE, 'Performance');
+            if ($Envelope === null) // No cached result
+                F::Log('Cache *miss* for '.$jHash, LOG_NOTICE, 'Performance');
             else
             {
                 if (F::Dot($Envelope, 'Time')+F::Dot($Call, 'Behaviours.Cached.TTL') > $Time) // Not expired
                 {
                     $Result = F::Dot($Envelope, 'Result');
                     $Run = false; // Hit
-                    F::Log('Run cache *hit* for '.$Scope.':'.$CacheID, LOG_NOTICE, 'Performance');
+                    F::Log('Cache *hit* for '.$jHash, LOG_NOTICE, 'Performance');
                 }
                 else
-                    F::Log('Run cache *expired* for '.$Scope.':'.$CacheID, LOG_NOTICE, 'Performance');
+                    F::Log('Cache *expired* for '.$jHash, LOG_NOTICE, 'Performance');
             }
 
             if ($Run)
@@ -54,20 +69,25 @@
                 $Call = F::Dot($Call, 'Behaviours.Cached', null);
                 $Result = F::Live($Call['Run']);
 
-                $Envelope = [
+                if (empty($Result) && F::Dot($Call, 'Behaviours.Cached.Result.Allow Storing Empty') == false)
+                    F::Log('Cache *skipped* for '.$jHash.' because it\'s empty and "Allow Storing Empty" is false', LOG_NOTICE, 'Performance');
+                else
+                {
+                    $Envelope = [
                         'Time'      => $Time,
                         'Result'    => $Result
                     ];
 
-                F::Run('IO', 'Write',
-                [
-                    'Storage'   => 'Run Cache',
-                    'Scope'     => $Scope,
-                    'Where'     => ['ID' => $CacheID],
-                    'Data'      => $Envelope
-                ]);
+                    F::Run('IO', 'Write',
+                    [
+                        'Storage'   => 'Cache',
+                        'Where'     => ['ID' => $CacheID],
+                        'Data'      => $Envelope
+                    ]);
 
-                F::Log('Run cache *stored* for '.$Scope.':'.$CacheID.' with TTL '.$TTL, LOG_NOTICE, 'Performance');
+                    F::Log('Cache *expired* for '.$jHash.' with TTL '.$TTL, LOG_NOTICE, 'Performance');
+                }
+
             }
         }
     
