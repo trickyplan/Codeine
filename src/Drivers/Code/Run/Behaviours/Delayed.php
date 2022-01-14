@@ -24,7 +24,7 @@
 
             $Result = F::Run('IO', 'Read',
             [
-                'Storage'   => 'Delayed Outbox',
+                'Storage'   => 'Behaviours Delayed Outbox',
                 'Scope'     => F::Dot($Call, 'Behaviours.Delayed.Priority'),
                 'Where'     => ['ID' => $ResultID],
                 'IO One'    => true
@@ -36,7 +36,7 @@
             {
                 F::Run('IO', 'Write',
                 [
-                    'Storage'   => 'Delayed Inbox',
+                    'Storage'   => 'Behaviours Delayed Inbox',
                     'Scope'     => F::Dot($Call, 'Behaviours.Delayed.Priority'),
                     'Data'      =>
                     [
@@ -53,7 +53,7 @@
             {
                 F::Run('IO', 'Write',
                 [
-                    'Storage'   => 'Delayed Outbox',
+                    'Storage'   => 'Behaviours Delayed Outbox',
                     'Scope'     => F::Dot($Call, 'Behaviours.Delayed.Priority'),
                     'Where'     => ['ID' => $ResultID],
                     'IO One'    => true,
@@ -74,7 +74,7 @@
 
         $Envelopes = F::Run('IO', 'Read',
             [
-                'Storage'   => 'Delayed Inbox',
+                'Storage'   => 'Behaviours Delayed Inbox',
                 'Scope'     => F::Dot($Call, 'Behaviours.Delayed.Priority'),
                 'Limit'     =>
                 [
@@ -94,7 +94,7 @@
 
                 F::Run('IO', 'Write',
                         [
-                            'Storage'   => 'Delayed Outbox',
+                            'Storage'   => 'Behaviours Delayed Outbox',
                             'Scope'     => F::Dot($Call, 'Behaviours.Delayed.Priority'),
                             'Where'     => ['ID' => $Envelope['ID']],
                             'Data'      => $Result
