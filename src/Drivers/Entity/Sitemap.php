@@ -12,9 +12,15 @@
             {
                 $Call['Output']['Content'][] =
                 [
-                    'sitemap' =>
                     [
-                        'loc' => $Call['Sitemap']['FQDN'].'/sitemap/'.$Call['Handler'].'/'.$IX.'.xml'
+                        '_name' => 'sitemap',
+                        '_children' =>
+                        [
+                            [
+                                '_name' => 'loc',
+                                '_text' => $Call['Sitemap']['FQDN'].'/sitemap/'.$Call['Handler'].'/'.$IX.'.xml'
+                            ]
+                        ]
                     ]
                 ];
             }

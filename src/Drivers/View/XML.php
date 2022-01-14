@@ -9,80 +9,48 @@
 
     setFn('Render', function ($Call)
     {
-        $XML = new XMLWriter();
-        $XML->openMemory();
-        $XML->startDocument('1.0', 'UTF-8');
-        $XML->setIndent(true);
+        $Call['XML'] = new XMLWriter();
+        $Call['XML']->openMemory();
+        $Call['XML']->startDocument('1.0', 'UTF-8');
+        $Call['XML']->setIndent(true);
 
-        if (isset($Call['Output']['Root']))
-        {
-            $XML->startElement($Call['Output']['Root']);
+        $Root = array_shift($Call['Output']['Content']);
 
-            if ($NS = F::Dot($Call, 'XML.Namespace'))
-            {
-                $XML->startAttribute('xmlns');
-                    $XML->text($NS);
-                $XML->endAttribute();
-            }
+        $Call = F::Apply(null, 'Element', $Call,
+        [
+            'Node!' => $Root
+        ]);
 
-            if ($Attributes = F::Dot($Call, 'XML.Attributes'))
-                foreach ($Attributes as $Key => $Value)
+        $Call['XML']->endDocument();
+
+        $Call['Output'] = $Call['XML']->outputMemory(true);
+
+        return $Call;
+    });
+
+    setFn('Element', function ($Call)
+    {
+        $Call['XML']->startElement($Call['Node']['_name']);
+
+            if (isset($Call['Node']['_attributes']))
+                foreach ($Call['Node']['_attributes'] as $Key => $Value)
                 {
-                    if (is_array($Value))
-                    {
-                        $XML->startAttributeNs($Value['Prefix'], $Value['Key'], null);
-                        $XML->text($Value['Value']);
-                    }
-                    else
-                    {
-                        $XML->startAttribute($Key);
-                        $XML->text($Value);
-                    }
-
-
-                    $XML->endAttribute();
+                    $Call['XML']->startAttribute($Key);
+                    $Call['XML']->text($Value);
+                    $Call['XML']->endAttribute();
                 }
 
-            $Root = '';
+            if (isset($Call['Node']['_children']))
+                foreach ($Call['Node']['_children'] as $IX => $Child)
+                {
+                    $Call = F::Apply(null, 'Element', $Call,
+                    [
+                        'Node!' => $Child
+                    ]);
+                }
+            elseif (isset($Call['Node']['_text']))
+                $Call['XML']->text($Call['Node']['_text']);
 
-            F::Map($Call['Output']['Content'],
-               function ($Key, $Value) use ($XML, &$Root)
-               {
-                   if (substr($Key, 0, 1) == '@')
-                   {
-                       $XML->startAttribute(substr($Key, 1));
-                       $XML->text($Value);
-                       $XML->endAttribute();
-                   }
-                   else
-                   {
-                       if (is_numeric($Key))
-                       {
-                           if ($Key > 0) // FIXME Crutch
-                               $XML->endElement();
-                       }
-                       else
-                       {
-                           $XML->startElement($Key);
-                           $Root = $Key;
-                       }
-
-                       if (is_array($Value))
-                           ;
-                       else
-                       {
-                           $XML->text($Value);
-                           $XML->endElement();
-                       }
-                   }
-               }
-           );
-            $XML->endElement();
-        }
-
-        $XML->endDocument();
-
-        $Call['Output'] = $XML->outputMemory(true);
-        
+        $Call['XML']->endElement();
         return $Call;
     });

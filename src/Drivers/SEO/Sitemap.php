@@ -9,17 +9,30 @@
     setFn('Generate.Sitemap.Root', function ($Call)
     {
         $Call = F::Apply(null, 'Prepare', $Call);
-        $Call['Output'] =  ['Root' => 'sitemapindex', 'Content' => []];
 
         $Handlers = F::Dot($Call, 'Sitemap.Handlers');
+        $Sitemaps = [];
+
         foreach ($Handlers as $HandlerName => $HandlerConfiguration)
-            $Call['Output']['Content'][] =
+            $Sitemaps[] =
                     [
-                        'sitemap' =>
+                        '_name' => 'sitemap',
+                        '_children' =>
+                        [
                             [
-                                'loc' => $Call['Sitemap']['FQDN'].'/sitemap/'.$HandlerName.'.xml'
+                                '_name' => 'loc',
+                                '_text' => $Call['Sitemap']['FQDN'].'/sitemap/'.$HandlerName.'.xml'
                             ]
+                        ]
                     ];
+
+        $Call['Output']['Content'] =
+        [
+            [
+                '_name'     => 'sitemapindex',
+                '_children' => $Sitemaps
+            ]
+        ];
 
         return $Call;
     });
