@@ -42,11 +42,11 @@
 
         private static bool $_Performance = false;  // Internal Performance
         private static bool $_Debug = false;  // Internal Debugger
-        private static float $_Verbose; // can be float
+        private static $_Verbose; // can be float
 
         private static $_Deadline = 0;
 
-        private static $_Stack;
+        private static SplStack $_Stack;
         private static $NC = 0;
         private static $_Bubble = '';
         private static $_Paths = [];
