@@ -19,7 +19,6 @@
             foreach ($Keys as $Key)
                 $Hash[] = F::Dot($Call['Run']['Call'], $Key);
             
-            $sHash = serialize($Hash);
             $jHash = j($Hash);
             $cHash = F::Run('Security.Hash', 'Get', $Call,
                 [
@@ -30,47 +29,38 @@
                             'Mode'  => 'Secure'
                         ]
                     ],
-                    'Value' => $sHash
+                    'Value' => $jHash
                 ]);
 
-            $CacheID = implode('.',
-                [
-                    F::Dot($Call, 'Behaviours.Cached.Hash.Algo'),
-                    $cHash
-                ]);
-            
             // Try to get cached
 
             $Envelope = F::Run('IO', 'Read',
             [
                 'Storage'   => F::Dot($Call, 'Behaviours.Cached.Result.Storage'),
-                'Where'     => ['ID' => $CacheID],
-                'IO One'    => true
+                'Where'     => ['ID' => $cHash],
+                'Get First'    => true
             ]);
 
             if ($Envelope === null) // No cached result
-                F::Log('Cache *miss* for '.$jHash, LOG_NOTICE, 'Performance');
+                F::Log('Cache *miss* for '.$cHash.'('.$jHash.')', LOG_NOTICE, 'Performance');
             else
             {
-                if (F::Dot($Envelope, 'Time')+F::Dot($Call, 'Behaviours.Cached.TTL') > $Time) // Not expired
+                if (F::Dot($Envelope, 'Time') + F::Dot($Call, 'Behaviours.Cached.TTL') > $Time) // Not expired
                 {
                     $Result = F::Dot($Envelope, 'Result');
                     $Run = false; // Hit
-                    F::Log('Cache *hit* for '.$jHash, LOG_NOTICE, 'Performance');
+                    F::Log('Cache *hit* for '.$cHash.'('.$jHash.')', LOG_NOTICE, 'Performance');
                 }
                 else
-                    F::Log('Cache *expired* for '.$jHash, LOG_NOTICE, 'Performance');
+                    F::Log('Cache *expired* for '.$cHash.'('.$jHash.')', LOG_NOTICE, 'Performance');
             }
 
             if ($Run)
             {
-                $TTL = F::Dot($Call, 'Behaviours.Cached.TTL');
-
-                $Call = F::Dot($Call, 'Behaviours.Cached', null);
-                $Result = F::Live($Call['Run']);
+                $Result = F::Live($Call['Run'], ['Behaviours' => ['Cached' => null]]);
 
                 if (empty($Result) && F::Dot($Call, 'Behaviours.Cached.Result.Allow Storing Empty') == false)
-                    F::Log('Cache *skipped* for '.$jHash.' because it\'s empty and "Allow Storing Empty" is false', LOG_NOTICE, 'Performance');
+                    F::Log('Cache *skipped* for '.$cHash.'('.$jHash.')'.' because it\'s empty and "Allow Storing Empty" is false', LOG_NOTICE, 'Performance');
                 else
                 {
                     $Envelope = [
@@ -81,11 +71,12 @@
                     F::Run('IO', 'Write',
                     [
                         'Storage'   => F::Dot($Call, 'Behaviours.Cached.Result.Storage'),
-                        'Where'     => ['ID' => $CacheID],
+                        'Where'     => ['ID' => $cHash],
                         'Data'      => $Envelope
                     ]);
 
-                    F::Log('Cache *expired* for '.$jHash.' with TTL '.$TTL, LOG_NOTICE, 'Performance');
+                    F::Log('Cache *stored* for '.$cHash.'('.$jHash.')'
+                                        .' with TTL '.F::Dot($Call, 'Behaviours.Cached.TTL'), LOG_NOTICE, 'Performance');
                 }
 
             }
