@@ -18,26 +18,15 @@
                     [
                         'ID'    => F::Dot($Call, 'Providers.Weather.OpenWeatherMap.OneCall.Endpoint')
                     ],
-                'Data'      => [
-                    'lat'   => F::Dot($Call, 'Latitude'),
-                    'lon'   => F::Dot($Call, 'Longitude'),
-                    'appid' => F::Dot($Call, 'Providers.Weather.OpenWeatherMap.OneCall.APIKey')
-                ],
-                'Behaviours'=>
+                'Data'      =>
                     [
-                        'Cached'    =>
-                            [
-                                'Enabled'   => true,
-                                'TTL'       => 3600,
-                                'Keys'      => ['Storage', 'Where.ID', 'Data', 'IO One'],
-                                'Result'    =>
-                                    [
-                                        'Allow Storing Empty' => false
-                                    ]
-                            ]
+                        'lat'   => F::Dot($Call, 'Latitude'),
+                        'lon'   => F::Dot($Call, 'Longitude'),
+                        'appid' => F::Dot($Call, 'Providers.Weather.OpenWeatherMap.OneCall.APIKey')
                     ],
-                'Format' => 'Formats.JSON',
-                'IO One'           => true
+                'Behaviours'    => F::Dot($Call, 'Providers.Weather.OpenWeatherMap.OneCall.IO:Read Behaviours'),
+                'Format'        => 'Formats.JSON',
+                'Get First'     => true
             ]);
 
         if (empty($Response))

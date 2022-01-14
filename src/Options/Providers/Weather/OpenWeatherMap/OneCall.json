@@ -8,6 +8,19 @@
                 "OneCall":
                 {
                     "Endpoint": "https://api.openweathermap.org/data/2.5/onecall",
+                    "IO:Read Behaviours":
+                    {
+                        "Cached":
+                        {
+                            "Enabled": true,
+                            "TTL": 3600,
+                            "Keys": ["Storage", "Where.ID", "Data", "IO One"],
+                            "Result":
+                            {
+                                "Allow Storing Empty": false
+                            }
+                        }
+                    },
                     "APIKey": "api-key-goes-here",
                     "Map":
                     {
