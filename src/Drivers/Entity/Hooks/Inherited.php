@@ -43,7 +43,7 @@
                         $Parent = F::Run('Entity', 'Read',
                         [
                             'Entity'    => $InheritedEntity,
-                            'Where'     => F::Dot($Call['Data'], $Node['Inherited']),
+                            'Where'     => $Parent,
                             'One'       => true,
                             'Fields'    => ['ID', $Name]
                         ]);
