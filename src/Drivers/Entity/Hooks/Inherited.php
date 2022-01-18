@@ -45,7 +45,7 @@
                             'Entity'    => $InheritedEntity,
                             'Where'     => F::Dot($Call['Data'], $Node['Inherited']),
                             'One'       => true,
-                            'Fields'    => ['ID', $Name, $Node['Inherited']]
+                            'Fields'    => ['ID', $Name]
                         ]);
 
                         $Call['Data'] = F::Dot($Call['Data'], $Name, F::Dot($Parent, $Name));
@@ -54,5 +54,6 @@
                 }
             }
         }
+
         return $Call;
     });
