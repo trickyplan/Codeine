@@ -17,44 +17,39 @@
             F::Log('Checking inheritance for *'.$Name.'*', LOG_DEBUG);
             F::Log(function () use ($Call, $Name) {'Value is *'.j(F::Dot($Call['Data'], $Name)).'*';}, LOG_DEBUG);
             F::Log(function () use ($Call, $Name) {return 'Is empty: *'.j(empty(F::Dot($Call['Data'], $Name))).'*';} , LOG_DEBUG);
-           
-            $Value = F::Dot($Call['Data'], $Name);
-            
-            if (empty($Value) or F::Dot($Node, 'Inherit Always'))
+
+            if (isset($Node['Inherited']))
             {
-                if (isset($Node['Inherited']))
+                F::Log('Inheritance enabled for *'.$Name.'* from *'.$Node['Inherited'].'*', LOG_DEBUG);
+
+                if (preg_match('@(.+)\:(.+)@Ssu', $Node['Inherited']))
+                    list($InheritedEntity, $InheritedField) = explode(':', $Node['Inherited']);
+                else
                 {
-                    F::Log('Inheritance enabled for *'.$Name.'* from *'.$Node['Inherited'].'*', LOG_DEBUG);
+                    $InheritedEntity = $Call['Entity'];
+                    $InheritedField = $Node['Inherited'];
+                }
 
-                    if (preg_match('@(.+)\:(.+)@Ssu', $Node['Inherited']))
-                        list($InheritedEntity, $InheritedField) = explode(':', $Node['Inherited']);
+                $Parent = F::Dot($Call['Data'], $InheritedField);
+
+                if (empty($Parent))
+                    F::Log('Empty Inherited Field', LOG_DEBUG);
+                else
+                {
+                    if (isset($Call['Data']['ID']) && $Parent == $Call['Data']['ID'])
+                        F::Log('Inheritance Loop Protected', LOG_DEBUG);
                     else
                     {
-                        $InheritedEntity = $Call['Entity'];
-                        $InheritedField = $Node['Inherited'];
-                    }
+                        $Parent = F::Run('Entity', 'Read',
+                        [
+                            'Entity'    => $InheritedEntity,
+                            'Where'     => F::Dot($Call['Data'], $Node['Inherited']),
+                            'One'       => true,
+                            'Fields'    => ['ID', $Name, $Node['Inherited']]
+                        ]);
 
-                    $Parent = F::Dot($Call['Data'], $InheritedField);
-
-                    if (empty($Parent))
-                        F::Log('Empty Inherited Field', LOG_DEBUG);
-                    else
-                    {
-                        if (isset($Call['Data']['ID']) && $Parent == $Call['Data']['ID'])
-                            F::Log('Inheritance Loop Protected', LOG_DEBUG);
-                        else
-                        {
-                            $Parent = F::Run('Entity', 'Read',
-                            [
-                                'Entity'    => $InheritedEntity,
-                                'Where'     => F::Dot($Call['Data'], $Node['Inherited']),
-                                'One'       => true,
-                                'Fields'    => ['ID', $Name, $Node['Inherited']]
-                            ]);
-
-                            $Call['Data'] = F::Dot($Call['Data'], $Name, F::Dot($Parent, $Name));
-                            F::Log(function () use ($Name, $Parent) {return '*'.$Name.'* node inherited from *'.$Parent['ID'].'* as '.j(F::Dot($Parent, $Name));} , LOG_DEBUG);
-                        }
+                        $Call['Data'] = F::Dot($Call['Data'], $Name, F::Dot($Parent, $Name));
+                        F::Log(function () use ($Name, $Parent) {return '*'.$Name.'* node inherited from *'.$Parent['ID'].'* as '.j(F::Dot($Parent, $Name));} , LOG_DEBUG);
                     }
                 }
             }
