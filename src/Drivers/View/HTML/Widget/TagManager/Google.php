@@ -13,13 +13,13 @@
 
         if (F::Dot($Call, 'TagManager.Google.Enabled'))
         {
-            $Call['ID'] = isset($Call['ID'])? $Call['ID']: F::Dot($Call, 'TagManager.Google.ID');
             $Code = '';
+            $ID = F::Dot($Call, 'TagManager.Google.ID');
 
             if (F::Dot($Call, 'TagManager.Google.URLs.Disabled') !== null && in_array($Call['HTTP']['URL'],
                     F::Dot($Call, 'TagManager.Google.URLs.Disabled')))
             {
-                $Message = 'Google.TagManager *'.$Call['ID'].'* Suppressed by *URLs*';
+                $Message = 'Google.TagManager *'.$ID.'* Suppressed by *URLs*';
                 $Code = '<!-- '.$Message.' -->';
                 F::Log($Message, LOG_INFO, 'Marketing');
             }
@@ -33,12 +33,12 @@
                             'ID'        => 'Head'
                         ]), $Call);
 
-                    $Message = 'Google.TagManager *'.$Call['ID'].'* Registered';
+                    $Message = 'Google.TagManager *'.$ID.'* Registered';
                     F::Log($Message, LOG_INFO, 'Marketing');
                 }
                 else
                 {
-                    $Message = 'Google.TagManager *'.$Call['ID'].'* Suppressed by *Environment*';
+                    $Message = 'Google.TagManager *'.$ID.'* Suppressed by *Environment*';
                     $Code = '<!-- '.$Message.' -->';
                     F::Log($Message, LOG_INFO, 'Marketing');
                 }
@@ -46,7 +46,7 @@
         }
         else
         {
-            $Message = 'Google.TagManager *'.($Call['ID']??'').'* Suppressed by *TagManager.Google.Enabled option*';
+            $Message = 'Google.TagManager *'.($ID??'').'* Suppressed by *TagManager.Google.Enabled option*';
             $Code = '<!-- '.$Message.' -->';
             F::Log($Message, LOG_INFO, 'Marketing');
         }
@@ -61,13 +61,13 @@
 
         if (F::Dot($Call, 'TagManager.Google.Enabled'))
         {
-            $Call['ID'] = isset($Call['ID']) ? $Call['ID'] : F::Dot($Call, 'TagManager.Google.ID');
+            $ID = F::Dot($Call, 'TagManager.Google.ID');
             $Code = '';
 
             if (F::Dot($Call, 'TagManager.Google.URLs.Disabled') !== null && in_array($Call['HTTP']['URL'],
                     F::Dot($Call, 'TagManager.Google.URLs.Disabled')))
             {
-                $Message = 'Google.TagManager *' . $Call['ID'] . '* Suppressed by *URLs*';
+                $Message = 'Google.TagManager *' . $ID . '* Suppressed by *URLs*';
                 $Code = '<!-- ' . $Message . ' -->';
                 F::Log($Message, LOG_INFO, 'Marketing');
             } else
@@ -80,18 +80,18 @@
                             'ID'        => 'Body'
                         ]), $Call);
 
-                    $Message = 'Google.TagManager *' . $Call['ID'] . '* Registered';
+                    $Message = 'Google.TagManager *' . $ID . '* Registered';
                     F::Log($Message, LOG_INFO, 'Marketing');
                 } else
                 {
-                    $Message = 'Google.TagManager *' . $Call['ID'] . '* Suppressed by *Environment*';
+                    $Message = 'Google.TagManager *' . $ID . '* Suppressed by *Environment*';
                     $Code = '<!-- ' . $Message . ' -->';
                     F::Log($Message, LOG_INFO, 'Marketing');
                 }
             }
         } else
         {
-            $Message = 'Google.TagManager *' . ($Call['ID'] ?? '') . '* Suppressed by *TagManager.Google.Enabled option*';
+            $Message = 'Google.TagManager *' . ($ID ?? '') . '* Suppressed by *TagManager.Google.Enabled option*';
             $Code = '<!-- ' . $Message . ' -->';
             F::Log($Message, LOG_INFO, 'Marketing');
         }
