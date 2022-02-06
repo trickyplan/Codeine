@@ -171,9 +171,9 @@
                 $Call = F::Hook('afterJSOutput', $Call);
 
                 $Call['Output'] = str_replace('<place>JS</place>', implode(PHP_EOL, $Call['JS']['Links']), $Call['Output']);
-            }
 
-            $Call['Output'] = str_replace($Parsed[0], '', $Call['Output']);
+                $Call['Output'] = str_replace($Parsed[0], '', $Call['Output']);
+            }
         }
 
         unset($Call['JS']);
