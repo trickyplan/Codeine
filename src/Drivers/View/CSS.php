@@ -149,9 +149,12 @@
                     $SRC = '/assets/css/'.$Call['CSS']['Fullpath'];
 
                     if (F::Dot($Call, 'CSS.Host'))
-                        $Call['CSS']['Links'][] = '<link href="'.$Call['HTTP']['Proto'].$Call['CSS']['Host'].$SRC.'" rel="stylesheet" type="'.$Call['CSS']['Type'].'"/>';
+                        $Link = $Call['HTTP']['Proto'].$Call['CSS']['Host'].$SRC;
                     else
-                        $Call['CSS']['Links'][] = '<link href="'.$SRC.'" rel="stylesheet" type="'.$Call['CSS']['Type'].'" />';
+                        $Link = $SRC;
+
+                    $Call['CSS']['Links'][] = '<link href="'.$Link.'" rel="stylesheet" type="'.$Call['CSS']['Type'].'"/>';
+                    $Call['HTTP']['Headers']['Link:'][] = '<'.$Link.'>; rel="prefetch"';
 
                 }
 
