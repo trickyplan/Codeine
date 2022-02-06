@@ -314,7 +314,7 @@
                     foreach ($Value as $cValue)
                     {
                         $Header = preg_replace('/\s+/', ' ', $Key . ' ' . $cValue);
-                        header ($Header, true);
+                        header ($Header, false);
                     }
                 }
         }
