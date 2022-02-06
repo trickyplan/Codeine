@@ -3,7 +3,7 @@ $(document).ready(function ()
         $('a.ajax').bind('click',
             function ()
             {
-                var el = $(this);
+                let el = $(this);
                 $('#'+el.attr('data-target')).addClass('text-muted');
                 $.ajax({
                     type: 'GET',
@@ -28,7 +28,7 @@ $(document).ready(function ()
         $('a[target=new]').bind('click',
             function ()
             {
-                var el = $(this);
+                let el = $(this);
 
                 window.open(el.attr('href'), 'new',"height=400,width=600");
                 return false;
