@@ -12,7 +12,7 @@
         foreach ($Call['Parsed']['Value'] as $IX => $Match)
         {
             $Link = $Call['Parsed']['Value'][$IX];
-            $Call['HTTP']['Headers']['Link:'][] = $Link;
+            $Call['HTTP']['Headers']['Link:'][] = '<'.$Link.'>; rel="prefetch"';
             $Call['Replace'][$Call['Parsed']['Match'][$IX]] = '';
         }
 
