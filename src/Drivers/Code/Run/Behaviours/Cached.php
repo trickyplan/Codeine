@@ -60,7 +60,10 @@
                 $Result = F::Live($Call['Run'], ['Behaviours' => ['Cached' => null]]);
 
                 if (empty($Result) && F::Dot($Call, 'Behaviours.Cached.Result.Allow Storing Empty') == false)
-                    F::Log('Cache *skipped* for '.$cHash.'('.$jHash.')'.' because it\'s empty and "Allow Storing Empty" is false', LOG_NOTICE, 'Performance');
+                    F::Log('Cache *skipped* for '.$cHash.'('.$jHash.')'
+                        .' because it\'s empty and "Allow Storing Empty" is false',
+                        LOG_NOTICE,
+                        'Performance');
                 else
                 {
                     $Envelope = [
