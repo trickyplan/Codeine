@@ -25,6 +25,8 @@
     {
         if (preg_match($Call['Meta']['Pattern']['Title'], $Call['Output']))
         {
+            F::Log('*'.$Call['Meta']['Pattern']['Title'].'* tag is deprecated. Use *codeine-seo-title* instead', LOG_WARNING, ['Developer', 'Deprecated']);
+
             $Call = F::Live($Call['Meta']['Sources']['Title'], $Call);
 
             if (isset($Call['View']['HTML']['Title'][count($Call['View']['HTML']['Title'])-1]))
@@ -55,6 +57,7 @@
     {
         if (preg_match($Call['Meta']['Pattern']['Keywords'], $Call['Output']))
         {
+            F::Log('*'.$Call['Meta']['Pattern']['Keywords'].'* tag is deprecated. Use *codeine-seo-keyword* instead', LOG_WARNING, ['Developer', 'Deprecated']);
             $Call = F::Live($Call['Meta']['Sources']['Keywords'], $Call);
 
             if (!isset($Call['View']['HTML']['Keywords']))
@@ -77,6 +80,7 @@
     {
         if (preg_match($Call['Meta']['Pattern']['Description'], $Call['Output']))
         {
+            F::Log('*'.$Call['Meta']['Pattern']['Description'].'* tag is deprecated. Use *codeine-seo-description* instead', LOG_WARNING, ['Developer', 'Deprecated']);
             $Call = F::Live($Call['Meta']['Sources']['Description'], $Call);
 
             if (!isset($Call['View']['HTML']['Description']))
@@ -105,37 +109,6 @@
             $Call['Output'] = str_replace('<headerraw/>', $Call['View']['HTML']['Header RAW'], $Call['Output']);
         else
             $Call['Output'] = str_replace('<headerraw/>', '', $Call['Output']);
-
-        return $Call;
-    });
-
-    setFn('Page', function ($Call)
-    {
-        if (
-                preg_match($Call['Meta']['Pattern']['Title'], $Call['Output'])
-                ||
-                preg_match($Call['Meta']['Pattern']['Keywords'], $Call['Output'])
-                ||
-                preg_match($Call['Meta']['Pattern']['Description'], $Call['Output'])
-        )
-        {
-            if ($Call['HTTP']['URL'] == '/')
-                $Call['HTTP']['URL'] = '//';
-
-            $Page = F::Run('Entity', 'Read', $Call,
-                        [
-                            'One' => true,
-                            'Entity' => 'Page',
-                            'Where!' => ['Slug' => substr($Call['HTTP']['URL'], 1)]
-                        ]);
-
-            if ($Page !== null)
-            {
-                array_unshift($Call['View']['HTML']['Title'], $Page['Title']);
-                $Call['View']['HTML']['Description'] = isset($Page['Description'])? $Page['Description']: '';
-                $Call['View']['HTML']['Keywords'] = isset($Page['Keywords'])? $Page['Keywords']: '';
-            }
-        }
 
         return $Call;
     });

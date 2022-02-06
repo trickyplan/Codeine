@@ -11,10 +11,7 @@
     {
         "HTML":
         {
-            "Widget Set": "bootstrap-codeine",
-            "Title": [],
-            "Keywords": [],
-            "Description": []
+            "Widget Set": "bootstrap-codeine"
         }
     },
     "Extension": ".html",
@@ -64,6 +61,11 @@
             {
                 "Service":"View.CSS",
                 "Method":"Do"
+            },
+            "SEO":
+            {
+                "Service":"View.HTML.SEO",
+                "Method":"Process"
             },
             "Meta":
             {
