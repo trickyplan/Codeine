@@ -57,10 +57,15 @@
                         $Attributes[] = strtolower($Attribute);
             }
 
-        if (isset($Call['Block']) && $Call['Block'])
-            $Call['HTML'] = '<'.$Call['Tag'].' '.implode(' ', $Attributes).'>'.$Call['Value'].'</'.$Call['Tag'].'>';
+        if (empty($Attributes))
+            $Attributes = '';
         else
-            $Call['HTML'] = '<'.$Call['Tag'].' '.implode(' ', $Attributes).' />';
+            $Attributes = ' '.implode(' ', $Attributes);
+
+        if (F::Dot($Call, 'Value'))
+            $Call['HTML'] = '<'.$Call['Tag'].$Attributes.'>'.$Call['Value'].'</'.$Call['Tag'].'>';
+        else
+            $Call['HTML'] = '<'.$Call['Tag'].$Attributes.' />';
 
         return $Call;
     });
