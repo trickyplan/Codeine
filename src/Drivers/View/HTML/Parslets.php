@@ -131,10 +131,19 @@
                             if (empty($Matched[$Parslet]))
                                 ;
                             else
-                                $Matched[$Parslet]['Replace'] = F::Apply('View.HTML.Parslets.' . $Parslet, 'Parse', $Call,
+                            {
+                                $Call['Replace'] = [];
+
+                                $Call = F::Apply('View.HTML.Parslets.' . $Parslet, 'Parse', $Call,
                                     [
                                         'Parsed!' => $Matched[$Parslet]
                                     ]);
+
+                                if (empty($Call['Replace']))
+                                    ;
+                                else
+                                    $Matched[$Parslet]['Replace'] = $Call['Replace'];
+                            }
                         }
                     }
                 }

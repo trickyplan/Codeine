@@ -9,8 +9,6 @@
     
     setFn('Parse', function ($Call)
     {
-        $Replaces = [];
-        
         foreach ($Call['Parsed']['Value'] as $IX => $Match)
         {
             if (isset($Call['Parsed']['Options'][$IX]['eq'] ))
@@ -34,8 +32,8 @@
             if (F::Environment() == 'Development')
                 $Result = '<!-- Environment: '.j($Call['Parsed']['Options'][$IX]).'-->'.$Result.'<!-- Environment End -->';
             
-            $Replaces[$Call['Parsed']['Match'][$IX]] = $Result;
+            $Call['Replace'][$Call['Parsed']['Match'][$IX]] = $Result;
         }
         
-        return $Replaces;
+        return $Call;
     });

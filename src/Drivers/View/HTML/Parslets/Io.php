@@ -9,8 +9,6 @@
 
     setFn('Parse', function ($Call)
     {
-        $Replaces = [];
-        
         foreach ($Call['Parsed']['Value'] as $IX => $Match)
         {
             if (preg_match('@^(.+)\:(.+)\:(.+)$@SsUu', $Match, $Slices))
@@ -25,13 +23,13 @@
                     ]);
 
                 if (empty($Element))
-                    $Replaces[$Call['Parsed']['Match'][$IX]] = '';
+                    $Call['Replace'][$Call['Parsed']['Match'][$IX]] = '';
                 else
-                    $Replaces[$Call['Parsed']['Match'][$IX]] = $Element[0];
+                    $Call['Replace'][$Call['Parsed']['Match'][$IX]] = $Element[0];
             }
             else
-                $Replaces[$Call['Parsed']['Match'][$IX]] = '';
+                $Call['Replace'][$Call['Parsed']['Match'][$IX]] = '';
         }
 
-        return $Replaces;
+        return $Call;
      });

@@ -9,8 +9,6 @@
 
     setFn ('Parse', function ($Call)
     {
-        $Replaces = [];
-        
         foreach ($Call['Parsed']['Value'] as $IX => $Match)
         {
             if (F::Dot($Call ,'View.HTML.Parslet.Cut.StripTags.Enabled') or F::Dot($Call['Parsed'], 'Options.'.$IX.'.strip'))
@@ -59,8 +57,8 @@
             }
 
             $Cut = str_replace('#', '', $Cut);
-            $Replaces[$Call['Parsed']['Match'][$IX]] = $Cut;
+            $Call['Replace'][$Call['Parsed']['Match'][$IX]] = $Cut;
         }
 
-        return $Replaces;
+        return $Call;
     });

@@ -9,8 +9,6 @@
     
     setFn('Parse', function ($Call)
     {
-        $Replaces = [];
-        
         foreach ($Call['Parsed']['Value'] as $IX => $Match)
         {
             $Currency = '';
@@ -40,8 +38,8 @@
                     F::Log('Currency convert failed: ' . $Match, LOG_ERR);
             }
             
-            $Replaces[$Call['Parsed']['Match'][$IX]] = $Currency;
+            $Call['Replace'][$Call['Parsed']['Match'][$IX]] = $Currency;
         }
         
-        return $Replaces;
+        return $Call;
     });

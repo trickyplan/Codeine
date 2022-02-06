@@ -9,9 +9,8 @@
     
     setFn('Parse', function ($Call)
     {
-        $Replaces = [];
         foreach ($Call['Parsed']['Value'] as $IX => $Match)
-            $Replaces[$Call['Parsed']['Match'][$IX]] = '<strong>' . $Call['View']['Highlight'] . '</strong>';
+            $Call['Replace'][$Call['Parsed']['Match'][$IX]] = '<strong>' . $Call['View']['Highlight'] . '</strong>';
         
-        return $Replaces;
+        return $Call;
     });

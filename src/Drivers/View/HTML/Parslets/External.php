@@ -9,8 +9,6 @@
 
     setFn('Parse', function ($Call)
     {
-        $Replaces = [];
-
         foreach ($Call['Parsed']['Value'] as $IX => $Key)
         {
             if (str_contains($Key, ',') !== false)
@@ -59,8 +57,8 @@
                 }
             }
 
-            $Replaces[$Call['Parsed']['Match'][$IX]] = $Value;
+            $Call['Replace'][$Call['Parsed']['Match'][$IX]] = $Value;
         }
 
-        return $Replaces;
+        return $Call;
      });

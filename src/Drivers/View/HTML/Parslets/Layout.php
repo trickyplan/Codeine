@@ -9,13 +9,11 @@
 
     setFn ('Parse', function ($Call)
     {
-        $Replaces = [];
-        
         foreach ($Call['Parsed']['Value'] as $IX => $Match)
         {
             list($Asset, $ID) = F::Run('View', 'Asset.Route', ['Value' => $Match]);
-            $Replaces[$Call['Parsed']['Match'][$IX]] = F::Run ('View', 'Load', $Call, ['Scope' => $Asset, 'ID' => $ID]);
+            $Call['Replace'][$Call['Parsed']['Match'][$IX]] = F::Run ('View', 'Load', $Call, ['Scope' => $Asset, 'ID' => $ID]);
         }
 
-        return $Replaces;
+        return $Call;
     });

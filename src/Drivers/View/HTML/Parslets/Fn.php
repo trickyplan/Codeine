@@ -9,7 +9,6 @@
     
     setFn('Parse', function ($Call)
     {
-        $Replaces = [];
         foreach ($Call['Parsed']['Value'] as $IX => $Match)
         {
             if (F::Dot($Call['Parsed'],'Options.'.$IX.'.type') === null)
@@ -32,8 +31,8 @@
             if (is_float($Output))
                 $Output = str_replace(',', '.', $Output);
             
-            $Replaces[$Call['Parsed']['Match'][$IX]] = $Output;
+            $Call['Replace'][$Call['Parsed']['Match'][$IX]] = $Output;
         }
         
-        return $Replaces;
+        return $Call;
     });

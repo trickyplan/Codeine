@@ -9,8 +9,6 @@
     
     setFn('Parse', function ($Call)
     {
-        $Replaces = [];
-        
         foreach ($Call['Parsed']['Value'] as $IX => $Match)
         {
             if (F::Dot($Call['Parsed'],'Options.'.$IX.'.format') === null)
@@ -54,20 +52,20 @@
                 if (isset($Application['Output']))
                 {
                     if (is_scalar($Application['Output']))
-                        $Replaces[$Call['Parsed']['Match'][$IX]] = $Application['Output'];
+                        $Call['Replace'][$Call['Parsed']['Match'][$IX]] = $Application['Output'];
                     else
                     {
-                        $Replaces[$Call['Parsed']['Match'][$IX]] = '{}';
+                        $Call['Replace'][$Call['Parsed']['Match'][$IX]] = '{}';
                         F::Log('Application Output isn\'t scalar', LOG_ERR);
                         F::Log($Application['Output'], LOG_WARNING);
                     }
                 }
                 else
-                    $Replaces[$Call['Parsed']['Match'][$IX]] = '';
+                    $Call['Replace'][$Call['Parsed']['Match'][$IX]] = '';
                 
             } else
-                $Replaces[$Call['Parsed']['Match'][$IX]] = '[Bad Exec]';
+                $Call['Replace'][$Call['Parsed']['Match'][$IX]] = '[Bad Exec]';
         }
         
-        return $Replaces;
+        return $Call;
     });

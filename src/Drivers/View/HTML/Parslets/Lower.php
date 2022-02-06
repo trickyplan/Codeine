@@ -9,9 +9,8 @@
     
     setFn('Parse', function ($Call)
     {
-        $Replaces = [];
         foreach ($Call['Parsed']['Value'] as $IX => $Match)
-            $Replaces[$Call['Parsed']['Match'][$IX]] = mb_strtolower($Match);
+            $Call['Replace'][$Call['Parsed']['Match'][$IX]] = mb_strtolower($Match);
         
-        return $Replaces;
+        return $Call;
     });

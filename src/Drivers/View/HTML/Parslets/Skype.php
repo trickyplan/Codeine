@@ -9,10 +9,8 @@
     
     setFn('Parse', function ($Call)
     {
-        $Replaces = [];
-        
         foreach ($Call['Parsed']['Value'] as $IX => $Match)
-            $Replaces[$Call['Parsed']['Match'][$IX]] = '<a class="skype" href="skype:' . $Match . '">Skype: ' . $Match . '</a>';
+            $Call['Replace'][$Call['Parsed']['Match'][$IX]] = '<a class="skype" href="skype:' . $Match . '">Skype: ' . $Match . '</a>';
         
-        return $Replaces;
+        return $Call;
     });

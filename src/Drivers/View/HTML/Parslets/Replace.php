@@ -9,7 +9,6 @@
 
     setFn('Parse', function ($Call)
     {
-        $Replaces = [];
         foreach ($Call['Parsed']['Value'] as $IX => $Data)
         {
             if (isset($Call['Parsed']['Options'][$IX]['scope']))
@@ -41,7 +40,7 @@
                         'IO One'    => true
                     ]);
 
-                    $Replaces[$Call['Parsed']['Match'][$IX]] = preg_replace_callback('@<codeine-replace-variable>(.*?)</codeine-replace-variable>@Ssu', function ($Matches) use ($Data) {
+                    $Call['Replace'][$Call['Parsed']['Match'][$IX]] = preg_replace_callback('@<codeine-replace-variable>(.*?)</codeine-replace-variable>@Ssu', function ($Matches) use ($Data) {
                         return F::Dot($Data, $Matches[1]);
                         }, $Template);
                 }
@@ -53,5 +52,5 @@
 
         }
 
-        return $Replaces;
+        return $Call;
      });

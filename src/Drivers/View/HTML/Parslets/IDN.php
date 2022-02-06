@@ -9,14 +9,12 @@
     
     setFn('Parse', function ($Call)
     {
-        $Replaces = [];
-        
         foreach ($Call['Parsed']['Value'] as $IX => $Match)
         {
             $Root = simplexml_load_string($Call['Parsed']['Match'][$IX]);
 
             $Inner = (string) $Root;
-            $Replaces[$Call['Parsed']['Match'][$IX]] = idn_to_utf8($Inner);
+            $Call['Replace'][$Call['Parsed']['Match'][$IX]] = idn_to_utf8($Inner);
         }
-        return $Replaces;
+        return $Call;
     });

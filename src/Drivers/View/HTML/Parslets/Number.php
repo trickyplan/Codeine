@@ -9,8 +9,6 @@
     
     setFn('Parse', function ($Call)
     {
-        $Replaces = [];
-        
         foreach ($Call['Parsed']['Value'] as $IX => $Match)
         {
             $Format = F::Dot($Call['Parsed'], 'Options.'.$IX.'.format') ? F::Dot($Call['Parsed'], 'Options.'.$IX.'.format'): 'French';
@@ -24,25 +22,25 @@
                 switch ($Format)
                 {
                     case 'French':
-                        $Replaces[$Call['Parsed']['Match'][$IX]] = F::Run('Formats.Number.French', 'Do', ['Value' => $Match, 'Digits' => $Digits]);
+                        $Call['Replace'][$Call['Parsed']['Match'][$IX]] = F::Run('Formats.Number.French', 'Do', ['Value' => $Match, 'Digits' => $Digits]);
                         break;
                     
                     case 'English':
-                        $Replaces[$Call['Parsed']['Match'][$IX]] = number_format($Match, $Digits);
+                        $Call['Replace'][$Call['Parsed']['Match'][$IX]] = number_format($Match, $Digits);
                         break;
                     
                     case 'Sprintf':
                         $Sprintf = F::Dot($Call['Parsed'], 'Options.'.$IX.'.sprintf') ? F::Dot($Call['Parsed'], 'Options.'.$IX.'.sprintf') : '%d';
-                        $Replaces[$Call['Parsed']['Match'][$IX]] = F::Run('Formats.Number.Sprintf', 'Do', ['Value' => $Match, 'Format' => $Sprintf]);
+                        $Call['Replace'][$Call['Parsed']['Match'][$IX]] = F::Run('Formats.Number.Sprintf', 'Do', ['Value' => $Match, 'Format' => $Sprintf]);
                         break;
                     
                     default:
-                        $Replaces[$Call['Parsed']['Match'][$IX]] = sprintf($Format, $Match);
+                        $Call['Replace'][$Call['Parsed']['Match'][$IX]] = sprintf($Format, $Match);
                         break;
                 }
             } else
-                $Replaces[$Call['Parsed']['Match'][$IX]] = $Match;
+                $Call['Replace'][$Call['Parsed']['Match'][$IX]] = $Match;
         }
         
-        return $Replaces;
+        return $Call;
     });

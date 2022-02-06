@@ -7,42 +7,40 @@
      * @version 6.0
      */
 
-     setFn('Parse', function ($Call)
-     {
-          foreach ($Call['Parsed']['Value'] as $IX => $Match)
-          {
-              if (empty($Match))
-                  $File = '';
-              else
-              {
-                  if (F::file_exists($Filename = Root.'/Data/'.$Match))
-                  {
+    setFn('Parse', function ($Call)
+    {
+        foreach ($Call['Parsed']['Value'] as $IX => $Match)
+        {
+            if (empty($Match))
+                $File = '';
+            else
+            {
+                if (F::file_exists($Filename = Root . '/Data/' . $Match))
+                {
 
-                      $Pathinfo = pathinfo($Match);
-                      $Filesize = F::Run('Formats.Number.Filesize', 'Do',
-                          ['Value' => filesize($Filename)]); // FIXME
+                    $Pathinfo = pathinfo($Match);
+                    $Filesize = F::Run('Formats.Number.Filesize', 'Do',
+                        ['Value' => filesize($Filename)]); // FIXME
 
-                      $Data = [
-                              'URL' => $Match,
-                              'Filename' => $Pathinfo['basename'],
-                              'Filesize' => $Filesize,
-                              'Extension' => $Pathinfo['extension']
-                          ];
+                    $Data = [
+                        'URL' => $Match,
+                        'Filename' => $Pathinfo['basename'],
+                        'Filesize' => $Filesize,
+                        'Extension' => $Pathinfo['extension']
+                    ];
 
-                      $File = F::Run('View', 'Load', $Call,
-                      [
-                          'Scope' => 'View/HTML/Parslets',
-                          'ID' => 'File',
-                          'Data' => $Data
-                      ]);
-                  }
-                  else
-                      $File = '';
-              }
+                    $File = F::Run('View', 'Load', $Call,
+                        [
+                            'Scope' => 'View/HTML/Parslets',
+                            'ID' => 'File',
+                            'Data' => $Data
+                        ]);
+                } else
+                    $File = '';
+            }
 
+            $Call['Replace'][$Call['Parsed']['Match'][$IX]] = $File;
+        }
 
-              $Replaces[$Call['Parsed']['Match'][$IX]] = $File;
-          }
-
-          return $Replaces;
-     });
+        return $Call;
+    });

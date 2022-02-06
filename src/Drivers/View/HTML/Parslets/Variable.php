@@ -9,7 +9,6 @@
 
     setFn('Parse', function ($Call)
     {
-        $Replaces = [];
         // FIXME Combine with Key
         foreach ($Call['Parsed']['Value'] as $IX => $Variable)
         {
@@ -57,8 +56,8 @@
             if (is_array($Value))
                 $Value = array_pop($Value);
 
-            $Replaces[$Call['Parsed']['Match'][$IX]] = $Value;
+            $Call['Replace'][$Call['Parsed']['Match'][$IX]] = $Value;
         }
 
-        return $Replaces;
+        return $Call;
      });

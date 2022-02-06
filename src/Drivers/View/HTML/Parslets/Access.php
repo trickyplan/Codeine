@@ -9,7 +9,6 @@
 
     setFn('Parse', function ($Call)
     {
-        $Replaces = [];
         foreach ($Call['Parsed']['Match'] as $IX => $Match)
         {
             $Call['Run'] = [];
@@ -20,10 +19,10 @@
                 $Call['Run'] = F::Dot($Call['Run'], $Key, $Value);
 
             if (F::Run('Security.Access', 'Check', $Call, $Call['Run']))
-                $Replaces[$Call['Parsed']['Match'][$IX]] = $Call['Parsed']['Value'][$IX];
+                $Call['Replace'][$Call['Parsed']['Match'][$IX]] = $Call['Parsed']['Value'][$IX];
             else
-                $Replaces[$Call['Parsed']['Match'][$IX]] = '';
+                $Call['Replace'][$Call['Parsed']['Match'][$IX]] = '';
         }
 
-        return $Replaces;
+        return $Call;
     });

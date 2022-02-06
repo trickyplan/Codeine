@@ -9,10 +9,9 @@
     
     setFn('Parse', function ($Call)
     {
-        $Replaces = [];
         foreach ($Call['Parsed']['Value'] as $IX => $Match)
             $Call['Output'] = str_replace($Call['Parsed']['Match'][$IX],
-                '<img src="http://wikipedia.org/favicon.ico" class="icon"/> <a target="_blank" href="http://ru.wikipedia.org/wiki/' . $Match . '">' . $Match . '</a>', $Call['Output']);
+                '<img src="https://wikipedia.org/favicon.ico" class="icon"/> <a target="_blank" href="https://ru.wikipedia.org/wiki/' . $Match . '">' . $Match . '</a>', $Call['Output']);
         
-        return $Replaces;
+        return $Call;
     });

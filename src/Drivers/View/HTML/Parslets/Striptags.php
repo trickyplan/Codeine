@@ -9,10 +9,8 @@
 
      setFn('Parse', function ($Call)
      {
-         $Replaces = [];
-         
          foreach ($Call['Parsed']['Value'] as $IX => $Match)
-             $Replaces[$Call['Parsed']['Match'][$IX]] = strip_tags($Match);
+             $Call['Replace'][$Call['Parsed']['Match'][$IX]] = strip_tags($Match);
 
-        return $Replaces;
+        return $Call;
      });

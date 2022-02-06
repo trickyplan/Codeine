@@ -9,10 +9,8 @@
 
     setFn ('Parse', function ($Call)
     {
-        $Replaces = [];
-        
         foreach ($Call['Parsed']['Value'] as $IX => $Match)
-            $Replaces[$Call['Parsed']['Match'][$IX]] = F::Run('Text.Beautifier', 'Do', $Call,['Value' => $Match]);
+            $Call['Replace'][$Call['Parsed']['Match'][$IX]] = F::Run('Text.Beautifier', 'Do', $Call,['Value' => $Match]);
 
-        return $Replaces;
+        return $Call;
     });

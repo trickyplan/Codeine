@@ -9,8 +9,6 @@
 
     setFn('Parse', function ($Call)
     {
-        $Replaces = [];
-        
         foreach ($Call['Parsed']['Value'] as $IX => $Cludge)
         {
             $Output = [];
@@ -24,8 +22,8 @@
             
             $Output = implode('', $Output);
             
-            $Replaces[$Call['Parsed']['Match'][$IX]] = $Output;
+            $Call['Replace'][$Call['Parsed']['Match'][$IX]] = $Output;
         }
 
-        return $Replaces;
+        return $Call;
      });

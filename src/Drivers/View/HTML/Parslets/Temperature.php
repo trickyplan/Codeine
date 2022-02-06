@@ -9,8 +9,6 @@
     
     setFn('Parse', function ($Call)
     {
-        $Replaces = [];
-
         foreach ($Call['Parsed']['Value'] as $IX => $Match)
         {
             $From = F::Dot($Call['Parsed'], 'Options.'.$IX.'.from') ? F::Dot($Call['Parsed'], 'Options.'.$IX.'.from'): 'Kelvin';
@@ -20,7 +18,7 @@
 
             if (is_scalar($Match) && isset($From) && isset($To) && $Match !== 'null')
             {
-                $Replaces[$Call['Parsed']['Match'][$IX]] =
+                $Call['Replace'][$Call['Parsed']['Match'][$IX]] =
                     round(F::Run('Science.Math.Conversion.Temperature', 'Do',
                         [
                             'From'  => $From,
@@ -29,8 +27,8 @@
                         ]
                     )).$Call['View']['HTML']['Parslets']['Temperature']['Unit'][$To];
             } else
-                $Replaces[$Call['Parsed']['Match'][$IX]] = '';
+                $Call['Replace'][$Call['Parsed']['Match'][$IX]] = '';
         }
         
-        return $Replaces;
+        return $Call;
     });

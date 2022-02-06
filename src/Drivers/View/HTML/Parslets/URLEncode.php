@@ -9,10 +9,8 @@
     
     setFn('Parse', function ($Call)
     {
-        $Replaces = [];
-        
         foreach ($Call['Parsed']['Value'] as $IX => $Match)
-            $Replaces[$Call['Parsed']['Match'][$IX]] = rawurlencode($Match);
+            $Call['Replace'][$Call['Parsed']['Match'][$IX]] = rawurlencode($Match);
         
-        return $Replaces;
+        return $Call;
     });

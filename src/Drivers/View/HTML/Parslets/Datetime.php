@@ -9,8 +9,6 @@
     
     setFn('Parse', function ($Call)
     {
-        $Replaces = [];
-
         foreach ($Call['Parsed']['Value'] as $IX => $Match)
         {
             $Engine = F::Dot($Call['Parsed'],'Options.'.$IX.'.engine') ? F::Dot($Call['Parsed'],'Options.'.$IX.'.'.'engine'): 'Date';
@@ -36,8 +34,8 @@
             else
                 date_default_timezone_set($LastZone);
             
-            $Replaces[$Call['Parsed']['Match'][$IX]] = $Date;
+            $Call['Replace'][$Call['Parsed']['Match'][$IX]] = $Date;
         }
         
-        return $Replaces;
+        return $Call;
     });

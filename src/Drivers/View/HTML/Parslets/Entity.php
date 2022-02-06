@@ -9,8 +9,6 @@
 
     setFn('Parse', function ($Call)
     {
-        $Replaces = [];
-
         foreach ($Call['Parsed']['Value'] as $IX => $Match)
         {
             if (preg_match('@^(.+)\:(.+)$@SsUu', $Call['Parsed']['Value'][$IX], $Slices))
@@ -18,7 +16,7 @@
                 list(,$Entity, $ID) = $Slices;
 
                 if (empty($ID))
-                    $Replaces[$Call['Parsed']['Match'][$IX]] = '';
+                    $Call['Replace'][$Call['Parsed']['Match'][$IX]] = '';
                 else
                 {
                     $Scope      = $Entity.'/'.(F::Dot($Call['Parsed'],'Options.'.$IX.'.scope') ? F::Dot($Call['Parsed'],'Options.'.$IX.'.scope'): 'Show');
@@ -32,9 +30,9 @@
                         ]);
 
                     if (empty($Element))
-                        $Replaces[$Call['Parsed']['Match'][$IX]] = '';
+                        $Call['Replace'][$Call['Parsed']['Match'][$IX]] = '';
                     else
-                        $Replaces[$Call['Parsed']['Match'][$IX]] = F::Run('View', 'Load', $Call,
+                        $Call['Replace'][$Call['Parsed']['Match'][$IX]] = F::Run('View', 'Load', $Call,
                             [
                                 'Scope'   => $Scope,
                                 'ID'      => $Template,
@@ -46,8 +44,8 @@
 
             }
             else
-                $Replaces[$Call['Parsed']['Match'][$IX]] = '';
+                $Call['Replace'][$Call['Parsed']['Match'][$IX]] = '';
         }
 
-        return $Replaces;
+        return $Call;
     });
