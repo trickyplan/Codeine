@@ -65,7 +65,7 @@
             {
                 $Matched = [];
 
-                $Tag = strtolower($Parslet);
+                $Tag = strtolower(strtr($Parslet, '.', '-'));
                 $Patterns = [
                     [
                         'Pattern'       => '<codeine-('.$Tag.')(\d*)(.*?)>(.*?)</codeine-(\1)(\2)>',
@@ -107,7 +107,7 @@
                             $Matched[$Parslet] = [];
 
                             foreach ($Parsed[1] as $IX => $Tag)
-                                if ($Tag == strtolower($Parslet))
+                                if ($Tag == strtolower(strtr($Parslet, '.', '-')))
                                 {
                                     $Attributes = [];
                                     $Root = simplexml_load_string('<root '.$Parsed[3][$IX].'></root>');
@@ -153,7 +153,11 @@
                     {
                         $Count = 0;
 
-                        $Call['Parslets']['Source'] = str_replace(array_keys($cMatched['Replace']), $cMatched['Replace'], $Call['Parslets']['Source'], $Count);
+                        $Call['Parslets']['Source'] = str_replace(
+                            array_keys($cMatched['Replace']),
+                            $cMatched['Replace'],
+                            $Call['Parslets']['Source'],
+                            $Count);
                         F::Log(function () use ($Parslet, $cMatched, $Count, $Pass)
                         {
                             return 'Pass: *'.$Pass.'*'
