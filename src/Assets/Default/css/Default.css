@@ -1,139 +1,121 @@
-.required-star
-{
-    color: red;
+.required-star {
+  color: red;
 }
 
-.console
-{
-    font: 1rem monospace;
-    margin: auto;
-    margin-top: 20px;
-    padding: 4px 16px 4px 16px;
-    background-color: white;
-    color: black;
-    white-space: pre;
-    clear: both;
-    border-radius: 6px;
+.console {
+  font: 1rem monospace;
+  margin: 20px auto auto;
+  padding: 4px 16px;
+  background-color: white;
+  color: black;
+  white-space: pre;
+  clear: both;
+  border-radius: 6px;
 }
 
-.console-inverse
-{
-    font: 1rem monospace;
-    margin: auto;
-    margin-top: 20px;
-    padding: 4px 16px 4px 16px;
-    background-color: #333333;
-    color: #eeeeee;
-    white-space: pre;
-    clear: both;
-    border-radius: 6px;
+.console-inverse {
+  font: 1rem monospace;
+  margin: 20px auto auto;
+  padding: 4px 16px;
+  background-color: #333;
+  color: #eee;
+  white-space: pre;
+  clear: both;
+  border-radius: 6px;
 }
 
-.age-restricted
-{
-    padding: 30px;
+.age-restricted {
+  padding: 30px;
 }
 
-.age-restricted-level
-{
-    font-size: 48px;
-    font-weight: bold;
-    float: right;
+.age-restricted-level {
+  font-size: 48px;
+  font-weight: bold;
+  float: right;
 }
 
-.no-border, .no-border:hover
-{
-    border: none;
+.no-border,
+.no-border:hover {
+  border: none;
 }
 
-.avatar
-{
-    border: 1px solid lightgray;
+.avatar {
+  border: 1px solid lightgray;
 }
 
-.nl
-{
-    background-color: red;
-    color: white;
+.nl {
+  background-color: red;
+  color: white;
 }
 
-.no-border, .no-border:hover
-{
-    text-decoration: none;
+.no-border,
+.no-border:hover {
+  text-decoration: none;
 }
 
-.muted
-{
-    opacity: 0.5;
+.muted {
+  opacity: 0.5;
 }
 
-.muted:hover
-{
-    opacity: 1;
-    transition: opacity 0.5s linear;
+.muted:hover {
+  opacity: 1;
+  transition: opacity 0.5s linear;
 }
 
-.version-badge
-{
-    position: fixed;
-    right: 0;
-    z-index: 99;
-    top: 100px;
+.version-badge {
+  position: fixed;
+  right: 0;
+  z-index: 99;
+  top: 100px;
 }
 
-.strong
-{
-    font-weight: bold !important;
+.strong {
+  font-weight: bold !important;
 }
 
-.pointer
-{
-    cursor: pointer;
+.pointer {
+  cursor: pointer;
 }
 
-td.indent-1 {padding-left: 1em;}
-td.indent-2 {padding-left: 2em;}
-td.indent-3 {padding-left: 3em;}
-td.indent-4 {padding-left: 4em;}
-td.indent-5 {padding-left: 5em;}
-td.indent-6 {padding-left: 6em;}
-td.indent-7 {padding-left: 7em;}
-td.indent-8 {padding-left: 8em;}
-td.indent-9 {padding-left: 9em;}
-td.indent-10 {padding-left: 10em;}
-td.indent-11 {padding-left: 11em;}
-td.indent-12 {padding-left: 12em;}
-td.indent-13 {padding-left: 13em;}
-td.indent-14 {padding-left: 14em;}
-td.indent-15 {padding-left: 15em;}
+td.indent-1 { padding-left: 1em; }
+td.indent-2 { padding-left: 2em; }
+td.indent-3 { padding-left: 3em; }
+td.indent-4 { padding-left: 4em; }
+td.indent-5 { padding-left: 5em; }
+td.indent-6 { padding-left: 6em; }
+td.indent-7 { padding-left: 7em; }
+td.indent-8 { padding-left: 8em; }
+td.indent-9 { padding-left: 9em; }
+td.indent-10 { padding-left: 10em; }
+td.indent-11 { padding-left: 11em; }
+td.indent-12 { padding-left: 12em; }
+td.indent-13 { padding-left: 13em; }
+td.indent-14 { padding-left: 14em; }
+td.indent-15 { padding-left: 15em; }
 
 pre {
-    white-space: pre-wrap;       /* css-3 */
-    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
-    white-space: -pre-wrap;      /* Opera 4-6 */
-    white-space: -o-pre-wrap;    /* Opera 7 */
-    word-wrap: break-word;       /* Internet Explorer 5.5+ */
-    background-color: #f0f0f0;
+  white-space: pre-wrap;       /* css-3 */
+  white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+  white-space: -o-pre-wrap;    /* Opera 7 */
+  word-wrap: break-word;       /* Internet Explorer 5.5+ */
+  background-color: #f0f0f0;
 }
 
-em.highlight
-{
-    background-color: #ffff00 !important;
+em.highlight {
+  background-color: #ff0 !important;
 }
 
-.exec-cached
-{
-    border: 1px dotted green;
+.exec-cached {
+  border: 1px dotted green;
 }
 
-#pixel-perfect
-{
-    display: none;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    z-index: 1000;
-    text-align: center;
+#pixel-perfect {
+  display: none;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 1000;
+  text-align: center;
 }
