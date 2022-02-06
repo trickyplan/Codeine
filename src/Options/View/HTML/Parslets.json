@@ -27,7 +27,10 @@
                         "Temperature",
                         "Number",
                         "Variable",
-                        "HeaderLink"
+                        "HeaderLink",
+                        "SEO.Title",
+                        "SEO.Keyword",
+                        "SEO.Description"
                     ]
                 },
                 "afterViewLoad":
