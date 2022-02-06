@@ -72,7 +72,7 @@
         F::Log('Total objects: '.$Total, LOG_NOTICE);
         F::Log('Groups: '.$Amount, LOG_NOTICE);
         
-        set_time_limit(10*$Total);
+        set_time_limit(0);
 
         $Call = F::Apply('Code.Progress', 'Start', $Call);
 
@@ -80,7 +80,7 @@
 
         for ($i = 0; $i < $Amount; $i++)
         {
-            $Entities = F::Run('Entity', 'Read',
+            $Entities = F::Run('Entity', 'Read', $Call,
                 [
                     'One'       => false,
                     'Entity'    => $Call['Entity'],
@@ -91,12 +91,12 @@
                         'To'   => ($i+1)*$Call['All']['Limit']
                     ]
                 ]);
-            
+
             foreach ($Entities as $Entity)
-                F::Run('Entity', 'Update',
+                F::Run('Entity', 'Update', $Call,
                 [
                     'Entity'    => $Call['Entity'],
-                    'Where'     => $Entity['ID'],
+                    'Where!'     => $Entity['ID'],
                     'One'       => false
                 ]);
 
