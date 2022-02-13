@@ -16,7 +16,7 @@
         },
         "/opensearch.xml":
         {
-            "Service": "Project.OpenSearch",
+            "Service": "Search.OpenSearch",
             "View":
             {
                 "Renderer":

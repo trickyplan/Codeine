@@ -7,7 +7,7 @@
             "Weight": 200,
             "Run":
             {
-                "Service":"Project.OpenSearch"
+                "Service":"Search.OpenSearch"
             }
         },
         "Robots / All":
