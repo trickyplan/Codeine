@@ -2,8 +2,9 @@
     "Perfect": true,
     "Run Cache Enabled": true,
     "Monitor Memory": true,
-    "Verbose":
+    "Verbose!":
     {
+        "Deprecated": 6,
         "Developer": 6,
         "Administrator": 6,
         "Security": 6,
@@ -12,8 +13,9 @@
         "Metric": 6,
         "Access": 6
     },
-    "Perfect Verbose":
+    "Perfect Verbose!":
     {
+        "Deprecated": 4,
         "Developer": 2,
         "Administrator": 2,
         "Security": 2,

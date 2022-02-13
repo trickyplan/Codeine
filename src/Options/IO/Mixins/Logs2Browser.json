@@ -1,6 +1,17 @@
 {
     "Storages":
     {
+        "Deprecated":
+        {
+            "Driver": "IO.Print",
+            "Format": "Formats.Log.HTML",
+            "Log":
+            {
+                "AddStatistics": true,
+                "AddTimestamp": true,
+                "AddUserString": true
+            }
+        },
         "Developer":
         {
             "Driver": "IO.Print",
