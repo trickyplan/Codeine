@@ -41,6 +41,7 @@
             [
                 'Type'  => 'Base',
                 'Tag'  => 'title',
+                'Closing Tag' => true,
                 'Value' => $Call['View']['HTML']['SEO']['Output']['Titles']
             ]);
 

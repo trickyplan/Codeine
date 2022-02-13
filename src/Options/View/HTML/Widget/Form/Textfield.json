@@ -1,5 +1,6 @@
 {
     "Subtype": "text",
+    "Closing Tag": false,
     "Attributes":
     {
         "String":

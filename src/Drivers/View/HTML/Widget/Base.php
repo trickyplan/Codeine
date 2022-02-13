@@ -62,7 +62,15 @@
         else
             $Attributes = ' '.implode(' ', $Attributes);
 
-        if (F::Dot($Call, 'Value'))
+        $Block = false;
+
+        if (F::Dot($Call, 'Block'))
+        {
+            $Call = F::Dot($Call, 'Closing Tag', F::Dot($Call, 'Block'));
+            F::Log('"Block" flag is deprecated. Use "Closing Tag" instead', LOG_WARNING, ['Developer', 'Deprecated']);
+        }
+
+        if (F::Dot($Call, 'Closing Tag'))
             $Call['HTML'] = '<'.$Call['Tag'].$Attributes.'>'.$Call['Value'].'</'.$Call['Tag'].'>';
         else
             $Call['HTML'] = '<'.$Call['Tag'].$Attributes.' />';

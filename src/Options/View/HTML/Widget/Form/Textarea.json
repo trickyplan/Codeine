@@ -3,7 +3,7 @@
     {
         "Delimiter": ","
     },
-    "Block": true,
+    "Closing Tag": true,
     "Attributes":
     {
         "String":
