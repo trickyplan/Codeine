@@ -12,7 +12,8 @@
         if (preg_match_all('@<subtitle>(.*)<\/subtitle>@SsUu', $Call['Output'], $Pockets))
         {
             F::Log('*title* tag is deprecated. Use *codeine-seo-title* instead', LOG_WARNING, ['Developer', 'Deprecated']);
-            $Call['View']['HTML']['Title'] = F::Merge($Call['View']['HTML']['Title'], $Pockets[1]);
+            if (isset($Call['View']['HTML']['Title']) && is_array($Call['View']['HTML']['Title']))
+                $Call['View']['HTML']['Title'] = F::Merge($Call['View']['HTML']['Title'], $Pockets[1]);
             $Call['Output'] = str_replace($Pockets[0], '', $Call['Output']);
         }
 

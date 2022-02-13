@@ -23,31 +23,34 @@
 
     setFn('Title', function ($Call)
     {
-        if (preg_match($Call['Meta']['Pattern']['Title'], $Call['Output']))
+        if (isset($Call['View']['HTML']['Title']))
         {
-            F::Log('*'.$Call['Meta']['Pattern']['Title'].'* tag is deprecated. Use *codeine-seo-title* instead', LOG_WARNING, ['Developer', 'Deprecated']);
-
-            $Call = F::Live($Call['Meta']['Sources']['Title'], $Call);
-
-            if (isset($Call['View']['HTML']['Title'][count($Call['View']['HTML']['Title'])-1]))
+            if (preg_match($Call['Meta']['Pattern']['Title'], $Call['Output']))
             {
-                $Call['View']['HTML']['Header RAW'] = $Call['View']['HTML']['Title'][count($Call['View']['HTML']['Title'])-1];
-                $Call['View']['HTML']['Header'] = strip_tags($Call['View']['HTML']['Title'][count($Call['View']['HTML']['Title'])-1], '<l><k>');
+                F::Log('*'.$Call['Meta']['Pattern']['Title'].'* tag is deprecated. Use *codeine-seo-title* instead', LOG_WARNING, ['Developer', 'Deprecated']);
+
+                $Call = F::Live($Call['Meta']['Sources']['Title'], $Call);
+
+                if (isset($Call['View']['HTML']['Title'][count($Call['View']['HTML']['Title'])-1]))
+                {
+                    $Call['View']['HTML']['Header RAW'] = $Call['View']['HTML']['Title'][count($Call['View']['HTML']['Title'])-1];
+                    $Call['View']['HTML']['Header'] = strip_tags($Call['View']['HTML']['Title'][count($Call['View']['HTML']['Title'])-1], '<l><k>');
+                }
+
+                if ($Call['Meta']['Title']['Reverse'])
+                    $Call['View']['HTML']['Title'] = array_reverse($Call['View']['HTML']['Title']);
+
+                $Call['View']['HTML']['Title'] = implode($Call['Meta']['Title']['Delimiter'], $Call['View']['HTML']['Title']);
+                $Call['View']['HTML']['Title'] = html_entity_decode(strip_tags($Call['View']['HTML']['Title'], '<l><k>'));
+                $Call['View']['HTML']['Title'] =
+                    preg_replace('/[\x00-\x1F\x7F]/','',$Call['View']['HTML']['Title']);
+
+                $Call['Output'] = preg_replace(
+                            $Call['Meta']['Pattern']['Title'],
+                            '<title itemprop="name">'.$Call['View']['HTML']['Title'].'</title>'
+                            .'<meta property="og:title" content="'.$Call['View']['HTML']['Title'].'"/>',
+                            $Call['Output']);
             }
-
-            if ($Call['Meta']['Title']['Reverse'])
-                $Call['View']['HTML']['Title'] = array_reverse($Call['View']['HTML']['Title']);
-
-            $Call['View']['HTML']['Title'] = implode($Call['Meta']['Title']['Delimiter'], $Call['View']['HTML']['Title']);
-            $Call['View']['HTML']['Title'] = html_entity_decode(strip_tags($Call['View']['HTML']['Title'], '<l><k>'));
-            $Call['View']['HTML']['Title'] =
-                preg_replace('/[\x00-\x1F\x7F]/','',$Call['View']['HTML']['Title']);
-
-            $Call['Output'] = preg_replace(
-                        $Call['Meta']['Pattern']['Title'],
-                        '<title itemprop="name">'.$Call['View']['HTML']['Title'].'</title>'
-                        .'<meta property="og:title" content="'.$Call['View']['HTML']['Title'].'"/>',
-                        $Call['Output']);
         }
 
         return $Call;
