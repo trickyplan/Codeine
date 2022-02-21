@@ -1,5 +1,13 @@
-<subtitle><codeine-locale>User.Login:Title</codeine-locale></subtitle>
+<codeine-seo-title>
+    <codeine-locale>User.Login:Title</codeine-locale>
+</codeine-seo-title>
 <breadcrumb href="/login"><header/></breadcrumb>
 <h2 class="page-header"><header/></h2>
 
+<codeine-foreach variable="Errors">
+    <div class="alert alert-danger">
+        <h4><codeine-locale>Security.Authentication.Backend.Errors:<fe-value/>.Title</codeine-locale></h4>
+        <codeine-locale>Security.Authentication.Backend.Errors:<fe-value/>.WhatToDo</codeine-locale>
+    </div>
+</codeine-foreach>
 <place>Content</place>

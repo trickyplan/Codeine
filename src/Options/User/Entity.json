@@ -80,14 +80,6 @@
                     "Redirect": "/"
                 }
             }
-        },
-        "afterUserLoginDo":
-        {
-            "Restore URL":
-            {
-                "Service": "System.Interface.HTTP",
-                "Method": "RestoreURL"
-            }
         }
     }
 }

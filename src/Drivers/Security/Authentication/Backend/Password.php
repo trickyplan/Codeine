@@ -12,7 +12,7 @@
         $Call['Output']['Content'][] =
             [
                 'Type'  => 'Template',
-                'Scope' => 'Security.Auth',
+                'Scope' => 'Security/Authentication/Backend',
                 'ID'    => 'Password'
             ];
 
@@ -21,6 +21,7 @@
 
     setFn('Identificate', function ($Call)
     {
+        // Just show us the password form
         return $Call;
     });
 
@@ -30,7 +31,7 @@
         {
             if (F::Dot($Call, 'Request.Password'))
             {
-                $Call['User'] =
+                $Call['Candidate'] =
                     F::Run('Entity', 'Read', $Call,
                         [
                             'Entity' => 'User',
@@ -41,7 +42,13 @@
                             'One' => true
                         ]);
 
-                $Challenge = F::Run('Security.Hash', 'Get', $Call,
+                if (empty($Call['Candidate']))
+                {
+                    $Call['Errors'][] = 'Password.Incorrect';
+                }
+                else
+                {
+                    $Challenge = F::Run('Security.Hash', 'Get', $Call,
                     [
                         'Security' =>
                             [
@@ -53,36 +60,29 @@
                         'Value' => F::Dot($Call, 'Request.Password')
                     ]);
 
-                $Password = F::Dot($Call, 'User.Password');
+                    $Password = F::Dot($Call, 'Candidate.Password');
 
-                if ($Password != $Challenge)
-                {
-                    F::Log('Passwords don\'t match', LOG_WARNING, 'Security');
-                    F::Log('User password hash is '.$Password, LOG_WARNING, 'Security');
-                    F::Log('Request password hash is '.$Challenge, LOG_WARNING, 'Security');
-
-                    $Call['Output']['Content'][] =
-                        [
-                            'Type' => 'Template',
-                            'Scope' => 'User/Authenticate',
-                            'ID' => 'Incorrect'
-                        ];
-
-                    unset($Call['User']);
+                    if ($Password != $Challenge)
+                    {
+                        $Call['Errors'][] = 'Password.Incorrect';
+                        F::Log('Passwords don\'t match', LOG_WARNING, 'Security');
+                        F::Log('User password hash is '.$Password, LOG_WARNING, 'Security');
+                        F::Log('Request password hash is '.$Challenge, LOG_WARNING, 'Security');
+                    }
+                    else
+                        F::Log('Passwords match', LOG_NOTICE, 'Security');
                 }
-                else
-                    F::Log('Passwords match', LOG_NOTICE, 'Security');
             }
             else
             {
                 F::Log('Password isn\'t set', LOG_WARNING, 'Security');
-                $Call['Errors'][] = 'Password isn\'t set';
+                $Call['Errors'][] = 'Undefined.Password';
             }
         }
         else
         {
             F::Log('User isn\'t set', LOG_WARNING, 'Security');
-            $Call['Errors'][] = 'User isn\'t set';
+            $Call['Errors'][] = 'Undefined.User';
         }
 
         return $Call;

@@ -38,32 +38,32 @@
         },
         "Identificate":
         {
-            "Match":"^/identificate/(\\w+)$",
+            "Match":"^/user/identificate/(\\w+)$",
             "Service":"User.Login",
             "Method":"Identificate",
             "Call":
             {
-                "Mode": "$1"
+                "Backend": "$1"
             }
         },
         "Authenticate":
         {
-            "Match":"^/auth/(\\w+)$",
+            "Match":"^/user/authenticate/(\\w+)$",
             "Service":"User.Login",
             "Method":"Authenticate",
             "Call":
             {
-                "Mode": "$1"
+                "Backend": "$1"
             }
         },
         "Annulate":
         {
-            "Match":"^/annulate/(.+)$",
+            "Match":"^/user/annulate/(.+)$",
             "Service":"User.Login",
             "Method":"Annulate",
             "Call":
             {
-                "Mode": "$1"
+                "Backend": "$1"
             }
         },
         "Login as user":
