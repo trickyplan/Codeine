@@ -12,7 +12,7 @@
     },
     "Hosts":
     {
-        "Development":"codeine.local"
+        "Development":"codeine.localhost"
     },
     "Currency": "RUR",
     "Audience":
