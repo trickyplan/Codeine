@@ -23,10 +23,10 @@
         </codeine-if>
     </td>
     <td>
-        <if value="<codeine-key>ID</codeine-key>" eq="<call>SID</call>">
+        <if value="<codeine-key>ID</codeine-key>" eq="<codeine-variable>SID</codeine-variable>">
             Ваша сессия
         </if>
-        <if value="<codeine-key>ID</codeine-key>" neq="<call>SID</call>">
+        <if value="<codeine-key>ID</codeine-key>" neq="<codeine-variable>SID</codeine-variable>">
             <a href="/control/Session/Delete/<codeine-key>ID</codeine-key>"><codeine-locale>Session.Control:Annulate</codeine-locale></a>
         </if>
     </td>

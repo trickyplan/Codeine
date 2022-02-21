@@ -1,4 +1,4 @@
-<subtitle>Активация прошла успешно</subtitle>
+<codeine-seo-title>Активация прошла успешно</codeine-seo-title>
 <breadcrumb href="/activation/success">Активация прошла успешно</breadcrumb>
 
 <div class="panel panel-success">
@@ -9,10 +9,10 @@
 
     </div>
     <div class="panel-footer">
-        <if value="<call>Session.User.ID</call>" eq="0">
+        <if value="<codeine-variable>Session.User.ID</codeine-variable>" eq="0">
             <a href="/login">Перейти к авторизации</a>
         </if>
-        <if value="<call>Session.User.ID</call>" neq="0">
+        <if value="<codeine-variable>Session.User.ID</codeine-variable>" neq="0">
             <a href="/">Продолжить работу</a>
         </if>
     </div>

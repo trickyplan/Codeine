@@ -1,6 +1,6 @@
 
 <breadcrumb href="<codeine-variable>HTTP.URL</codeine-variable>"><codeine-locale>Error.403-Blocked:Title</codeine-locale></breadcrumb>
-<subtitle><codeine-locale>Error.403-Blocked:Title</codeine-locale></subtitle>
+<codeine-seo-title><codeine-locale>Error.403-Blocked:Title</codeine-locale></codeine-seo-title>
 
 <h2 class="page-header"><codeine-locale>Error.403-Blocked:Title</codeine-locale></h2>
 <div class="alert alert-danger">
@@ -11,6 +11,6 @@
     <h4><codeine-locale>Error.403-Blocked:Solution.Title</codeine-locale></h4>
     <codeine-locale>Error.403-Blocked:Solution.Description</codeine-locale>
 </div>
-<if value="<call>Session.User.ID</call>" eq="">
+<if value="<codeine-variable>Session.User.ID</codeine-variable>" eq="">
     <a href="/login">Forgot login?</a>
 </if>

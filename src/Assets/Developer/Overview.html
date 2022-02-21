@@ -3,22 +3,22 @@
         Разработчик
     </div>
     <div class="panel-body">
-        <if value="<call>Developer.Title</call>" neq="0">
+        <if value="<codeine-variable>Developer.Title</codeine-variable>" neq="0">
                 <div class="row">
                     <div class="col-md-2">
-                        <img class="img img-responsive pull-right" src="<call>Developer.Meta.Logo</call>" width="200" height="200"/>
+                        <img class="img img-responsive pull-right" src="<codeine-variable>Developer.Meta.Logo</codeine-variable>" width="200" height="200"/>
                     </div>
                     <div class="col-md-10">
                         <h2 class="page-header">
-                            <a href="<call>Developer.Meta.URL</call>"><call>Developer.Meta.Title</call></a>
+                            <a href="<codeine-variable>Developer.Meta.URL</codeine-variable>"><codeine-variable>Developer.Meta.Title</codeine-variable></a>
                         </h2>
-                        <a class="btn btn-default btn-success" href="mailto:<call>Developer.Meta.EMail</call>">Написать</a> &nbsp;
-                        <a class="btn btn-default btn-danger" href="tel:<call>Developer.Meta.Phone</call>">Позвонить</a> &nbsp;
+                        <a class="btn btn-default btn-success" href="mailto:<codeine-variable>Developer.Meta.EMail</codeine-variable>">Написать</a> &nbsp;
+                        <a class="btn btn-default btn-danger" href="tel:<codeine-variable>Developer.Meta.Phone</codeine-variable>">Позвонить</a> &nbsp;
                     </div>
                 </div>
         </if>
 
-        <if value="<call>Developer</call>" eq="">
+        <if value="<codeine-variable>Developer</codeine-variable>" eq="">
             <div class="alert alert-warning">
                 Нет разработчика.
             </div>

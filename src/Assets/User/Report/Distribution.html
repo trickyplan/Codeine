@@ -8,7 +8,7 @@
         var data = google.visualization.arrayToDataTable(data);
 
         var options = {
-          title: 'Распределение по «<call>ID</call>»'
+          title: 'Распределение по «<codeine-variable>ID</codeine-variable>»'
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
@@ -16,7 +16,7 @@
       }
 
       $.ajax({
-          url: '/report/User/Distribution/<call>ID</call>.json',
+          url: '/report/User/Distribution/<codeine-variable>ID</codeine-variable>.json',
           dataType: 'json',
           success: function (data) {drawChart(data)}
       })

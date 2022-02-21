@@ -1,4 +1,4 @@
-<subtitle><k>Subject</k></subtitle>
+<codeine-seo-title><k>Subject</k></codeine-seo-title>
 <breadcrumb href="/message/<k>ID</k>"><k>Subject</k></breadcrumb>
 <div class="row">
     <div class="col-lg-6">
@@ -24,15 +24,15 @@
     </div>
 </div>
 <h4>Ответить</h4>
-<exec>
+<codeine-exec>
     <Service>Entity.Create</Service>
     <Method>Do</Method>
-    <Call>
+    <codeine-variable>
         <Entity>Message</Entity>
         <Action>/message/new</Action>
         <Data>
             <To><k>From</k></To>
             <Subject><k>Subject</k></Subject>
         </Data>
-    </Call>
-</exec>
+    </codeine-variable>
+</codeine-exec>
