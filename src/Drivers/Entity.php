@@ -148,6 +148,7 @@
 
                 $Call = F::Hook('beforeEntityRead', $Call);
                     
+                F::Log($Call['Where'], LOG_INFO, 'Developer');
                 $Call['Data'] = F::Run('IO', 'Read', $Call);
 
                 if ($Call['Data'] !== null)
@@ -323,6 +324,7 @@
 
         $Call = F::Hook('beforeOperation', $Call);
             $Call = F::Hook('beforeEntityCount', $Call);
+                F::Log($Call['Where'], LOG_INFO, 'Developer');
 
             $Call['Data'] = F::Run('IO', 'Execute', $Call,
             [
