@@ -1,3 +1,22 @@
 {
-    "TrueValue": true
+    "Subtype": "text",
+    "Closing Tag": false,
+    "Attributes":
+    {
+        "String":
+        {
+            "Type": "",
+            "ID": "",
+            "Name": "",
+            "Value": "true"
+        },
+        "Boolean":
+        {
+            "Checked": false,
+            "Autofocus": false,
+            "Required": false,
+            "Disabled": false,
+            "ReadOnly": false
+        }
+    }
 }

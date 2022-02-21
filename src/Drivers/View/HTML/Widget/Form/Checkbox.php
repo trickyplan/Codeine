@@ -24,5 +24,10 @@
                 $Call['Label'] = $Call['Entity'] . '.Entity:' . $Call['Key'];
         }
 
-        return $Call;
+         return F::Run('View.HTML.Widget.Base', 'Make',
+             $Call,
+             [
+                 'Tag' => 'input',
+                 'Type' => 'checkbox'
+             ]);
     });
