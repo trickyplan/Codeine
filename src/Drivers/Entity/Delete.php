@@ -57,7 +57,7 @@
                     [
                         'Type'  => 'Block',
                         'Class' => 'alert alert-danger',
-                        'Value' => '<l>'.$Call['Entity'].'.Delete:WillBeDeleted</l>: '.$Call['Delete']['Count']
+                        'Value' => '<codeine-locale>(.*)</codeine-locale>: '.$Call['Delete']['Count']
                     ];
             else
                 $Call['Output']['Content'][]  =

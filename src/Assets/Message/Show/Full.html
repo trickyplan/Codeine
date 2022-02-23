@@ -1,8 +1,8 @@
-<codeine-seo-title><k>Subject</k></codeine-seo-title>
-<breadcrumb href="/message/<k>ID</k>"><k>Subject</k></breadcrumb>
+<codeine-seo-title><codeine-key>(.*)</codeine-key></codeine-seo-title>
+<breadcrumb href="/message/<codeine-key>(.*)</codeine-key></breadcrumb>
 
 <div class="btn-toolbar pull-right">
-    <a class="btn btn-danger" href="/message/delete/<k>ID</k>">
+    <a class="btn btn-danger" href="/message/delete/<codeine-key>(.*)</codeine-key>">
         <codeine-locale>Message.Delete:Title</codeine-locale>
     </a>
 </div>
@@ -11,20 +11,20 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <k>Subject</k>
+        <codeine-key>(.*)</codeine-key>
         <div class="pull-right">
-            <strong>Прочитано:</strong> <datetime><k>Readed</k></datetime>
+            <strong>Прочитано:</strong> <datetime><codeine-key>(.*)</codeine-key></datetime>
         </div>
     </div>
     <div class="panel-body">
-        <k>Body</k>
+        <codeine-key>(.*)</codeine-key>
     </div>
     <div class="panel-footer">
-        <entity>User:<k>User</k></entity>
+        <codeine-entity>(.*)</codeine-entity>
             &nbsp;<span class="glyphicon glyphicon-chevron-right"></span>&nbsp;
-        <entity>User:<k>Target</k></entity>
+        <codeine-entity>(.*)</codeine-entity>
         <div class="pull-right">
-            <datetime><k>Created</k></datetime>
+            <datetime><codeine-key>(.*)</codeine-key></datetime>
         </div>
     </div>
 </div>
@@ -34,11 +34,11 @@
     <Method>Do</Method>
     <codeine-variable>
         <Title>Ответить</Title>
-        <Entity>Message</Entity>
+        <codeine-entity>(.*)</codeine-entity>
         <Action>/message/new</Action>
         <Data>
-            <Target><k>User</k></Target>
-            <Subject><k>Subject</k></Subject>
+            <Target><codeine-key>(.*)</codeine-key></Target>
+            <Subject><codeine-key>(.*)</codeine-key></Subject>
         </Data>
     </codeine-variable>
 </codeine-exec>

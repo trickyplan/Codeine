@@ -1,11 +1,11 @@
-<a href="/photo/<k>ID</k>">
+<a href="/photo/<codeine-key>(.*)</codeine-key>">
     <image type="JSON">
     {
         "Source":
         {
             "Storage": "Upload",
             "Scope": "Photo/Photo",
-            "Where": "<k>Photo</k>"
+            "Where": "<codeine-key>(.*)</codeine-key>"
         },
         "Class": "img img-thumbnail img-responsive"
     }

@@ -1,10 +1,10 @@
 <div class="list-group-item" data-toggle="collapse" href="#ResultActual_<codeine-key>CID</codeine-key>" aria-expanded="false">
     <div class="row">
         <div class="col-md-1">
-            <codeine-if value="<k>Status</k>" eq="Passed">
+            <codeine-if value="<codeine-key>(.*)</codeine-key>" eq="Passed">
                 <span class="fas fa-check text-success"></span>
             </codeine-if>
-            <codeine-if value="<k>Status</k>" eq="Failed">
+            <codeine-if value="<codeine-key>(.*)</codeine-key>" eq="Failed">
                 <span class="fas fa-times text-danger"></span>
             </codeine-if>
             <codeine-key>Status</codeine-key>

@@ -1,29 +1,29 @@
 <div class="progress progress-striped progress-md">
-    <if value="<k>Filled</k>" lt="30">
+    <if value="<codeine-key>(.*)</codeine-key>" lt="30">
       <div class="progress-bar progress-bar-danger" role="progressbar"
-           aria-valuenow="<k>Filled</k>" aria-valuemin="0" aria-valuemax="100" style="width: <k>Filled</k>%;">
-            <k>Filled</k>%
+           aria-valuenow="<codeine-key>(.*)</codeine-key>%;">
+            <codeine-key>(.*)</codeine-key>%
       </div>
     </if>
 
-    <if value="<k>Filled</k>" gt="29" lt="60">
+    <if value="<codeine-key>(.*)</codeine-key>" gt="29" lt="60">
           <div class="progress-bar progress-bar-warning" role="progressbar"
-               aria-valuenow="<k>Filled</k>" aria-valuemin="0" aria-valuemax="100" style="width: <k>Filled</k>%;">
-            <k>Filled</k>%
+               aria-valuenow="<codeine-key>(.*)</codeine-key>%;">
+            <codeine-key>(.*)</codeine-key>%
           </div>
     </if>
 
-    <if value="<k>Filled</k>" gt="59" lt="90">
+    <if value="<codeine-key>(.*)</codeine-key>" gt="59" lt="90">
           <div class="progress-bar progress-bar-info" role="progressbar"
-               aria-valuenow="<k>Filled</k>" aria-valuemin="0" aria-valuemax="100" style="width: <k>Filled</k>%;">
-            <k>Filled</k>%
+               aria-valuenow="<codeine-key>(.*)</codeine-key>%;">
+            <codeine-key>(.*)</codeine-key>%
           </div>
     </if>
 
-    <if value="<k>Filled</k>" gt="89">
+    <if value="<codeine-key>(.*)</codeine-key>" gt="89">
           <div class="progress-bar progress-bar-success" role="progressbar"
-               aria-valuenow="<k>Filled</k>" aria-valuemin="0" aria-valuemax="100" style="width: <k>Filled</k>%;">
-            <k>Filled</k>%
+               aria-valuenow="<codeine-key>(.*)</codeine-key>%;">
+            <codeine-key>(.*)</codeine-key>%
           </div>
     </if>
 </div>

@@ -2,14 +2,14 @@
     <div class="pull-right">
         <ul class="list-inline">
             <li>
-                <a href="/control/<codeine-variable>Entity</codeine-variable>/Impersonate/<k>ID</k>?BackURL=/profile">
+                <a href="/control/<codeine-variable>Entity</codeine-variable>/Impersonate/<codeine-key>(.*)</codeine-key>?BackURL=/profile">
                     <span class="fa fa-user-circle-o" data-toggle="tooltip" title="<codeine-locale>User.Impersonate:Title</codeine-locale>"></span>
                 </a>
             </li>
             <codeine-layout>Control:Mixins/RUD</codeine-layout>
         </ul>
     </div>
-    <h4><k>Title</k></h4>
-    <div>Email: <a href="mailto:<k>EMail</k>"><k>EMail</k></a></div>
-    <div><datetime><k>Created</k></datetime></div>
+    <h4><codeine-key>(.*)</codeine-key></h4>
+    <div>Email: <a href="mailto:<codeine-key>(.*)</codeine-key></a></div>
+    <div><datetime><codeine-key>(.*)</codeine-key></datetime></div>
 </li>

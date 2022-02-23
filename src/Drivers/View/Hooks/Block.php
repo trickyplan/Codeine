@@ -104,9 +104,9 @@
                                             
                                             $Output .= str_replace('<#/>',
                                                 $ICV,
-                                                str_replace('<k>'.$Match.'</k>', $cData, $Call['Parsed'][1][$IX]).
+                                                str_replace('<codeine-key>(.*)</codeine-key>', $cData, $Call['Parsed'][1][$IX]).
                                                 ($cData)
-                                                .str_replace('<k>'.$Match.'</k>', $cData, $Call['Parsed'][3][$IX]));
+                                                .str_replace('<codeine-key>(.*)</codeine-key>', $cData, $Call['Parsed'][3][$IX]));
                                         }
                                 }
                                 else

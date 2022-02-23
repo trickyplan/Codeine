@@ -39,7 +39,7 @@
             $Output = [['Status', 'Online']];
             foreach ($Data as $Key => $Value)
                 if (in_array($Key, $Call['Redis']['Status']['Keys']))
-                    $Output[] = ['<l>IO.Storage.Redis.Status:'.strtr($Key, '_', '.').'</l>', $Value];
+                    $Output[] = ['<codeine-locale>(.*)</codeine-locale>', $Value];
         }
 
         $Call['Output']['Content'][] =

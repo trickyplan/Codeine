@@ -19,7 +19,7 @@
                  if (!isset($Call['Values Locale']))
                      $Call['Values Locale'] = $Call['Entity'].'.Entity:'.$Call['Key'];
 
-                 $lValue = '<l>'.$Call['Values Locale'].'.'.$Value.'</l>';
+                 $lValue = '<codeine-locale>(.*)</codeine-locale>';
              }
              else
                 $lValue = $Value;

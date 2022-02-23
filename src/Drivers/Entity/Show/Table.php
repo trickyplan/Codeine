@@ -16,7 +16,7 @@
         F::Map($Element, function ($Key, $Value, $D, $Fullkey) use ($Call, &$Data)
         {
             if (!is_array($Value))
-                $Data[] = ['<l>'.$Call['Entity'].'.Entity:'.substr($Fullkey, 1).'</l>', $Value];
+                $Data[] = ['<codeine-locale>(.*)</codeine-locale>', $Value];
         });
 
         $Call['Output']['Content'][]

@@ -1,21 +1,21 @@
     <div class="label label-default">
-        <k>Words</k> слов
+        <codeine-key>(.*)</codeine-key> слов
     </div>
     <div class="label label-default">
-        <k>Chars</k> <span title="без пробелов">знаков</span>
+        <codeine-key>(.*)</codeine-key> <span title="без пробелов">знаков</span>
     </div>
-<if value="<k>Sickness</k>" gt="33" lt="67">
+<if value="<codeine-key>(.*)</codeine-key>" gt="33" lt="67">
     <div class="label label-warning">
-        <k>Sickness</k>% тошноты
+        <codeine-key>(.*)</codeine-key>% тошноты
     </div>
 </if>
-<if value="<k>Sickness</k>" gt="67">
+<if value="<codeine-key>(.*)</codeine-key>" gt="67">
     <div class="label label-danger">
-        <k>Sickness</k>% тошноты
+        <codeine-key>(.*)</codeine-key>% тошноты
     </div>
 </if>
-<if value="<k>Sickness</k>" lt="33">
+<if value="<codeine-key>(.*)</codeine-key>" lt="33">
     <div class="label label-success">
-        <k>Sickness</k>% тошноты
+        <codeine-key>(.*)</codeine-key>% тошноты
     </div>
 </if>

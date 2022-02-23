@@ -16,7 +16,7 @@
         foreach ($Call['Options'] as $Key => $Value)
         {
             if (isset($Call['Localized']) && $Call['Localized'])
-                $lValue = '<l>'.$Call['Entity'].'.Entity:'.$Call['Key'].'.'.$Value.'</l>';
+                $lValue = '<codeine-locale>(.*)</codeine-locale>';
             else
                 $lValue = $Value;
 

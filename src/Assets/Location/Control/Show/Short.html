@@ -3,9 +3,9 @@
         <codeine-layout>Control:Pills/RUD</codeine-layout>
     </div>
 
-    <a href="/<k>Slug</k>"><h4><k>Title</k></h4></a>
+    <a href="/<codeine-key>(.*)</codeine-key></h4></a>
 
-    <if value="<k>Priority</k>" gt="0">
-        <codeine-locale>Page.Entity:Priority</codeine-locale>: <k>Priority</k>
+    <if value="<codeine-key>(.*)</codeine-key>" gt="0">
+        <codeine-locale>Page.Entity:Priority</codeine-locale>: <codeine-key>(.*)</codeine-key>
     </if>
 </li>

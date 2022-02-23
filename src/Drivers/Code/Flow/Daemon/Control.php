@@ -15,7 +15,7 @@
                  [
                      'Type'  => 'Block',
                      'Class' => 'alert alert-success',
-                     'Value' => '<l>Code.Flow.Daemon:Status.Started</l>'
+                     'Value' => '<codeine-locale>(.*)</codeine-locale>'
                  ];
          }
          else
@@ -24,13 +24,13 @@
                  [
                      'Type'  => 'Block',
                      'Class' => 'alert alert-danger',
-                     'Value' => '<l>Code.Flow.Daemon:Status.Stopped</l>'
+                     'Value' => '<codeine-locale>(.*)</codeine-locale>'
                  ];
          }
 
          $Call['Daemon'] = F::loadOptions('Code.Flow.Daemon');
 
-         $Table = [['<l>Code.Flow.Daemon:Daemon.Title</l>', '<l>Code.Flow.Daemon:Daemon.Frequency</l>']];
+         $Table = [['<codeine-locale>(.*)</codeine-locale>']];
 
          foreach ($Call['Daemon']['Daemons'] as $DaemonName => $DaemonRun)
          {

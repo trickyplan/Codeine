@@ -1,10 +1,10 @@
-<codeine-seo-title><k>SEO.Title,Title</k></codeine-seo-title>
-<breadcrumb href="/<k>Slug</k>"><header/></breadcrumb>
-<codeine-seo-description><k>SEO.Description</k></codeine-seo-description>
+<codeine-seo-title><codeine-key>(.*)</codeine-key></codeine-seo-title>
+<breadcrumb href="/<codeine-key>(.*)</codeine-key>"><header/></breadcrumb>
+<codeine-seo-description><codeine-key>(.*)</codeine-key></codeine-seo-description>
 <access Service="Control.Panel">
     <codeine-layout>Control/Mixins:Top</codeine-layout>
 </access>
-<h2 class="page-header"><k>Title</k></h2>
+<h2 class="page-header"><codeine-key>(.*)</codeine-key></h2>
 <div class="readable">
-    <k>Body</k>
+    <codeine-key>(.*)</codeine-key>
 </div>

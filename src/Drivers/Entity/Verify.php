@@ -112,7 +112,7 @@
                         [
                             'Type' => 'Block',
                             'Class' => 'alert alert-danger',
-                            'Value' => '<l>'.$Call['Entity'].'.Error:'.$Name.'.'.$Error.'</l>'
+                            'Value' => '<codeine-locale>(.*)</codeine-locale>'
                         ];
 
             $Call = F::Apply(null, 'GET', $Call);

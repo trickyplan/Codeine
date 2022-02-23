@@ -14,7 +14,7 @@
             [
                 'Type'  => 'Heading',
                 'Level' => 3,
-                'Value' => '<l>Project.Terms:Rule.'.$Term.'</l>'
+                'Value' => '<codeine-locale>(.*)</codeine-locale>'
             ];
 
         return $Call;

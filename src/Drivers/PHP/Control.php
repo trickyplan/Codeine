@@ -28,7 +28,7 @@
             array (
                 'Type'  => 'Block',
                 'Class' => 'alert '.('Stable' == $Version? 'alert-success': 'alert-warning'),
-                'Value' => 'PHP: '.phpversion().' <br/> <l>PHP.Control:Version.Verdict.'.$Version.'</l>'
+                'Value' => 'PHP: '.phpversion().' <br/> <codeine-locale>(.*)</codeine-locale>'
             ));
 
         return $Call;

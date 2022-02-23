@@ -41,7 +41,7 @@
                         else
                             $Call['Values Locale'] = $Call['Entity'].'.Entity:'.$Call['Key'];
                         
-                        $Label = '<l>'.$Call['Values Locale'].'.'.$Value.'</l>';
+                        $Label = '<codeine-locale>(.*)</codeine-locale>';
                         break;
                     
                     case 'Key':

@@ -1,15 +1,15 @@
-<breadcrumb href="/photo/<k>ID</k>"><k>Title</k></breadcrumb>
-<codeine-seo-title><k>Title</k></codeine-seo-title>
+<breadcrumb href="/photo/<codeine-key>(.*)</codeine-key></breadcrumb>
+<codeine-seo-title><codeine-key>(.*)</codeine-key></codeine-seo-title>
 
 <div class="">
-<h4 class="page-header"><k>Title</k></h4>
+<h4 class="page-header"><codeine-key>(.*)</codeine-key></h4>
     <image type="JSON">
     {
         "Source":
         {
             "Storage": "Upload",
             "Scope": "Photo/Photo",
-            "Where": "<k>Photo</k>"
+            "Where": "<codeine-key>(.*)</codeine-key>"
         },
         "Class": "img img-thumbnail img-responsive center-block"
     }
@@ -17,7 +17,7 @@
 </div>
 
 <div>
-    <k>Description</k>
+    <codeine-key>(.*)</codeine-key>
 </div>
 
 <jsrun>

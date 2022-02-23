@@ -7,7 +7,7 @@
                 {
                     "Storage": "Upload",
                     "Scope": "Photo/Photo",
-                    "Where": "<k>Photo</k>"
+                    "Where": "<codeine-key>(.*)</codeine-key>"
                 },
                 "Thumb": true,
                 "Height": 64,
@@ -21,10 +21,10 @@
             <div class="pull-right">
                 <codeine-layout>Control:Pills/RUD</codeine-layout>
             </div>
-            <a href="/<k>Slug</k>"><h4><k>Title</k></h4></a>
+            <a href="/<codeine-key>(.*)</codeine-key></h4></a>
 
-            <if value="<k>Priority</k>" gt="0">
-                <div class="label label-info"><k>Priority</k></div>
+            <if value="<codeine-key>(.*)</codeine-key>" gt="0">
+                <div class="label label-info"><codeine-key>(.*)</codeine-key></div>
             </if>
         </div>
     </div>

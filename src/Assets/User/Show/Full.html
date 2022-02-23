@@ -1,6 +1,6 @@
-<codeine-seo-title><k>Title</k></codeine-seo-title>
-<breadcrumb href="/user/<k>ID</k>"><k>Title</k></breadcrumb>
-<h2 class="page-header"><k>Title</k></h2>
+<codeine-seo-title><codeine-key>(.*)</codeine-key></codeine-seo-title>
+<breadcrumb href="/user/<codeine-key>(.*)</codeine-key></breadcrumb>
+<h2 class="page-header"><codeine-key>(.*)</codeine-key></h2>
 <div class="panel panel-default">
     <div class="panel-body">
         <div class="row">
@@ -9,19 +9,19 @@
                     <Source>
                     <Storage>Upload</Storage>
                     <Scope>User/Photo</Scope>
-                    <Where><k>Avatar</k></Where>
+                    <Where><codeine-key>(.*)</codeine-key></Where>
                     </Source>
                     <Width>200</Width>
                     <Height>200</Height>
-                    <Default>User/img:Default<k>Gender</k>.png</Default>
+                    <Default>User/img:Default<codeine-key>(.*)</codeine-key>.png</Default>
                     <Thumb/>
                     <Class>img img-responsive</Class>
                 </image>
             </div>
             <div class="col-lg-10">
                 <h4>
-                    <k>Location</k>
-                    <entity>Country:<k>Country</k></entity>
+                    <codeine-key>(.*)</codeine-key>
+                    <codeine-entity>(.*)</codeine-entity>
                 </h4>
 
                 <table class="table table-striped">
@@ -30,9 +30,9 @@
                             <codeine-locale>User.Entity:Created</codeine-locale>
                         </td>
                         <td>
-                            <datetime><k>Created</k></datetime>
+                            <datetime><codeine-key>(.*)</codeine-key></datetime>
                             <small class="pull-right">
-                                <datetime engine="Period" format="2"><k>Created</k></datetime>
+                                <datetime engine="Period" format="2"><codeine-key>(.*)</codeine-key></datetime>
                             </small>
                         </td>
                     </tr>
@@ -41,9 +41,9 @@
                             <codeine-locale>User.Entity:DOB</codeine-locale>
                         </td>
                         <td>
-                            <datetime format="d.m.Y"><k>DOB</k></datetime>
+                            <datetime format="d.m.Y"><codeine-key>(.*)</codeine-key></datetime>
                             <small class="pull-right">
-                                <datetime engine="Period" format="1"><k>DOB</k></datetime>
+                                <datetime engine="Period" format="1"><codeine-key>(.*)</codeine-key></datetime>
                             </small>
                         </td>
                     </tr>
@@ -52,7 +52,7 @@
                             <codeine-locale>User.Entity:Country</codeine-locale>
                         </td>
                         <td>
-                            <entity>Country:<k>Country</k></entity>
+                            <codeine-entity>(.*)</codeine-entity>
                         </td>
                     </tr>
                     <tr>
@@ -60,7 +60,7 @@
                             <codeine-locale>User.Entity:Location</codeine-locale>
                         </td>
                         <td>
-                            <k>Location</k>
+                            <codeine-key>(.*)</codeine-key>
                         </td>
                     </tr>
                 </table>

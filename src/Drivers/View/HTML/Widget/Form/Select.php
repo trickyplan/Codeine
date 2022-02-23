@@ -53,7 +53,7 @@
                      if (empty($Value))
                          $lValue = '';
                      else
-                        $lValue = '<l>'.$Call['Values Locale'].'.'.$Value.'</l>';
+                        $lValue = '<codeine-locale>(.*)</codeine-locale>';
                  }
                  else
                      $lValue = $Value;

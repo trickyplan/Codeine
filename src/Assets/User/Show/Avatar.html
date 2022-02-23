@@ -2,11 +2,11 @@
     <Source>
         <Storage>Upload</Storage>
         <Scope>User/Photo</Scope>
-        <Where><k>Avatar</k></Where>
+        <Where><codeine-key>(.*)</codeine-key></Where>
     </Source>
     <Width>100</Width>
     <Height>100</Height>
-    <Default>User/img:Default<k>Gender</k>.png</Default>
+    <Default>User/img:Default<codeine-key>(.*)</codeine-key>.png</Default>
     <Thumb/>
     <Class>img img-responsive</Class>
 </image>
