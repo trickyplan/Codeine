@@ -90,7 +90,7 @@
         }
 
         $Call['Output'] = str_replace(
-            F::Dot($Call, 'View.HTML.SEO.Titles.Pattern'),
+            F::Dot($Call, 'View.HTML.SEO.Keywords.Pattern'),
             $Replace,
             $Call['Output']);
         return $Call;
@@ -141,7 +141,7 @@
         }
 
         $Call['Output'] = str_replace(
-            F::Dot($Call, 'View.HTML.SEO.Titles.Pattern'),
+            F::Dot($Call, 'View.HTML.SEO.Descriptions.Pattern'),
             $Replace,
             $Call['Output']);
 
