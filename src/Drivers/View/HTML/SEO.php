@@ -22,7 +22,7 @@
     setFn('Title', function ($Call)
     {
         if (empty($Call['SEO']['Titles']))
-            ;
+            $Replace = '';
         else
         {
             $Call = F::Dot($Call, 'View.HTML.SEO.Output.Titles', array_pop($Call['SEO']['Titles']));
@@ -31,25 +31,27 @@
 
             if (F::Dot($Call, 'View.HTML.SEO.Titles.Size.Max')
                 && $SZ > F::Dot($Call, 'View.HTML.SEO.Titles.Size.Max'))
-                F::Log('Title *'.$Title.'* is too long', LOG_NOTICE, 'Marketing');
+                F::Log('Title *' . $Title . '* is too long', LOG_NOTICE, 'Marketing');
 
             if (F::Dot($Call, 'View.HTML.SEO.Titles.Size.Min')
                 && $SZ < F::Dot($Call, 'View.HTML.SEO.Titles.Size.Min'))
-                F::Log('Title *'.$Title.'* is too short', LOG_NOTICE, 'Marketing');
+                F::Log('Title *' . $Title . '* is too short', LOG_NOTICE, 'Marketing');
 
             $VCall = F::Apply('View.HTML.Widget.Base', 'Make', $Call,
-            [
-                'Type'  => 'Base',
-                'Tag'  => 'title',
-                'Closing Tag' => true,
-                'Value' => $Call['View']['HTML']['SEO']['Output']['Titles']
-            ]);
+                [
+                    'Type' => 'Base',
+                    'Tag' => 'title',
+                    'Closing Tag' => true,
+                    'Value' => $Call['View']['HTML']['SEO']['Output']['Titles']
+                ]);
 
-            $Call['Output'] = str_replace(
-                    F::Dot($Call, 'View.HTML.SEO.Titles.Pattern'),
-                    $VCall['HTML'],
-                    $Call['Output']);
+            $Replace = $VCall['HTML'];
         }
+
+        $Call['Output'] = str_replace(
+            F::Dot($Call, 'View.HTML.SEO.Titles.Pattern'),
+            $Replace,
+            $Call['Output']);
 
         return $Call;
     });
@@ -57,7 +59,7 @@
     setFn('Keywords', function ($Call)
     {
         if (empty($Call['SEO']['Keywords']))
-            ;
+            $Replace = '';
         else
         {
             if (F::Dot($Call, 'View.HTML.SEO.Keywords.MakeUnique'))
@@ -67,36 +69,37 @@
 
             $Call['View']['HTML']['SEO']['Output']['Keywords'] = implode(
                 F::Dot($Call, 'View.HTML.SEO.Keywords.Separator'), $Call['SEO']['Keywords']);
-                // strip_tags($Call['View']['HTML']['Keywords'])
+            // strip_tags($Call['View']['HTML']['Keywords'])
 
             $VCall = F::Apply('View.HTML.Widget.Base', 'Make', $Call,
-            [
-                'Type'  => 'Base',
-                'Tag'  => 'meta',
-                'Attributes' =>
                 [
-                    'String' =>
-                    [
-                        'name'      => 'keywords',
-                        'content'   => $Call['View']['HTML']['SEO']['Output']['Keywords']
-                    ]
-                ],
-                'Value' => null
-            ]);
+                    'Type' => 'Base',
+                    'Tag' => 'meta',
+                    'Attributes' =>
+                        [
+                            'String' =>
+                                [
+                                    'name' => 'keywords',
+                                    'content' => $Call['View']['HTML']['SEO']['Output']['Keywords']
+                                ]
+                        ],
+                    'Value' => null
+                ]);
 
-            $Call['Output'] = str_replace(
-                    F::Dot($Call, 'View.HTML.SEO.Keywords.Pattern'),
-                    $VCall['HTML'],
-                    $Call['Output']);
+            $Replace = $VCall['HTML'];
         }
 
+        $Call['Output'] = str_replace(
+            F::Dot($Call, 'View.HTML.SEO.Titles.Pattern'),
+            $Replace,
+            $Call['Output']);
         return $Call;
     });
 
     setFn('Description', function ($Call)
     {
         if (empty($Call['SEO']['Descriptions']))
-            ;
+            $Replace = '';
         else
         {
             if (F::Dot($Call, 'View.HTML.SEO.Descriptions.MakeUnique'))
@@ -113,31 +116,34 @@
 
             if (F::Dot($Call, 'View.HTML.SEO.Description.Size.Max')
                 && $SZ > F::Dot($Call, 'View.HTML.SEO.Description.Size.Max'))
-                F::Log('Description *'.$Description.'* is too long', LOG_NOTICE, 'Marketing');
+                F::Log('Description *' . $Description . '* is too long', LOG_NOTICE, 'Marketing');
 
             if (F::Dot($Call, 'View.HTML.SEO.Description.Size.Min')
                 && $SZ < F::Dot($Call, 'View.HTML.SEO.Description.Size.Min'))
-                F::Log('Description *'.$Description.'* is too short', LOG_NOTICE, 'Marketing');
+                F::Log('Description *' . $Description . '* is too short', LOG_NOTICE, 'Marketing');
 
             $VCall = F::Apply('View.HTML.Widget.Base', 'Make', $Call,
-            [
-                'Type'  => 'Base',
-                'Tag'  => 'meta',
-                'Attributes' =>
                 [
-                    'String' =>
-                    [
-                        'name'      => 'description',
-                        'content'   => $Call['View']['HTML']['SEO']['Output']['Descriptions']
-                    ]
-                ],
-                'Value' => null
-            ]);
+                    'Type' => 'Base',
+                    'Tag' => 'meta',
+                    'Attributes' =>
+                        [
+                            'String' =>
+                                [
+                                    'name' => 'description',
+                                    'content' => $Call['View']['HTML']['SEO']['Output']['Descriptions']
+                                ]
+                        ],
+                    'Value' => null
+                ]);
 
-            $Call['Output'] = str_replace(
-                    F::Dot($Call, 'View.HTML.SEO.Descriptions.Pattern'),
-                    $VCall['HTML'],
-                    $Call['Output']);
+            $Replace = $VCall['HTML'];
         }
+
+        $Call['Output'] = str_replace(
+            F::Dot($Call, 'View.HTML.SEO.Titles.Pattern'),
+            $Replace,
+            $Call['Output']);
+
         return $Call;
     });
