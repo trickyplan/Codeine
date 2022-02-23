@@ -2,14 +2,14 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description <k> tag 
+     * @description <codeine-key> tag 
      * @package Codeine
      * @version 8.x
      */
 
     setFn('Parse', function ($Call)
     {
-        if (preg_match_all('@<array>(.*)<k>(.*)<\/k>(.*)<\/array>@SsUu', $Call['Value'], $Pockets))
+        if (preg_match_all('@<array>(.*)<codeine-key>(.*)<\/k>(.*)<\/array>@SsUu', $Call['Value'], $Pockets))
         {
             foreach ($Pockets[2] as $IX => $Match)
             {

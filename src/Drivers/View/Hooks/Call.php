@@ -2,7 +2,7 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description <k> tag 
+     * @description <codeine-key> tag 
      * @package Codeine
      * @version 8.x
      */
@@ -24,7 +24,7 @@
 
             foreach ($Call['Parsed'][1] as $IX => $Match)
             {
-                F::Log('[DEPRECATED] *<codeine-variable>'.$Match.'</codeine-variable>* in '.($Call['Scope']?? '?').':'.($Call['ID']?? '?').' will be ousted soon. Use "variable/external" tag instead', LOG_WARNING, ['Developer', 'Deprecated']);
+                F::Log('[DEPRECATED] *<call>'.$Match.'</call>* in '.($Call['Scope']?? '?').':'.($Call['ID']?? '?').' will be ousted soon. Use "variable/external" tag instead', LOG_WARNING, ['Developer', 'Deprecated']);
                 if (str_contains($Match, ':'))
                 {
                     list ($Options, $Key) = explode(':', $Match);

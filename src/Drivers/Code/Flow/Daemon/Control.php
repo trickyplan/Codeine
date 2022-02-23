@@ -30,7 +30,7 @@
 
          $Call['Daemon'] = F::loadOptions('Code.Flow.Daemon');
 
-         $Table = [['<codeine-locale>Code.Flow.Daemon:Daemon.Title</l>', '<l>Code.Flow.Daemon:Daemon.Frequency</codeine-locale>']];
+         $Table = [['<codeine-locale>Code.Flow.Daemon:Daemon.Title</codeine-locale>', '<codeine-locale>Code.Flow.Daemon:Daemon.Frequency</codeine-locale>']];
 
          foreach ($Call['Daemon']['Daemons'] as $DaemonName => $DaemonRun)
          {

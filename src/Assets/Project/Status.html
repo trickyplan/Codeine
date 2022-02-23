@@ -5,22 +5,19 @@
     <div class="panel-body">
         <table class="table table-striped">
             <tr>
-                <th>Последнее обновление</th>
+                <th>
+                    <codeine-locale>Project.Control.Status:Version.Project</codeine-locale>
+                </th>
                 <td>
-                    <datetime format="d.m.Y H:i"><fn>
-                        <Service>IO</Service>
-                        <Method>Version</Method>
-                        <codeine-variable>
-                            <Scope>Options</Scope>
-                            <Where>Version</Where>
-                        </codeine-variable>
-                    </fn></datetime>
+                    <codeine-variable>Version.Project</codeine-variable>
                 </td>
             </tr>
             <tr>
-                <th>Версия ядра</th>
+                <th>
+                    <codeine-locale>Project.Control.Status:Version.Codeine</codeine-locale>
+                </th>
                 <td>
-                    Codeine <codeine-variable>Version.Codeine</codeine-variable>
+                    <codeine-variable>Version.Codeine</codeine-variable>
                 </td>
             </tr>
         </table>

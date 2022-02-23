@@ -25,7 +25,7 @@
                     $Call['Breadcrumbs'][] =
                         [
                             'URL' => $URL,
-                            'Title' => strip_tags($Pockets[2][$IX], '<l>'),
+                            'Title' => strip_tags($Pockets[2][$IX], '<codeine-locale>'),
                             'Position' => $Position
                         ];
 

@@ -2,7 +2,7 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description <k> tag 
+     * @description <codeine-key> tag 
      * @package Codeine
      * @version 8.x
      */

@@ -25,7 +25,7 @@
     {
         $Call['Project'] = F::Live(F::loadOptions('Project'));
         $Call['Version'] = F::loadOptions('Version');
-        if (isset($Call['Version']))
+        if (isset($Call['Version']['Project']))
             return ['Count' => $Call['Version']['Project']];
         else
             return null;

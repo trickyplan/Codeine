@@ -28,7 +28,7 @@
 
             asort($Sorted);
 
-            list($DeterminedLocation) = each($Sorted);
+            list($DeterminedLocation) = array_unshift($Sorted);
             F::Log('Location determined', LOG_INFO);
         }
         else

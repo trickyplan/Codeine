@@ -2,7 +2,7 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description <k> tag 
+     * @description <codeine-key> tag 
      * @package Codeine
      * @version 8.x
      */
@@ -71,8 +71,8 @@
 
             $Call['Value'] = str_replace($Call['Parsed'][0], $Call['Parsed'][1], $Call['Value']);
 
-            $Call['Value'] = str_replace('<k2>', '<k>', $Call['Value']); // FIXME
-            $Call['Value'] = str_replace('</k2>', '</k>', $Call['Value']); // FIXME
+            $Call['Value'] = str_replace('<k2>', '<codeine-key>', $Call['Value']); // FIXME
+            $Call['Value'] = str_replace('</k2>', '</codeine-key>', $Call['Value']); // FIXME
 
         }
 

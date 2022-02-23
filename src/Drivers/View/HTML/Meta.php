@@ -34,14 +34,14 @@
                 if (isset($Call['View']['HTML']['Title'][count($Call['View']['HTML']['Title'])-1]))
                 {
                     $Call['View']['HTML']['Header RAW'] = $Call['View']['HTML']['Title'][count($Call['View']['HTML']['Title'])-1];
-                    $Call['View']['HTML']['Header'] = strip_tags($Call['View']['HTML']['Title'][count($Call['View']['HTML']['Title'])-1], '<l><k>');
+                    $Call['View']['HTML']['Header'] = strip_tags($Call['View']['HTML']['Title'][count($Call['View']['HTML']['Title'])-1], '<codeine-locale><codeine-key>');
                 }
 
                 if ($Call['Meta']['Title']['Reverse'])
                     $Call['View']['HTML']['Title'] = array_reverse($Call['View']['HTML']['Title']);
 
                 $Call['View']['HTML']['Title'] = implode($Call['Meta']['Title']['Delimiter'], $Call['View']['HTML']['Title']);
-                $Call['View']['HTML']['Title'] = html_entity_decode(strip_tags($Call['View']['HTML']['Title'], '<l><k>'));
+                $Call['View']['HTML']['Title'] = html_entity_decode(strip_tags($Call['View']['HTML']['Title'], '<codeine-locale><codeine-key>'));
                 $Call['View']['HTML']['Title'] =
                     preg_replace('/[\x00-\x1F\x7F]/','',$Call['View']['HTML']['Title']);
 
@@ -72,7 +72,7 @@
 
             $Call['Output'] = preg_replace(
                         $Call['Meta']['Pattern']['Keywords'],
-                        '<meta name="keywords" content="'.strip_tags($Call['View']['HTML']['Keywords'], '<l><k>').'" />',
+                        '<meta name="keywords" content="'.strip_tags($Call['View']['HTML']['Keywords'], '<codeine-locale><codeine-key>').'" />',
                         $Call['Output']);
         }
 
@@ -94,7 +94,7 @@
 
             $Call['Output'] = preg_replace(
                         $Call['Meta']['Pattern']['Description'],
-                        '<meta name="description" content="'.strip_tags($Call['View']['HTML']['Description'], '<l><k>').'" />',
+                        '<meta name="description" content="'.strip_tags($Call['View']['HTML']['Description'], '<codeine-locale><codeine-key>').'" />',
                         $Call['Output']);
         }
 

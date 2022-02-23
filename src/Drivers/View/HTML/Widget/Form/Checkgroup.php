@@ -35,7 +35,6 @@
                     F::Merge ($Call,
                         [
                             'Value' => $Value,
-                            'Checked' => $Checked,
                             'Label' => $lValue,
                             'Checked' => $Checked ? 'checked': ''
                         ])

@@ -1,3 +1,3 @@
 {
-    "Layout Pattern": "<codeine-layout>(.*?)</codeine-layout>"
+    "Layout Pattern": "<layout>(.*?)</layout>"
 }
