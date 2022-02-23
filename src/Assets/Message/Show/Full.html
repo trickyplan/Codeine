@@ -1,8 +1,8 @@
-<codeine-seo-title><codeine-key>(.*)</codeine-key></codeine-seo-title>
-<breadcrumb href="/message/<codeine-key>(.*)</codeine-key></breadcrumb>
+<codeine-seo-title><codeine-key>Subject</codeine-key></codeine-seo-title>
+<breadcrumb href="/message/<codeine-key>ID</k>"><k>Subject</codeine-key></breadcrumb>
 
 <div class="btn-toolbar pull-right">
-    <a class="btn btn-danger" href="/message/delete/<codeine-key>(.*)</codeine-key>">
+    <a class="btn btn-danger" href="/message/delete/<codeine-key>ID</codeine-key>">
         <codeine-locale>Message.Delete:Title</codeine-locale>
     </a>
 </div>
@@ -11,20 +11,20 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <codeine-key>(.*)</codeine-key>
+        <codeine-key>Subject</codeine-key>
         <div class="pull-right">
-            <strong>Прочитано:</strong> <datetime><codeine-key>(.*)</codeine-key></datetime>
+            <strong>Прочитано:</strong> <datetime><codeine-key>Readed</codeine-key></datetime>
         </div>
     </div>
     <div class="panel-body">
-        <codeine-key>(.*)</codeine-key>
+        <codeine-key>Body</codeine-key>
     </div>
     <div class="panel-footer">
-        <codeine-entity>(.*)</codeine-entity>
+        <codeine-entity>User:<codeine-key>User</codeine-key></codeine-entity>
             &nbsp;<span class="glyphicon glyphicon-chevron-right"></span>&nbsp;
-        <codeine-entity>(.*)</codeine-entity>
+        <codeine-entity>User:<codeine-key>Target</codeine-key></codeine-entity>
         <div class="pull-right">
-            <datetime><codeine-key>(.*)</codeine-key></datetime>
+            <datetime><codeine-key>Created</codeine-key></datetime>
         </div>
     </div>
 </div>
@@ -34,11 +34,11 @@
     <Method>Do</Method>
     <codeine-variable>
         <Title>Ответить</Title>
-        <codeine-entity>(.*)</codeine-entity>
+        <codeine-entity>Message</codeine-entity>
         <Action>/message/new</Action>
         <Data>
-            <Target><codeine-key>(.*)</codeine-key></Target>
-            <Subject><codeine-key>(.*)</codeine-key></Subject>
+            <Target><codeine-key>User</codeine-key></Target>
+            <Subject><codeine-key>Subject</codeine-key></Subject>
         </Data>
     </codeine-variable>
 </codeine-exec>

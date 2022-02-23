@@ -40,7 +40,7 @@
 
         foreach ($Extensions as $Extension)
             $ExtensionsRows[$Extension] = [
-                '<locale>PHP.Extension:'.$Extension.'</locale> ('.$Extension.')',
+                '<codeine-locale>PHP.Extension:'.$Extension.'</codeine-locale> ('.$Extension.')',
                 phpversion($Extension)];
 
         ksort($ExtensionsRows);

@@ -6,21 +6,21 @@
                     <Source>
                         <Storage>Upload</Storage>
                         <Scope>User/Photo</Scope>
-                        <Where><codeine-key>(.*)</codeine-key></Where>
+                        <Where><codeine-key>Avatar</codeine-key></Where>
                     </Source>
                     <Width>100</Width>
-                    <Default>User/img:Default<codeine-key>(.*)</codeine-key>.png</Default>
+                    <Default>User/img:Default<codeine-key>Gender</codeine-key>.png</Default>
                     <Thumb/>
                     <Class>img img-responsive</Class>
                 </image>
             </div>
             <div class="col-lg-11">
                 <h2>
-                    <codeine-key>(.*)</codeine-key>
+                    <codeine-key>Title</codeine-key>
                 </h2>
                 <h4>
-                    <codeine-key>(.*)</codeine-key>
-                    <codeine-entity>(.*)</codeine-entity>
+                    <codeine-key>Location</codeine-key>
+                    <codeine-entity>Country:<codeine-key>Country</codeine-key></codeine-entity>
                 </h4>
             </div>
         </div>
@@ -33,7 +33,7 @@
             <codeine-locale>User.Entity:ID</codeine-locale>
         </th>
         <td>
-            <codeine-key>(.*)</codeine-key>
+            <codeine-key>ID</codeine-key>
         </td>
     </tr>
     <tr>
@@ -41,7 +41,7 @@
             <codeine-locale>User.Entity:EMail</codeine-locale>
         </th>
         <td>
-            <a href="mailto:<codeine-key>(.*)</codeine-key></a>
+            <a href="mailto:<codeine-key>EMail</k>"><k>EMail</codeine-key></a>
         </td>
     </tr>
     <tr>
@@ -49,7 +49,7 @@
             <codeine-locale>User.Entity:Status.Label</codeine-locale>
         </th>
         <td>
-            <codeine-locale>User.Entity:Status.<codeine-key>(.*)</codeine-key></codeine-locale>
+            <codeine-locale>User.Entity:Status.<codeine-key>Status</codeine-key></codeine-locale>
         </td>
     </tr>
     <tr>
@@ -57,7 +57,7 @@
             <codeine-locale>User.Entity:Created</codeine-locale>
         </th>
         <td>
-            <datetime><codeine-key>(.*)</codeine-key></datetime>
+            <datetime><codeine-key>Created</codeine-key></datetime>
         </td>
     </tr>
     <tr>
@@ -65,7 +65,7 @@
             <codeine-locale>User.Entity:Avatar</codeine-locale>
         </th>
         <td>
-            <file>User/Photo/<codeine-key>(.*)</codeine-key></file>
+            <file>User/Photo/<codeine-key>Avatar</codeine-key></file>
         </td>
     </tr>
 </table>

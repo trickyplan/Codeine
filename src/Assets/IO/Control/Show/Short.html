@@ -1,17 +1,17 @@
 <tr>
-    <td><codeine-key>(.*)</codeine-key></td>
-    <td><codeine-key>(.*)</codeine-key></td>
+    <td><codeine-key>Name</codeine-key></td>
+    <td><codeine-key>Driver</codeine-key></td>
     <td>
-        <codeine-key>(.*)</codeine-key>
-        <codeine-key>(.*)</codeine-key>
+        <codeine-key>Server</codeine-key>
+        <codeine-key>Directory</codeine-key>
     </td>
-    <td><codeine-key>(.*)</codeine-key></td>
+    <td><codeine-key>Size</codeine-key></td>
     <td>
-        <if value="<codeine-key>(.*)</codeine-key>" eq="1">
+        <if value="<codeine-key>Status</codeine-key>" eq="1">
             <div class="label label-success">Online</div>
         </if>
 
-        <if value="<codeine-key>(.*)</codeine-key>" eq="0">
+        <if value="<codeine-key>Status</codeine-key>" eq="0">
             <div class="label label-danger">Offline</div>
         </if>
     </td>

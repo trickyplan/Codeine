@@ -3,20 +3,20 @@
         <codeine-layout>Control:Pills/RUD</codeine-layout>
     </div>
 
-    <a href="/<codeine-key>SEO.Slug,Slug</codeine-key>"><h4><codeine-key>(.*)</codeine-key></h4></a>
+    <a href="/<codeine-key>SEO.Slug,Slug</codeine-key>"><h4><codeine-key>Title</codeine-key></h4></a>
     <blockquote><cut chars="160"><codeine-key>Body</codeine-key></cut></blockquote>
-    <if value="<codeine-key>(.*)</codeine-key>" eq="1">
+    <if value="<codeine-key>Menu</codeine-key>" eq="1">
         <div class="label label-danger pull-right">Меню</div>
     </if>
 
     <ul class="list-inline">
         <li class="label label-default">
-            <if value="<codeine-key>(.*)</codeine-key>" gt="0">
-                <codeine-locale>Page.Entity:Priority</codeine-locale>: <codeine-key>(.*)</codeine-key>
+            <if value="<codeine-key>Priority</codeine-key>" gt="0">
+                <codeine-locale>Page.Entity:Priority</codeine-locale>: <codeine-key>Priority</codeine-key>
             </if>
         </li>
-        <li class="label label-default"><number><codeine-key>(.*)</codeine-key></number>W</li>
-        <li class="label label-default"><number><codeine-key>(.*)</codeine-key></number>C</li>
-        <li class="label label-default"><codeine-key>(.*)</codeine-key>% sickness</li>
+        <li class="label label-default"><number><codeine-key>Words</codeine-key></number>W</li>
+        <li class="label label-default"><number><codeine-key>Chars</codeine-key></number>C</li>
+        <li class="label label-default"><codeine-key>Sickness</codeine-key>% sickness</li>
     </ul>
 </li>

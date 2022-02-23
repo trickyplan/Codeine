@@ -1,9 +1,9 @@
 <span class="label label-default">
-    <if value="<codeine-key>(.*)</codeine-key>" eq="0">
+    <if value="<codeine-key>isSpam</codeine-key>" eq="0">
         <span class="glyphicon glyphicon-check" data-toggle="tooltip" title="Не спам"></span>
     </if>
-    <if value="<codeine-key>(.*)</codeine-key>" eq="1">
+    <if value="<codeine-key>isSpam</codeine-key>" eq="1">
         <span class="glyphicon glyphicon-ban-circle" data-toggle="tooltip" title="Спам"></span>
     </if>
-    <codeine-key>(.*)</codeine-key> жалоб.
+    <codeine-key>Complains</codeine-key> жалоб.
 </span>

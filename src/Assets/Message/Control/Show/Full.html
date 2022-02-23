@@ -1,23 +1,23 @@
-<codeine-seo-title><codeine-key>(.*)</codeine-key></codeine-seo-title>
-<breadcrumb href="/message/<codeine-key>(.*)</codeine-key></breadcrumb>
+<codeine-seo-title><codeine-key>Subject</codeine-key></codeine-seo-title>
+<breadcrumb href="/message/<codeine-key>ID</k>"><k>Subject</codeine-key></breadcrumb>
 <div class="row">
     <div class="col-lg-6">
-        <codeine-key>(.*)</codeine-key>
+        <codeine-key>Body</codeine-key>
     </div>
     <div class="col-lg-6">
         <table class="table table-striped">
             <tr>
                 <td>От</td>
-                <td><codeine-entity>(.*)</codeine-entity></td>
+                <td><codeine-entity>User:<codeine-key>User</codeine-key></codeine-entity></td>
             </tr>
             <tr>
                 <td>Кому</td>
-                <td><codeine-entity>(.*)</codeine-entity></td>
+                <td><codeine-entity>User:<codeine-key>Target</codeine-key></codeine-entity></td>
             </tr>
             <tr>
                 <td>Отправлено</td>
                 <td>
-                    <datetime><codeine-key>(.*)</codeine-key></datetime>
+                    <datetime><codeine-key>Created</codeine-key></datetime>
                 </td>
             </tr>
         </table>
@@ -28,11 +28,11 @@
     <Service>Entity.Create</Service>
     <Method>Do</Method>
     <codeine-variable>
-        <codeine-entity>(.*)</codeine-entity>
+        <codeine-entity>Message</codeine-entity>
         <Action>/message/new</Action>
         <Data>
-            <To><codeine-key>(.*)</codeine-key></To>
-            <Subject><codeine-key>(.*)</codeine-key></Subject>
+            <To><codeine-key>From</codeine-key></To>
+            <Subject><codeine-key>Subject</codeine-key></Subject>
         </Data>
     </codeine-variable>
 </codeine-exec>

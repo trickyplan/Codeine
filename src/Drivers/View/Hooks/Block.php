@@ -42,9 +42,9 @@
                             foreach($DotMatched as $ICV => $cMatch)
                                 $Output.= str_replace('<#/>',
                                     $ICV,
-                                    str_replace('<call>'.$Match.'</call>', $cMatch,$Call['Parsed'][1][$IX]).
+                                    str_replace('<codeine-variable>'.$Match.'</codeine-variable>', $cMatch,$Call['Parsed'][1][$IX]).
                                     ($cMatch)
-                                    .str_replace('<call>'.$Match.'</call>', $cMatch,$Call['Parsed'][3][$IX]));
+                                    .str_replace('<codeine-variable>'.$Match.'</codeine-variable>', $cMatch,$Call['Parsed'][3][$IX]));
                         }
                         else
                             $Output = str_replace('<#/>', '', $Call['Parsed'][1][$IX].($DotMatched).$Call['Parsed'][3][$IX]);
@@ -104,9 +104,9 @@
                                             
                                             $Output .= str_replace('<#/>',
                                                 $ICV,
-                                                str_replace('<codeine-key>(.*)</codeine-key>', $cData, $Call['Parsed'][1][$IX]).
+                                                str_replace('<codeine-key>'.$Match.'</codeine-key>', $cData, $Call['Parsed'][1][$IX]).
                                                 ($cData)
-                                                .str_replace('<codeine-key>(.*)</codeine-key>', $cData, $Call['Parsed'][3][$IX]));
+                                                .str_replace('<codeine-key>'.$Match.'</codeine-key>', $cData, $Call['Parsed'][3][$IX]));
                                         }
                                 }
                                 else

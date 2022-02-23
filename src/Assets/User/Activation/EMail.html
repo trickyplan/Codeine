@@ -1,4 +1,4 @@
-<h2>Приветствуем, <codeine-key>(.*)</codeine-key>!</h2>
+<h2>Приветствуем, <codeine-key>Title</codeine-key>!</h2>
 
 <p>Вы успешно зарегистрировались в проекте
     <strong>
@@ -9,16 +9,16 @@
 </p>
 
     Ваш пароль:
-    <div style="width: 140px; border: 1px solid #cccccc; text-align:center; font-size: 2em; padding: 4px; margin: auto;"> <codeine-key>(.*)</codeine-key></div>
+    <div style="width: 140px; border: 1px solid #cccccc; text-align:center; font-size: 2em; padding: 4px; margin: auto;"> <codeine-key>Password</codeine-key></div>
 
-<div style="margin-bottom: 4px;"><a target="_blank" href="<codeine-variable>HTTP.Proto</codeine-variable><codeine-variable>HTTP.Host</codeine-variable>/activate/<codeine-key>(.*)</codeine-key>">
+<div style="margin-bottom: 4px;"><a target="_blank" href="<codeine-variable>HTTP.Proto</codeine-variable><codeine-variable>HTTP.Host</codeine-variable>/activate/<codeine-key>Code</codeine-key>">
     Щелкните для активации аккаунта </a>
 </div>
 
 <strong>или</strong>
 
 <div style="margin-top: 4px;">
-    Скопируйте эту ссылку в окно браузера: <codeine-key>(.*)</codeine-key>
+    Скопируйте эту ссылку в окно браузера: <codeine-key>URLActivation</codeine-key>
 </div>
 
 <script type="application/ld+json">
@@ -30,7 +30,7 @@
     "name": "Активировать аккаунт",
     "handler": {
       "@type": "HttpActionHandler",
-      "url": "<codeine-key>(.*)</codeine-key>"
+      "url": "<codeine-key>URLActivation</codeine-key>"
     }
   },
   "description": "Активация аккаунта на сайте <codeine-variable>HTTP.Host</codeine-variable>"
