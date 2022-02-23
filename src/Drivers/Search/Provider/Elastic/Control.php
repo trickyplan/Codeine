@@ -47,7 +47,7 @@
                                  ]);
 
                              $Table[] = [
-                                 '<codeine-locale>(.*)</codeine-locale>',
+                                 '<codeine-locale>'.$Mount['Scope'].'.Control:Title</codeine-locale>',
                                  F::Run('Formats.Number.French', 'Do',
                                      [
                                          'Value' => $Result[0]['hits']['total']

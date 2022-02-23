@@ -49,7 +49,7 @@
         $Options = [];
 
         foreach ($Call['Deposit Methods'] as $Method)
-            $Options[$Method] = '<codeine-locale>(.*)</codeine-locale>';
+            $Options[$Method] = '<codeine-locale>Payment.'.$Method.':Title</codeine-locale>';
 
         $Call['Output']['Content'][] =
             [

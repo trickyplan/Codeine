@@ -42,7 +42,7 @@
                         'ID'        => $Bundle,
                         'Bundle'    => strtr($Bundle, '.', '/'),
                         'URL'       => '/control/'.$Bundle,
-                        'Title'     => '<codeine-locale>(.*)</codeine-locale>',
+                        'Title'     => '<codeine-locale>'.$Bundle.'.Control:Title</codeine-locale>',
                         'Group'     => $Group,
                         'Status'    => 'default'
                     ];
@@ -84,7 +84,7 @@
                         [
                             'ID' => $Sidebar,
                             'URL' => '/control/'.$Call['Bundle'].'/'.$Sidebar.'?BackURL=/control/'.$Call['Bundle'],
-                            'Title' => '<codeine-locale>(.*)</codeine-locale>'];
+                            'Title' => '<codeine-locale>'.$Call['Bundle'].'.Control:Options.'.$Sidebar.'</codeine-locale>'];
                 }
 
                 $Call['Output']['Sidebar'][] =

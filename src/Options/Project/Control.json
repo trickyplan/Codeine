@@ -16,7 +16,7 @@
                             {
                                 "Type": "Block",
                                 "Class": "alert alert-danger",
-                                "Value": "<codeine-locale>(.*)</codeine-locale>"
+                                "Value": "<codeine-locale>Project.Down:Disable.Fail</codeine-locale>"
                             }
                         }
                     }
@@ -34,7 +34,7 @@
                             {
                                 "Type": "Block",
                                 "Class": "alert",
-                                "Value": "<codeine-locale>(.*)</codeine-locale>"
+                                "Value": "<codeine-locale>Project.Down:Disable.Success</codeine-locale>"
                             }
                         }
                     }
@@ -55,7 +55,7 @@
                             {
                                 "Type": "Block",
                                 "Class": "alert alert-danger",
-                                "Value": "<codeine-locale>(.*)</codeine-locale>"
+                                "Value": "<codeine-locale>Project.Down:Enable.Fail</codeine-locale>"
                             }
                         }
                     }
@@ -73,7 +73,7 @@
                             {
                                 "Type": "Block",
                                 "Class": "alert alert-success",
-                                "Value": "<codeine-locale>(.*)</codeine-locale>"
+                                "Value": "<codeine-locale>Project.Down:Enable.Success</codeine-locale>"
                             }
                         }
                     }

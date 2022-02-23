@@ -38,7 +38,7 @@
                         if ($OldValue == $NewValue || $Name == 'ID')
                             ;
                         else
-                            $Table[] = ['<codeine-locale>(.*)</codeine-locale>', $OldValue, $NewValue];
+                            $Table[] = ['<codeine-locale>'.$Call['Entity'].'.Entity:'.$Name.'</codeine-locale>', $OldValue, $NewValue];
                     }
     
                     $Call['Output']['Content'][] =

@@ -15,16 +15,16 @@
 
             if ($Time < $Call['Value'])
             {
-                $Prefix = '<codeine-locale>(.*)</codeine-locale> ';
-                $Postfix = ' <codeine-locale>(.*)</codeine-locale>';
+                $Prefix = '<codeine-locale>Formats.Period:Future.Prefix</codeine-locale> ';
+                $Postfix = ' <codeine-locale>Formats.Period:Future.Postfix</codeine-locale>';
             }
             elseif ($Time > $Call['Value'])
             {
-                $Prefix = '<codeine-locale>(.*)</codeine-locale> ';
-                $Postfix = ' <codeine-locale>(.*)</codeine-locale>';
+                $Prefix = '<codeine-locale>Formats.Period:Past.Prefix</codeine-locale> ';
+                $Postfix = ' <codeine-locale>Formats.Period:Past.Postfix</codeine-locale>';
             }
             else
-                return '<codeine-locale>(.*)</codeine-locale>';
+                return '<codeine-locale>Formats.Period:Now</codeine-locale>';
 
             $Call['Value'] = abs($Time-$Call['Value']);
 
@@ -34,7 +34,7 @@
                 if ($Call['Value'] >= $Value)
                 {
                     $Units = floor($Call['Value'] / $Value);
-                    $Output[] = $Units.' <codeine-locale>(.*)</codeine-locale>';
+                    $Output[] = $Units.' <codeine-locale>Formats.Period:'.$Period.'.'.($Units%20).'</codeine-locale>';
                     $Call['Value'] -= $Units*$Value;
                 }
 

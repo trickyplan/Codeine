@@ -21,14 +21,14 @@
              [
                  'Type'  => 'Block',
                  'Class' => 'alert alert-info',
-                 'Value' => '<codeine-locale>(.*)</codeine-locale>:<br/> ' . $Current
+                 'Value' => '<codeine-locale>Codeine.Control:Version.Actual</codeine-locale>:<br/> ' . $Current
              ];
 
         $Call['Output']['Content'][] =
             [
                 'Type'  => 'Block',
                 'Class' => 'alert ' . ($Current > $Call['Version']['Codeine'] ? 'alert-error' : 'alert-success'),
-                'Value' => '<codeine-locale>(.*)</codeine-locale>: <br/>'.$Call['Version']['Codeine']
+                'Value' => '<codeine-locale>Codeine.Control:Version.Installed</codeine-locale>: <br/>'.$Call['Version']['Codeine']
             ];
 
         return $Call;

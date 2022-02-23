@@ -14,7 +14,7 @@
                         {
                             "Type": "Block",
                             "Class": "alert alert-danger",
-                            "Value": "<codeine-locale>(.*)</codeine-locale>"
+                            "Value": "<codeine-locale>Entity.Delete:Warning.All</codeine-locale>"
                         }
                     }
                 }

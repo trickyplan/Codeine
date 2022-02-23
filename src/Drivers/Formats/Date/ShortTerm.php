@@ -18,7 +18,7 @@
                 {
                     $Units = floor($Call['Value']/$Value);
                     $Output[] = sprintf('%02d', $Units)
-                        .' <codeine-locale>(.*)</codeine-locale>';
+                        .' <codeine-locale>Formats.Date.ShortTerm:Abbreviations.'.$Period.'</codeine-locale>';
                     $Call['Value'] -= $Units*$Value;
                 }
                 else

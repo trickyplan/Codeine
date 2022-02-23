@@ -39,7 +39,7 @@
             $Data = [];
 
             foreach ($Pockets[1] as $IX => $Value)
-                $Data[] = ['<codeine-locale>(.*)</codeine-locale>', $Value];
+                $Data[] = ['<codeine-locale>Nginx.Status:'.$Fields[$IX].'</codeine-locale>', $Value];
 
             $Call['Output']['Content'][] =
                 [

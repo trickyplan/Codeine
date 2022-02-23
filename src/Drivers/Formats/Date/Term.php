@@ -17,12 +17,12 @@
                 if ($Call['Value'] >= $Value)
                 {
                     $Units = floor($Call['Value']/$Value);
-                    $Output[] = $Units.' <codeine-locale>(.*)</codeine-locale>';
+                    $Output[] = $Units.' <codeine-locale>Formats.Period:'.$Period.'.'.($Units%20).'</codeine-locale>';
                     $Call['Value'] -= $Units*$Value;
                 }
 
             if (empty($Output))
-                $Result = '0 <codeine-locale>(.*)</codeine-locale>';
+                $Result = '0 <codeine-locale>Formats.Period:Seconds.10</codeine-locale>';
             else
                 $Result = implode(' ', array_slice($Output,0,$Call['Period']['Format']));
         }

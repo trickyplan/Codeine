@@ -96,11 +96,6 @@
             {
                 "Service":"View.HTML.Minify",
                 "Method":"Process"
-            },
-            "I18N":
-            {
-                "Service":"View.HTML.Locale",
-                "Method":"Process"
             }
         }
     }

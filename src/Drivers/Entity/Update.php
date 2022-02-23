@@ -79,7 +79,7 @@
                     [
                         'Type' => 'Block',
                         'Class' => 'alert alert-success',
-                        'Value' => '<codeine-locale>(.*)</codeine-locale>'
+                        'Value' => '<codeine-locale>'.$Call['Entity'].'.Update:Success</codeine-locale>'
                     ];
             }
             else
