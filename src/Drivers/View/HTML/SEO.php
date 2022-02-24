@@ -26,7 +26,8 @@
         else
         {
             $Call = F::Dot($Call, 'View.HTML.SEO.Output.Titles', array_pop($Call['SEO']['Titles']));
-            $Title = F::Dot($Call, 'View.HTML.SEO.Output.Titles');
+            $Title = trim(F::Dot($Call, 'View.HTML.SEO.Output.Titles'));
+            $Title = strip_tags($Title);
             $SZ = mb_strlen($Title);
 
             if (F::Dot($Call, 'View.HTML.SEO.Titles.Size.Max')
@@ -42,7 +43,7 @@
                     'Type' => 'Base',
                     'Tag' => 'title',
                     'Closing Tag' => true,
-                    'Value' => $Call['View']['HTML']['SEO']['Output']['Titles']
+                    'Value' => $Title
                 ]);
 
             $Replace = $VCall['HTML'];
@@ -66,6 +67,9 @@
                 $Call['SEO']['Keywords'] = array_unique($Call['SEO']['Keywords']);
             if (F::Dot($Call, 'View.HTML.SEO.Keywords.Sort'))
                 sort($Call['SEO']['Keywords'], SORT_ASC);
+
+            foreach ($Call['SEO']['Keywords'] as &$Keyword)
+                $Keyword = trim($Keyword);
 
             $Call['View']['HTML']['SEO']['Output']['Keywords'] = implode(
                 F::Dot($Call, 'View.HTML.SEO.Keywords.Separator'), $Call['SEO']['Keywords']);
@@ -111,7 +115,8 @@
                 implode(
                     F::Dot($Call, 'View.HTML.SEO.Description.Separator'), $Call['SEO']['Descriptions']));
 
-            $Description = F::Dot($Call, 'View.HTML.SEO.Output.Descriptions');
+            $Description = trim(F::Dot($Call, 'View.HTML.SEO.Output.Descriptions'));
+            $Description = strip_tags($Description);
             $SZ = mb_strlen($Description);
 
             if (F::Dot($Call, 'View.HTML.SEO.Description.Size.Max')
@@ -131,7 +136,7 @@
                             'String' =>
                                 [
                                     'name' => 'description',
-                                    'content' => $Call['View']['HTML']['SEO']['Output']['Descriptions']
+                                    'content' => $Description
                                 ]
                         ],
                     'Value' => null
