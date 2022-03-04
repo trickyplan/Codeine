@@ -15,7 +15,8 @@ services:
       SERVICE_TAGS: dev
     working_dir: /var/www/codeine
     volumes:
-      - ./src:/var/www/codeine
+      - ./src:/var/www/codeine/src/
+      - ./vendor:/var/www/codeine/vendor
       - codeine-data:/var/www/codeine/Data
       - codeine-assets:/var/tmp/codeine
       - codeine-logs:/var/log/codeine

@@ -9,7 +9,7 @@
     fastcgi_temp_file_write_size 512k;
 
     fastcgi_param DOCUMENT_ROOT    $document_root;
-    fastcgi_param SCRIPT_FILENAME  Public/index.php;
+    fastcgi_param SCRIPT_FILENAME  index.php;
     fastcgi_param PATH_TRANSLATED  $document_root$fastcgi_script_name;
     fastcgi_param REQUEST_ID $request_id;
 

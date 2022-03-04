@@ -26,7 +26,7 @@ RUN pecl install igbinary-stable
 RUN pecl install redis-stable
 RUN pecl install zstd-stable
 
-FROM php:8.0.9-fpm as codeine-app
+FROM php:8.0-fpm as codeine-app
 USER root
 
 ENV LANG="ru_RU.UTF-8"        \
@@ -84,8 +84,10 @@ RUN if [ ! $(getent passwd www) ]; then useradd -u 1000 -ms /bin/bash -g www www
 
 # Composer
 
-COPY --chown=www:www ./src /var/www/codeine/
+COPY --chown=www:www ./src /var/www/codeine/src
 COPY --chown=www:www ./composer.json /var/www/codeine/
+COPY --chown=www:www ./composer.lock /var/www/codeine/
+COPY --chown=www:www ./index.php /var/www/codeine/
 
 WORKDIR /var/www/codeine
 

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "945623f773a05939832add7b83a28cb6",
+    "content-hash": "d13592e70c781ea55f3cf59e9a33cc6a",
     "packages": [
         {
             "name": "jean85/pretty-package-versions",
@@ -72,12 +72,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/mongodb/mongo-php-library.git",
-                "reference": "26f39b392b4ec90f8289c5e5443490af96b8f02a"
+                "reference": "46a9a8faf7e700aa7bcad06dfb6bfc2c1fad12a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mongodb/mongo-php-library/zipball/26f39b392b4ec90f8289c5e5443490af96b8f02a",
-                "reference": "26f39b392b4ec90f8289c5e5443490af96b8f02a",
+                "url": "https://api.github.com/repos/mongodb/mongo-php-library/zipball/46a9a8faf7e700aa7bcad06dfb6bfc2c1fad12a5",
+                "reference": "46a9a8faf7e700aa7bcad06dfb6bfc2c1fad12a5",
                 "shasum": ""
             },
             "require": {
@@ -133,20 +133,20 @@
                 "issues": "https://github.com/mongodb/mongo-php-library/issues",
                 "source": "https://github.com/mongodb/mongo-php-library/tree/v1.9"
             },
-            "time": "2021-11-29T22:39:29+00:00"
+            "time": "2021-08-30T17:10:38+00:00"
         },
         {
             "name": "phpmailer/phpmailer",
-            "version": "v6.5.3",
+            "version": "v6.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPMailer/PHPMailer.git",
-                "reference": "baeb7cde6b60b1286912690ab0693c7789a31e71"
+                "reference": "dd803df5ad7492e1b40637f7ebd258fee5ca7355"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/baeb7cde6b60b1286912690ab0693c7789a31e71",
-                "reference": "baeb7cde6b60b1286912690ab0693c7789a31e71",
+                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/dd803df5ad7492e1b40637f7ebd258fee5ca7355",
+                "reference": "dd803df5ad7492e1b40637f7ebd258fee5ca7355",
                 "shasum": ""
             },
             "require": {
@@ -203,7 +203,7 @@
             "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
             "support": {
                 "issues": "https://github.com/PHPMailer/PHPMailer/issues",
-                "source": "https://github.com/PHPMailer/PHPMailer/tree/v6.5.3"
+                "source": "https://github.com/PHPMailer/PHPMailer/tree/v6.5.1"
             },
             "funding": [
                 {
@@ -211,7 +211,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-11-25T16:34:11+00:00"
+            "time": "2021-08-18T09:14:16+00:00"
         },
         {
             "name": "symfony/polyfill-php80",
