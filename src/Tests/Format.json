@@ -1,0 +1,34 @@
+{
+    "Suites": {
+        "Positive": {
+            "JSON to YAML": {
+                "Run": {
+                    "Service": "Format",
+                    "Method": "Convert",
+                    "Call": {
+                        "Value": "{\"Key\":\"Value\"}",
+                        "Format":
+                        {
+                            "Input": "JSON",
+                            "Output": "YAML"
+                        }
+                    }
+                },
+                "Result":
+                {
+                    "Print": true
+                }
+            },
+            "Migrate Option JSON to YAML": {
+                "Run": {
+                    "Service": "MigrateOptionsJSON2YAML",
+                    "Method": "Do"
+                },
+                "Result":
+                {
+                    "Print": true
+                }
+            }
+        }
+    }
+}
