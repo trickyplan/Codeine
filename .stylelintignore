@@ -1,5 +1,5 @@
 src/**/*.min.css
 vendor/**/*.css
-src/Assets/boostrap/css/*.css
+src/Assets/bootstrap/css/*.css
 src/Assets/animate/css/*.css
 src/Assets/font-awesome/css/*.css
