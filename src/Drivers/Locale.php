@@ -1,90 +1,93 @@
 <?php
-    
+
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
-    
-    setFn('Get', function ($Call)
-    {
-        if (is_array($Call['Message']))
+
+    setFn('Get', function ($Call) {
+        if (is_array($Call['Message'])) {
             ;
-        else
-            $Call['Message'] = (array) $Call['Message'];
-        
+        } else {
+            $Call['Message'] = (array)$Call['Message'];
+        }
+
         $Localized = false;
         $Translation = null;
 
-        foreach ($Call['Message'] as $Message)
-        {
-            if (str_contains($Message, ':'))
+        foreach ($Call['Message'] as $Message) {
+            if (str_contains($Message, ':')) {
                 list($Locale, $Token) = explode(':', $Message);
-            else
-            {
+            } else {
                 $Locale = 'Locale';
                 $Token = $Message;
             }
-            
+
             $LocaleParts = explode('.', $Locale);
             $ID = array_pop($LocaleParts);
             $Asset = implode('.', $LocaleParts);
             $Asset = strtr($Asset, '.', '/');
-            
-            $LocaleFile = F::Run('IO', 'Read',
-            [
-                  'Storage' => 'Locale',
-                  'Scope'   => $Asset.'/Locale/'.$Call['Locale'],
-                  'Where'   => $ID,
-                  'Behaviours' =>
-                  [
-                      'Cached' =>
-                      [
-                          'Enabled' => false,
-                          'TTL'     => 60,
-                          'Keys'    =>
-                          [
-                              'Storage', 'Scope', 'Where', 'Locale'
-                          ]
-                      ]
-                  ]
-            ]);
-            
-            if (empty($LocaleFile))
+
+            $LocaleFile = F::Run(
+                'IO',
+                'Read',
+                [
+                    'Storage' => 'Locale',
+                    'Scope' => $Asset . '/Locale/' . $Call['Locale'],
+                    'Where' => $ID,
+                    'Behaviours' =>
+                        [
+                            'Cached' =>
+                                [
+                                    'Enabled' => false,
+                                    'TTL' => 60,
+                                    'Keys' =>
+                                        [
+                                            'Storage',
+                                            'Scope',
+                                            'Where',
+                                            'Locale'
+                                        ]
+                                ]
+                        ]
+                ]
+            );
+
+            if (empty($LocaleFile)) {
                 ;
-            else
-            {
+            } else {
                 $LocaleStorage = [];
                 $LocaleFile = array_reverse($LocaleFile);
-                foreach ($LocaleFile as $cLocaleFile)
+                foreach ($LocaleFile as $cLocaleFile) {
                     $LocaleStorage = F::Merge($LocaleStorage, $cLocaleFile);
-                
-                if (($Translation = F::Dot($LocaleStorage, $Token)) === null)
+                }
+
+                if (($Translation = F::Dot($LocaleStorage, $Token)) === null) {
                     continue;
-                else
-                {
+                } else {
                     $Localized = true;
                     break;
                 }
             }
         }
-       
-        if ($Localized)
-        {
+
+        if ($Localized) {
             $Translation = F::Variable($Translation, $Call); // TODO Analyze Performance Impact
-        }
-        else
-        {
-            F::Log('Unresolved locale *'.$Message.'*'
-                .PHP_EOL
-                .'Locale is *'.$Call['Locale'].'*.'
-                .PHP_EOL
-                .'Asset is *'.$Asset.'*.'
-                .PHP_EOL
-                .'ID is *'.$ID.'*.'
-                .PHP_EOL
-                .'Token is *'.$Token.'*', LOG_NOTICE);
+        } else {
+            F::Log(
+                'Unresolved locale *' . $Message . '*'
+                . PHP_EOL
+                . 'Locale is *' . $Call['Locale'] . '*.'
+                . PHP_EOL
+                . 'Asset is *' . $Asset . '*.'
+                . PHP_EOL
+                . 'ID is *' . $ID . '*.'
+                . PHP_EOL
+                . 'Token is *' . $Token . '*',
+                LOG_NOTICE
+            );
         }
 
         return $Translation;

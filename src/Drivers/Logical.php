@@ -2,22 +2,19 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
 
-    setFn('Equal', function ($Call)
-    {
+    setFn('Equal', function ($Call) {
         return F::Live($Call['A']) == F::Live($Call['B']);
     });
 
-    setFn('Greater', function ($Call)
-    {
+    setFn('Greater', function ($Call) {
         return F::Live($Call['A']) > F::Live($Call['B']);
     });
 
-    setFn('Lesser', function ($Call)
-    {
+    setFn('Lesser', function ($Call) {
         return F::Live($Call['A']) < F::Live($Call['B']);
     });
