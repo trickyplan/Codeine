@@ -1,5 +1,8 @@
 vendor/**/*.js
 node_modules/**/*.js
 src/**/*.min.js
-src/Assets/boostrap/js/*.js
+src/Assets/bootstrap/js/*.js
 src/Assets/jquery/js/*.js
+src/Assets/moment/js/*.js
+src/Assets/keymaster/js/*.js
+src/Assets/clipboard/js/*.js
