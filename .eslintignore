@@ -3,3 +3,5 @@ extends: recommended
 ignore: |
   /node_modules/
   /vendor/
+  /src/Assets/jquery/js/
+  /src/Assets/bootstrap/js/
