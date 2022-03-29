@@ -1,0 +1,59 @@
+{
+    "rules": {
+        "textlint-rule/no-invalid-control-character": {
+            "severity": "warning"
+        },
+        "@textlint-rule/no-unmatched-pair"          : {
+            "severity": "warning"
+        },
+        "en-capitalization"                         : {
+            "severity": "warning"
+        },
+        "no-empty-section"                          : {
+            "severity": "warning"
+        },
+        "ginger"                                    : {
+            "severity": "warning"
+        },
+        "doubled-spaces"                            : {
+            "severity": "warning"
+        },
+        "no-zero-width-spaces"                      : {
+            "severity": "warning"
+        },
+        "rousseau"                                  : {
+            "severity"  : "warning",
+            "showLevels": ["suggestion", "warning", "error"]
+        },
+        "spelling"                                  : {
+            "severity"            : "warning",
+            "language"            : "en",
+            "wordDefinitionRegexp": "/[\\w']+/g",
+            "suggestCorrections"  : true
+        },
+        "terminology"                               : {
+            "severity"    : "warning",
+            "defaultTerms": true
+        },
+        "common-misspellings"                       : {
+            "severity": "warning"
+        },
+        "write-good"                                : {
+            "severity": "warning"
+        },
+        "diacritics"                                : {
+            "severity": "warning"
+        },
+        "no-dead-link"                              : {
+            "severity"       : "warning",
+            "checkRelative"  : true,
+            "baseURI"        : null,
+            "ignore"         : [],
+            "preferGET"      : [],
+            "ignoreRedirects": false,
+            "retry"          : 3,
+            "userAgent"      : "textlint-rule-no-dead-link/1.0",
+            "maxRetryTime"   : 10
+        }
+    }
+}
