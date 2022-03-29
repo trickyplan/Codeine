@@ -1,3 +1,4 @@
+src/**/*.min.css
 vendor/**/*.css
 src/Assets/boostrap/css/*.css
 src/Assets/animate/css/*.css
