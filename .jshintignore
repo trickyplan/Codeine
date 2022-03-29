@@ -2,3 +2,4 @@ vendor/**/*.js
 node_modules/**/*.js
 src/**/*.min.js
 src/Assets/boostrap/js/*.js
+src/Assets/jquery/js/*.js
