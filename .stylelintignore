@@ -1,3 +1,4 @@
-src/Assets/boostrap/css
-src/Assets/animate/css
-src/Assets/font-awesome/css
+vendor/**/*.css
+src/Assets/boostrap/css/*.css
+src/Assets/animate/css/*.css
+src/Assets/font-awesome/css/*.css
