@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "152894fafd5f1a84a1bd55c8f0cd75f7",
+    "content-hash": "4629a73a459cb2c1a954789e8b4449aa",
     "packages": [
         {
             "name": "jean85/pretty-package-versions",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Jean85/pretty-package-versions.git",
-                "reference": "f6ce0e52c00c810e147c4f7dc6b60abb86e1e195"
+                "reference": "1064f44093e0b2ca67c8fcc4b685225ee059e847"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Jean85/pretty-package-versions/zipball/f6ce0e52c00c810e147c4f7dc6b60abb86e1e195",
-                "reference": "f6ce0e52c00c810e147c4f7dc6b60abb86e1e195",
+                "url": "https://api.github.com/repos/Jean85/pretty-package-versions/zipball/1064f44093e0b2ca67c8fcc4b685225ee059e847",
+                "reference": "1064f44093e0b2ca67c8fcc4b685225ee059e847",
                 "shasum": ""
             },
             "require": {
@@ -27,7 +27,7 @@
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^3.2",
                 "jean85/composer-provided-replaced-stub-package": "^1.0",
-                "phpstan/phpstan": "^0.12.66",
+                "phpstan/phpstan": "^1.4",
                 "phpunit/phpunit": "^7.5|^8.5|^9.4",
                 "vimeo/psalm": "^4.3"
             },
@@ -64,20 +64,20 @@
                 "issues": "https://github.com/Jean85/pretty-package-versions/issues",
                 "source": "https://github.com/Jean85/pretty-package-versions/tree/2.x"
             },
-            "time": "2021-10-22T15:28:38+00:00"
+            "time": "2022-03-16T16:31:34+00:00"
         },
         {
             "name": "mongodb/mongodb",
-            "version": "v1.11.x-dev",
+            "version": "1.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mongodb/mongo-php-library.git",
-                "reference": "3beb2c4a9fcf3c72c7c57c5614e42dc39bdaef9b"
+                "reference": "e4aa59ab15b6fe00a0e56b6772f8b515a0f01bf0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mongodb/mongo-php-library/zipball/3beb2c4a9fcf3c72c7c57c5614e42dc39bdaef9b",
-                "reference": "3beb2c4a9fcf3c72c7c57c5614e42dc39bdaef9b",
+                "url": "https://api.github.com/repos/mongodb/mongo-php-library/zipball/e4aa59ab15b6fe00a0e56b6772f8b515a0f01bf0",
+                "reference": "e4aa59ab15b6fe00a0e56b6772f8b515a0f01bf0",
                 "shasum": ""
             },
             "require": {
@@ -131,9 +131,9 @@
             ],
             "support": {
                 "issues": "https://github.com/mongodb/mongo-php-library/issues",
-                "source": "https://github.com/mongodb/mongo-php-library/tree/v1.11"
+                "source": "https://github.com/mongodb/mongo-php-library/tree/1.11.0"
             },
-            "time": "2022-02-11T20:59:05+00:00"
+            "time": "2021-12-14T23:38:18+00:00"
         },
         {
             "name": "phpmailer/phpmailer",
@@ -305,8 +305,8 @@
     "prefer-lowest": false,
     "platform": {
         "php": "^8.0",
-        "ext-mongodb": "^1.10",
-        "ext-imagick": "^3.4.4"
+        "ext-mongodb": "1.12.1",
+        "ext-imagick": "^3.7.0"
     },
     "platform-dev": [],
     "plugin-api-version": "2.2.0"

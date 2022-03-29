@@ -25,10 +25,10 @@
     "name": "trickyplan/codeine",
     "require": {
         "php": "^8.0",
-        "mongodb/mongodb": "^1.9",
-        "ext-mongodb": "^1.10",
-        "ext-imagick": "^3.4.4",
-        "phpmailer/phpmailer": "^6.1"
+        "mongodb/mongodb": "1.11.0",
+        "ext-mongodb": "1.12.1",
+        "ext-imagick": "^3.7.0",
+        "phpmailer/phpmailer": "v6.6.0"
     },
     "support": {
         "email": "bergstein+codeine@trickyplan.com"
