@@ -1,14 +1,11 @@
-.enabled-true
-{
-    opacity: 1;
+.enabled-true {
+  opacity: 1;
 }
 
-.enabled-false
-{
-    opacity: 0.5;
+.enabled-false {
+  opacity: 0.5;
 }
 
-.enabled-false:hover
-{
-    opacity: 0.9;
+.enabled-false:hover {
+  opacity: 0.9;
 }
