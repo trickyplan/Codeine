@@ -1,0 +1,5 @@
+extends: recommended
+
+ignore: |
+  /node_modules/
+  /vendor/
