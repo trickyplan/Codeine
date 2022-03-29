@@ -26,14 +26,13 @@
     "require": {
         "php": "^8.0",
         "mongodb/mongodb": "1.11.0",
-        "ext-mongodb": "1.12.1",
-        "ext-imagick": "^3.7.0",
+        "ext-mongodb": "1.12.0",
+        "ext-imagick": "^3.6.0",
         "phpmailer/phpmailer": "v6.6.0"
     },
     "support": {
         "email": "bergstein+codeine@trickyplan.com"
     },
     "time": "2022-03-01 01:03:08",
-    "type": "library",
-    "version": "50.0.1"
+    "type": "library"
 }

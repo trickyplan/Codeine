@@ -19,8 +19,8 @@ RUN docker-php-ext-install -j$(nproc) opcache && \
     docker-php-ext-install -j$(nproc) pcntl && \
     docker-php-ext-install -j$(nproc) exif && \
     pecl install yaml-2.2.2 && \
-    pecl install mongodb-1.12.1 && \
-    pecl install imagick-3.7.0 && \
+    pecl install mongodb-1.12.0 && \
+    pecl install imagick-3.6.0 && \
     pecl install igbinary-3.2.7 && \
     pecl install redis-5.3.7 && \
     pecl install zstd-0.11.0
