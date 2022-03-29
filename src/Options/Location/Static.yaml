@@ -1,0 +1,9 @@
+---
+Static:
+  /locations:
+    Service: Entity.List
+    Method: Do
+    Call:
+      Entity: Location
+      No Where: true
+...

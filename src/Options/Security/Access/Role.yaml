@@ -1,0 +1,18 @@
+---
+Role:
+- All
+Decision: true
+Roles:
+  All:
+    Rights:
+      Frontpage: true
+      Cabinet: true
+  Root: []
+Rights:
+  Frontpage:
+    Service: Codeine.Frontpage
+    Method: Do
+  Cabinet:
+    Service: User.Cabinet
+    Method: Do
+...

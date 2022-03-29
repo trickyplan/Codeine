@@ -1,0 +1,19 @@
+---
+View:
+  HTML:
+    SEO:
+      Titles:
+        Pattern: <seo-titles></seo-titles>
+        Size:
+          Min: 10
+          Max: 60
+      Descriptions:
+        Pattern: <seo-descriptions></seo-descriptions>
+        Separator: |2+
+
+      Keywords:
+        Pattern: <seo-keywords></seo-keywords>
+        Separator: ', '
+        Unique: true
+        Sort: true
+...

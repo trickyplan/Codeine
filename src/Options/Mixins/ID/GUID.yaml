@@ -1,0 +1,16 @@
+---
+Nodes:
+  ID:
+    Type: Literal.String
+    Weight: 9999
+    Index: true
+    Unique: true
+    Visible:
+      JSON: true
+    Hooks:
+      beforeEntityCreate:
+        Service: Security.UID
+        Method: Get
+        Call:
+          Mode: Secure
+...

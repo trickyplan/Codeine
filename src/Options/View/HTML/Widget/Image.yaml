@@ -1,0 +1,14 @@
+---
+Tag: img
+Attributes:
+  String:
+    id: ""
+    class: img
+    itemprop: contentUrl
+    src: ""
+    width: ""
+    height: ""
+    alt: ""
+    title: ""
+    data-original: ""
+...

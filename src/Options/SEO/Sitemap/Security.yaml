@@ -1,0 +1,8 @@
+---
+Rules:
+  Allow Sitemap to All:
+    Decision: true
+    Weight: 200
+    Run:
+      Service: SEO.Sitemap
+...

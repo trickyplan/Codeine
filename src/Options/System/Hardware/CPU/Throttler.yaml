@@ -1,0 +1,5 @@
+---
+Throttler:
+  CPU Limit: 80
+  Seconds: 5
+...

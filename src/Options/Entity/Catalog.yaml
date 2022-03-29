@@ -1,0 +1,25 @@
+---
+EPP: 20
+Minimal: 1
+Entity RTTL: 60
+Contract:
+  Entity.Catalog:
+    Do:
+      Memo:
+      - Entity
+      - Where
+      - Template
+      - Count
+      - Minimal
+      - Time
+      - Key
+Hooks:
+  beforeCatalog:
+    Pagination:
+      Service: Entity.Catalog.Pagination
+      Method: beforeCatalog
+  afterCatalog:
+    Pagination:
+      Service: Entity.Catalog.Pagination
+      Method: afterCatalog
+...

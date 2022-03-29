@@ -1,0 +1,8 @@
+---
+Mode: Normal
+Password:
+  Alphabet:
+    Normal: abcdefghijklmnopqrstuvxwyzABCDEFGHIJKLMNOPQRSTUVXYZ1234567890
+    Secure: abcdefghijklmnopqrstuvxwyz1234567890
+    Secure+: abcdefghijklmnopqrstuvxwyzABCDEFGHIJKLMNOPQRSTUVXYZ1234567890
+...

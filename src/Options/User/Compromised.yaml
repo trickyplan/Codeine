@@ -1,0 +1,9 @@
+---
+User:
+  Compromised:
+    Generator:
+      Service: Security.Password.Generator
+      Method: Get
+      Call:
+        Length: 12
+...

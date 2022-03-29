@@ -1,0 +1,16 @@
+---
+Closing Tag: true
+Attributes:
+  String:
+    ID: ""
+    Name: ""
+    Class:
+    - form-control
+    Size: ""
+    AutoComplete: ""
+  Boolean:
+    Autofocus: false
+    Multiple: false
+    Required: false
+    Disabled: false
+...

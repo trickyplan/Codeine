@@ -1,0 +1,13 @@
+---
+Project:
+  Create:
+    Directory:
+      Paths:
+      - dev
+      - etc
+      - docs
+      - usr
+      - src/Assets
+      - src/Drivers
+      - src/Options
+...

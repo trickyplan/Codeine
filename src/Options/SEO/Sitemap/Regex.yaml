@@ -1,0 +1,38 @@
+---
+Regex:
+  Show Sitemap:
+    Weight: 1000
+    Match: ^/sitemap/(.+)/(\d+).xml$
+    Service: SEO.Sitemap
+    Method: Generate.Sitemap
+    Call:
+      Handler: $1
+      Page: $2
+    View:
+      Renderer:
+        Service: View.XML
+        Method: Render
+    Last: true
+  Show Handler Sitemap Index:
+    Weight: 900
+    Match: ^/sitemap/(.+).xml$
+    Service: SEO.Sitemap
+    Method: Generate.Sitemap.Handler
+    Call:
+      Handler: $1
+      Page: $2
+    View:
+      Renderer:
+        Service: View.XML
+        Method: Render
+    Last: true
+  Show Root Sitemap Index:
+    Weight: 800
+    Match: ^/sitemap.xml$
+    Service: SEO.Sitemap
+    Method: Generate.Sitemap.Root
+    View:
+      Renderer:
+        Service: View.XML
+        Method: Render
+...

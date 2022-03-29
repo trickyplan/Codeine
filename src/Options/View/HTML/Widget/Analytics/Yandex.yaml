@@ -1,0 +1,13 @@
+---
+Analytics:
+  Yandex:
+    Enabled: false
+    DNT Support: true
+    Options:
+      webvisor: true
+      clickmap: true
+      trackLinks: true
+      trackHash: true
+      accurateTrackBounce: true
+      ut: noindex
+...

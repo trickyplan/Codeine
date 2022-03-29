@@ -1,0 +1,10 @@
+---
+Nodes:
+  Contacts.URL:
+    Type: Literal.URL
+    Nullable: true
+    Widgets:
+      Write:
+        Type: Form.Textfield
+        Subtype: url
+...

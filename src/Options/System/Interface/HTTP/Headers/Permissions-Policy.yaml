@@ -1,0 +1,15 @@
+---
+System:
+  Interface:
+    HTTP:
+      Headers:
+        Permissions-Policy:
+          autoplay: ()
+          camera: ()
+          geolocation: ()
+          microphone: ()
+          midi: ()
+          payment: ()
+          fullscreen: ()
+          encrypted-media: ()
+...

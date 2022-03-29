@@ -1,0 +1,10 @@
+---
+Nodes:
+  Priority:
+    Type: Numeral.Integer
+    Weight: -10
+    Default: 0
+    Widgets:
+      Write:
+        Type: Form.Textfield
+...

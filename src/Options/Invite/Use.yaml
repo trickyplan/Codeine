@@ -1,0 +1,8 @@
+---
+Hooks:
+  InviteNotExist:
+    Message:
+      Errors:
+        Invite:
+        - NonExist
+...

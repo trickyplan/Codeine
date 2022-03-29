@@ -1,0 +1,9 @@
+---
+HTTP:
+  Host Strategy: System.Interface.HTTP.Host.ProjectBased
+Hooks:
+  beforeHostDetect:
+    Regex Host:
+      Service: System.Interface.HTTP.Host.Regex
+      Method: beforeHostDetect
+...

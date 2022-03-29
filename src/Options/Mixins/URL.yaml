@@ -1,0 +1,8 @@
+---
+Nodes:
+  URL:
+    Type: Literal.URL
+    Widgets:
+      Write:
+        Type: Form.Textfield
+...

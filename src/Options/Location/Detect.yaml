@@ -1,0 +1,7 @@
+---
+Mode: Normal
+Modes:
+  Normal:
+    Service: Location.Detect.NearestGeoIP
+    Method: Detect
+...

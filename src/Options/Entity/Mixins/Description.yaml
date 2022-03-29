@@ -1,0 +1,17 @@
+---
+Nodes:
+  Description.Short:
+    Index: true
+    Type: Literal.String
+    Nullable: true
+    Widgets:
+      Write:
+        Type: Form.Textfield
+  Description.Long:
+    Index: true
+    Type: Literal.Text
+    Nullable: true
+    Widgets:
+      Write:
+        Type: Form.Textarea
+...

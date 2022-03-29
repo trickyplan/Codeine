@@ -1,0 +1,18 @@
+---
+Textarea:
+  Delimiter: ','
+Closing Tag: true
+Attributes:
+  String:
+    ID: ""
+    Name: ""
+    Class:
+    - form-control
+    Placeholder: ""
+    Rows: 5
+    AutoComplete: ""
+  Boolean:
+    Autofocus: false
+    Required: false
+    Disabled: false
+...

@@ -1,0 +1,6 @@
+---
+HTTP:
+  Filter:
+    Referrer:
+      Rules: []
+...

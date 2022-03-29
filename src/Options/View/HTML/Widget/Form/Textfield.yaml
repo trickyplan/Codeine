@@ -1,0 +1,25 @@
+---
+Subtype: text
+Closing Tag: false
+Attributes:
+  String:
+    Type: ""
+    ID: ""
+    Name: ""
+    Class:
+    - form-control
+    Pattern: ""
+    Placeholder: ""
+    Value: ""
+    Size: ""
+    Step: ""
+    Maxlength: ""
+    Min: ""
+    Max: ""
+    AutoComplete: ""
+  Boolean:
+    Autofocus: false
+    Required: false
+    Disabled: false
+    ReadOnly: false
+...

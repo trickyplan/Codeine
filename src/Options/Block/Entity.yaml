@@ -1,0 +1,48 @@
+---
+Sequence ID: true
+Mixins:
+- Mixins.Titled
+- Mixins.Controlled
+- Mixins.Text
+Storage: Primary
+Nodes:
+  ID:
+    Type: Literal.String
+    Widgets:
+      Write:
+        Type: Form.Textfield
+Hooks:
+  beforeUpdateGet:
+    Store URL:
+      Service: System.Interface.HTTP
+      Method: StoreURL
+  afterCreatePost:
+    Log Creation:
+      Service: IO.Log
+      Method: Hook
+      Call:
+        Message: "Block \xAB$Data.0.Title\xBB ID: $Data.0.ID created by User \xAB$Session.User.Title\xBB"
+        Channel: Management
+        Verbose: 4
+  afterUpdatePost:
+    Redirect URL:
+      Service: System.Interface.HTTP
+      Method: Redirect
+      Call:
+        Redirect: /control/$Entity/Show/$Data.0.ID
+    Log Updation:
+      Service: IO.Log
+      Method: Hook
+      Call:
+        Message: "Block \xAB$Current.Title\xBB ID: $Current.ID  updated by User \xAB$Session.User.Title\xBB"
+        Channel: Management
+        Verbose: 4
+  afterDeletePost:
+    Log Deletion:
+      Service: IO.Log
+      Method: Hook
+      Call:
+        Message: "Block \xAB$Data.0.Title\xBB ID: $Data.0.ID deleted by User \xAB$Session.User.Title\xBB"
+        Channel: Management
+        Verbose: 4
+...

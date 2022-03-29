@@ -1,0 +1,9 @@
+---
+Regex:
+  Live Translate:
+    Match: /dev/translate.json$
+    Service: Locale.Live
+    View:
+      Renderer:
+        Service: View.JSON
+...

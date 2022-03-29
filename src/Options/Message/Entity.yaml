@@ -1,0 +1,55 @@
+---
+Mixins:
+- Mixins.CRUD
+- Mixins.UGC
+Storage: Primary
+Folders:
+- Inbox
+- Outbox
+Nodes:
+  ID:
+    Type: Literal.String
+    Hooks:
+      beforeEntityCreate:
+        Service: Security.UID
+        Method: Get
+        Call:
+          Mode: Secure
+  Target:
+    Type: Numeral.Integer
+    Required: true
+    Options:
+      Service: Entity.List
+      Method: RAW
+      Call:
+        Entity: User
+        Key: Title
+        Sort:
+          ID: true
+    Widgets:
+      Write:
+        Type: Form.Select
+  Subject:
+    Type: Literal.String
+    Widgets:
+      Write:
+        Type: Form.Textfield
+  Body:
+    Type: Literal.Text
+    Widgets:
+      Write:
+        Type: Form.Textarea
+  Read:
+    Default: 0
+    Type: Numeral.Integer
+Hooks:
+  afterShow:
+    Restore URL:
+      Service: Message.MarkAsRead
+  afterDeletePost:
+    Redirect:
+      Service: System.Interface.HTTP
+      Method: Redirect
+      Call:
+        Redirect: /messages
+...

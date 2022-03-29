@@ -1,0 +1,10 @@
+---
+Widgets:
+  Normal:
+    Write:
+      Type: Form.Select
+    Filter:
+      Type: Form.Select
+    Show:
+      Type: Far
+...

@@ -1,0 +1,27 @@
+---
+Nodes:
+  Width:
+    Type: Numeral.Float
+    Widgets:
+      Write:
+        Type: Form.Textfield
+        Postfix: mm
+  Height:
+    Type: Numeral.Float
+    Widgets:
+      Write:
+        Type: Form.Textfield
+        Postfix: mm
+  Depth:
+    Type: Numeral.Float
+    Widgets:
+      Write:
+        Type: Form.Textfield
+        Postfix: mm
+  Weight:
+    Type: Numeral.Float
+    Widgets:
+      Write:
+        Type: Form.Textfield
+        Postfix: g
+...

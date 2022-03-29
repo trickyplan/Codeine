@@ -1,0 +1,10 @@
+---
+View:
+  HTML:
+    Parslet:
+      Cut:
+        StripTags:
+          Enabled: true
+          Allowed: <br>
+        Hellip: "\u2026"
+...

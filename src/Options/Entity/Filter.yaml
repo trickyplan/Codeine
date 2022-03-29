@@ -1,0 +1,10 @@
+---
+Purpose: Filter
+Form:
+  Layout: Full
+Hooks:
+  beforeFilterDo:
+    Load model (essential):
+      Service: Entity
+      Method: Load
+...

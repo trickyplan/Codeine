@@ -1,0 +1,7 @@
+---
+HTTP:
+  Headers:
+    'Content-Type:': application/octet-stream
+    'Accept-Ranges:': bytes
+    'Connection:': keep-alive
+...

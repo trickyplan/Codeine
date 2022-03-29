@@ -1,0 +1,10 @@
+---
+Marker:
+  Cookie:
+    Name: SSID
+    TTL: 15228000
+    HTTP Only: true
+    Secure: false
+    Path: /
+    Same Site: Strict
+...

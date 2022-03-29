@@ -1,0 +1,47 @@
+---
+Mixins:
+- Mixins.ID.Sequence
+- Mixins.Titled
+- Mixins.UGC
+- Mixins.Geo
+Storage: Primary
+EPP: 10
+Nodes:
+  Lat:
+    Type: Numeral.Float
+    Widgets:
+      Write:
+        Type: Form.Textfield
+  Long:
+    Type: Numeral.Float
+    Widgets:
+      Write:
+        Type: Form.Textfield
+  Slug:
+    Widgets:
+      Write:
+        Type: Form.Textfield
+    Hooks:
+      beforeEntityWrite:
+        Service: SEO.Slug
+        Method: Generate
+Hooks:
+  afterCreatePost:
+    Redirect:
+      Service: System.Interface.HTTP
+      Method: Redirect
+      Call:
+        Redirect: /control/$Entity
+  afterUpdatePost:
+    Redirect:
+      Service: System.Interface.HTTP
+      Method: Redirect
+      Call:
+        Redirect: /control/$Entity
+  afterDeletePost:
+    Redirect:
+      Service: System.Interface.HTTP
+      Method: Redirect
+      Call:
+        Redirect: /control/$Entity
+...

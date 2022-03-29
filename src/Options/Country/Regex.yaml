@@ -1,0 +1,19 @@
+---
+Regex:
+  Show Country:
+    Match: ^/country/(.*)$
+    Service: Entity.Show.Static
+    Method: Do
+    Call:
+      Entity: Country
+      Where:
+        Slug: $1
+  Show Countries:
+    Match: ^/countries$
+    Service: Entity.List
+    Method: Do
+    Call:
+      Entity: Country
+      Sort:
+        Title.en: true
+...

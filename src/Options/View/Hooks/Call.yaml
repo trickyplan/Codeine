@@ -1,0 +1,7 @@
+---
+Block Call Pattern: <block>(.*?)<call>([\w\.\:]+?)</call>(.*?)</block>
+Call Pattern: <call>([\w\.\:\,]*?)</call>
+Verbosity:
+  Calltag:
+    Unresolved: 7
+...

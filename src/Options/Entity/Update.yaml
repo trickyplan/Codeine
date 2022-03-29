@@ -1,0 +1,21 @@
+---
+Purpose: Update
+Form:
+  Layout: Full
+  Template: Template/Update
+Hooks:
+  beforeUpdateDo:
+    Load model (essential):
+      Service: Entity
+      Method: Load
+  afterUpdatePost:
+    HTTP 202:
+      Headers:
+        HTTP/1.1: 202 Accepted
+  onEntityUpdateNotFound:
+    Show Error Page:
+      Service: Error.Page
+      Method: Do
+      Call:
+        Code: 404
+...

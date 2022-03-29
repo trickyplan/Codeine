@@ -1,0 +1,8 @@
+---
+HTTP:
+  Filter:
+    Agent:
+      Rules:
+        Scanners:
+        - phantomjs|nmap|nikto|wikto|sqlmap|bsqlbf|w3af|acunetix|havij|appscan|jorgee
+...

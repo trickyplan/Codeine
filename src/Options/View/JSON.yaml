@@ -1,0 +1,22 @@
+---
+View:
+  JSON:
+    Pipeline:
+      Enabled: true
+Renderer:
+  Widgets:
+    Allowed:
+    - Template
+HTTP:
+  Headers:
+    'Content-Type:': application/json; charset=utf-8
+Extension: .json
+Hooks:
+  afterJSONRender:
+    Parslets:
+      Service: View.JSON.Parslets
+      Method: Process
+    I18N:
+      Service: View.HTML.Locale
+      Method: Process
+...

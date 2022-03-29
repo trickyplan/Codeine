@@ -1,0 +1,5 @@
+---
+Renderer:
+  Service: View.Plaintext
+  Method: Render
+...

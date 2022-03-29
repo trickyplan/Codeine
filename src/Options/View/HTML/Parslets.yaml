@@ -1,0 +1,40 @@
+---
+View:
+  HTML:
+    Parslets:
+      afterHTMLRender:
+        Enabled:
+        - Access
+        - FastFar
+        - For
+        - Fn
+        - Exec
+        - External
+        - Entity
+        - Datetime
+        - URLEncode
+        - HTMLEntities
+        - Locale
+        - Lower
+        - Cut
+        - Hashtags
+        - Currency
+        - Temperature
+        - Number
+        - Variable
+        - HeaderLink
+        - SEO.Title
+        - SEO.Keyword
+        - SEO.Description
+      afterViewLoad:
+        Enabled:
+        - Environment
+        - Replace
+        - Foreach
+        - Repeat
+        - Variable
+        - Key
+        - Far
+        - If
+        - Layout
+...

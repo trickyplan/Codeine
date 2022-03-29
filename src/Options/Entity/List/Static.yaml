@@ -1,0 +1,32 @@
+---
+Primary: ID
+Contract:
+  Entity.List:
+    Do:
+      Memo:
+      - Entity
+      - Where
+      - Template
+      - Count
+      - Page
+      - Time
+      - Selected
+      - Sort
+      - Location.ID
+      - Selector
+Hooks:
+  beforeEntityList:
+    Filter:
+      Service: Entity.List.Filter
+      Method: beforeList
+    Pagination:
+      Service: Entity.List.Pagination
+      Method: beforeList
+    Random:
+      Service: Entity.List.Random
+      Method: beforeList
+  afterEntityList:
+    Pagination:
+      Service: Entity.List.Pagination
+      Method: afterList
+...

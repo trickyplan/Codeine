@@ -1,0 +1,46 @@
+---
+Storages:
+  Developer:
+    Scope: developer@trickyplan.com
+    Driver: IO.Transport.Mail.PHPMailer
+    Format: Formats.Log.HTML
+    Log:
+      ConvertTimestampsToAbsolute: true
+  Performance:
+    Scope: performance@trickyplan.com
+    Driver: IO.Transport.Mail.PHPMailer
+    Format: Formats.Log.HTML
+    Log:
+      ConvertTimestampsToAbsolute: true
+  Administrator:
+    Scope: administrator@trickyplan.com
+    Driver: IO.Transport.Mail.PHPMailer
+    Format: Formats.Log.HTML
+    Log:
+      ConvertTimestampsToAbsolute: true
+  Security:
+    Scope: security@trickyplan.com
+    Driver: IO.Transport.Mail.PHPMailer
+    Format: Formats.Log.HTML
+    Log:
+      ConvertTimestampsToAbsolute: true
+  Management:
+    Scope: management@trickyplan.com
+    Driver: IO.Transport.Mail.PHPMailer
+    Format: Formats.Log.HTML
+    Log:
+      ConvertTimestampsToAbsolute: true
+  Marketing:
+    Scope: marketing@trickyplan.com
+    Driver: IO.Transport.Mail.PHPMailer
+    Format: Formats.Log.HTML
+    Log:
+      ConvertTimestampsToAbsolute: true
+  -Access:
+    Really Bad Idea: true
+    Scope: access@trickyplan.com
+    Driver: IO.Transport.Mail.PHPMailer
+    Format: Formats.Log.HTML
+    Log:
+      ConvertTimestampsToAbsolute: true
+...

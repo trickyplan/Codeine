@@ -1,0 +1,17 @@
+---
+ReCAPTCHA:
+  Enabled: false
+  Place: ReCAPTCHA
+  Endpoint: https://www.google.com/recaptcha/api/siteverify
+  Public: ""
+  Private: ""
+  Action: page
+Hooks:
+  CAPTCHA:
+    Failed:
+      Error Page:
+        Service: Error.Page
+        Method: Do
+        Call:
+          Code: 418
+...

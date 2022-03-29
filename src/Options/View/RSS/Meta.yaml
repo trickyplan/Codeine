@@ -1,0 +1,19 @@
+---
+Title: []
+Keywords: []
+Description: ""
+Meta:
+  Title:
+    Delimiter: " \u2014 "
+    Reverse: false
+  Sources:
+    Title:
+      Service: View.RSS.Meta.Scan
+      Method: Title
+    Keywords:
+      Service: View.RSS.Meta.Scan
+      Method: Keywords
+    Description:
+      Service: View.RSS.Meta.Scan
+      Method: Description
+...

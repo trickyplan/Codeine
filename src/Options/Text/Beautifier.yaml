@@ -1,0 +1,10 @@
+---
+Beautifiers:
+- Copyright
+- Hellip
+- MDash
+- Registered
+- RedundantSpaces
+- RedundantNewlines
+- Trim
+...

@@ -1,0 +1,29 @@
+---
+Time:
+  Offset: 0
+Mode: Normal
+Modes:
+  Precise+:
+    Service: System.Time.Microtime
+    Method: Get
+  Precise:
+    Service: System.Time.Microtime
+    Method: Get
+  Normal:
+    Service: System.Time.Standart
+    Method: Get
+  Rough:
+    Service: System.Time.Rough
+    Method: Get
+    Call:
+      Precision: 6
+  Day:
+    Service: System.Time.Day
+    Method: Get
+  SecondsSinceMidnight:
+    Service: System.Time.SecondsSinceMidnight
+    Method: Get
+  SecondsSinceMonday:
+    Service: System.Time.SecondsSinceMonday
+    Method: Get
+...

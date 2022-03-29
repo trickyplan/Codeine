@@ -1,0 +1,23 @@
+---
+EMail Activation:
+  Subject: "\u0410\u043A\u0442\u0438\u0432\u0430\u0446\u0438\u044F \u0430\u043A\u043A\u0430\u0443\u043D\u0442\u0430"
+  Auto Login: true
+Hooks:
+  Activation:
+    Success:
+      Redirect:
+        Service: System.Interface.HTTP
+        Method: Redirect
+        Call:
+          Redirect: $ActivationData.BackURL
+    Failed:
+      Show page:
+        Service: View
+        Method: Add
+        Call:
+          Place: Content
+          Element:
+            Type: Template
+            Scope: User
+            ID: Activation/Failed
+...

@@ -1,0 +1,19 @@
+---
+Regex:
+  Delete message:
+    Weight: 100
+    Match: /message/delete/(.*)
+    Service: Entity.Delete
+    Method: Do
+    Call:
+      Entity: Message
+      Where: $1
+  Message:
+    Weight: 50
+    Match: /message/(.*)
+    Service: Entity.Show.Static
+    Method: Do
+    Call:
+      Entity: Message
+      Where: $1
+...

@@ -1,0 +1,32 @@
+---
+Rules:
+  Online Status / All:
+    Decision: true
+    Weight: 50
+    Run:
+      Service: Project.Online.Status
+  Terms / All:
+    Decision: true
+    Weight: 50
+    Run:
+      Service: Project.Terms
+      Method: Do
+  Copyright / All:
+    Decision: true
+    Weight: 50
+    Run:
+      Service: Project.Copyright
+      Method: Do
+  About / All:
+    Decision: true
+    Weight: 50
+    Run:
+      Service: Project.About
+      Method: Do
+  Status / All:
+    Decision: true
+    Weight: 50
+    Run:
+      Service: Project.Status
+      Method: Do
+...

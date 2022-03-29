@@ -1,0 +1,7 @@
+---
+Behaviours:
+  Cached:
+    Result:
+      Storage: Behaviours Cached
+      Allow Storing Empty: true
+...

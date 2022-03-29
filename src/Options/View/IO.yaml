@@ -1,0 +1,43 @@
+---
+Storages:
+  Layout:
+    Driver: IO.Storage.FileSystem
+    Directory: Assets
+    Postfix: .html
+  Locale:
+    Driver: IO.Storage.FileSystem
+    Directory: Assets
+    Format: Formats.JSON
+    Postfix: .json
+  Image:
+    Driver: IO.Storage.FileSystem
+    Directory: Assets
+  LESS:
+    Driver: IO.Storage.FileSystem
+    Directory: Assets
+    Postfix: .less
+  SASS:
+    Driver: IO.Storage.FileSystem
+    Directory: Assets
+    Postfix: .scss
+  CSS:
+    Driver: IO.Storage.FileSystem
+    Directory: Assets
+    Postfix: .css
+  JS:
+    Driver: IO.Storage.FileSystem
+    Directory: Assets
+    Postfix: .js
+  Image Cache:
+    Driver: IO.Storage.FileSystem
+    Directory: /var/tmp/codeine
+    Scope: img
+  CSS Cache:
+    Driver: IO.Storage.FileSystem
+    Directory: /var/tmp/codeine
+    Scope: css
+  JS Cache:
+    Driver: IO.Storage.FileSystem
+    Directory: /var/tmp/codeine
+    Scope: js
+...

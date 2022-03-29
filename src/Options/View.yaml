@@ -1,0 +1,36 @@
+---
+Contract:
+  Methods:
+    -Load:
+      Behaviours:
+        Cached:
+          Enabled: false
+          TTL: 86400
+          Keys:
+          - Scope
+          - ID
+          - Context
+          - Data
+View:
+  Renderer:
+    Service: View.Plaintext
+    Method: Render
+Output:
+  Content: []
+Hooks:
+  afterViewLoad:
+    Block:
+      Service: View.Hooks.Block
+      Method: Parse
+    Call:
+      Service: View.Hooks.Call
+      Method: Parse
+      Call:
+        Value Key: Value
+    Key:
+      Service: View.Hooks.Key
+      Method: Parse
+    Parslets:
+      Service: View.HTML.Parslets
+      Method: afterViewLoad
+...

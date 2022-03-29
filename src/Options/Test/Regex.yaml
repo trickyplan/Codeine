@@ -1,0 +1,41 @@
+---
+Regex:
+  Test / Ajax:
+    Match: ^/test/(.+).ajax$
+    Weight: 25
+    Service: Test
+    Method: Run.Test
+    Zone: Test
+    Last: true
+    Call:
+      Context: app
+      ID: $1
+  Test / JSON:
+    Match: ^/test/(.+)\.json$
+    Weight: 25
+    Service: Test
+    Method: Run.Test
+    Last: true
+    View:
+      Renderer:
+        Service: View.JSON
+        Method: Render
+      JSON:
+        RAW: true
+    Call:
+      ID: $1
+  Test:
+    Match: ^/test/(.+)$
+    Weight: 10
+    Service: Test
+    Method: Run.Test
+    Zone: Test
+    Call:
+      ID: $1
+  All Tests:
+    Match: ^/test$
+    Weight: 5
+    Service: Test
+    Method: List.All
+    Zone: Test
+...

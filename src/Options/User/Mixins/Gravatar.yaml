@@ -1,0 +1,9 @@
+---
+Nodes:
+  Gravatar:
+    Type: Literal.String
+    Hooks:
+      afterEntityRead:
+        Service: User.Avatar.Gravatar
+        Method: Get
+...

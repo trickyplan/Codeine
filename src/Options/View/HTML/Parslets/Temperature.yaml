@@ -1,0 +1,10 @@
+---
+View:
+  HTML:
+    Parslets:
+      Temperature:
+        Unit:
+          Celsius: "\xB0C"
+          Fahrenheit: "\xB0F"
+          Kelvin: "\xB0K"
+...

@@ -1,0 +1,45 @@
+---
+404 Error Level: 6
+Context: ""
+Run:
+  Method: Do
+Hooks:
+  beforeFrontRun:
+    Routing:
+      Service: Code.Routing
+      Method: Route
+    Project:
+      Service: Project.Preload
+      Method: beforeFrontRun
+    Prepare:
+      Service: Code.Flow.Front.Before
+      Method: Do
+    Access:
+      Service: Code.Flow.Front.Access
+      Method: Check
+    Layouts:
+      Service: Code.Flow.Front.Layouts
+      Method: Do
+    QoS:
+      Service: System.QoS
+      Method: Start
+  afterFrontRun:
+    Rendering:
+      Service: View
+      Method: Render
+    QoS:
+      Service: System.QoS
+      Method: Finish
+    SEO Audit:
+      Service: SEO.Audit
+      Method: Do
+    Latency Audit:
+      Service: Performance.Latency
+      Method: Audit
+  onFrontAccessDenied:
+    Show Error Page:
+      Service: Error.Page
+      Method: Catch
+      Call:
+        Code: 403
+...

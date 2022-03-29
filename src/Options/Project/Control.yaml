@@ -1,0 +1,39 @@
+---
+Sidebar:
+- Do
+Hooks:
+  Disable:
+    Fail:
+      Show Message:
+        Output:
+          Content:
+            Message:
+              Type: Block
+              Class: alert alert-danger
+              Value: <codeine-locale>Project.Down:Disable.Fail</codeine-locale>
+    Success:
+      Show Message:
+        Output:
+          Content:
+            Message:
+              Type: Block
+              Class: alert
+              Value: <codeine-locale>Project.Down:Disable.Success</codeine-locale>
+  Enable:
+    Fail:
+      Show Message:
+        Output:
+          Content:
+            Message:
+              Type: Block
+              Class: alert alert-danger
+              Value: <codeine-locale>Project.Down:Enable.Fail</codeine-locale>
+    Success:
+      Show Message:
+        Output:
+          Content:
+            Message:
+              Type: Block
+              Class: alert alert-success
+              Value: <codeine-locale>Project.Down:Enable.Success</codeine-locale>
+...

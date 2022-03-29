@@ -1,0 +1,55 @@
+---
+Nodes:
+  UGC.User.Author:
+    Auto: true
+    Type: Numeral.Integer
+    Weight: 10100
+    Set:
+    - UGC
+    - Entity
+    - User
+    Default: 0
+    Visible:
+      JSON: true
+    Hooks:
+      beforeEntityCreate: $Session.User.ID
+  UGC.User.LastEditor:
+    Auto: true
+    Type: Numeral.Integer
+    Weight: 10200
+    Set:
+    - UGC
+    - Entity
+    - User
+    Default: 0
+    Visible:
+      JSON: true
+    Hooks:
+      beforeEntityUpdate: $Session.User.ID
+  UGC.Date.Created:
+    Auto: true
+    Type: Numeral.Integer
+    Weight: 10300
+    Set:
+    - UGC
+    - Dates
+    Visible:
+      JSON: true
+    Hooks:
+      beforeEntityCreate:
+        Service: System.Time
+        Method: Get
+  UGC.Date.LastModified:
+    Auto: true
+    Type: Numeral.Integer
+    Weight: 10400
+    Set:
+    - UGC
+    - Dates
+    Visible:
+      JSON: true
+    Hooks:
+      beforeEntityWrite:
+        Service: System.Time
+        Method: Get
+...

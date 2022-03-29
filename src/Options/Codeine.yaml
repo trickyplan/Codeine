@@ -1,0 +1,36 @@
+---
+Locale: en_US.UTF-8
+Timezone: UTC
+Perfect: false
+Core Storage Limit: 512
+Memo Threshold: 0.2
+Timer Resolution: 2
+Run Cache Enabled: true
+Monitor Memory: false
+Overlays: []
+Panic Verbose: 3
+Verbose:
+  Developer: 4
+  Administrator: 4
+  Security: 4
+  Marketing: 4
+  Performance: 4
+  Metric: 4
+  Access: 6
+Perfect Verbose:
+  Developer: 0
+  Administrator: 0
+  Security: 0
+  Marketing: 0
+  Performance: 0
+  Metric: 0
+  Access: 0
+Driver:
+  Path: Drivers
+  Extension: .php
+Hooks:
+  onBootstrap:
+    Versioning:
+      Service: Codeine.Versioning
+      Method: Do
+...

@@ -1,0 +1,30 @@
+---
+Security:
+  Session:
+    Auto: true
+    Generator:
+      Service: Security.UID
+      Method: Get
+      Call:
+        Mode: Secure+
+Hooks:
+  afterSessionInitialize:
+    Check API key presents:
+      Service: Session.Hooks.API
+      Method: afterSessionInitialize
+    Check UTM:
+      Service: Session.Hooks.UTM
+      Method: afterSessionInitialize
+  ActivationNeeded:
+    Show alert:
+      Output:
+        Message:
+        - Type: Template
+          Scope: User/Activation
+          ID: Needed
+  LoadUser:
+    After:
+      Set User Timezone as Default:
+        Service: Session.Hooks.SetUserTimezone
+        Method: LoadUser.After
+...

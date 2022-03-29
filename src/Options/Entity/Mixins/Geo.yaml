@@ -1,0 +1,21 @@
+---
+Nodes:
+  Geo.Latitude:
+    Type: Numeral.Float
+    Visible:
+      JSON: true
+    Widgets:
+      Write:
+        Type: Form.Textfield
+        Subtype: number
+        Step: 1.0E-5
+  Geo.Longitude:
+    Type: Numeral.Float
+    Visible:
+      JSON: true
+    Widgets:
+      Write:
+        Type: Form.Textfield
+        Subtype: number
+        Step: 1.0E-5
+...

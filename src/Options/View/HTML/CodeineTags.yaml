@@ -1,0 +1,20 @@
+---
+View:
+  HTML:
+    CodeineTags:
+      Enabled:
+      - Access
+      - Far
+      - If
+      - For
+      - Foreach
+      - Environment
+      - Fn
+      - Exec
+      - Number
+      - Hashtags
+      - Entity
+      - Datetime
+      - URLEncode
+      - Layout
+...

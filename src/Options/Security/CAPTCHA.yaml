@@ -1,0 +1,24 @@
+---
+Mode: Normal
+Modes:
+  Secure+: Security.CAPTCHA.ReCAPTCHA
+  Secure: Security.CAPTCHA.ReCAPTCHA
+  Normal: Security.CAPTCHA.Simple
+  Fast: Security.CAPTCHA.Dummy
+  Fast+: Security.CAPTCHA.Dummy
+Hooks:
+  CAPTCHA:
+    Failed:
+      Error Page:
+        Service: Entity.Create
+        Method: GET
+        Call:
+          Output:
+            Message:
+              Error:
+                Type: Block
+                Class: alert alert-danger
+                Value: "\u0412\u0432\u0435\u0434\u0435\u043D\u044B \u043D\u0435\u0432\u0435\u0440\u043D\u044B\u0435
+                  \u0446\u0438\u0444\u0440\u044B"
+              4: <jsrun>$('#captcha').addClass('error')</jsrun>
+...

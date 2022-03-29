@@ -1,0 +1,22 @@
+---
+Entity: User
+Purpose: Passwd
+Output:
+  Content:
+    Form:
+      Type: Form
+  Form:
+    Old:
+      Entity: User
+      Type: Form.Password.One
+      Name: OldPassword
+      Node: OldPassword
+      Label: User.Passwd:OldPassword
+    New:
+      Entity: User
+      Type: Form.Password
+      Name: NewPassword
+      Node: NewPassword
+      Mode: Two
+      Label: User.Passwd:NewPassword
+...

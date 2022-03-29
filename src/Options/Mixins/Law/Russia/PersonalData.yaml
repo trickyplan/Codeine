@@ -1,0 +1,10 @@
+---
+Nodes:
+  Law.Russia.AgreeToCollectPersonalData:
+    Weight: 1000
+    Type: Boolean
+    Required: true
+    Widgets:
+      Write:
+        Type: Form.Checkbox
+...

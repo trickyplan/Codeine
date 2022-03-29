@@ -1,0 +1,16 @@
+---
+Nodes:
+  Enabled:
+    Type: Boolean
+    Filter:
+      Enabled: true
+    Weight: -100
+    Localized: true
+    Nullable: true
+    Visible:
+      JSON: true
+    Widgets:
+      Write:
+        Type: Form.Checkbox
+        Help: true
+...

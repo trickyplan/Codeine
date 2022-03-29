@@ -1,0 +1,38 @@
+---
+Storages:
+  Developer:
+    Driver: IO.Log.Error
+    Format: Formats.Log.Dummy
+    Log:
+      ConvertTimestampsToAbsolute: true
+  Performance:
+    Driver: IO.Log.Error
+    Format: Formats.Log.Dummy
+    Log:
+      ConvertTimestampsToAbsolute: true
+  Administrator:
+    Driver: IO.Log.Error
+    Format: Formats.Log.Dummy
+    Log:
+      ConvertTimestampsToAbsolute: true
+  Security:
+    Driver: IO.Log.Error
+    Format: Formats.Log.Dummy
+    Log:
+      ConvertTimestampsToAbsolute: true
+  Management:
+    Driver: IO.Log.Error
+    Format: Formats.Log.Dummy
+    Log:
+      ConvertTimestampsToAbsolute: true
+  Marketing:
+    Driver: IO.Log.Error
+    Format: Formats.Log.Dummy
+    Log:
+      ConvertTimestampsToAbsolute: true
+  Access:
+    Driver: IO.Log.Error
+    Format: Formats.Log.Dummy
+    Log:
+      ConvertTimestampsToAbsolute: true
+...

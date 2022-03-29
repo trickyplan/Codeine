@@ -1,0 +1,12 @@
+---
+Nodes:
+  Contacts.EMail:
+    Type: Literal.String
+    Nullable: true
+    Index: true
+    Widgets:
+      Write:
+        Type: Form.Textfield
+        Subtype: email
+        Autocomplete: email
+...

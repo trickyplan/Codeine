@@ -1,0 +1,11 @@
+---
+Period:
+  Format: 2
+  Units:
+    Year: 31536000
+    Week: 604800
+    Day: 86400
+    Hour: 3600
+    Min: 60
+    Seconds: 1
+...

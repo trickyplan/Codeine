@@ -1,0 +1,10 @@
+---
+Formats:
+  Date:
+    Adaptive:
+      Segments:
+        "Y": 'Y.m.d, '
+        m: 'M, d, '
+        d: 'D, d, '
+      Postfix: H:i
+...

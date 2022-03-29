@@ -1,0 +1,35 @@
+---
+Nodes:
+  API.Allowed:
+    Tag: Control
+    Type: Boolean
+    Default: false
+    Weight: 2000
+    Widgets:
+      Write:
+        Type: Form.Checkbox
+  API.Balance:
+    Tag: Control
+    Type: Numeral.Float
+    Weight: 2000
+    Widgets:
+      Write:
+        Type: Form.Textfield
+        Subtype: number
+        Step: 0.01
+  API.Key:
+    Type: Literal.String
+    Weight: 2000
+    Hooks:
+      beforeEntityCreate:
+        Service: Security.UID
+        Method: Get
+        Call:
+          Mode: Secure+
+    Widgets:
+      Write:
+        Widget Template: Form/Textfield/APIKey
+        Type: Form.Textfield
+        Postfix: copy
+        ReadOnly: true
+...

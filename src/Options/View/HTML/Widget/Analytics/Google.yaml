@@ -1,0 +1,14 @@
+---
+Analytics:
+  Google:
+    Enabled: false
+    DoNotTrack: true
+    Demography: false
+    Environment:
+      Production: true
+      Staging: false
+      Development: false
+    URLs:
+      Disabled:
+      - /park
+...

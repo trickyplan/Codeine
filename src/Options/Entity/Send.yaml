@@ -1,0 +1,7 @@
+---
+Sender:
+  Service: IO
+  Method: Write
+  Call:
+    Storage: EMail
+...

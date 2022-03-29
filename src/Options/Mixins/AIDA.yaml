@@ -1,0 +1,27 @@
+---
+Nodes:
+  Attention:
+    Index: true
+    Type: Literal.HTML
+    Widgets:
+      Write:
+        Type: Form.Quill
+  Interest:
+    Index: true
+    Type: Literal.HTML
+    Widgets:
+      Write:
+        Type: Form.Quill
+  Desire:
+    Index: true
+    Type: Literal.HTML
+    Widgets:
+      Write:
+        Type: Form.Quill
+  Action:
+    Index: true
+    Type: Literal.HTML
+    Widgets:
+      Write:
+        Type: Form.Quill
+...

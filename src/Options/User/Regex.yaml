@@ -1,0 +1,105 @@
+---
+Regex:
+  Users:
+    Match: ^/users$
+    Service: Entity.List
+    Method: Do
+    Call:
+      Entity: User
+      No Where: true
+  Show user by ID:
+    Match: ^/user/(\d+)$
+    Service: Entity.Show.Static
+    Method: Do
+    Call:
+      Entity: User
+      Where:
+        ID: $1
+  Activate User:
+    Match: ^/activate/(\d+)$
+    Service: User.EMail
+    Method: Check
+    Call:
+      Code: $1
+  Identificate:
+    Match: ^/user/identificate/(\w+)$
+    Service: User.Login
+    Method: Identificate
+    Call:
+      Backend: $1
+  Authenticate:
+    Match: ^/user/authenticate/(\w+)$
+    Service: User.Login
+    Method: Authenticate
+    Call:
+      Backend: $1
+  Annulate:
+    Match: ^/user/annulate/(.+)$
+    Service: User.Login
+    Method: Annulate
+    Call:
+      Backend: $1
+  Login as user:
+    Match: ^/login/user/(\d+)$
+    Service: User.SecondaryLogin
+    Method: Do
+    Call:
+      Where: $1
+  SendMail.User:
+    Match: ^/mail/user/(\d+)$
+    Service: User.Activation
+    Method: Send
+    Call:
+      Second: true
+      Data:
+        ID: $1
+  User / Dashboard:
+    Match: ^/user/dashboard$
+    Service: Entity.Show.Static
+    Method: Do
+    Call:
+      Entity: User
+      Where: $Session.User.ID
+      Template: Dashboard
+  User / Profile:
+    Match: ^/profile$
+    Service: Entity.Update
+    Call:
+      Entity: User
+      Where: $Session.User.ID
+  User / Join:
+    Match: ^/join$
+    Service: Entity.Create
+    Method: Do
+    Call:
+      Entity: User
+      OnlyRequired: true
+  User / Login:
+    Match: ^/login$
+    Service: User.Login
+    Method: Do
+  User / Logout:
+    Match: ^/logout$
+    Service: User.Logout
+    Method: Do
+  User / Reset Password:
+    Match: ^/user/reset/password$
+    Service: User.Reset.Password
+    Method: Do
+  User / Cabinet:
+    TODO: Remove cabinet concept
+    Match: ^/user/cabinet
+    Service: User.Cabinet
+    Method: Do
+  User / Takeout:
+    Match: ^/user/takeout
+    Service: Entity.Delete
+    Method: Do
+    Call:
+      Entity: User
+      Where:
+        Service: Session
+        Method: Read
+        Call:
+          Key: User.ID
+...

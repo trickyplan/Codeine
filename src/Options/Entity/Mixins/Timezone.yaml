@@ -1,0 +1,23 @@
+---
+Nodes:
+  Timezone.Identifier:
+    Type: List.Enum
+    Default: Europe/Moscow
+    Options:
+      Service: System.Timezone
+      Method: Get.Options
+    Localized: true
+    Values Locale: System.Timezone:Zones
+    Widgets:
+      Write:
+        Type: Form.Select
+        Values as Keys: true
+  Timezone.Increment:
+    Type: Numeral.Integer
+    Hooks:
+      beforeEntityWrite:
+        Service: System.Timezone
+        Method: Offset.GetByIdentifier
+        Call:
+          Value: $Data.Timezone.Identifier
+...

@@ -1,0 +1,16 @@
+---
+JS:
+  Proto: ""
+  Links: []
+  Output: []
+  Host: ""
+  Caching: false
+Hooks:
+  beforeJSOutput:
+    Combine: ~
+  beforeJSWrite:
+    Obfuscator: ~
+    Compressor: ~
+  afterJSOutput:
+    Async: ~
+...

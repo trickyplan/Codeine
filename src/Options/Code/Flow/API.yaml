@@ -1,0 +1,57 @@
+---
+API:
+  Request:
+    Flow: API
+    Method: Do
+  Response:
+    Status:
+      Code: 0
+      Message: OK
+  Formats:
+    json:
+      View:
+        Renderer:
+          Service: View.JSON
+          Method: Render
+          Call:
+            View:
+              JSON:
+                Key: Content
+    raw:
+      View:
+        Renderer:
+          Service: View.RAW
+          Method: Render
+          Call:
+            View:
+              RAW:
+                Key: Content.Response.Data
+Hooks:
+  beforeAPIRun:
+    Project:
+      Service: Project.Preload
+      Method: beforeFrontRun
+    Routing:
+      Service: Code.Flow.API.Routing
+      Method: beforeAPIRun
+    APIKey:
+      Service: Code.Flow.API.APIKey
+      Method: beforeAPIRun
+    Access:
+      Service: Code.Flow.API.Access
+      Method: beforeAPIRun
+    QoS:
+      Service: System.QoS
+      Method: Start
+  afterAPIMethodRun:
+    Set response code:
+      Service: Code.Flow.API.ResponseCode
+      Method: Set HTTP Code
+    Set status message:
+      Service: Code.Flow.API.StatusMessage
+      Method: Set Status Message
+  afterAPIRun:
+    Rendering:
+      Service: View
+      Method: Render
+...

@@ -1,0 +1,68 @@
+---
+Regex:
+  Fonts:
+    Match: ^/fonts/(.+)/(.+)\.(woff|woff2|ttf|otf|eot)$
+    Service: View.Asset
+    Method: Get
+    Weight: 100
+    View:
+      Renderer:
+        Service: View.File
+        Method: Render
+    HTTP:
+      Headers:
+        'Cache-Control:': public, max-age=31536000
+    Call:
+      Scope: fonts
+      Asset: $1
+      ID: $2
+      Extension: $3
+  Audio:
+    Match: ^/audio/(.+)/(.+).(mp3|ogg)$
+    Service: View.Asset
+    Method: Get
+    View:
+      Renderer:
+        Service: View.File
+        Method: Render
+    HTTP:
+      Headers:
+        'Cache-Control:': public, max-age=31536000
+    Call:
+      Scope: $3
+      Asset: $1
+      ID: $2
+      Extension: $3
+  Image:
+    Match: ^/img/(.+)/(.+).(png|jpg|jpeg|gif|webp|ico)$
+    Service: View.Asset
+    Method: Get
+    View:
+      Renderer:
+        Service: View.File
+        Method: Render
+    HTTP:
+      Headers:
+        'Cache-Control:': public, max-age=31536000
+    Call:
+      Asset: $1
+      Scope: img
+      ID: $2
+      Extension: $3
+  Video:
+    Match: ^/video/(.+)/(.+)\.(mp4|avi|webm)$
+    Service: View.Asset
+    Method: Get
+    View:
+      Renderer:
+        Service: View.Download
+        Method: Render
+    HTTP:
+      Headers:
+        'Cache-Control:': public, max-age=31536000
+    Call:
+      Asset: $1
+      Scope: video
+      ID: $2
+      Extension: $3
+...

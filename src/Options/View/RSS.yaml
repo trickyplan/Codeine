@@ -1,0 +1,16 @@
+---
+Layout: ""
+Widget Set: ""
+Extension: .rss
+HTTP:
+  Headers:
+    'Content-Type:': text/xml; charset=utf-8
+Hooks:
+  afterRSSPipeline:
+    Parslets:
+      Service: View.HTML.Parslets
+      Method: Process
+    I18N:
+      Service: View.HTML.Locale
+      Method: Process
+...

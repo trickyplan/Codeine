@@ -1,0 +1,29 @@
+---
+Search:
+  Elastic:
+    Index:
+      Create:
+        Default:
+          body:
+            settings:
+              analysis:
+                analyzer:
+                  default:
+                    tokenizer: default
+                tokenizer:
+                  default:
+                    type: ngram
+                    min_gram: 3
+                    max_gram: 4
+                    token_chars:
+                    - letter
+                    - digit
+            mappings:
+              _source:
+                enabled: true
+      Mapping:
+        Literal.String: text
+        Literal.HTML: text
+        Literal.Text: text
+        Numeral.Integer: integer
+...

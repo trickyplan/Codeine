@@ -1,0 +1,6 @@
+---
+Morphology:
+  Case Engine:
+    Service: Text.Morphology.Case.MorpherRu
+    Method: Convert
+...

@@ -1,0 +1,5 @@
+---
+Test:
+  List:
+    BaseURL: $HTTP.Proto$HTTP.Domain/test
+...

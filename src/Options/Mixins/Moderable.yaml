@@ -1,0 +1,35 @@
+---
+Nodes:
+  Verdict:
+    Type: Literal.Text
+  Moderated:
+    Type: Numeral.Integer
+  Moderator:
+    Type: Numeral.Integer
+  Status:
+    Type: Ternary
+    Default: 0
+Hooks:
+  beforeUpdatePost:
+    Reset status:
+      Request:
+        Data:
+        - Status: 0
+          Moderator: $Session.User.ID
+  beforeAcceptGet:
+    Store URL:
+      Service: System.Interface.HTTP
+      Method: StoreURL
+  afterAcceptPost:
+    Restore URL:
+      Service: System.Interface.HTTP
+      Method: RestoreURL
+  beforeRejectGet:
+    Store URL:
+      Service: System.Interface.HTTP
+      Method: StoreURL
+  afterRejectPost:
+    Restore URL:
+      Service: System.Interface.HTTP
+      Method: RestoreURL
+...

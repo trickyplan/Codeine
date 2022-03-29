@@ -1,0 +1,13 @@
+---
+Nodes:
+  Lead.URL:
+    Type: Literal.String
+    Widgets:
+      Write:
+        Type: Form.Textfield
+  Lead.Title:
+    Type: Literal.String
+    Widgets:
+      Write:
+        Type: Form.Textfield
+...

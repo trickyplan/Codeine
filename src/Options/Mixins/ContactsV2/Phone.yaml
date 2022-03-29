@@ -1,0 +1,12 @@
+---
+Nodes:
+  Contacts.Phone:
+    Type: Literal.String
+    Nullable: true
+    Index: true
+    Widgets:
+      Write:
+        Type: Form.Textfield
+        Subtype: tel
+        Autocomplete: phone
+...

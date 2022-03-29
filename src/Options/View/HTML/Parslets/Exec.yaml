@@ -1,0 +1,21 @@
+---
+Contract:
+  View.HTML.Parslets.Exec:
+    Process:
+      Memo:
+      - Service
+      - Method
+      - Call
+Parslet:
+  Exec:
+    Type: XML
+    Inherited:
+    - Locale
+    - LocaleURL
+    - Location
+    - Session
+    - SID
+    - HTTP
+    - Request
+    - Project
+...

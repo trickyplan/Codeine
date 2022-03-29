@@ -1,0 +1,8 @@
+---
+Contract:
+  Location.Select:
+    Widget:
+      Memo:
+      - Time
+      - Location
+...

@@ -1,0 +1,9 @@
+---
+Nodes:
+  Filled:
+    Type: Numeral.Integer
+    Hooks:
+      beforeEntityWrite:
+        Service: Mixins.Filled
+        Method: Get
+...

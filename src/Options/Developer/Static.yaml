@@ -1,0 +1,9 @@
+---
+Static:
+  /dev/theme:
+    Service: Developer.Theme
+    Method: Do
+  /dev/features/list:
+    Service: Developer.Feature.List
+    Method: Do
+...

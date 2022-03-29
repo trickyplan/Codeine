@@ -1,0 +1,10 @@
+---
+Widgets:
+  Normal:
+    Write:
+      Type: Form.Textfield
+    Filter:
+      Type: Form.Textfield
+    Show:
+      Type: Text
+...

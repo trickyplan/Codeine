@@ -1,0 +1,10 @@
+---
+API:
+  Run:
+    Test:
+      Do:
+        Allowed: true
+HTTP:
+  CORS:
+    Enabled: true
+...

@@ -1,0 +1,10 @@
+---
+Morpher:
+  Cases mapping:
+    Nominativus: "\u0418"
+    Genitivus: "\u0420"
+    Dativus: "\u0414"
+    Accusativus: "\u0412"
+    Ablativus: "\u0422"
+    Praepositionalis: "\u041F_\u043E"
+...

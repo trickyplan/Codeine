@@ -1,0 +1,6 @@
+---
+View:
+  CSS:
+    SASS:
+      Command: sass --style compressed
+...

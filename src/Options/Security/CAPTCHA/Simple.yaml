@@ -1,0 +1,14 @@
+---
+CAPTCHA:
+  Type: PNG
+  Width: 100
+  Height: 28
+Hooks:
+  CAPTCHA:
+    Failed:
+      Error Page:
+        Service: Error.Page
+        Method: Do
+        Call:
+          Code: 418
+...

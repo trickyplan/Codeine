@@ -1,0 +1,26 @@
+---
+Vertical: false
+Page: 1
+Search:
+  Query:
+    Length:
+      Max: 64
+      Min: 3
+    Limit:
+      From: 0
+      To: 25
+  Provider:
+    Available:
+      -Example:
+        Driver: Search.Provider.Entity
+        Entity: Example
+        Search:
+          Fields:
+          - ID
+          - Title
+        Highlight: Title
+        Vertical:
+          Allowed: true
+Hits:
+  All: 0
+...

@@ -1,0 +1,11 @@
+---
+Type: XML
+Inherited:
+- Locale
+- LocaleURL
+- Location
+- Session
+- HTTP
+- Request
+- Project
+...

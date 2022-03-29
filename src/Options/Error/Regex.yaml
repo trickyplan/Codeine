@@ -1,0 +1,11 @@
+---
+Regex:
+  Error Catch:
+    Match: /error
+    Service: Error.Create
+    Method: External
+    View:
+      Renderer:
+        Service: View.JSON
+        Method: Render
+...

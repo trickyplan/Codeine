@@ -1,0 +1,10 @@
+---
+Contract:
+  Text.Regex:
+    -All:
+      Memo:
+      - Pattern
+      - Value
+      - Time
+Regex Engine: Preg
+...

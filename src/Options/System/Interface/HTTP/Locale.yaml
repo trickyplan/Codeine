@@ -1,0 +1,25 @@
+---
+Accept-Language:
+  ru: ru
+Default:
+  Locale: ru
+  FIXME: Settings mess
+Locales:
+  Detect:
+    Accept-language: true
+    Request: false
+  Available:
+  - ru
+  - en
+  PHP:
+    ru: ru_RU.UTF-8
+    en: en_US.UTF-8
+Hooks:
+  beforeLocaleDetect:
+    Locale by User:
+      Service: System.Interface.HTTP.Locale.User
+      Method: beforeLocaleDetect
+    Locale in URL:
+      Service: System.Interface.HTTP.Locale.URL
+      Method: beforeLocaleDetect
+...

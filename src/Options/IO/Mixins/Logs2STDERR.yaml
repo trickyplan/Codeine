@@ -1,0 +1,51 @@
+---
+Storages:
+  Developer:
+    Driver: IO.Log.STDERR
+    Format: Formats.Log.Plain
+    Log:
+      ConvertTimestampsToAbsolute: true
+      RemoveNewlines: true
+  Performance:
+    Driver: IO.Log.STDERR
+    Format: Formats.Log.Plain
+    Log:
+      ConvertTimestampsToAbsolute: true
+      RemoveNewlines: true
+  Security:
+    Driver: IO.Log.STDERR
+    Format: Formats.Log.Plain
+    Log:
+      ConvertTimestampsToAbsolute: true
+      RemoveNewlines: true
+  Administrator:
+    Driver: IO.Log.STDERR
+    Format: Formats.Log.Plain
+    Log:
+      ConvertTimestampsToAbsolute: true
+      RemoveNewlines: true
+  Marketing:
+    Driver: IO.Log.STDERR
+    Format: Formats.Log.Plain
+    Log:
+      ConvertTimestampsToAbsolute: true
+      RemoveNewlines: true
+  Management:
+    Driver: IO.Log.STDERR
+    Format: Formats.Log.Plain
+    Log:
+      ConvertTimestampsToAbsolute: true
+      RemoveNewlines: true
+  Metric:
+    Driver: IO.Log.STDERR
+    Format: Formats.Log.Plain
+    Log:
+      ConvertTimestampsToAbsolute: true
+      RemoveNewlines: true
+  Access:
+    Driver: IO.Log.STDERR
+    Format: Formats.Log.Plain
+    Log:
+      ConvertTimestampsToAbsolute: true
+      RemoveNewlines: true
+...

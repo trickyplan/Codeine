@@ -1,0 +1,47 @@
+---
+Mixins:
+- Code.Routing.Regex.Mixins
+- Code.Routing.Regex.Redirects
+- Code.Routing.Regex.Assets
+- Control.Regex
+- User.Regex
+- Search.Regex
+- Test.Regex
+- SEO.Sitemap.Regex
+- Developer.Regex
+Regex Pattern:
+  Prefix: '@'
+  Postfix: '@Ssu'
+Regex:
+  Frontpage:
+    Match: ^/$
+    Service: Project.Frontpage
+    Method: Do
+    Weight: 1
+  Error:
+    Match: /error/(.*)
+    Service: Error.Page
+    Method: Do
+    Call:
+      Code: $1
+  Uploads:
+    Match: /uploads/(.*)
+    Service: IO.Uploader
+    Method: Read
+    View:
+      Renderer:
+        Service: View.RAW
+        Method: Render
+    Call:
+      Where:
+        ID: $1
+  Page:
+    Match: /(.*)
+    Weight: -100
+    Service: Entity.Show.Static
+    Method: Do
+    Call:
+      Entity: Page
+      Where:
+        Slug: $1
+...

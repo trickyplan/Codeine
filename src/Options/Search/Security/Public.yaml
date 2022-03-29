@@ -1,0 +1,8 @@
+---
+Rules:
+  Search is public:
+    Decision: true
+    Weight: 100
+    Run:
+      Service: Entity.Search
+...

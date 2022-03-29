@@ -1,0 +1,34 @@
+---
+Image:
+  Tag Format: XML
+  Class: img
+  Tags: []
+  ID: ""
+  Alt: ""
+  Proto: ""
+  Directory: img
+  Host: ""
+  Caching: true
+  Hash Levels: 8
+  Pattern: <image([^>]*)>(.+?)</image>
+  Quality: 85
+  TTL: 86400
+  Lazy: false
+  Path Separator: '-'
+  Source:
+    Storage: Image
+Hooks:
+  beforeImageWrite:
+    Resample:
+      Service: View.HTML.Image.Resample
+    Resize:
+      Service: View.HTML.Image.Resize
+    Thumb:
+      Service: View.HTML.Image.Thumb
+  beforeWidgetMake:
+    Lazy:
+      Service: View.HTML.Image.Lazy
+  afterImageWrite:
+    Optimize:
+      Service: View.HTML.Image.Optimize
+...

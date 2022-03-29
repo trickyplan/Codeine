@@ -1,0 +1,156 @@
+---
+Storage: Primary
+Default Nodes:
+  EV:
+    Type: Numeral.Integer
+    Widgets: []
+Hooks:
+  beforeOperation:
+    Load model (essential):
+      Service: Entity
+      Method: Load
+    Scope:
+      Service: Entity.Hooks.Scope
+      Method: beforeOperation
+    Location:
+      Service: Entity.Hooks.Location
+      Method: beforeOperation
+    Sort:
+      Service: Entity.Hooks.Sort
+      Method: beforeOperation
+    Date:
+      Service: Entity.Hooks.Date
+      Method: beforeOperation
+    Where:
+      Service: Entity.Hooks.Where
+      Method: beforeOperation
+  beforeEntityCreate:
+    Default values:
+      Service: Entity.Hooks.Default
+      Method: Process
+    Make variables alive:
+      Service: Entity.Hooks.LiveNodes
+      Method: Process
+    Validate:
+      Service: Entity.Hooks.Validate
+      Method: Process
+      Call:
+        Validation:
+          Unique:
+            Mode: Create
+  beforeEntityUpdate:
+    Updated:
+      Service: Entity.Hooks.Updated
+      Method: Process
+    Default values:
+      Service: Entity.Hooks.Default
+      Method: Process
+    Make variables alive:
+      Service: Entity.Hooks.LiveNodes
+      Method: Process
+    OnChange:
+      Service: Entity.Hooks.Nodes.OnChange
+      Method: Process
+    Validate:
+      Service: Entity.Hooks.Validate
+      Method: Process
+      Call:
+        Validation:
+          Unique:
+            Mode: Update
+  beforeEntityCreateOrUpdate:
+    Inherited values:
+      Service: Entity.Hooks.Inherited
+      Method: Process
+    Make variables alive:
+      Service: Entity.Hooks.LiveNodes
+      Method: Process
+    Empty:
+      Service: Entity.Hooks.Empty
+      Method: Process
+  beforeEntityDelete:
+    Load model (essential):
+      Service: Entity
+      Method: Load
+  beforeEntityWrite:
+    Strict:
+      Service: Entity.Hooks.Strict
+      Method: Process
+      Weight: 100
+    Make variables alive:
+      Service: Entity.Hooks.LiveNodes
+      Method: Process
+      Weight: 300
+    Entity Version:
+      Service: Entity.Hooks.EV
+      Method: beforeEntityWrite
+      Weight: 400
+    Entity Hash:
+      Service: Entity.Hooks.EH
+      Method: beforeEntityWrite
+    Datatypes:
+      Service: Entity.Hooks.Type
+      Method: Write
+  afterEntityCreate:
+    Make variables alive:
+      Service: Entity.Hooks.LiveNodes
+      Method: Process
+    Events:
+      Service: Entity.Hooks.Events
+      Method: Process
+      Call:
+        Event: Create
+  beforeEntityRead:
+    -AutoLoadFields:
+      Service: Entity.Hooks.AutoLoadFields
+      Method: beforeEntityRead
+  afterEntityRead:
+    Select fields:
+      Service: Entity.Hooks.Fields
+      Method: Process
+    Default values:
+      Service: Entity.Hooks.Default
+      Method: Process
+    Datatypes:
+      Service: Entity.Hooks.Type
+      Method: Read
+    Make variables alive:
+      Service: Entity.Hooks.LiveNodes
+      Method: Process
+  afterEntityUpdate:
+    Events:
+      Service: Entity.Hooks.Events
+      Method: Process
+      Call:
+        Event: Update
+  afterEntityDelete:
+    Change Event:
+      Service: Entity.Hooks.Events
+      Method: Process
+      Call:
+        Event: Change
+    Delete Event:
+      Service: Entity.Hooks.Events
+      Method: Process
+      Call:
+        Event: Delete
+  afterEntityCreateOrUpdate:
+    Events:
+      Service: Entity.Hooks.Events
+      Method: Process
+      Call:
+        Event: Change
+  afterEntityWrite:
+    Datatypes:
+      Service: Entity.Hooks.Type
+      Method: Read
+      Weight: 1000
+  afterEntityLoad:
+    "Check Live \xABStorage\xBB Variable":
+      Service: Entity.Hooks.Load.LiveStorage
+      Method: afterEntityLoad
+    Entity Version:
+      Service: Entity.Hooks.EV
+      Method: afterEntityLoad
+      Weight: 400
+...

@@ -1,0 +1,13 @@
+---
+Nodes:
+  Lattitude:
+    Type: Numeral.Float
+    Widgets:
+      Write:
+        Type: Form.Textfield
+  Longitude:
+    Type: Numeral.Float
+    Widgets:
+      Write:
+        Type: Form.Textfield
+...

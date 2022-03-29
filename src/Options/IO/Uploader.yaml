@@ -1,0 +1,5 @@
+---
+Naming:
+  Service: Data.Type.File.Upload.Naming.MIME
+  Method: Get
+...

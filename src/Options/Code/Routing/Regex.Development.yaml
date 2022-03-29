@@ -1,0 +1,7 @@
+---
+Mixins:
+- Control.Regex
+- User.Regex
+- Search.Regex
+- Test.Regex
+...

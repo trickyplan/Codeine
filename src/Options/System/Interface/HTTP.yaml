@@ -1,0 +1,95 @@
+---
+ENV:
+  Storage: Primary
+View:
+  Renderer:
+    Service: View.HTML
+    Method: Render
+HTTP:
+  Redirect: Temporarily
+  Methods:
+    Allowed:
+    - GET
+    - POST
+    - OPTIONS
+    Default: GET
+  Headers:
+    HTTP/1.1: 200 OK
+    'Content-Language:': en
+    'X-Frame-Options:': SAMEORIGIN
+    'X-Content-Type-Options:': nosniff
+    'X-XSS-Protection:': ' 1; mode=block'
+    '-Content-Security-Policy:': TODO
+    'Referrer-Policy:': origin
+    'Upgrade-Insecure-Requests:': "1"
+Hooks:
+  beforeInterfaceRun:
+    Output Buffering:
+      Service: System.Interface.HTTP.OB
+      Method: Start
+  beforeRequestRun:
+    Project:
+      Service: Project.Preload
+      Method: beforeRequestRun
+      Must be first: true
+    Host:
+      Service: System.Interface.HTTP.Host
+      Method: Do
+    URL:
+      Service: System.Interface.HTTP.URL
+      Method: Do
+    Session:
+      Service: Session
+      Method: Initialize
+    Locale:
+      Service: System.Interface.HTTP.Locale
+      Method: Detect
+    Protocol:
+      Service: System.Interface.HTTP.Protocol
+    IP:
+      Service: System.Interface.HTTP.IP
+    Referrer:
+      Service: System.Interface.HTTP.Referrer
+    Permissions-Policy:
+      Service: System.Interface.HTTP.Headers.Permissions-Policy
+      Method: Do
+    Agent:
+      Service: System.Interface.HTTP.Agent
+    Filter:
+      Service: System.Interface.HTTP.Filter
+  afterRequestRun:
+    Remove Content-type header when method is OPTIONS:
+      Service: System.Interface.HTTP.Headers.ContentType
+      Method: Do
+    Add Request ID Headers:
+      Service: System.Interface.HTTP.Headers.RequestID
+      Method: Do
+    Set Default CORS-headers:
+      Service: System.Interface.HTTP.CORS
+      Method: Do
+    Timing:
+      Service: Security.Timing
+      Method: Do
+    Caching:
+      Service: System.Interface.HTTP.Caching
+      Method: Do
+    Compression:
+      Service: System.Interface.HTTP.Compression
+      Method: Do
+  afterInterfaceRun:
+    FastCGI Finish Request:
+      Service: System.Interface.HTTP
+      Method: Finish
+    IO Shutdown:
+      Service: IO
+      Method: Shutdown
+    Performance:
+      Service: Performance
+      Method: Do
+    Spit log:
+      Service: IO.Log
+      Method: Spit
+    Output Buffering:
+      Service: System.Interface.HTTP.OB
+      Method: Finish
+...

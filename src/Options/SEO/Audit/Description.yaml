@@ -1,0 +1,8 @@
+---
+SEO:
+  Audit:
+    Description:
+      Length:
+        Minimum: 40
+        Maximum: 360
+...
