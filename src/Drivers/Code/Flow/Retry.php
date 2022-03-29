@@ -2,22 +2,19 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
 
-    setFn('Run', function ($Call)
-    {
+    setFn('Run', function ($Call) {
         $Try = 0;
         $Result = null;
 
-        do
-        {
+        do {
             $Result = F::Live($Call['Run']);
             $Try++;
-        }
-        while (($Result === null) or $Try == $Call['Try']);
+        } while (($Result === null) or $Try == $Call['Try']);
 
         return $Result;
     });

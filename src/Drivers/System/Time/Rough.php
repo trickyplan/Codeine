@@ -9,7 +9,6 @@
      * @time 16:34
      */
 
-    setFn('Get', function ($Call)
-    {
-        return floor(time()/$Call['Precision'])*$Call['Precision'];
+    setFn('Get', function ($Call) {
+        return floor(time() / $Call['Precision']) * $Call['Precision'];
     });

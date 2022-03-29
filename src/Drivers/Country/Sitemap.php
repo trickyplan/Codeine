@@ -7,4 +7,4 @@
      * @version 7.0
      */
 
-    self::_loadSource('Entity.Sitemap');
+    F::_loadSource('Entity.Sitemap');

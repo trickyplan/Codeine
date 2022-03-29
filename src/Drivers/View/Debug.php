@@ -7,13 +7,11 @@
      * @version 8.x
      */
 
-    setFn('Detect', function ($Call)
-    {
+    setFn('Detect', function ($Call) {
         return true;
     });
 
-    setFn('Render', function ($Call)
-    {
+    setFn('Render', function ($Call) {
         $Call['HTTP']['Headers']['Content-Type:'] = 'text/plain';
         return var_export($Call['Value'], true);
     });

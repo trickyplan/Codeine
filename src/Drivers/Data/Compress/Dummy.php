@@ -7,12 +7,10 @@
      * @version 2019.x
      */
 
-    setFn('Read', function ($Call)
-    {
+    setFn('Read', function ($Call) {
         return $Call['Data'];
     });
 
-    setFn('Write', function ($Call)
-    {
+    setFn('Write', function ($Call) {
         return $Call['Data'];
     });

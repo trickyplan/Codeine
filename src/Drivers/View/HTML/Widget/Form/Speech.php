@@ -2,20 +2,23 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description HTML Textfield Driver 
+     * @description HTML Textfield Driver
      * @package Codeine
      * @version 8.x
      */
 
-     setFn('Make', function ($Call)
-     {
-         if (!isset($Call['Subtype']))
-             $Call['Subtype'] = 'text';
+    setFn('Make', function ($Call) {
+        if (!isset($Call['Subtype'])) {
+            $Call['Subtype'] = 'text';
+        }
 
-         return F::Run ('View', 'Load',
-                           [
-                                'Scope' => 'Default',
-                                'ID'    => 'UI/Form/Speech',
-                                'Data'  => $Call
-                           ]);
-     });
+        return F::Run(
+            'View',
+            'Load',
+            [
+                'Scope' => 'Default',
+                'ID' => 'UI/Form/Speech',
+                'Data' => $Call
+            ]
+        );
+    });

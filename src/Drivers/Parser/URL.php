@@ -2,29 +2,26 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
 
-    setFn('Do', function ($Call)
-    {
+    setFn('Do', function ($Call) {
         return F::Run(null, $Call['HTTP']['Method'], $Call);
     });
 
-    setFn('GET', function ($Call)
-    {
+    setFn('GET', function ($Call) {
         $Call['Layouts'][] =
-        [
-            'Scope' => 'Parser',
-            'ID' => 'URL'
-        ];
+            [
+                'Scope' => 'Parser',
+                'ID' => 'URL'
+            ];
 
         return $Call;
     });
 
-    setFn('POST', function ($Call)
-    {
+    setFn('POST', function ($Call) {
         $Call['URL'] = $Call['Request']['Data']['URL'];
         $Call['Data'] = F::Run('Parser.URL', 'Parse', $Call);
         $Call['Output']['Content'][] =
@@ -36,21 +33,21 @@
         return $Call;
     });
 
-    setFn('Parse', function ($Call)
-    {
-        if ($Call['Schema'] = F::Run('Parser', 'Discovery', $Call))
-        {
-            F::Log('Schema is '.$Call['Schema'], LOG_INFO);
-            $Schema = F::loadOptions('Parser/'.$Call['Schema']);
+    setFn('Parse', function ($Call) {
+        if ($Call['Schema'] = F::Run('Parser', 'Discovery', $Call)) {
+            F::Log('Schema is ' . $Call['Schema'], LOG_INFO);
+            $Schema = F::loadOptions('Parser/' . $Call['Schema']);
             $Call = F::Merge($Call, $Schema);
 
-            $Result = F::Live($Call['Parser']['URL']['Backend'],
+            $Result = F::Live(
+                $Call['Parser']['URL']['Backend'],
                 [
                     'Where' =>
                         [
                             'ID' => $Call['URL']
                         ]
-                ]);
+                ]
+            );
 
             $Result = array_pop($Result);
 
@@ -59,17 +56,23 @@
             $Call['Entity'] = array_pop($Slices);
             $Call['Data']['Source'] = $Call['URL'];
 
-            if (isset($Call['Parser']['Create']['Auto']) && $Call['Parser']['Create']['Auto'])
+            if (isset($Call['Parser']['Create']['Auto']) && $Call['Parser']['Create']['Auto']) {
                 $Call['Data'] = F::Run('Entity', 'Create', $Call, ['One' => true]);
+            }
 
-            if (isset($Call['Data']['ID']))
-                $Call = F::Run('System.Interface.HTTP', 'Redirect', $Call,
+            if (isset($Call['Data']['ID'])) {
+                $Call = F::Run(
+                    'System.Interface.HTTP',
+                    'Redirect',
+                    $Call,
                     [
-                        'Redirect' => '/control/'.$Call['Entity'].'/Show/'.$Call['Data']['ID']
-                    ]);
-        }
-        else
+                        'Redirect' => '/control/' . $Call['Entity'] . '/Show/' . $Call['Data']['ID']
+                    ]
+                );
+            }
+        } else {
             $Call['Data'] = null;
+        }
 
         return $Call['Data'];
     });

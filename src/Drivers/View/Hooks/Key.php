@@ -2,72 +2,76 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description <codeine-key> tag 
+     * @description <codeine-key> tag
      * @package Codeine
      * @version 8.x
      */
 
-    setFn('Parse', function ($Call)
-    {
-        $Call['Parsed'] = F::Run('Text.Regex', 'All',
-        [
-            'Pattern' => $Call['Key Pattern'],
-            'Value' => $Call['Value']
-        ]);
+    setFn('Parse', function ($Call) {
+        $Call['Parsed'] = F::Run(
+            'Text.Regex',
+            'All',
+            [
+                'Pattern' => $Call['Key Pattern'],
+                'Value' => $Call['Value']
+            ]
+        );
 
-        if ($Call['Parsed'] && isset($Call['Data']))
-        {
+        if ($Call['Parsed'] && isset($Call['Data'])) {
             $Call['Parsed'][0] = array_unique($Call['Parsed'][0]);
             $Call['Parsed'][1] = array_unique($Call['Parsed'][1]);
 
-            foreach ($Call['Parsed'][1] as $IX => &$Match)
-            {
-                if (str_contains($Match, ','))
+            foreach ($Call['Parsed'][1] as $IX => &$Match) {
+                if (str_contains($Match, ',')) {
                     $Match = explode(',', $Match);
-                else
+                } else {
                     $Match = [$Match];
+                }
 
                 $Matched = '';
 
-                foreach ($Match as $CMatch)
-                {
+                foreach ($Match as $CMatch) {
                     $Matched = F::Live(F::Dot($Call['Data'], $CMatch));
 
-                    if (empty($Matched))
+                    if (empty($Matched)) {
                         ;
-                    else
-                    {
-                        if ((array) $Matched === $Matched)
+                    } else {
+                        if ((array)$Matched === $Matched) {
                             $Matched = array_shift($Matched);
+                        }
 
-                        if (($Matched === false) or ($Matched === 0))
+                        if (($Matched === false) or ($Matched === 0)) {
                             $Matched = '0';
+                        }
 
                         break;
                     }
                 }
 
-                if (is_array($Matched))
+                if (is_array($Matched)) {
                     $Match = array_pop($Matched);
-                else
+                } else {
                     $Match = $Matched;
+                }
             }
 
-            if (is_scalar($Call['Value']))
+            if (is_scalar($Call['Value'])) {
                 ;
-            else
+            } else {
                 $Call['Value'] = j($Call['Value']);
+            }
 
-            foreach ($Call['Parsed'][1] as &$Replace)
-                if (is_scalar($Replace))
+            foreach ($Call['Parsed'][1] as &$Replace) {
+                if (is_scalar($Replace)) {
                     ;
-                else
-                {
-                    if (null === $Replace)
+                } else {
+                    if (null === $Replace) {
                         $Replace = '';
-                    else
+                    } else {
                         $Replace = j($Replace);
+                    }
                 }
+            }
 
             $Call['Value'] = str_replace($Call['Parsed'][0], $Call['Parsed'][1], $Call['Value']);
 

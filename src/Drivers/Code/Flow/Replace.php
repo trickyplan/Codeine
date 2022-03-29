@@ -2,17 +2,17 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
 
-    setFn('Run', function ($Call)
-    {
+    setFn('Run', function ($Call) {
         $Result = F::Live($Call['Run']);
 
-        if ($Result === null)
+        if ($Result === null) {
             return F::Live($Call['Replace']);
-        else
+        } else {
             return $Result;
+        }
     });

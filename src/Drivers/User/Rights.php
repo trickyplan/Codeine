@@ -2,62 +2,65 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
 
-    setFn('Do', function ($Call)
-    {
+    setFn('Do', function ($Call) {
         $Call['Rights'] = F::loadOptions('Security.Access.Rights')['Access']['Rights'];
         return F::Run(null, $Call['HTTP']['Method'], $Call);
     });
 
-    setFn('GET', function ($Call)
-    {
-        $User = F::Run('Entity', 'Read', $Call,
-                    [
-                         'Entity' => 'User',
-                         'One' => true
-                    ]);
+    setFn('GET', function ($Call) {
+        $User = F::Run(
+            'Entity',
+            'Read',
+            $Call,
+            [
+                'Entity' => 'User',
+                'One' => true
+            ]
+        );
 
-        $Rights = (array) explode(',',$User['Rights']);
+        $Rights = (array)explode(',', $User['Rights']);
 
         $Call['Output']['Content']['Form'] =
-                [
-                    'Type' => 'Form'
-                ];
+            [
+                'Type' => 'Form'
+            ];
 
-        foreach ($Call['Rights'] as $RightName => $Right)
+        foreach ($Call['Rights'] as $RightName => $Right) {
             $Call['Output']['Form'][] =
                 [
                     'Type' => 'Form.Checkbox',
-                    'Name' => 'Rights['.$RightName.']',
+                    'Name' => 'Rights[' . $RightName . ']',
                     'TrueValue' => true,
-                    'Label' => 'User.Rights:'.$RightName,
+                    'Label' => 'User.Rights:' . $RightName,
                     'Value' => in_array($RightName, $Rights)
                 ];
+        }
 
 
         return $Call;
     });
 
-    setFn('POST', function ($Call)
-    {
-        if (!isset($Call['Request']['Rights']) or null == $Call['Request']['Rights'])
+    setFn('POST', function ($Call) {
+        if (!isset($Call['Request']['Rights']) or null == $Call['Request']['Rights']) {
             $NewRights = '';
-        else
+        } else {
             $NewRights = implode(',', array_keys($Call['Request']['Rights']));
+        }
 
         F::Run('Entity', 'Update', [
-                       'Entity' => 'User',
-                       'Where' => $Call['Where'],
-                       'One' => true,
-                       'Data' =>
-                           [
-                               'Rights' => $NewRights
-                           ]
-               ]);
+            'Entity' => 'User',
+            'Where' => $Call['Where'],
+            'One' => true,
+            'Data' =>
+                [
+                    'Rights' => $NewRights
+                ]
+        ]);
 
         $Call['Output']['Content'][] =
             [

@@ -7,51 +7,49 @@
      * @version 7.0
      */
 
-    setFn('Parse', function ($Call)
-    {
-        foreach ($Call['Parsed']['Value'] as $IX => $Key)
-        {
-            if (str_contains($Key, ',') !== false)
+    setFn('Parse', function ($Call) {
+        foreach ($Call['Parsed']['Value'] as $IX => $Key) {
+            if (str_contains($Key, ',') !== false) {
                 $Key = explode(',', $Key);
-            else
+            } else {
                 $Key = [$Key];
+            }
 
             $Value = '';
 
-            foreach ($Key as $CMatch)
-            {
-                if (str_contains($CMatch, ':'))
-                {
+            foreach ($Key as $CMatch) {
+                if (str_contains($CMatch, ':')) {
                     list ($Options, $Key) = explode(':', $CMatch);
                     $Options = F::loadOptions($Options);
                     $Value = F::Dot($Options, $Key);
                 }
 
-                if ($Value === null || $Value === '')
-                {
-                    if (isset($Call['Parsed']['Options'][$IX]['null']))
+                if ($Value === null || $Value === '') {
+                    if (isset($Call['Parsed']['Options'][$IX]['null'])) {
                         $Value = $Call['Parsed']['Options'][$IX]['null'];
-                    else
+                    } else {
                         $Value = 'null';
-                }
-                else
-                {
-                    if ((array) $Value === $Value)
-                    {
-                        if (isset($Call['Parsed']['Options'][$IX]['json']))
+                    }
+                } else {
+                    if ((array)$Value === $Value) {
+                        if (isset($Call['Parsed']['Options'][$IX]['json'])) {
                             $Value = j($Value);
-                        else
+                        } else {
                             $Value = array_shift($Value);
+                        }
                     }
 
-                    if ($Value === 0)
+                    if ($Value === 0) {
                         $Value = '0';
+                    }
 
-                    if ($Value === false)
+                    if ($Value === false) {
                         $Value = 'false';
+                    }
 
-                    if ($Value === true)
+                    if ($Value === true) {
                         $Value = 'true';
+                    }
 
                     break;
                 }
@@ -61,4 +59,4 @@
         }
 
         return $Call;
-     });
+    });

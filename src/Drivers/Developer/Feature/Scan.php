@@ -1,29 +1,32 @@
 <?php
-    
+
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
-    
-    setFn('Do', function ($Call)
-    {
+
+    setFn('Do', function ($Call) {
         $Drivers = [];
-        $Path = Root.'/Drivers';
-        
-        if (is_dir($Path))
-        {
+        $Path = Root . '/Drivers';
+
+        if (is_dir($Path)) {
             $Directory = new RecursiveDirectoryIterator($Path);
             $Iterator = new RecursiveIteratorIterator($Directory);
-            $Regex = new RegexIterator($Iterator,
-                '@(.+).php$@', RecursiveRegexIterator::GET_MATCH);
+            $Regex = new RegexIterator(
+                $Iterator,
+                '@(.+).php$@', RecursiveRegexIterator::GET_MATCH
+            );
 
-            foreach ($Regex as $Result)
-                $Drivers[] = str_replace($Path.DS, '', $Result[1]);
+            foreach ($Regex as $Result) {
+                $Drivers[] = str_replace($Path . DS, '', $Result[1]);
+            }
         }
 
-        F::Log(function () use ($Drivers) {return $Drivers;}, LOG_DEBUG);
+        F::Log(function () use ($Drivers) {
+            return $Drivers;
+        }, LOG_DEBUG);
 
         return $Drivers;
     });

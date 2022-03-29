@@ -9,8 +9,7 @@
      * @time 4:41
      */
 
-    setFn('Get', function ($Call)
-    {
-        return sha1($Call['Value'].F::Dot($Call, 'Security.Hash.Salt'));
+    setFn('Get', function ($Call) {
+        return sha1($Call['Value'] . F::Dot($Call, 'Security.Hash.Salt'));
     });
 

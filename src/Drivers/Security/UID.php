@@ -2,15 +2,15 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
 
-    setFn('Get', function ($Call)
-    {
-        if (isset($Call['Modes'][$Call['Mode']]))
+    setFn('Get', function ($Call) {
+        if (isset($Call['Modes'][$Call['Mode']])) {
             return F::Live($Call['Modes'][$Call['Mode']], $Call);
-        else
+        } else {
             return null;
+        }
     });

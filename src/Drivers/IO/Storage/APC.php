@@ -2,34 +2,29 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description APC Data Driver 
+     * @description APC Data Driver
      * @package Codeine
      * @version 8.x
      */
 
-    setFn ('Open', function ($Call)
-    {
+    setFn('Open', function ($Call) {
         return extension_loaded('apc');
     });
 
-    setFn ('Read', function ($Call)
-    {
+    setFn('Read', function ($Call) {
         return apc_fetch($Call['Where']['ID']);
     });
 
-    setFn ('Write', function ($Call)
-    {
-        return null === $Call['Data']?
-            apc_delete($Call['Where']['ID']):
+    setFn('Write', function ($Call) {
+        return null === $Call['Data'] ?
+            apc_delete($Call['Where']['ID']) :
             apc_store($Call['Where']['ID'], $Call['Data'], $Call['TTL']);
     });
 
-    setFn ('Close', function ($Call)
-    {
+    setFn('Close', function ($Call) {
         return true;
     });
 
-    setFn ('Execute', function ($Call)
-    {
+    setFn('Execute', function ($Call) {
         return true;
     });

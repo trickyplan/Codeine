@@ -2,40 +2,40 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
 
-    setFn('LatLon', function ($Call)
-    {
-        if (isset($Call['Modes'][$Call['Mode']]))
+    setFn('LatLon', function ($Call) {
+        if (isset($Call['Modes'][$Call['Mode']])) {
             return F::Run($Call['Modes'][$Call['Mode']], 'LatLon', $Call);
-        else
+        } else {
             return null;
+        }
     });
 
-    setFn('Country', function ($Call)
-    {
-        if (isset($Call['Modes'][$Call['Mode']]))
+    setFn('Country', function ($Call) {
+        if (isset($Call['Modes'][$Call['Mode']])) {
             return F::Run($Call['Modes'][$Call['Mode']], 'Country', $Call);
-        else
+        } else {
             return null;
+        }
     });
 
-    setFn('Region', function ($Call)
-    {
-        if (isset($Call['Modes'][$Call['Mode']]))
+    setFn('Region', function ($Call) {
+        if (isset($Call['Modes'][$Call['Mode']])) {
             return F::Run($Call['Modes'][$Call['Mode']], 'Region', $Call);
-        else
+        } else {
             return null;
+        }
     });
 
 
-    setFn('City', function ($Call)
-    {
-        if (isset($Call['Modes'][$Call['Mode']]))
+    setFn('City', function ($Call) {
+        if (isset($Call['Modes'][$Call['Mode']])) {
             return F::Run($Call['Modes'][$Call['Mode']], 'City', $Call);
-        else
+        } else {
             return null;
+        }
     });

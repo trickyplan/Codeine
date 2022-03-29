@@ -1,19 +1,22 @@
 <?php
-    
+
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
-    
-    setFn('Test.Case.Run.Execute.Before', function ($Call)
-    {
+
+    setFn('Test.Case.Run.Execute.Before', function ($Call) {
         $Call['Virtual'] = $Call;
         // Vitalize Call
-        $Call = F::Dot($Call, 'Test.Case.Run.Call',
+        $Call = F::Dot(
+            $Call,
+            'Test.Case.Run.Call',
             F::Live(
-                F::Dot($Call, 'Test.Case.Run.Call'), $Call['Virtual']
-            ));
+                F::Dot($Call, 'Test.Case.Run.Call'),
+                $Call['Virtual']
+            )
+        );
         return $Call;
     });

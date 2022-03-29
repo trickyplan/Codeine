@@ -2,12 +2,11 @@
 
     /* Codeine
      * @author BreathLess
-     * @description  
+     * @description
      * @package Codeine
      * @version 7.x
      */
 
-    setFn('Get', function ($Call)
-    {
+    setFn('Get', function ($Call) {
         return gethostname();
     });

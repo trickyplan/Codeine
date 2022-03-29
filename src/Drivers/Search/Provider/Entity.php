@@ -2,17 +2,17 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
 
-    setFn('Query', function ($Call)
-    {
-        if (isset($Call['Scope']))
-            $Call['Scope'] = $Call['Entity'].'/'.$Call['Scope'];
-        else
+    setFn('Query', function ($Call) {
+        if (isset($Call['Scope'])) {
+            $Call['Scope'] = $Call['Entity'] . '/' . $Call['Scope'];
+        } else {
             $Call['Scope'] = $Call['Entity'];
+        }
 
         $Call['Query'] = preg_replace('/[^\w \d]+/SsUu', ' ', $Call['Query']);
 
@@ -23,21 +23,32 @@
 
         $Relevance = [];
 
-        if (isset($Call['Where']))
+        if (isset($Call['Where'])) {
             $Call['Where'] = F::Live($Call['Where'], $Call);
-        
-        foreach($Call['Query'] as $Keyword)
-        {
-            $Call['Where']['Keywords'] = '~'.$Keyword;
-            $KeywordResults = F::Run('Entity', 'Read',
+        }
+
+        foreach ($Call['Query'] as $Keyword) {
+            $Call['Where']['Keywords'] = '~' . $Keyword;
+            $KeywordResults = F::Run(
+                'Entity',
+                'Read',
+                $Call,
                 [
                     'Entity' => $Call['Entity'],
-                    'Where'  => $Call['Where']
-                ]);
+                    'Where' => $Call['Where'],
+                    'Limit' =>
+                        [
+                            'From' => 0,
+                            'To' => 25
+                        ]
+                ]
+            );
 
-            if (is_array($KeywordResults))
-                foreach ($KeywordResults as $KeywordResult)
+            if (is_array($KeywordResults)) {
+                foreach ($KeywordResults as $KeywordResult) {
                     $Results[$KeywordResult['ID']] = $KeywordResult;
+                }
+            }
 
             $IDs = F::Extract($KeywordResults, 'ID');
             sort($IDs);
@@ -49,11 +60,10 @@
 
         $IDs = [];
 
-        foreach ($Relevance as $RankedID)
-        {
+        foreach ($Relevance as $RankedID) {
             $Result = $Results[$RankedID];
             $Result['From'] = $Call['HTTP']['Host'];
-            $Result['URL']  = $Call['HTTP']['Proto'].$Call['HTTP']['Host'].'/'.$Call['Slug']['Entity'].'/'.$Result['ID'];
+            $Result['URL'] = $Call['HTTP']['Proto'] . $Call['HTTP']['Host'] . '/' . $Call['Slug']['Entity'] . '/' . $Result['ID'];
             $IDs[$Result['ID']] = $Result['ID'];
         }
 

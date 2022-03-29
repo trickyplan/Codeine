@@ -9,10 +9,10 @@
      * @time 6:17
      */
 
-    setFn('Route', function ($Call)
-    {
-        if (is_string($Call['Run']))
+    setFn('Route', function ($Call) {
+        if (is_string($Call['Run'])) {
             $Call['Run'] = jd($Call['Run'], true);
+        }
 
         return $Call;
     });

@@ -2,18 +2,17 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
 
 
-    setFn('Create', function ($Call)
-    {
+    setFn('Create', function ($Call) {
         $Call['Image'] =
             [
                 'Object' => imagecreatetruecolor($Call['Width'], $Call['Height']),
-                'Width'  => $Call['Width'],
+                'Width' => $Call['Width'],
                 'Height' => $Call['Height'],
                 'Type' => $Call['Type']
             ];
@@ -21,88 +20,87 @@
         return $Call['Image'];
     });
 
-    setFn('Load', function ($Call)
-    {
-        if (empty($Call['ID']))
+    setFn('Load', function ($Call) {
+        if (empty($Call['ID'])) {
             ;
-        else
-        {
-            list ($Call['Image']['Width'], $Call['Image']['Height'], $Call['Image']['Type']) = getimagesize($Call['ID']);
+        } else {
+            list ($Call['Image']['Width'], $Call['Image']['Height'], $Call['Image']['Type']) = getimagesize(
+                $Call['ID']
+            );
 
-            switch ($Call['Image']['Type'])
-            {
+            switch ($Call['Image']['Type']) {
                 case IMAGETYPE_GIF:
                     $Call['Image']['Object'] = imagecreatefromgif($Call['ID']);
                     $Call['Image']['Type'] = 'GIF';
-                break;
+                    break;
 
                 case IMAGETYPE_JPEG:
                     $Call['Image']['Object'] = imagecreatefromjpeg($Call['ID']);
                     $Call['Image']['Type'] = 'JPEG';
-                break;
+                    break;
 
                 case IMAGETYPE_PNG:
                     $Call['Image']['Object'] = imagecreatefrompng($Call['ID']);
                     $Call['Image']['Type'] = 'PNG';
-                break;
+                    break;
 
                 case IMAGETYPE_SWF:
                     // TODO SWF Support
-                break;
+                    break;
 
                 case IMAGETYPE_PSD:
                     // TODO PSD Support
-                break;
+                    break;
 
                 case IMAGETYPE_BMP:
                     // TODO BMP Support
-                break;
+                    break;
 
                 case IMAGETYPE_TIFF_II:
                     // TODO TIFF Support
-                break;
+                    break;
 
                 case IMAGETYPE_TIFF_MM:
 
-                break;
+                    break;
 
                 case IMAGETYPE_JPC:
                     // TODO JPC Support
-                break;
+                    break;
 
                 case IMAGETYPE_JP2:
                     // TODO JP2 Support
-                break;
+                    break;
 
                 case IMAGETYPE_JPX:
                     // TODO JPX Support
-                break;
+                    break;
 
                 case IMAGETYPE_JB2:
                     // TODO JB2 Support
-                break;
+                    break;
 
                 case IMAGETYPE_SWC:
                     // TODO SWC Support
-                break;
+                    break;
 
                 case IMAGETYPE_IFF:
                     // TODO IFF Support
-                break;
+                    break;
 
                 case IMAGETYPE_WBMP:
                     $Call['Image']['Object'] = imagecreatefromwbmp($Call['ID']);
                     $Call['Image']['Type'] = 'WBMP';
-                break;
+                    break;
 
                 case IMAGETYPE_XBM:
                     $Call['Image']['Object'] = imagecreatefromxbm($Call['ID']);
                     $Call['Image']['Type'] = 'XBM';
-                break;
+                    break;
 
                 case IMAGETYPE_ICO:
                     // TODO ICO Support
-                break;
+                    break;
             }
 
             // TODO WEBP Support
@@ -114,92 +112,95 @@
         return null;
     });
 
-    setFn('Save', function ($Call)
-    {
-        if (isset($Call['ID']) && !is_dir(dirname($Call['ID'])))
+    setFn('Save', function ($Call) {
+        if (isset($Call['ID']) && !is_dir(dirname($Call['ID']))) {
             mkdir(dirname($Call['ID']), 0777, true);
+        }
 
-        switch ($Call['Image']['Type'])
-        {
+        switch ($Call['Image']['Type']) {
             case 'GIF':
-                if (isset($Call['ID']))
+                if (isset($Call['ID'])) {
                     imagegif($Call['Image']['Object'], $Call['ID']);
-                else
+                } else {
                     imagegif($Call['Image']['Object']);
-            break;
+                }
+                break;
 
-        	case 'JPEG':
-                if (isset($Call['ID']))
+            case 'JPEG':
+                if (isset($Call['ID'])) {
                     imagejpeg($Call['Image']['Object'], $Call['ID']);
-                else
+                } else {
                     imagejpeg($Call['Image']['Object']);
-            break;
+                }
+                break;
 
-        	case 'PNG':
-                if (isset($Call['ID']))
+            case 'PNG':
+                if (isset($Call['ID'])) {
                     imagepng($Call['Image']['Object'], $Call['ID']);
-                else
+                } else {
                     imagepng($Call['Image']['Object']);
-            break;
+                }
+                break;
 
             case 'SWF':
                 // TODO SWF Support
-            break;
+                break;
 
             case 'PSD':
                 // TODO PSD Support
-            break;
+                break;
 
             case 'BMP':
                 // TODO BMP Support
-            break;
+                break;
 
-        	case 'TIFF_II':
+            case 'TIFF_II':
                 // TODO TIFF Support
-            break;
+                break;
 
-        	case 'TIFF_MM':
+            case 'TIFF_MM':
 
-            break;
+                break;
 
-        	case 'JPC':
+            case 'JPC':
                 // TODO JPC Support
-            break;
+                break;
 
-        	case 'JP2':
+            case 'JP2':
                 // TODO JP2 Support
-            break;
+                break;
 
-        	case 'JPX':
+            case 'JPX':
                 // TODO JPX Support
-            break;
+                break;
 
-        	case 'JB2':
+            case 'JB2':
                 // TODO JB2 Support
-            break;
+                break;
 
-        	case 'SWC':
+            case 'SWC':
                 // TODO SWC Support
-            break;
+                break;
 
-        	case 'IFF':
+            case 'IFF':
                 // TODO IFF Support
-            break;
+                break;
 
-        	case 'WBMP':
-                if (isset($Call['ID']))
+            case 'WBMP':
+                if (isset($Call['ID'])) {
                     imagewbmp($Call['Image']['Object'], $Call['ID']);
-                else
+                } else {
                     imagewbmp($Call['Image']['Object']);
-            break;
+                }
+                break;
 
-        	case 'XBM':
+            case 'XBM':
                 imagexbm($Call['Image']['Object'], $Call['ID']);
-            break;
+                break;
 
             case 'ICO':
                 // TODO ICO Support
-            break;
+                break;
         }
 
         // TODO WEBP Support

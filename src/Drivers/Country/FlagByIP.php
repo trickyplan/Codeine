@@ -2,20 +2,20 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
 
-    setFn('Get', function ($Call)
-    {
+    setFn('Get', function ($Call) {
         $Country = strtolower(F::Run('System.GeoIP', 'Country', $Call));
-        $Flag = F::findFile('Assets/Country/img/flags/'.$Country.'.png');
+        $Flag = F::findFile('Assets/Country/img/flags/' . $Country . '.png');
 
-        if ($Flag)
+        if ($Flag) {
             ;
-        else
+        } else {
             $Flag = F::findFile('/Assets/Country/img/flags/un.png');
+        }
 
         $Call['Output']['Content'] = $Flag;
 

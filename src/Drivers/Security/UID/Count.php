@@ -9,10 +9,10 @@
      * @time 14:56
      */
 
-    setFn('Get', function ($Call)
-    {
-        if (isset($Call['Where']))
+    setFn('Get', function ($Call) {
+        if (isset($Call['Where'])) {
             $Call['Where'] = F::Live($Call['Where']);
+        }
 
-        return F::Run('Entity', 'Count', $Call)+$Call['Increment'];
+        return F::Run('Entity', 'Count', $Call) + $Call['Increment'];
     });

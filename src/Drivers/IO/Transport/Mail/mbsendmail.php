@@ -9,19 +9,18 @@
      * @time 22:20
      */
 
-    setFn ('Open', function ($Call)
-    {
+    setFn('Open', function ($Call) {
         return true;
     });
 
-    setFn('Write', function ($Call)
-    {
+    setFn('Write', function ($Call) {
         $HeaderStr = '';
 
-        foreach($Call['HTTP']['Headers'] as $Key => $Value)
-            $HeaderStr.= $Key.' '.$Value."\n";
+        foreach ($Call['HTTP']['Headers'] as $Key => $Value) {
+            $HeaderStr .= $Key . ' ' . $Value . "\n";
+        }
 
-        $HeaderStr.= 'Content-Type: '.$Call['HTTP']['Headers']['Content-Type:']."\n";
+        $HeaderStr .= 'Content-Type: ' . $Call['HTTP']['Headers']['Content-Type:'] . "\n";
 
 
         return mb_send_mail($Call['Scope'], $Call['ID'], $Call['Data'], $HeaderStr);

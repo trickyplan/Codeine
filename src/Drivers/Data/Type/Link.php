@@ -1,30 +1,32 @@
 <?php
-    
+
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
-    
-    setFn('Read', function ($Call)
-    {
+
+    setFn('Read', function ($Call) {
         if (
             isset($Call['Data'][$Call['Node']['Link']['Type']])
             &&
             isset($Call['Data'][$Call['Node']['Link']['Object']])
-        )
-            return F::Run('Entity', 'Read',
+        ) {
+            return F::Run(
+                'Entity',
+                'Read',
                 [
-                    'Entity'    => $Call['Data'][$Call['Node']['Link']['Type']],
-                    'Where'     => $Call['Data'][$Call['Node']['Link']['Object']],
-                    'One'       => true
-                ]);
-        else
+                    'Entity' => $Call['Data'][$Call['Node']['Link']['Type']],
+                    'Where' => $Call['Data'][$Call['Node']['Link']['Object']],
+                    'One' => true
+                ]
+            );
+        } else {
             return null;
+        }
     });
 
-    setFn('Write', function ($Call)
-    {
+    setFn('Write', function ($Call) {
         return null;
     });

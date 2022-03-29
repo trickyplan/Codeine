@@ -9,10 +9,10 @@
      * @time 1:12
      */
 
-    setFn('Run', function ($Call)
-    {
-       foreach ($Call['Apps'] as $Application)
-           $Call = F::Live($Application, $Call);
+    setFn('Run', function ($Call) {
+        foreach ($Call['Apps'] as $Application) {
+            $Call = F::Live($Application, $Call);
+        }
 
-       return $Call;
+        return $Call;
     });

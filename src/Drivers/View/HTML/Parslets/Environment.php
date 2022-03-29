@@ -1,39 +1,40 @@
 <?php
-    
+
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description Exec Parslet 
+     * @description Exec Parslet
      * @package Codeine
      * @version 6.0
      */
-    
-    setFn('Parse', function ($Call)
-    {
-        foreach ($Call['Parsed']['Value'] as $IX => $Match)
-        {
-            if (isset($Call['Parsed']['Options'][$IX]['eq'] ))
-            {
-                if ($Call['Parsed']['Options'][$IX]['eq'] == F::Environment())
+
+    setFn('Parse', function ($Call) {
+        foreach ($Call['Parsed']['Value'] as $IX => $Match) {
+            if (isset($Call['Parsed']['Options'][$IX]['eq'])) {
+                if ($Call['Parsed']['Options'][$IX]['eq'] == F::Environment()) {
                     $Result = $Match;
-                else
+                } else {
                     $Result = '';
+                }
             }
-            
+
             $NotEnvironment = isset($Call['Parsed']['Options'][$IX]['neq']) ? $Call['Parsed']['Options'][$IX]['neq'] : null;
-            
-            if ($NotEnvironment !== null)
-            {
-                if ($NotEnvironment == F::Environment())
+
+            if ($NotEnvironment !== null) {
+                if ($NotEnvironment == F::Environment()) {
                     $Result = '';
-                else
+                } else {
                     $Result = $Match;
+                }
             }
-            
-            if (F::Environment() == 'Development')
-                $Result = '<!-- Environment: '.j($Call['Parsed']['Options'][$IX]).'-->'.$Result.'<!-- Environment End -->';
-            
+
+            if (F::Environment() == 'Development') {
+                $Result = '<!-- Environment: ' . j(
+                        $Call['Parsed']['Options'][$IX]
+                    ) . '-->' . $Result . '<!-- Environment End -->';
+            }
+
             $Call['Replace'][$Call['Parsed']['Match'][$IX]] = $Result;
         }
-        
+
         return $Call;
     });

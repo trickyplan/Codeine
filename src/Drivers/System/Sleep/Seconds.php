@@ -2,13 +2,12 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
 
-    setFn('Do', function ($Call)
-    {
+    setFn('Do', function ($Call) {
         sleep(round($Call['Seconds']));
         return $Call;
     });

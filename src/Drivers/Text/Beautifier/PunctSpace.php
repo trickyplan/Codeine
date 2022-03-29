@@ -2,13 +2,12 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
 
-    setFn('Process', function ($Call)
-    {
+    setFn('Process', function ($Call) {
         $Call['Value'] = preg_replace('/([\.,;\:!\?])(\w+)/SsUui', '\1 \2', $Call['Value']);
         return $Call;
-     });
+    });

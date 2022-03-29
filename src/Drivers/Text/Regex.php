@@ -2,28 +2,27 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
 
-    setFn('Match', function ($Call)
-    {
-        return F::Run('Text.Regex.'.$Call['Regex Engine'], null, $Call);
+    setFn('Match', function ($Call) {
+        return F::Run('Text.Regex.' . $Call['Regex Engine'], null, $Call);
     });
 
-    setFn('All', function ($Call)
-    {
+    setFn('All', function ($Call) {
         $Pattern = $Call['Pattern'];
 
-        self::Start($Pattern);
+        F::Start($Pattern);
 
-            $Result = F::Run('Text.Regex.'.$Call['Regex Engine'], null, $Call);
+        $Result = F::Run('Text.Regex.' . $Call['Regex Engine'], null, $Call);
 
-        if ($Result === false)
-            self::Counter('Text.Regex.Unused');
+        if ($Result === false) {
+            F::Counter('Text.Regex.Unused');
+        }
 
-        self::Stop($Pattern);
+        F::Stop($Pattern);
 
         return $Result;
     });

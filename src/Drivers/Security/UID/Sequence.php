@@ -9,11 +9,14 @@
      * @time 14:56
      */
 
-    setFn('Get', function ($Call)
-    {
-        return F::Run('IO', 'Execute', $Call,
+    setFn('Get', function ($Call) {
+        return F::Run(
+            'IO',
+            'Execute',
+            $Call,
             [
                 'Scope' => $Call['Entity'],
                 'Execute' => 'ID'
-            ]);
+            ]
+        );
     });

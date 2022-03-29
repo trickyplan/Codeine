@@ -7,27 +7,22 @@
     * @version 7.1
     */
 
-    setFn('Open', function ($Call)
-    {
+    setFn('Open', function ($Call) {
         return true;
     });
 
-    setFn('Read', function ($Call)
-    {
+    setFn('Read', function ($Call) {
         return null;
     });
 
-    setFn('Write', function ($Call)
-    {
+    setFn('Write', function ($Call) {
         return null;
     });
 
-    setFn ('Close', function ($Call)
-    {
+    setFn('Close', function ($Call) {
         return null;
     });
 
-    setFn('Execute', function ($Call)
-    {
+    setFn('Execute', function ($Call) {
         return null;
     });

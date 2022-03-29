@@ -2,26 +2,26 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description Exec Parslet 
+     * @description Exec Parslet
      * @package Codeine
      * @version 8.x
      */
 
-    setFn('Parse', function ($Call)
-    {
-        foreach ($Call['Parsed']['Match'] as $IX => $Match)
-        {
+    setFn('Parse', function ($Call) {
+        foreach ($Call['Parsed']['Match'] as $IX => $Match) {
             $Call['Run'] = [];
 
             unset($Call['Weight'], $Call['Decision']);
 
-            foreach ($Call['Parsed']['Options'][$IX] as $Key => $Value)
+            foreach ($Call['Parsed']['Options'][$IX] as $Key => $Value) {
                 $Call['Run'] = F::Dot($Call['Run'], $Key, $Value);
+            }
 
-            if (F::Run('Security.Access', 'Check', $Call, $Call['Run']))
+            if (F::Run('Security.Access', 'Check', $Call, $Call['Run'])) {
                 $Call['Replace'][$Call['Parsed']['Match'][$IX]] = $Call['Parsed']['Value'][$IX];
-            else
+            } else {
                 $Call['Replace'][$Call['Parsed']['Match'][$IX]] = '';
+            }
         }
 
         return $Call;

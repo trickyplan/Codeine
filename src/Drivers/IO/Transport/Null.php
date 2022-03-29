@@ -9,12 +9,10 @@
      * @time 21:45
      */
 
-    setFn('Send', function ($Call)
-    {
+    setFn('Send', function ($Call) {
         return null;
     });
 
-    setFn('Receive', function ($Call)
-    {
+    setFn('Receive', function ($Call) {
         return null;
     });

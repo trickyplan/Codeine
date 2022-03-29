@@ -2,12 +2,11 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
 
-    setFn('Info', function ($Call)
-    {
-         return $Call;
+    setFn('Info', function ($Call) {
+        return $Call;
     });

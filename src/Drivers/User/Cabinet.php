@@ -2,14 +2,13 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
 
-    setFn('Do', function ($Call)
-    {
-        if (isset($Call['Session']['User']) && ($Call['Session']['User'] > 0))
+    setFn('Do', function ($Call) {
+        if (isset($Call['Session']['User']) && ($Call['Session']['User'] > 0)) {
             $Call['Output']['Content'][] =
                 [
                     'Type' => 'Template',
@@ -17,7 +16,7 @@
                     'ID' => 'Show/Cabinet',
                     'Data' => $Call['Session']['User']
                 ];
-        else
+        } else {
             $Call['Output']['Content'][] =
                 [
                     'Type' => 'Template',
@@ -25,6 +24,7 @@
                     'ID' => 'Show/Cabinet',
                     'Data' => $Call['Session']
                 ];
+        }
 
-         return $Call;
+        return $Call;
     });

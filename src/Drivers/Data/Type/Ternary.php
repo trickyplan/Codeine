@@ -2,20 +2,19 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
 
-    setFn('Write', function ($Call)
-    {
-        if ($Call['Value'] == 0)
+    setFn('Write', function ($Call) {
+        if ($Call['Value'] == 0) {
             return 0;
-        else
-            return (int) $Call['Value']/abs($Call['Value']);
+        } else {
+            return (int)$Call['Value'] / abs($Call['Value']);
+        }
     });
 
-    setFn(['Read', 'Where'], function ($Call)
-    {
-        return (int) $Call['Value'];
+    setFn(['Read', 'Where'], function ($Call) {
+        return (int)$Call['Value'];
     });

@@ -2,14 +2,13 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
 
-     setFn('Make', function ($Call)
-     {
-         $Call['Value'] = F::Run('View', 'Load', $Call);
+    setFn('Make', function ($Call) {
+        $Call['Value'] = F::Run('View', 'Load', $Call);
 
-         return $Call;
-     });
+        return $Call;
+    });

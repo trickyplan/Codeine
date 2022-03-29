@@ -9,8 +9,7 @@
      * @time 4:41
      */
 
-    setFn('Get', function ($Call)
-    {
+    setFn('Get', function ($Call) {
         return crc32($Call['Value']);
     });
 

@@ -2,94 +2,107 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
-     
-     setFn('Do', function ($Call)
-     {
-         $SearchOptions = F::loadOptions('Search');
-         $ElasticOptions = F::loadOptions('Search.Provider.Elastic');
-         $Hosts = $ElasticOptions['Elastic Search']['Options']['hosts'];
 
-         if (isset($SearchOptions['Search']['Provider']))
-             foreach ($Hosts as $Host)
-             {
-                 $Table = [
-                     ['Host', $Host]
-                 ];
+    setFn('Do', function ($Call) {
+        $SearchOptions = F::loadOptions('Search');
+        $ElasticOptions = F::loadOptions('Search.Provider.Elastic');
+        $Hosts = $ElasticOptions['Elastic Search']['Options']['hosts'];
 
-                 $Stats = F::Run('IO', 'Read',
-                     [
-                         'Storage' => 'Web',
-                         'Format' => 'Formats.JSON',
-                         'Where'   => $Host.'/'.$SearchOptions['Search']['Index'].'/_stats'
-                     ]);
+        if (isset($SearchOptions['Search']['Provider'])) {
+            foreach ($Hosts as $Host) {
+                $Table = [
+                    ['Host', $Host]
+                ];
 
-                 if ($Stats[0] === null)
-                     $Table[] =
-                         ['Status', 'Offline'];
-                 else
-                 {
-                     $Table[] = ['Status', 'Online'];
+                $Stats = F::Run(
+                    'IO',
+                    'Read',
+                    [
+                        'Storage' => 'Web',
+                        'Format' => 'Formats.JSON',
+                        'Where' => $Host . '/' . $SearchOptions['Search']['Index'] . '/_stats'
+                    ]
+                );
 
-                     $Table[] = ['Total', F::Run('Formats.Number.French', 'Do', ['Value' => $Stats[0]['_all']['total']['docs']['count']])];
+                if ($Stats[0] === null) {
+                    $Table[] =
+                        ['Status', 'Offline'];
+                } else {
+                    $Table[] = ['Status', 'Online'];
 
-                     foreach ($SearchOptions['Search']['Provider'] as $Mount)
-                         if ($Mount['Driver'] == 'Search.Provider.Elastic')
-                         {
-                             $Result = F::Run('IO', 'Read',
-                                 [
-                                     'Storage' => 'Web',
-                                     'Format' => 'Formats.JSON',
-                                     'Where'   => $Host.'/'.$SearchOptions['Search']['Index'].'/_search/?type='.$Mount['Type'].'&search_type=count'
-                                 ]);
+                    $Table[] = [
+                        'Total',
+                        F::Run('Formats.Number.French', 'Do', ['Value' => $Stats[0]['_all']['total']['docs']['count']])
+                    ];
 
-                             $Table[] = [
-                                 '<codeine-locale>'.$Mount['Scope'].'.Control:Title</codeine-locale>',
-                                 F::Run('Formats.Number.French', 'Do',
-                                     [
-                                         'Value' => $Result[0]['hits']['total']
-                                     ])];
-                         }
-                 }
+                    foreach ($SearchOptions['Search']['Provider'] as $Mount) {
+                        if ($Mount['Driver'] == 'Search.Provider.Elastic') {
+                            $Result = F::Run(
+                                'IO',
+                                'Read',
+                                [
+                                    'Storage' => 'Web',
+                                    'Format' => 'Formats.JSON',
+                                    'Where' => $Host . '/' . $SearchOptions['Search']['Index'] . '/_search/?type=' . $Mount['Type'] . '&search_type=count'
+                                ]
+                            );
+
+                            $Table[] = [
+                                '<codeine-locale>' . $Mount['Scope'] . '.Control:Title</codeine-locale>',
+                                F::Run(
+                                    'Formats.Number.French',
+                                    'Do',
+                                    [
+                                        'Value' => $Result[0]['hits']['total']
+                                    ]
+                                )
+                            ];
+                        }
+                    }
+                }
 
 
-                 $Call['Output']['Content'][] =
-                     [
-                         'Type'  => 'Table',
-                         'Value' => $Table
-                     ];
-             }
+                $Call['Output']['Content'][] =
+                    [
+                        'Type' => 'Table',
+                        'Value' => $Table
+                    ];
+            }
+        }
 
-         return $Call;
-     });
+        return $Call;
+    });
 
-    setFn('Menu', function ($Call)
-    {
+    setFn('Menu', function ($Call) {
         $SearchOptions = F::loadOptions('Search');
         $ElasticOptions = F::loadOptions('Search.Provider.Elastic');
         $Hosts = $ElasticOptions['Elastic Search']['Options']['hosts'];
 
         $OnlineHosts = 0;
 
-        foreach ($Hosts as $Host)
-        {
-            $Stats = F::Run('IO', 'Read',
+        foreach ($Hosts as $Host) {
+            $Stats = F::Run(
+                'IO',
+                'Read',
                 [
                     'Storage' => 'Web',
                     'Format' => 'Formats.JSON',
-                    'Where'   => $Host.'/'.$SearchOptions['Search']['Index'].'/_stats'
-                ]);
+                    'Where' => $Host . '/' . $SearchOptions['Search']['Index'] . '/_stats'
+                ]
+            );
 
-            if ($Stats[0] === null)
+            if ($Stats[0] === null) {
                 ;
-            else
+            } else {
                 $OnlineHosts++;
+            }
         }
 
-        $Call['Count'] = $OnlineHosts.'/'.count($Hosts);
+        $Call['Count'] = $OnlineHosts . '/' . count($Hosts);
 
         return $Call;
     });

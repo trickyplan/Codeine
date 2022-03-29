@@ -7,11 +7,9 @@
      * @version 2019.x
      */
 
-    setFn('beforeIOWrite', function ($Call)
-    {
-        if (F::Dot($Call, 'Storages.'.(isset($Call['Storage'])? $Call['Storage']: 'Default').'.ReadOnly'))
-        {
-            F::Log('ReadOnly flag is present for '.$Call['Storage'], LOG_INFO);
+    setFn('beforeIOWrite', function ($Call) {
+        if (F::Dot($Call, 'Storages.' . (isset($Call['Storage']) ? $Call['Storage'] : 'Default') . '.ReadOnly')) {
+            F::Log('ReadOnly flag is present for ' . $Call['Storage'], LOG_INFO);
             $Call = F::Dot($Call, 'IO.Skip', true);
         }
 

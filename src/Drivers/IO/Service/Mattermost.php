@@ -1,32 +1,31 @@
 <?php
 
 
-    setFn('Open', function ($Call)
-    {
+    setFn('Open', function ($Call) {
         return $Call;
     });
 
-    setFn('Write', function ($Call)
-    {
+    setFn('Write', function ($Call) {
         $Data =
             [
-                'channel'  => $Call['Mattermost']['Channel'],
+                'channel' => $Call['Mattermost']['Channel'],
                 'username' => $Call['Mattermost']['Username'],
-                'text'     => '#### '.$Call['Where']['ID'].PHP_EOL.$Call['Data']
+                'text' => '#### ' . $Call['Where']['ID'] . PHP_EOL . $Call['Data']
             ];
 
         $Data = ['payload' => j($Data)];
 
-        return $Result = F::Run('IO', 'Write',
+        return $Result = F::Run(
+            'IO',
+            'Write',
             [
                 'Storage' => 'Web',
-                'Where'   => $Call['Mattermost']['Webhook URL'].'/'.$Call['Mattermost']['Key'],
-                'Data'    => $Data
-            ]);
-
+                'Where' => $Call['Mattermost']['Webhook URL'] . '/' . $Call['Mattermost']['Key'],
+                'Data' => $Data
+            ]
+        );
     });
 
-    setFn('Read', function ($Call)
-    {
+    setFn('Read', function ($Call) {
         return $Call;
     });

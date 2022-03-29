@@ -11,7 +11,7 @@
             ],
             'IO One' => true
         ]);
-        $LastFail = intval(F::Dot($Actions, $Action.' Last'));
+        $LastFail = intval(F::Dot($Actions, $Action . ' Last'));
 
         if ($Period > (time() - $LastFail)) {
             $Call['Errors']['User'][] = 'Blocked';
@@ -20,10 +20,10 @@
             ]);
         } else {
             F::Run('User.Hooks.Counter', 'Reset', $Call, [
-                'Counter' => 
-                [
-                    'ID' => '$Request.EMail'
-                ]
+                'Counter' =>
+                    [
+                        'ID' => '$Request.EMail'
+                    ]
             ]);
         }
 

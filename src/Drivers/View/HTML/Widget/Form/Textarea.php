@@ -2,17 +2,17 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description HTML Textfield Driver 
+     * @description HTML Textfield Driver
      * @package Codeine
      * @version 8.x
      */
 
-     setFn('Make', function ($Call)
-     {
-         if (is_array($Call['Value']))
-             $Call['Value'] = implode(F::Dot($Call, 'Textarea.Delimiter'),$Call['Value']);
+    setFn('Make', function ($Call) {
+        if (is_array($Call['Value'])) {
+            $Call['Value'] = implode(F::Dot($Call, 'Textarea.Delimiter'), $Call['Value']);
+        }
 
-         $Call = F::Apply('View.HTML.Widget.Base', 'Make', $Call, ['Tag' => 'textarea']);
+        $Call = F::Apply('View.HTML.Widget.Base', 'Make', $Call, ['Tag' => 'textarea']);
 
-         return $Call;
-     });
+        return $Call;
+    });

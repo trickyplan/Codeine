@@ -5,17 +5,17 @@
         $ID = F::Live(F::Dot($Call, 'Counter.ID'), $Call);
 
         $Actions = F::Run('IO', 'Read', [
-            'Storage' => 'ActionsCounter',
-            'Where' => [
-                'ID' => $ID
-            ],
-            'IO One' => true
-        ]) ?? [
-            $Action.' Count' => 0,
-        ];
+                'Storage' => 'ActionsCounter',
+                'Where' => [
+                    'ID' => $ID
+                ],
+                'IO One' => true
+            ]) ?? [
+                $Action . ' Count' => 0,
+            ];
 
-        $Actions[$Action.' Count'] = intval(F::Dot($Actions, $Action.' Count')) + 1;
-        $Actions[$Action.' Last'] = time();
+        $Actions[$Action . ' Count'] = intval(F::Dot($Actions, $Action . ' Count')) + 1;
+        $Actions[$Action . ' Last'] = time();
 
         F::Run('IO', 'Write', [
             'Storage' => 'ActionsCounter',
@@ -30,15 +30,19 @@
 
     setFn('React', function ($Call) {
         $Action = F::Dot($Call, 'Counter.Action');
-        if (!empty($Action)) 
-        {
+        if (!empty($Action)) {
             $ID = F::Live(F::Dot($Call, 'Counter.ID'), $Call);
-            $Actions = F::Run('IO', 'Read', ['Storage' => 'ActionsCounter', 'Where' => ['ID' => $ID], 'IO One' => true]);
+            $Actions = F::Run('IO', 'Read', ['Storage' => 'ActionsCounter', 'Where' => ['ID' => $ID], 'IO One' => true]
+            );
             $ActionsCount = intval(F::Dot($Actions, $Action . ' Count'));
             $MaxActionsCount = intval(F::Dot($Call, 'Counter.Max'));
-            $Condition = F::Live(F::Dot($Call, 'Counter.Actions.'.$Action.'.Condition'), ['A' => $MaxActionsCount, 'B' => $ActionsCount]);
-            if ($Condition)
-                $Call = F::Live(F::Dot($Call, 'Counter.Actions.'.$Action.'.Reaction'), $Call);
+            $Condition = F::Live(
+                F::Dot($Call, 'Counter.Actions.' . $Action . '.Condition'),
+                ['A' => $MaxActionsCount, 'B' => $ActionsCount]
+            );
+            if ($Condition) {
+                $Call = F::Live(F::Dot($Call, 'Counter.Actions.' . $Action . '.Reaction'), $Call);
+            }
         }
 
         return $Call;

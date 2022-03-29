@@ -2,92 +2,96 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
 
-    setFn('beforeOperation', function ($Call)
-    {
-        if (isset($Call['Where']))
-        {
+    setFn('beforeOperation', function ($Call) {
+        if (isset($Call['Where'])) {
             $Call['Where'] = F::Live($Call['Where'], $Call);
 
             // Если в Where скалярная переменная - это ID.
 
-            if (is_scalar($Call['Where']))
-            {
-                if (str_contains($Call['Where'], ','))
+            if (is_scalar($Call['Where'])) {
+                if (str_contains($Call['Where'], ',')) {
                     $Call['Where'] = ['ID' => explode(',', $Call['Where'])];
-                else
+                } else {
                     $Call['Where'] = ['ID' => $Call['Where']];
+                }
             }
 
             $Where = [];
 
-            if (isset($Call['Nodes']))
-                foreach ($Call['Nodes'] as $Name => $Node)
-                {
-                    if (($Value = F::Dot($Call['Where'], $Name)) !== null)
-                    {
-                        if (isset($Node['Type']))
-                        {
-                            if (is_array($Value))
-                            {
-                                foreach ($Value as $Relation => $cValue)
-                                    if (is_array($cValue))
-                                        foreach($cValue as $ccKey => $ccValue)
+            if (isset($Call['Nodes'])) {
+                foreach ($Call['Nodes'] as $Name => $Node) {
+                    if (($Value = F::Dot($Call['Where'], $Name)) !== null) {
+                        if (isset($Node['Type'])) {
+                            if (is_array($Value)) {
+                                foreach ($Value as $Relation => $cValue) {
+                                    if (is_array($cValue)) {
+                                        foreach ($cValue as $ccKey => $ccValue) {
                                             $Value[$Relation][$ccKey] =
-                                                F::Run('Data.Type.'.$Node['Type'], 'Where',
+                                                F::Run(
+                                                    'Data.Type.' . $Node['Type'],
+                                                    'Where',
                                                     [
                                                         'Name' => $Name,
                                                         'Node' => $Node,
                                                         'Value' => $ccValue
-                                                    ]);
-                                    else
-                                        $Value[$Relation] = F::Run('Data.Type.'.$Node['Type'], 'Where',
+                                                    ]
+                                                );
+                                        }
+                                    } else {
+                                        $Value[$Relation] = F::Run(
+                                            'Data.Type.' . $Node['Type'],
+                                            'Where',
                                             [
                                                 'Name' => $Name,
                                                 'Node' => $Node,
                                                 'Value' => $cValue
-                                            ]);
-                                
-                                if (isset($Node['Array Like']) && $Node['Array Like'])
+                                            ]
+                                        );
+                                    }
+                                }
+
+                                if (isset($Node['Array Like']) && $Node['Array Like']) {
                                     $Value = ['$elemMatch' => $Value];
-                            }
-                            else
-                            {
-                                $Value = F::Run('Data.Type.'.$Node['Type'], 'Where',
+                                }
+                            } else {
+                                $Value = F::Run(
+                                    'Data.Type.' . $Node['Type'],
+                                    'Where',
                                     [
                                         'Name' => $Name,
                                         'Node' => $Node,
                                         'Value' => $Value
-                                    ]);
+                                    ]
+                                );
                             }
                         }
 
-                        if (null === $Value)
-                            F::Log('Empty '.$Name.' in where', LOG_INFO);
-                        else
+                        if (null === $Value) {
+                            F::Log('Empty ' . $Name . ' in where', LOG_INFO);
+                        } else {
                             $Where[$Name] = $Value;
+                        }
                     }
                 }
+            }
 
-            if (empty($Where))
+            if (empty($Where)) {
                 $Call['Where'] = null;
-            else
+            } else {
                 $Call['Where'] = $Where;
-        }
-        else
-        {
-            if (isset($Call['No Where']))
+            }
+        } else {
+            if (isset($Call['No Where'])) {
                 ;
-            else
-            {
-                F::Log('No where (bad idea). Entity *'.$Call['Entity'].'*', LOG_ERR, 'Administrator', true);
+            } else {
+                F::Log('No where (bad idea). Entity *' . $Call['Entity'] . '*', LOG_ERR, 'Administrator', true);
                 return null;
             }
-            
         }
 
         return $Call;

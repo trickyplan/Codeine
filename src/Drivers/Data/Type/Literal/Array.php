@@ -7,30 +7,30 @@
      * @version 8.x
      */
 
-    setFn('Write', function ($Call)
-    {
-        if (isset($Call['Separator']))
+    setFn('Write', function ($Call) {
+        if (isset($Call['Separator'])) {
             ;
-        else
+        } else {
             $Call['Separator'] = ';';
+        }
 
-        if (is_array($Call['Value']) && !empty($Call['Value']))
+        if (is_array($Call['Value']) && !empty($Call['Value'])) {
             return implode($Call['Separator'], $Call['Value']);
-        else
+        } else {
             return $Call['Value'];
+        }
     });
 
-    setFn('Read', function ($Call)
-    {
-        if (isset($Call['Separator']))
+    setFn('Read', function ($Call) {
+        if (isset($Call['Separator'])) {
             ;
-        else
+        } else {
             $Call['Separator'] = ';';
+        }
 
         return explode($Call['Separator'], $Call['Value']);
     });
 
-    setFn('Where', function ($Call)
-    {
+    setFn('Where', function ($Call) {
         return $Call['Value'];
     });

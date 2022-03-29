@@ -7,20 +7,18 @@
      * @version 8.x
      */
 
-    setFn('Open', function ($Call)
-    {
-        return openlog($Call['Scope'].RequestID, LOG_ODELAY, LOG_USER);
+    setFn('Open', function ($Call) {
+        return openlog($Call['Scope'] . RequestID, LOG_ODELAY, LOG_USER);
     });
 
-    setFn('Write', function ($Call)
-    {
-        foreach ($Call['Data'] as $Row)
+    setFn('Write', function ($Call) {
+        foreach ($Call['Data'] as $Row) {
             syslog($Row[0], $Row[2]);
+        }
 
         return true;
     });
 
-    setFn('Close', function ($Call)
-    {
+    setFn('Close', function ($Call) {
         return closelog();
     });

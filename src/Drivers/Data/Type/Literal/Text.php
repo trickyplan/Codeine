@@ -2,22 +2,19 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
 
-    setFn('Write', function ($Call)
-    {
+    setFn('Write', function ($Call) {
         return strip_tags($Call['Value']);
     });
 
-    setFn('Read', function ($Call)
-    {
+    setFn('Read', function ($Call) {
         return $Call['Value'];
     });
 
-    setFn('Where', function ($Call)
-    {
+    setFn('Where', function ($Call) {
         return $Call['Value'];
     });

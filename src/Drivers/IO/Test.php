@@ -1,33 +1,28 @@
 <?php
 
-  /* Codeine
-     * @author bergstein@trickyplan.com
-     * @description Test Driver for Data Date
-     * @package Codeine
-     * @version 8.x
-     */
+    /* Codeine
+       * @author bergstein@trickyplan.com
+       * @description Test Driver for Data Date
+       * @package Codeine
+       * @version 8.x
+       */
 
-    setFn ('Open', function ($Call)
-    {
+    setFn('Open', function ($Call) {
         return true;
     });
 
-    setFn ('Read', function ($Call)
-    {
+    setFn('Read', function ($Call) {
         return true;
     });
 
-    setFn ('Write', function ($Call)
-    {
+    setFn('Write', function ($Call) {
         return true;
     });
 
-    setFn ('Close', function ($Call)
-    {
+    setFn('Close', function ($Call) {
         return true;
     });
 
-    setFn ('Execute', function ($Call)
-    {
+    setFn('Execute', function ($Call) {
         return true;
     });

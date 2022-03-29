@@ -2,79 +2,102 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
 
-    setFn('Check', function ($Call)
-    {
-        list($Asset, $ID) = F::Run('View', 'Asset.Route',
+    setFn('Check', function ($Call) {
+        list($Asset, $ID) = F::Run(
+            'View',
+            'Asset.Route',
             [
                 'Value' => $Call['CSS Name']
-            ]);
+            ]
+        );
 
-        $SASS = F::Run('IO', 'Execute',
+        $SASS = F::Run(
+            'IO',
+            'Execute',
             [
                 'Execute' => 'Exist',
                 'Storage' => 'SASS',
-                'Scope'   => [$Asset, 'sass'],
-                'Where'   => $ID
-            ]);
+                'Scope' => [$Asset, 'sass'],
+                'Where' => $ID
+            ]
+        );
 
-        if ($SASS === null)
-            F::Log('SASS *not found* '.Root.'/Assets/'.$Asset.'/sass/'.$ID.'.sass', LOG_NOTICE, 'Developer');
-        else
-        {
-            $SASSVersion = F::Run('IO', 'Execute',
-            [
-                'Execute' => 'Version',
-                'Storage' => 'SASS',
-                'Scope'   => [$Asset, 'sass'],
-                'Where'   => $ID
-            ]);
+        if ($SASS === null) {
+            F::Log(
+                'SASS *not found* ' . Root . '/Assets/' . $Asset . '/sass/' . $ID . '.sass',
+                LOG_NOTICE,
+                'Developer'
+            );
+        } else {
+            $SASSVersion = F::Run(
+                'IO',
+                'Execute',
+                [
+                    'Execute' => 'Version',
+                    'Storage' => 'SASS',
+                    'Scope' => [$Asset, 'sass'],
+                    'Where' => $ID
+                ]
+            );
 
-            $CSSVersion = F::Run('IO', 'Execute',
+            $CSSVersion = F::Run(
+                'IO',
+                'Execute',
                 [
                     'Execute' => 'Version',
                     'Storage' => 'CSS',
-                    'Scope'   => [$Asset, 'css'],
-                    'Where'   => $ID
-                ]);
+                    'Scope' => [$Asset, 'css'],
+                    'Where' => $ID
+                ]
+            );
 
-            if (($SASSVersion > $CSSVersion) or (isset($Call['HTTP']['Request']['Headers']['Pragma']) && $Call['HTTP']['Request']['Headers']['Pragma'] == 'no-cache'))
-            {
-                $Call = F::Dot($Call, 'View.CSS.SASS.Filename', F::findFile('Assets/'.$Asset.'/sass/'.$ID.'.scss'));
-                
-                if (F::Dot($Call, 'View.CSS.SASS.Filename'))
-                {
-                    $Exec = F::Run('Code.Run.External.Exec', 'Run', $Call,
+            if (($SASSVersion > $CSSVersion) or (isset($Call['HTTP']['Request']['Headers']['Pragma']) && $Call['HTTP']['Request']['Headers']['Pragma'] == 'no-cache')) {
+                $Call = F::Dot(
+                    $Call,
+                    'View.CSS.SASS.Filename',
+                    F::findFile('Assets/' . $Asset . '/sass/' . $ID . '.scss')
+                );
+
+                if (F::Dot($Call, 'View.CSS.SASS.Filename')) {
+                    $Exec = F::Run(
+                        'Code.Run.External.Exec',
+                        'Run',
+                        $Call,
                         [
-                            'Command' => F::Dot($Call, 'View.CSS.SASS.Command').' "'.F::Dot($Call, 'View.CSS.SASS.Filename').'"'
-                        ]);
-                    
-                    if ($Exec['Code'] == 0)
-                    {
+                            'Command' => F::Dot($Call, 'View.CSS.SASS.Command') . ' "' . F::Dot(
+                                    $Call,
+                                    'View.CSS.SASS.Filename'
+                                ) . '"'
+                        ]
+                    );
+
+                    if ($Exec['Code'] == 0) {
                         $Call['CSS']['Styles'][$Call['CSS Name']] = $Exec['Result'];
-                        F::Log('SASS *processed* '.F::Dot($Call, 'View.CSS.SASS.Filename'), LOG_INFO);
-                    }
-                    else
-                    {
+                        F::Log('SASS *processed* ' . F::Dot($Call, 'View.CSS.SASS.Filename'), LOG_INFO);
+                    } else {
                         $Call['CSS']['Styles'][$Call['CSS Name']] = '';
-                        F::Log('SASS *failed* '.F::Dot($Call, 'View.CSS.SASS.Filename'), LOG_WARNING);
+                        F::Log('SASS *failed* ' . F::Dot($Call, 'View.CSS.SASS.Filename'), LOG_WARNING);
                     }
-                    
-                    F::Run('IO', 'Write',
-                    [
-                        'Storage'   => 'CSS',
-                        'Scope'     => [$Asset, 'css'],
-                        'Where'     => $ID,
-                        'Data'      => $Call['CSS']['Styles'][$Call['CSS Name']]
-                    ]);
+
+                    F::Run(
+                        'IO',
+                        'Write',
+                        [
+                            'Storage' => 'CSS',
+                            'Scope' => [$Asset, 'css'],
+                            'Where' => $ID,
+                            'Data' => $Call['CSS']['Styles'][$Call['CSS Name']]
+                        ]
+                    );
                 }
+            } else {
+                F::Log('SASS *skipped* ' . F::Dot($Call, 'View.CSS.SASS.Filename'), LOG_INFO, 'Developer');
             }
-            else
-                F::Log('SASS *skipped* '.F::Dot($Call, 'View.CSS.SASS.Filename'), LOG_INFO, 'Developer');
         }
 
         return $Call;

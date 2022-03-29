@@ -2,25 +2,26 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
 
-    setFn('Do', function ($Call)
-    {
+    setFn('Do', function ($Call) {
         $Links = '';
 
-        foreach ($Call['JS']['Links'] as $Link => $ScriptTag)
-            $Links.= 'var element = document.createElement("script");
-            element.src = "'.$Link.'";
+        foreach ($Call['JS']['Links'] as $Link => $ScriptTag) {
+            $Links .= 'var element = document.createElement("script");
+            element.src = "' . $Link . '";
             document.body.appendChild(element);';
+        }
 
-        $Call['JS']['Links'] = ['<script>
+        $Call['JS']['Links'] = [
+            '<script>
 
          // Add a script element as a child of the body
          function downloadJSAtOnload() {
-         '.$Links.'
+         ' . $Links . '
          }
 
          // Check for browser support of event handling capability
@@ -30,7 +31,8 @@
          window.attachEvent("onload", downloadJSAtOnload);
          else window.onload = downloadJSAtOnload;
 
-        </script>'];
+        </script>'
+        ];
 
         return $Call;
     });

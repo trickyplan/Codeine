@@ -2,13 +2,12 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
 
-    setFn ('Process', function ($Call)
-    {
+    setFn('Process', function ($Call) {
         $Call['HTTP']['Headers']['Content-Type:'] = 'image/png';
         $Call['Output'] = $Call['Image'];
 

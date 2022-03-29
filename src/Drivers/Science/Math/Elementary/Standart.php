@@ -2,12 +2,11 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
 
-    setFn('Log', function ($Call)
-    {
+    setFn('Log', function ($Call) {
         return log($Call['X'], F::Live($Call['Base']));
     });

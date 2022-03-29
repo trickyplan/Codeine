@@ -1,16 +1,15 @@
 <?php
 
-/* Codeine
- * @author bergstein@trickyplan.com
- * @description  
- * @package Codeine
- * @version 2019.x
- */
+    /* Codeine
+     * @author bergstein@trickyplan.com
+     * @description
+     * @package Codeine
+     * @version 2019.x
+     */
 
-    setFn('Create', function ($Call)
-    {
+    setFn('Create', function ($Call) {
         $Link = Elasticsearch\ClientBuilder::create()->build();
-        $Options = F::Dot($Call,'Search.Elastic.Index.Create.Default');
+        $Options = F::Dot($Call, 'Search.Elastic.Index.Create.Default');
 
         $Options['index'] = $Call['Search']['Index'];
         $Options['body']['mappings']['properties'] = $Call['Search']['Properties'];
@@ -21,38 +20,36 @@
         return $Response;
     });
 
-    setFn('Delete', function ($Call)
-    {
+    setFn('Delete', function ($Call) {
         $Link = Elasticsearch\ClientBuilder::create()->build();
 
         $Options =
-        [
-            'index' => $Call['Search']['Index']
-        ];
+            [
+                'index' => $Call['Search']['Index']
+            ];
 
-        if ($Link->indices()->exists($Options))
+        if ($Link->indices()->exists($Options)) {
             $Response = $Link->indices()->delete($Options);
-        else
+        } else {
             $Response = null;
+        }
 
         return $Response;
     });
 
-    setFn('Create.From.Entity', function ($Call)
-    {
-        $Call = F::loadOptions($Call['Entity'].'.Entity', null, $Call);
+    setFn('Create.From.Entity', function ($Call) {
+        $Call = F::loadOptions($Call['Entity'] . '.Entity', null, $Call);
         $Call['Search']['Index'] = mb_strtolower($Call['Entity']);
 
-        foreach ($Call['Nodes'] as $Name => $Node)
-        {
-            if (F::Dot($Node, 'Search.Allowed'))
-            {
+        foreach ($Call['Nodes'] as $Name => $Node) {
+            if (F::Dot($Node, 'Search.Allowed')) {
                 $Name = strtr($Name, '.', '_');
 
-                if (isset($Node['Type']))
+                if (isset($Node['Type'])) {
                     ;
-                else
-                    F::Log('No type specified for *'.$Name.'*', LOG_ERR);
+                } else {
+                    F::Log('No type specified for *' . $Name . '*', LOG_ERR);
+                }
 
                 $Type = $Call['Search']['Elastic']['Index']['Mapping'][$Node['Type']];
 
@@ -61,8 +58,9 @@
                         'type' => $Type
                     ];
 
-                if ($Type == 'text')
+                if ($Type == 'text') {
                     $Call['Search']['Properties'][$Name]['analyzer'] = 'standard';
+                }
             }
         }
         F::Run(null, 'Delete', $Call);

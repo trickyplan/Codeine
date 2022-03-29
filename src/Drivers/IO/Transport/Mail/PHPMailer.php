@@ -11,54 +11,56 @@
     use PHPMailer\PHPMailer\SMTP;
     use PHPMailer\PHPMailer\Exception;
 
-    setFn('Open', function ($Call)
-    {
+    setFn('Open', function ($Call) {
         return new PHPMailer(true);
     });
 
-    setFn('Write', function ($Call)
-    {
+    setFn('Write', function ($Call) {
         $Result = false;
 
-        if (isset($Call['Link']))
+        if (isset($Call['Link'])) {
             ;
-        else
+        } else {
             $Call['Link'] = F::Run(null, 'Open', $Call);
+        }
 
-        try
-        {
+        try {
             //Server settings
             $Call['Link']->isSMTP();                                            // Send using SMTP
             $Call['Link']->CharSet = 'UTF-8';
-            $Call['Link']->SMTPDebug = self::$_Verbose['Administrator'] - 4;
+            $Call['Link']->SMTPDebug = F::$_Verbose['Administrator'] - 4;
             $Call['Link']->Debugoutput = function ($Message, $Level) {
-                F::Log($Message, $Level+4, ['Administrator', 'Mail', 'PHPMailer']);
+                F::Log($Message, $Level + 4, ['Administrator', 'Mail', 'PHPMailer']);
             };
-            $Call['Link']->Host       = F::Dot($Call, 'Mail.Host');       // Set the SMTP server to send through
-            $Call['Link']->Port       = F::Dot($Call, 'Mail.Port');         // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+            $Call['Link']->Host = F::Dot($Call, 'Mail.Host');       // Set the SMTP server to send through
+            $Call['Link']->Port = F::Dot(
+                $Call,
+                'Mail.Port'
+            );         // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
-            F::Log('Host:Port is *'.F::Dot($Call, 'Mail.Host').':'.F::Dot($Call, 'Mail.Port').'*', LOG_INFO);
-            if (F::Dot($Call, 'Mail.SMTPAuth.Enabled'))
-            {
-                $Call['Link']->SMTPAuth   = true;     // Enable SMTP authentication
-                $Call['Link']->Username   = F::Dot($Call, 'Mail.Username');     // SMTP username
-                $Call['Link']->Password   = F::Dot($Call, 'Mail.Password');     // SMTP password
+            F::Log('Host:Port is *' . F::Dot($Call, 'Mail.Host') . ':' . F::Dot($Call, 'Mail.Port') . '*', LOG_INFO);
+            if (F::Dot($Call, 'Mail.SMTPAuth.Enabled')) {
+                $Call['Link']->SMTPAuth = true;     // Enable SMTP authentication
+                $Call['Link']->Username = F::Dot($Call, 'Mail.Username');     // SMTP username
+                $Call['Link']->Password = F::Dot($Call, 'Mail.Password');     // SMTP password
             }
 
-            if (F::Dot($Call, 'Mail.Secure.Enabled'))
-                $Call['Link']->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-            else
-            {
+            if (F::Dot($Call, 'Mail.Secure.Enabled')) {
+                $Call['Link']->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            }         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+            else {
                 $Call['Link']->SMTPSecure = false;
                 $Call['Link']->SMTPAutoTLS = false;
             }
 
             //Recipients
-            $Call['Link']->setFrom(F::Dot($Call, 'Mail.From').'@'.$Call['HTTP']['Domain'], $Call['Project']['Title'] ?? 'Codeine');
+            $Call['Link']->setFrom(
+                F::Dot($Call, 'Mail.From') . '@' . $Call['HTTP']['Domain'],
+                $Call['Project']['Title'] ?? 'Codeine'
+            );
             $Call['Link']->addAddress(F::Dot($Call, 'Scope'));            // Name is optional
 
-            foreach ($Call['Mail']['Headers'] as $Key => $Value)
-            {
+            foreach ($Call['Mail']['Headers'] as $Key => $Value) {
                 $Call['Link']->addCustomHeader($Key, $Value);
             }
 
@@ -74,16 +76,19 @@
             $Call['Link']->isHTML(true);                                  // Set email format to HTML
             $Call['Link']->Subject = F::Dot($Call, 'Where.ID');
 
-            if (F::Dot($Call, 'Mail.HTML.Enabled'))
-                $Call['Link']->Body    = $Call['Data'];
-            else
+            if (F::Dot($Call, 'Mail.HTML.Enabled')) {
+                $Call['Link']->Body = $Call['Data'];
+            } else {
                 $Call['Link']->AltBody = strip_tags($Call['Data']);
+            }
 
             $Result = $Call['Link']->send();
-        }
-        catch (Exception $e)
-        {
-            F::Log('Message could not be sent. PHP Mailer Error: '.$Call['Link']->ErrorInfo, LOG_ERR, ['Administrator', 'Mail']);
+        } catch (Exception $e) {
+            F::Log(
+                'Message could not be sent. PHP Mailer Error: ' . $Call['Link']->ErrorInfo,
+                LOG_ERR,
+                ['Administrator', 'Mail']
+            );
         }
 
         return $Result;

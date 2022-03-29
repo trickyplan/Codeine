@@ -2,13 +2,12 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 7.x
      */
 
-    setFn('Do', function ($Call)
-    {
+    setFn('Do', function ($Call) {
         $Markup = file_get_contents($Call['Filename']);
         $Call = F::Run('Parser', 'Do', $Call, ['Markup' => $Markup]);
 

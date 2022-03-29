@@ -2,43 +2,39 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description <codeine-key> tag 
+     * @description <codeine-key> tag
      * @package Codeine
      * @version 8.x
      */
 
-    setFn('Parse', function ($Call)
-    {
-        if (preg_match_all('@<treekey(.*)>(.*)</treekey>@SsUu', $Call['Value'], $Call['Parsed']))
-        {
-            foreach ($Call['Parsed'][2] as $IX => $Match)
-            {
-                $Root = simplexml_load_string('<forkey'.$Call['Parsed'][1][$IX].'></forkey>');
+    setFn('Parse', function ($Call) {
+        if (preg_match_all('@<treekey(.*)>(.*)</treekey>@SsUu', $Call['Value'], $Call['Parsed'])) {
+            foreach ($Call['Parsed'][2] as $IX => $Match) {
+                $Root = simplexml_load_string('<forkey' . $Call['Parsed'][1][$IX] . '></forkey>');
                 $Output = '';
-                $Key = (string) $Root->attributes()->key;
+                $Key = (string)$Root->attributes()->key;
 
-                if (($Matched = F::Live(F::Dot($Call['Data'], $Key))) !== null)
-                {
-                    if (is_array($Matched))
-                    {
+                if (($Matched = F::Live(F::Dot($Call['Data'], $Key))) !== null) {
+                    if (is_array($Matched)) {
                         $Rows = [];
 
                         F::Map($Matched,
-                            function ($Key, $Value, $Data, $NewFullKey, $Array) use (&$Rows)
-                            {
-                                if (!is_array($Value))
-                                    $Rows[] = [substr($NewFullKey,1), $Value];
+                            function ($Key, $Value, $Data, $NewFullKey, $Array) use (&$Rows) {
+                                if (!is_array($Value)) {
+                                    $Rows[] = [substr($NewFullKey, 1), $Value];
+                                }
                             }
                         );
 
-                        foreach ($Rows as $Row)
+                        foreach ($Rows as $Row) {
                             $Output .= strtr($Match, ['<treek/>' => $Row[0], '<treev/>' => $Row[1]]);
+                        }
 
                         $Call['Value'] = str_replace($Call['Parsed'][0][$IX], $Output, $Call['Value']);
                     }
-                }
-                else
+                } else {
                     $Call['Value'] = str_replace($Call['Parsed'][0][$IX], '', $Call['Value']);
+                }
             }
         }
 

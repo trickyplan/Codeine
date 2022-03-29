@@ -2,13 +2,12 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
 
-    setFn('Run', function ($Call)
-    {
+    setFn('Run', function ($Call) {
         /*$VKTS = microtime(true);
 
         $LastVKTS = F::Get('Last VK TS');
@@ -27,35 +26,36 @@
         $Call['Call']['param_v'] = $Call['VKontakte']['Version'];
         $Call['Call']['lang'] = $Call['VKontakte']['Lang'];
 
-        $Query = '?'.http_build_query($Call['Call']);
+        $Query = '?' . http_build_query($Call['Call']);
 
-        $Result = F::Run('IO', 'Read',
-               [
-                   'Storage' => 'Web',
-                   'Format'  => 'Formats.JSON',
-                   'Where'   => $Call['VKontakte']['Entry Point'].'/'.$Call['Service'].'.'.$Call['Method'].$Query
-               ]);
+        $Result = F::Run(
+            'IO',
+            'Read',
+            [
+                'Storage' => 'Web',
+                'Format' => 'Formats.JSON',
+                'Where' => $Call['VKontakte']['Entry Point'] . '/' . $Call['Service'] . '.' . $Call['Method'] . $Query
+            ]
+        );
 
         $Result = array_pop($Result);
 
-        if (isset($Result['response']))
-        {
-            if (isset($Call['Return Key']))
-            {
-                if (F::Dot($Result['response'], $Call['Return Key']) !== null)
+        if (isset($Result['response'])) {
+            if (isset($Call['Return Key'])) {
+                if (F::Dot($Result['response'], $Call['Return Key']) !== null) {
                     $Result = F::Dot($Result['response'], $Call['Return Key']);
-                else
+                } else {
                     $Result = null;
-            }
-            else
+                }
+            } else {
                 $Result = $Result['response'];
-        }
-        else
-        {
-            if (isset($Call['VKontakte']['Error']['Codes'][$Result['error']['error_code']]))
-                F::Hook('VKontakte.'.$Call['VKontakte']['Error']['Codes'][$Result['error']['error_code']], $Call);
-            else
-                F::Log($Result['error']['error_code'].': '.$Result['error']['error_msg'], LOG_WARNING);
+            }
+        } else {
+            if (isset($Call['VKontakte']['Error']['Codes'][$Result['error']['error_code']])) {
+                F::Hook('VKontakte.' . $Call['VKontakte']['Error']['Codes'][$Result['error']['error_code']], $Call);
+            } else {
+                F::Log($Result['error']['error_code'] . ': ' . $Result['error']['error_msg'], LOG_WARNING);
+            }
 
             $Result = null;
         }
@@ -65,81 +65,83 @@
         return $Result;
     });
 
-    setFn('Access Token', function ($Call)
-    {
+    setFn('Access Token', function ($Call) {
         $Result = null;
 
-        if (isset($Call['Session']['User']['VKontakte']['Auth']))
-        {
-            F::Log('Used VK Token '.$Call['Session']['User']['VKontakte']['Auth'].' from Session', LOG_INFO);
+        if (isset($Call['Session']['User']['VKontakte']['Auth'])) {
+            F::Log('Used VK Token ' . $Call['Session']['User']['VKontakte']['Auth'] . ' from Session', LOG_INFO);
             $Result = $Call['Session']['User']['VKontakte']['Auth'];
-        }
-        elseif (isset($Call['Data']['VKontakte']['Auth']))
-        {
+        } elseif (isset($Call['Data']['VKontakte']['Auth'])) {
             F::Log('Used VK Token from VKontakte', LOG_INFO);
             $Result = $Call['Data']['VKontakte']['Auth'];
-        }
-        else
+        } else {
             $Result = F::Run(null, 'Random Token', $Call, ['RTTL' => 1]);
+        }
 
         return $Result;
     });
 
-    setFn('Random Token', function ($Call)
-    {
+    setFn('Random Token', function ($Call) {
         $Result = null;
         $TokenUsers =
-                F::Run ('Entity', 'Read',
-                    [
-                        'Entity' => 'User',
-                        'Where'  =>
-                            [
-                                'VKontakte.Active' => true
-                            ],
-                        'Sort' =>
-                            [
-                                'Modified' => true
-                            ],
-                        'Limit' =>
+            F::Run(
+                'Entity',
+                'Read',
+                [
+                    'Entity' => 'User',
+                    'Where' =>
+                        [
+                            'VKontakte.Active' => true
+                        ],
+                    'Sort' =>
+                        [
+                            'Modified' => true
+                        ],
+                    'Limit' =>
                         [
                             'From' => 0,
-                            'To'   => $Call['VKontakte']['Token Users']
+                            'To' => $Call['VKontakte']['Token Users']
                         ]
-                    ]);
+                ]
+            );
 
-            if (is_array($TokenUsers))
-            {
-                $RandomUser = $TokenUsers[array_rand($TokenUsers)];
-                if (isset($RandomUser['VKontakte']['Auth']))
-                {
-                    $Result = $RandomUser['VKontakte']['Auth'];
-                    F::Log('Used VK Token '.$RandomUser['VKontakte']['Auth'].' from '.count($TokenUsers).' random users', LOG_INFO);
-                }
+        if (is_array($TokenUsers)) {
+            $RandomUser = $TokenUsers[array_rand($TokenUsers)];
+            if (isset($RandomUser['VKontakte']['Auth'])) {
+                $Result = $RandomUser['VKontakte']['Auth'];
+                F::Log(
+                    'Used VK Token ' . $RandomUser['VKontakte']['Auth'] . ' from ' . count(
+                        $TokenUsers
+                    ) . ' random users',
+                    LOG_INFO
+                );
             }
+        }
 
         return $Result;
     });
 
-    setFn('Remove Token', function ($Call)
-    {
-        if (isset($Call['Call']['access_token']))
-        {
-            F::Run('Entity', 'Update',
+    setFn('Remove Token', function ($Call) {
+        if (isset($Call['Call']['access_token'])) {
+            F::Run(
+                'Entity',
+                'Update',
                 [
                     'Entity' => 'User',
-                    'Where'  =>
-                    [
-                        'VKontakte.Auth'   => $Call['Call']['access_token']
-                    ],
-                    'Skip Live' => true,
-                    'Data'   =>
+                    'Where' =>
                         [
-                            'VKontakte.Auth'    => false,
-                            'VKontakte.Active'  => false
+                            'VKontakte.Auth' => $Call['Call']['access_token']
+                        ],
+                    'Skip Live' => true,
+                    'Data' =>
+                        [
+                            'VKontakte.Auth' => false,
+                            'VKontakte.Active' => false
                         ]
-                ]);
+                ]
+            );
 
-            F::Log('Invalid token cleaned '.$Call['Call']['access_token'], LOG_INFO);
+            F::Log('Invalid token cleaned ' . $Call['Call']['access_token'], LOG_INFO);
         }
 
         return $Call;

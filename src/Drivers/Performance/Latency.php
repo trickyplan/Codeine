@@ -2,67 +2,70 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
 
-    setFn('Audit', function ($Call)
-    {
-        if (F::Dot($Call, 'Performance.Latency.Enabled'))
-        {
-            $Total = round(microtime(true)-Started, 4)*1000;
+    setFn('Audit', function ($Call) {
+        if (F::Dot($Call, 'Performance.Latency.Enabled')) {
+            $Total = round(microtime(true) - Started, 4) * 1000;
 
             $Decision = 'Green';
 
             $Limits = F::Dot($Call, 'Performance.Latency.Limits');
-            
-            if (empty($Limits))
+
+            if (empty($Limits)) {
                 ;
-            else
-            {
-                foreach ($Limits as $Limit => $Value)
-                if ($Total >= $Value)
-                    $Decision = $Limit;
+            } else {
+                foreach ($Limits as $Limit => $Value) {
+                    if ($Total >= $Value) {
+                        $Decision = $Limit;
+                    }
+                }
 
                 $Verbose = LOG_DEBUG;
-    
-                switch($Decision)
-                {
+
+                switch ($Decision) {
                     case 'Green':
                         $Verbose = LOG_DEBUG;
-                    break;
-                    
+                        break;
+
                     case 'Yellow':
                         $Verbose = LOG_INFO;
-                    break;
-                    
+                        break;
+
                     case 'Orange':
                         $Verbose = LOG_NOTICE;
-                    break;
-    
+                        break;
+
                     case 'Red':
                         $Verbose = LOG_WARNING;
-                    break;
-    
+                        break;
+
                     case 'Black':
                         $Verbose = LOG_ERR;
-                    break;
+                        break;
                 }
-    
-                F::Log('Latency level is *'.$Decision.'*, because total page time *'.$Total.'* ms', $Verbose, 'Performance', -1);
-    
-                if ($Verbose <= LOG_NOTICE)
-                {
-                    if (self::$_Performance)
+
+                F::Log(
+                    'Latency level is *' . $Decision . '*, because total page time *' . $Total . '* ms',
+                    $Verbose,
+                    'Performance',
+                    -1
+                );
+
+                if ($Verbose <= LOG_NOTICE) {
+                    if (F::$_Performance) {
                         ;
-                    else
-                        self::$_Performance = 'Latency';
-                    F::Log('Limits: '.j($Limits), LOG_INFO, 'Performance');
+                    } else {
+                        F::$_Performance = 'Latency';
+                    }
+                    F::Log('Limits: ' . j($Limits), LOG_INFO, 'Performance');
                     F::Log('Performance Analysis is enabled', LOG_INFO, 'Performance', -1);
                 }
-    
-                $Call = F::Hook('Latency.Audit.'.$Decision, $Call);
+
+                $Call = F::Hook('Latency.Audit.' . $Decision, $Call);
             }
         }
 

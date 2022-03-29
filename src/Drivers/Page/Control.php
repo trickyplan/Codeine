@@ -2,9 +2,9 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
 
-    self::_loadSource('Entity.Control');
+    F::_loadSource('Entity.Control');

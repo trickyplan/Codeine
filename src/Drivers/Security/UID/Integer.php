@@ -9,7 +9,6 @@
      * @time 14:56
      */
 
-    setFn('Get', function ($Call)
-    {
+    setFn('Get', function ($Call) {
         return rand(0, 2147483647);
     });

@@ -9,7 +9,6 @@
      * @time 14:56
      */
 
-    setFn('Get', function ($Call)
-    {
+    setFn('Get', function ($Call) {
         return shell_exec('uuidgen');
     });

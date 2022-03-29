@@ -2,25 +2,23 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
 
-    setFn('Write', function ($Call)
-    {
+    setFn('Write', function ($Call) {
         return inet_pton($Call['Value']);
     });
 
-    setFn(['Read', 'Where'], function ($Call)
-    {
-        if (is_int($Call['Value']))
+    setFn(['Read', 'Where'], function ($Call) {
+        if (is_int($Call['Value'])) {
             return inet_ntop($Call['Value']);
-        else
+        } else {
             return null;
+        }
     });
 
-    setFn('Populate', function ($Call)
-    {
+    setFn('Populate', function ($Call) {
         return inet_ntop(rand());
     });

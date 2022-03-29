@@ -9,19 +9,19 @@
      * @time 14:56
      */
 
-    setFn('Get', function ($Call)
-    {
-        $Output = file_get_contents('http://www.random.org/strings/?num=1&len='.$Call['Size'].'&digits=on&upperalpha=on&loweralpha=on&unique=on&format=plain&rnd=new');
+    setFn('Get', function ($Call) {
+        $Output = file_get_contents(
+            'http://www.random.org/strings/?num=1&len=' . $Call['Size'] . '&digits=on&upperalpha=on&loweralpha=on&unique=on&format=plain&rnd=new'
+        );
 
-        switch ($Call['Case'])
-        {
+        switch ($Call['Case']) {
             case 'Lower':
                 $Output = strtolower($Output);
-            break;
+                break;
 
             case 'Upper':
                 $Output = strtoupper($Output);
-            break;
+                break;
         }
 
         return $Output;

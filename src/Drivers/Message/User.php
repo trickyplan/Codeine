@@ -2,31 +2,35 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
 
-    setFn('Inbox', function ($Call)
-    {
-        return F::Run ('Entity', 'Count',
+    setFn('Inbox', function ($Call) {
+        return F::Run(
+            'Entity',
+            'Count',
             [
                 'Entity' => 'Message',
                 'Where' =>
-                [
-                    'Target' => $Call['Data']['ID']
-                ]
-            ]);
+                    [
+                        'Target' => $Call['Data']['ID']
+                    ]
+            ]
+        );
     });
 
-    setFn('Outbox', function ($Call)
-    {
-        return F::Run ('Entity', 'Count',
+    setFn('Outbox', function ($Call) {
+        return F::Run(
+            'Entity',
+            'Count',
             [
                 'Entity' => 'Message',
                 'Where' =>
-                [
-                    'User' => $Call['Data']['ID']
-                ]
-            ]);
+                    [
+                        'User' => $Call['Data']['ID']
+                    ]
+            ]
+        );
     });

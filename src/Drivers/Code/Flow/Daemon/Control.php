@@ -2,64 +2,62 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
-     
-     setFn('Do', function ($Call)
-     {
-         if (F::Run('Code.Flow.Daemon', 'Running?', $Call) == true)
-         {
-             $Call['Output']['Content'][] =
-                 [
-                     'Type'  => 'Block',
-                     'Class' => 'alert alert-success',
-                     'Value' => '<codeine-locale>Code.Flow.Daemon:Status.Started</codeine-locale>'
-                 ];
-         }
-         else
-         {
-             $Call['Output']['Content'][] =
-                 [
-                     'Type'  => 'Block',
-                     'Class' => 'alert alert-danger',
-                     'Value' => '<codeine-locale>Code.Flow.Daemon:Status.Stopped</codeine-locale>'
-                 ];
-         }
 
-         $Call['Daemon'] = F::loadOptions('Code.Flow.Daemon');
+    setFn('Do', function ($Call) {
+        if (F::Run('Code.Flow.Daemon', 'Running?', $Call) == true) {
+            $Call['Output']['Content'][] =
+                [
+                    'Type' => 'Block',
+                    'Class' => 'alert alert-success',
+                    'Value' => '<codeine-locale>Code.Flow.Daemon:Status.Started</codeine-locale>'
+                ];
+        } else {
+            $Call['Output']['Content'][] =
+                [
+                    'Type' => 'Block',
+                    'Class' => 'alert alert-danger',
+                    'Value' => '<codeine-locale>Code.Flow.Daemon:Status.Stopped</codeine-locale>'
+                ];
+        }
 
-         $Table = [['<codeine-locale>Code.Flow.Daemon:Daemon.Title</codeine-locale>', '<codeine-locale>Code.Flow.Daemon:Daemon.Frequency</codeine-locale>']];
+        $Call['Daemon'] = F::loadOptions('Code.Flow.Daemon');
 
-         foreach ($Call['Daemon']['Daemons'] as $DaemonName => $DaemonRun)
-         {
-                $Table[] = [$DaemonName, (60/$DaemonRun['Frequency'])];
-         }
+        $Table = [
+            [
+                '<codeine-locale>Code.Flow.Daemon:Daemon.Title</codeine-locale>',
+                '<codeine-locale>Code.Flow.Daemon:Daemon.Frequency</codeine-locale>'
+            ]
+        ];
 
-         $Call['Output']['Content'][] =
-             [
-                 'Type'  => 'Table',
-                 'Class' => 'table table-striped',
-                 'Value' => $Table
-             ];
+        foreach ($Call['Daemon']['Daemons'] as $DaemonName => $DaemonRun) {
+            $Table[] = [$DaemonName, (60 / $DaemonRun['Frequency'])];
+        }
 
-         return $Call;
-     });
+        $Call['Output']['Content'][] =
+            [
+                'Type' => 'Table',
+                'Class' => 'table table-striped',
+                'Value' => $Table
+            ];
 
-    setFn('Menu', function ($Call)
-    {
+        return $Call;
+    });
+
+    setFn('Menu', function ($Call) {
         return 0;
     });
 
-    setFn('Log', function ($Call)
-    {
+    setFn('Log', function ($Call) {
         $Call['Output']['Content'][] =
-        [
-            'Type'  => 'Block',
-            'Class' => 'console-inverse',
-            'Value' => shell_exec('tail -n50 /var/log/codeine/daemon.log')
-        ];
-        
+            [
+                'Type' => 'Block',
+                'Class' => 'console-inverse',
+                'Value' => shell_exec('tail -n50 /var/log/codeine/daemon.log')
+            ];
+
         return $Call;
     });

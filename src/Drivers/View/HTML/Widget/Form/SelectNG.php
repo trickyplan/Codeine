@@ -1,82 +1,83 @@
 <?php
-    
+
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description HTML Textfield Driver 
+     * @description HTML Textfield Driver
      * @package Codeine
      * @version 8.x
      */
-    
-    setFn('Make', function ($Call)
-    {
+
+    setFn('Make', function ($Call) {
         $Options = [];
-        
+
         $Call['Options'] = F::Live($Call['Options'], $Call);
-        
-        if (F::Dot($Call, 'Multiple'))
+
+        if (F::Dot($Call, 'Multiple')) {
             $Call['Name'] .= '[]';
-        
-        if ($Call['Options'] === null)
+        }
+
+        if ($Call['Options'] === null) {
             ;
-        else
-        {
-            if (isset($Call['Nullable']) && $Call['Nullable'])
+        } else {
+            if (isset($Call['Nullable']) && $Call['Nullable']) {
                 $Call['Options'][] = [null, null];
-            
-            foreach ($Call['Options'] as $Key => $Option)
-            {
-                if (is_array($Option))
-                {
+            }
+
+            foreach ($Call['Options'] as $Key => $Option) {
+                if (is_array($Option)) {
                     $Key = array_pop($Option);
                     $Value = array_pop($Option);
-                }
-                else
+                } else {
                     $Value = $Option;
-                
-                switch (F::Dot($Call, 'Label Mode'))
-                {
+                }
+
+                switch (F::Dot($Call, 'Label Mode')) {
                     case 'Localized Key':
-                        if (isset($Call['Values Locale']))
+                        if (isset($Call['Values Locale'])) {
                             ;
-                        else
-                            $Call['Values Locale'] = $Call['Entity'].'.Entity:'.$Call['Key'];
-                        
-                        $Label = '<codeine-locale>'.$Call['Values Locale'].'.'.$Value.'</codeine-locale>';
+                        } else {
+                            $Call['Values Locale'] = $Call['Entity'] . '.Entity:' . $Call['Key'];
+                        }
+
+                        $Label = '<codeine-locale>' . $Call['Values Locale'] . '.' . $Value . '</codeine-locale>';
                         break;
-                    
+
                     case 'Key':
                         $Label = $Key;
-                    break;
-                    
+                        break;
+
                     default:
                         $Label = $Value;
-                    break;
+                        break;
                 }
-                
-                
-                switch (F::Dot($Call, 'Key Mode'))
-                {
+
+
+                switch (F::Dot($Call, 'Key Mode')) {
                     case 'Value':
                         $Key = $Value;
-                    break;
-                    
+                        break;
+
                     default:
                         ;
-                    break;
+                        break;
                 }
-                
-                if (in_array($Key, (array) $Call['Value']))
-                    $Options[] = '<option value="'.$Key.'" selected>'.$Label.'</option>';
-                else
-                    $Options[] = '<option value="'.$Key.'">' . $Label . '</option>';
+
+                if (in_array($Key, (array)$Call['Value'])) {
+                    $Options[] = '<option value="' . $Key . '" selected>' . $Label . '</option>';
+                } else {
+                    $Options[] = '<option value="' . $Key . '">' . $Label . '</option>';
+                }
             }
         }
-        
+
         $Call['Value'] = implode('', $Options);
-        
-        return F::Run('View.HTML.Widget.Base', 'Make',
+
+        return F::Run(
+            'View.HTML.Widget.Base',
+            'Make',
             $Call,
             [
                 'Tag' => 'select'
-            ]);
+            ]
+        );
     });

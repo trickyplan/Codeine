@@ -2,16 +2,17 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
 
-    setFn('Test', function ($Call)
-    {
+    setFn('Test', function ($Call) {
         $Start = microtime(true);
-            for ($a = 1; $a<$Call['Cycles']; $a++);
+        for ($a = 1; $a < $Call['Cycles']; $a++) {
+            ;
+        }
 
         $Stop = microtime(true);
-        return $Call['Cycles']/($Stop-$Start);
+        return $Call['Cycles'] / ($Stop - $Start);
     });

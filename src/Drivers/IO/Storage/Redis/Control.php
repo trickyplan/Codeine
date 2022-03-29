@@ -2,44 +2,59 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
 
-    setFn('Do', function ($Call)
-    {
+    setFn('Do', function ($Call) {
         $Call['Output']['Content'][] =
             [
                 'Type' => 'Table',
                 'Value' =>
-                [
-                    ['DB Size', F::Run('IO', 'Execute',
-                                    [
-                                        'Storage' => 'Redis',
-                                        'Execute' => 'DBSize'
-                                    ])]
-                ]
+                    [
+                        [
+                            'DB Size',
+                            F::Run(
+                                'IO',
+                                'Execute',
+                                [
+                                    'Storage' => 'Redis',
+                                    'Execute' => 'DBSize'
+                                ]
+                            )
+                        ]
+                    ]
             ];
 
         return $Call;
     });
 
-    setFn('Status', function ($Call)
-    {
-        $Data = F::Run('IO', 'Execute',
+    setFn('Status', function ($Call) {
+        $Data = F::Run(
+            'IO',
+            'Execute',
             [
                 'Storage' => 'Redis',
                 'Execute' => 'Status'
-            ]);
-        if (null === $Data)
+            ]
+        );
+        if (null === $Data) {
             $Output = [['Status', 'Offline']];
-        else
-        {
+        } else {
             $Output = [['Status', 'Online']];
-            foreach ($Data as $Key => $Value)
-                if (in_array($Key, $Call['Redis']['Status']['Keys']))
-                    $Output[] = ['<codeine-locale>IO.Storage.Redis.Status:'.strtr($Key, '_', '.').'</codeine-locale>', $Value];
+            foreach ($Data as $Key => $Value) {
+                if (in_array($Key, $Call['Redis']['Status']['Keys'])) {
+                    $Output[] = [
+                        '<codeine-locale>IO.Storage.Redis.Status:' . strtr(
+                            $Key,
+                            '_',
+                            '.'
+                        ) . '</codeine-locale>',
+                        $Value
+                    ];
+                }
+            }
         }
 
         $Call['Output']['Content'][] =

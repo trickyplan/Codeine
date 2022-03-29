@@ -2,50 +2,49 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
 
-    setFn('Make', function ($Call)
-    {
+    setFn('Make', function ($Call) {
         $Call['Radios'] = '';
 
         $IX = 0;
-        foreach($Call['Options'] as $Key => $Value)
-        {
-             if (isset($Call['Localized']) && $Call['Localized'])
-             {
-                 if (!isset($Call['Values Locale']))
-                     $Call['Values Locale'] = $Call['Entity'].'.Entity:'.$Call['Key'];
+        foreach ($Call['Options'] as $Key => $Value) {
+            if (isset($Call['Localized']) && $Call['Localized']) {
+                if (!isset($Call['Values Locale'])) {
+                    $Call['Values Locale'] = $Call['Entity'] . '.Entity:' . $Call['Key'];
+                }
 
-                 $lValue = '<codeine-locale>'.$Call['Values Locale'].'.'.$Value.'</codeine-locale>';
-             }
-             else
+                $lValue = '<codeine-locale>' . $Call['Values Locale'] . '.' . $Value . '</codeine-locale>';
+            } else {
                 $lValue = $Value;
+            }
 
-            if (isset($Call['Keys as values']) && $Call['Keys as values'])
-            {
-                 $lValue = $Value;
-                 $Value = $Key;
+            if (isset($Call['Keys as values']) && $Call['Keys as values']) {
+                $lValue = $Value;
+                $Value = $Key;
             }
 
             $Call['Radios'] .= F::Run('View', 'Load',
                 [
-                    'Scope' => $Call['View']['HTML']['Widget Set'].'/Widgets',
+                    'Scope' => $Call['View']['HTML']['Widget Set'] . '/Widgets',
                     'ID' => 'Form/Radio',
                     'Data' =>
-                    F::Merge ($Call,
-                        [
-                            'IX' => $IX,
-                            'Label' => $lValue,
-                            'Value' => $Value,
-                            'Checked' => ($Value == $Call['Value'] ? 'checked': '')
-                        ])
+                        F::Merge(
+                            $Call,
+                            [
+                                'IX' => $IX,
+                                'Label' => $lValue,
+                                'Value' => $Value,
+                                'Checked' => ($Value == $Call['Value'] ? 'checked' : '')
+                            ]
+                        )
                 ]
             );
             $IX++;
         }
 
         return $Call;
-     });
+    });

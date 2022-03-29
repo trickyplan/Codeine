@@ -9,15 +9,13 @@
      * @time 21:45
      */
 
-    setFn('Send', function ($Call)
-    {
+    setFn('Send', function ($Call) {
         $f = fopen('php://stdout', 'a+');
         fwrite($f, $Call['Message']);
         fclose($f);
     });
 
-    setFn('Receive', function ($Call)
-    {
+    setFn('Receive', function ($Call) {
         $f = fopen('php://stdin', 'r');
         $Call = fgets($f);
         fclose($f);

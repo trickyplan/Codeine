@@ -1,28 +1,27 @@
 <?php
-    
+
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
-    
-    setFn('Do', function ($Call)
-    {
+
+    setFn('Do', function ($Call) {
         $ParentID = F::Dot($Call['Data'], 'Parent');
 
-        if ($ParentID == $Call['Data']['ID'])
+        if ($ParentID == $Call['Data']['ID']) {
             $Level = 0;
-        elseif ($ParentID === null)
+        } elseif ($ParentID === null) {
             $Level = 0;
-        else
-        {
+        } else {
             $Parent = F::Run('Entity', 'Read', $Call, ['Where' => $ParentID, 'One' => true]);
 
-            if (isset($Parent['Level']))
-                $Level = $Parent['Level']+1;
-            else
+            if (isset($Parent['Level'])) {
+                $Level = $Parent['Level'] + 1;
+            } else {
                 $Level = 1;
+            }
         }
 
         return $Level;

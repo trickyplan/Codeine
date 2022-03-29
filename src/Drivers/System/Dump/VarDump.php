@@ -9,7 +9,6 @@
      * @time 5:21
      */
 
-    setFn('Variable', function ($Call)
-    {
+    setFn('Variable', function ($Call) {
         var_dump($Call['Value']);
     });

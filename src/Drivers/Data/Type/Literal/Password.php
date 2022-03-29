@@ -2,37 +2,38 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
 
-    setFn('Write', function ($Call)
-    {
-        if (empty($Call['Value']))
+    setFn('Write', function ($Call) {
+        if (empty($Call['Value'])) {
             $Call['Value'] = $Call['Old'];
-        else
-        {
-            if ($Call['Value'] == $Call['Old'])
+        } else {
+            if ($Call['Value'] == $Call['Old']) {
                 ;
-            else
-                $Call['Value'] = F::Run('Security.Hash', 'Get',
-                [
-                    'Security' =>
+            } else {
+                $Call['Value'] = F::Run(
+                    'Security.Hash',
+                    'Get',
                     [
-                        'Hash' =>
-                        [
-                            'Mode' => 'Password'
-                        ]
-                    ],
-                    'Value' => $Call['Value']
-                ]);
+                        'Security' =>
+                            [
+                                'Hash' =>
+                                    [
+                                        'Mode' => 'Password'
+                                    ]
+                            ],
+                        'Value' => $Call['Value']
+                    ]
+                );
+            }
         }
-        
+
         return $Call['Value'];
     });
 
-    setFn(['Read', 'Where'], function ($Call)
-    {
+    setFn(['Read', 'Where'], function ($Call) {
         return $Call['Value'];
     });

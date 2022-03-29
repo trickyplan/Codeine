@@ -2,46 +2,41 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
 
-    setFn('Open', function ($Call)
-    {
+    setFn('Open', function ($Call) {
         return imap_open($Call['Server'], $Call['Username'], $Call['Password']);
     });
 
-    setFn('Read', function ($Call)
-    {
+    setFn('Read', function ($Call) {
         $EMails = imap_search($Call['Link'], $Call['Where']['ID']);
 
         /* if emails are returned, cycle through each... */
-        if ($EMails)
-        {
+        if ($EMails) {
             /* for every email... */
             $Data = [];
 
             $IX = 0;
-            foreach($EMails as $Number)
-            {
+            foreach ($EMails as $Number) {
                 /* get information specific to this email */
-                $Data[$IX] = (array) imap_fetch_overview($Call['Link'], $Number, 0)[0];
+                $Data[$IX] = (array)imap_fetch_overview($Call['Link'], $Number, 0)[0];
                 $Data[$IX]['message'] = base64_decode(imap_fetchbody($Call['Link'], $Number, 2));
                 $IX++;
             }
-        }
-        else
+        } else {
             $Data = null;
+        }
 
         return $Data;
     });
 
-    setFn('Write', function ($Call)
-    {
+    setFn('Write', function ($Call) {
         $Headers['from'] = $Call['From'];
         $Headers['subject'] = $Call['ID'];
-        $Headers['date']    = date(DATE_RFC2822);
+        $Headers['date'] = date(DATE_RFC2822);
 
         $HTML = [];
         $Plain = [];
@@ -58,14 +53,14 @@
         $Plain['description'] = '';
         $Plain['contents.data'] = strip_tags($Call['Data']);
 
-        $Body =  [
-                    ['type' => TYPEMULTIPART, 'subtype' => 'alternative'],
-                    $HTML,
-                    $Plain
-                ];
-        $Envelope = str_replace("\r",'',imap_mail_compose($Headers, $Body));
+        $Body = [
+            ['type' => TYPEMULTIPART, 'subtype' => 'alternative'],
+            $HTML,
+            $Plain
+        ];
+        $Envelope = str_replace("\r", '', imap_mail_compose($Headers, $Body));
 
-        imap_mail($Call['Scope'], $Call['ID'],$Envelope);
+        imap_mail($Call['Scope'], $Call['ID'], $Envelope);
 
         return $Call['Data'];
     });

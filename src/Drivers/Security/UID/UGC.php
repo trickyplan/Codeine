@@ -9,15 +9,18 @@
      * @time 14:56
      */
 
-    setFn('Get', function ($Call)
-    {
-        return $Call['Session']['User']['ID'].F::Run('IO', 'Execute', $Call,
-            [
-                'Scope'   => $Call['Entity'],
-                'Execute' => 'ID',
-                'Where'   =>
+    setFn('Get', function ($Call) {
+        return $Call['Session']['User']['ID'] . F::Run(
+                'IO',
+                'Execute',
+                $Call,
                 [
-                    'User' => $Call['Session']['User']['ID']
+                    'Scope' => $Call['Entity'],
+                    'Execute' => 'ID',
+                    'Where' =>
+                        [
+                            'User' => $Call['Session']['User']['ID']
+                        ]
                 ]
-            ]);
+            );
     });

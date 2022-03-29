@@ -13,9 +13,9 @@
         //////////////////////
         // AGENT PROPERTIES //
         //////////////////////
-        private $__app_name         = "PHP mailDomainSigner";
-        private $__app_ver          = "0.1-20110129";
-        private $__app_url          = "http://code.google.com/p/php-mail-domain-signer/";
+        private $__app_name = "PHP mailDomainSigner";
+        private $__app_ver = "0.1-20110129";
+        private $__app_url = "http://code.google.com/p/php-mail-domain-signer/";
 
         /**
          * Constructor
@@ -30,8 +30,8 @@
             $this->pkid = openssl_pkey_get_private($private_key);
 
             // Save Domain and Selector
-            $this->d    = $d;
-            $this->s    = $s;
+            $this->d = $d;
+            $this->s = $s;
         }
 
         ///////////////////////
@@ -65,15 +65,15 @@
 
             // Loop Body Lines
             foreach (explode("\n", "\n" . str_replace("\r", "", $raw_body)) as $line) {
-                    // Replace all Folding Whitespace from current line
-                    // then Add it into data
-                    $data .= preg_replace('/[\t\n ]++/', '', $line) . "\n";
-                }
+                // Replace all Folding Whitespace from current line
+                // then Add it into data
+                $data .= preg_replace('/[\t\n ]++/', '', $line) . "\n";
+            }
 
             // Remove Trailing empty lines then split it with LF
             $data = explode("\n", rtrim($data, "\n"));
 
-            // Join array of data with CRLF and Append CRLF 
+            // Join array of data with CRLF and Append CRLF
             // to the resulting line
             $data = implode("\r\n", $data) . "\r\n";
 
@@ -150,7 +150,7 @@
             // Replace LF to CRLF
             $body = str_replace("\n", "\r\n", $body);
 
-            // Ignores all whitespace at the end of lines    
+            // Ignores all whitespace at the end of lines
             $body = rtrim($body, "\r\n");
 
             // Canonicalizated String Variable
@@ -173,7 +173,7 @@
         //////////////////////
 
         /**
-         * DKIM-Signature Header Creator Function 
+         * DKIM-Signature Header Creator Function
          * implementation according to RFC4871
          *
          * Originally code inspired by AddDKIM
@@ -201,7 +201,6 @@
          */
         public function getDKIM($h, $_h, $body)
         {
-
             // Relax Canonicalization for Body
             $_b = $this->bodyRelaxCanon($body);
 
@@ -231,7 +230,7 @@
             $_dkim = wordwrap($_dkim, 76, "\r\n\t");
 
             // Canonicalization Header Data
-            $_unsigned  = $this->headRelaxCanon(implode("\r\n", $_h) . "\r\n{$_dkim}");
+            $_unsigned = $this->headRelaxCanon(implode("\r\n", $_h) . "\r\n{$_dkim}");
 
             // Sign Canonicalization Header Data with Private Key
             openssl_sign($_unsigned, $_signed, $this->pkid, OPENSSL_ALGO_SHA1);
@@ -239,14 +238,14 @@
             // Base64 encoded signed data
             // Chunk Split it
             // Then Append it $_dkim
-            $_dkim   .= chunk_split(base64_encode($_signed), 76, "\r\n\t");
+            $_dkim .= chunk_split(base64_encode($_signed), 76, "\r\n\t");
 
             // Return trimmed $_dkim
             return trim($_dkim);
         }
 
         /**
-         * DomainKey-Signature Header Creator Function 
+         * DomainKey-Signature Header Creator Function
          * implementation according to RFC4870
          *
          * The function use nofws canonicalization alghoritm
@@ -272,8 +271,9 @@
         {
             // If $h = empty, dont add h tag into DomainKey-Signature
             $hval = '';
-            if ($h)
+            if ($h) {
                 $hval = "h={$h}; ";
+            }
 
             // Creating DomainKey-Signature
             $_dk = "DomainKey-Signature: " .
@@ -283,7 +283,7 @@
                 "s={$this->s}; " .         // The selector subdividing the namespace for the "d=" (domain) tag
                 "{$hval}";                // If Exists - Signed header fields
             // nofws Canonicalization for headers and body data
-            $_unsigned  = $this->nofws($_h, $body);
+            $_unsigned = $this->nofws($_h, $body);
 
             // Sign nofws Canonicalizated Data with Private Key
             openssl_sign($_unsigned, $_signed, $this->pkid, OPENSSL_ALGO_SHA1);
@@ -326,9 +326,11 @@
             $create_dkim = true,                        // Create DKIM-Signature Header
             $create_domainkey = true,                   // Create DomainKey-Signature Header
             $out_sign_header_only = false               // Return Signature Header Only without original data
-        ) {
-
-            if (!$suggested_h) $suggested_h = "from:to:subject"; // Default Suggested Signed Header Fields
+        )
+        {
+            if (!$suggested_h) {
+                $suggested_h = "from:to:subject";
+            } // Default Suggested Signed Header Fields
 
             // Remove all space and Lowercase Suggested Signed header fields then split it into array
             $_h = explode(":", strtolower(preg_replace('/[\r\t\n ]++/', '', $suggested_h)));
@@ -354,8 +356,9 @@
                 // Change it into array
                 if (isset($headers[$key])) {
                     // If header not yet array set as Array
-                    if (!is_array($headers[$key]))
+                    if (!is_array($headers[$key])) {
                         $headers[$key] = array($headers[$key]);
+                    }
 
                     // Add Current Header as next element
                     $headers[$key][] = $header;
@@ -391,8 +394,9 @@
             // If it doesn't contain any $accepted_h
             // return false, because we don't have enough data
             // for signing email
-            if (count($accepted_h) == 0)
+            if (count($accepted_h) == 0) {
                 return false;
+            }
 
             // Create $_hdata for Signed header fields
             // by imploding it with colon
@@ -402,12 +406,14 @@
             $_nh = array("x-domain-signer" => "X-Domain-Signer: {$this->__app_name} {$this->__app_ver} <$this->__app_url>");
 
             // Create DKIM First
-            if ($create_dkim)
+            if ($create_dkim) {
                 $_nh['dkim-signature'] = $this->getDKIM($_hdata, $accepted_headers, $body);
+            }
 
             // Now Create Domain-Signature
-            if ($create_domainkey)
+            if ($create_domainkey) {
                 $_nh['domainKey-signature'] = $this->getDomainKey($_hdata, $accepted_headers, $body);
+            }
 
             // Implode $_nh with \r\n
             $to_be_appended_headers = implode("\r\n", $_nh);
@@ -415,10 +421,11 @@
             // Return Immediately if
             // * $out_sign_header_only=true (as headers string)
             // * $out_sign_header_only=2    (as headers array)
-            if ($out_sign_header_only === 2)
+            if ($out_sign_header_only === 2) {
                 return $_nh;
-            elseif ($out_sign_header_only)
+            } elseif ($out_sign_header_only) {
                 return "{$to_be_appended_headers}\r\n";
+            }
 
             // Return signed headers with original data
             return "{$to_be_appended_headers}\r\n{$mail_data}";
@@ -433,13 +440,17 @@
             'Subject' => F::Dot($Call, 'Headers.Subject'),
             'MIME-Version' => F::Dot($Call, 'Headers.MIME-Version'),
             'Date' => date('r'),
-            'Message-ID' => "<".sha1(microtime(true))."@".F::Dot($Call, 'DKIM.Domain').">",
+            'Message-ID' => "<" . sha1(microtime(true)) . "@" . F::Dot($Call, 'DKIM.Domain') . ">",
             'Content-Type' => F::Dot($Call, 'Headers.Content-Type'),
             'Content-Transfer-Encoding' => F::Dot($Call, 'Headers.Content-Transfer-Encoding')
         ];
 
         // Create mailDomainSigner Object
-        $mds = new mailDomainSigner(F::Dot($Call, 'DKIM.Private Key'), F::Dot($Call, 'DKIM.Domain'), F::Dot($Call, 'DKIM.Selector'));
+        $mds = new mailDomainSigner(
+            F::Dot($Call, 'DKIM.Private Key'),
+            F::Dot($Call, 'DKIM.Domain'),
+            F::Dot($Call, 'DKIM.Selector')
+        );
 
         $HeadersList = strtolower(implode(':', array_keys($Headers)));
         $HeadersStringList = [];

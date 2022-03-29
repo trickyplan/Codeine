@@ -2,22 +2,19 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
 
-    setFn('Write', function ($Call)
-    {
+    setFn('Write', function ($Call) {
         return $Call['Value'];
     });
 
-    setFn(['Read', 'Where'], function ($Call)
-    {
+    setFn(['Read', 'Where'], function ($Call) {
         return $Call['Value'];
     });
 
-    setFn('Populate', function ($Call)
-    {
+    setFn('Populate', function ($Call) {
         return null;
     });

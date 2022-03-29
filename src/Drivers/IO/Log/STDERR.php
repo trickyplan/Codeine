@@ -7,17 +7,14 @@
      * @version 8.x
      */
 
-    setFn('Open', function ($Call)
-    {
+    setFn('Open', function ($Call) {
         return fopen('php://stderr', 'a+');
     });
 
-    setFn('Write', function ($Call)
-    {
+    setFn('Write', function ($Call) {
         return fwrite($Call['Link'], $Call['Data']);
     });
 
-    setFn('Close', function ($Call)
-    {
+    setFn('Close', function ($Call) {
         return fclose($Call['Link']);
     });

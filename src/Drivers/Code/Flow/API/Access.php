@@ -2,31 +2,34 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 7.1
      */
 
-     setFn('beforeAPIRun', function ($Call)
-     {
+    setFn('beforeAPIRun', function ($Call) {
         $Call['API']['Response']['Access'] = 'XXX';
-        $Call['API']['Response']['Access'] = F::Run('Security.Access', 'Check', F::Dot($Call['API']['Request'], 'Flow', 'API'),
-                                                        ['Session' => isset($Call['Session'])?$Call['Session']:[]]);
+        $Call['API']['Response']['Access'] = F::Run(
+            'Security.Access',
+            'Check',
+            F::Dot($Call['API']['Request'], 'Flow', 'API'),
+            ['Session' => isset($Call['Session']) ? $Call['Session'] : []]
+        );
 
-         if ($Call['API']['Response']['Access'] === 401)
-         {
-             $Call['Run'] =
+        if ($Call['API']['Response']['Access'] === 401) {
+            $Call['Run'] =
                 [
                     'Service' => 'User.Login',
-                    'Method'  => 'Do',
+                    'Method' => 'Do',
                     'Zone' => 'Default'
                 ];
-         }
+        }
 
-         if ($Call['API']['Response']['Access'])
-             $Call = F::Hook('onAPIAccessAllowed', $Call);
-         else
-             $Call = F::Hook('onAPIAccessDenied', $Call);
+        if ($Call['API']['Response']['Access']) {
+            $Call = F::Hook('onAPIAccessAllowed', $Call);
+        } else {
+            $Call = F::Hook('onAPIAccessDenied', $Call);
+        }
 
-         return $Call;
-     });
+        return $Call;
+    });

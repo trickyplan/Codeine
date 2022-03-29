@@ -2,13 +2,12 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
 
-    setFn ('Do', function ($Call)
-    {
+    setFn('Do', function ($Call) {
         F::Log('Mail Interface Started', LOG_NOTICE);
 
         $Call = F::Hook('beforeInterfaceRun', $Call);
@@ -32,7 +31,7 @@
             Email Content line 2
 
          */
-        F::Log($Mail,LOG_WARNING);
+        F::Log($Mail, LOG_WARNING);
 
         F::Log('Mail Interface Finished', LOG_NOTICE);
 

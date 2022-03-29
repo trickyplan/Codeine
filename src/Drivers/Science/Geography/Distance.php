@@ -2,13 +2,12 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
 
-    setFn('Calc', function ($Call)
-    {
+    setFn('Calc', function ($Call) {
         // http://kobzarev.com/programming/calculation-of-distances-between-cities-on-their-coordinates.html
         // перевести координаты в радианы
         $Call['From']['Lat'] = $Call['From']['Lat'] * M_PI / 180;
@@ -31,7 +30,7 @@
 
         //
         $ad = atan2($y, $x);
-        $dist = ($ad * $Call['Earth']['Radius'])/1000;
+        $dist = ($ad * $Call['Earth']['Radius']) / 1000;
 
         return $dist;
-     });
+    });

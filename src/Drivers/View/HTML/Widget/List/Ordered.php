@@ -2,19 +2,19 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
 
-     setFn('Make', function ($Call)
-     {
-         $Output = '<ol'.(isset($Call['Class.List'])? ' class = "'.$Call['Class.List'].'"': '').'>';
+    setFn('Make', function ($Call) {
+        $Output = '<ol' . (isset($Call['Class.List']) ? ' class = "' . $Call['Class.List'] . '"' : '') . '>';
 
-         foreach($Call['Value'] as $Element)
-             $Output.= '<li>'.$Element.'</li>';
+        foreach ($Call['Value'] as $Element) {
+            $Output .= '<li>' . $Element . '</li>';
+        }
 
-         $Output .= '</ol>';
+        $Output .= '</ol>';
 
-         return $Output;
-     });
+        return $Output;
+    });

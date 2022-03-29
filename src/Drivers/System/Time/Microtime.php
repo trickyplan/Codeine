@@ -9,7 +9,6 @@
      * @time 16:34
      */
 
-    setFn('Get', function ($Call)
-    {
+    setFn('Get', function ($Call) {
         return microtime(true);
     });

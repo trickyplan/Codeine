@@ -7,7 +7,6 @@
      * @version 8.x
      */
 
-    setFn('Render', function ($Call)
-    {
+    setFn('Render', function ($Call) {
         return null;
     });

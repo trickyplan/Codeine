@@ -9,12 +9,12 @@
      * @time 14:56
      */
 
-    setFn('Get', function ($Call)
-    {
+    setFn('Get', function ($Call) {
         $Output = '';
 
-        for($IC = 0; $IC<$Call['Size']; $IC++)
-            $Output.= rand(0, 9);
+        for ($IC = 0; $IC < $Call['Size']; $IC++) {
+            $Output .= rand(0, 9);
+        }
 
         return $Output;
     });

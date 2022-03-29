@@ -2,18 +2,20 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
 
-    setFn('Get', function ($Call)
-    {
-        $YandexSERP = F::Run('IO', 'Read',
+    setFn('Get', function ($Call) {
+        $YandexSERP = F::Run(
+            'IO',
+            'Read',
             [
                 'Storage' => 'Web',
-                'Where' => 'http://yandex.ru/yandsearch?text=host:'.$Call['Host']
-            ]);
+                'Where' => 'http://yandex.ru/yandsearch?text=host:' . $Call['Host']
+            ]
+        );
 
         $YandexSERP = array_pop($YandexSERP);
 

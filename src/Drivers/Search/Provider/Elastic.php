@@ -1,4 +1,4 @@
-    <?php
+<?php
 
     /* Codeine
      * @author bergstein@trickyplan.com
@@ -7,56 +7,52 @@
      * @version 8.x
      */
 
-    setFn('Open', function ($Call)
-    {
-        $Call['Link'] = Elasticsearch\ClientBuilder::create()->setHosts(F::Dot($Call, 'Search.Elastic.Options.Hosts'))->build();
+    setFn('Open', function ($Call) {
+        $Call['Link'] = Elasticsearch\ClientBuilder::create()->setHosts(
+            F::Dot($Call, 'Search.Elastic.Options.Hosts')
+        )->build();
         $Call['Search']['Index'] = mb_strtolower($Call['Search']['Index']);
         return $Call;
     });
 
-    setFn('Document.Create', function ($Call)
-    {
+    setFn('Document.Create', function ($Call) {
         $Call = F::Run(null, 'Open', $Call);
 
         $Result = null;
 
-        try
-        {
+        try {
             $Result = $Call['Link']->index(
                 [
                     'index' => $Call['Search']['Index'],
-                    'id'    => $Call['Data']['ID'],
-                    'body'  => $Call['Data']
-                ]);
+                    'id' => $Call['Data']['ID'],
+                    'body' => $Call['Data']
+                ]
+            );
 
             F::Log(j($Result), LOG_INFO);
-        }
-        catch (Exception $e)
-        {
+        } catch (Exception $e) {
             F::Log($e->getMessage(), LOG_ERR);
         }
         return $Result;
     });
 
-    setFn('Count', function ($Call)
-    {
+    setFn('Count', function ($Call) {
         $IDs = [];
-        try
-        {
+        try {
             $Call = F::Run(null, 'Open', $Call);
             $Call['Query'] = mb_substr($Call['Query'], 0, 32);
 
-            F::Log('Start Count on query: '.$Call['Query'], LOG_NOTICE);
+            F::Log('Start Count on query: ' . $Call['Query'], LOG_NOTICE);
 
             $Query = [
                 'index' => $Call['Search']['Index'],
-                'body'  =>
+                'body' =>
                     [
                         'query' =>
                             [
                                 'multi_match' =>
                                     [
-                                        'query'  => $Call['Query'],
+                                        'query' => $Call['Query'],
                                         'fields' => ['*']
                                     ]
                             ]
@@ -67,9 +63,7 @@
             $Results = $Call['Link']->count($Query);
 
             $Total = $Results['count'];
-        }
-        catch (Exception $e)
-        {
+        } catch (Exception $e) {
             F::Log($e->getMessage(), LOG_CRIT, 'Developer');
             $Total = 0;
         }
@@ -77,56 +71,52 @@
         return $Total;
     });
 
-    setFn('Query', function ($Call)
-    {
+    setFn('Query', function ($Call) {
         $IDs = [];
-        try
-        {
+        try {
             $Call = F::Run(null, 'Open', $Call);
             $Call['Query'] = mb_substr($Call['Query'], 0, 32);
 
-            F::Log('Start search on query: '.$Call['Query'], LOG_NOTICE);
+            F::Log('Start search on query: ' . $Call['Query'], LOG_NOTICE);
 
             $Query = [
                 'index' => $Call['Search']['Index'],
-                'from'  => $Call['Limit']['From'],
-                'size'  => $Call['Limit']['To'],
-                'body'  => F::Live($Call['Search']['Body'], $Call)
+                'from' => $Call['Limit']['From'],
+                'size' => $Call['Limit']['To'],
+                'body' => F::Live($Call['Search']['Body'], $Call)
             ];
 
             F::Log($Query, LOG_INFO, 'Administrator');
             $Results = $Call['Link']->search($Query);
 
-            foreach ($Results['hits']['hits'] as $Hit)
+            foreach ($Results['hits']['hits'] as $Hit) {
                 $IDs[$Hit['_id']] = $Hit;
-        }
-        catch (Exception $e)
-        {
+            }
+        } catch (Exception $e) {
             F::Log($e->getMessage(), LOG_CRIT, 'Developer');
             $Results = ['hits' => ['total' => 0]];
         }
 
-        F::Log('Total hits: '.$Results['hits']['total']['value'], LOG_INFO);
+        F::Log('Total hits: ' . $Results['hits']['total']['value'], LOG_INFO);
         $Meta = ['Hits' => [$Call['Scope'] => $Results['hits']['total']['value']]];
 
         return ['Meta' => $Meta, 'IDs' => $IDs];
     });
 
-    setFn('Document.Delete', function ($Call)
-    {
-        try
-        {
+    setFn('Document.Delete', function ($Call) {
+        try {
             $Call = F::Run(null, 'Open', $Call);
-            F::Log($Call['Link']->delete(
-                [
-                    'index' => $Call['Search']['Index'],
-                    'id'    => $Call['Data']['ID']
-                ]
-            ), LOG_INFO);
-        }
-        catch (Exception $e)
-        {
-            F::Log('Exception: '.$e->getMessage().'. Remove data from index', LOG_ERR);
+            F::Log(
+                $Call['Link']->delete(
+                    [
+                        'index' => $Call['Search']['Index'],
+                        'id' => $Call['Data']['ID']
+                    ]
+                ),
+                LOG_INFO
+            );
+        } catch (Exception $e) {
+            F::Log('Exception: ' . $e->getMessage() . '. Remove data from index', LOG_ERR);
         }
         return $Call;
     });

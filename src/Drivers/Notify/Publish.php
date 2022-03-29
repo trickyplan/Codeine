@@ -2,19 +2,21 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 7.4.5
      */
 
-    setFn('Do', function ($Call)
-    {
-        F::Run('Entity', 'Create',
+    setFn('Do', function ($Call) {
+        F::Run(
+            'Entity',
+            'Create',
             [
                 'Entity' => 'Notify',
                 'Data!' => F::Live($Call['Notify'], $Call),
                 'Session' => $Call['Session']
-            ]);
+            ]
+        );
 
         unset($Call['Notify']);
 

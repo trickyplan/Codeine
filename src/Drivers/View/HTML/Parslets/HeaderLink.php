@@ -2,17 +2,15 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 7.0
      */
 
-    setFn('Parse', function ($Call)
-    {
-        foreach ($Call['Parsed']['Value'] as $IX => $Match)
-        {
+    setFn('Parse', function ($Call) {
+        foreach ($Call['Parsed']['Value'] as $IX => $Match) {
             $Link = $Call['Parsed']['Value'][$IX];
-            $Call['HTTP']['Headers']['Link:'][] = '<'.$Link.'>; rel="prefetch"';
+            $Call['HTTP']['Headers']['Link:'][] = '<' . $Link . '>; rel="prefetch"';
             $Call['Replace'][$Call['Parsed']['Match'][$IX]] = '';
         }
 

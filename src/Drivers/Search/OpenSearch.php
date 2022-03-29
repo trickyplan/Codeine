@@ -2,13 +2,12 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
 
-    setFn('Do', function ($Call)
-    {
+    setFn('Do', function ($Call) {
         $XML =
             [
                 '_name' => 'OpenSearchDescription',
@@ -82,33 +81,37 @@
                     ]
             ];
 
-        if ($EMail = F::Dot($Call, 'Project.OpenSearch.EMail'))
+        if ($EMail = F::Dot($Call, 'Project.OpenSearch.EMail')) {
             $XML['_children'][] =
                 [
                     '_name' => 'Contact',
                     '_text' => $EMail
                 ];
+        }
 
-        if ($Developer = F::Dot($Call, 'Project.OpenSearch.Developer'))
+        if ($Developer = F::Dot($Call, 'Project.OpenSearch.Developer')) {
             $XML['_children'][] =
                 [
                     '_name' => 'Developer',
                     '_text' => $Developer
                 ];
+        }
 
-        if ($SyndicationRight = F::Dot($Call, 'Project.OpenSearch.Syndication Right'))
+        if ($SyndicationRight = F::Dot($Call, 'Project.OpenSearch.Syndication Right')) {
             $XML['_children'][] =
                 [
                     '_name' => 'SyndicationRight',
                     '_text' => $SyndicationRight
                 ];
+        }
 
-        if ($AdultContent = F::Dot($Call, 'Project.OpenSearch.Adult Content'))
+        if ($AdultContent = F::Dot($Call, 'Project.OpenSearch.Adult Content')) {
             $XML['_children'][] =
                 [
                     '_name' => 'AdultContent',
                     '_text' => $AdultContent
                 ];
+        }
 
         $Call['HTTP']['Headers']['Content-Type:'] = 'application/opensearchdescription+xml';
 

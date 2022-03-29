@@ -2,26 +2,26 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
 
-    setFn('Match', function ($Call)
-    {
-        if (preg_match('@'.$Call['Pattern'].'@SsUu', $Call['Value'], $Pockets))
+    setFn('Match', function ($Call) {
+        if (preg_match('@' . $Call['Pattern'] . '@SsUu', $Call['Value'], $Pockets)) {
             ;
-        else
+        } else {
             $Pockets = false;
+        }
 
         return $Pockets;
     });
 
-    setFn('All', function ($Call)
-    {
-        if (preg_match_all('@'.$Call['Pattern'].'@Ssu', $Call['Value'], $Pockets))
+    setFn('All', function ($Call) {
+        if (preg_match_all('@' . $Call['Pattern'] . '@Ssu', $Call['Value'], $Pockets)) {
             return $Pockets;
-        else
+        } else {
             return false;
+        }
     });
 

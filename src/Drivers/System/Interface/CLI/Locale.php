@@ -2,16 +2,15 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
 
-    setFn ('Detect', function ($Call)
-    {
-        list ($Call['Locale'], ) = explode('_', setlocale(LC_ALL, null));
+    setFn('Detect', function ($Call) {
+        list ($Call['Locale'],) = explode('_', setlocale(LC_ALL, null));
         setlocale(LC_NUMERIC, 'C');
-        F::Log('System suggest locale *'.$Call['Locale'].'*', LOG_INFO + 0.5);
+        F::Log('System suggest locale *' . $Call['Locale'] . '*', LOG_INFO + 0.5);
 
         return $Call;
     });

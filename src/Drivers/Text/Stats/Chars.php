@@ -2,23 +2,23 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
 
-    setFn('Count', function ($Call)
-    {
-        if (isset($Call['Data'][$Call['Key']]))
+    setFn('Count', function ($Call) {
+        if (isset($Call['Data'][$Call['Key']])) {
             return count($Call['Data'][$Call['Key']]);
-        else
+        } else {
             return 0;
+        }
     });
 
-    setFn('CountWithOutSpaces', function ($Call)
-    {
-        if (isset($Call['Data'][$Call['Key']]))
-            return mb_strlen(strtr(strip_tags($Call['Data'][$Call['Key']]),[' ' => '',"\n" => '']));
-        else
+    setFn('CountWithOutSpaces', function ($Call) {
+        if (isset($Call['Data'][$Call['Key']])) {
+            return mb_strlen(strtr(strip_tags($Call['Data'][$Call['Key']]), [' ' => '', "\n" => '']));
+        } else {
             return 0;
+        }
     });

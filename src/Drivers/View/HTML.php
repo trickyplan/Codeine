@@ -7,69 +7,81 @@
      * @version 8.x
      */
 
-    setFn('Render', function ($Call)
-    {
+    setFn('Render', function ($Call) {
         $Call = F::Hook('beforeHTMLRender', $Call);
 
-            $Call = F::Apply(null,'Pipeline', $Call); // Pipelining
+        $Call = F::Apply(null, 'Pipeline', $Call); // Pipelining
 
         $Call = F::Hook('afterHTMLRender', $Call);
 
         return $Call;
     });
 
-    setFn('Pipeline', function ($Call)
-    {
+    setFn('Pipeline', function ($Call) {
         $Call = F::Hook('beforeHTMLPipeline', $Call);
 
-        $Places = F::Run('Text.Regex', 'All',
+        $Places = F::Run(
+            'Text.Regex',
+            'All',
             [
                 'Pattern' => $Call['Place Pattern'],
                 'Value' => $Call['Layout']
-            ]);
+            ]
+        );
 
         if ($Places && isset($Call['Output']) && is_array($Call['Output'])) //  Если есть посадочные места.
         {
-            foreach ($Call['Output'] as $Place => $Widgets)
-                if (is_array($Widgets))
-                    foreach ($Widgets as $Key => $Widget)
-                    {
-                        if (is_array($Widget))
-                        {
-                            if (isset($Widget['Type']))
-                                $Call['Output'][$Place][$Key] = F::Run ('View', 'Load', $Call,
+            foreach ($Call['Output'] as $Place => $Widgets) {
+                if (is_array($Widgets)) {
+                    foreach ($Widgets as $Key => $Widget) {
+                        if (is_array($Widget)) {
+                            if (isset($Widget['Type'])) {
+                                $Call['Output'][$Place][$Key] = F::Run(
+                                    'View',
+                                    'Load',
+                                    $Call,
                                     [
-                                        'Scope' => (isset($Widget['Widget Set'])? $Widget['Widget Set']: $Call['View']['HTML']['Widget Set']).'/Widgets',
-                                        'ID'    => (isset($Widget['Widget Template'])?
+                                        'Scope' => (isset($Widget['Widget Set']) ? $Widget['Widget Set'] : $Call['View']['HTML']['Widget Set']) . '/Widgets',
+                                        'ID' => (isset($Widget['Widget Template']) ?
                                             $Widget['Widget Template']
-                                            : strtr($Widget['Type'],'.', '/')),
-                                        'Context'   => $Call['Context'],
-                                        'Locale'    => $Call['Locale'],
-                                        'Data'  =>
+                                            : strtr($Widget['Type'], '.', '/')),
+                                        'Context' => $Call['Context'],
+                                        'Locale' => $Call['Locale'],
+                                        'Data' =>
                                             F::Run(
                                                 $Call['View']['Renderer']['Service']
-                                                .'.Widget.'
-                                                .$Widget['Type'],
+                                                . '.Widget.'
+                                                . $Widget['Type'],
                                                 'Make',
                                                 $Call,
-                                                $Widget)
-                                    ]);
-                        }
-                        else
+                                                $Widget
+                                            )
+                                    ]
+                                );
+                            }
+                        } else {
                             $Call['Output'][$Place][$Key] = $Widget;
+                        }
+                    }
+                }
+            }
+
+            foreach ($Call['Output'] as $Place => $Widgets) {
+                if (is_array($Widgets)) {
+                    $WidgetOutput = [];
+                    foreach ($Widgets as $cWidget) {
+                        if (is_scalar($cWidget)) {
+                            $WidgetOutput[] = $cWidget;
+                        }
                     }
 
-            foreach ($Call['Output'] as $Place => $Widgets)
-                if (is_array($Widgets))
-                {
-                    $WidgetOutput = [];
-                    foreach ($Widgets as $cWidget)
-                        if (is_scalar($cWidget))
-                            $WidgetOutput[] = $cWidget;
-                    
-                    $Call['Layout'] = str_replace('<place>' . $Place . '</place>',
-                        implode(PHP_EOL, $WidgetOutput), $Call['Layout']);
+                    $Call['Layout'] = str_replace(
+                        '<place>' . $Place . '</place>',
+                        implode(PHP_EOL, $WidgetOutput),
+                        $Call['Layout']
+                    );
                 }
+            }
         }
 
         $Call['Output'] = $Call['Layout'];

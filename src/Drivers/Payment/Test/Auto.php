@@ -2,19 +2,22 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
 
-    setFn('Do', function ($Call)
-    {
-        F::Run('Entity', 'Update', $Call,
-        [
-            'Data' =>
+    setFn('Do', function ($Call) {
+        F::Run(
+            'Entity',
+            'Update',
+            $Call,
             [
-                'Balance' => $Call['Payment']['Value']
+                'Data' =>
+                    [
+                        'Balance' => $Call['Payment']['Value']
+                    ]
             ]
-        ]);
+        );
         return $Call;
     });

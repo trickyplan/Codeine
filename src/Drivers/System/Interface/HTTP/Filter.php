@@ -1,22 +1,21 @@
 <?php
-    
+
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
-    
-    setFn('Do', function ($Call)
-    {
-        foreach ($Call['HTTP']['Filter']['Methods'] as $Filter)
-            if (F::Run('System.Interface.HTTP.Filter.'.$Filter, null, $Call) === true)
+
+    setFn('Do', function ($Call) {
+        foreach ($Call['HTTP']['Filter']['Methods'] as $Filter) {
+            if (F::Run('System.Interface.HTTP.Filter.' . $Filter, null, $Call) === true) {
                 ;
-            else
-            {
-                F::Log('Filtered by '.$Filter, LOG_NOTICE, 'Security');
+            } else {
+                F::Log('Filtered by ' . $Filter, LOG_NOTICE, 'Security');
                 $Call = F::Hook('onHTTPFiltered', $Call);
             }
-        
+        }
+
         return $Call;
     });

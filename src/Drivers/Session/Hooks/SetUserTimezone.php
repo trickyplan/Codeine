@@ -1,12 +1,12 @@
 <?php
 
-    setFn('LoadUser.After', function ($Call)
-    {
+    setFn('LoadUser.After', function ($Call) {
         $UserTZ = F::Dot($Call, 'Session.User.Timezone.Identifier');
-        if (empty($UserTZ))
+        if (empty($UserTZ)) {
             ;
-        else
+        } else {
             date_default_timezone_set($UserTZ);
+        }
 
         return $Call;
     });

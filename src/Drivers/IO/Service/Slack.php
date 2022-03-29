@@ -1,36 +1,35 @@
 <?php
-    
+
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
-    
-    setFn('Open', function ($Call)
-    {
+
+    setFn('Open', function ($Call) {
         return true;
     });
 
-    setFn('Write', function ($Call)
-    {
+    setFn('Write', function ($Call) {
         $Data =
             [
-                'channel'  => $Call['Channel'],
+                'channel' => $Call['Channel'],
                 'username' => $Call['Username'],
-                'text'     => $Call['Data']
+                'text' => $Call['Data']
             ];
 
-        return F::Run('IO', 'Write',
+        return F::Run(
+            'IO',
+            'Write',
             [
                 'Storage' => 'Web',
-                'Where'   => $Call['Webhook URL'],
-                'Data'    => j($Data)
-            ]);
+                'Where' => $Call['Webhook URL'],
+                'Data' => j($Data)
+            ]
+        );
     });
 
-    setFn('Read', function ($Call)
-    {
-
+    setFn('Read', function ($Call) {
         return $Call;
     });

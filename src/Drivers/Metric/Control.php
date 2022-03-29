@@ -1,59 +1,76 @@
 <?php
-    
+
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
-    
-    setFn('Do', function ($Call)
-    {
-        $Types = F::Run('IO', 'Execute',
-                         [
-                             'Execute'   => 'Distinct',
-                             'Storage'   => 'Primary',
-                             'Scope'     => 'Metric',
-                             'Fields'    => ['Type'],
-                             'No Where'  => true
-                         ]);
-        
-        $Resolutions = F::Run('IO', 'Execute',
-                         [
-                             'Execute'   => 'Distinct',
-                             'Storage'   => 'Primary',
-                             'Scope'     => 'Metric',
-                             'Fields'    => ['Resolution'],
-                             'No Where'  => true
-                         ]);
-        
+
+    setFn('Do', function ($Call) {
+        $Types = F::Run(
+            'IO',
+            'Execute',
+            [
+                'Execute' => 'Distinct',
+                'Storage' => 'Primary',
+                'Scope' => 'Metric',
+                'Fields' => ['Type'],
+                'No Where' => true
+            ]
+        );
+
+        $Resolutions = F::Run(
+            'IO',
+            'Execute',
+            [
+                'Execute' => 'Distinct',
+                'Storage' => 'Primary',
+                'Scope' => 'Metric',
+                'Fields' => ['Resolution'],
+                'No Where' => true
+            ]
+        );
+
         $Headers = ['Type', 'Count'];
-        foreach ($Resolutions['Resolution'] as $Resolution)
-            $Headers [] = 'Sum R'.$Resolution;
+        foreach ($Resolutions['Resolution'] as $Resolution) {
+            $Headers [] = 'Sum R' . $Resolution;
+        }
 
         $Rows = [$Headers];
-        
-        foreach ($Types['Type'] as $Type)
-        {
-            $Row = [$Type,  F::Run('Metric.Calc', 'Count', $Call,
+
+        foreach ($Types['Type'] as $Type) {
+            $Row = [
+                $Type,
+                F::Run(
+                    'Metric.Calc',
+                    'Count',
+                    $Call,
                     [
                         'Metric' =>
                             [
                                 'Type' => $Type
                             ]
-                    ])];
-            
-            foreach ($Resolutions['Resolution'] as $Resolution)
+                    ]
+                )
+            ];
+
+            foreach ($Resolutions['Resolution'] as $Resolution) {
                 $Row[$Resolution] =
-                    F::Run('Metric.Calc', 'Sum', $Call,
-                    [
-                        'Metric' =>
+                    F::Run(
+                        'Metric.Calc',
+                        'Sum',
+                        $Call,
                         [
-                            'Type' => $Type,
-                            'Resolutions' => [$Resolution]
+                            'Metric' =>
+                                [
+                                    'Type' => $Type,
+                                    'Resolutions' => [$Resolution]
+                                ]
                         ]
-                    ]);
-            
+                    );
+            }
+
             $Rows[] = $Row;
         }
 
@@ -64,20 +81,25 @@
             ];
         return $Call;
     });
-    
-    setFn('Menu', function ($Call)
-    {
+
+    setFn('Menu', function ($Call) {
         return [
             'Count' =>
-                F::Run('Formats.Number.French', 'Do',
-                [
-                    'Value' => F::Run('IO', 'Execute',
-                        [
-                            'Execute'   => 'Count',
-                            'Storage'   => 'Primary',
-                            'Scope'     => 'Metric',
-                            'No Where'  => true
-                        ])
-                ])
+                F::Run(
+                    'Formats.Number.French',
+                    'Do',
+                    [
+                        'Value' => F::Run(
+                            'IO',
+                            'Execute',
+                            [
+                                'Execute' => 'Count',
+                                'Storage' => 'Primary',
+                                'Scope' => 'Metric',
+                                'No Where' => true
+                            ]
+                        )
+                    ]
+                )
         ];
     });

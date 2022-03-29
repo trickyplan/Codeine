@@ -2,42 +2,43 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
-     
-     setFn('Do', function ($Call)
-     {
-         $VCall = $Call;
-             $VCall['View']['Renderer'] = ['Service' => 'View.XML', 'Method' => 'Render'];
 
-             $VCall['Output']['Root'] = 'project';
-             $VCall['Attributes'] =
-             [
-                 'default' => 'final',
-                 'basedir' => 'src'
-             ];
-             $VCall['Attributes']['name'] = $VCall['Task']['ID'].'-${branch}';
+    setFn('Do', function ($Call) {
+        $VCall = $Call;
+        $VCall['View']['Renderer'] = ['Service' => 'View.XML', 'Method' => 'Render'];
 
-             $VCall = F::Hook('beforeAddBuildfileImports', $VCall);
+        $VCall['Output']['Root'] = 'project';
+        $VCall['Attributes'] =
+            [
+                'default' => 'final',
+                'basedir' => 'src'
+            ];
+        $VCall['Attributes']['name'] = $VCall['Task']['ID'] . '-${branch}';
 
-                 foreach ($Call['Project']['Create']['Buildfile']['Imports'] as $Import)
-                     $VCall['Output']['Content'][] = ['import' => ['@file' => $Import]];
+        $VCall = F::Hook('beforeAddBuildfileImports', $VCall);
 
-             $VCall = F::Hook('afterAddBuildfileImports', $VCall);
+        foreach ($Call['Project']['Create']['Buildfile']['Imports'] as $Import) {
+            $VCall['Output']['Content'][] = ['import' => ['@file' => $Import]];
+        }
 
-             $VCall = F::Hook('beforeAddBuildfileProperties', $VCall);
+        $VCall = F::Hook('afterAddBuildfileImports', $VCall);
 
-                 foreach ($Call['Project']['Create']['Buildfile']['Properties'] as $Name => $Key)
-                     $VCall['Output']['Content'][] = ['property' => ['@name' => $Name, '@value' => F::Dot($VCall, $Key)]];
+        $VCall = F::Hook('beforeAddBuildfileProperties', $VCall);
 
-             $VCall = F::Hook('afterAddBuildfileProperties', $VCall);
+        foreach ($Call['Project']['Create']['Buildfile']['Properties'] as $Name => $Key) {
+            $VCall['Output']['Content'][] = ['property' => ['@name' => $Name, '@value' => F::Dot($VCall, $Key)]];
+        }
 
-             $VCall['Output']['Content'][] = ['target' => ['@name' => 'final', '@depends' => 'debian']];
+        $VCall = F::Hook('afterAddBuildfileProperties', $VCall);
 
-             $VCall = F::Run('View', 'Render', $VCall);
-             file_put_contents('build.xml', $VCall['Output']);
+        $VCall['Output']['Content'][] = ['target' => ['@name' => 'final', '@depends' => 'debian']];
 
-         return $Call;
-     });
+        $VCall = F::Run('View', 'Render', $VCall);
+        file_put_contents('build.xml', $VCall['Output']);
+
+        return $Call;
+    });

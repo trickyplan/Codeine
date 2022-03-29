@@ -2,24 +2,23 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
 
-    setFn('Do', function ($Call)
-    {
+    setFn('Do', function ($Call) {
         $Call['Output']['Content'] =
             [
                 [
-                    'Type'  => 'Block',
+                    'Type' => 'Block',
                     'Value' => 'Codeine Version: '
-                        .self::$_Options['Version']['Codeine']
+                        . F::$_Options['Version']['Codeine']
                 ],
                 [
-                    'Type'  => 'Block',
+                    'Type' => 'Block',
                     'Value' => 'Project Version: '
-                        .self::$_Options['Version']['Project']
+                        . F::$_Options['Version']['Project']
                 ]
             ];
         return $Call;

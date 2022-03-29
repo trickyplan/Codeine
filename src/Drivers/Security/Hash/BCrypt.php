@@ -9,7 +9,6 @@
      * @time 4:40
      */
 
-    setFn('Get', function ($Call)
-    {
+    setFn('Get', function ($Call) {
         return crypt($Call['Value'], F::Dot($Call, 'Security.Hash.Salt'));
     });

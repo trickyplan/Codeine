@@ -2,58 +2,69 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description <codeine-key> tag 
+     * @description <codeine-key> tag
      * @package Codeine
      * @version 8.x
      */
 
-    setFn('Parse', function ($Call)
-    {
+    setFn('Parse', function ($Call) {
         $Call = F::Apply(null, 'Key', $Call);
         $Call = F::Apply(null, 'Call', $Call);
 
         return $Call;
     });
 
-    setFn('Call', function ($Call)
-    {
-        $Call['Parsed'] = F::Run('Text.Regex', 'All',
-        [
-            'Pattern' => $Call['Block Call Pattern'],
-            'Value' => $Call['Value']
-        ]);
+    setFn('Call', function ($Call) {
+        $Call['Parsed'] = F::Run(
+            'Text.Regex',
+            'All',
+            [
+                'Pattern' => $Call['Block Call Pattern'],
+                'Value' => $Call['Value']
+            ]
+        );
 
-        if ($Call['Parsed'])
-        {
+        if ($Call['Parsed']) {
             $Call['Parsed'][0] = array_unique($Call['Parsed'][0]);
             $Call['Parsed'][2] = array_unique($Call['Parsed'][2]);
 
-            foreach ($Call['Parsed'][2] as $IX => &$Match)
-            {
-                if (($Matched = F::Live(F::Dot($Call, $Match))) !== null)
-                {
+            foreach ($Call['Parsed'][2] as $IX => &$Match) {
+                if (($Matched = F::Live(F::Dot($Call, $Match))) !== null) {
                     $Output = '';
 
-                    if ($DotMatched = F::Live(F::Dot($Call, $Match)))
-                    {
-                        if (is_array($DotMatched))
-                        {
+                    if ($DotMatched = F::Live(F::Dot($Call, $Match))) {
+                        if (is_array($DotMatched)) {
                             sort($DotMatched);
-                            foreach($DotMatched as $ICV => $cMatch)
-                                $Output.= str_replace('<#/>',
+                            foreach ($DotMatched as $ICV => $cMatch) {
+                                $Output .= str_replace(
+                                    '<#/>',
                                     $ICV,
-                                    str_replace('<codeine-variable>'.$Match.'</codeine-variable>', $cMatch,$Call['Parsed'][1][$IX]).
+                                    str_replace(
+                                        '<codeine-variable>' . $Match . '</codeine-variable>',
+                                        $cMatch,
+                                        $Call['Parsed'][1][$IX]
+                                    ) .
                                     ($cMatch)
-                                    .str_replace('<codeine-variable>'.$Match.'</codeine-variable>', $cMatch,$Call['Parsed'][3][$IX]));
+                                    . str_replace(
+                                        '<codeine-variable>' . $Match . '</codeine-variable>',
+                                        $cMatch,
+                                        $Call['Parsed'][3][$IX]
+                                    )
+                                );
+                            }
+                        } else {
+                            $Output = str_replace(
+                                '<#/>',
+                                '',
+                                $Call['Parsed'][1][$IX] . ($DotMatched) . $Call['Parsed'][3][$IX]
+                            );
                         }
-                        else
-                            $Output = str_replace('<#/>', '', $Call['Parsed'][1][$IX].($DotMatched).$Call['Parsed'][3][$IX]);
                     }
 
                     $Match = $Output;
-                }
-                else
+                } else {
                     $Match = '';
+                }
             }
 
             $Call['Value'] = str_replace($Call['Parsed'][0], $Call['Parsed'][2], $Call['Value']);
@@ -63,58 +74,73 @@
     });
 
 
-    setFn('Key', function ($Call)
-    {
-        $Call['Parsed'] = F::Run('Text.Regex', 'All',
-        [
-            'Pattern' => $Call['Block Key Pattern'],
-            'Value' => $Call['Value']
-        ]);
+    setFn('Key', function ($Call) {
+        $Call['Parsed'] = F::Run(
+            'Text.Regex',
+            'All',
+            [
+                'Pattern' => $Call['Block Key Pattern'],
+                'Value' => $Call['Value']
+            ]
+        );
 
-        if ($Call['Parsed'] && isset($Call['Data']))
-        {
+        if ($Call['Parsed'] && isset($Call['Data'])) {
             $Call['Parsed'][0] = array_unique($Call['Parsed'][0]);
             $Call['Parsed'][2] = array_unique($Call['Parsed'][2]);
 
-            foreach ($Call['Parsed'][2] as $IX => $Match)
-            {
-                if (str_contains($Match, ','))
+            foreach ($Call['Parsed'][2] as $IX => $Match) {
+                if (str_contains($Match, ',')) {
                     $Keys = explode(',', $Match);
-                else
+                } else {
                     $Keys = [$Match];
+                }
 
                 $Output = '';
 
-                if (isset($Call['Data']))
-                    foreach ($Keys as $Key)
-                        if ($Matched = F::Live(F::Dot($Call['Data'], $Key)) !== null)
-                        {
-                            if ($DotMatched = F::Live(F::Dot($Call['Data'], $Key)))
-                            {
-                                if (is_array($DotMatched))
-                                {
+                if (isset($Call['Data'])) {
+                    foreach ($Keys as $Key) {
+                        if ($Matched = F::Live(F::Dot($Call['Data'], $Key)) !== null) {
+                            if ($DotMatched = F::Live(F::Dot($Call['Data'], $Key))) {
+                                if (is_array($DotMatched)) {
                                     sort($DotMatched);
-                                    foreach($DotMatched as $ICV => $cData)
-                                        if (is_array($Key))
+                                    foreach ($DotMatched as $ICV => $cData) {
+                                        if (is_array($Key)) {
                                             ;
-                                        else
-                                        {
-                                            if (is_array($cData))
+                                        } else {
+                                            if (is_array($cData)) {
                                                 $cData = '{}';
-                                            
-                                            $Output .= str_replace('<#/>',
+                                            }
+
+                                            $Output .= str_replace(
+                                                '<#/>',
                                                 $ICV,
-                                                str_replace('<codeine-key>'.$Match.'</codeine-key>', $cData, $Call['Parsed'][1][$IX]).
+                                                str_replace(
+                                                    '<codeine-key>' . $Match . '</codeine-key>',
+                                                    $cData,
+                                                    $Call['Parsed'][1][$IX]
+                                                ) .
                                                 ($cData)
-                                                .str_replace('<codeine-key>'.$Match.'</codeine-key>', $cData, $Call['Parsed'][3][$IX]));
+                                                . str_replace(
+                                                    '<codeine-key>' . $Match . '</codeine-key>',
+                                                    $cData,
+                                                    $Call['Parsed'][3][$IX]
+                                                )
+                                            );
                                         }
+                                    }
+                                } else {
+                                    $Output = str_replace(
+                                        '<#/>',
+                                        '',
+                                        $Call['Parsed'][1][$IX] . ($DotMatched) . $Call['Parsed'][3][$IX]
+                                    );
                                 }
-                                else
-                                    $Output = str_replace('<#/>', '', $Call['Parsed'][1][$IX].($DotMatched).$Call['Parsed'][3][$IX]);
 
                                 break;
                             }
                         }
+                    }
+                }
 
                 $Call['Parsed'][2][$IX] = $Output;
             }

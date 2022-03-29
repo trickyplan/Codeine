@@ -27,8 +27,7 @@
         $Body = '';
         $Parameters = http_build_query($Call['Data'], null, '&');
 
-        if ('GET' == $Call['Guzzle']['Request']['Method']) 
-        {
+        if ('GET' == $Call['Guzzle']['Request']['Method']) {
             $Call['Where']['ID'] = rtrim($Call['Where']['ID'], '?') . '?' . $Parameters;
         } else {
             $Body = $Parameters;

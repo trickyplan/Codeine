@@ -2,32 +2,32 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 8.x
      */
 
-    setFn('Do', function ($Call)
-    {
+    setFn('Do', function ($Call) {
         $Message = F::Run('Entity', 'Read',
             [
                 'Entity' => 'Message',
-                'One'    => true,
-                'Where'  =>
-                [
-                    'Target' => $Call['Session']['User']['ID']
-                ]
+                'One' => true,
+                'Where' =>
+                    [
+                        'Target' => $Call['Session']['User']['ID']
+                    ]
             ]
         );
 
-        if (!empty($Message))
+        if (!empty($Message)) {
             $Call['Output']['Content'][] =
                 [
-                    'Type'  => 'Template',
+                    'Type' => 'Template',
                     'Scope' => 'Message',
-                    'ID'    => 'Show/Flash',
-                    'Data'  => $Message
+                    'ID' => 'Show/Flash',
+                    'Data' => $Message
                 ];
+        }
 
         return $Call;
     });

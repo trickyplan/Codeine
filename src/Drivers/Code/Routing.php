@@ -2,29 +2,29 @@
 
     /* Codeine
      * @author bergstein@trickyplan.com
-     * @description  
+     * @description
      * @package Codeine
      * @version 7.1
      */
 
-     setFn('Route', function ($Call)
-     {
-         $Call = F::Hook('beforeRoute', $Call);
+    setFn('Route', function ($Call) {
+        $Call = F::Hook('beforeRoute', $Call);
 
-             foreach ($Call['Routers'] as $Router)
-             {
-                 // Пробуем роутер из списка...
-                 $NewCall = F::Run('Code.Routing.'.$Router, null, $Call);
+        foreach ($Call['Routers'] as $Router) {
+            // Пробуем роутер из списка...
+            $NewCall = F::Run('Code.Routing.' . $Router, null, $Call);
 
-                 // Если результат - валидный вызов, то выходим из перебора
-                 if (F::isCall($NewCall['Run']))
-                     break;
-             }
+            // Если результат - валидный вызов, то выходим из перебора
+            if (F::isCall($NewCall['Run'])) {
+                break;
+            }
+        }
 
-             if (isset($NewCall['Run']))
-                $Call = $NewCall;
+        if (isset($NewCall['Run'])) {
+            $Call = $NewCall;
+        }
 
-         $Call = F::Hook('afterRoute', $Call);
+        $Call = F::Hook('afterRoute', $Call);
 
-         return $Call;
-     });
+        return $Call;
+    });
