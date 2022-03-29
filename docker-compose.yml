@@ -1,4 +1,5 @@
-version: '3'
+---
+version: '3.8'
 services:
   # PHP Service
   codeine-app:
@@ -42,7 +43,7 @@ services:
   # MongoDB Service
   codeine-mongo:
     container_name: codeine-mongo
-    image: mongo:latest
+    image: mongo:5.0.6
     environment:
       - MONGO_DATA_DIR=/data/db
       - MONGO_LOG_DIR=/dev/null
@@ -60,7 +61,7 @@ services:
 
   # Redis Service
   codeine-redis:
-    image: redis:latest
+    image: redis:6.2.6
     container_name: codeine-redis
     restart: unless-stopped
     tty: true
@@ -68,7 +69,7 @@ services:
       - codeine-network
 
   codeine-fake-smtp:
-    image: reachfive/fake-smtp-server
+    image: reachfive/fake-smtp-server:0.8.1
     container_name: codeine-fake-smtp
     tty: true
     networks:
