@@ -235,6 +235,11 @@
             }
         }
 
+        public static function loadSource($Service): bool
+        {
+            return self::_loadSource($Service);
+        }
+
         public static function loadOptions($Service = null, $Method = null, $Call = [], $Path = 'Options')
         {
             $Service = ($Service == null) ? self::$_Service : $Service;

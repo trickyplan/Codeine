@@ -8,4 +8,4 @@
      */
 
 
-    F::_loadSource('Entity.Control');
+    F::loadSource('Entity.Control');
