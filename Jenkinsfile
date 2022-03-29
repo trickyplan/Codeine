@@ -11,11 +11,11 @@ pipeline {
         REMOTE_REPOSITORY = "git@gitlab.trickyplan.com:codeine/codeine.git"
         REMOTE_BRANCH = "master"
         LOCAL_DIRECTORY = "/src/codeine"
-        NUMTOKEEP = 5
+        LINT_GIT = "On"
+        ANALYZE_OWASP_DEPENDENCY_CHECKER = "Off"
     }
     options {
         ansiColor('xterm')
-        buildDiscarder(logRotator(numToKeepStr:'${env.NUMTOKEEP}'))
     }
     stages {
         stage('Setup parameters') {
@@ -25,7 +25,7 @@ pipeline {
                         parameters([
                             choice(
                                 choices: ['NATIVE', 'REMOTE', 'LOCAL'],
-                                name: 'SOURCE'
+                                name: 'SOURCE',
                                 description: "Remote — from Git, Local — from docker bind"
                             )
                         ])
@@ -60,11 +60,12 @@ pipeline {
                    return params.SOURCE == 'LOCAL'
                 }
             }
-            steps {
-                    cleanWs()
-                    sh "cp -rT ${env.LOCAL_DIRECTORY} ."
-                }
+            steps
+            {
+                cleanWs()
+                sh "cp -rT ${env.LOCAL_DIRECTORY} ."
             }
+        }
         stage ('Set Up Environment')
         {
             steps
@@ -113,6 +114,9 @@ pipeline {
                 }
                 stage('Lint Git')
                 {
+                    when {
+                        environment name: 'LINT_GIT', value: "On"
+                    }
                     steps
                     {
                         script {
@@ -291,21 +295,6 @@ pipeline {
                         }
                     }
                 }
-                stage('Lint CSS')
-                {
-                    steps {
-                        script {
-                            def logPath = './reports/lint/css.checkstyle.xml'
-                            try {
-                                sh "csslint src --format=checkstyle-xml > ${logPath}"
-                            }
-                            catch (err) {
-                                unstable(message: "${STAGE_NAME} is unstable")
-                                fu_score+=5;
-                            }
-                        }
-                    }
-                }
                 stage('Lint EcmaScript')
                 {
                     steps {
@@ -325,13 +314,12 @@ pipeline {
                 {
                     steps {
                         script {
-                            def logPath = './reports/lint/style.log'
+                            def logPath = './reports/lint/style.checkstyle.xml'
                             try {
-                                sh "stylelint --mw 0 './src/**/*.css' --output-file ${logPath}"
+                                sh "stylelint --mw 0 './src/**/*.css' --custom-formatter /usr/lib/node_modules/stylelint-checkstyle-formatter/index.js > ${logPath}"
                             }
                             catch (err) {
                                 unstable(message: "${STAGE_NAME} is unstable")
-                                sh "cat ${logPath} >> reports/BAD"
                                 fu_score+=5;
                             }
                         }
@@ -683,6 +671,9 @@ pipeline {
                 }
                 stage('OWASP Dependency Check')
                 {
+                    when {
+                        environment name: 'ANALYZE_OWASP_DEPENDENCY_CHECKER', value: "On"
+                    }
                     steps {
                         script {
                             def logPath = 'reports/tests/dependency-check-junit.xml'
@@ -704,6 +695,9 @@ pipeline {
             {
                 stage('Run PHPSpec')
                 {
+                    when {
+                        environment name: 'TEST_PHPSPEC', value: "On"
+                    }
                     steps
                     {
                         script {
@@ -720,6 +714,9 @@ pipeline {
                 }
                 stage('Run Codeception')
                 {
+                    when {
+                        environment name: 'TEST_CODECEPTION', value: "On"
+                    }
                     steps
                     {
                         script {
@@ -756,6 +753,9 @@ pipeline {
                 } */
                 stage('Run PHPBench')
                 {
+                    when {
+                        environment name: 'TEST_PHP_BENCH', value: "On"
+                    }
                     steps
                     {
                         script {
@@ -820,14 +820,12 @@ pipeline {
                     {
                         sh 'cp -r src/ dist/'
                         sh 'cp -r docs/ dist/'
-                        sh 'cp -r api/ dist/'
                         sh 'cp -r tests/ dist/'
                         sh 'cp *.md CODEOWNERS dist/'
                         sh 'cp example.env dist/'
                         sh 'cp composer.json package.json dist/'
                         sh 'cp composer.lock package-lock.json dist/'
                         sh 'cp Dockerfile docker-compose.* dist/'
-                        sh 'cp codeception.yml dist/'
                     }
                 }
                 stage ('Determine Version')
@@ -905,6 +903,7 @@ pipeline {
         }
         always {
             archiveArtifacts artifacts: 'reports/**', followSymlinks: false
+            /*
             xunit (
                 thresholds: [ skipped(failureThreshold: '0'), failed(failureThreshold: '0') ],
                 tools: [
@@ -914,7 +913,7 @@ pipeline {
                 thresholds: [ skipped(failureThreshold: '0'), failed(failureThreshold: '0') ],
                 tools: [
                     JUnit(pattern: 'reports/tests/*-junit.xml')]
-            )
+            )*/
             recordIssues enabledForFailure: true, tool: checkStyle(pattern: '**/reports/*/*.checkstyle.xml')
         }
     }
