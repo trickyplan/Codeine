@@ -55,7 +55,10 @@
                 {
                     $Call = F::Bootstrap
                     ([
-                        'Paths' => [Root],
+                        'Paths' => [
+                            Root.DS.'src',
+                            Root.DS.'vendor'
+                        ],
                         'Environment' => $Opts['Environment'] ?? null,
                         'Service' => 'System.Interface.CLI',
                         'Method' => 'Do',
