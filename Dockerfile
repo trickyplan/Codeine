@@ -1,18 +1,20 @@
-FROM php:8.0-fpm as codeine-builder
+ARG PHP_VERSION=8.0
+FROM php:${PHP_VERSION}-fpm as codeine-builder
 LABEL maintainer="bergstein@trickyplan.com"
-
 USER root
 
-ENV MAKEFLAGS="-j$[$(nproc) + 1]"
+ENV DEBIAN_FRONTEND=noninteractive
 
-# Install dependencies
+# Install Debian Dependencies
 RUN apt-get update -q && \
-    apt-get install --no-install-recommends -yq build-essential libonig-dev locales libzip-dev zip unzip git curl  \
-    libcurl4-openssl-dev pkg-config libssl-dev libpng-dev libfreetype6-dev libmagickwand-dev \
-    libjpeg62-turbo-dev libyaml-dev && \
-    rm -rf /var/lib/apt/lists/*
+    apt-get install --no-install-recommends -yq              \
+    build-essential locales zip unzip git curl pkg-config     \
+    libonig-dev libzip-dev libcurl4-openssl-dev               \
+    libssl-dev libpng-dev libfreetype6-dev libmagickwand-dev  \
+    libjpeg62-turbo-dev libyaml-dev  \
+  && rm -rf /var/lib/apt/lists/*
 
-# Install extensions
+# Install PHP & PECL Extensions
 RUN docker-php-ext-install -j$(nproc) opcache && \
     docker-php-ext-install -j$(nproc) mbstring && \
     docker-php-ext-install -j$(nproc) zip && \
@@ -25,13 +27,23 @@ RUN docker-php-ext-install -j$(nproc) opcache && \
     pecl install redis-5.3.7 && \
     pecl install zstd-0.11.0
 
-FROM php:8.0-fpm as codeine-app
+FROM php:${PHP_VERSION}-fpm as codeine-app
+LABEL maintainer="bergstein@trickyplan.com"
 USER root
+ENV PHPEXTDIR=/usr/local/lib/php/extensions/no-debug-non-zts-20200930
 
-COPY --from=codeine-builder /usr/local/lib/php/extensions/no-debug-non-zts-20200930/*.so  /usr/local/lib/php/extensions/no-debug-non-zts-20200930/
+COPY --from=codeine-builder $PHPEXTDIR/*.so  $PHPEXTDIR/
 
 RUN apt-get update -q && \
     apt-get install --no-install-recommends -yq oathtool locales \
+    libgraphicsmagick-q16-3 libmagickwand-6.q16-6 \
+    unzip curl libyaml-0-2 git && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install Debian Dependencies
+RUN apt-get update -q && \
+    apt-get install --no-install-recommends -yq curl zip unzip \
+    oathtool locales \
     libgraphicsmagick-q16-3 libmagickwand-6.q16-6 \
     unzip curl libyaml-0-2 git && \
     rm -rf /var/lib/apt/lists/*
