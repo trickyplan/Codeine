@@ -1,3 +1,4 @@
+.env
 .idea
 src/vendor/
 !src/vendor/.gitkeep
