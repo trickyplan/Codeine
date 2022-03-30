@@ -10,8 +10,10 @@
         "bin/codeine"
     ],
     "config": {
+        "allow-plugins": {},
+        "apcu-autoloader": true,
         "optimize-autoloader": true,
-        "apcu-autoloader": true
+        "sort-packages": true
     },
     "description": "Esoteric framework: one class, shitload of anonymous functions, zero documentation. Still good though.",
     "homepage": "https://github.com/TrickyPlan/Codeine",
