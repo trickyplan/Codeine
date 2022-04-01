@@ -7,34 +7,9 @@
      * @version 8.x
      */
 
-    setFn('LatLon', function ($Call) {
+    setFn('Determine', function ($Call) {
         if (isset($Call['Modes'][$Call['Mode']])) {
-            return F::Run($Call['Modes'][$Call['Mode']], 'LatLon', $Call);
-        } else {
-            return null;
-        }
-    });
-
-    setFn('Country', function ($Call) {
-        if (isset($Call['Modes'][$Call['Mode']])) {
-            return F::Run($Call['Modes'][$Call['Mode']], 'Country', $Call);
-        } else {
-            return null;
-        }
-    });
-
-    setFn('Region', function ($Call) {
-        if (isset($Call['Modes'][$Call['Mode']])) {
-            return F::Run($Call['Modes'][$Call['Mode']], 'Region', $Call);
-        } else {
-            return null;
-        }
-    });
-
-
-    setFn('City', function ($Call) {
-        if (isset($Call['Modes'][$Call['Mode']])) {
-            return F::Run($Call['Modes'][$Call['Mode']], 'City', $Call);
+            return F::Run($Call['Modes'][$Call['Mode']], null, $Call);
         } else {
             return null;
         }

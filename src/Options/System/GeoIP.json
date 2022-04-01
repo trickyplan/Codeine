@@ -2,8 +2,8 @@
     "Mode": "Normal",
     "Modes":
     {
-        "Precise": "System.GeoIP.IPGeobaseRu",
+        "Precise": "System.GeoIP.IP-API",
         "Fast": "System.GeoIP.PHP",
-        "Normal": "System.GeoIP.IPGeobaseRu"
+        "Normal": "System.GeoIP.IP-API"
     }
 }

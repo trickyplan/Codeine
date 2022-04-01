@@ -1,7 +1,0 @@
----
-Mode: Normal
-Modes:
-  Precise: System.GeoIP.IPGeobaseRu
-  Fast: System.GeoIP.PHP
-  Normal: System.GeoIP.IPGeobaseRu
-...

@@ -1,0 +1,43 @@
+{
+    "Suites": {
+        "IP-API": {
+            "Load": {
+                "Run": {
+                    "Service": "System.GeoIP.IP-API",
+                    "Method": "Determine",
+                    "Call": {
+                        "HTTP": {
+                            "IP": "92.255.207.167"
+                        }
+                    }
+                },
+                "Assert": {
+                    "Equal": {
+                        "Expected": {
+                            "Country": {
+                                "Title": "Russia",
+                                "Code": "RU"
+                            },
+                            "Region": {
+                                "Code": "TA",
+                                "Title": "Tatarstan Republic"
+                            },
+                            "City": {
+                                "Title": "Kazan’"
+                            },
+                            "ZIP": "422528",
+                            "Geo": {
+                                "Latitude": 55.785,
+                                "Longitude": 49.1178
+                            },
+                            "Timezone": "Europe/Moscow",
+                            "ISP": "CJSC \"ER-Telecom Holding\" Kazan' branch",
+                            "ORG": "JSC \"ER-Telecom Holding\" Kazan' Branch",
+                            "AS": "AS41668 JSC ER-Telecom Holding"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

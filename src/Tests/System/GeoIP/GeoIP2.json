@@ -1,0 +1,40 @@
+{
+    "Suites": {
+        "PHP GeoIP": {
+            "Load": {
+                "Run": {
+                    "Service": "System.GeoIP.GeoIP2",
+                    "Method": "Determine",
+                    "Call": {
+                        "HTTP": {
+                            "IP": "92.255.207.167"
+                        }
+                    }
+                },
+                "Assert": {
+                    "Equal": {
+                        "Expected": {
+                            "ZIP": "422528",
+                            "City": {
+                                "Title": "Kazan’"
+                            },
+                            "Country": {
+                                "Title": "Russia",
+                                "Code": "RU"
+                            },
+                            "Region": {
+                                "Title": "Tatarstan Republic",
+                                "Code": "TA"
+                            },
+                            "Location": {
+                                "Latitude": 55.785,
+                                "Longtiude": 49.1178
+                            },
+                            "Timezone": "Europe/Moscow"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

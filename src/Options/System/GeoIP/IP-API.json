@@ -1,0 +1,24 @@
+{
+    "System": {
+        "GeoIP": {
+            "IP-API": {
+                "Prefix": "http://ip-api.com/json/",
+                "Postfix": "",
+                "Map": {
+                    "country": "Country.Title",
+                    "countryCode": "Country.Code",
+                    "region": "Region.Code",
+                    "regionName": "Region.Title",
+                    "city": "City.Title",
+                    "zip": "ZIP",
+                    "lat": "Geo.Latitude",
+                    "lon": "Geo.Longitude",
+                    "timezone": "Timezone",
+                    "isp": "ISP",
+                    "org": "ORG",
+                    "as": "AS"
+                }
+            }
+        }
+    }
+}
