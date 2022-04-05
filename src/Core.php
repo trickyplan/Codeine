@@ -613,7 +613,7 @@
                         if (str_contains($Match, '!')) {
                             list($Match, $Default) = explode('!', $Match);
                         } else {
-                            $Default = null;
+                            $Default = '';
                         }
 
                         if (str_contains($Match, ':')) {
