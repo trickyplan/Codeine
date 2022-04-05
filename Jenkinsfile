@@ -1,5 +1,4 @@
-fu_score = 0
-
+fu_score = 0;
 pipeline {
     agent {
         label 'sdlc-jenkins-agent'
@@ -24,6 +23,7 @@ pipeline {
         TEST_PHP_SPEC = "Off"
         TEST_CODECEPTION = "Off"
         TEST_PHP_BENCH = "Off"
+        PUBLISH_TO_SATIS = "On"
     }
     options {
         ansiColor('xterm')
@@ -738,6 +738,7 @@ pipeline {
                 {
                     when {
                         environment name: 'PROJECT_HAS_COMPOSER', value: "On"
+                        environment name: 'PUBLISH_TO_SATIS', value: "On"
                     }
                     steps
                     {
@@ -1369,8 +1370,7 @@ def ppl_changelog_generate ()
 
 def ppl_docker_build ()
 {
-    try
-    {
+    try {
         docker.withRegistry("${env.DOCKER_REGISTRY_HOST}:${env.DOCKER_REGISTRY_PORT}") {
             dockerImage = docker.build("${env.JOB_NAME}:${version}")
             dockerImage.push();
