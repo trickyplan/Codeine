@@ -10,7 +10,7 @@
         "bin/codeine"
     ],
     "config": {
-        "allow-plugins": {},
+        "allow-plugins": false,
         "apcu-autoloader": true,
         "optimize-autoloader": true,
         "sort-packages": true
