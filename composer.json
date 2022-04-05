@@ -6,9 +6,6 @@
             "role": "Developer"
         }
     ],
-    "bin": [
-        "bin/codeine"
-    ],
     "config": {
         "allow-plugins": false,
         "apcu-autoloader": true,
