@@ -695,19 +695,6 @@ pipeline {
                         }
                     }
                 }
-                stage ('Generate Docker Image')
-                {
-                    when {
-                        environment name: 'PROJECT_HAS_DOCKER', value: "On"
-                    }
-                    steps
-                    {
-                        script
-                        {
-                            ppl_docker_build()
-                        }
-                    }
-                }
                 stage ('Pack Tarball')
                 {
                     steps
@@ -758,6 +745,19 @@ pipeline {
                         script
                         {
                             ppl_publish_npm ()
+                        }
+                    }
+                }
+                stage ('Generate Docker Image')
+                {
+                    when {
+                        environment name: 'PROJECT_HAS_DOCKER', value: "On"
+                    }
+                    steps
+                    {
+                        script
+                        {
+                            ppl_docker_build()
                         }
                     }
                 }
