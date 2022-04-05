@@ -1,4 +1,5 @@
-fu_score = 0;
+fu_score = 0
+
 pipeline {
     agent {
         label 'sdlc-jenkins-agent'
