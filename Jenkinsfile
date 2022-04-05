@@ -1368,13 +1368,20 @@ def ppl_changelog_generate ()
 
 def ppl_docker_build ()
 {
-    docker.withRegistry("${env.DOCKER_REGISTRY_HOST}:${env.DOCKER_REGISTRY_PORT}") {
-        dockerImage = docker.build("${env.JOB_NAME}:${version}")
-        dockerImage.push();
-        dockerImage.push('latest');
+    try
+    {
+        docker.withRegistry("${env.DOCKER_REGISTRY_HOST}:${env.DOCKER_REGISTRY_PORT}") {
+            dockerImage = docker.build("${env.JOB_NAME}:${version}")
+            dockerImage.push();
+            dockerImage.push('latest');
+        }
+        sh "docker save -o ./published/${env.JOB_NAME}-${version}.docker.tar ${env.JOB_NAME}:${version}"
+        sh "pigz ./published/${env.JOB_NAME}-${version}.docker.tar"
     }
-    sh "docker save -o ./published/${env.JOB_NAME}-${version}.docker.tar ${env.JOB_NAME}:${version}"
-    sh "pigz ./published/${env.JOB_NAME}-${version}.docker.tar"
+    catch (err) {
+        unstable(message: "${STAGE_NAME} is unstable")
+        fu_score+=50;
+    }
 }
 
 def ppl_pack_tarball ()
