@@ -6,6 +6,8 @@
         environment {
             PATH = "${env.PATH}:${env.WORKSPACE}/vendor/bin:"
             PHP_VERSION = "8.1"
+            DOCKER_REGISTRY_HOST = "https://registry.trickyplan.com"
+            DOCKER_REGISTRY_PORT = 443
             REMOTE_REPOSITORY = "git@src.trickyplan.com:Codeine/Codeine.git"
             REMOTE_BRANCH = "master"
             LOCAL_DIRECTORY = "/src/codeine"
