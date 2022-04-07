@@ -17,7 +17,7 @@
             PROJECT_HAS_CSS = "On"
             PROJECT_HAS_COMPOSER = "On"
             PROJECT_HAS_NPM = "On"
-            PROJECT_HAS_DOCKER = "On"
+            PROJECT_HAS_DOCKER = "Off"
             ANALYZE_OWASP_DEPENDENCY_CHECKER = "Off"
             DOCS_PHP_DOCUMENTOR = "On"
             TEST_PHP_SPEC = "Off"
