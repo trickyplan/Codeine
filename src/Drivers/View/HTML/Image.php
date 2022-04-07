@@ -34,13 +34,20 @@
                 $Format = $Call['Image']['Tag Format'];
 
                 $Root = simplexml_load_string('<image' . $Parsed[1][$IX] . '></image>');
-                if (isset($Root->attributes()->type)) {
+                if (isset($Root->attributes()->format)) {
+                    $Format = (string)$Root->attributes()->format;
+                }elseif (isset($Root->attributes()->type)) {
                     $Format = (string)$Root->attributes()->type;
+                    F::Log(
+                        'Please, replace "type" with "format" as more semantically correct',
+                        LOG_WARNING,
+                        ['Developer', 'Deprecated']
+                    );
                 }
 
                 $Image = F::Merge(
                     $Call['Image'],
-                    F::Run('Formats.' . $Format, 'Read', ['Value' => $Image])
+                    F::Run('Format.' . $Format, 'Read', ['Value' => $Image])
                 );
 
                 if (isset($Image['Source']['Scope'])) {
