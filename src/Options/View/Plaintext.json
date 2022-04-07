@@ -16,11 +16,6 @@
             {
                 "Service":"View.HTML.Parslets",
                 "Method":"afterHTMLRender"
-            },
-            "I18N":
-            {
-                "Service":"View.HTML.Locale",
-                "Method":"Process"
             }
         }
     }

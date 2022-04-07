@@ -47,11 +47,6 @@
             {
                 "Service":"View.HTML.Breadcrumbs",
                 "Method":"Scan"
-            },
-            "I18N":
-            {
-                "Service":"View.HTML.Locale",
-                "Method":"Process"
             }
         }
     }
