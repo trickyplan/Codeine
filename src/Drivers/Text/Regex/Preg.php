@@ -8,20 +8,26 @@
      */
 
     setFn('Match', function ($Call) {
-        if (preg_match('@' . $Call['Pattern'] . '@SsUu', $Call['Value'], $Pockets)) {
-            ;
+        $Pockets = null;
+
+        if (empty($Call['Value'])) {
+            F::Log('Empty Value', LOG_DEBUG);
         } else {
-            $Pockets = false;
+            preg_match('@' . $Call['Pattern'] . '@SsUu', $Call['Value'], $Pockets);
         }
 
         return $Pockets;
     });
 
     setFn('All', function ($Call) {
-        if (preg_match_all('@' . $Call['Pattern'] . '@Ssu', $Call['Value'], $Pockets)) {
-            return $Pockets;
+        $Pockets = null;
+
+        if (empty($Call['Value'])) {
+            F::Log('Empty Value', LOG_DEBUG);
         } else {
-            return false;
+            preg_match_all('@' . $Call['Pattern'] . '@Ssu', $Call['Value'], $Pockets);
         }
+
+        return $Pockets;
     });
 
