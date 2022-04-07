@@ -1,0 +1,85 @@
+{
+    "Storages":
+    {
+        "Developer":
+        {
+            "Driver":"IO.Log.STDERR",
+            "Scope": "developer",
+            "Log":
+            {
+                "ConvertTimestampsToAbsolute": true,
+                "RemoveNewlines": true
+            }
+        },
+        "Performance":
+        {
+            "Driver":"IO.Log.STDERR",
+            "Scope": "performance",
+            "Log":
+            {
+                "ConvertTimestampsToAbsolute": true,
+                "RemoveNewlines": true
+            }
+        },
+        "Security":
+        {
+            "Driver":"IO.Log.STDERR",
+            "Scope": "security",
+            "Log":
+            {
+                "ConvertTimestampsToAbsolute": true,
+                "RemoveNewlines": true
+            }
+        },
+        "Administrator":
+        {
+            "Driver":"IO.Log.STDERR",
+            "Scope": "administrator",
+            "Log":
+            {
+                "ConvertTimestampsToAbsolute": true,
+                "RemoveNewlines": true
+            }
+        },
+        "Marketing":
+        {
+            "Driver":"IO.Log.STDERR",
+            "Scope": "marketing",
+            "Log":
+            {
+                "ConvertTimestampsToAbsolute": true,
+                "RemoveNewlines": true
+            }
+        },
+        "Management":
+        {
+            "Driver":"IO.Log.STDERR",
+            "Scope": "management",
+            "Log":
+            {
+                "ConvertTimestampsToAbsolute": true,
+                "RemoveNewlines": true
+            }
+        },
+        "Metric":
+        {
+            "Driver":"IO.Log.STDERR",
+            "Scope": "metric",
+            "Log":
+            {
+                "ConvertTimestampsToAbsolute": true,
+                "RemoveNewlines": true
+            }
+        },
+        "Access":
+        {
+            "Driver":"IO.Log.STDERR",
+            "Scope": "access",
+            "Log":
+            {
+                "ConvertTimestampsToAbsolute": true,
+                "RemoveNewlines": true
+            }
+        }
+    }
+}
