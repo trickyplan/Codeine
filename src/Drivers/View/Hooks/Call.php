@@ -75,22 +75,25 @@
             $Call[$Call['Value Key']] = str_replace($Call['Parsed'][0], $Call['Parsed'][1], $Call[$Call['Value Key']]);
         }
 
-        if (preg_match_all('@<call/>@SsUu', $Call[$Call['Value Key']], $Pockets)) {
-            $Call[$Call['Value Key']] = str_replace(
-                $Call['Parsed'][0],
-                '<pre>'
-                . htmlentities(
-                    j(
-                        $Call,
-                        JSON_PRETTY_PRINT
-                        | JSON_UNESCAPED_UNICODE
-                        | JSON_UNESCAPED_SLASHES
+        if (empty($Call[$Call['Value Key']]))
+            ;
+        else
+            if (preg_match_all('@<call/>@SsUu', $Call[$Call['Value Key']], $Pockets)) {
+                $Call[$Call['Value Key']] = str_replace(
+                    $Call['Parsed'][0],
+                    '<pre>'
+                    . htmlentities(
+                        j(
+                            $Call,
+                            JSON_PRETTY_PRINT
+                            | JSON_UNESCAPED_UNICODE
+                            | JSON_UNESCAPED_SLASHES
+                        )
                     )
-                )
-                . '</pre>',
-                $Call[$Call['Value Key']]
-            );
-        }
+                    . '</pre>',
+                    $Call[$Call['Value Key']]
+                );
+            }
 
         return $Call;
     });
