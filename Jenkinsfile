@@ -1410,7 +1410,7 @@
     def ppl_publish_to_local_satis ()
     {
         sh "cp published/${env.JOB_NAME}-${version}+${build}.tar.gz /satis/artifacts/"
-        sh "docker exec -it sdlc-satis-registry sdlc-satis-build"
+        sh "docker exec sdlc-satis-registry sdlc-satis-build"
     }
 
     def ppl_publish_composer_to_artifactory ()
