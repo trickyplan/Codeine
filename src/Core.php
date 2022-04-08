@@ -172,7 +172,12 @@
             self::Log('PHP *' . PHP_SAPI . '* *' . phpversion() . '*', LOG_INFO);
             self::Log('PHP Extensions: *' . implode(',', get_loaded_extensions()) . '*', LOG_INFO);
 
-            $Call['Version'] = self::loadOptions('Version');
+            $ComposerFile = jd(file_get_contents(realpath(__DIR__.'/../').'/composer.json'));
+
+            if (isset($ComposerFile['version']))
+                $Call['Version']['Codeine'] = $ComposerFile['version'];
+            else
+                $Call['Version']['Codeine'] = 'Live';
 
             self::Log('Codeine Version: *' . $Call['Version']['Codeine'] . '*', LOG_INFO);
 
