@@ -8,6 +8,7 @@
             PHP_VERSION = "8.1"
             DOCKER_REGISTRY_HOST = "https://registry.trickyplan.com"
             DOCKER_REGISTRY_PORT = 443
+            DOCKER_REGISTRY_CREDENTIALS   = "sdlc-docker-registry"
             REMOTE_REPOSITORY = "git@src.trickyplan.com:Codeine/Codeine.git"
             REMOTE_BRANCH = "master"
             LOCAL_DIRECTORY = "/src/codeine"
@@ -83,12 +84,6 @@
                 {
                     sh 'whoami'
                     sh "update-alternatives --set php /usr/bin/php${env.PHP_VERSION}"
-                }
-            }
-            stage ('Prepare filesystem')
-            {
-                steps
-                {
                     sh 'mkdir dist published reports reports/lint reports/analyze reports/tests reports/docs'
                 }
             }
@@ -611,7 +606,8 @@
                             script
                             {
                                 version = ppl_determine_version()
-                                currentBuild.displayName = version
+                                build = ppl_determine_build()
+                                currentBuild.displayName = version + '+' + build
                             }
                         }
                     }
@@ -622,7 +618,7 @@
                         }
                         steps
                         {
-                            sh "/tools/stamp-version-composer ${version}"
+                            sh "/tools/stamp-version-composer ${version}+${build}"
                         }
                     }
                     stage ('Stamp Version to Package.json')
@@ -632,7 +628,7 @@
                         }
                         steps
                         {
-                            sh "/tools/stamp-version-npm ${version}"
+                            sh "/tools/stamp-version-npm ${version}+${build}"
                         }
                     }
                     stage ('Generate Changelog')
@@ -721,7 +717,7 @@
             {
                 parallel
                 {
-                    stage ('Publish to Satis')
+                    stage ('Publish to Local Satis')
                     {
                         when {
                             environment name: 'PROJECT_HAS_COMPOSER', value: "On"
@@ -731,11 +727,11 @@
                         {
                             script
                             {
-                                ppl_publish_satis ()
+                                ppl_publish_to_local_satis ()
                             }
                         }
                     }
-                    stage ('Publish to Artifactory')
+                    stage ('Publish NPM to Artifactory')
                     {
                         when {
                             environment name: 'PROJECT_HAS_NPM', value: "On"
@@ -744,11 +740,24 @@
                         {
                             script
                             {
-                                ppl_publish_npm ()
+                                ppl_publish_npm_to_artifactory ()
                             }
                         }
                     }
-                    stage ('Generate Docker Image')
+                    stage ('Publish Composer to Artifactory')
+                    {
+                        when {
+                            environment name: 'PROJECT_HAS_COMPOSER', value: "On"
+                        }
+                        steps
+                        {
+                            script
+                            {
+                                ppl_publish_composer_to_artifactory ()
+                            }
+                        }
+                    }
+                    stage ('Generate Docker Images')
                     {
                         when {
                             environment name: 'PROJECT_HAS_DOCKER', value: "On"
@@ -757,7 +766,7 @@
                         {
                             script
                             {
-                                ppl_docker_build()
+                                ppl_docker_build("${env.JOB_NAME}-app")
                             }
                         }
                     }
@@ -1357,10 +1366,12 @@
 
     def ppl_determine_version ()
     {
-        def version = sh(returnStdout: true, script: 'git describe --tags --abbrev=0').trim()
-        version += ".${env.BUILD_NUMBER}"
+        return sh(returnStdout: true, script: 'git describe --tags --abbrev=0').trim()
+    }
 
-        return version
+    def ppl_determine_build ()
+    {
+        return sh(returnStdout: true, script: 'date +%y%j%H%M').trim() + ".${env.BUILD_NUMBER}"
     }
 
     def ppl_changelog_generate ()
@@ -1368,18 +1379,19 @@
         echo "TODO"
     }
 
-    def ppl_docker_build ()
+    def ppl_docker_build (image)
     {
         try {
-            docker.withRegistry("${env.DOCKER_REGISTRY_HOST}:${env.DOCKER_REGISTRY_PORT}") {
-                dockerImage = docker.build("${env.JOB_NAME}:${version}")
+            docker.withRegistry("${env.DOCKER_REGISTRY_HOST}:${env.DOCKER_REGISTRY_PORT}", "${env.DOCKER_REGISTRY_CREDENTIALS}") {
+                dockerImage = docker.build(image + ":${version}")
                 dockerImage.push();
                 dockerImage.push('latest');
             }
-            sh "docker save -o ./published/${env.JOB_NAME}-${version}.docker.tar ${env.JOB_NAME}:${version}"
-            sh "pigz ./published/${env.JOB_NAME}-${version}.docker.tar"
+            // sh "docker save -o ./published/${env.JOB_NAME}-${version}.docker.tar ${env.JOB_NAME}:${version}"
+            // sh "pigz ./published/${env.JOB_NAME}-${version}.docker.tar"
         }
         catch (err) {
+            echo 'Exception occurred: ' + err.toString()
             unstable(message: "${STAGE_NAME} is unstable")
             fu_score+=50;
         }
@@ -1387,21 +1399,25 @@
 
     def ppl_pack_tarball ()
     {
-        sh "tar czf ./published/${env.JOB_NAME}-${version}.tar.gz dist"
+        sh "tar czf ./published/${env.JOB_NAME}-${version}+${build}.tar.gz dist"
     }
 
     def ppl_pack_phar ()
     {
-        sh "/tools/make-phar"
-        sh "mv ${env.JOB_NAME}.phar ./published/${env.JOB_NAME}-${version}.phar"
+        sh "/tools/make-phar ${version}+${build}"
     }
 
-    def ppl_publish_satis ()
+    def ppl_publish_to_local_satis ()
     {
-        sh "cp published/${env.JOB_NAME}-${version}.tar.gz /satis/artifacts/"
+        sh "cp published/${env.JOB_NAME}-${version}+${build}.tar.gz /satis/artifacts/"
     }
 
-    def ppl_publish_npm ()
+    def ppl_publish_composer_to_artifactory ()
+    {
+        echo "TODO"
+    }
+
+    def ppl_publish_npm_to_artifactory ()
     {
         echo "TODO"
     }
