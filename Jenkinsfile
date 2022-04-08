@@ -87,6 +87,18 @@
                     sh 'mkdir dist published reports reports/lint reports/analyze reports/tests reports/docs'
                 }
             }
+            stage ('Determine Version')
+            {
+                steps
+                {
+                    script
+                    {
+                        version = ppl_determine_version()
+                        build = ppl_determine_build()
+                        currentBuild.displayName = version + '+' + build
+                    }
+                }
+            }
             stage ('Lint')
             {
                 parallel
@@ -599,18 +611,6 @@
             {
                 stages
                 {
-                    stage ('Determine Version')
-                    {
-                        steps
-                        {
-                            script
-                            {
-                                version = ppl_determine_version()
-                                build = ppl_determine_build()
-                                currentBuild.displayName = version + '+' + build
-                            }
-                        }
-                    }
                     stage ('Stamp Version to Composer.json')
                     {
                         when {
