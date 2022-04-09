@@ -162,7 +162,7 @@
     });
 
     setFn('PIDFile', function ($Call) {
-        return Root . DS . $Call['PID']['Prefix'] . $Call['PID']['Name'] . $Call['PID']['Postfix'];
+        return $Call['PID']['Prefix'] . $Call['PID']['Name'] . $Call['PID']['Postfix'];
     });
 
     setFn('Stop', function ($Call) {

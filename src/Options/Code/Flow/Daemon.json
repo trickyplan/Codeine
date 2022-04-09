@@ -19,7 +19,7 @@
     "PID":
     {
         "Name": "codeined",
-        "Prefix": "locks/",
+        "Prefix": "/var/tmp/codeine/",
         "Postfix": ".pid"
     },
     "Daemons":
