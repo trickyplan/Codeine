@@ -4,6 +4,7 @@
         "Developer":
         {
             "Driver":"IO.Log.STDERR",
+            "Format": "Formats.Log.Plain",
             "Scope": "developer",
             "Log":
             {
@@ -14,6 +15,7 @@
         "Performance":
         {
             "Driver":"IO.Log.STDERR",
+            "Format": "Formats.Log.Plain",
             "Scope": "performance",
             "Log":
             {
@@ -24,6 +26,7 @@
         "Security":
         {
             "Driver":"IO.Log.STDERR",
+            "Format": "Formats.Log.Plain",
             "Scope": "security",
             "Log":
             {
@@ -34,6 +37,7 @@
         "Administrator":
         {
             "Driver":"IO.Log.STDERR",
+            "Format": "Formats.Log.Plain",
             "Scope": "administrator",
             "Log":
             {
@@ -44,6 +48,7 @@
         "Marketing":
         {
             "Driver":"IO.Log.STDERR",
+            "Format": "Formats.Log.Plain",
             "Scope": "marketing",
             "Log":
             {
@@ -54,6 +59,7 @@
         "Management":
         {
             "Driver":"IO.Log.STDERR",
+            "Format": "Formats.Log.Plain",
             "Scope": "management",
             "Log":
             {
@@ -64,6 +70,7 @@
         "Metric":
         {
             "Driver":"IO.Log.STDERR",
+            "Format": "Formats.Log.Plain",
             "Scope": "metric",
             "Log":
             {
@@ -74,6 +81,7 @@
         "Access":
         {
             "Driver":"IO.Log.STDERR",
+            "Format": "Formats.Log.Plain",
             "Scope": "access",
             "Log":
             {
