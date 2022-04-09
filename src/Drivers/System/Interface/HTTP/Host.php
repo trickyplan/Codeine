@@ -20,19 +20,19 @@
     });
 
     setFn('Determine.Proto', function ($Call) {
-        $Secure = false;
+        $Call['HTTP']['Secure'] = false;
 
         $Keys = ['HTTPS', 'HTTP_X_FORWARDED_PROTO', 'HTTP_X_HTTPS'];
 
         foreach ($Keys as $Key) {
             if (F::Dot($_SERVER, $Key)) {
-                $Secure = true;
+                $Call['HTTP']['Secure'] = true;
                 F::Log('HTTPS is *On* (' . $Key . ')', LOG_INFO);
                 break;
             }
         }
 
-        $Call['HTTP']['Proto'] = $Secure ? 'https://' : 'http://';
+        $Call['HTTP']['Proto'] = $Call['HTTP']['Secure'] ? 'https://' : 'http://';
 
         return $Call;
     });
@@ -41,7 +41,12 @@
     {
         $Port = 0;
 
-        if (isset($_SERVER['CODEINE_HTTP_PORT']))
+        if (F::Dot($Call, 'HTTP.Secure') && isset($_SERVER['CODEINE_HTTPS_PORT']))
+        {
+            $Port = $_SERVER['CODEINE_HTTPS_PORT'];
+            F::Log('Port: *'.$Port.'* (via CODEINE_HTTPS_PORT)', LOG_INFO);
+        }
+        elseif (isset($_SERVER['CODEINE_HTTP_PORT']))
         {
             $Port = $_SERVER['CODEINE_HTTP_PORT'];
             F::Log('Port: *'.$Port.'* (via CODEINE_HTTP_PORT)', LOG_INFO);
