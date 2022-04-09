@@ -86,17 +86,18 @@
         }
 
         $Call['HTTP']['Host'] = $Host;
+        $Call['HTTP']['Domain'] = $Host;
 
         return $Call;
     });
 
     setFn('Generate.FQDN', function ($Call) {
         $Call['HTTP']['FQDN'] = $Call['HTTP']['Proto'] . $Call['HTTP']['Host'];
-        if ($Call['HTTP']['Proto'] === 'http' && $Call['HTTP']['Port'] != 80) {
+        if (!$Call['HTTP']['Secure'] && $Call['HTTP']['Port'] != 80) {
             $Call['HTTP']['FQDN'] .= ':' . $Call['HTTP']['Port'];
         }
 
-        if ($Call['HTTP']['Proto'] === 'https' && $Call['HTTP']['Port'] != 443) {
+        if ($Call['HTTP']['Secure'] && $Call['HTTP']['Port'] != 443) {
             $Call['HTTP']['FQDN'] .= ':' . $Call['HTTP']['Port'];
         }
         F::Log('FQDN: *'.$Call['HTTP']['FQDN'].'*', LOG_INFO);
