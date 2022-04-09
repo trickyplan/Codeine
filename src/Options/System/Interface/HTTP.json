@@ -69,10 +69,6 @@
                 "Service": "System.Interface.HTTP.Locale",
                 "Method": "Detect"
             },
-            "Protocol":
-            {
-                "Service": "System.Interface.HTTP.Protocol"
-            },
             "IP":
             {
                 "Service": "System.Interface.HTTP.IP"

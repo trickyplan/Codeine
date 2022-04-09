@@ -6,8 +6,6 @@ Join:
 Description:
   Short: Short description goes here
   Full: Full description goes here
-Hosts:
-  Development: codeine.localhost
 Currency: RUR
 Audience:
   suggestedGender: ""
