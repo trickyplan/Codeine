@@ -9,10 +9,12 @@
 
     setFn('Parse', function ($Call) {
         foreach ($Call['Parsed']['Value'] as $IX => $Match) {
-            if (F::Dot($Call, 'View.HTML.Parslet.Cut.StripTags.Enabled') or F::Dot(
+            if (
+                F::Dot($Call, 'View.HTML.Parslet.Cut.StripTags.Enabled') or F::Dot(
                     $Call['Parsed'],
                     'Options.' . $IX . '.strip'
-                )) {
+                )
+            ) {
                 $Original = strip_tags($Match, F::Dot($Call, 'View.HTML.Parslet.Cut.StripTags.Allowed'));
             } else {
                 $Original = $Match;

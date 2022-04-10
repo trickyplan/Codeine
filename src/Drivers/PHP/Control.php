@@ -17,7 +17,6 @@
         $Version = PHP_VERSION_ID;
 
         if (($Tilda = mb_strpos($Version, '~')) === false) {
-            ;
         } else {
             $Version = mb_substr($Version, $Tilda);
         }

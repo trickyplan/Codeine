@@ -32,7 +32,6 @@
 
         foreach ($Call['Robots']['Crawlers'] as $Rule) {
             if (isset($Crawlers[$Rule['User Agent']])) {
-                ;
             } else {
                 $Crawlers[$Rule['User Agent']] = [];
             }
@@ -58,7 +57,6 @@
         $Sitemaps = F::Run('SEO.Sitemap', 'List.Sitemaps.RobotsTxt', $Call);
 
         if (empty($Sitemaps)) {
-            ;
         } else {
             foreach ($Sitemaps as $Sitemap) {
                 $Call['Robots']['Directives'][] = 'Sitemap: ' . $Sitemap;

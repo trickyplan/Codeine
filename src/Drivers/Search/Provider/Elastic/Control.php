@@ -96,7 +96,6 @@
             );
 
             if ($Stats[0] === null) {
-                ;
             } else {
                 $OnlineHosts++;
             }

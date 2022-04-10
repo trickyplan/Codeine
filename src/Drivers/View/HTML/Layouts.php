@@ -18,8 +18,7 @@
                 ]
             );
 
-            foreach ($Call['Layouts'] as $Layout) // FIXME I'm fat
-            {
+            foreach ($Call['Layouts'] as $Layout) { // FIXME I'm fat
                 if (($Sublayout = F::Run('View', 'Load', $Call, $Layout)) !== null) {
                     if (str_contains($Call['Layout'], '<place>Content</place>')) {
                         $Call['Layout'] = preg_replace('/<place>Content<\/place>/', $Sublayout, $Call['Layout']);

@@ -8,7 +8,9 @@
      */
 
     setFn('Check', function ($Call) {
-        $Filters = F::Run('IO', 'Read',
+        $Filters = F::Run(
+            'IO',
+            'Read',
             [
                 'Storage' => 'Web',
                 'Format' => 'Formats.JSON',

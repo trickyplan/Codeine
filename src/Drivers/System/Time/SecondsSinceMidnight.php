@@ -8,6 +8,6 @@
      */
 
     setFn('Get', function ($Call) {
-        $DayStart = new DateTime ('midnight today');
+        $DayStart = new DateTime('midnight today');
         return time() - $DayStart->getTimestamp();
     });

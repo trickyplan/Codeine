@@ -8,7 +8,9 @@
      */
 
     setFn('Do', function ($Call) {
-        $Message = F::Run('Entity', 'Read',
+        $Message = F::Run(
+            'Entity',
+            'Read',
             [
                 'Entity' => 'Message',
                 'One' => true,

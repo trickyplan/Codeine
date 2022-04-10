@@ -137,8 +137,7 @@
                     $Relation = '=';
 
                     if (is_array($Value)) {
-                        foreach ($Value as $Relation => &$lValue) // FIXME!
-                        {
+                        foreach ($Value as $Relation => &$lValue) { // FIXME!
                             if (!empty($lValue)) {
                                 if (is_array($lValue) & !empty($lValue)) {
                                     $lValue = '(' . implode(',', $lValue) . ')';

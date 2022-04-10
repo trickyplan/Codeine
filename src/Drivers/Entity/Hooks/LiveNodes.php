@@ -32,7 +32,8 @@
                             );
                         }
 
-                        if (isset($Node['User Override'])
+                        if (
+                            isset($Node['User Override'])
                             && $Node['User Override']
                             && null != (F::Dot($Call['Data'], $Name))
                         ) {

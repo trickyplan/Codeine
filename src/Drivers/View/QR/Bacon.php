@@ -13,8 +13,7 @@
     use BaconQrCode\Writer;
 
     setFn('Encode', function ($Call) {
-        $Renderer = new ImageRenderer
-        (
+        $Renderer = new ImageRenderer(
             new RendererStyle($Call['QR']['Size']),
             new SvgImageBackEnd()
         );

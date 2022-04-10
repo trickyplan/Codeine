@@ -27,9 +27,11 @@
         } else {
             $Map = F::Dot($Call, 'System.GeoIP.IP-API.Map');
 
-            foreach ($Map as $ForeignKey => $NativeKey)
-                if (isset($Response[$ForeignKey]))
+            foreach ($Map as $ForeignKey => $NativeKey) {
+                if (isset($Response[$ForeignKey])) {
                     $Unified = F::Dot($Unified, $NativeKey, $Response[$ForeignKey]);
+                }
+            }
         }
 
         return $Unified;

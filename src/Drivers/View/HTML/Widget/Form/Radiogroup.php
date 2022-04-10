@@ -27,7 +27,9 @@
                 $Value = $Key;
             }
 
-            $Call['Radios'] .= F::Run('View', 'Load',
+            $Call['Radios'] .= F::Run(
+                'View',
+                'Load',
                 [
                     'Scope' => $Call['View']['HTML']['Widget Set'] . '/Widgets',
                     'ID' => 'Form/Radio',

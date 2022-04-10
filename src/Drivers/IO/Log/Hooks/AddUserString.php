@@ -13,7 +13,6 @@
                 $Log['User String'] = posix_getpwuid(posix_getuid())['name'] . ' from CLI ';
 
                 if (empty($SSH = shell_exec('echo $SSH_CLIENT'))) {
-                    ;
                 } else {
                     $Log['User String'] .= 'SSH from: ' . $SSH;
                 }

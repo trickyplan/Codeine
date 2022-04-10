@@ -14,10 +14,12 @@
             $Code = '';
             $ID = F::Dot($Call, 'TagManager.Google.ID');
 
-            if (F::Dot($Call, 'TagManager.Google.URLs.Disabled') !== null && in_array(
+            if (
+                F::Dot($Call, 'TagManager.Google.URLs.Disabled') !== null && in_array(
                     $Call['HTTP']['URL'],
                     F::Dot($Call, 'TagManager.Google.URLs.Disabled')
-                )) {
+                )
+            ) {
                 $Message = 'Google.TagManager *' . $ID . '* Suppressed by *URLs*';
                 $Code = '<!-- ' . $Message . ' -->';
                 F::Log($Message, LOG_INFO, 'Marketing');
@@ -61,10 +63,12 @@
             $ID = F::Dot($Call, 'TagManager.Google.ID');
             $Code = '';
 
-            if (F::Dot($Call, 'TagManager.Google.URLs.Disabled') !== null && in_array(
+            if (
+                F::Dot($Call, 'TagManager.Google.URLs.Disabled') !== null && in_array(
                     $Call['HTTP']['URL'],
                     F::Dot($Call, 'TagManager.Google.URLs.Disabled')
-                )) {
+                )
+            ) {
                 $Message = 'Google.TagManager *' . $ID . '* Suppressed by *URLs*';
                 $Code = '<!-- ' . $Message . ' -->';
                 F::Log($Message, LOG_INFO, 'Marketing');

@@ -52,7 +52,6 @@
 
             // Different logic from IO One
             if ($Call['Value'] === null) {
-                ;
             } else {
                 $Call['Value'] = array_shift($Call['Value']);
             }

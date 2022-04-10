@@ -18,7 +18,8 @@
                     if (is_array($Matched)) {
                         $Rows = [];
 
-                        F::Map($Matched,
+                        F::Map(
+                            $Matched,
                             function ($Key, $Value, $Data, $NewFullKey, $Array) use (&$Rows) {
                                 if (!is_array($Value)) {
                                     $Rows[] = [substr($NewFullKey, 1), $Value];

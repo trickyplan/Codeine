@@ -42,7 +42,7 @@
                 } else {
                     $Call['Output']['Content'][] =
                         '<option value="' . $Location['Slug'] . '"><a href="' . $Location['Slug'] . '">' . $Location['Title'] . '</a></option>';
-                };
+                }
             }
         }
 

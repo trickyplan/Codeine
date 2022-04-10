@@ -23,7 +23,6 @@
             $Call['Routing']['URL'] = $Call['Run'];
             foreach ($Call['Regex'] as &$Rule) {
                 if (isset($Rule['Weight'])) {
-                    ;
                 } else {
                     $Rule['Weight'] = 0;
                 }

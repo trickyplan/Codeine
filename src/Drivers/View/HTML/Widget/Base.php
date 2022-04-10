@@ -14,7 +14,6 @@
                     $Call[$Attribute] = F::Live($Call[$Attribute], $Call);
 
                     if (empty($Call[$Attribute])) {
-                        ;
                     } else {
                         if (is_array($Call[$Attribute])) {
                             $Call[$Attribute] = implode(' ', F::Merge($DefaultValue, $Call[$Attribute]));
@@ -24,7 +23,6 @@
                     }
                 } else {
                     if (empty($DefaultValue)) {
-                        ;
                     } else {
                         if (is_array($DefaultValue)) {
                             $DefaultValue = implode(' ', $DefaultValue);
@@ -42,7 +40,6 @@
                     $Call[$Attribute] = F::Live($Call[$Attribute], $Call);
 
                     if (empty(F::Dot($Call, $Attribute))) {
-                        ;
                     } else {
                         $Attributes[] = strtolower($Attribute);
                     }

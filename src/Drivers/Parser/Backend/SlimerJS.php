@@ -9,7 +9,6 @@
 
     setFn('Run', function ($Call) {
         if (isset($Call['Script'])) {
-            ;
         } else {
             $Call['Script'] = '';
         }

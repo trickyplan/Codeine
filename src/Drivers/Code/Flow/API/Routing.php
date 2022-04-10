@@ -8,11 +8,13 @@
      */
 
     setFn('beforeAPIRun', function ($Call) {
-        if (preg_match(
-            '@/api/(?P<Version>.+)/(?P<Format>.+)/(?P<Service>.+)/(?P<Method>.+)@Ssu',
-            $Call['HTTP']['URL'],
-            $Pockets
-        )) {
+        if (
+            preg_match(
+                '@/api/(?P<Version>.+)/(?P<Format>.+)/(?P<Service>.+)/(?P<Method>.+)@Ssu',
+                $Call['HTTP']['URL'],
+                $Pockets
+            )
+        ) {
             $Call['API']['Request']['ID'] = RequestID;
             $Call['API']['Request']['Format'] = $Pockets['Format'];
             $Call['API']['Request']['Version'] = $Pockets['Version'];

@@ -47,12 +47,10 @@
                 ]
             );
 
-            if ($Envelope === null) // No cached result
-            {
+            if ($Envelope === null) { // No cached result
                 F::Log('Cache *miss* for ' . $cHash . '(' . $jHash . ')', LOG_NOTICE, 'Performance');
             } else {
-                if (F::Dot($Envelope, 'Time') + F::Dot($Call, 'Behaviours.Cached.TTL') > $Time) // Not expired
-                {
+                if (F::Dot($Envelope, 'Time') + F::Dot($Call, 'Behaviours.Cached.TTL') > $Time) { // Not expired
                     $Result = F::Dot($Envelope, 'Result');
                     $Run = false; // Hit
                     F::Log('Cache *hit* for ' . $cHash . '(' . $jHash . ')', LOG_NOTICE, 'Performance');

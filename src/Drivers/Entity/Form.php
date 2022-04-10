@@ -11,7 +11,6 @@
         $IC = 0;
 
         if (isset($Call['Data'])) {
-            ;
         } else {
             $Call['Data'] = [];
         }
@@ -33,30 +32,28 @@
             $IC++;
             $Widget = null;
 
-            if (isset($Call['Only Required']) &&
-                $Call['Only Required'] == true && (!isset($Node['Required']) or !$Node['Required'])) {
+            if (
+                isset($Call['Only Required']) &&
+                $Call['Only Required'] == true && (!isset($Node['Required']) or !$Node['Required'])
+            ) {
                 continue;
             }
 
             if (isset($Node['Widgets'])) {
-                if (isset($Node['Widgets'][$Call['Purpose']])) // Для нашего случая
-                {
+                if (isset($Node['Widgets'][$Call['Purpose']])) { // Для нашего случая
                     $Widget = $Node['Widgets'][$Call['Purpose']];
-                } elseif (isset($Node['Widgets']['Write'])) // Для записи как таковой
-                {
+                } elseif (isset($Node['Widgets']['Write'])) { // Для записи как таковой
                     $Widget = $Node['Widgets']['Write'];
                 }
 
                 if (isset($Call['OnlyTag'])) {
                     if (isset($Node['Scope'])) {
-                        ;
                     } else {
                         F::Log('Widget for *' . $Name . '* skipped (scope not set)', LOG_DEBUG);
                         continue;
                     }
 
                     if (in_array($Node['Scope'], $Call['OnlyTag'])) {
-                        ;
                     } else {
                         F::Log(
                             'Widget for *' . $Name . '* skipped (scope ' .

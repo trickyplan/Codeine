@@ -16,4 +16,3 @@
 
         return $Call['Decision'];
     });
-

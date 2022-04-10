@@ -16,7 +16,6 @@
                 $OldHeight = $Imagick->getImageHeight();
 
                 if (isset($Call['Current Image']['Height'])) {
-                    ;
                 } else {
                     $Call['Current Image']['Height'] = round(
                         $OldHeight * ($Call['Current Image']['Width'] / $OldWidth)
@@ -24,20 +23,20 @@
                 }
 
                 if (isset($Call['Current Image']['Width'])) {
-                    ;
                 } else {
                     $Call['Current Image']['Width'] = round(
                         $OldWidth * ($Call['Current Image']['Height'] / $OldHeight)
                     );
                 }
 
-                if ($Result = $Imagick->resizeImage(
-                    $Call['Current Image']['Width'],
-                    $Call['Current Image']['Height'],
-                    Imagick::FILTER_BESSEL,
-                    0.5
-                )) {
-                    ;
+                if (
+                    $Result = $Imagick->resizeImage(
+                        $Call['Current Image']['Width'],
+                        $Call['Current Image']['Height'],
+                        Imagick::FILTER_BESSEL,
+                        0.5
+                    )
+                ) {
                 } else {
                     F::Log('Imagemagick: ' . $Result, LOG_ERR);
                 }

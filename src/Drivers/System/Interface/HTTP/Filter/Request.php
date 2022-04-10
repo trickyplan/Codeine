@@ -13,7 +13,6 @@
                 foreach ($Filter['Match'] as $Match) {
                     if (F::Diff($Match, $Call['Request']) === null) {
                         if ($Filter['Decision']) {
-                            ;
                         } else {
                             F::Log('HTTP Request Filter *' . $FilterName . '* matched', LOG_NOTICE, 'Security');
                             return false;

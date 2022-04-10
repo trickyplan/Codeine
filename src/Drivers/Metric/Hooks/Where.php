@@ -2,7 +2,6 @@
 
     setFn('Do', function ($Call) {
         if (isset($Call['Metric']['Where'])) {
-            ;
         } else {
             $Call['Metric']['Where'] = [];
         }

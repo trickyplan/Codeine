@@ -18,7 +18,7 @@
             $Output .= $Chars[array_rand($Chars)];
         }
 
-        if (isset($Call['Case']))
+        if (isset($Call['Case'])) {
             switch ($Call['Case']) {
                 case 'Lower':
                     $Output = strtolower($Output);
@@ -28,6 +28,7 @@
                     $Output = strtoupper($Output);
                     break;
             }
+        }
 
         return $Output;
     });

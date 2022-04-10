@@ -31,7 +31,6 @@
             );
 
             if (empty($Tokens)) {
-                ;
             } else {
                 $Tokens = array_shift($Tokens);
             }
@@ -44,7 +43,8 @@
 
             ksort($Tokens);
 
-            if (null !== F::Run(
+            if (
+                null !== F::Run(
                     'IO',
                     'Write',
                     [
@@ -53,7 +53,8 @@
                         'Where' => $ID,
                         'Data' => $Tokens
                     ]
-                )) {
+                )
+            ) {
                 $Call['Output']['Content'] = true;
             } else {
                 $Call['Output']['Content'] = false;

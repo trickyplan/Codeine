@@ -35,7 +35,9 @@
         }
 
         if (isset($Call['Project']['License'])) {
-            $Call['License'] = F::Run('IO', 'Read',
+            $Call['License'] = F::Run(
+                'IO',
+                'Read',
                 [
                     'Storage' => 'Web',
                     'Format' => 'Formats.JSON',

@@ -156,7 +156,8 @@
                 $Iterator = new RecursiveIteratorIterator($Directory);
                 $Regex = new RegexIterator(
                     $Iterator,
-                    '@Tests/(.+).json$@', RecursiveRegexIterator::GET_MATCH
+                    '@Tests/(.+).json$@',
+                    RecursiveRegexIterator::GET_MATCH
                 );
 
                 $Found = iterator_to_array($Regex);

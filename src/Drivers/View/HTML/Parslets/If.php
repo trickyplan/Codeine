@@ -12,14 +12,12 @@
             $Decision = false;
 
             if (empty($Call['Parsed']['Options'][$IX])) {
-                ;
             } else {
                 $Value = null;
 
                 $Variable = (string)F::Dot($Call['Parsed'], 'Options.' . $IX . '.variable');
 
                 if (empty($Variable)) {
-                    ;
                 } else {
                     $Value = F::Dot($Call, $Variable);
                 }
@@ -27,7 +25,6 @@
                 if (empty($Value)) {
                     $Key = (string)F::Dot($Call['Parsed'], 'Options.' . $IX . '.key');
                     if (empty($Key)) {
-                        ;
                     } else {
                         $Value = F::Dot($Call['Data'], $Key);
                     }

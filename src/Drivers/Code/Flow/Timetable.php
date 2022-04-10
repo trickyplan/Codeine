@@ -36,18 +36,16 @@
             foreach ($Components as $Component) {
                 if (isset($Rule[$Component])) {
                     if (is_array($Rule[$Component])) {
-                        ;
                     } else {
                         $Rule[$Component] = (array)$Rule[$Component];
                     }
 
                     if (in_array($Time[$Component], $Rule[$Component])) {
-                        ;
                     } else {
                         $Decision = false;
                     }
                 }
-            };
+            }
 
             if ($Decision) {
                 F::Log('Timetable Rule applied ' . $Name, LOG_INFO);

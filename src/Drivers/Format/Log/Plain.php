@@ -12,7 +12,8 @@
 
         if (!empty($Call['Data'])) {
             foreach ($Call['Data'] as $IX => $Row) {
-                $Output[] = implode("\t",
+                $Output[] = implode(
+                    "\t",
                     [
                         '[' . RequestID . ']',
                         'V' . ceil($Row['V']),

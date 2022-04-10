@@ -15,7 +15,6 @@
         $Call['Value'] = base64_decode(strtr($Call['Value'], '-_~', '+/='));
 
         if ($Call['Value'] === false) {
-            ;
         } else {
             $SaltLength = mb_strlen($Call['BASE64URLSafe']['Salt']);
             $TextLength = mb_strlen($Call['Value']);

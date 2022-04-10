@@ -9,7 +9,6 @@
 
     setFn('Write', function ($Call) {
         if (is_array($Call['Value'])) {
-            ;
         } else {
             $Call['Value'] = explode(PHP_EOL, $Call['Value']);
         }

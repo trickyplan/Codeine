@@ -9,7 +9,6 @@
 
     setFn('Write', function ($Call) {
         if (F::Dot($Call, 'View.Renderer.Service') == 'View.HTML' && empty($Call['Context'])) {
-            ;
         } else {
             return null;
         }

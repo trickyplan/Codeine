@@ -15,7 +15,7 @@
         $Value = $Call['Value'];
 
         return array_reduce(str_split($Value), function ($Encrypted, $Letter) use ($Key) {
-            $Encrypted .= sprintf("%02x", ord($Letter) ^ intval($Key));
+            $Encrypted .= sprintf('%02x', ord($Letter) ^ intval($Key));
             return $Encrypted;
         }, '');
     });

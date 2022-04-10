@@ -8,7 +8,9 @@
      */
 
     setFn('Get', function ($Call) {
-        return F::Run('IO', 'Read',
+        return F::Run(
+            'IO',
+            'Read',
             [
                 'Storage' => 'Web',
                 'Where' => $Call['UAS']['Host'],

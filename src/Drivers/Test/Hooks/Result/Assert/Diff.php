@@ -17,8 +17,7 @@
             F::Log(
                 j(F::Dot($Call, 'Test.Case.Result.Actual'))
                 . ' is too different from '
-                . j(F::Dot($Call, 'Test.Case.Result.Diff.Expected'))
-                ,
+                . j(F::Dot($Call, 'Test.Case.Result.Diff.Expected')),
                 LOG_WARNING,
                 'Developer'
             );

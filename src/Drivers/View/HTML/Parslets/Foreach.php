@@ -33,7 +33,6 @@
                     $Value = F::Live(F::Dot($Call['Data'], $CMatch));
 
                     if ($Value === null) {
-                        ;
                     } else {
                         break;
                     }
@@ -53,7 +52,6 @@
                     $Value = F::Live(F::Dot($Call, $CMatch)); // FIXME?
 
                     if ($Value === null) {
-                        ;
                     } else {
                         break;
                     }
@@ -64,7 +62,6 @@
                 $IC = 0;
                 foreach ($Value as $CKey => $CValue) {
                     if (in_array($CKey, $Except)) {
-                        ;
                     } else {
                         $Replace = ['<fe-key/>' => $CKey];
 

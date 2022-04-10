@@ -105,7 +105,6 @@
                                     sort($DotMatched);
                                     foreach ($DotMatched as $ICV => $cData) {
                                         if (is_array($Key)) {
-                                            ;
                                         } else {
                                             if (is_array($cData)) {
                                                 $cData = '{}';

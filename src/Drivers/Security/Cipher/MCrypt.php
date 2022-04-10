@@ -32,7 +32,6 @@
         $Call = F::Hook('beforeEncode', $Call);
 
         if (isset($Call['IV'])) {
-            ;
         } else {
             $Call['IV'] = mcrypt_create_iv($Call['IV Size'], MCRYPT_DEV_URANDOM);
         }
@@ -57,7 +56,6 @@
         $Call = F::Hook('beforeDecode', $Call);
 
         if (isset($Call['IV'])) {
-            ;
         } else {
             $Call['IV'] = substr($Call['Ciphertext'], 0, $Call['IV Size']);
         }
@@ -65,14 +63,10 @@
         $Call['Ciphertext'] = substr($Call['Ciphertext'], $Call['IV Size']);
 
         $Call['Opentext'] = mcrypt_decrypt(
-            $Call['Security']['Cipher']['MCrypt']['Algorithm']
-            ,
-            $Call['Key']
-            ,
-            $Call['Ciphertext']
-            ,
-            $Call['Security']['Cipher']['MCrypt']['Mode']
-            ,
+            $Call['Security']['Cipher']['MCrypt']['Algorithm'],
+            $Call['Key'],
+            $Call['Ciphertext'],
+            $Call['Security']['Cipher']['MCrypt']['Mode'],
             $Call['IV']
         );
 

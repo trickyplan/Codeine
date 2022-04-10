@@ -4,7 +4,7 @@
 
     setFn('Determine', function ($Call) {
         $Unified = [];
-        $Reader = new Reader(Root.'/src/Storage/GeoLite2-City.mmdb');
+        $Reader = new Reader(Root . '/src/Storage/GeoLite2-City.mmdb');
         $Record = $Reader->city($Call['HTTP']['IP']);
 
         $Unified['ZIP'] = $Record->postal->code;

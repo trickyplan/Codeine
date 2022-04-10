@@ -17,8 +17,10 @@
                         unset($Call['Where']['ID'][$CID]);
                     }*/
             } else {
-                if (($Call['Data'][$Call['Where']['ID']]
-                        = F::Get('GEC:' . $Call['Entity'] . ':' . $Call['Where']['ID'])) !== null) {
+                if (
+                    ($Call['Data'][$Call['Where']['ID']]
+                        = F::Get('GEC:' . $Call['Entity'] . ':' . $Call['Where']['ID'])) !== null
+                ) {
                     F::Log('GEC optimizes ' . $Call['Entity'] . ':' . $Call['Where']['ID'], LOG_NOTICE);
                     unset($Call['Where']['ID']);
                 }
@@ -34,7 +36,6 @@
 
     setFn('afterEntityRead', function ($Call) {
         if (isset($Call['Fields'])) {
-            ;
         }// Partial load, no save
         else {
             if (isset($Call['Data']['ID'])) {

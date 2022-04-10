@@ -9,7 +9,6 @@
 
     setFn('beforeEntityRead', function ($Call) {
         if (isset($Call['Fields'])) {
-            ;
         } else {
             foreach ($Call['Nodes'] as $Name => $Node) {
                 $Add = true;

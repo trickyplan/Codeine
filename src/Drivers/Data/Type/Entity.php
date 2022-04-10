@@ -25,8 +25,7 @@
         $Element = F::Run('Entity', 'Read', ['One' => true, 'Entity' => $Call['Name'], 'Where' => $Call['Value']]);
 
         // Если такой сущности нет
-        if (empty($Element)) // Смиряемся
-        {
+        if (empty($Element)) { // Смиряемся
             $Call['Value'] = null;
         } else // Трогаем связанную сущность
         {

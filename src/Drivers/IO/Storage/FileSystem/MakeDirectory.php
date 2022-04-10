@@ -31,8 +31,7 @@
                 LOG_INFO,
                 'Administrator'
             );
-            if (mkdir($DirName, 0777, true)) // Fuck PHP
-            {
+            if (mkdir($DirName, 0777, true)) { // Fuck PHP
                 F::Log(
                     'Directory ' . $DirName . ' created with mode ' . $Call['IO']['FileSystem']['Create Mode'],
                     LOG_INFO,

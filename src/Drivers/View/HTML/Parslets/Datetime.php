@@ -31,7 +31,6 @@
             $Date = F::Run('Formats.Date.' . $Engine, 'Format', $Date);
 
             if (empty($Timezone)) {
-                ;
             } else {
                 date_default_timezone_set($LastZone);
             }

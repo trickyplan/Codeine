@@ -20,7 +20,6 @@
         // FIXME Return fields later
 
         if (empty($Queries)) {
-            ;
         } else {
             $Elements = [];
 
@@ -40,7 +39,6 @@
                 );
 
                 if (empty($Loaded)) {
-                    ;
                 } else {
                     foreach ($Loaded as $Element) {
                         $Elements = F::Dot($Elements, $Entity . '.' . $Element['ID'], $Element);

@@ -34,7 +34,6 @@
                     $Matched = F::Live(F::Dot($Call['Data'], $CMatch));
 
                     if (empty($Matched)) {
-                        ;
                     } else {
                         if ((array)$Matched === $Matched) {
                             $Matched = array_shift($Matched);
@@ -56,14 +55,12 @@
             }
 
             if (is_scalar($Call['Value'])) {
-                ;
             } else {
                 $Call['Value'] = j($Call['Value']);
             }
 
             foreach ($Call['Parsed'][1] as &$Replace) {
                 if (is_scalar($Replace)) {
-                    ;
                 } else {
                     if (null === $Replace) {
                         $Replace = '';
@@ -77,7 +74,6 @@
 
             $Call['Value'] = str_replace('<k2>', '<codeine-key>', $Call['Value']); // FIXME
             $Call['Value'] = str_replace('</k2>', '</codeine-key>', $Call['Value']); // FIXME
-
         }
 
         return $Call;

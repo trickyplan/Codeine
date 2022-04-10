@@ -26,13 +26,17 @@
             $Title = strip_tags($Title);
             $SZ = mb_strlen($Title);
 
-            if (F::Dot($Call, 'View.HTML.SEO.Titles.Size.Max')
-                && $SZ > F::Dot($Call, 'View.HTML.SEO.Titles.Size.Max')) {
+            if (
+                F::Dot($Call, 'View.HTML.SEO.Titles.Size.Max')
+                && $SZ > F::Dot($Call, 'View.HTML.SEO.Titles.Size.Max')
+            ) {
                 F::Log('Title *' . $Title . '* is too long', LOG_NOTICE, 'Marketing');
             }
 
-            if (F::Dot($Call, 'View.HTML.SEO.Titles.Size.Min')
-                && $SZ < F::Dot($Call, 'View.HTML.SEO.Titles.Size.Min')) {
+            if (
+                F::Dot($Call, 'View.HTML.SEO.Titles.Size.Min')
+                && $SZ < F::Dot($Call, 'View.HTML.SEO.Titles.Size.Min')
+            ) {
                 F::Log('Title *' . $Title . '* is too short', LOG_NOTICE, 'Marketing');
             }
 
@@ -135,13 +139,17 @@
             $Description = strip_tags($Description);
             $SZ = mb_strlen($Description);
 
-            if (F::Dot($Call, 'View.HTML.SEO.Description.Size.Max')
-                && $SZ > F::Dot($Call, 'View.HTML.SEO.Description.Size.Max')) {
+            if (
+                F::Dot($Call, 'View.HTML.SEO.Description.Size.Max')
+                && $SZ > F::Dot($Call, 'View.HTML.SEO.Description.Size.Max')
+            ) {
                 F::Log('Description *' . $Description . '* is too long', LOG_NOTICE, 'Marketing');
             }
 
-            if (F::Dot($Call, 'View.HTML.SEO.Description.Size.Min')
-                && $SZ < F::Dot($Call, 'View.HTML.SEO.Description.Size.Min')) {
+            if (
+                F::Dot($Call, 'View.HTML.SEO.Description.Size.Min')
+                && $SZ < F::Dot($Call, 'View.HTML.SEO.Description.Size.Min')
+            ) {
                 F::Log('Description *' . $Description . '* is too short', LOG_NOTICE, 'Marketing');
             }
 

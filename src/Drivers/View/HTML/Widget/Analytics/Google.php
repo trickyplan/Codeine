@@ -19,10 +19,12 @@
                 $Code = '<!-- ' . $Message . ' -->';
                 F::Log($Message, LOG_INFO, 'Marketing');
             } else {
-                if (F::Dot($Call, 'Analytics.Google.URLs.Disabled') !== null && in_array(
+                if (
+                    F::Dot($Call, 'Analytics.Google.URLs.Disabled') !== null && in_array(
                         $Call['HTTP']['URL'],
                         F::Dot($Call, 'Analytics.Google.URLs.Disabled')
-                    )) {
+                    )
+                ) {
                     $Message = 'Google.Analytics *' . $Call['ID'] . '* Suppressed by *URLs*';
                     $Code = '<!-- ' . $Message . ' -->';
                     F::Log($Message, LOG_INFO, 'Marketing');

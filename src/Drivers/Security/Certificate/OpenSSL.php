@@ -9,7 +9,6 @@
             . PHP_EOL . '[alt_names]';
 
         if (is_array($Call['Certificate']['Domain'])) {
-            ;
         } else {
             $Call['Certificate']['Domain'] = (array)$Call['Certificate']['Domain'];
         }

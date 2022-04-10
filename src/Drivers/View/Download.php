@@ -13,7 +13,6 @@
         $pi = pathinfo($Call['Output']['Content']);
 
         if (isset($Call['Output']['Title'])) {
-            ;
         } else {
             $Call['Output']['Title'] = $pi['filename'];
         }

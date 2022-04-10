@@ -50,12 +50,11 @@
             $VCall = F::Run('View', 'Render', $VCall, ['Context' => 'mail']);
 
             F::Run('IO', 'Write', $VCall, [
-                    'Storage' => 'EMail',
-                    'ID' => $Call['EMail Activation']['Subject'],
-                    'Scope' => $Call['Data']['EMail'],
-                    'Data' => $VCall['Output']
-                ]
-            );
+                'Storage' => 'EMail',
+                'ID' => $Call['EMail Activation']['Subject'],
+                'Scope' => $Call['Data']['EMail'],
+                'Data' => $VCall['Output']
+            ]);
 
             return $Call['Data']['EMail'];
         } else {

@@ -19,7 +19,6 @@
         $Result = false;
 
         if (isset($Call['Link'])) {
-            ;
         } else {
             $Call['Link'] = F::Run(null, 'Open', $Call);
         }

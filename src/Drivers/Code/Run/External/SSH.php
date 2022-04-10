@@ -11,7 +11,6 @@
         $SSHLinkID = 'SSH:' . $Call['SSH']['Server']['Host'] . $Call['SSH']['Server']['Port'];
 
         if ($Call['SSH']['Server']['Link'] = F::Get($SSHLinkID)) {
-            ;
         } else {
             $Call['SSH']['Server']['Link'] = ssh2_connect(
                 $Call['SSH']['Server']['Host'],
@@ -61,7 +60,6 @@
             $Errors = stream_get_contents($ErrorStream);
 
             if (empty($Errors)) {
-                ;
             } else {
                 F::Log($Errors, LOG_ERR);
                 fclose($ErrorStream);
@@ -76,12 +74,14 @@
 
     setFn('Authenticate.KeyPair', function ($Call) {
         F::Log('Try to authenticate via private keyfile *' . Root . $Call['SSH']['KeyPair']['Private'] . '*', LOG_INFO);
-        if (ssh2_auth_pubkey_file(
-            $Call['SSH']['Server']['Link'],
-            $Call['SSH']['User'],
-            Root . $Call['SSH']['KeyPair']['Public'],
-            Root . $Call['SSH']['KeyPair']['Private']
-        )) {
+        if (
+            ssh2_auth_pubkey_file(
+                $Call['SSH']['Server']['Link'],
+                $Call['SSH']['User'],
+                Root . $Call['SSH']['KeyPair']['Public'],
+                Root . $Call['SSH']['KeyPair']['Private']
+            )
+        ) {
             F::Log('SSH authenticated as ' . $Call['SSH']['User'] . ' (via keys)', LOG_INFO);
         } else {
             F::Log('SSH authentication as ' . $Call['SSH']['User'] . ' failed (via keys)', LOG_ERR);

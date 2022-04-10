@@ -1,6 +1,5 @@
 <?php
 
-
     setFn('Open', function ($Call) {
         return $Call;
     });

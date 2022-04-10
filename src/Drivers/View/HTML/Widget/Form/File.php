@@ -23,8 +23,7 @@
                                 'To' => $Pockets[2] . 'B',
                                 'Value' => $Pockets[1]
                             ]
-                        )
-                        ,
+                        ),
                         F::Dot($Call, 'Size.Maximum.Precision')
                     ),
                     'Unit' => $Pockets[2]

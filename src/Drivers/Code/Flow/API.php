@@ -62,11 +62,9 @@
                                 ]);
 
                                 if (empty($CanOverride)) {
-                                    ;
                                 } else {
                                     foreach ($CanOverride as $Overridden) {
                                         if (($ParameterFromRequest = F::Dot($Call['Request'], $Overridden)) === null) {
-                                            ;
                                         } else {
                                             $Call = F::CopyDot(
                                                 $Call,
@@ -77,10 +75,12 @@
                                     }
                                 }
 
-                                if ($Behaviours = F::Dot(
-                                        $Call,
-                                        'API.' . $Call['API']['Request']['Service'] . '.' . $Call['API']['Request']['Method'] . '.Behaviours'
-                                    ) !== null) {
+                                if (
+                                    $Behaviours = F::Dot(
+                                            $Call,
+                                            'API.' . $Call['API']['Request']['Service'] . '.' . $Call['API']['Request']['Method'] . '.Behaviours'
+                                        ) !== null
+                                ) {
                                     $Call['API']['Request']['Call'] = F::Merge(
                                         $Call['API']['Request']['Call'],
                                         $Behaviours

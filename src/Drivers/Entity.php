@@ -53,7 +53,6 @@
         }
 
         if (isset($Call['Data'][0])) {
-            ;
         } else {
             if (isset($Call['Data'])) {
                 $Call['Data'] = [$Call['Data']];
@@ -202,7 +201,6 @@
         $Entities = F::Run('Entity', 'Read', $Call, ['One' => false, 'Time' => microtime(true) . rand()]);
 
         if (empty($Entities)) {
-            ;
         } else {
             foreach ($Entities as $Call['Current']) {
                 $VCall['Where'] = $Call['Current']['ID'];
@@ -255,7 +253,6 @@
 
     setFn('Delete', function ($Call) {
         if (isset($Call['Entity'])) {
-            ;
         } else {
             F::Log('Entity not defined.', LOG_ERR);
             return null;
@@ -293,7 +290,6 @@
 
     setFn('Count', function ($Call) {
         if (isset($Call['Entity'])) {
-            ;
         } else {
             F::Log('Entity not defined.', LOG_ERR);
             return null;
@@ -329,7 +325,6 @@
 
     setFn('Distinct', function ($Call) {
         if (isset($Call['Entity'])) {
-            ;
         } else {
             F::Log('Entity not defined.', LOG_ERR);
             return null;

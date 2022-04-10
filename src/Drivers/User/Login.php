@@ -61,7 +61,10 @@
             } else {
                 $Call = F::Apply(null, 'Set.TTL', $Call);
 
-                $Call = F::Apply('Session', 'Write', $Call,
+                $Call = F::Apply(
+                    'Session',
+                    'Write',
+                    $Call,
                     [
                         'Session Data' =>
                             [

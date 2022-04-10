@@ -58,7 +58,6 @@
         $Call['SUID'] = isset($Call['Session']['User']['ID']) ? 'U:' . $Call['Session']['User']['ID'] : 'S:' . $Call['SID'];
 
         if (isset($Call['Session'])) {
-            ;
         }// F::Log(function() use ($Call) {return $Call['Session'];}, LOG_INFO, 'Security');
         else {
             $Call['Session'] = [];
@@ -113,7 +112,6 @@
             );
 
             if ($Call['Session']['User'] == null) {
-                ;
             } //F::Run(null, 'Annulate', $Call);
             else {
                 F::Log(
@@ -134,13 +132,11 @@
 
     setFn('Write', function ($Call) {
         if (isset($Call['SID'])) {
-            ;
         } else {
             $Call = F::Apply(null, 'Mark', $Call);
         }
 
         if (isset($Call['Session'])) {
-            ;
         } else {
             $Call = F::Apply(null, 'Initialize', $Call);
         }
@@ -167,8 +163,7 @@
             $Call['Session Data'] = F::Merge($Call['Session'], $Call['Session Data']);
             $Call['Session Data']['ID'] = $Call['SID'];
 
-            if (isset($Call['Session Data']['User']['ID'])) // FIXME ASAP
-            {
+            if (isset($Call['Session Data']['User']['ID'])) { // FIXME ASAP
                 $Call['Session Data']['User'] = $Call['Session Data']['User']['ID'];
             }
 
@@ -245,7 +240,6 @@
 
     setFn('Mark', function ($Call) {
         if (isset($Call['SID'])) {
-            ;
         } else {
             $Call['SID'] = F::Live(F::Dot($Call, 'Security.Session.Generator'));
         }

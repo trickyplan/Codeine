@@ -21,7 +21,6 @@
         }
 
         if (F::Dot($Call, 'HTTP.Headers.Content-Type:')) {
-            ;
         } else {
             if (is_scalar($Call['Output'])) {
                 $finfo = new finfo(FILEINFO_MIME);

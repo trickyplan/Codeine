@@ -11,8 +11,7 @@
         if (F::Dot($Call, 'Test.Case.Result.Store')) {
             $Call = F::Dot(
                 $Call,
-                F::Dot($Call, 'Test.Case.Result.Store')
-                ,
+                F::Dot($Call, 'Test.Case.Result.Store'),
                 F::Dot($Call, 'Test.Case.Result.Actual')
             );
 

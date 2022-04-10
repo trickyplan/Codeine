@@ -8,9 +8,11 @@
      */
 
     setFn('Process', function ($Call) {
-        if (isset($Call['No Remote']['Enabled'])
+        if (
+            isset($Call['No Remote']['Enabled'])
             && $Call['No Remote']['Enabled']
-            && preg_match_all('@a href="(https?://)(.*)"@SsUu', $Call['Output'], $Links)) {
+            && preg_match_all('@a href="(https?://)(.*)"@SsUu', $Call['Output'], $Links)
+        ) {
             foreach ($Links[2] as $IX => $Link) {
                 $NoRemote = true;
 

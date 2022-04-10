@@ -11,7 +11,6 @@
         $Call['Metric'] = F::Live($Call['Metric'], $Call);
 
         if (F::Dot($Call, 'Metric.DryRun') === true) {
-            ;
         } else {
             // Add Event to Metric Queue
 
@@ -105,7 +104,6 @@
             $Call['Aggregate'] = [];
 
             if (empty($Events)) {
-                ;
             } else {
                 $DT = new DateTime();
                 foreach ($Events as $Event) {
@@ -137,7 +135,6 @@
 
                             if (isset($Event['Value'])) {
                                 if (is_numeric($Event['Value'])) {
-                                    ;
                                 } else {
                                     $Event['Value'] = 1;
                                 }
@@ -219,7 +216,6 @@
 
     setFn('Add.Front', function ($Call) {
         if (F::Dot($Call, 'Metric.DryRun')) {
-            ;
         } else {
             $Call['Event']['Type'] = F::Dot($Call, 'Request.Type');
 
@@ -230,7 +226,6 @@
                     $Call = F::Hook($Call['Event']['Type'] . '.Event.AddFront.Before', $Call);
 
                     if (empty($Call['Event']['Type'])) {
-                        ;
                     } else {
                         F::Run(
                             null,

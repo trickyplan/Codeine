@@ -17,7 +17,6 @@
         }
 
         if ($Call['Options'] === null) {
-            ;
         } else {
             if (isset($Call['Nullable']) && $Call['Nullable']) {
                 $Call['Options'][] = [null, null];
@@ -34,7 +33,6 @@
                 switch (F::Dot($Call, 'Label Mode')) {
                     case 'Localized Key':
                         if (isset($Call['Values Locale'])) {
-                            ;
                         } else {
                             $Call['Values Locale'] = $Call['Entity'] . '.Entity:' . $Call['Key'];
                         }
@@ -58,7 +56,6 @@
                         break;
 
                     default:
-                        ;
                         break;
                 }
 

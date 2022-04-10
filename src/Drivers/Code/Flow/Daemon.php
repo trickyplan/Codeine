@@ -148,7 +148,7 @@
             } //демон уже запущен
             else //pid-файл есть, но процесса нет
             {
-                if (posix_get_last_error() == 1) /* EPERM */ {
+                if (posix_get_last_error() == 1) { /* EPERM */
                     return true;
                 }
 

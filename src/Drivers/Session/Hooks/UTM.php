@@ -4,9 +4,11 @@
         F::Log('UTM Detection', LOG_DEBUG, 'Security');
 
         if (isset($Call['SID'])) {
-            if (isset($Call['Request']['utm']['source'])
+            if (
+                isset($Call['Request']['utm']['source'])
                 or isset($Call['Request']['utm']['medium'])
-                or isset($Call['Request']['utm']['campaign'])) {
+                or isset($Call['Request']['utm']['campaign'])
+            ) {
                 F::Log('UTM Detected', LOG_INFO, 'Security');
                 $Call = F::Apply('Session', 'Write', $Call);
             }

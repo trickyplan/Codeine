@@ -46,7 +46,6 @@
             }
 
             if (isset($Result['success']) && $Result['success']) {
-                ;
             } else {
                 F::Log('ReCAPTCHA Response: ' . j($Result), LOG_WARNING, ['Security', 'CAPTCHA', 'ReCAPTCHA']);
                 $Call = F::Hook('CAPTCHA.Failed', $Call);

@@ -16,7 +16,8 @@
             $Iterator = new RecursiveIteratorIterator($Directory);
             $Regex = new RegexIterator(
                 $Iterator,
-                '@(.+).php$@', RecursiveRegexIterator::GET_MATCH
+                '@(.+).php$@',
+                RecursiveRegexIterator::GET_MATCH
             );
 
             foreach ($Regex as $Result) {

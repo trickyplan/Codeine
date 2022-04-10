@@ -10,10 +10,12 @@
     setFn('Do', function ($Call) {
         F::Log('Performance: ' . F::$_Performance, LOG_NOTICE, 'Performance');
 
-        if (F::$_Performance == 'Request' or (F::Dot(
+        if (
+            F::$_Performance == 'Request' or (F::Dot(
                     $Call,
                     'Performance.Enabled'
-                ) and F::$_Performance == 'Latency')) {
+                ) and F::$_Performance == 'Latency')
+        ) {
             $Call['Performance']['Summary']['Time'] = round((microtime(true) - Started) * 1000);
             $Call['Performance']['Summary']['Calls'] = array_sum(F::$_Counters['C']);
             $Call['Performance']['Summary']['Core Storage'] = count(F::$_Storage);
@@ -25,8 +27,7 @@
             F::Log('Total calls: ' . $Call['Performance']['Summary']['Calls'], LOG_NOTICE, 'Performance');
             F::Log(
                 'Total time per call: '
-                . round($Call['Performance']['Summary']['Time'] / $Call['Performance']['Summary']['Calls'], 2) . ' ms'
-                ,
+                . round($Call['Performance']['Summary']['Time'] / $Call['Performance']['Summary']['Calls'], 2) . ' ms',
                 LOG_NOTICE,
                 'Performance'
             );
@@ -66,10 +67,8 @@
                 $Yellow = F::Dot($Call, 'Performance.Limits.Yellow');
 
                 if (in_array($Key, $ExcludedFromLimiting)) {
-                    ;
                 } else {
                     if (empty($Yellow)) {
-                        ;
                     } else {
                         foreach ($Yellow as $Metric => $Limit) {
                             if ($Call[$Metric] > $Limit) {
@@ -81,7 +80,6 @@
                     $Red = F::Dot($Call, 'Performance.Limits.Yellow');
 
                     if (empty($Red)) {
-                        ;
                     } else {
                         foreach ($Red as $Metric => $Limit) {
                             if ($Call[$Metric] > $Limit) {

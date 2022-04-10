@@ -16,7 +16,6 @@
                 list($Call['Service'], $Call['Method']) = array($Call['Run']['Service'], $Call['Run']['Method']);
 
                 if (isset($Call['Run']['Call'])) {
-                    ;
                 } else {
                     $Call['Run']['Call'] = [];
                 }

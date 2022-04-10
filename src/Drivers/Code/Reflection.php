@@ -26,7 +26,8 @@
                 $Iterator = new RecursiveIteratorIterator($Directory);
                 $Regex = new RegexIterator(
                     $Iterator,
-                    '@' . $Call['Type'] . '/(.+)' . $Call['Extension'] . '$@', RecursiveRegexIterator::GET_MATCH
+                    '@' . $Call['Type'] . '/(.+)' . $Call['Extension'] . '$@',
+                    RecursiveRegexIterator::GET_MATCH
                 );
 
                 foreach ($Regex as $File) {

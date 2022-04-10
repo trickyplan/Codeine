@@ -19,7 +19,6 @@
 
         if ($Parsed) {
             if (isset($Call['Image']['Host']) && !empty($Call['Image']['Host'])) {
-                ;
             } else {
                 $Call['Image']['Host'] = $Call['HTTP']['Host'];
             }
@@ -36,7 +35,7 @@
                 $Root = simplexml_load_string('<image' . $Parsed[1][$IX] . '></image>');
                 if (isset($Root->attributes()->format)) {
                     $Format = (string)$Root->attributes()->format;
-                }elseif (isset($Root->attributes()->type)) {
+                } elseif (isset($Root->attributes()->type)) {
                     $Format = (string)$Root->attributes()->type;
                     F::Log(
                         'Please, replace "type" with "format" as more semantically correct',
@@ -99,27 +98,31 @@
     });
 
     setFn('Process Image', function ($Call) {
-        if (isset($Call['Current Image']['Source']['Where'])
-            && !empty($Call['Current Image']['Source']['Where'])) {
+        if (
+            isset($Call['Current Image']['Source']['Where'])
+            && !empty($Call['Current Image']['Source']['Where'])
+        ) {
             $Call['Current Image']['Source']['Where'] =
                 ['ID' => $Call['Current Image']['Source']['Where']];
 
             // Generate Output Name
             $Call = F::Apply(null, 'Output Name', $Call);
 
-            if (F::Run(
-                'IO',
-                'Execute',
-                $Call,
-                [
-                    'Storage' => 'Image Cache',
-                    'Execute' => 'Exist',
-                    'Where' =>
-                        [
-                            'ID' => $Call['Current Image']['Fullpath']
-                        ]
-                ]
-            )) {
+            if (
+                F::Run(
+                    'IO',
+                    'Execute',
+                    $Call,
+                    [
+                        'Storage' => 'Image Cache',
+                        'Execute' => 'Exist',
+                        'Where' =>
+                            [
+                                'ID' => $Call['Current Image']['Fullpath']
+                            ]
+                    ]
+                )
+            ) {
                 F::Log('Image Cache *hit* ' . $Call['Current Image']['Fullpath'], LOG_DEBUG);
             } else {
                 F::Log('Image Cache *miss* *' . $Call['Current Image']['Fullpath'] . '*', LOG_NOTICE);
@@ -153,7 +156,6 @@
                     $Call = F::Apply(null, 'Output Name', $Call);
 
                     if (F::Run(null, 'Write', $Call)) {
-                        ;
                     } else {
                         $Call['Current Image']['Source']['Scope'] = 'Default/' . $Call['Image']['Directory'];
                         $Call['Current Image']['Source']['Where'] = ['ID' => 'Default.png'];
@@ -189,7 +191,6 @@
                 F::Log('Image: Alt is empty for ' . $Call['Current Image']['Fullpath'], LOG_INFO);
             } else {
                 if (is_string($Call['Current Image']['Alt'])) {
-                    ;
                 } else {
                     F::Log('Incorrect image alt at ' . j($Call['Current Image']) . ', erased', LOG_WARNING);
                     $Call['Current Image']['Alt'] = '';
@@ -221,8 +222,10 @@
     });
 
     setFn('Write', function ($Call) {
-        if (null === $Call['Current Image']['Source']['Where'] ||
-            !F::Run('IO', 'Execute', ['Execute' => 'Exist'], $Call['Current Image']['Source'])) {
+        if (
+            null === $Call['Current Image']['Source']['Where'] ||
+            !F::Run('IO', 'Execute', ['Execute' => 'Exist'], $Call['Current Image']['Source'])
+        ) {
             F::Log('Image not found:' . $Call['Current Image']['Source']['Where']['ID'], LOG_INFO);
             return null;
         }

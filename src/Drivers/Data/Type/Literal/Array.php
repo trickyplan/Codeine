@@ -9,7 +9,6 @@
 
     setFn('Write', function ($Call) {
         if (isset($Call['Separator'])) {
-            ;
         } else {
             $Call['Separator'] = ';';
         }
@@ -23,7 +22,6 @@
 
     setFn('Read', function ($Call) {
         if (isset($Call['Separator'])) {
-            ;
         } else {
             $Call['Separator'] = ';';
         }

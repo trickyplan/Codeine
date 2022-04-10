@@ -12,7 +12,6 @@
             $Call['Value'] = $Call['Old'];
         } else {
             if ($Call['Value'] == $Call['Old']) {
-                ;
             } else {
                 $Call['Value'] = F::Run(
                     'Security.Hash',

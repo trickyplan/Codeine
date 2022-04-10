@@ -20,41 +20,29 @@
 
     final class F
     {
+        public static $_Perfect = false;
         private static string $_Environment = 'Production';
         private static string $_Hostname = 'host';
-
         private static array $_Options = [];
         private static array $_Code = [];
-
         private static string $_Service = 'Codeine';
         private static string $_Method = 'Do';
         private static $_Color = false;
-
         private static array $_Storage = [];
         private static array $_Ticks = [];
         private static array $_Counters = [];
         private static array $_Log = [];
-
         private static bool $_Live = false;
-        private static bool $_Staring = false;
-
-        private static bool $_Performance = false;  // Internal Performance
-        private static bool $_Debug = false;  // Internal Debugger
-        private static $_Verbose; // can be float
-
+        private static bool $_Staring = false;  // Internal Performance
+        private static bool $_Performance = false;  // Internal Debugger
+        private static bool $_Debug = false; // can be float
+        private static $_Verbose;
         private static $_Deadline = 0;
-
         private static SplStack $_Stack;
         private static $NC = 0;
-        private static $_Bubble = '';
-        private static $_Paths = [];
-        public static $_Perfect = false;
-        private static $_IsTerminal = false;
-
-        public static function Environment()
-        {
-            return self::$_Environment;
-        }
+        private static string $_Bubble = '';
+        private static array $_Paths = [];
+        private static boolean $_IsTerminal = false;
 
         public static function Bootstrap($Call = [])
         {
@@ -129,13 +117,17 @@
             self::Log('Codeine started: *' . RequestID . '*', LOG_NOTICE);
             self::Start('Preheat');
 
-            if (isset($_COOKIE['Overlay'])
-                && in_array($_COOKIE['Overlay'], self::$_Options['Codeine']['Overlays'])) {
+            if (
+                isset($_COOKIE['Overlay'])
+                && in_array($_COOKIE['Overlay'], self::$_Options['Codeine']['Overlays'])
+            ) {
                 $Call['Overlay'] = $_COOKIE['Overlay'];
             }
 
-            if (isset($_REQUEST['Overlay'])
-                && in_array($_REQUEST['Overlay'], self::$_Options['Codeine']['Overlays'])) {
+            if (
+                isset($_REQUEST['Overlay'])
+                && in_array($_REQUEST['Overlay'], self::$_Options['Codeine']['Overlays'])
+            ) {
                 setcookie(
                     'Overlay',
                     $_REQUEST['Overlay'],
@@ -172,18 +164,18 @@
             self::Log('PHP *' . PHP_SAPI . '* *' . phpversion() . '*', LOG_INFO);
             self::Log('PHP Extensions: *' . implode(',', get_loaded_extensions()) . '*', LOG_INFO);
 
-            $ComposerFile = jd(file_get_contents(realpath(__DIR__.'/../').'/composer.json'));
+            $ComposerFile = jd(file_get_contents(realpath(__DIR__ . '/../') . '/composer.json'));
 
-            if (isset($ComposerFile['version']))
+            if (isset($ComposerFile['version'])) {
                 $Call['Version']['Codeine'] = $ComposerFile['version'];
-            else
+            } else {
                 $Call['Version']['Codeine'] = 'Live';
+            }
 
             self::Log('Codeine Version: *' . $Call['Version']['Codeine'] . '*', LOG_INFO);
 
             if (isset($Call['Watch'])) {
                 if ($Call['Watch'] === null) {
-                    ;
                 } else {
                     self::$_Options['Codeine']['Watch'][] = $Call['Watch'];
                 }
@@ -196,53 +188,278 @@
             return self::Live($Call);
         }
 
-        public static function Shutdown()
+        public static function Start($Key)
         {
-            self::$_Bubble = '';
-            self::Stop(self::$_Service . ':' . self::$_Method);
+            // if (isset(self::$_Performance))
+            return self::$_Ticks['T'][$Key] = microtime(true);
+        }
 
-            $E = error_get_last();
-            if ($E === null) {
-                ;
+        public static function Log(
+            $Message,
+            $Verbose = 7,
+            $Channel = 'Developer',
+            $AppendStack = false,
+            $Prepend = false
+        ) {
+            if (is_array($Channel)) {
+                foreach ($Channel as $cChannel) {
+                    self::Log($Message, $Verbose, $cChannel, $AppendStack, $Prepend);
+                }
             } else {
-                if (self::$_Environment === 'Production') {
-                    // header ('HTTP/1.1 500 Internal Server Error');
-                    // TODO Real error triggering
-                    self::Run('IO.Log', 'Spit', []);
-                    file_put_contents('/tmp/codeine/fail-' . RequestID, j(self::$_Log));
+                if ($Channel == 'All') {
+                    foreach (self::$_Verbose as $cChannel => $V) {
+                        self::Log($Message, $Verbose, $cChannel, $AppendStack);
+                    }
                 } else {
-                    self::Finish(implode("\t", $E));
+                    if (isset(self::$_Verbose[$Channel])) {
+                        if (
+                            ($Verbose <= self::$_Verbose[$Channel])
+                            or
+                            (isset($_SERVER['Verbose']) && $Verbose <= $_SERVER['Verbose']) or self::$_Staring
+                        ) {
+                            $Time = sprintf('%.3F', microtime(true) - Started);
+
+                            if (self::$_Stack instanceof SplStack) {
+                                $StackDepth = self::$_Stack->count();
+                            } else {
+                                $StackDepth = 0;
+                            }
+
+                            if (self::$_Stack->offsetExists(1)) {
+                                $Initiator = self::$_Stack->offsetGet(1);
+                            } else {
+                                $Initiator = 'Core';
+                            }
+
+                            if ($Message instanceof Closure) {
+                                $Message = $Message();
+                            }
+
+                            $Stack = null;
+
+                            if (($Verbose < LOG_NOTICE or $AppendStack == true) and $AppendStack != -1) {
+                                $Stack = self::printStack();
+                            }
+
+                            $Log = [
+                                'V' => $Verbose,
+                                'T' => $Time,
+                                'I' => $Initiator,
+                                'R' => self::$_Service . ':' . self::$_Method,
+                                'X' => $Message,
+                                'D' => $StackDepth,
+                                'K' => $Stack,
+                                'C' => self::getColor(),
+                                'M' => self::$_Options['Codeine']['Monitor Memory'] ? memory_get_usage(false) : 0
+                            ];
+
+                            if ($Prepend) {
+                                array_unshift(self::$_Log[$Channel], $Log);
+                            } else {
+                                self::$_Log[$Channel][] = $Log;
+                            }
+
+                            if (PHP_SAPI === 'cli') {
+                                self::CLILog($Channel, $Log, $AppendStack);
+                            }
+
+                            if (
+                                self::$_Perfect && ($Verbose <= F::Dot(
+                                        self::$_Options,
+                                        'Codeine.Perfect Verbose.' . $Channel
+                                    ))
+                            ) {
+                                self::Finish($Message);
+                            }
+                        }
+                    }
                 }
             }
 
-            return true;
+            return $Message;
         }
 
-        private static function _loadSource($Service)
+        public static function printStack()
         {
-            $Path = strtr($Service, '.', '/');
+            $Output = [];
 
-            $Filenames = self::findFiles(
-                self::$_Options['Codeine']['Driver']['Path'] . '/' . $Path . self::$_Options['Codeine']['Driver']['Extension']
-            );
+            $IX = count(self::$_Stack);
+            foreach (self::$_Stack as $Element) {
+                $Output[] = $IX . str_pad(' ', $IX--) . $Element;
+            }
 
-            if (!empty($Filenames)) {
-                foreach ($Filenames as $Filename) {
-                    self::Log($Filename, LOG_DEBUG);
-                    include $Filename;
-                }
+            // $Output = '<pre>'.implode(array_reverse($Output)).'</pre>';
 
-                return true;
+            return implode(PHP_EOL, array_reverse($Output));
+        }
+
+        public static function getColor() // Colorize code sections
+        {
+            if (self::$_Color->offsetExists(0)) {
+                return self::$_Color->offsetGet(0);
             } else {
-                self::Log('*' . $Service . '* not found', LOG_NOTICE);
-                self::Log(self::printStack(), LOG_NOTICE);
-                return false;
+                return 'ffffff';
             }
         }
 
-        public static function loadSource($Service): bool
+        public static function CLILog($Channel, $Log)
         {
-            return self::_loadSource($Service);
+            if (($Log['V'] <= self::$_Verbose[$Channel]) or !self::$_Live) {
+                if (is_scalar($Log['X'])) {
+                } else {
+                    $Log['X'] = j($Log['X']);
+                }
+
+                if (self::$_IsTerminal) {
+                    $Message = implode(
+                        "\t",
+                        [
+                            "\033[1;33m" . getmypid() . "\033[0m",
+                            $Log['V'],
+                            "\033[1;35m" . $Log['T'] . "\033[0m",
+                            "\033[0;33m" . $Log['M'] . "\033[0m",
+                            "\033[0;34m" . str_pad('', $Log['D'], '-') . $Log['R'] . "\033[0m"
+                            . ' from ' . "\033[0;34m" . $Log['I'] . "\033[0m",
+                            $Log['X'],
+                            PHP_EOL
+                        ]
+                    );
+
+                    $Message = preg_replace('/\*(.+)\*/SsUu', "\033[1;31m[\\1]\033[0m", $Message);
+                } else {
+                    $Message = implode(
+                            "\t",
+                            [
+                                getmypid(),
+                                $Log['V'],
+                                $Log['T'],
+                                str_pad('', $Log['D'], '-') . $Log['R'] . ' from ' . $Log['I'],
+                                $Log['X'],
+                                $Log['M']
+                            ]
+                        ) . PHP_EOL;
+                }
+
+                fwrite(STDERR, $Message);
+            }
+        }
+
+        public static function Dot($Array, $Key)
+        {
+            if (is_array($Key)) {
+                $Key = implode('.', $Key);
+            }
+
+            if (func_num_args() === 3) {
+                $Value = func_get_arg(2);
+
+                return self::WriteDot($Array, $Key, $Value);
+            } else {
+                return self::ReadDot($Array, $Key);
+            }
+        }
+
+        private static function WriteDot($Array, $Key, $Value)
+        {
+            if ($Array === (array)$Array) {
+                if (str_contains($Key, '.')) {
+                    $Keys = explode('.', $Key);
+                    $Key = array_shift($Keys);
+
+                    if (isset($Array[$Key])) {
+                    } else {
+                        $Array[$Key] = [];
+                    }
+
+                    $Array[$Key] = self::WriteDot($Array[$Key], implode('.', $Keys), $Value);
+                } else {
+                    if ($Value === null) {
+                        unset($Array[$Key]);
+                    } else {
+                        $Array[$Key] = $Value;
+                    }
+                }
+            } else {
+                $Array = [$Key => $Value];
+            }
+
+            return $Array;
+        }
+
+        private static function ReadDot($Array, $Key)
+        {
+            if (isset($Array[$Key])) {
+                return $Array[$Key];
+            }
+
+            if (str_contains($Key, '.')) {
+                $Keys = explode('.', $Key);
+
+                $Tail = $Array;
+
+                foreach ($Keys as $iKey) {
+                    if (isset($Tail[$iKey])) {
+                        $Tail = $Tail[$iKey];
+                    } else {
+                        if (isset($Array[$Key])) {
+                            return $Array[$Key];
+                        } else {
+                            return null;
+                        }
+                    }
+                }
+            } else {
+                $Tail = isset($Array[$Key]) ? $Array[$Key] : null;
+            }
+
+            return $Tail;
+        }
+
+        public static function Finish($Message)
+        {
+            $Logs = self::Logs();
+            $FinalLogs = '';
+            foreach ($Logs as $Channel => $Records) {
+                foreach ($Records as $Record) {
+                    $FinalLogs .= implode(
+                            "\t",
+                            [
+                                'Channel' => $Channel,
+                                'Verbose' => $Record['V'],
+                                'Time' => $Record['T'],
+                                'Memory' => $Record['M'],
+                                'Message' => is_scalar($Record['X']) ? $Record['X'] : j($Record['X']),
+                                'From' => $Record['R'],
+                                'Depth' => $Record['D'],
+                                'Stack' => $Record['K']
+                            ]
+                        ) . PHP_EOL;
+                }
+            }
+
+
+            if (PHP_SAPI == 'cli') {
+                $Output = $Message;
+            } else {
+                $Output = file_get_contents(Codeine . '/Assets/Finish.html');
+                $Output = str_replace('<finish:message/>', $Message, $Output);
+                $Output = str_replace('<finish:stack/>', self::printStack(), $Output);
+                $Output = str_replace('<finish:logs/>', $FinalLogs, $Output);
+            }
+
+            echo $Output . PHP_EOL;
+            /*if (function_exists('xdebug_print_function_stack'))
+                xdebug_print_function_stack();*/
+            exit();
+        }
+
+        public static function Logs($Channel = 'All')
+        {
+            if ($Channel === 'All') {
+                return self::$_Log;
+            } else {
+                return self::$_Log[$Channel];
+            }
         }
 
         public static function loadOptions($Service = null, $Method = null, $Call = [], $Path = 'Options')
@@ -252,14 +469,12 @@
 
             // Если контракт уже не загружен
             if (isset(self::$_Options[$Service . $Method])) {
-                ;
             } else {
                 $Options = [];
                 $Filenames = [];
                 $ServicePath = strtr($Service, '.', '/');
 
                 if ($Method === null) {
-                    ;
                 } else {
                     $ServicePath .= '.' . $Method;
                 }
@@ -325,31 +540,191 @@
             return self::Merge(self::$_Options[$Service . $Method], $Call);
         }
 
-        public static function hashCall($Call)
+        public static function findFiles($Names)
         {
-            if (isset($Call['Call'])) {
-                return $Call['Service'] . ':' . $Call['Method'] . '(' . sha1(j($Call['Call'])) . ')';
-            } else {
-                return $Call['Service'] . ':' . $Call['Method'] . '()';
+            /*            if ($Results = self::Get($FFID) === null)*/
+            {
+                $Results = [];
+                $Names = (array)$Names;
+
+                foreach (self::$_Paths as $ic => $Path) {
+                    foreach ($Names as $Name) {
+                        if (str_starts_with($Name, '/') && self::file_exists($Name)) {
+                            return [$Name];
+                        }
+
+                        if (self::file_exists($Filenames[$ic] = $Path . '/' . $Name)) {
+                            $Results[] = $Filenames[$ic];
+                        }
+                    }
+                }
+
+                $Results = array_reverse($Results);
             }
+
+            if (empty($Results)) {
+                return null;
+            } else {
+                return $Results;
+            }
+        }
+
+        public static function file_exists($Filename)
+        {
+            if (is_scalar($Filename)) {
+                return
+                    (isset(self::$_Storage['FE'][$Filename]) ?
+                        self::$_Storage['FE'][$Filename] : self::$_Storage['FE'][$Filename] = file_exists(
+                                $Filename
+                            ) && is_file($Filename));
+            } else {
+                return null;
+            }
+        }
+
+        public static function Merge($Array, $Mixin)
+        {
+            self::Counter('Core:Merge');
+            self::Start('Core:Merge');
+
+            if ($Mixin === (array)$Mixin) { // Если второй аргумент — массив
+                if ($Array === $Mixin) {
+                } else // Если аргументы не равны
+                {
+                    if ($Array === (array)$Array) { // Если первый аргумент массив
+                        foreach ($Mixin as $MixinKey => $MixinValue) { // Проходим по второму
+                            if (str_ends_with($MixinKey, '!')) { // Если у нас ключ кончается на !
+                                $Array[rtrim($MixinKey, '!')] = $MixinValue;
+                            } // Оверрайд
+                            else {
+                                // Иначе, обычная замена
+                                if (isset($Array[$MixinKey])) { // Если ключ из второго массива присутствует в первом
+                                    if ($MixinValue === (array)$MixinValue) { // Если значение из второго массива — массив
+                                        if ($Array[$MixinKey] === $Mixin[$MixinKey]) { // Если значения в первом и втором массивах совпадают, ничего не делаем
+                                        } else {
+                                            $Array[$MixinKey] = self::Merge($Array[$MixinKey], $Mixin[$MixinKey]);
+                                        } // Рекурсируем.
+                                    } else {
+                                        $Array[$MixinKey] = $MixinValue;
+                                    } // Иначе, просто копируем значение
+
+                                    // Строчки повторены, для читаемости
+                                } else {
+                                    $Array[$MixinKey] = $MixinValue;
+                                } // Иначе, просто копируем значение
+                            }
+                        }
+                    } else {
+                        $Array = $Mixin;
+                    } // Если первый аргумент не массив, то мерджить смысла нет.
+                }
+            }
+            self::Stop('Core:Merge');
+            return $Array;
+        }
+
+        public static function Counter($Key, $Value = 1)
+        {
+            if (isset(self::$_Counters['C'][$Key])) {
+                self::$_Counters['C'][$Key] += $Value;
+            } else {
+                self::$_Counters['C'][$Key] = $Value;
+            }
+
+            return self::$_Counters['C'][$Key];
+        }
+
+        public static function Stop($Key)
+        {
+            // if (isset(self::$_Performance))
+            {
+                if (isset(self::$_Counters['T'][$Key])) {
+                    return self::$_Counters['T'][$Key] += round((microtime(true) - self::$_Ticks['T'][$Key]) * 1000, 4);
+                } else {
+                    if (isset(self::$_Ticks['T'][$Key])) {
+                        return self::$_Counters['T'][$Key] = round(
+                            (microtime(true) - self::$_Ticks['T'][$Key]) * 1000,
+                            4
+                        );
+                    } else {
+                        return self::$_Counters['T'][$Key] = 0;
+                    }
+                }
+            }
+        }
+
+        public static function Hook($On, $Call)
+        {
+            self::startColor('f84000');
+            if (isset($Call['Custom Hooks'][$On])) {
+                $On = $Call['Custom Hooks'][$On];
+            }
+
+            if (isset($Call['Hooks']) && ($Hooks = self::Dot($Call, 'Hooks.' . $On))) {
+                if (isset($Call['No'][$On]) && $Call['No'][$On] === true) {
+                    return $Call;
+                }
+
+                if (empty($Hooks)) {
+                } else {
+                    $Hooks = self::Sort($Hooks, 'Weight', SORT_ASC);
+                    foreach ($Hooks as $HookName => $Hook) {
+                        if (str_starts_with($HookName, '-')) {
+                        } else {
+                            self::$_Stack->push('@' . $On . ':' . $HookName);
+                            self::Log($On . ':' . $HookName, LOG_DEBUG);
+
+                            if (self::isCall($Hook)) {
+                                if (isset($Hook['Method'])) {
+                                } else {
+                                    $Hook['Method'] = 'Do';
+                                }
+
+                                $Call = self::Apply(
+                                    $Hook['Service'],
+                                    $Hook['Method'],
+                                    $Call,
+                                    isset($Hook['Call']) ? $Hook['Call'] : [],
+                                    ['On' => $On]
+                                );
+                            } else {
+                                $Call = self::Merge($Call, $Hook);
+                            }
+
+                            self::$_Stack->pop();
+                        }
+                    }
+                }
+            }
+
+            self::stopColor();
+            return $Call;
+        }
+
+        public static function startColor($Color) // Colorize code sections
+        {
+            self::$_Color->push($Color);
+            return $Color;
+        }
+
+        public static function Sort($Array, $Key, $Direction = SORT_ASC)
+        {
+            uasort($Array, function ($A, $B) use ($Direction, $Key) {
+                if ($Direction == SORT_DESC) {
+                    return (float)F::Dot($A, $Key) < (float)F::Dot($B, $Key) ? 1 : -1;
+                } else {
+                    return (float)F::Dot($A, $Key) > (float)F::Dot($B, $Key) ? 1 : -1;
+                }
+
+                return 0;
+            });
+
+            return $Array;
         }
 
         public static function isCall($Call)
         {
             return (is_array($Call) && isset($Call['Service']));
-        }
-
-        public static function Run($Service, $Method = null, $Call = [])
-        {
-            if (($sz = func_num_args()) > 3) {
-                for ($ic = 3; $ic < $sz; $ic++) {
-                    if (is_array($Argument = func_get_arg($ic))) {
-                        $Call = self::Merge($Call, $Argument);
-                    }
-                }
-            }
-
-            return self::Execute($Service, $Method, $Call);
         }
 
         public static function Apply($Service, $Method = null, $Call = [])
@@ -382,10 +757,8 @@
                 foreach (self::$_Options['Codeine']['Watch'] as $Watch) {
                     $WatchValue = self::Dot($Call, $Watch);
                     if ($WatchValue === null) {
-                        ;
                     } else {
                         if (self::Get('Watch.' . $Watch) == $WatchValue) {
-                            ;
                         } else {
                             self::Log(
                                 'Watch *' . $Watch . '* was *' . j(self::Get('Watch.' . $Watch)) . '*, now *' . j(
@@ -422,8 +795,7 @@
 
             $Count = self::$_Stack->count();
 
-            if ($Count > self::Get('MSS')) // Max Stack Size
-            {
+            if ($Count > self::Get('MSS')) { // Max Stack Size
                 self::Set('MSS', $Count);
             }
 
@@ -524,23 +896,77 @@
             return $Result;
         }
 
-        public static function Stack()
+        public static function checkSLA()
         {
-            return self::$_Stack;
+            $Spent = microtime(true) - Started;
+            if ($Spent >= self::$_Deadline) {
+                header('HTTP/1.1 504 Gateway Timout');
+                header('X-Reason: Deadline met');
+                header('X-Deadline: ' . self::$_Deadline);
+                header('X-Spent: ' . $Spent);
+                die();
+            } else {
+                return true;
+            }
         }
 
-        public static function printStack()
+        public static function Environment()
         {
-            $Output = [];
+            return self::$_Environment;
+        }
 
-            $IX = count(self::$_Stack);
-            foreach (self::$_Stack as $Element) {
-                $Output[] = $IX . str_pad(" ", $IX--) . $Element;
+        public static function Get($Key)
+        {
+            return (isset(self::$_Storage[$Key]) ? self::$_Storage[$Key] : null);
+        }
+
+        public static function Set($Key, $Value)
+        {
+            if (count(self::$_Storage) > self::$_Options['Codeine']['Core Storage Limit']) {
+                array_shift(self::$_Storage);
             }
 
-            // $Output = '<pre>'.implode(array_reverse($Output)).'</pre>';
+            return self::$_Storage[$Key] = $Value;
+        }
 
-            return implode(PHP_EOL, array_reverse($Output));
+        public static function getFn($Function)
+        {
+            if (isset(self::$_Code[self::$_Service][$Function])) {
+                return self::$_Code[self::$_Service][$Function];
+            } else {
+                if (isset(self::$_Code[self::$_Service]['Default'])) {
+                    return self::$_Code[self::$_Service]['Default'];
+                }
+            }
+
+            return null;
+        }
+
+        private static function _loadSource($Service)
+        {
+            $Path = strtr($Service, '.', '/');
+
+            $Filenames = self::findFiles(
+                self::$_Options['Codeine']['Driver']['Path'] . '/' . $Path . self::$_Options['Codeine']['Driver']['Extension']
+            );
+
+            if (!empty($Filenames)) {
+                foreach ($Filenames as $Filename) {
+                    self::Log($Filename, LOG_DEBUG);
+                    include $Filename;
+                }
+
+                return true;
+            } else {
+                self::Log('*' . $Service . '* not found', LOG_NOTICE);
+                self::Log(self::printStack(), LOG_NOTICE);
+                return false;
+            }
+        }
+
+        public static function stopColor() // Colorize code sections
+        {
+            return self::$_Color->pop();
         }
 
         public static function Live($Variable, $Call = [])
@@ -563,7 +989,6 @@
                         }
 
                         if (isset($Variable['Method'])) {
-                            ;
                         } else {
                             $Variable['Method'] = 'Do';
                         }
@@ -600,6 +1025,19 @@
             return $Result;
         }
 
+        public static function Run($Service, $Method = null, $Call = [])
+        {
+            if (($sz = func_num_args()) > 3) {
+                for ($ic = 3; $ic < $sz; $ic++) {
+                    if (is_array($Argument = func_get_arg($ic))) {
+                        $Call = self::Merge($Call, $Argument);
+                    }
+                }
+            }
+
+            return self::Execute($Service, $Method, $Call);
+        }
+
         public static function Variable($Variable, $Call)
         {
             if (is_array($Variable)) {
@@ -607,11 +1045,13 @@
                     $cVariable = self::Variable($cVariable, $Call);
                 }
             } else {
-                if (is_string($Variable) && str_starts_with($Variable, '$') && preg_match_all(
+                if (
+                    is_string($Variable) && str_starts_with($Variable, '$') && preg_match_all(
                         '@\$([\w]+[\w\-\:\!\.]+)@Ssu',
                         $Variable,
                         $Pockets
-                    )) {
+                    )
+                ) {
                     foreach ($Pockets[1] as $IX => $Match) {
                         $Typecast = null;
 
@@ -628,7 +1068,6 @@
                         $Subvariable = self::Dot($Call, $Match);
 
                         if ($Typecast === null) {
-                            ;
                         } else {
                             switch ($Typecast) {
                                 case 'boolean':
@@ -657,55 +1096,44 @@
             return $Variable;
         }
 
-        public static function Hook($On, $Call)
+        public static function Shutdown()
         {
-            self::startColor('f84000');
-            if (isset($Call['Custom Hooks'][$On])) {
-                $On = $Call['Custom Hooks'][$On];
-            }
+            self::$_Bubble = '';
+            self::Stop(self::$_Service . ':' . self::$_Method);
 
-            if (isset($Call['Hooks']) && ($Hooks = self::Dot($Call, 'Hooks.' . $On))) {
-                if (isset($Call['No'][$On]) && $Call['No'][$On] === true) {
-                    return $Call;
-                }
-
-                if (empty($Hooks)) {
-                    ;
+            $E = error_get_last();
+            if ($E === null) {
+            } else {
+                if (self::$_Environment === 'Production') {
+                    // header ('HTTP/1.1 500 Internal Server Error');
+                    // TODO Real error triggering
+                    self::Run('IO.Log', 'Spit', []);
+                    file_put_contents('/tmp/codeine/fail-' . RequestID, j(self::$_Log));
                 } else {
-                    $Hooks = self::Sort($Hooks, 'Weight', SORT_ASC);
-                    foreach ($Hooks as $HookName => $Hook) {
-                        if (str_starts_with($HookName, '-')) {
-                            ;
-                        } else {
-                            self::$_Stack->push('@' . $On . ':' . $HookName);
-                            self::Log($On . ':' . $HookName, LOG_DEBUG);
-
-                            if (self::isCall($Hook)) {
-                                if (isset($Hook['Method'])) {
-                                    ;
-                                } else {
-                                    $Hook['Method'] = 'Do';
-                                }
-
-                                $Call = self::Apply(
-                                    $Hook['Service'],
-                                    $Hook['Method'],
-                                    $Call,
-                                    isset($Hook['Call']) ? $Hook['Call'] : [],
-                                    ['On' => $On]
-                                );
-                            } else {
-                                $Call = self::Merge($Call, $Hook);
-                            }
-
-                            self::$_Stack->pop();
-                        }
-                    }
+                    self::Finish(implode("\t", $E));
                 }
             }
 
-            self::stopColor();
-            return $Call;
+            return true;
+        }
+
+        public static function loadSource($Service): bool
+        {
+            return self::_loadSource($Service);
+        }
+
+        public static function hashCall($Call)
+        {
+            if (isset($Call['Call'])) {
+                return $Call['Service'] . ':' . $Call['Method'] . '(' . sha1(j($Call['Call'])) . ')';
+            } else {
+                return $Call['Service'] . ':' . $Call['Method'] . '()';
+            }
+        }
+
+        public static function Stack()
+        {
+            return self::$_Stack;
         }
 
         public static function Error($errno, $errstr, $errfile, $errline)
@@ -721,52 +1149,14 @@
             self::Log($Message, LOG_CRIT, 'Developer', true);
         }
 
-        public static function Finish($Message)
+        public static function getLive()
         {
-            $Logs = self::Logs();
-            $FinalLogs = '';
-            foreach ($Logs as $Channel => $Records) {
-                foreach ($Records as $Record) {
-                    $FinalLogs .= implode(
-                            "\t",
-                            [
-                                'Channel' => $Channel,
-                                'Verbose' => $Record['V'],
-                                'Time' => $Record['T'],
-                                'Memory' => $Record['M'],
-                                'Message' => is_scalar($Record['X']) ? $Record['X'] : j($Record['X']),
-                                'From' => $Record['R'],
-                                'Depth' => $Record['D'],
-                                'Stack' => $Record['K']
-                            ]
-                        ) . PHP_EOL;
-                }
-            }
-
-
-            if (PHP_SAPI == 'cli') {
-                $Output = $Message;
-            } else {
-                $Output = file_get_contents(Codeine . '/Assets/Finish.html');
-                $Output = str_replace('<finish:message/>', $Message, $Output);
-                $Output = str_replace('<finish:stack/>', self::printStack(), $Output);
-                $Output = str_replace('<finish:logs/>', $FinalLogs, $Output);
-            }
-
-            echo $Output . PHP_EOL;
-            /*if (function_exists('xdebug_print_function_stack'))
-                xdebug_print_function_stack();*/
-            exit();
+            return self::$_Live;
         }
 
         public static function setLive($Live)
         {
             return self::$_Live = (bool)$Live;
-        }
-
-        public static function getLive()
-        {
-            return self::$_Live;
         }
 
         public static function reloadOptions()
@@ -780,159 +1170,6 @@
             }
 
             return true;
-        }
-
-        public static function startColor($Color) // Colorize code sections
-        {
-            self::$_Color->push($Color);
-            return $Color;
-        }
-
-        public static function stopColor() // Colorize code sections
-        {
-            return self::$_Color->pop();
-        }
-
-        public static function getColor() // Colorize code sections
-        {
-            if (self::$_Color->offsetExists(0)) {
-                return self::$_Color->offsetGet(0);
-            } else {
-                return "ffffff";
-            }
-        }
-
-        public static function Log(
-            $Message,
-            $Verbose = 7,
-            $Channel = 'Developer',
-            $AppendStack = false,
-            $Prepend = false
-        ) {
-            if (is_array($Channel)) {
-                foreach ($Channel as $cChannel) {
-                    self::Log($Message, $Verbose, $cChannel, $AppendStack, $Prepend);
-                }
-            } else {
-                if ($Channel == 'All') {
-                    foreach (self::$_Verbose as $cChannel => $V) {
-                        self::Log($Message, $Verbose, $cChannel, $AppendStack);
-                    }
-                } else {
-                    if (isset(self::$_Verbose[$Channel])) {
-                        if (($Verbose <= self::$_Verbose[$Channel])
-                            or
-                            (isset($_SERVER['Verbose']) && $Verbose <= $_SERVER['Verbose']) or self::$_Staring) {
-                            $Time = sprintf('%.3F', microtime(true) - Started);
-
-                            if (self::$_Stack instanceof SplStack) {
-                                $StackDepth = self::$_Stack->count();
-                            } else {
-                                $StackDepth = 0;
-                            }
-
-                            if (self::$_Stack->offsetExists(1)) {
-                                $Initiator = self::$_Stack->offsetGet(1);
-                            } else {
-                                $Initiator = 'Core';
-                            }
-
-                            if ($Message instanceof Closure) {
-                                $Message = $Message();
-                            }
-
-                            $Stack = null;
-
-                            if (($Verbose < LOG_NOTICE or $AppendStack == true) and $AppendStack != -1) {
-                                $Stack = self::printStack();
-                            }
-
-                            $Log = [
-                                'V' => $Verbose,
-                                'T' => $Time,
-                                'I' => $Initiator,
-                                'R' => self::$_Service . ':' . self::$_Method,
-                                'X' => $Message,
-                                'D' => $StackDepth,
-                                'K' => $Stack,
-                                'C' => self::getColor(),
-                                'M' => self::$_Options['Codeine']['Monitor Memory'] ? memory_get_usage(false) : 0
-                            ];
-
-                            if ($Prepend) {
-                                array_unshift(self::$_Log[$Channel], $Log);
-                            } else {
-                                self::$_Log[$Channel][] = $Log;
-                            }
-
-                            if (PHP_SAPI === 'cli') {
-                                self::CLILog($Channel, $Log, $AppendStack);
-                            }
-
-                            if (self::$_Perfect && ($Verbose <= F::Dot(
-                                        self::$_Options,
-                                        'Codeine.Perfect Verbose.' . $Channel
-                                    ))) {
-                                self::Finish($Message);
-                            }
-                        }
-                    }
-                }
-            }
-
-            return $Message;
-        }
-
-        public static function CLILog($Channel, $Log)
-        {
-            if (($Log['V'] <= self::$_Verbose[$Channel]) or !self::$_Live) {
-                if (is_scalar($Log['X'])) {
-                    ;
-                } else {
-                    $Log['X'] = j($Log['X']);
-                }
-
-                if (self::$_IsTerminal) {
-                    $Message = implode(
-                        "\t",
-                        [
-                            "\033[1;33m" . getmypid() . "\033[0m",
-                            $Log['V'],
-                            "\033[1;35m" . $Log['T'] . "\033[0m",
-                            "\033[0;33m" . $Log['M'] . "\033[0m",
-                            "\033[0;34m" . str_pad('', $Log['D'], '-') . $Log['R'] . "\033[0m"
-                            . ' from ' . "\033[0;34m" . $Log['I'] . "\033[0m",
-                            $Log['X'],
-                            PHP_EOL
-                        ]
-                    );
-
-                    $Message = preg_replace('/\*(.+)\*/SsUu', "\033[1;31m[\\1]\033[0m", $Message);
-                } else {
-                    $Message = implode(
-                            "\t",
-                            [
-                                getmypid(),
-                                $Log['V'],
-                                $Log['T'],
-                                str_pad('', $Log['D'], '-') . $Log['R'] . ' from ' . $Log['I'],
-                                $Log['X'],
-                                $Log['M']
-                            ]
-                        ) . PHP_EOL;
-                }
-
-                fwrite(STDERR, $Message);
-            }
-        }
-
-        public static function Logs($Channel = 'All')
-        {
-            if ($Channel === 'All') {
-                return self::$_Log;
-            } else {
-                return self::$_Log[$Channel];
-            }
         }
 
         public static function Dump($File, $Line, $Call)
@@ -986,69 +1223,6 @@
             return null;
         }
 
-        public static function getFn($Function)
-        {
-            if (isset(self::$_Code[self::$_Service][$Function])) {
-                return self::$_Code[self::$_Service][$Function];
-            } else {
-                if (isset(self::$_Code[self::$_Service]['Default'])) {
-                    return self::$_Code[self::$_Service]['Default'];
-                }
-            }
-
-            return null;
-        }
-
-        public static function Merge($Array, $Mixin)
-        {
-            self::Counter('Core:Merge');
-            self::Start('Core:Merge');
-
-            if ($Mixin === (array)$Mixin) // Если второй аргумент — массив
-            {
-                if ($Array === $Mixin) {
-                    ;
-                } else // Если аргументы не равны
-                {
-                    if ($Array === (array)$Array) // Если первый аргумент массив
-                    {
-                        foreach ($Mixin as $MixinKey => $MixinValue) // Проходим по второму
-                        {
-                            if (str_ends_with($MixinKey, '!')) // Если у нас ключ кончается на !
-                            {
-                                $Array[rtrim($MixinKey, '!')] = $MixinValue;
-                            } // Оверрайд
-                            else {
-                                // Иначе, обычная замена
-                                if (isset($Array[$MixinKey])) // Если ключ из второго массива присутствует в первом
-                                {
-                                    if ($MixinValue === (array)$MixinValue) // Если значение из второго массива — массив
-                                    {
-                                        if ($Array[$MixinKey] === $Mixin[$MixinKey]) // Если значения в первом и втором массивах совпадают, ничего не делаем
-                                        {
-                                            ;
-                                        } else {
-                                            $Array[$MixinKey] = self::Merge($Array[$MixinKey], $Mixin[$MixinKey]);
-                                        } // Рекурсируем.
-                                    } else {
-                                        $Array[$MixinKey] = $MixinValue;
-                                    } // Иначе, просто копируем значение
-
-                                    // Строчки повторены, для читаемости
-                                } else {
-                                    $Array[$MixinKey] = $MixinValue;
-                                } // Иначе, просто копируем значение
-                            }
-                        }
-                    } else {
-                        $Array = $Mixin;
-                    } // Если первый аргумент не массив, то мерджить смысла нет.
-                }
-            }
-            self::Stop('Core:Merge');
-            return $Array;
-        }
-
         public static function Diff($First, $Second)
         {
             if (is_array($First) && is_array($Second)) {
@@ -1057,7 +1231,6 @@
                                             continue;*/
 
                     if ($Value === '*') {
-                        ;
                     } else {
                         if (!isset($Second[$Key])) {
                             $Diff[$Key] = $Value;
@@ -1104,21 +1277,6 @@
             return $Data;
         }
 
-        public static function Sort($Array, $Key, $Direction = SORT_ASC)
-        {
-            uasort($Array, function ($A, $B) use ($Direction, $Key) {
-                if ($Direction == SORT_DESC) {
-                    return (float)F::Dot($A, $Key) < (float)F::Dot($B, $Key) ? 1 : -1;
-                } else {
-                    return (float)F::Dot($A, $Key) > (float)F::Dot($B, $Key) ? 1 : -1;
-                }
-
-                return 0;
-            });
-
-            return $Array;
-        }
-
         public static function Map($Array, $Fn, $Data = null, $FullKey = '')
         {
             if (is_array($Array)) {
@@ -1140,131 +1298,9 @@
             return $Array;
         }
 
-        public static function Dot($Array, $Key)
-        {
-            if (is_array($Key)) {
-                $Key = implode('.', $Key);
-            }
-
-            if (func_num_args() === 3) {
-                $Value = func_get_arg(2);
-
-                return self::WriteDot($Array, $Key, $Value);
-            } else {
-                return self::ReadDot($Array, $Key);
-            }
-        }
-
         public static function CopyDot($Array, $From, $To)
         {
             return self::WriteDot($Array, $To, self::ReadDot($Array, $From));
-        }
-
-        private static function ReadDot($Array, $Key)
-        {
-            if (isset($Array[$Key])) {
-                return $Array[$Key];
-            }
-
-            if (str_contains($Key, '.')) {
-                $Keys = explode('.', $Key);
-
-                $Tail = $Array;
-
-                foreach ($Keys as $iKey) {
-                    if (isset($Tail[$iKey])) {
-                        $Tail = $Tail[$iKey];
-                    } else {
-                        if (isset($Array[$Key])) {
-                            return $Array[$Key];
-                        } else {
-                            return null;
-                        }
-                    }
-                }
-            } else {
-                $Tail = isset($Array[$Key]) ? $Array[$Key] : null;
-            }
-
-            return $Tail;
-        }
-
-        private static function WriteDot($Array, $Key, $Value)
-        {
-            if ($Array === (array)$Array) {
-                if (str_contains($Key, '.')) {
-                    $Keys = explode('.', $Key);
-                    $Key = array_shift($Keys);
-
-                    if (isset($Array[$Key])) {
-                        ;
-                    } else {
-                        $Array[$Key] = [];
-                    }
-
-                    $Array[$Key] = self::WriteDot($Array[$Key], implode('.', $Keys), $Value);
-                } else {
-                    if ($Value === null) {
-                        unset($Array[$Key]);
-                    } else {
-                        $Array[$Key] = $Value;
-                    }
-                }
-            } else {
-                $Array = [$Key => $Value];
-            }
-
-            return $Array;
-        }
-
-        public static function Set($Key, $Value)
-        {
-            if (count(self::$_Storage) > self::$_Options['Codeine']['Core Storage Limit']) {
-                array_shift(self::$_Storage);
-            }
-
-            return self::$_Storage[$Key] = $Value;
-        }
-
-        public static function Get($Key)
-        {
-            return (isset(self::$_Storage[$Key]) ? self::$_Storage[$Key] : null);
-        }
-
-        public static function Counter($Key, $Value = 1)
-        {
-            if (isset(self::$_Counters['C'][$Key])) {
-                self::$_Counters['C'][$Key] += $Value;
-            } else {
-                self::$_Counters['C'][$Key] = $Value;
-            }
-
-            return self::$_Counters['C'][$Key];
-        }
-
-        public static function Start($Key)
-        {
-            // if (isset(self::$_Performance))
-            return self::$_Ticks['T'][$Key] = microtime(true);
-        }
-
-        public static function Stop($Key)
-        {
-            // if (isset(self::$_Performance))
-            {
-                if (isset(self::$_Counters['T'][$Key])) {
-                    return self::$_Counters['T'][$Key] += round((microtime(true) - self::$_Ticks['T'][$Key]) * 1000, 4);
-                } else {
-                    if (isset(self::$_Ticks['T'][$Key])) {
-                        return self::$_Counters['T'][$Key] = round(
-                            (microtime(true) - self::$_Ticks['T'][$Key]) * 1000,
-                            4
-                        );
-                    } else {
-                        return self::$_Counters['T'][$Key] = 0;
-                    }
-                }
-            }
         }
 
         public static function Time($Key)
@@ -1300,19 +1336,6 @@
             return self::$_Paths;
         }
 
-        public static function file_exists($Filename)
-        {
-            if (is_scalar($Filename)) {
-                return
-                    (isset(self::$_Storage['FE'][$Filename]) ?
-                        self::$_Storage['FE'][$Filename] : self::$_Storage['FE'][$Filename] = file_exists(
-                                $Filename
-                            ) && is_file($Filename));
-            } else {
-                return null;
-            }
-        }
-
         public static function findFile($Names)
         {
             $Names = (array)$Names;
@@ -1330,49 +1353,6 @@
             }
 
             return null;
-        }
-
-        public static function findFiles($Names)
-        {
-            /*            if ($Results = self::Get($FFID) === null)*/
-            {
-                $Results = [];
-                $Names = (array)$Names;
-
-                foreach (self::$_Paths as $ic => $Path) {
-                    foreach ($Names as $Name) {
-                        if (str_starts_with($Name, '/') && self::file_exists($Name)) {
-                            return [$Name];
-                        }
-
-                        if (self::file_exists($Filenames[$ic] = $Path . '/' . $Name)) {
-                            $Results[] = $Filenames[$ic];
-                        }
-                    }
-                }
-
-                $Results = array_reverse($Results);
-            }
-
-            if (empty($Results)) {
-                return null;
-            } else {
-                return $Results;
-            }
-        }
-
-        public static function checkSLA()
-        {
-            $Spent = microtime(true) - Started;
-            if ($Spent >= self::$_Deadline) {
-                header('HTTP/1.1 504 Gateway Timout');
-                header('X-Reason: Deadline met');
-                header('X-Deadline: ' . self::$_Deadline);
-                header('X-Spent: ' . $Spent);
-                die();
-            } else {
-                return true;
-            }
         }
     }
 

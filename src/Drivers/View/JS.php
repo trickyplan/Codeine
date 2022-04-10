@@ -52,7 +52,9 @@
                         $JS2 = strtr($JS2, '/', '-');
                         $Call['JS Name'] = $JS2;
                     } else {
-                        list($Asset, $ID) = F::Run('View', 'Asset.Route',
+                        list($Asset, $ID) = F::Run(
+                            'View',
+                            'Asset.Route',
                             [
                                 'Value' => $Call['JS Name'],
                                 'Scope' => 'js'
@@ -60,7 +62,6 @@
                         );
 
                         if (isset($Call['JS']['Scripts'][$Call['JS Name']])) {
-                            ;
                         } else {
                             $Loaded = false;
 
@@ -77,7 +78,6 @@
                                 );
 
                                 if ($Minified === null) {
-                                    ;
                                 } else {
                                     $Call['JS']['Scripts'][$Call['JS Name']] = $Minified;
                                     $Loaded = true;
@@ -85,7 +85,6 @@
                             }
 
                             if ($Loaded) {
-                                ;
                             } else {
                                 $Call['JS']['Scripts'][$Call['JS Name']] = F::Run(
                                     'IO',
@@ -127,7 +126,8 @@
                     $Write = true;
 
                     if ($Call['JS']['Caching']) {
-                        if (F::Run(
+                        if (
+                            F::Run(
                                 'IO',
                                 'Execute',
                                 $Call,
@@ -139,7 +139,8 @@
                                             'ID' => $Call['JS Name']
                                         ]
                                 ]
-                            ) === null) {
+                            ) === null
+                        ) {
                             F::Log('Cache *miss* *' . $Call['JS Name'] . '*', LOG_NOTICE);
                         } else {
                             F::Log('Cache *hit* ' . $Call['JS Name'], LOG_DEBUG);

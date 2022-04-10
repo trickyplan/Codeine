@@ -22,7 +22,6 @@
             );
 
             if (empty($Call['Elements'])) {
-                ;
             } else {
                 shuffle($Call['Elements']);
                 $Call['Elements'] = array_slice($Call['Elements'], 0, $Call['Count']);

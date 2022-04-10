@@ -14,9 +14,11 @@
 
         $Call['HTTP']['IP'] = F::Live($Call['HTTP']['IP'], $Call);
 
-        if (isset($Call['Project']['Hosts'][F::Environment()]) and is_array(
+        if (
+            isset($Call['Project']['Hosts'][F::Environment()]) and is_array(
                 $Call['Project']['Hosts'][F::Environment()]
-            )) {
+            )
+        ) {
             $Call['HTTP']['Host'] = array_shift($Call['Project']['Hosts'][F::Environment()]);
             F::Log('CLI Pseudohost: ' . $Call['HTTP']['Host'], LOG_NOTICE);
         } else {

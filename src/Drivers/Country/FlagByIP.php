@@ -12,7 +12,6 @@
         $Flag = F::findFile('Assets/Country/img/flags/' . $Country . '.png');
 
         if ($Flag) {
-            ;
         } else {
             $Flag = F::findFile('/Assets/Country/img/flags/un.png');
         }

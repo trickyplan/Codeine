@@ -43,7 +43,6 @@
         $Data = [];
 
         if (empty($Call['Value']) or is_scalar($Call['Value'])) {
-            ;
         } else {
             foreach ($Call['Value'] as &$Value) {
                 $Key = array_search($Value, $Call['Node']['Options']);

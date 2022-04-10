@@ -20,16 +20,14 @@
 
     setFn('Pipeline', function ($Call) {
         if (isset($Call['Layouts'])) {
-            foreach ($Call['Layouts'] as $Layout) // FIXME I'm fat
-            {
+            foreach ($Call['Layouts'] as $Layout) { // FIXME I'm fat
                 if (($Sublayout = F::Run('View', 'Load', $Layout)) !== null) {
                     $Call['Layout'] = str_replace('<place>Content</place>', $Sublayout, $Call['Layout']);
                 }
             }
         }
 
-        if (preg_match_all('@<call>(.*)<\/call>@SsUu', $Call['Layout'], $Pocket)) // TODO Вынести в хук
-        {
+        if (preg_match_all('@<call>(.*)<\/call>@SsUu', $Call['Layout'], $Pocket)) { // TODO Вынести в хук
             foreach ($Pocket[0] as $IX => $Match) {
                 $Matched = F::Dot($Call, $Pocket[1][$IX]);
 
@@ -74,8 +72,7 @@
             }
         }
 
-        if (preg_match_all('@<call>(.*)<\/call>@SsUu', $Call['Layout'], $Pocket)) // TODO Вынести в хук
-        {
+        if (preg_match_all('@<call>(.*)<\/call>@SsUu', $Call['Layout'], $Pocket)) { // TODO Вынести в хук
             foreach ($Pocket[0] as $IX => $Match) {
                 $Matched = F::Dot($Call, $Pocket[1][$IX]);
 

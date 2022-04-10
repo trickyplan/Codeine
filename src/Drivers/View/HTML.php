@@ -29,8 +29,7 @@
             ]
         );
 
-        if ($Places && isset($Call['Output']) && is_array($Call['Output'])) //  Если есть посадочные места.
-        {
+        if ($Places && isset($Call['Output']) && is_array($Call['Output'])) { //  Если есть посадочные места.
             foreach ($Call['Output'] as $Place => $Widgets) {
                 if (is_array($Widgets)) {
                     foreach ($Widgets as $Key => $Widget) {

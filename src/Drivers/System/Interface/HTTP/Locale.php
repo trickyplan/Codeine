@@ -19,9 +19,11 @@
                 $Call = F::Apply(null, 'Check Accept-language', $Call);
             }
 
-            if (F::Dot($Call, 'Locales.Detect.Request')
+            if (
+                F::Dot($Call, 'Locales.Detect.Request')
                 && isset($Call['Request']['Locale'])
-                && in_array($Call['Request']['Locale'], $Call['Locales']['Available'])) {
+                && in_array($Call['Request']['Locale'], $Call['Locales']['Available'])
+            ) {
                 $Call['Locale'] = $Call['Request']['Locale'];
             }
         }

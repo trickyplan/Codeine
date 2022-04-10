@@ -26,8 +26,7 @@
             $Element = F::Run('Entity', 'Read', ['One' => true, 'Entity' => $Call['Name'], 'Where' => $Value]);
 
             // Если такой сущности нет
-            if (empty($Element)) // Смиряемся
-            {
+            if (empty($Element)) { // Смиряемся
                 $Value = null;
             } else // Трогаем связанную сущность
             {
@@ -47,7 +46,6 @@
         $Call = F::Apply('Entity', 'Load', $Call, ['Entity' => $Call['Name']]);
 
         if (empty($Call['Value']) or is_scalar($Call['Value'])) {
-            ;
         } else {
             foreach ($Call['Value'] as &$Value) {
                 $Value = F::Run('Data.Type.' . $Call['Nodes']['ID']['Type'], 'Write', ['Value' => $Value]);

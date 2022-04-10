@@ -54,7 +54,6 @@
                     );
 
                     if (isset($Call['CSS']['Styles'][$Call['CSS Name']])) {
-                        ;
                     } else {
                         $Loaded = false;
 
@@ -71,7 +70,6 @@
                             );
 
                             if ($Minified === null) {
-                                ;
                             } else {
                                 $Call['CSS']['Styles'][$Call['CSS Name']] = $Minified;
                                 $Loaded = true;
@@ -79,7 +77,6 @@
                         }
 
                         if ($Loaded) {
-                            ;
                         } else {
                             $Call['CSS']['Styles'][$Call['CSS Name']] = F::Run(
                                 'IO',
@@ -104,7 +101,6 @@
                 }
 
                 if (empty($CSSInline)) {
-                    ;
                 } else {
                     $Call['CSS']['Styles'][] = $CSSInline;
                 }
@@ -115,26 +111,28 @@
                 // CSS Output
 
                 foreach ($Call['CSS']['Styles'] as $Call['CSS']['Fullpath'] => $Call['CSS']['Source']) {
-                    $Call['CSS']['Fullpath'] = strtr($Call['CSS']['Fullpath'], ":", '_') . '_' . sha1(
+                    $Call['CSS']['Fullpath'] = strtr($Call['CSS']['Fullpath'], ':', '_') . '_' . sha1(
                             $Call['CSS']['Source']
                         ) . $Call['CSS']['Extension'];
 
                     $Write = true;
 
                     if ($Call['CSS']['Caching']) {
-                        if (F::Run(
-                            'IO',
-                            'Execute',
-                            $Call,
-                            [
-                                'Storage' => 'CSS Cache',
-                                'Execute' => 'Exist',
-                                'Where' =>
-                                    [
-                                        'ID' => $Call['CSS']['Fullpath']
-                                    ]
-                            ]
-                        )) {
+                        if (
+                            F::Run(
+                                'IO',
+                                'Execute',
+                                $Call,
+                                [
+                                    'Storage' => 'CSS Cache',
+                                    'Execute' => 'Exist',
+                                    'Where' =>
+                                        [
+                                            'ID' => $Call['CSS']['Fullpath']
+                                        ]
+                                ]
+                            )
+                        ) {
                             F::Log('Cache *hit* ' . $Call['CSS']['Fullpath'], LOG_DEBUG);
                             $Write = false;
                         } else {
@@ -183,7 +181,7 @@
 
             $Call['Output'] = str_replace($Parsed[0], '', $Call['Output']);
 
-            unset ($Call['CSS']);
+            unset($Call['CSS']);
         }
 
         return $Call;

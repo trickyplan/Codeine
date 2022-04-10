@@ -17,7 +17,7 @@
         F::Log('URL: *' . $Call['HTTP']['URL'] . '*', LOG_INFO);
         F::Log('URI: *' . $Call['HTTP']['URI'] . '*', LOG_INFO);
 
-        empty ($Call['HTTP']['Query']) ?
+        empty($Call['HTTP']['Query']) ?
             F::Log('Query string empty.', LOG_INFO) :
             F::Log('Query string is: *' . $Call['HTTP']['Query'] . '*', LOG_INFO);
 

@@ -9,7 +9,6 @@
 
     setFn('Write', function ($Call) {
         if (isset($Call['Dry'])) {
-            ;
         } else {
             foreach ($Call['Nodes'] as $Name => $Node) {
                 if (isset($Node['Type']) && F::Dot($Call['Data'], $Name) !== null) {
@@ -42,9 +41,11 @@
     setFn('Read', function ($Call) {
         foreach ($Call['Nodes'] as $Name => $Node) {
             $Value = F::Dot($Call['Data'], $Name);
-            if (isset($Node['Type']) &&
+            if (
+                isset($Node['Type']) &&
                 ($Value !== null or isset($Node['External'])
-                )) {
+                )
+            ) {
                 $Call['Data'] = F::Dot(
                     $Call['Data'],
                     $Name,

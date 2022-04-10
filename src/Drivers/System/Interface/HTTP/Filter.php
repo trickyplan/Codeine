@@ -10,7 +10,6 @@
     setFn('Do', function ($Call) {
         foreach ($Call['HTTP']['Filter']['Methods'] as $Filter) {
             if (F::Run('System.Interface.HTTP.Filter.' . $Filter, null, $Call) === true) {
-                ;
             } else {
                 F::Log('Filtered by ' . $Filter, LOG_NOTICE, 'Security');
                 $Call = F::Hook('onHTTPFiltered', $Call);

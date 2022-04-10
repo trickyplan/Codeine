@@ -46,7 +46,6 @@
         ];
 
         if (isset($Call['Data'])) {
-            ;
         } else {
             $Call['Data'] = [];
         }
@@ -55,12 +54,12 @@
             // Для каждой ноды в модели
             foreach ($Call['Nodes'] as $Node => $NodeOptions) {
                 if (isset($NodeOptions['Widgets']['Write']) or isset($NodeOptions['Create'])) {
-                    if (F::Dot($Call['Request']['Data'], $Node) === null or F::Dot(
+                    if (
+                        F::Dot($Call['Request']['Data'], $Node) === null or F::Dot(
                             $Call['Data'],
                             $Node
-                        ) !== null) // Data > Request
-                    {
-                        ;
+                        ) !== null
+                    ) { // Data > Request
                     } else {
                         $Call['Data'] = F::Dot($Call['Data'], $Node, F::Dot($Call['Request']['Data'], $Node));
                     }

@@ -20,11 +20,12 @@
 
         // Здесь мы проверяем. что данные вообще изменились.
 
-        if (array_diff(
-                F::Extract($Current, $Call['Name'], $Call['Entity'])[$Call['Name']]
-                ,
+        if (
+            array_diff(
+                F::Extract($Current, $Call['Name'], $Call['Entity'])[$Call['Name']],
                 $Call['Data'][$Call['Name']]
-            ) == []) {
+            ) == []
+        ) {
             F::Log('External ' . $Call['Name'] . ' not changed', LOG_INFO);
         } else {
             F::Run('Entity', 'Delete', [
@@ -60,13 +61,12 @@
 
     setFn(['Read', 'Where'], function ($Call) {
         $Data = F::Run('Entity', 'Read', [
-                'Entity' => $Call['Entity'] . '2' . $Call['Name'],
-                'Where' =>
-                    [
-                        $Call['Entity'] => $Call['Data']['ID']
-                    ]
-            ]
-        );
+            'Entity' => $Call['Entity'] . '2' . $Call['Name'],
+            'Where' =>
+                [
+                    $Call['Entity'] => $Call['Data']['ID']
+                ]
+        ]);
 
         $Result = [];
 

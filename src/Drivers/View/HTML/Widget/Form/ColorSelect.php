@@ -17,7 +17,6 @@
         $Call['Options'] = F::Live($Call['Options'], $Call);
 
         if ($Call['Options'] === null) {
-            ;
         } else {
             if (isset($Call['Flip Keys'])) {
                 $Call['Options'] = array_flip($Call['Options']);
@@ -61,10 +60,12 @@
 
                 $Call['Style'] = 'background-color: #' . $Value;
 
-                if (($Value == $Call['Value']) || ($Key == $Call['Value']) || ((is_array($Call['Value']) && in_array(
+                if (
+                    ($Value == $Call['Value']) || ($Key == $Call['Value']) || ((is_array($Call['Value']) && in_array(
                             $Value,
                             $Call['Value']
-                        )))) {
+                        )))
+                ) {
                     $Options[] = '<option style="' . $Call['Style'] . '" value="' . $Key . '" selected>' . $lValue . '</option>';
                 } else {
                     $Options[] = '<option style="' . $Call['Style'] . '"value="' . $Key . '">' . $lValue . '</option>';

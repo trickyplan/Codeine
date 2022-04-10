@@ -62,7 +62,6 @@
                 )['Odnoklassniki'];
 
             if (isset($Result['Expire']) > time()) {
-                ;
             } else {
                 $oldAuth = $Result['Auth'];
                 $URL = 'http://api.odnoklassniki.ru/oauth/token.do';
@@ -116,9 +115,9 @@
             F::Log('Sort error', LOG_ERR);
             return null;
         } else {
-            $requestStr = "";
+            $requestStr = '';
             foreach ($Call['Call'] as $key => $value) {
-                $requestStr .= $key . "=" . $value;
+                $requestStr .= $key . '=' . $value;
             }
             $requestStr .= md5($Call['access_token'] . $Call['Odnoklassniki']['Secret']);
             return md5($requestStr);

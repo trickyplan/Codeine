@@ -19,7 +19,6 @@
             foreach ($Call['Nodes'] as $Name => $Node) {
                 if (F::Dot($Node, 'Filter.Enabled') && $Value = F::Dot($Call['Request']['Filter'], $Name)) {
                     if (empty($Value) || $Value == '!Any') {
-                        ;
                     } else {
                         $Call['Filter']['Selected'][$Name] = F::Run(
                             'Data.Type.' . $Node['Type'],

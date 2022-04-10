@@ -13,7 +13,6 @@
         foreach ($Call['Nodes'] as $Name => $Node) {
             if (F::Dot($Call['Nodes'], $Name) !== null) {
                 if ($Node === null) {
-                    ;
                 } else {
                     $Data = F::Dot($Data, $Name, F::Dot($Call['Data'], $Name));
                 }

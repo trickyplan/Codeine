@@ -12,7 +12,7 @@
 
         ini_set('implicit_flush', true);
 
-        $Server = stream_socket_server("tcp://" . $Call['HTTP']['Host'] . ':' . $Call['Port'], $ErrorNo, $ErrorMessage);
+        $Server = stream_socket_server('tcp://' . $Call['HTTP']['Host'] . ':' . $Call['Port'], $ErrorNo, $ErrorMessage);
 
         if ($Server) {
             F::Log('Server created', LOG_NOTICE);
@@ -75,12 +75,14 @@
 
     setFn('Protocol', function ($Call) {
         if (isset($Call['Project']['Hosts'][F::Environment()])) {
-            if (preg_match(
+            if (
+                preg_match(
                     '/(\S+)\.' . $Call['Project']['Hosts'][F::Environment()] . '/',
                     $_SERVER['HTTP_HOST'],
                     $Subdomains
                 )
-                && isset($Call['Subdomains'][$Subdomains[1]])) {
+                && isset($Call['Subdomains'][$Subdomains[1]])
+            ) {
                 $Call = F::Merge($Call, $Call['Subdomains'][$Subdomains[1]]);
                 F::Log('Active Subdomain detected: ' . $Subdomains[1], LOG_INFO);
             }

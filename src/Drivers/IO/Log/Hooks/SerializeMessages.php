@@ -10,7 +10,6 @@
     setFn('Log.Spit.Channel.Before', function ($Call) {
         foreach ($Call['Channel Logs'] as &$Row) {
             if ($Row['Z']) {
-                ;
             } else {
                 $Row['X'] = j($Row['X'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
             }

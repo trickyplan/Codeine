@@ -10,7 +10,6 @@
 
     setFn('Get', function ($Call) {
         if (isset($Call['Modes'][$Call['Mode']])) {
-            ;
         } else {
             $Call['Mode'] = 'Normal';
         }

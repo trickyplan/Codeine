@@ -171,7 +171,6 @@
 
         if (isset($Cursor)) {
             if ($Cursor === null) {
-                ;
             } else {
                 F::Run(null, 'Explain', $Call);
                 /*if (isset($Call['Mongo']['Read']['maxTimeMS']))
@@ -200,8 +199,7 @@
         unset($Call['Data']['_id']);
         try {
             if (isset($Call['Where'])) {
-                if (isset($Call['Data'])) // Update Where
-                {
+                if (isset($Call['Data'])) { // Update Where
                     $Request = 'db.*' . $Call['Scope'] . '*.update(' . j($Call['Where']) . ',' . j($Call['Data']) . ')';
                     $Result = $Call['Link']->selectCollection($Call['Scope'])->replaceOne(
                         $Call['Where'],
@@ -228,8 +226,7 @@
                     F::Log($Request, $Level, ['Administrator', 'Mongo']);
                 }
             } else {
-                if (isset($Call['Data'])) // Insert
-                {
+                if (isset($Call['Data'])) { // Insert
                     $Request = 'db.*' . $Call['Scope'] . '*.insert(' . j($Call['Data']) . ')';
 
                     $Result = $Call['Link']->selectCollection($Call['Scope'])->insertOne(
@@ -355,7 +352,6 @@
             $Last = array_shift($Data);
 
             if (isset($Last['ID'])) {
-                ;
             } else {
                 $Last['ID'] = 0;
             }
@@ -398,7 +394,6 @@
         $Data = [];
 
         if (isset($Call['Where'])) {
-            ;
         } else {
             $Call['Where'] = [];
         }

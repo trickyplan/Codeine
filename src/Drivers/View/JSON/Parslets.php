@@ -14,11 +14,13 @@
 
                 $Passes = 0;
 
-                while (preg_match_all(
+                while (
+                preg_match_all(
                     '@<' . $Tag . ' (.+)>(.*)</' . $Tag . '>@SsUu',
                     $Call['Output'],
                     $Call['Parsed']
-                )) {
+                )
+                ) {
                     $Call = F::Apply('View.JSON.Parslets.' . $Parslet, 'Parse', $Call);
                     $Passes++;
 

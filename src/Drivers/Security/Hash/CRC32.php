@@ -12,4 +12,3 @@
     setFn('Get', function ($Call) {
         return crc32($Call['Value']);
     });
-

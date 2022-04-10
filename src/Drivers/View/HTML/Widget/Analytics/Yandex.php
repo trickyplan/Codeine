@@ -21,10 +21,12 @@
                 $Code = '<!-- ' . $Message . ' -->';
                 F::Log($Message, LOG_INFO, 'Marketing');
             } else {
-                if (F::Dot($Call, 'Analytics.Yandex.URLs.Disabled') !== null && in_array(
+                if (
+                    F::Dot($Call, 'Analytics.Yandex.URLs.Disabled') !== null && in_array(
                         $Call['HTTP']['URL'],
                         F::Dot($Call, 'Analytics.Yandex.URLs.Disabled')
-                    )) {
+                    )
+                ) {
                     $Message = 'Yandex.Metrika *' . $Call['ID'] . '* Suppressed by *URLs*';
                     $Code = '<!-- ' . $Message . ' -->';
                     F::Log($Message, LOG_INFO, 'Marketing');

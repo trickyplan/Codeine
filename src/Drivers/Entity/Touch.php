@@ -15,10 +15,12 @@
         $Old = F::Run('Entity', 'Read', $Call, ['One' => false]);
 
         if (empty($Old)) {
-            ;
         } else {
             foreach ($Old as $IX => $Object) {
-                $New = F::Run('Entity', 'Update', $Call,
+                $New = F::Run(
+                    'Entity',
+                    'Update',
+                    $Call,
                     [
                         'Where' => $Object['ID'],
                         'One' => true
@@ -32,7 +34,6 @@
                     $OldValue = F::Dot($Old[$IX], $Name);
 
                     if ($OldValue == $NewValue || $Name == 'ID') {
-                        ;
                     } else {
                         $Table[] = [
                             '<codeine-locale>' . $Call['Entity'] . '.Entity:' . $Name . '</codeine-locale>',
@@ -121,7 +122,7 @@
     setFn('Test', function ($Call) {
         F::Run(
             null,
-            "All",
+            'All',
             $Call,
             ['Entity' => 'User', 'Where' => ['ID' => ['$gt' => 3]], 'Live Fields' => ['VKontakte.DOB']]
         );

@@ -9,7 +9,6 @@
 
     setFn('Get', function ($Call) {
         if (is_array($Call['Message'])) {
-            ;
         } else {
             $Call['Message'] = (array)$Call['Message'];
         }
@@ -56,7 +55,6 @@
             );
 
             if (empty($LocaleFile)) {
-                ;
             } else {
                 $LocaleStorage = [];
                 $LocaleFile = array_reverse($LocaleFile);

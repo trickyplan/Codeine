@@ -9,8 +9,7 @@
             F::Log(
                 j(F::Dot($Call, 'Test.Case.Result.Actual'))
                 . ' is not match '
-                . j(F::Dot($Call, 'Test.Case.Result.Match'))
-                ,
+                . j(F::Dot($Call, 'Test.Case.Result.Match')),
                 LOG_WARNING,
                 'Developer'
             );

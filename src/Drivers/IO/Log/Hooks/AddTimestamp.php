@@ -9,7 +9,7 @@
 
     setFn('Log.Spit.Channel.Before', function ($Call) {
         if (F::Dot($Call, 'Storages.' . $Call['Channel'] . '.Log.AddTimestamp')) {
-            F::Log(date(DATE_W3C, (int) Started), LOG_NOTICE, $Call['Channel'], false, true);
+            F::Log(date(DATE_W3C, (int)Started), LOG_NOTICE, $Call['Channel'], false, true);
         }
 
         return $Call;

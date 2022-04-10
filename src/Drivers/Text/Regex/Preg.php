@@ -13,10 +13,10 @@
         if (empty($Call['Value'])) {
             F::Log('Empty Value', LOG_DEBUG);
         } else {
-            if (preg_match('@' . $Call['Pattern'] . '@SsUu', $Call['Value'], $Pockets))
-                ;
-            else
+            if (preg_match('@' . $Call['Pattern'] . '@SsUu', $Call['Value'], $Pockets)) {
+            } else {
                 $Pockets = false;
+            }
         }
 
         return $Pockets;
@@ -28,12 +28,11 @@
         if (empty($Call['Value'])) {
             F::Log('Empty Value', LOG_DEBUG);
         } else {
-            if (preg_match_all('@' . $Call['Pattern'] . '@Ssu', $Call['Value'], $Pockets))
-                ;
-            else
+            if (preg_match_all('@' . $Call['Pattern'] . '@Ssu', $Call['Value'], $Pockets)) {
+            } else {
                 $Pockets = false;
+            }
         }
 
         return $Pockets;
     });
-

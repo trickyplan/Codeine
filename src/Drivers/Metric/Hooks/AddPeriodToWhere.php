@@ -1,6 +1,5 @@
 <?php
 
-
     setFn('Do', function ($Call) {
         if (isset($Call['Metric']['Since']) || isset($Call['Metric']['Till'])) {
             $Call['Metric']['Since'] = $Call['Metric']['Since'] ?? 0;

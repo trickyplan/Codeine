@@ -28,10 +28,11 @@
         );
 
         foreach ($Sets as $Key => $Value) {
-            if (F::Dot($Call['Nodes'][$Key], 'Allow.Set') === true
+            if (
+                F::Dot($Call['Nodes'][$Key], 'Allow.Set') === true
                 or F::Dot($Call['Nodes'][$Key], 'Widgets.Write')
-                or F::Dot($Call['Nodes'][$Key], 'Widgets.Update')) // FIXME
-            {
+                or F::Dot($Call['Nodes'][$Key], 'Widgets.Update')
+            ) { // FIXME
                 $Data = F::Dot($Data, $Key, $Value);
                 $Call['Output']['Content'][] = $Key . ' = ' . $Value;
             }

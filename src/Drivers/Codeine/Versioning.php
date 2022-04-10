@@ -10,8 +10,10 @@
     setFn('Do', function ($Call) {
         F::loadOptions('Version');
 
-        if (isset(F::$_Options['Project']['Version']['Codeine'])
-            && F::$_Options['Project']['Version']['Codeine'] > F::$_Options['Version']['Codeine']) {
+        if (
+            isset(F::$_Options['Project']['Version']['Codeine'])
+            && F::$_Options['Project']['Version']['Codeine'] > F::$_Options['Version']['Codeine']
+        ) {
             trigger_error(
                 'Codeine ' . F::$_Options['Project']['Version']['Codeine'] . '+ needed. Installed: '
                 . F::$_Options['Version']['Codeine']

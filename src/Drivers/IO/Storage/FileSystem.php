@@ -89,7 +89,6 @@
         $Call['Result'] = [];
 
         if (mb_substr($Call['Link'], 0, 1) === '/') {
-            ;
         } else {
             $Call['Link'] = Root . DS . $Call['Link'];
         }
@@ -110,7 +109,6 @@
                         $Call['Result'][] = $Call['Data'];
 
                         if (is_writable($Call['Filename'])) {
-                            ;
                         } else {
                             F::Log('File *' . $Call['Filename'] . '* is not writable', LOG_ERR, 'Administrator');
                         }

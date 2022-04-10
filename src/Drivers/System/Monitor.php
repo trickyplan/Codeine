@@ -24,7 +24,7 @@
 
     setFn('Memory', function ($Call) {
         $Result = [];
-        preg_match_all('/(\d+)/', shell_exec("free -om"), $Pockets);
+        preg_match_all('/(\d+)/', shell_exec('free -om'), $Pockets);
 
         list($Result['Total'], $Result['Used'], $Result['Free']) = $Pockets[1];
 

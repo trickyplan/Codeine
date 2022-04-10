@@ -64,7 +64,6 @@
         F::Stop('Cooldown');
 
         if (F::Dot($Call, 'HTTP.Output.Suppress') === true) {
-            ;
         } else {
             F::Run(
                 'IO',
@@ -132,7 +131,6 @@
         }
 
         if (preg_match('/^http/', $URL)) {
-            ;
         } else {
             $URL = 'http://' . $URL;
         }
@@ -278,7 +276,6 @@
         if (isset($_SERVER['REQUEST_URI'])) {
             $Path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
             if ($Path === null) {
-                ;
             } else {
                 unset($Call['Request'][$Path]);
             }
@@ -315,7 +312,6 @@
             if (isset($Call['HTTP']['Headers'])) {
                 foreach ($Call['HTTP']['Headers'] as $Key => $Value) {
                     if (is_array($Value)) {
-                        ;
                     } else {
                         $Value = (array)$Value;
                     }

@@ -46,7 +46,6 @@
                 $Name = strtr($Name, '.', '_');
 
                 if (isset($Node['Type'])) {
-                    ;
                 } else {
                     F::Log('No type specified for *' . $Name . '*', LOG_ERR);
                 }

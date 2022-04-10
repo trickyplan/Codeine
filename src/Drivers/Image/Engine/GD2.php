@@ -22,7 +22,6 @@
 
     setFn('Load', function ($Call) {
         if (empty($Call['ID'])) {
-            ;
         } else {
             list ($Call['Image']['Width'], $Call['Image']['Height'], $Call['Image']['Type']) = getimagesize(
                 $Call['ID']
@@ -61,7 +60,6 @@
                     break;
 
                 case IMAGETYPE_TIFF_MM:
-
                     break;
 
                 case IMAGETYPE_JPC:
@@ -159,7 +157,6 @@
                 break;
 
             case 'TIFF_MM':
-
                 break;
 
             case 'JPC':

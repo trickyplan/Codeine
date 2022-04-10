@@ -21,7 +21,6 @@
         );
 
         if (empty($Subscribes)) {
-            ;
         } else {
             foreach ($Subscribes as $Subscribe) {
                 F::Run(

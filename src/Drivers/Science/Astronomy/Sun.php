@@ -11,17 +11,14 @@
         $Output = [];
 
         if (isset($Call['Time'])) {
-            ;
         } else {
             $Call['Time'] = F::Run('System.Time', 'Get');
         }
 
         if (F::Dot($Call, 'Latitude') && F::Dot($Call, 'Longitude')) {
             $Data = date_sun_info(
-                time()
-                ,
-                F::Dot($Call, 'Latitude')
-                ,
+                time(),
+                F::Dot($Call, 'Latitude'),
                 F::Dot($Call, 'Longitude')
             );
 

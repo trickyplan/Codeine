@@ -194,7 +194,6 @@
         } else {
             if (isset($Call['Data'])) {
                 if (empty($Call['Data'])) {
-                    ;
                 } else {
                     $Call['Where']['ID'] .= '?' . http_build_query($Call['Data']);
                 }

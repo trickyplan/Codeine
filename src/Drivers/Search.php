@@ -27,7 +27,6 @@
 
     setFn('Count', function ($Call) {
         if (isset($Call['Query'])) {
-            ;
         } elseif (isset($Call['Request']['Query'])) {
             $Call['Query'] = $Call['Request']['Query'];
         }
@@ -56,7 +55,6 @@
 
         foreach ($Call['Search']['Provider']['Selected'] as $ProviderName) {
             if (mb_substr($ProviderName, 0, 1) == '-') {
-                ;
             } else {
                 if (isset($Call['Search']['Provider']['Available'][$ProviderName])) {
                     $Options = $Call['Search']['Provider']['Available'][$ProviderName];
@@ -75,7 +73,6 @@
 
     setFn('Query', function ($Call) {
         if (isset($Call['Query'])) {
-            ;
         } elseif (isset($Call['Request']['Query'])) {
             $Call['Query'] = $Call['Request']['Query'];
         }
@@ -104,7 +101,6 @@
 
         foreach ($Call['Search']['Provider']['Selected'] as $ProviderName) {
             if (mb_substr($ProviderName, 0, 1) == '-') {
-                ;
             } else {
                 if (isset($Call['Search']['Provider']['Available'][$ProviderName])) {
                     $Options = $Call['Search']['Provider']['Available'][$ProviderName];

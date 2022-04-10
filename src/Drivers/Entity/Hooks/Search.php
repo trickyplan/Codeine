@@ -20,7 +20,6 @@
                     $Value = F::Dot($Call['Data'], $Name);
                     $Name = strtr($Name, '.', '_');
                     if (empty($Value)) {
-                        ;
                     } else {
                         if (is_array($Value)) {
                             $Data[$Name] = j($Value);
@@ -58,24 +57,25 @@
 
     setFn('Remove', function ($Call) {
         if (isset($Call['Data'])) {
-            ;
         } else {
             $Call['Data'] = F::Run('Entity', 'Read', $Call);
         }
 
-        if (F::Run(
-            'Search',
-            'Remove',
-            $Call,
-            [
-                'Provider' => $Call['Entity'],
-                'Data!' => ['ID' => $Call['Data']['ID']],
-                'Search' =>
-                    [
-                        'Index' => $Call['Entity']
-                    ]
-            ]
-        )) {
+        if (
+            F::Run(
+                'Search',
+                'Remove',
+                $Call,
+                [
+                    'Provider' => $Call['Entity'],
+                    'Data!' => ['ID' => $Call['Data']['ID']],
+                    'Search' =>
+                        [
+                            'Index' => $Call['Entity']
+                        ]
+                ]
+            )
+        ) {
             F::Log($Call['Entity'] . ' ' . $Call['Data']['ID'] . ' removed', LOG_INFO);
             F::Log(function () use ($Call) {
                 return $Call['Data'];
@@ -84,4 +84,3 @@
 
         return $Call;
     });
-

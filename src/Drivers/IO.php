@@ -15,8 +15,10 @@
                 if (($Call['Link'] = F::Get('Storage.' . $Call['Storage'])) === null) {
                     F::Counter('IO.' . $Call['Storage'] . '.Opens', 1);
 
-                    if (is_string($Call['Storages'][$Call['Storage']])
-                        && isset($Call['Storages'][$Call['Storages'][$Call['Storage']]])) {
+                    if (
+                        is_string($Call['Storages'][$Call['Storage']])
+                        && isset($Call['Storages'][$Call['Storages'][$Call['Storage']]])
+                    ) {
                         $Call['Storages'][$Call['Storage']] = $Call['Storages'][$Call['Storages'][$Call['Storage']]];
                     }
 
@@ -76,7 +78,6 @@
             $Call = F::Hook('beforeIORead', $Call);
 
             if (isset($Call['Result'])) {
-                ;
             } else {
                 // Если в Where простая переменная - это ID.
                 if (isset($Call['Where']) && is_scalar($Call['Where'])) {

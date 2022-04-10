@@ -19,7 +19,6 @@
             $Directory = dirname($Call['Developer']['Feature']['Filename']);
 
             if (is_dir($Directory)) {
-                ;
             } else {
                 mkdir($Directory, 0777, true);
             }

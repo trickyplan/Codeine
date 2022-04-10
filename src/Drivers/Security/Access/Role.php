@@ -11,8 +11,7 @@
         // Определить право
 
         foreach ($Call['Rights'] as $RID => $Right) {
-            if (F::Diff($Right, $Call) === null) // Если нет различий
-            {
+            if (F::Diff($Right, $Call) === null) { // Если нет различий
                 $Call['Right'] = $RID;
                 break;
             }
@@ -28,8 +27,7 @@
 
         if (isset($Call['Right'])) {
             foreach ($Call['Role'] as $Role) {
-                if (isset($Call['Roles'][$Role])) // WOW!
-                {
+                if (isset($Call['Roles'][$Role])) { // WOW!
                     if (isset($Call['Roles'][$Role]['Rights'][$Call['Right']])) {
                         $Call['Decision'] = $Call['Roles'][$Role]['Rights'][$Call['Right']];
                     } else {

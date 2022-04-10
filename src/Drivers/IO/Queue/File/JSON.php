@@ -13,7 +13,6 @@
         if (isset($Call['Scope'])) {
             $Call['Link']['Path'] = $Call['Directory'] . DS . $Call['Scope'] . DS . $Call['Filename'];
             if (file_exists($Call['Directory'] . DS . $Call['Scope'])) {
-                ;
             } else {
                 mkdir($Call['Directory'] . DS . $Call['Scope']);
             }

@@ -16,7 +16,6 @@
             $Limits = F::Dot($Call, 'Performance.Latency.Limits');
 
             if (empty($Limits)) {
-                ;
             } else {
                 foreach ($Limits as $Limit => $Value) {
                     if ($Total >= $Value) {
@@ -57,7 +56,6 @@
 
                 if ($Verbose <= LOG_NOTICE) {
                     if (F::$_Performance) {
-                        ;
                     } else {
                         F::$_Performance = 'Latency';
                     }

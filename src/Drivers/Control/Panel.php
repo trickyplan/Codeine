@@ -50,8 +50,10 @@
                         $Options['Icon'] = $Call['Icons'][$Bundle];
                     }
 
-                    if (($BundleOptions =
-                            F::Run($Bundle . '.Control', 'Menu', ['Bundle' => $Bundle])) !== null) {
+                    if (
+                        ($BundleOptions =
+                            F::Run($Bundle . '.Control', 'Menu', ['Bundle' => $Bundle])) !== null
+                    ) {
                         $Options = F::Merge($Options, $BundleOptions);
                     }
 

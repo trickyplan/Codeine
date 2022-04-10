@@ -101,7 +101,6 @@
                         F::Log('Found *' . $ParsletFound . '* of *' . $Parslet . '*', LOG_INFO + 0.5);
 
                         if (empty($Parsed)) {
-                            ;
                         } else {
                             $Matched[$Parslet] = [];
 
@@ -133,7 +132,6 @@
                             }
 
                             if (empty($Matched[$Parslet])) {
-                                ;
                             } else {
                                 $Call['Replace'] = [];
 
@@ -147,7 +145,6 @@
                                 );
 
                                 if (empty($Call['Replace'])) {
-                                    ;
                                 } else {
                                     $Matched[$Parslet]['Replace'] = $Call['Replace'];
                                 }

@@ -34,7 +34,6 @@
 
         if (isset($Call['Data']['ID'])) {
             if (empty($Call['Data']['ID'])) {
-                ;
             } else {
                 $Children = F::Run(
                     'Entity',

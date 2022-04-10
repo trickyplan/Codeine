@@ -42,7 +42,6 @@
         );
 
         if (empty($Objects)) {
-            ;
         } else {
             foreach ($Objects as $Object) {
                 $Call['Output']['Content'][] =

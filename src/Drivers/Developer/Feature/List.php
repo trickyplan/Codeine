@@ -15,12 +15,12 @@
             $Iterator = new RecursiveIteratorIterator($Directory);
             $Regex = new RegexIterator(
                 $Iterator,
-                '@(.+).json$@', RecursiveRegexIterator::GET_MATCH
+                '@(.+).json$@',
+                RecursiveRegexIterator::GET_MATCH
             );
 
             foreach ($Regex as $Result) {
                 if (empty($Result[1])) {
-                    ;
                 } else {
                     $Features[$Result[1]] = jd(file_get_contents($Result[0]));
                 }

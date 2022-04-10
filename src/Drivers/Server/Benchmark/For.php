@@ -10,7 +10,6 @@
     setFn('Test', function ($Call) {
         $Start = microtime(true);
         for ($a = 1; $a < $Call['Cycles']; $a++) {
-            ;
         }
 
         $Stop = microtime(true);

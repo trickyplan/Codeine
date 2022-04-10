@@ -27,14 +27,10 @@
 
             F::Log(
                 'Total *' . count($Call['Channel Logs']) . '* log messages. '
-                . implode(', ', $SeverityStats)
-                ,
-                LOG_NOTICE
-                ,
-                $Call['Channel']
-                ,
-                false
-                ,
+                . implode(', ', $SeverityStats),
+                LOG_NOTICE,
+                $Call['Channel'],
+                false,
                 true
             );
         }

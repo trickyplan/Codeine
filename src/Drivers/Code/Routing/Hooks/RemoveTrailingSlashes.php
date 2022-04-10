@@ -9,7 +9,6 @@
 
     setFn('beforeRoute', function ($Call) {
         if ($Call['Run'] == '/') {
-            ;
         } else {
             if (preg_match('@(/+)$@', $Call['Run'])) {
                 F::Log('Trailing slash removed', LOG_INFO);

@@ -11,7 +11,6 @@
 
     setFn('Route', function ($Call) {
         if (isset($Call['Static'])) {
-            ;
         } else {
             $Call['Static'] = $Call['Links'];
             F::Log('«Links» now «Static», please replace', LOG_WARNING);

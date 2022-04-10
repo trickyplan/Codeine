@@ -40,7 +40,6 @@
             ];
 
         if (isset($Call['Elements'])) {
-            ;
         } else {
             $Call['Elements'] = F::Run('Entity', 'Read', $Call);
         }

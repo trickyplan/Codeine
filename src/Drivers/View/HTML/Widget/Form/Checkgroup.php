@@ -26,7 +26,9 @@
                 || (is_array($Call['Value'])
                     && in_array($Value, $Call['Value'])));
 
-            $Call['Checks'] .= F::Run('View', 'Load',
+            $Call['Checks'] .= F::Run(
+                'View',
+                'Load',
                 [
                     'Scope' => $Call['View']['HTML']['Widget Set'] . '/Widgets',
                     'ID' => 'Form/Checkgroup/Checkbox',

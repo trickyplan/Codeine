@@ -13,10 +13,8 @@
         }
 
         if (isset($Call['Limit'])) {
-            ;
         } else {
             if (isset($Call['Pagination']['ElementsPerPage'])) {
-                ;
             } else {
                 $Call['Pagination']['ElementsPerPage'] = $Call['EPP'];
             }

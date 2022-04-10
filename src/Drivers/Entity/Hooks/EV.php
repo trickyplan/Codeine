@@ -9,7 +9,6 @@
 
     setFn('afterEntityLoad', function ($Call) {
         if (isset($Call['Model']['EV'])) {
-            ;
         } else {
             $Call['EV'] = 1;
         }

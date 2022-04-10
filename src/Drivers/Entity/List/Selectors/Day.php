@@ -8,8 +8,8 @@
      */
 
     setFn('Do', function ($Call) {
-        $DayStart = new DateTime ('midnight today');
-        $DayFinish = new DateTIme ('midnight tomorrow');
+        $DayStart = new DateTime('midnight today');
+        $DayFinish = new DateTIme('midnight tomorrow');
 
         return F::Merge($Call['Where'], [
             $Call['Selector']['Day']['Key'] =>

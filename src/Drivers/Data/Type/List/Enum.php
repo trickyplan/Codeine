@@ -9,7 +9,6 @@
 
     setFn('Live Enum', function ($Call) {
         if (isset($Call['Skip Enum Live'])) {
-            ;
         } else {
             $Call['Node']['Options'] = F::Live(
                 $Call['Node']['Options'],

@@ -16,7 +16,6 @@
             }
 
             if (null === ($TTL = F::Dot($Call, 'HTTP.Caching.TTL'))) {
-                ;
             } else {
                 $Directives[] = 'max-age=' . $TTL;
             }

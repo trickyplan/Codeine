@@ -10,7 +10,6 @@
     setFn('Process', function ($Call) {
         foreach ($Call['Nodes'] as $Name => $Node) {
             if (($Default = F::Dot($Node, 'Default')) === null) {
-                ;
             } // No Default
             else {
                 if (F::Dot($Call['Data'], $Name) == null) {

@@ -58,7 +58,10 @@
 
             $VCall = F::Run('View', 'Render', $VCall, ['Context' => 'mail']);
 
-            F::Run('IO', 'Write', $VCall,
+            F::Run(
+                'IO',
+                'Write',
+                $VCall,
                 [
                     'Storage' => $Call['Reset']['Send To'],
                     'Where' => F::Run('Locale', 'Get', $Call, ['Message' => 'User.Reset.Password:Subtitle']),

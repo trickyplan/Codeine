@@ -32,7 +32,6 @@
             );
 
             if (empty($Call['Session']['User'])) {
-                ;
             } else {
                 $Call['API']['Request']['Valid Key'] = true;
                 $Call['API']['Request']['User'] = $Call['Session']['User']['ID'];

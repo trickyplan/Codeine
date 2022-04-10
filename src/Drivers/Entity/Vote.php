@@ -14,7 +14,8 @@
 
                 $Decision = true;
 
-                if (F::Run(
+                if (
+                    F::Run(
                         'Entity',
                         'Count',
                         [
@@ -41,9 +42,11 @@
                     ]
                 );
 
-                if ((isset($Call['Voting']['Can feel myself'])
+                if (
+                    (isset($Call['Voting']['Can feel myself'])
                         || !$Call['Voting']['Can feel myself'])
-                    && $UID == $Entity['User']) {
+                    && $UID == $Entity['User']
+                ) {
                     $Decision = false;
                 }
 

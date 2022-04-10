@@ -13,7 +13,6 @@
         $Call = F::loadOptions('IO', null, $Call);
 
         if (empty($Call['All Logs'])) {
-            ;
         } else {
             $Call = F::Hook('Log.Spit.Before', $Call);
 
@@ -31,7 +30,6 @@
                     $Call['Channel Logs'] = $Call['All Logs'][$Call['Channel']];
 
                     if (empty($Call['Channel Logs'])) {
-                        ;
                     } else {
                         $Call = F::Hook('Log.Spit.Channel.Before', $Call);
 
