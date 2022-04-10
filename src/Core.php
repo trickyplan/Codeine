@@ -36,13 +36,13 @@
         private static bool $_Staring = false;  // Internal Performance
         private static bool $_Performance = false;  // Internal Debugger
         private static bool $_Debug = false; // can be float
-        private static $_Verbose;
-        private static $_Deadline = 0;
+        private static array $_Verbose;
+        private static int $_Deadline = 0;
         private static SplStack $_Stack;
-        private static $NC = 0;
+        private static int $NC = 0;
         private static string $_Bubble = '';
         private static array $_Paths = [];
-        private static boolean $_IsTerminal = false;
+        private static bool $_IsTerminal = false;
 
         public static function Bootstrap($Call = [])
         {
