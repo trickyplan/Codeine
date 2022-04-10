@@ -14,6 +14,7 @@
             $Call = F::Apply(null, 'Determine.Proto', $Call);
             $Call = F::Apply(null, 'Determine.Port', $Call);
             $Call = F::Apply(null, 'Determine.Host', $Call);
+            $Call = F::Apply(null, 'Determine.Domain', $Call);
             $Call = F::Apply(null, 'Generate.FQDN', $Call);
 
         return F::Hook('afterHostDetermine', $Call);
@@ -86,7 +87,20 @@
         }
 
         $Call['HTTP']['Host'] = $Host;
-        $Call['HTTP']['Domain'] = $Host;
+
+        return $Call;
+    });
+
+    setFn('Determine.Domain', function ($Call)
+    {
+        if (!$Call['HTTP']['Secure'] && $Call['HTTP']['Port'] != 80) {
+            $Call['HTTP']['Domain'] = $Call['HTTP']['Host'].':' . $Call['HTTP']['Port'];
+        }
+
+        if ($Call['HTTP']['Secure'] && $Call['HTTP']['Port'] != 443) {
+            $Call['HTTP']['Domain'] = $Call['HTTP']['Host'].':' . $Call['HTTP']['Port'];
+        }
+        F::Log('Domain: *'.$Call['HTTP']['Domain'].'*', LOG_INFO);
 
         return $Call;
     });
