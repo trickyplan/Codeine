@@ -26,6 +26,11 @@
                 "Service": "System.Interface.CLI.Locale",
                 "Method": "Detect"
             },
+            "Version":
+            {
+                "Service": "Project.Version",
+                "Method": "Load"
+            },
             "Project":
             {
                 "Service": "Project.Preload",

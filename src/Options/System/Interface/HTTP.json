@@ -43,11 +43,15 @@
         },
         "beforeRequestRun":
         {
+            "Version":
+            {
+                "Service": "Project.Version",
+                "Method": "Load"
+            },
             "Project":
             {
                 "Service": "Project.Preload",
-                "Method": "beforeRequestRun",
-                "Must be first": true
+                "Method": "beforeRequestRun"
             },
             "Host":
             {
