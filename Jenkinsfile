@@ -816,7 +816,7 @@
                             '.textlintrc',
                             '.yamllint',
                             'Dockerfile',
-                            'docker-compose.yaml',
+                            'docker-compose.yml',
                             'example.env'
                         ]
 
