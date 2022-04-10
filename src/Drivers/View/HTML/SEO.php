@@ -126,7 +126,7 @@
                 $Call,
                 'View.HTML.SEO.Output.Descriptions',
                 implode(
-                    F::Dot($Call, 'View.HTML.SEO.Description.Separator'),
+                    F::Dot($Call, 'View.HTML.SEO.Descriptions.Separator'),
                     $Call['SEO']['Descriptions']
                 )
             );
