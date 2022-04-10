@@ -93,6 +93,8 @@
 
     setFn('Determine.Domain', function ($Call)
     {
+        $Call['HTTP']['Domain'] = $Call['HTTP']['Host'];
+
         if (!$Call['HTTP']['Secure'] && $Call['HTTP']['Port'] != 80) {
             $Call['HTTP']['Domain'] = $Call['HTTP']['Host'].':' . $Call['HTTP']['Port'];
         }
@@ -100,6 +102,7 @@
         if ($Call['HTTP']['Secure'] && $Call['HTTP']['Port'] != 443) {
             $Call['HTTP']['Domain'] = $Call['HTTP']['Host'].':' . $Call['HTTP']['Port'];
         }
+
         F::Log('Domain: *'.$Call['HTTP']['Domain'].'*', LOG_INFO);
 
         return $Call;
