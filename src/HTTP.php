@@ -26,7 +26,8 @@
     $Call = F::Bootstrap([
         'Paths' => [
             Root . DS . 'src',
-            Root . DS . 'vendor'
+            Root . DS . 'vendor',
+            Root . DS
         ],
         'Service' => 'System.Interface.HTTP',
         'Method' => 'Do',

@@ -54,7 +54,8 @@
                         [
                             'Paths' => [
                                 Root . DS . 'src',
-                                Root . DS . 'vendor'
+                                Root . DS . 'vendor',
+                                Root . DS
                             ],
                             'Environment' => $Opts['Environment'] ?? null,
                             'Service' => 'System.Interface.CLI',
