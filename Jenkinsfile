@@ -852,7 +852,7 @@
             sh "parallel-lint -j \$(nproc) --exclude .git --exclude vendor --checkstyle src > ${logPath}"
         }
         catch (err) {
-            unstable(message: "${STAGE_NAME} is unstable")
+            failure(message: "${STAGE_NAME} is failed")
             fu_score+=10;
         }
     }
@@ -864,7 +864,7 @@
             sh "find src -name '*.json' | parallel -j\$(nproc) jsonlint -qc >> ${logPath}"
         }
         catch (err) {
-            unstable(message: "${STAGE_NAME} is unstable")
+            failure(message: "${STAGE_NAME} is failed")
             sh "cat ${logPath} >> reports/BAD"
             fu_score+=5;
         }
@@ -878,7 +878,7 @@
             // TODO Checkstyle
         }
         catch (err) {
-            unstable(message: "${STAGE_NAME} is unstable")
+            failure(message: "${STAGE_NAME} is failed")
             sh "cat ${logPath} >> reports/BAD"
             fu_score+=5;
         }
