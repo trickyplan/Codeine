@@ -16,9 +16,8 @@ $(document).ready(function () {
 
         $(document).on('ajax-load', '.ajax-delayed', function (event) {
             var el = $(this);
-            if (el.attr('loaded') === true)
-                ;
-            else {
+            if (el.attr('loaded') === true) {
+            } else {
                 el.addClass('codeine-ajax-delayed-loading');
                 $.ajax({
                     type: 'GET',
@@ -34,5 +33,4 @@ $(document).ready(function () {
             return true;
         });
         return true;
-    }
-);
+});
