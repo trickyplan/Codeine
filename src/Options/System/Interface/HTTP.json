@@ -27,7 +27,7 @@
             "X-Content-Type-Options:": "nosniff",
             "X-XSS-Protection:": " 1; mode=block",
             "-Content-Security-Policy:": "TODO",
-            "Referrer-Policy:": "origin",
+            "Referrer-Policy:": "strict-origin-when-cross-origin",
             "Upgrade-Insecure-Requests:": "1"
         }
     },
