@@ -85,6 +85,11 @@
                 "Service": "System.Interface.HTTP.Headers.Permissions-Policy",
                 "Method": "Do"
             },
+            "Content-Security-Policy":
+            {
+                "Service": "System.Interface.HTTP.Headers.Content-Security-Policy",
+                "Method": "Do"
+            },
             "Agent":
             {
                 "Service": "System.Interface.HTTP.Agent"
