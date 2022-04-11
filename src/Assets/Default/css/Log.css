@@ -1,18 +1,17 @@
 .codeine-log {
   font: 0.8rem monospace;
   margin: 20px auto auto;
-  padding: 2px 16px;
-  background-color: white;
-  color: black;
+  padding: 1rem 2rem;
+  background-color: rgb(255 255 255);
+  color: rgb(0 0 0);
   white-space: pre;
   clear: both;
-  border-radius: 6px;
   width: 95%;
   word-wrap: break-word;
 }
 
 .codeine-log strong {
-  color: #900;
+  color: rgb(153 0 0);
 }
 
 .codeine-log pre {
@@ -26,9 +25,15 @@
 }
 
 .codeine-log tr {
-  border-left: 12px solid #444;
-  border-bottom: 1px solid #444;
+  border-left: 12px solid rgb(68 68 68);
+  border-bottom: 1px solid rgb(68 68 68);
   word-wrap: break-word;
+}
+
+.codeine-log td {
+  padding: 10px;
+  margin: 2px;
+  vertical-align: top;
 }
 
 .codeine-log tr td:nth-child(1) {
@@ -39,6 +44,20 @@
   width: 25%;
 }
 
+.codeine-log tr:hover {
+  opacity: 1;
+  background-color: rgb(51 51 51) !important;
+  color: rgb(255 255 255) !important;
+}
+
+.codeine-log tr:nth-child(odd) {
+  background-color: rgb(254 254 254);
+}
+
+.codeine-log tr:nth-child(even) {
+  background-color: rgb(239 239 239);
+}
+
 .codeine-log tr td:nth-child(3) {
   width: 5%;
 }
@@ -47,54 +66,34 @@
   width: 65%;
 }
 
-.codeine-log td {
-  padding: 10px;
-  margin: 2px;
-  vertical-align: top;
+.codeine-log tr.debug {
+  color: rgb(85 85 85);
 }
 
-.codeine-log tr:hover {
-  opacity: 1;
-  background-color: #333 !important;
-  color: white !important;
+.codeine-log tr.info td {
+  border-left: 4px solid rgb(204 204 204);
 }
 
-.codeine-log tr:nth-child(odd) {
-  background-color: #fefefe;
+.codeine-log tr.notice td {
+  border-left: 4px solid rgb(179 179 0);
 }
 
-.codeine-log tr:nth-child(even) {
-  background-color: #efefef;
+.codeine-log tr.warning td {
+  border-left: 4px solid rgb(255 128 0);
 }
 
-.codeine-log tr.Debug {
-  color: #555;
+.codeine-log tr.error td {
+  border-left: 4px solid rgb(204 0 0);
 }
 
-.codeine-log tr.Info td {
-  border-left: 4px solid #ccc;
+.codeine-log tr.critical td {
+  border-left: 4px solid rgb(145 0 0);
 }
 
-.codeine-log tr.Notice td {
-  border-left: 4px solid #b3b300;
+.codeine-log tr.alert td {
+  border-left: 4px solid rgb(86 0 0);
 }
 
-.codeine-log tr.Warning td {
-  border-left: 4px solid #ff8000;
-}
-
-.codeine-log tr.Error td {
-  border-left: 4px solid #c00;
-}
-
-.codeine-log tr.Critical td {
-  border-left: 4px solid #910000;
-}
-
-.codeine-log tr.Alert td {
-  border-left: 4px solid #560000;
-}
-
-.codeine-log tr.Emergency td {
-  border-left: 4px solid #1b0000;
+.codeine-log tr.emergency td {
+  border-left: 4px solid rgb(27 0 0);
 }

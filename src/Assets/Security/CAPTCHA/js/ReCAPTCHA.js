@@ -1,1 +1,2 @@
+/* global grecaptcha */
 grecaptcha.execute();

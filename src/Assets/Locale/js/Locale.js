@@ -1,20 +1,21 @@
+/* global $,window */
 $('.nl').on('click', function () {
-    var translation = prompt('Перевести как');
+    let translation = prompt('Перевести как');
 
     if (translation) {
-        el = $(this);
+        let el = $(this);
 
         $.ajax(
             {
                 url: '/' + el.attr('lang') + '/dev/translate.json',
                 type: 'post',
                 data:
-                {
-                    Token: el.html(),
-                    Translation: translation
-                },
+                    {
+                        Token: el.html(),
+                        Translation: translation
+                    },
                 success: function (data) {
-                    if (data == true) {
+                    if (data === true) {
                         el.html(translation);
                         el.removeClass('nl');
                     } else {
@@ -24,6 +25,5 @@ $('.nl').on('click', function () {
             }
         );
     }
-        return false;
-
+    return false;
 });
