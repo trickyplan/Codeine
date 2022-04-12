@@ -27,7 +27,7 @@
                     [
                         'expires' => $Call['Cookie']['TTL'] + time(),
                         'path' => $Call['Cookie']['Path'],
-                        'domain' => $Call['Cookie']['Domain'] ?? $Call['HTTP']['Domain'],
+                        'domain' => $Call['Cookie']['Domain'] ?? $Call['HTTP']['Host'],
                         'secure' => $Call['Cookie']['Secure'],
                         'httponly' => $Call['Cookie']['HTTP Only'],
                         'samesite' => $Call['Cookie']['Same Site']
