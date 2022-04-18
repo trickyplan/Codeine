@@ -1046,7 +1046,7 @@
                 }
             } else {
                 if (
-                    is_string($Variable) && str_starts_with($Variable, '$') && preg_match_all(
+                    is_string($Variable) && str_contains($Variable, '$') && preg_match_all(
                         '@\$([\w]+[\w\-\:\!\.]+)@Ssu',
                         $Variable,
                         $Pockets
@@ -1065,24 +1065,29 @@
                             list($Typecast, $Match) = explode(':', $Match);
                         }
 
-                        $Subvariable = self::Dot($Call, $Match);
+                        if (preg_match('/ENV\.(.+)/Ssu', $Match, $EnvMatches))
+                        {
+                            $SubVariable = getenv($EnvMatches[1]);
+                        }
+                        else
+                            $SubVariable = self::Dot($Call, $Match);
 
                         if ($Typecast === null) {
                         } else {
                             switch ($Typecast) {
                                 case 'boolean':
-                                    if ($Subvariable) {
-                                        $Subvariable = 'true';
+                                    if ($SubVariable) {
+                                        $SubVariable = 'true';
                                     } else {
-                                        $Subvariable = 'false';
+                                        $SubVariable = 'false';
                                     }
                                     break;
                             }
                         }
 
-                        if (is_scalar($Subvariable) or $Subvariable === null) {
-                            if ($Subvariable !== null) {
-                                $Variable = str_replace($Pockets[0][$IX], $Subvariable, $Variable);
+                        if (is_scalar($SubVariable) or $SubVariable === null) {
+                            if ($SubVariable !== null) {
+                                $Variable = str_replace($Pockets[0][$IX], $SubVariable, $Variable);
                             } else {
                                 $Variable = str_replace($Pockets[0][$IX], $Default, $Variable);
                             }
