@@ -1,4 +1,4 @@
-ARG PHP_VERSION=8.0
+ARG PHP_VERSION=8.1
 FROM php:${PHP_VERSION}-fpm as codeine-builder
 LABEL maintainer="bergstein@trickyplan.com"
 USER root
@@ -15,17 +15,17 @@ RUN apt-get update -q && \
   && rm -rf /var/lib/apt/lists/*
 
 # Install PHP & PECL Extensions
-RUN docker-php-ext-install -j$(nproc) opcache && \
-    docker-php-ext-install -j$(nproc) mbstring && \
-    docker-php-ext-install -j$(nproc) zip && \
-    docker-php-ext-install -j$(nproc) pcntl && \
-    docker-php-ext-install -j$(nproc) exif && \
-    pecl install yaml-2.2.2 && \
-    pecl install mongodb-1.12.0 && \
-    pecl install imagick-3.6.0 && \
-    pecl install igbinary-3.2.7 && \
-    pecl install redis-5.3.7 && \
-    pecl install zstd-0.11.0
+RUN curl  -fsSL https://github.com/FriendsOfPHP/pickle/releases/latest/download/pickle.phar \
+          -o /usr/bin/pickle && \
+    chmod +x /usr/bin/pickle
+
+# Install extensions
+RUN pickle install --no-interaction yaml@2.2.2 && \
+    pickle install --no-interaction mongodb@1.12.0 && \
+    pickle install --no-interaction imagick@3.6.0 && \
+    pickle install --no-interaction igbinary@3.2.7 && \
+    pickle install --no-interaction redis@5.3.7 && \
+    pickle install --no-interaction zstd@0.11.0
 
 FROM php:${PHP_VERSION}-fpm as codeine-app
 LABEL maintainer="bergstein@trickyplan.com"
