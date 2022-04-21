@@ -23,6 +23,6 @@
                 $Output = strtoupper($Output);
                 break;
         }
-
+        $Output = preg_replace('~[\r\n]+~', '', $Output);
         return $Output;
     });
