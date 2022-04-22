@@ -175,7 +175,6 @@ pipeline {
                 }
             }
         }
-
         stage('Analyze')
         {
             parallel
@@ -283,66 +282,6 @@ pipeline {
                         collectTodos ()
                     }
                 }
-                stage('OWASP Dependency Check')
-                {
-                    when {
-                        environment name: 'ANALYZE_OWASP_DEPENDENCY_CHECKER', value: "On"
-                    }
-                    steps {
-                        analyzeWithOwaspDependencyCheck()
-                    }
-                }
-            }
-        }
-        stage ('Test')
-        {
-            parallel
-            {
-                stage('Run PHPSpec')
-                {
-                    when {
-                        environment name: 'PROJECT_HAS_PHP', value: "On"
-                        environment name: 'TEST_PHP_SPEC', value: "On"
-                    }
-                    steps
-                    {
-                        testWithPhpSpec()
-                    }
-                }
-                stage('Run Codeception')
-                {
-                    when {
-                        environment name: 'PROJECT_HAS_PHP', value: "On"
-                        environment name: 'TEST_CODECEPTION', value: "On"
-                    }
-                    steps
-                    {
-                        testWithCodeception()
-                    }
-                }
-                stage('Run Infection')
-                {
-                    when {
-                        environment name: 'PROJECT_HAS_PHP', value: "On"
-                        environment name: 'TEST_INFECTION', value: "On"
-                    }
-                    steps
-                    {
-                        testWithInfection()
-                    }
-                }
-
-                stage('Run PHPBench')
-                {
-                    when {
-                        environment name: 'PROJECT_HAS_PHP', value: "On"
-                        environment name: 'TEST_PHP_BENCH', value: "On"
-                    }
-                    steps
-                    {
-                        testWithPhpBench()
-                    }
-                }
             }
         }
         stage ('Generate Documentation')
@@ -390,81 +329,6 @@ pipeline {
                     steps
                     {
                         publishToSatisViaVolume()
-                    }
-                }
-                stage ('Publish NPM to Artifactory')
-                {
-                    when {
-                        environment name: 'PROJECT_HAS_NPM', value: "On"
-                    }
-                    steps
-                    {
-                        publishNpmToArtifactory()
-                    }
-                }
-                stage ('Publish Composer to Artifactory')
-                {
-                    when {
-                        environment name: 'PROJECT_HAS_COMPOSER', value: "On"
-                    }
-                    steps
-                    {
-                        publishComposerToArtifactory()
-                    }
-                }
-                stage ('Generate Docker Image App')
-                {
-                    when {
-                        environment name: 'PROJECT_HAS_DOCKER', value: "On"
-                        // changeset "src"
-                    }
-                    steps
-                    {
-                        buildDockerImage ("${env.JOB_NAME}-app")
-                    }
-                }
-                stage ('Generate Docker Image Nginx')
-                {
-                    when {
-                        environment name: 'PROJECT_HAS_DOCKER', value: "On"
-                        // changeset "src"
-                    }
-                    steps
-                    {
-                        buildDockerImage ("${env.JOB_NAME}-nginx", "./docker/nginx")
-                    }
-                }
-                stage ('Generate Docker Image Redis')
-                {
-                    when {
-                        environment name: 'PROJECT_HAS_DOCKER', value: "On"
-                        // changeset "src"
-                    }
-                    steps
-                    {
-                        buildDockerImage ("${env.JOB_NAME}-redis", "./docker/redis")
-                    }
-                }
-                stage ('Generate Docker Image Mongo 4')
-                {
-                    when {
-                        environment name: 'PROJECT_HAS_DOCKER', value: "On"
-                        // changeset "src"
-                    }
-                    steps
-                    {
-                        buildDockerImage ("${env.JOB_NAME}-mongo-4", "./docker/mongo-4")
-                    }
-                }
-                stage ('Generate Docker Image Mongo 5')
-                {
-                    when {
-                        environment name: 'PROJECT_HAS_DOCKER', value: "On"
-                        // changeset "src"
-                    }
-                    steps
-                    {
-                        buildDockerImage ("${env.JOB_NAME}-mongo-5", "./docker/mongo-5")
                     }
                 }
             }
