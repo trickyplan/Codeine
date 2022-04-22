@@ -1,23 +1,16 @@
 <?php
 
-    /* Codeine
-     * @author bergstein@trickyplan.com
-     * @description
-     * @package Codeine
-     * @version 8.x
-     */
-
     setFn('Get Ancestors', function ($Call) {
         $ParentKey = $Call['Parent Key'];
         $Current = $Call['Data'];
         $Ancestors = [];
         do {
-            $ParentID = F::Dot($Current, $ParentKey);
-            if ($ParentID == $Current['ID']) {
+            if (empty($Current)) {
                 break;
             }
 
-            if ($ParentID === null) {
+            $ParentID = F::Dot($Current, $ParentKey);
+            if (($ParentID == $Current['ID']) || ($ParentID === null)) {
                 break;
             }
 
@@ -32,21 +25,19 @@
     setFn('Counters.Children', function ($Call) {
         $Children = 0;
 
-        if (isset($Call['Data']['ID'])) {
-            if (empty($Call['Data']['ID'])) {
-            } else {
-                $Children = F::Run(
-                    'Entity',
-                    'Count',
-                    [
-                        'Entity' => $Call['Entity'],
-                        'Where' =>
-                            [
-                                'Parent' => $Call['Data']['ID']
-                            ]
-                    ]
-                );
-            }
+        if (F::Dot($Call, 'Data.ID')) {
+            $Children = F::Run(
+                'Entity',
+                'Count',
+                [
+                    'Entity' => $Call['Entity'],
+                    'Where' =>
+                        [
+                            'Parent' => $Call['Data']['ID']
+                        ]
+                ]
+            );
         }
+
         return $Children;
     });
