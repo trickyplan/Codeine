@@ -40,11 +40,11 @@
         "jquery": "3.6.0",
         "keymaster": "1.6.2",
         "less": "4.1.2",
-        "moment": "2.29.2",
+        "moment": "2.29.3",
         "node-less": "1.0.0",
         "node-sass": "7.0.1",
         "popper.js": "1.16.1",
-        "sass": "1.50.0"
+        "sass": "1.50.1"
     },
     "engines": {
         "node": ">=16"
