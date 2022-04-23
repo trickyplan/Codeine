@@ -1,7 +1,0 @@
----
-Location:
-  Geocoding:
-    Google:
-      Endpoint: https://maps.googleapis.com/maps/api/geocode/json
-      Key: ~
-...

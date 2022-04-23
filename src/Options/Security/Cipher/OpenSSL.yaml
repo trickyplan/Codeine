@@ -1,5 +1,0 @@
----
-Cipher:
-  Algorithm: aes-128-ofb
-  IV: PLEASECHANGE
-...

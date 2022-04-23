@@ -1,6 +1,0 @@
----
-Security:
-  Timing:
-    Delay:
-      Maximum: 25000
-...

@@ -1,6 +1,0 @@
----
-HTTP:
-  Headers:
-    'Content-Type:': text/xml; charset=utf-8
-Extension: .xml
-...

@@ -1,7 +1,0 @@
----
-Antispam:
-  Threshold: 50
-  Detectors:
-  - Links
-  - Akismet
-...

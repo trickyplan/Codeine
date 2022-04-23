@@ -1,9 +1,0 @@
----
-IO:
-  Log:
-    Print:
-      Allowed Renderers:
-      - View.HTML
-      - View.CLI
-      Allowed Context: ""
-...

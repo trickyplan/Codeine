@@ -1,9 +1,0 @@
----
-Metric:
-  Average:
-    Algorithm: Arithmetic
-Hooks:
-  beforeMetricCalcCount:
-    Apply Condition:
-      Service: Metric.Hooks.Where
-...

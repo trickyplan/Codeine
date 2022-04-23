@@ -1,4 +1,0 @@
----
-Block Call Pattern: <block>(.*?)<call>(.+?)</call>(.*?)</block>
-Block Key Pattern: <block>(.*?)<k>(.+?)</k>(.*?)</block>
-...

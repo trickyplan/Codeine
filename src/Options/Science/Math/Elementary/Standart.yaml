@@ -1,5 +1,0 @@
----
-Base:
-  Service: Science.Math.Constant.Euler
-  Method: Get
-...

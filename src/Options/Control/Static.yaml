@@ -1,9 +1,0 @@
----
-Static:
-  /control:
-    Service: Control.Panel
-    Method: Do
-    Zone:
-    - Control
-    Last: true
-...

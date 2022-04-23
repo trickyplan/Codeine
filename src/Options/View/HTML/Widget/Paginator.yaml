@@ -1,7 +1,0 @@
----
-Paginator:
-  Driver: Compact
-  Pages: 5
-  Total: true
-  Keyboard: true
-...

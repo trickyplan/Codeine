@@ -1,7 +1,0 @@
----
-Airbrake:
-  API Key: ""
-  Options:
-    host: errbit
-    port: 80
-...

@@ -1,5 +1,0 @@
----
-Compress:
-  ZSTD:
-    Level: 10
-...

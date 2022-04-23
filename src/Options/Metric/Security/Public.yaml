@@ -1,9 +1,0 @@
----
-Rules:
-  Event is public:
-    Decision: true
-    Weight: 100
-    Run:
-      Service: Metric.Event
-      Method: Add.Front
-...

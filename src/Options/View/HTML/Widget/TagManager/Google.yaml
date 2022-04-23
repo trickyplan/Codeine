@@ -1,9 +1,0 @@
----
-TagManager:
-  Google:
-    Enabled: true
-    Environment:
-      Production: true
-      Staging: false
-      Development: false
-...

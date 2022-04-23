@@ -1,8 +1,0 @@
----
-IO:
-  FileSystem:
-    Hashing:
-      Enabled: false
-      Levels: 3
-      Size: 1
-...

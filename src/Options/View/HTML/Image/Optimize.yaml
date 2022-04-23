@@ -1,7 +1,0 @@
----
-Image Optimizers:
-  image/png:
-  - PNGCrush
-  image/jpeg:
-  - JPEGTran
-...

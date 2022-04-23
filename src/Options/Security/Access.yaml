@@ -1,7 +1,0 @@
----
-Decision: false
-Security:
-  Access:
-    System:
-    - Rule
-...

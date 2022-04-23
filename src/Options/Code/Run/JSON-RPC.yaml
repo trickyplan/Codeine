@@ -1,8 +1,0 @@
----
-JSON-RPC:
-  Request:
-    jsonrpc: "2.0"
-    method: ""
-    params: []
-    id: 0
-...

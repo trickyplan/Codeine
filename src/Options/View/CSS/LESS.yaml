@@ -1,6 +1,0 @@
----
-View:
-  CSS:
-    LESS:
-      Command: lessc --compress --clean-css
-...

@@ -1,8 +1,0 @@
----
-Cookie:
-  TTL: 86400
-  Secure: false
-  HTTP Only: true
-  Path: /
-  Same Site: Strict
-...

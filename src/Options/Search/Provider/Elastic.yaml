@@ -1,8 +1,0 @@
----
-Search:
-  Elastic:
-    Options:
-      hosts:
-      - localhost:9200
-    Fuzziness: 3
-...

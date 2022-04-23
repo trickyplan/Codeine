@@ -1,7 +1,0 @@
----
-Webmaster:
-  Google:
-    Prefix: 'google-site-verification: google'
-    Postfix: .html
-    ID: Specify ID!
-...

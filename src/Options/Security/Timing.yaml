@@ -1,5 +1,0 @@
----
-Security:
-  Timing:
-    Driver: NoDelay
-...

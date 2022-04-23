@@ -1,8 +1,0 @@
----
-Nodes:
-  Age:
-    Hooks:
-      beforeEntityWrite:
-        Service: User.Entity
-        Method: Age
-...

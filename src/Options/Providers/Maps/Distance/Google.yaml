@@ -1,9 +1,0 @@
----
-Providers:
-  Maps:
-    Distance:
-      Google:
-        Endpoint: https://maps.googleapis.com/maps/api/distancematrix/json
-        APIKey: api-key-goes-here
-        Units: metric
-...

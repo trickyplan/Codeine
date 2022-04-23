@@ -1,7 +1,0 @@
----
-Project:
-  Create:
-    Handlers:
-    - Directory
-    - Buildfile
-...

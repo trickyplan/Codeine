@@ -1,8 +1,0 @@
----
-Mode: Normal
-Modes:
-  Big: Science.Math.Arifmetics.BC
-  Precise: Science.Math.Arifmetics.Standart
-  Normal: Science.Math.Arifmetics.Standart
-  Fast: Science.Math.Arifmetics.Standart
-...

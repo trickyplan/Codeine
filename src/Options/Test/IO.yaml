@@ -1,9 +1,0 @@
----
-Storages:
-  Tests:
-    Driver: IO.Storage.FileSystem
-    Directory: Tests
-    Format: Formats.JSON
-    Postfix: .json
-    Description: Storage for tests
-...
